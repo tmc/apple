@@ -63,9 +63,7 @@
 //
 //   - CAMetalLayer: A Core Animation layer that Metal can render into, typically displayed onscreen.
 //   - CAMetalDrawable: A Metal drawable associated with a Core Animation layer.
-//   - CAEAGLLayer: A layer that supports drawing OpenGL content in iOS and tvOS applications.
 //   - CAEDRMetadata: Metadata describing how extended dynamic range (EDR) values should be tone mapped.
-//   - CAOpenGLLayer: A layer that provides a layer suitable for rendering OpenGL content.
 //   - CARenderer: A layer that allows an application to render a layer tree into a Core OpenGL context.
 //
 // # ProMotion

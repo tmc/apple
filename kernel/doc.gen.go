@@ -44,10 +44,6 @@
 //   - Debugging: Debug your kernel extensions using the kernel debugger, assertions, exceptions, backtraces, and logging.
 //   - AppleDSP: Perform digital signal processing on data. ([IIRChannel])
 //
-// # Deprecated
-//
-//   - Deprecated Symbols: Review unsupported symbols and their replacements. ([IOUSBDevice], [IOUSBInterface], [IOUSBHostInterface], [IOUSBHostDevice], [IOUSBHostPipe])
-//
 // # Additional Reference
 //
 //   - Kernel Functions ([Nlist])

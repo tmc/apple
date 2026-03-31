@@ -76,10 +76,6 @@
 //   - MLModelError.Code: Information about a Core ML model error.
 //   - MLModelErrorDomain: The domain for Core ML errors.
 //
-// # Model deployments
-//
-//   - MLModelCollection: A set of Core ML models from a model deployment.
-//
 // # Key Types
 //
 //   - [MLFeatureValue] - A generic wrapper around an underlying value and the value’s type.

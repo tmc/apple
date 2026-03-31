@@ -55,10 +55,6 @@
 //   - Fonts: Manage the fonts used to display text. ([NSFont], [NSFontDescriptor], [NSFontTraitMask], [NSFontFamilyClass], [NSFontAssetRequest])
 //   - Writing Tools: Add support for Writing Tools to your app’s text views. ([NSWritingToolsBehavior], [NSWritingToolsResultOptions], [NSWritingToolsCoordinator], [NSTextPreview])
 //
-// # Deprecated
-//
-//   - Deprecated Symbols: Review symbols that are no longer supported, and find the replacements to use instead. ([NSFormCell], [NSMenuItemCell], [NSEditorRegistration], [NSInputServiceProvider], [NSInputServerMouseTracker])
-//
 // # Variables
 //
 //   - NSAttachmentCharacter

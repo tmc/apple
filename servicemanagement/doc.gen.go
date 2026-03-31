@@ -14,13 +14,8 @@
 // # Management
 //
 //   - SMAppService: An object the framework uses to control helper executables that live inside an app’s main bundle.
-//   - SMJobBless(_:_:_:_:): Submits the executable for the given label as a job to .
 //   - Authorization Constants: Constants that describe the ability to authorize helper executables or modify daemon applications.
 //   - Property List Keys: Property list keys that describe the kinds of applications, daemons, and helper executables the framework manages.
-//
-// # Enablement
-//
-//   - SMLoginItemSetEnabled(_:_:): Enables a helper executable in the main app-bundle directory.
 //
 // # Status
 //
@@ -29,10 +24,6 @@
 // # Errors
 //
 //   - Service Management Errors: Errors that the framework returns.
-//
-// # Deprecated
-//
-//   - Deprecated Symbols
 //
 // # Variables
 //
