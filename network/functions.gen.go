@@ -5,11 +5,13 @@ package network
 import (
 	"fmt"
 	"os"
+	"sync"
 	"unsafe"
 
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/security"
 )
@@ -38,6 +40,46 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 		return
 	}
 	*dst = sym
+}
+
+type networkAsyncBlockKey struct {
+	owner  objc.ID
+	setter string
+}
+
+var (
+	networkAsyncBlockMu sync.Mutex
+	networkAsyncBlocks  = make(map[networkAsyncBlockKey]objc.Block)
+)
+
+func retainNetworkAsyncBlock(owner objc.ID, setter string, block objc.Block) {
+	if owner == 0 || block == 0 {
+		return
+	}
+	key := networkAsyncBlockKey{owner: owner, setter: setter}
+	var old objc.Block
+	networkAsyncBlockMu.Lock()
+	old = networkAsyncBlocks[key]
+	networkAsyncBlocks[key] = block
+	networkAsyncBlockMu.Unlock()
+	if old != 0 {
+		old.Release()
+	}
+}
+
+func clearNetworkAsyncBlock(owner objc.ID, setter string) {
+	if owner == 0 {
+		return
+	}
+	key := networkAsyncBlockKey{owner: owner, setter: setter}
+	var old objc.Block
+	networkAsyncBlockMu.Lock()
+	old = networkAsyncBlocks[key]
+	delete(networkAsyncBlocks, key)
+	networkAsyncBlockMu.Unlock()
+	if old != 0 {
+		old.Release()
+	}
 }
 
 var _nw_advertise_descriptor_copy_txt_record_object func(advertise_descriptor Nw_advertise_descriptor_t) Nw_txt_record_t
@@ -244,7 +286,7 @@ func Nw_browse_result_copy_txt_record_object(result Nw_browse_result_t) Nw_txt_r
 	return _nw_browse_result_copy_txt_record_object(result)
 }
 
-var _nw_browse_result_enumerate_interfaces func(result Nw_browse_result_t, enumerator Nw_browse_result_enumerate_interface_t)
+var _nw_browse_result_enumerate_interfaces func(result Nw_browse_result_t, enumerator unsafe.Pointer)
 
 // Nw_browse_result_enumerate_interfaces enumerates the list of interfaces on which the service was discovered.
 //
@@ -253,7 +295,10 @@ func Nw_browse_result_enumerate_interfaces(result Nw_browse_result_t, enumerator
 	if _nw_browse_result_enumerate_interfaces == nil {
 		panic("Network: symbol nw_browse_result_enumerate_interfaces not loaded")
 	}
-	_nw_browse_result_enumerate_interfaces(result, enumerator)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) bool { return enumerator(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_browse_result_enumerate_interfaces(result, _block0)
 }
 
 var _nw_browse_result_get_changes func(old_result Nw_browse_result_t, new_result Nw_browse_result_t) Nw_browse_result_change_t
@@ -328,7 +373,7 @@ func Nw_browser_create(descriptor Nw_browse_descriptor_t, parameters Nw_paramete
 	return _nw_browser_create(descriptor, parameters)
 }
 
-var _nw_browser_set_browse_results_changed_handler func(browser Nw_browser_t, handler Nw_browser_browse_results_changed_handler_t)
+var _nw_browser_set_browse_results_changed_handler func(browser Nw_browser_t, handler unsafe.Pointer)
 
 // Nw_browser_set_browse_results_changed_handler sets the handler to receive updates about discovered services.
 //
@@ -337,7 +382,12 @@ func Nw_browser_set_browse_results_changed_handler(browser Nw_browser_t, handler
 	if _nw_browser_set_browse_results_changed_handler == nil {
 		panic("Network: symbol nw_browser_set_browse_results_changed_handler not loaded")
 	}
-	_nw_browser_set_browse_results_changed_handler(browser, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 objectivec.Object, arg2 bool) {
+		handler(arg0, arg1, arg2)
+	})
+	retainNetworkAsyncBlock(browser.ID, "nw_browser_set_browse_results_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_browser_set_browse_results_changed_handler(browser, _block0)
 }
 
 var _nw_browser_set_queue func(browser Nw_browser_t, queue uintptr)
@@ -352,7 +402,7 @@ func Nw_browser_set_queue(browser Nw_browser_t, queue dispatch.Queue) {
 	_nw_browser_set_queue(browser, uintptr(queue.Handle()))
 }
 
-var _nw_browser_set_state_changed_handler func(browser Nw_browser_t, state_changed_handler Nw_browser_state_changed_handler_t)
+var _nw_browser_set_state_changed_handler func(browser Nw_browser_t, state_changed_handler unsafe.Pointer)
 
 // Nw_browser_set_state_changed_handler sets a handler to receive browser state updates.
 //
@@ -361,7 +411,10 @@ func Nw_browser_set_state_changed_handler(browser Nw_browser_t, state_changed_ha
 	if _nw_browser_set_state_changed_handler == nil {
 		panic("Network: symbol nw_browser_set_state_changed_handler not loaded")
 	}
-	_nw_browser_set_state_changed_handler(browser, state_changed_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 NwBrowserState, arg1 objectivec.Object) { state_changed_handler(arg0, arg1) })
+	retainNetworkAsyncBlock(browser.ID, "nw_browser_set_state_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_browser_set_state_changed_handler(browser, _block0)
 }
 
 var _nw_browser_start func(browser Nw_browser_t)
@@ -376,7 +429,7 @@ func Nw_browser_start(browser Nw_browser_t) {
 	_nw_browser_start(browser)
 }
 
-var _nw_connection_access_establishment_report func(connection Nw_connection_t, queue uintptr, access_block Nw_establishment_report_access_block_t)
+var _nw_connection_access_establishment_report func(connection Nw_connection_t, queue uintptr, access_block unsafe.Pointer)
 
 // Nw_connection_access_establishment_report requests a copy of the connection’s establishment report once the connection is in the ready state.
 //
@@ -385,7 +438,10 @@ func Nw_connection_access_establishment_report(connection Nw_connection_t, queue
 	if _nw_connection_access_establishment_report == nil {
 		panic("Network: symbol nw_connection_access_establishment_report not loaded")
 	}
-	_nw_connection_access_establishment_report(connection, uintptr(queue.Handle()), access_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { access_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_access_establishment_report(connection, uintptr(queue.Handle()), _block0)
 }
 
 var _nw_connection_batch func(connection Nw_connection_t, batch_block unsafe.Pointer)
@@ -688,7 +744,7 @@ func Nw_connection_group_reply(group Nw_connection_group_t, inbound_message Nw_c
 	_nw_connection_group_reply(group, inbound_message, outbound_message, uintptr(content.Handle()))
 }
 
-var _nw_connection_group_send_message func(group Nw_connection_group_t, content uintptr, endpoint Nw_endpoint_t, context Nw_content_context_t, completion Nw_connection_group_send_completion_t)
+var _nw_connection_group_send_message func(group Nw_connection_group_t, content uintptr, endpoint Nw_endpoint_t, context Nw_content_context_t, completion unsafe.Pointer)
 
 // Nw_connection_group_send_message sends data to the entire group, or to a specific member of the group.
 //
@@ -697,10 +753,13 @@ func Nw_connection_group_send_message(group Nw_connection_group_t, content dispa
 	if _nw_connection_group_send_message == nil {
 		panic("Network: symbol nw_connection_group_send_message not loaded")
 	}
-	_nw_connection_group_send_message(group, uintptr(content.Handle()), endpoint, context, completion)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { completion(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_group_send_message(group, uintptr(content.Handle()), endpoint, context, _block0)
 }
 
-var _nw_connection_group_set_new_connection_handler func(group Nw_connection_group_t, new_connection_handler Nw_connection_group_new_connection_handler_t)
+var _nw_connection_group_set_new_connection_handler func(group Nw_connection_group_t, new_connection_handler unsafe.Pointer)
 
 // Nw_connection_group_set_new_connection_handler.
 //
@@ -709,7 +768,10 @@ func Nw_connection_group_set_new_connection_handler(group Nw_connection_group_t,
 	if _nw_connection_group_set_new_connection_handler == nil {
 		panic("Network: symbol nw_connection_group_set_new_connection_handler not loaded")
 	}
-	_nw_connection_group_set_new_connection_handler(group, new_connection_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { new_connection_handler(arg0) })
+	retainNetworkAsyncBlock(group.ID, "nw_connection_group_set_new_connection_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_group_set_new_connection_handler(group, _block0)
 }
 
 var _nw_connection_group_set_queue func(group Nw_connection_group_t, queue uintptr)
@@ -724,7 +786,7 @@ func Nw_connection_group_set_queue(group Nw_connection_group_t, queue dispatch.Q
 	_nw_connection_group_set_queue(group, uintptr(queue.Handle()))
 }
 
-var _nw_connection_group_set_receive_handler func(group Nw_connection_group_t, maximum_message_size uint32, reject_oversized_messages bool, receive_handler Nw_connection_group_receive_handler_t)
+var _nw_connection_group_set_receive_handler func(group Nw_connection_group_t, maximum_message_size uint32, reject_oversized_messages bool, receive_handler unsafe.Pointer)
 
 // Nw_connection_group_set_receive_handler sets a handler that receives inbound messages from members of the group.
 //
@@ -733,10 +795,15 @@ func Nw_connection_group_set_receive_handler(group Nw_connection_group_t, maximu
 	if _nw_connection_group_set_receive_handler == nil {
 		panic("Network: symbol nw_connection_group_set_receive_handler not loaded")
 	}
-	_nw_connection_group_set_receive_handler(group, maximum_message_size, reject_oversized_messages, receive_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 objectivec.Object, arg2 bool) {
+		receive_handler(arg0, arg1, arg2)
+	})
+	retainNetworkAsyncBlock(group.ID, "nw_connection_group_set_receive_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_group_set_receive_handler(group, maximum_message_size, reject_oversized_messages, _block0)
 }
 
-var _nw_connection_group_set_state_changed_handler func(group Nw_connection_group_t, state_changed_handler Nw_connection_group_state_changed_handler_t)
+var _nw_connection_group_set_state_changed_handler func(group Nw_connection_group_t, state_changed_handler unsafe.Pointer)
 
 // Nw_connection_group_set_state_changed_handler sets a handler that receives connection group state updates.
 //
@@ -745,7 +812,12 @@ func Nw_connection_group_set_state_changed_handler(group Nw_connection_group_t, 
 	if _nw_connection_group_set_state_changed_handler == nil {
 		panic("Network: symbol nw_connection_group_set_state_changed_handler not loaded")
 	}
-	_nw_connection_group_set_state_changed_handler(group, state_changed_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 NwConnectionGroupState, arg1 objectivec.Object) {
+		state_changed_handler(arg0, arg1)
+	})
+	retainNetworkAsyncBlock(group.ID, "nw_connection_group_set_state_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_group_set_state_changed_handler(group, _block0)
 }
 
 var _nw_connection_group_start func(group Nw_connection_group_t)
@@ -760,7 +832,7 @@ func Nw_connection_group_start(group Nw_connection_group_t) {
 	_nw_connection_group_start(group)
 }
 
-var _nw_connection_receive func(connection Nw_connection_t, minimum_incomplete_length uint32, maximum_length uint32, completion Nw_connection_receive_completion_t)
+var _nw_connection_receive func(connection Nw_connection_t, minimum_incomplete_length uint32, maximum_length uint32, completion unsafe.Pointer)
 
 // Nw_connection_receive schedules a single receive completion handler, with a range indicating how many bytes the handler can receive at one time.
 //
@@ -769,10 +841,15 @@ func Nw_connection_receive(connection Nw_connection_t, minimum_incomplete_length
 	if _nw_connection_receive == nil {
 		panic("Network: symbol nw_connection_receive not loaded")
 	}
-	_nw_connection_receive(connection, minimum_incomplete_length, maximum_length, completion)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 objectivec.Object, arg2 bool, arg3 objectivec.Object) {
+		completion(arg0, arg1, arg2, arg3)
+	})
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_receive(connection, minimum_incomplete_length, maximum_length, _block0)
 }
 
-var _nw_connection_receive_message func(connection Nw_connection_t, completion Nw_connection_receive_completion_t)
+var _nw_connection_receive_message func(connection Nw_connection_t, completion unsafe.Pointer)
 
 // Nw_connection_receive_message schedules a single receive completion handler for a complete message, as opposed to a range of bytes.
 //
@@ -781,7 +858,12 @@ func Nw_connection_receive_message(connection Nw_connection_t, completion Nw_con
 	if _nw_connection_receive_message == nil {
 		panic("Network: symbol nw_connection_receive_message not loaded")
 	}
-	_nw_connection_receive_message(connection, completion)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 objectivec.Object, arg2 bool, arg3 objectivec.Object) {
+		completion(arg0, arg1, arg2, arg3)
+	})
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_receive_message(connection, _block0)
 }
 
 var _nw_connection_restart func(connection Nw_connection_t)
@@ -796,7 +878,7 @@ func Nw_connection_restart(connection Nw_connection_t) {
 	_nw_connection_restart(connection)
 }
 
-var _nw_connection_send func(connection Nw_connection_t, content uintptr, context Nw_content_context_t, is_complete bool, completion Nw_connection_send_completion_t)
+var _nw_connection_send func(connection Nw_connection_t, content uintptr, context Nw_content_context_t, is_complete bool, completion unsafe.Pointer)
 
 // Nw_connection_send sends data on a connection.
 //
@@ -805,10 +887,13 @@ func Nw_connection_send(connection Nw_connection_t, content dispatch.Data, conte
 	if _nw_connection_send == nil {
 		panic("Network: symbol nw_connection_send not loaded")
 	}
-	_nw_connection_send(connection, uintptr(content.Handle()), context, is_complete, completion)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { completion(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_send(connection, uintptr(content.Handle()), context, is_complete, _block0)
 }
 
-var _nw_connection_set_better_path_available_handler func(connection Nw_connection_t, handler Nw_connection_boolean_event_handler_t)
+var _nw_connection_set_better_path_available_handler func(connection Nw_connection_t, handler unsafe.Pointer)
 
 // Nw_connection_set_better_path_available_handler sets a handler that receives updates when an alternative network path is preferred over the current path.
 //
@@ -817,10 +902,13 @@ func Nw_connection_set_better_path_available_handler(connection Nw_connection_t,
 	if _nw_connection_set_better_path_available_handler == nil {
 		panic("Network: symbol nw_connection_set_better_path_available_handler not loaded")
 	}
-	_nw_connection_set_better_path_available_handler(connection, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 bool) { handler(arg0) })
+	retainNetworkAsyncBlock(connection.ID, "nw_connection_set_better_path_available_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_set_better_path_available_handler(connection, _block0)
 }
 
-var _nw_connection_set_path_changed_handler func(connection Nw_connection_t, handler Nw_connection_path_event_handler_t)
+var _nw_connection_set_path_changed_handler func(connection Nw_connection_t, handler unsafe.Pointer)
 
 // Nw_connection_set_path_changed_handler sets a handler that receives network path updates.
 //
@@ -829,7 +917,10 @@ func Nw_connection_set_path_changed_handler(connection Nw_connection_t, handler 
 	if _nw_connection_set_path_changed_handler == nil {
 		panic("Network: symbol nw_connection_set_path_changed_handler not loaded")
 	}
-	_nw_connection_set_path_changed_handler(connection, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { handler(arg0) })
+	retainNetworkAsyncBlock(connection.ID, "nw_connection_set_path_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_set_path_changed_handler(connection, _block0)
 }
 
 var _nw_connection_set_queue func(connection Nw_connection_t, queue uintptr)
@@ -844,7 +935,7 @@ func Nw_connection_set_queue(connection Nw_connection_t, queue dispatch.Queue) {
 	_nw_connection_set_queue(connection, uintptr(queue.Handle()))
 }
 
-var _nw_connection_set_state_changed_handler func(connection Nw_connection_t, handler Nw_connection_state_changed_handler_t)
+var _nw_connection_set_state_changed_handler func(connection Nw_connection_t, handler unsafe.Pointer)
 
 // Nw_connection_set_state_changed_handler sets a handler to receive connection state updates.
 //
@@ -853,10 +944,13 @@ func Nw_connection_set_state_changed_handler(connection Nw_connection_t, handler
 	if _nw_connection_set_state_changed_handler == nil {
 		panic("Network: symbol nw_connection_set_state_changed_handler not loaded")
 	}
-	_nw_connection_set_state_changed_handler(connection, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 NwConnectionState, arg1 objectivec.Object) { handler(arg0, arg1) })
+	retainNetworkAsyncBlock(connection.ID, "nw_connection_set_state_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_set_state_changed_handler(connection, _block0)
 }
 
-var _nw_connection_set_viability_changed_handler func(connection Nw_connection_t, handler Nw_connection_boolean_event_handler_t)
+var _nw_connection_set_viability_changed_handler func(connection Nw_connection_t, handler unsafe.Pointer)
 
 // Nw_connection_set_viability_changed_handler sets a handler that receives updates when data can be sent and received.
 //
@@ -865,7 +959,10 @@ func Nw_connection_set_viability_changed_handler(connection Nw_connection_t, han
 	if _nw_connection_set_viability_changed_handler == nil {
 		panic("Network: symbol nw_connection_set_viability_changed_handler not loaded")
 	}
-	_nw_connection_set_viability_changed_handler(connection, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 bool) { handler(arg0) })
+	retainNetworkAsyncBlock(connection.ID, "nw_connection_set_viability_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_connection_set_viability_changed_handler(connection, _block0)
 }
 
 var _nw_connection_start func(connection Nw_connection_t)
@@ -1036,7 +1133,7 @@ func Nw_content_context_set_relative_priority(context Nw_content_context_t, rela
 	_nw_content_context_set_relative_priority(context, relative_priority)
 }
 
-var _nw_data_transfer_report_collect func(report Nw_data_transfer_report_t, queue uintptr, collect_block Nw_data_transfer_report_collect_block_t)
+var _nw_data_transfer_report_collect func(report Nw_data_transfer_report_t, queue uintptr, collect_block unsafe.Pointer)
 
 // Nw_data_transfer_report_collect stops an outstanding data transfer report and calculates the results.
 //
@@ -1045,7 +1142,10 @@ func Nw_data_transfer_report_collect(report Nw_data_transfer_report_t, queue dis
 	if _nw_data_transfer_report_collect == nil {
 		panic("Network: symbol nw_data_transfer_report_collect not loaded")
 	}
-	_nw_data_transfer_report_collect(report, uintptr(queue.Handle()), collect_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { collect_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_data_transfer_report_collect(report, uintptr(queue.Handle()), _block0)
 }
 
 var _nw_data_transfer_report_copy_path_interface func(report Nw_data_transfer_report_t, path_index uint32) Nw_interface_t
@@ -1084,12 +1184,12 @@ func Nw_data_transfer_report_get_path_count(report Nw_data_transfer_report_t) ui
 	return _nw_data_transfer_report_get_path_count(report)
 }
 
-var _nw_data_transfer_report_get_path_radio_type func(report Nw_data_transfer_report_t, path_index uint32) unsafe.Pointer
+var _nw_data_transfer_report_get_path_radio_type func(report Nw_data_transfer_report_t, path_index uint32) NwInterfaceRadioType
 
 // Nw_data_transfer_report_get_path_radio_type.
 //
 // See: https://developer.apple.com/documentation/Network/nw_data_transfer_report_get_path_radio_type(_:_:)
-func Nw_data_transfer_report_get_path_radio_type(report Nw_data_transfer_report_t, path_index uint32) unsafe.Pointer {
+func Nw_data_transfer_report_get_path_radio_type(report Nw_data_transfer_report_t, path_index uint32) NwInterfaceRadioType {
 	if _nw_data_transfer_report_get_path_radio_type == nil {
 		panic("Network: symbol nw_data_transfer_report_get_path_radio_type not loaded")
 	}
@@ -1204,12 +1304,12 @@ func Nw_data_transfer_report_get_sent_transport_retransmitted_byte_count(report 
 	return _nw_data_transfer_report_get_sent_transport_retransmitted_byte_count(report, path_index)
 }
 
-var _nw_data_transfer_report_get_state func(report Nw_data_transfer_report_t) unsafe.Pointer
+var _nw_data_transfer_report_get_state func(report Nw_data_transfer_report_t) NwDataTransferReportState
 
 // Nw_data_transfer_report_get_state checks whether a data transfer report is collected.
 //
 // See: https://developer.apple.com/documentation/Network/nw_data_transfer_report_get_state(_:)
-func Nw_data_transfer_report_get_state(report Nw_data_transfer_report_t) unsafe.Pointer {
+func Nw_data_transfer_report_get_state(report Nw_data_transfer_report_t) NwDataTransferReportState {
 	if _nw_data_transfer_report_get_state == nil {
 		panic("Network: symbol nw_data_transfer_report_get_state not loaded")
 	}
@@ -1420,12 +1520,12 @@ func Nw_endpoint_get_signature(endpoint Nw_endpoint_t, out_signature_length *uin
 	return _nw_endpoint_get_signature(endpoint, out_signature_length)
 }
 
-var _nw_endpoint_get_type func(endpoint Nw_endpoint_t) unsafe.Pointer
+var _nw_endpoint_get_type func(endpoint Nw_endpoint_t) NwEndpointType
 
 // Nw_endpoint_get_type accesses the type of a endpoint.
 //
 // See: https://developer.apple.com/documentation/Network/nw_endpoint_get_type(_:)
-func Nw_endpoint_get_type(endpoint Nw_endpoint_t) unsafe.Pointer {
+func Nw_endpoint_get_type(endpoint Nw_endpoint_t) NwEndpointType {
 	if _nw_endpoint_get_type == nil {
 		panic("Network: symbol nw_endpoint_get_type not loaded")
 	}
@@ -1468,12 +1568,12 @@ func Nw_error_get_error_code(err Nw_error_t) int {
 	return _nw_error_get_error_code(err)
 }
 
-var _nw_error_get_error_domain func(err Nw_error_t) unsafe.Pointer
+var _nw_error_get_error_domain func(err Nw_error_t) NwErrorDomain
 
 // Nw_error_get_error_domain accesses the domain of the network error.
 //
 // See: https://developer.apple.com/documentation/Network/nw_error_get_error_domain(_:)
-func Nw_error_get_error_domain(err Nw_error_t) unsafe.Pointer {
+func Nw_error_get_error_domain(err Nw_error_t) NwErrorDomain {
 	if _nw_error_get_error_domain == nil {
 		panic("Network: symbol nw_error_get_error_domain not loaded")
 	}
@@ -1492,7 +1592,7 @@ func Nw_establishment_report_copy_proxy_endpoint(report Nw_establishment_report_
 	return _nw_establishment_report_copy_proxy_endpoint(report)
 }
 
-var _nw_establishment_report_enumerate_protocols func(report Nw_establishment_report_t, enumerate_block Nw_report_protocol_enumerator_t)
+var _nw_establishment_report_enumerate_protocols func(report Nw_establishment_report_t, enumerate_block unsafe.Pointer)
 
 // Nw_establishment_report_enumerate_protocols iterates a list of protocol handshakes in order from first completed to last completed.
 //
@@ -1501,10 +1601,15 @@ func Nw_establishment_report_enumerate_protocols(report Nw_establishment_report_
 	if _nw_establishment_report_enumerate_protocols == nil {
 		panic("Network: symbol nw_establishment_report_enumerate_protocols not loaded")
 	}
-	_nw_establishment_report_enumerate_protocols(report, enumerate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 uint64, arg2 uint64) bool {
+		return enumerate_block(arg0, arg1, arg2)
+	})
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_establishment_report_enumerate_protocols(report, _block0)
 }
 
-var _nw_establishment_report_enumerate_resolution_reports func(report Nw_establishment_report_t, enumerate_block Nw_report_resolution_report_enumerator_t)
+var _nw_establishment_report_enumerate_resolution_reports func(report Nw_establishment_report_t, enumerate_block unsafe.Pointer)
 
 // Nw_establishment_report_enumerate_resolution_reports.
 //
@@ -1513,10 +1618,13 @@ func Nw_establishment_report_enumerate_resolution_reports(report Nw_establishmen
 	if _nw_establishment_report_enumerate_resolution_reports == nil {
 		panic("Network: symbol nw_establishment_report_enumerate_resolution_reports not loaded")
 	}
-	_nw_establishment_report_enumerate_resolution_reports(report, enumerate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) bool { return enumerate_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_establishment_report_enumerate_resolution_reports(report, _block0)
 }
 
-var _nw_establishment_report_enumerate_resolutions func(report Nw_establishment_report_t, enumerate_block Nw_report_resolution_enumerator_t)
+var _nw_establishment_report_enumerate_resolutions func(report Nw_establishment_report_t, enumerate_block unsafe.Pointer)
 
 // Nw_establishment_report_enumerate_resolutions iterates a list of resolution steps performed during connection establishment, in order from first resolved to last resolved.
 //
@@ -1525,7 +1633,12 @@ func Nw_establishment_report_enumerate_resolutions(report Nw_establishment_repor
 	if _nw_establishment_report_enumerate_resolutions == nil {
 		panic("Network: symbol nw_establishment_report_enumerate_resolutions not loaded")
 	}
-	_nw_establishment_report_enumerate_resolutions(report, enumerate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 NwReportResolutionSource, arg1 uint64, arg2 uint32, arg3 objectivec.Object, arg4 objectivec.Object) bool {
+		return enumerate_block(arg0, arg1, arg2, arg3, arg4)
+	})
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_establishment_report_enumerate_resolutions(report, _block0)
 }
 
 var _nw_establishment_report_get_attempt_started_after_milliseconds func(report Nw_establishment_report_t) uint64
@@ -1636,7 +1749,7 @@ func Nw_ethernet_channel_get_maximum_payload_size(ethernet_channel Nw_ethernet_c
 	return _nw_ethernet_channel_get_maximum_payload_size(ethernet_channel)
 }
 
-var _nw_ethernet_channel_send func(ethernet_channel Nw_ethernet_channel_t, content uintptr, vlan_tag uint16, remote_address Nw_ethernet_address_t, completion Nw_ethernet_channel_send_completion_t)
+var _nw_ethernet_channel_send func(ethernet_channel Nw_ethernet_channel_t, content uintptr, vlan_tag uint16, remote_address Nw_ethernet_address_t, completion unsafe.Pointer)
 
 // Nw_ethernet_channel_send sends a single Ethernet frame over a channel to a specific Ethernet address.
 //
@@ -1645,7 +1758,10 @@ func Nw_ethernet_channel_send(ethernet_channel Nw_ethernet_channel_t, content di
 	if _nw_ethernet_channel_send == nil {
 		panic("Network: symbol nw_ethernet_channel_send not loaded")
 	}
-	_nw_ethernet_channel_send(ethernet_channel, uintptr(content.Handle()), vlan_tag, remote_address, completion)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { completion(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_ethernet_channel_send(ethernet_channel, uintptr(content.Handle()), vlan_tag, remote_address, _block0)
 }
 
 var _nw_ethernet_channel_set_queue func(ethernet_channel Nw_ethernet_channel_t, queue uintptr)
@@ -1660,7 +1776,7 @@ func Nw_ethernet_channel_set_queue(ethernet_channel Nw_ethernet_channel_t, queue
 	_nw_ethernet_channel_set_queue(ethernet_channel, uintptr(queue.Handle()))
 }
 
-var _nw_ethernet_channel_set_receive_handler func(ethernet_channel Nw_ethernet_channel_t, handler Nw_ethernet_channel_receive_handler_t)
+var _nw_ethernet_channel_set_receive_handler func(ethernet_channel Nw_ethernet_channel_t, handler unsafe.Pointer)
 
 // Nw_ethernet_channel_set_receive_handler sets a handler to receive inbound Ethernet frames.
 //
@@ -1669,10 +1785,15 @@ func Nw_ethernet_channel_set_receive_handler(ethernet_channel Nw_ethernet_channe
 	if _nw_ethernet_channel_set_receive_handler == nil {
 		panic("Network: symbol nw_ethernet_channel_set_receive_handler not loaded")
 	}
-	_nw_ethernet_channel_set_receive_handler(ethernet_channel, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 uint32, arg2 *uint8, arg3 *uint8) {
+		handler(arg0, arg1, arg2, arg3)
+	})
+	retainNetworkAsyncBlock(ethernet_channel.ID, "nw_ethernet_channel_set_receive_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_ethernet_channel_set_receive_handler(ethernet_channel, _block0)
 }
 
-var _nw_ethernet_channel_set_state_changed_handler func(ethernet_channel Nw_ethernet_channel_t, handler Nw_ethernet_channel_state_changed_handler_t)
+var _nw_ethernet_channel_set_state_changed_handler func(ethernet_channel Nw_ethernet_channel_t, handler unsafe.Pointer)
 
 // Nw_ethernet_channel_set_state_changed_handler sets a handler to receive channel state updates.
 //
@@ -1681,7 +1802,10 @@ func Nw_ethernet_channel_set_state_changed_handler(ethernet_channel Nw_ethernet_
 	if _nw_ethernet_channel_set_state_changed_handler == nil {
 		panic("Network: symbol nw_ethernet_channel_set_state_changed_handler not loaded")
 	}
-	_nw_ethernet_channel_set_state_changed_handler(ethernet_channel, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 NwEthernetChannelState, arg1 objectivec.Object) { handler(arg0, arg1) })
+	retainNetworkAsyncBlock(ethernet_channel.ID, "nw_ethernet_channel_set_state_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_ethernet_channel_set_state_changed_handler(ethernet_channel, _block0)
 }
 
 var _nw_ethernet_channel_start func(ethernet_channel Nw_ethernet_channel_t)
@@ -1696,7 +1820,7 @@ func Nw_ethernet_channel_start(ethernet_channel Nw_ethernet_channel_t) {
 	_nw_ethernet_channel_start(ethernet_channel)
 }
 
-var _nw_framer_async func(framer Nw_framer_t, async_block Nw_framer_block_t)
+var _nw_framer_async func(framer Nw_framer_t, async_block unsafe.Pointer)
 
 // Nw_framer_async requests that a block be executed on the connection’s internal scheduling context.
 //
@@ -1705,7 +1829,10 @@ func Nw_framer_async(framer Nw_framer_t, async_block Nw_framer_block_t) {
 	if _nw_framer_async == nil {
 		panic("Network: symbol nw_framer_async not loaded")
 	}
-	_nw_framer_async(framer, async_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block) { async_block() })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_framer_async(framer, _block0)
 }
 
 var _nw_framer_copy_local_endpoint func(framer Nw_framer_t) Nw_endpoint_t
@@ -1756,7 +1883,7 @@ func Nw_framer_copy_remote_endpoint(framer Nw_framer_t) Nw_endpoint_t {
 	return _nw_framer_copy_remote_endpoint(framer)
 }
 
-var _nw_framer_create_definition func(identifier string, flags uint32, start_handler Nw_framer_start_handler_t) Nw_protocol_definition_t
+var _nw_framer_create_definition func(identifier string, flags uint32, start_handler unsafe.Pointer) Nw_protocol_definition_t
 
 // Nw_framer_create_definition initializes a new protocol definition based on your protocol implementation.
 //
@@ -1765,7 +1892,10 @@ func Nw_framer_create_definition(identifier string, flags uint32, start_handler 
 	if _nw_framer_create_definition == nil {
 		panic("Network: symbol nw_framer_create_definition not loaded")
 	}
-	return _nw_framer_create_definition(identifier, flags, start_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) NwFramerStartResult { return start_handler(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_framer_create_definition(identifier, flags, _block0)
 }
 
 var _nw_framer_create_options func(framer_definition Nw_protocol_definition_t) Nw_protocol_options_t
@@ -1876,7 +2006,7 @@ func Nw_framer_message_set_object_value(message Nw_framer_message_t, key string,
 	_nw_framer_message_set_object_value(message, key, value)
 }
 
-var _nw_framer_message_set_value func(message Nw_framer_message_t, key string, value unsafe.Pointer, dispose_value Nw_framer_message_dispose_value_t)
+var _nw_framer_message_set_value func(message Nw_framer_message_t, key string, value unsafe.Pointer, dispose_value unsafe.Pointer)
 
 // Nw_framer_message_set_value sets a value to be stored in a framer message, with a completion to call to disposed the stored value when the message is released.
 //
@@ -1885,7 +2015,10 @@ func Nw_framer_message_set_value(message Nw_framer_message_t, key string, value 
 	if _nw_framer_message_set_value == nil {
 		panic("Network: symbol nw_framer_message_set_value not loaded")
 	}
-	_nw_framer_message_set_value(message, key, value, dispose_value)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer) { dispose_value(arg0) })
+	retainNetworkAsyncBlock(message.ID, "nw_framer_message_set_value:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_framer_message_set_value(message, key, value, _block0)
 }
 
 var _nw_framer_options_copy_object_value func(options Nw_protocol_options_t, key string) objectivec.Object
@@ -1912,7 +2045,7 @@ func Nw_framer_options_set_object_value(options Nw_protocol_options_t, key strin
 	_nw_framer_options_set_object_value(options, key, value)
 }
 
-var _nw_framer_parse_input func(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse Nw_framer_parse_completion_t) bool
+var _nw_framer_parse_input func(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse unsafe.Pointer) bool
 
 // Nw_framer_parse_input examines the content of input data while inside your input handler block.
 //
@@ -1921,10 +2054,13 @@ func Nw_framer_parse_input(framer Nw_framer_t, minimum_incomplete_length uintptr
 	if _nw_framer_parse_input == nil {
 		panic("Network: symbol nw_framer_parse_input not loaded")
 	}
-	return _nw_framer_parse_input(framer, minimum_incomplete_length, maximum_length, temp_buffer, parse)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *uint8, arg1 uint32, arg2 bool) uint64 { return parse(arg0, arg1, arg2) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_framer_parse_input(framer, minimum_incomplete_length, maximum_length, temp_buffer, _block0)
 }
 
-var _nw_framer_parse_output func(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse Nw_framer_parse_completion_t) bool
+var _nw_framer_parse_output func(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse unsafe.Pointer) bool
 
 // Nw_framer_parse_output examines the content of output data while inside your output handler.
 //
@@ -1933,7 +2069,10 @@ func Nw_framer_parse_output(framer Nw_framer_t, minimum_incomplete_length uintpt
 	if _nw_framer_parse_output == nil {
 		panic("Network: symbol nw_framer_parse_output not loaded")
 	}
-	return _nw_framer_parse_output(framer, minimum_incomplete_length, maximum_length, temp_buffer, parse)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *uint8, arg1 uint32, arg2 bool) uint64 { return parse(arg0, arg1, arg2) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_framer_parse_output(framer, minimum_incomplete_length, maximum_length, temp_buffer, _block0)
 }
 
 var _nw_framer_pass_through_input func(framer Nw_framer_t)
@@ -1996,7 +2135,7 @@ func Nw_framer_schedule_wakeup(framer Nw_framer_t, milliseconds uint64) {
 	_nw_framer_schedule_wakeup(framer, milliseconds)
 }
 
-var _nw_framer_set_cleanup_handler func(framer Nw_framer_t, cleanup_handler Nw_framer_cleanup_handler_t)
+var _nw_framer_set_cleanup_handler func(framer Nw_framer_t, cleanup_handler unsafe.Pointer)
 
 // Nw_framer_set_cleanup_handler sets a block to handle the final cleanup of allocations made by your protocol instance.
 //
@@ -2005,10 +2144,13 @@ func Nw_framer_set_cleanup_handler(framer Nw_framer_t, cleanup_handler Nw_framer
 	if _nw_framer_set_cleanup_handler == nil {
 		panic("Network: symbol nw_framer_set_cleanup_handler not loaded")
 	}
-	_nw_framer_set_cleanup_handler(framer, cleanup_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { cleanup_handler(arg0) })
+	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_cleanup_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_framer_set_cleanup_handler(framer, _block0)
 }
 
-var _nw_framer_set_input_handler func(framer Nw_framer_t, input_handler Nw_framer_input_handler_t)
+var _nw_framer_set_input_handler func(framer Nw_framer_t, input_handler unsafe.Pointer)
 
 // Nw_framer_set_input_handler sets a block to handle new inbound data.
 //
@@ -2017,10 +2159,13 @@ func Nw_framer_set_input_handler(framer Nw_framer_t, input_handler Nw_framer_inp
 	if _nw_framer_set_input_handler == nil {
 		panic("Network: symbol nw_framer_set_input_handler not loaded")
 	}
-	_nw_framer_set_input_handler(framer, input_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) uint64 { return input_handler(arg0) })
+	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_input_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_framer_set_input_handler(framer, _block0)
 }
 
-var _nw_framer_set_output_handler func(framer Nw_framer_t, output_handler Nw_framer_output_handler_t)
+var _nw_framer_set_output_handler func(framer Nw_framer_t, output_handler unsafe.Pointer)
 
 // Nw_framer_set_output_handler sets a block to handle new outbound messages.
 //
@@ -2029,10 +2174,15 @@ func Nw_framer_set_output_handler(framer Nw_framer_t, output_handler Nw_framer_o
 	if _nw_framer_set_output_handler == nil {
 		panic("Network: symbol nw_framer_set_output_handler not loaded")
 	}
-	_nw_framer_set_output_handler(framer, output_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 objectivec.Object, arg2 uint32, arg3 bool) {
+		output_handler(arg0, arg1, arg2, arg3)
+	})
+	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_output_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_framer_set_output_handler(framer, _block0)
 }
 
-var _nw_framer_set_stop_handler func(framer Nw_framer_t, stop_handler Nw_framer_stop_handler_t)
+var _nw_framer_set_stop_handler func(framer Nw_framer_t, stop_handler unsafe.Pointer)
 
 // Nw_framer_set_stop_handler sets a block to handle when the connection is being closed.
 //
@@ -2041,10 +2191,13 @@ func Nw_framer_set_stop_handler(framer Nw_framer_t, stop_handler Nw_framer_stop_
 	if _nw_framer_set_stop_handler == nil {
 		panic("Network: symbol nw_framer_set_stop_handler not loaded")
 	}
-	_nw_framer_set_stop_handler(framer, stop_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) bool { return stop_handler(arg0) })
+	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_stop_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_framer_set_stop_handler(framer, _block0)
 }
 
-var _nw_framer_set_wakeup_handler func(framer Nw_framer_t, wakeup_handler Nw_framer_wakeup_handler_t)
+var _nw_framer_set_wakeup_handler func(framer Nw_framer_t, wakeup_handler unsafe.Pointer)
 
 // Nw_framer_set_wakeup_handler sets a handler to receive scheduled wakeup events.
 //
@@ -2053,7 +2206,10 @@ func Nw_framer_set_wakeup_handler(framer Nw_framer_t, wakeup_handler Nw_framer_w
 	if _nw_framer_set_wakeup_handler == nil {
 		panic("Network: symbol nw_framer_set_wakeup_handler not loaded")
 	}
-	_nw_framer_set_wakeup_handler(framer, wakeup_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { wakeup_handler(arg0) })
+	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_wakeup_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_framer_set_wakeup_handler(framer, _block0)
 }
 
 var _nw_framer_write_output func(framer Nw_framer_t, output_buffer *uint8, output_length uintptr)
@@ -2128,7 +2284,7 @@ func Nw_group_descriptor_create_multiplex(remote_endpoint Nw_endpoint_t) Nw_grou
 	return _nw_group_descriptor_create_multiplex(remote_endpoint)
 }
 
-var _nw_group_descriptor_enumerate_endpoints func(descriptor Nw_group_descriptor_t, enumerate_block Nw_group_descriptor_enumerate_endpoints_block_t)
+var _nw_group_descriptor_enumerate_endpoints func(descriptor Nw_group_descriptor_t, enumerate_block unsafe.Pointer)
 
 // Nw_group_descriptor_enumerate_endpoints sets a handler to list all endpoints added to the group descriptor.
 //
@@ -2137,7 +2293,10 @@ func Nw_group_descriptor_enumerate_endpoints(descriptor Nw_group_descriptor_t, e
 	if _nw_group_descriptor_enumerate_endpoints == nil {
 		panic("Network: symbol nw_group_descriptor_enumerate_endpoints not loaded")
 	}
-	_nw_group_descriptor_enumerate_endpoints(descriptor, enumerate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) bool { return enumerate_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_group_descriptor_enumerate_endpoints(descriptor, _block0)
 }
 
 var _nw_interface_get_index func(interface_ Nw_interface_t) uint32
@@ -2164,12 +2323,12 @@ func Nw_interface_get_name(interface_ Nw_interface_t) *byte {
 	return _nw_interface_get_name(interface_)
 }
 
-var _nw_interface_get_type func(interface_ Nw_interface_t) unsafe.Pointer
+var _nw_interface_get_type func(interface_ Nw_interface_t) NwInterfaceType
 
 // Nw_interface_get_type accesses the type of the interface, such as Wi-Fi or Loopback.
 //
 // See: https://developer.apple.com/documentation/Network/nw_interface_get_type(_:)
-func Nw_interface_get_type(interface_ Nw_interface_t) unsafe.Pointer {
+func Nw_interface_get_type(interface_ Nw_interface_t) NwInterfaceType {
 	if _nw_interface_get_type == nil {
 		panic("Network: symbol nw_interface_get_type not loaded")
 	}
@@ -2188,12 +2347,12 @@ func Nw_ip_create_metadata() Nw_protocol_metadata_t {
 	return _nw_ip_create_metadata()
 }
 
-var _nw_ip_metadata_get_ecn_flag func(metadata Nw_protocol_metadata_t) unsafe.Pointer
+var _nw_ip_metadata_get_ecn_flag func(metadata Nw_protocol_metadata_t) NwIpEcnFlag
 
 // Nw_ip_metadata_get_ecn_flag checks the Explicit Congestion Notification flag value received on an IP packet.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ip_metadata_get_ecn_flag(_:)
-func Nw_ip_metadata_get_ecn_flag(metadata Nw_protocol_metadata_t) unsafe.Pointer {
+func Nw_ip_metadata_get_ecn_flag(metadata Nw_protocol_metadata_t) NwIpEcnFlag {
 	if _nw_ip_metadata_get_ecn_flag == nil {
 		panic("Network: symbol nw_ip_metadata_get_ecn_flag not loaded")
 	}
@@ -2212,36 +2371,36 @@ func Nw_ip_metadata_get_receive_time(metadata Nw_protocol_metadata_t) uint64 {
 	return _nw_ip_metadata_get_receive_time(metadata)
 }
 
-var _nw_ip_metadata_get_service_class func(metadata Nw_protocol_metadata_t) unsafe.Pointer
+var _nw_ip_metadata_get_service_class func(metadata Nw_protocol_metadata_t) NwServiceClass
 
 // Nw_ip_metadata_get_service_class accesses a specific service class to mark on an IP packet.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ip_metadata_get_service_class(_:)
-func Nw_ip_metadata_get_service_class(metadata Nw_protocol_metadata_t) unsafe.Pointer {
+func Nw_ip_metadata_get_service_class(metadata Nw_protocol_metadata_t) NwServiceClass {
 	if _nw_ip_metadata_get_service_class == nil {
 		panic("Network: symbol nw_ip_metadata_get_service_class not loaded")
 	}
 	return _nw_ip_metadata_get_service_class(metadata)
 }
 
-var _nw_ip_metadata_set_ecn_flag func(metadata Nw_protocol_metadata_t, ecn_flag unsafe.Pointer)
+var _nw_ip_metadata_set_ecn_flag func(metadata Nw_protocol_metadata_t, ecn_flag NwIpEcnFlag)
 
 // Nw_ip_metadata_set_ecn_flag sets a specific Explicit Congestion Notification flag value to set on an IP packet.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ip_metadata_set_ecn_flag(_:_:)
-func Nw_ip_metadata_set_ecn_flag(metadata Nw_protocol_metadata_t, ecn_flag unsafe.Pointer) {
+func Nw_ip_metadata_set_ecn_flag(metadata Nw_protocol_metadata_t, ecn_flag NwIpEcnFlag) {
 	if _nw_ip_metadata_set_ecn_flag == nil {
 		panic("Network: symbol nw_ip_metadata_set_ecn_flag not loaded")
 	}
 	_nw_ip_metadata_set_ecn_flag(metadata, ecn_flag)
 }
 
-var _nw_ip_metadata_set_service_class func(metadata Nw_protocol_metadata_t, service_class unsafe.Pointer)
+var _nw_ip_metadata_set_service_class func(metadata Nw_protocol_metadata_t, service_class NwServiceClass)
 
 // Nw_ip_metadata_set_service_class sets a specific service class to mark on an IP packet.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ip_metadata_set_service_class(_:_:)
-func Nw_ip_metadata_set_service_class(metadata Nw_protocol_metadata_t, service_class unsafe.Pointer) {
+func Nw_ip_metadata_set_service_class(metadata Nw_protocol_metadata_t, service_class NwServiceClass) {
 	if _nw_ip_metadata_set_service_class == nil {
 		panic("Network: symbol nw_ip_metadata_set_service_class not loaded")
 	}
@@ -2296,12 +2455,12 @@ func Nw_ip_options_set_hop_limit(options Nw_protocol_options_t, hop_limit uint8)
 	_nw_ip_options_set_hop_limit(options, hop_limit)
 }
 
-var _nw_ip_options_set_local_address_preference func(options Nw_protocol_options_t, preference unsafe.Pointer)
+var _nw_ip_options_set_local_address_preference func(options Nw_protocol_options_t, preference NwIpLocalAddressPreference)
 
 // Nw_ip_options_set_local_address_preference configures a connection to prefer certain types of local addresses, such as temporary or stable.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ip_options_set_local_address_preference(_:_:)
-func Nw_ip_options_set_local_address_preference(options Nw_protocol_options_t, preference unsafe.Pointer) {
+func Nw_ip_options_set_local_address_preference(options Nw_protocol_options_t, preference NwIpLocalAddressPreference) {
 	if _nw_ip_options_set_local_address_preference == nil {
 		panic("Network: symbol nw_ip_options_set_local_address_preference not loaded")
 	}
@@ -2320,12 +2479,12 @@ func Nw_ip_options_set_use_minimum_mtu(options Nw_protocol_options_t, use_minimu
 	_nw_ip_options_set_use_minimum_mtu(options, use_minimum_mtu)
 }
 
-var _nw_ip_options_set_version func(options Nw_protocol_options_t, version unsafe.Pointer)
+var _nw_ip_options_set_version func(options Nw_protocol_options_t, version NwIpVersion)
 
 // Nw_ip_options_set_version sets a required IP version to disable all other versions for a connection.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ip_options_set_version(_:_:)
-func Nw_ip_options_set_version(options Nw_protocol_options_t, version unsafe.Pointer) {
+func Nw_ip_options_set_version(options Nw_protocol_options_t, version NwIpVersion) {
 	if _nw_ip_options_set_version == nil {
 		panic("Network: symbol nw_ip_options_set_version not loaded")
 	}
@@ -2428,7 +2587,7 @@ func Nw_listener_set_advertise_descriptor(listener Nw_listener_t, advertise_desc
 	_nw_listener_set_advertise_descriptor(listener, advertise_descriptor)
 }
 
-var _nw_listener_set_advertised_endpoint_changed_handler func(listener Nw_listener_t, handler Nw_listener_advertised_endpoint_changed_handler_t)
+var _nw_listener_set_advertised_endpoint_changed_handler func(listener Nw_listener_t, handler unsafe.Pointer)
 
 // Nw_listener_set_advertised_endpoint_changed_handler sets a handler that receives updates for the service endpoint being advertised.
 //
@@ -2437,10 +2596,13 @@ func Nw_listener_set_advertised_endpoint_changed_handler(listener Nw_listener_t,
 	if _nw_listener_set_advertised_endpoint_changed_handler == nil {
 		panic("Network: symbol nw_listener_set_advertised_endpoint_changed_handler not loaded")
 	}
-	_nw_listener_set_advertised_endpoint_changed_handler(listener, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 bool) { handler(arg0, arg1) })
+	retainNetworkAsyncBlock(listener.ID, "nw_listener_set_advertised_endpoint_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_listener_set_advertised_endpoint_changed_handler(listener, _block0)
 }
 
-var _nw_listener_set_new_connection_group_handler func(listener Nw_listener_t, handler Nw_listener_new_connection_group_handler_t)
+var _nw_listener_set_new_connection_group_handler func(listener Nw_listener_t, handler unsafe.Pointer)
 
 // Nw_listener_set_new_connection_group_handler.
 //
@@ -2449,10 +2611,13 @@ func Nw_listener_set_new_connection_group_handler(listener Nw_listener_t, handle
 	if _nw_listener_set_new_connection_group_handler == nil {
 		panic("Network: symbol nw_listener_set_new_connection_group_handler not loaded")
 	}
-	_nw_listener_set_new_connection_group_handler(listener, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { handler(arg0) })
+	retainNetworkAsyncBlock(listener.ID, "nw_listener_set_new_connection_group_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_listener_set_new_connection_group_handler(listener, _block0)
 }
 
-var _nw_listener_set_new_connection_handler func(listener Nw_listener_t, handler Nw_listener_new_connection_handler_t)
+var _nw_listener_set_new_connection_handler func(listener Nw_listener_t, handler unsafe.Pointer)
 
 // Nw_listener_set_new_connection_handler sets a handler that receives inbound connections.
 //
@@ -2461,7 +2626,10 @@ func Nw_listener_set_new_connection_handler(listener Nw_listener_t, handler Nw_l
 	if _nw_listener_set_new_connection_handler == nil {
 		panic("Network: symbol nw_listener_set_new_connection_handler not loaded")
 	}
-	_nw_listener_set_new_connection_handler(listener, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { handler(arg0) })
+	retainNetworkAsyncBlock(listener.ID, "nw_listener_set_new_connection_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_listener_set_new_connection_handler(listener, _block0)
 }
 
 var _nw_listener_set_new_connection_limit func(listener Nw_listener_t, new_connection_limit uint32)
@@ -2488,7 +2656,7 @@ func Nw_listener_set_queue(listener Nw_listener_t, queue dispatch.Queue) {
 	_nw_listener_set_queue(listener, uintptr(queue.Handle()))
 }
 
-var _nw_listener_set_state_changed_handler func(listener Nw_listener_t, handler Nw_listener_state_changed_handler_t)
+var _nw_listener_set_state_changed_handler func(listener Nw_listener_t, handler unsafe.Pointer)
 
 // Nw_listener_set_state_changed_handler sets a handler to receive listener state updates.
 //
@@ -2497,7 +2665,10 @@ func Nw_listener_set_state_changed_handler(listener Nw_listener_t, handler Nw_li
 	if _nw_listener_set_state_changed_handler == nil {
 		panic("Network: symbol nw_listener_set_state_changed_handler not loaded")
 	}
-	_nw_listener_set_state_changed_handler(listener, handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 NwListenerState, arg1 objectivec.Object) { handler(arg0, arg1) })
+	retainNetworkAsyncBlock(listener.ID, "nw_listener_set_state_changed_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_listener_set_state_changed_handler(listener, _block0)
 }
 
 var _nw_listener_start func(listener Nw_listener_t)
@@ -2644,7 +2815,7 @@ func Nw_parameters_create_application_service() Nw_parameters_t {
 	return _nw_parameters_create_application_service()
 }
 
-var _nw_parameters_create_custom_ip func(custom_ip_protocol_number uint8, configure_ip Nw_parameters_configure_protocol_block_t) Nw_parameters_t
+var _nw_parameters_create_custom_ip func(custom_ip_protocol_number uint8, configure_ip unsafe.Pointer) Nw_parameters_t
 
 // Nw_parameters_create_custom_ip initializes parameters for connections and listeners using a custom IP protocol.
 //
@@ -2653,10 +2824,13 @@ func Nw_parameters_create_custom_ip(custom_ip_protocol_number uint8, configure_i
 	if _nw_parameters_create_custom_ip == nil {
 		panic("Network: symbol nw_parameters_create_custom_ip not loaded")
 	}
-	return _nw_parameters_create_custom_ip(custom_ip_protocol_number, configure_ip)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { configure_ip(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_parameters_create_custom_ip(custom_ip_protocol_number, _block0)
 }
 
-var _nw_parameters_create_quic func(configure_quic Nw_parameters_configure_protocol_block_t) Nw_parameters_t
+var _nw_parameters_create_quic func(configure_quic unsafe.Pointer) Nw_parameters_t
 
 // Nw_parameters_create_quic initializes parameters for QUIC connections and listeners.
 //
@@ -2665,10 +2839,13 @@ func Nw_parameters_create_quic(configure_quic Nw_parameters_configure_protocol_b
 	if _nw_parameters_create_quic == nil {
 		panic("Network: symbol nw_parameters_create_quic not loaded")
 	}
-	return _nw_parameters_create_quic(configure_quic)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { configure_quic(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_parameters_create_quic(_block0)
 }
 
-var _nw_parameters_create_secure_tcp func(configure_tls Nw_parameters_configure_protocol_block_t, configure_tcp Nw_parameters_configure_protocol_block_t) Nw_parameters_t
+var _nw_parameters_create_secure_tcp func(configure_tls unsafe.Pointer, configure_tcp unsafe.Pointer) Nw_parameters_t
 
 // Nw_parameters_create_secure_tcp initializes parameters for TLS or TCP connections and listeners.
 //
@@ -2677,10 +2854,16 @@ func Nw_parameters_create_secure_tcp(configure_tls Nw_parameters_configure_proto
 	if _nw_parameters_create_secure_tcp == nil {
 		panic("Network: symbol nw_parameters_create_secure_tcp not loaded")
 	}
-	return _nw_parameters_create_secure_tcp(configure_tls, configure_tcp)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { configure_tls(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_block1Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { configure_tcp(arg0) })
+	defer _block1Value.Release()
+	_block1 := unsafe.Pointer(_block1Value)
+	return _nw_parameters_create_secure_tcp(_block0, _block1)
 }
 
-var _nw_parameters_create_secure_udp func(configure_dtls Nw_parameters_configure_protocol_block_t, configure_udp Nw_parameters_configure_protocol_block_t) Nw_parameters_t
+var _nw_parameters_create_secure_udp func(configure_dtls unsafe.Pointer, configure_udp unsafe.Pointer) Nw_parameters_t
 
 // Nw_parameters_create_secure_udp initializes parameters for DTLS or UDP connections and listeners.
 //
@@ -2689,7 +2872,13 @@ func Nw_parameters_create_secure_udp(configure_dtls Nw_parameters_configure_prot
 	if _nw_parameters_create_secure_udp == nil {
 		panic("Network: symbol nw_parameters_create_secure_udp not loaded")
 	}
-	return _nw_parameters_create_secure_udp(configure_dtls, configure_udp)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { configure_dtls(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_block1Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { configure_udp(arg0) })
+	defer _block1Value.Release()
+	_block1 := unsafe.Pointer(_block1Value)
+	return _nw_parameters_create_secure_udp(_block0, _block1)
 }
 
 var _nw_parameters_get_allow_ultra_constrained func(parameters Nw_parameters_t) bool
@@ -2704,12 +2893,24 @@ func Nw_parameters_get_allow_ultra_constrained(parameters Nw_parameters_t) bool 
 	return _nw_parameters_get_allow_ultra_constrained(parameters)
 }
 
-var _nw_parameters_get_expired_dns_behavior func(parameters Nw_parameters_t) unsafe.Pointer
+var _nw_parameters_get_attribution func(parameters Nw_parameters_t) Nw_parameters_attribution_t
+
+// Nw_parameters_get_attribution gets a flag that indicates whether the network request originates from the developer or the user.
+//
+// See: https://developer.apple.com/documentation/Network/nw_parameters_get_attribution(_:)
+func Nw_parameters_get_attribution(parameters Nw_parameters_t) Nw_parameters_attribution_t {
+	if _nw_parameters_get_attribution == nil {
+		panic("Network: symbol nw_parameters_get_attribution not loaded")
+	}
+	return _nw_parameters_get_attribution(parameters)
+}
+
+var _nw_parameters_get_expired_dns_behavior func(parameters Nw_parameters_t) NwParametersExpiredDnsBehavior
 
 // Nw_parameters_get_expired_dns_behavior checks the behavior for how expired DNS answers should be used.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_get_expired_dns_behavior(_:)
-func Nw_parameters_get_expired_dns_behavior(parameters Nw_parameters_t) unsafe.Pointer {
+func Nw_parameters_get_expired_dns_behavior(parameters Nw_parameters_t) NwParametersExpiredDnsBehavior {
 	if _nw_parameters_get_expired_dns_behavior == nil {
 		panic("Network: symbol nw_parameters_get_expired_dns_behavior not loaded")
 	}
@@ -2752,12 +2953,12 @@ func Nw_parameters_get_local_only(parameters Nw_parameters_t) bool {
 	return _nw_parameters_get_local_only(parameters)
 }
 
-var _nw_parameters_get_multipath_service func(parameters Nw_parameters_t) unsafe.Pointer
+var _nw_parameters_get_multipath_service func(parameters Nw_parameters_t) NwMultipathService
 
 // Nw_parameters_get_multipath_service checks if multipath is enabled on a connection.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_get_multipath_service(_:)
-func Nw_parameters_get_multipath_service(parameters Nw_parameters_t) unsafe.Pointer {
+func Nw_parameters_get_multipath_service(parameters Nw_parameters_t) NwMultipathService {
 	if _nw_parameters_get_multipath_service == nil {
 		panic("Network: symbol nw_parameters_get_multipath_service not loaded")
 	}
@@ -2800,12 +3001,12 @@ func Nw_parameters_get_prohibit_expensive(parameters Nw_parameters_t) bool {
 	return _nw_parameters_get_prohibit_expensive(parameters)
 }
 
-var _nw_parameters_get_required_interface_type func(parameters Nw_parameters_t) unsafe.Pointer
+var _nw_parameters_get_required_interface_type func(parameters Nw_parameters_t) NwInterfaceType
 
 // Nw_parameters_get_required_interface_type accesses the interface type required on connections and listeners.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_get_required_interface_type(_:)
-func Nw_parameters_get_required_interface_type(parameters Nw_parameters_t) unsafe.Pointer {
+func Nw_parameters_get_required_interface_type(parameters Nw_parameters_t) NwInterfaceType {
 	if _nw_parameters_get_required_interface_type == nil {
 		panic("Network: symbol nw_parameters_get_required_interface_type not loaded")
 	}
@@ -2824,19 +3025,19 @@ func Nw_parameters_get_reuse_local_address(parameters Nw_parameters_t) bool {
 	return _nw_parameters_get_reuse_local_address(parameters)
 }
 
-var _nw_parameters_get_service_class func(parameters Nw_parameters_t) unsafe.Pointer
+var _nw_parameters_get_service_class func(parameters Nw_parameters_t) NwServiceClass
 
 // Nw_parameters_get_service_class checks the level of service quality used for connections.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_get_service_class(_:)
-func Nw_parameters_get_service_class(parameters Nw_parameters_t) unsafe.Pointer {
+func Nw_parameters_get_service_class(parameters Nw_parameters_t) NwServiceClass {
 	if _nw_parameters_get_service_class == nil {
 		panic("Network: symbol nw_parameters_get_service_class not loaded")
 	}
 	return _nw_parameters_get_service_class(parameters)
 }
 
-var _nw_parameters_iterate_prohibited_interface_types func(parameters Nw_parameters_t, iterate_block Nw_parameters_iterate_interface_types_block_t)
+var _nw_parameters_iterate_prohibited_interface_types func(parameters Nw_parameters_t, iterate_block unsafe.Pointer)
 
 // Nw_parameters_iterate_prohibited_interface_types examines the list of prohibited interface types.
 //
@@ -2845,10 +3046,13 @@ func Nw_parameters_iterate_prohibited_interface_types(parameters Nw_parameters_t
 	if _nw_parameters_iterate_prohibited_interface_types == nil {
 		panic("Network: symbol nw_parameters_iterate_prohibited_interface_types not loaded")
 	}
-	_nw_parameters_iterate_prohibited_interface_types(parameters, iterate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 NwInterfaceType) bool { return iterate_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_parameters_iterate_prohibited_interface_types(parameters, _block0)
 }
 
-var _nw_parameters_iterate_prohibited_interfaces func(parameters Nw_parameters_t, iterate_block Nw_parameters_iterate_interfaces_block_t)
+var _nw_parameters_iterate_prohibited_interfaces func(parameters Nw_parameters_t, iterate_block unsafe.Pointer)
 
 // Nw_parameters_iterate_prohibited_interfaces examines the list of prohibited interfaces.
 //
@@ -2857,7 +3061,10 @@ func Nw_parameters_iterate_prohibited_interfaces(parameters Nw_parameters_t, ite
 	if _nw_parameters_iterate_prohibited_interfaces == nil {
 		panic("Network: symbol nw_parameters_iterate_prohibited_interfaces not loaded")
 	}
-	_nw_parameters_iterate_prohibited_interfaces(parameters, iterate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) bool { return iterate_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_parameters_iterate_prohibited_interfaces(parameters, _block0)
 }
 
 var _nw_parameters_prohibit_interface func(parameters Nw_parameters_t, interface_ Nw_interface_t)
@@ -2872,12 +3079,12 @@ func Nw_parameters_prohibit_interface(parameters Nw_parameters_t, interface_ Nw_
 	_nw_parameters_prohibit_interface(parameters, interface_)
 }
 
-var _nw_parameters_prohibit_interface_type func(parameters Nw_parameters_t, interface_type unsafe.Pointer)
+var _nw_parameters_prohibit_interface_type func(parameters Nw_parameters_t, interface_type NwInterfaceType)
 
 // Nw_parameters_prohibit_interface_type prevents connections, listeners, and browsers from using a specific interface type.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_prohibit_interface_type(_:_:)
-func Nw_parameters_prohibit_interface_type(parameters Nw_parameters_t, interface_type unsafe.Pointer) {
+func Nw_parameters_prohibit_interface_type(parameters Nw_parameters_t, interface_type NwInterfaceType) {
 	if _nw_parameters_prohibit_interface_type == nil {
 		panic("Network: symbol nw_parameters_prohibit_interface_type not loaded")
 	}
@@ -2920,12 +3127,24 @@ func Nw_parameters_set_allow_ultra_constrained(parameters Nw_parameters_t, allow
 	_nw_parameters_set_allow_ultra_constrained(parameters, allow_ultra_constrained)
 }
 
-var _nw_parameters_set_expired_dns_behavior func(parameters Nw_parameters_t, expired_dns_behavior unsafe.Pointer)
+var _nw_parameters_set_attribution func(parameters Nw_parameters_t, attribution Nw_parameters_attribution_t)
+
+// Nw_parameters_set_attribution sets a flag that indicates whether the network request originates from the developer or the user.
+//
+// See: https://developer.apple.com/documentation/Network/nw_parameters_set_attribution(_:_:)
+func Nw_parameters_set_attribution(parameters Nw_parameters_t, attribution Nw_parameters_attribution_t) {
+	if _nw_parameters_set_attribution == nil {
+		panic("Network: symbol nw_parameters_set_attribution not loaded")
+	}
+	_nw_parameters_set_attribution(parameters, attribution)
+}
+
+var _nw_parameters_set_expired_dns_behavior func(parameters Nw_parameters_t, expired_dns_behavior NwParametersExpiredDnsBehavior)
 
 // Nw_parameters_set_expired_dns_behavior sets the behavior for how expired DNS answers should be used.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_set_expired_dns_behavior(_:_:)
-func Nw_parameters_set_expired_dns_behavior(parameters Nw_parameters_t, expired_dns_behavior unsafe.Pointer) {
+func Nw_parameters_set_expired_dns_behavior(parameters Nw_parameters_t, expired_dns_behavior NwParametersExpiredDnsBehavior) {
 	if _nw_parameters_set_expired_dns_behavior == nil {
 		panic("Network: symbol nw_parameters_set_expired_dns_behavior not loaded")
 	}
@@ -2980,12 +3199,12 @@ func Nw_parameters_set_local_only(parameters Nw_parameters_t, local_only bool) {
 	_nw_parameters_set_local_only(parameters, local_only)
 }
 
-var _nw_parameters_set_multipath_service func(parameters Nw_parameters_t, multipath_service unsafe.Pointer)
+var _nw_parameters_set_multipath_service func(parameters Nw_parameters_t, multipath_service NwMultipathService)
 
 // Nw_parameters_set_multipath_service enables multipath protocols to allow connections to use multiple interfaces.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_set_multipath_service(_:_:)
-func Nw_parameters_set_multipath_service(parameters Nw_parameters_t, multipath_service unsafe.Pointer) {
+func Nw_parameters_set_multipath_service(parameters Nw_parameters_t, multipath_service NwMultipathService) {
 	if _nw_parameters_set_multipath_service == nil {
 		panic("Network: symbol nw_parameters_set_multipath_service not loaded")
 	}
@@ -3040,12 +3259,12 @@ func Nw_parameters_set_prohibit_expensive(parameters Nw_parameters_t, prohibit_e
 	_nw_parameters_set_prohibit_expensive(parameters, prohibit_expensive)
 }
 
-var _nw_parameters_set_required_interface_type func(parameters Nw_parameters_t, interface_type unsafe.Pointer)
+var _nw_parameters_set_required_interface_type func(parameters Nw_parameters_t, interface_type NwInterfaceType)
 
 // Nw_parameters_set_required_interface_type sets an interface type to require on connections and listeners.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_set_required_interface_type(_:_:)
-func Nw_parameters_set_required_interface_type(parameters Nw_parameters_t, interface_type unsafe.Pointer) {
+func Nw_parameters_set_required_interface_type(parameters Nw_parameters_t, interface_type NwInterfaceType) {
 	if _nw_parameters_set_required_interface_type == nil {
 		panic("Network: symbol nw_parameters_set_required_interface_type not loaded")
 	}
@@ -3076,12 +3295,12 @@ func Nw_parameters_set_reuse_local_address(parameters Nw_parameters_t, reuse_loc
 	_nw_parameters_set_reuse_local_address(parameters, reuse_local_address)
 }
 
-var _nw_parameters_set_service_class func(parameters Nw_parameters_t, service_class unsafe.Pointer)
+var _nw_parameters_set_service_class func(parameters Nw_parameters_t, service_class NwServiceClass)
 
 // Nw_parameters_set_service_class sets a level of service quality to use for connections.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_set_service_class(_:_:)
-func Nw_parameters_set_service_class(parameters Nw_parameters_t, service_class unsafe.Pointer) {
+func Nw_parameters_set_service_class(parameters Nw_parameters_t, service_class NwServiceClass) {
 	if _nw_parameters_set_service_class == nil {
 		panic("Network: symbol nw_parameters_set_service_class not loaded")
 	}
@@ -3112,7 +3331,7 @@ func Nw_path_copy_effective_remote_endpoint(path Nw_path_t) Nw_endpoint_t {
 	return _nw_path_copy_effective_remote_endpoint(path)
 }
 
-var _nw_path_enumerate_gateways func(path Nw_path_t, enumerate_block Nw_path_enumerate_gateways_block_t)
+var _nw_path_enumerate_gateways func(path Nw_path_t, enumerate_block unsafe.Pointer)
 
 // Nw_path_enumerate_gateways enumerates the list of gateways configured on the interfaces available to a path.
 //
@@ -3121,10 +3340,13 @@ func Nw_path_enumerate_gateways(path Nw_path_t, enumerate_block Nw_path_enumerat
 	if _nw_path_enumerate_gateways == nil {
 		panic("Network: symbol nw_path_enumerate_gateways not loaded")
 	}
-	_nw_path_enumerate_gateways(path, enumerate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) bool { return enumerate_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_path_enumerate_gateways(path, _block0)
 }
 
-var _nw_path_enumerate_interfaces func(path Nw_path_t, enumerate_block Nw_path_enumerate_interfaces_block_t)
+var _nw_path_enumerate_interfaces func(path Nw_path_t, enumerate_block unsafe.Pointer)
 
 // Nw_path_enumerate_interfaces enumerates the list of all interfaces available to the path, in order of preference.
 //
@@ -3133,39 +3355,42 @@ func Nw_path_enumerate_interfaces(path Nw_path_t, enumerate_block Nw_path_enumer
 	if _nw_path_enumerate_interfaces == nil {
 		panic("Network: symbol nw_path_enumerate_interfaces not loaded")
 	}
-	_nw_path_enumerate_interfaces(path, enumerate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) bool { return enumerate_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_path_enumerate_interfaces(path, _block0)
 }
 
-var _nw_path_get_link_quality func(path Nw_path_t) unsafe.Pointer
+var _nw_path_get_link_quality func(path Nw_path_t) NwLinkQuality
 
 // Nw_path_get_link_quality.
 //
 // See: https://developer.apple.com/documentation/Network/nw_path_get_link_quality(_:)
-func Nw_path_get_link_quality(path Nw_path_t) unsafe.Pointer {
+func Nw_path_get_link_quality(path Nw_path_t) NwLinkQuality {
 	if _nw_path_get_link_quality == nil {
 		panic("Network: symbol nw_path_get_link_quality not loaded")
 	}
 	return _nw_path_get_link_quality(path)
 }
 
-var _nw_path_get_status func(path Nw_path_t) unsafe.Pointer
+var _nw_path_get_status func(path Nw_path_t) NwPathStatus
 
 // Nw_path_get_status checks whether a path can be used by connections.
 //
 // See: https://developer.apple.com/documentation/Network/nw_path_get_status(_:)
-func Nw_path_get_status(path Nw_path_t) unsafe.Pointer {
+func Nw_path_get_status(path Nw_path_t) NwPathStatus {
 	if _nw_path_get_status == nil {
 		panic("Network: symbol nw_path_get_status not loaded")
 	}
 	return _nw_path_get_status(path)
 }
 
-var _nw_path_get_unsatisfied_reason func(path Nw_path_t) unsafe.Pointer
+var _nw_path_get_unsatisfied_reason func(path Nw_path_t) NwPathUnsatisfiedReason
 
 // Nw_path_get_unsatisfied_reason.
 //
 // See: https://developer.apple.com/documentation/Network/nw_path_get_unsatisfied_reason(_:)
-func Nw_path_get_unsatisfied_reason(path Nw_path_t) unsafe.Pointer {
+func Nw_path_get_unsatisfied_reason(path Nw_path_t) NwPathUnsatisfiedReason {
 	if _nw_path_get_unsatisfied_reason == nil {
 		panic("Network: symbol nw_path_get_unsatisfied_reason not loaded")
 	}
@@ -3292,31 +3517,31 @@ func Nw_path_monitor_create_for_ethernet_channel() Nw_path_monitor_t {
 	return _nw_path_monitor_create_for_ethernet_channel()
 }
 
-var _nw_path_monitor_create_with_type func(required_interface_type unsafe.Pointer) Nw_path_monitor_t
+var _nw_path_monitor_create_with_type func(required_interface_type NwInterfaceType) Nw_path_monitor_t
 
 // Nw_path_monitor_create_with_type initializes a path monitor to observe a specific interface type.
 //
 // See: https://developer.apple.com/documentation/Network/nw_path_monitor_create_with_type(_:)
-func Nw_path_monitor_create_with_type(required_interface_type unsafe.Pointer) Nw_path_monitor_t {
+func Nw_path_monitor_create_with_type(required_interface_type NwInterfaceType) Nw_path_monitor_t {
 	if _nw_path_monitor_create_with_type == nil {
 		panic("Network: symbol nw_path_monitor_create_with_type not loaded")
 	}
 	return _nw_path_monitor_create_with_type(required_interface_type)
 }
 
-var _nw_path_monitor_prohibit_interface_type func(monitor Nw_path_monitor_t, interface_type unsafe.Pointer)
+var _nw_path_monitor_prohibit_interface_type func(monitor Nw_path_monitor_t, interface_type NwInterfaceType)
 
 // Nw_path_monitor_prohibit_interface_type prohibit a path monitor from using a specific interface type.
 //
 // See: https://developer.apple.com/documentation/Network/nw_path_monitor_prohibit_interface_type(_:_:)
-func Nw_path_monitor_prohibit_interface_type(monitor Nw_path_monitor_t, interface_type unsafe.Pointer) {
+func Nw_path_monitor_prohibit_interface_type(monitor Nw_path_monitor_t, interface_type NwInterfaceType) {
 	if _nw_path_monitor_prohibit_interface_type == nil {
 		panic("Network: symbol nw_path_monitor_prohibit_interface_type not loaded")
 	}
 	_nw_path_monitor_prohibit_interface_type(monitor, interface_type)
 }
 
-var _nw_path_monitor_set_cancel_handler func(monitor Nw_path_monitor_t, cancel_handler Nw_path_monitor_cancel_handler_t)
+var _nw_path_monitor_set_cancel_handler func(monitor Nw_path_monitor_t, cancel_handler unsafe.Pointer)
 
 // Nw_path_monitor_set_cancel_handler sets a handler to determine when a monitor is fully cancelled and will no longer deliver events.
 //
@@ -3325,7 +3550,10 @@ func Nw_path_monitor_set_cancel_handler(monitor Nw_path_monitor_t, cancel_handle
 	if _nw_path_monitor_set_cancel_handler == nil {
 		panic("Network: symbol nw_path_monitor_set_cancel_handler not loaded")
 	}
-	_nw_path_monitor_set_cancel_handler(monitor, cancel_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block) { cancel_handler() })
+	retainNetworkAsyncBlock(monitor.ID, "nw_path_monitor_set_cancel_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_path_monitor_set_cancel_handler(monitor, _block0)
 }
 
 var _nw_path_monitor_set_queue func(monitor Nw_path_monitor_t, queue uintptr)
@@ -3340,7 +3568,7 @@ func Nw_path_monitor_set_queue(monitor Nw_path_monitor_t, queue dispatch.Queue) 
 	_nw_path_monitor_set_queue(monitor, uintptr(queue.Handle()))
 }
 
-var _nw_path_monitor_set_update_handler func(monitor Nw_path_monitor_t, update_handler Nw_path_monitor_update_handler_t)
+var _nw_path_monitor_set_update_handler func(monitor Nw_path_monitor_t, update_handler unsafe.Pointer)
 
 // Nw_path_monitor_set_update_handler sets a handler to receive network path updates.
 //
@@ -3349,7 +3577,10 @@ func Nw_path_monitor_set_update_handler(monitor Nw_path_monitor_t, update_handle
 	if _nw_path_monitor_set_update_handler == nil {
 		panic("Network: symbol nw_path_monitor_set_update_handler not loaded")
 	}
-	_nw_path_monitor_set_update_handler(monitor, update_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { update_handler(arg0) })
+	retainNetworkAsyncBlock(monitor.ID, "nw_path_monitor_set_update_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_path_monitor_set_update_handler(monitor, _block0)
 }
 
 var _nw_path_monitor_start func(monitor Nw_path_monitor_t)
@@ -3364,12 +3595,12 @@ func Nw_path_monitor_start(monitor Nw_path_monitor_t) {
 	_nw_path_monitor_start(monitor)
 }
 
-var _nw_path_uses_interface_type func(path Nw_path_t, interface_type unsafe.Pointer) bool
+var _nw_path_uses_interface_type func(path Nw_path_t, interface_type NwInterfaceType) bool
 
 // Nw_path_uses_interface_type checks if connections using the path may send traffic over a specific interface type.
 //
 // See: https://developer.apple.com/documentation/Network/nw_path_uses_interface_type(_:_:)
-func Nw_path_uses_interface_type(path Nw_path_t, interface_type unsafe.Pointer) bool {
+func Nw_path_uses_interface_type(path Nw_path_t, interface_type NwInterfaceType) bool {
 	if _nw_path_uses_interface_type == nil {
 		panic("Network: symbol nw_path_uses_interface_type not loaded")
 	}
@@ -3688,7 +3919,7 @@ func Nw_protocol_stack_copy_transport_protocol(stack Nw_protocol_stack_t) Nw_pro
 	return _nw_protocol_stack_copy_transport_protocol(stack)
 }
 
-var _nw_protocol_stack_iterate_application_protocols func(stack Nw_protocol_stack_t, iterate_block Nw_protocol_stack_iterate_protocols_block_t)
+var _nw_protocol_stack_iterate_application_protocols func(stack Nw_protocol_stack_t, iterate_block unsafe.Pointer)
 
 // Nw_protocol_stack_iterate_application_protocols iterates through the array of application protocol options that will be used by connections and listeners.
 //
@@ -3697,7 +3928,10 @@ func Nw_protocol_stack_iterate_application_protocols(stack Nw_protocol_stack_t, 
 	if _nw_protocol_stack_iterate_application_protocols == nil {
 		panic("Network: symbol nw_protocol_stack_iterate_application_protocols not loaded")
 	}
-	_nw_protocol_stack_iterate_application_protocols(stack, iterate_block)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { iterate_block(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_protocol_stack_iterate_application_protocols(stack, _block0)
 }
 
 var _nw_protocol_stack_prepend_application_protocol func(stack Nw_protocol_stack_t, protocol_ Nw_protocol_options_t)
@@ -3820,7 +4054,7 @@ func Nw_proxy_config_create_socksv5(proxy_endpoint Nw_endpoint_t) Nw_proxy_confi
 	return _nw_proxy_config_create_socksv5(proxy_endpoint)
 }
 
-var _nw_proxy_config_enumerate_excluded_domains func(config Nw_proxy_config_t, enumerator Nw_proxy_domain_enumerator_t)
+var _nw_proxy_config_enumerate_excluded_domains func(config Nw_proxy_config_t, enumerator unsafe.Pointer)
 
 // Nw_proxy_config_enumerate_excluded_domains.
 //
@@ -3829,10 +4063,13 @@ func Nw_proxy_config_enumerate_excluded_domains(config Nw_proxy_config_t, enumer
 	if _nw_proxy_config_enumerate_excluded_domains == nil {
 		panic("Network: symbol nw_proxy_config_enumerate_excluded_domains not loaded")
 	}
-	_nw_proxy_config_enumerate_excluded_domains(config, enumerator)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string) { enumerator(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_proxy_config_enumerate_excluded_domains(config, _block0)
 }
 
-var _nw_proxy_config_enumerate_match_domains func(config Nw_proxy_config_t, enumerator Nw_proxy_domain_enumerator_t)
+var _nw_proxy_config_enumerate_match_domains func(config Nw_proxy_config_t, enumerator unsafe.Pointer)
 
 // Nw_proxy_config_enumerate_match_domains.
 //
@@ -3841,7 +4078,10 @@ func Nw_proxy_config_enumerate_match_domains(config Nw_proxy_config_t, enumerato
 	if _nw_proxy_config_enumerate_match_domains == nil {
 		panic("Network: symbol nw_proxy_config_enumerate_match_domains not loaded")
 	}
-	_nw_proxy_config_enumerate_match_domains(config, enumerator)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string) { enumerator(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_proxy_config_enumerate_match_domains(config, _block0)
 }
 
 var _nw_proxy_config_get_failover_allowed func(proxy_config Nw_proxy_config_t) bool
@@ -4480,24 +4720,24 @@ func Nw_resolution_report_get_milliseconds(resolution_report Nw_resolution_repor
 	return _nw_resolution_report_get_milliseconds(resolution_report)
 }
 
-var _nw_resolution_report_get_protocol func(resolution_report Nw_resolution_report_t) unsafe.Pointer
+var _nw_resolution_report_get_protocol func(resolution_report Nw_resolution_report_t) NwReportResolutionProtocol
 
 // Nw_resolution_report_get_protocol accesses the transport protocol your connection used for DNS resolution.
 //
 // See: https://developer.apple.com/documentation/Network/nw_resolution_report_get_protocol(_:)
-func Nw_resolution_report_get_protocol(resolution_report Nw_resolution_report_t) unsafe.Pointer {
+func Nw_resolution_report_get_protocol(resolution_report Nw_resolution_report_t) NwReportResolutionProtocol {
 	if _nw_resolution_report_get_protocol == nil {
 		panic("Network: symbol nw_resolution_report_get_protocol not loaded")
 	}
 	return _nw_resolution_report_get_protocol(resolution_report)
 }
 
-var _nw_resolution_report_get_source func(resolution_report Nw_resolution_report_t) unsafe.Pointer
+var _nw_resolution_report_get_source func(resolution_report Nw_resolution_report_t) NwReportResolutionSource
 
 // Nw_resolution_report_get_source accesses the source of the DNS response.
 //
 // See: https://developer.apple.com/documentation/Network/nw_resolution_report_get_source(_:)
-func Nw_resolution_report_get_source(resolution_report Nw_resolution_report_t) unsafe.Pointer {
+func Nw_resolution_report_get_source(resolution_report Nw_resolution_report_t) NwReportResolutionSource {
 	if _nw_resolution_report_get_source == nil {
 		panic("Network: symbol nw_resolution_report_get_source not loaded")
 	}
@@ -4696,12 +4936,12 @@ func Nw_tcp_options_set_maximum_segment_size(options Nw_protocol_options_t, maxi
 	_nw_tcp_options_set_maximum_segment_size(options, maximum_segment_size)
 }
 
-var _nw_tcp_options_set_multipath_force_version func(options Nw_protocol_options_t, multipath_force_version unsafe.Pointer)
+var _nw_tcp_options_set_multipath_force_version func(options Nw_protocol_options_t, multipath_force_version NwMultipathVersion)
 
 // Nw_tcp_options_set_multipath_force_version.
 //
 // See: https://developer.apple.com/documentation/Network/nw_tcp_options_set_multipath_force_version(_:_:)
-func Nw_tcp_options_set_multipath_force_version(options Nw_protocol_options_t, multipath_force_version unsafe.Pointer) {
+func Nw_tcp_options_set_multipath_force_version(options Nw_protocol_options_t, multipath_force_version NwMultipathVersion) {
 	if _nw_tcp_options_set_multipath_force_version == nil {
 		panic("Network: symbol nw_tcp_options_set_multipath_force_version not loaded")
 	}
@@ -4816,7 +5056,7 @@ func Nw_tls_create_options() Nw_protocol_options_t {
 	return _nw_tls_create_options()
 }
 
-var _nw_txt_record_access_bytes func(txt_record Nw_txt_record_t, access_bytes Nw_txt_record_access_bytes_t) bool
+var _nw_txt_record_access_bytes func(txt_record Nw_txt_record_t, access_bytes unsafe.Pointer) bool
 
 // Nw_txt_record_access_bytes accesses the raw bytes contained within a TXT record.
 //
@@ -4825,10 +5065,13 @@ func Nw_txt_record_access_bytes(txt_record Nw_txt_record_t, access_bytes Nw_txt_
 	if _nw_txt_record_access_bytes == nil {
 		panic("Network: symbol nw_txt_record_access_bytes not loaded")
 	}
-	return _nw_txt_record_access_bytes(txt_record, access_bytes)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *uint8, arg1 uint32) bool { return access_bytes(arg0, arg1) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_txt_record_access_bytes(txt_record, _block0)
 }
 
-var _nw_txt_record_access_key func(txt_record Nw_txt_record_t, key string, access_value Nw_txt_record_access_key_t) bool
+var _nw_txt_record_access_key func(txt_record Nw_txt_record_t, key string, access_value unsafe.Pointer) bool
 
 // Nw_txt_record_access_key accesses the value for a specific key in a TXT record dictionary.
 //
@@ -4837,10 +5080,15 @@ func Nw_txt_record_access_key(txt_record Nw_txt_record_t, key string, access_val
 	if _nw_txt_record_access_key == nil {
 		panic("Network: symbol nw_txt_record_access_key not loaded")
 	}
-	return _nw_txt_record_access_key(txt_record, key, access_value)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string, arg1 NwTxtRecordFindKey, arg2 *uint8, arg3 uint32) bool {
+		return access_value(arg0, arg1, arg2, arg3)
+	})
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_txt_record_access_key(txt_record, key, _block0)
 }
 
-var _nw_txt_record_apply func(txt_record Nw_txt_record_t, applier Nw_txt_record_applier_t) bool
+var _nw_txt_record_apply func(txt_record Nw_txt_record_t, applier unsafe.Pointer) bool
 
 // Nw_txt_record_apply iterates through all keys in a TXT record dictionary.
 //
@@ -4849,7 +5097,12 @@ func Nw_txt_record_apply(txt_record Nw_txt_record_t, applier Nw_txt_record_appli
 	if _nw_txt_record_apply == nil {
 		panic("Network: symbol nw_txt_record_apply not loaded")
 	}
-	return _nw_txt_record_apply(txt_record, applier)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string, arg1 NwTxtRecordFindKey, arg2 *uint8, arg3 uint32) bool {
+		return applier(arg0, arg1, arg2, arg3)
+	})
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_txt_record_apply(txt_record, _block0)
 }
 
 var _nw_txt_record_copy func(txt_record Nw_txt_record_t) Nw_txt_record_t
@@ -4888,12 +5141,12 @@ func Nw_txt_record_create_with_bytes(txt_bytes *uint8, txt_len uintptr) Nw_txt_r
 	return _nw_txt_record_create_with_bytes(txt_bytes, txt_len)
 }
 
-var _nw_txt_record_find_key func(txt_record Nw_txt_record_t, key string) unsafe.Pointer
+var _nw_txt_record_find_key func(txt_record Nw_txt_record_t, key string) NwTxtRecordFindKey
 
 // Nw_txt_record_find_key checks the status of value associated with a key in a TXT record dictionary.
 //
 // See: https://developer.apple.com/documentation/Network/nw_txt_record_find_key(_:_:)
-func Nw_txt_record_find_key(txt_record Nw_txt_record_t, key string) unsafe.Pointer {
+func Nw_txt_record_find_key(txt_record Nw_txt_record_t, key string) NwTxtRecordFindKey {
 	if _nw_txt_record_find_key == nil {
 		panic("Network: symbol nw_txt_record_find_key not loaded")
 	}
@@ -4996,24 +5249,24 @@ func Nw_udp_options_set_prefer_no_checksum(options Nw_protocol_options_t, prefer
 	_nw_udp_options_set_prefer_no_checksum(options, prefer_no_checksum)
 }
 
-var _nw_ws_create_metadata func(opcode unsafe.Pointer) Nw_protocol_metadata_t
+var _nw_ws_create_metadata func(opcode NwWsOpcode) Nw_protocol_metadata_t
 
 // Nw_ws_create_metadata initializes a WebSocket message with a specific type code.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_create_metadata(_:)
-func Nw_ws_create_metadata(opcode unsafe.Pointer) Nw_protocol_metadata_t {
+func Nw_ws_create_metadata(opcode NwWsOpcode) Nw_protocol_metadata_t {
 	if _nw_ws_create_metadata == nil {
 		panic("Network: symbol nw_ws_create_metadata not loaded")
 	}
 	return _nw_ws_create_metadata(opcode)
 }
 
-var _nw_ws_create_options func(version unsafe.Pointer) Nw_protocol_options_t
+var _nw_ws_create_options func(version NwWsVersion) Nw_protocol_options_t
 
 // Nw_ws_create_options initializes a default set of WebSocket connection options.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_create_options(_:)
-func Nw_ws_create_options(version unsafe.Pointer) Nw_protocol_options_t {
+func Nw_ws_create_options(version NwWsVersion) Nw_protocol_options_t {
 	if _nw_ws_create_options == nil {
 		panic("Network: symbol nw_ws_create_options not loaded")
 	}
@@ -5032,43 +5285,43 @@ func Nw_ws_metadata_copy_server_response(metadata Nw_protocol_metadata_t) Nw_ws_
 	return _nw_ws_metadata_copy_server_response(metadata)
 }
 
-var _nw_ws_metadata_get_close_code func(metadata Nw_protocol_metadata_t) unsafe.Pointer
+var _nw_ws_metadata_get_close_code func(metadata Nw_protocol_metadata_t) NwWsCloseCode
 
 // Nw_ws_metadata_get_close_code accesses the close code on a WebSocket message.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_metadata_get_close_code(_:)
-func Nw_ws_metadata_get_close_code(metadata Nw_protocol_metadata_t) unsafe.Pointer {
+func Nw_ws_metadata_get_close_code(metadata Nw_protocol_metadata_t) NwWsCloseCode {
 	if _nw_ws_metadata_get_close_code == nil {
 		panic("Network: symbol nw_ws_metadata_get_close_code not loaded")
 	}
 	return _nw_ws_metadata_get_close_code(metadata)
 }
 
-var _nw_ws_metadata_get_opcode func(metadata Nw_protocol_metadata_t) unsafe.Pointer
+var _nw_ws_metadata_get_opcode func(metadata Nw_protocol_metadata_t) NwWsOpcode
 
 // Nw_ws_metadata_get_opcode checks the type code on a WebSocket message.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_metadata_get_opcode(_:)
-func Nw_ws_metadata_get_opcode(metadata Nw_protocol_metadata_t) unsafe.Pointer {
+func Nw_ws_metadata_get_opcode(metadata Nw_protocol_metadata_t) NwWsOpcode {
 	if _nw_ws_metadata_get_opcode == nil {
 		panic("Network: symbol nw_ws_metadata_get_opcode not loaded")
 	}
 	return _nw_ws_metadata_get_opcode(metadata)
 }
 
-var _nw_ws_metadata_set_close_code func(metadata Nw_protocol_metadata_t, close_code unsafe.Pointer)
+var _nw_ws_metadata_set_close_code func(metadata Nw_protocol_metadata_t, close_code NwWsCloseCode)
 
 // Nw_ws_metadata_set_close_code sets a close code on a WebSocket message.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_metadata_set_close_code(_:_:)
-func Nw_ws_metadata_set_close_code(metadata Nw_protocol_metadata_t, close_code unsafe.Pointer) {
+func Nw_ws_metadata_set_close_code(metadata Nw_protocol_metadata_t, close_code NwWsCloseCode) {
 	if _nw_ws_metadata_set_close_code == nil {
 		panic("Network: symbol nw_ws_metadata_set_close_code not loaded")
 	}
 	_nw_ws_metadata_set_close_code(metadata, close_code)
 }
 
-var _nw_ws_metadata_set_pong_handler func(metadata Nw_protocol_metadata_t, client_queue uintptr, pong_handler Nw_ws_pong_handler_t)
+var _nw_ws_metadata_set_pong_handler func(metadata Nw_protocol_metadata_t, client_queue uintptr, pong_handler unsafe.Pointer)
 
 // Nw_ws_metadata_set_pong_handler sets a handler on a Ping message to be invoked when the corresponding Pong message is received.
 //
@@ -5077,7 +5330,10 @@ func Nw_ws_metadata_set_pong_handler(metadata Nw_protocol_metadata_t, client_que
 	if _nw_ws_metadata_set_pong_handler == nil {
 		panic("Network: symbol nw_ws_metadata_set_pong_handler not loaded")
 	}
-	_nw_ws_metadata_set_pong_handler(metadata, uintptr(client_queue.Handle()), pong_handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { pong_handler(arg0) })
+	retainNetworkAsyncBlock(metadata.ID, "nw_ws_metadata_set_pong_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_ws_metadata_set_pong_handler(metadata, uintptr(client_queue.Handle()), _block0)
 }
 
 var _nw_ws_options_add_additional_header func(options Nw_protocol_options_t, name string, value string)
@@ -5116,7 +5372,7 @@ func Nw_ws_options_set_auto_reply_ping(options Nw_protocol_options_t, auto_reply
 	_nw_ws_options_set_auto_reply_ping(options, auto_reply_ping)
 }
 
-var _nw_ws_options_set_client_request_handler func(options Nw_protocol_options_t, client_queue uintptr, handler Nw_ws_client_request_handler_t)
+var _nw_ws_options_set_client_request_handler func(options Nw_protocol_options_t, client_queue uintptr, handler unsafe.Pointer)
 
 // Nw_ws_options_set_client_request_handler sets a handler to react to as a server to inbound WebSocket client handshakes.
 //
@@ -5125,7 +5381,10 @@ func Nw_ws_options_set_client_request_handler(options Nw_protocol_options_t, cli
 	if _nw_ws_options_set_client_request_handler == nil {
 		panic("Network: symbol nw_ws_options_set_client_request_handler not loaded")
 	}
-	_nw_ws_options_set_client_request_handler(options, uintptr(client_queue.Handle()), handler)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) objectivec.Object { return handler(arg0) })
+	retainNetworkAsyncBlock(options.ID, "nw_ws_options_set_client_request_handler:0", _block0Value)
+	_block0 := unsafe.Pointer(_block0Value)
+	_nw_ws_options_set_client_request_handler(options, uintptr(client_queue.Handle()), _block0)
 }
 
 var _nw_ws_options_set_maximum_message_size func(options Nw_protocol_options_t, maximum_message_size uintptr)
@@ -5152,7 +5411,7 @@ func Nw_ws_options_set_skip_handshake(options Nw_protocol_options_t, skip_handsh
 	_nw_ws_options_set_skip_handshake(options, skip_handshake)
 }
 
-var _nw_ws_request_enumerate_additional_headers func(request Nw_ws_request_t, enumerator Nw_ws_additional_header_enumerator_t) bool
+var _nw_ws_request_enumerate_additional_headers func(request Nw_ws_request_t, enumerator unsafe.Pointer) bool
 
 // Nw_ws_request_enumerate_additional_headers enumerates additional HTTP headers in a WebSocket message.
 //
@@ -5161,10 +5420,13 @@ func Nw_ws_request_enumerate_additional_headers(request Nw_ws_request_t, enumera
 	if _nw_ws_request_enumerate_additional_headers == nil {
 		panic("Network: symbol nw_ws_request_enumerate_additional_headers not loaded")
 	}
-	return _nw_ws_request_enumerate_additional_headers(request, enumerator)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string, arg1 string) bool { return enumerator(arg0, arg1) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_ws_request_enumerate_additional_headers(request, _block0)
 }
 
-var _nw_ws_request_enumerate_subprotocols func(request Nw_ws_request_t, enumerator Nw_ws_subprotocol_enumerator_t) bool
+var _nw_ws_request_enumerate_subprotocols func(request Nw_ws_request_t, enumerator unsafe.Pointer) bool
 
 // Nw_ws_request_enumerate_subprotocols enumerates the supported subprotocols in a WebSocket message.
 //
@@ -5173,7 +5435,10 @@ func Nw_ws_request_enumerate_subprotocols(request Nw_ws_request_t, enumerator Nw
 	if _nw_ws_request_enumerate_subprotocols == nil {
 		panic("Network: symbol nw_ws_request_enumerate_subprotocols not loaded")
 	}
-	return _nw_ws_request_enumerate_subprotocols(request, enumerator)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string) bool { return enumerator(arg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_ws_request_enumerate_subprotocols(request, _block0)
 }
 
 var _nw_ws_response_add_additional_header func(response Nw_ws_response_t, name string, value string)
@@ -5188,19 +5453,19 @@ func Nw_ws_response_add_additional_header(response Nw_ws_response_t, name string
 	_nw_ws_response_add_additional_header(response, name, value)
 }
 
-var _nw_ws_response_create func(status unsafe.Pointer, selected_subprotocol string) Nw_ws_response_t
+var _nw_ws_response_create func(status NwWsResponseStatus, selected_subprotocol string) Nw_ws_response_t
 
 // Nw_ws_response_create initializes a WebSocket server response with a status and selected subprotocol.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_response_create(_:_:)
-func Nw_ws_response_create(status unsafe.Pointer, selected_subprotocol string) Nw_ws_response_t {
+func Nw_ws_response_create(status NwWsResponseStatus, selected_subprotocol string) Nw_ws_response_t {
 	if _nw_ws_response_create == nil {
 		panic("Network: symbol nw_ws_response_create not loaded")
 	}
 	return _nw_ws_response_create(status, selected_subprotocol)
 }
 
-var _nw_ws_response_enumerate_additional_headers func(response Nw_ws_response_t, enumerator Nw_ws_additional_header_enumerator_t) bool
+var _nw_ws_response_enumerate_additional_headers func(response Nw_ws_response_t, enumerator unsafe.Pointer) bool
 
 // Nw_ws_response_enumerate_additional_headers enumerates the additional HTTP headers in a WebSocket server response.
 //
@@ -5209,7 +5474,10 @@ func Nw_ws_response_enumerate_additional_headers(response Nw_ws_response_t, enum
 	if _nw_ws_response_enumerate_additional_headers == nil {
 		panic("Network: symbol nw_ws_response_enumerate_additional_headers not loaded")
 	}
-	return _nw_ws_response_enumerate_additional_headers(response, enumerator)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string, arg1 string) bool { return enumerator(arg0, arg1) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _nw_ws_response_enumerate_additional_headers(response, _block0)
 }
 
 var _nw_ws_response_get_selected_subprotocol func(response Nw_ws_response_t) *byte
@@ -5224,12 +5492,12 @@ func Nw_ws_response_get_selected_subprotocol(response Nw_ws_response_t) *byte {
 	return _nw_ws_response_get_selected_subprotocol(response)
 }
 
-var _nw_ws_response_get_status func(response Nw_ws_response_t) unsafe.Pointer
+var _nw_ws_response_get_status func(response Nw_ws_response_t) NwWsResponseStatus
 
 // Nw_ws_response_get_status accesses the status of a WebSocket server response.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_response_get_status(_:)
-func Nw_ws_response_get_status(response Nw_ws_response_t) unsafe.Pointer {
+func Nw_ws_response_get_status(response Nw_ws_response_t) NwWsResponseStatus {
 	if _nw_ws_response_get_status == nil {
 		panic("Network: symbol nw_ws_response_get_status not loaded")
 	}
@@ -5462,6 +5730,7 @@ func init() {
 	registerFunc(&_nw_parameters_create_secure_tcp, frameworkHandle, "nw_parameters_create_secure_tcp")
 	registerFunc(&_nw_parameters_create_secure_udp, frameworkHandle, "nw_parameters_create_secure_udp")
 	registerFunc(&_nw_parameters_get_allow_ultra_constrained, frameworkHandle, "nw_parameters_get_allow_ultra_constrained")
+	registerFunc(&_nw_parameters_get_attribution, frameworkHandle, "nw_parameters_get_attribution")
 	registerFunc(&_nw_parameters_get_expired_dns_behavior, frameworkHandle, "nw_parameters_get_expired_dns_behavior")
 	registerFunc(&_nw_parameters_get_fast_open_enabled, frameworkHandle, "nw_parameters_get_fast_open_enabled")
 	registerFunc(&_nw_parameters_get_include_peer_to_peer, frameworkHandle, "nw_parameters_get_include_peer_to_peer")
@@ -5480,6 +5749,7 @@ func init() {
 	registerFunc(&_nw_parameters_require_interface, frameworkHandle, "nw_parameters_require_interface")
 	registerFunc(&_nw_parameters_requires_dnssec_validation, frameworkHandle, "nw_parameters_requires_dnssec_validation")
 	registerFunc(&_nw_parameters_set_allow_ultra_constrained, frameworkHandle, "nw_parameters_set_allow_ultra_constrained")
+	registerFunc(&_nw_parameters_set_attribution, frameworkHandle, "nw_parameters_set_attribution")
 	registerFunc(&_nw_parameters_set_expired_dns_behavior, frameworkHandle, "nw_parameters_set_expired_dns_behavior")
 	registerFunc(&_nw_parameters_set_fast_open_enabled, frameworkHandle, "nw_parameters_set_fast_open_enabled")
 	registerFunc(&_nw_parameters_set_include_peer_to_peer, frameworkHandle, "nw_parameters_set_include_peer_to_peer")
