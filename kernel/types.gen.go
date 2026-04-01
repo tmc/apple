@@ -187,7 +187,18 @@ type FndrExtendedFileInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ioacpiaddressspacedescriptor
 type IOACPIAddressSpaceDescriptor struct {
-	Reserved2 uint64
+	MaxAddressRange   uint64
+	Reserved1         unsafe.Pointer
+	TypeSpecificFlags unsafe.Pointer
+	GeneralFlags      unsafe.Pointer
+	ResourceType      unsafe.Pointer
+	TranslationOffset uint64
+	Reserved3         uint64
+	MinAddressRange   uint64
+	Reserved2         uint64
+	Granularity       uint64
+	AddressLength     uint64
+	Reserved4         uint64
 }
 
 // IOACPIPlatformDevice
@@ -4329,7 +4340,18 @@ type Dyld_chained_starts_offsets struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_info_command
 type Dyld_info_command struct {
-	Bind_off unsafe.Pointer
+	Rebase_size    unsafe.Pointer
+	Lazy_bind_off  unsafe.Pointer
+	Cmd            unsafe.Pointer
+	Lazy_bind_size unsafe.Pointer
+	Bind_off       unsafe.Pointer
+	Export_size    unsafe.Pointer
+	Rebase_off     unsafe.Pointer
+	Bind_size      unsafe.Pointer
+	Weak_bind_size unsafe.Pointer
+	Weak_bind_off  unsafe.Pointer
+	Cmdsize        unsafe.Pointer
+	Export_off     unsafe.Pointer
 }
 
 // Dyld_shared_cache_loadinfo
@@ -4353,6 +4375,7 @@ type Dyld_shared_cache_loadinfo_v2 struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_uuid_info_32
 type Dyld_uuid_info_32 struct {
 	ImageLoadAddress unsafe.Pointer
+	ImageUUID        [16]byte
 }
 
 // Dyld_uuid_info_64
@@ -4398,7 +4421,18 @@ type Dylib_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dylib_module
 type Dylib_module struct {
-	Iextdefsym unsafe.Pointer
+	Objc_module_info_size unsafe.Pointer
+	Iextrel               unsafe.Pointer // The index into the external relocation table of the first entry provided by this module.
+	Ninit_nterm           unsafe.Pointer // Contains both the number of pointers in the module initialization (the low 16 bits) and the number of pointers in the module termination section (the high 16 bits) for this module.
+	Iinit_iterm           unsafe.Pointer
+	Objc_module_info_addr unsafe.Pointer
+	Irefsym               unsafe.Pointer
+	Nrefsym               unsafe.Pointer // The number of external reference entries provided by this module.
+	Nextrel               unsafe.Pointer
+	Iextdefsym            unsafe.Pointer
+	Ilocalsym             unsafe.Pointer
+	Nextdefsym            unsafe.Pointer
+	Nlocalsym             unsafe.Pointer
 }
 
 // Dylib_module_64
@@ -4406,13 +4440,18 @@ type Dylib_module struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dylib_module_64
 type Dylib_module_64 struct {
-	Ilocalsym   unsafe.Pointer
-	Nrefsym     unsafe.Pointer
-	Irefsym     unsafe.Pointer
-	Iinit_iterm unsafe.Pointer
-	Ninit_nterm unsafe.Pointer // Contains both the number of pointers in the module initialization (the low 16 bits) and the number of pointers in the module termination section (the high 16 bits) for this module.
-	Nextrel     unsafe.Pointer
-	Nlocalsym   unsafe.Pointer
+	Ilocalsym             unsafe.Pointer
+	Iextdefsym            unsafe.Pointer
+	Nrefsym               unsafe.Pointer
+	Nextdefsym            unsafe.Pointer
+	Iextrel               unsafe.Pointer
+	Objc_module_info_addr unsafe.Pointer
+	Objc_module_info_size unsafe.Pointer
+	Irefsym               unsafe.Pointer
+	Iinit_iterm           unsafe.Pointer
+	Ninit_nterm           unsafe.Pointer // Contains both the number of pointers in the module initialization (the low 16 bits) and the number of pointers in the module termination section (the high 16 bits) for this module.
+	Nextrel               unsafe.Pointer
+	Nlocalsym             unsafe.Pointer
 }
 
 // Dylib_reference
@@ -4429,7 +4468,6 @@ type Dylib_reference struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dylib_table_of_contents
 type Dylib_table_of_contents struct {
-	Module_index unsafe.Pointer
 	Symbol_index unsafe.Pointer // An index into the symbol table indicating the defined external symbol to which this entry refers.
 
 }
@@ -4439,7 +4477,9 @@ type Dylib_table_of_contents struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dylinker_command
 type Dylinker_command struct {
-	Cmd unsafe.Pointer
+	Cmdsize unsafe.Pointer
+	Name    unsafe.Pointer
+	Cmd     unsafe.Pointer
 }
 
 // Dysymtab_command
@@ -4447,7 +4487,26 @@ type Dylinker_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dysymtab_command
 type Dysymtab_command struct {
-	Cmd unsafe.Pointer // Common to all load command structures. For this structure, set to `LC_DYSYMTAB`.
+	Iundefsym      unsafe.Pointer
+	Nlocalsym      unsafe.Pointer
+	Nundefsym      unsafe.Pointer
+	Nextdefsym     unsafe.Pointer
+	Indirectsymoff unsafe.Pointer
+	Ntoc           unsafe.Pointer
+	Iextdefsym     unsafe.Pointer
+	Nindirectsyms  unsafe.Pointer
+	Nextrefsyms    unsafe.Pointer
+	Tocoff         unsafe.Pointer
+	Cmdsize        unsafe.Pointer
+	Locreloff      unsafe.Pointer
+	Nlocrel        unsafe.Pointer
+	Ilocalsym      unsafe.Pointer
+	Modtaboff      unsafe.Pointer
+	Nextrel        unsafe.Pointer
+	Extrefsymoff   unsafe.Pointer // An integer indicating the byte offset from the start of the file to the external reference table data.
+	Cmd            unsafe.Pointer // Common to all load command structures. For this structure, set to `LC_DYSYMTAB`.
+	Nmodtab        unsafe.Pointer
+	Extreloff      unsafe.Pointer // An integer indicating the byte offset from the start of the file to the external relocation table data.
 
 }
 
@@ -4603,6 +4662,13 @@ type Exclave_scresult_info struct {
 type Exclave_textlayout_info struct {
 	Etl_flags unsafe.Pointer
 	Layout_id unsafe.Pointer
+}
+
+// Exclave_textlayout_info_v1
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/kernel/exclave_textlayout_info_v1
+type Exclave_textlayout_info_v1 struct {
 }
 
 // Exclave_textlayout_segment
@@ -5603,14 +5669,14 @@ type Ifmibdata_supplemental struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_attach_proto_param
 type Ifnet_attach_proto_param struct {
-	Demux_array unsafe.Pointer // An array of ifnet_demux_desc structures describing the protocol.
-	Demux_count unsafe.Pointer // The number of entries in the demux_array array.
-	Detached    unsafe.Pointer // The function to be called for handling the detach.
 	Event       unsafe.Pointer // The function to be called for interface events.
-	Input       unsafe.Pointer // The function to be called for inbound packets.
-	Ioctl       unsafe.Pointer // The function to be called for ioctls.
 	Pre_output  unsafe.Pointer // The function to be called for outbound packets.
+	Input       unsafe.Pointer // The function to be called for inbound packets.
+	Detached    unsafe.Pointer // The function to be called for handling the detach.
 	Resolve     unsafe.Pointer
+	Demux_count U_int32_t         // The number of entries in the demux_array array.
+	Demux_array *Ifnet_demux_desc // An array of ifnet_demux_desc structures describing the protocol.
+	Ioctl       unsafe.Pointer    // The function to be called for ioctls.
 	Send_arp    unsafe.Pointer
 }
 
@@ -5619,15 +5685,15 @@ type Ifnet_attach_proto_param struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_attach_proto_param_v2
 type Ifnet_attach_proto_param_v2 struct {
-	Demux_array unsafe.Pointer
-	Demux_count unsafe.Pointer
-	Detached    unsafe.Pointer
-	Event       unsafe.Pointer
-	Input       unsafe.Pointer
-	Ioctl       unsafe.Pointer
-	Pre_output  unsafe.Pointer
-	Resolve     unsafe.Pointer
 	Send_arp    unsafe.Pointer
+	Detached    unsafe.Pointer
+	Demux_count U_int32_t
+	Input       unsafe.Pointer
+	Pre_output  unsafe.Pointer
+	Event       unsafe.Pointer
+	Resolve     unsafe.Pointer
+	Ioctl       unsafe.Pointer
+	Demux_array *Ifnet_demux_desc
 }
 
 // Ifnet_demux_desc
@@ -5636,8 +5702,8 @@ type Ifnet_attach_proto_param_v2 struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_demux_desc
 type Ifnet_demux_desc struct {
 	Data    unsafe.Pointer // A pointer to an entry of type (i.e. pointer to 0x0800).
-	Datalen unsafe.Pointer // The number of bytes of data used to describe the packet.
-	Type    unsafe.Pointer // The type of identifier data (i.e. ETHER_DESC_ETYPE2)
+	Datalen U_int32_t      // The number of bytes of data used to describe the packet.
+	Type    U_int32_t      // The type of identifier data (i.e. ETHER_DESC_ETYPE2)
 
 }
 
@@ -5646,25 +5712,25 @@ type Ifnet_demux_desc struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_init_params
 type Ifnet_init_params struct {
-	Add_proto      unsafe.Pointer // The function used to attach a protocol to this interface.
-	Broadcast_addr unsafe.Pointer // The link-layer broadcast address for this interface.
-	Broadcast_len  unsafe.Pointer // The length of the link-layer broadcast address.
-	Check_multi    unsafe.Pointer
-	Del_proto      unsafe.Pointer // The function used to remove a protocol from this interface.
-	Demux          unsafe.Pointer // The function used to determine the protocol family of an incoming packet.
-	Detach         unsafe.Pointer // The function called to let the driver know the interface has been detached.
-	Event          unsafe.Pointer // The function to notify the interface of various interface specific kernel events.
-	Family         unsafe.Pointer // The interface family.
-	Framer         unsafe.Pointer // The function used to frame outbound packets, may be NULL.
-	Ioctl          unsafe.Pointer // The function used to handle ioctls.
-	Name           unsafe.Pointer // The interface name (i.e. en).
-	Output         unsafe.Pointer // The output function for the interface. Every packet the stack attempts to send through this interface will go out through this function.
 	Set_bpf_tap    unsafe.Pointer // The function used to set the bpf_tap function.
-	Softc          unsafe.Pointer // Driver specific storage. This value can be retrieved from the ifnet using the ifnet_softc function.
-	Type           unsafe.Pointer // The interface type (see sys/if_types.h). Must be less than 256. For new types, use IFT_OTHER.
+	Detach         unsafe.Pointer // The function called to let the driver know the interface has been detached.
+	Broadcast_addr unsafe.Pointer // The link-layer broadcast address for this interface.
 	Uniqueid       unsafe.Pointer // An identifier unique to this instance of the interface.
-	Uniqueid_len   unsafe.Pointer // The length, in bytes, of the uniqueid.
-	Unit           unsafe.Pointer // The interface unit number (en0's unit number is 0).
+	Add_proto      unsafe.Pointer // The function used to attach a protocol to this interface.
+	Demux          unsafe.Pointer // The function used to determine the protocol family of an incoming packet.
+	Broadcast_len  U_int32_t      // The length of the link-layer broadcast address.
+	Check_multi    unsafe.Pointer
+	Uniqueid_len   U_int32_t      // The length, in bytes, of the uniqueid.
+	Name           unsafe.Pointer // The interface name (i.e. en).
+	Ioctl          unsafe.Pointer // The function used to handle ioctls.
+	Family         Ifnet_family_t // The interface family.
+	Softc          unsafe.Pointer // Driver specific storage. This value can be retrieved from the ifnet using the ifnet_softc function.
+	Del_proto      unsafe.Pointer // The function used to remove a protocol from this interface.
+	Type           U_int32_t      // The interface type (see sys/if_types.h). Must be less than 256. For new types, use IFT_OTHER.
+	Framer         unsafe.Pointer // The function used to frame outbound packets, may be NULL.
+	Event          unsafe.Pointer // The function to notify the interface of various interface specific kernel events.
+	Output         unsafe.Pointer // The output function for the interface. Every packet the stack attempts to send through this interface will go out through this function.
+	Unit           U_int32_t      // The interface unit number (en0's unit number is 0).
 
 }
 
@@ -5697,8 +5763,8 @@ type Ifnet_interface_advisory_cell_context struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_interface_advisory_header
 type Ifnet_interface_advisory_header struct {
-	Interface_type    unsafe.Pointer
-	Version           unsafe.Pointer
+	Interface_type    Ifnet_interface_advisory_interface_type
+	Version           Ifnet_interface_advisory_version
 	Notification_type unsafe.Pointer
 }
 
@@ -5732,14 +5798,14 @@ type Ifnet_ip_addr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_stat_increment_param
 type Ifnet_stat_increment_param struct {
-	Bytes_in    unsafe.Pointer // The number of bytes received.
-	Bytes_out   unsafe.Pointer // The number of bytes transmitted.
-	Collisions  unsafe.Pointer // The number of collisions seen by this interface.
-	Dropped     unsafe.Pointer // The number of packets dropped.
-	Errors_in   unsafe.Pointer // The number of receive errors.
-	Errors_out  unsafe.Pointer // The number of transmission errors.
-	Packets_in  unsafe.Pointer // The number of packets received.
-	Packets_out unsafe.Pointer // The number of packets transmitted.
+	Bytes_out   U_int32_t // The number of bytes transmitted.
+	Collisions  U_int32_t // The number of collisions seen by this interface.
+	Errors_out  U_int32_t // The number of transmission errors.
+	Bytes_in    U_int32_t // The number of bytes received.
+	Dropped     U_int32_t // The number of packets dropped.
+	Packets_in  U_int32_t // The number of packets received.
+	Errors_in   U_int32_t // The number of receive errors.
+	Packets_out U_int32_t // The number of packets transmitted.
 
 }
 
@@ -5748,17 +5814,17 @@ type Ifnet_stat_increment_param struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_stats_param
 type Ifnet_stats_param struct {
-	Bytes_in       unsafe.Pointer // The number of bytes received.
-	Bytes_out      unsafe.Pointer // The number of bytes transmitted.
-	Collisions     unsafe.Pointer // The number of collisions seen by this interface.
-	Dropped        unsafe.Pointer // The number of packets dropped.
-	Errors_in      unsafe.Pointer // The number of receive errors.
-	Errors_out     unsafe.Pointer // The number of transmission errors.
-	Multicasts_in  unsafe.Pointer
-	Multicasts_out unsafe.Pointer
-	No_protocol    unsafe.Pointer
-	Packets_in     unsafe.Pointer // The number of packets received.
-	Packets_out    unsafe.Pointer // The number of packets transmitted.
+	Bytes_in       U_int64_t // The number of bytes received.
+	Errors_out     U_int64_t // The number of transmission errors.
+	Errors_in      U_int64_t // The number of receive errors.
+	Packets_in     U_int64_t // The number of packets received.
+	Multicasts_out U_int64_t
+	Multicasts_in  U_int64_t
+	Dropped        U_int64_t // The number of packets dropped.
+	Collisions     U_int64_t // The number of collisions seen by this interface.
+	Bytes_out      U_int64_t // The number of bytes transmitted.
+	No_protocol    U_int64_t
+	Packets_out    U_int64_t // The number of packets transmitted.
 
 }
 
@@ -10756,59 +10822,59 @@ type Vmspace struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnode_attr
 type Vnode_attr struct {
-	Va_access_time        unsafe.Pointer
-	Va_acl                unsafe.Pointer
-	Va_active             unsafe.Pointer
-	Va_addedtime          unsafe.Pointer
-	Va_attribution_tag    unsafe.Pointer
-	Va_backup_time        unsafe.Pointer
-	Va_change_time        unsafe.Pointer
-	Va_clone_id           unsafe.Pointer
-	Va_clone_refcnt       unsafe.Pointer
-	Va_create_time        unsafe.Pointer
-	Va_data_alloc         unsafe.Pointer
-	Va_data_size          unsafe.Pointer
-	Va_dataprotect_class  unsafe.Pointer
-	Va_dataprotect_flags  unsafe.Pointer
-	Va_devid              unsafe.Pointer
-	Va_dirlinkcount       unsafe.Pointer
-	Va_document_id        unsafe.Pointer
-	Va_encoding           unsafe.Pointer
-	Va_extflags           unsafe.Pointer
 	Va_fileid             unsafe.Pointer
-	Va_filerev            unsafe.Pointer
-	Va_finderinfo         unsafe.Pointer
-	Va_flags              unsafe.Pointer
-	Va_fsid               unsafe.Pointer
-	Va_fsid64             unsafe.Pointer
-	Va_gen                unsafe.Pointer
-	Va_gid                unsafe.Pointer
-	Va_guuid              unsafe.Pointer
 	Va_iosize             unsafe.Pointer
-	Va_linkid             unsafe.Pointer
-	Va_mode               unsafe.Pointer
-	Va_modify_time        unsafe.Pointer
-	Va_name               unsafe.Pointer
-	Va_nchildren          unsafe.Pointer
-	Va_nlink              unsafe.Pointer
+	Va_finderinfo         uint8
 	Va_objtag             unsafe.Pointer
-	Va_objtype            unsafe.Pointer
-	Va_parentid           unsafe.Pointer
-	Va_private_size       unsafe.Pointer
-	Va_rdev               unsafe.Pointer
-	Va_recursive_gencount unsafe.Pointer
+	Va_dirlinkcount       unsafe.Pointer
 	Va_reserved1          unsafe.Pointer
-	Va_rsrc_alloc         unsafe.Pointer
-	Va_rsrc_length        unsafe.Pointer
-	Va_supported          unsafe.Pointer
-	Va_total_alloc        unsafe.Pointer
-	Va_total_size         unsafe.Pointer
-	Va_type               unsafe.Pointer
-	Va_uid                unsafe.Pointer
-	Va_user_access        unsafe.Pointer
-	Va_uuuid              unsafe.Pointer
+	Va_data_alloc         unsafe.Pointer
 	Va_vaflags            unsafe.Pointer
+	Va_nchildren          unsafe.Pointer
+	Va_dataprotect_flags  unsafe.Pointer
+	Va_type               Vtype
+	Va_data_size          unsafe.Pointer
+	Va_access_time        syscall.Timespec
+	Va_name               unsafe.Pointer
+	Va_total_size         unsafe.Pointer
+	Va_acl                unsafe.Pointer
+	Va_rdev               int32
+	Va_change_time        syscall.Timespec
+	Va_modify_time        syscall.Timespec
+	Va_dataprotect_class  unsafe.Pointer
+	Va_parentid           unsafe.Pointer
+	Va_gen                unsafe.Pointer
+	Va_flags              unsafe.Pointer
+	Va_linkid             unsafe.Pointer
+	Va_document_id        unsafe.Pointer
+	Va_devid              unsafe.Pointer
+	Va_fsid64             Fsid_t
+	Va_backup_time        syscall.Timespec
 	Va_write_gencount     unsafe.Pointer
+	Va_total_alloc        unsafe.Pointer
+	Va_supported          unsafe.Pointer
+	Va_mode               uint16
+	Va_encoding           unsafe.Pointer
+	Va_rsrc_alloc         unsafe.Pointer
+	Va_uuuid              unsafe.Pointer
+	Va_fsid               unsafe.Pointer
+	Va_objtype            unsafe.Pointer
+	Va_uid                uint32
+	Va_rsrc_length        unsafe.Pointer
+	Va_user_access        unsafe.Pointer
+	Va_gid                uint32
+	Va_nlink              unsafe.Pointer
+	Va_create_time        syscall.Timespec
+	Va_active             unsafe.Pointer
+	Va_filerev            unsafe.Pointer
+	Va_addedtime          syscall.Timespec
+	Va_guuid              unsafe.Pointer
+	Va_private_size       unsafe.Pointer
+	Va_clone_id           unsafe.Pointer
+	Va_extflags           unsafe.Pointer
+	Va_recursive_gencount unsafe.Pointer
+	Va_attribution_tag    unsafe.Pointer
+	Va_clone_refcnt       unsafe.Pointer
 }
 
 // Vnode_fsparam
@@ -10816,18 +10882,18 @@ type Vnode_attr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnode_fsparam
 type Vnode_fsparam struct {
-	Vnfs_cnp        unsafe.Pointer
-	Vnfs_dvp        unsafe.Pointer
-	Vnfs_filesize   unsafe.Pointer
-	Vnfs_flags      unsafe.Pointer
-	Vnfs_fsnode     unsafe.Pointer
-	Vnfs_markroot   unsafe.Pointer
-	Vnfs_marksystem unsafe.Pointer
 	Vnfs_mp         unsafe.Pointer
-	Vnfs_rdev       unsafe.Pointer
-	Vnfs_str        unsafe.Pointer
+	Vnfs_vtype      Vtype
+	Vnfs_fsnode     unsafe.Pointer
 	Vnfs_vops       unsafe.Pointer
-	Vnfs_vtype      unsafe.Pointer
+	Vnfs_cnp        *Componentname
+	Vnfs_rdev       int32
+	Vnfs_flags      unsafe.Pointer
+	Vnfs_marksystem unsafe.Pointer
+	Vnfs_str        unsafe.Pointer
+	Vnfs_filesize   int64
+	Vnfs_dvp        unsafe.Pointer
+	Vnfs_markroot   unsafe.Pointer
 }
 
 // Vnodeopv_desc
@@ -10835,8 +10901,8 @@ type Vnode_fsparam struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnodeopv_desc
 type Vnodeopv_desc struct {
-	Opv_desc_ops      unsafe.Pointer
 	Opv_desc_vector_p unsafe.Pointer
+	Opv_desc_ops      *Vnodeopv_entry_desc
 }
 
 // Vnodeopv_entry_desc
@@ -10853,14 +10919,10 @@ type Vnodeopv_entry_desc struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_access_args
 type Vnop_access_args struct {
-	A_action  unsafe.Pointer
-	A_context unsafe.Pointer
+	A_vp      Vnode_t
 	A_desc    unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context against which to authenticate close.
-	Fflag     unsafe.Pointer // FREAD and/or FWRITE; in the case of a file opened with open(2), fflag corresponds to how the file was opened.
-	Vp        unsafe.Pointer // File to close.
-
+	A_action  unsafe.Pointer
+	A_context Vfs_context_t
 }
 
 // Vnop_advlock_args - Query a filesystem for path properties.
@@ -10868,19 +10930,14 @@ type Vnop_access_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_advlock_args
 type Vnop_advlock_args struct {
-	A_context unsafe.Pointer
+	A_id      Caddr_t
+	A_vp      Vnode_t
 	A_desc    unsafe.Pointer
-	A_fl      unsafe.Pointer
-	A_flags   unsafe.Pointer
-	A_id      unsafe.Pointer
+	A_context Vfs_context_t
 	A_op      unsafe.Pointer
-	A_timeout unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for pathconf request.
-	Name      unsafe.Pointer // Which property to request: see unistd.h. For example: _PC_CASE_SENSITIVE (is a filesystem case-sensitive?). Only one property can be requested at a time.
-	Retval    unsafe.Pointer // Destination for value of property.
-	Vp        unsafe.Pointer // The vnode whose filesystem to query.
-
+	A_timeout *syscall.Timespec
+	A_flags   unsafe.Pointer
+	A_fl      *Flock
 }
 
 // Vnop_allocate_args - Aquire or release and advisory lock on a vnode.
@@ -10888,21 +10945,13 @@ type Vnop_advlock_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_allocate_args
 type Vnop_allocate_args struct {
-	A_bytesallocated unsafe.Pointer
-	A_context        unsafe.Pointer
+	A_flags          U_int32_t
+	A_length         int64
+	A_vp             Vnode_t
+	A_context        Vfs_context_t
+	A_bytesallocated *int64
+	A_offset         int64
 	A_desc           unsafe.Pointer
-	A_flags          unsafe.Pointer
-	A_length         unsafe.Pointer
-	A_offset         unsafe.Pointer
-	A_vp             unsafe.Pointer
-	Ctx              unsafe.Pointer // Context to authenticate for advisory locking request.
-	Fl               unsafe.Pointer // Description of file region to lock. l_whence is as with "lseek." Includes a type: F_RDLCK (shared lock), F_UNLCK (unlock) , and F_WRLCK (exclusive lock).
-	Flags            unsafe.Pointer // F_FLOCK: use flock() semantics. F_POSIX: use POSIX semantics. F_WAIT: sleep if necessary. F_PROV: Non-coelesced provisional lock (unused in xnu).
-	Id               unsafe.Pointer // Identifier for lock holder: ignored by most filesystems.
-	Op               unsafe.Pointer // Which locking operation: F_SETLK: set locking information about a region. F_GETLK: get locking information about the specified region. F_UNLCK: Unlock a region.
-	Timeout          unsafe.Pointer // Timespec for timeout in case of F_SETLKWTIMEOUT.
-	Vp               unsafe.Pointer // The vnode to lock or unlock.
-
 }
 
 // Vnop_blktooff_args - List extended attribute keys.
@@ -10911,15 +10960,9 @@ type Vnop_allocate_args struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_blktooff_args
 type Vnop_blktooff_args struct {
 	A_desc   unsafe.Pointer
-	A_lblkno unsafe.Pointer
-	A_offset unsafe.Pointer
-	A_vp     unsafe.Pointer
-	Ctx      unsafe.Pointer // Context to authenticate for attribute name request.
-	Options  unsafe.Pointer // XATTR_NOSECURITY: bypass security checking.
-	Size     unsafe.Pointer // Should be set to amount of data written to buffer.
-	Uio      unsafe.Pointer // Description of target memory for attribute keys.
-	Vp       unsafe.Pointer // The vnode for which to get extended attribute keys.
-
+	A_lblkno Daddr64_t
+	A_vp     Vnode_t
+	A_offset *int64
 }
 
 // Vnop_blockmap_args - Call down to a filesystem to convert a file offset to a logical block number.
@@ -10927,19 +10970,15 @@ type Vnop_blktooff_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_blockmap_args
 type Vnop_blockmap_args struct {
-	A_bpn     unsafe.Pointer
-	A_context unsafe.Pointer
+	A_run     *uintptr
+	A_size    uintptr
+	A_context Vfs_context_t
+	A_vp      Vnode_t
 	A_desc    unsafe.Pointer
-	A_flags   unsafe.Pointer
-	A_foffset unsafe.Pointer
 	A_poff    unsafe.Pointer
-	A_run     unsafe.Pointer
-	A_size    unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Lblkno    unsafe.Pointer // Destination for corresponding logical block number.
-	Offset    unsafe.Pointer // File offset to convert.
-	Vp        unsafe.Pointer // The vnode for which to convert an offset to a logical block number.
-
+	A_bpn     *Daddr64_t
+	A_flags   unsafe.Pointer
+	A_foffset int64
 }
 
 // Vnop_bwrite_args
@@ -10947,7 +10986,7 @@ type Vnop_blockmap_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_bwrite_args
 type Vnop_bwrite_args struct {
-	A_bp   unsafe.Pointer
+	A_bp   Buf_t
 	A_desc unsafe.Pointer
 }
 
@@ -10956,16 +10995,16 @@ type Vnop_bwrite_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_clonefile_args
 type Vnop_clonefile_args struct {
-	A_cnp                  unsafe.Pointer
-	A_context              unsafe.Pointer
+	A_context              Vfs_context_t
+	A_cnp                  *Componentname
 	A_desc                 unsafe.Pointer
-	A_dir_clone_authorizer unsafe.Pointer
-	A_dvp                  unsafe.Pointer
+	A_vpp                  *Vnode_t
+	A_vap                  *Vnode_attr
+	A_fvp                  Vnode_t
+	A_dvp                  Vnode_t
 	A_flags                unsafe.Pointer
-	A_fvp                  unsafe.Pointer
 	A_reserved             unsafe.Pointer
-	A_vap                  unsafe.Pointer
-	A_vpp                  unsafe.Pointer
+	A_dir_clone_authorizer Vfs_context_t
 }
 
 // Vnop_close_args - Call down to a filesystem to open a file.
@@ -10973,14 +11012,10 @@ type Vnop_clonefile_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_close_args
 type Vnop_close_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
+	A_vp      Vnode_t
 	A_fflag   unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context against which to authenticate open.
-	Mode      unsafe.Pointer // FREAD and/or FWRITE.
-	Vp        unsafe.Pointer // File to open.
-
 }
 
 // Vnop_copyfile_args - Write data from a mapped file back to disk.
@@ -10988,22 +11023,14 @@ type Vnop_close_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_copyfile_args
 type Vnop_copyfile_args struct {
-	A_context unsafe.Pointer
+	A_fvp     Vnode_t
+	A_context Vfs_context_t
+	A_tcnp    *Componentname
+	A_mode    unsafe.Pointer
+	A_tvp     Vnode_t
 	A_desc    unsafe.Pointer
 	A_flags   unsafe.Pointer
-	A_fvp     unsafe.Pointer
-	A_mode    unsafe.Pointer
-	A_tcnp    unsafe.Pointer
-	A_tdvp    unsafe.Pointer
-	A_tvp     unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for pageout request.
-	F_offset  unsafe.Pointer // Offset in file of data needing to be paged out. Under the new VFC_VFSVNOP_PAGEOUTV2 semantics, this represents the offset in the file where we should start looking for dirty pages.
-	Flags     unsafe.Pointer // UPL-style flags: UPL_IOSYNC, UPL_NOCOMMIT, UPL_NORDAHEAD, UPL_VNODE_PAGER, UPL_MSYNC. Filesystems should generally leave it to the cluster layer to handle these flags. See the memory_object_types.h header in the kernel framework if interested.
-	Pl        unsafe.Pointer // UPL describing pages needed to be paged out. If UPL is NULL, then it means the filesystem has opted into VFC_VFSVNOP_PAGEOUTV2 semantics, which means that it will create and operate on its own UPLs as opposed to relying on the one passed down into the filesystem. This means that the filesystem must be responsible for N cluster_pageout calls for N dirty ranges in the UPL.
-	Pl_offset unsafe.Pointer // Offset in UPL from which to start paging out data. Under the new VFC_VFSVNOP_PAGEOUTV2 semantics, this is the offset in the range specified that must be paged out if the associated page is dirty.
-	Size      unsafe.Pointer // Amount of data to page out (in bytes). Under VFC_VFSVNOP_PAGEOUTV2, this represents the size of the range to be considered. The fileystem is free to extend or shrink the specified range to better fit its blocking model as long as the page at 'pl_offset' is included.
-	Vp        unsafe.Pointer // The vnode for which to page out data.
-
+	A_tdvp    Vnode_t
 }
 
 // Vnop_create_args - Call down to a filesystem to look for a directory entry by name.
@@ -11011,17 +11038,12 @@ type Vnop_copyfile_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_create_args
 type Vnop_create_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
+	A_vpp     *Vnode_t
+	A_context Vfs_context_t
+	A_cnp     *Componentname
+	A_dvp     Vnode_t
+	A_vap     *Vnode_attr
 	A_desc    unsafe.Pointer
-	A_dvp     unsafe.Pointer
-	A_vap     unsafe.Pointer
-	A_vpp     unsafe.Pointer
-	Cnp       unsafe.Pointer // Structure describing filename to find, reason for lookup, and various other data.
-	Ctx       unsafe.Pointer // Context against which to authenticate lookup request.
-	Dvp       unsafe.Pointer // Directory in which to look up file.
-	Vpp       unsafe.Pointer // Destination for found vnode.
-
 }
 
 // Vnop_exchange_args - Call down to a filesystem or device to check if a file is ready for I/O and request later notification if it is not currently ready.
@@ -11029,17 +11051,11 @@ type Vnop_create_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_exchange_args
 type Vnop_exchange_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_fvp     unsafe.Pointer
+	A_context Vfs_context_t
+	A_fvp     Vnode_t
 	A_options unsafe.Pointer
-	A_tvp     unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for select request.
-	Fflags    unsafe.Pointer // Flags from fileglob as seen in fcntl.h, e.g. O_NONBLOCK, O_APPEND.
-	Vp        unsafe.Pointer // The vnode to check for I/O readiness.
-	Which     unsafe.Pointer // What kind of I/O is desired: FREAD, FWRITE.
-	Wql       unsafe.Pointer // Opaque object to pass to selrecord().
-
+	A_tvp     Vnode_t
+	A_desc    unsafe.Pointer
 }
 
 // Vnop_fsync_args - Inform a filesystem that a file is no longer mapped.
@@ -11047,13 +11063,10 @@ type Vnop_exchange_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_fsync_args
 type Vnop_fsync_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_vp      unsafe.Pointer
 	A_waitfor unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for mnomap request.
-	Vp        unsafe.Pointer // The vnode which is no longer mapped.
-
+	A_vp      Vnode_t
+	A_context Vfs_context_t
+	A_desc    unsafe.Pointer
 }
 
 // Vnop_generic_args
@@ -11069,14 +11082,10 @@ type Vnop_generic_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_getattr_args
 type Vnop_getattr_args struct {
-	A_context unsafe.Pointer
+	A_vp      Vnode_t
+	A_vap     *Vnode_attr
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
-	A_vap     unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Action    unsafe.Pointer // kauth-style action to be checked for permissions, e.g. KAUTH_VNODE_DELETE.
-	Ctx       unsafe.Pointer // Context against which to authenticate action.
-	Vp        unsafe.Pointer // File to authorize action for.
-
 }
 
 // Vnop_getattrlistbulk_args
@@ -11084,16 +11093,16 @@ type Vnop_getattr_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_getattrlistbulk_args
 type Vnop_getattrlistbulk_args struct {
-	A_actualcount unsafe.Pointer
-	A_alist       unsafe.Pointer
-	A_context     unsafe.Pointer
-	A_desc        unsafe.Pointer
-	A_eofflag     unsafe.Pointer
+	A_context     Vfs_context_t
 	A_options     unsafe.Pointer
+	A_desc        unsafe.Pointer
+	A_alist       *Attrlist
+	A_eofflag     unsafe.Pointer
 	A_private     unsafe.Pointer
+	A_actualcount unsafe.Pointer
 	A_uio         unsafe.Pointer
-	A_vap         unsafe.Pointer
-	A_vp          unsafe.Pointer
+	A_vp          Vnode_t
+	A_vap         *Vnode_attr
 }
 
 // Vnop_getxattr_args - Write data from a mapped file back to disk.
@@ -11101,21 +11110,13 @@ type Vnop_getattrlistbulk_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_getxattr_args
 type Vnop_getxattr_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_name    unsafe.Pointer
+	A_uio     Uio_t
+	A_size    *uintptr
 	A_options unsafe.Pointer
-	A_size    unsafe.Pointer
-	A_uio     unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for pageout request.
-	F_offset  unsafe.Pointer // Offset in file of data needing to be paged out. Under the new VFC_VFSVNOP_PAGEOUTV2 semantics, this represents the offset in the file where we should start looking for dirty pages.
-	Flags     unsafe.Pointer // UPL-style flags: UPL_IOSYNC, UPL_NOCOMMIT, UPL_NORDAHEAD, UPL_VNODE_PAGER, UPL_MSYNC. Filesystems should generally leave it to the cluster layer to handle these flags. See the memory_object_types.h header in the kernel framework if interested.
-	Pl        unsafe.Pointer // UPL describing pages needed to be paged out. If UPL is NULL, then it means the filesystem has opted into VFC_VFSVNOP_PAGEOUTV2 semantics, which means that it will create and operate on its own UPLs as opposed to relying on the one passed down into the filesystem. This means that the filesystem must be responsible for N cluster_pageout calls for N dirty ranges in the UPL.
-	Pl_offset unsafe.Pointer // Offset in UPL from which to start paging out data. Under the new VFC_VFSVNOP_PAGEOUTV2 semantics, this is the offset in the range specified that must be paged out if the associated page is dirty.
-	Size      unsafe.Pointer // Amount of data to page out (in bytes). Under VFC_VFSVNOP_PAGEOUTV2, this represents the size of the range to be considered. The fileystem is free to extend or shrink the specified range to better fit its blocking model as long as the page at 'pl_offset' is included.
-	Vp        unsafe.Pointer // The vnode for which to page out data.
-
+	A_name    unsafe.Pointer
+	A_context Vfs_context_t
+	A_desc    unsafe.Pointer
+	A_vp      Vnode_t
 }
 
 // Vnop_inactive_args - Call down to a filesystem to get the pathname represented by a symbolic link.
@@ -11123,13 +11124,9 @@ type Vnop_getxattr_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_inactive_args
 type Vnop_inactive_args struct {
-	A_context unsafe.Pointer
 	A_desc    unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for readlink request.
-	Uio       unsafe.Pointer // Destination information for link path.
-	Vp        unsafe.Pointer // Symbolic link to read from.
-
+	A_context Vfs_context_t
+	A_vp      Vnode_t
 }
 
 // Vnop_ioctl_args
@@ -11137,12 +11134,12 @@ type Vnop_inactive_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_ioctl_args
 type Vnop_ioctl_args struct {
-	A_command unsafe.Pointer
-	A_context unsafe.Pointer
-	A_data    unsafe.Pointer
 	A_desc    unsafe.Pointer
+	A_context Vfs_context_t
 	A_fflag   unsafe.Pointer
-	A_vp      unsafe.Pointer
+	A_data    Caddr_t
+	A_vp      Vnode_t
+	A_command U_long
 }
 
 // Vnop_kqfilt_add_args
@@ -11150,10 +11147,10 @@ type Vnop_ioctl_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_kqfilt_add_args
 type Vnop_kqfilt_add_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
-	A_kn      unsafe.Pointer
 	A_vp      unsafe.Pointer
+	A_kn      unsafe.Pointer
 }
 
 // Vnop_kqfilt_remove_args
@@ -11161,10 +11158,10 @@ type Vnop_kqfilt_add_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_kqfilt_remove_args
 type Vnop_kqfilt_remove_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_ident   unsafe.Pointer
 	A_vp      unsafe.Pointer
+	A_desc    unsafe.Pointer
+	A_context Vfs_context_t
+	A_ident   uintptr
 }
 
 // Vnop_link_args - Call down to a filesystem to delete a file.
@@ -11172,16 +11169,11 @@ type Vnop_kqfilt_remove_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_link_args
 type Vnop_link_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
-	A_tdvp    unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Cnp       unsafe.Pointer // Filename information.
-	Ctx       unsafe.Pointer // Context to authenticate for fsync request.
-	Dvp       unsafe.Pointer // Directory in which to delete a file.
-	Vp        unsafe.Pointer // The file to delete.
-
+	A_tdvp    Vnode_t
+	A_vp      Vnode_t
+	A_cnp     *Componentname
 }
 
 // Vnop_listxattr_args - Remove extended file attributes.
@@ -11189,17 +11181,12 @@ type Vnop_link_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_listxattr_args
 type Vnop_listxattr_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
+	A_uio     Uio_t
+	A_size    *uintptr
 	A_options unsafe.Pointer
-	A_size    unsafe.Pointer
-	A_uio     unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for attribute delete request.
-	Name      unsafe.Pointer // Which attribute to delete.
-	Options   unsafe.Pointer // XATTR_NOSECURITY: bypass security-checking.
-	Vp        unsafe.Pointer // The vnode from which to remove extended attributes.
-
+	A_vp      Vnode_t
 }
 
 // Vnop_lookup_args
@@ -11207,11 +11194,11 @@ type Vnop_listxattr_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_lookup_args
 type Vnop_lookup_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
+	A_vpp     *Vnode_t
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
-	A_dvp     unsafe.Pointer
-	A_vpp     unsafe.Pointer
+	A_dvp     Vnode_t
+	A_cnp     *Componentname
 }
 
 // Vnop_mkdir_args - Call down to a filesystem to rename a file.
@@ -11219,20 +11206,12 @@ type Vnop_lookup_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_mkdir_args
 type Vnop_mkdir_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
+	A_vpp     *Vnode_t
+	A_vap     *Vnode_attr
+	A_context Vfs_context_t
+	A_dvp     Vnode_t
+	A_cnp     *Componentname
 	A_desc    unsafe.Pointer
-	A_dvp     unsafe.Pointer
-	A_vap     unsafe.Pointer
-	A_vpp     unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for rename request.
-	Fcnp      unsafe.Pointer // Name information for source file.
-	Fdvp      unsafe.Pointer // Directory in which source file resides.
-	Fvp       unsafe.Pointer // File being renamed.
-	Tcnp      unsafe.Pointer // Name information for target path.
-	Tdvp      unsafe.Pointer // Directory file is being moved to.
-	Tvp       unsafe.Pointer // Existing file with same name as target, should one exist.
-
 }
 
 // Vnop_mknod_args - Call down to a filesystem to create a whiteout.
@@ -11240,17 +11219,12 @@ type Vnop_mkdir_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_mknod_args
 type Vnop_mknod_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
 	A_desc    unsafe.Pointer
-	A_dvp     unsafe.Pointer
-	A_vap     unsafe.Pointer
-	A_vpp     unsafe.Pointer
-	Cnp       unsafe.Pointer // Name information for whiteout.
-	Ctx       unsafe.Pointer // Context against which to authenticate whiteout creation.
-	Dvp       unsafe.Pointer // Directory in which to create.
-	Flags     unsafe.Pointer // CREATE: create a whiteout. LOOKUP: check whether a directory supports whiteouts, DELETE: remove a whiteout.
-
+	A_cnp     *Componentname
+	A_vap     *Vnode_attr
+	A_dvp     Vnode_t
+	A_vpp     *Vnode_t
+	A_context Vfs_context_t
 }
 
 // Vnop_mmap_args - Call down to a filesystem to invalidate all open file descriptors for a vnode.
@@ -11258,14 +11232,10 @@ type Vnop_mknod_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_mmap_args
 type Vnop_mmap_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
+	A_vp      Vnode_t
+	A_context Vfs_context_t
 	A_fflags  unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for revoke request.
-	Flags     unsafe.Pointer // Unused.
-	Vp        unsafe.Pointer // The vnode to revoke.
-
+	A_desc    unsafe.Pointer
 }
 
 // Vnop_mmap_check_args
@@ -11273,10 +11243,10 @@ type Vnop_mmap_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_mmap_check_args
 type Vnop_mmap_check_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
 	A_flags   unsafe.Pointer
-	A_vp      unsafe.Pointer
+	A_vp      Vnode_t
 }
 
 // Vnop_mnomap_args - Notify a filesystem that a file is being mmap-ed.
@@ -11284,13 +11254,9 @@ type Vnop_mmap_check_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_mnomap_args
 type Vnop_mnomap_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for mmap request.
-	Flags     unsafe.Pointer // Memory protection: PROT_READ, PROT_WRITE, PROT_EXEC.
-	Vp        unsafe.Pointer // The vnode being mmapped.
-
+	A_vp      Vnode_t
 }
 
 // Vnop_monitor_args
@@ -11312,13 +11278,9 @@ type Vnop_monitor_args struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_offtoblk_args
 type Vnop_offtoblk_args struct {
 	A_desc   unsafe.Pointer
-	A_lblkno unsafe.Pointer
-	A_offset unsafe.Pointer
-	A_vp     unsafe.Pointer
-	Lblkno   unsafe.Pointer // Logical block number to turn into offset.
-	Offset   unsafe.Pointer // Destination for file offset.
-	Vp       unsafe.Pointer // The vnode for which to convert a logical block to an offset.
-
+	A_offset int64
+	A_vp     Vnode_t
+	A_lblkno *Daddr64_t
 }
 
 // Vnop_open_args - Call down to a filesystem to create a special file.
@@ -11326,16 +11288,10 @@ type Vnop_offtoblk_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_open_args
 type Vnop_open_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
 	A_mode    unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Cnp       unsafe.Pointer // Name information for new file.
-	Ctx       unsafe.Pointer // Context against which to authenticate node creation.
-	Dvp       unsafe.Pointer // Directory in which to create the special file.
-	Vap       unsafe.Pointer // Attributes for new file, including type.
-	Vpp       unsafe.Pointer // Destination for newly created vnode.
-
+	A_vp      Vnode_t
+	A_desc    unsafe.Pointer
+	A_context Vfs_context_t
 }
 
 // Vnop_pagein_args - Pre-allocate space for a file.
@@ -11343,21 +11299,14 @@ type Vnop_open_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_pagein_args
 type Vnop_pagein_args struct {
-	A_context      unsafe.Pointer
-	A_desc         unsafe.Pointer
-	A_f_offset     unsafe.Pointer
-	A_flags        unsafe.Pointer
-	A_pl           unsafe.Pointer
-	A_pl_offset    unsafe.Pointer
-	A_size         unsafe.Pointer
-	A_vp           unsafe.Pointer
-	Bytesallocated unsafe.Pointer // Additional bytes set aside for file. Set to 0 if none are allocated OR if the file is contracted.
-	Ctx            unsafe.Pointer // Context to authenticate for allocation request.
-	Flags          unsafe.Pointer // PREALLOCATE: preallocate allocation blocks. ALLOCATECONTIG: allocate contigious space. ALLOCATEALL: allocate all requested space or no space at all. FREEREMAINDER: deallocate allocated but unfilled blocks. ALLOCATEFROMPEOF: allocate from the physical eof. ALLOCATEFROMVOL: allocate from the volume offset.
-	Length         unsafe.Pointer // Desired preallocated file length.
-	Offset         unsafe.Pointer // Hint for where to find free blocks.
-	Vp             unsafe.Pointer // The vnode for which to preallocate space.
-
+	A_flags     unsafe.Pointer
+	A_desc      unsafe.Pointer
+	A_vp        Vnode_t
+	A_context   Vfs_context_t
+	A_pl        Upl_t
+	A_f_offset  int64
+	A_pl_offset Upl_offset_t
+	A_size      uintptr
 }
 
 // Vnop_pageout_args - Pull file data into memory.
@@ -11365,22 +11314,14 @@ type Vnop_pagein_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_pageout_args
 type Vnop_pageout_args struct {
-	A_context   unsafe.Pointer
-	A_desc      unsafe.Pointer
-	A_f_offset  unsafe.Pointer
+	A_pl_offset Upl_offset_t
+	A_size      uintptr
+	A_pl        Upl_t
+	A_f_offset  int64
 	A_flags     unsafe.Pointer
-	A_pl        unsafe.Pointer
-	A_pl_offset unsafe.Pointer
-	A_size      unsafe.Pointer
-	A_vp        unsafe.Pointer
-	Ctx         unsafe.Pointer // Context to authenticate for pagein request.
-	F_offset    unsafe.Pointer // Offset in file of data needing to be paged in.
-	Flags       unsafe.Pointer // UPL-style flags: UPL_IOSYNC, UPL_NOCOMMIT, UPL_NORDAHEAD, UPL_VNODE_PAGER, UPL_MSYNC. Filesystems should generally leave it to the cluster layer to handle these flags. See the memory_object_types.h header in the kernel framework if interested.
-	Pl          unsafe.Pointer // UPL describing pages needing to be paged in.
-	Pl_offset   unsafe.Pointer // Offset in UPL at which to start placing data.
-	Size        unsafe.Pointer // Amount of data to page in (in bytes).
-	Vp          unsafe.Pointer // The vnode for which to page in data.
-
+	A_vp        Vnode_t
+	A_context   Vfs_context_t
+	A_desc      unsafe.Pointer
 }
 
 // Vnop_pathconf_args - Release filesystem-internal resources for a vnode.
@@ -11388,14 +11329,11 @@ type Vnop_pageout_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_pathconf_args
 type Vnop_pathconf_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_name    unsafe.Pointer
 	A_retval  unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for reclaim.
-	Vp        unsafe.Pointer // The vnode to reclaim.
-
+	A_desc    unsafe.Pointer
+	A_vp      Vnode_t
+	A_name    unsafe.Pointer
+	A_context Vfs_context_t
 }
 
 // Vnop_read_args - Call down to a filesystem to set vnode attributes.
@@ -11403,15 +11341,11 @@ type Vnop_pathconf_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_read_args
 type Vnop_read_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
 	A_ioflag  unsafe.Pointer
+	A_context Vfs_context_t
+	A_vp      Vnode_t
+	A_desc    unsafe.Pointer
 	A_uio     unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context against which to authenticate request for attribute change.
-	Vap       unsafe.Pointer // Container for which attributes are to be set and their desired values, as well as for the filesystem to return information about which attributes were successfully set.
-	Vp        unsafe.Pointer // The vnode whose attributes to set.
-
 }
 
 // Vnop_readdir_args - Call down to a filesystem to create a symbolic link.
@@ -11419,19 +11353,13 @@ type Vnop_read_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_readdir_args
 type Vnop_readdir_args struct {
-	A_context   unsafe.Pointer
-	A_desc      unsafe.Pointer
-	A_eofflag   unsafe.Pointer
 	A_flags     unsafe.Pointer
-	A_numdirent unsafe.Pointer
+	A_vp        Vnode_t
+	A_desc      unsafe.Pointer
+	A_context   Vfs_context_t
 	A_uio       unsafe.Pointer
-	A_vp        unsafe.Pointer
-	Cnp         unsafe.Pointer // Name information for new symlink.
-	Ctx         unsafe.Pointer // Context to authenticate for symlink request.
-	Dvp         unsafe.Pointer // Parent directory for new symlink file.
-	Target      unsafe.Pointer // Path for symlink to store; for "ln -s /var/vardir linktovardir", "target" would be "/var/vardir"
-	Vap         unsafe.Pointer // Attributes for symlink.
-	Vpp         unsafe.Pointer
+	A_numdirent unsafe.Pointer
+	A_eofflag   unsafe.Pointer
 }
 
 // Vnop_readdirattr_args - Call down to a filesystem to enumerate directory entries.
@@ -11440,22 +11368,15 @@ type Vnop_readdir_args struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_readdirattr_args
 type Vnop_readdirattr_args struct {
 	A_actualcount unsafe.Pointer
-	A_alist       unsafe.Pointer
-	A_context     unsafe.Pointer
 	A_desc        unsafe.Pointer
-	A_eofflag     unsafe.Pointer
-	A_maxcount    unsafe.Pointer
-	A_newstate    unsafe.Pointer
-	A_options     unsafe.Pointer
+	A_alist       *Attrlist
+	A_context     Vfs_context_t
 	A_uio         unsafe.Pointer
-	A_vp          unsafe.Pointer
-	Ctx           unsafe.Pointer // Context to authenticate for readdir request.
-	Eofflag       unsafe.Pointer // Should be set to 1 if the end of the directory has been reached.
-	Flags         unsafe.Pointer // VNODE_READDIR_EXTENDED, VNODE_READDIR_REQSEEKOFF, VNODE_READDIR_SEEKOFF32: Apple-internal flags.
-	Numdirent     unsafe.Pointer // Should be set to number of entries written into buffer.
-	Uio           unsafe.Pointer // Destination information for resulting direntries.
-	Vp            unsafe.Pointer // Directory to enumerate.
-
+	A_newstate    unsafe.Pointer
+	A_vp          Vnode_t
+	A_eofflag     unsafe.Pointer
+	A_options     unsafe.Pointer
+	A_maxcount    unsafe.Pointer
 }
 
 // Vnop_readlink_args - Call down to get file attributes for many files in a directory at once.
@@ -11463,20 +11384,10 @@ type Vnop_readdirattr_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_readlink_args
 type Vnop_readlink_args struct {
-	A_context   unsafe.Pointer
-	A_desc      unsafe.Pointer
-	A_uio       unsafe.Pointer
-	A_vp        unsafe.Pointer
-	Actualcount unsafe.Pointer // Should be set to number of files whose attributes were written into buffer.
-	Alist       unsafe.Pointer // Which attributes are wanted for each directory entry.
-	Ctx         unsafe.Pointer // Context to authenticate for readdirattr request.
-	Eofflag     unsafe.Pointer // Should be set to 1 if the end of the directory has been reached.
-	Maxcount    unsafe.Pointer // Maximum count of files to get attributes for.
-	Newstate    unsafe.Pointer // The "newstate" should be set to a value which changes if the contents of a directory change through an addition or deletion but stays the same otherwise.
-	Options     unsafe.Pointer // FSOPT_NOFOLLOW: do not follow symbolic links. FSOPT_NOINMEMUPDATE: do not use data which have been updated since an inode was loaded into memory.
-	Uio         unsafe.Pointer // Destination information for resulting attributes.
-	Vp          unsafe.Pointer // Directory in which to enumerate entries' attributes.
-
+	A_desc    unsafe.Pointer
+	A_uio     unsafe.Pointer
+	A_context Vfs_context_t
+	A_vp      Vnode_t
 }
 
 // Vnop_reclaim_args - Notify a filesystem that the last usecount (persistent reference) on a vnode has been dropped.
@@ -11484,12 +11395,9 @@ type Vnop_readlink_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_reclaim_args
 type Vnop_reclaim_args struct {
-	A_context unsafe.Pointer
 	A_desc    unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for inactive message.
-	Vp        unsafe.Pointer // The vnode which is now inactive.
-
+	A_vp      Vnode_t
+	A_context Vfs_context_t
 }
 
 // Vnop_remove_args
@@ -11497,12 +11405,12 @@ type Vnop_reclaim_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_remove_args
 type Vnop_remove_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_dvp     unsafe.Pointer
 	A_flags   unsafe.Pointer
-	A_vp      unsafe.Pointer
+	A_context Vfs_context_t
+	A_cnp     *Componentname
+	A_dvp     Vnode_t
+	A_desc    unsafe.Pointer
+	A_vp      Vnode_t
 }
 
 // Vnop_removexattr_args
@@ -11510,11 +11418,11 @@ type Vnop_remove_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_removexattr_args
 type Vnop_removexattr_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
 	A_name    unsafe.Pointer
 	A_options unsafe.Pointer
-	A_vp      unsafe.Pointer
+	A_context Vfs_context_t
+	A_vp      Vnode_t
+	A_desc    unsafe.Pointer
 }
 
 // Vnop_rename_args - Call down to a filesystem to create a hardlink to a file.
@@ -11522,19 +11430,14 @@ type Vnop_removexattr_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_rename_args
 type Vnop_rename_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
+	A_tdvp    Vnode_t
+	A_fvp     Vnode_t
+	A_tvp     Vnode_t
 	A_desc    unsafe.Pointer
-	A_fcnp    unsafe.Pointer
-	A_fdvp    unsafe.Pointer
-	A_fvp     unsafe.Pointer
-	A_tcnp    unsafe.Pointer
-	A_tdvp    unsafe.Pointer
-	A_tvp     unsafe.Pointer
-	Cnp       unsafe.Pointer // Filename information for new link.
-	Ctx       unsafe.Pointer // Context to authenticate for link request.
-	Dvp       unsafe.Pointer // Directory in which to create the link.
-	Vp        unsafe.Pointer // File to link to.
-
+	A_fdvp    Vnode_t
+	A_tcnp    *Componentname
+	A_fcnp    *Componentname
 }
 
 // Vnop_renamex_args
@@ -11542,16 +11445,16 @@ type Vnop_rename_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_renamex_args
 type Vnop_renamex_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
+	A_tcnp    *Componentname
 	A_desc    unsafe.Pointer
-	A_fcnp    unsafe.Pointer
-	A_fdvp    unsafe.Pointer
-	A_flags   unsafe.Pointer
-	A_fvp     unsafe.Pointer
-	A_tcnp    unsafe.Pointer
-	A_tdvp    unsafe.Pointer
-	A_tvp     unsafe.Pointer
-	A_vap     unsafe.Pointer
+	A_flags   Vfs_rename_flags_t
+	A_tvp     Vnode_t
+	A_fdvp    Vnode_t
+	A_vap     *Vnode_attr
+	A_tdvp    Vnode_t
+	A_fvp     Vnode_t
+	A_fcnp    *Componentname
 }
 
 // Vnop_revoke_args - Call down to a filesystem to atomically exchange the data of two files.
@@ -11559,15 +11462,10 @@ type Vnop_renamex_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_revoke_args
 type Vnop_revoke_args struct {
-	A_context unsafe.Pointer
 	A_desc    unsafe.Pointer
+	A_context Vfs_context_t
 	A_flags   unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context to authenticate for exchangedata request.
-	Fvp       unsafe.Pointer // First vnode.
-	Options   unsafe.Pointer // Unused.
-	Tvp       unsafe.Pointer // Second vnode.
-
+	A_vp      Vnode_t
 }
 
 // Vnop_rmdir_args - Call down to a filesystem to create a directory.
@@ -11575,17 +11473,11 @@ type Vnop_revoke_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_rmdir_args
 type Vnop_rmdir_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
+	A_cnp     *Componentname
+	A_dvp     Vnode_t
+	A_vp      Vnode_t
 	A_desc    unsafe.Pointer
-	A_dvp     unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Cnp       unsafe.Pointer // Name information for new directory.
-	Ctx       unsafe.Pointer // Context to authenticate for mkdir request.
-	Dvp       unsafe.Pointer // Directory in which to create new directory.
-	Vap       unsafe.Pointer // Attributes for new directory.
-	Vpp       unsafe.Pointer // Destination for pointer to new directory's vnode.
-
 }
 
 // Vnop_searchfs_args - Write data from a mapped file back to disk.
@@ -11593,28 +11485,20 @@ type Vnop_rmdir_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_searchfs_args
 type Vnop_searchfs_args struct {
-	A_context       unsafe.Pointer
+	A_context       Vfs_context_t
+	A_scriptcode    unsafe.Pointer
+	A_returnattrs   *Attrlist
+	A_timelimit     *Timeval
+	A_nummatches    unsafe.Pointer
+	A_vp            Vnode_t
+	A_searchstate   *Searchstate
+	A_searchparams2 unsafe.Pointer
+	A_searchattrs   *Attrlist
+	A_options       unsafe.Pointer
+	A_uio           unsafe.Pointer
+	A_searchparams1 unsafe.Pointer
 	A_desc          unsafe.Pointer
 	A_maxmatches    unsafe.Pointer
-	A_nummatches    unsafe.Pointer
-	A_options       unsafe.Pointer
-	A_returnattrs   unsafe.Pointer
-	A_scriptcode    unsafe.Pointer
-	A_searchattrs   unsafe.Pointer
-	A_searchparams1 unsafe.Pointer
-	A_searchparams2 unsafe.Pointer
-	A_searchstate   unsafe.Pointer
-	A_timelimit     unsafe.Pointer
-	A_uio           unsafe.Pointer
-	A_vp            unsafe.Pointer
-	Ctx             unsafe.Pointer // Context to authenticate for pageout request.
-	F_offset        unsafe.Pointer // Offset in file of data needing to be paged out. Under the new VFC_VFSVNOP_PAGEOUTV2 semantics, this represents the offset in the file where we should start looking for dirty pages.
-	Flags           unsafe.Pointer // UPL-style flags: UPL_IOSYNC, UPL_NOCOMMIT, UPL_NORDAHEAD, UPL_VNODE_PAGER, UPL_MSYNC. Filesystems should generally leave it to the cluster layer to handle these flags. See the memory_object_types.h header in the kernel framework if interested.
-	Pl              unsafe.Pointer // UPL describing pages needed to be paged out. If UPL is NULL, then it means the filesystem has opted into VFC_VFSVNOP_PAGEOUTV2 semantics, which means that it will create and operate on its own UPLs as opposed to relying on the one passed down into the filesystem. This means that the filesystem must be responsible for N cluster_pageout calls for N dirty ranges in the UPL.
-	Pl_offset       unsafe.Pointer // Offset in UPL from which to start paging out data. Under the new VFC_VFSVNOP_PAGEOUTV2 semantics, this is the offset in the range specified that must be paged out if the associated page is dirty.
-	Size            unsafe.Pointer // Amount of data to page out (in bytes). Under VFC_VFSVNOP_PAGEOUTV2, this represents the size of the range to be considered. The fileystem is free to extend or shrink the specified range to better fit its blocking model as long as the page at 'pl_offset' is included.
-	Vp              unsafe.Pointer // The vnode for which to page out data.
-
 }
 
 // Vnop_select_args
@@ -11622,12 +11506,12 @@ type Vnop_searchfs_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_select_args
 type Vnop_select_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
 	A_fflags  unsafe.Pointer
-	A_vp      unsafe.Pointer
-	A_which   unsafe.Pointer
+	A_desc    unsafe.Pointer
+	A_vp      Vnode_t
 	A_wql     unsafe.Pointer
+	A_which   unsafe.Pointer
+	A_context Vfs_context_t
 }
 
 // Vnop_setattr_args - Call down to a filesystem to get vnode attributes.
@@ -11635,14 +11519,10 @@ type Vnop_select_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_setattr_args
 type Vnop_setattr_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
+	A_vap     *Vnode_attr
 	A_desc    unsafe.Pointer
-	A_vap     unsafe.Pointer
-	A_vp      unsafe.Pointer
-	Ctx       unsafe.Pointer // Context against which to authenticate request for attributes.
-	Vap       unsafe.Pointer // Container for which attributes are requested, which attributes are supported by the filesystem, and attribute values.
-	Vp        unsafe.Pointer // The vnode whose attributes to get.
-
+	A_vp      Vnode_t
 }
 
 // Vnop_setlabel_args
@@ -11650,10 +11530,10 @@ type Vnop_setattr_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_setlabel_args
 type Vnop_setlabel_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
 	A_vl      unsafe.Pointer
 	A_vp      unsafe.Pointer
+	A_desc    unsafe.Pointer
+	A_context Vfs_context_t
 }
 
 // Vnop_setxattr_args
@@ -11661,12 +11541,12 @@ type Vnop_setlabel_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_setxattr_args
 type Vnop_setxattr_args struct {
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_name    unsafe.Pointer
+	A_uio     Uio_t
 	A_options unsafe.Pointer
-	A_uio     unsafe.Pointer
-	A_vp      unsafe.Pointer
+	A_desc    unsafe.Pointer
+	A_context Vfs_context_t
+	A_vp      Vnode_t
+	A_name    unsafe.Pointer
 }
 
 // Vnop_strategy_args - Call down to a filesystem to get information about the on-disk layout of a file region.
@@ -11674,17 +11554,8 @@ type Vnop_setxattr_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_strategy_args
 type Vnop_strategy_args struct {
-	A_bp    unsafe.Pointer
-	A_desc  unsafe.Pointer
-	Bpn     unsafe.Pointer // Destination for physical block number at which region begins on disk.
-	Ctx     unsafe.Pointer // Context to authenticate for blockmap request; currently often set to NULL.
-	Flags   unsafe.Pointer // VNODE_READ: request is for a read. VNODE_WRITE: request is for a write.
-	Foffset unsafe.Pointer // Offset (in bytes) at which region starts.
-	Poff    unsafe.Pointer // Currently unused.
-	Run     unsafe.Pointer // Destination for number of bytes which can be found contiguously on-disk before first discontinuity.
-	Size    unsafe.Pointer // Size of region.
-	Vp      unsafe.Pointer // The vnode for which to get on-disk information.
-
+	A_bp   unsafe.Pointer
+	A_desc unsafe.Pointer
 }
 
 // Vnop_symlink_args - Call down to a filesystem to delete a directory.
@@ -11692,18 +11563,13 @@ type Vnop_strategy_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_symlink_args
 type Vnop_symlink_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_dvp     unsafe.Pointer
+	A_context Vfs_context_t
+	A_vpp     *Vnode_t
 	A_target  unsafe.Pointer
-	A_vap     unsafe.Pointer
-	A_vpp     unsafe.Pointer
-	Cnp       unsafe.Pointer // Name information for directory to be deleted.
-	Ctx       unsafe.Pointer // Context to authenticate for rmdir request.
-	Dvp       unsafe.Pointer // Parent of directory to be removed.
-	Vp        unsafe.Pointer // Directory to remove.
-
+	A_dvp     Vnode_t
+	A_vap     *Vnode_attr
+	A_cnp     *Componentname
+	A_desc    unsafe.Pointer
 }
 
 // Vnop_verify_args
@@ -11727,17 +11593,11 @@ type Vnop_verify_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_whiteout_args
 type Vnop_whiteout_args struct {
-	A_cnp     unsafe.Pointer
-	A_context unsafe.Pointer
-	A_desc    unsafe.Pointer
-	A_dvp     unsafe.Pointer
 	A_flags   unsafe.Pointer
-	Cnp       unsafe.Pointer // Description of filename to create.
-	Ctx       unsafe.Pointer // Context against which to authenticate file creation.
-	Dvp       unsafe.Pointer // Directory in which to create file.
-	Vap       unsafe.Pointer // File creation properties, as seen in vnode_getattr(). Manipulated with VATTR_ISACTIVE, VATTR_RETURN, VATTR_SET_SUPPORTED, and so forth.
-	Vpp       unsafe.Pointer // Destination for vnode for newly created file.
-
+	A_cnp     *Componentname
+	A_desc    unsafe.Pointer
+	A_dvp     Vnode_t
+	A_context Vfs_context_t
 }
 
 // Vnop_write_args
@@ -11745,11 +11605,11 @@ type Vnop_whiteout_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_write_args
 type Vnop_write_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
+	A_vp      Vnode_t
+	A_uio     unsafe.Pointer
 	A_desc    unsafe.Pointer
 	A_ioflag  unsafe.Pointer
-	A_uio     unsafe.Pointer
-	A_vp      unsafe.Pointer
 }
 
 // Winsize

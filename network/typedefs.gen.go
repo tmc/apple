@@ -41,7 +41,7 @@ type Nw_browser_browse_results_changed_handler_t = func(objectivec.Object, objec
 // Nw_browser_state_changed_handler_t is a handler that delivers browser state updates with associated errors.
 //
 // See: https://developer.apple.com/documentation/Network/nw_browser_state_changed_handler_t
-type Nw_browser_state_changed_handler_t = func(objectivec.IObject, objectivec.Object)
+type Nw_browser_state_changed_handler_t = func(NwBrowserState, objectivec.Object)
 
 // Nw_browser_t is an object you use to browse for available network services.
 //
@@ -69,7 +69,7 @@ type Nw_connection_group_send_completion_t = func(objectivec.Object)
 // Nw_connection_group_state_changed_handler_t is a handler that receives connection group state updates.
 //
 // See: https://developer.apple.com/documentation/Network/nw_connection_group_state_changed_handler_t
-type Nw_connection_group_state_changed_handler_t = func(objectivec.IObject, objectivec.Object)
+type Nw_connection_group_state_changed_handler_t = func(NwConnectionGroupState, objectivec.Object)
 
 // Nw_connection_group_t is an object you use to communicate with a group of endpoints, such as an IP multicast group on a local network.
 //
@@ -94,7 +94,7 @@ type Nw_connection_send_completion_t = func(objectivec.Object)
 // Nw_connection_state_changed_handler_t is a handler that delivers connection state updates with associated errors.
 //
 // See: https://developer.apple.com/documentation/Network/nw_connection_state_changed_handler_t
-type Nw_connection_state_changed_handler_t = func(objectivec.IObject, objectivec.Object)
+type Nw_connection_state_changed_handler_t = func(NwConnectionState, objectivec.Object)
 
 // Nw_connection_t is a bidirectional data connection between a local endpoint and a remote endpoint.
 //
@@ -154,7 +154,7 @@ type Nw_ethernet_channel_send_completion_t = func(objectivec.Object)
 // Nw_ethernet_channel_state_changed_handler_t is a handler that delivers Ethernet channel state updates with associated errors.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ethernet_channel_state_changed_handler_t
-type Nw_ethernet_channel_state_changed_handler_t = func(objectivec.IObject, objectivec.Object)
+type Nw_ethernet_channel_state_changed_handler_t = func(NwEthernetChannelState, objectivec.Object)
 
 // Nw_ethernet_channel_t is an object you use to send and receive custom Ethernet frames.
 //
@@ -199,7 +199,7 @@ type Nw_framer_parse_completion_t = func(*uint8, uint32, bool) uint64
 // Nw_framer_start_handler_t is a handler that represents the entry point into your custom protocol.
 //
 // See: https://developer.apple.com/documentation/Network/nw_framer_start_handler_t
-type Nw_framer_start_handler_t = func(objectivec.Object) objectivec.IObject
+type Nw_framer_start_handler_t = func(objectivec.Object) NwFramerStartResult
 
 // Nw_framer_stop_handler_t is a handler that requests that your protocol send any final messages to close the connection.
 //
@@ -247,7 +247,7 @@ type Nw_listener_new_connection_handler_t = func(objectivec.Object)
 // Nw_listener_state_changed_handler_t is a handler that delivers listener state updates with associated errors.
 //
 // See: https://developer.apple.com/documentation/Network/nw_listener_state_changed_handler_t
-type Nw_listener_state_changed_handler_t = func(objectivec.IObject, objectivec.Object)
+type Nw_listener_state_changed_handler_t = func(NwListenerState, objectivec.Object)
 
 // Nw_listener_t is an object you use to listen for incoming network connections.
 //
@@ -267,7 +267,7 @@ type Nw_parameters_configure_protocol_block_t = func(objectivec.Object)
 // Nw_parameters_iterate_interface_types_block_t is a block that allows inspection of a list of interface types.
 //
 // See: https://developer.apple.com/documentation/Network/nw_parameters_iterate_interface_types_block_t
-type Nw_parameters_iterate_interface_types_block_t = func(objectivec.IObject) bool
+type Nw_parameters_iterate_interface_types_block_t = func(NwInterfaceType) bool
 
 // Nw_parameters_iterate_interfaces_block_t is a block that allows inspection of a list of interfaces.
 //
@@ -360,7 +360,7 @@ type Nw_report_protocol_enumerator_t = func(objectivec.Object, uint64, uint64) b
 // Nw_report_resolution_enumerator_t is a block used to enumerate resolution steps performed during connection establishment.
 //
 // See: https://developer.apple.com/documentation/Network/nw_report_resolution_enumerator_t
-type Nw_report_resolution_enumerator_t = func(objectivec.IObject, uint64, uint32, objectivec.Object, objectivec.Object) bool
+type Nw_report_resolution_enumerator_t = func(NwReportResolutionSource, uint64, uint32, objectivec.Object, objectivec.Object) bool
 
 // Nw_report_resolution_report_enumerator_t is iterates a list of resolution steps, as [nw_resolution_report_t] objects, performed during connection establishment, in order from first resolved to last resolved.
 //
@@ -385,12 +385,12 @@ type Nw_txt_record_access_bytes_t = func(*uint8, uint32) bool
 // Nw_txt_record_access_key_t is a block that returns a value in a TXT record dictionary.
 //
 // See: https://developer.apple.com/documentation/Network/nw_txt_record_access_key_t
-type Nw_txt_record_access_key_t = func(string, objectivec.IObject, *uint8, uint32) bool
+type Nw_txt_record_access_key_t = func(string, NwTxtRecordFindKey, *uint8, uint32) bool
 
 // Nw_txt_record_applier_t is a block that iterates over values and keys in a TXT record dictionary.
 //
 // See: https://developer.apple.com/documentation/Network/nw_txt_record_applier_t
-type Nw_txt_record_applier_t = func(string, objectivec.IObject, *uint8, uint32) bool
+type Nw_txt_record_applier_t = func(string, NwTxtRecordFindKey, *uint8, uint32) bool
 
 // Nw_txt_record_t is a dictionary representing a TXT record in a DNS packet.
 //

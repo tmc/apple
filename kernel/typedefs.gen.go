@@ -7996,3 +7996,27 @@ type Zone_name_array_t = Zone_name_t
 
 // See: https://developer.apple.com/documentation/kernel/zone_name_t
 type Zone_name_t = unsafe.Pointer
+
+// NXByteOrder is the canonical enum type used by byte-order helpers.
+
+type NXByteOrder = Nx
+
+// Uio_rw aliases the generated uio enum family for vnode read/write APIs.
+
+type Uio_rw = Uio
+
+// Uio_seg aliases the generated uio enum family for vnode segment-space APIs.
+
+type Uio_seg = Uio
+
+// Ifnet_interface_advisory_interface_type aliases the generated advisory interface type enum.
+
+type Ifnet_interface_advisory_interface_type = IfInterfaceAdvisoryInterfaceType
+
+// IfnetInterfaceAdvisoryInterfaceType aliases the generated advisory interface type enum.
+
+type IfnetInterfaceAdvisoryInterfaceType = IfInterfaceAdvisoryInterfaceType
+
+// Ifnet_interface_advisory_version is a uint8-backed advisory version enum.
+
+type Ifnet_interface_advisory_version = uint8
