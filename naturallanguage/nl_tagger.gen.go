@@ -340,7 +340,9 @@ func (t NLTagger) GazetteersForTagScheme(tagScheme NLTagScheme) []NLGazetteer {
 // [lemma]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lemma
 // [lexicalClass]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lexicalClass
 func (t NLTagger) EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block func(*string, unsafe.Pointer, *bool)) {
-	_block4 := objc.NewBlock(func(_ objc.Block, arg0 *string, arg1 unsafe.Pointer, arg2 *bool) { block(arg0, arg1, arg2) })
+	_block4 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 unsafe.Pointer, arg2 *bool) {
+		block(objc.IDToStringPtr(arg0), arg1, arg2)
+	})
 	defer _block4.Release()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTagsInRange:unit:scheme:options:usingBlock:"), range_, unit, scheme, options, objc.ID(_block4))
 }
@@ -618,6 +620,6 @@ func (tc NLTaggerClass) RequestAssetsForLanguageTagScheme(ctx context.Context, l
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NLTaggerAssetsResult), ctx.Err()
 	}
 }

@@ -88,6 +88,15 @@ func GoString(cstr *byte) string {
 	return string(unsafe.Slice(cstr, length))
 }
 
+// GoStringPtr converts a nullable C string to a heap-backed *string.
+func GoStringPtr(cstr *byte) *string {
+	if cstr == nil {
+		return nil
+	}
+	s := GoString(cstr)
+	return &s
+}
+
 var (
 	selCache sync.Map // map[string]purego.SEL
 )
@@ -478,6 +487,15 @@ func IDToString(id ID) string {
 	// Call UTF8String
 	cstr := Send[*byte](id, Sel("UTF8String"))
 	return GoString(cstr)
+}
+
+// IDToStringPtr converts a nullable NSString ID to a heap-backed *string.
+func IDToStringPtr(id ID) *string {
+	if id == 0 {
+		return nil
+	}
+	s := IDToString(id)
+	return &s
 }
 
 // ErrUnrecognizedSelector is returned when an object does not respond to a selector.
