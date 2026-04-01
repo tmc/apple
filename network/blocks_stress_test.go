@@ -86,3 +86,72 @@ func TestParametersIterateProhibitedInterfaceTypesMoreThanBlockLimit(t *testing.
 		t.Fatalf("callback count = %d, want %d", callbacks, networkBlockStressCount)
 	}
 }
+
+func TestTXTRecordAccessKeyStringCallbackMoreThanBlockLimit(t *testing.T) {
+	record := newTestTXTRecord(t)
+	defer record.Release()
+
+	callbacks := 0
+	for i := 0; i < networkBlockStressCount; i++ {
+		ok := Nw_txt_record_access_key(record, "key", func(key string, status NwTxtRecordFindKey, value *uint8, valueLen uint32) bool {
+			if key != "key" {
+				t.Fatalf("callback %d key = %q, want %q", i, key, "key")
+			}
+			if status != Nw_txt_record_find_key_non_empty_value {
+				t.Fatalf("callback %d status = %v, want %v", i, status, Nw_txt_record_find_key_non_empty_value)
+			}
+			if value == nil {
+				t.Fatalf("callback %d returned nil value", i)
+			}
+			if valueLen == 0 {
+				t.Fatalf("callback %d returned empty value", i)
+			}
+			callbacks++
+			return true
+		})
+		if !ok {
+			t.Fatalf("Nw_txt_record_access_key failed at iteration %d", i)
+		}
+	}
+
+	if callbacks != networkBlockStressCount {
+		t.Fatalf("callback count = %d, want %d", callbacks, networkBlockStressCount)
+	}
+}
+
+func TestTXTRecordApplyStringCallbackMoreThanBlockLimit(t *testing.T) {
+	record := newTestTXTRecord(t)
+	defer record.Release()
+
+	callbacks := 0
+	for i := 0; i < networkBlockStressCount; i++ {
+		iterationCallbacks := 0
+		ok := Nw_txt_record_apply(record, func(key string, status NwTxtRecordFindKey, value *uint8, valueLen uint32) bool {
+			if key != "key" {
+				t.Fatalf("callback %d key = %q, want %q", i, key, "key")
+			}
+			if status != Nw_txt_record_find_key_non_empty_value {
+				t.Fatalf("callback %d status = %v, want %v", i, status, Nw_txt_record_find_key_non_empty_value)
+			}
+			if value == nil {
+				t.Fatalf("callback %d returned nil value", i)
+			}
+			if valueLen == 0 {
+				t.Fatalf("callback %d returned empty value", i)
+			}
+			iterationCallbacks++
+			callbacks++
+			return true
+		})
+		if !ok {
+			t.Fatalf("Nw_txt_record_apply failed at iteration %d", i)
+		}
+		if iterationCallbacks != 1 {
+			t.Fatalf("iteration %d callback count = %d, want 1", i, iterationCallbacks)
+		}
+	}
+
+	if callbacks != networkBlockStressCount {
+		t.Fatalf("callback count = %d, want %d", callbacks, networkBlockStressCount)
+	}
+}

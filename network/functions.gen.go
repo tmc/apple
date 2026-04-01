@@ -6876,7 +6876,7 @@ func tryNw_proxy_config_enumerate_excluded_domains(config Nw_proxy_config_t, enu
 	if _nw_proxy_config_enumerate_excluded_domains == nil {
 		return symbolCallError("nw_proxy_config_enumerate_excluded_domains", "14.0", _nw_proxy_config_enumerate_excluded_domainsErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string) { enumerator(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *byte) { enumerator(objc.GoString(arg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_proxy_config_enumerate_excluded_domains(config, _block0)
@@ -6899,7 +6899,7 @@ func tryNw_proxy_config_enumerate_match_domains(config Nw_proxy_config_t, enumer
 	if _nw_proxy_config_enumerate_match_domains == nil {
 		return symbolCallError("nw_proxy_config_enumerate_match_domains", "14.0", _nw_proxy_config_enumerate_match_domainsErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string) { enumerator(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *byte) { enumerator(objc.GoString(arg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_proxy_config_enumerate_match_domains(config, _block0)
@@ -8609,8 +8609,8 @@ func tryNw_txt_record_access_key(txt_record Nw_txt_record_t, key string, access_
 	if _nw_txt_record_access_key == nil {
 		return false, symbolCallError("nw_txt_record_access_key", "10.15", _nw_txt_record_access_keyErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string, arg1 NwTxtRecordFindKey, arg2 *uint8, arg3 uint32) bool {
-		return access_value(arg0, arg1, arg2, arg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *byte, arg1 NwTxtRecordFindKey, arg2 *uint8, arg3 uint32) bool {
+		return access_value(objc.GoString(arg0), arg1, arg2, arg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -8635,8 +8635,8 @@ func tryNw_txt_record_apply(txt_record Nw_txt_record_t, applier Nw_txt_record_ap
 	if _nw_txt_record_apply == nil {
 		return false, symbolCallError("nw_txt_record_apply", "10.15", _nw_txt_record_applyErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string, arg1 NwTxtRecordFindKey, arg2 *uint8, arg3 uint32) bool {
-		return applier(arg0, arg1, arg2, arg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *byte, arg1 NwTxtRecordFindKey, arg2 *uint8, arg3 uint32) bool {
+		return applier(objc.GoString(arg0), arg1, arg2, arg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -9183,7 +9183,9 @@ func tryNw_ws_request_enumerate_additional_headers(request Nw_ws_request_t, enum
 	if _nw_ws_request_enumerate_additional_headers == nil {
 		return false, symbolCallError("nw_ws_request_enumerate_additional_headers", "10.15", _nw_ws_request_enumerate_additional_headersErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string, arg1 string) bool { return enumerator(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *byte, arg1 *byte) bool {
+		return enumerator(objc.GoString(arg0), objc.GoString(arg1))
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _nw_ws_request_enumerate_additional_headers(request, _block0), nil
@@ -9207,7 +9209,7 @@ func tryNw_ws_request_enumerate_subprotocols(request Nw_ws_request_t, enumerator
 	if _nw_ws_request_enumerate_subprotocols == nil {
 		return false, symbolCallError("nw_ws_request_enumerate_subprotocols", "10.15", _nw_ws_request_enumerate_subprotocolsErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string) bool { return enumerator(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *byte) bool { return enumerator(objc.GoString(arg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _nw_ws_request_enumerate_subprotocols(request, _block0), nil
@@ -9272,7 +9274,9 @@ func tryNw_ws_response_enumerate_additional_headers(response Nw_ws_response_t, e
 	if _nw_ws_response_enumerate_additional_headers == nil {
 		return false, symbolCallError("nw_ws_response_enumerate_additional_headers", "10.15", _nw_ws_response_enumerate_additional_headersErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 string, arg1 string) bool { return enumerator(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *byte, arg1 *byte) bool {
+		return enumerator(objc.GoString(arg0), objc.GoString(arg1))
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _nw_ws_response_enumerate_additional_headers(response, _block0), nil
