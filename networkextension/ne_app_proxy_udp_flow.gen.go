@@ -6,8 +6,8 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/network"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NEAppProxyUDPFlow] class.
@@ -86,7 +86,7 @@ type INEAppProxyUDPFlow interface {
 	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
 	LocalEndpoint() INWEndpoint
 
-	LocalFlowEndpoint() objectivec.IObject
+	LocalFlowEndpoint() network.Nw_endpoint_t
 	ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler VoidHandler)
 	WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints *NWEndpointArray, completionHandler ErrorHandler)
 }
@@ -138,7 +138,7 @@ func (a NEAppProxyUDPFlow) LocalEndpoint() INWEndpoint {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow/localFlowEndpoint-9a8gj
-func (a NEAppProxyUDPFlow) LocalFlowEndpoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("localFlowEndpoint"))
-	return objectivec.Object{ID: rv}
+func (a NEAppProxyUDPFlow) LocalFlowEndpoint() network.Nw_endpoint_t {
+	rv := objc.Send[network.Nw_endpoint_t](a.ID, objc.Sel("localFlowEndpoint"))
+	return network.Nw_endpoint_t(rv)
 }

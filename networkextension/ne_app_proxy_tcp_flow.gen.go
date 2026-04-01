@@ -7,8 +7,8 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/network"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NEAppProxyTCPFlow] class.
@@ -104,7 +104,7 @@ type INEAppProxyTCPFlow interface {
 	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 	RemoteEndpoint() INWEndpoint
 
-	RemoteFlowEndpoint() objectivec.IObject
+	RemoteFlowEndpoint() network.Nw_endpoint_t
 }
 
 // Init initializes the instance.
@@ -184,9 +184,9 @@ func (a NEAppProxyTCPFlow) RemoteEndpoint() INWEndpoint {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow/remoteFlowEndpoint-9lvob
-func (a NEAppProxyTCPFlow) RemoteFlowEndpoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteFlowEndpoint"))
-	return objectivec.Object{ID: rv}
+func (a NEAppProxyTCPFlow) RemoteFlowEndpoint() network.Nw_endpoint_t {
+	rv := objc.Send[network.Nw_endpoint_t](a.ID, objc.Sel("remoteFlowEndpoint"))
+	return network.Nw_endpoint_t(rv)
 }
 
 // WriteData is a synchronous wrapper around [NEAppProxyTCPFlow.WriteDataWithCompletionHandler].

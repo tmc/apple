@@ -7,8 +7,8 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/network"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NEDNSProxyProvider] class.
@@ -135,7 +135,7 @@ type INEDNSProxyProvider interface {
 	// The current system DNS settings.
 	SystemDNSSettings() foundation.INSSet
 
-	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint objectivec.IObject) bool
+	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.Nw_endpoint_t) bool
 }
 
 // Init initializes the instance.
@@ -249,11 +249,8 @@ func (d NEDNSProxyProvider) HandleNewFlow(flow INEAppProxyFlow) bool {
 	return rv
 }
 
-// remoteEndpoint is a [network.nw_endpoint_t].
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyProvider/handleNewUDPFlow:initialRemoteFlowEndpoint:
-// remoteEndpoint is a [network.nw_endpoint_t].
-func (d NEDNSProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint objectivec.IObject) bool {
+func (d NEDNSProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.Nw_endpoint_t) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("handleNewUDPFlow:initialRemoteFlowEndpoint:"), flow, remoteEndpoint)
 	return rv
 }

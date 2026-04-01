@@ -7,6 +7,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/network"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -137,12 +138,12 @@ type INEAppProxyFlow interface {
 	// A metadata object containing information about the source app of the flow.
 	MetaData() INEFlowMetaData
 	// Sets the flow’s metadata for use by proxy providers.
-	SetMetadata(parameters objectivec.IObject)
+	SetMetadata(parameters network.Nw_parameters_t)
 	// A Boolean value that indicates whether the flow has a binding to a specific interface.
 	IsBound() bool
 	// The network interface, if any, used by this flow.
-	NetworkInterface() objectivec.IObject
-	SetNetworkInterface(value objectivec.IObject)
+	NetworkInterface() network.Nw_interface_t
+	SetNetworkInterface(value network.Nw_interface_t)
 	// The remote host name for flows created from a hostname.
 	RemoteHostname() string
 
@@ -156,7 +157,7 @@ type INEAppProxyFlow interface {
 	Interface() objectivec.IObject
 	SetInterface(value objectivec.IObject)
 
-	OpenWithLocalFlowEndpointCompletionHandler(localEndpoint objectivec.IObject, completionHandler ErrorHandler)
+	OpenWithLocalFlowEndpointCompletionHandler(localEndpoint network.Nw_endpoint_t, completionHandler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -208,8 +209,6 @@ func (a NEAppProxyFlow) CloseWriteWithError(error_ foundation.INSError) {
 //
 // parameters: A nw_parameters_t object that contains the flow metadata.
 //
-// parameters is a [network.nw_parameters_t].
-//
 // # Discussion
 //
 // Use an [nw_parameters_t] object to create a connection that transparently
@@ -218,18 +217,14 @@ func (a NEAppProxyFlow) CloseWriteWithError(error_ foundation.INSError) {
 // transparently proxy the flow.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlow/setMetadata(_:)
-// parameters is a [network.nw_parameters_t].
 //
 // [nw_parameters_t]: https://developer.apple.com/documentation/Network/nw_parameters_t
-func (a NEAppProxyFlow) SetMetadata(parameters objectivec.IObject) {
+func (a NEAppProxyFlow) SetMetadata(parameters network.Nw_parameters_t) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setMetadata:"), parameters)
 }
 
-// localEndpoint is a [network.nw_endpoint_t].
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlow/openWithLocalFlowEndpoint:completionHandler:
-// localEndpoint is a [network.nw_endpoint_t].
-func (a NEAppProxyFlow) OpenWithLocalFlowEndpointCompletionHandler(localEndpoint objectivec.IObject, completionHandler ErrorHandler) {
+func (a NEAppProxyFlow) OpenWithLocalFlowEndpointCompletionHandler(localEndpoint network.Nw_endpoint_t, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("openWithLocalFlowEndpoint:completionHandler:"), localEndpoint, _block1)
 }
@@ -265,11 +260,11 @@ func (a NEAppProxyFlow) IsBound() bool {
 // property to that interface.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlow/networkInterface
-func (a NEAppProxyFlow) NetworkInterface() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("networkInterface"))
-	return objectivec.Object{ID: rv}
+func (a NEAppProxyFlow) NetworkInterface() network.Nw_interface_t {
+	rv := objc.Send[network.Nw_interface_t](a.ID, objc.Sel("networkInterface"))
+	return network.Nw_interface_t(rv)
 }
-func (a NEAppProxyFlow) SetNetworkInterface(value objectivec.IObject) {
+func (a NEAppProxyFlow) SetNetworkInterface(value network.Nw_interface_t) {
 	objc.Send[struct{}](a.ID, objc.Sel("setNetworkInterface:"), value)
 }
 
@@ -308,7 +303,7 @@ func (a NEAppProxyFlow) SetInterface(value objectivec.IObject) {
 
 // OpenWithLocalFlowEndpoint is a synchronous wrapper around [NEAppProxyFlow.OpenWithLocalFlowEndpointCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a NEAppProxyFlow) OpenWithLocalFlowEndpoint(ctx context.Context, localEndpoint objectivec.IObject) error {
+func (a NEAppProxyFlow) OpenWithLocalFlowEndpoint(ctx context.Context, localEndpoint network.Nw_endpoint_t) error {
 	done := make(chan error, 1)
 	a.OpenWithLocalFlowEndpointCompletionHandler(localEndpoint, func(err error) {
 		done <- err

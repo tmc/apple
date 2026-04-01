@@ -864,16 +864,17 @@ func (e NEProviderStopReason) String() string {
 type NERelayManagerClientError int
 
 const (
-	NERelayManagerClientErrorCertificateExpired       NERelayManagerClientError = 7
-	NERelayManagerClientErrorCertificateInvalid       NERelayManagerClientError = 6
-	NERelayManagerClientErrorCertificateMissing       NERelayManagerClientError = 5
-	NERelayManagerClientErrorDNSFailed                NERelayManagerClientError = 2
-	NERelayManagerClientErrorNone                     NERelayManagerClientError = 1
-	NERelayManagerClientErrorOther                    NERelayManagerClientError = 10
-	NERelayManagerClientErrorServerCertificateExpired NERelayManagerClientError = 9
-	NERelayManagerClientErrorServerCertificateInvalid NERelayManagerClientError = 8
-	NERelayManagerClientErrorServerDisconnected       NERelayManagerClientError = 4
-	NERelayManagerClientErrorServerUnreachable        NERelayManagerClientError = 3
+	NERelayManagerClientErrorCertificateExpired        NERelayManagerClientError = 7
+	NERelayManagerClientErrorCertificateInvalid        NERelayManagerClientError = 6
+	NERelayManagerClientErrorCertificateMissing        NERelayManagerClientError = 5
+	NERelayManagerClientErrorDNSFailed                 NERelayManagerClientError = 2
+	NERelayManagerClientErrorNone                      NERelayManagerClientError = 1
+	NERelayManagerClientErrorOther                     NERelayManagerClientError = 10
+	NERelayManagerClientErrorPvDConfigurationTruncated NERelayManagerClientError = 11
+	NERelayManagerClientErrorServerCertificateExpired  NERelayManagerClientError = 9
+	NERelayManagerClientErrorServerCertificateInvalid  NERelayManagerClientError = 8
+	NERelayManagerClientErrorServerDisconnected        NERelayManagerClientError = 4
+	NERelayManagerClientErrorServerUnreachable         NERelayManagerClientError = 3
 )
 
 func (e NERelayManagerClientError) String() string {
@@ -890,6 +891,8 @@ func (e NERelayManagerClientError) String() string {
 		return "NERelayManagerClientErrorNone"
 	case NERelayManagerClientErrorOther:
 		return "NERelayManagerClientErrorOther"
+	case NERelayManagerClientErrorPvDConfigurationTruncated:
+		return "NERelayManagerClientErrorPvDConfigurationTruncated"
 	case NERelayManagerClientErrorServerCertificateExpired:
 		return "NERelayManagerClientErrorServerCertificateExpired"
 	case NERelayManagerClientErrorServerCertificateInvalid:

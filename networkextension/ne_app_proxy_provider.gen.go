@@ -7,8 +7,8 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/network"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NEAppProxyProvider] class.
@@ -167,7 +167,7 @@ type INEAppProxyProvider interface {
 	// Handle a new flow of network data.
 	HandleNewFlow(flow INEAppProxyFlow) bool
 
-	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint objectivec.IObject) bool
+	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.Nw_endpoint_t) bool
 }
 
 // Init initializes the instance.
@@ -291,11 +291,8 @@ func (a NEAppProxyProvider) HandleNewFlow(flow INEAppProxyFlow) bool {
 	return rv
 }
 
-// remoteEndpoint is a [network.nw_endpoint_t].
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyProvider/handleNewUDPFlow:initialRemoteFlowEndpoint:
-// remoteEndpoint is a [network.nw_endpoint_t].
-func (a NEAppProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint objectivec.IObject) bool {
+func (a NEAppProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.Nw_endpoint_t) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("handleNewUDPFlow:initialRemoteFlowEndpoint:"), flow, remoteEndpoint)
 	return rv
 }
