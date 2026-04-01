@@ -268,7 +268,7 @@ func (m AVMetadataItem) StatusOfValueForKeyError(key string) (AVKeyValueStatus, 
 	rv := objc.Send[AVKeyValueStatus](m.ID, objc.Sel("statusOfValueForKey:error:"), objc.String(key), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(AVKeyValueStatus), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 

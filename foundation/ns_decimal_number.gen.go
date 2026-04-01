@@ -195,8 +195,7 @@ func NewNSDecimalNumber() NSDecimalNumber {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(GCPoint2:)
-// point is a [gamecontroller.GCPoint2].
-func NewDecimalNumberValueWithGCPoint2(point objectivec.IObject) NSDecimalNumber {
+func NewDecimalNumberValueWithGCPoint2(point unsafe.Pointer) NSDecimalNumber {
 	rv := objc.Send[objc.ID](objc.ID(getNSDecimalNumberClass().class), objc.Sel("valueWithGCPoint2:"), point)
 	return NSDecimalNumberFromID(rv)
 }

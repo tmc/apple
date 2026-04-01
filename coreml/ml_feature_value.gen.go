@@ -223,12 +223,11 @@ func NewFeatureValueWithCGImageConstraintOptionsError(cgImage coregraphics.CGIma
 // [MLFeatureValueImageOption].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(CGImage:orientation:constraint:options:)
-// orientation is a [imageio.CGImagePropertyOrientation].
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregraphics.CGImageRef, orientation uint, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:orientation:constraint:options:error:"), cgImage, orientation, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -255,13 +254,12 @@ func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregra
 // [MLFeatureValueImageOption].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(CGImage:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:)
-// orientation is a [imageio.CGImagePropertyOrientation].
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(cgImage coregraphics.CGImageRef, orientation uint, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), cgImage, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -363,13 +361,12 @@ func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.INSURL, 
 // [MLFeatureValueImageOption].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(imageAtURL:orientation:constraint:options:)
-// orientation is a [imageio.CGImagePropertyOrientation].
 //
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 // [URL]: https://developer.apple.com/documentation/Foundation/URL
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundation.INSURL, orientation objectivec.IObject, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundation.INSURL, orientation uint, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:constraint:options:error:"), url, orientation, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -396,14 +393,13 @@ func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundati
 // [MLFeatureValueImageOption].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(imageAtURL:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:)
-// orientation is a [imageio.CGImagePropertyOrientation].
 //
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 // [URL]: https://developer.apple.com/documentation/Foundation/URL
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.INSURL, orientation objectivec.IObject, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.INSURL, orientation uint, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), url, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

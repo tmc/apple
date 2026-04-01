@@ -4,9 +4,9 @@ package vision
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNImageHomographicAlignmentObservation] class.
@@ -82,7 +82,7 @@ type IVNImageHomographicAlignmentObservation interface {
 	// Topic: Accessing the Transform
 
 	// The warp transform matrix to morph the floating image into the reference image.
-	WarpTransform() objectivec.IObject
+	WarpTransform() unsafe.Pointer
 }
 
 // Init initializes the instance.
@@ -108,7 +108,7 @@ func NewVNImageHomographicAlignmentObservation() VNImageHomographicAlignmentObse
 // image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageHomographicAlignmentObservation/warpTransform
-func (i VNImageHomographicAlignmentObservation) WarpTransform() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("warpTransform"))
-	return objectivec.Object{ID: rv}
+func (i VNImageHomographicAlignmentObservation) WarpTransform() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("warpTransform"))
+	return rv
 }

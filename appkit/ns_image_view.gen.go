@@ -273,10 +273,9 @@ func NewImageViewWithImage(image INSImage) NSImageView {
 //
 // symbolEffect: The symbol effect to add.
 //
-// symbolEffect is a [symbols.NSSymbolEffect].
+// symbolEffect is a [*symbols.NSSymbolEffect].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:
-// symbolEffect is a [symbols.NSSymbolEffect].
 func (i NSImageView) AddSymbolEffect(symbolEffect objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:"), symbolEffect)
 }
@@ -288,13 +287,11 @@ func (i NSImageView) AddSymbolEffect(symbolEffect objectivec.IObject) {
 //
 // options: The options for the symbol effect.
 //
-// symbolEffect is a [symbols.NSSymbolEffect].
+// symbolEffect is a [*symbols.NSSymbolEffect].
 //
-// options is a [symbols.NSSymbolEffectOptions].
+// options is a [*symbols.NSSymbolEffectOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:options:
-// symbolEffect is a [symbols.NSSymbolEffect].
-// options is a [symbols.NSSymbolEffectOptions].
 func (i NSImageView) AddSymbolEffectOptions(symbolEffect objectivec.IObject, options objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:options:"), symbolEffect, options)
 }
@@ -309,13 +306,11 @@ func (i NSImageView) AddSymbolEffectOptions(symbolEffect objectivec.IObject, opt
 // animated: A Boolean value that indicates whether to animate the addition of a scale,
 // appear, or disappear effect.
 //
-// symbolEffect is a [symbols.NSSymbolEffect].
+// symbolEffect is a [*symbols.NSSymbolEffect].
 //
-// options is a [symbols.NSSymbolEffectOptions].
+// options is a [*symbols.NSSymbolEffectOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:options:animated:
-// symbolEffect is a [symbols.NSSymbolEffect].
-// options is a [symbols.NSSymbolEffectOptions].
 func (i NSImageView) AddSymbolEffectOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool) {
 	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:options:animated:"), symbolEffect, options, animated)
 }
@@ -332,10 +327,9 @@ func (i NSImageView) RemoveAllSymbolEffects() {
 //
 // options: The options to use when removing the symbol effects.
 //
-// options is a [symbols.NSSymbolEffectOptions].
+// options is a [*symbols.NSSymbolEffectOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeAllSymbolEffectsWithOptions:
-// options is a [symbols.NSSymbolEffectOptions].
 func (i NSImageView) RemoveAllSymbolEffectsWithOptions(options objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeAllSymbolEffectsWithOptions:"), options)
 }
@@ -348,10 +342,9 @@ func (i NSImageView) RemoveAllSymbolEffectsWithOptions(options objectivec.IObjec
 // animated: A Boolean value that indicates whether to animate the removal of a scale,
 // appear, or disappear effects.
 //
-// options is a [symbols.NSSymbolEffectOptions].
+// options is a [*symbols.NSSymbolEffectOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeAllSymbolEffectsWithOptions:animated:
-// options is a [symbols.NSSymbolEffectOptions].
 func (i NSImageView) RemoveAllSymbolEffectsWithOptionsAnimated(options objectivec.IObject, animated bool) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeAllSymbolEffectsWithOptions:animated:"), options, animated)
 }
@@ -360,10 +353,9 @@ func (i NSImageView) RemoveAllSymbolEffectsWithOptionsAnimated(options objective
 //
 // symbolEffect: The symbol effect to match for removal.
 //
-// symbolEffect is a [symbols.NSSymbolEffect].
+// symbolEffect is a [*symbols.NSSymbolEffect].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:
-// symbolEffect is a [symbols.NSSymbolEffect].
 func (i NSImageView) RemoveSymbolEffectOfType(symbolEffect objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:"), symbolEffect)
 }
@@ -375,13 +367,11 @@ func (i NSImageView) RemoveSymbolEffectOfType(symbolEffect objectivec.IObject) {
 //
 // options: The options to use when removing the symbol effect.
 //
-// symbolEffect is a [symbols.NSSymbolEffect].
+// symbolEffect is a [*symbols.NSSymbolEffect].
 //
-// options is a [symbols.NSSymbolEffectOptions].
+// options is a [*symbols.NSSymbolEffectOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:options:
-// symbolEffect is a [symbols.NSSymbolEffect].
-// options is a [symbols.NSSymbolEffectOptions].
 func (i NSImageView) RemoveSymbolEffectOfTypeOptions(symbolEffect objectivec.IObject, options objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:options:"), symbolEffect, options)
 }
@@ -396,13 +386,11 @@ func (i NSImageView) RemoveSymbolEffectOfTypeOptions(symbolEffect objectivec.IOb
 // animated: A Boolean value that indicates whether to animate the removal of a scale,
 // appear, or disappear effect.
 //
-// symbolEffect is a [symbols.NSSymbolEffect].
+// symbolEffect is a [*symbols.NSSymbolEffect].
 //
-// options is a [symbols.NSSymbolEffectOptions].
+// options is a [*symbols.NSSymbolEffectOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:options:animated:
-// symbolEffect is a [symbols.NSSymbolEffect].
-// options is a [symbols.NSSymbolEffectOptions].
 func (i NSImageView) RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:options:animated:"), symbolEffect, options, animated)
 }
@@ -413,10 +401,9 @@ func (i NSImageView) RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect object
 //
 // transition: The content transition to use when setting the symbol image.
 //
-// transition is a [symbols.NSSymbolContentTransition].
+// transition is a [*symbols.NSSymbolContentTransition].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/setSymbolImage:withContentTransition:
-// transition is a [symbols.NSSymbolContentTransition].
 func (i NSImageView) SetSymbolImageWithContentTransition(symbolImage INSImage, transition objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("setSymbolImage:withContentTransition:"), symbolImage, transition)
 }
@@ -430,13 +417,11 @@ func (i NSImageView) SetSymbolImageWithContentTransition(symbolImage INSImage, t
 //
 // options: The options to use when setting the symbol image.
 //
-// transition is a [symbols.NSSymbolContentTransition].
+// transition is a [*symbols.NSSymbolContentTransition].
 //
-// options is a [symbols.NSSymbolEffectOptions].
+// options is a [*symbols.NSSymbolEffectOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/setSymbolImage:withContentTransition:options:
-// transition is a [symbols.NSSymbolContentTransition].
-// options is a [symbols.NSSymbolEffectOptions].
 func (i NSImageView) SetSymbolImageWithContentTransitionOptions(symbolImage INSImage, transition objectivec.IObject, options objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("setSymbolImage:withContentTransition:options:"), symbolImage, transition, options)
 }

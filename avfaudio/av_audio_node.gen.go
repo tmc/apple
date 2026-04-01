@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -189,7 +190,7 @@ type IAVAudioNode interface {
 	// Topic: Getting Audio Node Properties
 
 	// An audio unit object that wraps or underlies the implementation’s audio unit.
-	AUAudioUnit() objectivec.IObject
+	AUAudioUnit() unsafe.Pointer
 	// The processing latency of the node, in seconds.
 	Latency() float64
 	// The maximum render pipeline latency downstream of the node, in seconds.
@@ -375,9 +376,9 @@ func (a AVAudioNode) LastRenderTime() IAVAudioTime {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/auAudioUnit
 //
 // [AUAudioUnit]: https://developer.apple.com/documentation/AudioToolbox/AUAudioUnit
-func (a AVAudioNode) AUAudioUnit() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("AUAudioUnit"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioNode) AUAudioUnit() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("AUAudioUnit"))
+	return rv
 }
 
 // The processing latency of the node, in seconds.

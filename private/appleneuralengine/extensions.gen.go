@@ -32,7 +32,7 @@ func (b *CompletionHandlerBinding) Release() {
 				objectivec.Object{ID: b.requestID},
 				unsafe.Pointer(&completionHandlerAssocKey),
 				objectivec.Object{},
-				uintptr(objectivec.OBJC_ASSOCIATION_RETAIN_NONATOMIC),
+				objectivec.OBJC_ASSOCIATION_RETAIN_NONATOMIC,
 			)
 		}
 		if b.cleanup != nil {
@@ -53,7 +53,7 @@ func (a ANERequest) SetCompletionHandlerRetained(handler BoolErrorHandler) *Comp
 		objectivec.Object{ID: a.ID},
 		unsafe.Pointer(&completionHandlerAssocKey),
 		objectivec.Object{ID: blockID},
-		uintptr(objectivec.OBJC_ASSOCIATION_RETAIN_NONATOMIC),
+		objectivec.OBJC_ASSOCIATION_RETAIN_NONATOMIC,
 	)
 	return &CompletionHandlerBinding{requestID: a.ID, cleanup: blockCleanup}
 }

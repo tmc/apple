@@ -1730,7 +1730,7 @@ type IOBlitCursor = unsafe.Pointer
 type IOBlitMemory = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/ioblitmemoryref
-type IOBlitMemoryRef uintptr
+type IOBlitMemoryRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/ioblitoperation
 type IOBlitOperation = unsafe.Pointer
@@ -1904,7 +1904,7 @@ type IOFWRequestRefCon = unsafe.Pointer
 type IOFWSpeed = int
 
 // See: https://developer.apple.com/documentation/kernel/iofirewiresessionref
-type IOFireWireSessionRef uintptr
+type IOFireWireSessionRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/iofixed1616
 type IOFixed1616 = unsafe.Pointer
@@ -2878,16 +2878,16 @@ type NXTabletProximityDataPtr = unsafe.Pointer
 type NuDCLFlags = uint
 
 // See: https://developer.apple.com/documentation/kernel/nudclreceivepacketref
-type NuDCLReceivePacketRef uintptr
+type NuDCLReceivePacketRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/nudclref
 type NuDCLRef uintptr
 
 // See: https://developer.apple.com/documentation/kernel/nudclsendpacketref
-type NuDCLSendPacketRef uintptr
+type NuDCLSendPacketRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/nudclskipcycleref
-type NuDCLSkipCycleRef uintptr
+type NuDCLSkipCycleRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/numversion
 type NumVersion = unsafe.Pointer

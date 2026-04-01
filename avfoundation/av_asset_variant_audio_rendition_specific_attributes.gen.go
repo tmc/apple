@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -89,8 +90,8 @@ type IAVAssetVariantAudioRenditionSpecificAttributes interface {
 	// The count of audio channels in the rendition.
 	ChannelCount() int
 	// The audio formats of the renditions present in the variant.
-	FormatIDs() objectivec.IObject
-	SetFormatIDs(value objectivec.IObject)
+	FormatIDs() string
+	SetFormatIDs(value string)
 }
 
 // Init initializes the instance.
@@ -168,10 +169,10 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) ChannelCount() int {
 // The audio formats of the renditions present in the variant.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/audioattributes-swift.class/formatids
-func (a AVAssetVariantAudioRenditionSpecificAttributes) FormatIDs() objectivec.IObject {
+func (a AVAssetVariantAudioRenditionSpecificAttributes) FormatIDs() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("formatIDs"))
-	return objectivec.Object{ID: rv}
+	return foundation.NSStringFromID(rv).String()
 }
-func (a AVAssetVariantAudioRenditionSpecificAttributes) SetFormatIDs(value objectivec.IObject) {
-	objc.Send[struct{}](a.ID, objc.Sel("setFormatIDs:"), value)
+func (a AVAssetVariantAudioRenditionSpecificAttributes) SetFormatIDs(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setFormatIDs:"), objc.String(value))
 }

@@ -6,15 +6,14 @@ package pdfkit
 
 import (
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFThumbnailView/contentInset
-func (p PDFThumbnailView) ContentInset() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("contentInset"))
-	return objectivec.Object{ID: rv}
+func (p PDFThumbnailView) ContentInset() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("contentInset"))
+	return rv
 }
-func (p PDFThumbnailView) SetContentInset(value objectivec.IObject) {
+func (p PDFThumbnailView) SetContentInset(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setContentInset:"), value)
 }
 

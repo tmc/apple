@@ -5,8 +5,8 @@ package foundation
 import (
 	"context"
 	"sync"
+	"unsafe"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -91,7 +91,6 @@ func (nc NSItemProviderClass) Alloc() NSItemProvider {
 // # Configuring the provider
 //
 //   - [NSItemProvider.PreferredPresentationSize]: The ideal presentation size of the item.
-//   - [NSItemProvider.SetPreferredPresentationSize]
 //   - [NSItemProvider.SuggestedName]: The filename to use when writing the provided data to a file on disk.
 //   - [NSItemProvider.SetSuggestedName]
 //
@@ -177,7 +176,6 @@ func NSItemProviderFromID(id objc.ID) NSItemProvider {
 // # Configuring the provider
 //
 //   - [INSItemProvider.PreferredPresentationSize]: The ideal presentation size of the item.
-//   - [INSItemProvider.SetPreferredPresentationSize]
 //   - [INSItemProvider.SuggestedName]: The filename to use when writing the provided data to a file on disk.
 //   - [INSItemProvider.SetSuggestedName]
 //
@@ -250,8 +248,7 @@ type INSItemProvider interface {
 	// Topic: Configuring the provider
 
 	// The ideal presentation size of the item.
-	PreferredPresentationSize() corefoundation.CGSize
-	SetPreferredPresentationSize(value corefoundation.CGSize)
+	PreferredPresentationSize() NSSize
 	// The filename to use when writing the provided data to a file on disk.
 	SuggestedName() string
 	SetSuggestedName(value string)
@@ -293,9 +290,9 @@ type INSItemProvider interface {
 	// Topic: Registering CloudKit shares
 
 	// Registers a CloudKit share for the user to modify.
-	RegisterCloudKitShareContainer(share objectivec.IObject, container objectivec.IObject)
+	RegisterCloudKitShareContainer(share unsafe.Pointer, container unsafe.Pointer)
 	// Registers a handler that prepares a new CloudKit share.
-	RegisterCloudKitShareWithPreparationHandler(preparationHandler VoidHandler)
+	RegisterCloudKitShareWithPreparationHandler(preparationHandler ErrorHandler)
 
 	// Topic: Registering content types
 
@@ -309,21 +306,21 @@ type INSItemProvider interface {
 	// Topic: Registering data
 
 	// Registers a data-backed representation for an item, specifiying item visibility and a load handler.
-	RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler(typeIdentifier string, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler)
+	RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler(typeIdentifier string, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 	// Lazily registers an item, according to the item provider type coercion policy.
 	RegisterItemForTypeIdentifierLoadHandler(typeIdentifier string, loadHandler ErrorHandler)
 
 	// Topic: Registering files
 
 	// Registers a file-backed representation for an item, specifying file options, item visibility, and a load handler.
-	RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler(typeIdentifier string, fileOptions NSItemProviderFileOptions, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler)
+	RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler(typeIdentifier string, fileOptions NSItemProviderFileOptions, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 
 	// Topic: Registering objects
 
 	// Adds representations of a specified object to an item provider, based on the object’s implementation of the item provider writing protocol, and adhering to a visibility specification.
 	RegisterObjectVisibility(object NSItemProviderWriting, visibility NSItemProviderRepresentationVisibility)
 	// Lazily adds representations of a specified object class to an item provider, based on the object’s implementation of the item provider writing protocol, and adhering to a visibility specification.
-	RegisterObjectOfClassVisibilityLoadHandler(aClass objc.Class, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler)
+	RegisterObjectOfClassVisibilityLoadHandler(aClass objc.Class, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 
 	// Topic: Getting the provider’s frame
 
@@ -342,13 +339,13 @@ type INSItemProvider interface {
 	// Asynchronously copies the content type data into a generic data object with the specified parameters.
 	LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress
 	// Registers an existing collaboration object on a server.
-	RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject)
+	RegisterCKShareContainerAllowedSharingOptions(share unsafe.Pointer, container unsafe.Pointer, allowedOptions unsafe.Pointer)
 	// Creates and registers a new collaboration object using a collection of records to share.
-	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler)
+	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container unsafe.Pointer, allowedOptions unsafe.Pointer, preparationHandler ErrorHandler)
 	// Lazily registers an item, according to the item provider type coercion policy.
-	RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler)
+	RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 	// Registers a file-backed representation for an item with item visibility, an open-in-place option, and a load handler.
-	RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, openInPlace bool, loadHandler VoidHandler)
+	RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, openInPlace bool, loadHandler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -732,9 +729,9 @@ func (i NSItemProvider) LoadPreviewImageWithOptionsCompletionHandler(options INS
 //
 // container: The CloudKit container that stores the shared records.
 //
-// share is a [cloudkit.CKShare].
+// share is a [*cloudkit.CKShare].
 //
-// container is a [cloudkit.CKContainer].
+// container is a [*cloudkit.CKContainer].
 //
 // # Discussion
 //
@@ -756,14 +753,12 @@ func (i NSItemProvider) LoadPreviewImageWithOptionsCompletionHandler(options INS
 // presents the share’s configuration to the user.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCloudKitShare(_:container:)
-// share is a [cloudkit.CKShare].
-// container is a [cloudkit.CKContainer].
 //
 // [CKContainer]: https://developer.apple.com/documentation/CloudKit/CKContainer
 // [CKFetchShareMetadataOperation]: https://developer.apple.com/documentation/CloudKit/CKFetchShareMetadataOperation
 // [NSCloudSharingServiceDelegate]: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate
 // [containerIdentifier]: https://developer.apple.com/documentation/CloudKit/CKShare/Metadata/containerIdentifier
-func (i NSItemProvider) RegisterCloudKitShareContainer(share objectivec.IObject, container objectivec.IObject) {
+func (i NSItemProvider) RegisterCloudKitShareContainer(share unsafe.Pointer, container unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShare:container:"), share, container)
 }
 
@@ -795,8 +790,8 @@ func (i NSItemProvider) RegisterCloudKitShareContainer(share objectivec.IObject,
 // [CKModifyRecordsOperation]: https://developer.apple.com/documentation/CloudKit/CKModifyRecordsOperation
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 // [NSCloudSharingServiceDelegate]: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate
-func (i NSItemProvider) RegisterCloudKitShareWithPreparationHandler(preparationHandler VoidHandler) {
-	_block0, _ := NewVoidBlock(preparationHandler)
+func (i NSItemProvider) RegisterCloudKitShareWithPreparationHandler(preparationHandler ErrorHandler) {
+	_block0, _ := NewErrorBlock(preparationHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShareWithPreparationHandler:"), _block0)
 }
 
@@ -819,8 +814,8 @@ func (i NSItemProvider) RegisteredContentTypesConformingToContentType(contentTyp
 // visibility and a load handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerDataRepresentation(forTypeIdentifier:visibility:loadHandler:)
-func (i NSItemProvider) RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler(typeIdentifier string, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-	_block2, _ := NewVoidBlock(loadHandler)
+func (i NSItemProvider) RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler(typeIdentifier string, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForTypeIdentifier:visibility:loadHandler:"), objc.String(typeIdentifier), visibility, _block2)
 }
 
@@ -872,8 +867,8 @@ func (i NSItemProvider) RegisterItemForTypeIdentifierLoadHandler(typeIdentifier 
 // provider is visible in the Files app.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerFileRepresentation(forTypeIdentifier:fileOptions:visibility:loadHandler:)
-func (i NSItemProvider) RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler(typeIdentifier string, fileOptions NSItemProviderFileOptions, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-	_block3, _ := NewVoidBlock(loadHandler)
+func (i NSItemProvider) RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler(typeIdentifier string, fileOptions NSItemProviderFileOptions, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler) {
+	_block3, _ := NewErrorBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForTypeIdentifier:fileOptions:visibility:loadHandler:"), objc.String(typeIdentifier), fileOptions, visibility, _block3)
 }
 
@@ -896,8 +891,8 @@ func (i NSItemProvider) RegisterObjectVisibility(object NSItemProviderWriting, v
 // writing protocol, and adhering to a visibility specification.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerObject(ofClass:visibility:loadHandler:)-9sndn
-func (i NSItemProvider) RegisterObjectOfClassVisibilityLoadHandler(aClass objc.Class, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-	_block2, _ := NewVoidBlock(loadHandler)
+func (i NSItemProvider) RegisterObjectOfClassVisibilityLoadHandler(aClass objc.Class, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerObjectOfClass:visibility:loadHandler:"), aClass, visibility, _block2)
 }
 
@@ -961,11 +956,11 @@ func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletio
 //
 // allowedOptions: The [CKAllowedSharingOptions]. The standard option is the default.
 //
-// share is a [cloudkit.CKShare].
+// share is a [*cloudkit.CKShare].
 //
-// container is a [cloudkit.CKContainer].
+// container is a [*cloudkit.CKContainer].
 //
-// allowedOptions is a [cloudkit.CKAllowedSharingOptions].
+// allowedOptions is a [*cloudkit.CKAllowedSharingOptions].
 //
 // # Discussion
 //
@@ -975,16 +970,13 @@ func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletio
 // and allows a participant to view the share settings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCKShare:container:allowedSharingOptions:
-// share is a [cloudkit.CKShare].
-// container is a [cloudkit.CKContainer].
-// allowedOptions is a [cloudkit.CKAllowedSharingOptions].
 //
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 // [CKContainer]: https://developer.apple.com/documentation/CloudKit/CKContainer
 // [CKAllowedSharingOptions]: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
 //
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
-func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject) {
+func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share unsafe.Pointer, container unsafe.Pointer, allowedOptions unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShare:container:allowedSharingOptions:"), share, container, allowedOptions)
 }
 
@@ -998,11 +990,9 @@ func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share obje
 //
 // preparationHandler: The handler the system calls in your app to create a new [CKShare].
 //
-// container is a [cloudkit.CKContainer].
+// container is a [*cloudkit.CKContainer].
 //
-// allowedOptions is a [cloudkit.CKAllowedSharingOptions].
-//
-// preparationHandler is a [cloudkit.CKSharePreparationHandler].
+// allowedOptions is a [*cloudkit.CKAllowedSharingOptions].
 //
 // # Discussion
 //
@@ -1019,9 +1009,6 @@ func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share obje
 // this method, it prompts the user to start sharing.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCKShareWithContainer:allowedSharingOptions:preparationHandler:
-// container is a [cloudkit.CKContainer].
-// allowedOptions is a [cloudkit.CKAllowedSharingOptions].
-// preparationHandler is a [cloudkit.CKSharePreparationHandler].
 //
 // [CKContainer]: https://developer.apple.com/documentation/CloudKit/CKContainer
 // [CKAllowedSharingOptions]: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
@@ -1031,7 +1018,7 @@ func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share obje
 // [CKSharePreparationCompletionHandler]: https://developer.apple.com/documentation/CloudKit/CKSharePreparationCompletionHandler
 //
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
-func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler) {
+func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container unsafe.Pointer, allowedOptions unsafe.Pointer, preparationHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(preparationHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, _block2)
 }
@@ -1049,8 +1036,8 @@ func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPrepara
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerDataRepresentationForContentType:visibility:loadHandler:
 //
 // [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
-func (i NSItemProvider) RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-	_block2, _ := NewVoidBlock(loadHandler)
+func (i NSItemProvider) RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForContentType:visibility:loadHandler:"), contentType, visibility, _block2)
 }
 
@@ -1058,8 +1045,8 @@ func (i NSItemProvider) RegisterDataRepresentationForContentTypeVisibilityLoadHa
 // open-in-place option, and a load handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerFileRepresentationForContentType:visibility:openInPlace:loadHandler:
-func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, openInPlace bool, loadHandler VoidHandler) {
-	_block3, _ := NewVoidBlock(loadHandler)
+func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, openInPlace bool, loadHandler ErrorHandler) {
+	_block3, _ := NewErrorBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForContentType:visibility:openInPlace:loadHandler:"), contentType, visibility, openInPlace, _block3)
 }
 
@@ -1077,12 +1064,9 @@ func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenIn
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/preferredPresentationSize
 //
 // [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
-func (i NSItemProvider) PreferredPresentationSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](i.ID, objc.Sel("preferredPresentationSize"))
-	return corefoundation.CGSize(rv)
-}
-func (i NSItemProvider) SetPreferredPresentationSize(value corefoundation.CGSize) {
-	objc.Send[struct{}](i.ID, objc.Sel("setPreferredPresentationSize:"), value)
+func (i NSItemProvider) PreferredPresentationSize() NSSize {
+	rv := objc.Send[NSSize](i.ID, objc.Sel("preferredPresentationSize"))
+	return NSSize(rv)
 }
 
 // The filename to use when writing the provided data to a file on disk.
@@ -1255,66 +1239,6 @@ func (i NSItemProvider) LoadObjectOfClass(ctx context.Context, aClass objc.Class
 	}
 }
 
-// RegisterCloudKitShareWithPreparationHandlerSync is a synchronous wrapper around [NSItemProvider.RegisterCloudKitShareWithPreparationHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (i NSItemProvider) RegisterCloudKitShareWithPreparationHandlerSync(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	i.RegisterCloudKitShareWithPreparationHandler(func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandlerSync is a synchronous wrapper around [NSItemProvider.RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (i NSItemProvider) RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandlerSync(ctx context.Context, typeIdentifier string, visibility NSItemProviderRepresentationVisibility) error {
-	done := make(chan struct{}, 1)
-	i.RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler(typeIdentifier, visibility, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandlerSync is a synchronous wrapper around [NSItemProvider.RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (i NSItemProvider) RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandlerSync(ctx context.Context, typeIdentifier string, fileOptions NSItemProviderFileOptions, visibility NSItemProviderRepresentationVisibility) error {
-	done := make(chan struct{}, 1)
-	i.RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler(typeIdentifier, fileOptions, visibility, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// RegisterObjectOfClassVisibilityLoadHandlerSync is a synchronous wrapper around [NSItemProvider.RegisterObjectOfClassVisibilityLoadHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (i NSItemProvider) RegisterObjectOfClassVisibilityLoadHandlerSync(ctx context.Context, aClass objc.Class, visibility NSItemProviderRepresentationVisibility) error {
-	done := make(chan struct{}, 1)
-	i.RegisterObjectOfClassVisibilityLoadHandler(aClass, visibility, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
 // LoadDataRepresentationForContentType is a synchronous wrapper around [NSItemProvider.LoadDataRepresentationForContentTypeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (i NSItemProvider) LoadDataRepresentationForContentType(ctx context.Context, contentType objectivec.IObject) (*NSData, error) {
@@ -1331,35 +1255,5 @@ func (i NSItemProvider) LoadDataRepresentationForContentType(ctx context.Context
 		return r.val, r.err
 	case <-ctx.Done():
 		return nil, ctx.Err()
-	}
-}
-
-// RegisterDataRepresentationForContentTypeVisibilityLoadHandlerSync is a synchronous wrapper around [NSItemProvider.RegisterDataRepresentationForContentTypeVisibilityLoadHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (i NSItemProvider) RegisterDataRepresentationForContentTypeVisibilityLoadHandlerSync(ctx context.Context, contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility) error {
-	done := make(chan struct{}, 1)
-	i.RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType, visibility, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandlerSync is a synchronous wrapper around [NSItemProvider.RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandlerSync(ctx context.Context, contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, openInPlace bool) error {
-	done := make(chan struct{}, 1)
-	i.RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler(contentType, visibility, openInPlace, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
 	}
 }

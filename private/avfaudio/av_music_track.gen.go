@@ -45,6 +45,8 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 // # Methods
 //
 //   - [AVMusicTrack.CreateEventIterator]
+//   - [AVMusicTrack.DestinationMIDIEndpoint]
+//   - [AVMusicTrack.SetDestinationMIDIEndpoint]
 //   - [AVMusicTrack.DoAddAUPresetEventAtBeat]
 //   - [AVMusicTrack.DoAddExtendedNoteOnEventAtBeat]
 //   - [AVMusicTrack.DoAddExtendedTempoEventAtBeat]
@@ -80,6 +82,8 @@ var _ IAVMusicTrack = AVMusicTrack{}
 // # Methods
 //
 //   - [IAVMusicTrack.CreateEventIterator]
+//   - [IAVMusicTrack.DestinationMIDIEndpoint]
+//   - [IAVMusicTrack.SetDestinationMIDIEndpoint]
 //   - [IAVMusicTrack.DoAddAUPresetEventAtBeat]
 //   - [IAVMusicTrack.DoAddExtendedNoteOnEventAtBeat]
 //   - [IAVMusicTrack.DoAddExtendedTempoEventAtBeat]
@@ -104,6 +108,8 @@ type IAVMusicTrack interface {
 	// Topic: Methods
 
 	CreateEventIterator() objectivec.IObject
+	DestinationMIDIEndpoint() uint32
+	SetDestinationMIDIEndpoint(value uint32)
 	DoAddAUPresetEventAtBeat(event objectivec.IObject, beat float64)
 	DoAddExtendedNoteOnEventAtBeat(event objectivec.IObject, beat float64)
 	DoAddExtendedTempoEventAtBeat(event objectivec.IObject, beat float64)
@@ -196,6 +202,15 @@ func (m AVMusicTrack) DoAddUserEventAtBeat(event objectivec.IObject, beat float6
 func (m AVMusicTrack) Index() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("index"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/destinationMIDIEndpoint
+func (m AVMusicTrack) DestinationMIDIEndpoint() uint32 {
+	rv := objc.Send[uint32](m.ID, objc.Sel("destinationMIDIEndpoint"))
+	return rv
+}
+func (m AVMusicTrack) SetDestinationMIDIEndpoint(value uint32) {
+	objc.Send[struct{}](m.ID, objc.Sel("setDestinationMIDIEndpoint:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/loopingEnabled

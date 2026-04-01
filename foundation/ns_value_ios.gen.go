@@ -7,7 +7,6 @@ package foundation
 import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // Creates a new value object containing the specified CoreGraphics point
@@ -97,8 +96,7 @@ func (_NSValueClass NSValueClass) ValueWithCGAffineTransform(transform corefound
 // A new value object that contains the edge inset information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(UIEdgeInsets:)
-// insets is a [uikit.UIEdgeInsets].
-func (_NSValueClass NSValueClass) ValueWithUIEdgeInsets(insets objectivec.IObject) NSValue {
+func (_NSValueClass NSValueClass) ValueWithUIEdgeInsets(insets unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithUIEdgeInsets:"), insets)
 	return NSValueFromID(rv)
 }
@@ -114,8 +112,7 @@ func (_NSValueClass NSValueClass) ValueWithUIEdgeInsets(insets objectivec.IObjec
 // A new value object that contains the offset information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(UIOffset:)
-// insets is a [uikit.UIOffset].
-func (_NSValueClass NSValueClass) ValueWithUIOffset(insets objectivec.IObject) NSValue {
+func (_NSValueClass NSValueClass) ValueWithUIOffset(insets unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithUIOffset:"), insets)
 	return NSValueFromID(rv)
 }
@@ -123,8 +120,7 @@ func (_NSValueClass NSValueClass) ValueWithUIOffset(insets objectivec.IObject) N
 // insets is a [appkit.NSDirectionalEdgeInsets].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(directionalEdgeInsets:)
-// insets is a [appkit.NSDirectionalEdgeInsets].
-func (_NSValueClass NSValueClass) ValueWithDirectionalEdgeInsets(insets objectivec.IObject) NSValue {
+func (_NSValueClass NSValueClass) ValueWithDirectionalEdgeInsets(insets unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithDirectionalEdgeInsets:"), insets)
 	return NSValueFromID(rv)
 }
@@ -196,9 +192,9 @@ func (v NSValue) CGAffineTransformValue() corefoundation.CGAffineTransform {
 // The UIKit edge insets structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/uiEdgeInsetsValue
-func (v NSValue) UIEdgeInsetsValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("UIEdgeInsetsValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) UIEdgeInsetsValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("UIEdgeInsetsValue"))
+	return rv
 }
 
 // Returns the UIKit offset structure representation of the value.
@@ -208,13 +204,13 @@ func (v NSValue) UIEdgeInsetsValue() objectivec.IObject {
 // The UIKit offset structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/uiOffsetValue
-func (v NSValue) UIOffsetValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("UIOffsetValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) UIOffsetValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("UIOffsetValue"))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/directionalEdgeInsetsValue
-func (v NSValue) DirectionalEdgeInsetsValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("directionalEdgeInsetsValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) DirectionalEdgeInsetsValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("directionalEdgeInsetsValue"))
+	return rv
 }

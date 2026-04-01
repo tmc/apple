@@ -143,8 +143,8 @@ type IPDFThumbnailView interface {
 	LabelFont() appkit.NSFont
 	SetLabelFont(value appkit.NSFont)
 	// Returns the color used in the background of the thumbnail view.
-	BackgroundColor() objc.ID
-	SetBackgroundColor(value objc.ID)
+	BackgroundColor() appkit.NSColor
+	SetBackgroundColor(value appkit.NSColor)
 
 	// Topic: Managing the Behavior of a Thumbnail View
 
@@ -253,11 +253,11 @@ func (p PDFThumbnailView) SetLabelFont(value appkit.NSFont) {
 // The color of the background in the thumbnail view.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFThumbnailView/backgroundColor
-func (p PDFThumbnailView) BackgroundColor() objc.ID {
+func (p PDFThumbnailView) BackgroundColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("backgroundColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFThumbnailView) SetBackgroundColor(value objc.ID) {
+func (p PDFThumbnailView) SetBackgroundColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBackgroundColor:"), value)
 }
 

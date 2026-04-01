@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAssetReaderTrackOutput] class.
@@ -168,8 +167,8 @@ type IAVAssetReaderTrackOutput interface {
 	// A key to retrieve the video scaling mode from a dictionary.
 	AVVideoScalingModeKey() string
 	// A key that specifies the linear PCM codec, and uses the standard flags.
-	KAudioFormatLinearPCM() objectivec.IObject
-	SetKAudioFormatLinearPCM(value objectivec.IObject)
+	KAudioFormatLinearPCM() string
+	SetKAudioFormatLinearPCM(value string)
 	KCMFormatDescriptionExtension_Depth() corefoundation.CFStringRef
 	// A key to the height of the pixel buffer.
 	KCVPixelBufferHeightKey() corefoundation.CFStringRef
@@ -376,12 +375,12 @@ func (a AVAssetReaderTrackOutput) AVVideoScalingModeKey() string {
 // A key that specifies the linear PCM codec, and uses the standard flags.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
-func (a AVAssetReaderTrackOutput) KAudioFormatLinearPCM() objectivec.IObject {
+func (a AVAssetReaderTrackOutput) KAudioFormatLinearPCM() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioFormatLinearPCM"))
-	return objectivec.Object{ID: rv}
+	return foundation.NSStringFromID(rv).String()
 }
-func (a AVAssetReaderTrackOutput) SetKAudioFormatLinearPCM(value objectivec.IObject) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioFormatLinearPCM:"), value)
+func (a AVAssetReaderTrackOutput) SetKAudioFormatLinearPCM(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setKAudioFormatLinearPCM:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_Depth

@@ -29,3 +29,23 @@ type Es_sha256_t = unsafe.Pointer
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_statfs_t
 type Es_statfs_t = unsafe.Pointer
+
+// Es_auto_unlock_type_t aliases the generated auto-unlock enum.
+
+type Es_auto_unlock_type_t = EsAutoUnlock
+
+// Es_mute_inverted_return_t aliases the generated mute state enum.
+
+type Es_mute_inverted_return_t = EsMute
+
+// Es_openssh_login_result_type_t aliases the generated OpenSSH login result enum.
+
+type Es_openssh_login_result_type_t = EsOpenssh
+
+// Es_set_or_clear_t aliases the generated set-or-clear enum.
+
+type Es_set_or_clear_t = Es
+
+// Es_xpc_domain_type_t aliases the generated XPC domain enum.
+
+type Es_xpc_domain_type_t = EsXPCDomainType

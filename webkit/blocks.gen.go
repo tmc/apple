@@ -3,6 +3,7 @@
 package webkit
 
 import (
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -158,6 +159,36 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// ImageErrorHandler handles The completion handler to call when the image is ready.
+//   - snapshotImage: A platform-native image that contains the specified portion of the web view.
+//   - error: An error object if a problem occurred, or `nil` on success.
+//
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
+// Used by:
+//   - [WKWebExtensionTab.TakeSnapshotUsingConfigurationForWebExtensionContextCompletionHandler]
+//   - [WKWebView.TakeSnapshotWithConfigurationCompletionHandler]
+type ImageErrorHandler = func(*appkit.NSImage, error)
+
+// NewImageErrorBlock wraps a Go [ImageErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [WKWebExtensionTab.TakeSnapshotUsingConfigurationForWebExtensionContextCompletionHandler]
+//   - [WKWebView.TakeSnapshotWithConfigurationCompletionHandler]
+func NewImageErrorBlock(handler ImageErrorHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *appkit.NSImage
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := appkit.NSImageFromID(resultID)
+			result = &v
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // LocaleErrorHandler handles A block that must be called upon completion.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -271,15 +302,6 @@ func NewUIContextMenuConfigurationBlock(handler UIContextMenuConfigurationHandle
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-// UIImageErrorHandler handles The completion handler to call when the image is ready.
-//   - snapshotImage: A platform-native image that contains the specified portion of the web view.
-//   - error: An error object if a problem occurred, or `nil` on success.
-//
-// Used by:
-//   - [WKWebExtensionTab.TakeSnapshotUsingConfigurationForWebExtensionContextCompletionHandler]
-//   - [WKWebView.TakeSnapshotWithConfigurationCompletionHandler]
-type UIImageErrorHandler = func(*objc.ID, error)
 
 // URLCredentialHandler handles A closure you must invoke to respond to the authentication challenge.
 //   - disposition: The option to use to handle the challenge. For a list of options, see [URLSession.AuthChallengeDisposition](<doc://com.apple.documentation/documentation/Foundation/URLSession/AuthChallengeDisposition>).

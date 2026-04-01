@@ -457,11 +457,11 @@ type IPDFAnnotation interface {
 	Contents() string
 	SetContents(value string)
 	// The font the annotation uses to display text.
-	Font() objectivec.IObject
-	SetFont(value objectivec.IObject)
+	Font() appkit.NSFont
+	SetFont(value appkit.NSFont)
 	// The font color the annotation uses to display text.
-	FontColor() objc.ID
-	SetFontColor(value objc.ID)
+	FontColor() appkit.NSColor
+	SetFontColor(value appkit.NSColor)
 	// Sets the border style for the annotation.
 	Border() IPDFBorder
 	SetBorder(value IPDFBorder)
@@ -469,16 +469,16 @@ type IPDFAnnotation interface {
 	Highlighted() bool
 	SetHighlighted(value bool)
 	// Sets the stroke color for the annotation.
-	Color() objc.ID
-	SetColor(value objc.ID)
+	Color() appkit.NSColor
+	SetColor(value appkit.NSColor)
 	// Returns a Boolean value that indicates whether the annotation has an appearance stream associated with it.
 	HasAppearanceStream() bool
 
 	// Topic: Configuring Shape Annotations
 
 	// The fill color for drawing a circle, line, or square annotation.
-	InteriorColor() objc.ID
-	SetInteriorColor(value objc.ID)
+	InteriorColor() appkit.NSColor
+	SetInteriorColor(value appkit.NSColor)
 
 	// Topic: Configuring Line Annotations
 
@@ -543,8 +543,8 @@ type IPDFAnnotation interface {
 	FieldName() string
 	SetFieldName(value string)
 	// The color of the widget’s background.
-	BackgroundColor() objc.ID
-	SetBackgroundColor(value objc.ID)
+	BackgroundColor() appkit.NSColor
+	SetBackgroundColor(value appkit.NSColor)
 	// A Boolean value that determines whether the widget is editable.
 	ReadOnly() bool
 	SetReadOnly(value bool)
@@ -599,11 +599,11 @@ type IPDFAnnotation interface {
 	// Topic: Configuring Ink Annotations
 
 	// An array of bezier paths, in annotation-space coordinates, that compose the annotation.
-	Paths() []objc.ID
+	Paths() []appkit.NSBezierPath
 	// Adds a bezier path to the ink annotation.
-	AddBezierPath(path objectivec.IObject)
+	AddBezierPath(path appkit.NSBezierPath)
 	// Removes a bezier path from an ink annotation.
-	RemoveBezierPath(path objectivec.IObject)
+	RemoveBezierPath(path appkit.NSBezierPath)
 
 	// Topic: Configuring Stamp Annotations
 
@@ -777,7 +777,7 @@ func (p PDFAnnotation) RemoveValueForAnnotationKey(key PDFAnnotationKey) {
 // path: The bezier path to add, in annotation-space coordinates.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/add(_:)
-func (p PDFAnnotation) AddBezierPath(path objectivec.IObject) {
+func (p PDFAnnotation) AddBezierPath(path appkit.NSBezierPath) {
 	objc.Send[objc.ID](p.ID, objc.Sel("addBezierPath:"), path)
 }
 
@@ -786,7 +786,7 @@ func (p PDFAnnotation) AddBezierPath(path objectivec.IObject) {
 // path: The bezier path to remove, in annotation-space coordinates.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/remove(_:)
-func (p PDFAnnotation) RemoveBezierPath(path objectivec.IObject) {
+func (p PDFAnnotation) RemoveBezierPath(path appkit.NSBezierPath) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeBezierPath:"), path)
 }
 func (p PDFAnnotation) EncodeWithCoder(coder foundation.INSCoder) {
@@ -1000,22 +1000,22 @@ func (p PDFAnnotation) SetContents(value string) {
 // The font the annotation uses to display text.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/font
-func (p PDFAnnotation) Font() objectivec.IObject {
+func (p PDFAnnotation) Font() appkit.NSFont {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("font"))
-	return objectivec.Object{ID: rv}
+	return appkit.NSFontFromID(objc.ID(rv))
 }
-func (p PDFAnnotation) SetFont(value objectivec.IObject) {
+func (p PDFAnnotation) SetFont(value appkit.NSFont) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFont:"), value)
 }
 
 // The font color the annotation uses to display text.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/fontColor
-func (p PDFAnnotation) FontColor() objc.ID {
+func (p PDFAnnotation) FontColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("fontColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFAnnotation) SetFontColor(value objc.ID) {
+func (p PDFAnnotation) SetFontColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFontColor:"), value)
 }
 
@@ -1049,11 +1049,11 @@ func (p PDFAnnotation) SetHighlighted(value bool) {
 // Where this color is used depends on the annotation type.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/color
-func (p PDFAnnotation) Color() objc.ID {
+func (p PDFAnnotation) Color() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("color"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFAnnotation) SetColor(value objc.ID) {
+func (p PDFAnnotation) SetColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setColor:"), value)
 }
 
@@ -1080,11 +1080,11 @@ func (p PDFAnnotation) HasAppearanceStream() bool {
 // The fill color for drawing a circle, line, or square annotation.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/interiorColor
-func (p PDFAnnotation) InteriorColor() objc.ID {
+func (p PDFAnnotation) InteriorColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("interiorColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFAnnotation) SetInteriorColor(value objc.ID) {
+func (p PDFAnnotation) SetInteriorColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setInteriorColor:"), value)
 }
 
@@ -1306,11 +1306,11 @@ func (p PDFAnnotation) SetFieldName(value string) {
 // The color of the widget’s background.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/backgroundColor
-func (p PDFAnnotation) BackgroundColor() objc.ID {
+func (p PDFAnnotation) BackgroundColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("backgroundColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFAnnotation) SetBackgroundColor(value objc.ID) {
+func (p PDFAnnotation) SetBackgroundColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBackgroundColor:"), value)
 }
 
@@ -1499,9 +1499,11 @@ func (p PDFAnnotation) SetValues(value []string) {
 // annotation.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/paths
-func (p PDFAnnotation) Paths() []objc.ID {
+func (p PDFAnnotation) Paths() []appkit.NSBezierPath {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("paths"))
-	return rv
+	return objc.ConvertSlice(rv, func(id objc.ID) appkit.NSBezierPath {
+		return appkit.NSBezierPathFromID(id)
+	})
 }
 
 // The name of the stamp, a text or graphics annotation that emulates a rubber

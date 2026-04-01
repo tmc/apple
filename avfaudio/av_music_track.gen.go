@@ -69,8 +69,6 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 //
 //   - [AVMusicTrack.DestinationAudioUnit]: The audio unit that receives the track’s events.
 //   - [AVMusicTrack.SetDestinationAudioUnit]
-//   - [AVMusicTrack.DestinationMIDIEndpoint]: The MIDI endpoint you specify as the track’s target.
-//   - [AVMusicTrack.SetDestinationMIDIEndpoint]
 //
 // # Configuring the Looping State
 //
@@ -144,8 +142,6 @@ func AVMusicTrackFromID(id objc.ID) AVMusicTrack {
 //
 //   - [IAVMusicTrack.DestinationAudioUnit]: The audio unit that receives the track’s events.
 //   - [IAVMusicTrack.SetDestinationAudioUnit]
-//   - [IAVMusicTrack.DestinationMIDIEndpoint]: The MIDI endpoint you specify as the track’s target.
-//   - [IAVMusicTrack.SetDestinationMIDIEndpoint]
 //
 // # Configuring the Looping State
 //
@@ -212,9 +208,6 @@ type IAVMusicTrack interface {
 	// The audio unit that receives the track’s events.
 	DestinationAudioUnit() IAVAudioUnit
 	SetDestinationAudioUnit(value IAVAudioUnit)
-	// The MIDI endpoint you specify as the track’s target.
-	DestinationMIDIEndpoint() objectivec.IObject
-	SetDestinationMIDIEndpoint(value objectivec.IObject)
 
 	// Topic: Configuring the Looping State
 
@@ -539,27 +532,6 @@ func (m AVMusicTrack) DestinationAudioUnit() IAVAudioUnit {
 }
 func (m AVMusicTrack) SetDestinationAudioUnit(value IAVAudioUnit) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationAudioUnit:"), value)
-}
-
-// The MIDI endpoint you specify as the track’s target.
-//
-// # Discussion
-//
-// This property and a [DestinationAudioUnit] are mutually exclusive. Setting
-// this property removes the track’s reference to an [AVAudioUnit]
-// destination. When playing, the track sends events to the MIDI endpoint. For
-// more information, see [MIDIDestinationCreate(_:_:_:_:_:)]. You can’t
-// change the endpoint while the track’s sequence is in a playing state.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/destinationMIDIEndpoint
-//
-// [MIDIDestinationCreate(_:_:_:_:_:)]: https://developer.apple.com/documentation/CoreMIDI/MIDIDestinationCreate(_:_:_:_:_:)
-func (m AVMusicTrack) DestinationMIDIEndpoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("destinationMIDIEndpoint"))
-	return objectivec.Object{ID: rv}
-}
-func (m AVMusicTrack) SetDestinationMIDIEndpoint(value objectivec.IObject) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDestinationMIDIEndpoint:"), value)
 }
 
 // A Boolean value that indicates whether the track is in a looping state.

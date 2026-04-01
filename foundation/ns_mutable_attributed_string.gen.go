@@ -227,11 +227,11 @@ type INSMutableAttributedString interface {
 	// Removes the named attribute from the characters in the specified range.
 	RemoveAttributeRange(name NSAttributedStringKey, range_ NSRange)
 	// Applies the specified font-related attributes to characters in the string.
-	ApplyFontTraitsRange(traitMask objectivec.IObject, range_ NSRange)
+	ApplyFontTraitsRange(traitMask uint, range_ NSRange)
 	// Sets the alignment characteristic of the paragraph style attribute for the specified range of text.
-	SetAlignmentRange(alignment objectivec.IObject, range_ NSRange)
+	SetAlignmentRange(alignment uint, range_ NSRange)
 	// Sets the base writing direction for the characters to the specified direction.
-	SetBaseWritingDirectionRange(writingDirection objectivec.IObject, range_ NSRange)
+	SetBaseWritingDirectionRange(writingDirection uint, range_ NSRange)
 	// Decrements the value of the superscript attribute for characters in the specified range by one.
 	SubscriptRange(range_ NSRange)
 	// Increments the value of the superscript attribute for characters in the specified range by one.
@@ -317,7 +317,6 @@ func NewNSMutableAttributedString() NSMutableAttributedString {
 // An attributed string containing the adaptive image glyph.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(adaptiveImageGlyph:attributes:)
-// adaptiveImageGlyph is a [appkit.NSAdaptiveImageGlyph].
 func NewMutableAttributedStringWithAdaptiveImageGlyphAttributes(adaptiveImageGlyph objectivec.IObject, attributes INSDictionary) NSMutableAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableAttributedStringClass().class), objc.Sel("attributedStringWithAdaptiveImageGlyph:attributes:"), adaptiveImageGlyph, attributes)
 	return NSMutableAttributedStringFromID(rv)
@@ -336,7 +335,6 @@ func NewMutableAttributedStringWithAdaptiveImageGlyphAttributes(adaptiveImageGly
 // An attributed string containing the attachment.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(attachment:attributes:)
-// attachment is a [appkit.NSTextAttachment].
 func NewMutableAttributedStringWithAttachmentAttributes(attachment objectivec.IObject, attributes INSDictionary) NSMutableAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableAttributedStringClass().class), objc.Sel("attributedStringWithAttachment:attributes:"), attachment, attributes)
 	return NSMutableAttributedStringFromID(rv)
@@ -1088,18 +1086,15 @@ func (m NSMutableAttributedString) RemoveAttributeRange(name NSAttributedStringK
 //
 // range: The range of characters.
 //
-// traitMask is a [appkit.NSFontTraitMask].
-//
 // # Discussion
 //
 // Raises an [RangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/applyFontTraits(_:range:)
-// traitMask is a [appkit.NSFontTraitMask].
 //
 // [NSFontManager]: https://developer.apple.com/documentation/AppKit/NSFontManager
-func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask objectivec.IObject, range_ NSRange) {
+func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask uint, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("applyFontTraits:range:"), traitMask, range_)
 }
 
@@ -1110,8 +1105,6 @@ func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask objectivec.IOb
 //
 // range: The range of characters.
 //
-// alignment is a [appkit.NSTextAlignment].
-//
 // # Discussion
 //
 // When attribute fixing takes place, this change will affect only paragraphs
@@ -1119,8 +1112,7 @@ func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask objectivec.IOb
 // if any part of `range` lies beyond the end of the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/setAlignment(_:range:)
-// alignment is a [appkit.NSTextAlignment].
-func (m NSMutableAttributedString) SetAlignmentRange(alignment objectivec.IObject, range_ NSRange) {
+func (m NSMutableAttributedString) SetAlignmentRange(alignment uint, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setAlignment:range:"), alignment, range_)
 }
 
@@ -1131,11 +1123,8 @@ func (m NSMutableAttributedString) SetAlignmentRange(alignment objectivec.IObjec
 //
 // range: The range of characters.
 //
-// writingDirection is a [appkit.NSWritingDirection].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/setBaseWritingDirection(_:range:)
-// writingDirection is a [appkit.NSWritingDirection].
-func (m NSMutableAttributedString) SetBaseWritingDirectionRange(writingDirection objectivec.IObject, range_ NSRange) {
+func (m NSMutableAttributedString) SetBaseWritingDirectionRange(writingDirection uint, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setBaseWritingDirection:range:"), writingDirection, range_)
 }
 

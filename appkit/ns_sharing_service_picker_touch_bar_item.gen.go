@@ -7,7 +7,6 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSSharingServicePickerTouchBarItem] class.
@@ -111,8 +110,8 @@ type INSSharingServicePickerTouchBarItem interface {
 	// Topic: Configuring the appearance
 
 	// The image displayed in the sharing service picker item button.
-	ButtonImage() objectivec.Object
-	SetButtonImage(value objectivec.Object)
+	ButtonImage() INSImage
+	SetButtonImage(value INSImage)
 	// The text displayed in the sharing service picker item button.
 	ButtonTitle() string
 	SetButtonTitle(value string)
@@ -185,11 +184,11 @@ func (s NSSharingServicePickerTouchBarItem) SetDelegate(value NSSharingServicePi
 // The default value of this property is a sharing service picker image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerTouchBarItem/buttonImage
-func (s NSSharingServicePickerTouchBarItem) ButtonImage() objectivec.Object {
+func (s NSSharingServicePickerTouchBarItem) ButtonImage() INSImage {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("buttonImage"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSImageFromID(objc.ID(rv))
 }
-func (s NSSharingServicePickerTouchBarItem) SetButtonImage(value objectivec.Object) {
+func (s NSSharingServicePickerTouchBarItem) SetButtonImage(value INSImage) {
 	objc.Send[struct{}](s.ID, objc.Sel("setButtonImage:"), value)
 }
 

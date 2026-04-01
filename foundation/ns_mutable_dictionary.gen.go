@@ -209,26 +209,26 @@ type INSMutableDictionary interface {
 
 	// Topic: Instance Methods
 
-	AddApplicationParameterHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddAuthorizationChallengeHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddAuthorizationResponseHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddBodyHeaderLengthEndOfBody(inHeaderData unsafe.Pointer, inHeaderDataLength uint32, isEndOfBody bool) objectivec.IObject
-	AddByteSequenceHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddConnectionIDHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddCountHeader(inCount uint32) objectivec.IObject
-	AddDescriptionHeader(inDescriptionString string) objectivec.IObject
-	AddHTTPHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddImageDescriptorHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddImageHandleHeader(type_ string) objectivec.IObject
-	AddLengthHeader(length uint32) objectivec.IObject
-	AddNameHeader(inNameString string) objectivec.IObject
-	AddObjectClassHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddTargetHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddTime4ByteHeader(time4Byte uint32) objectivec.IObject
-	AddTimeISOHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddTypeHeader(type_ string) objectivec.IObject
-	AddUserDefinedHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
-	AddWhoHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject
+	AddApplicationParameterHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddAuthorizationChallengeHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddAuthorizationResponseHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddBodyHeaderLengthEndOfBody(inHeaderData unsafe.Pointer, inHeaderDataLength uint32, isEndOfBody bool) unsafe.Pointer
+	AddByteSequenceHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddConnectionIDHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddCountHeader(inCount uint32) unsafe.Pointer
+	AddDescriptionHeader(inDescriptionString string) unsafe.Pointer
+	AddHTTPHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddImageDescriptorHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddImageHandleHeader(type_ string) unsafe.Pointer
+	AddLengthHeader(length uint32) unsafe.Pointer
+	AddNameHeader(inNameString string) unsafe.Pointer
+	AddObjectClassHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddTargetHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddTime4ByteHeader(time4Byte uint32) unsafe.Pointer
+	AddTimeISOHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddTypeHeader(type_ string) unsafe.Pointer
+	AddUserDefinedHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
+	AddWhoHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer
 	GetHeaderBytes() INSMutableData
 
 	// Adds a given key-value pair to the dictionary.
@@ -541,123 +541,123 @@ func (m NSMutableDictionary) RemoveObjectsForKeys(keyArray []objectivec.IObject)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addApplicationParameterHeader(_:length:)
-func (m NSMutableDictionary) AddApplicationParameterHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addApplicationParameterHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddApplicationParameterHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addApplicationParameterHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addAuthorizationChallengeHeader(_:length:)
-func (m NSMutableDictionary) AddAuthorizationChallengeHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addAuthorizationChallengeHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddAuthorizationChallengeHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addAuthorizationChallengeHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addAuthorizationResponseHeader(_:length:)
-func (m NSMutableDictionary) AddAuthorizationResponseHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addAuthorizationResponseHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddAuthorizationResponseHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addAuthorizationResponseHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addBodyHeader(_:length:endOfBody:)
-func (m NSMutableDictionary) AddBodyHeaderLengthEndOfBody(inHeaderData unsafe.Pointer, inHeaderDataLength uint32, isEndOfBody bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addBodyHeader:length:endOfBody:"), inHeaderData, inHeaderDataLength, isEndOfBody)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddBodyHeaderLengthEndOfBody(inHeaderData unsafe.Pointer, inHeaderDataLength uint32, isEndOfBody bool) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addBodyHeader:length:endOfBody:"), inHeaderData, inHeaderDataLength, isEndOfBody)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addByteSequenceHeader(_:length:)
-func (m NSMutableDictionary) AddByteSequenceHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addByteSequenceHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddByteSequenceHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addByteSequenceHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addConnectionIDHeader(_:length:)
-func (m NSMutableDictionary) AddConnectionIDHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addConnectionIDHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddConnectionIDHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addConnectionIDHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addCountHeader(_:)
-func (m NSMutableDictionary) AddCountHeader(inCount uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addCountHeader:"), inCount)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddCountHeader(inCount uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addCountHeader:"), inCount)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addDescriptionHeader(_:)
-func (m NSMutableDictionary) AddDescriptionHeader(inDescriptionString string) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addDescriptionHeader:"), objc.String(inDescriptionString))
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddDescriptionHeader(inDescriptionString string) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addDescriptionHeader:"), objc.String(inDescriptionString))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addHTTPHeader(_:length:)
-func (m NSMutableDictionary) AddHTTPHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addHTTPHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddHTTPHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addHTTPHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addImageDescriptorHeader(_:length:)
-func (m NSMutableDictionary) AddImageDescriptorHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addImageDescriptorHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddImageDescriptorHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addImageDescriptorHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addImageHandleHeader(_:)
-func (m NSMutableDictionary) AddImageHandleHeader(type_ string) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addImageHandleHeader:"), objc.String(type_))
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddImageHandleHeader(type_ string) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addImageHandleHeader:"), objc.String(type_))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addLengthHeader(_:)
-func (m NSMutableDictionary) AddLengthHeader(length uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addLengthHeader:"), length)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddLengthHeader(length uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addLengthHeader:"), length)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addNameHeader(_:)
-func (m NSMutableDictionary) AddNameHeader(inNameString string) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addNameHeader:"), objc.String(inNameString))
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddNameHeader(inNameString string) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addNameHeader:"), objc.String(inNameString))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addObjectClassHeader(_:length:)
-func (m NSMutableDictionary) AddObjectClassHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addObjectClassHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddObjectClassHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addObjectClassHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addTargetHeader(_:length:)
-func (m NSMutableDictionary) AddTargetHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTargetHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddTargetHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addTargetHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addTime4ByteHeader(_:)
-func (m NSMutableDictionary) AddTime4ByteHeader(time4Byte uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTime4ByteHeader:"), time4Byte)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddTime4ByteHeader(time4Byte uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addTime4ByteHeader:"), time4Byte)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addTimeISOHeader(_:length:)
-func (m NSMutableDictionary) AddTimeISOHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTimeISOHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddTimeISOHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addTimeISOHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addTypeHeader(_:)
-func (m NSMutableDictionary) AddTypeHeader(type_ string) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTypeHeader:"), objc.String(type_))
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddTypeHeader(type_ string) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addTypeHeader:"), objc.String(type_))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addUserDefinedHeader(_:length:)
-func (m NSMutableDictionary) AddUserDefinedHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addUserDefinedHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddUserDefinedHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addUserDefinedHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addWhoHeader(_:length:)
-func (m NSMutableDictionary) AddWhoHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addWhoHeader:length:"), inHeaderData, inHeaderDataLength)
-	return objectivec.Object{ID: rv}
+func (m NSMutableDictionary) AddWhoHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addWhoHeader:length:"), inHeaderData, inHeaderDataLength)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/getHeaderBytes()

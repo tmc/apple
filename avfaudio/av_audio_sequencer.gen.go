@@ -519,7 +519,7 @@ func (a AVAudioSequencer) BeatsForHostTimeError(inHostTime uint64) (AVMusicTimeS
 	rv := objc.Send[AVMusicTimeStamp](a.ID, objc.Sel("beatsForHostTime:error:"), inHostTime, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(AVMusicTimeStamp), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 

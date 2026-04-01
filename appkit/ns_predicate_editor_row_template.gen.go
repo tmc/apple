@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -172,7 +173,7 @@ type INSPredicateEditorRowTemplate interface {
 	// Initializes and returns a “pop-up-pop-up-pop-up”–style row template.
 	InitWithLeftExpressionsRightExpressionsModifierOperatorsOptions(leftExpressions []foundation.NSExpression, rightExpressions []foundation.NSExpression, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate
 	// Initializes and returns a “pop-up-pop-up-view”–style row template.
-	InitWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType objectivec.IObject, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate
+	InitWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType uint, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate
 	// Initializes and returns a row template suitable for displaying compound predicates.
 	InitWithCompoundTypes(compoundTypes []foundation.NSNumber) NSPredicateEditorRowTemplate
 
@@ -204,7 +205,7 @@ type INSPredicateEditorRowTemplate interface {
 	// Returns the comparison predicate options.
 	Options() uint
 	// Returns the attribute type of the receiver’s right expression.
-	RightExpressionAttributeType() objectivec.IObject
+	RightExpressionAttributeType() uint
 
 	// The value of the receiver’s cell as an Objective-C object.
 	ObjectValue() objectivec.IObject
@@ -295,7 +296,6 @@ func NewPredicateEditorRowTemplateWithCompoundTypes(compoundTypes []foundation.N
 // must be coerced before putting it into a predicate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressionAttributeType:modifier:operators:options:)
-// attributeType is a [coredata.NSAttributeType].
 //
 // [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 // [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
@@ -305,7 +305,7 @@ func NewPredicateEditorRowTemplateWithCompoundTypes(compoundTypes []foundation.N
 // [NSAttributeType.dateAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/dateAttributeType
 // [NSAttributeType.integer64AttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/integer64AttributeType
 // [NSAttributeType.stringAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/stringAttributeType
-func NewPredicateEditorRowTemplateWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType objectivec.IObject, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
+func NewPredicateEditorRowTemplateWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType uint, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
 	instance := getNSPredicateEditorRowTemplateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLeftExpressions:rightExpressionAttributeType:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), attributeType, modifier, objectivec.IObjectSliceToNSArray(operators), options)
 	return NSPredicateEditorRowTemplateFromID(rv)
@@ -406,8 +406,6 @@ func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionsMod
 // options: Options for the predicate (see [NSComparisonPredicate.Options] for possible
 // values).
 //
-// attributeType is a [coredata.NSAttributeType].
-//
 // # Return Value
 //
 // A row template initialized using the specified arguments.
@@ -426,7 +424,6 @@ func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionsMod
 // must be coerced before putting it into a predicate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressionAttributeType:modifier:operators:options:)
-// attributeType is a [coredata.NSAttributeType].
 //
 // [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 // [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
@@ -436,7 +433,7 @@ func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionsMod
 // [NSAttributeType.dateAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/dateAttributeType
 // [NSAttributeType.integer64AttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/integer64AttributeType
 // [NSAttributeType.stringAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/stringAttributeType
-func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType objectivec.IObject, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
+func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType uint, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithLeftExpressions:rightExpressionAttributeType:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), attributeType, modifier, objectivec.IObjectSliceToNSArray(operators), options)
 	return rv
 }
@@ -567,7 +564,7 @@ func (p NSPredicateEditorRowTemplate) EncodeWithCoder(coder foundation.INSCoder)
 //
 // entityDescription: A Core Data entity description.
 //
-// entityDescription is a [coredata.NSEntityDescription].
+// entityDescription is a [*coredata.NSEntityDescription].
 //
 // # Return Value
 //
@@ -582,8 +579,7 @@ func (p NSPredicateEditorRowTemplate) EncodeWithCoder(coder foundation.INSCoder)
 // [InitWithLeftExpressionsRightExpressionsModifierOperatorsOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/templates(withAttributeKeyPaths:in:)
-// entityDescription is a [coredata.NSEntityDescription].
-func (_NSPredicateEditorRowTemplateClass NSPredicateEditorRowTemplateClass) TemplatesWithAttributeKeyPathsInEntityDescription(keyPaths []string, entityDescription objectivec.IObject) []NSPredicateEditorRowTemplate {
+func (_NSPredicateEditorRowTemplateClass NSPredicateEditorRowTemplateClass) TemplatesWithAttributeKeyPathsInEntityDescription(keyPaths []string, entityDescription unsafe.Pointer) []NSPredicateEditorRowTemplate {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSPredicateEditorRowTemplateClass.class), objc.Sel("templatesWithAttributeKeyPaths:inEntityDescription:"), objectivec.StringSliceToNSArray(keyPaths), entityDescription)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSPredicateEditorRowTemplate {
 		return NSPredicateEditorRowTemplateFromID(id)
@@ -712,9 +708,9 @@ func (p NSPredicateEditorRowTemplate) Options() uint {
 // The attribute type of the receiver’s right expression.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/rightExpressionAttributeType
-func (p NSPredicateEditorRowTemplate) RightExpressionAttributeType() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("rightExpressionAttributeType"))
-	return objectivec.Object{ID: rv}
+func (p NSPredicateEditorRowTemplate) RightExpressionAttributeType() uint {
+	rv := objc.Send[uint](p.ID, objc.Sel("rightExpressionAttributeType"))
+	return rv
 }
 
 // The value of the receiver’s cell as an Objective-C object.

@@ -4,9 +4,9 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitDistortion] class.
@@ -135,8 +135,7 @@ func NewAVAudioUnitDistortion() AVAudioUnitDistortion {
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-func NewAudioUnitDistortionWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitDistortion {
+func NewAudioUnitDistortionWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitDistortion {
 	instance := getAVAudioUnitDistortionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitDistortionFromID(rv)

@@ -5,6 +5,7 @@ package pdfkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -151,8 +152,8 @@ type IPDFSelection interface {
 	// Returns an array of selections, one for each line of text covered by the receiver.
 	SelectionsByLine() []PDFSelection
 	// Sets the color used for the drawing of a selection in both active and inactive states.
-	Color() objc.ID
-	SetColor(value objc.ID)
+	Color() appkit.NSColor
+	SetColor(value appkit.NSColor)
 
 	// Topic: Modifying a Selection
 
@@ -404,10 +405,10 @@ func (p PDFSelection) AttributedString() foundation.NSAttributedString {
 // and inactive selections.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFSelection/color
-func (p PDFSelection) Color() objc.ID {
+func (p PDFSelection) Color() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("color"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFSelection) SetColor(value objc.ID) {
+func (p PDFSelection) SetColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setColor:"), value)
 }

@@ -347,11 +347,11 @@ type IURLSessionConfiguration interface {
 	URLCredentialStorage() INSURLCredentialStorage
 	SetURLCredentialStorage(value INSURLCredentialStorage)
 	// The minimum TLS protocol to accept during protocol negotiation.
-	TLSMinimumSupportedProtocol() objectivec.IObject
-	SetTLSMinimumSupportedProtocol(value objectivec.IObject)
+	TLSMinimumSupportedProtocol() uint
+	SetTLSMinimumSupportedProtocol(value uint)
 	// The maximum TLS protocol version that the client should request when making connections in this session.
-	TLSMaximumSupportedProtocol() objectivec.IObject
-	SetTLSMaximumSupportedProtocol(value objectivec.IObject)
+	TLSMaximumSupportedProtocol() uint
+	SetTLSMaximumSupportedProtocol(value uint)
 	RequiresDNSSECValidation() bool
 	SetRequiresDNSSECValidation(value bool)
 
@@ -798,11 +798,11 @@ func (u URLSessionConfiguration) SetURLCredentialStorage(value INSURLCredentialS
 // tasks within sessions based on this configuration.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/tlsMinimumSupportedProtocol
-func (u URLSessionConfiguration) TLSMinimumSupportedProtocol() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("TLSMinimumSupportedProtocol"))
-	return objectivec.Object{ID: rv}
+func (u URLSessionConfiguration) TLSMinimumSupportedProtocol() uint {
+	rv := objc.Send[uint](u.ID, objc.Sel("TLSMinimumSupportedProtocol"))
+	return rv
 }
-func (u URLSessionConfiguration) SetTLSMinimumSupportedProtocol(value objectivec.IObject) {
+func (u URLSessionConfiguration) SetTLSMinimumSupportedProtocol(value uint) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTLSMinimumSupportedProtocol:"), value)
 }
 
@@ -815,11 +815,11 @@ func (u URLSessionConfiguration) SetTLSMinimumSupportedProtocol(value objectivec
 // tasks within sessions based on this configuration.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/tlsMaximumSupportedProtocol
-func (u URLSessionConfiguration) TLSMaximumSupportedProtocol() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("TLSMaximumSupportedProtocol"))
-	return objectivec.Object{ID: rv}
+func (u URLSessionConfiguration) TLSMaximumSupportedProtocol() uint {
+	rv := objc.Send[uint](u.ID, objc.Sel("TLSMaximumSupportedProtocol"))
+	return rv
 }
-func (u URLSessionConfiguration) SetTLSMaximumSupportedProtocol(value objectivec.IObject) {
+func (u URLSessionConfiguration) SetTLSMaximumSupportedProtocol(value uint) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTLSMaximumSupportedProtocol:"), value)
 }
 

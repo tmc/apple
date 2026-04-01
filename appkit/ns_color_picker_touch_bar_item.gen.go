@@ -130,8 +130,8 @@ type INSColorPickerTouchBarItem interface {
 	// Topic: Obtaining the selected color
 
 	// The picker’s currently selected color.
-	Color() objectivec.Object
-	SetColor(value objectivec.Object)
+	Color() INSColor
+	SetColor(value INSColor)
 	// An object that is notified when a user interacts with the color picker.
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
@@ -209,7 +209,7 @@ func (_NSColorPickerTouchBarItemClass NSColorPickerTouchBarItemClass) StrokeColo
 // Creates a color picker bar item using the supplied image as its icon.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/colorPicker(withIdentifier:buttonImage:)
-func (_NSColorPickerTouchBarItemClass NSColorPickerTouchBarItemClass) ColorPickerWithIdentifierButtonImage(identifier NSTouchBarItemIdentifier, image objectivec.Object) NSColorPickerTouchBarItem {
+func (_NSColorPickerTouchBarItemClass NSColorPickerTouchBarItemClass) ColorPickerWithIdentifierButtonImage(identifier NSTouchBarItemIdentifier, image INSImage) NSColorPickerTouchBarItem {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorPickerTouchBarItemClass.class), objc.Sel("colorPickerWithIdentifier:buttonImage:"), objc.String(string(identifier)), image)
 	return NSColorPickerTouchBarItemFromID(rv)
 }
@@ -284,11 +284,11 @@ func (c NSColorPickerTouchBarItem) SetEnabled(value bool) {
 // The picker’s currently selected color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/color
-func (c NSColorPickerTouchBarItem) Color() objectivec.Object {
+func (c NSColorPickerTouchBarItem) Color() INSColor {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("color"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSColorFromID(objc.ID(rv))
 }
-func (c NSColorPickerTouchBarItem) SetColor(value objectivec.Object) {
+func (c NSColorPickerTouchBarItem) SetColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
 

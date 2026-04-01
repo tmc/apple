@@ -245,7 +245,7 @@ func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.M
 // error: A pointer to an [NSError] object if an error occurred, or `nil` if all
 // MetalKit mesh initializations succeeded.
 //
-// asset is a [modelio.MDLAsset].
+// asset is a [*modelio.MDLAsset].
 //
 // # Return Value
 //
@@ -272,11 +272,10 @@ func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.M
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/newMeshesFromAsset:device:sourceMeshes:error:
-// asset is a [modelio.MDLAsset].
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 // [MDLMesh]: https://developer.apple.com/documentation/ModelIO/MDLMesh
-func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset objectivec.IObject, device metal.MTLDevice, sourceMeshes []objc.ID) ([]MTKMesh, error) {
+func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset unsafe.Pointer, device metal.MTLDevice, sourceMeshes []objc.ID) ([]MTKMesh, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](objc.ID(_MTKMeshClass.class), objc.Sel("newMeshesFromAsset:device:sourceMeshes:error:"), asset, device, objectivec.IDSliceToNSArray(sourceMeshes), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

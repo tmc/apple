@@ -34,11 +34,11 @@ type BNNSActivation struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSArithmeticBinary
 type BNNSArithmeticBinary struct {
 	In1      BNNSNDArrayDescriptor // The descriptor of the first input.
-	In1_type unsafe.Pointer        // The descriptor type of the first input.
+	In1_type BNNSDescriptorType    // The descriptor type of the first input.
 	In2      BNNSNDArrayDescriptor // The descriptor of the second input.
-	In2_type unsafe.Pointer        // The descriptor type of the second input.
+	In2_type BNNSDescriptorType    // The descriptor type of the second input.
 	Out      BNNSNDArrayDescriptor // The descriptor of the output.
-	Out_type unsafe.Pointer        // The descriptor type of the output.
+	Out_type BNNSDescriptorType    // The descriptor type of the output.
 
 }
 
@@ -48,13 +48,13 @@ type BNNSArithmeticBinary struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSArithmeticTernary
 type BNNSArithmeticTernary struct {
 	In1      BNNSNDArrayDescriptor // The descriptor of the first input.
-	In1_type unsafe.Pointer        // The descriptor type of the first input.
+	In1_type BNNSDescriptorType    // The descriptor type of the first input.
 	In2      BNNSNDArrayDescriptor // The descriptor of the second input.
-	In2_type unsafe.Pointer        // The descriptor type of the second input.
+	In2_type BNNSDescriptorType    // The descriptor type of the second input.
 	In3      BNNSNDArrayDescriptor // The descriptor of the third input.
-	In3_type unsafe.Pointer        // The descriptor type of the third input.
+	In3_type BNNSDescriptorType    // The descriptor type of the third input.
 	Out      BNNSNDArrayDescriptor // The descriptor of the output.
-	Out_type unsafe.Pointer        // The descriptor type of the output.
+	Out_type BNNSDescriptorType    // The descriptor type of the output.
 
 }
 
@@ -64,9 +64,9 @@ type BNNSArithmeticTernary struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSArithmeticUnary
 type BNNSArithmeticUnary struct {
 	In       BNNSNDArrayDescriptor // The descriptor of the input.
-	In_type  unsafe.Pointer        // The descriptor type of the input.
+	In_type  BNNSDescriptorType    // The descriptor type of the input.
 	Out      BNNSNDArrayDescriptor // The descriptor of the output.
-	Out_type unsafe.Pointer        // The descriptor type of the output.
+	Out_type BNNSDescriptorType    // The descriptor type of the output.
 
 }
 
@@ -183,9 +183,9 @@ type BNNSLayerParametersActivation struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersArithmetic
 type BNNSLayerParametersArithmetic struct {
-	Arithmetic_function        unsafe.Pointer // The arithmetic operation of the layer.
-	Arithmetic_function_fields unsafe.Pointer // A pointer to an arithmetic function field structure.
-	Activation                 BNNSActivation // The activation function that the layer applies to the output.
+	Arithmetic_function        BNNSArithmeticFunction // The arithmetic operation of the layer.
+	Arithmetic_function_fields unsafe.Pointer         // A pointer to an arithmetic function field structure.
+	Activation                 BNNSActivation         // The activation function that the layer applies to the output.
 
 }
 
@@ -236,8 +236,8 @@ type BNNSLayerParametersCropResize struct {
 	Normalized_coordinates bool                    // A Boolean value that specifies whether the operation treats the coordinates as normalized to `0...1`.
 	Spatial_scale          float32                 // An additional spatial scale that mutliplies the bounding box coordinates.
 	Extrapolation_value    float32                 // A value that the operation uses for extrapolation. Default value is `0`.
-	Sampling_mode          unsafe.Pointer          // The sampling mode that the operation uses to select sample points.
-	Box_coordinate_mode    unsafe.Pointer          // A constant that defines the convention that the operation uses to specify the four bounding box coordinates.
+	Sampling_mode          BNNSLinearSamplingMode  // The sampling mode that the operation uses to select sample points.
+	Box_coordinate_mode    BNNSBoxCoordinateMode   // A constant that defines the convention that the operation uses to specify the four bounding box coordinates.
 	Method                 BNNSInterpolationMethod // The interpolation method.
 
 }
@@ -260,7 +260,7 @@ type BNNSLayerParametersDropout struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersEmbedding
 type BNNSLayerParametersEmbedding struct {
-	Flags       unsafe.Pointer        // A bit field for flags that specify additional behavior, such as scaling gradient by frequency.
+	Flags       BNNSEmbeddingFlags    // A bit field for flags that specify additional behavior, such as scaling gradient by frequency.
 	I_desc      BNNSNDArrayDescriptor // The signed or unsigned integer descriptor of the input.
 	O_desc      BNNSNDArrayDescriptor // The descriptor of the output.
 	Dictionary  BNNSNDArrayDescriptor // The descriptor of the dictionary.
@@ -322,10 +322,10 @@ type BNNSLayerParametersLSTM struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersLossBase
 type BNNSLayerParametersLossBase struct {
-	Function  BNNSLossFunction      // The function that’s used to compute loss.
-	I_desc    BNNSNDArrayDescriptor // The descriptor of the input.
-	O_desc    BNNSNDArrayDescriptor // The descriptor of the output.
-	Reduction unsafe.Pointer        // The function that’s used to reduce the computed loss.
+	Function  BNNSLossFunction          // The function that’s used to compute loss.
+	I_desc    BNNSNDArrayDescriptor     // The descriptor of the input.
+	O_desc    BNNSNDArrayDescriptor     // The descriptor of the output.
+	Reduction BNNSLossReductionFunction // The function that’s used to reduce the computed loss.
 
 }
 
@@ -334,11 +334,11 @@ type BNNSLayerParametersLossBase struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersLossHuber
 type BNNSLayerParametersLossHuber struct {
-	Function    BNNSLossFunction      // The function that’s used to compute loss.
-	I_desc      BNNSNDArrayDescriptor // The descriptor of the input.
-	O_desc      BNNSNDArrayDescriptor // The descriptor of the output.
-	Reduction   unsafe.Pointer        // The function that’s used to reduce the computed loss.
-	Huber_delta float32               // The boundary value that defines where Huber loss returns mean absolute error or mean square error.
+	Function    BNNSLossFunction          // The function that’s used to compute loss.
+	I_desc      BNNSNDArrayDescriptor     // The descriptor of the input.
+	O_desc      BNNSNDArrayDescriptor     // The descriptor of the output.
+	Reduction   BNNSLossReductionFunction // The function that’s used to reduce the computed loss.
+	Huber_delta float32                   // The boundary value that defines where Huber loss returns mean absolute error or mean square error.
 
 }
 
@@ -347,11 +347,11 @@ type BNNSLayerParametersLossHuber struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersLossSigmoidCrossEntropy
 type BNNSLayerParametersLossSigmoidCrossEntropy struct {
-	Function     BNNSLossFunction      // The function that’s used to compute loss.
-	I_desc       BNNSNDArrayDescriptor // The descriptor of the input.
-	O_desc       BNNSNDArrayDescriptor // The descriptor of the output.
-	Reduction    unsafe.Pointer        // The function that’s used to reduce the computed loss.
-	Label_smooth float32               // A value that defines the smoothing that the loss function applies to the labels.
+	Function     BNNSLossFunction          // The function that’s used to compute loss.
+	I_desc       BNNSNDArrayDescriptor     // The descriptor of the input.
+	O_desc       BNNSNDArrayDescriptor     // The descriptor of the output.
+	Reduction    BNNSLossReductionFunction // The function that’s used to reduce the computed loss.
+	Label_smooth float32                   // A value that defines the smoothing that the loss function applies to the labels.
 
 }
 
@@ -360,11 +360,11 @@ type BNNSLayerParametersLossSigmoidCrossEntropy struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersLossSoftmaxCrossEntropy
 type BNNSLayerParametersLossSoftmaxCrossEntropy struct {
-	Function     BNNSLossFunction      // The function that’s used to compute loss.
-	I_desc       BNNSNDArrayDescriptor // The descriptor of the input.
-	O_desc       BNNSNDArrayDescriptor // The descriptor of the output.
-	Reduction    unsafe.Pointer        // The function that’s used to reduce the computed loss.
-	Label_smooth float32               // A value that defines the smoothing that the loss function applies to the labels.
+	Function     BNNSLossFunction          // The function that’s used to compute loss.
+	I_desc       BNNSNDArrayDescriptor     // The descriptor of the input.
+	O_desc       BNNSNDArrayDescriptor     // The descriptor of the output.
+	Reduction    BNNSLossReductionFunction // The function that’s used to reduce the computed loss.
+	Label_smooth float32                   // A value that defines the smoothing that the loss function applies to the labels.
 
 }
 
@@ -373,24 +373,24 @@ type BNNSLayerParametersLossSoftmaxCrossEntropy struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersLossYolo
 type BNNSLayerParametersLossYolo struct {
-	Function               BNNSLossFunction      // The function that’s used to compute loss.
-	I_desc                 BNNSNDArrayDescriptor // The descriptor of the input.
-	O_desc                 BNNSNDArrayDescriptor // The descriptor of the output.
-	Reduction              unsafe.Pointer        // The function that’s used to reduce the computed loss (must be sum reduction for YOLO).
-	Huber_delta            float32               // A value that’s interpreted as width-height loss.
-	Number_of_grid_columns uintptr               // The number of columns in the grid.
-	Number_of_grid_rows    uintptr               // The number of rows in the grid.
-	Number_of_anchor_boxes uintptr               // The number of anchor boxes in each cell.
-	Anchor_box_size        uintptr               // The size of the anchor box.
-	Rescore                bool                  // A Boolean value that determines whether to rescore confidence according to prediction verus ground truth Intersection Over Union (IOU).
-	Scale_xy               float32               // The value that specifies the x, y loss-scaling factor.
-	Scale_wh               float32               // A Boolean value that determines whether to rescore confidence according to prediction verus ground truth Intersection Over Union (IOU).
-	Scale_object           float32               // The value that specifies the object confidence loss-scaling factor.
-	Scale_no_object        float32               // The value that specifies the no-object confidence scaling factor.
-	Object_minimum_iou     float32               // The value that specifies intersection over union (IOU) that’s the minimum the function treats as an object.
-	No_object_maximum_iou  float32               // The value that specifies intersection over union (IOU) that’s the maximum the function treats as not an object.
-	Scale_classification   float32               // The value that specifies the classification scaling factor.
-	Anchors_data           []float32             // Maximum IOU for treating as no object.
+	Function               BNNSLossFunction          // The function that’s used to compute loss.
+	I_desc                 BNNSNDArrayDescriptor     // The descriptor of the input.
+	O_desc                 BNNSNDArrayDescriptor     // The descriptor of the output.
+	Reduction              BNNSLossReductionFunction // The function that’s used to reduce the computed loss (must be sum reduction for YOLO).
+	Huber_delta            float32                   // A value that’s interpreted as width-height loss.
+	Number_of_grid_columns uintptr                   // The number of columns in the grid.
+	Number_of_grid_rows    uintptr                   // The number of rows in the grid.
+	Number_of_anchor_boxes uintptr                   // The number of anchor boxes in each cell.
+	Anchor_box_size        uintptr                   // The size of the anchor box.
+	Rescore                bool                      // A Boolean value that determines whether to rescore confidence according to prediction verus ground truth Intersection Over Union (IOU).
+	Scale_xy               float32                   // The value that specifies the x, y loss-scaling factor.
+	Scale_wh               float32                   // A Boolean value that determines whether to rescore confidence according to prediction verus ground truth Intersection Over Union (IOU).
+	Scale_object           float32                   // The value that specifies the object confidence loss-scaling factor.
+	Scale_no_object        float32                   // The value that specifies the no-object confidence scaling factor.
+	Object_minimum_iou     float32                   // The value that specifies intersection over union (IOU) that’s the minimum the function treats as an object.
+	No_object_maximum_iou  float32                   // The value that specifies intersection over union (IOU) that’s the maximum the function treats as not an object.
+	Scale_classification   float32                   // The value that specifies the classification scaling factor.
+	Anchors_data           []float32                 // Maximum IOU for treating as no object.
 
 }
 
@@ -545,16 +545,16 @@ type BNNSMHAProjectionParameters struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSNDArrayDescriptor
 type BNNSNDArrayDescriptor struct {
-	Flags           unsafe.Pointer // Flags that control some behaviors of the n-dimensional array.
-	Layout          unsafe.Pointer // The dimension of the n-dimensional array.
-	Data            unsafe.Pointer // A pointer that is optional and points to the underlying data.
-	Data_type       BNNSDataType   // The data type of the n-dimensional array.
-	Table_data      unsafe.Pointer // The lookup table for indexed data types.
-	Table_data_type BNNSDataType   // The data type of the lookup table.
-	Data_scale      float32        // The scale you use to convert integer and unsigned integer data to floating point.
-	Data_bias       float32        // The bias you use to convert integer and unsigned integer data to floating point.
-	Size            uintptr        // The number of values in each dimension.
-	Stride          uintptr        // The increment, in values, between consecutive elements in each dimension.
+	Flags           BNNSNDArrayFlags // Flags that control some behaviors of the n-dimensional array.
+	Layout          BNNSDataLayout   // The dimension of the n-dimensional array.
+	Data            unsafe.Pointer   // A pointer that is optional and points to the underlying data.
+	Data_type       BNNSDataType     // The data type of the n-dimensional array.
+	Table_data      unsafe.Pointer   // The lookup table for indexed data types.
+	Table_data_type BNNSDataType     // The data type of the lookup table.
+	Data_scale      float32          // The scale you use to convert integer and unsigned integer data to floating point.
+	Data_bias       float32          // The bias you use to convert integer and unsigned integer data to floating point.
+	Size            uintptr          // The number of values in each dimension.
+	Stride          uintptr          // The increment, in values, between consecutive elements in each dimension.
 
 }
 
@@ -563,17 +563,17 @@ type BNNSNDArrayDescriptor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerAdamFields
 type BNNSOptimizerAdamFields struct {
-	Learning_rate        float32        // A value that specifies the learning rate.
-	Beta1                float32        // A value that specifies the first moment constant in the range 0 to 1.
-	Beta2                float32        // A value that specifies the second moment constant in the range 0 to 1.
-	Time_step            float32        // A value that represents the optimizer’s current time and you’re responsible for updating after optimizing all the layer parameters in your network.
-	Epsilon              float32        // An addition for the division in the parameter update stage.
-	Gradient_scale       float32        // A value that specifies the gradient scaling factor.
-	Regularization_scale float32        // A value that specifies the regularization scaling factor.
-	Clip_gradients       bool           // A Boolean value that specifies whether to clip the gradient between minimum and maximum values.
-	Clip_gradients_min   float32        // The values for the minimum gradient.
-	Clip_gradients_max   float32        // The values for the maximum gradient.
-	Regularization_func  unsafe.Pointer // The variable that specifies the regularization function.
+	Learning_rate        float32                             // A value that specifies the learning rate.
+	Beta1                float32                             // A value that specifies the first moment constant in the range 0 to 1.
+	Beta2                float32                             // A value that specifies the second moment constant in the range 0 to 1.
+	Time_step            float32                             // A value that represents the optimizer’s current time and you’re responsible for updating after optimizing all the layer parameters in your network.
+	Epsilon              float32                             // An addition for the division in the parameter update stage.
+	Gradient_scale       float32                             // A value that specifies the gradient scaling factor.
+	Regularization_scale float32                             // A value that specifies the regularization scaling factor.
+	Clip_gradients       bool                                // A Boolean value that specifies whether to clip the gradient between minimum and maximum values.
+	Clip_gradients_min   float32                             // The values for the minimum gradient.
+	Clip_gradients_max   float32                             // The values for the maximum gradient.
+	Regularization_func  BNNSOptimizerRegularizationFunction // The variable that specifies the regularization function.
 
 }
 
@@ -582,19 +582,19 @@ type BNNSOptimizerAdamFields struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerAdamWithClippingFields
 type BNNSOptimizerAdamWithClippingFields struct {
-	Learning_rate           float32        // A value that specifies the learning rate.
-	Beta1                   float32        // A value that specifies the first moment constant in the range 0 to 1.
-	Beta2                   float32        // A value that specifies the second moment constant in the range 0 to 1.
-	Time_step               float32        // A value that’s at least 1 and represents the optimizer’s current time.
-	Epsilon                 float32        // An addition for the division in the parameter update stage.
-	Gradient_scale          float32        // A value that specifies the gradient scaling factor.
-	Regularization_scale    float32        // A value that specifies the regularization scaling factor.
-	Regularization_func     unsafe.Pointer // The variable that specifies the regularization function.
-	Clipping_func           unsafe.Pointer // The clipping function.
-	Clip_gradients_min      float32        // The minimum clipping value for clipping by value.
-	Clip_gradients_max      float32        // The maximum clipping value for clipping by value.
-	Clip_gradients_max_norm float32        // The maximum Euclidean norm for clipping by norm and clipping by global norm.
-	Clip_gradients_use_norm float32        // An optional value for a known Euclidean norm for clipping by global norm.
+	Learning_rate           float32                             // A value that specifies the learning rate.
+	Beta1                   float32                             // A value that specifies the first moment constant in the range 0 to 1.
+	Beta2                   float32                             // A value that specifies the second moment constant in the range 0 to 1.
+	Time_step               float32                             // A value that’s at least 1 and represents the optimizer’s current time.
+	Epsilon                 float32                             // An addition for the division in the parameter update stage.
+	Gradient_scale          float32                             // A value that specifies the gradient scaling factor.
+	Regularization_scale    float32                             // A value that specifies the regularization scaling factor.
+	Regularization_func     BNNSOptimizerRegularizationFunction // The variable that specifies the regularization function.
+	Clipping_func           BNNSOptimizerClippingFunction       // The clipping function.
+	Clip_gradients_min      float32                             // The minimum clipping value for clipping by value.
+	Clip_gradients_max      float32                             // The maximum clipping value for clipping by value.
+	Clip_gradients_max_norm float32                             // The maximum Euclidean norm for clipping by norm and clipping by global norm.
+	Clip_gradients_use_norm float32                             // An optional value for a known Euclidean norm for clipping by global norm.
 
 }
 
@@ -603,17 +603,17 @@ type BNNSOptimizerAdamWithClippingFields struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerRMSPropFields
 type BNNSOptimizerRMSPropFields struct {
-	Learning_rate        float32        // A value that specifies the learning rate.
-	Alpha                float32        // A constant that specifies smoothing.
-	Epsilon              float32        // A term that the optimizer adds to the denominator.
-	Centered             bool           // A Boolean value that specifies whether to use the centered variant.
-	Momentum             float32        // The rate of momentum decay.
-	Gradient_scale       float32        // A value that specifies the gradient scaling factor.
-	Regularization_scale float32        // A value that specifies the regularization scaling factor.
-	Clip_gradients       bool           // A Boolean value that specifies whether to clip the gradient between minimum and maximum values.
-	Clip_gradients_min   float32        // The values for the minimum gradient.
-	Clip_gradients_max   float32        // The values for the maximum gradient.
-	Regularization_func  unsafe.Pointer // The variable that specifies the regularization function.
+	Learning_rate        float32                             // A value that specifies the learning rate.
+	Alpha                float32                             // A constant that specifies smoothing.
+	Epsilon              float32                             // A term that the optimizer adds to the denominator.
+	Centered             bool                                // A Boolean value that specifies whether to use the centered variant.
+	Momentum             float32                             // The rate of momentum decay.
+	Gradient_scale       float32                             // A value that specifies the gradient scaling factor.
+	Regularization_scale float32                             // A value that specifies the regularization scaling factor.
+	Clip_gradients       bool                                // A Boolean value that specifies whether to clip the gradient between minimum and maximum values.
+	Clip_gradients_min   float32                             // The values for the minimum gradient.
+	Clip_gradients_max   float32                             // The values for the maximum gradient.
+	Regularization_func  BNNSOptimizerRegularizationFunction // The variable that specifies the regularization function.
 
 }
 
@@ -622,19 +622,19 @@ type BNNSOptimizerRMSPropFields struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerRMSPropWithClippingFields
 type BNNSOptimizerRMSPropWithClippingFields struct {
-	Learning_rate           float32        // A value that specifies the learning rate.
-	Alpha                   float32        // A constant that specifies smoothing.
-	Epsilon                 float32        // A term that the optimizer adds to the denominator.
-	Centered                bool           // A Boolean value that specifies whether to use the centered variant.
-	Momentum                float32        // The rate of momentum decay.
-	Gradient_scale          float32        // A value that specifies the gradient scaling factor.
-	Regularization_scale    float32        // A value that specifies the regularization scaling factor.
-	Regularization_func     unsafe.Pointer // The variable that specifies the regularization function.
-	Clipping_func           unsafe.Pointer // The clipping function.
-	Clip_gradients_min      float32        // The minimum clipping value for clipping by value.
-	Clip_gradients_max      float32        // The maximum clipping value for clipping by value.
-	Clip_gradients_max_norm float32        // The maximum Euclidean norm for clipping by norm and clipping by global norm.
-	Clip_gradients_use_norm float32        // An optional value for a known Euclidean norm for clipping by global norm.
+	Learning_rate           float32                             // A value that specifies the learning rate.
+	Alpha                   float32                             // A constant that specifies smoothing.
+	Epsilon                 float32                             // A term that the optimizer adds to the denominator.
+	Centered                bool                                // A Boolean value that specifies whether to use the centered variant.
+	Momentum                float32                             // The rate of momentum decay.
+	Gradient_scale          float32                             // A value that specifies the gradient scaling factor.
+	Regularization_scale    float32                             // A value that specifies the regularization scaling factor.
+	Regularization_func     BNNSOptimizerRegularizationFunction // The variable that specifies the regularization function.
+	Clipping_func           BNNSOptimizerClippingFunction       // The clipping function.
+	Clip_gradients_min      float32                             // The minimum clipping value for clipping by value.
+	Clip_gradients_max      float32                             // The maximum clipping value for clipping by value.
+	Clip_gradients_max_norm float32                             // The maximum Euclidean norm for clipping by norm and clipping by global norm.
+	Clip_gradients_use_norm float32                             // An optional value for a known Euclidean norm for clipping by global norm.
 
 }
 
@@ -643,16 +643,16 @@ type BNNSOptimizerRMSPropWithClippingFields struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerSGDMomentumFields
 type BNNSOptimizerSGDMomentumFields struct {
-	Learning_rate        float32        // A value that specifies the learning rate.
-	Momentum             float32        // The rate of momentum decay.
-	Gradient_scale       float32        // A value that specifies the gradient scaling factor.
-	Regularization_scale float32        // A value that specifies the regularization scaling factor.
-	Clip_gradients       bool           // A Boolean value that specifies whether to clip the gradient between minimum and maximum values.
-	Clip_gradients_min   float32        // The values for the minimum gradient.
-	Clip_gradients_max   float32        // The values for the maximum gradient.
-	Nesterov             bool           // A Boolean value that specifies whether to use Nesterov momentum update.
-	Regularization_func  unsafe.Pointer // The variable that specifies the regularization function.
-	Sgd_momentum_variant unsafe.Pointer // The variable that specifies the momentum variant.
+	Learning_rate        float32                             // A value that specifies the learning rate.
+	Momentum             float32                             // The rate of momentum decay.
+	Gradient_scale       float32                             // A value that specifies the gradient scaling factor.
+	Regularization_scale float32                             // A value that specifies the regularization scaling factor.
+	Clip_gradients       bool                                // A Boolean value that specifies whether to clip the gradient between minimum and maximum values.
+	Clip_gradients_min   float32                             // The values for the minimum gradient.
+	Clip_gradients_max   float32                             // The values for the maximum gradient.
+	Nesterov             bool                                // A Boolean value that specifies whether to use Nesterov momentum update.
+	Regularization_func  BNNSOptimizerRegularizationFunction // The variable that specifies the regularization function.
+	Sgd_momentum_variant BNNSOptimizerSGDMomentumVariant     // The variable that specifies the momentum variant.
 
 }
 
@@ -661,18 +661,18 @@ type BNNSOptimizerSGDMomentumFields struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerSGDMomentumWithClippingFields
 type BNNSOptimizerSGDMomentumWithClippingFields struct {
-	Learning_rate           float32        // A value that specifies the learning rate.
-	Momentum                float32        // The rate of momentum decay.
-	Gradient_scale          float32        // A value that specifies the gradient scaling factor.
-	Regularization_scale    float32        // A value that specifies the regularization scaling factor.
-	Nesterov                bool           // A Boolean value that specifies whether to use Nesterov momentum update.
-	Regularization_func     unsafe.Pointer // The variable that specifies the regularization function.
-	Sgd_momentum_variant    unsafe.Pointer // The variable that specifies the momentum variant.
-	Clipping_func           unsafe.Pointer // The clipping function.
-	Clip_gradients_min      float32        // The minimum clipping value for clipping by value.
-	Clip_gradients_max      float32        // The maximum clipping value for clipping by value.
-	Clip_gradients_max_norm float32        // The maximum Euclidean norm for clipping by norm and clipping by global norm.
-	Clip_gradients_use_norm float32        // An optional value for a known Euclidean norm for clipping by global norm.
+	Learning_rate           float32                             // A value that specifies the learning rate.
+	Momentum                float32                             // The rate of momentum decay.
+	Gradient_scale          float32                             // A value that specifies the gradient scaling factor.
+	Regularization_scale    float32                             // A value that specifies the regularization scaling factor.
+	Nesterov                bool                                // A Boolean value that specifies whether to use Nesterov momentum update.
+	Regularization_func     BNNSOptimizerRegularizationFunction // The variable that specifies the regularization function.
+	Sgd_momentum_variant    BNNSOptimizerSGDMomentumVariant     // The variable that specifies the momentum variant.
+	Clipping_func           BNNSOptimizerClippingFunction       // The clipping function.
+	Clip_gradients_min      float32                             // The minimum clipping value for clipping by value.
+	Clip_gradients_max      float32                             // The maximum clipping value for clipping by value.
+	Clip_gradients_max_norm float32                             // The maximum Euclidean norm for clipping by norm and clipping by global norm.
+	Clip_gradients_use_norm float32                             // An optional value for a known Euclidean norm for clipping by global norm.
 
 }
 
@@ -866,9 +866,9 @@ type DenseVector_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseAttributesComplex_t
 type SparseAttributesComplex_t struct {
 	Conjugate_transpose bool
-	Kind                unsafe.Pointer // A flag to describe the type of matrix represented.
+	Kind                SparseKind_t // A flag to describe the type of matrix represented.
 	Transpose           bool
-	Triangle            unsafe.Pointer // A flag to indicate which triangle of a matrix is used.
+	Triangle            SparseTriangle_t // A flag to indicate which triangle of a matrix is used.
 
 }
 
@@ -877,9 +877,9 @@ type SparseAttributesComplex_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseAttributes_t
 type SparseAttributes_t struct {
-	Transpose bool           // A Boolean value that specifies whether to implicitly transpose the matrix.
-	Triangle  unsafe.Pointer // An enumeration that specifies which triangle unit-triangular, triangular, and symmetric matrices need to use.
-	Kind      unsafe.Pointer // An eumeration that specifies whether the matrix is ordinary, unit-triangular, triangular, or symmetric.
+	Transpose bool             // A Boolean value that specifies whether to implicitly transpose the matrix.
+	Triangle  SparseTriangle_t // An enumeration that specifies which triangle unit-triangular, triangular, and symmetric matrices need to use.
+	Kind      SparseKind_t     // An eumeration that specifies whether the matrix is ordinary, unit-triangular, triangular, or symmetric.
 
 }
 
@@ -901,13 +901,13 @@ type SparseCGOptions struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseGMRESOptions
 type SparseGMRESOptions struct {
-	Variant       unsafe.Pointer // The exact variant of GMRES to implement.
-	Nvec          int            // The number of orthogonal vectors the operation maintains.
-	MaxIterations int            // The maximum number of iterations to perform.
-	Atol          float64        // The absolute convergence tolerance.
-	Rtol          float64        // The relative convergence tolerance.
-	ReportError   func(*byte)    // An optional error-reporting routine.
-	ReportStatus  func(*byte)    // The function to report status.
+	Variant       SparseGMRESVariant_t // The exact variant of GMRES to implement.
+	Nvec          int                  // The number of orthogonal vectors the operation maintains.
+	MaxIterations int                  // The maximum number of iterations to perform.
+	Atol          float64              // The absolute convergence tolerance.
+	Rtol          float64              // The relative convergence tolerance.
+	ReportError   func(*byte)          // An optional error-reporting routine.
+	ReportStatus  func(*byte)          // The function to report status.
 
 }
 
@@ -930,16 +930,16 @@ type SparseIterativeMethod struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseLSMROptions
 type SparseLSMROptions struct {
-	Lambda          float64        // The damping parameter lambda for regularized least squares.
-	Nvec            int            // The number of vectors to use for local reorthogonalization.
-	ConvergenceTest unsafe.Pointer // The convergence test to use for iterative solve methods.
-	Atol            float64        // The absolute tolerance (default test) or  tolerance (Fong-Saunders test).
-	Rtol            float64        // The relative convergence tolerance (default test only).
-	Btol            float64        // The  tolerance (Fong-Saunders test only).
-	ConditionLimit  float64        // The condition number limit (Fong-Saunders test only).
-	MaxIterations   int            // The maximum number of iterations.
-	ReportError     func(*byte)    // An optional error-reporting routine.
-	ReportStatus    func(*byte)    // An optional status-reporting routine.
+	Lambda          float64                     // The damping parameter lambda for regularized least squares.
+	Nvec            int                         // The number of vectors to use for local reorthogonalization.
+	ConvergenceTest SparseLSMRConvergenceTest_t // The convergence test to use for iterative solve methods.
+	Atol            float64                     // The absolute tolerance (default test) or  tolerance (Fong-Saunders test).
+	Rtol            float64                     // The relative convergence tolerance (default test only).
+	Btol            float64                     // The  tolerance (Fong-Saunders test only).
+	ConditionLimit  float64                     // The condition number limit (Fong-Saunders test only).
+	MaxIterations   int                         // The maximum number of iterations.
+	ReportError     func(*byte)                 // An optional error-reporting routine.
+	ReportStatus    func(*byte)                 // An optional status-reporting routine.
 
 }
 
@@ -1013,11 +1013,11 @@ type SparseMatrix_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseNumericFactorOptions
 type SparseNumericFactorOptions struct {
-	Control        unsafe.Pointer // The flags that control the computation.
-	ScalingMethod  unsafe.Pointer // The scaling method.
-	Scaling        unsafe.Pointer // An array that scales the matrix before factorization.
-	PivotTolerance float64        // The pivot tolerance that threshold partial pivoting uses.
-	ZeroTolerance  float64        // The zero tolerance that some pivoting modes use.
+	Control        SparseControl_t // The flags that control the computation.
+	ScalingMethod  SparseScaling   // The scaling method.
+	Scaling        unsafe.Pointer  // An array that scales the matrix before factorization.
+	PivotTolerance float64         // The pivot tolerance that threshold partial pivoting uses.
+	ZeroTolerance  float64         // The zero tolerance that some pivoting modes use.
 
 }
 
@@ -1026,7 +1026,7 @@ type SparseNumericFactorOptions struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueFactorization_Complex_Double
 type SparseOpaqueFactorization_Complex_Double struct {
-	Status                       unsafe.Pointer                    // Status field for a factorization.
+	Status                       SparseStatus_t                    // Status field for a factorization.
 	Attributes                   SparseAttributesComplex_t         // A type representing the attributes of a matrix.
 	SymbolicFactorization        SparseOpaqueSymbolicFactorization // A semi-opaque type representing symbolic matrix factorization.
 	UserFactorStorage            bool
@@ -1040,7 +1040,7 @@ type SparseOpaqueFactorization_Complex_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueFactorization_Complex_Float
 type SparseOpaqueFactorization_Complex_Float struct {
-	Status                       unsafe.Pointer                    // Status field for a factorization.
+	Status                       SparseStatus_t                    // Status field for a factorization.
 	Attributes                   SparseAttributesComplex_t         // A type representing the attributes of a matrix.
 	SymbolicFactorization        SparseOpaqueSymbolicFactorization // A semi-opaque type representing symbolic matrix factorization.
 	UserFactorStorage            bool
@@ -1054,7 +1054,7 @@ type SparseOpaqueFactorization_Complex_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueFactorization_Double
 type SparseOpaqueFactorization_Double struct {
-	Status                       unsafe.Pointer                    // The status of the factorization object.
+	Status                       SparseStatus_t                    // The status of the factorization object.
 	Attributes                   SparseAttributes_t                // The attributes of a factorization object.
 	SymbolicFactorization        SparseOpaqueSymbolicFactorization // The symbolic factorization that this numeric factorization depends on.
 	UserFactorStorage            bool                              // A Boolean value that indicates whether user-provided storage backs this object.
@@ -1069,7 +1069,7 @@ type SparseOpaqueFactorization_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueFactorization_Float
 type SparseOpaqueFactorization_Float struct {
-	Status                       unsafe.Pointer                    // The status of the factorization object.
+	Status                       SparseStatus_t                    // The status of the factorization object.
 	Attributes                   SparseAttributes_t                // The attributes of a factorization object.
 	SymbolicFactorization        SparseOpaqueSymbolicFactorization // The symbolic factorization that this numeric factorization depends on.
 	UserFactorStorage            bool                              // A Boolean value that indicates whether user-provided storage backs this object.
@@ -1084,7 +1084,7 @@ type SparseOpaqueFactorization_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaquePreconditioner_Complex_Double
 type SparseOpaquePreconditioner_Complex_Double struct {
-	Type  unsafe.Pointer // Types of preconditioner.
+	Type  SparsePreconditioner // Types of preconditioner.
 	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Complex_Double, DenseMatrix_Complex_Double)
 	Mem   unsafe.Pointer
 }
@@ -1094,7 +1094,7 @@ type SparseOpaquePreconditioner_Complex_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaquePreconditioner_Complex_Float
 type SparseOpaquePreconditioner_Complex_Float struct {
-	Type  unsafe.Pointer // Types of preconditioner.
+	Type  SparsePreconditioner // Types of preconditioner.
 	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Complex_Float, DenseMatrix_Complex_Float)
 	Mem   unsafe.Pointer
 }
@@ -1104,7 +1104,7 @@ type SparseOpaquePreconditioner_Complex_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaquePreconditioner_Double
 type SparseOpaquePreconditioner_Double struct {
-	Type  unsafe.Pointer                                                                // The preconditioner type.
+	Type  SparsePreconditioner                                                          // The preconditioner type.
 	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Double, DenseMatrix_Double) // A function that calculates , where  is the preconditioner.
 	Mem   unsafe.Pointer                                                                // The unaltered memory pointer that passes as the first parameter of the apply function.
 
@@ -1115,7 +1115,7 @@ type SparseOpaquePreconditioner_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaquePreconditioner_Float
 type SparseOpaquePreconditioner_Float struct {
-	Type  unsafe.Pointer                                                              // The preconditioner type.
+	Type  SparsePreconditioner                                                        // The preconditioner type.
 	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Float, DenseMatrix_Float) // A function that calculates , where  is the preconditioner.
 	Mem   unsafe.Pointer                                                              // The unaltered memory pointer that passes as the first parameter of the apply function.
 
@@ -1127,7 +1127,7 @@ type SparseOpaquePreconditioner_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSubfactor_Complex_Double
 type SparseOpaqueSubfactor_Complex_Double struct {
 	Attributes              SparseAttributesComplex_t                // A type representing the attributes of a matrix.
-	Contents                unsafe.Pointer                           // Types of sub-factor object.
+	Contents                SparseSubfactor                          // Types of sub-factor object.
 	Factor                  SparseOpaqueFactorization_Complex_Double // A semi-opaque type representing a matrix factorization in complex double.
 	WorkspaceRequiredStatic uintptr
 	WorkspaceRequiredPerRHS uintptr
@@ -1139,7 +1139,7 @@ type SparseOpaqueSubfactor_Complex_Double struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSubfactor_Complex_Float
 type SparseOpaqueSubfactor_Complex_Float struct {
 	Attributes              SparseAttributesComplex_t               // A type representing the attributes of a matrix.
-	Contents                unsafe.Pointer                          // Types of sub-factor object.
+	Contents                SparseSubfactor                         // Types of sub-factor object.
 	Factor                  SparseOpaqueFactorization_Complex_Float // A semi-opaque type representing a matrix factorization in complex float.
 	WorkspaceRequiredStatic uintptr
 	WorkspaceRequiredPerRHS uintptr
@@ -1151,7 +1151,7 @@ type SparseOpaqueSubfactor_Complex_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSubfactor_Double
 type SparseOpaqueSubfactor_Double struct {
 	Attributes              SparseAttributes_t               // A type representing the attributes of a matrix.
-	Contents                unsafe.Pointer                   // Types of sub-factor object.
+	Contents                SparseSubfactor                  // Types of sub-factor object.
 	Factor                  SparseOpaqueFactorization_Double // A semi-opaque type representing a matrix factorization in double.
 	WorkspaceRequiredStatic uintptr
 	WorkspaceRequiredPerRHS uintptr
@@ -1163,7 +1163,7 @@ type SparseOpaqueSubfactor_Double struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSubfactor_Float
 type SparseOpaqueSubfactor_Float struct {
 	Attributes              SparseAttributes_t              // A type representing the attributes of a matrix.
-	Contents                unsafe.Pointer                  // Types of sub-factor object.
+	Contents                SparseSubfactor                 // Types of sub-factor object.
 	Factor                  SparseOpaqueFactorization_Float // A semi-opaque type representing a matrix factorization in float.
 	WorkspaceRequiredStatic uintptr
 	WorkspaceRequiredPerRHS uintptr
@@ -1174,17 +1174,17 @@ type SparseOpaqueSubfactor_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSymbolicFactorization
 type SparseOpaqueSymbolicFactorization struct {
-	Status               unsafe.Pointer     // The status of the factorization.
-	RowCount             int                // The number of rows.
-	ColumnCount          int                // The number of columns.
-	Attributes           SparseAttributes_t // The attributes of the factorization.
-	BlockSize            uint8              // The block size.
-	Type                 unsafe.Pointer     // The factorization type.
-	Factorization        unsafe.Pointer     // A pointer to a private internal representation of the symbolic factor.
-	WorkspaceSize_Float  uintptr            // Size, in bytes, of workspace required to perform numerical factorization in floats.
-	WorkspaceSize_Double uintptr            // Size, in bytes, of workspace required to perform numerical factorization in doubles.
-	FactorSize_Float     uintptr            // Minimum size, in bytes, required to store numerical factors in float.
-	FactorSize_Double    uintptr            // Minimum size, in bytes, required to store numerical factors in doubles.
+	Status               SparseStatus_t      // The status of the factorization.
+	RowCount             int                 // The number of rows.
+	ColumnCount          int                 // The number of columns.
+	Attributes           SparseAttributes_t  // The attributes of the factorization.
+	BlockSize            uint8               // The block size.
+	Type                 SparseFactorization // The factorization type.
+	Factorization        unsafe.Pointer      // A pointer to a private internal representation of the symbolic factor.
+	WorkspaceSize_Float  uintptr             // Size, in bytes, of workspace required to perform numerical factorization in floats.
+	WorkspaceSize_Double uintptr             // Size, in bytes, of workspace required to perform numerical factorization in doubles.
+	FactorSize_Float     uintptr             // Minimum size, in bytes, required to store numerical factors in float.
+	FactorSize_Double    uintptr             // Minimum size, in bytes, required to store numerical factors in doubles.
 
 }
 
@@ -1193,8 +1193,8 @@ type SparseOpaqueSymbolicFactorization struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseSymbolicFactorOptions
 type SparseSymbolicFactorOptions struct {
-	Control              unsafe.Pointer            // The flags that control the computation.
-	OrderMethod          unsafe.Pointer            // The ordering algorithm.
+	Control              SparseControl_t           // The flags that control the computation.
+	OrderMethod          SparseOrder               // The ordering algorithm.
 	Order                []int                     // The user-supplied array for ordering.
 	IgnoreRowsAndColumns []int                     // An array that contains row and column indices to ignore.
 	Malloc               func(uint) unsafe.Pointer // The function for allocating any necessary storage.
@@ -1279,7 +1279,7 @@ type Quadrature_integrate_function struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/quadrature_integrate_options
 type Quadrature_integrate_options struct {
-	Integrator              unsafe.Pointer
+	Integrator              Quadrature_integrator
 	Abs_tolerance           float64
 	Rel_tolerance           float64
 	Qag_points_per_interval uintptr

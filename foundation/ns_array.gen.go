@@ -489,7 +489,7 @@ type INSArray interface {
 	// Returns a new array that lists this array’s elements in a random order.
 	ShuffledArray() []objectivec.IObject
 	// Returns a new array that lists this array’s elements in a random order, using the specified random source.
-	ShuffledArrayWithRandomSource(randomSource objectivec.IObject) []objectivec.IObject
+	ShuffledArrayWithRandomSource(randomSource unsafe.Pointer) []objectivec.IObject
 
 	// Topic: Initializers
 
@@ -1909,7 +1909,7 @@ func (a NSArray) ShuffledArray() []objectivec.IObject {
 //
 // randomSource: A GameplayKit random source object.
 //
-// randomSource is a [gameplaykit.GKRandomSource].
+// randomSource is a [*gameplaykit.GKRandomSource].
 //
 // # Return Value
 //
@@ -1927,13 +1927,12 @@ func (a NSArray) ShuffledArray() []objectivec.IObject {
 // generic type parameters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/shuffled(using:)
-// randomSource is a [gameplaykit.GKRandomSource].
 //
 // [GKARC4RandomSource]: https://developer.apple.com/documentation/GameplayKit/GKARC4RandomSource
 // [GKRandomSource]: https://developer.apple.com/documentation/GameplayKit/GKRandomSource
 // [arrayByShufflingObjects(in:)]: https://developer.apple.com/documentation/GameplayKit/GKRandomSource/arrayByShufflingObjects(in:)
 // [seed]: https://developer.apple.com/documentation/GameplayKit/GKARC4RandomSource/seed
-func (a NSArray) ShuffledArrayWithRandomSource(randomSource objectivec.IObject) []objectivec.IObject {
+func (a NSArray) ShuffledArrayWithRandomSource(randomSource unsafe.Pointer) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("shuffledArrayWithRandomSource:"), randomSource)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}

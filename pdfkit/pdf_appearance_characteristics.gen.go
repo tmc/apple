@@ -5,6 +5,7 @@ package pdfkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -107,11 +108,11 @@ type IPDFAppearanceCharacteristics interface {
 	// Topic: Configuring a Widget’s Appearance
 
 	// The background color of the widget annotation.
-	BackgroundColor() objc.ID
-	SetBackgroundColor(value objc.ID)
+	BackgroundColor() appkit.NSColor
+	SetBackgroundColor(value appkit.NSColor)
 	// The border color of the widget annotation.
-	BorderColor() objc.ID
-	SetBorderColor(value objc.ID)
+	BorderColor() appkit.NSColor
+	SetBorderColor(value appkit.NSColor)
 	// The text that the button widget annotation displays when the user isn’t interacting with it.
 	Caption() string
 	SetCaption(value string)
@@ -169,22 +170,22 @@ func NewPDFAppearanceCharacteristics() PDFAppearanceCharacteristics {
 // The background color of the widget annotation.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAppearanceCharacteristics/backgroundColor
-func (p PDFAppearanceCharacteristics) BackgroundColor() objc.ID {
+func (p PDFAppearanceCharacteristics) BackgroundColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("backgroundColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFAppearanceCharacteristics) SetBackgroundColor(value objc.ID) {
+func (p PDFAppearanceCharacteristics) SetBackgroundColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBackgroundColor:"), value)
 }
 
 // The border color of the widget annotation.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAppearanceCharacteristics/borderColor
-func (p PDFAppearanceCharacteristics) BorderColor() objc.ID {
+func (p PDFAppearanceCharacteristics) BorderColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("borderColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFAppearanceCharacteristics) SetBorderColor(value objc.ID) {
+func (p PDFAppearanceCharacteristics) SetBorderColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBorderColor:"), value)
 }
 

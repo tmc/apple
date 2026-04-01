@@ -140,6 +140,8 @@ func NewNSXPCCoder() NSXPCCoder {
 //
 // key: A string that your app uses to reference the encoded object.
 //
+// xpcObject is a [xpc.xpc_object_t].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/encodeXPCObject(_:forKey:)
 func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeXPCObject:forKey:"), xpcObject, objc.String(key))
@@ -151,6 +153,8 @@ func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) 
 // type: An opaque pointer to an encoded XPC object.
 //
 // key: A string that your app uses to reference the decoded object.
+//
+// type is a [xpc.xpc_type_t].
 //
 // # Return Value
 //

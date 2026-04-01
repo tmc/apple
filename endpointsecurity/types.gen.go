@@ -18,7 +18,7 @@ import (
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_authorization_result_t
 type Es_authorization_result_t struct {
 	Right_name Es_string_token_t
-	Rule_class unsafe.Pointer
+	Rule_class EsAuthorizationRuleClass
 	Granted    bool
 }
 
@@ -27,7 +27,7 @@ type Es_authorization_result_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_btm_launch_item_t
 type Es_btm_launch_item_t struct {
-	Item_type unsafe.Pointer
+	Item_type EsBtmItemType
 	Legacy    bool
 	Managed   bool
 	Uid       uint32
@@ -52,7 +52,7 @@ type Es_event_access_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_authentication_auto_unlock_t
 type Es_event_authentication_auto_unlock_t struct {
 	Username Es_string_token_t
-	Type     unsafe.Pointer
+	Type     Es_auto_unlock_type_t
 }
 
 // Es_event_authentication_od_t
@@ -74,7 +74,7 @@ type Es_event_authentication_od_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_authentication_t
 type Es_event_authentication_t struct {
 	Success     bool
-	Type        unsafe.Pointer
+	Type        EsAuthenticationType
 	Data        [8]byte
 	Auto_unlock *Es_event_authentication_auto_unlock_t
 	Od          *Es_event_authentication_od_t
@@ -100,7 +100,7 @@ type Es_event_authentication_token_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_authentication_touchid_t
 type Es_event_authentication_touchid_t struct {
 	Instigator       *Es_process_t
-	Touchid_mode     unsafe.Pointer
+	Touchid_mode     EsTouchidMode
 	Has_uid          bool
 	Instigator_token [32]byte
 	Uid              [4]byte
@@ -360,7 +360,7 @@ type Es_event_fsgetpath_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_gatekeeper_user_override_t
 type Es_event_gatekeeper_user_override_t struct {
-	File_type    unsafe.Pointer
+	File_type    EsGatekeeperUserOverrideFileType
 	Sha256       *Es_sha256_t
 	Signing_info *Es_signed_file_info_t
 	File         [16]byte
@@ -373,7 +373,7 @@ type Es_event_gatekeeper_user_override_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_get_task_inspect_t
 type Es_event_get_task_inspect_t struct {
 	Target   *Es_process_t // The process targeted by this event.
-	Type     unsafe.Pointer
+	Type     EsGetTaskType
 	Reserved uint8 // An unused field reserved for future use.
 
 }
@@ -384,7 +384,7 @@ type Es_event_get_task_inspect_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_get_task_name_t
 type Es_event_get_task_name_t struct {
 	Target   *Es_process_t // The process targeted by this event.
-	Type     unsafe.Pointer
+	Type     EsGetTaskType
 	Reserved uint8 // An unused field reserved for future use.
 
 }
@@ -395,7 +395,7 @@ type Es_event_get_task_name_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_get_task_read_t
 type Es_event_get_task_read_t struct {
 	Target   *Es_process_t // The process targeted by this event.
-	Type     unsafe.Pointer
+	Type     EsGetTaskType
 	Reserved uint8 // An unused field reserved for future use.
 
 }
@@ -406,7 +406,7 @@ type Es_event_get_task_read_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_get_task_t
 type Es_event_get_task_t struct {
 	Target   *Es_process_t // The process targeted by this event.
-	Type     unsafe.Pointer
+	Type     EsGetTaskType
 	Reserved uint8 // An unused field reserved for future use.
 
 }
@@ -585,7 +585,7 @@ type Es_event_mmap_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_mount_t
 type Es_event_mount_t struct {
 	Statfs      objectivec.IObject // The statistics of the mounted file system.
-	Disposition unsafe.Pointer
+	Disposition EsMountDisposition
 	Reserved    uint8 // An unused field reserved for future use.
 
 }
@@ -609,7 +609,7 @@ type Es_event_mprotect_t struct {
 type Es_event_od_attribute_set_t struct {
 	Instigator            *Es_process_t
 	Error_code            int
-	Record_type           unsafe.Pointer
+	Record_type           EsOdRecordType
 	Record_name           Es_string_token_t
 	Attribute_name        Es_string_token_t
 	Attribute_value_count uintptr
@@ -626,7 +626,7 @@ type Es_event_od_attribute_set_t struct {
 type Es_event_od_attribute_value_add_t struct {
 	Instigator       *Es_process_t
 	Error_code       int
-	Record_type      unsafe.Pointer
+	Record_type      EsOdRecordType
 	Record_name      Es_string_token_t
 	Attribute_name   Es_string_token_t
 	Attribute_value  Es_string_token_t
@@ -642,7 +642,7 @@ type Es_event_od_attribute_value_add_t struct {
 type Es_event_od_attribute_value_remove_t struct {
 	Instigator       *Es_process_t
 	Error_code       int
-	Record_type      unsafe.Pointer
+	Record_type      EsOdRecordType
 	Record_name      Es_string_token_t
 	Attribute_name   Es_string_token_t
 	Attribute_value  Es_string_token_t
@@ -778,7 +778,7 @@ type Es_event_od_group_set_t struct {
 type Es_event_od_modify_password_t struct {
 	Instigator       *Es_process_t
 	Error_code       int
-	Account_type     unsafe.Pointer
+	Account_type     EsOdAccountType
 	Account_name     Es_string_token_t
 	Node_name        Es_string_token_t
 	Db_path          Es_string_token_t
@@ -802,8 +802,8 @@ type Es_event_open_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_openssh_login_t
 type Es_event_openssh_login_t struct {
 	Success             bool
-	Result_type         unsafe.Pointer
-	Source_address_type unsafe.Pointer
+	Result_type         Es_openssh_login_result_type_t
+	Source_address_type EsAddressType
 	Source_address      Es_string_token_t
 	Username            Es_string_token_t
 	Has_uid             bool
@@ -815,7 +815,7 @@ type Es_event_openssh_login_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_openssh_logout_t
 type Es_event_openssh_logout_t struct {
-	Source_address_type unsafe.Pointer
+	Source_address_type EsAddressType
 	Source_address      Es_string_token_t
 	Username            Es_string_token_t
 	Uid                 uint32
@@ -826,10 +826,10 @@ type Es_event_openssh_logout_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_proc_check_t
 type Es_event_proc_check_t struct {
-	Target   *Es_process_t  // The process targeted by this event.
-	Type     unsafe.Pointer // The type of call number used to check the access on the target process.
-	Flavor   int            // A representation of the information sought by a process based on the type member of [es_event_proc_check_t](<doc://com.apple.endpointsecurity/documentation/EndpointSecurity/es_event_proc_check_t>).
-	Reserved uint8          // An unused field reserved for future use.
+	Target   *Es_process_t   // The process targeted by this event.
+	Type     EsProcCheckType // The type of call number used to check the access on the target process.
+	Flavor   int             // A representation of the information sought by a process based on the type member of [es_event_proc_check_t](<doc://com.apple.endpointsecurity/documentation/EndpointSecurity/es_event_proc_check_t>).
+	Reserved uint8           // An unused field reserved for future use.
 
 }
 
@@ -838,9 +838,9 @@ type Es_event_proc_check_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_proc_suspend_resume_t
 type Es_event_proc_suspend_resume_t struct {
-	Target   *Es_process_t  // The process targeted by this event.
-	Type     unsafe.Pointer // The type of event: suspend, resume, or socket shutdown.
-	Reserved uint8          // An unused field reserved for future use.
+	Target   *Es_process_t           // The process targeted by this event.
+	Type     EsProcSuspendResumeType // The type of event: suspend, resume, or socket shutdown.
+	Reserved uint8                   // An unused field reserved for future use.
 
 }
 
@@ -923,7 +923,7 @@ type Es_event_remote_thread_create_t struct {
 type Es_event_remount_t struct {
 	Statfs        objectivec.IObject // The statistics of the remounted file system.
 	Remount_flags uint64
-	Disposition   unsafe.Pointer
+	Disposition   EsMountDisposition
 	Reserved      uint8 // An unused field reserved for future use.
 
 }
@@ -949,7 +949,7 @@ type Es_event_rename_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_screensharing_attach_t
 type Es_event_screensharing_attach_t struct {
 	Success                 bool
-	Source_address_type     unsafe.Pointer
+	Source_address_type     EsAddressType
 	Source_address          Es_string_token_t
 	Viewer_appleid          Es_string_token_t
 	Authentication_type     Es_string_token_t
@@ -964,7 +964,7 @@ type Es_event_screensharing_attach_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_screensharing_detach_t
 type Es_event_screensharing_detach_t struct {
-	Source_address_type  unsafe.Pointer
+	Source_address_type  EsAddressType
 	Source_address       Es_string_token_t
 	Viewer_appleid       Es_string_token_t
 	Graphical_session_id Es_graphical_session_id_t
@@ -986,10 +986,10 @@ type Es_event_searchfs_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setacl_t
 type Es_event_setacl_t struct {
-	Target       *Es_file_t     // The file containing the access control list to set or clear.
-	Set_or_clear unsafe.Pointer // The access control list action represented by the event, either setting or clearing values.
-	Acl          [8]byte        // A union containing a settable access control list structure.
-	Reserved     uint8          // An unused field reserved for future use.
+	Target       *Es_file_t        // The file containing the access control list to set or clear.
+	Set_or_clear Es_set_or_clear_t // The access control list action represented by the event, either setting or clearing values.
+	Acl          [8]byte           // A union containing a settable access control list structure.
+	Reserved     uint8             // An unused field reserved for future use.
 	Set          unsafe.Pointer
 }
 
@@ -1186,14 +1186,14 @@ type Es_event_sudo_t struct {
 type Es_event_tcc_modify_t struct {
 	Service           Es_string_token_t
 	Identity          Es_string_token_t
-	Identity_type     unsafe.Pointer // es_tcc_identity_type_t
-	Update_type       unsafe.Pointer
+	Identity_type     EsTccIdentityType // es_tcc_identity_type_t
+	Update_type       EsTccEventType
 	Instigator_token  [32]byte
 	Instigator        *Es_process_t
 	Responsible_token *[32]byte
 	Responsible       *Es_process_t
-	Right             unsafe.Pointer // ess_tcc_authorization_right_t
-	Reason            unsafe.Pointer // ess_tcc_authorization_reason_t
+	Right             EsTccAuthorizationRight  // ess_tcc_authorization_right_t
+	Reason            EsTccAuthorizationReason // ess_tcc_authorization_reason_t
 
 }
 
@@ -1318,7 +1318,7 @@ type Es_event_xp_malware_remediated_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_xpc_connect_t
 type Es_event_xpc_connect_t struct {
 	Service_name        Es_string_token_t
-	Service_domain_type unsafe.Pointer
+	Service_domain_type Es_xpc_domain_type_t
 }
 
 // Es_events_t is a C union type. A C union of event-specific types.
@@ -2044,7 +2044,7 @@ type Es_muted_processes_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_od_member_id_array_t
 type Es_od_member_id_array_t struct {
-	Member_type  unsafe.Pointer
+	Member_type  EsOdMemberType
 	Member_count uintptr
 	Member_array [8]byte
 	Names        *Es_string_token_t
@@ -2056,7 +2056,7 @@ type Es_od_member_id_array_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_od_member_id_t
 type Es_od_member_id_t struct {
-	Member_type  unsafe.Pointer
+	Member_type  EsOdMemberType
 	Member_value [16]byte
 	Name         Es_string_token_t
 	Uuid         [16]byte
@@ -2067,23 +2067,23 @@ type Es_od_member_id_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_process_t
 type Es_process_t struct {
-	Audit_token             [32]byte          // A token for use with Basic Security Module auditing functions.
-	Ppid                    int32             // The parent process identifier.
-	Original_ppid           int32             // The original parent process ID.
-	Group_id                int32             // The process group identifier.
-	Session_id              int32             // The identifier of the session that contains the process group.
-	Codesigning_flags       uint32            // The flags used to sign the process.
-	Is_platform_binary      bool              // A Boolean value that indicates whether the process is a platform binary.
-	Is_es_client            bool              // A Boolean value that indicates whether the process connects to the Endpoint Security subsystem.
-	Cdhash                  Es_cdhash_t       // The code directory hash value.
-	Signing_id              Es_string_token_t // The identifier used to sign the process.
-	Team_id                 Es_string_token_t // The team identifier used to sign the process.
-	Executable              *Es_file_t        // The file containing the executed process.
-	Tty                     *Es_file_t        // The TTY associated with the process sending the message.
-	Start_time              kernel.Timeval    // The time the process started.
-	Responsible_audit_token [32]byte          // The audit token of the process responsible for this process.
-	Parent_audit_token      [32]byte          // The audit token of the parent process.
-	Cs_validation_category  unsafe.Pointer    // es_cs_validation_category
+	Audit_token             [32]byte               // A token for use with Basic Security Module auditing functions.
+	Ppid                    int32                  // The parent process identifier.
+	Original_ppid           int32                  // The original parent process ID.
+	Group_id                int32                  // The process group identifier.
+	Session_id              int32                  // The identifier of the session that contains the process group.
+	Codesigning_flags       uint32                 // The flags used to sign the process.
+	Is_platform_binary      bool                   // A Boolean value that indicates whether the process is a platform binary.
+	Is_es_client            bool                   // A Boolean value that indicates whether the process connects to the Endpoint Security subsystem.
+	Cdhash                  Es_cdhash_t            // The code directory hash value.
+	Signing_id              Es_string_token_t      // The identifier used to sign the process.
+	Team_id                 Es_string_token_t      // The team identifier used to sign the process.
+	Executable              *Es_file_t             // The file containing the executed process.
+	Tty                     *Es_file_t             // The TTY associated with the process sending the message.
+	Start_time              kernel.Timeval         // The time the process started.
+	Responsible_audit_token [32]byte               // The audit token of the process responsible for this process.
+	Parent_audit_token      [32]byte               // The audit token of the parent process.
+	Cs_validation_category  EsCsValidationCategory // es_cs_validation_category
 
 }
 
@@ -2094,7 +2094,7 @@ type Es_process_t struct {
 type Es_profile_t struct {
 	Identifier     Es_string_token_t
 	Uuid           Es_string_token_t
-	Install_source unsafe.Pointer
+	Install_source EsProfileSource
 	Organization   Es_string_token_t
 	Display_name   Es_string_token_t
 	Scope          Es_string_token_t
@@ -2107,7 +2107,7 @@ type Es_profile_t struct {
 type Es_result_t struct {
 	Result_type EsResultType // The type of the message’s result.
 	Result      [32]byte     // The message’s result, as either an authorization result or flags.
-	Auth        unsafe.Pointer
+	Auth        EsAuthResult
 	Flags       uint32
 	Reserved    uint8
 }
@@ -2138,7 +2138,7 @@ type Es_string_token_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_sudo_reject_info_t
 type Es_sudo_reject_info_t struct {
 	Plugin_name     Es_string_token_t
-	Plugin_type     unsafe.Pointer
+	Plugin_type     EsSudoPluginType
 	Failure_message Es_string_token_t
 }
 

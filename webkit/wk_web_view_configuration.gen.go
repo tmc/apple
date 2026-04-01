@@ -5,6 +5,7 @@ package webkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -257,8 +258,8 @@ type IWKWebViewConfiguration interface {
 	SetSupportsAdaptiveImageGlyph(value bool)
 	WebExtensionController() IWKWebExtensionController
 	SetWebExtensionController(value IWKWebExtensionController)
-	WritingToolsBehavior() objectivec.IObject
-	SetWritingToolsBehavior(value objectivec.IObject)
+	WritingToolsBehavior() appkit.NSWritingToolsBehavior
+	SetWritingToolsBehavior(value appkit.NSWritingToolsBehavior)
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -556,10 +557,10 @@ func (w WKWebViewConfiguration) SetWebExtensionController(value IWKWebExtensionC
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKWebViewConfiguration/writingToolsBehavior
-func (w WKWebViewConfiguration) WritingToolsBehavior() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("writingToolsBehavior"))
-	return objectivec.Object{ID: rv}
+func (w WKWebViewConfiguration) WritingToolsBehavior() appkit.NSWritingToolsBehavior {
+	rv := objc.Send[appkit.NSWritingToolsBehavior](w.ID, objc.Sel("writingToolsBehavior"))
+	return appkit.NSWritingToolsBehavior(rv)
 }
-func (w WKWebViewConfiguration) SetWritingToolsBehavior(value objectivec.IObject) {
+func (w WKWebViewConfiguration) SetWritingToolsBehavior(value appkit.NSWritingToolsBehavior) {
 	objc.Send[struct{}](w.ID, objc.Sel("setWritingToolsBehavior:"), value)
 }

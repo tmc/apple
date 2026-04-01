@@ -4,9 +4,9 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitTimeEffect] class.
@@ -93,7 +93,7 @@ type IAVAudioUnitTimeEffect interface {
 	// Topic: Creating a time effect
 
 	// Creates a time effect audio unit with the specified description.
-	InitWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitTimeEffect
+	InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitTimeEffect
 
 	// Topic: Getting and setting the time effect
 
@@ -136,8 +136,7 @@ func NewAVAudioUnitTimeEffect() AVAudioUnitTimeEffect {
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimeEffect/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitTimeEffect {
+func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitTimeEffect {
 	instance := getAVAudioUnitTimeEffectClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitTimeEffectFromID(rv)
@@ -160,8 +159,7 @@ func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescripti
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimeEffect/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-func (a AVAudioUnitTimeEffect) InitWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitTimeEffect {
+func (a AVAudioUnitTimeEffect) InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitTimeEffect {
 	rv := objc.Send[AVAudioUnitTimeEffect](a.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return rv
 }

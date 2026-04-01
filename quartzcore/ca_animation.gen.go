@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -251,8 +252,7 @@ func NewCAAnimation() CAAnimation {
 // Creates an animation from a SceneKit animation.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(SCNAnimation:)
-// animation is a [scenekit.SCNAnimation].
-func NewAnimationWithSCNAnimation(animation objectivec.IObject) CAAnimation {
+func NewAnimationWithSCNAnimation(animation unsafe.Pointer) CAAnimation {
 	rv := objc.Send[objc.ID](objc.ID(getCAAnimationClass().class), objc.Sel("animationWithSCNAnimation:"), animation)
 	return CAAnimationFromID(rv)
 }

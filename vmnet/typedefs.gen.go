@@ -12,10 +12,10 @@ import (
 type Interface_ref = uintptr
 
 // See: https://developer.apple.com/documentation/vmnet/vmnet_interface_completion_handler_t
-type Vmnet_interface_completion_handler_t = func(objectivec.IObject)
+type Vmnet_interface_completion_handler_t = func(Vmnet_return_t)
 
 // See: https://developer.apple.com/documentation/vmnet/vmnet_interface_event_callback_t
-type Vmnet_interface_event_callback_t = func(objectivec.IObject, objectivec.Object)
+type Vmnet_interface_event_callback_t = func(Interface_event_t, objectivec.Object)
 
 // See: https://developer.apple.com/documentation/vmnet/vmnet_interface_get_ip_port_forwarding_rules_handler_t
 type Vmnet_interface_get_ip_port_forwarding_rules_handler_t = func(objectivec.Object)
@@ -33,4 +33,4 @@ type Vmnet_network_configuration_ref = uintptr
 type Vmnet_network_ref = uintptr
 
 // See: https://developer.apple.com/documentation/vmnet/vmnet_start_interface_completion_handler_t
-type Vmnet_start_interface_completion_handler_t = func(objectivec.IObject, objectivec.Object)
+type Vmnet_start_interface_completion_handler_t = func(Vmnet_return_t, objectivec.Object)

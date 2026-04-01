@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -73,7 +74,7 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidCompleteForItemsEr
 // server.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/sharingService(_:didSave:)
-func (o NSCloudSharingServiceDelegateObject) SharingServiceDidSaveShare(sharingService INSSharingService, share objectivec.IObject) {
+func (o NSCloudSharingServiceDelegateObject) SharingServiceDidSaveShare(sharingService INSSharingService, share unsafe.Pointer) {
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didSaveShare:"), sharingService, share)
 }
 
@@ -90,7 +91,7 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidSaveShare(sharingS
 // before the service deletes it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/sharingService(_:didStopSharing:)
-func (o NSCloudSharingServiceDelegateObject) SharingServiceDidStopSharing(sharingService INSSharingService, share objectivec.IObject) {
+func (o NSCloudSharingServiceDelegateObject) SharingServiceDidStopSharing(sharingService INSSharingService, share unsafe.Pointer) {
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didStopSharing:"), sharingService, share)
 }
 

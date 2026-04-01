@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // C struct types
@@ -110,14 +109,14 @@ type AudioServerPlugInHostInterface struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInIOCycleInfo
 type AudioServerPlugInIOCycleInfo struct {
-	MCurrentTime              objectivec.IObject
+	MCurrentTime              unsafe.Pointer
 	MDeviceHostTicksPerFrame  float64
 	MIOCycleCounter           uint64
-	MInputTime                objectivec.IObject
+	MInputTime                unsafe.Pointer
 	MMainHostTicksPerFrame    float64
 	MMasterHostTicksPerFrame  float64
 	MNominalIOBufferFrameSize uint32
-	MOutputTime               objectivec.IObject
+	MOutputTime               unsafe.Pointer
 }
 
 // AudioStreamRangedDescription - This structure allows a specific sample rate range to be associated with an AudioStreamBasicDescription that specifies its sample rate as kAudioStreamAnyRate.
@@ -125,6 +124,6 @@ type AudioServerPlugInIOCycleInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioStreamRangedDescription
 type AudioStreamRangedDescription struct {
-	MFormat          objectivec.IObject
-	MSampleRateRange objectivec.IObject
+	MFormat          unsafe.Pointer
+	MSampleRateRange unsafe.Pointer
 }

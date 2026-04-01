@@ -107,8 +107,8 @@ type INSPopoverTouchBarItem interface {
 	// Topic: Configuring the collapsed popover
 
 	// The image displayed by the button for the default collapsed representation.
-	CollapsedRepresentationImage() objectivec.Object
-	SetCollapsedRepresentationImage(value objectivec.Object)
+	CollapsedRepresentationImage() INSImage
+	SetCollapsedRepresentationImage(value INSImage)
 	// The localized string displayed by the button for the default collapsed representation.
 	CollapsedRepresentationLabel() string
 	SetCollapsedRepresentationLabel(value string)
@@ -216,11 +216,11 @@ func (p NSPopoverTouchBarItem) MakeStandardActivatePopoverGestureRecognizer() IN
 // view, this property may not have any effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/collapsedRepresentationImage
-func (p NSPopoverTouchBarItem) CollapsedRepresentationImage() objectivec.Object {
+func (p NSPopoverTouchBarItem) CollapsedRepresentationImage() INSImage {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("collapsedRepresentationImage"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSImageFromID(objc.ID(rv))
 }
-func (p NSPopoverTouchBarItem) SetCollapsedRepresentationImage(value objectivec.Object) {
+func (p NSPopoverTouchBarItem) SetCollapsedRepresentationImage(value INSImage) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationImage:"), value)
 }
 

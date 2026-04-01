@@ -493,7 +493,6 @@ func NewNSAttributedString() NSAttributedString {
 // An attributed string containing the adaptive image glyph.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(adaptiveImageGlyph:attributes:)
-// adaptiveImageGlyph is a [appkit.NSAdaptiveImageGlyph].
 func NewAttributedStringWithAdaptiveImageGlyphAttributes(adaptiveImageGlyph objectivec.IObject, attributes INSDictionary) NSAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(getNSAttributedStringClass().class), objc.Sel("attributedStringWithAdaptiveImageGlyph:attributes:"), adaptiveImageGlyph, attributes)
 	return NSAttributedStringFromID(rv)
@@ -513,7 +512,6 @@ func NewAttributedStringWithAdaptiveImageGlyphAttributes(adaptiveImageGlyph obje
 // an attachment using [character] as the base character.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(attachment:)
-// attachment is a [appkit.NSTextAttachment].
 //
 // [character]: https://developer.apple.com/documentation/UIKit/NSTextAttachment/character
 func NewAttributedStringWithAttachment(attachment objectivec.IObject) NSAttributedString {
@@ -534,7 +532,6 @@ func NewAttributedStringWithAttachment(attachment objectivec.IObject) NSAttribut
 // An attributed string containing the attachment.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(attachment:attributes:)
-// attachment is a [appkit.NSTextAttachment].
 func NewAttributedStringWithAttachmentAttributes(attachment objectivec.IObject, attributes INSDictionary) NSAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(getNSAttributedStringClass().class), objc.Sel("attributedStringWithAttachment:attributes:"), attachment, attributes)
 	return NSAttributedStringFromID(rv)
@@ -1772,14 +1769,13 @@ func (a NSAttributedString) AttributedStringByInflectingString() INSAttributedSt
 //
 // location: The location of the item.
 //
-// list is a [appkit.NSTextList].
+// list is a [*appkit.NSTextList].
 //
 // # Return Value
 //
 // Returns the index within the list.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/itemNumber(in:at:)
-// list is a [appkit.NSTextList].
 func (a NSAttributedString) ItemNumberInTextListAtIndex(list objectivec.IObject, location uint) int {
 	rv := objc.Send[int](a.ID, objc.Sel("itemNumberInTextList:atIndex:"), list, location)
 	return rv
@@ -1792,14 +1788,13 @@ func (a NSAttributedString) ItemNumberInTextListAtIndex(list objectivec.IObject,
 //
 // location: The location in the text block.
 //
-// block is a [appkit.NSTextBlock].
+// block is a [*appkit.NSTextBlock].
 //
 // # Return Value
 //
 // The range of the text block containing the location.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-1wrcp
-// block is a [appkit.NSTextBlock].
 func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, location uint) NSRange {
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextBlock:atIndex:"), block, location)
 	return NSRange(rv)
@@ -1812,14 +1807,13 @@ func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, lo
 //
 // location: The location in the text list.
 //
-// list is a [appkit.NSTextList].
+// list is a [*appkit.NSTextList].
 //
 // # Return Value
 //
 // The range of the given text list containing the location.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-6um0x
-// list is a [appkit.NSTextList].
 func (a NSAttributedString) RangeOfTextListAtIndex(list objectivec.IObject, location uint) NSRange {
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextList:atIndex:"), list, location)
 	return NSRange(rv)
@@ -1832,14 +1826,13 @@ func (a NSAttributedString) RangeOfTextListAtIndex(list objectivec.IObject, loca
 //
 // location: The location.
 //
-// table is a [appkit.NSTextTable].
+// table is a [*appkit.NSTextTable].
 //
 // # Return Value
 //
 // Returns the range of `table` that contains `location`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-3fevu
-// table is a [appkit.NSTextTable].
 func (a NSAttributedString) RangeOfTextTableAtIndex(table objectivec.IObject, location uint) NSRange {
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextTable:atIndex:"), table, location)
 	return NSRange(rv)
@@ -1918,7 +1911,7 @@ func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 // about the actual values used to render the string. This parameter may be
 // `nil`.
 //
-// context is a [appkit.NSStringDrawingContext].
+// context is a [*appkit.NSStringDrawingContext].
 //
 // # Discussion
 //
@@ -1948,7 +1941,6 @@ func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 // [usesLineFragmentOrigin] in `options`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/draw(with:options:context:)
-// context is a [appkit.NSStringDrawingContext].
 //
 // [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 // [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
@@ -1992,7 +1984,7 @@ func (a NSAttributedString) Size() corefoundation.CGSize {
 // about the actual values used to render the string. This parameter may be
 // `nil`.
 //
-// context is a [appkit.NSStringDrawingContext].
+// context is a [*appkit.NSStringDrawingContext].
 //
 // # Return Value
 //
@@ -2020,7 +2012,6 @@ func (a NSAttributedString) Size() corefoundation.CGSize {
 // multiple lines, specify [usesLineFragmentOrigin] in `options`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/boundingRect(with:options:context:)
-// context is a [appkit.NSStringDrawingContext].
 //
 // [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 // [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
@@ -2713,10 +2704,7 @@ func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProviderCompletionH
 //
 // completionHandler: A completion handler to execute with the results.
 //
-// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(data:options:completionHandler:)
-// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOptionsCompletionHandler(data INSData, options INSDictionary, completionHandler ErrorHandler) {
@@ -2734,10 +2722,7 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOpti
 //
 // completionHandler: A completion handler to execute with the results.
 //
-// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(fileURL:options:completionHandler:)
-// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLOptionsCompletionHandler(fileURL INSURL, options INSDictionary, completionHandler ErrorHandler) {
@@ -2755,10 +2740,7 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLO
 //
 // completionHandler: A completion handler to execute with the results.
 //
-// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(request:options:completionHandler:)
-// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestOptionsCompletionHandler(request INSURLRequest, options INSDictionary, completionHandler ErrorHandler) {
@@ -2775,10 +2757,7 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestO
 //
 // completionHandler: A completion handler to execute with the results.
 //
-// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(string:options:completionHandler:)
-// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithStringOptionsCompletionHandler(string_ string, options INSDictionary, completionHandler ErrorHandler) {

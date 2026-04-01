@@ -5,6 +5,7 @@ package pdfkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
@@ -193,7 +194,7 @@ type IPDFPage interface {
 	// Topic: Initializing a Page
 
 	// Creates a new [PDFPage] object and initializes it with the specified [NSImage] object.
-	InitWithImage(image objectivec.IObject) PDFPage
+	InitWithImage(image appkit.NSImage) PDFPage
 
 	// Topic: Getting Information About a Page
 
@@ -251,7 +252,7 @@ type IPDFPage interface {
 
 	// Topic: Initializers
 
-	InitWithImageOptions(image objectivec.IObject, options foundation.INSDictionary) PDFPage
+	InitWithImageOptions(image appkit.NSImage, options foundation.INSDictionary) PDFPage
 
 	// Topic: Instance Properties
 
@@ -262,7 +263,7 @@ type IPDFPage interface {
 	// Topic: Instance Methods
 
 	DrawWithBoxToContext(box PDFDisplayBox, context coregraphics.CGContextRef)
-	ThumbnailOfSizeForBox(size corefoundation.CGSize, box PDFDisplayBox) objc.ID
+	ThumbnailOfSizeForBox(size corefoundation.CGSize, box PDFDisplayBox) appkit.NSImage
 	TransformContextForBox(context coregraphics.CGContextRef, box PDFDisplayBox)
 	TransformForBox(box PDFDisplayBox) corefoundation.CGAffineTransform
 }
@@ -290,14 +291,14 @@ func NewPDFPage() PDFPage {
 // [NSImage] object.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFPage/init(image:)
-func NewPDFPageWithImage(image objectivec.IObject) PDFPage {
+func NewPDFPageWithImage(image appkit.NSImage) PDFPage {
 	instance := getPDFPageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImage:"), image)
 	return PDFPageFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFPage/init(image:options:)
-func NewPDFPageWithImageOptions(image objectivec.IObject, options foundation.INSDictionary) PDFPage {
+func NewPDFPageWithImageOptions(image appkit.NSImage, options foundation.INSDictionary) PDFPage {
 	instance := getPDFPageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImage:options:"), image, options)
 	return PDFPageFromID(rv)
@@ -307,7 +308,7 @@ func NewPDFPageWithImageOptions(image objectivec.IObject, options foundation.INS
 // [NSImage] object.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFPage/init(image:)
-func (p PDFPage) InitWithImage(image objectivec.IObject) PDFPage {
+func (p PDFPage) InitWithImage(image appkit.NSImage) PDFPage {
 	rv := objc.Send[PDFPage](p.ID, objc.Sel("initWithImage:"), image)
 	return rv
 }
@@ -492,7 +493,7 @@ func (p PDFPage) SelectionForRange(range_ foundation.NSRange) IPDFSelection {
 }
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFPage/init(image:options:)
-func (p PDFPage) InitWithImageOptions(image objectivec.IObject, options foundation.INSDictionary) PDFPage {
+func (p PDFPage) InitWithImageOptions(image appkit.NSImage, options foundation.INSDictionary) PDFPage {
 	rv := objc.Send[PDFPage](p.ID, objc.Sel("initWithImage:options:"), image, options)
 	return rv
 }
@@ -503,9 +504,9 @@ func (p PDFPage) DrawWithBoxToContext(box PDFDisplayBox, context coregraphics.CG
 }
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFPage/thumbnail(of:for:)
-func (p PDFPage) ThumbnailOfSizeForBox(size corefoundation.CGSize, box PDFDisplayBox) objc.ID {
+func (p PDFPage) ThumbnailOfSizeForBox(size corefoundation.CGSize, box PDFDisplayBox) appkit.NSImage {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("thumbnailOfSize:forBox:"), size, box)
-	return rv
+	return appkit.NSImageFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFPage/transform(_:for:)

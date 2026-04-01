@@ -7,7 +7,6 @@ package avfoundation
 import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // Whether the player’s audio output is suppressed due to being on a
@@ -139,11 +138,11 @@ func (p AVPlayer) SetUsesAirPlayVideoWhileAirPlayScreenIsActive(value bool) {
 // follows a “front” anchoring strategy instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/intendedSpatialAudioExperience-3uy8g
-func (p AVPlayer) IntendedSpatialAudioExperience() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("intendedSpatialAudioExperience"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayer) IntendedSpatialAudioExperience() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("intendedSpatialAudioExperience"))
+	return rv
 }
-func (p AVPlayer) SetIntendedSpatialAudioExperience(value objectivec.IObject) {
+func (p AVPlayer) SetIntendedSpatialAudioExperience(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIntendedSpatialAudioExperience:"), value)
 }
 

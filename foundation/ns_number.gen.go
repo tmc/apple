@@ -317,8 +317,7 @@ func NewNSNumber() NSNumber {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(GCPoint2:)
-// point is a [gamecontroller.GCPoint2].
-func NewNumberValueWithGCPoint2(point objectivec.IObject) NSNumber {
+func NewNumberValueWithGCPoint2(point unsafe.Pointer) NSNumber {
 	rv := objc.Send[objc.ID](objc.ID(getNSNumberClass().class), objc.Sel("valueWithGCPoint2:"), point)
 	return NSNumberFromID(rv)
 }

@@ -235,6 +235,7 @@ func (wc WKWebViewClass) Alloc() WKWebView {
 //
 // # Capturing the web view’s content
 //
+//   - [WKWebView.TakeSnapshotWithConfigurationCompletionHandler]: Generates a platform-native image from the web view’s contents asynchronously.
 //   - [WKWebView.PrintOperationWithPrintInfo]: Returns the print operation object to use when printing the contents of the web view.
 //
 // # Handling full-screen transitions
@@ -390,6 +391,7 @@ func WKWebViewFromID(id objc.ID) WKWebView {
 //
 // # Capturing the web view’s content
 //
+//   - [IWKWebView.TakeSnapshotWithConfigurationCompletionHandler]: Generates a platform-native image from the web view’s contents asynchronously.
 //   - [IWKWebView.PrintOperationWithPrintInfo]: Returns the print operation object to use when printing the contents of the web view.
 //
 // # Handling full-screen transitions
@@ -503,10 +505,10 @@ type IWKWebView interface {
 	// A Boolean value that indicates whether the web view loaded all resources on the page through securely encrypted connections.
 	HasOnlySecureContent() bool
 	// The theme color that the system gets from the first valid meta tag in the webpage.
-	ThemeColor() objc.ID
+	ThemeColor() appkit.NSColor
 	// The color the web view displays behind the active page, visible when the user scrolls beyond the bounds of the page.
-	UnderPageBackgroundColor() objc.ID
-	SetUnderPageBackgroundColor(value objc.ID)
+	UnderPageBackgroundColor() appkit.NSColor
+	SetUnderPageBackgroundColor(value appkit.NSColor)
 
 	// Topic: Scaling content
 
@@ -579,6 +581,8 @@ type IWKWebView interface {
 
 	// Topic: Capturing the web view’s content
 
+	// Generates a platform-native image from the web view’s contents asynchronously.
+	TakeSnapshotWithConfigurationCompletionHandler(snapshotConfiguration IWKSnapshotConfiguration, completionHandler ImageErrorHandler)
 	// Returns the print operation object to use when printing the contents of the web view.
 	PrintOperationWithPrintInfo(printInfo appkit.NSPrintInfo) appkit.NSPrintOperation
 
@@ -588,16 +592,16 @@ type IWKWebView interface {
 
 	// Topic: Configuring viewport insets
 
-	SetMinimumViewportInsetMaximumViewportInset(minimumViewportInset objectivec.IObject, maximumViewportInset objectivec.IObject)
-	MinimumViewportInset() objectivec.IObject
-	MaximumViewportInset() objectivec.IObject
+	SetMinimumViewportInsetMaximumViewportInset(minimumViewportInset foundation.NSEdgeInsets, maximumViewportInset foundation.NSEdgeInsets)
+	MinimumViewportInset() foundation.NSEdgeInsets
+	MaximumViewportInset() foundation.NSEdgeInsets
 
 	// Topic: Instance Properties
 
 	IsBlockedByScreenTime() bool
 	WritingToolsActive() bool
-	ObscuredContentInsets() objectivec.IObject
-	SetObscuredContentInsets(value objectivec.IObject)
+	ObscuredContentInsets() foundation.NSEdgeInsets
+	SetObscuredContentInsets(value foundation.NSEdgeInsets)
 
 	// Topic: Instance Methods
 
@@ -1183,6 +1187,25 @@ func (w WKWebView) EvaluateJavaScriptCompletionHandler(javaScriptString string, 
 	objc.Send[objc.ID](w.ID, objc.Sel("evaluateJavaScript:completionHandler:"), objc.String(javaScriptString), _block1)
 }
 
+// Generates a platform-native image from the web view’s contents
+// asynchronously.
+//
+// snapshotConfiguration: The object that specifies the portion of the web view to capture, and other
+// capture-related behaviors.
+//
+// completionHandler: The completion handler to call when the image is ready. This block has no
+// return value and takes the following parameters:
+//
+// snapshotImage: A platform-native image that contains the specified portion
+// of the web view. error: An error object if a problem occurred, or `nil` on
+// success.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKWebView/takeSnapshot(with:completionHandler:)
+func (w WKWebView) TakeSnapshotWithConfigurationCompletionHandler(snapshotConfiguration IWKSnapshotConfiguration, completionHandler ImageErrorHandler) {
+	_block1, _ := NewImageErrorBlock(completionHandler)
+	objc.Send[objc.ID](w.ID, objc.Sel("takeSnapshotWithConfiguration:completionHandler:"), snapshotConfiguration, _block1)
+}
+
 // Returns the print operation object to use when printing the contents of the
 // web view.
 //
@@ -1199,14 +1222,8 @@ func (w WKWebView) PrintOperationWithPrintInfo(printInfo appkit.NSPrintInfo) app
 	return appkit.NSPrintOperationFromID(rv)
 }
 
-// minimumViewportInset is a [uikit.UIEdgeInsets].
-//
-// maximumViewportInset is a [uikit.UIEdgeInsets].
-//
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/setMinimumViewportInset(_:maximumViewportInset:)
-// minimumViewportInset is a [uikit.UIEdgeInsets].
-// maximumViewportInset is a [uikit.UIEdgeInsets].
-func (w WKWebView) SetMinimumViewportInsetMaximumViewportInset(minimumViewportInset objectivec.IObject, maximumViewportInset objectivec.IObject) {
+func (w WKWebView) SetMinimumViewportInsetMaximumViewportInset(minimumViewportInset foundation.NSEdgeInsets, maximumViewportInset foundation.NSEdgeInsets) {
 	objc.Send[objc.ID](w.ID, objc.Sel("setMinimumViewportInset:maximumViewportInset:"), minimumViewportInset, maximumViewportInset)
 }
 
@@ -1492,9 +1509,9 @@ func (w WKWebView) HasOnlySecureContent() bool {
 // webpage.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/themeColor
-func (w WKWebView) ThemeColor() objc.ID {
+func (w WKWebView) ThemeColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("themeColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
 
 // The color the web view displays behind the active page, visible when the
@@ -1508,11 +1525,11 @@ func (w WKWebView) ThemeColor() objc.ID {
 // property to a new color.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/underPageBackgroundColor
-func (w WKWebView) UnderPageBackgroundColor() objc.ID {
+func (w WKWebView) UnderPageBackgroundColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("underPageBackgroundColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (w WKWebView) SetUnderPageBackgroundColor(value objc.ID) {
+func (w WKWebView) SetUnderPageBackgroundColor(value appkit.NSColor) {
 	objc.Send[struct{}](w.ID, objc.Sel("setUnderPageBackgroundColor:"), value)
 }
 
@@ -1689,15 +1706,15 @@ func (w WKWebView) FullscreenState() WKFullscreenState {
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/minimumViewportInset
-func (w WKWebView) MinimumViewportInset() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("minimumViewportInset"))
-	return objectivec.Object{ID: rv}
+func (w WKWebView) MinimumViewportInset() foundation.NSEdgeInsets {
+	rv := objc.Send[foundation.NSEdgeInsets](w.ID, objc.Sel("minimumViewportInset"))
+	return foundation.NSEdgeInsets(rv)
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/maximumViewportInset
-func (w WKWebView) MaximumViewportInset() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("maximumViewportInset"))
-	return objectivec.Object{ID: rv}
+func (w WKWebView) MaximumViewportInset() foundation.NSEdgeInsets {
+	rv := objc.Send[foundation.NSEdgeInsets](w.ID, objc.Sel("maximumViewportInset"))
+	return foundation.NSEdgeInsets(rv)
 }
 
 // # Discussion
@@ -1717,11 +1734,11 @@ func (w WKWebView) WritingToolsActive() bool {
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/obscuredContentInsets
-func (w WKWebView) ObscuredContentInsets() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("obscuredContentInsets"))
-	return objectivec.Object{ID: rv}
+func (w WKWebView) ObscuredContentInsets() foundation.NSEdgeInsets {
+	rv := objc.Send[foundation.NSEdgeInsets](w.ID, objc.Sel("obscuredContentInsets"))
+	return foundation.NSEdgeInsets(rv)
 }
-func (w WKWebView) SetObscuredContentInsets(value objectivec.IObject) {
+func (w WKWebView) SetObscuredContentInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](w.ID, objc.Sel("setObscuredContentInsets:"), value)
 }
 
@@ -1854,6 +1871,25 @@ func (w WKWebView) EvaluateJavaScript(ctx context.Context, javaScriptString stri
 	}
 	done := make(chan result, 1)
 	w.EvaluateJavaScriptCompletionHandler(javaScriptString, func(val objectivec.IObject, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// TakeSnapshotWithConfiguration is a synchronous wrapper around [WKWebView.TakeSnapshotWithConfigurationCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (w WKWebView) TakeSnapshotWithConfiguration(ctx context.Context, snapshotConfiguration IWKSnapshotConfiguration) (*appkit.NSImage, error) {
+	type result struct {
+		val *appkit.NSImage
+		err error
+	}
+	done := make(chan result, 1)
+	w.TakeSnapshotWithConfigurationCompletionHandler(snapshotConfiguration, func(val *appkit.NSImage, err error) {
 		done <- result{val, err}
 	})
 	select {

@@ -4,9 +4,9 @@ package vision
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNHumanBodyRecognizedPoint3D] class.
@@ -84,7 +84,7 @@ type IVNHumanBodyRecognizedPoint3D interface {
 	// Topic: Getting the Position
 
 	// The three-dimensional position.
-	LocalPosition() objectivec.IObject
+	LocalPosition() unsafe.Pointer
 
 	// Topic: Getting the Parent Joint
 
@@ -116,8 +116,7 @@ func NewVNHumanBodyRecognizedPoint3D() VNHumanBodyRecognizedPoint3D {
 // position: The three-dimensional position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint3D/init(position:)
-// position is a [simd.simd_float4x4].
-func NewHumanBodyRecognizedPoint3DWithPosition(position objectivec.IObject) VNHumanBodyRecognizedPoint3D {
+func NewHumanBodyRecognizedPoint3DWithPosition(position unsafe.Pointer) VNHumanBodyRecognizedPoint3D {
 	instance := getVNHumanBodyRecognizedPoint3DClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPosition:"), position)
 	return VNHumanBodyRecognizedPoint3DFromID(rv)
@@ -126,9 +125,9 @@ func NewHumanBodyRecognizedPoint3DWithPosition(position objectivec.IObject) VNHu
 // The three-dimensional position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyRecognizedPoint3D/localPosition
-func (h VNHumanBodyRecognizedPoint3D) LocalPosition() objectivec.IObject {
-	rv := objc.Send[objc.ID](h.ID, objc.Sel("localPosition"))
-	return objectivec.Object{ID: rv}
+func (h VNHumanBodyRecognizedPoint3D) LocalPosition() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](h.ID, objc.Sel("localPosition"))
+	return rv
 }
 
 // The parent joint in the observation.

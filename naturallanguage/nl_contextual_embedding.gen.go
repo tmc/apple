@@ -377,6 +377,6 @@ func (c NLContextualEmbedding) RequestEmbeddingAssets(ctx context.Context) (NLCo
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NLContextualEmbeddingAssetsResult), ctx.Err()
 	}
 }

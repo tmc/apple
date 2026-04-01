@@ -196,7 +196,7 @@ type AliasInfoType = int16
 // AliasPtr is abst_AliasPtr.
 //
 // See: https://developer.apple.com/documentation/coreservices/aliasptr
-type AliasPtr = objectivec.IObject
+type AliasPtr = unsafe.Pointer
 
 // AliasRecord is defines an alias record.
 //
@@ -403,7 +403,7 @@ type ComponentRoutineUPP = unsafe.Pointer
 type ConstFSEventStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/constfsspecptr
-type ConstFSSpecPtr = objectivec.IObject
+type ConstFSSpecPtr = unsafe.Pointer
 
 // ConstScriptCodeRunPtr is defines a constant script code run pointer.
 //
@@ -671,7 +671,7 @@ type FSIORefNum = int
 type FSIterator = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fsiteratorflags
-type FSIteratorFlags = objectivec.IObject
+type FSIteratorFlags = uint
 
 // See: https://developer.apple.com/documentation/coreservices/fsmountstatus
 type FSMountStatus = uint32
@@ -703,7 +703,7 @@ type FSRefParam = unsafe.Pointer
 type FSRefParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefptr
-type FSRefPtr = objectivec.IObject
+type FSRefPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fssearchparams
 type FSSearchParams = unsafe.Pointer
@@ -721,7 +721,7 @@ type FSSpecArrayPtr = unsafe.Pointer
 type FSSpecHandle = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsspecptr
-type FSSpecPtr = objectivec.IObject
+type FSSpecPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsunmountstatus
 type FSUnmountStatus = uint32
@@ -1125,7 +1125,7 @@ type MPRemoteContext = uint8
 // MPSemaphoreCount is represents a semaphore count.
 //
 // See: https://developer.apple.com/documentation/coreservices/mpsemaphorecount
-type MPSemaphoreCount = objectivec.IObject
+type MPSemaphoreCount = unsafe.Pointer
 
 // MPSemaphoreID is represents a semaphore ID, which Multiprocessing Services uses to manipulate semaphores.
 //
@@ -1151,7 +1151,7 @@ type MPTaskInfoVersion2 = unsafe.Pointer
 // MPTaskOptions is specify optional actions when calling the [MPCreateTask] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/mptaskoptions
-type MPTaskOptions = objectivec.IObject
+type MPTaskOptions = uint
 
 // See: https://developer.apple.com/documentation/coreservices/mptaskstatekind
 type MPTaskStateKind = uint32
@@ -1713,7 +1713,7 @@ type TableDirectoryRecord = unsafe.Pointer
 // TaskStorageIndex is represents a task storage index value used by functions described in “Accessing Per-Task Storage Variables.”.
 //
 // See: https://developer.apple.com/documentation/coreservices/taskstorageindex
-type TaskStorageIndex = objectivec.IObject
+type TaskStorageIndex = unsafe.Pointer
 
 // TaskStorageValue is represents a task storage value used by functions described in “Accessing Per-Task Storage Variables.”.
 //

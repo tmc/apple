@@ -821,7 +821,6 @@ func (_ProgressClass ProgressClass) CurrentProgress() Progress {
 // the main thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/addSubscriber(forFileURL:withPublishingHandler:)
-// publishingHandler is a [foundation.NSProgressPublishingHandler].
 //
 // [fileURLKey]: https://developer.apple.com/documentation/Foundation/ProgressUserInfoKey/fileURLKey
 func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler(url INSURL, publishingHandler ErrorHandler) objectivec.IObject {

@@ -4,11 +4,11 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVMutableComposition] class.
@@ -116,7 +116,7 @@ type IAVMutableComposition interface {
 	InsertEmptyTimeRange(timeRange coremedia.CMTimeRange)
 
 	// Adds a group of empty tracks associated with a cinematic asset to a mutable composition.
-	AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo objectivec.IObject, preferredStartingTrackID int32) objectivec.IObject
+	AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo unsafe.Pointer, preferredStartingTrackID int32) unsafe.Pointer
 }
 
 // Init initializes the instance.
@@ -278,7 +278,7 @@ func (m AVMutableComposition) InsertEmptyTimeRange(timeRange coremedia.CMTimeRan
 // Adds a group of empty tracks associated with a cinematic asset to a mutable
 // composition.
 //
-// assetInfo is a [cinematic.CNAssetInfo].
+// assetInfo is a [*cinematic.CNAssetInfo].
 //
 // # Return Value
 //
@@ -287,10 +287,9 @@ func (m AVMutableComposition) InsertEmptyTimeRange(timeRange coremedia.CMTimeRan
 // range of cinematic asset you’d like in the composition.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/addTracksForCinematicAssetInfo:preferredStartingTrackID:
-// assetInfo is a [cinematic.CNAssetInfo].
-func (m AVMutableComposition) AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo objectivec.IObject, preferredStartingTrackID int32) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTracksForCinematicAssetInfo:preferredStartingTrackID:"), assetInfo, preferredStartingTrackID)
-	return objectivec.Object{ID: rv}
+func (m AVMutableComposition) AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo unsafe.Pointer, preferredStartingTrackID int32) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("addTracksForCinematicAssetInfo:preferredStartingTrackID:"), assetInfo, preferredStartingTrackID)
+	return rv
 }
 
 // Returns a new mutable composition.

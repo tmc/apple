@@ -35,7 +35,7 @@ type CMAudioFormatDescriptionMask = uint32
 type CMAudioFormatDescriptionRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMBaseClassVersion
-type CMBaseClassVersion = uintptr
+type CMBaseClassVersion = uint32
 
 // CMBlockBufferFlags is a type for flags that control behaviors and features of block buffer APIs.
 //
@@ -250,7 +250,7 @@ type CMSimpleQueueRef uintptr
 type CMSoundDescriptionFlavor = corefoundation.CFStringRef
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMStructVersion
-type CMStructVersion = uintptr
+type CMStructVersion = uint32
 
 // CMSubtitleFormatType is a type that represents a text subtitle format.
 //

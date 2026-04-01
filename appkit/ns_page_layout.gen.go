@@ -266,6 +266,6 @@ func (p NSPageLayout) BeginSheetUsingPrintInfoOnWindow(ctx context.Context, prin
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NSPageLayoutResult), ctx.Err()
 	}
 }

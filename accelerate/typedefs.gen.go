@@ -975,3 +975,115 @@ type VUInt64 = unsafe.Pointer
 //
 // See: https://developer.apple.com/documentation/Accelerate/vUInt8
 type VUInt8 = unsafe.Pointer
+
+// BNNSArithmeticFunction aliases the generated arithmetic-function enum.
+
+type BNNSArithmeticFunction = BNNSArithmetic
+
+// BNNSBoxCoordinateMode aliases the generated box-coordinate enum family.
+
+type BNNSBoxCoordinateMode = Bnns
+
+// BNNSDescriptorType is the descriptor-kind enum used by BNNS tensor parameter structs.
+
+type BNNSDescriptorType = Bnns
+
+// BNNSDataLayout is the layout enum used by BNNSNDArrayDescriptor.
+
+type BNNSDataLayout = BNNSData
+
+// BNNSEmbeddingFlags aliases the generated embedding-flags enum.
+
+type BNNSEmbeddingFlags = BNNSEmbeddingFlagScaleGradientBy
+
+// BNNSFilterType aliases the generated BNNS filter-type enum family.
+
+type BNNSFilterType = Bnns
+
+// BNNSLinearSamplingMode aliases the generated linear-sampling enum.
+
+type BNNSLinearSamplingMode = BNNSLinearSampling
+
+// BNNSLossReductionFunction aliases the generated loss-reduction enum.
+
+type BNNSLossReductionFunction = BNNSLossReduction
+
+// BNNSNDArrayFlags is the flag enum used by BNNSNDArrayDescriptor.
+
+type BNNSNDArrayFlags = BNNSNDArrayFlagBackprop
+
+// BNNSNormType aliases the generated norm-type enum.
+
+type BNNSNormType = Bnnsl2
+
+// BNNSOptimizerClippingFunction aliases the generated optimizer-clipping enum.
+
+type BNNSOptimizerClippingFunction = BNNSOptimizerClipping
+
+// BNNSOptimizerRegularizationFunction aliases the generated regularization enum.
+
+type BNNSOptimizerRegularizationFunction = BNNSOptimizerRegularization
+
+// BNNSOptimizerSGDMomentumVariant aliases the generated SGD-momentum enum.
+
+type BNNSOptimizerSGDMomentumVariant = BNNSSGDMomentum
+
+// BNNSRandomGeneratorMethod aliases the generated random-generator enum.
+
+type BNNSRandomGeneratorMethod = BNNSRandomGeneratorMethodAES
+
+// Quadrature_integrator aliases the generated quadrature-integrator enum.
+
+type Quadrature_integrator = QuadratureIntegrateQ
+
+// Quadrature_status aliases the generated quadrature status enum.
+
+type Quadrature_status = Quadrature
+
+// SparseControl_t aliases the generated sparse-control enum.
+
+type SparseControl_t = SparseDefault
+
+// SparseGMRESVariant_t aliases the generated sparse-variant enum.
+
+type SparseGMRESVariant_t = SparseVariant
+
+// SparseKind_t aliases the generated sparse matrix-kind enum.
+
+type SparseKind_t = Sparse
+
+// SparseLSMRConvergenceTest_t aliases the generated sparse LSMR convergence enum.
+
+type SparseLSMRConvergenceTest_t = SparseLSMRCT
+
+// SparseStatus_t aliases the generated sparse status enum.
+
+type SparseStatus_t = Sparse
+
+// SparseTriangle_t aliases the generated sparse triangle enum.
+
+type SparseTriangle_t = Sparse
+
+// Sparse_matrix_property aliases the generated sparse matrix-property enum.
+
+type Sparse_matrix_property = Sparse
+
+// Sparse_status aliases the generated sparse status enum.
+
+type Sparse_status = Sparse
+
+// VImageARGBType aliases the generated vImage ARGB pixel-type enum.
+
+type VImageARGBType = KvImageARG
+
+// VImageMDTableUsageHint aliases the generated multidimensional-table hint enum.
+
+type VImageMDTableUsageHint = KvImageMDTableHint
+
+// VImage_InterpolationMethod aliases the generated vImage interpolation enum.
+
+type VImage_InterpolationMethod = KvImage
+
+// VImageYpCbCrType aliases the generated vImage YpCbCr pixel-type enum.
+
+type VImageYpCbCrType = Kv

@@ -4,8 +4,6 @@ package coreaudio
 
 import (
 	"unsafe"
-
-	"github.com/tmc/apple/objectivec"
 )
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioClassID
@@ -15,7 +13,7 @@ type AudioClassID = uint32
 type AudioDeviceID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceIOBlock
-type AudioDeviceIOBlock = func(objectivec.IObject, objectivec.IObject, objectivec.IObject, objectivec.IObject, objectivec.IObject)
+type AudioDeviceIOBlock = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceIOProc
 type AudioDeviceIOProc = func(uint, uintptr, uintptr, uintptr, uintptr, uintptr, unsafe.Pointer) int

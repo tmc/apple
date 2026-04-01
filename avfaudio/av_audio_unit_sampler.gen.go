@@ -167,8 +167,7 @@ func NewAVAudioUnitSampler() AVAudioUnitSampler {
 // `kAudioUnitType_RemoteInstrument`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/init(audioComponentDescription:)
-// description is a [audiotoolbox.AudioComponentDescription].
-func NewAudioUnitSamplerWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitSampler {
+func NewAudioUnitSamplerWithAudioComponentDescription(description unsafe.Pointer) AVAudioUnitSampler {
 	instance := getAVAudioUnitSamplerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return AVAudioUnitSamplerFromID(rv)

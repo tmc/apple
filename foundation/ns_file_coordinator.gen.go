@@ -218,7 +218,7 @@ type INSFileCoordinator interface {
 	// Initiates a write operation that involves a secondary write operation.
 	CoordinateWritingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor(url1 INSURL, options1 NSFileCoordinatorWritingOptions, url2 INSURL, options2 NSFileCoordinatorWritingOptions, outError INSError, writer URLURLHandler)
 	// Prepare to read or write from multiple files in a single batch operation.
-	PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor(readingURLs []NSURL, readingOptions NSFileCoordinatorReadingOptions, writingURLs []NSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, batchAccessor VoidHandler)
+	PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor(readingURLs []NSURL, readingOptions NSFileCoordinatorReadingOptions, writingURLs []NSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, batchAccessor ErrorHandler)
 	// Announces that your app is moving a file to a new URL.
 	ItemAtURLWillMoveToURL(oldURL INSURL, newURL INSURL)
 	// Notifies relevant file presenters that the location of a file or directory changed.
@@ -862,8 +862,8 @@ func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsWritingItemAtURLOpti
 // [NSFileCoordinator.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/ReadingOptions
 // [NSFileCoordinator.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/WritingOptions
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
-func (f NSFileCoordinator) PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor(readingURLs []NSURL, readingOptions NSFileCoordinatorReadingOptions, writingURLs []NSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, batchAccessor VoidHandler) {
-	_block5, _ := NewVoidBlock(batchAccessor)
+func (f NSFileCoordinator) PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor(readingURLs []NSURL, readingOptions NSFileCoordinatorReadingOptions, writingURLs []NSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, batchAccessor ErrorHandler) {
+	_block5, _ := NewErrorBlock(batchAccessor)
 	objc.Send[objc.ID](f.ID, objc.Sel("prepareForReadingItemsAtURLs:options:writingItemsAtURLs:options:error:byAccessor:"), readingURLs, readingOptions, writingURLs, writingOptions, outError, _block5)
 }
 

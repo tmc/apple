@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // C struct types
@@ -110,7 +109,7 @@ type IntlText struct {
 type LSApplicationParameters struct {
 	Version           int                            // The version of the structure. The value of thisfield must be `0`.
 	Flags             LSLaunchFlags                  // Launch flags. For possible values, see [LSLaunchFlags](<doc://com.apple.documentation/documentation/coreservices/lslaunchflags>).
-	Application       objectivec.IObject             // The [FSRef] ofthe application to open.
+	Application       unsafe.Pointer                 // The [FSRef] ofthe application to open.
 	AsyncLaunchRefCon unsafe.Pointer                 // The client `refCon` thatis to appear in subsequent launch notifications.
 	Environment       corefoundation.CFDictionaryRef // A dictionary of [CFStringRef] keysand values for environment variables to set in the launched process.The value of this field can be [NULL].
 	Argv              corefoundation.CFArrayRef      // An array of values of type [CFString](<doc://com.apple.corefoundation/documentation/CoreFoundation/CFString>) that specify the arguments that are to be passed to `main()` in the launched process. The value of this field can be [NULL]. This field is ignored in macOS 10.4.
@@ -135,12 +134,12 @@ type LSItemInfoRecord struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/coreservices/lslaunchfsrefspec
 type LSLaunchFSRefSpec struct {
-	AppRef         objectivec.IObject // A pointer to a file-system reference designatingthe application to launch; see the  inthe Carbon File Management Documentation for a description of the [FSRef] datatype. Set this field to [NULL] torequest that each item in the `itemRefs` arraybe opened in its own preferred application.
-	NumDocs        int                // The number of elements in the array specifiedby the `itemRefs` field.The value of this field can be `0`,in which case the application designated by `appRef` islaunched without opening any items.
-	ItemRefs       objectivec.IObject // An array of file-system references designatingthe item or items to open. If the value of `numDocs` is `0`,this field is ignored and can be set to [NULL].
-	PassThruParams AEDesc             // A pointer to an Apple event descriptor that ispassed untouched as an optional parameter, with keyword `keyAEPropData` (`'prdt'`),in the Apple event sent to each application launched or activated(whether individual preferred applications or the application designatedby `appRef`). See the  in the Carbon Interapplication CommunicationDocumentation for a description of the [AEDesc] datatype. The value of this field can be [NULL].
-	LaunchFlags    LSLaunchFlags      // Launch flags specifying how to launch each application(including whether to print or merely open documents); see [LSLaunchFlags](<doc://com.apple.documentation/documentation/coreservices/lslaunchflags>) fora description of these flags.
-	AsyncRefCon    unsafe.Pointer     // A pointer to an arbitrary application-definedvalue, passed in the Carbon event notifying you of an application’slaunch or termination (if you have registered for such notification).The value of this field can be [NULL].
+	AppRef         unsafe.Pointer // A pointer to a file-system reference designatingthe application to launch; see the  inthe Carbon File Management Documentation for a description of the [FSRef] datatype. Set this field to [NULL] torequest that each item in the `itemRefs` arraybe opened in its own preferred application.
+	NumDocs        int            // The number of elements in the array specifiedby the `itemRefs` field.The value of this field can be `0`,in which case the application designated by `appRef` islaunched without opening any items.
+	ItemRefs       unsafe.Pointer // An array of file-system references designatingthe item or items to open. If the value of `numDocs` is `0`,this field is ignored and can be set to [NULL].
+	PassThruParams AEDesc         // A pointer to an Apple event descriptor that ispassed untouched as an optional parameter, with keyword `keyAEPropData` (`'prdt'`),in the Apple event sent to each application launched or activated(whether individual preferred applications or the application designatedby `appRef`). See the  in the Carbon Interapplication CommunicationDocumentation for a description of the [AEDesc] datatype. The value of this field can be [NULL].
+	LaunchFlags    LSLaunchFlags  // Launch flags specifying how to launch each application(including whether to print or merely open documents); see [LSLaunchFlags](<doc://com.apple.documentation/documentation/coreservices/lslaunchflags>) fora description of these flags.
+	AsyncRefCon    unsafe.Pointer // A pointer to an arbitrary application-definedvalue, passed in the Carbon event notifying you of an application’slaunch or termination (if you have registered for such notification).The value of this field can be [NULL].
 
 }
 

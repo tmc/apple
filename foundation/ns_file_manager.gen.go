@@ -591,7 +591,6 @@ func NewFileManager() FileManager {
 // file system operations.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/init(authorization:)
-// authorization is a [appkit.NSWorkspaceAuthorization].
 func NewFileManagerWithAuthorization(authorization objectivec.IObject) FileManager {
 	rv := objc.Send[objc.ID](objc.ID(getFileManagerClass().class), objc.Sel("fileManagerWithAuthorization:"), authorization)
 	return FileManagerFromID(rv)

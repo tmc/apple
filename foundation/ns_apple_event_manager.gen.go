@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -139,7 +140,7 @@ type INSAppleEventManager interface {
 	// Topic: Working with events
 
 	// Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
-	DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent *objectivec.IObject, theReply *objectivec.IObject, handlerRefCon ErrorHandler) objectivec.IObject
+	DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon ErrorHandler) objectivec.IObject
 
 	// Topic: Suspending and resuming Apple events
 
@@ -209,6 +210,10 @@ func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(h
 // appropriate Apple event handler, if one has been registered by calling
 // [SetEventHandlerAndSelectorForEventClassAndEventID].
 //
+// theAppleEvent is a [*coreservices.AppleEvent].
+//
+// theReply is a [*coreservices.AppleEvent].
+//
 // # Discussion
 //
 // The `theReply` parameter always specifies a reply Apple event, never `nil`.
@@ -224,7 +229,7 @@ func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(h
 // application. You cannot use this method to an event to other applications.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/dispatchRawAppleEvent(_:withRawReply:handlerRefCon:)
-func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent *objectivec.IObject, theReply *objectivec.IObject, handlerRefCon ErrorHandler) objectivec.IObject {
+func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon ErrorHandler) objectivec.IObject {
 	_block2, _ := NewErrorBlock(handlerRefCon)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, _block2)
 	return objectivec.Object{ID: rv}

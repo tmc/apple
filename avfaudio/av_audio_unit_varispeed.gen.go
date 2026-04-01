@@ -4,9 +4,9 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitVarispeed] class.
@@ -116,8 +116,7 @@ func NewAVAudioUnitVarispeed() AVAudioUnitVarispeed {
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimeEffect/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-func NewAudioUnitVarispeedWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitVarispeed {
+func NewAudioUnitVarispeedWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitVarispeed {
 	instance := getAVAudioUnitVarispeedClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitVarispeedFromID(rv)

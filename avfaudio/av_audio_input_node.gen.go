@@ -480,6 +480,6 @@ func (a AVAudioInputNode) SetMutedSpeechActivityEventListenerSync(ctx context.Co
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(AVAudioVoiceProcessingSpeechActivityEvent), ctx.Err()
 	}
 }

@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -169,12 +170,12 @@ type IAVAudioUnitComponent interface {
 	// Topic: Getting the audio unit component’s audio unit
 
 	// The underlying audio component.
-	AudioComponent() objectivec.IObject
+	AudioComponent() unsafe.Pointer
 
 	// Topic: Getting audio unit component information
 
 	// The audio component description.
-	AudioComponentDescription() objectivec.IObject
+	AudioComponentDescription() unsafe.Pointer
 	// An array of architectures that the audio unit supports.
 	AvailableArchitectures() []foundation.NSNumber
 	// The audio unit component’s configuration dictionary.
@@ -207,7 +208,7 @@ type IAVAudioUnitComponent interface {
 	// The URL of an icon that represents the audio unit component.
 	IconURL() foundation.INSURL
 	// An icon that represents the component.
-	Icon() objc.ID
+	Icon() objectivec.IObject
 	// The localized type name of the component.
 	LocalizedTypeName() string
 	// An array of tag names for the audio unit component.
@@ -285,17 +286,17 @@ func (a AVAudioUnitComponent) SupportsNumberInputChannelsOutputChannels(numInput
 // The underlying audio component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/audioComponent
-func (a AVAudioUnitComponent) AudioComponent() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioComponent"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioUnitComponent) AudioComponent() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("audioComponent"))
+	return rv
 }
 
 // The audio component description.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/audioComponentDescription
-func (a AVAudioUnitComponent) AudioComponentDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioComponentDescription"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioUnitComponent) AudioComponentDescription() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("audioComponentDescription"))
+	return rv
 }
 
 // An array of architectures that the audio unit supports.
@@ -451,9 +452,9 @@ func (a AVAudioUnitComponent) IconURL() foundation.INSURL {
 // An icon that represents the component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/icon
-func (a AVAudioUnitComponent) Icon() objc.ID {
+func (a AVAudioUnitComponent) Icon() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("icon"))
-	return rv
+	return objectivec.Object{ID: rv}
 }
 
 // The localized type name of the component.

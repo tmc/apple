@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -184,8 +185,8 @@ type INSPasteboardItem interface {
 	// Topic: Instance Properties
 
 	// A model object you use for conveying data during a collaboration.
-	CollaborationMetadata() objectivec.IObject
-	SetCollaborationMetadata(value objectivec.IObject)
+	CollaborationMetadata() unsafe.Pointer
+	SetCollaborationMetadata(value unsafe.Pointer)
 
 	// An array that contains all the items held by the pasteboard.
 	PasteboardItems() INSPasteboardItem
@@ -564,11 +565,11 @@ func (p NSPasteboardItem) Types() []string {
 // A model object you use for conveying data during a collaboration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItem/collaborationMetadata
-func (p NSPasteboardItem) CollaborationMetadata() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("collaborationMetadata"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboardItem) CollaborationMetadata() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("collaborationMetadata"))
+	return rv
 }
-func (p NSPasteboardItem) SetCollaborationMetadata(value objectivec.IObject) {
+func (p NSPasteboardItem) SetCollaborationMetadata(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollaborationMetadata:"), value)
 }
 

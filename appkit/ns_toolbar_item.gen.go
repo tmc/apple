@@ -259,10 +259,10 @@ type INSToolbarItem interface {
 	// Topic: Getting the item’s visual appearance
 
 	// The image to display for the toolbar item.
-	Image() objectivec.Object
-	SetImage(value objectivec.Object)
-	BackgroundTintColor() objectivec.Object
-	SetBackgroundTintColor(value objectivec.Object)
+	Image() INSImage
+	SetImage(value INSImage)
+	BackgroundTintColor() INSColor
+	SetBackgroundTintColor(value INSColor)
 	// The custom view you use to draw the toolbar item.
 	View() INSView
 	SetView(value INSView)
@@ -541,20 +541,20 @@ func (t NSToolbarItem) SetToolTip(value string) {
 // directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/image
-func (t NSToolbarItem) Image() objectivec.Object {
+func (t NSToolbarItem) Image() INSImage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("image"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSImageFromID(objc.ID(rv))
 }
-func (t NSToolbarItem) SetImage(value objectivec.Object) {
+func (t NSToolbarItem) SetImage(value INSImage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImage:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/backgroundTintColor
-func (t NSToolbarItem) BackgroundTintColor() objectivec.Object {
+func (t NSToolbarItem) BackgroundTintColor() INSColor {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("backgroundTintColor"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSColorFromID(objc.ID(rv))
 }
-func (t NSToolbarItem) SetBackgroundTintColor(value objectivec.Object) {
+func (t NSToolbarItem) SetBackgroundTintColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundTintColor:"), value)
 }
 

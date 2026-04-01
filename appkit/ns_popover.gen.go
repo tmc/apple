@@ -170,6 +170,7 @@ func NSPopoverFromID(id objc.ID) NSPopover {
 // See: https://developer.apple.com/documentation/AppKit/NSPopover
 type INSPopover interface {
 	INSResponder
+	NSAppearanceCustomization
 
 	// Topic: Accessing a Popover’s Content View Controller
 
@@ -412,11 +413,11 @@ func (p NSPopover) SetPositioningRect(value corefoundation.CGRect) {
 // [NSPopover.Appearance]: https://developer.apple.com/documentation/AppKit/NSPopover/Appearance-swift.enum
 // [aqua]: https://developer.apple.com/documentation/AppKit/NSAppearance/Name-swift.struct/aqua
 // [vibrantLight]: https://developer.apple.com/documentation/AppKit/NSAppearance/Name-swift.struct/vibrantLight
-func (p NSPopover) Appearance() NSPopoverAppearance {
-	rv := objc.Send[NSPopoverAppearance](p.ID, objc.Sel("appearance"))
-	return NSPopoverAppearance(rv)
+func (p NSPopover) Appearance() INSAppearance {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("appearance"))
+	return NSAppearanceFromID(objc.ID(rv))
 }
-func (p NSPopover) SetAppearance(value NSPopoverAppearance) {
+func (p NSPopover) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAppearance:"), value)
 }
 
@@ -2967,3 +2968,5 @@ func (o NSPopover) SetAccessibilityAttributedUserInputLabels(accessibilityAttrib
 func (o NSPopover) SetAccessibilityUserInputLabels(accessibilityUserInputLabels objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 }
+
+// Protocol methods for NSAppearanceCustomization

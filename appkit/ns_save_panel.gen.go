@@ -929,7 +929,7 @@ func (s NSSavePanel) BeginSheetModalForWindow(ctx context.Context, window INSWin
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NSModalResponse), ctx.Err()
 	}
 }
 
@@ -944,6 +944,6 @@ func (s NSSavePanel) Begin(ctx context.Context) (NSModalResponse, error) {
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NSModalResponse), ctx.Err()
 	}
 }

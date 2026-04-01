@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -109,7 +110,7 @@ type IAVAudioUnitComponentManager interface {
 	// Topic: Getting matching audio components
 
 	// Gets an array of audio component objects that match the description.
-	ComponentsMatchingDescription(desc objectivec.IObject) []AVAudioUnitComponent
+	ComponentsMatchingDescription(desc unsafe.Pointer) []AVAudioUnitComponent
 	// Gets an array of audio component objects that match the search predicate.
 	ComponentsMatchingPredicate(predicate foundation.INSPredicate) []AVAudioUnitComponent
 	// Gets an array of audio components that pass the block method.
@@ -158,10 +159,9 @@ func NewAVAudioUnitComponentManager() AVAudioUnitComponentManager {
 // returns the first match the method finds.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/components(matching:)-9qt94
-// desc is a [audiotoolbox.AudioComponentDescription].
 //
 // [AudioComponentDescription]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentDescription
-func (a AVAudioUnitComponentManager) ComponentsMatchingDescription(desc objectivec.IObject) []AVAudioUnitComponent {
+func (a AVAudioUnitComponentManager) ComponentsMatchingDescription(desc unsafe.Pointer) []AVAudioUnitComponent {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("componentsMatchingDescription:"), desc)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVAudioUnitComponent {
 		return AVAudioUnitComponentFromID(id)

@@ -4,9 +4,9 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitDelay] class.
@@ -142,8 +142,7 @@ func NewAVAudioUnitDelay() AVAudioUnitDelay {
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-func NewAudioUnitDelayWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitDelay {
+func NewAudioUnitDelayWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitDelay {
 	instance := getAVAudioUnitDelayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitDelayFromID(rv)

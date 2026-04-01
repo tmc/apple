@@ -369,6 +369,8 @@ func (c CIColor) InitWithCGColor(color coregraphics.CGColorRef) CIColor {
 	return rv
 }
 
+// color is a [*appkit.NSColor].
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(color:)
 func (c CIColor) InitWithColor(color objectivec.IObject) CIColor {
 	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithColor:"), color)

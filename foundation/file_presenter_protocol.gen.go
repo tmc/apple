@@ -115,7 +115,7 @@ func (o NSFilePresenterObject) ObservedPresentedItemUbiquityAttributes() INSSet 
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/relinquishPresentedItem(toReader:)
 //
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
-func (o NSFilePresenterObject) RelinquishPresentedItemToReader(reader VoidHandler) {
+func (o NSFilePresenterObject) RelinquishPresentedItemToReader(reader ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("relinquishPresentedItemToReader:"), reader)
 }
 
@@ -155,7 +155,7 @@ func (o NSFilePresenterObject) RelinquishPresentedItemToReader(reader VoidHandle
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/relinquishPresentedItem(toWriter:)
 //
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
-func (o NSFilePresenterObject) RelinquishPresentedItemToWriter(writer VoidHandler) {
+func (o NSFilePresenterObject) RelinquishPresentedItemToWriter(writer ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("relinquishPresentedItemToWriter:"), writer)
 }
 

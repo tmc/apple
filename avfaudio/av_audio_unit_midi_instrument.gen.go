@@ -4,10 +4,10 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitMIDIInstrument] class.
@@ -122,7 +122,7 @@ type IAVAudioUnitMIDIInstrument interface {
 	// Topic: Creating a MIDI instrument
 
 	// Creates a MIDI instrument audio unit with the component description you specify.
-	InitWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitMIDIInstrument
+	InitWithAudioComponentDescription(description unsafe.Pointer) AVAudioUnitMIDIInstrument
 
 	// Topic: Sending information to the MIDI instrument
 
@@ -145,7 +145,7 @@ type IAVAudioUnitMIDIInstrument interface {
 	// Sends MIDI Program Change and Bank Select events to the instrument.
 	SendProgramChangeBankMSBBankLSBOnChannel(program uint8, bankMSB uint8, bankLSB uint8, channel uint8)
 	// Sends a MIDI event list to the instrument.
-	SendMIDIEventList(eventList objectivec.IObject)
+	SendMIDIEventList(eventList unsafe.Pointer)
 
 	// Topic: Starting and stopping play
 
@@ -189,8 +189,7 @@ func NewAVAudioUnitMIDIInstrument() AVAudioUnitMIDIInstrument {
 // `kAudioUnitType_RemoteInstrument`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/init(audioComponentDescription:)
-// description is a [audiotoolbox.AudioComponentDescription].
-func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitMIDIInstrument {
+func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description unsafe.Pointer) AVAudioUnitMIDIInstrument {
 	instance := getAVAudioUnitMIDIInstrumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return AVAudioUnitMIDIInstrumentFromID(rv)
@@ -213,8 +212,7 @@ func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description objecti
 // `kAudioUnitType_RemoteInstrument`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/init(audioComponentDescription:)
-// description is a [audiotoolbox.AudioComponentDescription].
-func (a AVAudioUnitMIDIInstrument) InitWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitMIDIInstrument {
+func (a AVAudioUnitMIDIInstrument) InitWithAudioComponentDescription(description unsafe.Pointer) AVAudioUnitMIDIInstrument {
 	rv := objc.Send[AVAudioUnitMIDIInstrument](a.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return rv
 }
@@ -354,7 +352,7 @@ func (a AVAudioUnitMIDIInstrument) SendProgramChangeBankMSBBankLSBOnChannel(prog
 // eventList: The MIDI event list.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/send(_:)
-func (a AVAudioUnitMIDIInstrument) SendMIDIEventList(eventList objectivec.IObject) {
+func (a AVAudioUnitMIDIInstrument) SendMIDIEventList(eventList unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDIEventList:"), eventList)
 }
 

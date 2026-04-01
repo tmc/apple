@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -401,26 +402,21 @@ func (_NSErrorClass NSErrorClass) UserInfoValueProviderForDomain(errorDomain NSE
 // existingItem is a [fileprovider.NSFileProviderItem].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForCollision(with:)
-// existingItem is a [fileprovider.NSFileProviderItem].
-func (_NSErrorClass NSErrorClass) FileProviderErrorForCollisionWithItem(existingItem objectivec.IObject) NSError {
+func (_NSErrorClass NSErrorClass) FileProviderErrorForCollisionWithItem(existingItem unsafe.Pointer) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForCollisionWithItem:"), existingItem)
 	return NSErrorFromID(rv)
 }
 
-// itemIdentifier is a [fileprovider.NSFileProviderItemIdentifier].
-//
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForNonExistentItem(withIdentifier:)
-// itemIdentifier is a [fileprovider.NSFileProviderItemIdentifier].
-func (_NSErrorClass NSErrorClass) FileProviderErrorForNonExistentItemWithIdentifier(itemIdentifier objectivec.IObject) NSError {
-	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForNonExistentItemWithIdentifier:"), itemIdentifier)
+func (_NSErrorClass NSErrorClass) FileProviderErrorForNonExistentItemWithIdentifier(itemIdentifier string) NSError {
+	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForNonExistentItemWithIdentifier:"), objc.String(itemIdentifier))
 	return NSErrorFromID(rv)
 }
 
 // updatedVersion is a [fileprovider.NSFileProviderItem].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForRejectedDeletion(of:)
-// updatedVersion is a [fileprovider.NSFileProviderItem].
-func (_NSErrorClass NSErrorClass) FileProviderErrorForRejectedDeletionOfItem(updatedVersion objectivec.IObject) NSError {
+func (_NSErrorClass NSErrorClass) FileProviderErrorForRejectedDeletionOfItem(updatedVersion unsafe.Pointer) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForRejectedDeletionOfItem:"), updatedVersion)
 	return NSErrorFromID(rv)
 }

@@ -4,9 +4,9 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitEffect] class.
@@ -95,7 +95,7 @@ type IAVAudioUnitEffect interface {
 	// Topic: Creating an audio effect
 
 	// Creates an audio unit effect object with the specified description.
-	InitWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitEffect
+	InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitEffect
 
 	// Topic: Getting the bypass state
 
@@ -137,8 +137,7 @@ func NewAVAudioUnitEffect() AVAudioUnitEffect {
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitEffect {
+func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitEffect {
 	instance := getAVAudioUnitEffectClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitEffectFromID(rv)
@@ -160,8 +159,7 @@ func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription o
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-func (a AVAudioUnitEffect) InitWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitEffect {
+func (a AVAudioUnitEffect) InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitEffect {
 	rv := objc.Send[AVAudioUnitEffect](a.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return rv
 }

@@ -4,8 +4,6 @@ package iokit
 
 import (
 	"unsafe"
-
-	"github.com/tmc/apple/objectivec"
 )
 
 // C struct types
@@ -102,7 +100,7 @@ type IORPCMessageMach struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/ioserviceinterestcontent-ieh
 type IOServiceInterestContent struct {
-	MessageType     objectivec.IObject
+	MessageType     unsafe.Pointer
 	MessageArgument unsafe.Pointer
 }
 
@@ -140,7 +138,7 @@ type IOVirtualRange struct {
 // [Full Topic]: https://developer.apple.com/documentation/iokit/osnotificationheader-iei
 type OSNotificationHeader struct {
 	Size      uint32
-	Type      objectivec.IObject
+	Type      unsafe.Pointer
 	Reference unsafe.Pointer
 	Content   unsafe.Pointer
 }

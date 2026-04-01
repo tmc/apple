@@ -3,6 +3,8 @@
 package appkit
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -16,7 +18,7 @@ type NSCloudSharingValidation interface {
 	// Returns the Cloud share object that corresponds to the specified item, if one exists.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCloudSharingValidation/cloudShare(for:)
-	CloudShareForUserInterfaceItem(item NSValidatedUserInterfaceItem) objectivec.IObject
+	CloudShareForUserInterfaceItem(item NSValidatedUserInterfaceItem) unsafe.Pointer
 }
 
 // NSCloudSharingValidationObject wraps an existing Objective-C object that conforms to the NSCloudSharingValidation protocol.
@@ -40,7 +42,7 @@ func NSCloudSharingValidationObjectFromID(id objc.ID) NSCloudSharingValidationOb
 // one exists.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingValidation/cloudShare(for:)
-func (o NSCloudSharingValidationObject) CloudShareForUserInterfaceItem(item NSValidatedUserInterfaceItem) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("cloudShareForUserInterfaceItem:"), item)
-	return objectivec.Object{ID: rv}
+func (o NSCloudSharingValidationObject) CloudShareForUserInterfaceItem(item NSValidatedUserInterfaceItem) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("cloudShareForUserInterfaceItem:"), item)
+	return rv
 }

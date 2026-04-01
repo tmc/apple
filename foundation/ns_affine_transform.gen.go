@@ -439,14 +439,13 @@ func (a NSAffineTransform) TransformSize(aSize corefoundation.CGSize) NSSize {
 //
 // path: An object representing the bezier path to be used in the transformation.
 //
-// path is a [appkit.NSBezierPath].
+// path is a [*appkit.NSBezierPath].
 //
 // # Discussion
 //
 // The original [NSBezierPath] object is not modified.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/transform(_:)-6z1xo
-// path is a [appkit.NSBezierPath].
 func (a NSAffineTransform) TransformBezierPath(path objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("transformBezierPath:"), path)
 	return objectivec.Object{ID: rv}

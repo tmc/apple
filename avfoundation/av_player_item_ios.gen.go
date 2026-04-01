@@ -99,10 +99,10 @@ func (p AVPlayerItem) SetTranslatesPlayerInterstitialEvents(value bool) {
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/interstitialTimeRanges
 //
 // [AVPlayerViewController]: https://developer.apple.com/documentation/AVKit/AVPlayerViewController
-func (p AVPlayerItem) InterstitialTimeRanges() []objectivec.IObject {
+func (p AVPlayerItem) InterstitialTimeRanges() []objc.ID {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("interstitialTimeRanges"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
+	return objc.ConvertSlice(rv, func(id objc.ID) AVInterstitialTimeRange {
+		return AVInterstitialTimeRangeFromID(id)
 	})
 }
 
@@ -144,13 +144,13 @@ func (p AVPlayerItem) SetNowPlayingInfo(value foundation.INSDictionary) {
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/navigationMarkerGroups
 //
 // [AVPlayerViewController]: https://developer.apple.com/documentation/AVKit/AVPlayerViewController
-func (p AVPlayerItem) NavigationMarkerGroups() []objectivec.IObject {
+func (p AVPlayerItem) NavigationMarkerGroups() []objc.ID {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("navigationMarkerGroups"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
+	return objc.ConvertSlice(rv, func(id objc.ID) AVNavigationMarkersGroup {
+		return AVNavigationMarkersGroupFromID(id)
 	})
 }
-func (p AVPlayerItem) SetNavigationMarkerGroups(value []objectivec.IObject) {
+func (p AVPlayerItem) SetNavigationMarkerGroups(value []objc.ID) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNavigationMarkerGroups:"), objectivec.IObjectSliceToNSArray(value))
 }
 
@@ -162,11 +162,11 @@ func (p AVPlayerItem) SetNavigationMarkerGroups(value []objectivec.IObject) {
 // current content.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/nextContentProposal
-func (p AVPlayerItem) NextContentProposal() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("nextContentProposal"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItem) NextContentProposal() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("nextContentProposal"))
+	return rv
 }
-func (p AVPlayerItem) SetNextContentProposal(value objectivec.IObject) {
+func (p AVPlayerItem) SetNextContentProposal(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNextContentProposal:"), value)
 }
 

@@ -13,7 +13,7 @@ import (
 //
 // keyCommand: The key command received by the first responder.
 //
-// keyCommand is a [uikit.UIKeyCommand].
+// keyCommand is a [*uikit.UIKeyCommand].
 //
 // # Return Value
 //
@@ -29,7 +29,6 @@ import (
 // action.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/performCommand(for:)-25rd1
-// keyCommand is a [uikit.UIKeyCommand].
 //
 // [UIKeyCommand]: https://developer.apple.com/documentation/UIKit/UIKeyCommand
 func (w WKWebExtensionContext) PerformCommandForKeyCommand(keyCommand objectivec.IObject) bool {

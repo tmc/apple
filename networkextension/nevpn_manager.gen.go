@@ -58,7 +58,6 @@ func (nc NEVPNManagerClass) Alloc() NEVPNManager {
 //
 //   - [NEVPNManager.LoadFromPreferencesWithCompletionHandler]: Load the VPN configuration from the Network Extension preferences.
 //   - [NEVPNManager.SaveToPreferencesWithCompletionHandler]: Save the VPN configuration in the Network Extension preferences.
-//   - [NEVPNManager.SetAuthorization]
 //   - [NEVPNManager.RemoveFromPreferencesWithCompletionHandler]: Remove the VPN configuration from the Network Extension preferences.
 //
 // # Accessing VPN configuration properties
@@ -107,7 +106,6 @@ func NEVPNManagerFromID(id objc.ID) NEVPNManager {
 //
 //   - [INEVPNManager.LoadFromPreferencesWithCompletionHandler]: Load the VPN configuration from the Network Extension preferences.
 //   - [INEVPNManager.SaveToPreferencesWithCompletionHandler]: Save the VPN configuration in the Network Extension preferences.
-//   - [INEVPNManager.SetAuthorization]
 //   - [INEVPNManager.RemoveFromPreferencesWithCompletionHandler]: Remove the VPN configuration from the Network Extension preferences.
 //
 // # Accessing VPN configuration properties
@@ -145,7 +143,6 @@ type INEVPNManager interface {
 	LoadFromPreferencesWithCompletionHandler(completionHandler ErrorHandler)
 	// Save the VPN configuration in the Network Extension preferences.
 	SaveToPreferencesWithCompletionHandler(completionHandler ErrorHandler)
-	SetAuthorization(authorization objectivec.IObject)
 	// Remove the VPN configuration from the Network Extension preferences.
 	RemoveFromPreferencesWithCompletionHandler(completionHandler ErrorHandler)
 
@@ -245,14 +242,6 @@ func (v NEVPNManager) LoadFromPreferencesWithCompletionHandler(completionHandler
 func (v NEVPNManager) SaveToPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
 	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("saveToPreferencesWithCompletionHandler:"), _block0)
-}
-
-// authorization is a [systemconfiguration.AuthorizationRef].
-//
-// See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/setAuthorization(_:)
-// authorization is a [systemconfiguration.AuthorizationRef].
-func (v NEVPNManager) SetAuthorization(authorization objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setAuthorization:"), authorization)
 }
 
 // Remove the VPN configuration from the Network Extension preferences.

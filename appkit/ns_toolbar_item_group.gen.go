@@ -202,7 +202,7 @@ func NewToolbarItemGroupWithItemIdentifier(itemIdentifier NSToolbarItemIdentifie
 // action: The selector that the toolbar invokes on the target.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/init(itemIdentifier:images:selectionMode:labels:target:action:)
-func NewToolbarItemGroupWithItemIdentifierImagesSelectionModeLabelsTargetAction(itemIdentifier NSToolbarItemIdentifier, images []objectivec.Object, selectionMode NSToolbarItemGroupSelectionMode, labels []string, target objectivec.IObject, action objc.SEL) NSToolbarItemGroup {
+func NewToolbarItemGroupWithItemIdentifierImagesSelectionModeLabelsTargetAction(itemIdentifier NSToolbarItemIdentifier, images []NSImage, selectionMode NSToolbarItemGroupSelectionMode, labels []string, target objectivec.IObject, action objc.SEL) NSToolbarItemGroup {
 	rv := objc.Send[objc.ID](objc.ID(getNSToolbarItemGroupClass().class), objc.Sel("groupWithItemIdentifier:images:selectionMode:labels:target:action:"), objc.String(string(itemIdentifier)), objectivec.IObjectSliceToNSArray(images), selectionMode, objectivec.StringSliceToNSArray(labels), target, action)
 	return NSToolbarItemGroupFromID(rv)
 }

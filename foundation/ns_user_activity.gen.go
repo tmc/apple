@@ -402,8 +402,8 @@ type INSUserActivity interface {
 	NeedsSave() bool
 	SetNeedsSave(value bool)
 	// A set of properties that describe the activity.
-	ContentAttributeSet() objectivec.IObject
-	SetContentAttributeSet(value objectivec.IObject)
+	ContentAttributeSet() unsafe.Pointer
+	SetContentAttributeSet(value unsafe.Pointer)
 	// A set of localized keywords that can help users find the activity in search results.
 	Keywords() INSSet
 	SetKeywords(value INSSet)
@@ -467,7 +467,7 @@ type INSUserActivity interface {
 	// Topic: Continuing Siri interactions
 
 	// The SiriKit interaction object to use when configuring your app.
-	Interaction() objectivec.IObject
+	Interaction() unsafe.Pointer
 
 	// Topic: Processing barcodes
 
@@ -477,8 +477,8 @@ type INSUserActivity interface {
 	// Topic: Sharing map item information
 
 	// Attaches the specified map item to a user activity object.
-	MapItem() objectivec.IObject
-	SetMapItem(value objectivec.IObject)
+	MapItem() unsafe.Pointer
+	SetMapItem(value unsafe.Pointer)
 
 	// Topic: Working with ClassKit
 
@@ -911,11 +911,11 @@ func (u NSUserActivity) SetNeedsSave(value bool) {
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/contentAttributeSet
 //
 // [CSSearchableItemAttributeSet]: https://developer.apple.com/documentation/CoreSpotlight/CSSearchableItemAttributeSet
-func (u NSUserActivity) ContentAttributeSet() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("contentAttributeSet"))
-	return objectivec.Object{ID: rv}
+func (u NSUserActivity) ContentAttributeSet() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("contentAttributeSet"))
+	return rv
 }
-func (u NSUserActivity) SetContentAttributeSet(value objectivec.IObject) {
+func (u NSUserActivity) SetContentAttributeSet(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setContentAttributeSet:"), value)
 }
 
@@ -1147,9 +1147,9 @@ func (u NSUserActivity) SetSuggestedInvocationPhrase(value string) {
 // a Siri interaction, the value in this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/interaction
-func (u NSUserActivity) Interaction() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("interaction"))
-	return objectivec.Object{ID: rv}
+func (u NSUserActivity) Interaction() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("interaction"))
+	return rv
 }
 
 // The barcode that the system scanner passes in.
@@ -1184,11 +1184,11 @@ func (u NSUserActivity) DetectedBarcodeDescriptor() objectivec.IObject {
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/mapItem
 //
 // [App Search Programming Guide]: https://developer.apple.com/library/archive/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308
-func (u NSUserActivity) MapItem() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("mapItem"))
-	return objectivec.Object{ID: rv}
+func (u NSUserActivity) MapItem() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("mapItem"))
+	return rv
 }
-func (u NSUserActivity) SetMapItem(value objectivec.IObject) {
+func (u NSUserActivity) SetMapItem(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setMapItem:"), value)
 }
 

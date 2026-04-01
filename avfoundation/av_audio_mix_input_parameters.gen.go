@@ -80,10 +80,6 @@ func (ac AVAudioMixInputParametersClass) Alloc() AVAudioMixInputParameters {
 //
 //   - [AVAudioMixInputParameters.GetVolumeRampForTimeStartVolumeEndVolumeTimeRange]: Retrieves the volume ramp that includes the specified time.
 //
-// # Getting an audio tap
-//
-//   - [AVAudioMixInputParameters.AudioTapProcessor]: The audio processing tap associated with the track.
-//
 // # Getting the time pitch algorithm setting
 //
 //   - [AVAudioMixInputParameters.AudioTimePitchAlgorithm]: The processing algorithm used to manage audio pitch for scaled audio edits.
@@ -114,10 +110,6 @@ func AVAudioMixInputParametersFromID(id objc.ID) AVAudioMixInputParameters {
 //
 //   - [IAVAudioMixInputParameters.GetVolumeRampForTimeStartVolumeEndVolumeTimeRange]: Retrieves the volume ramp that includes the specified time.
 //
-// # Getting an audio tap
-//
-//   - [IAVAudioMixInputParameters.AudioTapProcessor]: The audio processing tap associated with the track.
-//
 // # Getting the time pitch algorithm setting
 //
 //   - [IAVAudioMixInputParameters.AudioTimePitchAlgorithm]: The processing algorithm used to manage audio pitch for scaled audio edits.
@@ -135,11 +127,6 @@ type IAVAudioMixInputParameters interface {
 
 	// Retrieves the volume ramp that includes the specified time.
 	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool)
-
-	// Topic: Getting an audio tap
-
-	// The audio processing tap associated with the track.
-	AudioTapProcessor() objectivec.IObject
 
 	// Topic: Getting the time pitch algorithm setting
 
@@ -215,26 +202,6 @@ func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeR
 func (a AVAudioMixInputParameters) TrackID() int32 {
 	rv := objc.Send[int32](a.ID, objc.Sel("trackID"))
 	return rv
-}
-
-// The audio processing tap associated with the track.
-//
-// # Discussion
-//
-// You can use the audio tap to access the track’s audio data before it is
-// played, read, or exported. This property is `nil` by default.
-//
-// The process of setting up a tap requires the configuration of an instance
-// of [AVMutableAudioMixInputParameters]. If an instance of
-// [AVMutableAudioMixInputParameters] is present in the [InputParameters]
-// array of an [AVAudioMix], the results of mutating the
-// [AVMutableAudioMixInputParameters] while the audio mix is in use are
-// undefined
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParameters/audioTapProcessor
-func (a AVAudioMixInputParameters) AudioTapProcessor() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioTapProcessor"))
-	return objectivec.Object{ID: rv}
 }
 
 // The processing algorithm used to manage audio pitch for scaled audio edits.

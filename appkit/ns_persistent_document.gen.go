@@ -9,7 +9,6 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSPersistentDocument] class.
@@ -132,10 +131,10 @@ type INSPersistentDocument interface {
 	// Topic: Managing the Persistence Objects
 
 	// The managed object context for the document.
-	ManagedObjectContext() objectivec.IObject
-	SetManagedObjectContext(value objectivec.IObject)
+	ManagedObjectContext() unsafe.Pointer
+	SetManagedObjectContext(value unsafe.Pointer)
 	// The managed object model of the document.
-	ManagedObjectModel() objectivec.IObject
+	ManagedObjectModel() unsafe.Pointer
 	// Configures the receiver’s persistent store coordinator with the appropriate stores for a given URL.
 	ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.INSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error)
 	// Returns the type of persistent store associated with the specified file type.
@@ -354,11 +353,11 @@ func (p NSPersistentDocument) PersistentStoreTypeForFileType(fileType string) st
 // implementation to create the appropriate objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument/managedObjectContext
-func (p NSPersistentDocument) ManagedObjectContext() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("managedObjectContext"))
-	return objectivec.Object{ID: rv}
+func (p NSPersistentDocument) ManagedObjectContext() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("managedObjectContext"))
+	return rv
 }
-func (p NSPersistentDocument) SetManagedObjectContext(value objectivec.IObject) {
+func (p NSPersistentDocument) SetManagedObjectContext(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 
@@ -379,9 +378,9 @@ func (p NSPersistentDocument) SetManagedObjectContext(value objectivec.IObject) 
 // .
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument/managedObjectModel
-func (p NSPersistentDocument) ManagedObjectModel() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("managedObjectModel"))
-	return objectivec.Object{ID: rv}
+func (p NSPersistentDocument) ManagedObjectModel() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("managedObjectModel"))
+	return rv
 }
 
 // A Boolean value that indicates whether the document has unsaved changes.

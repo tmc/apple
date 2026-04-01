@@ -141,13 +141,13 @@ type INSCursor interface {
 	// Topic: Initializing a new cursor
 
 	// Initializes a cursor with the given image and hot spot.
-	InitWithImageHotSpot(newImage objectivec.Object, point corefoundation.CGPoint) NSCursor
+	InitWithImageHotSpot(newImage INSImage, point corefoundation.CGPoint) NSCursor
 	InitWithCoder(coder foundation.INSCoder) NSCursor
 
 	// Topic: Setting cursor attributes
 
 	// The cursor’s image.
-	Image() objectivec.Object
+	Image() INSImage
 	// The position of the click location within the cursor.
 	HotSpot() corefoundation.CGPoint
 
@@ -202,7 +202,28 @@ func NewCursorWithCoder(coder foundation.INSCoder) NSCursor {
 // This method is the designated initializer for the class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCursor/init(image:hotSpot:)
-func (c NSCursor) InitWithImageHotSpot(newImage objectivec.Object, point corefoundation.CGPoint) NSCursor {
+func NewCursorWithImageHotSpot(newImage INSImage, point corefoundation.CGPoint) NSCursor {
+	instance := getNSCursorClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImage:hotSpot:"), newImage, point)
+	return NSCursorFromID(rv)
+}
+
+// Initializes a cursor with the given image and hot spot.
+//
+// newImage: The image to assign to the cursor.
+//
+// point: The point to set as the cursor’s hot spot.
+//
+// # Return Value
+//
+// An initialized cursor object.
+//
+// # Discussion
+//
+// This method is the designated initializer for the class.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSCursor/init(image:hotSpot:)
+func (c NSCursor) InitWithImageHotSpot(newImage INSImage, point corefoundation.CGPoint) NSCursor {
 	rv := objc.Send[NSCursor](c.ID, objc.Sel("initWithImage:hotSpot:"), newImage, point)
 	return rv
 }
@@ -334,9 +355,9 @@ func (_NSCursorClass NSCursorClass) RowResizeCursorInDirections(directions NSVer
 // [InitWithImageHotSpot] to create a new cursor with the new settings.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCursor/image
-func (c NSCursor) Image() objectivec.Object {
+func (c NSCursor) Image() INSImage {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("image"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSImageFromID(objc.ID(rv))
 }
 
 // The position of the click location within the cursor.

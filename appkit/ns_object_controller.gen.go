@@ -277,15 +277,15 @@ type INSObjectController interface {
 	UsesLazyFetching() bool
 	SetUsesLazyFetching(value bool)
 	// Returns the default fetch request used by the receiver.
-	DefaultFetchRequest() objectivec.IObject
+	DefaultFetchRequest() unsafe.Pointer
 	// The receiver’s fetch predicate.
 	FetchPredicate() foundation.INSPredicate
 	SetFetchPredicate(value foundation.INSPredicate)
 	// The receiver’s managed object context.
-	ManagedObjectContext() objectivec.IObject
-	SetManagedObjectContext(value objectivec.IObject)
+	ManagedObjectContext() unsafe.Pointer
+	SetManagedObjectContext(value unsafe.Pointer)
 	// Subclasses should override this method to customize a fetch request, for example to specify fetch limits.
-	FetchWithRequestMergeError(fetchRequest objectivec.IObject, merge bool) (bool, error)
+	FetchWithRequestMergeError(fetchRequest unsafe.Pointer, merge bool) (bool, error)
 
 	// Topic: Obtaining selections
 
@@ -502,9 +502,9 @@ func (o NSObjectController) Fetch(sender objectivec.IObject) {
 // The default NSFetchResult used by the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/defaultFetchRequest()
-func (o NSObjectController) DefaultFetchRequest() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("defaultFetchRequest"))
-	return objectivec.Object{ID: rv}
+func (o NSObjectController) DefaultFetchRequest() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("defaultFetchRequest"))
+	return rv
 }
 
 // Subclasses should override this method to customize a fetch request, for
@@ -516,7 +516,7 @@ func (o NSObjectController) DefaultFetchRequest() objectivec.IObject {
 // merge: If true, the receiver merges the existing content with the fetch result,
 // otherwise the receiver replaces the entire content with the fetch result.
 //
-// fetchRequest is a [coredata.NSFetchRequest].
+// fetchRequest is a [*coredata.NSFetchRequest].
 //
 // # Discussion
 //
@@ -525,8 +525,7 @@ func (o NSObjectController) DefaultFetchRequest() objectivec.IObject {
 // and then invoke `super`’s implementation with the new fetch request.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/fetch(with:merge:)
-// fetchRequest is a [coredata.NSFetchRequest].
-func (o NSObjectController) FetchWithRequestMergeError(fetchRequest objectivec.IObject, merge bool) (bool, error) {
+func (o NSObjectController) FetchWithRequestMergeError(fetchRequest unsafe.Pointer, merge bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](o.ID, objc.Sel("fetchWithRequest:merge:error:"), fetchRequest, merge, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -701,11 +700,11 @@ func (o NSObjectController) SetFetchPredicate(value foundation.INSPredicate) {
 // The receiver’s managed object context.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/managedObjectContext
-func (o NSObjectController) ManagedObjectContext() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("managedObjectContext"))
-	return objectivec.Object{ID: rv}
+func (o NSObjectController) ManagedObjectContext() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("managedObjectContext"))
+	return rv
 }
-func (o NSObjectController) SetManagedObjectContext(value objectivec.IObject) {
+func (o NSObjectController) SetManagedObjectContext(value unsafe.Pointer) {
 	objc.Send[struct{}](o.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 

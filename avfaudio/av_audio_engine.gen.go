@@ -267,9 +267,9 @@ type IAVAudioEngine interface {
 	// Topic: Managing MIDI Nodes
 
 	// Establishes a MIDI connection between two nodes.
-	ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock objectivec.IObject)
+	ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock unsafe.Pointer)
 	// Establishes a MIDI connection between a source node and multiple destination nodes.
-	ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock objectivec.IObject)
+	ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock unsafe.Pointer)
 	// Removes a MIDI connection between two nodes.
 	DisconnectMIDIFrom(sourceNode IAVAudioNode, destinationNode IAVAudioNode)
 	// Removes a MIDI connection between one source node and multiple destination nodes.
@@ -294,8 +294,8 @@ type IAVAudioEngine interface {
 	// Resets all audio nodes in the audio engine.
 	Reset()
 	// The music sequence instance that you attach to the audio engine, if any.
-	MusicSequence() objectivec.IObject
-	SetMusicSequence(value objectivec.IObject)
+	MusicSequence() unsafe.Pointer
+	SetMusicSequence(value unsafe.Pointer)
 
 	// Topic: Manually Rendering an Audio Engine
 
@@ -505,12 +505,11 @@ func (a AVAudioEngine) DisconnectNodeOutputBus(node IAVAudioNode, bus AVAudioNod
 // [kAudioUnitType_MIDIProcessor].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connectMIDI(_:to:format:eventListBlock:)-73cd1
-// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
 //
 // [kAudioUnitType_MIDIProcessor]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MIDIProcessor
 // [kAudioUnitType_MusicDevice]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicDevice
 // [kAudioUnitType_MusicEffect]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicEffect
-func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock objectivec.IObject) {
+func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:eventListBlock:"), sourceNode, destinationNode, format, tapBlock)
 }
 
@@ -549,12 +548,11 @@ func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode
 // many-to-one.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connectMIDI(_:to:format:eventListBlock:)-7qtd5
-// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
 //
 // [kAudioUnitType_MIDIProcessor]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MIDIProcessor
 // [kAudioUnitType_MusicDevice]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicDevice
 // [kAudioUnitType_MusicEffect]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicEffect
-func (a AVAudioEngine) ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock objectivec.IObject) {
+func (a AVAudioEngine) ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:eventListBlock:"), sourceNode, objectivec.IObjectSliceToNSArray(destinationNodes), format, tapBlock)
 }
 
@@ -746,7 +744,7 @@ func (a AVAudioEngine) RenderOfflineToBufferError(numberOfFrames AVAudioFrameCou
 	rv := objc.Send[AVAudioEngineManualRenderingStatus](a.ID, objc.Sel("renderOffline:toBuffer:error:"), numberOfFrames, buffer, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(AVAudioEngineManualRenderingStatus), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -936,11 +934,11 @@ func (a AVAudioEngine) Running() bool {
 // The music sequence instance that you attach to the audio engine, if any.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/musicSequence
-func (a AVAudioEngine) MusicSequence() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("musicSequence"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioEngine) MusicSequence() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("musicSequence"))
+	return rv
 }
-func (a AVAudioEngine) SetMusicSequence(value objectivec.IObject) {
+func (a AVAudioEngine) SetMusicSequence(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMusicSequence:"), value)
 }
 

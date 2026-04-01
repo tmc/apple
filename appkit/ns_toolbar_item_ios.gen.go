@@ -18,7 +18,7 @@ import (
 //
 // barButtonItem: The bar button item to use to create the toolbar item.
 //
-// barButtonItem is a [uikit.UIBarButtonItem].
+// barButtonItem is a [*uikit.UIBarButtonItem].
 //
 // # Return Value
 //
@@ -31,7 +31,6 @@ import (
 // [Target].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:barButtonItem:)
-// barButtonItem is a [uikit.UIBarButtonItem].
 //
 // [UIBarButtonItem]: https://developer.apple.com/documentation/UIKit/UIBarButtonItem
 func (_NSToolbarItemClass NSToolbarItemClass) ItemWithItemIdentifierBarButtonItem(itemIdentifier NSToolbarItemIdentifier, barButtonItem objectivec.IObject) NSToolbarItem {

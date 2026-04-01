@@ -3485,7 +3485,7 @@ func (s NSString) DrawInRectWithAttributes(rect corefoundation.CGRect, attrs INS
 // about the actual values used to render the string. This parameter may be
 // `nil`.
 //
-// context is a [appkit.NSStringDrawingContext].
+// context is a [*appkit.NSStringDrawingContext].
 //
 // # Discussion
 //
@@ -3508,7 +3508,6 @@ func (s NSString) DrawInRectWithAttributes(rect corefoundation.CGRect, attrs INS
 // be ignored and the operation considered to be single-line rendering.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/draw(with:options:attributes:context:)
-// context is a [appkit.NSStringDrawingContext].
 //
 // [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 // [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
@@ -3532,7 +3531,7 @@ func (s NSString) DrawWithRectOptionsAttributesContext(rect corefoundation.CGRec
 // context: The string drawing context to use for the receiver, specifying minimum
 // scale factor and tracking adjustments.
 //
-// context is a [appkit.NSStringDrawingContext].
+// context is a [*appkit.NSStringDrawingContext].
 //
 // # Return Value
 //
@@ -3556,7 +3555,6 @@ func (s NSString) DrawWithRectOptionsAttributesContext(rect corefoundation.CGRec
 // value of the `size` parameter.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/boundingRect(with:options:attributes:context:)
-// context is a [appkit.NSStringDrawingContext].
 //
 // [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 // [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil

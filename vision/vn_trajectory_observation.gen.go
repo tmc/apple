@@ -4,9 +4,9 @@ package vision
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNTrajectoryObservation] class.
@@ -86,7 +86,7 @@ type IVNTrajectoryObservation interface {
 	// The centroids of the calculated trajectory from the detected points.
 	ProjectedPoints() []VNPoint
 	// The coefficients of the parabolic equation.
-	EquationCoefficients() objectivec.IObject
+	EquationCoefficients() unsafe.Pointer
 	// The moving average radius of the object the request is tracking.
 	MovingAverageRadius() float64
 
@@ -156,9 +156,9 @@ func (t VNTrajectoryObservation) ProjectedPoints() []VNPoint {
 // traveling. The equation and the projected points get refined over time.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrajectoryObservation/equationCoefficients
-func (t VNTrajectoryObservation) EquationCoefficients() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("equationCoefficients"))
-	return objectivec.Object{ID: rv}
+func (t VNTrajectoryObservation) EquationCoefficients() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("equationCoefficients"))
+	return rv
 }
 
 // The moving average radius of the object the request is tracking.

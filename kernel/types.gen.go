@@ -5763,7 +5763,7 @@ type Ifnet_interface_advisory_cell_context struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_interface_advisory_header
 type Ifnet_interface_advisory_header struct {
-	Interface_type    IfnetInterfaceAdvisoryInterfaceType
+	Interface_type    Ifnet_interface_advisory_interface_type
 	Version           Ifnet_interface_advisory_version
 	Notification_type unsafe.Pointer
 }

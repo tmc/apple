@@ -773,7 +773,6 @@ func NewURLFileURLWithPathRelativeToURL(path string, baseURL INSURL) NSURL {
 // [NSURLPboardType] data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(fromPasteboard:)
-// pasteBoard is a [appkit.NSPasteboard].
 func NewURLFromPasteboard(pasteBoard objectivec.IObject) NSURL {
 	rv := objc.Send[objc.ID](objc.ID(getNSURLClass().class), objc.Sel("URLFromPasteboard:"), pasteBoard)
 	return NSURLFromID(rv)
@@ -1884,7 +1883,7 @@ func (u NSURL) PromisedItemResourceValuesForKeysError(keys []string) (INSDiction
 //
 // pasteBoard: The target pasteboard.
 //
-// pasteBoard is a [appkit.NSPasteboard].
+// pasteBoard is a [*appkit.NSPasteboard].
 //
 // # Discussion
 //
@@ -1892,7 +1891,6 @@ func (u NSURL) PromisedItemResourceValuesForKeysError(keys []string) (INSDiction
 // invoking this method. Otherwise, the method returns without doing anything.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/write(to:)
-// pasteBoard is a [appkit.NSPasteboard].
 func (u NSURL) WriteToPasteboard(pasteBoard objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("writeToPasteboard:"), pasteBoard)
 }

@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -126,7 +127,7 @@ type IAVAudioTime interface {
 	// Topic: Creating an Audio Time Instance
 
 	// Creates an audio time object with the specified timestamp and sample rate.
-	InitWithAudioTimeStampSampleRate(ts objectivec.IObject, sampleRate float64) AVAudioTime
+	InitWithAudioTimeStampSampleRate(ts unsafe.Pointer, sampleRate float64) AVAudioTime
 	// Creates an audio time object with the specified host time.
 	InitWithHostTime(hostTime uint64) AVAudioTime
 	// Creates an audio time object with the specified host time, sample time, and sample rate.
@@ -155,7 +156,7 @@ type IAVAudioTime interface {
 	// Topic: Getting the Core Audio Time Stamp
 
 	// The time as an audio timestamp.
-	AudioTimeStamp() objectivec.IObject
+	AudioTimeStamp() unsafe.Pointer
 }
 
 // Init initializes the instance.
@@ -188,7 +189,7 @@ func NewAVAudioTime() AVAudioTime {
 // A new [AVAudioTime] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/init(audioTimeStamp:sampleRate:)
-func NewAudioTimeWithAudioTimeStampSampleRate(ts objectivec.IObject, sampleRate float64) AVAudioTime {
+func NewAudioTimeWithAudioTimeStampSampleRate(ts unsafe.Pointer, sampleRate float64) AVAudioTime {
 	instance := getAVAudioTimeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioTimeStamp:sampleRate:"), ts, sampleRate)
 	return AVAudioTimeFromID(rv)
@@ -252,12 +253,14 @@ func NewAudioTimeWithSampleTimeAtRate(sampleTime AVAudioFramePosition, sampleRat
 //
 // sampleRate: The sample rate.
 //
+// ts is a [*coreaudiotypes.AudioTimeStamp].
+//
 // # Return Value
 //
 // A new [AVAudioTime] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/init(audioTimeStamp:sampleRate:)
-func (a AVAudioTime) InitWithAudioTimeStampSampleRate(ts objectivec.IObject, sampleRate float64) AVAudioTime {
+func (a AVAudioTime) InitWithAudioTimeStampSampleRate(ts unsafe.Pointer, sampleRate float64) AVAudioTime {
 	rv := objc.Send[AVAudioTime](a.ID, objc.Sel("initWithAudioTimeStamp:sampleRate:"), ts, sampleRate)
 	return rv
 }
@@ -372,12 +375,14 @@ func (_AVAudioTimeClass AVAudioTimeClass) SecondsForHostTime(hostTime uint64) fl
 //
 // sampleRate: The sample rate.
 //
+// ts is a [*coreaudiotypes.AudioTimeStamp].
+//
 // # Return Value
 //
 // A new [AVAudioTime] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/timeWithAudioTimeStamp:sampleRate:
-func (_AVAudioTimeClass AVAudioTimeClass) TimeWithAudioTimeStampSampleRate(ts objectivec.IObject, sampleRate float64) AVAudioTime {
+func (_AVAudioTimeClass AVAudioTimeClass) TimeWithAudioTimeStampSampleRate(ts unsafe.Pointer, sampleRate float64) AVAudioTime {
 	rv := objc.Send[objc.ID](objc.ID(_AVAudioTimeClass.class), objc.Sel("timeWithAudioTimeStamp:sampleRate:"), ts, sampleRate)
 	return AVAudioTimeFromID(rv)
 }
@@ -486,7 +491,7 @@ func (a AVAudioTime) SampleTimeValid() bool {
 // Toolbox API.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/audioTimeStamp
-func (a AVAudioTime) AudioTimeStamp() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioTimeStamp"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioTime) AudioTimeStamp() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("audioTimeStamp"))
+	return rv
 }

@@ -133,6 +133,6 @@ func (uc NEURLFilterClass) VerdictForURL(ctx context.Context, url foundation.INS
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NEURLFilterVerdict), ctx.Err()
 	}
 }

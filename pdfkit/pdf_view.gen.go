@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -170,8 +171,8 @@ type IPDFView interface {
 	AutoScales() bool
 	SetAutoScales(value bool)
 	// The view’s background color.
-	BackgroundColor() objc.ID
-	SetBackgroundColor(value objc.ID)
+	BackgroundColor() appkit.NSColor
+	SetBackgroundColor(value appkit.NSColor)
 	// Returns a Boolean value indicating whether the user can navigate to the previous page in the page history.
 	CanGoBack() bool
 	// Returns a Boolean value indicating whether the user can navigate to the next page in the page history.
@@ -210,7 +211,7 @@ type IPDFView interface {
 	DisplaysRTL() bool
 	SetDisplaysRTL(value bool)
 	// The innermost view used by [PDFView] or by your [PDFView] subclass.
-	DocumentView() objc.ID
+	DocumentView() appkit.NSView
 	// A Boolean value indicating whether to turns on or off data detection, which adds annotations for detected URLs in a page.
 	EnableDataDetectors() bool
 	SetEnableDataDetectors(value bool)
@@ -227,8 +228,8 @@ type IPDFView interface {
 	MinScaleFactor() float64
 	SetMinScaleFactor(value float64)
 	// The spacing between pages as defined by the top, bottom, left, and right margins.
-	PageBreakMargins() objectivec.IObject
-	SetPageBreakMargins(value objectivec.IObject)
+	PageBreakMargins() foundation.NSEdgeInsets
+	SetPageBreakMargins(value foundation.NSEdgeInsets)
 	// The current scale factor for the view.
 	ScaleFactor() float64
 	SetScaleFactor(value float64)
@@ -237,7 +238,7 @@ type IPDFView interface {
 	// Tells the PDF view that an annotation on the specified page has changed.
 	AnnotationsChangedOnPage(page IPDFPage)
 	// Returns the type of area the mouse cursor is over.
-	AreaOfInterestForMouse(event objectivec.IObject) PDFAreaOfInterest
+	AreaOfInterestForMouse(event appkit.NSEvent) PDFAreaOfInterest
 	// Returns the type of area for a specific cursor location point.
 	AreaOfInterestForPoint(cursorLocation corefoundation.CGPoint) PDFAreaOfInterest
 	// Clears the selection.
@@ -348,7 +349,7 @@ func (p PDFView) AnnotationsChangedOnPage(page IPDFPage) {
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/areaOfInterest(forMouse:)
 //
 // [mouseMoved(with:)]: https://developer.apple.com/documentation/AppKit/NSResponder/mouseMoved(with:)
-func (p PDFView) AreaOfInterestForMouse(event objectivec.IObject) PDFAreaOfInterest {
+func (p PDFView) AreaOfInterestForMouse(event appkit.NSEvent) PDFAreaOfInterest {
 	rv := objc.Send[PDFAreaOfInterest](p.ID, objc.Sel("areaOfInterestForMouse:"), event)
 	return PDFAreaOfInterest(rv)
 }
@@ -835,11 +836,11 @@ func (p PDFView) SetAutoScales(value bool) {
 // breaks are enabled. The default color is a 50% gray.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/backgroundColor
-func (p PDFView) BackgroundColor() objc.ID {
+func (p PDFView) BackgroundColor() appkit.NSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("backgroundColor"))
-	return rv
+	return appkit.NSColorFromID(objc.ID(rv))
 }
-func (p PDFView) SetBackgroundColor(value objc.ID) {
+func (p PDFView) SetBackgroundColor(value appkit.NSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBackgroundColor:"), value)
 }
 
@@ -1048,9 +1049,9 @@ func (p PDFView) SetDisplaysRTL(value bool) {
 // method is useful when converting coordinates from one view to another.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/documentView
-func (p PDFView) DocumentView() objc.ID {
+func (p PDFView) DocumentView() appkit.NSView {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("documentView"))
-	return rv
+	return appkit.NSViewFromID(objc.ID(rv))
 }
 
 // A Boolean value indicating whether to turns on or off data detection, which
@@ -1116,11 +1117,11 @@ func (p PDFView) SetMinScaleFactor(value float64) {
 // margins.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/pageBreakMargins
-func (p PDFView) PageBreakMargins() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("pageBreakMargins"))
-	return objectivec.Object{ID: rv}
+func (p PDFView) PageBreakMargins() foundation.NSEdgeInsets {
+	rv := objc.Send[foundation.NSEdgeInsets](p.ID, objc.Sel("pageBreakMargins"))
+	return foundation.NSEdgeInsets(rv)
 }
-func (p PDFView) SetPageBreakMargins(value objectivec.IObject) {
+func (p PDFView) SetPageBreakMargins(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPageBreakMargins:"), value)
 }
 

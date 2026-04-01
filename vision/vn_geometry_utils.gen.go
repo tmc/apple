@@ -134,15 +134,14 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForPointsError(p
 //
 // pointCount: The number of points in the `points` argument.
 //
-// points is a [simd.simd_float2].
+// points is a [*simd.simd_float2].
 //
 // # Return Value
 //
 // The bounding [VNCircle] object.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(forSIMDPoints:pointCount:)
-// points is a [simd.simd_float2].
-func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPointCountError(points objectivec.IObject, pointCount int) (VNCircle, error) {
+func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPointCountError(points unsafe.Pointer, pointCount int) (VNCircle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_VNGeometryUtilsClass.class), objc.Sel("boundingCircleForSIMDPoints:pointCount:error:"), points, pointCount, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

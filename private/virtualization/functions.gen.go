@@ -4,35 +4,76 @@ package virtualization
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/ebitengine/purego"
 )
 
-// registerFunc resolves a framework symbol and registers it as a Go function.
-// If the symbol is not found, a warning is printed and the function pointer is left nil.
-func registerFunc(fptr any, handle uintptr, name string) {
-	sym, err := purego.Dlsym(handle, name)
+type unavailableSymbolError struct {
+	symbol     string
+	introduced string
+	cause      error
+}
+
+func (e *unavailableSymbolError) Error() string {
+	if e == nil {
+		return ""
+	}
+	if e.introduced != "" {
+		return fmt.Sprintf("Virtualization: symbol %s unavailable on this system (introduced in macOS %s)", e.symbol, e.introduced)
+	}
+	return fmt.Sprintf("Virtualization: symbol %s unavailable on this system", e.symbol)
+}
+
+func (e *unavailableSymbolError) Unwrap() error {
+	if e == nil {
+		return nil
+	}
+	return e.cause
+}
+
+func missingSymbolError(name, introduced string, cause error) error {
+	return &unavailableSymbolError{
+		symbol:     name,
+		introduced: introduced,
+		cause:      cause,
+	}
+}
+
+func symbolCallError(name, introduced string, err error) error {
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: Virtualization: symbol %s not found\n", name)
+		return err
+	}
+	if frameworkHandle == 0 {
+		return fmt.Errorf("Virtualization: symbol %s unavailable because the framework could not be loaded", name)
+	}
+	return missingSymbolError(name, introduced, nil)
+}
+
+// registerFunc resolves a framework symbol and registers it as a Go function.
+func registerFunc(fptr any, errDst *error, handle uintptr, name, introduced string) {
+	sym, err := purego.Dlsym(handle, name)
+	if err != nil || sym == 0 {
+		*errDst = missingSymbolError(name, introduced, err)
 		return
 	}
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Fprintf(os.Stderr, "warning: Virtualization: symbol %s registration skipped: %v\n", name, r)
+			*errDst = fmt.Errorf("Virtualization: register symbol %s: %v", name, r)
 		}
 	}()
 	purego.RegisterFunc(fptr, sym)
+	*errDst = nil
 }
 
 // registerSymbol resolves a framework symbol and stores its raw address.
-func registerSymbol(dst *uintptr, handle uintptr, name string) {
+func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduced string) {
 	sym, err := purego.Dlsym(handle, name)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: Virtualization: symbol %s not found\n", name)
+	if err != nil || sym == 0 {
+		*errDst = missingSymbolError(name, introduced, err)
 		return
 	}
 	*dst = sym
+	*errDst = nil
 }
 
 func init() {

@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -187,9 +188,9 @@ type IWKWebExtension interface {
 	// Topic: Instance Methods
 
 	// Returns the default action icon for the specified size.
-	ActionIconForSize(size corefoundation.CGSize) objc.ID
+	ActionIconForSize(size corefoundation.CGSize) appkit.NSImage
 	// Returns the extension’s icon image for the specified size.
-	IconForSize(size corefoundation.CGSize) objc.ID
+	IconForSize(size corefoundation.CGSize) appkit.NSImage
 	// Checks if a manifest version is supported by the extension.
 	SupportsManifestVersion(manifestVersion float64) bool
 }
@@ -233,9 +234,9 @@ func NewWKWebExtension() WKWebExtension {
 // available, the method will fall back to the extension’s icon.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/actionIcon(for:)
-func (w WKWebExtension) ActionIconForSize(size corefoundation.CGSize) objc.ID {
+func (w WKWebExtension) ActionIconForSize(size corefoundation.CGSize) appkit.NSImage {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("actionIconForSize:"), size)
-	return rv
+	return appkit.NSImageFromID(rv)
 }
 
 // Returns the extension’s icon image for the specified size.
@@ -254,9 +255,9 @@ func (w WKWebExtension) ActionIconForSize(size corefoundation.CGSize) objc.ID {
 // matching icon can be found, the method will return `nil`.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/icon(for:)
-func (w WKWebExtension) IconForSize(size corefoundation.CGSize) objc.ID {
+func (w WKWebExtension) IconForSize(size corefoundation.CGSize) appkit.NSImage {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("iconForSize:"), size)
-	return rv
+	return appkit.NSImageFromID(rv)
 }
 
 // Checks if a manifest version is supported by the extension.

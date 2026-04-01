@@ -134,7 +134,7 @@ type IWKWebExtensionAction interface {
 	// The localized display label for the action.
 	Label() string
 	// The menu items provided by the extension for this action.
-	MenuItems() []objectivec.IObject
+	MenuItems() []appkit.NSMenuItem
 	// A popover that presents a web view loaded with the pop-up page for this action, or `nil` if no popup is specified.
 	PopupPopover() appkit.NSPopover
 	// A web view loaded with the pop-up page for this action, or `nil` if no pop-up is specified.
@@ -149,7 +149,7 @@ type IWKWebExtensionAction interface {
 	// Triggers the dismissal process of the pop-up.
 	ClosePopup()
 	// Returns the action icon for the specified size.
-	IconForSize(size corefoundation.CGSize) objc.ID
+	IconForSize(size corefoundation.CGSize) appkit.NSImage
 }
 
 // Init initializes the instance.
@@ -206,9 +206,9 @@ func (w WKWebExtensionAction) ClosePopup() {
 // available, the method will fall back to the extension’s icon.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/Action/icon(for:)
-func (w WKWebExtensionAction) IconForSize(size corefoundation.CGSize) objc.ID {
+func (w WKWebExtensionAction) IconForSize(size corefoundation.CGSize) appkit.NSImage {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("iconForSize:"), size)
-	return rv
+	return appkit.NSImageFromID(rv)
 }
 
 // The tab that this action is associated with, or `nil` if it’s the default
@@ -301,10 +301,10 @@ func (w WKWebExtensionAction) Label() string {
 // toolbars.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/Action/menuItems
-func (w WKWebExtensionAction) MenuItems() []objectivec.IObject {
+func (w WKWebExtensionAction) MenuItems() []appkit.NSMenuItem {
 	rv := objc.Send[[]objc.ID](w.ID, objc.Sel("menuItems"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
+	return objc.ConvertSlice(rv, func(id objc.ID) appkit.NSMenuItem {
+		return appkit.NSMenuItemFromID(id)
 	})
 }
 

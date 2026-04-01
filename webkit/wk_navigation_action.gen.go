@@ -5,6 +5,7 @@ package webkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -136,9 +137,9 @@ type IWKNavigationAction interface {
 	// Topic: Inspecting user actions
 
 	// The number of the mouse button that caused the navigation request.
-	ButtonNumber() objectivec.IObject
+	ButtonNumber() int
 	// The modifier keys that were pressed at the time of the navigation request.
-	ModifierFlags() objectivec.IObject
+	ModifierFlags() appkit.NSEventModifierFlags
 
 	// Topic: Instance Properties
 
@@ -219,17 +220,17 @@ func (n WKNavigationAction) ShouldPerformDownload() bool {
 // The number of the mouse button that caused the navigation request.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationAction/buttonNumber
-func (n WKNavigationAction) ButtonNumber() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("buttonNumber"))
-	return objectivec.Object{ID: rv}
+func (n WKNavigationAction) ButtonNumber() int {
+	rv := objc.Send[int](n.ID, objc.Sel("buttonNumber"))
+	return rv
 }
 
 // The modifier keys that were pressed at the time of the navigation request.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationAction/modifierFlags
-func (n WKNavigationAction) ModifierFlags() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("modifierFlags"))
-	return objectivec.Object{ID: rv}
+func (n WKNavigationAction) ModifierFlags() appkit.NSEventModifierFlags {
+	rv := objc.Send[appkit.NSEventModifierFlags](n.ID, objc.Sel("modifierFlags"))
+	return appkit.NSEventModifierFlags(rv)
 }
 
 // # Discussion

@@ -6,7 +6,6 @@ package avfoundation
 
 import (
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The intended spatial audio experience applied to all
@@ -20,10 +19,10 @@ import (
 // renderers follow a “front” anchoring strategy instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/intendedSpatialAudioExperience-2wthu
-func (s AVSampleBufferRenderSynchronizer) IntendedSpatialAudioExperience() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("intendedSpatialAudioExperience"))
-	return objectivec.Object{ID: rv}
+func (s AVSampleBufferRenderSynchronizer) IntendedSpatialAudioExperience() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("intendedSpatialAudioExperience"))
+	return rv
 }
-func (s AVSampleBufferRenderSynchronizer) SetIntendedSpatialAudioExperience(value objectivec.IObject) {
+func (s AVSampleBufferRenderSynchronizer) SetIntendedSpatialAudioExperience(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIntendedSpatialAudioExperience:"), value)
 }

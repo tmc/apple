@@ -7,7 +7,6 @@ package foundation
 import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // Returns a human-readable string describing the data that SiriKit displays
@@ -50,9 +49,9 @@ func (e NSExtensionContext) InterfaceParametersDescription() string {
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/intent
 //
 // [INSendMessageIntent]: https://developer.apple.com/documentation/Intents/INSendMessageIntent
-func (e NSExtensionContext) Intent() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("intent"))
-	return objectivec.Object{ID: rv}
+func (e NSExtensionContext) Intent() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("intent"))
+	return rv
 }
 
 // The minimum size for a Siri hosted view.
@@ -88,9 +87,9 @@ func (e NSExtensionContext) HostedViewMaximumAllowedSize() corefoundation.CGSize
 // The active display mode of the widget.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/widgetActiveDisplayMode
-func (e NSExtensionContext) WidgetActiveDisplayMode() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("widgetActiveDisplayMode"))
-	return objectivec.Object{ID: rv}
+func (e NSExtensionContext) WidgetActiveDisplayMode() uint {
+	rv := objc.Send[uint](e.ID, objc.Sel("widgetActiveDisplayMode"))
+	return rv
 }
 
 // The largest display mode the widget supports.
@@ -106,10 +105,10 @@ func (e NSExtensionContext) WidgetActiveDisplayMode() objectivec.IObject {
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/widgetLargestAvailableDisplayMode
 //
 // [NCWidgetDisplayMode.compact]: https://developer.apple.com/documentation/NotificationCenter/NCWidgetDisplayMode/compact
-func (e NSExtensionContext) WidgetLargestAvailableDisplayMode() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("widgetLargestAvailableDisplayMode"))
-	return objectivec.Object{ID: rv}
+func (e NSExtensionContext) WidgetLargestAvailableDisplayMode() uint {
+	rv := objc.Send[uint](e.ID, objc.Sel("widgetLargestAvailableDisplayMode"))
+	return rv
 }
-func (e NSExtensionContext) SetWidgetLargestAvailableDisplayMode(value objectivec.IObject) {
+func (e NSExtensionContext) SetWidgetLargestAvailableDisplayMode(value uint) {
 	objc.Send[struct{}](e.ID, objc.Sel("setWidgetLargestAvailableDisplayMode:"), value)
 }

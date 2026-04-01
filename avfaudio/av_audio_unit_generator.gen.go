@@ -4,9 +4,9 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitGenerator] class.
@@ -97,7 +97,7 @@ type IAVAudioUnitGenerator interface {
 	// Topic: Creating an audio unit generator
 
 	// Creates a generator audio unit with the specified description.
-	InitWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitGenerator
+	InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitGenerator
 
 	// Topic: Getting and setting the bypass status
 
@@ -139,11 +139,10 @@ func NewAVAudioUnitGenerator() AVAudioUnitGenerator {
 // `kAudioUnitType_Generator` or [kAudioUnitType_RemoteGenerator].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
 //
 // [AudioComponentDescription]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentDescription
 // [kAudioUnitType_RemoteGenerator]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_RemoteGenerator
-func NewAudioUnitGeneratorWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitGenerator {
+func NewAudioUnitGeneratorWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitGenerator {
 	instance := getAVAudioUnitGeneratorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitGeneratorFromID(rv)
@@ -165,11 +164,10 @@ func NewAudioUnitGeneratorWithAudioComponentDescription(audioComponentDescriptio
 // `kAudioUnitType_Generator` or [kAudioUnitType_RemoteGenerator].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/init(audioComponentDescription:)
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
 //
 // [AudioComponentDescription]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentDescription
 // [kAudioUnitType_RemoteGenerator]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_RemoteGenerator
-func (a AVAudioUnitGenerator) InitWithAudioComponentDescription(audioComponentDescription objectivec.IObject) AVAudioUnitGenerator {
+func (a AVAudioUnitGenerator) InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitGenerator {
 	rv := objc.Send[AVAudioUnitGenerator](a.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return rv
 }

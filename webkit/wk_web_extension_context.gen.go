@@ -356,7 +356,7 @@ type IWKWebExtensionContext interface {
 	// Loads the background content if needed for the extension.
 	LoadBackgroundContentWithCompletionHandler(completionHandler ErrorHandler)
 	// Retrieves the menu items for a given tab.
-	MenuItemsForTab(tab WKWebExtensionTab) []objectivec.IObject
+	MenuItemsForTab(tab WKWebExtensionTab) []appkit.NSMenuItem
 	// Performs the extension action associated with the specified tab or performs the default action if `nil` is passed.
 	PerformActionForTab(tab WKWebExtensionTab)
 	// Performs the specified command, triggering events specific to this extension.
@@ -782,10 +782,10 @@ func (w WKWebExtensionContext) LoadBackgroundContentWithCompletionHandler(comple
 // context menu or a long-press menu on the tab.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/menuItems(for:)
-func (w WKWebExtensionContext) MenuItemsForTab(tab WKWebExtensionTab) []objectivec.IObject {
+func (w WKWebExtensionContext) MenuItemsForTab(tab WKWebExtensionTab) []appkit.NSMenuItem {
 	rv := objc.Send[[]objc.ID](w.ID, objc.Sel("menuItemsForTab:"), tab)
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
+	return objc.ConvertSlice(rv, func(id objc.ID) appkit.NSMenuItem {
+		return appkit.NSMenuItemFromID(id)
 	})
 }
 

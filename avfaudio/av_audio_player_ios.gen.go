@@ -30,10 +30,10 @@ func (a AVAudioPlayer) SetChannelAssignments(value []objc.ID) {
 // The intended spatial experience for this player.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/intendedSpatialExperience-6py9z
-func (a AVAudioPlayer) IntendedSpatialExperience() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("intendedSpatialExperience"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioPlayer) IntendedSpatialExperience() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("intendedSpatialExperience"))
+	return rv
 }
-func (a AVAudioPlayer) SetIntendedSpatialExperience(value objectivec.IObject) {
+func (a AVAudioPlayer) SetIntendedSpatialExperience(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIntendedSpatialExperience:"), value)
 }

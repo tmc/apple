@@ -123,7 +123,7 @@ type IVNContour interface {
 	ContourCount() int
 	SetContourCount(value int)
 	// The contour’s array of points in normalized coordinates.
-	NormalizedPoints() objectivec.IObject
+	NormalizedPoints() unsafe.Pointer
 	// The total number of detected top-level contours.
 	TopLevelContourCount() int
 	SetTopLevelContourCount(value int)
@@ -269,9 +269,9 @@ func (c VNContour) SetContourCount(value int) {
 // See: https://developer.apple.com/documentation/Vision/VNContour/normalizedPoints-2orqj
 //
 // [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
-func (c VNContour) NormalizedPoints() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("normalizedPoints"))
-	return objectivec.Object{ID: rv}
+func (c VNContour) NormalizedPoints() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("normalizedPoints"))
+	return rv
 }
 
 // The revision of the [VNRequest] subclass used to generate the implementing

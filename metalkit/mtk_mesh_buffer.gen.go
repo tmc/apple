@@ -4,6 +4,7 @@ package metalkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
@@ -95,7 +96,7 @@ type IMTKMeshBuffer interface {
 	// The allocator object used to create this mesh buffer.
 	Allocator() IMTKMeshBufferAllocator
 	// The type of data contained in the originating Model I/O buffer.
-	Type() objectivec.IObject
+	Type() unsafe.Pointer
 
 	// Topic: Metal Buffer Properties
 
@@ -149,9 +150,9 @@ func (m MTKMeshBuffer) Allocator() IMTKMeshBufferAllocator {
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer/type
 //
 // [MDLMeshBuffer]: https://developer.apple.com/documentation/ModelIO/MDLMeshBuffer
-func (m MTKMeshBuffer) Type() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("type"))
-	return objectivec.Object{ID: rv}
+func (m MTKMeshBuffer) Type() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("type"))
+	return rv
 }
 
 // The Metal buffer backing all vertex and index data.

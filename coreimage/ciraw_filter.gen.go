@@ -9,7 +9,6 @@ import (
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [CIRAWFilter] class.
@@ -324,8 +323,8 @@ type ICIRAWFilter interface {
 	NeutralTint() float32
 	SetNeutralTint(value float32)
 	// A value that indicates the orientation of the image.
-	Orientation() objectivec.IObject
-	SetOrientation(value objectivec.IObject)
+	Orientation() uint
+	SetOrientation(value uint)
 	// An optional auxiliary image that represents the portrait effects matte of the image.
 	PortraitEffectsMatte() ICIImage
 	// An optional auxiliary image that represents a preview of the original image.
@@ -900,11 +899,11 @@ func (r CIRAWFilter) SetNeutralTint(value float32) {
 // specification.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/orientation
-func (r CIRAWFilter) Orientation() objectivec.IObject {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("orientation"))
-	return objectivec.Object{ID: rv}
+func (r CIRAWFilter) Orientation() uint {
+	rv := objc.Send[uint](r.ID, objc.Sel("orientation"))
+	return rv
 }
-func (r CIRAWFilter) SetOrientation(value objectivec.IObject) {
+func (r CIRAWFilter) SetOrientation(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOrientation:"), value)
 }
 

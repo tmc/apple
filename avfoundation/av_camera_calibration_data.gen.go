@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -107,11 +108,11 @@ type IAVCameraCalibrationData interface {
 	// Topic: Mapping pixels to scene geometry
 
 	// A matrix that relates a camera’s internal properties to an ideal pinhole-camera model.
-	IntrinsicMatrix() objectivec.IObject
+	IntrinsicMatrix() unsafe.Pointer
 	// The image dimensions to which the camera’s intrinsic matrix values are relative.
 	IntrinsicMatrixReferenceDimensions() corefoundation.CGSize
 	// A matrix relating a camera’s position and orientation to a world or scene coordinate system.
-	ExtrinsicMatrix() objectivec.IObject
+	ExtrinsicMatrix() unsafe.Pointer
 	// The size, in millimeters, of one image pixel.
 	PixelSize() float32
 
@@ -163,9 +164,9 @@ func NewAVCameraCalibrationData() AVCameraCalibrationData {
 // from the center of that pixel.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/intrinsicMatrix
-func (c AVCameraCalibrationData) IntrinsicMatrix() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("intrinsicMatrix"))
-	return objectivec.Object{ID: rv}
+func (c AVCameraCalibrationData) IntrinsicMatrix() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("intrinsicMatrix"))
+	return rv
 }
 
 // The image dimensions to which the camera’s intrinsic matrix values are
@@ -199,9 +200,9 @@ func (c AVCameraCalibrationData) IntrinsicMatrixReferenceDimensions() corefounda
 // this camera is the reference camera.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/extrinsicMatrix
-func (c AVCameraCalibrationData) ExtrinsicMatrix() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("extrinsicMatrix"))
-	return objectivec.Object{ID: rv}
+func (c AVCameraCalibrationData) ExtrinsicMatrix() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("extrinsicMatrix"))
+	return rv
 }
 
 // The size, in millimeters, of one image pixel.

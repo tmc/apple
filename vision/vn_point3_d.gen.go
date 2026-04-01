@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -85,12 +86,12 @@ type IVNPoint3D interface {
 	// Topic: Creating a Point
 
 	// Creates a point object with the position you specify.
-	InitWithPosition(position objectivec.IObject) VNPoint3D
+	InitWithPosition(position unsafe.Pointer) VNPoint3D
 
 	// Topic: Getting the Position
 
 	// The three-dimensional position.
-	Position() objectivec.IObject
+	Position() unsafe.Pointer
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -119,8 +120,7 @@ func NewVNPoint3D() VNPoint3D {
 // position: The three-dimensional position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint3D/init(position:)
-// position is a [simd.simd_float4x4].
-func NewPoint3DWithPosition(position objectivec.IObject) VNPoint3D {
+func NewPoint3DWithPosition(position unsafe.Pointer) VNPoint3D {
 	instance := getVNPoint3DClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPosition:"), position)
 	return VNPoint3DFromID(rv)
@@ -133,8 +133,7 @@ func NewPoint3DWithPosition(position objectivec.IObject) VNPoint3D {
 // position is a [simd.simd_float4x4].
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint3D/init(position:)
-// position is a [simd.simd_float4x4].
-func (p VNPoint3D) InitWithPosition(position objectivec.IObject) VNPoint3D {
+func (p VNPoint3D) InitWithPosition(position unsafe.Pointer) VNPoint3D {
 	rv := objc.Send[VNPoint3D](p.ID, objc.Sel("initWithPosition:"), position)
 	return rv
 }
@@ -145,7 +144,7 @@ func (p VNPoint3D) EncodeWithCoder(coder foundation.INSCoder) {
 // The three-dimensional position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint3D/position
-func (p VNPoint3D) Position() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("position"))
-	return objectivec.Object{ID: rv}
+func (p VNPoint3D) Position() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("position"))
+	return rv
 }

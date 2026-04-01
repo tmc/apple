@@ -865,9 +865,9 @@ type INSDocument interface {
 	// Waits for any scheduled file access to complete, then invokes the passed-in block.
 	PerformSynchronousFileAccessUsingBlock(block VoidHandler)
 	// Waits for any scheduled file access to complete but without blocking the main thread, then invokes the passed-in block.
-	PerformAsynchronousFileAccessUsingBlock(block VoidHandler)
+	PerformAsynchronousFileAccessUsingBlock(block ErrorHandler)
 	// Waits for any work scheduled by previous invocations of this method to complete, then invokes the passed-in block.
-	PerformActivityWithSynchronousWaitingUsingBlock(waitSynchronously bool, block VoidHandler)
+	PerformActivityWithSynchronousWaitingUsingBlock(waitSynchronously bool, block ErrorHandler)
 	// Continues to perform the task for a user activity object using a different block.
 	ContinueActivityUsingBlock(block VoidHandler)
 	// Invokes the passed-in block on the main thread.
@@ -1015,8 +1015,8 @@ type INSDocument interface {
 	PresentedItemDidLoseVersion(version foundation.NSFileVersion)
 	PresentedItemDidMoveToURL(newURL foundation.INSURL)
 	PresentedItemDidResolveConflictVersion(version foundation.NSFileVersion)
-	RelinquishPresentedItemToReader(reader VoidHandler)
-	RelinquishPresentedItemToWriter(writer VoidHandler)
+	RelinquishPresentedItemToReader(reader ErrorHandler)
+	RelinquishPresentedItemToWriter(writer ErrorHandler)
 	SavePresentedItemChangesWithCompletionHandler(completionHandler ErrorHandler)
 }
 
@@ -2647,8 +2647,8 @@ func (d NSDocument) PerformSynchronousFileAccessUsingBlock(block VoidHandler) {
 // block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/performAsynchronousFileAccess(_:)
-func (d NSDocument) PerformAsynchronousFileAccessUsingBlock(block VoidHandler) {
-	_block0, _ := NewVoidBlock(block)
+func (d NSDocument) PerformAsynchronousFileAccessUsingBlock(block ErrorHandler) {
+	_block0, _ := NewErrorBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("performAsynchronousFileAccessUsingBlock:"), _block0)
 }
 
@@ -2743,8 +2743,8 @@ func (d NSDocument) PerformAsynchronousFileAccessUsingBlock(block VoidHandler) {
 // interrupt this method’s blocking of the main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/performActivity(withSynchronousWaiting:using:)
-func (d NSDocument) PerformActivityWithSynchronousWaitingUsingBlock(waitSynchronously bool, block VoidHandler) {
-	_block1, _ := NewVoidBlock(block)
+func (d NSDocument) PerformActivityWithSynchronousWaitingUsingBlock(waitSynchronously bool, block ErrorHandler) {
+	_block1, _ := NewErrorBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("performActivityWithSynchronousWaiting:usingBlock:"), waitSynchronously, _block1)
 }
 
@@ -3767,14 +3767,14 @@ func (d NSDocument) PresentedItemDidResolveConflictVersion(version foundation.NS
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/relinquishPresentedItem(toReader:)
-func (d NSDocument) RelinquishPresentedItemToReader(reader VoidHandler) {
-	_block0, _ := NewVoidBlock(reader)
+func (d NSDocument) RelinquishPresentedItemToReader(reader ErrorHandler) {
+	_block0, _ := NewErrorBlock(reader)
 	objc.Send[objc.ID](d.ID, objc.Sel("relinquishPresentedItemToReader:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/relinquishPresentedItem(toWriter:)
-func (d NSDocument) RelinquishPresentedItemToWriter(writer VoidHandler) {
-	_block0, _ := NewVoidBlock(writer)
+func (d NSDocument) RelinquishPresentedItemToWriter(writer ErrorHandler) {
+	_block0, _ := NewErrorBlock(writer)
 	objc.Send[objc.ID](d.ID, objc.Sel("relinquishPresentedItemToWriter:"), _block0)
 }
 
@@ -4872,36 +4872,6 @@ func (d NSDocument) PerformSynchronousFileAccessUsingBlockSync(ctx context.Conte
 	}
 }
 
-// PerformAsynchronousFileAccessUsingBlockSync is a synchronous wrapper around [NSDocument.PerformAsynchronousFileAccessUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (d NSDocument) PerformAsynchronousFileAccessUsingBlockSync(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	d.PerformAsynchronousFileAccessUsingBlock(func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// PerformActivityWithSynchronousWaitingUsingBlockSync is a synchronous wrapper around [NSDocument.PerformActivityWithSynchronousWaitingUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (d NSDocument) PerformActivityWithSynchronousWaitingUsingBlockSync(ctx context.Context, waitSynchronously bool) error {
-	done := make(chan struct{}, 1)
-	d.PerformActivityWithSynchronousWaitingUsingBlock(waitSynchronously, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
 // ContinueActivityUsingBlockSync is a synchronous wrapper around [NSDocument.ContinueActivityUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
 func (d NSDocument) ContinueActivityUsingBlockSync(ctx context.Context) error {
@@ -5047,36 +5017,6 @@ func (d NSDocument) AccommodatePresentedItemDeletion(ctx context.Context) error 
 	select {
 	case err := <-done:
 		return err
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// RelinquishPresentedItemToReaderSync is a synchronous wrapper around [NSDocument.RelinquishPresentedItemToReader].
-// It blocks until the completion handler fires or the context is cancelled.
-func (d NSDocument) RelinquishPresentedItemToReaderSync(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	d.RelinquishPresentedItemToReader(func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// RelinquishPresentedItemToWriterSync is a synchronous wrapper around [NSDocument.RelinquishPresentedItemToWriter].
-// It blocks until the completion handler fires or the context is cancelled.
-func (d NSDocument) RelinquishPresentedItemToWriterSync(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	d.RelinquishPresentedItemToWriter(func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
 	case <-ctx.Done():
 		return ctx.Err()
 	}

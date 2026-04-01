@@ -14,7 +14,7 @@ import (
 //
 // command: The hotspot helper command to bind the request to.
 //
-// command is a [networkextension.NEHotspotHelperCommand].
+// command is a [*networkextension.NEHotspotHelperCommand].
 //
 // # Discussion
 //
@@ -25,7 +25,6 @@ import (
 // communicate with the hotspot.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableURLRequest/bind(to:)
-// command is a [networkextension.NEHotspotHelperCommand].
 //
 // [Network Extension]: https://developer.apple.com/documentation/NetworkExtension
 func (m NSMutableURLRequest) BindToHotspotHelperCommand(command objectivec.IObject) {

@@ -112,10 +112,10 @@ type INSButtonTouchBarItem interface {
 
 	Title() string
 	SetTitle(value string)
-	Image() objectivec.Object
-	SetImage(value objectivec.Object)
-	BezelColor() objectivec.Object
-	SetBezelColor(value objectivec.Object)
+	Image() INSImage
+	SetImage(value INSImage)
+	BezelColor() INSColor
+	SetBezelColor(value INSColor)
 
 	// Topic: Configuring button state
 
@@ -172,21 +172,21 @@ func NewButtonTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NS
 	return NSButtonTouchBarItemFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/init(identifier:title:target:action:)
-func NewButtonTouchBarItemWithIdentifierTitleTargetAction(identifier NSTouchBarItemIdentifier, title string, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
-	rv := objc.Send[objc.ID](objc.ID(getNSButtonTouchBarItemClass().class), objc.Sel("buttonTouchBarItemWithIdentifier:title:target:action:"), objc.String(string(identifier)), objc.String(title), target, action)
-	return NSButtonTouchBarItemFromID(rv)
-}
-
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/init(identifier:image:target:action:)
-func (_NSButtonTouchBarItemClass NSButtonTouchBarItemClass) ButtonTouchBarItemWithIdentifierImageTargetAction(identifier NSTouchBarItemIdentifier, image objectivec.Object, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
-	rv := objc.Send[objc.ID](objc.ID(_NSButtonTouchBarItemClass.class), objc.Sel("buttonTouchBarItemWithIdentifier:image:target:action:"), objc.String(string(identifier)), image, target, action)
+func NewButtonTouchBarItemWithIdentifierImageTargetAction(identifier NSTouchBarItemIdentifier, image INSImage, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
+	rv := objc.Send[objc.ID](objc.ID(getNSButtonTouchBarItemClass().class), objc.Sel("buttonTouchBarItemWithIdentifier:image:target:action:"), objc.String(string(identifier)), image, target, action)
 	return NSButtonTouchBarItemFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/init(identifier:title:image:target:action:)
-func (_NSButtonTouchBarItemClass NSButtonTouchBarItemClass) ButtonTouchBarItemWithIdentifierTitleImageTargetAction(identifier NSTouchBarItemIdentifier, title string, image objectivec.Object, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
-	rv := objc.Send[objc.ID](objc.ID(_NSButtonTouchBarItemClass.class), objc.Sel("buttonTouchBarItemWithIdentifier:title:image:target:action:"), objc.String(string(identifier)), objc.String(title), image, target, action)
+func NewButtonTouchBarItemWithIdentifierTitleImageTargetAction(identifier NSTouchBarItemIdentifier, title string, image INSImage, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
+	rv := objc.Send[objc.ID](objc.ID(getNSButtonTouchBarItemClass().class), objc.Sel("buttonTouchBarItemWithIdentifier:title:image:target:action:"), objc.String(string(identifier)), objc.String(title), image, target, action)
+	return NSButtonTouchBarItemFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/init(identifier:title:target:action:)
+func NewButtonTouchBarItemWithIdentifierTitleTargetAction(identifier NSTouchBarItemIdentifier, title string, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
+	rv := objc.Send[objc.ID](objc.ID(getNSButtonTouchBarItemClass().class), objc.Sel("buttonTouchBarItemWithIdentifier:title:target:action:"), objc.String(string(identifier)), objc.String(title), target, action)
 	return NSButtonTouchBarItemFromID(rv)
 }
 
@@ -200,20 +200,20 @@ func (b NSButtonTouchBarItem) SetTitle(value string) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/image
-func (b NSButtonTouchBarItem) Image() objectivec.Object {
+func (b NSButtonTouchBarItem) Image() INSImage {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("image"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSImageFromID(objc.ID(rv))
 }
-func (b NSButtonTouchBarItem) SetImage(value objectivec.Object) {
+func (b NSButtonTouchBarItem) SetImage(value INSImage) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImage:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/bezelColor
-func (b NSButtonTouchBarItem) BezelColor() objectivec.Object {
+func (b NSButtonTouchBarItem) BezelColor() INSColor {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("bezelColor"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSColorFromID(objc.ID(rv))
 }
-func (b NSButtonTouchBarItem) SetBezelColor(value objectivec.Object) {
+func (b NSButtonTouchBarItem) SetBezelColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBezelColor:"), value)
 }
 

@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -720,7 +721,7 @@ func (o NSApplicationDelegateObject) ApplicationDidReceiveRemoteNotification(app
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 // [containerIdentifier]: https://developer.apple.com/documentation/CloudKit/CKShare/Metadata/containerIdentifier
 // [CloudKit]: https://developer.apple.com/documentation/CloudKit
-func (o NSApplicationDelegateObject) ApplicationUserDidAcceptCloudKitShareWithMetadata(application INSApplication, metadata objectivec.IObject) {
+func (o NSApplicationDelegateObject) ApplicationUserDidAcceptCloudKitShareWithMetadata(application INSApplication, metadata unsafe.Pointer) {
 	objc.Send[struct{}](o.ID, objc.Sel("application:userDidAcceptCloudKitShareWithMetadata:"), application, metadata)
 }
 
@@ -765,7 +766,7 @@ func (o NSApplicationDelegateObject) ApplicationUserDidAcceptCloudKitShareWithMe
 // [INPlayMediaIntentHandling]: https://developer.apple.com/documentation/Intents/INPlayMediaIntentHandling
 // [INPlayMediaIntent]: https://developer.apple.com/documentation/Intents/INPlayMediaIntent
 // [Resolving and Handling Intents]: https://developer.apple.com/documentation/SiriKit/resolving-and-handling-intents
-func (o NSApplicationDelegateObject) ApplicationHandlerForIntent(application INSApplication, intent objectivec.IObject) objectivec.IObject {
+func (o NSApplicationDelegateObject) ApplicationHandlerForIntent(application INSApplication, intent unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("application:handlerForIntent:"), application, intent)
 	return objectivec.Object{ID: rv}
 }

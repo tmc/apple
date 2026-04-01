@@ -4,10 +4,10 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioEnvironmentNode] class.
@@ -213,23 +213,23 @@ type IAVAudioEnvironmentNode interface {
 	NextAvailableInputBus() AVAudioNodeBus
 
 	// A quadraphonic symmetrical layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_4() objectivec.IObject
-	SetKAudioChannelLayoutTag_AudioUnit_4(value objectivec.IObject)
+	KAudioChannelLayoutTag_AudioUnit_4() unsafe.Pointer
+	SetKAudioChannelLayoutTag_AudioUnit_4(value unsafe.Pointer)
 	// A 5-channel surround-based layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_5_0() objectivec.IObject
-	SetKAudioChannelLayoutTag_AudioUnit_5_0(value objectivec.IObject)
+	KAudioChannelLayoutTag_AudioUnit_5_0() unsafe.Pointer
+	SetKAudioChannelLayoutTag_AudioUnit_5_0(value unsafe.Pointer)
 	// A 6-channel surround-based layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_6_0() objectivec.IObject
-	SetKAudioChannelLayoutTag_AudioUnit_6_0(value objectivec.IObject)
+	KAudioChannelLayoutTag_AudioUnit_6_0() unsafe.Pointer
+	SetKAudioChannelLayoutTag_AudioUnit_6_0(value unsafe.Pointer)
 	// A 7-channel surround-based layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_7_0() objectivec.IObject
-	SetKAudioChannelLayoutTag_AudioUnit_7_0(value objectivec.IObject)
+	KAudioChannelLayoutTag_AudioUnit_7_0() unsafe.Pointer
+	SetKAudioChannelLayoutTag_AudioUnit_7_0(value unsafe.Pointer)
 	// An alternate 7-channel surround-based layout, for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_7_0_Front() objectivec.IObject
-	SetKAudioChannelLayoutTag_AudioUnit_7_0_Front(value objectivec.IObject)
+	KAudioChannelLayoutTag_AudioUnit_7_0_Front() unsafe.Pointer
+	SetKAudioChannelLayoutTag_AudioUnit_7_0_Front(value unsafe.Pointer)
 	// An octagonal symmetrical layout, recommended for use by audio units.
-	KAudioChannelLayoutTag_AudioUnit_8() objectivec.IObject
-	SetKAudioChannelLayoutTag_AudioUnit_8(value objectivec.IObject)
+	KAudioChannelLayoutTag_AudioUnit_8() unsafe.Pointer
+	SetKAudioChannelLayoutTag_AudioUnit_8(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -443,66 +443,66 @@ func (a AVAudioEnvironmentNode) NextAvailableInputBus() AVAudioNodeBus {
 // A quadraphonic symmetrical layout, recommended for use by audio units.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_4
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_4() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_4"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_4() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_4"))
+	return rv
 }
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_4(value objectivec.IObject) {
+func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_4(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_4:"), value)
 }
 
 // A 5-channel surround-based layout, recommended for use by audio units.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_5_0
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_5_0() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_5_0"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_5_0() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_5_0"))
+	return rv
 }
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_5_0(value objectivec.IObject) {
+func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_5_0(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_5_0:"), value)
 }
 
 // A 6-channel surround-based layout, recommended for use by audio units.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_6_0
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_6_0() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_6_0"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_6_0() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_6_0"))
+	return rv
 }
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_6_0(value objectivec.IObject) {
+func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_6_0(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_6_0:"), value)
 }
 
 // A 7-channel surround-based layout, recommended for use by audio units.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_7_0
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_7_0() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_7_0"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_7_0() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_7_0"))
+	return rv
 }
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_7_0(value objectivec.IObject) {
+func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_7_0(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_7_0:"), value)
 }
 
 // An alternate 7-channel surround-based layout, for use by audio units.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_7_0_Front
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_7_0_Front() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_7_0_Front"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_7_0_Front() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_7_0_Front"))
+	return rv
 }
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_7_0_Front(value objectivec.IObject) {
+func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_7_0_Front(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_7_0_Front:"), value)
 }
 
 // An octagonal symmetrical layout, recommended for use by audio units.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_AudioUnit_8
-func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_8() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_8"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioEnvironmentNode) KAudioChannelLayoutTag_AudioUnit_8() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioChannelLayoutTag_AudioUnit_8"))
+	return rv
 }
-func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_8(value objectivec.IObject) {
+func (a AVAudioEnvironmentNode) SetKAudioChannelLayoutTag_AudioUnit_8(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKAudioChannelLayoutTag_AudioUnit_8:"), value)
 }
 

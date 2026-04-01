@@ -256,32 +256,32 @@ type INSValue interface {
 	// Topic: Working with CoreAnimation Transform Values
 
 	// The CoreAnimation transform structure representation of the value.
-	CATransform3DValue() objectivec.IObject
+	CATransform3DValue() unsafe.Pointer
 
 	// Topic: Working with Media Time Values
 
 	// The CoreMedia time structure representation of the value.
-	CMTimeValue() objectivec.IObject
+	CMTimeValue() unsafe.Pointer
 	// The CoreMedia time range structure representation of the value.
-	CMTimeRangeValue() objectivec.IObject
+	CMTimeRangeValue() unsafe.Pointer
 	// The CoreMedia time mapping structure representation of the value.
-	CMTimeMappingValue() objectivec.IObject
+	CMTimeMappingValue() unsafe.Pointer
 
 	// Topic: Working with Geographic Coordinate Values
 
 	// The CoreLocation geographic coordinate structure representation of the value.
-	MKCoordinateValue() objectivec.IObject
+	MKCoordinateValue() unsafe.Pointer
 	// The MapKit coordinate span structure representation of the value.
-	MKCoordinateSpanValue() objectivec.IObject
+	MKCoordinateSpanValue() unsafe.Pointer
 
 	// Topic: Working with SceneKit Vector and Matrix Values
 
 	// The three-element Scene Kit vector representation of the value.
-	SCNVector3Value() objectivec.IObject
+	SCNVector3Value() unsafe.Pointer
 	// The four-element Scene Kit vector representation of the value.
-	SCNVector4Value() objectivec.IObject
+	SCNVector4Value() unsafe.Pointer
 	// The Scene Kit 4 x 4 matrix representation of the value.
-	SCNMatrix4Value() objectivec.IObject
+	SCNMatrix4Value() unsafe.Pointer
 
 	// Topic: Comparing Value Objects
 
@@ -291,8 +291,8 @@ type INSValue interface {
 	// Topic: Instance Properties
 
 	EdgeInsetsValue() NSEdgeInsets
-	GCPoint2Value() objectivec.IObject
-	CMVideoDimensionsValue() objectivec.IObject
+	GCPoint2Value() unsafe.Pointer
+	CMVideoDimensionsValue() unsafe.Pointer
 
 	// Topic: Instance Methods
 
@@ -362,8 +362,7 @@ func NewValueWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
 // A new value object that contains the transform information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CATransform3D:)
-// t is a [quartzcore.CATransform3D].
-func NewValueWithCATransform3D(t objectivec.IObject) NSValue {
+func NewValueWithCATransform3D(t unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCATransform3D:"), t)
 	return NSValueFromID(rv)
 }
@@ -453,8 +452,7 @@ func NewValueWithCGVector(vector corefoundation.CGVector) NSValue {
 // A new value object that contains the media time information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTime:)
-// time is a [coremedia.CMTime].
-func NewValueWithCMTime(time objectivec.IObject) NSValue {
+func NewValueWithCMTime(time unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMTime:"), time)
 	return NSValueFromID(rv)
 }
@@ -469,8 +467,7 @@ func NewValueWithCMTime(time objectivec.IObject) NSValue {
 // A new value object that contains the time mapping information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTimeMapping:)
-// timeMapping is a [coremedia.CMTimeMapping].
-func NewValueWithCMTimeMapping(timeMapping objectivec.IObject) NSValue {
+func NewValueWithCMTimeMapping(timeMapping unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMTimeMapping:"), timeMapping)
 	return NSValueFromID(rv)
 }
@@ -485,15 +482,13 @@ func NewValueWithCMTimeMapping(timeMapping objectivec.IObject) NSValue {
 // A new value object that contains the time range information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTimeRange:)
-// timeRange is a [coremedia.CMTimeRange].
-func NewValueWithCMTimeRange(timeRange objectivec.IObject) NSValue {
+func NewValueWithCMTimeRange(timeRange unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMTimeRange:"), timeRange)
 	return NSValueFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMVideoDimensions:)
-// dimensions is a [coremedia.CMVideoDimensions].
-func NewValueWithCMVideoDimensions(dimensions objectivec.IObject) NSValue {
+func NewValueWithCMVideoDimensions(dimensions unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMVideoDimensions:"), dimensions)
 	return NSValueFromID(rv)
 }
@@ -506,8 +501,7 @@ func NewValueWithCoder(coder INSCoder) NSValue {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(directionalEdgeInsets:)
-// insets is a [appkit.NSDirectionalEdgeInsets].
-func NewValueWithDirectionalEdgeInsets(insets objectivec.IObject) NSValue {
+func NewValueWithDirectionalEdgeInsets(insets unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithDirectionalEdgeInsets:"), insets)
 	return NSValueFromID(rv)
 }
@@ -519,8 +513,7 @@ func NewValueWithEdgeInsets(insets NSEdgeInsets) NSValue {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(GCPoint2:)
-// point is a [gamecontroller.GCPoint2].
-func NewValueWithGCPoint2(point objectivec.IObject) NSValue {
+func NewValueWithGCPoint2(point unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithGCPoint2:"), point)
 	return NSValueFromID(rv)
 }
@@ -535,8 +528,7 @@ func NewValueWithGCPoint2(point objectivec.IObject) NSValue {
 // A new value object that contains the geographic coordinate information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(MKCoordinate:)
-// coordinate is a [corelocation.CLLocationCoordinate2D].
-func NewValueWithMKCoordinate(coordinate objectivec.IObject) NSValue {
+func NewValueWithMKCoordinate(coordinate unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithMKCoordinate:"), coordinate)
 	return NSValueFromID(rv)
 }
@@ -551,8 +543,7 @@ func NewValueWithMKCoordinate(coordinate objectivec.IObject) NSValue {
 // A new value object that contains the coordinate span information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(MKCoordinateSpan:)
-// span is a [mapkit.MKCoordinateSpan].
-func NewValueWithMKCoordinateSpan(span objectivec.IObject) NSValue {
+func NewValueWithMKCoordinateSpan(span unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithMKCoordinateSpan:"), span)
 	return NSValueFromID(rv)
 }
@@ -682,8 +673,7 @@ func NewValueWithRect(rect corefoundation.CGRect) NSValue {
 // A new value object that contains the matrix information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(SCNMatrix4:)
-// v is a [scenekit.SCNMatrix4].
-func NewValueWithSCNMatrix4(v objectivec.IObject) NSValue {
+func NewValueWithSCNMatrix4(v unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithSCNMatrix4:"), v)
 	return NSValueFromID(rv)
 }
@@ -698,8 +688,7 @@ func NewValueWithSCNMatrix4(v objectivec.IObject) NSValue {
 // A new value object that contains the vector information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(SCNVector3:)
-// v is a [scenekit.SCNVector3].
-func NewValueWithSCNVector3(v objectivec.IObject) NSValue {
+func NewValueWithSCNVector3(v unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithSCNVector3:"), v)
 	return NSValueFromID(rv)
 }
@@ -714,8 +703,7 @@ func NewValueWithSCNVector3(v objectivec.IObject) NSValue {
 // A new value object that contains the vector information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(SCNVector4:)
-// v is a [scenekit.SCNVector4].
-func NewValueWithSCNVector4(v objectivec.IObject) NSValue {
+func NewValueWithSCNVector4(v unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithSCNVector4:"), v)
 	return NSValueFromID(rv)
 }
@@ -745,8 +733,7 @@ func NewValueWithSize(size corefoundation.CGSize) NSValue {
 // A new value object that contains the edge inset information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(UIEdgeInsets:)
-// insets is a [uikit.UIEdgeInsets].
-func NewValueWithUIEdgeInsets(insets objectivec.IObject) NSValue {
+func NewValueWithUIEdgeInsets(insets unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithUIEdgeInsets:"), insets)
 	return NSValueFromID(rv)
 }
@@ -760,8 +747,7 @@ func NewValueWithUIEdgeInsets(insets objectivec.IObject) NSValue {
 // A new value object that contains the offset information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(UIOffset:)
-// insets is a [uikit.UIOffset].
-func NewValueWithUIOffset(insets objectivec.IObject) NSValue {
+func NewValueWithUIOffset(insets unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithUIOffset:"), insets)
 	return NSValueFromID(rv)
 }
@@ -936,74 +922,74 @@ func (v NSValue) RectValue() NSRect {
 // The CoreAnimation transform structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/caTransform3DValue
-func (v NSValue) CATransform3DValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CATransform3DValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) CATransform3DValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("CATransform3DValue"))
+	return rv
 }
 
 // The CoreMedia time structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeValue
-func (v NSValue) CMTimeValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) CMTimeValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("CMTimeValue"))
+	return rv
 }
 
 // The CoreMedia time range structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeRangeValue
-func (v NSValue) CMTimeRangeValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeRangeValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) CMTimeRangeValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("CMTimeRangeValue"))
+	return rv
 }
 
 // The CoreMedia time mapping structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeMappingValue
-func (v NSValue) CMTimeMappingValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeMappingValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) CMTimeMappingValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("CMTimeMappingValue"))
+	return rv
 }
 
 // The CoreLocation geographic coordinate structure representation of the
 // value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/mkCoordinateValue
-func (v NSValue) MKCoordinateValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("MKCoordinateValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) MKCoordinateValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("MKCoordinateValue"))
+	return rv
 }
 
 // The MapKit coordinate span structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/mkCoordinateSpanValue
-func (v NSValue) MKCoordinateSpanValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("MKCoordinateSpanValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) MKCoordinateSpanValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("MKCoordinateSpanValue"))
+	return rv
 }
 
 // The three-element Scene Kit vector representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnVector3Value
-func (v NSValue) SCNVector3Value() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNVector3Value"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) SCNVector3Value() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("SCNVector3Value"))
+	return rv
 }
 
 // The four-element Scene Kit vector representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnVector4Value
-func (v NSValue) SCNVector4Value() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNVector4Value"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) SCNVector4Value() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("SCNVector4Value"))
+	return rv
 }
 
 // The Scene Kit 4 x 4 matrix representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnMatrix4Value
-func (v NSValue) SCNMatrix4Value() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNMatrix4Value"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) SCNMatrix4Value() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("SCNMatrix4Value"))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/edgeInsetsValue
@@ -1013,15 +999,15 @@ func (v NSValue) EdgeInsetsValue() NSEdgeInsets {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/gcPoint2Value
-func (v NSValue) GCPoint2Value() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("GCPoint2Value"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) GCPoint2Value() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("GCPoint2Value"))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/videoDimensionsValue
-func (v NSValue) CMVideoDimensionsValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMVideoDimensionsValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) CMVideoDimensionsValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("CMVideoDimensionsValue"))
+	return rv
 }
 
 // Returns an integer that can be used as a table address in a hash table

@@ -258,6 +258,8 @@ func (x NSXPCInterface) SetInterfaceForSelectorArgumentIndexOfReply(ifc INSXPCIn
 	objc.Send[objc.ID](x.ID, objc.Sel("setInterface:forSelector:argumentIndex:ofReply:"), ifc, sel, arg, ofReply)
 }
 
+// type is a [xpc.xpc_type_t].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSXPCInterface/setXPCType(_:for:argumentIndex:ofReply:)
 func (x NSXPCInterface) SetXPCTypeForSelectorArgumentIndexOfReply(type_ unsafe.Pointer, sel objc.SEL, arg uint, ofReply bool) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setXPCType:forSelector:argumentIndex:ofReply:"), type_, sel, arg, ofReply)

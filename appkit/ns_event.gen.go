@@ -742,14 +742,13 @@ func (e NSEvent) CoalescedTouchesForTouch(touch INSTouch) []NSTouch {
 // node: A node that is a descendant of a scene presented in the window that
 // received the mouse event.
 //
-// node is a [spritekit.SKNode].
+// node is a [*spritekit.SKNode].
 //
 // # Return Value
 //
 // The location of the event in the node’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/location(in:)
-// node is a [spritekit.SKNode].
 func (e NSEvent) LocationInNode(node objectivec.IObject) corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](e.ID, objc.Sel("locationInNode:"), node)
 	return corefoundation.CGPoint(rv)

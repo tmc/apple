@@ -107,14 +107,14 @@ func NewNSSliderAccessory() NSSliderAccessory {
 	return rv
 }
 
-func (s NSSliderAccessory) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+// See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory/init(image:)
+func NewSliderAccessoryWithImage(image INSImage) NSSliderAccessory {
+	rv := objc.Send[objc.ID](objc.ID(getNSSliderAccessoryClass().class), objc.Sel("accessoryWithImage:"), image)
+	return NSSliderAccessoryFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory/init(image:)
-func (_NSSliderAccessoryClass NSSliderAccessoryClass) AccessoryWithImage(image objectivec.Object) NSSliderAccessory {
-	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryClass.class), objc.Sel("accessoryWithImage:"), image)
-	return NSSliderAccessoryFromID(rv)
+func (s NSSliderAccessory) EncodeWithCoder(coder foundation.INSCoder) {
+	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 // The effect on interaction with the accessory.

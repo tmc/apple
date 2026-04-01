@@ -5,6 +5,7 @@ package webkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -107,10 +108,10 @@ type IWKWebExtensionCommand interface {
 	// A unique identifier for the command.
 	Identifier() string
 	// A menu item representation of the web extension command for use in menus.
-	MenuItem() objectivec.IObject
+	MenuItem() appkit.NSMenuItem
 	// The modifier flags used with the activation key to trigger the command.
-	ModifierFlags() objectivec.IObject
-	SetModifierFlags(value objectivec.IObject)
+	ModifierFlags() appkit.NSEventModifierFlags
+	SetModifierFlags(value appkit.NSEventModifierFlags)
 	// A descriptive title for the command to help discoverability.
 	Title() string
 	// The web extension context associated with the command.
@@ -178,9 +179,9 @@ func (w WKWebExtensionCommand) Identifier() string {
 // visual way for users to execute this web extension command.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/Command/menuItem
-func (w WKWebExtensionCommand) MenuItem() objectivec.IObject {
+func (w WKWebExtensionCommand) MenuItem() appkit.NSMenuItem {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("menuItem"))
-	return objectivec.Object{ID: rv}
+	return appkit.NSMenuItemFromID(objc.ID(rv))
 }
 
 // The modifier flags used with the activation key to trigger the command.
@@ -196,11 +197,11 @@ func (w WKWebExtensionCommand) MenuItem() objectivec.IObject {
 // `0`. This value should be saved and restored as needed by the app.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/Command/modifierFlags
-func (w WKWebExtensionCommand) ModifierFlags() objectivec.IObject {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("modifierFlags"))
-	return objectivec.Object{ID: rv}
+func (w WKWebExtensionCommand) ModifierFlags() appkit.NSEventModifierFlags {
+	rv := objc.Send[appkit.NSEventModifierFlags](w.ID, objc.Sel("modifierFlags"))
+	return appkit.NSEventModifierFlags(rv)
 }
-func (w WKWebExtensionCommand) SetModifierFlags(value objectivec.IObject) {
+func (w WKWebExtensionCommand) SetModifierFlags(value appkit.NSEventModifierFlags) {
 	objc.Send[struct{}](w.ID, objc.Sel("setModifierFlags:"), value)
 }
 

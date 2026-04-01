@@ -7,7 +7,6 @@ package foundation
 import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // Encodes an affine transform and associates it with the specified key in the
@@ -116,8 +115,7 @@ func (c NSCoder) EncodeCGVectorForKey(vector corefoundation.CGVector, key string
 // to retrieve the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-7oo2n
-// insets is a [appkit.NSDirectionalEdgeInsets].
-func (c NSCoder) EncodeDirectionalEdgeInsetsForKey(insets objectivec.IObject, key string) {
+func (c NSCoder) EncodeDirectionalEdgeInsetsForKey(insets unsafe.Pointer, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeDirectionalEdgeInsets:forKey:"), insets, objc.String(key))
 }
 
@@ -137,8 +135,7 @@ func (c NSCoder) EncodeDirectionalEdgeInsetsForKey(insets objectivec.IObject, ke
 // retrieve the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-44zsc
-// insets is a [uikit.UIEdgeInsets].
-func (c NSCoder) EncodeUIEdgeInsetsForKey(insets objectivec.IObject, key string) {
+func (c NSCoder) EncodeUIEdgeInsetsForKey(insets unsafe.Pointer, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeUIEdgeInsets:forKey:"), insets, objc.String(key))
 }
 
@@ -158,8 +155,7 @@ func (c NSCoder) EncodeUIEdgeInsetsForKey(insets objectivec.IObject, key string)
 // the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9d1qy
-// offset is a [uikit.UIOffset].
-func (c NSCoder) EncodeUIOffsetForKey(offset objectivec.IObject, key string) {
+func (c NSCoder) EncodeUIOffsetForKey(offset unsafe.Pointer, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeUIOffset:forKey:"), offset, objc.String(key))
 }
 
@@ -274,9 +270,9 @@ func (c NSCoder) DecodeCGVectorForKey(key string) corefoundation.CGVector {
 // encoded using the [EncodeDirectionalEdgeInsetsForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeDirectionalEdgeInsets(forKey:)
-func (c NSCoder) DecodeDirectionalEdgeInsetsForKey(key string) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeDirectionalEdgeInsetsForKey:"), objc.String(key))
-	return objectivec.Object{ID: rv}
+func (c NSCoder) DecodeDirectionalEdgeInsetsForKey(key string) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeDirectionalEdgeInsetsForKey:"), objc.String(key))
+	return unsafe.Pointer(rv)
 }
 
 // Decodes and returns the UIKit edge insets structure associated with the
@@ -294,9 +290,9 @@ func (c NSCoder) DecodeDirectionalEdgeInsetsForKey(key string) objectivec.IObjec
 // encoded using the [EncodeUIEdgeInsetsForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeUIEdgeInsets(forKey:)
-func (c NSCoder) DecodeUIEdgeInsetsForKey(key string) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeUIEdgeInsetsForKey:"), objc.String(key))
-	return objectivec.Object{ID: rv}
+func (c NSCoder) DecodeUIEdgeInsetsForKey(key string) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeUIEdgeInsetsForKey:"), objc.String(key))
+	return unsafe.Pointer(rv)
 }
 
 // Decodes and returns the UIKit offset structure associated with the
@@ -314,7 +310,7 @@ func (c NSCoder) DecodeUIEdgeInsetsForKey(key string) objectivec.IObject {
 // using the [EncodeUIOffsetForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeUIOffset(forKey:)
-func (c NSCoder) DecodeUIOffsetForKey(key string) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeUIOffsetForKey:"), objc.String(key))
-	return objectivec.Object{ID: rv}
+func (c NSCoder) DecodeUIOffsetForKey(key string) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeUIOffsetForKey:"), objc.String(key))
+	return unsafe.Pointer(rv)
 }

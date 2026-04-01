@@ -4,11 +4,11 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVCaptureAudioDataOutput] class.
@@ -105,8 +105,8 @@ type IAVCaptureAudioDataOutput interface {
 	// Specifies the recommended settings for use with an [AVAssetWriterInput].
 	RecommendedAudioSettingsForAssetWriterWithOutputFileType(outputFileType AVFileType) foundation.INSDictionary
 	// The audio channel layout tag of the audio sample buffers produced by the audio data output.
-	SpatialAudioChannelLayoutTag() objectivec.IObject
-	SetSpatialAudioChannelLayoutTag(value objectivec.IObject)
+	SpatialAudioChannelLayoutTag() unsafe.Pointer
+	SetSpatialAudioChannelLayoutTag(value unsafe.Pointer)
 
 	// Topic: Receiving captured audio data
 
@@ -274,11 +274,11 @@ func (c AVCaptureAudioDataOutput) SetAudioSettings(value foundation.INSDictionar
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/spatialAudioChannelLayoutTag
 //
 // [AudioChannelLayoutTag]: https://developer.apple.com/documentation/CoreAudioTypes/AudioChannelLayoutTag
-func (c AVCaptureAudioDataOutput) SpatialAudioChannelLayoutTag() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("spatialAudioChannelLayoutTag"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureAudioDataOutput) SpatialAudioChannelLayoutTag() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("spatialAudioChannelLayoutTag"))
+	return rv
 }
-func (c AVCaptureAudioDataOutput) SetSpatialAudioChannelLayoutTag(value objectivec.IObject) {
+func (c AVCaptureAudioDataOutput) SetSpatialAudioChannelLayoutTag(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSpatialAudioChannelLayoutTag:"), value)
 }
 

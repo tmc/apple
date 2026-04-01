@@ -9066,7 +9066,7 @@ func (w NSWindow) BeginSheet(ctx context.Context, sheetWindow INSWindow) (NSModa
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NSModalResponse), ctx.Err()
 	}
 }
 
@@ -9081,7 +9081,7 @@ func (w NSWindow) BeginCriticalSheet(ctx context.Context, sheetWindow INSWindow)
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NSModalResponse), ctx.Err()
 	}
 }
 

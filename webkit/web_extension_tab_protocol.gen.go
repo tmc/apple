@@ -490,6 +490,26 @@ func (o WKWebExtensionTabObject) SizeForWebExtensionContext(context IWKWebExtens
 	return rv
 }
 
+// Called to capture a snapshot of the current webpage as an image.
+//
+// configuration: An object that specifies how the snapshot is configured.
+//
+// context: The context in which the web extension is running.
+//
+// completionHandler: A block that must be called upon completion. The block takes two arguments:
+// the captured image of the webpage (or `nil` if capturing failed) and an
+// error, which should be provided if any errors occurred.
+//
+// # Discussion
+//
+// Defaults to capturing the visible area of the tab’s web view if not
+// implemented.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/takeSnapshot(using:for:completionHandler:)
+func (o WKWebExtensionTabObject) TakeSnapshotUsingConfigurationForWebExtensionContextCompletionHandler(configuration IWKSnapshotConfiguration, context IWKWebExtensionContext, completionHandler ImageErrorHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("takeSnapshotUsingConfiguration:forWebExtensionContext:completionHandler:"), configuration, context, completionHandler)
+}
+
 // Called when the title of the tab is needed.
 //
 // context: The context in which the web extension is running.

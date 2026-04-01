@@ -148,10 +148,10 @@ type INSPickerTouchBarItem interface {
 	SetNumberOfOptions(value int)
 	SetLabelAtIndex(label string, index int)
 	LabelAtIndex(index int) string
-	SetImageAtIndex(image objectivec.Object, index int)
-	ImageAtIndex(index int) objectivec.Object
-	CollapsedRepresentationImage() objectivec.Object
-	SetCollapsedRepresentationImage(value objectivec.Object)
+	SetImageAtIndex(image INSImage, index int)
+	ImageAtIndex(index int) INSImage
+	CollapsedRepresentationImage() INSImage
+	SetCollapsedRepresentationImage(value INSImage)
 	CollapsedRepresentationLabel() string
 	SetCollapsedRepresentationLabel(value string)
 	ControlRepresentation() NSPickerTouchBarItemControlRepresentation
@@ -168,8 +168,8 @@ type INSPickerTouchBarItem interface {
 
 	SelectedIndex() int
 	SetSelectedIndex(value int)
-	SelectionColor() objectivec.Object
-	SetSelectionColor(value objectivec.Object)
+	SelectionColor() INSColor
+	SetSelectionColor(value INSColor)
 	SelectionMode() NSPickerTouchBarItemSelectionMode
 	SetSelectionMode(value NSPickerTouchBarItemSelectionMode)
 
@@ -224,7 +224,7 @@ func NewPickerTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NS
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/init(identifier:images:selectionMode:target:action:)
-func NewPickerTouchBarItemWithIdentifierImagesSelectionModeTargetAction(identifier NSTouchBarItemIdentifier, images []objectivec.Object, selectionMode NSPickerTouchBarItemSelectionMode, target objectivec.IObject, action objc.SEL) NSPickerTouchBarItem {
+func NewPickerTouchBarItemWithIdentifierImagesSelectionModeTargetAction(identifier NSTouchBarItemIdentifier, images []NSImage, selectionMode NSPickerTouchBarItemSelectionMode, target objectivec.IObject, action objc.SEL) NSPickerTouchBarItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSPickerTouchBarItemClass().class), objc.Sel("pickerTouchBarItemWithIdentifier:images:selectionMode:target:action:"), objc.String(string(identifier)), objectivec.IObjectSliceToNSArray(images), selectionMode, target, action)
 	return NSPickerTouchBarItemFromID(rv)
 }
@@ -247,14 +247,14 @@ func (p NSPickerTouchBarItem) LabelAtIndex(index int) string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/setImage(_:at:)
-func (p NSPickerTouchBarItem) SetImageAtIndex(image objectivec.Object, index int) {
+func (p NSPickerTouchBarItem) SetImageAtIndex(image INSImage, index int) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setImage:atIndex:"), image, index)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/image(at:)
-func (p NSPickerTouchBarItem) ImageAtIndex(index int) objectivec.Object {
+func (p NSPickerTouchBarItem) ImageAtIndex(index int) INSImage {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("imageAtIndex:"), index)
-	return objectivec.ObjectFromID(rv)
+	return NSImageFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/isEnabled(at:)
@@ -278,11 +278,11 @@ func (p NSPickerTouchBarItem) SetNumberOfOptions(value int) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/collapsedRepresentationImage
-func (p NSPickerTouchBarItem) CollapsedRepresentationImage() objectivec.Object {
+func (p NSPickerTouchBarItem) CollapsedRepresentationImage() INSImage {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("collapsedRepresentationImage"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSImageFromID(objc.ID(rv))
 }
-func (p NSPickerTouchBarItem) SetCollapsedRepresentationImage(value objectivec.Object) {
+func (p NSPickerTouchBarItem) SetCollapsedRepresentationImage(value INSImage) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationImage:"), value)
 }
 
@@ -323,11 +323,11 @@ func (p NSPickerTouchBarItem) SetSelectedIndex(value int) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/selectionColor
-func (p NSPickerTouchBarItem) SelectionColor() objectivec.Object {
+func (p NSPickerTouchBarItem) SelectionColor() INSColor {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("selectionColor"))
-	return objectivec.ObjectFromID(objc.ID(rv))
+	return NSColorFromID(objc.ID(rv))
 }
-func (p NSPickerTouchBarItem) SetSelectionColor(value objectivec.Object) {
+func (p NSPickerTouchBarItem) SetSelectionColor(value INSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectionColor:"), value)
 }
 

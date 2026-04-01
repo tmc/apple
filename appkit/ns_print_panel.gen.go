@@ -401,6 +401,6 @@ func (p NSPrintPanel) BeginSheetUsingPrintInfoOnWindow(ctx context.Context, prin
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(NSPrintPanelResult), ctx.Err()
 	}
 }

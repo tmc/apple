@@ -198,7 +198,6 @@ func NewURLCredentialWithCoder(coder INSCoder) URLCredential {
 // intermediate certificates.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/init(identity:certificates:persistence:)
-// identity is a [security.SecIdentityRef].
 //
 // [NSURLAuthenticationMethodClientCertificate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodClientCertificate
 func NewURLCredentialWithIdentityCertificatesPersistence(identity objectivec.IObject, certArray INSArray, persistence NSURLCredentialPersistence) URLCredential {
@@ -230,7 +229,6 @@ func NewURLCredentialWithIdentityCertificatesPersistence(identity objectivec.IOb
 // completion handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/init(trust:)
-// trust is a [security.SecTrustRef].
 //
 // [SecTrustEvaluate(_:_:)]: https://developer.apple.com/documentation/Security/SecTrustEvaluate(_:_:)
 // [SecTrust]: https://developer.apple.com/documentation/Security/SecTrust
@@ -286,8 +284,6 @@ func NewURLCredentialWithUserPasswordPersistence(user string, password string, p
 // [NSURLCredentialPersistenceForSession] because that most accurately
 // reflects the actual behaviour.
 //
-// identity is a [security.SecIdentityRef].
-//
 // # Return Value
 //
 // A new URL credential object, using the provided identity and, optionally,
@@ -306,7 +302,6 @@ func NewURLCredentialWithUserPasswordPersistence(user string, password string, p
 // intermediate certificates.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/init(identity:certificates:persistence:)
-// identity is a [security.SecIdentityRef].
 //
 // [NSURLAuthenticationMethodClientCertificate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodClientCertificate
 func (u URLCredential) InitWithIdentityCertificatesPersistence(identity objectivec.IObject, certArray INSArray, persistence NSURLCredentialPersistence) URLCredential {
@@ -318,8 +313,6 @@ func (u URLCredential) InitWithIdentityCertificatesPersistence(identity objectiv
 // initialized with a accepted trust.
 //
 // trust: The accepted trust.
-//
-// trust is a [security.SecTrustRef].
 //
 // # Return Value
 //
@@ -339,7 +332,6 @@ func (u URLCredential) InitWithIdentityCertificatesPersistence(identity objectiv
 // completion handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/init(trust:)
-// trust is a [security.SecTrustRef].
 //
 // [SecTrustEvaluate(_:_:)]: https://developer.apple.com/documentation/Security/SecTrustEvaluate(_:_:)
 // [SecTrust]: https://developer.apple.com/documentation/Security/SecTrust
@@ -394,8 +386,6 @@ func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
 	return rv
 }
 
-// trust is a [security.SecTrustRef].
-//
 // # Return Value
 //
 // # The new autoreleased NSURLCredential
@@ -406,7 +396,6 @@ func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
 // trusted.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLCredential/credentialForTrust:
-// trust is a [security.SecTrustRef].
 func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objectivec.IObject) URLCredential {
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialForTrust:"), trust)
 	return NSURLCredentialFromID(rv)
@@ -426,8 +415,6 @@ func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objective
 // [NSURLCredentialPersistenceForSession] because that most accurately
 // reflects the actual behaviour.
 //
-// identity is a [security.SecIdentityRef].
-//
 // # Return Value
 //
 // A new URL credential object, using the provided identity and, optionally,
@@ -446,7 +433,6 @@ func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objective
 // intermediate certificates.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLCredential/credentialWithIdentity:certificates:persistence:
-// identity is a [security.SecIdentityRef].
 //
 // [NSURLAuthenticationMethodClientCertificate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodClientCertificate
 func (_URLCredentialClass URLCredentialClass) CredentialWithIdentityCertificatesPersistence(identity objectivec.IObject, certArray INSArray, persistence NSURLCredentialPersistence) URLCredential {
