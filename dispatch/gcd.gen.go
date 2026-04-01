@@ -64,6 +64,7 @@ package dispatch
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"sync"
 	"sync/atomic"
 	"unsafe"
@@ -95,6 +96,13 @@ var (
 	_dispatch_group_leave            func(group uintptr)
 	_dispatch_semaphore_signal       func(dsema uintptr) int
 	_dispatch_semaphore_wait         func(dsema uintptr, timeout uint64) int
+
+	// dispatch_data functions
+	_dispatch_data_create        func(buffer, size, queue, destructor uintptr) uintptr
+	_dispatch_data_get_size      func(data uintptr) uint64
+	_dispatch_data_create_concat func(data1, data2 uintptr) uintptr
+	_dispatch_data_create_map    func(data, bufferPtr, sizePtr uintptr) uintptr
+	_dispatch_release            func(obj uintptr)
 )
 
 // _dispatch_queue_attr_concurrent is the DISPATCH_QUEUE_CONCURRENT attribute
@@ -104,6 +112,9 @@ var _dispatch_queue_attr_concurrent dispatch_queue_attr_t
 // _dispatch_main_q is the main dispatch queue (Dispatch_get_main_queue()
 // is a macro that expands to &_dispatch_main_q).
 var _dispatch_main_q uintptr
+
+// _dispatch_data_empty_val is the global empty dispatch data singleton.
+var _dispatch_data_empty_val dispatch_data_t
 
 // workMap stores pending work closures keyed by a monotonic ID.
 // dispatch_*_f functions receive the ID as the context pointer,
@@ -230,12 +241,20 @@ func init() {
 	purego.RegisterLibFunc(&_dispatch_group_leave, lib, "dispatch_group_leave")
 	purego.RegisterLibFunc(&_dispatch_semaphore_signal, lib, "dispatch_semaphore_signal")
 	purego.RegisterLibFunc(&_dispatch_semaphore_wait, lib, "dispatch_semaphore_wait")
+	purego.RegisterLibFunc(&_dispatch_data_create, lib, "dispatch_data_create")
+	purego.RegisterLibFunc(&_dispatch_data_get_size, lib, "dispatch_data_get_size")
+	purego.RegisterLibFunc(&_dispatch_data_create_concat, lib, "dispatch_data_create_concat")
+	purego.RegisterLibFunc(&_dispatch_data_create_map, lib, "dispatch_data_create_map")
+	purego.RegisterLibFunc(&_dispatch_release, lib, "dispatch_release")
 
 	if sym, err := purego.Dlsym(lib, "_dispatch_queue_attr_concurrent"); err == nil {
 		_dispatch_queue_attr_concurrent = dispatch_queue_attr_t(sym)
 	}
 	if sym, err := purego.Dlsym(lib, "_dispatch_main_q"); err == nil {
 		_dispatch_main_q = sym
+	}
+	if sym, err := purego.Dlsym(lib, "_dispatch_data_empty"); err == nil {
+		_dispatch_data_empty_val = dispatch_data_t(sym)
 	}
 }
 
@@ -459,6 +478,75 @@ func DataFromHandle(handle uintptr) Data {
 // Handle returns the underlying dispatch data handle.
 func (d Data) Handle() uintptr {
 	return uintptr(d.data)
+}
+
+// DataCreate creates a dispatch data object from a Go byte slice.
+// The slice contents are copied; the caller may freely modify or
+// discard buf after this call returns.
+func DataCreate(buf []byte) Data {
+	if len(buf) == 0 {
+		return DataEmpty()
+	}
+	var pinner runtime.Pinner
+	pinner.Pin(&buf[0])
+	defer pinner.Unpin()
+	ptr := unsafe.Pointer(&buf[0])
+	handle := _dispatch_data_create(uintptr(ptr), uintptr(len(buf)), 0, 0)
+	if handle == 0 {
+		return DataEmpty()
+	}
+	return Data{data: dispatch_data_t(handle)}
+}
+
+// DataEmpty returns the global empty dispatch data object.
+func DataEmpty() Data {
+	return Data{data: _dispatch_data_empty_val}
+}
+
+// DataGetSize returns the number of bytes in the dispatch data object.
+func DataGetSize(d Data) int {
+	return int(_dispatch_data_get_size(uintptr(d.data)))
+}
+
+// DataCreateConcat creates a new dispatch data object by concatenating two
+// existing data objects.
+func DataCreateConcat(a, b Data) Data {
+	handle := _dispatch_data_create_concat(uintptr(a.data), uintptr(b.data))
+	if handle == 0 {
+		return DataEmpty()
+	}
+	return Data{data: dispatch_data_t(handle)}
+}
+
+// DataToBytes extracts the contents of a dispatch data object into a Go byte
+// slice. The returned slice is a copy; the caller owns it.
+func DataToBytes(d Data) []byte {
+	if d.Handle() == 0 {
+		return nil
+	}
+	var ptr uintptr
+	var size uint64
+	mapped := _dispatch_data_create_map(uintptr(d.data),
+		uintptr(unsafe.Pointer(&ptr)),
+		uintptr(unsafe.Pointer(&size)))
+	defer _dispatch_release(mapped)
+	if size == 0 {
+		return nil
+	}
+	out := make([]byte, size)
+	copy(out, unsafe.Slice((*byte)(unsafe.Pointer(ptr)), size))
+	return out
+}
+
+// Len returns the number of bytes in the data object.
+func (d Data) Len() int {
+	return DataGetSize(d)
+}
+
+// Bytes extracts the contents into a Go byte slice. The returned slice is a
+// copy; the caller owns it.
+func (d Data) Bytes() []byte {
+	return DataToBytes(d)
 }
 
 // IO wraps a dispatch I/O channel.
