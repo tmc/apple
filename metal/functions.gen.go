@@ -112,7 +112,9 @@ func tryMTLCopyAllDevicesWithObserver(observer objectivec.Object, handler MTLDev
 	if _mTLCopyAllDevicesWithObserver == nil {
 		return nil, symbolCallError("MTLCopyAllDevicesWithObserver", "10.13", _mTLCopyAllDevicesWithObserverErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 MTLDevice, arg1 objc.ID) { handler(arg0, objc.IDToString(arg1)) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 MTLDevice, blockArg1 objc.ID) {
+		handler(blockArg0, objc.IDToString(blockArg1))
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	ptrs := _mTLCopyAllDevicesWithObserver(observer, _block0)

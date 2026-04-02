@@ -488,7 +488,7 @@ func tryCMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(a
 	if _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler", "10.14.4", _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject) int { return makeDataReadyHandler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) int { return makeDataReadyHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut, _block0), nil
@@ -1312,7 +1312,7 @@ func tryCMBufferQueueInstallTriggerHandler(queue uintptr, condition CMBufferQueu
 	if _cMBufferQueueInstallTriggerHandler == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerHandler", "10.14.4", _cMBufferQueueInstallTriggerHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueInstallTriggerHandler(queue, condition, time, triggerTokenOut, _block0), nil
@@ -1336,7 +1336,7 @@ func tryCMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue uintptr, co
 	if _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerHandlerWithIntegerThreshold", "10.14.4", _cMBufferQueueInstallTriggerHandlerWithIntegerThresholdErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue, condition, threshold, triggerTokenOut, _block0), nil
@@ -1528,7 +1528,9 @@ func tryCMBufferQueueSetValidationHandler(queue uintptr, handler CMBufferValidat
 	if _cMBufferQueueSetValidationHandler == nil {
 		return 0, symbolCallError("CMBufferQueueSetValidationHandler", "10.14.4", _cMBufferQueueSetValidationHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject, arg1 unsafe.Pointer) int { return handler(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 unsafe.Pointer) int {
+		return handler(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueSetValidationHandler(queue, _block0), nil
@@ -2827,7 +2829,7 @@ func tryCMSampleBufferCreateForImageBufferWithMakeDataReadyHandler(allocator cor
 	if _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateForImageBufferWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject) int { return makeDataReadyHandler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) int { return makeDataReadyHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandler(allocator, imageBuffer, dataReady, formatDescription, sampleTiming, sampleBufferOut, _block0), nil
@@ -2914,7 +2916,7 @@ func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CF
 	if _cMSampleBufferCreateWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateWithMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject) int { return makeDataReadyHandler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) int { return makeDataReadyHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferCreateWithMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut, _block0), nil
@@ -3610,7 +3612,7 @@ func tryCMSampleBufferSetInvalidateHandler(sbuf uintptr, invalidateHandler CMSam
 	if _cMSampleBufferSetInvalidateHandler == nil {
 		return 0, symbolCallError("CMSampleBufferSetInvalidateHandler", "10.10", _cMSampleBufferSetInvalidateHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject) { invalidateHandler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) { invalidateHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferSetInvalidateHandler(sbuf, _block0), nil

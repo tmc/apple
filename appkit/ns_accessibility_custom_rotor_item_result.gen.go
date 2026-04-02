@@ -99,7 +99,7 @@ type INSAccessibilityCustomRotorItemResult interface {
 	// Creates an item result with the specified target element.
 	InitWithTargetElement(targetElement NSAccessibilityElement) NSAccessibilityCustomRotorItemResult
 	// Creates an item result with the specified item load token and custom label.
-	InitWithItemLoadingTokenCustomLabel(itemLoadingToken NSAccessibilityLoadingToken, customLabel string) NSAccessibilityCustomRotorItemResult
+	InitWithItemLoadingTokenCustomLabel(itemLoadingToken objectivec.IObject, customLabel string) NSAccessibilityCustomRotorItemResult
 
 	// Topic: Identifying an Item Result
 
@@ -141,7 +141,7 @@ func NewNSAccessibilityCustomRotorItemResult() NSAccessibilityCustomRotorItemRes
 // Creates an item result with the specified item load token and custom label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/init(itemLoadingToken:customLabel:)
-func NewAccessibilityCustomRotorItemResultWithItemLoadingTokenCustomLabel(itemLoadingToken NSAccessibilityLoadingToken, customLabel string) NSAccessibilityCustomRotorItemResult {
+func NewAccessibilityCustomRotorItemResultWithItemLoadingTokenCustomLabel(itemLoadingToken objectivec.IObject, customLabel string) NSAccessibilityCustomRotorItemResult {
 	instance := getNSAccessibilityCustomRotorItemResultClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItemLoadingToken:customLabel:"), itemLoadingToken, objc.String(customLabel))
 	return NSAccessibilityCustomRotorItemResultFromID(rv)
@@ -167,7 +167,7 @@ func (a NSAccessibilityCustomRotorItemResult) InitWithTargetElement(targetElemen
 // Creates an item result with the specified item load token and custom label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/init(itemLoadingToken:customLabel:)
-func (a NSAccessibilityCustomRotorItemResult) InitWithItemLoadingTokenCustomLabel(itemLoadingToken NSAccessibilityLoadingToken, customLabel string) NSAccessibilityCustomRotorItemResult {
+func (a NSAccessibilityCustomRotorItemResult) InitWithItemLoadingTokenCustomLabel(itemLoadingToken objectivec.IObject, customLabel string) NSAccessibilityCustomRotorItemResult {
 	rv := objc.Send[NSAccessibilityCustomRotorItemResult](a.ID, objc.Sel("initWithItemLoadingToken:customLabel:"), itemLoadingToken, objc.String(customLabel))
 	return rv
 }

@@ -194,7 +194,9 @@ func tryCMIOObjectAddPropertyListenerBlock(objectID CMIOObjectID, address *CMIOO
 	if _cMIOObjectAddPropertyListenerBlock == nil {
 		return 0, symbolCallError("CMIOObjectAddPropertyListenerBlock", "10.8", _cMIOObjectAddPropertyListenerBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 uint32, arg1 *CMIOObjectPropertyAddress) { listener(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *CMIOObjectPropertyAddress) {
+		listener(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMIOObjectAddPropertyListenerBlock(objectID, address, uintptr(dispatchQueue.Handle()), _block0), nil
@@ -369,7 +371,9 @@ func tryCMIOObjectRemovePropertyListenerBlock(objectID CMIOObjectID, address *CM
 	if _cMIOObjectRemovePropertyListenerBlock == nil {
 		return 0, symbolCallError("CMIOObjectRemovePropertyListenerBlock", "10.8", _cMIOObjectRemovePropertyListenerBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 uint32, arg1 *CMIOObjectPropertyAddress) { listener(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *CMIOObjectPropertyAddress) {
+		listener(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMIOObjectRemovePropertyListenerBlock(objectID, address, uintptr(dispatchQueue.Handle()), _block0), nil

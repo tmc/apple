@@ -6186,8 +6186,8 @@ func tryCGDisplayStreamCreate(display uint32, outputWidth uintptr, outputHeight 
 	if _cGDisplayStreamCreate == nil {
 		return 0, symbolCallError("CGDisplayStreamCreate", "", _cGDisplayStreamCreateErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 CGDisplayStreamFrameStatus, arg1 uint64, arg2 IOSurfaceRef, arg3 *CGDisplayStreamUpdateRef) {
-		handler(arg0, arg1, arg2, arg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 CGDisplayStreamFrameStatus, blockArg1 uint64, blockArg2 IOSurfaceRef, blockArg3 *CGDisplayStreamUpdateRef) {
+		handler(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -6214,8 +6214,8 @@ func tryCGDisplayStreamCreateWithDispatchQueue(display uint32, outputWidth uintp
 	if _cGDisplayStreamCreateWithDispatchQueue == nil {
 		return 0, symbolCallError("CGDisplayStreamCreateWithDispatchQueue", "", _cGDisplayStreamCreateWithDispatchQueueErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 CGDisplayStreamFrameStatus, arg1 uint64, arg2 IOSurfaceRef, arg3 *CGDisplayStreamUpdateRef) {
-		handler(arg0, arg1, arg2, arg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 CGDisplayStreamFrameStatus, blockArg1 uint64, blockArg2 IOSurfaceRef, blockArg3 *CGDisplayStreamUpdateRef) {
+		handler(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -9635,8 +9635,8 @@ func tryCGPDFArrayApplyBlock(array CGPDFArrayRef, block CGPDFArrayApplierBlock, 
 	if _cGPDFArrayApplyBlock == nil {
 		return symbolCallError("CGPDFArrayApplyBlock", "10.14", _cGPDFArrayApplyBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 uint32, arg1 *CGPDFObjectRef, arg2 unsafe.Pointer) bool {
-		return block(arg0, arg1, arg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *CGPDFObjectRef, blockArg2 unsafe.Pointer) bool {
+		return block(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -10318,8 +10318,8 @@ func tryCGPDFDictionaryApplyBlock(dict CGPDFDictionaryRef, block CGPDFDictionary
 	if _cGPDFDictionaryApplyBlock == nil {
 		return symbolCallError("CGPDFDictionaryApplyBlock", "10.14", _cGPDFDictionaryApplyBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *byte, arg1 *CGPDFObjectRef, arg2 unsafe.Pointer) bool {
-		return block(objc.GoString(arg0), arg1, arg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *byte, blockArg1 *CGPDFObjectRef, blockArg2 unsafe.Pointer) bool {
+		return block(objc.GoString(blockArg0), blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -12224,7 +12224,7 @@ func tryCGPathApplyWithBlock(path CGPathRef, block CGPathApplyBlock) error {
 	if _cGPathApplyWithBlock == nil {
 		return symbolCallError("CGPathApplyWithBlock", "10.13", _cGPathApplyWithBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 *CGPathElement) { block(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *CGPathElement) { block(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_cGPathApplyWithBlock(path, _block0)

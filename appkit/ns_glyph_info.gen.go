@@ -197,7 +197,7 @@ func NewGlyphInfoWithCharacterIdentifierCollectionBaseString(cid uint, character
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyph:for:baseString:)
-func NewGlyphInfoWithGlyphForFontBaseString(glyph NSGlyph, font NSFont, string_ string) NSGlyphInfo {
+func NewGlyphInfoWithGlyphForFontBaseString(glyph uint32, font NSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithGlyph:forFont:baseString:"), glyph, font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }

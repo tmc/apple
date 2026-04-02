@@ -702,8 +702,8 @@ func tryCVDisplayLinkSetOutputHandler(displayLink CVDisplayLinkRef, handler CVDi
 	if _cVDisplayLinkSetOutputHandler == nil {
 		return *new(CVReturn), symbolCallError("CVDisplayLinkSetOutputHandler", "10.4", _cVDisplayLinkSetOutputHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject, arg1 *CVTimeStamp, arg2 *CVTimeStamp, arg3 uint64, arg4 *uint64) int {
-		return handler(arg0, arg1, arg2, arg3, arg4)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int {
+		return handler(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)

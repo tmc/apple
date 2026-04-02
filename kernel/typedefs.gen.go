@@ -1653,9 +1653,6 @@ type IOAccelSurfaceReadData = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/ioaccelsurfacescaling
 type IOAccelSurfaceScaling = unsafe.Pointer
 
-// See: https://developer.apple.com/documentation/kernel/ioaddressrange
-type IOAddressRange = unsafe.Pointer
-
 // See: https://developer.apple.com/documentation/kernel/ioalignment
 type IOAlignment = uint
 
@@ -1730,7 +1727,7 @@ type IOBlitCursor = unsafe.Pointer
 type IOBlitMemory = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/ioblitmemoryref
-type IOBlitMemoryRef = unsafe.Pointer
+type IOBlitMemoryRef uintptr
 
 // See: https://developer.apple.com/documentation/kernel/ioblitoperation
 type IOBlitOperation = unsafe.Pointer
@@ -1904,7 +1901,7 @@ type IOFWRequestRefCon = unsafe.Pointer
 type IOFWSpeed = int
 
 // See: https://developer.apple.com/documentation/kernel/iofirewiresessionref
-type IOFireWireSessionRef = unsafe.Pointer
+type IOFireWireSessionRef uintptr
 
 // See: https://developer.apple.com/documentation/kernel/iofixed1616
 type IOFixed1616 = unsafe.Pointer
@@ -2878,16 +2875,16 @@ type NXTabletProximityDataPtr = unsafe.Pointer
 type NuDCLFlags = uint
 
 // See: https://developer.apple.com/documentation/kernel/nudclreceivepacketref
-type NuDCLReceivePacketRef = unsafe.Pointer
+type NuDCLReceivePacketRef uintptr
 
 // See: https://developer.apple.com/documentation/kernel/nudclref
 type NuDCLRef uintptr
 
 // See: https://developer.apple.com/documentation/kernel/nudclsendpacketref
-type NuDCLSendPacketRef = unsafe.Pointer
+type NuDCLSendPacketRef uintptr
 
 // See: https://developer.apple.com/documentation/kernel/nudclskipcycleref
-type NuDCLSkipCycleRef = unsafe.Pointer
+type NuDCLSkipCycleRef uintptr
 
 // See: https://developer.apple.com/documentation/kernel/numversion
 type NumVersion = unsafe.Pointer
@@ -3444,7 +3441,7 @@ type SPCModeParameterHeader6 = unsafe.Pointer
 type ServiceCount = uint32
 
 // See: https://developer.apple.com/documentation/kernel/signedbyte
-type SignedByte = unsafe.Pointer
+type SignedByte = int8
 
 // See: https://developer.apple.com/documentation/kernel/stickykeys_modifierinfo
 type StickyKeys_ModifierInfo = unsafe.Pointer

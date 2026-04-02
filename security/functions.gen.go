@@ -130,7 +130,9 @@ func tryAuthorizationCopyRightsAsync(authorization AuthorizationRef, rights *Aut
 	if _authorizationCopyRightsAsync == nil {
 		return symbolCallError("AuthorizationCopyRightsAsync", "10.7", _authorizationCopyRightsAsyncErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 *AuthorizationItemSet) { callbackBlock(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 int, blockArg1 *AuthorizationItemSet) {
+		callbackBlock(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_authorizationCopyRightsAsync(authorization, rights, environment, flags, _block0)
@@ -8539,8 +8541,8 @@ func trySecTrustEvaluateAsyncWithError(trust SecTrustRef, queue dispatch.Queue, 
 	if _secTrustEvaluateAsyncWithError == nil {
 		return 0, symbolCallError("SecTrustEvaluateAsyncWithError", "10.15", _secTrustEvaluateAsyncWithErrorErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.IObject, arg1 bool, arg2 objectivec.IObject) {
-		result(arg0, arg1, arg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 bool, blockArg2 objectivec.IObject) {
+		result(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -10280,7 +10282,9 @@ func trySec_protocol_options_set_challenge_block(options Sec_protocol_options_t,
 	if _sec_protocol_options_set_challenge_block == nil {
 		return symbolCallError("sec_protocol_options_set_challenge_block", "10.14", _sec_protocol_options_set_challenge_blockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 func(*objectivec.Object)) { challenge_block(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 func(*objectivec.Object)) {
+		challenge_block(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_sec_protocol_options_set_challenge_block(options, _block0, uintptr(challenge_queue.Handle()))
@@ -10323,7 +10327,9 @@ func trySec_protocol_options_set_key_update_block(options Sec_protocol_options_t
 	if _sec_protocol_options_set_key_update_block == nil {
 		return symbolCallError("sec_protocol_options_set_key_update_block", "10.14", _sec_protocol_options_set_key_update_blockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 func()) { key_update_block(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 func()) {
+		key_update_block(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_sec_protocol_options_set_key_update_block(options, _block0, uintptr(key_update_queue.Handle()))
@@ -10446,8 +10452,8 @@ func trySec_protocol_options_set_pre_shared_key_selection_block(options Sec_prot
 	if _sec_protocol_options_set_pre_shared_key_selection_block == nil {
 		return symbolCallError("sec_protocol_options_set_pre_shared_key_selection_block", "10.15", _sec_protocol_options_set_pre_shared_key_selection_blockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 objectivec.Object, arg2 func(*objectivec.Object)) {
-		psk_selection_block(arg0, arg1, arg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 func(*objectivec.Object)) {
+		psk_selection_block(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -10715,8 +10721,8 @@ func trySec_protocol_options_set_verify_block(options Sec_protocol_options_t, ve
 	if _sec_protocol_options_set_verify_block == nil {
 		return symbolCallError("sec_protocol_options_set_verify_block", "10.14", _sec_protocol_options_set_verify_blockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object, arg1 objectivec.Object, arg2 func(bool)) {
-		verify_block(arg0, arg1, arg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 func(bool)) {
+		verify_block(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)

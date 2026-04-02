@@ -109,7 +109,7 @@ func tryVmnet_interface_add_ip_port_forwarding_rule(interface_ Interface_ref, pr
 	if _vmnet_interface_add_ip_port_forwarding_rule == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_interface_add_ip_port_forwarding_rule", "11.0", _vmnet_interface_add_ip_port_forwarding_ruleErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 Vmnet_return_t) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Vmnet_return_t) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_interface_add_ip_port_forwarding_rule(interface_, protocol_, external_port, address_family, internal_address, internal_port, _block0), nil
@@ -133,7 +133,7 @@ func tryVmnet_interface_add_port_forwarding_rule(interface_ Interface_ref, proto
 	if _vmnet_interface_add_port_forwarding_rule == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_interface_add_port_forwarding_rule", "10.15", _vmnet_interface_add_port_forwarding_ruleErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 Vmnet_return_t) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Vmnet_return_t) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_interface_add_port_forwarding_rule(interface_, protocol_, external_port, internal_address, internal_port, _block0), nil
@@ -159,7 +159,7 @@ func tryVmnet_interface_get_ip_port_forwarding_rules(interface_ Interface_ref, a
 	if _vmnet_interface_get_ip_port_forwarding_rules == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_interface_get_ip_port_forwarding_rules", "11.0", _vmnet_interface_get_ip_port_forwarding_rulesErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_interface_get_ip_port_forwarding_rules(interface_, address_family, _block0), nil
@@ -183,7 +183,7 @@ func tryVmnet_interface_get_port_forwarding_rules(interface_ Interface_ref, hand
 	if _vmnet_interface_get_port_forwarding_rules == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_interface_get_port_forwarding_rules", "10.15", _vmnet_interface_get_port_forwarding_rulesErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 objectivec.Object) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_interface_get_port_forwarding_rules(interface_, _block0), nil
@@ -209,7 +209,7 @@ func tryVmnet_interface_remove_ip_port_forwarding_rule(interface_ Interface_ref,
 	if _vmnet_interface_remove_ip_port_forwarding_rule == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_interface_remove_ip_port_forwarding_rule", "11.0", _vmnet_interface_remove_ip_port_forwarding_ruleErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 Vmnet_return_t) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Vmnet_return_t) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_interface_remove_ip_port_forwarding_rule(interface_, protocol_, external_port, address_family, _block0), nil
@@ -233,7 +233,7 @@ func tryVmnet_interface_remove_port_forwarding_rule(interface_ Interface_ref, pr
 	if _vmnet_interface_remove_port_forwarding_rule == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_interface_remove_port_forwarding_rule", "10.15", _vmnet_interface_remove_port_forwarding_ruleErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 Vmnet_return_t) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Vmnet_return_t) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_interface_remove_port_forwarding_rule(interface_, protocol_, external_port, _block0), nil
@@ -259,7 +259,9 @@ func tryVmnet_interface_set_event_callback(interface_ Interface_ref, event_mask 
 	if _vmnet_interface_set_event_callback == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_interface_set_event_callback", "10.10", _vmnet_interface_set_event_callbackErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 Interface_event_t, arg1 objectivec.Object) { callback(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Interface_event_t, blockArg1 objectivec.Object) {
+		callback(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_interface_set_event_callback(interface_, event_mask, uintptr(queue.Handle()), _block0), nil
@@ -283,7 +285,9 @@ func tryVmnet_interface_start_with_network(network Vmnet_network_ref, interface_
 	if _vmnet_interface_start_with_network == nil {
 		return *new(Interface_ref), symbolCallError("vmnet_interface_start_with_network", "26.0", _vmnet_interface_start_with_networkErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 Vmnet_return_t, arg1 objectivec.Object) { start_block(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Vmnet_return_t, blockArg1 objectivec.Object) {
+		start_block(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_interface_start_with_network(network, interface_desc, uintptr(queue.Handle()), _block0), nil
@@ -701,7 +705,9 @@ func tryVmnet_start_interface(interface_desc unsafe.Pointer, queue dispatch.Queu
 	if _vmnet_start_interface == nil {
 		return *new(Interface_ref), symbolCallError("vmnet_start_interface", "10.10", _vmnet_start_interfaceErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 Vmnet_return_t, arg1 objectivec.Object) { handler(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Vmnet_return_t, blockArg1 objectivec.Object) {
+		handler(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_start_interface(interface_desc, uintptr(queue.Handle()), _block0), nil
@@ -725,7 +731,7 @@ func tryVmnet_stop_interface(interface_ Interface_ref, queue dispatch.Queue, han
 	if _vmnet_stop_interface == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_stop_interface", "10.10", _vmnet_stop_interfaceErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 Vmnet_return_t) { handler(arg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Vmnet_return_t) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _vmnet_stop_interface(interface_, uintptr(queue.Handle()), _block0), nil

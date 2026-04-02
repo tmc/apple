@@ -247,9 +247,9 @@ type INSFont interface {
 	// Topic: Instance Methods
 
 	// Returns the nominal spacing for the given glyph—the distance the current point moves after showing the glyph—accounting for the receiver’s size.
-	AdvancementForGlyph(glyph NSGlyph) corefoundation.CGSize
+	AdvancementForGlyph(glyph uint32) corefoundation.CGSize
 	// Returns the bounding rectangle for the specified glyph, scaled to the receiver’s size.
-	BoundingRectForGlyph(glyph NSGlyph) corefoundation.CGRect
+	BoundingRectForGlyph(glyph uint32) corefoundation.CGRect
 	// Returns an array of the advancements for the specified glyphs rendered by the receiver.
 	GetAdvancementsForGlyphsCount(advancements foundation.NSSize, glyphs []NSGlyph, glyphCount uint)
 	// Returns an array of the advancements for the specified packed glyphs and rendered by the receiver.
@@ -461,7 +461,7 @@ func (f NSFont) SetInContext(graphicsContext INSGraphicsContext) {
 // is either strictly horizontal or strictly vertical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/advancement(forGlyph:)
-func (f NSFont) AdvancementForGlyph(glyph NSGlyph) corefoundation.CGSize {
+func (f NSFont) AdvancementForGlyph(glyph uint32) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](f.ID, objc.Sel("advancementForGlyph:"), glyph)
 	return corefoundation.CGSize(rv)
 }
@@ -477,7 +477,7 @@ func (f NSFont) AdvancementForGlyph(glyph NSGlyph) corefoundation.CGSize {
 // font instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/boundingRect(forGlyph:)
-func (f NSFont) BoundingRectForGlyph(glyph NSGlyph) corefoundation.CGRect {
+func (f NSFont) BoundingRectForGlyph(glyph uint32) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](f.ID, objc.Sel("boundingRectForGlyph:"), glyph)
 	return corefoundation.CGRect(rv)
 }

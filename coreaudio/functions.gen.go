@@ -196,8 +196,8 @@ func tryAudioDeviceCreateIOProcIDWithBlock(outIOProcID *AudioDeviceIOProcID, inD
 	if _audioDeviceCreateIOProcIDWithBlock == nil {
 		return 0, symbolCallError("AudioDeviceCreateIOProcIDWithBlock", "10.7", _audioDeviceCreateIOProcIDWithBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 unsafe.Pointer) {
-		inIOBlock(arg0, arg1, arg2, arg3, arg4)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer, blockArg4 unsafe.Pointer) {
+		inIOBlock(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1025,7 +1025,9 @@ func tryAudioObjectAddPropertyListenerBlock(inObjectID uint32, inAddress *AudioO
 	if _audioObjectAddPropertyListenerBlock == nil {
 		return 0, symbolCallError("AudioObjectAddPropertyListenerBlock", "10.7", _audioObjectAddPropertyListenerBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 uint32, arg1 *AudioObjectPropertyAddress) { inListener(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *AudioObjectPropertyAddress) {
+		inListener(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _audioObjectAddPropertyListenerBlock(inObjectID, inAddress, uintptr(inDispatchQueue.Handle()), _block0), nil
@@ -1154,7 +1156,9 @@ func tryAudioObjectRemovePropertyListenerBlock(inObjectID uint32, inAddress *Aud
 	if _audioObjectRemovePropertyListenerBlock == nil {
 		return 0, symbolCallError("AudioObjectRemovePropertyListenerBlock", "10.7", _audioObjectRemovePropertyListenerBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, arg0 uint32, arg1 *AudioObjectPropertyAddress) { inListener(arg0, arg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *AudioObjectPropertyAddress) {
+		inListener(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _audioObjectRemovePropertyListenerBlock(inObjectID, inAddress, uintptr(inDispatchQueue.Handle()), _block0), nil

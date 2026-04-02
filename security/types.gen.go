@@ -334,7 +334,7 @@ type CE_ExtendedKeyUsage struct {
 // [Full Topic]: https://developer.apple.com/documentation/Security/CE_GeneralName
 type CE_GeneralName struct {
 	Name       SecAsn1Item
-	NameType   int
+	NameType   CE_GeneralNameType
 	BerEncoded CSSM_BOOL
 }
 
