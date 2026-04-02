@@ -2,8 +2,6 @@ package network
 
 import (
 	"testing"
-
-	"github.com/tmc/apple/objectivec"
 )
 
 func newTestBrowser(t testing.TB) Nw_browser_t {
@@ -37,7 +35,7 @@ func TestBrowserStateChangedHandlerIsRetained(t *testing.T) {
 	}
 	t.Cleanup(func() { clearNetworkAsyncBlock(browser.ID, key.setter) })
 
-	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, objectivec.Object) {})
+	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, Nw_error_t) {})
 
 	networkAsyncBlockMu.Lock()
 	block := networkAsyncBlocks[key]
@@ -55,7 +53,7 @@ func TestBrowserStateChangedHandlerReplacementKeepsSingleRegistration(t *testing
 	}
 	t.Cleanup(func() { clearNetworkAsyncBlock(browser.ID, key.setter) })
 
-	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, objectivec.Object) {})
+	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, Nw_error_t) {})
 
 	networkAsyncBlockMu.Lock()
 	first := networkAsyncBlocks[key]
@@ -65,7 +63,7 @@ func TestBrowserStateChangedHandlerReplacementKeepsSingleRegistration(t *testing
 		t.Fatal("first retained block missing")
 	}
 
-	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, objectivec.Object) {})
+	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, Nw_error_t) {})
 
 	networkAsyncBlockMu.Lock()
 	second := networkAsyncBlocks[key]

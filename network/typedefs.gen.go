@@ -5,6 +5,7 @@ package network
 import (
 	"unsafe"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -41,7 +42,7 @@ type Nw_browser_browse_results_changed_handler_t = func(objectivec.Object, objec
 // Nw_browser_state_changed_handler_t is a handler that delivers browser state updates with associated errors.
 //
 // See: https://developer.apple.com/documentation/Network/nw_browser_state_changed_handler_t
-type Nw_browser_state_changed_handler_t = func(NwBrowserState, objectivec.Object)
+type Nw_browser_state_changed_handler_t = func(NwBrowserState, Nw_error_t)
 
 // Nw_browser_t is an object you use to browse for available network services.
 //
@@ -64,12 +65,12 @@ type Nw_connection_group_receive_handler_t = func(objectivec.Object, objectivec.
 // Nw_connection_group_send_completion_t is a completion to notify you when data has been processed and sent.
 //
 // See: https://developer.apple.com/documentation/Network/nw_connection_group_send_completion_t
-type Nw_connection_group_send_completion_t = func(objectivec.Object)
+type Nw_connection_group_send_completion_t = func(Nw_error_t)
 
 // Nw_connection_group_state_changed_handler_t is a handler that receives connection group state updates.
 //
 // See: https://developer.apple.com/documentation/Network/nw_connection_group_state_changed_handler_t
-type Nw_connection_group_state_changed_handler_t = func(NwConnectionGroupState, objectivec.Object)
+type Nw_connection_group_state_changed_handler_t = func(NwConnectionGroupState, Nw_error_t)
 
 // Nw_connection_group_t is an object you use to communicate with a group of endpoints, such as an IP multicast group on a local network.
 //
@@ -84,17 +85,17 @@ type Nw_connection_path_event_handler_t = func(objectivec.Object)
 // Nw_connection_receive_completion_t is a completion handler that indicates when content has been received by the connection, or that an error was encountered.
 //
 // See: https://developer.apple.com/documentation/Network/nw_connection_receive_completion_t
-type Nw_connection_receive_completion_t = func(objectivec.Object, objectivec.Object, bool, objectivec.Object)
+type Nw_connection_receive_completion_t = func(objectivec.Object, objectivec.Object, bool, Nw_error_t)
 
 // Nw_connection_send_completion_t is a completion handler that indicates when the connection has finished processing sent content.
 //
 // See: https://developer.apple.com/documentation/Network/nw_connection_send_completion_t
-type Nw_connection_send_completion_t = func(objectivec.Object)
+type Nw_connection_send_completion_t = func(Nw_error_t)
 
 // Nw_connection_state_changed_handler_t is a handler that delivers connection state updates with associated errors.
 //
 // See: https://developer.apple.com/documentation/Network/nw_connection_state_changed_handler_t
-type Nw_connection_state_changed_handler_t = func(NwConnectionState, objectivec.Object)
+type Nw_connection_state_changed_handler_t = func(NwConnectionState, Nw_error_t)
 
 // Nw_connection_t is a bidirectional data connection between a local endpoint and a remote endpoint.
 //
@@ -124,7 +125,55 @@ type Nw_endpoint_t = objectivec.Object
 // Nw_error_t is the errors returned by the Network framework.
 //
 // See: https://developer.apple.com/documentation/Network/nw_error_t
-type Nw_error_t = objectivec.Object
+
+type Nw_error_t struct {
+	objectivec.Object
+}
+
+// IsZero reports whether the network error is nil.
+func (o Nw_error_t) IsZero() bool {
+	return o.ID == 0
+}
+
+// Error returns the Objective-C description for the network error.
+func (o Nw_error_t) Error() string {
+	if o.ID == 0 {
+		return ""
+	}
+	return o.Description()
+}
+
+// Code returns the numeric error code from Network.framework.
+func (o Nw_error_t) Code() int {
+	if o.ID == 0 {
+		return 0
+	}
+	return Nw_error_get_error_code(o)
+}
+
+// Domain returns the structured Network.framework error domain.
+func (o Nw_error_t) Domain() NwErrorDomain {
+	if o.ID == 0 {
+		return *new(NwErrorDomain)
+	}
+	return Nw_error_get_error_domain(o)
+}
+
+// DomainString returns the string form of the Network.framework error domain.
+func (o Nw_error_t) DomainString() string {
+	if o.ID == 0 {
+		return ""
+	}
+	return Nw_error_get_error_domain(o).String()
+}
+
+// CopyCFError returns a retained Core Foundation copy of the network error.
+func (o Nw_error_t) CopyCFError() corefoundation.CFErrorRef {
+	if o.ID == 0 {
+		return 0
+	}
+	return Nw_error_copy_cf_error(o)
+}
 
 // Nw_establishment_report_access_block_t is a block that delivers a connection’s establishment report when it’s in the ready state.
 //
@@ -149,12 +198,12 @@ type Nw_ethernet_channel_receive_handler_t = func(objectivec.Object, uint32, *ui
 // Nw_ethernet_channel_send_completion_t is a handler that indicates when an Ethernet frame has been sent, or if an error was encountered.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ethernet_channel_send_completion_t
-type Nw_ethernet_channel_send_completion_t = func(objectivec.Object)
+type Nw_ethernet_channel_send_completion_t = func(Nw_error_t)
 
 // Nw_ethernet_channel_state_changed_handler_t is a handler that delivers Ethernet channel state updates with associated errors.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ethernet_channel_state_changed_handler_t
-type Nw_ethernet_channel_state_changed_handler_t = func(NwEthernetChannelState, objectivec.Object)
+type Nw_ethernet_channel_state_changed_handler_t = func(NwEthernetChannelState, Nw_error_t)
 
 // Nw_ethernet_channel_t is an object you use to send and receive custom Ethernet frames.
 //
@@ -247,7 +296,7 @@ type Nw_listener_new_connection_handler_t = func(objectivec.Object)
 // Nw_listener_state_changed_handler_t is a handler that delivers listener state updates with associated errors.
 //
 // See: https://developer.apple.com/documentation/Network/nw_listener_state_changed_handler_t
-type Nw_listener_state_changed_handler_t = func(NwListenerState, objectivec.Object)
+type Nw_listener_state_changed_handler_t = func(NwListenerState, Nw_error_t)
 
 // Nw_listener_t is an object you use to listen for incoming network connections.
 //
@@ -410,7 +459,7 @@ type Nw_ws_client_request_handler_t = func(objectivec.Object) objectivec.Object
 // Nw_ws_pong_handler_t is a handler that indicates that a Pong message has been received for a previously sent Ping message, or that an error was encountered.
 //
 // See: https://developer.apple.com/documentation/Network/nw_ws_pong_handler_t
-type Nw_ws_pong_handler_t = func(objectivec.Object)
+type Nw_ws_pong_handler_t = func(Nw_error_t)
 
 // Nw_ws_request_t is a WebSocket handshake request sent from a client to a server.
 //
