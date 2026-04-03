@@ -745,6 +745,29 @@ func (e *Element) IsAttributeSettable(name string) bool {
 	return settable
 }
 
+// Actions returns the list of action names supported by this element
+// (e.g., "AXPress", "AXShowMenu", "AXRaise").
+func (e *Element) Actions() []string {
+	if e == nil || e.ref == 0 {
+		return nil
+	}
+	var cfArray uintptr
+	err := AXUIElementCopyActionNames(e.ref, &cfArray)
+	if int(err) != axErrorSuccess || cfArray == 0 {
+		return nil
+	}
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(cfArray))
+
+	refs := cfArrayToSlice(cfArray)
+	result := make([]string, 0, len(refs))
+	for _, ref := range refs {
+		if s := cfStringToGo(ref); s != "" {
+			result = append(result, s)
+		}
+	}
+	return result
+}
+
 // FindAncestorByRole walks the parent chain and returns the first ancestor
 // with the given role. Returns nil if no ancestor matches before reaching
 // the root. The returned element is caller-owned and must be released.

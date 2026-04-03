@@ -34,6 +34,7 @@ var (
 	axUIElementCopyMultipleAttributeValues func(element AXUIElementRef, attributes uintptr, options int, values *uintptr) AXError
 	axUIElementIsAttributeSettable        func(element AXUIElementRef, attribute uintptr, settable *bool) AXError
 	axUIElementGetWindow                  func(element AXUIElementRef, window *uint32) AXError
+	axUIElementCopyActionNames            func(element AXUIElementRef, names *uintptr) AXError
 
 	axInitOnce sync.Once
 	axLoaded   bool
@@ -65,6 +66,7 @@ func initAX() {
 
 		// _AXUIElementGetWindow is a private-but-stable API for getting CGWindowID.
 		purego.RegisterLibFunc(&axUIElementGetWindow, lib, "_AXUIElementGetWindow")
+		purego.RegisterLibFunc(&axUIElementCopyActionNames, lib, "AXUIElementCopyActionNames")
 
 		axLoaded = true
 	})
@@ -206,4 +208,12 @@ func AXUIElementGetWindow(element AXUIElementRef, window *uint32) AXError {
 		return -1
 	}
 	return axUIElementGetWindow(element, window)
+}
+
+func AXUIElementCopyActionNames(element AXUIElementRef, names *uintptr) AXError {
+	initAX()
+	if !axLoaded || axUIElementCopyActionNames == nil {
+		return -1
+	}
+	return axUIElementCopyActionNames(element, names)
 }
