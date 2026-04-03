@@ -176,12 +176,21 @@ func (q *ElementQuery) AllElements() []*Element {
 
 // Count returns the number of matching elements.
 func (q *ElementQuery) Count() int {
-	return len(q.AllElements())
+	elements := q.AllElements()
+	for _, e := range elements {
+		e.Release()
+	}
+	return len(elements)
 }
 
 // Exists returns true if at least one matching element exists.
 func (q *ElementQuery) Exists() bool {
-	return q.First() != nil
+	e := q.First()
+	if e == nil {
+		return false
+	}
+	e.Release()
+	return true
 }
 
 // allElementsInternal performs the actual search.
@@ -219,11 +228,14 @@ func (q *ElementQuery) searchBFS(root *Element, limit int, visited *int) []*Elem
 
 		*visited++
 
-		// Check if this element matches
+		// Add children to queue before potentially releasing current.
+		children := current.Children()
+		queue = append(queue, children...)
+
+		// Check if this element matches.
 		if q.matches(current) {
 			results = append(results, current)
 			if limit > 0 && len(results) >= limit {
-				// Release remaining elements in queue
 				for _, e := range queue {
 					if e != root {
 						e.Release()
@@ -232,13 +244,15 @@ func (q *ElementQuery) searchBFS(root *Element, limit int, visited *int) []*Elem
 				return results
 			}
 		} else if current != root {
-			// Release non-matching elements that aren't the root
-			defer current.Release()
+			current.Release()
 		}
+	}
 
-		// Add children to queue
-		children := current.Children()
-		queue = append(queue, children...)
+	// Release any remaining queued elements that weren't visited.
+	for _, e := range queue {
+		if e != root {
+			e.Release()
+		}
 	}
 
 	return results
@@ -258,26 +272,34 @@ func (q *ElementQuery) searchDFSRecursive(e *Element, limit int, visited *int, r
 
 	*visited++
 
-	// Check if this element matches
-	if q.matches(e) {
+	matched := q.matches(e)
+	if matched {
 		*results = append(*results, e)
 		if limit > 0 && len(*results) >= limit {
-			return true // Stop searching
-		}
-	} else if e != root {
-		defer e.Release()
-	}
-
-	// Search children
-	children := e.Children()
-	for _, child := range children {
-		if q.searchDFSRecursive(child, limit, visited, results, root) {
-			// Release remaining children
 			return true
 		}
 	}
 
-	return false
+	children := e.Children()
+	stopped := false
+	for i, child := range children {
+		if q.searchDFSRecursive(child, limit, visited, results, root) {
+			// Release remaining unvisited children.
+			for _, rem := range children[i+1:] {
+				if rem != nil {
+					rem.Release()
+				}
+			}
+			stopped = true
+			break
+		}
+	}
+
+	if !matched && e != root {
+		e.Release()
+	}
+
+	return stopped
 }
 
 // ForEach calls the given function for each matching element.
@@ -304,26 +326,31 @@ func (q *ElementQuery) forEachBFS(root *Element, fn func(*Element) bool, visited
 
 		*visited++
 
-		// Check if this element matches
+		children := current.Children()
+		queue = append(queue, children...)
+
 		if q.matches(current) {
 			if !fn(current) {
-				// User wants to stop
 				for _, e := range queue {
 					if e != root {
 						e.Release()
 					}
 				}
+				if current != root {
+					current.Release()
+				}
 				return
 			}
 		}
 
-		// Release non-root elements after checking
 		if current != root {
-			defer current.Release()
+			current.Release()
 		}
+	}
 
-		// Add children to queue
-		children := current.Children()
-		queue = append(queue, children...)
+	for _, e := range queue {
+		if e != root {
+			e.Release()
+		}
 	}
 }

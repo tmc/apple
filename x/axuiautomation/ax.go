@@ -28,9 +28,12 @@ var (
 	axObserverCreate                  func(pid int32, callback AXObserverCallback, observer *AXObserverRef) AXError
 	axObserverGetRunLoopSource        func(observer AXObserverRef) uintptr
 	axObserverAddNotification         func(observer AXObserverRef, element AXUIElementRef, notification uintptr, refcon unsafe.Pointer) AXError
-	axIsProcessTrusted                func() bool
-	axUIElementSetMessagingTimeout    func(element AXUIElementRef, timeoutInSeconds float32) AXError
-	axIsProcessTrustedWithOptions     func(options uintptr) bool
+	axIsProcessTrusted                    func() bool
+	axUIElementSetMessagingTimeout        func(element AXUIElementRef, timeoutInSeconds float32) AXError
+	axIsProcessTrustedWithOptions         func(options uintptr) bool
+	axUIElementCopyMultipleAttributeValues func(element AXUIElementRef, attributes uintptr, options int, values *uintptr) AXError
+	axUIElementIsAttributeSettable        func(element AXUIElementRef, attribute uintptr, settable *bool) AXError
+	axUIElementGetWindow                  func(element AXUIElementRef, window *uint32) AXError
 
 	axInitOnce sync.Once
 	axLoaded   bool
@@ -57,6 +60,11 @@ func initAX() {
 		purego.RegisterLibFunc(&axUIElementSetMessagingTimeout, lib, "AXUIElementSetMessagingTimeout")
 		purego.RegisterLibFunc(&axIsProcessTrusted, lib, "AXIsProcessTrusted")
 		purego.RegisterLibFunc(&axIsProcessTrustedWithOptions, lib, "AXIsProcessTrustedWithOptions")
+		purego.RegisterLibFunc(&axUIElementCopyMultipleAttributeValues, lib, "AXUIElementCopyMultipleAttributeValues")
+		purego.RegisterLibFunc(&axUIElementIsAttributeSettable, lib, "AXUIElementIsAttributeSettable")
+
+		// _AXUIElementGetWindow is a private-but-stable API for getting CGWindowID.
+		purego.RegisterLibFunc(&axUIElementGetWindow, lib, "_AXUIElementGetWindow")
 
 		axLoaded = true
 	})
@@ -78,20 +86,6 @@ func AXUIElementCopyAttributeValue(element AXUIElementRef, attribute uintptr, va
 		return -1
 	}
 	return axUIElementCopyAttributeValue(element, attribute, value)
-}
-
-// AXUIElementCopyAttributeValueCF is a version that works with CFTypeRef pointers
-func AXUIElementCopyAttributeValueCF(element AXUIElementRef, attribute uintptr, value *unsafe.Pointer) AXError {
-	initAX()
-	if !axLoaded || axUIElementCopyAttributeValue == nil {
-		return -1
-	}
-	var ptr uintptr
-	result := axUIElementCopyAttributeValue(element, attribute, &ptr)
-	if result == 0 && ptr != 0 {
-		*value = unsafe.Pointer(ptr)
-	}
-	return result
 }
 
 func AXUIElementSetAttributeValue(element AXUIElementRef, attribute uintptr, value uintptr) AXError {
@@ -188,4 +182,28 @@ func AXIsProcessTrustedWithOptions(options uintptr) bool {
 		return false
 	}
 	return axIsProcessTrustedWithOptions(options)
+}
+
+func AXUIElementCopyMultipleAttributeValues(element AXUIElementRef, attributes uintptr, options int, values *uintptr) AXError {
+	initAX()
+	if !axLoaded || axUIElementCopyMultipleAttributeValues == nil {
+		return -1
+	}
+	return axUIElementCopyMultipleAttributeValues(element, attributes, options, values)
+}
+
+func AXUIElementIsAttributeSettable(element AXUIElementRef, attribute uintptr, settable *bool) AXError {
+	initAX()
+	if !axLoaded || axUIElementIsAttributeSettable == nil {
+		return -1
+	}
+	return axUIElementIsAttributeSettable(element, attribute, settable)
+}
+
+func AXUIElementGetWindow(element AXUIElementRef, window *uint32) AXError {
+	initAX()
+	if !axLoaded || axUIElementGetWindow == nil {
+		return -1
+	}
+	return axUIElementGetWindow(element, window)
 }

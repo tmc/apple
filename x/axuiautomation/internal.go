@@ -193,7 +193,7 @@ var (
 	cgEventSetIntegerValueField func(event uintptr, field uint32, value int64)
 	cgEventCreate               func(source uintptr) uintptr
 	cgEventGetDoubleValueField  func(event uintptr, field uint32) float64
-	cgWarpMouseCursorPosition   func(x, y float64) int32
+	cgWarpMouseCursorPosition func(x, y float64) int32
 
 	cgEventsInitialized bool
 	cgEventsInitOnce    sync.Once
@@ -557,7 +557,7 @@ func getAXAttributeString(element AXUIElementRef, attrName string) string {
 	if int(err) != axErrorSuccess || value == 0 {
 		return ""
 	}
-	defer corefoundation.CFRelease(corefoundation.CFTypeRef(unsafe.Pointer(value)))
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(value))
 
 	return cfStringToGo(value)
 }
@@ -570,7 +570,7 @@ func getAXAttributeBool(element AXUIElementRef, attrName string) bool {
 	if int(err) != axErrorSuccess || value == 0 {
 		return false
 	}
-	defer corefoundation.CFRelease(corefoundation.CFTypeRef(unsafe.Pointer(value)))
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(value))
 
 	if cfBooleanGetValue == nil {
 		return false
@@ -584,7 +584,7 @@ func getAXAttributePoint(element AXUIElementRef, attrName string) (Point, bool) 
 	if int(err) != axErrorSuccess || value == 0 {
 		return Point{}, false
 	}
-	defer corefoundation.CFRelease(corefoundation.CFTypeRef(unsafe.Pointer(value)))
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(value))
 
 	var point Point
 	if AXValueGetValue(AXValueRef(value), AXValueType(axValueTypeCGPoint), unsafe.Pointer(&point)) {
@@ -599,7 +599,7 @@ func getAXAttributeSize(element AXUIElementRef, attrName string) (Size, bool) {
 	if int(err) != axErrorSuccess || value == 0 {
 		return Size{}, false
 	}
-	defer corefoundation.CFRelease(corefoundation.CFTypeRef(unsafe.Pointer(value)))
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(value))
 
 	var size Size
 	if AXValueGetValue(AXValueRef(value), AXValueType(axValueTypeCGSize), unsafe.Pointer(&size)) {
@@ -614,12 +614,12 @@ func getAXAttributeElements(element AXUIElementRef, attrName string) []AXUIEleme
 	if int(err) != axErrorSuccess || value == 0 {
 		return nil
 	}
-	defer corefoundation.CFRelease(corefoundation.CFTypeRef(unsafe.Pointer(value)))
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(value))
 
 	refs := cfArrayToSlice(value)
 	result := make([]AXUIElementRef, len(refs))
 	for i, ref := range refs {
-		corefoundation.CFRetain(corefoundation.CFTypeRef(unsafe.Pointer(ref)))
+		corefoundation.CFRetain(corefoundation.CFTypeRef(ref))
 		result[i] = AXUIElementRef(ref)
 	}
 	return result
@@ -911,3 +911,4 @@ func cgScrollWheel(x, y int, direction ScrollDirection, amount int) error {
 	cgWarpMouseCursorPosition(oldX, oldY)
 	return nil
 }
+

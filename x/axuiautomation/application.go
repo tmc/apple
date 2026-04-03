@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 )
@@ -32,9 +31,10 @@ func NewApplication(bundleID string) (*Application, error) {
 	}
 
 	app := NewApplicationFromPID(pid)
-	if app != nil {
-		app.bundleID = bundleID
+	if app == nil {
+		return nil, fmt.Errorf("creating AX element for pid %d: %w", pid, ErrInvalidElement)
 	}
+	app.bundleID = bundleID
 	return app, nil
 }
 
@@ -321,7 +321,7 @@ func CheckAccessibilityAccess(pid int32) (int, string) {
 	if ref == 0 {
 		return -1, "failed to create AXUIElement"
 	}
-	defer corefoundation.CFRelease(corefoundation.CFTypeRef(unsafe.Pointer(ref)))
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(ref))
 
 	// Try to get the AXChildren attribute - this will fail if we don't have permission
 	var value uintptr
@@ -329,7 +329,7 @@ func CheckAccessibilityAccess(pid int32) (int, string) {
 	// Convert to signed int32 to get proper error codes
 	code := int(int32(err))
 	if code == 0 && value != 0 {
-		corefoundation.CFRelease(corefoundation.CFTypeRef(unsafe.Pointer(value)))
+		corefoundation.CFRelease(corefoundation.CFTypeRef(value))
 		return 0, "OK"
 	}
 
@@ -372,10 +372,9 @@ func (a *Application) ClickMenuItem(path []string) error {
 		return &Error{Message: "menu bar not found"}
 	}
 
-	// Navigate through the menu hierarchy
+	// Navigate through the menu hierarchy.
 	current := menuBar
 	for i, itemName := range path {
-		// Find the menu item
 		var menuItem *Element
 		children := current.Children()
 		for _, child := range children {
@@ -383,7 +382,8 @@ func (a *Application) ClickMenuItem(path []string) error {
 			title := child.Title()
 			if (role == "AXMenuBarItem" || role == "AXMenuItem" || role == "AXMenu") && title == itemName {
 				menuItem = child
-				break
+			} else {
+				child.Release()
 			}
 		}
 
@@ -391,23 +391,29 @@ func (a *Application) ClickMenuItem(path []string) error {
 			return fmt.Errorf("menu item %q not found", itemName)
 		}
 
-		// Click the menu item to open it
 		if err := menuItem.Click(); err != nil {
+			menuItem.Release()
 			return fmt.Errorf("failed to click menu item %q: %w", itemName, err)
 		}
 
-		// For non-leaf items, wait for menu to expand and find the submenu
 		if i < len(path)-1 {
 			time.Sleep(200 * time.Millisecond)
 
-			// Find the submenu that opened
 			children = menuItem.Children()
+			var submenu *Element
 			for _, child := range children {
-				if child.Role() == "AXMenu" {
-					current = child
-					break
+				if submenu == nil && child.Role() == "AXMenu" {
+					submenu = child
+				} else {
+					child.Release()
 				}
 			}
+			menuItem.Release()
+			if submenu != nil {
+				current = submenu
+			}
+		} else {
+			menuItem.Release()
 		}
 	}
 

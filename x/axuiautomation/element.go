@@ -325,7 +325,7 @@ func (e *Element) SetPosition(x, y float64) error {
 	if axValue == 0 {
 		return &Error{Message: "failed to create AXValue for position"}
 	}
-	defer corefoundation.CFRelease(corefoundation.CFTypeRef(unsafe.Pointer(axValue)))
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(axValue))
 
 	err := AXUIElementSetAttributeValue(e.ref, axAttr("AXPosition"), axValue)
 	return axErrorToGo(err)
@@ -653,6 +653,115 @@ func (e *Element) Screenshot() ([]byte, error) {
 		return nil, fmt.Errorf("screencapture: %w: %s", err, out)
 	}
 	return os.ReadFile(f.Name())
+}
+
+// Attribute returns the string value of an arbitrary accessibility attribute.
+// Use this for attributes not covered by the typed accessors (Title, Role, etc.).
+func (e *Element) Attribute(name string) string {
+	if e == nil || e.ref == 0 {
+		return ""
+	}
+	return getAXAttributeString(e.ref, name)
+}
+
+// BoolAttribute returns the boolean value of an arbitrary accessibility attribute.
+func (e *Element) BoolAttribute(name string) bool {
+	if e == nil || e.ref == 0 {
+		return false
+	}
+	return getAXAttributeBool(e.ref, name)
+}
+
+// Attributes fetches multiple attribute values in a single call using
+// AXUIElementCopyMultipleAttributeValues. Returns a map of attribute name
+// to string value. Attributes that don't exist or aren't strings are omitted.
+func (e *Element) Attributes(names ...string) map[string]string {
+	if e == nil || e.ref == 0 || len(names) == 0 {
+		return nil
+	}
+
+	// Build a CFArray of CFString attribute names.
+	cfNames := make([]uintptr, len(names))
+	for i, name := range names {
+		cfNames[i] = axAttr(name)
+	}
+	cfArray := corefoundation.CFArrayCreate(0, unsafe.Pointer(&cfNames[0]), len(cfNames), nil)
+	if cfArray == 0 {
+		return nil
+	}
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(cfArray))
+
+	var values uintptr
+	err := AXUIElementCopyMultipleAttributeValues(e.ref, uintptr(cfArray), 0, &values)
+	if int(err) != axErrorSuccess || values == 0 {
+		// Fall back to individual fetches.
+		result := make(map[string]string, len(names))
+		for _, name := range names {
+			if v := getAXAttributeString(e.ref, name); v != "" {
+				result[name] = v
+			}
+		}
+		return result
+	}
+	defer corefoundation.CFRelease(corefoundation.CFTypeRef(values))
+
+	vals := cfArrayToSlice(values)
+	result := make(map[string]string, len(names))
+	for i, val := range vals {
+		if i >= len(names) || val == 0 {
+			continue
+		}
+		if s := cfStringToGo(val); s != "" {
+			result[names[i]] = s
+		}
+	}
+	return result
+}
+
+// WindowID returns the CGWindowID for this element via the private
+// _AXUIElementGetWindow API. Returns 0 if the element has no window.
+func (e *Element) WindowID() uint32 {
+	if e == nil || e.ref == 0 {
+		return 0
+	}
+	var wid uint32
+	err := AXUIElementGetWindow(e.ref, &wid)
+	if int(err) != axErrorSuccess {
+		return 0
+	}
+	return wid
+}
+
+// IsAttributeSettable reports whether the named attribute can be set on this element.
+func (e *Element) IsAttributeSettable(name string) bool {
+	if e == nil || e.ref == 0 {
+		return false
+	}
+	var settable bool
+	err := AXUIElementIsAttributeSettable(e.ref, axAttr(name), &settable)
+	if int(err) != axErrorSuccess {
+		return false
+	}
+	return settable
+}
+
+// FindAncestorByRole walks the parent chain and returns the first ancestor
+// with the given role. Returns nil if no ancestor matches before reaching
+// the root. The returned element is caller-owned and must be released.
+func (e *Element) FindAncestorByRole(role string) *Element {
+	if e == nil || e.ref == 0 {
+		return nil
+	}
+	p := e.Parent()
+	for p != nil {
+		if p.Role() == role {
+			return p
+		}
+		next := p.Parent()
+		p.Release()
+		p = next
+	}
+	return nil
 }
 
 // ScrollAndClick scrolls the element into view and then clicks it.
