@@ -71,6 +71,9 @@ var (
 	_dispatch_io_write_f func(channel uintptr, offset int64, data uintptr, queue uintptr, ctx unsafe.Pointer, handler uintptr)
 )
 
+// _dispatch_data_apply_f is the function-pointer variant of dispatch_data_apply.
+var _dispatch_data_apply_f func(data uintptr, ctx unsafe.Pointer, applier uintptr) bool
+
 // _dispatch_queue_attr_concurrent is the DISPATCH_QUEUE_CONCURRENT attribute
 // loaded via dlsym (it's a global symbol, not a function).
 var _dispatch_queue_attr_concurrent dispatch_queue_attr_t
@@ -321,6 +324,19 @@ func init() {
 		}
 	})
 
+	// Trampoline for dispatch_data_apply_f: iterate regions.
+	sharedApplyTrampoline = purego.NewCallback(func(ctx uintptr, region uintptr, offset uintptr, buf unsafe.Pointer, size uintptr) bool {
+		fn, ok := applyWorkMap.Load(ctx)
+		if !ok {
+			return false
+		}
+		var s []byte
+		if size > 0 {
+			s = unsafe.Slice((*byte)(buf), size)
+		}
+		return fn.(func(Data, int, []byte) bool)(DataFromHandle(region), int(offset), s)
+	})
+
 	lib := frameworkHandle
 	if lib == 0 {
 		for _, path := range frameworkPaths {
@@ -343,6 +359,9 @@ func init() {
 	// dispatch_io private _f variants are not exposed in the public docs.
 	purego.RegisterLibFunc(&_dispatch_io_read_f, lib, "dispatch_io_read_f")
 	purego.RegisterLibFunc(&_dispatch_io_write_f, lib, "dispatch_io_write_f")
+
+	// dispatch_data_apply_f: function-pointer variant for iterating regions.
+	purego.RegisterLibFunc(&_dispatch_data_apply_f, lib, "dispatch_data_apply_f")
 
 	if sym, err := purego.Dlsym(lib, "_dispatch_queue_attr_concurrent"); err == nil {
 		_dispatch_queue_attr_concurrent = dispatch_queue_attr_t(sym)
@@ -902,6 +921,109 @@ func DataToBytes(d Data) []byte {
 // Bytes extracts a copy of the bytes from the data object.
 func (d Data) Bytes() []byte {
 	return DataToBytes(d)
+}
+
+// ---------- Data (zero-copy) ----------
+
+// DataMap provides zero-copy read access to dispatch data contents.
+// The returned byte slice points directly into the kernel buffer (or a
+// contiguous flattening of it). The caller must call Release when done
+// reading; the slice becomes invalid after Release.
+type DataMap struct {
+	mapped uintptr // dispatch_data_t returned by dispatch_data_create_map
+	buf    []byte  // unsafe.Slice into the mapped buffer
+}
+
+// DataCreateMap maps a Data object into contiguous memory and returns a
+// DataMap that provides zero-copy access to the bytes. The caller must
+// call Release on the returned DataMap when the bytes are no longer needed.
+func DataCreateMap(d Data) DataMap {
+	size := DataGetSize(d)
+	if size == 0 {
+		return DataMap{}
+	}
+	var ptr unsafe.Pointer
+	var sz uintptr
+	mapped := _dispatch_data_create_map(uintptr(d.data), &ptr, &sz)
+	return DataMap{
+		mapped: mapped,
+		buf:    unsafe.Slice((*byte)(ptr), sz),
+	}
+}
+
+// Bytes returns the mapped buffer. The slice is valid until Release is called.
+func (m DataMap) Bytes() []byte { return m.buf }
+
+// Len returns the length of the mapped buffer.
+func (m DataMap) Len() int { return len(m.buf) }
+
+// Release frees the mapped dispatch data object. After this call, the
+// byte slice returned by Bytes must not be accessed.
+func (m *DataMap) Release() {
+	if m.mapped != 0 {
+		_dispatch_release(m.mapped)
+		m.mapped = 0
+		m.buf = nil
+	}
+}
+
+// Map returns a DataMap providing zero-copy read access. The caller must
+// call Release on the returned DataMap when done.
+func (d Data) Map() DataMap {
+	return DataCreateMap(d)
+}
+
+// DataCreateNoCopy creates a dispatch data object that wraps a Go byte slice
+// without copying. The slice is pinned via runtime.Pinner to prevent GC from
+// moving or collecting it. The pin is released when libdispatch invokes the
+// destructor (typically when the last reference to the data object is released).
+//
+// The caller must not modify the slice contents until the data object and all
+// derived objects (subranges, concatenations) have been released.
+func DataCreateNoCopy(buf []byte) Data {
+	if len(buf) == 0 {
+		return DataEmpty()
+	}
+	var p runtime.Pinner
+	p.Pin(&buf[0])
+	// Create a per-buffer destructor block. The block closure captures the
+	// pinner and unpins when libdispatch is done with the buffer.
+	destructor := objc.NewBlock(func(_ objc.Block) {
+		p.Unpin()
+	})
+	// Do NOT release the destructor block here — libdispatch retains it
+	// via _Block_copy internally and releases it after calling.
+	h := _dispatch_data_create(
+		unsafe.Pointer(&buf[0]),
+		uintptr(len(buf)),
+		0, // NULL queue = default (destructor called on releasing thread)
+		unsafe.Pointer(destructor),
+	)
+	return Data{data: dispatch_data_t(h)}
+}
+
+// applyWorkMap stores apply callback closures.
+var applyWorkMap sync.Map // id (uintptr) → func
+var applyWorkCounter atomic.Uint64
+
+// sharedApplyTrampoline is the shared callback for dispatch_data_apply_f.
+var sharedApplyTrampoline uintptr
+
+// Apply iterates over the contiguous regions of a dispatch data object,
+// calling fn for each region. The region Data, byte offset within the
+// original data, and a byte slice pointing into the region buffer are
+// passed to fn. If fn returns false, iteration stops.
+//
+// The byte slices passed to fn are only valid for the duration of the
+// callback and must not be retained.
+func (d Data) Apply(fn func(region Data, offset int, buf []byte) bool) bool {
+	if DataGetSize(d) == 0 {
+		return true
+	}
+	id := uintptr(applyWorkCounter.Add(1))
+	applyWorkMap.Store(id, fn)
+	defer applyWorkMap.Delete(id)
+	return _dispatch_data_apply_f(uintptr(d.data), unsafe.Pointer(id), sharedApplyTrampoline)
 }
 
 // ---------- Source ----------
