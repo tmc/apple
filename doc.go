@@ -29,6 +29,7 @@
 //go:generate applegen-bootstrap -f "iosurface"
 //go:generate applegen-bootstrap -f "kernel"
 //go:generate applegen-bootstrap -f "launchservices"
+//go:generate applegen-bootstrap -f "localauthentication"
 //go:generate applegen-bootstrap -f "metal"
 //go:generate applegen-bootstrap -f "metalkit"
 //go:generate applegen-bootstrap -f "naturallanguage"
