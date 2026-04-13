@@ -7,6 +7,8 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	pvz "github.com/tmc/apple/private/virtualization"
 	vz "github.com/tmc/apple/virtualization"
@@ -18,7 +20,9 @@ var (
 	// ErrVMNotRunning reports that the VM is not running.
 	ErrVMNotRunning = errors.New("vm not running")
 	// ErrNotReady reports that the VM is not accepting HID reports.
-	ErrNotReady = errors.New("vm not accepting hid reports")
+	ErrNotReady    = errors.New("vm not accepting hid reports")
+	ErrKeyboardID  = errors.New("keyboard id out of range")
+	ErrHIDDeviceID = errors.New("hid device index out of range")
 )
 
 // Sender sends direct input events to a VM.
@@ -42,6 +46,26 @@ func (s *Sender) sync(fn func()) {
 
 func (s *Sender) privateVM() pvz.VZVirtualMachine {
 	return pvz.VZVirtualMachineFromID(s.vm.ID)
+}
+
+func nsArrayFromObjects[T objectivec.IObject](objs []T) foundation.NSArray {
+	return foundation.NSArrayFromID(objectivec.IObjectSliceToNSArray(objs))
+}
+
+func (s *Sender) keyboard(keyboardID uint32) (pvz.VZKeyboard, error) {
+	keyboards := foundation.NSArrayFromID(objc.Send[objc.ID](s.privateVM().ID, objc.Sel("_keyboards")))
+	if keyboardID >= uint32(keyboards.Count()) {
+		return pvz.VZKeyboard{}, fmt.Errorf("%w: %d", ErrKeyboardID, keyboardID)
+	}
+	return pvz.VZKeyboardFromID(keyboards.ObjectAtIndex(uint(keyboardID)).GetID()), nil
+}
+
+func (s *Sender) hidDevice(hidDeviceIndex uint32) (pvz.VZHIDDevice, error) {
+	devices := foundation.NSArrayFromID(objc.Send[objc.ID](s.privateVM().ID, objc.Sel("_hidDevices")))
+	if hidDeviceIndex >= uint32(devices.Count()) {
+		return pvz.VZHIDDevice{}, fmt.Errorf("%w: %d", ErrHIDDeviceID, hidDeviceIndex)
+	}
+	return pvz.VZHIDDeviceFromID(devices.ObjectAtIndex(uint(hidDeviceIndex)).GetID()), nil
 }
 
 // Ready reports whether the VM is running and ready for HID reports.
@@ -75,15 +99,83 @@ func (s *Sender) send(fn func()) error {
 	return nil
 }
 
-// SendKeyboardEvents sends keyboard event objects to the VM.
-func (s *Sender) SendKeyboardEvents(events unsafe.Pointer, keyboardID uint32) error {
+// SendKeyboardEvents sends an opaque private keyboard-event payload to the VM.
+//
+// Deprecated: Prefer [Sender.SendKeyEvents] or [Sender.SendKeyboardNSEvents].
+func (s *Sender) SendKeyboardEvents(events pvz.VZOpaqueKeyboardEvents, keyboardID uint32) error {
 	return s.send(func() {
 		s.privateVM().SendKeyboardEventsKeyboardID(events, keyboardID)
 	})
 }
 
+// SendKeyEvents sends typed private key event objects to the selected keyboard.
+//
+// This is the recommended keyboard path. It avoids the undocumented
+// `sendKeyboardEvents:keyboardID:` buffer contract and instead uses
+// _VZKeyboard.sendKeyEvents: with _VZKeyEvent objects.
+func (s *Sender) SendKeyEvents(events []pvz.VZKeyEvent, keyboardID uint32) error {
+	if err := s.requireReady(); err != nil {
+		return err
+	}
+	keyboard, err := s.keyboard(keyboardID)
+	if err != nil {
+		return err
+	}
+	s.sync(func() {
+		keyboard.SendKeyEvents(nsArrayFromObjects(events))
+	})
+	return nil
+}
+
+// SendKeyboardNSEvents converts NSEvent keyboard events into _VZKeyEvent
+// objects, then sends them through _VZKeyboard.sendKeyEvents:.
+func (s *Sender) SendKeyboardNSEvents(events []objectivec.IObject, keyboardID uint32) error {
+	keyEvents := make([]pvz.VZKeyEvent, 0, len(events))
+	for _, event := range events {
+		keyEvents = append(keyEvents, pvz.NewVZKeyEventWithEvent(event))
+	}
+	return s.SendKeyEvents(keyEvents, keyboardID)
+}
+
+// SendKeyboardNSEvent sends a single NSEvent keyboard event.
+func (s *Sender) SendKeyboardNSEvent(event objectivec.IObject, keyboardID uint32) error {
+	return s.SendKeyboardNSEvents([]objectivec.IObject{event}, keyboardID)
+}
+
+// SendIOHIDEvents sends an opaque private IOHID event payload to the VM.
+//
+// Deprecated: Prefer [Sender.SendIOHIDEventObjects] when you already have
+// _VZIOHIDEvent objects.
+func (s *Sender) SendIOHIDEvents(events pvz.VZOpaqueIOHIDEvents, hidDeviceIndex uint32) error {
+	return s.send(func() {
+		s.privateVM().SendIOHIDEventsHidDeviceIndex(events, hidDeviceIndex)
+	})
+}
+
+// SendIOHIDEventObjects sends typed _VZIOHIDEvent objects to the selected HID device.
+//
+// This is only safe when the caller already has valid _VZIOHIDEvent objects.
+// The private _VZIOHIDEvent initializer takes an IOHIDEventRef-style pointer,
+// not an Objective-C event object, so this package does not currently expose a
+// higher-level constructor for keyboard IOHID events.
+func (s *Sender) SendIOHIDEventObjects(events []pvz.VZIOHIDEvent, hidDeviceIndex uint32) error {
+	if err := s.requireReady(); err != nil {
+		return err
+	}
+	device, err := s.hidDevice(hidDeviceIndex)
+	if err != nil {
+		return err
+	}
+	s.sync(func() {
+		device.SendIOHIDEvents(nsArrayFromObjects(events))
+	})
+	return nil
+}
+
 // SendMouseEvents sends mouse event objects to the VM.
-func (s *Sender) SendMouseEvents(events unsafe.Pointer, deviceIndex uint32) error {
+//
+// Deprecated: this still forwards an opaque private payload.
+func (s *Sender) SendMouseEvents(events pvz.VZOpaqueMouseEvents, deviceIndex uint32) error {
 	return s.send(func() {
 		s.privateVM().SendMouseEventsPointingDeviceIndex(events, deviceIndex)
 	})
