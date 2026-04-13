@@ -3,8 +3,6 @@
 package virtualization
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,7 +16,7 @@ type VZIOHIDEventSender interface {
 	// SendIOHIDEventsHidDeviceIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEventSender/sendIOHIDEvents:hidDeviceIndex:
-	SendIOHIDEventsHidDeviceIndex(iOHIDEvents unsafe.Pointer, index uint32)
+	SendIOHIDEventsHidDeviceIndex(iOHIDEvents VZOpaqueIOHIDEvents, index uint32)
 }
 
 // VZIOHIDEventSenderObject wraps an existing Objective-C object that conforms to the VZIOHIDEventSender protocol.
@@ -39,6 +37,6 @@ func VZIOHIDEventSenderObjectFromID(id objc.ID) VZIOHIDEventSenderObject {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEventSender/sendIOHIDEvents:hidDeviceIndex:
-func (o VZIOHIDEventSenderObject) SendIOHIDEventsHidDeviceIndex(iOHIDEvents unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents, index)
+func (o VZIOHIDEventSenderObject) SendIOHIDEventsHidDeviceIndex(iOHIDEvents VZOpaqueIOHIDEvents, index uint32) {
+	objc.Send[struct{}](o.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents.UnsafePointer(), index)
 }

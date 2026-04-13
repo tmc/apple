@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -73,8 +74,8 @@ type IVZIOHIDEvent interface {
 
 	// Topic: Methods
 
-	Event() objectivec.IObject
-	InitWithIOHIDEvent(iOHIDEvent objectivec.IObject) VZIOHIDEvent
+	Event() unsafe.Pointer
+	InitWithIOHIDEvent(iOHIDEvent unsafe.Pointer) VZIOHIDEvent
 }
 
 // Init initializes the instance.
@@ -97,20 +98,20 @@ func NewVZIOHIDEvent() VZIOHIDEvent {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent/initWithIOHIDEvent:
-func NewVZIOHIDEventWithIOHIDEvent(iOHIDEvent objectivec.IObject) VZIOHIDEvent {
+func NewVZIOHIDEventWithIOHIDEvent(iOHIDEvent unsafe.Pointer) VZIOHIDEvent {
 	instance := getVZIOHIDEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
 	return VZIOHIDEventFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent/initWithIOHIDEvent:
-func (v VZIOHIDEvent) InitWithIOHIDEvent(iOHIDEvent objectivec.IObject) VZIOHIDEvent {
+func (v VZIOHIDEvent) InitWithIOHIDEvent(iOHIDEvent unsafe.Pointer) VZIOHIDEvent {
 	rv := objc.Send[VZIOHIDEvent](v.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent/event
-func (v VZIOHIDEvent) Event() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("event"))
-	return objectivec.Object{ID: rv}
+func (v VZIOHIDEvent) Event() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("event"))
+	return rv
 }

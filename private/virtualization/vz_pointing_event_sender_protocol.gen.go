@@ -28,7 +28,7 @@ type VZPointingEventSender interface {
 	// SendMouseEventsPointingDeviceIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/Virtualization/_VZPointingEventSender/sendMouseEvents:pointingDeviceIndex:
-	SendMouseEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
+	SendMouseEventsPointingDeviceIndex(events VZOpaqueMouseEvents, index uint32)
 
 	// SendQuickLookEventsPointingDeviceIndex protocol.
 	//
@@ -79,8 +79,8 @@ func (o VZPointingEventSenderObject) SendMagnifyEventsPointingDeviceIndex(events
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZPointingEventSender/sendMouseEvents:pointingDeviceIndex:
-func (o VZPointingEventSenderObject) SendMouseEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events, index)
+func (o VZPointingEventSenderObject) SendMouseEventsPointingDeviceIndex(events VZOpaqueMouseEvents, index uint32) {
+	objc.Send[struct{}](o.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events.UnsafePointer(), index)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZPointingEventSender/sendPointerNSEvent:pointingDeviceIndex:

@@ -3,8 +3,6 @@
 package virtualization
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,7 +16,7 @@ type VZHIDAdditions interface {
 	// _processHIDReportsForDeviceDeviceType protocol.
 	//
 	// See: https://developer.apple.com/documentation/Virtualization/_VZHIDAdditions/_processHIDReports:forDevice:deviceType:
-	_processHIDReportsForDeviceDeviceType(hIDReports unsafe.Pointer, device uint32, type_ int)
+	_processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32)
 
 	// _shouldSendHIDReports protocol.
 	//
@@ -50,8 +48,8 @@ func (o VZHIDAdditionsObject) _hidEventMonitor() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDAdditions/_processHIDReports:forDevice:deviceType:
-func (o VZHIDAdditionsObject) _processHIDReportsForDeviceDeviceType(hIDReports unsafe.Pointer, device uint32, type_ int) {
-	objc.Send[struct{}](o.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports, device, type_)
+func (o VZHIDAdditionsObject) _processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) {
+	objc.Send[struct{}](o.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports.UnsafePointer(), device, type_)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDAdditions/_shouldSendHIDReports

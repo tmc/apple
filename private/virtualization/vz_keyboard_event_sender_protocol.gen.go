@@ -3,8 +3,6 @@
 package virtualization
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,7 +16,7 @@ type VZKeyboardEventSender interface {
 	// SendKeyboardEventsKeyboardID protocol.
 	//
 	// See: https://developer.apple.com/documentation/Virtualization/_VZKeyboardEventSender/sendKeyboardEvents:keyboardID:
-	SendKeyboardEventsKeyboardID(events unsafe.Pointer, id uint32)
+	SendKeyboardEventsKeyboardID(events VZOpaqueKeyboardEvents, id uint32)
 }
 
 // VZKeyboardEventSenderObject wraps an existing Objective-C object that conforms to the VZKeyboardEventSender protocol.
@@ -39,6 +37,6 @@ func VZKeyboardEventSenderObjectFromID(id objc.ID) VZKeyboardEventSenderObject {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZKeyboardEventSender/sendKeyboardEvents:keyboardID:
-func (o VZKeyboardEventSenderObject) SendKeyboardEventsKeyboardID(events unsafe.Pointer, id uint32) {
-	objc.Send[struct{}](o.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events, id)
+func (o VZKeyboardEventSenderObject) SendKeyboardEventsKeyboardID(events VZOpaqueKeyboardEvents, id uint32) {
+	objc.Send[struct{}](o.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events.UnsafePointer(), id)
 }
