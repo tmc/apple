@@ -227,7 +227,8 @@ func Send[T any](id ID, sel SEL, args ...any) T {
 // Returns the uintptr slice and true if all args are uintptr-castable,
 // or nil, false if any arg requires the slow path.
 func tryFastArgs(args []any) ([]uintptr, bool) {
-	uargs := make([]uintptr, len(args))
+	var buf [8]uintptr
+	uargs := buf[:len(args)]
 	for i, arg := range args {
 		switch v := arg.(type) {
 		case ID:
@@ -337,10 +338,6 @@ func initFastSend() {
 	basepurego.RegisterFunc(&msgSend6, objcMsgSendAddr)
 	basepurego.RegisterFunc(&msgSend7, objcMsgSendAddr)
 	basepurego.RegisterFunc(&msgSend8, objcMsgSendAddr)
-}
-
-func init() {
-	initFastSend()
 }
 
 func cArrayArgIndexes(selector string, argc int) map[int]struct{} {
