@@ -41,7 +41,7 @@ type OperationPlan struct {
 	Name   string        // operator name (e.g. "conv", "linear", "softmax")
 	Device ComputeDevice // preferred compute device
 	Cost   float64       // estimated workload fraction [0.0, 1.0]
-	Path   []int         // hierarchical op path from NSIndexPath
+	Path   []string      // hierarchical path components from MLModelStructurePath
 	MilID  int64         // MIL operation ID for source mapping
 }
 
@@ -214,14 +214,14 @@ func (p *Plan) walkBlock(block coreml.MLModelStructureProgramBlock, ops []Operat
 			plan.MilID = milNum.LongLongValue()
 		}
 
-		// Path: MLModelStructurePath -> []int (via Components NSArray)
+		// Path: MLModelStructurePath -> []string (via Components NSArray)
 		if pathObj := privOp.Path(); pathObj.GetID() != 0 {
-			pathID := pathObj.GetID()
-			length := objc.Send[uint](pathID, objc.Sel("length"))
-			if length > 0 {
-				plan.Path = make([]int, length)
-				for i := uint(0); i < length; i++ {
-					plan.Path[i] = int(objc.Send[uint](pathID, objc.Sel("indexAtPosition:"), i))
+			comps := privatecoreml.MLModelStructurePathFromID(pathObj.GetID()).Components()
+			count := comps.Count()
+			if count > 0 {
+				plan.Path = make([]string, count)
+				for i := uint(0); i < count; i++ {
+					plan.Path[i] = foundation.NSStringFromID(comps.ObjectAtIndex(i).GetID()).String()
 				}
 			}
 		}
