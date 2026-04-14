@@ -143,10 +143,10 @@ func TestMILTextEmit(t *testing.T) {
 
 	// Verify key elements are present in the real Apple MIL format.
 	checks := []string{
-		"Program(1.3)",
+		"program(1.0)",
 		"func main<ios18>(",
 		"tensor<fp16, [1, 64]>",
-		"const(",
+		"const()",
 		"BLOBFILE(",
 		`tensor<string, []>("@model_path/weights/weight.bin")`,
 		"tensor<uint64, []>(64)",
@@ -266,7 +266,7 @@ func TestCompileMLProgram(t *testing.T) {
 		t.Fatal(err)
 	}
 	milText := string(milData)
-	if !strings.Contains(milText, "Program(") {
+	if !strings.Contains(milText, "program(") {
 		t.Errorf("model.mil missing Program header")
 	}
 	if !strings.Contains(milText, "func main<ios18>") {
@@ -539,7 +539,7 @@ func TestMILTextWithState(t *testing.T) {
 	text := emitMILTextWithSpec(prog, 8)
 
 	checks := []string{
-		"Program(1.3)",
+		"program(1.0)",
 		"state<tensor<fp16, [1, 1, 128, 64]>>",
 		"read_state(",
 		"state = state_k",
@@ -592,7 +592,7 @@ func TestFormatTensorType(t *testing.T) {
 		{
 			name: "scalar fp32",
 			tt:   &TensorType{DataType: DataTypeFloat32},
-			want: "fp32",
+			want: "tensor<fp32, []>",
 		},
 		{
 			name: "2D fp16",

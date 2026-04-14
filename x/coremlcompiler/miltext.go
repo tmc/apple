@@ -19,10 +19,27 @@ func emitMILText(prog *Program) string {
 	return emitMILTextWithSpec(prog, 8)
 }
 
+// milOpSet maps proto opset names to MIL text opset names.
+// Apple's coremlcompiler rewrites CoreMLN → iosNN in MIL text.
+func milOpSet(opset string) string {
+	switch opset {
+	case "CoreML5":
+		return "ios16"
+	case "CoreML6":
+		return "ios17"
+	case "CoreML7":
+		return "ios18"
+	case "CoreML8":
+		return "ios18"
+	default:
+		return opset
+	}
+}
+
 func emitFunction(b *strings.Builder, name string, fn *Function) {
 	opsetSuffix := ""
 	if fn.OpSet != "" {
-		opsetSuffix = "<" + fn.OpSet + ">"
+		opsetSuffix = "<" + milOpSet(fn.OpSet) + ">"
 	}
 
 	// Function signature — params use bare names (no % prefix).
@@ -79,33 +96,53 @@ func emitOperation(b *strings.Builder, op *Operation, indent int) {
 		b.WriteString(" = ")
 	}
 
+	// For const ops, all inputs (e.g. val) are emitted as attributes
+	// in MIL text format: const()[name = ..., val = ...]
+	isConst := op.Type == "const"
+
 	// Operation name and inputs.
 	fmt.Fprintf(b, "%s(", op.Type)
-
-	// Emit inputs in sorted order.
-	inputNames := sortedKeys(op.Inputs)
-	first := true
-	for _, iname := range inputNames {
-		arg := op.Inputs[iname]
-		for _, Binding := range arg.Bindings {
-			if !first {
-				b.WriteString(", ")
+	if !isConst {
+		inputNames := sortedKeys(op.Inputs)
+		first := true
+		for _, iname := range inputNames {
+			arg := op.Inputs[iname]
+			for _, Binding := range arg.Bindings {
+				if !first {
+					b.WriteString(", ")
+				}
+				first = false
+				fmt.Fprintf(b, "%s = %s", iname, formatBinding(&Binding))
 			}
-			first = false
-			fmt.Fprintf(b, "%s = %s", iname, formatBinding(&Binding))
 		}
 	}
 	b.WriteString(")")
 
-	// Attributes.
-	if len(op.Attributes) > 0 {
+	// Attributes (for const ops, inputs are merged here).
+	hasAttrs := len(op.Attributes) > 0 || (isConst && len(op.Inputs) > 0)
+	if hasAttrs {
 		b.WriteString("[")
+		first := true
 		attrNames := sortedKeys(op.Attributes)
-		for i, aname := range attrNames {
-			if i > 0 {
+		for _, aname := range attrNames {
+			if !first {
 				b.WriteString(", ")
 			}
+			first = false
 			fmt.Fprintf(b, "%s = %s", aname, formatValue(op.Attributes[aname]))
+		}
+		if isConst {
+			inputNames := sortedKeys(op.Inputs)
+			for _, iname := range inputNames {
+				arg := op.Inputs[iname]
+				for _, Binding := range arg.Bindings {
+					if !first {
+						b.WriteString(", ")
+					}
+					first = false
+					fmt.Fprintf(b, "%s = %s", iname, formatBinding(&Binding))
+				}
+			}
 		}
 		b.WriteString("]")
 	}
@@ -143,12 +180,13 @@ func formatType(vt *ValueType) string {
 }
 
 // formatTensorType formats a tensor type like "tensor<fp16, [1, 128, 1, 64]>".
+// Scalars are formatted as "tensor<dtype, []>" to match Apple's coremlcompiler.
 func formatTensorType(tt *TensorType) string {
 	dtype := tt.DataType.String()
 
 	// Scalar (rank 0 or no dimensions).
 	if len(tt.Dimensions) == 0 {
-		return dtype
+		return fmt.Sprintf("tensor<%s, []>", dtype)
 	}
 
 	var dims []string
@@ -294,13 +332,8 @@ func sortedKeys[V any](m map[string]V) []string {
 }
 
 // milVersionForSpec maps the CoreML spec version to the MIL dialect string.
-//
-//	spec 7  → "1.0" (iOS 17)
-//	spec 8+ → "1.3" (iOS 18)
+// Apple's coremlcompiler emits "1.0" for all current spec versions.
 func milVersionForSpec(specVersion int32) string {
-	if specVersion >= 8 {
-		return "1.3"
-	}
 	return "1.0"
 }
 
@@ -308,7 +341,7 @@ func milVersionForSpec(specVersion int32) string {
 // correct MIL dialect selection.
 func emitMILTextWithSpec(prog *Program, specVersion int32) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "Program(%s)\n", milVersionForSpec(specVersion))
+	fmt.Fprintf(&b, "program(%s)\n", milVersionForSpec(specVersion))
 
 	for key, val := range prog.Attributes {
 		fmt.Fprintf(&b, "[%s = %s]\n", key, formatValue(val))

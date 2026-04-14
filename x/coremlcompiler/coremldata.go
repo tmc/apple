@@ -1,6 +1,10 @@
 package coremlcompiler
 
-import "encoding/binary"
+import (
+	"crypto/sha256"
+	"encoding/base64"
+	"encoding/binary"
+)
 
 // coremldata.bin format (magic=502, mlprogram):
 //
@@ -61,13 +65,53 @@ func buildCoreMLData(m *Model) []byte {
 }
 
 // specFormatByte returns the byte at offset 0x2b based on the spec version.
-// Observed values: 0x06 for spec 5 (mlprogram), 0x01 for spec 1 (NeuralNetwork).
+// Apple's coremlcompiler writes the spec version number directly.
 func specFormatByte(specVersion int32) byte {
-	if specVersion >= 9 {
-		return 0x09
+	return byte(specVersion)
+}
+
+// buildAnalyticsCoreMLData constructs the analytics/coremldata.bin from the
+// model proto bytes. This file uses a section-based key-value format that
+// Apple's runtime checks when loading a .mlmodelc.
+//
+// Format: sequence of sections, each is:
+//
+//	uint64le(sectionNameLen) sectionName
+//	uint64le(numEntries)
+//	numEntries × (uint64le(keyLen) key uint64le(valLen) val)
+func buildAnalyticsCoreMLData(modelProto []byte) []byte {
+	hash := sha256.Sum256(modelProto)
+	hashB64 := base64.StdEncoding.EncodeToString(hash[:])
+
+	var buf []byte
+	buf = analyticsSection(buf, "NeuralNetworkModelDetails",
+		"containsCustomLayer", "0",
+		"modelDimension", "0",
+	)
+	buf = analyticsSection(buf, "SpecificationDetails",
+		"modelHash", hashB64,
+		"modelName", "model",
+	)
+	return buf
+}
+
+func analyticsSection(buf []byte, name string, kvs ...string) []byte {
+	buf = appendAnalyticsStr(buf, name)
+	nEntries := len(kvs) / 2
+	var countBuf [8]byte
+	binary.LittleEndian.PutUint64(countBuf[:], uint64(nEntries))
+	buf = append(buf, countBuf[:]...)
+	for i := 0; i < len(kvs); i += 2 {
+		buf = appendAnalyticsStr(buf, kvs[i])
+		buf = appendAnalyticsStr(buf, kvs[i+1])
 	}
-	if specVersion >= 5 {
-		return 0x06
-	}
-	return 0x01
+	return buf
+}
+
+func appendAnalyticsStr(buf []byte, s string) []byte {
+	var lenBuf [8]byte
+	binary.LittleEndian.PutUint64(lenBuf[:], uint64(len(s)))
+	buf = append(buf, lenBuf[:]...)
+	buf = append(buf, s...)
+	return buf
 }

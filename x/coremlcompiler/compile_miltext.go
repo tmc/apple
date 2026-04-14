@@ -53,7 +53,7 @@ func compileMILTextModel(model *Model, milText, weightRoot, outputPath string) e
 	if err := os.WriteFile(cdPath, coremldata, 0o644); err != nil {
 		return fmt.Errorf("coremlcompiler: write coremldata.bin: %w", err)
 	}
-	if err := writeAnalyticsCoreMLData(outputPath, coremldata); err != nil {
+	if err := writeAnalyticsCoreMLData(outputPath, EncodeModel(model)); err != nil {
 		return fmt.Errorf("coremlcompiler: write analytics coremldata.bin: %w", err)
 	}
 
@@ -92,12 +92,13 @@ func copyDirContents(srcRoot, dstRoot string) error {
 	})
 }
 
-func writeAnalyticsCoreMLData(outputPath string, coremldata []byte) error {
+func writeAnalyticsCoreMLData(outputPath string, modelProto []byte) error {
 	analyticsDir := filepath.Join(outputPath, "analytics")
 	if err := os.MkdirAll(analyticsDir, 0o755); err != nil {
 		return err
 	}
-	return os.WriteFile(filepath.Join(analyticsDir, "coremldata.bin"), coremldata, 0o644)
+	data := buildAnalyticsCoreMLData(modelProto)
+	return os.WriteFile(filepath.Join(analyticsDir, "coremldata.bin"), data, 0o644)
 }
 
 func copyFile(src, dst string) error {

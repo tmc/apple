@@ -75,7 +75,7 @@ func compileMLProgram(model *Model, weightDir, outputPath string) error {
 	if err := os.WriteFile(cdPath, coremldata, 0o644); err != nil {
 		return fmt.Errorf("coremlcompiler: write coremldata.bin: %w", err)
 	}
-	if err := writeAnalyticsCoreMLData(outputPath, coremldata); err != nil {
+	if err := writeAnalyticsCoreMLData(outputPath, EncodeModel(model)); err != nil {
 		return fmt.Errorf("coremlcompiler: write analytics coremldata.bin: %w", err)
 	}
 
@@ -304,6 +304,12 @@ func collectBlockBlobRefs(blk *Block, seen map[string]bool) {
 				if b.Value != nil && b.Value.BlobFile != nil {
 					seen[b.Value.BlobFile.FileName] = true
 				}
+			}
+		}
+		// Check operation attributes for blob references (e.g. const val).
+		for _, attr := range op.Attributes {
+			if attr.BlobFile != nil {
+				seen[attr.BlobFile.FileName] = true
 			}
 		}
 		// Check nested blocks.
