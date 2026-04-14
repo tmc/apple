@@ -8,7 +8,6 @@ import (
 
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objc"
 )
 
 // CompileMLModelAtURL uses [MLModel compileModelAtURL:error:] to compile a
@@ -78,14 +77,17 @@ func (m *CoreMLModel) Predict(inputs []PredictInput, outputName string) (*Predic
 	// Convert IMLFeatureValue → concrete MLFeatureValue to access MultiArrayValue.
 	fv := coreml.MLFeatureValueFromID(outFV.GetID())
 	outMultiArr := coreml.MLMultiArrayFromID(fv.MultiArrayValue().GetID())
-
-	// TODO: use outMultiArr.DataPointer() once the generator emits the accessor.
-	dataPtr := objc.Send[unsafe.Pointer](outMultiArr.ID, objc.Sel("dataPointer"))
-
 	outShape := nsNumbersToInts(outMultiArr.Shape())
 
+	// Use GetBytesWithHandler (non-deprecated) to copy output data.
+	var outBytes []byte
+	outMultiArr.GetBytesWithHandler(func(ptr unsafe.Pointer, size int64) {
+		outBytes = make([]byte, size)
+		copy(outBytes, unsafe.Slice((*byte)(ptr), size))
+	})
+
 	return &PredictOutput{
-		Data:  dataPtr,
+		Bytes: outBytes,
 		Shape: outShape,
 		DType: outMultiArr.DataType(),
 	}, nil

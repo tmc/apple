@@ -17,7 +17,7 @@ type PredictInput struct {
 
 // PredictOutput holds the result of a CoreML prediction.
 type PredictOutput struct {
-	Data  unsafe.Pointer // owned by CoreML, valid until model is closed
+	Bytes []byte // copied from CoreML output buffer
 	Shape []int
 	DType coreml.MLMultiArrayDataType
 }
