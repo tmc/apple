@@ -6,6 +6,7 @@
 //go:generate applegen-bootstrap --private -f "remotecoreml"
 //go:generate applegen-bootstrap --private -f "speechobjects"
 //go:generate applegen-bootstrap --private -f "texttospeech"
+//go:generate applegen-bootstrap --private -f "skylight"
 
 //go:generate applegen-bootstrap --private-companion -f "avfaudio"
 //go:generate applegen-bootstrap --private-companion -f "coreml"
