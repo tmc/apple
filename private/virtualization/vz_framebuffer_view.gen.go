@@ -116,8 +116,8 @@ type IVZFramebufferView interface {
 	Cursor() appkit.NSCursor
 	SetCursor(value appkit.NSCursor)
 	DisplayProtectionOptions() foundation.NSNumber
-	Framebuffer() *VZFramebuffer
-	SetFramebuffer(value *VZFramebuffer)
+	Framebuffer() IVZFramebuffer
+	SetFramebuffer(value IVZFramebuffer)
 	FramebufferDidUpdateCursor(framebuffer objectivec.IObject, cursor objectivec.IObject)
 	FramebufferDidUpdateFrame(framebuffer objectivec.IObject, frame objectivec.IObject)
 	FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64)
@@ -227,19 +227,11 @@ func (v VZFramebufferView) DisplayProtectionOptions() foundation.NSNumber {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferView/framebuffer
-func (v VZFramebufferView) Framebuffer() *VZFramebuffer {
+func (v VZFramebufferView) Framebuffer() IVZFramebuffer {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("framebuffer"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZFramebufferFromID(objc.ID(rv))
-	return &val
+	return VZFramebufferFromID(objc.ID(rv))
 }
-func (v VZFramebufferView) SetFramebuffer(value *VZFramebuffer) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setFramebuffer:"), objc.ID(0))
-		return
-	}
+func (v VZFramebufferView) SetFramebuffer(value IVZFramebuffer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFramebuffer:"), value)
 }
 

@@ -158,7 +158,7 @@ func (v VZDiskImage) InitWithDescriptorError(descriptor objectivec.IObject) (VZD
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithDescriptor:error:"), descriptor, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZDiskImage{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZDiskImage), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZDiskImageFromID(rv), nil
 
@@ -170,7 +170,7 @@ func (v VZDiskImage) InitWithURLReadOnlyError(url foundation.INSURL, only bool) 
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithURL:readOnly:error:"), url, only, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZDiskImage{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZDiskImage), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZDiskImageFromID(rv), nil
 

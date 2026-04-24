@@ -107,9 +107,9 @@ type IVZIOUSBHostPassthroughDevice interface {
 
 	_processIOUSBHostDeviceMessageMessageArgumentVirtualMachine(message uint32, argument unsafe.Pointer, machine objectivec.IObject)
 	_releaseDevice()
-	Configuration() *VZIOUSBHostPassthroughDeviceConfiguration
-	SetConfiguration(value *VZIOUSBHostPassthroughDeviceConfiguration)
-	IoUSBHostDeviceConfiguration() *VZIOUSBHostPassthroughDeviceConfiguration
+	Configuration() IVZIOUSBHostPassthroughDeviceConfiguration
+	SetConfiguration(value IVZIOUSBHostPassthroughDeviceConfiguration)
+	IoUSBHostDeviceConfiguration() IVZIOUSBHostPassthroughDeviceConfiguration
 	IsPointingDevice() bool
 	Signature() objectivec.IObject
 	UsbController() IVZUSBController
@@ -187,26 +187,18 @@ func (v VZIOUSBHostPassthroughDevice) InitWithConfigurationError(configuration o
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZIOUSBHostPassthroughDevice{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZIOUSBHostPassthroughDevice), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZIOUSBHostPassthroughDeviceFromID(rv), nil
 
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDevice/configuration
-func (v VZIOUSBHostPassthroughDevice) Configuration() *VZIOUSBHostPassthroughDeviceConfiguration {
+func (v VZIOUSBHostPassthroughDevice) Configuration() IVZIOUSBHostPassthroughDeviceConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("configuration"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZIOUSBHostPassthroughDeviceConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZIOUSBHostPassthroughDeviceConfigurationFromID(objc.ID(rv))
 }
-func (v VZIOUSBHostPassthroughDevice) SetConfiguration(value *VZIOUSBHostPassthroughDeviceConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), objc.ID(0))
-		return
-	}
+func (v VZIOUSBHostPassthroughDevice) SetConfiguration(value IVZIOUSBHostPassthroughDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), value)
 }
 
@@ -229,13 +221,9 @@ func (v VZIOUSBHostPassthroughDevice) Hash() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDevice/ioUSBHostDeviceConfiguration
-func (v VZIOUSBHostPassthroughDevice) IoUSBHostDeviceConfiguration() *VZIOUSBHostPassthroughDeviceConfiguration {
+func (v VZIOUSBHostPassthroughDevice) IoUSBHostDeviceConfiguration() IVZIOUSBHostPassthroughDeviceConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("ioUSBHostDeviceConfiguration"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZIOUSBHostPassthroughDeviceConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZIOUSBHostPassthroughDeviceConfigurationFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDevice/isPointingDevice

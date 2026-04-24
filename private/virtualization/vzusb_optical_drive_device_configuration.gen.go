@@ -77,7 +77,7 @@ type IVZUSBOpticalDriveDeviceConfiguration interface {
 
 	// Topic: Methods
 
-	_getStorageDeviceWithQueueSessionCompletionHandler(queue objectivec.IObject, session unsafe.Pointer, handler ErrorHandler)
+	_getStorageDeviceWithQueueSessionCompletionHandler(queue DispatchQueue, session unsafe.Pointer, handler ErrorHandler)
 	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	InitWithAttachment(attachment objectivec.IObject) VZUSBOpticalDriveDeviceConfiguration
 }
@@ -109,13 +109,13 @@ func NewVZUSBOpticalDriveDeviceConfigurationWithAttachment(attachment objectivec
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBOpticalDriveDeviceConfiguration/_getStorageDeviceWithQueue:session:completionHandler:
-func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSessionCompletionHandler(queue objectivec.IObject, session unsafe.Pointer, handler ErrorHandler) {
+func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSessionCompletionHandler(queue DispatchQueue, session unsafe.Pointer, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:"), queue, session, _block2)
 }
 
 // GetStorageDeviceWithQueueSessionCompletionHandler is an exported wrapper for the private method _getStorageDeviceWithQueueSessionCompletionHandler.
-func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCompletionHandler(queue objectivec.IObject, session unsafe.Pointer, handler ErrorHandler) {
+func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCompletionHandler(queue DispatchQueue, session unsafe.Pointer, handler ErrorHandler) {
 	v._getStorageDeviceWithQueueSessionCompletionHandler(queue, session, handler)
 }
 
@@ -133,7 +133,7 @@ func (v VZUSBOpticalDriveDeviceConfiguration) InitWithAttachment(attachment obje
 
 // _getStorageDeviceWithQueueSession is a synchronous wrapper around [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSession(ctx context.Context, queue objectivec.IObject, session unsafe.Pointer) error {
+func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSession(ctx context.Context, queue DispatchQueue, session unsafe.Pointer) error {
 	done := make(chan error, 1)
 	v._getStorageDeviceWithQueueSessionCompletionHandler(queue, session, func(err error) {
 		done <- err

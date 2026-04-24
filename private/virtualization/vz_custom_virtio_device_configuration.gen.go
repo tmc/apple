@@ -156,12 +156,12 @@ type IVZCustomVirtioDeviceConfiguration interface {
 	_supportsSaveRestore() bool
 	DeviceID() uint16
 	SetDeviceID(value uint16)
-	DeviceSpecificConfiguration() *VZVirtioDeviceSpecificConfiguration
-	SetDeviceSpecificConfiguration(value *VZVirtioDeviceSpecificConfiguration)
+	DeviceSpecificConfiguration() IVZVirtioDeviceSpecificConfiguration
+	SetDeviceSpecificConfiguration(value IVZVirtioDeviceSpecificConfiguration)
 	MandatoryFeaturesAtIndex(index uint64) uint32
 	OptionalFeaturesAtIndex(index uint64) uint32
-	Provider() *VZCustomVirtioDeviceProvider
-	SetProvider(value *VZCustomVirtioDeviceProvider)
+	Provider() IVZCustomVirtioDeviceProvider
+	SetProvider(value IVZCustomVirtioDeviceProvider)
 	SetMandatoryFeaturesAtIndex(features uint32, index uint64)
 	SetOptionalFeaturesAtIndex(features uint32, index uint64)
 	VirtioQueueCount() uint16
@@ -380,36 +380,20 @@ func (v VZCustomVirtioDeviceConfiguration) SetDeviceID(value uint16) {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/deviceSpecificConfiguration
-func (v VZCustomVirtioDeviceConfiguration) DeviceSpecificConfiguration() *VZVirtioDeviceSpecificConfiguration {
+func (v VZCustomVirtioDeviceConfiguration) DeviceSpecificConfiguration() IVZVirtioDeviceSpecificConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceSpecificConfiguration"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZVirtioDeviceSpecificConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZVirtioDeviceSpecificConfigurationFromID(objc.ID(rv))
 }
-func (v VZCustomVirtioDeviceConfiguration) SetDeviceSpecificConfiguration(value *VZVirtioDeviceSpecificConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setDeviceSpecificConfiguration:"), objc.ID(0))
-		return
-	}
+func (v VZCustomVirtioDeviceConfiguration) SetDeviceSpecificConfiguration(value IVZVirtioDeviceSpecificConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDeviceSpecificConfiguration:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/provider
-func (v VZCustomVirtioDeviceConfiguration) Provider() *VZCustomVirtioDeviceProvider {
+func (v VZCustomVirtioDeviceConfiguration) Provider() IVZCustomVirtioDeviceProvider {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("provider"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZCustomVirtioDeviceProviderFromID(objc.ID(rv))
-	return &val
+	return VZCustomVirtioDeviceProviderFromID(objc.ID(rv))
 }
-func (v VZCustomVirtioDeviceConfiguration) SetProvider(value *VZCustomVirtioDeviceProvider) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), objc.ID(0))
-		return
-	}
+func (v VZCustomVirtioDeviceConfiguration) SetProvider(value IVZCustomVirtioDeviceProvider) {
 	objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), value)
 }
 

@@ -99,8 +99,8 @@ type IVZUSBPassthroughDevice interface {
 
 	// Topic: Methods
 
-	Configuration() *VZUSBPassthroughDeviceConfiguration
-	SetConfiguration(value *VZUSBPassthroughDeviceConfiguration)
+	Configuration() IVZUSBPassthroughDeviceConfiguration
+	SetConfiguration(value IVZUSBPassthroughDeviceConfiguration)
 	IsPointingDevice() bool
 	Signature() objectivec.IObject
 	UsbController() IVZUSBController
@@ -158,26 +158,18 @@ func (v VZUSBPassthroughDevice) InitWithConfigurationError(configuration objecti
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZUSBPassthroughDevice{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZUSBPassthroughDevice), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZUSBPassthroughDeviceFromID(rv), nil
 
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/configuration
-func (v VZUSBPassthroughDevice) Configuration() *VZUSBPassthroughDeviceConfiguration {
+func (v VZUSBPassthroughDevice) Configuration() IVZUSBPassthroughDeviceConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("configuration"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZUSBPassthroughDeviceConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZUSBPassthroughDeviceConfigurationFromID(objc.ID(rv))
 }
-func (v VZUSBPassthroughDevice) SetConfiguration(value *VZUSBPassthroughDeviceConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), objc.ID(0))
-		return
-	}
+func (v VZUSBPassthroughDevice) SetConfiguration(value IVZUSBPassthroughDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), value)
 }
 

@@ -94,8 +94,8 @@ type IVZMailboxDeviceConfiguration interface {
 
 	_init() objectivec.IObject
 	_mailboxDevice() objectivec.IObject
-	Attachment() *VZMailboxDeviceAttachment
-	SetAttachment(value *VZMailboxDeviceAttachment)
+	Attachment() IVZMailboxDeviceAttachment
+	SetAttachment(value IVZMailboxDeviceAttachment)
 	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	ValidateWithError() (bool, error)
 	DebugDescription() string
@@ -157,19 +157,11 @@ func (v VZMailboxDeviceConfiguration) _mailboxDevice() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/attachment
-func (v VZMailboxDeviceConfiguration) Attachment() *VZMailboxDeviceAttachment {
+func (v VZMailboxDeviceConfiguration) Attachment() IVZMailboxDeviceAttachment {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attachment"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZMailboxDeviceAttachmentFromID(objc.ID(rv))
-	return &val
+	return VZMailboxDeviceAttachmentFromID(objc.ID(rv))
 }
-func (v VZMailboxDeviceConfiguration) SetAttachment(value *VZMailboxDeviceAttachment) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), objc.ID(0))
-		return
-	}
+func (v VZMailboxDeviceConfiguration) SetAttachment(value IVZMailboxDeviceAttachment) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
 

@@ -173,7 +173,7 @@ func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceError(interface_ ob
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithInterface:error:"), interface_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZVhostUserNetworkDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZVhostUserNetworkDeviceAttachment), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 
@@ -185,7 +185,7 @@ func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceMaximumTransmission
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithInterface:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:"), interface_, unit, offload, offload2, offload3, offload4, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZVhostUserNetworkDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZVhostUserNetworkDeviceAttachment), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 
@@ -197,7 +197,7 @@ func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceXpcServiceMaximumTr
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithInterface:xpcService:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:"), interface_, service, unit, offload, offload2, offload3, offload4, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZVhostUserNetworkDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZVhostUserNetworkDeviceAttachment), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 

@@ -161,7 +161,7 @@ func (v VZIOUSBHostPassthroughDeviceConfiguration) InitWithServiceError(service 
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithService:error:"), service, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZIOUSBHostPassthroughDeviceConfiguration{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZIOUSBHostPassthroughDeviceConfiguration), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZIOUSBHostPassthroughDeviceConfigurationFromID(rv), nil
 

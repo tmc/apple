@@ -98,7 +98,7 @@ type IVZVirtualMachineAccessor interface {
 
 	// Topic: Methods
 
-	_hidEventMonitor() *VZHIDEventMonitor
+	_hidEventMonitor() IVZHIDEventMonitor
 	_processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32)
 	_shouldSendHIDReports() bool
 	SendDigitizerEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
@@ -210,11 +210,7 @@ func (v VZVirtualMachineAccessor) SendSmartMagnifyEventsPointingDeviceIndex(even
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/_hidEventMonitor
-func (v VZVirtualMachineAccessor) _hidEventMonitor() *VZHIDEventMonitor {
+func (v VZVirtualMachineAccessor) _hidEventMonitor() IVZHIDEventMonitor {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidEventMonitor"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZHIDEventMonitorFromID(objc.ID(rv))
-	return &val
+	return VZHIDEventMonitorFromID(objc.ID(rv))
 }

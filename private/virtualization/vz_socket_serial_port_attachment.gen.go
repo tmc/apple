@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
@@ -86,7 +87,7 @@ type IVZSocketSerialPortAttachment interface {
 	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	Mode() int64
 	UnixSocketAddress() objectivec.IObject
-	InitWithModeAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment
+	InitWithModeAddress(mode int64, address unsafe.Pointer) VZSocketSerialPortAttachment
 	InitWithModeUnixSocketAddress(mode int64, address *kernel.Sockaddr_un) VZSocketSerialPortAttachment
 }
 
@@ -110,7 +111,7 @@ func NewVZSocketSerialPortAttachment() VZSocketSerialPortAttachment {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/initWithMode:address:
-func NewVZSocketSerialPortAttachmentWithModeAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment {
+func NewVZSocketSerialPortAttachmentWithModeAddress(mode int64, address unsafe.Pointer) VZSocketSerialPortAttachment {
 	instance := getVZSocketSerialPortAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:address:"), mode, address)
 	return VZSocketSerialPortAttachmentFromID(rv)
@@ -130,7 +131,7 @@ func (v VZSocketSerialPortAttachment) EncodeWithEncoder(encoder objectivec.IObje
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/initWithMode:address:
-func (v VZSocketSerialPortAttachment) InitWithModeAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment {
+func (v VZSocketSerialPortAttachment) InitWithModeAddress(mode int64, address unsafe.Pointer) VZSocketSerialPortAttachment {
 	rv := objc.Send[VZSocketSerialPortAttachment](v.ID, objc.Sel("initWithMode:address:"), mode, address)
 	return rv
 }

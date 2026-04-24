@@ -44,7 +44,7 @@ func (o CALayerDelegateObject) DisplayLayer(layer objectivec.IObject) {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/CALayerDelegate/drawLayer:inContext:
-func (o CALayerDelegateObject) DrawLayerInContext(layer objectivec.IObject, context *coregraphics.CGContextRef) {
+func (o CALayerDelegateObject) DrawLayerInContext(layer objectivec.IObject, context coregraphics.CGContextRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("drawLayer:inContext:"), layer, context)
 }
 

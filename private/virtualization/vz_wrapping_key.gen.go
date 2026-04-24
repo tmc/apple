@@ -143,7 +143,7 @@ func (v VZWrappingKey) InitWithAESKeyError(aESKey objectivec.IObject) (VZWrappin
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithAESKey:error:"), aESKey, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZWrappingKey), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZWrappingKeyFromID(rv), nil
 
@@ -155,7 +155,7 @@ func (v VZWrappingKey) InitWithAsymmetricKeyError(key string) (VZWrappingKey, er
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithAsymmetricKey:error:"), objc.String(key), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZWrappingKey), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZWrappingKeyFromID(rv), nil
 
@@ -167,7 +167,7 @@ func (v VZWrappingKey) InitWithPasswordError(password objectivec.IObject) (VZWra
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithPassword:error:"), password, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZWrappingKey{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZWrappingKey), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZWrappingKeyFromID(rv), nil
 

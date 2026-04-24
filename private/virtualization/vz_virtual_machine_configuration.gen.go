@@ -204,14 +204,14 @@ type IVZVirtualMachineConfiguration interface {
 	Set_biometricDevices(value foundation.INSArray)
 	_coprocessors() foundation.INSArray
 	Set_coprocessors(value foundation.INSArray)
-	_cpuEmulator() *VZCPUEmulatorConfiguration
-	Set_cpuEmulator(value *VZCPUEmulatorConfiguration)
+	_cpuEmulator() IVZCPUEmulatorConfiguration
+	Set_cpuEmulator(value IVZCPUEmulatorConfiguration)
 	_customMMIODevices() foundation.INSArray
 	Set_customMMIODevices(value foundation.INSArray)
 	_customVirtioDevices() foundation.INSArray
 	Set_customVirtioDevices(value foundation.INSArray)
-	_debugStub() *VZDebugStubConfiguration
-	Set_debugStub(value *VZDebugStubConfiguration)
+	_debugStub() IVZDebugStubConfiguration
+	Set_debugStub(value IVZDebugStubConfiguration)
 	_fatalErrorAction() int64
 	Set_fatalErrorAction(value int64)
 	_hidDevices() foundation.INSArray
@@ -225,8 +225,8 @@ type IVZVirtualMachineConfiguration interface {
 	Set_multiTouchDevices(value foundation.INSArray)
 	_panicAction() int64
 	Set_panicAction(value int64)
-	_panicDevice() *VZPanicDeviceConfiguration
-	Set_panicDevice(value *VZPanicDeviceConfiguration)
+	_panicDevice() IVZPanicDeviceConfiguration
+	Set_panicDevice(value IVZPanicDeviceConfiguration)
 	_pciPassthroughDevices() foundation.INSArray
 	Set_pciPassthroughDevices(value foundation.INSArray)
 	_powerSourceDevices() foundation.INSArray
@@ -546,19 +546,11 @@ func (v VZVirtualMachineConfiguration) Set_coprocessors(value foundation.INSArra
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_cpuEmulator
-func (v VZVirtualMachineConfiguration) _cpuEmulator() *VZCPUEmulatorConfiguration {
+func (v VZVirtualMachineConfiguration) _cpuEmulator() IVZCPUEmulatorConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_cpuEmulator"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZCPUEmulatorConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZCPUEmulatorConfigurationFromID(objc.ID(rv))
 }
-func (v VZVirtualMachineConfiguration) Set_cpuEmulator(value *VZCPUEmulatorConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("set_cpuEmulator:"), objc.ID(0))
-		return
-	}
+func (v VZVirtualMachineConfiguration) Set_cpuEmulator(value IVZCPUEmulatorConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_cpuEmulator:"), value)
 }
 
@@ -581,19 +573,11 @@ func (v VZVirtualMachineConfiguration) Set_customVirtioDevices(value foundation.
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_debugStub
-func (v VZVirtualMachineConfiguration) _debugStub() *VZDebugStubConfiguration {
+func (v VZVirtualMachineConfiguration) _debugStub() IVZDebugStubConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZDebugStubConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZDebugStubConfigurationFromID(objc.ID(rv))
 }
-func (v VZVirtualMachineConfiguration) Set_debugStub(value *VZDebugStubConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("set_debugStub:"), objc.ID(0))
-		return
-	}
+func (v VZVirtualMachineConfiguration) Set_debugStub(value IVZDebugStubConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_debugStub:"), value)
 }
 
@@ -652,19 +636,11 @@ func (v VZVirtualMachineConfiguration) Set_panicAction(value int64) {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_panicDevice
-func (v VZVirtualMachineConfiguration) _panicDevice() *VZPanicDeviceConfiguration {
+func (v VZVirtualMachineConfiguration) _panicDevice() IVZPanicDeviceConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_panicDevice"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZPanicDeviceConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZPanicDeviceConfigurationFromID(objc.ID(rv))
 }
-func (v VZVirtualMachineConfiguration) Set_panicDevice(value *VZPanicDeviceConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](v.ID, objc.Sel("set_panicDevice:"), objc.ID(0))
-		return
-	}
+func (v VZVirtualMachineConfiguration) Set_panicDevice(value IVZPanicDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_panicDevice:"), value)
 }
 

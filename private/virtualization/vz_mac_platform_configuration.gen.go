@@ -5,6 +5,7 @@ package virtualization
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -127,8 +128,8 @@ type IVZMacPlatformConfiguration interface {
 
 	// Topic: Methods
 
-	_guestEncryptionWrappingKey() *VZWrappingKey
-	Set_guestEncryptionWrappingKey(value *VZWrappingKey)
+	_guestEncryptionWrappingKey() string
+	Set_guestEncryptionWrappingKey(value string)
 	_hostAttributeShareOptions() uint64
 	Set_hostAttributeShareOptions(value uint64)
 	_isFairPlayEnabled() bool
@@ -136,8 +137,8 @@ type IVZMacPlatformConfiguration interface {
 	_isProductionModeEnabled() bool
 	_isSIODescramblerEnabled() bool
 	_isStrongIdentityEnabled() bool
-	_remoteServiceDiscoveryConfiguration() *VZMacRemoteServiceDiscoveryConfiguration
-	Set_remoteServiceDiscoveryConfiguration(value *VZMacRemoteServiceDiscoveryConfiguration)
+	_remoteServiceDiscoveryConfiguration() IVZMacRemoteServiceDiscoveryConfiguration
+	Set_remoteServiceDiscoveryConfiguration(value IVZMacRemoteServiceDiscoveryConfiguration)
 	_setFairPlayEnabled(enabled bool)
 	_setFakeEncryptionEnabled(enabled bool)
 	_setGuestEncryptionWrappingKey(key objectivec.IObject)
@@ -331,20 +332,12 @@ func (m VZMacPlatformConfiguration) Set_fakeEncryptionEnabled(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_guestEncryptionWrappingKey
-func (m VZMacPlatformConfiguration) _guestEncryptionWrappingKey() *VZWrappingKey {
+func (m VZMacPlatformConfiguration) _guestEncryptionWrappingKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_guestEncryptionWrappingKey"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZWrappingKeyFromID(objc.ID(rv))
-	return &val
+	return foundation.NSStringFromID(rv).String()
 }
-func (m VZMacPlatformConfiguration) Set_guestEncryptionWrappingKey(value *VZWrappingKey) {
-	if value == nil {
-		objc.Send[struct{}](m.ID, objc.Sel("set_guestEncryptionWrappingKey:"), objc.ID(0))
-		return
-	}
-	objc.Send[struct{}](m.ID, objc.Sel("set_guestEncryptionWrappingKey:"), value)
+func (m VZMacPlatformConfiguration) Set_guestEncryptionWrappingKey(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("set_guestEncryptionWrappingKey:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_hostAttributeShareOptions
@@ -366,19 +359,11 @@ func (m VZMacPlatformConfiguration) Set_productionModeEnabled(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_remoteServiceDiscoveryConfiguration
-func (m VZMacPlatformConfiguration) _remoteServiceDiscoveryConfiguration() *VZMacRemoteServiceDiscoveryConfiguration {
+func (m VZMacPlatformConfiguration) _remoteServiceDiscoveryConfiguration() IVZMacRemoteServiceDiscoveryConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_remoteServiceDiscoveryConfiguration"))
-	if rv == 0 {
-		return nil
-	}
-	val := VZMacRemoteServiceDiscoveryConfigurationFromID(objc.ID(rv))
-	return &val
+	return VZMacRemoteServiceDiscoveryConfigurationFromID(objc.ID(rv))
 }
-func (m VZMacPlatformConfiguration) Set_remoteServiceDiscoveryConfiguration(value *VZMacRemoteServiceDiscoveryConfiguration) {
-	if value == nil {
-		objc.Send[struct{}](m.ID, objc.Sel("set_remoteServiceDiscoveryConfiguration:"), objc.ID(0))
-		return
-	}
+func (m VZMacPlatformConfiguration) Set_remoteServiceDiscoveryConfiguration(value IVZMacRemoteServiceDiscoveryConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_remoteServiceDiscoveryConfiguration:"), value)
 }
 

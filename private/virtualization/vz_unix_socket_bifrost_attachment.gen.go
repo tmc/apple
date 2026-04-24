@@ -116,7 +116,7 @@ func (v VZUnixSocketBifrostAttachment) InitWithPathError(path objectivec.IObject
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithPath:error:"), path, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZUnixSocketBifrostAttachment{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZUnixSocketBifrostAttachment), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZUnixSocketBifrostAttachmentFromID(rv), nil
 

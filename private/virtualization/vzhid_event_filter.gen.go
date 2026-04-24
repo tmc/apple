@@ -76,7 +76,7 @@ type IVZHIDEventFilter interface {
 
 	// Topic: Methods
 
-	GetHIDReportsFromHIDEvent(hIDEvent objectivec.IObject) objectivec.IObject
+	GetHIDReportsFromHIDEvent(hIDEvent uintptr) objectivec.IObject
 	GetHIDReportsFromNSEvent(nSEvent objectivec.IObject) objectivec.IObject
 	UpdateCoordinateTransformIsFlipped(transform corefoundation.CGRect, flipped bool)
 }
@@ -101,7 +101,7 @@ func NewVZHIDEventFilter() VZHIDEventFilter {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDEventFilter/getHIDReportsFromHIDEvent:
-func (v VZHIDEventFilter) GetHIDReportsFromHIDEvent(hIDEvent objectivec.IObject) objectivec.IObject {
+func (v VZHIDEventFilter) GetHIDReportsFromHIDEvent(hIDEvent uintptr) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("getHIDReportsFromHIDEvent:"), hIDEvent)
 	return objectivec.Object{ID: rv}
 }

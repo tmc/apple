@@ -85,7 +85,7 @@ type IVZTemporaryRAMStorageDeviceAttachment interface {
 	// Topic: Methods
 
 	URL() foundation.INSURL
-	_getAttachmentWithQueueCompletionHandler(queue objectivec.IObject, handler ErrorHandler)
+	_getAttachmentWithQueueCompletionHandler(queue DispatchQueue, handler ErrorHandler)
 	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	IsReadOnly() bool
 	InitWithURLReadOnlyError(url foundation.INSURL, only bool) (VZTemporaryRAMStorageDeviceAttachment, error)
@@ -124,13 +124,13 @@ func NewVZTemporaryRAMStorageDeviceAttachmentWithURLReadOnlyError(url foundation
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment/_getAttachmentWithQueue:completionHandler:
-func (v VZTemporaryRAMStorageDeviceAttachment) _getAttachmentWithQueueCompletionHandler(queue objectivec.IObject, handler ErrorHandler) {
+func (v VZTemporaryRAMStorageDeviceAttachment) _getAttachmentWithQueueCompletionHandler(queue DispatchQueue, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_getAttachmentWithQueue:completionHandler:"), queue, _block1)
 }
 
 // GetAttachmentWithQueueCompletionHandler is an exported wrapper for the private method _getAttachmentWithQueueCompletionHandler.
-func (v VZTemporaryRAMStorageDeviceAttachment) GetAttachmentWithQueueCompletionHandler(queue objectivec.IObject, handler ErrorHandler) {
+func (v VZTemporaryRAMStorageDeviceAttachment) GetAttachmentWithQueueCompletionHandler(queue DispatchQueue, handler ErrorHandler) {
 	v._getAttachmentWithQueueCompletionHandler(queue, handler)
 }
 
@@ -152,7 +152,7 @@ func (v VZTemporaryRAMStorageDeviceAttachment) InitWithURLReadOnlyError(url foun
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithURL:readOnly:error:"), url, only, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZTemporaryRAMStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZTemporaryRAMStorageDeviceAttachment), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZTemporaryRAMStorageDeviceAttachmentFromID(rv), nil
 
@@ -172,7 +172,7 @@ func (v VZTemporaryRAMStorageDeviceAttachment) ReadOnly() bool {
 
 // _getAttachmentWithQueue is a synchronous wrapper around [VZTemporaryRAMStorageDeviceAttachment._getAttachmentWithQueueCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZTemporaryRAMStorageDeviceAttachment) _getAttachmentWithQueue(ctx context.Context, queue objectivec.IObject) error {
+func (v VZTemporaryRAMStorageDeviceAttachment) _getAttachmentWithQueue(ctx context.Context, queue DispatchQueue) error {
 	done := make(chan error, 1)
 	v._getAttachmentWithQueueCompletionHandler(queue, func(err error) {
 		done <- err

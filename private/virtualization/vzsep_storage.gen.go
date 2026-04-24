@@ -126,7 +126,7 @@ func (v VZSEPStorage) InitCreatingStorageAtURLError(url foundation.INSURL) (VZSE
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initCreatingStorageAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZSEPStorage{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZSEPStorage), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZSEPStorageFromID(rv), nil
 
