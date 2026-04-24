@@ -275,9 +275,9 @@ type IXRGPUAPSDataProcessor interface {
 	GetShaderIdsKickTraceIdShaderIdsShaderPCsDataMastersCount(ids unsafe.Pointer, id uint32, ids2 *uint32, masters *uint32) (uint64, uint64, bool)
 	GetShaderIdsShaderIdsShaderPCsDataMastersCount(ids uint32, ids2 *uint32, masters *uint32) (uint64, uint64, bool)
 	GetShaderIdsAtUSCIndexKickTraceIdShaderIdsShaderPCsDataMastersCount(uSCIndex uint32, id uint32, ids *uint32, masters *uint32) (uint64, uint64, bool)
-	GetShaderIntervalsKickTraceIdShaderIdIntervalsCount(intervals unsafe.Pointer, id uint32, id2 uint32, intervals2 *uintptr) (uint64, bool)
-	GetShaderIntervalsShaderIdIntervalsCount(intervals uint32, id uint32, intervals2 *uintptr) (uint64, bool)
-	GetShaderIntervalsAtUSCIndexKickTraceIdShaderIdIntervalsCount(uSCIndex uint32, id uint32, id2 uint32, intervals *uintptr) (uint64, bool)
+	GetShaderIntervalsKickTraceIdShaderIdIntervalsCount(intervals unsafe.Pointer, id uint32, id2 uint32, intervals2 *XRGPUIntervalRef) (uint64, bool)
+	GetShaderIntervalsShaderIdIntervalsCount(intervals uint32, id uint32, intervals2 *XRGPUIntervalRef) (uint64, bool)
+	GetShaderIntervalsAtUSCIndexKickTraceIdShaderIdIntervalsCount(uSCIndex uint32, id uint32, id2 uint32, intervals *XRGPUIntervalRef) (uint64, bool)
 	IsUSCEnabled(uSCEnabled uint32) bool
 	IsValidUSC(usc uint32) bool
 	LastAPSTimestamp() uint64
@@ -591,21 +591,21 @@ func (x XRGPUAPSDataProcessor) GetShaderIdsAtUSCIndexKickTraceIdShaderIdsShaderP
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDataProcessor/getShaderIntervals:kickTraceId:shaderId:intervals:count:
-func (x XRGPUAPSDataProcessor) GetShaderIntervalsKickTraceIdShaderIdIntervalsCount(intervals unsafe.Pointer, id uint32, id2 uint32, intervals2 *uintptr) (uint64, bool) {
+func (x XRGPUAPSDataProcessor) GetShaderIntervalsKickTraceIdShaderIdIntervalsCount(intervals unsafe.Pointer, id uint32, id2 uint32, intervals2 *XRGPUIntervalRef) (uint64, bool) {
 	var count uint64
 	rv := objc.Send[bool](x.ID, objc.Sel("getShaderIntervals:kickTraceId:shaderId:intervals:count:"), intervals, id, id2, intervals2, unsafe.Pointer(&count))
 	return count, rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDataProcessor/getShaderIntervals:shaderId:intervals:count:
-func (x XRGPUAPSDataProcessor) GetShaderIntervalsShaderIdIntervalsCount(intervals uint32, id uint32, intervals2 *uintptr) (uint64, bool) {
+func (x XRGPUAPSDataProcessor) GetShaderIntervalsShaderIdIntervalsCount(intervals uint32, id uint32, intervals2 *XRGPUIntervalRef) (uint64, bool) {
 	var count uint64
 	rv := objc.Send[bool](x.ID, objc.Sel("getShaderIntervals:shaderId:intervals:count:"), intervals, id, intervals2, unsafe.Pointer(&count))
 	return count, rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDataProcessor/getShaderIntervalsAtUSCIndex:kickTraceId:shaderId:intervals:count:
-func (x XRGPUAPSDataProcessor) GetShaderIntervalsAtUSCIndexKickTraceIdShaderIdIntervalsCount(uSCIndex uint32, id uint32, id2 uint32, intervals *uintptr) (uint64, bool) {
+func (x XRGPUAPSDataProcessor) GetShaderIntervalsAtUSCIndexKickTraceIdShaderIdIntervalsCount(uSCIndex uint32, id uint32, id2 uint32, intervals *XRGPUIntervalRef) (uint64, bool) {
 	var count uint64
 	rv := objc.Send[bool](x.ID, objc.Sel("getShaderIntervalsAtUSCIndex:kickTraceId:shaderId:intervals:count:"), uSCIndex, id, id2, intervals, unsafe.Pointer(&count))
 	return count, rv

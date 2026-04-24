@@ -116,15 +116,15 @@ type IGTJSScriptingContext interface {
 
 	// Topic: Methods
 
-	_cachedStringFromString(string_ string) unsafe.Pointer
+	_cachedStringFromString(string_ string) OpaqueJSStringRef
 	_clearCache()
-	_jsStringToString(string_ unsafe.Pointer) objectivec.IObject
-	_jsValueToString(string_ unsafe.Pointer) objectivec.IObject
+	_jsStringToString(string_ OpaqueJSStringRef) objectivec.IObject
+	_jsValueToString(string_ OpaqueJSValueRef) objectivec.IObject
 	AllocNewContext()
 	CallFunctionWithArguments(function objectivec.IObject, arguments objectivec.IObject) float64
 	CallGlobalFunction(function string) float64
 	Context() unsafe.Pointer
-	CreateArrayRef(ref objectivec.IObject) unsafe.Pointer
+	CreateArrayRef(ref objectivec.IObject) OpaqueJSValueRef
 	EvaluteScriptScriptURL(script objectivec.IObject, url foundation.INSURL) bool
 	GetGlobalDouble(double string) float64
 	GetGlobalJSONObject(jSONObject string) objectivec.IObject
@@ -160,13 +160,13 @@ func NewGTJSScriptingContext() GTJSScriptingContext {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_cachedStringFromString:
-func (g GTJSScriptingContext) _cachedStringFromString(string_ string) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("_cachedStringFromString:"), unsafe.Pointer(unsafe.StringData(string_+"\x00")))
-	return rv
+func (g GTJSScriptingContext) _cachedStringFromString(string_ string) OpaqueJSStringRef {
+	rv := objc.Send[OpaqueJSStringRef](g.ID, objc.Sel("_cachedStringFromString:"), unsafe.Pointer(unsafe.StringData(string_+"\x00")))
+	return OpaqueJSStringRef(rv)
 }
 
 // CachedStringFromString is an exported wrapper for the private method _cachedStringFromString.
-func (g GTJSScriptingContext) CachedStringFromString(string_ string) unsafe.Pointer {
+func (g GTJSScriptingContext) CachedStringFromString(string_ string) OpaqueJSStringRef {
 	return g._cachedStringFromString(string_)
 }
 
@@ -181,24 +181,24 @@ func (g GTJSScriptingContext) ClearCache() {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_jsStringToString:
-func (g GTJSScriptingContext) _jsStringToString(string_ unsafe.Pointer) objectivec.IObject {
+func (g GTJSScriptingContext) _jsStringToString(string_ OpaqueJSStringRef) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_jsStringToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 
 // JsStringToString is an exported wrapper for the private method _jsStringToString.
-func (g GTJSScriptingContext) JsStringToString(string_ unsafe.Pointer) objectivec.IObject {
+func (g GTJSScriptingContext) JsStringToString(string_ OpaqueJSStringRef) objectivec.IObject {
 	return g._jsStringToString(string_)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_jsValueToString:
-func (g GTJSScriptingContext) _jsValueToString(string_ unsafe.Pointer) objectivec.IObject {
+func (g GTJSScriptingContext) _jsValueToString(string_ OpaqueJSValueRef) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_jsValueToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 
 // JsValueToString is an exported wrapper for the private method _jsValueToString.
-func (g GTJSScriptingContext) JsValueToString(string_ unsafe.Pointer) objectivec.IObject {
+func (g GTJSScriptingContext) JsValueToString(string_ OpaqueJSValueRef) objectivec.IObject {
 	return g._jsValueToString(string_)
 }
 
@@ -220,9 +220,9 @@ func (g GTJSScriptingContext) CallGlobalFunction(function string) float64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/createArrayRef:
-func (g GTJSScriptingContext) CreateArrayRef(ref objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("createArrayRef:"), ref)
-	return rv
+func (g GTJSScriptingContext) CreateArrayRef(ref objectivec.IObject) OpaqueJSValueRef {
+	rv := objc.Send[OpaqueJSValueRef](g.ID, objc.Sel("createArrayRef:"), ref)
+	return OpaqueJSValueRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/evaluteScript:scriptURL:

@@ -126,7 +126,7 @@ type IGTMioShaderExecutionHistoryFunctionNode interface {
 	Inlined() bool
 	Location() unsafe.Pointer
 	Synthesized() bool
-	InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique unsafe.Pointer, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode
+	InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique *GTMioUSCCliqueMetadataRef, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode
 	InitWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location unsafe.Pointer, inlined bool, index uint32, binary objectivec.IObject, location2 unsafe.Pointer, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode
 }
 
@@ -150,7 +150,7 @@ func NewGTMioShaderExecutionHistoryFunctionNode() GTMioShaderExecutionHistoryFun
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/initWithBinary:clique:parent:identifier:
-func NewGTMioShaderExecutionHistoryFunctionNodeWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique unsafe.Pointer, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
+func NewGTMioShaderExecutionHistoryFunctionNodeWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique *GTMioUSCCliqueMetadataRef, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
 	instance := getGTMioShaderExecutionHistoryFunctionNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBinary:clique:parent:identifier:"), binary, clique, parent, identifier)
 	return GTMioShaderExecutionHistoryFunctionNodeFromID(rv)
@@ -176,7 +176,7 @@ func (g GTMioShaderExecutionHistoryFunctionNode) IncrementCallCount() {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/initWithBinary:clique:parent:identifier:
-func (g GTMioShaderExecutionHistoryFunctionNode) InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique unsafe.Pointer, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
+func (g GTMioShaderExecutionHistoryFunctionNode) InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique *GTMioUSCCliqueMetadataRef, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryFunctionNode](g.ID, objc.Sel("initWithBinary:clique:parent:identifier:"), binary, clique, parent, identifier)
 	return rv
 }

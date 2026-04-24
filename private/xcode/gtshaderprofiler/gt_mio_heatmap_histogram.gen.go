@@ -93,7 +93,7 @@ type IGTMioHeatmapHistogram interface {
 	// Topic: Methods
 
 	_generate()
-	GenerateImageColor(image corefoundation.CGSize, color *coregraphics.CGColorRef) *coregraphics.CGImageRef
+	GenerateImageColor(image corefoundation.CGSize, color coregraphics.CGColorRef) coregraphics.CGImageRef
 	MaxCount() uint64
 	MaxValue() uint64
 	MinCount() uint64
@@ -148,9 +148,9 @@ func (g GTMioHeatmapHistogram) Generate() {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/generateImage:color:
-func (g GTMioHeatmapHistogram) GenerateImageColor(image corefoundation.CGSize, color *coregraphics.CGColorRef) *coregraphics.CGImageRef {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("generateImage:color:"), image, color)
-	return (*coregraphics.CGImageRef)(rv)
+func (g GTMioHeatmapHistogram) GenerateImageColor(image corefoundation.CGSize, color coregraphics.CGColorRef) coregraphics.CGImageRef {
+	rv := objc.Send[coregraphics.CGImageRef](g.ID, objc.Sel("generateImage:color:"), image, color)
+	return coregraphics.CGImageRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/initWithHeatmap:minValue:maxValue:numBuckets:

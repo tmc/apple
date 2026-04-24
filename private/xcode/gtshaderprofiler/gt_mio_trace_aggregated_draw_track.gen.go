@@ -78,9 +78,9 @@ type IGTMioTraceAggregatedDrawTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take unsafe.Pointer)
+	Take(take *GTMioDrawTraceRef)
 	TraceCount() uint64
-	Traces() unsafe.Pointer
+	Traces() *GTMioDrawTraceRef
 }
 
 // Init initializes the instance.
@@ -115,7 +115,7 @@ func (g GTMioTraceAggregatedDrawTrack) PostProcess() {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedDrawTrack/take:
-func (g GTMioTraceAggregatedDrawTrack) Take(take unsafe.Pointer) {
+func (g GTMioTraceAggregatedDrawTrack) Take(take *GTMioDrawTraceRef) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 
@@ -126,7 +126,7 @@ func (g GTMioTraceAggregatedDrawTrack) TraceCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedDrawTrack/traces
-func (g GTMioTraceAggregatedDrawTrack) Traces() unsafe.Pointer {
+func (g GTMioTraceAggregatedDrawTrack) Traces() *GTMioDrawTraceRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+	return (*GTMioDrawTraceRef)(rv)
 }

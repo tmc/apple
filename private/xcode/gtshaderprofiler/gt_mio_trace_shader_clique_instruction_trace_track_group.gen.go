@@ -95,9 +95,9 @@ type IGTMioTraceShaderCliqueInstructionTraceTrackGroup interface {
 	PipelineStateId() uint64
 	ProgramType() uint16
 	RecordCount() uint64
-	Records() unsafe.Pointer
+	Records() *GTMioUSCInstructionTraceTrackRecordRef
 	TraceCount() uint64
-	Traces() unsafe.Pointer
+	Traces() *GTMioUSCInstructionTraceTrackTraceRef
 	InitWithTracesRecordsPipelineStateIdProgramTypeEarliestTimestampLatestTimestampMaxCliqueId(traces unsafe.Pointer, records unsafe.Pointer, id uint64, type_ uint16, timestamp uint64, timestamp2 uint64, id2 uint32) GTMioTraceShaderCliqueInstructionTraceTrackGroup
 }
 
@@ -177,9 +177,9 @@ func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) RecordCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/records
-func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) Records() unsafe.Pointer {
+func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) Records() *GTMioUSCInstructionTraceTrackRecordRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("records"))
-	return rv
+	return (*GTMioUSCInstructionTraceTrackRecordRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/traceCount
@@ -189,7 +189,7 @@ func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) TraceCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/traces
-func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) Traces() unsafe.Pointer {
+func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) Traces() *GTMioUSCInstructionTraceTrackTraceRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+	return (*GTMioUSCInstructionTraceTrackTraceRef)(rv)
 }

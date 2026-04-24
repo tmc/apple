@@ -124,8 +124,8 @@ type IGTMioShaderExecutionHistoryRootNode interface {
 	_pushNewFunction(function objectivec.IObject)
 	CacheKey() objectivec.IObject
 	CacheObject() objectivec.IObject
-	CliqueExecutionHistoryBeginUsc(begin unsafe.Pointer, usc objectivec.IObject)
-	CliqueExecutionHistoryEndUsc(end unsafe.Pointer, usc objectivec.IObject)
+	CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadataRef, usc objectivec.IObject)
+	CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadataRef, usc objectivec.IObject)
 	CliqueExecutionHistoryStyle() uint32
 	Delegate() objectivec.IObject
 	SetDelegate(value objectivec.IObject)
@@ -204,12 +204,12 @@ func (g GTMioShaderExecutionHistoryRootNode) CacheObject() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cliqueExecutionHistoryBegin:usc:
-func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryBeginUsc(begin unsafe.Pointer, usc objectivec.IObject) {
+func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadataRef, usc objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cliqueExecutionHistoryEnd:usc:
-func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryEndUsc(end unsafe.Pointer, usc objectivec.IObject) {
+func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadataRef, usc objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
 }
 

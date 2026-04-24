@@ -59,12 +59,12 @@ func (o GTMioShaderExecutionHistoryParserDelegateObject) CacheObject() objective
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/cliqueExecutionHistoryBegin:usc:
-func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryBeginUsc(begin unsafe.Pointer, usc objectivec.IObject) {
+func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadataRef, usc objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/cliqueExecutionHistoryEnd:usc:
-func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryEndUsc(end unsafe.Pointer, usc objectivec.IObject) {
+func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadataRef, usc objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
 }
 

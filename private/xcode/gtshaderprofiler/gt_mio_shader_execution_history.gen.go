@@ -138,8 +138,8 @@ type IGTMioShaderExecutionHistory interface {
 	CacheKey() objectivec.IObject
 	CacheObject() objectivec.IObject
 	CallStack() IGTMioShaderExecutionHistoryRootNode
-	CliqueExecutionHistoryBeginUsc(begin unsafe.Pointer, usc objectivec.IObject)
-	CliqueExecutionHistoryEndUsc(end unsafe.Pointer, usc objectivec.IObject)
+	CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadataRef, usc objectivec.IObject)
+	CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadataRef, usc objectivec.IObject)
 	CliqueExecutionHistoryStyle() uint32
 	Compact() IGTMioShaderExecutionHistoryRootNode
 	Delegate() objectivec.IObject
@@ -147,7 +147,7 @@ type IGTMioShaderExecutionHistory interface {
 	DumpTree(tree objectivec.IObject)
 	Full() IGTMioShaderExecutionHistoryRootNode
 	FullInstructionHistory() bool
-	GenerateClique(clique unsafe.Pointer) bool
+	GenerateClique(clique *GTMioUSCCliqueMetadataRef) bool
 	GenerateCliqueIndexUscIndex(index uint32, index2 uint32) bool
 	GenerateDrawIndexProgramType(index uint32, type_ uint16) bool
 	GenerateDrawIndexProgramTypeProgressController(index uint32, type_ uint16, controller objectivec.IObject) bool
@@ -212,12 +212,12 @@ func (g GTMioShaderExecutionHistory) CacheObject() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistory/cliqueExecutionHistoryBegin:usc:
-func (g GTMioShaderExecutionHistory) CliqueExecutionHistoryBeginUsc(begin unsafe.Pointer, usc objectivec.IObject) {
+func (g GTMioShaderExecutionHistory) CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadataRef, usc objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistory/cliqueExecutionHistoryEnd:usc:
-func (g GTMioShaderExecutionHistory) CliqueExecutionHistoryEndUsc(end unsafe.Pointer, usc objectivec.IObject) {
+func (g GTMioShaderExecutionHistory) CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadataRef, usc objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
 }
 
@@ -233,7 +233,7 @@ func (g GTMioShaderExecutionHistory) DumpTree(tree objectivec.IObject) {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistory/generateClique:
-func (g GTMioShaderExecutionHistory) GenerateClique(clique unsafe.Pointer) bool {
+func (g GTMioShaderExecutionHistory) GenerateClique(clique *GTMioUSCCliqueMetadataRef) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("generateClique:"), clique)
 	return rv
 }

@@ -131,7 +131,7 @@ type IGTMioHeatmapImpl interface {
 	Depth() uint64
 	EncoderInfo() unsafe.Pointer
 	SetEncoderInfo(value unsafe.Pointer)
-	GenerateImage(image uint64) *coregraphics.CGImageRef
+	GenerateImage(image uint64) coregraphics.CGImageRef
 	GenerateTexture(texture uint64) objectivec.IObject
 	GenerationOptions() unsafe.Pointer
 	HeatmapData() foundation.INSData
@@ -185,9 +185,9 @@ func NewGTMioHeatmapImplWithEncoderInfoWitdhHeightDepthQuadDataType(info unsafe.
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapImpl/generateImage:
-func (g GTMioHeatmapImpl) GenerateImage(image uint64) *coregraphics.CGImageRef {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("generateImage:"), image)
-	return (*coregraphics.CGImageRef)(rv)
+func (g GTMioHeatmapImpl) GenerateImage(image uint64) coregraphics.CGImageRef {
+	rv := objc.Send[coregraphics.CGImageRef](g.ID, objc.Sel("generateImage:"), image)
+	return coregraphics.CGImageRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapImpl/generateTexture:

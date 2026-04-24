@@ -263,7 +263,7 @@ type IGTMioTraceData interface {
 	BuildNonOverlappingCounters(counters unsafe.Pointer)
 	Cancel()
 	CancelToken(token uint64)
-	CliqueFromCliqueIndex(index unsafe.Pointer) unsafe.Pointer
+	CliqueFromCliqueIndex(index unsafe.Pointer) *GTMioUSCCliqueMetadataRef
 	ComputePositionCount() uint64
 	ComputePositions() unsafe.Pointer
 	ConsistentStateAchieved() bool
@@ -275,7 +275,7 @@ type IGTMioTraceData interface {
 	Costs() unsafe.Pointer
 	DrawCount() uint64
 	DrawTraceCount() uint64
-	DrawTraces() unsafe.Pointer
+	DrawTraces() *GTMioDrawTraceRef
 	Draws() unsafe.Pointer
 	DurationForDrawDataMaster(draw uint32, master uint16) uint64
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -286,12 +286,12 @@ type IGTMioTraceData interface {
 	EnumerateBinariesForEncoderEnumerator(encoder uint32, enumerator VoidHandler)
 	EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator VoidHandler)
-	EnumerateBinaryRangesForCliqueUscDataEnumerator(clique unsafe.Pointer, data objectivec.IObject, enumerator VoidHandler)
+	EnumerateBinaryRangesForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadataRef, data objectivec.IObject, enumerator VoidHandler)
 	EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator VoidHandler)
 	EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator VoidHandler)
 	EnumerateEncoders(encoders VoidHandler)
-	EnumerateInstructionsForCliqueUscDataEnumerator(clique unsafe.Pointer, data objectivec.IObject, enumerator VoidHandler)
+	EnumerateInstructionsForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadataRef, data objectivec.IObject, enumerator VoidHandler)
 	EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
 	EnumerateKickAtFunctionIndexEnumerator(index uint32, enumerator VoidHandler)
 	EnumeratePipelineStates(states VoidHandler)
@@ -468,9 +468,9 @@ func (g GTMioTraceData) CancelToken(token uint64) {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/cliqueFromCliqueIndex:
-func (g GTMioTraceData) CliqueFromCliqueIndex(index unsafe.Pointer) unsafe.Pointer {
+func (g GTMioTraceData) CliqueFromCliqueIndex(index unsafe.Pointer) *GTMioUSCCliqueMetadataRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueFromCliqueIndex:"), index)
-	return rv
+	return (*GTMioUSCCliqueMetadataRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/computePositionCount
@@ -528,9 +528,9 @@ func (g GTMioTraceData) DrawTraceCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/drawTraces
-func (g GTMioTraceData) DrawTraces() unsafe.Pointer {
+func (g GTMioTraceData) DrawTraces() *GTMioDrawTraceRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("drawTraces"))
-	return rv
+	return (*GTMioDrawTraceRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/draws
@@ -593,7 +593,7 @@ func (g GTMioTraceData) EnumerateBinariesForPipelineStateEnumerator(state uint64
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateBinaryRangesForClique:uscData:enumerator:
-func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique unsafe.Pointer, data objectivec.IObject, enumerator VoidHandler) {
+func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadataRef, data objectivec.IObject, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForClique:uscData:enumerator:"), clique, data, _block2)
 }
@@ -623,7 +623,7 @@ func (g GTMioTraceData) EnumerateEncoders(encoders VoidHandler) {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateInstructionsForClique:uscData:enumerator:
-func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumerator(clique unsafe.Pointer, data objectivec.IObject, enumerator VoidHandler) {
+func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadataRef, data objectivec.IObject, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionsForClique:uscData:enumerator:"), clique, data, _block2)
 }
@@ -854,8 +854,8 @@ func (g GTMioTraceData) InitWithStreamDataLlvmHelperPathOptions(data objectivec.
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/initWithTraceDatabase:deallocator:
 func (g GTMioTraceData) InitWithTraceDatabaseDeallocator(database uint64, deallocator VoidHandler) GTMioTraceData {
 	_block1, _ := NewVoidBlock(deallocator)
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("initWithTraceDatabase:deallocator:"), database, _block1)
-	return GTMioTraceDataFromID(rv)
+	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("initWithTraceDatabase:deallocator:"), database, _block1)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/supportsSecureCoding
@@ -1070,7 +1070,7 @@ func (g GTMioTraceData) EnumerateBinariesForPipelineStateEnumeratorSync(ctx cont
 
 // EnumerateBinaryRangesForCliqueUscDataEnumeratorSync is a synchronous wrapper around [GTMioTraceData.EnumerateBinaryRangesForCliqueUscDataEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumeratorSync(ctx context.Context, clique unsafe.Pointer, data objectivec.IObject) error {
+func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumeratorSync(ctx context.Context, clique *GTMioUSCCliqueMetadataRef, data objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateBinaryRangesForCliqueUscDataEnumerator(clique, data, func() {
 		done <- struct{}{}
@@ -1145,7 +1145,7 @@ func (g GTMioTraceData) EnumerateEncodersSync(ctx context.Context) error {
 
 // EnumerateInstructionsForCliqueUscDataEnumeratorSync is a synchronous wrapper around [GTMioTraceData.EnumerateInstructionsForCliqueUscDataEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumeratorSync(ctx context.Context, clique unsafe.Pointer, data objectivec.IObject) error {
+func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumeratorSync(ctx context.Context, clique *GTMioUSCCliqueMetadataRef, data objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateInstructionsForCliqueUscDataEnumerator(clique, data, func() {
 		done <- struct{}{}

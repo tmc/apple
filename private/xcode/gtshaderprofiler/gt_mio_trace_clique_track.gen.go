@@ -78,9 +78,9 @@ type IGTMioTraceCliqueTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take unsafe.Pointer)
+	Take(take *GTMioUSCCliqueMetadataRef)
 	TraceCount() uint64
-	Traces() unsafe.Pointer
+	Traces() *GTMioUSCCliqueMetadataRef
 }
 
 // Init initializes the instance.
@@ -115,7 +115,7 @@ func (g GTMioTraceCliqueTrack) PostProcess() {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/take:
-func (g GTMioTraceCliqueTrack) Take(take unsafe.Pointer) {
+func (g GTMioTraceCliqueTrack) Take(take *GTMioUSCCliqueMetadataRef) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 
@@ -126,7 +126,7 @@ func (g GTMioTraceCliqueTrack) TraceCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/traces
-func (g GTMioTraceCliqueTrack) Traces() unsafe.Pointer {
+func (g GTMioTraceCliqueTrack) Traces() *GTMioUSCCliqueMetadataRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+	return (*GTMioUSCCliqueMetadataRef)(rv)
 }

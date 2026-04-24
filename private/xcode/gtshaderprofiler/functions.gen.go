@@ -90,12 +90,8 @@ func tryAgxps_aps_clique_instruction_trace_get_execution_events(trace AGXPSCliqu
 // Agxps_aps_clique_instruction_trace_get_execution_events.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_clique_instruction_trace_get_execution_events
-func Agxps_aps_clique_instruction_trace_get_execution_events(trace AGXPSCliqueInstructionTraceRef) unsafe.Pointer {
-	result, callErr := tryAgxps_aps_clique_instruction_trace_get_execution_events(trace)
-	if callErr != nil {
-		return nil
-	}
-	return result
+func Agxps_aps_clique_instruction_trace_get_execution_events(trace AGXPSCliqueInstructionTraceRef) (unsafe.Pointer, error) {
+	return tryAgxps_aps_clique_instruction_trace_get_execution_events(trace)
 }
 
 var _agxps_aps_clique_instruction_trace_get_execution_events_num func(trace AGXPSCliqueInstructionTraceRef) uint64
@@ -111,12 +107,8 @@ func tryAgxps_aps_clique_instruction_trace_get_execution_events_num(trace AGXPSC
 // Agxps_aps_clique_instruction_trace_get_execution_events_num.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_clique_instruction_trace_get_execution_events_num
-func Agxps_aps_clique_instruction_trace_get_execution_events_num(trace AGXPSCliqueInstructionTraceRef) uint64 {
-	result, callErr := tryAgxps_aps_clique_instruction_trace_get_execution_events_num(trace)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_clique_instruction_trace_get_execution_events_num(trace AGXPSCliqueInstructionTraceRef) (uint64, error) {
+	return tryAgxps_aps_clique_instruction_trace_get_execution_events_num(trace)
 }
 
 var _agxps_aps_clique_instruction_trace_get_instruction_stats func(trace AGXPSCliqueInstructionTraceRef) unsafe.Pointer
@@ -132,12 +124,8 @@ func tryAgxps_aps_clique_instruction_trace_get_instruction_stats(trace AGXPSCliq
 // Agxps_aps_clique_instruction_trace_get_instruction_stats.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_clique_instruction_trace_get_instruction_stats
-func Agxps_aps_clique_instruction_trace_get_instruction_stats(trace AGXPSCliqueInstructionTraceRef) unsafe.Pointer {
-	result, callErr := tryAgxps_aps_clique_instruction_trace_get_instruction_stats(trace)
-	if callErr != nil {
-		return nil
-	}
-	return result
+func Agxps_aps_clique_instruction_trace_get_instruction_stats(trace AGXPSCliqueInstructionTraceRef) (unsafe.Pointer, error) {
+	return tryAgxps_aps_clique_instruction_trace_get_instruction_stats(trace)
 }
 
 var _agxps_aps_clique_instruction_trace_get_pc_advances func(trace AGXPSCliqueInstructionTraceRef) unsafe.Pointer
@@ -153,12 +141,8 @@ func tryAgxps_aps_clique_instruction_trace_get_pc_advances(trace AGXPSCliqueInst
 // Agxps_aps_clique_instruction_trace_get_pc_advances.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_clique_instruction_trace_get_pc_advances
-func Agxps_aps_clique_instruction_trace_get_pc_advances(trace AGXPSCliqueInstructionTraceRef) unsafe.Pointer {
-	result, callErr := tryAgxps_aps_clique_instruction_trace_get_pc_advances(trace)
-	if callErr != nil {
-		return nil
-	}
-	return result
+func Agxps_aps_clique_instruction_trace_get_pc_advances(trace AGXPSCliqueInstructionTraceRef) (unsafe.Pointer, error) {
+	return tryAgxps_aps_clique_instruction_trace_get_pc_advances(trace)
 }
 
 var _agxps_aps_clique_instruction_trace_get_pc_advances_num func(trace AGXPSCliqueInstructionTraceRef) uint64
@@ -174,12 +158,8 @@ func tryAgxps_aps_clique_instruction_trace_get_pc_advances_num(trace AGXPSClique
 // Agxps_aps_clique_instruction_trace_get_pc_advances_num.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_clique_instruction_trace_get_pc_advances_num
-func Agxps_aps_clique_instruction_trace_get_pc_advances_num(trace AGXPSCliqueInstructionTraceRef) uint64 {
-	result, callErr := tryAgxps_aps_clique_instruction_trace_get_pc_advances_num(trace)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_clique_instruction_trace_get_pc_advances_num(trace AGXPSCliqueInstructionTraceRef) (uint64, error) {
+	return tryAgxps_aps_clique_instruction_trace_get_pc_advances_num(trace)
 }
 
 var _agxps_aps_clique_instruction_trace_get_timestamp_references func(trace AGXPSCliqueInstructionTraceRef) unsafe.Pointer
@@ -195,12 +175,8 @@ func tryAgxps_aps_clique_instruction_trace_get_timestamp_references(trace AGXPSC
 // Agxps_aps_clique_instruction_trace_get_timestamp_references.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_clique_instruction_trace_get_timestamp_references
-func Agxps_aps_clique_instruction_trace_get_timestamp_references(trace AGXPSCliqueInstructionTraceRef) unsafe.Pointer {
-	result, callErr := tryAgxps_aps_clique_instruction_trace_get_timestamp_references(trace)
-	if callErr != nil {
-		return nil
-	}
-	return result
+func Agxps_aps_clique_instruction_trace_get_timestamp_references(trace AGXPSCliqueInstructionTraceRef) (unsafe.Pointer, error) {
+	return tryAgxps_aps_clique_instruction_trace_get_timestamp_references(trace)
 }
 
 var _agxps_aps_clique_instruction_trace_get_timestamp_references_num func(trace AGXPSCliqueInstructionTraceRef) uint64
@@ -216,12 +192,8 @@ func tryAgxps_aps_clique_instruction_trace_get_timestamp_references_num(trace AG
 // Agxps_aps_clique_instruction_trace_get_timestamp_references_num.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_clique_instruction_trace_get_timestamp_references_num
-func Agxps_aps_clique_instruction_trace_get_timestamp_references_num(trace AGXPSCliqueInstructionTraceRef) uint64 {
-	result, callErr := tryAgxps_aps_clique_instruction_trace_get_timestamp_references_num(trace)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_clique_instruction_trace_get_timestamp_references_num(trace AGXPSCliqueInstructionTraceRef) (uint64, error) {
+	return tryAgxps_aps_clique_instruction_trace_get_timestamp_references_num(trace)
 }
 
 var _agxps_aps_clique_time_stats_create func(profileData AGXPSProfileData, cliqueIndex uint64) AGXPSCliqueTimeStatsRef
@@ -237,12 +209,8 @@ func tryAgxps_aps_clique_time_stats_create(profileData AGXPSProfileData, cliqueI
 // Agxps_aps_clique_time_stats_create.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_clique_time_stats_create
-func Agxps_aps_clique_time_stats_create(profileData AGXPSProfileData, cliqueIndex uint64) AGXPSCliqueTimeStatsRef {
-	result, callErr := tryAgxps_aps_clique_time_stats_create(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_clique_time_stats_create(profileData AGXPSProfileData, cliqueIndex uint64) (AGXPSCliqueTimeStatsRef, error) {
+	return tryAgxps_aps_clique_time_stats_create(profileData, cliqueIndex)
 }
 
 var _agxps_aps_descriptor_create func(descriptor unsafe.Pointer) AGXPSDescriptorRef
@@ -258,12 +226,8 @@ func tryAgxps_aps_descriptor_create(descriptor unsafe.Pointer) (AGXPSDescriptorR
 // Agxps_aps_descriptor_create.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_descriptor_create
-func Agxps_aps_descriptor_create(descriptor unsafe.Pointer) AGXPSDescriptorRef {
-	result, callErr := tryAgxps_aps_descriptor_create(descriptor)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_descriptor_create(descriptor unsafe.Pointer) (AGXPSDescriptorRef, error) {
+	return tryAgxps_aps_descriptor_create(descriptor)
 }
 
 var _agxps_aps_gpu_is_supported func(gpu AGXPSGPU) bool
@@ -279,12 +243,8 @@ func tryAgxps_aps_gpu_is_supported(gpu AGXPSGPU) (bool, error) {
 // Agxps_aps_gpu_is_supported.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_gpu_is_supported
-func Agxps_aps_gpu_is_supported(gpu AGXPSGPU) bool {
-	result, callErr := tryAgxps_aps_gpu_is_supported(gpu)
-	if callErr != nil {
-		return false
-	}
-	return result
+func Agxps_aps_gpu_is_supported(gpu AGXPSGPU) (bool, error) {
+	return tryAgxps_aps_gpu_is_supported(gpu)
 }
 
 var _agxps_aps_parser_create func(descriptor AGXPSDescriptorRef) AGXPSParserHandle
@@ -300,12 +260,8 @@ func tryAgxps_aps_parser_create(descriptor AGXPSDescriptorRef) (AGXPSParserHandl
 // Agxps_aps_parser_create.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_parser_create
-func Agxps_aps_parser_create(descriptor AGXPSDescriptorRef) AGXPSParserHandle {
-	result, callErr := tryAgxps_aps_parser_create(descriptor)
-	if callErr != nil {
-		return *new(AGXPSParserHandle)
-	}
-	return result
+func Agxps_aps_parser_create(descriptor AGXPSDescriptorRef) (AGXPSParserHandle, error) {
+	return tryAgxps_aps_parser_create(descriptor)
 }
 
 var _agxps_aps_parser_destroy func(parser AGXPSParserHandle)
@@ -322,10 +278,8 @@ func tryAgxps_aps_parser_destroy(parser AGXPSParserHandle) error {
 // Agxps_aps_parser_destroy.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_parser_destroy
-func Agxps_aps_parser_destroy(parser AGXPSParserHandle) {
-	if callErr := tryAgxps_aps_parser_destroy(parser); callErr != nil {
-		return
-	}
+func Agxps_aps_parser_destroy(parser AGXPSParserHandle) error {
+	return tryAgxps_aps_parser_destroy(parser)
 }
 
 var _agxps_aps_parser_is_valid func(parser AGXPSParserHandle) bool
@@ -341,12 +295,8 @@ func tryAgxps_aps_parser_is_valid(parser AGXPSParserHandle) (bool, error) {
 // Agxps_aps_parser_is_valid.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_parser_is_valid
-func Agxps_aps_parser_is_valid(parser AGXPSParserHandle) bool {
-	result, callErr := tryAgxps_aps_parser_is_valid(parser)
-	if callErr != nil {
-		return false
-	}
-	return result
+func Agxps_aps_parser_is_valid(parser AGXPSParserHandle) (bool, error) {
+	return tryAgxps_aps_parser_is_valid(parser)
 }
 
 var _agxps_aps_parser_parse func(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) int
@@ -362,12 +312,8 @@ func tryAgxps_aps_parser_parse(parser AGXPSParserHandle, data unsafe.Pointer, si
 // Agxps_aps_parser_parse.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_parser_parse
-func Agxps_aps_parser_parse(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) int {
-	result, callErr := tryAgxps_aps_parser_parse(parser, data, size, profileDataOut)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_parser_parse(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, profileDataOut *AGXPSProfileData) (int, error) {
+	return tryAgxps_aps_parser_parse(parser, data, size, profileDataOut)
 }
 
 var _agxps_aps_profile_data_destroy func(profileData AGXPSProfileData)
@@ -384,10 +330,8 @@ func tryAgxps_aps_profile_data_destroy(profileData AGXPSProfileData) error {
 // Agxps_aps_profile_data_destroy.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_destroy
-func Agxps_aps_profile_data_destroy(profileData AGXPSProfileData) {
-	if callErr := tryAgxps_aps_profile_data_destroy(profileData); callErr != nil {
-		return
-	}
+func Agxps_aps_profile_data_destroy(profileData AGXPSProfileData) error {
+	return tryAgxps_aps_profile_data_destroy(profileData)
 }
 
 var _agxps_aps_profile_data_get_esl_clique_clique_id func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
@@ -403,12 +347,8 @@ func tryAgxps_aps_profile_data_get_esl_clique_clique_id(profileData AGXPSProfile
 // Agxps_aps_profile_data_get_esl_clique_clique_id.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_esl_clique_clique_id
-func Agxps_aps_profile_data_get_esl_clique_clique_id(profileData AGXPSProfileData, cliqueIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_esl_clique_clique_id(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_esl_clique_clique_id(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_esl_clique_clique_id(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_esl_clique_end func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
@@ -424,12 +364,8 @@ func tryAgxps_aps_profile_data_get_esl_clique_end(profileData AGXPSProfileData, 
 // Agxps_aps_profile_data_get_esl_clique_end.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_esl_clique_end
-func Agxps_aps_profile_data_get_esl_clique_end(profileData AGXPSProfileData, cliqueIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_esl_clique_end(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_esl_clique_end(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_esl_clique_end(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_esl_clique_esl_id func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
@@ -445,12 +381,8 @@ func tryAgxps_aps_profile_data_get_esl_clique_esl_id(profileData AGXPSProfileDat
 // Agxps_aps_profile_data_get_esl_clique_esl_id.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_esl_clique_esl_id
-func Agxps_aps_profile_data_get_esl_clique_esl_id(profileData AGXPSProfileData, cliqueIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_esl_clique_esl_id(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_esl_clique_esl_id(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_esl_clique_esl_id(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_esl_clique_instruction_trace func(profileData AGXPSProfileData, cliqueIndex uint64) AGXPSCliqueInstructionTraceRef
@@ -466,12 +398,8 @@ func tryAgxps_aps_profile_data_get_esl_clique_instruction_trace(profileData AGXP
 // Agxps_aps_profile_data_get_esl_clique_instruction_trace.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_esl_clique_instruction_trace
-func Agxps_aps_profile_data_get_esl_clique_instruction_trace(profileData AGXPSProfileData, cliqueIndex uint64) AGXPSCliqueInstructionTraceRef {
-	result, callErr := tryAgxps_aps_profile_data_get_esl_clique_instruction_trace(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_esl_clique_instruction_trace(profileData AGXPSProfileData, cliqueIndex uint64) (AGXPSCliqueInstructionTraceRef, error) {
+	return tryAgxps_aps_profile_data_get_esl_clique_instruction_trace(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_esl_clique_kick_id func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
@@ -487,12 +415,8 @@ func tryAgxps_aps_profile_data_get_esl_clique_kick_id(profileData AGXPSProfileDa
 // Agxps_aps_profile_data_get_esl_clique_kick_id.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_esl_clique_kick_id
-func Agxps_aps_profile_data_get_esl_clique_kick_id(profileData AGXPSProfileData, cliqueIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_esl_clique_kick_id(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_esl_clique_kick_id(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_esl_clique_kick_id(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_esl_clique_missing_end func(profileData AGXPSProfileData, cliqueIndex uint64) bool
@@ -508,12 +432,8 @@ func tryAgxps_aps_profile_data_get_esl_clique_missing_end(profileData AGXPSProfi
 // Agxps_aps_profile_data_get_esl_clique_missing_end.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_esl_clique_missing_end
-func Agxps_aps_profile_data_get_esl_clique_missing_end(profileData AGXPSProfileData, cliqueIndex uint64) bool {
-	result, callErr := tryAgxps_aps_profile_data_get_esl_clique_missing_end(profileData, cliqueIndex)
-	if callErr != nil {
-		return false
-	}
-	return result
+func Agxps_aps_profile_data_get_esl_clique_missing_end(profileData AGXPSProfileData, cliqueIndex uint64) (bool, error) {
+	return tryAgxps_aps_profile_data_get_esl_clique_missing_end(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_esl_clique_start func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
@@ -529,12 +449,8 @@ func tryAgxps_aps_profile_data_get_esl_clique_start(profileData AGXPSProfileData
 // Agxps_aps_profile_data_get_esl_clique_start.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_esl_clique_start
-func Agxps_aps_profile_data_get_esl_clique_start(profileData AGXPSProfileData, cliqueIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_esl_clique_start(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_esl_clique_start(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_esl_clique_start(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_esl_cliques_num func(profileData AGXPSProfileData) uint64
@@ -550,12 +466,8 @@ func tryAgxps_aps_profile_data_get_esl_cliques_num(profileData AGXPSProfileData)
 // Agxps_aps_profile_data_get_esl_cliques_num.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_esl_cliques_num
-func Agxps_aps_profile_data_get_esl_cliques_num(profileData AGXPSProfileData) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_esl_cliques_num(profileData)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_esl_cliques_num(profileData AGXPSProfileData) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_esl_cliques_num(profileData)
 }
 
 var _agxps_aps_profile_data_get_kick_end func(profileData AGXPSProfileData, kickIndex uint64) uint64
@@ -571,12 +483,8 @@ func tryAgxps_aps_profile_data_get_kick_end(profileData AGXPSProfileData, kickIn
 // Agxps_aps_profile_data_get_kick_end.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_kick_end
-func Agxps_aps_profile_data_get_kick_end(profileData AGXPSProfileData, kickIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_kick_end(profileData, kickIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_kick_end(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_kick_end(profileData, kickIndex)
 }
 
 var _agxps_aps_profile_data_get_kick_id func(profileData AGXPSProfileData, kickIndex uint64) uint64
@@ -592,12 +500,8 @@ func tryAgxps_aps_profile_data_get_kick_id(profileData AGXPSProfileData, kickInd
 // Agxps_aps_profile_data_get_kick_id.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_kick_id
-func Agxps_aps_profile_data_get_kick_id(profileData AGXPSProfileData, kickIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_kick_id(profileData, kickIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_kick_id(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_kick_id(profileData, kickIndex)
 }
 
 var _agxps_aps_profile_data_get_kick_start func(profileData AGXPSProfileData, kickIndex uint64) uint64
@@ -613,12 +517,8 @@ func tryAgxps_aps_profile_data_get_kick_start(profileData AGXPSProfileData, kick
 // Agxps_aps_profile_data_get_kick_start.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_kick_start
-func Agxps_aps_profile_data_get_kick_start(profileData AGXPSProfileData, kickIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_kick_start(profileData, kickIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_kick_start(profileData AGXPSProfileData, kickIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_kick_start(profileData, kickIndex)
 }
 
 var _agxps_aps_profile_data_get_kicks_num func(profileData AGXPSProfileData) uint64
@@ -634,12 +534,8 @@ func tryAgxps_aps_profile_data_get_kicks_num(profileData AGXPSProfileData) (uint
 // Agxps_aps_profile_data_get_kicks_num.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_kicks_num
-func Agxps_aps_profile_data_get_kicks_num(profileData AGXPSProfileData) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_kicks_num(profileData)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_kicks_num(profileData AGXPSProfileData) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_kicks_num(profileData)
 }
 
 var _agxps_aps_profile_data_get_work_clique_end func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
@@ -655,12 +551,8 @@ func tryAgxps_aps_profile_data_get_work_clique_end(profileData AGXPSProfileData,
 // Agxps_aps_profile_data_get_work_clique_end.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_work_clique_end
-func Agxps_aps_profile_data_get_work_clique_end(profileData AGXPSProfileData, cliqueIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_work_clique_end(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_work_clique_end(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_work_clique_end(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_work_clique_instruction_trace func(profileData AGXPSProfileData, cliqueIndex uint64) AGXPSCliqueInstructionTraceRef
@@ -676,12 +568,8 @@ func tryAgxps_aps_profile_data_get_work_clique_instruction_trace(profileData AGX
 // Agxps_aps_profile_data_get_work_clique_instruction_trace.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_work_clique_instruction_trace
-func Agxps_aps_profile_data_get_work_clique_instruction_trace(profileData AGXPSProfileData, cliqueIndex uint64) AGXPSCliqueInstructionTraceRef {
-	result, callErr := tryAgxps_aps_profile_data_get_work_clique_instruction_trace(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_work_clique_instruction_trace(profileData AGXPSProfileData, cliqueIndex uint64) (AGXPSCliqueInstructionTraceRef, error) {
+	return tryAgxps_aps_profile_data_get_work_clique_instruction_trace(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_work_clique_start func(profileData AGXPSProfileData, cliqueIndex uint64) uint64
@@ -697,12 +585,8 @@ func tryAgxps_aps_profile_data_get_work_clique_start(profileData AGXPSProfileDat
 // Agxps_aps_profile_data_get_work_clique_start.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_work_clique_start
-func Agxps_aps_profile_data_get_work_clique_start(profileData AGXPSProfileData, cliqueIndex uint64) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_work_clique_start(profileData, cliqueIndex)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_work_clique_start(profileData AGXPSProfileData, cliqueIndex uint64) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_work_clique_start(profileData, cliqueIndex)
 }
 
 var _agxps_aps_profile_data_get_work_cliques_num func(profileData AGXPSProfileData) uint64
@@ -718,12 +602,8 @@ func tryAgxps_aps_profile_data_get_work_cliques_num(profileData AGXPSProfileData
 // Agxps_aps_profile_data_get_work_cliques_num.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_get_work_cliques_num
-func Agxps_aps_profile_data_get_work_cliques_num(profileData AGXPSProfileData) uint64 {
-	result, callErr := tryAgxps_aps_profile_data_get_work_cliques_num(profileData)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_profile_data_get_work_cliques_num(profileData AGXPSProfileData) (uint64, error) {
+	return tryAgxps_aps_profile_data_get_work_cliques_num(profileData)
 }
 
 var _agxps_aps_profile_data_is_valid func(profileData AGXPSProfileData) bool
@@ -739,12 +619,8 @@ func tryAgxps_aps_profile_data_is_valid(profileData AGXPSProfileData) (bool, err
 // Agxps_aps_profile_data_is_valid.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_profile_data_is_valid
-func Agxps_aps_profile_data_is_valid(profileData AGXPSProfileData) bool {
-	result, callErr := tryAgxps_aps_profile_data_is_valid(profileData)
-	if callErr != nil {
-		return false
-	}
-	return result
+func Agxps_aps_profile_data_is_valid(profileData AGXPSProfileData) (bool, error) {
+	return tryAgxps_aps_profile_data_is_valid(profileData)
 }
 
 var _agxps_aps_timing_analyzer_get_num_commands func(analyzer uintptr) uint64
@@ -760,12 +636,8 @@ func tryAgxps_aps_timing_analyzer_get_num_commands(analyzer uintptr) (uint64, er
 // Agxps_aps_timing_analyzer_get_num_commands.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_timing_analyzer_get_num_commands
-func Agxps_aps_timing_analyzer_get_num_commands(analyzer uintptr) uint64 {
-	result, callErr := tryAgxps_aps_timing_analyzer_get_num_commands(analyzer)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_timing_analyzer_get_num_commands(analyzer uintptr) (uint64, error) {
+	return tryAgxps_aps_timing_analyzer_get_num_commands(analyzer)
 }
 
 var _agxps_aps_timing_analyzer_get_num_work_cliques func(analyzer uintptr) uint64
@@ -781,12 +653,8 @@ func tryAgxps_aps_timing_analyzer_get_num_work_cliques(analyzer uintptr) (uint64
 // Agxps_aps_timing_analyzer_get_num_work_cliques.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_timing_analyzer_get_num_work_cliques
-func Agxps_aps_timing_analyzer_get_num_work_cliques(analyzer uintptr) uint64 {
-	result, callErr := tryAgxps_aps_timing_analyzer_get_num_work_cliques(analyzer)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_aps_timing_analyzer_get_num_work_cliques(analyzer uintptr) (uint64, error) {
+	return tryAgxps_aps_timing_analyzer_get_num_work_cliques(analyzer)
 }
 
 var _agxps_aps_timing_analyzer_get_work_cliques_average_duration func(analyzer uintptr) float64
@@ -802,12 +670,8 @@ func tryAgxps_aps_timing_analyzer_get_work_cliques_average_duration(analyzer uin
 // Agxps_aps_timing_analyzer_get_work_cliques_average_duration.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_timing_analyzer_get_work_cliques_average_duration
-func Agxps_aps_timing_analyzer_get_work_cliques_average_duration(analyzer uintptr) float64 {
-	result, callErr := tryAgxps_aps_timing_analyzer_get_work_cliques_average_duration(analyzer)
-	if callErr != nil {
-		return 0.0
-	}
-	return result
+func Agxps_aps_timing_analyzer_get_work_cliques_average_duration(analyzer uintptr) (float64, error) {
+	return tryAgxps_aps_timing_analyzer_get_work_cliques_average_duration(analyzer)
 }
 
 var _agxps_aps_timing_analyzer_get_work_cliques_max_duration func(analyzer uintptr) float64
@@ -823,12 +687,8 @@ func tryAgxps_aps_timing_analyzer_get_work_cliques_max_duration(analyzer uintptr
 // Agxps_aps_timing_analyzer_get_work_cliques_max_duration.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_timing_analyzer_get_work_cliques_max_duration
-func Agxps_aps_timing_analyzer_get_work_cliques_max_duration(analyzer uintptr) float64 {
-	result, callErr := tryAgxps_aps_timing_analyzer_get_work_cliques_max_duration(analyzer)
-	if callErr != nil {
-		return 0.0
-	}
-	return result
+func Agxps_aps_timing_analyzer_get_work_cliques_max_duration(analyzer uintptr) (float64, error) {
+	return tryAgxps_aps_timing_analyzer_get_work_cliques_max_duration(analyzer)
 }
 
 var _agxps_aps_timing_analyzer_get_work_cliques_min_duration func(analyzer uintptr) float64
@@ -844,12 +704,8 @@ func tryAgxps_aps_timing_analyzer_get_work_cliques_min_duration(analyzer uintptr
 // Agxps_aps_timing_analyzer_get_work_cliques_min_duration.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_aps_timing_analyzer_get_work_cliques_min_duration
-func Agxps_aps_timing_analyzer_get_work_cliques_min_duration(analyzer uintptr) float64 {
-	result, callErr := tryAgxps_aps_timing_analyzer_get_work_cliques_min_duration(analyzer)
-	if callErr != nil {
-		return 0.0
-	}
-	return result
+func Agxps_aps_timing_analyzer_get_work_cliques_min_duration(analyzer uintptr) (float64, error) {
+	return tryAgxps_aps_timing_analyzer_get_work_cliques_min_duration(analyzer)
 }
 
 var _agxps_gpu_create func(gen uint, variant uint, rev uint) AGXPSGPU
@@ -865,12 +721,8 @@ func tryAgxps_gpu_create(gen uint, variant uint, rev uint) (AGXPSGPU, error) {
 // Agxps_gpu_create.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_gpu_create
-func Agxps_gpu_create(gen uint, variant uint, rev uint) AGXPSGPU {
-	result, callErr := tryAgxps_gpu_create(gen, variant, rev)
-	if callErr != nil {
-		return *new(AGXPSGPU)
-	}
-	return result
+func Agxps_gpu_create(gen uint, variant uint, rev uint) (AGXPSGPU, error) {
+	return tryAgxps_gpu_create(gen, variant, rev)
 }
 
 var _agxps_gpu_destroy func(gpu AGXPSGPU)
@@ -887,10 +739,8 @@ func tryAgxps_gpu_destroy(gpu AGXPSGPU) error {
 // Agxps_gpu_destroy.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_gpu_destroy
-func Agxps_gpu_destroy(gpu AGXPSGPU) {
-	if callErr := tryAgxps_gpu_destroy(gpu); callErr != nil {
-		return
-	}
+func Agxps_gpu_destroy(gpu AGXPSGPU) error {
+	return tryAgxps_gpu_destroy(gpu)
 }
 
 var _agxps_gpu_format_name func(gpu AGXPSGPU, buf *byte, size uint64) int
@@ -906,12 +756,8 @@ func tryAgxps_gpu_format_name(gpu AGXPSGPU, buf *byte, size uint64) (int, error)
 // Agxps_gpu_format_name.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_gpu_format_name
-func Agxps_gpu_format_name(gpu AGXPSGPU, buf *byte, size uint64) int {
-	result, callErr := tryAgxps_gpu_format_name(gpu, buf, size)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_gpu_format_name(gpu AGXPSGPU, buf *byte, size uint64) (int, error) {
+	return tryAgxps_gpu_format_name(gpu, buf, size)
 }
 
 var _agxps_gpu_get_gen func(gpu AGXPSGPU) uint
@@ -927,12 +773,8 @@ func tryAgxps_gpu_get_gen(gpu AGXPSGPU) (uint, error) {
 // Agxps_gpu_get_gen.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_gpu_get_gen
-func Agxps_gpu_get_gen(gpu AGXPSGPU) uint {
-	result, callErr := tryAgxps_gpu_get_gen(gpu)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_gpu_get_gen(gpu AGXPSGPU) (uint, error) {
+	return tryAgxps_gpu_get_gen(gpu)
 }
 
 var _agxps_gpu_get_rev func(gpu AGXPSGPU) uint
@@ -948,12 +790,8 @@ func tryAgxps_gpu_get_rev(gpu AGXPSGPU) (uint, error) {
 // Agxps_gpu_get_rev.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_gpu_get_rev
-func Agxps_gpu_get_rev(gpu AGXPSGPU) uint {
-	result, callErr := tryAgxps_gpu_get_rev(gpu)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_gpu_get_rev(gpu AGXPSGPU) (uint, error) {
+	return tryAgxps_gpu_get_rev(gpu)
 }
 
 var _agxps_gpu_get_variant func(gpu AGXPSGPU) uint
@@ -969,12 +807,8 @@ func tryAgxps_gpu_get_variant(gpu AGXPSGPU) (uint, error) {
 // Agxps_gpu_get_variant.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_gpu_get_variant
-func Agxps_gpu_get_variant(gpu AGXPSGPU) uint {
-	result, callErr := tryAgxps_gpu_get_variant(gpu)
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_gpu_get_variant(gpu AGXPSGPU) (uint, error) {
+	return tryAgxps_gpu_get_variant(gpu)
 }
 
 var _agxps_gpu_is_valid func(gpu AGXPSGPU) bool
@@ -990,12 +824,8 @@ func tryAgxps_gpu_is_valid(gpu AGXPSGPU) (bool, error) {
 // Agxps_gpu_is_valid.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_gpu_is_valid
-func Agxps_gpu_is_valid(gpu AGXPSGPU) bool {
-	result, callErr := tryAgxps_gpu_is_valid(gpu)
-	if callErr != nil {
-		return false
-	}
-	return result
+func Agxps_gpu_is_valid(gpu AGXPSGPU) (bool, error) {
+	return tryAgxps_gpu_is_valid(gpu)
 }
 
 var _agxps_initialize func() int
@@ -1011,12 +841,8 @@ func tryAgxps_initialize() (int, error) {
 // Agxps_initialize.
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/agxps_initialize
-func Agxps_initialize() int {
-	result, callErr := tryAgxps_initialize()
-	if callErr != nil {
-		return 0
-	}
-	return result
+func Agxps_initialize() (int, error) {
+	return tryAgxps_initialize()
 }
 
 func init() {

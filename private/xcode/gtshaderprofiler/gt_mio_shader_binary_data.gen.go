@@ -258,8 +258,8 @@ type IGTMioShaderBinaryData interface {
 	TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64
 	TraceCount() uint64
 	TraceData() objectivec.IObject
-	Traces() unsafe.Pointer
-	TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) unsafe.Pointer
+	Traces() *GTMioBinaryTraceRef
+	TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) *GTMioBinaryTraceRef
 	UsedInDataMaster(master uint16) bool
 	UsedInDylib() bool
 	UsedInEncoder(encoder uint64) bool
@@ -497,9 +497,9 @@ func (g GTMioShaderBinaryData) TotalCostForScopeScopeIdentifierDataMaster(scope 
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/tracesForProgramType:count:
-func (g GTMioShaderBinaryData) TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) unsafe.Pointer {
+func (g GTMioShaderBinaryData) TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) *GTMioBinaryTraceRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("tracesForProgramType:count:"), type_, count)
-	return rv
+	return (*GTMioBinaryTraceRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInDataMaster:
@@ -683,9 +683,9 @@ func (g GTMioShaderBinaryData) TraceData() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/traces
-func (g GTMioShaderBinaryData) Traces() unsafe.Pointer {
+func (g GTMioShaderBinaryData) Traces() *GTMioBinaryTraceRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+	return (*GTMioBinaryTraceRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInDylib

@@ -5,7 +5,6 @@ package gtshaderprofiler
 import (
 	"unsafe"
 
-	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -29,7 +28,7 @@ type GTMioHeatmap interface {
 	// GenerateImage protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmap/generateImage:
-	GenerateImage(image uint64) *coregraphics.CGImageRef
+	GenerateImage(image uint64) CGImage
 
 	// GenerationOptions protocol.
 	//
@@ -157,9 +156,9 @@ func (o GTMioHeatmapObject) EncoderInfo() unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmap/generateImage:
-func (o GTMioHeatmapObject) GenerateImage(image uint64) *coregraphics.CGImageRef {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("generateImage:"), image)
-	return (*coregraphics.CGImageRef)(rv)
+func (o GTMioHeatmapObject) GenerateImage(image uint64) CGImage {
+	rv := objc.Send[CGImage](o.ID, objc.Sel("generateImage:"), image)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmap/generateTexture:

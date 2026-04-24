@@ -94,7 +94,7 @@ type IXRGPUAGXShaderTimelineSignposts interface {
 	Encode() objectivec.IObject
 	EncodeWithCoder(coder foundation.INSCoder)
 	EnumerateKickIds(ids VoidHandler)
-	GetShadersCount(shaders []objectivec.IObject, count unsafe.Pointer)
+	GetShadersCount(shaders []XRGPUAGXShaderTimelineSignpostProcessRef, count unsafe.Pointer)
 	Load(load objectivec.IObject) bool
 	Start() bool
 	Stop()
@@ -155,7 +155,7 @@ func (x XRGPUAGXShaderTimelineSignposts) EnumerateKickIds(ids VoidHandler) {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/getShaders:count:
-func (x XRGPUAGXShaderTimelineSignposts) GetShadersCount(shaders []objectivec.IObject, count unsafe.Pointer) {
+func (x XRGPUAGXShaderTimelineSignposts) GetShadersCount(shaders []XRGPUAGXShaderTimelineSignpostProcessRef, count unsafe.Pointer) {
 	objc.Send[objc.ID](x.ID, objc.Sel("getShaders:count:"), objc.CArray(shaders), count)
 }
 

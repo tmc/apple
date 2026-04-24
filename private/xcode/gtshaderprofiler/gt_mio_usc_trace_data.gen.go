@@ -176,21 +176,21 @@ type IGTMioUSCTraceData interface {
 
 	// Topic: Methods
 
-	BinaryTrace() unsafe.Pointer
+	BinaryTrace() *GTMioBinaryTraceRef
 	BinaryTraceCount() uint64
-	ChildCliqueOfClique(clique unsafe.Pointer) unsafe.Pointer
+	ChildCliqueOfClique(clique *GTMioUSCCliqueMetadataRef) *GTMioUSCCliqueMetadataRef
 	CliqueFirstPCCount() uint64
 	CliqueFirstPCs() unsafe.Pointer
-	Cliques() unsafe.Pointer
+	Cliques() *GTMioUSCCliqueMetadataRef
 	CliquesCount() uint64
 	CostCount() uint64
 	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool
 	Costs() unsafe.Pointer
 	DatabaseInternal() uint64
-	DrawTrace() unsafe.Pointer
+	DrawTrace() *GTMioDrawTraceRef
 	DrawTraceCount() uint64
 	EnumerateCliquesForTimeRangeBeginEndEnumerator(begin uint64, end uint64, enumerator VoidHandler)
-	EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique unsafe.Pointer, timestamps bool, enumerator VoidHandler)
+	EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique *GTMioUSCCliqueMetadataRef, timestamps bool, enumerator VoidHandler)
 	EnumerateKickAtFunctionIndexEnumerator(index uint32, enumerator VoidHandler)
 	EnumerateKickCliquesEnumerator(cliques unsafe.Pointer, enumerator VoidHandler)
 	EnumerateKickCliquesAtFunctionIndexDataMasterEnumerator(index uint32, master uint16, enumerator VoidHandler)
@@ -202,7 +202,7 @@ type IGTMioUSCTraceData interface {
 	FirstPCForCliqueAtIndex(index uint32) uint64
 	Index() uint64
 	InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64
-	InstructionTraceInfoForClique(clique unsafe.Pointer) unsafe.Pointer
+	InstructionTraceInfoForClique(clique *GTMioUSCCliqueMetadataRef) unsafe.Pointer
 	InstructionTraceInfoForCliqueAtIndex(index uint32) unsafe.Pointer
 	KickCliqueIndexes() unsafe.Pointer
 	KickCliqueIndexesCount() uint64
@@ -257,9 +257,9 @@ func NewGTMioUSCTraceDataWithUSCDataMGPUIndexParent(uSCData unsafe.Pointer, gPUI
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/childCliqueOfClique:
-func (g GTMioUSCTraceData) ChildCliqueOfClique(clique unsafe.Pointer) unsafe.Pointer {
+func (g GTMioUSCTraceData) ChildCliqueOfClique(clique *GTMioUSCCliqueMetadataRef) *GTMioUSCCliqueMetadataRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("childCliqueOfClique:"), clique)
-	return rv
+	return (*GTMioUSCCliqueMetadataRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/costForScope:scopeIdentifier:cost:
@@ -275,7 +275,7 @@ func (g GTMioUSCTraceData) EnumerateCliquesForTimeRangeBeginEndEnumerator(begin 
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/enumerateInstructionTracesForClique:requiresTimestamps:enumerator:
-func (g GTMioUSCTraceData) EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique unsafe.Pointer, timestamps bool, enumerator VoidHandler) {
+func (g GTMioUSCTraceData) EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique *GTMioUSCCliqueMetadataRef, timestamps bool, enumerator VoidHandler) {
 	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionTracesForClique:requiresTimestamps:enumerator:"), clique, timestamps, _block2)
 }
@@ -341,7 +341,7 @@ func (g GTMioUSCTraceData) InstructionCountForScopeScopeIdentifierDataMaster(sco
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/instructionTraceInfoForClique:
-func (g GTMioUSCTraceData) InstructionTraceInfoForClique(clique unsafe.Pointer) unsafe.Pointer {
+func (g GTMioUSCTraceData) InstructionTraceInfoForClique(clique *GTMioUSCCliqueMetadataRef) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("instructionTraceInfoForClique:"), clique)
 	return rv
 }
@@ -389,9 +389,9 @@ func (g GTMioUSCTraceData) InitWithUSCDataMGPUIndexParent(uSCData unsafe.Pointer
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/binaryTrace
-func (g GTMioUSCTraceData) BinaryTrace() unsafe.Pointer {
+func (g GTMioUSCTraceData) BinaryTrace() *GTMioBinaryTraceRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binaryTrace"))
-	return rv
+	return (*GTMioBinaryTraceRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/binaryTraceCount
@@ -413,9 +413,9 @@ func (g GTMioUSCTraceData) CliqueFirstPCs() unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/cliques
-func (g GTMioUSCTraceData) Cliques() unsafe.Pointer {
+func (g GTMioUSCTraceData) Cliques() *GTMioUSCCliqueMetadataRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliques"))
-	return rv
+	return (*GTMioUSCCliqueMetadataRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/cliquesCount
@@ -455,9 +455,9 @@ func (g GTMioUSCTraceData) Description() string {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/drawTrace
-func (g GTMioUSCTraceData) DrawTrace() unsafe.Pointer {
+func (g GTMioUSCTraceData) DrawTrace() *GTMioDrawTraceRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("drawTrace"))
-	return rv
+	return (*GTMioDrawTraceRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioUSCTraceData/drawTraceCount
@@ -585,7 +585,7 @@ func (g GTMioUSCTraceData) EnumerateCliquesForTimeRangeBeginEndEnumeratorSync(ct
 
 // EnumerateInstructionTracesForCliqueRequiresTimestampsEnumeratorSync is a synchronous wrapper around [GTMioUSCTraceData.EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioUSCTraceData) EnumerateInstructionTracesForCliqueRequiresTimestampsEnumeratorSync(ctx context.Context, clique unsafe.Pointer, timestamps bool) error {
+func (g GTMioUSCTraceData) EnumerateInstructionTracesForCliqueRequiresTimestampsEnumeratorSync(ctx context.Context, clique *GTMioUSCCliqueMetadataRef, timestamps bool) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateInstructionTracesForCliqueRequiresTimestampsEnumerator(clique, timestamps, func() {
 		done <- struct{}{}

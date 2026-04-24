@@ -9,6 +9,8 @@ import (
 // GTMioShaderBinaryDataHandler is the signature for a completion handler block.
 //
 // Used by:
+//   - [GTMioTraceDataProtocol.EnumerateBinariesForDrawEnumerator]
+//   - [GTMioTraceDataProtocol.EnumerateBinariesForEncoderEnumerator]
 //   - [GTMioTraceDataProtocol.EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator]
 //   - [GTMioTraceDataProtocol.EnumerateBinariesForPipelineStateEnumerator]
 type GTMioShaderBinaryDataHandler = func(*GTMioShaderBinaryData)
@@ -17,6 +19,8 @@ type GTMioShaderBinaryDataHandler = func(*GTMioShaderBinaryData)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
+//   - [GTMioTraceDataProtocol.EnumerateBinariesForDrawEnumerator]
+//   - [GTMioTraceDataProtocol.EnumerateBinariesForEncoderEnumerator]
 //   - [GTMioTraceDataProtocol.EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator]
 //   - [GTMioTraceDataProtocol.EnumerateBinariesForPipelineStateEnumerator]
 func NewGTMioShaderBinaryDataBlock(handler GTMioShaderBinaryDataHandler) (objc.ID, func()) {
@@ -32,18 +36,105 @@ func NewGTMioShaderBinaryDataBlock(handler GTMioShaderBinaryDataHandler) (objc.I
 	return objc.ID(block), func() { block.Release() }
 }
 
-// GTMioShaderBinaryInfoGTMioShaderBinaryDataHandler is the signature for a completion handler block.
+// GTMioShaderBinaryDebugBinaryRangeHandler is the signature for a completion handler block.
 //
 // Used by:
-//   - [GTMioTraceDataProtocol.EnumerateBinariesForDrawEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateBinariesForEncoderEnumerator]
-type GTMioShaderBinaryInfoGTMioShaderBinaryDataHandler = func(*uintptr, *GTMioShaderBinaryData)
+//   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator]
+//   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueUscDataEnumerator]
+type GTMioShaderBinaryDebugBinaryRangeHandler = func(*GTMioShaderBinaryData)
 
-// GTMioUSCCliqueMetadataGTMioUSCTraceDataHandler is the signature for a completion handler block.
+// NewGTMioShaderBinaryDebugBinaryRangeBlock wraps a Go [GTMioShaderBinaryDebugBinaryRangeHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator]
+//   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueUscDataEnumerator]
+func NewGTMioShaderBinaryDebugBinaryRangeBlock(handler GTMioShaderBinaryDebugBinaryRangeHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *GTMioShaderBinaryData
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := GTMioShaderBinaryDataFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// GTMioShaderInstructionInfoHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator]
+//   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueUscDataEnumerator]
+type GTMioShaderInstructionInfoHandler = func(*GTMioShaderBinaryData)
+
+// NewGTMioShaderInstructionInfoBlock wraps a Go [GTMioShaderInstructionInfoHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator]
+//   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueUscDataEnumerator]
+func NewGTMioShaderInstructionInfoBlock(handler GTMioShaderInstructionInfoHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *GTMioShaderBinaryData
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := GTMioShaderBinaryDataFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// GTMioUSCKickMetadataHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [GTMioTraceDataProtocol.EnumerateKickAtFunctionIndexEnumerator]
+type GTMioUSCKickMetadataHandler = func(*GTMioUSCTraceData)
+
+// NewGTMioUSCKickMetadataBlock wraps a Go [GTMioUSCKickMetadataHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [GTMioTraceDataProtocol.EnumerateKickAtFunctionIndexEnumerator]
+func NewGTMioUSCKickMetadataBlock(handler GTMioUSCKickMetadataHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *GTMioUSCTraceData
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := GTMioUSCTraceDataFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// GTMioUSCTraceDataHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [GTMioTraceDataProtocol.EnumerateUniqueTracesForBinaryEnumerator]
-type GTMioUSCCliqueMetadataGTMioUSCTraceDataHandler = func(*uintptr, *GTMioUSCTraceData)
+type GTMioUSCTraceDataHandler = func(*GTMioUSCTraceData)
+
+// NewGTMioUSCTraceDataBlock wraps a Go [GTMioUSCTraceDataHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [GTMioTraceDataProtocol.EnumerateUniqueTracesForBinaryEnumerator]
+func NewGTMioUSCTraceDataBlock(handler GTMioUSCTraceDataHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *GTMioUSCTraceData
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := GTMioUSCTraceDataFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // UintHandler handles completion with a primitive value.
 //
@@ -116,11 +207,6 @@ func NewUintBlock(handler UintHandler) (objc.ID, func()) {
 //   - [GTMioTraceData.InitWithTraceDatabaseDeallocator]
 //   - [GTMioTraceData.RequestCostTimeline]
 //   - [GTMioTraceDataHelper.GenerateTrackForCliqueIndexesCountGroup]
-//   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueUscDataEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueUscDataEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateKickAtFunctionIndexEnumerator]
 //   - [GTMioTraceTimelineData.EnumerateBinariesForDrawEnumerator]
 //   - [GTMioTraceTimelineData.EnumerateBinariesForEncoderEnumerator]
 //   - [GTMioTraceTimelineData.EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator]
@@ -207,11 +293,6 @@ type VoidHandler = func()
 //   - [GTMioTraceData.InitWithTraceDatabaseDeallocator]
 //   - [GTMioTraceData.RequestCostTimeline]
 //   - [GTMioTraceDataHelper.GenerateTrackForCliqueIndexesCountGroup]
-//   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueUscDataEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueUscDataEnumerator]
-//   - [GTMioTraceDataProtocol.EnumerateKickAtFunctionIndexEnumerator]
 //   - [GTMioTraceTimelineData.EnumerateBinariesForDrawEnumerator]
 //   - [GTMioTraceTimelineData.EnumerateBinariesForEncoderEnumerator]
 //   - [GTMioTraceTimelineData.EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator]

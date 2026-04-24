@@ -78,9 +78,9 @@ type IGTMioTraceAggregatedShaderTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take unsafe.Pointer)
+	Take(take *GTMioBinaryTraceRef)
 	TraceCount() uint64
-	Traces() unsafe.Pointer
+	Traces() *GTMioBinaryTraceRef
 }
 
 // Init initializes the instance.
@@ -115,7 +115,7 @@ func (g GTMioTraceAggregatedShaderTrack) PostProcess() {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedShaderTrack/take:
-func (g GTMioTraceAggregatedShaderTrack) Take(take unsafe.Pointer) {
+func (g GTMioTraceAggregatedShaderTrack) Take(take *GTMioBinaryTraceRef) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 
@@ -126,7 +126,7 @@ func (g GTMioTraceAggregatedShaderTrack) TraceCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceAggregatedShaderTrack/traces
-func (g GTMioTraceAggregatedShaderTrack) Traces() unsafe.Pointer {
+func (g GTMioTraceAggregatedShaderTrack) Traces() *GTMioBinaryTraceRef {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return rv
+	return (*GTMioBinaryTraceRef)(rv)
 }
