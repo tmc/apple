@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -92,12 +93,12 @@ type IHIRunLoopSemaphore interface {
 	InvokeLoopInModeForDurationWithBlock(duration float64, block VoidHandler)
 	Legend() string
 	SetLegend(value string)
-	Mode() objectivec.IObject
+	Mode() corefoundation.CFStringRef
 	SetLegacyWake()
 	Signal()
 	Wait()
 	WaitWithWait(wait float64) bool
-	InitWithMode(mode objectivec.IObject) HIRunLoopSemaphore
+	InitWithMode(mode corefoundation.CFStringRef) HIRunLoopSemaphore
 }
 
 // Init initializes the instance.
@@ -120,7 +121,7 @@ func NewHIRunLoopSemaphore() HIRunLoopSemaphore {
 }
 
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/initWithMode:
-func NewHIRunLoopSemaphoreWithMode(mode objectivec.IObject) HIRunLoopSemaphore {
+func NewHIRunLoopSemaphoreWithMode(mode corefoundation.CFStringRef) HIRunLoopSemaphore {
 	instance := getHIRunLoopSemaphoreClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:"), mode)
 	return HIRunLoopSemaphoreFromID(rv)
@@ -154,7 +155,7 @@ func (h HIRunLoopSemaphore) WaitWithWait(wait float64) bool {
 }
 
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/initWithMode:
-func (h HIRunLoopSemaphore) InitWithMode(mode objectivec.IObject) HIRunLoopSemaphore {
+func (h HIRunLoopSemaphore) InitWithMode(mode corefoundation.CFStringRef) HIRunLoopSemaphore {
 	rv := objc.Send[HIRunLoopSemaphore](h.ID, objc.Sel("initWithMode:"), mode)
 	return rv
 }
@@ -171,13 +172,13 @@ func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) Invocations() objectivec
 }
 
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/_observe:whilePerforming:
-func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) _observeWhilePerforming(_observe objectivec.IObject, performing VoidHandler) {
+func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) _observeWhilePerforming(_observe corefoundation.CFStringRef, performing VoidHandler) {
 	_block1, _ := NewVoidBlock(performing)
 	objc.Send[objc.ID](objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_observe:whilePerforming:"), _observe, _block1)
 }
 
 // ObserveWhilePerforming is an exported wrapper for the private method _observeWhilePerforming.
-func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) ObserveWhilePerforming(_observe objectivec.IObject, performing VoidHandler) {
+func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) ObserveWhilePerforming(_observe corefoundation.CFStringRef, performing VoidHandler) {
 	_HIRunLoopSemaphoreClass._observeWhilePerforming(_observe, performing)
 }
 
@@ -191,9 +192,9 @@ func (h HIRunLoopSemaphore) SetLegend(value string) {
 }
 
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/mode
-func (h HIRunLoopSemaphore) Mode() objectivec.IObject {
-	rv := objc.Send[objc.ID](h.ID, objc.Sel("mode"))
-	return objectivec.Object{ID: rv}
+func (h HIRunLoopSemaphore) Mode() corefoundation.CFStringRef {
+	rv := objc.Send[corefoundation.CFStringRef](h.ID, objc.Sel("mode"))
+	return corefoundation.CFStringRef(rv)
 }
 
 // InvokeLoopInModeForDurationWithBlockSync is a synchronous wrapper around [HIRunLoopSemaphore.InvokeLoopInModeForDurationWithBlock].
@@ -213,7 +214,7 @@ func (h HIRunLoopSemaphore) InvokeLoopInModeForDurationWithBlockSync(ctx context
 
 // _observeWhilePerformingSync is a synchronous wrapper around [HIRunLoopSemaphore._observeWhilePerforming].
 // It blocks until the completion handler fires or the context is cancelled.
-func (hc HIRunLoopSemaphoreClass) _observeWhilePerformingSync(ctx context.Context, _observe objectivec.IObject) error {
+func (hc HIRunLoopSemaphoreClass) _observeWhilePerformingSync(ctx context.Context, _observe corefoundation.CFStringRef) error {
 	done := make(chan struct{}, 1)
 	hc._observeWhilePerforming(_observe, func() {
 		done <- struct{}{}
