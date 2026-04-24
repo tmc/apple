@@ -5,6 +5,7 @@ package remotecoreml
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -103,9 +104,9 @@ type IMLServer interface {
 	// Topic: Methods
 
 	DoReceiveContextIsCompleteError(receive objectivec.IObject, context objectivec.IObject, complete bool, error_ objectivec.IObject)
-	NwObj() *MLNetworking
-	NwOptions() *MLNetworkOptions
-	Packet() *MLNetworkPacket
+	NwObj() IMLNetworking
+	NwOptions() unsafe.Pointer
+	Packet() IMLNetworkPacket
 	Q() objectivec.Object
 	SetLoadCommand(command VoidHandler)
 	SetLoadFunction(function VoidHandler)
@@ -216,33 +217,21 @@ func (m MLServer) InitWithOptions(options objectivec.IObject) MLServer {
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/nwObj
-func (m MLServer) NwObj() *MLNetworking {
+func (m MLServer) NwObj() IMLNetworking {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwObj"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkingFromID(objc.ID(rv))
-	return &val
+	return MLNetworkingFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/nwOptions
-func (m MLServer) NwOptions() *MLNetworkOptions {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwOptions"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkOptionsFromID(objc.ID(rv))
-	return &val
+func (m MLServer) NwOptions() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("nwOptions"))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/packet
-func (m MLServer) Packet() *MLNetworkPacket {
+func (m MLServer) Packet() IMLNetworkPacket {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("packet"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkPacketFromID(objc.ID(rv))
-	return &val
+	return MLNetworkPacketFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/q

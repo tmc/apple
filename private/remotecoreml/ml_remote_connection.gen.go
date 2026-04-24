@@ -108,11 +108,11 @@ type IMLRemoteConnection interface {
 	DoReceiveContextIsCompleteError(receive objectivec.IObject, context objectivec.IObject, complete bool, error_ objectivec.IObject)
 	JobCount() uint64
 	LoadFromURLOptionsError(url foundation.INSURL, options objectivec.IObject) (bool, error)
-	NwObj() *MLNetworking
-	NwOptions() *MLNetworkOptions
+	NwObj() IMLNetworking
+	NwOptions() unsafe.Pointer
 	OutputResult() foundation.NSMutableData
 	SetOutputResult(value foundation.NSMutableData)
-	Packet() *MLNetworkPacket
+	Packet() IMLNetworkPacket
 	PredictionFromURLFeaturesOutputOptionsError(url foundation.INSURL, features objectivec.IObject, output objectivec.IObject, options objectivec.IObject) (bool, error)
 	Q() objectivec.Object
 	Semaphore() objectivec.Object
@@ -228,23 +228,15 @@ func (m MLRemoteConnection) JobCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/nwObj
-func (m MLRemoteConnection) NwObj() *MLNetworking {
+func (m MLRemoteConnection) NwObj() IMLNetworking {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwObj"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkingFromID(objc.ID(rv))
-	return &val
+	return MLNetworkingFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/nwOptions
-func (m MLRemoteConnection) NwOptions() *MLNetworkOptions {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwOptions"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkOptionsFromID(objc.ID(rv))
-	return &val
+func (m MLRemoteConnection) NwOptions() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("nwOptions"))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/outputResult
@@ -257,13 +249,9 @@ func (m MLRemoteConnection) SetOutputResult(value foundation.NSMutableData) {
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/packet
-func (m MLRemoteConnection) Packet() *MLNetworkPacket {
+func (m MLRemoteConnection) Packet() IMLNetworkPacket {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("packet"))
-	if rv == 0 {
-		return nil
-	}
-	val := MLNetworkPacketFromID(objc.ID(rv))
-	return &val
+	return MLNetworkPacketFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteConnection/q
