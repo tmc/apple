@@ -111,11 +111,11 @@ type IAVVCAudioBuffer interface {
 	Data() unsafe.Pointer
 	PacketDescriptionCapacity() int
 	PacketDescriptionCount() int
-	PacketDescriptions() unsafe.Pointer
+	PacketDescriptions() *AudioStreamPacketDescriptionRef
 	RemoteVoiceActivityAvailable() bool
 	RemoteVoiceActivityRMS() byte
 	RemoteVoiceActivityVAD() byte
-	SetPacketDescriptionsCount(descriptions []objectivec.IObject, count int)
+	SetPacketDescriptionsCount(descriptions []AudioStreamPacketDescriptionRef, count int)
 	StreamDescription() unsafe.Pointer
 	TimeStamp() uint64
 	SetTimeStamp(value uint64)
@@ -150,7 +150,7 @@ func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer unsafe.Pointer
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/setPacketDescriptions:count:
-func (v AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []objectivec.IObject, count int) {
+func (v AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []AudioStreamPacketDescriptionRef, count int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setPacketDescriptions:count:"), objc.CArray(descriptions), count)
 }
 
@@ -200,9 +200,9 @@ func (v AVVCAudioBuffer) PacketDescriptionCount() int {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/packetDescriptions
-func (v AVVCAudioBuffer) PacketDescriptions() unsafe.Pointer {
+func (v AVVCAudioBuffer) PacketDescriptions() *AudioStreamPacketDescriptionRef {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("packetDescriptions"))
-	return rv
+	return (*AudioStreamPacketDescriptionRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/remoteVoiceActivityAvailable

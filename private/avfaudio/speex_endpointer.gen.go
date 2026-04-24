@@ -111,7 +111,7 @@ type ISpeexEndpointer interface {
 	SetEndWaitTime(value float64)
 	EndpointMode() int
 	SetEndpointMode(value int)
-	GetStatus(status unsafe.Pointer) int
+	GetStatus(status *AudioQueueBufferRef) int
 	GetStatusCount(status []float32, count uint32) int
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
@@ -156,7 +156,7 @@ func (s SpeexEndpointer) ConfigureWithSampleRateAndFrameRate(rate float64, rate2
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/getStatus:
-func (s SpeexEndpointer) GetStatus(status unsafe.Pointer) int {
+func (s SpeexEndpointer) GetStatus(status *AudioQueueBufferRef) int {
 	rv := objc.Send[int](s.ID, objc.Sel("getStatus:"), status)
 	return rv
 }

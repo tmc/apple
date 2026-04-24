@@ -88,9 +88,9 @@ type IAVAudioSharedBufferToken interface {
 
 	EncodeWithCoder(coder foundation.INSCoder)
 	Surface() unsafe.Pointer
-	SurfaceXPCType() objectivec.IObject
-	TaskToken() objectivec.IObject
-	TaskTokenXPCType() objectivec.IObject
+	SurfaceXPCType() Xpc_type_sRef
+	TaskToken() uint32
+	TaskTokenXPCType() Xpc_type_sRef
 	InitWithCoder(coder foundation.INSCoder) AVAudioSharedBufferToken
 	InitWithSurfaceTaskToken(surface coregraphics.IOSurfaceRef, token uint32) AVAudioSharedBufferToken
 }
@@ -140,21 +140,21 @@ func (a AVAudioSharedBufferToken) Surface() unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/surfaceXPCType
-func (a AVAudioSharedBufferToken) SurfaceXPCType() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("surfaceXPCType"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioSharedBufferToken) SurfaceXPCType() Xpc_type_sRef {
+	rv := objc.Send[Xpc_type_sRef](a.ID, objc.Sel("surfaceXPCType"))
+	return Xpc_type_sRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/taskToken
-func (a AVAudioSharedBufferToken) TaskToken() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("taskToken"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioSharedBufferToken) TaskToken() uint32 {
+	rv := objc.Send[uint32](a.ID, objc.Sel("taskToken"))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/taskTokenXPCType
-func (a AVAudioSharedBufferToken) TaskTokenXPCType() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("taskTokenXPCType"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioSharedBufferToken) TaskTokenXPCType() Xpc_type_sRef {
+	rv := objc.Send[Xpc_type_sRef](a.ID, objc.Sel("taskTokenXPCType"))
+	return Xpc_type_sRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/initWithCoder:

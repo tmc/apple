@@ -57,6 +57,7 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 //   - [AVMusicTrack.DoAddParameterEventAtBeat]
 //   - [AVMusicTrack.DoAddUserEventAtBeat]
 //   - [AVMusicTrack.Index]
+//   - [AVMusicTrack.Track]
 //   - [AVMusicTrack.LoopingEnabled]
 //   - [AVMusicTrack.SetLoopingEnabled]
 //   - [AVMusicTrack.Muted]
@@ -94,6 +95,7 @@ var _ IAVMusicTrack = AVMusicTrack{}
 //   - [IAVMusicTrack.DoAddParameterEventAtBeat]
 //   - [IAVMusicTrack.DoAddUserEventAtBeat]
 //   - [IAVMusicTrack.Index]
+//   - [IAVMusicTrack.Track]
 //   - [IAVMusicTrack.LoopingEnabled]
 //   - [IAVMusicTrack.SetLoopingEnabled]
 //   - [IAVMusicTrack.Muted]
@@ -120,6 +122,7 @@ type IAVMusicTrack interface {
 	DoAddParameterEventAtBeat(event objectivec.IObject, beat float64)
 	DoAddUserEventAtBeat(event objectivec.IObject, beat float64)
 	Index() uint64
+	Track() OpaqueMusicTrackRef
 	LoopingEnabled() bool
 	SetLoopingEnabled(value bool)
 	Muted() bool
@@ -202,6 +205,12 @@ func (m AVMusicTrack) DoAddUserEventAtBeat(event objectivec.IObject, beat float6
 func (m AVMusicTrack) Index() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("index"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/track
+func (m AVMusicTrack) Track() OpaqueMusicTrackRef {
+	rv := objc.Send[OpaqueMusicTrackRef](m.ID, objc.Sel("track"))
+	return OpaqueMusicTrackRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/destinationMIDIEndpoint

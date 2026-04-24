@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -83,7 +84,7 @@ type IAVVCAggregateDevice interface {
 	// Topic: Methods
 
 	BuildAggregateDevice() int
-	CreateDictionaryForDeviceEnableTap(device uint32, tap bool) objectivec.IObject
+	CreateDictionaryForDeviceEnableTap(device uint32, tap bool) corefoundation.CFDictionaryRef
 	DestroyAggregateDevice() int
 	GetBuiltinSpeakerDevice() uint32
 	AggregateDeviceID() uint32
@@ -116,9 +117,9 @@ func (v AVVCAggregateDevice) BuildAggregateDevice() int {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/CreateDictionaryForDevice:enableTap:
-func (v AVVCAggregateDevice) CreateDictionaryForDeviceEnableTap(device uint32, tap bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CreateDictionaryForDevice:enableTap:"), device, tap)
-	return objectivec.Object{ID: rv}
+func (v AVVCAggregateDevice) CreateDictionaryForDeviceEnableTap(device uint32, tap bool) corefoundation.CFDictionaryRef {
+	rv := objc.Send[corefoundation.CFDictionaryRef](v.ID, objc.Sel("CreateDictionaryForDevice:enableTap:"), device, tap)
+	return corefoundation.CFDictionaryRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/DestroyAggregateDevice

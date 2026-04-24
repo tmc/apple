@@ -202,8 +202,8 @@ func (v AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlock(
 func (v AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock(queue objectivec.IObject, type_ uint64, seconds float32, block VoidHandler, block2 VoidHandler) AVVoiceTriggerClientPortManager {
 	_block3, _ := NewVoidBlock(block)
 	_block4, _ := NewVoidBlock(block2)
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithSerialQueue:portType:hysteresisDurationSeconds:runningStateChangeNotificationBlock:muteStateChangeNotificationBlock:"), queue, type_, seconds, _block3, _block4)
-	return AVVoiceTriggerClientPortManagerFromID(rv)
+	rv := objc.Send[AVVoiceTriggerClientPortManager](v.ID, objc.Sel("initWithSerialQueue:portType:hysteresisDurationSeconds:runningStateChangeNotificationBlock:muteStateChangeNotificationBlock:"), queue, type_, seconds, _block3, _block4)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/deviceID

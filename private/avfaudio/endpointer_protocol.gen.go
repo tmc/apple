@@ -38,7 +38,7 @@ type Endpointer interface {
 	// GetStatus protocol.
 	//
 	// See: https://developer.apple.com/documentation/AVFAudio/Endpointer/getStatus:
-	GetStatus(status unsafe.Pointer) int
+	GetStatus(status *AudioQueueBufferRef) int
 
 	// InterspeechWaitTime protocol.
 	//
@@ -118,7 +118,7 @@ func (o EndpointerObject) EndpointMode() int {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/Endpointer/getStatus:
-func (o EndpointerObject) GetStatus(status unsafe.Pointer) int {
+func (o EndpointerObject) GetStatus(status *AudioQueueBufferRef) int {
 	rv := objc.Send[int](o.ID, objc.Sel("getStatus:"), status)
 	return rv
 }

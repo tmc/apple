@@ -109,7 +109,7 @@ type IVoiceVerificationEndpointer interface {
 	SetEndWaitTime(value float64)
 	EndpointMode() int
 	SetEndpointMode(value int)
-	GetStatus(status unsafe.Pointer) int
+	GetStatus(status *AudioQueueBufferRef) int
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
 	Reset()
@@ -153,7 +153,7 @@ func (v VoiceVerificationEndpointer) ConfigureWithSampleRateAndFrameRate(rate fl
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/getStatus:
-func (v VoiceVerificationEndpointer) GetStatus(status unsafe.Pointer) int {
+func (v VoiceVerificationEndpointer) GetStatus(status *AudioQueueBufferRef) int {
 	rv := objc.Send[int](v.ID, objc.Sel("getStatus:"), status)
 	return rv
 }
