@@ -81,7 +81,7 @@ type IDIOpenParams interface {
 
 	UIOOpenMode() int
 	OpenWithError() (objectivec.IObject, error)
-	UnlockImageWithOpenParams(params objectivec.IObject) objectivec.IObject
+	UnlockImageWithOpenParams(params unsafe.Pointer) objectivec.IObject
 	InitWithURLOpenModeError(url foundation.INSURL, mode int64) (DIOpenParams, error)
 }
 
@@ -148,7 +148,7 @@ func (d DIOpenParams) OpenWithError() (objectivec.IObject, error) {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/unlockImageWithOpenParams:
-func (d DIOpenParams) UnlockImageWithOpenParams(params objectivec.IObject) objectivec.IObject {
+func (d DIOpenParams) UnlockImageWithOpenParams(params unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("unlockImageWithOpenParams:"), params)
 	return objectivec.Object{ID: rv}
 }

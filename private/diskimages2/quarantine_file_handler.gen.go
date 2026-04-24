@@ -94,8 +94,8 @@ type IQuarantineFileHandler interface {
 	CheckErrorWithQtnInitResultError(result int) (bool, error)
 	GetFileInfoWithError() (objectivec.IObject, error)
 	IsQuarantined() bool
-	QtFile() objectivec.IObject
-	SetQtFile(value objectivec.IObject)
+	QtFile() Qtn_fileRef
+	SetQtFile(value Qtn_fileRef)
 	InitWithBackendError(backend objectivec.IObject) (QuarantineFileHandler, error)
 	InitWithFDError(fd int) (QuarantineFileHandler, error)
 	InitWithFlagError(flag uint32) (QuarantineFileHandler, error)
@@ -241,10 +241,10 @@ func (q QuarantineFileHandler) IsQuarantined() bool {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/qtFile
-func (q QuarantineFileHandler) QtFile() objectivec.IObject {
-	rv := objc.Send[objc.ID](q.ID, objc.Sel("qtFile"))
-	return objectivec.Object{ID: rv}
+func (q QuarantineFileHandler) QtFile() Qtn_fileRef {
+	rv := objc.Send[Qtn_fileRef](q.ID, objc.Sel("qtFile"))
+	return Qtn_fileRef(rv)
 }
-func (q QuarantineFileHandler) SetQtFile(value objectivec.IObject) {
+func (q QuarantineFileHandler) SetQtFile(value Qtn_fileRef) {
 	objc.Send[struct{}](q.ID, objc.Sel("setQtFile:"), value)
 }

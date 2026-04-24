@@ -118,15 +118,15 @@ type IDIDiskArb interface {
 	CallbackReached() bool
 	SetCallbackReached(value bool)
 	CopyDescriptionWithBSDName(bSDName objectivec.IObject) objectivec.IObject
-	DaSession() objectivec.IObject
-	SetDaSession(value objectivec.IObject)
+	DaSession() DASessionRef
+	SetDaSession(value DASessionRef)
 	Delegate() objectivec.IObject
 	SetDelegate(value objectivec.IObject)
 	EjectWithBSDNameError(bSDName objectivec.IObject) (bool, error)
 	InputMountedOnURL() foundation.INSURL
 	SetInputMountedOnURL(value foundation.INSURL)
 	MountWithDeviceNameArgsFilesystemMountURLError(name objectivec.IObject, args objectivec.IObject, filesystem objectivec.IObject, url foundation.INSURL) (bool, error)
-	OnDiskDisappearedWithDisk(disk objectivec.IObject)
+	OnDiskDisappearedWithDisk(disk DADiskRef)
 	OperationError() foundation.INSError
 	SetOperationError(value foundation.INSError)
 	ShadowMountedOnURLs() foundation.INSArray
@@ -210,7 +210,7 @@ func (d DIDiskArb) MountWithDeviceNameArgsFilesystemMountURLError(name objective
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/onDiskDisappearedWithDisk:
-func (d DIDiskArb) OnDiskDisappearedWithDisk(disk objectivec.IObject) {
+func (d DIDiskArb) OnDiskDisappearedWithDisk(disk DADiskRef) {
 	objc.Send[objc.ID](d.ID, objc.Sel("onDiskDisappearedWithDisk:"), disk)
 }
 
@@ -283,11 +283,11 @@ func (d DIDiskArb) SetCallbackReached(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/daSession
-func (d DIDiskArb) DaSession() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("daSession"))
-	return objectivec.Object{ID: rv}
+func (d DIDiskArb) DaSession() DASessionRef {
+	rv := objc.Send[DASessionRef](d.ID, objc.Sel("daSession"))
+	return DASessionRef(rv)
 }
-func (d DIDiskArb) SetDaSession(value objectivec.IObject) {
+func (d DIDiskArb) SetDaSession(value DASessionRef) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDaSession:"), value)
 }
 

@@ -85,7 +85,7 @@ func NewDIHelpers() DIHelpers {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIHelpers/copyDevicePathWithStatfs:
-func (_DIHelpersClass DIHelpersClass) CopyDevicePathWithStatfs(statfs objectivec.IObject) objectivec.IObject {
+func (_DIHelpersClass DIHelpersClass) CopyDevicePathWithStatfs(statfs unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIHelpersClass.class), objc.Sel("copyDevicePathWithStatfs:"), statfs)
 	return objectivec.Object{ID: rv}
 }

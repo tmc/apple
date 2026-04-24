@@ -137,8 +137,8 @@ type IDICreateParams interface {
 	CreateDiskImageParamsWithError() (bool, error)
 	CreateDiskImageParamsXPC()
 	CreateEncryptionWithXPCHandlerError(xPCHandler objectivec.IObject) (bool, error)
-	CreateFromAuthRef() unsafe.Pointer
-	SetCreateFromAuthRef(value unsafe.Pointer)
+	CreateFromAuthRef() AuthorizationOpaqueRefRef
+	SetCreateFromAuthRef(value AuthorizationOpaqueRefRef)
 	CreateInternalWithError() (objectivec.IObject, error)
 	CreateWithError() (objectivec.IObject, error)
 	EncryptionMethod() uint64
@@ -428,11 +428,11 @@ func (d DICreateParams) SetCertificate(value string) {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/createFromAuthRef
-func (d DICreateParams) CreateFromAuthRef() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("createFromAuthRef"))
-	return rv
+func (d DICreateParams) CreateFromAuthRef() AuthorizationOpaqueRefRef {
+	rv := objc.Send[AuthorizationOpaqueRefRef](d.ID, objc.Sel("createFromAuthRef"))
+	return AuthorizationOpaqueRefRef(rv)
 }
-func (d DICreateParams) SetCreateFromAuthRef(value unsafe.Pointer) {
+func (d DICreateParams) SetCreateFromAuthRef(value AuthorizationOpaqueRefRef) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCreateFromAuthRef:"), value)
 }
 

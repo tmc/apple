@@ -85,7 +85,7 @@ type IMKDIDevice interface {
 	// Topic: Methods
 
 	BlockSize() int
-	MediaRef() objectivec.IObject
+	MediaRef() MKMediaRef
 	PartitionDiskWithGPTTypeIDError(id uint64) (bool, error)
 	ResizeDataPartitionWithPartitionUUIDPartitionNumBlocksError(uuid objectivec.IObject, blocks uint64) (bool, error)
 	UpdatePartitionMapWithError() (bool, error)
@@ -187,7 +187,7 @@ func (m MKDIDevice) BlockSize() int {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/MKDIDevice/mediaRef
-func (m MKDIDevice) MediaRef() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaRef"))
-	return objectivec.Object{ID: rv}
+func (m MKDIDevice) MediaRef() MKMediaRef {
+	rv := objc.Send[MKMediaRef](m.ID, objc.Sel("mediaRef"))
+	return MKMediaRef(rv)
 }
