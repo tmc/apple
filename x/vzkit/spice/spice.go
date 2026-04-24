@@ -108,9 +108,10 @@ type Core struct {
 
 // NewCore creates a SPICE core object.
 func NewCore(pasteboard objectivec.IObject, queue *vm.Queue, caps Capabilities, input, output unsafe.Pointer) Core {
-	var q objectivec.IObject
+	var q pvz.DispatchQueue
 	if queue != nil {
-		q = queue.Queue()
+		id := uintptr(queue.Queue().ID())
+		q = *(*pvz.DispatchQueue)(unsafe.Pointer(&id))
 	}
 	core := pvz.NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(
 		pasteboard, q, caps.Raw(), input, output,

@@ -61,7 +61,7 @@ func (p PixelBufferPool) Cache() foundation.INSDictionary {
 }
 
 // NewInputPortBinder constructs an input-port binder for a port/feature pair.
-func NewInputPortBinder(port, featureDescription objectivec.IObject) InputPortBinder {
+func NewInputPortBinder(port privatecoreml.E5rt_io_portRef, featureDescription objectivec.IObject) InputPortBinder {
 	return InputPortBinder{raw: privatecoreml.NewE5InputPortBinderWithPortFeatureDescription(port, featureDescription)}
 }
 
@@ -104,7 +104,7 @@ func (b InputPortBinder) ReusableForFeatureValue(value coreml.MLFeatureValue) (r
 }
 
 // NewOutputPortBinder constructs an output-port binder for a port/feature pair.
-func NewOutputPortBinder(port, featureDescription objectivec.IObject) OutputPortBinder {
+func NewOutputPortBinder(port privatecoreml.E5rt_io_portRef, featureDescription objectivec.IObject) OutputPortBinder {
 	return OutputPortBinder{raw: privatecoreml.NewE5OutputPortBinderWithPortFeatureDescription(port, featureDescription)}
 }
 

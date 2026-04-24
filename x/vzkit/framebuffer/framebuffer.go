@@ -120,12 +120,12 @@ func (v View) Raw() pvz.VZFramebufferView {
 }
 
 // Framebuffer returns the attached framebuffer.
-func (v View) Framebuffer() *pvz.VZFramebuffer {
+func (v View) Framebuffer() pvz.IVZFramebuffer {
 	return v.raw.Framebuffer()
 }
 
 // SetFramebuffer attaches a framebuffer to the view.
-func (v View) SetFramebuffer(framebuffer *pvz.VZFramebuffer) {
+func (v View) SetFramebuffer(framebuffer pvz.IVZFramebuffer) {
 	v.raw.SetFramebuffer(framebuffer)
 }
 

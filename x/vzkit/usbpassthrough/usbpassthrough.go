@@ -73,7 +73,7 @@ func (d HostDevice) Raw() pvz.VZIOUSBHostPassthroughDevice {
 }
 
 // Configuration returns the attached configuration, if any.
-func (d HostDevice) Configuration() *pvz.VZIOUSBHostPassthroughDeviceConfiguration {
+func (d HostDevice) Configuration() pvz.IVZIOUSBHostPassthroughDeviceConfiguration {
 	return d.raw.Configuration()
 }
 

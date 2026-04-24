@@ -177,9 +177,8 @@ func (s *Server) State() int64 {
 func (s *Server) SecurityConfiguration() SecurityConfig {
 	var cfg SecurityConfig
 	s.sync(func() {
-		raw := s.raw.SecurityConfiguration()
-		if raw != nil {
-			cfg = SecurityConfig{raw: *raw}
+		if id := s.raw.SecurityConfiguration().GetID(); id != 0 {
+			cfg = SecurityConfig{raw: pvz.VZVNCSecurityConfigurationFromID(id)}
 		}
 	})
 	return cfg
