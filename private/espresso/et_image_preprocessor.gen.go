@@ -80,9 +80,9 @@ type IETImagePreprocessor interface {
 
 	// Topic: Methods
 
-	LoadSrcBufferWithCGImage(cGImage *coregraphics.CGImageRef)
+	LoadSrcBufferWithCGImage(cGImage coregraphics.CGImageRef)
 	Preprocess()
-	TensorWithCGImage(cGImage *coregraphics.CGImageRef) objectivec.IObject
+	TensorWithCGImage(cGImage coregraphics.CGImageRef) objectivec.IObject
 	TensorWithPath(path objectivec.IObject) objectivec.IObject
 	InitWithImagePreprocessParams(params objectivec.IObject) ETImagePreprocessor
 }
@@ -114,7 +114,7 @@ func NewETImagePreprocessorWithImagePreprocessParams(params objectivec.IObject) 
 }
 
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessor/loadSrcBufferWithCGImage:
-func (e ETImagePreprocessor) LoadSrcBufferWithCGImage(cGImage *coregraphics.CGImageRef) {
+func (e ETImagePreprocessor) LoadSrcBufferWithCGImage(cGImage coregraphics.CGImageRef) {
 	objc.Send[objc.ID](e.ID, objc.Sel("loadSrcBufferWithCGImage:"), cGImage)
 }
 
@@ -124,7 +124,7 @@ func (e ETImagePreprocessor) Preprocess() {
 }
 
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessor/tensorWithCGImage:
-func (e ETImagePreprocessor) TensorWithCGImage(cGImage *coregraphics.CGImageRef) objectivec.IObject {
+func (e ETImagePreprocessor) TensorWithCGImage(cGImage coregraphics.CGImageRef) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("tensorWithCGImage:"), cGImage)
 	return objectivec.Object{ID: rv}
 }

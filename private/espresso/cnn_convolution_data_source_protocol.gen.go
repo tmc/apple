@@ -5,9 +5,9 @@ package espresso
 import (
 	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/skylight"
 )
 
 // MPSCNNConvolutionDataSource protocol.
@@ -91,7 +91,7 @@ func (o MPSCNNConvolutionDataSourceObject) BiasTerms() unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/Espresso/MPSCNNConvolutionDataSource/copyWithZone:device:
-func (o MPSCNNConvolutionDataSourceObject) CopyWithZoneDevice(zone foundation.NSZone, device objectivec.IObject) objectivec.IObject {
+func (o MPSCNNConvolutionDataSourceObject) CopyWithZoneDevice(zone skylight.NSZoneRef, device objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("copyWithZone:device:"), zone, device)
 	return objectivec.Object{ID: rv}
 }

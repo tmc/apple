@@ -118,7 +118,7 @@ type IEspresso_mxnetTools_ImageBinaryRecordReader interface {
 	SetRecFileHandle(value *foundation.NSFileHandle)
 	RecordHeader() objectivec.IObject
 	SetRecordHeader(value objectivec.IObject)
-	SeekRecordWithIDError(id objectivec.IObject) (bool, error)
+	SeekRecordWithIDError(id unsafe.Pointer) (bool, error)
 	InitWithRecFileError(file objectivec.IObject) (Espresso_mxnetTools_ImageBinaryRecordReader, error)
 }
 
@@ -187,7 +187,7 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) NextRecordAndError() (bool,
 }
 
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/seekRecordWithID:error:
-func (e Espresso_mxnetTools_ImageBinaryRecordReader) SeekRecordWithIDError(id objectivec.IObject) (bool, error) {
+func (e Espresso_mxnetTools_ImageBinaryRecordReader) SeekRecordWithIDError(id unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("seekRecordWithID:error:"), id, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
