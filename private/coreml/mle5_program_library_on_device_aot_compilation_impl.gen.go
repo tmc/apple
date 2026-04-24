@@ -92,7 +92,7 @@ type IMLE5ProgramLibraryOnDeviceAOTCompilationImpl interface {
 
 	Configuration() IMLModelConfiguration
 	Container() IMLProgramE5Container
-	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (objectivec.IObject, error)
+	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rt_program_libraryRef, error)
 	ModelDisplayName() string
 	SerializedMILText() string
 	SetSerializedMILText(value string)
@@ -128,22 +128,22 @@ func NewE5ProgramLibraryOnDeviceAOTCompilationImplWithMILTextAtURLContainerConfi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/createProgramLibraryHandleWithRespecialization:error:
-func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (objectivec.IObject, error) {
+func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[E5rt_program_libraryRef](e.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
+		return 0, foundation.NSErrorFrom(errorPtr)
 	}
-	return objectivec.Object{ID: rv}, nil
+	return rv, nil
 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/initWithIRProgram:container:configuration:deallocator:
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithIRProgramContainerConfigurationDeallocator(iRProgram unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject, deallocator VoidHandler) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	_block3, _ := NewVoidBlock(deallocator)
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithIRProgram:container:configuration:deallocator:"), iRProgram, container, configuration, _block3)
-	return MLE5ProgramLibraryOnDeviceAOTCompilationImplFromID(rv)
+	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](e.ID, objc.Sel("initWithIRProgram:container:configuration:deallocator:"), iRProgram, container, configuration, _block3)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/initWithMILTextAtURL:container:configuration:
@@ -155,8 +155,8 @@ func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithMILTextAtURLContai
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/initWithMILTextAtURL:irProgram:deallocator:container:configuration:
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithMILTextAtURLIrProgramDeallocatorContainerConfiguration(url foundation.INSURL, program unsafe.Pointer, deallocator VoidHandler, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	_block2, _ := NewVoidBlock(deallocator)
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithMILTextAtURL:irProgram:deallocator:container:configuration:"), url, program, _block2, container, configuration)
-	return MLE5ProgramLibraryOnDeviceAOTCompilationImplFromID(rv)
+	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](e.ID, objc.Sel("initWithMILTextAtURL:irProgram:deallocator:container:configuration:"), url, program, _block2, container, configuration)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/configuration

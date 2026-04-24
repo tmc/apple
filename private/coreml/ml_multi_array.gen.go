@@ -8,6 +8,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -68,6 +69,10 @@ func (mc MLMultiArrayClass) Alloc() MLMultiArray {
 //   - [MLMultiArray.NumberAtOffset]
 //   - [MLMultiArray.NumberOfBytesPerElement]
 //   - [MLMultiArray.OffsetForKeyedSubscript]
+//   - [MLMultiArray.RenderTo32BGRAPixelBufferChannelOrderIsBGRError]
+//   - [MLMultiArray.RenderToCVPixelBufferChannelOrderIsBGRError]
+//   - [MLMultiArray.RenderToOneComponent16HalfPixelBufferError]
+//   - [MLMultiArray.RenderToOneComponent8PixelBufferError]
 //   - [MLMultiArray.SetNumberAtOffset]
 //   - [MLMultiArray.SetRangeWithRawDataDestIndexError]
 //   - [MLMultiArray.SliceAtOriginShapeSqueezeError]
@@ -78,6 +83,8 @@ func (mc MLMultiArrayClass) Alloc() MLMultiArray {
 //   - [MLMultiArray.InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableShapedBufferProviderError]
 //   - [MLMultiArray.InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider]
 //   - [MLMultiArray.InitWithCoder]
+//   - [MLMultiArray.InitWithPixelBufferShapeStrides]
+//   - [MLMultiArray.InitWithPixelBufferShapeStridesMutableShapedBufferProvider]
 //   - [MLMultiArray.InitWithScalarsShapeDataType]
 //   - [MLMultiArray.InitWithShapeDataTypeStorageOrderBufferAlignment]
 //   - [MLMultiArray.InitWithShapeDataTypeStorageOrderError]
@@ -120,6 +127,10 @@ var _ IMLMultiArray = MLMultiArray{}
 //   - [IMLMultiArray.NumberAtOffset]
 //   - [IMLMultiArray.NumberOfBytesPerElement]
 //   - [IMLMultiArray.OffsetForKeyedSubscript]
+//   - [IMLMultiArray.RenderTo32BGRAPixelBufferChannelOrderIsBGRError]
+//   - [IMLMultiArray.RenderToCVPixelBufferChannelOrderIsBGRError]
+//   - [IMLMultiArray.RenderToOneComponent16HalfPixelBufferError]
+//   - [IMLMultiArray.RenderToOneComponent8PixelBufferError]
 //   - [IMLMultiArray.SetNumberAtOffset]
 //   - [IMLMultiArray.SetRangeWithRawDataDestIndexError]
 //   - [IMLMultiArray.SliceAtOriginShapeSqueezeError]
@@ -130,6 +141,8 @@ var _ IMLMultiArray = MLMultiArray{}
 //   - [IMLMultiArray.InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableShapedBufferProviderError]
 //   - [IMLMultiArray.InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider]
 //   - [IMLMultiArray.InitWithCoder]
+//   - [IMLMultiArray.InitWithPixelBufferShapeStrides]
+//   - [IMLMultiArray.InitWithPixelBufferShapeStridesMutableShapedBufferProvider]
 //   - [IMLMultiArray.InitWithScalarsShapeDataType]
 //   - [IMLMultiArray.InitWithShapeDataTypeStorageOrderBufferAlignment]
 //   - [IMLMultiArray.InitWithShapeDataTypeStorageOrderError]
@@ -161,6 +174,10 @@ type IMLMultiArray interface {
 	NumberAtOffset(offset uint64) objectivec.IObject
 	NumberOfBytesPerElement() uint64
 	OffsetForKeyedSubscript(subscript objectivec.IObject) uint64
+	RenderTo32BGRAPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (bool, error)
+	RenderToCVPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (bool, error)
+	RenderToOneComponent16HalfPixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error)
+	RenderToOneComponent8PixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error)
 	SetNumberAtOffset(number objectivec.IObject, offset uint64)
 	SetRangeWithRawDataDestIndexError(data objectivec.IObject, index uint64) (bool, error)
 	SliceAtOriginShapeSqueezeError(origin objectivec.IObject, shape objectivec.IObject, squeeze bool) (objectivec.IObject, error)
@@ -171,6 +188,8 @@ type IMLMultiArray interface {
 	InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableShapedBufferProviderError(copy_ unsafe.Pointer, shape objectivec.IObject, type_ int64, strides objectivec.IObject, deallocator func(), provider func()) (MLMultiArray, error)
 	InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider(copy_ unsafe.Pointer, shape objectivec.IObject, type_ int64, strides objectivec.IObject, provider VoidHandler) MLMultiArray
 	InitWithCoder(coder foundation.INSCoder) MLMultiArray
+	InitWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArray
+	InitWithPixelBufferShapeStridesMutableShapedBufferProvider(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject, provider VoidHandler) MLMultiArray
 	InitWithScalarsShapeDataType(scalars objectivec.IObject, shape objectivec.IObject, type_ int64) MLMultiArray
 	InitWithShapeDataTypeStorageOrderBufferAlignment(shape objectivec.IObject, type_ int64, order int64, alignment uint64) MLMultiArray
 	InitWithShapeDataTypeStorageOrderError(shape objectivec.IObject, type_ int64, order int64) (MLMultiArray, error)
@@ -207,6 +226,13 @@ func NewMultiArrayWithArrayDataType(array objectivec.IObject, type_ int64) MLMul
 func NewMultiArrayWithCoder(coder objectivec.IObject) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLMultiArrayFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithPixelBuffer:shape:strides:
+func NewMultiArrayWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArray {
+	instance := getMLMultiArrayClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPixelBuffer:shape:strides:"), buffer, shape, strides)
 	return MLMultiArrayFromID(rv)
 }
 
@@ -331,6 +357,66 @@ func (m MLMultiArray) OffsetForKeyedSubscript(subscript objectivec.IObject) uint
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/renderTo32BGRAPixelBuffer:channelOrderIsBGR:error:
+func (m MLMultiArray) RenderTo32BGRAPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](m.ID, objc.Sel("renderTo32BGRAPixelBuffer:channelOrderIsBGR:error:"), buffer, bgr, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("renderTo32BGRAPixelBuffer:channelOrderIsBGR:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/renderToCVPixelBuffer:channelOrderIsBGR:error:
+func (m MLMultiArray) RenderToCVPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](m.ID, objc.Sel("renderToCVPixelBuffer:channelOrderIsBGR:error:"), buffer, bgr, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("renderToCVPixelBuffer:channelOrderIsBGR:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/renderToOneComponent16HalfPixelBuffer:error:
+func (m MLMultiArray) RenderToOneComponent16HalfPixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](m.ID, objc.Sel("renderToOneComponent16HalfPixelBuffer:error:"), buffer, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("renderToOneComponent16HalfPixelBuffer:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/renderToOneComponent8PixelBuffer:error:
+func (m MLMultiArray) RenderToOneComponent8PixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](m.ID, objc.Sel("renderToOneComponent8PixelBuffer:error:"), buffer, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("renderToOneComponent8PixelBuffer:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/setNumber:atOffset:
 func (m MLMultiArray) SetNumberAtOffset(number objectivec.IObject, offset uint64) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setNumber:atOffset:"), number, offset)
@@ -417,13 +503,26 @@ func (m MLMultiArray) InitWithBytesNoCopyShapeDataTypeStridesDeallocatorMutableS
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithBytesNoCopy:shape:dataType:strides:mutableShapedBufferProvider:
 func (m MLMultiArray) InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider(copy_ unsafe.Pointer, shape objectivec.IObject, type_ int64, strides objectivec.IObject, provider VoidHandler) MLMultiArray {
 	_block4, _ := NewVoidBlock(provider)
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithBytesNoCopy:shape:dataType:strides:mutableShapedBufferProvider:"), copy_, shape, type_, strides, _block4)
-	return MLMultiArrayFromID(rv)
+	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithBytesNoCopy:shape:dataType:strides:mutableShapedBufferProvider:"), copy_, shape, type_, strides, _block4)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithCoder:
 func (m MLMultiArray) InitWithCoder(coder foundation.INSCoder) MLMultiArray {
 	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithPixelBuffer:shape:strides:
+func (m MLMultiArray) InitWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArray {
+	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithPixelBuffer:shape:strides:"), buffer, shape, strides)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithPixelBuffer:shape:strides:mutableShapedBufferProvider:
+func (m MLMultiArray) InitWithPixelBufferShapeStridesMutableShapedBufferProvider(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject, provider VoidHandler) MLMultiArray {
+	_block3, _ := NewVoidBlock(provider)
+	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithPixelBuffer:shape:strides:mutableShapedBufferProvider:"), buffer, shape, strides, _block3)
 	return rv
 }
 
@@ -550,6 +649,18 @@ func (_MLMultiArrayClass MLMultiArrayClass) MultiArrayByConcatenatingMultiArrays
 	return objectivec.Object{ID: rv}
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/multiArrayOwningBufferObjectOfPort:error:
+func (_MLMultiArrayClass MLMultiArrayClass) MultiArrayOwningBufferObjectOfPortError(port E5rt_io_portRef) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("multiArrayOwningBufferObjectOfPort:error:"), port, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/newMultiArrayForState:strides:dtype:error:
 func (_MLMultiArrayClass MLMultiArrayClass) NewMultiArrayForStateStridesDtypeError(state objectivec.IObject, strides objectivec.IObject, dtype int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -559,6 +670,42 @@ func (_MLMultiArrayClass MLMultiArrayClass) NewMultiArrayForStateStridesDtypeErr
 		return nil, foundation.NSErrorFrom(errorPtr)
 	}
 	return objectivec.Object{ID: rv}, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/pixelBufferBGRA8FromMultiArrayCHW:channelOrderIsBGR:error:
+func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferBGRA8FromMultiArrayCHWChannelOrderIsBGRError(chw objectivec.IObject, bgr bool) (corevideo.CVImageBufferRef, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferBGRA8FromMultiArrayCHW:channelOrderIsBGR:error:"), chw, bgr, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return 0, foundation.NSErrorFrom(errorPtr)
+	}
+	return rv, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/pixelBufferGray16HalfFromMultiArrayHW:error:
+func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferGray16HalfFromMultiArrayHWError(hw objectivec.IObject) (corevideo.CVImageBufferRef, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferGray16HalfFromMultiArrayHW:error:"), hw, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return 0, foundation.NSErrorFrom(errorPtr)
+	}
+	return rv, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/pixelBufferGray8FromMultiArrayHW:error:
+func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferGray8FromMultiArrayHWError(hw objectivec.IObject) (corevideo.CVImageBufferRef, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferGray8FromMultiArrayHW:error:"), hw, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return 0, foundation.NSErrorFrom(errorPtr)
+	}
+	return rv, nil
 
 }
 
@@ -658,6 +805,21 @@ func (m MLMultiArray) GetContiguousFirstMajorFloat32BufferWithHandlerSync(ctx co
 func (m MLMultiArray) InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProviderSync(ctx context.Context, copy_ unsafe.Pointer, shape objectivec.IObject, type_ int64, strides objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	m.InitWithBytesNoCopyShapeDataTypeStridesMutableShapedBufferProvider(copy_, shape, type_, strides, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// InitWithPixelBufferShapeStridesMutableShapedBufferProviderSync is a synchronous wrapper around [MLMultiArray.InitWithPixelBufferShapeStridesMutableShapedBufferProvider].
+// It blocks until the completion handler fires or the context is cancelled.
+func (m MLMultiArray) InitWithPixelBufferShapeStridesMutableShapedBufferProviderSync(ctx context.Context, buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) error {
+	done := make(chan struct{}, 1)
+	m.InitWithPixelBufferShapeStridesMutableShapedBufferProvider(buffer, shape, strides, func() {
 		done <- struct{}{}
 	})
 	select {

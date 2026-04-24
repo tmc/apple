@@ -111,11 +111,11 @@ type IMLSVMEngine interface {
 
 	// Topic: Methods
 
-	AllocSVMNodeVector(vector uint64) objectivec.IObject
+	AllocSVMNodeVector(vector uint64) *Svm_nodeRef
 	ClassLabels() foundation.INSArray
 	SetClassLabels(value foundation.INSArray)
-	DeallocSVMNodeVector(vector objectivec.IObject)
-	FillSVMNodeVectorValuesCount(vector objectivec.IObject, values []float64, count uint64)
+	DeallocSVMNodeVector(vector *Svm_nodeRef)
+	FillSVMNodeVectorValuesCount(vector *Svm_nodeRef, values []float64, count uint64)
 	FreeModelOnDealloc() bool
 	SetFreeModelOnDealloc(value bool)
 	HasProbabilityPredictionEnabled() bool
@@ -123,13 +123,13 @@ type IMLSVMEngine interface {
 	SetInputSize(value uint64)
 	IsInputSizeLowerBoundOnly() bool
 	SetIsInputSizeLowerBoundOnly(value bool)
-	Model() objectivec.IObject
-	SetModel(value objectivec.IObject)
+	Model() unsafe.Pointer
+	SetModel(value unsafe.Pointer)
 	NumberOfClasses() uint64
 	Predict(predict objectivec.IObject) objectivec.IObject
 	PredictProbabilitiesProbabilities(probabilities objectivec.IObject, probabilities2 []float64)
 	InitWithLibSVMFileClassLabels(sVMFile objectivec.IObject, labels objectivec.IObject) MLSVMEngine
-	InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSizeClassLabels(sVMModel objectivec.IObject, dealloc bool, only bool, size uint64, labels objectivec.IObject) MLSVMEngine
+	InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSizeClassLabels(sVMModel unsafe.Pointer, dealloc bool, only bool, size uint64, labels objectivec.IObject) MLSVMEngine
 	InitWithSpecificationError(specification unsafe.Pointer) (MLSVMEngine, error)
 }
 
@@ -160,7 +160,7 @@ func NewSVMEngineWithLibSVMFileClassLabels(sVMFile objectivec.IObject, labels ob
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:classLabels:
-func NewSVMEngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSizeClassLabels(sVMModel objectivec.IObject, dealloc bool, only bool, size uint64, labels objectivec.IObject) MLSVMEngine {
+func NewSVMEngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSizeClassLabels(sVMModel unsafe.Pointer, dealloc bool, only bool, size uint64, labels objectivec.IObject) MLSVMEngine {
 	instance := getMLSVMEngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:classLabels:"), sVMModel, dealloc, only, size, labels)
 	return MLSVMEngineFromID(rv)
@@ -179,19 +179,19 @@ func NewSVMEngineWithSpecificationError(specification unsafe.Pointer) (MLSVMEngi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/allocSVMNodeVector:
-func (s MLSVMEngine) AllocSVMNodeVector(vector uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("allocSVMNodeVector:"), vector)
-	return objectivec.Object{ID: rv}
+func (s MLSVMEngine) AllocSVMNodeVector(vector uint64) *Svm_nodeRef {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("allocSVMNodeVector:"), vector)
+	return (*Svm_nodeRef)(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/deallocSVMNodeVector:
-func (s MLSVMEngine) DeallocSVMNodeVector(vector objectivec.IObject) {
+func (s MLSVMEngine) DeallocSVMNodeVector(vector *Svm_nodeRef) {
 	objc.Send[objc.ID](s.ID, objc.Sel("deallocSVMNodeVector:"), vector)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/fillSVMNodeVector:values:count:
-func (s MLSVMEngine) FillSVMNodeVectorValuesCount(vector objectivec.IObject, values []float64, count uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("fillSVMNodeVector:values:count:"), vector, objc.CArray(values), count)
+func (s MLSVMEngine) FillSVMNodeVectorValuesCount(vector *Svm_nodeRef, values []float64, count uint64) {
+	objc.Send[objc.ID](s.ID, objc.Sel("fillSVMNodeVector:values:count:"), objc.CArray(vector), objc.CArray(values), count)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/hasProbabilityPredictionEnabled
@@ -218,7 +218,7 @@ func (s MLSVMEngine) InitWithLibSVMFileClassLabels(sVMFile objectivec.IObject, l
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:classLabels:
-func (s MLSVMEngine) InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSizeClassLabels(sVMModel objectivec.IObject, dealloc bool, only bool, size uint64, labels objectivec.IObject) MLSVMEngine {
+func (s MLSVMEngine) InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSizeClassLabels(sVMModel unsafe.Pointer, dealloc bool, only bool, size uint64, labels objectivec.IObject) MLSVMEngine {
 	rv := objc.Send[MLSVMEngine](s.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:classLabels:"), sVMModel, dealloc, only, size, labels)
 	return rv
 }
@@ -272,11 +272,11 @@ func (s MLSVMEngine) SetIsInputSizeLowerBoundOnly(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/model
-func (s MLSVMEngine) Model() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("model"))
-	return objectivec.Object{ID: rv}
+func (s MLSVMEngine) Model() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("model"))
+	return rv
 }
-func (s MLSVMEngine) SetModel(value objectivec.IObject) {
+func (s MLSVMEngine) SetModel(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setModel:"), value)
 }
 

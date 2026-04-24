@@ -84,7 +84,7 @@ type IMLE5ProgramLibraryE5BundleImpl interface {
 	// Topic: Methods
 
 	Configuration() IMLModelConfiguration
-	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (objectivec.IObject, error)
+	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rt_program_libraryRef, error)
 	E5BundleURL() foundation.INSURL
 	ModelDisplayName() string
 	SerializedMILText() string
@@ -118,14 +118,14 @@ func NewE5ProgramLibraryE5BundleImplWithE5BundleAtURLConfiguration(url foundatio
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryE5BundleImpl/createProgramLibraryHandleWithRespecialization:error:
-func (e MLE5ProgramLibraryE5BundleImpl) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (objectivec.IObject, error) {
+func (e MLE5ProgramLibraryE5BundleImpl) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[E5rt_program_libraryRef](e.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
+		return 0, foundation.NSErrorFrom(errorPtr)
 	}
-	return objectivec.Object{ID: rv}, nil
+	return rv, nil
 
 }
 

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -146,6 +147,13 @@ func NewMultiArrayViewWithArrayDataType(array objectivec.IObject, type_ int64) M
 func NewMultiArrayViewWithCoder(coder objectivec.IObject) MLMultiArrayView {
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return MLMultiArrayViewFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithPixelBuffer:shape:strides:
+func NewMultiArrayViewWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayView {
+	instance := getMLMultiArrayViewClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPixelBuffer:shape:strides:"), buffer, shape, strides)
 	return MLMultiArrayViewFromID(rv)
 }
 

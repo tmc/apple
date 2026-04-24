@@ -111,11 +111,11 @@ type IMLE5InputPort interface {
 	Name() string
 	PixelBufferPool() IMLPixelBufferPool
 	SetPixelBufferPool(value IMLPixelBufferPool)
-	PortHandle() objectivec.IObject
+	PortHandle() E5rt_io_portRef
 	PrepareForFeatureValueError(value objectivec.IObject) (bool, error)
 	Reset()
 	ReusableForFeatureValueWillBindDirectly(value objectivec.IObject) (bool, bool)
-	InitWithPortHandleNameFeatureDescription(handle objectivec.IObject, name objectivec.IObject, description objectivec.IObject) MLE5InputPort
+	InitWithPortHandleNameFeatureDescription(handle E5rt_io_portRef, name objectivec.IObject, description objectivec.IObject) MLE5InputPort
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -142,7 +142,7 @@ func NewMLE5InputPort() MLE5InputPort {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/initWithPortHandle:name:featureDescription:
-func NewE5InputPortWithPortHandleNameFeatureDescription(handle objectivec.IObject, name objectivec.IObject, description objectivec.IObject) MLE5InputPort {
+func NewE5InputPortWithPortHandleNameFeatureDescription(handle E5rt_io_portRef, name objectivec.IObject, description objectivec.IObject) MLE5InputPort {
 	instance := getMLE5InputPortClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPortHandle:name:featureDescription:"), handle, name, description)
 	return MLE5InputPortFromID(rv)
@@ -191,7 +191,7 @@ func (e MLE5InputPort) ReusableForFeatureValueWillBindDirectly(value objectivec.
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/initWithPortHandle:name:featureDescription:
-func (e MLE5InputPort) InitWithPortHandleNameFeatureDescription(handle objectivec.IObject, name objectivec.IObject, description objectivec.IObject) MLE5InputPort {
+func (e MLE5InputPort) InitWithPortHandleNameFeatureDescription(handle E5rt_io_portRef, name objectivec.IObject, description objectivec.IObject) MLE5InputPort {
 	rv := objc.Send[MLE5InputPort](e.ID, objc.Sel("initWithPortHandle:name:featureDescription:"), handle, name, description)
 	return rv
 }
@@ -245,9 +245,9 @@ func (e MLE5InputPort) SetPixelBufferPool(value IMLPixelBufferPool) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/portHandle
-func (e MLE5InputPort) PortHandle() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("portHandle"))
-	return objectivec.Object{ID: rv}
+func (e MLE5InputPort) PortHandle() E5rt_io_portRef {
+	rv := objc.Send[E5rt_io_portRef](e.ID, objc.Sel("portHandle"))
+	return E5rt_io_portRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/superclass

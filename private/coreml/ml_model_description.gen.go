@@ -69,8 +69,10 @@ func (mc MLModelDescriptionClass) Alloc() MLModelDescription {
 //   - [MLModelDescription.ValidateAsRegressorDescriptionAndReturnError]
 //   - [MLModelDescription.VerifyInputError]
 //   - [MLModelDescription.InitFromModelDescriptionSpecification]
+//   - [MLModelDescription.InitFromRawCompiledModelArchiveError]
 //   - [MLModelDescription.InitFromRawModelDescriptionSpecification]
 //   - [MLModelDescription.InitFromRawModelSpecification]
+//   - [MLModelDescription.InitFromSingleFunctionCompiledModelArchiveError]
 //   - [MLModelDescription.InitFromSingleFunctionModelDescriptionSpecification]
 //   - [MLModelDescription.InitFromSingleFunctionModelSpecification]
 //   - [MLModelDescription.InitWithCoder]
@@ -130,8 +132,10 @@ var _ IMLModelDescription = MLModelDescription{}
 //   - [IMLModelDescription.ValidateAsRegressorDescriptionAndReturnError]
 //   - [IMLModelDescription.VerifyInputError]
 //   - [IMLModelDescription.InitFromModelDescriptionSpecification]
+//   - [IMLModelDescription.InitFromRawCompiledModelArchiveError]
 //   - [IMLModelDescription.InitFromRawModelDescriptionSpecification]
 //   - [IMLModelDescription.InitFromRawModelSpecification]
+//   - [IMLModelDescription.InitFromSingleFunctionCompiledModelArchiveError]
 //   - [IMLModelDescription.InitFromSingleFunctionModelDescriptionSpecification]
 //   - [IMLModelDescription.InitFromSingleFunctionModelSpecification]
 //   - [IMLModelDescription.InitWithCoder]
@@ -180,8 +184,10 @@ type IMLModelDescription interface {
 	ValidateAsRegressorDescriptionAndReturnError() (bool, error)
 	VerifyInputError(input objectivec.IObject) (bool, error)
 	InitFromModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription
+	InitFromRawCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error)
 	InitFromRawModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription
 	InitFromRawModelSpecification(specification unsafe.Pointer) MLModelDescription
+	InitFromSingleFunctionCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error)
 	InitFromSingleFunctionModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription
 	InitFromSingleFunctionModelSpecification(specification unsafe.Pointer) MLModelDescription
 	InitWithCoder(coder foundation.INSCoder) MLModelDescription
@@ -229,6 +235,18 @@ func NewModelDescriptionFromModelDescriptionSpecification(specification unsafe.P
 	return MLModelDescriptionFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/initFromRawCompiledModelArchive:error:
+func NewModelDescriptionFromRawCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error) {
+	var errorPtr objc.ID
+	instance := getMLModelDescriptionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromRawCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return MLModelDescription{}, foundation.NSErrorFrom(errorPtr)
+	}
+	return MLModelDescriptionFromID(rv), nil
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/initFromRawModelDescriptionSpecification:
 func NewModelDescriptionFromRawModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
@@ -241,6 +259,18 @@ func NewModelDescriptionFromRawModelSpecification(specification unsafe.Pointer) 
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromRawModelSpecification:"), specification)
 	return MLModelDescriptionFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/initFromSingleFunctionCompiledModelArchive:error:
+func NewModelDescriptionFromSingleFunctionCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error) {
+	var errorPtr objc.ID
+	instance := getMLModelDescriptionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromSingleFunctionCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return MLModelDescription{}, foundation.NSErrorFrom(errorPtr)
+	}
+	return MLModelDescriptionFromID(rv), nil
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/initFromSingleFunctionModelDescriptionSpecification:
@@ -423,6 +453,18 @@ func (m MLModelDescription) InitFromModelDescriptionSpecification(specification 
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/initFromRawCompiledModelArchive:error:
+func (m MLModelDescription) InitFromRawCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initFromRawCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return MLModelDescription{}, foundation.NSErrorFrom(errorPtr)
+	}
+	return MLModelDescriptionFromID(rv), nil
+
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/initFromRawModelDescriptionSpecification:
 func (m MLModelDescription) InitFromRawModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription {
 	rv := objc.Send[MLModelDescription](m.ID, objc.Sel("initFromRawModelDescriptionSpecification:"), specification)
@@ -433,6 +475,18 @@ func (m MLModelDescription) InitFromRawModelDescriptionSpecification(specificati
 func (m MLModelDescription) InitFromRawModelSpecification(specification unsafe.Pointer) MLModelDescription {
 	rv := objc.Send[MLModelDescription](m.ID, objc.Sel("initFromRawModelSpecification:"), specification)
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLModelDescription/initFromSingleFunctionCompiledModelArchive:error:
+func (m MLModelDescription) InitFromSingleFunctionCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initFromSingleFunctionCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return MLModelDescription{}, foundation.NSErrorFrom(errorPtr)
+	}
+	return MLModelDescriptionFromID(rv), nil
+
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/initFromSingleFunctionModelDescriptionSpecification:

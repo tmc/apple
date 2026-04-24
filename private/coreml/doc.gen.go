@@ -11,9 +11,9 @@
 //   - [MLModelConfiguration]
 //   - [MLE5ExecutionStreamOperation]
 //   - [MLModel]
+//   - [MLMultiArray]
 //   - [MLNeuralNetworkContainer]
 //   - [MLNeuralNetworkMLComputeUpdateEngine]
-//   - [MLLoaderEvent]
 package coreml
 
 import (

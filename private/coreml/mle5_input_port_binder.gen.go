@@ -118,10 +118,10 @@ type IMLE5InputPortBinder interface {
 	FeatureDescription() IMLFeatureDescription
 	PixelBufferPool() IMLPixelBufferPool
 	SetPixelBufferPool(value IMLPixelBufferPool)
-	PortHandle() objectivec.IObject
+	PortHandle() E5rt_io_portRef
 	Reset()
 	ReusableForFeatureValueWillBindDirectly(value objectivec.IObject) (bool, bool)
-	InitWithPortFeatureDescription(port objectivec.IObject, description objectivec.IObject) MLE5InputPortBinder
+	InitWithPortFeatureDescription(port E5rt_io_portRef, description objectivec.IObject) MLE5InputPortBinder
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -148,7 +148,7 @@ func NewMLE5InputPortBinder() MLE5InputPortBinder {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPortBinder/initWithPort:featureDescription:
-func NewE5InputPortBinderWithPortFeatureDescription(port objectivec.IObject, description objectivec.IObject) MLE5InputPortBinder {
+func NewE5InputPortBinderWithPortFeatureDescription(port E5rt_io_portRef, description objectivec.IObject) MLE5InputPortBinder {
 	instance := getMLE5InputPortBinderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
 	return MLE5InputPortBinderFromID(rv)
@@ -208,7 +208,7 @@ func (e MLE5InputPortBinder) ReusableForFeatureValueWillBindDirectly(value objec
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPortBinder/initWithPort:featureDescription:
-func (e MLE5InputPortBinder) InitWithPortFeatureDescription(port objectivec.IObject, description objectivec.IObject) MLE5InputPortBinder {
+func (e MLE5InputPortBinder) InitWithPortFeatureDescription(port E5rt_io_portRef, description objectivec.IObject) MLE5InputPortBinder {
 	rv := objc.Send[MLE5InputPortBinder](e.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
 	return rv
 }
@@ -265,9 +265,9 @@ func (e MLE5InputPortBinder) SetPixelBufferPool(value IMLPixelBufferPool) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPortBinder/portHandle
-func (e MLE5InputPortBinder) PortHandle() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("portHandle"))
-	return objectivec.Object{ID: rv}
+func (e MLE5InputPortBinder) PortHandle() E5rt_io_portRef {
+	rv := objc.Send[E5rt_io_portRef](e.ID, objc.Sel("portHandle"))
+	return E5rt_io_portRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPortBinder/superclass

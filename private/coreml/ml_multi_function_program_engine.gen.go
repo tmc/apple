@@ -286,7 +286,7 @@ func (m MLMultiFunctionProgramEngine) InitWithProgramContainerConfigurationError
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLMultiFunctionProgramEngine/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
-func (_MLMultiFunctionProgramEngineClass MLMultiFunctionProgramEngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
+func (_MLMultiFunctionProgramEngineClass MLMultiFunctionProgramEngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiFunctionProgramEngineClass.class), objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

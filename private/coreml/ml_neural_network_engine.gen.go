@@ -406,7 +406,7 @@ type IMLNeuralNetworkEngine interface {
 	ConvertPredictionToClassifierResultWithOptionsError(result objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
 	CopyEbufOfPixelTypeToPixelBufferError(ebuf objectivec.IObject, type_ uint64, buffer corevideo.CVImageBufferRef) (bool, error)
 	CopyImagePreprocessingParametersToError(to unsafe.Pointer) (bool, error)
-	CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing objectivec.IObject, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef
+	CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing unsafe.Pointer, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef
 	CopyPixelBufferByApplyingImagePreprocessingForFeatureNamedToPixelBuffer(named objectivec.IObject, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef
 	CopyPixelBufferFromPixelBufferUsingPixelFormat(buffer corevideo.CVImageBufferRef, format uint32) corevideo.CVImageBufferRef
 	DefaultOptionalValues() foundation.INSDictionary
@@ -1044,8 +1044,10 @@ func (n MLNeuralNetworkEngine) CopyImagePreprocessingParametersToError(to unsafe
 
 }
 
+// preprocessing is a [*appleneuralengine.vimage2espresso_param].
+//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/copyPixelBufferByApplyingImagePreprocessing:toPixelBuffer:
-func (n MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing objectivec.IObject, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
+func (n MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing unsafe.Pointer, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](n.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessing:toPixelBuffer:"), preprocessing, buffer)
 	return corevideo.CVImageBufferRef(rv)
 }

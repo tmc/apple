@@ -16,7 +16,7 @@ type MLE5ProgramLibraryImpl interface {
 	// CreateProgramLibraryHandleWithRespecializationError protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryImpl/createProgramLibraryHandleWithRespecialization:error:
-	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (objectivec.IObject, error)
+	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rt_program_libraryRef, error)
 }
 
 // MLE5ProgramLibraryImplObject wraps an existing Objective-C object that conforms to the MLE5ProgramLibraryImpl protocol.
@@ -37,12 +37,12 @@ func MLE5ProgramLibraryImplObjectFromID(id objc.ID) MLE5ProgramLibraryImplObject
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryImpl/createProgramLibraryHandleWithRespecialization:error:
-func (o MLE5ProgramLibraryImplObject) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (objectivec.IObject, error) {
-	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization)
+func (o MLE5ProgramLibraryImplObject) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
+	rv, err := objc.SendWithError[E5rt_program_libraryRef](o.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
-	return objectivec.Object{ID: rv}, nil
+	return rv, nil
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryImpl/modelDisplayName

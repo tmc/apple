@@ -103,9 +103,9 @@ type IMLE5ProgramLibrary interface {
 	// Topic: Methods
 
 	_allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named objectivec.IObject, name objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error)
-	_programLibraryHandleWithForceRespecializationError(respecialization bool) (objectivec.IObject, error)
+	_programLibraryHandleWithForceRespecializationError(respecialization bool) (E5rt_program_libraryRef, error)
 	Container() IMLProgramE5Container
-	CreateOperationForFunctionNameForceRespecializationHasRangeShapeInputsError(name objectivec.IObject, respecialization bool, inputs bool) (objectivec.IObject, error)
+	CreateOperationForFunctionNameForceRespecializationHasRangeShapeInputsError(name objectivec.IObject, respecialization bool, inputs bool) (E5rt_execution_stream_operationRef, error)
 	FunctionNames() foundation.INSArray
 	Impl() objectivec.IObject
 	LazyInitQueue() objectivec.Object
@@ -175,31 +175,31 @@ func (e MLE5ProgramLibrary) AllocateStateBufferForFeatureNamedEntryFunctionNameP
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/_programLibraryHandleWithForceRespecialization:error:
-func (e MLE5ProgramLibrary) _programLibraryHandleWithForceRespecializationError(respecialization bool) (objectivec.IObject, error) {
+func (e MLE5ProgramLibrary) _programLibraryHandleWithForceRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[E5rt_program_libraryRef](e.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
+		return 0, foundation.NSErrorFrom(errorPtr)
 	}
-	return objectivec.Object{ID: rv}, nil
+	return rv, nil
 
 }
 
 // ProgramLibraryHandleWithForceRespecializationError is an exported wrapper for the private method _programLibraryHandleWithForceRespecializationError.
-func (e MLE5ProgramLibrary) ProgramLibraryHandleWithForceRespecializationError(respecialization bool) (objectivec.IObject, error) {
+func (e MLE5ProgramLibrary) ProgramLibraryHandleWithForceRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
 	return e._programLibraryHandleWithForceRespecializationError(respecialization)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/createOperationForFunctionName:forceRespecialization:hasRangeShapeInputs:error:
-func (e MLE5ProgramLibrary) CreateOperationForFunctionNameForceRespecializationHasRangeShapeInputsError(name objectivec.IObject, respecialization bool, inputs bool) (objectivec.IObject, error) {
+func (e MLE5ProgramLibrary) CreateOperationForFunctionNameForceRespecializationHasRangeShapeInputsError(name objectivec.IObject, respecialization bool, inputs bool) (E5rt_execution_stream_operationRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("createOperationForFunctionName:forceRespecialization:hasRangeShapeInputs:error:"), name, respecialization, inputs, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[E5rt_execution_stream_operationRef](e.ID, objc.Sel("createOperationForFunctionName:forceRespecialization:hasRangeShapeInputs:error:"), name, respecialization, inputs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
+		return 0, foundation.NSErrorFrom(errorPtr)
 	}
-	return objectivec.Object{ID: rv}, nil
+	return rv, nil
 
 }
 

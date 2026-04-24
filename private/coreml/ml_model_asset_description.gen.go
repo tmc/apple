@@ -110,9 +110,9 @@ type IMLModelAssetDescription interface {
 	ModelDescriptionOfFunctionNamed(named objectivec.IObject) objectivec.IObject
 	ModelDescriptionsByFunctionName() foundation.INSDictionary
 	UsesMultiFunctionSyntax() bool
-	InitFromModelDescriptionSpecification(specification unsafe.Pointer) MLModelAssetDescription
-	InitFromModelSpecification(specification unsafe.Pointer) MLModelAssetDescription
-	InitWithCompiledModelArchiveError(archive unsafe.Pointer) (MLModelAssetDescription, error)
+	InitFromModelDescriptionSpecification(specification MLModelDescriptionSpecificationRef) MLModelAssetDescription
+	InitFromModelSpecification(specification MLModelSpecificationRef) MLModelAssetDescription
+	InitWithCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelAssetDescription, error)
 	InitWithModelDescription(description objectivec.IObject) MLModelAssetDescription
 	InitWithModelDescriptionsByFunctionNameFunctionNamesDefaultFunctionName(name objectivec.IObject, names objectivec.IObject, name2 objectivec.IObject) MLModelAssetDescription
 	InitWithRawModelDescription(description objectivec.IObject) MLModelAssetDescription
@@ -138,21 +138,21 @@ func NewMLModelAssetDescription() MLModelAssetDescription {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initFromModelDescriptionSpecification:
-func NewModelAssetDescriptionFromModelDescriptionSpecification(specification unsafe.Pointer) MLModelAssetDescription {
+func NewModelAssetDescriptionFromModelDescriptionSpecification(specification MLModelDescriptionSpecificationRef) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromModelDescriptionSpecification:"), specification)
 	return MLModelAssetDescriptionFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initFromModelSpecification:
-func NewModelAssetDescriptionFromModelSpecification(specification unsafe.Pointer) MLModelAssetDescription {
+func NewModelAssetDescriptionFromModelSpecification(specification MLModelSpecificationRef) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFromModelSpecification:"), specification)
 	return MLModelAssetDescriptionFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithCompiledModelArchive:error:
-func NewModelAssetDescriptionWithCompiledModelArchiveError(archive unsafe.Pointer) (MLModelAssetDescription, error) {
+func NewModelAssetDescriptionWithCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelAssetDescription, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -203,19 +203,19 @@ func (m MLModelAssetDescription) ModelDescriptionOfFunctionNamed(named objective
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initFromModelDescriptionSpecification:
-func (m MLModelAssetDescription) InitFromModelDescriptionSpecification(specification unsafe.Pointer) MLModelAssetDescription {
+func (m MLModelAssetDescription) InitFromModelDescriptionSpecification(specification MLModelDescriptionSpecificationRef) MLModelAssetDescription {
 	rv := objc.Send[MLModelAssetDescription](m.ID, objc.Sel("initFromModelDescriptionSpecification:"), specification)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initFromModelSpecification:
-func (m MLModelAssetDescription) InitFromModelSpecification(specification unsafe.Pointer) MLModelAssetDescription {
+func (m MLModelAssetDescription) InitFromModelSpecification(specification MLModelSpecificationRef) MLModelAssetDescription {
 	rv := objc.Send[MLModelAssetDescription](m.ID, objc.Sel("initFromModelSpecification:"), specification)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithCompiledModelArchive:error:
-func (m MLModelAssetDescription) InitWithCompiledModelArchiveError(archive unsafe.Pointer) (MLModelAssetDescription, error) {
+func (m MLModelAssetDescription) InitWithCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelAssetDescription, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

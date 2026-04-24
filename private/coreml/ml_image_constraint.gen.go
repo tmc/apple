@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -48,6 +49,7 @@ func (mc MLImageConstraintClass) Alloc() MLImageConstraint {
 // # Methods
 //
 //   - [MLImageConstraint._stringForAllowedOSTypes]
+//   - [MLImageConstraint.AllowsPixelBufferError]
 //   - [MLImageConstraint.ImageHeight]
 //   - [MLImageConstraint.ImageWidth]
 //   - [MLImageConstraint.IsAllowedValueError]
@@ -74,6 +76,7 @@ var _ IMLImageConstraint = MLImageConstraint{}
 // # Methods
 //
 //   - [IMLImageConstraint._stringForAllowedOSTypes]
+//   - [IMLImageConstraint.AllowsPixelBufferError]
 //   - [IMLImageConstraint.ImageHeight]
 //   - [IMLImageConstraint.ImageWidth]
 //   - [IMLImageConstraint.IsAllowedValueError]
@@ -89,6 +92,7 @@ type IMLImageConstraint interface {
 	// Topic: Methods
 
 	_stringForAllowedOSTypes() objectivec.IObject
+	AllowsPixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error)
 	ImageHeight() uint64
 	ImageWidth() uint64
 	IsAllowedValueError(value objectivec.IObject) (bool, error)
@@ -140,6 +144,21 @@ func (i MLImageConstraint) _stringForAllowedOSTypes() objectivec.IObject {
 // StringForAllowedOSTypes is an exported wrapper for the private method _stringForAllowedOSTypes.
 func (i MLImageConstraint) StringForAllowedOSTypes() objectivec.IObject {
 	return i._stringForAllowedOSTypes()
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/allowsPixelBuffer:error:
+func (i MLImageConstraint) AllowsPixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](i.ID, objc.Sel("allowsPixelBuffer:error:"), buffer, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("allowsPixelBuffer:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/isAllowedValue:error:

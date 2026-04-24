@@ -200,8 +200,8 @@ type IMLE5ExecutionStreamOperation interface {
 	_bindOutputPortsWithOptionsError(options objectivec.IObject) (bool, error)
 	_bindWaitEventsDirectly(directly objectivec.IObject)
 	_copyInputFeaturesError(features objectivec.IObject) (bool, error)
-	_createOperationAndReturnError() (objectivec.IObject, error)
-	_createOperationWithRetryCountError(count int64) (objectivec.IObject, error)
+	_createOperationAndReturnError() (E5rt_execution_stream_operationRef, error)
+	_createOperationWithRetryCountError(count int64) (E5rt_execution_stream_operationRef, error)
 	_directlyBoundFeatureNamesForPorts(ports objectivec.IObject) objectivec.IObject
 	_inoutPortNames() objectivec.IObject
 	_inputPortNames() objectivec.IObject
@@ -228,8 +228,8 @@ type IMLE5ExecutionStreamOperation interface {
 	ModelConfiguration() IMLModelConfiguration
 	ModelDescription() IMLModelDescription
 	ModelSignpostId() uint64
-	OperationHandle() objectivec.IObject
-	SetOperationHandle(value objectivec.IObject)
+	OperationHandle() E5rt_execution_stream_operationRef
+	SetOperationHandle(value E5rt_execution_stream_operationRef)
 	OutputFeatures() objectivec.IObject
 	OutputPorts() foundation.INSArray
 	SetOutputPorts(value foundation.INSArray)
@@ -391,36 +391,36 @@ func (e MLE5ExecutionStreamOperation) CopyInputFeaturesError(features objectivec
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_createOperationAndReturnError:
-func (e MLE5ExecutionStreamOperation) _createOperationAndReturnError() (objectivec.IObject, error) {
+func (e MLE5ExecutionStreamOperation) _createOperationAndReturnError() (E5rt_execution_stream_operationRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_createOperationAndReturnError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[E5rt_execution_stream_operationRef](e.ID, objc.Sel("_createOperationAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
+		return 0, foundation.NSErrorFrom(errorPtr)
 	}
-	return objectivec.Object{ID: rv}, nil
+	return rv, nil
 
 }
 
 // CreateOperationAndReturnError is an exported wrapper for the private method _createOperationAndReturnError.
-func (e MLE5ExecutionStreamOperation) CreateOperationAndReturnError() (objectivec.IObject, error) {
+func (e MLE5ExecutionStreamOperation) CreateOperationAndReturnError() (E5rt_execution_stream_operationRef, error) {
 	return e._createOperationAndReturnError()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_createOperationWithRetryCount:error:
-func (e MLE5ExecutionStreamOperation) _createOperationWithRetryCountError(count int64) (objectivec.IObject, error) {
+func (e MLE5ExecutionStreamOperation) _createOperationWithRetryCountError(count int64) (E5rt_execution_stream_operationRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_createOperationWithRetryCount:error:"), count, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[E5rt_execution_stream_operationRef](e.ID, objc.Sel("_createOperationWithRetryCount:error:"), count, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
+		return 0, foundation.NSErrorFrom(errorPtr)
 	}
-	return objectivec.Object{ID: rv}, nil
+	return rv, nil
 
 }
 
 // CreateOperationWithRetryCountError is an exported wrapper for the private method _createOperationWithRetryCountError.
-func (e MLE5ExecutionStreamOperation) CreateOperationWithRetryCountError(count int64) (objectivec.IObject, error) {
+func (e MLE5ExecutionStreamOperation) CreateOperationWithRetryCountError(count int64) (E5rt_execution_stream_operationRef, error) {
 	return e._createOperationWithRetryCountError(count)
 }
 
@@ -739,11 +739,11 @@ func (e MLE5ExecutionStreamOperation) ModelSignpostId() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/operationHandle
-func (e MLE5ExecutionStreamOperation) OperationHandle() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("operationHandle"))
-	return objectivec.Object{ID: rv}
+func (e MLE5ExecutionStreamOperation) OperationHandle() E5rt_execution_stream_operationRef {
+	rv := objc.Send[E5rt_execution_stream_operationRef](e.ID, objc.Sel("operationHandle"))
+	return E5rt_execution_stream_operationRef(rv)
 }
-func (e MLE5ExecutionStreamOperation) SetOperationHandle(value objectivec.IObject) {
+func (e MLE5ExecutionStreamOperation) SetOperationHandle(value E5rt_execution_stream_operationRef) {
 	objc.Send[struct{}](e.ID, objc.Sel("setOperationHandle:"), value)
 }
 

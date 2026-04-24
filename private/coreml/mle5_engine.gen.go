@@ -630,7 +630,7 @@ func (_MLE5EngineClass MLE5EngineClass) ContainerClass() objc.Class {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
-func (_MLE5EngineClass MLE5EngineClass) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
+func (_MLE5EngineClass MLE5EngineClass) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLE5EngineClass.class), objc.Sel("loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -642,7 +642,7 @@ func (_MLE5EngineClass MLE5EngineClass) LoadModelAssetDescriptionFromCompiledArc
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
-func (_MLE5EngineClass MLE5EngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
+func (_MLE5EngineClass MLE5EngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive MLModelInputArchiverRef, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLE5EngineClass.class), objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

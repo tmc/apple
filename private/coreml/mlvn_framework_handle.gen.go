@@ -117,7 +117,7 @@ type IMLVNFrameworkHandle interface {
 	// Topic: Methods
 
 	VNImageBufferClass() objc.Class
-	CreatePixelBufferFromCGImageConstraintCropRectCropAndScaleOptionOptionsError(cGImage *coregraphics.CGImageRef, constraint objectivec.IObject, rect corefoundation.CGRect, option uint64, options objectivec.IObject) (corevideo.CVImageBufferRef, error)
+	CreatePixelBufferFromCGImageConstraintCropRectCropAndScaleOptionOptionsError(cGImage coregraphics.CGImageRef, constraint objectivec.IObject, rect corefoundation.CGRect, option uint64, options objectivec.IObject) (corevideo.CVImageBufferRef, error)
 	CreatePixelBufferFromImageAtURLConstraintCropRectCropAndScaleOptionOptionsError(url foundation.INSURL, constraint objectivec.IObject, rect corefoundation.CGRect, option uint64, options objectivec.IObject) (corevideo.CVImageBufferRef, error)
 	CreatePixelBufferFromVNImageBufferConstraintCropRectCropAndScaleOptionOptionsError(buffer objectivec.IObject, constraint objectivec.IObject, rect corefoundation.CGRect, option uint64, options objectivec.IObject) (corevideo.CVImageBufferRef, error)
 	DetectionPrintShapes(shapes uint64) objectivec.IObject
@@ -159,7 +159,7 @@ func NewMLVNFrameworkHandle() MLVNFrameworkHandle {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/_MLVNFrameworkHandle/createPixelBufferFromCGImage:constraint:cropRect:cropAndScaleOption:options:error:
-func (m MLVNFrameworkHandle) CreatePixelBufferFromCGImageConstraintCropRectCropAndScaleOptionOptionsError(cGImage *coregraphics.CGImageRef, constraint objectivec.IObject, rect corefoundation.CGRect, option uint64, options objectivec.IObject) (corevideo.CVImageBufferRef, error) {
+func (m MLVNFrameworkHandle) CreatePixelBufferFromCGImageConstraintCropRectCropAndScaleOptionOptionsError(cGImage coregraphics.CGImageRef, constraint objectivec.IObject, rect corefoundation.CGRect, option uint64, options objectivec.IObject) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("createPixelBufferFromCGImage:constraint:cropRect:cropAndScaleOption:options:error:"), cGImage, constraint, rect, option, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

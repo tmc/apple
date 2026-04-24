@@ -6,6 +6,8 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -212,6 +214,54 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueOfTypeFromObjectErro
 
 }
 
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithCGImage:constraint:options:error:
+func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithCGImageConstraintOptionsError(cGImage coregraphics.CGImageRef, constraint objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithCGImage:constraint:options:error:"), cGImage, constraint, options, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithCGImage:orientation:constraint:options:error:
+func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithCGImageOrientationConstraintOptionsError(cGImage coregraphics.CGImageRef, orientation uint32, constraint objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithCGImage:orientation:constraint:options:error:"), cGImage, orientation, constraint, options, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithCGImage:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:
+func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(cGImage coregraphics.CGImageRef, orientation uint32, wide int64, high int64, type_ uint32, options objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithCGImage:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), cGImage, orientation, wide, high, type_, options, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithCGImage:pixelsWide:pixelsHigh:pixelFormatType:options:error:
+func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithCGImagePixelsWidePixelsHighPixelFormatTypeOptionsError(cGImage coregraphics.CGImageRef, wide int64, high int64, type_ uint32, options objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithCGImage:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), cGImage, wide, high, type_, options, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithDictionary:error:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithDictionaryError(dictionary objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -293,6 +343,12 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithInt64KeyDictiona
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithMultiArray:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithMultiArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithMultiArray:"), array)
+	return objectivec.Object{ID: rv}
+}
+
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithPixelBuffer:
+func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithPixelBuffer(buffer corevideo.CVImageBufferRef) objectivec.IObject {
+	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithPixelBuffer:"), buffer)
 	return objectivec.Object{ID: rv}
 }
 

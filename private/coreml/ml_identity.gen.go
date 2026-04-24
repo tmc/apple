@@ -160,7 +160,7 @@ func (i MLIdentity) PredictionFromFeaturesOptionsError(features objectivec.IObje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLIdentity/loadModelFromSpecification:configuration:error:
-func (_MLIdentityClass MLIdentityClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
+func (_MLIdentityClass MLIdentityClass) LoadModelFromSpecificationConfigurationError(specification MLModelSpecificationRef, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLIdentityClass.class), objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

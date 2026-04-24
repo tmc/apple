@@ -103,8 +103,8 @@ func NewMLPendingPrediction() MLPendingPrediction {
 // See: https://developer.apple.com/documentation/CoreML/MLPendingPrediction/initWithPredictionRequest:completionHandler:
 func (p MLPendingPrediction) InitWithPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) MLPendingPrediction {
 	_block1, _ := NewErrorBlock(handler)
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("initWithPredictionRequest:completionHandler:"), request, _block1)
-	return MLPendingPredictionFromID(rv)
+	rv := objc.Send[MLPendingPrediction](p.ID, objc.Sel("initWithPredictionRequest:completionHandler:"), request, _block1)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPendingPrediction/completionHandler

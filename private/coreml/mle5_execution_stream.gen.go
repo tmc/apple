@@ -125,7 +125,7 @@ type IMLE5ExecutionStream interface {
 
 	// Topic: Methods
 
-	_executeStreamError(stream objectivec.IObject) (bool, error)
+	_executeStreamError(stream E5rt_execution_streamRef) (bool, error)
 	_prepareForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error)
 	_reset()
 	_reusableForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool
@@ -147,8 +147,8 @@ type IMLE5ExecutionStream interface {
 	SetupOperationForInputFeaturesOperationPoolError(features objectivec.IObject, pool objectivec.IObject) (bool, error)
 	State() int64
 	SetState(value int64)
-	StreamHandle() objectivec.IObject
-	SetStreamHandle(value objectivec.IObject)
+	StreamHandle() E5rt_execution_streamRef
+	SetStreamHandle(value E5rt_execution_streamRef)
 	StreamId() uint64
 	SubmitWithCompletionHandler(handler ErrorHandler)
 }
@@ -173,7 +173,7 @@ func NewMLE5ExecutionStream() MLE5ExecutionStream {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_executeStream:error:
-func (e MLE5ExecutionStream) _executeStreamError(stream objectivec.IObject) (bool, error) {
+func (e MLE5ExecutionStream) _executeStreamError(stream E5rt_execution_streamRef) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](e.ID, objc.Sel("_executeStream:error:"), stream, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -188,7 +188,7 @@ func (e MLE5ExecutionStream) _executeStreamError(stream objectivec.IObject) (boo
 }
 
 // ExecuteStreamError is an exported wrapper for the private method _executeStreamError.
-func (e MLE5ExecutionStream) ExecuteStreamError(stream objectivec.IObject) (bool, error) {
+func (e MLE5ExecutionStream) ExecuteStreamError(stream E5rt_execution_streamRef) (bool, error) {
 	return e._executeStreamError(stream)
 }
 
@@ -374,11 +374,11 @@ func (e MLE5ExecutionStream) SetState(value int64) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/streamHandle
-func (e MLE5ExecutionStream) StreamHandle() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("streamHandle"))
-	return objectivec.Object{ID: rv}
+func (e MLE5ExecutionStream) StreamHandle() E5rt_execution_streamRef {
+	rv := objc.Send[E5rt_execution_streamRef](e.ID, objc.Sel("streamHandle"))
+	return E5rt_execution_streamRef(rv)
 }
-func (e MLE5ExecutionStream) SetStreamHandle(value objectivec.IObject) {
+func (e MLE5ExecutionStream) SetStreamHandle(value E5rt_execution_streamRef) {
 	objc.Send[struct{}](e.ID, objc.Sel("setStreamHandle:"), value)
 }
 
