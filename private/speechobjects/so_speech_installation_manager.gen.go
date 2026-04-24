@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -165,7 +166,7 @@ type ISOSpeechInstallationManager interface {
 	// Topic: Methods
 
 	_clientHasRightsToCustomVoices() bool
-	_createLocalPort() objectivec.IObject
+	_createLocalPort() corefoundation.CFMessagePortRef
 	_createServerPortIfNeeded() bool
 	_overriddenVoiceIdentifierDictionary() objectivec.IObject
 	_sendMessageWithDataWithReply(message int, data unsafe.Pointer, reply bool) objectivec.IObject
@@ -244,13 +245,13 @@ func (s SOSpeechInstallationManager) ClientHasRightsToCustomVoices() bool {
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/_createLocalPort
-func (s SOSpeechInstallationManager) _createLocalPort() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_createLocalPort"))
-	return objectivec.Object{ID: rv}
+func (s SOSpeechInstallationManager) _createLocalPort() corefoundation.CFMessagePortRef {
+	rv := objc.Send[corefoundation.CFMessagePortRef](s.ID, objc.Sel("_createLocalPort"))
+	return corefoundation.CFMessagePortRef(rv)
 }
 
 // CreateLocalPort is an exported wrapper for the private method _createLocalPort.
-func (s SOSpeechInstallationManager) CreateLocalPort() objectivec.IObject {
+func (s SOSpeechInstallationManager) CreateLocalPort() corefoundation.CFMessagePortRef {
 	return s._createLocalPort()
 }
 
