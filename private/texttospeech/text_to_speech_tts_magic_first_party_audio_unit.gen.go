@@ -113,7 +113,7 @@ func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOpt
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return TextToSpeechTTSMagicFirstPartyAudioUnit{}, foundation.NSErrorFrom(errorPtr)
+		return *new(TextToSpeechTTSMagicFirstPartyAudioUnit), foundation.NSErrorFrom(errorPtr)
 	}
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 

@@ -7,10 +7,10 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSWrappedAudioQueue] class.
@@ -201,14 +201,14 @@ type ITTSWrappedAudioQueue interface {
 	_syncGraphProperties()
 	_tearDownAudioQueue()
 	_tearDownDSPGraphAU()
-	AqRef() unsafe.Pointer
-	SetAqRef(value unsafe.Pointer)
+	AqRef() avfaudio.OpaqueAudioQueueRef
+	SetAqRef(value avfaudio.OpaqueAudioQueueRef)
 	AudioDevice() uint32
 	SetAudioDevice(value uint32)
 	AudioQueueActive() bool
 	AudioQueueFlags() uint32
 	SetAudioQueueFlags(value uint32)
-	BufferCallback(callback unsafe.Pointer)
+	BufferCallback(callback *avfaudio.AudioQueueBufferRef)
 	CachedAudioConverter() unsafe.Pointer
 	SetCachedAudioConverter(value unsafe.Pointer)
 	CallbackQueue() objectivec.Object
@@ -235,8 +235,8 @@ type ITTSWrappedAudioQueue interface {
 	Pause()
 	Play() bool
 	PlayBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler)
-	ProcNodeRef() unsafe.Pointer
-	SetProcNodeRef(value unsafe.Pointer)
+	ProcNodeRef() OpaqueATAudioProcessingNodeRef
+	SetProcNodeRef(value OpaqueATAudioProcessingNodeRef)
 	QueueFormat() avfaudio.AVAudioFormat
 	SetQueueFormat(value avfaudio.AVAudioFormat)
 	QueueStreamDescription() objectivec.IObject
@@ -392,7 +392,7 @@ func (t TTSWrappedAudioQueue) TearDownDSPGraphAU() {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/bufferCallback:
-func (t TTSWrappedAudioQueue) BufferCallback(callback unsafe.Pointer) {
+func (t TTSWrappedAudioQueue) BufferCallback(callback *avfaudio.AudioQueueBufferRef) {
 	objc.Send[objc.ID](t.ID, objc.Sel("bufferCallback:"), callback)
 }
 
@@ -454,11 +454,11 @@ func (t TTSWrappedAudioQueue) Stop() {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/aqRef
-func (t TTSWrappedAudioQueue) AqRef() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("aqRef"))
-	return rv
+func (t TTSWrappedAudioQueue) AqRef() avfaudio.OpaqueAudioQueueRef {
+	rv := objc.Send[avfaudio.OpaqueAudioQueueRef](t.ID, objc.Sel("aqRef"))
+	return avfaudio.OpaqueAudioQueueRef(rv)
 }
-func (t TTSWrappedAudioQueue) SetAqRef(value unsafe.Pointer) {
+func (t TTSWrappedAudioQueue) SetAqRef(value avfaudio.OpaqueAudioQueueRef) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAqRef:"), value)
 }
 
@@ -577,11 +577,11 @@ func (t TTSWrappedAudioQueue) SetOutputFormat(value ITTSAudioFormat) {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/procNodeRef
-func (t TTSWrappedAudioQueue) ProcNodeRef() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("procNodeRef"))
-	return rv
+func (t TTSWrappedAudioQueue) ProcNodeRef() OpaqueATAudioProcessingNodeRef {
+	rv := objc.Send[OpaqueATAudioProcessingNodeRef](t.ID, objc.Sel("procNodeRef"))
+	return OpaqueATAudioProcessingNodeRef(rv)
 }
-func (t TTSWrappedAudioQueue) SetProcNodeRef(value unsafe.Pointer) {
+func (t TTSWrappedAudioQueue) SetProcNodeRef(value OpaqueATAudioProcessingNodeRef) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProcNodeRef:"), value)
 }
 

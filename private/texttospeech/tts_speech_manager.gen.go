@@ -803,9 +803,9 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) AvailableVoicesWithVoices(vo
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/createRegularExpressionFromString:
-func (_TTSSpeechManagerClass TTSSpeechManagerClass) CreateRegularExpressionFromString(string_ objectivec.IObject) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("createRegularExpressionFromString:"), string_)
-	return rv
+func (_TTSSpeechManagerClass TTSSpeechManagerClass) CreateRegularExpressionFromString(string_ objectivec.IObject) URegularExpressionRef {
+	rv := objc.Send[URegularExpressionRef](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("createRegularExpressionFromString:"), string_)
+	return URegularExpressionRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/currentLanguageCode
@@ -833,7 +833,7 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) LiteralStringMarkupStringSpe
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/matchedRangesForString:withRegularExpression:
-func (_TTSSpeechManagerClass TTSSpeechManagerClass) MatchedRangesForStringWithRegularExpression(string_ objectivec.IObject, expression unsafe.Pointer) objectivec.IObject {
+func (_TTSSpeechManagerClass TTSSpeechManagerClass) MatchedRangesForStringWithRegularExpression(string_ objectivec.IObject, expression URegularExpressionRef) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("matchedRangesForString:withRegularExpression:"), string_, expression)
 	return objectivec.Object{ID: rv}
 }

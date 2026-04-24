@@ -96,8 +96,8 @@ type ITTSRegex interface {
 	// Topic: Methods
 
 	_matchFromOvectorMatchesStringLength(ovector unsafe.Pointer, matches int, string_ string, length uint64) objectivec.IObject
-	CompiledPCRERegex() objectivec.IObject
-	SetCompiledPCRERegex(value objectivec.IObject)
+	CompiledPCRERegex() Pcre2_real_code_8Ref
+	SetCompiledPCRERegex(value Pcre2_real_code_8Ref)
 	EnumerateMatchesInCStringLengthUsingBlock(cString string, length uint64, block VoidHandler)
 	EnumerateMatchesInCStringRangesUsingBlock(cString string, ranges objectivec.IObject, block VoidHandler)
 	EnumerateMatchesInCStringStartOffsetLengthUsingBlock(cString string, offset uint64, length uint64, block VoidHandler)
@@ -229,11 +229,11 @@ func (t TTSRegex) InitWithPerlPattern(pattern objectivec.IObject) TTSRegex {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/compiledPCRERegex
-func (t TTSRegex) CompiledPCRERegex() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("compiledPCRERegex"))
-	return objectivec.Object{ID: rv}
+func (t TTSRegex) CompiledPCRERegex() Pcre2_real_code_8Ref {
+	rv := objc.Send[Pcre2_real_code_8Ref](t.ID, objc.Sel("compiledPCRERegex"))
+	return Pcre2_real_code_8Ref(rv)
 }
-func (t TTSRegex) SetCompiledPCRERegex(value objectivec.IObject) {
+func (t TTSRegex) SetCompiledPCRERegex(value Pcre2_real_code_8Ref) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCompiledPCRERegex:"), value)
 }
 
