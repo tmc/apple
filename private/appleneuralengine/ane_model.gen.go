@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/coreml"
 )
 
 // The class instance for the [ANEModel] class.
@@ -172,8 +173,8 @@ type IANEModel interface {
 	SetIntermediateBufferHandle(value uint64)
 	IsEqualToModel(model objectivec.IObject) bool
 	Key() string
-	L() objectivec.IObject
-	SetL(value objectivec.IObject)
+	L() coreml.Os_unfair_lock_s
+	SetL(value coreml.Os_unfair_lock_s)
 	Mapper() *ANEProgramIOSurfacesMapper
 	SetMapper(value *ANEProgramIOSurfacesMapper)
 	ModelAttributes() foundation.INSDictionary
@@ -462,11 +463,11 @@ func (a ANEModel) Key() string {
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/l
-func (a ANEModel) L() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("l"))
-	return objectivec.Object{ID: rv}
+func (a ANEModel) L() coreml.Os_unfair_lock_s {
+	rv := objc.Send[coreml.Os_unfair_lock_s](a.ID, objc.Sel("l"))
+	return coreml.Os_unfair_lock_s(rv)
 }
-func (a ANEModel) SetL(value objectivec.IObject) {
+func (a ANEModel) SetL(value coreml.Os_unfair_lock_s) {
 	objc.Send[struct{}](a.ID, objc.Sel("setL:"), value)
 }
 
