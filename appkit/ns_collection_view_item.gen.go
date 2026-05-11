@@ -287,7 +287,7 @@ func NewCollectionViewItemWithCoder(coder foundation.INSCoder) NSCollectionViewI
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewCollectionViewItemWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSCollectionViewItem {
+func NewCollectionViewItemWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSCollectionViewItem {
 	instance := getNSCollectionViewItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSCollectionViewItemFromID(rv)

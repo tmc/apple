@@ -335,7 +335,7 @@ type INSEvent interface {
 	// An opaque Carbon type associated with this event.
 	EventRef() unsafe.Pointer
 	// The Core Graphics event object corresponding to this event.
-	CGEvent() coregraphics.CGEvent
+	CGEvent() coregraphics.CGEventRef
 
 	// Topic: Getting modifier flags
 
@@ -524,7 +524,7 @@ func NewNSEvent() NSEvent {
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/init(cgEvent:)
 //
 // [CGEvent]: https://developer.apple.com/documentation/CoreGraphics/CGEvent
-func NewEventWithCGEvent(cgEvent coregraphics.CGEvent) NSEvent {
+func NewEventWithCGEvent(cgEvent coregraphics.CGEventRef) NSEvent {
 	rv := objc.Send[objc.ID](objc.ID(getNSEventClass().class), objc.Sel("eventWithCGEvent:"), cgEvent)
 	return NSEventFromID(rv)
 }
@@ -1218,9 +1218,9 @@ func (e NSEvent) EventRef() unsafe.Pointer {
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/cgEvent
 //
 // [CGEvent]: https://developer.apple.com/documentation/CoreGraphics/CGEvent
-func (e NSEvent) CGEvent() coregraphics.CGEvent {
-	rv := objc.Send[coregraphics.CGEvent](e.ID, objc.Sel("CGEvent"))
-	return coregraphics.CGEvent(rv)
+func (e NSEvent) CGEvent() coregraphics.CGEventRef {
+	rv := objc.Send[coregraphics.CGEventRef](e.ID, objc.Sel("CGEvent"))
+	return coregraphics.CGEventRef(rv)
 }
 
 // An integer bit field that indicates the pressed modifier keys.

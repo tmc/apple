@@ -592,9 +592,9 @@ type INSLayoutManager interface {
 	// Fills a passed-in buffer with a sequence of glyphs.
 	GetGlyphsInRangeGlyphsPropertiesCharacterIndexesBidiLevels(glyphRange foundation.NSRange, glyphBuffer *coregraphics.CGFontIndex, props NSGlyphProperty, charIndexBuffer unsafe.Pointer, bidiLevelBuffer unsafe.Pointer) uint
 	// Returns the glyph at the specified index.
-	CGGlyphAtIndex(glyphIndex uint) coregraphics.CGFontIndex
+	CGGlyphAtIndex(glyphIndex uint) NSGlyph
 	// Returns the glyph at the specified index along with information about whether the glyph index is valid.
-	CGGlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex unsafe.Pointer) coregraphics.CGFontIndex
+	CGGlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex unsafe.Pointer) NSGlyph
 	// Stores the initial glyphs and glyph properties for a character range.
 	SetGlyphsPropertiesCharacterIndexesFontForGlyphRange(glyphs *coregraphics.CGFontIndex, props NSGlyphProperty, charIndexes unsafe.Pointer, aFont NSFont, glyphRange foundation.NSRange)
 	// Returns the index in the text storage for the first character of the specified glyph.
@@ -778,9 +778,9 @@ type INSLayoutManager interface {
 	TemporaryAttributesAtCharacterIndexLongestEffectiveRangeInRange(location uint, range_ foundation.NSRange, rangeLimit foundation.NSRange) foundation.INSDictionary
 
 	// Returns the glyph at the specified index.
-	GlyphAtIndex(glyphIndex uint) uint32
+	GlyphAtIndex(glyphIndex uint) NSGlyph
 	// Returns the glyph at a specified index, and optionally returns a flag indicating whether the requested index is valid.
-	GlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex unsafe.Pointer) uint32
+	GlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex unsafe.Pointer) NSGlyph
 	// Returns an array of rectangles and, by reference, the number of such rectangles, that define the region in the given container enclosing the given character range.
 	RectArrayForCharacterRangeWithinSelectedCharacterRangeInTextContainerRectCount(charRange foundation.NSRange, selCharRange foundation.NSRange, container INSTextContainer, rectCount unsafe.Pointer) foundation.NSRect
 	// Returns an array of rectangles and, by reference, the number of such rectangles, that define the region in the given container enclosing the given glyph range.
@@ -1291,9 +1291,9 @@ func (l NSLayoutManager) GetGlyphsInRangeGlyphsPropertiesCharacterIndexesBidiLev
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/cgGlyph(at:)
 //
 // [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
-func (l NSLayoutManager) CGGlyphAtIndex(glyphIndex uint) coregraphics.CGFontIndex {
-	rv := objc.Send[coregraphics.CGFontIndex](l.ID, objc.Sel("CGGlyphAtIndex:"), glyphIndex)
-	return coregraphics.CGFontIndex(rv)
+func (l NSLayoutManager) CGGlyphAtIndex(glyphIndex uint) NSGlyph {
+	rv := objc.Send[NSGlyph](l.ID, objc.Sel("CGGlyphAtIndex:"), glyphIndex)
+	return NSGlyph(rv)
 }
 
 // Returns the glyph at the specified index along with information about
@@ -1317,9 +1317,9 @@ func (l NSLayoutManager) CGGlyphAtIndex(glyphIndex uint) coregraphics.CGFontInde
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/cgGlyph(at:isValidIndex:)
 //
 // [kCGFontIndexInvalid]: https://developer.apple.com/documentation/CoreGraphics/kCGFontIndexInvalid
-func (l NSLayoutManager) CGGlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex unsafe.Pointer) coregraphics.CGFontIndex {
-	rv := objc.Send[coregraphics.CGFontIndex](l.ID, objc.Sel("CGGlyphAtIndex:isValidIndex:"), glyphIndex, isValidIndex)
-	return coregraphics.CGFontIndex(rv)
+func (l NSLayoutManager) CGGlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex unsafe.Pointer) NSGlyph {
+	rv := objc.Send[NSGlyph](l.ID, objc.Sel("CGGlyphAtIndex:isValidIndex:"), glyphIndex, isValidIndex)
+	return NSGlyph(rv)
 }
 
 // Stores the initial glyphs and glyph properties for a character range.
@@ -3121,9 +3121,9 @@ func (l NSLayoutManager) AttributedString() foundation.NSAttributedString {
 // so using it can be more efficient.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/glyph(at:)
-func (l NSLayoutManager) GlyphAtIndex(glyphIndex uint) uint32 {
-	rv := objc.Send[uint32](l.ID, objc.Sel("glyphAtIndex:"), glyphIndex)
-	return rv
+func (l NSLayoutManager) GlyphAtIndex(glyphIndex uint) NSGlyph {
+	rv := objc.Send[NSGlyph](l.ID, objc.Sel("glyphAtIndex:"), glyphIndex)
+	return NSGlyph(rv)
 }
 
 // Returns the glyph at a specified index, and optionally returns a flag
@@ -3145,9 +3145,9 @@ func (l NSLayoutManager) GlyphAtIndex(glyphIndex uint) uint32 {
 // all glyphs up to and including `glyphIndex`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/glyph(at:isValidIndex:)
-func (l NSLayoutManager) GlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex unsafe.Pointer) uint32 {
-	rv := objc.Send[uint32](l.ID, objc.Sel("glyphAtIndex:isValidIndex:"), glyphIndex, isValidIndex)
-	return rv
+func (l NSLayoutManager) GlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex unsafe.Pointer) NSGlyph {
+	rv := objc.Send[NSGlyph](l.ID, objc.Sel("glyphAtIndex:isValidIndex:"), glyphIndex, isValidIndex)
+	return NSGlyph(rv)
 }
 
 // Returns the current layout options.

@@ -2345,27 +2345,6 @@ func Nw_endpoint_copy_txt_record(endpoint Nw_endpoint_t) Nw_txt_record_t {
 	return result
 }
 
-var _nw_endpoint_create_address func(address uintptr) Nw_endpoint_t
-var _nw_endpoint_create_addressErr error
-
-func tryNw_endpoint_create_address(address uintptr) (Nw_endpoint_t, error) {
-	if _nw_endpoint_create_address == nil {
-		return *new(Nw_endpoint_t), symbolCallError("nw_endpoint_create_address", "10.14", _nw_endpoint_create_addressErr)
-	}
-	return _nw_endpoint_create_address(address), nil
-}
-
-// Nw_endpoint_create_address creates a network endpoint with an address structure.
-//
-// See: https://developer.apple.com/documentation/Network/nw_endpoint_create_address(_:)
-func Nw_endpoint_create_address(address uintptr) Nw_endpoint_t {
-	result, callErr := tryNw_endpoint_create_address(address)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _nw_endpoint_create_bonjour_service func(name string, type_ string, domain string) Nw_endpoint_t
 var _nw_endpoint_create_bonjour_serviceErr error
 
@@ -2423,27 +2402,6 @@ func tryNw_endpoint_create_url(url string) (Nw_endpoint_t, error) {
 // See: https://developer.apple.com/documentation/Network/nw_endpoint_create_url(_:)
 func Nw_endpoint_create_url(url string) Nw_endpoint_t {
 	result, callErr := tryNw_endpoint_create_url(url)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _nw_endpoint_get_address func(endpoint Nw_endpoint_t) objectivec.IObject
-var _nw_endpoint_get_addressErr error
-
-func tryNw_endpoint_get_address(endpoint Nw_endpoint_t) (objectivec.IObject, error) {
-	if _nw_endpoint_get_address == nil {
-		return nil, symbolCallError("nw_endpoint_get_address", "10.14", _nw_endpoint_get_addressErr)
-	}
-	return _nw_endpoint_get_address(endpoint), nil
-}
-
-// Nw_endpoint_get_address accesses the address structure stored in an address endpoint.
-//
-// See: https://developer.apple.com/documentation/Network/nw_endpoint_get_address(_:)
-func Nw_endpoint_get_address(endpoint Nw_endpoint_t) objectivec.IObject {
-	result, callErr := tryNw_endpoint_get_address(endpoint)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -3337,7 +3295,7 @@ var _nw_framer_message_copy_object_valueErr error
 
 func tryNw_framer_message_copy_object_value(message Nw_framer_message_t, key string) (objectivec.Object, error) {
 	if _nw_framer_message_copy_object_value == nil {
-		return objectivec.Object{}, symbolCallError("nw_framer_message_copy_object_value", "10.15", _nw_framer_message_copy_object_valueErr)
+		return *new(objectivec.Object), symbolCallError("nw_framer_message_copy_object_value", "10.15", _nw_framer_message_copy_object_valueErr)
 	}
 	return _nw_framer_message_copy_object_value(message, key), nil
 }
@@ -3422,7 +3380,7 @@ var _nw_framer_options_copy_object_valueErr error
 
 func tryNw_framer_options_copy_object_value(options Nw_protocol_options_t, key string) (objectivec.Object, error) {
 	if _nw_framer_options_copy_object_value == nil {
-		return objectivec.Object{}, symbolCallError("nw_framer_options_copy_object_value", "12.3", _nw_framer_options_copy_object_valueErr)
+		return *new(objectivec.Object), symbolCallError("nw_framer_options_copy_object_value", "12.3", _nw_framer_options_copy_object_valueErr)
 	}
 	return _nw_framer_options_copy_object_value(options, key), nil
 }
@@ -9465,11 +9423,9 @@ func init() {
 	registerFunc(&_nw_endpoint_copy_address_string, &_nw_endpoint_copy_address_stringErr, frameworkHandle, "nw_endpoint_copy_address_string", "10.14")
 	registerFunc(&_nw_endpoint_copy_port_string, &_nw_endpoint_copy_port_stringErr, frameworkHandle, "nw_endpoint_copy_port_string", "10.14")
 	registerFunc(&_nw_endpoint_copy_txt_record, &_nw_endpoint_copy_txt_recordErr, frameworkHandle, "nw_endpoint_copy_txt_record", "13.0")
-	registerFunc(&_nw_endpoint_create_address, &_nw_endpoint_create_addressErr, frameworkHandle, "nw_endpoint_create_address", "10.14")
 	registerFunc(&_nw_endpoint_create_bonjour_service, &_nw_endpoint_create_bonjour_serviceErr, frameworkHandle, "nw_endpoint_create_bonjour_service", "10.14")
 	registerFunc(&_nw_endpoint_create_host, &_nw_endpoint_create_hostErr, frameworkHandle, "nw_endpoint_create_host", "10.14")
 	registerFunc(&_nw_endpoint_create_url, &_nw_endpoint_create_urlErr, frameworkHandle, "nw_endpoint_create_url", "10.15")
-	registerFunc(&_nw_endpoint_get_address, &_nw_endpoint_get_addressErr, frameworkHandle, "nw_endpoint_get_address", "10.14")
 	registerFunc(&_nw_endpoint_get_bonjour_service_domain, &_nw_endpoint_get_bonjour_service_domainErr, frameworkHandle, "nw_endpoint_get_bonjour_service_domain", "10.14")
 	registerFunc(&_nw_endpoint_get_bonjour_service_name, &_nw_endpoint_get_bonjour_service_nameErr, frameworkHandle, "nw_endpoint_get_bonjour_service_name", "10.14")
 	registerFunc(&_nw_endpoint_get_bonjour_service_type, &_nw_endpoint_get_bonjour_service_typeErr, frameworkHandle, "nw_endpoint_get_bonjour_service_type", "10.14")

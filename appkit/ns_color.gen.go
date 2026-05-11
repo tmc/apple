@@ -345,11 +345,11 @@ type INSColor interface {
 	// The brightness component value of the color.
 	BrightnessComponent() float64
 	// The catalog containing the color’s name.
-	CatalogNameComponent() string
+	CatalogNameComponent() NSColorListName
 	// The localized version of the catalog name containing the color.
 	LocalizedCatalogNameComponent() string
 	// The name of the color.
-	ColorNameComponent() string
+	ColorNameComponent() NSColorName
 	// The localized version of the color name.
 	LocalizedColorNameComponent() string
 
@@ -450,7 +450,7 @@ func NewColorNamed(name string) NSColor {
 // bundle: The app bundle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(named:bundle:)
-func NewColorNamedBundle(name string, bundle foundation.NSBundle) NSColor {
+func NewColorNamedBundle(name string, bundle *foundation.NSBundle) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorNamed:bundle:"), objc.String(name), bundle)
 	return NSColorFromID(rv)
 }
@@ -1779,9 +1779,9 @@ func (c NSColor) BrightnessComponent() float64 {
 // See: https://developer.apple.com/documentation/AppKit/NSColor/catalogNameComponent
 //
 // [named]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/named
-func (c NSColor) CatalogNameComponent() string {
+func (c NSColor) CatalogNameComponent() NSColorListName {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("catalogNameComponent"))
-	return foundation.NSStringFromID(rv).String()
+	return NSColorListName(foundation.NSStringFromID(rv).String())
 }
 
 // The localized version of the catalog name containing the color.
@@ -1810,9 +1810,9 @@ func (c NSColor) LocalizedCatalogNameComponent() string {
 // See: https://developer.apple.com/documentation/AppKit/NSColor/colorNameComponent
 //
 // [named]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/named
-func (c NSColor) ColorNameComponent() string {
+func (c NSColor) ColorNameComponent() NSColorName {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorNameComponent"))
-	return foundation.NSStringFromID(rv).String()
+	return NSColorName(foundation.NSStringFromID(rv).String())
 }
 
 // The localized version of the color name.

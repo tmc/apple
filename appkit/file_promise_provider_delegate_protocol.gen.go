@@ -99,9 +99,10 @@ func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToUR
 // provide an operation queue other than the main operation queue.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProviderDelegate/operationQueue(for:)
-func (o NSFilePromiseProviderDelegateObject) OperationQueueForFilePromiseProvider(filePromiseProvider INSFilePromiseProvider) foundation.NSOperationQueue {
+func (o NSFilePromiseProviderDelegateObject) OperationQueueForFilePromiseProvider(filePromiseProvider INSFilePromiseProvider) *foundation.NSOperationQueue {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("operationQueueForFilePromiseProvider:"), filePromiseProvider)
-	return foundation.NSOperationQueueFromID(rv)
+	val := foundation.NSOperationQueueFromID(rv)
+	return &val
 }
 
 // NSFilePromiseProviderDelegateConfig holds optional typed callbacks for [NSFilePromiseProviderDelegate] methods.
@@ -116,7 +117,7 @@ type NSFilePromiseProviderDelegateConfig struct {
 
 	// Other Methods
 	// OperationQueueForFilePromiseProvider — Returns the operation queue from which to issue the write request.
-	OperationQueueForFilePromiseProvider func(filePromiseProvider NSFilePromiseProvider) foundation.NSOperationQueue
+	OperationQueueForFilePromiseProvider func(filePromiseProvider NSFilePromiseProvider) *foundation.NSOperationQueue
 }
 
 // NewNSFilePromiseProviderDelegate creates an Objective-C object implementing the [NSFilePromiseProviderDelegate] protocol.

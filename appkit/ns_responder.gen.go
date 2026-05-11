@@ -462,7 +462,7 @@ type INSResponder interface {
 	// Saves the interface-related state of the responder.
 	EncodeRestorableStateWithCoder(coder foundation.INSCoder)
 	// Saves the interface-related state of the responder to a keyed archiver either synchronously or asynchronously on the given operation queue.
-	EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue foundation.NSOperationQueue)
+	EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue *foundation.NSOperationQueue)
 	// Restores the interface-related state of the responder.
 	RestoreStateWithCoder(coder foundation.INSCoder)
 	// Marks the responder’s interface-related state as dirty.
@@ -1166,7 +1166,7 @@ func (r NSResponder) EncodeRestorableStateWithCoder(coder foundation.INSCoder) {
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/encodeRestorableState(with:backgroundQueue:)
 //
 // [OperationQueue]: https://developer.apple.com/documentation/Foundation/OperationQueue
-func (r NSResponder) EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue foundation.NSOperationQueue) {
+func (r NSResponder) EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue *foundation.NSOperationQueue) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeRestorableStateWithCoder:backgroundQueue:"), coder, queue)
 }
 

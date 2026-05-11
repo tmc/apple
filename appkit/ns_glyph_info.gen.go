@@ -117,7 +117,7 @@ type INSGlyphInfo interface {
 	// The string containing the character represented by the glyph.
 	BaseString() string
 	// The glyph identifier, specified as the index into the internal glyph table of the font.
-	GlyphID() coregraphics.CGFontIndex
+	GlyphID() NSGlyph
 
 	// Topic: Deprecated
 
@@ -224,9 +224,9 @@ func (g NSGlyphInfo) BaseString() string {
 // of the font.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/glyphID
-func (g NSGlyphInfo) GlyphID() coregraphics.CGFontIndex {
-	rv := objc.Send[coregraphics.CGFontIndex](g.ID, objc.Sel("glyphID"))
-	return coregraphics.CGFontIndex(rv)
+func (g NSGlyphInfo) GlyphID() NSGlyph {
+	rv := objc.Send[NSGlyph](g.ID, objc.Sel("glyphID"))
+	return NSGlyph(rv)
 }
 
 // The receiver’s character identifier (CID).

@@ -398,7 +398,7 @@ func NewPageControllerWithCoder(coder foundation.INSCoder) NSPageController {
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSPageController {
+func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSPageController {
 	instance := getNSPageControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSPageControllerFromID(rv)

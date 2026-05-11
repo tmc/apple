@@ -257,7 +257,7 @@ type INSFont interface {
 	// Returns an array of the bounding rectangles for the specified glyphs rendered by the receiver.
 	GetBoundingRectsForGlyphsCount(bounds foundation.NSRect, glyphs []NSGlyph, glyphCount uint)
 	// Returns the named encoded glyph, or –1 if the receiver contains no such glyph.
-	GlyphWithName(name string) uint32
+	GlyphWithName(name string) NSGlyph
 	// Returns a bitmapped screen font, when sent to a font object representing a scalable PostScript font, with the specified rendering mode, matching the receiver in typeface and matrix (or size), or `nil` if such a font can’t be found.
 	ScreenFontWithRenderingMode(renderingMode NSFontRenderingMode) NSFont
 	FontWithSize(fontSize float64) NSFont
@@ -545,9 +545,9 @@ func (f NSFont) GetBoundingRectsForGlyphsCount(bounds foundation.NSRect, glyphs 
 // See: https://developer.apple.com/documentation/AppKit/NSFont/glyph(withName:)
 //
 // [Text Layout Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/TextLayout/TextLayout.html#//apple_ref/doc/uid/10000158i
-func (f NSFont) GlyphWithName(name string) uint32 {
-	rv := objc.Send[uint32](f.ID, objc.Sel("glyphWithName:"), objc.String(name))
-	return rv
+func (f NSFont) GlyphWithName(name string) NSGlyph {
+	rv := objc.Send[NSGlyph](f.ID, objc.Sel("glyphWithName:"), objc.String(name))
+	return NSGlyph(rv)
 }
 
 // Returns a bitmapped screen font, when sent to a font object representing a

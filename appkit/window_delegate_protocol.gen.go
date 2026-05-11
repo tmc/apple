@@ -896,9 +896,10 @@ func (o NSWindowDelegateObject) WindowShouldDragDocumentWithEventFromWithPastebo
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillReturnUndoManager(_:)
 //
 // [UndoManager]: https://developer.apple.com/documentation/Foundation/UndoManager
-func (o NSWindowDelegateObject) WindowWillReturnUndoManager(window INSWindow) foundation.NSUndoManager {
+func (o NSWindowDelegateObject) WindowWillReturnUndoManager(window INSWindow) *foundation.NSUndoManager {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("windowWillReturnUndoManager:"), window)
-	return foundation.NSUndoManagerFromID(rv)
+	val := foundation.NSUndoManagerFromID(rv)
+	return &val
 }
 
 // Asks the delegate whether the window displays the title pop-up menu in
@@ -1147,7 +1148,7 @@ type NSWindowDelegateConfig struct {
 
 	// Getting the Undo Manager
 	// WillReturnUndoManager — Tells the delegate that the window’s undo manager has been requested. Returns the appropriate undo manager for the window.
-	WillReturnUndoManager func(window NSWindow) foundation.NSUndoManager
+	WillReturnUndoManager func(window NSWindow) *foundation.NSUndoManager
 
 	// Managing Titles
 	// ShouldPopUpDocumentPathMenu — Asks the delegate whether the window displays the title pop-up menu in response to a Command-click or Control-click on its title.

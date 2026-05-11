@@ -132,7 +132,7 @@ type INSColorList interface {
 	// Topic: Getting Information About Lists of Colors
 
 	// The name of the color list.
-	Name() string
+	Name() NSColorListName
 	// A Boolean value that indicates whether the color list can be modified.
 	Editable() bool
 
@@ -417,9 +417,9 @@ func (c NSColorList) EncodeWithCoder(coder foundation.INSCoder) {
 // The name of the color list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/name-swift.property
-func (c NSColorList) Name() string {
+func (c NSColorList) Name() NSColorListName {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("name"))
-	return foundation.NSStringFromID(rv).String()
+	return NSColorListName(foundation.NSStringFromID(rv).String())
 }
 
 // A Boolean value that indicates whether the color list can be modified.

@@ -1721,8 +1721,8 @@ type INSWindow interface {
 	ShowsResizeIndicator() bool
 	SetShowsResizeIndicator(value bool)
 	// The Carbon window reference associated with the window, creating one if necessary.
-	WindowRef() WindowRef
-	SetWindowRef(value WindowRef)
+	WindowRef() uintptr
+	SetWindowRef(value uintptr)
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
@@ -6545,11 +6545,11 @@ func (w NSWindow) SetShowsResizeIndicator(value bool) {
 // necessary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/windowRef
-func (w NSWindow) WindowRef() WindowRef {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("windowRef"))
-	return WindowRef(rv)
+func (w NSWindow) WindowRef() uintptr {
+	rv := objc.Send[uintptr](w.ID, objc.Sel("windowRef"))
+	return rv
 }
-func (w NSWindow) SetWindowRef(value WindowRef) {
+func (w NSWindow) SetWindowRef(value uintptr) {
 	objc.Send[struct{}](w.ID, objc.Sel("setWindowRef:"), value)
 }
 

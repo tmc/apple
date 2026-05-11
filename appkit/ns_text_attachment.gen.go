@@ -154,7 +154,7 @@ type INSTextAttachment interface {
 	// Topic: Initializing a text attachment
 
 	// Creates a text attachment object to contain the specified file wrapper.
-	InitWithFileWrapper(fileWrapper foundation.NSFileWrapper) NSTextAttachment
+	InitWithFileWrapper(fileWrapper *foundation.NSFileWrapper) NSTextAttachment
 	// Creates a text attachment object with the specified data.
 	InitWithDataOfType(contentData foundation.INSData, uti string) NSTextAttachment
 
@@ -260,7 +260,7 @@ func NewTextAttachmentWithDataOfType(contentData foundation.INSData, uti string)
 // image rather than to the icon of `aWrapper`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/init(fileWrapper:)
-func NewTextAttachmentWithFileWrapper(fileWrapper foundation.NSFileWrapper) NSTextAttachment {
+func NewTextAttachmentWithFileWrapper(fileWrapper *foundation.NSFileWrapper) NSTextAttachment {
 	instance := getNSTextAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileWrapper:"), fileWrapper)
 	return NSTextAttachmentFromID(rv)
@@ -284,7 +284,7 @@ func NewTextAttachmentWithFileWrapper(fileWrapper foundation.NSFileWrapper) NSTe
 // image rather than to the icon of `aWrapper`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/init(fileWrapper:)
-func (t NSTextAttachment) InitWithFileWrapper(fileWrapper foundation.NSFileWrapper) NSTextAttachment {
+func (t NSTextAttachment) InitWithFileWrapper(fileWrapper *foundation.NSFileWrapper) NSTextAttachment {
 	rv := objc.Send[NSTextAttachment](t.ID, objc.Sel("initWithFileWrapper:"), fileWrapper)
 	return rv
 }

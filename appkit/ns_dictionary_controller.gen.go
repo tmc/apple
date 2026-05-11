@@ -201,7 +201,7 @@ type INSDictionaryController interface {
 	SetInitialValue(value objectivec.IObject)
 
 	// A constant that identifies a content dictionary binding.
-	ContentDictionary() string
+	ContentDictionary() NSBindingName
 }
 
 // Init initializes the instance.
@@ -324,7 +324,7 @@ func (d NSDictionaryController) SetInitialValue(value objectivec.IObject) {
 // A constant that identifies a content dictionary binding.
 //
 // See: https://developer.apple.com/documentation/appkit/nsbindingname/contentdictionary
-func (d NSDictionaryController) ContentDictionary() string {
+func (d NSDictionaryController) ContentDictionary() NSBindingName {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("NSContentDictionaryBinding"))
-	return foundation.NSStringFromID(rv).String()
+	return NSBindingName(foundation.NSStringFromID(rv).String())
 }

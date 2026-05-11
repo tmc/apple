@@ -55,9 +55,10 @@ func NSTextViewDelegateObjectFromID(id objc.ID) NSTextViewDelegateObject {
 // between changes to text and changes to other items in the application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/undoManager(for:)
-func (o NSTextViewDelegateObject) UndoManagerForTextView(view INSTextView) foundation.NSUndoManager {
+func (o NSTextViewDelegateObject) UndoManagerForTextView(view INSTextView) *foundation.NSUndoManager {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("undoManagerForTextView:"), view)
-	return foundation.NSUndoManagerFromID(rv)
+	val := foundation.NSUndoManagerFromID(rv)
+	return &val
 }
 
 // Returns the actual tooltip to display.
@@ -848,7 +849,7 @@ type NSTextViewDelegateConfig struct {
 
 	// Other Methods
 	// UndoManagerForTextView — Returns the undo manager for the specified text view.
-	UndoManagerForTextView func(view NSTextView) foundation.NSUndoManager
+	UndoManagerForTextView func(view NSTextView) *foundation.NSUndoManager
 	// URLForContentsOfTextAttachmentAtIndex — Returns a URL representing the document contents for a text attachment.
 	URLForContentsOfTextAttachmentAtIndex func(textView NSTextView, textAttachment NSTextAttachment, charIndex uint) foundation.NSURL
 	// ShouldSelectCandidateAtIndex — Returns a Boolean value that indicates whether to select the text object at the index.
