@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -153,6 +154,10 @@ func NewAudioSinkNodeWithReceiverBlock(block AVAudioSinkNodeReceiverBlock) AVAud
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNode/init(receiverBlock:)
 func (a AVAudioSinkNode) InitWithReceiverBlock(block AVAudioSinkNodeReceiverBlock) AVAudioSinkNode {
-	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("initWithReceiverBlock:"), block)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer) int {
+		return block(arg0, arg1, arg2)
+	})
+	defer _block0.Release()
+	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("initWithReceiverBlock:"), objc.ID(_block0))
 	return rv
 }

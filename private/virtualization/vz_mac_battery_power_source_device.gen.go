@@ -88,8 +88,8 @@ type IVZMacBatteryPowerSourceDevice interface {
 
 	BatterySourceDidUpdateCharge(source objectivec.IObject, charge float64)
 	BatterySourceDidUpdateConnectivity(source objectivec.IObject, connectivity int64)
-	Source() IVZMacBatterySource
-	SetSource(value IVZMacBatterySource)
+	Source() *VZMacBatterySource
+	SetSource(value *VZMacBatterySource)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -144,11 +144,19 @@ func (v VZMacBatteryPowerSourceDevice) Hash() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/source
-func (v VZMacBatteryPowerSourceDevice) Source() IVZMacBatterySource {
+func (v VZMacBatteryPowerSourceDevice) Source() *VZMacBatterySource {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("source"))
-	return VZMacBatterySourceFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZMacBatterySourceFromID(objc.ID(rv))
+	return &val
 }
-func (v VZMacBatteryPowerSourceDevice) SetSource(value IVZMacBatterySource) {
+func (v VZMacBatteryPowerSourceDevice) SetSource(value *VZMacBatterySource) {
+	if value == nil {
+		objc.Send[struct{}](v.ID, objc.Sel("setSource:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](v.ID, objc.Sel("setSource:"), value)
 }
 

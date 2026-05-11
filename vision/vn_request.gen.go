@@ -211,8 +211,8 @@ func NewRequestWithCompletionHandler(completionHandler VNRequestCompletionHandle
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func (r VNRequest) InitWithCompletionHandler(completionHandler ErrorHandler) VNRequest {
 	_block0, _ := NewErrorBlock(completionHandler)
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("initWithCompletionHandler:"), _block0)
-	return VNRequestFromID(rv)
+	rv := objc.Send[VNRequest](r.ID, objc.Sel("initWithCompletionHandler:"), _block0)
+	return rv
 }
 
 // Cancels the request before it can finish executing.

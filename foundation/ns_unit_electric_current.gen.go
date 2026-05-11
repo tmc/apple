@@ -155,7 +155,7 @@ func NewUnitElectricCurrentWithSymbolConverter(symbol string, converter INSUnitC
 // The megaamperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/megaamperes
-func (_UnitElectricCurrentClass UnitElectricCurrentClass) Megaamperes() UnitElectricCurrent {
+func (_UnitElectricCurrentClass UnitElectricCurrentClass) Megaamperes() NSUnitElectricCurrent {
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("megaamperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
@@ -163,7 +163,7 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Megaamperes() UnitElec
 // The kiloamperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/kiloamperes
-func (_UnitElectricCurrentClass UnitElectricCurrentClass) Kiloamperes() UnitElectricCurrent {
+func (_UnitElectricCurrentClass UnitElectricCurrentClass) Kiloamperes() NSUnitElectricCurrent {
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("kiloamperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
@@ -171,7 +171,7 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Kiloamperes() UnitElec
 // The amperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/amperes
-func (_UnitElectricCurrentClass UnitElectricCurrentClass) Amperes() UnitElectricCurrent {
+func (_UnitElectricCurrentClass UnitElectricCurrentClass) Amperes() NSUnitElectricCurrent {
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("amperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
@@ -179,7 +179,7 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Amperes() UnitElectric
 // The milliamperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/milliamperes
-func (_UnitElectricCurrentClass UnitElectricCurrentClass) Milliamperes() UnitElectricCurrent {
+func (_UnitElectricCurrentClass UnitElectricCurrentClass) Milliamperes() NSUnitElectricCurrent {
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("milliamperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
@@ -187,7 +187,7 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Milliamperes() UnitEle
 // The microamperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/microamperes
-func (_UnitElectricCurrentClass UnitElectricCurrentClass) Microamperes() UnitElectricCurrent {
+func (_UnitElectricCurrentClass UnitElectricCurrentClass) Microamperes() NSUnitElectricCurrent {
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("microamperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }

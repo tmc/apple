@@ -55,6 +55,9 @@ type ErrorHandler = func()
 //   - [MTLDevice.NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler]
 //   - [MTLDevice.NewRenderPipelineStateWithTileDescriptorOptionsCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -81,6 +84,9 @@ type MTLFunctionErrorHandler = func(MTLFunction, error)
 //   - [MTLLibrary.NewFunctionWithNameConstantValuesCompletionHandler]
 //   - [MTLLibrary.NewIntersectionFunctionWithDescriptorCompletionHandler]
 func NewMTLFunctionErrorBlock(handler MTLFunctionErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result MTLFunction
 		if resultID != 0 {
@@ -104,6 +110,9 @@ type VoidHandler = func()
 // Used by:
 //   - [MTLLogState.AddLogHandler]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

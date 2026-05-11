@@ -15,7 +15,7 @@ func newTestTXTRecord(t testing.TB) Nw_txt_record_t {
 	}
 
 	value := []byte("value")
-	if !Nw_txt_record_set_key(record, "key", &value[0], uintptr(len(value))) {
+	if !Nw_txt_record_set_key(record, "key", value, uintptr(len(value))) {
 		record.Release()
 		t.Fatal("Nw_txt_record_set_key failed")
 	}

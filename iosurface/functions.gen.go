@@ -147,7 +147,7 @@ var _iOSurfaceCopyValueErr error
 
 func tryIOSurfaceCopyValue(buffer IOSurfaceRef, key corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOSurfaceCopyValue == nil {
-		return 0, symbolCallError("IOSurfaceCopyValue", "10.6", _iOSurfaceCopyValueErr)
+		return nil, symbolCallError("IOSurfaceCopyValue", "10.6", _iOSurfaceCopyValueErr)
 	}
 	return _iOSurfaceCopyValue(buffer, key), nil
 }

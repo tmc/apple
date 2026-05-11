@@ -25,6 +25,9 @@ type BoolErrorHandler = func(bool, error)
 //   - [LAContext.EvaluateAccessControlOperationLocalizedReasonReply]
 //   - [LAContext.EvaluatePolicyLocalizedReasonReply]
 func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -57,6 +60,9 @@ type DataErrorHandler = func(*foundation.NSData, error)
 //   - [LAPublicKey.ExportBytesWithCompletion]
 //   - [LASecret.LoadDataWithCompletion]
 func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSData
 		if resultID != 0 {
@@ -94,6 +100,9 @@ type ErrorHandler = func(error)
 //   - [LARightStore.RemoveRightCompletion]
 //   - [LARightStore.RemoveRightForIdentifierCompletion]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -117,6 +126,9 @@ type LAPersistedRightErrorHandler = func(*LAPersistedRight, error)
 //   - [LARightStore.SaveRightIdentifierCompletion]
 //   - [LARightStore.SaveRightIdentifierSecretCompletion]
 func NewLAPersistedRightErrorBlock(handler LAPersistedRightErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *LAPersistedRight
 		if resultID != 0 {
@@ -141,6 +153,9 @@ type VoidHandler = func()
 // Used by:
 //   - [LARight.DeauthorizeWithCompletion]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

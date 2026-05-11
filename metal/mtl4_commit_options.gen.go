@@ -119,7 +119,9 @@ func NewMTL4CommitOptions() MTL4CommitOptions {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitOptions/addFeedbackHandler(_:)
 func (m MTL4CommitOptions) AddFeedbackHandler(block MTL4CommitFeedbackHandler) {
-	objc.Send[objc.ID](m.ID, objc.Sel("addFeedbackHandler:"), block)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTL4CommitFeedbackObjectFromID(arg0)) })
+	defer _block0.Release()
+	objc.Send[objc.ID](m.ID, objc.Sel("addFeedbackHandler:"), objc.ID(_block0))
 }
 
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain

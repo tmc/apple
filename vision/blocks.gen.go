@@ -242,6 +242,9 @@ type ErrorHandler = func()
 //   - [VNTranslationalImageRegistrationRequest.InitWithTargetedImageURLOptionsCompletionHandler]
 //   - [VNTranslationalImageRegistrationRequest.InitWithTargetedImageURLOrientationOptionsCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

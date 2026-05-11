@@ -392,7 +392,11 @@ func (m AVMusicTrack) CopyAndMergeEventsInRangeFromTrackMergeAtBeat(range_ AVBea
 //
 // [isKind(of:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
 func (m AVMusicTrack) EnumerateEventsInRangeUsingBlock(range_ AVBeatRange, block AVMusicEventEnumerationBlock) {
-	objc.Send[objc.ID](m.ID, objc.Sel("enumerateEventsInRange:usingBlock:"), range_, block)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 []float64, arg2 *int8) {
+		block(AVMusicEventFromID(arg0), arg1, arg2)
+	})
+	defer _block1.Release()
+	objc.Send[objc.ID](m.ID, objc.Sel("enumerateEventsInRange:usingBlock:"), range_, objc.ID(_block1))
 }
 
 // A Boolean value that indicates whether the track is in a muted state.

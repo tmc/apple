@@ -7425,7 +7425,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSecurityLevels.NegotiatedSSL = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				NSStreamSocketSecurityLevels.NegotiatedSSL = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7435,7 +7435,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSecurityLevels.None = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				NSStreamSocketSecurityLevels.None = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7445,7 +7445,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSecurityLevels.SSLv2 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				NSStreamSocketSecurityLevels.SSLv2 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7455,7 +7455,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSecurityLevels.SSLv3 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				NSStreamSocketSecurityLevels.SSLv3 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7465,7 +7465,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSecurityLevels.TLSv1 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				NSStreamSocketSecurityLevels.TLSv1 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7555,7 +7555,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.FullwidthToHalfwidth = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.FullwidthToHalfwidth = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7565,7 +7565,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.HiraganaToKatakana = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.HiraganaToKatakana = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7575,7 +7575,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.LatinToArabic = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.LatinToArabic = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7585,7 +7585,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.LatinToCyrillic = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.LatinToCyrillic = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7595,7 +7595,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.LatinToGreek = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.LatinToGreek = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7605,7 +7605,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.LatinToHangul = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.LatinToHangul = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7615,7 +7615,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.LatinToHebrew = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.LatinToHebrew = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7625,7 +7625,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.LatinToHiragana = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.LatinToHiragana = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7635,7 +7635,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.LatinToKatakana = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.LatinToKatakana = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7645,7 +7645,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.LatinToThai = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.LatinToThai = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7655,7 +7655,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.MandarinToLatin = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.MandarinToLatin = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7665,7 +7665,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.StripCombiningMarks = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.StripCombiningMarks = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7675,7 +7675,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.StripDiacritics = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.StripDiacritics = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7685,7 +7685,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.ToLatin = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.ToLatin = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7695,7 +7695,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.ToUnicodeName = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.ToUnicodeName = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7705,7 +7705,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransforms.ToXMLHex = NSStringTransform(objc.GoString(cstr))
+				NSStringTransforms.ToXMLHex = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8255,7 +8255,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypes.BlockSpecial = NSURLFileResourceType(objc.GoString(cstr))
+				NSURLFileResourceTypes.BlockSpecial = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8265,7 +8265,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypes.CharacterSpecial = NSURLFileResourceType(objc.GoString(cstr))
+				NSURLFileResourceTypes.CharacterSpecial = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8275,7 +8275,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypes.Directory = NSURLFileResourceType(objc.GoString(cstr))
+				NSURLFileResourceTypes.Directory = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8295,7 +8295,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypes.NamedPipe = NSURLFileResourceType(objc.GoString(cstr))
+				NSURLFileResourceTypes.NamedPipe = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8305,7 +8305,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypes.Regular = NSURLFileResourceType(objc.GoString(cstr))
+				NSURLFileResourceTypes.Regular = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8315,7 +8315,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypes.Socket = NSURLFileResourceType(objc.GoString(cstr))
+				NSURLFileResourceTypes.Socket = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8325,7 +8325,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypes.SymbolicLink = NSURLFileResourceType(objc.GoString(cstr))
+				NSURLFileResourceTypes.SymbolicLink = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8335,7 +8335,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypes.Unknown = NSURLFileResourceType(objc.GoString(cstr))
+				NSURLFileResourceTypes.Unknown = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8891,7 +8891,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemDownloadingStatuss.Current = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+				NSURLUbiquitousItemDownloadingStatuss.Current = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8901,7 +8901,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemDownloadingStatuss.Downloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+				NSURLUbiquitousItemDownloadingStatuss.Downloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8921,7 +8921,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemDownloadingStatuss.NotDownloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+				NSURLUbiquitousItemDownloadingStatuss.NotDownloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9091,7 +9091,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousSharedItemPermissionss.ReadOnly = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
+				NSURLUbiquitousSharedItemPermissionss.ReadOnly = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9101,7 +9101,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousSharedItemPermissionss.ReadWrite = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
+				NSURLUbiquitousSharedItemPermissionss.ReadWrite = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9111,7 +9111,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousSharedItemRoles.Owner = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
+				NSURLUbiquitousSharedItemRoles.Owner = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9121,7 +9121,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousSharedItemRoles.Participant = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
+				NSURLUbiquitousSharedItemRoles.Participant = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9972,94 +9972,94 @@ var NSProgressFileOperationKinds struct {
 	Uploading NSProgressFileOperationKind
 }
 
-// StreamSocketSecurityLevels provides typed accessors for [StreamSocketSecurityLevel] constants.
-var StreamSocketSecurityLevels struct {
+// NSStreamSocketSecurityLevels provides typed accessors for [NSStreamSocketSecurityLevel] constants.
+var NSStreamSocketSecurityLevels struct {
 	// NegotiatedSSL: Specifies that the highest level security protocol that can be negotiated be set as the security protocol for a socket stream.
-	NegotiatedSSL StreamSocketSecurityLevel
+	NegotiatedSSL NSStreamSocketSecurityLevel
 	// None: Specifies that no security level be set for a socket stream.
-	None StreamSocketSecurityLevel
+	None NSStreamSocketSecurityLevel
 	// SSLv2: Specifies that SSL version 2 be set as the security protocol for a socket stream.
-	SSLv2 StreamSocketSecurityLevel
+	SSLv2 NSStreamSocketSecurityLevel
 	// SSLv3: Specifies that SSL version 3 be set as the security protocol for a socket stream.
-	SSLv3 StreamSocketSecurityLevel
+	SSLv3 NSStreamSocketSecurityLevel
 	// TLSv1: Specifies that TLS version 1 be set as the security protocol for a socket stream.
-	TLSv1 StreamSocketSecurityLevel
+	TLSv1 NSStreamSocketSecurityLevel
 }
 
-// StringTransforms provides typed accessors for [StringTransform] constants.
-var StringTransforms struct {
+// NSStringTransforms provides typed accessors for [NSStringTransform] constants.
+var NSStringTransforms struct {
 	// FullwidthToHalfwidth: A constant containing the transformation of a string from full-width CJK characters to half-width forms.
-	FullwidthToHalfwidth StringTransform
+	FullwidthToHalfwidth NSStringTransform
 	// HiraganaToKatakana: A constant containing the transliteration of a string from Hiragana script to Katakana script.
-	HiraganaToKatakana StringTransform
+	HiraganaToKatakana NSStringTransform
 	// LatinToArabic: A constant containing the transliteration of a string from Latin script to Arabic script.
-	LatinToArabic StringTransform
+	LatinToArabic NSStringTransform
 	// LatinToCyrillic: A constant containing the transliteration of a string from Latin script to Cyrillic script.
-	LatinToCyrillic StringTransform
+	LatinToCyrillic NSStringTransform
 	// LatinToGreek: A constant containing the transliteration of a string from Latin script to Greek script.
-	LatinToGreek StringTransform
+	LatinToGreek NSStringTransform
 	// LatinToHangul: A constant containing the transliteration of a string from Latin script to Hangul script.
-	LatinToHangul StringTransform
+	LatinToHangul NSStringTransform
 	// LatinToHebrew: A constant containing the transliteration of a string from Latin script to Hebrew script.
-	LatinToHebrew StringTransform
+	LatinToHebrew NSStringTransform
 	// LatinToHiragana: A constant containing the transliteration of a string from Latin script to Hiragana script.
-	LatinToHiragana StringTransform
+	LatinToHiragana NSStringTransform
 	// LatinToKatakana: A constant containing the transliteration of a string from Latin script to Katakana script.
-	LatinToKatakana StringTransform
+	LatinToKatakana NSStringTransform
 	// LatinToThai: A constant containing the transliteration of a string from Latin script to Thai script.
-	LatinToThai StringTransform
+	LatinToThai NSStringTransform
 	// MandarinToLatin: A constant containing the transliteration of a string from Han script to Latin.
-	MandarinToLatin StringTransform
+	MandarinToLatin NSStringTransform
 	// StripCombiningMarks: A constant containing the transformation of a string by removing combining marks.
-	StripCombiningMarks StringTransform
+	StripCombiningMarks NSStringTransform
 	// StripDiacritics: A constant containing the transformation of a string by removing diacritics.
-	StripDiacritics StringTransform
+	StripDiacritics NSStringTransform
 	// ToLatin: A constant containing the transliteration of a string from any script to Latin script.
-	ToLatin StringTransform
+	ToLatin NSStringTransform
 	// ToUnicodeName: An identifier for a transform that converts characters to Unicode names.
-	ToUnicodeName StringTransform
+	ToUnicodeName NSStringTransform
 	// ToXMLHex: A constant containing the transformation of a string from characters to XML hexadecimal escape codes.
-	ToXMLHex StringTransform
+	ToXMLHex NSStringTransform
 }
 
-// URLFileResourceTypes provides typed accessors for [URLFileResourceType] constants.
-var URLFileResourceTypes struct {
+// NSURLFileResourceTypes provides typed accessors for [NSURLFileResourceType] constants.
+var NSURLFileResourceTypes struct {
 	// BlockSpecial: The resource is a block special file.
-	BlockSpecial URLFileResourceType
+	BlockSpecial NSURLFileResourceType
 	// CharacterSpecial: The resource is a character special file.
-	CharacterSpecial URLFileResourceType
+	CharacterSpecial NSURLFileResourceType
 	// Directory: The resource is a directory.
-	Directory URLFileResourceType
+	Directory NSURLFileResourceType
 	// NamedPipe: The resource is a named pipe.
-	NamedPipe URLFileResourceType
+	NamedPipe NSURLFileResourceType
 	// Regular: The resource is a regular file.
-	Regular URLFileResourceType
+	Regular NSURLFileResourceType
 	// Socket: The resource is a socket.
-	Socket URLFileResourceType
+	Socket NSURLFileResourceType
 	// SymbolicLink: The resource is a symbolic link.
-	SymbolicLink URLFileResourceType
+	SymbolicLink NSURLFileResourceType
 	// Unknown: The resource’s type is unknown.
-	Unknown URLFileResourceType
+	Unknown NSURLFileResourceType
 }
 
-// URLUbiquitousItemDownloadingStatuss provides typed accessors for [URLUbiquitousItemDownloadingStatus] constants.
-var URLUbiquitousItemDownloadingStatuss struct {
+// NSURLUbiquitousItemDownloadingStatuss provides typed accessors for [NSURLUbiquitousItemDownloadingStatus] constants.
+var NSURLUbiquitousItemDownloadingStatuss struct {
 	// Current: A local copy of this item exists and is the most up-to-date version known to the device.
-	Current URLUbiquitousItemDownloadingStatus
+	Current NSURLUbiquitousItemDownloadingStatus
 	// Downloaded: A local copy of this item exists, but it is stale. The most recent version will be downloaded as soon as possible.
-	Downloaded URLUbiquitousItemDownloadingStatus
+	Downloaded NSURLUbiquitousItemDownloadingStatus
 	// NotDownloaded: This item has not been downloaded yet. Use [startDownloadingUbiquitousItem(at:)](<doc://com.apple.foundation/documentation/Foundation/FileManager/startDownloadingUbiquitousItem(at:)>) to download it.
-	NotDownloaded URLUbiquitousItemDownloadingStatus
+	NotDownloaded NSURLUbiquitousItemDownloadingStatus
 }
 
-// URLUbiquitousSharedItemPermissionss provides typed accessors for [URLUbiquitousSharedItemPermissions] constants.
-var URLUbiquitousSharedItemPermissionss struct {
-	ReadOnly  URLUbiquitousSharedItemPermissions
-	ReadWrite URLUbiquitousSharedItemPermissions
+// NSURLUbiquitousSharedItemPermissionss provides typed accessors for [NSURLUbiquitousSharedItemPermissions] constants.
+var NSURLUbiquitousSharedItemPermissionss struct {
+	ReadOnly  NSURLUbiquitousSharedItemPermissions
+	ReadWrite NSURLUbiquitousSharedItemPermissions
 }
 
-// URLUbiquitousSharedItemRoles provides typed accessors for [URLUbiquitousSharedItemRole] constants.
-var URLUbiquitousSharedItemRoles struct {
-	Owner       URLUbiquitousSharedItemRole
-	Participant URLUbiquitousSharedItemRole
+// NSURLUbiquitousSharedItemRoles provides typed accessors for [NSURLUbiquitousSharedItemRole] constants.
+var NSURLUbiquitousSharedItemRoles struct {
+	Owner       NSURLUbiquitousSharedItemRole
+	Participant NSURLUbiquitousSharedItemRole
 }

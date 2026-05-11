@@ -1404,7 +1404,7 @@ func (u URLSession) SetSessionDescription(value string) {
 // instead of the shared session.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/shared
-func (_URLSessionClass URLSessionClass) SharedSession() URLSession {
+func (_URLSessionClass URLSessionClass) SharedSession() NSURLSession {
 	rv := objc.Send[objc.ID](objc.ID(_URLSessionClass.class), objc.Sel("sharedSession"))
 	return NSURLSessionFromID(objc.ID(rv))
 }

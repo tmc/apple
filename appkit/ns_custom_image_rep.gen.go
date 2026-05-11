@@ -249,8 +249,8 @@ func (c NSCustomImageRep) InitWithDrawSelectorDelegate(selector objc.SEL, delega
 func (c NSCustomImageRep) InitWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler RectHandler) NSCustomImageRep {
 	_block1, _ := NewErrorBlock(drawingHandlerShouldBeCalledWithFlippedContext)
 	_block2, _ := NewRectBlock(drawingHandler)
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithSize:flipped:drawingHandler:"), size, _block1, _block2)
-	return NSCustomImageRepFromID(rv)
+	rv := objc.Send[NSCustomImageRep](c.ID, objc.Sel("initWithSize:flipped:drawingHandler:"), size, _block1, _block2)
+	return rv
 }
 
 // The destination rectangle of the drawing handler block.

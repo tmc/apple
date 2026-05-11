@@ -4,7 +4,6 @@ package virtualization
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/vmnet"
@@ -90,7 +89,7 @@ type IVZVmnetNetworkDeviceAttachment interface {
 	// Creates the attachment and configures it with the specified data.
 	InitWithNetwork(network vmnet.Vmnet_network_ref) VZVmnetNetworkDeviceAttachment
 	// The network object that the you initialize the attachment with.
-	Network() unsafe.Pointer
+	Network() vmnet.Vmnet_network_ref
 }
 
 // Init initializes the instance.
@@ -176,7 +175,7 @@ func (v VZVmnetNetworkDeviceAttachment) InitWithNetwork(network vmnet.Vmnet_netw
 // The network object that the you initialize the attachment with.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVmnetNetworkDeviceAttachment/network
-func (v VZVmnetNetworkDeviceAttachment) Network() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("network"))
-	return rv
+func (v VZVmnetNetworkDeviceAttachment) Network() vmnet.Vmnet_network_ref {
+	rv := objc.Send[vmnet.Vmnet_network_ref](v.ID, objc.Sel("network"))
+	return vmnet.Vmnet_network_ref(rv)
 }

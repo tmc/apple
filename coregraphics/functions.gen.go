@@ -1826,21 +1826,21 @@ func CGColorSpaceGetBaseColorSpace(space CGColorSpaceRef) CGColorSpaceRef {
 	return result
 }
 
-var _cGColorSpaceGetColorTable func(space CGColorSpaceRef, table *uint8)
+var _cGColorSpaceGetColorTable func(space CGColorSpaceRef, table *byte)
 var _cGColorSpaceGetColorTableErr error
 
-func tryCGColorSpaceGetColorTable(space CGColorSpaceRef, table *uint8) error {
+func tryCGColorSpaceGetColorTable(space CGColorSpaceRef, table []byte) error {
 	if _cGColorSpaceGetColorTable == nil {
 		return symbolCallError("CGColorSpaceGetColorTable", "10.5", _cGColorSpaceGetColorTableErr)
 	}
-	_cGColorSpaceGetColorTable(space, table)
+	_cGColorSpaceGetColorTable(space, unsafe.SliceData(table))
 	return nil
 }
 
 // CGColorSpaceGetColorTable copies the entries in the color table of an indexed color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceGetColorTable
-func CGColorSpaceGetColorTable(space CGColorSpaceRef, table *uint8) {
+func CGColorSpaceGetColorTable(space CGColorSpaceRef, table []byte) {
 	if callErr := tryCGColorSpaceGetColorTable(space, table); callErr != nil {
 		panic(callErr)
 	}
@@ -2893,10 +2893,10 @@ func CGContextDrawImageApplyingToneMapping(c CGContextRef, r corefoundation.CGRe
 	return result
 }
 
-var _cGContextDrawLayerAtPoint func(context CGContextRef, point corefoundation.CGPoint, layer unsafe.Pointer)
+var _cGContextDrawLayerAtPoint func(context CGContextRef, point corefoundation.CGPoint, layer CGLayerRef)
 var _cGContextDrawLayerAtPointErr error
 
-func tryCGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGPoint, layer unsafe.Pointer) error {
+func tryCGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGPoint, layer CGLayerRef) error {
 	if _cGContextDrawLayerAtPoint == nil {
 		return symbolCallError("CGContextDrawLayerAtPoint", "10.4", _cGContextDrawLayerAtPointErr)
 	}
@@ -2907,16 +2907,16 @@ func tryCGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGP
 // CGContextDrawLayerAtPoint draws the contents of a CGLayer object at the specified point.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawLayerAtPoint
-func CGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGPoint, layer unsafe.Pointer) {
+func CGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGPoint, layer CGLayerRef) {
 	if callErr := tryCGContextDrawLayerAtPoint(context, point, layer); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cGContextDrawLayerInRect func(context CGContextRef, rect corefoundation.CGRect, layer unsafe.Pointer)
+var _cGContextDrawLayerInRect func(context CGContextRef, rect corefoundation.CGRect, layer CGLayerRef)
 var _cGContextDrawLayerInRectErr error
 
-func tryCGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRect, layer unsafe.Pointer) error {
+func tryCGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRect, layer CGLayerRef) error {
 	if _cGContextDrawLayerInRect == nil {
 		return symbolCallError("CGContextDrawLayerInRect", "10.4", _cGContextDrawLayerInRectErr)
 	}
@@ -2927,7 +2927,7 @@ func tryCGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRec
 // CGContextDrawLayerInRect draws the contents of a layer object into the specified rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawLayerInRect
-func CGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRect, layer unsafe.Pointer) {
+func CGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRect, layer CGLayerRef) {
 	if callErr := tryCGContextDrawLayerInRect(context, rect, layer); callErr != nil {
 		panic(callErr)
 	}
@@ -3809,10 +3809,10 @@ func CGContextSetAlpha(c CGContextRef, alpha float64) {
 	}
 }
 
-var _cGContextSetBlendMode func(c CGContextRef, mode uint)
+var _cGContextSetBlendMode func(c CGContextRef, mode CGBlendMode)
 var _cGContextSetBlendModeErr error
 
-func tryCGContextSetBlendMode(c CGContextRef, mode uint) error {
+func tryCGContextSetBlendMode(c CGContextRef, mode CGBlendMode) error {
 	if _cGContextSetBlendMode == nil {
 		return symbolCallError("CGContextSetBlendMode", "10.4", _cGContextSetBlendModeErr)
 	}
@@ -3823,7 +3823,7 @@ func tryCGContextSetBlendMode(c CGContextRef, mode uint) error {
 // CGContextSetBlendMode sets how sample values are composited by a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setBlendMode(_:)
-func CGContextSetBlendMode(c CGContextRef, mode uint) {
+func CGContextSetBlendMode(c CGContextRef, mode CGBlendMode) {
 	if callErr := tryCGContextSetBlendMode(c, mode); callErr != nil {
 		panic(callErr)
 	}
@@ -4130,10 +4130,10 @@ func CGContextSetInterpolationQuality(c CGContextRef, quality CGInterpolationQua
 	}
 }
 
-var _cGContextSetLineCap func(c CGContextRef, cap_ uint)
+var _cGContextSetLineCap func(c CGContextRef, cap_ CGLineCap)
 var _cGContextSetLineCapErr error
 
-func tryCGContextSetLineCap(c CGContextRef, cap_ uint) error {
+func tryCGContextSetLineCap(c CGContextRef, cap_ CGLineCap) error {
 	if _cGContextSetLineCap == nil {
 		return symbolCallError("CGContextSetLineCap", "10.0", _cGContextSetLineCapErr)
 	}
@@ -4144,7 +4144,7 @@ func tryCGContextSetLineCap(c CGContextRef, cap_ uint) error {
 // CGContextSetLineCap sets the style for the endpoints of lines drawn in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setLineCap(_:)
-func CGContextSetLineCap(c CGContextRef, cap_ uint) {
+func CGContextSetLineCap(c CGContextRef, cap_ CGLineCap) {
 	if callErr := tryCGContextSetLineCap(c, cap_); callErr != nil {
 		panic(callErr)
 	}
@@ -4170,10 +4170,10 @@ func CGContextSetLineDash(c CGContextRef, phase float64, lengths *float64, count
 	}
 }
 
-var _cGContextSetLineJoin func(c CGContextRef, join uint)
+var _cGContextSetLineJoin func(c CGContextRef, join CGLineJoin)
 var _cGContextSetLineJoinErr error
 
-func tryCGContextSetLineJoin(c CGContextRef, join uint) error {
+func tryCGContextSetLineJoin(c CGContextRef, join CGLineJoin) error {
 	if _cGContextSetLineJoin == nil {
 		return symbolCallError("CGContextSetLineJoin", "10.0", _cGContextSetLineJoinErr)
 	}
@@ -4184,7 +4184,7 @@ func tryCGContextSetLineJoin(c CGContextRef, join uint) error {
 // CGContextSetLineJoin sets the style for the joins of connected lines in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setLineJoin(_:)
-func CGContextSetLineJoin(c CGContextRef, join uint) {
+func CGContextSetLineJoin(c CGContextRef, join CGLineJoin) {
 	if callErr := tryCGContextSetLineJoin(c, join); callErr != nil {
 		panic(callErr)
 	}
@@ -4570,10 +4570,10 @@ func CGContextSetTextPosition(c CGContextRef, x float64, y float64) {
 	}
 }
 
-var _cGContextShowGlyphsAtPositions func(c CGContextRef, glyphs unsafe.Pointer, Lpositions *corefoundation.CGPoint, count uintptr)
+var _cGContextShowGlyphsAtPositions func(c CGContextRef, glyphs *CGGlyph, Lpositions *corefoundation.CGPoint, count uintptr)
 var _cGContextShowGlyphsAtPositionsErr error
 
-func tryCGContextShowGlyphsAtPositions(c CGContextRef, glyphs unsafe.Pointer, Lpositions *corefoundation.CGPoint, count uintptr) error {
+func tryCGContextShowGlyphsAtPositions(c CGContextRef, glyphs *CGGlyph, Lpositions *corefoundation.CGPoint, count uintptr) error {
 	if _cGContextShowGlyphsAtPositions == nil {
 		return symbolCallError("CGContextShowGlyphsAtPositions", "10.5", _cGContextShowGlyphsAtPositionsErr)
 	}
@@ -4584,7 +4584,7 @@ func tryCGContextShowGlyphsAtPositions(c CGContextRef, glyphs unsafe.Pointer, Lp
 // CGContextShowGlyphsAtPositions draws glyphs at the provided position.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextShowGlyphsAtPositions
-func CGContextShowGlyphsAtPositions(c CGContextRef, glyphs unsafe.Pointer, Lpositions *corefoundation.CGPoint, count uintptr) {
+func CGContextShowGlyphsAtPositions(c CGContextRef, glyphs *CGGlyph, Lpositions *corefoundation.CGPoint, count uintptr) {
 	if callErr := tryCGContextShowGlyphsAtPositions(c, glyphs, Lpositions, count); callErr != nil {
 		panic(callErr)
 	}
@@ -7681,10 +7681,10 @@ func CGFontCopyFullName(font CGFontRef) corefoundation.CFStringRef {
 	return result
 }
 
-var _cGFontCopyGlyphNameForGlyph func(font CGFontRef, glyph unsafe.Pointer) corefoundation.CFStringRef
+var _cGFontCopyGlyphNameForGlyph func(font CGFontRef, glyph CGGlyph) corefoundation.CFStringRef
 var _cGFontCopyGlyphNameForGlyphErr error
 
-func tryCGFontCopyGlyphNameForGlyph(font CGFontRef, glyph unsafe.Pointer) (corefoundation.CFStringRef, error) {
+func tryCGFontCopyGlyphNameForGlyph(font CGFontRef, glyph CGGlyph) (corefoundation.CFStringRef, error) {
 	if _cGFontCopyGlyphNameForGlyph == nil {
 		return 0, symbolCallError("CGFontCopyGlyphNameForGlyph", "10.5", _cGFontCopyGlyphNameForGlyphErr)
 	}
@@ -7694,7 +7694,7 @@ func tryCGFontCopyGlyphNameForGlyph(font CGFontRef, glyph unsafe.Pointer) (coref
 // CGFontCopyGlyphNameForGlyph returns the glyph name of the specified glyph in the specified font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/name(for:)
-func CGFontCopyGlyphNameForGlyph(font CGFontRef, glyph unsafe.Pointer) corefoundation.CFStringRef {
+func CGFontCopyGlyphNameForGlyph(font CGFontRef, glyph CGGlyph) corefoundation.CFStringRef {
 	result, callErr := tryCGFontCopyGlyphNameForGlyph(font, glyph)
 	if callErr != nil {
 		panic(callErr)
@@ -7828,10 +7828,10 @@ func CGFontCreateCopyWithVariations(font CGFontRef, variations corefoundation.CF
 	return result
 }
 
-var _cGFontCreatePostScriptEncoding func(font CGFontRef, encoding unsafe.Pointer) corefoundation.CFDataRef
+var _cGFontCreatePostScriptEncoding func(font CGFontRef, encoding CGGlyph) corefoundation.CFDataRef
 var _cGFontCreatePostScriptEncodingErr error
 
-func tryCGFontCreatePostScriptEncoding(font CGFontRef, encoding unsafe.Pointer) (corefoundation.CFDataRef, error) {
+func tryCGFontCreatePostScriptEncoding(font CGFontRef, encoding CGGlyph) (corefoundation.CFDataRef, error) {
 	if _cGFontCreatePostScriptEncoding == nil {
 		return 0, symbolCallError("CGFontCreatePostScriptEncoding", "10.4", _cGFontCreatePostScriptEncodingErr)
 	}
@@ -7841,7 +7841,7 @@ func tryCGFontCreatePostScriptEncoding(font CGFontRef, encoding unsafe.Pointer) 
 // CGFontCreatePostScriptEncoding creates a PostScript encoding of a font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/createPostScriptEncoding(encoding:)
-func CGFontCreatePostScriptEncoding(font CGFontRef, encoding unsafe.Pointer) corefoundation.CFDataRef {
+func CGFontCreatePostScriptEncoding(font CGFontRef, encoding CGGlyph) corefoundation.CFDataRef {
 	result, callErr := tryCGFontCreatePostScriptEncoding(font, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -7849,10 +7849,10 @@ func CGFontCreatePostScriptEncoding(font CGFontRef, encoding unsafe.Pointer) cor
 	return result
 }
 
-var _cGFontCreatePostScriptSubset func(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs unsafe.Pointer, count uintptr, encoding unsafe.Pointer) corefoundation.CFDataRef
+var _cGFontCreatePostScriptSubset func(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs *CGGlyph, count uintptr, encoding CGGlyph) corefoundation.CFDataRef
 var _cGFontCreatePostScriptSubsetErr error
 
-func tryCGFontCreatePostScriptSubset(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs unsafe.Pointer, count uintptr, encoding unsafe.Pointer) (corefoundation.CFDataRef, error) {
+func tryCGFontCreatePostScriptSubset(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs *CGGlyph, count uintptr, encoding CGGlyph) (corefoundation.CFDataRef, error) {
 	if _cGFontCreatePostScriptSubset == nil {
 		return 0, symbolCallError("CGFontCreatePostScriptSubset", "10.4", _cGFontCreatePostScriptSubsetErr)
 	}
@@ -7862,7 +7862,7 @@ func tryCGFontCreatePostScriptSubset(font CGFontRef, subsetName corefoundation.C
 // CGFontCreatePostScriptSubset creates a subset of the font in the specified PostScript format.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/createPostScriptSubset(subsetName:format:glyphs:count:encoding:)
-func CGFontCreatePostScriptSubset(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs unsafe.Pointer, count uintptr, encoding unsafe.Pointer) corefoundation.CFDataRef {
+func CGFontCreatePostScriptSubset(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs *CGGlyph, count uintptr, encoding CGGlyph) corefoundation.CFDataRef {
 	result, callErr := tryCGFontCreatePostScriptSubset(font, subsetName, format, glyphs, count, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -7996,10 +7996,10 @@ func CGFontGetFontBBox(font CGFontRef) corefoundation.CGRect {
 	return result
 }
 
-var _cGFontGetGlyphAdvances func(font CGFontRef, glyphs unsafe.Pointer, count uintptr, advances *int) bool
+var _cGFontGetGlyphAdvances func(font CGFontRef, glyphs *CGGlyph, count uintptr, advances *int) bool
 var _cGFontGetGlyphAdvancesErr error
 
-func tryCGFontGetGlyphAdvances(font CGFontRef, glyphs unsafe.Pointer, count uintptr, advances []int) (bool, error) {
+func tryCGFontGetGlyphAdvances(font CGFontRef, glyphs *CGGlyph, count uintptr, advances []int) (bool, error) {
 	if _cGFontGetGlyphAdvances == nil {
 		return false, symbolCallError("CGFontGetGlyphAdvances", "10.0", _cGFontGetGlyphAdvancesErr)
 	}
@@ -8009,7 +8009,7 @@ func tryCGFontGetGlyphAdvances(font CGFontRef, glyphs unsafe.Pointer, count uint
 // CGFontGetGlyphAdvances gets the advance width of each glyph in the provided array.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/getGlyphAdvances(glyphs:count:advances:)
-func CGFontGetGlyphAdvances(font CGFontRef, glyphs unsafe.Pointer, count uintptr, advances []int) bool {
+func CGFontGetGlyphAdvances(font CGFontRef, glyphs *CGGlyph, count uintptr, advances []int) bool {
 	result, callErr := tryCGFontGetGlyphAdvances(font, glyphs, count, advances)
 	if callErr != nil {
 		panic(callErr)
@@ -8017,10 +8017,10 @@ func CGFontGetGlyphAdvances(font CGFontRef, glyphs unsafe.Pointer, count uintptr
 	return result
 }
 
-var _cGFontGetGlyphBBoxes func(font CGFontRef, glyphs unsafe.Pointer, count uintptr, bboxes *corefoundation.CGRect) bool
+var _cGFontGetGlyphBBoxes func(font CGFontRef, glyphs *CGGlyph, count uintptr, bboxes *corefoundation.CGRect) bool
 var _cGFontGetGlyphBBoxesErr error
 
-func tryCGFontGetGlyphBBoxes(font CGFontRef, glyphs unsafe.Pointer, count uintptr, bboxes *corefoundation.CGRect) (bool, error) {
+func tryCGFontGetGlyphBBoxes(font CGFontRef, glyphs *CGGlyph, count uintptr, bboxes *corefoundation.CGRect) (bool, error) {
 	if _cGFontGetGlyphBBoxes == nil {
 		return false, symbolCallError("CGFontGetGlyphBBoxes", "10.5", _cGFontGetGlyphBBoxesErr)
 	}
@@ -8030,7 +8030,7 @@ func tryCGFontGetGlyphBBoxes(font CGFontRef, glyphs unsafe.Pointer, count uintpt
 // CGFontGetGlyphBBoxes get the bounding box of each glyph in an array.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/getGlyphBBoxes(glyphs:count:bboxes:)
-func CGFontGetGlyphBBoxes(font CGFontRef, glyphs unsafe.Pointer, count uintptr, bboxes *corefoundation.CGRect) bool {
+func CGFontGetGlyphBBoxes(font CGFontRef, glyphs *CGGlyph, count uintptr, bboxes *corefoundation.CGRect) bool {
 	result, callErr := tryCGFontGetGlyphBBoxes(font, glyphs, count, bboxes)
 	if callErr != nil {
 		panic(callErr)
@@ -8038,12 +8038,12 @@ func CGFontGetGlyphBBoxes(font CGFontRef, glyphs unsafe.Pointer, count uintptr, 
 	return result
 }
 
-var _cGFontGetGlyphWithGlyphName func(font CGFontRef, name corefoundation.CFStringRef) unsafe.Pointer
+var _cGFontGetGlyphWithGlyphName func(font CGFontRef, name corefoundation.CFStringRef) CGGlyph
 var _cGFontGetGlyphWithGlyphNameErr error
 
-func tryCGFontGetGlyphWithGlyphName(font CGFontRef, name corefoundation.CFStringRef) (unsafe.Pointer, error) {
+func tryCGFontGetGlyphWithGlyphName(font CGFontRef, name corefoundation.CFStringRef) (CGGlyph, error) {
 	if _cGFontGetGlyphWithGlyphName == nil {
-		return nil, symbolCallError("CGFontGetGlyphWithGlyphName", "10.5", _cGFontGetGlyphWithGlyphNameErr)
+		return *new(CGGlyph), symbolCallError("CGFontGetGlyphWithGlyphName", "10.5", _cGFontGetGlyphWithGlyphNameErr)
 	}
 	return _cGFontGetGlyphWithGlyphName(font, name), nil
 }
@@ -8051,7 +8051,7 @@ func tryCGFontGetGlyphWithGlyphName(font CGFontRef, name corefoundation.CFString
 // CGFontGetGlyphWithGlyphName returns the glyph for the glyph name associated with the specified font object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/getGlyphWithGlyphName(name:)
-func CGFontGetGlyphWithGlyphName(font CGFontRef, name corefoundation.CFStringRef) unsafe.Pointer {
+func CGFontGetGlyphWithGlyphName(font CGFontRef, name corefoundation.CFStringRef) CGGlyph {
 	result, callErr := tryCGFontGetGlyphWithGlyphName(font, name)
 	if callErr != nil {
 		panic(callErr)
@@ -9461,12 +9461,12 @@ func CGImageShouldToneMap(image CGImageRef) bool {
 	return result
 }
 
-var _cGLayerCreateWithContext func(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) unsafe.Pointer
+var _cGLayerCreateWithContext func(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) CGLayerRef
 var _cGLayerCreateWithContextErr error
 
-func tryCGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) (unsafe.Pointer, error) {
+func tryCGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) (CGLayerRef, error) {
 	if _cGLayerCreateWithContext == nil {
-		return nil, symbolCallError("CGLayerCreateWithContext", "10.4", _cGLayerCreateWithContextErr)
+		return 0, symbolCallError("CGLayerCreateWithContext", "10.4", _cGLayerCreateWithContextErr)
 	}
 	return _cGLayerCreateWithContext(context, size, auxiliaryInfo), nil
 }
@@ -9474,7 +9474,7 @@ func tryCGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSiz
 // CGLayerCreateWithContext creates a layer object that is associated with a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/init(_:size:auxiliaryInfo:)
-func CGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) unsafe.Pointer {
+func CGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) CGLayerRef {
 	result, callErr := tryCGLayerCreateWithContext(context, size, auxiliaryInfo)
 	if callErr != nil {
 		panic(callErr)
@@ -9482,10 +9482,10 @@ func CGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, 
 	return result
 }
 
-var _cGLayerGetContext func(layer unsafe.Pointer) CGContextRef
+var _cGLayerGetContext func(layer CGLayerRef) CGContextRef
 var _cGLayerGetContextErr error
 
-func tryCGLayerGetContext(layer unsafe.Pointer) (CGContextRef, error) {
+func tryCGLayerGetContext(layer CGLayerRef) (CGContextRef, error) {
 	if _cGLayerGetContext == nil {
 		return 0, symbolCallError("CGLayerGetContext", "10.4", _cGLayerGetContextErr)
 	}
@@ -9495,7 +9495,7 @@ func tryCGLayerGetContext(layer unsafe.Pointer) (CGContextRef, error) {
 // CGLayerGetContext returns the graphics context associated with a layer object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/context
-func CGLayerGetContext(layer unsafe.Pointer) CGContextRef {
+func CGLayerGetContext(layer CGLayerRef) CGContextRef {
 	result, callErr := tryCGLayerGetContext(layer)
 	if callErr != nil {
 		panic(callErr)
@@ -9503,10 +9503,10 @@ func CGLayerGetContext(layer unsafe.Pointer) CGContextRef {
 	return result
 }
 
-var _cGLayerGetSize func(layer unsafe.Pointer) corefoundation.CGSize
+var _cGLayerGetSize func(layer CGLayerRef) corefoundation.CGSize
 var _cGLayerGetSizeErr error
 
-func tryCGLayerGetSize(layer unsafe.Pointer) (corefoundation.CGSize, error) {
+func tryCGLayerGetSize(layer CGLayerRef) (corefoundation.CGSize, error) {
 	if _cGLayerGetSize == nil {
 		return corefoundation.CGSize{}, symbolCallError("CGLayerGetSize", "10.4", _cGLayerGetSizeErr)
 	}
@@ -9516,7 +9516,7 @@ func tryCGLayerGetSize(layer unsafe.Pointer) (corefoundation.CGSize, error) {
 // CGLayerGetSize returns the width and height of a layer object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/size
-func CGLayerGetSize(layer unsafe.Pointer) corefoundation.CGSize {
+func CGLayerGetSize(layer CGLayerRef) corefoundation.CGSize {
 	result, callErr := tryCGLayerGetSize(layer)
 	if callErr != nil {
 		panic(callErr)
@@ -9545,10 +9545,10 @@ func CGLayerGetTypeID() uint {
 	return result
 }
 
-var _cGLayerRelease func(layer unsafe.Pointer)
+var _cGLayerRelease func(layer CGLayerRef)
 var _cGLayerReleaseErr error
 
-func tryCGLayerRelease(layer unsafe.Pointer) error {
+func tryCGLayerRelease(layer CGLayerRef) error {
 	if _cGLayerRelease == nil {
 		return symbolCallError("CGLayerRelease", "10.4", _cGLayerReleaseErr)
 	}
@@ -9559,18 +9559,18 @@ func tryCGLayerRelease(layer unsafe.Pointer) error {
 // CGLayerRelease decrements the retain count of a layer object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayerRelease
-func CGLayerRelease(layer unsafe.Pointer) {
+func CGLayerRelease(layer CGLayerRef) {
 	if callErr := tryCGLayerRelease(layer); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cGLayerRetain func(layer unsafe.Pointer) unsafe.Pointer
+var _cGLayerRetain func(layer CGLayerRef) CGLayerRef
 var _cGLayerRetainErr error
 
-func tryCGLayerRetain(layer unsafe.Pointer) (unsafe.Pointer, error) {
+func tryCGLayerRetain(layer CGLayerRef) (CGLayerRef, error) {
 	if _cGLayerRetain == nil {
-		return nil, symbolCallError("CGLayerRetain", "10.4", _cGLayerRetainErr)
+		return 0, symbolCallError("CGLayerRetain", "10.4", _cGLayerRetainErr)
 	}
 	return _cGLayerRetain(layer), nil
 }
@@ -9578,7 +9578,7 @@ func tryCGLayerRetain(layer unsafe.Pointer) (unsafe.Pointer, error) {
 // CGLayerRetain increments the retain count of a layer object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayerRetain
-func CGLayerRetain(layer unsafe.Pointer) unsafe.Pointer {
+func CGLayerRetain(layer CGLayerRef) CGLayerRef {
 	result, callErr := tryCGLayerRetain(layer)
 	if callErr != nil {
 		panic(callErr)
@@ -12386,10 +12386,10 @@ func CGPathCreateCopyByNormalizing(path CGPathRef, evenOddFillRule bool) CGPathR
 	return result
 }
 
-var _cGPathCreateCopyByStrokingPath func(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap uint, lineJoin uint, miterLimit float64) CGPathRef
+var _cGPathCreateCopyByStrokingPath func(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap CGLineCap, lineJoin CGLineJoin, miterLimit float64) CGPathRef
 var _cGPathCreateCopyByStrokingPathErr error
 
-func tryCGPathCreateCopyByStrokingPath(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap uint, lineJoin uint, miterLimit float64) (CGPathRef, error) {
+func tryCGPathCreateCopyByStrokingPath(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap CGLineCap, lineJoin CGLineJoin, miterLimit float64) (CGPathRef, error) {
 	if _cGPathCreateCopyByStrokingPath == nil {
 		return 0, symbolCallError("CGPathCreateCopyByStrokingPath", "10.7", _cGPathCreateCopyByStrokingPathErr)
 	}
@@ -12399,7 +12399,7 @@ func tryCGPathCreateCopyByStrokingPath(path CGPathRef, transform *corefoundation
 // CGPathCreateCopyByStrokingPath creates a stroked copy of another path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPathCreateCopyByStrokingPath
-func CGPathCreateCopyByStrokingPath(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap uint, lineJoin uint, miterLimit float64) CGPathRef {
+func CGPathCreateCopyByStrokingPath(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap CGLineCap, lineJoin CGLineJoin, miterLimit float64) CGPathRef {
 	result, callErr := tryCGPathCreateCopyByStrokingPath(path, transform, lineWidth, lineCap, lineJoin, miterLimit)
 	if callErr != nil {
 		panic(callErr)
@@ -13984,20 +13984,20 @@ func CGSessionCopyCurrentDictionary() corefoundation.CFDictionaryRef {
 	return result
 }
 
-var _cGSetDisplayTransferByByteTable func(display uint32, tableSize uint32, redTable *uint8, greenTable *uint8, blueTable *uint8) CGError
+var _cGSetDisplayTransferByByteTable func(display uint32, tableSize uint32, redTable *byte, greenTable *byte, blueTable *byte) CGError
 var _cGSetDisplayTransferByByteTableErr error
 
-func tryCGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTable *uint8, greenTable *uint8, blueTable *uint8) (CGError, error) {
+func tryCGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTable []byte, greenTable []byte, blueTable []byte) (CGError, error) {
 	if _cGSetDisplayTransferByByteTable == nil {
 		return *new(CGError), symbolCallError("CGSetDisplayTransferByByteTable", "10.0", _cGSetDisplayTransferByByteTableErr)
 	}
-	return _cGSetDisplayTransferByByteTable(display, tableSize, redTable, greenTable, blueTable), nil
+	return _cGSetDisplayTransferByByteTable(display, tableSize, unsafe.SliceData(redTable), unsafe.SliceData(greenTable), unsafe.SliceData(blueTable)), nil
 }
 
 // CGSetDisplayTransferByByteTable sets the byte values in the 8-bit RGB gamma tables for a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGSetDisplayTransferByByteTable(_:_:_:_:_:)
-func CGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTable *uint8, greenTable *uint8, blueTable *uint8) CGError {
+func CGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTable []byte, greenTable []byte, blueTable []byte) CGError {
 	result, callErr := tryCGSetDisplayTransferByByteTable(display, tableSize, redTable, greenTable, blueTable)
 	if callErr != nil {
 		panic(callErr)

@@ -52,7 +52,6 @@ func (mc MLMultiArrayClass) Alloc() MLMultiArray {
 //   - [MLMultiArray.BackingPixelBufferWasLocked]
 //   - [MLMultiArray.Bytes]
 //   - [MLMultiArray.CopyIntoMultiArrayError]
-//   - [MLMultiArray.DataPointer]
 //   - [MLMultiArray.DebugQuickLookObject]
 //   - [MLMultiArray.DoublePointer]
 //   - [MLMultiArray.FillWithNumber]
@@ -110,7 +109,6 @@ var _ IMLMultiArray = MLMultiArray{}
 //   - [IMLMultiArray.BackingPixelBufferWasLocked]
 //   - [IMLMultiArray.Bytes]
 //   - [IMLMultiArray.CopyIntoMultiArrayError]
-//   - [IMLMultiArray.DataPointer]
 //   - [IMLMultiArray.DebugQuickLookObject]
 //   - [IMLMultiArray.DoublePointer]
 //   - [IMLMultiArray.FillWithNumber]
@@ -157,7 +155,6 @@ type IMLMultiArray interface {
 	BackingPixelBufferWasLocked() bool
 	Bytes() objectivec.IObject
 	CopyIntoMultiArrayError(array objectivec.IObject) (bool, error)
-	DataPointer() unsafe.Pointer
 	DebugQuickLookObject() objectivec.IObject
 	DoublePointer() []float64
 	FillWithNumber(number objectivec.IObject) bool
@@ -758,12 +755,6 @@ func (m MLMultiArray) Bytes() objectivec.IObject {
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/contiguous
 func (m MLMultiArray) Contiguous() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("contiguous"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/dataPointer
-func (m MLMultiArray) DataPointer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("dataPointer"))
 	return rv
 }
 

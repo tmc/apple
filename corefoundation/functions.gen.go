@@ -1013,7 +1013,7 @@ var _cFAttributedStringGetAttributeErr error
 
 func tryCFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc int, attrName CFStringRef, effectiveRange *CFRange) (CFTypeRef, error) {
 	if _cFAttributedStringGetAttribute == nil {
-		return 0, symbolCallError("CFAttributedStringGetAttribute", "", _cFAttributedStringGetAttributeErr)
+		return nil, symbolCallError("CFAttributedStringGetAttribute", "", _cFAttributedStringGetAttributeErr)
 	}
 	return _cFAttributedStringGetAttribute(aStr, loc, attrName, effectiveRange), nil
 }
@@ -1034,7 +1034,7 @@ var _cFAttributedStringGetAttributeAndLongestEffectiveRangeErr error
 
 func tryCFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributedStringRef, loc int, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) (CFTypeRef, error) {
 	if _cFAttributedStringGetAttributeAndLongestEffectiveRange == nil {
-		return 0, symbolCallError("CFAttributedStringGetAttributeAndLongestEffectiveRange", "", _cFAttributedStringGetAttributeAndLongestEffectiveRangeErr)
+		return nil, symbolCallError("CFAttributedStringGetAttributeAndLongestEffectiveRange", "", _cFAttributedStringGetAttributeAndLongestEffectiveRangeErr)
 	}
 	return _cFAttributedStringGetAttributeAndLongestEffectiveRange(aStr, loc, attrName, inRange, longestEffectiveRange), nil
 }
@@ -1092,20 +1092,20 @@ func CFAttributedStringGetAttributesAndLongestEffectiveRange(aStr CFAttributedSt
 	return result
 }
 
-var _cFAttributedStringGetBidiLevelsAndResolvedDirections func(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *uint8, baseDirections *uint8) bool
+var _cFAttributedStringGetBidiLevelsAndResolvedDirections func(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *byte, baseDirections *byte) bool
 var _cFAttributedStringGetBidiLevelsAndResolvedDirectionsErr error
 
-func tryCFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *uint8, baseDirections *uint8) (bool, error) {
+func tryCFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels []byte, baseDirections []byte) (bool, error) {
 	if _cFAttributedStringGetBidiLevelsAndResolvedDirections == nil {
 		return false, symbolCallError("CFAttributedStringGetBidiLevelsAndResolvedDirections", "", _cFAttributedStringGetBidiLevelsAndResolvedDirectionsErr)
 	}
-	return _cFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString, range_, baseDirection, bidiLevels, baseDirections), nil
+	return _cFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString, range_, baseDirection, unsafe.SliceData(bidiLevels), unsafe.SliceData(baseDirections)), nil
 }
 
 // CFAttributedStringGetBidiLevelsAndResolvedDirections.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringGetBidiLevelsAndResolvedDirections(_:_:_:_:_:)
-func CFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *uint8, baseDirections *uint8) bool {
+func CFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels []byte, baseDirections []byte) bool {
 	result, callErr := tryCFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString, range_, baseDirection, bidiLevels, baseDirections)
 	if callErr != nil {
 		panic(callErr)
@@ -1155,20 +1155,20 @@ func CFAttributedStringGetMutableString(aStr CFMutableAttributedStringRef) CFMut
 	return result
 }
 
-var _cFAttributedStringGetStatisticalWritingDirections func(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *uint8, baseDirections *uint8) bool
+var _cFAttributedStringGetStatisticalWritingDirections func(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *byte, baseDirections *byte) bool
 var _cFAttributedStringGetStatisticalWritingDirectionsErr error
 
-func tryCFAttributedStringGetStatisticalWritingDirections(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *uint8, baseDirections *uint8) (bool, error) {
+func tryCFAttributedStringGetStatisticalWritingDirections(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels []byte, baseDirections []byte) (bool, error) {
 	if _cFAttributedStringGetStatisticalWritingDirections == nil {
 		return false, symbolCallError("CFAttributedStringGetStatisticalWritingDirections", "26.0", _cFAttributedStringGetStatisticalWritingDirectionsErr)
 	}
-	return _cFAttributedStringGetStatisticalWritingDirections(attributedString, range_, baseDirection, bidiLevels, baseDirections), nil
+	return _cFAttributedStringGetStatisticalWritingDirections(attributedString, range_, baseDirection, unsafe.SliceData(bidiLevels), unsafe.SliceData(baseDirections)), nil
 }
 
 // CFAttributedStringGetStatisticalWritingDirections.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringGetStatisticalWritingDirections(_:_:_:_:_:)
-func CFAttributedStringGetStatisticalWritingDirections(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *uint8, baseDirections *uint8) bool {
+func CFAttributedStringGetStatisticalWritingDirections(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels []byte, baseDirections []byte) bool {
 	result, callErr := tryCFAttributedStringGetStatisticalWritingDirections(attributedString, range_, baseDirection, bidiLevels, baseDirections)
 	if callErr != nil {
 		panic(callErr)
@@ -1323,7 +1323,7 @@ var _cFAutoreleaseErr error
 
 func tryCFAutorelease(arg CFTypeRef) (CFTypeRef, error) {
 	if _cFAutorelease == nil {
-		return 0, symbolCallError("CFAutorelease", "10.9", _cFAutoreleaseErr)
+		return nil, symbolCallError("CFAutorelease", "10.9", _cFAutoreleaseErr)
 	}
 	return _cFAutorelease(arg), nil
 }
@@ -1978,20 +1978,20 @@ func CFBitVectorContainsBit(bv CFBitVectorRef, range_ CFRange, value CFBit) bool
 	return result
 }
 
-var _cFBitVectorCreate func(allocator CFAllocatorRef, bytes *uint8, numBits int) CFBitVectorRef
+var _cFBitVectorCreate func(allocator CFAllocatorRef, bytes *byte, numBits int) CFBitVectorRef
 var _cFBitVectorCreateErr error
 
-func tryCFBitVectorCreate(allocator CFAllocatorRef, bytes *uint8, numBits int) (CFBitVectorRef, error) {
+func tryCFBitVectorCreate(allocator CFAllocatorRef, bytes []byte, numBits int) (CFBitVectorRef, error) {
 	if _cFBitVectorCreate == nil {
 		return 0, symbolCallError("CFBitVectorCreate", "", _cFBitVectorCreateErr)
 	}
-	return _cFBitVectorCreate(allocator, bytes, numBits), nil
+	return _cFBitVectorCreate(allocator, unsafe.SliceData(bytes), numBits), nil
 }
 
 // CFBitVectorCreate creates an immutable bit vector from a block of memory.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorCreate(_:_:_:)
-func CFBitVectorCreate(allocator CFAllocatorRef, bytes *uint8, numBits int) CFBitVectorRef {
+func CFBitVectorCreate(allocator CFAllocatorRef, bytes []byte, numBits int) CFBitVectorRef {
 	result, callErr := tryCFBitVectorCreate(allocator, bytes, numBits)
 	if callErr != nil {
 		panic(callErr)
@@ -2123,21 +2123,21 @@ func CFBitVectorGetBitAtIndex(bv CFBitVectorRef, idx int) CFBit {
 	return result
 }
 
-var _cFBitVectorGetBits func(bv CFBitVectorRef, range_ CFRange, bytes *uint8)
+var _cFBitVectorGetBits func(bv CFBitVectorRef, range_ CFRange, bytes *byte)
 var _cFBitVectorGetBitsErr error
 
-func tryCFBitVectorGetBits(bv CFBitVectorRef, range_ CFRange, bytes *uint8) error {
+func tryCFBitVectorGetBits(bv CFBitVectorRef, range_ CFRange, bytes []byte) error {
 	if _cFBitVectorGetBits == nil {
 		return symbolCallError("CFBitVectorGetBits", "", _cFBitVectorGetBitsErr)
 	}
-	_cFBitVectorGetBits(bv, range_, bytes)
+	_cFBitVectorGetBits(bv, range_, unsafe.SliceData(bytes))
 	return nil
 }
 
 // CFBitVectorGetBits returns the bit values in a range of indices in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorGetBits(_:_:_:)
-func CFBitVectorGetBits(bv CFBitVectorRef, range_ CFRange, bytes *uint8) {
+func CFBitVectorGetBits(bv CFBitVectorRef, range_ CFRange, bytes []byte) {
 	if callErr := tryCFBitVectorGetBits(bv, range_, bytes); callErr != nil {
 		panic(callErr)
 	}
@@ -3254,7 +3254,7 @@ var _cFBundleGetValueForInfoDictionaryKeyErr error
 
 func tryCFBundleGetValueForInfoDictionaryKey(bundle CFBundleRef, key CFStringRef) (CFTypeRef, error) {
 	if _cFBundleGetValueForInfoDictionaryKey == nil {
-		return 0, symbolCallError("CFBundleGetValueForInfoDictionaryKey", "", _cFBundleGetValueForInfoDictionaryKeyErr)
+		return nil, symbolCallError("CFBundleGetValueForInfoDictionaryKey", "", _cFBundleGetValueForInfoDictionaryKeyErr)
 	}
 	return _cFBundleGetValueForInfoDictionaryKey(bundle, key), nil
 }
@@ -4371,40 +4371,40 @@ func CFCopyTypeIDDescription(type_id uint) CFStringRef {
 	return result
 }
 
-var _cFDataAppendBytes func(theData CFMutableDataRef, bytes *uint8, length int)
+var _cFDataAppendBytes func(theData CFMutableDataRef, bytes *byte, length int)
 var _cFDataAppendBytesErr error
 
-func tryCFDataAppendBytes(theData CFMutableDataRef, bytes *uint8, length int) error {
+func tryCFDataAppendBytes(theData CFMutableDataRef, bytes []byte, length int) error {
 	if _cFDataAppendBytes == nil {
 		return symbolCallError("CFDataAppendBytes", "", _cFDataAppendBytesErr)
 	}
-	_cFDataAppendBytes(theData, bytes, length)
+	_cFDataAppendBytes(theData, unsafe.SliceData(bytes), length)
 	return nil
 }
 
 // CFDataAppendBytes appends the bytes from a byte buffer to the contents of a CFData object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataAppendBytes(_:_:_:)
-func CFDataAppendBytes(theData CFMutableDataRef, bytes *uint8, length int) {
+func CFDataAppendBytes(theData CFMutableDataRef, bytes []byte, length int) {
 	if callErr := tryCFDataAppendBytes(theData, bytes, length); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFDataCreate func(allocator CFAllocatorRef, bytes *uint8, length int) CFDataRef
+var _cFDataCreate func(allocator CFAllocatorRef, bytes *byte, length int) CFDataRef
 var _cFDataCreateErr error
 
-func tryCFDataCreate(allocator CFAllocatorRef, bytes *uint8, length int) (CFDataRef, error) {
+func tryCFDataCreate(allocator CFAllocatorRef, bytes []byte, length int) (CFDataRef, error) {
 	if _cFDataCreate == nil {
 		return 0, symbolCallError("CFDataCreate", "", _cFDataCreateErr)
 	}
-	return _cFDataCreate(allocator, bytes, length), nil
+	return _cFDataCreate(allocator, unsafe.SliceData(bytes), length), nil
 }
 
 // CFDataCreate creates an immutable CFData object using data copied from a specified byte buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataCreate(_:_:_:)
-func CFDataCreate(allocator CFAllocatorRef, bytes *uint8, length int) CFDataRef {
+func CFDataCreate(allocator CFAllocatorRef, bytes []byte, length int) CFDataRef {
 	result, callErr := tryCFDataCreate(allocator, bytes, length)
 	if callErr != nil {
 		panic(callErr)
@@ -4475,20 +4475,20 @@ func CFDataCreateMutableCopy(allocator CFAllocatorRef, capacity int, theData CFD
 	return result
 }
 
-var _cFDataCreateWithBytesNoCopy func(allocator CFAllocatorRef, bytes *uint8, length int, bytesDeallocator CFAllocatorRef) CFDataRef
+var _cFDataCreateWithBytesNoCopy func(allocator CFAllocatorRef, bytes *byte, length int, bytesDeallocator CFAllocatorRef) CFDataRef
 var _cFDataCreateWithBytesNoCopyErr error
 
-func tryCFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes *uint8, length int, bytesDeallocator CFAllocatorRef) (CFDataRef, error) {
+func tryCFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) (CFDataRef, error) {
 	if _cFDataCreateWithBytesNoCopy == nil {
 		return 0, symbolCallError("CFDataCreateWithBytesNoCopy", "", _cFDataCreateWithBytesNoCopyErr)
 	}
-	return _cFDataCreateWithBytesNoCopy(allocator, bytes, length, bytesDeallocator), nil
+	return _cFDataCreateWithBytesNoCopy(allocator, unsafe.SliceData(bytes), length, bytesDeallocator), nil
 }
 
 // CFDataCreateWithBytesNoCopy creates an immutable CFData object from an external (client-owned) byte buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataCreateWithBytesNoCopy(_:_:_:_:)
-func CFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes *uint8, length int, bytesDeallocator CFAllocatorRef) CFDataRef {
+func CFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) CFDataRef {
 	result, callErr := tryCFDataCreateWithBytesNoCopy(allocator, bytes, length, bytesDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -4558,21 +4558,21 @@ func CFDataGetBytePtr(theData CFDataRef) *uint8 {
 	return result
 }
 
-var _cFDataGetBytes func(theData CFDataRef, range_ CFRange, buffer *uint8)
+var _cFDataGetBytes func(theData CFDataRef, range_ CFRange, buffer *byte)
 var _cFDataGetBytesErr error
 
-func tryCFDataGetBytes(theData CFDataRef, range_ CFRange, buffer *uint8) error {
+func tryCFDataGetBytes(theData CFDataRef, range_ CFRange, buffer []byte) error {
 	if _cFDataGetBytes == nil {
 		return symbolCallError("CFDataGetBytes", "", _cFDataGetBytesErr)
 	}
-	_cFDataGetBytes(theData, range_, buffer)
+	_cFDataGetBytes(theData, range_, unsafe.SliceData(buffer))
 	return nil
 }
 
 // CFDataGetBytes copies the byte contents of a CFData object to an external buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataGetBytes(_:_:_:)
-func CFDataGetBytes(theData CFDataRef, range_ CFRange, buffer *uint8) {
+func CFDataGetBytes(theData CFDataRef, range_ CFRange, buffer []byte) {
 	if callErr := tryCFDataGetBytes(theData, range_, buffer); callErr != nil {
 		panic(callErr)
 	}
@@ -4661,21 +4661,21 @@ func CFDataIncreaseLength(theData CFMutableDataRef, extraLength int) {
 	}
 }
 
-var _cFDataReplaceBytes func(theData CFMutableDataRef, range_ CFRange, newBytes *uint8, newLength int)
+var _cFDataReplaceBytes func(theData CFMutableDataRef, range_ CFRange, newBytes *byte, newLength int)
 var _cFDataReplaceBytesErr error
 
-func tryCFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes *uint8, newLength int) error {
+func tryCFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes []byte, newLength int) error {
 	if _cFDataReplaceBytes == nil {
 		return symbolCallError("CFDataReplaceBytes", "", _cFDataReplaceBytesErr)
 	}
-	_cFDataReplaceBytes(theData, range_, newBytes, newLength)
+	_cFDataReplaceBytes(theData, range_, unsafe.SliceData(newBytes), newLength)
 	return nil
 }
 
 // CFDataReplaceBytes replaces those bytes in a CFMutableData object that fall within a specified range with other bytes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataReplaceBytes(_:_:_:_:)
-func CFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes *uint8, newLength int) {
+func CFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes []byte, newLength int) {
 	if callErr := tryCFDataReplaceBytes(theData, range_, newBytes, newLength); callErr != nil {
 		panic(callErr)
 	}
@@ -4748,7 +4748,7 @@ var _cFDateFormatterCopyPropertyErr error
 
 func tryCFDateFormatterCopyProperty(formatter CFDateFormatterRef, key CFDateFormatterKey) (CFTypeRef, error) {
 	if _cFDateFormatterCopyProperty == nil {
-		return 0, symbolCallError("CFDateFormatterCopyProperty", "", _cFDateFormatterCopyPropertyErr)
+		return nil, symbolCallError("CFDateFormatterCopyProperty", "", _cFDateFormatterCopyPropertyErr)
 	}
 	return _cFDateFormatterCopyProperty(formatter, key), nil
 }
@@ -6772,7 +6772,7 @@ var _cFLocaleGetValueErr error
 
 func tryCFLocaleGetValue(locale CFLocaleRef, key CFLocaleKey) (CFTypeRef, error) {
 	if _cFLocaleGetValue == nil {
-		return 0, symbolCallError("CFLocaleGetValue", "", _cFLocaleGetValueErr)
+		return nil, symbolCallError("CFLocaleGetValue", "", _cFLocaleGetValueErr)
 	}
 	return _cFLocaleGetValue(locale, key), nil
 }
@@ -7021,7 +7021,7 @@ var _cFMakeCollectableErr error
 
 func tryCFMakeCollectable(cf CFTypeRef) (CFTypeRef, error) {
 	if _cFMakeCollectable == nil {
-		return 0, symbolCallError("CFMakeCollectable", "", _cFMakeCollectableErr)
+		return nil, symbolCallError("CFMakeCollectable", "", _cFMakeCollectableErr)
 	}
 	return _cFMakeCollectable(cf), nil
 }
@@ -7579,7 +7579,7 @@ var _cFNumberFormatterCopyPropertyErr error
 
 func tryCFNumberFormatterCopyProperty(formatter CFNumberFormatterRef, key CFNumberFormatterKey) (CFTypeRef, error) {
 	if _cFNumberFormatterCopyProperty == nil {
-		return 0, symbolCallError("CFNumberFormatterCopyProperty", "", _cFNumberFormatterCopyPropertyErr)
+		return nil, symbolCallError("CFNumberFormatterCopyProperty", "", _cFNumberFormatterCopyPropertyErr)
 	}
 	return _cFNumberFormatterCopyProperty(formatter, key), nil
 }
@@ -8849,7 +8849,7 @@ var _cFReadStreamCopyPropertyErr error
 
 func tryCFReadStreamCopyProperty(stream CFReadStreamRef, propertyName CFStreamPropertyKey) (CFTypeRef, error) {
 	if _cFReadStreamCopyProperty == nil {
-		return 0, symbolCallError("CFReadStreamCopyProperty", "", _cFReadStreamCopyPropertyErr)
+		return nil, symbolCallError("CFReadStreamCopyProperty", "", _cFReadStreamCopyPropertyErr)
 	}
 	return _cFReadStreamCopyProperty(stream, propertyName), nil
 }
@@ -8865,20 +8865,20 @@ func CFReadStreamCopyProperty(stream CFReadStreamRef, propertyName CFStreamPrope
 	return result
 }
 
-var _cFReadStreamCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *uint8, length int, bytesDeallocator CFAllocatorRef) CFReadStreamRef
+var _cFReadStreamCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *byte, length int, bytesDeallocator CFAllocatorRef) CFReadStreamRef
 var _cFReadStreamCreateWithBytesNoCopyErr error
 
-func tryCFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes *uint8, length int, bytesDeallocator CFAllocatorRef) (CFReadStreamRef, error) {
+func tryCFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) (CFReadStreamRef, error) {
 	if _cFReadStreamCreateWithBytesNoCopy == nil {
 		return 0, symbolCallError("CFReadStreamCreateWithBytesNoCopy", "", _cFReadStreamCreateWithBytesNoCopyErr)
 	}
-	return _cFReadStreamCreateWithBytesNoCopy(alloc, bytes, length, bytesDeallocator), nil
+	return _cFReadStreamCreateWithBytesNoCopy(alloc, unsafe.SliceData(bytes), length, bytesDeallocator), nil
 }
 
 // CFReadStreamCreateWithBytesNoCopy creates a readable stream for a block of memory.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamCreateWithBytesNoCopy(_:_:_:_:)
-func CFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes *uint8, length int, bytesDeallocator CFAllocatorRef) CFReadStreamRef {
+func CFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) CFReadStreamRef {
 	result, callErr := tryCFReadStreamCreateWithBytesNoCopy(alloc, bytes, length, bytesDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -9035,20 +9035,20 @@ func CFReadStreamOpen(stream CFReadStreamRef) bool {
 	return result
 }
 
-var _cFReadStreamRead func(stream CFReadStreamRef, buffer *uint8, bufferLength int) int
+var _cFReadStreamRead func(stream CFReadStreamRef, buffer *byte, bufferLength int) int
 var _cFReadStreamReadErr error
 
-func tryCFReadStreamRead(stream CFReadStreamRef, buffer *uint8, bufferLength int) (int, error) {
+func tryCFReadStreamRead(stream CFReadStreamRef, buffer []byte, bufferLength int) (int, error) {
 	if _cFReadStreamRead == nil {
 		return 0, symbolCallError("CFReadStreamRead", "", _cFReadStreamReadErr)
 	}
-	return _cFReadStreamRead(stream, buffer, bufferLength), nil
+	return _cFReadStreamRead(stream, unsafe.SliceData(buffer), bufferLength), nil
 }
 
 // CFReadStreamRead reads data from a readable stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamRead(_:_:_:)
-func CFReadStreamRead(stream CFReadStreamRef, buffer *uint8, bufferLength int) int {
+func CFReadStreamRead(stream CFReadStreamRef, buffer []byte, bufferLength int) int {
 	result, callErr := tryCFReadStreamRead(stream, buffer, bufferLength)
 	if callErr != nil {
 		panic(callErr)
@@ -9183,7 +9183,7 @@ var _cFRetainErr error
 
 func tryCFRetain(cf CFTypeRef) (CFTypeRef, error) {
 	if _cFRetain == nil {
-		return 0, symbolCallError("CFRetain", "", _cFRetainErr)
+		return nil, symbolCallError("CFRetain", "", _cFRetainErr)
 	}
 	return _cFRetain(cf), nil
 }
@@ -11826,20 +11826,20 @@ func CFStringCreateStringWithValidatedFormatAndArguments(alloc CFAllocatorRef, f
 	return result
 }
 
-var _cFStringCreateWithBytes func(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool) CFStringRef
+var _cFStringCreateWithBytes func(alloc CFAllocatorRef, bytes *byte, numBytes int, encoding uint32, isExternalRepresentation bool) CFStringRef
 var _cFStringCreateWithBytesErr error
 
-func tryCFStringCreateWithBytes(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool) (CFStringRef, error) {
+func tryCFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool) (CFStringRef, error) {
 	if _cFStringCreateWithBytes == nil {
 		return 0, symbolCallError("CFStringCreateWithBytes", "", _cFStringCreateWithBytesErr)
 	}
-	return _cFStringCreateWithBytes(alloc, bytes, numBytes, encoding, isExternalRepresentation), nil
+	return _cFStringCreateWithBytes(alloc, unsafe.SliceData(bytes), numBytes, encoding, isExternalRepresentation), nil
 }
 
 // CFStringCreateWithBytes creates a string from a buffer containing characters in a specified encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithBytes(_:_:_:_:_:)
-func CFStringCreateWithBytes(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool) CFStringRef {
+func CFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool) CFStringRef {
 	result, callErr := tryCFStringCreateWithBytes(alloc, bytes, numBytes, encoding, isExternalRepresentation)
 	if callErr != nil {
 		panic(callErr)
@@ -11847,20 +11847,20 @@ func CFStringCreateWithBytes(alloc CFAllocatorRef, bytes *uint8, numBytes int, e
 	return result
 }
 
-var _cFStringCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef
+var _cFStringCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *byte, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef
 var _cFStringCreateWithBytesNoCopyErr error
 
-func tryCFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
+func tryCFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithBytesNoCopy == nil {
 		return 0, symbolCallError("CFStringCreateWithBytesNoCopy", "", _cFStringCreateWithBytesNoCopyErr)
 	}
-	return _cFStringCreateWithBytesNoCopy(alloc, bytes, numBytes, encoding, isExternalRepresentation, contentsDeallocator), nil
+	return _cFStringCreateWithBytesNoCopy(alloc, unsafe.SliceData(bytes), numBytes, encoding, isExternalRepresentation, contentsDeallocator), nil
 }
 
 // CFStringCreateWithBytesNoCopy creates a string from a buffer, containing characters in a specified encoding, that might serve as the backing store for the new string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithBytesNoCopy(_:_:_:_:_:_:)
-func CFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef {
+func CFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef {
 	result, callErr := tryCFStringCreateWithBytesNoCopy(alloc, bytes, numBytes, encoding, isExternalRepresentation, contentsDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -12223,20 +12223,20 @@ func CFStringFold(theString CFMutableStringRef, theFlags CFStringCompareFlags, t
 	}
 }
 
-var _cFStringGetBytes func(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer *uint8, maxBufLen int, usedBufLen *int) int
+var _cFStringGetBytes func(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer *byte, maxBufLen int, usedBufLen *int) int
 var _cFStringGetBytesErr error
 
-func tryCFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer *uint8, maxBufLen int, usedBufLen *int) (int, error) {
+func tryCFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer []byte, maxBufLen int, usedBufLen *int) (int, error) {
 	if _cFStringGetBytes == nil {
 		return 0, symbolCallError("CFStringGetBytes", "", _cFStringGetBytesErr)
 	}
-	return _cFStringGetBytes(theString, range_, encoding, lossByte, isExternalRepresentation, buffer, maxBufLen, usedBufLen), nil
+	return _cFStringGetBytes(theString, range_, encoding, lossByte, isExternalRepresentation, unsafe.SliceData(buffer), maxBufLen, usedBufLen), nil
 }
 
 // CFStringGetBytes fetches a range of the characters from a string into a byte buffer after converting the characters to a specified encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetBytes(_:_:_:_:_:_:_:_:)
-func CFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer *uint8, maxBufLen int, usedBufLen *int) int {
+func CFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer []byte, maxBufLen int, usedBufLen *int) int {
 	result, callErr := tryCFStringGetBytes(theString, range_, encoding, lossByte, isExternalRepresentation, buffer, maxBufLen, usedBufLen)
 	if callErr != nil {
 		panic(callErr)
@@ -13016,7 +13016,7 @@ var _cFStringTokenizerCopyCurrentTokenAttributeErr error
 
 func tryCFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRef, attribute uint64) (CFTypeRef, error) {
 	if _cFStringTokenizerCopyCurrentTokenAttribute == nil {
-		return 0, symbolCallError("CFStringTokenizerCopyCurrentTokenAttribute", "10.5", _cFStringTokenizerCopyCurrentTokenAttributeErr)
+		return nil, symbolCallError("CFStringTokenizerCopyCurrentTokenAttribute", "10.5", _cFStringTokenizerCopyCurrentTokenAttributeErr)
 	}
 	return _cFStringTokenizerCopyCurrentTokenAttribute(tokenizer, attribute), nil
 }
@@ -14399,20 +14399,20 @@ func CFURLCopyUserName(anURL CFURLRef) CFStringRef {
 	return result
 }
 
-var _cFURLCreateAbsoluteURLWithBytes func(alloc CFAllocatorRef, relativeURLBytes *uint8, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef
+var _cFURLCreateAbsoluteURLWithBytes func(alloc CFAllocatorRef, relativeURLBytes *byte, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef
 var _cFURLCreateAbsoluteURLWithBytesErr error
 
-func tryCFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes *uint8, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) (CFURLRef, error) {
+func tryCFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes []byte, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) (CFURLRef, error) {
 	if _cFURLCreateAbsoluteURLWithBytes == nil {
 		return 0, symbolCallError("CFURLCreateAbsoluteURLWithBytes", "", _cFURLCreateAbsoluteURLWithBytesErr)
 	}
-	return _cFURLCreateAbsoluteURLWithBytes(alloc, relativeURLBytes, length, encoding, baseURL, useCompatibilityMode), nil
+	return _cFURLCreateAbsoluteURLWithBytes(alloc, unsafe.SliceData(relativeURLBytes), length, encoding, baseURL, useCompatibilityMode), nil
 }
 
 // CFURLCreateAbsoluteURLWithBytes creates a new [CFURL] object by resolving the relative portion of a URL, specified as bytes, against its given base URL.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateAbsoluteURLWithBytes(_:_:_:_:_:_:)
-func CFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes *uint8, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef {
+func CFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes []byte, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef {
 	result, callErr := tryCFURLCreateAbsoluteURLWithBytes(alloc, relativeURLBytes, length, encoding, baseURL, useCompatibilityMode)
 	if callErr != nil {
 		panic(callErr)
@@ -14630,20 +14630,20 @@ func CFURLCreateFileReferenceURL(allocator CFAllocatorRef, url CFURLRef, err *CF
 	return result
 }
 
-var _cFURLCreateFromFileSystemRepresentation func(allocator CFAllocatorRef, buffer *uint8, bufLen int, isDirectory bool) CFURLRef
+var _cFURLCreateFromFileSystemRepresentation func(allocator CFAllocatorRef, buffer *byte, bufLen int, isDirectory bool) CFURLRef
 var _cFURLCreateFromFileSystemRepresentationErr error
 
-func tryCFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer *uint8, bufLen int, isDirectory bool) (CFURLRef, error) {
+func tryCFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool) (CFURLRef, error) {
 	if _cFURLCreateFromFileSystemRepresentation == nil {
 		return 0, symbolCallError("CFURLCreateFromFileSystemRepresentation", "", _cFURLCreateFromFileSystemRepresentationErr)
 	}
-	return _cFURLCreateFromFileSystemRepresentation(allocator, buffer, bufLen, isDirectory), nil
+	return _cFURLCreateFromFileSystemRepresentation(allocator, unsafe.SliceData(buffer), bufLen, isDirectory), nil
 }
 
 // CFURLCreateFromFileSystemRepresentation creates a new [CFURL] object for a file system entity using the native representation.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateFromFileSystemRepresentation(_:_:_:_:)
-func CFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer *uint8, bufLen int, isDirectory bool) CFURLRef {
+func CFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool) CFURLRef {
 	result, callErr := tryCFURLCreateFromFileSystemRepresentation(allocator, buffer, bufLen, isDirectory)
 	if callErr != nil {
 		panic(callErr)
@@ -14651,20 +14651,20 @@ func CFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer *u
 	return result
 }
 
-var _cFURLCreateFromFileSystemRepresentationRelativeToBase func(allocator CFAllocatorRef, buffer *uint8, bufLen int, isDirectory bool, baseURL CFURLRef) CFURLRef
+var _cFURLCreateFromFileSystemRepresentationRelativeToBase func(allocator CFAllocatorRef, buffer *byte, bufLen int, isDirectory bool, baseURL CFURLRef) CFURLRef
 var _cFURLCreateFromFileSystemRepresentationRelativeToBaseErr error
 
-func tryCFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer *uint8, bufLen int, isDirectory bool, baseURL CFURLRef) (CFURLRef, error) {
+func tryCFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool, baseURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateFromFileSystemRepresentationRelativeToBase == nil {
 		return 0, symbolCallError("CFURLCreateFromFileSystemRepresentationRelativeToBase", "", _cFURLCreateFromFileSystemRepresentationRelativeToBaseErr)
 	}
-	return _cFURLCreateFromFileSystemRepresentationRelativeToBase(allocator, buffer, bufLen, isDirectory, baseURL), nil
+	return _cFURLCreateFromFileSystemRepresentationRelativeToBase(allocator, unsafe.SliceData(buffer), bufLen, isDirectory, baseURL), nil
 }
 
 // CFURLCreateFromFileSystemRepresentationRelativeToBase creates a [CFURL] object from a native character string path relative to a base URL.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateFromFileSystemRepresentationRelativeToBase(_:_:_:_:_:)
-func CFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer *uint8, bufLen int, isDirectory bool, baseURL CFURLRef) CFURLRef {
+func CFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool, baseURL CFURLRef) CFURLRef {
 	result, callErr := tryCFURLCreateFromFileSystemRepresentationRelativeToBase(allocator, buffer, bufLen, isDirectory, baseURL)
 	if callErr != nil {
 		panic(callErr)
@@ -14698,7 +14698,7 @@ var _cFURLCreateResourcePropertyForKeyFromBookmarkDataErr error
 
 func tryCFURLCreateResourcePropertyForKeyFromBookmarkData(allocator CFAllocatorRef, resourcePropertyKey CFStringRef, bookmark CFDataRef) (CFTypeRef, error) {
 	if _cFURLCreateResourcePropertyForKeyFromBookmarkData == nil {
-		return 0, symbolCallError("CFURLCreateResourcePropertyForKeyFromBookmarkData", "10.6", _cFURLCreateResourcePropertyForKeyFromBookmarkDataErr)
+		return nil, symbolCallError("CFURLCreateResourcePropertyForKeyFromBookmarkData", "10.6", _cFURLCreateResourcePropertyForKeyFromBookmarkDataErr)
 	}
 	return _cFURLCreateResourcePropertyForKeyFromBookmarkData(allocator, resourcePropertyKey, bookmark), nil
 }
@@ -14735,20 +14735,20 @@ func CFURLCreateStringByReplacingPercentEscapes(allocator CFAllocatorRef, origin
 	return result
 }
 
-var _cFURLCreateWithBytes func(allocator CFAllocatorRef, URLBytes *uint8, length int, encoding uint32, baseURL CFURLRef) CFURLRef
+var _cFURLCreateWithBytes func(allocator CFAllocatorRef, URLBytes *byte, length int, encoding uint32, baseURL CFURLRef) CFURLRef
 var _cFURLCreateWithBytesErr error
 
-func tryCFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes *uint8, length int, encoding uint32, baseURL CFURLRef) (CFURLRef, error) {
+func tryCFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes []byte, length int, encoding uint32, baseURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateWithBytes == nil {
 		return 0, symbolCallError("CFURLCreateWithBytes", "", _cFURLCreateWithBytesErr)
 	}
-	return _cFURLCreateWithBytes(allocator, URLBytes, length, encoding, baseURL), nil
+	return _cFURLCreateWithBytes(allocator, unsafe.SliceData(URLBytes), length, encoding, baseURL), nil
 }
 
 // CFURLCreateWithBytes creates a [CFURL] object using a given character bytes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateWithBytes(_:_:_:_:_:)
-func CFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes *uint8, length int, encoding uint32, baseURL CFURLRef) CFURLRef {
+func CFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes []byte, length int, encoding uint32, baseURL CFURLRef) CFURLRef {
 	result, callErr := tryCFURLCreateWithBytes(allocator, URLBytes, length, encoding, baseURL)
 	if callErr != nil {
 		panic(callErr)
@@ -14986,20 +14986,20 @@ func CFURLGetByteRangeForComponent(url CFURLRef, component CFURLComponentType, r
 	return result
 }
 
-var _cFURLGetBytes func(url CFURLRef, buffer *uint8, bufferLength int) int
+var _cFURLGetBytes func(url CFURLRef, buffer *byte, bufferLength int) int
 var _cFURLGetBytesErr error
 
-func tryCFURLGetBytes(url CFURLRef, buffer *uint8, bufferLength int) (int, error) {
+func tryCFURLGetBytes(url CFURLRef, buffer []byte, bufferLength int) (int, error) {
 	if _cFURLGetBytes == nil {
 		return 0, symbolCallError("CFURLGetBytes", "", _cFURLGetBytesErr)
 	}
-	return _cFURLGetBytes(url, buffer, bufferLength), nil
+	return _cFURLGetBytes(url, unsafe.SliceData(buffer), bufferLength), nil
 }
 
 // CFURLGetBytes returns by reference the byte representation of a URL object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLGetBytes(_:_:_:)
-func CFURLGetBytes(url CFURLRef, buffer *uint8, bufferLength int) int {
+func CFURLGetBytes(url CFURLRef, buffer []byte, bufferLength int) int {
 	result, callErr := tryCFURLGetBytes(url, buffer, bufferLength)
 	if callErr != nil {
 		panic(callErr)
@@ -15007,20 +15007,20 @@ func CFURLGetBytes(url CFURLRef, buffer *uint8, bufferLength int) int {
 	return result
 }
 
-var _cFURLGetFileSystemRepresentation func(url CFURLRef, resolveAgainstBase bool, buffer *uint8, maxBufLen int) bool
+var _cFURLGetFileSystemRepresentation func(url CFURLRef, resolveAgainstBase bool, buffer *byte, maxBufLen int) bool
 var _cFURLGetFileSystemRepresentationErr error
 
-func tryCFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buffer *uint8, maxBufLen int) (bool, error) {
+func tryCFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buffer []byte, maxBufLen int) (bool, error) {
 	if _cFURLGetFileSystemRepresentation == nil {
 		return false, symbolCallError("CFURLGetFileSystemRepresentation", "", _cFURLGetFileSystemRepresentationErr)
 	}
-	return _cFURLGetFileSystemRepresentation(url, resolveAgainstBase, buffer, maxBufLen), nil
+	return _cFURLGetFileSystemRepresentation(url, resolveAgainstBase, unsafe.SliceData(buffer), maxBufLen), nil
 }
 
 // CFURLGetFileSystemRepresentation fills a buffer with the file system’s native string representation of a given URL’s path.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLGetFileSystemRepresentation(_:_:_:_:)
-func CFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buffer *uint8, maxBufLen int) bool {
+func CFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buffer []byte, maxBufLen int) bool {
 	result, callErr := tryCFURLGetFileSystemRepresentation(url, resolveAgainstBase, buffer, maxBufLen)
 	if callErr != nil {
 		panic(callErr)
@@ -15744,7 +15744,7 @@ var _cFWriteStreamCopyPropertyErr error
 
 func tryCFWriteStreamCopyProperty(stream CFWriteStreamRef, propertyName CFStreamPropertyKey) (CFTypeRef, error) {
 	if _cFWriteStreamCopyProperty == nil {
-		return 0, symbolCallError("CFWriteStreamCopyProperty", "", _cFWriteStreamCopyPropertyErr)
+		return nil, symbolCallError("CFWriteStreamCopyProperty", "", _cFWriteStreamCopyPropertyErr)
 	}
 	return _cFWriteStreamCopyProperty(stream, propertyName), nil
 }
@@ -15781,20 +15781,20 @@ func CFWriteStreamCreateWithAllocatedBuffers(alloc CFAllocatorRef, bufferAllocat
 	return result
 }
 
-var _cFWriteStreamCreateWithBuffer func(alloc CFAllocatorRef, buffer *uint8, bufferCapacity int) CFWriteStreamRef
+var _cFWriteStreamCreateWithBuffer func(alloc CFAllocatorRef, buffer *byte, bufferCapacity int) CFWriteStreamRef
 var _cFWriteStreamCreateWithBufferErr error
 
-func tryCFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer *uint8, bufferCapacity int) (CFWriteStreamRef, error) {
+func tryCFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer []byte, bufferCapacity int) (CFWriteStreamRef, error) {
 	if _cFWriteStreamCreateWithBuffer == nil {
 		return 0, symbolCallError("CFWriteStreamCreateWithBuffer", "", _cFWriteStreamCreateWithBufferErr)
 	}
-	return _cFWriteStreamCreateWithBuffer(alloc, buffer, bufferCapacity), nil
+	return _cFWriteStreamCreateWithBuffer(alloc, unsafe.SliceData(buffer), bufferCapacity), nil
 }
 
 // CFWriteStreamCreateWithBuffer creates a writable stream for a fixed-size block of memory.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamCreateWithBuffer(_:_:_:)
-func CFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer *uint8, bufferCapacity int) CFWriteStreamRef {
+func CFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer []byte, bufferCapacity int) CFWriteStreamRef {
 	result, callErr := tryCFWriteStreamCreateWithBuffer(alloc, buffer, bufferCapacity)
 	if callErr != nil {
 		panic(callErr)
@@ -16011,20 +16011,20 @@ func CFWriteStreamUnscheduleFromRunLoop(stream CFWriteStreamRef, runLoop CFRunLo
 	}
 }
 
-var _cFWriteStreamWrite func(stream CFWriteStreamRef, buffer *uint8, bufferLength int) int
+var _cFWriteStreamWrite func(stream CFWriteStreamRef, buffer *byte, bufferLength int) int
 var _cFWriteStreamWriteErr error
 
-func tryCFWriteStreamWrite(stream CFWriteStreamRef, buffer *uint8, bufferLength int) (int, error) {
+func tryCFWriteStreamWrite(stream CFWriteStreamRef, buffer []byte, bufferLength int) (int, error) {
 	if _cFWriteStreamWrite == nil {
 		return 0, symbolCallError("CFWriteStreamWrite", "", _cFWriteStreamWriteErr)
 	}
-	return _cFWriteStreamWrite(stream, buffer, bufferLength), nil
+	return _cFWriteStreamWrite(stream, unsafe.SliceData(buffer), bufferLength), nil
 }
 
 // CFWriteStreamWrite writes data to a writable stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamWrite(_:_:_:)
-func CFWriteStreamWrite(stream CFWriteStreamRef, buffer *uint8, bufferLength int) int {
+func CFWriteStreamWrite(stream CFWriteStreamRef, buffer []byte, bufferLength int) int {
 	result, callErr := tryCFWriteStreamWrite(stream, buffer, bufferLength)
 	if callErr != nil {
 		panic(callErr)

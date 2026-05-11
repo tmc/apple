@@ -1274,7 +1274,7 @@ func (u UserDefaults) VolatileDomainNames() []string {
 // app’s settings.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/standard
-func (_UserDefaultsClass UserDefaultsClass) StandardUserDefaults() UserDefaults {
+func (_UserDefaultsClass UserDefaultsClass) StandardUserDefaults() NSUserDefaults {
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("standardUserDefaults"))
 	return NSUserDefaultsFromID(objc.ID(rv))
 }

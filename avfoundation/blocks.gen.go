@@ -37,6 +37,9 @@ type AVAssetTrackErrorHandler = func(*AVAssetTrack, error)
 //   - [AVAsset.LoadTrackWithTrackIDCompletionHandler]
 //   - [AVURLAsset.FindCompatibleTrackForCompositionTrackCompletionHandler]
 func NewAVAssetTrackErrorBlock(handler AVAssetTrackErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVAssetTrack
 		if resultID != 0 {
@@ -65,6 +68,9 @@ type AVAssetTrackSegmentErrorHandler = func(*AVAssetTrackSegment, error)
 // Used by:
 //   - [AVAssetTrack.LoadSegmentForTrackTimeCompletionHandler]
 func NewAVAssetTrackSegmentErrorBlock(handler AVAssetTrackSegmentErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVAssetTrackSegment
 		if resultID != 0 {
@@ -98,6 +104,9 @@ type AVCaptionConversionWarningHandler = func(*AVCaptionConversionWarning)
 // Used by:
 //   - [AVCaptionConversionValidator.ValidateCaptionConversionWithWarningHandler]
 func NewAVCaptionConversionWarningBlock(handler AVCaptionConversionWarningHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *AVCaptionConversionWarning
 		if resultID != 0 {
@@ -135,6 +144,9 @@ type AVCompositionTrackErrorHandler = func(*AVCompositionTrack, error)
 // Used by:
 //   - [AVComposition.LoadTrackWithTrackIDCompletionHandler]
 func NewAVCompositionTrackErrorBlock(handler AVCompositionTrackErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVCompositionTrack
 		if resultID != 0 {
@@ -172,6 +184,9 @@ type AVFragmentedAssetTrackErrorHandler = func(*AVFragmentedAssetTrack, error)
 // Used by:
 //   - [AVFragmentedAsset.LoadTrackWithTrackIDCompletionHandler]
 func NewAVFragmentedAssetTrackErrorBlock(handler AVFragmentedAssetTrackErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVFragmentedAssetTrack
 		if resultID != 0 {
@@ -209,6 +224,9 @@ type AVFragmentedMovieTrackErrorHandler = func(*AVFragmentedMovieTrack, error)
 // Used by:
 //   - [AVFragmentedMovie.LoadTrackWithTrackIDCompletionHandler]
 func NewAVFragmentedMovieTrackErrorBlock(handler AVFragmentedMovieTrackErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVFragmentedMovieTrack
 		if resultID != 0 {
@@ -237,6 +255,9 @@ type AVMediaSelectionGroupErrorHandler = func(*AVMediaSelectionGroup, error)
 // Used by:
 //   - [AVAsset.LoadMediaSelectionGroupForMediaCharacteristicCompletionHandler]
 func NewAVMediaSelectionGroupErrorBlock(handler AVMediaSelectionGroupErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMediaSelectionGroup
 		if resultID != 0 {
@@ -272,6 +293,9 @@ type AVMetadataItemValueRequestHandler = func(*AVMetadataItemValueRequest)
 //   - [AVMetadataItem.MetadataItemWithPropertiesOfMetadataItemValueLoadingHandler]
 //   - [AVMutableMetadataItem.MetadataItemWithPropertiesOfMetadataItemValueLoadingHandler]
 func NewAVMetadataItemValueRequestBlock(handler AVMetadataItemValueRequestHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *AVMetadataItemValueRequest
 		if resultID != 0 {
@@ -309,6 +333,9 @@ type AVMovieTrackErrorHandler = func(*AVMovieTrack, error)
 // Used by:
 //   - [AVMovie.LoadTrackWithTrackIDCompletionHandler]
 func NewAVMovieTrackErrorBlock(handler AVMovieTrackErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMovieTrack
 		if resultID != 0 {
@@ -346,6 +373,9 @@ type AVMutableCompositionTrackErrorHandler = func(*AVMutableCompositionTrack, er
 // Used by:
 //   - [AVMutableComposition.LoadTrackWithTrackIDCompletionHandler]
 func NewAVMutableCompositionTrackErrorBlock(handler AVMutableCompositionTrackErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMutableCompositionTrack
 		if resultID != 0 {
@@ -383,6 +413,9 @@ type AVMutableMovieTrackErrorHandler = func(*AVMutableMovieTrack, error)
 // Used by:
 //   - [AVMutableMovie.LoadTrackWithTrackIDCompletionHandler]
 func NewAVMutableMovieTrackErrorBlock(handler AVMutableMovieTrackErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMutableMovieTrack
 		if resultID != 0 {
@@ -412,6 +445,9 @@ type AVMutableVideoCompositionErrorHandler = func(*AVMutableVideoComposition, er
 //   - [AVMutableVideoComposition.VideoCompositionWithPropertiesOfAssetCompletionHandler]
 //   - [AVMutableVideoComposition.VideoCompositionWithPropertiesOfAssetPrototypeInstructionCompletionHandler]
 func NewAVMutableVideoCompositionErrorBlock(handler AVMutableVideoCompositionErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMutableVideoComposition
 		if resultID != 0 {
@@ -446,6 +482,9 @@ type AVVideoCompositionErrorHandler = func(*AVVideoComposition, error)
 // Used by:
 //   - [AVVideoComposition.VideoCompositionWithPropertiesOfAssetCompletionHandler]
 func NewAVVideoCompositionErrorBlock(handler AVVideoCompositionErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVVideoComposition
 		if resultID != 0 {
@@ -470,6 +509,9 @@ type AVVideoPerformanceMetricsHandler = func(*AVVideoPerformanceMetrics)
 // Used by:
 //   - [AVSampleBufferVideoRenderer.LoadVideoPerformanceMetricsWithCompletionHandler]
 func NewAVVideoPerformanceMetricsBlock(handler AVVideoPerformanceMetricsHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *AVVideoPerformanceMetrics
 		if resultID != 0 {
@@ -501,6 +543,9 @@ type BoolErrorHandler = func(bool, error)
 //   - [AVSampleBufferGenerator.NotifyOfDataReadyForSampleBufferCompletionHandler]
 //   - [AVVideoComposition.DetermineValidityForAssetTimeRangeValidationDelegateCompletionHandler]
 func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -548,6 +593,9 @@ type BoolHandler = func(bool)
 //   - [AVSampleBufferAudioRenderer.FlushFromSourceTimeCompletionHandler]
 //   - [AVSampleBufferRenderSynchronizer.RemoveRendererAtTimeCompletionHandler]
 func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool) {
 		handler(primitiveVal)
 	})
@@ -567,6 +615,9 @@ type CGImageRefErrorHandler = func(coregraphics.CGImageRef, error)
 // Used by:
 //   - [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler]
 func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal coregraphics.CGImageRef, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -586,6 +637,9 @@ type CMPersistentTrackIDErrorHandler = func(int32, error)
 // Used by:
 //   - [AVAsset.FindUnusedTrackIDWithCompletionHandler]
 func NewCMPersistentTrackIDErrorBlock(handler CMPersistentTrackIDErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int32, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -612,6 +666,9 @@ type CMTimeErrorHandler = func(coremedia.CMTime, error)
 //   - [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]
 //   - [AVCaptureDevice.SetDynamicAspectRatioCompletionHandler]
 func NewCMTimeErrorBlock(handler CMTimeErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal coremedia.CMTime, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -645,6 +702,9 @@ type CMTimeHandler = func(coremedia.CMTime)
 //   - [AVPlayerItemIntegratedTimeline.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 func NewCMTimeBlock(handler CMTimeHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal coremedia.CMTime) {
 		handler(primitiveVal)
 	})
@@ -673,6 +733,9 @@ type DataErrorHandler = func(*foundation.NSData, error)
 //   - [AVContentKeySession.InvalidatePersistableContentKeyOptionsCompletionHandler]
 //   - [AVContentKeySession.MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler]
 func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSData
 		if resultID != 0 {
@@ -706,6 +769,9 @@ type ErrorHandler = func(error)
 //   - [AVMutableComposition.InsertTimeRangeOfAssetAtTimeCompletionHandler]
 //   - [AVSampleBufferGeneratorBatch.MakeDataReadyWithCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -726,6 +792,9 @@ type Float32Handler = func(float32)
 //   - [AVCaptureSlider.SetActionQueueAction]
 //   - [AVCaptureSystemExposureBiasSlider.InitWithDeviceAction]
 func NewFloat32Block(handler Float32Handler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal float32) {
 		handler(primitiveVal)
 	})
@@ -744,6 +813,9 @@ type Float64Handler = func(float64)
 // Used by:
 //   - [AVCaptureSystemZoomSlider.InitWithDeviceAction]
 func NewFloat64Block(handler Float64Handler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal float64) {
 		handler(primitiveVal)
 	})
@@ -764,6 +836,9 @@ type IntHandler = func(int)
 //   - [AVCaptureIndexPicker.InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform]
 //   - [AVCaptureIndexPicker.SetActionQueueAction]
 func NewIntBlock(handler IntHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -814,6 +889,9 @@ type VoidHandler = func()
 //   - [AVSampleBufferVideoRenderer.FlushWithRemovalOfDisplayedImageCompletionHandler]
 //   - [AVSampleBufferVideoRenderer.RequestMediaDataWhenReadyOnQueueUsingBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -833,6 +911,9 @@ type int64_tErrorHandler = func(int64, error)
 // Used by:
 //   - [AVAssetExportSession.EstimateOutputFileLengthWithCompletionHandler]
 func Newint64_tErrorBlock(handler int64_tErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int64, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})

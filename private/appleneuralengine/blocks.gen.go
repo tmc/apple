@@ -14,6 +14,9 @@ type BoolErrorHandler = func(bool, error)
 // NewBoolErrorBlock wraps a Go [BoolErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -38,6 +41,9 @@ type ErrorHandler = func(error)
 // Used by:
 //   - [ANERequest.SetCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -100,6 +106,9 @@ type VoidHandler = func()
 //   - [ANEDaemonProtocol.UnloadModelOptionsQosWithReply]
 //   - [ANEStorageMaintainerProtocol.PurgeDanglingModelsAtWithReply]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

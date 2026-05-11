@@ -33,7 +33,7 @@ type AuthorizationMechanismId = unsafe.Pointer
 // AuthorizationMechanismRef is a handle passed by the plug-in to the authorization engine when creating an instance of a mechanism.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationMechanismRef
-type AuthorizationMechanismRef uintptr
+type AuthorizationMechanismRef = unsafe.Pointer
 
 // AuthorizationPluginId is an unused identifier for a plug-in.
 //
@@ -43,7 +43,7 @@ type AuthorizationPluginId = unsafe.Pointer
 // AuthorizationPluginRef is a handle passed by the plug-in to the authorization engine when the plug-in is initiated.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationPluginRef
-type AuthorizationPluginRef uintptr
+type AuthorizationPluginRef = unsafe.Pointer
 
 // AuthorizationRef is a pointer to an opaque authorization reference structure.
 //
@@ -579,7 +579,7 @@ type SSLCipherSuite = uint16
 // SSLConnectionRef is a pointer to an opaque I/O connection object.
 //
 // See: https://developer.apple.com/documentation/Security/SSLConnectionRef
-type SSLConnectionRef uintptr
+type SSLConnectionRef = unsafe.Pointer
 
 // SSLContextRef is an opaque type that represents an SSL session context object.
 //

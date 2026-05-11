@@ -84,11 +84,11 @@ type IVZSEPCoprocessorConfiguration interface {
 
 	// Topic: Methods
 
-	DebugStub() IVZDebugStubConfiguration
-	SetDebugStub(value IVZDebugStubConfiguration)
+	DebugStub() *VZDebugStubConfiguration
+	SetDebugStub(value *VZDebugStubConfiguration)
 	RomBinaryURL() foundation.INSURL
 	SetRomBinaryURL(value foundation.INSURL)
-	Storage() IVZSEPStorage
+	Storage() *VZSEPStorage
 	InitWithStorage(storage objectivec.IObject) VZSEPCoprocessorConfiguration
 	InitWithStorageURL(url foundation.INSURL) VZSEPCoprocessorConfiguration
 }
@@ -139,11 +139,19 @@ func (v VZSEPCoprocessorConfiguration) InitWithStorageURL(url foundation.INSURL)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration/debugStub
-func (v VZSEPCoprocessorConfiguration) DebugStub() IVZDebugStubConfiguration {
+func (v VZSEPCoprocessorConfiguration) DebugStub() *VZDebugStubConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugStub"))
-	return VZDebugStubConfigurationFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZDebugStubConfigurationFromID(objc.ID(rv))
+	return &val
 }
-func (v VZSEPCoprocessorConfiguration) SetDebugStub(value IVZDebugStubConfiguration) {
+func (v VZSEPCoprocessorConfiguration) SetDebugStub(value *VZDebugStubConfiguration) {
+	if value == nil {
+		objc.Send[struct{}](v.ID, objc.Sel("setDebugStub:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](v.ID, objc.Sel("setDebugStub:"), value)
 }
 
@@ -157,7 +165,11 @@ func (v VZSEPCoprocessorConfiguration) SetRomBinaryURL(value foundation.INSURL) 
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration/storage
-func (v VZSEPCoprocessorConfiguration) Storage() IVZSEPStorage {
+func (v VZSEPCoprocessorConfiguration) Storage() *VZSEPStorage {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("storage"))
-	return VZSEPStorageFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZSEPStorageFromID(objc.ID(rv))
+	return &val
 }

@@ -161,7 +161,7 @@ func NewUnitConcentrationMassWithSymbolConverter(symbol string, converter INSUni
 // A unit expressing millimoles per liter with the specified molar mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass/millimolesPerLiter(withGramsPerMole:)
-func (_UnitConcentrationMassClass UnitConcentrationMassClass) MillimolesPerLiterWithGramsPerMole(gramsPerMole float64) UnitConcentrationMass {
+func (_UnitConcentrationMassClass UnitConcentrationMassClass) MillimolesPerLiterWithGramsPerMole(gramsPerMole float64) NSUnitConcentrationMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitConcentrationMassClass.class), objc.Sel("millimolesPerLiterWithGramsPerMole:"), gramsPerMole)
 	return NSUnitConcentrationMassFromID(rv)
 }
@@ -169,7 +169,7 @@ func (_UnitConcentrationMassClass UnitConcentrationMassClass) MillimolesPerLiter
 // The grams per liter unit of concentration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass/gramsPerLiter
-func (_UnitConcentrationMassClass UnitConcentrationMassClass) GramsPerLiter() UnitConcentrationMass {
+func (_UnitConcentrationMassClass UnitConcentrationMassClass) GramsPerLiter() NSUnitConcentrationMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitConcentrationMassClass.class), objc.Sel("gramsPerLiter"))
 	return NSUnitConcentrationMassFromID(objc.ID(rv))
 }
@@ -177,7 +177,7 @@ func (_UnitConcentrationMassClass UnitConcentrationMassClass) GramsPerLiter() Un
 // The milligrams per deciliter unit of concentration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass/milligramsPerDeciliter
-func (_UnitConcentrationMassClass UnitConcentrationMassClass) MilligramsPerDeciliter() UnitConcentrationMass {
+func (_UnitConcentrationMassClass UnitConcentrationMassClass) MilligramsPerDeciliter() NSUnitConcentrationMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitConcentrationMassClass.class), objc.Sel("milligramsPerDeciliter"))
 	return NSUnitConcentrationMassFromID(objc.ID(rv))
 }

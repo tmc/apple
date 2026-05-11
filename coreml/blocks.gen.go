@@ -3,6 +3,8 @@
 package coreml
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -24,6 +26,9 @@ type ErrorHandler = func(error)
 //   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError]
 //   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataProgressHandlersError]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -45,6 +50,9 @@ type MLComputePlanErrorHandler = func(*MLComputePlan, error)
 //   - [MLComputePlan.LoadContentsOfURLConfigurationCompletionHandler]
 //   - [MLComputePlan.LoadModelAssetConfigurationCompletionHandler]
 func NewMLComputePlanErrorBlock(handler MLComputePlanErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLComputePlan
 		if resultID != 0 {
@@ -77,6 +85,9 @@ type MLFeatureProviderErrorHandler = func(MLFeatureProvider, error)
 //   - [MLModel.PredictionFromFeaturesOptionsCompletionHandler]
 //   - [MLModel.PredictionFromFeaturesUsingStateOptionsCompletionHandler]
 func NewMLFeatureProviderErrorBlock(handler MLFeatureProviderErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result MLFeatureProvider
 		if resultID != 0 {
@@ -102,6 +113,9 @@ type MLModelDescriptionErrorHandler = func(*MLModelDescription, error)
 //   - [MLModelAsset.ModelDescriptionOfFunctionNamedCompletionHandler]
 //   - [MLModelAsset.ModelDescriptionWithCompletionHandler]
 func NewMLModelDescriptionErrorBlock(handler MLModelDescriptionErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLModelDescription
 		if resultID != 0 {
@@ -129,6 +143,9 @@ type MLModelErrorHandler = func(*MLModel, error)
 //   - [MLModel.LoadContentsOfURLConfigurationCompletionHandler]
 //   - [MLModel.LoadModelAssetConfigurationCompletionHandler]
 func NewMLModelErrorBlock(handler MLModelErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLModel
 		if resultID != 0 {
@@ -156,6 +173,9 @@ type MLModelStructureErrorHandler = func(*MLModelStructure, error)
 //   - [MLModelStructure.LoadContentsOfURLCompletionHandler]
 //   - [MLModelStructure.LoadModelAssetCompletionHandler]
 func NewMLModelStructureErrorBlock(handler MLModelStructureErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLModelStructure
 		if resultID != 0 {
@@ -180,6 +200,9 @@ type MLMultiArrayHandler = func(*MLMultiArray)
 // Used by:
 //   - [MLState.GetMultiArrayForStateNamedHandler]
 func NewMLMultiArrayBlock(handler MLMultiArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *MLMultiArray
 		if resultID != 0 {
@@ -208,6 +231,9 @@ type MLUpdateContextHandler = func(*MLUpdateContext)
 //   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataCompletionHandlerError]
 //   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataConfigurationCompletionHandlerError]
 func NewMLUpdateContextBlock(handler MLUpdateContextHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *MLUpdateContext
 		if resultID != 0 {
@@ -241,6 +267,9 @@ type URLErrorHandler = func(*foundation.NSURL, error)
 // Used by:
 //   - [MLModel.CompileModelAtURLCompletionHandler]
 func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSURL
 		if resultID != 0 {
@@ -265,8 +294,32 @@ type VoidHandler = func()
 // Used by:
 //   - [MLMultiArray.InitWithDataPointerShapeDataTypeStridesDeallocatorError]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// constvoidHandler handles The block to receive the buffer pointer and its size in bytes.
+//
+// Used by:
+//   - [MLMultiArray.GetBytesWithHandler]
+type constvoidHandler = func(unsafe.Pointer, int64)
+
+// NewconstvoidBlock wraps a Go [constvoidHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [MLMultiArray.GetBytesWithHandler]
+func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, bytes unsafe.Pointer, size int64) {
+		handler(bytes, size)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

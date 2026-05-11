@@ -106,7 +106,7 @@ type INSAccessibilityCustomRotorItemResult interface {
 	// A target element that references an element to message for accessibility properties.
 	TargetElement() NSAccessibilityElement
 	// A token to determine which item to return.
-	ItemLoadingToken() NSAccessibilityLoadingToken
+	ItemLoadingToken() objc.ID
 	// A range that specifies the area of interest for text-based elements.
 	TargetRange() foundation.NSRange
 	SetTargetRange(value foundation.NSRange)
@@ -184,9 +184,9 @@ func (a NSAccessibilityCustomRotorItemResult) TargetElement() NSAccessibilityEle
 // A token to determine which item to return.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/itemLoadingToken
-func (a NSAccessibilityCustomRotorItemResult) ItemLoadingToken() NSAccessibilityLoadingToken {
-	rv := objc.Send[NSAccessibilityLoadingToken](a.ID, objc.Sel("itemLoadingToken"))
-	return NSAccessibilityLoadingToken(rv)
+func (a NSAccessibilityCustomRotorItemResult) ItemLoadingToken() objc.ID {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("itemLoadingToken"))
+	return rv
 }
 
 // A range that specifies the area of interest for text-based elements.

@@ -248,33 +248,33 @@ func (u UnitConverterLinear) Constant() float64 {
 // The degree Fahrenheit unit of temperature.
 //
 // See: https://developer.apple.com/documentation/foundation/unittemperature/fahrenheit
-func (_UnitConverterLinearClass UnitConverterLinearClass) Fahrenheit() UnitTemperature {
+func (_UnitConverterLinearClass UnitConverterLinearClass) Fahrenheit() NSUnitTemperature {
 	rv := objc.Send[objc.ID](objc.ID(_UnitConverterLinearClass.class), objc.Sel("fahrenheit"))
 	return NSUnitTemperatureFromID(objc.ID(rv))
 }
-func (_UnitConverterLinearClass UnitConverterLinearClass) SetFahrenheit(value UnitTemperature) {
+func (_UnitConverterLinearClass UnitConverterLinearClass) SetFahrenheit(value NSUnitTemperature) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setFahrenheit:"), value)
 }
 
 // The kelvin unit of temperature.
 //
 // See: https://developer.apple.com/documentation/foundation/unittemperature/kelvin
-func (_UnitConverterLinearClass UnitConverterLinearClass) Kelvin() UnitTemperature {
+func (_UnitConverterLinearClass UnitConverterLinearClass) Kelvin() NSUnitTemperature {
 	rv := objc.Send[objc.ID](objc.ID(_UnitConverterLinearClass.class), objc.Sel("kelvin"))
 	return NSUnitTemperatureFromID(objc.ID(rv))
 }
-func (_UnitConverterLinearClass UnitConverterLinearClass) SetKelvin(value UnitTemperature) {
+func (_UnitConverterLinearClass UnitConverterLinearClass) SetKelvin(value NSUnitTemperature) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKelvin:"), value)
 }
 
 // The kilometers unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/kilometers
-func (_UnitConverterLinearClass UnitConverterLinearClass) Kilometers() UnitLength {
+func (_UnitConverterLinearClass UnitConverterLinearClass) Kilometers() NSUnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitConverterLinearClass.class), objc.Sel("kilometers"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-func (_UnitConverterLinearClass UnitConverterLinearClass) SetKilometers(value UnitLength) {
+func (_UnitConverterLinearClass UnitConverterLinearClass) SetKilometers(value NSUnitLength) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKilometers:"), value)
 }
 

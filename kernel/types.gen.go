@@ -2710,7 +2710,7 @@ type IOService struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ioserviceinterestcontent64
 type IOServiceInterestContent64 struct {
-	MessageType     unsafe.Pointer
+	MessageType     Natural_t
 	MessageArgument Io_user_reference_t
 }
 
@@ -3184,13 +3184,6 @@ type IOWorkLoop struct {
 	Init     unsafe.Pointer
 }
 
-// Key
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/kernel/key
-type Key struct {
-}
-
 // KeyAttribute
 //
 // [Full Topic]
@@ -3203,7 +3196,7 @@ type KeyAttribute struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/keyvaluemask
 type KeyValueMask struct {
-	Key  Key
+	Key  uint
 	Mask unsafe.Pointer
 }
 
@@ -5763,7 +5756,7 @@ type Ifnet_interface_advisory_cell_context struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_interface_advisory_header
 type Ifnet_interface_advisory_header struct {
-	Interface_type    Ifnet_interface_advisory_interface_type
+	Interface_type    IfnetInterfaceAdvisoryInterfaceType
 	Version           Ifnet_interface_advisory_version
 	Notification_type unsafe.Pointer
 }

@@ -688,8 +688,8 @@ func tryNw_browser_set_state_changed_handler(browser Nw_browser_t, state_changed
 	if _nw_browser_set_state_changed_handler == nil {
 		return symbolCallError("nw_browser_set_state_changed_handler", "10.15", _nw_browser_set_state_changed_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwBrowserState, blockArg1 Nw_error_t) {
-		state_changed_handler(blockArg0, blockArg1)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwBrowserState, blockArg1 objc.ID) {
+		state_changed_handler(blockArg0, Nw_error_t{Object: objectivec.ObjectFromID(blockArg1)})
 	})
 	retainNetworkAsyncBlock(browser.ID, "nw_browser_set_state_changed_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1275,7 +1275,9 @@ func tryNw_connection_group_send_message(group Nw_connection_group_t, content di
 	if _nw_connection_group_send_message == nil {
 		return symbolCallError("nw_connection_group_send_message", "11.0", _nw_connection_group_send_messageErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Nw_error_t) { completion(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) {
+		completion(Nw_error_t{Object: objectivec.ObjectFromID(blockArg0)})
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_connection_group_send_message(group, uintptr(content.Handle()), endpoint, context, _block0)
@@ -1366,8 +1368,8 @@ func tryNw_connection_group_set_state_changed_handler(group Nw_connection_group_
 	if _nw_connection_group_set_state_changed_handler == nil {
 		return symbolCallError("nw_connection_group_set_state_changed_handler", "11.0", _nw_connection_group_set_state_changed_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwConnectionGroupState, blockArg1 Nw_error_t) {
-		state_changed_handler(blockArg0, blockArg1)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwConnectionGroupState, blockArg1 objc.ID) {
+		state_changed_handler(blockArg0, Nw_error_t{Object: objectivec.ObjectFromID(blockArg1)})
 	})
 	retainNetworkAsyncBlock(group.ID, "nw_connection_group_set_state_changed_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1411,8 +1413,8 @@ func tryNw_connection_receive(connection Nw_connection_t, minimum_incomplete_len
 	if _nw_connection_receive == nil {
 		return symbolCallError("nw_connection_receive", "10.14", _nw_connection_receiveErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 bool, blockArg3 Nw_error_t) {
-		completion(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 bool, blockArg3 objc.ID) {
+		completion(blockArg0, blockArg1, blockArg2, Nw_error_t{Object: objectivec.ObjectFromID(blockArg3)})
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1436,8 +1438,8 @@ func tryNw_connection_receive_message(connection Nw_connection_t, completion Nw_
 	if _nw_connection_receive_message == nil {
 		return symbolCallError("nw_connection_receive_message", "10.14", _nw_connection_receive_messageErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 bool, blockArg3 Nw_error_t) {
-		completion(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 bool, blockArg3 objc.ID) {
+		completion(blockArg0, blockArg1, blockArg2, Nw_error_t{Object: objectivec.ObjectFromID(blockArg3)})
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1481,7 +1483,9 @@ func tryNw_connection_send(connection Nw_connection_t, content dispatch.Data, co
 	if _nw_connection_send == nil {
 		return symbolCallError("nw_connection_send", "10.14", _nw_connection_sendErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Nw_error_t) { completion(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) {
+		completion(Nw_error_t{Object: objectivec.ObjectFromID(blockArg0)})
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_connection_send(connection, uintptr(content.Handle()), context, is_complete, _block0)
@@ -1570,7 +1574,9 @@ func tryNw_connection_set_state_changed_handler(connection Nw_connection_t, hand
 	if _nw_connection_set_state_changed_handler == nil {
 		return symbolCallError("nw_connection_set_state_changed_handler", "10.14", _nw_connection_set_state_changed_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwConnectionState, blockArg1 Nw_error_t) { handler(blockArg0, blockArg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwConnectionState, blockArg1 objc.ID) {
+		handler(blockArg0, Nw_error_t{Object: objectivec.ObjectFromID(blockArg1)})
+	})
 	retainNetworkAsyncBlock(connection.ID, "nw_connection_set_state_changed_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_connection_set_state_changed_handler(connection, _block0)
@@ -2964,7 +2970,9 @@ func tryNw_ethernet_channel_send(ethernet_channel Nw_ethernet_channel_t, content
 	if _nw_ethernet_channel_send == nil {
 		return symbolCallError("nw_ethernet_channel_send", "10.15", _nw_ethernet_channel_sendErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Nw_error_t) { completion(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) {
+		completion(Nw_error_t{Object: objectivec.ObjectFromID(blockArg0)})
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_ethernet_channel_send(ethernet_channel, uintptr(content.Handle()), vlan_tag, remote_address, _block0)
@@ -3032,8 +3040,8 @@ func tryNw_ethernet_channel_set_state_changed_handler(ethernet_channel Nw_ethern
 	if _nw_ethernet_channel_set_state_changed_handler == nil {
 		return symbolCallError("nw_ethernet_channel_set_state_changed_handler", "10.15", _nw_ethernet_channel_set_state_changed_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwEthernetChannelState, blockArg1 Nw_error_t) {
-		handler(blockArg0, blockArg1)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwEthernetChannelState, blockArg1 objc.ID) {
+		handler(blockArg0, Nw_error_t{Object: objectivec.ObjectFromID(blockArg1)})
 	})
 	retainNetworkAsyncBlock(ethernet_channel.ID, "nw_ethernet_channel_set_state_changed_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3222,21 +3230,21 @@ func Nw_framer_create_options(framer_definition Nw_protocol_definition_t) Nw_pro
 	return result
 }
 
-var _nw_framer_deliver_input func(framer Nw_framer_t, input_buffer *uint8, input_length uintptr, message Nw_framer_message_t, is_complete bool)
+var _nw_framer_deliver_input func(framer Nw_framer_t, input_buffer *byte, input_length uintptr, message Nw_framer_message_t, is_complete bool)
 var _nw_framer_deliver_inputErr error
 
-func tryNw_framer_deliver_input(framer Nw_framer_t, input_buffer *uint8, input_length uintptr, message Nw_framer_message_t, is_complete bool) error {
+func tryNw_framer_deliver_input(framer Nw_framer_t, input_buffer []byte, input_length uintptr, message Nw_framer_message_t, is_complete bool) error {
 	if _nw_framer_deliver_input == nil {
 		return symbolCallError("nw_framer_deliver_input", "10.15", _nw_framer_deliver_inputErr)
 	}
-	_nw_framer_deliver_input(framer, input_buffer, input_length, message, is_complete)
+	_nw_framer_deliver_input(framer, unsafe.SliceData(input_buffer), input_length, message, is_complete)
 	return nil
 }
 
 // Nw_framer_deliver_input delivers an inbound message containing arbitrary data from your protocol to the application.
 //
 // See: https://developer.apple.com/documentation/Network/nw_framer_deliver_input(_:_:_:_:_:)
-func Nw_framer_deliver_input(framer Nw_framer_t, input_buffer *uint8, input_length uintptr, message Nw_framer_message_t, is_complete bool) {
+func Nw_framer_deliver_input(framer Nw_framer_t, input_buffer []byte, input_length uintptr, message Nw_framer_message_t, is_complete bool) {
 	if callErr := tryNw_framer_deliver_input(framer, input_buffer, input_length, message, is_complete); callErr != nil {
 		panic(callErr)
 	}
@@ -3450,10 +3458,10 @@ func Nw_framer_options_set_object_value(options Nw_protocol_options_t, key strin
 	}
 }
 
-var _nw_framer_parse_input func(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse unsafe.Pointer) bool
+var _nw_framer_parse_input func(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *byte, parse unsafe.Pointer) bool
 var _nw_framer_parse_inputErr error
 
-func tryNw_framer_parse_input(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse Nw_framer_parse_completion_t) (bool, error) {
+func tryNw_framer_parse_input(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer []byte, parse Nw_framer_parse_completion_t) (bool, error) {
 	if _nw_framer_parse_input == nil {
 		return false, symbolCallError("nw_framer_parse_input", "10.15", _nw_framer_parse_inputErr)
 	}
@@ -3462,13 +3470,13 @@ func tryNw_framer_parse_input(framer Nw_framer_t, minimum_incomplete_length uint
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
-	return _nw_framer_parse_input(framer, minimum_incomplete_length, maximum_length, temp_buffer, _block0), nil
+	return _nw_framer_parse_input(framer, minimum_incomplete_length, maximum_length, unsafe.SliceData(temp_buffer), _block0), nil
 }
 
 // Nw_framer_parse_input examines the content of input data while inside your input handler block.
 //
 // See: https://developer.apple.com/documentation/Network/nw_framer_parse_input(_:_:_:_:_:)
-func Nw_framer_parse_input(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse Nw_framer_parse_completion_t) bool {
+func Nw_framer_parse_input(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer []byte, parse Nw_framer_parse_completion_t) bool {
 	result, callErr := tryNw_framer_parse_input(framer, minimum_incomplete_length, maximum_length, temp_buffer, parse)
 	if callErr != nil {
 		panic(callErr)
@@ -3476,10 +3484,10 @@ func Nw_framer_parse_input(framer Nw_framer_t, minimum_incomplete_length uintptr
 	return result
 }
 
-var _nw_framer_parse_output func(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse unsafe.Pointer) bool
+var _nw_framer_parse_output func(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *byte, parse unsafe.Pointer) bool
 var _nw_framer_parse_outputErr error
 
-func tryNw_framer_parse_output(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse Nw_framer_parse_completion_t) (bool, error) {
+func tryNw_framer_parse_output(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer []byte, parse Nw_framer_parse_completion_t) (bool, error) {
 	if _nw_framer_parse_output == nil {
 		return false, symbolCallError("nw_framer_parse_output", "10.15", _nw_framer_parse_outputErr)
 	}
@@ -3488,13 +3496,13 @@ func tryNw_framer_parse_output(framer Nw_framer_t, minimum_incomplete_length uin
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
-	return _nw_framer_parse_output(framer, minimum_incomplete_length, maximum_length, temp_buffer, _block0), nil
+	return _nw_framer_parse_output(framer, minimum_incomplete_length, maximum_length, unsafe.SliceData(temp_buffer), _block0), nil
 }
 
 // Nw_framer_parse_output examines the content of output data while inside your output handler.
 //
 // See: https://developer.apple.com/documentation/Network/nw_framer_parse_output(_:_:_:_:_:)
-func Nw_framer_parse_output(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer *uint8, parse Nw_framer_parse_completion_t) bool {
+func Nw_framer_parse_output(framer Nw_framer_t, minimum_incomplete_length uintptr, maximum_length uintptr, temp_buffer []byte, parse Nw_framer_parse_completion_t) bool {
 	result, callErr := tryNw_framer_parse_output(framer, minimum_incomplete_length, maximum_length, temp_buffer, parse)
 	if callErr != nil {
 		panic(callErr)
@@ -3721,21 +3729,21 @@ func Nw_framer_set_wakeup_handler(framer Nw_framer_t, wakeup_handler Nw_framer_w
 	}
 }
 
-var _nw_framer_write_output func(framer Nw_framer_t, output_buffer *uint8, output_length uintptr)
+var _nw_framer_write_output func(framer Nw_framer_t, output_buffer *byte, output_length uintptr)
 var _nw_framer_write_outputErr error
 
-func tryNw_framer_write_output(framer Nw_framer_t, output_buffer *uint8, output_length uintptr) error {
+func tryNw_framer_write_output(framer Nw_framer_t, output_buffer []byte, output_length uintptr) error {
 	if _nw_framer_write_output == nil {
 		return symbolCallError("nw_framer_write_output", "10.15", _nw_framer_write_outputErr)
 	}
-	_nw_framer_write_output(framer, output_buffer, output_length)
+	_nw_framer_write_output(framer, unsafe.SliceData(output_buffer), output_length)
 	return nil
 }
 
 // Nw_framer_write_output sends arbitrary output data in a buffer from your protocol to the next protocol.
 //
 // See: https://developer.apple.com/documentation/Network/nw_framer_write_output(_:_:_:)
-func Nw_framer_write_output(framer Nw_framer_t, output_buffer *uint8, output_length uintptr) {
+func Nw_framer_write_output(framer Nw_framer_t, output_buffer []byte, output_length uintptr) {
 	if callErr := tryNw_framer_write_output(framer, output_buffer, output_length); callErr != nil {
 		panic(callErr)
 	}
@@ -4477,7 +4485,9 @@ func tryNw_listener_set_state_changed_handler(listener Nw_listener_t, handler Nw
 	if _nw_listener_set_state_changed_handler == nil {
 		return symbolCallError("nw_listener_set_state_changed_handler", "10.14", _nw_listener_set_state_changed_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwListenerState, blockArg1 Nw_error_t) { handler(blockArg0, blockArg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwListenerState, blockArg1 objc.ID) {
+		handler(blockArg0, Nw_error_t{Object: objectivec.ObjectFromID(blockArg1)})
+	})
 	retainNetworkAsyncBlock(listener.ID, "nw_listener_set_state_changed_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_listener_set_state_changed_handler(listener, _block0)
@@ -6814,20 +6824,20 @@ func Nw_proxy_config_create_http_connect(proxy_endpoint Nw_endpoint_t, proxy_tls
 	return result
 }
 
-var _nw_proxy_config_create_oblivious_http func(relay Nw_relay_hop_t, relay_resource_path string, gateway_key_config *uint8, gateway_key_config_length uintptr) Nw_proxy_config_t
+var _nw_proxy_config_create_oblivious_http func(relay Nw_relay_hop_t, relay_resource_path string, gateway_key_config *byte, gateway_key_config_length uintptr) Nw_proxy_config_t
 var _nw_proxy_config_create_oblivious_httpErr error
 
-func tryNw_proxy_config_create_oblivious_http(relay Nw_relay_hop_t, relay_resource_path string, gateway_key_config *uint8, gateway_key_config_length uintptr) (Nw_proxy_config_t, error) {
+func tryNw_proxy_config_create_oblivious_http(relay Nw_relay_hop_t, relay_resource_path string, gateway_key_config []byte, gateway_key_config_length uintptr) (Nw_proxy_config_t, error) {
 	if _nw_proxy_config_create_oblivious_http == nil {
 		return *new(Nw_proxy_config_t), symbolCallError("nw_proxy_config_create_oblivious_http", "14.0", _nw_proxy_config_create_oblivious_httpErr)
 	}
-	return _nw_proxy_config_create_oblivious_http(relay, relay_resource_path, gateway_key_config, gateway_key_config_length), nil
+	return _nw_proxy_config_create_oblivious_http(relay, relay_resource_path, unsafe.SliceData(gateway_key_config), gateway_key_config_length), nil
 }
 
 // Nw_proxy_config_create_oblivious_http initializes an Oblivious HTTP proxy configuration using a relay and a gateway.
 //
 // See: https://developer.apple.com/documentation/Network/nw_proxy_config_create_oblivious_http(_:_:_:_:)
-func Nw_proxy_config_create_oblivious_http(relay Nw_relay_hop_t, relay_resource_path string, gateway_key_config *uint8, gateway_key_config_length uintptr) Nw_proxy_config_t {
+func Nw_proxy_config_create_oblivious_http(relay Nw_relay_hop_t, relay_resource_path string, gateway_key_config []byte, gateway_key_config_length uintptr) Nw_proxy_config_t {
 	result, callErr := tryNw_proxy_config_create_oblivious_http(relay, relay_resource_path, gateway_key_config, gateway_key_config_length)
 	if callErr != nil {
 		panic(callErr)
@@ -8704,20 +8714,20 @@ func Nw_txt_record_create_dictionary() Nw_txt_record_t {
 	return result
 }
 
-var _nw_txt_record_create_with_bytes func(txt_bytes *uint8, txt_len uintptr) Nw_txt_record_t
+var _nw_txt_record_create_with_bytes func(txt_bytes *byte, txt_len uintptr) Nw_txt_record_t
 var _nw_txt_record_create_with_bytesErr error
 
-func tryNw_txt_record_create_with_bytes(txt_bytes *uint8, txt_len uintptr) (Nw_txt_record_t, error) {
+func tryNw_txt_record_create_with_bytes(txt_bytes []byte, txt_len uintptr) (Nw_txt_record_t, error) {
 	if _nw_txt_record_create_with_bytes == nil {
 		return *new(Nw_txt_record_t), symbolCallError("nw_txt_record_create_with_bytes", "10.15", _nw_txt_record_create_with_bytesErr)
 	}
-	return _nw_txt_record_create_with_bytes(txt_bytes, txt_len), nil
+	return _nw_txt_record_create_with_bytes(unsafe.SliceData(txt_bytes), txt_len), nil
 }
 
 // Nw_txt_record_create_with_bytes initializes a TXT record with raw bytes.
 //
 // See: https://developer.apple.com/documentation/Network/nw_txt_record_create_with_bytes(_:_:)
-func Nw_txt_record_create_with_bytes(txt_bytes *uint8, txt_len uintptr) Nw_txt_record_t {
+func Nw_txt_record_create_with_bytes(txt_bytes []byte, txt_len uintptr) Nw_txt_record_t {
 	result, callErr := tryNw_txt_record_create_with_bytes(txt_bytes, txt_len)
 	if callErr != nil {
 		panic(callErr)
@@ -8830,20 +8840,20 @@ func Nw_txt_record_remove_key(txt_record Nw_txt_record_t, key string) bool {
 	return result
 }
 
-var _nw_txt_record_set_key func(txt_record Nw_txt_record_t, key string, value *uint8, value_len uintptr) bool
+var _nw_txt_record_set_key func(txt_record Nw_txt_record_t, key string, value *byte, value_len uintptr) bool
 var _nw_txt_record_set_keyErr error
 
-func tryNw_txt_record_set_key(txt_record Nw_txt_record_t, key string, value *uint8, value_len uintptr) (bool, error) {
+func tryNw_txt_record_set_key(txt_record Nw_txt_record_t, key string, value []byte, value_len uintptr) (bool, error) {
 	if _nw_txt_record_set_key == nil {
 		return false, symbolCallError("nw_txt_record_set_key", "10.15", _nw_txt_record_set_keyErr)
 	}
-	return _nw_txt_record_set_key(txt_record, key, value, value_len), nil
+	return _nw_txt_record_set_key(txt_record, key, unsafe.SliceData(value), value_len), nil
 }
 
 // Nw_txt_record_set_key sets a data value in a TXT record dictionary.
 //
 // See: https://developer.apple.com/documentation/Network/nw_txt_record_set_key(_:_:_:_:)
-func Nw_txt_record_set_key(txt_record Nw_txt_record_t, key string, value *uint8, value_len uintptr) bool {
+func Nw_txt_record_set_key(txt_record Nw_txt_record_t, key string, value []byte, value_len uintptr) bool {
 	result, callErr := tryNw_txt_record_set_key(txt_record, key, value, value_len)
 	if callErr != nil {
 		panic(callErr)
@@ -9045,7 +9055,9 @@ func tryNw_ws_metadata_set_pong_handler(metadata Nw_protocol_metadata_t, client_
 	if _nw_ws_metadata_set_pong_handler == nil {
 		return symbolCallError("nw_ws_metadata_set_pong_handler", "10.15", _nw_ws_metadata_set_pong_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 Nw_error_t) { pong_handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) {
+		pong_handler(Nw_error_t{Object: objectivec.ObjectFromID(blockArg0)})
+	})
 	retainNetworkAsyncBlock(metadata.ID, "nw_ws_metadata_set_pong_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_ws_metadata_set_pong_handler(metadata, uintptr(client_queue.Handle()), _block0)

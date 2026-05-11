@@ -113,8 +113,8 @@ type IVZCustomMMIODeviceConfiguration interface {
 	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	Irqs() foundation.INSArray
 	SetIrqs(value foundation.INSArray)
-	Provider() IVZCustomMMIODeviceProvider
-	SetProvider(value IVZCustomMMIODeviceProvider)
+	Provider() *VZCustomMMIODeviceProvider
+	SetProvider(value *VZCustomMMIODeviceProvider)
 	SupportsSaveRestore() bool
 	SetSupportsSaveRestore(value bool)
 	DebugDescription() string
@@ -203,11 +203,19 @@ func (v VZCustomMMIODeviceConfiguration) SetIrqs(value foundation.INSArray) {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/provider
-func (v VZCustomMMIODeviceConfiguration) Provider() IVZCustomMMIODeviceProvider {
+func (v VZCustomMMIODeviceConfiguration) Provider() *VZCustomMMIODeviceProvider {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("provider"))
-	return VZCustomMMIODeviceProviderFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZCustomMMIODeviceProviderFromID(objc.ID(rv))
+	return &val
 }
-func (v VZCustomMMIODeviceConfiguration) SetProvider(value IVZCustomMMIODeviceProvider) {
+func (v VZCustomMMIODeviceConfiguration) SetProvider(value *VZCustomMMIODeviceProvider) {
+	if value == nil {
+		objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), value)
 }
 

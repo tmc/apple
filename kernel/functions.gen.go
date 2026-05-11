@@ -18701,10 +18701,10 @@ func Host_priv_statistics(arg0 Host_priv_t, arg1 Host_flavor_t, arg2 Host_info_t
 	return result
 }
 
-var _host_processor_info func(arg0 Host_t, arg1 Processor_flavor_t, arg2 unsafe.Pointer, arg3 Processor_info_array_t, arg4 Mach_msg_type_number_t) int32
+var _host_processor_info func(arg0 Host_t, arg1 Processor_flavor_t, arg2 Natural_t, arg3 Processor_info_array_t, arg4 Mach_msg_type_number_t) int32
 var _host_processor_infoErr error
 
-func tryHost_processor_info(arg0 Host_t, arg1 Processor_flavor_t, arg2 unsafe.Pointer, arg3 Processor_info_array_t, arg4 Mach_msg_type_number_t) (int32, error) {
+func tryHost_processor_info(arg0 Host_t, arg1 Processor_flavor_t, arg2 Natural_t, arg3 Processor_info_array_t, arg4 Mach_msg_type_number_t) (int32, error) {
 	if _host_processor_info == nil {
 		return 0, symbolCallError("host_processor_info", "10.0", _host_processor_infoErr)
 	}
@@ -18714,7 +18714,7 @@ func tryHost_processor_info(arg0 Host_t, arg1 Processor_flavor_t, arg2 unsafe.Po
 // Host_processor_info.
 //
 // See: https://developer.apple.com/documentation/kernel/1502854-host_processor_info
-func Host_processor_info(arg0 Host_t, arg1 Processor_flavor_t, arg2 unsafe.Pointer, arg3 Processor_info_array_t, arg4 Mach_msg_type_number_t) int32 {
+func Host_processor_info(arg0 Host_t, arg1 Processor_flavor_t, arg2 Natural_t, arg3 Processor_info_array_t, arg4 Mach_msg_type_number_t) int32 {
 	result, callErr := tryHost_processor_info(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -29689,10 +29689,10 @@ func Mach_port_kernel_object(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 
 	return result
 }
 
-var _mach_port_kobject func(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 unsafe.Pointer, arg3 Mach_vm_address_t) int32
+var _mach_port_kobject func(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 Natural_t, arg3 Mach_vm_address_t) int32
 var _mach_port_kobjectErr error
 
-func tryMach_port_kobject(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 unsafe.Pointer, arg3 Mach_vm_address_t) (int32, error) {
+func tryMach_port_kobject(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 Natural_t, arg3 Mach_vm_address_t) (int32, error) {
 	if _mach_port_kobject == nil {
 		return 0, symbolCallError("mach_port_kobject", "10.6", _mach_port_kobjectErr)
 	}
@@ -29702,7 +29702,7 @@ func tryMach_port_kobject(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 uns
 // Mach_port_kobject.
 //
 // See: https://developer.apple.com/documentation/kernel/1578702-mach_port_kobject
-func Mach_port_kobject(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 unsafe.Pointer, arg3 Mach_vm_address_t) int32 {
+func Mach_port_kobject(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 Natural_t, arg3 Mach_vm_address_t) int32 {
 	result, callErr := tryMach_port_kobject(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -29710,10 +29710,10 @@ func Mach_port_kobject(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 unsafe
 	return result
 }
 
-var _mach_port_kobject_description func(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 unsafe.Pointer, arg3 Mach_vm_address_t, arg4 uintptr) int32
+var _mach_port_kobject_description func(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 Natural_t, arg3 Mach_vm_address_t, arg4 uintptr) int32
 var _mach_port_kobject_descriptionErr error
 
-func tryMach_port_kobject_description(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 unsafe.Pointer, arg3 Mach_vm_address_t, arg4 uintptr) (int32, error) {
+func tryMach_port_kobject_description(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 Natural_t, arg3 Mach_vm_address_t, arg4 uintptr) (int32, error) {
 	if _mach_port_kobject_description == nil {
 		return 0, symbolCallError("mach_port_kobject_description", "10.15.4", _mach_port_kobject_descriptionErr)
 	}
@@ -29723,7 +29723,7 @@ func tryMach_port_kobject_description(arg0 Ipc_space_read_t, arg1 Mach_port_name
 // Mach_port_kobject_description.
 //
 // See: https://developer.apple.com/documentation/kernel/3516847-mach_port_kobject_description
-func Mach_port_kobject_description(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 unsafe.Pointer, arg3 Mach_vm_address_t, arg4 uintptr) int32 {
+func Mach_port_kobject_description(arg0 Ipc_space_read_t, arg1 Mach_port_name_t, arg2 Natural_t, arg3 Mach_vm_address_t, arg4 uintptr) int32 {
 	result, callErr := tryMach_port_kobject_description(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -30508,10 +30508,10 @@ func Mach_vm_read(arg0 Vm_map_read_t, arg1 Mach_vm_address_t, arg2 Mach_vm_size_
 	return result
 }
 
-var _mach_vm_read_list func(arg0 Vm_map_read_t, arg1 Mach_vm_read_entry_t, arg2 unsafe.Pointer) int32
+var _mach_vm_read_list func(arg0 Vm_map_read_t, arg1 Mach_vm_read_entry_t, arg2 Natural_t) int32
 var _mach_vm_read_listErr error
 
-func tryMach_vm_read_list(arg0 Vm_map_read_t, arg1 Mach_vm_read_entry_t, arg2 unsafe.Pointer) (int32, error) {
+func tryMach_vm_read_list(arg0 Vm_map_read_t, arg1 Mach_vm_read_entry_t, arg2 Natural_t) (int32, error) {
 	if _mach_vm_read_list == nil {
 		return 0, symbolCallError("mach_vm_read_list", "10.4", _mach_vm_read_listErr)
 	}
@@ -30521,7 +30521,7 @@ func tryMach_vm_read_list(arg0 Vm_map_read_t, arg1 Mach_vm_read_entry_t, arg2 un
 // Mach_vm_read_list.
 //
 // See: https://developer.apple.com/documentation/kernel/1402084-mach_vm_read_list
-func Mach_vm_read_list(arg0 Vm_map_read_t, arg1 Mach_vm_read_entry_t, arg2 unsafe.Pointer) int32 {
+func Mach_vm_read_list(arg0 Vm_map_read_t, arg1 Mach_vm_read_entry_t, arg2 Natural_t) int32 {
 	result, callErr := tryMach_vm_read_list(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -30613,10 +30613,10 @@ func Mach_vm_region_info_64(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_info_
 	return result
 }
 
-var _mach_vm_region_recurse func(arg0 Vm_map_read_t, arg1 Mach_vm_address_t, arg2 Mach_vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32
+var _mach_vm_region_recurse func(arg0 Vm_map_read_t, arg1 Mach_vm_address_t, arg2 Mach_vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32
 var _mach_vm_region_recurseErr error
 
-func tryMach_vm_region_recurse(arg0 Vm_map_read_t, arg1 Mach_vm_address_t, arg2 Mach_vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) (int32, error) {
+func tryMach_vm_region_recurse(arg0 Vm_map_read_t, arg1 Mach_vm_address_t, arg2 Mach_vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) (int32, error) {
 	if _mach_vm_region_recurse == nil {
 		return 0, symbolCallError("mach_vm_region_recurse", "10.4", _mach_vm_region_recurseErr)
 	}
@@ -30626,7 +30626,7 @@ func tryMach_vm_region_recurse(arg0 Vm_map_read_t, arg1 Mach_vm_address_t, arg2 
 // Mach_vm_region_recurse.
 //
 // See: https://developer.apple.com/documentation/kernel/1402114-mach_vm_region_recurse
-func Mach_vm_region_recurse(arg0 Vm_map_read_t, arg1 Mach_vm_address_t, arg2 Mach_vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32 {
+func Mach_vm_region_recurse(arg0 Vm_map_read_t, arg1 Mach_vm_address_t, arg2 Mach_vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32 {
 	result, callErr := tryMach_vm_region_recurse(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -48254,18 +48254,18 @@ func VDSP_biquad2_ResetState(arg0 VDSP_biquad_Setup) {
 var _vDSP_biquadm func(arg0 VDSP_biquadm_Setup, arg1 *float32, arg2 VDSP_Stride, arg3 *float32, arg4 VDSP_Stride, arg5 VDSP_Length)
 var _vDSP_biquadmErr error
 
-func tryVDSP_biquadm(arg0 VDSP_biquadm_Setup, arg1 *float32, arg2 VDSP_Stride, arg3 *float32, arg4 VDSP_Stride, arg5 VDSP_Length) error {
+func tryVDSP_biquadm(arg0 VDSP_biquadm_Setup, arg1 []float32, arg2 VDSP_Stride, arg3 []float32, arg4 VDSP_Stride, arg5 VDSP_Length) error {
 	if _vDSP_biquadm == nil {
 		return symbolCallError("vDSP_biquadm", "10.9", _vDSP_biquadmErr)
 	}
-	_vDSP_biquadm(arg0, arg1, arg2, arg3, arg4, arg5)
+	_vDSP_biquadm(arg0, unsafe.SliceData(arg1), arg2, unsafe.SliceData(arg3), arg4, arg5)
 	return nil
 }
 
 // VDSP_biquadm applies a single-precision multichannel biquad IIR filter.
 //
 // See: https://developer.apple.com/documentation/kernel/1579994-vdsp_biquadm
-func VDSP_biquadm(arg0 VDSP_biquadm_Setup, arg1 *float32, arg2 VDSP_Stride, arg3 *float32, arg4 VDSP_Stride, arg5 VDSP_Length) {
+func VDSP_biquadm(arg0 VDSP_biquadm_Setup, arg1 []float32, arg2 VDSP_Stride, arg3 []float32, arg4 VDSP_Stride, arg5 VDSP_Length) {
 	if callErr := tryVDSP_biquadm(arg0, arg1, arg2, arg3, arg4, arg5); callErr != nil {
 		panic(callErr)
 	}
@@ -51484,10 +51484,10 @@ func Vm_read(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 Vm_offs
 	return result
 }
 
-var _vm_read_list func(arg0 Vm_map_read_t, arg1 Vm_read_entry_t, arg2 unsafe.Pointer) int32
+var _vm_read_list func(arg0 Vm_map_read_t, arg1 Vm_read_entry_t, arg2 Natural_t) int32
 var _vm_read_listErr error
 
-func tryVm_read_list(arg0 Vm_map_read_t, arg1 Vm_read_entry_t, arg2 unsafe.Pointer) (int32, error) {
+func tryVm_read_list(arg0 Vm_map_read_t, arg1 Vm_read_entry_t, arg2 Natural_t) (int32, error) {
 	if _vm_read_list == nil {
 		return 0, symbolCallError("vm_read_list", "10.0", _vm_read_listErr)
 	}
@@ -51497,7 +51497,7 @@ func tryVm_read_list(arg0 Vm_map_read_t, arg1 Vm_read_entry_t, arg2 unsafe.Point
 // Vm_read_list.
 //
 // See: https://developer.apple.com/documentation/kernel/1585516-vm_read_list
-func Vm_read_list(arg0 Vm_map_read_t, arg1 Vm_read_entry_t, arg2 unsafe.Pointer) int32 {
+func Vm_read_list(arg0 Vm_map_read_t, arg1 Vm_read_entry_t, arg2 Natural_t) int32 {
 	result, callErr := tryVm_read_list(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -51568,10 +51568,10 @@ func Vm_region_64(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 Vm
 	return result
 }
 
-var _vm_region_recurse func(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32
+var _vm_region_recurse func(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32
 var _vm_region_recurseErr error
 
-func tryVm_region_recurse(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) (int32, error) {
+func tryVm_region_recurse(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) (int32, error) {
 	if _vm_region_recurse == nil {
 		return 0, symbolCallError("vm_region_recurse", "10.0", _vm_region_recurseErr)
 	}
@@ -51581,7 +51581,7 @@ func tryVm_region_recurse(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t,
 // Vm_region_recurse.
 //
 // See: https://developer.apple.com/documentation/kernel/1585351-vm_region_recurse
-func Vm_region_recurse(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32 {
+func Vm_region_recurse(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32 {
 	result, callErr := tryVm_region_recurse(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -51589,10 +51589,10 @@ func Vm_region_recurse(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, ar
 	return result
 }
 
-var _vm_region_recurse_64 func(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32
+var _vm_region_recurse_64 func(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32
 var _vm_region_recurse_64Err error
 
-func tryVm_region_recurse_64(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) (int32, error) {
+func tryVm_region_recurse_64(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) (int32, error) {
 	if _vm_region_recurse_64 == nil {
 		return 0, symbolCallError("vm_region_recurse_64", "10.0", _vm_region_recurse_64Err)
 	}
@@ -51602,7 +51602,7 @@ func tryVm_region_recurse_64(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size
 // Vm_region_recurse_64.
 //
 // See: https://developer.apple.com/documentation/kernel/1585424-vm_region_recurse_64
-func Vm_region_recurse_64(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 unsafe.Pointer, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32 {
+func Vm_region_recurse_64(arg0 Vm_map_read_t, arg1 Vm_address_t, arg2 Vm_size_t, arg3 Natural_t, arg4 Vm_region_recurse_info_t, arg5 Mach_msg_type_number_t) int32 {
 	result, callErr := tryVm_region_recurse_64(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)

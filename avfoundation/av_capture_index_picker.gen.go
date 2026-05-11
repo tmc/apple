@@ -238,8 +238,8 @@ func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexes(lo
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/init(_:symbolName:numberOfIndexes:localizedTitleTransform:)
 func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle string, symbolName string, numberOfIndexes int, localizedTitleTransform IntHandler) AVCaptureIndexPicker {
 	_block3, _ := NewIntBlock(localizedTitleTransform)
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:numberOfIndexes:localizedTitleTransform:"), objc.String(localizedTitle), objc.String(symbolName), numberOfIndexes, _block3)
-	return AVCaptureIndexPickerFromID(rv)
+	rv := objc.Send[AVCaptureIndexPicker](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:numberOfIndexes:localizedTitleTransform:"), objc.String(localizedTitle), objc.String(symbolName), numberOfIndexes, _block3)
+	return rv
 }
 
 // Creates an object to select an index from a set of values.

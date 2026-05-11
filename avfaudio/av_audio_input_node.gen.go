@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -189,7 +190,9 @@ func NewAVAudioInputNode() AVAudioInputNode {
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/setManualRenderingInputPCMFormat(_:inputBlock:)
 func (a AVAudioInputNode) SetManualRenderingInputPCMFormatInputBlock(format IAVAudioFormat, block AVAudioIONodeInputBlock) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingInputPCMFormat:inputBlock:"), format, block)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 uint32) unsafe.Pointer { return block(arg0) })
+	defer _block1.Release()
+	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingInputPCMFormat:inputBlock:"), format, objc.ID(_block1))
 	return rv
 }
 

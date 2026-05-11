@@ -18,6 +18,9 @@ type ErrorHandler = func()
 // Used by:
 //   - [MLNetworkUtilities.SetupListenerStateChangeHandlerUseUDP]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -58,6 +61,9 @@ type VoidHandler = func()
 //   - [MLServer.SetUnLoadCommand]
 //   - [MLServer.SetUnLoadFunction]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

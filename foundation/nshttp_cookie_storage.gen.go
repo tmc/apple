@@ -367,7 +367,7 @@ func (h HTTPCookieStorage) SortedCookiesUsingDescriptors(sortOrder []NSSortDescr
 // the same storage instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/sharedCookieStorage(forGroupContainerIdentifier:)
-func (_HTTPCookieStorageClass HTTPCookieStorageClass) SharedCookieStorageForGroupContainerIdentifier(identifier string) HTTPCookieStorage {
+func (_HTTPCookieStorageClass HTTPCookieStorageClass) SharedCookieStorageForGroupContainerIdentifier(identifier string) NSHTTPCookieStorage {
 	rv := objc.Send[objc.ID](objc.ID(_HTTPCookieStorageClass.class), objc.Sel("sharedCookieStorageForGroupContainerIdentifier:"), objc.String(identifier))
 	return NSHTTPCookieStorageFromID(rv)
 }
@@ -438,7 +438,7 @@ func (h HTTPCookieStorage) SetIsSessionOnly(value bool) {
 // The shared cookie storage instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/shared
-func (_HTTPCookieStorageClass HTTPCookieStorageClass) SharedHTTPCookieStorage() HTTPCookieStorage {
+func (_HTTPCookieStorageClass HTTPCookieStorageClass) SharedHTTPCookieStorage() NSHTTPCookieStorage {
 	rv := objc.Send[objc.ID](objc.ID(_HTTPCookieStorageClass.class), objc.Sel("sharedHTTPCookieStorage"))
 	return NSHTTPCookieStorageFromID(objc.ID(rv))
 }

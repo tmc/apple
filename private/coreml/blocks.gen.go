@@ -110,6 +110,9 @@ type ErrorHandler = func(error)
 //   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError]
 //   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataProgressHandlersError]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -128,6 +131,9 @@ type MLClassifierResultErrorHandler = func(*MLClassifierResult, error)
 // Used by:
 //   - [MLAsyncClassifier.ClassifyOptionsCompletionHandler]
 func NewMLClassifierResultErrorBlock(handler MLClassifierResultErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLClassifierResult
 		if resultID != 0 {
@@ -154,6 +160,9 @@ type MLFeatureProviderErrorHandler = func(*objectivec.Object, error)
 //   - [MLModeling.SubmitPredictionRequestCompletionHandler]
 //   - [MLPredictionRequest.SubmitWithCompletionHandler]
 func NewMLFeatureProviderErrorBlock(handler MLFeatureProviderErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *objectivec.Object
 		if resultID != 0 {
@@ -178,6 +187,9 @@ type MLFeatureValueErrorHandler = func(*MLFeatureValue, error)
 // Used by:
 //   - [CoreMLModelSecurityServiceToClientProtocol.ClientFeatureValueForNameUniqueKeyForProviderWithReply]
 func NewMLFeatureValueErrorBlock(handler MLFeatureValueErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLFeatureValue
 		if resultID != 0 {
@@ -292,6 +304,9 @@ type VoidHandler = func()
 //   - [MLWrappedModel.NewStateForFeatureNamedInitializerBlock]
 //   - [MLWritableWrappedModel.NewStateForFeatureNamedInitializerBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

@@ -152,7 +152,7 @@ func NewUnitAccelerationWithSymbolConverter(symbol string, converter INSUnitConv
 // Returns the meter per second squared unit of acceleration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAcceleration/metersPerSecondSquared
-func (_UnitAccelerationClass UnitAccelerationClass) MetersPerSecondSquared() UnitAcceleration {
+func (_UnitAccelerationClass UnitAccelerationClass) MetersPerSecondSquared() NSUnitAcceleration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAccelerationClass.class), objc.Sel("metersPerSecondSquared"))
 	return NSUnitAccelerationFromID(objc.ID(rv))
 }
@@ -160,7 +160,7 @@ func (_UnitAccelerationClass UnitAccelerationClass) MetersPerSecondSquared() Uni
 // Returns the gravity unit of acceleration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAcceleration/gravity
-func (_UnitAccelerationClass UnitAccelerationClass) Gravity() UnitAcceleration {
+func (_UnitAccelerationClass UnitAccelerationClass) Gravity() NSUnitAcceleration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAccelerationClass.class), objc.Sel("gravity"))
 	return NSUnitAccelerationFromID(objc.ID(rv))
 }

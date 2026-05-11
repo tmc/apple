@@ -346,8 +346,8 @@ func (d NSDataDetector) SetDate(value NSTextCheckingType) {
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/duration
 func (d NSDataDetector) Duration() float64 {
-	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("duration"))
-	return float64(rv)
+	rv := objc.Send[float64](d.ID, objc.Sel("duration"))
+	return rv
 }
 func (d NSDataDetector) SetDuration(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDuration:"), value)

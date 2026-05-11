@@ -481,7 +481,7 @@ type INSCalendar interface {
 	// Topic: Comparing Dates
 
 	// Indicates the ordering of two given dates based on their components down to a given unit granularity.
-	CompareDateToDateToUnitGranularity(date1 INSDate, date2 INSDate, unit NSCalendarUnit) ComparisonResult
+	CompareDateToDateToUnitGranularity(date1 INSDate, date2 INSDate, unit NSCalendarUnit) NSComparisonResult
 	// Indicates whether two dates are equal to a given unit of granularity.
 	IsDateEqualToDateToUnitGranularity(date1 INSDate, date2 INSDate, unit NSCalendarUnit) bool
 	// Indicates whether two dates are in the same day.
@@ -1566,9 +1566,9 @@ func (c NSCalendar) NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, 
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/compare(_:to:toUnitGranularity:)
 //
 // [NSCalendar.Unit]: https://developer.apple.com/documentation/Foundation/NSCalendar/Unit
-func (c NSCalendar) CompareDateToDateToUnitGranularity(date1 INSDate, date2 INSDate, unit NSCalendarUnit) ComparisonResult {
-	rv := objc.Send[ComparisonResult](c.ID, objc.Sel("compareDate:toDate:toUnitGranularity:"), date1, date2, unit)
-	return ComparisonResult(rv)
+func (c NSCalendar) CompareDateToDateToUnitGranularity(date1 INSDate, date2 INSDate, unit NSCalendarUnit) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](c.ID, objc.Sel("compareDate:toDate:toUnitGranularity:"), date1, date2, unit)
+	return NSComparisonResult(rv)
 }
 
 // Indicates whether two dates are equal to a given unit of granularity.

@@ -187,8 +187,8 @@ func NewAccessibilityCustomActionWithNameTargetSelector(name string, target obje
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/init(name:handler:)
 func (a NSAccessibilityCustomAction) InitWithNameHandler(name string, handler ErrorHandler) NSAccessibilityCustomAction {
 	_block1, _ := NewErrorBlock(handler)
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithName:handler:"), objc.String(name), _block1)
-	return NSAccessibilityCustomActionFromID(rv)
+	rv := objc.Send[NSAccessibilityCustomAction](a.ID, objc.Sel("initWithName:handler:"), objc.String(name), _block1)
+	return rv
 }
 
 // Creates a custom action object with the specified name, target, and

@@ -548,7 +548,7 @@ func (r RunLoop) CurrentMode() NSRunLoopMode {
 // returned.
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/current
-func (_RunLoopClass RunLoopClass) CurrentRunLoop() RunLoop {
+func (_RunLoopClass RunLoopClass) CurrentRunLoop() NSRunLoop {
 	rv := objc.Send[objc.ID](objc.ID(_RunLoopClass.class), objc.Sel("currentRunLoop"))
 	return NSRunLoopFromID(objc.ID(rv))
 }
@@ -560,7 +560,7 @@ func (_RunLoopClass RunLoopClass) CurrentRunLoop() RunLoop {
 // An object representing the main thread’s run loop.
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/main
-func (_RunLoopClass RunLoopClass) MainRunLoop() RunLoop {
+func (_RunLoopClass RunLoopClass) MainRunLoop() NSRunLoop {
 	rv := objc.Send[objc.ID](objc.ID(_RunLoopClass.class), objc.Sel("mainRunLoop"))
 	return NSRunLoopFromID(objc.ID(rv))
 }

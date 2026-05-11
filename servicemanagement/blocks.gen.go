@@ -20,6 +20,9 @@ type ErrorHandler = func(error)
 // Used by:
 //   - [SMAppService.UnregisterWithCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})

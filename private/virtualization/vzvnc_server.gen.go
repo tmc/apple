@@ -137,7 +137,7 @@ type IVZVNCServer interface {
 	SetGraphicsDisplay(value IVZGraphicsDisplay)
 	Port() uint16
 	Queue() objectivec.Object
-	SecurityConfiguration() IVZVNCSecurityConfiguration
+	SecurityConfiguration() *VZVNCSecurityConfiguration
 	Start()
 	State() int64
 	SetState(value int64)
@@ -338,9 +338,13 @@ func (v VZVNCServer) Queue() objectivec.Object {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/securityConfiguration
-func (v VZVNCServer) SecurityConfiguration() IVZVNCSecurityConfiguration {
+func (v VZVNCServer) SecurityConfiguration() *VZVNCSecurityConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("securityConfiguration"))
-	return VZVNCSecurityConfigurationFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZVNCSecurityConfigurationFromID(objc.ID(rv))
+	return &val
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/state

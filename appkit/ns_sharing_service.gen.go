@@ -283,8 +283,8 @@ func NewSharingServiceNamed(serviceName NSSharingServiceName) NSSharingService {
 // [sharingServices(forItems:)]: https://developer.apple.com/documentation/AppKit/NSSharingService/sharingServices(forItems:)
 func (s NSSharingService) InitWithTitleImageAlternateImageHandler(title string, image INSImage, alternateImage INSImage, block VoidHandler) NSSharingService {
 	_block3, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithTitle:image:alternateImage:handler:"), objc.String(title), image, alternateImage, _block3)
-	return NSSharingServiceFromID(rv)
+	rv := objc.Send[NSSharingService](s.ID, objc.Sel("initWithTitle:image:alternateImage:handler:"), objc.String(title), image, alternateImage, _block3)
+	return rv
 }
 
 // Returns whether the service can share all the specified items.

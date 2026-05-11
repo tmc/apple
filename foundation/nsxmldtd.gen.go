@@ -541,7 +541,7 @@ func (x XMLDTD) NotationDeclarationForName(name string) INSXMLDTDNode {
 // “'” (apostrophe).
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/predefinedEntityDeclaration(forName:)
-func (_XMLDTDClass XMLDTDClass) PredefinedEntityDeclarationForName(name string) XMLDTDNode {
+func (_XMLDTDClass XMLDTDClass) PredefinedEntityDeclarationForName(name string) NSXMLDTDNode {
 	rv := objc.Send[objc.ID](objc.ID(_XMLDTDClass.class), objc.Sel("predefinedEntityDeclarationForName:"), objc.String(name))
 	return NSXMLDTDNodeFromID(rv)
 }

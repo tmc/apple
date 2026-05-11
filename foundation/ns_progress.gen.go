@@ -763,7 +763,7 @@ func (p Progress) PerformAsCurrentWithPendingUnitCountUsingBlock(unitCount int64
 // See: https://developer.apple.com/documentation/Foundation/Progress/discreteProgress(totalUnitCount:)
 //
 // [dispatch_async]: https://developer.apple.com/documentation/Dispatch/dispatch_async
-func (_ProgressClass ProgressClass) DiscreteProgressWithTotalUnitCount(unitCount int64) Progress {
+func (_ProgressClass ProgressClass) DiscreteProgressWithTotalUnitCount(unitCount int64) NSProgress {
 	rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("discreteProgressWithTotalUnitCount:"), unitCount)
 	return NSProgressFromID(rv)
 }
@@ -790,7 +790,7 @@ func (_ProgressClass ProgressClass) DiscreteProgressWithTotalUnitCount(unitCount
 // [DiscreteProgressWithTotalUnitCount].
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/current()
-func (_ProgressClass ProgressClass) CurrentProgress() Progress {
+func (_ProgressClass ProgressClass) CurrentProgress() NSProgress {
 	rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("currentProgress"))
 	return NSProgressFromID(rv)
 }
@@ -1216,7 +1216,7 @@ func (p Progress) SetResumingHandler(value VoidHandler) {
 // [file]: https://developer.apple.com/documentation/Foundation/ProgressKind/file
 func (p Progress) Kind() NSProgressKind {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("kind"))
-	return ProgressKind(NSStringFromID(rv).String())
+	return NSProgressKind(NSStringFromID(rv).String())
 }
 func (p Progress) SetKind(value NSProgressKind) {
 	objc.Send[struct{}](p.ID, objc.Sel("setKind:"), objc.String(string(value)))

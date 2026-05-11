@@ -180,7 +180,7 @@ func cfDataFromBytes(b []byte) corefoundation.CFDataRef {
 	if len(b) == 0 {
 		return corefoundation.CFDataCreate(0, nil, 0)
 	}
-	return corefoundation.CFDataCreate(0, &b[0], len(b))
+	return corefoundation.CFDataCreate(0, b, len(b))
 }
 
 // cfDataToBytes converts a CFData to a Go byte slice.

@@ -389,7 +389,7 @@ type INSEvent interface {
 	// Topic: Configuring swipe event behaviors
 
 	// Allows tracking and user interface feedback of scroll wheel events.
-	TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler func(float64, uint64, bool, *bool))
+	TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler Float64Handler)
 
 	// Topic: Getting gesture and touch information
 
@@ -643,12 +643,9 @@ func (e NSEvent) CharactersByApplyingModifiers(modifiers NSEventModifierFlags) s
 //
 // [NSEvent.SwipeTrackingOptions]: https://developer.apple.com/documentation/AppKit/NSEvent/SwipeTrackingOptions
 // [NSEvent.Phase]: https://developer.apple.com/documentation/AppKit/NSEvent/Phase-swift.struct
-func (e NSEvent) TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler func(float64, uint64, bool, *bool)) {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 float64, arg1 uint64, arg2 bool, arg3 *bool) {
-		trackingHandler(arg0, arg1, arg2, arg3)
-	})
-	defer _block3.Release()
-	objc.Send[objc.ID](e.ID, objc.Sel("trackSwipeEventWithOptions:dampenAmountThresholdMin:max:usingHandler:"), options, minDampenThreshold, maxDampenThreshold, objc.ID(_block3))
+func (e NSEvent) TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler Float64Handler) {
+	_block3, _ := NewFloat64Block(trackingHandler)
+	objc.Send[objc.ID](e.ID, objc.Sel("trackSwipeEventWithOptions:dampenAmountThresholdMin:max:usingHandler:"), options, minDampenThreshold, maxDampenThreshold, _block3)
 }
 
 // Returns the touch objects associated with the specified phase.
@@ -2297,6 +2294,21 @@ func (_NSEventClass NSEventClass) MouseCoalescingEnabled() bool {
 }
 func (_NSEventClass NSEventClass) SetMouseCoalescingEnabled(value bool) {
 	objc.Send[struct{}](objc.ID(_NSEventClass.class), objc.Sel("setMouseCoalescingEnabled:"), value)
+}
+
+// TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandlerSync is a synchronous wrapper around [NSEvent.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (e NSEvent) TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandlerSync(ctx context.Context, options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64) (float64, error) {
+	done := make(chan float64, 1)
+	e.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options, minDampenThreshold, maxDampenThreshold, func(val float64) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0.0, ctx.Err()
+	}
 }
 
 // AddGlobalMonitorForEventsMatchingMaskHandlerSync is a synchronous wrapper around [NSEvent.AddGlobalMonitorForEventsMatchingMaskHandler].

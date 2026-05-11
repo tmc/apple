@@ -547,7 +547,11 @@ func (a AVAudioSequencer) BeatsForSeconds(seconds float64) AVMusicTimeStamp {
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/setUserCallback(_:)
 func (a AVAudioSequencer) SetUserCallback(userCallback AVAudioSequencerUserCallback) {
-	objc.Send[objc.ID](a.ID, objc.Sel("setUserCallback:"), userCallback)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 float64) {
+		userCallback(AVMusicTrackFromID(arg0), foundation.NSDataFromID(arg1), arg2)
+	})
+	defer _block0.Release()
+	objc.Send[objc.ID](a.ID, objc.Sel("setUserCallback:"), objc.ID(_block0))
 }
 
 // Gets a data object that contains the events from the sequence.

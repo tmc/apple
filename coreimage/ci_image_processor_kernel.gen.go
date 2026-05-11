@@ -219,9 +219,9 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtentI
 // `/CIImage/imageByUnpremultiplyingAlpha` on the processor input.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/formatForInput(at:)
-func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) FormatForInputAtIndex(inputIndex int) CIFormat {
-	rv := objc.Send[CIFormat](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("formatForInputAtIndex:"), inputIndex)
-	return CIFormat(rv)
+func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) FormatForInputAtIndex(inputIndex int) int {
+	rv := objc.Send[int](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("formatForInputAtIndex:"), inputIndex)
+	return rv
 }
 
 // Override this class method to implement your Core Image Processor Kernel
@@ -403,9 +403,9 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtents
 // best matches the rendering context’s `/CIContext/workingFormat`.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/outputFormat(at:arguments:)
-func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormatAtIndexArguments(outputIndex int, arguments foundation.INSDictionary) CIFormat {
-	rv := objc.Send[CIFormat](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("outputFormatAtIndex:arguments:"), outputIndex, arguments)
-	return CIFormat(rv)
+func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormatAtIndexArguments(outputIndex int, arguments foundation.INSDictionary) int {
+	rv := objc.Send[int](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("outputFormatAtIndex:arguments:"), outputIndex, arguments)
+	return rv
 }
 
 // Override this class method of your Core Image Processor Kernel subclass if
@@ -466,9 +466,9 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ProcessWithInput
 // `/CIImage/imageByPremultiplyingAlpha` on the processor output.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/outputFormat
-func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormat() CIFormat {
-	rv := objc.Send[CIFormat](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("outputFormat"))
-	return CIFormat(rv)
+func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormat() int {
+	rv := objc.Send[int](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("outputFormat"))
+	return rv
 }
 
 // Override this class property if your processor’s output stores 1.0 into

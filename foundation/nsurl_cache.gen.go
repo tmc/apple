@@ -459,11 +459,11 @@ func (u URLCache) SetMemoryCapacity(value uint) {
 // before making any calls to this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/shared
-func (_URLCacheClass URLCacheClass) SharedURLCache() URLCache {
+func (_URLCacheClass URLCacheClass) SharedURLCache() NSURLCache {
 	rv := objc.Send[objc.ID](objc.ID(_URLCacheClass.class), objc.Sel("sharedURLCache"))
 	return NSURLCacheFromID(objc.ID(rv))
 }
-func (_URLCacheClass URLCacheClass) SetSharedURLCache(value URLCache) {
+func (_URLCacheClass URLCacheClass) SetSharedURLCache(value NSURLCache) {
 	objc.Send[struct{}](objc.ID(_URLCacheClass.class), objc.Sel("setSharedURLCache:"), value)
 }
 

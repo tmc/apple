@@ -237,8 +237,8 @@ type IThread interface {
 
 	// Topic: Prioritizing Thread Work
 
-	QualityOfService() QualityOfService
-	SetQualityOfService(value QualityOfService)
+	QualityOfService() NSQualityOfService
+	SetQualityOfService(value NSQualityOfService)
 	// The receiver’s priority
 	ThreadPriority() float64
 	SetThreadPriority(value float64)
@@ -386,8 +386,8 @@ func (t Thread) Cancel() {
 // See: https://developer.apple.com/documentation/Foundation/Thread/init(block:)
 func (t Thread) InitWithBlock(block VoidHandler) Thread {
 	_block0, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithBlock:"), _block0)
-	return NSThreadFromID(rv)
+	rv := objc.Send[Thread](t.ID, objc.Sel("initWithBlock:"), _block0)
+	return rv
 }
 
 // Detaches a new thread and uses the specified selector as the thread entry
@@ -638,11 +638,11 @@ func (t Thread) SetStackSize(value uint) {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/Thread/qualityOfService
-func (t Thread) QualityOfService() QualityOfService {
-	rv := objc.Send[QualityOfService](t.ID, objc.Sel("qualityOfService"))
-	return QualityOfService(rv)
+func (t Thread) QualityOfService() NSQualityOfService {
+	rv := objc.Send[NSQualityOfService](t.ID, objc.Sel("qualityOfService"))
+	return NSQualityOfService(rv)
 }
-func (t Thread) SetQualityOfService(value QualityOfService) {
+func (t Thread) SetQualityOfService(value NSQualityOfService) {
 	objc.Send[struct{}](t.ID, objc.Sel("setQualityOfService:"), value)
 }
 
@@ -698,7 +698,7 @@ func (t Thread) NSWillBecomeMultiThreaded() NSNotificationName {
 // The [NSThread] object representing the main thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/main
-func (_ThreadClass ThreadClass) MainThread() Thread {
+func (_ThreadClass ThreadClass) MainThread() NSThread {
 	rv := objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("mainThread"))
 	return NSThreadFromID(objc.ID(rv))
 }
@@ -710,7 +710,7 @@ func (_ThreadClass ThreadClass) MainThread() Thread {
 // A thread object representing the current thread of execution.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/current
-func (_ThreadClass ThreadClass) CurrentThread() Thread {
+func (_ThreadClass ThreadClass) CurrentThread() NSThread {
 	rv := objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("currentThread"))
 	return NSThreadFromID(objc.ID(rv))
 }

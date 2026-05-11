@@ -8,7 +8,6 @@ import (
 
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/diskarbitration"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/kernel"
@@ -546,10 +545,10 @@ func AEDuplicateDesc(theAEDesc unsafe.Pointer, result unsafe.Pointer) int16 {
 	return result0
 }
 
-var _aEFlattenDesc func(theAEDesc unsafe.Pointer, buffer coreimage.Ptr, bufferSize corefoundation.CGSize, actualSize *corefoundation.CGSize) int32
+var _aEFlattenDesc func(theAEDesc unsafe.Pointer, buffer kernel.Ptr, bufferSize corefoundation.CGSize, actualSize *corefoundation.CGSize) int32
 var _aEFlattenDescErr error
 
-func tryAEFlattenDesc(theAEDesc unsafe.Pointer, buffer coreimage.Ptr, bufferSize corefoundation.CGSize, actualSize *corefoundation.CGSize) (int32, error) {
+func tryAEFlattenDesc(theAEDesc unsafe.Pointer, buffer kernel.Ptr, bufferSize corefoundation.CGSize, actualSize *corefoundation.CGSize) (int32, error) {
 	if _aEFlattenDesc == nil {
 		return 0, symbolCallError("AEFlattenDesc", "10.0", _aEFlattenDescErr)
 	}
@@ -559,7 +558,7 @@ func tryAEFlattenDesc(theAEDesc unsafe.Pointer, buffer coreimage.Ptr, bufferSize
 // AEFlattenDesc flattens the specified descriptor and stores the data in the supplied buffer.
 //
 // See: https://developer.apple.com/documentation/coreservices/1441808-aeflattendesc
-func AEFlattenDesc(theAEDesc unsafe.Pointer, buffer coreimage.Ptr, bufferSize corefoundation.CGSize, actualSize *corefoundation.CGSize) int32 {
+func AEFlattenDesc(theAEDesc unsafe.Pointer, buffer kernel.Ptr, bufferSize corefoundation.CGSize, actualSize *corefoundation.CGSize) int32 {
 	result, callErr := tryAEFlattenDesc(theAEDesc, buffer, bufferSize, actualSize)
 	if callErr != nil {
 		panic(callErr)
@@ -2029,10 +2028,10 @@ func AbsoluteToNanoseconds(arg0 kernel.AbsoluteTime) Nanoseconds {
 	return result
 }
 
-var _acquireIconRef func(theIconRef unsafe.Pointer) int16
+var _acquireIconRef func(theIconRef IconRef) int16
 var _acquireIconRefErr error
 
-func tryAcquireIconRef(theIconRef unsafe.Pointer) (int16, error) {
+func tryAcquireIconRef(theIconRef IconRef) (int16, error) {
 	if _acquireIconRef == nil {
 		return 0, symbolCallError("AcquireIconRef", "10.0", _acquireIconRefErr)
 	}
@@ -2044,7 +2043,7 @@ func tryAcquireIconRef(theIconRef unsafe.Pointer) (int16, error) {
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1441852-acquireiconref
-func AcquireIconRef(theIconRef unsafe.Pointer) int16 {
+func AcquireIconRef(theIconRef IconRef) int16 {
 	result, callErr := tryAcquireIconRef(theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -4509,10 +4508,10 @@ func CompareAndSwap(arg0 uint32, arg1 uint32, arg2 uint32) bool {
 	return result
 }
 
-var _compositeIconRef func(backgroundIconRef unsafe.Pointer, foregroundIconRef unsafe.Pointer, compositeIconRef unsafe.Pointer) int16
+var _compositeIconRef func(backgroundIconRef IconRef, foregroundIconRef IconRef, compositeIconRef *IconRef) int16
 var _compositeIconRefErr error
 
-func tryCompositeIconRef(backgroundIconRef unsafe.Pointer, foregroundIconRef unsafe.Pointer, compositeIconRef unsafe.Pointer) (int16, error) {
+func tryCompositeIconRef(backgroundIconRef IconRef, foregroundIconRef IconRef, compositeIconRef *IconRef) (int16, error) {
 	if _compositeIconRef == nil {
 		return 0, symbolCallError("CompositeIconRef", "10.0", _compositeIconRefErr)
 	}
@@ -4524,7 +4523,7 @@ func tryCompositeIconRef(backgroundIconRef unsafe.Pointer, foregroundIconRef uns
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1450541-compositeiconref
-func CompositeIconRef(backgroundIconRef unsafe.Pointer, foregroundIconRef unsafe.Pointer, compositeIconRef unsafe.Pointer) int16 {
+func CompositeIconRef(backgroundIconRef IconRef, foregroundIconRef IconRef, compositeIconRef *IconRef) int16 {
 	result, callErr := tryCompositeIconRef(backgroundIconRef, foregroundIconRef, compositeIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -5612,10 +5611,10 @@ func DetachResourceFile(arg0 ResFileRefNum) int16 {
 	return result
 }
 
-var _determineIfPathIsEnclosedByFolder func(arg0 unsafe.Pointer, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) int16
+var _determineIfPathIsEnclosedByFolder func(arg0 FSVolumeRefNum, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) int16
 var _determineIfPathIsEnclosedByFolderErr error
 
-func tryDetermineIfPathIsEnclosedByFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) (int16, error) {
+func tryDetermineIfPathIsEnclosedByFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) (int16, error) {
 	if _determineIfPathIsEnclosedByFolder == nil {
 		return 0, symbolCallError("DetermineIfPathIsEnclosedByFolder", "10.4", _determineIfPathIsEnclosedByFolderErr)
 	}
@@ -5627,7 +5626,7 @@ func tryDetermineIfPathIsEnclosedByFolder(arg0 unsafe.Pointer, arg1 uint32, arg2
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389166-determineifpathisenclosedbyfolde
-func DetermineIfPathIsEnclosedByFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) int16 {
+func DetermineIfPathIsEnclosedByFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 uint8, arg3 bool, arg4 bool) int16 {
 	result, callErr := tryDetermineIfPathIsEnclosedByFolder(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -6402,10 +6401,10 @@ func DisposeOSLMarkUPP(userUPP OSLMarkUPP) {
 	}
 }
 
-var _disposePtr func(arg0 coreimage.Ptr)
+var _disposePtr func(arg0 kernel.Ptr)
 var _disposePtrErr error
 
-func tryDisposePtr(arg0 coreimage.Ptr) error {
+func tryDisposePtr(arg0 kernel.Ptr) error {
 	if _disposePtr == nil {
 		return symbolCallError("DisposePtr", "10.0", _disposePtrErr)
 	}
@@ -6418,7 +6417,7 @@ func tryDisposePtr(arg0 coreimage.Ptr) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1506427-disposeptr
-func DisposePtr(arg0 coreimage.Ptr) {
+func DisposePtr(arg0 kernel.Ptr) {
 	if callErr := tryDisposePtr(arg0); callErr != nil {
 		panic(callErr)
 	}
@@ -6818,10 +6817,10 @@ func Enqueue(arg0 QElemPtr, arg1 QHdrPtr) {
 	}
 }
 
-var _fNGetDirectoryForSubscription func(arg0 FNSubscriptionRef, arg1 unsafe.Pointer) int32
+var _fNGetDirectoryForSubscription func(arg0 FNSubscriptionRef, arg1 FSRef) int32
 var _fNGetDirectoryForSubscriptionErr error
 
-func tryFNGetDirectoryForSubscription(arg0 FNSubscriptionRef, arg1 unsafe.Pointer) (int32, error) {
+func tryFNGetDirectoryForSubscription(arg0 FNSubscriptionRef, arg1 FSRef) (int32, error) {
 	if _fNGetDirectoryForSubscription == nil {
 		return 0, symbolCallError("FNGetDirectoryForSubscription", "10.1", _fNGetDirectoryForSubscriptionErr)
 	}
@@ -6833,7 +6832,7 @@ func tryFNGetDirectoryForSubscription(arg0 FNSubscriptionRef, arg1 unsafe.Pointe
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566615-fngetdirectoryforsubscription
-func FNGetDirectoryForSubscription(arg0 FNSubscriptionRef, arg1 unsafe.Pointer) int32 {
+func FNGetDirectoryForSubscription(arg0 FNSubscriptionRef, arg1 FSRef) int32 {
 	result, callErr := tryFNGetDirectoryForSubscription(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -6841,10 +6840,10 @@ func FNGetDirectoryForSubscription(arg0 FNSubscriptionRef, arg1 unsafe.Pointer) 
 	return result
 }
 
-var _fNNotify func(arg0 unsafe.Pointer, arg1 FNMessage, arg2 unsafe.Pointer) int32
+var _fNNotify func(arg0 FSRef, arg1 FNMessage, arg2 unsafe.Pointer) int32
 var _fNNotifyErr error
 
-func tryFNNotify(arg0 unsafe.Pointer, arg1 FNMessage, arg2 unsafe.Pointer) (int32, error) {
+func tryFNNotify(arg0 FSRef, arg1 FNMessage, arg2 unsafe.Pointer) (int32, error) {
 	if _fNNotify == nil {
 		return 0, symbolCallError("FNNotify", "10.0", _fNNotifyErr)
 	}
@@ -6856,7 +6855,7 @@ func tryFNNotify(arg0 unsafe.Pointer, arg1 FNMessage, arg2 unsafe.Pointer) (int3
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565421-fnnotify
-func FNNotify(arg0 unsafe.Pointer, arg1 FNMessage, arg2 unsafe.Pointer) int32 {
+func FNNotify(arg0 FSRef, arg1 FNMessage, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryFNNotify(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -6910,10 +6909,10 @@ func FNNotifyByPath(arg0 uint8, arg1 FNMessage, arg2 unsafe.Pointer) int32 {
 	return result
 }
 
-var _fNSubscribe func(arg0 unsafe.Pointer, arg1 FNSubscriptionUPP, arg2 unsafe.Pointer, arg3 FNSubscriptionRef) int32
+var _fNSubscribe func(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 unsafe.Pointer, arg3 FNSubscriptionRef) int32
 var _fNSubscribeErr error
 
-func tryFNSubscribe(arg0 unsafe.Pointer, arg1 FNSubscriptionUPP, arg2 unsafe.Pointer, arg3 FNSubscriptionRef) (int32, error) {
+func tryFNSubscribe(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 unsafe.Pointer, arg3 FNSubscriptionRef) (int32, error) {
 	if _fNSubscribe == nil {
 		return 0, symbolCallError("FNSubscribe", "10.1", _fNSubscribeErr)
 	}
@@ -6925,7 +6924,7 @@ func tryFNSubscribe(arg0 unsafe.Pointer, arg1 FNSubscriptionUPP, arg2 unsafe.Poi
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565373-fnsubscribe
-func FNSubscribe(arg0 unsafe.Pointer, arg1 FNSubscriptionUPP, arg2 unsafe.Pointer, arg3 FNSubscriptionRef) int32 {
+func FNSubscribe(arg0 FSRef, arg1 FNSubscriptionUPP, arg2 unsafe.Pointer, arg3 FNSubscriptionRef) int32 {
 	result, callErr := tryFNSubscribe(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -7025,10 +7024,10 @@ func FSCancelVolumeOperation(arg0 FSVolumeOperation) int32 {
 	return result
 }
 
-var _fSCatalogSearch func(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 unsafe.Pointer, arg8 FSSpecPtr, arg9 kernel.HFSUniStr255) int16
+var _fSCatalogSearch func(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 kernel.HFSUniStr255) int16
 var _fSCatalogSearchErr error
 
-func tryFSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 unsafe.Pointer, arg8 FSSpecPtr, arg9 kernel.HFSUniStr255) (int16, error) {
+func tryFSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 kernel.HFSUniStr255) (int16, error) {
 	if _fSCatalogSearch == nil {
 		return 0, symbolCallError("FSCatalogSearch", "10.0", _fSCatalogSearchErr)
 	}
@@ -7040,7 +7039,7 @@ func tryFSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointe
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565862-fscatalogsearch
-func FSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 unsafe.Pointer, arg8 FSSpecPtr, arg9 kernel.HFSUniStr255) int16 {
+func FSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 FSRef, arg8 FSSpecPtr, arg9 kernel.HFSUniStr255) int16 {
 	result, callErr := tryFSCatalogSearch(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
 	if callErr != nil {
 		panic(callErr)
@@ -7094,10 +7093,10 @@ func FSCloseIterator(arg0 FSIterator) int16 {
 	return result
 }
 
-var _fSCompareFSRefs func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int16
+var _fSCompareFSRefs func(arg0 FSRef, arg1 FSRef) int16
 var _fSCompareFSRefsErr error
 
-func tryFSCompareFSRefs(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (int16, error) {
+func tryFSCompareFSRefs(arg0 FSRef, arg1 FSRef) (int16, error) {
 	if _fSCompareFSRefs == nil {
 		return 0, symbolCallError("FSCompareFSRefs", "10.0", _fSCompareFSRefsErr)
 	}
@@ -7109,7 +7108,7 @@ func tryFSCompareFSRefs(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (int16, error)
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565571-fscomparefsrefs
-func FSCompareFSRefs(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int16 {
+func FSCompareFSRefs(arg0 FSRef, arg1 FSRef) int16 {
 	result, callErr := tryFSCompareFSRefs(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -7117,10 +7116,10 @@ func FSCompareFSRefs(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int16 {
 	return result
 }
 
-var _fSCopyDADiskForVolume func(arg0 unsafe.Pointer, arg1 diskarbitration.DADiskRef) int32
+var _fSCopyDADiskForVolume func(arg0 FSVolumeRefNum, arg1 diskarbitration.DADiskRef) int32
 var _fSCopyDADiskForVolumeErr error
 
-func tryFSCopyDADiskForVolume(arg0 unsafe.Pointer, arg1 diskarbitration.DADiskRef) (int32, error) {
+func tryFSCopyDADiskForVolume(arg0 FSVolumeRefNum, arg1 diskarbitration.DADiskRef) (int32, error) {
 	if _fSCopyDADiskForVolume == nil {
 		return 0, symbolCallError("FSCopyDADiskForVolume", "10.4", _fSCopyDADiskForVolumeErr)
 	}
@@ -7132,7 +7131,7 @@ func tryFSCopyDADiskForVolume(arg0 unsafe.Pointer, arg1 diskarbitration.DADiskRe
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565813-fscopydadiskforvolume
-func FSCopyDADiskForVolume(arg0 unsafe.Pointer, arg1 diskarbitration.DADiskRef) int32 {
+func FSCopyDADiskForVolume(arg0 FSVolumeRefNum, arg1 diskarbitration.DADiskRef) int32 {
 	result, callErr := tryFSCopyDADiskForVolume(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -7140,10 +7139,10 @@ func FSCopyDADiskForVolume(arg0 unsafe.Pointer, arg1 diskarbitration.DADiskRef) 
 	return result
 }
 
-var _fSCopyDiskIDForVolume func(arg0 unsafe.Pointer, arg1 corefoundation.CFStringRef) int32
+var _fSCopyDiskIDForVolume func(arg0 FSVolumeRefNum, arg1 corefoundation.CFStringRef) int32
 var _fSCopyDiskIDForVolumeErr error
 
-func tryFSCopyDiskIDForVolume(arg0 unsafe.Pointer, arg1 corefoundation.CFStringRef) (int32, error) {
+func tryFSCopyDiskIDForVolume(arg0 FSVolumeRefNum, arg1 corefoundation.CFStringRef) (int32, error) {
 	if _fSCopyDiskIDForVolume == nil {
 		return 0, symbolCallError("FSCopyDiskIDForVolume", "10.2", _fSCopyDiskIDForVolumeErr)
 	}
@@ -7155,7 +7154,7 @@ func tryFSCopyDiskIDForVolume(arg0 unsafe.Pointer, arg1 corefoundation.CFStringR
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565655-fscopydiskidforvolume
-func FSCopyDiskIDForVolume(arg0 unsafe.Pointer, arg1 corefoundation.CFStringRef) int32 {
+func FSCopyDiskIDForVolume(arg0 FSVolumeRefNum, arg1 corefoundation.CFStringRef) int32 {
 	result, callErr := tryFSCopyDiskIDForVolume(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -7163,10 +7162,10 @@ func FSCopyDiskIDForVolume(arg0 unsafe.Pointer, arg1 corefoundation.CFStringRef)
 	return result
 }
 
-var _fSCopyObjectAsync func(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
+var _fSCopyObjectAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
 var _fSCopyObjectAsyncErr error
 
-func tryFSCopyObjectAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
+func tryFSCopyObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
 	if _fSCopyObjectAsync == nil {
 		return 0, symbolCallError("FSCopyObjectAsync", "10.4", _fSCopyObjectAsyncErr)
 	}
@@ -7178,7 +7177,7 @@ func tryFSCopyObjectAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 uns
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566285-fscopyobjectasync
-func FSCopyObjectAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
+func FSCopyObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSCopyObjectAsync(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	if callErr != nil {
 		panic(callErr)
@@ -7186,10 +7185,10 @@ func FSCopyObjectAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe
 	return result
 }
 
-var _fSCopyObjectSync func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int32
+var _fSCopyObjectSync func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 unsafe.Pointer) int32
 var _fSCopyObjectSyncErr error
 
-func tryFSCopyObjectSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 unsafe.Pointer, arg4 unsafe.Pointer) (int32, error) {
+func tryFSCopyObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 unsafe.Pointer) (int32, error) {
 	if _fSCopyObjectSync == nil {
 		return 0, symbolCallError("FSCopyObjectSync", "10.4", _fSCopyObjectSyncErr)
 	}
@@ -7201,7 +7200,7 @@ func tryFSCopyObjectSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoun
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565258-fscopyobjectsync
-func FSCopyObjectSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int32 {
+func FSCopyObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 unsafe.Pointer) int32 {
 	result, callErr := tryFSCopyObjectSync(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -7209,10 +7208,10 @@ func FSCopyObjectSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundat
 	return result
 }
 
-var _fSCopyURLForVolume func(arg0 unsafe.Pointer, arg1 corefoundation.CFURLRef) int32
+var _fSCopyURLForVolume func(arg0 FSVolumeRefNum, arg1 corefoundation.CFURLRef) int32
 var _fSCopyURLForVolumeErr error
 
-func tryFSCopyURLForVolume(arg0 unsafe.Pointer, arg1 corefoundation.CFURLRef) (int32, error) {
+func tryFSCopyURLForVolume(arg0 FSVolumeRefNum, arg1 corefoundation.CFURLRef) (int32, error) {
 	if _fSCopyURLForVolume == nil {
 		return 0, symbolCallError("FSCopyURLForVolume", "10.3", _fSCopyURLForVolumeErr)
 	}
@@ -7224,7 +7223,7 @@ func tryFSCopyURLForVolume(arg0 unsafe.Pointer, arg1 corefoundation.CFURLRef) (i
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566159-fscopyurlforvolume
-func FSCopyURLForVolume(arg0 unsafe.Pointer, arg1 corefoundation.CFURLRef) int32 {
+func FSCopyURLForVolume(arg0 FSVolumeRefNum, arg1 corefoundation.CFURLRef) int32 {
 	result, callErr := tryFSCopyURLForVolume(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -7232,10 +7231,10 @@ func FSCopyURLForVolume(arg0 unsafe.Pointer, arg1 corefoundation.CFURLRef) int32
 	return result
 }
 
-var _fSCreateDirectoryUnicode func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr, arg7 uint32) int16
+var _fSCreateDirectoryUnicode func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr, arg7 uint32) int16
 var _fSCreateDirectoryUnicodeErr error
 
-func tryFSCreateDirectoryUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr, arg7 uint32) (int16, error) {
+func tryFSCreateDirectoryUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr, arg7 uint32) (int16, error) {
 	if _fSCreateDirectoryUnicode == nil {
 		return 0, symbolCallError("FSCreateDirectoryUnicode", "10.0", _fSCreateDirectoryUnicodeErr)
 	}
@@ -7247,7 +7246,7 @@ func tryFSCreateDirectoryUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, ar
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565979-fscreatedirectoryunicode
-func FSCreateDirectoryUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr, arg7 uint32) int16 {
+func FSCreateDirectoryUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr, arg7 uint32) int16 {
 	result, callErr := tryFSCreateDirectoryUnicode(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	if callErr != nil {
 		panic(callErr)
@@ -7255,10 +7254,10 @@ func FSCreateDirectoryUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 
 	return result
 }
 
-var _fSCreateFileAndOpenForkUnicode func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 int8, arg8 FSIORefNum, arg9 unsafe.Pointer) int32
+var _fSCreateFileAndOpenForkUnicode func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 int8, arg8 FSIORefNum, arg9 FSRef) int32
 var _fSCreateFileAndOpenForkUnicodeErr error
 
-func tryFSCreateFileAndOpenForkUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 int8, arg8 FSIORefNum, arg9 unsafe.Pointer) (int32, error) {
+func tryFSCreateFileAndOpenForkUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 int8, arg8 FSIORefNum, arg9 FSRef) (int32, error) {
 	if _fSCreateFileAndOpenForkUnicode == nil {
 		return 0, symbolCallError("FSCreateFileAndOpenForkUnicode", "10.4", _fSCreateFileAndOpenForkUnicodeErr)
 	}
@@ -7270,7 +7269,7 @@ func tryFSCreateFileAndOpenForkUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565699-fscreatefileandopenforkunicode
-func FSCreateFileAndOpenForkUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 int8, arg8 FSIORefNum, arg9 unsafe.Pointer) int32 {
+func FSCreateFileAndOpenForkUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 int8, arg8 FSIORefNum, arg9 FSRef) int32 {
 	result, callErr := tryFSCreateFileAndOpenForkUnicode(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
 	if callErr != nil {
 		panic(callErr)
@@ -7278,10 +7277,10 @@ func FSCreateFileAndOpenForkUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16,
 	return result
 }
 
-var _fSCreateFileUnicode func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr) int16
+var _fSCreateFileUnicode func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr) int16
 var _fSCreateFileUnicodeErr error
 
-func tryFSCreateFileUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr) (int16, error) {
+func tryFSCreateFileUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr) (int16, error) {
 	if _fSCreateFileUnicode == nil {
 		return 0, symbolCallError("FSCreateFileUnicode", "10.0", _fSCreateFileUnicodeErr)
 	}
@@ -7293,7 +7292,7 @@ func tryFSCreateFileUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FS
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565163-fscreatefileunicode
-func FSCreateFileUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr) int16 {
+func FSCreateFileUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr) int16 {
 	result, callErr := tryFSCreateFileUnicode(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -7301,10 +7300,10 @@ func FSCreateFileUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCat
 	return result
 }
 
-var _fSCreateFork func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) int16
+var _fSCreateFork func(arg0 FSRef, arg1 uint, arg2 uint16) int16
 var _fSCreateForkErr error
 
-func tryFSCreateFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) (int16, error) {
+func tryFSCreateFork(arg0 FSRef, arg1 uint, arg2 uint16) (int16, error) {
 	if _fSCreateFork == nil {
 		return 0, symbolCallError("FSCreateFork", "10.0", _fSCreateForkErr)
 	}
@@ -7316,7 +7315,7 @@ func tryFSCreateFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) (int16, error)
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565554-fscreatefork
-func FSCreateFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) int16 {
+func FSCreateFork(arg0 FSRef, arg1 uint, arg2 uint16) int16 {
 	result, callErr := tryFSCreateFork(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -7324,10 +7323,10 @@ func FSCreateFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) int16 {
 	return result
 }
 
-var _fSCreateResFile func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr)
+var _fSCreateResFile func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr)
 var _fSCreateResFileErr error
 
-func tryFSCreateResFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr) error {
+func tryFSCreateResFile(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr) error {
 	if _fSCreateResFile == nil {
 		return symbolCallError("FSCreateResFile", "10.0", _fSCreateResFileErr)
 	}
@@ -7340,16 +7339,16 @@ func tryFSCreateResFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCata
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1529336-fscreateresfile
-func FSCreateResFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 unsafe.Pointer, arg6 FSSpecPtr) {
+func FSCreateResFile(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 FSRef, arg6 FSSpecPtr) {
 	if callErr := tryFSCreateResFile(arg0, arg1, arg2, arg3, arg4, arg5, arg6); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _fSCreateResourceFile func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 unsafe.Pointer, arg8 FSSpecPtr) int16
+var _fSCreateResourceFile func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 FSRef, arg8 FSSpecPtr) int16
 var _fSCreateResourceFileErr error
 
-func tryFSCreateResourceFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 unsafe.Pointer, arg8 FSSpecPtr) (int16, error) {
+func tryFSCreateResourceFile(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 FSRef, arg8 FSSpecPtr) (int16, error) {
 	if _fSCreateResourceFile == nil {
 		return 0, symbolCallError("FSCreateResourceFile", "10.0", _fSCreateResourceFileErr)
 	}
@@ -7361,7 +7360,7 @@ func tryFSCreateResourceFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 F
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1529242-fscreateresourcefile
-func FSCreateResourceFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 unsafe.Pointer, arg8 FSSpecPtr) int16 {
+func FSCreateResourceFile(arg0 FSRef, arg1 uint, arg2 uint16, arg3 FSCatalogInfoBitmap, arg4 FSCatalogInfo, arg5 uint, arg6 uint16, arg7 FSRef, arg8 FSSpecPtr) int16 {
 	result, callErr := tryFSCreateResourceFile(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 	if callErr != nil {
 		panic(callErr)
@@ -7369,10 +7368,10 @@ func FSCreateResourceFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 FSCa
 	return result
 }
 
-var _fSCreateResourceFork func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 uint32) int16
+var _fSCreateResourceFork func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 uint32) int16
 var _fSCreateResourceForkErr error
 
-func tryFSCreateResourceFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 uint32) (int16, error) {
+func tryFSCreateResourceFork(arg0 FSRef, arg1 uint, arg2 uint16, arg3 uint32) (int16, error) {
 	if _fSCreateResourceFork == nil {
 		return 0, symbolCallError("FSCreateResourceFork", "10.2", _fSCreateResourceForkErr)
 	}
@@ -7384,7 +7383,7 @@ func tryFSCreateResourceFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 u
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1529360-fscreateresourcefork
-func FSCreateResourceFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 uint32) int16 {
+func FSCreateResourceFork(arg0 FSRef, arg1 uint, arg2 uint16, arg3 uint32) int16 {
 	result, callErr := tryFSCreateResourceFork(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -7438,10 +7437,10 @@ func FSCreateVolumeOperation(arg0 FSVolumeOperation) int32 {
 	return result
 }
 
-var _fSDeleteFork func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) int16
+var _fSDeleteFork func(arg0 FSRef, arg1 uint, arg2 uint16) int16
 var _fSDeleteForkErr error
 
-func tryFSDeleteFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) (int16, error) {
+func tryFSDeleteFork(arg0 FSRef, arg1 uint, arg2 uint16) (int16, error) {
 	if _fSDeleteFork == nil {
 		return 0, symbolCallError("FSDeleteFork", "10.0", _fSDeleteForkErr)
 	}
@@ -7453,7 +7452,7 @@ func tryFSDeleteFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) (int16, error)
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565370-fsdeletefork
-func FSDeleteFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) int16 {
+func FSDeleteFork(arg0 FSRef, arg1 uint, arg2 uint16) int16 {
 	result, callErr := tryFSDeleteFork(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -7461,10 +7460,10 @@ func FSDeleteFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16) int16 {
 	return result
 }
 
-var _fSDeleteObject func(arg0 unsafe.Pointer) int16
+var _fSDeleteObject func(arg0 FSRef) int16
 var _fSDeleteObjectErr error
 
-func tryFSDeleteObject(arg0 unsafe.Pointer) (int16, error) {
+func tryFSDeleteObject(arg0 FSRef) (int16, error) {
 	if _fSDeleteObject == nil {
 		return 0, symbolCallError("FSDeleteObject", "10.0", _fSDeleteObjectErr)
 	}
@@ -7476,7 +7475,7 @@ func tryFSDeleteObject(arg0 unsafe.Pointer) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566089-fsdeleteobject
-func FSDeleteObject(arg0 unsafe.Pointer) int16 {
+func FSDeleteObject(arg0 FSRef) int16 {
 	result, callErr := tryFSDeleteObject(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -7484,10 +7483,10 @@ func FSDeleteObject(arg0 unsafe.Pointer) int16 {
 	return result
 }
 
-var _fSDetermineIfRefIsEnclosedByFolder func(arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer, arg3 bool) int16
+var _fSDetermineIfRefIsEnclosedByFolder func(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRef, arg3 bool) int16
 var _fSDetermineIfRefIsEnclosedByFolderErr error
 
-func tryFSDetermineIfRefIsEnclosedByFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer, arg3 bool) (int16, error) {
+func tryFSDetermineIfRefIsEnclosedByFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRef, arg3 bool) (int16, error) {
 	if _fSDetermineIfRefIsEnclosedByFolder == nil {
 		return 0, symbolCallError("FSDetermineIfRefIsEnclosedByFolder", "10.4", _fSDetermineIfRefIsEnclosedByFolderErr)
 	}
@@ -7499,7 +7498,7 @@ func tryFSDetermineIfRefIsEnclosedByFolder(arg0 unsafe.Pointer, arg1 uint32, arg
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389228-fsdetermineifrefisenclosedbyfold
-func FSDetermineIfRefIsEnclosedByFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer, arg3 bool) int16 {
+func FSDetermineIfRefIsEnclosedByFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRef, arg3 bool) int16 {
 	result, callErr := tryFSDetermineIfRefIsEnclosedByFolder(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -7530,10 +7529,10 @@ func FSDisposeVolumeOperation(arg0 FSVolumeOperation) int32 {
 	return result
 }
 
-var _fSEjectVolumeAsync func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32
+var _fSEjectVolumeAsync func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32
 var _fSEjectVolumeAsyncErr error
 
-func tryFSEjectVolumeAsync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) (int32, error) {
+func tryFSEjectVolumeAsync(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) (int32, error) {
 	if _fSEjectVolumeAsync == nil {
 		return 0, symbolCallError("FSEjectVolumeAsync", "10.2", _fSEjectVolumeAsyncErr)
 	}
@@ -7545,7 +7544,7 @@ func tryFSEjectVolumeAsync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolu
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566919-fsejectvolumeasync
-func FSEjectVolumeAsync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32 {
+func FSEjectVolumeAsync(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeEjectUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32 {
 	result, callErr := tryFSEjectVolumeAsync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -7553,10 +7552,10 @@ func FSEjectVolumeAsync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolumeO
 	return result
 }
 
-var _fSEjectVolumeSync func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32) int32
+var _fSEjectVolumeSync func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 int32) int32
 var _fSEjectVolumeSyncErr error
 
-func tryFSEjectVolumeSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32) (int32, error) {
+func tryFSEjectVolumeSync(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 int32) (int32, error) {
 	if _fSEjectVolumeSync == nil {
 		return 0, symbolCallError("FSEjectVolumeSync", "10.2", _fSEjectVolumeSyncErr)
 	}
@@ -7568,7 +7567,7 @@ func tryFSEjectVolumeSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32) 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566031-fsejectvolumesync
-func FSEjectVolumeSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32) int32 {
+func FSEjectVolumeSync(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 int32) int32 {
 	result, callErr := tryFSEjectVolumeSync(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -8012,10 +8011,10 @@ func FSFileOperationCancel(arg0 FSFileOperationRef) int32 {
 	return result
 }
 
-var _fSFileOperationCopyStatus func(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 FSFileOperationStage, arg3 int32, arg4 corefoundation.CFDictionaryRef) int32
+var _fSFileOperationCopyStatus func(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSFileOperationStage, arg3 int32, arg4 corefoundation.CFDictionaryRef) int32
 var _fSFileOperationCopyStatusErr error
 
-func tryFSFileOperationCopyStatus(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 FSFileOperationStage, arg3 int32, arg4 corefoundation.CFDictionaryRef) (int32, error) {
+func tryFSFileOperationCopyStatus(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSFileOperationStage, arg3 int32, arg4 corefoundation.CFDictionaryRef) (int32, error) {
 	if _fSFileOperationCopyStatus == nil {
 		return 0, symbolCallError("FSFileOperationCopyStatus", "10.4", _fSFileOperationCopyStatusErr)
 	}
@@ -8027,7 +8026,7 @@ func tryFSFileOperationCopyStatus(arg0 FSFileOperationRef, arg1 unsafe.Pointer, 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566279-fsfileoperationcopystatus
-func FSFileOperationCopyStatus(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 FSFileOperationStage, arg3 int32, arg4 corefoundation.CFDictionaryRef) int32 {
+func FSFileOperationCopyStatus(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSFileOperationStage, arg3 int32, arg4 corefoundation.CFDictionaryRef) int32 {
 	result, callErr := tryFSFileOperationCopyStatus(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -8495,10 +8494,10 @@ func FSFileSecuritySetOwnerUUID(arg0 FSFileSecurityRef, arg1 corefoundation.CFUU
 	return result
 }
 
-var _fSFindFolder func(arg0 unsafe.Pointer, arg1 uint32, arg2 bool, arg3 unsafe.Pointer) int16
+var _fSFindFolder func(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSRef) int16
 var _fSFindFolderErr error
 
-func tryFSFindFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 bool, arg3 unsafe.Pointer) (int16, error) {
+func tryFSFindFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSRef) (int16, error) {
 	if _fSFindFolder == nil {
 		return 0, symbolCallError("FSFindFolder", "10.0", _fSFindFolderErr)
 	}
@@ -8510,7 +8509,7 @@ func tryFSFindFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 bool, arg3 unsafe.Po
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389059-fsfindfolder
-func FSFindFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 bool, arg3 unsafe.Pointer) int16 {
+func FSFindFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSRef) int16 {
 	result, callErr := tryFSFindFolder(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -8541,10 +8540,10 @@ func FSFlushFork(arg0 FSIORefNum) int16 {
 	return result
 }
 
-var _fSFlushVolume func(arg0 unsafe.Pointer) int32
+var _fSFlushVolume func(arg0 FSVolumeRefNum) int32
 var _fSFlushVolumeErr error
 
-func tryFSFlushVolume(arg0 unsafe.Pointer) (int32, error) {
+func tryFSFlushVolume(arg0 FSVolumeRefNum) (int32, error) {
 	if _fSFlushVolume == nil {
 		return 0, symbolCallError("FSFlushVolume", "10.5", _fSFlushVolumeErr)
 	}
@@ -8556,7 +8555,7 @@ func tryFSFlushVolume(arg0 unsafe.Pointer) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565506-fsflushvolume
-func FSFlushVolume(arg0 unsafe.Pointer) int32 {
+func FSFlushVolume(arg0 FSVolumeRefNum) int32 {
 	result, callErr := tryFSFlushVolume(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -8564,10 +8563,10 @@ func FSFlushVolume(arg0 unsafe.Pointer) int32 {
 	return result
 }
 
-var _fSGetAsyncEjectStatus func(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 unsafe.Pointer, arg4 int32) int32
+var _fSGetAsyncEjectStatus func(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) int32
 var _fSGetAsyncEjectStatusErr error
 
-func tryFSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 unsafe.Pointer, arg4 int32) (int32, error) {
+func tryFSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) (int32, error) {
 	if _fSGetAsyncEjectStatus == nil {
 		return 0, symbolCallError("FSGetAsyncEjectStatus", "10.2", _fSGetAsyncEjectStatusErr)
 	}
@@ -8579,7 +8578,7 @@ func tryFSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 i
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565993-fsgetasyncejectstatus
-func FSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 unsafe.Pointer, arg4 int32) int32 {
+func FSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) int32 {
 	result, callErr := tryFSGetAsyncEjectStatus(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -8587,10 +8586,10 @@ func FSGetAsyncEjectStatus(arg0 FSVolumeOperation, arg1 FSEjectStatus, arg2 int3
 	return result
 }
 
-var _fSGetAsyncMountStatus func(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 unsafe.Pointer) int32
+var _fSGetAsyncMountStatus func(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 FSVolumeRefNum) int32
 var _fSGetAsyncMountStatusErr error
 
-func tryFSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 unsafe.Pointer) (int32, error) {
+func tryFSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 FSVolumeRefNum) (int32, error) {
 	if _fSGetAsyncMountStatus == nil {
 		return 0, symbolCallError("FSGetAsyncMountStatus", "10.2", _fSGetAsyncMountStatusErr)
 	}
@@ -8602,7 +8601,7 @@ func tryFSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 i
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566519-fsgetasyncmountstatus
-func FSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 unsafe.Pointer) int32 {
+func FSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int32, arg3 FSVolumeRefNum) int32 {
 	result, callErr := tryFSGetAsyncMountStatus(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -8610,10 +8609,10 @@ func FSGetAsyncMountStatus(arg0 FSVolumeOperation, arg1 FSMountStatus, arg2 int3
 	return result
 }
 
-var _fSGetAsyncUnmountStatus func(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 unsafe.Pointer, arg4 int32) int32
+var _fSGetAsyncUnmountStatus func(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) int32
 var _fSGetAsyncUnmountStatusErr error
 
-func tryFSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 unsafe.Pointer, arg4 int32) (int32, error) {
+func tryFSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) (int32, error) {
 	if _fSGetAsyncUnmountStatus == nil {
 		return 0, symbolCallError("FSGetAsyncUnmountStatus", "10.2", _fSGetAsyncUnmountStatusErr)
 	}
@@ -8625,7 +8624,7 @@ func tryFSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, ar
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565808-fsgetasyncunmountstatus
-func FSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 unsafe.Pointer, arg4 int32) int32 {
+func FSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 int32, arg3 FSVolumeRefNum, arg4 int32) int32 {
 	result, callErr := tryFSGetAsyncUnmountStatus(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -8656,10 +8655,10 @@ func FSGetDataForkName(arg0 kernel.HFSUniStr255) int16 {
 	return result
 }
 
-var _fSGetForkCBInfo func(arg0 FSIORefNum, arg1 unsafe.Pointer, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 unsafe.Pointer, arg6 kernel.HFSUniStr255) int16
+var _fSGetForkCBInfo func(arg0 FSIORefNum, arg1 FSVolumeRefNum, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 kernel.HFSUniStr255) int16
 var _fSGetForkCBInfoErr error
 
-func tryFSGetForkCBInfo(arg0 FSIORefNum, arg1 unsafe.Pointer, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 unsafe.Pointer, arg6 kernel.HFSUniStr255) (int16, error) {
+func tryFSGetForkCBInfo(arg0 FSIORefNum, arg1 FSVolumeRefNum, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 kernel.HFSUniStr255) (int16, error) {
 	if _fSGetForkCBInfo == nil {
 		return 0, symbolCallError("FSGetForkCBInfo", "10.0", _fSGetForkCBInfoErr)
 	}
@@ -8671,7 +8670,7 @@ func tryFSGetForkCBInfo(arg0 FSIORefNum, arg1 unsafe.Pointer, arg2 int16, arg3 F
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565345-fsgetforkcbinfo
-func FSGetForkCBInfo(arg0 FSIORefNum, arg1 unsafe.Pointer, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 unsafe.Pointer, arg6 kernel.HFSUniStr255) int16 {
+func FSGetForkCBInfo(arg0 FSIORefNum, arg1 FSVolumeRefNum, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 FSRef, arg6 kernel.HFSUniStr255) int16 {
 	result, callErr := tryFSGetForkCBInfo(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -8771,10 +8770,10 @@ func FSGetResourceForkName(arg0 kernel.HFSUniStr255) int16 {
 	return result
 }
 
-var _fSGetTemporaryDirectoryForReplaceObject func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32
+var _fSGetTemporaryDirectoryForReplaceObject func(arg0 FSRef, arg1 FSRef, arg2 unsafe.Pointer) int32
 var _fSGetTemporaryDirectoryForReplaceObjectErr error
 
-func tryFSGetTemporaryDirectoryForReplaceObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) (int32, error) {
+func tryFSGetTemporaryDirectoryForReplaceObject(arg0 FSRef, arg1 FSRef, arg2 unsafe.Pointer) (int32, error) {
 	if _fSGetTemporaryDirectoryForReplaceObject == nil {
 		return 0, symbolCallError("FSGetTemporaryDirectoryForReplaceObject", "10.5", _fSGetTemporaryDirectoryForReplaceObjectErr)
 	}
@@ -8786,7 +8785,7 @@ func tryFSGetTemporaryDirectoryForReplaceObject(arg0 unsafe.Pointer, arg1 unsafe
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566436-fsgettemporarydirectoryforreplac
-func FSGetTemporaryDirectoryForReplaceObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32 {
+func FSGetTemporaryDirectoryForReplaceObject(arg0 FSRef, arg1 FSRef, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryFSGetTemporaryDirectoryForReplaceObject(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -8794,10 +8793,10 @@ func FSGetTemporaryDirectoryForReplaceObject(arg0 unsafe.Pointer, arg1 unsafe.Po
 	return result
 }
 
-var _fSGetVolumeForDADisk func(arg0 diskarbitration.DADiskRef, arg1 unsafe.Pointer) int32
+var _fSGetVolumeForDADisk func(arg0 diskarbitration.DADiskRef, arg1 FSVolumeRefNum) int32
 var _fSGetVolumeForDADiskErr error
 
-func tryFSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 unsafe.Pointer) (int32, error) {
+func tryFSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 FSVolumeRefNum) (int32, error) {
 	if _fSGetVolumeForDADisk == nil {
 		return 0, symbolCallError("FSGetVolumeForDADisk", "10.4", _fSGetVolumeForDADiskErr)
 	}
@@ -8809,7 +8808,7 @@ func tryFSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 unsafe.Pointer
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566612-fsgetvolumefordadisk
-func FSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 unsafe.Pointer) int32 {
+func FSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 FSVolumeRefNum) int32 {
 	result, callErr := tryFSGetVolumeForDADisk(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -8817,10 +8816,10 @@ func FSGetVolumeForDADisk(arg0 diskarbitration.DADiskRef, arg1 unsafe.Pointer) i
 	return result
 }
 
-var _fSGetVolumeForDiskID func(arg0 corefoundation.CFStringRef, arg1 unsafe.Pointer) int32
+var _fSGetVolumeForDiskID func(arg0 corefoundation.CFStringRef, arg1 FSVolumeRefNum) int32
 var _fSGetVolumeForDiskIDErr error
 
-func tryFSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 unsafe.Pointer) (int32, error) {
+func tryFSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 FSVolumeRefNum) (int32, error) {
 	if _fSGetVolumeForDiskID == nil {
 		return 0, symbolCallError("FSGetVolumeForDiskID", "10.4", _fSGetVolumeForDiskIDErr)
 	}
@@ -8832,7 +8831,7 @@ func tryFSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 unsafe.Pointe
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565529-fsgetvolumefordiskid
-func FSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 unsafe.Pointer) int32 {
+func FSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 FSVolumeRefNum) int32 {
 	result, callErr := tryFSGetVolumeForDiskID(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -8840,10 +8839,10 @@ func FSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 unsafe.Pointer) 
 	return result
 }
 
-var _fSGetVolumeInfo func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 kernel.HFSUniStr255, arg6 unsafe.Pointer) int16
+var _fSGetVolumeInfo func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeRefNum, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 kernel.HFSUniStr255, arg6 FSRef) int16
 var _fSGetVolumeInfoErr error
 
-func tryFSGetVolumeInfo(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 kernel.HFSUniStr255, arg6 unsafe.Pointer) (int16, error) {
+func tryFSGetVolumeInfo(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeRefNum, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 kernel.HFSUniStr255, arg6 FSRef) (int16, error) {
 	if _fSGetVolumeInfo == nil {
 		return 0, symbolCallError("FSGetVolumeInfo", "10.0", _fSGetVolumeInfoErr)
 	}
@@ -8855,7 +8854,7 @@ func tryFSGetVolumeInfo(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Po
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566350-fsgetvolumeinfo
-func FSGetVolumeInfo(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 kernel.HFSUniStr255, arg6 unsafe.Pointer) int16 {
+func FSGetVolumeInfo(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeRefNum, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 kernel.HFSUniStr255, arg6 FSRef) int16 {
 	result, callErr := tryFSGetVolumeInfo(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -8863,10 +8862,10 @@ func FSGetVolumeInfo(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Point
 	return result
 }
 
-var _fSGetVolumeMountInfo func(arg0 unsafe.Pointer, arg1 kernel.BytePtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
+var _fSGetVolumeMountInfo func(arg0 FSVolumeRefNum, arg1 kernel.BytePtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
 var _fSGetVolumeMountInfoErr error
 
-func tryFSGetVolumeMountInfo(arg0 unsafe.Pointer, arg1 kernel.BytePtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
+func tryFSGetVolumeMountInfo(arg0 FSVolumeRefNum, arg1 kernel.BytePtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
 	if _fSGetVolumeMountInfo == nil {
 		return 0, symbolCallError("FSGetVolumeMountInfo", "10.5", _fSGetVolumeMountInfoErr)
 	}
@@ -8878,7 +8877,7 @@ func tryFSGetVolumeMountInfo(arg0 unsafe.Pointer, arg1 kernel.BytePtr, arg2 unsa
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565587-fsgetvolumemountinfo
-func FSGetVolumeMountInfo(arg0 unsafe.Pointer, arg1 kernel.BytePtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
+func FSGetVolumeMountInfo(arg0 FSVolumeRefNum, arg1 kernel.BytePtr, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryFSGetVolumeMountInfo(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -8886,10 +8885,10 @@ func FSGetVolumeMountInfo(arg0 unsafe.Pointer, arg1 kernel.BytePtr, arg2 unsafe.
 	return result
 }
 
-var _fSGetVolumeMountInfoSize func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int32
+var _fSGetVolumeMountInfoSize func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer) int32
 var _fSGetVolumeMountInfoSizeErr error
 
-func tryFSGetVolumeMountInfoSize(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (int32, error) {
+func tryFSGetVolumeMountInfoSize(arg0 FSVolumeRefNum, arg1 unsafe.Pointer) (int32, error) {
 	if _fSGetVolumeMountInfoSize == nil {
 		return 0, symbolCallError("FSGetVolumeMountInfoSize", "10.5", _fSGetVolumeMountInfoSizeErr)
 	}
@@ -8901,7 +8900,7 @@ func tryFSGetVolumeMountInfoSize(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (int3
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566473-fsgetvolumemountinfosize
-func FSGetVolumeMountInfoSize(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int32 {
+func FSGetVolumeMountInfoSize(arg0 FSVolumeRefNum, arg1 unsafe.Pointer) int32 {
 	result, callErr := tryFSGetVolumeMountInfoSize(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -8909,10 +8908,10 @@ func FSGetVolumeMountInfoSize(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int32 {
 	return result
 }
 
-var _fSGetVolumeParms func(arg0 unsafe.Pointer, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) int32
+var _fSGetVolumeParms func(arg0 FSVolumeRefNum, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) int32
 var _fSGetVolumeParmsErr error
 
-func tryFSGetVolumeParms(arg0 unsafe.Pointer, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) (int32, error) {
+func tryFSGetVolumeParms(arg0 FSVolumeRefNum, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) (int32, error) {
 	if _fSGetVolumeParms == nil {
 		return 0, symbolCallError("FSGetVolumeParms", "10.5", _fSGetVolumeParmsErr)
 	}
@@ -8924,7 +8923,7 @@ func tryFSGetVolumeParms(arg0 unsafe.Pointer, arg1 GetVolParmsInfoBuffer, arg2 u
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565147-fsgetvolumeparms
-func FSGetVolumeParms(arg0 unsafe.Pointer, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) int32 {
+func FSGetVolumeParms(arg0 FSVolumeRefNum, arg1 GetVolParmsInfoBuffer, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryFSGetVolumeParms(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -8932,10 +8931,10 @@ func FSGetVolumeParms(arg0 unsafe.Pointer, arg1 GetVolParmsInfoBuffer, arg2 unsa
 	return result
 }
 
-var _fSIsFSRefValid func(arg0 unsafe.Pointer) bool
+var _fSIsFSRefValid func(arg0 FSRef) bool
 var _fSIsFSRefValidErr error
 
-func tryFSIsFSRefValid(arg0 unsafe.Pointer) (bool, error) {
+func tryFSIsFSRefValid(arg0 FSRef) (bool, error) {
 	if _fSIsFSRefValid == nil {
 		return false, symbolCallError("FSIsFSRefValid", "10.4", _fSIsFSRefValidErr)
 	}
@@ -8947,7 +8946,7 @@ func tryFSIsFSRefValid(arg0 unsafe.Pointer) (bool, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565952-fsisfsrefvalid
-func FSIsFSRefValid(arg0 unsafe.Pointer) bool {
+func FSIsFSRefValid(arg0 FSRef) bool {
 	result, callErr := tryFSIsFSRefValid(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -8955,10 +8954,10 @@ func FSIsFSRefValid(arg0 unsafe.Pointer) bool {
 	return result
 }
 
-var _fSIterateForks func(arg0 unsafe.Pointer, arg1 CatPositionRec, arg2 kernel.HFSUniStr255, arg3 int64, arg4 uint64) int16
+var _fSIterateForks func(arg0 FSRef, arg1 CatPositionRec, arg2 kernel.HFSUniStr255, arg3 int64, arg4 uint64) int16
 var _fSIterateForksErr error
 
-func tryFSIterateForks(arg0 unsafe.Pointer, arg1 CatPositionRec, arg2 kernel.HFSUniStr255, arg3 int64, arg4 uint64) (int16, error) {
+func tryFSIterateForks(arg0 FSRef, arg1 CatPositionRec, arg2 kernel.HFSUniStr255, arg3 int64, arg4 uint64) (int16, error) {
 	if _fSIterateForks == nil {
 		return 0, symbolCallError("FSIterateForks", "10.0", _fSIterateForksErr)
 	}
@@ -8970,7 +8969,7 @@ func tryFSIterateForks(arg0 unsafe.Pointer, arg1 CatPositionRec, arg2 kernel.HFS
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565757-fsiterateforks
-func FSIterateForks(arg0 unsafe.Pointer, arg1 CatPositionRec, arg2 kernel.HFSUniStr255, arg3 int64, arg4 uint64) int16 {
+func FSIterateForks(arg0 FSRef, arg1 CatPositionRec, arg2 kernel.HFSUniStr255, arg3 int64, arg4 uint64) int16 {
 	result, callErr := tryFSIterateForks(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9001,10 +9000,10 @@ func FSLockRange(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint64, arg4 uin
 	return result
 }
 
-var _fSMakeFSRefUnicode func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 unsafe.Pointer) int16
+var _fSMakeFSRefUnicode func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 FSRef) int16
 var _fSMakeFSRefUnicodeErr error
 
-func tryFSMakeFSRefUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 unsafe.Pointer) (int16, error) {
+func tryFSMakeFSRefUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 FSRef) (int16, error) {
 	if _fSMakeFSRefUnicode == nil {
 		return 0, symbolCallError("FSMakeFSRefUnicode", "10.0", _fSMakeFSRefUnicodeErr)
 	}
@@ -9016,7 +9015,7 @@ func tryFSMakeFSRefUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 Tex
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565210-fsmakefsrefunicode
-func FSMakeFSRefUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 unsafe.Pointer) int16 {
+func FSMakeFSRefUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 FSRef) int16 {
 	result, callErr := tryFSMakeFSRefUnicode(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9047,10 +9046,10 @@ func FSMountLocalVolumeAsync(arg0 corefoundation.CFStringRef, arg1 corefoundatio
 	return result
 }
 
-var _fSMountLocalVolumeSync func(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32
+var _fSMountLocalVolumeSync func(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeRefNum, arg3 unsafe.Pointer) int32
 var _fSMountLocalVolumeSyncErr error
 
-func tryFSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 unsafe.Pointer, arg3 unsafe.Pointer) (int32, error) {
+func tryFSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeRefNum, arg3 unsafe.Pointer) (int32, error) {
 	if _fSMountLocalVolumeSync == nil {
 		return 0, symbolCallError("FSMountLocalVolumeSync", "10.2", _fSMountLocalVolumeSyncErr)
 	}
@@ -9062,7 +9061,7 @@ func tryFSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundat
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566302-fsmountlocalvolumesync
-func FSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 unsafe.Pointer, arg3 unsafe.Pointer) int32 {
+func FSMountLocalVolumeSync(arg0 corefoundation.CFStringRef, arg1 corefoundation.CFURLRef, arg2 FSVolumeRefNum, arg3 unsafe.Pointer) int32 {
 	result, callErr := tryFSMountLocalVolumeSync(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -9093,10 +9092,10 @@ func FSMountServerVolumeAsync(arg0 corefoundation.CFURLRef, arg1 corefoundation.
 	return result
 }
 
-var _fSMountServerVolumeSync func(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer) int32
+var _fSMountServerVolumeSync func(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeRefNum, arg5 unsafe.Pointer) int32
 var _fSMountServerVolumeSyncErr error
 
-func tryFSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer) (int32, error) {
+func tryFSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeRefNum, arg5 unsafe.Pointer) (int32, error) {
 	if _fSMountServerVolumeSync == nil {
 		return 0, symbolCallError("FSMountServerVolumeSync", "10.2", _fSMountServerVolumeSyncErr)
 	}
@@ -9108,7 +9107,7 @@ func tryFSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundatio
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565166-fsmountservervolumesync
-func FSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer) int32 {
+func FSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSVolumeRefNum, arg5 unsafe.Pointer) int32 {
 	result, callErr := tryFSMountServerVolumeSync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -9116,10 +9115,10 @@ func FSMountServerVolumeSync(arg0 corefoundation.CFURLRef, arg1 corefoundation.C
 	return result
 }
 
-var _fSMoveObject func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int16
+var _fSMoveObject func(arg0 FSRef, arg1 FSRef, arg2 FSRef) int16
 var _fSMoveObjectErr error
 
-func tryFSMoveObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) (int16, error) {
+func tryFSMoveObject(arg0 FSRef, arg1 FSRef, arg2 FSRef) (int16, error) {
 	if _fSMoveObject == nil {
 		return 0, symbolCallError("FSMoveObject", "10.0", _fSMoveObjectErr)
 	}
@@ -9131,7 +9130,7 @@ func tryFSMoveObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Point
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566291-fsmoveobject
-func FSMoveObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int16 {
+func FSMoveObject(arg0 FSRef, arg1 FSRef, arg2 FSRef) int16 {
 	result, callErr := tryFSMoveObject(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9139,10 +9138,10 @@ func FSMoveObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer)
 	return result
 }
 
-var _fSMoveObjectAsync func(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
+var _fSMoveObjectAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32
 var _fSMoveObjectAsyncErr error
 
-func tryFSMoveObjectAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
+func tryFSMoveObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) (int32, error) {
 	if _fSMoveObjectAsync == nil {
 		return 0, symbolCallError("FSMoveObjectAsync", "10.4", _fSMoveObjectAsyncErr)
 	}
@@ -9154,7 +9153,7 @@ func tryFSMoveObjectAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 uns
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566762-fsmoveobjectasync
-func FSMoveObjectAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
+func FSMoveObjectAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 FSRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 float64, arg7 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSMoveObjectAsync(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	if callErr != nil {
 		panic(callErr)
@@ -9162,10 +9161,10 @@ func FSMoveObjectAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe
 	return result
 }
 
-var _fSMoveObjectSync func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int32
+var _fSMoveObjectSync func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 unsafe.Pointer) int32
 var _fSMoveObjectSyncErr error
 
-func tryFSMoveObjectSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 unsafe.Pointer, arg4 unsafe.Pointer) (int32, error) {
+func tryFSMoveObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 unsafe.Pointer) (int32, error) {
 	if _fSMoveObjectSync == nil {
 		return 0, symbolCallError("FSMoveObjectSync", "10.4", _fSMoveObjectSyncErr)
 	}
@@ -9177,7 +9176,7 @@ func tryFSMoveObjectSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoun
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566525-fsmoveobjectsync
-func FSMoveObjectSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 unsafe.Pointer, arg4 unsafe.Pointer) int32 {
+func FSMoveObjectSync(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 FSRef, arg4 unsafe.Pointer) int32 {
 	result, callErr := tryFSMoveObjectSync(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9185,10 +9184,10 @@ func FSMoveObjectSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundat
 	return result
 }
 
-var _fSMoveObjectToTrashAsync func(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32
+var _fSMoveObjectToTrashAsync func(arg0 FSFileOperationRef, arg1 FSRef, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32
 var _fSMoveObjectToTrashAsyncErr error
 
-func tryFSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) (int32, error) {
+func tryFSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) (int32, error) {
 	if _fSMoveObjectToTrashAsync == nil {
 		return 0, symbolCallError("FSMoveObjectToTrashAsync", "10.5", _fSMoveObjectToTrashAsyncErr)
 	}
@@ -9200,7 +9199,7 @@ func tryFSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, a
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565854-fsmoveobjecttotrashasync
-func FSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32 {
+func FSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 FSRef, arg2 unsafe.Pointer, arg3 unsafe.Pointer, arg4 float64, arg5 FSFileOperationClientContext) int32 {
 	result, callErr := tryFSMoveObjectToTrashAsync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -9208,10 +9207,10 @@ func FSMoveObjectToTrashAsync(arg0 FSFileOperationRef, arg1 unsafe.Pointer, arg2
 	return result
 }
 
-var _fSMoveObjectToTrashSync func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32
+var _fSMoveObjectToTrashSync func(arg0 FSRef, arg1 FSRef, arg2 unsafe.Pointer) int32
 var _fSMoveObjectToTrashSyncErr error
 
-func tryFSMoveObjectToTrashSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) (int32, error) {
+func tryFSMoveObjectToTrashSync(arg0 FSRef, arg1 FSRef, arg2 unsafe.Pointer) (int32, error) {
 	if _fSMoveObjectToTrashSync == nil {
 		return 0, symbolCallError("FSMoveObjectToTrashSync", "10.5", _fSMoveObjectToTrashSyncErr)
 	}
@@ -9223,7 +9222,7 @@ func tryFSMoveObjectToTrashSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 u
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566651-fsmoveobjecttotrashsync
-func FSMoveObjectToTrashSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32 {
+func FSMoveObjectToTrashSync(arg0 FSRef, arg1 FSRef, arg2 unsafe.Pointer) int32 {
 	result, callErr := tryFSMoveObjectToTrashSync(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9231,10 +9230,10 @@ func FSMoveObjectToTrashSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 unsa
 	return result
 }
 
-var _fSOpenFork func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int8, arg4 FSIORefNum) int16
+var _fSOpenFork func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 int8, arg4 FSIORefNum) int16
 var _fSOpenForkErr error
 
-func tryFSOpenFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int8, arg4 FSIORefNum) (int16, error) {
+func tryFSOpenFork(arg0 FSRef, arg1 uint, arg2 uint16, arg3 int8, arg4 FSIORefNum) (int16, error) {
 	if _fSOpenFork == nil {
 		return 0, symbolCallError("FSOpenFork", "10.0", _fSOpenForkErr)
 	}
@@ -9246,7 +9245,7 @@ func tryFSOpenFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int8, arg4 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565689-fsopenfork
-func FSOpenFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int8, arg4 FSIORefNum) int16 {
+func FSOpenFork(arg0 FSRef, arg1 uint, arg2 uint16, arg3 int8, arg4 FSIORefNum) int16 {
 	result, callErr := tryFSOpenFork(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9254,10 +9253,10 @@ func FSOpenFork(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int8, arg4 FSI
 	return result
 }
 
-var _fSOpenIterator func(arg0 unsafe.Pointer, arg1 FSIteratorFlags, arg2 FSIterator) int16
+var _fSOpenIterator func(arg0 FSRef, arg1 FSIteratorFlags, arg2 FSIterator) int16
 var _fSOpenIteratorErr error
 
-func tryFSOpenIterator(arg0 unsafe.Pointer, arg1 FSIteratorFlags, arg2 FSIterator) (int16, error) {
+func tryFSOpenIterator(arg0 FSRef, arg1 FSIteratorFlags, arg2 FSIterator) (int16, error) {
 	if _fSOpenIterator == nil {
 		return 0, symbolCallError("FSOpenIterator", "10.0", _fSOpenIteratorErr)
 	}
@@ -9269,7 +9268,7 @@ func tryFSOpenIterator(arg0 unsafe.Pointer, arg1 FSIteratorFlags, arg2 FSIterato
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565368-fsopeniterator
-func FSOpenIterator(arg0 unsafe.Pointer, arg1 FSIteratorFlags, arg2 FSIterator) int16 {
+func FSOpenIterator(arg0 FSRef, arg1 FSIteratorFlags, arg2 FSIterator) int16 {
 	result, callErr := tryFSOpenIterator(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9277,10 +9276,10 @@ func FSOpenIterator(arg0 unsafe.Pointer, arg1 FSIteratorFlags, arg2 FSIterator) 
 	return result
 }
 
-var _fSOpenOrphanResFile func(arg0 unsafe.Pointer, arg1 kernel.SignedByte, arg2 ResFileRefNum) int16
+var _fSOpenOrphanResFile func(arg0 FSRef, arg1 kernel.SignedByte, arg2 ResFileRefNum) int16
 var _fSOpenOrphanResFileErr error
 
-func tryFSOpenOrphanResFile(arg0 unsafe.Pointer, arg1 kernel.SignedByte, arg2 ResFileRefNum) (int16, error) {
+func tryFSOpenOrphanResFile(arg0 FSRef, arg1 kernel.SignedByte, arg2 ResFileRefNum) (int16, error) {
 	if _fSOpenOrphanResFile == nil {
 		return 0, symbolCallError("FSOpenOrphanResFile", "10.5", _fSOpenOrphanResFileErr)
 	}
@@ -9292,7 +9291,7 @@ func tryFSOpenOrphanResFile(arg0 unsafe.Pointer, arg1 kernel.SignedByte, arg2 Re
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1529349-fsopenorphanresfile
-func FSOpenOrphanResFile(arg0 unsafe.Pointer, arg1 kernel.SignedByte, arg2 ResFileRefNum) int16 {
+func FSOpenOrphanResFile(arg0 FSRef, arg1 kernel.SignedByte, arg2 ResFileRefNum) int16 {
 	result, callErr := tryFSOpenOrphanResFile(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9300,10 +9299,10 @@ func FSOpenOrphanResFile(arg0 unsafe.Pointer, arg1 kernel.SignedByte, arg2 ResFi
 	return result
 }
 
-var _fSOpenResFile func(arg0 unsafe.Pointer, arg1 int8) ResFileRefNum
+var _fSOpenResFile func(arg0 FSRef, arg1 int8) ResFileRefNum
 var _fSOpenResFileErr error
 
-func tryFSOpenResFile(arg0 unsafe.Pointer, arg1 int8) (ResFileRefNum, error) {
+func tryFSOpenResFile(arg0 FSRef, arg1 int8) (ResFileRefNum, error) {
 	if _fSOpenResFile == nil {
 		return *new(ResFileRefNum), symbolCallError("FSOpenResFile", "10.0", _fSOpenResFileErr)
 	}
@@ -9315,7 +9314,7 @@ func tryFSOpenResFile(arg0 unsafe.Pointer, arg1 int8) (ResFileRefNum, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1529232-fsopenresfile
-func FSOpenResFile(arg0 unsafe.Pointer, arg1 int8) ResFileRefNum {
+func FSOpenResFile(arg0 FSRef, arg1 int8) ResFileRefNum {
 	result, callErr := tryFSOpenResFile(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -9323,10 +9322,10 @@ func FSOpenResFile(arg0 unsafe.Pointer, arg1 int8) ResFileRefNum {
 	return result
 }
 
-var _fSOpenResourceFile func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int8, arg4 ResFileRefNum) int16
+var _fSOpenResourceFile func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 int8, arg4 ResFileRefNum) int16
 var _fSOpenResourceFileErr error
 
-func tryFSOpenResourceFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int8, arg4 ResFileRefNum) (int16, error) {
+func tryFSOpenResourceFile(arg0 FSRef, arg1 uint, arg2 uint16, arg3 int8, arg4 ResFileRefNum) (int16, error) {
 	if _fSOpenResourceFile == nil {
 		return 0, symbolCallError("FSOpenResourceFile", "10.0", _fSOpenResourceFileErr)
 	}
@@ -9338,7 +9337,7 @@ func tryFSOpenResourceFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1529373-fsopenresourcefile
-func FSOpenResourceFile(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 int8, arg4 ResFileRefNum) int16 {
+func FSOpenResourceFile(arg0 FSRef, arg1 uint, arg2 uint16, arg3 int8, arg4 ResFileRefNum) int16 {
 	result, callErr := tryFSOpenResourceFile(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9438,10 +9437,10 @@ func FSPathGetTemporaryDirectoryForReplaceObject(arg0 int8, arg1 int8, arg2 uint
 	return result
 }
 
-var _fSPathMakeRef func(arg0 uint8, arg1 unsafe.Pointer, arg2 bool) int32
+var _fSPathMakeRef func(arg0 uint8, arg1 FSRef, arg2 bool) int32
 var _fSPathMakeRefErr error
 
-func tryFSPathMakeRef(arg0 uint8, arg1 unsafe.Pointer, arg2 bool) (int32, error) {
+func tryFSPathMakeRef(arg0 uint8, arg1 FSRef, arg2 bool) (int32, error) {
 	if _fSPathMakeRef == nil {
 		return 0, symbolCallError("FSPathMakeRef", "10.0", _fSPathMakeRefErr)
 	}
@@ -9453,7 +9452,7 @@ func tryFSPathMakeRef(arg0 uint8, arg1 unsafe.Pointer, arg2 bool) (int32, error)
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565195-fspathmakeref
-func FSPathMakeRef(arg0 uint8, arg1 unsafe.Pointer, arg2 bool) int32 {
+func FSPathMakeRef(arg0 uint8, arg1 FSRef, arg2 bool) int32 {
 	result, callErr := tryFSPathMakeRef(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9461,10 +9460,10 @@ func FSPathMakeRef(arg0 uint8, arg1 unsafe.Pointer, arg2 bool) int32 {
 	return result
 }
 
-var _fSPathMakeRefWithOptions func(arg0 uint8, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 bool) int32
+var _fSPathMakeRefWithOptions func(arg0 uint8, arg1 unsafe.Pointer, arg2 FSRef, arg3 bool) int32
 var _fSPathMakeRefWithOptionsErr error
 
-func tryFSPathMakeRefWithOptions(arg0 uint8, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 bool) (int32, error) {
+func tryFSPathMakeRefWithOptions(arg0 uint8, arg1 unsafe.Pointer, arg2 FSRef, arg3 bool) (int32, error) {
 	if _fSPathMakeRefWithOptions == nil {
 		return 0, symbolCallError("FSPathMakeRefWithOptions", "10.4", _fSPathMakeRefWithOptionsErr)
 	}
@@ -9476,7 +9475,7 @@ func tryFSPathMakeRefWithOptions(arg0 uint8, arg1 unsafe.Pointer, arg2 unsafe.Po
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566339-fspathmakerefwithoptions
-func FSPathMakeRefWithOptions(arg0 uint8, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 bool) int32 {
+func FSPathMakeRefWithOptions(arg0 uint8, arg1 unsafe.Pointer, arg2 FSRef, arg3 bool) int32 {
 	result, callErr := tryFSPathMakeRefWithOptions(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -9622,10 +9621,10 @@ func FSReadFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 unsafe.Pointer, a
 	return result
 }
 
-var _fSRefMakePath func(arg0 unsafe.Pointer, arg1 uint8, arg2 uint32) int32
+var _fSRefMakePath func(arg0 FSRef, arg1 uint8, arg2 uint32) int32
 var _fSRefMakePathErr error
 
-func tryFSRefMakePath(arg0 unsafe.Pointer, arg1 uint8, arg2 uint32) (int32, error) {
+func tryFSRefMakePath(arg0 FSRef, arg1 uint8, arg2 uint32) (int32, error) {
 	if _fSRefMakePath == nil {
 		return 0, symbolCallError("FSRefMakePath", "10.0", _fSRefMakePathErr)
 	}
@@ -9637,7 +9636,7 @@ func tryFSRefMakePath(arg0 unsafe.Pointer, arg1 uint8, arg2 uint32) (int32, erro
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565635-fsrefmakepath
-func FSRefMakePath(arg0 unsafe.Pointer, arg1 uint8, arg2 uint32) int32 {
+func FSRefMakePath(arg0 FSRef, arg1 uint8, arg2 uint32) int32 {
 	result, callErr := tryFSRefMakePath(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9645,10 +9644,10 @@ func FSRefMakePath(arg0 unsafe.Pointer, arg1 uint8, arg2 uint32) int32 {
 	return result
 }
 
-var _fSRenameUnicode func(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 unsafe.Pointer) int16
+var _fSRenameUnicode func(arg0 FSRef, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 FSRef) int16
 var _fSRenameUnicodeErr error
 
-func tryFSRenameUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 unsafe.Pointer) (int16, error) {
+func tryFSRenameUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 FSRef) (int16, error) {
 	if _fSRenameUnicode == nil {
 		return 0, symbolCallError("FSRenameUnicode", "10.0", _fSRenameUnicodeErr)
 	}
@@ -9660,7 +9659,7 @@ func tryFSRenameUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 TextEn
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565792-fsrenameunicode
-func FSRenameUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 unsafe.Pointer) int16 {
+func FSRenameUnicode(arg0 FSRef, arg1 uint, arg2 uint16, arg3 TextEncoding, arg4 FSRef) int16 {
 	result, callErr := tryFSRenameUnicode(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -9668,10 +9667,10 @@ func FSRenameUnicode(arg0 unsafe.Pointer, arg1 uint, arg2 uint16, arg3 TextEncod
 	return result
 }
 
-var _fSReplaceObject func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer) int32
+var _fSReplaceObject func(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 unsafe.Pointer, arg6 FSRef) int32
 var _fSReplaceObjectErr error
 
-func tryFSReplaceObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer) (int32, error) {
+func tryFSReplaceObject(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 unsafe.Pointer, arg6 FSRef) (int32, error) {
 	if _fSReplaceObject == nil {
 		return 0, symbolCallError("FSReplaceObject", "10.5", _fSReplaceObjectErr)
 	}
@@ -9683,7 +9682,7 @@ func tryFSReplaceObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefound
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566736-fsreplaceobject
-func FSReplaceObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 unsafe.Pointer, arg5 unsafe.Pointer, arg6 unsafe.Pointer) int32 {
+func FSReplaceObject(arg0 FSRef, arg1 FSRef, arg2 corefoundation.CFStringRef, arg3 corefoundation.CFStringRef, arg4 FSRef, arg5 unsafe.Pointer, arg6 FSRef) int32 {
 	result, callErr := tryFSReplaceObject(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -9691,10 +9690,10 @@ func FSReplaceObject(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 corefoundati
 	return result
 }
 
-var _fSResolveNodeID func(arg0 unsafe.Pointer, arg1 uint32, arg2 FSRefPtr) int32
+var _fSResolveNodeID func(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRefPtr) int32
 var _fSResolveNodeIDErr error
 
-func tryFSResolveNodeID(arg0 unsafe.Pointer, arg1 uint32, arg2 FSRefPtr) (int32, error) {
+func tryFSResolveNodeID(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRefPtr) (int32, error) {
 	if _fSResolveNodeID == nil {
 		return 0, symbolCallError("FSResolveNodeID", "10.5", _fSResolveNodeIDErr)
 	}
@@ -9706,7 +9705,7 @@ func tryFSResolveNodeID(arg0 unsafe.Pointer, arg1 uint32, arg2 FSRefPtr) (int32,
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565623-fsresolvenodeid
-func FSResolveNodeID(arg0 unsafe.Pointer, arg1 uint32, arg2 FSRefPtr) int32 {
+func FSResolveNodeID(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSRefPtr) int32 {
 	result, callErr := tryFSResolveNodeID(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9714,10 +9713,10 @@ func FSResolveNodeID(arg0 unsafe.Pointer, arg1 uint32, arg2 FSRefPtr) int32 {
 	return result
 }
 
-var _fSResourceFileAlreadyOpen func(arg0 unsafe.Pointer, arg1 bool, arg2 ResFileRefNum) bool
+var _fSResourceFileAlreadyOpen func(arg0 FSRef, arg1 bool, arg2 ResFileRefNum) bool
 var _fSResourceFileAlreadyOpenErr error
 
-func tryFSResourceFileAlreadyOpen(arg0 unsafe.Pointer, arg1 bool, arg2 ResFileRefNum) (bool, error) {
+func tryFSResourceFileAlreadyOpen(arg0 FSRef, arg1 bool, arg2 ResFileRefNum) (bool, error) {
 	if _fSResourceFileAlreadyOpen == nil {
 		return false, symbolCallError("FSResourceFileAlreadyOpen", "10.0", _fSResourceFileAlreadyOpenErr)
 	}
@@ -9729,7 +9728,7 @@ func tryFSResourceFileAlreadyOpen(arg0 unsafe.Pointer, arg1 bool, arg2 ResFileRe
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1529331-fsresourcefilealreadyopen
-func FSResourceFileAlreadyOpen(arg0 unsafe.Pointer, arg1 bool, arg2 ResFileRefNum) bool {
+func FSResourceFileAlreadyOpen(arg0 FSRef, arg1 bool, arg2 ResFileRefNum) bool {
 	result, callErr := tryFSResourceFileAlreadyOpen(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9737,10 +9736,10 @@ func FSResourceFileAlreadyOpen(arg0 unsafe.Pointer, arg1 bool, arg2 ResFileRefNu
 	return result
 }
 
-var _fSSetCatalogInfo func(arg0 unsafe.Pointer, arg1 FSCatalogInfoBitmap, arg2 FSCatalogInfo) int16
+var _fSSetCatalogInfo func(arg0 FSRef, arg1 FSCatalogInfoBitmap, arg2 FSCatalogInfo) int16
 var _fSSetCatalogInfoErr error
 
-func tryFSSetCatalogInfo(arg0 unsafe.Pointer, arg1 FSCatalogInfoBitmap, arg2 FSCatalogInfo) (int16, error) {
+func tryFSSetCatalogInfo(arg0 FSRef, arg1 FSCatalogInfoBitmap, arg2 FSCatalogInfo) (int16, error) {
 	if _fSSetCatalogInfo == nil {
 		return 0, symbolCallError("FSSetCatalogInfo", "10.0", _fSSetCatalogInfoErr)
 	}
@@ -9752,7 +9751,7 @@ func tryFSSetCatalogInfo(arg0 unsafe.Pointer, arg1 FSCatalogInfoBitmap, arg2 FSC
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566580-fssetcataloginfo
-func FSSetCatalogInfo(arg0 unsafe.Pointer, arg1 FSCatalogInfoBitmap, arg2 FSCatalogInfo) int16 {
+func FSSetCatalogInfo(arg0 FSRef, arg1 FSCatalogInfoBitmap, arg2 FSCatalogInfo) int16 {
 	result, callErr := tryFSSetCatalogInfo(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9806,10 +9805,10 @@ func FSSetForkSize(arg0 FSIORefNum, arg1 uint16, arg2 int64) int16 {
 	return result
 }
 
-var _fSSetVolumeInfo func(arg0 unsafe.Pointer, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) int16
+var _fSSetVolumeInfo func(arg0 FSVolumeRefNum, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) int16
 var _fSSetVolumeInfoErr error
 
-func tryFSSetVolumeInfo(arg0 unsafe.Pointer, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) (int16, error) {
+func tryFSSetVolumeInfo(arg0 FSVolumeRefNum, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) (int16, error) {
 	if _fSSetVolumeInfo == nil {
 		return 0, symbolCallError("FSSetVolumeInfo", "10.0", _fSSetVolumeInfoErr)
 	}
@@ -9821,7 +9820,7 @@ func tryFSSetVolumeInfo(arg0 unsafe.Pointer, arg1 FSVolumeInfoBitmap, arg2 FSVol
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565574-fssetvolumeinfo
-func FSSetVolumeInfo(arg0 unsafe.Pointer, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) int16 {
+func FSSetVolumeInfo(arg0 FSVolumeRefNum, arg1 FSVolumeInfoBitmap, arg2 FSVolumeInfo) int16 {
 	result, callErr := tryFSSetVolumeInfo(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9829,10 +9828,10 @@ func FSSetVolumeInfo(arg0 unsafe.Pointer, arg1 FSVolumeInfoBitmap, arg2 FSVolume
 	return result
 }
 
-var _fSUnlinkObject func(arg0 unsafe.Pointer) int16
+var _fSUnlinkObject func(arg0 FSRef) int16
 var _fSUnlinkObjectErr error
 
-func tryFSUnlinkObject(arg0 unsafe.Pointer) (int16, error) {
+func tryFSUnlinkObject(arg0 FSRef) (int16, error) {
 	if _fSUnlinkObject == nil {
 		return 0, symbolCallError("FSUnlinkObject", "10.5", _fSUnlinkObjectErr)
 	}
@@ -9844,7 +9843,7 @@ func tryFSUnlinkObject(arg0 unsafe.Pointer) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565924-fsunlinkobject
-func FSUnlinkObject(arg0 unsafe.Pointer) int16 {
+func FSUnlinkObject(arg0 FSRef) int16 {
 	result, callErr := tryFSUnlinkObject(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -9875,10 +9874,10 @@ func FSUnlockRange(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 uint64, arg4 u
 	return result
 }
 
-var _fSUnmountVolumeAsync func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32
+var _fSUnmountVolumeAsync func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32
 var _fSUnmountVolumeAsyncErr error
 
-func tryFSUnmountVolumeAsync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) (int32, error) {
+func tryFSUnmountVolumeAsync(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) (int32, error) {
 	if _fSUnmountVolumeAsync == nil {
 		return 0, symbolCallError("FSUnmountVolumeAsync", "10.2", _fSUnmountVolumeAsyncErr)
 	}
@@ -9890,7 +9889,7 @@ func tryFSUnmountVolumeAsync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVo
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566587-fsunmountvolumeasync
-func FSUnmountVolumeAsync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32 {
+func FSUnmountVolumeAsync(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 FSVolumeOperation, arg3 FSVolumeUnmountUPP, arg4 corefoundation.CFRunLoopRef, arg5 corefoundation.CFStringRef) int32 {
 	result, callErr := tryFSUnmountVolumeAsync(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
@@ -9898,10 +9897,10 @@ func FSUnmountVolumeAsync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 FSVolum
 	return result
 }
 
-var _fSUnmountVolumeSync func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32) int32
+var _fSUnmountVolumeSync func(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 int32) int32
 var _fSUnmountVolumeSyncErr error
 
-func tryFSUnmountVolumeSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32) (int32, error) {
+func tryFSUnmountVolumeSync(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 int32) (int32, error) {
 	if _fSUnmountVolumeSync == nil {
 		return 0, symbolCallError("FSUnmountVolumeSync", "10.2", _fSUnmountVolumeSyncErr)
 	}
@@ -9913,7 +9912,7 @@ func tryFSUnmountVolumeSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566764-fsunmountvolumesync
-func FSUnmountVolumeSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32) int32 {
+func FSUnmountVolumeSync(arg0 FSVolumeRefNum, arg1 unsafe.Pointer, arg2 int32) int32 {
 	result, callErr := tryFSUnmountVolumeSync(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -9921,10 +9920,10 @@ func FSUnmountVolumeSync(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 int32) i
 	return result
 }
 
-var _fSVolumeMount func(arg0 kernel.BytePtr, arg1 unsafe.Pointer) int32
+var _fSVolumeMount func(arg0 kernel.BytePtr, arg1 FSVolumeRefNum) int32
 var _fSVolumeMountErr error
 
-func tryFSVolumeMount(arg0 kernel.BytePtr, arg1 unsafe.Pointer) (int32, error) {
+func tryFSVolumeMount(arg0 kernel.BytePtr, arg1 FSVolumeRefNum) (int32, error) {
 	if _fSVolumeMount == nil {
 		return 0, symbolCallError("FSVolumeMount", "10.5", _fSVolumeMountErr)
 	}
@@ -9936,7 +9935,7 @@ func tryFSVolumeMount(arg0 kernel.BytePtr, arg1 unsafe.Pointer) (int32, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566510-fsvolumemount
-func FSVolumeMount(arg0 kernel.BytePtr, arg1 unsafe.Pointer) int32 {
+func FSVolumeMount(arg0 kernel.BytePtr, arg1 FSVolumeRefNum) int32 {
 	result, callErr := tryFSVolumeMount(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -9967,10 +9966,10 @@ func FSWriteFork(arg0 FSIORefNum, arg1 uint16, arg2 int64, arg3 unsafe.Pointer, 
 	return result
 }
 
-var _findFolder func(arg0 unsafe.Pointer, arg1 uint32, arg2 bool, arg3 unsafe.Pointer, arg4 int32) int16
+var _findFolder func(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSVolumeRefNum, arg4 int32) int16
 var _findFolderErr error
 
-func tryFindFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 bool, arg3 unsafe.Pointer, arg4 int32) (int16, error) {
+func tryFindFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSVolumeRefNum, arg4 int32) (int16, error) {
 	if _findFolder == nil {
 		return 0, symbolCallError("FindFolder", "10.0", _findFolderErr)
 	}
@@ -9982,7 +9981,7 @@ func tryFindFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 bool, arg3 unsafe.Poin
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389175-findfolder
-func FindFolder(arg0 unsafe.Pointer, arg1 uint32, arg2 bool, arg3 unsafe.Pointer, arg4 int32) int16 {
+func FindFolder(arg0 FSVolumeRefNum, arg1 uint32, arg2 bool, arg3 FSVolumeRefNum, arg4 int32) int16 {
 	result, callErr := tryFindFolder(arg0, arg1, arg2, arg3, arg4)
 	if callErr != nil {
 		panic(callErr)
@@ -11070,10 +11069,10 @@ func GetDefaultThreadStackSize(arg0 ThreadStyle, arg1 corefoundation.CGSize) int
 	return result
 }
 
-var _getFolderNameUnicode func(arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer, arg3 kernel.HFSUniStr255) int32
+var _getFolderNameUnicode func(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeRefNum, arg3 kernel.HFSUniStr255) int32
 var _getFolderNameUnicodeErr error
 
-func tryGetFolderNameUnicode(arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer, arg3 kernel.HFSUniStr255) (int32, error) {
+func tryGetFolderNameUnicode(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeRefNum, arg3 kernel.HFSUniStr255) (int32, error) {
 	if _getFolderNameUnicode == nil {
 		return 0, symbolCallError("GetFolderNameUnicode", "10.5", _getFolderNameUnicodeErr)
 	}
@@ -11085,7 +11084,7 @@ func tryGetFolderNameUnicode(arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Point
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389375-getfoldernameunicode
-func GetFolderNameUnicode(arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer, arg3 kernel.HFSUniStr255) int32 {
+func GetFolderNameUnicode(arg0 FSVolumeRefNum, arg1 uint32, arg2 FSVolumeRefNum, arg3 kernel.HFSUniStr255) int32 {
 	result, callErr := tryGetFolderNameUnicode(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -11139,10 +11138,10 @@ func GetHandleSize(arg0 unsafe.Pointer) corefoundation.CGSize {
 	return result
 }
 
-var _getIconRef func(vRefNum unsafe.Pointer, creator uint32, iconType uint32, theIconRef unsafe.Pointer) int16
+var _getIconRef func(vRefNum unsafe.Pointer, creator uint32, iconType uint32, theIconRef *IconRef) int16
 var _getIconRefErr error
 
-func tryGetIconRef(vRefNum unsafe.Pointer, creator uint32, iconType uint32, theIconRef unsafe.Pointer) (int16, error) {
+func tryGetIconRef(vRefNum unsafe.Pointer, creator uint32, iconType uint32, theIconRef *IconRef) (int16, error) {
 	if _getIconRef == nil {
 		return 0, symbolCallError("GetIconRef", "10.0", _getIconRefErr)
 	}
@@ -11154,7 +11153,7 @@ func tryGetIconRef(vRefNum unsafe.Pointer, creator uint32, iconType uint32, theI
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1442776-geticonref
-func GetIconRef(vRefNum unsafe.Pointer, creator uint32, iconType uint32, theIconRef unsafe.Pointer) int16 {
+func GetIconRef(vRefNum unsafe.Pointer, creator uint32, iconType uint32, theIconRef *IconRef) int16 {
 	result, callErr := tryGetIconRef(vRefNum, creator, iconType, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -11162,10 +11161,10 @@ func GetIconRef(vRefNum unsafe.Pointer, creator uint32, iconType uint32, theIcon
 	return result
 }
 
-var _getIconRefFromComponent func(arg0 Component, arg1 unsafe.Pointer) int32
+var _getIconRefFromComponent func(arg0 Component, arg1 IconRef) int32
 var _getIconRefFromComponentErr error
 
-func tryGetIconRefFromComponent(arg0 Component, arg1 unsafe.Pointer) (int32, error) {
+func tryGetIconRefFromComponent(arg0 Component, arg1 IconRef) (int32, error) {
 	if _getIconRefFromComponent == nil {
 		return 0, symbolCallError("GetIconRefFromComponent", "10.5", _getIconRefFromComponentErr)
 	}
@@ -11177,7 +11176,7 @@ func tryGetIconRefFromComponent(arg0 Component, arg1 unsafe.Pointer) (int32, err
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1447113-geticonreffromcomponent
-func GetIconRefFromComponent(arg0 Component, arg1 unsafe.Pointer) int32 {
+func GetIconRefFromComponent(arg0 Component, arg1 IconRef) int32 {
 	result, callErr := tryGetIconRefFromComponent(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -11185,10 +11184,10 @@ func GetIconRefFromComponent(arg0 Component, arg1 unsafe.Pointer) int32 {
 	return result
 }
 
-var _getIconRefFromFileInfo func(inRef unsafe.Pointer, inFileNameLength unsafe.Pointer, inFileName *uint16, inWhichInfo FSCatalogInfoBitmap, inCatalogInfo unsafe.Pointer, inUsageFlags IconServicesUsageFlags, outIconRef unsafe.Pointer, outLabel *uintptr) int32
+var _getIconRefFromFileInfo func(inRef unsafe.Pointer, inFileNameLength unsafe.Pointer, inFileName *uint16, inWhichInfo FSCatalogInfoBitmap, inCatalogInfo unsafe.Pointer, inUsageFlags IconServicesUsageFlags, outIconRef *IconRef, outLabel *uintptr) int32
 var _getIconRefFromFileInfoErr error
 
-func tryGetIconRefFromFileInfo(inRef unsafe.Pointer, inFileNameLength unsafe.Pointer, inFileName *uint16, inWhichInfo FSCatalogInfoBitmap, inCatalogInfo unsafe.Pointer, inUsageFlags IconServicesUsageFlags, outIconRef unsafe.Pointer, outLabel *uintptr) (int32, error) {
+func tryGetIconRefFromFileInfo(inRef unsafe.Pointer, inFileNameLength unsafe.Pointer, inFileName *uint16, inWhichInfo FSCatalogInfoBitmap, inCatalogInfo unsafe.Pointer, inUsageFlags IconServicesUsageFlags, outIconRef *IconRef, outLabel *uintptr) (int32, error) {
 	if _getIconRefFromFileInfo == nil {
 		return 0, symbolCallError("GetIconRefFromFileInfo", "10.1", _getIconRefFromFileInfoErr)
 	}
@@ -11200,7 +11199,7 @@ func tryGetIconRefFromFileInfo(inRef unsafe.Pointer, inFileNameLength unsafe.Poi
 // Deprecated: Deprecated since macOS 10.13.
 //
 // See: https://developer.apple.com/documentation/coreservices/1447966-geticonreffromfileinfo
-func GetIconRefFromFileInfo(inRef unsafe.Pointer, inFileNameLength unsafe.Pointer, inFileName *uint16, inWhichInfo FSCatalogInfoBitmap, inCatalogInfo unsafe.Pointer, inUsageFlags IconServicesUsageFlags, outIconRef unsafe.Pointer, outLabel *uintptr) int32 {
+func GetIconRefFromFileInfo(inRef unsafe.Pointer, inFileNameLength unsafe.Pointer, inFileName *uint16, inWhichInfo FSCatalogInfoBitmap, inCatalogInfo unsafe.Pointer, inUsageFlags IconServicesUsageFlags, outIconRef *IconRef, outLabel *uintptr) int32 {
 	result, callErr := tryGetIconRefFromFileInfo(inRef, inFileNameLength, inFileName, inWhichInfo, inCatalogInfo, inUsageFlags, outIconRef, outLabel)
 	if callErr != nil {
 		panic(callErr)
@@ -11208,10 +11207,10 @@ func GetIconRefFromFileInfo(inRef unsafe.Pointer, inFileNameLength unsafe.Pointe
 	return result
 }
 
-var _getIconRefFromFolder func(vRefNum unsafe.Pointer, parentFolderID unsafe.Pointer, folderID unsafe.Pointer, attributes int8, accessPrivileges int8, theIconRef unsafe.Pointer) int16
+var _getIconRefFromFolder func(vRefNum unsafe.Pointer, parentFolderID unsafe.Pointer, folderID unsafe.Pointer, attributes int8, accessPrivileges int8, theIconRef *IconRef) int16
 var _getIconRefFromFolderErr error
 
-func tryGetIconRefFromFolder(vRefNum unsafe.Pointer, parentFolderID unsafe.Pointer, folderID unsafe.Pointer, attributes int8, accessPrivileges int8, theIconRef unsafe.Pointer) (int16, error) {
+func tryGetIconRefFromFolder(vRefNum unsafe.Pointer, parentFolderID unsafe.Pointer, folderID unsafe.Pointer, attributes int8, accessPrivileges int8, theIconRef *IconRef) (int16, error) {
 	if _getIconRefFromFolder == nil {
 		return 0, symbolCallError("GetIconRefFromFolder", "10.0", _getIconRefFromFolderErr)
 	}
@@ -11223,7 +11222,7 @@ func tryGetIconRefFromFolder(vRefNum unsafe.Pointer, parentFolderID unsafe.Point
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1441712-geticonreffromfolder
-func GetIconRefFromFolder(vRefNum unsafe.Pointer, parentFolderID unsafe.Pointer, folderID unsafe.Pointer, attributes int8, accessPrivileges int8, theIconRef unsafe.Pointer) int16 {
+func GetIconRefFromFolder(vRefNum unsafe.Pointer, parentFolderID unsafe.Pointer, folderID unsafe.Pointer, attributes int8, accessPrivileges int8, theIconRef *IconRef) int16 {
 	result, callErr := tryGetIconRefFromFolder(vRefNum, parentFolderID, folderID, attributes, accessPrivileges, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -11231,10 +11230,10 @@ func GetIconRefFromFolder(vRefNum unsafe.Pointer, parentFolderID unsafe.Pointer,
 	return result
 }
 
-var _getIconRefFromIconFamilyPtr func(inIconFamilyPtr unsafe.Pointer, inSize corefoundation.CGSize, outIconRef unsafe.Pointer) int32
+var _getIconRefFromIconFamilyPtr func(inIconFamilyPtr unsafe.Pointer, inSize corefoundation.CGSize, outIconRef *IconRef) int32
 var _getIconRefFromIconFamilyPtrErr error
 
-func tryGetIconRefFromIconFamilyPtr(inIconFamilyPtr unsafe.Pointer, inSize corefoundation.CGSize, outIconRef unsafe.Pointer) (int32, error) {
+func tryGetIconRefFromIconFamilyPtr(inIconFamilyPtr unsafe.Pointer, inSize corefoundation.CGSize, outIconRef *IconRef) (int32, error) {
 	if _getIconRefFromIconFamilyPtr == nil {
 		return 0, symbolCallError("GetIconRefFromIconFamilyPtr", "10.3", _getIconRefFromIconFamilyPtrErr)
 	}
@@ -11246,7 +11245,7 @@ func tryGetIconRefFromIconFamilyPtr(inIconFamilyPtr unsafe.Pointer, inSize coref
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1443251-geticonreffromiconfamilyptr
-func GetIconRefFromIconFamilyPtr(inIconFamilyPtr unsafe.Pointer, inSize corefoundation.CGSize, outIconRef unsafe.Pointer) int32 {
+func GetIconRefFromIconFamilyPtr(inIconFamilyPtr unsafe.Pointer, inSize corefoundation.CGSize, outIconRef *IconRef) int32 {
 	result, callErr := tryGetIconRefFromIconFamilyPtr(inIconFamilyPtr, inSize, outIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -11254,10 +11253,10 @@ func GetIconRefFromIconFamilyPtr(inIconFamilyPtr unsafe.Pointer, inSize corefoun
 	return result
 }
 
-var _getIconRefFromTypeInfo func(inCreator uint32, inType uint32, inExtension corefoundation.CFStringRef, inMIMEType corefoundation.CFStringRef, inUsageFlags IconServicesUsageFlags, outIconRef unsafe.Pointer) int16
+var _getIconRefFromTypeInfo func(inCreator uint32, inType uint32, inExtension corefoundation.CFStringRef, inMIMEType corefoundation.CFStringRef, inUsageFlags IconServicesUsageFlags, outIconRef *IconRef) int16
 var _getIconRefFromTypeInfoErr error
 
-func tryGetIconRefFromTypeInfo(inCreator uint32, inType uint32, inExtension corefoundation.CFStringRef, inMIMEType corefoundation.CFStringRef, inUsageFlags IconServicesUsageFlags, outIconRef unsafe.Pointer) (int16, error) {
+func tryGetIconRefFromTypeInfo(inCreator uint32, inType uint32, inExtension corefoundation.CFStringRef, inMIMEType corefoundation.CFStringRef, inUsageFlags IconServicesUsageFlags, outIconRef *IconRef) (int16, error) {
 	if _getIconRefFromTypeInfo == nil {
 		return 0, symbolCallError("GetIconRefFromTypeInfo", "10.3", _getIconRefFromTypeInfoErr)
 	}
@@ -11269,7 +11268,7 @@ func tryGetIconRefFromTypeInfo(inCreator uint32, inType uint32, inExtension core
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1445758-geticonreffromtypeinfo
-func GetIconRefFromTypeInfo(inCreator uint32, inType uint32, inExtension corefoundation.CFStringRef, inMIMEType corefoundation.CFStringRef, inUsageFlags IconServicesUsageFlags, outIconRef unsafe.Pointer) int16 {
+func GetIconRefFromTypeInfo(inCreator uint32, inType uint32, inExtension corefoundation.CFStringRef, inMIMEType corefoundation.CFStringRef, inUsageFlags IconServicesUsageFlags, outIconRef *IconRef) int16 {
 	result, callErr := tryGetIconRefFromTypeInfo(inCreator, inType, inExtension, inMIMEType, inUsageFlags, outIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -11277,10 +11276,10 @@ func GetIconRefFromTypeInfo(inCreator uint32, inType uint32, inExtension corefou
 	return result
 }
 
-var _getIconRefOwners func(theIconRef unsafe.Pointer, owners *uint16) int16
+var _getIconRefOwners func(theIconRef IconRef, owners *uint16) int16
 var _getIconRefOwnersErr error
 
-func tryGetIconRefOwners(theIconRef unsafe.Pointer, owners *uint16) (int16, error) {
+func tryGetIconRefOwners(theIconRef IconRef, owners *uint16) (int16, error) {
 	if _getIconRefOwners == nil {
 		return 0, symbolCallError("GetIconRefOwners", "10.0", _getIconRefOwnersErr)
 	}
@@ -11292,7 +11291,7 @@ func tryGetIconRefOwners(theIconRef unsafe.Pointer, owners *uint16) (int16, erro
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1447221-geticonrefowners
-func GetIconRefOwners(theIconRef unsafe.Pointer, owners *uint16) int16 {
+func GetIconRefOwners(theIconRef IconRef, owners *uint16) int16 {
 	result, callErr := tryGetIconRefOwners(theIconRef, owners)
 	if callErr != nil {
 		panic(callErr)
@@ -11594,10 +11593,10 @@ func GetNextResourceFile(arg0 ResFileRefNum, arg1 ResFileRefNum) int16 {
 	return result
 }
 
-var _getPtrSize func(arg0 coreimage.Ptr) corefoundation.CGSize
+var _getPtrSize func(arg0 kernel.Ptr) corefoundation.CGSize
 var _getPtrSizeErr error
 
-func tryGetPtrSize(arg0 coreimage.Ptr) (corefoundation.CGSize, error) {
+func tryGetPtrSize(arg0 kernel.Ptr) (corefoundation.CGSize, error) {
 	if _getPtrSize == nil {
 		return corefoundation.CGSize{}, symbolCallError("GetPtrSize", "10.0", _getPtrSizeErr)
 	}
@@ -11609,7 +11608,7 @@ func tryGetPtrSize(arg0 coreimage.Ptr) (corefoundation.CGSize, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1506465-getptrsize
-func GetPtrSize(arg0 coreimage.Ptr) corefoundation.CGSize {
+func GetPtrSize(arg0 kernel.Ptr) corefoundation.CGSize {
 	result, callErr := tryGetPtrSize(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -12242,10 +12241,10 @@ func HomeResFile(arg0 unsafe.Pointer) ResFileRefNum {
 	return result
 }
 
-var _identifyFolder func(arg0 unsafe.Pointer, arg1 int32, arg2 FolderType) int16
+var _identifyFolder func(arg0 FSVolumeRefNum, arg1 int32, arg2 FolderType) int16
 var _identifyFolderErr error
 
-func tryIdentifyFolder(arg0 unsafe.Pointer, arg1 int32, arg2 FolderType) (int16, error) {
+func tryIdentifyFolder(arg0 FSVolumeRefNum, arg1 int32, arg2 FolderType) (int16, error) {
 	if _identifyFolder == nil {
 		return 0, symbolCallError("IdentifyFolder", "10.0", _identifyFolderErr)
 	}
@@ -12257,7 +12256,7 @@ func tryIdentifyFolder(arg0 unsafe.Pointer, arg1 int32, arg2 FolderType) (int16,
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389047-identifyfolder
-func IdentifyFolder(arg0 unsafe.Pointer, arg1 int32, arg2 FolderType) int16 {
+func IdentifyFolder(arg0 FSVolumeRefNum, arg1 int32, arg2 FolderType) int16 {
 	result, callErr := tryIdentifyFolder(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
@@ -12492,10 +12491,10 @@ func InstallXTimeTask(arg0 QElemPtr) int16 {
 	return result
 }
 
-var _invalidateFolderDescriptorCache func(arg0 unsafe.Pointer, arg1 int32) int16
+var _invalidateFolderDescriptorCache func(arg0 FSVolumeRefNum, arg1 int32) int16
 var _invalidateFolderDescriptorCacheErr error
 
-func tryInvalidateFolderDescriptorCache(arg0 unsafe.Pointer, arg1 int32) (int16, error) {
+func tryInvalidateFolderDescriptorCache(arg0 FSVolumeRefNum, arg1 int32) (int16, error) {
 	if _invalidateFolderDescriptorCache == nil {
 		return 0, symbolCallError("InvalidateFolderDescriptorCache", "10.0", _invalidateFolderDescriptorCacheErr)
 	}
@@ -12507,7 +12506,7 @@ func tryInvalidateFolderDescriptorCache(arg0 unsafe.Pointer, arg1 int32) (int16,
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389097-invalidatefolderdescriptorcache
-func InvalidateFolderDescriptorCache(arg0 unsafe.Pointer, arg1 int32) int16 {
+func InvalidateFolderDescriptorCache(arg0 FSVolumeRefNum, arg1 int32) int16 {
 	result, callErr := tryInvalidateFolderDescriptorCache(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -12868,10 +12867,10 @@ func InvokeFNSubscriptionUPP(arg0 FNMessage, arg1 unsafe.Pointer, arg2 FNSubscri
 	}
 }
 
-var _invokeFSVolumeEjectUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 int32, arg4 FSVolumeEjectUPP)
+var _invokeFSVolumeEjectUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeEjectUPP)
 var _invokeFSVolumeEjectUPPErr error
 
-func tryInvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 int32, arg4 FSVolumeEjectUPP) error {
+func tryInvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeEjectUPP) error {
 	if _invokeFSVolumeEjectUPP == nil {
 		return symbolCallError("InvokeFSVolumeEjectUPP", "10.2", _invokeFSVolumeEjectUPPErr)
 	}
@@ -12884,16 +12883,16 @@ func tryInvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.P
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565652-invokefsvolumeejectupp
-func InvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 int32, arg4 FSVolumeEjectUPP) {
+func InvokeFSVolumeEjectUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeEjectUPP) {
 	if callErr := tryInvokeFSVolumeEjectUPP(arg0, arg1, arg2, arg3, arg4); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeFSVolumeMountUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 FSVolumeMountUPP)
+var _invokeFSVolumeMountUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 FSVolumeMountUPP)
 var _invokeFSVolumeMountUPPErr error
 
-func tryInvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 FSVolumeMountUPP) error {
+func tryInvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 FSVolumeMountUPP) error {
 	if _invokeFSVolumeMountUPP == nil {
 		return symbolCallError("InvokeFSVolumeMountUPP", "10.2", _invokeFSVolumeMountUPPErr)
 	}
@@ -12906,16 +12905,16 @@ func tryInvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.P
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566167-invokefsvolumemountupp
-func InvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 FSVolumeMountUPP) {
+func InvokeFSVolumeMountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 FSVolumeMountUPP) {
 	if callErr := tryInvokeFSVolumeMountUPP(arg0, arg1, arg2, arg3); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeFSVolumeUnmountUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 int32, arg4 FSVolumeUnmountUPP)
+var _invokeFSVolumeUnmountUPP func(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeUnmountUPP)
 var _invokeFSVolumeUnmountUPPErr error
 
-func tryInvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 int32, arg4 FSVolumeUnmountUPP) error {
+func tryInvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeUnmountUPP) error {
 	if _invokeFSVolumeUnmountUPP == nil {
 		return symbolCallError("InvokeFSVolumeUnmountUPP", "10.2", _invokeFSVolumeUnmountUPPErr)
 	}
@@ -12928,7 +12927,7 @@ func tryInvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565842-invokefsvolumeunmountupp
-func InvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 unsafe.Pointer, arg3 int32, arg4 FSVolumeUnmountUPP) {
+func InvokeFSVolumeUnmountUPP(arg0 FSVolumeOperation, arg1 int32, arg2 FSVolumeRefNum, arg3 int32, arg4 FSVolumeUnmountUPP) {
 	if callErr := tryInvokeFSVolumeUnmountUPP(arg0, arg1, arg2, arg3, arg4); callErr != nil {
 		panic(callErr)
 	}
@@ -13415,10 +13414,10 @@ func InvokeUnicodeToTextFallbackUPP(arg0 uint16, arg1 unsafe.Pointer, arg2 unsaf
 	return result
 }
 
-var _isDataAvailableInIconRef func(inIconKind uint32, inIconRef unsafe.Pointer) bool
+var _isDataAvailableInIconRef func(inIconKind uint32, inIconRef IconRef) bool
 var _isDataAvailableInIconRefErr error
 
-func tryIsDataAvailableInIconRef(inIconKind uint32, inIconRef unsafe.Pointer) (bool, error) {
+func tryIsDataAvailableInIconRef(inIconKind uint32, inIconRef IconRef) (bool, error) {
 	if _isDataAvailableInIconRef == nil {
 		return false, symbolCallError("IsDataAvailableInIconRef", "10.3", _isDataAvailableInIconRefErr)
 	}
@@ -13430,7 +13429,7 @@ func tryIsDataAvailableInIconRef(inIconKind uint32, inIconRef unsafe.Pointer) (b
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1446627-isdataavailableiniconref
-func IsDataAvailableInIconRef(inIconKind uint32, inIconRef unsafe.Pointer) bool {
+func IsDataAvailableInIconRef(inIconKind uint32, inIconRef IconRef) bool {
 	result, callErr := tryIsDataAvailableInIconRef(inIconKind, inIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -13484,10 +13483,10 @@ func IsHeapValid() bool {
 	return result
 }
 
-var _isIconRefComposite func(compositeIconRef unsafe.Pointer, backgroundIconRef unsafe.Pointer, foregroundIconRef unsafe.Pointer) int16
+var _isIconRefComposite func(compositeIconRef IconRef, backgroundIconRef *IconRef, foregroundIconRef *IconRef) int16
 var _isIconRefCompositeErr error
 
-func tryIsIconRefComposite(compositeIconRef unsafe.Pointer, backgroundIconRef unsafe.Pointer, foregroundIconRef unsafe.Pointer) (int16, error) {
+func tryIsIconRefComposite(compositeIconRef IconRef, backgroundIconRef *IconRef, foregroundIconRef *IconRef) (int16, error) {
 	if _isIconRefComposite == nil {
 		return 0, symbolCallError("IsIconRefComposite", "10.0", _isIconRefCompositeErr)
 	}
@@ -13499,7 +13498,7 @@ func tryIsIconRefComposite(compositeIconRef unsafe.Pointer, backgroundIconRef un
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1446300-isiconrefcomposite
-func IsIconRefComposite(compositeIconRef unsafe.Pointer, backgroundIconRef unsafe.Pointer, foregroundIconRef unsafe.Pointer) int16 {
+func IsIconRefComposite(compositeIconRef IconRef, backgroundIconRef *IconRef, foregroundIconRef *IconRef) int16 {
 	result, callErr := tryIsIconRefComposite(compositeIconRef, backgroundIconRef, foregroundIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -13530,10 +13529,10 @@ func IsMetric() bool {
 	return result
 }
 
-var _isPointerValid func(arg0 coreimage.Ptr) bool
+var _isPointerValid func(arg0 kernel.Ptr) bool
 var _isPointerValidErr error
 
-func tryIsPointerValid(arg0 coreimage.Ptr) (bool, error) {
+func tryIsPointerValid(arg0 kernel.Ptr) (bool, error) {
 	if _isPointerValid == nil {
 		return false, symbolCallError("IsPointerValid", "10.0", _isPointerValidErr)
 	}
@@ -13545,7 +13544,7 @@ func tryIsPointerValid(arg0 coreimage.Ptr) (bool, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1506360-ispointervalid
-func IsPointerValid(arg0 coreimage.Ptr) bool {
+func IsPointerValid(arg0 kernel.Ptr) bool {
 	result, callErr := tryIsPointerValid(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -13553,10 +13552,10 @@ func IsPointerValid(arg0 coreimage.Ptr) bool {
 	return result
 }
 
-var _isValidIconRef func(theIconRef unsafe.Pointer) bool
+var _isValidIconRef func(theIconRef IconRef) bool
 var _isValidIconRefErr error
 
-func tryIsValidIconRef(theIconRef unsafe.Pointer) (bool, error) {
+func tryIsValidIconRef(theIconRef IconRef) (bool, error) {
 	if _isValidIconRef == nil {
 		return false, symbolCallError("IsValidIconRef", "10.0", _isValidIconRefErr)
 	}
@@ -13568,7 +13567,7 @@ func tryIsValidIconRef(theIconRef unsafe.Pointer) (bool, error) {
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1450233-isvalidiconref
-func IsValidIconRef(theIconRef unsafe.Pointer) bool {
+func IsValidIconRef(theIconRef IconRef) bool {
 	result, callErr := tryIsValidIconRef(theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -14082,10 +14081,10 @@ func KCMakeKCRefFromAlias(arg0 AliasHandle, arg1 KCRef) int32 {
 	return result
 }
 
-var _kCMakeKCRefFromFSRef func(arg0 unsafe.Pointer, arg1 KCRef) int32
+var _kCMakeKCRefFromFSRef func(arg0 FSRef, arg1 KCRef) int32
 var _kCMakeKCRefFromFSRefErr error
 
-func tryKCMakeKCRefFromFSRef(arg0 unsafe.Pointer, arg1 KCRef) (int32, error) {
+func tryKCMakeKCRefFromFSRef(arg0 FSRef, arg1 KCRef) (int32, error) {
 	if _kCMakeKCRefFromFSRef == nil {
 		return 0, symbolCallError("KCMakeKCRefFromFSRef", "10.0", _kCMakeKCRefFromFSRefErr)
 	}
@@ -14097,7 +14096,7 @@ func tryKCMakeKCRefFromFSRef(arg0 unsafe.Pointer, arg1 KCRef) (int32, error) {
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/coreservices/1563116-kcmakekcreffromfsref
-func KCMakeKCRefFromFSRef(arg0 unsafe.Pointer, arg1 KCRef) int32 {
+func KCMakeKCRefFromFSRef(arg0 FSRef, arg1 KCRef) int32 {
 	result, callErr := tryKCMakeKCRefFromFSRef(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -14381,12 +14380,12 @@ func LMGetBootDrive() int16 {
 	return result
 }
 
-var _lMGetIntlSpec func() coreimage.Ptr
+var _lMGetIntlSpec func() kernel.Ptr
 var _lMGetIntlSpecErr error
 
-func tryLMGetIntlSpec() (coreimage.Ptr, error) {
+func tryLMGetIntlSpec() (kernel.Ptr, error) {
 	if _lMGetIntlSpec == nil {
-		return coreimage.Ptr{}, symbolCallError("LMGetIntlSpec", "10.0", _lMGetIntlSpecErr)
+		return *new(kernel.Ptr), symbolCallError("LMGetIntlSpec", "10.0", _lMGetIntlSpecErr)
 	}
 	return _lMGetIntlSpec(), nil
 }
@@ -14396,7 +14395,7 @@ func tryLMGetIntlSpec() (coreimage.Ptr, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565043-lmgetintlspec
-func LMGetIntlSpec() coreimage.Ptr {
+func LMGetIntlSpec() kernel.Ptr {
 	result, callErr := tryLMGetIntlSpec()
 	if callErr != nil {
 		panic(callErr)
@@ -14586,10 +14585,10 @@ func LMSetBootDrive(arg0 int16) {
 	}
 }
 
-var _lMSetIntlSpec func(arg0 coreimage.Ptr)
+var _lMSetIntlSpec func(arg0 kernel.Ptr)
 var _lMSetIntlSpecErr error
 
-func tryLMSetIntlSpec(arg0 coreimage.Ptr) error {
+func tryLMSetIntlSpec(arg0 kernel.Ptr) error {
 	if _lMSetIntlSpec == nil {
 		return symbolCallError("LMSetIntlSpec", "10.0", _lMSetIntlSpecErr)
 	}
@@ -14602,7 +14601,7 @@ func tryLMSetIntlSpec(arg0 coreimage.Ptr) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565016-lmsetintlspec
-func LMSetIntlSpec(arg0 coreimage.Ptr) {
+func LMSetIntlSpec(arg0 kernel.Ptr) {
 	if callErr := tryLMSetIntlSpec(arg0); callErr != nil {
 		panic(callErr)
 	}
@@ -15407,7 +15406,7 @@ var _lSSharedFileListCopyPropertyErr error
 
 func tryLSSharedFileListCopyProperty(inList LSSharedFileListRef, inPropertyName corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _lSSharedFileListCopyProperty == nil {
-		return 0, symbolCallError("LSSharedFileListCopyProperty", "10.5", _lSSharedFileListCopyPropertyErr)
+		return nil, symbolCallError("LSSharedFileListCopyProperty", "10.5", _lSSharedFileListCopyPropertyErr)
 	}
 	return _lSSharedFileListCopyProperty(inList, inPropertyName), nil
 }
@@ -15517,10 +15516,10 @@ func LSSharedFileListGetTypeID() uint {
 	return result
 }
 
-var _lSSharedFileListInsertItemFSRef func(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef unsafe.Pointer, inFSRef unsafe.Pointer, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) LSSharedFileListItemRef
+var _lSSharedFileListInsertItemFSRef func(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef IconRef, inFSRef unsafe.Pointer, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) LSSharedFileListItemRef
 var _lSSharedFileListInsertItemFSRefErr error
 
-func tryLSSharedFileListInsertItemFSRef(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef unsafe.Pointer, inFSRef unsafe.Pointer, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) (LSSharedFileListItemRef, error) {
+func tryLSSharedFileListInsertItemFSRef(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef IconRef, inFSRef unsafe.Pointer, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) (LSSharedFileListItemRef, error) {
 	if _lSSharedFileListInsertItemFSRef == nil {
 		return 0, symbolCallError("LSSharedFileListInsertItemFSRef", "10.5", _lSSharedFileListInsertItemFSRefErr)
 	}
@@ -15532,7 +15531,7 @@ func tryLSSharedFileListInsertItemFSRef(inList LSSharedFileListRef, insertAfterT
 // Deprecated: Deprecated since macOS 10.10.
 //
 // See: https://developer.apple.com/documentation/coreservices/1449884-lssharedfilelistinsertitemfsref
-func LSSharedFileListInsertItemFSRef(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef unsafe.Pointer, inFSRef unsafe.Pointer, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) LSSharedFileListItemRef {
+func LSSharedFileListInsertItemFSRef(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef IconRef, inFSRef unsafe.Pointer, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) LSSharedFileListItemRef {
 	result, callErr := tryLSSharedFileListInsertItemFSRef(inList, insertAfterThisItem, inDisplayName, inIconRef, inFSRef, inPropertiesToSet, inPropertiesToClear)
 	if callErr != nil {
 		panic(callErr)
@@ -15540,10 +15539,10 @@ func LSSharedFileListInsertItemFSRef(inList LSSharedFileListRef, insertAfterThis
 	return result
 }
 
-var _lSSharedFileListInsertItemURL func(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef unsafe.Pointer, inURL corefoundation.CFURLRef, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) LSSharedFileListItemRef
+var _lSSharedFileListInsertItemURL func(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef IconRef, inURL corefoundation.CFURLRef, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) LSSharedFileListItemRef
 var _lSSharedFileListInsertItemURLErr error
 
-func tryLSSharedFileListInsertItemURL(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef unsafe.Pointer, inURL corefoundation.CFURLRef, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) (LSSharedFileListItemRef, error) {
+func tryLSSharedFileListInsertItemURL(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef IconRef, inURL corefoundation.CFURLRef, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) (LSSharedFileListItemRef, error) {
 	if _lSSharedFileListInsertItemURL == nil {
 		return 0, symbolCallError("LSSharedFileListInsertItemURL", "10.5", _lSSharedFileListInsertItemURLErr)
 	}
@@ -15555,7 +15554,7 @@ func tryLSSharedFileListInsertItemURL(inList LSSharedFileListRef, insertAfterThi
 // Deprecated: Deprecated since macOS 10.11.
 //
 // See: https://developer.apple.com/documentation/coreservices/1444471-lssharedfilelistinsertitemurl
-func LSSharedFileListInsertItemURL(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef unsafe.Pointer, inURL corefoundation.CFURLRef, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) LSSharedFileListItemRef {
+func LSSharedFileListInsertItemURL(inList LSSharedFileListRef, insertAfterThisItem LSSharedFileListItemRef, inDisplayName corefoundation.CFStringRef, inIconRef IconRef, inURL corefoundation.CFURLRef, inPropertiesToSet corefoundation.CFDictionaryRef, inPropertiesToClear corefoundation.CFArrayRef) LSSharedFileListItemRef {
 	result, callErr := tryLSSharedFileListInsertItemURL(inList, insertAfterThisItem, inDisplayName, inIconRef, inURL, inPropertiesToSet, inPropertiesToClear)
 	if callErr != nil {
 		panic(callErr)
@@ -15586,12 +15585,12 @@ func LSSharedFileListItemCopyDisplayName(inItem LSSharedFileListItemRef) corefou
 	return result
 }
 
-var _lSSharedFileListItemCopyIconRef func(inItem LSSharedFileListItemRef) unsafe.Pointer
+var _lSSharedFileListItemCopyIconRef func(inItem LSSharedFileListItemRef) IconRef
 var _lSSharedFileListItemCopyIconRefErr error
 
-func tryLSSharedFileListItemCopyIconRef(inItem LSSharedFileListItemRef) (unsafe.Pointer, error) {
+func tryLSSharedFileListItemCopyIconRef(inItem LSSharedFileListItemRef) (IconRef, error) {
 	if _lSSharedFileListItemCopyIconRef == nil {
-		return nil, symbolCallError("LSSharedFileListItemCopyIconRef", "10.5", _lSSharedFileListItemCopyIconRefErr)
+		return 0, symbolCallError("LSSharedFileListItemCopyIconRef", "10.5", _lSSharedFileListItemCopyIconRefErr)
 	}
 	return _lSSharedFileListItemCopyIconRef(inItem), nil
 }
@@ -15601,7 +15600,7 @@ func tryLSSharedFileListItemCopyIconRef(inItem LSSharedFileListItemRef) (unsafe.
 // Deprecated: Deprecated since macOS 10.11.
 //
 // See: https://developer.apple.com/documentation/coreservices/1442889-lssharedfilelistitemcopyiconref
-func LSSharedFileListItemCopyIconRef(inItem LSSharedFileListItemRef) unsafe.Pointer {
+func LSSharedFileListItemCopyIconRef(inItem LSSharedFileListItemRef) IconRef {
 	result, callErr := tryLSSharedFileListItemCopyIconRef(inItem)
 	if callErr != nil {
 		panic(callErr)
@@ -15614,7 +15613,7 @@ var _lSSharedFileListItemCopyPropertyErr error
 
 func tryLSSharedFileListItemCopyProperty(inItem LSSharedFileListItemRef, inPropertyName corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _lSSharedFileListItemCopyProperty == nil {
-		return 0, symbolCallError("LSSharedFileListItemCopyProperty", "10.5", _lSSharedFileListItemCopyPropertyErr)
+		return nil, symbolCallError("LSSharedFileListItemCopyProperty", "10.5", _lSSharedFileListItemCopyPropertyErr)
 	}
 	return _lSSharedFileListItemCopyProperty(inItem, inPropertyName), nil
 }
@@ -16327,7 +16326,7 @@ var _mDItemCopyAttributeErr error
 
 func tryMDItemCopyAttribute(item MDItemRef, name corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _mDItemCopyAttribute == nil {
-		return 0, symbolCallError("MDItemCopyAttribute", "10.4", _mDItemCopyAttributeErr)
+		return nil, symbolCallError("MDItemCopyAttribute", "10.4", _mDItemCopyAttributeErr)
 	}
 	return _mDItemCopyAttribute(item, name), nil
 }
@@ -16600,7 +16599,7 @@ var _mDLabelCopyAttributeErr error
 
 func tryMDLabelCopyAttribute(label MDLabelRef, name corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _mDLabelCopyAttribute == nil {
-		return 0, symbolCallError("MDLabelCopyAttribute", "10.7", _mDLabelCopyAttributeErr)
+		return nil, symbolCallError("MDLabelCopyAttribute", "10.7", _mDLabelCopyAttributeErr)
 	}
 	return _mDLabelCopyAttribute(label, name), nil
 }
@@ -17170,7 +17169,7 @@ func tryMDQuerySetCreateValueFunction(query MDQueryRef, func_ MDQueryCreateValue
 	if _mDQuerySetCreateValueFunction == nil {
 		return symbolCallError("MDQuerySetCreateValueFunction", "10.4", _mDQuerySetCreateValueFunctionErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 MDQueryRef, blockArg1 corefoundation.CFStringRef, blockArg2 corefoundation.CFTypeRef, blockArg3 unsafe.Pointer) unsafe.Pointer {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 MDQueryRef, blockArg1 corefoundation.CFStringRef, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer) unsafe.Pointer {
 		return func_(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
@@ -17255,8 +17254,8 @@ func tryMDQuerySetSortComparator(query MDQueryRef, comparator MDQuerySortCompara
 	if _mDQuerySetSortComparator == nil {
 		return symbolCallError("MDQuerySetSortComparator", "10.4", _mDQuerySetSortComparatorErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 objectivec.IObject, blockArg2 unsafe.Pointer) corefoundation.CFComparisonResult {
-		return comparator(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 unsafe.Pointer) corefoundation.CFComparisonResult {
+		return comparator(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -18955,8 +18954,8 @@ func tryNewAECoerceDescUPP(userRoutine AECoerceDescProcPtr) (AECoerceDescUPP, er
 	if _newAECoerceDescUPP == nil {
 		return *new(AECoerceDescUPP), symbolCallError("NewAECoerceDescUPP", "10.0", _newAECoerceDescUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 uint32, blockArg2 uintptr, blockArg3 objectivec.IObject) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 uint32, blockArg2 uintptr, blockArg3 objc.ID) int16 {
+		return userRoutine(objectivec.ObjectFromID(blockArg0), blockArg1, blockArg2, objectivec.ObjectFromID(blockArg3))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -18981,8 +18980,8 @@ func tryNewAECoercePtrUPP(userRoutine AECoercePtrProcPtr) (AECoercePtrUPP, error
 	if _newAECoercePtrUPP == nil {
 		return *new(AECoercePtrUPP), symbolCallError("NewAECoercePtrUPP", "10.0", _newAECoercePtrUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 corefoundation.CGSize, blockArg3 uint32, blockArg4 uintptr, blockArg5 objectivec.IObject) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4, blockArg5)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 corefoundation.CGSize, blockArg3 uint32, blockArg4 uintptr, blockArg5 objc.ID) int16 {
+		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4, objectivec.ObjectFromID(blockArg5))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19033,8 +19032,8 @@ func tryNewAEEventHandlerUPP(userRoutine AEEventHandlerProcPtr) (AEEventHandlerU
 	if _newAEEventHandlerUPP == nil {
 		return *new(AEEventHandlerUPP), symbolCallError("NewAEEventHandlerUPP", "10.0", _newAEEventHandlerUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 objectivec.IObject, blockArg2 uintptr) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 uintptr) int16 {
+		return userRoutine(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19657,8 +19656,8 @@ func tryNewIndexToUCStringUPP(userRoutine IndexToUCStringProcPtr) (IndexToUCStri
 	if _newIndexToUCStringUPP == nil {
 		return *new(IndexToUCStringUPP), symbolCallError("NewIndexToUCStringUPP", "10.4", _newIndexToUCStringUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer, blockArg3 objectivec.IObject, blockArg4 objectivec.IObject) objectivec.IObject {
-		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer, blockArg3 objc.ID, blockArg4 objc.ID) objectivec.IObject {
+		return userRoutine(blockArg0, blockArg1, blockArg2, objectivec.ObjectFromID(blockArg3), objectivec.ObjectFromID(blockArg4))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19706,8 +19705,8 @@ func tryNewOSLAccessorUPP(userRoutine OSLAccessorProcPtr) (OSLAccessorUPP, error
 	if _newOSLAccessorUPP == nil {
 		return *new(OSLAccessorUPP), symbolCallError("NewOSLAccessorUPP", "10.0", _newOSLAccessorUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 objectivec.IObject, blockArg2 uint32, blockArg3 uint32, blockArg4 objectivec.IObject, blockArg5 objectivec.IObject, blockArg6 uintptr) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4, blockArg5, blockArg6)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 objc.ID, blockArg2 uint32, blockArg3 uint32, blockArg4 objc.ID, blockArg5 objc.ID, blockArg6 uintptr) int16 {
+		return userRoutine(blockArg0, objectivec.ObjectFromID(blockArg1), blockArg2, blockArg3, objectivec.ObjectFromID(blockArg4), objectivec.ObjectFromID(blockArg5), blockArg6)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19732,8 +19731,8 @@ func tryNewOSLAdjustMarksUPP(userRoutine OSLAdjustMarksProcPtr) (OSLAdjustMarksU
 	if _newOSLAdjustMarksUPP == nil {
 		return *new(OSLAdjustMarksUPP), symbolCallError("NewOSLAdjustMarksUPP", "10.0", _newOSLAdjustMarksUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 int, blockArg1 int, blockArg2 objectivec.IObject) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 int, blockArg1 int, blockArg2 objc.ID) int16 {
+		return userRoutine(blockArg0, blockArg1, objectivec.ObjectFromID(blockArg2))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19758,8 +19757,8 @@ func tryNewOSLCompareUPP(userRoutine OSLCompareProcPtr) (OSLCompareUPP, error) {
 	if _newOSLCompareUPP == nil {
 		return *new(OSLCompareUPP), symbolCallError("NewOSLCompareUPP", "10.0", _newOSLCompareUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 objectivec.IObject, blockArg2 objectivec.IObject, blockArg3 objectivec.IObject) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 objc.ID, blockArg2 objc.ID, blockArg3 objc.ID) int16 {
+		return userRoutine(blockArg0, objectivec.ObjectFromID(blockArg1), objectivec.ObjectFromID(blockArg2), objectivec.ObjectFromID(blockArg3))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19784,8 +19783,8 @@ func tryNewOSLCountUPP(userRoutine OSLCountProcPtr) (OSLCountUPP, error) {
 	if _newOSLCountUPP == nil {
 		return *new(OSLCountUPP), symbolCallError("NewOSLCountUPP", "10.0", _newOSLCountUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 uint32, blockArg2 objectivec.IObject, blockArg3 objectivec.IObject) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 uint32, blockArg2 objc.ID, blockArg3 objc.ID) int16 {
+		return userRoutine(blockArg0, blockArg1, objectivec.ObjectFromID(blockArg2), objectivec.ObjectFromID(blockArg3))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19810,7 +19809,7 @@ func tryNewOSLDisposeTokenUPP(userRoutine OSLDisposeTokenProcPtr) (OSLDisposeTok
 	if _newOSLDisposeTokenUPP == nil {
 		return *new(OSLDisposeTokenUPP), symbolCallError("NewOSLDisposeTokenUPP", "10.0", _newOSLDisposeTokenUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) int16 { return userRoutine(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) int16 { return userRoutine(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _newOSLDisposeTokenUPP(_block0), nil
@@ -19834,7 +19833,7 @@ func tryNewOSLGetErrDescUPP(userRoutine OSLGetErrDescProcPtr) (OSLGetErrDescUPP,
 	if _newOSLGetErrDescUPP == nil {
 		return *new(OSLGetErrDescUPP), symbolCallError("NewOSLGetErrDescUPP", "10.0", _newOSLGetErrDescUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) int16 { return userRoutine(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) int16 { return userRoutine(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _newOSLGetErrDescUPP(_block0), nil
@@ -19858,8 +19857,8 @@ func tryNewOSLGetMarkTokenUPP(userRoutine OSLGetMarkTokenProcPtr) (OSLGetMarkTok
 	if _newOSLGetMarkTokenUPP == nil {
 		return *new(OSLGetMarkTokenUPP), symbolCallError("NewOSLGetMarkTokenUPP", "10.0", _newOSLGetMarkTokenUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 uint32, blockArg2 objectivec.IObject) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 uint32, blockArg2 objc.ID) int16 {
+		return userRoutine(objectivec.ObjectFromID(blockArg0), blockArg1, objectivec.ObjectFromID(blockArg2))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19884,8 +19883,8 @@ func tryNewOSLMarkUPP(userRoutine OSLMarkProcPtr) (OSLMarkUPP, error) {
 	if _newOSLMarkUPP == nil {
 		return *new(OSLMarkUPP), symbolCallError("NewOSLMarkUPP", "10.0", _newOSLMarkUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 objectivec.IObject, blockArg2 int) int16 {
-		return userRoutine(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 int) int16 {
+		return userRoutine(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -19903,12 +19902,12 @@ func NewOSLMarkUPP(userRoutine OSLMarkProcPtr) OSLMarkUPP {
 	return result
 }
 
-var _newPtr func(arg0 corefoundation.CGSize) coreimage.Ptr
+var _newPtr func(arg0 corefoundation.CGSize) kernel.Ptr
 var _newPtrErr error
 
-func tryNewPtr(arg0 corefoundation.CGSize) (coreimage.Ptr, error) {
+func tryNewPtr(arg0 corefoundation.CGSize) (kernel.Ptr, error) {
 	if _newPtr == nil {
-		return coreimage.Ptr{}, symbolCallError("NewPtr", "10.0", _newPtrErr)
+		return *new(kernel.Ptr), symbolCallError("NewPtr", "10.0", _newPtrErr)
 	}
 	return _newPtr(arg0), nil
 }
@@ -19918,7 +19917,7 @@ func tryNewPtr(arg0 corefoundation.CGSize) (coreimage.Ptr, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1506463-newptr
-func NewPtr(arg0 corefoundation.CGSize) coreimage.Ptr {
+func NewPtr(arg0 corefoundation.CGSize) kernel.Ptr {
 	result, callErr := tryNewPtr(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -19926,12 +19925,12 @@ func NewPtr(arg0 corefoundation.CGSize) coreimage.Ptr {
 	return result
 }
 
-var _newPtrClear func(arg0 corefoundation.CGSize) coreimage.Ptr
+var _newPtrClear func(arg0 corefoundation.CGSize) kernel.Ptr
 var _newPtrClearErr error
 
-func tryNewPtrClear(arg0 corefoundation.CGSize) (coreimage.Ptr, error) {
+func tryNewPtrClear(arg0 corefoundation.CGSize) (kernel.Ptr, error) {
 	if _newPtrClear == nil {
-		return coreimage.Ptr{}, symbolCallError("NewPtrClear", "10.0", _newPtrClearErr)
+		return *new(kernel.Ptr), symbolCallError("NewPtrClear", "10.0", _newPtrClearErr)
 	}
 	return _newPtrClear(arg0), nil
 }
@@ -19941,7 +19940,7 @@ func tryNewPtrClear(arg0 corefoundation.CGSize) (coreimage.Ptr, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1506425-newptrclear
-func NewPtrClear(arg0 corefoundation.CGSize) coreimage.Ptr {
+func NewPtrClear(arg0 corefoundation.CGSize) kernel.Ptr {
 	result, callErr := tryNewPtrClear(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -20315,10 +20314,10 @@ func OpenDefaultComponent(arg0 uint32, arg1 uint32) ComponentInstance {
 	return result
 }
 
-var _overrideIconRef func(oldIconRef unsafe.Pointer, newIconRef unsafe.Pointer) int16
+var _overrideIconRef func(oldIconRef IconRef, newIconRef IconRef) int16
 var _overrideIconRefErr error
 
-func tryOverrideIconRef(oldIconRef unsafe.Pointer, newIconRef unsafe.Pointer) (int16, error) {
+func tryOverrideIconRef(oldIconRef IconRef, newIconRef IconRef) (int16, error) {
 	if _overrideIconRef == nil {
 		return 0, symbolCallError("OverrideIconRef", "10.0", _overrideIconRefErr)
 	}
@@ -20330,7 +20329,7 @@ func tryOverrideIconRef(oldIconRef unsafe.Pointer, newIconRef unsafe.Pointer) (i
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1445253-overrideiconref
-func OverrideIconRef(oldIconRef unsafe.Pointer, newIconRef unsafe.Pointer) int16 {
+func OverrideIconRef(oldIconRef IconRef, newIconRef IconRef) int16 {
 	result, callErr := tryOverrideIconRef(oldIconRef, newIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -22054,12 +22053,12 @@ func PLstrcat(arg0 string, arg1 unsafe.Pointer) *byte {
 	return result
 }
 
-var _pLstrchr func(arg0 unsafe.Pointer, arg1 int16) coreimage.Ptr
+var _pLstrchr func(arg0 unsafe.Pointer, arg1 int16) kernel.Ptr
 var _pLstrchrErr error
 
-func tryPLstrchr(arg0 unsafe.Pointer, arg1 int16) (coreimage.Ptr, error) {
+func tryPLstrchr(arg0 unsafe.Pointer, arg1 int16) (kernel.Ptr, error) {
 	if _pLstrchr == nil {
-		return coreimage.Ptr{}, symbolCallError("PLstrchr", "10.0", _pLstrchrErr)
+		return *new(kernel.Ptr), symbolCallError("PLstrchr", "10.0", _pLstrchrErr)
 	}
 	return _pLstrchr(arg0, arg1), nil
 }
@@ -22069,7 +22068,7 @@ func tryPLstrchr(arg0 unsafe.Pointer, arg1 int16) (coreimage.Ptr, error) {
 // Deprecated: Deprecated since macOS 10.4.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585945-plstrchr
-func PLstrchr(arg0 unsafe.Pointer, arg1 int16) coreimage.Ptr {
+func PLstrchr(arg0 unsafe.Pointer, arg1 int16) kernel.Ptr {
 	result, callErr := tryPLstrchr(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -22215,12 +22214,12 @@ func PLstrncpy(arg0 string, arg1 unsafe.Pointer, arg2 int16) *byte {
 	return result
 }
 
-var _pLstrpbrk func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) coreimage.Ptr
+var _pLstrpbrk func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) kernel.Ptr
 var _pLstrpbrkErr error
 
-func tryPLstrpbrk(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (coreimage.Ptr, error) {
+func tryPLstrpbrk(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (kernel.Ptr, error) {
 	if _pLstrpbrk == nil {
-		return coreimage.Ptr{}, symbolCallError("PLstrpbrk", "10.0", _pLstrpbrkErr)
+		return *new(kernel.Ptr), symbolCallError("PLstrpbrk", "10.0", _pLstrpbrkErr)
 	}
 	return _pLstrpbrk(arg0, arg1), nil
 }
@@ -22230,7 +22229,7 @@ func tryPLstrpbrk(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (coreimage.Ptr, erro
 // Deprecated: Deprecated since macOS 10.4.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585948-plstrpbrk
-func PLstrpbrk(arg0 unsafe.Pointer, arg1 unsafe.Pointer) coreimage.Ptr {
+func PLstrpbrk(arg0 unsafe.Pointer, arg1 unsafe.Pointer) kernel.Ptr {
 	result, callErr := tryPLstrpbrk(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -22238,12 +22237,12 @@ func PLstrpbrk(arg0 unsafe.Pointer, arg1 unsafe.Pointer) coreimage.Ptr {
 	return result
 }
 
-var _pLstrrchr func(arg0 unsafe.Pointer, arg1 int16) coreimage.Ptr
+var _pLstrrchr func(arg0 unsafe.Pointer, arg1 int16) kernel.Ptr
 var _pLstrrchrErr error
 
-func tryPLstrrchr(arg0 unsafe.Pointer, arg1 int16) (coreimage.Ptr, error) {
+func tryPLstrrchr(arg0 unsafe.Pointer, arg1 int16) (kernel.Ptr, error) {
 	if _pLstrrchr == nil {
-		return coreimage.Ptr{}, symbolCallError("PLstrrchr", "10.0", _pLstrrchrErr)
+		return *new(kernel.Ptr), symbolCallError("PLstrrchr", "10.0", _pLstrrchrErr)
 	}
 	return _pLstrrchr(arg0, arg1), nil
 }
@@ -22253,7 +22252,7 @@ func tryPLstrrchr(arg0 unsafe.Pointer, arg1 int16) (coreimage.Ptr, error) {
 // Deprecated: Deprecated since macOS 10.4.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585943-plstrrchr
-func PLstrrchr(arg0 unsafe.Pointer, arg1 int16) coreimage.Ptr {
+func PLstrrchr(arg0 unsafe.Pointer, arg1 int16) kernel.Ptr {
 	result, callErr := tryPLstrrchr(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -22284,12 +22283,12 @@ func PLstrspn(arg0 unsafe.Pointer, arg1 unsafe.Pointer) int16 {
 	return result
 }
 
-var _pLstrstr func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) coreimage.Ptr
+var _pLstrstr func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) kernel.Ptr
 var _pLstrstrErr error
 
-func tryPLstrstr(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (coreimage.Ptr, error) {
+func tryPLstrstr(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (kernel.Ptr, error) {
 	if _pLstrstr == nil {
-		return coreimage.Ptr{}, symbolCallError("PLstrstr", "10.0", _pLstrstrErr)
+		return *new(kernel.Ptr), symbolCallError("PLstrstr", "10.0", _pLstrstrErr)
 	}
 	return _pLstrstr(arg0, arg1), nil
 }
@@ -22299,7 +22298,7 @@ func tryPLstrstr(arg0 unsafe.Pointer, arg1 unsafe.Pointer) (coreimage.Ptr, error
 // Deprecated: Deprecated since macOS 10.4.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585942-plstrstr
-func PLstrstr(arg0 unsafe.Pointer, arg1 unsafe.Pointer) coreimage.Ptr {
+func PLstrstr(arg0 unsafe.Pointer, arg1 unsafe.Pointer) kernel.Ptr {
 	result, callErr := tryPLstrstr(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -22575,10 +22574,10 @@ func ReallocateHandle(arg0 unsafe.Pointer, arg1 corefoundation.CGSize) {
 	}
 }
 
-var _recoverHandle func(arg0 coreimage.Ptr) unsafe.Pointer
+var _recoverHandle func(arg0 kernel.Ptr) unsafe.Pointer
 var _recoverHandleErr error
 
-func tryRecoverHandle(arg0 coreimage.Ptr) (unsafe.Pointer, error) {
+func tryRecoverHandle(arg0 kernel.Ptr) (unsafe.Pointer, error) {
 	if _recoverHandle == nil {
 		return nil, symbolCallError("RecoverHandle", "10.0", _recoverHandleErr)
 	}
@@ -22590,7 +22589,7 @@ func tryRecoverHandle(arg0 coreimage.Ptr) (unsafe.Pointer, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1506310-recoverhandle
-func RecoverHandle(arg0 coreimage.Ptr) unsafe.Pointer {
+func RecoverHandle(arg0 kernel.Ptr) unsafe.Pointer {
 	result, callErr := tryRecoverHandle(arg0)
 	if callErr != nil {
 		panic(callErr)
@@ -22621,10 +22620,10 @@ func RegisterComponentFunc(arg0 ComponentDescription, arg1 ComponentRoutineUPP, 
 	return result
 }
 
-var _registerComponentFileRef func(arg0 unsafe.Pointer, arg1 int16) int16
+var _registerComponentFileRef func(arg0 FSRef, arg1 int16) int16
 var _registerComponentFileRefErr error
 
-func tryRegisterComponentFileRef(arg0 unsafe.Pointer, arg1 int16) (int16, error) {
+func tryRegisterComponentFileRef(arg0 FSRef, arg1 int16) (int16, error) {
 	if _registerComponentFileRef == nil {
 		return 0, symbolCallError("RegisterComponentFileRef", "10.0", _registerComponentFileRefErr)
 	}
@@ -22636,7 +22635,7 @@ func tryRegisterComponentFileRef(arg0 unsafe.Pointer, arg1 int16) (int16, error)
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1516564-registercomponentfileref
-func RegisterComponentFileRef(arg0 unsafe.Pointer, arg1 int16) int16 {
+func RegisterComponentFileRef(arg0 FSRef, arg1 int16) int16 {
 	result, callErr := tryRegisterComponentFileRef(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -22644,10 +22643,10 @@ func RegisterComponentFileRef(arg0 unsafe.Pointer, arg1 int16) int16 {
 	return result
 }
 
-var _registerComponentFileRefEntries func(arg0 unsafe.Pointer, arg1 int16, arg2 ComponentDescription, arg3 uint32) int16
+var _registerComponentFileRefEntries func(arg0 FSRef, arg1 int16, arg2 ComponentDescription, arg3 uint32) int16
 var _registerComponentFileRefEntriesErr error
 
-func tryRegisterComponentFileRefEntries(arg0 unsafe.Pointer, arg1 int16, arg2 ComponentDescription, arg3 uint32) (int16, error) {
+func tryRegisterComponentFileRefEntries(arg0 FSRef, arg1 int16, arg2 ComponentDescription, arg3 uint32) (int16, error) {
 	if _registerComponentFileRefEntries == nil {
 		return 0, symbolCallError("RegisterComponentFileRefEntries", "10.0", _registerComponentFileRefEntriesErr)
 	}
@@ -22659,7 +22658,7 @@ func tryRegisterComponentFileRefEntries(arg0 unsafe.Pointer, arg1 int16, arg2 Co
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1516395-registercomponentfilerefentries
-func RegisterComponentFileRefEntries(arg0 unsafe.Pointer, arg1 int16, arg2 ComponentDescription, arg3 uint32) int16 {
+func RegisterComponentFileRefEntries(arg0 FSRef, arg1 int16, arg2 ComponentDescription, arg3 uint32) int16 {
 	result, callErr := tryRegisterComponentFileRefEntries(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -22713,10 +22712,10 @@ func RegisterComponentResourceFile(arg0 int16, arg1 int16) int32 {
 	return result
 }
 
-var _registerIconRefFromFSRef func(creator uint32, iconType uint32, iconFile unsafe.Pointer, theIconRef unsafe.Pointer) int32
+var _registerIconRefFromFSRef func(creator uint32, iconType uint32, iconFile unsafe.Pointer, theIconRef *IconRef) int32
 var _registerIconRefFromFSRefErr error
 
-func tryRegisterIconRefFromFSRef(creator uint32, iconType uint32, iconFile unsafe.Pointer, theIconRef unsafe.Pointer) (int32, error) {
+func tryRegisterIconRefFromFSRef(creator uint32, iconType uint32, iconFile unsafe.Pointer, theIconRef *IconRef) (int32, error) {
 	if _registerIconRefFromFSRef == nil {
 		return 0, symbolCallError("RegisterIconRefFromFSRef", "10.1", _registerIconRefFromFSRefErr)
 	}
@@ -22728,7 +22727,7 @@ func tryRegisterIconRefFromFSRef(creator uint32, iconType uint32, iconFile unsaf
 // Deprecated: Deprecated since macOS 10.13.
 //
 // See: https://developer.apple.com/documentation/coreservices/1446795-registericonreffromfsref
-func RegisterIconRefFromFSRef(creator uint32, iconType uint32, iconFile unsafe.Pointer, theIconRef unsafe.Pointer) int32 {
+func RegisterIconRefFromFSRef(creator uint32, iconType uint32, iconFile unsafe.Pointer, theIconRef *IconRef) int32 {
 	result, callErr := tryRegisterIconRefFromFSRef(creator, iconType, iconFile, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -22736,10 +22735,10 @@ func RegisterIconRefFromFSRef(creator uint32, iconType uint32, iconFile unsafe.P
 	return result
 }
 
-var _registerIconRefFromIconFamily func(creator uint32, iconType uint32, iconFamily IconFamilyHandle, theIconRef unsafe.Pointer) int16
+var _registerIconRefFromIconFamily func(creator uint32, iconType uint32, iconFamily IconFamilyHandle, theIconRef *IconRef) int16
 var _registerIconRefFromIconFamilyErr error
 
-func tryRegisterIconRefFromIconFamily(creator uint32, iconType uint32, iconFamily IconFamilyHandle, theIconRef unsafe.Pointer) (int16, error) {
+func tryRegisterIconRefFromIconFamily(creator uint32, iconType uint32, iconFamily IconFamilyHandle, theIconRef *IconRef) (int16, error) {
 	if _registerIconRefFromIconFamily == nil {
 		return 0, symbolCallError("RegisterIconRefFromIconFamily", "10.0", _registerIconRefFromIconFamilyErr)
 	}
@@ -22751,7 +22750,7 @@ func tryRegisterIconRefFromIconFamily(creator uint32, iconType uint32, iconFamil
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1443918-registericonreffromiconfamily
-func RegisterIconRefFromIconFamily(creator uint32, iconType uint32, iconFamily IconFamilyHandle, theIconRef unsafe.Pointer) int16 {
+func RegisterIconRefFromIconFamily(creator uint32, iconType uint32, iconFamily IconFamilyHandle, theIconRef *IconRef) int16 {
 	result, callErr := tryRegisterIconRefFromIconFamily(creator, iconType, iconFamily, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -22782,10 +22781,10 @@ func ReleaseCollection(arg0 Collection) int32 {
 	return result
 }
 
-var _releaseFolder func(arg0 unsafe.Pointer, arg1 uint32) int16
+var _releaseFolder func(arg0 FSVolumeRefNum, arg1 uint32) int16
 var _releaseFolderErr error
 
-func tryReleaseFolder(arg0 unsafe.Pointer, arg1 uint32) (int16, error) {
+func tryReleaseFolder(arg0 FSVolumeRefNum, arg1 uint32) (int16, error) {
 	if _releaseFolder == nil {
 		return 0, symbolCallError("ReleaseFolder", "10.0", _releaseFolderErr)
 	}
@@ -22797,7 +22796,7 @@ func tryReleaseFolder(arg0 unsafe.Pointer, arg1 uint32) (int16, error) {
 // Deprecated: Deprecated since macOS 10.3.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389109-releasefolder
-func ReleaseFolder(arg0 unsafe.Pointer, arg1 uint32) int16 {
+func ReleaseFolder(arg0 FSVolumeRefNum, arg1 uint32) int16 {
 	result, callErr := tryReleaseFolder(arg0, arg1)
 	if callErr != nil {
 		panic(callErr)
@@ -22805,10 +22804,10 @@ func ReleaseFolder(arg0 unsafe.Pointer, arg1 uint32) int16 {
 	return result
 }
 
-var _releaseIconRef func(theIconRef unsafe.Pointer) int16
+var _releaseIconRef func(theIconRef IconRef) int16
 var _releaseIconRefErr error
 
-func tryReleaseIconRef(theIconRef unsafe.Pointer) (int16, error) {
+func tryReleaseIconRef(theIconRef IconRef) (int16, error) {
 	if _releaseIconRef == nil {
 		return 0, symbolCallError("ReleaseIconRef", "10.0", _releaseIconRefErr)
 	}
@@ -22820,7 +22819,7 @@ func tryReleaseIconRef(theIconRef unsafe.Pointer) (int16, error) {
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1443504-releaseiconref
-func ReleaseIconRef(theIconRef unsafe.Pointer) int16 {
+func ReleaseIconRef(theIconRef IconRef) int16 {
 	result, callErr := tryReleaseIconRef(theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -22896,10 +22895,10 @@ func RemoveFolderDescriptor(arg0 FolderType) int16 {
 	return result
 }
 
-var _removeIconRefOverride func(theIconRef unsafe.Pointer) int16
+var _removeIconRefOverride func(theIconRef IconRef) int16
 var _removeIconRefOverrideErr error
 
-func tryRemoveIconRefOverride(theIconRef unsafe.Pointer) (int16, error) {
+func tryRemoveIconRefOverride(theIconRef IconRef) (int16, error) {
 	if _removeIconRefOverride == nil {
 		return 0, symbolCallError("RemoveIconRefOverride", "10.0", _removeIconRefOverrideErr)
 	}
@@ -22911,7 +22910,7 @@ func tryRemoveIconRefOverride(theIconRef unsafe.Pointer) (int16, error) {
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1445832-removeiconrefoverride
-func RemoveIconRefOverride(theIconRef unsafe.Pointer) int16 {
+func RemoveIconRefOverride(theIconRef IconRef) int16 {
 	result, callErr := tryRemoveIconRefOverride(theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -23845,7 +23844,7 @@ var _sKDocumentCreateErr error
 
 func trySKDocumentCreate(inScheme corefoundation.CFStringRef, inParent SKDocumentRef, inName corefoundation.CFStringRef) (SKDocumentRef, error) {
 	if _sKDocumentCreate == nil {
-		return 0, symbolCallError("SKDocumentCreate", "10.3", _sKDocumentCreateErr)
+		return nil, symbolCallError("SKDocumentCreate", "10.3", _sKDocumentCreateErr)
 	}
 	return _sKDocumentCreate(inScheme, inParent, inName), nil
 }
@@ -23866,7 +23865,7 @@ var _sKDocumentCreateWithURLErr error
 
 func trySKDocumentCreateWithURL(inURL corefoundation.CFURLRef) (SKDocumentRef, error) {
 	if _sKDocumentCreateWithURL == nil {
-		return 0, symbolCallError("SKDocumentCreateWithURL", "10.3", _sKDocumentCreateWithURLErr)
+		return nil, symbolCallError("SKDocumentCreateWithURL", "10.3", _sKDocumentCreateWithURLErr)
 	}
 	return _sKDocumentCreateWithURL(inURL), nil
 }
@@ -23908,7 +23907,7 @@ var _sKDocumentGetParentErr error
 
 func trySKDocumentGetParent(inDocument SKDocumentRef) (SKDocumentRef, error) {
 	if _sKDocumentGetParent == nil {
-		return 0, symbolCallError("SKDocumentGetParent", "10.3", _sKDocumentGetParentErr)
+		return nil, symbolCallError("SKDocumentGetParent", "10.3", _sKDocumentGetParentErr)
 	}
 	return _sKDocumentGetParent(inDocument), nil
 }
@@ -24054,7 +24053,7 @@ var _sKIndexCopyDocumentForDocumentIDErr error
 
 func trySKIndexCopyDocumentForDocumentID(inIndex SKIndexRef, inDocumentID SKDocumentID) (SKDocumentRef, error) {
 	if _sKIndexCopyDocumentForDocumentID == nil {
-		return 0, symbolCallError("SKIndexCopyDocumentForDocumentID", "10.3", _sKIndexCopyDocumentForDocumentIDErr)
+		return nil, symbolCallError("SKIndexCopyDocumentForDocumentID", "10.3", _sKIndexCopyDocumentForDocumentIDErr)
 	}
 	return _sKIndexCopyDocumentForDocumentID(inIndex, inDocumentID), nil
 }
@@ -24261,7 +24260,7 @@ var _sKIndexDocumentIteratorCopyNextErr error
 
 func trySKIndexDocumentIteratorCopyNext(inIterator SKIndexDocumentIteratorRef) (SKDocumentRef, error) {
 	if _sKIndexDocumentIteratorCopyNext == nil {
-		return 0, symbolCallError("SKIndexDocumentIteratorCopyNext", "10.3", _sKIndexDocumentIteratorCopyNextErr)
+		return nil, symbolCallError("SKIndexDocumentIteratorCopyNext", "10.3", _sKIndexDocumentIteratorCopyNextErr)
 	}
 	return _sKIndexDocumentIteratorCopyNext(inIterator), nil
 }
@@ -25450,10 +25449,10 @@ func SetIndexedCollectionItemInfo(arg0 Collection, arg1 int32, arg2 int32, arg3 
 	return result
 }
 
-var _setPtrSize func(arg0 coreimage.Ptr, arg1 corefoundation.CGSize)
+var _setPtrSize func(arg0 kernel.Ptr, arg1 corefoundation.CGSize)
 var _setPtrSizeErr error
 
-func trySetPtrSize(arg0 coreimage.Ptr, arg1 corefoundation.CGSize) error {
+func trySetPtrSize(arg0 kernel.Ptr, arg1 corefoundation.CGSize) error {
 	if _setPtrSize == nil {
 		return symbolCallError("SetPtrSize", "10.0", _setPtrSizeErr)
 	}
@@ -25466,7 +25465,7 @@ func trySetPtrSize(arg0 coreimage.Ptr, arg1 corefoundation.CGSize) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1506428-setptrsize
-func SetPtrSize(arg0 coreimage.Ptr, arg1 corefoundation.CGSize) {
+func SetPtrSize(arg0 kernel.Ptr, arg1 corefoundation.CGSize) {
 	if callErr := trySetPtrSize(arg0, arg1); callErr != nil {
 		panic(callErr)
 	}
@@ -28419,10 +28418,10 @@ func UpTime() kernel.AbsoluteTime {
 	return result
 }
 
-var _updateIconRef func(theIconRef unsafe.Pointer) int16
+var _updateIconRef func(theIconRef IconRef) int16
 var _updateIconRefErr error
 
-func tryUpdateIconRef(theIconRef unsafe.Pointer) (int16, error) {
+func tryUpdateIconRef(theIconRef IconRef) (int16, error) {
 	if _updateIconRef == nil {
 		return 0, symbolCallError("UpdateIconRef", "10.0", _updateIconRefErr)
 	}
@@ -28434,7 +28433,7 @@ func tryUpdateIconRef(theIconRef unsafe.Pointer) (int16, error) {
 // Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/coreservices/1445921-updateiconref
-func UpdateIconRef(theIconRef unsafe.Pointer) int16 {
+func UpdateIconRef(theIconRef IconRef) int16 {
 	result, callErr := tryUpdateIconRef(theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -28648,7 +28647,7 @@ var _wSMethodInvocationCopyPropertyErr error
 
 func tryWSMethodInvocationCopyProperty(arg0 WSMethodInvocationRef, arg1 corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _wSMethodInvocationCopyProperty == nil {
-		return 0, symbolCallError("WSMethodInvocationCopyProperty", "10.2", _wSMethodInvocationCopyPropertyErr)
+		return nil, symbolCallError("WSMethodInvocationCopyProperty", "10.2", _wSMethodInvocationCopyPropertyErr)
 	}
 	return _wSMethodInvocationCopyProperty(arg0, arg1), nil
 }
@@ -28942,7 +28941,7 @@ var _wSProtocolHandlerCopyPropertyErr error
 
 func tryWSProtocolHandlerCopyProperty(arg0 WSProtocolHandlerRef, arg1 corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _wSProtocolHandlerCopyProperty == nil {
-		return 0, symbolCallError("WSProtocolHandlerCopyProperty", "10.3", _wSProtocolHandlerCopyPropertyErr)
+		return nil, symbolCallError("WSProtocolHandlerCopyProperty", "10.3", _wSProtocolHandlerCopyPropertyErr)
 	}
 	return _wSProtocolHandlerCopyProperty(arg0, arg1), nil
 }

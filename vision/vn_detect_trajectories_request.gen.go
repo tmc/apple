@@ -232,8 +232,8 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthComplet
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest {
 	_block2, _ := NewErrorBlock(completionHandler)
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
-	return VNDetectTrajectoriesRequestFromID(rv)
+	rv := objc.Send[VNDetectTrajectoriesRequest](d.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
+	return rv
 }
 
 // The requested target frame time for processing trajectory detection.

@@ -124,7 +124,7 @@ func NewPipe() Pipe {
 // that serve as endpoints of the pipe.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPipe/pipe
-func (_PipeClass PipeClass) Pipe() Pipe {
+func (_PipeClass PipeClass) Pipe() NSPipe {
 	rv := objc.Send[objc.ID](objc.ID(_PipeClass.class), objc.Sel("pipe"))
 	return NSPipeFromID(rv)
 }

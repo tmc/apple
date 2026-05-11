@@ -25,6 +25,9 @@ type DataErrorHandler = func(*foundation.NSData, error)
 //   - [NWTCPConnection.ReadLengthCompletionHandler]
 //   - [NWTCPConnection.ReadMinimumLengthMaximumLengthCompletionHandler]
 func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSData
 		if resultID != 0 {
@@ -51,6 +54,9 @@ type DataHandler = func(*foundation.NSData)
 //   - [NETunnelProvider.HandleAppMessageCompletionHandler]
 //   - [NETunnelProviderSession.SendProviderMessageReturnErrorResponseHandler]
 func NewDataBlock(handler DataHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *foundation.NSData
 		if resultID != 0 {
@@ -138,6 +144,9 @@ type ErrorHandler = func(error)
 //   - [NWUDPSession.WriteDatagramCompletionHandler]
 //   - [NWUDPSession.WriteMultipleDatagramsCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -186,6 +195,9 @@ type NEURLFilterVerdictHandler = func(NEURLFilterVerdict)
 // Used by:
 //   - [NEURLFilter.VerdictForURLCompletionHandler]
 func NewNEURLFilterVerdictBlock(handler NEURLFilterVerdictHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NEURLFilterVerdict) {
 		handler(primitiveVal)
 	})
@@ -210,6 +222,9 @@ type SecTrustRefHandler = func(security.SecTrustRef)
 // Used by:
 //   - [NWTCPConnectionAuthenticationDelegate.EvaluateTrustForConnectionPeerCertificateChainCompletionHandler]
 func NewSecTrustRefBlock(handler SecTrustRefHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecTrustRef) {
 		handler(primitiveVal)
 	})
@@ -242,6 +257,9 @@ type VoidHandler = func()
 //   - [NEPacketTunnelProvider.StopTunnelWithReasonCompletionHandler]
 //   - [NEProvider.SleepWithCompletionHandler]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -260,6 +278,9 @@ type idArrayHandler = func(security.SecIdentityRef)
 // Used by:
 //   - [NWTCPConnectionAuthenticationDelegate.ProvideIdentityForConnectionCompletionHandler]
 func NewidArrayBlock(handler idArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecIdentityRef) {
 		handler(primitiveVal)
 	})

@@ -403,7 +403,7 @@ type ComponentRoutineUPP = unsafe.Pointer
 type ConstFSEventStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/constfsspecptr
-type ConstFSSpecPtr = unsafe.Pointer
+type ConstFSSpecPtr = FSSpec
 
 // ConstScriptCodeRunPtr is defines a constant script code run pointer.
 //
@@ -1019,7 +1019,7 @@ type MDQueryCreateResultFunction = func(MDQueryRef, MDItemRef, unsafe.Pointer) u
 // MDQueryCreateValueFunction is callback function usedto create the value objects stored and returned by a query.
 //
 // See: https://developer.apple.com/documentation/coreservices/mdquerycreatevaluefunction
-type MDQueryCreateValueFunction = func(MDQueryRef, corefoundation.CFStringRef, corefoundation.CFTypeRef, unsafe.Pointer) unsafe.Pointer
+type MDQueryCreateValueFunction = func(MDQueryRef, corefoundation.CFStringRef, unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
 
 // MDQueryRef is a reference to a MDQuery object.
 //

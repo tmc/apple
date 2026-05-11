@@ -250,20 +250,20 @@ func CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allo
 	return result
 }
 
-var _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData func(allocator corefoundation.CFAllocatorRef, soundDescriptionData *uint8, size uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) int32
+var _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData func(allocator corefoundation.CFAllocatorRef, soundDescriptionData *byte, size uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) int32
 var _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionDataErr error
 
-func tryCMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator corefoundation.CFAllocatorRef, soundDescriptionData *uint8, size uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) (int32, error) {
+func tryCMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator corefoundation.CFAllocatorRef, soundDescriptionData []byte, size uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) (int32, error) {
 	if _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData == nil {
 		return 0, symbolCallError("CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData", "10.10", _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionDataErr)
 	}
-	return _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator, soundDescriptionData, size, flavor, formatDescriptionOut), nil
+	return _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator, unsafe.SliceData(soundDescriptionData), size, flavor, formatDescriptionOut), nil
 }
 
 // CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData creates an audio format description from a big-endian sound description data structure.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator:bigEndianSoundDescriptionData:size:flavor:formatDescriptionOut:)
-func CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator corefoundation.CFAllocatorRef, soundDescriptionData *uint8, size uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) int32 {
+func CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator corefoundation.CFAllocatorRef, soundDescriptionData []byte, size uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) int32 {
 	result, callErr := tryCMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator, soundDescriptionData, size, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -488,7 +488,9 @@ func tryCMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(a
 	if _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler", "10.14.4", _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) int { return makeDataReadyHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) int {
+		return makeDataReadyHandler(objectivec.ObjectFromID(blockArg0))
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut, _block0), nil
@@ -888,7 +890,7 @@ var _cMBufferQueueCopyHeadErr error
 
 func tryCMBufferQueueCopyHead(queue uintptr) (CMBufferRef, error) {
 	if _cMBufferQueueCopyHead == nil {
-		return 0, symbolCallError("CMBufferQueueCopyHead", "14.0", _cMBufferQueueCopyHeadErr)
+		return nil, symbolCallError("CMBufferQueueCopyHead", "14.0", _cMBufferQueueCopyHeadErr)
 	}
 	return _cMBufferQueueCopyHead(queue), nil
 }
@@ -951,7 +953,7 @@ var _cMBufferQueueDequeueAndRetainErr error
 
 func tryCMBufferQueueDequeueAndRetain(queue uintptr) (CMBufferRef, error) {
 	if _cMBufferQueueDequeueAndRetain == nil {
-		return 0, symbolCallError("CMBufferQueueDequeueAndRetain", "10.7", _cMBufferQueueDequeueAndRetainErr)
+		return nil, symbolCallError("CMBufferQueueDequeueAndRetain", "10.7", _cMBufferQueueDequeueAndRetainErr)
 	}
 	return _cMBufferQueueDequeueAndRetain(queue), nil
 }
@@ -972,7 +974,7 @@ var _cMBufferQueueDequeueIfDataReadyAndRetainErr error
 
 func tryCMBufferQueueDequeueIfDataReadyAndRetain(queue uintptr) (CMBufferRef, error) {
 	if _cMBufferQueueDequeueIfDataReadyAndRetain == nil {
-		return 0, symbolCallError("CMBufferQueueDequeueIfDataReadyAndRetain", "10.7", _cMBufferQueueDequeueIfDataReadyAndRetainErr)
+		return nil, symbolCallError("CMBufferQueueDequeueIfDataReadyAndRetain", "10.7", _cMBufferQueueDequeueIfDataReadyAndRetainErr)
 	}
 	return _cMBufferQueueDequeueIfDataReadyAndRetain(queue), nil
 }
@@ -1161,7 +1163,7 @@ var _cMBufferQueueGetHeadErr error
 
 func tryCMBufferQueueGetHead(queue uintptr) (CMBufferRef, error) {
 	if _cMBufferQueueGetHead == nil {
-		return 0, symbolCallError("CMBufferQueueGetHead", "10.7", _cMBufferQueueGetHeadErr)
+		return nil, symbolCallError("CMBufferQueueGetHead", "10.7", _cMBufferQueueGetHeadErr)
 	}
 	return _cMBufferQueueGetHead(queue), nil
 }
@@ -1312,7 +1314,7 @@ func tryCMBufferQueueInstallTriggerHandler(queue uintptr, condition CMBufferQueu
 	if _cMBufferQueueInstallTriggerHandler == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerHandler", "10.14.4", _cMBufferQueueInstallTriggerHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { handler(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueInstallTriggerHandler(queue, condition, time, triggerTokenOut, _block0), nil
@@ -1336,7 +1338,7 @@ func tryCMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue uintptr, co
 	if _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerHandlerWithIntegerThreshold", "10.14.4", _cMBufferQueueInstallTriggerHandlerWithIntegerThresholdErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { handler(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue, condition, threshold, triggerTokenOut, _block0), nil
@@ -1528,8 +1530,8 @@ func tryCMBufferQueueSetValidationHandler(queue uintptr, handler CMBufferValidat
 	if _cMBufferQueueSetValidationHandler == nil {
 		return 0, symbolCallError("CMBufferQueueSetValidationHandler", "10.14.4", _cMBufferQueueSetValidationHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 unsafe.Pointer) int {
-		return handler(blockArg0, blockArg1)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 unsafe.Pointer) int {
+		return handler(objectivec.ObjectFromID(blockArg0), blockArg1)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1777,20 +1779,20 @@ func CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescription
 	return result
 }
 
-var _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData func(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionData *uint8, size uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) int32
+var _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData func(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionData *byte, size uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) int32
 var _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionDataErr error
 
-func tryCMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionData *uint8, size uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) (int32, error) {
+func tryCMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionData []byte, size uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) (int32, error) {
 	if _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData == nil {
 		return 0, symbolCallError("CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData", "10.10", _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionDataErr)
 	}
-	return _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator, closedCaptionDescriptionData, size, flavor, formatDescriptionOut), nil
+	return _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator, unsafe.SliceData(closedCaptionDescriptionData), size, flavor, formatDescriptionOut), nil
 }
 
 // CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData creates a closed caption format description from a big-endian closed caption description structure.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator:bigEndianClosedCaptionDescriptionData:size:flavor:formatDescriptionOut:)
-func CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionData *uint8, size uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) int32 {
+func CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionData []byte, size uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) int32 {
 	result, callErr := tryCMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator, closedCaptionDescriptionData, size, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2013,7 +2015,7 @@ var _cMGetAttachmentErr error
 
 func tryCMGetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, attachmentModeOut *CMAttachmentMode) (corefoundation.CFTypeRef, error) {
 	if _cMGetAttachment == nil {
-		return 0, symbolCallError("CMGetAttachment", "10.7", _cMGetAttachmentErr)
+		return nil, symbolCallError("CMGetAttachment", "10.7", _cMGetAttachmentErr)
 	}
 	return _cMGetAttachment(target, key, attachmentModeOut), nil
 }
@@ -2447,20 +2449,20 @@ func CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffe
 	return result
 }
 
-var _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData func(allocator corefoundation.CFAllocatorRef, metadataDescriptionData *uint8, size uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) int32
+var _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData func(allocator corefoundation.CFAllocatorRef, metadataDescriptionData *byte, size uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) int32
 var _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionDataErr error
 
-func tryCMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator corefoundation.CFAllocatorRef, metadataDescriptionData *uint8, size uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) (int32, error) {
+func tryCMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator corefoundation.CFAllocatorRef, metadataDescriptionData []byte, size uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) (int32, error) {
 	if _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData == nil {
 		return 0, symbolCallError("CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData", "10.10", _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionDataErr)
 	}
-	return _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator, metadataDescriptionData, size, flavor, formatDescriptionOut), nil
+	return _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator, unsafe.SliceData(metadataDescriptionData), size, flavor, formatDescriptionOut), nil
 }
 
 // CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData creates a metadata format description from a big-endian metadata description structure.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator:bigEndianMetadataDescriptionData:size:flavor:formatDescriptionOut:)
-func CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator corefoundation.CFAllocatorRef, metadataDescriptionData *uint8, size uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) int32 {
+func CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator corefoundation.CFAllocatorRef, metadataDescriptionData []byte, size uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) int32 {
 	result, callErr := tryCMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator, metadataDescriptionData, size, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2829,7 +2831,9 @@ func tryCMSampleBufferCreateForImageBufferWithMakeDataReadyHandler(allocator cor
 	if _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateForImageBufferWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) int { return makeDataReadyHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) int {
+		return makeDataReadyHandler(objectivec.ObjectFromID(blockArg0))
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandler(allocator, imageBuffer, dataReady, formatDescription, sampleTiming, sampleBufferOut, _block0), nil
@@ -2916,7 +2920,9 @@ func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CF
 	if _cMSampleBufferCreateWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateWithMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) int { return makeDataReadyHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) int {
+		return makeDataReadyHandler(objectivec.ObjectFromID(blockArg0))
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferCreateWithMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut, _block0), nil
@@ -3612,7 +3618,7 @@ func tryCMSampleBufferSetInvalidateHandler(sbuf uintptr, invalidateHandler CMSam
 	if _cMSampleBufferSetInvalidateHandler == nil {
 		return 0, symbolCallError("CMSampleBufferSetInvalidateHandler", "10.10", _cMSampleBufferSetInvalidateHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject) { invalidateHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { invalidateHandler(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferSetInvalidateHandler(sbuf, _block0), nil
@@ -3879,20 +3885,20 @@ func CMSimpleQueueReset(queue CMSimpleQueueRef) int32 {
 	return result
 }
 
-var _cMSwapBigEndianClosedCaptionDescriptionToHost func(closedCaptionDescriptionData *uint8, closedCaptionDescriptionSize uintptr) int32
+var _cMSwapBigEndianClosedCaptionDescriptionToHost func(closedCaptionDescriptionData *byte, closedCaptionDescriptionSize uintptr) int32
 var _cMSwapBigEndianClosedCaptionDescriptionToHostErr error
 
-func tryCMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData *uint8, closedCaptionDescriptionSize uintptr) (int32, error) {
+func tryCMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData []byte, closedCaptionDescriptionSize uintptr) (int32, error) {
 	if _cMSwapBigEndianClosedCaptionDescriptionToHost == nil {
 		return 0, symbolCallError("CMSwapBigEndianClosedCaptionDescriptionToHost", "10.10", _cMSwapBigEndianClosedCaptionDescriptionToHostErr)
 	}
-	return _cMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData, closedCaptionDescriptionSize), nil
+	return _cMSwapBigEndianClosedCaptionDescriptionToHost(unsafe.SliceData(closedCaptionDescriptionData), closedCaptionDescriptionSize), nil
 }
 
 // CMSwapBigEndianClosedCaptionDescriptionToHost converts a closed caption description structure from big-endian to host-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapBigEndianClosedCaptionDescriptionToHost(_:_:)
-func CMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData *uint8, closedCaptionDescriptionSize uintptr) int32 {
+func CMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData []byte, closedCaptionDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData, closedCaptionDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -3900,20 +3906,20 @@ func CMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData 
 	return result
 }
 
-var _cMSwapBigEndianImageDescriptionToHost func(imageDescriptionData *uint8, imageDescriptionSize uintptr) int32
+var _cMSwapBigEndianImageDescriptionToHost func(imageDescriptionData *byte, imageDescriptionSize uintptr) int32
 var _cMSwapBigEndianImageDescriptionToHostErr error
 
-func tryCMSwapBigEndianImageDescriptionToHost(imageDescriptionData *uint8, imageDescriptionSize uintptr) (int32, error) {
+func tryCMSwapBigEndianImageDescriptionToHost(imageDescriptionData []byte, imageDescriptionSize uintptr) (int32, error) {
 	if _cMSwapBigEndianImageDescriptionToHost == nil {
 		return 0, symbolCallError("CMSwapBigEndianImageDescriptionToHost", "10.10", _cMSwapBigEndianImageDescriptionToHostErr)
 	}
-	return _cMSwapBigEndianImageDescriptionToHost(imageDescriptionData, imageDescriptionSize), nil
+	return _cMSwapBigEndianImageDescriptionToHost(unsafe.SliceData(imageDescriptionData), imageDescriptionSize), nil
 }
 
 // CMSwapBigEndianImageDescriptionToHost converts an image description data structure from big-endian to host-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapBigEndianImageDescriptionToHost(_:_:)
-func CMSwapBigEndianImageDescriptionToHost(imageDescriptionData *uint8, imageDescriptionSize uintptr) int32 {
+func CMSwapBigEndianImageDescriptionToHost(imageDescriptionData []byte, imageDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapBigEndianImageDescriptionToHost(imageDescriptionData, imageDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -3921,20 +3927,20 @@ func CMSwapBigEndianImageDescriptionToHost(imageDescriptionData *uint8, imageDes
 	return result
 }
 
-var _cMSwapBigEndianMetadataDescriptionToHost func(metadataDescriptionData *uint8, metadataDescriptionSize uintptr) int32
+var _cMSwapBigEndianMetadataDescriptionToHost func(metadataDescriptionData *byte, metadataDescriptionSize uintptr) int32
 var _cMSwapBigEndianMetadataDescriptionToHostErr error
 
-func tryCMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData *uint8, metadataDescriptionSize uintptr) (int32, error) {
+func tryCMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData []byte, metadataDescriptionSize uintptr) (int32, error) {
 	if _cMSwapBigEndianMetadataDescriptionToHost == nil {
 		return 0, symbolCallError("CMSwapBigEndianMetadataDescriptionToHost", "10.10", _cMSwapBigEndianMetadataDescriptionToHostErr)
 	}
-	return _cMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData, metadataDescriptionSize), nil
+	return _cMSwapBigEndianMetadataDescriptionToHost(unsafe.SliceData(metadataDescriptionData), metadataDescriptionSize), nil
 }
 
 // CMSwapBigEndianMetadataDescriptionToHost converts a metadata description data structure from big-endian to host-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapBigEndianMetadataDescriptionToHost(_:_:)
-func CMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData *uint8, metadataDescriptionSize uintptr) int32 {
+func CMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData []byte, metadataDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData, metadataDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -3942,20 +3948,20 @@ func CMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData *uint8, me
 	return result
 }
 
-var _cMSwapBigEndianSoundDescriptionToHost func(soundDescriptionData *uint8, soundDescriptionSize uintptr) int32
+var _cMSwapBigEndianSoundDescriptionToHost func(soundDescriptionData *byte, soundDescriptionSize uintptr) int32
 var _cMSwapBigEndianSoundDescriptionToHostErr error
 
-func tryCMSwapBigEndianSoundDescriptionToHost(soundDescriptionData *uint8, soundDescriptionSize uintptr) (int32, error) {
+func tryCMSwapBigEndianSoundDescriptionToHost(soundDescriptionData []byte, soundDescriptionSize uintptr) (int32, error) {
 	if _cMSwapBigEndianSoundDescriptionToHost == nil {
 		return 0, symbolCallError("CMSwapBigEndianSoundDescriptionToHost", "10.10", _cMSwapBigEndianSoundDescriptionToHostErr)
 	}
-	return _cMSwapBigEndianSoundDescriptionToHost(soundDescriptionData, soundDescriptionSize), nil
+	return _cMSwapBigEndianSoundDescriptionToHost(unsafe.SliceData(soundDescriptionData), soundDescriptionSize), nil
 }
 
 // CMSwapBigEndianSoundDescriptionToHost converts a sound description data structure from big-endian to host-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapBigEndianSoundDescriptionToHost(_:_:)
-func CMSwapBigEndianSoundDescriptionToHost(soundDescriptionData *uint8, soundDescriptionSize uintptr) int32 {
+func CMSwapBigEndianSoundDescriptionToHost(soundDescriptionData []byte, soundDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapBigEndianSoundDescriptionToHost(soundDescriptionData, soundDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -3963,20 +3969,20 @@ func CMSwapBigEndianSoundDescriptionToHost(soundDescriptionData *uint8, soundDes
 	return result
 }
 
-var _cMSwapBigEndianTextDescriptionToHost func(textDescriptionData *uint8, textDescriptionSize uintptr) int32
+var _cMSwapBigEndianTextDescriptionToHost func(textDescriptionData *byte, textDescriptionSize uintptr) int32
 var _cMSwapBigEndianTextDescriptionToHostErr error
 
-func tryCMSwapBigEndianTextDescriptionToHost(textDescriptionData *uint8, textDescriptionSize uintptr) (int32, error) {
+func tryCMSwapBigEndianTextDescriptionToHost(textDescriptionData []byte, textDescriptionSize uintptr) (int32, error) {
 	if _cMSwapBigEndianTextDescriptionToHost == nil {
 		return 0, symbolCallError("CMSwapBigEndianTextDescriptionToHost", "10.10", _cMSwapBigEndianTextDescriptionToHostErr)
 	}
-	return _cMSwapBigEndianTextDescriptionToHost(textDescriptionData, textDescriptionSize), nil
+	return _cMSwapBigEndianTextDescriptionToHost(unsafe.SliceData(textDescriptionData), textDescriptionSize), nil
 }
 
 // CMSwapBigEndianTextDescriptionToHost converts a text description structure from big-endian to host-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapBigEndianTextDescriptionToHost(_:_:)
-func CMSwapBigEndianTextDescriptionToHost(textDescriptionData *uint8, textDescriptionSize uintptr) int32 {
+func CMSwapBigEndianTextDescriptionToHost(textDescriptionData []byte, textDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapBigEndianTextDescriptionToHost(textDescriptionData, textDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -3984,20 +3990,20 @@ func CMSwapBigEndianTextDescriptionToHost(textDescriptionData *uint8, textDescri
 	return result
 }
 
-var _cMSwapBigEndianTimeCodeDescriptionToHost func(timeCodeDescriptionData *uint8, timeCodeDescriptionSize uintptr) int32
+var _cMSwapBigEndianTimeCodeDescriptionToHost func(timeCodeDescriptionData *byte, timeCodeDescriptionSize uintptr) int32
 var _cMSwapBigEndianTimeCodeDescriptionToHostErr error
 
-func tryCMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData *uint8, timeCodeDescriptionSize uintptr) (int32, error) {
+func tryCMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData []byte, timeCodeDescriptionSize uintptr) (int32, error) {
 	if _cMSwapBigEndianTimeCodeDescriptionToHost == nil {
 		return 0, symbolCallError("CMSwapBigEndianTimeCodeDescriptionToHost", "10.10", _cMSwapBigEndianTimeCodeDescriptionToHostErr)
 	}
-	return _cMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData, timeCodeDescriptionSize), nil
+	return _cMSwapBigEndianTimeCodeDescriptionToHost(unsafe.SliceData(timeCodeDescriptionData), timeCodeDescriptionSize), nil
 }
 
 // CMSwapBigEndianTimeCodeDescriptionToHost converts a time code description data structure from big-endian to host-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapBigEndianTimeCodeDescriptionToHost(_:_:)
-func CMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData *uint8, timeCodeDescriptionSize uintptr) int32 {
+func CMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData []byte, timeCodeDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData, timeCodeDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -4005,20 +4011,20 @@ func CMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData *uint8, ti
 	return result
 }
 
-var _cMSwapHostEndianClosedCaptionDescriptionToBig func(closedCaptionDescriptionData *uint8, closedCaptionDescriptionSize uintptr) int32
+var _cMSwapHostEndianClosedCaptionDescriptionToBig func(closedCaptionDescriptionData *byte, closedCaptionDescriptionSize uintptr) int32
 var _cMSwapHostEndianClosedCaptionDescriptionToBigErr error
 
-func tryCMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData *uint8, closedCaptionDescriptionSize uintptr) (int32, error) {
+func tryCMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData []byte, closedCaptionDescriptionSize uintptr) (int32, error) {
 	if _cMSwapHostEndianClosedCaptionDescriptionToBig == nil {
 		return 0, symbolCallError("CMSwapHostEndianClosedCaptionDescriptionToBig", "10.10", _cMSwapHostEndianClosedCaptionDescriptionToBigErr)
 	}
-	return _cMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData, closedCaptionDescriptionSize), nil
+	return _cMSwapHostEndianClosedCaptionDescriptionToBig(unsafe.SliceData(closedCaptionDescriptionData), closedCaptionDescriptionSize), nil
 }
 
 // CMSwapHostEndianClosedCaptionDescriptionToBig converts a closed caption description structure from host-endian to big-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapHostEndianClosedCaptionDescriptionToBig(_:_:)
-func CMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData *uint8, closedCaptionDescriptionSize uintptr) int32 {
+func CMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData []byte, closedCaptionDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData, closedCaptionDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -4026,20 +4032,20 @@ func CMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData 
 	return result
 }
 
-var _cMSwapHostEndianImageDescriptionToBig func(imageDescriptionData *uint8, imageDescriptionSize uintptr) int32
+var _cMSwapHostEndianImageDescriptionToBig func(imageDescriptionData *byte, imageDescriptionSize uintptr) int32
 var _cMSwapHostEndianImageDescriptionToBigErr error
 
-func tryCMSwapHostEndianImageDescriptionToBig(imageDescriptionData *uint8, imageDescriptionSize uintptr) (int32, error) {
+func tryCMSwapHostEndianImageDescriptionToBig(imageDescriptionData []byte, imageDescriptionSize uintptr) (int32, error) {
 	if _cMSwapHostEndianImageDescriptionToBig == nil {
 		return 0, symbolCallError("CMSwapHostEndianImageDescriptionToBig", "10.10", _cMSwapHostEndianImageDescriptionToBigErr)
 	}
-	return _cMSwapHostEndianImageDescriptionToBig(imageDescriptionData, imageDescriptionSize), nil
+	return _cMSwapHostEndianImageDescriptionToBig(unsafe.SliceData(imageDescriptionData), imageDescriptionSize), nil
 }
 
 // CMSwapHostEndianImageDescriptionToBig converts an image description data structure from host-endian to big-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapHostEndianImageDescriptionToBig(_:_:)
-func CMSwapHostEndianImageDescriptionToBig(imageDescriptionData *uint8, imageDescriptionSize uintptr) int32 {
+func CMSwapHostEndianImageDescriptionToBig(imageDescriptionData []byte, imageDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapHostEndianImageDescriptionToBig(imageDescriptionData, imageDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -4047,20 +4053,20 @@ func CMSwapHostEndianImageDescriptionToBig(imageDescriptionData *uint8, imageDes
 	return result
 }
 
-var _cMSwapHostEndianMetadataDescriptionToBig func(metadataDescriptionData *uint8, metadataDescriptionSize uintptr) int32
+var _cMSwapHostEndianMetadataDescriptionToBig func(metadataDescriptionData *byte, metadataDescriptionSize uintptr) int32
 var _cMSwapHostEndianMetadataDescriptionToBigErr error
 
-func tryCMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData *uint8, metadataDescriptionSize uintptr) (int32, error) {
+func tryCMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData []byte, metadataDescriptionSize uintptr) (int32, error) {
 	if _cMSwapHostEndianMetadataDescriptionToBig == nil {
 		return 0, symbolCallError("CMSwapHostEndianMetadataDescriptionToBig", "10.10", _cMSwapHostEndianMetadataDescriptionToBigErr)
 	}
-	return _cMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData, metadataDescriptionSize), nil
+	return _cMSwapHostEndianMetadataDescriptionToBig(unsafe.SliceData(metadataDescriptionData), metadataDescriptionSize), nil
 }
 
 // CMSwapHostEndianMetadataDescriptionToBig converts a metadata description data structure from host-endian to big-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapHostEndianMetadataDescriptionToBig(_:_:)
-func CMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData *uint8, metadataDescriptionSize uintptr) int32 {
+func CMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData []byte, metadataDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData, metadataDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -4068,20 +4074,20 @@ func CMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData *uint8, me
 	return result
 }
 
-var _cMSwapHostEndianSoundDescriptionToBig func(soundDescriptionData *uint8, soundDescriptionSize uintptr) int32
+var _cMSwapHostEndianSoundDescriptionToBig func(soundDescriptionData *byte, soundDescriptionSize uintptr) int32
 var _cMSwapHostEndianSoundDescriptionToBigErr error
 
-func tryCMSwapHostEndianSoundDescriptionToBig(soundDescriptionData *uint8, soundDescriptionSize uintptr) (int32, error) {
+func tryCMSwapHostEndianSoundDescriptionToBig(soundDescriptionData []byte, soundDescriptionSize uintptr) (int32, error) {
 	if _cMSwapHostEndianSoundDescriptionToBig == nil {
 		return 0, symbolCallError("CMSwapHostEndianSoundDescriptionToBig", "10.10", _cMSwapHostEndianSoundDescriptionToBigErr)
 	}
-	return _cMSwapHostEndianSoundDescriptionToBig(soundDescriptionData, soundDescriptionSize), nil
+	return _cMSwapHostEndianSoundDescriptionToBig(unsafe.SliceData(soundDescriptionData), soundDescriptionSize), nil
 }
 
 // CMSwapHostEndianSoundDescriptionToBig converts a sound description data structure from host-endian to big-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapHostEndianSoundDescriptionToBig(_:_:)
-func CMSwapHostEndianSoundDescriptionToBig(soundDescriptionData *uint8, soundDescriptionSize uintptr) int32 {
+func CMSwapHostEndianSoundDescriptionToBig(soundDescriptionData []byte, soundDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapHostEndianSoundDescriptionToBig(soundDescriptionData, soundDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -4089,20 +4095,20 @@ func CMSwapHostEndianSoundDescriptionToBig(soundDescriptionData *uint8, soundDes
 	return result
 }
 
-var _cMSwapHostEndianTextDescriptionToBig func(textDescriptionData *uint8, textDescriptionSize uintptr) int32
+var _cMSwapHostEndianTextDescriptionToBig func(textDescriptionData *byte, textDescriptionSize uintptr) int32
 var _cMSwapHostEndianTextDescriptionToBigErr error
 
-func tryCMSwapHostEndianTextDescriptionToBig(textDescriptionData *uint8, textDescriptionSize uintptr) (int32, error) {
+func tryCMSwapHostEndianTextDescriptionToBig(textDescriptionData []byte, textDescriptionSize uintptr) (int32, error) {
 	if _cMSwapHostEndianTextDescriptionToBig == nil {
 		return 0, symbolCallError("CMSwapHostEndianTextDescriptionToBig", "10.10", _cMSwapHostEndianTextDescriptionToBigErr)
 	}
-	return _cMSwapHostEndianTextDescriptionToBig(textDescriptionData, textDescriptionSize), nil
+	return _cMSwapHostEndianTextDescriptionToBig(unsafe.SliceData(textDescriptionData), textDescriptionSize), nil
 }
 
 // CMSwapHostEndianTextDescriptionToBig converts a text description structure from host-endian to big-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapHostEndianTextDescriptionToBig(_:_:)
-func CMSwapHostEndianTextDescriptionToBig(textDescriptionData *uint8, textDescriptionSize uintptr) int32 {
+func CMSwapHostEndianTextDescriptionToBig(textDescriptionData []byte, textDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapHostEndianTextDescriptionToBig(textDescriptionData, textDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -4110,20 +4116,20 @@ func CMSwapHostEndianTextDescriptionToBig(textDescriptionData *uint8, textDescri
 	return result
 }
 
-var _cMSwapHostEndianTimeCodeDescriptionToBig func(timeCodeDescriptionData *uint8, timeCodeDescriptionSize uintptr) int32
+var _cMSwapHostEndianTimeCodeDescriptionToBig func(timeCodeDescriptionData *byte, timeCodeDescriptionSize uintptr) int32
 var _cMSwapHostEndianTimeCodeDescriptionToBigErr error
 
-func tryCMSwapHostEndianTimeCodeDescriptionToBig(timeCodeDescriptionData *uint8, timeCodeDescriptionSize uintptr) (int32, error) {
+func tryCMSwapHostEndianTimeCodeDescriptionToBig(timeCodeDescriptionData []byte, timeCodeDescriptionSize uintptr) (int32, error) {
 	if _cMSwapHostEndianTimeCodeDescriptionToBig == nil {
 		return 0, symbolCallError("CMSwapHostEndianTimeCodeDescriptionToBig", "10.10", _cMSwapHostEndianTimeCodeDescriptionToBigErr)
 	}
-	return _cMSwapHostEndianTimeCodeDescriptionToBig(timeCodeDescriptionData, timeCodeDescriptionSize), nil
+	return _cMSwapHostEndianTimeCodeDescriptionToBig(unsafe.SliceData(timeCodeDescriptionData), timeCodeDescriptionSize), nil
 }
 
 // CMSwapHostEndianTimeCodeDescriptionToBig converts a time code description data structure from host-endian to big-endian, in place.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSwapHostEndianTimeCodeDescriptionToBig(_:_:)
-func CMSwapHostEndianTimeCodeDescriptionToBig(timeCodeDescriptionData *uint8, timeCodeDescriptionSize uintptr) int32 {
+func CMSwapHostEndianTimeCodeDescriptionToBig(timeCodeDescriptionData []byte, timeCodeDescriptionSize uintptr) int32 {
 	result, callErr := tryCMSwapHostEndianTimeCodeDescriptionToBig(timeCodeDescriptionData, timeCodeDescriptionSize)
 	if callErr != nil {
 		panic(callErr)
@@ -5705,20 +5711,20 @@ func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(alloca
 	return result
 }
 
-var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionData func(allocator corefoundation.CFAllocatorRef, textDescriptionData *uint8, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32
+var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionData func(allocator corefoundation.CFAllocatorRef, textDescriptionData *byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32
 var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionDataErr error
 
-func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator corefoundation.CFAllocatorRef, textDescriptionData *uint8, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) (int32, error) {
+func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator corefoundation.CFAllocatorRef, textDescriptionData []byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) (int32, error) {
 	if _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionData == nil {
 		return 0, symbolCallError("CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData", "10.10", _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionDataErr)
 	}
-	return _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator, textDescriptionData, size, flavor, mediaType, formatDescriptionOut), nil
+	return _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator, unsafe.SliceData(textDescriptionData), size, flavor, mediaType, formatDescriptionOut), nil
 }
 
 // CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData creates a text format description from a big-endian text description structure.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator:bigEndianTextDescriptionData:size:flavor:mediaType:formatDescriptionOut:)
-func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator corefoundation.CFAllocatorRef, textDescriptionData *uint8, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32 {
+func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator corefoundation.CFAllocatorRef, textDescriptionData []byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32 {
 	result, callErr := tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator, textDescriptionData, size, flavor, mediaType, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -5957,20 +5963,20 @@ func CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffe
 	return result
 }
 
-var _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData func(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionData *uint8, size uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) int32
+var _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData func(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionData *byte, size uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) int32
 var _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionDataErr error
 
-func tryCMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionData *uint8, size uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) (int32, error) {
+func tryCMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionData []byte, size uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) (int32, error) {
 	if _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData == nil {
 		return 0, symbolCallError("CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData", "10.10", _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionDataErr)
 	}
-	return _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator, timeCodeDescriptionData, size, flavor, formatDescriptionOut), nil
+	return _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator, unsafe.SliceData(timeCodeDescriptionData), size, flavor, formatDescriptionOut), nil
 }
 
 // CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData creates a time code format description from a big-endian time code description structure.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator:bigEndianTimeCodeDescriptionData:size:flavor:formatDescriptionOut:)
-func CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionData *uint8, size uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) int32 {
+func CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionData []byte, size uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) int32 {
 	result, callErr := tryCMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator, timeCodeDescriptionData, size, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -6862,7 +6868,7 @@ var _cMTimebaseCopySourceErr error
 
 func tryCMTimebaseCopySource(timebase uintptr) (CMClockOrTimebaseRef, error) {
 	if _cMTimebaseCopySource == nil {
-		return 0, symbolCallError("CMTimebaseCopySource", "10.11", _cMTimebaseCopySourceErr)
+		return nil, symbolCallError("CMTimebaseCopySource", "10.11", _cMTimebaseCopySourceErr)
 	}
 	return _cMTimebaseCopySource(timebase), nil
 }
@@ -7487,20 +7493,20 @@ func CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allo
 	return result
 }
 
-var _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData func(allocator corefoundation.CFAllocatorRef, imageDescriptionData *uint8, size uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) int32
+var _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData func(allocator corefoundation.CFAllocatorRef, imageDescriptionData *byte, size uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) int32
 var _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionDataErr error
 
-func tryCMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator corefoundation.CFAllocatorRef, imageDescriptionData *uint8, size uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) (int32, error) {
+func tryCMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator corefoundation.CFAllocatorRef, imageDescriptionData []byte, size uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) (int32, error) {
 	if _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData", "10.10", _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionDataErr)
 	}
-	return _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator, imageDescriptionData, size, stringEncoding, flavor, formatDescriptionOut), nil
+	return _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator, unsafe.SliceData(imageDescriptionData), size, stringEncoding, flavor, formatDescriptionOut), nil
 }
 
 // CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData creates a video format description from a big-endian image description structure.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator:bigEndianImageDescriptionData:size:stringEncoding:flavor:formatDescriptionOut:)
-func CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator corefoundation.CFAllocatorRef, imageDescriptionData *uint8, size uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) int32 {
+func CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator corefoundation.CFAllocatorRef, imageDescriptionData []byte, size uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) int32 {
 	result, callErr := tryCMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator, imageDescriptionData, size, stringEncoding, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7508,20 +7514,20 @@ func CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator c
 	return result
 }
 
-var _cMVideoFormatDescriptionCreateFromH264ParameterSets func(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *uint8, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *uintptr) int32
+var _cMVideoFormatDescriptionCreateFromH264ParameterSets func(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *uintptr) int32
 var _cMVideoFormatDescriptionCreateFromH264ParameterSetsErr error
 
-func tryCMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *uint8, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *uintptr) (int32, error) {
+func tryCMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *uintptr) (int32, error) {
 	if _cMVideoFormatDescriptionCreateFromH264ParameterSets == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionCreateFromH264ParameterSets", "10.9", _cMVideoFormatDescriptionCreateFromH264ParameterSetsErr)
 	}
-	return _cMVideoFormatDescriptionCreateFromH264ParameterSets(allocator, parameterSetCount, parameterSetPointers, parameterSetSizes, NALUnitHeaderLength, formatDescriptionOut), nil
+	return _cMVideoFormatDescriptionCreateFromH264ParameterSets(allocator, parameterSetCount, unsafe.SliceData(parameterSetPointers), parameterSetSizes, NALUnitHeaderLength, formatDescriptionOut), nil
 }
 
 // CMVideoFormatDescriptionCreateFromH264ParameterSets creates a format description for a video media stream that the parameter set describes.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator:parameterSetCount:parameterSetPointers:parameterSetSizes:nalUnitHeaderLength:formatDescriptionOut:)
-func CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *uint8, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *uintptr) int32 {
+func CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *uintptr) int32 {
 	result, callErr := tryCMVideoFormatDescriptionCreateFromH264ParameterSets(allocator, parameterSetCount, parameterSetPointers, parameterSetSizes, NALUnitHeaderLength, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7529,20 +7535,20 @@ func CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundatio
 	return result
 }
 
-var _cMVideoFormatDescriptionCreateFromHEVCParameterSets func(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *uint8, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *uintptr) int32
+var _cMVideoFormatDescriptionCreateFromHEVCParameterSets func(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *uintptr) int32
 var _cMVideoFormatDescriptionCreateFromHEVCParameterSetsErr error
 
-func tryCMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *uint8, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *uintptr) (int32, error) {
+func tryCMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *uintptr) (int32, error) {
 	if _cMVideoFormatDescriptionCreateFromHEVCParameterSets == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionCreateFromHEVCParameterSets", "10.13", _cMVideoFormatDescriptionCreateFromHEVCParameterSetsErr)
 	}
-	return _cMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator, parameterSetCount, parameterSetPointers, parameterSetSizes, NALUnitHeaderLength, extensions, formatDescriptionOut), nil
+	return _cMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator, parameterSetCount, unsafe.SliceData(parameterSetPointers), parameterSetSizes, NALUnitHeaderLength, extensions, formatDescriptionOut), nil
 }
 
 // CMVideoFormatDescriptionCreateFromHEVCParameterSets creates a format description for a video media stream using HEVC (H.265) parameter set NAL units.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator:parameterSetCount:parameterSetPointers:parameterSetSizes:nalUnitHeaderLength:extensions:formatDescriptionOut:)
-func CMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *uint8, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *uintptr) int32 {
+func CMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *uintptr) int32 {
 	result, callErr := tryCMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator, parameterSetCount, parameterSetPointers, parameterSetSizes, NALUnitHeaderLength, extensions, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7613,20 +7619,20 @@ func CMVideoFormatDescriptionGetExtensionKeysCommonWithImageBuffers() corefounda
 	return result
 }
 
-var _cMVideoFormatDescriptionGetH264ParameterSetAtIndex func(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut *uint8, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int) int32
+var _cMVideoFormatDescriptionGetH264ParameterSetAtIndex func(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut *byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int) int32
 var _cMVideoFormatDescriptionGetH264ParameterSetAtIndexErr error
 
-func tryCMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut *uint8, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) (int32, error) {
+func tryCMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) (int32, error) {
 	if _cMVideoFormatDescriptionGetH264ParameterSetAtIndex == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionGetH264ParameterSetAtIndex", "10.9", _cMVideoFormatDescriptionGetH264ParameterSetAtIndexErr)
 	}
-	return _cMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc, parameterSetIndex, parameterSetPointerOut, parameterSetSizeOut, parameterSetCountOut, unsafe.SliceData(NALUnitHeaderLengthOut)), nil
+	return _cMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc, parameterSetIndex, unsafe.SliceData(parameterSetPointerOut), parameterSetSizeOut, parameterSetCountOut, unsafe.SliceData(NALUnitHeaderLengthOut)), nil
 }
 
 // CMVideoFormatDescriptionGetH264ParameterSetAtIndex returns a parameter set that an H.264 format description contains.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionGetH264ParameterSetAtIndex(_:parameterSetIndex:parameterSetPointerOut:parameterSetSizeOut:parameterSetCountOut:nalUnitHeaderLengthOut:)
-func CMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut *uint8, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) int32 {
+func CMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) int32 {
 	result, callErr := tryCMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc, parameterSetIndex, parameterSetPointerOut, parameterSetSizeOut, parameterSetCountOut, NALUnitHeaderLengthOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7634,20 +7640,20 @@ func CMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc uintptr, param
 	return result
 }
 
-var _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex func(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut *uint8, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int) int32
+var _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex func(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut *byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int) int32
 var _cMVideoFormatDescriptionGetHEVCParameterSetAtIndexErr error
 
-func tryCMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut *uint8, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) (int32, error) {
+func tryCMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) (int32, error) {
 	if _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionGetHEVCParameterSetAtIndex", "10.13", _cMVideoFormatDescriptionGetHEVCParameterSetAtIndexErr)
 	}
-	return _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc, parameterSetIndex, parameterSetPointerOut, parameterSetSizeOut, parameterSetCountOut, unsafe.SliceData(NALUnitHeaderLengthOut)), nil
+	return _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc, parameterSetIndex, unsafe.SliceData(parameterSetPointerOut), parameterSetSizeOut, parameterSetCountOut, unsafe.SliceData(NALUnitHeaderLengthOut)), nil
 }
 
 // CMVideoFormatDescriptionGetHEVCParameterSetAtIndex returns a parameter set contained in an HEVC (H.265) format description.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(_:parameterSetIndex:parameterSetPointerOut:parameterSetSizeOut:parameterSetCountOut:nalUnitHeaderLengthOut:)
-func CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut *uint8, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) int32 {
+func CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc uintptr, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) int32 {
 	result, callErr := tryCMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc, parameterSetIndex, parameterSetPointerOut, parameterSetSizeOut, parameterSetCountOut, NALUnitHeaderLengthOut)
 	if callErr != nil {
 		panic(callErr)

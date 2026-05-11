@@ -421,8 +421,8 @@ func NewTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget o
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(fire:interval:repeats:block:)
 func (t Timer) InitWithFireDateIntervalRepeatsBlock(date INSDate, interval float64, repeats bool, block TimerHandler) Timer {
 	_block3, _ := NewTimerBlock(block)
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithFireDate:interval:repeats:block:"), date, interval, repeats, _block3)
-	return NSTimerFromID(rv)
+	rv := objc.Send[Timer](t.ID, objc.Sel("initWithFireDate:interval:repeats:block:"), date, interval, repeats, _block3)
+	return rv
 }
 
 // Initializes a timer using the specified object and selector.
@@ -528,7 +528,7 @@ func (t Timer) Invalidate() {
 // After `interval` seconds have elapsed, the timer fires, executing `block`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/scheduledTimer(withTimeInterval:repeats:block:)
-func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalRepeatsBlock(interval float64, repeats bool, block TimerHandler) Timer {
+func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalRepeatsBlock(interval float64, repeats bool, block TimerHandler) NSTimer {
 	_block2, _ := NewTimerBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:repeats:block:"), interval, repeats, _block2)
 	return NSTimerFromID(rv)
@@ -567,7 +567,7 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalRepeatsBlock(interva
 // `aSelector` to `target`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/scheduledTimer(timeInterval:target:selector:userInfo:repeats:)
-func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objc.SEL, userInfo objectivec.IObject, yesOrNo bool) Timer {
+func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget objectivec.IObject, aSelector objc.SEL, userInfo objectivec.IObject, yesOrNo bool) NSTimer {
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:"), ti, aTarget, aSelector, userInfo, yesOrNo)
 	return NSTimerFromID(rv)
 }
@@ -594,7 +594,7 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserIn
 // After `ti` seconds have elapsed, the timer fires, invoking `invocation`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/scheduledTimer(timeInterval:invocation:repeats:)
-func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalInvocationRepeats(ti float64, invocation INSInvocation, yesOrNo bool) Timer {
+func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalInvocationRepeats(ti float64, invocation INSInvocation, yesOrNo bool) NSTimer {
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:invocation:repeats:"), ti, invocation, yesOrNo)
 	return NSTimerFromID(rv)
 }
@@ -623,7 +623,7 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalInvocationRepeats(ti
 // the run loop again.)
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(timeInterval:repeats:block:)
-func (_TimerClass TimerClass) TimerWithTimeIntervalRepeatsBlock(interval float64, repeats bool, block TimerHandler) Timer {
+func (_TimerClass TimerClass) TimerWithTimeIntervalRepeatsBlock(interval float64, repeats bool, block TimerHandler) NSTimer {
 	_block2, _ := NewTimerBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("timerWithTimeInterval:repeats:block:"), interval, repeats, _block2)
 	return NSTimerFromID(rv)
@@ -682,8 +682,8 @@ func (t Timer) SetFireDate(value INSDate) {
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/timeInterval
 func (t Timer) TimeInterval() float64 {
-	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("timeInterval"))
-	return float64(rv)
+	rv := objc.Send[float64](t.ID, objc.Sel("timeInterval"))
+	return rv
 }
 
 // The receiver’s `userInfo` object.
@@ -720,8 +720,8 @@ func (t Timer) UserInfo() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/tolerance
 func (t Timer) Tolerance() float64 {
-	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("tolerance"))
-	return float64(rv)
+	rv := objc.Send[float64](t.ID, objc.Sel("tolerance"))
+	return rv
 }
 func (t Timer) SetTolerance(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTolerance:"), value)

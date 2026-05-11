@@ -96,8 +96,8 @@ type IVZBifrostDeviceConfiguration interface {
 	SetMMIOSize(value uint64)
 	_bifrostDevice() objectivec.IObject
 	_initWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) objectivec.IObject
-	Attachment() IVZBifrostAttachment
-	SetAttachment(value IVZBifrostAttachment)
+	Attachment() *VZBifrostAttachment
+	SetAttachment(value *VZBifrostAttachment)
 	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	DebugDescription() string
 	Description() string
@@ -162,11 +162,19 @@ func (v VZBifrostDeviceConfiguration) SetMMIOSize(value uint64) {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/attachment
-func (v VZBifrostDeviceConfiguration) Attachment() IVZBifrostAttachment {
+func (v VZBifrostDeviceConfiguration) Attachment() *VZBifrostAttachment {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attachment"))
-	return VZBifrostAttachmentFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZBifrostAttachmentFromID(objc.ID(rv))
+	return &val
 }
-func (v VZBifrostDeviceConfiguration) SetAttachment(value IVZBifrostAttachment) {
+func (v VZBifrostDeviceConfiguration) SetAttachment(value *VZBifrostAttachment) {
+	if value == nil {
+		objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
 

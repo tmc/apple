@@ -87,7 +87,7 @@ var _cVBufferCopyAttachmentErr error
 
 func tryCVBufferCopyAttachment(buffer CVBufferRef, key corefoundation.CFStringRef, attachmentMode *CVAttachmentMode) (corefoundation.CFTypeRef, error) {
 	if _cVBufferCopyAttachment == nil {
-		return 0, symbolCallError("CVBufferCopyAttachment", "12.0", _cVBufferCopyAttachmentErr)
+		return nil, symbolCallError("CVBufferCopyAttachment", "12.0", _cVBufferCopyAttachmentErr)
 	}
 	return _cVBufferCopyAttachment(buffer, key, attachmentMode), nil
 }
@@ -702,8 +702,8 @@ func tryCVDisplayLinkSetOutputHandler(displayLink CVDisplayLinkRef, handler CVDi
 	if _cVDisplayLinkSetOutputHandler == nil {
 		return *new(CVReturn), symbolCallError("CVDisplayLinkSetOutputHandler", "10.4", _cVDisplayLinkSetOutputHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int {
-		return handler(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int {
+		return handler(objectivec.ObjectFromID(blockArg0), blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)

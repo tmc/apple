@@ -100,7 +100,7 @@ type NSItemProviderCompletionHandler = func(NSSecureCoding, NSError)
 // NSItemProviderLoadHandler is a block that loads the item provider’s data and coerces it to the specified type.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/LoadHandler
-type NSItemProviderLoadHandler = func(func(*NSError), objc.Class, INSDictionary)
+type NSItemProviderLoadHandler = func(func(objc.ID, *NSError), objc.Class, INSDictionary)
 
 // NSKeyValueChangeKey is the keys that can appear in the change dictionary.
 //

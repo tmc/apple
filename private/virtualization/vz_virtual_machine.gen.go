@@ -172,11 +172,11 @@ type IVZVirtualMachine interface {
 	_createCoresWithCompletionHandler(handler ErrorHandler)
 	_createViewEndpointWithOptions(options uint64) objectivec.IObject
 	_currentConfiguration() IVZVirtualMachineConfiguration
-	_debugStub() IVZDebugStub
+	_debugStub() *VZDebugStub
 	_enterRestrictedModeWithCompletionHandler(handler ErrorHandler)
 	_getUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler)
 	_hidDevices() foundation.INSArray
-	_hidEventMonitor() IVZHIDEventMonitor
+	_hidEventMonitor() *VZHIDEventMonitor
 	_keyboards() foundation.INSArray
 	_multiTouchDevices() foundation.INSArray
 	_name() string
@@ -466,9 +466,13 @@ func (v VZVirtualMachine) _currentConfiguration() IVZVirtualMachineConfiguration
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_debugStub
-func (v VZVirtualMachine) _debugStub() IVZDebugStub {
+func (v VZVirtualMachine) _debugStub() *VZDebugStub {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
-	return VZDebugStubFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZDebugStubFromID(objc.ID(rv))
+	return &val
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_hidDevices
@@ -478,9 +482,13 @@ func (v VZVirtualMachine) _hidDevices() foundation.INSArray {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_hidEventMonitor
-func (v VZVirtualMachine) _hidEventMonitor() IVZHIDEventMonitor {
+func (v VZVirtualMachine) _hidEventMonitor() *VZHIDEventMonitor {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidEventMonitor"))
-	return VZHIDEventMonitorFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZHIDEventMonitorFromID(objc.ID(rv))
+	return &val
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_keyboards

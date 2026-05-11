@@ -186,8 +186,8 @@ func (t VNTrackObjectRequest) InitWithDetectedObjectObservation(observation IVND
 // See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequest/init(detectedObjectObservation:completionHandler:)
 func (t VNTrackObjectRequest) InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler ErrorHandler) VNTrackObjectRequest {
 	_block1, _ := NewErrorBlock(completionHandler)
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, _block1)
-	return VNTrackObjectRequestFromID(rv)
+	rv := objc.Send[VNTrackObjectRequest](t.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, _block1)
+	return rv
 }
 
 // A constant for specifying revision 2 of the object tracking request.

@@ -23,6 +23,9 @@ type CGImageRefErrorHandler = func(coregraphics.CGImageRef, error)
 //   - [SCScreenshotManager.CaptureImageInRectCompletionHandler]
 //   - [SCScreenshotManager.CaptureImageWithFilterConfigurationCompletionHandler]
 func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal coregraphics.CGImageRef, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -42,6 +45,9 @@ type CMSampleBufferRefErrorHandler = func(uintptr, error)
 // Used by:
 //   - [SCScreenshotManager.CaptureSampleBufferWithFilterConfigurationCompletionHandler]
 func NewCMSampleBufferRefErrorBlock(handler CMSampleBufferRefErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal uintptr, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -67,6 +73,9 @@ type ErrorHandler = func(error)
 //   - [SCStream.UpdateConfigurationCompletionHandler]
 //   - [SCStream.UpdateContentFilterCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -88,6 +97,9 @@ type SCScreenshotOutputErrorHandler = func(*SCScreenshotOutput, error)
 //   - [SCScreenshotManager.CaptureScreenshotWithFilterConfigurationCompletionHandler]
 //   - [SCScreenshotManager.CaptureScreenshotWithRectConfigurationCompletionHandler]
 func NewSCScreenshotOutputErrorBlock(handler SCScreenshotOutputErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *SCScreenshotOutput
 		if resultID != 0 {
@@ -121,6 +133,9 @@ type SCShareableContentErrorHandler = func(*SCShareableContent, error)
 //   - [SCShareableContent.GetShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyCompletionHandler]
 //   - [SCShareableContent.GetShareableContentWithCompletionHandler]
 func NewSCShareableContentErrorBlock(handler SCShareableContentErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *SCShareableContent
 		if resultID != 0 {

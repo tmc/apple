@@ -168,8 +168,8 @@ func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSp
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (s VNStatefulRequest) InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler ErrorHandler) VNStatefulRequest {
 	_block1, _ := NewErrorBlock(completionHandler)
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
-	return VNStatefulRequestFromID(rv)
+	rv := objc.Send[VNStatefulRequest](s.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
+	return rv
 }
 
 // The minimum number of frames a request processes before reporting an

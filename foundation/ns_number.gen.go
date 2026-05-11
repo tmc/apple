@@ -249,7 +249,7 @@ type INSNumber interface {
 	// The number object’s value expressed as a `char`.
 	CharValue() int8
 	// The number object’s value expressed as an [Decimal](<doc://com.apple.foundation/documentation/Foundation/Decimal>) structure.
-	DecimalValue() Decimal
+	DecimalValue() NSDecimal
 	// The number object’s value expressed as a `double`, converted as necessary.
 	DoubleValue() float64
 	// The number object’s value expressed as a `float`, converted as necessary.
@@ -283,7 +283,7 @@ type INSNumber interface {
 	// Topic: Comparing NSNumber Objects
 
 	// Returns an [NSComparisonResult] value that indicates whether the number object’s value is greater than, equal to, or less than a given number.
-	Compare(otherNumber INSNumber) ComparisonResult
+	Compare(otherNumber INSNumber) NSComparisonResult
 	// Returns a Boolean value that indicates whether the number object’s value and a given number are equal.
 	IsEqualToNumber(number INSNumber) bool
 
@@ -852,9 +852,9 @@ func (n NSNumber) DescriptionWithLocale(locale objectivec.IObject) string {
 // converted to a floating-point value for comparison.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/compare(_:)
-func (n NSNumber) Compare(otherNumber INSNumber) ComparisonResult {
-	rv := objc.Send[ComparisonResult](n.ID, objc.Sel("compare:"), otherNumber)
-	return ComparisonResult(rv)
+func (n NSNumber) Compare(otherNumber INSNumber) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](n.ID, objc.Sel("compare:"), otherNumber)
+	return NSComparisonResult(rv)
 }
 
 // Returns a Boolean value that indicates whether the number object’s value
@@ -1172,9 +1172,9 @@ func (n NSNumber) CharValue() int8 {
 // [Decimal]: https://developer.apple.com/documentation/Foundation/Decimal
 //
 // [Decimal]: https://developer.apple.com/documentation/Foundation/Decimal
-func (n NSNumber) DecimalValue() Decimal {
-	rv := objc.Send[Decimal](n.ID, objc.Sel("decimalValue"))
-	return Decimal(rv)
+func (n NSNumber) DecimalValue() NSDecimal {
+	rv := objc.Send[NSDecimal](n.ID, objc.Sel("decimalValue"))
+	return NSDecimal(rv)
 }
 
 // The number object’s value expressed as a `double`, converted as

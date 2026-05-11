@@ -345,11 +345,11 @@ type INSColor interface {
 	// The brightness component value of the color.
 	BrightnessComponent() float64
 	// The catalog containing the color’s name.
-	CatalogNameComponent() NSColorListName
+	CatalogNameComponent() string
 	// The localized version of the catalog name containing the color.
 	LocalizedCatalogNameComponent() string
 	// The name of the color.
-	ColorNameComponent() NSColorName
+	ColorNameComponent() string
 	// The localized version of the color name.
 	LocalizedColorNameComponent() string
 
@@ -1779,9 +1779,9 @@ func (c NSColor) BrightnessComponent() float64 {
 // See: https://developer.apple.com/documentation/AppKit/NSColor/catalogNameComponent
 //
 // [named]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/named
-func (c NSColor) CatalogNameComponent() NSColorListName {
+func (c NSColor) CatalogNameComponent() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("catalogNameComponent"))
-	return NSColorListName(foundation.NSStringFromID(rv).String())
+	return foundation.NSStringFromID(rv).String()
 }
 
 // The localized version of the catalog name containing the color.
@@ -1810,9 +1810,9 @@ func (c NSColor) LocalizedCatalogNameComponent() string {
 // See: https://developer.apple.com/documentation/AppKit/NSColor/colorNameComponent
 //
 // [named]: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/named
-func (c NSColor) ColorNameComponent() NSColorName {
+func (c NSColor) ColorNameComponent() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorNameComponent"))
-	return NSColorName(foundation.NSStringFromID(rv).String())
+	return foundation.NSStringFromID(rv).String()
 }
 
 // The localized version of the color name.
@@ -2923,7 +2923,7 @@ func (_NSColorClass NSColorClass) YellowColor() NSColor {
 
 // ColorWithNameDynamicProviderSync is a synchronous wrapper around [NSColor.ColorWithNameDynamicProvider].
 // It blocks until the completion handler fires or the context is cancelled.
-func (cc NSColorClass) ColorWithNameDynamicProviderSync(ctx context.Context, colorName NSColorName) (*NSAppearance, error) {
+func (cc NSColorClass) ColorWithNameDynamicProviderSync(ctx context.Context, colorName string) (*NSAppearance, error) {
 	done := make(chan *NSAppearance, 1)
 	cc.ColorWithNameDynamicProvider(colorName, func(val *NSAppearance) {
 		done <- val

@@ -155,7 +155,7 @@ type INSSortDescriptor interface {
 	// Topic: Using Sort Descriptors
 
 	// Returns a comparison result value that indicates the sort order of two objects.
-	CompareObjectToObject(object1 objectivec.IObject, object2 objectivec.IObject) ComparisonResult
+	CompareObjectToObject(object1 objectivec.IObject, object2 objectivec.IObject) NSComparisonResult
 	// Returns a sort descriptor that reverses the sort order.
 	ReversedSortDescriptor() objectivec.IObject
 	// Forces a securely decoded sort descriptor to allow evaluation.
@@ -351,7 +351,11 @@ func (s NSSortDescriptor) InitWithKeyAscendingSelector(key string, ascending boo
 //
 // [Key-Value Coding Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107i
 func (s NSSortDescriptor) InitWithKeyAscendingComparator(key string, ascending bool, cmptr NSComparator) NSSortDescriptor {
-	rv := objc.Send[NSSortDescriptor](s.ID, objc.Sel("initWithKey:ascending:comparator:"), objc.String(key), ascending, cmptr)
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block2.Release()
+	rv := objc.Send[NSSortDescriptor](s.ID, objc.Sel("initWithKey:ascending:comparator:"), objc.String(key), ascending, objc.ID(_block2))
 	return rv
 }
 
@@ -386,9 +390,9 @@ func (s NSSortDescriptor) InitWithCoder(coder INSCoder) NSSortDescriptor {
 // `object1` and `object2` using the selector specified by [Selector].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/compare(_:to:)
-func (s NSSortDescriptor) CompareObjectToObject(object1 objectivec.IObject, object2 objectivec.IObject) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("compareObject:toObject:"), object1, object2)
-	return ComparisonResult(rv)
+func (s NSSortDescriptor) CompareObjectToObject(object1 objectivec.IObject, object2 objectivec.IObject) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("compareObject:toObject:"), object1, object2)
+	return NSComparisonResult(rv)
 }
 
 // Forces a securely decoded sort descriptor to allow evaluation.
@@ -462,7 +466,11 @@ func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendi
 //
 // [Key-Value Coding Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107i
 func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendingComparator(key string, ascending bool, cmptr NSComparator) NSSortDescriptor {
-	rv := objc.Send[objc.ID](objc.ID(_NSSortDescriptorClass.class), objc.Sel("sortDescriptorWithKey:ascending:comparator:"), objc.String(key), ascending, cmptr)
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block2.Release()
+	rv := objc.Send[objc.ID](objc.ID(_NSSortDescriptorClass.class), objc.Sel("sortDescriptorWithKey:ascending:comparator:"), objc.String(key), ascending, objc.ID(_block2))
 	return NSSortDescriptorFromID(rv)
 }
 

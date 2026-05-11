@@ -109,7 +109,7 @@ func (e CGBitmapLayout) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGBlendMode
-type CGBlendMode uint
+type CGBlendMode int32
 
 const (
 	// KCGBlendModeClear: `R = 0`
@@ -1441,7 +1441,7 @@ func (e CGInterpolationQuality) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLineCap
-type CGLineCap uint
+type CGLineCap int32
 
 const (
 	// KCGLineCapButt: A line with a squared-off end.
@@ -1466,7 +1466,7 @@ func (e CGLineCap) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLineJoin
-type CGLineJoin uint
+type CGLineJoin int32
 
 const (
 	// KCGLineJoinBevel: A join with a squared-off end.

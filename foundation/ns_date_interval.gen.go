@@ -161,7 +161,7 @@ type INSDateInterval interface {
 	// Topic: Comparing Date Intervals
 
 	// Compares the receiver with the specified date interval.
-	Compare(dateInterval INSDateInterval) ComparisonResult
+	Compare(dateInterval INSDateInterval) NSComparisonResult
 	// Indicates whether the receiver is equal to the specified date interval.
 	IsEqualToDateInterval(dateInterval INSDateInterval) bool
 
@@ -309,9 +309,9 @@ func (d NSDateInterval) InitWithCoder(coder INSCoder) NSDateInterval {
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/compare(_:)
 //
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (d NSDateInterval) Compare(dateInterval INSDateInterval) ComparisonResult {
-	rv := objc.Send[ComparisonResult](d.ID, objc.Sel("compare:"), dateInterval)
-	return ComparisonResult(rv)
+func (d NSDateInterval) Compare(dateInterval INSDateInterval) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](d.ID, objc.Sel("compare:"), dateInterval)
+	return NSComparisonResult(rv)
 }
 
 // Indicates whether the receiver is equal to the specified date interval.
@@ -421,8 +421,8 @@ func (d NSDateInterval) EndDate() INSDate {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/duration
 func (d NSDateInterval) Duration() float64 {
-	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("duration"))
-	return float64(rv)
+	rv := objc.Send[float64](d.ID, objc.Sel("duration"))
+	return rv
 }
 
 // Protocol methods for NSCopying

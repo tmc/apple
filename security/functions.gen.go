@@ -8241,7 +8241,7 @@ var _secTaskCopyValueForEntitlementErr error
 
 func trySecTaskCopyValueForEntitlement(task SecTaskRef, entitlement corefoundation.CFStringRef, err *corefoundation.CFErrorRef) (corefoundation.CFTypeRef, error) {
 	if _secTaskCopyValueForEntitlement == nil {
-		return 0, symbolCallError("SecTaskCopyValueForEntitlement", "10.0", _secTaskCopyValueForEntitlementErr)
+		return nil, symbolCallError("SecTaskCopyValueForEntitlement", "10.0", _secTaskCopyValueForEntitlementErr)
 	}
 	return _secTaskCopyValueForEntitlement(task, entitlement, err), nil
 }
@@ -8541,8 +8541,8 @@ func trySecTrustEvaluateAsyncWithError(trust SecTrustRef, queue dispatch.Queue, 
 	if _secTrustEvaluateAsyncWithError == nil {
 		return 0, symbolCallError("SecTrustEvaluateAsyncWithError", "10.15", _secTrustEvaluateAsyncWithErrorErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.IObject, blockArg1 bool, blockArg2 objectivec.IObject) {
-		result(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 bool, blockArg2 objc.ID) {
+		result(objectivec.ObjectFromID(blockArg0), blockArg1, objectivec.ObjectFromID(blockArg2))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -9851,20 +9851,20 @@ func Sec_protocol_metadata_create_secret(metadata Sec_protocol_metadata_t, label
 	return result
 }
 
-var _sec_protocol_metadata_create_secret_with_context func(metadata Sec_protocol_metadata_t, label_len uintptr, label string, context_len uintptr, context *uint8, exporter_length uintptr) uintptr
+var _sec_protocol_metadata_create_secret_with_context func(metadata Sec_protocol_metadata_t, label_len uintptr, label string, context_len uintptr, context *byte, exporter_length uintptr) uintptr
 var _sec_protocol_metadata_create_secret_with_contextErr error
 
-func trySec_protocol_metadata_create_secret_with_context(metadata Sec_protocol_metadata_t, label_len uintptr, label string, context_len uintptr, context *uint8, exporter_length uintptr) (dispatch.Data, error) {
+func trySec_protocol_metadata_create_secret_with_context(metadata Sec_protocol_metadata_t, label_len uintptr, label string, context_len uintptr, context []byte, exporter_length uintptr) (dispatch.Data, error) {
 	if _sec_protocol_metadata_create_secret_with_context == nil {
 		return dispatch.DataFromHandle(0), symbolCallError("sec_protocol_metadata_create_secret_with_context", "10.14", _sec_protocol_metadata_create_secret_with_contextErr)
 	}
-	return dispatch.DataFromHandle(_sec_protocol_metadata_create_secret_with_context(metadata, label_len, label, context_len, context, exporter_length)), nil
+	return dispatch.DataFromHandle(_sec_protocol_metadata_create_secret_with_context(metadata, label_len, label, context_len, unsafe.SliceData(context), exporter_length)), nil
 }
 
 // Sec_protocol_metadata_create_secret_with_context.
 //
 // See: https://developer.apple.com/documentation/Security/sec_protocol_metadata_create_secret_with_context(_:_:_:_:_:_:)
-func Sec_protocol_metadata_create_secret_with_context(metadata Sec_protocol_metadata_t, label_len uintptr, label string, context_len uintptr, context *uint8, exporter_length uintptr) dispatch.Data {
+func Sec_protocol_metadata_create_secret_with_context(metadata Sec_protocol_metadata_t, label_len uintptr, label string, context_len uintptr, context []byte, exporter_length uintptr) dispatch.Data {
 	result, callErr := trySec_protocol_metadata_create_secret_with_context(metadata, label_len, label, context_len, context, exporter_length)
 	if callErr != nil {
 		panic(callErr)

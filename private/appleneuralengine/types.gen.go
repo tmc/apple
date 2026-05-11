@@ -520,6 +520,14 @@ type Gradient_builder struct {
 type Inner_product_uniforms struct {
 }
 
+// Mutex
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/mutex
+type Mutex struct {
+	__m_ Opaque_pthread_mutex_t
+}
+
 // MxnetTools_imageHeader_t_
 //
 // [Full Topic]
@@ -571,6 +579,14 @@ type Opaque_pthread_cond_t struct {
 type Opaque_pthread_mutex_t struct {
 	__sig    int64
 	__opaque unsafe.Pointer
+}
+
+// Os_unfair_lock_s
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/os_unfair_lock_s
+type Os_unfair_lock_s struct {
+	_os_unfair_lock_opaque uint
 }
 
 // Padding_params_t

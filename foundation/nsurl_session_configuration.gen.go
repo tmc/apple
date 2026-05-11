@@ -476,7 +476,7 @@ func NewURLSessionConfiguration() URLSessionConfiguration {
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/background(withIdentifier:)
 //
 // [Downloading files in the background]: https://developer.apple.com/documentation/Foundation/downloading-files-in-the-background
-func (_URLSessionConfigurationClass URLSessionConfigurationClass) BackgroundSessionConfigurationWithIdentifier(identifier string) URLSessionConfiguration {
+func (_URLSessionConfigurationClass URLSessionConfigurationClass) BackgroundSessionConfigurationWithIdentifier(identifier string) NSURLSessionConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(_URLSessionConfigurationClass.class), objc.Sel("backgroundSessionConfigurationWithIdentifier:"), objc.String(identifier))
 	return NSURLSessionConfigurationFromID(rv)
 }
@@ -602,8 +602,8 @@ func (u URLSessionConfiguration) SetAllowsCellularAccess(value bool) {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/timeoutIntervalForRequest
 func (u URLSessionConfiguration) TimeoutIntervalForRequest() float64 {
-	rv := objc.Send[NSTimeInterval](u.ID, objc.Sel("timeoutIntervalForRequest"))
-	return float64(rv)
+	rv := objc.Send[float64](u.ID, objc.Sel("timeoutIntervalForRequest"))
+	return rv
 }
 func (u URLSessionConfiguration) SetTimeoutIntervalForRequest(value float64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTimeoutIntervalForRequest:"), value)
@@ -625,8 +625,8 @@ func (u URLSessionConfiguration) SetTimeoutIntervalForRequest(value float64) {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/timeoutIntervalForResource
 func (u URLSessionConfiguration) TimeoutIntervalForResource() float64 {
-	rv := objc.Send[NSTimeInterval](u.ID, objc.Sel("timeoutIntervalForResource"))
-	return float64(rv)
+	rv := objc.Send[float64](u.ID, objc.Sel("timeoutIntervalForResource"))
+	return rv
 }
 func (u URLSessionConfiguration) SetTimeoutIntervalForResource(value float64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTimeoutIntervalForResource:"), value)
@@ -1243,7 +1243,7 @@ func (u URLSessionConfiguration) SetProxyConfigurations(value []objectivec.Objec
 // customization.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/default
-func (_URLSessionConfigurationClass URLSessionConfigurationClass) DefaultSessionConfiguration() URLSessionConfiguration {
+func (_URLSessionConfigurationClass URLSessionConfigurationClass) DefaultSessionConfiguration() NSURLSessionConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(_URLSessionConfigurationClass.class), objc.Sel("defaultSessionConfiguration"))
 	return NSURLSessionConfigurationFromID(objc.ID(rv))
 }
@@ -1280,7 +1280,7 @@ func (_URLSessionConfigurationClass URLSessionConfigurationClass) DefaultSession
 // terminated or when the system experiences memory pressure.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/ephemeral
-func (_URLSessionConfigurationClass URLSessionConfigurationClass) EphemeralSessionConfiguration() URLSessionConfiguration {
+func (_URLSessionConfigurationClass URLSessionConfigurationClass) EphemeralSessionConfiguration() NSURLSessionConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(_URLSessionConfigurationClass.class), objc.Sel("ephemeralSessionConfiguration"))
 	return NSURLSessionConfigurationFromID(objc.ID(rv))
 }

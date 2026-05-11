@@ -47,6 +47,9 @@ type ErrorHandler = func(error)
 //   - [DIEncryptionFrontend.LookupLegacyKeychainWithXpcHandlerError]
 //   - [DIEncryptionFrontend.UnlockWithXpcHandlerError]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -69,6 +72,9 @@ type VoidHandler = func()
 //   - [DIConvertParams.ConvertWithCompletionBlock]
 //   - [DiskImageCreatorFromFolder.CreateImageWithSrcFolderCompletionBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

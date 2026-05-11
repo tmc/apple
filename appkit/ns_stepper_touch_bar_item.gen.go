@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
@@ -175,10 +176,9 @@ func NewStepperTouchBarItemWithIdentifierFormatter(identifier NSTouchBarItemIden
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/init(identifier:drawingHandler:)
-func (_NSStepperTouchBarItemClass NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandler(identifier NSTouchBarItemIdentifier, drawingHandler func(corefoundation.CGRect, float64)) NSStepperTouchBarItem {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 corefoundation.CGRect, arg1 float64) { drawingHandler(arg0, arg1) })
-	defer _block1.Release()
-	rv := objc.Send[objc.ID](objc.ID(_NSStepperTouchBarItemClass.class), objc.Sel("stepperTouchBarItemWithIdentifier:drawingHandler:"), identifier, objc.ID(_block1))
+func (_NSStepperTouchBarItemClass NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandler(identifier NSTouchBarItemIdentifier, drawingHandler RectHandler) NSStepperTouchBarItem {
+	_block1, _ := NewRectBlock(drawingHandler)
+	rv := objc.Send[objc.ID](objc.ID(_NSStepperTouchBarItemClass.class), objc.Sel("stepperTouchBarItemWithIdentifier:drawingHandler:"), identifier, _block1)
 	return NSStepperTouchBarItemFromID(rv)
 }
 
@@ -242,4 +242,19 @@ func (s NSStepperTouchBarItem) Increment() float64 {
 }
 func (s NSStepperTouchBarItem) SetIncrement(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncrement:"), value)
+}
+
+// StepperTouchBarItemWithIdentifierDrawingHandlerSync is a synchronous wrapper around [NSStepperTouchBarItem.StepperTouchBarItemWithIdentifierDrawingHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (sc NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandlerSync(ctx context.Context, identifier NSTouchBarItemIdentifier) (corefoundation.CGRect, error) {
+	done := make(chan corefoundation.CGRect, 1)
+	sc.StepperTouchBarItemWithIdentifierDrawingHandler(identifier, func(val corefoundation.CGRect) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return corefoundation.CGRect{}, ctx.Err()
+	}
 }

@@ -170,8 +170,8 @@ func (c AVCaptureSystemZoomSlider) InitWithDevice(device IAVCaptureDevice) AVCap
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemZoomSlider/init(device:action:)
 func (c AVCaptureSystemZoomSlider) InitWithDeviceAction(device IAVCaptureDevice, action Float64Handler) AVCaptureSystemZoomSlider {
 	_block1, _ := NewFloat64Block(action)
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithDevice:action:"), device, _block1)
-	return AVCaptureSystemZoomSliderFromID(rv)
+	rv := objc.Send[AVCaptureSystemZoomSlider](c.ID, objc.Sel("initWithDevice:action:"), device, _block1)
+	return rv
 }
 
 // The capture format in use by the device.

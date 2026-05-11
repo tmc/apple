@@ -2262,7 +2262,7 @@ func (b Bundle) SetNSExecutableErrorMaximum(value int) {
 // framework, the main bundle offers access to the app’s bundle directory.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/main
-func (_BundleClass BundleClass) MainBundle() Bundle {
+func (_BundleClass BundleClass) MainBundle() NSBundle {
 	rv := objc.Send[objc.ID](objc.ID(_BundleClass.class), objc.Sel("mainBundle"))
 	return NSBundleFromID(objc.ID(rv))
 }
@@ -2282,7 +2282,7 @@ func (_BundleClass BundleClass) MainBundle() Bundle {
 // dynamically created.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/allFrameworks
-func (_BundleClass BundleClass) AllFrameworks() []Bundle {
+func (_BundleClass BundleClass) AllFrameworks() []NSBundle {
 	rv := objc.Send[[]objc.ID](objc.ID(_BundleClass.class), objc.Sel("allFrameworks"))
 	return objc.ConvertSlice(rv, func(id objc.ID) NSBundle {
 		return NSBundleFromID(id)
@@ -2302,7 +2302,7 @@ func (_BundleClass BundleClass) AllFrameworks() []Bundle {
 // frameworks.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/allBundles
-func (_BundleClass BundleClass) AllBundles() []Bundle {
+func (_BundleClass BundleClass) AllBundles() []NSBundle {
 	rv := objc.Send[[]objc.ID](objc.ID(_BundleClass.class), objc.Sel("allBundles"))
 	return objc.ConvertSlice(rv, func(id objc.ID) NSBundle {
 		return NSBundleFromID(id)

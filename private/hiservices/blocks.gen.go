@@ -22,6 +22,9 @@ type VoidHandler = func()
 //   - [HIRunLoopSemaphore._observeWhilePerforming]
 //   - [HIRunLoopUtilities.DeferActions]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

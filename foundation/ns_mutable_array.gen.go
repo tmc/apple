@@ -829,7 +829,11 @@ func (m NSMutableArray) SortUsingDescriptors(sortDescriptors []NSSortDescriptor)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/sort(comparator:)
 func (m NSMutableArray) SortUsingComparator(cmptr NSComparator) {
-	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), cmptr)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block0.Release()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), objc.ID(_block0))
 }
 
 // Sorts the receiver in ascending order using the specified options and the
@@ -842,7 +846,11 @@ func (m NSMutableArray) SortUsingComparator(cmptr NSComparator) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/sort(options:usingComparator:)
 func (m NSMutableArray) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) {
-	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, cmptr)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block1.Release()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, objc.ID(_block1))
 }
 
 // Sorts the receiver in ascending order as defined by the comparison function

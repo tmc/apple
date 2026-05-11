@@ -152,7 +152,7 @@ func (v VZTemporaryRAMStorageDeviceAttachment) InitWithURLReadOnlyError(url foun
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithURL:readOnly:error:"), url, only, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return *new(VZTemporaryRAMStorageDeviceAttachment), foundation.NSErrorFrom(errorPtr)
+		return VZTemporaryRAMStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZTemporaryRAMStorageDeviceAttachmentFromID(rv), nil
 

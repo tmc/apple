@@ -152,7 +152,7 @@ func NewUnitFrequencyWithSymbolConverter(symbol string, converter INSUnitConvert
 // The terahertz unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/terahertz
-func (_UnitFrequencyClass UnitFrequencyClass) Terahertz() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) Terahertz() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("terahertz"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }
@@ -160,7 +160,7 @@ func (_UnitFrequencyClass UnitFrequencyClass) Terahertz() UnitFrequency {
 // The gigahertz unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/gigahertz
-func (_UnitFrequencyClass UnitFrequencyClass) Gigahertz() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) Gigahertz() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("gigahertz"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }
@@ -168,7 +168,7 @@ func (_UnitFrequencyClass UnitFrequencyClass) Gigahertz() UnitFrequency {
 // The megahertz unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/megahertz
-func (_UnitFrequencyClass UnitFrequencyClass) Megahertz() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) Megahertz() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("megahertz"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }
@@ -176,7 +176,7 @@ func (_UnitFrequencyClass UnitFrequencyClass) Megahertz() UnitFrequency {
 // The kilohertz unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/kilohertz
-func (_UnitFrequencyClass UnitFrequencyClass) Kilohertz() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) Kilohertz() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("kilohertz"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }
@@ -184,7 +184,7 @@ func (_UnitFrequencyClass UnitFrequencyClass) Kilohertz() UnitFrequency {
 // The hertz unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/hertz
-func (_UnitFrequencyClass UnitFrequencyClass) Hertz() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) Hertz() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("hertz"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }
@@ -192,7 +192,7 @@ func (_UnitFrequencyClass UnitFrequencyClass) Hertz() UnitFrequency {
 // The millihertz unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/millihertz
-func (_UnitFrequencyClass UnitFrequencyClass) Millihertz() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) Millihertz() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("millihertz"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }
@@ -200,7 +200,7 @@ func (_UnitFrequencyClass UnitFrequencyClass) Millihertz() UnitFrequency {
 // The microhertz unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/microhertz
-func (_UnitFrequencyClass UnitFrequencyClass) Microhertz() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) Microhertz() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("microhertz"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }
@@ -208,7 +208,7 @@ func (_UnitFrequencyClass UnitFrequencyClass) Microhertz() UnitFrequency {
 // The nanohertz unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/nanohertz
-func (_UnitFrequencyClass UnitFrequencyClass) Nanohertz() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) Nanohertz() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("nanohertz"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }
@@ -216,7 +216,7 @@ func (_UnitFrequencyClass UnitFrequencyClass) Nanohertz() UnitFrequency {
 // The frames per second unit of frequency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFrequency/framesPerSecond
-func (_UnitFrequencyClass UnitFrequencyClass) FramesPerSecond() UnitFrequency {
+func (_UnitFrequencyClass UnitFrequencyClass) FramesPerSecond() NSUnitFrequency {
 	rv := objc.Send[objc.ID](objc.ID(_UnitFrequencyClass.class), objc.Sel("framesPerSecond"))
 	return NSUnitFrequencyFromID(objc.ID(rv))
 }

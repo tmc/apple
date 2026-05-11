@@ -372,7 +372,9 @@ func (o MTLCommandBufferObject) PresentDrawableAfterMinimumDuration(drawable MTL
 // [kernelEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
 // [kernelStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
 func (o MTLCommandBufferObject) AddScheduledHandler(block MTLCommandBufferHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("addScheduledHandler:"), block)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTLCommandBufferObjectFromID(arg0)) })
+	defer _block0.Release()
+	objc.Send[struct{}](o.ID, objc.Sel("addScheduledHandler:"), objc.ID(_block0))
 }
 
 // Registers a completion handler the GPU device calls immediately after the
@@ -406,7 +408,9 @@ func (o MTLCommandBufferObject) AddScheduledHandler(block MTLCommandBufferHandle
 // [gpuEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
 // [gpuStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
 func (o MTLCommandBufferObject) AddCompletedHandler(block MTLCommandBufferHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("addCompletedHandler:"), block)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTLCommandBufferObjectFromID(arg0)) })
+	defer _block0.Release()
+	objc.Send[struct{}](o.ID, objc.Sel("addCompletedHandler:"), objc.ID(_block0))
 }
 
 // Reserves the next available place for the command buffer in its command

@@ -285,7 +285,9 @@ func (s AVSpeechSynthesizer) StopSpeakingAtBoundary(boundary AVSpeechBoundary) b
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/write(_:toBufferCallback:)
 func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback) {
-	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:"), utterance, bufferCallback)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { bufferCallback(AVAudioBufferFromID(arg0)) })
+	defer _block1.Release()
+	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:"), utterance, objc.ID(_block1))
 }
 
 // Generates audio buffers and associated metadata for storage or further
@@ -299,7 +301,20 @@ func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallback(utterance IAVSpeechU
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/write(_:toBufferCallback:toMarkerCallback:)
 func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallbackToMarkerCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback, markerCallback AVSpeechSynthesizerMarkerCallback) {
-	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:toMarkerCallback:"), utterance, bufferCallback, markerCallback)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { bufferCallback(AVAudioBufferFromID(arg0)) })
+	defer _block1.Release()
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) {
+		markerCallback(func() []AVSpeechSynthesisMarker {
+			a := foundation.NSArrayFromID(arg0)
+			out := make([]AVSpeechSynthesisMarker, int(a.Count()))
+			for i := range out {
+				out[i] = AVSpeechSynthesisMarkerFromID(a.ObjectAtIndex(uint(i)).GetID())
+			}
+			return out
+		}())
+	})
+	defer _block2.Release()
+	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:toMarkerCallback:"), utterance, objc.ID(_block1), objc.ID(_block2))
 }
 
 // Prompts the user to authorize your app to use personal voices.

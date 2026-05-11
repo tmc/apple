@@ -970,7 +970,11 @@ func (o NSOrderedSet) IndexOfObject(object objectivec.IObject) uint {
 //
 // [NSBinarySearchingOptions]: https://developer.apple.com/documentation/Foundation/NSBinarySearchingOptions
 func (o NSOrderedSet) IndexOfObjectInSortedRangeOptionsUsingComparator(object objectivec.IObject, range_ NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObject:inSortedRange:options:usingComparator:"), object, range_, opts, cmp)
+	_block3 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmp(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block3.Release()
+	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObject:inSortedRange:options:usingComparator:"), object, range_, opts, objc.ID(_block3))
 	return rv
 }
 
@@ -1364,7 +1368,11 @@ func (o NSOrderedSet) SortedArrayUsingDescriptors(sortDescriptors []NSSortDescri
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/sortedArray(comparator:)
 func (o NSOrderedSet) SortedArrayUsingComparator(cmptr NSComparator) []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sortedArrayUsingComparator:"), cmptr)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block0.Release()
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sortedArrayUsingComparator:"), objc.ID(_block0))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
@@ -1386,7 +1394,11 @@ func (o NSOrderedSet) SortedArrayUsingComparator(cmptr NSComparator) []objective
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/sortedArray(options:usingComparator:)
 func (o NSOrderedSet) SortedArrayWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sortedArrayWithOptions:usingComparator:"), opts, cmptr)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block1.Release()
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sortedArrayWithOptions:usingComparator:"), opts, objc.ID(_block1))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})

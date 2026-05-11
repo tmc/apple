@@ -36,6 +36,9 @@ type VoidHandler = func()
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

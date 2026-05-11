@@ -280,6 +280,10 @@ func NewWarpKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(nam
 // [Core Image Kernel Language Reference]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CIKernelLangRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004397
 // [The Region of Interest]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_advanced_concepts/ci.advanced_concepts.html#//apple_ref/doc/uid/TP30001185-CH9-SW12
 func (w CIWarpKernel) ApplyWithExtentRoiCallbackInputImageArguments(extent corefoundation.CGRect, callback CIKernelROICallback, image ICIImage, args []objectivec.IObject) ICIImage {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("applyWithExtent:roiCallback:inputImage:arguments:"), extent, callback, image, objectivec.IObjectSliceToNSArray(args))
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 corefoundation.CGRect) corefoundation.CGRect {
+		return callback(arg0, arg1)
+	})
+	defer _block1.Release()
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("applyWithExtent:roiCallback:inputImage:arguments:"), extent, objc.ID(_block1), image, args)
 	return CIImageFromID(rv)
 }

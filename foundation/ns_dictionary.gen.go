@@ -982,7 +982,11 @@ func (d NSDictionary) KeysSortedByValueUsingSelector(comparator objc.SEL) []obje
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysSortedByValue(comparator:)
 func (d NSDictionary) KeysSortedByValueUsingComparator(cmptr NSComparator) []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueUsingComparator:"), cmptr)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block0.Release()
+	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueUsingComparator:"), objc.ID(_block0))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
@@ -1004,7 +1008,11 @@ func (d NSDictionary) KeysSortedByValueUsingComparator(cmptr NSComparator) []obj
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysSortedByValue(options:usingComparator:)
 func (d NSDictionary) KeysSortedByValueWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueWithOptions:usingComparator:"), opts, cmptr)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block1.Release()
+	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueWithOptions:usingComparator:"), opts, objc.ID(_block1))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})

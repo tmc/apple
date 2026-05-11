@@ -5,7 +5,6 @@ package remotecoreml
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -112,7 +111,7 @@ type IMLNetworking interface {
 	IsClient() bool
 	Listener() objectivec.Object
 	LogType() objectivec.Object
-	NwOptions() unsafe.Pointer
+	NwOptions() *MLNetworkOptions
 	Parameters() objectivec.Object
 	Protocol_stack() objectivec.Object
 	Q() objectivec.Object
@@ -238,9 +237,13 @@ func (m MLNetworking) LogType() objectivec.Object {
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/nwOptions
-func (m MLNetworking) NwOptions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("nwOptions"))
-	return rv
+func (m MLNetworking) NwOptions() *MLNetworkOptions {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwOptions"))
+	if rv == 0 {
+		return nil
+	}
+	val := MLNetworkOptionsFromID(objc.ID(rv))
+	return &val
 }
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworking/parameters

@@ -23,6 +23,9 @@ type AnimationContextHandler = func(*NSAnimationContext)
 //   - [NSAnimationContext.RunAnimationGroupCompletionHandler]
 //   - [NSAnimationContext.RunAnimationGroup]
 func NewAnimationContextBlock(handler AnimationContextHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSAnimationContext
 		if resultID != 0 {
@@ -47,6 +50,9 @@ type AppearanceHandler = func(*NSAppearance)
 // Used by:
 //   - [NSColor.ColorWithNameDynamicProvider]
 func NewAppearanceBlock(handler AppearanceHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSAppearance
 		if resultID != 0 {
@@ -78,6 +84,9 @@ type AttributedStringHandler = func(*foundation.NSAttributedString)
 // Used by:
 //   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion]
 func NewAttributedStringBlock(handler AttributedStringHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *foundation.NSAttributedString
 		if resultID != 0 {
@@ -111,6 +120,9 @@ type BoolHandler = func(bool)
 //   - [NSDocument.ShareDocumentWithSharingServiceCompletionHandler]
 //   - [NSDocument.UnlockDocumentWithCompletionHandler]
 func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool) {
 		handler(primitiveVal)
 	})
@@ -129,6 +141,9 @@ type CGRectTextContainerHandler = func(*NSTextRange, *NSTextContainer)
 // Used by:
 //   - [NSTextLayoutManager.EnumerateTextSegmentsInRangeTypeOptionsUsingBlock]
 func NewCGRectTextContainerBlock(handler CGRectTextContainerHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
 		var result *NSTextRange
 		if resultID != 0 {
@@ -160,6 +175,9 @@ type ColorHandler = func(*NSColor)
 // Used by:
 //   - [NSColorSampler.ShowSamplerWithSelectionHandler]
 func NewColorBlock(handler ColorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSColor
 		if resultID != 0 {
@@ -187,6 +205,9 @@ type DocumentErrorHandler = func(*NSDocument, error)
 //   - [NSDocumentController.OpenDocumentWithContentsOfURLDisplayCompletionHandler]
 //   - [NSDocumentController.ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler]
 func NewDocumentErrorBlock(handler DocumentErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSDocument
 		if resultID != 0 {
@@ -213,6 +234,9 @@ type DraggingItemHandler = func(*NSDraggingItem)
 //   - [NSDraggingInfo.EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock]
 //   - [NSDraggingSession.EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock]
 func NewDraggingItemBlock(handler DraggingItemHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSDraggingItem
 		if resultID != 0 {
@@ -290,6 +314,9 @@ type ErrorHandler = func(error)
 //   - [NSWorkspace.SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler]
 //   - [NSWorkspace.SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -314,6 +341,9 @@ type EventHandler = func(*NSEvent)
 //   - [NSEvent.AddLocalMonitorForEventsMatchingMaskHandler]
 //   - [NSWindow.TrackEventsMatchingMaskTimeoutModeHandler]
 func NewEventBlock(handler EventHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSEvent
 		if resultID != 0 {
@@ -332,6 +362,9 @@ type Float32Handler = func(float32)
 // NewFloat32Block wraps a Go [Float32Handler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 func NewFloat32Block(handler Float32Handler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal float32) {
 		handler(primitiveVal)
 	})
@@ -354,6 +387,9 @@ type Float64Handler = func(float64)
 // Used by:
 //   - [NSEvent.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler]
 func NewFloat64Block(handler Float64Handler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal float64) {
 		handler(primitiveVal)
 	})
@@ -374,6 +410,9 @@ type IntHandler = func(int)
 //   - [NSDocumentController.BeginOpenPanelForTypesCompletionHandler]
 //   - [NSPDFPanel.BeginSheetWithPDFInfoModalForWindowCompletionHandler]
 func NewIntBlock(handler IntHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -394,6 +433,9 @@ type MenuHandler = func(*NSMenu)
 //   - [NSMenu.PaletteMenuWithColorsTitlesSelectionHandler]
 //   - [NSMenu.PaletteMenuWithColorsTitlesTemplateImageSelectionHandler]
 func NewMenuBlock(handler MenuHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSMenu
 		if resultID != 0 {
@@ -427,6 +469,9 @@ type ModalResponseHandler = func(NSModalResponse)
 //   - [NSWindow.BeginCriticalSheetCompletionHandler]
 //   - [NSWindow.BeginSheetCompletionHandler]
 func NewModalResponseBlock(handler ModalResponseHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NSModalResponse) {
 		handler(primitiveVal)
 	})
@@ -474,6 +519,9 @@ type NSTextLocationHandler = func(NSTextLocation)
 //   - [NSTextSelectionDataSource.EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock]
 //   - [NSTextSelectionDataSource.EnumerateContainerBoundariesFromLocationReverseUsingBlock]
 func NewNSTextLocationBlock(handler NSTextLocationHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result NSTextLocation
 		if resultID != 0 {
@@ -509,6 +557,9 @@ type ObjectHandler = func(objectivec.IObject)
 // NewObjectBlock wraps a Go [ObjectHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
 		var val objectivec.IObject
 		if valID != 0 {
@@ -533,6 +584,9 @@ type PageLayoutResultHandler = func(NSPageLayoutResult)
 // Used by:
 //   - [NSPageLayout.BeginSheetUsingPrintInfoOnWindowCompletionHandler]
 func NewPageLayoutResultBlock(handler PageLayoutResultHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NSPageLayoutResult) {
 		handler(primitiveVal)
 	})
@@ -551,6 +605,9 @@ type PrintPanelResultHandler = func(NSPrintPanelResult)
 // Used by:
 //   - [NSPrintPanel.BeginSheetUsingPrintInfoOnWindowCompletionHandler]
 func NewPrintPanelResultBlock(handler PrintPanelResultHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NSPrintPanelResult) {
 		handler(primitiveVal)
 	})
@@ -570,6 +627,9 @@ type RangeHandler = func(foundation.NSRange)
 // Used by:
 //   - [NSView.ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider]
 func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal foundation.NSRange) {
 		handler(primitiveVal)
 	})
@@ -583,6 +643,7 @@ func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
 //   - [NSCustomImageRep.InitWithSizeFlippedDrawingHandler]
 //   - [NSImage.ImageWithSizeFlippedDrawingHandler]
 //   - [NSLayoutManager.EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock]
+//   - [NSStepperTouchBarItem.StepperTouchBarItemWithIdentifierDrawingHandler]
 type RectHandler = func(corefoundation.CGRect)
 
 // NewRectBlock wraps a Go [RectHandler] as an Objective-C block.
@@ -592,7 +653,11 @@ type RectHandler = func(corefoundation.CGRect)
 //   - [NSCustomImageRep.InitWithSizeFlippedDrawingHandler]
 //   - [NSImage.ImageWithSizeFlippedDrawingHandler]
 //   - [NSLayoutManager.EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock]
+//   - [NSStepperTouchBarItem.StepperTouchBarItemWithIdentifierDrawingHandler]
 func NewRectBlock(handler RectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal corefoundation.CGRect) {
 		handler(primitiveVal)
 	})
@@ -619,6 +684,9 @@ type RunningApplicationErrorHandler = func(*NSRunningApplication, error)
 //   - [NSWorkspace.OpenURLConfigurationCompletionHandler]
 //   - [NSWorkspace.OpenURLsWithApplicationAtURLConfigurationCompletionHandler]
 func NewRunningApplicationErrorBlock(handler RunningApplicationErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSRunningApplication
 		if resultID != 0 {
@@ -643,6 +711,9 @@ type SliderAccessoryHandler = func(*NSSliderAccessory)
 // Used by:
 //   - [NSSliderAccessoryBehavior.BehaviorWithHandler]
 func NewSliderAccessoryBlock(handler SliderAccessoryHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSSliderAccessory
 		if resultID != 0 {
@@ -699,6 +770,9 @@ type TableRowViewHandler = func(*NSTableRowView)
 // Used by:
 //   - [NSTableView.EnumerateAvailableRowViewsUsingBlock]
 func NewTableRowViewBlock(handler TableRowViewHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTableRowView
 		if resultID != 0 {
@@ -725,6 +799,9 @@ type TableViewRowActionHandler = func(*NSTableViewRowAction)
 // Used by:
 //   - [NSTableViewRowAction.RowActionWithStyleTitleHandler]
 func NewTableViewRowActionBlock(handler TableViewRowActionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTableViewRowAction
 		if resultID != 0 {
@@ -754,6 +831,9 @@ type TextContainerHandler = func(*NSTextContainer)
 // Used by:
 //   - [NSLayoutManager.EnumerateLineFragmentsForGlyphRangeUsingBlock]
 func NewTextContainerBlock(handler TextContainerHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextContainer
 		if resultID != 0 {
@@ -782,6 +862,9 @@ type TextElementHandler = func(*NSTextElement)
 //   - [NSTextContentStorage.EnumerateTextElementsFromLocationOptionsUsingBlock]
 //   - [NSTextElementProvider.EnumerateTextElementsFromLocationOptionsUsingBlock]
 func NewTextElementBlock(handler TextElementHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextElement
 		if resultID != 0 {
@@ -806,6 +889,9 @@ type TextLayoutFragmentHandler = func(*NSTextLayoutFragment)
 // Used by:
 //   - [NSTextLayoutManager.EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock]
 func NewTextLayoutFragmentBlock(handler TextLayoutFragmentHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextLayoutFragment
 		if resultID != 0 {
@@ -824,6 +910,9 @@ type TextLayoutManagerTextLayoutFragmentHandler = func(*NSTextLayoutManager, *NS
 // NewTextLayoutManagerTextLayoutFragmentBlock wraps a Go [TextLayoutManagerTextLayoutFragmentHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 func NewTextLayoutManagerTextLayoutFragmentBlock(handler TextLayoutManagerTextLayoutFragmentHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
 		var result *NSTextLayoutManager
 		if resultID != 0 {
@@ -854,6 +943,9 @@ type TextPreviewHandler = func(*NSTextPreview)
 // Used by:
 //   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsPreviewForRectInContextCompletion]
 func NewTextPreviewBlock(handler TextPreviewHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextPreview
 		if resultID != 0 {
@@ -879,6 +971,9 @@ type URLErrorHandler = func(*foundation.NSURL, error)
 // Used by:
 //   - [NSFilePromiseReceiver.ReceivePromisedFilesAtDestinationOptionsOperationQueueReader]
 func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSURL
 		if resultID != 0 {
@@ -912,6 +1007,9 @@ type UUIDHandler = func(*foundation.NSUUID)
 // Used by:
 //   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsRangeInContextWithIdentifierForPointCompletion]
 func NewUUIDBlock(handler UUIDHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *foundation.NSUUID
 		if resultID != 0 {
@@ -936,6 +1034,9 @@ type ViewHandler = func(*NSView)
 // Used by:
 //   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsDecorationContainerViewForRangeInContextCompletion]
 func NewViewBlock(handler ViewHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSView
 		if resultID != 0 {
@@ -1002,6 +1103,9 @@ type VoidHandler = func()
 //   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorSelectRangesInContextCompletion]
 //   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorWillChangeToStateCompletion]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -1027,6 +1131,9 @@ type WindowErrorHandler = func(*NSWindow, error)
 //   - [NSDocumentController.RestoreWindowWithIdentifierStateCompletionHandler]
 //   - [NSWindowRestoration.RestoreWindowWithIdentifierStateCompletionHandler]
 func NewWindowErrorBlock(handler WindowErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSWindow
 		if resultID != 0 {
@@ -1053,6 +1160,9 @@ type WindowHandler = func(*NSWindow)
 // Used by:
 //   - [NSApplication.EnumerateWindowsWithOptionsUsingBlock]
 func NewWindowBlock(handler WindowHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSWindow
 		if resultID != 0 {
@@ -1081,6 +1191,9 @@ type WorkspaceAuthorizationErrorHandler = func(*NSWorkspaceAuthorization, error)
 // Used by:
 //   - [NSWorkspace.RequestAuthorizationOfTypeCompletionHandler]
 func NewWorkspaceAuthorizationErrorBlock(handler WorkspaceAuthorizationErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSWorkspaceAuthorization
 		if resultID != 0 {
@@ -1099,6 +1212,9 @@ type structCGRectHandler = func(corefoundation.CGRect)
 // NewstructCGRectBlock wraps a Go [structCGRectHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 func NewstructCGRectBlock(handler structCGRectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal corefoundation.CGRect) {
 		handler(primitiveVal)
 	})

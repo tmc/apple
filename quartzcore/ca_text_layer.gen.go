@@ -4,8 +4,8 @@ package quartzcore
 
 import (
 	"sync"
+	"unsafe"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -117,8 +117,8 @@ type ICATextLayer interface {
 	// Topic: Text Visual Properties
 
 	// The font used to render the receiver’s text.
-	Font() corefoundation.CFTypeRef
-	SetFont(value corefoundation.CFTypeRef)
+	Font() unsafe.Pointer
+	SetFont(value unsafe.Pointer)
 	// The font size used to render the receiver’s text. Animatable.
 	FontSize() float64
 	SetFontSize(value float64)
@@ -206,11 +206,11 @@ func NewTextLayerWithLayer(layer objectivec.IObject) CATextLayer {
 // [CGFont]: https://developer.apple.com/documentation/CoreGraphics/CGFont
 // [CTFont]: https://developer.apple.com/documentation/CoreText/CTFont
 // [UIFont]: https://developer.apple.com/documentation/UIKit/UIFont
-func (t CATextLayer) Font() corefoundation.CFTypeRef {
-	rv := objc.Send[corefoundation.CFTypeRef](t.ID, objc.Sel("font"))
-	return corefoundation.CFTypeRef(rv)
+func (t CATextLayer) Font() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("font"))
+	return rv
 }
-func (t CATextLayer) SetFont(value corefoundation.CFTypeRef) {
+func (t CATextLayer) SetFont(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
 

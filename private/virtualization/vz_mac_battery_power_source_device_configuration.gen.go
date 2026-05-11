@@ -72,8 +72,8 @@ type IVZMacBatteryPowerSourceDeviceConfiguration interface {
 
 	// Topic: Methods
 
-	Source() IVZMacBatterySource
-	SetSource(value IVZMacBatterySource)
+	Source() *VZMacBatterySource
+	SetSource(value *VZMacBatterySource)
 }
 
 // Init initializes the instance.
@@ -96,10 +96,18 @@ func NewVZMacBatteryPowerSourceDeviceConfiguration() VZMacBatteryPowerSourceDevi
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDeviceConfiguration/source
-func (v VZMacBatteryPowerSourceDeviceConfiguration) Source() IVZMacBatterySource {
+func (v VZMacBatteryPowerSourceDeviceConfiguration) Source() *VZMacBatterySource {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("source"))
-	return VZMacBatterySourceFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZMacBatterySourceFromID(objc.ID(rv))
+	return &val
 }
-func (v VZMacBatteryPowerSourceDeviceConfiguration) SetSource(value IVZMacBatterySource) {
+func (v VZMacBatteryPowerSourceDeviceConfiguration) SetSource(value *VZMacBatterySource) {
+	if value == nil {
+		objc.Send[struct{}](v.ID, objc.Sel("setSource:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](v.ID, objc.Sel("setSource:"), value)
 }

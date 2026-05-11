@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -181,7 +182,11 @@ func NewAudioSourceNodeWithRenderBlock(block AVAudioSourceNodeRenderBlock) AVAud
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/init(renderBlock:)
 func (a AVAudioSourceNode) InitWithRenderBlock(block AVAudioSourceNodeRenderBlock) AVAudioSourceNode {
-	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithRenderBlock:"), block)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 *int8, arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer) int {
+		return block(arg0, arg1, arg2, arg3)
+	})
+	defer _block0.Release()
+	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithRenderBlock:"), objc.ID(_block0))
 	return rv
 }
 
@@ -207,7 +212,11 @@ func (a AVAudioSourceNode) InitWithRenderBlock(block AVAudioSourceNodeRenderBloc
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/init(format:renderBlock:)
 func (a AVAudioSourceNode) InitWithFormatRenderBlock(format IAVAudioFormat, block AVAudioSourceNodeRenderBlock) AVAudioSourceNode {
-	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithFormat:renderBlock:"), format, block)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 *int8, arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer) int {
+		return block(arg0, arg1, arg2, arg3)
+	})
+	defer _block1.Release()
+	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithFormat:renderBlock:"), format, objc.ID(_block1))
 	return rv
 }
 

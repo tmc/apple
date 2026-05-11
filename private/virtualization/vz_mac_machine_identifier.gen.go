@@ -86,7 +86,7 @@ type IVZMacMachineIdentifier interface {
 
 	_ECID() uint64
 	_ECIDChecksDisabled() bool
-	_serialNumber() IVZMacSerialNumber
+	_serialNumber() *VZMacSerialNumber
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -180,9 +180,13 @@ func (m VZMacMachineIdentifier) _ECIDChecksDisabled() bool {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_serialNumber
-func (m VZMacMachineIdentifier) _serialNumber() IVZMacSerialNumber {
+func (m VZMacMachineIdentifier) _serialNumber() *VZMacSerialNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_serialNumber"))
-	return VZMacSerialNumberFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZMacSerialNumberFromID(objc.ID(rv))
+	return &val
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/debugDescription

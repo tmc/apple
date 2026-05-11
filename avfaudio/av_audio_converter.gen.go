@@ -370,7 +370,11 @@ func (a AVAudioConverter) InitFromFormatToFormat(fromFormat IAVAudioFormat, toFo
 //
 // [AVAudioConverterOutputStatus]: https://developer.apple.com/documentation/AVFAudio/AVAudioConverterOutputStatus
 func (a AVAudioConverter) ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.INSError, inputBlock AVAudioConverterInputBlock) AVAudioConverterOutputStatus {
-	rv := objc.Send[AVAudioConverterOutputStatus](a.ID, objc.Sel("convertToBuffer:error:withInputFromBlock:"), outputBuffer, outError, inputBlock)
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 uint32, arg1 *AVAudioConverterInputStatus) objc.ID {
+		return inputBlock(arg0, arg1).ID
+	})
+	defer _block2.Release()
+	rv := objc.Send[AVAudioConverterOutputStatus](a.ID, objc.Sel("convertToBuffer:error:withInputFromBlock:"), outputBuffer, outError, objc.ID(_block2))
 	return AVAudioConverterOutputStatus(rv)
 }
 

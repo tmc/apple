@@ -2906,7 +2906,7 @@ func (f FileManager) NSUbiquityIdentityDidChange() NSNotificationName {
 // [NSFileManager] rather than using the shared object.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/default
-func (_FileManagerClass FileManagerClass) DefaultManager() FileManager {
+func (_FileManagerClass FileManagerClass) DefaultManager() NSFileManager {
 	rv := objc.Send[objc.ID](objc.ID(_FileManagerClass.class), objc.Sel("defaultManager"))
 	return NSFileManagerFromID(objc.ID(rv))
 }

@@ -607,8 +607,8 @@ func (x XMLNode) NodesForXPathError(xpath string) ([]NSXMLNode, error) {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, NSErrorFrom(errorPtr)
 	}
-	return objc.ConvertSlice(rv, func(id objc.ID) XMLNode {
-		return XMLNodeFromID(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) NSXMLNode {
+		return NSXMLNodeFromID(id)
 	}), nil
 
 }
@@ -956,7 +956,7 @@ func (_XMLNodeClass XMLNodeClass) DTDNodeWithXMLString(string_ string) objective
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/predefinedNamespace(forPrefix:)
 //
 // [XMLNode.Kind.namespace]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/namespace
-func (_XMLNodeClass XMLNodeClass) PredefinedNamespaceForPrefix(name string) XMLNode {
+func (_XMLNodeClass XMLNodeClass) PredefinedNamespaceForPrefix(name string) NSXMLNode {
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("predefinedNamespaceForPrefix:"), objc.String(name))
 	return NSXMLNodeFromID(rv)
 }

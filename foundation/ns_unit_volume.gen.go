@@ -153,7 +153,7 @@ func NewUnitVolumeWithSymbolConverter(symbol string, converter INSUnitConverter)
 // The megaliters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/megaliters
-func (_UnitVolumeClass UnitVolumeClass) Megaliters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Megaliters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("megaliters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -161,7 +161,7 @@ func (_UnitVolumeClass UnitVolumeClass) Megaliters() UnitVolume {
 // The kiloliters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/kiloliters
-func (_UnitVolumeClass UnitVolumeClass) Kiloliters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Kiloliters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("kiloliters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -169,7 +169,7 @@ func (_UnitVolumeClass UnitVolumeClass) Kiloliters() UnitVolume {
 // The liters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/liters
-func (_UnitVolumeClass UnitVolumeClass) Liters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Liters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("liters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -177,7 +177,7 @@ func (_UnitVolumeClass UnitVolumeClass) Liters() UnitVolume {
 // The deciliters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/deciliters
-func (_UnitVolumeClass UnitVolumeClass) Deciliters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Deciliters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("deciliters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -185,7 +185,7 @@ func (_UnitVolumeClass UnitVolumeClass) Deciliters() UnitVolume {
 // The centiliters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/centiliters
-func (_UnitVolumeClass UnitVolumeClass) Centiliters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Centiliters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("centiliters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -193,7 +193,7 @@ func (_UnitVolumeClass UnitVolumeClass) Centiliters() UnitVolume {
 // The milliliters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/milliliters
-func (_UnitVolumeClass UnitVolumeClass) Milliliters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Milliliters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("milliliters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -201,7 +201,7 @@ func (_UnitVolumeClass UnitVolumeClass) Milliliters() UnitVolume {
 // The cubic kilometers unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicKilometers
-func (_UnitVolumeClass UnitVolumeClass) CubicKilometers() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicKilometers() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicKilometers"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -209,7 +209,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicKilometers() UnitVolume {
 // The cubic meters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicMeters
-func (_UnitVolumeClass UnitVolumeClass) CubicMeters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicMeters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicMeters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -217,7 +217,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicMeters() UnitVolume {
 // The cubic decimeters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicDecimeters
-func (_UnitVolumeClass UnitVolumeClass) CubicDecimeters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicDecimeters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicDecimeters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -225,7 +225,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicDecimeters() UnitVolume {
 // The cubic centimeters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicCentimeters
-func (_UnitVolumeClass UnitVolumeClass) CubicCentimeters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicCentimeters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicCentimeters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -233,7 +233,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicCentimeters() UnitVolume {
 // The cubic millimeters unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicMillimeters
-func (_UnitVolumeClass UnitVolumeClass) CubicMillimeters() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicMillimeters() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicMillimeters"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -241,7 +241,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicMillimeters() UnitVolume {
 // The cubic inches unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicInches
-func (_UnitVolumeClass UnitVolumeClass) CubicInches() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicInches() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicInches"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -249,7 +249,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicInches() UnitVolume {
 // The cubic feet unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicFeet
-func (_UnitVolumeClass UnitVolumeClass) CubicFeet() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicFeet() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicFeet"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -257,7 +257,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicFeet() UnitVolume {
 // The cubic yards unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicYards
-func (_UnitVolumeClass UnitVolumeClass) CubicYards() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicYards() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicYards"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -265,7 +265,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicYards() UnitVolume {
 // The cubic miles unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cubicMiles
-func (_UnitVolumeClass UnitVolumeClass) CubicMiles() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) CubicMiles() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cubicMiles"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -273,7 +273,7 @@ func (_UnitVolumeClass UnitVolumeClass) CubicMiles() UnitVolume {
 // The acre feet unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/acreFeet
-func (_UnitVolumeClass UnitVolumeClass) AcreFeet() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) AcreFeet() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("acreFeet"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -281,7 +281,7 @@ func (_UnitVolumeClass UnitVolumeClass) AcreFeet() UnitVolume {
 // The bushels unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/bushels
-func (_UnitVolumeClass UnitVolumeClass) Bushels() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Bushels() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("bushels"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -289,7 +289,7 @@ func (_UnitVolumeClass UnitVolumeClass) Bushels() UnitVolume {
 // The teaspoons unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/teaspoons
-func (_UnitVolumeClass UnitVolumeClass) Teaspoons() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Teaspoons() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("teaspoons"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -297,7 +297,7 @@ func (_UnitVolumeClass UnitVolumeClass) Teaspoons() UnitVolume {
 // The tablespoons unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/tablespoons
-func (_UnitVolumeClass UnitVolumeClass) Tablespoons() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Tablespoons() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("tablespoons"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -305,7 +305,7 @@ func (_UnitVolumeClass UnitVolumeClass) Tablespoons() UnitVolume {
 // The fluid ounces unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/fluidOunces
-func (_UnitVolumeClass UnitVolumeClass) FluidOunces() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) FluidOunces() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("fluidOunces"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -313,7 +313,7 @@ func (_UnitVolumeClass UnitVolumeClass) FluidOunces() UnitVolume {
 // The cups unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/cups
-func (_UnitVolumeClass UnitVolumeClass) Cups() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Cups() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("cups"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -321,7 +321,7 @@ func (_UnitVolumeClass UnitVolumeClass) Cups() UnitVolume {
 // The pints unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/pints
-func (_UnitVolumeClass UnitVolumeClass) Pints() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Pints() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("pints"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -329,7 +329,7 @@ func (_UnitVolumeClass UnitVolumeClass) Pints() UnitVolume {
 // The quarts unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/quarts
-func (_UnitVolumeClass UnitVolumeClass) Quarts() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Quarts() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("quarts"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -337,7 +337,7 @@ func (_UnitVolumeClass UnitVolumeClass) Quarts() UnitVolume {
 // The gallons unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/gallons
-func (_UnitVolumeClass UnitVolumeClass) Gallons() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) Gallons() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("gallons"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -345,7 +345,7 @@ func (_UnitVolumeClass UnitVolumeClass) Gallons() UnitVolume {
 // The imperial teaspoons unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/imperialTeaspoons
-func (_UnitVolumeClass UnitVolumeClass) ImperialTeaspoons() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) ImperialTeaspoons() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("imperialTeaspoons"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -353,7 +353,7 @@ func (_UnitVolumeClass UnitVolumeClass) ImperialTeaspoons() UnitVolume {
 // The imperial tablespoons unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/imperialTablespoons
-func (_UnitVolumeClass UnitVolumeClass) ImperialTablespoons() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) ImperialTablespoons() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("imperialTablespoons"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -361,7 +361,7 @@ func (_UnitVolumeClass UnitVolumeClass) ImperialTablespoons() UnitVolume {
 // The imperial fluid ounces unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/imperialFluidOunces
-func (_UnitVolumeClass UnitVolumeClass) ImperialFluidOunces() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) ImperialFluidOunces() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("imperialFluidOunces"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -369,7 +369,7 @@ func (_UnitVolumeClass UnitVolumeClass) ImperialFluidOunces() UnitVolume {
 // The imperial pints unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/imperialPints
-func (_UnitVolumeClass UnitVolumeClass) ImperialPints() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) ImperialPints() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("imperialPints"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -377,7 +377,7 @@ func (_UnitVolumeClass UnitVolumeClass) ImperialPints() UnitVolume {
 // The imperial quarts unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/imperialQuarts
-func (_UnitVolumeClass UnitVolumeClass) ImperialQuarts() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) ImperialQuarts() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("imperialQuarts"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -385,7 +385,7 @@ func (_UnitVolumeClass UnitVolumeClass) ImperialQuarts() UnitVolume {
 // The imperial gallons unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/imperialGallons
-func (_UnitVolumeClass UnitVolumeClass) ImperialGallons() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) ImperialGallons() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("imperialGallons"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }
@@ -393,7 +393,7 @@ func (_UnitVolumeClass UnitVolumeClass) ImperialGallons() UnitVolume {
 // The metric cups unit of volume.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitVolume/metricCups
-func (_UnitVolumeClass UnitVolumeClass) MetricCups() UnitVolume {
+func (_UnitVolumeClass UnitVolumeClass) MetricCups() NSUnitVolume {
 	rv := objc.Send[objc.ID](objc.ID(_UnitVolumeClass.class), objc.Sel("metricCups"))
 	return NSUnitVolumeFromID(objc.ID(rv))
 }

@@ -24,6 +24,9 @@ type GTMioShaderBinaryDataHandler = func(*GTMioShaderBinaryData)
 //   - [GTMioTraceDataProtocol.EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator]
 //   - [GTMioTraceDataProtocol.EnumerateBinariesForPipelineStateEnumerator]
 func NewGTMioShaderBinaryDataBlock(handler GTMioShaderBinaryDataHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *GTMioShaderBinaryData
 		if resultID != 0 {
@@ -50,6 +53,9 @@ type GTMioShaderBinaryDebugBinaryRangeHandler = func(*GTMioShaderBinaryData)
 //   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator]
 //   - [GTMioTraceDataProtocol.EnumerateBinaryRangesForCliqueUscDataEnumerator]
 func NewGTMioShaderBinaryDebugBinaryRangeBlock(handler GTMioShaderBinaryDebugBinaryRangeHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *GTMioShaderBinaryData
 		if resultID != 0 {
@@ -76,6 +82,9 @@ type GTMioShaderInstructionInfoHandler = func(*GTMioShaderBinaryData)
 //   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator]
 //   - [GTMioTraceDataProtocol.EnumerateInstructionsForCliqueUscDataEnumerator]
 func NewGTMioShaderInstructionInfoBlock(handler GTMioShaderInstructionInfoHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *GTMioShaderBinaryData
 		if resultID != 0 {
@@ -100,6 +109,9 @@ type GTMioUSCKickMetadataHandler = func(*GTMioUSCTraceData)
 // Used by:
 //   - [GTMioTraceDataProtocol.EnumerateKickAtFunctionIndexEnumerator]
 func NewGTMioUSCKickMetadataBlock(handler GTMioUSCKickMetadataHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *GTMioUSCTraceData
 		if resultID != 0 {
@@ -124,6 +136,9 @@ type GTMioUSCTraceDataHandler = func(*GTMioUSCTraceData)
 // Used by:
 //   - [GTMioTraceDataProtocol.EnumerateUniqueTracesForBinaryEnumerator]
 func NewGTMioUSCTraceDataBlock(handler GTMioUSCTraceDataHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *GTMioUSCTraceData
 		if resultID != 0 {
@@ -152,6 +167,9 @@ type UintHandler = func(uint)
 //   - [GTMioTraceDataProtocol.EnumerateDrawsForPipelineStateEnumerator]
 //   - [GTMioTraceDataProtocol.EnumerateEncoders]
 func NewUintBlock(handler UintHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal uint) {
 		handler(primitiveVal)
 	})
@@ -328,6 +346,9 @@ type VoidHandler = func()
 //   - [XRGPUAPSDataContainer.EnumerateUSCData]
 //   - [XRGPUAPSDataProcessor.EnumerateShaders]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -346,6 +367,9 @@ type unsignedlongHandler = func(uint64)
 // Used by:
 //   - [GTMioTraceDataProtocol.EnumeratePipelineStates]
 func NewunsignedlongBlock(handler unsignedlongHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal uint64) {
 		handler(primitiveVal)
 	})

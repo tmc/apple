@@ -309,7 +309,7 @@ func (h HTTPCookie) InitWithProperties(properties INSDictionary) HTTPCookie {
 // is created with a default path value of `"/"`.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/cookies(withResponseHeaderFields:for:)
-func (_HTTPCookieClass HTTPCookieClass) CookiesWithResponseHeaderFieldsForURL(headerFields INSDictionary, URL INSURL) []HTTPCookie {
+func (_HTTPCookieClass HTTPCookieClass) CookiesWithResponseHeaderFieldsForURL(headerFields INSDictionary, URL INSURL) []NSHTTPCookie {
 	rv := objc.Send[[]objc.ID](objc.ID(_HTTPCookieClass.class), objc.Sel("cookiesWithResponseHeaderFields:forURL:"), headerFields, URL)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSHTTPCookie {
 		return NSHTTPCookieFromID(id)
@@ -365,7 +365,7 @@ func (_HTTPCookieClass HTTPCookieClass) RequestHeaderFieldsWithCookies(cookies [
 // [originURL]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/originURL
 // [path]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/path
 // [value]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/value
-func (_HTTPCookieClass HTTPCookieClass) CookieWithProperties(properties INSDictionary) HTTPCookie {
+func (_HTTPCookieClass HTTPCookieClass) CookieWithProperties(properties INSDictionary) NSHTTPCookie {
 	rv := objc.Send[objc.ID](objc.ID(_HTTPCookieClass.class), objc.Sel("cookieWithProperties:"), properties)
 	return NSHTTPCookieFromID(rv)
 }
@@ -521,7 +521,7 @@ func (h HTTPCookie) Secure() bool {
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/sameSitePolicy
 func (h HTTPCookie) SameSitePolicy() NSHTTPCookieStringPolicy {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("sameSitePolicy"))
-	return HTTPCookieStringPolicy(NSStringFromID(rv).String())
+	return NSHTTPCookieStringPolicy(NSStringFromID(rv).String())
 }
 
 // The cookie’s properties.

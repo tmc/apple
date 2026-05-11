@@ -439,7 +439,7 @@ func (u URLCredentialStorage) NSURLCredentialStorageChanged() NSNotificationName
 // The shared URL credential storage instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredentialStorage/shared
-func (_URLCredentialStorageClass URLCredentialStorageClass) SharedCredentialStorage() URLCredentialStorage {
+func (_URLCredentialStorageClass URLCredentialStorageClass) SharedCredentialStorage() NSURLCredentialStorage {
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialStorageClass.class), objc.Sel("sharedCredentialStorage"))
 	return NSURLCredentialStorageFromID(objc.ID(rv))
 }

@@ -28,6 +28,9 @@ type ErrorHandler = func()
 //   - [CPXRemoteViewEventPendingConnection.InitWithConnectionHandler]
 //   - [CPXRemoteViewEventPendingConnection.SetHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -46,6 +49,9 @@ type NumberErrorHandler = func(*foundation.NSNumber, error)
 // Used by:
 //   - [CPXRemoteViewEventProtocolServerCallsClient.SendEventToHostFullDispatchReply]
 func NewNumberErrorBlock(handler NumberErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSNumber
 		if resultID != 0 {
@@ -70,6 +76,9 @@ type SLDataTimelineProcessHandler = func(*objectivec.Object)
 // Used by:
 //   - [SLDataTimelineSessionProcessCollection.ProcessesApplyBlock]
 func NewSLDataTimelineProcessBlock(handler SLDataTimelineProcessHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *objectivec.Object
 		if resultID != 0 {
@@ -94,6 +103,9 @@ type SLDataTimelineServerSnapshotHandler = func(*objectivec.Object)
 // Used by:
 //   - [SLDataTimelineSnapshotCollection.SnapshotsApplyBlock]
 func NewSLDataTimelineServerSnapshotBlock(handler SLDataTimelineServerSnapshotHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *objectivec.Object
 		if resultID != 0 {
@@ -118,6 +130,9 @@ type SLDataTimelineSessionHandler = func(*objectivec.Object)
 // Used by:
 //   - [SLDataTimelineServerSnapshot.SessionsApplyBlock]
 func NewSLDataTimelineSessionBlock(handler SLDataTimelineSessionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *objectivec.Object
 		if resultID != 0 {
@@ -268,6 +283,9 @@ type VoidHandler = func()
 //   - [SLScreenTelemetryConnection.InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLSharingSessionManager.SetDelegateBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

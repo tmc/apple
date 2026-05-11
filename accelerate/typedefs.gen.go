@@ -811,7 +811,7 @@ type Sparse_stride = int64
 // VBool32 is a 128-bit vector packed with `bool int` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vBool32
-type VBool32 = unsafe.Pointer
+type VBool32 = uint
 
 // VDSP_DFT_Interleaved_Setup is an opaque type that contains setup information for an interleaved single-precision discrete Fourier transform (DFT).
 //
@@ -866,15 +866,15 @@ type VDSP_biquadm_SetupD = uintptr
 // VDouble is a 128-bit vector packed with `double` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDouble
-type VDouble = unsafe.Pointer
+type VDouble = float64
 
 // VFloat is a 128-bit vector packed with `float` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vFloat
-type VFloat = unsafe.Pointer
+type VFloat = float32
 
 // See: https://developer.apple.com/documentation/Accelerate/vFloatPacked
-type VFloatPacked = unsafe.Pointer
+type VFloatPacked = float32
 
 // VImageBufferTypeCode is type codes, such as chrominance or luminance, for the contents of a vImage buffer.
 //
@@ -939,42 +939,42 @@ type VImage_WarpInterpolation = int32
 // VSInt16 is a 128-bit vector packed with `signed short` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vSInt16
-type VSInt16 = unsafe.Pointer
+type VSInt16 = int16
 
 // VSInt32 is a 128-bit vector packed with `signed int` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vSInt32
-type VSInt32 = unsafe.Pointer
+type VSInt32 = int
 
 // VSInt64 is a 128-bit vector packed with `int64_t` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vSInt64
-type VSInt64 = unsafe.Pointer
+type VSInt64 = int64
 
 // VSInt8 is a 128-bit vector packed with `signed char` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vSInt8
-type VSInt8 = unsafe.Pointer
+type VSInt8 = int8
 
 // VUInt16 is a 128-bit vector packed with `unsigned short` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vUInt16
-type VUInt16 = unsafe.Pointer
+type VUInt16 = uint16
 
 // VUInt32 is a 128-bit vector packed with `unsigned int` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vUInt32
-type VUInt32 = unsafe.Pointer
+type VUInt32 = uint
 
 // VUInt64 is a 128-bit vector packed with `uint64_t` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vUInt64
-type VUInt64 = unsafe.Pointer
+type VUInt64 = uint64
 
 // VUInt8 is a 128-bit vector packed with `unsigned char` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vUInt8
-type VUInt8 = unsafe.Pointer
+type VUInt8 = uint8
 
 // BNNSArithmeticFunction aliases the generated arithmetic-function enum.
 

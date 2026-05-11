@@ -268,8 +268,8 @@ func (c VNCoreMLRequest) InitWithModel(model IVNCoreMLModel) VNCoreMLRequest {
 // [Core ML]: https://developer.apple.com/documentation/CoreML
 func (c VNCoreMLRequest) InitWithModelCompletionHandler(model IVNCoreMLModel, completionHandler ErrorHandler) VNCoreMLRequest {
 	_block1, _ := NewErrorBlock(completionHandler)
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithModel:completionHandler:"), model, _block1)
-	return VNCoreMLRequestFromID(rv)
+	rv := objc.Send[VNCoreMLRequest](c.ID, objc.Sel("initWithModel:completionHandler:"), model, _block1)
+	return rv
 }
 
 // The model to base the image analysis request on.

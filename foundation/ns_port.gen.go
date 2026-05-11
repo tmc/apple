@@ -354,7 +354,7 @@ func (p Port) InitWithCoder(coder INSCoder) Port {
 // A new [NSPort] object capable of both sending and receiving messages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPort/port
-func (_PortClass PortClass) Port() Port {
+func (_PortClass PortClass) Port() NSPort {
 	rv := objc.Send[objc.ID](objc.ID(_PortClass.class), objc.Sel("port"))
 	return NSPortFromID(rv)
 }

@@ -1145,21 +1145,21 @@ func Class_respondsToSelector(cls objc.Class, sel SEL) bool {
 	return result
 }
 
-var _class_setIvarLayout func(cls objc.Class, layout *uint8)
+var _class_setIvarLayout func(cls objc.Class, layout *byte)
 var _class_setIvarLayoutErr error
 
-func tryClass_setIvarLayout(cls objc.Class, layout *uint8) error {
+func tryClass_setIvarLayout(cls objc.Class, layout []byte) error {
 	if _class_setIvarLayout == nil {
 		return symbolCallError("class_setIvarLayout", "10.5", _class_setIvarLayoutErr)
 	}
-	_class_setIvarLayout(cls, layout)
+	_class_setIvarLayout(cls, unsafe.SliceData(layout))
 	return nil
 }
 
 // Class_setIvarLayout sets the [Ivar] layout for a given class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_setIvarLayout(_:_:)
-func Class_setIvarLayout(cls objc.Class, layout *uint8) {
+func Class_setIvarLayout(cls objc.Class, layout []byte) {
 	if callErr := tryClass_setIvarLayout(cls, layout); callErr != nil {
 		panic(callErr)
 	}
@@ -1185,21 +1185,21 @@ func Class_setVersion(cls objc.Class, version int) {
 	}
 }
 
-var _class_setWeakIvarLayout func(cls objc.Class, layout *uint8)
+var _class_setWeakIvarLayout func(cls objc.Class, layout *byte)
 var _class_setWeakIvarLayoutErr error
 
-func tryClass_setWeakIvarLayout(cls objc.Class, layout *uint8) error {
+func tryClass_setWeakIvarLayout(cls objc.Class, layout []byte) error {
 	if _class_setWeakIvarLayout == nil {
 		return symbolCallError("class_setWeakIvarLayout", "10.5", _class_setWeakIvarLayoutErr)
 	}
-	_class_setWeakIvarLayout(cls, layout)
+	_class_setWeakIvarLayout(cls, unsafe.SliceData(layout))
 	return nil
 }
 
 // Class_setWeakIvarLayout sets the layout for weak [Ivar]s for a given class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_setWeakIvarLayout(_:_:)
-func Class_setWeakIvarLayout(cls objc.Class, layout *uint8) {
+func Class_setWeakIvarLayout(cls objc.Class, layout []byte) {
 	if callErr := tryClass_setWeakIvarLayout(cls, layout); callErr != nil {
 		panic(callErr)
 	}

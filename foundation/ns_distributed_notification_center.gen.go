@@ -297,7 +297,7 @@ func (d DistributedNotificationCenter) PostNotificationNameObjectUserInfoOptions
 // Currently only one type, [NSLocalNotificationCenterType], is supported.
 //
 // See: https://developer.apple.com/documentation/Foundation/DistributedNotificationCenter/forType(_:)
-func (_DistributedNotificationCenterClass DistributedNotificationCenterClass) NotificationCenterForType(notificationCenterType NSDistributedNotificationCenterType) DistributedNotificationCenter {
+func (_DistributedNotificationCenterClass DistributedNotificationCenterClass) NotificationCenterForType(notificationCenterType NSDistributedNotificationCenterType) NSDistributedNotificationCenter {
 	rv := objc.Send[objc.ID](objc.ID(_DistributedNotificationCenterClass.class), objc.Sel("notificationCenterForType:"), objc.String(string(notificationCenterType)))
 	return NSDistributedNotificationCenterFromID(rv)
 }

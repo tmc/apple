@@ -1205,7 +1205,7 @@ func (f FileHandle) NSFileHandleNotificationMonitorModes() string {
 // its associated file descriptor and is responsible for closing it.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/standardError
-func (_FileHandleClass FileHandleClass) FileHandleWithStandardError() FileHandle {
+func (_FileHandleClass FileHandleClass) FileHandleWithStandardError() NSFileHandle {
 	rv := objc.Send[objc.ID](objc.ID(_FileHandleClass.class), objc.Sel("fileHandleWithStandardError"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
@@ -1226,7 +1226,7 @@ func (_FileHandleClass FileHandleClass) FileHandleWithStandardError() FileHandle
 // its associated file descriptor and is responsible for closing it.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/standardInput
-func (_FileHandleClass FileHandleClass) FileHandleWithStandardInput() FileHandle {
+func (_FileHandleClass FileHandleClass) FileHandleWithStandardInput() NSFileHandle {
 	rv := objc.Send[objc.ID](objc.ID(_FileHandleClass.class), objc.Sel("fileHandleWithStandardInput"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
@@ -1247,7 +1247,7 @@ func (_FileHandleClass FileHandleClass) FileHandleWithStandardInput() FileHandle
 // its associated file descriptor and is responsible for closing it.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/standardOutput
-func (_FileHandleClass FileHandleClass) FileHandleWithStandardOutput() FileHandle {
+func (_FileHandleClass FileHandleClass) FileHandleWithStandardOutput() NSFileHandle {
 	rv := objc.Send[objc.ID](objc.ID(_FileHandleClass.class), objc.Sel("fileHandleWithStandardOutput"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
@@ -1272,7 +1272,7 @@ func (_FileHandleClass FileHandleClass) FileHandleWithStandardOutput() FileHandl
 // its associated file descriptor and is responsible for closing it.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/nullDevice
-func (_FileHandleClass FileHandleClass) FileHandleWithNullDevice() FileHandle {
+func (_FileHandleClass FileHandleClass) FileHandleWithNullDevice() NSFileHandle {
 	rv := objc.Send[objc.ID](objc.ID(_FileHandleClass.class), objc.Sel("fileHandleWithNullDevice"))
 	return NSFileHandleFromID(objc.ID(rv))
 }

@@ -243,8 +243,8 @@ type INSTask interface {
 	ExecutableURL() INSURL
 	SetExecutableURL(value INSURL)
 	// The default quality of service level the system applies to operations the task executes.
-	QualityOfService() QualityOfService
-	SetQualityOfService(value QualityOfService)
+	QualityOfService() NSQualityOfService
+	SetQualityOfService(value NSQualityOfService)
 	// The standard error for the receiver.
 	StandardError() objectivec.IObject
 	SetStandardError(value objectivec.IObject)
@@ -548,11 +548,11 @@ func (t NSTask) SetExecutableURL(value INSURL) {
 // task executes.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/qualityOfService
-func (t NSTask) QualityOfService() QualityOfService {
-	rv := objc.Send[QualityOfService](t.ID, objc.Sel("qualityOfService"))
-	return QualityOfService(rv)
+func (t NSTask) QualityOfService() NSQualityOfService {
+	rv := objc.Send[NSQualityOfService](t.ID, objc.Sel("qualityOfService"))
+	return NSQualityOfService(rv)
 }
-func (t NSTask) SetQualityOfService(value QualityOfService) {
+func (t NSTask) SetQualityOfService(value NSQualityOfService) {
 	objc.Send[struct{}](t.ID, objc.Sel("setQualityOfService:"), value)
 }
 

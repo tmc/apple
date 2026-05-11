@@ -26,6 +26,9 @@ type BoolHandler = func(bool)
 //   - [WKNavigationDelegate.WebViewShouldGoToBackForwardListItemWillUseInstantBackCompletionHandler]
 //   - [WKUIDelegate.WebViewRunJavaScriptConfirmPanelWithMessageInitiatedByFrameCompletionHandler]
 func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool) {
 		handler(primitiveVal)
 	})
@@ -54,6 +57,9 @@ type DataErrorHandler = func(*foundation.NSData, error)
 //   - [WKWebView.FetchDataOfTypesCompletionHandler]
 //   - [WKWebsiteDataStore.FetchDataOfTypesCompletionHandler]
 func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSData
 		if resultID != 0 {
@@ -78,6 +84,9 @@ type DataHandler = func(*foundation.NSData)
 // Used by:
 //   - [WKDownload.Cancel]
 func NewDataBlock(handler DataHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *foundation.NSData
 		if resultID != 0 {
@@ -153,6 +162,9 @@ type ErrorHandler = func(error)
 //   - [WKWebsiteDataStore.RemoveDataStoreForIdentifierCompletionHandler]
 //   - [WKWebsiteDataStore.RestoreDataCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -177,6 +189,9 @@ type ImageErrorHandler = func(*appkit.NSImage, error)
 //   - [WKWebExtensionTab.TakeSnapshotUsingConfigurationForWebExtensionContextCompletionHandler]
 //   - [WKWebView.TakeSnapshotWithConfigurationCompletionHandler]
 func NewImageErrorBlock(handler ImageErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *appkit.NSImage
 		if resultID != 0 {
@@ -202,6 +217,9 @@ type LocaleErrorHandler = func(*foundation.NSLocale, error)
 // Used by:
 //   - [WKWebExtensionTab.DetectWebpageLocaleForWebExtensionContextCompletionHandler]
 func NewLocaleErrorBlock(handler LocaleErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSLocale
 		if resultID != 0 {
@@ -251,6 +269,9 @@ type ObjectErrorHandler = func(objectivec.IObject, error)
 //   - [WKWebExtensionControllerDelegate.WebExtensionControllerSendMessageToApplicationWithIdentifierForExtensionContextReplyHandler]
 //   - [WKWebView.EvaluateJavaScriptCompletionHandler]
 func NewObjectErrorBlock(handler ObjectErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, valID objc.ID, errID objc.ID) {
 		var val objectivec.IObject
 		if valID != 0 {
@@ -291,6 +312,9 @@ type UIContextMenuConfigurationHandler = func(*objectivec.Object)
 // Used by:
 //   - [WKUIDelegate.WebViewContextMenuConfigurationForElementCompletionHandler]
 func NewUIContextMenuConfigurationBlock(handler UIContextMenuConfigurationHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *objectivec.Object
 		if resultID != 0 {
@@ -319,6 +343,9 @@ type URLCredentialHandler = func(*foundation.NSURLCredential)
 //   - [WKDownloadDelegate.DownloadDidReceiveAuthenticationChallengeCompletionHandler]
 //   - [WKNavigationDelegate.WebViewDidReceiveAuthenticationChallengeCompletionHandler]
 func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *foundation.NSURLCredential
 		if resultID != 0 {
@@ -345,6 +372,9 @@ type URLHandler = func(*foundation.NSURL)
 //   - [WKDownloadDelegate.DownloadDecideDestinationUsingResponseSuggestedFilenameCompletionHandler]
 //   - [WKDownloadDelegate.DownloadDecidePlaceholderPolicy]
 func NewURLBlock(handler URLHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *foundation.NSURL
 		if resultID != 0 {
@@ -404,6 +434,9 @@ type VoidHandler = func()
 //   - [WKWebsiteDataStore.RemoveDataOfTypesForDataRecordsCompletionHandler]
 //   - [WKWebsiteDataStore.RemoveDataOfTypesModifiedSinceCompletionHandler]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -428,6 +461,9 @@ type WKContentRuleListErrorHandler = func(*WKContentRuleList, error)
 //   - [WKContentRuleListStore.CompileContentRuleListForIdentifierEncodedContentRuleListCompletionHandler]
 //   - [WKContentRuleListStore.LookUpContentRuleListForIdentifierCompletionHandler]
 func NewWKContentRuleListErrorBlock(handler WKContentRuleListErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *WKContentRuleList
 		if resultID != 0 {
@@ -453,6 +489,9 @@ type WKCookiePolicyHandler = func(int)
 // Used by:
 //   - [WKHTTPCookieStore.GetCookiePolicy]
 func NewWKCookiePolicyBlock(handler WKCookiePolicyHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -472,6 +511,9 @@ type WKDialogResultHandler = func(int)
 // Used by:
 //   - [WKUIDelegate.WebViewShowLockdownModeFirstUseMessageCompletionHandler]
 func NewWKDialogResultBlock(handler WKDialogResultHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -492,6 +534,9 @@ type WKDownloadHandler = func(*WKDownload)
 //   - [WKWebView.ResumeDownloadFromResumeDataCompletionHandler]
 //   - [WKWebView.StartDownloadUsingRequestCompletionHandler]
 func NewWKDownloadBlock(handler WKDownloadHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *WKDownload
 		if resultID != 0 {
@@ -516,6 +561,9 @@ type WKDownloadRedirectPolicyHandler = func(int)
 // Used by:
 //   - [WKDownloadDelegate.DownloadWillPerformHTTPRedirectionNewRequestDecisionHandler]
 func NewWKDownloadRedirectPolicyBlock(handler WKDownloadRedirectPolicyHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -535,6 +583,9 @@ type WKFindResultHandler = func(*WKFindResult)
 // Used by:
 //   - [WKWebView.FindStringWithConfigurationCompletionHandler]
 func NewWKFindResultBlock(handler WKFindResultHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *WKFindResult
 		if resultID != 0 {
@@ -559,6 +610,9 @@ type WKMediaPlaybackStateHandler = func(int)
 // Used by:
 //   - [WKWebView.RequestMediaPlaybackStateWithCompletionHandler]
 func NewWKMediaPlaybackStateBlock(handler WKMediaPlaybackStateHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -578,6 +632,9 @@ type WKNavigationActionPolicyHandler = func(int)
 // Used by:
 //   - [WKNavigationDelegate.WebViewDecidePolicyForNavigationActionDecisionHandler]
 func NewWKNavigationActionPolicyBlock(handler WKNavigationActionPolicyHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -597,6 +654,9 @@ type WKNavigationResponsePolicyHandler = func(int)
 // Used by:
 //   - [WKNavigationDelegate.WebViewDecidePolicyForNavigationResponseDecisionHandler]
 func NewWKNavigationResponsePolicyBlock(handler WKNavigationResponsePolicyHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -617,6 +677,9 @@ type WKPermissionDecisionHandler = func(int)
 //   - [WKUIDelegate.WebViewRequestDeviceOrientationAndMotionPermissionForOriginInitiatedByFrameDecisionHandler]
 //   - [WKUIDelegate.WebViewRequestMediaCapturePermissionForOriginInitiatedByFrameTypeDecisionHandler]
 func NewWKPermissionDecisionBlock(handler WKPermissionDecisionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int) {
 		handler(primitiveVal)
 	})
@@ -641,6 +704,9 @@ type WKWebExtensionDataRecordHandler = func(*WKWebExtensionDataRecord)
 // Used by:
 //   - [WKWebExtensionController.FetchDataRecordOfTypesForExtensionContextCompletionHandler]
 func NewWKWebExtensionDataRecordBlock(handler WKWebExtensionDataRecordHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *WKWebExtensionDataRecord
 		if resultID != 0 {
@@ -668,6 +734,9 @@ type WKWebExtensionErrorHandler = func(*WKWebExtension, error)
 //   - [WKWebExtension.ExtensionWithAppExtensionBundleCompletionHandler]
 //   - [WKWebExtension.ExtensionWithResourceBaseURLCompletionHandler]
 func NewWKWebExtensionErrorBlock(handler WKWebExtensionErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *WKWebExtension
 		if resultID != 0 {
@@ -701,6 +770,9 @@ type WKWebExtensionTabErrorHandler = func(WKWebExtensionTab, error)
 //   - [WKWebExtensionControllerDelegate.WebExtensionControllerOpenNewTabUsingConfigurationForExtensionContextCompletionHandler]
 //   - [WKWebExtensionTab.DuplicateUsingConfigurationForWebExtensionContextCompletionHandler]
 func NewWKWebExtensionTabErrorBlock(handler WKWebExtensionTabErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result WKWebExtensionTab
 		if resultID != 0 {
@@ -725,6 +797,9 @@ type WKWebExtensionWindowErrorHandler = func(WKWebExtensionWindow, error)
 // Used by:
 //   - [WKWebExtensionControllerDelegate.WebExtensionControllerOpenNewWindowUsingConfigurationForExtensionContextCompletionHandler]
 func NewWKWebExtensionWindowErrorBlock(handler WKWebExtensionWindowErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result WKWebExtensionWindow
 		if resultID != 0 {
@@ -750,6 +825,9 @@ type WKWebpagePreferencesHandler = func(*WKWebpagePreferences)
 // Used by:
 //   - [WKNavigationDelegate.WebViewDecidePolicyForNavigationActionPreferencesDecisionHandler]
 func NewWKWebpagePreferencesBlock(handler WKWebpagePreferencesHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *WKWebpagePreferences
 		if resultID != 0 {

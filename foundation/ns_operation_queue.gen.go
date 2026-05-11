@@ -230,8 +230,8 @@ type IOperationQueue interface {
 	// Topic: Managing the Execution of Operations
 
 	// The default service level to apply to operations that the queue invokes.
-	QualityOfService() QualityOfService
-	SetQualityOfService(value QualityOfService)
+	QualityOfService() NSQualityOfService
+	SetQualityOfService(value NSQualityOfService)
 	// The maximum number of queued operations that can run at the same time.
 	MaxConcurrentOperationCount() int
 	SetMaxConcurrentOperationCount(value int)
@@ -464,11 +464,11 @@ func (o OperationQueue) OperationCount() uint {
 // work.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/qualityOfService
-func (o OperationQueue) QualityOfService() QualityOfService {
-	rv := objc.Send[QualityOfService](o.ID, objc.Sel("qualityOfService"))
-	return QualityOfService(rv)
+func (o OperationQueue) QualityOfService() NSQualityOfService {
+	rv := objc.Send[NSQualityOfService](o.ID, objc.Sel("qualityOfService"))
+	return NSQualityOfService(rv)
 }
-func (o OperationQueue) SetQualityOfService(value QualityOfService) {
+func (o OperationQueue) SetQualityOfService(value NSQualityOfService) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQualityOfService:"), value)
 }
 
@@ -653,7 +653,7 @@ func (o OperationQueue) SetQueuePriority(value NSOperationQueuePriority) {
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/main
 //
 // [common]: https://developer.apple.com/documentation/Foundation/RunLoop/Mode/common
-func (_OperationQueueClass OperationQueueClass) MainQueue() OperationQueue {
+func (_OperationQueueClass OperationQueueClass) MainQueue() NSOperationQueue {
 	rv := objc.Send[objc.ID](objc.ID(_OperationQueueClass.class), objc.Sel("mainQueue"))
 	return NSOperationQueueFromID(objc.ID(rv))
 }
@@ -673,7 +673,7 @@ func (_OperationQueueClass OperationQueueClass) MainQueue() OperationQueue {
 // returned.
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/current
-func (_OperationQueueClass OperationQueueClass) CurrentQueue() OperationQueue {
+func (_OperationQueueClass OperationQueueClass) CurrentQueue() NSOperationQueue {
 	rv := objc.Send[objc.ID](objc.ID(_OperationQueueClass.class), objc.Sel("currentQueue"))
 	return NSOperationQueueFromID(objc.ID(rv))
 }

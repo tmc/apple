@@ -244,7 +244,11 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) VerticalGroupW
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/custom(layoutSize:itemProvider:)
 func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) CustomGroupWithLayoutSizeItemProvider(layoutSize INSCollectionLayoutSize, itemProvider NSCollectionLayoutGroupCustomItemProvider) NSCollectionLayoutGroup {
-	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("customGroupWithLayoutSize:itemProvider:"), layoutSize, itemProvider)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) []NSCollectionLayoutGroupCustomItem {
+		return itemProvider(NSCollectionLayoutEnvironmentObjectFromID(arg0))
+	})
+	defer _block1.Release()
+	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("customGroupWithLayoutSize:itemProvider:"), layoutSize, objc.ID(_block1))
 	return NSCollectionLayoutGroupFromID(rv)
 }
 

@@ -1531,7 +1531,7 @@ func (d NSDocument) FileWrapperOfTypeError(typeName string) (foundation.NSFileWr
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileWrapperOfType:error:"), objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return foundation.NSFileWrapper{}, foundation.NSErrorFrom(errorPtr)
+		return *new(foundation.NSFileWrapper), foundation.NSErrorFrom(errorPtr)
 	}
 	return foundation.NSFileWrapperFromID(rv), nil
 

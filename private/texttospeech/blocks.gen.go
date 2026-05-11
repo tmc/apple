@@ -85,6 +85,9 @@ type ErrorHandler = func(error)
 //   - [TextToSpeechVoiceResolver.VoiceForLocaleCompletionHandler]
 //   - [TextToSpeechVoiceResolver.VoiceForLocaleIdentifierCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -161,6 +164,9 @@ type VoidHandler = func()
 //   - [TTSStreamingZipReader.EnumerateFiles]
 //   - [TTSVoiceResourceManager.EnumerateLoadableResourcesInAssetUsingBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

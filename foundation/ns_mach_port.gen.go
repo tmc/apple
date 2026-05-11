@@ -259,7 +259,7 @@ func (m NSMachPort) InitWithMachPortOptions(machPort uint32, f NSMachPortOptions
 // sending messages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMachPort/port(withMachPort:)
-func (_NSMachPortClass NSMachPortClass) PortWithMachPort(machPort uint32) Port {
+func (_NSMachPortClass NSMachPortClass) PortWithMachPort(machPort uint32) NSPort {
 	rv := objc.Send[objc.ID](objc.ID(_NSMachPortClass.class), objc.Sel("portWithMachPort:"), machPort)
 	return NSPortFromID(rv)
 }
@@ -285,7 +285,7 @@ func (_NSMachPortClass NSMachPortClass) PortWithMachPort(machPort uint32) Port {
 // sending messages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMachPort/port(withMachPort:options:)
-func (_NSMachPortClass NSMachPortClass) PortWithMachPortOptions(machPort uint32, f NSMachPortOptions) Port {
+func (_NSMachPortClass NSMachPortClass) PortWithMachPortOptions(machPort uint32, f NSMachPortOptions) NSPort {
 	rv := objc.Send[objc.ID](objc.ID(_NSMachPortClass.class), objc.Sel("portWithMachPort:options:"), machPort, f)
 	return NSPortFromID(rv)
 }

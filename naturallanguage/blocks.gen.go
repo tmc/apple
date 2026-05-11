@@ -20,6 +20,9 @@ type NLContextualEmbeddingAssetsResultErrorHandler = func(NLContextualEmbeddingA
 // Used by:
 //   - [NLContextualEmbedding.RequestEmbeddingAssetsWithCompletionHandler]
 func NewNLContextualEmbeddingAssetsResultErrorBlock(handler NLContextualEmbeddingAssetsResultErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NLContextualEmbeddingAssetsResult, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -48,6 +51,9 @@ type NLTaggerAssetsResultErrorHandler = func(NLTaggerAssetsResult, error)
 // Used by:
 //   - [NLTagger.RequestAssetsForLanguageTagSchemeCompletionHandler]
 func NewNLTaggerAssetsResultErrorBlock(handler NLTaggerAssetsResultErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NLTaggerAssetsResult, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -73,6 +79,9 @@ type RangeHandler = func(foundation.NSRange)
 //   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
 //   - [NLTokenizer.EnumerateTokensInRangeUsingBlock]
 func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal foundation.NSRange) {
 		handler(primitiveVal)
 	})

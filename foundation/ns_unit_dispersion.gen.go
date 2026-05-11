@@ -151,7 +151,7 @@ func NewUnitDispersionWithSymbolConverter(symbol string, converter INSUnitConver
 // The parts per million unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDispersion/partsPerMillion
-func (_UnitDispersionClass UnitDispersionClass) PartsPerMillion() UnitDispersion {
+func (_UnitDispersionClass UnitDispersionClass) PartsPerMillion() NSUnitDispersion {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDispersionClass.class), objc.Sel("partsPerMillion"))
 	return NSUnitDispersionFromID(objc.ID(rv))
 }

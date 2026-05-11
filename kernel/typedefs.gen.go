@@ -1429,6 +1429,12 @@ type FWAddressPtr = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/fwclientcommandid
 type FWClientCommandID = unsafe.Pointer
 
+// See: https://developer.apple.com/documentation/kernel/fwisochchannelforcestopnotificationproc
+type FWIsochChannelForceStopNotificationProc = unsafe.Pointer
+
+// See: https://developer.apple.com/documentation/kernel/fwisochchannelforcestopnotificationprocptr
+type FWIsochChannelForceStopNotificationProcPtr = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/fwmultiisochreceivelistenerparams
 type FWMultiIsochReceiveListenerParams = unsafe.Pointer
 
@@ -2902,7 +2908,7 @@ type OSArrayPtr = OSArray
 type OSAsyncReference64 = Io_user_reference_t
 
 // See: https://developer.apple.com/documentation/kernel/osasyncreference
-type OSAsyncReference = unsafe.Pointer
+type OSAsyncReference = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/osbooleanptr
 type OSBooleanPtr = OSBoolean
@@ -4922,7 +4928,7 @@ type Io_addr_t = uint16
 type Io_async_ref64_t = Io_user_reference_t
 
 // See: https://developer.apple.com/documentation/kernel/io_async_ref_t
-type Io_async_ref_t = unsafe.Pointer
+type Io_async_ref_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/io_buf_ptr_t
 type Io_buf_ptr_t = int8
@@ -5261,7 +5267,7 @@ type Ledger_amount_t = int64
 type Ledger_array_t = Ledger_t
 
 // See: https://developer.apple.com/documentation/kernel/ledger_item_t
-type Ledger_item_t = unsafe.Pointer
+type Ledger_item_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/ledger_port_array_t
 type Ledger_port_array_t = Ledger_array_t
@@ -5441,7 +5447,7 @@ type Mach_msg_seqno_trailer_t = unsafe.Pointer
 type Mach_msg_size_t = uint32
 
 // See: https://developer.apple.com/documentation/kernel/mach_msg_timeout_t
-type Mach_msg_timeout_t = unsafe.Pointer
+type Mach_msg_timeout_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_msg_trailer_info_t
 type Mach_msg_trailer_info_t = int8
@@ -5462,10 +5468,10 @@ type Mach_msg_type_descriptor_t = unsafe.Pointer
 type Mach_msg_type_name_t = uint32
 
 // See: https://developer.apple.com/documentation/kernel/mach_msg_type_number_t
-type Mach_msg_type_number_t = unsafe.Pointer
+type Mach_msg_type_number_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_msg_type_size_t
-type Mach_msg_type_size_t = unsafe.Pointer
+type Mach_msg_type_size_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_no_senders_notification_t
 type Mach_no_senders_notification_t = unsafe.Pointer
@@ -5501,16 +5507,16 @@ type Mach_port_info_t = Integer_t
 type Mach_port_limits_t = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_mscount_t
-type Mach_port_mscount_t = unsafe.Pointer
+type Mach_port_mscount_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_msgcount_t
-type Mach_port_msgcount_t = unsafe.Pointer
+type Mach_port_msgcount_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_name_array_t
 type Mach_port_name_array_t = Mach_port_name_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_name_t
-type Mach_port_name_t = unsafe.Pointer
+type Mach_port_name_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_options_ptr_t
 type Mach_port_options_ptr_t = Mach_port_options_t
@@ -5522,13 +5528,13 @@ type Mach_port_options_t = unsafe.Pointer
 type Mach_port_qos_t = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_right_t
-type Mach_port_right_t = unsafe.Pointer
+type Mach_port_right_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_rights_t
-type Mach_port_rights_t = unsafe.Pointer
+type Mach_port_rights_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_seqno_t
-type Mach_port_seqno_t = unsafe.Pointer
+type Mach_port_seqno_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_srights_t
 type Mach_port_srights_t = uint
@@ -5543,10 +5549,10 @@ type Mach_port_t = uint32
 type Mach_port_type_array_t = Mach_port_type_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_type_t
-type Mach_port_type_t = unsafe.Pointer
+type Mach_port_type_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_port_urefs_t
-type Mach_port_urefs_t = unsafe.Pointer
+type Mach_port_urefs_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/mach_send_once_notification_t
 type Mach_send_once_notification_t = unsafe.Pointer
@@ -5817,7 +5823,7 @@ type Memory_object_behave_info_data_t = unsafe.Pointer
 type Memory_object_behave_info_t = uintptr
 
 // See: https://developer.apple.com/documentation/kernel/memory_object_cluster_size_t
-type Memory_object_cluster_size_t = unsafe.Pointer
+type Memory_object_cluster_size_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/memory_object_control_t
 type Memory_object_control_t = uint32
@@ -5829,7 +5835,7 @@ type Memory_object_copy_strategy_t = int
 type Memory_object_default_t = uint32
 
 // See: https://developer.apple.com/documentation/kernel/memory_object_fault_info_t
-type Memory_object_fault_info_t = unsafe.Pointer
+type Memory_object_fault_info_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/memory_object_flavor_t
 type Memory_object_flavor_t = int
@@ -6922,7 +6928,7 @@ type Task_flags_info_data_t = unsafe.Pointer
 type Task_flags_info_t = uintptr
 
 // See: https://developer.apple.com/documentation/kernel/task_flavor_t
-type Task_flavor_t = unsafe.Pointer
+type Task_flavor_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/task_gate_t
 type Task_gate_t = unsafe.Pointer
@@ -6943,7 +6949,7 @@ type Task_inspect_basic_counts_data_t = unsafe.Pointer
 type Task_inspect_basic_counts_t = uintptr
 
 // See: https://developer.apple.com/documentation/kernel/task_inspect_flavor_t
-type Task_inspect_flavor_t = unsafe.Pointer
+type Task_inspect_flavor_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/task_inspect_info_t
 type Task_inspect_info_t = Integer_t
@@ -6964,7 +6970,7 @@ type Task_latency_qos_t = Integer_t
 type Task_name_t = uintptr
 
 // See: https://developer.apple.com/documentation/kernel/task_policy_flavor_t
-type Task_policy_flavor_t = unsafe.Pointer
+type Task_policy_flavor_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/task_policy_get_t
 type Task_policy_get_t = uintptr
@@ -7135,7 +7141,7 @@ type Thread_extended_policy_data_t = unsafe.Pointer
 type Thread_extended_policy_t = uintptr
 
 // See: https://developer.apple.com/documentation/kernel/thread_flavor_t
-type Thread_flavor_t = unsafe.Pointer
+type Thread_flavor_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/thread_identifier_info_data_t
 type Thread_identifier_info_data_t = unsafe.Pointer
@@ -7162,7 +7168,7 @@ type Thread_latency_qos_policy_t = uintptr
 type Thread_latency_qos_t = Integer_t
 
 // See: https://developer.apple.com/documentation/kernel/thread_policy_flavor_t
-type Thread_policy_flavor_t = unsafe.Pointer
+type Thread_policy_flavor_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/thread_policy_t
 type Thread_policy_t = Integer_t
@@ -7192,7 +7198,7 @@ type Thread_standard_policy_data_t = unsafe.Pointer
 type Thread_standard_policy_t = uintptr
 
 // See: https://developer.apple.com/documentation/kernel/thread_state_data_t
-type Thread_state_data_t = unsafe.Pointer
+type Thread_state_data_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/thread_state_flavor_array_t
 type Thread_state_flavor_array_t = Thread_state_flavor_t
@@ -7201,7 +7207,7 @@ type Thread_state_flavor_array_t = Thread_state_flavor_t
 type Thread_state_flavor_t = int
 
 // See: https://developer.apple.com/documentation/kernel/thread_state_t
-type Thread_state_t = unsafe.Pointer
+type Thread_state_t = Natural_t
 
 // See: https://developer.apple.com/documentation/kernel/thread_t
 type Thread_t = uintptr
@@ -7548,7 +7554,7 @@ type VDSP_uint24 = unsafe.Pointer
 // VDouble is a 128-bit vector packed with `double` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDouble
-type VDouble = unsafe.Pointer
+type VDouble = float64
 
 // See: https://developer.apple.com/documentation/kernel/va_list
 type Va_list = unsafe.Pointer
@@ -7557,13 +7563,13 @@ type Va_list = unsafe.Pointer
 type Vc_progress_user_options = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/vector_int2
-type Vector_int2 = int
+type Vector_int2 = int32
 
 // See: https://developer.apple.com/documentation/kernel/vector_int4
-type Vector_int4 = int
+type Vector_int4 = int32
 
 // See: https://developer.apple.com/documentation/kernel/vector_int8
-type Vector_int8 = int
+type Vector_int8 = int32
 
 // See: https://developer.apple.com/documentation/kernel/vector_uchar16
 type Vector_uchar16 = uint8

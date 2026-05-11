@@ -172,8 +172,8 @@ func (c AVCaptureSystemExposureBiasSlider) InitWithDevice(device IAVCaptureDevic
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemExposureBiasSlider/init(device:action:)
 func (c AVCaptureSystemExposureBiasSlider) InitWithDeviceAction(device IAVCaptureDevice, action Float32Handler) AVCaptureSystemExposureBiasSlider {
 	_block1, _ := NewFloat32Block(action)
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithDevice:action:"), device, _block1)
-	return AVCaptureSystemExposureBiasSliderFromID(rv)
+	rv := objc.Send[AVCaptureSystemExposureBiasSlider](c.ID, objc.Sel("initWithDevice:action:"), device, _block1)
+	return rv
 }
 
 // The capture format in use by the device.

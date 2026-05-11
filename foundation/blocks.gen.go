@@ -32,6 +32,9 @@ type BoolHandler = func(bool)
 //   - [NSExtensionContext.OpenURLCompletionHandler]
 //   - [NSProcessInfo.PerformExpiringActivityWithReasonUsingBlock]
 func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool) {
 		handler(primitiveVal)
 	})
@@ -52,6 +55,9 @@ type CachedURLResponseHandler = func(*NSCachedURLResponse)
 //   - [NSURLCache.GetCachedResponseForDataTaskCompletionHandler]
 //   - [NSURLSessionDataDelegate.URLSessionDataTaskWillCacheResponseCompletionHandler]
 func NewCachedURLResponseBlock(handler CachedURLResponseHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSCachedURLResponse
 		if resultID != 0 {
@@ -93,6 +99,9 @@ type DataErrorHandler = func(*NSData, error)
 //   - [NSURLSessionStreamTask.ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler]
 //   - [NSUserActivity.LoadDataWithTypeIdentifierForItemProviderCompletionHandler]
 func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSData
 		if resultID != 0 {
@@ -119,6 +128,9 @@ type DataHandler = func(*NSData)
 //   - [NSURLSessionDownloadTask.CancelByProducingResumeData]
 //   - [NSURLSessionUploadTask.CancelByProducingResumeData]
 func NewDataBlock(handler DataHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSData
 		if resultID != 0 {
@@ -152,6 +164,9 @@ type DataURLResponseErrorHandler = func(*NSData, *NSURLResponse, error)
 //   - [NSURLSession.UploadTaskWithRequestFromFileCompletionHandler]
 //   - [NSURLSession.UploadTaskWithResumeDataCompletionHandler]
 func NewDataURLResponseErrorBlock(handler DataURLResponseErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, errID objc.ID) {
 		var result *NSData
 		if resultID != 0 {
@@ -185,6 +200,9 @@ type DateHandler = func(*NSDate)
 // Used by:
 //   - [NSCalendar.EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock]
 func NewDateBlock(handler DateHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSDate
 		if resultID != 0 {
@@ -291,6 +309,9 @@ type ErrorHandler = func(error)
 //   - [NSXPCProxyCreating.RemoteObjectProxyWithErrorHandler]
 //   - [NSXPCProxyCreating.SynchronousRemoteObjectProxyWithErrorHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(SafeErrorFrom(errID))
 	})
@@ -303,6 +324,9 @@ type FileHandleHandler = func(*NSFileHandle)
 // NewFileHandleBlock wraps a Go [FileHandleHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 func NewFileHandleBlock(handler FileHandleHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSFileHandle
 		if resultID != 0 {
@@ -330,6 +354,9 @@ type FileVersionErrorHandler = func(*NSFileVersion, error)
 //   - [NSFileManager.FetchLatestRemoteVersionOfItemAtURLCompletionHandler]
 //   - [NSFileManager.UploadLocalVersionOfUbiquitousItemAtURLWithConflictResolutionPolicyCompletionHandler]
 func NewFileVersionErrorBlock(handler FileVersionErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSFileVersion
 		if resultID != 0 {
@@ -362,6 +389,9 @@ type InputStreamHandler = func(*NSInputStream)
 //   - [NSURLSessionTaskDelegate.URLSessionTaskNeedNewBodyStreamFromOffsetCompletionHandler]
 //   - [NSURLSessionTaskDelegate.URLSessionTaskNeedNewBodyStream]
 func NewInputStreamBlock(handler InputStreamHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSInputStream
 		if resultID != 0 {
@@ -387,6 +417,9 @@ type InputStreamOutputStreamErrorHandler = func(*NSInputStream, *NSOutputStream,
 // Used by:
 //   - [NSUserActivity.GetContinuationStreamsWithCompletionHandler]
 func NewInputStreamOutputStreamErrorBlock(handler InputStreamOutputStreamErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, errID objc.ID) {
 		var result *NSInputStream
 		if resultID != 0 {
@@ -423,6 +456,9 @@ type KeyTypeHandler = func(objectivec.IObject)
 //   - [NSDictionary.KeysOfEntriesPassingTest]
 //   - [NSDictionary.KeysOfEntriesWithOptionsPassingTest]
 func NewKeyTypeBlock(handler KeyTypeHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject) {
 		handler(primitiveVal)
 	})
@@ -444,6 +480,9 @@ type MatchingFlagsHandler = func(*NSTextCheckingResult)
 // Used by:
 //   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
 func NewMatchingFlagsBlock(handler MatchingFlagsHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextCheckingResult
 		if resultID != 0 {
@@ -471,6 +510,9 @@ type NSExpressionArrayHandler = func(objectivec.IObject)
 // Used by:
 //   - [NSExpression.ExpressionForBlockArguments]
 func NewNSExpressionArrayBlock(handler NSExpressionArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
 		var val objectivec.IObject
 		if valID != 0 {
@@ -507,6 +549,9 @@ type NSItemProviderReadingErrorHandler = func(NSItemProviderReading, error)
 // Used by:
 //   - [NSItemProvider.LoadObjectOfClassCompletionHandler]
 func NewNSItemProviderReadingErrorBlock(handler NSItemProviderReadingErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result NSItemProviderReading
 		if resultID != 0 {
@@ -536,6 +581,9 @@ type NotificationHandler = func(*NSNotification)
 // Used by:
 //   - [NSNotificationCenter.AddObserverForNameObjectQueueUsingBlock]
 func NewNotificationBlock(handler NotificationHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSNotification
 		if resultID != 0 {
@@ -566,6 +614,9 @@ type ObjectHandler = func(objectivec.IObject)
 //   - [NSMetadataQuery.EnumerateResultsWithOptionsUsingBlock]
 //   - [NSUndoManager.RegisterUndoWithTargetHandler]
 func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
 		var val objectivec.IObject
 		if valID != 0 {
@@ -639,6 +690,9 @@ type ObjectTypeHandler = func(objectivec.IObject)
 //   - [NSSet.ObjectsPassingTest]
 //   - [NSSet.ObjectsWithOptionsPassingTest]
 func NewObjectTypeBlock(handler ObjectTypeHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject) {
 		handler(primitiveVal)
 	})
@@ -675,6 +729,9 @@ type RangeHandler = func(NSRange)
 //   - [NSString.EnumerateLinguisticTagsInRangeSchemeOptionsOrthographyUsingBlock]
 //   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]
 func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NSRange) {
 		handler(primitiveVal)
 	})
@@ -723,6 +780,9 @@ type TaskHandler = func(*NSTask)
 // Used by:
 //   - [NSTask.LaunchedTaskWithExecutableURLArgumentsErrorTerminationHandler]
 func NewTaskBlock(handler TaskHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTask
 		if resultID != 0 {
@@ -751,6 +811,9 @@ type TimerHandler = func(*NSTimer)
 //   - [NSTimer.ScheduledTimerWithTimeIntervalRepeatsBlock]
 //   - [NSTimer.TimerWithTimeIntervalRepeatsBlock]
 func NewTimerBlock(handler TimerHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTimer
 		if resultID != 0 {
@@ -779,6 +842,9 @@ type URLCredentialHandler = func(*NSURLCredential)
 //   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
 //   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
 func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSURLCredential
 		if resultID != 0 {
@@ -813,6 +879,9 @@ type URLErrorHandler = func(*NSURL, error)
 //   - [NSItemProvider.LoadFileRepresentationForTypeIdentifierCompletionHandler]
 //   - [NSItemProvider.LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler]
 func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSURL
 		if resultID != 0 {
@@ -839,6 +908,9 @@ type URLHandler = func(*NSURL)
 //   - [NSFileCoordinator.CoordinateReadingItemAtURLOptionsErrorByAccessor]
 //   - [NSFileCoordinator.CoordinateWritingItemAtURLOptionsErrorByAccessor]
 func NewURLBlock(handler URLHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSURL
 		if resultID != 0 {
@@ -865,6 +937,9 @@ type URLRequestHandler = func(*NSURLRequest)
 //   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
 //   - [NSURLSessionTaskDelegate.URLSessionTaskWillPerformHTTPRedirectionNewRequestCompletionHandler]
 func NewURLRequestBlock(handler URLRequestHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSURLRequest
 		if resultID != 0 {
@@ -889,6 +964,9 @@ type URLSessionResponseDispositionHandler = func(NSURLSessionResponseDisposition
 // Used by:
 //   - [NSURLSessionDataDelegate.URLSessionDataTaskDidReceiveResponseCompletionHandler]
 func NewURLSessionResponseDispositionBlock(handler URLSessionResponseDispositionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NSURLSessionResponseDisposition) {
 		handler(primitiveVal)
 	})
@@ -908,6 +986,9 @@ type URLSessionWebSocketMessageErrorHandler = func(*NSURLSessionWebSocketMessage
 // Used by:
 //   - [NSURLSessionWebSocketTask.ReceiveMessageWithCompletionHandler]
 func NewURLSessionWebSocketMessageErrorBlock(handler URLSessionWebSocketMessageErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSURLSessionWebSocketMessage
 		if resultID != 0 {
@@ -934,6 +1015,9 @@ type URLURLHandler = func(*NSURL, *NSURL)
 //   - [NSFileCoordinator.CoordinateReadingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor]
 //   - [NSFileCoordinator.CoordinateWritingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor]
 func NewURLURLBlock(handler URLURLHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
 		var result *NSURL
 		if resultID != 0 {
@@ -969,6 +1053,9 @@ type URLURLResponseErrorHandler = func(*NSURL, *NSURLResponse, error)
 //   - [NSURLSession.DownloadTaskWithResumeDataCompletionHandler]
 //   - [NSURLSession.DownloadTaskWithURLCompletionHandler]
 func NewURLURLResponseErrorBlock(handler URLURLResponseErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, errID objc.ID) {
 		var result *NSURL
 		if resultID != 0 {
@@ -1017,6 +1104,9 @@ type UintHandler = func(uint)
 //   - [NSIndexSet.IndexesPassingTest]
 //   - [NSIndexSet.IndexesWithOptionsPassingTest]
 func NewUintBlock(handler UintHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal uint) {
 		handler(primitiveVal)
 	})
@@ -1067,6 +1157,9 @@ type VoidHandler = func()
 //   - [NSUserActivity.DeleteSavedUserActivitiesWithPersistentIdentifiersCompletionHandler]
 //   - [NSXPCConnection.ScheduleSendBarrierBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -1086,6 +1179,9 @@ type XPCConnectionErrorHandler = func(*NSXPCConnection, error)
 // Used by:
 //   - [NSFileProviderService.GetFileProviderConnectionWithCompletionHandler]
 func NewXPCConnectionErrorBlock(handler XPCConnectionErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSXPCConnection
 		if resultID != 0 {
@@ -1113,6 +1209,9 @@ type constvoidHandler = func(unsafe.Pointer)
 // Used by:
 //   - [NSData.EnumerateByteRangesUsingBlock]
 func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal unsafe.Pointer) {
 		handler(primitiveVal)
 	})
@@ -1131,6 +1230,9 @@ type idOrderedCollectionChangeHandler = func(*NSOrderedCollectionChange)
 // Used by:
 //   - [NSOrderedCollectionDifference.DifferenceByTransformingChangesWithBlock]
 func NewidOrderedCollectionChangeBlock(handler idOrderedCollectionChangeHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSOrderedCollectionChange
 		if resultID != 0 {

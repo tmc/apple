@@ -169,7 +169,7 @@ type INSIndexPath interface {
 	// Topic: Comparing Index Paths
 
 	// Indicates the depth-first traversal order of the receiving index path and another index path.
-	Compare(otherObject objectivec.IObject) ComparisonResult
+	Compare(otherObject objectivec.IObject) NSComparisonResult
 
 	// Topic: Working with Indexes
 
@@ -383,9 +383,9 @@ func (i NSIndexPath) IndexPathByRemovingLastIndex() objc.ID {
 // index path.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/compare(_:)
-func (i NSIndexPath) Compare(otherObject objectivec.IObject) ComparisonResult {
-	rv := objc.Send[ComparisonResult](i.ID, objc.Sel("compare:"), otherObject)
-	return ComparisonResult(rv)
+func (i NSIndexPath) Compare(otherObject objectivec.IObject) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](i.ID, objc.Sel("compare:"), otherObject)
+	return NSComparisonResult(rv)
 }
 
 // Provides the value at a particular node in the index path.

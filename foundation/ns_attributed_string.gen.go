@@ -417,7 +417,7 @@ type INSAttributedString interface {
 	// The name of the text encoding to use.
 	TextEncodingName() INSString
 	// Calculates and returns a bounding rectangle for the attributed string using the options specified within the specified rectangle in the current graphics context.
-	BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect
+	BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) corefoundation.CGRect
 	// Draws the attributed string with the specified options within the specified rectangle in the current graphics context.
 	DrawWithRectOptions(rect corefoundation.CGRect, options NSStringDrawingOptions)
 	// Creates a new attributed string from the contents of another attributed string.
@@ -1207,7 +1207,7 @@ func (a NSAttributedString) FileWrapperFromRangeDocumentAttributesError(range_ N
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fileWrapperFromRange:documentAttributes:error:"), range_, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return FileWrapper{}, NSErrorFrom(errorPtr)
+		return NSFileWrapper{}, NSErrorFrom(errorPtr)
 	}
 	return NSFileWrapperFromID(rv), nil
 
@@ -2062,9 +2062,9 @@ func (a NSAttributedString) ContainsAttachmentsInRange(range_ NSRange) bool {
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/boundingRect(with:options:)
 //
 // [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
-func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect {
-	rv := objc.Send[NSRect](a.ID, objc.Sel("boundingRectWithSize:options:"), size, options)
-	return NSRect(rv)
+func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](a.ID, objc.Sel("boundingRectWithSize:options:"), size, options)
+	return corefoundation.CGRect(rv)
 }
 
 // Draws the attributed string with the specified options within the specified

@@ -70,7 +70,7 @@ type IVZSEPCoprocessor interface {
 
 	// Topic: Methods
 
-	DebugStub() IVZDebugStub
+	DebugStub() *VZDebugStub
 }
 
 // Init initializes the instance.
@@ -93,7 +93,11 @@ func NewVZSEPCoprocessor() VZSEPCoprocessor {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessor/debugStub
-func (v VZSEPCoprocessor) DebugStub() IVZDebugStub {
+func (v VZSEPCoprocessor) DebugStub() *VZDebugStub {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugStub"))
-	return VZDebugStubFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := VZDebugStubFromID(objc.ID(rv))
+	return &val
 }

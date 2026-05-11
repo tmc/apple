@@ -776,7 +776,11 @@ func (m NSMutableOrderedSet) SortUsingDescriptors(sortDescriptors []NSSortDescri
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/sort(comparator:)
 func (m NSMutableOrderedSet) SortUsingComparator(cmptr NSComparator) {
-	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), cmptr)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block0.Release()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), objc.ID(_block0))
 }
 
 // Sorts the mutable ordered set using the specified options and the
@@ -789,7 +793,11 @@ func (m NSMutableOrderedSet) SortUsingComparator(cmptr NSComparator) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/sort(options:usingComparator:)
 func (m NSMutableOrderedSet) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) {
-	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, cmptr)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block1.Release()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, objc.ID(_block1))
 }
 
 // Sorts the specified range of the mutable ordered set using the specified
@@ -804,7 +812,11 @@ func (m NSMutableOrderedSet) SortWithOptionsUsingComparator(opts NSSortOptions, 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/sortRange(_:options:usingComparator:)
 func (m NSMutableOrderedSet) SortRangeOptionsUsingComparator(range_ NSRange, opts NSSortOptions, cmptr NSComparator) {
-	objc.Send[objc.ID](m.ID, objc.Sel("sortRange:options:usingComparator:"), range_, opts, cmptr)
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
+		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
+	})
+	defer _block2.Release()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortRange:options:usingComparator:"), range_, opts, objc.ID(_block2))
 }
 
 // Removes from the receiving ordered set each object that isn’t a member of

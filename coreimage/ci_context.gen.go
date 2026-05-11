@@ -266,7 +266,7 @@ type ICIContext interface {
 	// The working color space of the Core Image context.
 	WorkingColorSpace() coregraphics.CGColorSpaceRef
 	// The working pixel format of the Core Image context.
-	WorkingFormat() CIFormat
+	WorkingFormat() int
 
 	// Topic: Rendering Images for Data or File Export
 
@@ -1697,9 +1697,9 @@ func (c CIContext) WorkingColorSpace() coregraphics.CGColorSpaceRef {
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/workingFormat
 //
 // [workingFormat]: https://developer.apple.com/documentation/CoreImage/CIContextOption/workingFormat
-func (c CIContext) WorkingFormat() CIFormat {
-	rv := objc.Send[CIFormat](c.ID, objc.Sel("workingFormat"))
-	return CIFormat(rv)
+func (c CIContext) WorkingFormat() int {
+	rv := objc.Send[int](c.ID, objc.Sel("workingFormat"))
+	return rv
 }
 
 // The render destination’s representation of alpha (transparency) values.

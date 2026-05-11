@@ -414,7 +414,7 @@ func (n NotificationCenter) PostNotificationNameObject(aName NSNotificationName,
 // performance throughout your app.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/default
-func (_NotificationCenterClass NotificationCenterClass) DefaultCenter() NotificationCenter {
+func (_NotificationCenterClass NotificationCenterClass) DefaultCenter() NSNotificationCenter {
 	rv := objc.Send[objc.ID](objc.ID(_NotificationCenterClass.class), objc.Sel("defaultCenter"))
 	return NSNotificationCenterFromID(objc.ID(rv))
 }

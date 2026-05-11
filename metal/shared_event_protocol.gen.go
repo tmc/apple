@@ -78,7 +78,9 @@ func (o MTLSharedEventObject) SignaledValue() uint64 {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/notify(_:atValue:block:)
 func (o MTLSharedEventObject) NotifyListenerAtValueBlock(listener IMTLSharedEventListener, value uint64, block MTLSharedEventNotificationBlock) {
-	objc.Send[struct{}](o.ID, objc.Sel("notifyListener:atValue:block:"), listener, value, block)
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 uint64) { block(MTLSharedEventObjectFromID(arg0), arg1) })
+	defer _block2.Release()
+	objc.Send[struct{}](o.ID, objc.Sel("notifyListener:atValue:block:"), listener, value, objc.ID(_block2))
 }
 
 // Creates a new shareable event handle.

@@ -42,6 +42,9 @@ type ErrorHandler = func(error)
 //   - [VZVirtualMachine.StartWithOptionsCompletionHandler]
 //   - [VZVirtualMachine.StopWithCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -62,6 +65,9 @@ type MacOSRestoreImageErrorHandler = func(*VZMacOSRestoreImage, error)
 //   - [VZMacOSRestoreImage.FetchLatestSupportedWithCompletionHandler]
 //   - [VZMacOSRestoreImage.LoadFileURLCompletionHandler]
 func NewMacOSRestoreImageErrorBlock(handler MacOSRestoreImageErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *VZMacOSRestoreImage
 		if resultID != 0 {
@@ -86,6 +92,9 @@ type VirtioSocketConnectionErrorHandler = func(*VZVirtioSocketConnection, error)
 // Used by:
 //   - [VZVirtioSocketDevice.ConnectToPortCompletionHandler]
 func NewVirtioSocketConnectionErrorBlock(handler VirtioSocketConnectionErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *VZVirtioSocketConnection
 		if resultID != 0 {

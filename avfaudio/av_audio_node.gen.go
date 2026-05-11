@@ -302,7 +302,11 @@ func (a AVAudioNode) NameForOutputBus(bus AVAudioNodeBus) string {
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/installTap(onBus:bufferSize:format:block:)
 func (a AVAudioNode) InstallTapOnBusBufferSizeFormatBlock(bus AVAudioNodeBus, bufferSize AVAudioFrameCount, format IAVAudioFormat, tapBlock AVAudioNodeTapBlock) {
-	objc.Send[objc.ID](a.ID, objc.Sel("installTapOnBus:bufferSize:format:block:"), bus, bufferSize, format, tapBlock)
+	_block3 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) {
+		tapBlock(AVAudioPCMBufferFromID(arg0), AVAudioTimeFromID(arg1))
+	})
+	defer _block3.Release()
+	objc.Send[objc.ID](a.ID, objc.Sel("installTapOnBus:bufferSize:format:block:"), bus, bufferSize, format, objc.ID(_block3))
 }
 
 // Removes an audio tap on a bus you specify.

@@ -141,7 +141,7 @@ type INSUUID interface {
 
 	// Topic: Instance Methods
 
-	Compare(otherUUID INSUUID) ComparisonResult
+	Compare(otherUUID INSUUID) NSComparisonResult
 }
 
 // Init initializes the instance.
@@ -242,9 +242,9 @@ func (u NSUUID) GetUUIDBytes(uuid unsafe.Pointer) {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/compare(_:)
-func (u NSUUID) Compare(otherUUID INSUUID) ComparisonResult {
-	rv := objc.Send[ComparisonResult](u.ID, objc.Sel("compare:"), otherUUID)
-	return ComparisonResult(rv)
+func (u NSUUID) Compare(otherUUID INSUUID) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](u.ID, objc.Sel("compare:"), otherUUID)
+	return NSComparisonResult(rv)
 }
 
 // Encodes the receiver using a given archiver.

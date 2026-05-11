@@ -201,7 +201,11 @@ func NewCollectionViewDiffableDataSourceWithCollectionViewItemProvider(collectio
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReference/init(collectionView:itemProvider:)
 func (c NSCollectionViewDiffableDataSource) InitWithCollectionViewItemProvider(collectionView INSCollectionView, itemProvider NSCollectionViewDiffableDataSourceItemProvider) NSCollectionViewDiffableDataSource {
-	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, itemProvider)
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 objc.ID) objc.ID {
+		return itemProvider(NSCollectionViewFromID(arg0), arg1, objectivec.ObjectFromID(arg2)).ID
+	})
+	defer _block1.Release()
+	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, objc.ID(_block1))
 	return rv
 }
 

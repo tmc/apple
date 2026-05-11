@@ -396,7 +396,7 @@ func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
 // trusted.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLCredential/credentialForTrust:
-func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objectivec.IObject) URLCredential {
+func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objectivec.IObject) NSURLCredential {
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialForTrust:"), trust)
 	return NSURLCredentialFromID(rv)
 }
@@ -435,7 +435,7 @@ func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objective
 // See: https://developer.apple.com/documentation/Foundation/NSURLCredential/credentialWithIdentity:certificates:persistence:
 //
 // [NSURLAuthenticationMethodClientCertificate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodClientCertificate
-func (_URLCredentialClass URLCredentialClass) CredentialWithIdentityCertificatesPersistence(identity objectivec.IObject, certArray INSArray, persistence NSURLCredentialPersistence) URLCredential {
+func (_URLCredentialClass URLCredentialClass) CredentialWithIdentityCertificatesPersistence(identity objectivec.IObject, certArray INSArray, persistence NSURLCredentialPersistence) NSURLCredential {
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialWithIdentity:certificates:persistence:"), identity, certArray, persistence)
 	return NSURLCredentialFromID(rv)
 }
@@ -466,7 +466,7 @@ func (_URLCredentialClass URLCredentialClass) CredentialWithIdentityCertificates
 // See: https://developer.apple.com/documentation/Foundation/NSURLCredential/credentialWithUser:password:persistence:
 //
 // [URLCredential.Persistence]: https://developer.apple.com/documentation/Foundation/URLCredential/Persistence-swift.enum
-func (_URLCredentialClass URLCredentialClass) CredentialWithUserPasswordPersistence(user string, password string, persistence NSURLCredentialPersistence) URLCredential {
+func (_URLCredentialClass URLCredentialClass) CredentialWithUserPasswordPersistence(user string, password string, persistence NSURLCredentialPersistence) NSURLCredential {
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialWithUser:password:persistence:"), objc.String(user), objc.String(password), persistence)
 	return NSURLCredentialFromID(rv)
 }

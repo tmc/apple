@@ -518,8 +518,8 @@ func (r CIRenderDestination) InitWithMTLTextureCommandBuffer(texture metal.MTLTe
 // [MTLTexture]: https://developer.apple.com/documentation/Metal/MTLTexture
 func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer, block VoidHandler) CIRenderDestination {
 	_block4, _ := NewVoidBlock(block)
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("initWithWidth:height:pixelFormat:commandBuffer:mtlTextureProvider:"), width, height, pixelFormat, commandBuffer, _block4)
-	return CIRenderDestinationFromID(rv)
+	rv := objc.Send[CIRenderDestination](r.ID, objc.Sel("initWithWidth:height:pixelFormat:commandBuffer:mtlTextureProvider:"), width, height, pixelFormat, commandBuffer, _block4)
+	return rv
 }
 
 // Creates a render destination based on an OpenGL texture.

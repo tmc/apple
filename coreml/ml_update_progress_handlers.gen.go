@@ -116,8 +116,8 @@ func NewMLUpdateProgressHandlers() MLUpdateProgressHandlers {
 func (u MLUpdateProgressHandlers) InitForEventsProgressHandlerCompletionHandler(interestedEvents MLUpdateProgressEvent, progressHandler MLUpdateContextHandler, completionHandler MLUpdateContextHandler) MLUpdateProgressHandlers {
 	_block1, _ := NewMLUpdateContextBlock(progressHandler)
 	_block2, _ := NewMLUpdateContextBlock(completionHandler)
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("initForEvents:progressHandler:completionHandler:"), interestedEvents, _block1, _block2)
-	return MLUpdateProgressHandlersFromID(rv)
+	rv := objc.Send[MLUpdateProgressHandlers](u.ID, objc.Sel("initForEvents:progressHandler:completionHandler:"), interestedEvents, _block1, _block2)
+	return rv
 }
 
 // InitForEventsProgressHandler is a synchronous wrapper around [MLUpdateProgressHandlers.InitForEventsProgressHandlerCompletionHandler].

@@ -3,6 +3,7 @@
 package coreml
 
 import (
+	"context"
 	"sync"
 	"unsafe"
 
@@ -101,6 +102,7 @@ func (mc MLMultiArrayClass) Alloc() MLMultiArray {
 // # Accessing a multiarray’s elements
 //
 //   - [MLMultiArray.PixelBuffer]: A reference to the multiarray’s underlying pixel buffer.
+//   - [MLMultiArray.DataPointer]: A pointer to the multiarray’s underlying memory.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray
 //
@@ -142,6 +144,7 @@ func MLMultiArrayFromID(id objc.ID) MLMultiArray {
 // # Accessing a multiarray’s elements
 //
 //   - [IMLMultiArray.PixelBuffer]: A reference to the multiarray’s underlying pixel buffer.
+//   - [IMLMultiArray.DataPointer]: A pointer to the multiarray’s underlying memory.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray
 type IMLMultiArray interface {
@@ -176,6 +179,8 @@ type IMLMultiArray interface {
 
 	// A reference to the multiarray’s underlying pixel buffer.
 	PixelBuffer() corevideo.CVImageBufferRef
+	// A pointer to the multiarray’s underlying memory.
+	DataPointer() unsafe.Pointer
 
 	// A dictionary of input feature descriptions, which the model keys by the input’s name.
 	InputDescriptionsByName() IMLFeatureDescription
@@ -193,7 +198,7 @@ type IMLMultiArray interface {
 	ShapeConstraint() IMLMultiArrayShapeConstraint
 	SetShapeConstraint(value IMLMultiArrayShapeConstraint)
 	// Get the underlying buffer pointer to read.
-	GetBytesWithHandler(handler func(unsafe.Pointer, int64))
+	GetBytesWithHandler(handler constvoidHandler)
 	// Creates the object with specified strides.
 	InitWithShapeDataTypeStrides(shape []foundation.NSNumber, dataType MLMultiArrayDataType, strides []foundation.NSNumber) MLMultiArray
 	// Accesses the multiarray by using a linear offset.
@@ -461,10 +466,9 @@ func (m MLMultiArray) TransferToMultiArray(destinationMultiArray IMLMultiArray) 
 // layout.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/getBytesWithHandler:
-func (m MLMultiArray) GetBytesWithHandler(handler func(unsafe.Pointer, int64)) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 int64) { handler(arg0, arg1) })
-	defer _block0.Release()
-	objc.Send[objc.ID](m.ID, objc.Sel("getBytesWithHandler:"), objc.ID(_block0))
+func (m MLMultiArray) GetBytesWithHandler(handler constvoidHandler) {
+	_block0, _ := NewconstvoidBlock(handler)
+	objc.Send[objc.ID](m.ID, objc.Sel("getBytesWithHandler:"), _block0)
 }
 
 // Creates the object with specified strides.
@@ -631,6 +635,14 @@ func (m MLMultiArray) PixelBuffer() corevideo.CVImageBufferRef {
 	return corevideo.CVImageBufferRef(rv)
 }
 
+// A pointer to the multiarray’s underlying memory.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/dataPointer
+func (m MLMultiArray) DataPointer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("dataPointer"))
+	return rv
+}
+
 // A dictionary of input feature descriptions, which the model keys by the
 // input’s name.
 //
@@ -687,4 +699,19 @@ func (m MLMultiArray) ShapeConstraint() IMLMultiArrayShapeConstraint {
 }
 func (m MLMultiArray) SetShapeConstraint(value IMLMultiArrayShapeConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShapeConstraint:"), value)
+}
+
+// GetBytesWithHandlerSync is a synchronous wrapper around [MLMultiArray.GetBytesWithHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (m MLMultiArray) GetBytesWithHandlerSync(ctx context.Context) (unsafe.Pointer, error) {
+	done := make(chan unsafe.Pointer, 1)
+	m.GetBytesWithHandler(func(val unsafe.Pointer, _ int64) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

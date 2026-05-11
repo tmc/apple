@@ -23,6 +23,9 @@ type BoolErrorHandler = func(bool, error)
 // Used by:
 //   - [UNUserNotificationCenter.RequestAuthorizationWithOptionsCompletionHandler]
 func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -46,6 +49,9 @@ type ErrorHandler = func(error)
 //   - [UNUserNotificationCenter.AddNotificationRequestWithCompletionHandler]
 //   - [UNUserNotificationCenter.SetBadgeCountWithCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -79,6 +85,9 @@ type UNNotificationContentHandler = func(*UNNotificationContent)
 // Used by:
 //   - [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler]
 func NewUNNotificationContentBlock(handler UNNotificationContentHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *UNNotificationContent
 		if resultID != 0 {
@@ -104,6 +113,9 @@ type UNNotificationPresentationOptionsHandler = func(UNNotificationPresentationO
 // Used by:
 //   - [UNUserNotificationCenterDelegate.UserNotificationCenterWillPresentNotificationWithCompletionHandler]
 func NewUNNotificationPresentationOptionsBlock(handler UNNotificationPresentationOptionsHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal UNNotificationPresentationOptions) {
 		handler(primitiveVal)
 	})
@@ -130,6 +142,9 @@ type UNNotificationSettingsHandler = func(*UNNotificationSettings)
 // Used by:
 //   - [UNUserNotificationCenter.GetNotificationSettingsWithCompletionHandler]
 func NewUNNotificationSettingsBlock(handler UNNotificationSettingsHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *UNNotificationSettings
 		if resultID != 0 {
@@ -154,6 +169,9 @@ type VoidHandler = func()
 // Used by:
 //   - [UNUserNotificationCenterDelegate.UserNotificationCenterDidReceiveNotificationResponseWithCompletionHandler]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

@@ -222,8 +222,8 @@ type INSBackgroundActivityScheduler interface {
 	Interval() float64
 	SetInterval(value float64)
 	// A value of type [NSQualityOfService], which controls how aggressively the system schedules the activity.
-	QualityOfService() QualityOfService
-	SetQualityOfService(value QualityOfService)
+	QualityOfService() NSQualityOfService
+	SetQualityOfService(value NSQualityOfService)
 	// A Boolean value indicating whether your app should stop performing background activity and resume at a more optimal time.
 	ShouldDefer() bool
 	// A value of type [TimeInterval](<doc://com.apple.foundation/documentation/Foundation/TimeInterval>), which specifies a range of time during which the background activity may occur.
@@ -371,8 +371,8 @@ func (b NSBackgroundActivityScheduler) SetRepeats(value bool) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSBackgroundActivityScheduler/interval
 func (b NSBackgroundActivityScheduler) Interval() float64 {
-	rv := objc.Send[NSTimeInterval](b.ID, objc.Sel("interval"))
-	return float64(rv)
+	rv := objc.Send[float64](b.ID, objc.Sel("interval"))
+	return rv
 }
 func (b NSBackgroundActivityScheduler) SetInterval(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setInterval:"), value)
@@ -399,11 +399,11 @@ func (b NSBackgroundActivityScheduler) SetInterval(value float64) {
 //
 // [Energy Efficiency Guide for Mac Apps]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/power_efficiency_guidelines_osx/index.html#//apple_ref/doc/uid/TP40013929
 // [Prioritize Work at the Task Level]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/power_efficiency_guidelines_osx/PrioritizeWorkAtTheTaskLevel.html#//apple_ref/doc/uid/TP40013929-CH35
-func (b NSBackgroundActivityScheduler) QualityOfService() QualityOfService {
-	rv := objc.Send[QualityOfService](b.ID, objc.Sel("qualityOfService"))
-	return QualityOfService(rv)
+func (b NSBackgroundActivityScheduler) QualityOfService() NSQualityOfService {
+	rv := objc.Send[NSQualityOfService](b.ID, objc.Sel("qualityOfService"))
+	return NSQualityOfService(rv)
 }
-func (b NSBackgroundActivityScheduler) SetQualityOfService(value QualityOfService) {
+func (b NSBackgroundActivityScheduler) SetQualityOfService(value NSQualityOfService) {
 	objc.Send[struct{}](b.ID, objc.Sel("setQualityOfService:"), value)
 }
 
@@ -445,8 +445,8 @@ func (b NSBackgroundActivityScheduler) ShouldDefer() bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSBackgroundActivityScheduler/tolerance
 func (b NSBackgroundActivityScheduler) Tolerance() float64 {
-	rv := objc.Send[NSTimeInterval](b.ID, objc.Sel("tolerance"))
-	return float64(rv)
+	rv := objc.Send[float64](b.ID, objc.Sel("tolerance"))
+	return rv
 }
 func (b NSBackgroundActivityScheduler) SetTolerance(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTolerance:"), value)

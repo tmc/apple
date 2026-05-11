@@ -304,20 +304,20 @@ func Vmnet_interface_start_with_network(network Vmnet_network_ref, interface_des
 	return result
 }
 
-var _vmnet_ip_port_forwarding_rule_get_details func(rule unsafe.Pointer, protocol_ *uint8, external_port *uint16, address_family uint8, internal_address unsafe.Pointer, internal_port *uint16) Vmnet_return_t
+var _vmnet_ip_port_forwarding_rule_get_details func(rule unsafe.Pointer, protocol_ *byte, external_port *uint16, address_family uint8, internal_address unsafe.Pointer, internal_port *uint16) Vmnet_return_t
 var _vmnet_ip_port_forwarding_rule_get_detailsErr error
 
-func tryVmnet_ip_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ *uint8, external_port *uint16, address_family uint8, internal_address unsafe.Pointer, internal_port *uint16) (Vmnet_return_t, error) {
+func tryVmnet_ip_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ []byte, external_port *uint16, address_family uint8, internal_address unsafe.Pointer, internal_port *uint16) (Vmnet_return_t, error) {
 	if _vmnet_ip_port_forwarding_rule_get_details == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_ip_port_forwarding_rule_get_details", "11.0", _vmnet_ip_port_forwarding_rule_get_detailsErr)
 	}
-	return _vmnet_ip_port_forwarding_rule_get_details(rule, protocol_, external_port, address_family, internal_address, internal_port), nil
+	return _vmnet_ip_port_forwarding_rule_get_details(rule, unsafe.SliceData(protocol_), external_port, address_family, internal_address, internal_port), nil
 }
 
 // Vmnet_ip_port_forwarding_rule_get_details.
 //
 // See: https://developer.apple.com/documentation/vmnet/vmnet_ip_port_forwarding_rule_get_details(_:_:_:_:_:_:)
-func Vmnet_ip_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ *uint8, external_port *uint16, address_family uint8, internal_address unsafe.Pointer, internal_port *uint16) Vmnet_return_t {
+func Vmnet_ip_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ []byte, external_port *uint16, address_family uint8, internal_address unsafe.Pointer, internal_port *uint16) Vmnet_return_t {
 	result, callErr := tryVmnet_ip_port_forwarding_rule_get_details(rule, protocol_, external_port, address_family, internal_address, internal_port)
 	if callErr != nil {
 		panic(callErr)
@@ -634,34 +634,34 @@ func Vmnet_network_get_ipv4_subnet(network Vmnet_network_ref, subnet uintptr, ma
 	}
 }
 
-var _vmnet_network_get_ipv6_prefix func(network Vmnet_network_ref, prefix uintptr, prefix_len *uint8)
+var _vmnet_network_get_ipv6_prefix func(network Vmnet_network_ref, prefix uintptr, prefix_len *byte)
 var _vmnet_network_get_ipv6_prefixErr error
 
-func tryVmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix uintptr, prefix_len *uint8) error {
+func tryVmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix uintptr, prefix_len []byte) error {
 	if _vmnet_network_get_ipv6_prefix == nil {
 		return symbolCallError("vmnet_network_get_ipv6_prefix", "26.0", _vmnet_network_get_ipv6_prefixErr)
 	}
-	_vmnet_network_get_ipv6_prefix(network, prefix, prefix_len)
+	_vmnet_network_get_ipv6_prefix(network, prefix, unsafe.SliceData(prefix_len))
 	return nil
 }
 
 // Vmnet_network_get_ipv6_prefix.
 //
 // See: https://developer.apple.com/documentation/vmnet/vmnet_network_get_ipv6_prefix(_:_:_:)
-func Vmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix uintptr, prefix_len *uint8) {
+func Vmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix uintptr, prefix_len []byte) {
 	if callErr := tryVmnet_network_get_ipv6_prefix(network, prefix, prefix_len); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vmnet_port_forwarding_rule_get_details func(rule unsafe.Pointer, protocol_ *uint8, external_port *uint16, internal_address uintptr, internal_port *uint16) Vmnet_return_t
+var _vmnet_port_forwarding_rule_get_details func(rule unsafe.Pointer, protocol_ *byte, external_port *uint16, internal_address uintptr, internal_port *uint16) Vmnet_return_t
 var _vmnet_port_forwarding_rule_get_detailsErr error
 
-func tryVmnet_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ *uint8, external_port *uint16, internal_address uintptr, internal_port *uint16) (Vmnet_return_t, error) {
+func tryVmnet_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ []byte, external_port *uint16, internal_address uintptr, internal_port *uint16) (Vmnet_return_t, error) {
 	if _vmnet_port_forwarding_rule_get_details == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_port_forwarding_rule_get_details", "10.15", _vmnet_port_forwarding_rule_get_detailsErr)
 	}
-	return _vmnet_port_forwarding_rule_get_details(rule, protocol_, external_port, internal_address, internal_port), nil
+	return _vmnet_port_forwarding_rule_get_details(rule, unsafe.SliceData(protocol_), external_port, internal_address, internal_port), nil
 }
 
 // Vmnet_port_forwarding_rule_get_details.
@@ -669,7 +669,7 @@ func tryVmnet_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ *u
 // Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/vmnet/vmnet_port_forwarding_rule_get_details(_:_:_:_:_:)
-func Vmnet_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ *uint8, external_port *uint16, internal_address uintptr, internal_port *uint16) Vmnet_return_t {
+func Vmnet_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ []byte, external_port *uint16, internal_address uintptr, internal_port *uint16) Vmnet_return_t {
 	result, callErr := tryVmnet_port_forwarding_rule_get_details(rule, protocol_, external_port, internal_address, internal_port)
 	if callErr != nil {
 		panic(callErr)

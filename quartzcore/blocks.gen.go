@@ -18,6 +18,9 @@ type VoidHandler = func()
 // Used by:
 //   - [CATransaction.SetCompletionBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

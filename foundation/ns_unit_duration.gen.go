@@ -153,7 +153,7 @@ func NewUnitDurationWithSymbolConverter(symbol string, converter INSUnitConverte
 // The hour unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/hours
-func (_UnitDurationClass UnitDurationClass) Hours() UnitDuration {
+func (_UnitDurationClass UnitDurationClass) Hours() NSUnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("hours"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
@@ -161,7 +161,7 @@ func (_UnitDurationClass UnitDurationClass) Hours() UnitDuration {
 // The minute unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/minutes
-func (_UnitDurationClass UnitDurationClass) Minutes() UnitDuration {
+func (_UnitDurationClass UnitDurationClass) Minutes() NSUnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("minutes"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
@@ -169,7 +169,7 @@ func (_UnitDurationClass UnitDurationClass) Minutes() UnitDuration {
 // The second unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/seconds
-func (_UnitDurationClass UnitDurationClass) Seconds() UnitDuration {
+func (_UnitDurationClass UnitDurationClass) Seconds() NSUnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("seconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
@@ -177,7 +177,7 @@ func (_UnitDurationClass UnitDurationClass) Seconds() UnitDuration {
 // The millisecond unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/milliseconds
-func (_UnitDurationClass UnitDurationClass) Milliseconds() UnitDuration {
+func (_UnitDurationClass UnitDurationClass) Milliseconds() NSUnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("milliseconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
@@ -185,7 +185,7 @@ func (_UnitDurationClass UnitDurationClass) Milliseconds() UnitDuration {
 // The microsecond unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/microseconds
-func (_UnitDurationClass UnitDurationClass) Microseconds() UnitDuration {
+func (_UnitDurationClass UnitDurationClass) Microseconds() NSUnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("microseconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
@@ -193,7 +193,7 @@ func (_UnitDurationClass UnitDurationClass) Microseconds() UnitDuration {
 // The nanosecond unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/nanoseconds
-func (_UnitDurationClass UnitDurationClass) Nanoseconds() UnitDuration {
+func (_UnitDurationClass UnitDurationClass) Nanoseconds() NSUnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("nanoseconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
@@ -201,7 +201,7 @@ func (_UnitDurationClass UnitDurationClass) Nanoseconds() UnitDuration {
 // The picosecond unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/picoseconds
-func (_UnitDurationClass UnitDurationClass) Picoseconds() UnitDuration {
+func (_UnitDurationClass UnitDurationClass) Picoseconds() NSUnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("picoseconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }

@@ -383,7 +383,7 @@ type IProcessInfo interface {
 	// A string containing the version of the operating system on which the process is executing.
 	OperatingSystemVersionString() string
 	// The version of the operating system on which the process is executing.
-	OperatingSystemVersion() OperatingSystemVersion
+	OperatingSystemVersion() NSOperatingSystemVersion
 	// Returns a Boolean value indicating whether the version of the operating system on which the process is executing is the same or later than the given version.
 	IsOperatingSystemAtLeastVersion(version NSOperatingSystemVersion) bool
 
@@ -834,9 +834,9 @@ func (p ProcessInfo) OperatingSystemVersionString() string {
 // The version of the operating system on which the process is executing.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/operatingSystemVersion
-func (p ProcessInfo) OperatingSystemVersion() OperatingSystemVersion {
-	rv := objc.Send[OperatingSystemVersion](p.ID, objc.Sel("operatingSystemVersion"))
-	return OperatingSystemVersion(rv)
+func (p ProcessInfo) OperatingSystemVersion() NSOperatingSystemVersion {
+	rv := objc.Send[NSOperatingSystemVersion](p.ID, objc.Sel("operatingSystemVersion"))
+	return NSOperatingSystemVersion(rv)
 }
 
 // The number of processing cores available on the computer.
@@ -886,8 +886,8 @@ func (p ProcessInfo) PhysicalMemory() uint64 {
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/systemUptime
 func (p ProcessInfo) SystemUptime() float64 {
-	rv := objc.Send[NSTimeInterval](p.ID, objc.Sel("systemUptime"))
-	return float64(rv)
+	rv := objc.Send[float64](p.ID, objc.Sel("systemUptime"))
+	return rv
 }
 
 // The current thermal state of the system.
@@ -985,7 +985,7 @@ func (p ProcessInfo) SetUserInitiated(value NSActivityOptions) {
 // and that same object is returned on each subsequent invocation.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/processInfo
-func (_ProcessInfoClass ProcessInfoClass) ProcessInfo() ProcessInfo {
+func (_ProcessInfoClass ProcessInfoClass) ProcessInfo() NSProcessInfo {
 	rv := objc.Send[objc.ID](objc.ID(_ProcessInfoClass.class), objc.Sel("processInfo"))
 	return NSProcessInfoFromID(objc.ID(rv))
 }

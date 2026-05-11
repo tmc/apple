@@ -674,11 +674,11 @@ type INSString interface {
 	// Topic: Getting Characters and Bytes
 
 	// Returns the character at a given UTF-16 code unit index.
-	CharacterAtIndex(index uint) Unichar
+	CharacterAtIndex(index uint) uint16
 	// Copies characters from a given range in the receiver into a given buffer.
 	GetCharactersRange(buffer unsafe.Pointer, range_ NSRange)
 	// Gets a given range of characters as bytes in a specified encoding.
-	GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding NSStringEncoding, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool)
+	GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool)
 
 	// Topic: Getting C Strings
 
@@ -692,21 +692,21 @@ type INSString interface {
 	// Topic: Identifying and Comparing Strings
 
 	// Returns the result of invoking [compare(_:options:)](<doc://com.apple.foundation/documentation/Foundation/NSString/compare(_:options:)>) with [NSCaseInsensitiveSearch] as the only option.
-	CaseInsensitiveCompare(string_ string) ComparisonResult
+	CaseInsensitiveCompare(string_ string) NSComparisonResult
 	// Compares the string with a given string using a case-insensitive, localized, comparison.
-	LocalizedCaseInsensitiveCompare(string_ string) ComparisonResult
+	LocalizedCaseInsensitiveCompare(string_ string) NSComparisonResult
 	// Returns the result of invoking [compare(_:options:range:)](<doc://com.apple.foundation/documentation/Foundation/NSString/compare(_:options:range:)>) with no options and the receiver’s full extent as the range.
-	Compare(string_ string) ComparisonResult
+	Compare(string_ string) NSComparisonResult
 	// Compares the string and a given string using a localized comparison.
-	LocalizedCompare(string_ string) ComparisonResult
+	LocalizedCompare(string_ string) NSComparisonResult
 	// Compares the string with the specified string using the given options.
-	CompareOptions(string_ string, mask NSStringCompareOptions) ComparisonResult
+	CompareOptions(string_ string, mask NSStringCompareOptions) NSComparisonResult
 	// Returns the result of invoking [compare(_:options:range:locale:)](<doc://com.apple.foundation/documentation/Foundation/NSString/compare(_:options:range:locale:)>) with a `nil` locale.
-	CompareOptionsRange(string_ string, mask NSStringCompareOptions, rangeOfReceiverToCompare NSRange) ComparisonResult
+	CompareOptionsRange(string_ string, mask NSStringCompareOptions, rangeOfReceiverToCompare NSRange) NSComparisonResult
 	// Compares the string using the specified options and returns the lexical ordering for the range.
-	CompareOptionsRangeLocale(string_ string, mask NSStringCompareOptions, rangeOfReceiverToCompare NSRange, locale objectivec.IObject) ComparisonResult
+	CompareOptionsRangeLocale(string_ string, mask NSStringCompareOptions, rangeOfReceiverToCompare NSRange, locale objectivec.IObject) NSComparisonResult
 	// Compares strings as sorted by the Finder.
-	LocalizedStandardCompare(string_ string) ComparisonResult
+	LocalizedStandardCompare(string_ string) NSComparisonResult
 	// Returns a Boolean value that indicates whether a given string matches the beginning characters of the receiver.
 	HasPrefix(str string) bool
 	// Returns a Boolean value that indicates whether a given string matches the ending characters of the receiver.
@@ -891,9 +891,9 @@ type INSString interface {
 	DataUsingEncodingAllowLossyConversion(encoding uint, lossy bool) INSData
 	Description() string
 	// The fastest encoding to which the receiver may be converted without loss of information.
-	FastestEncoding() NSStringEncoding
+	FastestEncoding() uint
 	// The smallest encoding to which the receiver can be converted without loss of information.
-	SmallestEncoding() NSStringEncoding
+	SmallestEncoding() uint
 
 	// Topic: Working with Paths
 
@@ -944,7 +944,7 @@ type INSString interface {
 	// Draws the receiver with the specified options and other display characteristics of the given attributes, within the specified rectangle in the current graphics context.
 	DrawWithRectOptionsAttributes(rect corefoundation.CGRect, options NSStringDrawingOptions, attributes INSDictionary)
 	// Calculates and returns the bounding rect for the receiver drawn using the given options and display characteristics, within the specified rectangle in the current graphics context.
-	BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary) NSRect
+	BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary) corefoundation.CGRect
 
 	// Topic: Initializers
 
@@ -1840,9 +1840,9 @@ func (s NSString) MaximumLengthOfBytesUsingEncoding(enc uint) uint {
 // correctly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/character(at:)
-func (s NSString) CharacterAtIndex(index uint) Unichar {
-	rv := objc.Send[Unichar](s.ID, objc.Sel("characterAtIndex:"), index)
-	return Unichar(rv)
+func (s NSString) CharacterAtIndex(index uint) uint16 {
+	rv := objc.Send[uint16](s.ID, objc.Sel("characterAtIndex:"), index)
+	return rv
 }
 
 // Copies characters from a given range in the receiver into a given buffer.
@@ -1902,7 +1902,7 @@ func (s NSString) GetCharactersRange(buffer unsafe.Pointer, range_ NSRange) {
 // the conversion isn’t possible due to the chosen encoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getBytes(_:maxLength:usedLength:encoding:options:range:remaining:)
-func (s NSString) GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding NSStringEncoding, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool) {
+func (s NSString) GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool) {
 	var usedBufferCount uint
 	rv := objc.Send[bool](s.ID, objc.Sel("getBytes:maxLength:usedLength:encoding:options:range:remainingRange:"), buffer, maxBufferCount, unsafe.Pointer(&usedBufferCount), encoding, options, range_, leftover)
 	return usedBufferCount, rv
@@ -2005,9 +2005,9 @@ func (s NSString) GetCStringMaxLengthEncoding(buffer string, maxBufferCount uint
 // See: https://developer.apple.com/documentation/Foundation/NSString/caseInsensitiveCompare(_:)
 //
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSString) CaseInsensitiveCompare(string_ string) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("caseInsensitiveCompare:"), objc.String(string_))
-	return ComparisonResult(rv)
+func (s NSString) CaseInsensitiveCompare(string_ string) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("caseInsensitiveCompare:"), objc.String(string_))
+	return NSComparisonResult(rv)
 }
 
 // Compares the string with a given string using a case-insensitive,
@@ -2032,9 +2032,9 @@ func (s NSString) CaseInsensitiveCompare(string_ string) ComparisonResult {
 // See: https://developer.apple.com/documentation/Foundation/NSString/localizedCaseInsensitiveCompare(_:)
 //
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSString) LocalizedCaseInsensitiveCompare(string_ string) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("localizedCaseInsensitiveCompare:"), objc.String(string_))
-	return ComparisonResult(rv)
+func (s NSString) LocalizedCaseInsensitiveCompare(string_ string) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("localizedCaseInsensitiveCompare:"), objc.String(string_))
+	return NSComparisonResult(rv)
 }
 
 // Returns the result of invoking [CompareOptionsRange] with no options and
@@ -2060,9 +2060,9 @@ func (s NSString) LocalizedCaseInsensitiveCompare(string_ string) ComparisonResu
 // See: https://developer.apple.com/documentation/Foundation/NSString/compare(_:)
 //
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSString) Compare(string_ string) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("compare:"), objc.String(string_))
-	return ComparisonResult(rv)
+func (s NSString) Compare(string_ string) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("compare:"), objc.String(string_))
+	return NSComparisonResult(rv)
 }
 
 // Compares the string and a given string using a localized comparison.
@@ -2086,9 +2086,9 @@ func (s NSString) Compare(string_ string) ComparisonResult {
 // See: https://developer.apple.com/documentation/Foundation/NSString/localizedCompare(_:)
 //
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSString) LocalizedCompare(string_ string) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("localizedCompare:"), objc.String(string_))
-	return ComparisonResult(rv)
+func (s NSString) LocalizedCompare(string_ string) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("localizedCompare:"), objc.String(string_))
+	return NSComparisonResult(rv)
 }
 
 // Compares the string with the specified string using the given options.
@@ -2119,9 +2119,9 @@ func (s NSString) LocalizedCompare(string_ string) ComparisonResult {
 //
 // [String Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSString) CompareOptions(string_ string, mask NSStringCompareOptions) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("compare:options:"), objc.String(string_), mask)
-	return ComparisonResult(rv)
+func (s NSString) CompareOptions(string_ string, mask NSStringCompareOptions) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("compare:options:"), objc.String(string_), mask)
+	return NSComparisonResult(rv)
 }
 
 // Returns the result of invoking [CompareOptionsRangeLocale] with a `nil`
@@ -2158,9 +2158,9 @@ func (s NSString) CompareOptions(string_ string, mask NSStringCompareOptions) Co
 //
 // [String Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSString) CompareOptionsRange(string_ string, mask NSStringCompareOptions, rangeOfReceiverToCompare NSRange) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("compare:options:range:"), objc.String(string_), mask, rangeOfReceiverToCompare)
-	return ComparisonResult(rv)
+func (s NSString) CompareOptionsRange(string_ string, mask NSStringCompareOptions, rangeOfReceiverToCompare NSRange) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("compare:options:range:"), objc.String(string_), mask, rangeOfReceiverToCompare)
+	return NSComparisonResult(rv)
 }
 
 // Compares the string using the specified options and returns the lexical
@@ -2205,9 +2205,9 @@ func (s NSString) CompareOptionsRange(string_ string, mask NSStringCompareOption
 //
 // [String Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035i
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (s NSString) CompareOptionsRangeLocale(string_ string, mask NSStringCompareOptions, rangeOfReceiverToCompare NSRange, locale objectivec.IObject) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("compare:options:range:locale:"), objc.String(string_), mask, rangeOfReceiverToCompare, locale)
-	return ComparisonResult(rv)
+func (s NSString) CompareOptionsRangeLocale(string_ string, mask NSStringCompareOptions, rangeOfReceiverToCompare NSRange, locale objectivec.IObject) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("compare:options:range:locale:"), objc.String(string_), mask, rangeOfReceiverToCompare, locale)
+	return NSComparisonResult(rv)
 }
 
 // Compares strings as sorted by the Finder.
@@ -2226,9 +2226,9 @@ func (s NSString) CompareOptionsRangeLocale(string_ string, mask NSStringCompare
 // and may be changed in future releases. This method uses the current locale.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/localizedStandardCompare(_:)
-func (s NSString) LocalizedStandardCompare(string_ string) ComparisonResult {
-	rv := objc.Send[ComparisonResult](s.ID, objc.Sel("localizedStandardCompare:"), objc.String(string_))
-	return ComparisonResult(rv)
+func (s NSString) LocalizedStandardCompare(string_ string) NSComparisonResult {
+	rv := objc.Send[NSComparisonResult](s.ID, objc.Sel("localizedStandardCompare:"), objc.String(string_))
+	return NSComparisonResult(rv)
 }
 
 // Returns a Boolean value that indicates whether a given string matches the
@@ -3995,9 +3995,9 @@ func (s NSString) DrawWithRectOptionsAttributes(rect corefoundation.CGRect, opti
 // multiline configuration.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/boundingRect(with:options:attributes:)
-func (s NSString) BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary) NSRect {
-	rv := objc.Send[NSRect](s.ID, objc.Sel("boundingRectWithSize:options:attributes:"), size, options, attributes)
-	return NSRect(rv)
+func (s NSString) BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("boundingRectWithSize:options:attributes:"), size, options, attributes)
+	return corefoundation.CGRect(rv)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
@@ -4300,9 +4300,9 @@ func (_NSStringClass NSStringClass) LocalizedUserNotificationStringForKeyArgumen
 // determined.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringEncoding(for:encodingOptions:convertedString:usedLossyConversion:)
-func (_NSStringClass NSStringClass) StringEncodingForDataEncodingOptionsConvertedStringUsedLossyConversion(data INSData, opts INSDictionary, string_ string, usedLossyConversion unsafe.Pointer) NSStringEncoding {
-	rv := objc.Send[NSStringEncoding](objc.ID(_NSStringClass.class), objc.Sel("stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:"), data, opts, objc.String(string_), usedLossyConversion)
-	return NSStringEncoding(rv)
+func (_NSStringClass NSStringClass) StringEncodingForDataEncodingOptionsConvertedStringUsedLossyConversion(data INSData, opts INSDictionary, string_ string, usedLossyConversion unsafe.Pointer) uint {
+	rv := objc.Send[uint](objc.ID(_NSStringClass.class), objc.Sel("stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:"), data, opts, objc.String(string_), usedLossyConversion)
+	return rv
 }
 
 // Returns a human-readable string giving the name of a given encoding.
@@ -4974,9 +4974,9 @@ func (s NSString) Description() string {
 // encoding may not be space efficient.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/fastestEncoding
-func (s NSString) FastestEncoding() NSStringEncoding {
-	rv := objc.Send[NSStringEncoding](s.ID, objc.Sel("fastestEncoding"))
-	return NSStringEncoding(rv)
+func (s NSString) FastestEncoding() uint {
+	rv := objc.Send[uint](s.ID, objc.Sel("fastestEncoding"))
+	return rv
 }
 
 // The smallest encoding to which the receiver can be converted without loss
@@ -4988,9 +4988,9 @@ func (s NSString) FastestEncoding() NSStringEncoding {
 // space-efficient. This property may take some time to access.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/smallestEncoding
-func (s NSString) SmallestEncoding() NSStringEncoding {
-	rv := objc.Send[NSStringEncoding](s.ID, objc.Sel("smallestEncoding"))
-	return NSStringEncoding(rv)
+func (s NSString) SmallestEncoding() uint {
+	rv := objc.Send[uint](s.ID, objc.Sel("smallestEncoding"))
+	return rv
 }
 
 // The file-system path components of the receiver.
@@ -5341,9 +5341,9 @@ func (s NSString) WritableTypeIdentifiersForItemProvider() []string {
 // See: https://developer.apple.com/documentation/Foundation/NSString/availableStringEncodings
 //
 // [CFStringConvertEncodingToNSStringEncoding(_:)]: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertEncodingToNSStringEncoding(_:)
-func (_NSStringClass NSStringClass) AvailableStringEncodings() NSStringEncoding {
-	rv := objc.Send[NSStringEncoding](objc.ID(_NSStringClass.class), objc.Sel("availableStringEncodings"))
-	return NSStringEncoding(rv)
+func (_NSStringClass NSStringClass) AvailableStringEncodings() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](objc.ID(_NSStringClass.class), objc.Sel("availableStringEncodings"))
+	return rv
 }
 
 // Returns the C-string encoding assumed for any method accepting a C string
@@ -5373,9 +5373,9 @@ func (_NSStringClass NSStringClass) AvailableStringEncodings() NSStringEncoding 
 // supported encodings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/defaultCStringEncoding
-func (_NSStringClass NSStringClass) DefaultCStringEncoding() NSStringEncoding {
-	rv := objc.Send[NSStringEncoding](objc.ID(_NSStringClass.class), objc.Sel("defaultCStringEncoding"))
-	return NSStringEncoding(rv)
+func (_NSStringClass NSStringClass) DefaultCStringEncoding() uint {
+	rv := objc.Send[uint](objc.ID(_NSStringClass.class), objc.Sel("defaultCStringEncoding"))
+	return rv
 }
 
 // Protocol methods for NSCopying

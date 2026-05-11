@@ -322,32 +322,32 @@ func (d Dimension) SetCoefficient(value float64) {
 // The lux unit of illuminance.
 //
 // See: https://developer.apple.com/documentation/foundation/unitilluminance/lux
-func (_DimensionClass DimensionClass) Lux() UnitIlluminance {
+func (_DimensionClass DimensionClass) Lux() NSUnitIlluminance {
 	rv := objc.Send[objc.ID](objc.ID(_DimensionClass.class), objc.Sel("lux"))
 	return NSUnitIlluminanceFromID(objc.ID(rv))
 }
-func (_DimensionClass DimensionClass) SetLux(value UnitIlluminance) {
+func (_DimensionClass DimensionClass) SetLux(value NSUnitIlluminance) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setLux:"), value)
 }
 
 // The meters unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/meters
-func (_DimensionClass DimensionClass) Meters() UnitLength {
+func (_DimensionClass DimensionClass) Meters() NSUnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_DimensionClass.class), objc.Sel("meters"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-func (_DimensionClass DimensionClass) SetMeters(value UnitLength) {
+func (_DimensionClass DimensionClass) SetMeters(value NSUnitLength) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMeters:"), value)
 }
 
 // The miles unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/miles
-func (_DimensionClass DimensionClass) Miles() UnitLength {
+func (_DimensionClass DimensionClass) Miles() NSUnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_DimensionClass.class), objc.Sel("miles"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-func (_DimensionClass DimensionClass) SetMiles(value UnitLength) {
+func (_DimensionClass DimensionClass) SetMiles(value NSUnitLength) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMiles:"), value)
 }

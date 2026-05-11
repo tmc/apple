@@ -136,7 +136,7 @@ type ICIImageAccumulator interface {
 	// The extent of the image associated with the image accumulator.
 	Extent() corefoundation.CGRect
 	// The pixel format of the image accumulator.
-	Format() CIFormat
+	Format() int
 	// Returns the current contents of the image accumulator.
 	Image() ICIImage
 
@@ -384,7 +384,7 @@ func (i CIImageAccumulator) Extent() corefoundation.CGRect {
 // For applicable values, see Pixel Formats.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/format
-func (i CIImageAccumulator) Format() CIFormat {
-	rv := objc.Send[CIFormat](i.ID, objc.Sel("format"))
-	return CIFormat(rv)
+func (i CIImageAccumulator) Format() int {
+	rv := objc.Send[int](i.ID, objc.Sel("format"))
+	return rv
 }

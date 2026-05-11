@@ -63,6 +63,9 @@ type ErrorHandler = func(error)
 //   - [VZXHCIController.DetachDeviceCompletionHandler]
 //   - [VZXHCIController._capturePassthroughDevicesWithCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
@@ -81,6 +84,9 @@ type VoidHandler = func()
 // Used by:
 //   - [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})

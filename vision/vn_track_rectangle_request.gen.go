@@ -182,8 +182,8 @@ func (t VNTrackRectangleRequest) InitWithRectangleObservation(observation IVNRec
 // See: https://developer.apple.com/documentation/Vision/VNTrackRectangleRequest/init(rectangleObservation:completionHandler:)
 func (t VNTrackRectangleRequest) InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler ErrorHandler) VNTrackRectangleRequest {
 	_block1, _ := NewErrorBlock(completionHandler)
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, _block1)
-	return VNTrackRectangleRequestFromID(rv)
+	rv := objc.Send[VNTrackRectangleRequest](t.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, _block1)
+	return rv
 }
 
 // A constant for specifying revision 1 of the rectangling tracking request.

@@ -243,7 +243,9 @@ func (o MTLIOCommandBufferObject) CopyStatusToBufferOffset(buffer MTLBuffer, off
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/addCompletedHandler(_:)
 func (o MTLIOCommandBufferObject) AddCompletedHandler(block MTLIOCommandBufferHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("addCompletedHandler:"), block)
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTLIOCommandBufferObjectFromID(arg0)) })
+	defer _block0.Release()
+	objc.Send[struct{}](o.ID, objc.Sel("addCompletedHandler:"), objc.ID(_block0))
 }
 
 // Submits the command buffer to the queue for execution on the GPU.

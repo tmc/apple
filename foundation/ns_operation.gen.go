@@ -446,8 +446,8 @@ type IOperation interface {
 	// Topic: Configuring the Execution Priority
 
 	// The relative amount of importance for granting system resources to the operation.
-	QualityOfService() QualityOfService
-	SetQualityOfService(value QualityOfService)
+	QualityOfService() NSQualityOfService
+	SetQualityOfService(value NSQualityOfService)
 	// The execution priority of the operation in an operation queue.
 	QueuePriority() NSOperationQueuePriority
 	SetQueuePriority(value NSOperationQueuePriority)
@@ -888,11 +888,11 @@ func (o Operation) Dependencies() []NSOperation {
 // [Energy Efficiency Guide for iOS Apps]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/index.html#//apple_ref/doc/uid/TP40015243
 // [Prioritize Work at the Task Level]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/power_efficiency_guidelines_osx/PrioritizeWorkAtTheTaskLevel.html#//apple_ref/doc/uid/TP40013929-CH35
 // [Prioritize Work with Quality of Service Classes]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39
-func (o Operation) QualityOfService() QualityOfService {
-	rv := objc.Send[QualityOfService](o.ID, objc.Sel("qualityOfService"))
-	return QualityOfService(rv)
+func (o Operation) QualityOfService() NSQualityOfService {
+	rv := objc.Send[NSQualityOfService](o.ID, objc.Sel("qualityOfService"))
+	return NSQualityOfService(rv)
 }
-func (o Operation) SetQualityOfService(value QualityOfService) {
+func (o Operation) SetQualityOfService(value NSQualityOfService) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQualityOfService:"), value)
 }
 

@@ -255,7 +255,7 @@ func (n NotificationQueue) DequeueNotificationsMatchingCoalesceMask(notification
 // This notification queue uses the default notification center.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/default
-func (_NotificationQueueClass NotificationQueueClass) DefaultQueue() NotificationQueue {
+func (_NotificationQueueClass NotificationQueueClass) DefaultQueue() NSNotificationQueue {
 	rv := objc.Send[objc.ID](objc.ID(_NotificationQueueClass.class), objc.Sel("defaultQueue"))
 	return NSNotificationQueueFromID(objc.ID(rv))
 }

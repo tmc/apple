@@ -353,7 +353,11 @@ func (k CIKernel) SetROISelector(method objc.SEL) {
 // [Core Image Kernel Language Reference]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CIKernelLangRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004397
 // [The Region of Interest]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_advanced_concepts/ci.advanced_concepts.html#//apple_ref/doc/uid/TP30001185-CH9-SW12
 func (k CIKernel) ApplyWithExtentRoiCallbackArguments(extent corefoundation.CGRect, callback CIKernelROICallback, args []objectivec.IObject) ICIImage {
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("applyWithExtent:roiCallback:arguments:"), extent, callback, objectivec.IObjectSliceToNSArray(args))
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 corefoundation.CGRect) corefoundation.CGRect {
+		return callback(arg0, arg1)
+	})
+	defer _block1.Release()
+	rv := objc.Send[objc.ID](k.ID, objc.Sel("applyWithExtent:roiCallback:arguments:"), extent, objc.ID(_block1), args)
 	return CIImageFromID(rv)
 }
 

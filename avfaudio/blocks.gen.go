@@ -21,6 +21,9 @@ type AVAudioApplicationMicrophoneInjectionPermissionHandler = func(AVAudioApplic
 // Used by:
 //   - [AVAudioApplication.RequestMicrophoneInjectionPermissionWithCompletionHandler]
 func NewAVAudioApplicationMicrophoneInjectionPermissionBlock(handler AVAudioApplicationMicrophoneInjectionPermissionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal AVAudioApplicationMicrophoneInjectionPermission) {
 		handler(primitiveVal)
 	})
@@ -41,6 +44,9 @@ type AVAudioUnitComponentHandler = func(*AVAudioUnitComponent)
 // Used by:
 //   - [AVAudioUnitComponentManager.ComponentsPassingTest]
 func NewAVAudioUnitComponentBlock(handler AVAudioUnitComponentHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *AVAudioUnitComponent
 		if resultID != 0 {
@@ -66,6 +72,9 @@ type AVAudioUnitErrorHandler = func(*AVAudioUnit, error)
 // Used by:
 //   - [AVAudioUnit.InstantiateWithComponentDescriptionOptionsCompletionHandler]
 func NewAVAudioUnitErrorBlock(handler AVAudioUnitErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVAudioUnit
 		if resultID != 0 {
@@ -90,6 +99,9 @@ type AVAudioVoiceProcessingSpeechActivityEventHandler = func(AVAudioVoiceProcess
 // Used by:
 //   - [AVAudioInputNode.SetMutedSpeechActivityEventListener]
 func NewAVAudioVoiceProcessingSpeechActivityEventBlock(handler AVAudioVoiceProcessingSpeechActivityEventHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal AVAudioVoiceProcessingSpeechActivityEvent) {
 		handler(primitiveVal)
 	})
@@ -108,6 +120,9 @@ type AVSpeechSynthesisPersonalVoiceAuthorizationStatusHandler = func(AVSpeechSyn
 // Used by:
 //   - [AVSpeechSynthesizer.RequestPersonalVoiceAuthorizationWithCompletionHandler]
 func NewAVSpeechSynthesisPersonalVoiceAuthorizationStatusBlock(handler AVSpeechSynthesisPersonalVoiceAuthorizationStatusHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal AVSpeechSynthesisPersonalVoiceAuthorizationStatus) {
 		handler(primitiveVal)
 	})
@@ -130,6 +145,9 @@ type BoolErrorHandler = func(bool, error)
 // Used by:
 //   - [AVAudioRoutingArbiter.BeginArbitrationWithCategoryCompletionHandler]
 func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
@@ -150,6 +168,9 @@ type BoolHandler = func(bool)
 //   - [AVAudioApplication.RequestRecordPermissionWithCompletionHandler]
 //   - [AVAudioApplication.SetInputMuteStateChangeHandlerError]
 func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool) {
 		handler(primitiveVal)
 	})
@@ -184,6 +205,9 @@ type ErrorHandler = func()
 //   - [AVAudioPlayerNode.ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler]
 //   - [AVMIDIPlayer.Play]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
 	})
@@ -194,4 +218,19 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [AVAudioPCMBuffer.InitWithPCMFormatBufferListNoCopyDeallocator]
-type constAudioBufferListHandler = func(*unsafe.Pointer)
+type constAudioBufferListHandler = func(unsafe.Pointer)
+
+// NewconstAudioBufferListBlock wraps a Go [constAudioBufferListHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVAudioPCMBuffer.InitWithPCMFormatBufferListNoCopyDeallocator]
+func NewconstAudioBufferListBlock(handler constAudioBufferListHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal unsafe.Pointer) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}

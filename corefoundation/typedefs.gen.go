@@ -492,7 +492,7 @@ type CFTypeID = uint
 // CFTypeRef is an untyped “generic” reference to any Core Foundation object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTypeRef
-type CFTypeRef uintptr
+type CFTypeRef = unsafe.Pointer
 
 // CFURLBookmarkFileCreationOptions is type for bookmark file creation options.
 //
