@@ -131,8 +131,17 @@ func (v VZBifrostDeviceConfiguration) _bifrostDevice() objectivec.IObject {
 }
 
 // BifrostDevice is an exported wrapper for the private method _bifrostDevice.
-func (v VZBifrostDeviceConfiguration) BifrostDevice() objectivec.IObject {
-	return v._bifrostDevice()
+func (v VZBifrostDeviceConfiguration) BifrostDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_bifrostDevice")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bifrostDevice"}
+		return nil, err
+	}
+	return v._bifrostDevice(), nil
+}
+
+// CanBifrostDevice reports whether the receiver responds to the private selector _bifrostDevice.
+func (v VZBifrostDeviceConfiguration) CanBifrostDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_bifrostDevice"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/_initWithAttachment:MMIOSize:
@@ -142,8 +151,17 @@ func (v VZBifrostDeviceConfiguration) _initWithAttachmentMMIOSize(attachment obj
 }
 
 // InitWithAttachmentMMIOSize is an exported wrapper for the private method _initWithAttachmentMMIOSize.
-func (v VZBifrostDeviceConfiguration) InitWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) objectivec.IObject {
-	return v._initWithAttachmentMMIOSize(attachment, mIOSize)
+func (v VZBifrostDeviceConfiguration) InitWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:MMIOSize:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithAttachment:MMIOSize:"}
+		return nil, err
+	}
+	return v._initWithAttachmentMMIOSize(attachment, mIOSize), nil
+}
+
+// CanInitWithAttachmentMMIOSize reports whether the receiver responds to the private selector _initWithAttachment:MMIOSize:.
+func (v VZBifrostDeviceConfiguration) CanInitWithAttachmentMMIOSize() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:MMIOSize:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostDeviceConfiguration/encodeWithEncoder:

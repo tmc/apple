@@ -139,8 +139,18 @@ func (v VZVirtualMachineAccessor) _processHIDReportsForDeviceDeviceType(hIDRepor
 }
 
 // ProcessHIDReportsForDeviceDeviceType is an exported wrapper for the private method _processHIDReportsForDeviceDeviceType.
-func (v VZVirtualMachineAccessor) ProcessHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) {
+func (v VZVirtualMachineAccessor) ProcessHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processHIDReports:forDevice:deviceType:"}
+		return err
+	}
 	v._processHIDReportsForDeviceDeviceType(hIDReports, device, type_)
+	return nil
+}
+
+// CanProcessHIDReportsForDeviceDeviceType reports whether the receiver responds to the private selector _processHIDReports:forDevice:deviceType:.
+func (v VZVirtualMachineAccessor) CanProcessHIDReportsForDeviceDeviceType() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/_shouldSendHIDReports
@@ -150,8 +160,17 @@ func (v VZVirtualMachineAccessor) _shouldSendHIDReports() bool {
 }
 
 // ShouldSendHIDReports is an exported wrapper for the private method _shouldSendHIDReports.
-func (v VZVirtualMachineAccessor) ShouldSendHIDReports() bool {
-	return v._shouldSendHIDReports()
+func (v VZVirtualMachineAccessor) ShouldSendHIDReports() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_shouldSendHIDReports")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_shouldSendHIDReports"}
+		return false, err
+	}
+	return v._shouldSendHIDReports(), nil
+}
+
+// CanShouldSendHIDReports reports whether the receiver responds to the private selector _shouldSendHIDReports.
+func (v VZVirtualMachineAccessor) CanShouldSendHIDReports() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_shouldSendHIDReports"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendDigitizerEvents:pointingDeviceIndex:
@@ -217,4 +236,17 @@ func (v VZVirtualMachineAccessor) _hidEventMonitor() *VZHIDEventMonitor {
 	}
 	val := VZHIDEventMonitorFromID(objc.ID(rv))
 	return &val
+}
+
+// CanHidEventMonitor reports whether the receiver responds to the private selector _hidEventMonitor.
+func (v VZVirtualMachineAccessor) CanHidEventMonitor() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_hidEventMonitor"))
+}
+
+// HidEventMonitor is an exported wrapper for the private property _hidEventMonitor.
+func (v VZVirtualMachineAccessor) HidEventMonitor() (*VZHIDEventMonitor, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_hidEventMonitor")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_hidEventMonitor"}
+	}
+	return v._hidEventMonitor(), nil
 }

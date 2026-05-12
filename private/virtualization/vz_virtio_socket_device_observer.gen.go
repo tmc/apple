@@ -100,6 +100,15 @@ func (v VZVirtioSocketDeviceObserver) _initWithConnectionQueueDelegate(connectio
 }
 
 // InitWithConnectionQueueDelegate is an exported wrapper for the private method _initWithConnectionQueueDelegate.
-func (v VZVirtioSocketDeviceObserver) InitWithConnectionQueueDelegate(connection objectivec.IObject, queue objectivec.IObject, delegate objectivec.IObject) objectivec.IObject {
-	return v._initWithConnectionQueueDelegate(connection, queue, delegate)
+func (v VZVirtioSocketDeviceObserver) InitWithConnectionQueueDelegate(connection objectivec.IObject, queue objectivec.IObject, delegate objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithConnection:queue:delegate:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithConnection:queue:delegate:"}
+		return nil, err
+	}
+	return v._initWithConnectionQueueDelegate(connection, queue, delegate), nil
+}
+
+// CanInitWithConnectionQueueDelegate reports whether the receiver responds to the private selector _initWithConnection:queue:delegate:.
+func (v VZVirtioSocketDeviceObserver) CanInitWithConnectionQueueDelegate() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithConnection:queue:delegate:"))
 }

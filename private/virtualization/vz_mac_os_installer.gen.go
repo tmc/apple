@@ -99,6 +99,16 @@ func (m VZMacOSInstaller) _disableMobileDeviceUpdate() {
 }
 
 // DisableMobileDeviceUpdate is an exported wrapper for the private method _disableMobileDeviceUpdate.
-func (m VZMacOSInstaller) DisableMobileDeviceUpdate() {
+func (m VZMacOSInstaller) DisableMobileDeviceUpdate() error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_disableMobileDeviceUpdate")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_disableMobileDeviceUpdate"}
+		return err
+	}
 	m._disableMobileDeviceUpdate()
+	return nil
+}
+
+// CanDisableMobileDeviceUpdate reports whether the receiver responds to the private selector _disableMobileDeviceUpdate.
+func (m VZMacOSInstaller) CanDisableMobileDeviceUpdate() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_disableMobileDeviceUpdate"))
 }

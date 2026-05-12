@@ -102,8 +102,18 @@ func (v VZFramebuffer) _takeScreenshotWithCompletionHandlerImageConversionBlock(
 }
 
 // TakeScreenshotWithCompletionHandlerImageConversionBlock is an exported wrapper for the private method _takeScreenshotWithCompletionHandlerImageConversionBlock.
-func (v VZFramebuffer) TakeScreenshotWithCompletionHandlerImageConversionBlock(handler VoidHandler, block VoidHandler) {
+func (v VZFramebuffer) TakeScreenshotWithCompletionHandlerImageConversionBlock(handler VoidHandler, block VoidHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:imageConversionBlock:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_takeScreenshotWithCompletionHandler:imageConversionBlock:"}
+		return err
+	}
 	v._takeScreenshotWithCompletionHandlerImageConversionBlock(handler, block)
+	return nil
+}
+
+// CanTakeScreenshotWithCompletionHandlerImageConversionBlock reports whether the receiver responds to the private selector _takeScreenshotWithCompletionHandler:imageConversionBlock:.
+func (v VZFramebuffer) CanTakeScreenshotWithCompletionHandlerImageConversionBlock() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:imageConversionBlock:"))
 }
 
 // _takeScreenshotWithCompletionHandlerImageConversionBlockSync is a synchronous wrapper around [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock].

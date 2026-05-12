@@ -23,7 +23,8 @@ func NewGDBDebugStubConfiguration(port uint16, listenAll bool) pvz.VZGDBDebugStu
 // NewForwardingDebugStubConfiguration creates a forwarding debug-stub configuration.
 func NewForwardingDebugStubConfiguration(stub unsafe.Pointer) pvz.VZForwardingDebugStubConfiguration {
 	cfg := pvz.NewVZForwardingDebugStubConfiguration()
-	if raw := cfg.InitWithDebugStub(stub); raw != nil && raw.GetID() != 0 {
+	raw, err := cfg.InitWithDebugStub(stub)
+	if err == nil && raw != nil && raw.GetID() != 0 {
 		return pvz.VZForwardingDebugStubConfigurationFromID(raw.GetID())
 	}
 	return cfg

@@ -99,8 +99,17 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 }
 
 // DefaultReadOnly is an exported wrapper for the private method _defaultReadOnly.
-func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) DefaultReadOnly() bool {
-	return _VZNetworkBlockDeviceStorageDeviceAttachmentClass._defaultReadOnly()
+func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) DefaultReadOnly() (bool, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultReadOnly")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_defaultReadOnly"}
+		return false, err
+	}
+	return _VZNetworkBlockDeviceStorageDeviceAttachmentClass._defaultReadOnly(), nil
+}
+
+// CanDefaultReadOnly reports whether the receiver responds to the private selector _defaultReadOnly.
+func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) CanDefaultReadOnly() bool {
+	return objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultReadOnly"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/_defaultSynchronizationMode
@@ -110,8 +119,17 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 }
 
 // DefaultSynchronizationMode is an exported wrapper for the private method _defaultSynchronizationMode.
-func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) DefaultSynchronizationMode() int64 {
-	return _VZNetworkBlockDeviceStorageDeviceAttachmentClass._defaultSynchronizationMode()
+func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) DefaultSynchronizationMode() (int64, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultSynchronizationMode")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_defaultSynchronizationMode"}
+		return 0, err
+	}
+	return _VZNetworkBlockDeviceStorageDeviceAttachmentClass._defaultSynchronizationMode(), nil
+}
+
+// CanDefaultSynchronizationMode reports whether the receiver responds to the private selector _defaultSynchronizationMode.
+func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) CanDefaultSynchronizationMode() bool {
+	return objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultSynchronizationMode"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/_defaultTimeout
@@ -121,8 +139,17 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 }
 
 // DefaultTimeout is an exported wrapper for the private method _defaultTimeout.
-func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) DefaultTimeout() float64 {
-	return _VZNetworkBlockDeviceStorageDeviceAttachmentClass._defaultTimeout()
+func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) DefaultTimeout() (float64, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultTimeout")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_defaultTimeout"}
+		return 0.0, err
+	}
+	return _VZNetworkBlockDeviceStorageDeviceAttachmentClass._defaultTimeout(), nil
+}
+
+// CanDefaultTimeout reports whether the receiver responds to the private selector _defaultTimeout.
+func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) CanDefaultTimeout() bool {
+	return objc.RespondsToSelector(objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("_defaultTimeout"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/forcedReadOnly

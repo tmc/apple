@@ -97,5 +97,14 @@ func (_VZBridgedNetworkInterfaceClass VZBridgedNetworkInterfaceClass) _interface
 
 // InterfaceWithIdentifierError is an exported wrapper for the private method _interfaceWithIdentifierError.
 func (_VZBridgedNetworkInterfaceClass VZBridgedNetworkInterfaceClass) InterfaceWithIdentifierError(identifier objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZBridgedNetworkInterfaceClass.class), objc.Sel("_interfaceWithIdentifier:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_interfaceWithIdentifier:error:"}
+		return nil, err
+	}
 	return _VZBridgedNetworkInterfaceClass._interfaceWithIdentifierError(identifier)
+}
+
+// CanInterfaceWithIdentifierError reports whether the receiver responds to the private selector _interfaceWithIdentifier:error:.
+func (_VZBridgedNetworkInterfaceClass VZBridgedNetworkInterfaceClass) CanInterfaceWithIdentifierError() bool {
+	return objc.RespondsToSelector(objc.ID(_VZBridgedNetworkInterfaceClass.class), objc.Sel("_interfaceWithIdentifier:error:"))
 }

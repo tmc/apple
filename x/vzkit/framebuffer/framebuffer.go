@@ -31,22 +31,26 @@ func (d Display) Raw() pvz.VZGraphicsDisplay {
 
 // GraphicsOrientation returns the display orientation.
 func (d Display) GraphicsOrientation() int64 {
-	return d.raw.GraphicsOrientation()
+	v, _ := d.raw.GraphicsOrientation()
+	return v
 }
 
 // Uuid returns the display UUID object.
 func (d Display) Uuid() objectivec.IObject {
-	return d.raw.Uuid()
+	v, _ := d.raw.Uuid()
+	return v
 }
 
 // Configuration returns the private display configuration object.
 func (d Display) Configuration() objectivec.IObject {
-	return d.raw.Configuration()
+	v, _ := d.raw.Configuration()
+	return v
 }
 
 // GraphicsDevice returns the underlying graphics device object.
 func (d Display) GraphicsDevice() objectivec.IObject {
-	return d.raw.GraphicsDevice()
+	v, _ := d.raw.GraphicsDevice()
+	return v
 }
 
 // TakeScreenshot triggers a screenshot on the display and waits for completion.

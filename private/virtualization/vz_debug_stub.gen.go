@@ -107,3 +107,16 @@ func (v VZDebugStub) _debugStub() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
 	return objectivec.Object{ID: rv}
 }
+
+// CanDebugStub reports whether the receiver responds to the private selector _debugStub.
+func (v VZDebugStub) CanDebugStub() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_debugStub"))
+}
+
+// DebugStub is an exported wrapper for the private property _debugStub.
+func (v VZDebugStub) DebugStub() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_debugStub")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_debugStub"}
+	}
+	return v._debugStub(), nil
+}

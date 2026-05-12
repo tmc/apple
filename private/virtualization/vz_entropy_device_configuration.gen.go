@@ -121,6 +121,19 @@ func (e VZEntropyDeviceConfiguration) _entropyDevice() int {
 	return rv
 }
 
+// CanEntropyDevice reports whether the receiver responds to the private selector _entropyDevice.
+func (e VZEntropyDeviceConfiguration) CanEntropyDevice() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_entropyDevice"))
+}
+
+// EntropyDevice is an exported wrapper for the private property _entropyDevice.
+func (e VZEntropyDeviceConfiguration) EntropyDevice() (int, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_entropyDevice")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_entropyDevice"}
+	}
+	return e._entropyDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/debugDescription
 func (e VZEntropyDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))

@@ -134,8 +134,17 @@ func (a VZAudioDeviceConfiguration) _makeAudioDeviceForVirtualMachineAudioDevice
 }
 
 // MakeAudioDeviceForVirtualMachineAudioDeviceIndex is an exported wrapper for the private method _makeAudioDeviceForVirtualMachineAudioDeviceIndex.
-func (a VZAudioDeviceConfiguration) MakeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	return a._makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine, index)
+func (a VZAudioDeviceConfiguration) MakeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"}
+		return nil, err
+	}
+	return a._makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine, index), nil
+}
+
+// CanMakeAudioDeviceForVirtualMachineAudioDeviceIndex reports whether the receiver responds to the private selector _makeAudioDeviceForVirtualMachine:audioDeviceIndex:.
+func (a VZAudioDeviceConfiguration) CanMakeAudioDeviceForVirtualMachineAudioDeviceIndex() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_setRole:
@@ -144,8 +153,18 @@ func (a VZAudioDeviceConfiguration) _setRole(role int64) {
 }
 
 // SetRole is an exported wrapper for the private method _setRole.
-func (a VZAudioDeviceConfiguration) SetRole(role int64) {
+func (a VZAudioDeviceConfiguration) SetRole(role int64) error {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_setRole:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setRole:"}
+		return err
+	}
 	a._setRole(role)
+	return nil
+}
+
+// CanSetRole reports whether the receiver responds to the private selector _setRole:.
+func (a VZAudioDeviceConfiguration) CanSetRole() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_setRole:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_audioDevice
@@ -154,10 +173,36 @@ func (a VZAudioDeviceConfiguration) _audioDevice() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanAudioDevice reports whether the receiver responds to the private selector _audioDevice.
+func (a VZAudioDeviceConfiguration) CanAudioDevice() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_audioDevice"))
+}
+
+// AudioDevice is an exported wrapper for the private property _audioDevice.
+func (a VZAudioDeviceConfiguration) AudioDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_audioDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_audioDevice"}
+	}
+	return a._audioDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_role
 func (a VZAudioDeviceConfiguration) _role() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("_role"))
 	return rv
+}
+
+// CanRole reports whether the receiver responds to the private selector _role.
+func (a VZAudioDeviceConfiguration) CanRole() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_role"))
+}
+
+// Role is an exported wrapper for the private property _role.
+func (a VZAudioDeviceConfiguration) Role() (int64, error) {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_role")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_role"}
+	}
+	return a._role(), nil
 }
 func (a VZAudioDeviceConfiguration) Set_role(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("set_role:"), value)

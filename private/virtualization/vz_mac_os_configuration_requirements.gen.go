@@ -100,6 +100,15 @@ func (m VZMacOSConfigurationRequirements) _variants() objectivec.IObject {
 }
 
 // Variants is an exported wrapper for the private method _variants.
-func (m VZMacOSConfigurationRequirements) Variants() objectivec.IObject {
-	return m._variants()
+func (m VZMacOSConfigurationRequirements) Variants() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_variants")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_variants"}
+		return nil, err
+	}
+	return m._variants(), nil
+}
+
+// CanVariants reports whether the receiver responds to the private selector _variants.
+func (m VZMacOSConfigurationRequirements) CanVariants() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_variants"))
 }

@@ -113,8 +113,18 @@ func (m VZMacKeyboardConfiguration) _setSoftwareKeyboard(keyboard bool) {
 }
 
 // SetSoftwareKeyboard is an exported wrapper for the private method _setSoftwareKeyboard.
-func (m VZMacKeyboardConfiguration) SetSoftwareKeyboard(keyboard bool) {
+func (m VZMacKeyboardConfiguration) SetSoftwareKeyboard(keyboard bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setSoftwareKeyboard:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setSoftwareKeyboard:"}
+		return err
+	}
 	m._setSoftwareKeyboard(keyboard)
+	return nil
+}
+
+// CanSetSoftwareKeyboard reports whether the receiver responds to the private selector _setSoftwareKeyboard:.
+func (m VZMacKeyboardConfiguration) CanSetSoftwareKeyboard() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setSoftwareKeyboard:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration/_setSupportsGlobeKey:
@@ -123,14 +133,37 @@ func (m VZMacKeyboardConfiguration) _setSupportsGlobeKey(key bool) {
 }
 
 // SetSupportsGlobeKey is an exported wrapper for the private method _setSupportsGlobeKey.
-func (m VZMacKeyboardConfiguration) SetSupportsGlobeKey(key bool) {
+func (m VZMacKeyboardConfiguration) SetSupportsGlobeKey(key bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setSupportsGlobeKey:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setSupportsGlobeKey:"}
+		return err
+	}
 	m._setSupportsGlobeKey(key)
+	return nil
+}
+
+// CanSetSupportsGlobeKey reports whether the receiver responds to the private selector _setSupportsGlobeKey:.
+func (m VZMacKeyboardConfiguration) CanSetSupportsGlobeKey() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setSupportsGlobeKey:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration/_softwareKeyboard
 func (m VZMacKeyboardConfiguration) _softwareKeyboard() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_softwareKeyboard"))
 	return rv
+}
+
+// CanSoftwareKeyboard reports whether the receiver responds to the private selector _softwareKeyboard.
+func (m VZMacKeyboardConfiguration) CanSoftwareKeyboard() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_softwareKeyboard"))
+}
+
+// SoftwareKeyboard is an exported wrapper for the private property _softwareKeyboard.
+func (m VZMacKeyboardConfiguration) SoftwareKeyboard() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_softwareKeyboard")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_softwareKeyboard"}
+	}
+	return m._softwareKeyboard(), nil
 }
 func (m VZMacKeyboardConfiguration) Set_softwareKeyboard(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_softwareKeyboard:"), value)
@@ -140,6 +173,19 @@ func (m VZMacKeyboardConfiguration) Set_softwareKeyboard(value bool) {
 func (m VZMacKeyboardConfiguration) _supportsGlobeKey() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_supportsGlobeKey"))
 	return rv
+}
+
+// CanSupportsGlobeKey reports whether the receiver responds to the private selector _supportsGlobeKey.
+func (m VZMacKeyboardConfiguration) CanSupportsGlobeKey() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_supportsGlobeKey"))
+}
+
+// SupportsGlobeKey is an exported wrapper for the private property _supportsGlobeKey.
+func (m VZMacKeyboardConfiguration) SupportsGlobeKey() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_supportsGlobeKey")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_supportsGlobeKey"}
+	}
+	return m._supportsGlobeKey(), nil
 }
 func (m VZMacKeyboardConfiguration) Set_supportsGlobeKey(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_supportsGlobeKey:"), value)

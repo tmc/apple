@@ -119,8 +119,17 @@ func (v VZCPUEmulatorConfiguration) _cpuEmulator() objectivec.IObject {
 }
 
 // CpuEmulator is an exported wrapper for the private method _cpuEmulator.
-func (v VZCPUEmulatorConfiguration) CpuEmulator() objectivec.IObject {
-	return v._cpuEmulator()
+func (v VZCPUEmulatorConfiguration) CpuEmulator() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_cpuEmulator")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cpuEmulator"}
+		return nil, err
+	}
+	return v._cpuEmulator(), nil
+}
+
+// CanCpuEmulator reports whether the receiver responds to the private selector _cpuEmulator.
+func (v VZCPUEmulatorConfiguration) CanCpuEmulator() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_cpuEmulator"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/_init

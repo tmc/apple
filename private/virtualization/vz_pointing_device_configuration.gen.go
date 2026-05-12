@@ -130,6 +130,19 @@ func (p VZPointingDeviceConfiguration) _pointingDevice() int {
 	return rv
 }
 
+// CanPointingDevice reports whether the receiver responds to the private selector _pointingDevice.
+func (p VZPointingDeviceConfiguration) CanPointingDevice() bool {
+	return objc.RespondsToSelector(p.ID, objc.Sel("_pointingDevice"))
+}
+
+// PointingDevice is an exported wrapper for the private property _pointingDevice.
+func (p VZPointingDeviceConfiguration) PointingDevice() (int, error) {
+	if !objc.RespondsToSelector(p.ID, objc.Sel("_pointingDevice")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_pointingDevice"}
+	}
+	return p._pointingDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZPointingDeviceConfiguration/debugDescription
 func (p VZPointingDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))

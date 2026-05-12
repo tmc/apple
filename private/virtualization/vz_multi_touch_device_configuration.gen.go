@@ -145,6 +145,19 @@ func (v VZMultiTouchDeviceConfiguration) _multiTouchDevice() objectivec.IObject 
 	return objectivec.Object{ID: rv}
 }
 
+// CanMultiTouchDevice reports whether the receiver responds to the private selector _multiTouchDevice.
+func (v VZMultiTouchDeviceConfiguration) CanMultiTouchDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_multiTouchDevice"))
+}
+
+// MultiTouchDevice is an exported wrapper for the private property _multiTouchDevice.
+func (v VZMultiTouchDeviceConfiguration) MultiTouchDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_multiTouchDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_multiTouchDevice"}
+	}
+	return v._multiTouchDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDeviceConfiguration/associationIdentifier
 func (v VZMultiTouchDeviceConfiguration) AssociationIdentifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("associationIdentifier"))

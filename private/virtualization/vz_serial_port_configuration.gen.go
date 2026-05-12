@@ -136,6 +136,19 @@ func (s VZSerialPortConfiguration) _serialPort() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanSerialPort reports whether the receiver responds to the private selector _serialPort.
+func (s VZSerialPortConfiguration) CanSerialPort() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_serialPort"))
+}
+
+// SerialPort is an exported wrapper for the private property _serialPort.
+func (s VZSerialPortConfiguration) SerialPort() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_serialPort")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_serialPort"}
+	}
+	return s._serialPort(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortConfiguration/debugDescription
 func (s VZSerialPortConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))

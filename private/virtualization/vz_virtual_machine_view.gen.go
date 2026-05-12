@@ -163,8 +163,17 @@ func (v VZVirtualMachineView) _grabMouseInput() bool {
 }
 
 // GrabMouseInput is an exported wrapper for the private method _grabMouseInput.
-func (v VZVirtualMachineView) GrabMouseInput() bool {
-	return v._grabMouseInput()
+func (v VZVirtualMachineView) GrabMouseInput() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_grabMouseInput")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_grabMouseInput"}
+		return false, err
+	}
+	return v._grabMouseInput(), nil
+}
+
+// CanGrabMouseInput reports whether the receiver responds to the private selector _grabMouseInput.
+func (v VZVirtualMachineView) CanGrabMouseInput() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_grabMouseInput"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_releaseMouseInput
@@ -174,8 +183,17 @@ func (v VZVirtualMachineView) _releaseMouseInput() bool {
 }
 
 // ReleaseMouseInput is an exported wrapper for the private method _releaseMouseInput.
-func (v VZVirtualMachineView) ReleaseMouseInput() bool {
-	return v._releaseMouseInput()
+func (v VZVirtualMachineView) ReleaseMouseInput() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_releaseMouseInput")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_releaseMouseInput"}
+		return false, err
+	}
+	return v._releaseMouseInput(), nil
+}
+
+// CanReleaseMouseInput reports whether the receiver responds to the private selector _releaseMouseInput.
+func (v VZVirtualMachineView) CanReleaseMouseInput() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_releaseMouseInput"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setDelegate:
@@ -184,8 +202,18 @@ func (v VZVirtualMachineView) _setDelegate(delegate objectivec.IObject) {
 }
 
 // SetDelegate is an exported wrapper for the private method _setDelegate.
-func (v VZVirtualMachineView) SetDelegate(delegate objectivec.IObject) {
+func (v VZVirtualMachineView) SetDelegate(delegate objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setDelegate:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setDelegate:"}
+		return err
+	}
 	v._setDelegate(delegate)
+	return nil
+}
+
+// CanSetDelegate reports whether the receiver responds to the private selector _setDelegate:.
+func (v VZVirtualMachineView) CanSetDelegate() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setDelegate:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setGraphicsDisplay:
@@ -194,8 +222,18 @@ func (v VZVirtualMachineView) _setGraphicsDisplay(display objectivec.IObject) {
 }
 
 // SetGraphicsDisplay is an exported wrapper for the private method _setGraphicsDisplay.
-func (v VZVirtualMachineView) SetGraphicsDisplay(display objectivec.IObject) {
+func (v VZVirtualMachineView) SetGraphicsDisplay(display objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setGraphicsDisplay:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setGraphicsDisplay:"}
+		return err
+	}
 	v._setGraphicsDisplay(display)
+	return nil
+}
+
+// CanSetGraphicsDisplay reports whether the receiver responds to the private selector _setGraphicsDisplay:.
+func (v VZVirtualMachineView) CanSetGraphicsDisplay() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setGraphicsDisplay:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setScaleMode:
@@ -204,8 +242,18 @@ func (v VZVirtualMachineView) _setScaleMode(mode int64) {
 }
 
 // SetScaleMode is an exported wrapper for the private method _setScaleMode.
-func (v VZVirtualMachineView) SetScaleMode(mode int64) {
+func (v VZVirtualMachineView) SetScaleMode(mode int64) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setScaleMode:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setScaleMode:"}
+		return err
+	}
 	v._setScaleMode(mode)
+	return nil
+}
+
+// CanSetScaleMode reports whether the receiver responds to the private selector _setScaleMode:.
+func (v VZVirtualMachineView) CanSetScaleMode() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setScaleMode:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/displayDidBeginReconfiguration:
@@ -235,6 +283,19 @@ func (v VZVirtualMachineView) _delegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_delegate"))
 	return objectivec.Object{ID: rv}
 }
+
+// CanDelegate reports whether the receiver responds to the private selector _delegate.
+func (v VZVirtualMachineView) CanDelegate() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_delegate"))
+}
+
+// Delegate is an exported wrapper for the private property _delegate.
+func (v VZVirtualMachineView) Delegate() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_delegate")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_delegate"}
+	}
+	return v._delegate(), nil
+}
 func (v VZVirtualMachineView) Set_delegate(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_delegate:"), value)
 }
@@ -244,6 +305,19 @@ func (v VZVirtualMachineView) _graphicsDisplay() IVZGraphicsDisplay {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_graphicsDisplay"))
 	return VZGraphicsDisplayFromID(objc.ID(rv))
 }
+
+// CanGraphicsDisplay reports whether the receiver responds to the private selector _graphicsDisplay.
+func (v VZVirtualMachineView) CanGraphicsDisplay() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDisplay"))
+}
+
+// GraphicsDisplay is an exported wrapper for the private property _graphicsDisplay.
+func (v VZVirtualMachineView) GraphicsDisplay() (IVZGraphicsDisplay, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDisplay")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_graphicsDisplay"}
+	}
+	return v._graphicsDisplay(), nil
+}
 func (v VZVirtualMachineView) Set_graphicsDisplay(value IVZGraphicsDisplay) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_graphicsDisplay:"), value)
 }
@@ -252,6 +326,19 @@ func (v VZVirtualMachineView) Set_graphicsDisplay(value IVZGraphicsDisplay) {
 func (v VZVirtualMachineView) _scaleMode() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_scaleMode"))
 	return rv
+}
+
+// CanScaleMode reports whether the receiver responds to the private selector _scaleMode.
+func (v VZVirtualMachineView) CanScaleMode() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_scaleMode"))
+}
+
+// ScaleMode is an exported wrapper for the private property _scaleMode.
+func (v VZVirtualMachineView) ScaleMode() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_scaleMode")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_scaleMode"}
+	}
+	return v._scaleMode(), nil
 }
 func (v VZVirtualMachineView) Set_scaleMode(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_scaleMode:"), value)

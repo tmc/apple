@@ -150,6 +150,19 @@ func (c VZConsoleDeviceConfiguration) _consoleDevice() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanConsoleDevice reports whether the receiver responds to the private selector _consoleDevice.
+func (c VZConsoleDeviceConfiguration) CanConsoleDevice() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_consoleDevice"))
+}
+
+// ConsoleDevice is an exported wrapper for the private property _consoleDevice.
+func (c VZConsoleDeviceConfiguration) ConsoleDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_consoleDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_consoleDevice"}
+	}
+	return c._consoleDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/debugDescription
 func (c VZConsoleDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))

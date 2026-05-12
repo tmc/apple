@@ -87,6 +87,15 @@ func (_VZMacVideoToolboxDeviceConfigurationClass VZMacVideoToolboxDeviceConfigur
 }
 
 // IsSupported is an exported wrapper for the private method _isSupported.
-func (_VZMacVideoToolboxDeviceConfigurationClass VZMacVideoToolboxDeviceConfigurationClass) IsSupported() bool {
-	return _VZMacVideoToolboxDeviceConfigurationClass._isSupported()
+func (_VZMacVideoToolboxDeviceConfigurationClass VZMacVideoToolboxDeviceConfigurationClass) IsSupported() (bool, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZMacVideoToolboxDeviceConfigurationClass.class), objc.Sel("_isSupported")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isSupported"}
+		return false, err
+	}
+	return _VZMacVideoToolboxDeviceConfigurationClass._isSupported(), nil
+}
+
+// CanIsSupported reports whether the receiver responds to the private selector _isSupported.
+func (_VZMacVideoToolboxDeviceConfigurationClass VZMacVideoToolboxDeviceConfigurationClass) CanIsSupported() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacVideoToolboxDeviceConfigurationClass.class), objc.Sel("_isSupported"))
 }

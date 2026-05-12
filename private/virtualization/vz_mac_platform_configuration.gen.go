@@ -184,8 +184,17 @@ func (m VZMacPlatformConfiguration) _isFairPlayEnabled() bool {
 }
 
 // IsFairPlayEnabled is an exported wrapper for the private method _isFairPlayEnabled.
-func (m VZMacPlatformConfiguration) IsFairPlayEnabled() bool {
-	return m._isFairPlayEnabled()
+func (m VZMacPlatformConfiguration) IsFairPlayEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_isFairPlayEnabled")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isFairPlayEnabled"}
+		return false, err
+	}
+	return m._isFairPlayEnabled(), nil
+}
+
+// CanIsFairPlayEnabled reports whether the receiver responds to the private selector _isFairPlayEnabled.
+func (m VZMacPlatformConfiguration) CanIsFairPlayEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_isFairPlayEnabled"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isFakeEncryptionEnabled
@@ -195,8 +204,17 @@ func (m VZMacPlatformConfiguration) _isFakeEncryptionEnabled() bool {
 }
 
 // IsFakeEncryptionEnabled is an exported wrapper for the private method _isFakeEncryptionEnabled.
-func (m VZMacPlatformConfiguration) IsFakeEncryptionEnabled() bool {
-	return m._isFakeEncryptionEnabled()
+func (m VZMacPlatformConfiguration) IsFakeEncryptionEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_isFakeEncryptionEnabled")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isFakeEncryptionEnabled"}
+		return false, err
+	}
+	return m._isFakeEncryptionEnabled(), nil
+}
+
+// CanIsFakeEncryptionEnabled reports whether the receiver responds to the private selector _isFakeEncryptionEnabled.
+func (m VZMacPlatformConfiguration) CanIsFakeEncryptionEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_isFakeEncryptionEnabled"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isProductionModeEnabled
@@ -206,8 +224,17 @@ func (m VZMacPlatformConfiguration) _isProductionModeEnabled() bool {
 }
 
 // IsProductionModeEnabled is an exported wrapper for the private method _isProductionModeEnabled.
-func (m VZMacPlatformConfiguration) IsProductionModeEnabled() bool {
-	return m._isProductionModeEnabled()
+func (m VZMacPlatformConfiguration) IsProductionModeEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_isProductionModeEnabled")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isProductionModeEnabled"}
+		return false, err
+	}
+	return m._isProductionModeEnabled(), nil
+}
+
+// CanIsProductionModeEnabled reports whether the receiver responds to the private selector _isProductionModeEnabled.
+func (m VZMacPlatformConfiguration) CanIsProductionModeEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_isProductionModeEnabled"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isSIODescramblerEnabled
@@ -217,8 +244,17 @@ func (m VZMacPlatformConfiguration) _isSIODescramblerEnabled() bool {
 }
 
 // IsSIODescramblerEnabled is an exported wrapper for the private method _isSIODescramblerEnabled.
-func (m VZMacPlatformConfiguration) IsSIODescramblerEnabled() bool {
-	return m._isSIODescramblerEnabled()
+func (m VZMacPlatformConfiguration) IsSIODescramblerEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_isSIODescramblerEnabled")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isSIODescramblerEnabled"}
+		return false, err
+	}
+	return m._isSIODescramblerEnabled(), nil
+}
+
+// CanIsSIODescramblerEnabled reports whether the receiver responds to the private selector _isSIODescramblerEnabled.
+func (m VZMacPlatformConfiguration) CanIsSIODescramblerEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_isSIODescramblerEnabled"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_isStrongIdentityEnabled
@@ -228,8 +264,17 @@ func (m VZMacPlatformConfiguration) _isStrongIdentityEnabled() bool {
 }
 
 // IsStrongIdentityEnabled is an exported wrapper for the private method _isStrongIdentityEnabled.
-func (m VZMacPlatformConfiguration) IsStrongIdentityEnabled() bool {
-	return m._isStrongIdentityEnabled()
+func (m VZMacPlatformConfiguration) IsStrongIdentityEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_isStrongIdentityEnabled")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isStrongIdentityEnabled"}
+		return false, err
+	}
+	return m._isStrongIdentityEnabled(), nil
+}
+
+// CanIsStrongIdentityEnabled reports whether the receiver responds to the private selector _isStrongIdentityEnabled.
+func (m VZMacPlatformConfiguration) CanIsStrongIdentityEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_isStrongIdentityEnabled"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setFairPlayEnabled:
@@ -238,8 +283,18 @@ func (m VZMacPlatformConfiguration) _setFairPlayEnabled(enabled bool) {
 }
 
 // SetFairPlayEnabled is an exported wrapper for the private method _setFairPlayEnabled.
-func (m VZMacPlatformConfiguration) SetFairPlayEnabled(enabled bool) {
+func (m VZMacPlatformConfiguration) SetFairPlayEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setFairPlayEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setFairPlayEnabled:"}
+		return err
+	}
 	m._setFairPlayEnabled(enabled)
+	return nil
+}
+
+// CanSetFairPlayEnabled reports whether the receiver responds to the private selector _setFairPlayEnabled:.
+func (m VZMacPlatformConfiguration) CanSetFairPlayEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setFairPlayEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setFakeEncryptionEnabled:
@@ -248,8 +303,18 @@ func (m VZMacPlatformConfiguration) _setFakeEncryptionEnabled(enabled bool) {
 }
 
 // SetFakeEncryptionEnabled is an exported wrapper for the private method _setFakeEncryptionEnabled.
-func (m VZMacPlatformConfiguration) SetFakeEncryptionEnabled(enabled bool) {
+func (m VZMacPlatformConfiguration) SetFakeEncryptionEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setFakeEncryptionEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setFakeEncryptionEnabled:"}
+		return err
+	}
 	m._setFakeEncryptionEnabled(enabled)
+	return nil
+}
+
+// CanSetFakeEncryptionEnabled reports whether the receiver responds to the private selector _setFakeEncryptionEnabled:.
+func (m VZMacPlatformConfiguration) CanSetFakeEncryptionEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setFakeEncryptionEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setGuestEncryptionWrappingKey:
@@ -258,8 +323,18 @@ func (m VZMacPlatformConfiguration) _setGuestEncryptionWrappingKey(key objective
 }
 
 // SetGuestEncryptionWrappingKey is an exported wrapper for the private method _setGuestEncryptionWrappingKey.
-func (m VZMacPlatformConfiguration) SetGuestEncryptionWrappingKey(key objectivec.IObject) {
+func (m VZMacPlatformConfiguration) SetGuestEncryptionWrappingKey(key objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setGuestEncryptionWrappingKey:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setGuestEncryptionWrappingKey:"}
+		return err
+	}
 	m._setGuestEncryptionWrappingKey(key)
+	return nil
+}
+
+// CanSetGuestEncryptionWrappingKey reports whether the receiver responds to the private selector _setGuestEncryptionWrappingKey:.
+func (m VZMacPlatformConfiguration) CanSetGuestEncryptionWrappingKey() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setGuestEncryptionWrappingKey:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setHostAttributeShareOptions:
@@ -268,8 +343,18 @@ func (m VZMacPlatformConfiguration) _setHostAttributeShareOptions(options uint64
 }
 
 // SetHostAttributeShareOptions is an exported wrapper for the private method _setHostAttributeShareOptions.
-func (m VZMacPlatformConfiguration) SetHostAttributeShareOptions(options uint64) {
+func (m VZMacPlatformConfiguration) SetHostAttributeShareOptions(options uint64) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setHostAttributeShareOptions:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setHostAttributeShareOptions:"}
+		return err
+	}
 	m._setHostAttributeShareOptions(options)
+	return nil
+}
+
+// CanSetHostAttributeShareOptions reports whether the receiver responds to the private selector _setHostAttributeShareOptions:.
+func (m VZMacPlatformConfiguration) CanSetHostAttributeShareOptions() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setHostAttributeShareOptions:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setProductionModeEnabled:
@@ -278,8 +363,18 @@ func (m VZMacPlatformConfiguration) _setProductionModeEnabled(enabled bool) {
 }
 
 // SetProductionModeEnabled is an exported wrapper for the private method _setProductionModeEnabled.
-func (m VZMacPlatformConfiguration) SetProductionModeEnabled(enabled bool) {
+func (m VZMacPlatformConfiguration) SetProductionModeEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setProductionModeEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setProductionModeEnabled:"}
+		return err
+	}
 	m._setProductionModeEnabled(enabled)
+	return nil
+}
+
+// CanSetProductionModeEnabled reports whether the receiver responds to the private selector _setProductionModeEnabled:.
+func (m VZMacPlatformConfiguration) CanSetProductionModeEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setProductionModeEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setRemoteServiceDiscoveryConfiguration:
@@ -288,8 +383,18 @@ func (m VZMacPlatformConfiguration) _setRemoteServiceDiscoveryConfiguration(conf
 }
 
 // SetRemoteServiceDiscoveryConfiguration is an exported wrapper for the private method _setRemoteServiceDiscoveryConfiguration.
-func (m VZMacPlatformConfiguration) SetRemoteServiceDiscoveryConfiguration(configuration objectivec.IObject) {
+func (m VZMacPlatformConfiguration) SetRemoteServiceDiscoveryConfiguration(configuration objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setRemoteServiceDiscoveryConfiguration:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setRemoteServiceDiscoveryConfiguration:"}
+		return err
+	}
 	m._setRemoteServiceDiscoveryConfiguration(configuration)
+	return nil
+}
+
+// CanSetRemoteServiceDiscoveryConfiguration reports whether the receiver responds to the private selector _setRemoteServiceDiscoveryConfiguration:.
+func (m VZMacPlatformConfiguration) CanSetRemoteServiceDiscoveryConfiguration() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setRemoteServiceDiscoveryConfiguration:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setSIODescramblerEnabled:
@@ -298,8 +403,18 @@ func (m VZMacPlatformConfiguration) _setSIODescramblerEnabled(enabled bool) {
 }
 
 // SetSIODescramblerEnabled is an exported wrapper for the private method _setSIODescramblerEnabled.
-func (m VZMacPlatformConfiguration) SetSIODescramblerEnabled(enabled bool) {
+func (m VZMacPlatformConfiguration) SetSIODescramblerEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setSIODescramblerEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setSIODescramblerEnabled:"}
+		return err
+	}
 	m._setSIODescramblerEnabled(enabled)
+	return nil
+}
+
+// CanSetSIODescramblerEnabled reports whether the receiver responds to the private selector _setSIODescramblerEnabled:.
+func (m VZMacPlatformConfiguration) CanSetSIODescramblerEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setSIODescramblerEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_setStrongIdentityEnabled:
@@ -308,14 +423,37 @@ func (m VZMacPlatformConfiguration) _setStrongIdentityEnabled(enabled bool) {
 }
 
 // SetStrongIdentityEnabled is an exported wrapper for the private method _setStrongIdentityEnabled.
-func (m VZMacPlatformConfiguration) SetStrongIdentityEnabled(enabled bool) {
+func (m VZMacPlatformConfiguration) SetStrongIdentityEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setStrongIdentityEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setStrongIdentityEnabled:"}
+		return err
+	}
 	m._setStrongIdentityEnabled(enabled)
+	return nil
+}
+
+// CanSetStrongIdentityEnabled reports whether the receiver responds to the private selector _setStrongIdentityEnabled:.
+func (m VZMacPlatformConfiguration) CanSetStrongIdentityEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setStrongIdentityEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacPlatformConfiguration/_fairPlayEnabled
 func (m VZMacPlatformConfiguration) _fairPlayEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_fairPlayEnabled"))
 	return rv
+}
+
+// CanFairPlayEnabled reports whether the receiver responds to the private selector _fairPlayEnabled.
+func (m VZMacPlatformConfiguration) CanFairPlayEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_fairPlayEnabled"))
+}
+
+// FairPlayEnabled is an exported wrapper for the private property _fairPlayEnabled.
+func (m VZMacPlatformConfiguration) FairPlayEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_fairPlayEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_fairPlayEnabled"}
+	}
+	return m._fairPlayEnabled(), nil
 }
 func (m VZMacPlatformConfiguration) Set_fairPlayEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_fairPlayEnabled:"), value)
@@ -325,6 +463,19 @@ func (m VZMacPlatformConfiguration) Set_fairPlayEnabled(value bool) {
 func (m VZMacPlatformConfiguration) _fakeEncryptionEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_fakeEncryptionEnabled"))
 	return rv
+}
+
+// CanFakeEncryptionEnabled reports whether the receiver responds to the private selector _fakeEncryptionEnabled.
+func (m VZMacPlatformConfiguration) CanFakeEncryptionEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_fakeEncryptionEnabled"))
+}
+
+// FakeEncryptionEnabled is an exported wrapper for the private property _fakeEncryptionEnabled.
+func (m VZMacPlatformConfiguration) FakeEncryptionEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_fakeEncryptionEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_fakeEncryptionEnabled"}
+	}
+	return m._fakeEncryptionEnabled(), nil
 }
 func (m VZMacPlatformConfiguration) Set_fakeEncryptionEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_fakeEncryptionEnabled:"), value)
@@ -339,6 +490,19 @@ func (m VZMacPlatformConfiguration) _guestEncryptionWrappingKey() *VZWrappingKey
 	val := VZWrappingKeyFromID(objc.ID(rv))
 	return &val
 }
+
+// CanGuestEncryptionWrappingKey reports whether the receiver responds to the private selector _guestEncryptionWrappingKey.
+func (m VZMacPlatformConfiguration) CanGuestEncryptionWrappingKey() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_guestEncryptionWrappingKey"))
+}
+
+// GuestEncryptionWrappingKey is an exported wrapper for the private property _guestEncryptionWrappingKey.
+func (m VZMacPlatformConfiguration) GuestEncryptionWrappingKey() (*VZWrappingKey, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_guestEncryptionWrappingKey")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_guestEncryptionWrappingKey"}
+	}
+	return m._guestEncryptionWrappingKey(), nil
+}
 func (m VZMacPlatformConfiguration) Set_guestEncryptionWrappingKey(value *VZWrappingKey) {
 	if value == nil {
 		objc.Send[struct{}](m.ID, objc.Sel("set_guestEncryptionWrappingKey:"), objc.ID(0))
@@ -352,6 +516,19 @@ func (m VZMacPlatformConfiguration) _hostAttributeShareOptions() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("_hostAttributeShareOptions"))
 	return rv
 }
+
+// CanHostAttributeShareOptions reports whether the receiver responds to the private selector _hostAttributeShareOptions.
+func (m VZMacPlatformConfiguration) CanHostAttributeShareOptions() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_hostAttributeShareOptions"))
+}
+
+// HostAttributeShareOptions is an exported wrapper for the private property _hostAttributeShareOptions.
+func (m VZMacPlatformConfiguration) HostAttributeShareOptions() (uint64, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_hostAttributeShareOptions")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_hostAttributeShareOptions"}
+	}
+	return m._hostAttributeShareOptions(), nil
+}
 func (m VZMacPlatformConfiguration) Set_hostAttributeShareOptions(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_hostAttributeShareOptions:"), value)
 }
@@ -360,6 +537,19 @@ func (m VZMacPlatformConfiguration) Set_hostAttributeShareOptions(value uint64) 
 func (m VZMacPlatformConfiguration) _productionModeEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_productionModeEnabled"))
 	return rv
+}
+
+// CanProductionModeEnabled reports whether the receiver responds to the private selector _productionModeEnabled.
+func (m VZMacPlatformConfiguration) CanProductionModeEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_productionModeEnabled"))
+}
+
+// ProductionModeEnabled is an exported wrapper for the private property _productionModeEnabled.
+func (m VZMacPlatformConfiguration) ProductionModeEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_productionModeEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_productionModeEnabled"}
+	}
+	return m._productionModeEnabled(), nil
 }
 func (m VZMacPlatformConfiguration) Set_productionModeEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_productionModeEnabled:"), value)
@@ -374,6 +564,19 @@ func (m VZMacPlatformConfiguration) _remoteServiceDiscoveryConfiguration() *VZMa
 	val := VZMacRemoteServiceDiscoveryConfigurationFromID(objc.ID(rv))
 	return &val
 }
+
+// CanRemoteServiceDiscoveryConfiguration reports whether the receiver responds to the private selector _remoteServiceDiscoveryConfiguration.
+func (m VZMacPlatformConfiguration) CanRemoteServiceDiscoveryConfiguration() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_remoteServiceDiscoveryConfiguration"))
+}
+
+// RemoteServiceDiscoveryConfiguration is an exported wrapper for the private property _remoteServiceDiscoveryConfiguration.
+func (m VZMacPlatformConfiguration) RemoteServiceDiscoveryConfiguration() (*VZMacRemoteServiceDiscoveryConfiguration, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_remoteServiceDiscoveryConfiguration")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_remoteServiceDiscoveryConfiguration"}
+	}
+	return m._remoteServiceDiscoveryConfiguration(), nil
+}
 func (m VZMacPlatformConfiguration) Set_remoteServiceDiscoveryConfiguration(value *VZMacRemoteServiceDiscoveryConfiguration) {
 	if value == nil {
 		objc.Send[struct{}](m.ID, objc.Sel("set_remoteServiceDiscoveryConfiguration:"), objc.ID(0))
@@ -387,6 +590,19 @@ func (m VZMacPlatformConfiguration) _sioDescramblerEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_sioDescramblerEnabled"))
 	return rv
 }
+
+// CanSioDescramblerEnabled reports whether the receiver responds to the private selector _sioDescramblerEnabled.
+func (m VZMacPlatformConfiguration) CanSioDescramblerEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_sioDescramblerEnabled"))
+}
+
+// SioDescramblerEnabled is an exported wrapper for the private property _sioDescramblerEnabled.
+func (m VZMacPlatformConfiguration) SioDescramblerEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_sioDescramblerEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_sioDescramblerEnabled"}
+	}
+	return m._sioDescramblerEnabled(), nil
+}
 func (m VZMacPlatformConfiguration) Set_sioDescramblerEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_sioDescramblerEnabled:"), value)
 }
@@ -395,6 +611,19 @@ func (m VZMacPlatformConfiguration) Set_sioDescramblerEnabled(value bool) {
 func (m VZMacPlatformConfiguration) _strongIdentityEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_strongIdentityEnabled"))
 	return rv
+}
+
+// CanStrongIdentityEnabled reports whether the receiver responds to the private selector _strongIdentityEnabled.
+func (m VZMacPlatformConfiguration) CanStrongIdentityEnabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_strongIdentityEnabled"))
+}
+
+// StrongIdentityEnabled is an exported wrapper for the private property _strongIdentityEnabled.
+func (m VZMacPlatformConfiguration) StrongIdentityEnabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_strongIdentityEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_strongIdentityEnabled"}
+	}
+	return m._strongIdentityEnabled(), nil
 }
 func (m VZMacPlatformConfiguration) Set_strongIdentityEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_strongIdentityEnabled:"), value)

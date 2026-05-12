@@ -104,14 +104,37 @@ func (n VZNATNetworkDeviceAttachment) _setInterfaceIsolationEnabled(enabled bool
 }
 
 // SetInterfaceIsolationEnabled is an exported wrapper for the private method _setInterfaceIsolationEnabled.
-func (n VZNATNetworkDeviceAttachment) SetInterfaceIsolationEnabled(enabled bool) {
+func (n VZNATNetworkDeviceAttachment) SetInterfaceIsolationEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_setInterfaceIsolationEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setInterfaceIsolationEnabled:"}
+		return err
+	}
 	n._setInterfaceIsolationEnabled(enabled)
+	return nil
+}
+
+// CanSetInterfaceIsolationEnabled reports whether the receiver responds to the private selector _setInterfaceIsolationEnabled:.
+func (n VZNATNetworkDeviceAttachment) CanSetInterfaceIsolationEnabled() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_setInterfaceIsolationEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment/_interfaceIsolationEnabled
 func (n VZNATNetworkDeviceAttachment) _interfaceIsolationEnabled() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("_interfaceIsolationEnabled"))
 	return rv
+}
+
+// CanInterfaceIsolationEnabled reports whether the receiver responds to the private selector _interfaceIsolationEnabled.
+func (n VZNATNetworkDeviceAttachment) CanInterfaceIsolationEnabled() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_interfaceIsolationEnabled"))
+}
+
+// InterfaceIsolationEnabled is an exported wrapper for the private property _interfaceIsolationEnabled.
+func (n VZNATNetworkDeviceAttachment) InterfaceIsolationEnabled() (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_interfaceIsolationEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_interfaceIsolationEnabled"}
+	}
+	return n._interfaceIsolationEnabled(), nil
 }
 func (n VZNATNetworkDeviceAttachment) Set_interfaceIsolationEnabled(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("set_interfaceIsolationEnabled:"), value)

@@ -108,8 +108,17 @@ func (v VZMacNeuralEngineDeviceConfiguration) _isSignatureMismatchAllowed() bool
 }
 
 // IsSignatureMismatchAllowed is an exported wrapper for the private method _isSignatureMismatchAllowed.
-func (v VZMacNeuralEngineDeviceConfiguration) IsSignatureMismatchAllowed() bool {
-	return v._isSignatureMismatchAllowed()
+func (v VZMacNeuralEngineDeviceConfiguration) IsSignatureMismatchAllowed() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_isSignatureMismatchAllowed")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isSignatureMismatchAllowed"}
+		return false, err
+	}
+	return v._isSignatureMismatchAllowed(), nil
+}
+
+// CanIsSignatureMismatchAllowed reports whether the receiver responds to the private selector _isSignatureMismatchAllowed.
+func (v VZMacNeuralEngineDeviceConfiguration) CanIsSignatureMismatchAllowed() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_isSignatureMismatchAllowed"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacNeuralEngineDeviceConfiguration/_setSignatureMismatchAllowed:
@@ -118,14 +127,37 @@ func (v VZMacNeuralEngineDeviceConfiguration) _setSignatureMismatchAllowed(allow
 }
 
 // SetSignatureMismatchAllowed is an exported wrapper for the private method _setSignatureMismatchAllowed.
-func (v VZMacNeuralEngineDeviceConfiguration) SetSignatureMismatchAllowed(allowed bool) {
+func (v VZMacNeuralEngineDeviceConfiguration) SetSignatureMismatchAllowed(allowed bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setSignatureMismatchAllowed:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setSignatureMismatchAllowed:"}
+		return err
+	}
 	v._setSignatureMismatchAllowed(allowed)
+	return nil
+}
+
+// CanSetSignatureMismatchAllowed reports whether the receiver responds to the private selector _setSignatureMismatchAllowed:.
+func (v VZMacNeuralEngineDeviceConfiguration) CanSetSignatureMismatchAllowed() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setSignatureMismatchAllowed:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacNeuralEngineDeviceConfiguration/_signatureMismatchAllowed
 func (v VZMacNeuralEngineDeviceConfiguration) _signatureMismatchAllowed() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_signatureMismatchAllowed"))
 	return rv
+}
+
+// CanSignatureMismatchAllowed reports whether the receiver responds to the private selector _signatureMismatchAllowed.
+func (v VZMacNeuralEngineDeviceConfiguration) CanSignatureMismatchAllowed() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_signatureMismatchAllowed"))
+}
+
+// SignatureMismatchAllowed is an exported wrapper for the private property _signatureMismatchAllowed.
+func (v VZMacNeuralEngineDeviceConfiguration) SignatureMismatchAllowed() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_signatureMismatchAllowed")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_signatureMismatchAllowed"}
+	}
+	return v._signatureMismatchAllowed(), nil
 }
 func (v VZMacNeuralEngineDeviceConfiguration) Set_signatureMismatchAllowed(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_signatureMismatchAllowed:"), value)

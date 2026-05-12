@@ -122,8 +122,17 @@ func (v VZCoprocessorConfiguration) _coprocessor() objectivec.IObject {
 }
 
 // Coprocessor is an exported wrapper for the private method _coprocessor.
-func (v VZCoprocessorConfiguration) Coprocessor() objectivec.IObject {
-	return v._coprocessor()
+func (v VZCoprocessorConfiguration) Coprocessor() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_coprocessor")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_coprocessor"}
+		return nil, err
+	}
+	return v._coprocessor(), nil
+}
+
+// CanCoprocessor reports whether the receiver responds to the private selector _coprocessor.
+func (v VZCoprocessorConfiguration) CanCoprocessor() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_coprocessor"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/_init

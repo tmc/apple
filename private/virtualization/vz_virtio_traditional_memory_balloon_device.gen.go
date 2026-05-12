@@ -97,3 +97,16 @@ func (v VZVirtioTraditionalMemoryBalloonDevice) _maxTargetVirtualMachineMemorySi
 	rv := objc.Send[uint64](v.ID, objc.Sel("_maxTargetVirtualMachineMemorySize"))
 	return rv
 }
+
+// CanMaxTargetVirtualMachineMemorySize reports whether the receiver responds to the private selector _maxTargetVirtualMachineMemorySize.
+func (v VZVirtioTraditionalMemoryBalloonDevice) CanMaxTargetVirtualMachineMemorySize() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_maxTargetVirtualMachineMemorySize"))
+}
+
+// MaxTargetVirtualMachineMemorySize is an exported wrapper for the private property _maxTargetVirtualMachineMemorySize.
+func (v VZVirtioTraditionalMemoryBalloonDevice) MaxTargetVirtualMachineMemorySize() (uint64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_maxTargetVirtualMachineMemorySize")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_maxTargetVirtualMachineMemorySize"}
+	}
+	return v._maxTargetVirtualMachineMemorySize(), nil
+}

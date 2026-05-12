@@ -168,10 +168,11 @@ type VhostUserConfig struct {
 // DefaultVhostUserConfig returns a config populated with framework defaults.
 func DefaultVhostUserConfig(interfaceName string) VhostUserConfig {
 	class := privvz.GetVZVhostUserNetworkDeviceAttachmentClass()
-	defaultOffload := class.DefaultOffloadMode()
+	defaultOffload, _ := class.DefaultOffloadMode()
+	mtu, _ := class.DefaultMaximumTransmissionUnit()
 	return VhostUserConfig{
 		Interface:                   interfaceName,
-		MaximumTransmissionUnit:     class.DefaultMaximumTransmissionUnit(),
+		MaximumTransmissionUnit:     mtu,
 		HostChecksumOffload:         defaultOffload,
 		GuestChecksumOffload:        defaultOffload,
 		HostTCPSegmentationOffload:  defaultOffload,
@@ -187,13 +188,20 @@ func CreateVhostUserNetworkAttachment(cfg VhostUserConfig) (vz.VZNetworkDeviceAt
 
 	class := privvz.GetVZVhostUserNetworkDeviceAttachmentClass()
 	if cfg.MaximumTransmissionUnit == 0 {
-		cfg.MaximumTransmissionUnit = class.DefaultMaximumTransmissionUnit()
+		mtu, err := class.DefaultMaximumTransmissionUnit()
+		if err != nil {
+			return vz.VZNetworkDeviceAttachment{}, fmt.Errorf("default mtu: %w", err)
+		}
+		cfg.MaximumTransmissionUnit = mtu
 	}
 	if cfg.HostChecksumOffload == 0 &&
 		cfg.GuestChecksumOffload == 0 &&
 		cfg.HostTCPSegmentationOffload == 0 &&
 		cfg.GuestTCPSegmentationOffload == 0 {
-		defaultOffload := class.DefaultOffloadMode()
+		defaultOffload, err := class.DefaultOffloadMode()
+		if err != nil {
+			return vz.VZNetworkDeviceAttachment{}, fmt.Errorf("default offload: %w", err)
+		}
 		cfg.HostChecksumOffload = defaultOffload
 		cfg.GuestChecksumOffload = defaultOffload
 		cfg.HostTCPSegmentationOffload = defaultOffload

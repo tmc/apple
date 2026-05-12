@@ -119,8 +119,17 @@ func (v VZAcceleratorDeviceConfiguration) _acceleratorDeviceWithPlatform(platfor
 }
 
 // AcceleratorDeviceWithPlatform is an exported wrapper for the private method _acceleratorDeviceWithPlatform.
-func (v VZAcceleratorDeviceConfiguration) AcceleratorDeviceWithPlatform(platform objectivec.IObject) objectivec.IObject {
-	return v._acceleratorDeviceWithPlatform(platform)
+func (v VZAcceleratorDeviceConfiguration) AcceleratorDeviceWithPlatform(platform objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_acceleratorDeviceWithPlatform:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_acceleratorDeviceWithPlatform:"}
+		return nil, err
+	}
+	return v._acceleratorDeviceWithPlatform(platform), nil
+}
+
+// CanAcceleratorDeviceWithPlatform reports whether the receiver responds to the private selector _acceleratorDeviceWithPlatform:.
+func (v VZAcceleratorDeviceConfiguration) CanAcceleratorDeviceWithPlatform() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_acceleratorDeviceWithPlatform:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZAcceleratorDeviceConfiguration/_init

@@ -31,7 +31,10 @@ func NewDiskImageAttachment(path string, readOnly bool) (pvz.VZDiskImageStorageD
 
 // NewDevice creates a live storage device for attachment.
 func NewDevice(attachment pvz.VZStorageDeviceAttachment) (Device, error) {
-	raw := pvz.NewVZStorageDevice().InitWithAttachment(attachment)
+	raw, err := pvz.NewVZStorageDevice().InitWithAttachment(attachment)
+	if err != nil {
+		return Device{}, fmt.Errorf("create storage device: %w", err)
+	}
 	if raw == nil || raw.GetID() == 0 {
 		return Device{}, fmt.Errorf("create storage device")
 	}
@@ -69,7 +72,8 @@ func (d Device) Attachment() objectivec.IObject {
 	if d.raw.ID == 0 {
 		return nil
 	}
-	return d.raw.Attachment()
+	v, _ := d.raw.Attachment()
+	return v
 }
 
 // SetVirtualMachine associates the device with a VM.

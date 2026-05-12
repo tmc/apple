@@ -98,3 +98,16 @@ func (n VZNetworkDevice) _type() int64 {
 	rv := objc.Send[int64](n.ID, objc.Sel("_type"))
 	return rv
 }
+
+// CanType reports whether the receiver responds to the private selector _type.
+func (n VZNetworkDevice) CanType() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_type"))
+}
+
+// Type is an exported wrapper for the private property _type.
+func (n VZNetworkDevice) Type() (int64, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_type")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_type"}
+	}
+	return n._type(), nil
+}

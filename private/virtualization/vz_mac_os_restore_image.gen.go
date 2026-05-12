@@ -105,8 +105,18 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _fetchAvailableImagesW
 }
 
 // FetchAvailableImagesWithCompletionHandler is an exported wrapper for the private method _fetchAvailableImagesWithCompletionHandler.
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchAvailableImagesWithCompletionHandler(handler ErrorHandler) {
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchAvailableImagesWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchAvailableImagesWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_fetchAvailableImagesWithCompletionHandler:"}
+		return err
+	}
 	_VZMacOSRestoreImageClass._fetchAvailableImagesWithCompletionHandler(handler)
+	return nil
+}
+
+// CanFetchAvailableImagesWithCompletionHandler reports whether the receiver responds to the private selector _fetchAvailableImagesWithCompletionHandler:.
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanFetchAvailableImagesWithCompletionHandler() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchAvailableImagesWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_fetchLatestSupportedWithOptions:completionHandler:
@@ -116,8 +126,18 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _fetchLatestSupportedW
 }
 
 // FetchLatestSupportedWithOptionsCompletionHandler is an exported wrapper for the private method _fetchLatestSupportedWithOptionsCompletionHandler.
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchLatestSupportedWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchLatestSupportedWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchLatestSupportedWithOptions:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_fetchLatestSupportedWithOptions:completionHandler:"}
+		return err
+	}
 	_VZMacOSRestoreImageClass._fetchLatestSupportedWithOptionsCompletionHandler(options, handler)
+	return nil
+}
+
+// CanFetchLatestSupportedWithOptionsCompletionHandler reports whether the receiver responds to the private selector _fetchLatestSupportedWithOptions:completionHandler:.
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanFetchLatestSupportedWithOptionsCompletionHandler() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchLatestSupportedWithOptions:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_loadCatalogWithOptions:completionHandler:
@@ -127,8 +147,18 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadCatalogWithOption
 }
 
 // LoadCatalogWithOptionsCompletionHandler is an exported wrapper for the private method _loadCatalogWithOptionsCompletionHandler.
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadCatalogWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadCatalogWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadCatalogWithOptions:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadCatalogWithOptions:completionHandler:"}
+		return err
+	}
 	_VZMacOSRestoreImageClass._loadCatalogWithOptionsCompletionHandler(options, handler)
+	return nil
+}
+
+// CanLoadCatalogWithOptionsCompletionHandler reports whether the receiver responds to the private selector _loadCatalogWithOptions:completionHandler:.
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanLoadCatalogWithOptionsCompletionHandler() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadCatalogWithOptions:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_loadFileURL:deviceClassParser:completionHandler:
@@ -138,14 +168,37 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadFileURLDeviceClas
 }
 
 // LoadFileURLDeviceClassParserCompletionHandler is an exported wrapper for the private method _loadFileURLDeviceClassParserCompletionHandler.
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadFileURLDeviceClassParserCompletionHandler(url foundation.INSURL, parser objectivec.IObject, handler ErrorHandler) {
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadFileURLDeviceClassParserCompletionHandler(url foundation.INSURL, parser objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadFileURL:deviceClassParser:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadFileURL:deviceClassParser:completionHandler:"}
+		return err
+	}
 	_VZMacOSRestoreImageClass._loadFileURLDeviceClassParserCompletionHandler(url, parser, handler)
+	return nil
+}
+
+// CanLoadFileURLDeviceClassParserCompletionHandler reports whether the receiver responds to the private selector _loadFileURL:deviceClassParser:completionHandler:.
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanLoadFileURLDeviceClassParserCompletionHandler() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadFileURL:deviceClassParser:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_configurations
 func (m VZMacOSRestoreImage) _configurations() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_configurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanConfigurations reports whether the receiver responds to the private selector _configurations.
+func (m VZMacOSRestoreImage) CanConfigurations() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_configurations"))
+}
+
+// Configurations is an exported wrapper for the private property _configurations.
+func (m VZMacOSRestoreImage) Configurations() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_configurations")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_configurations"}
+	}
+	return m._configurations(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/supported

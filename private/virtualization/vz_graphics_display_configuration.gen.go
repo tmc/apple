@@ -120,8 +120,17 @@ func (g VZGraphicsDisplayConfiguration) _initWithConfiguration(configuration uns
 }
 
 // InitWithConfiguration is an exported wrapper for the private method _initWithConfiguration.
-func (g VZGraphicsDisplayConfiguration) InitWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
-	return g._initWithConfiguration(configuration)
+func (g VZGraphicsDisplayConfiguration) InitWithConfiguration(configuration unsafe.Pointer) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_initWithConfiguration:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithConfiguration:"}
+		return nil, err
+	}
+	return g._initWithConfiguration(configuration), nil
+}
+
+// CanInitWithConfiguration reports whether the receiver responds to the private selector _initWithConfiguration:.
+func (g VZGraphicsDisplayConfiguration) CanInitWithConfiguration() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_initWithConfiguration:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_setUUID:
@@ -130,14 +139,37 @@ func (g VZGraphicsDisplayConfiguration) _setUUID(uuid objectivec.IObject) {
 }
 
 // SetUUID is an exported wrapper for the private method _setUUID.
-func (g VZGraphicsDisplayConfiguration) SetUUID(uuid objectivec.IObject) {
+func (g VZGraphicsDisplayConfiguration) SetUUID(uuid objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_setUUID:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setUUID:"}
+		return err
+	}
 	g._setUUID(uuid)
+	return nil
+}
+
+// CanSetUUID reports whether the receiver responds to the private selector _setUUID:.
+func (g VZGraphicsDisplayConfiguration) CanSetUUID() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_setUUID:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_uuid
 func (g VZGraphicsDisplayConfiguration) _uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
+}
+
+// CanUuid reports whether the receiver responds to the private selector _uuid.
+func (g VZGraphicsDisplayConfiguration) CanUuid() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_uuid"))
+}
+
+// Uuid is an exported wrapper for the private property _uuid.
+func (g VZGraphicsDisplayConfiguration) Uuid() (foundation.NSUUID, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_uuid")) {
+		return *new(foundation.NSUUID), &objc.UnrecognizedSelectorError{Selector: "_uuid"}
+	}
+	return g._uuid(), nil
 }
 func (g VZGraphicsDisplayConfiguration) Set_uuid(value foundation.NSUUID) {
 	objc.Send[struct{}](g.ID, objc.Sel("set_uuid:"), value)

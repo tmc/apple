@@ -210,8 +210,17 @@ func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmen
 }
 
 // DefaultMaximumTransmissionUnit is an exported wrapper for the private method _defaultMaximumTransmissionUnit.
-func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) DefaultMaximumTransmissionUnit() int64 {
-	return _VZVhostUserNetworkDeviceAttachmentClass._defaultMaximumTransmissionUnit()
+func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) DefaultMaximumTransmissionUnit() (int64, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultMaximumTransmissionUnit")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_defaultMaximumTransmissionUnit"}
+		return 0, err
+	}
+	return _VZVhostUserNetworkDeviceAttachmentClass._defaultMaximumTransmissionUnit(), nil
+}
+
+// CanDefaultMaximumTransmissionUnit reports whether the receiver responds to the private selector _defaultMaximumTransmissionUnit.
+func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) CanDefaultMaximumTransmissionUnit() bool {
+	return objc.RespondsToSelector(objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultMaximumTransmissionUnit"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/_defaultOffloadMode
@@ -221,8 +230,17 @@ func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmen
 }
 
 // DefaultOffloadMode is an exported wrapper for the private method _defaultOffloadMode.
-func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) DefaultOffloadMode() int64 {
-	return _VZVhostUserNetworkDeviceAttachmentClass._defaultOffloadMode()
+func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) DefaultOffloadMode() (int64, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultOffloadMode")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_defaultOffloadMode"}
+		return 0, err
+	}
+	return _VZVhostUserNetworkDeviceAttachmentClass._defaultOffloadMode(), nil
+}
+
+// CanDefaultOffloadMode reports whether the receiver responds to the private selector _defaultOffloadMode.
+func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) CanDefaultOffloadMode() bool {
+	return objc.RespondsToSelector(objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultOffloadMode"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/guestChecksumOffload

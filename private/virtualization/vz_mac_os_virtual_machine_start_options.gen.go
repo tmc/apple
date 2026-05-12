@@ -122,8 +122,18 @@ func (m VZMacOSVirtualMachineStartOptions) _setForceDFU(dfu bool) {
 }
 
 // SetForceDFU is an exported wrapper for the private method _setForceDFU.
-func (m VZMacOSVirtualMachineStartOptions) SetForceDFU(dfu bool) {
+func (m VZMacOSVirtualMachineStartOptions) SetForceDFU(dfu bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setForceDFU:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setForceDFU:"}
+		return err
+	}
 	m._setForceDFU(dfu)
+	return nil
+}
+
+// CanSetForceDFU reports whether the receiver responds to the private selector _setForceDFU:.
+func (m VZMacOSVirtualMachineStartOptions) CanSetForceDFU() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setForceDFU:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions/_setStopInIBootStage1:
@@ -132,8 +142,18 @@ func (m VZMacOSVirtualMachineStartOptions) _setStopInIBootStage1(stage1 bool) {
 }
 
 // SetStopInIBootStage1 is an exported wrapper for the private method _setStopInIBootStage1.
-func (m VZMacOSVirtualMachineStartOptions) SetStopInIBootStage1(stage1 bool) {
+func (m VZMacOSVirtualMachineStartOptions) SetStopInIBootStage1(stage1 bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setStopInIBootStage1:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setStopInIBootStage1:"}
+		return err
+	}
 	m._setStopInIBootStage1(stage1)
+	return nil
+}
+
+// CanSetStopInIBootStage1 reports whether the receiver responds to the private selector _setStopInIBootStage1:.
+func (m VZMacOSVirtualMachineStartOptions) CanSetStopInIBootStage1() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setStopInIBootStage1:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions/_setStopInIBootStage2:
@@ -142,14 +162,37 @@ func (m VZMacOSVirtualMachineStartOptions) _setStopInIBootStage2(stage2 bool) {
 }
 
 // SetStopInIBootStage2 is an exported wrapper for the private method _setStopInIBootStage2.
-func (m VZMacOSVirtualMachineStartOptions) SetStopInIBootStage2(stage2 bool) {
+func (m VZMacOSVirtualMachineStartOptions) SetStopInIBootStage2(stage2 bool) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setStopInIBootStage2:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setStopInIBootStage2:"}
+		return err
+	}
 	m._setStopInIBootStage2(stage2)
+	return nil
+}
+
+// CanSetStopInIBootStage2 reports whether the receiver responds to the private selector _setStopInIBootStage2:.
+func (m VZMacOSVirtualMachineStartOptions) CanSetStopInIBootStage2() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setStopInIBootStage2:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions/_forceDFU
 func (m VZMacOSVirtualMachineStartOptions) _forceDFU() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_forceDFU"))
 	return rv
+}
+
+// CanForceDFU reports whether the receiver responds to the private selector _forceDFU.
+func (m VZMacOSVirtualMachineStartOptions) CanForceDFU() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_forceDFU"))
+}
+
+// ForceDFU is an exported wrapper for the private property _forceDFU.
+func (m VZMacOSVirtualMachineStartOptions) ForceDFU() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_forceDFU")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_forceDFU"}
+	}
+	return m._forceDFU(), nil
 }
 func (m VZMacOSVirtualMachineStartOptions) Set_forceDFU(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_forceDFU:"), value)
@@ -160,6 +203,19 @@ func (m VZMacOSVirtualMachineStartOptions) _stopInIBootStage1() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_stopInIBootStage1"))
 	return rv
 }
+
+// CanStopInIBootStage1 reports whether the receiver responds to the private selector _stopInIBootStage1.
+func (m VZMacOSVirtualMachineStartOptions) CanStopInIBootStage1() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_stopInIBootStage1"))
+}
+
+// StopInIBootStage1 is an exported wrapper for the private property _stopInIBootStage1.
+func (m VZMacOSVirtualMachineStartOptions) StopInIBootStage1() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_stopInIBootStage1")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_stopInIBootStage1"}
+	}
+	return m._stopInIBootStage1(), nil
+}
 func (m VZMacOSVirtualMachineStartOptions) Set_stopInIBootStage1(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_stopInIBootStage1:"), value)
 }
@@ -168,6 +224,19 @@ func (m VZMacOSVirtualMachineStartOptions) Set_stopInIBootStage1(value bool) {
 func (m VZMacOSVirtualMachineStartOptions) _stopInIBootStage2() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_stopInIBootStage2"))
 	return rv
+}
+
+// CanStopInIBootStage2 reports whether the receiver responds to the private selector _stopInIBootStage2.
+func (m VZMacOSVirtualMachineStartOptions) CanStopInIBootStage2() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_stopInIBootStage2"))
+}
+
+// StopInIBootStage2 is an exported wrapper for the private property _stopInIBootStage2.
+func (m VZMacOSVirtualMachineStartOptions) StopInIBootStage2() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_stopInIBootStage2")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_stopInIBootStage2"}
+	}
+	return m._stopInIBootStage2(), nil
 }
 func (m VZMacOSVirtualMachineStartOptions) Set_stopInIBootStage2(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_stopInIBootStage2:"), value)

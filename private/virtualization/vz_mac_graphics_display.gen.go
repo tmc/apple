@@ -134,8 +134,17 @@ func (m VZMacGraphicsDisplay) _connectionType() int64 {
 }
 
 // ConnectionType is an exported wrapper for the private method _connectionType.
-func (m VZMacGraphicsDisplay) ConnectionType() int64 {
-	return m._connectionType()
+func (m VZMacGraphicsDisplay) ConnectionType() (int64, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_connectionType")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_connectionType"}
+		return 0, err
+	}
+	return m._connectionType(), nil
+}
+
+// CanConnectionType reports whether the receiver responds to the private selector _connectionType.
+func (m VZMacGraphicsDisplay) CanConnectionType() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_connectionType"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_displayIdentifier
@@ -145,8 +154,17 @@ func (m VZMacGraphicsDisplay) _displayIdentifier() objectivec.IObject {
 }
 
 // DisplayIdentifier is an exported wrapper for the private method _displayIdentifier.
-func (m VZMacGraphicsDisplay) DisplayIdentifier() objectivec.IObject {
-	return m._displayIdentifier()
+func (m VZMacGraphicsDisplay) DisplayIdentifier() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_displayIdentifier")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_displayIdentifier"}
+		return nil, err
+	}
+	return m._displayIdentifier(), nil
+}
+
+// CanDisplayIdentifier reports whether the receiver responds to the private selector _displayIdentifier.
+func (m VZMacGraphicsDisplay) CanDisplayIdentifier() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_displayIdentifier"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_displayMode
@@ -156,8 +174,17 @@ func (m VZMacGraphicsDisplay) _displayMode() int64 {
 }
 
 // DisplayMode is an exported wrapper for the private method _displayMode.
-func (m VZMacGraphicsDisplay) DisplayMode() int64 {
-	return m._displayMode()
+func (m VZMacGraphicsDisplay) DisplayMode() (int64, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_displayMode")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_displayMode"}
+		return 0, err
+	}
+	return m._displayMode(), nil
+}
+
+// CanDisplayMode reports whether the receiver responds to the private selector _displayMode.
+func (m VZMacGraphicsDisplay) CanDisplayMode() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_displayMode"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/reconfigureWithConfiguration:error:

@@ -121,6 +121,19 @@ func (l VZLinuxRosettaCachingOptions) _options() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanOptions reports whether the receiver responds to the private selector _options.
+func (l VZLinuxRosettaCachingOptions) CanOptions() bool {
+	return objc.RespondsToSelector(l.ID, objc.Sel("_options"))
+}
+
+// Options is an exported wrapper for the private property _options.
+func (l VZLinuxRosettaCachingOptions) Options() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(l.ID, objc.Sel("_options")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_options"}
+	}
+	return l._options(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/debugDescription
 func (l VZLinuxRosettaCachingOptions) DebugDescription() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("debugDescription"))

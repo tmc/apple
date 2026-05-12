@@ -130,6 +130,19 @@ func (v VZCustomMMIODeviceProvider) _connectionIdentifier() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanConnectionIdentifier reports whether the receiver responds to the private selector _connectionIdentifier.
+func (v VZCustomMMIODeviceProvider) CanConnectionIdentifier() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_connectionIdentifier"))
+}
+
+// ConnectionIdentifier is an exported wrapper for the private property _connectionIdentifier.
+func (v VZCustomMMIODeviceProvider) ConnectionIdentifier() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_connectionIdentifier")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_connectionIdentifier"}
+	}
+	return v._connectionIdentifier(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceProvider/debugDescription
 func (v VZCustomMMIODeviceProvider) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))

@@ -103,8 +103,17 @@ func (v VZVirtioSocketDevice) _configurationOptions() objectivec.IObject {
 }
 
 // ConfigurationOptions is an exported wrapper for the private method _configurationOptions.
-func (v VZVirtioSocketDevice) ConfigurationOptions() objectivec.IObject {
-	return v._configurationOptions()
+func (v VZVirtioSocketDevice) ConfigurationOptions() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_configurationOptions")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_configurationOptions"}
+		return nil, err
+	}
+	return v._configurationOptions(), nil
+}
+
+// CanConfigurationOptions reports whether the receiver responds to the private selector _configurationOptions.
+func (v VZVirtioSocketDevice) CanConfigurationOptions() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_configurationOptions"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/_setDelegate:
@@ -113,6 +122,16 @@ func (v VZVirtioSocketDevice) _setDelegate(delegate objectivec.IObject) {
 }
 
 // SetDelegate is an exported wrapper for the private method _setDelegate.
-func (v VZVirtioSocketDevice) SetDelegate(delegate objectivec.IObject) {
+func (v VZVirtioSocketDevice) SetDelegate(delegate objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setDelegate:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setDelegate:"}
+		return err
+	}
 	v._setDelegate(delegate)
+	return nil
+}
+
+// CanSetDelegate reports whether the receiver responds to the private selector _setDelegate:.
+func (v VZVirtioSocketDevice) CanSetDelegate() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setDelegate:"))
 }

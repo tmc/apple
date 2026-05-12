@@ -130,6 +130,19 @@ func (n VZNetworkDeviceConfiguration) _networkDevice() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanNetworkDevice reports whether the receiver responds to the private selector _networkDevice.
+func (n VZNetworkDeviceConfiguration) CanNetworkDevice() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_networkDevice"))
+}
+
+// NetworkDevice is an exported wrapper for the private property _networkDevice.
+func (n VZNetworkDeviceConfiguration) NetworkDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_networkDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_networkDevice"}
+	}
+	return n._networkDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/debugDescription
 func (n VZNetworkDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("debugDescription"))

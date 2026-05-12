@@ -139,6 +139,19 @@ func (v VZHIDDeviceConfiguration) _hidDevice() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanHidDevice reports whether the receiver responds to the private selector _hidDevice.
+func (v VZHIDDeviceConfiguration) CanHidDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_hidDevice"))
+}
+
+// HidDevice is an exported wrapper for the private property _hidDevice.
+func (v VZHIDDeviceConfiguration) HidDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_hidDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_hidDevice"}
+	}
+	return v._hidDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration/debugDescription
 func (v VZHIDDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))

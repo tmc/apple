@@ -125,8 +125,17 @@ func (v VZPCIDeviceConfiguration) _pciDevice() objectivec.IObject {
 }
 
 // PciDevice is an exported wrapper for the private method _pciDevice.
-func (v VZPCIDeviceConfiguration) PciDevice() objectivec.IObject {
-	return v._pciDevice()
+func (v VZPCIDeviceConfiguration) PciDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_pciDevice")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_pciDevice"}
+		return nil, err
+	}
+	return v._pciDevice(), nil
+}
+
+// CanPciDevice reports whether the receiver responds to the private selector _pciDevice.
+func (v VZPCIDeviceConfiguration) CanPciDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_pciDevice"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/encodeWithEncoder:

@@ -112,8 +112,18 @@ func (u VZUSBController) _capturePassthroughDevicesWithCompletionHandler(handler
 }
 
 // CapturePassthroughDevicesWithCompletionHandler is an exported wrapper for the private method _capturePassthroughDevicesWithCompletionHandler.
-func (u VZUSBController) CapturePassthroughDevicesWithCompletionHandler(handler ErrorHandler) {
+func (u VZUSBController) CapturePassthroughDevicesWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(u.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_capturePassthroughDevicesWithCompletionHandler:"}
+		return err
+	}
 	u._capturePassthroughDevicesWithCompletionHandler(handler)
+	return nil
+}
+
+// CanCapturePassthroughDevicesWithCompletionHandler reports whether the receiver responds to the private selector _capturePassthroughDevicesWithCompletionHandler:.
+func (u VZUSBController) CanCapturePassthroughDevicesWithCompletionHandler() bool {
+	return objc.RespondsToSelector(u.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/_initWithVirtualMachine:usbControllerIndex:usbDevices:
@@ -123,8 +133,17 @@ func (u VZUSBController) _initWithVirtualMachineUsbControllerIndexUsbDevices(mac
 }
 
 // InitWithVirtualMachineUsbControllerIndexUsbDevices is an exported wrapper for the private method _initWithVirtualMachineUsbControllerIndexUsbDevices.
-func (u VZUSBController) InitWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
-	return u._initWithVirtualMachineUsbControllerIndexUsbDevices(machine, index, devices)
+func (u VZUSBController) InitWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(u.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithVirtualMachine:usbControllerIndex:usbDevices:"}
+		return nil, err
+	}
+	return u._initWithVirtualMachineUsbControllerIndexUsbDevices(machine, index, devices), nil
+}
+
+// CanInitWithVirtualMachineUsbControllerIndexUsbDevices reports whether the receiver responds to the private selector _initWithVirtualMachine:usbControllerIndex:usbDevices:.
+func (u VZUSBController) CanInitWithVirtualMachineUsbControllerIndexUsbDevices() bool {
+	return objc.RespondsToSelector(u.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/_releasePassthroughDevices
@@ -133,8 +152,18 @@ func (u VZUSBController) _releasePassthroughDevices() {
 }
 
 // ReleasePassthroughDevices is an exported wrapper for the private method _releasePassthroughDevices.
-func (u VZUSBController) ReleasePassthroughDevices() {
+func (u VZUSBController) ReleasePassthroughDevices() error {
+	if !objc.RespondsToSelector(u.ID, objc.Sel("_releasePassthroughDevices")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_releasePassthroughDevices"}
+		return err
+	}
 	u._releasePassthroughDevices()
+	return nil
+}
+
+// CanReleasePassthroughDevices reports whether the receiver responds to the private selector _releasePassthroughDevices.
+func (u VZUSBController) CanReleasePassthroughDevices() bool {
+	return objc.RespondsToSelector(u.ID, objc.Sel("_releasePassthroughDevices"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/delegate

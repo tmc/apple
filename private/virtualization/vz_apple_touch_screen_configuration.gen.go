@@ -106,14 +106,37 @@ func (v VZAppleTouchScreenConfiguration) _setRegistryProperties(properties objec
 }
 
 // SetRegistryProperties is an exported wrapper for the private method _setRegistryProperties.
-func (v VZAppleTouchScreenConfiguration) SetRegistryProperties(properties objectivec.IObject) {
+func (v VZAppleTouchScreenConfiguration) SetRegistryProperties(properties objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setRegistryProperties:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setRegistryProperties:"}
+		return err
+	}
 	v._setRegistryProperties(properties)
+	return nil
+}
+
+// CanSetRegistryProperties reports whether the receiver responds to the private selector _setRegistryProperties:.
+func (v VZAppleTouchScreenConfiguration) CanSetRegistryProperties() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setRegistryProperties:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZAppleTouchScreenConfiguration/_registryProperties
 func (v VZAppleTouchScreenConfiguration) _registryProperties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_registryProperties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
+}
+
+// CanRegistryProperties reports whether the receiver responds to the private selector _registryProperties.
+func (v VZAppleTouchScreenConfiguration) CanRegistryProperties() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_registryProperties"))
+}
+
+// RegistryProperties is an exported wrapper for the private property _registryProperties.
+func (v VZAppleTouchScreenConfiguration) RegistryProperties() (foundation.INSDictionary, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_registryProperties")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_registryProperties"}
+	}
+	return v._registryProperties(), nil
 }
 func (v VZAppleTouchScreenConfiguration) Set_registryProperties(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_registryProperties:"), value)

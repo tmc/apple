@@ -121,6 +121,19 @@ func (a VZAudioOutputStreamSink) _attachment() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanAttachment reports whether the receiver responds to the private selector _attachment.
+func (a VZAudioOutputStreamSink) CanAttachment() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_attachment"))
+}
+
+// Attachment is an exported wrapper for the private property _attachment.
+func (a VZAudioOutputStreamSink) Attachment() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_attachment")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
+	}
+	return a._attachment(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/debugDescription
 func (a VZAudioOutputStreamSink) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))

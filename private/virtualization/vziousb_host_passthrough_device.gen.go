@@ -161,8 +161,18 @@ func (v VZIOUSBHostPassthroughDevice) _processIOUSBHostDeviceMessageMessageArgum
 }
 
 // ProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine is an exported wrapper for the private method _processIOUSBHostDeviceMessageMessageArgumentVirtualMachine.
-func (v VZIOUSBHostPassthroughDevice) ProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine(message uint32, argument unsafe.Pointer, machine objectivec.IObject) {
+func (v VZIOUSBHostPassthroughDevice) ProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine(message uint32, argument unsafe.Pointer, machine objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_processIOUSBHostDeviceMessage:messageArgument:virtualMachine:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processIOUSBHostDeviceMessage:messageArgument:virtualMachine:"}
+		return err
+	}
 	v._processIOUSBHostDeviceMessageMessageArgumentVirtualMachine(message, argument, machine)
+	return nil
+}
+
+// CanProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine reports whether the receiver responds to the private selector _processIOUSBHostDeviceMessage:messageArgument:virtualMachine:.
+func (v VZIOUSBHostPassthroughDevice) CanProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_processIOUSBHostDeviceMessage:messageArgument:virtualMachine:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDevice/_releaseDevice
@@ -171,8 +181,18 @@ func (v VZIOUSBHostPassthroughDevice) _releaseDevice() {
 }
 
 // ReleaseDevice is an exported wrapper for the private method _releaseDevice.
-func (v VZIOUSBHostPassthroughDevice) ReleaseDevice() {
+func (v VZIOUSBHostPassthroughDevice) ReleaseDevice() error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_releaseDevice")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_releaseDevice"}
+		return err
+	}
 	v._releaseDevice()
+	return nil
+}
+
+// CanReleaseDevice reports whether the receiver responds to the private selector _releaseDevice.
+func (v VZIOUSBHostPassthroughDevice) CanReleaseDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_releaseDevice"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOUSBHostPassthroughDevice/signature

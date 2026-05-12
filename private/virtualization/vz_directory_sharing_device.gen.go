@@ -100,6 +100,15 @@ func (d VZDirectorySharingDevice) _initWithVirtualMachineDirectorySharingDeviceI
 }
 
 // InitWithVirtualMachineDirectorySharingDeviceIndex is an exported wrapper for the private method _initWithVirtualMachineDirectorySharingDeviceIndex.
-func (d VZDirectorySharingDevice) InitWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	return d._initWithVirtualMachineDirectorySharingDeviceIndex(machine, index)
+func (d VZDirectorySharingDevice) InitWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithVirtualMachine:directorySharingDeviceIndex:"}
+		return nil, err
+	}
+	return d._initWithVirtualMachineDirectorySharingDeviceIndex(machine, index), nil
+}
+
+// CanInitWithVirtualMachineDirectorySharingDeviceIndex reports whether the receiver responds to the private selector _initWithVirtualMachine:directorySharingDeviceIndex:.
+func (d VZDirectorySharingDevice) CanInitWithVirtualMachineDirectorySharingDeviceIndex() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:"))
 }

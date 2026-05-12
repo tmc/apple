@@ -100,6 +100,15 @@ func (v VZXPCClientMailboxDeviceAttachment) _initWithMailboxHandle(handle object
 }
 
 // InitWithMailboxHandle is an exported wrapper for the private method _initWithMailboxHandle.
-func (v VZXPCClientMailboxDeviceAttachment) InitWithMailboxHandle(handle objectivec.IObject) objectivec.IObject {
-	return v._initWithMailboxHandle(handle)
+func (v VZXPCClientMailboxDeviceAttachment) InitWithMailboxHandle(handle objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithMailboxHandle:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithMailboxHandle:"}
+		return nil, err
+	}
+	return v._initWithMailboxHandle(handle), nil
+}
+
+// CanInitWithMailboxHandle reports whether the receiver responds to the private selector _initWithMailboxHandle:.
+func (v VZXPCClientMailboxDeviceAttachment) CanInitWithMailboxHandle() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithMailboxHandle:"))
 }

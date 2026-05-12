@@ -121,6 +121,19 @@ func (v VZVirtioSoundDeviceStreamConfiguration) _stream() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanStream reports whether the receiver responds to the private selector _stream.
+func (v VZVirtioSoundDeviceStreamConfiguration) CanStream() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_stream"))
+}
+
+// Stream is an exported wrapper for the private property _stream.
+func (v VZVirtioSoundDeviceStreamConfiguration) Stream() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_stream")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_stream"}
+	}
+	return v._stream(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/debugDescription
 func (v VZVirtioSoundDeviceStreamConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))

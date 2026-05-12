@@ -121,6 +121,19 @@ func (s VZSerialPortAttachment) _attachment() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanAttachment reports whether the receiver responds to the private selector _attachment.
+func (s VZSerialPortAttachment) CanAttachment() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_attachment"))
+}
+
+// Attachment is an exported wrapper for the private property _attachment.
+func (s VZSerialPortAttachment) Attachment() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_attachment")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
+	}
+	return s._attachment(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/debugDescription
 func (s VZSerialPortAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))

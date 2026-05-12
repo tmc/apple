@@ -123,8 +123,17 @@ func (v VZBinaryBootLoader) _bootLoaderForConfiguration(configuration objectivec
 }
 
 // BootLoaderForConfiguration is an exported wrapper for the private method _bootLoaderForConfiguration.
-func (v VZBinaryBootLoader) BootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject {
-	return v._bootLoaderForConfiguration(configuration)
+func (v VZBinaryBootLoader) BootLoaderForConfiguration(configuration objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_bootLoaderForConfiguration:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bootLoaderForConfiguration:"}
+		return nil, err
+	}
+	return v._bootLoaderForConfiguration(configuration), nil
+}
+
+// CanBootLoaderForConfiguration reports whether the receiver responds to the private selector _bootLoaderForConfiguration:.
+func (v VZBinaryBootLoader) CanBootLoaderForConfiguration() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_bootLoaderForConfiguration:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/encodeWithEncoder:

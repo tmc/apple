@@ -116,8 +116,17 @@ func (s VZStorageDevice) _attachment() objectivec.IObject {
 }
 
 // Attachment is an exported wrapper for the private method _attachment.
-func (s VZStorageDevice) Attachment() objectivec.IObject {
-	return s._attachment()
+func (s VZStorageDevice) Attachment() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_attachment")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_attachment"}
+		return nil, err
+	}
+	return s._attachment(), nil
+}
+
+// CanAttachment reports whether the receiver responds to the private selector _attachment.
+func (s VZStorageDevice) CanAttachment() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_attachment"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithAttachment:
@@ -127,8 +136,17 @@ func (s VZStorageDevice) _initWithAttachment(attachment objectivec.IObject) obje
 }
 
 // InitWithAttachment is an exported wrapper for the private method _initWithAttachment.
-func (s VZStorageDevice) InitWithAttachment(attachment objectivec.IObject) objectivec.IObject {
-	return s._initWithAttachment(attachment)
+func (s VZStorageDevice) InitWithAttachment(attachment objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_initWithAttachment:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithAttachment:"}
+		return nil, err
+	}
+	return s._initWithAttachment(attachment), nil
+}
+
+// CanInitWithAttachment reports whether the receiver responds to the private selector _initWithAttachment:.
+func (s VZStorageDevice) CanInitWithAttachment() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithAttachment:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithVirtualMachine:attachment:
@@ -138,8 +156,17 @@ func (s VZStorageDevice) _initWithVirtualMachineAttachment(machine objectivec.IO
 }
 
 // InitWithVirtualMachineAttachment is an exported wrapper for the private method _initWithVirtualMachineAttachment.
-func (s VZStorageDevice) InitWithVirtualMachineAttachment(machine objectivec.IObject, attachment objectivec.IObject) objectivec.IObject {
-	return s._initWithVirtualMachineAttachment(machine, attachment)
+func (s VZStorageDevice) InitWithVirtualMachineAttachment(machine objectivec.IObject, attachment objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_initWithVirtualMachine:attachment:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithVirtualMachine:attachment:"}
+		return nil, err
+	}
+	return s._initWithVirtualMachineAttachment(machine, attachment), nil
+}
+
+// CanInitWithVirtualMachineAttachment reports whether the receiver responds to the private selector _initWithVirtualMachine:attachment:.
+func (s VZStorageDevice) CanInitWithVirtualMachineAttachment() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithVirtualMachine:attachment:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithVirtualMachine:storageDeviceIndex:attachment:
@@ -149,8 +176,17 @@ func (s VZStorageDevice) _initWithVirtualMachineStorageDeviceIndexAttachment(mac
 }
 
 // InitWithVirtualMachineStorageDeviceIndexAttachment is an exported wrapper for the private method _initWithVirtualMachineStorageDeviceIndexAttachment.
-func (s VZStorageDevice) InitWithVirtualMachineStorageDeviceIndexAttachment(machine objectivec.IObject, index uint64, attachment objectivec.IObject) objectivec.IObject {
-	return s._initWithVirtualMachineStorageDeviceIndexAttachment(machine, index, attachment)
+func (s VZStorageDevice) InitWithVirtualMachineStorageDeviceIndexAttachment(machine objectivec.IObject, index uint64, attachment objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_initWithVirtualMachine:storageDeviceIndex:attachment:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithVirtualMachine:storageDeviceIndex:attachment:"}
+		return nil, err
+	}
+	return s._initWithVirtualMachineStorageDeviceIndexAttachment(machine, index, attachment), nil
+}
+
+// CanInitWithVirtualMachineStorageDeviceIndexAttachment reports whether the receiver responds to the private selector _initWithVirtualMachine:storageDeviceIndex:attachment:.
+func (s VZStorageDevice) CanInitWithVirtualMachineStorageDeviceIndexAttachment() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithVirtualMachine:storageDeviceIndex:attachment:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_setAttachment:completionHandler:
@@ -160,8 +196,18 @@ func (s VZStorageDevice) _setAttachmentCompletionHandler(attachment objectivec.I
 }
 
 // SetAttachmentCompletionHandler is an exported wrapper for the private method _setAttachmentCompletionHandler.
-func (s VZStorageDevice) SetAttachmentCompletionHandler(attachment objectivec.IObject, handler ErrorHandler) {
+func (s VZStorageDevice) SetAttachmentCompletionHandler(attachment objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_setAttachment:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setAttachment:completionHandler:"}
+		return err
+	}
 	s._setAttachmentCompletionHandler(attachment, handler)
+	return nil
+}
+
+// CanSetAttachmentCompletionHandler reports whether the receiver responds to the private selector _setAttachment:completionHandler:.
+func (s VZStorageDevice) CanSetAttachmentCompletionHandler() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_setAttachment:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_setVirtualMachine:
@@ -170,8 +216,18 @@ func (s VZStorageDevice) _setVirtualMachine(machine objectivec.IObject) {
 }
 
 // SetVirtualMachine is an exported wrapper for the private method _setVirtualMachine.
-func (s VZStorageDevice) SetVirtualMachine(machine objectivec.IObject) {
+func (s VZStorageDevice) SetVirtualMachine(machine objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_setVirtualMachine:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setVirtualMachine:"}
+		return err
+	}
 	s._setVirtualMachine(machine)
+	return nil
+}
+
+// CanSetVirtualMachine reports whether the receiver responds to the private selector _setVirtualMachine:.
+func (s VZStorageDevice) CanSetVirtualMachine() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_setVirtualMachine:"))
 }
 
 // _setAttachment is a synchronous wrapper around [VZStorageDevice._setAttachmentCompletionHandler].

@@ -130,8 +130,18 @@ func (v VZTemporaryRAMStorageDeviceAttachment) _getAttachmentWithQueueCompletion
 }
 
 // GetAttachmentWithQueueCompletionHandler is an exported wrapper for the private method _getAttachmentWithQueueCompletionHandler.
-func (v VZTemporaryRAMStorageDeviceAttachment) GetAttachmentWithQueueCompletionHandler(queue DispatchQueue, handler ErrorHandler) {
+func (v VZTemporaryRAMStorageDeviceAttachment) GetAttachmentWithQueueCompletionHandler(queue DispatchQueue, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_getAttachmentWithQueue:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_getAttachmentWithQueue:completionHandler:"}
+		return err
+	}
 	v._getAttachmentWithQueueCompletionHandler(queue, handler)
+	return nil
+}
+
+// CanGetAttachmentWithQueueCompletionHandler reports whether the receiver responds to the private selector _getAttachmentWithQueue:completionHandler:.
+func (v VZTemporaryRAMStorageDeviceAttachment) CanGetAttachmentWithQueueCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_getAttachmentWithQueue:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment/encodeWithEncoder:

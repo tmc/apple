@@ -121,6 +121,19 @@ func (n VZNetworkDeviceAttachment) _attachment() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanAttachment reports whether the receiver responds to the private selector _attachment.
+func (n VZNetworkDeviceAttachment) CanAttachment() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_attachment"))
+}
+
+// Attachment is an exported wrapper for the private property _attachment.
+func (n VZNetworkDeviceAttachment) Attachment() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_attachment")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
+	}
+	return n._attachment(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/debugDescription
 func (n VZNetworkDeviceAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("debugDescription"))

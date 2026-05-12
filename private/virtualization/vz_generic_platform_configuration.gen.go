@@ -130,8 +130,18 @@ func (g VZGenericPlatformConfiguration) _setFineGrainedTrapsEmulationEnabled(ena
 }
 
 // SetFineGrainedTrapsEmulationEnabled is an exported wrapper for the private method _setFineGrainedTrapsEmulationEnabled.
-func (g VZGenericPlatformConfiguration) SetFineGrainedTrapsEmulationEnabled(enabled bool) {
+func (g VZGenericPlatformConfiguration) SetFineGrainedTrapsEmulationEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_setFineGrainedTrapsEmulationEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setFineGrainedTrapsEmulationEnabled:"}
+		return err
+	}
 	g._setFineGrainedTrapsEmulationEnabled(enabled)
+	return nil
+}
+
+// CanSetFineGrainedTrapsEmulationEnabled reports whether the receiver responds to the private selector _setFineGrainedTrapsEmulationEnabled:.
+func (g VZGenericPlatformConfiguration) CanSetFineGrainedTrapsEmulationEnabled() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_setFineGrainedTrapsEmulationEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_setGuestType:
@@ -140,8 +150,18 @@ func (g VZGenericPlatformConfiguration) _setGuestType(type_ objectivec.IObject) 
 }
 
 // SetGuestType is an exported wrapper for the private method _setGuestType.
-func (g VZGenericPlatformConfiguration) SetGuestType(type_ objectivec.IObject) {
+func (g VZGenericPlatformConfiguration) SetGuestType(type_ objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_setGuestType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setGuestType:"}
+		return err
+	}
 	g._setGuestType(type_)
+	return nil
+}
+
+// CanSetGuestType reports whether the receiver responds to the private selector _setGuestType:.
+func (g VZGenericPlatformConfiguration) CanSetGuestType() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_setGuestType:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_setPerformanceMonitoringUnitEmulationEnabled:
@@ -150,14 +170,37 @@ func (g VZGenericPlatformConfiguration) _setPerformanceMonitoringUnitEmulationEn
 }
 
 // SetPerformanceMonitoringUnitEmulationEnabled is an exported wrapper for the private method _setPerformanceMonitoringUnitEmulationEnabled.
-func (g VZGenericPlatformConfiguration) SetPerformanceMonitoringUnitEmulationEnabled(enabled bool) {
+func (g VZGenericPlatformConfiguration) SetPerformanceMonitoringUnitEmulationEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_setPerformanceMonitoringUnitEmulationEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPerformanceMonitoringUnitEmulationEnabled:"}
+		return err
+	}
 	g._setPerformanceMonitoringUnitEmulationEnabled(enabled)
+	return nil
+}
+
+// CanSetPerformanceMonitoringUnitEmulationEnabled reports whether the receiver responds to the private selector _setPerformanceMonitoringUnitEmulationEnabled:.
+func (g VZGenericPlatformConfiguration) CanSetPerformanceMonitoringUnitEmulationEnabled() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_setPerformanceMonitoringUnitEmulationEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/_fineGrainTrapsEmulationEnabled
 func (g VZGenericPlatformConfiguration) _fineGrainTrapsEmulationEnabled() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_fineGrainTrapsEmulationEnabled"))
 	return rv
+}
+
+// CanFineGrainTrapsEmulationEnabled reports whether the receiver responds to the private selector _fineGrainTrapsEmulationEnabled.
+func (g VZGenericPlatformConfiguration) CanFineGrainTrapsEmulationEnabled() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_fineGrainTrapsEmulationEnabled"))
+}
+
+// FineGrainTrapsEmulationEnabled is an exported wrapper for the private property _fineGrainTrapsEmulationEnabled.
+func (g VZGenericPlatformConfiguration) FineGrainTrapsEmulationEnabled() (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_fineGrainTrapsEmulationEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_fineGrainTrapsEmulationEnabled"}
+	}
+	return g._fineGrainTrapsEmulationEnabled(), nil
 }
 func (g VZGenericPlatformConfiguration) Set_fineGrainTrapsEmulationEnabled(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("set_fineGrainTrapsEmulationEnabled:"), value)
@@ -168,6 +211,19 @@ func (g VZGenericPlatformConfiguration) _guestType() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_guestType"))
 	return foundation.NSStringFromID(rv).String()
 }
+
+// CanGuestType reports whether the receiver responds to the private selector _guestType.
+func (g VZGenericPlatformConfiguration) CanGuestType() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_guestType"))
+}
+
+// GuestType is an exported wrapper for the private property _guestType.
+func (g VZGenericPlatformConfiguration) GuestType() (string, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_guestType")) {
+		return "", &objc.UnrecognizedSelectorError{Selector: "_guestType"}
+	}
+	return g._guestType(), nil
+}
 func (g VZGenericPlatformConfiguration) Set_guestType(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("set_guestType:"), objc.String(value))
 }
@@ -176,6 +232,19 @@ func (g VZGenericPlatformConfiguration) Set_guestType(value string) {
 func (g VZGenericPlatformConfiguration) _performanceMonitoringUnitEmulationEnabled() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_performanceMonitoringUnitEmulationEnabled"))
 	return rv
+}
+
+// CanPerformanceMonitoringUnitEmulationEnabled reports whether the receiver responds to the private selector _performanceMonitoringUnitEmulationEnabled.
+func (g VZGenericPlatformConfiguration) CanPerformanceMonitoringUnitEmulationEnabled() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_performanceMonitoringUnitEmulationEnabled"))
+}
+
+// PerformanceMonitoringUnitEmulationEnabled is an exported wrapper for the private property _performanceMonitoringUnitEmulationEnabled.
+func (g VZGenericPlatformConfiguration) PerformanceMonitoringUnitEmulationEnabled() (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_performanceMonitoringUnitEmulationEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_performanceMonitoringUnitEmulationEnabled"}
+	}
+	return g._performanceMonitoringUnitEmulationEnabled(), nil
 }
 func (g VZGenericPlatformConfiguration) Set_performanceMonitoringUnitEmulationEnabled(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("set_performanceMonitoringUnitEmulationEnabled:"), value)

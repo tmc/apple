@@ -102,8 +102,18 @@ func (d VZDiskImageStorageDeviceAttachment) _updateDiskSize(size uint64) {
 }
 
 // UpdateDiskSize is an exported wrapper for the private method _updateDiskSize.
-func (d VZDiskImageStorageDeviceAttachment) UpdateDiskSize(size uint64) {
+func (d VZDiskImageStorageDeviceAttachment) UpdateDiskSize(size uint64) error {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_updateDiskSize:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateDiskSize:"}
+		return err
+	}
 	d._updateDiskSize(size)
+	return nil
+}
+
+// CanUpdateDiskSize reports whether the receiver responds to the private selector _updateDiskSize:.
+func (d VZDiskImageStorageDeviceAttachment) CanUpdateDiskSize() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_updateDiskSize:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/_diskImageStorageDeviceAttachmentWithDiskImage:
@@ -113,8 +123,17 @@ func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmen
 }
 
 // DiskImageStorageDeviceAttachmentWithDiskImage is an exported wrapper for the private method _diskImageStorageDeviceAttachmentWithDiskImage.
-func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmentClass) DiskImageStorageDeviceAttachmentWithDiskImage(image objectivec.IObject) objectivec.IObject {
-	return _VZDiskImageStorageDeviceAttachmentClass._diskImageStorageDeviceAttachmentWithDiskImage(image)
+func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmentClass) DiskImageStorageDeviceAttachmentWithDiskImage(image objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZDiskImageStorageDeviceAttachmentClass.class), objc.Sel("_diskImageStorageDeviceAttachmentWithDiskImage:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_diskImageStorageDeviceAttachmentWithDiskImage:"}
+		return nil, err
+	}
+	return _VZDiskImageStorageDeviceAttachmentClass._diskImageStorageDeviceAttachmentWithDiskImage(image), nil
+}
+
+// CanDiskImageStorageDeviceAttachmentWithDiskImage reports whether the receiver responds to the private selector _diskImageStorageDeviceAttachmentWithDiskImage:.
+func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmentClass) CanDiskImageStorageDeviceAttachmentWithDiskImage() bool {
+	return objc.RespondsToSelector(objc.ID(_VZDiskImageStorageDeviceAttachmentClass.class), objc.Sel("_diskImageStorageDeviceAttachmentWithDiskImage:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/readOnly

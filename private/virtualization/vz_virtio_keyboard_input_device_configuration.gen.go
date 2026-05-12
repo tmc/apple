@@ -103,8 +103,17 @@ func (v VZVirtioKeyboardInputDeviceConfiguration) _keyboardWithDeviceIdentifier(
 }
 
 // KeyboardWithDeviceIdentifier is an exported wrapper for the private method _keyboardWithDeviceIdentifier.
-func (v VZVirtioKeyboardInputDeviceConfiguration) KeyboardWithDeviceIdentifier(identifier uint32) objectivec.IObject {
-	return v._keyboardWithDeviceIdentifier(identifier)
+func (v VZVirtioKeyboardInputDeviceConfiguration) KeyboardWithDeviceIdentifier(identifier uint32) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_keyboardWithDeviceIdentifier:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_keyboardWithDeviceIdentifier:"}
+		return nil, err
+	}
+	return v._keyboardWithDeviceIdentifier(identifier), nil
+}
+
+// CanKeyboardWithDeviceIdentifier reports whether the receiver responds to the private selector _keyboardWithDeviceIdentifier:.
+func (v VZVirtioKeyboardInputDeviceConfiguration) CanKeyboardWithDeviceIdentifier() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_keyboardWithDeviceIdentifier:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioKeyboardInputDeviceConfiguration/encodeWithEncoder:

@@ -156,6 +156,19 @@ func (v VZMailboxDeviceConfiguration) _mailboxDevice() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanMailboxDevice reports whether the receiver responds to the private selector _mailboxDevice.
+func (v VZMailboxDeviceConfiguration) CanMailboxDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_mailboxDevice"))
+}
+
+// MailboxDevice is an exported wrapper for the private property _mailboxDevice.
+func (v VZMailboxDeviceConfiguration) MailboxDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_mailboxDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_mailboxDevice"}
+	}
+	return v._mailboxDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/attachment
 func (v VZMailboxDeviceConfiguration) Attachment() *VZMailboxDeviceAttachment {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attachment"))

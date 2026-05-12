@@ -125,14 +125,36 @@ func (d VZDirectorySharingDeviceConfiguration) _makeDirectorySharingDeviceForVir
 }
 
 // MakeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex is an exported wrapper for the private method _makeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex.
-func (d VZDirectorySharingDeviceConfiguration) MakeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	return d._makeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex(machine, index)
+func (d VZDirectorySharingDeviceConfiguration) MakeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:"}
+		return nil, err
+	}
+	return d._makeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex(machine, index), nil
+}
+
+// CanMakeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex reports whether the receiver responds to the private selector _makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:.
+func (d VZDirectorySharingDeviceConfiguration) CanMakeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/_directorySharingDevice
 func (d VZDirectorySharingDeviceConfiguration) _directorySharingDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("_directorySharingDevice"))
 	return objectivec.Object{ID: rv}
+}
+
+// CanDirectorySharingDevice reports whether the receiver responds to the private selector _directorySharingDevice.
+func (d VZDirectorySharingDeviceConfiguration) CanDirectorySharingDevice() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_directorySharingDevice"))
+}
+
+// DirectorySharingDevice is an exported wrapper for the private property _directorySharingDevice.
+func (d VZDirectorySharingDeviceConfiguration) DirectorySharingDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_directorySharingDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_directorySharingDevice"}
+	}
+	return d._directorySharingDevice(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/debugDescription

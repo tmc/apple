@@ -194,8 +194,17 @@ func (v VZCustomVirtioDeviceConfiguration) _PCIDeviceID() uint16 {
 }
 
 // PCIDeviceID is an exported wrapper for the private method _PCIDeviceID.
-func (v VZCustomVirtioDeviceConfiguration) PCIDeviceID() uint16 {
-	return v._PCIDeviceID()
+func (v VZCustomVirtioDeviceConfiguration) PCIDeviceID() (uint16, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_PCIDeviceID")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_PCIDeviceID"}
+		return 0, err
+	}
+	return v._PCIDeviceID(), nil
+}
+
+// CanPCIDeviceID reports whether the receiver responds to the private selector _PCIDeviceID.
+func (v VZCustomVirtioDeviceConfiguration) CanPCIDeviceID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_PCIDeviceID"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_PCISubsystemID
@@ -205,8 +214,17 @@ func (v VZCustomVirtioDeviceConfiguration) _PCISubsystemID() uint16 {
 }
 
 // PCISubsystemID is an exported wrapper for the private method _PCISubsystemID.
-func (v VZCustomVirtioDeviceConfiguration) PCISubsystemID() uint16 {
-	return v._PCISubsystemID()
+func (v VZCustomVirtioDeviceConfiguration) PCISubsystemID() (uint16, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_PCISubsystemID")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_PCISubsystemID"}
+		return 0, err
+	}
+	return v._PCISubsystemID(), nil
+}
+
+// CanPCISubsystemID reports whether the receiver responds to the private selector _PCISubsystemID.
+func (v VZCustomVirtioDeviceConfiguration) CanPCISubsystemID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_PCISubsystemID"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_PCISubsystemVendorID
@@ -216,8 +234,17 @@ func (v VZCustomVirtioDeviceConfiguration) _PCISubsystemVendorID() uint16 {
 }
 
 // PCISubsystemVendorID is an exported wrapper for the private method _PCISubsystemVendorID.
-func (v VZCustomVirtioDeviceConfiguration) PCISubsystemVendorID() uint16 {
-	return v._PCISubsystemVendorID()
+func (v VZCustomVirtioDeviceConfiguration) PCISubsystemVendorID() (uint16, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_PCISubsystemVendorID")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_PCISubsystemVendorID"}
+		return 0, err
+	}
+	return v._PCISubsystemVendorID(), nil
+}
+
+// CanPCISubsystemVendorID reports whether the receiver responds to the private selector _PCISubsystemVendorID.
+func (v VZCustomVirtioDeviceConfiguration) CanPCISubsystemVendorID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_PCISubsystemVendorID"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_PCIVendorID
@@ -227,8 +254,17 @@ func (v VZCustomVirtioDeviceConfiguration) _PCIVendorID() uint16 {
 }
 
 // PCIVendorID is an exported wrapper for the private method _PCIVendorID.
-func (v VZCustomVirtioDeviceConfiguration) PCIVendorID() uint16 {
-	return v._PCIVendorID()
+func (v VZCustomVirtioDeviceConfiguration) PCIVendorID() (uint16, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_PCIVendorID")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_PCIVendorID"}
+		return 0, err
+	}
+	return v._PCIVendorID(), nil
+}
+
+// CanPCIVendorID reports whether the receiver responds to the private selector _PCIVendorID.
+func (v VZCustomVirtioDeviceConfiguration) CanPCIVendorID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_PCIVendorID"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPCIDeviceID:
@@ -237,8 +273,18 @@ func (v VZCustomVirtioDeviceConfiguration) _setPCIDeviceID(id uint16) {
 }
 
 // SetPCIDeviceID is an exported wrapper for the private method _setPCIDeviceID.
-func (v VZCustomVirtioDeviceConfiguration) SetPCIDeviceID(id uint16) {
+func (v VZCustomVirtioDeviceConfiguration) SetPCIDeviceID(id uint16) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPCIDeviceID:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPCIDeviceID:"}
+		return err
+	}
 	v._setPCIDeviceID(id)
+	return nil
+}
+
+// CanSetPCIDeviceID reports whether the receiver responds to the private selector _setPCIDeviceID:.
+func (v VZCustomVirtioDeviceConfiguration) CanSetPCIDeviceID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCIDeviceID:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPCISubsystemID:
@@ -247,8 +293,18 @@ func (v VZCustomVirtioDeviceConfiguration) _setPCISubsystemID(id uint16) {
 }
 
 // SetPCISubsystemID is an exported wrapper for the private method _setPCISubsystemID.
-func (v VZCustomVirtioDeviceConfiguration) SetPCISubsystemID(id uint16) {
+func (v VZCustomVirtioDeviceConfiguration) SetPCISubsystemID(id uint16) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPCISubsystemID:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPCISubsystemID:"}
+		return err
+	}
 	v._setPCISubsystemID(id)
+	return nil
+}
+
+// CanSetPCISubsystemID reports whether the receiver responds to the private selector _setPCISubsystemID:.
+func (v VZCustomVirtioDeviceConfiguration) CanSetPCISubsystemID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCISubsystemID:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPCISubsystemVendorID:
@@ -257,8 +313,18 @@ func (v VZCustomVirtioDeviceConfiguration) _setPCISubsystemVendorID(id uint16) {
 }
 
 // SetPCISubsystemVendorID is an exported wrapper for the private method _setPCISubsystemVendorID.
-func (v VZCustomVirtioDeviceConfiguration) SetPCISubsystemVendorID(id uint16) {
+func (v VZCustomVirtioDeviceConfiguration) SetPCISubsystemVendorID(id uint16) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPCISubsystemVendorID:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPCISubsystemVendorID:"}
+		return err
+	}
 	v._setPCISubsystemVendorID(id)
+	return nil
+}
+
+// CanSetPCISubsystemVendorID reports whether the receiver responds to the private selector _setPCISubsystemVendorID:.
+func (v VZCustomVirtioDeviceConfiguration) CanSetPCISubsystemVendorID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCISubsystemVendorID:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPCIVendorID:
@@ -267,8 +333,18 @@ func (v VZCustomVirtioDeviceConfiguration) _setPCIVendorID(id uint16) {
 }
 
 // SetPCIVendorID is an exported wrapper for the private method _setPCIVendorID.
-func (v VZCustomVirtioDeviceConfiguration) SetPCIVendorID(id uint16) {
+func (v VZCustomVirtioDeviceConfiguration) SetPCIVendorID(id uint16) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPCIVendorID:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPCIVendorID:"}
+		return err
+	}
 	v._setPCIVendorID(id)
+	return nil
+}
+
+// CanSetPCIVendorID reports whether the receiver responds to the private selector _setPCIVendorID:.
+func (v VZCustomVirtioDeviceConfiguration) CanSetPCIVendorID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCIVendorID:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPluginName:
@@ -277,8 +353,18 @@ func (v VZCustomVirtioDeviceConfiguration) _setPluginName(name objectivec.IObjec
 }
 
 // SetPluginName is an exported wrapper for the private method _setPluginName.
-func (v VZCustomVirtioDeviceConfiguration) SetPluginName(name objectivec.IObject) {
+func (v VZCustomVirtioDeviceConfiguration) SetPluginName(name objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPluginName:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPluginName:"}
+		return err
+	}
 	v._setPluginName(name)
+	return nil
+}
+
+// CanSetPluginName reports whether the receiver responds to the private selector _setPluginName:.
+func (v VZCustomVirtioDeviceConfiguration) CanSetPluginName() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPluginName:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setPluginPersonality:
@@ -287,8 +373,18 @@ func (v VZCustomVirtioDeviceConfiguration) _setPluginPersonality(personality obj
 }
 
 // SetPluginPersonality is an exported wrapper for the private method _setPluginPersonality.
-func (v VZCustomVirtioDeviceConfiguration) SetPluginPersonality(personality objectivec.IObject) {
+func (v VZCustomVirtioDeviceConfiguration) SetPluginPersonality(personality objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPluginPersonality:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPluginPersonality:"}
+		return err
+	}
 	v._setPluginPersonality(personality)
+	return nil
+}
+
+// CanSetPluginPersonality reports whether the receiver responds to the private selector _setPluginPersonality:.
+func (v VZCustomVirtioDeviceConfiguration) CanSetPluginPersonality() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPluginPersonality:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_setSupportsSaveRestore:
@@ -297,8 +393,18 @@ func (v VZCustomVirtioDeviceConfiguration) _setSupportsSaveRestore(restore bool)
 }
 
 // SetSupportsSaveRestore is an exported wrapper for the private method _setSupportsSaveRestore.
-func (v VZCustomVirtioDeviceConfiguration) SetSupportsSaveRestore(restore bool) {
+func (v VZCustomVirtioDeviceConfiguration) SetSupportsSaveRestore(restore bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsSaveRestore:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setSupportsSaveRestore:"}
+		return err
+	}
 	v._setSupportsSaveRestore(restore)
+	return nil
+}
+
+// CanSetSupportsSaveRestore reports whether the receiver responds to the private selector _setSupportsSaveRestore:.
+func (v VZCustomVirtioDeviceConfiguration) CanSetSupportsSaveRestore() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsSaveRestore:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/_supportsSaveRestore
@@ -308,8 +414,17 @@ func (v VZCustomVirtioDeviceConfiguration) _supportsSaveRestore() bool {
 }
 
 // SupportsSaveRestore is an exported wrapper for the private method _supportsSaveRestore.
-func (v VZCustomVirtioDeviceConfiguration) SupportsSaveRestore() bool {
-	return v._supportsSaveRestore()
+func (v VZCustomVirtioDeviceConfiguration) SupportsSaveRestore() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_supportsSaveRestore")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_supportsSaveRestore"}
+		return false, err
+	}
+	return v._supportsSaveRestore(), nil
+}
+
+// CanSupportsSaveRestore reports whether the receiver responds to the private selector _supportsSaveRestore.
+func (v VZCustomVirtioDeviceConfiguration) CanSupportsSaveRestore() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_supportsSaveRestore"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceConfiguration/mandatoryFeaturesAtIndex:
@@ -357,6 +472,19 @@ func (v VZCustomVirtioDeviceConfiguration) _pluginName() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
+// CanPluginName reports whether the receiver responds to the private selector _pluginName.
+func (v VZCustomVirtioDeviceConfiguration) CanPluginName() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_pluginName"))
+}
+
+// PluginName is an exported wrapper for the private property _pluginName.
+func (v VZCustomVirtioDeviceConfiguration) PluginName() (string, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_pluginName")) {
+		return "", &objc.UnrecognizedSelectorError{Selector: "_pluginName"}
+	}
+	return v._pluginName(), nil
+}
 func (v VZCustomVirtioDeviceConfiguration) Set_pluginName(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_pluginName:"), objc.String(value))
 }
@@ -365,6 +493,19 @@ func (v VZCustomVirtioDeviceConfiguration) Set_pluginName(value string) {
 func (v VZCustomVirtioDeviceConfiguration) _pluginPersonality() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pluginPersonality"))
 	return foundation.NSStringFromID(rv).String()
+}
+
+// CanPluginPersonality reports whether the receiver responds to the private selector _pluginPersonality.
+func (v VZCustomVirtioDeviceConfiguration) CanPluginPersonality() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_pluginPersonality"))
+}
+
+// PluginPersonality is an exported wrapper for the private property _pluginPersonality.
+func (v VZCustomVirtioDeviceConfiguration) PluginPersonality() (string, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_pluginPersonality")) {
+		return "", &objc.UnrecognizedSelectorError{Selector: "_pluginPersonality"}
+	}
+	return v._pluginPersonality(), nil
 }
 func (v VZCustomVirtioDeviceConfiguration) Set_pluginPersonality(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_pluginPersonality:"), objc.String(value))

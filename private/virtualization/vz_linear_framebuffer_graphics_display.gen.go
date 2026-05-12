@@ -120,8 +120,17 @@ func (v VZLinearFramebufferGraphicsDisplay) _displayConfiguration() objectivec.I
 }
 
 // DisplayConfiguration is an exported wrapper for the private method _displayConfiguration.
-func (v VZLinearFramebufferGraphicsDisplay) DisplayConfiguration() objectivec.IObject {
-	return v._displayConfiguration()
+func (v VZLinearFramebufferGraphicsDisplay) DisplayConfiguration() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_displayConfiguration")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_displayConfiguration"}
+		return nil, err
+	}
+	return v._displayConfiguration(), nil
+}
+
+// CanDisplayConfiguration reports whether the receiver responds to the private selector _displayConfiguration.
+func (v VZLinearFramebufferGraphicsDisplay) CanDisplayConfiguration() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_displayConfiguration"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDisplay/reconfigureWithConfiguration:error:

@@ -107,3 +107,16 @@ func (v VZVirtioDeviceSpecificConfiguration) _configuration() objectivec.IObject
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configuration"))
 	return objectivec.Object{ID: rv}
 }
+
+// CanConfiguration reports whether the receiver responds to the private selector _configuration.
+func (v VZVirtioDeviceSpecificConfiguration) CanConfiguration() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_configuration"))
+}
+
+// Configuration is an exported wrapper for the private property _configuration.
+func (v VZVirtioDeviceSpecificConfiguration) Configuration() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_configuration")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_configuration"}
+	}
+	return v._configuration(), nil
+}

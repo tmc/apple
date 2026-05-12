@@ -105,14 +105,37 @@ func (e VZEFIBootLoader) _setROMImageURL(url foundation.INSURL) {
 }
 
 // SetROMImageURL is an exported wrapper for the private method _setROMImageURL.
-func (e VZEFIBootLoader) SetROMImageURL(url foundation.INSURL) {
+func (e VZEFIBootLoader) SetROMImageURL(url foundation.INSURL) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_setROMImageURL:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setROMImageURL:"}
+		return err
+	}
 	e._setROMImageURL(url)
+	return nil
+}
+
+// CanSetROMImageURL reports whether the receiver responds to the private selector _setROMImageURL:.
+func (e VZEFIBootLoader) CanSetROMImageURL() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_setROMImageURL:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIBootLoader/_ROMImageURL
 func (e VZEFIBootLoader) _ROMImageURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("_ROMImageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
+}
+
+// CanROMImageURL reports whether the receiver responds to the private selector _ROMImageURL.
+func (e VZEFIBootLoader) CanROMImageURL() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_ROMImageURL"))
+}
+
+// ROMImageURL is an exported wrapper for the private property _ROMImageURL.
+func (e VZEFIBootLoader) ROMImageURL() (foundation.INSURL, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_ROMImageURL")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_ROMImageURL"}
+	}
+	return e._ROMImageURL(), nil
 }
 func (e VZEFIBootLoader) Set_ROMImageURL(value foundation.INSURL) {
 	objc.Send[struct{}](e.ID, objc.Sel("set_ROMImageURL:"), value)

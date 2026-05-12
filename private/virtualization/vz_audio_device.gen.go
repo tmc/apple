@@ -100,6 +100,15 @@ func (v VZAudioDevice) _initWithVirtualMachineAudioDeviceIndex(machine objective
 }
 
 // InitWithVirtualMachineAudioDeviceIndex is an exported wrapper for the private method _initWithVirtualMachineAudioDeviceIndex.
-func (v VZAudioDevice) InitWithVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	return v._initWithVirtualMachineAudioDeviceIndex(machine, index)
+func (v VZAudioDevice) InitWithVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:audioDeviceIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithVirtualMachine:audioDeviceIndex:"}
+		return nil, err
+	}
+	return v._initWithVirtualMachineAudioDeviceIndex(machine, index), nil
+}
+
+// CanInitWithVirtualMachineAudioDeviceIndex reports whether the receiver responds to the private selector _initWithVirtualMachine:audioDeviceIndex:.
+func (v VZAudioDevice) CanInitWithVirtualMachineAudioDeviceIndex() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:audioDeviceIndex:"))
 }

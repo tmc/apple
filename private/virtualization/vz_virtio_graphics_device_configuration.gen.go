@@ -87,6 +87,15 @@ func (_VZVirtioGraphicsDeviceConfigurationClass VZVirtioGraphicsDeviceConfigurat
 }
 
 // MaximumAllowedDisplayCount is an exported wrapper for the private method _maximumAllowedDisplayCount.
-func (_VZVirtioGraphicsDeviceConfigurationClass VZVirtioGraphicsDeviceConfigurationClass) MaximumAllowedDisplayCount() uint64 {
-	return _VZVirtioGraphicsDeviceConfigurationClass._maximumAllowedDisplayCount()
+func (_VZVirtioGraphicsDeviceConfigurationClass VZVirtioGraphicsDeviceConfigurationClass) MaximumAllowedDisplayCount() (uint64, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZVirtioGraphicsDeviceConfigurationClass.class), objc.Sel("_maximumAllowedDisplayCount")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_maximumAllowedDisplayCount"}
+		return 0, err
+	}
+	return _VZVirtioGraphicsDeviceConfigurationClass._maximumAllowedDisplayCount(), nil
+}
+
+// CanMaximumAllowedDisplayCount reports whether the receiver responds to the private selector _maximumAllowedDisplayCount.
+func (_VZVirtioGraphicsDeviceConfigurationClass VZVirtioGraphicsDeviceConfigurationClass) CanMaximumAllowedDisplayCount() bool {
+	return objc.RespondsToSelector(objc.ID(_VZVirtioGraphicsDeviceConfigurationClass.class), objc.Sel("_maximumAllowedDisplayCount"))
 }

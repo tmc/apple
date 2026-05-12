@@ -125,8 +125,17 @@ func (v VZPanicDeviceConfiguration) _panicDevice() objectivec.IObject {
 }
 
 // PanicDevice is an exported wrapper for the private method _panicDevice.
-func (v VZPanicDeviceConfiguration) PanicDevice() objectivec.IObject {
-	return v._panicDevice()
+func (v VZPanicDeviceConfiguration) PanicDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_panicDevice")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_panicDevice"}
+		return nil, err
+	}
+	return v._panicDevice(), nil
+}
+
+// CanPanicDevice reports whether the receiver responds to the private selector _panicDevice.
+func (v VZPanicDeviceConfiguration) CanPanicDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_panicDevice"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/encodeWithEncoder:

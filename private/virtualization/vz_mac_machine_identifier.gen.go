@@ -119,8 +119,17 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifi
 }
 
 // MachineIdentifierForVirtualMachineClone is an exported wrapper for the private method _machineIdentifierForVirtualMachineClone.
-func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierForVirtualMachineClone() objectivec.IObject {
-	return _VZMacMachineIdentifierClass._machineIdentifierForVirtualMachineClone()
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierForVirtualMachineClone() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineClone")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_machineIdentifierForVirtualMachineClone"}
+		return nil, err
+	}
+	return _VZMacMachineIdentifierClass._machineIdentifierForVirtualMachineClone(), nil
+}
+
+// CanMachineIdentifierForVirtualMachineClone reports whether the receiver responds to the private selector _machineIdentifierForVirtualMachineClone.
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierForVirtualMachineClone() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineClone"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:
@@ -130,8 +139,17 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifi
 }
 
 // MachineIdentifierForVirtualMachineCloneWithECIDSerialNumber is an exported wrapper for the private method _machineIdentifierForVirtualMachineCloneWithECIDSerialNumber.
-func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierForVirtualMachineCloneWithECIDSerialNumber(ecid uint64, number objectivec.IObject) objectivec.IObject {
-	return _VZMacMachineIdentifierClass._machineIdentifierForVirtualMachineCloneWithECIDSerialNumber(ecid, number)
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierForVirtualMachineCloneWithECIDSerialNumber(ecid uint64, number objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:"}
+		return nil, err
+	}
+	return _VZMacMachineIdentifierClass._machineIdentifierForVirtualMachineCloneWithECIDSerialNumber(ecid, number), nil
+}
+
+// CanMachineIdentifierForVirtualMachineCloneWithECIDSerialNumber reports whether the receiver responds to the private selector _machineIdentifierForVirtualMachineCloneWithECID:serialNumber:.
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierForVirtualMachineCloneWithECIDSerialNumber() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithECID:serialNumber:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierForVirtualMachineCloneWithSerialNumber:
@@ -141,8 +159,17 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifi
 }
 
 // MachineIdentifierForVirtualMachineCloneWithSerialNumber is an exported wrapper for the private method _machineIdentifierForVirtualMachineCloneWithSerialNumber.
-func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierForVirtualMachineCloneWithSerialNumber(number objectivec.IObject) objectivec.IObject {
-	return _VZMacMachineIdentifierClass._machineIdentifierForVirtualMachineCloneWithSerialNumber(number)
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierForVirtualMachineCloneWithSerialNumber(number objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithSerialNumber:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_machineIdentifierForVirtualMachineCloneWithSerialNumber:"}
+		return nil, err
+	}
+	return _VZMacMachineIdentifierClass._machineIdentifierForVirtualMachineCloneWithSerialNumber(number), nil
+}
+
+// CanMachineIdentifierForVirtualMachineCloneWithSerialNumber reports whether the receiver responds to the private selector _machineIdentifierForVirtualMachineCloneWithSerialNumber:.
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierForVirtualMachineCloneWithSerialNumber() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierForVirtualMachineCloneWithSerialNumber:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierWithECID:serialNumber:
@@ -152,8 +179,17 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifi
 }
 
 // MachineIdentifierWithECIDSerialNumber is an exported wrapper for the private method _machineIdentifierWithECIDSerialNumber.
-func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierWithECIDSerialNumber(ecid uint64, number objectivec.IObject) objectivec.IObject {
-	return _VZMacMachineIdentifierClass._machineIdentifierWithECIDSerialNumber(ecid, number)
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierWithECIDSerialNumber(ecid uint64, number objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithECID:serialNumber:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_machineIdentifierWithECID:serialNumber:"}
+		return nil, err
+	}
+	return _VZMacMachineIdentifierClass._machineIdentifierWithECIDSerialNumber(ecid, number), nil
+}
+
+// CanMachineIdentifierWithECIDSerialNumber reports whether the receiver responds to the private selector _machineIdentifierWithECID:serialNumber:.
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierWithECIDSerialNumber() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithECID:serialNumber:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_machineIdentifierWithSerialNumber:
@@ -163,8 +199,17 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) _machineIdentifi
 }
 
 // MachineIdentifierWithSerialNumber is an exported wrapper for the private method _machineIdentifierWithSerialNumber.
-func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierWithSerialNumber(number objectivec.IObject) objectivec.IObject {
-	return _VZMacMachineIdentifierClass._machineIdentifierWithSerialNumber(number)
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) MachineIdentifierWithSerialNumber(number objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithSerialNumber:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_machineIdentifierWithSerialNumber:"}
+		return nil, err
+	}
+	return _VZMacMachineIdentifierClass._machineIdentifierWithSerialNumber(number), nil
+}
+
+// CanMachineIdentifierWithSerialNumber reports whether the receiver responds to the private selector _machineIdentifierWithSerialNumber:.
+func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdentifierWithSerialNumber() bool {
+	return objc.RespondsToSelector(objc.ID(_VZMacMachineIdentifierClass.class), objc.Sel("_machineIdentifierWithSerialNumber:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_ECID
@@ -173,10 +218,36 @@ func (m VZMacMachineIdentifier) _ECID() uint64 {
 	return rv
 }
 
+// CanECID reports whether the receiver responds to the private selector _ECID.
+func (m VZMacMachineIdentifier) CanECID() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_ECID"))
+}
+
+// ECID is an exported wrapper for the private property _ECID.
+func (m VZMacMachineIdentifier) ECID() (uint64, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_ECID")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_ECID"}
+	}
+	return m._ECID(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_ECIDChecksDisabled
 func (m VZMacMachineIdentifier) _ECIDChecksDisabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_ECIDChecksDisabled"))
 	return rv
+}
+
+// CanECIDChecksDisabled reports whether the receiver responds to the private selector _ECIDChecksDisabled.
+func (m VZMacMachineIdentifier) CanECIDChecksDisabled() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_ECIDChecksDisabled"))
+}
+
+// ECIDChecksDisabled is an exported wrapper for the private property _ECIDChecksDisabled.
+func (m VZMacMachineIdentifier) ECIDChecksDisabled() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_ECIDChecksDisabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_ECIDChecksDisabled"}
+	}
+	return m._ECIDChecksDisabled(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_serialNumber
@@ -187,6 +258,19 @@ func (m VZMacMachineIdentifier) _serialNumber() *VZMacSerialNumber {
 	}
 	val := VZMacSerialNumberFromID(objc.ID(rv))
 	return &val
+}
+
+// CanSerialNumber reports whether the receiver responds to the private selector _serialNumber.
+func (m VZMacMachineIdentifier) CanSerialNumber() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_serialNumber"))
+}
+
+// SerialNumber is an exported wrapper for the private property _serialNumber.
+func (m VZMacMachineIdentifier) SerialNumber() (*VZMacSerialNumber, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_serialNumber")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_serialNumber"}
+	}
+	return m._serialNumber(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/debugDescription

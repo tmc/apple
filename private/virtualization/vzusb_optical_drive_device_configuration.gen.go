@@ -115,8 +115,18 @@ func (v VZUSBOpticalDriveDeviceConfiguration) _getStorageDeviceWithQueueSessionC
 }
 
 // GetStorageDeviceWithQueueSessionCompletionHandler is an exported wrapper for the private method _getStorageDeviceWithQueueSessionCompletionHandler.
-func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCompletionHandler(queue DispatchQueue, session unsafe.Pointer, handler ErrorHandler) {
+func (v VZUSBOpticalDriveDeviceConfiguration) GetStorageDeviceWithQueueSessionCompletionHandler(queue DispatchQueue, session unsafe.Pointer, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_getStorageDeviceWithQueue:session:completionHandler:"}
+		return err
+	}
 	v._getStorageDeviceWithQueueSessionCompletionHandler(queue, session, handler)
+	return nil
+}
+
+// CanGetStorageDeviceWithQueueSessionCompletionHandler reports whether the receiver responds to the private selector _getStorageDeviceWithQueue:session:completionHandler:.
+func (v VZUSBOpticalDriveDeviceConfiguration) CanGetStorageDeviceWithQueueSessionCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_getStorageDeviceWithQueue:session:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBOpticalDriveDeviceConfiguration/encodeWithEncoder:

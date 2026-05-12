@@ -121,6 +121,19 @@ func (d VZDirectoryShare) _share() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanShare reports whether the receiver responds to the private selector _share.
+func (d VZDirectoryShare) CanShare() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_share"))
+}
+
+// Share is an exported wrapper for the private property _share.
+func (d VZDirectoryShare) Share() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_share")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_share"}
+	}
+	return d._share(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/debugDescription
 func (d VZDirectoryShare) DebugDescription() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("debugDescription"))

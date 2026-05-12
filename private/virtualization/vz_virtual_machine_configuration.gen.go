@@ -294,8 +294,17 @@ func (v VZVirtualMachineConfiguration) _isDuplicateUSBDeviceConfigurationAtUsbDe
 }
 
 // IsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex is an exported wrapper for the private method _isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex.
-func (v VZVirtualMachineConfiguration) IsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at uint64, index uint64) bool {
-	return v._isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at, index)
+func (v VZVirtualMachineConfiguration) IsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at uint64, index uint64) (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:"}
+		return false, err
+	}
+	return v._isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at, index), nil
+}
+
+// CanIsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex reports whether the receiver responds to the private selector _isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:.
+func (v VZVirtualMachineConfiguration) CanIsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setAcceleratorDevices:
@@ -304,8 +313,18 @@ func (v VZVirtualMachineConfiguration) _setAcceleratorDevices(devices objectivec
 }
 
 // SetAcceleratorDevices is an exported wrapper for the private method _setAcceleratorDevices.
-func (v VZVirtualMachineConfiguration) SetAcceleratorDevices(devices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetAcceleratorDevices(devices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setAcceleratorDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setAcceleratorDevices:"}
+		return err
+	}
 	v._setAcceleratorDevices(devices)
+	return nil
+}
+
+// CanSetAcceleratorDevices reports whether the receiver responds to the private selector _setAcceleratorDevices:.
+func (v VZVirtualMachineConfiguration) CanSetAcceleratorDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setAcceleratorDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setBifrostDevices:
@@ -314,8 +333,18 @@ func (v VZVirtualMachineConfiguration) _setBifrostDevices(devices objectivec.IOb
 }
 
 // SetBifrostDevices is an exported wrapper for the private method _setBifrostDevices.
-func (v VZVirtualMachineConfiguration) SetBifrostDevices(devices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetBifrostDevices(devices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setBifrostDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setBifrostDevices:"}
+		return err
+	}
 	v._setBifrostDevices(devices)
+	return nil
+}
+
+// CanSetBifrostDevices reports whether the receiver responds to the private selector _setBifrostDevices:.
+func (v VZVirtualMachineConfiguration) CanSetBifrostDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setBifrostDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setBiometricDevices:
@@ -324,8 +353,18 @@ func (v VZVirtualMachineConfiguration) _setBiometricDevices(devices objectivec.I
 }
 
 // SetBiometricDevices is an exported wrapper for the private method _setBiometricDevices.
-func (v VZVirtualMachineConfiguration) SetBiometricDevices(devices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetBiometricDevices(devices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setBiometricDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setBiometricDevices:"}
+		return err
+	}
 	v._setBiometricDevices(devices)
+	return nil
+}
+
+// CanSetBiometricDevices reports whether the receiver responds to the private selector _setBiometricDevices:.
+func (v VZVirtualMachineConfiguration) CanSetBiometricDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setBiometricDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setCPUEmulator:
@@ -334,8 +373,18 @@ func (v VZVirtualMachineConfiguration) _setCPUEmulator(cPUEmulator objectivec.IO
 }
 
 // SetCPUEmulator is an exported wrapper for the private method _setCPUEmulator.
-func (v VZVirtualMachineConfiguration) SetCPUEmulator(cPUEmulator objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetCPUEmulator(cPUEmulator objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setCPUEmulator:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setCPUEmulator:"}
+		return err
+	}
 	v._setCPUEmulator(cPUEmulator)
+	return nil
+}
+
+// CanSetCPUEmulator reports whether the receiver responds to the private selector _setCPUEmulator:.
+func (v VZVirtualMachineConfiguration) CanSetCPUEmulator() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setCPUEmulator:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setCoprocessors:
@@ -344,8 +393,18 @@ func (v VZVirtualMachineConfiguration) _setCoprocessors(coprocessors objectivec.
 }
 
 // SetCoprocessors is an exported wrapper for the private method _setCoprocessors.
-func (v VZVirtualMachineConfiguration) SetCoprocessors(coprocessors objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetCoprocessors(coprocessors objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setCoprocessors:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setCoprocessors:"}
+		return err
+	}
 	v._setCoprocessors(coprocessors)
+	return nil
+}
+
+// CanSetCoprocessors reports whether the receiver responds to the private selector _setCoprocessors:.
+func (v VZVirtualMachineConfiguration) CanSetCoprocessors() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setCoprocessors:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setCustomMMIODevices:
@@ -354,8 +413,18 @@ func (v VZVirtualMachineConfiguration) _setCustomMMIODevices(mMIODevices objecti
 }
 
 // SetCustomMMIODevices is an exported wrapper for the private method _setCustomMMIODevices.
-func (v VZVirtualMachineConfiguration) SetCustomMMIODevices(mMIODevices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetCustomMMIODevices(mMIODevices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setCustomMMIODevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setCustomMMIODevices:"}
+		return err
+	}
 	v._setCustomMMIODevices(mMIODevices)
+	return nil
+}
+
+// CanSetCustomMMIODevices reports whether the receiver responds to the private selector _setCustomMMIODevices:.
+func (v VZVirtualMachineConfiguration) CanSetCustomMMIODevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setCustomMMIODevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setCustomVirtioDevices:
@@ -364,8 +433,18 @@ func (v VZVirtualMachineConfiguration) _setCustomVirtioDevices(devices objective
 }
 
 // SetCustomVirtioDevices is an exported wrapper for the private method _setCustomVirtioDevices.
-func (v VZVirtualMachineConfiguration) SetCustomVirtioDevices(devices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetCustomVirtioDevices(devices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setCustomVirtioDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setCustomVirtioDevices:"}
+		return err
+	}
 	v._setCustomVirtioDevices(devices)
+	return nil
+}
+
+// CanSetCustomVirtioDevices reports whether the receiver responds to the private selector _setCustomVirtioDevices:.
+func (v VZVirtualMachineConfiguration) CanSetCustomVirtioDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setCustomVirtioDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setDebugStub:
@@ -374,8 +453,18 @@ func (v VZVirtualMachineConfiguration) _setDebugStub(stub objectivec.IObject) {
 }
 
 // SetDebugStub is an exported wrapper for the private method _setDebugStub.
-func (v VZVirtualMachineConfiguration) SetDebugStub(stub objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetDebugStub(stub objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setDebugStub:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setDebugStub:"}
+		return err
+	}
 	v._setDebugStub(stub)
+	return nil
+}
+
+// CanSetDebugStub reports whether the receiver responds to the private selector _setDebugStub:.
+func (v VZVirtualMachineConfiguration) CanSetDebugStub() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setDebugStub:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setFatalErrorAction:
@@ -384,8 +473,18 @@ func (v VZVirtualMachineConfiguration) _setFatalErrorAction(action int64) {
 }
 
 // SetFatalErrorAction is an exported wrapper for the private method _setFatalErrorAction.
-func (v VZVirtualMachineConfiguration) SetFatalErrorAction(action int64) {
+func (v VZVirtualMachineConfiguration) SetFatalErrorAction(action int64) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setFatalErrorAction:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setFatalErrorAction:"}
+		return err
+	}
 	v._setFatalErrorAction(action)
+	return nil
+}
+
+// CanSetFatalErrorAction reports whether the receiver responds to the private selector _setFatalErrorAction:.
+func (v VZVirtualMachineConfiguration) CanSetFatalErrorAction() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setFatalErrorAction:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setHIDDevices:
@@ -394,8 +493,18 @@ func (v VZVirtualMachineConfiguration) _setHIDDevices(hIDDevices objectivec.IObj
 }
 
 // SetHIDDevices is an exported wrapper for the private method _setHIDDevices.
-func (v VZVirtualMachineConfiguration) SetHIDDevices(hIDDevices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetHIDDevices(hIDDevices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setHIDDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setHIDDevices:"}
+		return err
+	}
 	v._setHIDDevices(hIDDevices)
+	return nil
+}
+
+// CanSetHIDDevices reports whether the receiver responds to the private selector _setHIDDevices:.
+func (v VZVirtualMachineConfiguration) CanSetHIDDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setHIDDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setMailboxDevices:
@@ -404,8 +513,18 @@ func (v VZVirtualMachineConfiguration) _setMailboxDevices(devices objectivec.IOb
 }
 
 // SetMailboxDevices is an exported wrapper for the private method _setMailboxDevices.
-func (v VZVirtualMachineConfiguration) SetMailboxDevices(devices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetMailboxDevices(devices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setMailboxDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setMailboxDevices:"}
+		return err
+	}
 	v._setMailboxDevices(devices)
+	return nil
+}
+
+// CanSetMailboxDevices reports whether the receiver responds to the private selector _setMailboxDevices:.
+func (v VZVirtualMachineConfiguration) CanSetMailboxDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setMailboxDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setMemoryOvercommitmentAllowed:
@@ -414,8 +533,18 @@ func (v VZVirtualMachineConfiguration) _setMemoryOvercommitmentAllowed(allowed b
 }
 
 // SetMemoryOvercommitmentAllowed is an exported wrapper for the private method _setMemoryOvercommitmentAllowed.
-func (v VZVirtualMachineConfiguration) SetMemoryOvercommitmentAllowed(allowed bool) {
+func (v VZVirtualMachineConfiguration) SetMemoryOvercommitmentAllowed(allowed bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setMemoryOvercommitmentAllowed:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setMemoryOvercommitmentAllowed:"}
+		return err
+	}
 	v._setMemoryOvercommitmentAllowed(allowed)
+	return nil
+}
+
+// CanSetMemoryOvercommitmentAllowed reports whether the receiver responds to the private selector _setMemoryOvercommitmentAllowed:.
+func (v VZVirtualMachineConfiguration) CanSetMemoryOvercommitmentAllowed() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setMemoryOvercommitmentAllowed:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setMultiTouchDevices:
@@ -424,8 +553,18 @@ func (v VZVirtualMachineConfiguration) _setMultiTouchDevices(devices objectivec.
 }
 
 // SetMultiTouchDevices is an exported wrapper for the private method _setMultiTouchDevices.
-func (v VZVirtualMachineConfiguration) SetMultiTouchDevices(devices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetMultiTouchDevices(devices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setMultiTouchDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setMultiTouchDevices:"}
+		return err
+	}
 	v._setMultiTouchDevices(devices)
+	return nil
+}
+
+// CanSetMultiTouchDevices reports whether the receiver responds to the private selector _setMultiTouchDevices:.
+func (v VZVirtualMachineConfiguration) CanSetMultiTouchDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setMultiTouchDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setPCIPassthroughDevices:
@@ -434,8 +573,18 @@ func (v VZVirtualMachineConfiguration) _setPCIPassthroughDevices(devices objecti
 }
 
 // SetPCIPassthroughDevices is an exported wrapper for the private method _setPCIPassthroughDevices.
-func (v VZVirtualMachineConfiguration) SetPCIPassthroughDevices(devices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetPCIPassthroughDevices(devices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPCIPassthroughDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPCIPassthroughDevices:"}
+		return err
+	}
 	v._setPCIPassthroughDevices(devices)
+	return nil
+}
+
+// CanSetPCIPassthroughDevices reports whether the receiver responds to the private selector _setPCIPassthroughDevices:.
+func (v VZVirtualMachineConfiguration) CanSetPCIPassthroughDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPCIPassthroughDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setPanicAction:
@@ -444,8 +593,18 @@ func (v VZVirtualMachineConfiguration) _setPanicAction(action int64) {
 }
 
 // SetPanicAction is an exported wrapper for the private method _setPanicAction.
-func (v VZVirtualMachineConfiguration) SetPanicAction(action int64) {
+func (v VZVirtualMachineConfiguration) SetPanicAction(action int64) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPanicAction:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPanicAction:"}
+		return err
+	}
 	v._setPanicAction(action)
+	return nil
+}
+
+// CanSetPanicAction reports whether the receiver responds to the private selector _setPanicAction:.
+func (v VZVirtualMachineConfiguration) CanSetPanicAction() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPanicAction:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setPanicDevice:
@@ -454,8 +613,18 @@ func (v VZVirtualMachineConfiguration) _setPanicDevice(device objectivec.IObject
 }
 
 // SetPanicDevice is an exported wrapper for the private method _setPanicDevice.
-func (v VZVirtualMachineConfiguration) SetPanicDevice(device objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetPanicDevice(device objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPanicDevice:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPanicDevice:"}
+		return err
+	}
 	v._setPanicDevice(device)
+	return nil
+}
+
+// CanSetPanicDevice reports whether the receiver responds to the private selector _setPanicDevice:.
+func (v VZVirtualMachineConfiguration) CanSetPanicDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPanicDevice:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setPowerSourceDevices:
@@ -464,8 +633,18 @@ func (v VZVirtualMachineConfiguration) _setPowerSourceDevices(devices objectivec
 }
 
 // SetPowerSourceDevices is an exported wrapper for the private method _setPowerSourceDevices.
-func (v VZVirtualMachineConfiguration) SetPowerSourceDevices(devices objectivec.IObject) {
+func (v VZVirtualMachineConfiguration) SetPowerSourceDevices(devices objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPowerSourceDevices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPowerSourceDevices:"}
+		return err
+	}
 	v._setPowerSourceDevices(devices)
+	return nil
+}
+
+// CanSetPowerSourceDevices reports whether the receiver responds to the private selector _setPowerSourceDevices:.
+func (v VZVirtualMachineConfiguration) CanSetPowerSourceDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPowerSourceDevices:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setRestartAction:
@@ -474,8 +653,18 @@ func (v VZVirtualMachineConfiguration) _setRestartAction(action int64) {
 }
 
 // SetRestartAction is an exported wrapper for the private method _setRestartAction.
-func (v VZVirtualMachineConfiguration) SetRestartAction(action int64) {
+func (v VZVirtualMachineConfiguration) SetRestartAction(action int64) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setRestartAction:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setRestartAction:"}
+		return err
+	}
 	v._setRestartAction(action)
+	return nil
+}
+
+// CanSetRestartAction reports whether the receiver responds to the private selector _setRestartAction:.
+func (v VZVirtualMachineConfiguration) CanSetRestartAction() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setRestartAction:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setTerminationUnderMemoryPressureEnabled:
@@ -484,8 +673,18 @@ func (v VZVirtualMachineConfiguration) _setTerminationUnderMemoryPressureEnabled
 }
 
 // SetTerminationUnderMemoryPressureEnabled is an exported wrapper for the private method _setTerminationUnderMemoryPressureEnabled.
-func (v VZVirtualMachineConfiguration) SetTerminationUnderMemoryPressureEnabled(enabled bool) {
+func (v VZVirtualMachineConfiguration) SetTerminationUnderMemoryPressureEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setTerminationUnderMemoryPressureEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setTerminationUnderMemoryPressureEnabled:"}
+		return err
+	}
 	v._setTerminationUnderMemoryPressureEnabled(enabled)
+	return nil
+}
+
+// CanSetTerminationUnderMemoryPressureEnabled reports whether the receiver responds to the private selector _setTerminationUnderMemoryPressureEnabled:.
+func (v VZVirtualMachineConfiguration) CanSetTerminationUnderMemoryPressureEnabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setTerminationUnderMemoryPressureEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setTestIgnoreEntitlementChecks:
@@ -494,8 +693,18 @@ func (v VZVirtualMachineConfiguration) _setTestIgnoreEntitlementChecks(checks bo
 }
 
 // SetTestIgnoreEntitlementChecks is an exported wrapper for the private method _setTestIgnoreEntitlementChecks.
-func (v VZVirtualMachineConfiguration) SetTestIgnoreEntitlementChecks(checks bool) {
+func (v VZVirtualMachineConfiguration) SetTestIgnoreEntitlementChecks(checks bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setTestIgnoreEntitlementChecks:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setTestIgnoreEntitlementChecks:"}
+		return err
+	}
 	v._setTestIgnoreEntitlementChecks(checks)
+	return nil
+}
+
+// CanSetTestIgnoreEntitlementChecks reports whether the receiver responds to the private selector _setTestIgnoreEntitlementChecks:.
+func (v VZVirtualMachineConfiguration) CanSetTestIgnoreEntitlementChecks() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setTestIgnoreEntitlementChecks:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_maximumAllowedOvercommittedMemorySize
@@ -505,14 +714,36 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) _m
 }
 
 // MaximumAllowedOvercommittedMemorySize is an exported wrapper for the private method _maximumAllowedOvercommittedMemorySize.
-func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) MaximumAllowedOvercommittedMemorySize() uint64 {
-	return _VZVirtualMachineConfigurationClass._maximumAllowedOvercommittedMemorySize()
+func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) MaximumAllowedOvercommittedMemorySize() (uint64, error) {
+	if !objc.RespondsToSelector(objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("_maximumAllowedOvercommittedMemorySize")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_maximumAllowedOvercommittedMemorySize"}
+		return 0, err
+	}
+	return _VZVirtualMachineConfigurationClass._maximumAllowedOvercommittedMemorySize(), nil
+}
+
+// CanMaximumAllowedOvercommittedMemorySize reports whether the receiver responds to the private selector _maximumAllowedOvercommittedMemorySize.
+func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) CanMaximumAllowedOvercommittedMemorySize() bool {
+	return objc.RespondsToSelector(objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("_maximumAllowedOvercommittedMemorySize"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_acceleratorDevices
 func (v VZVirtualMachineConfiguration) _acceleratorDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_acceleratorDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanAcceleratorDevices reports whether the receiver responds to the private selector _acceleratorDevices.
+func (v VZVirtualMachineConfiguration) CanAcceleratorDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_acceleratorDevices"))
+}
+
+// AcceleratorDevices is an exported wrapper for the private property _acceleratorDevices.
+func (v VZVirtualMachineConfiguration) AcceleratorDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_acceleratorDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_acceleratorDevices"}
+	}
+	return v._acceleratorDevices(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_acceleratorDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_acceleratorDevices:"), value)
@@ -523,6 +754,19 @@ func (v VZVirtualMachineConfiguration) _bifrostDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_bifrostDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
+// CanBifrostDevices reports whether the receiver responds to the private selector _bifrostDevices.
+func (v VZVirtualMachineConfiguration) CanBifrostDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_bifrostDevices"))
+}
+
+// BifrostDevices is an exported wrapper for the private property _bifrostDevices.
+func (v VZVirtualMachineConfiguration) BifrostDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_bifrostDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_bifrostDevices"}
+	}
+	return v._bifrostDevices(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_bifrostDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_bifrostDevices:"), value)
 }
@@ -532,6 +776,19 @@ func (v VZVirtualMachineConfiguration) _biometricDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_biometricDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
+// CanBiometricDevices reports whether the receiver responds to the private selector _biometricDevices.
+func (v VZVirtualMachineConfiguration) CanBiometricDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_biometricDevices"))
+}
+
+// BiometricDevices is an exported wrapper for the private property _biometricDevices.
+func (v VZVirtualMachineConfiguration) BiometricDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_biometricDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_biometricDevices"}
+	}
+	return v._biometricDevices(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_biometricDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_biometricDevices:"), value)
 }
@@ -540,6 +797,19 @@ func (v VZVirtualMachineConfiguration) Set_biometricDevices(value foundation.INS
 func (v VZVirtualMachineConfiguration) _coprocessors() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_coprocessors"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanCoprocessors reports whether the receiver responds to the private selector _coprocessors.
+func (v VZVirtualMachineConfiguration) CanCoprocessors() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_coprocessors"))
+}
+
+// Coprocessors is an exported wrapper for the private property _coprocessors.
+func (v VZVirtualMachineConfiguration) Coprocessors() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_coprocessors")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_coprocessors"}
+	}
+	return v._coprocessors(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_coprocessors(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_coprocessors:"), value)
@@ -554,6 +824,19 @@ func (v VZVirtualMachineConfiguration) _cpuEmulator() *VZCPUEmulatorConfiguratio
 	val := VZCPUEmulatorConfigurationFromID(objc.ID(rv))
 	return &val
 }
+
+// CanCpuEmulator reports whether the receiver responds to the private selector _cpuEmulator.
+func (v VZVirtualMachineConfiguration) CanCpuEmulator() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_cpuEmulator"))
+}
+
+// CpuEmulator is an exported wrapper for the private property _cpuEmulator.
+func (v VZVirtualMachineConfiguration) CpuEmulator() (*VZCPUEmulatorConfiguration, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_cpuEmulator")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_cpuEmulator"}
+	}
+	return v._cpuEmulator(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_cpuEmulator(value *VZCPUEmulatorConfiguration) {
 	if value == nil {
 		objc.Send[struct{}](v.ID, objc.Sel("set_cpuEmulator:"), objc.ID(0))
@@ -567,6 +850,19 @@ func (v VZVirtualMachineConfiguration) _customMMIODevices() foundation.INSArray 
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_customMMIODevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
+// CanCustomMMIODevices reports whether the receiver responds to the private selector _customMMIODevices.
+func (v VZVirtualMachineConfiguration) CanCustomMMIODevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_customMMIODevices"))
+}
+
+// CustomMMIODevices is an exported wrapper for the private property _customMMIODevices.
+func (v VZVirtualMachineConfiguration) CustomMMIODevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_customMMIODevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_customMMIODevices"}
+	}
+	return v._customMMIODevices(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_customMMIODevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_customMMIODevices:"), value)
 }
@@ -575,6 +871,19 @@ func (v VZVirtualMachineConfiguration) Set_customMMIODevices(value foundation.IN
 func (v VZVirtualMachineConfiguration) _customVirtioDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_customVirtioDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanCustomVirtioDevices reports whether the receiver responds to the private selector _customVirtioDevices.
+func (v VZVirtualMachineConfiguration) CanCustomVirtioDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_customVirtioDevices"))
+}
+
+// CustomVirtioDevices is an exported wrapper for the private property _customVirtioDevices.
+func (v VZVirtualMachineConfiguration) CustomVirtioDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_customVirtioDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_customVirtioDevices"}
+	}
+	return v._customVirtioDevices(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_customVirtioDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_customVirtioDevices:"), value)
@@ -589,6 +898,19 @@ func (v VZVirtualMachineConfiguration) _debugStub() *VZDebugStubConfiguration {
 	val := VZDebugStubConfigurationFromID(objc.ID(rv))
 	return &val
 }
+
+// CanDebugStub reports whether the receiver responds to the private selector _debugStub.
+func (v VZVirtualMachineConfiguration) CanDebugStub() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_debugStub"))
+}
+
+// DebugStub is an exported wrapper for the private property _debugStub.
+func (v VZVirtualMachineConfiguration) DebugStub() (*VZDebugStubConfiguration, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_debugStub")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_debugStub"}
+	}
+	return v._debugStub(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_debugStub(value *VZDebugStubConfiguration) {
 	if value == nil {
 		objc.Send[struct{}](v.ID, objc.Sel("set_debugStub:"), objc.ID(0))
@@ -602,6 +924,19 @@ func (v VZVirtualMachineConfiguration) _fatalErrorAction() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_fatalErrorAction"))
 	return rv
 }
+
+// CanFatalErrorAction reports whether the receiver responds to the private selector _fatalErrorAction.
+func (v VZVirtualMachineConfiguration) CanFatalErrorAction() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_fatalErrorAction"))
+}
+
+// FatalErrorAction is an exported wrapper for the private property _fatalErrorAction.
+func (v VZVirtualMachineConfiguration) FatalErrorAction() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_fatalErrorAction")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_fatalErrorAction"}
+	}
+	return v._fatalErrorAction(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_fatalErrorAction(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_fatalErrorAction:"), value)
 }
@@ -610,6 +945,19 @@ func (v VZVirtualMachineConfiguration) Set_fatalErrorAction(value int64) {
 func (v VZVirtualMachineConfiguration) _hidDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanHidDevices reports whether the receiver responds to the private selector _hidDevices.
+func (v VZVirtualMachineConfiguration) CanHidDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_hidDevices"))
+}
+
+// HidDevices is an exported wrapper for the private property _hidDevices.
+func (v VZVirtualMachineConfiguration) HidDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_hidDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_hidDevices"}
+	}
+	return v._hidDevices(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_hidDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_hidDevices:"), value)
@@ -620,6 +968,19 @@ func (v VZVirtualMachineConfiguration) _mailboxDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_mailboxDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
+// CanMailboxDevices reports whether the receiver responds to the private selector _mailboxDevices.
+func (v VZVirtualMachineConfiguration) CanMailboxDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_mailboxDevices"))
+}
+
+// MailboxDevices is an exported wrapper for the private property _mailboxDevices.
+func (v VZVirtualMachineConfiguration) MailboxDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_mailboxDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_mailboxDevices"}
+	}
+	return v._mailboxDevices(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_mailboxDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_mailboxDevices:"), value)
 }
@@ -628,6 +989,19 @@ func (v VZVirtualMachineConfiguration) Set_mailboxDevices(value foundation.INSAr
 func (v VZVirtualMachineConfiguration) _memoryOvercommitmentAllowed() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_memoryOvercommitmentAllowed"))
 	return rv
+}
+
+// CanMemoryOvercommitmentAllowed reports whether the receiver responds to the private selector _memoryOvercommitmentAllowed.
+func (v VZVirtualMachineConfiguration) CanMemoryOvercommitmentAllowed() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_memoryOvercommitmentAllowed"))
+}
+
+// MemoryOvercommitmentAllowed is an exported wrapper for the private property _memoryOvercommitmentAllowed.
+func (v VZVirtualMachineConfiguration) MemoryOvercommitmentAllowed() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_memoryOvercommitmentAllowed")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_memoryOvercommitmentAllowed"}
+	}
+	return v._memoryOvercommitmentAllowed(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_memoryOvercommitmentAllowed(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_memoryOvercommitmentAllowed:"), value)
@@ -638,6 +1012,19 @@ func (v VZVirtualMachineConfiguration) _multiTouchDevices() foundation.INSArray 
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_multiTouchDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
+// CanMultiTouchDevices reports whether the receiver responds to the private selector _multiTouchDevices.
+func (v VZVirtualMachineConfiguration) CanMultiTouchDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_multiTouchDevices"))
+}
+
+// MultiTouchDevices is an exported wrapper for the private property _multiTouchDevices.
+func (v VZVirtualMachineConfiguration) MultiTouchDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_multiTouchDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_multiTouchDevices"}
+	}
+	return v._multiTouchDevices(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_multiTouchDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_multiTouchDevices:"), value)
 }
@@ -646,6 +1033,19 @@ func (v VZVirtualMachineConfiguration) Set_multiTouchDevices(value foundation.IN
 func (v VZVirtualMachineConfiguration) _panicAction() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_panicAction"))
 	return rv
+}
+
+// CanPanicAction reports whether the receiver responds to the private selector _panicAction.
+func (v VZVirtualMachineConfiguration) CanPanicAction() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_panicAction"))
+}
+
+// PanicAction is an exported wrapper for the private property _panicAction.
+func (v VZVirtualMachineConfiguration) PanicAction() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_panicAction")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_panicAction"}
+	}
+	return v._panicAction(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_panicAction(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_panicAction:"), value)
@@ -660,6 +1060,19 @@ func (v VZVirtualMachineConfiguration) _panicDevice() *VZPanicDeviceConfiguratio
 	val := VZPanicDeviceConfigurationFromID(objc.ID(rv))
 	return &val
 }
+
+// CanPanicDevice reports whether the receiver responds to the private selector _panicDevice.
+func (v VZVirtualMachineConfiguration) CanPanicDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_panicDevice"))
+}
+
+// PanicDevice is an exported wrapper for the private property _panicDevice.
+func (v VZVirtualMachineConfiguration) PanicDevice() (*VZPanicDeviceConfiguration, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_panicDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_panicDevice"}
+	}
+	return v._panicDevice(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_panicDevice(value *VZPanicDeviceConfiguration) {
 	if value == nil {
 		objc.Send[struct{}](v.ID, objc.Sel("set_panicDevice:"), objc.ID(0))
@@ -673,6 +1086,19 @@ func (v VZVirtualMachineConfiguration) _pciPassthroughDevices() foundation.INSAr
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pciPassthroughDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
+// CanPciPassthroughDevices reports whether the receiver responds to the private selector _pciPassthroughDevices.
+func (v VZVirtualMachineConfiguration) CanPciPassthroughDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_pciPassthroughDevices"))
+}
+
+// PciPassthroughDevices is an exported wrapper for the private property _pciPassthroughDevices.
+func (v VZVirtualMachineConfiguration) PciPassthroughDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_pciPassthroughDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_pciPassthroughDevices"}
+	}
+	return v._pciPassthroughDevices(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_pciPassthroughDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_pciPassthroughDevices:"), value)
 }
@@ -681,6 +1107,19 @@ func (v VZVirtualMachineConfiguration) Set_pciPassthroughDevices(value foundatio
 func (v VZVirtualMachineConfiguration) _powerSourceDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_powerSourceDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanPowerSourceDevices reports whether the receiver responds to the private selector _powerSourceDevices.
+func (v VZVirtualMachineConfiguration) CanPowerSourceDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_powerSourceDevices"))
+}
+
+// PowerSourceDevices is an exported wrapper for the private property _powerSourceDevices.
+func (v VZVirtualMachineConfiguration) PowerSourceDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_powerSourceDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_powerSourceDevices"}
+	}
+	return v._powerSourceDevices(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_powerSourceDevices(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_powerSourceDevices:"), value)
@@ -691,6 +1130,19 @@ func (v VZVirtualMachineConfiguration) _restartAction() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_restartAction"))
 	return rv
 }
+
+// CanRestartAction reports whether the receiver responds to the private selector _restartAction.
+func (v VZVirtualMachineConfiguration) CanRestartAction() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_restartAction"))
+}
+
+// RestartAction is an exported wrapper for the private property _restartAction.
+func (v VZVirtualMachineConfiguration) RestartAction() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_restartAction")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_restartAction"}
+	}
+	return v._restartAction(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_restartAction(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_restartAction:"), value)
 }
@@ -699,6 +1151,19 @@ func (v VZVirtualMachineConfiguration) Set_restartAction(value int64) {
 func (v VZVirtualMachineConfiguration) _sharedRamRegions() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_sharedRamRegions"))
 	return objectivec.Object{ID: rv}
+}
+
+// CanSharedRamRegions reports whether the receiver responds to the private selector _sharedRamRegions.
+func (v VZVirtualMachineConfiguration) CanSharedRamRegions() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_sharedRamRegions"))
+}
+
+// SharedRamRegions is an exported wrapper for the private property _sharedRamRegions.
+func (v VZVirtualMachineConfiguration) SharedRamRegions() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_sharedRamRegions")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_sharedRamRegions"}
+	}
+	return v._sharedRamRegions(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_sharedRamRegions(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_sharedRamRegions:"), value)
@@ -709,6 +1174,19 @@ func (v VZVirtualMachineConfiguration) _terminationUnderMemoryPressureEnabled() 
 	rv := objc.Send[bool](v.ID, objc.Sel("_terminationUnderMemoryPressureEnabled"))
 	return rv
 }
+
+// CanTerminationUnderMemoryPressureEnabled reports whether the receiver responds to the private selector _terminationUnderMemoryPressureEnabled.
+func (v VZVirtualMachineConfiguration) CanTerminationUnderMemoryPressureEnabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_terminationUnderMemoryPressureEnabled"))
+}
+
+// TerminationUnderMemoryPressureEnabled is an exported wrapper for the private property _terminationUnderMemoryPressureEnabled.
+func (v VZVirtualMachineConfiguration) TerminationUnderMemoryPressureEnabled() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_terminationUnderMemoryPressureEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_terminationUnderMemoryPressureEnabled"}
+	}
+	return v._terminationUnderMemoryPressureEnabled(), nil
+}
 func (v VZVirtualMachineConfiguration) Set_terminationUnderMemoryPressureEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_terminationUnderMemoryPressureEnabled:"), value)
 }
@@ -717,6 +1195,19 @@ func (v VZVirtualMachineConfiguration) Set_terminationUnderMemoryPressureEnabled
 func (v VZVirtualMachineConfiguration) _testIgnoreEntitlementChecks() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_testIgnoreEntitlementChecks"))
 	return rv
+}
+
+// CanTestIgnoreEntitlementChecks reports whether the receiver responds to the private selector _testIgnoreEntitlementChecks.
+func (v VZVirtualMachineConfiguration) CanTestIgnoreEntitlementChecks() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_testIgnoreEntitlementChecks"))
+}
+
+// TestIgnoreEntitlementChecks is an exported wrapper for the private property _testIgnoreEntitlementChecks.
+func (v VZVirtualMachineConfiguration) TestIgnoreEntitlementChecks() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_testIgnoreEntitlementChecks")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_testIgnoreEntitlementChecks"}
+	}
+	return v._testIgnoreEntitlementChecks(), nil
 }
 func (v VZVirtualMachineConfiguration) Set_testIgnoreEntitlementChecks(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_testIgnoreEntitlementChecks:"), value)

@@ -121,6 +121,19 @@ func (p VZPlatformConfiguration) _platform() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanPlatform reports whether the receiver responds to the private selector _platform.
+func (p VZPlatformConfiguration) CanPlatform() bool {
+	return objc.RespondsToSelector(p.ID, objc.Sel("_platform"))
+}
+
+// Platform is an exported wrapper for the private property _platform.
+func (p VZPlatformConfiguration) Platform() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(p.ID, objc.Sel("_platform")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_platform"}
+	}
+	return p._platform(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/debugDescription
 func (p VZPlatformConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))

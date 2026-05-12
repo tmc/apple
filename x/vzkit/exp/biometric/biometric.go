@@ -31,7 +31,10 @@ func NewDevice(platform objectivec.IObject) (objectivec.IObject, error) {
 	if err != nil {
 		return nil, err
 	}
-	device := cfg.BiometricDeviceWithPlatform(platform)
+	device, err := cfg.BiometricDeviceWithPlatform(platform)
+	if err != nil {
+		return nil, fmt.Errorf("create biometric device: %w", err)
+	}
 	if device == nil || device.GetID() == 0 {
 		return nil, fmt.Errorf("create biometric device")
 	}

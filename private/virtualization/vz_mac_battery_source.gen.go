@@ -146,6 +146,19 @@ func (v VZMacBatterySource) _source() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
+// CanSource reports whether the receiver responds to the private selector _source.
+func (v VZMacBatterySource) CanSource() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_source"))
+}
+
+// Source is an exported wrapper for the private property _source.
+func (v VZMacBatterySource) Source() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_source")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_source"}
+	}
+	return v._source(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatterySource/debugDescription
 func (v VZMacBatterySource) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))

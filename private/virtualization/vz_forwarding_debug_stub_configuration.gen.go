@@ -101,6 +101,15 @@ func (v VZForwardingDebugStubConfiguration) _initWithDebugStub(stub unsafe.Point
 }
 
 // InitWithDebugStub is an exported wrapper for the private method _initWithDebugStub.
-func (v VZForwardingDebugStubConfiguration) InitWithDebugStub(stub unsafe.Pointer) objectivec.IObject {
-	return v._initWithDebugStub(stub)
+func (v VZForwardingDebugStubConfiguration) InitWithDebugStub(stub unsafe.Pointer) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithDebugStub:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithDebugStub:"}
+		return nil, err
+	}
+	return v._initWithDebugStub(stub), nil
+}
+
+// CanInitWithDebugStub reports whether the receiver responds to the private selector _initWithDebugStub:.
+func (v VZForwardingDebugStubConfiguration) CanInitWithDebugStub() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithDebugStub:"))
 }

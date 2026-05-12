@@ -119,8 +119,17 @@ func (v VZBiometricDeviceConfiguration) _biometricDeviceWithPlatform(platform ob
 }
 
 // BiometricDeviceWithPlatform is an exported wrapper for the private method _biometricDeviceWithPlatform.
-func (v VZBiometricDeviceConfiguration) BiometricDeviceWithPlatform(platform objectivec.IObject) objectivec.IObject {
-	return v._biometricDeviceWithPlatform(platform)
+func (v VZBiometricDeviceConfiguration) BiometricDeviceWithPlatform(platform objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_biometricDeviceWithPlatform:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_biometricDeviceWithPlatform:"}
+		return nil, err
+	}
+	return v._biometricDeviceWithPlatform(platform), nil
+}
+
+// CanBiometricDeviceWithPlatform reports whether the receiver responds to the private selector _biometricDeviceWithPlatform:.
+func (v VZBiometricDeviceConfiguration) CanBiometricDeviceWithPlatform() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_biometricDeviceWithPlatform:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZBiometricDeviceConfiguration/_init

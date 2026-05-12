@@ -139,6 +139,19 @@ func (v VZPowerSourceDeviceConfiguration) _powerSourceDevice() objectivec.IObjec
 	return objectivec.Object{ID: rv}
 }
 
+// CanPowerSourceDevice reports whether the receiver responds to the private selector _powerSourceDevice.
+func (v VZPowerSourceDeviceConfiguration) CanPowerSourceDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_powerSourceDevice"))
+}
+
+// PowerSourceDevice is an exported wrapper for the private property _powerSourceDevice.
+func (v VZPowerSourceDeviceConfiguration) PowerSourceDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_powerSourceDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_powerSourceDevice"}
+	}
+	return v._powerSourceDevice(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDeviceConfiguration/debugDescription
 func (v VZPowerSourceDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))

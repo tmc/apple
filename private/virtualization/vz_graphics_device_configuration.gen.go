@@ -133,8 +133,17 @@ func (g VZGraphicsDeviceConfiguration) _initWithConfiguration(configuration unsa
 }
 
 // InitWithConfiguration is an exported wrapper for the private method _initWithConfiguration.
-func (g VZGraphicsDeviceConfiguration) InitWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
-	return g._initWithConfiguration(configuration)
+func (g VZGraphicsDeviceConfiguration) InitWithConfiguration(configuration unsafe.Pointer) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_initWithConfiguration:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithConfiguration:"}
+		return nil, err
+	}
+	return g._initWithConfiguration(configuration), nil
+}
+
+// CanInitWithConfiguration reports whether the receiver responds to the private selector _initWithConfiguration:.
+func (g VZGraphicsDeviceConfiguration) CanInitWithConfiguration() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_initWithConfiguration:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/makeGraphicsDeviceForVirtualMachine:graphicsDeviceIndex:
@@ -162,6 +171,19 @@ func (g VZGraphicsDeviceConfiguration) ValidateWithError() (bool, error) {
 func (g VZGraphicsDeviceConfiguration) _graphicsDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_graphicsDevice"))
 	return objectivec.Object{ID: rv}
+}
+
+// CanGraphicsDevice reports whether the receiver responds to the private selector _graphicsDevice.
+func (g VZGraphicsDeviceConfiguration) CanGraphicsDevice() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_graphicsDevice"))
+}
+
+// GraphicsDevice is an exported wrapper for the private property _graphicsDevice.
+func (g VZGraphicsDeviceConfiguration) GraphicsDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_graphicsDevice")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_graphicsDevice"}
+	}
+	return g._graphicsDevice(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration/debugDescription

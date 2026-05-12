@@ -130,6 +130,19 @@ func (u VZUSBControllerConfiguration) _usbDevices() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
+// CanUsbDevices reports whether the receiver responds to the private selector _usbDevices.
+func (u VZUSBControllerConfiguration) CanUsbDevices() bool {
+	return objc.RespondsToSelector(u.ID, objc.Sel("_usbDevices"))
+}
+
+// UsbDevices is an exported wrapper for the private property _usbDevices.
+func (u VZUSBControllerConfiguration) UsbDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(u.ID, objc.Sel("_usbDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_usbDevices"}
+	}
+	return u._usbDevices(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/debugDescription
 func (u VZUSBControllerConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("debugDescription"))

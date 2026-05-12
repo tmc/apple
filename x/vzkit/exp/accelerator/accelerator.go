@@ -23,7 +23,10 @@ func NewDevice(platform objectivec.IObject) (objectivec.IObject, error) {
 	if err != nil {
 		return nil, err
 	}
-	device := cfg.AcceleratorDeviceWithPlatform(platform)
+	device, err := cfg.AcceleratorDeviceWithPlatform(platform)
+	if err != nil {
+		return nil, fmt.Errorf("create accelerator device: %w", err)
+	}
 	if device == nil || device.GetID() == 0 {
 		return nil, fmt.Errorf("create accelerator device")
 	}
@@ -36,7 +39,10 @@ func NewBifrostConfiguration(attachment objectivec.IObject, mmioSize uint64) (pv
 	if cfg.ID == 0 {
 		return cfg, fmt.Errorf("create bifrost device configuration")
 	}
-	created := cfg.InitWithAttachmentMMIOSize(attachment, mmioSize)
+	created, err := cfg.InitWithAttachmentMMIOSize(attachment, mmioSize)
+	if err != nil {
+		return cfg, fmt.Errorf("create bifrost device configuration: %w", err)
+	}
 	cfg = pvz.VZBifrostDeviceConfigurationFromID(created.GetID())
 	if cfg.ID == 0 {
 		return cfg, fmt.Errorf("create bifrost device configuration")
@@ -64,7 +70,11 @@ func NewScalerConfiguration() (pvz.VZMacScalerAcceleratorDeviceConfiguration, er
 
 // NewMacVideoToolboxConfiguration creates the mac video toolbox accelerator configuration.
 func NewMacVideoToolboxConfiguration() (pvz.VZMacVideoToolboxDeviceConfiguration, error) {
-	if !pvz.GetVZMacVideoToolboxDeviceConfigurationClass().IsSupported() {
+	supported, err := pvz.GetVZMacVideoToolboxDeviceConfigurationClass().IsSupported()
+	if err != nil {
+		return pvz.VZMacVideoToolboxDeviceConfiguration{}, fmt.Errorf("mac video toolbox accelerator support: %w", err)
+	}
+	if !supported {
 		return pvz.VZMacVideoToolboxDeviceConfiguration{}, fmt.Errorf("mac video toolbox accelerator unsupported")
 	}
 	cfg := pvz.NewVZMacVideoToolboxDeviceConfiguration()

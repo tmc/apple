@@ -236,8 +236,18 @@ func (v VZVirtualMachine) _createCoreWithCompletionHandler(handler ErrorHandler)
 }
 
 // CreateCoreWithCompletionHandler is an exported wrapper for the private method _createCoreWithCompletionHandler.
-func (v VZVirtualMachine) CreateCoreWithCompletionHandler(handler ErrorHandler) {
+func (v VZVirtualMachine) CreateCoreWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_createCoreWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createCoreWithCompletionHandler:"}
+		return err
+	}
 	v._createCoreWithCompletionHandler(handler)
+	return nil
+}
+
+// CanCreateCoreWithCompletionHandler reports whether the receiver responds to the private selector _createCoreWithCompletionHandler:.
+func (v VZVirtualMachine) CanCreateCoreWithCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_createCoreWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_createCoresWithCompletionHandler:
@@ -247,8 +257,18 @@ func (v VZVirtualMachine) _createCoresWithCompletionHandler(handler ErrorHandler
 }
 
 // CreateCoresWithCompletionHandler is an exported wrapper for the private method _createCoresWithCompletionHandler.
-func (v VZVirtualMachine) CreateCoresWithCompletionHandler(handler ErrorHandler) {
+func (v VZVirtualMachine) CreateCoresWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_createCoresWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createCoresWithCompletionHandler:"}
+		return err
+	}
 	v._createCoresWithCompletionHandler(handler)
+	return nil
+}
+
+// CanCreateCoresWithCompletionHandler reports whether the receiver responds to the private selector _createCoresWithCompletionHandler:.
+func (v VZVirtualMachine) CanCreateCoresWithCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_createCoresWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_createViewEndpointWithOptions:
@@ -258,8 +278,17 @@ func (v VZVirtualMachine) _createViewEndpointWithOptions(options uint64) objecti
 }
 
 // CreateViewEndpointWithOptions is an exported wrapper for the private method _createViewEndpointWithOptions.
-func (v VZVirtualMachine) CreateViewEndpointWithOptions(options uint64) objectivec.IObject {
-	return v._createViewEndpointWithOptions(options)
+func (v VZVirtualMachine) CreateViewEndpointWithOptions(options uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_createViewEndpointWithOptions:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createViewEndpointWithOptions:"}
+		return nil, err
+	}
+	return v._createViewEndpointWithOptions(options), nil
+}
+
+// CanCreateViewEndpointWithOptions reports whether the receiver responds to the private selector _createViewEndpointWithOptions:.
+func (v VZVirtualMachine) CanCreateViewEndpointWithOptions() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_createViewEndpointWithOptions:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_enterRestrictedModeWithCompletionHandler:
@@ -269,8 +298,18 @@ func (v VZVirtualMachine) _enterRestrictedModeWithCompletionHandler(handler Erro
 }
 
 // EnterRestrictedModeWithCompletionHandler is an exported wrapper for the private method _enterRestrictedModeWithCompletionHandler.
-func (v VZVirtualMachine) EnterRestrictedModeWithCompletionHandler(handler ErrorHandler) {
+func (v VZVirtualMachine) EnterRestrictedModeWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_enterRestrictedModeWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_enterRestrictedModeWithCompletionHandler:"}
+		return err
+	}
 	v._enterRestrictedModeWithCompletionHandler(handler)
+	return nil
+}
+
+// CanEnterRestrictedModeWithCompletionHandler reports whether the receiver responds to the private selector _enterRestrictedModeWithCompletionHandler:.
+func (v VZVirtualMachine) CanEnterRestrictedModeWithCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_enterRestrictedModeWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_getUSBControllerLocationIDWithCompletionHandler:
@@ -280,8 +319,18 @@ func (v VZVirtualMachine) _getUSBControllerLocationIDWithCompletionHandler(handl
 }
 
 // GetUSBControllerLocationIDWithCompletionHandler is an exported wrapper for the private method _getUSBControllerLocationIDWithCompletionHandler.
-func (v VZVirtualMachine) GetUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler) {
+func (v VZVirtualMachine) GetUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_getUSBControllerLocationIDWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_getUSBControllerLocationIDWithCompletionHandler:"}
+		return err
+	}
 	v._getUSBControllerLocationIDWithCompletionHandler(handler)
+	return nil
+}
+
+// CanGetUSBControllerLocationIDWithCompletionHandler reports whether the receiver responds to the private selector _getUSBControllerLocationIDWithCompletionHandler:.
+func (v VZVirtualMachine) CanGetUSBControllerLocationIDWithCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_getUSBControllerLocationIDWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_overrideConnectionForTesting:
@@ -290,8 +339,18 @@ func (v VZVirtualMachine) _overrideConnectionForTesting(testing objectivec.IObje
 }
 
 // OverrideConnectionForTesting is an exported wrapper for the private method _overrideConnectionForTesting.
-func (v VZVirtualMachine) OverrideConnectionForTesting(testing objectivec.IObject) {
+func (v VZVirtualMachine) OverrideConnectionForTesting(testing objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_overrideConnectionForTesting:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_overrideConnectionForTesting:"}
+		return err
+	}
 	v._overrideConnectionForTesting(testing)
+	return nil
+}
+
+// CanOverrideConnectionForTesting reports whether the receiver responds to the private selector _overrideConnectionForTesting:.
+func (v VZVirtualMachine) CanOverrideConnectionForTesting() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_overrideConnectionForTesting:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_processHIDReports:forDevice:deviceType:
@@ -300,8 +359,18 @@ func (v VZVirtualMachine) _processHIDReportsForDeviceDeviceType(hIDReports VZOpa
 }
 
 // ProcessHIDReportsForDeviceDeviceType is an exported wrapper for the private method _processHIDReportsForDeviceDeviceType.
-func (v VZVirtualMachine) ProcessHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) {
+func (v VZVirtualMachine) ProcessHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processHIDReports:forDevice:deviceType:"}
+		return err
+	}
 	v._processHIDReportsForDeviceDeviceType(hIDReports, device, type_)
+	return nil
+}
+
+// CanProcessHIDReportsForDeviceDeviceType reports whether the receiver responds to the private selector _processHIDReports:forDevice:deviceType:.
+func (v VZVirtualMachine) CanProcessHIDReportsForDeviceDeviceType() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_resetWithType:completionHandler:
@@ -311,8 +380,18 @@ func (v VZVirtualMachine) _resetWithTypeCompletionHandler(type_ int64, handler E
 }
 
 // ResetWithTypeCompletionHandler is an exported wrapper for the private method _resetWithTypeCompletionHandler.
-func (v VZVirtualMachine) ResetWithTypeCompletionHandler(type_ int64, handler ErrorHandler) {
+func (v VZVirtualMachine) ResetWithTypeCompletionHandler(type_ int64, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_resetWithType:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_resetWithType:completionHandler:"}
+		return err
+	}
 	v._resetWithTypeCompletionHandler(type_, handler)
+	return nil
+}
+
+// CanResetWithTypeCompletionHandler reports whether the receiver responds to the private selector _resetWithType:completionHandler:.
+func (v VZVirtualMachine) CanResetWithTypeCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_resetWithType:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_saveMachineStateToURL:options:completionHandler:
@@ -322,8 +401,18 @@ func (v VZVirtualMachine) _saveMachineStateToURLOptionsCompletionHandler(url fou
 }
 
 // SaveMachineStateToURLOptionsCompletionHandler is an exported wrapper for the private method _saveMachineStateToURLOptionsCompletionHandler.
-func (v VZVirtualMachine) SaveMachineStateToURLOptionsCompletionHandler(url foundation.INSURL, options objectivec.IObject, handler ErrorHandler) {
+func (v VZVirtualMachine) SaveMachineStateToURLOptionsCompletionHandler(url foundation.INSURL, options objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_saveMachineStateToURL:options:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_saveMachineStateToURL:options:completionHandler:"}
+		return err
+	}
 	v._saveMachineStateToURLOptionsCompletionHandler(url, options, handler)
+	return nil
+}
+
+// CanSaveMachineStateToURLOptionsCompletionHandler reports whether the receiver responds to the private selector _saveMachineStateToURL:options:completionHandler:.
+func (v VZVirtualMachine) CanSaveMachineStateToURLOptionsCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_saveMachineStateToURL:options:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_setCrashContextMessage:
@@ -332,8 +421,18 @@ func (v VZVirtualMachine) _setCrashContextMessage(message objectivec.IObject) {
 }
 
 // SetCrashContextMessage is an exported wrapper for the private method _setCrashContextMessage.
-func (v VZVirtualMachine) SetCrashContextMessage(message objectivec.IObject) {
+func (v VZVirtualMachine) SetCrashContextMessage(message objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setCrashContextMessage:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setCrashContextMessage:"}
+		return err
+	}
 	v._setCrashContextMessage(message)
+	return nil
+}
+
+// CanSetCrashContextMessage reports whether the receiver responds to the private selector _setCrashContextMessage:.
+func (v VZVirtualMachine) CanSetCrashContextMessage() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setCrashContextMessage:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_setName:
@@ -342,8 +441,18 @@ func (v VZVirtualMachine) _setName(name objectivec.IObject) {
 }
 
 // SetName is an exported wrapper for the private method _setName.
-func (v VZVirtualMachine) SetName(name objectivec.IObject) {
+func (v VZVirtualMachine) SetName(name objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setName:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setName:"}
+		return err
+	}
 	v._setName(name)
+	return nil
+}
+
+// CanSetName reports whether the receiver responds to the private selector _setName:.
+func (v VZVirtualMachine) CanSetName() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setName:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_shouldSendHIDReports
@@ -353,8 +462,17 @@ func (v VZVirtualMachine) _shouldSendHIDReports() bool {
 }
 
 // ShouldSendHIDReports is an exported wrapper for the private method _shouldSendHIDReports.
-func (v VZVirtualMachine) ShouldSendHIDReports() bool {
-	return v._shouldSendHIDReports()
+func (v VZVirtualMachine) ShouldSendHIDReports() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_shouldSendHIDReports")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_shouldSendHIDReports"}
+		return false, err
+	}
+	return v._shouldSendHIDReports(), nil
+}
+
+// CanShouldSendHIDReports reports whether the receiver responds to the private selector _shouldSendHIDReports.
+func (v VZVirtualMachine) CanShouldSendHIDReports() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_shouldSendHIDReports"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_validateRestrictedModeSupportWithError:
@@ -374,7 +492,16 @@ func (v VZVirtualMachine) _validateRestrictedModeSupportWithError() (bool, error
 
 // ValidateRestrictedModeSupportWithError is an exported wrapper for the private method _validateRestrictedModeSupportWithError.
 func (v VZVirtualMachine) ValidateRestrictedModeSupportWithError() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_validateRestrictedModeSupportWithError:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_validateRestrictedModeSupportWithError:"}
+		return false, err
+	}
 	return v._validateRestrictedModeSupportWithError()
+}
+
+// CanValidateRestrictedModeSupportWithError reports whether the receiver responds to the private selector _validateRestrictedModeSupportWithError:.
+func (v VZVirtualMachine) CanValidateRestrictedModeSupportWithError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_validateRestrictedModeSupportWithError:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendDigitizerEvents:pointingDeviceIndex:
@@ -438,10 +565,36 @@ func (v VZVirtualMachine) _audioDevices() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
+// CanAudioDevices reports whether the receiver responds to the private selector _audioDevices.
+func (v VZVirtualMachine) CanAudioDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_audioDevices"))
+}
+
+// AudioDevices is an exported wrapper for the private property _audioDevices.
+func (v VZVirtualMachine) AudioDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_audioDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_audioDevices"}
+	}
+	return v._audioDevices(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_canCreateCore
 func (v VZVirtualMachine) _canCreateCore() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_canCreateCore"))
 	return rv
+}
+
+// CanCanCreateCore reports whether the receiver responds to the private selector _canCreateCore.
+func (v VZVirtualMachine) CanCanCreateCore() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_canCreateCore"))
+}
+
+// CanCreateCore is an exported wrapper for the private property _canCreateCore.
+func (v VZVirtualMachine) CanCreateCore() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_canCreateCore")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_canCreateCore"}
+	}
+	return v._canCreateCore(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_coprocessors
@@ -450,10 +603,36 @@ func (v VZVirtualMachine) _coprocessors() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
+// CanCoprocessors reports whether the receiver responds to the private selector _coprocessors.
+func (v VZVirtualMachine) CanCoprocessors() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_coprocessors"))
+}
+
+// Coprocessors is an exported wrapper for the private property _coprocessors.
+func (v VZVirtualMachine) Coprocessors() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_coprocessors")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_coprocessors"}
+	}
+	return v._coprocessors(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_crashContextMessage
 func (v VZVirtualMachine) _crashContextMessage() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_crashContextMessage"))
 	return foundation.NSStringFromID(rv).String()
+}
+
+// CanCrashContextMessage reports whether the receiver responds to the private selector _crashContextMessage.
+func (v VZVirtualMachine) CanCrashContextMessage() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_crashContextMessage"))
+}
+
+// CrashContextMessage is an exported wrapper for the private property _crashContextMessage.
+func (v VZVirtualMachine) CrashContextMessage() (string, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_crashContextMessage")) {
+		return "", &objc.UnrecognizedSelectorError{Selector: "_crashContextMessage"}
+	}
+	return v._crashContextMessage(), nil
 }
 func (v VZVirtualMachine) Set_crashContextMessage(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_crashContextMessage:"), objc.String(value))
@@ -463,6 +642,19 @@ func (v VZVirtualMachine) Set_crashContextMessage(value string) {
 func (v VZVirtualMachine) _currentConfiguration() IVZVirtualMachineConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_currentConfiguration"))
 	return VZVirtualMachineConfigurationFromID(objc.ID(rv))
+}
+
+// CanCurrentConfiguration reports whether the receiver responds to the private selector _currentConfiguration.
+func (v VZVirtualMachine) CanCurrentConfiguration() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_currentConfiguration"))
+}
+
+// CurrentConfiguration is an exported wrapper for the private property _currentConfiguration.
+func (v VZVirtualMachine) CurrentConfiguration() (IVZVirtualMachineConfiguration, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_currentConfiguration")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_currentConfiguration"}
+	}
+	return v._currentConfiguration(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_debugStub
@@ -475,10 +667,36 @@ func (v VZVirtualMachine) _debugStub() *VZDebugStub {
 	return &val
 }
 
+// CanDebugStub reports whether the receiver responds to the private selector _debugStub.
+func (v VZVirtualMachine) CanDebugStub() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_debugStub"))
+}
+
+// DebugStub is an exported wrapper for the private property _debugStub.
+func (v VZVirtualMachine) DebugStub() (*VZDebugStub, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_debugStub")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_debugStub"}
+	}
+	return v._debugStub(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_hidDevices
 func (v VZVirtualMachine) _hidDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanHidDevices reports whether the receiver responds to the private selector _hidDevices.
+func (v VZVirtualMachine) CanHidDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_hidDevices"))
+}
+
+// HidDevices is an exported wrapper for the private property _hidDevices.
+func (v VZVirtualMachine) HidDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_hidDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_hidDevices"}
+	}
+	return v._hidDevices(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_hidEventMonitor
@@ -491,10 +709,36 @@ func (v VZVirtualMachine) _hidEventMonitor() *VZHIDEventMonitor {
 	return &val
 }
 
+// CanHidEventMonitor reports whether the receiver responds to the private selector _hidEventMonitor.
+func (v VZVirtualMachine) CanHidEventMonitor() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_hidEventMonitor"))
+}
+
+// HidEventMonitor is an exported wrapper for the private property _hidEventMonitor.
+func (v VZVirtualMachine) HidEventMonitor() (*VZHIDEventMonitor, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_hidEventMonitor")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_hidEventMonitor"}
+	}
+	return v._hidEventMonitor(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_keyboards
 func (v VZVirtualMachine) _keyboards() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_keyboards"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanKeyboards reports whether the receiver responds to the private selector _keyboards.
+func (v VZVirtualMachine) CanKeyboards() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_keyboards"))
+}
+
+// Keyboards is an exported wrapper for the private property _keyboards.
+func (v VZVirtualMachine) Keyboards() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_keyboards")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_keyboards"}
+	}
+	return v._keyboards(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_multiTouchDevices
@@ -503,10 +747,36 @@ func (v VZVirtualMachine) _multiTouchDevices() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
+// CanMultiTouchDevices reports whether the receiver responds to the private selector _multiTouchDevices.
+func (v VZVirtualMachine) CanMultiTouchDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_multiTouchDevices"))
+}
+
+// MultiTouchDevices is an exported wrapper for the private property _multiTouchDevices.
+func (v VZVirtualMachine) MultiTouchDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_multiTouchDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_multiTouchDevices"}
+	}
+	return v._multiTouchDevices(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_name
 func (v VZVirtualMachine) _name() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_name"))
 	return foundation.NSStringFromID(rv).String()
+}
+
+// CanName reports whether the receiver responds to the private selector _name.
+func (v VZVirtualMachine) CanName() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_name"))
+}
+
+// Name is an exported wrapper for the private property _name.
+func (v VZVirtualMachine) Name() (string, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_name")) {
+		return "", &objc.UnrecognizedSelectorError{Selector: "_name"}
+	}
+	return v._name(), nil
 }
 func (v VZVirtualMachine) Set_name(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_name:"), objc.String(value))
@@ -518,10 +788,36 @@ func (v VZVirtualMachine) _pointingDevices() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
+// CanPointingDevices reports whether the receiver responds to the private selector _pointingDevices.
+func (v VZVirtualMachine) CanPointingDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_pointingDevices"))
+}
+
+// PointingDevices is an exported wrapper for the private property _pointingDevices.
+func (v VZVirtualMachine) PointingDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_pointingDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_pointingDevices"}
+	}
+	return v._pointingDevices(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_powerSourceDevices
 func (v VZVirtualMachine) _powerSourceDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_powerSourceDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanPowerSourceDevices reports whether the receiver responds to the private selector _powerSourceDevices.
+func (v VZVirtualMachine) CanPowerSourceDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_powerSourceDevices"))
+}
+
+// PowerSourceDevices is an exported wrapper for the private property _powerSourceDevices.
+func (v VZVirtualMachine) PowerSourceDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_powerSourceDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_powerSourceDevices"}
+	}
+	return v._powerSourceDevices(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_serialPorts
@@ -530,10 +826,36 @@ func (v VZVirtualMachine) _serialPorts() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
+// CanSerialPorts reports whether the receiver responds to the private selector _serialPorts.
+func (v VZVirtualMachine) CanSerialPorts() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_serialPorts"))
+}
+
+// SerialPorts is an exported wrapper for the private property _serialPorts.
+func (v VZVirtualMachine) SerialPorts() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_serialPorts")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_serialPorts"}
+	}
+	return v._serialPorts(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_serviceProcessIdentifier
 func (v VZVirtualMachine) _serviceProcessIdentifier() int {
 	rv := objc.Send[int](v.ID, objc.Sel("_serviceProcessIdentifier"))
 	return rv
+}
+
+// CanServiceProcessIdentifier reports whether the receiver responds to the private selector _serviceProcessIdentifier.
+func (v VZVirtualMachine) CanServiceProcessIdentifier() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_serviceProcessIdentifier"))
+}
+
+// ServiceProcessIdentifier is an exported wrapper for the private property _serviceProcessIdentifier.
+func (v VZVirtualMachine) ServiceProcessIdentifier() (int, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_serviceProcessIdentifier")) {
+		return 0, &objc.UnrecognizedSelectorError{Selector: "_serviceProcessIdentifier"}
+	}
+	return v._serviceProcessIdentifier(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_stateDescription
@@ -542,10 +864,36 @@ func (v VZVirtualMachine) _stateDescription() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
+// CanStateDescription reports whether the receiver responds to the private selector _stateDescription.
+func (v VZVirtualMachine) CanStateDescription() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_stateDescription"))
+}
+
+// StateDescription is an exported wrapper for the private property _stateDescription.
+func (v VZVirtualMachine) StateDescription() (string, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_stateDescription")) {
+		return "", &objc.UnrecognizedSelectorError{Selector: "_stateDescription"}
+	}
+	return v._stateDescription(), nil
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_storageDevices
 func (v VZVirtualMachine) _storageDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_storageDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// CanStorageDevices reports whether the receiver responds to the private selector _storageDevices.
+func (v VZVirtualMachine) CanStorageDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_storageDevices"))
+}
+
+// StorageDevices is an exported wrapper for the private property _storageDevices.
+func (v VZVirtualMachine) StorageDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_storageDevices")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_storageDevices"}
+	}
+	return v._storageDevices(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/state
