@@ -6,6 +6,7 @@
 package objc
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"runtime"
@@ -498,19 +499,23 @@ func IDToStringPtr(id ID) *string {
 	return &s
 }
 
-// ErrUnrecognizedSelector is returned when an object does not respond to a selector.
-var ErrUnrecognizedSelector = &UnrecognizedSelectorError{}
+// ErrUnrecognizedSelector is the sentinel error for an unavailable selector.
+var ErrUnrecognizedSelector = errors.New("unrecognized selector")
 
-// UnrecognizedSelectorError indicates an object does not respond to a selector.
+// UnrecognizedSelectorError records a selector an object does not respond to.
 type UnrecognizedSelectorError struct {
 	Selector string
 }
 
 func (e *UnrecognizedSelectorError) Error() string {
 	if e.Selector != "" {
-		return "unrecognized selector: " + e.Selector
+		return ErrUnrecognizedSelector.Error() + ": " + e.Selector
 	}
-	return "unrecognized selector"
+	return ErrUnrecognizedSelector.Error()
+}
+
+func (e *UnrecognizedSelectorError) Unwrap() error {
+	return ErrUnrecognizedSelector
 }
 
 // RespondsToSelector checks if an object responds to the given selector.
@@ -523,7 +528,8 @@ func RespondsToSelector(id ID, sel SEL) bool {
 }
 
 // SafeSend calls a selector only if the object responds to it.
-// Returns the zero value and ErrUnrecognizedSelector if the selector is not recognized.
+// Returns the zero value and an error matching ErrUnrecognizedSelector if the
+// selector is not recognized.
 // This prevents NSInvalidArgumentException crashes from unrecognized selectors.
 func SafeSend[T any](id ID, sel SEL, args ...any) (T, error) {
 	var zero T
