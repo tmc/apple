@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -198,13 +199,13 @@ func (sc SCScreenshotManagerClass) CaptureImageWithFilterConfiguration(ctx conte
 
 // CaptureSampleBufferWithFilterConfiguration is a synchronous wrapper around [SCScreenshotManager.CaptureSampleBufferWithFilterConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (sc SCScreenshotManagerClass) CaptureSampleBufferWithFilterConfiguration(ctx context.Context, contentFilter ISCContentFilter, config ISCStreamConfiguration) (uintptr, error) {
+func (sc SCScreenshotManagerClass) CaptureSampleBufferWithFilterConfiguration(ctx context.Context, contentFilter ISCContentFilter, config ISCStreamConfiguration) (coremedia.CMSampleBufferRef, error) {
 	type result struct {
-		val uintptr
+		val coremedia.CMSampleBufferRef
 		err error
 	}
 	done := make(chan result, 1)
-	sc.CaptureSampleBufferWithFilterConfigurationCompletionHandler(contentFilter, config, func(val uintptr, err error) {
+	sc.CaptureSampleBufferWithFilterConfigurationCompletionHandler(contentFilter, config, func(val coremedia.CMSampleBufferRef, err error) {
 		done <- result{val, err}
 	})
 	select {

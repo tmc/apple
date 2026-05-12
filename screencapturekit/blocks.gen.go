@@ -4,6 +4,7 @@ package screencapturekit
 
 import (
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -37,7 +38,7 @@ func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [SCScreenshotManager.CaptureSampleBufferWithFilterConfigurationCompletionHandler]
-type CMSampleBufferRefErrorHandler = func(uintptr, error)
+type CMSampleBufferRefErrorHandler = func(coremedia.CMSampleBufferRef, error)
 
 // NewCMSampleBufferRefErrorBlock wraps a Go [CMSampleBufferRefErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -48,7 +49,7 @@ func NewCMSampleBufferRefErrorBlock(handler CMSampleBufferRefErrorHandler) (objc
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal uintptr, errID objc.ID) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal coremedia.CMSampleBufferRef, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
