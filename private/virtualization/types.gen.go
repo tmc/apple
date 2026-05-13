@@ -130,6 +130,14 @@ type IoService struct {
 type MailboxHandle struct {
 }
 
+// Mutex
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/Virtualization/Mutex
+type Mutex struct {
+	_unfair_lock [4]byte
+}
+
 // PciDeviceLocation
 //
 // [Full Topic]
