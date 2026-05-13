@@ -1,0 +1,10 @@
+commit: bbe1ebd58e00d5aa2cccc6bd10d52725b6c82edb
+date: 2026-05-12T22:33:55-07:00
+agent: codex
+model: gpt-5.5
+claude-code-version: n/a
+tty: not a tty
+not-a-tty
+pid: 24715
+ITERM_SESSION_ID: w0t14p8:0249FD89-D47E-4A57-88A5-3DABB0670DBE
+subject: examples/rdma: require RTR opt-in
