@@ -897,6 +897,14 @@ func (d Data) Len() int {
 	return DataGetSize(d)
 }
 
+// Release releases the dispatch data object. It is safe to call on the
+// shared empty singleton and on zero-value Data values.
+func (d Data) Release() {
+	if d.data != 0 && d.data != _dispatch_data_empty_val {
+		_dispatch_release(uintptr(d.data))
+	}
+}
+
 // DataCreateConcat concatenates two data objects.
 func DataCreateConcat(a, b Data) Data {
 	return Data{data: dispatch_data_t(_dispatch_data_create_concat(uintptr(a.data), uintptr(b.data)))}

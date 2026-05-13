@@ -105,6 +105,7 @@ func TestDataMapEmpty(t *testing.T) {
 func TestDataCreateNoCopy(t *testing.T) {
 	input := []byte("no-copy send test data")
 	d := DataCreateNoCopy(input)
+	defer d.Release()
 	got := DataToBytes(d)
 	if !bytes.Equal(got, input) {
 		t.Fatalf("DataCreateNoCopy round-trip: got %q, want %q", got, input)
