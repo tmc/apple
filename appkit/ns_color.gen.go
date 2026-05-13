@@ -450,7 +450,7 @@ func NewColorNamed(name string) NSColor {
 // bundle: The app bundle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(named:bundle:)
-func NewColorNamedBundle(name string, bundle *foundation.NSBundle) NSColor {
+func NewColorNamedBundle(name string, bundle foundation.NSBundle) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorNamed:bundle:"), objc.String(name), bundle)
 	return NSColorFromID(rv)
 }

@@ -273,7 +273,7 @@ type INSPasteboard interface {
 	// Writes the contents of the specified file to the pasteboard.
 	WriteFileContents(filename string) bool
 	// Writes the serialized contents of the specified file wrapper to the pasteboard.
-	WriteFileWrapper(wrapper *foundation.NSFileWrapper) bool
+	WriteFileWrapper(wrapper foundation.NSFileWrapper) bool
 
 	// Topic: Reading data (macOS 10.5 and earlier)
 
@@ -937,7 +937,7 @@ func (p NSPasteboard) WriteFileContents(filename string) bool {
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/write(_:)
-func (p NSPasteboard) WriteFileWrapper(wrapper *foundation.NSFileWrapper) bool {
+func (p NSPasteboard) WriteFileWrapper(wrapper foundation.NSFileWrapper) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("writeFileWrapper:"), wrapper)
 	return rv
 }

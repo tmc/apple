@@ -165,7 +165,7 @@ func NewSplitViewItemAccessoryViewControllerWithCoder(coder foundation.INSCoder)
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewSplitViewItemAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSSplitViewItemAccessoryViewController {
+func NewSplitViewItemAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSSplitViewItemAccessoryViewController {
 	instance := getNSSplitViewItemAccessoryViewControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSSplitViewItemAccessoryViewControllerFromID(rv)

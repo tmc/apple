@@ -163,6 +163,26 @@ func NSAccessibilityPostNotification(element objectivec.Object, notification NSA
 	}
 }
 
+var _nSAccessibilityPostNotificationWithUserInfo func(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr)
+var _nSAccessibilityPostNotificationWithUserInfoErr error
+
+func tryNSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr) error {
+	if _nSAccessibilityPostNotificationWithUserInfo == nil {
+		return symbolCallError("NSAccessibilityPostNotificationWithUserInfo", "10.7", _nSAccessibilityPostNotificationWithUserInfoErr)
+	}
+	_nSAccessibilityPostNotificationWithUserInfo(element, notification, userInfo)
+	return nil
+}
+
+// NSAccessibilityPostNotificationWithUserInfo sends a notification and an optional user info dictionary to any observing assistive apps.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/post(element:notification:userInfo:)
+func NSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr) {
+	if callErr := tryNSAccessibilityPostNotificationWithUserInfo(element, notification, userInfo); callErr != nil {
+		panic(callErr)
+	}
+}
+
 var _nSAccessibilityRoleDescription func(role NSAccessibilityRole, subrole NSAccessibilitySubrole) foundation.NSString
 var _nSAccessibilityRoleDescriptionErr error
 
@@ -231,7 +251,7 @@ var _nSAccessibilityUnignoredAncestorErr error
 
 func tryNSAccessibilityUnignoredAncestor(element objectivec.Object) (objectivec.Object, error) {
 	if _nSAccessibilityUnignoredAncestor == nil {
-		return *new(objectivec.Object), symbolCallError("NSAccessibilityUnignoredAncestor", "", _nSAccessibilityUnignoredAncestorErr)
+		return objectivec.Object{}, symbolCallError("NSAccessibilityUnignoredAncestor", "", _nSAccessibilityUnignoredAncestorErr)
 	}
 	return _nSAccessibilityUnignoredAncestor(element), nil
 }
@@ -294,7 +314,7 @@ var _nSAccessibilityUnignoredDescendantErr error
 
 func tryNSAccessibilityUnignoredDescendant(element objectivec.Object) (objectivec.Object, error) {
 	if _nSAccessibilityUnignoredDescendant == nil {
-		return *new(objectivec.Object), symbolCallError("NSAccessibilityUnignoredDescendant", "", _nSAccessibilityUnignoredDescendantErr)
+		return objectivec.Object{}, symbolCallError("NSAccessibilityUnignoredDescendant", "", _nSAccessibilityUnignoredDescendantErr)
 	}
 	return _nSAccessibilityUnignoredDescendant(element), nil
 }
@@ -1574,6 +1594,7 @@ func init() {
 	registerFunc(&_nSAccessibilityFrameInView, &_nSAccessibilityFrameInViewErr, frameworkHandle, "NSAccessibilityFrameInView", "10.10")
 	registerFunc(&_nSAccessibilityPointInView, &_nSAccessibilityPointInViewErr, frameworkHandle, "NSAccessibilityPointInView", "10.10")
 	registerFunc(&_nSAccessibilityPostNotification, &_nSAccessibilityPostNotificationErr, frameworkHandle, "NSAccessibilityPostNotification", "")
+	registerFunc(&_nSAccessibilityPostNotificationWithUserInfo, &_nSAccessibilityPostNotificationWithUserInfoErr, frameworkHandle, "NSAccessibilityPostNotificationWithUserInfo", "10.7")
 	registerFunc(&_nSAccessibilityRoleDescription, &_nSAccessibilityRoleDescriptionErr, frameworkHandle, "NSAccessibilityRoleDescription", "")
 	registerFunc(&_nSAccessibilityRoleDescriptionForUIElement, &_nSAccessibilityRoleDescriptionForUIElementErr, frameworkHandle, "NSAccessibilityRoleDescriptionForUIElement", "")
 	registerFunc(&_nSAccessibilitySetMayContainProtectedContent, &_nSAccessibilitySetMayContainProtectedContentErr, frameworkHandle, "NSAccessibilitySetMayContainProtectedContent", "")
