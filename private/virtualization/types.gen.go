@@ -4,8 +4,6 @@ package virtualization
 
 import (
 	"unsafe"
-
-	"github.com/tmc/apple/private/coreml"
 )
 
 // C struct types
@@ -130,14 +128,6 @@ type IoService struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Virtualization/MailboxHandle
 type MailboxHandle struct {
-}
-
-// Mutex
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/Virtualization/Mutex
-type Mutex struct {
-	_unfair_lock coreml.Os_unfair_lock_s
 }
 
 // PciDeviceLocation

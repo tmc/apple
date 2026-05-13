@@ -315,7 +315,7 @@ type CE_DataAndType struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Security/CE_DistributionPointName
 type CE_DistributionPointName struct {
-	Dpn      unsafe.Pointer
+	Dpn      [8]byte
 	NameType CE_CrlDistributionPointNameType
 }
 

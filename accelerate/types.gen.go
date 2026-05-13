@@ -918,11 +918,7 @@ type SparseGMRESOptions struct {
 type SparseIterativeMethod struct {
 	Method  int       // The iterative method this structure represents.
 	Options [256]byte // The options for the method.
-	Base    uint
-	Cg      SparseCGOptions    // Conjugate Gradient Options.
-	Gmres   SparseGMRESOptions // Right-preconditioned (F/DQ)GMRES Parameters Options.
-	Lsmr    SparseLSMROptions  // LSMR is MINRES specialised for solving least squares.
-	Padding int8
+
 }
 
 // SparseLSMROptions - Options for creating a least squares minimum residual method.

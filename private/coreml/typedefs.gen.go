@@ -46,7 +46,7 @@ type E5rt_io_portRef uintptr
 type E5rt_program_libraryRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreML/netRef
-type NetRef = unsafe.Pointer
+type NetRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreML/shared_weak_countRef
 type Shared_weak_countRef = unsafe.Pointer

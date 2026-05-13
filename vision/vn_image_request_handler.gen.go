@@ -128,30 +128,30 @@ type IVNImageRequestHandler interface {
 	// Creates a handler to be used for performing requests on Core Graphics images.
 	InitWithCGImageOptions(image coregraphics.CGImageRef, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to be used for performing requests on a Core Graphics image with known orientation.
-	InitWithCGImageOrientationOptions(image coregraphics.CGImageRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCGImageOrientationOptions(image coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to use for performing requests on Core Image image data.
 	InitWithCIImageOptions(image coreimage.CIImage, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to be used for performing requests on Core Image image data of a known orientation.
-	InitWithCIImageOrientationOptions(image coreimage.CIImage, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCIImageOrientationOptions(image coreimage.CIImage, orientation uint, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler for performing requests on a Core Video pixel buffer.
 	InitWithCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler for performing requests on a Core Video pixel buffer of a known orientation.
-	InitWithCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler
-	InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a request handler that performs requests on an image contained within a sample buffer.
 	InitWithCMSampleBufferOptions(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a request handler that performs requests on an image of a specified orientation contained within a sample buffer.
-	InitWithCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a request handler that performs requests on an image in a sample buffer that contains depth data.
-	InitWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, depthData avfoundation.AVDepthData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, depthData avfoundation.AVDepthData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to use for performing requests on an image in a data object.
 	InitWithDataOptions(imageData foundation.INSData, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to use for performing requests on an image of known orientation.
-	InitWithDataOrientationOptions(imageData foundation.INSData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithDataOrientationOptions(imageData foundation.INSData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to be used for performing requests on an image at the specified URL.
 	InitWithURLOptions(imageURL foundation.INSURL, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to be used for performing requests on an image with known orientation, at the specified URL.
-	InitWithURLOrientationOptions(imageURL foundation.INSURL, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithURLOrientationOptions(imageURL foundation.INSURL, orientation uint, options foundation.INSDictionary) VNImageRequestHandler
 
 	// Topic: Executing a Request Handler
 
@@ -210,7 +210,7 @@ func NewImageRequestHandlerWithCGImageOptions(image coregraphics.CGImageRef, opt
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cgImage:orientation:options:)
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
-func NewImageRequestHandlerWithCGImageOrientationOptions(image coregraphics.CGImageRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCGImageOrientationOptions(image coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGImage:orientation:options:"), image, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -248,7 +248,7 @@ func NewImageRequestHandlerWithCIImageOptions(image coreimage.CIImage, options f
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(ciImage:orientation:options:)
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func NewImageRequestHandlerWithCIImageOrientationOptions(image coreimage.CIImage, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCIImageOrientationOptions(image coreimage.CIImage, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:orientation:options:"), image, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -274,7 +274,7 @@ func NewImageRequestHandlerWithCIImageOrientationOptions(image coreimage.CIImage
 // overwritten by the options you specify.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cmSampleBuffer:depthData:orientation:options:)
-func NewImageRequestHandlerWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, depthData avfoundation.AVDepthData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, depthData avfoundation.AVDepthData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCMSampleBuffer:depthData:orientation:options:"), sampleBuffer, depthData, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -320,14 +320,14 @@ func NewImageRequestHandlerWithCMSampleBufferOptions(sampleBuffer coremedia.CMSa
 // overwritten by the options you specify.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cmSampleBuffer:orientation:options:)
-func NewImageRequestHandlerWithCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:depthData:orientation:options:)
-func NewImageRequestHandlerWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:depthData:orientation:options:"), pixelBuffer, depthData, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -358,7 +358,7 @@ func NewImageRequestHandlerWithCVPixelBufferOptions(pixelBuffer corevideo.CVImag
 // options: A dictionary that specifies auxiliary information about the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:orientation:options:)
-func NewImageRequestHandlerWithCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -404,7 +404,7 @@ func NewImageRequestHandlerWithDataOptions(imageData foundation.INSData, options
 // website or the cloud.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(data:orientation:options:)
-func NewImageRequestHandlerWithDataOrientationOptions(imageData foundation.INSData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithDataOrientationOptions(imageData foundation.INSData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:orientation:options:"), imageData, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -444,7 +444,7 @@ func NewImageRequestHandlerWithURLOptions(imageURL foundation.INSURL, options fo
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(url:orientation:options:)
 //
 // [Image I/O]: https://developer.apple.com/documentation/ImageIO
-func NewImageRequestHandlerWithURLOrientationOptions(imageURL foundation.INSURL, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithURLOrientationOptions(imageURL foundation.INSURL, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:orientation:options:"), imageURL, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -478,12 +478,10 @@ func (i VNImageRequestHandler) InitWithCGImageOptions(image coregraphics.CGImage
 // options: An optional dictionary containing [VNImageOption] keys to auxiliary image
 // data.
 //
-// orientation is a [imageio.CGImagePropertyOrientation].
-//
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cgImage:orientation:options:)
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
-func (i VNImageRequestHandler) InitWithCGImageOrientationOptions(image coregraphics.CGImageRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCGImageOrientationOptions(image coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCGImage:orientation:options:"), image, orientation, options)
 	return rv
 }
@@ -516,12 +514,10 @@ func (i VNImageRequestHandler) InitWithCIImageOptions(image coreimage.CIImage, o
 // options: An optional dictionary containing [VNImageOption] keys to auxiliary image
 // data.
 //
-// orientation is a [imageio.CGImagePropertyOrientation].
-//
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(ciImage:orientation:options:)
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (i VNImageRequestHandler) InitWithCIImageOrientationOptions(image coreimage.CIImage, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCIImageOrientationOptions(image coreimage.CIImage, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCIImage:orientation:options:"), image, orientation, options)
 	return rv
 }
@@ -549,18 +545,14 @@ func (i VNImageRequestHandler) InitWithCVPixelBufferOptions(pixelBuffer corevide
 //
 // options: A dictionary that specifies auxiliary information about the image.
 //
-// orientation is a [imageio.CGImagePropertyOrientation].
-//
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:orientation:options:)
-func (i VNImageRequestHandler) InitWithCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return rv
 }
 
-// orientation is a [imageio.CGImagePropertyOrientation].
-//
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:depthData:orientation:options:)
-func (i VNImageRequestHandler) InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCVPixelBuffer:depthData:orientation:options:"), pixelBuffer, depthData, orientation, options)
 	return rv
 }
@@ -597,8 +589,6 @@ func (i VNImageRequestHandler) InitWithCMSampleBufferOptions(sampleBuffer coreme
 //
 // options: A dictionary that specifies auxiliary information about the image.
 //
-// orientation is a [imageio.CGImagePropertyOrientation].
-//
 // # Discussion
 //
 // Sample buffers may contain metadata, like the camera intrinsics. Vision
@@ -606,7 +596,7 @@ func (i VNImageRequestHandler) InitWithCMSampleBufferOptions(sampleBuffer coreme
 // overwritten by the options you specify.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cmSampleBuffer:orientation:options:)
-func (i VNImageRequestHandler) InitWithCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return rv
 }
@@ -624,8 +614,6 @@ func (i VNImageRequestHandler) InitWithCMSampleBufferOrientationOptions(sampleBu
 //
 // options: A dictionary that specifies auxiliary information about the image.
 //
-// orientation is a [imageio.CGImagePropertyOrientation].
-//
 // # Discussion
 //
 // Sample buffers may contain metadata, like the camera intrinsics. Vision
@@ -633,7 +621,7 @@ func (i VNImageRequestHandler) InitWithCMSampleBufferOrientationOptions(sampleBu
 // overwritten by the options you specify.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cmSampleBuffer:depthData:orientation:options:)
-func (i VNImageRequestHandler) InitWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, depthData avfoundation.AVDepthData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, depthData avfoundation.AVDepthData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCMSampleBuffer:depthData:orientation:options:"), sampleBuffer, depthData, orientation, options)
 	return rv
 }
@@ -670,8 +658,6 @@ func (i VNImageRequestHandler) InitWithDataOptions(imageData foundation.INSData,
 // options: An optional dictionary containing [VNImageOption] keys to auxiliary image
 // data.
 //
-// orientation is a [imageio.CGImagePropertyOrientation].
-//
 // # Discussion
 //
 // The intended use cases of this type of initializer include compressed
@@ -679,7 +665,7 @@ func (i VNImageRequestHandler) InitWithDataOptions(imageData foundation.INSData,
 // website or the cloud.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(data:orientation:options:)
-func (i VNImageRequestHandler) InitWithDataOrientationOptions(imageData foundation.INSData, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithDataOrientationOptions(imageData foundation.INSData, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithData:orientation:options:"), imageData, orientation, options)
 	return rv
 }
@@ -714,12 +700,10 @@ func (i VNImageRequestHandler) InitWithURLOptions(imageURL foundation.INSURL, op
 // options: An optional dictionary containing [VNImageOption] keys to auxiliary image
 // data.
 //
-// orientation is a [imageio.CGImagePropertyOrientation].
-//
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(url:orientation:options:)
 //
 // [Image I/O]: https://developer.apple.com/documentation/ImageIO
-func (i VNImageRequestHandler) InitWithURLOrientationOptions(imageURL foundation.INSURL, orientation unsafe.Pointer, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithURLOrientationOptions(imageURL foundation.INSURL, orientation uint, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithURL:orientation:options:"), imageURL, orientation, options)
 	return rv
 }
