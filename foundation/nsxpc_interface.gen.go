@@ -104,8 +104,8 @@ type INSXPCInterface interface {
 	// Topic: Instance Properties
 
 	// The Objective-C protocol that this interface is based on.
-	Protocol() *objectivec.Protocol
-	SetProtocol(value *objectivec.Protocol)
+	Protocol() objectivec.Protocol
+	SetProtocol(value objectivec.Protocol)
 
 	// Topic: Instance Methods
 
@@ -274,18 +274,10 @@ func (x NSXPCInterface) XPCTypeForSelectorArgumentIndexOfReply(sel objc.SEL, arg
 // The Objective-C protocol that this interface is based on.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCInterface/protocol
-func (x NSXPCInterface) Protocol() *objectivec.Protocol {
+func (x NSXPCInterface) Protocol() objectivec.Protocol {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("protocol"))
-	if rv == 0 {
-		return nil
-	}
-	val := objectivec.ProtocolFromID(objc.ID(rv))
-	return &val
+	return objectivec.ProtocolFromID(objc.ID(rv))
 }
-func (x NSXPCInterface) SetProtocol(value *objectivec.Protocol) {
-	if value == nil {
-		objc.Send[struct{}](x.ID, objc.Sel("setProtocol:"), objc.ID(0))
-		return
-	}
+func (x NSXPCInterface) SetProtocol(value objectivec.Protocol) {
 	objc.Send[struct{}](x.ID, objc.Sel("setProtocol:"), value)
 }

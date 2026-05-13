@@ -7,7 +7,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -249,7 +248,7 @@ type INSItemProvider interface {
 	// Topic: Configuring the provider
 
 	// The ideal presentation size of the item.
-	PreferredPresentationSize() corefoundation.CGSize
+	PreferredPresentationSize() NSSize
 	// The filename to use when writing the provided data to a file on disk.
 	SuggestedName() string
 	SetSuggestedName(value string)
@@ -326,9 +325,9 @@ type INSItemProvider interface {
 	// Topic: Getting the provider’s frame
 
 	// The rectangle that the item occupies in the host app’s source window.
-	SourceFrame() corefoundation.CGRect
+	SourceFrame() NSRect
 	// The rectangle of the item’s visible content.
-	ContainerFrame() corefoundation.CGRect
+	ContainerFrame() NSRect
 
 	// An optional array of media data associated with the extension item.
 	Attachments() INSItemProvider
@@ -1065,9 +1064,9 @@ func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenIn
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/preferredPresentationSize
 //
 // [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
-func (i NSItemProvider) PreferredPresentationSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](i.ID, objc.Sel("preferredPresentationSize"))
-	return corefoundation.CGSize(rv)
+func (i NSItemProvider) PreferredPresentationSize() NSSize {
+	rv := objc.Send[NSSize](i.ID, objc.Sel("preferredPresentationSize"))
+	return NSSize(rv)
 }
 
 // The filename to use when writing the provided data to a file on disk.
@@ -1143,9 +1142,9 @@ func (i NSItemProvider) RegisteredContentTypesForOpenInPlace() []objc.ID {
 // currently visible onscreen.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/sourceFrame
-func (i NSItemProvider) SourceFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](i.ID, objc.Sel("sourceFrame"))
-	return corefoundation.CGRect(rv)
+func (i NSItemProvider) SourceFrame() NSRect {
+	rv := objc.Send[NSRect](i.ID, objc.Sel("sourceFrame"))
+	return NSRect(rv)
 }
 
 // The rectangle of the item’s visible content.
@@ -1165,9 +1164,9 @@ func (i NSItemProvider) SourceFrame() corefoundation.CGRect {
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/containerFrame
 //
 // [NSZeroRect]: https://developer.apple.com/documentation/Foundation/NSZeroRect
-func (i NSItemProvider) ContainerFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](i.ID, objc.Sel("containerFrame"))
-	return corefoundation.CGRect(rv)
+func (i NSItemProvider) ContainerFrame() NSRect {
+	rv := objc.Send[NSRect](i.ID, objc.Sel("containerFrame"))
+	return NSRect(rv)
 }
 
 // An optional array of media data associated with the extension item.

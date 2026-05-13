@@ -194,9 +194,9 @@ func (c NSCoder) DecodeCGAffineTransformForKey(key string) corefoundation.CGAffi
 // [EncodeCGPointForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCGPoint(forKey:)
-func (c NSCoder) DecodeCGPointForKey(key string) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("decodeCGPointForKey:"), objc.String(key))
-	return corefoundation.CGPoint(rv)
+func (c NSCoder) DecodeCGPointForKey(key string) NSPoint {
+	rv := objc.Send[NSPoint](c.ID, objc.Sel("decodeCGPointForKey:"), objc.String(key))
+	return NSPoint(rv)
 }
 
 // Decodes and returns the Core Graphics rectangle structure associated with
@@ -214,9 +214,9 @@ func (c NSCoder) DecodeCGPointForKey(key string) corefoundation.CGPoint {
 // [EncodeCGRectForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCGRect(forKey:)
-func (c NSCoder) DecodeCGRectForKey(key string) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("decodeCGRectForKey:"), objc.String(key))
-	return corefoundation.CGRect(rv)
+func (c NSCoder) DecodeCGRectForKey(key string) NSRect {
+	rv := objc.Send[NSRect](c.ID, objc.Sel("decodeCGRectForKey:"), objc.String(key))
+	return NSRect(rv)
 }
 
 // Decodes and returns the Core Graphics size structure associated with the
@@ -234,9 +234,9 @@ func (c NSCoder) DecodeCGRectForKey(key string) corefoundation.CGRect {
 // using the [EncodeCGSizeForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCGSize(forKey:)
-func (c NSCoder) DecodeCGSizeForKey(key string) corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("decodeCGSizeForKey:"), objc.String(key))
-	return corefoundation.CGSize(rv)
+func (c NSCoder) DecodeCGSizeForKey(key string) NSSize {
+	rv := objc.Send[NSSize](c.ID, objc.Sel("decodeCGSizeForKey:"), objc.String(key))
+	return NSSize(rv)
 }
 
 // Decodes and returns the Core Graphics vector data associated with the

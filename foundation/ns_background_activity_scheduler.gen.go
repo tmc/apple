@@ -371,8 +371,8 @@ func (b NSBackgroundActivityScheduler) SetRepeats(value bool) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSBackgroundActivityScheduler/interval
 func (b NSBackgroundActivityScheduler) Interval() float64 {
-	rv := objc.Send[float64](b.ID, objc.Sel("interval"))
-	return rv
+	rv := objc.Send[NSTimeInterval](b.ID, objc.Sel("interval"))
+	return float64(rv)
 }
 func (b NSBackgroundActivityScheduler) SetInterval(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setInterval:"), value)
@@ -445,8 +445,8 @@ func (b NSBackgroundActivityScheduler) ShouldDefer() bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSBackgroundActivityScheduler/tolerance
 func (b NSBackgroundActivityScheduler) Tolerance() float64 {
-	rv := objc.Send[float64](b.ID, objc.Sel("tolerance"))
-	return rv
+	rv := objc.Send[NSTimeInterval](b.ID, objc.Sel("tolerance"))
+	return float64(rv)
 }
 func (b NSBackgroundActivityScheduler) SetTolerance(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTolerance:"), value)

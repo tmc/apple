@@ -886,8 +886,8 @@ func (p ProcessInfo) PhysicalMemory() uint64 {
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/systemUptime
 func (p ProcessInfo) SystemUptime() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("systemUptime"))
-	return rv
+	rv := objc.Send[NSTimeInterval](p.ID, objc.Sel("systemUptime"))
+	return float64(rv)
 }
 
 // The current thermal state of the system.

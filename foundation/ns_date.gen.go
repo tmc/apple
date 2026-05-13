@@ -545,8 +545,8 @@ func (d NSDate) Compare(other INSDate) NSComparisonResult {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/timeIntervalSince(_:)
 func (d NSDate) TimeIntervalSinceDate(anotherDate INSDate) float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("timeIntervalSinceDate:"), anotherDate)
-	return rv
+	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("timeIntervalSinceDate:"), anotherDate)
+	return float64(rv)
 }
 
 // Returns a new date object that is set to a given number of seconds relative
@@ -701,8 +701,8 @@ func (_NSDateClass NSDateClass) DateWithTimeIntervalSinceReferenceDate(ti float6
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/timeIntervalSinceNow
 func (d NSDate) TimeIntervalSinceNow() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("timeIntervalSinceNow"))
-	return rv
+	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("timeIntervalSinceNow"))
+	return float64(rv)
 }
 
 // The interval between the date object and 00:00:00 UTC on 1 January 2001.
@@ -714,8 +714,8 @@ func (d NSDate) TimeIntervalSinceNow() float64 {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/timeIntervalSinceReferenceDate-swift.property
 func (d NSDate) TimeIntervalSinceReferenceDate() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("timeIntervalSinceReferenceDate"))
-	return rv
+	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("timeIntervalSinceReferenceDate"))
+	return float64(rv)
 }
 
 // The interval between the date object and 00:00:00 UTC on 1 January 1970.
@@ -727,8 +727,8 @@ func (d NSDate) TimeIntervalSinceReferenceDate() float64 {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/timeIntervalSince1970
 func (d NSDate) TimeIntervalSince1970() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("timeIntervalSince1970"))
-	return rv
+	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("timeIntervalSince1970"))
+	return float64(rv)
 }
 
 // The number of seconds from 1 January 1970 to the reference date, 1 January

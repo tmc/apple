@@ -1194,14 +1194,11 @@ func NewXPCConnectionErrorBlock(handler XPCConnectionErrorHandler) (objc.ID, fun
 	return objc.ID(block), func() { block.Release() }
 }
 
-// constvoidHandler handles The block to apply to byte ranges in the array.
-//   - bytes: The bytes for the current range. This pointer is valid until the data object is deallocated.
-//   - byteRange: The range of the current data bytes.
-//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the data. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
+// constvoidHandler handles The block to receive the buffer pointer and its size in bytes.
 //
 // Used by:
 //   - [NSData.EnumerateByteRangesUsingBlock]
-type constvoidHandler = func(unsafe.Pointer)
+type constvoidHandler = func(unsafe.Pointer, int64)
 
 // NewconstvoidBlock wraps a Go [constvoidHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -1212,8 +1209,8 @@ func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal unsafe.Pointer) {
-		handler(primitiveVal)
+	block := objc.NewBlock(func(b objc.Block, bytes unsafe.Pointer, size int64) {
+		handler(bytes, size)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

@@ -132,9 +132,9 @@ func (_NSValueClass NSValueClass) ValueWithDirectionalEdgeInsets(insets unsafe.P
 // The CoreGraphics point structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/cgPointValue
-func (v NSValue) CGPointValue() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("CGPointValue"))
-	return corefoundation.CGPoint(rv)
+func (v NSValue) CGPointValue() NSPoint {
+	rv := objc.Send[NSPoint](v.ID, objc.Sel("CGPointValue"))
+	return NSPoint(rv)
 }
 
 // Returns the CoreGraphics vector structure representation of the value.
@@ -156,9 +156,9 @@ func (v NSValue) CGVectorValue() corefoundation.CGVector {
 // The CoreGraphics size structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/cgSizeValue
-func (v NSValue) CGSizeValue() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("CGSizeValue"))
-	return corefoundation.CGSize(rv)
+func (v NSValue) CGSizeValue() NSSize {
+	rv := objc.Send[NSSize](v.ID, objc.Sel("CGSizeValue"))
+	return NSSize(rv)
 }
 
 // Returns the CoreGraphics rectangle structure representation of the value.
@@ -168,9 +168,9 @@ func (v NSValue) CGSizeValue() corefoundation.CGSize {
 // The CoreGraphics rectangle structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/cgRectValue
-func (v NSValue) CGRectValue() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("CGRectValue"))
-	return corefoundation.CGRect(rv)
+func (v NSValue) CGRectValue() NSRect {
+	rv := objc.Send[NSRect](v.ID, objc.Sel("CGRectValue"))
+	return NSRect(rv)
 }
 
 // Returns the CoreGraphics affine transform representation of the value.

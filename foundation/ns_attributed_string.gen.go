@@ -398,9 +398,9 @@ type INSAttributedString interface {
 	// Topic: Getting metrics for the string
 
 	// Returns the size necessary to draw the string.
-	Size() corefoundation.CGSize
+	Size() NSSize
 	// Returns the bounding rectangle necessary to draw the string.
-	BoundingRectWithSizeOptionsContext(size corefoundation.CGSize, options NSStringDrawingOptions, context objectivec.IObject) corefoundation.CGRect
+	BoundingRectWithSizeOptionsContext(size corefoundation.CGSize, options NSStringDrawingOptions, context objectivec.IObject) NSRect
 	// Returns a Boolean value that indicates if the attributed string contains an attachment in the specified range.
 	ContainsAttachmentsInRange(range_ NSRange) bool
 
@@ -417,7 +417,7 @@ type INSAttributedString interface {
 	// The name of the text encoding to use.
 	TextEncodingName() INSString
 	// Calculates and returns a bounding rectangle for the attributed string using the options specified within the specified rectangle in the current graphics context.
-	BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) corefoundation.CGRect
+	BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect
 	// Draws the attributed string with the specified options within the specified rectangle in the current graphics context.
 	DrawWithRectOptions(rect corefoundation.CGRect, options NSStringDrawingOptions)
 	// Creates a new attributed string from the contents of another attributed string.
@@ -1966,9 +1966,9 @@ func (a NSAttributedString) DrawWithRectOptionsContext(rect corefoundation.CGRec
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/size()
 //
 // [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
-func (a NSAttributedString) Size() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](a.ID, objc.Sel("size"))
-	return corefoundation.CGSize(rv)
+func (a NSAttributedString) Size() NSSize {
+	rv := objc.Send[NSSize](a.ID, objc.Sel("size"))
+	return NSSize(rv)
 }
 
 // Returns the bounding rectangle necessary to draw the string.
@@ -2016,9 +2016,9 @@ func (a NSAttributedString) Size() corefoundation.CGSize {
 // [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 // [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
 // [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
-func (a NSAttributedString) BoundingRectWithSizeOptionsContext(size corefoundation.CGSize, options NSStringDrawingOptions, context objectivec.IObject) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](a.ID, objc.Sel("boundingRectWithSize:options:context:"), size, options, context)
-	return corefoundation.CGRect(rv)
+func (a NSAttributedString) BoundingRectWithSizeOptionsContext(size corefoundation.CGSize, options NSStringDrawingOptions, context objectivec.IObject) NSRect {
+	rv := objc.Send[NSRect](a.ID, objc.Sel("boundingRectWithSize:options:context:"), size, options, context)
+	return NSRect(rv)
 }
 
 // Returns a Boolean value that indicates if the attributed string contains an
@@ -2062,9 +2062,9 @@ func (a NSAttributedString) ContainsAttachmentsInRange(range_ NSRange) bool {
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/boundingRect(with:options:)
 //
 // [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
-func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](a.ID, objc.Sel("boundingRectWithSize:options:"), size, options)
-	return corefoundation.CGRect(rv)
+func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect {
+	rv := objc.Send[NSRect](a.ID, objc.Sel("boundingRectWithSize:options:"), size, options)
+	return NSRect(rv)
 }
 
 // Draws the attributed string with the specified options within the specified

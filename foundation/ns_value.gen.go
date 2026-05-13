@@ -247,11 +247,11 @@ type INSValue interface {
 	// Topic: Working with Foundation Geometry Values
 
 	// The Foundation point structure representation of the value.
-	PointValue() corefoundation.CGPoint
+	PointValue() NSPoint
 	// The Foundation size structure representation of the value.
-	SizeValue() corefoundation.CGSize
+	SizeValue() NSSize
 	// The Foundation rectangle structure representation of the value.
-	RectValue() corefoundation.CGRect
+	RectValue() NSRect
 
 	// Topic: Working with CoreAnimation Transform Values
 
@@ -898,25 +898,25 @@ func (v NSValue) RangeValue() NSRange {
 // The Foundation point structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/pointValue
-func (v NSValue) PointValue() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("pointValue"))
-	return corefoundation.CGPoint(rv)
+func (v NSValue) PointValue() NSPoint {
+	rv := objc.Send[NSPoint](v.ID, objc.Sel("pointValue"))
+	return NSPoint(rv)
 }
 
 // The Foundation size structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/sizeValue
-func (v NSValue) SizeValue() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("sizeValue"))
-	return corefoundation.CGSize(rv)
+func (v NSValue) SizeValue() NSSize {
+	rv := objc.Send[NSSize](v.ID, objc.Sel("sizeValue"))
+	return NSSize(rv)
 }
 
 // The Foundation rectangle structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/rectValue
-func (v NSValue) RectValue() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("rectValue"))
-	return corefoundation.CGRect(rv)
+func (v NSValue) RectValue() NSRect {
+	rv := objc.Send[NSRect](v.ID, objc.Sel("rectValue"))
+	return NSRect(rv)
 }
 
 // The CoreAnimation transform structure representation of the value.

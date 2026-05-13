@@ -564,8 +564,8 @@ func (u NSURLRequest) AllHTTPHeaderFields() INSDictionary {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/timeoutInterval
 func (u NSURLRequest) TimeoutInterval() float64 {
-	rv := objc.Send[float64](u.ID, objc.Sel("timeoutInterval"))
-	return rv
+	rv := objc.Send[NSTimeInterval](u.ID, objc.Sel("timeoutInterval"))
+	return float64(rv)
 }
 
 // A Boolean value that indicates whether the default cookie handling will be

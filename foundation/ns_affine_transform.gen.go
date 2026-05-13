@@ -178,9 +178,9 @@ type INSAffineTransform interface {
 	// Topic: Transforming Data and Objects
 
 	// Applies the receiver’s transform to the specified point and returns the result.
-	TransformPoint(aPoint corefoundation.CGPoint) corefoundation.CGPoint
+	TransformPoint(aPoint corefoundation.CGPoint) NSPoint
 	// Applies the receiver’s transform to the specified size and returns the results.
-	TransformSize(aSize corefoundation.CGSize) corefoundation.CGSize
+	TransformSize(aSize corefoundation.CGSize) NSSize
 	// Creates and returns a new Bézier path object with each point in the given path transformed by the receiver.
 	TransformBezierPath(path objectivec.IObject) objectivec.IObject
 
@@ -402,9 +402,9 @@ func (a NSAffineTransform) Invert() {
 // The resulting point after applying the receiver’s transformations.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/transform(_:)-41p16
-func (a NSAffineTransform) TransformPoint(aPoint corefoundation.CGPoint) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](a.ID, objc.Sel("transformPoint:"), aPoint)
-	return corefoundation.CGPoint(rv)
+func (a NSAffineTransform) TransformPoint(aPoint corefoundation.CGPoint) NSPoint {
+	rv := objc.Send[NSPoint](a.ID, objc.Sel("transformPoint:"), aPoint)
+	return NSPoint(rv)
 }
 
 // Applies the receiver’s transform to the specified size and returns the
@@ -429,9 +429,9 @@ func (a NSAffineTransform) TransformPoint(aPoint corefoundation.CGPoint) corefou
 // need to take scaling and rotation factors into account.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/transform(_:)-5r6ol
-func (a NSAffineTransform) TransformSize(aSize corefoundation.CGSize) corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](a.ID, objc.Sel("transformSize:"), aSize)
-	return corefoundation.CGSize(rv)
+func (a NSAffineTransform) TransformSize(aSize corefoundation.CGSize) NSSize {
+	rv := objc.Send[NSSize](a.ID, objc.Sel("transformSize:"), aSize)
+	return NSSize(rv)
 }
 
 // Creates and returns a new Bézier path object with each point in the given

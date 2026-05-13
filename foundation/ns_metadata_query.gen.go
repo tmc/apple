@@ -553,8 +553,8 @@ func (m NSMetadataQuery) SetGroupingAttributes(value []string) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/notificationBatchingInterval
 func (m NSMetadataQuery) NotificationBatchingInterval() float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("notificationBatchingInterval"))
-	return rv
+	rv := objc.Send[NSTimeInterval](m.ID, objc.Sel("notificationBatchingInterval"))
+	return float64(rv)
 }
 func (m NSMetadataQuery) SetNotificationBatchingInterval(value float64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNotificationBatchingInterval:"), value)

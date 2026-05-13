@@ -602,8 +602,8 @@ func (u URLSessionConfiguration) SetAllowsCellularAccess(value bool) {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/timeoutIntervalForRequest
 func (u URLSessionConfiguration) TimeoutIntervalForRequest() float64 {
-	rv := objc.Send[float64](u.ID, objc.Sel("timeoutIntervalForRequest"))
-	return rv
+	rv := objc.Send[NSTimeInterval](u.ID, objc.Sel("timeoutIntervalForRequest"))
+	return float64(rv)
 }
 func (u URLSessionConfiguration) SetTimeoutIntervalForRequest(value float64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTimeoutIntervalForRequest:"), value)
@@ -625,8 +625,8 @@ func (u URLSessionConfiguration) SetTimeoutIntervalForRequest(value float64) {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/timeoutIntervalForResource
 func (u URLSessionConfiguration) TimeoutIntervalForResource() float64 {
-	rv := objc.Send[float64](u.ID, objc.Sel("timeoutIntervalForResource"))
-	return rv
+	rv := objc.Send[NSTimeInterval](u.ID, objc.Sel("timeoutIntervalForResource"))
+	return float64(rv)
 }
 func (u URLSessionConfiguration) SetTimeoutIntervalForResource(value float64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTimeoutIntervalForResource:"), value)

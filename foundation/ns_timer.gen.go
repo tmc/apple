@@ -682,8 +682,8 @@ func (t Timer) SetFireDate(value INSDate) {
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/timeInterval
 func (t Timer) TimeInterval() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("timeInterval"))
-	return rv
+	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("timeInterval"))
+	return float64(rv)
 }
 
 // The receiver’s `userInfo` object.
@@ -720,8 +720,8 @@ func (t Timer) UserInfo() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/tolerance
 func (t Timer) Tolerance() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("tolerance"))
-	return rv
+	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("tolerance"))
+	return float64(rv)
 }
 func (t Timer) SetTolerance(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTolerance:"), value)

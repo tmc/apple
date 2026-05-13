@@ -425,19 +425,19 @@ type INSCoder interface {
 	// Decodes and returns a previously-encoded object that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-1mlmu>) or [encodeConditionalObject(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeConditionalObject(_:forKey:)>) and associated with the string `key`.
 	DecodeObjectForKey(key string) objectivec.IObject
 	// Decodes and returns an NSPoint structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-75jv4>).
-	DecodePoint() corefoundation.CGPoint
+	DecodePoint() NSPoint
 	// Decodes and returns an NSPoint structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif>).
-	DecodePointForKey(key string) corefoundation.CGPoint
+	DecodePointForKey(key string) NSPoint
 	// Decodes a property list that was previously encoded with [encodePropertyList(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodePropertyList(_:)>).
 	DecodePropertyList() objectivec.IObject
 	// Decodes and returns an NSRect structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-3c1wz>).
-	DecodeRect() corefoundation.CGRect
+	DecodeRect() NSRect
 	// Decodes and returns an NSRect structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx>).
-	DecodeRectForKey(key string) corefoundation.CGRect
+	DecodeRectForKey(key string) NSRect
 	// Decodes and returns an NSSize structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-82i7c>).
-	DecodeSize() corefoundation.CGSize
+	DecodeSize() NSSize
 	// Decodes and returns an NSSize structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu>).
-	DecodeSizeForKey(key string) corefoundation.CGSize
+	DecodeSizeForKey(key string) NSSize
 	// Decodes a single value of a known type from the specified data buffer.
 	DecodeValueOfObjCTypeAtSize(type_ string, data unsafe.Pointer, size uint)
 	// Returns a decoded property list for the specified key.
@@ -1180,18 +1180,18 @@ func (c NSCoder) DecodeObjectForKey(key string) objectivec.IObject {
 // [EncodePoint].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodePoint()
-func (c NSCoder) DecodePoint() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("decodePoint"))
-	return corefoundation.CGPoint(rv)
+func (c NSCoder) DecodePoint() NSPoint {
+	rv := objc.Send[NSPoint](c.ID, objc.Sel("decodePoint"))
+	return NSPoint(rv)
 }
 
 // Decodes and returns an NSPoint structure that was previously encoded with
 // [EncodePointForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodePoint(forKey:)
-func (c NSCoder) DecodePointForKey(key string) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("decodePointForKey:"), objc.String(key))
-	return corefoundation.CGPoint(rv)
+func (c NSCoder) DecodePointForKey(key string) NSPoint {
+	rv := objc.Send[NSPoint](c.ID, objc.Sel("decodePointForKey:"), objc.String(key))
+	return NSPoint(rv)
 }
 
 // Decodes a property list that was previously encoded with
@@ -1207,36 +1207,36 @@ func (c NSCoder) DecodePropertyList() objectivec.IObject {
 // [EncodeRect].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeRect()
-func (c NSCoder) DecodeRect() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("decodeRect"))
-	return corefoundation.CGRect(rv)
+func (c NSCoder) DecodeRect() NSRect {
+	rv := objc.Send[NSRect](c.ID, objc.Sel("decodeRect"))
+	return NSRect(rv)
 }
 
 // Decodes and returns an NSRect structure that was previously encoded with
 // [EncodeRectForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeRect(forKey:)
-func (c NSCoder) DecodeRectForKey(key string) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("decodeRectForKey:"), objc.String(key))
-	return corefoundation.CGRect(rv)
+func (c NSCoder) DecodeRectForKey(key string) NSRect {
+	rv := objc.Send[NSRect](c.ID, objc.Sel("decodeRectForKey:"), objc.String(key))
+	return NSRect(rv)
 }
 
 // Decodes and returns an NSSize structure that was previously encoded with
 // [EncodeSize].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeSize()
-func (c NSCoder) DecodeSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("decodeSize"))
-	return corefoundation.CGSize(rv)
+func (c NSCoder) DecodeSize() NSSize {
+	rv := objc.Send[NSSize](c.ID, objc.Sel("decodeSize"))
+	return NSSize(rv)
 }
 
 // Decodes and returns an NSSize structure that was previously encoded with
 // [EncodeSizeForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeSize(forKey:)
-func (c NSCoder) DecodeSizeForKey(key string) corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("decodeSizeForKey:"), objc.String(key))
-	return corefoundation.CGSize(rv)
+func (c NSCoder) DecodeSizeForKey(key string) NSSize {
+	rv := objc.Send[NSSize](c.ID, objc.Sel("decodeSizeForKey:"), objc.String(key))
+	return NSSize(rv)
 }
 
 // Decodes a single value of a known type from the specified data buffer.

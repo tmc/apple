@@ -747,8 +747,8 @@ func (t NSTextCheckingResult) Date() INSDate {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/duration
 func (t NSTextCheckingResult) Duration() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("duration"))
-	return rv
+	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("duration"))
+	return float64(rv)
 }
 
 // The time zone component of a type checking result.

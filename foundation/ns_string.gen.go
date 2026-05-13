@@ -674,7 +674,7 @@ type INSString interface {
 	// Topic: Getting Characters and Bytes
 
 	// Returns the character at a given UTF-16 code unit index.
-	CharacterAtIndex(index uint) uint16
+	CharacterAtIndex(index uint) Unichar
 	// Copies characters from a given range in the receiver into a given buffer.
 	GetCharactersRange(buffer unsafe.Pointer, range_ NSRange)
 	// Gets a given range of characters as bytes in a specified encoding.
@@ -860,9 +860,9 @@ type INSString interface {
 	// Draws the attributed string in the specified bounding rectangle using the provided options.
 	DrawWithRectOptionsAttributesContext(rect corefoundation.CGRect, options NSStringDrawingOptions, attributes INSDictionary, context objectivec.IObject)
 	// Calculates and returns the bounding rect for the receiver drawn using the given options and display characteristics, within the specified rectangle in the current graphics context.
-	BoundingRectWithSizeOptionsAttributesContext(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary, context objectivec.IObject) corefoundation.CGRect
+	BoundingRectWithSizeOptionsAttributesContext(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary, context objectivec.IObject) NSRect
 	// Returns the bounding box size the receiver occupies when drawn with the given attributes.
-	SizeWithAttributes(attrs INSDictionary) corefoundation.CGSize
+	SizeWithAttributes(attrs INSDictionary) NSSize
 	// Returns a string variation suitable for the specified presentation width.
 	VariantFittingPresentationWidth(width int) string
 
@@ -891,9 +891,9 @@ type INSString interface {
 	DataUsingEncodingAllowLossyConversion(encoding uint, lossy bool) INSData
 	Description() string
 	// The fastest encoding to which the receiver may be converted without loss of information.
-	FastestEncoding() uint
+	FastestEncoding() NSStringEncoding
 	// The smallest encoding to which the receiver can be converted without loss of information.
-	SmallestEncoding() uint
+	SmallestEncoding() NSStringEncoding
 
 	// Topic: Working with Paths
 
@@ -944,7 +944,7 @@ type INSString interface {
 	// Draws the receiver with the specified options and other display characteristics of the given attributes, within the specified rectangle in the current graphics context.
 	DrawWithRectOptionsAttributes(rect corefoundation.CGRect, options NSStringDrawingOptions, attributes INSDictionary)
 	// Calculates and returns the bounding rect for the receiver drawn using the given options and display characteristics, within the specified rectangle in the current graphics context.
-	BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary) corefoundation.CGRect
+	BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary) NSRect
 
 	// Topic: Initializers
 
@@ -1840,9 +1840,9 @@ func (s NSString) MaximumLengthOfBytesUsingEncoding(enc uint) uint {
 // correctly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/character(at:)
-func (s NSString) CharacterAtIndex(index uint) uint16 {
-	rv := objc.Send[uint16](s.ID, objc.Sel("characterAtIndex:"), index)
-	return rv
+func (s NSString) CharacterAtIndex(index uint) Unichar {
+	rv := objc.Send[Unichar](s.ID, objc.Sel("characterAtIndex:"), index)
+	return Unichar(rv)
 }
 
 // Copies characters from a given range in the receiver into a given buffer.
@@ -3559,9 +3559,9 @@ func (s NSString) DrawWithRectOptionsAttributesContext(rect corefoundation.CGRec
 // [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 // [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
 // [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
-func (s NSString) BoundingRectWithSizeOptionsAttributesContext(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary, context objectivec.IObject) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("boundingRectWithSize:options:attributes:context:"), size, options, attributes, context)
-	return corefoundation.CGRect(rv)
+func (s NSString) BoundingRectWithSizeOptionsAttributesContext(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary, context objectivec.IObject) NSRect {
+	rv := objc.Send[NSRect](s.ID, objc.Sel("boundingRectWithSize:options:attributes:context:"), size, options, attributes, context)
+	return NSRect(rv)
 }
 
 // Returns the bounding box size the receiver occupies when drawn with the
@@ -3586,9 +3586,9 @@ func (s NSString) BoundingRectWithSizeOptionsAttributesContext(size corefoundati
 // See: https://developer.apple.com/documentation/Foundation/NSString/size(withAttributes:)
 //
 // [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
-func (s NSString) SizeWithAttributes(attrs INSDictionary) corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("sizeWithAttributes:"), attrs)
-	return corefoundation.CGSize(rv)
+func (s NSString) SizeWithAttributes(attrs INSDictionary) NSSize {
+	rv := objc.Send[NSSize](s.ID, objc.Sel("sizeWithAttributes:"), attrs)
+	return NSSize(rv)
 }
 
 // Returns a string variation suitable for the specified presentation width.
@@ -3995,9 +3995,9 @@ func (s NSString) DrawWithRectOptionsAttributes(rect corefoundation.CGRect, opti
 // multiline configuration.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/boundingRect(with:options:attributes:)
-func (s NSString) BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("boundingRectWithSize:options:attributes:"), size, options, attributes)
-	return corefoundation.CGRect(rv)
+func (s NSString) BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary) NSRect {
+	rv := objc.Send[NSRect](s.ID, objc.Sel("boundingRectWithSize:options:attributes:"), size, options, attributes)
+	return NSRect(rv)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
@@ -4300,9 +4300,9 @@ func (_NSStringClass NSStringClass) LocalizedUserNotificationStringForKeyArgumen
 // determined.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringEncoding(for:encodingOptions:convertedString:usedLossyConversion:)
-func (_NSStringClass NSStringClass) StringEncodingForDataEncodingOptionsConvertedStringUsedLossyConversion(data INSData, opts INSDictionary, string_ string, usedLossyConversion unsafe.Pointer) uint {
-	rv := objc.Send[uint](objc.ID(_NSStringClass.class), objc.Sel("stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:"), data, opts, objc.String(string_), usedLossyConversion)
-	return rv
+func (_NSStringClass NSStringClass) StringEncodingForDataEncodingOptionsConvertedStringUsedLossyConversion(data INSData, opts INSDictionary, string_ string, usedLossyConversion unsafe.Pointer) NSStringEncoding {
+	rv := objc.Send[NSStringEncoding](objc.ID(_NSStringClass.class), objc.Sel("stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:"), data, opts, objc.String(string_), usedLossyConversion)
+	return NSStringEncoding(rv)
 }
 
 // Returns a human-readable string giving the name of a given encoding.
@@ -4974,9 +4974,9 @@ func (s NSString) Description() string {
 // encoding may not be space efficient.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/fastestEncoding
-func (s NSString) FastestEncoding() uint {
-	rv := objc.Send[uint](s.ID, objc.Sel("fastestEncoding"))
-	return rv
+func (s NSString) FastestEncoding() NSStringEncoding {
+	rv := objc.Send[NSStringEncoding](s.ID, objc.Sel("fastestEncoding"))
+	return NSStringEncoding(rv)
 }
 
 // The smallest encoding to which the receiver can be converted without loss
@@ -4988,9 +4988,9 @@ func (s NSString) FastestEncoding() uint {
 // space-efficient. This property may take some time to access.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/smallestEncoding
-func (s NSString) SmallestEncoding() uint {
-	rv := objc.Send[uint](s.ID, objc.Sel("smallestEncoding"))
-	return rv
+func (s NSString) SmallestEncoding() NSStringEncoding {
+	rv := objc.Send[NSStringEncoding](s.ID, objc.Sel("smallestEncoding"))
+	return NSStringEncoding(rv)
 }
 
 // The file-system path components of the receiver.
@@ -5373,9 +5373,9 @@ func (_NSStringClass NSStringClass) AvailableStringEncodings() unsafe.Pointer {
 // supported encodings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/defaultCStringEncoding
-func (_NSStringClass NSStringClass) DefaultCStringEncoding() uint {
-	rv := objc.Send[uint](objc.ID(_NSStringClass.class), objc.Sel("defaultCStringEncoding"))
-	return rv
+func (_NSStringClass NSStringClass) DefaultCStringEncoding() NSStringEncoding {
+	rv := objc.Send[NSStringEncoding](objc.ID(_NSStringClass.class), objc.Sel("defaultCStringEncoding"))
+	return NSStringEncoding(rv)
 }
 
 // Protocol methods for NSCopying

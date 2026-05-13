@@ -446,8 +446,8 @@ func (t NSTimeZone) IsDaylightSavingTimeForDate(aDate INSDate) bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/daylightSavingTimeOffset(for:)
 func (t NSTimeZone) DaylightSavingTimeOffsetForDate(aDate INSDate) float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("daylightSavingTimeOffsetForDate:"), aDate)
-	return rv
+	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("daylightSavingTimeOffsetForDate:"), aDate)
+	return float64(rv)
 }
 
 // Returns the next daylight saving time transition after a given date.
@@ -626,8 +626,8 @@ func (t NSTimeZone) DaylightSavingTime() bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/daylightSavingTimeOffset
 func (t NSTimeZone) DaylightSavingTimeOffset() float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("daylightSavingTimeOffset"))
-	return rv
+	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("daylightSavingTimeOffset"))
+	return float64(rv)
 }
 
 // The date of the next daylight saving time transition for the receiver.

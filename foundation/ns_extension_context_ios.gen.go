@@ -5,7 +5,6 @@
 package foundation
 
 import (
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -64,9 +63,9 @@ func (e NSExtensionContext) Intent() unsafe.Pointer {
 // must be at least as large as the size value in this property.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/hostedViewMinimumAllowedSize
-func (e NSExtensionContext) HostedViewMinimumAllowedSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](e.ID, objc.Sel("hostedViewMinimumAllowedSize"))
-	return corefoundation.CGSize(rv)
+func (e NSExtensionContext) HostedViewMinimumAllowedSize() NSSize {
+	rv := objc.Send[NSSize](e.ID, objc.Sel("hostedViewMinimumAllowedSize"))
+	return NSSize(rv)
 }
 
 // The maximum size for a Siri hosted view.
@@ -79,9 +78,9 @@ func (e NSExtensionContext) HostedViewMinimumAllowedSize() corefoundation.CGSize
 // must be no larger than the size value in this property.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/hostedViewMaximumAllowedSize
-func (e NSExtensionContext) HostedViewMaximumAllowedSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](e.ID, objc.Sel("hostedViewMaximumAllowedSize"))
-	return corefoundation.CGSize(rv)
+func (e NSExtensionContext) HostedViewMaximumAllowedSize() NSSize {
+	rv := objc.Send[NSSize](e.ID, objc.Sel("hostedViewMaximumAllowedSize"))
+	return NSSize(rv)
 }
 
 // The active display mode of the widget.

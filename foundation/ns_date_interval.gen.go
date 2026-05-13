@@ -421,8 +421,8 @@ func (d NSDateInterval) EndDate() INSDate {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/duration
 func (d NSDateInterval) Duration() float64 {
-	rv := objc.Send[float64](d.ID, objc.Sel("duration"))
-	return rv
+	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("duration"))
+	return float64(rv)
 }
 
 // Protocol methods for NSCopying
