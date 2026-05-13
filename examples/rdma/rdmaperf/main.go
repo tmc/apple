@@ -47,20 +47,22 @@ type result struct {
 }
 
 type rdmaBenchResult struct {
-	Mode           string          `json:"mode"`
-	Role           string          `json:"role"`
-	Addr           string          `json:"addr,omitempty"`
-	Device         string          `json:"device,omitempty"`
-	Size           int             `json:"size"`
-	Iterations     int             `json:"iterations"`
-	Elapsed        string          `json:"elapsed,omitempty"`
-	Bytes          uint64          `json:"bytes,omitempty"`
-	BytesPerSec    float64         `json:"bytes_per_sec,omitempty"`
-	MessagesPerSec float64         `json:"messages_per_sec,omitempty"`
-	Latency        *latencySummary `json:"latency,omitempty"`
-	Local          rdmaPeerInfo    `json:"local"`
-	Remote         rdmaPeerInfo    `json:"remote"`
-	Error          string          `json:"error,omitempty"`
+	Mode           string             `json:"mode"`
+	Role           string             `json:"role"`
+	Addr           string             `json:"addr,omitempty"`
+	Device         string             `json:"device,omitempty"`
+	Stage          string             `json:"stage,omitempty"`
+	Control        []rdmaControlEvent `json:"control,omitempty"`
+	Size           int                `json:"size"`
+	Iterations     int                `json:"iterations"`
+	Elapsed        string             `json:"elapsed,omitempty"`
+	Bytes          uint64             `json:"bytes,omitempty"`
+	BytesPerSec    float64            `json:"bytes_per_sec,omitempty"`
+	MessagesPerSec float64            `json:"messages_per_sec,omitempty"`
+	Latency        *latencySummary    `json:"latency,omitempty"`
+	Local          rdmaPeerInfo       `json:"local"`
+	Remote         rdmaPeerInfo       `json:"remote"`
+	Error          string             `json:"error,omitempty"`
 }
 
 type latencySummary struct {
@@ -104,11 +106,39 @@ type rdmaPeerInfo struct {
 	GIDIndex  int    `json:"gid_index"`
 	GID       string `json:"gid"`
 	UseGlobal bool   `json:"use_global"`
+	ActiveMTU int32  `json:"active_mtu,omitempty"`
 }
 
 type rdmaReadyStatus struct {
 	OK    bool   `json:"ok"`
 	Error string `json:"error,omitempty"`
+}
+
+type rdmaControlHello struct {
+	Stage string `json:"stage"`
+	Role  string `json:"role"`
+}
+
+type rdmaControlEvent struct {
+	Stage       string `json:"stage"`
+	OK          bool   `json:"ok"`
+	RemoteStage string `json:"remote_stage,omitempty"`
+	RemoteRole  string `json:"remote_role,omitempty"`
+	Error       string `json:"error,omitempty"`
+}
+
+type rdmaControlConn struct {
+	conn net.Conn
+	enc  *json.Encoder
+	dec  *json.Decoder
+}
+
+func newRDMAControlConn(c net.Conn) *rdmaControlConn {
+	return &rdmaControlConn{
+		conn: c,
+		enc:  json.NewEncoder(c),
+		dec:  json.NewDecoder(c),
+	}
 }
 
 var errRDMASetupTimeout = errors.New("rdma setup timeout")
@@ -207,7 +237,7 @@ func serve(args []string) {
 	jsonOut := fs.Bool("json", false, "print JSON connection summaries")
 	fs.Parse(args)
 
-	ln, err := net.Listen("tcp", *listenAddr)
+	ln, err := listenTCP(*listenAddr)
 	if err != nil {
 		fatalf("listen: %v", err)
 	}
@@ -224,20 +254,27 @@ func serve(args []string) {
 func serveConn(c net.Conn, jsonOut bool) {
 	defer c.Close()
 	start := time.Now()
+	res := result{
+		Mode:       "serve",
+		LocalAddr:  c.LocalAddr().String(),
+		RemoteAddr: c.RemoteAddr().String(),
+	}
 	var hdr [headerSize]byte
 	if _, err := io.ReadFull(c, hdr[:]); err != nil {
+		res.Error = "read header: " + err.Error()
+		finishResult(&res, time.Since(start))
+		if jsonOut {
+			writeJSON(res)
+		} else {
+			printResult(res)
+		}
 		return
 	}
 	size := int(binary.BigEndian.Uint32(hdr[:4]))
 	pattern := patternName(binary.BigEndian.Uint32(hdr[4:]))
 	buf := make([]byte, size)
-	res := result{
-		Mode:       "serve",
-		Pattern:    pattern,
-		LocalAddr:  c.LocalAddr().String(),
-		RemoteAddr: c.RemoteAddr().String(),
-		Size:       size,
-	}
+	res.Pattern = pattern
+	res.Size = size
 	switch pattern {
 	case "stream":
 		n, _ := io.CopyBuffer(io.Discard, c, buf)
@@ -345,7 +382,7 @@ func runTCP(addr, pattern string, size int, duration time.Duration) result {
 		Duration: duration.String(),
 		Size:     size,
 	}
-	c, err := net.Dial("tcp", addr)
+	c, err := dialTCP(addr)
 	if err != nil {
 		res.Error = err.Error()
 		return res
@@ -444,6 +481,26 @@ func runTCP(addr, pattern string, size int, duration time.Duration) result {
 	}
 	finishResult(&res, time.Since(start))
 	return res
+}
+
+func listenTCP(addr string) (net.Listener, error) {
+	return net.Listen(tcpNetwork(addr), addr)
+}
+
+func dialTCP(addr string) (net.Conn, error) {
+	return net.Dial(tcpNetwork(addr), addr)
+}
+
+func tcpNetwork(addr string) string {
+	host, _, err := net.SplitHostPort(addr)
+	if err != nil {
+		return "tcp"
+	}
+	ip := net.ParseIP(host)
+	if ip != nil && ip.To4() != nil {
+		return "tcp4"
+	}
+	return "tcp"
 }
 
 func finishResult(res *result, elapsed time.Duration) {
@@ -567,7 +624,7 @@ type routeGID struct {
 
 func runRDMAPingpongServer(listenAddr, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration) rdmaBenchResult {
 	res := rdmaBenchResult{Mode: "rdma-pingpong", Role: "server", Addr: listenAddr, Size: size, Iterations: iters}
-	ln, err := net.Listen("tcp", listenAddr)
+	ln, err := listenTCP(listenAddr)
 	if err != nil {
 		res.Error = err.Error()
 		return res
@@ -588,7 +645,7 @@ func runRDMAPingpongServer(listenAddr, deviceName string, deviceIndex, gidIndex,
 
 func runRDMAPingpongClient(addr, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration) rdmaBenchResult {
 	res := rdmaBenchResult{Mode: "rdma-pingpong", Role: "client", Addr: addr, Size: size, Iterations: iters}
-	c, err := net.Dial("tcp", addr)
+	c, err := dialTCP(addr)
 	if err != nil {
 		res.Error = err.Error()
 		return res
@@ -601,11 +658,16 @@ func runRDMAPingpongClient(addr, deviceName string, deviceIndex, gidIndex, size,
 }
 
 func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gidIndex, size, iters int, setupTimeout time.Duration, res *rdmaBenchResult) error {
-	if setupTimeout > 0 {
-		deadline := time.Now().Add(setupTimeout + 2*time.Second)
-		_ = c.SetDeadline(deadline)
-		defer c.SetDeadline(time.Time{})
+	defer c.SetDeadline(time.Time{})
+	role := "server"
+	if client {
+		role = "client"
 	}
+	control := newRDMAControlConn(c)
+	if err := runRDMAControlHello(control, res, "pre-resource-control", role, setupTimeout); err != nil {
+		return err
+	}
+	res.Stage = "open-rdma-resources"
 	r, err := openRDMAResourcesWithTimeout(deviceName, deviceIndex, gidIndex, size, setupTimeout)
 	if err != nil {
 		return err
@@ -618,74 +680,168 @@ func runRDMAPingpong(c net.Conn, client bool, deviceName string, deviceIndex, gi
 	}()
 
 	local := r.peerInfo()
-	var remote rdmaPeerInfo
-	enc := json.NewEncoder(c)
-	dec := json.NewDecoder(c)
-	if client {
-		if err := enc.Encode(local); err != nil {
-			return fmt.Errorf("send local rdma info: %w", err)
-		}
-		if err := dec.Decode(&remote); err != nil {
-			return fmt.Errorf("receive remote rdma info: %w", err)
-		}
-	} else {
-		if err := dec.Decode(&remote); err != nil {
-			return fmt.Errorf("receive remote rdma info: %w", err)
-		}
-		if err := enc.Encode(local); err != nil {
-			return fmt.Errorf("send local rdma info: %w", err)
-		}
-	}
 	res.Device = r.dev.Name
 	res.Local = local
+	if err := runRDMAControlHello(control, res, "post-resource-control", role, setupTimeout); err != nil {
+		return err
+	}
+	res.Stage = "exchange-rdma-info"
+	remote, err := exchangeRDMAPeerInfo(control, local, setupTimeout)
 	res.Remote = remote
+	if err != nil {
+		return err
+	}
 
+	res.Stage = "connect-rdma"
 	connectErr := r.connectWithTimeout(remote, setupTimeout)
 	if errors.Is(connectErr, errRDMASetupTimeout) {
 		closeResources = false
 	}
 	// This ready exchange is the post-RTS barrier: neither side posts datapath
 	// work until both QPs have completed the INIT->RTR->RTS transition.
-	if err := exchangeRDMAReady(c, client, connectErr); err != nil {
+	res.Stage = "exchange-rdma-ready"
+	if err := exchangeRDMAReady(control, connectErr, setupTimeout); err != nil {
 		return err
 	}
 	if connectErr != nil {
 		return connectErr
 	}
 	_ = c.SetDeadline(time.Time{})
+	res.Stage = "datapath"
 	if client {
-		return runRDMAPingpongClientLoop(r, iters, res)
+		err = runRDMAPingpongClientLoop(r, iters, res)
+	} else {
+		err = runRDMAPingpongServerLoop(r, iters, res)
 	}
-	return runRDMAPingpongServerLoop(r, iters, res)
+	if err != nil {
+		return err
+	}
+	res.Stage = "done"
+	return nil
 }
 
-func exchangeRDMAReady(c net.Conn, client bool, localErr error) error {
+func runRDMAControlHello(c *rdmaControlConn, res *rdmaBenchResult, stage, role string, timeout time.Duration) error {
+	res.Stage = stage
+	remote, err := exchangeRDMAControlHello(c, rdmaControlHello{Stage: stage, Role: role}, timeout)
+	event := rdmaControlEvent{Stage: stage, OK: err == nil}
+	if err != nil {
+		event.Error = err.Error()
+		res.Control = append(res.Control, event)
+		return fmt.Errorf("%s: %w", stage, err)
+	}
+	event.RemoteStage = remote.Stage
+	event.RemoteRole = remote.Role
+	if remote.Stage != stage {
+		event.OK = false
+		event.Error = fmt.Sprintf("remote control hello stage %q, want %q", remote.Stage, stage)
+		res.Control = append(res.Control, event)
+		return fmt.Errorf("%s: %s", stage, event.Error)
+	}
+	wantRole := "client"
+	if role == "client" {
+		wantRole = "server"
+	}
+	if remote.Role != wantRole {
+		event.OK = false
+		event.Error = fmt.Sprintf("remote control hello role %q, want %q", remote.Role, wantRole)
+		res.Control = append(res.Control, event)
+		return fmt.Errorf("%s: %s", stage, event.Error)
+	}
+	res.Control = append(res.Control, event)
+	return nil
+}
+
+func exchangeRDMAControlHello(c *rdmaControlConn, local rdmaControlHello, timeout time.Duration) (rdmaControlHello, error) {
+	if err := setControlDeadline(c, timeout); err != nil {
+		return rdmaControlHello{}, err
+	}
+	sendc := make(chan error, 1)
+	go func() {
+		sendc <- c.enc.Encode(local)
+	}()
+	var remote rdmaControlHello
+	recvErr := c.dec.Decode(&remote)
+	sendErr := <-sendc
+	if recvErr != nil {
+		return rdmaControlHello{}, fmt.Errorf("receive remote control hello: %w", recvErr)
+	}
+	if sendErr != nil {
+		return rdmaControlHello{}, fmt.Errorf("send local control hello: %w", sendErr)
+	}
+	return remote, nil
+}
+
+func exchangeRDMAPeerInfo(c *rdmaControlConn, local rdmaPeerInfo, timeout time.Duration) (rdmaPeerInfo, error) {
+	if err := setControlDeadline(c, timeout); err != nil {
+		return rdmaPeerInfo{}, err
+	}
+	sendc := make(chan error, 1)
+	go func() {
+		sendc <- c.enc.Encode(local)
+	}()
+	var remote rdmaPeerInfo
+	recvErr := c.dec.Decode(&remote)
+	sendErr := <-sendc
+	if recvErr != nil {
+		return rdmaPeerInfo{}, fmt.Errorf("receive remote rdma info: %w", recvErr)
+	}
+	if sendErr != nil {
+		return rdmaPeerInfo{}, fmt.Errorf("send local rdma info: %w", sendErr)
+	}
+	if err := validateRDMAPeerInfo(remote); err != nil {
+		return remote, fmt.Errorf("invalid remote rdma info: %w", err)
+	}
+	return remote, nil
+}
+
+func validateRDMAPeerInfo(info rdmaPeerInfo) error {
+	if info.QPN == 0 {
+		return fmt.Errorf("missing qpn")
+	}
+	if info.GIDIndex < 0 {
+		return fmt.Errorf("invalid gid index %d", info.GIDIndex)
+	}
+	if !info.UseGlobal {
+		return nil
+	}
+	if _, err := parseGID(info.GID); err != nil {
+		return fmt.Errorf("invalid gid: %w", err)
+	}
+	return nil
+}
+
+func exchangeRDMAReady(c *rdmaControlConn, localErr error, timeout time.Duration) error {
+	if err := setControlDeadline(c, timeout); err != nil {
+		return err
+	}
 	local := rdmaReadyStatus{OK: localErr == nil}
 	if localErr != nil {
 		local.Error = localErr.Error()
 	}
 	var remote rdmaReadyStatus
-	enc := json.NewEncoder(c)
-	dec := json.NewDecoder(c)
-	if client {
-		if err := enc.Encode(local); err != nil {
-			return fmt.Errorf("send rdma ready status: %w", err)
-		}
-		if err := dec.Decode(&remote); err != nil {
-			return fmt.Errorf("receive rdma ready status: %w", err)
-		}
-	} else {
-		if err := dec.Decode(&remote); err != nil {
-			return fmt.Errorf("receive rdma ready status: %w", err)
-		}
-		if err := enc.Encode(local); err != nil {
-			return fmt.Errorf("send rdma ready status: %w", err)
-		}
+	sendc := make(chan error, 1)
+	go func() {
+		sendc <- c.enc.Encode(local)
+	}()
+	recvErr := c.dec.Decode(&remote)
+	sendErr := <-sendc
+	if recvErr != nil {
+		return fmt.Errorf("receive rdma ready status: %w", recvErr)
+	}
+	if sendErr != nil {
+		return fmt.Errorf("send rdma ready status: %w", sendErr)
 	}
 	if !remote.OK {
 		return fmt.Errorf("remote rdma setup failed: %s", remote.Error)
 	}
 	return nil
+}
+
+func setControlDeadline(c *rdmaControlConn, timeout time.Duration) error {
+	if timeout <= 0 {
+		return c.conn.SetDeadline(time.Time{})
+	}
+	return c.conn.SetDeadline(time.Now().Add(timeout + 2*time.Second))
 }
 
 func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probeTimeout time.Duration) (*rdmaResources, error) {
@@ -984,6 +1140,7 @@ func (r *rdmaResources) peerInfo() rdmaPeerInfo {
 		GIDIndex:  r.gidIndex,
 		GID:       fmt.Sprintf("%x", r.gid[:]),
 		UseGlobal: !isZeroGID(r.gid),
+		ActiveMTU: r.port.ActiveMTU,
 	}
 }
 
@@ -1022,7 +1179,7 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 func (r *rdmaResources) rtrAttr(remote rdmaPeerInfo) (rdma.IbvQPAttr, error) {
 	attr := rdma.IbvQPAttr{
 		QPState:   rdma.IBV_QPS_RTR,
-		PathMTU:   rdma.IBV_MTU_1024,
+		PathMTU:   negotiatedPathMTU(r.port.ActiveMTU, remote.ActiveMTU),
 		RQPSN:     remote.PSN,
 		DestQPNum: remote.QPN,
 		AHAttr: rdma.IbvAHAttr{
@@ -1045,6 +1202,19 @@ func (r *rdmaResources) rtrAttr(remote rdmaPeerInfo) (rdma.IbvQPAttr, error) {
 	attr.AHAttr.GRH.SGIDIndex = uint8(r.gidIndex)
 	attr.AHAttr.GRH.HopLimit = 1
 	return attr, nil
+}
+
+func negotiatedPathMTU(local, remote int32) int32 {
+	if mtuBytes(local) == 0 {
+		local = rdma.IBV_MTU_1024
+	}
+	if mtuBytes(remote) == 0 {
+		remote = rdma.IBV_MTU_1024
+	}
+	if local < remote {
+		return local
+	}
+	return remote
 }
 
 func (r *rdmaResources) connectWithTimeout(remote rdmaPeerInfo, timeout time.Duration) error {

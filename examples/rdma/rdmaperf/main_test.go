@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
 	"net"
 	"os"
@@ -54,6 +56,24 @@ func TestSummarizeLatency(t *testing.T) {
 	}
 }
 
+func TestTCPNetwork(t *testing.T) {
+	tests := []struct {
+		addr string
+		want string
+	}{
+		{"127.0.0.1:9000", "tcp4"},
+		{"0.0.0.0:9000", "tcp4"},
+		{":9000", "tcp"},
+		{"[::1]:9000", "tcp"},
+		{"localhost:9000", "tcp"},
+	}
+	for _, tt := range tests {
+		if got := tcpNetwork(tt.addr); got != tt.want {
+			t.Fatalf("tcpNetwork(%q) = %q, want %q", tt.addr, got, tt.want)
+		}
+	}
+}
+
 func TestRDMAReadinessNames(t *testing.T) {
 	if got := rdmaNetInterface("rdma_en2"); got != "en2" {
 		t.Fatalf("rdmaNetInterface = %q, want en2", got)
@@ -70,17 +90,21 @@ func TestRDMAReadinessNames(t *testing.T) {
 }
 
 func TestRTRAttrUsesLocalGIDIndex(t *testing.T) {
-	r := rdmaResources{gidIndex: 0}
+	r := rdmaResources{gidIndex: 0, port: ibvPortAttr{ActiveMTU: 5}}
 	remote := rdmaPeerInfo{
 		LID:       1,
 		QPN:       2,
 		PSN:       3,
 		GID:       "fe800000000000000000000000000001",
 		UseGlobal: true,
+		ActiveMTU: 5,
 	}
 	attr, err := r.rtrAttr(remote)
 	if err != nil {
 		t.Fatal(err)
+	}
+	if attr.PathMTU != 5 {
+		t.Fatalf("PathMTU = %d, want active MTU 5", attr.PathMTU)
 	}
 	if attr.AHAttr.GRH.SGIDIndex != 0 {
 		t.Fatalf("SGIDIndex = %d, want local gid index 0", attr.AHAttr.GRH.SGIDIndex)
@@ -125,6 +149,27 @@ func TestRTRAttrLeavesGRHZeroForLocalOnlyRoute(t *testing.T) {
 	}
 	if attr.AHAttr.GRH != (rdma.IbvGlobalRoute{}) {
 		t.Fatalf("GRH = %#v, want zero", attr.AHAttr.GRH)
+	}
+}
+
+func TestNegotiatedPathMTU(t *testing.T) {
+	tests := []struct {
+		name   string
+		local  int32
+		remote int32
+		want   int32
+	}{
+		{"same active", 5, 5, 5},
+		{"remote lower", 5, 4, 4},
+		{"local lower", 3, 5, 3},
+		{"missing remote", 5, 0, rdma.IBV_MTU_1024},
+		{"missing local", 0, 5, rdma.IBV_MTU_1024},
+		{"invalid", 99, 99, rdma.IBV_MTU_1024},
+	}
+	for _, tt := range tests {
+		if got := negotiatedPathMTU(tt.local, tt.remote); got != tt.want {
+			t.Fatalf("%s: negotiatedPathMTU(%d, %d) = %d, want %d", tt.name, tt.local, tt.remote, got, tt.want)
+		}
 	}
 }
 
@@ -338,6 +383,371 @@ func TestRDMAPingpongOptInGateRunsFirstHelper(t *testing.T) {
 		return
 	}
 	rdmaPingpong([]string{"-addr", os.Getenv("RDMAPERF_ADDR")})
+}
+
+func TestExchangeRDMAPeerInfoSymmetric(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	left := rdmaPeerInfo{Name: "left", LID: 1, QPN: 2, PSN: 3, GIDIndex: 1, GID: "00000000000000000000ffffac1ffd01", UseGlobal: true}
+	right := rdmaPeerInfo{Name: "right", LID: 4, QPN: 5, PSN: 6, GIDIndex: 1, GID: "00000000000000000000ffffac1ffd02", UseGlobal: true}
+	errc := make(chan error, 2)
+	var gotLeft, gotRight rdmaPeerInfo
+	go func() {
+		var err error
+		gotLeft, err = exchangeRDMAPeerInfo(newRDMAControlConn(a), left, time.Second)
+		errc <- err
+	}()
+	go func() {
+		var err error
+		gotRight, err = exchangeRDMAPeerInfo(newRDMAControlConn(b), right, time.Second)
+		errc <- err
+	}()
+	for i := 0; i < 2; i++ {
+		if err := <-errc; err != nil {
+			t.Fatal(err)
+		}
+	}
+	if gotLeft != right {
+		t.Fatalf("left saw %#v, want %#v", gotLeft, right)
+	}
+	if gotRight != left {
+		t.Fatalf("right saw %#v, want %#v", gotRight, left)
+	}
+}
+
+func TestExchangeRDMAPeerInfoRejectsMissingQPN(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	valid := rdmaPeerInfo{Name: "valid", LID: 1, QPN: 2, PSN: 3, GIDIndex: 1, GID: "00000000000000000000ffffac1ffd01", UseGlobal: true}
+	empty := rdmaPeerInfo{Name: "empty"}
+	errc := make(chan error, 2)
+	var got rdmaPeerInfo
+	go func() {
+		var err error
+		got, err = exchangeRDMAPeerInfo(newRDMAControlConn(a), valid, time.Second)
+		errc <- err
+	}()
+	go func() {
+		_, err := exchangeRDMAPeerInfo(newRDMAControlConn(b), empty, time.Second)
+		errc <- err
+	}()
+
+	var sawInvalid bool
+	for i := 0; i < 2; i++ {
+		err := <-errc
+		if err == nil {
+			continue
+		}
+		if strings.Contains(err.Error(), "invalid remote rdma info") && strings.Contains(err.Error(), "missing qpn") {
+			sawInvalid = true
+			continue
+		}
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if !sawInvalid {
+		t.Fatal("missing qpn was accepted")
+	}
+	if got.Name != "empty" {
+		t.Fatalf("got peer info %#v, want decoded empty peer", got)
+	}
+}
+
+func TestRDMAControlConnReusesDecoderAcrossStages(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	client := newRDMAControlConn(a)
+	server := newRDMAControlConn(b)
+	clientInfo := rdmaPeerInfo{Name: "client", LID: 1, QPN: 2, PSN: 3, GIDIndex: 1, GID: "00000000000000000000ffffac1ffd01", UseGlobal: true}
+	serverInfo := rdmaPeerInfo{Name: "server", LID: 1, QPN: 4, PSN: 5, GIDIndex: 1, GID: "00000000000000000000ffffac1ffd02", UseGlobal: true}
+	errc := make(chan error, 2)
+	go func() {
+		var res rdmaBenchResult
+		if err := runRDMAControlHello(client, &res, "pre-resource-control", "client", time.Second); err != nil {
+			errc <- err
+			return
+		}
+		if err := runRDMAControlHello(client, &res, "post-resource-control", "client", time.Second); err != nil {
+			errc <- err
+			return
+		}
+		got, err := exchangeRDMAPeerInfo(client, clientInfo, time.Second)
+		if err != nil {
+			errc <- err
+			return
+		}
+		if got != serverInfo {
+			errc <- fmt.Errorf("client saw %#v, want %#v", got, serverInfo)
+			return
+		}
+		errc <- exchangeRDMAReady(client, nil, time.Second)
+	}()
+	go func() {
+		var res rdmaBenchResult
+		if err := runRDMAControlHello(server, &res, "pre-resource-control", "server", time.Second); err != nil {
+			errc <- err
+			return
+		}
+		if err := runRDMAControlHello(server, &res, "post-resource-control", "server", time.Second); err != nil {
+			errc <- err
+			return
+		}
+		got, err := exchangeRDMAPeerInfo(server, serverInfo, time.Second)
+		if err != nil {
+			errc <- err
+			return
+		}
+		if got != clientInfo {
+			errc <- fmt.Errorf("server saw %#v, want %#v", got, clientInfo)
+			return
+		}
+		errc <- exchangeRDMAReady(server, nil, time.Second)
+	}()
+	for i := 0; i < 2; i++ {
+		if err := <-errc; err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func TestExchangeRDMAControlHelloSymmetric(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	left := rdmaControlHello{Stage: "pre-resource-control", Role: "client"}
+	right := rdmaControlHello{Stage: "pre-resource-control", Role: "server"}
+	errc := make(chan error, 2)
+	var gotLeft, gotRight rdmaControlHello
+	go func() {
+		var err error
+		gotLeft, err = exchangeRDMAControlHello(newRDMAControlConn(a), left, time.Second)
+		errc <- err
+	}()
+	go func() {
+		var err error
+		gotRight, err = exchangeRDMAControlHello(newRDMAControlConn(b), right, time.Second)
+		errc <- err
+	}()
+	for i := 0; i < 2; i++ {
+		if err := <-errc; err != nil {
+			t.Fatal(err)
+		}
+	}
+	if gotLeft != right {
+		t.Fatalf("left saw %#v, want %#v", gotLeft, right)
+	}
+	if gotRight != left {
+		t.Fatalf("right saw %#v, want %#v", gotRight, left)
+	}
+}
+
+func TestRunRDMAControlHelloRecordsFailure(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	var res rdmaBenchResult
+	err := runRDMAControlHello(newRDMAControlConn(a), &res, "post-resource-control", "client", 10*time.Millisecond)
+	if err == nil {
+		t.Fatal("runRDMAControlHello succeeded with silent peer")
+	}
+	if res.Stage != "post-resource-control" {
+		t.Fatalf("stage = %q, want post-resource-control", res.Stage)
+	}
+	if len(res.Control) != 1 {
+		t.Fatalf("control events = %d, want 1", len(res.Control))
+	}
+	event := res.Control[0]
+	if event.Stage != "post-resource-control" || event.OK {
+		t.Fatalf("control event = %#v, want failed post-resource-control", event)
+	}
+	if !strings.Contains(event.Error, "receive remote control hello") {
+		t.Fatalf("control error = %q, want receive remote control hello", event.Error)
+	}
+}
+
+func TestRunRDMAControlHelloRejectsWrongStage(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	errc := make(chan error, 1)
+	go func() {
+		_, err := exchangeRDMAControlHello(newRDMAControlConn(b), rdmaControlHello{Stage: "exchange-rdma-info", Role: "server"}, time.Second)
+		errc <- err
+	}()
+	var res rdmaBenchResult
+	err := runRDMAControlHello(newRDMAControlConn(a), &res, "pre-resource-control", "client", time.Second)
+	if err == nil {
+		t.Fatal("runRDMAControlHello accepted wrong remote stage")
+	}
+	if sendErr := <-errc; sendErr != nil {
+		t.Fatalf("peer exchange error: %v", sendErr)
+	}
+	if len(res.Control) != 1 {
+		t.Fatalf("control events = %d, want 1", len(res.Control))
+	}
+	event := res.Control[0]
+	if event.OK {
+		t.Fatalf("control event = %#v, want failed wrong-stage event", event)
+	}
+	if !strings.Contains(event.Error, `stage "exchange-rdma-info"`) {
+		t.Fatalf("control error = %q, want wrong stage", event.Error)
+	}
+}
+
+func TestRunRDMAControlHelloRejectsSameRole(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	errc := make(chan error, 1)
+	go func() {
+		_, err := exchangeRDMAControlHello(newRDMAControlConn(b), rdmaControlHello{Stage: "pre-resource-control", Role: "client"}, time.Second)
+		errc <- err
+	}()
+	var res rdmaBenchResult
+	err := runRDMAControlHello(newRDMAControlConn(a), &res, "pre-resource-control", "client", time.Second)
+	if err == nil {
+		t.Fatal("runRDMAControlHello accepted same remote role")
+	}
+	if sendErr := <-errc; sendErr != nil {
+		t.Fatalf("peer exchange error: %v", sendErr)
+	}
+	if len(res.Control) != 1 {
+		t.Fatalf("control events = %d, want 1", len(res.Control))
+	}
+	event := res.Control[0]
+	if event.OK {
+		t.Fatalf("control event = %#v, want failed same-role event", event)
+	}
+	if !strings.Contains(event.Error, `role "client"`) {
+		t.Fatalf("control error = %q, want same role", event.Error)
+	}
+}
+
+func TestRunRDMAControlHelloRejectsUnknownRole(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	errc := make(chan error, 1)
+	go func() {
+		_, err := exchangeRDMAControlHello(newRDMAControlConn(b), rdmaControlHello{Stage: "pre-resource-control", Role: "observer"}, time.Second)
+		errc <- err
+	}()
+	var res rdmaBenchResult
+	err := runRDMAControlHello(newRDMAControlConn(a), &res, "pre-resource-control", "client", time.Second)
+	if err == nil {
+		t.Fatal("runRDMAControlHello accepted unknown remote role")
+	}
+	if sendErr := <-errc; sendErr != nil {
+		t.Fatalf("peer exchange error: %v", sendErr)
+	}
+	if len(res.Control) != 1 {
+		t.Fatalf("control events = %d, want 1", len(res.Control))
+	}
+	event := res.Control[0]
+	if event.OK {
+		t.Fatalf("control event = %#v, want failed unknown-role event", event)
+	}
+	if !strings.Contains(event.Error, `role "observer", want "server"`) {
+		t.Fatalf("control error = %q, want unknown role", event.Error)
+	}
+}
+
+func TestExchangeRDMAPeerInfoTimeout(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	_, err := exchangeRDMAPeerInfo(newRDMAControlConn(a), rdmaPeerInfo{Name: "left"}, 10*time.Millisecond)
+	if err == nil {
+		t.Fatal("exchangeRDMAPeerInfo succeeded with silent peer")
+	}
+	if !strings.Contains(err.Error(), "receive remote rdma info") {
+		t.Fatalf("error = %v, want receive remote rdma info", err)
+	}
+}
+
+func TestExchangeRDMAReadyTimeout(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	err := exchangeRDMAReady(newRDMAControlConn(a), nil, 10*time.Millisecond)
+	if err == nil {
+		t.Fatal("exchangeRDMAReady succeeded with silent peer")
+	}
+	if !strings.Contains(err.Error(), "receive rdma ready status") {
+		t.Fatalf("error = %v, want receive rdma ready status", err)
+	}
+}
+
+func TestExchangeRDMAReadyReportsRemoteFailure(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+
+	errc := make(chan error, 2)
+	go func() {
+		errc <- exchangeRDMAReady(newRDMAControlConn(a), nil, time.Second)
+	}()
+	go func() {
+		errc <- exchangeRDMAReady(newRDMAControlConn(b), errRDMASetupTimeout, time.Second)
+	}()
+	errs := []error{<-errc, <-errc}
+	var sawRemote bool
+	for _, err := range errs {
+		if err == nil {
+			continue
+		}
+		if strings.Contains(err.Error(), "remote rdma setup failed") {
+			sawRemote = true
+			continue
+		}
+		t.Fatalf("unexpected ready error: %v", err)
+	}
+	if !sawRemote {
+		t.Fatal("did not observe remote setup failure")
+	}
+}
+
+func TestRDMAPingpongResultKeepsStageAndLocalOnExchangeFailure(t *testing.T) {
+	res := rdmaBenchResult{
+		Stage: "exchange-rdma-info",
+		Local: rdmaPeerInfo{
+			Name:      "rdma_en1",
+			LID:       1,
+			QPN:       2304,
+			PSN:       7,
+			GIDIndex:  1,
+			GID:       "00000000000000000000ffffac1ffd01",
+			UseGlobal: true,
+		},
+		Error: "receive remote rdma info: i/o timeout",
+	}
+	data, err := json.Marshal(res)
+	if err != nil {
+		t.Fatal(err)
+	}
+	text := string(data)
+	for _, want := range []string{
+		`"stage":"exchange-rdma-info"`,
+		`"qpn":2304`,
+		`"gid_index":1`,
+		`"receive remote rdma info`,
+	} {
+		if !strings.Contains(text, want) {
+			t.Fatalf("result JSON %s missing %s", text, want)
+		}
+	}
 }
 
 func TestRunTCPLocalhost(t *testing.T) {
