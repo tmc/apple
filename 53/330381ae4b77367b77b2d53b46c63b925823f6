@@ -1,0 +1,10 @@
+commit: 53330381ae4b77367b77b2d53b46c63b925823f6
+date: 2026-05-12T22:33:55-07:00
+agent: codex
+model: gpt-5.5
+claude-code-version: n/a
+tty: not a tty
+not-a-tty
+pid: 24715
+ITERM_SESSION_ID: w0t14p8:0249FD89-D47E-4A57-88A5-3DABB0670DBE
+subject: examples/rdma: add preflight check
