@@ -129,8 +129,17 @@ func (c CPXEventDeferringPolicy) _initWithCopyOf(of objectivec.IObject) objectiv
 }
 
 // InitWithCopyOf is an exported wrapper for the private method _initWithCopyOf.
-func (c CPXEventDeferringPolicy) InitWithCopyOf(of objectivec.IObject) objectivec.IObject {
-	return c._initWithCopyOf(of)
+func (c CPXEventDeferringPolicy) InitWithCopyOf(of objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_initWithCopyOf:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithCopyOf:"}
+		return nil, err
+	}
+	return c._initWithCopyOf(of), nil
+}
+
+// CanInitWithCopyOf reports whether the receiver responds to the private selector _initWithCopyOf:.
+func (c CPXEventDeferringPolicy) CanInitWithCopyOf() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_initWithCopyOf:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicy/appendDescriptionToStream:

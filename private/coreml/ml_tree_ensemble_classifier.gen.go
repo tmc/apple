@@ -134,7 +134,16 @@ func (t MLTreeEnsembleClassifier) _buildClassificationClassesTopkError(classes [
 
 // BuildClassificationClassesTopkError is an exported wrapper for the private method _buildClassificationClassesTopkError.
 func (t MLTreeEnsembleClassifier) BuildClassificationClassesTopkError(classes []float64, topk uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_buildClassificationClasses:topk:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_buildClassificationClasses:topk:error:"}
+		return nil, err
+	}
 	return t._buildClassificationClassesTopkError(classes, topk)
+}
+
+// CanBuildClassificationClassesTopkError reports whether the receiver responds to the private selector _buildClassificationClasses:topk:error:.
+func (t MLTreeEnsembleClassifier) CanBuildClassificationClassesTopkError() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_buildClassificationClasses:topk:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/_setSingleArrayLookupField
@@ -143,8 +152,18 @@ func (t MLTreeEnsembleClassifier) _setSingleArrayLookupField() {
 }
 
 // SetSingleArrayLookupField is an exported wrapper for the private method _setSingleArrayLookupField.
-func (t MLTreeEnsembleClassifier) SetSingleArrayLookupField() {
+func (t MLTreeEnsembleClassifier) SetSingleArrayLookupField() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_setSingleArrayLookupField")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setSingleArrayLookupField"}
+		return err
+	}
 	t._setSingleArrayLookupField()
+	return nil
+}
+
+// CanSetSingleArrayLookupField reports whether the receiver responds to the private selector _setSingleArrayLookupField.
+func (t MLTreeEnsembleClassifier) CanSetSingleArrayLookupField() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_setSingleArrayLookupField"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/classify:options:error:
@@ -194,7 +213,16 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) _convertStri
 
 // ConvertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError is an exported wrapper for the private method _convertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError.
 func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) ConvertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector unsafe.Pointer, vector2 unsafe.Pointer, dimensions uint64, label []objectivec.IObject) (int64, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLTreeEnsembleClassifierClass.class), objc.Sel("_convertStringClassVector:int64ClassVector:dimensions:toClassLabel:classType:andReturnError:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_convertStringClassVector:int64ClassVector:dimensions:toClassLabel:classType:andReturnError:"}
+		return 0, err
+	}
 	return _MLTreeEnsembleClassifierClass._convertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector, vector2, dimensions, label)
+}
+
+// CanConvertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError reports whether the receiver responds to the private selector _convertStringClassVector:int64ClassVector:dimensions:toClassLabel:classType:andReturnError:.
+func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) CanConvertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLTreeEnsembleClassifierClass.class), objc.Sel("_convertStringClassVector:int64ClassVector:dimensions:toClassLabel:classType:andReturnError:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/compileSpecification:toArchive:options:error:

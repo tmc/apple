@@ -143,8 +143,18 @@ func (g GTMioHeatmapHistogram) _generate() {
 }
 
 // Generate is an exported wrapper for the private method _generate.
-func (g GTMioHeatmapHistogram) Generate() {
+func (g GTMioHeatmapHistogram) Generate() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_generate")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_generate"}
+		return err
+	}
 	g._generate()
+	return nil
+}
+
+// CanGenerate reports whether the receiver responds to the private selector _generate.
+func (g GTMioHeatmapHistogram) CanGenerate() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_generate"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapHistogram/generateImage:color:

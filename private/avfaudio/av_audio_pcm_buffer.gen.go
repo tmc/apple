@@ -129,8 +129,18 @@ func (a AVAudioPCMBuffer) _initChannelPtrs() {
 }
 
 // InitChannelPtrs is an exported wrapper for the private method _initChannelPtrs.
-func (a AVAudioPCMBuffer) InitChannelPtrs() {
+func (a AVAudioPCMBuffer) InitChannelPtrs() error {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_initChannelPtrs")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initChannelPtrs"}
+		return err
+	}
 	a._initChannelPtrs()
+	return nil
+}
+
+// CanInitChannelPtrs reports whether the receiver responds to the private selector _initChannelPtrs.
+func (a AVAudioPCMBuffer) CanInitChannelPtrs() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_initChannelPtrs"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/appendDataFromBuffer:

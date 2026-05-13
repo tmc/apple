@@ -231,8 +231,18 @@ func (g GTMioTraceDataHelper) _cachePerEncoderShaderTracks() {
 }
 
 // CachePerEncoderShaderTracks is an exported wrapper for the private method _cachePerEncoderShaderTracks.
-func (g GTMioTraceDataHelper) CachePerEncoderShaderTracks() {
+func (g GTMioTraceDataHelper) CachePerEncoderShaderTracks() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_cachePerEncoderShaderTracks")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cachePerEncoderShaderTracks"}
+		return err
+	}
 	g._cachePerEncoderShaderTracks()
+	return nil
+}
+
+// CanCachePerEncoderShaderTracks reports whether the receiver responds to the private selector _cachePerEncoderShaderTracks.
+func (g GTMioTraceDataHelper) CanCachePerEncoderShaderTracks() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_cachePerEncoderShaderTracks"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedCliqueTrackForUSC:

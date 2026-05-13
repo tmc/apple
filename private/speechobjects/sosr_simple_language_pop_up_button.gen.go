@@ -133,8 +133,17 @@ func (s SOSRSimpleLanguagePopUpButton) _rowsFromSRLanguageItems(items objectivec
 }
 
 // RowsFromSRLanguageItems is an exported wrapper for the private method _rowsFromSRLanguageItems.
-func (s SOSRSimpleLanguagePopUpButton) RowsFromSRLanguageItems(items objectivec.IObject) objectivec.IObject {
-	return s._rowsFromSRLanguageItems(items)
+func (s SOSRSimpleLanguagePopUpButton) RowsFromSRLanguageItems(items objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_rowsFromSRLanguageItems:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_rowsFromSRLanguageItems:"}
+		return nil, err
+	}
+	return s._rowsFromSRLanguageItems(items), nil
+}
+
+// CanRowsFromSRLanguageItems reports whether the receiver responds to the private selector _rowsFromSRLanguageItems:.
+func (s SOSRSimpleLanguagePopUpButton) CanRowsFromSRLanguageItems() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_rowsFromSRLanguageItems:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRSimpleLanguagePopUpButton/_startDelayedPopUpUpdate
@@ -143,8 +152,18 @@ func (s SOSRSimpleLanguagePopUpButton) _startDelayedPopUpUpdate() {
 }
 
 // StartDelayedPopUpUpdate is an exported wrapper for the private method _startDelayedPopUpUpdate.
-func (s SOSRSimpleLanguagePopUpButton) StartDelayedPopUpUpdate() {
+func (s SOSRSimpleLanguagePopUpButton) StartDelayedPopUpUpdate() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_startDelayedPopUpUpdate")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_startDelayedPopUpUpdate"}
+		return err
+	}
 	s._startDelayedPopUpUpdate()
+	return nil
+}
+
+// CanStartDelayedPopUpUpdate reports whether the receiver responds to the private selector _startDelayedPopUpUpdate.
+func (s SOSRSimpleLanguagePopUpButton) CanStartDelayedPopUpUpdate() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_startDelayedPopUpUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRSimpleLanguagePopUpButton/_updateSRLanguageMenu
@@ -153,8 +172,18 @@ func (s SOSRSimpleLanguagePopUpButton) _updateSRLanguageMenu() {
 }
 
 // UpdateSRLanguageMenu is an exported wrapper for the private method _updateSRLanguageMenu.
-func (s SOSRSimpleLanguagePopUpButton) UpdateSRLanguageMenu() {
+func (s SOSRSimpleLanguagePopUpButton) UpdateSRLanguageMenu() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateSRLanguageMenu")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateSRLanguageMenu"}
+		return err
+	}
 	s._updateSRLanguageMenu()
+	return nil
+}
+
+// CanUpdateSRLanguageMenu reports whether the receiver responds to the private selector _updateSRLanguageMenu.
+func (s SOSRSimpleLanguagePopUpButton) CanUpdateSRLanguageMenu() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSRLanguageMenu"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRSimpleLanguagePopUpButton/buildPopUpButtonAndSelectLocaleIdentifier:supportedLocaleIdentifiers:

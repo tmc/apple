@@ -219,8 +219,17 @@ func (p MLPredictionOptions) _validateDirectBindingExpectationsDirectlyBoundFeat
 }
 
 // ValidateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings is an exported wrapper for the private method _validateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings.
-func (p MLPredictionOptions) ValidateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings(expectations objectivec.IObject, names objectivec.IObject, bindings []objectivec.IObject, bindings2 []objectivec.IObject) bool {
-	return p._validateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings(expectations, names, bindings, bindings2)
+func (p MLPredictionOptions) ValidateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings(expectations objectivec.IObject, names objectivec.IObject, bindings []objectivec.IObject, bindings2 []objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(p.ID, objc.Sel("_validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:"}
+		return false, err
+	}
+	return p._validateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings(expectations, names, bindings, bindings2), nil
+}
+
+// CanValidateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings reports whether the receiver responds to the private selector _validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:.
+func (p MLPredictionOptions) CanValidateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings() bool {
+	return objc.RespondsToSelector(p.ID, objc.Sel("_validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/encodeWithCoder:

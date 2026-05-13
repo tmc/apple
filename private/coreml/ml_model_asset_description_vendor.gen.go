@@ -129,8 +129,18 @@ func (m MLModelAssetDescriptionVendor) _modelAssetDescriptionWithCompletionHandl
 }
 
 // ModelAssetDescriptionWithCompletionHandler is an exported wrapper for the private method _modelAssetDescriptionWithCompletionHandler.
-func (m MLModelAssetDescriptionVendor) ModelAssetDescriptionWithCompletionHandler(handler ErrorHandler) {
+func (m MLModelAssetDescriptionVendor) ModelAssetDescriptionWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_modelAssetDescriptionWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_modelAssetDescriptionWithCompletionHandler:"}
+		return err
+	}
 	m._modelAssetDescriptionWithCompletionHandler(handler)
+	return nil
+}
+
+// CanModelAssetDescriptionWithCompletionHandler reports whether the receiver responds to the private selector _modelAssetDescriptionWithCompletionHandler:.
+func (m MLModelAssetDescriptionVendor) CanModelAssetDescriptionWithCompletionHandler() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_modelAssetDescriptionWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescriptionVendor/functionNamesWithCompletionHandler:

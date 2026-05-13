@@ -89,8 +89,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _assetFilterForLanguag
 }
 
 // AssetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable is an exported wrapper for the private method _assetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64, available bool) objectivec.IObject {
-	return _TTSSiriAssetManagerClass._assetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language, gender, footprint, name, type_, available)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64, available bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetFilterForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_assetFilterForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:"}
+		return nil, err
+	}
+	return _TTSSiriAssetManagerClass._assetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language, gender, footprint, name, type_, available), nil
+}
+
+// CanAssetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable reports whether the receiver responds to the private selector _assetFilterForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanAssetFilterForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetFilterForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_assetTechnologyForVoiceType:
@@ -100,8 +109,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _assetTechnologyForVoi
 }
 
 // AssetTechnologyForVoiceType is an exported wrapper for the private method _assetTechnologyForVoiceType.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetTechnologyForVoiceType(type_ int64) objectivec.IObject {
-	return _TTSSiriAssetManagerClass._assetTechnologyForVoiceType(type_)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetTechnologyForVoiceType(type_ int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetTechnologyForVoiceType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_assetTechnologyForVoiceType:"}
+		return nil, err
+	}
+	return _TTSSiriAssetManagerClass._assetTechnologyForVoiceType(type_), nil
+}
+
+// CanAssetTechnologyForVoiceType reports whether the receiver responds to the private selector _assetTechnologyForVoiceType:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanAssetTechnologyForVoiceType() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetTechnologyForVoiceType:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_assetTypesForVoiceType:
@@ -111,8 +129,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _assetTypesForVoiceTyp
 }
 
 // AssetTypesForVoiceType is an exported wrapper for the private method _assetTypesForVoiceType.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetTypesForVoiceType(type_ int64) objectivec.IObject {
-	return _TTSSiriAssetManagerClass._assetTypesForVoiceType(type_)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetTypesForVoiceType(type_ int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetTypesForVoiceType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_assetTypesForVoiceType:"}
+		return nil, err
+	}
+	return _TTSSiriAssetManagerClass._assetTypesForVoiceType(type_), nil
+}
+
+// CanAssetTypesForVoiceType reports whether the receiver responds to the private selector _assetTypesForVoiceType:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanAssetTypesForVoiceType() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetTypesForVoiceType:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_assetsForLanguage:voiceType:installedOnly:
@@ -122,8 +149,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _assetsForLanguageVoic
 }
 
 // AssetsForLanguageVoiceTypeInstalledOnly is an exported wrapper for the private method _assetsForLanguageVoiceTypeInstalledOnly.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetsForLanguageVoiceTypeInstalledOnly(language objectivec.IObject, type_ int64, only bool) objectivec.IObject {
-	return _TTSSiriAssetManagerClass._assetsForLanguageVoiceTypeInstalledOnly(language, type_, only)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) AssetsForLanguageVoiceTypeInstalledOnly(language objectivec.IObject, type_ int64, only bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetsForLanguage:voiceType:installedOnly:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_assetsForLanguage:voiceType:installedOnly:"}
+		return nil, err
+	}
+	return _TTSSiriAssetManagerClass._assetsForLanguageVoiceTypeInstalledOnly(language, type_, only), nil
+}
+
+// CanAssetsForLanguageVoiceTypeInstalledOnly reports whether the receiver responds to the private selector _assetsForLanguage:voiceType:installedOnly:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanAssetsForLanguageVoiceTypeInstalledOnly() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_assetsForLanguage:voiceType:installedOnly:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_footprintForQuality:
@@ -133,8 +169,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _footprintForQuality(q
 }
 
 // FootprintForQuality is an exported wrapper for the private method _footprintForQuality.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) FootprintForQuality(quality objectivec.IObject) int64 {
-	return _TTSSiriAssetManagerClass._footprintForQuality(quality)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) FootprintForQuality(quality objectivec.IObject) (int64, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_footprintForQuality:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_footprintForQuality:"}
+		return 0, err
+	}
+	return _TTSSiriAssetManagerClass._footprintForQuality(quality), nil
+}
+
+// CanFootprintForQuality reports whether the receiver responds to the private selector _footprintForQuality:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanFootprintForQuality() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_footprintForQuality:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_footprintForType:
@@ -144,8 +189,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _footprintForType(type
 }
 
 // FootprintForType is an exported wrapper for the private method _footprintForType.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) FootprintForType(type_ int64) objectivec.IObject {
-	return _TTSSiriAssetManagerClass._footprintForType(type_)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) FootprintForType(type_ int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_footprintForType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_footprintForType:"}
+		return nil, err
+	}
+	return _TTSSiriAssetManagerClass._footprintForType(type_), nil
+}
+
+// CanFootprintForType reports whether the receiver responds to the private selector _footprintForType:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanFootprintForType() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_footprintForType:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_siriAssetForLanguage:gender:footprint:voiceName:voiceType:
@@ -155,8 +209,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _siriAssetForLanguageG
 }
 
 // SiriAssetForLanguageGenderFootprintVoiceNameVoiceType is an exported wrapper for the private method _siriAssetForLanguageGenderFootprintVoiceNameVoiceType.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) SiriAssetForLanguageGenderFootprintVoiceNameVoiceType(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64) objectivec.IObject {
-	return _TTSSiriAssetManagerClass._siriAssetForLanguageGenderFootprintVoiceNameVoiceType(language, gender, footprint, name, type_)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) SiriAssetForLanguageGenderFootprintVoiceNameVoiceType(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_siriAssetForLanguage:gender:footprint:voiceName:voiceType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_siriAssetForLanguage:gender:footprint:voiceName:voiceType:"}
+		return nil, err
+	}
+	return _TTSSiriAssetManagerClass._siriAssetForLanguageGenderFootprintVoiceNameVoiceType(language, gender, footprint, name, type_), nil
+}
+
+// CanSiriAssetForLanguageGenderFootprintVoiceNameVoiceType reports whether the receiver responds to the private selector _siriAssetForLanguage:gender:footprint:voiceName:voiceType:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanSiriAssetForLanguageGenderFootprintVoiceNameVoiceType() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_siriAssetForLanguage:gender:footprint:voiceName:voiceType:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_siriAssetForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:
@@ -166,8 +229,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _siriAssetForLanguageG
 }
 
 // SiriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable is an exported wrapper for the private method _siriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) SiriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64, available bool) objectivec.IObject {
-	return _TTSSiriAssetManagerClass._siriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language, gender, footprint, name, type_, available)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) SiriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language objectivec.IObject, gender int64, footprint int64, name objectivec.IObject, type_ int64, available bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_siriAssetForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_siriAssetForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:"}
+		return nil, err
+	}
+	return _TTSSiriAssetManagerClass._siriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable(language, gender, footprint, name, type_, available), nil
+}
+
+// CanSiriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable reports whether the receiver responds to the private selector _siriAssetForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanSiriAssetForLanguageGenderFootprintVoiceNameVoiceTypeLocallyAvailable() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_siriAssetForLanguage:gender:footprint:voiceName:voiceType:locallyAvailable:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/_voiceTypeForAssetTechnology:
@@ -177,8 +249,17 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) _voiceTypeForAssetTech
 }
 
 // VoiceTypeForAssetTechnology is an exported wrapper for the private method _voiceTypeForAssetTechnology.
-func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) VoiceTypeForAssetTechnology(technology objectivec.IObject) int64 {
-	return _TTSSiriAssetManagerClass._voiceTypeForAssetTechnology(technology)
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) VoiceTypeForAssetTechnology(technology objectivec.IObject) (int64, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_voiceTypeForAssetTechnology:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_voiceTypeForAssetTechnology:"}
+		return 0, err
+	}
+	return _TTSSiriAssetManagerClass._voiceTypeForAssetTechnology(technology), nil
+}
+
+// CanVoiceTypeForAssetTechnology reports whether the receiver responds to the private selector _voiceTypeForAssetTechnology:.
+func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) CanVoiceTypeForAssetTechnology() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("_voiceTypeForAssetTechnology:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/assetForLanguage:gender:footprint:voiceName:voiceType:

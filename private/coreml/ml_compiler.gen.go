@@ -110,7 +110,16 @@ func (_MLCompilerClass MLCompilerClass) _compileSpecificationAtURLToURLCompiledM
 
 // CompileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError is an exported wrapper for the private method _compileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError.
 func (_MLCompilerClass MLCompilerClass) CompileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError(url foundation.INSURL, url2 foundation.INSURL, name objectivec.IObject, description objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:"}
+		return nil, err
+	}
 	return _MLCompilerClass._compileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError(url, url2, name, description, options)
+}
+
+// CanCompileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError reports whether the receiver responds to the private selector _compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:.
+func (_MLCompilerClass MLCompilerClass) CanCompileSpecificationAtURLToURLCompiledModelNameOverridingModelDescriptionOptionsError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_compileSpecificationAtURL:toURL:compiledModelName:overridingModelDescription:options:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompiler/_loadSpecificationAtURL:to:error:
@@ -130,7 +139,16 @@ func (_MLCompilerClass MLCompilerClass) _loadSpecificationAtURLToError(url found
 
 // LoadSpecificationAtURLToError is an exported wrapper for the private method _loadSpecificationAtURLToError.
 func (_MLCompilerClass MLCompilerClass) LoadSpecificationAtURLToError(url foundation.INSURL, to unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_loadSpecificationAtURL:to:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadSpecificationAtURL:to:error:"}
+		return false, err
+	}
 	return _MLCompilerClass._loadSpecificationAtURLToError(url, to)
+}
+
+// CanLoadSpecificationAtURLToError reports whether the receiver responds to the private selector _loadSpecificationAtURL:to:error:.
+func (_MLCompilerClass MLCompilerClass) CanLoadSpecificationAtURLToError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_loadSpecificationAtURL:to:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompiler/_updateFeatures:withFeatures:
@@ -139,8 +157,18 @@ func (_MLCompilerClass MLCompilerClass) _updateFeaturesWithFeatures(features uns
 }
 
 // UpdateFeaturesWithFeatures is an exported wrapper for the private method _updateFeaturesWithFeatures.
-func (_MLCompilerClass MLCompilerClass) UpdateFeaturesWithFeatures(features unsafe.Pointer, features2 objectivec.IObject) {
+func (_MLCompilerClass MLCompilerClass) UpdateFeaturesWithFeatures(features unsafe.Pointer, features2 objectivec.IObject) error {
+	if !objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateFeatures:withFeatures:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateFeatures:withFeatures:"}
+		return err
+	}
 	_MLCompilerClass._updateFeaturesWithFeatures(features, features2)
+	return nil
+}
+
+// CanUpdateFeaturesWithFeatures reports whether the receiver responds to the private selector _updateFeatures:withFeatures:.
+func (_MLCompilerClass MLCompilerClass) CanUpdateFeaturesWithFeatures() bool {
+	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateFeatures:withFeatures:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompiler/_updateMetadata:withMetadata:
@@ -149,8 +177,18 @@ func (_MLCompilerClass MLCompilerClass) _updateMetadataWithMetadata(metadata uns
 }
 
 // UpdateMetadataWithMetadata is an exported wrapper for the private method _updateMetadataWithMetadata.
-func (_MLCompilerClass MLCompilerClass) UpdateMetadataWithMetadata(metadata unsafe.Pointer, metadata2 objectivec.IObject) {
+func (_MLCompilerClass MLCompilerClass) UpdateMetadataWithMetadata(metadata unsafe.Pointer, metadata2 objectivec.IObject) error {
+	if !objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateMetadata:withMetadata:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateMetadata:withMetadata:"}
+		return err
+	}
 	_MLCompilerClass._updateMetadataWithMetadata(metadata, metadata2)
+	return nil
+}
+
+// CanUpdateMetadataWithMetadata reports whether the receiver responds to the private selector _updateMetadata:withMetadata:.
+func (_MLCompilerClass MLCompilerClass) CanUpdateMetadataWithMetadata() bool {
+	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateMetadata:withMetadata:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompiler/_updateSpecification:withModelDescription:
@@ -159,8 +197,18 @@ func (_MLCompilerClass MLCompilerClass) _updateSpecificationWithModelDescription
 }
 
 // UpdateSpecificationWithModelDescription is an exported wrapper for the private method _updateSpecificationWithModelDescription.
-func (_MLCompilerClass MLCompilerClass) UpdateSpecificationWithModelDescription(specification unsafe.Pointer, description objectivec.IObject) {
+func (_MLCompilerClass MLCompilerClass) UpdateSpecificationWithModelDescription(specification unsafe.Pointer, description objectivec.IObject) error {
+	if !objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateSpecification:withModelDescription:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateSpecification:withModelDescription:"}
+		return err
+	}
 	_MLCompilerClass._updateSpecificationWithModelDescription(specification, description)
+	return nil
+}
+
+// CanUpdateSpecificationWithModelDescription reports whether the receiver responds to the private selector _updateSpecification:withModelDescription:.
+func (_MLCompilerClass MLCompilerClass) CanUpdateSpecificationWithModelDescription() bool {
+	return objc.RespondsToSelector(objc.ID(_MLCompilerClass.class), objc.Sel("_updateSpecification:withModelDescription:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompiler/addMLProgramToCompiledModelAtURL:error:

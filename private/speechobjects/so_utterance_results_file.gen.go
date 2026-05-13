@@ -189,8 +189,17 @@ func (s SOUtteranceResultsFile) _dictionary() objectivec.IObject {
 }
 
 // Dictionary is an exported wrapper for the private method _dictionary.
-func (s SOUtteranceResultsFile) Dictionary() objectivec.IObject {
-	return s._dictionary()
+func (s SOUtteranceResultsFile) Dictionary() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_dictionary")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_dictionary"}
+		return nil, err
+	}
+	return s._dictionary(), nil
+}
+
+// CanDictionary reports whether the receiver responds to the private selector _dictionary.
+func (s SOUtteranceResultsFile) CanDictionary() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_dictionary"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/appendUtteranceResult:

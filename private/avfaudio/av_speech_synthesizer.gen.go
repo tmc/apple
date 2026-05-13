@@ -196,8 +196,18 @@ func (s AVSpeechSynthesizer) _applyWebKitBehaviors() {
 }
 
 // ApplyWebKitBehaviors is an exported wrapper for the private method _applyWebKitBehaviors.
-func (s AVSpeechSynthesizer) ApplyWebKitBehaviors() {
+func (s AVSpeechSynthesizer) ApplyWebKitBehaviors() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_applyWebKitBehaviors")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_applyWebKitBehaviors"}
+		return err
+	}
 	s._applyWebKitBehaviors()
+	return nil
+}
+
+// CanApplyWebKitBehaviors reports whether the receiver responds to the private selector _applyWebKitBehaviors.
+func (s AVSpeechSynthesizer) CanApplyWebKitBehaviors() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_applyWebKitBehaviors"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_convertBoundary:
@@ -207,8 +217,17 @@ func (s AVSpeechSynthesizer) _convertBoundary(boundary int64) int64 {
 }
 
 // ConvertBoundary is an exported wrapper for the private method _convertBoundary.
-func (s AVSpeechSynthesizer) ConvertBoundary(boundary int64) int64 {
-	return s._convertBoundary(boundary)
+func (s AVSpeechSynthesizer) ConvertBoundary(boundary int64) (int64, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_convertBoundary:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_convertBoundary:"}
+		return 0, err
+	}
+	return s._convertBoundary(boundary), nil
+}
+
+// CanConvertBoundary reports whether the receiver responds to the private selector _convertBoundary:.
+func (s AVSpeechSynthesizer) CanConvertBoundary() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_convertBoundary:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_enqueueNextJob
@@ -217,8 +236,18 @@ func (s AVSpeechSynthesizer) _enqueueNextJob() {
 }
 
 // EnqueueNextJob is an exported wrapper for the private method _enqueueNextJob.
-func (s AVSpeechSynthesizer) EnqueueNextJob() {
+func (s AVSpeechSynthesizer) EnqueueNextJob() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_enqueueNextJob")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_enqueueNextJob"}
+		return err
+	}
 	s._enqueueNextJob()
+	return nil
+}
+
+// CanEnqueueNextJob reports whether the receiver responds to the private selector _enqueueNextJob.
+func (s AVSpeechSynthesizer) CanEnqueueNextJob() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_enqueueNextJob"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_handleSpeechDone:successful:
@@ -227,8 +256,18 @@ func (s AVSpeechSynthesizer) _handleSpeechDoneSuccessful(done objectivec.IObject
 }
 
 // HandleSpeechDoneSuccessful is an exported wrapper for the private method _handleSpeechDoneSuccessful.
-func (s AVSpeechSynthesizer) HandleSpeechDoneSuccessful(done objectivec.IObject, successful bool) {
+func (s AVSpeechSynthesizer) HandleSpeechDoneSuccessful(done objectivec.IObject, successful bool) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_handleSpeechDone:successful:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_handleSpeechDone:successful:"}
+		return err
+	}
 	s._handleSpeechDoneSuccessful(done, successful)
+	return nil
+}
+
+// CanHandleSpeechDoneSuccessful reports whether the receiver responds to the private selector _handleSpeechDone:successful:.
+func (s AVSpeechSynthesizer) CanHandleSpeechDoneSuccessful() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_handleSpeechDone:successful:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/_speakUtterance:
@@ -237,8 +276,18 @@ func (s AVSpeechSynthesizer) _speakUtterance(utterance objectivec.IObject) {
 }
 
 // SpeakUtterance is an exported wrapper for the private method _speakUtterance.
-func (s AVSpeechSynthesizer) SpeakUtterance(utterance objectivec.IObject) {
+func (s AVSpeechSynthesizer) SpeakUtterance(utterance objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_speakUtterance:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speakUtterance:"}
+		return err
+	}
 	s._speakUtterance(utterance)
+	return nil
+}
+
+// CanSpeakUtterance reports whether the receiver responds to the private selector _speakUtterance:.
+func (s AVSpeechSynthesizer) CanSpeakUtterance() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_speakUtterance:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/audioQueueFlags
@@ -326,8 +375,17 @@ func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) _supportsSpeakingWithP
 }
 
 // SupportsSpeakingWithPersonalVoices is an exported wrapper for the private method _supportsSpeakingWithPersonalVoices.
-func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) SupportsSpeakingWithPersonalVoices() bool {
-	return _AVSpeechSynthesizerClass._supportsSpeakingWithPersonalVoices()
+func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) SupportsSpeakingWithPersonalVoices() (bool, error) {
+	if !objc.RespondsToSelector(objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("_supportsSpeakingWithPersonalVoices")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_supportsSpeakingWithPersonalVoices"}
+		return false, err
+	}
+	return _AVSpeechSynthesizerClass._supportsSpeakingWithPersonalVoices(), nil
+}
+
+// CanSupportsSpeakingWithPersonalVoices reports whether the receiver responds to the private selector _supportsSpeakingWithPersonalVoices.
+func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) CanSupportsSpeakingWithPersonalVoices() bool {
+	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("_supportsSpeakingWithPersonalVoices"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/isSoftAppUsageProtectionDisabled

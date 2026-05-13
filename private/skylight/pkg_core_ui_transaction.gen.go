@@ -120,8 +120,17 @@ func (g PKGCoreUITransaction) _layerUpdateKeyForOptions(options objectivec.IObje
 }
 
 // LayerUpdateKeyForOptions is an exported wrapper for the private method _layerUpdateKeyForOptions.
-func (g PKGCoreUITransaction) LayerUpdateKeyForOptions(options objectivec.IObject) objectivec.IObject {
-	return g._layerUpdateKeyForOptions(options)
+func (g PKGCoreUITransaction) LayerUpdateKeyForOptions(options objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_layerUpdateKeyForOptions:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_layerUpdateKeyForOptions:"}
+		return nil, err
+	}
+	return g._layerUpdateKeyForOptions(options), nil
+}
+
+// CanLayerUpdateKeyForOptions reports whether the receiver responds to the private selector _layerUpdateKeyForOptions:.
+func (g PKGCoreUITransaction) CanLayerUpdateKeyForOptions() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_layerUpdateKeyForOptions:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/_scheduleRendererWork:mainThreadWork:
@@ -132,8 +141,18 @@ func (g PKGCoreUITransaction) _scheduleRendererWorkMainThreadWork(work VoidHandl
 }
 
 // ScheduleRendererWorkMainThreadWork is an exported wrapper for the private method _scheduleRendererWorkMainThreadWork.
-func (g PKGCoreUITransaction) ScheduleRendererWorkMainThreadWork(work VoidHandler, work2 VoidHandler) {
+func (g PKGCoreUITransaction) ScheduleRendererWorkMainThreadWork(work VoidHandler, work2 VoidHandler) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_scheduleRendererWork:mainThreadWork:"}
+		return err
+	}
 	g._scheduleRendererWorkMainThreadWork(work, work2)
+	return nil
+}
+
+// CanScheduleRendererWorkMainThreadWork reports whether the receiver responds to the private selector _scheduleRendererWork:mainThreadWork:.
+func (g PKGCoreUITransaction) CanScheduleRendererWorkMainThreadWork() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/commit

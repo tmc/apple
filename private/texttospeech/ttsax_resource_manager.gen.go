@@ -162,8 +162,18 @@ func (t TTSAXResourceManager) _performBlockOnObservers(observers VoidHandler) {
 }
 
 // PerformBlockOnObservers is an exported wrapper for the private method _performBlockOnObservers.
-func (t TTSAXResourceManager) PerformBlockOnObservers(observers VoidHandler) {
+func (t TTSAXResourceManager) PerformBlockOnObservers(observers VoidHandler) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_performBlockOnObservers:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_performBlockOnObservers:"}
+		return err
+	}
 	t._performBlockOnObservers(observers)
+	return nil
+}
+
+// CanPerformBlockOnObservers reports whether the receiver responds to the private selector _performBlockOnObservers:.
+func (t TTSAXResourceManager) CanPerformBlockOnObservers() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_performBlockOnObservers:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/_resourceWithVoiceId:assetId:
@@ -173,8 +183,17 @@ func (t TTSAXResourceManager) _resourceWithVoiceIdAssetId(id objectivec.IObject,
 }
 
 // ResourceWithVoiceIdAssetId is an exported wrapper for the private method _resourceWithVoiceIdAssetId.
-func (t TTSAXResourceManager) ResourceWithVoiceIdAssetId(id objectivec.IObject, id2 objectivec.IObject) objectivec.IObject {
-	return t._resourceWithVoiceIdAssetId(id, id2)
+func (t TTSAXResourceManager) ResourceWithVoiceIdAssetId(id objectivec.IObject, id2 objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_resourceWithVoiceId:assetId:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_resourceWithVoiceId:assetId:"}
+		return nil, err
+	}
+	return t._resourceWithVoiceIdAssetId(id, id2), nil
+}
+
+// CanResourceWithVoiceIdAssetId reports whether the receiver responds to the private selector _resourceWithVoiceId:assetId:.
+func (t TTSAXResourceManager) CanResourceWithVoiceIdAssetId() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_resourceWithVoiceId:assetId:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/_resourcesWithType:subType:languageCode:
@@ -184,8 +203,17 @@ func (t TTSAXResourceManager) _resourcesWithTypeSubTypeLanguageCode(type_ uint64
 }
 
 // ResourcesWithTypeSubTypeLanguageCode is an exported wrapper for the private method _resourcesWithTypeSubTypeLanguageCode.
-func (t TTSAXResourceManager) ResourcesWithTypeSubTypeLanguageCode(type_ uint64, type_2 uint64, code objectivec.IObject) objectivec.IObject {
-	return t._resourcesWithTypeSubTypeLanguageCode(type_, type_2, code)
+func (t TTSAXResourceManager) ResourcesWithTypeSubTypeLanguageCode(type_ uint64, type_2 uint64, code objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_resourcesWithType:subType:languageCode:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_resourcesWithType:subType:languageCode:"}
+		return nil, err
+	}
+	return t._resourcesWithTypeSubTypeLanguageCode(type_, type_2, code), nil
+}
+
+// CanResourcesWithTypeSubTypeLanguageCode reports whether the receiver responds to the private selector _resourcesWithType:subType:languageCode:.
+func (t TTSAXResourceManager) CanResourcesWithTypeSubTypeLanguageCode() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_resourcesWithType:subType:languageCode:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/addObserver:
@@ -276,6 +304,19 @@ func (_TTSAXResourceManagerClass TTSAXResourceManagerClass) SharedInstance() TTS
 func (t TTSAXResourceManager) _observers() foundation.NSHashTable {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_observers"))
 	return foundation.NSHashTableFromID(objc.ID(rv))
+}
+
+// CanObservers reports whether the receiver responds to the private selector _observers.
+func (t TTSAXResourceManager) CanObservers() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_observers"))
+}
+
+// Observers is an exported wrapper for the private property _observers.
+func (t TTSAXResourceManager) Observers() (foundation.NSHashTable, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_observers")) {
+		return *new(foundation.NSHashTable), &objc.UnrecognizedSelectorError{Selector: "_observers"}
+	}
+	return t._observers(), nil
 }
 func (t TTSAXResourceManager) Set_observers(value foundation.NSHashTable) {
 	objc.Send[struct{}](t.ID, objc.Sel("set_observers:"), value)

@@ -90,8 +90,18 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archiveCustomModelNames
 }
 
 // ArchiveCustomModelNamesTo is an exported wrapper for the private method _archiveCustomModelNamesTo.
-func (_MLPipelineCompilerClass MLPipelineCompilerClass) ArchiveCustomModelNamesTo(names unsafe.Pointer, to unsafe.Pointer) {
+func (_MLPipelineCompilerClass MLPipelineCompilerClass) ArchiveCustomModelNamesTo(names unsafe.Pointer, to unsafe.Pointer) error {
+	if !objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archiveCustomModelNames:to:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_archiveCustomModelNames:to:"}
+		return err
+	}
 	_MLPipelineCompilerClass._archiveCustomModelNamesTo(names, to)
+	return nil
+}
+
+// CanArchiveCustomModelNamesTo reports whether the receiver responds to the private selector _archiveCustomModelNames:to:.
+func (_MLPipelineCompilerClass MLPipelineCompilerClass) CanArchiveCustomModelNamesTo() bool {
+	return objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archiveCustomModelNames:to:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/_archivePipelineModelDetailsFrom:toArchive:error:
@@ -111,7 +121,16 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archivePipelineModelDet
 
 // ArchivePipelineModelDetailsFromToArchiveError is an exported wrapper for the private method _archivePipelineModelDetailsFromToArchiveError.
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) ArchivePipelineModelDetailsFromToArchiveError(from unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archivePipelineModelDetailsFrom:toArchive:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_archivePipelineModelDetailsFrom:toArchive:error:"}
+		return false, err
+	}
 	return _MLPipelineCompilerClass._archivePipelineModelDetailsFromToArchiveError(from, archive)
+}
+
+// CanArchivePipelineModelDetailsFromToArchiveError reports whether the receiver responds to the private selector _archivePipelineModelDetailsFrom:toArchive:error:.
+func (_MLPipelineCompilerClass MLPipelineCompilerClass) CanArchivePipelineModelDetailsFromToArchiveError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archivePipelineModelDetailsFrom:toArchive:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/_archivePipelineUpdateParameterForModels:to:updatable:
@@ -120,8 +139,18 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archivePipelineUpdatePa
 }
 
 // ArchivePipelineUpdateParameterForModelsToUpdatable is an exported wrapper for the private method _archivePipelineUpdateParameterForModelsToUpdatable.
-func (_MLPipelineCompilerClass MLPipelineCompilerClass) ArchivePipelineUpdateParameterForModelsToUpdatable(models unsafe.Pointer, to unsafe.Pointer, updatable bool) {
+func (_MLPipelineCompilerClass MLPipelineCompilerClass) ArchivePipelineUpdateParameterForModelsToUpdatable(models unsafe.Pointer, to unsafe.Pointer, updatable bool) error {
+	if !objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archivePipelineUpdateParameterForModels:to:updatable:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_archivePipelineUpdateParameterForModels:to:updatable:"}
+		return err
+	}
 	_MLPipelineCompilerClass._archivePipelineUpdateParameterForModelsToUpdatable(models, to, updatable)
+	return nil
+}
+
+// CanArchivePipelineUpdateParameterForModelsToUpdatable reports whether the receiver responds to the private selector _archivePipelineUpdateParameterForModels:to:updatable:.
+func (_MLPipelineCompilerClass MLPipelineCompilerClass) CanArchivePipelineUpdateParameterForModelsToUpdatable() bool {
+	return objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archivePipelineUpdateParameterForModels:to:updatable:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/_compileSpecification:blobMapping:toArchive:options:error:
@@ -150,7 +179,16 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _compileWithModelsInPipe
 
 // CompileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError is an exported wrapper for the private method _compileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError.
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) CompileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError(pipeline unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject, updatable bool, tracking objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_compileWithModelsInPipeline:blobMapping:toArchive:options:updatable:osSizeTracking:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_compileWithModelsInPipeline:blobMapping:toArchive:options:updatable:osSizeTracking:error:"}
+		return nil, err
+	}
 	return _MLPipelineCompilerClass._compileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError(pipeline, mapping, archive, options, updatable, tracking)
+}
+
+// CanCompileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError reports whether the receiver responds to the private selector _compileWithModelsInPipeline:blobMapping:toArchive:options:updatable:osSizeTracking:error:.
+func (_MLPipelineCompilerClass MLPipelineCompilerClass) CanCompileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_compileWithModelsInPipeline:blobMapping:toArchive:options:updatable:osSizeTracking:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/compileSpecification:blobMapping:toArchive:options:error:

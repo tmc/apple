@@ -112,8 +112,17 @@ func (t TTSAXResourceMigrationUtilities) _ttsAssetForSpec(spec objectivec.IObjec
 }
 
 // TtsAssetForSpec is an exported wrapper for the private method _ttsAssetForSpec.
-func (t TTSAXResourceMigrationUtilities) TtsAssetForSpec(spec objectivec.IObject) objectivec.IObject {
-	return t._ttsAssetForSpec(spec)
+func (t TTSAXResourceMigrationUtilities) TtsAssetForSpec(spec objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_ttsAssetForSpec:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_ttsAssetForSpec:"}
+		return nil, err
+	}
+	return t._ttsAssetForSpec(spec), nil
+}
+
+// CanTtsAssetForSpec reports whether the receiver responds to the private selector _ttsAssetForSpec:.
+func (t TTSAXResourceMigrationUtilities) CanTtsAssetForSpec() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_ttsAssetForSpec:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/attributesForLegacyVoiceSpec:

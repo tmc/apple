@@ -119,8 +119,17 @@ func (c CPXEventDeferringPolicySanitizer) _isValidProcessAuditHistoryDebugProces
 }
 
 // IsValidProcessAuditHistoryDebugProcessType is an exported wrapper for the private method _isValidProcessAuditHistoryDebugProcessType.
-func (c CPXEventDeferringPolicySanitizer) IsValidProcessAuditHistoryDebugProcessType(process *CPSProcessRecRef, history objectivec.IObject, type_ objectivec.IObject) bool {
-	return c._isValidProcessAuditHistoryDebugProcessType(process, history, type_)
+func (c CPXEventDeferringPolicySanitizer) IsValidProcessAuditHistoryDebugProcessType(process *CPSProcessRecRef, history objectivec.IObject, type_ objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isValidProcess:auditHistory:debugProcessType:"}
+		return false, err
+	}
+	return c._isValidProcessAuditHistoryDebugProcessType(process, history, type_), nil
+}
+
+// CanIsValidProcessAuditHistoryDebugProcessType reports whether the receiver responds to the private selector _isValidProcess:auditHistory:debugProcessType:.
+func (c CPXEventDeferringPolicySanitizer) CanIsValidProcessAuditHistoryDebugProcessType() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_isValidProcess:auditHistory:debugProcessType:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/_sanitizeFrontmost:
@@ -129,8 +138,18 @@ func (c CPXEventDeferringPolicySanitizer) _sanitizeFrontmost(frontmost objective
 }
 
 // SanitizeFrontmost is an exported wrapper for the private method _sanitizeFrontmost.
-func (c CPXEventDeferringPolicySanitizer) SanitizeFrontmost(frontmost objectivec.IObject) {
+func (c CPXEventDeferringPolicySanitizer) SanitizeFrontmost(frontmost objectivec.IObject) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_sanitizeFrontmost:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_sanitizeFrontmost:"}
+		return err
+	}
 	c._sanitizeFrontmost(frontmost)
+	return nil
+}
+
+// CanSanitizeFrontmost reports whether the receiver responds to the private selector _sanitizeFrontmost:.
+func (c CPXEventDeferringPolicySanitizer) CanSanitizeFrontmost() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_sanitizeFrontmost:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/_sanitizeKeyThief:
@@ -139,8 +158,18 @@ func (c CPXEventDeferringPolicySanitizer) _sanitizeKeyThief(thief objectivec.IOb
 }
 
 // SanitizeKeyThief is an exported wrapper for the private method _sanitizeKeyThief.
-func (c CPXEventDeferringPolicySanitizer) SanitizeKeyThief(thief objectivec.IObject) {
+func (c CPXEventDeferringPolicySanitizer) SanitizeKeyThief(thief objectivec.IObject) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_sanitizeKeyThief:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_sanitizeKeyThief:"}
+		return err
+	}
 	c._sanitizeKeyThief(thief)
+	return nil
+}
+
+// CanSanitizeKeyThief reports whether the receiver responds to the private selector _sanitizeKeyThief:.
+func (c CPXEventDeferringPolicySanitizer) CanSanitizeKeyThief() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_sanitizeKeyThief:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicySanitizer/sanitize:

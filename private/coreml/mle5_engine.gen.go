@@ -261,7 +261,16 @@ func (e MLE5Engine) _classProbabilitiesInOutputFeaturesError(features objectivec
 
 // ClassProbabilitiesInOutputFeaturesError is an exported wrapper for the private method _classProbabilitiesInOutputFeaturesError.
 func (e MLE5Engine) ClassProbabilitiesInOutputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_classProbabilitiesInOutputFeatures:error:"}
+		return nil, err
+	}
 	return e._classProbabilitiesInOutputFeaturesError(features)
+}
+
+// CanClassProbabilitiesInOutputFeaturesError reports whether the receiver responds to the private selector _classProbabilitiesInOutputFeatures:error:.
+func (e MLE5Engine) CanClassProbabilitiesInOutputFeaturesError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_classifierResultFromOutputFeatures:classifyTopK:error:
@@ -278,7 +287,16 @@ func (e MLE5Engine) _classifierResultFromOutputFeaturesClassifyTopKError(feature
 
 // ClassifierResultFromOutputFeaturesClassifyTopKError is an exported wrapper for the private method _classifierResultFromOutputFeaturesClassifyTopKError.
 func (e MLE5Engine) ClassifierResultFromOutputFeaturesClassifyTopKError(features objectivec.IObject, k uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_classifierResultFromOutputFeatures:classifyTopK:error:"}
+		return nil, err
+	}
 	return e._classifierResultFromOutputFeaturesClassifyTopKError(features, k)
+}
+
+// CanClassifierResultFromOutputFeaturesClassifyTopKError reports whether the receiver responds to the private selector _classifierResultFromOutputFeatures:classifyTopK:error:.
+func (e MLE5Engine) CanClassifierResultFromOutputFeaturesClassifyTopKError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_cleanUpAndReconfigureStream:forInputFeatures:error:
@@ -298,7 +316,16 @@ func (e MLE5Engine) _cleanUpAndReconfigureStreamForInputFeaturesError(stream obj
 
 // CleanUpAndReconfigureStreamForInputFeaturesError is an exported wrapper for the private method _cleanUpAndReconfigureStreamForInputFeaturesError.
 func (e MLE5Engine) CleanUpAndReconfigureStreamForInputFeaturesError(stream objectivec.IObject, features objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cleanUpAndReconfigureStream:forInputFeatures:error:"}
+		return false, err
+	}
 	return e._cleanUpAndReconfigureStreamForInputFeaturesError(stream, features)
+}
+
+// CanCleanUpAndReconfigureStreamForInputFeaturesError reports whether the receiver responds to the private selector _cleanUpAndReconfigureStream:forInputFeatures:error:.
+func (e MLE5Engine) CanCleanUpAndReconfigureStreamForInputFeaturesError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_cleanUpStream:
@@ -307,8 +334,18 @@ func (e MLE5Engine) _cleanUpStream(stream objectivec.IObject) {
 }
 
 // CleanUpStream is an exported wrapper for the private method _cleanUpStream.
-func (e MLE5Engine) CleanUpStream(stream objectivec.IObject) {
+func (e MLE5Engine) CleanUpStream(stream objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_cleanUpStream:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cleanUpStream:"}
+		return err
+	}
 	e._cleanUpStream(stream)
+	return nil
+}
+
+// CanCleanUpStream reports whether the receiver responds to the private selector _cleanUpStream:.
+func (e MLE5Engine) CanCleanUpStream() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_cleanUpStream:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_conformInputFeatures:error:
@@ -325,7 +362,16 @@ func (e MLE5Engine) _conformInputFeaturesError(features objectivec.IObject) (obj
 
 // ConformInputFeaturesError is an exported wrapper for the private method _conformInputFeaturesError.
 func (e MLE5Engine) ConformInputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_conformInputFeatures:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_conformInputFeatures:error:"}
+		return nil, err
+	}
 	return e._conformInputFeaturesError(features)
+}
+
+// CanConformInputFeaturesError reports whether the receiver responds to the private selector _conformInputFeatures:error:.
+func (e MLE5Engine) CanConformInputFeaturesError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_conformInputFeatures:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_conformState:error:
@@ -342,7 +388,16 @@ func (e MLE5Engine) _conformStateError(state objectivec.IObject) (objectivec.IOb
 
 // ConformStateError is an exported wrapper for the private method _conformStateError.
 func (e MLE5Engine) ConformStateError(state objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_conformState:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_conformState:error:"}
+		return nil, err
+	}
 	return e._conformStateError(state)
+}
+
+// CanConformStateError reports whether the receiver responds to the private selector _conformState:error:.
+func (e MLE5Engine) CanConformStateError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_conformState:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_extractSupportFromBackendDict:
@@ -352,8 +407,17 @@ func (e MLE5Engine) _extractSupportFromBackendDict(dict objectivec.IObject) uint
 }
 
 // ExtractSupportFromBackendDict is an exported wrapper for the private method _extractSupportFromBackendDict.
-func (e MLE5Engine) ExtractSupportFromBackendDict(dict objectivec.IObject) uint64 {
-	return e._extractSupportFromBackendDict(dict)
+func (e MLE5Engine) ExtractSupportFromBackendDict(dict objectivec.IObject) (uint64, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_extractSupportFromBackendDict:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_extractSupportFromBackendDict:"}
+		return 0, err
+	}
+	return e._extractSupportFromBackendDict(dict), nil
+}
+
+// CanExtractSupportFromBackendDict reports whether the receiver responds to the private selector _extractSupportFromBackendDict:.
+func (e MLE5Engine) CanExtractSupportFromBackendDict() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_extractSupportFromBackendDict:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_extractSupportedComputeUnitFromString:
@@ -363,8 +427,17 @@ func (e MLE5Engine) _extractSupportedComputeUnitFromString(string_ objectivec.IO
 }
 
 // ExtractSupportedComputeUnitFromString is an exported wrapper for the private method _extractSupportedComputeUnitFromString.
-func (e MLE5Engine) ExtractSupportedComputeUnitFromString(string_ objectivec.IObject) uint64 {
-	return e._extractSupportedComputeUnitFromString(string_)
+func (e MLE5Engine) ExtractSupportedComputeUnitFromString(string_ objectivec.IObject) (uint64, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_extractSupportedComputeUnitFromString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_extractSupportedComputeUnitFromString:"}
+		return 0, err
+	}
+	return e._extractSupportedComputeUnitFromString(string_), nil
+}
+
+// CanExtractSupportedComputeUnitFromString reports whether the receiver responds to the private selector _extractSupportedComputeUnitFromString:.
+func (e MLE5Engine) CanExtractSupportedComputeUnitFromString() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_extractSupportedComputeUnitFromString:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_newRequestForModel:inputFeatures:usingState:options:error:
@@ -393,7 +466,16 @@ func (e MLE5Engine) _outputFeaturesByAddingClassifierResultToClassifyTopKError(t
 
 // OutputFeaturesByAddingClassifierResultToClassifyTopKError is an exported wrapper for the private method _outputFeaturesByAddingClassifierResultToClassifyTopKError.
 func (e MLE5Engine) OutputFeaturesByAddingClassifierResultToClassifyTopKError(to objectivec.IObject, k uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"}
+		return nil, err
+	}
 	return e._outputFeaturesByAddingClassifierResultToClassifyTopKError(to, k)
+}
+
+// CanOutputFeaturesByAddingClassifierResultToClassifyTopKError reports whether the receiver responds to the private selector _outputFeaturesByAddingClassifierResultTo:classifyTopK:error:.
+func (e MLE5Engine) CanOutputFeaturesByAddingClassifierResultToClassifyTopKError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_postProcessingForOutputs:options:error:
@@ -410,7 +492,16 @@ func (e MLE5Engine) _postProcessingForOutputsOptionsError(outputs objectivec.IOb
 
 // PostProcessingForOutputsOptionsError is an exported wrapper for the private method _postProcessingForOutputsOptionsError.
 func (e MLE5Engine) PostProcessingForOutputsOptionsError(outputs objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_postProcessingForOutputs:options:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_postProcessingForOutputs:options:error:"}
+		return nil, err
+	}
 	return e._postProcessingForOutputsOptionsError(outputs, options)
+}
+
+// CanPostProcessingForOutputsOptionsError reports whether the receiver responds to the private selector _postProcessingForOutputs:options:error:.
+func (e MLE5Engine) CanPostProcessingForOutputsOptionsError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_postProcessingForOutputs:options:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:options:completionHandler:
@@ -420,8 +511,18 @@ func (e MLE5Engine) _predictionFromFeaturesOptionsCompletionHandler(features obj
 }
 
 // PredictionFromFeaturesOptionsCompletionHandler is an exported wrapper for the private method _predictionFromFeaturesOptionsCompletionHandler.
-func (e MLE5Engine) PredictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
+func (e MLE5Engine) PredictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_predictionFromFeatures:options:completionHandler:"}
+		return err
+	}
 	e._predictionFromFeaturesOptionsCompletionHandler(features, options, handler)
+	return nil
+}
+
+// CanPredictionFromFeaturesOptionsCompletionHandler reports whether the receiver responds to the private selector _predictionFromFeatures:options:completionHandler:.
+func (e MLE5Engine) CanPredictionFromFeaturesOptionsCompletionHandler() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:options:error:
@@ -450,7 +551,16 @@ func (e MLE5Engine) _predictionFromFeaturesStreamOptionsError(features objective
 
 // PredictionFromFeaturesStreamOptionsError is an exported wrapper for the private method _predictionFromFeaturesStreamOptionsError.
 func (e MLE5Engine) PredictionFromFeaturesStreamOptionsError(features objectivec.IObject, stream objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_predictionFromFeatures:stream:options:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_predictionFromFeatures:stream:options:error:"}
+		return nil, err
+	}
 	return e._predictionFromFeaturesStreamOptionsError(features, stream, options)
+}
+
+// CanPredictionFromFeaturesStreamOptionsError reports whether the receiver responds to the private selector _predictionFromFeatures:stream:options:error:.
+func (e MLE5Engine) CanPredictionFromFeaturesStreamOptionsError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_predictionFromFeatures:stream:options:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:usingState:options:error:
@@ -472,8 +582,17 @@ func (e MLE5Engine) _probabilityDictionaryWithMultiArrayClassifyTopK(array objec
 }
 
 // ProbabilityDictionaryWithMultiArrayClassifyTopK is an exported wrapper for the private method _probabilityDictionaryWithMultiArrayClassifyTopK.
-func (e MLE5Engine) ProbabilityDictionaryWithMultiArrayClassifyTopK(array objectivec.IObject, k int64) objectivec.IObject {
-	return e._probabilityDictionaryWithMultiArrayClassifyTopK(array, k)
+func (e MLE5Engine) ProbabilityDictionaryWithMultiArrayClassifyTopK(array objectivec.IObject, k int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_probabilityDictionaryWithMultiArray:classifyTopK:"}
+		return nil, err
+	}
+	return e._probabilityDictionaryWithMultiArrayClassifyTopK(array, k), nil
+}
+
+// CanProbabilityDictionaryWithMultiArrayClassifyTopK reports whether the receiver responds to the private selector _probabilityDictionaryWithMultiArray:classifyTopK:.
+func (e MLE5Engine) CanProbabilityDictionaryWithMultiArrayClassifyTopK() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:
@@ -483,8 +602,17 @@ func (e MLE5Engine) _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(diction
 }
 
 // TotalRuntimeInMilliSecondsFromE5AnalyticsDictionary is an exported wrapper for the private method _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary.
-func (e MLE5Engine) TotalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary objectivec.IObject) float64 {
-	return e._totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary)
+func (e MLE5Engine) TotalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary objectivec.IObject) (float64, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"}
+		return 0.0, err
+	}
+	return e._totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary), nil
+}
+
+// CanTotalRuntimeInMilliSecondsFromE5AnalyticsDictionary reports whether the receiver responds to the private selector _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:.
+func (e MLE5Engine) CanTotalRuntimeInMilliSecondsFromE5AnalyticsDictionary() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_trimQuotesFromBackendName:
@@ -494,8 +622,17 @@ func (e MLE5Engine) _trimQuotesFromBackendName(name objectivec.IObject) objectiv
 }
 
 // TrimQuotesFromBackendName is an exported wrapper for the private method _trimQuotesFromBackendName.
-func (e MLE5Engine) TrimQuotesFromBackendName(name objectivec.IObject) objectivec.IObject {
-	return e._trimQuotesFromBackendName(name)
+func (e MLE5Engine) TrimQuotesFromBackendName(name objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_trimQuotesFromBackendName:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_trimQuotesFromBackendName:"}
+		return nil, err
+	}
+	return e._trimQuotesFromBackendName(name), nil
+}
+
+// CanTrimQuotesFromBackendName reports whether the receiver responds to the private selector _trimQuotesFromBackendName:.
+func (e MLE5Engine) CanTrimQuotesFromBackendName() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_trimQuotesFromBackendName:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_validateStreamReuse:expectation:error:
@@ -515,7 +652,16 @@ func (e MLE5Engine) _validateStreamReuseExpectationError(reuse bool, expectation
 
 // ValidateStreamReuseExpectationError is an exported wrapper for the private method _validateStreamReuseExpectationError.
 func (e MLE5Engine) ValidateStreamReuseExpectationError(reuse bool, expectation objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_validateStreamReuse:expectation:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_validateStreamReuse:expectation:error:"}
+		return false, err
+	}
 	return e._validateStreamReuseExpectationError(reuse, expectation)
+}
+
+// CanValidateStreamReuseExpectationError reports whether the receiver responds to the private selector _validateStreamReuse:expectation:error:.
+func (e MLE5Engine) CanValidateStreamReuseExpectationError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_validateStreamReuse:expectation:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classLabels

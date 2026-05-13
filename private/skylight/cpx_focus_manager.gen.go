@@ -175,8 +175,18 @@ func (c CPXFocusManager) _fixBadForegroundProcess(process *CPSProcessRecRef) {
 }
 
 // FixBadForegroundProcess is an exported wrapper for the private method _fixBadForegroundProcess.
-func (c CPXFocusManager) FixBadForegroundProcess(process *CPSProcessRecRef) {
+func (c CPXFocusManager) FixBadForegroundProcess(process *CPSProcessRecRef) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_fixBadForegroundProcess:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_fixBadForegroundProcess:"}
+		return err
+	}
 	c._fixBadForegroundProcess(process)
+	return nil
+}
+
+// CanFixBadForegroundProcess reports whether the receiver responds to the private selector _fixBadForegroundProcess:.
+func (c CPXFocusManager) CanFixBadForegroundProcess() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_fixBadForegroundProcess:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/addToPermittedFrontList:

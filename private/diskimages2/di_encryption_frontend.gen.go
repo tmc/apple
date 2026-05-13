@@ -10,6 +10,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/security"
 )
 
 // The class instance for the [DIEncryptionFrontend] class.
@@ -165,7 +166,7 @@ type IDIEncryptionFrontend interface {
 	AskPermissionWithRememberPasswordError() (bool, error)
 	CheckAuthEntriesWithHasPassphraseEntryHasPublicKeyEntryError() (bool, bool, error)
 	CheckWithHasIcloudKeychainError() (bool, error)
-	CheckWithItemRefIsSystemKeychainError(ref uintptr) (bool, error)
+	CheckWithItemRefIsSystemKeychainError(ref security.SecKeychainItemRef) (bool, error)
 	ConsoleAskForPassphraseWithUseStdinUsageError(stdin bool, usage int64) (bool, error)
 	DiParams() IDIBaseParams
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -301,7 +302,7 @@ func (d DIEncryptionFrontend) CheckWithHasIcloudKeychainError() (bool, error) {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/checkWithItemRef:isSystemKeychain:error:
-func (d DIEncryptionFrontend) CheckWithItemRefIsSystemKeychainError(ref uintptr) (bool, error) {
+func (d DIEncryptionFrontend) CheckWithItemRefIsSystemKeychainError(ref security.SecKeychainItemRef) (bool, error) {
 	var keychain bool
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("checkWithItemRef:isSystemKeychain:error:"), ref, unsafe.Pointer(&keychain), unsafe.Pointer(&errorPtr))

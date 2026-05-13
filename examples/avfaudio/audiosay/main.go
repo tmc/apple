@@ -81,7 +81,10 @@ func main() {
 	}
 	if *list {
 		if *private {
-			listPrivateVoices(false)
+			if err := listPrivateVoices(false); err != nil {
+				fmt.Fprintf(os.Stderr, "audiosay: %v\n", err)
+				os.Exit(1)
+			}
 		} else {
 			listVoices()
 		}

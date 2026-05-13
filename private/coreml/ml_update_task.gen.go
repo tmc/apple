@@ -178,8 +178,18 @@ func (u MLUpdateTask) _completionHandlerBlock() {
 }
 
 // CompletionHandlerBlock is an exported wrapper for the private method _completionHandlerBlock.
-func (u MLUpdateTask) CompletionHandlerBlock() {
+func (u MLUpdateTask) CompletionHandlerBlock() error {
+	if !objc.RespondsToSelector(u.ID, objc.Sel("_completionHandlerBlock")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_completionHandlerBlock"}
+		return err
+	}
 	u._completionHandlerBlock()
+	return nil
+}
+
+// CanCompletionHandlerBlock reports whether the receiver responds to the private selector _completionHandlerBlock.
+func (u MLUpdateTask) CanCompletionHandlerBlock() bool {
+	return objc.RespondsToSelector(u.ID, objc.Sel("_completionHandlerBlock"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/_invokeProgressHandlerForContext:
@@ -188,8 +198,18 @@ func (u MLUpdateTask) _invokeProgressHandlerForContext(context objectivec.IObjec
 }
 
 // InvokeProgressHandlerForContext is an exported wrapper for the private method _invokeProgressHandlerForContext.
-func (u MLUpdateTask) InvokeProgressHandlerForContext(context objectivec.IObject) {
+func (u MLUpdateTask) InvokeProgressHandlerForContext(context objectivec.IObject) error {
+	if !objc.RespondsToSelector(u.ID, objc.Sel("_invokeProgressHandlerForContext:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_invokeProgressHandlerForContext:"}
+		return err
+	}
 	u._invokeProgressHandlerForContext(context)
+	return nil
+}
+
+// CanInvokeProgressHandlerForContext reports whether the receiver responds to the private selector _invokeProgressHandlerForContext:.
+func (u MLUpdateTask) CanInvokeProgressHandlerForContext() bool {
+	return objc.RespondsToSelector(u.ID, objc.Sel("_invokeProgressHandlerForContext:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/_progressHandlerBlock
@@ -198,8 +218,18 @@ func (u MLUpdateTask) _progressHandlerBlock() {
 }
 
 // ProgressHandlerBlock is an exported wrapper for the private method _progressHandlerBlock.
-func (u MLUpdateTask) ProgressHandlerBlock() {
+func (u MLUpdateTask) ProgressHandlerBlock() error {
+	if !objc.RespondsToSelector(u.ID, objc.Sel("_progressHandlerBlock")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_progressHandlerBlock"}
+		return err
+	}
 	u._progressHandlerBlock()
+	return nil
+}
+
+// CanProgressHandlerBlock reports whether the receiver responds to the private selector _progressHandlerBlock.
+func (u MLUpdateTask) CanProgressHandlerBlock() bool {
+	return objc.RespondsToSelector(u.ID, objc.Sel("_progressHandlerBlock"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onCancellation

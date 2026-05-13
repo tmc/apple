@@ -146,8 +146,17 @@ func (s SLSWindowManagerSpace) _effectiveDisplayID() objectivec.IObject {
 }
 
 // EffectiveDisplayID is an exported wrapper for the private method _effectiveDisplayID.
-func (s SLSWindowManagerSpace) EffectiveDisplayID() objectivec.IObject {
-	return s._effectiveDisplayID()
+func (s SLSWindowManagerSpace) EffectiveDisplayID() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_effectiveDisplayID")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_effectiveDisplayID"}
+		return nil, err
+	}
+	return s._effectiveDisplayID(), nil
+}
+
+// CanEffectiveDisplayID reports whether the receiver responds to the private selector _effectiveDisplayID.
+func (s SLSWindowManagerSpace) CanEffectiveDisplayID() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_effectiveDisplayID"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSWindowManagerSpace/isCurrentSpace

@@ -110,8 +110,17 @@ func (m MLModelCollectionEntry) _initWithModelIdentifierModelUrl(identifier obje
 }
 
 // InitWithModelIdentifierModelUrl is an exported wrapper for the private method _initWithModelIdentifierModelUrl.
-func (m MLModelCollectionEntry) InitWithModelIdentifierModelUrl(identifier objectivec.IObject, url foundation.INSURL) objectivec.IObject {
-	return m._initWithModelIdentifierModelUrl(identifier, url)
+func (m MLModelCollectionEntry) InitWithModelIdentifierModelUrl(identifier objectivec.IObject, url foundation.INSURL) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_initWithModelIdentifier:modelUrl:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithModelIdentifier:modelUrl:"}
+		return nil, err
+	}
+	return m._initWithModelIdentifierModelUrl(identifier, url), nil
+}
+
+// CanInitWithModelIdentifierModelUrl reports whether the receiver responds to the private selector _initWithModelIdentifier:modelUrl:.
+func (m MLModelCollectionEntry) CanInitWithModelIdentifierModelUrl() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_initWithModelIdentifier:modelUrl:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollectionEntry/isEqualToModelCollectionEntry:

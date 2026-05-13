@@ -171,7 +171,16 @@ func (e MLE5ProgramLibrary) _allocateStateBufferForFeatureNamedEntryFunctionName
 
 // AllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError is an exported wrapper for the private method _allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError.
 func (e MLE5ProgramLibrary) AllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named objectivec.IObject, name objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:"}
+		return nil, err
+	}
 	return e._allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named, name, names)
+}
+
+// CanAllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError reports whether the receiver responds to the private selector _allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:.
+func (e MLE5ProgramLibrary) CanAllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/_programLibraryHandleWithForceRespecialization:error:
@@ -188,7 +197,16 @@ func (e MLE5ProgramLibrary) _programLibraryHandleWithForceRespecializationError(
 
 // ProgramLibraryHandleWithForceRespecializationError is an exported wrapper for the private method _programLibraryHandleWithForceRespecializationError.
 func (e MLE5ProgramLibrary) ProgramLibraryHandleWithForceRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_programLibraryHandleWithForceRespecialization:error:"}
+		return 0, err
+	}
 	return e._programLibraryHandleWithForceRespecializationError(respecialization)
+}
+
+// CanProgramLibraryHandleWithForceRespecializationError reports whether the receiver responds to the private selector _programLibraryHandleWithForceRespecialization:error:.
+func (e MLE5ProgramLibrary) CanProgramLibraryHandleWithForceRespecializationError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/createOperationForFunctionName:forceRespecialization:hasRangeShapeInputs:error:

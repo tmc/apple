@@ -345,8 +345,17 @@ func (g GTShaderProfilerStreamData) _setupDataPath() objectivec.IObject {
 }
 
 // SetupDataPath is an exported wrapper for the private method _setupDataPath.
-func (g GTShaderProfilerStreamData) SetupDataPath() objectivec.IObject {
-	return g._setupDataPath()
+func (g GTShaderProfilerStreamData) SetupDataPath() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_setupDataPath")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setupDataPath"}
+		return nil, err
+	}
+	return g._setupDataPath(), nil
+}
+
+// CanSetupDataPath reports whether the receiver responds to the private selector _setupDataPath.
+func (g GTShaderProfilerStreamData) CanSetupDataPath() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_setupDataPath"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/_writeLocalData:dataPath:to:
@@ -355,8 +364,18 @@ func (g GTShaderProfilerStreamData) _writeLocalDataDataPathTo(data objectivec.IO
 }
 
 // WriteLocalDataDataPathTo is an exported wrapper for the private method _writeLocalDataDataPathTo.
-func (g GTShaderProfilerStreamData) WriteLocalDataDataPathTo(data objectivec.IObject, path objectivec.IObject, to objectivec.IObject) {
+func (g GTShaderProfilerStreamData) WriteLocalDataDataPathTo(data objectivec.IObject, path objectivec.IObject, to objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_writeLocalData:dataPath:to:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_writeLocalData:dataPath:to:"}
+		return err
+	}
 	g._writeLocalDataDataPathTo(data, path, to)
+	return nil
+}
+
+// CanWriteLocalDataDataPathTo reports whether the receiver responds to the private selector _writeLocalData:dataPath:to:.
+func (g GTShaderProfilerStreamData) CanWriteLocalDataDataPathTo() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_writeLocalData:dataPath:to:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/dataFromUnarchvedMetadata:

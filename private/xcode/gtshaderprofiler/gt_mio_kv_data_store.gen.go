@@ -195,8 +195,17 @@ func (g GTMioKVDataStore) _blockForName(name objectivec.IObject) unsafe.Pointer 
 }
 
 // BlockForName is an exported wrapper for the private method _blockForName.
-func (g GTMioKVDataStore) BlockForName(name objectivec.IObject) unsafe.Pointer {
-	return g._blockForName(name)
+func (g GTMioKVDataStore) BlockForName(name objectivec.IObject) (unsafe.Pointer, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_blockForName:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_blockForName:"}
+		return nil, err
+	}
+	return g._blockForName(name), nil
+}
+
+// CanBlockForName reports whether the receiver responds to the private selector _blockForName:.
+func (g GTMioKVDataStore) CanBlockForName() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_blockForName:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/_enumerateBlocks:
@@ -212,8 +221,17 @@ func (g GTMioKVDataStore) _serializeData(_serialize objectivec.IObject, data []o
 }
 
 // SerializeData is an exported wrapper for the private method _serializeData.
-func (g GTMioKVDataStore) SerializeData(_serialize objectivec.IObject, data []objectivec.IObject) bool {
-	return g._serializeData(_serialize, data)
+func (g GTMioKVDataStore) SerializeData(_serialize objectivec.IObject, data []objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_serialize:data:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_serialize:data:"}
+		return false, err
+	}
+	return g._serializeData(_serialize, data), nil
+}
+
+// CanSerializeData reports whether the receiver responds to the private selector _serialize:data:.
+func (g GTMioKVDataStore) CanSerializeData() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_serialize:data:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/_valueForName:
@@ -223,8 +241,17 @@ func (g GTMioKVDataStore) _valueForName(name objectivec.IObject) objectivec.IObj
 }
 
 // ValueForName is an exported wrapper for the private method _valueForName.
-func (g GTMioKVDataStore) ValueForName(name objectivec.IObject) objectivec.IObject {
-	return g._valueForName(name)
+func (g GTMioKVDataStore) ValueForName(name objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_valueForName:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_valueForName:"}
+		return nil, err
+	}
+	return g._valueForName(name), nil
+}
+
+// CanValueForName reports whether the receiver responds to the private selector _valueForName:.
+func (g GTMioKVDataStore) CanValueForName() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_valueForName:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/addChild:forKey:

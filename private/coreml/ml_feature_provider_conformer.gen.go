@@ -140,7 +140,16 @@ func (f MLFeatureProviderConformer) _fabricateFeatureForDescriptionError(descrip
 
 // FabricateFeatureForDescriptionError is an exported wrapper for the private method _fabricateFeatureForDescriptionError.
 func (f MLFeatureProviderConformer) FabricateFeatureForDescriptionError(description objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(f.ID, objc.Sel("_fabricateFeatureForDescription:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_fabricateFeatureForDescription:error:"}
+		return nil, err
+	}
 	return f._fabricateFeatureForDescriptionError(description)
+}
+
+// CanFabricateFeatureForDescriptionError reports whether the receiver responds to the private selector _fabricateFeatureForDescription:error:.
+func (f MLFeatureProviderConformer) CanFabricateFeatureForDescriptionError() bool {
+	return objc.RespondsToSelector(f.ID, objc.Sel("_fabricateFeatureForDescription:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/_sequenceConcatConsumesOptionalInputNamed:
@@ -150,8 +159,17 @@ func (f MLFeatureProviderConformer) _sequenceConcatConsumesOptionalInputNamed(na
 }
 
 // SequenceConcatConsumesOptionalInputNamed is an exported wrapper for the private method _sequenceConcatConsumesOptionalInputNamed.
-func (f MLFeatureProviderConformer) SequenceConcatConsumesOptionalInputNamed(named objectivec.IObject) bool {
-	return f._sequenceConcatConsumesOptionalInputNamed(named)
+func (f MLFeatureProviderConformer) SequenceConcatConsumesOptionalInputNamed(named objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(f.ID, objc.Sel("_sequenceConcatConsumesOptionalInputNamed:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_sequenceConcatConsumesOptionalInputNamed:"}
+		return false, err
+	}
+	return f._sequenceConcatConsumesOptionalInputNamed(named), nil
+}
+
+// CanSequenceConcatConsumesOptionalInputNamed reports whether the receiver responds to the private selector _sequenceConcatConsumesOptionalInputNamed:.
+func (f MLFeatureProviderConformer) CanSequenceConcatConsumesOptionalInputNamed() bool {
+	return objc.RespondsToSelector(f.ID, objc.Sel("_sequenceConcatConsumesOptionalInputNamed:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderConformer/conformFeatures:error:

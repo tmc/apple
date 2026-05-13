@@ -141,8 +141,18 @@ func (g GTMioCounterDataPerDM) _cacheValues() {
 }
 
 // CacheValues is an exported wrapper for the private method _cacheValues.
-func (g GTMioCounterDataPerDM) CacheValues() {
+func (g GTMioCounterDataPerDM) CacheValues() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_cacheValues")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cacheValues"}
+		return err
+	}
 	g._cacheValues()
+	return nil
+}
+
+// CanCacheValues reports whether the receiver responds to the private selector _cacheValues.
+func (g GTMioCounterDataPerDM) CanCacheValues() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_cacheValues"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterDataPerDM/initWithContainer:index:dataMaster:scope:scopeIndex:

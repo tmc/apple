@@ -134,8 +134,18 @@ func (e MLE5ExecutionStreamPool) _emitMappingTracepointForStream(stream objectiv
 }
 
 // EmitMappingTracepointForStream is an exported wrapper for the private method _emitMappingTracepointForStream.
-func (e MLE5ExecutionStreamPool) EmitMappingTracepointForStream(stream objectivec.IObject) {
+func (e MLE5ExecutionStreamPool) EmitMappingTracepointForStream(stream objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_emitMappingTracepointForStream:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_emitMappingTracepointForStream:"}
+		return err
+	}
 	e._emitMappingTracepointForStream(stream)
+	return nil
+}
+
+// CanEmitMappingTracepointForStream reports whether the receiver responds to the private selector _emitMappingTracepointForStream:.
+func (e MLE5ExecutionStreamPool) CanEmitMappingTracepointForStream() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_emitMappingTracepointForStream:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/enableInstrumentsTracing

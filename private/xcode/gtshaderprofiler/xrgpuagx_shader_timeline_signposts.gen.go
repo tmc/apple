@@ -133,8 +133,18 @@ func (x XRGPUAGXShaderTimelineSignposts) _setupExtractor() {
 }
 
 // SetupExtractor is an exported wrapper for the private method _setupExtractor.
-func (x XRGPUAGXShaderTimelineSignposts) SetupExtractor() {
+func (x XRGPUAGXShaderTimelineSignposts) SetupExtractor() error {
+	if !objc.RespondsToSelector(x.ID, objc.Sel("_setupExtractor")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setupExtractor"}
+		return err
+	}
 	x._setupExtractor()
+	return nil
+}
+
+// CanSetupExtractor reports whether the receiver responds to the private selector _setupExtractor.
+func (x XRGPUAGXShaderTimelineSignposts) CanSetupExtractor() bool {
+	return objc.RespondsToSelector(x.ID, objc.Sel("_setupExtractor"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAGXShaderTimelineSignposts/encode

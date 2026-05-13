@@ -513,7 +513,16 @@ func (_MLModelClass MLModelClass) _compileModelAtURLOptionsError(url foundation.
 
 // CompileModelAtURLOptionsError is an exported wrapper for the private method _compileModelAtURLOptionsError.
 func (_MLModelClass MLModelClass) CompileModelAtURLOptionsError(url foundation.INSURL, options objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLModelClass.class), objc.Sel("_compileModelAtURL:options:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_compileModelAtURL:options:error:"}
+		return nil, err
+	}
 	return _MLModelClass._compileModelAtURLOptionsError(url, options)
+}
+
+// CanCompileModelAtURLOptionsError reports whether the receiver responds to the private selector _compileModelAtURL:options:error:.
+func (_MLModelClass MLModelClass) CanCompileModelAtURLOptionsError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLModelClass.class), objc.Sel("_compileModelAtURL:options:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModel/compileModelWithoutAutoreleaseAtURL:options:error:

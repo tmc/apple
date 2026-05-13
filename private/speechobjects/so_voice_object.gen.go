@@ -222,8 +222,17 @@ func (s SOVoiceObject) _conversionLocale() objectivec.IObject {
 }
 
 // ConversionLocale is an exported wrapper for the private method _conversionLocale.
-func (s SOVoiceObject) ConversionLocale() objectivec.IObject {
-	return s._conversionLocale()
+func (s SOVoiceObject) ConversionLocale() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_conversionLocale")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_conversionLocale"}
+		return nil, err
+	}
+	return s._conversionLocale(), nil
+}
+
+// CanConversionLocale reports whether the receiver responds to the private selector _conversionLocale.
+func (s SOVoiceObject) CanConversionLocale() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_conversionLocale"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_displayLocalizedVoiceNameForString:
@@ -233,8 +242,17 @@ func (s SOVoiceObject) _displayLocalizedVoiceNameForString(string_ objectivec.IO
 }
 
 // DisplayLocalizedVoiceNameForString is an exported wrapper for the private method _displayLocalizedVoiceNameForString.
-func (s SOVoiceObject) DisplayLocalizedVoiceNameForString(string_ objectivec.IObject) objectivec.IObject {
-	return s._displayLocalizedVoiceNameForString(string_)
+func (s SOVoiceObject) DisplayLocalizedVoiceNameForString(string_ objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_displayLocalizedVoiceNameForString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_displayLocalizedVoiceNameForString:"}
+		return nil, err
+	}
+	return s._displayLocalizedVoiceNameForString(string_), nil
+}
+
+// CanDisplayLocalizedVoiceNameForString reports whether the receiver responds to the private selector _displayLocalizedVoiceNameForString:.
+func (s SOVoiceObject) CanDisplayLocalizedVoiceNameForString() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_displayLocalizedVoiceNameForString:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_getSiriVoiceNameFromIdentifier
@@ -244,8 +262,17 @@ func (s SOVoiceObject) _getSiriVoiceNameFromIdentifier() objectivec.IObject {
 }
 
 // GetSiriVoiceNameFromIdentifier is an exported wrapper for the private method _getSiriVoiceNameFromIdentifier.
-func (s SOVoiceObject) GetSiriVoiceNameFromIdentifier() objectivec.IObject {
-	return s._getSiriVoiceNameFromIdentifier()
+func (s SOVoiceObject) GetSiriVoiceNameFromIdentifier() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_getSiriVoiceNameFromIdentifier")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_getSiriVoiceNameFromIdentifier"}
+		return nil, err
+	}
+	return s._getSiriVoiceNameFromIdentifier(), nil
+}
+
+// CanGetSiriVoiceNameFromIdentifier reports whether the receiver responds to the private selector _getSiriVoiceNameFromIdentifier.
+func (s SOVoiceObject) CanGetSiriVoiceNameFromIdentifier() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_getSiriVoiceNameFromIdentifier"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_overriddenCompactVoices
@@ -255,8 +282,17 @@ func (s SOVoiceObject) _overriddenCompactVoices() objectivec.IObject {
 }
 
 // OverriddenCompactVoices is an exported wrapper for the private method _overriddenCompactVoices.
-func (s SOVoiceObject) OverriddenCompactVoices() objectivec.IObject {
-	return s._overriddenCompactVoices()
+func (s SOVoiceObject) OverriddenCompactVoices() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_overriddenCompactVoices")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_overriddenCompactVoices"}
+		return nil, err
+	}
+	return s._overriddenCompactVoices(), nil
+}
+
+// CanOverriddenCompactVoices reports whether the receiver responds to the private selector _overriddenCompactVoices.
+func (s SOVoiceObject) CanOverriddenCompactVoices() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_overriddenCompactVoices"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_siriVoiceDisplayName
@@ -266,8 +302,17 @@ func (s SOVoiceObject) _siriVoiceDisplayName() objectivec.IObject {
 }
 
 // SiriVoiceDisplayName is an exported wrapper for the private method _siriVoiceDisplayName.
-func (s SOVoiceObject) SiriVoiceDisplayName() objectivec.IObject {
-	return s._siriVoiceDisplayName()
+func (s SOVoiceObject) SiriVoiceDisplayName() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceDisplayName")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_siriVoiceDisplayName"}
+		return nil, err
+	}
+	return s._siriVoiceDisplayName(), nil
+}
+
+// CanSiriVoiceDisplayName reports whether the receiver responds to the private selector _siriVoiceDisplayName.
+func (s SOVoiceObject) CanSiriVoiceDisplayName() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceDisplayName"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_siriVoiceDisplayNameRoot
@@ -277,8 +322,17 @@ func (s SOVoiceObject) _siriVoiceDisplayNameRoot() objectivec.IObject {
 }
 
 // SiriVoiceDisplayNameRoot is an exported wrapper for the private method _siriVoiceDisplayNameRoot.
-func (s SOVoiceObject) SiriVoiceDisplayNameRoot() objectivec.IObject {
-	return s._siriVoiceDisplayNameRoot()
+func (s SOVoiceObject) SiriVoiceDisplayNameRoot() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceDisplayNameRoot")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_siriVoiceDisplayNameRoot"}
+		return nil, err
+	}
+	return s._siriVoiceDisplayNameRoot(), nil
+}
+
+// CanSiriVoiceDisplayNameRoot reports whether the receiver responds to the private selector _siriVoiceDisplayNameRoot.
+func (s SOVoiceObject) CanSiriVoiceDisplayNameRoot() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceDisplayNameRoot"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_siriVoiceGenderedDisplayName
@@ -288,8 +342,17 @@ func (s SOVoiceObject) _siriVoiceGenderedDisplayName() objectivec.IObject {
 }
 
 // SiriVoiceGenderedDisplayName is an exported wrapper for the private method _siriVoiceGenderedDisplayName.
-func (s SOVoiceObject) SiriVoiceGenderedDisplayName() objectivec.IObject {
-	return s._siriVoiceGenderedDisplayName()
+func (s SOVoiceObject) SiriVoiceGenderedDisplayName() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceGenderedDisplayName")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_siriVoiceGenderedDisplayName"}
+		return nil, err
+	}
+	return s._siriVoiceGenderedDisplayName(), nil
+}
+
+// CanSiriVoiceGenderedDisplayName reports whether the receiver responds to the private selector _siriVoiceGenderedDisplayName.
+func (s SOVoiceObject) CanSiriVoiceGenderedDisplayName() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceGenderedDisplayName"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_siriVoiceGenderedDisplayNameRoot
@@ -299,8 +362,17 @@ func (s SOVoiceObject) _siriVoiceGenderedDisplayNameRoot() objectivec.IObject {
 }
 
 // SiriVoiceGenderedDisplayNameRoot is an exported wrapper for the private method _siriVoiceGenderedDisplayNameRoot.
-func (s SOVoiceObject) SiriVoiceGenderedDisplayNameRoot() objectivec.IObject {
-	return s._siriVoiceGenderedDisplayNameRoot()
+func (s SOVoiceObject) SiriVoiceGenderedDisplayNameRoot() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceGenderedDisplayNameRoot")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_siriVoiceGenderedDisplayNameRoot"}
+		return nil, err
+	}
+	return s._siriVoiceGenderedDisplayNameRoot(), nil
+}
+
+// CanSiriVoiceGenderedDisplayNameRoot reports whether the receiver responds to the private selector _siriVoiceGenderedDisplayNameRoot.
+func (s SOVoiceObject) CanSiriVoiceGenderedDisplayNameRoot() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_siriVoiceGenderedDisplayNameRoot"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:
@@ -310,8 +382,17 @@ func (s SOVoiceObject) _voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName(
 }
 
 // VoiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName is an exported wrapper for the private method _voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName.
-func (s SOVoiceObject) VoiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName(name objectivec.IObject) objectivec.IObject {
-	return s._voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName(name)
+func (s SOVoiceObject) VoiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName(name objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:"}
+		return nil, err
+	}
+	return s._voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName(name), nil
+}
+
+// CanVoiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName reports whether the receiver responds to the private selector _voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:.
+func (s SOVoiceObject) CanVoiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_voiceNamesEntryFromSpeechSynthesisFrameworkForVoiceName:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/compare:

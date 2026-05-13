@@ -200,8 +200,17 @@ func (g GTMioShaderExecutionHistoryNode) _costForScopeScopeIdentifierCacheCost(s
 }
 
 // CostForScopeScopeIdentifierCacheCost is an exported wrapper for the private method _costForScopeScopeIdentifierCacheCost.
-func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool {
-	return g._costForScopeScopeIdentifierCacheCost(scope, identifier, cost)
+func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_costForScope:scopeIdentifier:cacheCost:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_costForScope:scopeIdentifier:cacheCost:"}
+		return false, err
+	}
+	return g._costForScopeScopeIdentifierCacheCost(scope, identifier, cost), nil
+}
+
+// CanCostForScopeScopeIdentifierCacheCost reports whether the receiver responds to the private selector _costForScope:scopeIdentifier:cacheCost:.
+func (g GTMioShaderExecutionHistoryNode) CanCostForScopeScopeIdentifierCacheCost() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_costForScope:scopeIdentifier:cacheCost:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/_dfs:enumerator:
@@ -211,8 +220,18 @@ func (g GTMioShaderExecutionHistoryNode) _dfsEnumerator(_dfs uint32, enumerator 
 }
 
 // DfsEnumerator is an exported wrapper for the private method _dfsEnumerator.
-func (g GTMioShaderExecutionHistoryNode) DfsEnumerator(_dfs uint32, enumerator VoidHandler) {
+func (g GTMioShaderExecutionHistoryNode) DfsEnumerator(_dfs uint32, enumerator VoidHandler) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_dfs:enumerator:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_dfs:enumerator:"}
+		return err
+	}
 	g._dfsEnumerator(_dfs, enumerator)
+	return nil
+}
+
+// CanDfsEnumerator reports whether the receiver responds to the private selector _dfs:enumerator:.
+func (g GTMioShaderExecutionHistoryNode) CanDfsEnumerator() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_dfs:enumerator:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/addChild:

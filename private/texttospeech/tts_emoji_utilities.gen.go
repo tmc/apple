@@ -89,8 +89,18 @@ func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) _initializeEmojiStructures
 }
 
 // InitializeEmojiStructures is an exported wrapper for the private method _initializeEmojiStructures.
-func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) InitializeEmojiStructures(structures objectivec.IObject) {
+func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) InitializeEmojiStructures(structures objectivec.IObject) error {
+	if !objc.RespondsToSelector(objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("_initializeEmojiStructures:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initializeEmojiStructures:"}
+		return err
+	}
 	_TTSEmojiUtilitiesClass._initializeEmojiStructures(structures)
+	return nil
+}
+
+// CanInitializeEmojiStructures reports whether the receiver responds to the private selector _initializeEmojiStructures:.
+func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) CanInitializeEmojiStructures() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("_initializeEmojiStructures:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSEmojiUtilities/emojiRangeFromString:withSearchRange:

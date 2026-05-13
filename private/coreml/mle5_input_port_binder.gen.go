@@ -161,8 +161,17 @@ func (e MLE5InputPortBinder) _reusableForFeatureValueDirectMode(value objectivec
 }
 
 // ReusableForFeatureValueDirectMode is an exported wrapper for the private method _reusableForFeatureValueDirectMode.
-func (e MLE5InputPortBinder) ReusableForFeatureValueDirectMode(value objectivec.IObject, mode byte) bool {
-	return e._reusableForFeatureValueDirectMode(value, mode)
+func (e MLE5InputPortBinder) ReusableForFeatureValueDirectMode(value objectivec.IObject, mode byte) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_reusableForFeatureValue:directMode:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_reusableForFeatureValue:directMode:"}
+		return false, err
+	}
+	return e._reusableForFeatureValueDirectMode(value, mode), nil
+}
+
+// CanReusableForFeatureValueDirectMode reports whether the receiver responds to the private selector _reusableForFeatureValue:directMode:.
+func (e MLE5InputPortBinder) CanReusableForFeatureValueDirectMode() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_reusableForFeatureValue:directMode:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPortBinder/bindMemoryObjectForFeatureValue:error:

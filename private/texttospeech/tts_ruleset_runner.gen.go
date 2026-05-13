@@ -172,8 +172,17 @@ func (t TTSRulesetRunner) _computeActiveRangesWithIgnoreRanges(ranges objectivec
 }
 
 // ComputeActiveRangesWithIgnoreRanges is an exported wrapper for the private method _computeActiveRangesWithIgnoreRanges.
-func (t TTSRulesetRunner) ComputeActiveRangesWithIgnoreRanges(ranges objectivec.IObject, ranges2 objectivec.IObject) objectivec.IObject {
-	return t._computeActiveRangesWithIgnoreRanges(ranges, ranges2)
+func (t TTSRulesetRunner) ComputeActiveRangesWithIgnoreRanges(ranges objectivec.IObject, ranges2 objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_computeActiveRanges:withIgnoreRanges:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_computeActiveRanges:withIgnoreRanges:"}
+		return nil, err
+	}
+	return t._computeActiveRangesWithIgnoreRanges(ranges, ranges2), nil
+}
+
+// CanComputeActiveRangesWithIgnoreRanges reports whether the receiver responds to the private selector _computeActiveRanges:withIgnoreRanges:.
+func (t TTSRulesetRunner) CanComputeActiveRangesWithIgnoreRanges() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_computeActiveRanges:withIgnoreRanges:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_ignoreRangesForString:
@@ -183,8 +192,17 @@ func (t TTSRulesetRunner) _ignoreRangesForString(string_ objectivec.IObject) obj
 }
 
 // IgnoreRangesForString is an exported wrapper for the private method _ignoreRangesForString.
-func (t TTSRulesetRunner) IgnoreRangesForString(string_ objectivec.IObject) objectivec.IObject {
-	return t._ignoreRangesForString(string_)
+func (t TTSRulesetRunner) IgnoreRangesForString(string_ objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_ignoreRangesForString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_ignoreRangesForString:"}
+		return nil, err
+	}
+	return t._ignoreRangesForString(string_), nil
+}
+
+// CanIgnoreRangesForString reports whether the receiver responds to the private selector _ignoreRangesForString:.
+func (t TTSRulesetRunner) CanIgnoreRangesForString() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_ignoreRangesForString:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_processSpeechString:startingAt:currentRecursionDepth:
@@ -194,8 +212,17 @@ func (t TTSRulesetRunner) _processSpeechStringStartingAtCurrentRecursionDepth(st
 }
 
 // ProcessSpeechStringStartingAtCurrentRecursionDepth is an exported wrapper for the private method _processSpeechStringStartingAtCurrentRecursionDepth.
-func (t TTSRulesetRunner) ProcessSpeechStringStartingAtCurrentRecursionDepth(string_ objectivec.IObject, at uint64, depth uint64) objectivec.IObject {
-	return t._processSpeechStringStartingAtCurrentRecursionDepth(string_, at, depth)
+func (t TTSRulesetRunner) ProcessSpeechStringStartingAtCurrentRecursionDepth(string_ objectivec.IObject, at uint64, depth uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processSpeechString:startingAt:currentRecursionDepth:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processSpeechString:startingAt:currentRecursionDepth:"}
+		return nil, err
+	}
+	return t._processSpeechStringStartingAtCurrentRecursionDepth(string_, at, depth), nil
+}
+
+// CanProcessSpeechStringStartingAtCurrentRecursionDepth reports whether the receiver responds to the private selector _processSpeechString:startingAt:currentRecursionDepth:.
+func (t TTSRulesetRunner) CanProcessSpeechStringStartingAtCurrentRecursionDepth() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processSpeechString:startingAt:currentRecursionDepth:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_processTemplateReplacementTextForText:replacement:cString:
@@ -205,8 +232,17 @@ func (t TTSRulesetRunner) _processTemplateReplacementTextForTextReplacementCStri
 }
 
 // ProcessTemplateReplacementTextForTextReplacementCString is an exported wrapper for the private method _processTemplateReplacementTextForTextReplacementCString.
-func (t TTSRulesetRunner) ProcessTemplateReplacementTextForTextReplacementCString(text objectivec.IObject, replacement objectivec.IObject, string_ string) objectivec.IObject {
-	return t._processTemplateReplacementTextForTextReplacementCString(text, replacement, string_)
+func (t TTSRulesetRunner) ProcessTemplateReplacementTextForTextReplacementCString(text objectivec.IObject, replacement objectivec.IObject, string_ string) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processTemplateReplacementTextForText:replacement:cString:"}
+		return nil, err
+	}
+	return t._processTemplateReplacementTextForTextReplacementCString(text, replacement, string_), nil
+}
+
+// CanProcessTemplateReplacementTextForTextReplacementCString reports whether the receiver responds to the private selector _processTemplateReplacementTextForText:replacement:cString:.
+func (t TTSRulesetRunner) CanProcessTemplateReplacementTextForTextReplacementCString() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_recomputeRuleOrdering
@@ -215,8 +251,18 @@ func (t TTSRulesetRunner) _recomputeRuleOrdering() {
 }
 
 // RecomputeRuleOrdering is an exported wrapper for the private method _recomputeRuleOrdering.
-func (t TTSRulesetRunner) RecomputeRuleOrdering() {
+func (t TTSRulesetRunner) RecomputeRuleOrdering() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_recomputeRuleOrdering")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_recomputeRuleOrdering"}
+		return err
+	}
 	t._recomputeRuleOrdering()
+	return nil
+}
+
+// CanRecomputeRuleOrdering reports whether the receiver responds to the private selector _recomputeRuleOrdering.
+func (t TTSRulesetRunner) CanRecomputeRuleOrdering() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_recomputeRuleOrdering"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/cancelProcessing

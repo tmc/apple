@@ -189,7 +189,16 @@ func (e MLE5ExecutionStream) _executeStreamError(stream E5rt_execution_streamRef
 
 // ExecuteStreamError is an exported wrapper for the private method _executeStreamError.
 func (e MLE5ExecutionStream) ExecuteStreamError(stream E5rt_execution_streamRef) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_executeStream:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_executeStream:error:"}
+		return false, err
+	}
 	return e._executeStreamError(stream)
+}
+
+// CanExecuteStreamError reports whether the receiver responds to the private selector _executeStream:error:.
+func (e MLE5ExecutionStream) CanExecuteStreamError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_executeStream:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_prepareForInputFeatures:options:error:
@@ -209,7 +218,16 @@ func (e MLE5ExecutionStream) _prepareForInputFeaturesOptionsError(features objec
 
 // PrepareForInputFeaturesOptionsError is an exported wrapper for the private method _prepareForInputFeaturesOptionsError.
 func (e MLE5ExecutionStream) PrepareForInputFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_prepareForInputFeatures:options:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_prepareForInputFeatures:options:error:"}
+		return false, err
+	}
 	return e._prepareForInputFeaturesOptionsError(features, options)
+}
+
+// CanPrepareForInputFeaturesOptionsError reports whether the receiver responds to the private selector _prepareForInputFeatures:options:error:.
+func (e MLE5ExecutionStream) CanPrepareForInputFeaturesOptionsError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_prepareForInputFeatures:options:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_reset
@@ -218,8 +236,18 @@ func (e MLE5ExecutionStream) _reset() {
 }
 
 // Reset is an exported wrapper for the private method _reset.
-func (e MLE5ExecutionStream) Reset() {
+func (e MLE5ExecutionStream) Reset() error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_reset")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_reset"}
+		return err
+	}
 	e._reset()
+	return nil
+}
+
+// CanReset reports whether the receiver responds to the private selector _reset.
+func (e MLE5ExecutionStream) CanReset() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_reset"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_reusableForInputFeatures:options:
@@ -229,8 +257,17 @@ func (e MLE5ExecutionStream) _reusableForInputFeaturesOptions(features objective
 }
 
 // ReusableForInputFeaturesOptions is an exported wrapper for the private method _reusableForInputFeaturesOptions.
-func (e MLE5ExecutionStream) ReusableForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) bool {
-	return e._reusableForInputFeaturesOptions(features, options)
+func (e MLE5ExecutionStream) ReusableForInputFeaturesOptions(features objectivec.IObject, options objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_reusableForInputFeatures:options:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_reusableForInputFeatures:options:"}
+		return false, err
+	}
+	return e._reusableForInputFeaturesOptions(features, options), nil
+}
+
+// CanReusableForInputFeaturesOptions reports whether the receiver responds to the private selector _reusableForInputFeatures:options:.
+func (e MLE5ExecutionStream) CanReusableForInputFeaturesOptions() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_reusableForInputFeatures:options:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/_setANEExecutionPriorityWithOptions:
@@ -239,8 +276,18 @@ func (e MLE5ExecutionStream) _setANEExecutionPriorityWithOptions(options objecti
 }
 
 // SetANEExecutionPriorityWithOptions is an exported wrapper for the private method _setANEExecutionPriorityWithOptions.
-func (e MLE5ExecutionStream) SetANEExecutionPriorityWithOptions(options objectivec.IObject) {
+func (e MLE5ExecutionStream) SetANEExecutionPriorityWithOptions(options objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_setANEExecutionPriorityWithOptions:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setANEExecutionPriorityWithOptions:"}
+		return err
+	}
 	e._setANEExecutionPriorityWithOptions(options)
+	return nil
+}
+
+// CanSetANEExecutionPriorityWithOptions reports whether the receiver responds to the private selector _setANEExecutionPriorityWithOptions:.
+func (e MLE5ExecutionStream) CanSetANEExecutionPriorityWithOptions() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_setANEExecutionPriorityWithOptions:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStream/cancelPendingReset

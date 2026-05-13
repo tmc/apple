@@ -196,8 +196,18 @@ func (t TTSSpeechString) _insertTransformationForEncapsulatedTerminator(transfor
 }
 
 // InsertTransformationForEncapsulatedTerminator is an exported wrapper for the private method _insertTransformationForEncapsulatedTerminator.
-func (t TTSSpeechString) InsertTransformationForEncapsulatedTerminator(transformation objectivec.IObject, terminator bool) {
+func (t TTSSpeechString) InsertTransformationForEncapsulatedTerminator(transformation objectivec.IObject, terminator bool) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_insertTransformation:forEncapsulatedTerminator:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_insertTransformation:forEncapsulatedTerminator:"}
+		return err
+	}
 	t._insertTransformationForEncapsulatedTerminator(transformation, terminator)
+	return nil
+}
+
+// CanInsertTransformationForEncapsulatedTerminator reports whether the receiver responds to the private selector _insertTransformation:forEncapsulatedTerminator:.
+func (t TTSSpeechString) CanInsertTransformationForEncapsulatedTerminator() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_insertTransformation:forEncapsulatedTerminator:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/_rangeIsValid:
@@ -207,8 +217,17 @@ func (t TTSSpeechString) _rangeIsValid(valid foundation.NSRange) bool {
 }
 
 // RangeIsValid is an exported wrapper for the private method _rangeIsValid.
-func (t TTSSpeechString) RangeIsValid(valid foundation.NSRange) bool {
-	return t._rangeIsValid(valid)
+func (t TTSSpeechString) RangeIsValid(valid foundation.NSRange) (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_rangeIsValid:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_rangeIsValid:"}
+		return false, err
+	}
+	return t._rangeIsValid(valid), nil
+}
+
+// CanRangeIsValid reports whether the receiver responds to the private selector _rangeIsValid:.
+func (t TTSSpeechString) CanRangeIsValid() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_rangeIsValid:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/_transformedStringNonMutating
@@ -218,8 +237,17 @@ func (t TTSSpeechString) _transformedStringNonMutating() objectivec.IObject {
 }
 
 // TransformedStringNonMutating is an exported wrapper for the private method _transformedStringNonMutating.
-func (t TTSSpeechString) TransformedStringNonMutating() objectivec.IObject {
-	return t._transformedStringNonMutating()
+func (t TTSSpeechString) TransformedStringNonMutating() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_transformedStringNonMutating")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_transformedStringNonMutating"}
+		return nil, err
+	}
+	return t._transformedStringNonMutating(), nil
+}
+
+// CanTransformedStringNonMutating reports whether the receiver responds to the private selector _transformedStringNonMutating.
+func (t TTSSpeechString) CanTransformedStringNonMutating() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_transformedStringNonMutating"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/_translateRangeInTransformedString:withParent:
@@ -229,8 +257,17 @@ func (t TTSSpeechString) _translateRangeInTransformedStringWithParent(string_ fo
 }
 
 // TranslateRangeInTransformedStringWithParent is an exported wrapper for the private method _translateRangeInTransformedStringWithParent.
-func (t TTSSpeechString) TranslateRangeInTransformedStringWithParent(string_ foundation.NSRange, parent objectivec.IObject) foundation.NSRange {
-	return t._translateRangeInTransformedStringWithParent(string_, parent)
+func (t TTSSpeechString) TranslateRangeInTransformedStringWithParent(string_ foundation.NSRange, parent objectivec.IObject) (foundation.NSRange, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_translateRangeInTransformedString:withParent:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_translateRangeInTransformedString:withParent:"}
+		return foundation.NSRange{}, err
+	}
+	return t._translateRangeInTransformedStringWithParent(string_, parent), nil
+}
+
+// CanTranslateRangeInTransformedStringWithParent reports whether the receiver responds to the private selector _translateRangeInTransformedString:withParent:.
+func (t TTSSpeechString) CanTranslateRangeInTransformedStringWithParent() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_translateRangeInTransformedString:withParent:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/encapsulateSubstringAtRange:withPrefix:andSuffix:

@@ -189,8 +189,17 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _createPerCounterCommandDataWit
 }
 
 // CreatePerCounterCommandDataWithPerCommandData is an exported wrapper for the private method _createPerCounterCommandDataWithPerCommandData.
-func (g GTAGX2StreamDataShaderProfilerProcessor) CreatePerCounterCommandDataWithPerCommandData(data objectivec.IObject, data2 objectivec.IObject) objectivec.IObject {
-	return g._createPerCounterCommandDataWithPerCommandData(data, data2)
+func (g GTAGX2StreamDataShaderProfilerProcessor) CreatePerCounterCommandDataWithPerCommandData(data objectivec.IObject, data2 objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_createPerCounterCommandData:withPerCommandData:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createPerCounterCommandData:withPerCommandData:"}
+		return nil, err
+	}
+	return g._createPerCounterCommandDataWithPerCommandData(data, data2), nil
+}
+
+// CanCreatePerCounterCommandDataWithPerCommandData reports whether the receiver responds to the private selector _createPerCounterCommandData:withPerCommandData:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanCreatePerCounterCommandDataWithPerCommandData() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_createPerCounterCommandData:withPerCommandData:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_effectiveBatchDrawKickTimes:
@@ -200,8 +209,17 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _effectiveBatchDrawKickTimes(ti
 }
 
 // EffectiveBatchDrawKickTimes is an exported wrapper for the private method _effectiveBatchDrawKickTimes.
-func (g GTAGX2StreamDataShaderProfilerProcessor) EffectiveBatchDrawKickTimes(times objectivec.IObject) objectivec.IObject {
-	return g._effectiveBatchDrawKickTimes(times)
+func (g GTAGX2StreamDataShaderProfilerProcessor) EffectiveBatchDrawKickTimes(times objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_effectiveBatchDrawKickTimes:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_effectiveBatchDrawKickTimes:"}
+		return nil, err
+	}
+	return g._effectiveBatchDrawKickTimes(times), nil
+}
+
+// CanEffectiveBatchDrawKickTimes reports whether the receiver responds to the private selector _effectiveBatchDrawKickTimes:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanEffectiveBatchDrawKickTimes() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_effectiveBatchDrawKickTimes:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_handleStreamingBatchResult:
@@ -210,8 +228,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _handleStreamingBatchResult(res
 }
 
 // HandleStreamingBatchResult is an exported wrapper for the private method _handleStreamingBatchResult.
-func (g GTAGX2StreamDataShaderProfilerProcessor) HandleStreamingBatchResult(result objectivec.IObject) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) HandleStreamingBatchResult(result objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_handleStreamingBatchResult:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_handleStreamingBatchResult:"}
+		return err
+	}
 	g._handleStreamingBatchResult(result)
+	return nil
+}
+
+// CanHandleStreamingBatchResult reports whether the receiver responds to the private selector _handleStreamingBatchResult:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanHandleStreamingBatchResult() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_handleStreamingBatchResult:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_postProcessData
@@ -220,8 +248,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _postProcessData() {
 }
 
 // PostProcessData is an exported wrapper for the private method _postProcessData.
-func (g GTAGX2StreamDataShaderProfilerProcessor) PostProcessData() {
+func (g GTAGX2StreamDataShaderProfilerProcessor) PostProcessData() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_postProcessData")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_postProcessData"}
+		return err
+	}
 	g._postProcessData()
+	return nil
+}
+
+// CanPostProcessData reports whether the receiver responds to the private selector _postProcessData.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanPostProcessData() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_postProcessData"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_preProcessStreamingUSCSampleData:
@@ -230,8 +268,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDa
 }
 
 // PreProcessStreamingUSCSampleData is an exported wrapper for the private method _preProcessStreamingUSCSampleData.
-func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleData(data objectivec.IObject) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleData(data objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_preProcessStreamingUSCSampleData:"}
+		return err
+	}
 	g._preProcessStreamingUSCSampleData(data)
+	return nil
+}
+
+// CanPreProcessStreamingUSCSampleData reports whether the receiver responds to the private selector _preProcessStreamingUSCSampleData:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanPreProcessStreamingUSCSampleData() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:
@@ -240,8 +288,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDa
 }
 
 // PreProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex is an exported wrapper for the private method _preProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex.
-func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, data2 objectivec.IObject, data3 objectivec.IObject, index uint32, idx uint32, index2 int) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, data2 objectivec.IObject, data3 objectivec.IObject, index uint32, idx uint32, index2 int) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:"}
+		return err
+	}
 	g._preProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex(data, data2, data3, index, idx, index2)
+	return nil
+}
+
+// CanPreProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex reports whether the receiver responds to the private selector _preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanPreProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:
@@ -250,8 +308,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDa
 }
 
 // PreProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex is an exported wrapper for the private method _preProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex.
-func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, mappings objectivec.IObject, data2 objectivec.IObject, index uint32, idx uint32, index2 int) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, mappings objectivec.IObject, data2 objectivec.IObject, index uint32, idx uint32, index2 int) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:"}
+		return err
+	}
 	g._preProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex(data, mappings, data2, index, idx, index2)
+	return nil
+}
+
+// CanPreProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex reports whether the receiver responds to the private selector _preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanPreProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_processDerivedEncoderCounterData:
@@ -260,8 +328,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _processDerivedEncoderCounterDa
 }
 
 // ProcessDerivedEncoderCounterData is an exported wrapper for the private method _processDerivedEncoderCounterData.
-func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessDerivedEncoderCounterData(data objectivec.IObject) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessDerivedEncoderCounterData(data objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_processDerivedEncoderCounterData:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processDerivedEncoderCounterData:"}
+		return err
+	}
 	g._processDerivedEncoderCounterData(data)
+	return nil
+}
+
+// CanProcessDerivedEncoderCounterData reports whether the receiver responds to the private selector _processDerivedEncoderCounterData:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanProcessDerivedEncoderCounterData() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_processDerivedEncoderCounterData:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_processFrameTimeData:
@@ -270,8 +348,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _processFrameTimeData(data obje
 }
 
 // ProcessFrameTimeData is an exported wrapper for the private method _processFrameTimeData.
-func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessFrameTimeData(data objectivec.IObject) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessFrameTimeData(data objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_processFrameTimeData:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processFrameTimeData:"}
+		return err
+	}
 	g._processFrameTimeData(data)
+	return nil
+}
+
+// CanProcessFrameTimeData reports whether the receiver responds to the private selector _processFrameTimeData:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanProcessFrameTimeData() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_processFrameTimeData:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_processHarvestedBinaryData:
@@ -280,8 +368,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _processHarvestedBinaryData(dat
 }
 
 // ProcessHarvestedBinaryData is an exported wrapper for the private method _processHarvestedBinaryData.
-func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessHarvestedBinaryData(data objectivec.IObject) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessHarvestedBinaryData(data objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_processHarvestedBinaryData:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processHarvestedBinaryData:"}
+		return err
+	}
 	g._processHarvestedBinaryData(data)
+	return nil
+}
+
+// CanProcessHarvestedBinaryData reports whether the receiver responds to the private selector _processHarvestedBinaryData:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanProcessHarvestedBinaryData() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_processHarvestedBinaryData:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_saveAddressList:size:filename:
@@ -290,8 +388,18 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _saveAddressListSizeFilename(li
 }
 
 // SaveAddressListSizeFilename is an exported wrapper for the private method _saveAddressListSizeFilename.
-func (g GTAGX2StreamDataShaderProfilerProcessor) SaveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename string) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) SaveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename string) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_saveAddressList:size:filename:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_saveAddressList:size:filename:"}
+		return err
+	}
 	g._saveAddressListSizeFilename(list, size, filename)
+	return nil
+}
+
+// CanSaveAddressListSizeFilename reports whether the receiver responds to the private selector _saveAddressList:size:filename:.
+func (g GTAGX2StreamDataShaderProfilerProcessor) CanSaveAddressListSizeFilename() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_saveAddressList:size:filename:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/analyzeBinary:gpuGeneration:

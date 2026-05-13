@@ -117,8 +117,18 @@ func (s SLDisplayPresetDeviceManager) _serviceAdded(added uint32) {
 }
 
 // ServiceAdded is an exported wrapper for the private method _serviceAdded.
-func (s SLDisplayPresetDeviceManager) ServiceAdded(added uint32) {
+func (s SLDisplayPresetDeviceManager) ServiceAdded(added uint32) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_serviceAdded:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_serviceAdded:"}
+		return err
+	}
 	s._serviceAdded(added)
+	return nil
+}
+
+// CanServiceAdded reports whether the receiver responds to the private selector _serviceAdded:.
+func (s SLDisplayPresetDeviceManager) CanServiceAdded() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_serviceAdded:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/_serviceRemoved:
@@ -127,8 +137,18 @@ func (s SLDisplayPresetDeviceManager) _serviceRemoved(removed uint32) {
 }
 
 // ServiceRemoved is an exported wrapper for the private method _serviceRemoved.
-func (s SLDisplayPresetDeviceManager) ServiceRemoved(removed uint32) {
+func (s SLDisplayPresetDeviceManager) ServiceRemoved(removed uint32) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_serviceRemoved:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_serviceRemoved:"}
+		return err
+	}
 	s._serviceRemoved(removed)
+	return nil
+}
+
+// CanServiceRemoved reports whether the receiver responds to the private selector _serviceRemoved:.
+func (s SLDisplayPresetDeviceManager) CanServiceRemoved() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_serviceRemoved:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLDisplayPresetDeviceManager/copyDeviceForContainer:

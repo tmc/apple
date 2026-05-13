@@ -26,7 +26,7 @@ import (
 // frameworkPaths lists paths to try when loading the skylight library.
 // The framework bundle path is tried first; a /usr/lib dylib fallback covers
 // C-API frameworks that are not in the dyld shared cache as bundles.
-var frameworkPaths = []string{"/System/Library/PrivateFrameworks/SkyLight.framework/SkyLight"}
+var frameworkPaths = []string{"/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/SkyLight"}
 
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr

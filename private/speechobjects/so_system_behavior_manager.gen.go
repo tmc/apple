@@ -106,8 +106,17 @@ func (s SOSystemBehaviorManager) _numberObjectFromTimer(timer objectivec.IObject
 }
 
 // NumberObjectFromTimer is an exported wrapper for the private method _numberObjectFromTimer.
-func (s SOSystemBehaviorManager) NumberObjectFromTimer(timer objectivec.IObject) objectivec.IObject {
-	return s._numberObjectFromTimer(timer)
+func (s SOSystemBehaviorManager) NumberObjectFromTimer(timer objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_numberObjectFromTimer:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_numberObjectFromTimer:"}
+		return nil, err
+	}
+	return s._numberObjectFromTimer(timer), nil
+}
+
+// CanNumberObjectFromTimer reports whether the receiver responds to the private selector _numberObjectFromTimer:.
+func (s SOSystemBehaviorManager) CanNumberObjectFromTimer() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_numberObjectFromTimer:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSystemBehaviorManager/addTimer:

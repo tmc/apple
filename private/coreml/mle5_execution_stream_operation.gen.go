@@ -286,8 +286,18 @@ func (e MLE5ExecutionStreamOperation) _bindCompletionSyncPointDirectlyIfPossible
 }
 
 // BindCompletionSyncPointDirectlyIfPossible is an exported wrapper for the private method _bindCompletionSyncPointDirectlyIfPossible.
-func (e MLE5ExecutionStreamOperation) BindCompletionSyncPointDirectlyIfPossible(possible objectivec.IObject) {
+func (e MLE5ExecutionStreamOperation) BindCompletionSyncPointDirectlyIfPossible(possible objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_bindCompletionSyncPointDirectlyIfPossible:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bindCompletionSyncPointDirectlyIfPossible:"}
+		return err
+	}
 	e._bindCompletionSyncPointDirectlyIfPossible(possible)
+	return nil
+}
+
+// CanBindCompletionSyncPointDirectlyIfPossible reports whether the receiver responds to the private selector _bindCompletionSyncPointDirectlyIfPossible:.
+func (e MLE5ExecutionStreamOperation) CanBindCompletionSyncPointDirectlyIfPossible() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_bindCompletionSyncPointDirectlyIfPossible:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:
@@ -296,8 +306,18 @@ func (e MLE5ExecutionStreamOperation) _bindEventToWaitForCopyingInputFeaturesAft
 }
 
 // BindEventToWaitForCopyingInputFeaturesAfterSyncPoints is an exported wrapper for the private method _bindEventToWaitForCopyingInputFeaturesAfterSyncPoints.
-func (e MLE5ExecutionStreamOperation) BindEventToWaitForCopyingInputFeaturesAfterSyncPoints(features objectivec.IObject, points objectivec.IObject) {
+func (e MLE5ExecutionStreamOperation) BindEventToWaitForCopyingInputFeaturesAfterSyncPoints(features objectivec.IObject, points objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:"}
+		return err
+	}
 	e._bindEventToWaitForCopyingInputFeaturesAfterSyncPoints(features, points)
+	return nil
+}
+
+// CanBindEventToWaitForCopyingInputFeaturesAfterSyncPoints reports whether the receiver responds to the private selector _bindEventToWaitForCopyingInputFeatures:afterSyncPoints:.
+func (e MLE5ExecutionStreamOperation) CanBindEventToWaitForCopyingInputFeaturesAfterSyncPoints() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_bindEventToWaitForCopyingInputFeatures:afterSyncPoints:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindInputFeaturesAndWaitEvents:options:error:
@@ -317,7 +337,16 @@ func (e MLE5ExecutionStreamOperation) _bindInputFeaturesAndWaitEventsOptionsErro
 
 // BindInputFeaturesAndWaitEventsOptionsError is an exported wrapper for the private method _bindInputFeaturesAndWaitEventsOptionsError.
 func (e MLE5ExecutionStreamOperation) BindInputFeaturesAndWaitEventsOptionsError(events objectivec.IObject, options objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_bindInputFeaturesAndWaitEvents:options:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bindInputFeaturesAndWaitEvents:options:error:"}
+		return false, err
+	}
 	return e._bindInputFeaturesAndWaitEventsOptionsError(events, options)
+}
+
+// CanBindInputFeaturesAndWaitEventsOptionsError reports whether the receiver responds to the private selector _bindInputFeaturesAndWaitEvents:options:error:.
+func (e MLE5ExecutionStreamOperation) CanBindInputFeaturesAndWaitEventsOptionsError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_bindInputFeaturesAndWaitEvents:options:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:
@@ -326,8 +355,18 @@ func (e MLE5ExecutionStreamOperation) _bindNewCompletionEventsDirectlyWithComple
 }
 
 // BindNewCompletionEventsDirectlyWithCompletionSyncPoint is an exported wrapper for the private method _bindNewCompletionEventsDirectlyWithCompletionSyncPoint.
-func (e MLE5ExecutionStreamOperation) BindNewCompletionEventsDirectlyWithCompletionSyncPoint(point objectivec.IObject) {
+func (e MLE5ExecutionStreamOperation) BindNewCompletionEventsDirectlyWithCompletionSyncPoint(point objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:"}
+		return err
+	}
 	e._bindNewCompletionEventsDirectlyWithCompletionSyncPoint(point)
+	return nil
+}
+
+// CanBindNewCompletionEventsDirectlyWithCompletionSyncPoint reports whether the receiver responds to the private selector _bindNewCompletionEventsDirectlyWithCompletionSyncPoint:.
+func (e MLE5ExecutionStreamOperation) CanBindNewCompletionEventsDirectlyWithCompletionSyncPoint() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_bindNewCompletionEventsDirectlyWithCompletionSyncPoint:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindNewWaitEventsDirectlyWithWaitSyncPoints:
@@ -336,8 +375,18 @@ func (e MLE5ExecutionStreamOperation) _bindNewWaitEventsDirectlyWithWaitSyncPoin
 }
 
 // BindNewWaitEventsDirectlyWithWaitSyncPoints is an exported wrapper for the private method _bindNewWaitEventsDirectlyWithWaitSyncPoints.
-func (e MLE5ExecutionStreamOperation) BindNewWaitEventsDirectlyWithWaitSyncPoints(points objectivec.IObject) {
+func (e MLE5ExecutionStreamOperation) BindNewWaitEventsDirectlyWithWaitSyncPoints(points objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_bindNewWaitEventsDirectlyWithWaitSyncPoints:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bindNewWaitEventsDirectlyWithWaitSyncPoints:"}
+		return err
+	}
 	e._bindNewWaitEventsDirectlyWithWaitSyncPoints(points)
+	return nil
+}
+
+// CanBindNewWaitEventsDirectlyWithWaitSyncPoints reports whether the receiver responds to the private selector _bindNewWaitEventsDirectlyWithWaitSyncPoints:.
+func (e MLE5ExecutionStreamOperation) CanBindNewWaitEventsDirectlyWithWaitSyncPoints() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_bindNewWaitEventsDirectlyWithWaitSyncPoints:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindOutputPortsWithOptions:error:
@@ -357,7 +406,16 @@ func (e MLE5ExecutionStreamOperation) _bindOutputPortsWithOptionsError(options o
 
 // BindOutputPortsWithOptionsError is an exported wrapper for the private method _bindOutputPortsWithOptionsError.
 func (e MLE5ExecutionStreamOperation) BindOutputPortsWithOptionsError(options objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_bindOutputPortsWithOptions:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bindOutputPortsWithOptions:error:"}
+		return false, err
+	}
 	return e._bindOutputPortsWithOptionsError(options)
+}
+
+// CanBindOutputPortsWithOptionsError reports whether the receiver responds to the private selector _bindOutputPortsWithOptions:error:.
+func (e MLE5ExecutionStreamOperation) CanBindOutputPortsWithOptionsError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_bindOutputPortsWithOptions:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_bindWaitEventsDirectly:
@@ -366,8 +424,18 @@ func (e MLE5ExecutionStreamOperation) _bindWaitEventsDirectly(directly objective
 }
 
 // BindWaitEventsDirectly is an exported wrapper for the private method _bindWaitEventsDirectly.
-func (e MLE5ExecutionStreamOperation) BindWaitEventsDirectly(directly objectivec.IObject) {
+func (e MLE5ExecutionStreamOperation) BindWaitEventsDirectly(directly objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_bindWaitEventsDirectly:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bindWaitEventsDirectly:"}
+		return err
+	}
 	e._bindWaitEventsDirectly(directly)
+	return nil
+}
+
+// CanBindWaitEventsDirectly reports whether the receiver responds to the private selector _bindWaitEventsDirectly:.
+func (e MLE5ExecutionStreamOperation) CanBindWaitEventsDirectly() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_bindWaitEventsDirectly:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_copyInputFeatures:error:
@@ -387,7 +455,16 @@ func (e MLE5ExecutionStreamOperation) _copyInputFeaturesError(features objective
 
 // CopyInputFeaturesError is an exported wrapper for the private method _copyInputFeaturesError.
 func (e MLE5ExecutionStreamOperation) CopyInputFeaturesError(features objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_copyInputFeatures:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_copyInputFeatures:error:"}
+		return false, err
+	}
 	return e._copyInputFeaturesError(features)
+}
+
+// CanCopyInputFeaturesError reports whether the receiver responds to the private selector _copyInputFeatures:error:.
+func (e MLE5ExecutionStreamOperation) CanCopyInputFeaturesError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_copyInputFeatures:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_createOperationAndReturnError:
@@ -404,7 +481,16 @@ func (e MLE5ExecutionStreamOperation) _createOperationAndReturnError() (E5rt_exe
 
 // CreateOperationAndReturnError is an exported wrapper for the private method _createOperationAndReturnError.
 func (e MLE5ExecutionStreamOperation) CreateOperationAndReturnError() (E5rt_execution_stream_operationRef, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_createOperationAndReturnError:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createOperationAndReturnError:"}
+		return 0, err
+	}
 	return e._createOperationAndReturnError()
+}
+
+// CanCreateOperationAndReturnError reports whether the receiver responds to the private selector _createOperationAndReturnError:.
+func (e MLE5ExecutionStreamOperation) CanCreateOperationAndReturnError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_createOperationAndReturnError:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_createOperationWithRetryCount:error:
@@ -421,7 +507,16 @@ func (e MLE5ExecutionStreamOperation) _createOperationWithRetryCountError(count 
 
 // CreateOperationWithRetryCountError is an exported wrapper for the private method _createOperationWithRetryCountError.
 func (e MLE5ExecutionStreamOperation) CreateOperationWithRetryCountError(count int64) (E5rt_execution_stream_operationRef, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_createOperationWithRetryCount:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createOperationWithRetryCount:error:"}
+		return 0, err
+	}
 	return e._createOperationWithRetryCountError(count)
+}
+
+// CanCreateOperationWithRetryCountError reports whether the receiver responds to the private selector _createOperationWithRetryCount:error:.
+func (e MLE5ExecutionStreamOperation) CanCreateOperationWithRetryCountError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_createOperationWithRetryCount:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_directlyBoundFeatureNamesForPorts:
@@ -431,8 +526,17 @@ func (e MLE5ExecutionStreamOperation) _directlyBoundFeatureNamesForPorts(ports o
 }
 
 // DirectlyBoundFeatureNamesForPorts is an exported wrapper for the private method _directlyBoundFeatureNamesForPorts.
-func (e MLE5ExecutionStreamOperation) DirectlyBoundFeatureNamesForPorts(ports objectivec.IObject) objectivec.IObject {
-	return e._directlyBoundFeatureNamesForPorts(ports)
+func (e MLE5ExecutionStreamOperation) DirectlyBoundFeatureNamesForPorts(ports objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_directlyBoundFeatureNamesForPorts:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_directlyBoundFeatureNamesForPorts:"}
+		return nil, err
+	}
+	return e._directlyBoundFeatureNamesForPorts(ports), nil
+}
+
+// CanDirectlyBoundFeatureNamesForPorts reports whether the receiver responds to the private selector _directlyBoundFeatureNamesForPorts:.
+func (e MLE5ExecutionStreamOperation) CanDirectlyBoundFeatureNamesForPorts() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_directlyBoundFeatureNamesForPorts:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_inoutPortNames
@@ -442,8 +546,17 @@ func (e MLE5ExecutionStreamOperation) _inoutPortNames() objectivec.IObject {
 }
 
 // InoutPortNames is an exported wrapper for the private method _inoutPortNames.
-func (e MLE5ExecutionStreamOperation) InoutPortNames() objectivec.IObject {
-	return e._inoutPortNames()
+func (e MLE5ExecutionStreamOperation) InoutPortNames() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_inoutPortNames")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_inoutPortNames"}
+		return nil, err
+	}
+	return e._inoutPortNames(), nil
+}
+
+// CanInoutPortNames reports whether the receiver responds to the private selector _inoutPortNames.
+func (e MLE5ExecutionStreamOperation) CanInoutPortNames() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_inoutPortNames"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_inputPortNames
@@ -453,8 +566,17 @@ func (e MLE5ExecutionStreamOperation) _inputPortNames() objectivec.IObject {
 }
 
 // InputPortNames is an exported wrapper for the private method _inputPortNames.
-func (e MLE5ExecutionStreamOperation) InputPortNames() objectivec.IObject {
-	return e._inputPortNames()
+func (e MLE5ExecutionStreamOperation) InputPortNames() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_inputPortNames")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_inputPortNames"}
+		return nil, err
+	}
+	return e._inputPortNames(), nil
+}
+
+// CanInputPortNames reports whether the receiver responds to the private selector _inputPortNames.
+func (e MLE5ExecutionStreamOperation) CanInputPortNames() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_inputPortNames"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_multiArrayFeatureFromStateFeature:
@@ -464,8 +586,17 @@ func (e MLE5ExecutionStreamOperation) _multiArrayFeatureFromStateFeature(feature
 }
 
 // MultiArrayFeatureFromStateFeature is an exported wrapper for the private method _multiArrayFeatureFromStateFeature.
-func (e MLE5ExecutionStreamOperation) MultiArrayFeatureFromStateFeature(feature objectivec.IObject) objectivec.IObject {
-	return e._multiArrayFeatureFromStateFeature(feature)
+func (e MLE5ExecutionStreamOperation) MultiArrayFeatureFromStateFeature(feature objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_multiArrayFeatureFromStateFeature:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_multiArrayFeatureFromStateFeature:"}
+		return nil, err
+	}
+	return e._multiArrayFeatureFromStateFeature(feature), nil
+}
+
+// CanMultiArrayFeatureFromStateFeature reports whether the receiver responds to the private selector _multiArrayFeatureFromStateFeature:.
+func (e MLE5ExecutionStreamOperation) CanMultiArrayFeatureFromStateFeature() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_multiArrayFeatureFromStateFeature:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_newArrayOfInoutPorts:featureDescriptionsByName:error:
@@ -482,7 +613,16 @@ func (e MLE5ExecutionStreamOperation) _newArrayOfInoutPortsFeatureDescriptionsBy
 
 // NewArrayOfInoutPortsFeatureDescriptionsByNameError is an exported wrapper for the private method _newArrayOfInoutPortsFeatureDescriptionsByNameError.
 func (e MLE5ExecutionStreamOperation) NewArrayOfInoutPortsFeatureDescriptionsByNameError(ports objectivec.IObject, name objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_newArrayOfInoutPorts:featureDescriptionsByName:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_newArrayOfInoutPorts:featureDescriptionsByName:error:"}
+		return nil, err
+	}
 	return e._newArrayOfInoutPortsFeatureDescriptionsByNameError(ports, name)
+}
+
+// CanNewArrayOfInoutPortsFeatureDescriptionsByNameError reports whether the receiver responds to the private selector _newArrayOfInoutPorts:featureDescriptionsByName:error:.
+func (e MLE5ExecutionStreamOperation) CanNewArrayOfInoutPortsFeatureDescriptionsByNameError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_newArrayOfInoutPorts:featureDescriptionsByName:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_newArrayOfInputPorts:featureDescriptionsByName:error:
@@ -499,7 +639,16 @@ func (e MLE5ExecutionStreamOperation) _newArrayOfInputPortsFeatureDescriptionsBy
 
 // NewArrayOfInputPortsFeatureDescriptionsByNameError is an exported wrapper for the private method _newArrayOfInputPortsFeatureDescriptionsByNameError.
 func (e MLE5ExecutionStreamOperation) NewArrayOfInputPortsFeatureDescriptionsByNameError(ports objectivec.IObject, name objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_newArrayOfInputPorts:featureDescriptionsByName:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_newArrayOfInputPorts:featureDescriptionsByName:error:"}
+		return nil, err
+	}
 	return e._newArrayOfInputPortsFeatureDescriptionsByNameError(ports, name)
+}
+
+// CanNewArrayOfInputPortsFeatureDescriptionsByNameError reports whether the receiver responds to the private selector _newArrayOfInputPorts:featureDescriptionsByName:error:.
+func (e MLE5ExecutionStreamOperation) CanNewArrayOfInputPortsFeatureDescriptionsByNameError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_newArrayOfInputPorts:featureDescriptionsByName:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_newArrayOfOutputPorts:featureDescriptionsByName:error:
@@ -516,7 +665,16 @@ func (e MLE5ExecutionStreamOperation) _newArrayOfOutputPortsFeatureDescriptionsB
 
 // NewArrayOfOutputPortsFeatureDescriptionsByNameError is an exported wrapper for the private method _newArrayOfOutputPortsFeatureDescriptionsByNameError.
 func (e MLE5ExecutionStreamOperation) NewArrayOfOutputPortsFeatureDescriptionsByNameError(ports objectivec.IObject, name objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_newArrayOfOutputPorts:featureDescriptionsByName:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_newArrayOfOutputPorts:featureDescriptionsByName:error:"}
+		return nil, err
+	}
 	return e._newArrayOfOutputPortsFeatureDescriptionsByNameError(ports, name)
+}
+
+// CanNewArrayOfOutputPortsFeatureDescriptionsByNameError reports whether the receiver responds to the private selector _newArrayOfOutputPorts:featureDescriptionsByName:error:.
+func (e MLE5ExecutionStreamOperation) CanNewArrayOfOutputPortsFeatureDescriptionsByNameError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_newArrayOfOutputPorts:featureDescriptionsByName:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_outputPortNames
@@ -526,8 +684,17 @@ func (e MLE5ExecutionStreamOperation) _outputPortNames() objectivec.IObject {
 }
 
 // OutputPortNames is an exported wrapper for the private method _outputPortNames.
-func (e MLE5ExecutionStreamOperation) OutputPortNames() objectivec.IObject {
-	return e._outputPortNames()
+func (e MLE5ExecutionStreamOperation) OutputPortNames() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_outputPortNames")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_outputPortNames"}
+		return nil, err
+	}
+	return e._outputPortNames(), nil
+}
+
+// CanOutputPortNames reports whether the receiver responds to the private selector _outputPortNames.
+func (e MLE5ExecutionStreamOperation) CanOutputPortNames() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_outputPortNames"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_prepareInputPortsForFeatures:error:
@@ -547,7 +714,16 @@ func (e MLE5ExecutionStreamOperation) _prepareInputPortsForFeaturesError(feature
 
 // PrepareInputPortsForFeaturesError is an exported wrapper for the private method _prepareInputPortsForFeaturesError.
 func (e MLE5ExecutionStreamOperation) PrepareInputPortsForFeaturesError(features objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_prepareInputPortsForFeatures:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_prepareInputPortsForFeatures:error:"}
+		return false, err
+	}
 	return e._prepareInputPortsForFeaturesError(features)
+}
+
+// CanPrepareInputPortsForFeaturesError reports whether the receiver responds to the private selector _prepareInputPortsForFeatures:error:.
+func (e MLE5ExecutionStreamOperation) CanPrepareInputPortsForFeaturesError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_prepareInputPortsForFeatures:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:
@@ -557,8 +733,17 @@ func (e MLE5ExecutionStreamOperation) _reusableForCompletionSyncPointAllOutputBa
 }
 
 // ReusableForCompletionSyncPointAllOutputBackingsUseDirectBinding is an exported wrapper for the private method _reusableForCompletionSyncPointAllOutputBackingsUseDirectBinding.
-func (e MLE5ExecutionStreamOperation) ReusableForCompletionSyncPointAllOutputBackingsUseDirectBinding(point objectivec.IObject, binding bool) bool {
-	return e._reusableForCompletionSyncPointAllOutputBackingsUseDirectBinding(point, binding)
+func (e MLE5ExecutionStreamOperation) ReusableForCompletionSyncPointAllOutputBackingsUseDirectBinding(point objectivec.IObject, binding bool) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:"}
+		return false, err
+	}
+	return e._reusableForCompletionSyncPointAllOutputBackingsUseDirectBinding(point, binding), nil
+}
+
+// CanReusableForCompletionSyncPointAllOutputBackingsUseDirectBinding reports whether the receiver responds to the private selector _reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:.
+func (e MLE5ExecutionStreamOperation) CanReusableForCompletionSyncPointAllOutputBackingsUseDirectBinding() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_reusableForCompletionSyncPoint:allOutputBackingsUseDirectBinding:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_reusableForWaitSyncPoints:allInputsUseDirectBinding:
@@ -568,8 +753,17 @@ func (e MLE5ExecutionStreamOperation) _reusableForWaitSyncPointsAllInputsUseDire
 }
 
 // ReusableForWaitSyncPointsAllInputsUseDirectBinding is an exported wrapper for the private method _reusableForWaitSyncPointsAllInputsUseDirectBinding.
-func (e MLE5ExecutionStreamOperation) ReusableForWaitSyncPointsAllInputsUseDirectBinding(points objectivec.IObject, binding bool) bool {
-	return e._reusableForWaitSyncPointsAllInputsUseDirectBinding(points, binding)
+func (e MLE5ExecutionStreamOperation) ReusableForWaitSyncPointsAllInputsUseDirectBinding(points objectivec.IObject, binding bool) (bool, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_reusableForWaitSyncPoints:allInputsUseDirectBinding:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_reusableForWaitSyncPoints:allInputsUseDirectBinding:"}
+		return false, err
+	}
+	return e._reusableForWaitSyncPointsAllInputsUseDirectBinding(points, binding), nil
+}
+
+// CanReusableForWaitSyncPointsAllInputsUseDirectBinding reports whether the receiver responds to the private selector _reusableForWaitSyncPoints:allInputsUseDirectBinding:.
+func (e MLE5ExecutionStreamOperation) CanReusableForWaitSyncPointsAllInputsUseDirectBinding() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_reusableForWaitSyncPoints:allInputsUseDirectBinding:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_updateCompletionEventFutureValuesWithCompletionSyncPoint:
@@ -578,8 +772,18 @@ func (e MLE5ExecutionStreamOperation) _updateCompletionEventFutureValuesWithComp
 }
 
 // UpdateCompletionEventFutureValuesWithCompletionSyncPoint is an exported wrapper for the private method _updateCompletionEventFutureValuesWithCompletionSyncPoint.
-func (e MLE5ExecutionStreamOperation) UpdateCompletionEventFutureValuesWithCompletionSyncPoint(point objectivec.IObject) {
+func (e MLE5ExecutionStreamOperation) UpdateCompletionEventFutureValuesWithCompletionSyncPoint(point objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_updateCompletionEventFutureValuesWithCompletionSyncPoint:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateCompletionEventFutureValuesWithCompletionSyncPoint:"}
+		return err
+	}
 	e._updateCompletionEventFutureValuesWithCompletionSyncPoint(point)
+	return nil
+}
+
+// CanUpdateCompletionEventFutureValuesWithCompletionSyncPoint reports whether the receiver responds to the private selector _updateCompletionEventFutureValuesWithCompletionSyncPoint:.
+func (e MLE5ExecutionStreamOperation) CanUpdateCompletionEventFutureValuesWithCompletionSyncPoint() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_updateCompletionEventFutureValuesWithCompletionSyncPoint:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/_updateWaitEventFutureValuesWithWaitSyncPoints:
@@ -588,8 +792,18 @@ func (e MLE5ExecutionStreamOperation) _updateWaitEventFutureValuesWithWaitSyncPo
 }
 
 // UpdateWaitEventFutureValuesWithWaitSyncPoints is an exported wrapper for the private method _updateWaitEventFutureValuesWithWaitSyncPoints.
-func (e MLE5ExecutionStreamOperation) UpdateWaitEventFutureValuesWithWaitSyncPoints(points objectivec.IObject) {
+func (e MLE5ExecutionStreamOperation) UpdateWaitEventFutureValuesWithWaitSyncPoints(points objectivec.IObject) error {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_updateWaitEventFutureValuesWithWaitSyncPoints:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateWaitEventFutureValuesWithWaitSyncPoints:"}
+		return err
+	}
 	e._updateWaitEventFutureValuesWithWaitSyncPoints(points)
+	return nil
+}
+
+// CanUpdateWaitEventFutureValuesWithWaitSyncPoints reports whether the receiver responds to the private selector _updateWaitEventFutureValuesWithWaitSyncPoints:.
+func (e MLE5ExecutionStreamOperation) CanUpdateWaitEventFutureValuesWithWaitSyncPoints() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_updateWaitEventFutureValuesWithWaitSyncPoints:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperation/preloadAndReturnError:

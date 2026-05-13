@@ -91,8 +91,17 @@ func (_MLLoaderClass MLLoaderClass) _conformConfigurationUsingModelArchive(confi
 }
 
 // ConformConfigurationUsingModelArchive is an exported wrapper for the private method _conformConfigurationUsingModelArchive.
-func (_MLLoaderClass MLLoaderClass) ConformConfigurationUsingModelArchive(configuration objectivec.IObject, archive unsafe.Pointer) objectivec.IObject {
-	return _MLLoaderClass._conformConfigurationUsingModelArchive(configuration, archive)
+func (_MLLoaderClass MLLoaderClass) ConformConfigurationUsingModelArchive(configuration objectivec.IObject, archive unsafe.Pointer) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_conformConfiguration:usingModelArchive:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_conformConfiguration:usingModelArchive:"}
+		return nil, err
+	}
+	return _MLLoaderClass._conformConfigurationUsingModelArchive(configuration, archive), nil
+}
+
+// CanConformConfigurationUsingModelArchive reports whether the receiver responds to the private selector _conformConfiguration:usingModelArchive:.
+func (_MLLoaderClass MLLoaderClass) CanConformConfigurationUsingModelArchive() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_conformConfiguration:usingModelArchive:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_createDecryptSessionForModelAtURL:configuration:decryptSession:loaderEvent:error:
@@ -112,7 +121,16 @@ func (_MLLoaderClass MLLoaderClass) _createDecryptSessionForModelAtURLConfigurat
 
 // CreateDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError is an exported wrapper for the private method _createDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError.
 func (_MLLoaderClass MLLoaderClass) CreateDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError(url foundation.INSURL, configuration objectivec.IObject, session []objectivec.IObject, event objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_createDecryptSessionForModelAtURL:configuration:decryptSession:loaderEvent:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createDecryptSessionForModelAtURL:configuration:decryptSession:loaderEvent:error:"}
+		return false, err
+	}
 	return _MLLoaderClass._createDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError(url, configuration, session, event)
+}
+
+// CanCreateDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError reports whether the receiver responds to the private selector _createDecryptSessionForModelAtURL:configuration:decryptSession:loaderEvent:error:.
+func (_MLLoaderClass MLLoaderClass) CanCreateDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_createDecryptSessionForModelAtURL:configuration:decryptSession:loaderEvent:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_findCodedObjectURLInModelArchive:
@@ -122,8 +140,17 @@ func (_MLLoaderClass MLLoaderClass) _findCodedObjectURLInModelArchive(archive un
 }
 
 // FindCodedObjectURLInModelArchive is an exported wrapper for the private method _findCodedObjectURLInModelArchive.
-func (_MLLoaderClass MLLoaderClass) FindCodedObjectURLInModelArchive(archive unsafe.Pointer) objectivec.IObject {
-	return _MLLoaderClass._findCodedObjectURLInModelArchive(archive)
+func (_MLLoaderClass MLLoaderClass) FindCodedObjectURLInModelArchive(archive unsafe.Pointer) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_findCodedObjectURLInModelArchive:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_findCodedObjectURLInModelArchive:"}
+		return nil, err
+	}
+	return _MLLoaderClass._findCodedObjectURLInModelArchive(archive), nil
+}
+
+// CanFindCodedObjectURLInModelArchive reports whether the receiver responds to the private selector _findCodedObjectURLInModelArchive:.
+func (_MLLoaderClass MLLoaderClass) CanFindCodedObjectURLInModelArchive() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_findCodedObjectURLInModelArchive:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelAssetDescriptionFromArchive:configuration:modelVersion:compilerVersion:loadingClasses:error:
@@ -140,7 +167,16 @@ func (_MLLoaderClass MLLoaderClass) _loadModelAssetDescriptionFromArchiveConfigu
 
 // LoadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError is an exported wrapper for the private method _loadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError.
 func (_MLLoaderClass MLLoaderClass) LoadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError(archive unsafe.Pointer, configuration objectivec.IObject, version objectivec.IObject, version2 objectivec.IObject, classes objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelAssetDescriptionFromArchive:configuration:modelVersion:compilerVersion:loadingClasses:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadModelAssetDescriptionFromArchive:configuration:modelVersion:compilerVersion:loadingClasses:error:"}
+		return nil, err
+	}
 	return _MLLoaderClass._loadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError(archive, configuration, version, version2, classes)
+}
+
+// CanLoadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError reports whether the receiver responds to the private selector _loadModelAssetDescriptionFromArchive:configuration:modelVersion:compilerVersion:loadingClasses:error:.
+func (_MLLoaderClass MLLoaderClass) CanLoadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelAssetDescriptionFromArchive:configuration:modelVersion:compilerVersion:loadingClasses:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:
@@ -157,7 +193,16 @@ func (_MLLoaderClass MLLoaderClass) _loadModelFromArchiveConfigurationLoaderEven
 
 // LoadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError is an exported wrapper for the private method _loadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError.
 func (_MLLoaderClass MLLoaderClass) LoadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive unsafe.Pointer, configuration objectivec.IObject, event objectivec.IObject, loaders bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadModelFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:"}
+		return nil, err
+	}
 	return _MLLoaderClass._loadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive, configuration, event, loaders)
+}
+
+// CanLoadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError reports whether the receiver responds to the private selector _loadModelFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:.
+func (_MLLoaderClass MLLoaderClass) CanLoadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelFromArchive:configuration:modelVersion:compilerVersion:loaderEvent:useUpdatableModelLoaders:loadingClasses:error:
@@ -174,7 +219,16 @@ func (_MLLoaderClass MLLoaderClass) _loadModelFromArchiveConfigurationModelVersi
 
 // LoadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError is an exported wrapper for the private method _loadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError.
 func (_MLLoaderClass MLLoaderClass) LoadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError(archive unsafe.Pointer, configuration objectivec.IObject, version objectivec.IObject, version2 objectivec.IObject, event objectivec.IObject, loaders bool, classes objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelFromArchive:configuration:modelVersion:compilerVersion:loaderEvent:useUpdatableModelLoaders:loadingClasses:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadModelFromArchive:configuration:modelVersion:compilerVersion:loaderEvent:useUpdatableModelLoaders:loadingClasses:error:"}
+		return nil, err
+	}
 	return _MLLoaderClass._loadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError(archive, configuration, version, version2, event, loaders, classes)
+}
+
+// CanLoadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError reports whether the receiver responds to the private selector _loadModelFromArchive:configuration:modelVersion:compilerVersion:loaderEvent:useUpdatableModelLoaders:loadingClasses:error:.
+func (_MLLoaderClass MLLoaderClass) CanLoadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelFromArchive:configuration:modelVersion:compilerVersion:loaderEvent:useUpdatableModelLoaders:loadingClasses:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelFromAssetAtURL:configuration:loaderEvent:error:
@@ -191,7 +245,16 @@ func (_MLLoaderClass MLLoaderClass) _loadModelFromAssetAtURLConfigurationLoaderE
 
 // LoadModelFromAssetAtURLConfigurationLoaderEventError is an exported wrapper for the private method _loadModelFromAssetAtURLConfigurationLoaderEventError.
 func (_MLLoaderClass MLLoaderClass) LoadModelFromAssetAtURLConfigurationLoaderEventError(url foundation.INSURL, configuration objectivec.IObject, event objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelFromAssetAtURL:configuration:loaderEvent:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadModelFromAssetAtURL:configuration:loaderEvent:error:"}
+		return nil, err
+	}
 	return _MLLoaderClass._loadModelFromAssetAtURLConfigurationLoaderEventError(url, configuration, event)
+}
+
+// CanLoadModelFromAssetAtURLConfigurationLoaderEventError reports whether the receiver responds to the private selector _loadModelFromAssetAtURL:configuration:loaderEvent:error:.
+func (_MLLoaderClass MLLoaderClass) CanLoadModelFromAssetAtURLConfigurationLoaderEventError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelFromAssetAtURL:configuration:loaderEvent:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
@@ -208,7 +271,16 @@ func (_MLLoaderClass MLLoaderClass) _loadModelWithClassFromArchiveModelVersionIn
 
 // LoadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError is an exported wrapper for the private method _loadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError.
 func (_MLLoaderClass MLLoaderClass) LoadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class objc.Class, archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"}
+		return nil, err
+	}
 	return _MLLoaderClass._loadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class, archive, info, info2, configuration)
+}
+
+// CanLoadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError reports whether the receiver responds to the private selector _loadModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:.
+func (_MLLoaderClass MLLoaderClass) CanLoadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadUpdatableModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
@@ -225,7 +297,16 @@ func (_MLLoaderClass MLLoaderClass) _loadUpdatableModelWithClassFromArchiveModel
 
 // LoadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError is an exported wrapper for the private method _loadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError.
 func (_MLLoaderClass MLLoaderClass) LoadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class objc.Class, archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadUpdatableModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadUpdatableModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"}
+		return nil, err
+	}
 	return _MLLoaderClass._loadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class, archive, info, info2, configuration)
+}
+
+// CanLoadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError reports whether the receiver responds to the private selector _loadUpdatableModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:.
+func (_MLLoaderClass MLLoaderClass) CanLoadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadUpdatableModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadWithModelLoaderFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:
@@ -242,7 +323,16 @@ func (_MLLoaderClass MLLoaderClass) _loadWithModelLoaderFromArchiveConfiguration
 
 // LoadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError is an exported wrapper for the private method _loadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError.
 func (_MLLoaderClass MLLoaderClass) LoadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive unsafe.Pointer, configuration objectivec.IObject, event objectivec.IObject, loaders bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadWithModelLoaderFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadWithModelLoaderFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:"}
+		return nil, err
+	}
 	return _MLLoaderClass._loadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive, configuration, event, loaders)
+}
+
+// CanLoadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError reports whether the receiver responds to the private selector _loadWithModelLoaderFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:.
+func (_MLLoaderClass MLLoaderClass) CanLoadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_loadWithModelLoaderFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:
@@ -251,8 +341,18 @@ func (_MLLoaderClass MLLoaderClass) _populateLoaderAndPredictionEventModelConfig
 }
 
 // PopulateLoaderAndPredictionEventModelConfigurationLoadTimeDuration is an exported wrapper for the private method _populateLoaderAndPredictionEventModelConfigurationLoadTimeDuration.
-func (_MLLoaderClass MLLoaderClass) PopulateLoaderAndPredictionEventModelConfigurationLoadTimeDuration(event objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject, duration uint64) {
+func (_MLLoaderClass MLLoaderClass) PopulateLoaderAndPredictionEventModelConfigurationLoadTimeDuration(event objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject, duration uint64) error {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:"}
+		return err
+	}
 	_MLLoaderClass._populateLoaderAndPredictionEventModelConfigurationLoadTimeDuration(event, model, configuration, duration)
+	return nil
+}
+
+// CanPopulateLoaderAndPredictionEventModelConfigurationLoadTimeDuration reports whether the receiver responds to the private selector _populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:.
+func (_MLLoaderClass MLLoaderClass) CanPopulateLoaderAndPredictionEventModelConfigurationLoadTimeDuration() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_unarchiveCodedModelObjectAtURL:error:
@@ -269,7 +369,16 @@ func (_MLLoaderClass MLLoaderClass) _unarchiveCodedModelObjectAtURLError(url fou
 
 // UnarchiveCodedModelObjectAtURLError is an exported wrapper for the private method _unarchiveCodedModelObjectAtURLError.
 func (_MLLoaderClass MLLoaderClass) UnarchiveCodedModelObjectAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_unarchiveCodedModelObjectAtURL:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_unarchiveCodedModelObjectAtURL:error:"}
+		return nil, err
+	}
 	return _MLLoaderClass._unarchiveCodedModelObjectAtURLError(url)
+}
+
+// CanUnarchiveCodedModelObjectAtURLError reports whether the receiver responds to the private selector _unarchiveCodedModelObjectAtURL:error:.
+func (_MLLoaderClass MLLoaderClass) CanUnarchiveCodedModelObjectAtURLError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLLoaderClass.class), objc.Sel("_unarchiveCodedModelObjectAtURL:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/checkAssetPath:error:

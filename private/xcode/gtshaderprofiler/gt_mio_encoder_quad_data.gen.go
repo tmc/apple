@@ -226,8 +226,17 @@ func (g GTMioEncoderQuadData) _buildCliquesEncoderFunctionIndexProgramTypeClique
 }
 
 // BuildCliquesEncoderFunctionIndexProgramTypeCliqueFilter is an exported wrapper for the private method _buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter.
-func (g GTMioEncoderQuadData) BuildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
-	return g._buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques, index, type_, filter)
+func (g GTMioEncoderQuadData) BuildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_buildCliques:encoderFunctionIndex:programType:cliqueFilter:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_buildCliques:encoderFunctionIndex:programType:cliqueFilter:"}
+		return false, err
+	}
+	return g._buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques, index, type_, filter), nil
+}
+
+// CanBuildCliquesEncoderFunctionIndexProgramTypeCliqueFilter reports whether the receiver responds to the private selector _buildCliques:encoderFunctionIndex:programType:cliqueFilter:.
+func (g GTMioEncoderQuadData) CanBuildCliquesEncoderFunctionIndexProgramTypeCliqueFilter() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_buildCliques:encoderFunctionIndex:programType:cliqueFilter:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/_buildCompute:encoderFunctionIndex:programType:cliqueFilter:
@@ -238,8 +247,17 @@ func (g GTMioEncoderQuadData) _buildComputeEncoderFunctionIndexProgramTypeClique
 }
 
 // BuildComputeEncoderFunctionIndexProgramTypeCliqueFilter is an exported wrapper for the private method _buildComputeEncoderFunctionIndexProgramTypeCliqueFilter.
-func (g GTMioEncoderQuadData) BuildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
-	return g._buildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute, index, type_, filter)
+func (g GTMioEncoderQuadData) BuildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_buildCompute:encoderFunctionIndex:programType:cliqueFilter:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_buildCompute:encoderFunctionIndex:programType:cliqueFilter:"}
+		return false, err
+	}
+	return g._buildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute, index, type_, filter), nil
+}
+
+// CanBuildComputeEncoderFunctionIndexProgramTypeCliqueFilter reports whether the receiver responds to the private selector _buildCompute:encoderFunctionIndex:programType:cliqueFilter:.
+func (g GTMioEncoderQuadData) CanBuildComputeEncoderFunctionIndexProgramTypeCliqueFilter() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_buildCompute:encoderFunctionIndex:programType:cliqueFilter:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/_buildFragment:encoderFunctionIndex:programType:cliqueFilter:
@@ -250,8 +268,17 @@ func (g GTMioEncoderQuadData) _buildFragmentEncoderFunctionIndexProgramTypeCliqu
 }
 
 // BuildFragmentEncoderFunctionIndexProgramTypeCliqueFilter is an exported wrapper for the private method _buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter.
-func (g GTMioEncoderQuadData) BuildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
-	return g._buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment, index, type_, filter)
+func (g GTMioEncoderQuadData) BuildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_buildFragment:encoderFunctionIndex:programType:cliqueFilter:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_buildFragment:encoderFunctionIndex:programType:cliqueFilter:"}
+		return false, err
+	}
+	return g._buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment, index, type_, filter), nil
+}
+
+// CanBuildFragmentEncoderFunctionIndexProgramTypeCliqueFilter reports whether the receiver responds to the private selector _buildFragment:encoderFunctionIndex:programType:cliqueFilter:.
+func (g GTMioEncoderQuadData) CanBuildFragmentEncoderFunctionIndexProgramTypeCliqueFilter() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_buildFragment:encoderFunctionIndex:programType:cliqueFilter:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/_handleClique:
@@ -260,8 +287,18 @@ func (g GTMioEncoderQuadData) _handleClique(clique *GTMioUSCCliqueMetadataRef) {
 }
 
 // HandleClique is an exported wrapper for the private method _handleClique.
-func (g GTMioEncoderQuadData) HandleClique(clique *GTMioUSCCliqueMetadataRef) {
+func (g GTMioEncoderQuadData) HandleClique(clique *GTMioUSCCliqueMetadataRef) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_handleClique:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_handleClique:"}
+		return err
+	}
 	g._handleClique(clique)
+	return nil
+}
+
+// CanHandleClique reports whether the receiver responds to the private selector _handleClique:.
+func (g GTMioEncoderQuadData) CanHandleClique() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_handleClique:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/build:encoderFunctionIndex:cliqueFilter:

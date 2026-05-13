@@ -309,8 +309,17 @@ func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) _speechVoicesInc
 }
 
 // SpeechVoicesIncludingSiri is an exported wrapper for the private method _speechVoicesIncludingSiri.
-func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiri() objectivec.IObject {
-	return _AVSpeechSynthesisVoiceClass._speechVoicesIncludingSiri()
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiri() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiri")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speechVoicesIncludingSiri"}
+		return nil, err
+	}
+	return _AVSpeechSynthesisVoiceClass._speechVoicesIncludingSiri(), nil
+}
+
+// CanSpeechVoicesIncludingSiri reports whether the receiver responds to the private selector _speechVoicesIncludingSiri.
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) CanSpeechVoicesIncludingSiri() bool {
+	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiri"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/_speechVoicesIncludingSiri:
@@ -320,8 +329,17 @@ func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) _speechVoicesInc
 }
 
 // SpeechVoicesIncludingSiriWithSiri is an exported wrapper for the private method _speechVoicesIncludingSiriWithSiri.
-func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiriWithSiri(siri bool) objectivec.IObject {
-	return _AVSpeechSynthesisVoiceClass._speechVoicesIncludingSiriWithSiri(siri)
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiriWithSiri(siri bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiri:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speechVoicesIncludingSiri:"}
+		return nil, err
+	}
+	return _AVSpeechSynthesisVoiceClass._speechVoicesIncludingSiriWithSiri(siri), nil
+}
+
+// CanSpeechVoicesIncludingSiriWithSiri reports whether the receiver responds to the private selector _speechVoicesIncludingSiri:.
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) CanSpeechVoicesIncludingSiriWithSiri() bool {
+	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiri:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/_speechVoicesIncludingSiriAndSuperCompact
@@ -331,8 +349,17 @@ func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) _speechVoicesInc
 }
 
 // SpeechVoicesIncludingSiriAndSuperCompact is an exported wrapper for the private method _speechVoicesIncludingSiriAndSuperCompact.
-func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiriAndSuperCompact() objectivec.IObject {
-	return _AVSpeechSynthesisVoiceClass._speechVoicesIncludingSiriAndSuperCompact()
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiriAndSuperCompact() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiriAndSuperCompact")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speechVoicesIncludingSiriAndSuperCompact"}
+		return nil, err
+	}
+	return _AVSpeechSynthesisVoiceClass._speechVoicesIncludingSiriAndSuperCompact(), nil
+}
+
+// CanSpeechVoicesIncludingSiriAndSuperCompact reports whether the receiver responds to the private selector _speechVoicesIncludingSiriAndSuperCompact.
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) CanSpeechVoicesIncludingSiriAndSuperCompact() bool {
+	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiriAndSuperCompact"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/_speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler:
@@ -342,8 +369,18 @@ func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) _speechVoicesInc
 }
 
 // SpeechVoicesIncludingSiriAndSuperCompactWithCompletionHandler is an exported wrapper for the private method _speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler.
-func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiriAndSuperCompactWithCompletionHandler(handler ErrorHandler) {
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiriAndSuperCompactWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler:"}
+		return err
+	}
 	_AVSpeechSynthesisVoiceClass._speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler(handler)
+	return nil
+}
+
+// CanSpeechVoicesIncludingSiriAndSuperCompactWithCompletionHandler reports whether the receiver responds to the private selector _speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler:.
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) CanSpeechVoicesIncludingSiriAndSuperCompactWithCompletionHandler() bool {
+	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/_speechVoicesIncludingSiriWithCompletionHandler:
@@ -353,8 +390,18 @@ func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) _speechVoicesInc
 }
 
 // SpeechVoicesIncludingSiriWithCompletionHandler is an exported wrapper for the private method _speechVoicesIncludingSiriWithCompletionHandler.
-func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiriWithCompletionHandler(handler ErrorHandler) {
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSiriWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiriWithCompletionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speechVoicesIncludingSiriWithCompletionHandler:"}
+		return err
+	}
 	_AVSpeechSynthesisVoiceClass._speechVoicesIncludingSiriWithCompletionHandler(handler)
+	return nil
+}
+
+// CanSpeechVoicesIncludingSiriWithCompletionHandler reports whether the receiver responds to the private selector _speechVoicesIncludingSiriWithCompletionHandler:.
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) CanSpeechVoicesIncludingSiriWithCompletionHandler() bool {
+	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_speechVoicesIncludingSiriWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/_voiceFromInternalVoiceListWithIdentifier:
@@ -364,8 +411,17 @@ func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) _voiceFromIntern
 }
 
 // VoiceFromInternalVoiceListWithIdentifier is an exported wrapper for the private method _voiceFromInternalVoiceListWithIdentifier.
-func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) VoiceFromInternalVoiceListWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	return _AVSpeechSynthesisVoiceClass._voiceFromInternalVoiceListWithIdentifier(identifier)
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) VoiceFromInternalVoiceListWithIdentifier(identifier objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_voiceFromInternalVoiceListWithIdentifier:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_voiceFromInternalVoiceListWithIdentifier:"}
+		return nil, err
+	}
+	return _AVSpeechSynthesisVoiceClass._voiceFromInternalVoiceListWithIdentifier(identifier), nil
+}
+
+// CanVoiceFromInternalVoiceListWithIdentifier reports whether the receiver responds to the private selector _voiceFromInternalVoiceListWithIdentifier:.
+func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) CanVoiceFromInternalVoiceListWithIdentifier() bool {
+	return objc.RespondsToSelector(objc.ID(_AVSpeechSynthesisVoiceClass.class), objc.Sel("_voiceFromInternalVoiceListWithIdentifier:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/speechVoicesIncludingSuperCompact

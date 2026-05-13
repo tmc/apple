@@ -128,8 +128,17 @@ func (s SLSIconAppearanceConfiguration) _initWithIconAppearanceThemeIconTintColo
 }
 
 // InitWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme is an exported wrapper for the private method _initWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme.
-func (s SLSIconAppearanceConfiguration) InitWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme(theme uint32, name uint32, color coregraphics.CGColorRef, theme2 uint32) objectivec.IObject {
-	return s._initWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme(theme, name, color, theme2)
+func (s SLSIconAppearanceConfiguration) InitWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme(theme uint32, name uint32, color coregraphics.CGColorRef, theme2 uint32) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:"}
+		return nil, err
+	}
+	return s._initWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme(theme, name, color, theme2), nil
+}
+
+// CanInitWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme reports whether the receiver responds to the private selector _initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:.
+func (s SLSIconAppearanceConfiguration) CanInitWithIconAppearanceThemeIconTintColorNameOtherIconTintColorAppearanceTheme() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithIconAppearanceTheme:iconTintColorName:otherIconTintColor:appearanceTheme:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSIconAppearanceConfiguration/save

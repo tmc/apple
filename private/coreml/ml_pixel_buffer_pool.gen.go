@@ -117,7 +117,16 @@ func (p MLPixelBufferPool) _pixelBufferPoolWithSizePixelFormatTypeError(size cor
 
 // PixelBufferPoolWithSizePixelFormatTypeError is an exported wrapper for the private method _pixelBufferPoolWithSizePixelFormatTypeError.
 func (p MLPixelBufferPool) PixelBufferPoolWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
+	if !objc.RespondsToSelector(p.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_pixelBufferPoolWithSize:pixelFormatType:error:"}
+		return 0, err
+	}
 	return p._pixelBufferPoolWithSizePixelFormatTypeError(size, type_)
+}
+
+// CanPixelBufferPoolWithSizePixelFormatTypeError reports whether the receiver responds to the private selector _pixelBufferPoolWithSize:pixelFormatType:error:.
+func (p MLPixelBufferPool) CanPixelBufferPoolWithSizePixelFormatTypeError() bool {
+	return objc.RespondsToSelector(p.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/createPixelBufferWithSize:pixelFormatType:error:

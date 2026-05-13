@@ -567,7 +567,16 @@ func (_MLMultiArrayClass MLMultiArrayClass) _shapeOfNestedArrayError(array objec
 
 // ShapeOfNestedArrayError is an exported wrapper for the private method _shapeOfNestedArrayError.
 func (_MLMultiArrayClass MLMultiArrayClass) ShapeOfNestedArrayError(array objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLMultiArrayClass.class), objc.Sel("_shapeOfNestedArray:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_shapeOfNestedArray:error:"}
+		return nil, err
+	}
 	return _MLMultiArrayClass._shapeOfNestedArrayError(array)
+}
+
+// CanShapeOfNestedArrayError reports whether the receiver responds to the private selector _shapeOfNestedArray:error:.
+func (_MLMultiArrayClass MLMultiArrayClass) CanShapeOfNestedArrayError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLMultiArrayClass.class), objc.Sel("_shapeOfNestedArray:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/cppStorageOrder:

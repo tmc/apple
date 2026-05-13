@@ -158,8 +158,18 @@ func (s SOCustomizeSRLanguagesWindowController) _propagateCheckboxSelection(sele
 }
 
 // PropagateCheckboxSelection is an exported wrapper for the private method _propagateCheckboxSelection.
-func (s SOCustomizeSRLanguagesWindowController) PropagateCheckboxSelection(selection objectivec.IObject) {
+func (s SOCustomizeSRLanguagesWindowController) PropagateCheckboxSelection(selection objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_propagateCheckboxSelection:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_propagateCheckboxSelection:"}
+		return err
+	}
 	s._propagateCheckboxSelection(selection)
+	return nil
+}
+
+// CanPropagateCheckboxSelection reports whether the receiver responds to the private selector _propagateCheckboxSelection:.
+func (s SOCustomizeSRLanguagesWindowController) CanPropagateCheckboxSelection() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_propagateCheckboxSelection:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_propagateDownloadVariantSelection:
@@ -168,8 +178,18 @@ func (s SOCustomizeSRLanguagesWindowController) _propagateDownloadVariantSelecti
 }
 
 // PropagateDownloadVariantSelection is an exported wrapper for the private method _propagateDownloadVariantSelection.
-func (s SOCustomizeSRLanguagesWindowController) PropagateDownloadVariantSelection(selection objectivec.IObject) {
+func (s SOCustomizeSRLanguagesWindowController) PropagateDownloadVariantSelection(selection objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_propagateDownloadVariantSelection:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_propagateDownloadVariantSelection:"}
+		return err
+	}
 	s._propagateDownloadVariantSelection(selection)
+	return nil
+}
+
+// CanPropagateDownloadVariantSelection reports whether the receiver responds to the private selector _propagateDownloadVariantSelection:.
+func (s SOCustomizeSRLanguagesWindowController) CanPropagateDownloadVariantSelection() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_propagateDownloadVariantSelection:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_rebuildList
@@ -178,8 +198,18 @@ func (s SOCustomizeSRLanguagesWindowController) _rebuildList() {
 }
 
 // RebuildList is an exported wrapper for the private method _rebuildList.
-func (s SOCustomizeSRLanguagesWindowController) RebuildList() {
+func (s SOCustomizeSRLanguagesWindowController) RebuildList() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_rebuildList")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_rebuildList"}
+		return err
+	}
 	s._rebuildList()
+	return nil
+}
+
+// CanRebuildList reports whether the receiver responds to the private selector _rebuildList.
+func (s SOCustomizeSRLanguagesWindowController) CanRebuildList() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_rebuildList"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:
@@ -188,8 +218,18 @@ func (s SOCustomizeSRLanguagesWindowController) _setRowStatusFieldViewVariantPop
 }
 
 // SetRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected is an exported wrapper for the private method _setRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected.
-func (s SOCustomizeSRLanguagesWindowController) SetRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected(view objectivec.IObject, button objectivec.IObject, item objectivec.IObject, selected bool) {
+func (s SOCustomizeSRLanguagesWindowController) SetRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected(view objectivec.IObject, button objectivec.IObject, item objectivec.IObject, selected bool) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:"}
+		return err
+	}
 	s._setRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected(view, button, item, selected)
+	return nil
+}
+
+// CanSetRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected reports whether the receiver responds to the private selector _setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:.
+func (s SOCustomizeSRLanguagesWindowController) CanSetRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_updateButtonStatesOnlyIfDownloadRequired:
@@ -198,8 +238,18 @@ func (s SOCustomizeSRLanguagesWindowController) _updateButtonStatesOnlyIfDownloa
 }
 
 // UpdateButtonStatesOnlyIfDownloadRequired is an exported wrapper for the private method _updateButtonStatesOnlyIfDownloadRequired.
-func (s SOCustomizeSRLanguagesWindowController) UpdateButtonStatesOnlyIfDownloadRequired(required bool) {
+func (s SOCustomizeSRLanguagesWindowController) UpdateButtonStatesOnlyIfDownloadRequired(required bool) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateButtonStatesOnlyIfDownloadRequired:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateButtonStatesOnlyIfDownloadRequired:"}
+		return err
+	}
 	s._updateButtonStatesOnlyIfDownloadRequired(required)
+	return nil
+}
+
+// CanUpdateButtonStatesOnlyIfDownloadRequired reports whether the receiver responds to the private selector _updateButtonStatesOnlyIfDownloadRequired:.
+func (s SOCustomizeSRLanguagesWindowController) CanUpdateButtonStatesOnlyIfDownloadRequired() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_updateButtonStatesOnlyIfDownloadRequired:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_updateDisplayUsingFilterString:
@@ -208,8 +258,18 @@ func (s SOCustomizeSRLanguagesWindowController) _updateDisplayUsingFilterString(
 }
 
 // UpdateDisplayUsingFilterString is an exported wrapper for the private method _updateDisplayUsingFilterString.
-func (s SOCustomizeSRLanguagesWindowController) UpdateDisplayUsingFilterString(string_ objectivec.IObject) {
+func (s SOCustomizeSRLanguagesWindowController) UpdateDisplayUsingFilterString(string_ objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateDisplayUsingFilterString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateDisplayUsingFilterString:"}
+		return err
+	}
 	s._updateDisplayUsingFilterString(string_)
+	return nil
+}
+
+// CanUpdateDisplayUsingFilterString reports whether the receiver responds to the private selector _updateDisplayUsingFilterString:.
+func (s SOCustomizeSRLanguagesWindowController) CanUpdateDisplayUsingFilterString() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_updateDisplayUsingFilterString:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_updateRowDownloadStatus
@@ -218,8 +278,18 @@ func (s SOCustomizeSRLanguagesWindowController) _updateRowDownloadStatus() {
 }
 
 // UpdateRowDownloadStatus is an exported wrapper for the private method _updateRowDownloadStatus.
-func (s SOCustomizeSRLanguagesWindowController) UpdateRowDownloadStatus() {
+func (s SOCustomizeSRLanguagesWindowController) UpdateRowDownloadStatus() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateRowDownloadStatus")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateRowDownloadStatus"}
+		return err
+	}
 	s._updateRowDownloadStatus()
+	return nil
+}
+
+// CanUpdateRowDownloadStatus reports whether the receiver responds to the private selector _updateRowDownloadStatus.
+func (s SOCustomizeSRLanguagesWindowController) CanUpdateRowDownloadStatus() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_updateRowDownloadStatus"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/acceptSelection:

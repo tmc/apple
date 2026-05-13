@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/security"
 )
 
 // The class instance for the [FetchRestoreKeysCryptoKitWrapper] class.
@@ -120,7 +121,7 @@ func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperCla
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/FetchRestoreKeys.CryptoKitWrapper/wrappedDataDictionaryWithCertWithPlainText:certificate:error:
-func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperClass) WrappedDataDictionaryWithCertWithPlainTextCertificateError(text objectivec.IObject, certificate uintptr) (objectivec.IObject, error) {
+func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperClass) WrappedDataDictionaryWithCertWithPlainTextCertificateError(text objectivec.IObject, certificate security.SecCertificateRef) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_FetchRestoreKeysCryptoKitWrapperClass.class), objc.Sel("wrappedDataDictionaryWithCertWithPlainText:certificate:error:"), text, certificate, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

@@ -137,8 +137,18 @@ func (x XRGPUATRCImporter) _loadKTrace() {
 }
 
 // LoadKTrace is an exported wrapper for the private method _loadKTrace.
-func (x XRGPUATRCImporter) LoadKTrace() {
+func (x XRGPUATRCImporter) LoadKTrace() error {
+	if !objc.RespondsToSelector(x.ID, objc.Sel("_loadKTrace")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadKTrace"}
+		return err
+	}
 	x._loadKTrace()
+	return nil
+}
+
+// CanLoadKTrace reports whether the receiver responds to the private selector _loadKTrace.
+func (x XRGPUATRCImporter) CanLoadKTrace() bool {
+	return objc.RespondsToSelector(x.ID, objc.Sel("_loadKTrace"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUATRCImporter/_parseAGXBlock:length:container:
@@ -148,8 +158,17 @@ func (x XRGPUATRCImporter) _parseAGXBlockLengthContainer(aGXBlock string, length
 }
 
 // ParseAGXBlockLengthContainer is an exported wrapper for the private method _parseAGXBlockLengthContainer.
-func (x XRGPUATRCImporter) ParseAGXBlockLengthContainer(aGXBlock string, length uint64, container objectivec.IObject) bool {
-	return x._parseAGXBlockLengthContainer(aGXBlock, length, container)
+func (x XRGPUATRCImporter) ParseAGXBlockLengthContainer(aGXBlock string, length uint64, container objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(x.ID, objc.Sel("_parseAGXBlock:length:container:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_parseAGXBlock:length:container:"}
+		return false, err
+	}
+	return x._parseAGXBlockLengthContainer(aGXBlock, length, container), nil
+}
+
+// CanParseAGXBlockLengthContainer reports whether the receiver responds to the private selector _parseAGXBlock:length:container:.
+func (x XRGPUATRCImporter) CanParseAGXBlockLengthContainer() bool {
+	return objc.RespondsToSelector(x.ID, objc.Sel("_parseAGXBlock:length:container:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUATRCImporter/addBlock:data:

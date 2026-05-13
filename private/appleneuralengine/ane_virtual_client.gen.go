@@ -910,6 +910,12 @@ func (_ANEVirtualClientClass ANEVirtualClientClass) UpdatePerformanceStatsPerfor
 	return objectivec.Object{ID: rv}
 }
 
+// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyData:toExistingIOSurfaceRef:
+func (_ANEVirtualClientClass ANEVirtualClientClass) CopyDataToExistingIOSurfaceRef(data objectivec.IObject, ref coregraphics.IOSurfaceRef) bool {
+	rv := objc.Send[bool](objc.ID(_ANEVirtualClientClass.class), objc.Sel("copyData:toExistingIOSurfaceRef:"), data, ref)
+	return rv
+}
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/connect
 func (a ANEVirtualClient) Connect() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("connect"))

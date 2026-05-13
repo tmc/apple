@@ -155,8 +155,17 @@ func (m MLModelCollection) _downloadOptions() objectivec.IObject {
 }
 
 // DownloadOptions is an exported wrapper for the private method _downloadOptions.
-func (m MLModelCollection) DownloadOptions() objectivec.IObject {
-	return m._downloadOptions()
+func (m MLModelCollection) DownloadOptions() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_downloadOptions")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_downloadOptions"}
+		return nil, err
+	}
+	return m._downloadOptions(), nil
+}
+
+// CanDownloadOptions reports whether the receiver responds to the private selector _downloadOptions.
+func (m MLModelCollection) CanDownloadOptions() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_downloadOptions"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollection/_downloadWithProgress:
@@ -167,8 +176,17 @@ func (m MLModelCollection) _downloadWithProgress(progress VoidHandler) bool {
 }
 
 // DownloadWithProgress is an exported wrapper for the private method _downloadWithProgress.
-func (m MLModelCollection) DownloadWithProgress(progress VoidHandler) bool {
-	return m._downloadWithProgress(progress)
+func (m MLModelCollection) DownloadWithProgress(progress VoidHandler) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_downloadWithProgress:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_downloadWithProgress:"}
+		return false, err
+	}
+	return m._downloadWithProgress(progress), nil
+}
+
+// CanDownloadWithProgress reports whether the receiver responds to the private selector _downloadWithProgress:.
+func (m MLModelCollection) CanDownloadWithProgress() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_downloadWithProgress:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollection/_endAccess
@@ -178,8 +196,17 @@ func (m MLModelCollection) _endAccess() bool {
 }
 
 // EndAccess is an exported wrapper for the private method _endAccess.
-func (m MLModelCollection) EndAccess() bool {
-	return m._endAccess()
+func (m MLModelCollection) EndAccess() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_endAccess")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_endAccess"}
+		return false, err
+	}
+	return m._endAccess(), nil
+}
+
+// CanEndAccess reports whether the receiver responds to the private selector _endAccess.
+func (m MLModelCollection) CanEndAccess() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_endAccess"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollection/_handleTrialUpdateForNamespaceName:
@@ -188,8 +215,18 @@ func (m MLModelCollection) _handleTrialUpdateForNamespaceName(name objectivec.IO
 }
 
 // HandleTrialUpdateForNamespaceName is an exported wrapper for the private method _handleTrialUpdateForNamespaceName.
-func (m MLModelCollection) HandleTrialUpdateForNamespaceName(name objectivec.IObject) {
+func (m MLModelCollection) HandleTrialUpdateForNamespaceName(name objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_handleTrialUpdateForNamespaceName:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_handleTrialUpdateForNamespaceName:"}
+		return err
+	}
 	m._handleTrialUpdateForNamespaceName(name)
+	return nil
+}
+
+// CanHandleTrialUpdateForNamespaceName reports whether the receiver responds to the private selector _handleTrialUpdateForNamespaceName:.
+func (m MLModelCollection) CanHandleTrialUpdateForNamespaceName() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_handleTrialUpdateForNamespaceName:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollection/_populateEntries
@@ -198,8 +235,18 @@ func (m MLModelCollection) _populateEntries() {
 }
 
 // PopulateEntries is an exported wrapper for the private method _populateEntries.
-func (m MLModelCollection) PopulateEntries() {
+func (m MLModelCollection) PopulateEntries() error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_populateEntries")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_populateEntries"}
+		return err
+	}
 	m._populateEntries()
+	return nil
+}
+
+// CanPopulateEntries reports whether the receiver responds to the private selector _populateEntries.
+func (m MLModelCollection) CanPopulateEntries() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_populateEntries"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollection/_register
@@ -209,8 +256,17 @@ func (m MLModelCollection) _register() bool {
 }
 
 // Register is an exported wrapper for the private method _register.
-func (m MLModelCollection) Register() bool {
-	return m._register()
+func (m MLModelCollection) Register() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_register")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_register"}
+		return false, err
+	}
+	return m._register(), nil
+}
+
+// CanRegister reports whether the receiver responds to the private selector _register.
+func (m MLModelCollection) CanRegister() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_register"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollection/_registerForUpdates
@@ -219,8 +275,18 @@ func (m MLModelCollection) _registerForUpdates() {
 }
 
 // RegisterForUpdates is an exported wrapper for the private method _registerForUpdates.
-func (m MLModelCollection) RegisterForUpdates() {
+func (m MLModelCollection) RegisterForUpdates() error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_registerForUpdates")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_registerForUpdates"}
+		return err
+	}
 	m._registerForUpdates()
+	return nil
+}
+
+// CanRegisterForUpdates reports whether the receiver responds to the private selector _registerForUpdates.
+func (m MLModelCollection) CanRegisterForUpdates() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_registerForUpdates"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollection/_setDeploymentID
@@ -241,8 +307,17 @@ func (_MLModelCollectionClass MLModelCollectionClass) _namespaceNameFromCollecti
 }
 
 // NamespaceNameFromCollectionIdentifier is an exported wrapper for the private method _namespaceNameFromCollectionIdentifier.
-func (_MLModelCollectionClass MLModelCollectionClass) NamespaceNameFromCollectionIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	return _MLModelCollectionClass._namespaceNameFromCollectionIdentifier(identifier)
+func (_MLModelCollectionClass MLModelCollectionClass) NamespaceNameFromCollectionIdentifier(identifier objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLModelCollectionClass.class), objc.Sel("_namespaceNameFromCollectionIdentifier:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_namespaceNameFromCollectionIdentifier:"}
+		return nil, err
+	}
+	return _MLModelCollectionClass._namespaceNameFromCollectionIdentifier(identifier), nil
+}
+
+// CanNamespaceNameFromCollectionIdentifier reports whether the receiver responds to the private selector _namespaceNameFromCollectionIdentifier:.
+func (_MLModelCollectionClass MLModelCollectionClass) CanNamespaceNameFromCollectionIdentifier() bool {
+	return objc.RespondsToSelector(objc.ID(_MLModelCollectionClass.class), objc.Sel("_namespaceNameFromCollectionIdentifier:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollection/beginAccessingModelCollectionWithIdentifier:completionHandler:

@@ -136,8 +136,18 @@ func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedData(data VoidHa
 }
 
 // EnumerateEncoderDerivedData is an exported wrapper for the private method _enumerateEncoderDerivedData.
-func (d DYGPUDerivedEncoderCounterInfo) EnumerateEncoderDerivedData(data VoidHandler) {
+func (d DYGPUDerivedEncoderCounterInfo) EnumerateEncoderDerivedData(data VoidHandler) error {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_enumerateEncoderDerivedData:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_enumerateEncoderDerivedData:"}
+		return err
+	}
 	d._enumerateEncoderDerivedData(data)
+	return nil
+}
+
+// CanEnumerateEncoderDerivedData reports whether the receiver responds to the private selector _enumerateEncoderDerivedData:.
+func (d DYGPUDerivedEncoderCounterInfo) CanEnumerateEncoderDerivedData() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_enumerateEncoderDerivedData:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/_enumerateEncoderDerivedDataAtIndex:withBlock:
@@ -147,8 +157,18 @@ func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedDataAtIndexWithB
 }
 
 // EnumerateEncoderDerivedDataAtIndexWithBlock is an exported wrapper for the private method _enumerateEncoderDerivedDataAtIndexWithBlock.
-func (d DYGPUDerivedEncoderCounterInfo) EnumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler) {
+func (d DYGPUDerivedEncoderCounterInfo) EnumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler) error {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_enumerateEncoderDerivedDataAtIndex:withBlock:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_enumerateEncoderDerivedDataAtIndex:withBlock:"}
+		return err
+	}
 	d._enumerateEncoderDerivedDataAtIndexWithBlock(index, block)
+	return nil
+}
+
+// CanEnumerateEncoderDerivedDataAtIndexWithBlock reports whether the receiver responds to the private selector _enumerateEncoderDerivedDataAtIndex:withBlock:.
+func (d DYGPUDerivedEncoderCounterInfo) CanEnumerateEncoderDerivedDataAtIndexWithBlock() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_enumerateEncoderDerivedDataAtIndex:withBlock:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/encodeWithCoder:

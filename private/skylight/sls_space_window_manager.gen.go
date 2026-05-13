@@ -247,8 +247,18 @@ func (s SLSSpaceWindowManager) _beginBatch() {
 }
 
 // BeginBatch is an exported wrapper for the private method _beginBatch.
-func (s SLSSpaceWindowManager) BeginBatch() {
+func (s SLSSpaceWindowManager) BeginBatch() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_beginBatch")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_beginBatch"}
+		return err
+	}
 	s._beginBatch()
+	return nil
+}
+
+// CanBeginBatch reports whether the receiver responds to the private selector _beginBatch.
+func (s SLSSpaceWindowManager) CanBeginBatch() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_beginBatch"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_checkDisplayState:
@@ -257,8 +267,18 @@ func (s SLSSpaceWindowManager) _checkDisplayState(state objectivec.IObject) {
 }
 
 // CheckDisplayState is an exported wrapper for the private method _checkDisplayState.
-func (s SLSSpaceWindowManager) CheckDisplayState(state objectivec.IObject) {
+func (s SLSSpaceWindowManager) CheckDisplayState(state objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_checkDisplayState:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_checkDisplayState:"}
+		return err
+	}
 	s._checkDisplayState(state)
+	return nil
+}
+
+// CanCheckDisplayState reports whether the receiver responds to the private selector _checkDisplayState:.
+func (s SLSSpaceWindowManager) CanCheckDisplayState() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_checkDisplayState:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_checkSpaceMovedToDisplay:displayUUID:
@@ -267,8 +287,18 @@ func (s SLSSpaceWindowManager) _checkSpaceMovedToDisplayDisplayUUID(display obje
 }
 
 // CheckSpaceMovedToDisplayDisplayUUID is an exported wrapper for the private method _checkSpaceMovedToDisplayDisplayUUID.
-func (s SLSSpaceWindowManager) CheckSpaceMovedToDisplayDisplayUUID(display objectivec.IObject, uuid objectivec.IObject) {
+func (s SLSSpaceWindowManager) CheckSpaceMovedToDisplayDisplayUUID(display objectivec.IObject, uuid objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_checkSpaceMovedToDisplay:displayUUID:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_checkSpaceMovedToDisplay:displayUUID:"}
+		return err
+	}
 	s._checkSpaceMovedToDisplayDisplayUUID(display, uuid)
+	return nil
+}
+
+// CanCheckSpaceMovedToDisplayDisplayUUID reports whether the receiver responds to the private selector _checkSpaceMovedToDisplay:displayUUID:.
+func (s SLSSpaceWindowManager) CanCheckSpaceMovedToDisplayDisplayUUID() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_checkSpaceMovedToDisplay:displayUUID:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_endBatch
@@ -277,8 +307,18 @@ func (s SLSSpaceWindowManager) _endBatch() {
 }
 
 // EndBatch is an exported wrapper for the private method _endBatch.
-func (s SLSSpaceWindowManager) EndBatch() {
+func (s SLSSpaceWindowManager) EndBatch() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_endBatch")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_endBatch"}
+		return err
+	}
 	s._endBatch()
+	return nil
+}
+
+// CanEndBatch reports whether the receiver responds to the private selector _endBatch.
+func (s SLSSpaceWindowManager) CanEndBatch() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_endBatch"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_fullRebuildSpaceChange:
@@ -287,8 +327,18 @@ func (s SLSSpaceWindowManager) _fullRebuildSpaceChange(change uint64) {
 }
 
 // FullRebuildSpaceChange is an exported wrapper for the private method _fullRebuildSpaceChange.
-func (s SLSSpaceWindowManager) FullRebuildSpaceChange(change uint64) {
+func (s SLSSpaceWindowManager) FullRebuildSpaceChange(change uint64) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_fullRebuildSpaceChange:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_fullRebuildSpaceChange:"}
+		return err
+	}
 	s._fullRebuildSpaceChange(change)
+	return nil
+}
+
+// CanFullRebuildSpaceChange reports whether the receiver responds to the private selector _fullRebuildSpaceChange:.
+func (s SLSSpaceWindowManager) CanFullRebuildSpaceChange() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_fullRebuildSpaceChange:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_fullRebuildSpacesChanged
@@ -297,8 +347,18 @@ func (s SLSSpaceWindowManager) _fullRebuildSpacesChanged() {
 }
 
 // FullRebuildSpacesChanged is an exported wrapper for the private method _fullRebuildSpacesChanged.
-func (s SLSSpaceWindowManager) FullRebuildSpacesChanged() {
+func (s SLSSpaceWindowManager) FullRebuildSpacesChanged() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_fullRebuildSpacesChanged")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_fullRebuildSpacesChanged"}
+		return err
+	}
 	s._fullRebuildSpacesChanged()
+	return nil
+}
+
+// CanFullRebuildSpacesChanged reports whether the receiver responds to the private selector _fullRebuildSpacesChanged.
+func (s SLSSpaceWindowManager) CanFullRebuildSpacesChanged() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_fullRebuildSpacesChanged"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_getDisplayUUIDForSpace:
@@ -308,8 +368,17 @@ func (s SLSSpaceWindowManager) _getDisplayUUIDForSpace(space uint64) objectivec.
 }
 
 // GetDisplayUUIDForSpace is an exported wrapper for the private method _getDisplayUUIDForSpace.
-func (s SLSSpaceWindowManager) GetDisplayUUIDForSpace(space uint64) objectivec.IObject {
-	return s._getDisplayUUIDForSpace(space)
+func (s SLSSpaceWindowManager) GetDisplayUUIDForSpace(space uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_getDisplayUUIDForSpace:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_getDisplayUUIDForSpace:"}
+		return nil, err
+	}
+	return s._getDisplayUUIDForSpace(space), nil
+}
+
+// CanGetDisplayUUIDForSpace reports whether the receiver responds to the private selector _getDisplayUUIDForSpace:.
+func (s SLSSpaceWindowManager) CanGetDisplayUUIDForSpace() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_getDisplayUUIDForSpace:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_performBatchingCallouts:
@@ -319,8 +388,18 @@ func (s SLSSpaceWindowManager) _performBatchingCallouts(callouts VoidHandler) {
 }
 
 // PerformBatchingCallouts is an exported wrapper for the private method _performBatchingCallouts.
-func (s SLSSpaceWindowManager) PerformBatchingCallouts(callouts VoidHandler) {
+func (s SLSSpaceWindowManager) PerformBatchingCallouts(callouts VoidHandler) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_performBatchingCallouts:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_performBatchingCallouts:"}
+		return err
+	}
 	s._performBatchingCallouts(callouts)
+	return nil
+}
+
+// CanPerformBatchingCallouts reports whether the receiver responds to the private selector _performBatchingCallouts:.
+func (s SLSSpaceWindowManager) CanPerformBatchingCallouts() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_performBatchingCallouts:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_postActiveDisplayChange
@@ -329,8 +408,18 @@ func (s SLSSpaceWindowManager) _postActiveDisplayChange() {
 }
 
 // PostActiveDisplayChange is an exported wrapper for the private method _postActiveDisplayChange.
-func (s SLSSpaceWindowManager) PostActiveDisplayChange() {
+func (s SLSSpaceWindowManager) PostActiveDisplayChange() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_postActiveDisplayChange")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_postActiveDisplayChange"}
+		return err
+	}
 	s._postActiveDisplayChange()
+	return nil
+}
+
+// CanPostActiveDisplayChange reports whether the receiver responds to the private selector _postActiveDisplayChange.
+func (s SLSSpaceWindowManager) CanPostActiveDisplayChange() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_postActiveDisplayChange"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_removeSpace:
@@ -339,8 +428,18 @@ func (s SLSSpaceWindowManager) _removeSpace(space uint64) {
 }
 
 // RemoveSpace is an exported wrapper for the private method _removeSpace.
-func (s SLSSpaceWindowManager) RemoveSpace(space uint64) {
+func (s SLSSpaceWindowManager) RemoveSpace(space uint64) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_removeSpace:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_removeSpace:"}
+		return err
+	}
 	s._removeSpace(space)
+	return nil
+}
+
+// CanRemoveSpace reports whether the receiver responds to the private selector _removeSpace:.
+func (s SLSSpaceWindowManager) CanRemoveSpace() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_removeSpace:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_space:addWindow:
@@ -349,8 +448,18 @@ func (s SLSSpaceWindowManager) _spaceAddWindow(_space uint64, window uint32) {
 }
 
 // SpaceAddWindow is an exported wrapper for the private method _spaceAddWindow.
-func (s SLSSpaceWindowManager) SpaceAddWindow(_space uint64, window uint32) {
+func (s SLSSpaceWindowManager) SpaceAddWindow(_space uint64, window uint32) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_space:addWindow:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_space:addWindow:"}
+		return err
+	}
 	s._spaceAddWindow(_space, window)
+	return nil
+}
+
+// CanSpaceAddWindow reports whether the receiver responds to the private selector _space:addWindow:.
+func (s SLSSpaceWindowManager) CanSpaceAddWindow() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_space:addWindow:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_space:removeWindow:
@@ -359,8 +468,18 @@ func (s SLSSpaceWindowManager) _spaceRemoveWindow(_space uint64, window uint32) 
 }
 
 // SpaceRemoveWindow is an exported wrapper for the private method _spaceRemoveWindow.
-func (s SLSSpaceWindowManager) SpaceRemoveWindow(_space uint64, window uint32) {
+func (s SLSSpaceWindowManager) SpaceRemoveWindow(_space uint64, window uint32) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_space:removeWindow:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_space:removeWindow:"}
+		return err
+	}
 	s._spaceRemoveWindow(_space, window)
+	return nil
+}
+
+// CanSpaceRemoveWindow reports whether the receiver responds to the private selector _space:removeWindow:.
+func (s SLSSpaceWindowManager) CanSpaceRemoveWindow() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_space:removeWindow:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_spaceChangedDisplay:
@@ -369,8 +488,18 @@ func (s SLSSpaceWindowManager) _spaceChangedDisplay(display uint64) {
 }
 
 // SpaceChangedDisplay is an exported wrapper for the private method _spaceChangedDisplay.
-func (s SLSSpaceWindowManager) SpaceChangedDisplay(display uint64) {
+func (s SLSSpaceWindowManager) SpaceChangedDisplay(display uint64) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_spaceChangedDisplay:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_spaceChangedDisplay:"}
+		return err
+	}
 	s._spaceChangedDisplay(display)
+	return nil
+}
+
+// CanSpaceChangedDisplay reports whether the receiver responds to the private selector _spaceChangedDisplay:.
+func (s SLSSpaceWindowManager) CanSpaceChangedDisplay() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_spaceChangedDisplay:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_spaceWithID:createIfNeeded:
@@ -380,8 +509,17 @@ func (s SLSSpaceWindowManager) _spaceWithIDCreateIfNeeded(id uint64, needed bool
 }
 
 // SpaceWithIDCreateIfNeeded is an exported wrapper for the private method _spaceWithIDCreateIfNeeded.
-func (s SLSSpaceWindowManager) SpaceWithIDCreateIfNeeded(id uint64, needed bool) objectivec.IObject {
-	return s._spaceWithIDCreateIfNeeded(id, needed)
+func (s SLSSpaceWindowManager) SpaceWithIDCreateIfNeeded(id uint64, needed bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_spaceWithID:createIfNeeded:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_spaceWithID:createIfNeeded:"}
+		return nil, err
+	}
+	return s._spaceWithIDCreateIfNeeded(id, needed), nil
+}
+
+// CanSpaceWithIDCreateIfNeeded reports whether the receiver responds to the private selector _spaceWithID:createIfNeeded:.
+func (s SLSSpaceWindowManager) CanSpaceWithIDCreateIfNeeded() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_spaceWithID:createIfNeeded:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/_updateSpaceWithData:
@@ -390,8 +528,18 @@ func (s SLSSpaceWindowManager) _updateSpaceWithData(data objectivec.IObject) {
 }
 
 // UpdateSpaceWithData is an exported wrapper for the private method _updateSpaceWithData.
-func (s SLSSpaceWindowManager) UpdateSpaceWithData(data objectivec.IObject) {
+func (s SLSSpaceWindowManager) UpdateSpaceWithData(data objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateSpaceWithData:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateSpaceWithData:"}
+		return err
+	}
 	s._updateSpaceWithData(data)
+	return nil
+}
+
+// CanUpdateSpaceWithData reports whether the receiver responds to the private selector _updateSpaceWithData:.
+func (s SLSSpaceWindowManager) CanUpdateSpaceWithData() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSpaceWithData:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSpaceWindowManager/activate

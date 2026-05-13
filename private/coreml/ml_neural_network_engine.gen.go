@@ -587,7 +587,16 @@ func (n MLNeuralNetworkEngine) _addCompiledNetworkOrProgramToPlanError(plan unsa
 
 // AddCompiledNetworkOrProgramToPlanError is an exported wrapper for the private method _addCompiledNetworkOrProgramToPlanError.
 func (n MLNeuralNetworkEngine) AddCompiledNetworkOrProgramToPlanError(plan unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_addCompiledNetworkOrProgramToPlan:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_addCompiledNetworkOrProgramToPlan:error:"}
+		return false, err
+	}
 	return n._addCompiledNetworkOrProgramToPlanError(plan)
+}
+
+// CanAddCompiledNetworkOrProgramToPlanError reports whether the receiver responds to the private selector _addCompiledNetworkOrProgramToPlan:error:.
+func (n MLNeuralNetworkEngine) CanAddCompiledNetworkOrProgramToPlanError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_addCompiledNetworkOrProgramToPlan:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_addNetworkToPlan:error:
@@ -607,7 +616,16 @@ func (n MLNeuralNetworkEngine) _addNetworkToPlanError(plan unsafe.Pointer) (bool
 
 // AddNetworkToPlanError is an exported wrapper for the private method _addNetworkToPlanError.
 func (n MLNeuralNetworkEngine) AddNetworkToPlanError(plan unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_addNetworkToPlan:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_addNetworkToPlan:error:"}
+		return false, err
+	}
 	return n._addNetworkToPlanError(plan)
+}
+
+// CanAddNetworkToPlanError reports whether the receiver responds to the private selector _addNetworkToPlan:error:.
+func (n MLNeuralNetworkEngine) CanAddNetworkToPlanError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_addNetworkToPlan:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_deallocContextAndPlan
@@ -616,8 +634,18 @@ func (n MLNeuralNetworkEngine) _deallocContextAndPlan() {
 }
 
 // DeallocContextAndPlan is an exported wrapper for the private method _deallocContextAndPlan.
-func (n MLNeuralNetworkEngine) DeallocContextAndPlan() {
+func (n MLNeuralNetworkEngine) DeallocContextAndPlan() error {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_deallocContextAndPlan")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_deallocContextAndPlan"}
+		return err
+	}
 	n._deallocContextAndPlan()
+	return nil
+}
+
+// CanDeallocContextAndPlan reports whether the receiver responds to the private selector _deallocContextAndPlan.
+func (n MLNeuralNetworkEngine) CanDeallocContextAndPlan() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_deallocContextAndPlan"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_espressoDeviceForConfiguration:error:
@@ -634,7 +662,16 @@ func (n MLNeuralNetworkEngine) _espressoDeviceForConfigurationError(configuratio
 
 // EspressoDeviceForConfigurationError is an exported wrapper for the private method _espressoDeviceForConfigurationError.
 func (n MLNeuralNetworkEngine) EspressoDeviceForConfigurationError(configuration objectivec.IObject) (int, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_espressoDeviceForConfiguration:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_espressoDeviceForConfiguration:error:"}
+		return 0, err
+	}
 	return n._espressoDeviceForConfigurationError(configuration)
+}
+
+// CanEspressoDeviceForConfigurationError reports whether the receiver responds to the private selector _espressoDeviceForConfiguration:error:.
+func (n MLNeuralNetworkEngine) CanEspressoDeviceForConfigurationError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_espressoDeviceForConfiguration:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:
@@ -644,8 +681,17 @@ func (n MLNeuralNetworkEngine) _espressoOutputShapeForFeatureNameMatchesShapeOfM
 }
 
 // EspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray is an exported wrapper for the private method _espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray.
-func (n MLNeuralNetworkEngine) EspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name objectivec.IObject, array objectivec.IObject) bool {
-	return n._espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name, array)
+func (n MLNeuralNetworkEngine) EspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name objectivec.IObject, array objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"}
+		return false, err
+	}
+	return n._espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name, array), nil
+}
+
+// CanEspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray reports whether the receiver responds to the private selector _espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:.
+func (n MLNeuralNetworkEngine) CanEspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_handleAddNetworkToPlanStatus:error:
@@ -665,7 +711,16 @@ func (n MLNeuralNetworkEngine) _handleAddNetworkToPlanStatusError(status int) (b
 
 // HandleAddNetworkToPlanStatusError is an exported wrapper for the private method _handleAddNetworkToPlanStatusError.
 func (n MLNeuralNetworkEngine) HandleAddNetworkToPlanStatusError(status int) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_handleAddNetworkToPlanStatus:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_handleAddNetworkToPlanStatus:error:"}
+		return false, err
+	}
 	return n._handleAddNetworkToPlanStatusError(status)
+}
+
+// CanHandleAddNetworkToPlanStatusError reports whether the receiver responds to the private selector _handleAddNetworkToPlanStatus:error:.
+func (n MLNeuralNetworkEngine) CanHandleAddNetworkToPlanStatusError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_handleAddNetworkToPlanStatus:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_matchEngineToOptions:error:
@@ -685,7 +740,16 @@ func (n MLNeuralNetworkEngine) _matchEngineToOptionsError(options objectivec.IOb
 
 // MatchEngineToOptionsError is an exported wrapper for the private method _matchEngineToOptionsError.
 func (n MLNeuralNetworkEngine) MatchEngineToOptionsError(options objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_matchEngineToOptions:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_matchEngineToOptions:error:"}
+		return false, err
+	}
 	return n._matchEngineToOptionsError(options)
+}
+
+// CanMatchEngineToOptionsError reports whether the receiver responds to the private selector _matchEngineToOptions:error:.
+func (n MLNeuralNetworkEngine) CanMatchEngineToOptionsError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_matchEngineToOptions:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_pixelBufferFromEbuf:description:error:
@@ -702,7 +766,16 @@ func (n MLNeuralNetworkEngine) _pixelBufferFromEbufDescriptionError(ebuf objecti
 
 // PixelBufferFromEbufDescriptionError is an exported wrapper for the private method _pixelBufferFromEbufDescriptionError.
 func (n MLNeuralNetworkEngine) PixelBufferFromEbufDescriptionError(ebuf objectivec.IObject, description objectivec.IObject) (corevideo.CVImageBufferRef, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_pixelBufferFromEbuf:description:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_pixelBufferFromEbuf:description:error:"}
+		return 0, err
+	}
 	return n._pixelBufferFromEbufDescriptionError(ebuf, description)
+}
+
+// CanPixelBufferFromEbufDescriptionError reports whether the receiver responds to the private selector _pixelBufferFromEbuf:description:error:.
+func (n MLNeuralNetworkEngine) CanPixelBufferFromEbufDescriptionError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_pixelBufferFromEbuf:description:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:
@@ -722,7 +795,16 @@ func (n MLNeuralNetworkEngine) _setMultiArrayOutputBackingForOutputFeatureNameTo
 
 // SetMultiArrayOutputBackingForOutputFeatureNameToEbufError is an exported wrapper for the private method _setMultiArrayOutputBackingForOutputFeatureNameToEbufError.
 func (n MLNeuralNetworkEngine) SetMultiArrayOutputBackingForOutputFeatureNameToEbufError(backing objectivec.IObject, name objectivec.IObject, ebuf objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:"}
+		return false, err
+	}
 	return n._setMultiArrayOutputBackingForOutputFeatureNameToEbufError(backing, name, ebuf)
+}
+
+// CanSetMultiArrayOutputBackingForOutputFeatureNameToEbufError reports whether the receiver responds to the private selector _setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:.
+func (n MLNeuralNetworkEngine) CanSetMultiArrayOutputBackingForOutputFeatureNameToEbufError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setMultipleBuffersOnPlan:error:
@@ -742,7 +824,16 @@ func (n MLNeuralNetworkEngine) _setMultipleBuffersOnPlanError(plan unsafe.Pointe
 
 // SetMultipleBuffersOnPlanError is an exported wrapper for the private method _setMultipleBuffersOnPlanError.
 func (n MLNeuralNetworkEngine) SetMultipleBuffersOnPlanError(plan unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_setMultipleBuffersOnPlan:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setMultipleBuffersOnPlan:error:"}
+		return false, err
+	}
 	return n._setMultipleBuffersOnPlanError(plan)
+}
+
+// CanSetMultipleBuffersOnPlanError reports whether the receiver responds to the private selector _setMultipleBuffersOnPlan:error:.
+func (n MLNeuralNetworkEngine) CanSetMultipleBuffersOnPlanError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_setMultipleBuffersOnPlan:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setupContextAndPlanWithConfiguration:priority:error:
@@ -762,7 +853,16 @@ func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationPriorityErro
 
 // SetupContextAndPlanWithConfigurationPriorityError is an exported wrapper for the private method _setupContextAndPlanWithConfigurationPriorityError.
 func (n MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationPriorityError(configuration objectivec.IObject, priority int) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:priority:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setupContextAndPlanWithConfiguration:priority:error:"}
+		return false, err
+	}
 	return n._setupContextAndPlanWithConfigurationPriorityError(configuration, priority)
+}
+
+// CanSetupContextAndPlanWithConfigurationPriorityError reports whether the receiver responds to the private selector _setupContextAndPlanWithConfiguration:priority:error:.
+func (n MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationPriorityError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:priority:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setupContextAndPlanWithConfiguration:usingCPU:priority:error:
@@ -782,7 +882,16 @@ func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationUsingCPUPrio
 
 // SetupContextAndPlanWithConfigurationUsingCPUPriorityError is an exported wrapper for the private method _setupContextAndPlanWithConfigurationUsingCPUPriorityError.
 func (n MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationUsingCPUPriorityError(configuration objectivec.IObject, cpu bool, priority int) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setupContextAndPlanWithConfiguration:usingCPU:priority:error:"}
+		return false, err
+	}
 	return n._setupContextAndPlanWithConfigurationUsingCPUPriorityError(configuration, cpu, priority)
+}
+
+// CanSetupContextAndPlanWithConfigurationUsingCPUPriorityError reports whether the receiver responds to the private selector _setupContextAndPlanWithConfiguration:usingCPU:priority:error:.
+func (n MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationUsingCPUPriorityError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:
@@ -802,7 +911,16 @@ func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationUsingCPUPrio
 
 // SetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError is an exported wrapper for the private method _setupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError.
 func (n MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError(configuration objectivec.IObject, cpu bool, priority int, container bool) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:"}
+		return false, err
+	}
 	return n._setupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError(configuration, cpu, priority, container)
+}
+
+// CanSetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError reports whether the receiver responds to the private selector _setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:.
+func (n MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setupContextAndPlanWithForceCPU:priority:error:
@@ -822,7 +940,16 @@ func (n MLNeuralNetworkEngine) _setupContextAndPlanWithForceCPUPriorityError(cpu
 
 // SetupContextAndPlanWithForceCPUPriorityError is an exported wrapper for the private method _setupContextAndPlanWithForceCPUPriorityError.
 func (n MLNeuralNetworkEngine) SetupContextAndPlanWithForceCPUPriorityError(cpu bool, priority int) (bool, error) {
+	if !objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithForceCPU:priority:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setupContextAndPlanWithForceCPU:priority:error:"}
+		return false, err
+	}
 	return n._setupContextAndPlanWithForceCPUPriorityError(cpu, priority)
+}
+
+// CanSetupContextAndPlanWithForceCPUPriorityError reports whether the receiver responds to the private selector _setupContextAndPlanWithForceCPU:priority:error:.
+func (n MLNeuralNetworkEngine) CanSetupContextAndPlanWithForceCPUPriorityError() bool {
+	return objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithForceCPU:priority:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/addClassifierInformationToOutput:options:error:

@@ -127,8 +127,18 @@ func (u MLUpdateProgressHandlers) _dispatchUpdateProgressHandlerForEventMetricsP
 }
 
 // DispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue is an exported wrapper for the private method _dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue.
-func (u MLUpdateProgressHandlers) DispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event int64, metrics objectivec.IObject, parameters objectivec.IObject, error_ objectivec.IObject, queue objectivec.IObject) {
+func (u MLUpdateProgressHandlers) DispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event int64, metrics objectivec.IObject, parameters objectivec.IObject, error_ objectivec.IObject, queue objectivec.IObject) error {
+	if !objc.RespondsToSelector(u.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"}
+		return err
+	}
 	u._dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event, metrics, parameters, error_, queue)
+	return nil
+}
+
+// CanDispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue reports whether the receiver responds to the private selector _dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:.
+func (u MLUpdateProgressHandlers) CanDispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue() bool {
+	return objc.RespondsToSelector(u.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/dispatchEpochEndProgressHandlerWithMetrics:parameters:onQueue:

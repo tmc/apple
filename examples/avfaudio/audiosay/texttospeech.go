@@ -61,7 +61,10 @@ func sayPrivate(text, voiceID string) error {
 // resolvePrivateVoice finds an AVSpeechSynthesisVoice by identifier from the
 // private voice list (which includes Siri voices).
 func resolvePrivateVoice(voiceID string) (avfaudio.AVSpeechSynthesisVoice, error) {
-	arr := privateVoices()
+	arr, err := privateVoices()
+	if err != nil {
+		return avfaudio.AVSpeechSynthesisVoice{}, err
+	}
 	for i := range arr.Count() {
 		voice := avfaudio.AVSpeechSynthesisVoiceFromID(arr.ObjectAtIndex(i).GetID())
 		if voice.Identifier() == voiceID {
@@ -73,7 +76,10 @@ func resolvePrivateVoice(voiceID string) (avfaudio.AVSpeechSynthesisVoice, error
 
 // findSiriVoice returns the identifier of the first available Siri voice.
 func findSiriVoice() (string, error) {
-	arr := privateVoices()
+	arr, err := privateVoices()
+	if err != nil {
+		return "", err
+	}
 	for i := range arr.Count() {
 		voice := avfaudio.AVSpeechSynthesisVoiceFromID(arr.ObjectAtIndex(i).GetID())
 		id := voice.Identifier()
@@ -87,9 +93,12 @@ func findSiriVoice() (string, error) {
 }
 
 // privateVoices returns all voices including Siri via the private API.
-func privateVoices() foundation.NSArray {
-	obj := pavfaudio.GetAVSpeechSynthesisVoiceClass().SpeechVoicesIncludingSiri()
-	return foundation.NSArrayFromID(obj.GetID())
+func privateVoices() (foundation.NSArray, error) {
+	obj, err := pavfaudio.GetAVSpeechSynthesisVoiceClass().SpeechVoicesIncludingSiri()
+	if err != nil {
+		return foundation.NSArray{}, fmt.Errorf("speech voices including siri: %w", err)
+	}
+	return foundation.NSArrayFromID(obj.GetID()), nil
 }
 
 // previewVoice speaks a sample phrase using the given voice identifier.
@@ -184,8 +193,11 @@ func listCatalogVoices(siriOnly bool) {
 }
 
 // listPrivateVoices lists voices from the private voice list.
-func listPrivateVoices(siriOnly bool) {
-	arr := privateVoices()
+func listPrivateVoices(siriOnly bool) error {
+	arr, err := privateVoices()
+	if err != nil {
+		return err
+	}
 	for i := range arr.Count() {
 		voice := avfaudio.AVSpeechSynthesisVoiceFromID(arr.ObjectAtIndex(i).GetID())
 		id := voice.Identifier()
@@ -197,4 +209,5 @@ func listPrivateVoices(siriOnly bool) {
 		}
 		fmt.Printf("%-8s %-30s %s\n", voice.Language(), voice.Name(), id)
 	}
+	return nil
 }

@@ -112,8 +112,18 @@ func (g GTAGX2ShaderAnalyzer) _calculatePerDrawCallWithGRCSampleDataTargetIndexS
 }
 
 // CalculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary is an exported wrapper for the private method _calculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary.
-func (g GTAGX2ShaderAnalyzer) CalculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary(data objectivec.IObject, index int, binary objectivec.IObject) {
+func (g GTAGX2ShaderAnalyzer) CalculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary(data objectivec.IObject, index int, binary objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:"}
+		return err
+	}
 	g._calculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary(data, index, binary)
+	return nil
+}
+
+// CanCalculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary reports whether the receiver responds to the private selector _calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:.
+func (g GTAGX2ShaderAnalyzer) CanCalculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:
@@ -123,8 +133,17 @@ func (g GTAGX2ShaderAnalyzer) _calculatePerLineCostWithSampleDataAnalysisResultT
 }
 
 // CalculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo is an exported wrapper for the private method _calculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo.
-func (g GTAGX2ShaderAnalyzer) CalculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data objectivec.IObject, result objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) objectivec.IObject {
-	return g._calculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data, result, index, aLUBlocks, info)
+func (g GTAGX2ShaderAnalyzer) CalculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data objectivec.IObject, result objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:"}
+		return nil, err
+	}
+	return g._calculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data, result, index, aLUBlocks, info), nil
+}
+
+// CanCalculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo reports whether the receiver responds to the private selector _calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:.
+func (g GTAGX2ShaderAnalyzer) CanCalculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/analyzedBinary:processedUscSamples:targetIndex:withALUBlocks:binaryInfo:

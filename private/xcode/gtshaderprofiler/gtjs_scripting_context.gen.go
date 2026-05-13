@@ -166,8 +166,17 @@ func (g GTJSScriptingContext) _cachedStringFromString(string_ string) OpaqueJSSt
 }
 
 // CachedStringFromString is an exported wrapper for the private method _cachedStringFromString.
-func (g GTJSScriptingContext) CachedStringFromString(string_ string) OpaqueJSStringRef {
-	return g._cachedStringFromString(string_)
+func (g GTJSScriptingContext) CachedStringFromString(string_ string) (OpaqueJSStringRef, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_cachedStringFromString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cachedStringFromString:"}
+		return 0, err
+	}
+	return g._cachedStringFromString(string_), nil
+}
+
+// CanCachedStringFromString reports whether the receiver responds to the private selector _cachedStringFromString:.
+func (g GTJSScriptingContext) CanCachedStringFromString() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_cachedStringFromString:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_clearCache
@@ -176,8 +185,18 @@ func (g GTJSScriptingContext) _clearCache() {
 }
 
 // ClearCache is an exported wrapper for the private method _clearCache.
-func (g GTJSScriptingContext) ClearCache() {
+func (g GTJSScriptingContext) ClearCache() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_clearCache")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_clearCache"}
+		return err
+	}
 	g._clearCache()
+	return nil
+}
+
+// CanClearCache reports whether the receiver responds to the private selector _clearCache.
+func (g GTJSScriptingContext) CanClearCache() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_clearCache"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_jsStringToString:
@@ -187,8 +206,17 @@ func (g GTJSScriptingContext) _jsStringToString(string_ OpaqueJSStringRef) objec
 }
 
 // JsStringToString is an exported wrapper for the private method _jsStringToString.
-func (g GTJSScriptingContext) JsStringToString(string_ OpaqueJSStringRef) objectivec.IObject {
-	return g._jsStringToString(string_)
+func (g GTJSScriptingContext) JsStringToString(string_ OpaqueJSStringRef) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_jsStringToString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_jsStringToString:"}
+		return nil, err
+	}
+	return g._jsStringToString(string_), nil
+}
+
+// CanJsStringToString reports whether the receiver responds to the private selector _jsStringToString:.
+func (g GTJSScriptingContext) CanJsStringToString() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_jsStringToString:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_jsValueToString:
@@ -198,8 +226,17 @@ func (g GTJSScriptingContext) _jsValueToString(string_ OpaqueJSValueRef) objecti
 }
 
 // JsValueToString is an exported wrapper for the private method _jsValueToString.
-func (g GTJSScriptingContext) JsValueToString(string_ OpaqueJSValueRef) objectivec.IObject {
-	return g._jsValueToString(string_)
+func (g GTJSScriptingContext) JsValueToString(string_ OpaqueJSValueRef) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_jsValueToString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_jsValueToString:"}
+		return nil, err
+	}
+	return g._jsValueToString(string_), nil
+}
+
+// CanJsValueToString reports whether the receiver responds to the private selector _jsValueToString:.
+func (g GTJSScriptingContext) CanJsValueToString() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_jsValueToString:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/allocNewContext

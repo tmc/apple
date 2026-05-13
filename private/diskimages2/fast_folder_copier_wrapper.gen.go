@@ -95,8 +95,8 @@ type IFastFolderCopierWrapper interface {
 	CopyWithDstFolderProgressError(folder objectivec.IObject, progress objectivec.IObject) (bool, error)
 	FolderSize() uint64
 	NumFiles() uint64
-	Progress() *foundation.NSProgress
-	SetProgress(value *foundation.NSProgress)
+	Progress() foundation.NSProgress
+	SetProgress(value foundation.NSProgress)
 	TraverseSrcFolderWithProgressError(progress objectivec.IObject) (bool, error)
 	InitWithSrcFolderParallelModeAuditToken(folder objectivec.IObject, mode bool, token objectivec.IObject) FastFolderCopierWrapper
 }
@@ -185,18 +185,10 @@ func (f FastFolderCopierWrapper) NumFiles() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper/progress
-func (f FastFolderCopierWrapper) Progress() *foundation.NSProgress {
+func (f FastFolderCopierWrapper) Progress() foundation.NSProgress {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("progress"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSProgressFromID(objc.ID(rv))
-	return &val
+	return foundation.NSProgressFromID(objc.ID(rv))
 }
-func (f FastFolderCopierWrapper) SetProgress(value *foundation.NSProgress) {
-	if value == nil {
-		objc.Send[struct{}](f.ID, objc.Sel("setProgress:"), objc.ID(0))
-		return
-	}
+func (f FastFolderCopierWrapper) SetProgress(value foundation.NSProgress) {
 	objc.Send[struct{}](f.ID, objc.Sel("setProgress:"), value)
 }

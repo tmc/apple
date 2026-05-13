@@ -281,8 +281,17 @@ func (t TTSSpeechAction) _detectLanguageFromContent() objectivec.IObject {
 }
 
 // DetectLanguageFromContent is an exported wrapper for the private method _detectLanguageFromContent.
-func (t TTSSpeechAction) DetectLanguageFromContent() objectivec.IObject {
-	return t._detectLanguageFromContent()
+func (t TTSSpeechAction) DetectLanguageFromContent() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_detectLanguageFromContent")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_detectLanguageFromContent"}
+		return nil, err
+	}
+	return t._detectLanguageFromContent(), nil
+}
+
+// CanDetectLanguageFromContent reports whether the receiver responds to the private selector _detectLanguageFromContent.
+func (t TTSSpeechAction) CanDetectLanguageFromContent() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_detectLanguageFromContent"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechAction/preprocessAction

@@ -177,7 +177,16 @@ func (e MLE5RangeShapeExecutionStreamOperationPool) _makeAndPreloadOperationForF
 
 // MakeAndPreloadOperationForFunctionError is an exported wrapper for the private method _makeAndPreloadOperationForFunctionError.
 func (e MLE5RangeShapeExecutionStreamOperationPool) MakeAndPreloadOperationForFunctionError(function objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_makeAndPreloadOperationForFunction:error:"}
+		return nil, err
+	}
 	return e._makeAndPreloadOperationForFunctionError(function)
+}
+
+// CanMakeAndPreloadOperationForFunctionError reports whether the receiver responds to the private selector _makeAndPreloadOperationForFunction:error:.
+func (e MLE5RangeShapeExecutionStreamOperationPool) CanMakeAndPreloadOperationForFunctionError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/_putBack:
@@ -192,8 +201,17 @@ func (e MLE5RangeShapeExecutionStreamOperationPool) _takeOutAnyOperation() objec
 }
 
 // TakeOutAnyOperation is an exported wrapper for the private method _takeOutAnyOperation.
-func (e MLE5RangeShapeExecutionStreamOperationPool) TakeOutAnyOperation() objectivec.IObject {
-	return e._takeOutAnyOperation()
+func (e MLE5RangeShapeExecutionStreamOperationPool) TakeOutAnyOperation() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_takeOutAnyOperation")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_takeOutAnyOperation"}
+		return nil, err
+	}
+	return e._takeOutAnyOperation(), nil
+}
+
+// CanTakeOutAnyOperation reports whether the receiver responds to the private selector _takeOutAnyOperation.
+func (e MLE5RangeShapeExecutionStreamOperationPool) CanTakeOutAnyOperation() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_takeOutAnyOperation"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/prepareWithInitialPoolSize:error:

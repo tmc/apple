@@ -170,8 +170,18 @@ func (s SOSRLanguagePopUpButton) _clearDownloadStatusFieldAfterPreHeat() {
 }
 
 // ClearDownloadStatusFieldAfterPreHeat is an exported wrapper for the private method _clearDownloadStatusFieldAfterPreHeat.
-func (s SOSRLanguagePopUpButton) ClearDownloadStatusFieldAfterPreHeat() {
+func (s SOSRLanguagePopUpButton) ClearDownloadStatusFieldAfterPreHeat() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_clearDownloadStatusFieldAfterPreHeat")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_clearDownloadStatusFieldAfterPreHeat"}
+		return err
+	}
 	s._clearDownloadStatusFieldAfterPreHeat()
+	return nil
+}
+
+// CanClearDownloadStatusFieldAfterPreHeat reports whether the receiver responds to the private selector _clearDownloadStatusFieldAfterPreHeat.
+func (s SOSRLanguagePopUpButton) CanClearDownloadStatusFieldAfterPreHeat() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_clearDownloadStatusFieldAfterPreHeat"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_initCommon
@@ -180,8 +190,18 @@ func (s SOSRLanguagePopUpButton) _initCommon() {
 }
 
 // InitCommon is an exported wrapper for the private method _initCommon.
-func (s SOSRLanguagePopUpButton) InitCommon() {
+func (s SOSRLanguagePopUpButton) InitCommon() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_initCommon")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initCommon"}
+		return err
+	}
 	s._initCommon()
+	return nil
+}
+
+// CanInitCommon reports whether the receiver responds to the private selector _initCommon.
+func (s SOSRLanguagePopUpButton) CanInitCommon() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_initCommon"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_startDelayedPopUpUpdate
@@ -190,8 +210,18 @@ func (s SOSRLanguagePopUpButton) _startDelayedPopUpUpdate() {
 }
 
 // StartDelayedPopUpUpdate is an exported wrapper for the private method _startDelayedPopUpUpdate.
-func (s SOSRLanguagePopUpButton) StartDelayedPopUpUpdate() {
+func (s SOSRLanguagePopUpButton) StartDelayedPopUpUpdate() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_startDelayedPopUpUpdate")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_startDelayedPopUpUpdate"}
+		return err
+	}
 	s._startDelayedPopUpUpdate()
+	return nil
+}
+
+// CanStartDelayedPopUpUpdate reports whether the receiver responds to the private selector _startDelayedPopUpUpdate.
+func (s SOSRLanguagePopUpButton) CanStartDelayedPopUpUpdate() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_startDelayedPopUpUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_statusStringForActiveDownloads
@@ -201,8 +231,17 @@ func (s SOSRLanguagePopUpButton) _statusStringForActiveDownloads() objectivec.IO
 }
 
 // StatusStringForActiveDownloads is an exported wrapper for the private method _statusStringForActiveDownloads.
-func (s SOSRLanguagePopUpButton) StatusStringForActiveDownloads() objectivec.IObject {
-	return s._statusStringForActiveDownloads()
+func (s SOSRLanguagePopUpButton) StatusStringForActiveDownloads() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_statusStringForActiveDownloads")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_statusStringForActiveDownloads"}
+		return nil, err
+	}
+	return s._statusStringForActiveDownloads(), nil
+}
+
+// CanStatusStringForActiveDownloads reports whether the receiver responds to the private selector _statusStringForActiveDownloads.
+func (s SOSRLanguagePopUpButton) CanStatusStringForActiveDownloads() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_statusStringForActiveDownloads"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_updateDownloadStatusFields
@@ -211,8 +250,18 @@ func (s SOSRLanguagePopUpButton) _updateDownloadStatusFields() {
 }
 
 // UpdateDownloadStatusFields is an exported wrapper for the private method _updateDownloadStatusFields.
-func (s SOSRLanguagePopUpButton) UpdateDownloadStatusFields() {
+func (s SOSRLanguagePopUpButton) UpdateDownloadStatusFields() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateDownloadStatusFields")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateDownloadStatusFields"}
+		return err
+	}
 	s._updateDownloadStatusFields()
+	return nil
+}
+
+// CanUpdateDownloadStatusFields reports whether the receiver responds to the private selector _updateDownloadStatusFields.
+func (s SOSRLanguagePopUpButton) CanUpdateDownloadStatusFields() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_updateDownloadStatusFields"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_updateSRLanguageMenu
@@ -221,8 +270,18 @@ func (s SOSRLanguagePopUpButton) _updateSRLanguageMenu() {
 }
 
 // UpdateSRLanguageMenu is an exported wrapper for the private method _updateSRLanguageMenu.
-func (s SOSRLanguagePopUpButton) UpdateSRLanguageMenu() {
+func (s SOSRLanguagePopUpButton) UpdateSRLanguageMenu() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateSRLanguageMenu")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateSRLanguageMenu"}
+		return err
+	}
 	s._updateSRLanguageMenu()
+	return nil
+}
+
+// CanUpdateSRLanguageMenu reports whether the receiver responds to the private selector _updateSRLanguageMenu.
+func (s SOSRLanguagePopUpButton) CanUpdateSRLanguageMenu() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSRLanguageMenu"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/buildPopUpButtonAndSelectLocaleIdentifier:networkSupportedLocaleIdentifiers:offlineSupportedLocaleIdentifiers:

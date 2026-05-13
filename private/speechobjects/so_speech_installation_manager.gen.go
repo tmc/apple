@@ -240,8 +240,17 @@ func (s SOSpeechInstallationManager) _clientHasRightsToCustomVoices() bool {
 }
 
 // ClientHasRightsToCustomVoices is an exported wrapper for the private method _clientHasRightsToCustomVoices.
-func (s SOSpeechInstallationManager) ClientHasRightsToCustomVoices() bool {
-	return s._clientHasRightsToCustomVoices()
+func (s SOSpeechInstallationManager) ClientHasRightsToCustomVoices() (bool, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_clientHasRightsToCustomVoices")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_clientHasRightsToCustomVoices"}
+		return false, err
+	}
+	return s._clientHasRightsToCustomVoices(), nil
+}
+
+// CanClientHasRightsToCustomVoices reports whether the receiver responds to the private selector _clientHasRightsToCustomVoices.
+func (s SOSpeechInstallationManager) CanClientHasRightsToCustomVoices() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_clientHasRightsToCustomVoices"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/_createLocalPort
@@ -251,8 +260,17 @@ func (s SOSpeechInstallationManager) _createLocalPort() corefoundation.CFMessage
 }
 
 // CreateLocalPort is an exported wrapper for the private method _createLocalPort.
-func (s SOSpeechInstallationManager) CreateLocalPort() corefoundation.CFMessagePortRef {
-	return s._createLocalPort()
+func (s SOSpeechInstallationManager) CreateLocalPort() (corefoundation.CFMessagePortRef, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_createLocalPort")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createLocalPort"}
+		return 0, err
+	}
+	return s._createLocalPort(), nil
+}
+
+// CanCreateLocalPort reports whether the receiver responds to the private selector _createLocalPort.
+func (s SOSpeechInstallationManager) CanCreateLocalPort() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_createLocalPort"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/_createServerPortIfNeeded
@@ -262,8 +280,17 @@ func (s SOSpeechInstallationManager) _createServerPortIfNeeded() bool {
 }
 
 // CreateServerPortIfNeeded is an exported wrapper for the private method _createServerPortIfNeeded.
-func (s SOSpeechInstallationManager) CreateServerPortIfNeeded() bool {
-	return s._createServerPortIfNeeded()
+func (s SOSpeechInstallationManager) CreateServerPortIfNeeded() (bool, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_createServerPortIfNeeded")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createServerPortIfNeeded"}
+		return false, err
+	}
+	return s._createServerPortIfNeeded(), nil
+}
+
+// CanCreateServerPortIfNeeded reports whether the receiver responds to the private selector _createServerPortIfNeeded.
+func (s SOSpeechInstallationManager) CanCreateServerPortIfNeeded() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_createServerPortIfNeeded"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/_overriddenVoiceIdentifierDictionary
@@ -273,8 +300,17 @@ func (s SOSpeechInstallationManager) _overriddenVoiceIdentifierDictionary() obje
 }
 
 // OverriddenVoiceIdentifierDictionary is an exported wrapper for the private method _overriddenVoiceIdentifierDictionary.
-func (s SOSpeechInstallationManager) OverriddenVoiceIdentifierDictionary() objectivec.IObject {
-	return s._overriddenVoiceIdentifierDictionary()
+func (s SOSpeechInstallationManager) OverriddenVoiceIdentifierDictionary() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_overriddenVoiceIdentifierDictionary")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_overriddenVoiceIdentifierDictionary"}
+		return nil, err
+	}
+	return s._overriddenVoiceIdentifierDictionary(), nil
+}
+
+// CanOverriddenVoiceIdentifierDictionary reports whether the receiver responds to the private selector _overriddenVoiceIdentifierDictionary.
+func (s SOSpeechInstallationManager) CanOverriddenVoiceIdentifierDictionary() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_overriddenVoiceIdentifierDictionary"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/_sendMessage:withData:withReply:
@@ -284,8 +320,17 @@ func (s SOSpeechInstallationManager) _sendMessageWithDataWithReply(message int, 
 }
 
 // SendMessageWithDataWithReply is an exported wrapper for the private method _sendMessageWithDataWithReply.
-func (s SOSpeechInstallationManager) SendMessageWithDataWithReply(message int, data unsafe.Pointer, reply bool) objectivec.IObject {
-	return s._sendMessageWithDataWithReply(message, data, reply)
+func (s SOSpeechInstallationManager) SendMessageWithDataWithReply(message int, data unsafe.Pointer, reply bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_sendMessage:withData:withReply:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_sendMessage:withData:withReply:"}
+		return nil, err
+	}
+	return s._sendMessageWithDataWithReply(message, data, reply), nil
+}
+
+// CanSendMessageWithDataWithReply reports whether the receiver responds to the private selector _sendMessage:withData:withReply:.
+func (s SOSpeechInstallationManager) CanSendMessageWithDataWithReply() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_sendMessage:withData:withReply:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/_serverIsRunning
@@ -295,8 +340,17 @@ func (s SOSpeechInstallationManager) _serverIsRunning() bool {
 }
 
 // ServerIsRunning is an exported wrapper for the private method _serverIsRunning.
-func (s SOSpeechInstallationManager) ServerIsRunning() bool {
-	return s._serverIsRunning()
+func (s SOSpeechInstallationManager) ServerIsRunning() (bool, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_serverIsRunning")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_serverIsRunning"}
+		return false, err
+	}
+	return s._serverIsRunning(), nil
+}
+
+// CanServerIsRunning reports whether the receiver responds to the private selector _serverIsRunning.
+func (s SOSpeechInstallationManager) CanServerIsRunning() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_serverIsRunning"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/_startDownloadingHighestQualityIfNecessaryForVoiceIdentifier:requireACPower:initiator:
@@ -306,8 +360,17 @@ func (s SOSpeechInstallationManager) _startDownloadingHighestQualityIfNecessaryF
 }
 
 // StartDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator is an exported wrapper for the private method _startDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator.
-func (s SOSpeechInstallationManager) StartDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator(identifier objectivec.IObject, aCPower bool, initiator objectivec.IObject) bool {
-	return s._startDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator(identifier, aCPower, initiator)
+func (s SOSpeechInstallationManager) StartDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator(identifier objectivec.IObject, aCPower bool, initiator objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_startDownloadingHighestQualityIfNecessaryForVoiceIdentifier:requireACPower:initiator:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_startDownloadingHighestQualityIfNecessaryForVoiceIdentifier:requireACPower:initiator:"}
+		return false, err
+	}
+	return s._startDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator(identifier, aCPower, initiator), nil
+}
+
+// CanStartDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator reports whether the receiver responds to the private selector _startDownloadingHighestQualityIfNecessaryForVoiceIdentifier:requireACPower:initiator:.
+func (s SOSpeechInstallationManager) CanStartDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_startDownloadingHighestQualityIfNecessaryForVoiceIdentifier:requireACPower:initiator:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/_voiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:highestQuality:
@@ -317,8 +380,17 @@ func (s SOSpeechInstallationManager) _voiceIdentifierForRootVoiceIdentifierStart
 }
 
 // VoiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality is an exported wrapper for the private method _voiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality.
-func (s SOSpeechInstallationManager) VoiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality(identifier objectivec.IObject, downloading bool, aCPower bool, initiator objectivec.IObject, quality bool) objectivec.IObject {
-	return s._voiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality(identifier, downloading, aCPower, initiator, quality)
+func (s SOSpeechInstallationManager) VoiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality(identifier objectivec.IObject, downloading bool, aCPower bool, initiator objectivec.IObject, quality bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_voiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:highestQuality:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_voiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:highestQuality:"}
+		return nil, err
+	}
+	return s._voiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality(identifier, downloading, aCPower, initiator, quality), nil
+}
+
+// CanVoiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality reports whether the receiver responds to the private selector _voiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:highestQuality:.
+func (s SOSpeechInstallationManager) CanVoiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_voiceIdentifierForRootVoiceIdentifier:startDownloading:requireACPower:initiator:highestQuality:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechInstallationManager/activeInstallations

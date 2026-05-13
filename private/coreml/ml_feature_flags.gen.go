@@ -102,7 +102,7 @@ type IMLFeatureFlags interface {
 	OverrideOriginalValues() foundation.INSDictionary
 	RemoveOverrideForFeature(feature objectivec.IObject) bool
 	SetOverrideForFeature(override bool, feature objectivec.IObject) bool
-	UserDefaults() *foundation.NSUserDefaults
+	UserDefaults() foundation.NSUserDefaults
 }
 
 // Init initializes the instance.
@@ -189,11 +189,7 @@ func (f MLFeatureFlags) OverrideOriginalValues() foundation.INSDictionary {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/userDefaults
-func (f MLFeatureFlags) UserDefaults() *foundation.NSUserDefaults {
+func (f MLFeatureFlags) UserDefaults() foundation.NSUserDefaults {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("userDefaults"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSUserDefaultsFromID(objc.ID(rv))
-	return &val
+	return foundation.NSUserDefaultsFromID(objc.ID(rv))
 }

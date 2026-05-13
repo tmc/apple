@@ -340,8 +340,18 @@ func (x XRGPUAPSDataProcessor) _loadCSVShaderMap(map_ objectivec.IObject) {
 }
 
 // LoadCSVShaderMap is an exported wrapper for the private method _loadCSVShaderMap.
-func (x XRGPUAPSDataProcessor) LoadCSVShaderMap(map_ objectivec.IObject) {
+func (x XRGPUAPSDataProcessor) LoadCSVShaderMap(map_ objectivec.IObject) error {
+	if !objc.RespondsToSelector(x.ID, objc.Sel("_loadCSVShaderMap:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadCSVShaderMap:"}
+		return err
+	}
 	x._loadCSVShaderMap(map_)
+	return nil
+}
+
+// CanLoadCSVShaderMap reports whether the receiver responds to the private selector _loadCSVShaderMap:.
+func (x XRGPUAPSDataProcessor) CanLoadCSVShaderMap() bool {
+	return objc.RespondsToSelector(x.ID, objc.Sel("_loadCSVShaderMap:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDataProcessor/_loadJSONShaderMap:
@@ -350,8 +360,18 @@ func (x XRGPUAPSDataProcessor) _loadJSONShaderMap(map_ objectivec.IObject) {
 }
 
 // LoadJSONShaderMap is an exported wrapper for the private method _loadJSONShaderMap.
-func (x XRGPUAPSDataProcessor) LoadJSONShaderMap(map_ objectivec.IObject) {
+func (x XRGPUAPSDataProcessor) LoadJSONShaderMap(map_ objectivec.IObject) error {
+	if !objc.RespondsToSelector(x.ID, objc.Sel("_loadJSONShaderMap:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadJSONShaderMap:"}
+		return err
+	}
 	x._loadJSONShaderMap(map_)
+	return nil
+}
+
+// CanLoadJSONShaderMap reports whether the receiver responds to the private selector _loadJSONShaderMap:.
+func (x XRGPUAPSDataProcessor) CanLoadJSONShaderMap() bool {
+	return objc.RespondsToSelector(x.ID, objc.Sel("_loadJSONShaderMap:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDataProcessor/_loadOSLogShaderMap:
@@ -360,8 +380,18 @@ func (x XRGPUAPSDataProcessor) _loadOSLogShaderMap(map_ objectivec.IObject) {
 }
 
 // LoadOSLogShaderMap is an exported wrapper for the private method _loadOSLogShaderMap.
-func (x XRGPUAPSDataProcessor) LoadOSLogShaderMap(map_ objectivec.IObject) {
+func (x XRGPUAPSDataProcessor) LoadOSLogShaderMap(map_ objectivec.IObject) error {
+	if !objc.RespondsToSelector(x.ID, objc.Sel("_loadOSLogShaderMap:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadOSLogShaderMap:"}
+		return err
+	}
 	x._loadOSLogShaderMap(map_)
+	return nil
+}
+
+// CanLoadOSLogShaderMap reports whether the receiver responds to the private selector _loadOSLogShaderMap:.
+func (x XRGPUAPSDataProcessor) CanLoadOSLogShaderMap() bool {
+	return objc.RespondsToSelector(x.ID, objc.Sel("_loadOSLogShaderMap:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDataProcessor/_supportsDPBRMANCounter
@@ -371,8 +401,17 @@ func (x XRGPUAPSDataProcessor) _supportsDPBRMANCounter() bool {
 }
 
 // SupportsDPBRMANCounter is an exported wrapper for the private method _supportsDPBRMANCounter.
-func (x XRGPUAPSDataProcessor) SupportsDPBRMANCounter() bool {
-	return x._supportsDPBRMANCounter()
+func (x XRGPUAPSDataProcessor) SupportsDPBRMANCounter() (bool, error) {
+	if !objc.RespondsToSelector(x.ID, objc.Sel("_supportsDPBRMANCounter")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_supportsDPBRMANCounter"}
+		return false, err
+	}
+	return x._supportsDPBRMANCounter(), nil
+}
+
+// CanSupportsDPBRMANCounter reports whether the receiver responds to the private selector _supportsDPBRMANCounter.
+func (x XRGPUAPSDataProcessor) CanSupportsDPBRMANCounter() bool {
+	return objc.RespondsToSelector(x.ID, objc.Sel("_supportsDPBRMANCounter"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDataProcessor/addBufferAtRDESourceIndex:rdeBufferIndex:buffer:length:

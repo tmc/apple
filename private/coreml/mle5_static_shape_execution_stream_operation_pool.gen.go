@@ -172,8 +172,17 @@ func (e MLE5StaticShapeExecutionStreamOperationPool) _takeOut() objectivec.IObje
 }
 
 // TakeOut is an exported wrapper for the private method _takeOut.
-func (e MLE5StaticShapeExecutionStreamOperationPool) TakeOut() objectivec.IObject {
-	return e._takeOut()
+func (e MLE5StaticShapeExecutionStreamOperationPool) TakeOut() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_takeOut")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_takeOut"}
+		return nil, err
+	}
+	return e._takeOut(), nil
+}
+
+// CanTakeOut reports whether the receiver responds to the private selector _takeOut.
+func (e MLE5StaticShapeExecutionStreamOperationPool) CanTakeOut() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_takeOut"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/prepareWithInitialPoolSize:error:

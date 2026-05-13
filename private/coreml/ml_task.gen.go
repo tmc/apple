@@ -156,8 +156,17 @@ func (t MLTask) _canCancel() bool {
 }
 
 // CanCancel is an exported wrapper for the private method _canCancel.
-func (t MLTask) CanCancel() bool {
-	return t._canCancel()
+func (t MLTask) CanCancel() (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_canCancel")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_canCancel"}
+		return false, err
+	}
+	return t._canCancel(), nil
+}
+
+// CanCanCancel reports whether the receiver responds to the private selector _canCancel.
+func (t MLTask) CanCanCancel() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_canCancel"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canComplete
@@ -167,8 +176,17 @@ func (t MLTask) _canComplete() bool {
 }
 
 // CanComplete is an exported wrapper for the private method _canComplete.
-func (t MLTask) CanComplete() bool {
-	return t._canComplete()
+func (t MLTask) CanComplete() (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_canComplete")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_canComplete"}
+		return false, err
+	}
+	return t._canComplete(), nil
+}
+
+// CanCanComplete reports whether the receiver responds to the private selector _canComplete.
+func (t MLTask) CanCanComplete() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_canComplete"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canFail
@@ -178,8 +196,17 @@ func (t MLTask) _canFail() bool {
 }
 
 // CanFail is an exported wrapper for the private method _canFail.
-func (t MLTask) CanFail() bool {
-	return t._canFail()
+func (t MLTask) CanFail() (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_canFail")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_canFail"}
+		return false, err
+	}
+	return t._canFail(), nil
+}
+
+// CanCanFail reports whether the receiver responds to the private selector _canFail.
+func (t MLTask) CanCanFail() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_canFail"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canResume
@@ -189,8 +216,17 @@ func (t MLTask) _canResume() bool {
 }
 
 // CanResume is an exported wrapper for the private method _canResume.
-func (t MLTask) CanResume() bool {
-	return t._canResume()
+func (t MLTask) CanResume() (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_canResume")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_canResume"}
+		return false, err
+	}
+	return t._canResume(), nil
+}
+
+// CanCanResume reports whether the receiver responds to the private selector _canResume.
+func (t MLTask) CanCanResume() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_canResume"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canSuspend
@@ -200,8 +236,17 @@ func (t MLTask) _canSuspend() bool {
 }
 
 // CanSuspend is an exported wrapper for the private method _canSuspend.
-func (t MLTask) CanSuspend() bool {
-	return t._canSuspend()
+func (t MLTask) CanSuspend() (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_canSuspend")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_canSuspend"}
+		return false, err
+	}
+	return t._canSuspend(), nil
+}
+
+// CanCanSuspend reports whether the receiver responds to the private selector _canSuspend.
+func (t MLTask) CanCanSuspend() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_canSuspend"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_resumeWithTaskContext:

@@ -411,7 +411,16 @@ func (v AVVoiceController) _bringUpWithError(up int64) (int64, error) {
 
 // BringUpWithError is an exported wrapper for the private method _bringUpWithError.
 func (v AVVoiceController) BringUpWithError(up int64) (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_bringUp:withError:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_bringUp:withError:"}
+		return 0, err
+	}
 	return v._bringUpWithError(up)
+}
+
+// CanBringUpWithError reports whether the receiver responds to the private selector _bringUp:withError:.
+func (v AVVoiceController) CanBringUpWithError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_bringUp:withError:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/_teardownWithError:

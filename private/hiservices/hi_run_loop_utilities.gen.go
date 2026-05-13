@@ -101,8 +101,17 @@ func (h HIRunLoopUtilities) _blockQueueDepth() uint32 {
 }
 
 // BlockQueueDepth is an exported wrapper for the private method _blockQueueDepth.
-func (h HIRunLoopUtilities) BlockQueueDepth() uint32 {
-	return h._blockQueueDepth()
+func (h HIRunLoopUtilities) BlockQueueDepth() (uint32, error) {
+	if !objc.RespondsToSelector(h.ID, objc.Sel("_blockQueueDepth")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_blockQueueDepth"}
+		return 0, err
+	}
+	return h._blockQueueDepth(), nil
+}
+
+// CanBlockQueueDepth reports whether the receiver responds to the private selector _blockQueueDepth.
+func (h HIRunLoopUtilities) CanBlockQueueDepth() bool {
+	return objc.RespondsToSelector(h.ID, objc.Sel("_blockQueueDepth"))
 }
 
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities/_currentRunLoopMode
@@ -112,8 +121,17 @@ func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) _currentRunLoopMode() ob
 }
 
 // CurrentRunLoopMode is an exported wrapper for the private method _currentRunLoopMode.
-func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) CurrentRunLoopMode() objectivec.IObject {
-	return _HIRunLoopUtilitiesClass._currentRunLoopMode()
+func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) CurrentRunLoopMode() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("_currentRunLoopMode")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_currentRunLoopMode"}
+		return nil, err
+	}
+	return _HIRunLoopUtilitiesClass._currentRunLoopMode(), nil
+}
+
+// CanCurrentRunLoopMode reports whether the receiver responds to the private selector _currentRunLoopMode.
+func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) CanCurrentRunLoopMode() bool {
+	return objc.RespondsToSelector(objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("_currentRunLoopMode"))
 }
 
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities/addRunLoopModesForDeferredActions:

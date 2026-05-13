@@ -150,7 +150,7 @@ type IAAS3DownloadSession interface {
 	StreamBase() objectivec.IObject
 	SyncRequests() int
 	Url() foundation.INSURL
-	UrlSession() *foundation.NSURLSession
+	UrlSession() foundation.NSURLSession
 	InitWithURLStreamBaseMaxAttemptsPauseIntervalMaxRequestsInFlight(url foundation.INSURL, base objectivec.IObject, attempts uint32, interval float32, flight uint32) AAS3DownloadSession
 }
 
@@ -329,11 +329,7 @@ func (a AAS3DownloadSession) Url() foundation.INSURL {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadSession/urlSession
-func (a AAS3DownloadSession) UrlSession() *foundation.NSURLSession {
+func (a AAS3DownloadSession) UrlSession() foundation.NSURLSession {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("urlSession"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSURLSessionFromID(objc.ID(rv))
-	return &val
+	return foundation.NSURLSessionFromID(objc.ID(rv))
 }

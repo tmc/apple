@@ -195,8 +195,17 @@ func (c CustomizeVoicesWindowController) _anyVoicePlaying() bool {
 }
 
 // AnyVoicePlaying is an exported wrapper for the private method _anyVoicePlaying.
-func (c CustomizeVoicesWindowController) AnyVoicePlaying() bool {
-	return c._anyVoicePlaying()
+func (c CustomizeVoicesWindowController) AnyVoicePlaying() (bool, error) {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_anyVoicePlaying")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_anyVoicePlaying"}
+		return false, err
+	}
+	return c._anyVoicePlaying(), nil
+}
+
+// CanAnyVoicePlaying reports whether the receiver responds to the private selector _anyVoicePlaying.
+func (c CustomizeVoicesWindowController) CanAnyVoicePlaying() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_anyVoicePlaying"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_delayedPopUpUpdate
@@ -205,8 +214,18 @@ func (c CustomizeVoicesWindowController) _delayedPopUpUpdate() {
 }
 
 // DelayedPopUpUpdate is an exported wrapper for the private method _delayedPopUpUpdate.
-func (c CustomizeVoicesWindowController) DelayedPopUpUpdate() {
+func (c CustomizeVoicesWindowController) DelayedPopUpUpdate() error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_delayedPopUpUpdate")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_delayedPopUpUpdate"}
+		return err
+	}
 	c._delayedPopUpUpdate()
+	return nil
+}
+
+// CanDelayedPopUpUpdate reports whether the receiver responds to the private selector _delayedPopUpUpdate.
+func (c CustomizeVoicesWindowController) CanDelayedPopUpUpdate() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_delayedPopUpUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_isSampleAvailableForVoiceObject:
@@ -216,8 +235,17 @@ func (c CustomizeVoicesWindowController) _isSampleAvailableForVoiceObject(object
 }
 
 // IsSampleAvailableForVoiceObject is an exported wrapper for the private method _isSampleAvailableForVoiceObject.
-func (c CustomizeVoicesWindowController) IsSampleAvailableForVoiceObject(object objectivec.IObject) bool {
-	return c._isSampleAvailableForVoiceObject(object)
+func (c CustomizeVoicesWindowController) IsSampleAvailableForVoiceObject(object objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_isSampleAvailableForVoiceObject:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isSampleAvailableForVoiceObject:"}
+		return false, err
+	}
+	return c._isSampleAvailableForVoiceObject(object), nil
+}
+
+// CanIsSampleAvailableForVoiceObject reports whether the receiver responds to the private selector _isSampleAvailableForVoiceObject:.
+func (c CustomizeVoicesWindowController) CanIsSampleAvailableForVoiceObject() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_isSampleAvailableForVoiceObject:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_propagateCheckboxSelection:
@@ -226,8 +254,18 @@ func (c CustomizeVoicesWindowController) _propagateCheckboxSelection(selection o
 }
 
 // PropagateCheckboxSelection is an exported wrapper for the private method _propagateCheckboxSelection.
-func (c CustomizeVoicesWindowController) PropagateCheckboxSelection(selection objectivec.IObject) {
+func (c CustomizeVoicesWindowController) PropagateCheckboxSelection(selection objectivec.IObject) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_propagateCheckboxSelection:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_propagateCheckboxSelection:"}
+		return err
+	}
 	c._propagateCheckboxSelection(selection)
+	return nil
+}
+
+// CanPropagateCheckboxSelection reports whether the receiver responds to the private selector _propagateCheckboxSelection:.
+func (c CustomizeVoicesWindowController) CanPropagateCheckboxSelection() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateCheckboxSelection:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_propagateDownloadCheckboxSelection:
@@ -236,8 +274,18 @@ func (c CustomizeVoicesWindowController) _propagateDownloadCheckboxSelection(sel
 }
 
 // PropagateDownloadCheckboxSelection is an exported wrapper for the private method _propagateDownloadCheckboxSelection.
-func (c CustomizeVoicesWindowController) PropagateDownloadCheckboxSelection(selection objectivec.IObject) {
+func (c CustomizeVoicesWindowController) PropagateDownloadCheckboxSelection(selection objectivec.IObject) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_propagateDownloadCheckboxSelection:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_propagateDownloadCheckboxSelection:"}
+		return err
+	}
 	c._propagateDownloadCheckboxSelection(selection)
+	return nil
+}
+
+// CanPropagateDownloadCheckboxSelection reports whether the receiver responds to the private selector _propagateDownloadCheckboxSelection:.
+func (c CustomizeVoicesWindowController) CanPropagateDownloadCheckboxSelection() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateDownloadCheckboxSelection:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_propagateDownloadVariantSelection:
@@ -246,8 +294,18 @@ func (c CustomizeVoicesWindowController) _propagateDownloadVariantSelection(sele
 }
 
 // PropagateDownloadVariantSelection is an exported wrapper for the private method _propagateDownloadVariantSelection.
-func (c CustomizeVoicesWindowController) PropagateDownloadVariantSelection(selection objectivec.IObject) {
+func (c CustomizeVoicesWindowController) PropagateDownloadVariantSelection(selection objectivec.IObject) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_propagateDownloadVariantSelection:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_propagateDownloadVariantSelection:"}
+		return err
+	}
 	c._propagateDownloadVariantSelection(selection)
+	return nil
+}
+
+// CanPropagateDownloadVariantSelection reports whether the receiver responds to the private selector _propagateDownloadVariantSelection:.
+func (c CustomizeVoicesWindowController) CanPropagateDownloadVariantSelection() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_propagateDownloadVariantSelection:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_rebuildVoiceList
@@ -256,8 +314,18 @@ func (c CustomizeVoicesWindowController) _rebuildVoiceList() {
 }
 
 // RebuildVoiceList is an exported wrapper for the private method _rebuildVoiceList.
-func (c CustomizeVoicesWindowController) RebuildVoiceList() {
+func (c CustomizeVoicesWindowController) RebuildVoiceList() error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_rebuildVoiceList")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_rebuildVoiceList"}
+		return err
+	}
 	c._rebuildVoiceList()
+	return nil
+}
+
+// CanRebuildVoiceList reports whether the receiver responds to the private selector _rebuildVoiceList.
+func (c CustomizeVoicesWindowController) CanRebuildVoiceList() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_rebuildVoiceList"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_setRowDownloadCheckbox:voiceObject:isSelected:
@@ -266,8 +334,18 @@ func (c CustomizeVoicesWindowController) _setRowDownloadCheckboxVoiceObjectIsSel
 }
 
 // SetRowDownloadCheckboxVoiceObjectIsSelected is an exported wrapper for the private method _setRowDownloadCheckboxVoiceObjectIsSelected.
-func (c CustomizeVoicesWindowController) SetRowDownloadCheckboxVoiceObjectIsSelected(checkbox objectivec.IObject, object objectivec.IObject, selected bool) {
+func (c CustomizeVoicesWindowController) SetRowDownloadCheckboxVoiceObjectIsSelected(checkbox objectivec.IObject, object objectivec.IObject, selected bool) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_setRowDownloadCheckbox:voiceObject:isSelected:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setRowDownloadCheckbox:voiceObject:isSelected:"}
+		return err
+	}
 	c._setRowDownloadCheckboxVoiceObjectIsSelected(checkbox, object, selected)
+	return nil
+}
+
+// CanSetRowDownloadCheckboxVoiceObjectIsSelected reports whether the receiver responds to the private selector _setRowDownloadCheckbox:voiceObject:isSelected:.
+func (c CustomizeVoicesWindowController) CanSetRowDownloadCheckboxVoiceObjectIsSelected() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_setRowDownloadCheckbox:voiceObject:isSelected:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_setRowStatusFieldView:voiceObject:isSelected:
@@ -276,8 +354,18 @@ func (c CustomizeVoicesWindowController) _setRowStatusFieldViewVoiceObjectIsSele
 }
 
 // SetRowStatusFieldViewVoiceObjectIsSelected is an exported wrapper for the private method _setRowStatusFieldViewVoiceObjectIsSelected.
-func (c CustomizeVoicesWindowController) SetRowStatusFieldViewVoiceObjectIsSelected(view objectivec.IObject, object objectivec.IObject, selected bool) {
+func (c CustomizeVoicesWindowController) SetRowStatusFieldViewVoiceObjectIsSelected(view objectivec.IObject, object objectivec.IObject, selected bool) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_setRowStatusFieldView:voiceObject:isSelected:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setRowStatusFieldView:voiceObject:isSelected:"}
+		return err
+	}
 	c._setRowStatusFieldViewVoiceObjectIsSelected(view, object, selected)
+	return nil
+}
+
+// CanSetRowStatusFieldViewVoiceObjectIsSelected reports whether the receiver responds to the private selector _setRowStatusFieldView:voiceObject:isSelected:.
+func (c CustomizeVoicesWindowController) CanSetRowStatusFieldViewVoiceObjectIsSelected() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_setRowStatusFieldView:voiceObject:isSelected:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_shouldAllowRemovalOfVoiceObject:
@@ -287,8 +375,17 @@ func (c CustomizeVoicesWindowController) _shouldAllowRemovalOfVoiceObject(object
 }
 
 // ShouldAllowRemovalOfVoiceObject is an exported wrapper for the private method _shouldAllowRemovalOfVoiceObject.
-func (c CustomizeVoicesWindowController) ShouldAllowRemovalOfVoiceObject(object objectivec.IObject) bool {
-	return c._shouldAllowRemovalOfVoiceObject(object)
+func (c CustomizeVoicesWindowController) ShouldAllowRemovalOfVoiceObject(object objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_shouldAllowRemovalOfVoiceObject:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_shouldAllowRemovalOfVoiceObject:"}
+		return false, err
+	}
+	return c._shouldAllowRemovalOfVoiceObject(object), nil
+}
+
+// CanShouldAllowRemovalOfVoiceObject reports whether the receiver responds to the private selector _shouldAllowRemovalOfVoiceObject:.
+func (c CustomizeVoicesWindowController) CanShouldAllowRemovalOfVoiceObject() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_shouldAllowRemovalOfVoiceObject:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_showPlayStopButtonAsPlaying:
@@ -297,8 +394,18 @@ func (c CustomizeVoicesWindowController) _showPlayStopButtonAsPlaying(playing bo
 }
 
 // ShowPlayStopButtonAsPlaying is an exported wrapper for the private method _showPlayStopButtonAsPlaying.
-func (c CustomizeVoicesWindowController) ShowPlayStopButtonAsPlaying(playing bool) {
+func (c CustomizeVoicesWindowController) ShowPlayStopButtonAsPlaying(playing bool) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_showPlayStopButtonAsPlaying:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_showPlayStopButtonAsPlaying:"}
+		return err
+	}
 	c._showPlayStopButtonAsPlaying(playing)
+	return nil
+}
+
+// CanShowPlayStopButtonAsPlaying reports whether the receiver responds to the private selector _showPlayStopButtonAsPlaying:.
+func (c CustomizeVoicesWindowController) CanShowPlayStopButtonAsPlaying() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_showPlayStopButtonAsPlaying:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_stopAndResetAllVoicePlaying
@@ -307,8 +414,18 @@ func (c CustomizeVoicesWindowController) _stopAndResetAllVoicePlaying() {
 }
 
 // StopAndResetAllVoicePlaying is an exported wrapper for the private method _stopAndResetAllVoicePlaying.
-func (c CustomizeVoicesWindowController) StopAndResetAllVoicePlaying() {
+func (c CustomizeVoicesWindowController) StopAndResetAllVoicePlaying() error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_stopAndResetAllVoicePlaying")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_stopAndResetAllVoicePlaying"}
+		return err
+	}
 	c._stopAndResetAllVoicePlaying()
+	return nil
+}
+
+// CanStopAndResetAllVoicePlaying reports whether the receiver responds to the private selector _stopAndResetAllVoicePlaying.
+func (c CustomizeVoicesWindowController) CanStopAndResetAllVoicePlaying() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_stopAndResetAllVoicePlaying"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_updateButtonStates
@@ -317,8 +434,18 @@ func (c CustomizeVoicesWindowController) _updateButtonStates() {
 }
 
 // UpdateButtonStates is an exported wrapper for the private method _updateButtonStates.
-func (c CustomizeVoicesWindowController) UpdateButtonStates() {
+func (c CustomizeVoicesWindowController) UpdateButtonStates() error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_updateButtonStates")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateButtonStates"}
+		return err
+	}
 	c._updateButtonStates()
+	return nil
+}
+
+// CanUpdateButtonStates reports whether the receiver responds to the private selector _updateButtonStates.
+func (c CustomizeVoicesWindowController) CanUpdateButtonStates() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_updateButtonStates"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_updateDisplayedVoicesUsingFilterString:
@@ -327,8 +454,18 @@ func (c CustomizeVoicesWindowController) _updateDisplayedVoicesUsingFilterString
 }
 
 // UpdateDisplayedVoicesUsingFilterString is an exported wrapper for the private method _updateDisplayedVoicesUsingFilterString.
-func (c CustomizeVoicesWindowController) UpdateDisplayedVoicesUsingFilterString(string_ objectivec.IObject) {
+func (c CustomizeVoicesWindowController) UpdateDisplayedVoicesUsingFilterString(string_ objectivec.IObject) error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_updateDisplayedVoicesUsingFilterString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateDisplayedVoicesUsingFilterString:"}
+		return err
+	}
 	c._updateDisplayedVoicesUsingFilterString(string_)
+	return nil
+}
+
+// CanUpdateDisplayedVoicesUsingFilterString reports whether the receiver responds to the private selector _updateDisplayedVoicesUsingFilterString:.
+func (c CustomizeVoicesWindowController) CanUpdateDisplayedVoicesUsingFilterString() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_updateDisplayedVoicesUsingFilterString:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_updateRowDownloadStatus
@@ -337,8 +474,18 @@ func (c CustomizeVoicesWindowController) _updateRowDownloadStatus() {
 }
 
 // UpdateRowDownloadStatus is an exported wrapper for the private method _updateRowDownloadStatus.
-func (c CustomizeVoicesWindowController) UpdateRowDownloadStatus() {
+func (c CustomizeVoicesWindowController) UpdateRowDownloadStatus() error {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_updateRowDownloadStatus")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateRowDownloadStatus"}
+		return err
+	}
 	c._updateRowDownloadStatus()
+	return nil
+}
+
+// CanUpdateRowDownloadStatus reports whether the receiver responds to the private selector _updateRowDownloadStatus.
+func (c CustomizeVoicesWindowController) CanUpdateRowDownloadStatus() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_updateRowDownloadStatus"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/_voiceObjectForCurrentlySelectedRow
@@ -348,8 +495,17 @@ func (c CustomizeVoicesWindowController) _voiceObjectForCurrentlySelectedRow() o
 }
 
 // VoiceObjectForCurrentlySelectedRow is an exported wrapper for the private method _voiceObjectForCurrentlySelectedRow.
-func (c CustomizeVoicesWindowController) VoiceObjectForCurrentlySelectedRow() objectivec.IObject {
-	return c._voiceObjectForCurrentlySelectedRow()
+func (c CustomizeVoicesWindowController) VoiceObjectForCurrentlySelectedRow() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(c.ID, objc.Sel("_voiceObjectForCurrentlySelectedRow")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_voiceObjectForCurrentlySelectedRow"}
+		return nil, err
+	}
+	return c._voiceObjectForCurrentlySelectedRow(), nil
+}
+
+// CanVoiceObjectForCurrentlySelectedRow reports whether the receiver responds to the private selector _voiceObjectForCurrentlySelectedRow.
+func (c CustomizeVoicesWindowController) CanVoiceObjectForCurrentlySelectedRow() bool {
+	return objc.RespondsToSelector(c.ID, objc.Sel("_voiceObjectForCurrentlySelectedRow"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/CustomizeVoicesWindowController/acceptVoiceSelection:

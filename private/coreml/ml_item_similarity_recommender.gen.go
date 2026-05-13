@@ -174,7 +174,16 @@ func (i MLItemSimilarityRecommender) _itemForIndexError(index uint64) (objective
 
 // ItemForIndexError is an exported wrapper for the private method _itemForIndexError.
 func (i MLItemSimilarityRecommender) ItemForIndexError(index uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(i.ID, objc.Sel("_itemForIndex:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_itemForIndex:error:"}
+		return nil, err
+	}
 	return i._itemForIndexError(index)
+}
+
+// CanItemForIndexError reports whether the receiver responds to the private selector _itemForIndex:error:.
+func (i MLItemSimilarityRecommender) CanItemForIndexError() bool {
+	return objc.RespondsToSelector(i.ID, objc.Sel("_itemForIndex:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/_mapItemSequence:dest:error:
@@ -194,7 +203,16 @@ func (i MLItemSimilarityRecommender) _mapItemSequenceDestError(sequence objectiv
 
 // MapItemSequenceDestError is an exported wrapper for the private method _mapItemSequenceDestError.
 func (i MLItemSimilarityRecommender) MapItemSequenceDestError(sequence objectivec.IObject, dest unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(i.ID, objc.Sel("_mapItemSequence:dest:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_mapItemSequence:dest:error:"}
+		return false, err
+	}
 	return i._mapItemSequenceDestError(sequence, dest)
+}
+
+// CanMapItemSequenceDestError reports whether the receiver responds to the private selector _mapItemSequence:dest:error:.
+func (i MLItemSimilarityRecommender) CanMapItemSequenceDestError() bool {
+	return objc.RespondsToSelector(i.ID, objc.Sel("_mapItemSequence:dest:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/modelData

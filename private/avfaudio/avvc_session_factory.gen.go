@@ -164,7 +164,16 @@ func (v AVVCSessionFactory) _wqCreatePrimarySessionManagerIfNeededClientTypeErro
 
 // WqCreatePrimarySessionManagerIfNeededClientTypeError is an exported wrapper for the private method _wqCreatePrimarySessionManagerIfNeededClientTypeError.
 func (v AVVCSessionFactory) WqCreatePrimarySessionManagerIfNeededClientTypeError(needed objectivec.IObject, type_ int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_wqCreatePrimarySessionManagerIfNeeded:clientType:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_wqCreatePrimarySessionManagerIfNeeded:clientType:error:"}
+		return nil, err
+	}
 	return v._wqCreatePrimarySessionManagerIfNeededClientTypeError(needed, type_)
+}
+
+// CanWqCreatePrimarySessionManagerIfNeededClientTypeError reports whether the receiver responds to the private selector _wqCreatePrimarySessionManagerIfNeeded:clientType:error:.
+func (v AVVCSessionFactory) CanWqCreatePrimarySessionManagerIfNeededClientTypeError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_wqCreatePrimarySessionManagerIfNeeded:clientType:error:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/_wqSessionAndManagerForContext:clientType:session:manager:error:
@@ -181,7 +190,16 @@ func (v AVVCSessionFactory) _wqSessionAndManagerForContextClientTypeSessionManag
 
 // WqSessionAndManagerForContextClientTypeSessionManagerError is an exported wrapper for the private method _wqSessionAndManagerForContextClientTypeSessionManagerError.
 func (v AVVCSessionFactory) WqSessionAndManagerForContextClientTypeSessionManagerError(context objectivec.IObject, type_ int64, session []objectivec.IObject, manager []objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_wqSessionAndManagerForContext:clientType:session:manager:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_wqSessionAndManagerForContext:clientType:session:manager:error:"}
+		return err
+	}
 	return v._wqSessionAndManagerForContextClientTypeSessionManagerError(context, type_, session, manager)
+}
+
+// CanWqSessionAndManagerForContextClientTypeSessionManagerError reports whether the receiver responds to the private selector _wqSessionAndManagerForContext:clientType:session:manager:error:.
+func (v AVVCSessionFactory) CanWqSessionAndManagerForContextClientTypeSessionManagerError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_wqSessionAndManagerForContext:clientType:session:manager:error:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/auxSessionManagers

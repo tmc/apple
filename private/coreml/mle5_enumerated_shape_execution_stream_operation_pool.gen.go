@@ -179,7 +179,16 @@ func (e MLE5EnumeratedShapeExecutionStreamOperationPool) _takeOutOperationForFun
 
 // TakeOutOperationForFunctionNameError is an exported wrapper for the private method _takeOutOperationForFunctionNameError.
 func (e MLE5EnumeratedShapeExecutionStreamOperationPool) TakeOutOperationForFunctionNameError(name objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_takeOutOperationForFunctionName:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_takeOutOperationForFunctionName:error:"}
+		return nil, err
+	}
 	return e._takeOutOperationForFunctionNameError(name)
+}
+
+// CanTakeOutOperationForFunctionNameError reports whether the receiver responds to the private selector _takeOutOperationForFunctionName:error:.
+func (e MLE5EnumeratedShapeExecutionStreamOperationPool) CanTakeOutOperationForFunctionNameError() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_takeOutOperationForFunctionName:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5EnumeratedShapeExecutionStreamOperationPool/_takeOutOperationFromAnyProgramFunction
@@ -189,8 +198,17 @@ func (e MLE5EnumeratedShapeExecutionStreamOperationPool) _takeOutOperationFromAn
 }
 
 // TakeOutOperationFromAnyProgramFunction is an exported wrapper for the private method _takeOutOperationFromAnyProgramFunction.
-func (e MLE5EnumeratedShapeExecutionStreamOperationPool) TakeOutOperationFromAnyProgramFunction() objectivec.IObject {
-	return e._takeOutOperationFromAnyProgramFunction()
+func (e MLE5EnumeratedShapeExecutionStreamOperationPool) TakeOutOperationFromAnyProgramFunction() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(e.ID, objc.Sel("_takeOutOperationFromAnyProgramFunction")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_takeOutOperationFromAnyProgramFunction"}
+		return nil, err
+	}
+	return e._takeOutOperationFromAnyProgramFunction(), nil
+}
+
+// CanTakeOutOperationFromAnyProgramFunction reports whether the receiver responds to the private selector _takeOutOperationFromAnyProgramFunction.
+func (e MLE5EnumeratedShapeExecutionStreamOperationPool) CanTakeOutOperationFromAnyProgramFunction() bool {
+	return objc.RespondsToSelector(e.ID, objc.Sel("_takeOutOperationFromAnyProgramFunction"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5EnumeratedShapeExecutionStreamOperationPool/prepareWithInitialPoolSize:error:

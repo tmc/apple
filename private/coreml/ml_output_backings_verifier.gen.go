@@ -136,7 +136,16 @@ func (o MLOutputBackingsVerifier) _verifyMultiArrayOutputBackingForFeatureError(
 
 // VerifyMultiArrayOutputBackingForFeatureError is an exported wrapper for the private method _verifyMultiArrayOutputBackingForFeatureError.
 func (o MLOutputBackingsVerifier) VerifyMultiArrayOutputBackingForFeatureError(backing objectivec.IObject, feature objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(o.ID, objc.Sel("_verifyMultiArrayOutputBacking:forFeature:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_verifyMultiArrayOutputBacking:forFeature:error:"}
+		return false, err
+	}
 	return o._verifyMultiArrayOutputBackingForFeatureError(backing, feature)
+}
+
+// CanVerifyMultiArrayOutputBackingForFeatureError reports whether the receiver responds to the private selector _verifyMultiArrayOutputBacking:forFeature:error:.
+func (o MLOutputBackingsVerifier) CanVerifyMultiArrayOutputBackingForFeatureError() bool {
+	return objc.RespondsToSelector(o.ID, objc.Sel("_verifyMultiArrayOutputBacking:forFeature:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/_verifyOutputBacking:forFeature:error:
@@ -156,7 +165,16 @@ func (o MLOutputBackingsVerifier) _verifyOutputBackingForFeatureError(backing ob
 
 // VerifyOutputBackingForFeatureError is an exported wrapper for the private method _verifyOutputBackingForFeatureError.
 func (o MLOutputBackingsVerifier) VerifyOutputBackingForFeatureError(backing objectivec.IObject, feature objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(o.ID, objc.Sel("_verifyOutputBacking:forFeature:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_verifyOutputBacking:forFeature:error:"}
+		return false, err
+	}
 	return o._verifyOutputBackingForFeatureError(backing, feature)
+}
+
+// CanVerifyOutputBackingForFeatureError reports whether the receiver responds to the private selector _verifyOutputBacking:forFeature:error:.
+func (o MLOutputBackingsVerifier) CanVerifyOutputBackingForFeatureError() bool {
+	return objc.RespondsToSelector(o.ID, objc.Sel("_verifyOutputBacking:forFeature:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/_verifyPixelBufferOutputBacking:forFeature:error:
@@ -176,7 +194,16 @@ func (o MLOutputBackingsVerifier) _verifyPixelBufferOutputBackingForFeatureError
 
 // VerifyPixelBufferOutputBackingForFeatureError is an exported wrapper for the private method _verifyPixelBufferOutputBackingForFeatureError.
 func (o MLOutputBackingsVerifier) VerifyPixelBufferOutputBackingForFeatureError(backing corevideo.CVImageBufferRef, feature objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(o.ID, objc.Sel("_verifyPixelBufferOutputBacking:forFeature:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_verifyPixelBufferOutputBacking:forFeature:error:"}
+		return false, err
+	}
 	return o._verifyPixelBufferOutputBackingForFeatureError(backing, feature)
+}
+
+// CanVerifyPixelBufferOutputBackingForFeatureError reports whether the receiver responds to the private selector _verifyPixelBufferOutputBacking:forFeature:error:.
+func (o MLOutputBackingsVerifier) CanVerifyPixelBufferOutputBackingForFeatureError() bool {
+	return objc.RespondsToSelector(o.ID, objc.Sel("_verifyPixelBufferOutputBacking:forFeature:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/verifyOutputBackings:predictionUsesBatch:error:

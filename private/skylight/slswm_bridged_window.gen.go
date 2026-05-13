@@ -147,8 +147,18 @@ func (s SLSWMBridgedWindow) _rebuildChildWindowInfos() {
 }
 
 // RebuildChildWindowInfos is an exported wrapper for the private method _rebuildChildWindowInfos.
-func (s SLSWMBridgedWindow) RebuildChildWindowInfos() {
+func (s SLSWMBridgedWindow) RebuildChildWindowInfos() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_rebuildChildWindowInfos")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_rebuildChildWindowInfos"}
+		return err
+	}
 	s._rebuildChildWindowInfos()
+	return nil
+}
+
+// CanRebuildChildWindowInfos reports whether the receiver responds to the private selector _rebuildChildWindowInfos.
+func (s SLSWMBridgedWindow) CanRebuildChildWindowInfos() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_rebuildChildWindowInfos"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSWMBridgedWindow/addChildWindow:ordered:

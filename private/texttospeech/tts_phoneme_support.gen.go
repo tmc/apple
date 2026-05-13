@@ -88,8 +88,17 @@ func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _getPhonemeMapForSynthLang
 }
 
 // GetPhonemeMapForSynthLanguage is an exported wrapper for the private method _getPhonemeMapForSynthLanguage.
-func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) GetPhonemeMapForSynthLanguage(synth objectivec.IObject, language objectivec.IObject) objectivec.IObject {
-	return _TTSPhonemeSupportClass._getPhonemeMapForSynthLanguage(synth, language)
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) GetPhonemeMapForSynthLanguage(synth objectivec.IObject, language objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_getPhonemeMapForSynth:language:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_getPhonemeMapForSynth:language:"}
+		return nil, err
+	}
+	return _TTSPhonemeSupportClass._getPhonemeMapForSynthLanguage(synth, language), nil
+}
+
+// CanGetPhonemeMapForSynthLanguage reports whether the receiver responds to the private selector _getPhonemeMapForSynth:language:.
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) CanGetPhonemeMapForSynthLanguage() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_getPhonemeMapForSynth:language:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/_ipaVectorFromString:
@@ -99,8 +108,17 @@ func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _ipaVectorFromString(strin
 }
 
 // IpaVectorFromString is an exported wrapper for the private method _ipaVectorFromString.
-func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) IpaVectorFromString(string_ objectivec.IObject) objectivec.IObject {
-	return _TTSPhonemeSupportClass._ipaVectorFromString(string_)
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) IpaVectorFromString(string_ objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_ipaVectorFromString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_ipaVectorFromString:"}
+		return nil, err
+	}
+	return _TTSPhonemeSupportClass._ipaVectorFromString(string_), nil
+}
+
+// CanIpaVectorFromString reports whether the receiver responds to the private selector _ipaVectorFromString:.
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) CanIpaVectorFromString() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_ipaVectorFromString:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/_phonemesFromIPA:language:synth:
@@ -110,8 +128,17 @@ func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _phonemesFromIPALanguageSy
 }
 
 // PhonemesFromIPALanguageSynth is an exported wrapper for the private method _phonemesFromIPALanguageSynth.
-func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) PhonemesFromIPALanguageSynth(ipa objectivec.IObject, language objectivec.IObject, synth objectivec.IObject) objectivec.IObject {
-	return _TTSPhonemeSupportClass._phonemesFromIPALanguageSynth(ipa, language, synth)
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) PhonemesFromIPALanguageSynth(ipa objectivec.IObject, language objectivec.IObject, synth objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_phonemesFromIPA:language:synth:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_phonemesFromIPA:language:synth:"}
+		return nil, err
+	}
+	return _TTSPhonemeSupportClass._phonemesFromIPALanguageSynth(ipa, language, synth), nil
+}
+
+// CanPhonemesFromIPALanguageSynth reports whether the receiver responds to the private selector _phonemesFromIPA:language:synth:.
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) CanPhonemesFromIPALanguageSynth() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_phonemesFromIPA:language:synth:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/applebetPhonemesFromIPA:

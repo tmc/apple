@@ -132,8 +132,18 @@ func (w WSHIDIncomingServiceConnectionManager) _queue_appendDescriptionToStream(
 }
 
 // Queue_appendDescriptionToStream is an exported wrapper for the private method _queue_appendDescriptionToStream.
-func (w WSHIDIncomingServiceConnectionManager) Queue_appendDescriptionToStream(stream objectivec.IObject) {
+func (w WSHIDIncomingServiceConnectionManager) Queue_appendDescriptionToStream(stream objectivec.IObject) error {
+	if !objc.RespondsToSelector(w.ID, objc.Sel("_queue_appendDescriptionToStream:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queue_appendDescriptionToStream:"}
+		return err
+	}
 	w._queue_appendDescriptionToStream(stream)
+	return nil
+}
+
+// CanQueue_appendDescriptionToStream reports whether the receiver responds to the private selector _queue_appendDescriptionToStream:.
+func (w WSHIDIncomingServiceConnectionManager) CanQueue_appendDescriptionToStream() bool {
+	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_appendDescriptionToStream:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/_queue_deliveryManagerForAuditToken:
@@ -143,8 +153,17 @@ func (w WSHIDIncomingServiceConnectionManager) _queue_deliveryManagerForAuditTok
 }
 
 // Queue_deliveryManagerForAuditToken is an exported wrapper for the private method _queue_deliveryManagerForAuditToken.
-func (w WSHIDIncomingServiceConnectionManager) Queue_deliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject {
-	return w._queue_deliveryManagerForAuditToken(token)
+func (w WSHIDIncomingServiceConnectionManager) Queue_deliveryManagerForAuditToken(token objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queue_deliveryManagerForAuditToken:"}
+		return nil, err
+	}
+	return w._queue_deliveryManagerForAuditToken(token), nil
+}
+
+// CanQueue_deliveryManagerForAuditToken reports whether the receiver responds to the private selector _queue_deliveryManagerForAuditToken:.
+func (w WSHIDIncomingServiceConnectionManager) CanQueue_deliveryManagerForAuditToken() bool {
+	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/_queue_description
@@ -154,8 +173,17 @@ func (w WSHIDIncomingServiceConnectionManager) _queue_description() objectivec.I
 }
 
 // Queue_description is an exported wrapper for the private method _queue_description.
-func (w WSHIDIncomingServiceConnectionManager) Queue_description() objectivec.IObject {
-	return w._queue_description()
+func (w WSHIDIncomingServiceConnectionManager) Queue_description() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(w.ID, objc.Sel("_queue_description")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queue_description"}
+		return nil, err
+	}
+	return w._queue_description(), nil
+}
+
+// CanQueue_description reports whether the receiver responds to the private selector _queue_description.
+func (w WSHIDIncomingServiceConnectionManager) CanQueue_description() bool {
+	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_description"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/_queue_eventDeliveryObserverServiceForAuditToken:
@@ -165,8 +193,17 @@ func (w WSHIDIncomingServiceConnectionManager) _queue_eventDeliveryObserverServi
 }
 
 // Queue_eventDeliveryObserverServiceForAuditToken is an exported wrapper for the private method _queue_eventDeliveryObserverServiceForAuditToken.
-func (w WSHIDIncomingServiceConnectionManager) Queue_eventDeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
-	return w._queue_eventDeliveryObserverServiceForAuditToken(token)
+func (w WSHIDIncomingServiceConnectionManager) Queue_eventDeliveryObserverServiceForAuditToken(token objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queue_eventDeliveryObserverServiceForAuditToken:"}
+		return nil, err
+	}
+	return w._queue_eventDeliveryObserverServiceForAuditToken(token), nil
+}
+
+// CanQueue_eventDeliveryObserverServiceForAuditToken reports whether the receiver responds to the private selector _queue_eventDeliveryObserverServiceForAuditToken:.
+func (w WSHIDIncomingServiceConnectionManager) CanQueue_eventDeliveryObserverServiceForAuditToken() bool {
+	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSHIDIncomingServiceConnectionManager/appendDescriptionToStream:

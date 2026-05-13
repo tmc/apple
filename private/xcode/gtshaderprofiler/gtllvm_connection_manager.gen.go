@@ -177,8 +177,18 @@ func (g GTLLVMConnectionManager) _acquireAllHosts() {
 }
 
 // AcquireAllHosts is an exported wrapper for the private method _acquireAllHosts.
-func (g GTLLVMConnectionManager) AcquireAllHosts() {
+func (g GTLLVMConnectionManager) AcquireAllHosts() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_acquireAllHosts")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_acquireAllHosts"}
+		return err
+	}
 	g._acquireAllHosts()
+	return nil
+}
+
+// CanAcquireAllHosts reports whether the receiver responds to the private selector _acquireAllHosts.
+func (g GTLLVMConnectionManager) CanAcquireAllHosts() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_acquireAllHosts"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_acquireAvailableClient
@@ -188,8 +198,17 @@ func (g GTLLVMConnectionManager) _acquireAvailableClient() uint64 {
 }
 
 // AcquireAvailableClient is an exported wrapper for the private method _acquireAvailableClient.
-func (g GTLLVMConnectionManager) AcquireAvailableClient() uint64 {
-	return g._acquireAvailableClient()
+func (g GTLLVMConnectionManager) AcquireAvailableClient() (uint64, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_acquireAvailableClient")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_acquireAvailableClient"}
+		return 0, err
+	}
+	return g._acquireAvailableClient(), nil
+}
+
+// CanAcquireAvailableClient reports whether the receiver responds to the private selector _acquireAvailableClient.
+func (g GTLLVMConnectionManager) CanAcquireAvailableClient() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_acquireAvailableClient"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_acquireAvailableHost
@@ -199,8 +218,17 @@ func (g GTLLVMConnectionManager) _acquireAvailableHost() uint32 {
 }
 
 // AcquireAvailableHost is an exported wrapper for the private method _acquireAvailableHost.
-func (g GTLLVMConnectionManager) AcquireAvailableHost() uint32 {
-	return g._acquireAvailableHost()
+func (g GTLLVMConnectionManager) AcquireAvailableHost() (uint32, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_acquireAvailableHost")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_acquireAvailableHost"}
+		return 0, err
+	}
+	return g._acquireAvailableHost(), nil
+}
+
+// CanAcquireAvailableHost reports whether the receiver responds to the private selector _acquireAvailableHost.
+func (g GTLLVMConnectionManager) CanAcquireAvailableHost() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_acquireAvailableHost"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_anyHostBusy
@@ -210,8 +238,17 @@ func (g GTLLVMConnectionManager) _anyHostBusy() bool {
 }
 
 // AnyHostBusy is an exported wrapper for the private method _anyHostBusy.
-func (g GTLLVMConnectionManager) AnyHostBusy() bool {
-	return g._anyHostBusy()
+func (g GTLLVMConnectionManager) AnyHostBusy() (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_anyHostBusy")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_anyHostBusy"}
+		return false, err
+	}
+	return g._anyHostBusy(), nil
+}
+
+// CanAnyHostBusy reports whether the receiver responds to the private selector _anyHostBusy.
+func (g GTLLVMConnectionManager) CanAnyHostBusy() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_anyHostBusy"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_queryVersion
@@ -221,8 +258,17 @@ func (g GTLLVMConnectionManager) _queryVersion() uint32 {
 }
 
 // QueryVersion is an exported wrapper for the private method _queryVersion.
-func (g GTLLVMConnectionManager) QueryVersion() uint32 {
-	return g._queryVersion()
+func (g GTLLVMConnectionManager) QueryVersion() (uint32, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_queryVersion")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queryVersion"}
+		return 0, err
+	}
+	return g._queryVersion(), nil
+}
+
+// CanQueryVersion reports whether the receiver responds to the private selector _queryVersion.
+func (g GTLLVMConnectionManager) CanQueryVersion() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_queryVersion"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_releaseAllHosts
@@ -231,8 +277,18 @@ func (g GTLLVMConnectionManager) _releaseAllHosts() {
 }
 
 // ReleaseAllHosts is an exported wrapper for the private method _releaseAllHosts.
-func (g GTLLVMConnectionManager) ReleaseAllHosts() {
+func (g GTLLVMConnectionManager) ReleaseAllHosts() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_releaseAllHosts")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_releaseAllHosts"}
+		return err
+	}
 	g._releaseAllHosts()
+	return nil
+}
+
+// CanReleaseAllHosts reports whether the receiver responds to the private selector _releaseAllHosts.
+func (g GTLLVMConnectionManager) CanReleaseAllHosts() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_releaseAllHosts"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_releaseAvailableClientAtIndex:
@@ -241,8 +297,18 @@ func (g GTLLVMConnectionManager) _releaseAvailableClientAtIndex(index uint64) {
 }
 
 // ReleaseAvailableClientAtIndex is an exported wrapper for the private method _releaseAvailableClientAtIndex.
-func (g GTLLVMConnectionManager) ReleaseAvailableClientAtIndex(index uint64) {
+func (g GTLLVMConnectionManager) ReleaseAvailableClientAtIndex(index uint64) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_releaseAvailableClientAtIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_releaseAvailableClientAtIndex:"}
+		return err
+	}
 	g._releaseAvailableClientAtIndex(index)
+	return nil
+}
+
+// CanReleaseAvailableClientAtIndex reports whether the receiver responds to the private selector _releaseAvailableClientAtIndex:.
+func (g GTLLVMConnectionManager) CanReleaseAvailableClientAtIndex() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_releaseAvailableClientAtIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_releaseHost:
@@ -251,8 +317,18 @@ func (g GTLLVMConnectionManager) _releaseHost(host uint32) {
 }
 
 // ReleaseHost is an exported wrapper for the private method _releaseHost.
-func (g GTLLVMConnectionManager) ReleaseHost(host uint32) {
+func (g GTLLVMConnectionManager) ReleaseHost(host uint32) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_releaseHost:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_releaseHost:"}
+		return err
+	}
 	g._releaseHost(host)
+	return nil
+}
+
+// CanReleaseHost reports whether the receiver responds to the private selector _releaseHost:.
+func (g GTLLVMConnectionManager) CanReleaseHost() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_releaseHost:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_tryAcquireHost:
@@ -262,8 +338,17 @@ func (g GTLLVMConnectionManager) _tryAcquireHost(host uint32) bool {
 }
 
 // TryAcquireHost is an exported wrapper for the private method _tryAcquireHost.
-func (g GTLLVMConnectionManager) TryAcquireHost(host uint32) bool {
-	return g._tryAcquireHost(host)
+func (g GTLLVMConnectionManager) TryAcquireHost(host uint32) (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_tryAcquireHost:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_tryAcquireHost:"}
+		return false, err
+	}
+	return g._tryAcquireHost(host), nil
+}
+
+// CanTryAcquireHost reports whether the receiver responds to the private selector _tryAcquireHost:.
+func (g GTLLVMConnectionManager) CanTryAcquireHost() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_tryAcquireHost:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/binaryInfo:

@@ -148,8 +148,18 @@ func (s SOVoicePopUpButton) _handleSpeechDataInstallationNotification() {
 }
 
 // HandleSpeechDataInstallationNotification is an exported wrapper for the private method _handleSpeechDataInstallationNotification.
-func (s SOVoicePopUpButton) HandleSpeechDataInstallationNotification() {
+func (s SOVoicePopUpButton) HandleSpeechDataInstallationNotification() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_handleSpeechDataInstallationNotification")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_handleSpeechDataInstallationNotification"}
+		return err
+	}
 	s._handleSpeechDataInstallationNotification()
+	return nil
+}
+
+// CanHandleSpeechDataInstallationNotification reports whether the receiver responds to the private selector _handleSpeechDataInstallationNotification.
+func (s SOVoicePopUpButton) CanHandleSpeechDataInstallationNotification() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_handleSpeechDataInstallationNotification"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoicePopUpButton/_previouslyChosenVoiceIdentifier
@@ -159,8 +169,17 @@ func (s SOVoicePopUpButton) _previouslyChosenVoiceIdentifier() objectivec.IObjec
 }
 
 // PreviouslyChosenVoiceIdentifier is an exported wrapper for the private method _previouslyChosenVoiceIdentifier.
-func (s SOVoicePopUpButton) PreviouslyChosenVoiceIdentifier() objectivec.IObject {
-	return s._previouslyChosenVoiceIdentifier()
+func (s SOVoicePopUpButton) PreviouslyChosenVoiceIdentifier() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_previouslyChosenVoiceIdentifier")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_previouslyChosenVoiceIdentifier"}
+		return nil, err
+	}
+	return s._previouslyChosenVoiceIdentifier(), nil
+}
+
+// CanPreviouslyChosenVoiceIdentifier reports whether the receiver responds to the private selector _previouslyChosenVoiceIdentifier.
+func (s SOVoicePopUpButton) CanPreviouslyChosenVoiceIdentifier() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_previouslyChosenVoiceIdentifier"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoicePopUpButton/_setPreviouslyChosenVoiceIdentifier:
@@ -169,8 +188,18 @@ func (s SOVoicePopUpButton) _setPreviouslyChosenVoiceIdentifier(identifier objec
 }
 
 // SetPreviouslyChosenVoiceIdentifier is an exported wrapper for the private method _setPreviouslyChosenVoiceIdentifier.
-func (s SOVoicePopUpButton) SetPreviouslyChosenVoiceIdentifier(identifier objectivec.IObject) {
+func (s SOVoicePopUpButton) SetPreviouslyChosenVoiceIdentifier(identifier objectivec.IObject) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_setPreviouslyChosenVoiceIdentifier:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setPreviouslyChosenVoiceIdentifier:"}
+		return err
+	}
 	s._setPreviouslyChosenVoiceIdentifier(identifier)
+	return nil
+}
+
+// CanSetPreviouslyChosenVoiceIdentifier reports whether the receiver responds to the private selector _setPreviouslyChosenVoiceIdentifier:.
+func (s SOVoicePopUpButton) CanSetPreviouslyChosenVoiceIdentifier() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_setPreviouslyChosenVoiceIdentifier:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoicePopUpButton/_statusStringForActiveDownloads
@@ -180,8 +209,17 @@ func (s SOVoicePopUpButton) _statusStringForActiveDownloads() objectivec.IObject
 }
 
 // StatusStringForActiveDownloads is an exported wrapper for the private method _statusStringForActiveDownloads.
-func (s SOVoicePopUpButton) StatusStringForActiveDownloads() objectivec.IObject {
-	return s._statusStringForActiveDownloads()
+func (s SOVoicePopUpButton) StatusStringForActiveDownloads() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_statusStringForActiveDownloads")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_statusStringForActiveDownloads"}
+		return nil, err
+	}
+	return s._statusStringForActiveDownloads(), nil
+}
+
+// CanStatusStringForActiveDownloads reports whether the receiver responds to the private selector _statusStringForActiveDownloads.
+func (s SOVoicePopUpButton) CanStatusStringForActiveDownloads() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_statusStringForActiveDownloads"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoicePopUpButton/_updateDownloadStatusFields
@@ -190,8 +228,18 @@ func (s SOVoicePopUpButton) _updateDownloadStatusFields() {
 }
 
 // UpdateDownloadStatusFields is an exported wrapper for the private method _updateDownloadStatusFields.
-func (s SOVoicePopUpButton) UpdateDownloadStatusFields() {
+func (s SOVoicePopUpButton) UpdateDownloadStatusFields() error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateDownloadStatusFields")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateDownloadStatusFields"}
+		return err
+	}
 	s._updateDownloadStatusFields()
+	return nil
+}
+
+// CanUpdateDownloadStatusFields reports whether the receiver responds to the private selector _updateDownloadStatusFields.
+func (s SOVoicePopUpButton) CanUpdateDownloadStatusFields() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_updateDownloadStatusFields"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoicePopUpButton/addExcludedIdentifier:
@@ -237,8 +285,18 @@ func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) _forceAllVoicePopupsToUp
 }
 
 // ForceAllVoicePopupsToUpdate is an exported wrapper for the private method _forceAllVoicePopupsToUpdate.
-func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) ForceAllVoicePopupsToUpdate() {
+func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) ForceAllVoicePopupsToUpdate() error {
+	if !objc.RespondsToSelector(objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_forceAllVoicePopupsToUpdate")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_forceAllVoicePopupsToUpdate"}
+		return err
+	}
 	_SOVoicePopUpButtonClass._forceAllVoicePopupsToUpdate()
+	return nil
+}
+
+// CanForceAllVoicePopupsToUpdate reports whether the receiver responds to the private selector _forceAllVoicePopupsToUpdate.
+func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) CanForceAllVoicePopupsToUpdate() bool {
+	return objc.RespondsToSelector(objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_forceAllVoicePopupsToUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoicePopUpButton/_startDelayedForceAllVoicePopupsToUpdate
@@ -247,8 +305,18 @@ func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) _startDelayedForceAllVoi
 }
 
 // StartDelayedForceAllVoicePopupsToUpdate is an exported wrapper for the private method _startDelayedForceAllVoicePopupsToUpdate.
-func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) StartDelayedForceAllVoicePopupsToUpdate() {
+func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) StartDelayedForceAllVoicePopupsToUpdate() error {
+	if !objc.RespondsToSelector(objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_startDelayedForceAllVoicePopupsToUpdate")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_startDelayedForceAllVoicePopupsToUpdate"}
+		return err
+	}
 	_SOVoicePopUpButtonClass._startDelayedForceAllVoicePopupsToUpdate()
+	return nil
+}
+
+// CanStartDelayedForceAllVoicePopupsToUpdate reports whether the receiver responds to the private selector _startDelayedForceAllVoicePopupsToUpdate.
+func (_SOVoicePopUpButtonClass SOVoicePopUpButtonClass) CanStartDelayedForceAllVoicePopupsToUpdate() bool {
+	return objc.RespondsToSelector(objc.ID(_SOVoicePopUpButtonClass.class), objc.Sel("_startDelayedForceAllVoicePopupsToUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoicePopUpButton/addExcludedVoiceIdentifier:

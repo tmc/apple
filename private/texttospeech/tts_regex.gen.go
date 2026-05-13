@@ -170,8 +170,17 @@ func (t TTSRegex) _matchFromOvectorMatchesStringLength(ovector unsafe.Pointer, m
 }
 
 // MatchFromOvectorMatchesStringLength is an exported wrapper for the private method _matchFromOvectorMatchesStringLength.
-func (t TTSRegex) MatchFromOvectorMatchesStringLength(ovector unsafe.Pointer, matches int, string_ string, length uint64) objectivec.IObject {
-	return t._matchFromOvectorMatchesStringLength(ovector, matches, string_, length)
+func (t TTSRegex) MatchFromOvectorMatchesStringLength(ovector unsafe.Pointer, matches int, string_ string, length uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_matchFromOvector:matches:string:length:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_matchFromOvector:matches:string:length:"}
+		return nil, err
+	}
+	return t._matchFromOvectorMatchesStringLength(ovector, matches, string_, length), nil
+}
+
+// CanMatchFromOvectorMatchesStringLength reports whether the receiver responds to the private selector _matchFromOvector:matches:string:length:.
+func (t TTSRegex) CanMatchFromOvectorMatchesStringLength() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_matchFromOvector:matches:string:length:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/enumerateMatchesInCString:length:usingBlock:

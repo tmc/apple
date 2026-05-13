@@ -404,7 +404,16 @@ func (g GTMioTraceData) _storeError(_store bool) (objectivec.IObject, error) {
 
 // StoreError is an exported wrapper for the private method _storeError.
 func (g GTMioTraceData) StoreError(_store bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_store:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_store:error:"}
+		return nil, err
+	}
 	return g._storeError(_store)
+}
+
+// CanStoreError reports whether the receiver responds to the private selector _store:error:.
+func (g GTMioTraceData) CanStoreError() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_store:error:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/archiveToFile:compressData:error:

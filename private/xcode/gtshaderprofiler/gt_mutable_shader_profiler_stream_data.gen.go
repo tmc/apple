@@ -178,8 +178,18 @@ func (g GTMutableShaderProfilerStreamData) _commonInit() {
 }
 
 // CommonInit is an exported wrapper for the private method _commonInit.
-func (g GTMutableShaderProfilerStreamData) CommonInit() {
+func (g GTMutableShaderProfilerStreamData) CommonInit() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_commonInit")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_commonInit"}
+		return err
+	}
 	g._commonInit()
+	return nil
+}
+
+// CanCommonInit reports whether the receiver responds to the private selector _commonInit.
+func (g GTMutableShaderProfilerStreamData) CanCommonInit() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_commonInit"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/_copyForAddAPSData:prefix:
@@ -189,8 +199,17 @@ func (g GTMutableShaderProfilerStreamData) _copyForAddAPSDataPrefix(aPSData obje
 }
 
 // CopyForAddAPSDataPrefix is an exported wrapper for the private method _copyForAddAPSDataPrefix.
-func (g GTMutableShaderProfilerStreamData) CopyForAddAPSDataPrefix(aPSData objectivec.IObject, prefix objectivec.IObject) objectivec.IObject {
-	return g._copyForAddAPSDataPrefix(aPSData, prefix)
+func (g GTMutableShaderProfilerStreamData) CopyForAddAPSDataPrefix(aPSData objectivec.IObject, prefix objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_copyForAddAPSData:prefix:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_copyForAddAPSData:prefix:"}
+		return nil, err
+	}
+	return g._copyForAddAPSDataPrefix(aPSData, prefix), nil
+}
+
+// CanCopyForAddAPSDataPrefix reports whether the receiver responds to the private selector _copyForAddAPSData:prefix:.
+func (g GTMutableShaderProfilerStreamData) CanCopyForAddAPSDataPrefix() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_copyForAddAPSData:prefix:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addAPSCounterData:

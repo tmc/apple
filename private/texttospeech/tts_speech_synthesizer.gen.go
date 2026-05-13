@@ -407,8 +407,17 @@ func (t TTSSpeechSynthesizer) _makeRequestForVoiceAndLanguageCode(voice objectiv
 }
 
 // MakeRequestForVoiceAndLanguageCode is an exported wrapper for the private method _makeRequestForVoiceAndLanguageCode.
-func (t TTSSpeechSynthesizer) MakeRequestForVoiceAndLanguageCode(voice objectivec.IObject, code objectivec.IObject) objectivec.IObject {
-	return t._makeRequestForVoiceAndLanguageCode(voice, code)
+func (t TTSSpeechSynthesizer) MakeRequestForVoiceAndLanguageCode(voice objectivec.IObject, code objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_makeRequestForVoice:andLanguageCode:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_makeRequestForVoice:andLanguageCode:"}
+		return nil, err
+	}
+	return t._makeRequestForVoiceAndLanguageCode(voice, code), nil
+}
+
+// CanMakeRequestForVoiceAndLanguageCode reports whether the receiver responds to the private selector _makeRequestForVoice:andLanguageCode:.
+func (t TTSSpeechSynthesizer) CanMakeRequestForVoiceAndLanguageCode() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_makeRequestForVoice:andLanguageCode:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_mediaServicesDied
@@ -417,8 +426,18 @@ func (t TTSSpeechSynthesizer) _mediaServicesDied() {
 }
 
 // MediaServicesDied is an exported wrapper for the private method _mediaServicesDied.
-func (t TTSSpeechSynthesizer) MediaServicesDied() {
+func (t TTSSpeechSynthesizer) MediaServicesDied() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_mediaServicesDied")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_mediaServicesDied"}
+		return err
+	}
 	t._mediaServicesDied()
+	return nil
+}
+
+// CanMediaServicesDied reports whether the receiver responds to the private selector _mediaServicesDied.
+func (t TTSSpeechSynthesizer) CanMediaServicesDied() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_mediaServicesDied"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_pauseSpeakingRequest:atNextBoundary:synchronously:error:
@@ -443,8 +462,17 @@ func (t TTSSpeechSynthesizer) _preprocessTextLanguageCode(text objectivec.IObjec
 }
 
 // PreprocessTextLanguageCode is an exported wrapper for the private method _preprocessTextLanguageCode.
-func (t TTSSpeechSynthesizer) PreprocessTextLanguageCode(text objectivec.IObject, code objectivec.IObject) objectivec.IObject {
-	return t._preprocessTextLanguageCode(text, code)
+func (t TTSSpeechSynthesizer) PreprocessTextLanguageCode(text objectivec.IObject, code objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_preprocessText:languageCode:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_preprocessText:languageCode:"}
+		return nil, err
+	}
+	return t._preprocessTextLanguageCode(text, code), nil
+}
+
+// CanPreprocessTextLanguageCode reports whether the receiver responds to the private selector _preprocessText:languageCode:.
+func (t TTSSpeechSynthesizer) CanPreprocessTextLanguageCode() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_preprocessText:languageCode:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_processMarker:forRequest:
@@ -454,8 +482,17 @@ func (t TTSSpeechSynthesizer) _processMarkerForRequest(marker objectivec.IObject
 }
 
 // ProcessMarkerForRequest is an exported wrapper for the private method _processMarkerForRequest.
-func (t TTSSpeechSynthesizer) ProcessMarkerForRequest(marker objectivec.IObject, request objectivec.IObject) objectivec.IObject {
-	return t._processMarkerForRequest(marker, request)
+func (t TTSSpeechSynthesizer) ProcessMarkerForRequest(marker objectivec.IObject, request objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processMarker:forRequest:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processMarker:forRequest:"}
+		return nil, err
+	}
+	return t._processMarkerForRequest(marker, request), nil
+}
+
+// CanProcessMarkerForRequest reports whether the receiver responds to the private selector _processMarker:forRequest:.
+func (t TTSSpeechSynthesizer) CanProcessMarkerForRequest() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processMarker:forRequest:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_resolveVoiceForLanguage:
@@ -465,8 +502,17 @@ func (t TTSSpeechSynthesizer) _resolveVoiceForLanguage(language objectivec.IObje
 }
 
 // ResolveVoiceForLanguage is an exported wrapper for the private method _resolveVoiceForLanguage.
-func (t TTSSpeechSynthesizer) ResolveVoiceForLanguage(language objectivec.IObject) objectivec.IObject {
-	return t._resolveVoiceForLanguage(language)
+func (t TTSSpeechSynthesizer) ResolveVoiceForLanguage(language objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_resolveVoiceForLanguage:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_resolveVoiceForLanguage:"}
+		return nil, err
+	}
+	return t._resolveVoiceForLanguage(language), nil
+}
+
+// CanResolveVoiceForLanguage reports whether the receiver responds to the private selector _resolveVoiceForLanguage:.
+func (t TTSSpeechSynthesizer) CanResolveVoiceForLanguage() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_resolveVoiceForLanguage:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_setDelegate:
@@ -491,7 +537,16 @@ func (t TTSSpeechSynthesizer) _startSpeakingStringOrSSMLStringWithLanguageCodeJo
 
 // StartSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError is an exported wrapper for the private method _startSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError.
 func (t TTSSpeechSynthesizer) StartSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError(string_ objectivec.IObject, sSMLString objectivec.IObject, code objectivec.IObject, id objectivec.IObject, request []objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_startSpeakingString:orSSMLString:withLanguageCode:jobId:request:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_startSpeakingString:orSSMLString:withLanguageCode:jobId:request:error:"}
+		return false, err
+	}
 	return t._startSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError(string_, sSMLString, code, id, request)
+}
+
+// CanStartSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError reports whether the receiver responds to the private selector _startSpeakingString:orSSMLString:withLanguageCode:jobId:request:error:.
+func (t TTSSpeechSynthesizer) CanStartSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_startSpeakingString:orSSMLString:withLanguageCode:jobId:request:error:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_stopSpeakingRequest:atNextBoundary:synchronously:error:
@@ -906,8 +961,17 @@ func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) _speechVoiceForIdent
 }
 
 // SpeechVoiceForIdentifierLanguageFootprint is an exported wrapper for the private method _speechVoiceForIdentifierLanguageFootprint.
-func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) SpeechVoiceForIdentifierLanguageFootprint(identifier objectivec.IObject, language objectivec.IObject, footprint int64) objectivec.IObject {
-	return _TTSSpeechSynthesizerClass._speechVoiceForIdentifierLanguageFootprint(identifier, language, footprint)
+func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) SpeechVoiceForIdentifierLanguageFootprint(identifier objectivec.IObject, language objectivec.IObject, footprint int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("_speechVoiceForIdentifier:language:footprint:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speechVoiceForIdentifier:language:footprint:"}
+		return nil, err
+	}
+	return _TTSSpeechSynthesizerClass._speechVoiceForIdentifierLanguageFootprint(identifier, language, footprint), nil
+}
+
+// CanSpeechVoiceForIdentifierLanguageFootprint reports whether the receiver responds to the private selector _speechVoiceForIdentifier:language:footprint:.
+func (_TTSSpeechSynthesizerClass TTSSpeechSynthesizerClass) CanSpeechVoiceForIdentifierLanguageFootprint() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSpeechSynthesizerClass.class), objc.Sel("_speechVoiceForIdentifier:language:footprint:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/audioFileSettingsForVoice:

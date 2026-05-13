@@ -234,8 +234,17 @@ func (s SOSpeechItem) _conversionLocale() objectivec.IObject {
 }
 
 // ConversionLocale is an exported wrapper for the private method _conversionLocale.
-func (s SOSpeechItem) ConversionLocale() objectivec.IObject {
-	return s._conversionLocale()
+func (s SOSpeechItem) ConversionLocale() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_conversionLocale")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_conversionLocale"}
+		return nil, err
+	}
+	return s._conversionLocale(), nil
+}
+
+// CanConversionLocale reports whether the receiver responds to the private selector _conversionLocale.
+func (s SOSpeechItem) CanConversionLocale() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_conversionLocale"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSpeechItem/compare:

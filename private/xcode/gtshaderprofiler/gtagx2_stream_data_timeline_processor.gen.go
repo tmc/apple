@@ -143,8 +143,18 @@ func (g GTAGX2StreamDataTimelineProcessor) _addDerivedCounterDataToTimelineInfoF
 }
 
 // AddDerivedCounterDataToTimelineInfoForWorkloadInfo is an exported wrapper for the private method _addDerivedCounterDataToTimelineInfoForWorkloadInfo.
-func (g GTAGX2StreamDataTimelineProcessor) AddDerivedCounterDataToTimelineInfoForWorkloadInfo(info objectivec.IObject, info2 objectivec.IObject) {
+func (g GTAGX2StreamDataTimelineProcessor) AddDerivedCounterDataToTimelineInfoForWorkloadInfo(info objectivec.IObject, info2 objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_addDerivedCounterDataToTimelineInfo:forWorkloadInfo:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_addDerivedCounterDataToTimelineInfo:forWorkloadInfo:"}
+		return err
+	}
 	g._addDerivedCounterDataToTimelineInfoForWorkloadInfo(info, info2)
+	return nil
+}
+
+// CanAddDerivedCounterDataToTimelineInfoForWorkloadInfo reports whether the receiver responds to the private selector _addDerivedCounterDataToTimelineInfo:forWorkloadInfo:.
+func (g GTAGX2StreamDataTimelineProcessor) CanAddDerivedCounterDataToTimelineInfoForWorkloadInfo() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_addDerivedCounterDataToTimelineInfo:forWorkloadInfo:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/_calculatePerSampleActiveShaders:forWorkloadInfo:
@@ -153,8 +163,18 @@ func (g GTAGX2StreamDataTimelineProcessor) _calculatePerSampleActiveShadersForWo
 }
 
 // CalculatePerSampleActiveShadersForWorkloadInfo is an exported wrapper for the private method _calculatePerSampleActiveShadersForWorkloadInfo.
-func (g GTAGX2StreamDataTimelineProcessor) CalculatePerSampleActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) {
+func (g GTAGX2StreamDataTimelineProcessor) CalculatePerSampleActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerSampleActiveShaders:forWorkloadInfo:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculatePerSampleActiveShaders:forWorkloadInfo:"}
+		return err
+	}
 	g._calculatePerSampleActiveShadersForWorkloadInfo(shaders, info)
+	return nil
+}
+
+// CanCalculatePerSampleActiveShadersForWorkloadInfo reports whether the receiver responds to the private selector _calculatePerSampleActiveShaders:forWorkloadInfo:.
+func (g GTAGX2StreamDataTimelineProcessor) CanCalculatePerSampleActiveShadersForWorkloadInfo() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerSampleActiveShaders:forWorkloadInfo:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:
@@ -163,8 +183,18 @@ func (g GTAGX2StreamDataTimelineProcessor) _calculatePerSampleAggregatedActiveSh
 }
 
 // CalculatePerSampleAggregatedActiveShadersForWorkloadInfo is an exported wrapper for the private method _calculatePerSampleAggregatedActiveShadersForWorkloadInfo.
-func (g GTAGX2StreamDataTimelineProcessor) CalculatePerSampleAggregatedActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) {
+func (g GTAGX2StreamDataTimelineProcessor) CalculatePerSampleAggregatedActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:"}
+		return err
+	}
 	g._calculatePerSampleAggregatedActiveShadersForWorkloadInfo(shaders, info)
+	return nil
+}
+
+// CanCalculatePerSampleAggregatedActiveShadersForWorkloadInfo reports whether the receiver responds to the private selector _calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:.
+func (g GTAGX2StreamDataTimelineProcessor) CanCalculatePerSampleAggregatedActiveShadersForWorkloadInfo() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:
@@ -173,8 +203,18 @@ func (g GTAGX2StreamDataTimelineProcessor) _updateShaderTimelineInfoWithShaderTi
 }
 
 // UpdateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer is an exported wrapper for the private method _updateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer.
-func (g GTAGX2StreamDataTimelineProcessor) UpdateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer(info objectivec.IObject, ex objectivec.IObject, info2 objectivec.IObject, mapping unsafe.Pointer, buffer uint32) {
+func (g GTAGX2StreamDataTimelineProcessor) UpdateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer(info objectivec.IObject, ex objectivec.IObject, info2 objectivec.IObject, mapping unsafe.Pointer, buffer uint32) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:"}
+		return err
+	}
 	g._updateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer(info, ex, info2, mapping, buffer)
+	return nil
+}
+
+// CanUpdateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer reports whether the receiver responds to the private selector _updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:.
+func (g GTAGX2StreamDataTimelineProcessor) CanUpdateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/process:

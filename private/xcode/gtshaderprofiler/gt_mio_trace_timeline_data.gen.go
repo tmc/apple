@@ -448,8 +448,18 @@ func (g GTMioTraceTimelineData) _cacheExeuctionHistory(history objectivec.IObjec
 }
 
 // CacheExeuctionHistory is an exported wrapper for the private method _cacheExeuctionHistory.
-func (g GTMioTraceTimelineData) CacheExeuctionHistory(history objectivec.IObject) {
+func (g GTMioTraceTimelineData) CacheExeuctionHistory(history objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_cacheExeuctionHistory:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cacheExeuctionHistory:"}
+		return err
+	}
 	g._cacheExeuctionHistory(history)
+	return nil
+}
+
+// CanCacheExeuctionHistory reports whether the receiver responds to the private selector _cacheExeuctionHistory:.
+func (g GTMioTraceTimelineData) CanCacheExeuctionHistory() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_cacheExeuctionHistory:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTimelineData/_waitPendingExecutionHistory:
@@ -459,8 +469,17 @@ func (g GTMioTraceTimelineData) _waitPendingExecutionHistory(history objectivec.
 }
 
 // WaitPendingExecutionHistory is an exported wrapper for the private method _waitPendingExecutionHistory.
-func (g GTMioTraceTimelineData) WaitPendingExecutionHistory(history objectivec.IObject) objectivec.IObject {
-	return g._waitPendingExecutionHistory(history)
+func (g GTMioTraceTimelineData) WaitPendingExecutionHistory(history objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_waitPendingExecutionHistory:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_waitPendingExecutionHistory:"}
+		return nil, err
+	}
+	return g._waitPendingExecutionHistory(history), nil
+}
+
+// CanWaitPendingExecutionHistory reports whether the receiver responds to the private selector _waitPendingExecutionHistory:.
+func (g GTMioTraceTimelineData) CanWaitPendingExecutionHistory() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_waitPendingExecutionHistory:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTimelineData/archivedData:

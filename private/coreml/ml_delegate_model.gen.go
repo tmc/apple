@@ -214,8 +214,18 @@ func (d MLDelegateModel) _finishPredictionAndDispatchPendingPredictions() {
 }
 
 // FinishPredictionAndDispatchPendingPredictions is an exported wrapper for the private method _finishPredictionAndDispatchPendingPredictions.
-func (d MLDelegateModel) FinishPredictionAndDispatchPendingPredictions() {
+func (d MLDelegateModel) FinishPredictionAndDispatchPendingPredictions() error {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_finishPredictionAndDispatchPendingPredictions"}
+		return err
+	}
 	d._finishPredictionAndDispatchPendingPredictions()
+	return nil
+}
+
+// CanFinishPredictionAndDispatchPendingPredictions reports whether the receiver responds to the private selector _finishPredictionAndDispatchPendingPredictions.
+func (d MLDelegateModel) CanFinishPredictionAndDispatchPendingPredictions() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_predictionFromFeatures:usingState:options:completionHandler:
@@ -255,8 +265,18 @@ func (d MLDelegateModel) _schedulePredictionRequestCompletionHandler(request obj
 }
 
 // SchedulePredictionRequestCompletionHandler is an exported wrapper for the private method _schedulePredictionRequestCompletionHandler.
-func (d MLDelegateModel) SchedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
+func (d MLDelegateModel) SchedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_schedulePredictionRequest:completionHandler:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_schedulePredictionRequest:completionHandler:"}
+		return err
+	}
 	d._schedulePredictionRequestCompletionHandler(request, handler)
+	return nil
+}
+
+// CanSchedulePredictionRequestCompletionHandler reports whether the receiver responds to the private selector _schedulePredictionRequest:completionHandler:.
+func (d MLDelegateModel) CanSchedulePredictionRequestCompletionHandler() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_submitPredictionRequest:completionHandler:
@@ -271,8 +291,18 @@ func (d MLDelegateModel) _validateStateFeatureNamedBackingMultiArray(named objec
 }
 
 // ValidateStateFeatureNamedBackingMultiArray is an exported wrapper for the private method _validateStateFeatureNamedBackingMultiArray.
-func (d MLDelegateModel) ValidateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject) {
+func (d MLDelegateModel) ValidateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject) error {
+	if !objc.RespondsToSelector(d.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_validateStateFeatureNamed:backingMultiArray:"}
+		return err
+	}
 	d._validateStateFeatureNamedBackingMultiArray(named, array)
+	return nil
+}
+
+// CanValidateStateFeatureNamedBackingMultiArray reports whether the receiver responds to the private selector _validateStateFeatureNamed:backingMultiArray:.
+func (d MLDelegateModel) CanValidateStateFeatureNamedBackingMultiArray() bool {
+	return objc.RespondsToSelector(d.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/parameterValueForKey:error:

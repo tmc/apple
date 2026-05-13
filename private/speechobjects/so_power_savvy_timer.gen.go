@@ -98,8 +98,8 @@ type ISOPowerSavvyTimer interface {
 	SetSelector(value objc.SEL)
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
-	GetTimer() *foundation.NSTimer
-	SetGetTimer(value *foundation.NSTimer)
+	GetTimer() foundation.NSTimer
+	SetGetTimer(value foundation.NSTimer)
 }
 
 // Init initializes the instance.
@@ -165,18 +165,10 @@ func (s SOPowerSavvyTimer) SetTarget(value objectivec.IObject) {
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOPowerSavvyTimer/timer
-func (s SOPowerSavvyTimer) GetTimer() *foundation.NSTimer {
+func (s SOPowerSavvyTimer) GetTimer() foundation.NSTimer {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("timer"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSTimerFromID(objc.ID(rv))
-	return &val
+	return foundation.NSTimerFromID(objc.ID(rv))
 }
-func (s SOPowerSavvyTimer) SetGetTimer(value *foundation.NSTimer) {
-	if value == nil {
-		objc.Send[struct{}](s.ID, objc.Sel("setTimer:"), objc.ID(0))
-		return
-	}
+func (s SOPowerSavvyTimer) SetGetTimer(value foundation.NSTimer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTimer:"), value)
 }

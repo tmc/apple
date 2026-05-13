@@ -103,8 +103,17 @@ func (v AVVCMicUsageReporter) _getAuditToken(token objectivec.IObject) bool {
 }
 
 // GetAuditToken is an exported wrapper for the private method _getAuditToken.
-func (v AVVCMicUsageReporter) GetAuditToken(token objectivec.IObject) bool {
-	return v._getAuditToken(token)
+func (v AVVCMicUsageReporter) GetAuditToken(token objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_getAuditToken:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_getAuditToken:"}
+		return false, err
+	}
+	return v._getAuditToken(token), nil
+}
+
+// CanGetAuditToken reports whether the receiver responds to the private selector _getAuditToken:.
+func (v AVVCMicUsageReporter) CanGetAuditToken() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_getAuditToken:"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMicUsageReporter/reportMicUsage:

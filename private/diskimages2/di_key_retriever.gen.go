@@ -99,18 +99,30 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) KKMSKeyWithURLDestKeyDestKeySize
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/WKMSKeyWithURL:authData:destKey:destKeySize:error:
-func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithURLAuthDataDestKeyDestKeySizeError(url foundation.INSURL, data unsafe.Pointer, key string, size uint64) (bool, error) {
+// See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/WKMSKeyWithAuthData:destKey:destKeySize:error:
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithAuthDataDestKeyDestKeySizeError(data unsafe.Pointer, key string, size uint64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSKeyWithURL:authData:destKey:destKeySize:error:"), url, data, unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSKeyWithAuthData:destKey:destKeySize:error:"), data, unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
 	}
 	if !rv {
-		return false, errors.New("WKMSKeyWithURL:authData:destKey:destKeySize:error: returned NO with nil NSError")
+		return false, errors.New("WKMSKeyWithAuthData:destKey:destKeySize:error: returned NO with nil NSError")
 	}
 	return rv, nil
+
+}
+
+// See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/WKMSShippingKeyWithURL:metadata:error:
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSShippingKeyWithURLMetadataError(url foundation.INSURL, metadata objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSShippingKeyWithURL:metadata:error:"), url, metadata, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
 
 }
 
@@ -124,6 +136,21 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) DecryptKeyWithDataDestKeyDestKey
 	}
 	if !rv {
 		return false, errors.New("decryptKeyWithData:destKey:destKeySize:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+
+// See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/ensureDeviceIdentityWithError:
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) EnsureDeviceIdentityWithError() (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("ensureDeviceIdentityWithError:"), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("ensureDeviceIdentityWithError: returned NO with nil NSError")
 	}
 	return rv, nil
 
@@ -187,6 +214,18 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewDawTokenWithError() (objectiv
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewEnvWithDictionaryError(dictionary objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("newEnvWithDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+
+// See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/newOIDCTokenForHost:error:
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewOIDCTokenForHostError(host objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("newOIDCTokenForHost:error:"), host, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)

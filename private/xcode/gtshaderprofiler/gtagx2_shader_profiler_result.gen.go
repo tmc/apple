@@ -221,8 +221,18 @@ func (g GTAGX2ShaderProfilerResult) _cacheObjects() {
 }
 
 // CacheObjects is an exported wrapper for the private method _cacheObjects.
-func (g GTAGX2ShaderProfilerResult) CacheObjects() {
+func (g GTAGX2ShaderProfilerResult) CacheObjects() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_cacheObjects")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cacheObjects"}
+		return err
+	}
 	g._cacheObjects()
+	return nil
+}
+
+// CanCacheObjects reports whether the receiver responds to the private selector _cacheObjects.
+func (g GTAGX2ShaderProfilerResult) CanCacheObjects() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_cacheObjects"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerResult/encodeWithCoder:

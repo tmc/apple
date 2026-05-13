@@ -216,8 +216,18 @@ func (g GTAGX2ShaderProfiler) _analyzeShaderBinaries() {
 }
 
 // AnalyzeShaderBinaries is an exported wrapper for the private method _analyzeShaderBinaries.
-func (g GTAGX2ShaderProfiler) AnalyzeShaderBinaries() {
+func (g GTAGX2ShaderProfiler) AnalyzeShaderBinaries() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_analyzeShaderBinaries")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_analyzeShaderBinaries"}
+		return err
+	}
 	g._analyzeShaderBinaries()
+	return nil
+}
+
+// CanAnalyzeShaderBinaries reports whether the receiver responds to the private selector _analyzeShaderBinaries.
+func (g GTAGX2ShaderProfiler) CanAnalyzeShaderBinaries() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_analyzeShaderBinaries"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculateAggregatedEffectiveGPUEncoderCost
@@ -226,8 +236,18 @@ func (g GTAGX2ShaderProfiler) _calculateAggregatedEffectiveGPUEncoderCost() {
 }
 
 // CalculateAggregatedEffectiveGPUEncoderCost is an exported wrapper for the private method _calculateAggregatedEffectiveGPUEncoderCost.
-func (g GTAGX2ShaderProfiler) CalculateAggregatedEffectiveGPUEncoderCost() {
+func (g GTAGX2ShaderProfiler) CalculateAggregatedEffectiveGPUEncoderCost() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculateAggregatedEffectiveGPUEncoderCost")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculateAggregatedEffectiveGPUEncoderCost"}
+		return err
+	}
 	g._calculateAggregatedEffectiveGPUEncoderCost()
+	return nil
+}
+
+// CanCalculateAggregatedEffectiveGPUEncoderCost reports whether the receiver responds to the private selector _calculateAggregatedEffectiveGPUEncoderCost.
+func (g GTAGX2ShaderProfiler) CanCalculateAggregatedEffectiveGPUEncoderCost() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculateAggregatedEffectiveGPUEncoderCost"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculateAndAppendPerBatchCosts:forFrameIndex:atTimestamp:withLimiterIndices:withTimestampBuffers:withActiveBatches:withPerRingBufferLimiterEncoderCosts:
@@ -236,8 +256,18 @@ func (g GTAGX2ShaderProfiler) _calculateAndAppendPerBatchCostsForFrameIndexAtTim
 }
 
 // CalculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts is an exported wrapper for the private method _calculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts.
-func (g GTAGX2ShaderProfiler) CalculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts(costs unsafe.Pointer, index uint32, timestamp uint64, indices unsafe.Pointer, buffers unsafe.Pointer, batches unsafe.Pointer, costs2 unsafe.Pointer) {
+func (g GTAGX2ShaderProfiler) CalculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts(costs unsafe.Pointer, index uint32, timestamp uint64, indices unsafe.Pointer, buffers unsafe.Pointer, batches unsafe.Pointer, costs2 unsafe.Pointer) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculateAndAppendPerBatchCosts:forFrameIndex:atTimestamp:withLimiterIndices:withTimestampBuffers:withActiveBatches:withPerRingBufferLimiterEncoderCosts:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculateAndAppendPerBatchCosts:forFrameIndex:atTimestamp:withLimiterIndices:withTimestampBuffers:withActiveBatches:withPerRingBufferLimiterEncoderCosts:"}
+		return err
+	}
 	g._calculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts(costs, index, timestamp, indices, buffers, batches, costs2)
+	return nil
+}
+
+// CanCalculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts reports whether the receiver responds to the private selector _calculateAndAppendPerBatchCosts:forFrameIndex:atTimestamp:withLimiterIndices:withTimestampBuffers:withActiveBatches:withPerRingBufferLimiterEncoderCosts:.
+func (g GTAGX2ShaderProfiler) CanCalculateAndAppendPerBatchCostsForFrameIndexAtTimestampWithLimiterIndicesWithTimestampBuffersWithActiveBatchesWithPerRingBufferLimiterEncoderCosts() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculateAndAppendPerBatchCosts:forFrameIndex:atTimestamp:withLimiterIndices:withTimestampBuffers:withActiveBatches:withPerRingBufferLimiterEncoderCosts:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculateAverageGPUCommandDuration
@@ -246,8 +276,18 @@ func (g GTAGX2ShaderProfiler) _calculateAverageGPUCommandDuration() {
 }
 
 // CalculateAverageGPUCommandDuration is an exported wrapper for the private method _calculateAverageGPUCommandDuration.
-func (g GTAGX2ShaderProfiler) CalculateAverageGPUCommandDuration() {
+func (g GTAGX2ShaderProfiler) CalculateAverageGPUCommandDuration() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculateAverageGPUCommandDuration")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculateAverageGPUCommandDuration"}
+		return err
+	}
 	g._calculateAverageGPUCommandDuration()
+	return nil
+}
+
+// CanCalculateAverageGPUCommandDuration reports whether the receiver responds to the private selector _calculateAverageGPUCommandDuration.
+func (g GTAGX2ShaderProfiler) CanCalculateAverageGPUCommandDuration() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculateAverageGPUCommandDuration"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculateEffectiveGPUEncoderCostForFrameIndex:
@@ -256,8 +296,18 @@ func (g GTAGX2ShaderProfiler) _calculateEffectiveGPUEncoderCostForFrameIndex(ind
 }
 
 // CalculateEffectiveGPUEncoderCostForFrameIndex is an exported wrapper for the private method _calculateEffectiveGPUEncoderCostForFrameIndex.
-func (g GTAGX2ShaderProfiler) CalculateEffectiveGPUEncoderCostForFrameIndex(index uint32) {
+func (g GTAGX2ShaderProfiler) CalculateEffectiveGPUEncoderCostForFrameIndex(index uint32) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculateEffectiveGPUEncoderCostForFrameIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculateEffectiveGPUEncoderCostForFrameIndex:"}
+		return err
+	}
 	g._calculateEffectiveGPUEncoderCostForFrameIndex(index)
+	return nil
+}
+
+// CanCalculateEffectiveGPUEncoderCostForFrameIndex reports whether the receiver responds to the private selector _calculateEffectiveGPUEncoderCostForFrameIndex:.
+func (g GTAGX2ShaderProfiler) CanCalculateEffectiveGPUEncoderCostForFrameIndex() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculateEffectiveGPUEncoderCostForFrameIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_calculatePerDrawCosts:result:
@@ -266,8 +316,18 @@ func (g GTAGX2ShaderProfiler) _calculatePerDrawCostsResult(costs objectivec.IObj
 }
 
 // CalculatePerDrawCostsResult is an exported wrapper for the private method _calculatePerDrawCostsResult.
-func (g GTAGX2ShaderProfiler) CalculatePerDrawCostsResult(costs objectivec.IObject, result objectivec.IObject) {
+func (g GTAGX2ShaderProfiler) CalculatePerDrawCostsResult(costs objectivec.IObject, result objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerDrawCosts:result:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_calculatePerDrawCosts:result:"}
+		return err
+	}
 	g._calculatePerDrawCostsResult(costs, result)
+	return nil
+}
+
+// CanCalculatePerDrawCostsResult reports whether the receiver responds to the private selector _calculatePerDrawCosts:result:.
+func (g GTAGX2ShaderProfiler) CanCalculatePerDrawCostsResult() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_calculatePerDrawCosts:result:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_cleanup
@@ -276,8 +336,18 @@ func (g GTAGX2ShaderProfiler) _cleanup() {
 }
 
 // Cleanup is an exported wrapper for the private method _cleanup.
-func (g GTAGX2ShaderProfiler) Cleanup() {
+func (g GTAGX2ShaderProfiler) Cleanup() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_cleanup")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cleanup"}
+		return err
+	}
 	g._cleanup()
+	return nil
+}
+
+// CanCleanup reports whether the receiver responds to the private selector _cleanup.
+func (g GTAGX2ShaderProfiler) CanCleanup() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_cleanup"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:
@@ -287,8 +357,17 @@ func (g GTAGX2ShaderProfiler) _computeSampleNormFactorForSampleForProgramStartAd
 }
 
 // ComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress is an exported wrapper for the private method _computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress.
-func (g GTAGX2ShaderProfiler) ComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample unsafe.Pointer, address uint64, address2 uint64) uint32 {
-	return g._computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample, address, address2)
+func (g GTAGX2ShaderProfiler) ComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample unsafe.Pointer, address uint64, address2 uint64) (uint32, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:"}
+		return 0, err
+	}
+	return g._computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample, address, address2), nil
+}
+
+// CanComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress reports whether the receiver responds to the private selector _computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:.
+func (g GTAGX2ShaderProfiler) CanComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_conservativeLatencyAdjustment:withLimiter:
@@ -298,8 +377,17 @@ func (g GTAGX2ShaderProfiler) _conservativeLatencyAdjustmentWithLimiter(adjustme
 }
 
 // ConservativeLatencyAdjustmentWithLimiter is an exported wrapper for the private method _conservativeLatencyAdjustmentWithLimiter.
-func (g GTAGX2ShaderProfiler) ConservativeLatencyAdjustmentWithLimiter(adjustment float64, limiter float64) float64 {
-	return g._conservativeLatencyAdjustmentWithLimiter(adjustment, limiter)
+func (g GTAGX2ShaderProfiler) ConservativeLatencyAdjustmentWithLimiter(adjustment float64, limiter float64) (float64, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_conservativeLatencyAdjustment:withLimiter:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_conservativeLatencyAdjustment:withLimiter:"}
+		return 0.0, err
+	}
+	return g._conservativeLatencyAdjustmentWithLimiter(adjustment, limiter), nil
+}
+
+// CanConservativeLatencyAdjustmentWithLimiter reports whether the receiver responds to the private selector _conservativeLatencyAdjustment:withLimiter:.
+func (g GTAGX2ShaderProfiler) CanConservativeLatencyAdjustmentWithLimiter() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_conservativeLatencyAdjustment:withLimiter:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_dumpAggregatedGPUTimePerBatchForFrame:
@@ -308,8 +396,18 @@ func (g GTAGX2ShaderProfiler) _dumpAggregatedGPUTimePerBatchForFrame(frame uint3
 }
 
 // DumpAggregatedGPUTimePerBatchForFrame is an exported wrapper for the private method _dumpAggregatedGPUTimePerBatchForFrame.
-func (g GTAGX2ShaderProfiler) DumpAggregatedGPUTimePerBatchForFrame(frame uint32) {
+func (g GTAGX2ShaderProfiler) DumpAggregatedGPUTimePerBatchForFrame(frame uint32) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_dumpAggregatedGPUTimePerBatchForFrame:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_dumpAggregatedGPUTimePerBatchForFrame:"}
+		return err
+	}
 	g._dumpAggregatedGPUTimePerBatchForFrame(frame)
+	return nil
+}
+
+// CanDumpAggregatedGPUTimePerBatchForFrame reports whether the receiver responds to the private selector _dumpAggregatedGPUTimePerBatchForFrame:.
+func (g GTAGX2ShaderProfiler) CanDumpAggregatedGPUTimePerBatchForFrame() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_dumpAggregatedGPUTimePerBatchForFrame:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_dumpLimiterBatchInfoCosts:forRingBuffer:forFrame:
@@ -318,8 +416,18 @@ func (g GTAGX2ShaderProfiler) _dumpLimiterBatchInfoCostsForRingBufferForFrame(co
 }
 
 // DumpLimiterBatchInfoCostsForRingBufferForFrame is an exported wrapper for the private method _dumpLimiterBatchInfoCostsForRingBufferForFrame.
-func (g GTAGX2ShaderProfiler) DumpLimiterBatchInfoCostsForRingBufferForFrame(costs unsafe.Pointer, buffer uint32, frame uint32) {
+func (g GTAGX2ShaderProfiler) DumpLimiterBatchInfoCostsForRingBufferForFrame(costs unsafe.Pointer, buffer uint32, frame uint32) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_dumpLimiterBatchInfoCosts:forRingBuffer:forFrame:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_dumpLimiterBatchInfoCosts:forRingBuffer:forFrame:"}
+		return err
+	}
 	g._dumpLimiterBatchInfoCostsForRingBufferForFrame(costs, buffer, frame)
+	return nil
+}
+
+// CanDumpLimiterBatchInfoCostsForRingBufferForFrame reports whether the receiver responds to the private selector _dumpLimiterBatchInfoCosts:forRingBuffer:forFrame:.
+func (g GTAGX2ShaderProfiler) CanDumpLimiterBatchInfoCostsForRingBufferForFrame() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_dumpLimiterBatchInfoCosts:forRingBuffer:forFrame:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_dumpShaderBinaries
@@ -328,8 +436,18 @@ func (g GTAGX2ShaderProfiler) _dumpShaderBinaries() {
 }
 
 // DumpShaderBinaries is an exported wrapper for the private method _dumpShaderBinaries.
-func (g GTAGX2ShaderProfiler) DumpShaderBinaries() {
+func (g GTAGX2ShaderProfiler) DumpShaderBinaries() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_dumpShaderBinaries")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_dumpShaderBinaries"}
+		return err
+	}
 	g._dumpShaderBinaries()
+	return nil
+}
+
+// CanDumpShaderBinaries reports whether the receiver responds to the private selector _dumpShaderBinaries.
+func (g GTAGX2ShaderProfiler) CanDumpShaderBinaries() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_dumpShaderBinaries"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:
@@ -338,8 +456,18 @@ func (g GTAGX2ShaderProfiler) _dumpTraceBufferPacketsInFileUsingTracePacketsWith
 }
 
 // DumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex is an exported wrapper for the private method _dumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex.
-func (g GTAGX2ShaderProfiler) DumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file objectivec.IObject, packets unsafe.Pointer, samples unsafe.Pointer, count uint32, index int) {
+func (g GTAGX2ShaderProfiler) DumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file objectivec.IObject, packets unsafe.Pointer, samples unsafe.Pointer, count uint32, index int) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:"}
+		return err
+	}
 	g._dumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex(file, packets, samples, count, index)
+	return nil
+}
+
+// CanDumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex reports whether the receiver responds to the private selector _dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:.
+func (g GTAGX2ShaderProfiler) CanDumpTraceBufferPacketsInFileUsingTracePacketsWithExtractedSamplesWithTraceBufferCountForTargetIndex() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_dumpTraceBufferPacketsInFile:usingTracePackets:withExtractedSamples:withTraceBufferCount:forTargetIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_initiateConnectionToLLVMHelper
@@ -349,8 +477,17 @@ func (g GTAGX2ShaderProfiler) _initiateConnectionToLLVMHelper() bool {
 }
 
 // InitiateConnectionToLLVMHelper is an exported wrapper for the private method _initiateConnectionToLLVMHelper.
-func (g GTAGX2ShaderProfiler) InitiateConnectionToLLVMHelper() bool {
-	return g._initiateConnectionToLLVMHelper()
+func (g GTAGX2ShaderProfiler) InitiateConnectionToLLVMHelper() (bool, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_initiateConnectionToLLVMHelper")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initiateConnectionToLLVMHelper"}
+		return false, err
+	}
+	return g._initiateConnectionToLLVMHelper(), nil
+}
+
+// CanInitiateConnectionToLLVMHelper reports whether the receiver responds to the private selector _initiateConnectionToLLVMHelper.
+func (g GTAGX2ShaderProfiler) CanInitiateConnectionToLLVMHelper() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_initiateConnectionToLLVMHelper"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentEstimate:withLimiter:
@@ -360,8 +497,17 @@ func (g GTAGX2ShaderProfiler) _latencyAdjustmentEstimateWithLimiter(estimate flo
 }
 
 // LatencyAdjustmentEstimateWithLimiter is an exported wrapper for the private method _latencyAdjustmentEstimateWithLimiter.
-func (g GTAGX2ShaderProfiler) LatencyAdjustmentEstimateWithLimiter(estimate float64, limiter float64) float64 {
-	return g._latencyAdjustmentEstimateWithLimiter(estimate, limiter)
+func (g GTAGX2ShaderProfiler) LatencyAdjustmentEstimateWithLimiter(estimate float64, limiter float64) (float64, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentEstimate:withLimiter:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_latencyAdjustmentEstimate:withLimiter:"}
+		return 0.0, err
+	}
+	return g._latencyAdjustmentEstimateWithLimiter(estimate, limiter), nil
+}
+
+// CanLatencyAdjustmentEstimateWithLimiter reports whether the receiver responds to the private selector _latencyAdjustmentEstimate:withLimiter:.
+func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentEstimateWithLimiter() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentEstimate:withLimiter:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterType:
@@ -371,8 +517,17 @@ func (g GTAGX2ShaderProfiler) _latencyAdjustmentFactorWithLimiterDataForIndexWit
 }
 
 // LatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType is an exported wrapper for the private method _latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType.
-func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType(data []float64, index uint64, map_ unsafe.Pointer, type_ uint32) float64 {
-	return g._latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType(data, index, map_, type_)
+func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType(data []float64, index uint64, map_ unsafe.Pointer, type_ uint32) (float64, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterType:"}
+		return 0.0, err
+	}
+	return g._latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType(data, index, map_, type_), nil
+}
+
+// CanLatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType reports whether the receiver responds to the private selector _latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterType:.
+func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterType() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterType:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterTypeLoad:forLimiterTypeStore:
@@ -382,8 +537,17 @@ func (g GTAGX2ShaderProfiler) _latencyAdjustmentFactorWithLimiterDataForIndexWit
 }
 
 // LatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore is an exported wrapper for the private method _latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore.
-func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore(data []float64, index uint64, map_ unsafe.Pointer, load uint32, store uint32) float64 {
-	return g._latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore(data, index, map_, load, store)
+func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore(data []float64, index uint64, map_ unsafe.Pointer, load uint32, store uint32) (float64, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterTypeLoad:forLimiterTypeStore:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterTypeLoad:forLimiterTypeStore:"}
+		return 0.0, err
+	}
+	return g._latencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore(data, index, map_, load, store), nil
+}
+
+// CanLatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore reports whether the receiver responds to the private selector _latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterTypeLoad:forLimiterTypeStore:.
+func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentFactorWithLimiterDataForIndexWithLimiterTypeIndexMapForLimiterTypeLoadForLimiterTypeStore() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterData:forIndex:withLimiterTypeIndexMap:forLimiterTypeLoad:forLimiterTypeStore:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentFactorWithLimiterDataWithLerp:forIndex:withLimiterTypeIndexMap:forLimiterType:
@@ -393,8 +557,17 @@ func (g GTAGX2ShaderProfiler) _latencyAdjustmentFactorWithLimiterDataWithLerpFor
 }
 
 // LatencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType is an exported wrapper for the private method _latencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType.
-func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType(lerp []float64, index uint64, map_ unsafe.Pointer, type_ uint32) float64 {
-	return g._latencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType(lerp, index, map_, type_)
+func (g GTAGX2ShaderProfiler) LatencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType(lerp []float64, index uint64, map_ unsafe.Pointer, type_ uint32) (float64, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterDataWithLerp:forIndex:withLimiterTypeIndexMap:forLimiterType:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_latencyAdjustmentFactorWithLimiterDataWithLerp:forIndex:withLimiterTypeIndexMap:forLimiterType:"}
+		return 0.0, err
+	}
+	return g._latencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType(lerp, index, map_, type_), nil
+}
+
+// CanLatencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType reports whether the receiver responds to the private selector _latencyAdjustmentFactorWithLimiterDataWithLerp:forIndex:withLimiterTypeIndexMap:forLimiterType:.
+func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentFactorWithLimiterDataWithLerpForIndexWithLimiterTypeIndexMapForLimiterType() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentFactorWithLimiterDataWithLerp:forIndex:withLimiterTypeIndexMap:forLimiterType:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_latencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:
@@ -404,8 +577,17 @@ func (g GTAGX2ShaderProfiler) _latencyAdjustmentWithLimiterDataForIndexWithLimit
 }
 
 // LatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap is an exported wrapper for the private method _latencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap.
-func (g GTAGX2ShaderProfiler) LatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data []float64, index uint64, map_ unsafe.Pointer) float64 {
-	return g._latencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data, index, map_)
+func (g GTAGX2ShaderProfiler) LatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data []float64, index uint64, map_ unsafe.Pointer) (float64, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_latencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:"}
+		return 0.0, err
+	}
+	return g._latencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data, index, map_), nil
+}
+
+// CanLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap reports whether the receiver responds to the private selector _latencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:.
+func (g GTAGX2ShaderProfiler) CanLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_latencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_mergeLegacyAndNewShadersInShaderInfoDictionary:
@@ -415,8 +597,17 @@ func (g GTAGX2ShaderProfiler) _mergeLegacyAndNewShadersInShaderInfoDictionary(di
 }
 
 // MergeLegacyAndNewShadersInShaderInfoDictionary is an exported wrapper for the private method _mergeLegacyAndNewShadersInShaderInfoDictionary.
-func (g GTAGX2ShaderProfiler) MergeLegacyAndNewShadersInShaderInfoDictionary(dictionary objectivec.IObject) objectivec.IObject {
-	return g._mergeLegacyAndNewShadersInShaderInfoDictionary(dictionary)
+func (g GTAGX2ShaderProfiler) MergeLegacyAndNewShadersInShaderInfoDictionary(dictionary objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_mergeLegacyAndNewShadersInShaderInfoDictionary:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_mergeLegacyAndNewShadersInShaderInfoDictionary:"}
+		return nil, err
+	}
+	return g._mergeLegacyAndNewShadersInShaderInfoDictionary(dictionary), nil
+}
+
+// CanMergeLegacyAndNewShadersInShaderInfoDictionary reports whether the receiver responds to the private selector _mergeLegacyAndNewShadersInShaderInfoDictionary:.
+func (g GTAGX2ShaderProfiler) CanMergeLegacyAndNewShadersInShaderInfoDictionary() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_mergeLegacyAndNewShadersInShaderInfoDictionary:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:
@@ -425,8 +616,18 @@ func (g GTAGX2ShaderProfiler) _processTracePacketsForRenderIndexAndGenerateSampl
 }
 
 // ProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex is an exported wrapper for the private method _processTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex.
-func (g GTAGX2ShaderProfiler) ProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets unsafe.Pointer, index uint32, list unsafe.Pointer, index2 int, index3 uint32) {
+func (g GTAGX2ShaderProfiler) ProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets unsafe.Pointer, index uint32, list unsafe.Pointer, index2 int, index3 uint32) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:"}
+		return err
+	}
 	g._processTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex(packets, index, list, index2, index3)
+	return nil
+}
+
+// CanProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex reports whether the receiver responds to the private selector _processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:.
+func (g GTAGX2ShaderProfiler) CanProcessTracePacketsForRenderIndexAndGenerateSampleListForTargetIndexForLimiterIndex() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_processTracePackets:forRenderIndex:andGenerateSampleList:forTargetIndex:forLimiterIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_setupShaderBinaryInfo:withBinaryKey:andNumDraws:
@@ -435,8 +636,18 @@ func (g GTAGX2ShaderProfiler) _setupShaderBinaryInfoWithBinaryKeyAndNumDraws(inf
 }
 
 // SetupShaderBinaryInfoWithBinaryKeyAndNumDraws is an exported wrapper for the private method _setupShaderBinaryInfoWithBinaryKeyAndNumDraws.
-func (g GTAGX2ShaderProfiler) SetupShaderBinaryInfoWithBinaryKeyAndNumDraws(info objectivec.IObject, key unsafe.Pointer, draws uint32) {
+func (g GTAGX2ShaderProfiler) SetupShaderBinaryInfoWithBinaryKeyAndNumDraws(info objectivec.IObject, key unsafe.Pointer, draws uint32) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_setupShaderBinaryInfo:withBinaryKey:andNumDraws:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setupShaderBinaryInfo:withBinaryKey:andNumDraws:"}
+		return err
+	}
 	g._setupShaderBinaryInfoWithBinaryKeyAndNumDraws(info, key, draws)
+	return nil
+}
+
+// CanSetupShaderBinaryInfoWithBinaryKeyAndNumDraws reports whether the receiver responds to the private selector _setupShaderBinaryInfo:withBinaryKey:andNumDraws:.
+func (g GTAGX2ShaderProfiler) CanSetupShaderBinaryInfoWithBinaryKeyAndNumDraws() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_setupShaderBinaryInfo:withBinaryKey:andNumDraws:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_waitLatencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:
@@ -446,8 +657,17 @@ func (g GTAGX2ShaderProfiler) _waitLatencyAdjustmentWithLimiterDataForIndexWithL
 }
 
 // WaitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap is an exported wrapper for the private method _waitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap.
-func (g GTAGX2ShaderProfiler) WaitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data []float64, index uint64, map_ unsafe.Pointer) float64 {
-	return g._waitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data, index, map_)
+func (g GTAGX2ShaderProfiler) WaitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data []float64, index uint64, map_ unsafe.Pointer) (float64, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_waitLatencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_waitLatencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:"}
+		return 0.0, err
+	}
+	return g._waitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap(data, index, map_), nil
+}
+
+// CanWaitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap reports whether the receiver responds to the private selector _waitLatencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:.
+func (g GTAGX2ShaderProfiler) CanWaitLatencyAdjustmentWithLimiterDataForIndexWithLimiterTypeIndexMap() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_waitLatencyAdjustmentWithLimiterData:forIndex:withLimiterTypeIndexMap:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/adjustHWBiasAndFinalizeResult:blitKickIndices:blitTimes:result:

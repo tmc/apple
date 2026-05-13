@@ -114,8 +114,8 @@ type IEspresso_mxnetTools_ImageBinaryRecordReader interface {
 	LabelsPrivate() foundation.INSArray
 	SetLabelsPrivate(value foundation.INSArray)
 	NextRecordAndError() (bool, error)
-	RecFileHandle() *foundation.NSFileHandle
-	SetRecFileHandle(value *foundation.NSFileHandle)
+	RecFileHandle() foundation.NSFileHandle
+	SetRecFileHandle(value foundation.NSFileHandle)
 	RecordHeader() objectivec.IObject
 	SetRecordHeader(value objectivec.IObject)
 	SeekRecordWithIDError(id unsafe.Pointer) (bool, error)
@@ -241,19 +241,11 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) SetLabelsPrivate(value foun
 }
 
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/recFileHandle
-func (e Espresso_mxnetTools_ImageBinaryRecordReader) RecFileHandle() *foundation.NSFileHandle {
+func (e Espresso_mxnetTools_ImageBinaryRecordReader) RecFileHandle() foundation.NSFileHandle {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("recFileHandle"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSFileHandleFromID(objc.ID(rv))
-	return &val
+	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
-func (e Espresso_mxnetTools_ImageBinaryRecordReader) SetRecFileHandle(value *foundation.NSFileHandle) {
-	if value == nil {
-		objc.Send[struct{}](e.ID, objc.Sel("setRecFileHandle:"), objc.ID(0))
-		return
-	}
+func (e Espresso_mxnetTools_ImageBinaryRecordReader) SetRecFileHandle(value foundation.NSFileHandle) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRecFileHandle:"), value)
 }
 

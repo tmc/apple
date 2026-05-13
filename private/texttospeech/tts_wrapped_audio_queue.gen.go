@@ -275,8 +275,17 @@ func (t TTSWrappedAudioQueue) _attemptQueueStart() bool {
 }
 
 // AttemptQueueStart is an exported wrapper for the private method _attemptQueueStart.
-func (t TTSWrappedAudioQueue) AttemptQueueStart() bool {
-	return t._attemptQueueStart()
+func (t TTSWrappedAudioQueue) AttemptQueueStart() (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_attemptQueueStart")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_attemptQueueStart"}
+		return false, err
+	}
+	return t._attemptQueueStart(), nil
+}
+
+// CanAttemptQueueStart reports whether the receiver responds to the private selector _attemptQueueStart.
+func (t TTSWrappedAudioQueue) CanAttemptQueueStart() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_attemptQueueStart"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_buildAudioQueue
@@ -285,8 +294,18 @@ func (t TTSWrappedAudioQueue) _buildAudioQueue() {
 }
 
 // BuildAudioQueue is an exported wrapper for the private method _buildAudioQueue.
-func (t TTSWrappedAudioQueue) BuildAudioQueue() {
+func (t TTSWrappedAudioQueue) BuildAudioQueue() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_buildAudioQueue")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_buildAudioQueue"}
+		return err
+	}
 	t._buildAudioQueue()
+	return nil
+}
+
+// CanBuildAudioQueue reports whether the receiver responds to the private selector _buildAudioQueue.
+func (t TTSWrappedAudioQueue) CanBuildAudioQueue() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_buildAudioQueue"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_configureEffects
@@ -295,8 +314,18 @@ func (t TTSWrappedAudioQueue) _configureEffects() {
 }
 
 // ConfigureEffects is an exported wrapper for the private method _configureEffects.
-func (t TTSWrappedAudioQueue) ConfigureEffects() {
+func (t TTSWrappedAudioQueue) ConfigureEffects() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_configureEffects")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_configureEffects"}
+		return err
+	}
 	t._configureEffects()
+	return nil
+}
+
+// CanConfigureEffects reports whether the receiver responds to the private selector _configureEffects.
+func (t TTSWrappedAudioQueue) CanConfigureEffects() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_configureEffects"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_initializeDSPGraphAU
@@ -305,8 +334,18 @@ func (t TTSWrappedAudioQueue) _initializeDSPGraphAU() {
 }
 
 // InitializeDSPGraphAU is an exported wrapper for the private method _initializeDSPGraphAU.
-func (t TTSWrappedAudioQueue) InitializeDSPGraphAU() {
+func (t TTSWrappedAudioQueue) InitializeDSPGraphAU() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_initializeDSPGraphAU")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initializeDSPGraphAU"}
+		return err
+	}
 	t._initializeDSPGraphAU()
+	return nil
+}
+
+// CanInitializeDSPGraphAU reports whether the receiver responds to the private selector _initializeDSPGraphAU.
+func (t TTSWrappedAudioQueue) CanInitializeDSPGraphAU() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_initializeDSPGraphAU"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_minimumBufferByteSize
@@ -316,8 +355,17 @@ func (t TTSWrappedAudioQueue) _minimumBufferByteSize() uint64 {
 }
 
 // MinimumBufferByteSize is an exported wrapper for the private method _minimumBufferByteSize.
-func (t TTSWrappedAudioQueue) MinimumBufferByteSize() uint64 {
-	return t._minimumBufferByteSize()
+func (t TTSWrappedAudioQueue) MinimumBufferByteSize() (uint64, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_minimumBufferByteSize")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_minimumBufferByteSize"}
+		return 0, err
+	}
+	return t._minimumBufferByteSize(), nil
+}
+
+// CanMinimumBufferByteSize reports whether the receiver responds to the private selector _minimumBufferByteSize.
+func (t TTSWrappedAudioQueue) CanMinimumBufferByteSize() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_minimumBufferByteSize"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_rebuildAudioQueue
@@ -326,8 +374,18 @@ func (t TTSWrappedAudioQueue) _rebuildAudioQueue() {
 }
 
 // RebuildAudioQueue is an exported wrapper for the private method _rebuildAudioQueue.
-func (t TTSWrappedAudioQueue) RebuildAudioQueue() {
+func (t TTSWrappedAudioQueue) RebuildAudioQueue() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_rebuildAudioQueue")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_rebuildAudioQueue"}
+		return err
+	}
 	t._rebuildAudioQueue()
+	return nil
+}
+
+// CanRebuildAudioQueue reports whether the receiver responds to the private selector _rebuildAudioQueue.
+func (t TTSWrappedAudioQueue) CanRebuildAudioQueue() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_rebuildAudioQueue"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_reconfigureQueueFormatForMultiChannelOutputIfNecessary
@@ -336,8 +394,18 @@ func (t TTSWrappedAudioQueue) _reconfigureQueueFormatForMultiChannelOutputIfNece
 }
 
 // ReconfigureQueueFormatForMultiChannelOutputIfNecessary is an exported wrapper for the private method _reconfigureQueueFormatForMultiChannelOutputIfNecessary.
-func (t TTSWrappedAudioQueue) ReconfigureQueueFormatForMultiChannelOutputIfNecessary() {
+func (t TTSWrappedAudioQueue) ReconfigureQueueFormatForMultiChannelOutputIfNecessary() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_reconfigureQueueFormatForMultiChannelOutputIfNecessary")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_reconfigureQueueFormatForMultiChannelOutputIfNecessary"}
+		return err
+	}
 	t._reconfigureQueueFormatForMultiChannelOutputIfNecessary()
+	return nil
+}
+
+// CanReconfigureQueueFormatForMultiChannelOutputIfNecessary reports whether the receiver responds to the private selector _reconfigureQueueFormatForMultiChannelOutputIfNecessary.
+func (t TTSWrappedAudioQueue) CanReconfigureQueueFormatForMultiChannelOutputIfNecessary() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_reconfigureQueueFormatForMultiChannelOutputIfNecessary"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_startQueueWithRetry
@@ -347,8 +415,17 @@ func (t TTSWrappedAudioQueue) _startQueueWithRetry() bool {
 }
 
 // StartQueueWithRetry is an exported wrapper for the private method _startQueueWithRetry.
-func (t TTSWrappedAudioQueue) StartQueueWithRetry() bool {
-	return t._startQueueWithRetry()
+func (t TTSWrappedAudioQueue) StartQueueWithRetry() (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_startQueueWithRetry")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_startQueueWithRetry"}
+		return false, err
+	}
+	return t._startQueueWithRetry(), nil
+}
+
+// CanStartQueueWithRetry reports whether the receiver responds to the private selector _startQueueWithRetry.
+func (t TTSWrappedAudioQueue) CanStartQueueWithRetry() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_startQueueWithRetry"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_syncGraphParameters
@@ -357,8 +434,18 @@ func (t TTSWrappedAudioQueue) _syncGraphParameters() {
 }
 
 // SyncGraphParameters is an exported wrapper for the private method _syncGraphParameters.
-func (t TTSWrappedAudioQueue) SyncGraphParameters() {
+func (t TTSWrappedAudioQueue) SyncGraphParameters() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_syncGraphParameters")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_syncGraphParameters"}
+		return err
+	}
 	t._syncGraphParameters()
+	return nil
+}
+
+// CanSyncGraphParameters reports whether the receiver responds to the private selector _syncGraphParameters.
+func (t TTSWrappedAudioQueue) CanSyncGraphParameters() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_syncGraphParameters"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_syncGraphProperties
@@ -367,8 +454,18 @@ func (t TTSWrappedAudioQueue) _syncGraphProperties() {
 }
 
 // SyncGraphProperties is an exported wrapper for the private method _syncGraphProperties.
-func (t TTSWrappedAudioQueue) SyncGraphProperties() {
+func (t TTSWrappedAudioQueue) SyncGraphProperties() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_syncGraphProperties")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_syncGraphProperties"}
+		return err
+	}
 	t._syncGraphProperties()
+	return nil
+}
+
+// CanSyncGraphProperties reports whether the receiver responds to the private selector _syncGraphProperties.
+func (t TTSWrappedAudioQueue) CanSyncGraphProperties() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_syncGraphProperties"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_tearDownAudioQueue
@@ -377,8 +474,18 @@ func (t TTSWrappedAudioQueue) _tearDownAudioQueue() {
 }
 
 // TearDownAudioQueue is an exported wrapper for the private method _tearDownAudioQueue.
-func (t TTSWrappedAudioQueue) TearDownAudioQueue() {
+func (t TTSWrappedAudioQueue) TearDownAudioQueue() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_tearDownAudioQueue")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_tearDownAudioQueue"}
+		return err
+	}
 	t._tearDownAudioQueue()
+	return nil
+}
+
+// CanTearDownAudioQueue reports whether the receiver responds to the private selector _tearDownAudioQueue.
+func (t TTSWrappedAudioQueue) CanTearDownAudioQueue() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_tearDownAudioQueue"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_tearDownDSPGraphAU
@@ -387,8 +494,18 @@ func (t TTSWrappedAudioQueue) _tearDownDSPGraphAU() {
 }
 
 // TearDownDSPGraphAU is an exported wrapper for the private method _tearDownDSPGraphAU.
-func (t TTSWrappedAudioQueue) TearDownDSPGraphAU() {
+func (t TTSWrappedAudioQueue) TearDownDSPGraphAU() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_tearDownDSPGraphAU")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_tearDownDSPGraphAU"}
+		return err
+	}
 	t._tearDownDSPGraphAU()
+	return nil
+}
+
+// CanTearDownDSPGraphAU reports whether the receiver responds to the private selector _tearDownDSPGraphAU.
+func (t TTSWrappedAudioQueue) CanTearDownDSPGraphAU() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_tearDownDSPGraphAU"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/bufferCallback:

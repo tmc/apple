@@ -399,8 +399,18 @@ func (t TTSSpeechManager) __speechJobFinished(finished objectivec.IObject) {
 }
 
 // SpeechJobFinished is an exported wrapper for the private method __speechJobFinished.
-func (t TTSSpeechManager) SpeechJobFinished(finished objectivec.IObject) {
+func (t TTSSpeechManager) SpeechJobFinished(finished objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("__speechJobFinished:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "__speechJobFinished:"}
+		return err
+	}
 	t.__speechJobFinished(finished)
+	return nil
+}
+
+// CanSpeechJobFinished reports whether the receiver responds to the private selector __speechJobFinished:.
+func (t TTSSpeechManager) CanSpeechJobFinished() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("__speechJobFinished:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_clearSpeechQueue
@@ -419,8 +429,18 @@ func (t TTSSpeechManager) _didBeginInterruption() {
 }
 
 // DidBeginInterruption is an exported wrapper for the private method _didBeginInterruption.
-func (t TTSSpeechManager) DidBeginInterruption() {
+func (t TTSSpeechManager) DidBeginInterruption() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_didBeginInterruption")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_didBeginInterruption"}
+		return err
+	}
 	t._didBeginInterruption()
+	return nil
+}
+
+// CanDidBeginInterruption reports whether the receiver responds to the private selector _didBeginInterruption.
+func (t TTSSpeechManager) CanDidBeginInterruption() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_didBeginInterruption"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_didEndInterruption
@@ -429,8 +449,18 @@ func (t TTSSpeechManager) _didEndInterruption() {
 }
 
 // DidEndInterruption is an exported wrapper for the private method _didEndInterruption.
-func (t TTSSpeechManager) DidEndInterruption() {
+func (t TTSSpeechManager) DidEndInterruption() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_didEndInterruption")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_didEndInterruption"}
+		return err
+	}
 	t._didEndInterruption()
+	return nil
+}
+
+// CanDidEndInterruption reports whether the receiver responds to the private selector _didEndInterruption.
+func (t TTSSpeechManager) CanDidEndInterruption() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_didEndInterruption"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_dispatchSpeechAction:
@@ -445,8 +475,17 @@ func (t TTSSpeechManager) _enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thre
 }
 
 // EnqueueSelectorOnSpeechThreadObjectWaitUntilDone is an exported wrapper for the private method _enqueueSelectorOnSpeechThreadObjectWaitUntilDone.
-func (t TTSSpeechManager) EnqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) bool {
-	return t._enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread, object, done)
+func (t TTSSpeechManager) EnqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) (bool, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_enqueueSelectorOnSpeechThread:object:waitUntilDone:"}
+		return false, err
+	}
+	return t._enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread, object, done), nil
+}
+
+// CanEnqueueSelectorOnSpeechThreadObjectWaitUntilDone reports whether the receiver responds to the private selector _enqueueSelectorOnSpeechThread:object:waitUntilDone:.
+func (t TTSSpeechManager) CanEnqueueSelectorOnSpeechThreadObjectWaitUntilDone() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_handleAudioInterruption:
@@ -470,8 +509,18 @@ func (t TTSSpeechManager) _initialize() {
 }
 
 // Initialize is an exported wrapper for the private method _initialize.
-func (t TTSSpeechManager) Initialize() {
+func (t TTSSpeechManager) Initialize() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_initialize")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initialize"}
+		return err
+	}
 	t._initialize()
+	return nil
+}
+
+// CanInitialize reports whether the receiver responds to the private selector _initialize.
+func (t TTSSpeechManager) CanInitialize() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_initialize"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_isSpeaking:
@@ -491,8 +540,17 @@ func (t TTSSpeechManager) _phonemeSubstitutionsForAction(action objectivec.IObje
 }
 
 // PhonemeSubstitutionsForAction is an exported wrapper for the private method _phonemeSubstitutionsForAction.
-func (t TTSSpeechManager) PhonemeSubstitutionsForAction(action objectivec.IObject) objectivec.IObject {
-	return t._phonemeSubstitutionsForAction(action)
+func (t TTSSpeechManager) PhonemeSubstitutionsForAction(action objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_phonemeSubstitutionsForAction:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_phonemeSubstitutionsForAction:"}
+		return nil, err
+	}
+	return t._phonemeSubstitutionsForAction(action), nil
+}
+
+// CanPhonemeSubstitutionsForAction reports whether the receiver responds to the private selector _phonemeSubstitutionsForAction:.
+func (t TTSSpeechManager) CanPhonemeSubstitutionsForAction() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_phonemeSubstitutionsForAction:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_processAudioBufferCallback:
@@ -501,8 +559,18 @@ func (t TTSSpeechManager) _processAudioBufferCallback(callback objectivec.IObjec
 }
 
 // ProcessAudioBufferCallback is an exported wrapper for the private method _processAudioBufferCallback.
-func (t TTSSpeechManager) ProcessAudioBufferCallback(callback objectivec.IObject) {
+func (t TTSSpeechManager) ProcessAudioBufferCallback(callback objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processAudioBufferCallback:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processAudioBufferCallback:"}
+		return err
+	}
 	t._processAudioBufferCallback(callback)
+	return nil
+}
+
+// CanProcessAudioBufferCallback reports whether the receiver responds to the private selector _processAudioBufferCallback:.
+func (t TTSSpeechManager) CanProcessAudioBufferCallback() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processAudioBufferCallback:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_processDidContinueCallback:
@@ -511,8 +579,18 @@ func (t TTSSpeechManager) _processDidContinueCallback(callback objectivec.IObjec
 }
 
 // ProcessDidContinueCallback is an exported wrapper for the private method _processDidContinueCallback.
-func (t TTSSpeechManager) ProcessDidContinueCallback(callback objectivec.IObject) {
+func (t TTSSpeechManager) ProcessDidContinueCallback(callback objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processDidContinueCallback:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processDidContinueCallback:"}
+		return err
+	}
 	t._processDidContinueCallback(callback)
+	return nil
+}
+
+// CanProcessDidContinueCallback reports whether the receiver responds to the private selector _processDidContinueCallback:.
+func (t TTSSpeechManager) CanProcessDidContinueCallback() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processDidContinueCallback:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_processDidEncounterMarker:
@@ -521,8 +599,18 @@ func (t TTSSpeechManager) _processDidEncounterMarker(marker objectivec.IObject) 
 }
 
 // ProcessDidEncounterMarker is an exported wrapper for the private method _processDidEncounterMarker.
-func (t TTSSpeechManager) ProcessDidEncounterMarker(marker objectivec.IObject) {
+func (t TTSSpeechManager) ProcessDidEncounterMarker(marker objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processDidEncounterMarker:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processDidEncounterMarker:"}
+		return err
+	}
 	t._processDidEncounterMarker(marker)
+	return nil
+}
+
+// CanProcessDidEncounterMarker reports whether the receiver responds to the private selector _processDidEncounterMarker:.
+func (t TTSSpeechManager) CanProcessDidEncounterMarker() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processDidEncounterMarker:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_processDidPauseCallback:
@@ -531,8 +619,18 @@ func (t TTSSpeechManager) _processDidPauseCallback(callback objectivec.IObject) 
 }
 
 // ProcessDidPauseCallback is an exported wrapper for the private method _processDidPauseCallback.
-func (t TTSSpeechManager) ProcessDidPauseCallback(callback objectivec.IObject) {
+func (t TTSSpeechManager) ProcessDidPauseCallback(callback objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processDidPauseCallback:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processDidPauseCallback:"}
+		return err
+	}
 	t._processDidPauseCallback(callback)
+	return nil
+}
+
+// CanProcessDidPauseCallback reports whether the receiver responds to the private selector _processDidPauseCallback:.
+func (t TTSSpeechManager) CanProcessDidPauseCallback() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processDidPauseCallback:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_processDidStartCallback:
@@ -541,8 +639,18 @@ func (t TTSSpeechManager) _processDidStartCallback(callback objectivec.IObject) 
 }
 
 // ProcessDidStartCallback is an exported wrapper for the private method _processDidStartCallback.
-func (t TTSSpeechManager) ProcessDidStartCallback(callback objectivec.IObject) {
+func (t TTSSpeechManager) ProcessDidStartCallback(callback objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processDidStartCallback:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processDidStartCallback:"}
+		return err
+	}
 	t._processDidStartCallback(callback)
+	return nil
+}
+
+// CanProcessDidStartCallback reports whether the receiver responds to the private selector _processDidStartCallback:.
+func (t TTSSpeechManager) CanProcessDidStartCallback() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processDidStartCallback:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_processWillSpeechRange:
@@ -551,8 +659,18 @@ func (t TTSSpeechManager) _processWillSpeechRange(range_ objectivec.IObject) {
 }
 
 // ProcessWillSpeechRange is an exported wrapper for the private method _processWillSpeechRange.
-func (t TTSSpeechManager) ProcessWillSpeechRange(range_ objectivec.IObject) {
+func (t TTSSpeechManager) ProcessWillSpeechRange(range_ objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_processWillSpeechRange:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processWillSpeechRange:"}
+		return err
+	}
 	t._processWillSpeechRange(range_)
+	return nil
+}
+
+// CanProcessWillSpeechRange reports whether the receiver responds to the private selector _processWillSpeechRange:.
+func (t TTSSpeechManager) CanProcessWillSpeechRange() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_processWillSpeechRange:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_resetInterruptionTracking
@@ -561,8 +679,18 @@ func (t TTSSpeechManager) _resetInterruptionTracking() {
 }
 
 // ResetInterruptionTracking is an exported wrapper for the private method _resetInterruptionTracking.
-func (t TTSSpeechManager) ResetInterruptionTracking() {
+func (t TTSSpeechManager) ResetInterruptionTracking() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_resetInterruptionTracking")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_resetInterruptionTracking"}
+		return err
+	}
 	t._resetInterruptionTracking()
+	return nil
+}
+
+// CanResetInterruptionTracking reports whether the receiver responds to the private selector _resetInterruptionTracking.
+func (t TTSSpeechManager) CanResetInterruptionTracking() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_resetInterruptionTracking"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_setVoiceForAction:snippet:
@@ -571,8 +699,18 @@ func (t TTSSpeechManager) _setVoiceForActionSnippet(action objectivec.IObject, s
 }
 
 // SetVoiceForActionSnippet is an exported wrapper for the private method _setVoiceForActionSnippet.
-func (t TTSSpeechManager) SetVoiceForActionSnippet(action objectivec.IObject, snippet objectivec.IObject) {
+func (t TTSSpeechManager) SetVoiceForActionSnippet(action objectivec.IObject, snippet objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_setVoiceForAction:snippet:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setVoiceForAction:snippet:"}
+		return err
+	}
 	t._setVoiceForActionSnippet(action, snippet)
+	return nil
+}
+
+// CanSetVoiceForActionSnippet reports whether the receiver responds to the private selector _setVoiceForAction:snippet:.
+func (t TTSSpeechManager) CanSetVoiceForActionSnippet() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_setVoiceForAction:snippet:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_speechJobFinished:action:
@@ -581,8 +719,18 @@ func (t TTSSpeechManager) _speechJobFinishedAction(finished bool, action objecti
 }
 
 // SpeechJobFinishedAction is an exported wrapper for the private method _speechJobFinishedAction.
-func (t TTSSpeechManager) SpeechJobFinishedAction(finished bool, action objectivec.IObject) {
+func (t TTSSpeechManager) SpeechJobFinishedAction(finished bool, action objectivec.IObject) error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_speechJobFinished:action:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speechJobFinished:action:"}
+		return err
+	}
 	t._speechJobFinishedAction(finished, action)
+	return nil
+}
+
+// CanSpeechJobFinishedAction reports whether the receiver responds to the private selector _speechJobFinished:action:.
+func (t TTSSpeechManager) CanSpeechJobFinishedAction() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_speechJobFinished:action:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_startNextSpeechJob
@@ -591,8 +739,18 @@ func (t TTSSpeechManager) _startNextSpeechJob() {
 }
 
 // StartNextSpeechJob is an exported wrapper for the private method _startNextSpeechJob.
-func (t TTSSpeechManager) StartNextSpeechJob() {
+func (t TTSSpeechManager) StartNextSpeechJob() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_startNextSpeechJob")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_startNextSpeechJob"}
+		return err
+	}
 	t._startNextSpeechJob()
+	return nil
+}
+
+// CanStartNextSpeechJob reports whether the receiver responds to the private selector _startNextSpeechJob.
+func (t TTSSpeechManager) CanStartNextSpeechJob() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_startNextSpeechJob"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_stopSpeaking:
@@ -611,8 +769,18 @@ func (t TTSSpeechManager) _updateAudioSessionProperties() {
 }
 
 // UpdateAudioSessionProperties is an exported wrapper for the private method _updateAudioSessionProperties.
-func (t TTSSpeechManager) UpdateAudioSessionProperties() {
+func (t TTSSpeechManager) UpdateAudioSessionProperties() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_updateAudioSessionProperties")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateAudioSessionProperties"}
+		return err
+	}
 	t._updateAudioSessionProperties()
+	return nil
+}
+
+// CanUpdateAudioSessionProperties reports whether the receiver responds to the private selector _updateAudioSessionProperties.
+func (t TTSSpeechManager) CanUpdateAudioSessionProperties() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_updateAudioSessionProperties"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_updateAuxiliarySession
@@ -621,8 +789,18 @@ func (t TTSSpeechManager) _updateAuxiliarySession() {
 }
 
 // UpdateAuxiliarySession is an exported wrapper for the private method _updateAuxiliarySession.
-func (t TTSSpeechManager) UpdateAuxiliarySession() {
+func (t TTSSpeechManager) UpdateAuxiliarySession() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_updateAuxiliarySession")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateAuxiliarySession"}
+		return err
+	}
 	t._updateAuxiliarySession()
+	return nil
+}
+
+// CanUpdateAuxiliarySession reports whether the receiver responds to the private selector _updateAuxiliarySession.
+func (t TTSSpeechManager) CanUpdateAuxiliarySession() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_updateAuxiliarySession"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_updateUserSubstitutions
@@ -631,8 +809,18 @@ func (t TTSSpeechManager) _updateUserSubstitutions() {
 }
 
 // UpdateUserSubstitutions is an exported wrapper for the private method _updateUserSubstitutions.
-func (t TTSSpeechManager) UpdateUserSubstitutions() {
+func (t TTSSpeechManager) UpdateUserSubstitutions() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_updateUserSubstitutions")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_updateUserSubstitutions"}
+		return err
+	}
 	t._updateUserSubstitutions()
+	return nil
+}
+
+// CanUpdateUserSubstitutions reports whether the receiver responds to the private selector _updateUserSubstitutions.
+func (t TTSSpeechManager) CanUpdateUserSubstitutions() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_updateUserSubstitutions"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/clearSpeechQueue
@@ -740,8 +928,17 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) _isCharacterNativelySpeakabl
 }
 
 // IsCharacterNativelySpeakableLanguageCode is an exported wrapper for the private method _isCharacterNativelySpeakableLanguageCode.
-func (_TTSSpeechManagerClass TTSSpeechManagerClass) IsCharacterNativelySpeakableLanguageCode(speakable uint16, code objectivec.IObject) bool {
-	return _TTSSpeechManagerClass._isCharacterNativelySpeakableLanguageCode(speakable, code)
+func (_TTSSpeechManagerClass TTSSpeechManagerClass) IsCharacterNativelySpeakableLanguageCode(speakable uint16, code objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_isCharacterNativelySpeakable:languageCode:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_isCharacterNativelySpeakable:languageCode:"}
+		return false, err
+	}
+	return _TTSSpeechManagerClass._isCharacterNativelySpeakableLanguageCode(speakable, code), nil
+}
+
+// CanIsCharacterNativelySpeakableLanguageCode reports whether the receiver responds to the private selector _isCharacterNativelySpeakable:languageCode:.
+func (_TTSSpeechManagerClass TTSSpeechManagerClass) CanIsCharacterNativelySpeakableLanguageCode() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_isCharacterNativelySpeakable:languageCode:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_resetAvailableVoices
@@ -751,8 +948,17 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) _resetAvailableVoices() obje
 }
 
 // ResetAvailableVoices is an exported wrapper for the private method _resetAvailableVoices.
-func (_TTSSpeechManagerClass TTSSpeechManagerClass) ResetAvailableVoices() objectivec.IObject {
-	return _TTSSpeechManagerClass._resetAvailableVoices()
+func (_TTSSpeechManagerClass TTSSpeechManagerClass) ResetAvailableVoices() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_resetAvailableVoices"}
+		return nil, err
+	}
+	return _TTSSpeechManagerClass._resetAvailableVoices(), nil
+}
+
+// CanResetAvailableVoices reports whether the receiver responds to the private selector _resetAvailableVoices.
+func (_TTSSpeechManagerClass TTSSpeechManagerClass) CanResetAvailableVoices() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_resetAvailableVoices:
@@ -762,8 +968,17 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) _resetAvailableVoicesWithVoi
 }
 
 // ResetAvailableVoicesWithVoices is an exported wrapper for the private method _resetAvailableVoicesWithVoices.
-func (_TTSSpeechManagerClass TTSSpeechManagerClass) ResetAvailableVoicesWithVoices(voices bool) objectivec.IObject {
-	return _TTSSpeechManagerClass._resetAvailableVoicesWithVoices(voices)
+func (_TTSSpeechManagerClass TTSSpeechManagerClass) ResetAvailableVoicesWithVoices(voices bool) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_resetAvailableVoices:"}
+		return nil, err
+	}
+	return _TTSSpeechManagerClass._resetAvailableVoicesWithVoices(voices), nil
+}
+
+// CanResetAvailableVoicesWithVoices reports whether the receiver responds to the private selector _resetAvailableVoices:.
+func (_TTSSpeechManagerClass TTSSpeechManagerClass) CanResetAvailableVoicesWithVoices() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSSpeechManagerClass.class), objc.Sel("_resetAvailableVoices:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/audioFileSettingsForVoice:

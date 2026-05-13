@@ -108,8 +108,18 @@ func (s SODownloadDisplayManager) _appendAveragingTimeInterval(interval float64)
 }
 
 // AppendAveragingTimeInterval is an exported wrapper for the private method _appendAveragingTimeInterval.
-func (s SODownloadDisplayManager) AppendAveragingTimeInterval(interval float64) {
+func (s SODownloadDisplayManager) AppendAveragingTimeInterval(interval float64) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_appendAveragingTimeInterval:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_appendAveragingTimeInterval:"}
+		return err
+	}
 	s._appendAveragingTimeInterval(interval)
+	return nil
+}
+
+// CanAppendAveragingTimeInterval reports whether the receiver responds to the private selector _appendAveragingTimeInterval:.
+func (s SODownloadDisplayManager) CanAppendAveragingTimeInterval() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_appendAveragingTimeInterval:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SODownloadDisplayManager/_averagedTimeInterval
@@ -119,8 +129,17 @@ func (s SODownloadDisplayManager) _averagedTimeInterval() float64 {
 }
 
 // AveragedTimeInterval is an exported wrapper for the private method _averagedTimeInterval.
-func (s SODownloadDisplayManager) AveragedTimeInterval() float64 {
-	return s._averagedTimeInterval()
+func (s SODownloadDisplayManager) AveragedTimeInterval() (float64, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_averagedTimeInterval")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_averagedTimeInterval"}
+		return 0.0, err
+	}
+	return s._averagedTimeInterval(), nil
+}
+
+// CanAveragedTimeInterval reports whether the receiver responds to the private selector _averagedTimeInterval.
+func (s SODownloadDisplayManager) CanAveragedTimeInterval() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_averagedTimeInterval"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SODownloadDisplayManager/reset

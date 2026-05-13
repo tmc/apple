@@ -187,8 +187,18 @@ func (g GTMioShaderExecutionHistoryRootNode) _pushNewFunction(function objective
 }
 
 // PushNewFunction is an exported wrapper for the private method _pushNewFunction.
-func (g GTMioShaderExecutionHistoryRootNode) PushNewFunction(function objectivec.IObject) {
+func (g GTMioShaderExecutionHistoryRootNode) PushNewFunction(function objectivec.IObject) error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_pushNewFunction:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_pushNewFunction:"}
+		return err
+	}
 	g._pushNewFunction(function)
+	return nil
+}
+
+// CanPushNewFunction reports whether the receiver responds to the private selector _pushNewFunction:.
+func (g GTMioShaderExecutionHistoryRootNode) CanPushNewFunction() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_pushNewFunction:"))
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cacheKey

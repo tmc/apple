@@ -87,8 +87,18 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // AcceptRule is an exported wrapper for the private method _acceptRule.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) AcceptRule() {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) AcceptRule() error {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_acceptRule")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_acceptRule"}
+		return err
+	}
 	_TTSLHPhonemeToApplebetPhonemeMapperClass._acceptRule()
+	return nil
+}
+
+// CanAcceptRule reports whether the receiver responds to the private selector _acceptRule.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanAcceptRule() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_acceptRule"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_initializeRules
@@ -98,8 +108,17 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // InitializeRules is an exported wrapper for the private method _initializeRules.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) InitializeRules() objectivec.IObject {
-	return _TTSLHPhonemeToApplebetPhonemeMapperClass._initializeRules()
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) InitializeRules() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_initializeRules")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initializeRules"}
+		return nil, err
+	}
+	return _TTSLHPhonemeToApplebetPhonemeMapperClass._initializeRules(), nil
+}
+
+// CanInitializeRules reports whether the receiver responds to the private selector _initializeRules.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanInitializeRules() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_initializeRules"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_leftRaisingContextRule
@@ -108,8 +127,18 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // LeftRaisingContextRule is an exported wrapper for the private method _leftRaisingContextRule.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) LeftRaisingContextRule() {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) LeftRaisingContextRule() error {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_leftRaisingContextRule")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_leftRaisingContextRule"}
+		return err
+	}
 	_TTSLHPhonemeToApplebetPhonemeMapperClass._leftRaisingContextRule()
+	return nil
+}
+
+// CanLeftRaisingContextRule reports whether the receiver responds to the private selector _leftRaisingContextRule.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanLeftRaisingContextRule() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_leftRaisingContextRule"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_phonemeArray:
@@ -119,8 +148,17 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // PhonemeArray is an exported wrapper for the private method _phonemeArray.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonemeArray(array objectivec.IObject) objectivec.IObject {
-	return _TTSLHPhonemeToApplebetPhonemeMapperClass._phonemeArray(array)
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonemeArray(array objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeArray:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_phonemeArray:"}
+		return nil, err
+	}
+	return _TTSLHPhonemeToApplebetPhonemeMapperClass._phonemeArray(array), nil
+}
+
+// CanPhonemeArray reports whether the receiver responds to the private selector _phonemeArray:.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonemeArray() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeArray:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_phonemeRules
@@ -130,8 +168,17 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // PhonemeRules is an exported wrapper for the private method _phonemeRules.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonemeRules() objectivec.IObject {
-	return _TTSLHPhonemeToApplebetPhonemeMapperClass._phonemeRules()
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonemeRules() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeRules")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_phonemeRules"}
+		return nil, err
+	}
+	return _TTSLHPhonemeToApplebetPhonemeMapperClass._phonemeRules(), nil
+}
+
+// CanPhonemeRules reports whether the receiver responds to the private selector _phonemeRules.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonemeRules() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeRules"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_phonoMatch:match:matchpos:count:
@@ -141,8 +188,17 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // PhonoMatchMatchMatchposCount is an exported wrapper for the private method _phonoMatchMatchMatchposCount.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonoMatchMatchMatchposCount(match objectivec.IObject, match2 objectivec.IObject, matchpos []int, count int) objectivec.IObject {
-	return _TTSLHPhonemeToApplebetPhonemeMapperClass._phonoMatchMatchMatchposCount(match, match2, matchpos, count)
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonoMatchMatchMatchposCount(match objectivec.IObject, match2 objectivec.IObject, matchpos []int, count int) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoMatch:match:matchpos:count:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_phonoMatch:match:matchpos:count:"}
+		return nil, err
+	}
+	return _TTSLHPhonemeToApplebetPhonemeMapperClass._phonoMatchMatchMatchposCount(match, match2, matchpos, count), nil
+}
+
+// CanPhonoMatchMatchMatchposCount reports whether the receiver responds to the private selector _phonoMatch:match:matchpos:count:.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonoMatchMatchMatchposCount() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoMatch:match:matchpos:count:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_phonoTranslation:
@@ -152,8 +208,17 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // PhonoTranslation is an exported wrapper for the private method _phonoTranslation.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonoTranslation(translation objectivec.IObject) objectivec.IObject {
-	return _TTSLHPhonemeToApplebetPhonemeMapperClass._phonoTranslation(translation)
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonoTranslation(translation objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoTranslation:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_phonoTranslation:"}
+		return nil, err
+	}
+	return _TTSLHPhonemeToApplebetPhonemeMapperClass._phonoTranslation(translation), nil
+}
+
+// CanPhonoTranslation reports whether the receiver responds to the private selector _phonoTranslation:.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonoTranslation() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoTranslation:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_retrieveRegularExpression:
@@ -163,8 +228,17 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // RetrieveRegularExpression is an exported wrapper for the private method _retrieveRegularExpression.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) RetrieveRegularExpression(expression objectivec.IObject) objectivec.IObject {
-	return _TTSLHPhonemeToApplebetPhonemeMapperClass._retrieveRegularExpression(expression)
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) RetrieveRegularExpression(expression objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_retrieveRegularExpression:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_retrieveRegularExpression:"}
+		return nil, err
+	}
+	return _TTSLHPhonemeToApplebetPhonemeMapperClass._retrieveRegularExpression(expression), nil
+}
+
+// CanRetrieveRegularExpression reports whether the receiver responds to the private selector _retrieveRegularExpression:.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanRetrieveRegularExpression() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_retrieveRegularExpression:"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_rightRaisingContextRule
@@ -173,8 +247,18 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // RightRaisingContextRule is an exported wrapper for the private method _rightRaisingContextRule.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) RightRaisingContextRule() {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) RightRaisingContextRule() error {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_rightRaisingContextRule")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_rightRaisingContextRule"}
+		return err
+	}
 	_TTSLHPhonemeToApplebetPhonemeMapperClass._rightRaisingContextRule()
+	return nil
+}
+
+// CanRightRaisingContextRule reports whether the receiver responds to the private selector _rightRaisingContextRule.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanRightRaisingContextRule() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_rightRaisingContextRule"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_uberLeftRaisingContextRule
@@ -183,8 +267,18 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // UberLeftRaisingContextRule is an exported wrapper for the private method _uberLeftRaisingContextRule.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) UberLeftRaisingContextRule() {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) UberLeftRaisingContextRule() error {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberLeftRaisingContextRule")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_uberLeftRaisingContextRule"}
+		return err
+	}
 	_TTSLHPhonemeToApplebetPhonemeMapperClass._uberLeftRaisingContextRule()
+	return nil
+}
+
+// CanUberLeftRaisingContextRule reports whether the receiver responds to the private selector _uberLeftRaisingContextRule.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanUberLeftRaisingContextRule() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberLeftRaisingContextRule"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_uberRightRaisingContextRule
@@ -193,8 +287,18 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // UberRightRaisingContextRule is an exported wrapper for the private method _uberRightRaisingContextRule.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) UberRightRaisingContextRule() {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) UberRightRaisingContextRule() error {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberRightRaisingContextRule")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_uberRightRaisingContextRule"}
+		return err
+	}
 	_TTSLHPhonemeToApplebetPhonemeMapperClass._uberRightRaisingContextRule()
+	return nil
+}
+
+// CanUberRightRaisingContextRule reports whether the receiver responds to the private selector _uberRightRaisingContextRule.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanUberRightRaisingContextRule() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberRightRaisingContextRule"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_uberUberRightRaisingContextRule
@@ -203,8 +307,18 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // UberUberRightRaisingContextRule is an exported wrapper for the private method _uberUberRightRaisingContextRule.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) UberUberRightRaisingContextRule() {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) UberUberRightRaisingContextRule() error {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberUberRightRaisingContextRule")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_uberUberRightRaisingContextRule"}
+		return err
+	}
 	_TTSLHPhonemeToApplebetPhonemeMapperClass._uberUberRightRaisingContextRule()
+	return nil
+}
+
+// CanUberUberRightRaisingContextRule reports whether the receiver responds to the private selector _uberUberRightRaisingContextRule.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanUberUberRightRaisingContextRule() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberUberRightRaisingContextRule"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/_uberUberUberRightRaisingContextRule
@@ -213,8 +327,18 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 }
 
 // UberUberUberRightRaisingContextRule is an exported wrapper for the private method _uberUberUberRightRaisingContextRule.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) UberUberUberRightRaisingContextRule() {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) UberUberUberRightRaisingContextRule() error {
+	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberUberUberRightRaisingContextRule")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_uberUberUberRightRaisingContextRule"}
+		return err
+	}
 	_TTSLHPhonemeToApplebetPhonemeMapperClass._uberUberUberRightRaisingContextRule()
+	return nil
+}
+
+// CanUberUberUberRightRaisingContextRule reports whether the receiver responds to the private selector _uberUberUberRightRaisingContextRule.
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanUberUberUberRightRaisingContextRule() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_uberUberUberRightRaisingContextRule"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSLHPhonemeToApplebetPhonemeMapper/convertLHToApplebet:

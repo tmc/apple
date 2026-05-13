@@ -128,8 +128,18 @@ func (t TTSAUMessagingHost) _loadProtocolMethods() {
 }
 
 // LoadProtocolMethods is an exported wrapper for the private method _loadProtocolMethods.
-func (t TTSAUMessagingHost) LoadProtocolMethods() {
+func (t TTSAUMessagingHost) LoadProtocolMethods() error {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_loadProtocolMethods")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_loadProtocolMethods"}
+		return err
+	}
 	t._loadProtocolMethods()
+	return nil
+}
+
+// CanLoadProtocolMethods reports whether the receiver responds to the private selector _loadProtocolMethods.
+func (t TTSAUMessagingHost) CanLoadProtocolMethods() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_loadProtocolMethods"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/initWithMessageChannel:
@@ -145,8 +155,17 @@ func (_TTSAUMessagingHostClass TTSAUMessagingHostClass) _validSelectorsForProtoc
 }
 
 // ValidSelectorsForProtocol is an exported wrapper for the private method _validSelectorsForProtocol.
-func (_TTSAUMessagingHostClass TTSAUMessagingHostClass) ValidSelectorsForProtocol() objectivec.IObject {
-	return _TTSAUMessagingHostClass._validSelectorsForProtocol()
+func (_TTSAUMessagingHostClass TTSAUMessagingHostClass) ValidSelectorsForProtocol() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSAUMessagingHostClass.class), objc.Sel("_validSelectorsForProtocol")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_validSelectorsForProtocol"}
+		return nil, err
+	}
+	return _TTSAUMessagingHostClass._validSelectorsForProtocol(), nil
+}
+
+// CanValidSelectorsForProtocol reports whether the receiver responds to the private selector _validSelectorsForProtocol.
+func (_TTSAUMessagingHostClass TTSAUMessagingHostClass) CanValidSelectorsForProtocol() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSAUMessagingHostClass.class), objc.Sel("_validSelectorsForProtocol"))
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingHost/allowedClasses

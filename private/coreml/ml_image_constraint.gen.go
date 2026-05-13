@@ -142,8 +142,17 @@ func (i MLImageConstraint) _stringForAllowedOSTypes() objectivec.IObject {
 }
 
 // StringForAllowedOSTypes is an exported wrapper for the private method _stringForAllowedOSTypes.
-func (i MLImageConstraint) StringForAllowedOSTypes() objectivec.IObject {
-	return i._stringForAllowedOSTypes()
+func (i MLImageConstraint) StringForAllowedOSTypes() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(i.ID, objc.Sel("_stringForAllowedOSTypes")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_stringForAllowedOSTypes"}
+		return nil, err
+	}
+	return i._stringForAllowedOSTypes(), nil
+}
+
+// CanStringForAllowedOSTypes reports whether the receiver responds to the private selector _stringForAllowedOSTypes.
+func (i MLImageConstraint) CanStringForAllowedOSTypes() bool {
+	return objc.RespondsToSelector(i.ID, objc.Sel("_stringForAllowedOSTypes"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/allowsPixelBuffer:error:

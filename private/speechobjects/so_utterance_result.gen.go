@@ -171,8 +171,17 @@ func (s SOUtteranceResult) _dictionary() objectivec.IObject {
 }
 
 // Dictionary is an exported wrapper for the private method _dictionary.
-func (s SOUtteranceResult) Dictionary() objectivec.IObject {
-	return s._dictionary()
+func (s SOUtteranceResult) Dictionary() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_dictionary")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_dictionary"}
+		return nil, err
+	}
+	return s._dictionary(), nil
+}
+
+// CanDictionary reports whether the receiver responds to the private selector _dictionary.
+func (s SOUtteranceResult) CanDictionary() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_dictionary"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/_initWithDictionary:
@@ -182,8 +191,17 @@ func (s SOUtteranceResult) _initWithDictionary(dictionary objectivec.IObject) ob
 }
 
 // InitWithDictionary is an exported wrapper for the private method _initWithDictionary.
-func (s SOUtteranceResult) InitWithDictionary(dictionary objectivec.IObject) objectivec.IObject {
-	return s._initWithDictionary(dictionary)
+func (s SOUtteranceResult) InitWithDictionary(dictionary objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_initWithDictionary:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithDictionary:"}
+		return nil, err
+	}
+	return s._initWithDictionary(dictionary), nil
+}
+
+// CanInitWithDictionary reports whether the receiver responds to the private selector _initWithDictionary:.
+func (s SOUtteranceResult) CanInitWithDictionary() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithDictionary:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/_normalizeTimesAgainstTimeInterval:
@@ -192,8 +210,18 @@ func (s SOUtteranceResult) _normalizeTimesAgainstTimeInterval(interval float64) 
 }
 
 // NormalizeTimesAgainstTimeInterval is an exported wrapper for the private method _normalizeTimesAgainstTimeInterval.
-func (s SOUtteranceResult) NormalizeTimesAgainstTimeInterval(interval float64) {
+func (s SOUtteranceResult) NormalizeTimesAgainstTimeInterval(interval float64) error {
+	if !objc.RespondsToSelector(s.ID, objc.Sel("_normalizeTimesAgainstTimeInterval:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_normalizeTimesAgainstTimeInterval:"}
+		return err
+	}
 	s._normalizeTimesAgainstTimeInterval(interval)
+	return nil
+}
+
+// CanNormalizeTimesAgainstTimeInterval reports whether the receiver responds to the private selector _normalizeTimesAgainstTimeInterval:.
+func (s SOUtteranceResult) CanNormalizeTimesAgainstTimeInterval() bool {
+	return objc.RespondsToSelector(s.ID, objc.Sel("_normalizeTimesAgainstTimeInterval:"))
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResult/initWithType:startTime:endTime:text:textVariants:commandIdentifier:

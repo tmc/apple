@@ -98,7 +98,16 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _featureValuesFo
 
 // FeatureValuesForNamesProvidedByError is an exported wrapper for the private method _featureValuesForNamesProvidedByError.
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) FeatureValuesForNamesProvidedByError(names objectivec.IObject, by objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("_featureValuesForNames:providedBy:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_featureValuesForNames:providedBy:error:"}
+		return nil, err
+	}
 	return _MLFeatureProviderUtilsClass._featureValuesForNamesProvidedByError(names, by)
+}
+
+// CanFeatureValuesForNamesProvidedByError reports whether the receiver responds to the private selector _featureValuesForNames:providedBy:error:.
+func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) CanFeatureValuesForNamesProvidedByError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("_featureValuesForNames:providedBy:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/_vectorizeWithoutSizeCheckFeatureValues:intoDoubleVector:stride:error:
@@ -118,7 +127,16 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _vectorizeWithou
 
 // VectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError is an exported wrapper for the private method _vectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError.
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError(values objectivec.IObject, stride uint64) (float64, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("_vectorizeWithoutSizeCheckFeatureValues:intoDoubleVector:stride:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_vectorizeWithoutSizeCheckFeatureValues:intoDoubleVector:stride:error:"}
+		return 0.0, err
+	}
 	return _MLFeatureProviderUtilsClass._vectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError(values, stride)
+}
+
+// CanVectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError reports whether the receiver responds to the private selector _vectorizeWithoutSizeCheckFeatureValues:intoDoubleVector:stride:error:.
+func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) CanVectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("_vectorizeWithoutSizeCheckFeatureValues:intoDoubleVector:stride:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/_vectorizedSizeOfFeatureValues:error:
@@ -135,7 +153,16 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _vectorizedSizeO
 
 // VectorizedSizeOfFeatureValuesError is an exported wrapper for the private method _vectorizedSizeOfFeatureValuesError.
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizedSizeOfFeatureValuesError(values objectivec.IObject) (int64, error) {
+	if !objc.RespondsToSelector(objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("_vectorizedSizeOfFeatureValues:error:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_vectorizedSizeOfFeatureValues:error:"}
+		return 0, err
+	}
 	return _MLFeatureProviderUtilsClass._vectorizedSizeOfFeatureValuesError(values)
+}
+
+// CanVectorizedSizeOfFeatureValuesError reports whether the receiver responds to the private selector _vectorizedSizeOfFeatureValues:error:.
+func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) CanVectorizedSizeOfFeatureValuesError() bool {
+	return objc.RespondsToSelector(objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("_vectorizedSizeOfFeatureValues:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/canVectorizeAllFeaturesWithDescriptions:

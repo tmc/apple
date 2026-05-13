@@ -177,8 +177,18 @@ func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) _getDefaultFunctionN
 }
 
 // GetDefaultFunctionNameModelDescriptionFromModelAssetDescription is an exported wrapper for the private method _getDefaultFunctionNameModelDescriptionFromModelAssetDescription.
-func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) GetDefaultFunctionNameModelDescriptionFromModelAssetDescription(name []objectivec.IObject, description []objectivec.IObject, description2 objectivec.IObject) {
+func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) GetDefaultFunctionNameModelDescriptionFromModelAssetDescription(name []objectivec.IObject, description []objectivec.IObject, description2 objectivec.IObject) error {
+	if !objc.RespondsToSelector(objc.ID(_MLProgramE5ContainerClass.class), objc.Sel("_getDefaultFunctionName:modelDescription:fromModelAssetDescription:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_getDefaultFunctionName:modelDescription:fromModelAssetDescription:"}
+		return err
+	}
 	_MLProgramE5ContainerClass._getDefaultFunctionNameModelDescriptionFromModelAssetDescription(name, description, description2)
+	return nil
+}
+
+// CanGetDefaultFunctionNameModelDescriptionFromModelAssetDescription reports whether the receiver responds to the private selector _getDefaultFunctionName:modelDescription:fromModelAssetDescription:.
+func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) CanGetDefaultFunctionNameModelDescriptionFromModelAssetDescription() bool {
+	return objc.RespondsToSelector(objc.ID(_MLProgramE5ContainerClass.class), objc.Sel("_getDefaultFunctionName:modelDescription:fromModelAssetDescription:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/deduceFunctionNameToCompute:modelDescription:fromConfiguration:modelAssetDescription:error:

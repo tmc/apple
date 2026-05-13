@@ -167,8 +167,17 @@ func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) _invocations() objective
 }
 
 // Invocations is an exported wrapper for the private method _invocations.
-func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) Invocations() objectivec.IObject {
-	return _HIRunLoopSemaphoreClass._invocations()
+func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) Invocations() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_invocations")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_invocations"}
+		return nil, err
+	}
+	return _HIRunLoopSemaphoreClass._invocations(), nil
+}
+
+// CanInvocations reports whether the receiver responds to the private selector _invocations.
+func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) CanInvocations() bool {
+	return objc.RespondsToSelector(objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_invocations"))
 }
 
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/_observe:whilePerforming:
@@ -178,8 +187,18 @@ func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) _observeWhilePerforming(
 }
 
 // ObserveWhilePerforming is an exported wrapper for the private method _observeWhilePerforming.
-func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) ObserveWhilePerforming(_observe corefoundation.CFStringRef, performing VoidHandler) {
+func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) ObserveWhilePerforming(_observe corefoundation.CFStringRef, performing VoidHandler) error {
+	if !objc.RespondsToSelector(objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_observe:whilePerforming:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_observe:whilePerforming:"}
+		return err
+	}
 	_HIRunLoopSemaphoreClass._observeWhilePerforming(_observe, performing)
+	return nil
+}
+
+// CanObserveWhilePerforming reports whether the receiver responds to the private selector _observe:whilePerforming:.
+func (_HIRunLoopSemaphoreClass HIRunLoopSemaphoreClass) CanObserveWhilePerforming() bool {
+	return objc.RespondsToSelector(objc.ID(_HIRunLoopSemaphoreClass.class), objc.Sel("_observe:whilePerforming:"))
 }
 
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopSemaphore/legend
