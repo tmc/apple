@@ -56,6 +56,22 @@ func TestRDMAReadinessNames(t *testing.T) {
 	}
 }
 
+func TestErrnoNamePreservesEvidenceCodes(t *testing.T) {
+	tests := []struct {
+		errno int
+		want  string
+	}{
+		{22, "EINVAL"},
+		{60, "errno 60 (ETIMEDOUT)"},
+		{96, "errno 96 (EPROTONOSUPPORT)"},
+	}
+	for _, tt := range tests {
+		if got := errnoName(tt.errno); got != tt.want {
+			t.Fatalf("errnoName(%d) = %q, want %q", tt.errno, got, tt.want)
+		}
+	}
+}
+
 func TestDerivePreflightSafety(t *testing.T) {
 	routeIndex := 1
 	base := preflightReport{

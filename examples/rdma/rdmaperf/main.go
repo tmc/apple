@@ -23,6 +23,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/rdma"
+	xrdma "github.com/tmc/apple/x/rdma"
 )
 
 const headerSize = 8
@@ -526,10 +527,7 @@ func rdmaPingpong(args []string) {
 }
 
 func checkRDMAPingpongOptIn(allowRTR bool) error {
-	if allowRTR {
-		return nil
-	}
-	return errors.New("rdma-pingpong drives QP INIT->RTR, which can wedge Apple Thunderbolt RDMA ports; run rdmainfo preflight, run rdma-probe, and read the README first, then pass -allow-rtr for one bounded attempt")
+	return xrdma.RequireRTRAttemptAllowed(allowRTR)
 }
 
 func validateGIDIndexFlag(index int) error {
@@ -962,44 +960,19 @@ func (r *rdmaResources) queryGID(index int) (rdma.IbvGID, error) {
 }
 
 func selectRouteGID(gids []routeGID, preferred int, linkLayer uint8) (rdma.IbvGID, int, bool) {
-	if preferred >= 0 {
-		for _, entry := range gids {
-			if entry.index == preferred && !isZeroGID(entry.gid) {
-				return entry.gid, entry.index, true
-			}
-		}
+	entries := make([]xrdma.RouteGID, 0, len(gids))
+	for _, entry := range gids {
+		entries = append(entries, xrdma.RouteGID{Index: entry.index, GID: entry.gid})
+	}
+	entry, ok := xrdma.SelectRouteGID(entries, preferred, linkLayer)
+	if !ok {
 		return rdma.IbvGID{}, -1, false
 	}
-	for _, entry := range gids {
-		if linkLayer == 100 && entry.index == 0 {
-			continue
-		}
-		if isIPv4MappedGID(entry.gid) {
-			return entry.gid, entry.index, true
-		}
-	}
-	for _, entry := range gids {
-		if entry.index == 1 {
-			return entry.gid, entry.index, true
-		}
-	}
-	if linkLayer == 100 {
-		return rdma.IbvGID{}, -1, false
-	}
-	for _, entry := range gids {
-		if !isZeroGID(entry.gid) {
-			return entry.gid, entry.index, true
-		}
-	}
-	return rdma.IbvGID{}, -1, false
+	return entry.GID, entry.Index, true
 }
 
 func routeGIDScanLimit(tableLen int32) int {
-	limit := 8
-	if tableLen > 0 && int(tableLen) < limit {
-		limit = int(tableLen)
-	}
-	return limit
+	return xrdma.RouteGIDScanLimit(tableLen)
 }
 
 func (r *rdmaResources) peerInfo() rdmaPeerInfo {
@@ -1507,21 +1480,11 @@ func roundUp(n, unit int) int {
 }
 
 func isZeroGID(gid rdma.IbvGID) bool {
-	for _, b := range gid {
-		if b != 0 {
-			return false
-		}
-	}
-	return true
+	return xrdma.IsZeroGID(gid)
 }
 
 func isIPv4MappedGID(gid rdma.IbvGID) bool {
-	for i := 0; i < 10; i++ {
-		if gid[i] != 0 {
-			return false
-		}
-	}
-	return gid[10] == 0xff && gid[11] == 0xff
+	return xrdma.IsIPv4MappedGID(gid)
 }
 
 func parseGID(text string) (rdma.IbvGID, error) {
@@ -1596,7 +1559,7 @@ func errOrCode(err error, rc int) string {
 	}
 	if rc != 0 {
 		if rc == 16 {
-			return "errno 16 (EBUSY; AppleThunderboltRDMA resources are exhausted, reboot the affected node before retrying)"
+			return xrdma.ErrnoText(rc)
 		}
 		return fmt.Sprintf("errno %d", rc)
 	}

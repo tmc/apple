@@ -18,6 +18,7 @@ import (
 
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/rdma"
+	xrdma "github.com/tmc/apple/x/rdma"
 )
 
 type output struct {
@@ -875,16 +876,7 @@ func collectPreflightDeviceFromDevice(index int, dev rdma.Device, gidScanLimit i
 }
 
 func preflightGIDScanLimit(tableLen int32, requested int) int {
-	if requested < 0 {
-		requested = 0
-	}
-	if requested > 8 {
-		requested = 8
-	}
-	if tableLen > 0 && requested > int(tableLen) {
-		requested = int(tableLen)
-	}
-	return requested
+	return xrdma.PreflightGIDScanLimit(tableLen, requested)
 }
 
 func readIORegistryCounts(timeout time.Duration) (map[string]int, error) {
@@ -956,48 +948,24 @@ func nonemptyLines(text string) []string {
 }
 
 func derivePreflightSafety(report preflightReport) (bool, []string) {
-	var reasons []string
-	activeThunderbolt := false
+	devices := make([]xrdma.PreflightDevice, 0, len(report.Devices))
 	for _, dev := range report.Devices {
-		if dev.State == 4 && dev.LinkLayer == 100 {
-			activeThunderbolt = true
-			if dev.RouteGIDIndex == nil {
-				reasons = append(reasons, "active Thunderbolt RDMA device has no safe route GID")
-				continue
-			}
-			if *dev.RouteGIDIndex == 0 {
-				reasons = append(reasons, "active Thunderbolt RDMA route GID resolved to index 0")
-			}
-		}
+		devices = append(devices, xrdma.PreflightDevice{
+			Name:          dev.Name,
+			State:         dev.State,
+			LinkLayer:     dev.LinkLayer,
+			RouteGIDIndex: dev.RouteGIDIndex,
+		})
 	}
-	if !activeThunderbolt {
-		reasons = append(reasons, "no PORT_ACTIVE Thunderbolt RDMA device found")
-	}
-	if report.IORegistry["AppleThunderboltRDMAPeerInterface"] == 0 {
-		reasons = append(reasons, "no AppleThunderboltRDMAPeerInterface entries found")
-	}
-	if report.IORegistry["IOThunderboltXDomainService"] == 0 {
-		reasons = append(reasons, "no IOThunderboltXDomainService entries found")
-	}
-	if len(report.RecentLog) == 0 {
-		reasons = append(reasons, "no recent AppleThunderboltRDMA log lines captured")
-	}
-	for _, line := range report.RecentLog {
-		if failedRTRLogLine(line) {
-			reasons = append(reasons, "recent AppleThunderboltRDMA log contains Failed INIT->RTR")
-			break
-		}
-	}
-	if len(reasons) == 0 {
-		reasons = append(reasons, "read-only preflight passed; safe_to_attempt_rtr is necessary, not sufficient")
-		return true, reasons
-	}
-	return false, reasons
+	return xrdma.DerivePreflightSafety(xrdma.PreflightReport{
+		Devices:    devices,
+		IORegistry: report.IORegistry,
+		RecentLog:  report.RecentLog,
+	})
 }
 
 func failedRTRLogLine(line string) bool {
-	line = strings.ReplaceAll(line, "→", "->")
-	return strings.Contains(line, "Failed INIT->RTR")
+	return xrdma.FailedRTRLogLine(line)
 }
 
 func allocPD(ctx rdma.RDMAContext, out *output) (rdma.RDMAPD, bool) {
@@ -1199,44 +1167,32 @@ func collectGIDInfosDirect(ctx rdma.RDMAContext, port uint8, limit int) ([]gidIn
 }
 
 func selectRouteGIDInfo(gids []gidInfo, linkLayer uint8) (gidInfo, int, bool) {
+	entries := make([]xrdma.GIDInfo, 0, len(gids))
 	for _, gid := range gids {
-		if linkLayer == 100 && gid.Index == 0 {
-			continue
-		}
-		if gid.IPv4Mapped {
-			return gid, gid.Index, true
-		}
+		entries = append(entries, xrdma.GIDInfo{
+			Index:      gid.Index,
+			Raw:        gid.Raw,
+			IPv4Mapped: gid.IPv4Mapped,
+		})
 	}
-	for _, gid := range gids {
-		if gid.Index == 1 {
-			return gid, gid.Index, true
-		}
-	}
-	if linkLayer == 100 {
+	entry, ok := xrdma.SelectRouteGIDInfo(entries, linkLayer)
+	if !ok {
 		return gidInfo{}, -1, false
 	}
 	for _, gid := range gids {
-		return gid, gid.Index, true
+		if gid.Index == entry.Index {
+			return gid, gid.Index, true
+		}
 	}
 	return gidInfo{}, -1, false
 }
 
 func isZeroGID(gid rdma.IbvGID) bool {
-	for _, b := range gid {
-		if b != 0 {
-			return false
-		}
-	}
-	return true
+	return xrdma.IsZeroGID(gid)
 }
 
 func isIPv4MappedGID(gid rdma.IbvGID) bool {
-	for i := 0; i < 10; i++ {
-		if gid[i] != 0 {
-			return false
-		}
-	}
-	return gid[10] == 0xff && gid[11] == 0xff
+	return xrdma.IsIPv4MappedGID(gid)
 }
 
 func queryBuffer(size, min int, name string) []byte {
@@ -1596,33 +1552,10 @@ func initErrno() {
 
 func errnoName(rc int) string {
 	switch rc {
-	case 1:
-		return "EPERM"
-	case 2:
-		return "ENOENT"
-	case 5:
-		return "EIO"
-	case 6:
-		return "ENXIO"
-	case 12:
-		return "ENOMEM"
-	case 13:
-		return "EACCES"
-	case 16:
-		return "EBUSY"
-	case 19:
-		return "ENODEV"
-	case 22:
-		return "EINVAL"
-	case 38:
-		return "ENOSYS"
-	case 45:
-		return "EOPNOTSUPP"
-	case 95:
-		return "ENOTSUP"
-	default:
-		return fmt.Sprintf("errno %d", rc)
+	case 60, 96:
+		return xrdma.ErrnoText(rc)
 	}
+	return xrdma.ErrnoName(rc)
 }
 
 func fatalf(format string, args ...any) {
