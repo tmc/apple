@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -462,9 +463,9 @@ type ICIImage interface {
 	// Topic: Working with Orientation
 
 	// Transforms the original image by a given orientation.
-	ImageByApplyingCGOrientation(orientation uint) ICIImage
+	ImageByApplyingCGOrientation(orientation unsafe.Pointer) ICIImage
 	// The affine transform for changing the image to the given orientation.
-	ImageTransformForCGOrientation(orientation uint) corefoundation.CGAffineTransform
+	ImageTransformForCGOrientation(orientation unsafe.Pointer) corefoundation.CGAffineTransform
 
 	// Topic: Sampling the Image
 
@@ -1952,6 +1953,8 @@ func (i CIImage) RegionOfInterestForImageInRect(image ICIImage, rect corefoundat
 
 // Transforms the original image by a given orientation.
 //
+// orientation is a [imageio.CGImagePropertyOrientation].
+//
 // # Discussion
 //
 // Returns a new image representing the original image transformed for the
@@ -1960,12 +1963,14 @@ func (i CIImage) RegionOfInterestForImageInRect(image ICIImage, rect corefoundat
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/oriented(_:)
 //
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func (i CIImage) ImageByApplyingCGOrientation(orientation uint) ICIImage {
+func (i CIImage) ImageByApplyingCGOrientation(orientation unsafe.Pointer) ICIImage {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageByApplyingCGOrientation:"), orientation)
 	return CIImageFromID(rv)
 }
 
 // The affine transform for changing the image to the given orientation.
+//
+// orientation is a [imageio.CGImagePropertyOrientation].
 //
 // # Discussion
 //
@@ -1976,7 +1981,7 @@ func (i CIImage) ImageByApplyingCGOrientation(orientation uint) ICIImage {
 //
 // [CGAffineTransform]: https://developer.apple.com/documentation/CoreFoundation/CGAffineTransform
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func (i CIImage) ImageTransformForCGOrientation(orientation uint) corefoundation.CGAffineTransform {
+func (i CIImage) ImageTransformForCGOrientation(orientation unsafe.Pointer) corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](i.ID, objc.Sel("imageTransformForCGOrientation:"), orientation)
 	return corefoundation.CGAffineTransform(rv)
 }
