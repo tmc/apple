@@ -22,8 +22,7 @@ import (
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/requestPlaybackRestrictionsAuthorization(_:)
 func (p AVPlayerItem) RequestPlaybackRestrictionsAuthorization(completion BoolErrorHandler) {
-	_block0, _cleanup0 := NewBoolErrorBlock(completion)
-	defer _cleanup0()
+	_block0, _ := NewBoolErrorBlock(completion)
 	objc.Send[objc.ID](p.ID, objc.Sel("requestPlaybackRestrictionsAuthorization:"), _block0)
 }
 

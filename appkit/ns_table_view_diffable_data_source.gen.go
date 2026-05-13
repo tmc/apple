@@ -217,6 +217,8 @@ func NewTableViewDiffableDataSourceWithTableViewCellProvider(tableView INSTableV
 	return NSTableViewDiffableDataSourceFromID(rv)
 }
 
+var _nstableviewdiffabledatasource_initwithtableview_cellprovider_p1_key byte
+
 // Creates a diffable data source with the specified cell provider, and
 // connects it to the specified table view.
 //
@@ -231,8 +233,8 @@ func (t NSTableViewDiffableDataSource) InitWithTableViewCellProvider(tableView I
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 int, arg3 objc.ID) objc.ID {
 		return cellProvider(NSTableViewFromID(arg0), NSTableColumnFromID(arg1), arg2, objectivec.ObjectFromID(arg3)).ID
 	})
-	defer _block1.Release()
 	rv := objc.Send[NSTableViewDiffableDataSource](t.ID, objc.Sel("initWithTableView:cellProvider:"), tableView, objc.ID(_block1))
+	objc.AssociateBlockWithReceiver(rv.ID, &_nstableviewdiffabledatasource_initwithtableview_cellprovider_p1_key, _block1)
 	return rv
 }
 

@@ -373,7 +373,7 @@ func (o MTLCommandBufferObject) PresentDrawableAfterMinimumDuration(drawable MTL
 // [kernelStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
 func (o MTLCommandBufferObject) AddScheduledHandler(block MTLCommandBufferHandler) {
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTLCommandBufferObjectFromID(arg0)) })
-	defer _block0.Release()
+	// _block0 intentionally not released: "addScheduledHandler:" retains the block past return.
 	objc.Send[struct{}](o.ID, objc.Sel("addScheduledHandler:"), objc.ID(_block0))
 }
 
@@ -409,7 +409,7 @@ func (o MTLCommandBufferObject) AddScheduledHandler(block MTLCommandBufferHandle
 // [gpuStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
 func (o MTLCommandBufferObject) AddCompletedHandler(block MTLCommandBufferHandler) {
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTLCommandBufferObjectFromID(arg0)) })
-	defer _block0.Release()
+	// _block0 intentionally not released: "addCompletedHandler:" retains the block past return.
 	objc.Send[struct{}](o.ID, objc.Sel("addCompletedHandler:"), objc.ID(_block0))
 }
 

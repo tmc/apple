@@ -305,7 +305,7 @@ func (a AVAudioNode) InstallTapOnBusBufferSizeFormatBlock(bus AVAudioNodeBus, bu
 	_block3 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) {
 		tapBlock(AVAudioPCMBufferFromID(arg0), AVAudioTimeFromID(arg1))
 	})
-	defer _block3.Release()
+	// _block3 intentionally not released: "installTapOnBus:bufferSize:format:block:" retains the block past return.
 	objc.Send[objc.ID](a.ID, objc.Sel("installTapOnBus:bufferSize:format:block:"), bus, bufferSize, format, objc.ID(_block3))
 }
 

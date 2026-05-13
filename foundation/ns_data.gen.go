@@ -598,6 +598,8 @@ func (d NSData) InitWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSD
 	return rv
 }
 
+var _nsdata_initwithbytesnocopy_length_deallocator_p2_key byte
+
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer, with a custom deallocator block.
 //
@@ -631,8 +633,8 @@ func (d NSData) InitWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSD
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
 func (d NSData) InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator func(unsafe.Pointer, uint64)) NSData {
 	_block2 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
-	defer _block2.Release()
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, objc.ID(_block2))
+	objc.AssociateBlockWithReceiver(rv.ID, &_nsdata_initwithbytesnocopy_length_deallocator_p2_key, _block2)
 	return rv
 }
 

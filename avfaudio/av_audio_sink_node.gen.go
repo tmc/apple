@@ -137,6 +137,8 @@ func NewAudioSinkNodeWithReceiverBlock(block AVAudioSinkNodeReceiverBlock) AVAud
 	return AVAudioSinkNodeFromID(rv)
 }
 
+var _avaudiosinknode_initwithreceiverblock_p0_key byte
+
 // Creates an audio sink node with a block that receives audio data.
 //
 // block: The block that receives audio data from the input.
@@ -157,7 +159,7 @@ func (a AVAudioSinkNode) InitWithReceiverBlock(block AVAudioSinkNodeReceiverBloc
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer) int {
 		return block(arg0, arg1, arg2)
 	})
-	defer _block0.Release()
 	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("initWithReceiverBlock:"), objc.ID(_block0))
+	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosinknode_initwithreceiverblock_p0_key, _block0)
 	return rv
 }

@@ -19,8 +19,7 @@ import (
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/requestMicrophoneInjectionPermission(completionHandler:)
 func (_AVAudioApplicationClass AVAudioApplicationClass) RequestMicrophoneInjectionPermissionWithCompletionHandler(response AVAudioApplicationMicrophoneInjectionPermissionHandler) {
-	_block0, _cleanup0 := NewAVAudioApplicationMicrophoneInjectionPermissionBlock(response)
-	defer _cleanup0()
+	_block0, _ := NewAVAudioApplicationMicrophoneInjectionPermissionBlock(response)
 	objc.Send[objc.ID](objc.ID(_AVAudioApplicationClass.class), objc.Sel("requestMicrophoneInjectionPermissionWithCompletionHandler:"), _block0)
 }
 

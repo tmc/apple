@@ -72,8 +72,7 @@ import (
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/setPreparedPhotoSettingsArray(_:completionHandler:)
 func (c AVCapturePhotoOutput) SetPreparedPhotoSettingsArrayCompletionHandler(preparedPhotoSettingsArray []AVCapturePhotoSettings, completionHandler BoolErrorHandler) {
-	_block1, _cleanup1 := NewBoolErrorBlock(completionHandler)
-	defer _cleanup1()
+	_block1, _ := NewBoolErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setPreparedPhotoSettingsArray:completionHandler:"), preparedPhotoSettingsArray, _block1)
 }
 

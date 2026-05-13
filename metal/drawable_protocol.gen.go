@@ -141,7 +141,7 @@ func (o MTLDrawableObject) PresentAtTime(presentationTime float64) {
 // See: https://developer.apple.com/documentation/Metal/MTLDrawable/addPresentedHandler(_:)
 func (o MTLDrawableObject) AddPresentedHandler(block MTLDrawablePresentedHandler) {
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTLDrawableObjectFromID(arg0)) })
-	defer _block0.Release()
+	// _block0 intentionally not released: "addPresentedHandler:" retains the block past return.
 	objc.Send[struct{}](o.ID, objc.Sel("addPresentedHandler:"), objc.ID(_block0))
 }
 

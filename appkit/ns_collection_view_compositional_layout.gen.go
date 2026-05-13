@@ -200,6 +200,8 @@ func (c NSCollectionViewCompositionalLayout) InitWithSectionConfiguration(sectio
 	return rv
 }
 
+var _nscollectionviewcompositionallayout_initwithsectionprovider_p0_key byte
+
 // Creates a compositional layout object with a section provider to supply the
 // layout’s sections.
 //
@@ -208,10 +210,12 @@ func (c NSCollectionViewCompositionalLayout) InitWithSectionProvider(sectionProv
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 objc.ID) objc.ID {
 		return sectionProvider(arg0, NSCollectionLayoutEnvironmentObjectFromID(arg1)).ID
 	})
-	defer _block0.Release()
 	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSectionProvider:"), objc.ID(_block0))
+	objc.AssociateBlockWithReceiver(rv.ID, &_nscollectionviewcompositionallayout_initwithsectionprovider_p0_key, _block0)
 	return rv
 }
+
+var _nscollectionviewcompositionallayout_initwithsectionprovider_configuration_p0_key byte
 
 // Creates a compositional layout object with a section provider and an
 // additional configuration.
@@ -221,8 +225,8 @@ func (c NSCollectionViewCompositionalLayout) InitWithSectionProviderConfiguratio
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 objc.ID) objc.ID {
 		return sectionProvider(arg0, NSCollectionLayoutEnvironmentObjectFromID(arg1)).ID
 	})
-	defer _block0.Release()
 	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSectionProvider:configuration:"), objc.ID(_block0), configuration)
+	objc.AssociateBlockWithReceiver(rv.ID, &_nscollectionviewcompositionallayout_initwithsectionprovider_configuration_p0_key, _block0)
 	return rv
 }
 

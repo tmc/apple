@@ -4000,11 +4000,13 @@ func (s NSString) BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSi
 	return NSRect(rv)
 }
 
+var _nsstring_initwithbytesnocopy_length_encoding_deallocator_p3_key byte
+
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
 func (s NSString) InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator func(unsafe.Pointer, uint64)) NSString {
 	_block3 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
-	defer _block3.Release()
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, objc.ID(_block3))
+	objc.AssociateBlockWithReceiver(rv.ID, &_nsstring_initwithbytesnocopy_length_encoding_deallocator_p3_key, _block3)
 	return rv
 }
 

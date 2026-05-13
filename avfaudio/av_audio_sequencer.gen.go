@@ -535,6 +535,8 @@ func (a AVAudioSequencer) BeatsForSeconds(seconds float64) AVMusicTimeStamp {
 	return AVMusicTimeStamp(rv)
 }
 
+var _avaudiosequencer_setusercallback_p0_key byte
+
 // Adds a callback that the sequencer calls each time it encounters a user
 // event during playback.
 //
@@ -550,8 +552,8 @@ func (a AVAudioSequencer) SetUserCallback(userCallback AVAudioSequencerUserCallb
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 float64) {
 		userCallback(AVMusicTrackFromID(arg0), foundation.NSDataFromID(arg1), arg2)
 	})
-	defer _block0.Release()
 	objc.Send[objc.ID](a.ID, objc.Sel("setUserCallback:"), objc.ID(_block0))
+	objc.AssociateBlockWithReceiver(a.ID, &_avaudiosequencer_setusercallback_p0_key, _block0)
 }
 
 // Gets a data object that contains the events from the sequence.

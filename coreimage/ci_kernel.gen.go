@@ -356,7 +356,7 @@ func (k CIKernel) ApplyWithExtentRoiCallbackArguments(extent corefoundation.CGRe
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 corefoundation.CGRect) corefoundation.CGRect {
 		return callback(arg0, arg1)
 	})
-	defer _block1.Release()
+	// _block1 intentionally not released: "applyWithExtent:roiCallback:arguments:" retains the block past return.
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("applyWithExtent:roiCallback:arguments:"), extent, objc.ID(_block1), args)
 	return CIImageFromID(rv)
 }

@@ -163,6 +163,8 @@ func NewAudioSourceNodeWithRenderBlock(block AVAudioSourceNodeRenderBlock) AVAud
 	return AVAudioSourceNodeFromID(rv)
 }
 
+var _avaudiosourcenode_initwithrenderblock_p0_key byte
+
 // Creates an audio source node with a block that supplies audio data.
 //
 // block: The block to supply audio data to the output.
@@ -185,10 +187,12 @@ func (a AVAudioSourceNode) InitWithRenderBlock(block AVAudioSourceNodeRenderBloc
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 *int8, arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer) int {
 		return block(arg0, arg1, arg2, arg3)
 	})
-	defer _block0.Release()
 	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithRenderBlock:"), objc.ID(_block0))
+	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosourcenode_initwithrenderblock_p0_key, _block0)
 	return rv
 }
+
+var _avaudiosourcenode_initwithformat_renderblock_p1_key byte
 
 // Creates an audio source node with the audio format and a block that
 // supplies audio data.
@@ -215,8 +219,8 @@ func (a AVAudioSourceNode) InitWithFormatRenderBlock(format IAVAudioFormat, bloc
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 *int8, arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer) int {
 		return block(arg0, arg1, arg2, arg3)
 	})
-	defer _block1.Release()
 	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithFormat:renderBlock:"), format, objc.ID(_block1))
+	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosourcenode_initwithformat_renderblock_p1_key, _block1)
 	return rv
 }
 

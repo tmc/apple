@@ -1120,6 +1120,8 @@ func (o MTLDeviceObject) NewBufferWithBytesLengthOptions(pointer unsafe.Pointer,
 	return MTLBufferObjectFromID(rv)
 }
 
+var _mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key byte
+
 // Creates a buffer that wraps an existing contiguous memory allocation.
 //
 // pointer: A page-aligned pointer to the starting memory address.
@@ -1148,8 +1150,8 @@ func (o MTLDeviceObject) NewBufferWithBytesLengthOptions(pointer unsafe.Pointer,
 // [Setting resource storage modes]: https://developer.apple.com/documentation/Metal/setting-resource-storage-modes
 func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(unsafe.Pointer, uint64)) MTLBuffer {
 	_block3 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
-	defer _block3.Release()
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithBytesNoCopy:length:options:deallocator:"), pointer, length, options, objc.ID(_block3))
+	objc.AssociateBlockWithReceiver(rv, &_mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key, _block3)
 	return MTLBufferObjectFromID(rv)
 }
 

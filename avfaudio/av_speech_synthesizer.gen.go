@@ -286,7 +286,7 @@ func (s AVSpeechSynthesizer) StopSpeakingAtBoundary(boundary AVSpeechBoundary) b
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/write(_:toBufferCallback:)
 func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback) {
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { bufferCallback(AVAudioBufferFromID(arg0)) })
-	defer _block1.Release()
+	// _block1 intentionally not released: "writeUtterance:toBufferCallback:" retains the block past return.
 	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:"), utterance, objc.ID(_block1))
 }
 
@@ -302,7 +302,7 @@ func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallback(utterance IAVSpeechU
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/write(_:toBufferCallback:toMarkerCallback:)
 func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallbackToMarkerCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback, markerCallback AVSpeechSynthesizerMarkerCallback) {
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { bufferCallback(AVAudioBufferFromID(arg0)) })
-	defer _block1.Release()
+	// _block1 intentionally not released: "writeUtterance:toBufferCallback:toMarkerCallback:" retains the block past return.
 	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) {
 		markerCallback(func() []AVSpeechSynthesisMarker {
 			a := foundation.NSArrayFromID(arg0)
@@ -313,7 +313,7 @@ func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallbackToMarkerCallback(utte
 			return out
 		}())
 	})
-	defer _block2.Release()
+	// _block2 intentionally not released: "writeUtterance:toBufferCallback:toMarkerCallback:" retains the block past return.
 	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:toMarkerCallback:"), utterance, objc.ID(_block1), objc.ID(_block2))
 }
 

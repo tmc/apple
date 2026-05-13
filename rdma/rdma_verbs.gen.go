@@ -96,9 +96,9 @@ type IbvQPAttr struct {
 	SQPSN            uint32
 	DestQPNum        uint32
 	QPAccessFlags    int32
-	_                [20]byte
+	Cap              IbvQPCap
 	AHAttr           IbvAHAttr
-	_                [32]byte
+	AltAHAttr        IbvAHAttr
 	PKeyIndex        uint16
 	AltPKeyIndex     uint16
 	EnSQDAsyncNotify uint8

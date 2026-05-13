@@ -38,8 +38,7 @@ import (
 //
 // [AVCaptureDevice.AspectRatio]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/AspectRatio
 func (c AVCaptureDevice) SetDynamicAspectRatioCompletionHandler(dynamicAspectRatio objectivec.IObject, handler CMTimeErrorHandler) {
-	_block1, _cleanup1 := NewCMTimeErrorBlock(handler)
-	defer _cleanup1()
+	_block1, _ := NewCMTimeErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setDynamicAspectRatio:completionHandler:"), dynamicAspectRatio, _block1)
 }
 
@@ -232,8 +231,7 @@ func (c AVCaptureDevice) RampToVideoZoomFactorWithRate(factor float64, rate floa
 // [currentExposureDuration]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/currentExposureDuration
 // [currentISO]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/currentISO
 func (c AVCaptureDevice) SetExposureModeCustomWithDurationISOCompletionHandler(duration coremedia.CMTime, ISO float32, handler CMTimeHandler) {
-	_block2, _cleanup2 := NewCMTimeBlock(handler)
-	defer _cleanup2()
+	_block2, _ := NewCMTimeBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setExposureModeCustomWithDuration:ISO:completionHandler:"), duration, ISO, _block2)
 }
 
@@ -265,8 +263,7 @@ func (c AVCaptureDevice) SetExposureModeCustomWithDurationISOCompletionHandler(d
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setExposureTargetBias(_:completionHandler:)
 func (c AVCaptureDevice) SetExposureTargetBiasCompletionHandler(bias float32, handler CMTimeHandler) {
-	_block1, _cleanup1 := NewCMTimeBlock(handler)
-	defer _cleanup1()
+	_block1, _ := NewCMTimeBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setExposureTargetBias:completionHandler:"), bias, _block1)
 }
 
@@ -304,8 +301,7 @@ func (c AVCaptureDevice) SetExposureTargetBiasCompletionHandler(bias float32, ha
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setFocusModeLocked(lensPosition:completionHandler:)
 func (c AVCaptureDevice) SetFocusModeLockedWithLensPositionCompletionHandler(lensPosition float32, handler CMTimeHandler) {
-	_block1, _cleanup1 := NewCMTimeBlock(handler)
-	defer _cleanup1()
+	_block1, _ := NewCMTimeBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setFocusModeLockedWithLensPosition:completionHandler:"), lensPosition, _block1)
 }
 
@@ -350,8 +346,7 @@ func (c AVCaptureDevice) SetFocusModeLockedWithLensPositionCompletionHandler(len
 //
 // [currentWhiteBalanceGains]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/currentWhiteBalanceGains
 func (c AVCaptureDevice) SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler(whiteBalanceGains AVCaptureWhiteBalanceGains, handler CMTimeHandler) {
-	_block1, _cleanup1 := NewCMTimeBlock(handler)
-	defer _cleanup1()
+	_block1, _ := NewCMTimeBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains:completionHandler:"), whiteBalanceGains, _block1)
 }
 
@@ -391,8 +386,7 @@ func (c AVCaptureDevice) SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCom
 //
 // [AVCaptureDevice.WhiteBalanceTemperatureAndTintValues]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/WhiteBalanceTemperatureAndTintValues
 func (c AVCaptureDevice) SetWhiteBalanceModeLockedWithDeviceWhiteBalanceTemperatureAndTintValuesCompletionHandler(whiteBalanceTemperatureAndTintValues AVCaptureWhiteBalanceTemperatureAndTintValues, handler CMTimeHandler) {
-	_block1, _cleanup1 := NewCMTimeBlock(handler)
-	defer _cleanup1()
+	_block1, _ := NewCMTimeBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("setWhiteBalanceModeLockedWithDeviceWhiteBalanceTemperatureAndTintValues:completionHandler:"), whiteBalanceTemperatureAndTintValues, _block1)
 }
 

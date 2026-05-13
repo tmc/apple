@@ -191,7 +191,7 @@ func NewAVAudioInputNode() AVAudioInputNode {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/setManualRenderingInputPCMFormat(_:inputBlock:)
 func (a AVAudioInputNode) SetManualRenderingInputPCMFormatInputBlock(format IAVAudioFormat, block AVAudioIONodeInputBlock) bool {
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 uint32) unsafe.Pointer { return block(arg0) })
-	defer _block1.Release()
+	// _block1 intentionally not released: "setManualRenderingInputPCMFormat:inputBlock:" retains the block past return.
 	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingInputPCMFormat:inputBlock:"), format, objc.ID(_block1))
 	return rv
 }

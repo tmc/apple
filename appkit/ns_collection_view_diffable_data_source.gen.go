@@ -190,6 +190,8 @@ func NewCollectionViewDiffableDataSourceWithCollectionViewItemProvider(collectio
 	return NSCollectionViewDiffableDataSourceFromID(rv)
 }
 
+var _nscollectionviewdiffabledatasource_initwithcollectionview_itemprovider_p1_key byte
+
 // Creates a diffable data source with the specified item provider, and
 // connects it to the specified collection view.
 //
@@ -204,8 +206,8 @@ func (c NSCollectionViewDiffableDataSource) InitWithCollectionViewItemProvider(c
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 objc.ID) objc.ID {
 		return itemProvider(NSCollectionViewFromID(arg0), arg1, objectivec.ObjectFromID(arg2)).ID
 	})
-	defer _block1.Release()
 	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, objc.ID(_block1))
+	objc.AssociateBlockWithReceiver(rv.ID, &_nscollectionviewdiffabledatasource_initwithcollectionview_itemprovider_p1_key, _block1)
 	return rv
 }
 

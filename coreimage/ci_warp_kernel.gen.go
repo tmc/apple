@@ -283,7 +283,7 @@ func (w CIWarpKernel) ApplyWithExtentRoiCallbackInputImageArguments(extent coref
 	_block1 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 corefoundation.CGRect) corefoundation.CGRect {
 		return callback(arg0, arg1)
 	})
-	defer _block1.Release()
+	// _block1 intentionally not released: "applyWithExtent:roiCallback:inputImage:arguments:" retains the block past return.
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("applyWithExtent:roiCallback:inputImage:arguments:"), extent, objc.ID(_block1), image, args)
 	return CIImageFromID(rv)
 }
