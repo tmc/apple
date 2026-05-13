@@ -18,15 +18,14 @@ var (
 	actionTargetClass Class
 	actionHandlers    sync.Map // ID → func(ID)
 
-	objcSetAssociatedObject func(object uintptr, key unsafe.Pointer, value uintptr, policy uintptr)
-	objcAllocateClassPair   func(superclass Class, name string, extraBytes uint) Class
+	objcAllocateClassPair func(superclass Class, name string, extraBytes uint) Class
 )
 
 func ensureActionTarget() {
 	actionTargetOnce.Do(func() {
 		ensureLibObjC()
+		ensureAssociation()
 
-		purego.RegisterLibFunc(&objcSetAssociatedObject, libobjc, "objc_setAssociatedObject")
 		purego.RegisterLibFunc(&objcAllocateClassPair, libobjc, "objc_allocateClassPair")
 
 		actionTargetClass = objcAllocateClassPair(GetClass("NSObject"), "GoActionTarget", 0)
@@ -63,8 +62,8 @@ func NewActionTarget(owner ID, fn func(sender ID)) (target ID, sel SEL) {
 
 	actionHandlers.Store(target, fn)
 
-	// OBJC_ASSOCIATION_RETAIN_NONATOMIC = 1
-	objcSetAssociatedObject(uintptr(owner), unsafe.Pointer(&actionKey), uintptr(target), 1)
+	// OBJC_ASSOCIATION_RETAIN_NONATOMIC = associationRetainNonatomic
+	objcSetAssociatedObjectFn(uintptr(owner), unsafe.Pointer(&actionKey), uintptr(target), associationRetainNonatomic)
 
 	// Balance the alloc — the associated object already retained it.
 	Send[struct{}](target, Sel("release"))
