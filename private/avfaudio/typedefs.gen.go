@@ -2,6 +2,10 @@
 
 package avfaudio
 
+import (
+	"unsafe"
+)
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNodeImplBaseRef
 type AVAudioNodeImplBaseRef uintptr
 
@@ -15,7 +19,7 @@ type AudioQueueBufferRef uintptr
 type AudioQueueLevelMeterStateRef uintptr
 
 // See: https://developer.apple.com/documentation/AVFAudio/AudioStreamPacketDescriptionRef
-type AudioStreamPacketDescriptionRef uintptr
+type AudioStreamPacketDescriptionRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/AVFAudio/AveragerRef
 type AveragerRef uintptr
@@ -33,7 +37,7 @@ type OpaqueAudioComponentRef uintptr
 type OpaqueAudioFileIDRef uintptr
 
 // See: https://developer.apple.com/documentation/AVFAudio/OpaqueAudioQueueRef
-type OpaqueAudioQueueRef uintptr
+type OpaqueAudioQueueRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/AVFAudio/OpaqueExtAudioFileRef
 type OpaqueExtAudioFileRef uintptr
@@ -54,7 +58,7 @@ type OpaqueMusicTrackRef uintptr
 type OpaqueCMFormatDescriptionRef uintptr
 
 // See: https://developer.apple.com/documentation/AVFAudio/shared_weak_countRef
-type Shared_weak_countRef uintptr
+type Shared_weak_countRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/AVFAudio/unfair_lockRef
 type Unfair_lockRef uintptr
