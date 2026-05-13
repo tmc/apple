@@ -229,10 +229,10 @@ func CMAudioFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, asb
 	return result
 }
 
-var _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, soundDescriptionBlockBuffer uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) int32
+var _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, soundDescriptionBlockBuffer CMBlockBufferRef, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) int32
 var _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBufferErr error
 
-func tryCMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, soundDescriptionBlockBuffer uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) (int32, error) {
+func tryCMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, soundDescriptionBlockBuffer CMBlockBufferRef, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) (int32, error) {
 	if _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer == nil {
 		return 0, symbolCallError("CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer", "10.10", _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBufferErr)
 	}
@@ -242,7 +242,7 @@ func tryCMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(a
 // CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer creates an audio format description from a big-endian sound description data structure in a buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allocator:bigEndianSoundDescriptionBlockBuffer:flavor:formatDescriptionOut:)
-func CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, soundDescriptionBlockBuffer uintptr, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) int32 {
+func CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, soundDescriptionBlockBuffer CMBlockBufferRef, flavor CMSoundDescriptionFlavor, formatDescriptionOut *uintptr) int32 {
 	result, callErr := tryCMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allocator, soundDescriptionBlockBuffer, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -439,10 +439,10 @@ func CMAudioFormatDescriptionGetStreamBasicDescription(desc uintptr) unsafe.Poin
 	return result
 }
 
-var _cMAudioSampleBufferCreateReadyWithPacketDescriptions func(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) int32
+var _cMAudioSampleBufferCreateReadyWithPacketDescriptions func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) int32
 var _cMAudioSampleBufferCreateReadyWithPacketDescriptionsErr error
 
-func tryCMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) (int32, error) {
+func tryCMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) (int32, error) {
 	if _cMAudioSampleBufferCreateReadyWithPacketDescriptions == nil {
 		return 0, symbolCallError("CMAudioSampleBufferCreateReadyWithPacketDescriptions", "10.10", _cMAudioSampleBufferCreateReadyWithPacketDescriptionsErr)
 	}
@@ -452,7 +452,7 @@ func tryCMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator corefound
 // CMAudioSampleBufferCreateReadyWithPacketDescriptions creates a sample buffer with packet descriptions.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator:dataBuffer:formatDescription:sampleCount:presentationTimeStamp:packetDescriptions:sampleBufferOut:)
-func CMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) int32 {
+func CMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) int32 {
 	result, callErr := tryCMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator, dataBuffer, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -460,10 +460,10 @@ func CMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator corefoundati
 	return result
 }
 
-var _cMAudioSampleBufferCreateWithPacketDescriptions func(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) int32
+var _cMAudioSampleBufferCreateWithPacketDescriptions func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) int32
 var _cMAudioSampleBufferCreateWithPacketDescriptionsErr error
 
-func tryCMAudioSampleBufferCreateWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) (int32, error) {
+func tryCMAudioSampleBufferCreateWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) (int32, error) {
 	if _cMAudioSampleBufferCreateWithPacketDescriptions == nil {
 		return 0, symbolCallError("CMAudioSampleBufferCreateWithPacketDescriptions", "10.7", _cMAudioSampleBufferCreateWithPacketDescriptionsErr)
 	}
@@ -473,7 +473,7 @@ func tryCMAudioSampleBufferCreateWithPacketDescriptions(allocator corefoundation
 // CMAudioSampleBufferCreateWithPacketDescriptions creates a sample buffer with packet descriptions and a callback to make the data ready for use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMAudioSampleBufferCreateWithPacketDescriptions(allocator:dataBuffer:dataReady:makeDataReadyCallback:refcon:formatDescription:sampleCount:presentationTimeStamp:packetDescriptions:sampleBufferOut:)
-func CMAudioSampleBufferCreateWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) int32 {
+func CMAudioSampleBufferCreateWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr) int32 {
 	result, callErr := tryCMAudioSampleBufferCreateWithPacketDescriptions(allocator, dataBuffer, dataReady, makeDataReadyCallback, makeDataReadyRefcon, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -481,10 +481,10 @@ func CMAudioSampleBufferCreateWithPacketDescriptions(allocator corefoundation.CF
 	return result
 }
 
-var _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler func(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr, makeDataReadyHandler unsafe.Pointer) int32
+var _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr, makeDataReadyHandler unsafe.Pointer) int32
 var _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandlerErr error
 
-func tryCMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) (int32, error) {
+func tryCMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) (int32, error) {
 	if _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler", "10.14.4", _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandlerErr)
 	}
@@ -499,7 +499,7 @@ func tryCMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(a
 // CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler creates a sample buffer with packet descriptions and a handler to make the data ready for use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(_:_:_:_:_:_:_:_:_:)
-func CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) int32 {
+func CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription uintptr, numSamples int, presentationTimeStamp CMTime, packetDescriptions unsafe.Pointer, sampleBufferOut *uintptr, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) int32 {
 	result, callErr := tryCMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut, makeDataReadyHandler)
 	if callErr != nil {
 		panic(callErr)
@@ -507,10 +507,10 @@ func CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allo
 	return result
 }
 
-var _cMBlockBufferAccessDataBytes func(theBuffer uintptr, offset uintptr, length uintptr, temporaryBlock unsafe.Pointer, returnedPointerOut string) int32
+var _cMBlockBufferAccessDataBytes func(theBuffer CMBlockBufferRef, offset uintptr, length uintptr, temporaryBlock unsafe.Pointer, returnedPointerOut string) int32
 var _cMBlockBufferAccessDataBytesErr error
 
-func tryCMBlockBufferAccessDataBytes(theBuffer uintptr, offset uintptr, length uintptr, temporaryBlock unsafe.Pointer, returnedPointerOut string) (int32, error) {
+func tryCMBlockBufferAccessDataBytes(theBuffer CMBlockBufferRef, offset uintptr, length uintptr, temporaryBlock unsafe.Pointer, returnedPointerOut string) (int32, error) {
 	if _cMBlockBufferAccessDataBytes == nil {
 		return 0, symbolCallError("CMBlockBufferAccessDataBytes", "10.7", _cMBlockBufferAccessDataBytesErr)
 	}
@@ -520,7 +520,7 @@ func tryCMBlockBufferAccessDataBytes(theBuffer uintptr, offset uintptr, length u
 // CMBlockBufferAccessDataBytes accesses potentially noncontiguous data in a block buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferAccessDataBytes(_:atOffset:length:temporaryBlock:returnedPointerOut:)
-func CMBlockBufferAccessDataBytes(theBuffer uintptr, offset uintptr, length uintptr, temporaryBlock unsafe.Pointer, returnedPointerOut string) int32 {
+func CMBlockBufferAccessDataBytes(theBuffer CMBlockBufferRef, offset uintptr, length uintptr, temporaryBlock unsafe.Pointer, returnedPointerOut string) int32 {
 	result, callErr := tryCMBlockBufferAccessDataBytes(theBuffer, offset, length, temporaryBlock, returnedPointerOut)
 	if callErr != nil {
 		panic(callErr)
@@ -528,10 +528,10 @@ func CMBlockBufferAccessDataBytes(theBuffer uintptr, offset uintptr, length uint
 	return result
 }
 
-var _cMBlockBufferAppendBufferReference func(theBuffer uintptr, targetBBuf uintptr, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) int32
+var _cMBlockBufferAppendBufferReference func(theBuffer CMBlockBufferRef, targetBBuf CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) int32
 var _cMBlockBufferAppendBufferReferenceErr error
 
-func tryCMBlockBufferAppendBufferReference(theBuffer uintptr, targetBBuf uintptr, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) (int32, error) {
+func tryCMBlockBufferAppendBufferReference(theBuffer CMBlockBufferRef, targetBBuf CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) (int32, error) {
 	if _cMBlockBufferAppendBufferReference == nil {
 		return 0, symbolCallError("CMBlockBufferAppendBufferReference", "10.7", _cMBlockBufferAppendBufferReferenceErr)
 	}
@@ -541,7 +541,7 @@ func tryCMBlockBufferAppendBufferReference(theBuffer uintptr, targetBBuf uintptr
 // CMBlockBufferAppendBufferReference adds a reference to an existing block buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferAppendBufferReference(_:targetBBuf:offsetToData:dataLength:flags:)
-func CMBlockBufferAppendBufferReference(theBuffer uintptr, targetBBuf uintptr, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) int32 {
+func CMBlockBufferAppendBufferReference(theBuffer CMBlockBufferRef, targetBBuf CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) int32 {
 	result, callErr := tryCMBlockBufferAppendBufferReference(theBuffer, targetBBuf, offsetToData, dataLength, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -549,10 +549,10 @@ func CMBlockBufferAppendBufferReference(theBuffer uintptr, targetBBuf uintptr, o
 	return result
 }
 
-var _cMBlockBufferAppendMemoryBlock func(theBuffer uintptr, memoryBlock unsafe.Pointer, blockLength uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) int32
+var _cMBlockBufferAppendMemoryBlock func(theBuffer CMBlockBufferRef, memoryBlock unsafe.Pointer, blockLength uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) int32
 var _cMBlockBufferAppendMemoryBlockErr error
 
-func tryCMBlockBufferAppendMemoryBlock(theBuffer uintptr, memoryBlock unsafe.Pointer, blockLength uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) (int32, error) {
+func tryCMBlockBufferAppendMemoryBlock(theBuffer CMBlockBufferRef, memoryBlock unsafe.Pointer, blockLength uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) (int32, error) {
 	if _cMBlockBufferAppendMemoryBlock == nil {
 		return 0, symbolCallError("CMBlockBufferAppendMemoryBlock", "10.7", _cMBlockBufferAppendMemoryBlockErr)
 	}
@@ -562,7 +562,7 @@ func tryCMBlockBufferAppendMemoryBlock(theBuffer uintptr, memoryBlock unsafe.Poi
 // CMBlockBufferAppendMemoryBlock adds a memory block to an existing block buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferAppendMemoryBlock(_:memoryBlock:length:blockAllocator:customBlockSource:offsetToData:dataLength:flags:)
-func CMBlockBufferAppendMemoryBlock(theBuffer uintptr, memoryBlock unsafe.Pointer, blockLength uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) int32 {
+func CMBlockBufferAppendMemoryBlock(theBuffer CMBlockBufferRef, memoryBlock unsafe.Pointer, blockLength uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags) int32 {
 	result, callErr := tryCMBlockBufferAppendMemoryBlock(theBuffer, memoryBlock, blockLength, blockAllocator, customBlockSource, offsetToData, dataLength, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -570,10 +570,10 @@ func CMBlockBufferAppendMemoryBlock(theBuffer uintptr, memoryBlock unsafe.Pointe
 	return result
 }
 
-var _cMBlockBufferAssureBlockMemory func(theBuffer uintptr) int32
+var _cMBlockBufferAssureBlockMemory func(theBuffer CMBlockBufferRef) int32
 var _cMBlockBufferAssureBlockMemoryErr error
 
-func tryCMBlockBufferAssureBlockMemory(theBuffer uintptr) (int32, error) {
+func tryCMBlockBufferAssureBlockMemory(theBuffer CMBlockBufferRef) (int32, error) {
 	if _cMBlockBufferAssureBlockMemory == nil {
 		return 0, symbolCallError("CMBlockBufferAssureBlockMemory", "10.7", _cMBlockBufferAssureBlockMemoryErr)
 	}
@@ -583,7 +583,7 @@ func tryCMBlockBufferAssureBlockMemory(theBuffer uintptr) (int32, error) {
 // CMBlockBufferAssureBlockMemory assures that the system allocates memory for all memory blocks in a block buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferAssureBlockMemory(_:)
-func CMBlockBufferAssureBlockMemory(theBuffer uintptr) int32 {
+func CMBlockBufferAssureBlockMemory(theBuffer CMBlockBufferRef) int32 {
 	result, callErr := tryCMBlockBufferAssureBlockMemory(theBuffer)
 	if callErr != nil {
 		panic(callErr)
@@ -591,10 +591,10 @@ func CMBlockBufferAssureBlockMemory(theBuffer uintptr) int32 {
 	return result
 }
 
-var _cMBlockBufferCopyDataBytes func(theSourceBuffer uintptr, offsetToData uintptr, dataLength uintptr, destination unsafe.Pointer) int32
+var _cMBlockBufferCopyDataBytes func(theSourceBuffer CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, destination unsafe.Pointer) int32
 var _cMBlockBufferCopyDataBytesErr error
 
-func tryCMBlockBufferCopyDataBytes(theSourceBuffer uintptr, offsetToData uintptr, dataLength uintptr, destination unsafe.Pointer) (int32, error) {
+func tryCMBlockBufferCopyDataBytes(theSourceBuffer CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, destination unsafe.Pointer) (int32, error) {
 	if _cMBlockBufferCopyDataBytes == nil {
 		return 0, symbolCallError("CMBlockBufferCopyDataBytes", "10.7", _cMBlockBufferCopyDataBytesErr)
 	}
@@ -604,7 +604,7 @@ func tryCMBlockBufferCopyDataBytes(theSourceBuffer uintptr, offsetToData uintptr
 // CMBlockBufferCopyDataBytes copies bytes from a block buffer into a provided memory area.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferCopyDataBytes(_:atOffset:dataLength:destination:)
-func CMBlockBufferCopyDataBytes(theSourceBuffer uintptr, offsetToData uintptr, dataLength uintptr, destination unsafe.Pointer) int32 {
+func CMBlockBufferCopyDataBytes(theSourceBuffer CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, destination unsafe.Pointer) int32 {
 	result, callErr := tryCMBlockBufferCopyDataBytes(theSourceBuffer, offsetToData, dataLength, destination)
 	if callErr != nil {
 		panic(callErr)
@@ -612,10 +612,10 @@ func CMBlockBufferCopyDataBytes(theSourceBuffer uintptr, offsetToData uintptr, d
 	return result
 }
 
-var _cMBlockBufferCreateContiguous func(structureAllocator corefoundation.CFAllocatorRef, sourceBuffer uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) int32
+var _cMBlockBufferCreateContiguous func(structureAllocator corefoundation.CFAllocatorRef, sourceBuffer CMBlockBufferRef, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) int32
 var _cMBlockBufferCreateContiguousErr error
 
-func tryCMBlockBufferCreateContiguous(structureAllocator corefoundation.CFAllocatorRef, sourceBuffer uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) (int32, error) {
+func tryCMBlockBufferCreateContiguous(structureAllocator corefoundation.CFAllocatorRef, sourceBuffer CMBlockBufferRef, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) (int32, error) {
 	if _cMBlockBufferCreateContiguous == nil {
 		return 0, symbolCallError("CMBlockBufferCreateContiguous", "10.7", _cMBlockBufferCreateContiguousErr)
 	}
@@ -625,7 +625,7 @@ func tryCMBlockBufferCreateContiguous(structureAllocator corefoundation.CFAlloca
 // CMBlockBufferCreateContiguous creates a block buffer that contains a contiguous copy of, or reference to, the data specified by the parameters.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferCreateContiguous(allocator:sourceBuffer:blockAllocator:customBlockSource:offsetToData:dataLength:flags:blockBufferOut:)
-func CMBlockBufferCreateContiguous(structureAllocator corefoundation.CFAllocatorRef, sourceBuffer uintptr, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) int32 {
+func CMBlockBufferCreateContiguous(structureAllocator corefoundation.CFAllocatorRef, sourceBuffer CMBlockBufferRef, blockAllocator corefoundation.CFAllocatorRef, customBlockSource *CMBlockBufferCustomBlockSource, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) int32 {
 	result, callErr := tryCMBlockBufferCreateContiguous(structureAllocator, sourceBuffer, blockAllocator, customBlockSource, offsetToData, dataLength, flags, blockBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -654,10 +654,10 @@ func CMBlockBufferCreateEmpty(structureAllocator corefoundation.CFAllocatorRef, 
 	return result
 }
 
-var _cMBlockBufferCreateWithBufferReference func(structureAllocator corefoundation.CFAllocatorRef, bufferReference uintptr, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) int32
+var _cMBlockBufferCreateWithBufferReference func(structureAllocator corefoundation.CFAllocatorRef, bufferReference CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) int32
 var _cMBlockBufferCreateWithBufferReferenceErr error
 
-func tryCMBlockBufferCreateWithBufferReference(structureAllocator corefoundation.CFAllocatorRef, bufferReference uintptr, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) (int32, error) {
+func tryCMBlockBufferCreateWithBufferReference(structureAllocator corefoundation.CFAllocatorRef, bufferReference CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) (int32, error) {
 	if _cMBlockBufferCreateWithBufferReference == nil {
 		return 0, symbolCallError("CMBlockBufferCreateWithBufferReference", "10.7", _cMBlockBufferCreateWithBufferReferenceErr)
 	}
@@ -667,7 +667,7 @@ func tryCMBlockBufferCreateWithBufferReference(structureAllocator corefoundation
 // CMBlockBufferCreateWithBufferReference creates a block buffer that refers to another block buffer object.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferCreateWithBufferReference(allocator:referenceBuffer:offsetToData:dataLength:flags:blockBufferOut:)
-func CMBlockBufferCreateWithBufferReference(structureAllocator corefoundation.CFAllocatorRef, bufferReference uintptr, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) int32 {
+func CMBlockBufferCreateWithBufferReference(structureAllocator corefoundation.CFAllocatorRef, bufferReference CMBlockBufferRef, offsetToData uintptr, dataLength uintptr, flags CMBlockBufferFlags, blockBufferOut *uintptr) int32 {
 	result, callErr := tryCMBlockBufferCreateWithBufferReference(structureAllocator, bufferReference, offsetToData, dataLength, flags, blockBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -696,10 +696,10 @@ func CMBlockBufferCreateWithMemoryBlock(structureAllocator corefoundation.CFAllo
 	return result
 }
 
-var _cMBlockBufferFillDataBytes func(fillByte int8, destinationBuffer uintptr, offsetIntoDestination uintptr, dataLength uintptr) int32
+var _cMBlockBufferFillDataBytes func(fillByte int8, destinationBuffer CMBlockBufferRef, offsetIntoDestination uintptr, dataLength uintptr) int32
 var _cMBlockBufferFillDataBytesErr error
 
-func tryCMBlockBufferFillDataBytes(fillByte int8, destinationBuffer uintptr, offsetIntoDestination uintptr, dataLength uintptr) (int32, error) {
+func tryCMBlockBufferFillDataBytes(fillByte int8, destinationBuffer CMBlockBufferRef, offsetIntoDestination uintptr, dataLength uintptr) (int32, error) {
 	if _cMBlockBufferFillDataBytes == nil {
 		return 0, symbolCallError("CMBlockBufferFillDataBytes", "10.7", _cMBlockBufferFillDataBytesErr)
 	}
@@ -709,7 +709,7 @@ func tryCMBlockBufferFillDataBytes(fillByte int8, destinationBuffer uintptr, off
 // CMBlockBufferFillDataBytes fills the destination buffer with the specified data byte.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferFillDataBytes(with:blockBuffer:offsetIntoDestination:dataLength:)
-func CMBlockBufferFillDataBytes(fillByte int8, destinationBuffer uintptr, offsetIntoDestination uintptr, dataLength uintptr) int32 {
+func CMBlockBufferFillDataBytes(fillByte int8, destinationBuffer CMBlockBufferRef, offsetIntoDestination uintptr, dataLength uintptr) int32 {
 	result, callErr := tryCMBlockBufferFillDataBytes(fillByte, destinationBuffer, offsetIntoDestination, dataLength)
 	if callErr != nil {
 		panic(callErr)
@@ -717,10 +717,10 @@ func CMBlockBufferFillDataBytes(fillByte int8, destinationBuffer uintptr, offset
 	return result
 }
 
-var _cMBlockBufferGetDataLength func(theBuffer uintptr) uintptr
+var _cMBlockBufferGetDataLength func(theBuffer CMBlockBufferRef) uintptr
 var _cMBlockBufferGetDataLengthErr error
 
-func tryCMBlockBufferGetDataLength(theBuffer uintptr) (uintptr, error) {
+func tryCMBlockBufferGetDataLength(theBuffer CMBlockBufferRef) (uintptr, error) {
 	if _cMBlockBufferGetDataLength == nil {
 		return 0, symbolCallError("CMBlockBufferGetDataLength", "10.7", _cMBlockBufferGetDataLengthErr)
 	}
@@ -730,7 +730,7 @@ func tryCMBlockBufferGetDataLength(theBuffer uintptr) (uintptr, error) {
 // CMBlockBufferGetDataLength returns the total length of data that’s accessible by a block buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferGetDataLength(_:)
-func CMBlockBufferGetDataLength(theBuffer uintptr) uintptr {
+func CMBlockBufferGetDataLength(theBuffer CMBlockBufferRef) uintptr {
 	result, callErr := tryCMBlockBufferGetDataLength(theBuffer)
 	if callErr != nil {
 		panic(callErr)
@@ -738,10 +738,10 @@ func CMBlockBufferGetDataLength(theBuffer uintptr) uintptr {
 	return result
 }
 
-var _cMBlockBufferGetDataPointer func(theBuffer uintptr, offset uintptr, lengthAtOffsetOut *uintptr, totalLengthOut *uintptr, dataPointerOut string) int32
+var _cMBlockBufferGetDataPointer func(theBuffer CMBlockBufferRef, offset uintptr, lengthAtOffsetOut *uintptr, totalLengthOut *uintptr, dataPointerOut string) int32
 var _cMBlockBufferGetDataPointerErr error
 
-func tryCMBlockBufferGetDataPointer(theBuffer uintptr, offset uintptr, lengthAtOffsetOut *uintptr, totalLengthOut *uintptr, dataPointerOut string) (int32, error) {
+func tryCMBlockBufferGetDataPointer(theBuffer CMBlockBufferRef, offset uintptr, lengthAtOffsetOut *uintptr, totalLengthOut *uintptr, dataPointerOut string) (int32, error) {
 	if _cMBlockBufferGetDataPointer == nil {
 		return 0, symbolCallError("CMBlockBufferGetDataPointer", "10.7", _cMBlockBufferGetDataPointerErr)
 	}
@@ -751,7 +751,7 @@ func tryCMBlockBufferGetDataPointer(theBuffer uintptr, offset uintptr, lengthAtO
 // CMBlockBufferGetDataPointer gains access to the data represented by a block buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferGetDataPointer(_:atOffset:lengthAtOffsetOut:totalLengthOut:dataPointerOut:)
-func CMBlockBufferGetDataPointer(theBuffer uintptr, offset uintptr, lengthAtOffsetOut *uintptr, totalLengthOut *uintptr, dataPointerOut string) int32 {
+func CMBlockBufferGetDataPointer(theBuffer CMBlockBufferRef, offset uintptr, lengthAtOffsetOut *uintptr, totalLengthOut *uintptr, dataPointerOut string) int32 {
 	result, callErr := tryCMBlockBufferGetDataPointer(theBuffer, offset, lengthAtOffsetOut, totalLengthOut, dataPointerOut)
 	if callErr != nil {
 		panic(callErr)
@@ -780,10 +780,10 @@ func CMBlockBufferGetTypeID() uint {
 	return result
 }
 
-var _cMBlockBufferIsEmpty func(theBuffer uintptr) bool
+var _cMBlockBufferIsEmpty func(theBuffer CMBlockBufferRef) bool
 var _cMBlockBufferIsEmptyErr error
 
-func tryCMBlockBufferIsEmpty(theBuffer uintptr) (bool, error) {
+func tryCMBlockBufferIsEmpty(theBuffer CMBlockBufferRef) (bool, error) {
 	if _cMBlockBufferIsEmpty == nil {
 		return false, symbolCallError("CMBlockBufferIsEmpty", "10.7", _cMBlockBufferIsEmptyErr)
 	}
@@ -793,7 +793,7 @@ func tryCMBlockBufferIsEmpty(theBuffer uintptr) (bool, error) {
 // CMBlockBufferIsEmpty returns a Boolean value that indicates whether the buffer is empty.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferIsEmpty(_:)
-func CMBlockBufferIsEmpty(theBuffer uintptr) bool {
+func CMBlockBufferIsEmpty(theBuffer CMBlockBufferRef) bool {
 	result, callErr := tryCMBlockBufferIsEmpty(theBuffer)
 	if callErr != nil {
 		panic(callErr)
@@ -801,10 +801,10 @@ func CMBlockBufferIsEmpty(theBuffer uintptr) bool {
 	return result
 }
 
-var _cMBlockBufferIsRangeContiguous func(theBuffer uintptr, offset uintptr, length uintptr) bool
+var _cMBlockBufferIsRangeContiguous func(theBuffer CMBlockBufferRef, offset uintptr, length uintptr) bool
 var _cMBlockBufferIsRangeContiguousErr error
 
-func tryCMBlockBufferIsRangeContiguous(theBuffer uintptr, offset uintptr, length uintptr) (bool, error) {
+func tryCMBlockBufferIsRangeContiguous(theBuffer CMBlockBufferRef, offset uintptr, length uintptr) (bool, error) {
 	if _cMBlockBufferIsRangeContiguous == nil {
 		return false, symbolCallError("CMBlockBufferIsRangeContiguous", "10.7", _cMBlockBufferIsRangeContiguousErr)
 	}
@@ -814,7 +814,7 @@ func tryCMBlockBufferIsRangeContiguous(theBuffer uintptr, offset uintptr, length
 // CMBlockBufferIsRangeContiguous returns a Boolean value that indicates whether the specified range within a block buffer is contiguous.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferIsRangeContiguous(_:atOffset:length:)
-func CMBlockBufferIsRangeContiguous(theBuffer uintptr, offset uintptr, length uintptr) bool {
+func CMBlockBufferIsRangeContiguous(theBuffer CMBlockBufferRef, offset uintptr, length uintptr) bool {
 	result, callErr := tryCMBlockBufferIsRangeContiguous(theBuffer, offset, length)
 	if callErr != nil {
 		panic(callErr)
@@ -822,10 +822,10 @@ func CMBlockBufferIsRangeContiguous(theBuffer uintptr, offset uintptr, length ui
 	return result
 }
 
-var _cMBlockBufferReplaceDataBytes func(sourceBytes unsafe.Pointer, destinationBuffer uintptr, offsetIntoDestination uintptr, dataLength uintptr) int32
+var _cMBlockBufferReplaceDataBytes func(sourceBytes unsafe.Pointer, destinationBuffer CMBlockBufferRef, offsetIntoDestination uintptr, dataLength uintptr) int32
 var _cMBlockBufferReplaceDataBytesErr error
 
-func tryCMBlockBufferReplaceDataBytes(sourceBytes unsafe.Pointer, destinationBuffer uintptr, offsetIntoDestination uintptr, dataLength uintptr) (int32, error) {
+func tryCMBlockBufferReplaceDataBytes(sourceBytes unsafe.Pointer, destinationBuffer CMBlockBufferRef, offsetIntoDestination uintptr, dataLength uintptr) (int32, error) {
 	if _cMBlockBufferReplaceDataBytes == nil {
 		return 0, symbolCallError("CMBlockBufferReplaceDataBytes", "10.7", _cMBlockBufferReplaceDataBytesErr)
 	}
@@ -835,7 +835,7 @@ func tryCMBlockBufferReplaceDataBytes(sourceBytes unsafe.Pointer, destinationBuf
 // CMBlockBufferReplaceDataBytes copies bytes from a given memory block into a block buffer replacing bytes in the underlying data blocks.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBlockBufferReplaceDataBytes(with:blockBuffer:offsetIntoDestination:dataLength:)
-func CMBlockBufferReplaceDataBytes(sourceBytes unsafe.Pointer, destinationBuffer uintptr, offsetIntoDestination uintptr, dataLength uintptr) int32 {
+func CMBlockBufferReplaceDataBytes(sourceBytes unsafe.Pointer, destinationBuffer CMBlockBufferRef, offsetIntoDestination uintptr, dataLength uintptr) int32 {
 	result, callErr := tryCMBlockBufferReplaceDataBytes(sourceBytes, destinationBuffer, offsetIntoDestination, dataLength)
 	if callErr != nil {
 		panic(callErr)
@@ -1758,10 +1758,10 @@ func CMClosedCaptionFormatDescriptionCopyAsBigEndianClosedCaptionDescriptionBloc
 	return result
 }
 
-var _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionBlockBuffer uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) int32
+var _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionBlockBuffer CMBlockBufferRef, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) int32
 var _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBufferErr error
 
-func tryCMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionBlockBuffer uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) (int32, error) {
+func tryCMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionBlockBuffer CMBlockBufferRef, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) (int32, error) {
 	if _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer == nil {
 		return 0, symbolCallError("CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer", "10.10", _cMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBufferErr)
 	}
@@ -1771,7 +1771,7 @@ func tryCMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescript
 // CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer creates a closed caption format description from a big-endian closed caption description structure in a buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer(allocator:bigEndianClosedCaptionDescriptionBlockBuffer:flavor:formatDescriptionOut:)
-func CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionBlockBuffer uintptr, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) int32 {
+func CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, closedCaptionDescriptionBlockBuffer CMBlockBufferRef, flavor CMClosedCaptionDescriptionFlavor, formatDescriptionOut *CMClosedCaptionFormatDescriptionRef) int32 {
 	result, callErr := tryCMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer(allocator, closedCaptionDescriptionBlockBuffer, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -1821,10 +1821,10 @@ func CMCopyDictionaryOfAttachments(allocator corefoundation.CFAllocatorRef, targ
 	return result
 }
 
-var _cMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout func(soundDescriptionBlockBuffer uintptr, flavor CMSoundDescriptionFlavor) bool
+var _cMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout func(soundDescriptionBlockBuffer CMBlockBufferRef, flavor CMSoundDescriptionFlavor) bool
 var _cMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayoutErr error
 
-func tryCMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDescriptionBlockBuffer uintptr, flavor CMSoundDescriptionFlavor) (bool, error) {
+func tryCMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDescriptionBlockBuffer CMBlockBufferRef, flavor CMSoundDescriptionFlavor) (bool, error) {
 	if _cMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout == nil {
 		return false, symbolCallError("CMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout", "10.10", _cMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayoutErr)
 	}
@@ -1834,7 +1834,7 @@ func tryCMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDe
 // CMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout returns a Boolean value that indicates whether the sample tables need to use the legacy constant bit-rate encoding layout.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(_:flavor:)
-func CMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDescriptionBlockBuffer uintptr, flavor CMSoundDescriptionFlavor) bool {
+func CMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDescriptionBlockBuffer CMBlockBufferRef, flavor CMSoundDescriptionFlavor) bool {
 	result, callErr := tryCMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDescriptionBlockBuffer, flavor)
 	if callErr != nil {
 		panic(callErr)
@@ -2428,10 +2428,10 @@ func CMMetadataFormatDescriptionCreateByMergingMetadataFormatDescriptions(alloca
 	return result
 }
 
-var _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, metadataDescriptionBlockBuffer uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) int32
+var _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, metadataDescriptionBlockBuffer CMBlockBufferRef, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) int32
 var _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBufferErr error
 
-func tryCMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, metadataDescriptionBlockBuffer uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) (int32, error) {
+func tryCMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, metadataDescriptionBlockBuffer CMBlockBufferRef, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) (int32, error) {
 	if _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer == nil {
 		return 0, symbolCallError("CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer", "10.10", _cMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBufferErr)
 	}
@@ -2441,7 +2441,7 @@ func tryCMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBu
 // CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer creates a metadata format description from a big-endian metadata description structure inside a buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer(allocator:bigEndianMetadataDescriptionBlockBuffer:flavor:formatDescriptionOut:)
-func CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, metadataDescriptionBlockBuffer uintptr, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) int32 {
+func CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, metadataDescriptionBlockBuffer CMBlockBufferRef, flavor CMMetadataDescriptionFlavor, formatDescriptionOut *CMMetadataFormatDescriptionRef) int32 {
 	result, callErr := tryCMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer(allocator, metadataDescriptionBlockBuffer, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2740,10 +2740,10 @@ func CMSampleBufferCopySampleBufferForRange(allocator corefoundation.CFAllocator
 	return result
 }
 
-var _cMSampleBufferCreate func(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) int32
+var _cMSampleBufferCreate func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) int32
 var _cMSampleBufferCreateErr error
 
-func tryCMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) (int32, error) {
+func tryCMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) (int32, error) {
 	if _cMSampleBufferCreate == nil {
 		return 0, symbolCallError("CMSampleBufferCreate", "10.7", _cMSampleBufferCreateErr)
 	}
@@ -2753,7 +2753,7 @@ func tryCMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer
 // CMSampleBufferCreate creates a sample buffer with a callback to make the data ready for use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCreate(allocator:dataBuffer:dataReady:makeDataReadyCallback:refcon:formatDescription:sampleCount:sampleTimingEntryCount:sampleTimingArray:sampleSizeEntryCount:sampleSizeArray:sampleBufferOut:)
-func CMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) int32 {
+func CMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) int32 {
 	result, callErr := tryCMSampleBufferCreate(allocator, dataBuffer, dataReady, makeDataReadyCallback, makeDataReadyRefcon, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2871,10 +2871,10 @@ func CMSampleBufferCreateForTaggedBufferGroup(allocator corefoundation.CFAllocat
 	return result
 }
 
-var _cMSampleBufferCreateReady func(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) int32
+var _cMSampleBufferCreateReady func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) int32
 var _cMSampleBufferCreateReadyErr error
 
-func tryCMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) (int32, error) {
+func tryCMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) (int32, error) {
 	if _cMSampleBufferCreateReady == nil {
 		return 0, symbolCallError("CMSampleBufferCreateReady", "10.10", _cMSampleBufferCreateReadyErr)
 	}
@@ -2884,7 +2884,7 @@ func tryCMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataB
 // CMSampleBufferCreateReady creates a sample buffer with media data.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCreateReady(allocator:dataBuffer:formatDescription:sampleCount:sampleTimingEntryCount:sampleTimingArray:sampleSizeEntryCount:sampleSizeArray:sampleBufferOut:)
-func CMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) int32 {
+func CMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr) int32 {
 	result, callErr := tryCMSampleBufferCreateReady(allocator, dataBuffer, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2913,10 +2913,10 @@ func CMSampleBufferCreateReadyWithImageBuffer(allocator corefoundation.CFAllocat
 	return result
 }
 
-var _cMSampleBufferCreateWithMakeDataReadyHandler func(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr, makeDataReadyHandler unsafe.Pointer) int32
+var _cMSampleBufferCreateWithMakeDataReadyHandler func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr, makeDataReadyHandler unsafe.Pointer) int32
 var _cMSampleBufferCreateWithMakeDataReadyHandlerErr error
 
-func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) (int32, error) {
+func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) (int32, error) {
 	if _cMSampleBufferCreateWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateWithMakeDataReadyHandlerErr)
 	}
@@ -2931,7 +2931,7 @@ func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CF
 // CMSampleBufferCreateWithMakeDataReadyHandler creates a sample buffer with a handler to make the data ready for use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCreateWithMakeDataReadyHandler(_:_:_:_:_:_:_:_:_:_:_:)
-func CMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, dataReady bool, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) int32 {
+func CMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription uintptr, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *uintptr, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) int32 {
 	result, callErr := tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut, makeDataReadyHandler)
 	if callErr != nil {
 		panic(callErr)
@@ -3506,10 +3506,10 @@ func CMSampleBufferMakeDataReady(sbuf uintptr) int32 {
 	return result
 }
 
-var _cMSampleBufferSetDataBuffer func(sbuf uintptr, dataBuffer uintptr) int32
+var _cMSampleBufferSetDataBuffer func(sbuf uintptr, dataBuffer CMBlockBufferRef) int32
 var _cMSampleBufferSetDataBufferErr error
 
-func tryCMSampleBufferSetDataBuffer(sbuf uintptr, dataBuffer uintptr) (int32, error) {
+func tryCMSampleBufferSetDataBuffer(sbuf uintptr, dataBuffer CMBlockBufferRef) (int32, error) {
 	if _cMSampleBufferSetDataBuffer == nil {
 		return 0, symbolCallError("CMSampleBufferSetDataBuffer", "10.7", _cMSampleBufferSetDataBufferErr)
 	}
@@ -3519,7 +3519,7 @@ func tryCMSampleBufferSetDataBuffer(sbuf uintptr, dataBuffer uintptr) (int32, er
 // CMSampleBufferSetDataBuffer sets a block buffer of media data on a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferSetDataBuffer(_:newValue:)
-func CMSampleBufferSetDataBuffer(sbuf uintptr, dataBuffer uintptr) int32 {
+func CMSampleBufferSetDataBuffer(sbuf uintptr, dataBuffer CMBlockBufferRef) int32 {
 	result, callErr := tryCMSampleBufferSetDataBuffer(sbuf, dataBuffer)
 	if callErr != nil {
 		panic(callErr)
@@ -5690,10 +5690,10 @@ func CMTextFormatDescriptionCopyAsBigEndianTextDescriptionBlockBuffer(allocator 
 	return result
 }
 
-var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32
+var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32
 var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBufferErr error
 
-func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) (int32, error) {
+func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) (int32, error) {
 	if _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer == nil {
 		return 0, symbolCallError("CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer", "10.10", _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBufferErr)
 	}
@@ -5703,7 +5703,7 @@ func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(all
 // CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer creates a text format description from a big-endian text description structure inside a buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator:bigEndianTextDescriptionBlockBuffer:flavor:mediaType:formatDescriptionOut:)
-func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32 {
+func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32 {
 	result, callErr := tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator, textDescriptionBlockBuffer, flavor, mediaType, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -5942,10 +5942,10 @@ func CMTimeCodeFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, 
 	return result
 }
 
-var _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionBlockBuffer uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) int32
+var _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionBlockBuffer CMBlockBufferRef, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) int32
 var _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBufferErr error
 
-func tryCMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionBlockBuffer uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) (int32, error) {
+func tryCMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionBlockBuffer CMBlockBufferRef, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) (int32, error) {
 	if _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer == nil {
 		return 0, symbolCallError("CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer", "10.10", _cMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBufferErr)
 	}
@@ -5955,7 +5955,7 @@ func tryCMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBu
 // CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer creates a time code format description from a big-endian time code description data structure in a buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer(allocator:bigEndianTimeCodeDescriptionBlockBuffer:flavor:formatDescriptionOut:)
-func CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionBlockBuffer uintptr, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) int32 {
+func CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, timeCodeDescriptionBlockBuffer CMBlockBufferRef, flavor CMTimeCodeDescriptionFlavor, formatDescriptionOut *CMTimeCodeFormatDescriptionRef) int32 {
 	result, callErr := tryCMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer(allocator, timeCodeDescriptionBlockBuffer, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7472,10 +7472,10 @@ func CMVideoFormatDescriptionCreateForImageBuffer(allocator corefoundation.CFAll
 	return result
 }
 
-var _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, imageDescriptionBlockBuffer uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) int32
+var _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, imageDescriptionBlockBuffer CMBlockBufferRef, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) int32
 var _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBufferErr error
 
-func tryCMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, imageDescriptionBlockBuffer uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) (int32, error) {
+func tryCMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, imageDescriptionBlockBuffer CMBlockBufferRef, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) (int32, error) {
 	if _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer", "10.10", _cMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBufferErr)
 	}
@@ -7485,7 +7485,7 @@ func tryCMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(a
 // CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer creates a video format description from a big-endian image description inside a buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allocator:bigEndianImageDescriptionBlockBuffer:stringEncoding:flavor:formatDescriptionOut:)
-func CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, imageDescriptionBlockBuffer uintptr, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) int32 {
+func CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, imageDescriptionBlockBuffer CMBlockBufferRef, stringEncoding uint32, flavor CMImageDescriptionFlavor, formatDescriptionOut *uintptr) int32 {
 	result, callErr := tryCMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allocator, imageDescriptionBlockBuffer, stringEncoding, flavor, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)

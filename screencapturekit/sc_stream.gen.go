@@ -8,6 +8,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -168,7 +169,7 @@ type ISCStream interface {
 	// Topic: Stream synchronization
 
 	// A clock to use for output synchronization.
-	SynchronizationClock() uintptr
+	SynchronizationClock() coremedia.CMClockRef
 }
 
 // Init initializes the instance.
@@ -360,9 +361,9 @@ func (s SCStream) StopCaptureWithCompletionHandler(completionHandler ErrorHandle
 //
 // [AVCaptureSession]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession
 // [synchronizationClock]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/synchronizationClock
-func (s SCStream) SynchronizationClock() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("synchronizationClock"))
-	return rv
+func (s SCStream) SynchronizationClock() coremedia.CMClockRef {
+	rv := objc.Send[coremedia.CMClockRef](s.ID, objc.Sel("synchronizationClock"))
+	return coremedia.CMClockRef(rv)
 }
 
 // UpdateConfiguration is a synchronous wrapper around [SCStream.UpdateConfigurationCompletionHandler].

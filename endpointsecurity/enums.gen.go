@@ -376,7 +376,7 @@ const (
 	// ES_EVENT_TYPE_AUTH_UTIMES: An identifier for a process that requests permission from the operating system to change a file’s access or modification time.
 	ES_EVENT_TYPE_AUTH_UTIMES EsEventType = 58
 	// ES_EVENT_TYPE_LAST: A value that indicates the last member of the enumeration.
-	ES_EVENT_TYPE_LAST EsEventType = 155
+	ES_EVENT_TYPE_LAST EsEventType = 157
 	// ES_EVENT_TYPE_NOTIFY_ACCESS: An identifier for a process that notifies endpoint security that it is checking a file’s access permission.
 	ES_EVENT_TYPE_NOTIFY_ACCESS                  EsEventType = 55
 	ES_EVENT_TYPE_NOTIFY_AUTHENTICATION          EsEventType = 111

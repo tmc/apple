@@ -495,7 +495,7 @@ func tryNw_browse_result_enumerate_interfaces(result Nw_browse_result_t, enumera
 	if _nw_browse_result_enumerate_interfaces == nil {
 		return symbolCallError("nw_browse_result_enumerate_interfaces", "10.15", _nw_browse_result_enumerate_interfacesErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) bool { return enumerator(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) bool { return enumerator(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_browse_result_enumerate_interfaces(result, _block0)
@@ -643,8 +643,8 @@ func tryNw_browser_set_browse_results_changed_handler(browser Nw_browser_t, hand
 	if _nw_browser_set_browse_results_changed_handler == nil {
 		return symbolCallError("nw_browser_set_browse_results_changed_handler", "10.15", _nw_browser_set_browse_results_changed_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 bool) {
-		handler(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 bool) {
+		handler(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), blockArg2)
 	})
 	retainNetworkAsyncBlock(browser.ID, "nw_browser_set_browse_results_changed_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
@@ -733,7 +733,7 @@ func tryNw_connection_access_establishment_report(connection Nw_connection_t, qu
 	if _nw_connection_access_establishment_report == nil {
 		return symbolCallError("nw_connection_access_establishment_report", "10.15", _nw_connection_access_establishment_reportErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { access_block(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { access_block(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_connection_access_establishment_report(connection, uintptr(queue.Handle()), _block0)
@@ -1300,7 +1300,7 @@ func tryNw_connection_group_set_new_connection_handler(group Nw_connection_group
 	if _nw_connection_group_set_new_connection_handler == nil {
 		return symbolCallError("nw_connection_group_set_new_connection_handler", "12.0", _nw_connection_group_set_new_connection_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { new_connection_handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { new_connection_handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(group.ID, "nw_connection_group_set_new_connection_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_connection_group_set_new_connection_handler(group, _block0)
@@ -1343,8 +1343,8 @@ func tryNw_connection_group_set_receive_handler(group Nw_connection_group_t, max
 	if _nw_connection_group_set_receive_handler == nil {
 		return symbolCallError("nw_connection_group_set_receive_handler", "11.0", _nw_connection_group_set_receive_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 bool) {
-		receive_handler(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 bool) {
+		receive_handler(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), blockArg2)
 	})
 	retainNetworkAsyncBlock(group.ID, "nw_connection_group_set_receive_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1413,8 +1413,8 @@ func tryNw_connection_receive(connection Nw_connection_t, minimum_incomplete_len
 	if _nw_connection_receive == nil {
 		return symbolCallError("nw_connection_receive", "10.14", _nw_connection_receiveErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 bool, blockArg3 objc.ID) {
-		completion(blockArg0, blockArg1, blockArg2, Nw_error_t{Object: objectivec.ObjectFromID(blockArg3)})
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 bool, blockArg3 objc.ID) {
+		completion(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), blockArg2, Nw_error_t{Object: objectivec.ObjectFromID(blockArg3)})
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1438,8 +1438,8 @@ func tryNw_connection_receive_message(connection Nw_connection_t, completion Nw_
 	if _nw_connection_receive_message == nil {
 		return symbolCallError("nw_connection_receive_message", "10.14", _nw_connection_receive_messageErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 bool, blockArg3 objc.ID) {
-		completion(blockArg0, blockArg1, blockArg2, Nw_error_t{Object: objectivec.ObjectFromID(blockArg3)})
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 bool, blockArg3 objc.ID) {
+		completion(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), blockArg2, Nw_error_t{Object: objectivec.ObjectFromID(blockArg3)})
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -1531,7 +1531,7 @@ func tryNw_connection_set_path_changed_handler(connection Nw_connection_t, handl
 	if _nw_connection_set_path_changed_handler == nil {
 		return symbolCallError("nw_connection_set_path_changed_handler", "10.14", _nw_connection_set_path_changed_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(connection.ID, "nw_connection_set_path_changed_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_connection_set_path_changed_handler(connection, _block0)
@@ -1909,7 +1909,7 @@ func tryNw_data_transfer_report_collect(report Nw_data_transfer_report_t, queue 
 	if _nw_data_transfer_report_collect == nil {
 		return symbolCallError("nw_data_transfer_report_collect", "10.15", _nw_data_transfer_report_collectErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { collect_block(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { collect_block(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_data_transfer_report_collect(report, uintptr(queue.Handle()), _block0)
@@ -2345,6 +2345,27 @@ func Nw_endpoint_copy_txt_record(endpoint Nw_endpoint_t) Nw_txt_record_t {
 	return result
 }
 
+var _nw_endpoint_create_address func(address unsafe.Pointer) Nw_endpoint_t
+var _nw_endpoint_create_addressErr error
+
+func tryNw_endpoint_create_address(address unsafe.Pointer) (Nw_endpoint_t, error) {
+	if _nw_endpoint_create_address == nil {
+		return *new(Nw_endpoint_t), symbolCallError("nw_endpoint_create_address", "10.14", _nw_endpoint_create_addressErr)
+	}
+	return _nw_endpoint_create_address(address), nil
+}
+
+// Nw_endpoint_create_address creates a network endpoint with an address structure.
+//
+// See: https://developer.apple.com/documentation/Network/nw_endpoint_create_address(_:)
+func Nw_endpoint_create_address(address unsafe.Pointer) Nw_endpoint_t {
+	result, callErr := tryNw_endpoint_create_address(address)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _nw_endpoint_create_bonjour_service func(name string, type_ string, domain string) Nw_endpoint_t
 var _nw_endpoint_create_bonjour_serviceErr error
 
@@ -2402,6 +2423,27 @@ func tryNw_endpoint_create_url(url string) (Nw_endpoint_t, error) {
 // See: https://developer.apple.com/documentation/Network/nw_endpoint_create_url(_:)
 func Nw_endpoint_create_url(url string) Nw_endpoint_t {
 	result, callErr := tryNw_endpoint_create_url(url)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _nw_endpoint_get_address func(endpoint Nw_endpoint_t) unsafe.Pointer
+var _nw_endpoint_get_addressErr error
+
+func tryNw_endpoint_get_address(endpoint Nw_endpoint_t) (unsafe.Pointer, error) {
+	if _nw_endpoint_get_address == nil {
+		return nil, symbolCallError("nw_endpoint_get_address", "10.14", _nw_endpoint_get_addressErr)
+	}
+	return _nw_endpoint_get_address(endpoint), nil
+}
+
+// Nw_endpoint_get_address accesses the address structure stored in an address endpoint.
+//
+// See: https://developer.apple.com/documentation/Network/nw_endpoint_get_address(_:)
+func Nw_endpoint_get_address(endpoint Nw_endpoint_t) unsafe.Pointer {
+	result, callErr := tryNw_endpoint_get_address(endpoint)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -2667,8 +2709,8 @@ func tryNw_establishment_report_enumerate_protocols(report Nw_establishment_repo
 	if _nw_establishment_report_enumerate_protocols == nil {
 		return symbolCallError("nw_establishment_report_enumerate_protocols", "10.15", _nw_establishment_report_enumerate_protocolsErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 uint64, blockArg2 uint64) bool {
-		return enumerate_block(blockArg0, blockArg1, blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 uint64, blockArg2 uint64) bool {
+		return enumerate_block(objectivec.ObjectFromID(blockArg0), blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -2692,7 +2734,7 @@ func tryNw_establishment_report_enumerate_resolution_reports(report Nw_establish
 	if _nw_establishment_report_enumerate_resolution_reports == nil {
 		return symbolCallError("nw_establishment_report_enumerate_resolution_reports", "11.0", _nw_establishment_report_enumerate_resolution_reportsErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) bool { return enumerate_block(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) bool { return enumerate_block(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_establishment_report_enumerate_resolution_reports(report, _block0)
@@ -2715,8 +2757,8 @@ func tryNw_establishment_report_enumerate_resolutions(report Nw_establishment_re
 	if _nw_establishment_report_enumerate_resolutions == nil {
 		return symbolCallError("nw_establishment_report_enumerate_resolutions", "10.15", _nw_establishment_report_enumerate_resolutionsErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwReportResolutionSource, blockArg1 uint64, blockArg2 uint32, blockArg3 objectivec.Object, blockArg4 objectivec.Object) bool {
-		return enumerate_block(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 NwReportResolutionSource, blockArg1 uint64, blockArg2 uint32, blockArg3 objc.ID, blockArg4 objc.ID) bool {
+		return enumerate_block(blockArg0, blockArg1, blockArg2, objectivec.ObjectFromID(blockArg3), objectivec.ObjectFromID(blockArg4))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -2973,8 +3015,8 @@ func tryNw_ethernet_channel_set_receive_handler(ethernet_channel Nw_ethernet_cha
 	if _nw_ethernet_channel_set_receive_handler == nil {
 		return symbolCallError("nw_ethernet_channel_set_receive_handler", "10.15", _nw_ethernet_channel_set_receive_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 uint32, blockArg2 *uint8, blockArg3 *uint8) {
-		handler(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 uint32, blockArg2 *uint8, blockArg3 *uint8) {
+		handler(objectivec.ObjectFromID(blockArg0), blockArg1, blockArg2, blockArg3)
 	})
 	retainNetworkAsyncBlock(ethernet_channel.ID, "nw_ethernet_channel_set_receive_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3150,7 +3192,9 @@ func tryNw_framer_create_definition(identifier string, flags uint32, start_handl
 	if _nw_framer_create_definition == nil {
 		return *new(Nw_protocol_definition_t), symbolCallError("nw_framer_create_definition", "10.15", _nw_framer_create_definitionErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) NwFramerStartResult { return start_handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) NwFramerStartResult {
+		return start_handler(objectivec.ObjectFromID(blockArg0))
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _nw_framer_create_definition(identifier, flags, _block0), nil
@@ -3295,7 +3339,7 @@ var _nw_framer_message_copy_object_valueErr error
 
 func tryNw_framer_message_copy_object_value(message Nw_framer_message_t, key string) (objectivec.Object, error) {
 	if _nw_framer_message_copy_object_value == nil {
-		return *new(objectivec.Object), symbolCallError("nw_framer_message_copy_object_value", "10.15", _nw_framer_message_copy_object_valueErr)
+		return objectivec.Object{}, symbolCallError("nw_framer_message_copy_object_value", "10.15", _nw_framer_message_copy_object_valueErr)
 	}
 	return _nw_framer_message_copy_object_value(message, key), nil
 }
@@ -3380,7 +3424,7 @@ var _nw_framer_options_copy_object_valueErr error
 
 func tryNw_framer_options_copy_object_value(options Nw_protocol_options_t, key string) (objectivec.Object, error) {
 	if _nw_framer_options_copy_object_value == nil {
-		return *new(objectivec.Object), symbolCallError("nw_framer_options_copy_object_value", "12.3", _nw_framer_options_copy_object_valueErr)
+		return objectivec.Object{}, symbolCallError("nw_framer_options_copy_object_value", "12.3", _nw_framer_options_copy_object_valueErr)
 	}
 	return _nw_framer_options_copy_object_value(options, key), nil
 }
@@ -3577,7 +3621,7 @@ func tryNw_framer_set_cleanup_handler(framer Nw_framer_t, cleanup_handler Nw_fra
 	if _nw_framer_set_cleanup_handler == nil {
 		return symbolCallError("nw_framer_set_cleanup_handler", "10.15", _nw_framer_set_cleanup_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { cleanup_handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { cleanup_handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_cleanup_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_framer_set_cleanup_handler(framer, _block0)
@@ -3600,7 +3644,7 @@ func tryNw_framer_set_input_handler(framer Nw_framer_t, input_handler Nw_framer_
 	if _nw_framer_set_input_handler == nil {
 		return symbolCallError("nw_framer_set_input_handler", "10.15", _nw_framer_set_input_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) uint64 { return input_handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) uint64 { return input_handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_input_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_framer_set_input_handler(framer, _block0)
@@ -3623,8 +3667,8 @@ func tryNw_framer_set_output_handler(framer Nw_framer_t, output_handler Nw_frame
 	if _nw_framer_set_output_handler == nil {
 		return symbolCallError("nw_framer_set_output_handler", "10.15", _nw_framer_set_output_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 objectivec.Object, blockArg2 uint32, blockArg3 bool) {
-		output_handler(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 uint32, blockArg3 bool) {
+		output_handler(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), blockArg2, blockArg3)
 	})
 	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_output_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3648,7 +3692,7 @@ func tryNw_framer_set_stop_handler(framer Nw_framer_t, stop_handler Nw_framer_st
 	if _nw_framer_set_stop_handler == nil {
 		return symbolCallError("nw_framer_set_stop_handler", "10.15", _nw_framer_set_stop_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) bool { return stop_handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) bool { return stop_handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_stop_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_framer_set_stop_handler(framer, _block0)
@@ -3671,7 +3715,7 @@ func tryNw_framer_set_wakeup_handler(framer Nw_framer_t, wakeup_handler Nw_frame
 	if _nw_framer_set_wakeup_handler == nil {
 		return symbolCallError("nw_framer_set_wakeup_handler", "10.15", _nw_framer_set_wakeup_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { wakeup_handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { wakeup_handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(framer.ID, "nw_framer_set_wakeup_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_framer_set_wakeup_handler(framer, _block0)
@@ -3818,7 +3862,7 @@ func tryNw_group_descriptor_enumerate_endpoints(descriptor Nw_group_descriptor_t
 	if _nw_group_descriptor_enumerate_endpoints == nil {
 		return symbolCallError("nw_group_descriptor_enumerate_endpoints", "11.0", _nw_group_descriptor_enumerate_endpointsErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) bool { return enumerate_block(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) bool { return enumerate_block(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_group_descriptor_enumerate_endpoints(descriptor, _block0)
@@ -4334,7 +4378,9 @@ func tryNw_listener_set_advertised_endpoint_changed_handler(listener Nw_listener
 	if _nw_listener_set_advertised_endpoint_changed_handler == nil {
 		return symbolCallError("nw_listener_set_advertised_endpoint_changed_handler", "10.14", _nw_listener_set_advertised_endpoint_changed_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object, blockArg1 bool) { handler(blockArg0, blockArg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 bool) {
+		handler(objectivec.ObjectFromID(blockArg0), blockArg1)
+	})
 	retainNetworkAsyncBlock(listener.ID, "nw_listener_set_advertised_endpoint_changed_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_listener_set_advertised_endpoint_changed_handler(listener, _block0)
@@ -4357,7 +4403,7 @@ func tryNw_listener_set_new_connection_group_handler(listener Nw_listener_t, han
 	if _nw_listener_set_new_connection_group_handler == nil {
 		return symbolCallError("nw_listener_set_new_connection_group_handler", "12.0", _nw_listener_set_new_connection_group_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(listener.ID, "nw_listener_set_new_connection_group_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_listener_set_new_connection_group_handler(listener, _block0)
@@ -4380,7 +4426,7 @@ func tryNw_listener_set_new_connection_handler(listener Nw_listener_t, handler N
 	if _nw_listener_set_new_connection_handler == nil {
 		return symbolCallError("nw_listener_set_new_connection_handler", "10.14", _nw_listener_set_new_connection_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(listener.ID, "nw_listener_set_new_connection_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_listener_set_new_connection_handler(listener, _block0)
@@ -4722,7 +4768,7 @@ func tryNw_parameters_create_custom_ip(custom_ip_protocol_number uint8, configur
 		}
 		_block0 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
-		_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { configure_ip(blockArg0) })
+		_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { configure_ip(objectivec.ObjectFromID(blockArg0)) })
 		defer _block0Value.Release()
 		_block0 = unsafe.Pointer(_block0Value)
 	}
@@ -4747,7 +4793,7 @@ func tryNw_parameters_create_quic(configure_quic Nw_parameters_configure_protoco
 	if _nw_parameters_create_quic == nil {
 		return *new(Nw_parameters_t), symbolCallError("nw_parameters_create_quic", "12.0", _nw_parameters_create_quicErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { configure_quic(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { configure_quic(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _nw_parameters_create_quic(_block0), nil
@@ -4778,7 +4824,7 @@ func tryNw_parameters_create_secure_tcp(configure_tls Nw_parameters_configure_pr
 		}
 		_block0 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
-		_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { configure_tls(blockArg0) })
+		_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { configure_tls(objectivec.ObjectFromID(blockArg0)) })
 		defer _block0Value.Release()
 		_block0 = unsafe.Pointer(_block0Value)
 	}
@@ -4789,7 +4835,7 @@ func tryNw_parameters_create_secure_tcp(configure_tls Nw_parameters_configure_pr
 		}
 		_block1 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
-		_block1Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { configure_tcp(blockArg0) })
+		_block1Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { configure_tcp(objectivec.ObjectFromID(blockArg0)) })
 		defer _block1Value.Release()
 		_block1 = unsafe.Pointer(_block1Value)
 	}
@@ -4821,7 +4867,7 @@ func tryNw_parameters_create_secure_udp(configure_dtls Nw_parameters_configure_p
 		}
 		_block0 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
-		_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { configure_dtls(blockArg0) })
+		_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { configure_dtls(objectivec.ObjectFromID(blockArg0)) })
 		defer _block0Value.Release()
 		_block0 = unsafe.Pointer(_block0Value)
 	}
@@ -4832,7 +4878,7 @@ func tryNw_parameters_create_secure_udp(configure_dtls Nw_parameters_configure_p
 		}
 		_block1 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
-		_block1Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { configure_udp(blockArg0) })
+		_block1Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { configure_udp(objectivec.ObjectFromID(blockArg0)) })
 		defer _block1Value.Release()
 		_block1 = unsafe.Pointer(_block1Value)
 	}
@@ -5153,7 +5199,7 @@ func tryNw_parameters_iterate_prohibited_interfaces(parameters Nw_parameters_t, 
 	if _nw_parameters_iterate_prohibited_interfaces == nil {
 		return symbolCallError("nw_parameters_iterate_prohibited_interfaces", "10.14", _nw_parameters_iterate_prohibited_interfacesErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) bool { return iterate_block(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) bool { return iterate_block(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_parameters_iterate_prohibited_interfaces(parameters, _block0)
@@ -5619,7 +5665,7 @@ func tryNw_path_enumerate_gateways(path Nw_path_t, enumerate_block Nw_path_enume
 	if _nw_path_enumerate_gateways == nil {
 		return symbolCallError("nw_path_enumerate_gateways", "10.15", _nw_path_enumerate_gatewaysErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) bool { return enumerate_block(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) bool { return enumerate_block(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_path_enumerate_gateways(path, _block0)
@@ -5642,7 +5688,7 @@ func tryNw_path_enumerate_interfaces(path Nw_path_t, enumerate_block Nw_path_enu
 	if _nw_path_enumerate_interfaces == nil {
 		return symbolCallError("nw_path_enumerate_interfaces", "10.14", _nw_path_enumerate_interfacesErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) bool { return enumerate_block(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) bool { return enumerate_block(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_path_enumerate_interfaces(path, _block0)
@@ -6021,7 +6067,7 @@ func tryNw_path_monitor_set_update_handler(monitor Nw_path_monitor_t, update_han
 	if _nw_path_monitor_set_update_handler == nil {
 		return symbolCallError("nw_path_monitor_set_update_handler", "10.14", _nw_path_monitor_set_update_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { update_handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { update_handler(objectivec.ObjectFromID(blockArg0)) })
 	retainNetworkAsyncBlock(monitor.ID, "nw_path_monitor_set_update_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_path_monitor_set_update_handler(monitor, _block0)
@@ -6625,7 +6671,7 @@ func tryNw_protocol_stack_iterate_application_protocols(stack Nw_protocol_stack_
 	if _nw_protocol_stack_iterate_application_protocols == nil {
 		return symbolCallError("nw_protocol_stack_iterate_application_protocols", "10.14", _nw_protocol_stack_iterate_application_protocolsErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) { iterate_block(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { iterate_block(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_protocol_stack_iterate_application_protocols(stack, _block0)
@@ -9098,7 +9144,9 @@ func tryNw_ws_options_set_client_request_handler(options Nw_protocol_options_t, 
 	if _nw_ws_options_set_client_request_handler == nil {
 		return symbolCallError("nw_ws_options_set_client_request_handler", "10.15", _nw_ws_options_set_client_request_handlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objectivec.Object) objectivec.Object { return handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) objc.ID {
+		return handler(objectivec.ObjectFromID(blockArg0)).GetID()
+	})
 	retainNetworkAsyncBlock(options.ID, "nw_ws_options_set_client_request_handler:0", _block0Value)
 	_block0 := unsafe.Pointer(_block0Value)
 	_nw_ws_options_set_client_request_handler(options, uintptr(client_queue.Handle()), _block0)
@@ -9423,9 +9471,11 @@ func init() {
 	registerFunc(&_nw_endpoint_copy_address_string, &_nw_endpoint_copy_address_stringErr, frameworkHandle, "nw_endpoint_copy_address_string", "10.14")
 	registerFunc(&_nw_endpoint_copy_port_string, &_nw_endpoint_copy_port_stringErr, frameworkHandle, "nw_endpoint_copy_port_string", "10.14")
 	registerFunc(&_nw_endpoint_copy_txt_record, &_nw_endpoint_copy_txt_recordErr, frameworkHandle, "nw_endpoint_copy_txt_record", "13.0")
+	registerFunc(&_nw_endpoint_create_address, &_nw_endpoint_create_addressErr, frameworkHandle, "nw_endpoint_create_address", "10.14")
 	registerFunc(&_nw_endpoint_create_bonjour_service, &_nw_endpoint_create_bonjour_serviceErr, frameworkHandle, "nw_endpoint_create_bonjour_service", "10.14")
 	registerFunc(&_nw_endpoint_create_host, &_nw_endpoint_create_hostErr, frameworkHandle, "nw_endpoint_create_host", "10.14")
 	registerFunc(&_nw_endpoint_create_url, &_nw_endpoint_create_urlErr, frameworkHandle, "nw_endpoint_create_url", "10.15")
+	registerFunc(&_nw_endpoint_get_address, &_nw_endpoint_get_addressErr, frameworkHandle, "nw_endpoint_get_address", "10.14")
 	registerFunc(&_nw_endpoint_get_bonjour_service_domain, &_nw_endpoint_get_bonjour_service_domainErr, frameworkHandle, "nw_endpoint_get_bonjour_service_domain", "10.14")
 	registerFunc(&_nw_endpoint_get_bonjour_service_name, &_nw_endpoint_get_bonjour_service_nameErr, frameworkHandle, "nw_endpoint_get_bonjour_service_name", "10.14")
 	registerFunc(&_nw_endpoint_get_bonjour_service_type, &_nw_endpoint_get_bonjour_service_typeErr, frameworkHandle, "nw_endpoint_get_bonjour_service_type", "10.14")

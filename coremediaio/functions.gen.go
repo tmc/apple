@@ -496,10 +496,10 @@ func CMIOSampleBufferCopySampleAttachments(sourceSBuf uintptr, destSBuf uintptr)
 	return result
 }
 
-var _cMIOSampleBufferCreate func(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *uintptr) int32
+var _cMIOSampleBufferCreate func(allocator corefoundation.CFAllocatorRef, dataBuffer coremedia.CMBlockBufferRef, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *uintptr) int32
 var _cMIOSampleBufferCreateErr error
 
-func tryCMIOSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *uintptr) (int32, error) {
+func tryCMIOSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer coremedia.CMBlockBufferRef, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *uintptr) (int32, error) {
 	if _cMIOSampleBufferCreate == nil {
 		return 0, symbolCallError("CMIOSampleBufferCreate", "10.7", _cMIOSampleBufferCreateErr)
 	}
@@ -509,7 +509,7 @@ func tryCMIOSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuff
 // CMIOSampleBufferCreate.
 //
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOSampleBufferCreate
-func CMIOSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer uintptr, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *uintptr) int32 {
+func CMIOSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer coremedia.CMBlockBufferRef, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *uintptr) int32 {
 	result, callErr := tryCMIOSampleBufferCreate(allocator, dataBuffer, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sequenceNumber, discontinuityFlags, sBufOut)
 	if callErr != nil {
 		panic(callErr)
