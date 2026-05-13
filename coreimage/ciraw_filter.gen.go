@@ -4,7 +4,6 @@ package coreimage
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
@@ -324,8 +323,8 @@ type ICIRAWFilter interface {
 	NeutralTint() float32
 	SetNeutralTint(value float32)
 	// A value that indicates the orientation of the image.
-	Orientation() unsafe.Pointer
-	SetOrientation(value unsafe.Pointer)
+	Orientation() uint
+	SetOrientation(value uint)
 	// An optional auxiliary image that represents the portrait effects matte of the image.
 	PortraitEffectsMatte() ICIImage
 	// An optional auxiliary image that represents a preview of the original image.
@@ -900,11 +899,11 @@ func (r CIRAWFilter) SetNeutralTint(value float32) {
 // specification.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/orientation
-func (r CIRAWFilter) Orientation() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("orientation"))
+func (r CIRAWFilter) Orientation() uint {
+	rv := objc.Send[uint](r.ID, objc.Sel("orientation"))
 	return rv
 }
-func (r CIRAWFilter) SetOrientation(value unsafe.Pointer) {
+func (r CIRAWFilter) SetOrientation(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOrientation:"), value)
 }
 
