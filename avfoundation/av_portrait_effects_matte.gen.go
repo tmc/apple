@@ -139,7 +139,7 @@ type IAVPortraitEffectsMatte interface {
 	// Topic: Creating a Portrait Effects matte
 
 	// Returns a derivative portrait effects matte after applying the specified EXIF orientation.
-	PortraitEffectsMatteByApplyingExifOrientation(exifOrientation uint) IAVPortraitEffectsMatte
+	PortraitEffectsMatteByApplyingExifOrientation(exifOrientation unsafe.Pointer) IAVPortraitEffectsMatte
 	// Returns a portrait effects matte by wrapping the replacement pixel buffer.
 	PortraitEffectsMatteByReplacingPortraitEffectsMatteWithPixelBufferError(pixelBuffer corevideo.CVImageBufferRef) (IAVPortraitEffectsMatte, error)
 
@@ -208,8 +208,10 @@ func NewPortraitEffectsMatteFromDictionaryRepresentationError(imageSourceAuxData
 // exifOrientation: One of the standard EXIF orientation tags expressing how the portrait
 // effects matte should be rotated or mirrored.
 //
+// exifOrientation is a [imageio.CGImagePropertyOrientation].
+//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPortraitEffectsMatte/applyingExifOrientation(_:)
-func (p AVPortraitEffectsMatte) PortraitEffectsMatteByApplyingExifOrientation(exifOrientation uint) IAVPortraitEffectsMatte {
+func (p AVPortraitEffectsMatte) PortraitEffectsMatteByApplyingExifOrientation(exifOrientation unsafe.Pointer) IAVPortraitEffectsMatte {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("portraitEffectsMatteByApplyingExifOrientation:"), exifOrientation)
 	return AVPortraitEffectsMatteFromID(rv)
 }

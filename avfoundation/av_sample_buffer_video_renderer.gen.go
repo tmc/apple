@@ -219,7 +219,7 @@ func (s AVSampleBufferVideoRenderer) LoadVideoPerformanceMetricsWithCompletionHa
 // [kCMSampleAttachmentKey_DisplayImmediately]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DisplayImmediately
 // [kCMSampleAttachmentKey_DoNotDisplay]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DoNotDisplay
 // [kCMSampleBufferAttachmentKey_EmptyMedia]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_EmptyMedia
-func (s AVSampleBufferVideoRenderer) EnqueueSampleBuffer(sampleBuffer uintptr) {
+func (s AVSampleBufferVideoRenderer) EnqueueSampleBuffer(sampleBuffer coremedia.CMSampleBufferRef) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enqueueSampleBuffer:"), sampleBuffer)
 }
 
@@ -397,9 +397,9 @@ func (s AVSampleBufferVideoRenderer) RecommendedPixelBufferAttributes() foundati
 // The timebase governs how time stamps are interpreted by the renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-func (s AVSampleBufferVideoRenderer) Timebase() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("timebase"))
-	return rv
+func (s AVSampleBufferVideoRenderer) Timebase() coremedia.CMTimebaseRef {
+	rv := objc.Send[coremedia.CMTimebaseRef](s.ID, objc.Sel("timebase"))
+	return coremedia.CMTimebaseRef(rv)
 }
 
 // Protocol methods for AVQueuedSampleBufferRendering

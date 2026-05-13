@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -104,9 +105,9 @@ type IAVCaptureInputPort interface {
 	// The media type of the port.
 	MediaType() AVMediaType
 	// A description of the port format.
-	FormatDescription() uintptr
+	FormatDescription() coremedia.CMFormatDescriptionRef
 	// An object that represents the capture device’s clock.
-	Clock() uintptr
+	Clock() coremedia.CMClockRef
 
 	// Topic: Accessing the input
 
@@ -173,9 +174,9 @@ func (c AVCaptureInputPort) MediaType() AVMediaType {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/formatDescription
 //
 // [formatDescriptionDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/formatDescriptionDidChangeNotification
-func (c AVCaptureInputPort) FormatDescription() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("formatDescription"))
-	return rv
+func (c AVCaptureInputPort) FormatDescription() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](c.ID, objc.Sel("formatDescription"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
 
 // An object that represents the capture device’s clock.
@@ -186,9 +187,9 @@ func (c AVCaptureInputPort) FormatDescription() uintptr {
 // in the capture device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/clock
-func (c AVCaptureInputPort) Clock() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("clock"))
-	return rv
+func (c AVCaptureInputPort) Clock() coremedia.CMClockRef {
+	rv := objc.Send[coremedia.CMClockRef](c.ID, objc.Sel("clock"))
+	return coremedia.CMClockRef(rv)
 }
 
 // The input object that owns the port.

@@ -3,6 +3,7 @@
 package avfoundation
 
 import (
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -22,7 +23,7 @@ type AVQueuedSampleBufferRendering interface {
 	// Sends a sample buffer to the queue for rendering.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
-	EnqueueSampleBuffer(sampleBuffer uintptr)
+	EnqueueSampleBuffer(sampleBuffer coremedia.CMSampleBufferRef)
 
 	// Tells the target to invoke a client-supplied block in order to gather sample buffers for playback.
 	//
@@ -47,7 +48,7 @@ type AVQueuedSampleBufferRendering interface {
 	// The timebase for a renderer.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-	Timebase() uintptr
+	Timebase() coremedia.CMTimebaseRef
 }
 
 // AVQueuedSampleBufferRenderingObject wraps an existing Objective-C object that conforms to the AVQueuedSampleBufferRendering protocol.
@@ -102,7 +103,7 @@ func (o AVQueuedSampleBufferRenderingObject) IsReadyForMoreMediaData() bool {
 // [kCMSampleAttachmentKey_DisplayImmediately]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DisplayImmediately
 // [kCMSampleAttachmentKey_DoNotDisplay]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DoNotDisplay
 // [kCMSampleBufferAttachmentKey_EmptyMedia]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_EmptyMedia
-func (o AVQueuedSampleBufferRenderingObject) EnqueueSampleBuffer(sampleBuffer uintptr) {
+func (o AVQueuedSampleBufferRenderingObject) EnqueueSampleBuffer(sampleBuffer coremedia.CMSampleBufferRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("enqueueSampleBuffer:"), sampleBuffer)
 }
 
@@ -165,7 +166,7 @@ func (o AVQueuedSampleBufferRenderingObject) Flush() {
 // The timebase for a renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-func (o AVQueuedSampleBufferRenderingObject) Timebase() uintptr {
-	rv := objc.Send[uintptr](o.ID, objc.Sel("timebase"))
+func (o AVQueuedSampleBufferRenderingObject) Timebase() coremedia.CMTimebaseRef {
+	rv := objc.Send[coremedia.CMTimebaseRef](o.ID, objc.Sel("timebase"))
 	return rv
 }

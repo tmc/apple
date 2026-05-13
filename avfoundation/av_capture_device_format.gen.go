@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -252,7 +253,7 @@ type IAVCaptureDeviceFormat interface {
 	// A constant describing the media type of an [AVCaptureDevice] active or supported format.
 	MediaType() AVMediaType
 	// An object describing the capture format.
-	FormatDescription() uintptr
+	FormatDescription() coremedia.CMFormatDescriptionRef
 
 	// Topic: Determining photo quality
 
@@ -476,9 +477,9 @@ func (c AVCaptureDeviceFormat) MediaType() AVMediaType {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/formatDescription
 //
 // [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
-func (c AVCaptureDeviceFormat) FormatDescription() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("formatDescription"))
-	return rv
+func (c AVCaptureDeviceFormat) FormatDescription() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](c.ID, objc.Sel("formatDescription"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
 
 // A Boolean value that indicates whether this format supports high-quality

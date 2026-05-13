@@ -159,7 +159,7 @@ type IAVMutableCompositionTrack interface {
 	// Topic: Replacing format descriptions
 
 	// Replaces a format description with another or cancels a previous replacement.
-	ReplaceFormatDescriptionWithFormatDescription(originalFormatDescription uintptr, replacementFormatDescription uintptr)
+	ReplaceFormatDescriptionWithFormatDescription(originalFormatDescription coremedia.CMFormatDescriptionRef, replacementFormatDescription coremedia.CMFormatDescriptionRef)
 
 	// Topic: Validating segments
 
@@ -298,7 +298,7 @@ func (m AVMutableCompositionTrack) RemoveTrackAssociationToTrackType(composition
 // replacementFormatDescription: A replacement format description.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack/replaceFormatDescription(_:with:)
-func (m AVMutableCompositionTrack) ReplaceFormatDescriptionWithFormatDescription(originalFormatDescription uintptr, replacementFormatDescription uintptr) {
+func (m AVMutableCompositionTrack) ReplaceFormatDescriptionWithFormatDescription(originalFormatDescription coremedia.CMFormatDescriptionRef, replacementFormatDescription coremedia.CMFormatDescriptionRef) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceFormatDescription:withFormatDescription:"), originalFormatDescription, replacementFormatDescription)
 }
 

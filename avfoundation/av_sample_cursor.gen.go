@@ -192,7 +192,7 @@ type IAVSampleCursor interface {
 	// The synchronization information for the current sample for consideration when resynchronizing a decoder.
 	CurrentSampleSyncInfo() AVSampleCursorSyncInfo
 	// Returns the format description of the sample at the cursor’s current position.
-	CopyCurrentSampleFormatDescription() uintptr
+	CopyCurrentSampleFormatDescription() coremedia.CMFormatDescriptionRef
 	// The independent decodability information for the audio sample.
 	CurrentSampleAudioDependencyInfo() AVSampleCursorAudioDependencyInfo
 	// A dictionary of dependency-related sample buffer attachments.
@@ -317,9 +317,9 @@ func (s AVSampleCursor) StepInPresentationOrderByCount(stepCount int64) int64 {
 // The current sample’s format description.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/copyCurrentSampleFormatDescription()
-func (s AVSampleCursor) CopyCurrentSampleFormatDescription() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("copyCurrentSampleFormatDescription"))
-	return rv
+func (s AVSampleCursor) CopyCurrentSampleFormatDescription() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](s.ID, objc.Sel("copyCurrentSampleFormatDescription"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
 
 // Determines whether a sample earlier in decode order can have a presentation

@@ -188,7 +188,7 @@ type IAVDepthData interface {
 	// Topic: Transforming and processing
 
 	// Returns a derivative depth data object by mirroring or rotating it to the specified orientation.
-	DepthDataByApplyingExifOrientation(exifOrientation uint) IAVDepthData
+	DepthDataByApplyingExifOrientation(exifOrientation unsafe.Pointer) IAVDepthData
 	// Returns a derivative depth data object by converting the depth data map to the specified data type.
 	DepthDataByConvertingToDepthDataType(depthDataType uint32) IAVDepthData
 	// Returns a derivative depth data object by replacing the depth data map.
@@ -280,6 +280,8 @@ func (d AVDepthData) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType
 //
 // exifOrientation: The image orientation to apply to the depth data map.
 //
+// exifOrientation is a [imageio.CGImagePropertyOrientation].
+//
 // # Return Value
 //
 // A new, transformed depth data object.
@@ -300,7 +302,7 @@ func (d AVDepthData) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/applyingExifOrientation(_:)
 //
 // [CGImagePropertyOrientation.up]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation/up
-func (d AVDepthData) DepthDataByApplyingExifOrientation(exifOrientation uint) IAVDepthData {
+func (d AVDepthData) DepthDataByApplyingExifOrientation(exifOrientation unsafe.Pointer) IAVDepthData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("depthDataByApplyingExifOrientation:"), exifOrientation)
 	return AVDepthDataFromID(rv)
 }

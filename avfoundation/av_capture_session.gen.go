@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -326,7 +327,7 @@ type IAVCaptureSession interface {
 	// Topic: Synchronizing output
 
 	// A clock to use for output synchronization.
-	SynchronizationClock() uintptr
+	SynchronizationClock() coremedia.CMClockRef
 }
 
 // Init initializes the instance.
@@ -1012,7 +1013,7 @@ func (c AVCaptureSession) Running() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/synchronizationClock
-func (c AVCaptureSession) SynchronizationClock() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("synchronizationClock"))
-	return rv
+func (c AVCaptureSession) SynchronizationClock() coremedia.CMClockRef {
+	rv := objc.Send[coremedia.CMClockRef](c.ID, objc.Sel("synchronizationClock"))
+	return coremedia.CMClockRef(rv)
 }

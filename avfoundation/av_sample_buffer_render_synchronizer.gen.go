@@ -136,7 +136,7 @@ type IAVSampleBufferRenderSynchronizer interface {
 	// Returns the current time of the synchronizer.
 	CurrentTime() coremedia.CMTime
 	// The synchronizer’s rendering timebase which determines how it interprets timestamps.
-	Timebase() uintptr
+	Timebase() coremedia.CMTimebaseRef
 	// The current playback rate.
 	Rate() float32
 	SetRate(value float32)
@@ -409,9 +409,9 @@ func (s AVSampleBufferRenderSynchronizer) Renderers() []objectivec.IObject {
 // the timebase is the system host clock.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/timebase
-func (s AVSampleBufferRenderSynchronizer) Timebase() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("timebase"))
-	return rv
+func (s AVSampleBufferRenderSynchronizer) Timebase() coremedia.CMTimebaseRef {
+	rv := objc.Send[coremedia.CMTimebaseRef](s.ID, objc.Sel("timebase"))
+	return coremedia.CMTimebaseRef(rv)
 }
 
 // The current playback rate.

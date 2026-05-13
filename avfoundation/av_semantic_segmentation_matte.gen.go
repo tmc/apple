@@ -111,7 +111,7 @@ type IAVSemanticSegmentationMatte interface {
 	// Returns a semantic segmentation matte instance that wraps the replacement pixel buffer.
 	SemanticSegmentationMatteByReplacingSemanticSegmentationMatteWithPixelBufferError(pixelBuffer corevideo.CVImageBufferRef) (IAVSemanticSegmentationMatte, error)
 	// Returns a new semantic segmentation matte instance with the specified Exif orientation applied.
-	SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation uint) IAVSemanticSegmentationMatte
+	SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation unsafe.Pointer) IAVSemanticSegmentationMatte
 	// Returns a dictionary of primitive map information to use when writing an image file with a semantic segmentation matte.
 	DictionaryRepresentationForAuxiliaryDataType(outAuxDataType string) foundation.INSDictionary
 
@@ -214,6 +214,8 @@ func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByReplacingSemanti
 // exifOrientation: A [CGImagePropertyOrientation] value expressing how the matte should be
 // rotated or mirrored.
 //
+// exifOrientation is a [imageio.CGImagePropertyOrientation].
+//
 // # Return Value
 //
 // A new semantic segmentation matte instance.
@@ -226,7 +228,7 @@ func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByReplacingSemanti
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/applyingExifOrientation(_:)
 //
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation uint) IAVSemanticSegmentationMatte {
+func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation unsafe.Pointer) IAVSemanticSegmentationMatte {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("semanticSegmentationMatteByApplyingExifOrientation:"), exifOrientation)
 	return AVSemanticSegmentationMatteFromID(rv)
 }

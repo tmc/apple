@@ -143,7 +143,7 @@ type IAVDelegatingPlaybackCoordinator interface {
 	// Coordinates a seek to the specified time for all connected participants.
 	CoordinateSeekToTimeOptions(time coremedia.CMTime, options AVDelegatingPlaybackCoordinatorSeekOptions)
 	// Tells the coordinator to transition to a new item.
-	TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase(itemIdentifier string, snapshotTimebase uintptr)
+	TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase(itemIdentifier string, snapshotTimebase coremedia.CMTimebaseRef)
 	// Tells the coordinator to reissue current play state commands to synchronize the current item to the state of other participants.
 	ReapplyCurrentItemStateToPlaybackControlDelegate()
 }
@@ -261,7 +261,7 @@ func (d AVDelegatingPlaybackCoordinator) CoordinateSeekToTimeOptions(time coreme
 //
 // [CMTimebaseCreateWithSourceClock(allocator:sourceClock:timebaseOut:)]: https://developer.apple.com/documentation/CoreMedia/CMTimebaseCreateWithSourceClock(allocator:sourceClock:timebaseOut:)
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func (d AVDelegatingPlaybackCoordinator) TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase(itemIdentifier string, snapshotTimebase uintptr) {
+func (d AVDelegatingPlaybackCoordinator) TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase(itemIdentifier string, snapshotTimebase coremedia.CMTimebaseRef) {
 	objc.Send[objc.ID](d.ID, objc.Sel("transitionToItemWithIdentifier:proposingInitialTimingBasedOnTimebase:"), objc.String(itemIdentifier), snapshotTimebase)
 }
 

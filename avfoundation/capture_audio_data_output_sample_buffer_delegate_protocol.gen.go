@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"fmt"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func AVCaptureAudioDataOutputSampleBufferDelegateObjectFromID(id objc.ID) AVCapt
 // connection: The connection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutputSampleBufferDelegate/captureOutput(_:didOutput:from:)
-func (o AVCaptureAudioDataOutputSampleBufferDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer uintptr, connection IAVCaptureConnection) {
+func (o AVCaptureAudioDataOutputSampleBufferDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer coremedia.CMSampleBufferRef, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didOutputSampleBuffer:fromConnection:"), output, sampleBuffer, connection)
 }
 
@@ -60,7 +61,7 @@ type AVCaptureAudioDataOutputSampleBufferDelegateConfig struct {
 
 	// Other Methods
 	// CaptureOutputDidOutputSampleBufferFromConnection — Notifies the delegate that a sample buffer was written.
-	CaptureOutputDidOutputSampleBufferFromConnection func(output AVCaptureOutput, sampleBuffer uintptr, connection AVCaptureConnection)
+	CaptureOutputDidOutputSampleBufferFromConnection func(output AVCaptureOutput, sampleBuffer coremedia.CMSampleBufferRef, connection AVCaptureConnection)
 }
 
 // NewAVCaptureAudioDataOutputSampleBufferDelegate creates an Objective-C object implementing the [AVCaptureAudioDataOutputSampleBufferDelegate] protocol.
@@ -85,7 +86,7 @@ func NewAVCaptureAudioDataOutputSampleBufferDelegate(config AVCaptureAudioDataOu
 		fn := config.CaptureOutputDidOutputSampleBufferFromConnection
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didOutputSampleBuffer:fromConnection:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer uintptr, connectionID objc.ID) {
+			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer coremedia.CMSampleBufferRef, connectionID objc.ID) {
 				output := AVCaptureOutputFromID(outputID)
 				connection := AVCaptureConnectionFromID(connectionID)
 				fn(output, sampleBuffer, connection)

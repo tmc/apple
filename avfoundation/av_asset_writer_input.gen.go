@@ -220,7 +220,7 @@ type IAVAssetWriterInput interface {
 	// Creates an input to append sample buffers of the specified type to the output file.
 	InitWithMediaTypeOutputSettings(mediaType AVMediaType, outputSettings foundation.INSDictionary) AVAssetWriterInput
 	// Creates an input that appends sample buffers of the specified type and format hint to the output file.
-	InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint uintptr) AVAssetWriterInput
+	InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint coremedia.CMFormatDescriptionRef) AVAssetWriterInput
 
 	// Topic: Configuring presentation
 
@@ -303,7 +303,7 @@ type IAVAssetWriterInput interface {
 	// The settings to use for encoding media data you append to the output.
 	OutputSettings() foundation.INSDictionary
 	// A hint about the format of the sample buffers to append to the input.
-	SourceFormatHint() uintptr
+	SourceFormatHint() coremedia.CMFormatDescriptionRef
 }
 
 // Init initializes the instance.
@@ -412,7 +412,7 @@ func NewAssetWriterInputWithMediaTypeOutputSettings(mediaType AVMediaType, outpu
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/init(mediaType:outputSettings:sourceFormatHint:)
 //
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
-func NewAssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint uintptr) AVAssetWriterInput {
+func NewAssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint coremedia.CMFormatDescriptionRef) AVAssetWriterInput {
 	instance := getAVAssetWriterInputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMediaType:outputSettings:sourceFormatHint:"), objc.String(string(mediaType)), outputSettings, sourceFormatHint)
 	return AVAssetWriterInputFromID(rv)
@@ -504,7 +504,7 @@ func (a AVAssetWriterInput) InitWithMediaTypeOutputSettings(mediaType AVMediaTyp
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/init(mediaType:outputSettings:sourceFormatHint:)
 //
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
-func (a AVAssetWriterInput) InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint uintptr) AVAssetWriterInput {
+func (a AVAssetWriterInput) InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint coremedia.CMFormatDescriptionRef) AVAssetWriterInput {
 	rv := objc.Send[AVAssetWriterInput](a.ID, objc.Sel("initWithMediaType:outputSettings:sourceFormatHint:"), objc.String(string(mediaType)), outputSettings, sourceFormatHint)
 	return rv
 }
@@ -739,7 +739,7 @@ func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMedi
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/assetWriterInputWithMediaType:outputSettings:sourceFormatHint:
 //
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
-func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint uintptr) AVAssetWriterInput {
+func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint coremedia.CMFormatDescriptionRef) AVAssetWriterInput {
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetWriterInputClass.class), objc.Sel("assetWriterInputWithMediaType:outputSettings:sourceFormatHint:"), objc.String(string(mediaType)), outputSettings, sourceFormatHint)
 	return AVAssetWriterInputFromID(rv)
 }
@@ -1138,7 +1138,7 @@ func (a AVAssetWriterInput) OutputSettings() foundation.INSDictionary {
 // additional upfront validation of samples.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/sourceFormatHint
-func (a AVAssetWriterInput) SourceFormatHint() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("sourceFormatHint"))
-	return rv
+func (a AVAssetWriterInput) SourceFormatHint() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](a.ID, objc.Sel("sourceFormatHint"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }

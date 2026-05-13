@@ -85,8 +85,8 @@ type IAVAssetVariantVideoLayoutAttributes interface {
 	ProjectionType() uint64
 
 	// The video sample codec types present in the variant’s renditions.
-	CodecTypes() uint32
-	SetCodecTypes(value uint32)
+	CodecTypes() AVVideoCodecType
+	SetCodecTypes(value AVVideoCodecType)
 	// The nominal frame rate of the variant’s renditions.
 	NominalFrameRate() float64
 	SetNominalFrameRate(value float64)
@@ -149,12 +149,12 @@ func (a AVAssetVariantVideoLayoutAttributes) ProjectionType() uint64 {
 // The video sample codec types present in the variant’s renditions.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/codectypes
-func (a AVAssetVariantVideoLayoutAttributes) CodecTypes() uint32 {
-	rv := objc.Send[uint32](a.ID, objc.Sel("codecTypes"))
-	return rv
+func (a AVAssetVariantVideoLayoutAttributes) CodecTypes() AVVideoCodecType {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("codecTypes"))
+	return AVVideoCodecType(foundation.NSStringFromID(rv).String())
 }
-func (a AVAssetVariantVideoLayoutAttributes) SetCodecTypes(value uint32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setCodecTypes:"), value)
+func (a AVAssetVariantVideoLayoutAttributes) SetCodecTypes(value AVVideoCodecType) {
+	objc.Send[struct{}](a.ID, objc.Sel("setCodecTypes:"), objc.String(string(value)))
 }
 
 // The nominal frame rate of the variant’s renditions.

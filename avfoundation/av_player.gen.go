@@ -527,11 +527,11 @@ type IAVPlayer interface {
 	// Cancels any pending preroll requests and invokes the corresponding completion handlers, if present.
 	CancelPendingPrerolls()
 	// A clock the player uses for item time bases.
-	SourceClock() uintptr
-	SetSourceClock(value uintptr)
+	SourceClock() coremedia.CMClockRef
+	SetSourceClock(value coremedia.CMClockRef)
 	// The host clock for item time bases.
-	MasterClock() uintptr
-	SetMasterClock(value uintptr)
+	MasterClock() coremedia.CMClockRef
+	SetMasterClock(value coremedia.CMClockRef)
 
 	// Topic: Preventing sleep and backgrounding
 
@@ -1512,11 +1512,11 @@ func (p AVPlayer) PlaybackCoordinator() IAVPlayerPlaybackCoordinator {
 // audio device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/sourceClock
-func (p AVPlayer) SourceClock() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("sourceClock"))
-	return rv
+func (p AVPlayer) SourceClock() coremedia.CMClockRef {
+	rv := objc.Send[coremedia.CMClockRef](p.ID, objc.Sel("sourceClock"))
+	return coremedia.CMClockRef(rv)
 }
-func (p AVPlayer) SetSourceClock(value uintptr) {
+func (p AVPlayer) SetSourceClock(value coremedia.CMClockRef) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSourceClock:"), value)
 }
 
@@ -1531,11 +1531,11 @@ func (p AVPlayer) SetSourceClock(value uintptr) {
 // source.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/masterClock
-func (p AVPlayer) MasterClock() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("masterClock"))
-	return rv
+func (p AVPlayer) MasterClock() coremedia.CMClockRef {
+	rv := objc.Send[coremedia.CMClockRef](p.ID, objc.Sel("masterClock"))
+	return coremedia.CMClockRef(rv)
 }
-func (p AVPlayer) SetMasterClock(value uintptr) {
+func (p AVPlayer) SetMasterClock(value coremedia.CMClockRef) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMasterClock:"), value)
 }
 

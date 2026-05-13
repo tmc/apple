@@ -566,7 +566,7 @@ type IAVPlayerItem interface {
 	// The duration of the item.
 	Duration() coremedia.CMTime
 	// The timebase information for the item.
-	Timebase() uintptr
+	Timebase() coremedia.CMTimebaseRef
 
 	// Topic: Determining available time ranges
 
@@ -1740,9 +1740,9 @@ func (p AVPlayerItem) Duration() coremedia.CMTime {
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/timebase
 //
 // [kCMTimebaseNotification_EffectiveRateChanged]: https://developer.apple.com/documentation/CoreMedia/kCMTimebaseNotification_EffectiveRateChanged
-func (p AVPlayerItem) Timebase() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("timebase"))
-	return rv
+func (p AVPlayerItem) Timebase() coremedia.CMTimebaseRef {
+	rv := objc.Send[coremedia.CMTimebaseRef](p.ID, objc.Sel("timebase"))
+	return coremedia.CMTimebaseRef(rv)
 }
 
 // An array of time ranges indicating media data that is readily available.

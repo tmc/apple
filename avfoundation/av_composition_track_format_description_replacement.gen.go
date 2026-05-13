@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -79,9 +80,9 @@ type IAVCompositionTrackFormatDescriptionReplacement interface {
 	// Topic: Managing format descriptions
 
 	// The format description to replace.
-	OriginalFormatDescription() uintptr
+	OriginalFormatDescription() coremedia.CMFormatDescriptionRef
 	// The replacement format description.
-	ReplacementFormatDescription() uintptr
+	ReplacementFormatDescription() coremedia.CMFormatDescriptionRef
 
 	// The replacement format descriptions.
 	FormatDescriptionReplacements() IAVCompositionTrackFormatDescriptionReplacement
@@ -118,17 +119,17 @@ func (c AVCompositionTrackFormatDescriptionReplacement) EncodeWithCoder(coder fo
 // The format description to replace.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackFormatDescriptionReplacement/originalFormatDescription
-func (c AVCompositionTrackFormatDescriptionReplacement) OriginalFormatDescription() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("originalFormatDescription"))
-	return rv
+func (c AVCompositionTrackFormatDescriptionReplacement) OriginalFormatDescription() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](c.ID, objc.Sel("originalFormatDescription"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
 
 // The replacement format description.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackFormatDescriptionReplacement/replacementFormatDescription
-func (c AVCompositionTrackFormatDescriptionReplacement) ReplacementFormatDescription() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("replacementFormatDescription"))
-	return rv
+func (c AVCompositionTrackFormatDescriptionReplacement) ReplacementFormatDescription() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](c.ID, objc.Sel("replacementFormatDescription"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
 
 // The replacement format descriptions.

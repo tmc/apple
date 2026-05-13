@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/quartzcore"
@@ -133,8 +134,8 @@ type IAVSampleBufferDisplayLayer interface {
 	// A Boolean value that indicates whether the first video frame is ready for display.
 	ReadyForDisplay() bool
 	// A timebase that determines how the layer interprets timestamps.
-	ControlTimebase() uintptr
-	SetControlTimebase(value uintptr)
+	ControlTimebase() coremedia.CMTimebaseRef
+	SetControlTimebase(value coremedia.CMTimebaseRef)
 	// A value that indicates how the layer displays video within its bounds.
 	VideoGravity() AVLayerVideoGravity
 	SetVideoGravity(value AVLayerVideoGravity)
@@ -240,11 +241,11 @@ func (s AVSampleBufferDisplayLayer) ReadyForDisplay() bool {
 // [CACurrentMediaTime()]: https://developer.apple.com/documentation/QuartzCore/CACurrentMediaTime()
 // [CMAudioClock]: https://developer.apple.com/documentation/CoreMedia/cmaudioclock-api
 // [CMClock]: https://developer.apple.com/documentation/CoreMedia/CMClock
-func (s AVSampleBufferDisplayLayer) ControlTimebase() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("controlTimebase"))
-	return rv
+func (s AVSampleBufferDisplayLayer) ControlTimebase() coremedia.CMTimebaseRef {
+	rv := objc.Send[coremedia.CMTimebaseRef](s.ID, objc.Sel("controlTimebase"))
+	return coremedia.CMTimebaseRef(rv)
 }
-func (s AVSampleBufferDisplayLayer) SetControlTimebase(value uintptr) {
+func (s AVSampleBufferDisplayLayer) SetControlTimebase(value coremedia.CMTimebaseRef) {
 	objc.Send[struct{}](s.ID, objc.Sel("setControlTimebase:"), value)
 }
 
@@ -421,9 +422,9 @@ func (s AVSampleBufferDisplayLayer) Status() AVQueuedSampleBufferRenderingStatus
 // and later. Use [Timebase] on the [SampleBufferRenderer] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer/timebase
-func (s AVSampleBufferDisplayLayer) Timebase() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("timebase"))
-	return rv
+func (s AVSampleBufferDisplayLayer) Timebase() coremedia.CMTimebaseRef {
+	rv := objc.Send[coremedia.CMTimebaseRef](s.ID, objc.Sel("timebase"))
+	return coremedia.CMTimebaseRef(rv)
 }
 
 // Protocol methods for AVQueuedSampleBufferRendering

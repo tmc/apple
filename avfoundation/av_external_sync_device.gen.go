@@ -100,7 +100,7 @@ type IAVExternalSyncDevice interface {
 	// Topic: Inspecting a device
 
 	// A clock representing the source of time from the external sync device.
-	Clock() uintptr
+	Clock() coremedia.CMClockRef
 	// The USB product identifier associated with the external sync device.
 	ProductID() uint32
 	// Delay to wait before starting the frame capture.
@@ -141,9 +141,9 @@ func NewAVExternalSyncDevice() AVExternalSyncDevice {
 // [AVExternalSyncDeviceStatusActiveSync].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDevice/clock
-func (e AVExternalSyncDevice) Clock() uintptr {
-	rv := objc.Send[uintptr](e.ID, objc.Sel("clock"))
-	return rv
+func (e AVExternalSyncDevice) Clock() coremedia.CMClockRef {
+	rv := objc.Send[coremedia.CMClockRef](e.ID, objc.Sel("clock"))
+	return coremedia.CMClockRef(rv)
 }
 
 // The USB product identifier associated with the external sync device.

@@ -360,7 +360,7 @@ type IAVMutableMovieTrack interface {
 	FormatDescriptions() objectivec.IObject
 	SetFormatDescriptions(value objectivec.IObject)
 	// Replaces the track’s format description with a new format description.
-	ReplaceFormatDescriptionWithFormatDescription(formatDescription uintptr, newFormatDescription uintptr)
+	ReplaceFormatDescriptionWithFormatDescription(formatDescription coremedia.CMFormatDescriptionRef, newFormatDescription coremedia.CMFormatDescriptionRef)
 
 	// Topic: Configuring track information
 
@@ -637,7 +637,7 @@ func (m AVMutableMovieTrack) InsertMediaTimeRangeIntoTimeRange(mediaTimeRange co
 // [kCMFormatDescriptionExtension_VerbatimSampleDescription]: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_VerbatimSampleDescription
 //
 // [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
-func (m AVMutableMovieTrack) ReplaceFormatDescriptionWithFormatDescription(formatDescription uintptr, newFormatDescription uintptr) {
+func (m AVMutableMovieTrack) ReplaceFormatDescriptionWithFormatDescription(formatDescription coremedia.CMFormatDescriptionRef, newFormatDescription coremedia.CMFormatDescriptionRef) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceFormatDescription:withFormatDescription:"), formatDescription, newFormatDescription)
 }
 

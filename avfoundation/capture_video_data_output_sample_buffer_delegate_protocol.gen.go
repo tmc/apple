@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"fmt"
 
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -77,7 +78,7 @@ func AVCaptureVideoDataOutputSampleBufferDelegateObjectFromID(id objc.ID) AVCapt
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutputSampleBufferDelegate/captureOutput(_:didOutput:from:)
 //
 // [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
-func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer uintptr, connection IAVCaptureConnection) {
+func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer coremedia.CMSampleBufferRef, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didOutputSampleBuffer:fromConnection:"), output, sampleBuffer, connection)
 }
 
@@ -121,7 +122,7 @@ func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidOutp
 // [kCMSampleBufferDroppedFrameReason_Discontinuity]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferDroppedFrameReason_Discontinuity
 // [kCMSampleBufferDroppedFrameReason_FrameWasLate]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferDroppedFrameReason_FrameWasLate
 // [kCMSampleBufferDroppedFrameReason_OutOfBuffers]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferDroppedFrameReason_OutOfBuffers
-func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidDropSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer uintptr, connection IAVCaptureConnection) {
+func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidDropSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer coremedia.CMSampleBufferRef, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didDropSampleBuffer:fromConnection:"), output, sampleBuffer, connection)
 }
 
@@ -137,9 +138,9 @@ type AVCaptureVideoDataOutputSampleBufferDelegateConfig struct {
 
 	// Other Methods
 	// CaptureOutputDidOutputSampleBufferFromConnection — Notifies the delegate that a new video frame was written.
-	CaptureOutputDidOutputSampleBufferFromConnection func(output AVCaptureOutput, sampleBuffer uintptr, connection AVCaptureConnection)
+	CaptureOutputDidOutputSampleBufferFromConnection func(output AVCaptureOutput, sampleBuffer coremedia.CMSampleBufferRef, connection AVCaptureConnection)
 	// CaptureOutputDidDropSampleBufferFromConnection — Notifies the delegate that a video frame was discarded.
-	CaptureOutputDidDropSampleBufferFromConnection func(output AVCaptureOutput, sampleBuffer uintptr, connection AVCaptureConnection)
+	CaptureOutputDidDropSampleBufferFromConnection func(output AVCaptureOutput, sampleBuffer coremedia.CMSampleBufferRef, connection AVCaptureConnection)
 }
 
 // NewAVCaptureVideoDataOutputSampleBufferDelegate creates an Objective-C object implementing the [AVCaptureVideoDataOutputSampleBufferDelegate] protocol.
@@ -164,7 +165,7 @@ func NewAVCaptureVideoDataOutputSampleBufferDelegate(config AVCaptureVideoDataOu
 		fn := config.CaptureOutputDidOutputSampleBufferFromConnection
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didOutputSampleBuffer:fromConnection:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer uintptr, connectionID objc.ID) {
+			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer coremedia.CMSampleBufferRef, connectionID objc.ID) {
 				output := AVCaptureOutputFromID(outputID)
 				connection := AVCaptureConnectionFromID(connectionID)
 				fn(output, sampleBuffer, connection)
@@ -176,7 +177,7 @@ func NewAVCaptureVideoDataOutputSampleBufferDelegate(config AVCaptureVideoDataOu
 		fn := config.CaptureOutputDidDropSampleBufferFromConnection
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didDropSampleBuffer:fromConnection:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer uintptr, connectionID objc.ID) {
+			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer coremedia.CMSampleBufferRef, connectionID objc.ID) {
 				output := AVCaptureOutputFromID(outputID)
 				connection := AVCaptureConnectionFromID(connectionID)
 				fn(output, sampleBuffer, connection)

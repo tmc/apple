@@ -101,7 +101,7 @@ type IAVSpatialVideoConfiguration interface {
 	// Topic: Creating a configuration
 
 	// Initializes an AVSpatialVideoConfiguration with a format description.
-	InitWithFormatDescription(formatDescription uintptr) AVSpatialVideoConfiguration
+	InitWithFormatDescription(formatDescription coremedia.CMFormatDescriptionRef) AVSpatialVideoConfiguration
 
 	// Topic: Modifying the configuration
 
@@ -176,7 +176,7 @@ func NewAVSpatialVideoConfiguration() AVSpatialVideoConfiguration {
 // The format description is not stored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSpatialVideoConfiguration-c.class/initWithFormatDescription:
-func NewSpatialVideoConfigurationWithFormatDescription(formatDescription uintptr) AVSpatialVideoConfiguration {
+func NewSpatialVideoConfigurationWithFormatDescription(formatDescription coremedia.CMFormatDescriptionRef) AVSpatialVideoConfiguration {
 	instance := getAVSpatialVideoConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormatDescription:"), formatDescription)
 	return AVSpatialVideoConfigurationFromID(rv)
@@ -195,7 +195,7 @@ func NewSpatialVideoConfigurationWithFormatDescription(formatDescription uintptr
 // The format description is not stored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSpatialVideoConfiguration-c.class/initWithFormatDescription:
-func (s AVSpatialVideoConfiguration) InitWithFormatDescription(formatDescription uintptr) AVSpatialVideoConfiguration {
+func (s AVSpatialVideoConfiguration) InitWithFormatDescription(formatDescription coremedia.CMFormatDescriptionRef) AVSpatialVideoConfiguration {
 	rv := objc.Send[AVSpatialVideoConfiguration](s.ID, objc.Sel("initWithFormatDescription:"), formatDescription)
 	return rv
 }

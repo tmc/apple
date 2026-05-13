@@ -262,7 +262,7 @@ func (s AVSampleBufferAudioRenderer) FlushFromSourceTimeCompletionHandler(time c
 // [kCMSampleAttachmentKey_DisplayImmediately]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DisplayImmediately
 // [kCMSampleAttachmentKey_DoNotDisplay]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DoNotDisplay
 // [kCMSampleBufferAttachmentKey_EmptyMedia]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_EmptyMedia
-func (s AVSampleBufferAudioRenderer) EnqueueSampleBuffer(sampleBuffer uintptr) {
+func (s AVSampleBufferAudioRenderer) EnqueueSampleBuffer(sampleBuffer coremedia.CMSampleBufferRef) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enqueueSampleBuffer:"), sampleBuffer)
 }
 
@@ -502,9 +502,9 @@ func (s AVSampleBufferAudioRenderer) HasSufficientMediaDataForReliablePlaybackSt
 // The timebase governs how time stamps are interpreted by the renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-func (s AVSampleBufferAudioRenderer) Timebase() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("timebase"))
-	return rv
+func (s AVSampleBufferAudioRenderer) Timebase() coremedia.CMTimebaseRef {
+	rv := objc.Send[coremedia.CMTimebaseRef](s.ID, objc.Sel("timebase"))
+	return coremedia.CMTimebaseRef(rv)
 }
 
 // Protocol methods for AVQueuedSampleBufferRendering
