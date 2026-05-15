@@ -241,8 +241,6 @@ const (
 	KCGCaptureNoFill CGCaptureOptions = 1
 	// KCGCaptureNoOptions: The system should use the default fill behavior, which is fill with black.
 	KCGCaptureNoOptions CGCaptureOptions = 0
-	// KCGMouseEventSubtype: Key to access an integer field that encodes the mouse event subtype as a .
-	KCGMouseEventSubtype CGCaptureOptions = 0
 )
 
 func (e CGCaptureOptions) String() string {
@@ -664,7 +662,9 @@ const (
 	// KCGMouseEventNumber: Key to access an integer field that contains the mouse button event number.
 	KCGMouseEventNumber CGEventField = 0
 	// KCGMouseEventPressure: Key to access a double field that contains the mouse button pressure.
-	KCGMouseEventPressure                                      CGEventField = 2
+	KCGMouseEventPressure CGEventField = 2
+	// KCGMouseEventSubtype: Key to access an integer field that encodes the mouse event subtype as a `kCFNumberIntType`.
+	KCGMouseEventSubtype                                       CGEventField = 7
 	KCGMouseEventWindowUnderMousePointer                       CGEventField = 91
 	KCGMouseEventWindowUnderMousePointerThatCanHandleThisEvent CGEventField = 92
 	KCGScrollWheelEventAcceleratedDeltaAxis1                   CGEventField = 176
@@ -787,6 +787,8 @@ func (e CGEventField) String() string {
 		return "KCGMouseEventNumber"
 	case KCGMouseEventPressure:
 		return "KCGMouseEventPressure"
+	case KCGMouseEventSubtype:
+		return "KCGMouseEventSubtype"
 	case KCGMouseEventWindowUnderMousePointer:
 		return "KCGMouseEventWindowUnderMousePointer"
 	case KCGMouseEventWindowUnderMousePointerThatCanHandleThisEvent:
