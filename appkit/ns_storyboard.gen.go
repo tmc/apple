@@ -215,7 +215,7 @@ func (s NSStoryboard) InstantiateControllerWithIdentifier(identifier NSStoryboar
 
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboard/instantiateControllerWithIdentifier:creator:
 func (s NSStoryboard) InstantiateControllerWithIdentifierCreator(identifier NSStoryboardSceneIdentifier, block NSStoryboardControllerCreator) objectivec.IObject {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) objectivec.IObject { return block(foundation.NSCoderFromID(arg0)) })
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) objc.ID { return block(foundation.NSCoderFromID(arg0)).GetID() })
 	defer _block1.Release()
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("instantiateControllerWithIdentifier:creator:"), identifier, objc.ID(_block1))
 	return objectivec.Object{ID: rv}
@@ -223,7 +223,7 @@ func (s NSStoryboard) InstantiateControllerWithIdentifierCreator(identifier NSSt
 
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboard/instantiateInitialControllerWithCreator:
 func (s NSStoryboard) InstantiateInitialControllerWithCreator(block NSStoryboardControllerCreator) objectivec.IObject {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) objectivec.IObject { return block(foundation.NSCoderFromID(arg0)) })
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) objc.ID { return block(foundation.NSCoderFromID(arg0)).GetID() })
 	defer _block0.Release()
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("instantiateInitialControllerWithCreator:"), objc.ID(_block0))
 	return objectivec.Object{ID: rv}
