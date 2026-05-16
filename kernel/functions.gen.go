@@ -4,7 +4,6 @@ package kernel
 
 import (
 	"fmt"
-	"syscall"
 	"unsafe"
 
 	"github.com/ebitengine/purego"
@@ -35636,10 +35635,10 @@ func Movqueue(arg0 Queue_t, arg1 Queue_t) {
 	}
 }
 
-var _msleep func(arg0 Lck_mtx_t, arg1 int, arg2 int8, arg3 syscall.Timespec) int
+var _msleep func(arg0 Lck_mtx_t, arg1 int, arg2 int8, arg3 Timespec) int
 var _msleepErr error
 
-func tryMsleep(arg0 Lck_mtx_t, arg1 int, arg2 int8, arg3 syscall.Timespec) (int, error) {
+func tryMsleep(arg0 Lck_mtx_t, arg1 int, arg2 int8, arg3 Timespec) (int, error) {
 	if _msleep == nil {
 		return 0, symbolCallError("msleep", "10.4", _msleepErr)
 	}
@@ -35649,7 +35648,7 @@ func tryMsleep(arg0 Lck_mtx_t, arg1 int, arg2 int8, arg3 syscall.Timespec) (int,
 // Msleep.
 //
 // See: https://developer.apple.com/documentation/kernel/1488963-msleep
-func Msleep(arg0 Lck_mtx_t, arg1 int, arg2 int8, arg3 syscall.Timespec) int {
+func Msleep(arg0 Lck_mtx_t, arg1 int, arg2 int8, arg3 Timespec) int {
 	result, callErr := tryMsleep(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
@@ -35802,10 +35801,10 @@ func Nanoseconds_to_deadline(arg0 uint64, arg1 uint64) {
 	}
 }
 
-var _nanotime func(arg0 syscall.Timespec)
+var _nanotime func(arg0 Timespec)
 var _nanotimeErr error
 
-func tryNanotime(arg0 syscall.Timespec) error {
+func tryNanotime(arg0 Timespec) error {
 	if _nanotime == nil {
 		return symbolCallError("nanotime", "10.4", _nanotimeErr)
 	}
@@ -35816,16 +35815,16 @@ func tryNanotime(arg0 syscall.Timespec) error {
 // Nanotime.
 //
 // See: https://developer.apple.com/documentation/kernel/1391785-nanotime
-func Nanotime(arg0 syscall.Timespec) {
+func Nanotime(arg0 Timespec) {
 	if callErr := tryNanotime(arg0); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _nanouptime func(arg0 syscall.Timespec)
+var _nanouptime func(arg0 Timespec)
 var _nanouptimeErr error
 
-func tryNanouptime(arg0 syscall.Timespec) error {
+func tryNanouptime(arg0 Timespec) error {
 	if _nanouptime == nil {
 		return symbolCallError("nanouptime", "10.4", _nanouptimeErr)
 	}
@@ -35836,7 +35835,7 @@ func tryNanouptime(arg0 syscall.Timespec) error {
 // Nanouptime.
 //
 // See: https://developer.apple.com/documentation/kernel/1391776-nanouptime
-func Nanouptime(arg0 syscall.Timespec) {
+func Nanouptime(arg0 Timespec) {
 	if callErr := tryNanouptime(arg0); callErr != nil {
 		panic(callErr)
 	}
@@ -46943,10 +46942,10 @@ func Tsnprintf(arg0 int8, arg1 uintptr, arg2 int8) *byte {
 	return result
 }
 
-var _tstoabstime func(arg0 syscall.Timespec) uint64
+var _tstoabstime func(arg0 Timespec) uint64
 var _tstoabstimeErr error
 
-func tryTstoabstime(arg0 syscall.Timespec) (uint64, error) {
+func tryTstoabstime(arg0 Timespec) (uint64, error) {
 	if _tstoabstime == nil {
 		return 0, symbolCallError("tstoabstime", "10.11.2", _tstoabstimeErr)
 	}
@@ -46956,7 +46955,7 @@ func tryTstoabstime(arg0 syscall.Timespec) (uint64, error) {
 // Tstoabstime.
 //
 // See: https://developer.apple.com/documentation/kernel/1519655-tstoabstime
-func Tstoabstime(arg0 syscall.Timespec) uint64 {
+func Tstoabstime(arg0 Timespec) uint64 {
 	result, callErr := tryTstoabstime(arg0)
 	if callErr != nil {
 		panic(callErr)

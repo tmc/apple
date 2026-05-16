@@ -155,7 +155,7 @@ type INSCharacterSet interface {
 	// Topic: Testing Set Membership
 
 	// Returns a Boolean value that indicates whether a given character is in the receiver.
-	CharacterIsMember(aCharacter uint16) bool
+	CharacterIsMember(aCharacter Unichar) bool
 	// Returns a Boolean value that indicates whether the receiver has at least one member in a given character plane.
 	HasMemberInPlane(thePlane uint8) bool
 	// Returns a Boolean value that indicates whether the receiver is a superset of another given character set.
@@ -306,7 +306,7 @@ func (c NSCharacterSet) InitWithCoder(coder INSCoder) NSCharacterSet {
 // true if `aCharacter` is in the receiving character set, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/characterIsMember(_:)
-func (c NSCharacterSet) CharacterIsMember(aCharacter uint16) bool {
+func (c NSCharacterSet) CharacterIsMember(aCharacter Unichar) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("characterIsMember:"), aCharacter)
 	return rv
 }

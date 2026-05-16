@@ -1808,7 +1808,7 @@ type IODetailedTimingInformationV2 = unsafe.Pointer
 type IODirection = uint32
 
 // See: https://developer.apple.com/documentation/kernel/iodispatchaction
-type IODispatchAction = func() int32
+type IODispatchAction = func() Kern_return_t
 
 // See: https://developer.apple.com/documentation/kernel/iodispatchblock
 type IODispatchBlock = func()
@@ -2241,7 +2241,7 @@ type IOSimpleLock = unsafe.Pointer
 type IOSimpleReportValues = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/iostatenotificationhandler
-type IOStateNotificationHandler = func() int32
+type IOStateNotificationHandler = func() Kern_return_t
 
 // See: https://developer.apple.com/documentation/kernel/iostatenotificationlistenerref
 type IOStateNotificationListenerRef uintptr

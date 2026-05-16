@@ -351,10 +351,10 @@ func Es_mute_process_events(client *Es_client_t, audit_token *[32]byte, events *
 	return result
 }
 
-var _es_muted_paths_events func(client *Es_client_t, muted_paths *Es_muted_paths_t) EsReturn
+var _es_muted_paths_events func(client *Es_client_t, muted_paths **Es_muted_paths_t) EsReturn
 var _es_muted_paths_eventsErr error
 
-func tryEs_muted_paths_events(client *Es_client_t, muted_paths *Es_muted_paths_t) (EsReturn, error) {
+func tryEs_muted_paths_events(client *Es_client_t, muted_paths **Es_muted_paths_t) (EsReturn, error) {
 	if _es_muted_paths_events == nil {
 		return *new(EsReturn), symbolCallError("es_muted_paths_events", "12.0", _es_muted_paths_eventsErr)
 	}
@@ -364,7 +364,7 @@ func tryEs_muted_paths_events(client *Es_client_t, muted_paths *Es_muted_paths_t
 // Es_muted_paths_events retrieve a list of all muted paths.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_muted_paths_events(_:_:)
-func Es_muted_paths_events(client *Es_client_t, muted_paths *Es_muted_paths_t) EsReturn {
+func Es_muted_paths_events(client *Es_client_t, muted_paths **Es_muted_paths_t) EsReturn {
 	result, callErr := tryEs_muted_paths_events(client, muted_paths)
 	if callErr != nil {
 		panic(callErr)
@@ -372,10 +372,10 @@ func Es_muted_paths_events(client *Es_client_t, muted_paths *Es_muted_paths_t) E
 	return result
 }
 
-var _es_muted_processes_events func(client *Es_client_t, muted_processes *Es_muted_processes_t) EsReturn
+var _es_muted_processes_events func(client *Es_client_t, muted_processes **Es_muted_processes_t) EsReturn
 var _es_muted_processes_eventsErr error
 
-func tryEs_muted_processes_events(client *Es_client_t, muted_processes *Es_muted_processes_t) (EsReturn, error) {
+func tryEs_muted_processes_events(client *Es_client_t, muted_processes **Es_muted_processes_t) (EsReturn, error) {
 	if _es_muted_processes_events == nil {
 		return *new(EsReturn), symbolCallError("es_muted_processes_events", "12.0", _es_muted_processes_eventsErr)
 	}
@@ -385,7 +385,7 @@ func tryEs_muted_processes_events(client *Es_client_t, muted_processes *Es_muted
 // Es_muted_processes_events retrieve a list of all muted processes.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_muted_processes_events(_:_:)
-func Es_muted_processes_events(client *Es_client_t, muted_processes *Es_muted_processes_t) EsReturn {
+func Es_muted_processes_events(client *Es_client_t, muted_processes **Es_muted_processes_t) EsReturn {
 	result, callErr := tryEs_muted_processes_events(client, muted_processes)
 	if callErr != nil {
 		panic(callErr)

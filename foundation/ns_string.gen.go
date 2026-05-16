@@ -643,9 +643,9 @@ type INSString interface {
 	// Returns an initialized [NSString] object that contains a given number of bytes from a given buffer of bytes interpreted in a given encoding, and optionally frees the buffer.
 	InitWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, len_ uint, encoding uint, freeBuffer bool) NSString
 	// Returns an initialized [NSString] object that contains a given number of characters from a given C array of UTF-16 code units.
-	InitWithCharactersLength(characters unsafe.Pointer, length uint) NSString
+	InitWithCharactersLength(characters Unichar, length uint) NSString
 	// Returns an initialized [NSString] object that contains a given number of characters from a given C array of UTF-16 code units.
-	InitWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSString
+	InitWithCharactersNoCopyLengthFreeWhenDone(characters Unichar, length uint, freeBuffer bool) NSString
 	// Returns an [NSString] object initialized by copying the characters from another given string.
 	InitWithString(aString string) NSString
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted without any localization.
@@ -676,7 +676,7 @@ type INSString interface {
 	// Returns the character at a given UTF-16 code unit index.
 	CharacterAtIndex(index uint) Unichar
 	// Copies characters from a given range in the receiver into a given buffer.
-	GetCharactersRange(buffer unsafe.Pointer, range_ NSRange)
+	GetCharactersRange(buffer Unichar, range_ NSRange)
 	// Gets a given range of characters as bytes in a specified encoding.
 	GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool)
 
@@ -940,7 +940,7 @@ type INSString interface {
 	// Topic: Deprecated
 
 	// Copies all characters from the receiver into a given buffer.
-	GetCharacters(buffer unsafe.Pointer)
+	GetCharacters(buffer Unichar)
 	// Draws the receiver with the specified options and other display characteristics of the given attributes, within the specified rectangle in the current graphics context.
 	DrawWithRectOptionsAttributes(rect corefoundation.CGRect, options NSStringDrawingOptions, attributes INSDictionary)
 	// Calculates and returns the bounding rect for the receiver drawn using the given options and display characteristics, within the specified rectangle in the current graphics context.
@@ -1097,7 +1097,7 @@ func NewStringWithCStringNoCopyLengthFreeWhenDone(bytes string, length uint, fre
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func NewStringWithCharactersLength(characters unsafe.Pointer, length uint) NSString {
+func NewStringWithCharactersLength(characters Unichar, length uint) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return NSStringFromID(rv)
@@ -1127,7 +1127,7 @@ func NewStringWithCharactersLength(characters unsafe.Pointer, length uint) NSStr
 // string with the buffer, without having the buffer deallocated.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func NewStringWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSString {
+func NewStringWithCharactersNoCopyLengthFreeWhenDone(characters Unichar, length uint, freeBuffer bool) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return NSStringFromID(rv)
@@ -1562,7 +1562,7 @@ func (s NSString) InitWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Poi
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func (s NSString) InitWithCharactersLength(characters unsafe.Pointer, length uint) NSString {
+func (s NSString) InitWithCharactersLength(characters Unichar, length uint) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return rv
 }
@@ -1591,7 +1591,7 @@ func (s NSString) InitWithCharactersLength(characters unsafe.Pointer, length uin
 // string with the buffer, without having the buffer deallocated.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func (s NSString) InitWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSString {
+func (s NSString) InitWithCharactersNoCopyLengthFreeWhenDone(characters Unichar, length uint, freeBuffer bool) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return rv
 }
@@ -1868,7 +1868,7 @@ func (s NSString) CharacterAtIndex(index uint) Unichar {
 // correctly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getCharacters(_:range:)
-func (s NSString) GetCharactersRange(buffer unsafe.Pointer, range_ NSRange) {
+func (s NSString) GetCharactersRange(buffer Unichar, range_ NSRange) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getCharacters:range:"), buffer, range_)
 }
 
@@ -3924,7 +3924,7 @@ func (s NSString) StringByAddingPercentEncodingWithAllowedCharacters(allowedChar
 // receiver as the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getCharacters(_:)
-func (s NSString) GetCharacters(buffer unsafe.Pointer) {
+func (s NSString) GetCharacters(buffer Unichar) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getCharacters:"), buffer)
 }
 
@@ -4478,7 +4478,7 @@ func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString string, en
 // first) from `chars`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithCharacters:length:
-func (_NSStringClass NSStringClass) StringWithCharactersLength(characters unsafe.Pointer, length uint) NSString {
+func (_NSStringClass NSStringClass) StringWithCharactersLength(characters Unichar, length uint) NSString {
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCharacters:length:"), characters, length)
 	return NSStringFromID(rv)
 }

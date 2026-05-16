@@ -81,10 +81,10 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-var _authorizationCopyInfo func(authorization AuthorizationRef, tag AuthorizationString, info *AuthorizationItemSet) int32
+var _authorizationCopyInfo func(authorization AuthorizationRef, tag AuthorizationString, info **AuthorizationItemSet) int32
 var _authorizationCopyInfoErr error
 
-func tryAuthorizationCopyInfo(authorization AuthorizationRef, tag AuthorizationString, info *AuthorizationItemSet) (int32, error) {
+func tryAuthorizationCopyInfo(authorization AuthorizationRef, tag AuthorizationString, info **AuthorizationItemSet) (int32, error) {
 	if _authorizationCopyInfo == nil {
 		return 0, symbolCallError("AuthorizationCopyInfo", "10.0", _authorizationCopyInfoErr)
 	}
@@ -94,7 +94,7 @@ func tryAuthorizationCopyInfo(authorization AuthorizationRef, tag AuthorizationS
 // AuthorizationCopyInfo retrieves supporting data such as the user name and other information gathered during evaluation of authorization.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationCopyInfo(_:_:_:)
-func AuthorizationCopyInfo(authorization AuthorizationRef, tag AuthorizationString, info *AuthorizationItemSet) int32 {
+func AuthorizationCopyInfo(authorization AuthorizationRef, tag AuthorizationString, info **AuthorizationItemSet) int32 {
 	result, callErr := tryAuthorizationCopyInfo(authorization, tag, info)
 	if callErr != nil {
 		panic(callErr)
@@ -6112,10 +6112,10 @@ func SecCertificateCreateWithData(allocator corefoundation.CFAllocatorRef, data 
 	return result
 }
 
-var _secCertificateGetAlgorithmID func(certificate SecCertificateRef, algid unsafe.Pointer) int32
+var _secCertificateGetAlgorithmID func(certificate SecCertificateRef, algid **SecAsn1AlgId) int32
 var _secCertificateGetAlgorithmIDErr error
 
-func trySecCertificateGetAlgorithmID(certificate SecCertificateRef, algid unsafe.Pointer) (int32, error) {
+func trySecCertificateGetAlgorithmID(certificate SecCertificateRef, algid **SecAsn1AlgId) (int32, error) {
 	if _secCertificateGetAlgorithmID == nil {
 		return 0, symbolCallError("SecCertificateGetAlgorithmID", "10.0", _secCertificateGetAlgorithmIDErr)
 	}
@@ -6127,7 +6127,7 @@ func trySecCertificateGetAlgorithmID(certificate SecCertificateRef, algid unsafe
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecCertificateGetAlgorithmID
-func SecCertificateGetAlgorithmID(certificate SecCertificateRef, algid unsafe.Pointer) int32 {
+func SecCertificateGetAlgorithmID(certificate SecCertificateRef, algid **SecAsn1AlgId) int32 {
 	result, callErr := trySecCertificateGetAlgorithmID(certificate, algid)
 	if callErr != nil {
 		panic(callErr)
@@ -8713,10 +8713,10 @@ func SecTrustGetNetworkFetchAllowed(trust SecTrustRef, allowFetch *bool) int32 {
 	return result
 }
 
-var _secTrustGetResult func(trustRef SecTrustRef, result *SecTrustResultType, certChain *corefoundation.CFArrayRef, statusChain unsafe.Pointer) int32
+var _secTrustGetResult func(trustRef SecTrustRef, result *SecTrustResultType, certChain *corefoundation.CFArrayRef, statusChain **CSSM_TP_APPLE_EVIDENCE_INFO) int32
 var _secTrustGetResultErr error
 
-func trySecTrustGetResult(trustRef SecTrustRef, result *SecTrustResultType, certChain *corefoundation.CFArrayRef, statusChain unsafe.Pointer) (int32, error) {
+func trySecTrustGetResult(trustRef SecTrustRef, result *SecTrustResultType, certChain *corefoundation.CFArrayRef, statusChain **CSSM_TP_APPLE_EVIDENCE_INFO) (int32, error) {
 	if _secTrustGetResult == nil {
 		return 0, symbolCallError("SecTrustGetResult", "10.2", _secTrustGetResultErr)
 	}
@@ -8728,7 +8728,7 @@ func trySecTrustGetResult(trustRef SecTrustRef, result *SecTrustResultType, cert
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustGetResult
-func SecTrustGetResult(trustRef SecTrustRef, result *SecTrustResultType, certChain *corefoundation.CFArrayRef, statusChain unsafe.Pointer) int32 {
+func SecTrustGetResult(trustRef SecTrustRef, result *SecTrustResultType, certChain *corefoundation.CFArrayRef, statusChain **CSSM_TP_APPLE_EVIDENCE_INFO) int32 {
 	result0, callErr := trySecTrustGetResult(trustRef, result, certChain, statusChain)
 	if callErr != nil {
 		panic(callErr)

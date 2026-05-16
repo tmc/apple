@@ -183,7 +183,7 @@ func NewConstantStringWithCStringNoCopyLengthFreeWhenDone(bytes string, length u
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func NewConstantStringWithCharactersLength(characters unsafe.Pointer, length uint) NSConstantString {
+func NewConstantStringWithCharactersLength(characters Unichar, length uint) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return NSConstantStringFromID(rv)
@@ -213,7 +213,7 @@ func NewConstantStringWithCharactersLength(characters unsafe.Pointer, length uin
 // string with the buffer, without having the buffer deallocated.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func NewConstantStringWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSConstantString {
+func NewConstantStringWithCharactersNoCopyLengthFreeWhenDone(characters Unichar, length uint, freeBuffer bool) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return NSConstantStringFromID(rv)

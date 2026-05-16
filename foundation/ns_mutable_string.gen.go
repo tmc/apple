@@ -287,7 +287,7 @@ func NewMutableStringWithCapacity(capacity uint) NSMutableString {
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func NewMutableStringWithCharactersLength(characters unsafe.Pointer, length uint) NSMutableString {
+func NewMutableStringWithCharactersLength(characters Unichar, length uint) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return NSMutableStringFromID(rv)
@@ -317,7 +317,7 @@ func NewMutableStringWithCharactersLength(characters unsafe.Pointer, length uint
 // string with the buffer, without having the buffer deallocated.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func NewMutableStringWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSMutableString {
+func NewMutableStringWithCharactersNoCopyLengthFreeWhenDone(characters Unichar, length uint, freeBuffer bool) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return NSMutableStringFromID(rv)

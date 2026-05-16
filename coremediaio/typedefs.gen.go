@@ -30,7 +30,7 @@ type CMIODeviceStreamQueueAlteredProc = func(uint, unsafe.Pointer, unsafe.Pointe
 type CMIOExtensionProperty = string
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOHardwarePlugInRef
-type CMIOHardwarePlugInRef = *CMIOHardwarePlugInInterface
+type CMIOHardwarePlugInRef = **CMIOHardwarePlugInInterface
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOHardwarePropertyID
 type CMIOHardwarePropertyID = string

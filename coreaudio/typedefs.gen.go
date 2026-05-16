@@ -63,7 +63,7 @@ type AudioObjectPropertySelector = uint32
 type AudioServerPlugInCustomPropertyDataType = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInDriverRef
-type AudioServerPlugInDriverRef = *AudioServerPlugInDriverInterface
+type AudioServerPlugInDriverRef = **AudioServerPlugInDriverInterface
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInHostRef
 type AudioServerPlugInHostRef = *AudioServerPlugInHostInterface

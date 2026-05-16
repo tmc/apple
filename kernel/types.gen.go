@@ -3,7 +3,6 @@
 package kernel
 
 import (
-	"syscall"
 	"unsafe"
 )
 
@@ -4778,7 +4777,7 @@ type Flock struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/flocktimeout
 type Flocktimeout struct {
-	Timeout syscall.Timespec
+	Timeout Timespec
 	Fl      Flock
 }
 
@@ -5756,7 +5755,7 @@ type Ifnet_interface_advisory_cell_context struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_interface_advisory_header
 type Ifnet_interface_advisory_header struct {
-	Interface_type    Ifnet_interface_advisory_interface_type
+	Interface_type    IfnetInterfaceAdvisoryInterfaceType
 	Version           Ifnet_interface_advisory_version
 	Notification_type unsafe.Pointer
 }
@@ -9424,20 +9423,20 @@ type Stackshot_task_codesigning_info struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stat
 type Stat struct {
 	St_dev       int32
-	St_atimespec syscall.Timespec
+	St_atimespec Timespec
 	St_nlink     uint16
 	St_size      int64
 	St_gid       uint32
 	St_uid       uint32
 	St_lspare    int32
 	St_ino       uint64
-	St_mtimespec syscall.Timespec
+	St_mtimespec Timespec
 	St_rdev      int32
 	St_qspare    int64
 	St_mode      uint16
 	St_gen       uint32
 	St_flags     uint32
-	St_ctimespec syscall.Timespec
+	St_ctimespec Timespec
 	St_blocks    int64
 	St_blksize   int32
 }
@@ -10827,13 +10826,13 @@ type Vnode_attr struct {
 	Va_dataprotect_flags  unsafe.Pointer
 	Va_type               Vtype
 	Va_data_size          unsafe.Pointer
-	Va_access_time        syscall.Timespec
+	Va_access_time        Timespec
 	Va_name               unsafe.Pointer
 	Va_total_size         unsafe.Pointer
 	Va_acl                unsafe.Pointer
 	Va_rdev               int32
-	Va_change_time        syscall.Timespec
-	Va_modify_time        syscall.Timespec
+	Va_change_time        Timespec
+	Va_modify_time        Timespec
 	Va_dataprotect_class  unsafe.Pointer
 	Va_parentid           unsafe.Pointer
 	Va_gen                unsafe.Pointer
@@ -10842,7 +10841,7 @@ type Vnode_attr struct {
 	Va_document_id        unsafe.Pointer
 	Va_devid              unsafe.Pointer
 	Va_fsid64             Fsid_t
-	Va_backup_time        syscall.Timespec
+	Va_backup_time        Timespec
 	Va_write_gencount     unsafe.Pointer
 	Va_total_alloc        unsafe.Pointer
 	Va_supported          unsafe.Pointer
@@ -10857,10 +10856,10 @@ type Vnode_attr struct {
 	Va_user_access        unsafe.Pointer
 	Va_gid                uint32
 	Va_nlink              unsafe.Pointer
-	Va_create_time        syscall.Timespec
+	Va_create_time        Timespec
 	Va_active             unsafe.Pointer
 	Va_filerev            unsafe.Pointer
-	Va_addedtime          syscall.Timespec
+	Va_addedtime          Timespec
 	Va_guuid              unsafe.Pointer
 	Va_private_size       unsafe.Pointer
 	Va_clone_id           unsafe.Pointer
@@ -10928,7 +10927,7 @@ type Vnop_advlock_args struct {
 	A_desc    unsafe.Pointer
 	A_context Vfs_context_t
 	A_op      unsafe.Pointer
-	A_timeout *syscall.Timespec
+	A_timeout *Timespec
 	A_flags   unsafe.Pointer
 	A_fl      *Flock
 }
@@ -11093,7 +11092,7 @@ type Vnop_getattrlistbulk_args struct {
 	A_eofflag     unsafe.Pointer
 	A_private     unsafe.Pointer
 	A_actualcount unsafe.Pointer
-	A_uio         unsafe.Pointer
+	A_uio         Uio
 	A_vp          Vnode_t
 	A_vap         *Vnode_attr
 }
@@ -11338,7 +11337,7 @@ type Vnop_read_args struct {
 	A_context Vfs_context_t
 	A_vp      Vnode_t
 	A_desc    unsafe.Pointer
-	A_uio     unsafe.Pointer
+	A_uio     Uio
 }
 
 // Vnop_readdir_args - Call down to a filesystem to create a symbolic link.
@@ -11350,7 +11349,7 @@ type Vnop_readdir_args struct {
 	A_vp        Vnode_t
 	A_desc      unsafe.Pointer
 	A_context   Vfs_context_t
-	A_uio       unsafe.Pointer
+	A_uio       Uio
 	A_numdirent unsafe.Pointer
 	A_eofflag   unsafe.Pointer
 }
@@ -11364,7 +11363,7 @@ type Vnop_readdirattr_args struct {
 	A_desc        unsafe.Pointer
 	A_alist       *Attrlist
 	A_context     Vfs_context_t
-	A_uio         unsafe.Pointer
+	A_uio         Uio
 	A_newstate    unsafe.Pointer
 	A_vp          Vnode_t
 	A_eofflag     unsafe.Pointer
@@ -11378,7 +11377,7 @@ type Vnop_readdirattr_args struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_readlink_args
 type Vnop_readlink_args struct {
 	A_desc    unsafe.Pointer
-	A_uio     unsafe.Pointer
+	A_uio     Uio
 	A_context Vfs_context_t
 	A_vp      Vnode_t
 }
@@ -11488,7 +11487,7 @@ type Vnop_searchfs_args struct {
 	A_searchparams2 unsafe.Pointer
 	A_searchattrs   *Attrlist
 	A_options       unsafe.Pointer
-	A_uio           unsafe.Pointer
+	A_uio           Uio
 	A_searchparams1 unsafe.Pointer
 	A_desc          unsafe.Pointer
 	A_maxmatches    unsafe.Pointer
@@ -11600,7 +11599,7 @@ type Vnop_whiteout_args struct {
 type Vnop_write_args struct {
 	A_context Vfs_context_t
 	A_vp      Vnode_t
-	A_uio     unsafe.Pointer
+	A_uio     Uio
 	A_desc    unsafe.Pointer
 	A_ioflag  unsafe.Pointer
 }

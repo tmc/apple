@@ -3068,12 +3068,12 @@ func Protocol_copyProtocolList(proto **Protocol, outCount *uint) **Protocol {
 	return result
 }
 
-var _protocol_getMethodDescription func(proto **Protocol, aSel SEL, isRequiredMethod bool, isInstanceMethod bool) unsafe.Pointer
+var _protocol_getMethodDescription func(proto **Protocol, aSel SEL, isRequiredMethod bool, isInstanceMethod bool) Objc_method_description
 var _protocol_getMethodDescriptionErr error
 
-func tryProtocol_getMethodDescription(proto **Protocol, aSel SEL, isRequiredMethod bool, isInstanceMethod bool) (unsafe.Pointer, error) {
+func tryProtocol_getMethodDescription(proto **Protocol, aSel SEL, isRequiredMethod bool, isInstanceMethod bool) (Objc_method_description, error) {
 	if _protocol_getMethodDescription == nil {
-		return nil, symbolCallError("protocol_getMethodDescription", "10.5", _protocol_getMethodDescriptionErr)
+		return Objc_method_description{}, symbolCallError("protocol_getMethodDescription", "10.5", _protocol_getMethodDescriptionErr)
 	}
 	return _protocol_getMethodDescription(proto, aSel, isRequiredMethod, isInstanceMethod), nil
 }
@@ -3081,7 +3081,7 @@ func tryProtocol_getMethodDescription(proto **Protocol, aSel SEL, isRequiredMeth
 // Protocol_getMethodDescription returns a method description structure for a specified method of a given protocol.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_getMethodDescription(_:_:_:_:)
-func Protocol_getMethodDescription(proto **Protocol, aSel SEL, isRequiredMethod bool, isInstanceMethod bool) unsafe.Pointer {
+func Protocol_getMethodDescription(proto **Protocol, aSel SEL, isRequiredMethod bool, isInstanceMethod bool) Objc_method_description {
 	result, callErr := tryProtocol_getMethodDescription(proto, aSel, isRequiredMethod, isInstanceMethod)
 	if callErr != nil {
 		panic(callErr)
