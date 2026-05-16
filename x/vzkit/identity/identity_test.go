@@ -21,3 +21,13 @@ func TestLoadMacMachineIdentifierErrors(t *testing.T) {
 		t.Fatalf("empty error = %v", err)
 	}
 }
+
+func TestCreateMacMachineIdentifier(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "machine.id")
+	if err := CreateMacMachineIdentifier(path); err != nil {
+		t.Fatalf("CreateMacMachineIdentifier: %v", err)
+	}
+	if _, err := LoadMacMachineIdentifier(path); err != nil {
+		t.Fatalf("LoadMacMachineIdentifier: %v", err)
+	}
+}

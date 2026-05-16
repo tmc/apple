@@ -2,6 +2,8 @@ package network
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/ebitengine/purego"
@@ -284,4 +286,19 @@ func CreateDevice(cfg Config) (vz.VZVirtioNetworkDeviceConfiguration, error) {
 		device.SetMACAddress(&macAddr)
 	}
 	return device, nil
+}
+
+// CreateRandomMACAddress creates and saves a random locally administered MAC address.
+func CreateRandomMACAddress(path string) error {
+	mac := vz.GetVZMACAddressClass().RandomLocallyAdministeredAddress()
+	if mac.ID == 0 {
+		return fmt.Errorf("create mac address")
+	}
+	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+		return fmt.Errorf("create mac address directory: %w", err)
+	}
+	if err := os.WriteFile(path, []byte(mac.String()+"\n"), 0644); err != nil {
+		return fmt.Errorf("write mac address: %w", err)
+	}
+	return nil
 }

@@ -59,6 +59,15 @@ func LoadOrCreateMacMachineIdentifier(path string) (vz.VZMacMachineIdentifier, b
 	return machineID, true, nil
 }
 
+// CreateMacMachineIdentifier creates and saves a new macOS machine identifier.
+func CreateMacMachineIdentifier(path string) error {
+	machineID := vz.NewVZMacMachineIdentifier()
+	if machineID.ID == 0 {
+		return fmt.Errorf("create machine identifier")
+	}
+	return SaveMacMachineIdentifier(machineID, path)
+}
+
 // LoadMacHardwareModel loads a macOS hardware model from path.
 func LoadMacHardwareModel(path string) (vz.VZMacHardwareModel, error) {
 	data, err := os.ReadFile(path)
