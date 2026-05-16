@@ -35,7 +35,7 @@
 //go:generate applegen-bootstrap -f "metal"
 //go:generate applegen-bootstrap -f "metalkit"
 //go:generate applegen-bootstrap -f "naturallanguage"
-//go:generate applegen-bootstrap -f "network"
+//go:generate applegen-bootstrap -f "network" --go-names
 //go:generate applegen-bootstrap -f "networkextension"
 //go:generate applegen-bootstrap -f "objectivec"
 //go:generate applegen-bootstrap -f "pdfkit"
