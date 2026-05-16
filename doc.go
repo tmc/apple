@@ -26,6 +26,7 @@
 //go:generate applegen-bootstrap -f "endpointsecurity"
 //go:generate applegen-bootstrap -f "foundation"
 //go:generate applegen-bootstrap -f "gamecontroller"
+//go:generate applegen-bootstrap -f "hypervisor"
 //go:generate applegen-bootstrap -f "iokit"
 //go:generate applegen-bootstrap -f "iosurface"
 //go:generate applegen-bootstrap -f "kernel"
