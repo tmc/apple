@@ -42,7 +42,7 @@ type HVAPICState struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Hypervisor/hv_apic_state_ext_t
 type HVAPICStateExt struct {
-	State   unsafe.Pointer
+	State   HVAPICState
 	Version uint32
 }
 
@@ -74,7 +74,7 @@ type HVAtpicState struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Hypervisor/hv_atpic_state_ext_t
 type HVAtpicStateExt struct {
-	State   unsafe.Pointer
+	State   HVAtpicState
 	Version uint32
 }
 
@@ -94,7 +94,7 @@ type HVIoapicState struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Hypervisor/hv_ioapic_state_ext_t
 type HVIoapicStateExt struct {
-	State   unsafe.Pointer
+	State   HVIoapicState
 	Version uint32
 }
 
@@ -127,8 +127,8 @@ type HVVCPUExitException struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_exit_t
 type HVVCPUExit struct {
-	Reason    HVExitReason   // Information about an exit from the vcpu to the host.
-	Exception unsafe.Pointer // Information about an exit exception from the vcpu to the host.
+	Reason    HVExitReason        // Information about an exit from the vcpu to the host.
+	Exception HVVCPUExitException // Information about an exit exception from the vcpu to the host.
 
 }
 
