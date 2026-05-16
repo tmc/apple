@@ -52,7 +52,7 @@ type Es_event_access_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_authentication_auto_unlock_t
 type Es_event_authentication_auto_unlock_t struct {
 	Username Es_string_token_t
-	Type     Es_auto_unlock_type_t
+	Type     EsAutoUnlock
 }
 
 // Es_event_authentication_od_t
@@ -793,7 +793,7 @@ type Es_event_open_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_openssh_login_t
 type Es_event_openssh_login_t struct {
 	Success             bool
-	Result_type         Es_openssh_login_result_type_t
+	Result_type         EsOpenssh
 	Source_address_type EsAddressType
 	Source_address      Es_string_token_t
 	Username            Es_string_token_t
@@ -974,10 +974,10 @@ type Es_event_searchfs_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setacl_t
 type Es_event_setacl_t struct {
-	Target       *Es_file_t        // The file containing the access control list to set or clear.
-	Set_or_clear Es_set_or_clear_t // The access control list action represented by the event, either setting or clearing values.
-	Acl          [8]byte           // A union containing a settable access control list structure.
-	Reserved     uint8             // An unused field reserved for future use.
+	Target       *Es_file_t // The file containing the access control list to set or clear.
+	Set_or_clear Es         // The access control list action represented by the event, either setting or clearing values.
+	Acl          [8]byte    // A union containing a settable access control list structure.
+	Reserved     uint8      // An unused field reserved for future use.
 
 }
 
@@ -1304,7 +1304,7 @@ type Es_event_xp_malware_remediated_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_xpc_connect_t
 type Es_event_xpc_connect_t struct {
 	Service_name        Es_string_token_t
-	Service_domain_type Es_xpc_domain_type_t
+	Service_domain_type EsXPCDomainType
 }
 
 // Es_events_t is a C union type. A C union of event-specific types.

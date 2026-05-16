@@ -10,158 +10,158 @@ type NS uint
 
 const (
 	// NSBackTabCharacter: The back tab character: `0x0019`
-	NSBackTabCharacter NS = 25
+	NSBackTabCharacter NS = 0x19
 	// NSBackspaceCharacter: The backspace character: `0x0008`
-	NSBackspaceCharacter NS = 8
+	NSBackspaceCharacter NS = 0x8
 	// NSBacktabTextMovement: The Backtab (Shift-Tab) key was pressed.
-	NSBacktabTextMovement NS = 18
+	NSBacktabTextMovement NS = 0x12
 	// NSBeginFunctionKey: The begin key.
-	NSBeginFunctionKey NS = 63274
+	NSBeginFunctionKey NS = 0xf72a
 	// NSBreakFunctionKey: The break key.
-	NSBreakFunctionKey NS = 63282
+	NSBreakFunctionKey NS = 0xf732
 	// NSCancelTextMovement: The user cancelled the completion.
-	NSCancelTextMovement NS = 23
+	NSCancelTextMovement NS = 0x17
 	// NSCarriageReturnCharacter: The carriage return character: `0x000d`
-	NSCarriageReturnCharacter NS = 13
+	NSCarriageReturnCharacter NS = 0xd
 	// NSClearDisplayFunctionKey: The clear display key.
-	NSClearDisplayFunctionKey NS = 63290
+	NSClearDisplayFunctionKey NS = 0xf73a
 	// NSClearLineFunctionKey: The clear or num lock key.
-	NSClearLineFunctionKey NS = 63289
+	NSClearLineFunctionKey NS = 0xf739
 	// NSControlGlyph: The reserved code for a control glyph.
-	NSControlGlyph NS = 16777215
+	NSControlGlyph NS = 0xffffff
 	// NSDeleteCharFunctionKey: The delete character key.
-	NSDeleteCharFunctionKey NS = 63294
+	NSDeleteCharFunctionKey NS = 0xf73e
 	// NSDeleteCharacter: The delete character: `0x007f`
-	NSDeleteCharacter NS = 127
+	NSDeleteCharacter NS = 0x7f
 	// NSDeleteFunctionKey: The forward delete key.
-	NSDeleteFunctionKey NS = 63272
+	NSDeleteFunctionKey NS = 0xf728
 	// NSDeleteLineFunctionKey: The delete line key.
-	NSDeleteLineFunctionKey NS = 63292
+	NSDeleteLineFunctionKey NS = 0xf73c
 	// NSDisplayWindowRunLoopOrdering: The priority at which windows are displayed.
 	NSDisplayWindowRunLoopOrdering NS = 600000
 	// NSDownArrowFunctionKey: The down arrow key.
-	NSDownArrowFunctionKey NS = 63233
+	NSDownArrowFunctionKey NS = 0xf701
 	// NSDownTextMovement: The down arrow key was pressed.
-	NSDownTextMovement NS = 22
+	NSDownTextMovement NS = 0x16
 	// NSEndFunctionKey: The end key.
-	NSEndFunctionKey NS = 63275
+	NSEndFunctionKey NS = 0xf72b
 	// NSEnterCharacter: The enter character: `0x0003`
-	NSEnterCharacter NS = 3
+	NSEnterCharacter NS = 0x3
 	// NSExecuteFunctionKey: The execute key.
-	NSExecuteFunctionKey NS = 63298
+	NSExecuteFunctionKey NS = 0xf742
 	// NSF10FunctionKey: The F10 key.
-	NSF10FunctionKey NS = 63245
+	NSF10FunctionKey NS = 0xf70d
 	// NSF11FunctionKey: The F11 key.
-	NSF11FunctionKey NS = 63246
+	NSF11FunctionKey NS = 0xf70e
 	// NSF12FunctionKey: The F12 key.
-	NSF12FunctionKey NS = 63247
+	NSF12FunctionKey NS = 0xf70f
 	// NSF13FunctionKey: The F13 key.
-	NSF13FunctionKey NS = 63248
+	NSF13FunctionKey NS = 0xf710
 	// NSF14FunctionKey: The F14 key.
-	NSF14FunctionKey NS = 63249
+	NSF14FunctionKey NS = 0xf711
 	// NSF15FunctionKey: The F15 key.
-	NSF15FunctionKey NS = 63250
+	NSF15FunctionKey NS = 0xf712
 	// NSF16FunctionKey: The F16 key.
-	NSF16FunctionKey NS = 63251
+	NSF16FunctionKey NS = 0xf713
 	// NSF17FunctionKey: The F17 key.
-	NSF17FunctionKey NS = 63252
+	NSF17FunctionKey NS = 0xf714
 	// NSF18FunctionKey: The F18 key.
-	NSF18FunctionKey NS = 63253
+	NSF18FunctionKey NS = 0xf715
 	// NSF19FunctionKey: The F19 key.
-	NSF19FunctionKey NS = 63254
+	NSF19FunctionKey NS = 0xf716
 	// NSF1FunctionKey: The F1 key.
-	NSF1FunctionKey NS = 63236
+	NSF1FunctionKey NS = 0xf704
 	// NSF20FunctionKey: The F20 key.
-	NSF20FunctionKey NS = 63255
+	NSF20FunctionKey NS = 0xf717
 	// NSF21FunctionKey: The F21 key.
-	NSF21FunctionKey NS = 63256
+	NSF21FunctionKey NS = 0xf718
 	// NSF22FunctionKey: The F22 key.
-	NSF22FunctionKey NS = 63257
+	NSF22FunctionKey NS = 0xf719
 	// NSF23FunctionKey: The F23 key.
-	NSF23FunctionKey NS = 63258
+	NSF23FunctionKey NS = 0xf71a
 	// NSF24FunctionKey: The F24 key.
-	NSF24FunctionKey NS = 63259
+	NSF24FunctionKey NS = 0xf71b
 	// NSF25FunctionKey: The F25 key.
-	NSF25FunctionKey NS = 63260
+	NSF25FunctionKey NS = 0xf71c
 	// NSF26FunctionKey: The F26 key.
-	NSF26FunctionKey NS = 63261
+	NSF26FunctionKey NS = 0xf71d
 	// NSF27FunctionKey: The F27 key.
-	NSF27FunctionKey NS = 63262
+	NSF27FunctionKey NS = 0xf71e
 	// NSF28FunctionKey: The F28 key.
-	NSF28FunctionKey NS = 63263
+	NSF28FunctionKey NS = 0xf71f
 	// NSF29FunctionKey: The F29 key.
-	NSF29FunctionKey NS = 63264
+	NSF29FunctionKey NS = 0xf720
 	// NSF2FunctionKey: The F2 key.
-	NSF2FunctionKey NS = 63237
+	NSF2FunctionKey NS = 0xf705
 	// NSF30FunctionKey: The F30 key.
-	NSF30FunctionKey NS = 63265
+	NSF30FunctionKey NS = 0xf721
 	// NSF31FunctionKey: The F31 key.
-	NSF31FunctionKey NS = 63266
+	NSF31FunctionKey NS = 0xf722
 	// NSF32FunctionKey: The F32 key.
-	NSF32FunctionKey NS = 63267
+	NSF32FunctionKey NS = 0xf723
 	// NSF33FunctionKey: The F33 key.
-	NSF33FunctionKey NS = 63268
+	NSF33FunctionKey NS = 0xf724
 	// NSF34FunctionKey: The F34 key.
-	NSF34FunctionKey NS = 63269
+	NSF34FunctionKey NS = 0xf725
 	// NSF35FunctionKey: The F35 key.
-	NSF35FunctionKey NS = 63270
+	NSF35FunctionKey NS = 0xf726
 	// NSF3FunctionKey: The F3 key.
-	NSF3FunctionKey NS = 63238
+	NSF3FunctionKey NS = 0xf706
 	// NSF4FunctionKey: The F4 key.
-	NSF4FunctionKey NS = 63239
+	NSF4FunctionKey NS = 0xf707
 	// NSF5FunctionKey: The F5 key.
-	NSF5FunctionKey NS = 63240
+	NSF5FunctionKey NS = 0xf708
 	// NSF6FunctionKey: The F6 key.
-	NSF6FunctionKey NS = 63241
+	NSF6FunctionKey NS = 0xf709
 	// NSF7FunctionKey: The F7 key.
-	NSF7FunctionKey NS = 63242
+	NSF7FunctionKey NS = 0xf70a
 	// NSF8FunctionKey: The F8 key.
-	NSF8FunctionKey NS = 63243
+	NSF8FunctionKey NS = 0xf70b
 	// NSF9FunctionKey: The F9 key.
-	NSF9FunctionKey NS = 63244
+	NSF9FunctionKey NS = 0xf70c
 	// NSFindFunctionKey: The find key.
-	NSFindFunctionKey        NS = 63301
+	NSFindFunctionKey        NS = 0xf745
 	NSFontAssetDownloadError NS = 66304
 	NSFontErrorMaximum       NS = 66335
 	NSFontErrorMinimum       NS = 66304
 	// NSFormFeedCharacter: The form feed character: `0x000c`
-	NSFormFeedCharacter NS = 12
+	NSFormFeedCharacter NS = 0xc
 	// NSHelpFunctionKey: The help key.
-	NSHelpFunctionKey NS = 63302
+	NSHelpFunctionKey NS = 0xf746
 	// NSHomeFunctionKey: The home key.
-	NSHomeFunctionKey NS = 63273
+	NSHomeFunctionKey NS = 0xf729
 	// NSIllegalTextMovement: Currently unused.
 	NSIllegalTextMovement NS = 0
 	// NSInsertCharFunctionKey: The insert character key.
-	NSInsertCharFunctionKey NS = 63293
+	NSInsertCharFunctionKey NS = 0xf73d
 	// NSInsertFunctionKey: The insert key.
-	NSInsertFunctionKey NS = 63271
+	NSInsertFunctionKey NS = 0xf727
 	// NSInsertLineFunctionKey: The insert line key.
-	NSInsertLineFunctionKey NS = 63291
+	NSInsertLineFunctionKey NS = 0xf73b
 	// NSLeftArrowFunctionKey: The left arrow key.
-	NSLeftArrowFunctionKey NS = 63234
+	NSLeftArrowFunctionKey NS = 0xf702
 	// NSLeftTextMovement: The left arrow key was pressed.
-	NSLeftTextMovement NS = 19
+	NSLeftTextMovement NS = 0x13
 	// NSLineSeparatorCharacter: The line separator character: `0x2028`
-	NSLineSeparatorCharacter NS = 8232
+	NSLineSeparatorCharacter NS = 0x2028
 	// NSMenuFunctionKey: The menu key.
-	NSMenuFunctionKey NS = 63285
+	NSMenuFunctionKey NS = 0xf735
 	// NSModeSwitchFunctionKey: The mode switch key.
-	NSModeSwitchFunctionKey NS = 63303
+	NSModeSwitchFunctionKey NS = 0xf747
 	// NSNewlineCharacter: The newline character: `0x000a`
-	NSNewlineCharacter NS = 10
+	NSNewlineCharacter NS = 0xa
 	// NSNextFunctionKey: The next key.
-	NSNextFunctionKey NS = 63296
+	NSNextFunctionKey NS = 0xf740
 	// NSNullGlyph: The reserved code for a null glyph.
 	NSNullGlyph NS = 0
 	// NSOtherTextMovement: The user performed some undefined action.
 	NSOtherTextMovement NS = 0
 	// NSPageDownFunctionKey: The page down key.
-	NSPageDownFunctionKey NS = 63277
+	NSPageDownFunctionKey NS = 0xf72d
 	// NSPageUpFunctionKey: The page up key.
-	NSPageUpFunctionKey NS = 63276
+	NSPageUpFunctionKey NS = 0xf72c
 	// NSParagraphSeparatorCharacter: The paragraph separator character: `0x2029`
-	NSParagraphSeparatorCharacter         NS = 8233
+	NSParagraphSeparatorCharacter         NS = 0x2029
 	NSPasteboardCommunicationError        NS = 67585
 	NSPasteboardContentsNotAvailableError NS = 67587
 	NSPasteboardErrorMaximum              NS = 67839
@@ -169,29 +169,29 @@ const (
 	NSPasteboardInvalidArgumentError      NS = 67586
 	NSPasteboardMiscellaneousError        NS = 67584
 	// NSPauseFunctionKey: The pause key.
-	NSPauseFunctionKey NS = 63280
+	NSPauseFunctionKey NS = 0xf730
 	// NSPrevFunctionKey: Previous key.
-	NSPrevFunctionKey NS = 63295
+	NSPrevFunctionKey NS = 0xf73f
 	// NSPrintFunctionKey: The print key.
-	NSPrintFunctionKey NS = 63288
+	NSPrintFunctionKey NS = 0xf738
 	// NSPrintScreenFunctionKey: The print screen key.
-	NSPrintScreenFunctionKey NS = 63278
+	NSPrintScreenFunctionKey NS = 0xf72e
 	// NSRedoFunctionKey: The redo key.
-	NSRedoFunctionKey NS = 63300
+	NSRedoFunctionKey NS = 0xf744
 	// NSResetCursorRectsRunLoopOrdering: The priority at which cursor rects are reset.
 	NSResetCursorRectsRunLoopOrdering NS = 700000
 	// NSResetFunctionKey: The reset key.
-	NSResetFunctionKey NS = 63283
+	NSResetFunctionKey NS = 0xf733
 	// NSReturnTextMovement: The Return key was pressed.
-	NSReturnTextMovement NS = 16
+	NSReturnTextMovement NS = 0x10
 	// NSRightArrowFunctionKey: The right arrow key.
-	NSRightArrowFunctionKey NS = 63235
+	NSRightArrowFunctionKey NS = 0xf703
 	// NSRightTextMovement: The right arrow key was pressed.
-	NSRightTextMovement NS = 20
+	NSRightTextMovement NS = 0x14
 	// NSScrollLockFunctionKey: The scroll lock key.
-	NSScrollLockFunctionKey NS = 63279
+	NSScrollLockFunctionKey NS = 0xf72f
 	// NSSelectFunctionKey: The select key.
-	NSSelectFunctionKey NS = 63297
+	NSSelectFunctionKey NS = 0xf741
 	// NSServiceApplicationLaunchFailedError: The service providing application could not be launched.
 	NSServiceApplicationLaunchFailedError NS = 66561
 	// NSServiceApplicationNotFoundError: The service provider could not be found.
@@ -216,15 +216,15 @@ const (
 	// NSShowInvisibleGlyphs: Generates displayable glyphs for invisible characters.
 	NSShowInvisibleGlyphs NS = 2
 	// NSStopFunctionKey: The stop key.
-	NSStopFunctionKey NS = 63284
+	NSStopFunctionKey NS = 0xf734
 	// NSSysReqFunctionKey: The system request key.
-	NSSysReqFunctionKey NS = 63281
+	NSSysReqFunctionKey NS = 0xf731
 	// NSSystemFunctionKey: The system key.
-	NSSystemFunctionKey NS = 63287
+	NSSystemFunctionKey NS = 0xf737
 	// NSTabCharacter: The tab character: `0x0009`
-	NSTabCharacter NS = 9
+	NSTabCharacter NS = 0x9
 	// NSTabTextMovement: The Tab key was pressed.
-	NSTabTextMovement NS = 17
+	NSTabTextMovement NS = 0x11
 	// NSTextReadInapplicableDocumentTypeError: Indicates a problem reading data with the specified format.
 	NSTextReadInapplicableDocumentTypeError NS = 65806
 	// NSTextReadWriteErrorMaximum: The end of a range of error codes reserved for future use.
@@ -234,13 +234,13 @@ const (
 	// NSTextWriteInapplicableDocumentTypeError: Indicates a problem writing data of the specified format.
 	NSTextWriteInapplicableDocumentTypeError NS = 66062
 	// NSUndoFunctionKey: The undo key.
-	NSUndoFunctionKey NS = 63299
+	NSUndoFunctionKey NS = 0xf743
 	// NSUpArrowFunctionKey: The up arrow key.
-	NSUpArrowFunctionKey NS = 63232
+	NSUpArrowFunctionKey NS = 0xf700
 	// NSUpTextMovement: The up arrow key was pressed.
-	NSUpTextMovement NS = 21
+	NSUpTextMovement NS = 0x15
 	// NSUserFunctionKey: The user key.
-	NSUserFunctionKey NS = 63286
+	NSUserFunctionKey NS = 0xf736
 	// NSWantsBidiLevels: Generates directional formatting codes for bidirectional text.
 	NSWantsBidiLevels                       NS = 4
 	NSWindowSharingErrorMaximum             NS = 67466
@@ -542,10 +542,10 @@ func (e NS) String() string {
 }
 
 const (
-	NSAccessibilityHourMinuteDateTimeComponentsFlag       uint = 12
-	NSAccessibilityHourMinuteSecondDateTimeComponentsFlag uint = 14
-	NSAccessibilityYearMonthDateTimeComponentsFlag        uint = 192
-	NSAccessibilityYearMonthDayDateTimeComponentsFlag     uint = 224
+	NSAccessibilityHourMinuteDateTimeComponentsFlag       uint = 0xc
+	NSAccessibilityHourMinuteSecondDateTimeComponentsFlag uint = 0xe
+	NSAccessibilityYearMonthDateTimeComponentsFlag        uint = 0xc0
+	NSAccessibilityYearMonthDayDateTimeComponentsFlag     uint = 0xe0
 )
 
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAnnotationPosition
@@ -1169,7 +1169,7 @@ func (e NSApplicationTerminateReply) String() string {
 type NSAttachment uint
 
 const (
-	NSAttachmentCharacter NSAttachment = 65532
+	NSAttachmentCharacter NSAttachment = 0xfffc
 )
 
 func (e NSAttachment) String() string {
@@ -2195,23 +2195,23 @@ type NSColorPanelOptions uint
 
 const (
 	// NSColorPanelAllModesMask: All color modes.
-	NSColorPanelAllModesMask NSColorPanelOptions = 65535
+	NSColorPanelAllModesMask NSColorPanelOptions = 0xffff
 	// NSColorPanelCMYKModeMask: The cyan-magenta-yellow-black color mode.
-	NSColorPanelCMYKModeMask NSColorPanelOptions = 4
+	NSColorPanelCMYKModeMask NSColorPanelOptions = 0x4
 	// NSColorPanelColorListModeMask: The custom color list mode.
-	NSColorPanelColorListModeMask NSColorPanelOptions = 32
+	NSColorPanelColorListModeMask NSColorPanelOptions = 0x20
 	// NSColorPanelCrayonModeMask: The crayon color mode.
-	NSColorPanelCrayonModeMask NSColorPanelOptions = 128
+	NSColorPanelCrayonModeMask NSColorPanelOptions = 0x80
 	// NSColorPanelCustomPaletteModeMask: The custom palette color mode.
-	NSColorPanelCustomPaletteModeMask NSColorPanelOptions = 16
+	NSColorPanelCustomPaletteModeMask NSColorPanelOptions = 0x10
 	// NSColorPanelGrayModeMask: The grayscale-alpha color mode.
-	NSColorPanelGrayModeMask NSColorPanelOptions = 1
+	NSColorPanelGrayModeMask NSColorPanelOptions = 0x1
 	// NSColorPanelHSBModeMask: The hue-saturation-brightness color mode.
-	NSColorPanelHSBModeMask NSColorPanelOptions = 8
+	NSColorPanelHSBModeMask NSColorPanelOptions = 0x8
 	// NSColorPanelRGBModeMask: The red-green-blue color mode.
-	NSColorPanelRGBModeMask NSColorPanelOptions = 2
+	NSColorPanelRGBModeMask NSColorPanelOptions = 0x2
 	// NSColorPanelWheelModeMask: The color wheel mode.
-	NSColorPanelWheelModeMask NSColorPanelOptions = 64
+	NSColorPanelWheelModeMask NSColorPanelOptions = 0x40
 )
 
 func (e NSColorPanelOptions) String() string {
@@ -2807,12 +2807,12 @@ func (e NSCursorFrameResizePosition) String() string {
 type NSDatePickerElementFlags uint
 
 const (
-	NSDatePickerElementFlagEra              NSDatePickerElementFlags = 256
-	NSDatePickerElementFlagHourMinute       NSDatePickerElementFlags = 12
-	NSDatePickerElementFlagHourMinuteSecond NSDatePickerElementFlags = 14
-	NSDatePickerElementFlagTimeZone         NSDatePickerElementFlags = 16
-	NSDatePickerElementFlagYearMonth        NSDatePickerElementFlags = 192
-	NSDatePickerElementFlagYearMonthDay     NSDatePickerElementFlags = 224
+	NSDatePickerElementFlagEra              NSDatePickerElementFlags = 0x100
+	NSDatePickerElementFlagHourMinute       NSDatePickerElementFlags = 0xc
+	NSDatePickerElementFlagHourMinuteSecond NSDatePickerElementFlags = 0xe
+	NSDatePickerElementFlagTimeZone         NSDatePickerElementFlags = 0x10
+	NSDatePickerElementFlagYearMonth        NSDatePickerElementFlags = 0xc0
+	NSDatePickerElementFlagYearMonthDay     NSDatePickerElementFlags = 0xe0
 )
 
 func (e NSDatePickerElementFlags) String() string {
@@ -2965,7 +2965,7 @@ func (e NSDocumentChangeType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDragOperation
-type NSDragOperation uint
+type NSDragOperation int
 
 const (
 	// NSDragOperationCopy: A constant that indicates the drag can copy the data that the image represents.
@@ -2973,7 +2973,7 @@ const (
 	// NSDragOperationDelete: A constant that indicates the drag can delete the data.
 	NSDragOperationDelete NSDragOperation = 32
 	// NSDragOperationEvery: A constant that indicates that drag can perform all of the drag operations.
-	NSDragOperationEvery NSDragOperation = 0
+	NSDragOperationEvery NSDragOperation = -1
 	// NSDragOperationGeneric: A constant that indicates the destination can define the drag operation.
 	NSDragOperationGeneric NSDragOperation = 4
 	// NSDragOperationLink: A constant that indicates the drag can share the data.
@@ -3004,6 +3004,8 @@ func (e NSDragOperation) String() string {
 		return "NSDragOperationLink"
 	case NSDragOperationMove:
 		return "NSDragOperationMove"
+	case NSDragOperationNone:
+		return "NSDragOperationNone"
 	case NSDragOperationPrivate:
 		return "NSDragOperationPrivate"
 	case NSDragOperationAll:
@@ -3122,11 +3124,11 @@ type NSEventButtonMask uint
 
 const (
 	// NSEventButtonMaskPenLowerSide: A mask that matches the button on the lower side of the device.
-	NSEventButtonMaskPenLowerSide NSEventButtonMask = 2
+	NSEventButtonMaskPenLowerSide NSEventButtonMask = 0x2
 	// NSEventButtonMaskPenTip: A mask that matches the pen tip.
-	NSEventButtonMaskPenTip NSEventButtonMask = 1
+	NSEventButtonMaskPenTip NSEventButtonMask = 0x1
 	// NSEventButtonMaskPenUpperSide: A mask that matches the button on the upper side of the device.
-	NSEventButtonMaskPenUpperSide NSEventButtonMask = 4
+	NSEventButtonMaskPenUpperSide NSEventButtonMask = 0x4
 )
 
 func (e NSEventButtonMask) String() string {
@@ -3172,7 +3174,7 @@ type NSEventMask int
 
 const (
 	// NSEventMaskAny: A mask that matches any type of event.
-	NSEventMaskAny NSEventMask = 0
+	NSEventMaskAny NSEventMask = -1
 	// NSEventMaskAppKitDefined: A mask for AppKit–defined events.
 	NSEventMaskAppKitDefined NSEventMask = 8192
 	// NSEventMaskApplicationDefined: A mask for app-defined events.
@@ -3330,7 +3332,7 @@ const (
 	// NSEventModifierFlagControl: The Control key has been pressed.
 	NSEventModifierFlagControl NSEventModifierFlags = 262144
 	// NSEventModifierFlagDeviceIndependentFlagsMask: Device-independent modifier flags are masked.
-	NSEventModifierFlagDeviceIndependentFlagsMask NSEventModifierFlags = 4294901760
+	NSEventModifierFlagDeviceIndependentFlagsMask NSEventModifierFlags = 0xffff0000
 	// NSEventModifierFlagFunction: A function key has been pressed.
 	NSEventModifierFlagFunction NSEventModifierFlags = 8388608
 	// NSEventModifierFlagHelp: The Help key has been pressed.
@@ -3373,19 +3375,19 @@ type NSEventPhase uint
 
 const (
 	// NSEventPhaseBegan: An event phase has begun.
-	NSEventPhaseBegan NSEventPhase = 1
+	NSEventPhaseBegan NSEventPhase = 0x1
 	// NSEventPhaseCancelled: The system canceled the event phase.
-	NSEventPhaseCancelled NSEventPhase = 1
+	NSEventPhaseCancelled NSEventPhase = 0x1
 	// NSEventPhaseChanged: An event phase has changed.
-	NSEventPhaseChanged NSEventPhase = 1
+	NSEventPhaseChanged NSEventPhase = 0x1
 	// NSEventPhaseEnded: The event phase ended.
-	NSEventPhaseEnded NSEventPhase = 1
+	NSEventPhaseEnded NSEventPhase = 0x1
 	// NSEventPhaseMayBegin: The system event phase may begin.
-	NSEventPhaseMayBegin NSEventPhase = 1
+	NSEventPhaseMayBegin NSEventPhase = 0x1
 	// NSEventPhaseNone: The event is not associated with a phase.
 	NSEventPhaseNone NSEventPhase = 0
 	// NSEventPhaseStationary: An event phase is in progress but hasn’t moved since the previous event.
-	NSEventPhaseStationary NSEventPhase = 1
+	NSEventPhaseStationary NSEventPhase = 0x1
 )
 
 func (e NSEventPhase) String() string {
@@ -3449,9 +3451,9 @@ type NSEventSwipeTrackingOptions uint
 
 const (
 	// NSEventSwipeTrackingClampGestureAmount: Don’t allow gestureAmount to go beyond +/-1.0
-	NSEventSwipeTrackingClampGestureAmount NSEventSwipeTrackingOptions = 1
+	NSEventSwipeTrackingClampGestureAmount NSEventSwipeTrackingOptions = 0x1
 	// NSEventSwipeTrackingLockDirection: Clamp gestureAmount to 0 if the user starts to swipe in the opposite direction than they started.
-	NSEventSwipeTrackingLockDirection NSEventSwipeTrackingOptions = 1
+	NSEventSwipeTrackingLockDirection NSEventSwipeTrackingOptions = 0x1
 )
 
 func (e NSEventSwipeTrackingOptions) String() string {
@@ -3916,7 +3918,7 @@ const (
 	// NSFontDescriptorClassFreeformSerifs: The font’s characters include serifs, and don’t generally fit within other serif design classifications.
 	NSFontDescriptorClassFreeformSerifs NSFontDescriptorSymbolicTraits = 1879048192
 	// NSFontDescriptorClassMask: The font family class mask that you use to access font descriptor values.
-	NSFontDescriptorClassMask NSFontDescriptorSymbolicTraits = 4026531840
+	NSFontDescriptorClassMask NSFontDescriptorSymbolicTraits = 0xf0000000
 	// NSFontDescriptorClassModernSerifs: The font’s characters include serifs, and reflect the Latin printing style of the 20th century.
 	NSFontDescriptorClassModernSerifs NSFontDescriptorSymbolicTraits = 805306368
 	// NSFontDescriptorClassOldStyleSerifs: The font’s characters include serifs, and reflect the Latin printing style of the 15th to 17th centuries.
@@ -4009,7 +4011,7 @@ type NSFontFamilyClass uint
 
 const (
 	// NSFontFamilyClassMask: Constant you use to access [NSFontFamilyClass] values in the upper four bits of [NSFontSymbolicTraits].
-	NSFontFamilyClassMask NSFontFamilyClass = 4026531840
+	NSFontFamilyClassMask NSFontFamilyClass = 0xf0000000
 )
 
 func (e NSFontFamilyClass) String() string {
@@ -4023,9 +4025,9 @@ func (e NSFontFamilyClass) String() string {
 
 const (
 	// NSFontPanelAllEffectsModeMask: Display all the effects user interface items.
-	NSFontPanelAllEffectsModeMask uint = 1048320
+	NSFontPanelAllEffectsModeMask uint = 0xfff00
 	// NSFontPanelAllModesMask: Display all the available adornments.
-	NSFontPanelAllModesMask uint = 4294967295
+	NSFontPanelAllModesMask uint = 0xffffffff
 	// NSFontPanelCollectionModeMask: Display the font collections column.
 	NSFontPanelCollectionModeMask uint = 4
 	// NSFontPanelDocumentColorEffectModeMask: Display the document color button.
@@ -4037,7 +4039,7 @@ const (
 	// NSFontPanelSizeModeMask: Display the font size column.
 	NSFontPanelSizeModeMask uint = 2
 	// NSFontPanelStandardModesMask: Display the standard default font panel—that is, including the collections, typeface, and size columns.
-	NSFontPanelStandardModesMask uint = 65535
+	NSFontPanelStandardModesMask uint = 0xffff
 	// NSFontPanelStrikethroughEffectModeMask: Display the strike-through popup menu.
 	NSFontPanelStrikethroughEffectModeMask uint = 512
 	// NSFontPanelTextColorEffectModeMask: Display the text color button.
@@ -4050,7 +4052,7 @@ const (
 type NSFontPanelModeMask uint
 
 const (
-	NSFontPanelModeMaskAllEffects          NSFontPanelModeMask = 1048320
+	NSFontPanelModeMaskAllEffects          NSFontPanelModeMask = 0xfff00
 	NSFontPanelModeMaskCollection          NSFontPanelModeMask = 4
 	NSFontPanelModeMaskDocumentColorEffect NSFontPanelModeMask = 2048
 	NSFontPanelModeMaskFace                NSFontPanelModeMask = 1
@@ -4059,8 +4061,8 @@ const (
 	NSFontPanelModeMaskStrikethroughEffect NSFontPanelModeMask = 512
 	NSFontPanelModeMaskTextColorEffect     NSFontPanelModeMask = 1024
 	NSFontPanelModeMaskUnderlineEffect     NSFontPanelModeMask = 256
-	NSFontPanelModesMaskAllModes           NSFontPanelModeMask = 4294967295
-	NSFontPanelModesMaskStandardModes      NSFontPanelModeMask = 65535
+	NSFontPanelModesMaskAllModes           NSFontPanelModeMask = 0xffffffff
+	NSFontPanelModesMaskStandardModes      NSFontPanelModeMask = 0xffff
 )
 
 func (e NSFontPanelModeMask) String() string {
@@ -4126,29 +4128,29 @@ type NSFontTraitMask uint
 
 const (
 	// NSBoldFontMask: A mask that specifies a bold font.
-	NSBoldFontMask NSFontTraitMask = 2
+	NSBoldFontMask NSFontTraitMask = 0x2
 	// NSCompressedFontMask: A mask that specifies a compressed font.
-	NSCompressedFontMask NSFontTraitMask = 512
+	NSCompressedFontMask NSFontTraitMask = 0x200
 	// NSCondensedFontMask: A mask that specifies a condensed font.
-	NSCondensedFontMask NSFontTraitMask = 64
+	NSCondensedFontMask NSFontTraitMask = 0x40
 	// NSExpandedFontMask: A mask that specifies an expanded font.
-	NSExpandedFontMask NSFontTraitMask = 32
+	NSExpandedFontMask NSFontTraitMask = 0x20
 	// NSFixedPitchFontMask: A mask that specifies a fixed pitch font.
-	NSFixedPitchFontMask NSFontTraitMask = 1024
+	NSFixedPitchFontMask NSFontTraitMask = 0x400
 	// NSItalicFontMask: A mask that specifies an italic font.
-	NSItalicFontMask NSFontTraitMask = 1
+	NSItalicFontMask NSFontTraitMask = 0x1
 	// NSNarrowFontMask: A mask that specifies a narrow font.
-	NSNarrowFontMask NSFontTraitMask = 16
+	NSNarrowFontMask NSFontTraitMask = 0x10
 	// NSNonStandardCharacterSetFontMask: A mask that specifies a font containing a non-standard character set.
-	NSNonStandardCharacterSetFontMask NSFontTraitMask = 8
+	NSNonStandardCharacterSetFontMask NSFontTraitMask = 0x8
 	// NSPosterFontMask: A mask that specifies a poster-style font.
-	NSPosterFontMask NSFontTraitMask = 256
+	NSPosterFontMask NSFontTraitMask = 0x100
 	// NSSmallCapsFontMask: A mask that specifies a small-caps font.
-	NSSmallCapsFontMask NSFontTraitMask = 128
+	NSSmallCapsFontMask NSFontTraitMask = 0x80
 	// NSUnboldFontMask: A mask that specifies a font that is not bold.
-	NSUnboldFontMask NSFontTraitMask = 4
+	NSUnboldFontMask NSFontTraitMask = 0x4
 	// NSUnitalicFontMask: A mask that specifies a font that is not italic.
-	NSUnitalicFontMask NSFontTraitMask = 16777216
+	NSUnitalicFontMask NSFontTraitMask = 0x1000000
 )
 
 func (e NSFontTraitMask) String() string {
@@ -5047,13 +5049,13 @@ const (
 	// NSLayoutFormatAlignAllTrailing: Align all specified interface elements using NSLayoutConstraint.Attribute.trailing on each.
 	NSLayoutFormatAlignAllTrailing NSLayoutFormatOptions = 64
 	// NSLayoutFormatAlignmentMask: Bit mask that can be combined with an NSLayoutConstraint.FormatOptions variable to yield only the alignment portion of the format options.
-	NSLayoutFormatAlignmentMask NSLayoutFormatOptions = 65535
+	NSLayoutFormatAlignmentMask NSLayoutFormatOptions = 0xffff
 	// NSLayoutFormatDirectionLeadingToTrailing: Arrange objects in order based on the normal text flow for the current user interface language.
 	NSLayoutFormatDirectionLeadingToTrailing NSLayoutFormatOptions = 0
 	// NSLayoutFormatDirectionLeftToRight: Arrange objects in order from left to right.
 	NSLayoutFormatDirectionLeftToRight NSLayoutFormatOptions = 65536
 	// NSLayoutFormatDirectionMask: A bit mask that can be combined with an NSLayoutConstraint.FormatOptions variable to yield only the direction portion of the format options.
-	NSLayoutFormatDirectionMask NSLayoutFormatOptions = 3
+	NSLayoutFormatDirectionMask NSLayoutFormatOptions = 0x3
 	// NSLayoutFormatDirectionRightToLeft: Arrange objects in order from right to left.
 	NSLayoutFormatDirectionRightToLeft NSLayoutFormatOptions = 131072
 )
@@ -5219,7 +5221,7 @@ const (
 	// NSLineBreakStrategyPushOut: The text system pushes out individual lines to avoid an orphan word on the last line of the paragraph.
 	NSLineBreakStrategyPushOut NSLineBreakStrategy = 1
 	// NSLineBreakStrategyStandard: The text system uses the same configuration of line-break strategies that it uses for standard UI labels.
-	NSLineBreakStrategyStandard NSLineBreakStrategy = 65535
+	NSLineBreakStrategyStandard NSLineBreakStrategy = 0xffff
 )
 
 func (e NSLineBreakStrategy) String() string {
@@ -6644,15 +6646,15 @@ func (e NSRulerOrientation) String() string {
 	}
 }
 
-type NSRun uint
+type NSRun int
 
 const (
 	// Deprecated.
-	NSRunAbortedResponse NSRun = 1
+	NSRunAbortedResponse NSRun = -1001
 	// Deprecated.
-	NSRunContinuesResponse NSRun = 2
+	NSRunContinuesResponse NSRun = -1002
 	// Deprecated.
-	NSRunStoppedResponse NSRun = 0
+	NSRunStoppedResponse NSRun = -1000
 )
 
 func (e NSRun) String() string {
@@ -7733,19 +7735,19 @@ type NSTableViewAnimationOptions uint
 
 const (
 	// NSTableViewAnimationEffectFade: Use a fade for row or column removal.
-	NSTableViewAnimationEffectFade NSTableViewAnimationOptions = 1
+	NSTableViewAnimationEffectFade NSTableViewAnimationOptions = 0x1
 	// NSTableViewAnimationEffectGap: Creates a gap for newly inserted rows.
-	NSTableViewAnimationEffectGap NSTableViewAnimationOptions = 2
+	NSTableViewAnimationEffectGap NSTableViewAnimationOptions = 0x2
 	// NSTableViewAnimationEffectNone: Use no animation effects.
 	NSTableViewAnimationEffectNone NSTableViewAnimationOptions = 0
 	// NSTableViewAnimationSlideDown: Animates a row insertion or removal by sliding downward.
-	NSTableViewAnimationSlideDown NSTableViewAnimationOptions = 32
+	NSTableViewAnimationSlideDown NSTableViewAnimationOptions = 0x20
 	// NSTableViewAnimationSlideLeft: Animates a row insertion by sliding from the left.
-	NSTableViewAnimationSlideLeft NSTableViewAnimationOptions = 48
+	NSTableViewAnimationSlideLeft NSTableViewAnimationOptions = 0x30
 	// NSTableViewAnimationSlideRight: Animates a row insertion by sliding from the right.
-	NSTableViewAnimationSlideRight NSTableViewAnimationOptions = 64
+	NSTableViewAnimationSlideRight NSTableViewAnimationOptions = 0x40
 	// NSTableViewAnimationSlideUp: Animates a row insertion or removal by sliding upward.
-	NSTableViewAnimationSlideUp NSTableViewAnimationOptions = 16
+	NSTableViewAnimationSlideUp NSTableViewAnimationOptions = 0x10
 )
 
 func (e NSTableViewAnimationOptions) String() string {
@@ -8546,15 +8548,15 @@ func (e NSTextListOptions) String() string {
 type NSTextMovement int
 
 const (
-	NSTextMovementBacktab NSTextMovement = 18
-	NSTextMovementCancel  NSTextMovement = 23
-	NSTextMovementDown    NSTextMovement = 22
-	NSTextMovementLeft    NSTextMovement = 19
+	NSTextMovementBacktab NSTextMovement = 0x12
+	NSTextMovementCancel  NSTextMovement = 0x17
+	NSTextMovementDown    NSTextMovement = 0x16
+	NSTextMovementLeft    NSTextMovement = 0x13
 	NSTextMovementOther   NSTextMovement = 0
-	NSTextMovementReturn  NSTextMovement = 16
-	NSTextMovementRight   NSTextMovement = 20
-	NSTextMovementTab     NSTextMovement = 17
-	NSTextMovementUp      NSTextMovement = 21
+	NSTextMovementReturn  NSTextMovement = 0x10
+	NSTextMovementRight   NSTextMovement = 0x14
+	NSTextMovementTab     NSTextMovement = 0x11
+	NSTextMovementUp      NSTextMovement = 0x15
 )
 
 func (e NSTextMovement) String() string {
@@ -9162,11 +9164,11 @@ func (e NSToolbarSizeMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTouch/Phase-swift.struct
-type NSTouchPhase uint
+type NSTouchPhase int
 
 const (
 	// NSTouchPhaseAny: Matches any phase of a touch.
-	NSTouchPhaseAny NSTouchPhase = 0
+	NSTouchPhaseAny NSTouchPhase = -1
 	// NSTouchPhaseBegan: A finger touched the device.
 	NSTouchPhaseBegan NSTouchPhase = 1
 	// NSTouchPhaseCancelled: The system cancelled tracking for the touch, as when (for example) the window associated with the touch resigns key or is deactivated.
@@ -9374,25 +9376,25 @@ type NSUnderlineStyle int
 
 const (
 	// NSUnderlineStyleByWord: Draw the line only beneath or through words, not whitespace.
-	NSUnderlineStyleByWord NSUnderlineStyle = 32768
+	NSUnderlineStyleByWord NSUnderlineStyle = 0x8000
 	// NSUnderlineStyleDouble: Draw a double line.
-	NSUnderlineStyleDouble NSUnderlineStyle = 9
+	NSUnderlineStyleDouble NSUnderlineStyle = 0x9
 	// NSUnderlineStyleNone: Don’t draw a line.
 	NSUnderlineStyleNone NSUnderlineStyle = 0
 	// NSUnderlineStylePatternDash: Draw a line of dashes.
-	NSUnderlineStylePatternDash NSUnderlineStyle = 512
+	NSUnderlineStylePatternDash NSUnderlineStyle = 0x200
 	// NSUnderlineStylePatternDashDot: Draw a line of alternating dashes and dots.
-	NSUnderlineStylePatternDashDot NSUnderlineStyle = 768
+	NSUnderlineStylePatternDashDot NSUnderlineStyle = 0x300
 	// NSUnderlineStylePatternDashDotDot: Draw a line of alternating dashes and two dots.
-	NSUnderlineStylePatternDashDotDot NSUnderlineStyle = 1024
+	NSUnderlineStylePatternDashDotDot NSUnderlineStyle = 0x400
 	// NSUnderlineStylePatternDot: Draw a line of dots.
-	NSUnderlineStylePatternDot NSUnderlineStyle = 256
+	NSUnderlineStylePatternDot NSUnderlineStyle = 0x100
 	// NSUnderlineStylePatternSolid: Draw a solid line.
 	NSUnderlineStylePatternSolid NSUnderlineStyle = 0
 	// NSUnderlineStyleSingle: Draw a single line.
-	NSUnderlineStyleSingle NSUnderlineStyle = 1
+	NSUnderlineStyleSingle NSUnderlineStyle = 0x1
 	// NSUnderlineStyleThick: Draw a thick line.
-	NSUnderlineStyleThick NSUnderlineStyle = 2
+	NSUnderlineStyleThick NSUnderlineStyle = 0x2
 )
 
 func (e NSUnderlineStyle) String() string {
@@ -9533,23 +9535,23 @@ type NSViewControllerTransitionOptions uint
 
 const (
 	// NSViewControllerTransitionAllowUserInteraction: A transition animation that allows user interaction during the transition.
-	NSViewControllerTransitionAllowUserInteraction NSViewControllerTransitionOptions = 4096
+	NSViewControllerTransitionAllowUserInteraction NSViewControllerTransitionOptions = 0x1000
 	// NSViewControllerTransitionCrossfade: A transition animation that fades the new view in and simultaneously fades the old view out.
-	NSViewControllerTransitionCrossfade NSViewControllerTransitionOptions = 1
+	NSViewControllerTransitionCrossfade NSViewControllerTransitionOptions = 0x1
 	// NSViewControllerTransitionNone: A transition with no animation (the default).
 	NSViewControllerTransitionNone NSViewControllerTransitionOptions = 0
 	// NSViewControllerTransitionSlideBackward: A transition animation that reflects the user interface layout direction (userInterfaceLayoutDirection) in a “backward” manner, as follows
-	NSViewControllerTransitionSlideBackward NSViewControllerTransitionOptions = 384
+	NSViewControllerTransitionSlideBackward NSViewControllerTransitionOptions = 0x180
 	// NSViewControllerTransitionSlideDown: A transition animation that slides the old view down while the new view slides into view from the top.
-	NSViewControllerTransitionSlideDown NSViewControllerTransitionOptions = 32
+	NSViewControllerTransitionSlideDown NSViewControllerTransitionOptions = 0x20
 	// NSViewControllerTransitionSlideForward: A transition animation that reflects the user interface layout direction (userInterfaceLayoutDirection) in a “forward” manner, as follows:
-	NSViewControllerTransitionSlideForward NSViewControllerTransitionOptions = 320
+	NSViewControllerTransitionSlideForward NSViewControllerTransitionOptions = 0x140
 	// NSViewControllerTransitionSlideLeft: A transition animation that slides the old view to the left while the new view slides into view from the right.
-	NSViewControllerTransitionSlideLeft NSViewControllerTransitionOptions = 64
+	NSViewControllerTransitionSlideLeft NSViewControllerTransitionOptions = 0x40
 	// NSViewControllerTransitionSlideRight: A transition animation that slides the old view to the right while the new view slides into view from the left.
-	NSViewControllerTransitionSlideRight NSViewControllerTransitionOptions = 128
+	NSViewControllerTransitionSlideRight NSViewControllerTransitionOptions = 0x80
 	// NSViewControllerTransitionSlideUp: A transition animation that slides the old view up while the new view comes into view from the bottom.
-	NSViewControllerTransitionSlideUp NSViewControllerTransitionOptions = 16
+	NSViewControllerTransitionSlideUp NSViewControllerTransitionOptions = 0x10
 )
 
 func (e NSViewControllerTransitionOptions) String() string {
@@ -10026,11 +10028,11 @@ type NSWindowDepth int32
 
 const (
 	// NSWindowDepthOnehundredtwentyeightBitRGB: One hundred and twenty eight bit RGB depth limit.
-	NSWindowDepthOnehundredtwentyeightBitRGB NSWindowDepth = 544
+	NSWindowDepthOnehundredtwentyeightBitRGB NSWindowDepth = 0x220
 	// NSWindowDepthSixtyfourBitRGB: Sixty four bit RGB depth limit.
-	NSWindowDepthSixtyfourBitRGB NSWindowDepth = 528
+	NSWindowDepthSixtyfourBitRGB NSWindowDepth = 0x210
 	// NSWindowDepthTwentyfourBitRGB: Twenty four bit RGB depth limit.
-	NSWindowDepthTwentyfourBitRGB NSWindowDepth = 520
+	NSWindowDepthTwentyfourBitRGB NSWindowDepth = 0x208
 )
 
 func (e NSWindowDepth) String() string {
@@ -10367,29 +10369,29 @@ type NSWorkspaceLaunchOptions uint
 
 const (
 	// Deprecated.
-	NSWorkspaceLaunchAllowingClassicStartup NSWorkspaceLaunchOptions = 131072
+	NSWorkspaceLaunchAllowingClassicStartup NSWorkspaceLaunchOptions = 0x20000
 	// Deprecated.
-	NSWorkspaceLaunchAndHide NSWorkspaceLaunchOptions = 1048576
+	NSWorkspaceLaunchAndHide NSWorkspaceLaunchOptions = 0x100000
 	// Deprecated.
-	NSWorkspaceLaunchAndHideOthers NSWorkspaceLaunchOptions = 2097152
+	NSWorkspaceLaunchAndHideOthers NSWorkspaceLaunchOptions = 0x200000
 	// Deprecated.
-	NSWorkspaceLaunchAndPrint NSWorkspaceLaunchOptions = 2
+	NSWorkspaceLaunchAndPrint NSWorkspaceLaunchOptions = 0x2
 	// Deprecated.
-	NSWorkspaceLaunchAsync NSWorkspaceLaunchOptions = 65536
+	NSWorkspaceLaunchAsync NSWorkspaceLaunchOptions = 0x10000
 	// Deprecated.
 	NSWorkspaceLaunchDefault NSWorkspaceLaunchOptions = 65536
 	// Deprecated.
-	NSWorkspaceLaunchInhibitingBackgroundOnly NSWorkspaceLaunchOptions = 128
+	NSWorkspaceLaunchInhibitingBackgroundOnly NSWorkspaceLaunchOptions = 0x80
 	// Deprecated.
-	NSWorkspaceLaunchNewInstance NSWorkspaceLaunchOptions = 524288
+	NSWorkspaceLaunchNewInstance NSWorkspaceLaunchOptions = 0x80000
 	// Deprecated.
-	NSWorkspaceLaunchPreferringClassic NSWorkspaceLaunchOptions = 262144
+	NSWorkspaceLaunchPreferringClassic NSWorkspaceLaunchOptions = 0x40000
 	// Deprecated.
-	NSWorkspaceLaunchWithErrorPresentation NSWorkspaceLaunchOptions = 64
+	NSWorkspaceLaunchWithErrorPresentation NSWorkspaceLaunchOptions = 0x40
 	// Deprecated.
-	NSWorkspaceLaunchWithoutActivation NSWorkspaceLaunchOptions = 512
+	NSWorkspaceLaunchWithoutActivation NSWorkspaceLaunchOptions = 0x200
 	// Deprecated.
-	NSWorkspaceLaunchWithoutAddingToRecents NSWorkspaceLaunchOptions = 256
+	NSWorkspaceLaunchWithoutAddingToRecents NSWorkspaceLaunchOptions = 0x100
 )
 
 func (e NSWorkspaceLaunchOptions) String() string {

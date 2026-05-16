@@ -143,7 +143,7 @@
 //
 // # Definite Integration
 //
-//   - Quadrature: Approximate the definite integral of a function over a finite or infinite interval. ([Quadrature_function_array], [Quadrature_integrate_function], [Quadrature_integrate_options])
+//   - Quadrature: Approximate the definite integral of a function over a finite or infinite interval. ([Quadrature])
 //
 // # Macros
 //

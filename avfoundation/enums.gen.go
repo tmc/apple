@@ -108,7 +108,7 @@ const (
 	// AVAssetReferenceRestrictionDefaultPolicy: The asset should use the default reference restrictions policy.
 	AVAssetReferenceRestrictionDefaultPolicy AVAssetReferenceRestrictions = 2
 	// AVAssetReferenceRestrictionForbidAll: The asset can only reference media stored within its container file.
-	AVAssetReferenceRestrictionForbidAll AVAssetReferenceRestrictions = 65535
+	AVAssetReferenceRestrictionForbidAll AVAssetReferenceRestrictions = 0xffff
 	// AVAssetReferenceRestrictionForbidCrossSiteReference: A remote asset shouldn’t follow references to remote media data stored at a different host.
 	AVAssetReferenceRestrictionForbidCrossSiteReference AVAssetReferenceRestrictions = 4
 	// AVAssetReferenceRestrictionForbidLocalReferenceToLocal: A local asset shouldn’t follow references to local media data stored outside its container file.
@@ -222,11 +222,11 @@ type AVAudioSpatializationFormats uint
 
 const (
 	// AVAudioSpatializationFormatMonoAndStereo: A value that indicates the player item only supports mono and stereo layouts for audio spatialization.
-	AVAudioSpatializationFormatMonoAndStereo AVAudioSpatializationFormats = 3
+	AVAudioSpatializationFormatMonoAndStereo AVAudioSpatializationFormats = 0x3
 	// AVAudioSpatializationFormatMonoStereoAndMultichannel: A value that indicates the player item supports mono, stereo, and multichannel layouts for audio spatialization.
-	AVAudioSpatializationFormatMonoStereoAndMultichannel AVAudioSpatializationFormats = 7
+	AVAudioSpatializationFormatMonoStereoAndMultichannel AVAudioSpatializationFormats = 0x7
 	// AVAudioSpatializationFormatMultichannel: A value that indicates the player item only supports multichannel layouts for audio spatialization.
-	AVAudioSpatializationFormatMultichannel AVAudioSpatializationFormats = 4
+	AVAudioSpatializationFormatMultichannel AVAudioSpatializationFormats = 0x4
 	// AVAudioSpatializationFormatNone: A value that indicates the player item doesn’t support audio spatialization.
 	AVAudioSpatializationFormatNone AVAudioSpatializationFormats = 0
 )
@@ -2087,11 +2087,11 @@ type AVPlayerHDRMode int
 
 const (
 	// Deprecated.
-	AVPlayerHDRModeDolbyVision AVPlayerHDRMode = 4
+	AVPlayerHDRModeDolbyVision AVPlayerHDRMode = 0x4
 	// Deprecated.
-	AVPlayerHDRModeHDR10 AVPlayerHDRMode = 2
+	AVPlayerHDRModeHDR10 AVPlayerHDRMode = 0x2
 	// Deprecated.
-	AVPlayerHDRModeHLG AVPlayerHDRMode = 1
+	AVPlayerHDRModeHLG AVPlayerHDRMode = 0x1
 )
 
 func (e AVPlayerHDRMode) String() string {
@@ -2410,7 +2410,7 @@ type AVSampleBufferRequestDirection int
 
 const (
 	// AVSampleBufferRequestDirectionForward: The number of following samples may be zero or greater.
-	AVSampleBufferRequestDirectionForward AVSampleBufferRequestDirection = 0
+	AVSampleBufferRequestDirectionForward AVSampleBufferRequestDirection = 1
 	// AVSampleBufferRequestDirectionNone: A single sample will be loaded.
 	AVSampleBufferRequestDirectionNone AVSampleBufferRequestDirection = 0
 	// AVSampleBufferRequestDirectionReverse: The number of previous samples may be zero or greater.
@@ -2421,6 +2421,8 @@ func (e AVSampleBufferRequestDirection) String() string {
 	switch e {
 	case AVSampleBufferRequestDirectionForward:
 		return "AVSampleBufferRequestDirectionForward"
+	case AVSampleBufferRequestDirectionNone:
+		return "AVSampleBufferRequestDirectionNone"
 	case AVSampleBufferRequestDirectionReverse:
 		return "AVSampleBufferRequestDirectionReverse"
 	default:

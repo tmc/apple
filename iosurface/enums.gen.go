@@ -101,9 +101,9 @@ type IOSurfaceLockOptions uint32
 
 const (
 	// KIOSurfaceLockAvoidSync: # Discussion
-	KIOSurfaceLockAvoidSync IOSurfaceLockOptions = 2
+	KIOSurfaceLockAvoidSync IOSurfaceLockOptions = 0x2
 	// KIOSurfaceLockReadOnly: # Discussion
-	KIOSurfaceLockReadOnly IOSurfaceLockOptions = 1
+	KIOSurfaceLockReadOnly IOSurfaceLockOptions = 0x1
 )
 
 func (e IOSurfaceLockOptions) String() string {
@@ -137,11 +137,11 @@ func (e IOSurfaceMemoryLedgerFlags) String() string {
 type IOSurfaceMemoryLedgerTags int32
 
 const (
-	KIOSurfaceMemoryLedgerTagDefault  IOSurfaceMemoryLedgerTags = 1
-	KIOSurfaceMemoryLedgerTagGraphics IOSurfaceMemoryLedgerTags = 4
-	KIOSurfaceMemoryLedgerTagMedia    IOSurfaceMemoryLedgerTags = 3
-	KIOSurfaceMemoryLedgerTagNetwork  IOSurfaceMemoryLedgerTags = 2
-	KIOSurfaceMemoryLedgerTagNeural   IOSurfaceMemoryLedgerTags = 5
+	KIOSurfaceMemoryLedgerTagDefault  IOSurfaceMemoryLedgerTags = 0x1
+	KIOSurfaceMemoryLedgerTagGraphics IOSurfaceMemoryLedgerTags = 0x4
+	KIOSurfaceMemoryLedgerTagMedia    IOSurfaceMemoryLedgerTags = 0x3
+	KIOSurfaceMemoryLedgerTagNetwork  IOSurfaceMemoryLedgerTags = 0x2
+	KIOSurfaceMemoryLedgerTagNeural   IOSurfaceMemoryLedgerTags = 0x5
 )
 
 func (e IOSurfaceMemoryLedgerTags) String() string {

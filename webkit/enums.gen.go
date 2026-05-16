@@ -135,12 +135,12 @@ const (
 	DOM_COMMENT_NODE                              Dom = 8
 	DOM_DOCUMENT_FRAGMENT_NODE                    Dom = 11
 	DOM_DOCUMENT_NODE                             Dom = 9
-	DOM_DOCUMENT_POSITION_CONTAINED_BY            Dom = 16
-	DOM_DOCUMENT_POSITION_CONTAINS                Dom = 8
-	DOM_DOCUMENT_POSITION_DISCONNECTED            Dom = 1
-	DOM_DOCUMENT_POSITION_FOLLOWING               Dom = 4
-	DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC Dom = 32
-	DOM_DOCUMENT_POSITION_PRECEDING               Dom = 2
+	DOM_DOCUMENT_POSITION_CONTAINED_BY            Dom = 0x10
+	DOM_DOCUMENT_POSITION_CONTAINS                Dom = 0x8
+	DOM_DOCUMENT_POSITION_DISCONNECTED            Dom = 0x1
+	DOM_DOCUMENT_POSITION_FOLLOWING               Dom = 0x4
+	DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC Dom = 0x20
+	DOM_DOCUMENT_POSITION_PRECEDING               Dom = 0x2
 	DOM_DOCUMENT_TYPE_NODE                        Dom = 10
 	DOM_ELEMENT_NODE                              Dom = 1
 	DOM_END_TO_END                                Dom = 2
@@ -171,19 +171,19 @@ const (
 	DOM_PAGE_RULE                                 Dom = 6
 	DOM_PROCESSING_INSTRUCTION_NODE               Dom = 7
 	DOM_REMOVAL                                   Dom = 3
-	DOM_SHOW_ALL                                  Dom = 4294967295
-	DOM_SHOW_ATTRIBUTE                            Dom = 2
-	DOM_SHOW_CDATA_SECTION                        Dom = 8
-	DOM_SHOW_COMMENT                              Dom = 128
-	DOM_SHOW_DOCUMENT                             Dom = 256
-	DOM_SHOW_DOCUMENT_FRAGMENT                    Dom = 1024
-	DOM_SHOW_DOCUMENT_TYPE                        Dom = 512
-	DOM_SHOW_ELEMENT                              Dom = 1
-	DOM_SHOW_ENTITY                               Dom = 32
-	DOM_SHOW_ENTITY_REFERENCE                     Dom = 16
-	DOM_SHOW_NOTATION                             Dom = 2048
-	DOM_SHOW_PROCESSING_INSTRUCTION               Dom = 64
-	DOM_SHOW_TEXT                                 Dom = 4
+	DOM_SHOW_ALL                                  Dom = 0xffffffff
+	DOM_SHOW_ATTRIBUTE                            Dom = 0x2
+	DOM_SHOW_CDATA_SECTION                        Dom = 0x8
+	DOM_SHOW_COMMENT                              Dom = 0x80
+	DOM_SHOW_DOCUMENT                             Dom = 0x100
+	DOM_SHOW_DOCUMENT_FRAGMENT                    Dom = 0x400
+	DOM_SHOW_DOCUMENT_TYPE                        Dom = 0x200
+	DOM_SHOW_ELEMENT                              Dom = 0x1
+	DOM_SHOW_ENTITY                               Dom = 0x20
+	DOM_SHOW_ENTITY_REFERENCE                     Dom = 0x10
+	DOM_SHOW_NOTATION                             Dom = 0x800
+	DOM_SHOW_PROCESSING_INSTRUCTION               Dom = 0x40
+	DOM_SHOW_TEXT                                 Dom = 0x4
 	DOM_START_TO_END                              Dom = 1
 	DOM_START_TO_START                            Dom = 0
 	DOM_STRING_TYPE                               Dom = 2
@@ -374,8 +374,8 @@ func (e DomCSS) String() string {
 type DomDomDelta uint
 
 const (
-	DOM_DOM_DELTA_LINE  DomDomDelta = 1
-	DOM_DOM_DELTA_PAGE  DomDomDelta = 2
+	DOM_DOM_DELTA_LINE  DomDomDelta = 0x1
+	DOM_DOM_DELTA_PAGE  DomDomDelta = 0x2
 	DOM_DOM_DELTA_PIXEL DomDomDelta = 0
 )
 
@@ -395,9 +395,9 @@ func (e DomDomDelta) String() string {
 type DomKeyLocation uint
 
 const (
-	DOM_KEY_LOCATION_LEFT     DomKeyLocation = 1
-	DOM_KEY_LOCATION_NUMPAD   DomKeyLocation = 3
-	DOM_KEY_LOCATION_RIGHT    DomKeyLocation = 2
+	DOM_KEY_LOCATION_LEFT     DomKeyLocation = 0x1
+	DOM_KEY_LOCATION_NUMPAD   DomKeyLocation = 0x3
+	DOM_KEY_LOCATION_RIGHT    DomKeyLocation = 0x2
 	DOM_KEY_LOCATION_STANDARD DomKeyLocation = 0
 )
 
@@ -417,11 +417,11 @@ func (e DomKeyLocation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKAudiovisualMediaTypes
-type WKAudiovisualMediaTypes uint
+type WKAudiovisualMediaTypes int
 
 const (
 	// WKAudiovisualMediaTypeAll: All media types require a user gesture to begin playing.
-	WKAudiovisualMediaTypeAll WKAudiovisualMediaTypes = 0
+	WKAudiovisualMediaTypeAll WKAudiovisualMediaTypes = -1
 	// WKAudiovisualMediaTypeAudio: Media types that contain audio require a user gesture to begin playing.
 	WKAudiovisualMediaTypeAudio WKAudiovisualMediaTypes = 1
 	// WKAudiovisualMediaTypeNone: No media types require a user gesture to begin playing.
@@ -436,6 +436,8 @@ func (e WKAudiovisualMediaTypes) String() string {
 		return "WKAudiovisualMediaTypeAll"
 	case WKAudiovisualMediaTypeAudio:
 		return "WKAudiovisualMediaTypeAudio"
+	case WKAudiovisualMediaTypeNone:
+		return "WKAudiovisualMediaTypeNone"
 	case WKAudiovisualMediaTypeVideo:
 		return "WKAudiovisualMediaTypeVideo"
 	default:
@@ -1407,7 +1409,7 @@ type WebDragDestinationAction uint
 
 const (
 	// Deprecated.
-	WebDragDestinationActionAny WebDragDestinationAction = 0
+	WebDragDestinationActionAny WebDragDestinationAction = 4294967295
 	// Deprecated.
 	WebDragDestinationActionDHTML WebDragDestinationAction = 1
 	// Deprecated.
@@ -1428,6 +1430,8 @@ func (e WebDragDestinationAction) String() string {
 		return "WebDragDestinationActionEdit"
 	case WebDragDestinationActionLoad:
 		return "WebDragDestinationActionLoad"
+	case WebDragDestinationActionNone:
+		return "WebDragDestinationActionNone"
 	default:
 		return fmt.Sprintf("WebDragDestinationAction(%d)", e)
 	}
@@ -1438,7 +1442,7 @@ type WebDragSourceAction uint
 
 const (
 	// Deprecated.
-	WebDragSourceActionAny WebDragSourceAction = 0
+	WebDragSourceActionAny WebDragSourceAction = 4294967295
 	// Deprecated.
 	WebDragSourceActionDHTML WebDragSourceAction = 1
 	// Deprecated.
@@ -1461,6 +1465,8 @@ func (e WebDragSourceAction) String() string {
 		return "WebDragSourceActionImage"
 	case WebDragSourceActionLink:
 		return "WebDragSourceActionLink"
+	case WebDragSourceActionNone:
+		return "WebDragSourceActionNone"
 	case WebDragSourceActionSelection:
 		return "WebDragSourceActionSelection"
 	default:

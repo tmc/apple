@@ -16636,10 +16636,10 @@ func MDLabelCopyAttributeName(label MDLabelRef) corefoundation.CFStringRef {
 	return result
 }
 
-var _mDLabelCreate func(allocator corefoundation.CFAllocatorRef, displayName corefoundation.CFStringRef, kind corefoundation.CFStringRef, domain unsafe.Pointer) MDLabelRef
+var _mDLabelCreate func(allocator corefoundation.CFAllocatorRef, displayName corefoundation.CFStringRef, kind corefoundation.CFStringRef, domain MDLabelDomain) MDLabelRef
 var _mDLabelCreateErr error
 
-func tryMDLabelCreate(allocator corefoundation.CFAllocatorRef, displayName corefoundation.CFStringRef, kind corefoundation.CFStringRef, domain unsafe.Pointer) (MDLabelRef, error) {
+func tryMDLabelCreate(allocator corefoundation.CFAllocatorRef, displayName corefoundation.CFStringRef, kind corefoundation.CFStringRef, domain MDLabelDomain) (MDLabelRef, error) {
 	if _mDLabelCreate == nil {
 		return 0, symbolCallError("MDLabelCreate", "10.7", _mDLabelCreateErr)
 	}
@@ -16649,7 +16649,7 @@ func tryMDLabelCreate(allocator corefoundation.CFAllocatorRef, displayName coref
 // MDLabelCreate.
 //
 // See: https://developer.apple.com/documentation/coreservices/1442614-mdlabelcreate
-func MDLabelCreate(allocator corefoundation.CFAllocatorRef, displayName corefoundation.CFStringRef, kind corefoundation.CFStringRef, domain unsafe.Pointer) MDLabelRef {
+func MDLabelCreate(allocator corefoundation.CFAllocatorRef, displayName corefoundation.CFStringRef, kind corefoundation.CFStringRef, domain MDLabelDomain) MDLabelRef {
 	result, callErr := tryMDLabelCreate(allocator, displayName, kind, domain)
 	if callErr != nil {
 		panic(callErr)

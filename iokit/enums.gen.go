@@ -51,7 +51,7 @@ const (
 	KFirstIOKitNotificationTypeValue     KFirstIOKitNotificationType = 100
 	KIOAsyncCompletionNotificationType   KFirstIOKitNotificationType = 150
 	KIOKitNoticationMsgSizeMask          KFirstIOKitNotificationType = 3
-	KIOKitNoticationTypeMask             KFirstIOKitNotificationType = 4095
+	KIOKitNoticationTypeMask             KFirstIOKitNotificationType = 0xfff
 	KIOKitNoticationTypeSizeAdjShift     KFirstIOKitNotificationType = 30
 	KIOServiceMatchedNotificationType    KFirstIOKitNotificationType = 101
 	KIOServiceMessageNotificationType    KFirstIOKitNotificationType = 160
@@ -136,20 +136,20 @@ const KIODefaultMemoryType uint = 0
 type KIOMap uint
 
 const (
-	KIOMapAnywhere           KIOMap = 1
-	KIOMapCacheMask          KIOMap = 3840
+	KIOMapAnywhere           KIOMap = 0x1
+	KIOMapCacheMask          KIOMap = 0xf00
 	KIOMapCacheShift         KIOMap = 8
 	KIOMapCopybackCache      KIOMap = 3
 	KIOMapCopybackInnerCache KIOMap = 5
 	KIOMapDefaultCache       KIOMap = 0
 	KIOMapInhibitCache       KIOMap = 1
-	KIOMapOverwrite          KIOMap = 536870912
-	KIOMapPrefault           KIOMap = 268435456
-	KIOMapReadOnly           KIOMap = 4096
-	KIOMapReference          KIOMap = 33554432
-	KIOMapStatic             KIOMap = 16777216
-	KIOMapUnique             KIOMap = 67108864
-	KIOMapUserOptionsMask    KIOMap = 4095
+	KIOMapOverwrite          KIOMap = 0x20000000
+	KIOMapPrefault           KIOMap = 0x10000000
+	KIOMapReadOnly           KIOMap = 0x1000
+	KIOMapReference          KIOMap = 0x2000000
+	KIOMapStatic             KIOMap = 0x1000000
+	KIOMapUnique             KIOMap = 0x4000000
+	KIOMapUserOptionsMask    KIOMap = 0xfff
 	KIOMapWriteCombineCache  KIOMap = 4
 	KIOMapWriteThruCache     KIOMap = 2
 )
@@ -194,8 +194,8 @@ func (e KIOMap) String() string {
 type KIORegistryIterate uint
 
 const (
-	KIORegistryIterateParents     KIORegistryIterate = 2
-	KIORegistryIterateRecursively KIORegistryIterate = 1
+	KIORegistryIterateParents     KIORegistryIterate = 0x2
+	KIORegistryIterateRecursively KIORegistryIterate = 0x1
 )
 
 func (e KIORegistryIterate) String() string {
@@ -209,7 +209,7 @@ func (e KIORegistryIterate) String() string {
 	}
 }
 
-const KIOServiceInteractionAllowed uint = 1
+const KIOServiceInteractionAllowed uint = 0x1
 
 type KNanosecondScale uint
 

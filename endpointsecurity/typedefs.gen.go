@@ -6,13 +6,39 @@ import (
 	"unsafe"
 )
 
+type Es_action_type_t = EsActionType
+
+type Es_address_type_t = EsAddressType
+
+type Es_auth_result_t = EsAuthResult
+
+type Es_authentication_type_t = EsAuthenticationType
+
+type Es_authorization_rule_class_t = EsAuthorizationRuleClass
+
+type Es_auto_unlock_type_t = EsAutoUnlock
+
+type Es_btm_item_type_t = EsBtmItemType
+
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_cdhash_t
 type Es_cdhash_t = unsafe.Pointer
+
+type Es_clear_cache_result_t = EsClearCacheResult
 
 // Es_client_t is an opaque type that stores the Endpoint Security client state.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_client_t
 type Es_client_t = unsafe.Pointer
+
+type Es_cs_validation_category_t = EsCsValidationCategory
+
+type Es_destination_type_t = EsDestinationType
+
+type Es_event_type_t = EsEventType
+
+type Es_gatekeeper_user_override_file_type_t = EsGatekeeperUserOverrideFileType
+
+type Es_get_task_type_t = EsGetTaskType
 
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_graphical_session_id_t
 type Es_graphical_session_id_t = uint32
@@ -22,6 +48,38 @@ type Es_graphical_session_id_t = uint32
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_handler_block_t
 type Es_handler_block_t = func(*Es_client_t, *Es_message_t)
 
+type Es_mount_disposition_t = EsMountDisposition
+
+type Es_mute_inversion_type_t = EsMuteInversionType
+
+type Es_mute_inverted_return_t = EsMute
+
+type Es_mute_path_type_t = EsMutePathType
+
+type Es_new_client_result_t = EsNewClientResult
+
+type Es_od_account_type_t = EsOdAccountType
+
+type Es_od_member_type_t = EsOdMemberType
+
+type Es_od_record_type_t = EsOdRecordType
+
+type Es_openssh_login_result_type_t = EsOpenssh
+
+type Es_proc_check_type_t = EsProcCheckType
+
+type Es_proc_suspend_resume_type_t = EsProcSuspendResumeType
+
+type Es_profile_source_t = EsProfileSource
+
+type Es_respond_result_t = EsRespondResult
+
+type Es_result_type_t = EsResultType
+
+type Es_return_t = EsReturn
+
+type Es_set_or_clear_t = Es
+
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_sha256_t
 type Es_sha256_t = unsafe.Pointer
 
@@ -30,22 +88,16 @@ type Es_sha256_t = unsafe.Pointer
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_statfs_t
 type Es_statfs_t = unsafe.Pointer
 
-// Es_auto_unlock_type_t aliases the generated auto-unlock enum.
+type Es_sudo_plugin_type_t = EsSudoPluginType
 
-type Es_auto_unlock_type_t = EsAutoUnlock
+type Es_tcc_authorization_reason_t = EsTccAuthorizationReason
 
-// Es_mute_inverted_return_t aliases the generated mute state enum.
+type Es_tcc_authorization_right_t = EsTccAuthorizationRight
 
-type Es_mute_inverted_return_t = EsMute
+type Es_tcc_event_type_t = EsTccEventType
 
-// Es_openssh_login_result_type_t aliases the generated OpenSSH login result enum.
+type Es_tcc_identity_type_t = EsTccIdentityType
 
-type Es_openssh_login_result_type_t = EsOpenssh
-
-// Es_set_or_clear_t aliases the generated set-or-clear enum.
-
-type Es_set_or_clear_t = Es
-
-// Es_xpc_domain_type_t aliases the generated XPC domain enum.
+type Es_touchid_mode_t = EsTouchidMode
 
 type Es_xpc_domain_type_t = EsXPCDomainType

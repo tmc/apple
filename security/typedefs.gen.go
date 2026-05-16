@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -791,13 +792,28 @@ type SecuritySessionId = uint32
 // See: https://developer.apple.com/documentation/Security/sec_certificate_t
 type Sec_certificate_t = objectivec.Object
 
+// Sec_certificate_tFromID constructs a [Sec_certificate_t] from an objc.ID.
+func Sec_certificate_tFromID(id objc.ID) Sec_certificate_t {
+	return Sec_certificate_t{ID: id}
+}
+
 // See: https://developer.apple.com/documentation/Security/sec_identity_t
 type Sec_identity_t = objectivec.Object
+
+// Sec_identity_tFromID constructs a [Sec_identity_t] from an objc.ID.
+func Sec_identity_tFromID(id objc.ID) Sec_identity_t {
+	return Sec_identity_t{ID: id}
+}
 
 // Sec_object_t is a `sec_object` is a generic, ARC-able type wrapper for common CoreFoundation Security types.
 //
 // See: https://developer.apple.com/documentation/Security/sec_object_t
 type Sec_object_t = objectivec.Object
+
+// Sec_object_tFromID constructs a [Sec_object_t] from an objc.ID.
+func Sec_object_tFromID(id objc.ID) Sec_object_t {
+	return Sec_object_t{ID: id}
+}
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_challenge_complete_t
 type Sec_protocol_challenge_complete_t = func(objectivec.Object)
@@ -816,10 +832,20 @@ type Sec_protocol_key_update_t = func(objectivec.Object, func())
 // See: https://developer.apple.com/documentation/Security/sec_protocol_metadata_t
 type Sec_protocol_metadata_t = objectivec.Object
 
+// Sec_protocol_metadata_tFromID constructs a [Sec_protocol_metadata_t] from an objc.ID.
+func Sec_protocol_metadata_tFromID(id objc.ID) Sec_protocol_metadata_t {
+	return Sec_protocol_metadata_t{ID: id}
+}
+
 // Sec_protocol_options_t is a `sec_protocol_options` instance is a container of options for security protocol instances, such as TLS. Protocol options are used to configure security protocols in the network stack. For example, clients may set the maximum and minimum allowed TLS versions through protocol options.
 //
 // See: https://developer.apple.com/documentation/Security/sec_protocol_options_t
 type Sec_protocol_options_t = objectivec.Object
+
+// Sec_protocol_options_tFromID constructs a [Sec_protocol_options_t] from an objc.ID.
+func Sec_protocol_options_tFromID(id objc.ID) Sec_protocol_options_t {
+	return Sec_protocol_options_t{ID: id}
+}
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_pre_shared_key_selection_complete_t
 type Sec_protocol_pre_shared_key_selection_complete_t = func(objectivec.Object)
@@ -837,6 +863,11 @@ type Sec_protocol_verify_t = func(objectivec.Object, objectivec.Object, func(boo
 //
 // See: https://developer.apple.com/documentation/Security/sec_trust_t
 type Sec_trust_t = objectivec.Object
+
+// Sec_trust_tFromID constructs a [Sec_trust_t] from an objc.ID.
+func Sec_trust_tFromID(id objc.ID) Sec_trust_t {
+	return Sec_trust_t{ID: id}
+}
 
 // See: https://developer.apple.com/documentation/Security/sint16
 type Sint16 = int16

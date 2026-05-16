@@ -131,21 +131,21 @@ type CMSSignedAttributes uint32
 
 const (
 	// KCMSAttrAppleCodesigningHashAgility: Include Apple codesigning hash agility.
-	KCMSAttrAppleCodesigningHashAgility CMSSignedAttributes = 16
+	KCMSAttrAppleCodesigningHashAgility CMSSignedAttributes = 0x10
 	// KCMSAttrAppleCodesigningHashAgilityV2: Include Apple codesigning hash agility, version 2.
-	KCMSAttrAppleCodesigningHashAgilityV2 CMSSignedAttributes = 32
+	KCMSAttrAppleCodesigningHashAgilityV2 CMSSignedAttributes = 0x20
 	// KCMSAttrAppleExpirationTime: Include the expiration time.
-	KCMSAttrAppleExpirationTime CMSSignedAttributes = 64
+	KCMSAttrAppleExpirationTime CMSSignedAttributes = 0x40
 	// KCMSAttrNone: No attributes.
 	KCMSAttrNone CMSSignedAttributes = 0
 	// KCMSAttrSigningTime: Include the signing time.
-	KCMSAttrSigningTime CMSSignedAttributes = 8
+	KCMSAttrSigningTime CMSSignedAttributes = 0x8
 	// KCMSAttrSmimeCapabilities: Identify signature, encryption, and digest algorithms supported by the encoder.
-	KCMSAttrSmimeCapabilities CMSSignedAttributes = 1
+	KCMSAttrSmimeCapabilities CMSSignedAttributes = 0x1
 	// KCMSAttrSmimeEncryptionKeyPrefs: Indicate that the signing certificate included with the message is the preferred one for S/MIME encryption.
-	KCMSAttrSmimeEncryptionKeyPrefs CMSSignedAttributes = 2
+	KCMSAttrSmimeEncryptionKeyPrefs CMSSignedAttributes = 0x2
 	// KCMSAttrSmimeMSEncryptionKeyPrefs: Indicate that the signing certificate included with the message is the preferred one for S/MIME encryption, but using an attribute object identifier (OID) preferred by Microsoft.
-	KCMSAttrSmimeMSEncryptionKeyPrefs CMSSignedAttributes = 4
+	KCMSAttrSmimeMSEncryptionKeyPrefs CMSSignedAttributes = 0x4
 )
 
 func (e CMSSignedAttributes) String() string {
@@ -442,7 +442,7 @@ const (
 	CSSM_AC_BASE_AC_ERROR                              Cssm = 0
 	CSSM_AC_BASE_ERROR                                 Cssm = -2147418112
 	CSSM_AC_PRIVATE_ERROR                              Cssm = -2147418112
-	CSSM_BASE_ERROR                                    Cssm = -2147418112
+	CSSM_BASE_ERROR                                    Cssm = -0x7fff0000
 	CSSM_CL_BASE_CL_ERROR                              Cssm = 0
 	CSSM_CL_BASE_ERROR                                 Cssm = -2147418112
 	CSSM_CL_PRIVATE_ERROR                              Cssm = -2147418112
@@ -463,9 +463,9 @@ const (
 	CSSM_ERRCODE_NO_USER_INTERACTION                   Cssm = 224
 	CSSM_ERRCODE_SERVICE_NOT_AVAILABLE                 Cssm = 226
 	CSSM_ERRCODE_USER_CANCELED                         Cssm = 225
-	CSSM_ERRORCODE_COMMON_EXTENT                       Cssm = 256
-	CSSM_ERRORCODE_CUSTOM_OFFSET                       Cssm = 1024
-	CSSM_ERRORCODE_MODULE_EXTENT                       Cssm = 2048
+	CSSM_ERRORCODE_COMMON_EXTENT                       Cssm = 0x100
+	CSSM_ERRORCODE_CUSTOM_OFFSET                       Cssm = 0x400
+	CSSM_ERRORCODE_MODULE_EXTENT                       Cssm = 0x800
 	CSSM_FALSE                                         Cssm = 0
 	CSSM_KR_BASE_ERROR                                 Cssm = -2147418112
 	CSSM_KR_PRIVATE_ERROR                              Cssm = -2147418112
@@ -991,7 +991,7 @@ const (
 	CSSM_ACL_AUTHORIZATION_PREAUTH_BASE             CssmAclAuthorization = 0
 	CSSM_ACL_AUTHORIZATION_PREAUTH_END              CssmAclAuthorization = 0
 	CSSM_ACL_AUTHORIZATION_SIGN                     CssmAclAuthorization = 115
-	CSSM_ACL_AUTHORIZATION_TAG_VENDOR_DEFINED_START CssmAclAuthorization = 65536
+	CSSM_ACL_AUTHORIZATION_TAG_VENDOR_DEFINED_START CssmAclAuthorization = 0x10000
 )
 
 func (e CssmAclAuthorization) String() string {
@@ -1091,11 +1091,11 @@ func (e CssmAclEditMode) String() string {
 type CssmAclKeychainPrompt uint
 
 const (
-	CSSM_ACL_KEYCHAIN_PROMPT_INVALID            CssmAclKeychainPrompt = 64
-	CSSM_ACL_KEYCHAIN_PROMPT_INVALID_ACT        CssmAclKeychainPrompt = 128
-	CSSM_ACL_KEYCHAIN_PROMPT_REQUIRE_PASSPHRASE CssmAclKeychainPrompt = 1
-	CSSM_ACL_KEYCHAIN_PROMPT_UNSIGNED           CssmAclKeychainPrompt = 16
-	CSSM_ACL_KEYCHAIN_PROMPT_UNSIGNED_ACT       CssmAclKeychainPrompt = 32
+	CSSM_ACL_KEYCHAIN_PROMPT_INVALID            CssmAclKeychainPrompt = 0x40
+	CSSM_ACL_KEYCHAIN_PROMPT_INVALID_ACT        CssmAclKeychainPrompt = 0x80
+	CSSM_ACL_KEYCHAIN_PROMPT_REQUIRE_PASSPHRASE CssmAclKeychainPrompt = 0x1
+	CSSM_ACL_KEYCHAIN_PROMPT_UNSIGNED           CssmAclKeychainPrompt = 0x10
+	CSSM_ACL_KEYCHAIN_PROMPT_UNSIGNED_ACT       CssmAclKeychainPrompt = 0x20
 )
 
 func (e CssmAclKeychainPrompt) String() string {
@@ -1118,7 +1118,7 @@ func (e CssmAclKeychainPrompt) String() string {
 type CssmAclKeychainPromptCurrent uint
 
 const (
-	CSSM_ACL_KEYCHAIN_PROMPT_CURRENT_VERSION CssmAclKeychainPromptCurrent = 257
+	CSSM_ACL_KEYCHAIN_PROMPT_CURRENT_VERSION CssmAclKeychainPromptCurrent = 0x101
 )
 
 func (e CssmAclKeychainPromptCurrent) String() string {
@@ -1134,9 +1134,9 @@ type CssmAclMatch uint
 
 const (
 	CSSM_ACL_MATCH_BITS       CssmAclMatch = 1
-	CSSM_ACL_MATCH_GID        CssmAclMatch = 2
-	CSSM_ACL_MATCH_HONOR_ROOT CssmAclMatch = 256
-	CSSM_ACL_MATCH_UID        CssmAclMatch = 1
+	CSSM_ACL_MATCH_GID        CssmAclMatch = 0x2
+	CSSM_ACL_MATCH_HONOR_ROOT CssmAclMatch = 0x100
+	CSSM_ACL_MATCH_UID        CssmAclMatch = 0x1
 )
 
 func (e CssmAclMatch) String() string {
@@ -1155,10 +1155,10 @@ func (e CssmAclMatch) String() string {
 type CssmAclPreauthTracking uint
 
 const (
-	CSSM_ACL_PREAUTH_TRACKING_AUTHORIZED CssmAclPreauthTracking = 2147483648
+	CSSM_ACL_PREAUTH_TRACKING_AUTHORIZED CssmAclPreauthTracking = 0x80000000
 	CSSM_ACL_PREAUTH_TRACKING_BLOCKED    CssmAclPreauthTracking = 0
-	CSSM_ACL_PREAUTH_TRACKING_COUNT_MASK CssmAclPreauthTracking = 255
-	CSSM_ACL_PREAUTH_TRACKING_UNKNOWN    CssmAclPreauthTracking = 1073741824
+	CSSM_ACL_PREAUTH_TRACKING_COUNT_MASK CssmAclPreauthTracking = 0xff
+	CSSM_ACL_PREAUTH_TRACKING_UNKNOWN    CssmAclPreauthTracking = 0x40000000
 )
 
 func (e CssmAclPreauthTracking) String() string {
@@ -1179,7 +1179,7 @@ func (e CssmAclPreauthTracking) String() string {
 type CssmAclProcessSelectorCurrent uint
 
 const (
-	CSSM_ACL_PROCESS_SELECTOR_CURRENT_VERSION CssmAclProcessSelectorCurrent = 257
+	CSSM_ACL_PROCESS_SELECTOR_CURRENT_VERSION CssmAclProcessSelectorCurrent = 0x101
 )
 
 func (e CssmAclProcessSelectorCurrent) String() string {
@@ -1820,7 +1820,7 @@ func (e CssmAscOptimize) String() string {
 type CssmAttachRead uint
 
 const (
-	CSSM_ATTACH_READ_ONLY CssmAttachRead = 1
+	CSSM_ATTACH_READ_ONLY CssmAttachRead = 0x1
 )
 
 func (e CssmAttachRead) String() string {
@@ -1844,18 +1844,18 @@ const (
 	CSSM_ATTRIBUTE_BLOCK_SIZE              CssmAttribute = 268435456
 	CSSM_ATTRIBUTE_CSP_HANDLE              CssmAttribute = 268435456
 	CSSM_ATTRIBUTE_CUSTOM                  CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_DATA_ACCESS_CREDENTIALS CssmAttribute = 2147483648
-	CSSM_ATTRIBUTE_DATA_CRYPTO_DATA        CssmAttribute = 805306368
-	CSSM_ATTRIBUTE_DATA_CSSM_DATA          CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_DATA_DATE               CssmAttribute = 1610612736
-	CSSM_ATTRIBUTE_DATA_DL_DB_HANDLE       CssmAttribute = 33554432
-	CSSM_ATTRIBUTE_DATA_KEY                CssmAttribute = 1073741824
-	CSSM_ATTRIBUTE_DATA_KR_PROFILE         CssmAttribute = 50331648
+	CSSM_ATTRIBUTE_DATA_ACCESS_CREDENTIALS CssmAttribute = 0x80000000
+	CSSM_ATTRIBUTE_DATA_CRYPTO_DATA        CssmAttribute = 0x30000000
+	CSSM_ATTRIBUTE_DATA_CSSM_DATA          CssmAttribute = 0x20000000
+	CSSM_ATTRIBUTE_DATA_DATE               CssmAttribute = 0x60000000
+	CSSM_ATTRIBUTE_DATA_DL_DB_HANDLE       CssmAttribute = 0x2000000
+	CSSM_ATTRIBUTE_DATA_KEY                CssmAttribute = 0x40000000
+	CSSM_ATTRIBUTE_DATA_KR_PROFILE         CssmAttribute = 0x3000000
 	CSSM_ATTRIBUTE_DATA_NONE               CssmAttribute = 0
-	CSSM_ATTRIBUTE_DATA_RANGE              CssmAttribute = 1879048192
-	CSSM_ATTRIBUTE_DATA_STRING             CssmAttribute = 1342177280
-	CSSM_ATTRIBUTE_DATA_UINT32             CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_DATA_VERSION            CssmAttribute = 16777216
+	CSSM_ATTRIBUTE_DATA_RANGE              CssmAttribute = 0x70000000
+	CSSM_ATTRIBUTE_DATA_STRING             CssmAttribute = 0x50000000
+	CSSM_ATTRIBUTE_DATA_UINT32             CssmAttribute = 0x10000000
+	CSSM_ATTRIBUTE_DATA_VERSION            CssmAttribute = 0x1000000
 	CSSM_ATTRIBUTE_DESCRIPTION             CssmAttribute = 1342177280
 	CSSM_ATTRIBUTE_DL_DB_HANDLE            CssmAttribute = 33554432
 	CSSM_ATTRIBUTE_EFFECTIVE_BITS          CssmAttribute = 268435456
@@ -1894,7 +1894,7 @@ const (
 	CSSM_ATTRIBUTE_START_DATE              CssmAttribute = 1610612736
 	CSSM_ATTRIBUTE_SUBPRIME                CssmAttribute = 536870912
 	CSSM_ATTRIBUTE_SYMMETRIC_KEY_FORMAT    CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_TYPE_MASK               CssmAttribute = 4278190080
+	CSSM_ATTRIBUTE_TYPE_MASK               CssmAttribute = 0xff000000
 	CSSM_ATTRIBUTE_VERIFY_PASSPHRASE       CssmAttribute = 0
 	CSSM_ATTRIBUTE_VERSION                 CssmAttribute = 16777216
 	CSSM_ATTRIBUTE_WRAPPED_KEY_FORMAT      CssmAttribute = 268435456
@@ -1936,7 +1936,7 @@ func (e CssmAttribute) String() string {
 type CssmAttributeVendor uint
 
 const (
-	CSSM_ATTRIBUTE_VENDOR_DEFINED CssmAttributeVendor = 8388608
+	CSSM_ATTRIBUTE_VENDOR_DEFINED CssmAttributeVendor = 0x800000
 )
 
 func (e CssmAttributeVendor) String() string {
@@ -1951,59 +1951,59 @@ func (e CssmAttributeVendor) String() string {
 type CssmC uint
 
 const (
-	CSSM_CERT_ACL_ENTRY                          CssmC = 12
-	CSSM_CERT_BUNDLE_CUSTOM                      CssmC = 1
-	CSSM_CERT_BUNDLE_LAST                        CssmC = 32767
-	CSSM_CERT_BUNDLE_PFX                         CssmC = 5
-	CSSM_CERT_BUNDLE_PGP_KEYRING                 CssmC = 7
-	CSSM_CERT_BUNDLE_PKCS12                      CssmC = 4
-	CSSM_CERT_BUNDLE_PKCS7_SIGNED_DATA           CssmC = 2
-	CSSM_CERT_BUNDLE_PKCS7_SIGNED_ENVELOPED_DATA CssmC = 3
-	CSSM_CERT_BUNDLE_SPKI_SEQUENCE               CssmC = 6
+	CSSM_CERT_ACL_ENTRY                          CssmC = 0xc
+	CSSM_CERT_BUNDLE_CUSTOM                      CssmC = 0x1
+	CSSM_CERT_BUNDLE_LAST                        CssmC = 0x7fff
+	CSSM_CERT_BUNDLE_PFX                         CssmC = 0x5
+	CSSM_CERT_BUNDLE_PGP_KEYRING                 CssmC = 0x7
+	CSSM_CERT_BUNDLE_PKCS12                      CssmC = 0x4
+	CSSM_CERT_BUNDLE_PKCS7_SIGNED_DATA           CssmC = 0x2
+	CSSM_CERT_BUNDLE_PKCS7_SIGNED_ENVELOPED_DATA CssmC = 0x3
+	CSSM_CERT_BUNDLE_SPKI_SEQUENCE               CssmC = 0x6
 	CSSM_CERT_BUNDLE_UNKNOWN                     CssmC = 0
-	CSSM_CERT_ENCODING_BER                       CssmC = 2
-	CSSM_CERT_ENCODING_CUSTOM                    CssmC = 1
-	CSSM_CERT_ENCODING_DER                       CssmC = 3
-	CSSM_CERT_ENCODING_LAST                      CssmC = 32767
-	CSSM_CERT_ENCODING_MULTIPLE                  CssmC = 32766
-	CSSM_CERT_ENCODING_NDR                       CssmC = 4
-	CSSM_CERT_ENCODING_PGP                       CssmC = 6
-	CSSM_CERT_ENCODING_SEXPR                     CssmC = 5
+	CSSM_CERT_ENCODING_BER                       CssmC = 0x2
+	CSSM_CERT_ENCODING_CUSTOM                    CssmC = 0x1
+	CSSM_CERT_ENCODING_DER                       CssmC = 0x3
+	CSSM_CERT_ENCODING_LAST                      CssmC = 0x7fff
+	CSSM_CERT_ENCODING_MULTIPLE                  CssmC = 0x7ffe
+	CSSM_CERT_ENCODING_NDR                       CssmC = 0x4
+	CSSM_CERT_ENCODING_PGP                       CssmC = 0x6
+	CSSM_CERT_ENCODING_SEXPR                     CssmC = 0x5
 	CSSM_CERT_ENCODING_UNKNOWN                   CssmC = 0
-	CSSM_CERT_Intel                              CssmC = 8
-	CSSM_CERT_LAST                               CssmC = 32767
-	CSSM_CERT_MULTIPLE                           CssmC = 32766
-	CSSM_CERT_PARSE_FORMAT_COMPLEX               CssmC = 3
-	CSSM_CERT_PARSE_FORMAT_CUSTOM                CssmC = 1
-	CSSM_CERT_PARSE_FORMAT_LAST                  CssmC = 32767
-	CSSM_CERT_PARSE_FORMAT_MULTIPLE              CssmC = 32766
+	CSSM_CERT_Intel                              CssmC = 0x8
+	CSSM_CERT_LAST                               CssmC = 0x7fff
+	CSSM_CERT_MULTIPLE                           CssmC = 0x7ffe
+	CSSM_CERT_PARSE_FORMAT_COMPLEX               CssmC = 0x3
+	CSSM_CERT_PARSE_FORMAT_CUSTOM                CssmC = 0x1
+	CSSM_CERT_PARSE_FORMAT_LAST                  CssmC = 0x7fff
+	CSSM_CERT_PARSE_FORMAT_MULTIPLE              CssmC = 0x7ffe
 	CSSM_CERT_PARSE_FORMAT_NONE                  CssmC = 0
-	CSSM_CERT_PARSE_FORMAT_OID_NAMED             CssmC = 4
-	CSSM_CERT_PARSE_FORMAT_SEXPR                 CssmC = 2
-	CSSM_CERT_PARSE_FORMAT_TUPLE                 CssmC = 5
-	CSSM_CERT_PGP                                CssmC = 4
-	CSSM_CERT_SDSIv1                             CssmC = 6
-	CSSM_CERT_SPKI                               CssmC = 5
-	CSSM_CERT_TUPLE                              CssmC = 11
+	CSSM_CERT_PARSE_FORMAT_OID_NAMED             CssmC = 0x4
+	CSSM_CERT_PARSE_FORMAT_SEXPR                 CssmC = 0x2
+	CSSM_CERT_PARSE_FORMAT_TUPLE                 CssmC = 0x5
+	CSSM_CERT_PGP                                CssmC = 0x4
+	CSSM_CERT_SDSIv1                             CssmC = 0x6
+	CSSM_CERT_SPKI                               CssmC = 0x5
+	CSSM_CERT_TUPLE                              CssmC = 0xb
 	CSSM_CERT_UNKNOWN                            CssmC = 0
-	CSSM_CERT_X9_ATTRIBUTE                       CssmC = 10
-	CSSM_CERT_X_509_ATTRIBUTE                    CssmC = 9
-	CSSM_CERT_X_509v1                            CssmC = 1
-	CSSM_CERT_X_509v2                            CssmC = 2
-	CSSM_CERT_X_509v3                            CssmC = 3
-	CSSM_CL_CUSTOM_CERT_BUNDLE_TYPE              CssmC = 32768
-	CSSM_CL_CUSTOM_CERT_ENCODING                 CssmC = 32768
-	CSSM_CL_CUSTOM_CERT_PARSE_FORMAT             CssmC = 32768
-	CSSM_CL_CUSTOM_CERT_TYPE                     CssmC = 32768
-	CSSM_CL_CUSTOM_CRL_PARSE_FORMAT              CssmC = 32768
-	CSSM_CRL_PARSE_FORMAT_COMPLEX                CssmC = 3
-	CSSM_CRL_PARSE_FORMAT_CUSTOM                 CssmC = 1
-	CSSM_CRL_PARSE_FORMAT_LAST                   CssmC = 32767
-	CSSM_CRL_PARSE_FORMAT_MULTIPLE               CssmC = 32766
+	CSSM_CERT_X9_ATTRIBUTE                       CssmC = 0xa
+	CSSM_CERT_X_509_ATTRIBUTE                    CssmC = 0x9
+	CSSM_CERT_X_509v1                            CssmC = 0x1
+	CSSM_CERT_X_509v2                            CssmC = 0x2
+	CSSM_CERT_X_509v3                            CssmC = 0x3
+	CSSM_CL_CUSTOM_CERT_BUNDLE_TYPE              CssmC = 0x8000
+	CSSM_CL_CUSTOM_CERT_ENCODING                 CssmC = 0x8000
+	CSSM_CL_CUSTOM_CERT_PARSE_FORMAT             CssmC = 0x8000
+	CSSM_CL_CUSTOM_CERT_TYPE                     CssmC = 0x8000
+	CSSM_CL_CUSTOM_CRL_PARSE_FORMAT              CssmC = 0x8000
+	CSSM_CRL_PARSE_FORMAT_COMPLEX                CssmC = 0x3
+	CSSM_CRL_PARSE_FORMAT_CUSTOM                 CssmC = 0x1
+	CSSM_CRL_PARSE_FORMAT_LAST                   CssmC = 0x7fff
+	CSSM_CRL_PARSE_FORMAT_MULTIPLE               CssmC = 0x7ffe
 	CSSM_CRL_PARSE_FORMAT_NONE                   CssmC = 0
-	CSSM_CRL_PARSE_FORMAT_OID_NAMED              CssmC = 4
-	CSSM_CRL_PARSE_FORMAT_SEXPR                  CssmC = 2
-	CSSM_CRL_PARSE_FORMAT_TUPLE                  CssmC = 5
+	CSSM_CRL_PARSE_FORMAT_OID_NAMED              CssmC = 0x4
+	CSSM_CRL_PARSE_FORMAT_SEXPR                  CssmC = 0x2
+	CSSM_CRL_PARSE_FORMAT_TUPLE                  CssmC = 0x5
 )
 
 func (e CssmC) String() string {
@@ -2066,11 +2066,11 @@ func (e CssmCLTemplate) String() string {
 type CssmCertBundleEncoding uint
 
 const (
-	CSSM_CERT_BUNDLE_ENCODING_BER     CssmCertBundleEncoding = 2
-	CSSM_CERT_BUNDLE_ENCODING_CUSTOM  CssmCertBundleEncoding = 1
-	CSSM_CERT_BUNDLE_ENCODING_DER     CssmCertBundleEncoding = 3
-	CSSM_CERT_BUNDLE_ENCODING_PGP     CssmCertBundleEncoding = 5
-	CSSM_CERT_BUNDLE_ENCODING_SEXPR   CssmCertBundleEncoding = 4
+	CSSM_CERT_BUNDLE_ENCODING_BER     CssmCertBundleEncoding = 0x2
+	CSSM_CERT_BUNDLE_ENCODING_CUSTOM  CssmCertBundleEncoding = 0x1
+	CSSM_CERT_BUNDLE_ENCODING_DER     CssmCertBundleEncoding = 0x3
+	CSSM_CERT_BUNDLE_ENCODING_PGP     CssmCertBundleEncoding = 0x5
+	CSSM_CERT_BUNDLE_ENCODING_SEXPR   CssmCertBundleEncoding = 0x4
 	CSSM_CERT_BUNDLE_ENCODING_UNKNOWN CssmCertBundleEncoding = 0
 )
 
@@ -2144,10 +2144,10 @@ func (e CssmCertStatus) String() string {
 type CssmCertgroup uint
 
 const (
-	CSSM_CERTGROUP_CERT_PAIR    CssmCertgroup = 3
+	CSSM_CERTGROUP_CERT_PAIR    CssmCertgroup = 0x3
 	CSSM_CERTGROUP_DATA         CssmCertgroup = 0
-	CSSM_CERTGROUP_ENCODED_CERT CssmCertgroup = 1
-	CSSM_CERTGROUP_PARSED_CERT  CssmCertgroup = 2
+	CSSM_CERTGROUP_ENCODED_CERT CssmCertgroup = 0x1
+	CSSM_CERTGROUP_PARSED_CERT  CssmCertgroup = 0x2
 )
 
 func (e CssmCertgroup) String() string {
@@ -2189,12 +2189,12 @@ func (e CssmContextEvent) String() string {
 type CssmCrlEncoding uint
 
 const (
-	CSSM_CRL_ENCODING_BER      CssmCrlEncoding = 2
-	CSSM_CRL_ENCODING_BLOOM    CssmCrlEncoding = 4
-	CSSM_CRL_ENCODING_CUSTOM   CssmCrlEncoding = 1
-	CSSM_CRL_ENCODING_DER      CssmCrlEncoding = 3
-	CSSM_CRL_ENCODING_MULTIPLE CssmCrlEncoding = 32766
-	CSSM_CRL_ENCODING_SEXPR    CssmCrlEncoding = 5
+	CSSM_CRL_ENCODING_BER      CssmCrlEncoding = 0x2
+	CSSM_CRL_ENCODING_BLOOM    CssmCrlEncoding = 0x4
+	CSSM_CRL_ENCODING_CUSTOM   CssmCrlEncoding = 0x1
+	CSSM_CRL_ENCODING_DER      CssmCrlEncoding = 0x3
+	CSSM_CRL_ENCODING_MULTIPLE CssmCrlEncoding = 0x7ffe
+	CSSM_CRL_ENCODING_SEXPR    CssmCrlEncoding = 0x5
 	CSSM_CRL_ENCODING_UNKNOWN  CssmCrlEncoding = 0
 )
 
@@ -2222,11 +2222,11 @@ func (e CssmCrlEncoding) String() string {
 type CssmCrlType uint
 
 const (
-	CSSM_CRL_TYPE_MULTIPLE CssmCrlType = 32766
-	CSSM_CRL_TYPE_SPKI     CssmCrlType = 3
+	CSSM_CRL_TYPE_MULTIPLE CssmCrlType = 0x7ffe
+	CSSM_CRL_TYPE_SPKI     CssmCrlType = 0x3
 	CSSM_CRL_TYPE_UNKNOWN  CssmCrlType = 0
-	CSSM_CRL_TYPE_X_509v1  CssmCrlType = 1
-	CSSM_CRL_TYPE_X_509v2  CssmCrlType = 2
+	CSSM_CRL_TYPE_X_509v1  CssmCrlType = 0x1
+	CSSM_CRL_TYPE_X_509v2  CssmCrlType = 0x2
 )
 
 func (e CssmCrlType) String() string {
@@ -2249,10 +2249,10 @@ func (e CssmCrlType) String() string {
 type CssmCrlgroup uint
 
 const (
-	CSSM_CRLGROUP_CRL_PAIR    CssmCrlgroup = 3
+	CSSM_CRLGROUP_CRL_PAIR    CssmCrlgroup = 0x3
 	CSSM_CRLGROUP_DATA        CssmCrlgroup = 0
-	CSSM_CRLGROUP_ENCODED_CRL CssmCrlgroup = 1
-	CSSM_CRLGROUP_PARSED_CRL  CssmCrlgroup = 2
+	CSSM_CRLGROUP_ENCODED_CRL CssmCrlgroup = 0x1
+	CSSM_CRLGROUP_PARSED_CRL  CssmCrlgroup = 0x2
 )
 
 func (e CssmCrlgroup) String() string {
@@ -2276,18 +2276,18 @@ const (
 	CSSM_CSP_HARDWARE                 CssmCsp = 1
 	CSSM_CSP_HYBRID                   CssmCsp = 1
 	CSSM_CSP_SOFTWARE                 CssmCsp = 1
-	CSSM_CSP_STORES_CERTIFICATES      CssmCsp = 134217728
-	CSSM_CSP_STORES_GENERIC           CssmCsp = 268435456
-	CSSM_CSP_STORES_PRIVATE_KEYS      CssmCsp = 16777216
-	CSSM_CSP_STORES_PUBLIC_KEYS       CssmCsp = 33554432
-	CSSM_CSP_STORES_SESSION_KEYS      CssmCsp = 67108864
-	CSSM_CSP_TOK_LOGIN_REQUIRED       CssmCsp = 4
-	CSSM_CSP_TOK_PRIVATE_KEY_PASSWORD CssmCsp = 4194304
-	CSSM_CSP_TOK_PROT_AUTHENTICATION  CssmCsp = 256
-	CSSM_CSP_TOK_SESSION_KEY_PASSWORD CssmCsp = 2097152
-	CSSM_CSP_TOK_USER_PIN_EXPIRED     CssmCsp = 1048576
-	CSSM_CSP_TOK_USER_PIN_INITIALIZED CssmCsp = 8
-	CSSM_CSP_TOK_WRITE_PROTECTED      CssmCsp = 2
+	CSSM_CSP_STORES_CERTIFICATES      CssmCsp = 0x8000000
+	CSSM_CSP_STORES_GENERIC           CssmCsp = 0x10000000
+	CSSM_CSP_STORES_PRIVATE_KEYS      CssmCsp = 0x1000000
+	CSSM_CSP_STORES_PUBLIC_KEYS       CssmCsp = 0x2000000
+	CSSM_CSP_STORES_SESSION_KEYS      CssmCsp = 0x4000000
+	CSSM_CSP_TOK_LOGIN_REQUIRED       CssmCsp = 0x4
+	CSSM_CSP_TOK_PRIVATE_KEY_PASSWORD CssmCsp = 0x400000
+	CSSM_CSP_TOK_PROT_AUTHENTICATION  CssmCsp = 0x100
+	CSSM_CSP_TOK_SESSION_KEY_PASSWORD CssmCsp = 0x200000
+	CSSM_CSP_TOK_USER_PIN_EXPIRED     CssmCsp = 0x100000
+	CSSM_CSP_TOK_USER_PIN_INITIALIZED CssmCsp = 0x8
+	CSSM_CSP_TOK_WRITE_PROTECTED      CssmCsp = 0x2
 )
 
 func (e CssmCsp) String() string {
@@ -2326,9 +2326,9 @@ func (e CssmCsp) String() string {
 type CssmCspRdr uint
 
 const (
-	CSSM_CSP_RDR_EXISTS       CssmCspRdr = 2
-	CSSM_CSP_RDR_HW           CssmCspRdr = 4
-	CSSM_CSP_RDR_TOKENPRESENT CssmCspRdr = 1
+	CSSM_CSP_RDR_EXISTS       CssmCspRdr = 0x2
+	CSSM_CSP_RDR_HW           CssmCspRdr = 0x4
+	CSSM_CSP_RDR_TOKENPRESENT CssmCspRdr = 0x1
 )
 
 func (e CssmCspRdr) String() string {
@@ -2347,8 +2347,8 @@ func (e CssmCspRdr) String() string {
 type CssmCspTok uint
 
 const (
-	CSSM_CSP_TOK_CLOCK_EXISTS CssmCspTok = 64
-	CSSM_CSP_TOK_RNG          CssmCspTok = 1
+	CSSM_CSP_TOK_CLOCK_EXISTS CssmCspTok = 0x40
+	CSSM_CSP_TOK_RNG          CssmCspTok = 0x1
 )
 
 func (e CssmCspTok) String() string {
@@ -2365,10 +2365,10 @@ func (e CssmCspTok) String() string {
 type CssmD uint
 
 const (
-	CSSM_DB_RECORDTYPE_APP_DEFINED_END   CssmD = 4294967295
-	CSSM_DB_RECORDTYPE_APP_DEFINED_START CssmD = 2147483648
+	CSSM_DB_RECORDTYPE_APP_DEFINED_END   CssmD = 0xffffffff
+	CSSM_DB_RECORDTYPE_APP_DEFINED_START CssmD = 0x80000000
 	CSSM_DB_RECORDTYPE_OPEN_GROUP_END    CssmD = 10
-	CSSM_DB_RECORDTYPE_OPEN_GROUP_START  CssmD = 10
+	CSSM_DB_RECORDTYPE_OPEN_GROUP_START  CssmD = 0xa
 	CSSM_DB_RECORDTYPE_SCHEMA_END        CssmD = 0
 	CSSM_DB_RECORDTYPE_SCHEMA_START      CssmD = 0
 	CSSM_DL_DB_RECORD_ALL_KEYS           CssmD = 10
@@ -2442,10 +2442,10 @@ func (e CssmDb) String() string {
 type CssmDbAccess uint
 
 const (
-	CSSM_DB_ACCESS_PRIVILEGED CssmDbAccess = 4
-	CSSM_DB_ACCESS_READ       CssmDbAccess = 1
-	CSSM_DB_ACCESS_RESET      CssmDbAccess = 65536
-	CSSM_DB_ACCESS_WRITE      CssmDbAccess = 2
+	CSSM_DB_ACCESS_PRIVILEGED CssmDbAccess = 0x4
+	CSSM_DB_ACCESS_READ       CssmDbAccess = 0x1
+	CSSM_DB_ACCESS_RESET      CssmDbAccess = 0x10000
+	CSSM_DB_ACCESS_WRITE      CssmDbAccess = 0x2
 )
 
 func (e CssmDbAccess) String() string {
@@ -2526,12 +2526,12 @@ func (e CssmDbAttributeNameAs) String() string {
 type CssmDbCertUse uint
 
 const (
-	CSSM_DB_CERT_USE_OWNER   CssmDbCertUse = 4
-	CSSM_DB_CERT_USE_PRIVACY CssmDbCertUse = 32
-	CSSM_DB_CERT_USE_REVOKED CssmDbCertUse = 8
-	CSSM_DB_CERT_USE_SIGNING CssmDbCertUse = 16
-	CSSM_DB_CERT_USE_SYSTEM  CssmDbCertUse = 2
-	CSSM_DB_CERT_USE_TRUSTED CssmDbCertUse = 1
+	CSSM_DB_CERT_USE_OWNER   CssmDbCertUse = 0x4
+	CSSM_DB_CERT_USE_PRIVACY CssmDbCertUse = 0x20
+	CSSM_DB_CERT_USE_REVOKED CssmDbCertUse = 0x8
+	CSSM_DB_CERT_USE_SIGNING CssmDbCertUse = 0x10
+	CSSM_DB_CERT_USE_SYSTEM  CssmDbCertUse = 0x2
+	CSSM_DB_CERT_USE_TRUSTED CssmDbCertUse = 0x1
 )
 
 func (e CssmDbCertUse) String() string {
@@ -2556,7 +2556,7 @@ func (e CssmDbCertUse) String() string {
 type CssmDbDatastores uint
 
 const (
-	CSSM_DB_DATASTORES_UNKNOWN CssmDbDatastores = 4294967295
+	CSSM_DB_DATASTORES_UNKNOWN CssmDbDatastores = 0xffffffff
 )
 
 func (e CssmDbDatastores) String() string {
@@ -2713,66 +2713,66 @@ func (e CssmElapsedTime) String() string {
 type CssmErrcode int
 
 const (
-	CSSM_ERRCODE_ACL_ADD_FAILED                 CssmErrcode = 54
-	CSSM_ERRCODE_ACL_BASE_CERTS_NOT_SUPPORTED   CssmErrcode = 39
-	CSSM_ERRCODE_ACL_CHALLENGE_CALLBACK_FAILED  CssmErrcode = 45
-	CSSM_ERRCODE_ACL_CHANGE_FAILED              CssmErrcode = 49
-	CSSM_ERRCODE_ACL_DELETE_FAILED              CssmErrcode = 52
-	CSSM_ERRCODE_ACL_ENTRY_TAG_NOT_FOUND        CssmErrcode = 47
-	CSSM_ERRCODE_ACL_REPLACE_FAILED             CssmErrcode = 53
-	CSSM_ERRCODE_ACL_SUBJECT_TYPE_NOT_SUPPORTED CssmErrcode = 43
-	CSSM_ERRCODE_CRL_ALREADY_SIGNED             CssmErrcode = 71
-	CSSM_ERRCODE_FUNCTION_FAILED                CssmErrcode = 10
-	CSSM_ERRCODE_FUNCTION_NOT_IMPLEMENTED       CssmErrcode = 7
-	CSSM_ERRCODE_INCOMPATIBLE_VERSION           CssmErrcode = 65
-	CSSM_ERRCODE_INTERNAL_ERROR                 CssmErrcode = 1
-	CSSM_ERRCODE_INVALID_ACCESS_CREDENTIALS     CssmErrcode = 37
-	CSSM_ERRCODE_INVALID_ACL_BASE_CERTS         CssmErrcode = 38
-	CSSM_ERRCODE_INVALID_ACL_CHALLENGE_CALLBACK CssmErrcode = 44
-	CSSM_ERRCODE_INVALID_ACL_EDIT_MODE          CssmErrcode = 48
-	CSSM_ERRCODE_INVALID_ACL_ENTRY_TAG          CssmErrcode = 46
-	CSSM_ERRCODE_INVALID_ACL_SUBJECT_VALUE      CssmErrcode = 42
-	CSSM_ERRCODE_INVALID_AC_HANDLE              CssmErrcode = 85
-	CSSM_ERRCODE_INVALID_CERTGROUP_POINTER      CssmErrcode = 66
-	CSSM_ERRCODE_INVALID_CERT_POINTER           CssmErrcode = 67
-	CSSM_ERRCODE_INVALID_CL_HANDLE              CssmErrcode = 82
-	CSSM_ERRCODE_INVALID_CONTEXT_HANDLE         CssmErrcode = 64
-	CSSM_ERRCODE_INVALID_CRL_POINTER            CssmErrcode = 68
-	CSSM_ERRCODE_INVALID_CRYPTO_DATA            CssmErrcode = 88
-	CSSM_ERRCODE_INVALID_CSP_HANDLE             CssmErrcode = 80
-	CSSM_ERRCODE_INVALID_DATA                   CssmErrcode = 70
-	CSSM_ERRCODE_INVALID_DB_HANDLE              CssmErrcode = 74
-	CSSM_ERRCODE_INVALID_DB_LIST                CssmErrcode = 76
-	CSSM_ERRCODE_INVALID_DB_LIST_POINTER        CssmErrcode = 77
-	CSSM_ERRCODE_INVALID_DL_HANDLE              CssmErrcode = 81
-	CSSM_ERRCODE_INVALID_FIELD_POINTER          CssmErrcode = 69
-	CSSM_ERRCODE_INVALID_GUID                   CssmErrcode = 12
-	CSSM_ERRCODE_INVALID_INPUT_POINTER          CssmErrcode = 5
-	CSSM_ERRCODE_INVALID_KR_HANDLE              CssmErrcode = 84
-	CSSM_ERRCODE_INVALID_NETWORK_ADDR           CssmErrcode = 87
-	CSSM_ERRCODE_INVALID_NEW_ACL_ENTRY          CssmErrcode = 50
-	CSSM_ERRCODE_INVALID_NEW_ACL_OWNER          CssmErrcode = 51
-	CSSM_ERRCODE_INVALID_NUMBER_OF_FIELDS       CssmErrcode = 72
-	CSSM_ERRCODE_INVALID_OUTPUT_POINTER         CssmErrcode = 6
-	CSSM_ERRCODE_INVALID_PASSTHROUGH_ID         CssmErrcode = 86
-	CSSM_ERRCODE_INVALID_POINTER                CssmErrcode = 4
-	CSSM_ERRCODE_INVALID_SAMPLE_VALUE           CssmErrcode = 40
-	CSSM_ERRCODE_INVALID_TP_HANDLE              CssmErrcode = 83
-	CSSM_ERRCODE_MDS_ERROR                      CssmErrcode = 3
-	CSSM_ERRCODE_MEMORY_ERROR                   CssmErrcode = 2
-	CSSM_ERRCODE_MODULE_MANIFEST_VERIFY_FAILED  CssmErrcode = 11
-	CSSM_ERRCODE_OBJECT_ACL_NOT_SUPPORTED       CssmErrcode = 35
-	CSSM_ERRCODE_OBJECT_ACL_REQUIRED            CssmErrcode = 36
-	CSSM_ERRCODE_OBJECT_MANIP_AUTH_DENIED       CssmErrcode = 34
-	CSSM_ERRCODE_OBJECT_USE_AUTH_DENIED         CssmErrcode = 33
-	CSSM_ERRCODE_OPERATION_AUTH_DENIED          CssmErrcode = 32
-	CSSM_ERRCODE_OS_ACCESS_DENIED               CssmErrcode = 9
-	CSSM_ERRCODE_PRIVILEGE_NOT_GRANTED          CssmErrcode = 75
-	CSSM_ERRCODE_SAMPLE_VALUE_NOT_SUPPORTED     CssmErrcode = 41
-	CSSM_ERRCODE_SELF_CHECK_FAILED              CssmErrcode = 8
-	CSSM_ERRCODE_UNKNOWN_FORMAT                 CssmErrcode = 78
-	CSSM_ERRCODE_UNKNOWN_TAG                    CssmErrcode = 79
-	CSSM_ERRCODE_VERIFICATION_FAILURE           CssmErrcode = 73
+	CSSM_ERRCODE_ACL_ADD_FAILED                 CssmErrcode = 0x36
+	CSSM_ERRCODE_ACL_BASE_CERTS_NOT_SUPPORTED   CssmErrcode = 0x27
+	CSSM_ERRCODE_ACL_CHALLENGE_CALLBACK_FAILED  CssmErrcode = 0x2d
+	CSSM_ERRCODE_ACL_CHANGE_FAILED              CssmErrcode = 0x31
+	CSSM_ERRCODE_ACL_DELETE_FAILED              CssmErrcode = 0x34
+	CSSM_ERRCODE_ACL_ENTRY_TAG_NOT_FOUND        CssmErrcode = 0x2f
+	CSSM_ERRCODE_ACL_REPLACE_FAILED             CssmErrcode = 0x35
+	CSSM_ERRCODE_ACL_SUBJECT_TYPE_NOT_SUPPORTED CssmErrcode = 0x2b
+	CSSM_ERRCODE_CRL_ALREADY_SIGNED             CssmErrcode = 0x47
+	CSSM_ERRCODE_FUNCTION_FAILED                CssmErrcode = 0xa
+	CSSM_ERRCODE_FUNCTION_NOT_IMPLEMENTED       CssmErrcode = 0x7
+	CSSM_ERRCODE_INCOMPATIBLE_VERSION           CssmErrcode = 0x41
+	CSSM_ERRCODE_INTERNAL_ERROR                 CssmErrcode = 0x1
+	CSSM_ERRCODE_INVALID_ACCESS_CREDENTIALS     CssmErrcode = 0x25
+	CSSM_ERRCODE_INVALID_ACL_BASE_CERTS         CssmErrcode = 0x26
+	CSSM_ERRCODE_INVALID_ACL_CHALLENGE_CALLBACK CssmErrcode = 0x2c
+	CSSM_ERRCODE_INVALID_ACL_EDIT_MODE          CssmErrcode = 0x30
+	CSSM_ERRCODE_INVALID_ACL_ENTRY_TAG          CssmErrcode = 0x2e
+	CSSM_ERRCODE_INVALID_ACL_SUBJECT_VALUE      CssmErrcode = 0x2a
+	CSSM_ERRCODE_INVALID_AC_HANDLE              CssmErrcode = 0x55
+	CSSM_ERRCODE_INVALID_CERTGROUP_POINTER      CssmErrcode = 0x42
+	CSSM_ERRCODE_INVALID_CERT_POINTER           CssmErrcode = 0x43
+	CSSM_ERRCODE_INVALID_CL_HANDLE              CssmErrcode = 0x52
+	CSSM_ERRCODE_INVALID_CONTEXT_HANDLE         CssmErrcode = 0x40
+	CSSM_ERRCODE_INVALID_CRL_POINTER            CssmErrcode = 0x44
+	CSSM_ERRCODE_INVALID_CRYPTO_DATA            CssmErrcode = 0x58
+	CSSM_ERRCODE_INVALID_CSP_HANDLE             CssmErrcode = 0x50
+	CSSM_ERRCODE_INVALID_DATA                   CssmErrcode = 0x46
+	CSSM_ERRCODE_INVALID_DB_HANDLE              CssmErrcode = 0x4a
+	CSSM_ERRCODE_INVALID_DB_LIST                CssmErrcode = 0x4c
+	CSSM_ERRCODE_INVALID_DB_LIST_POINTER        CssmErrcode = 0x4d
+	CSSM_ERRCODE_INVALID_DL_HANDLE              CssmErrcode = 0x51
+	CSSM_ERRCODE_INVALID_FIELD_POINTER          CssmErrcode = 0x45
+	CSSM_ERRCODE_INVALID_GUID                   CssmErrcode = 0xc
+	CSSM_ERRCODE_INVALID_INPUT_POINTER          CssmErrcode = 0x5
+	CSSM_ERRCODE_INVALID_KR_HANDLE              CssmErrcode = 0x54
+	CSSM_ERRCODE_INVALID_NETWORK_ADDR           CssmErrcode = 0x57
+	CSSM_ERRCODE_INVALID_NEW_ACL_ENTRY          CssmErrcode = 0x32
+	CSSM_ERRCODE_INVALID_NEW_ACL_OWNER          CssmErrcode = 0x33
+	CSSM_ERRCODE_INVALID_NUMBER_OF_FIELDS       CssmErrcode = 0x48
+	CSSM_ERRCODE_INVALID_OUTPUT_POINTER         CssmErrcode = 0x6
+	CSSM_ERRCODE_INVALID_PASSTHROUGH_ID         CssmErrcode = 0x56
+	CSSM_ERRCODE_INVALID_POINTER                CssmErrcode = 0x4
+	CSSM_ERRCODE_INVALID_SAMPLE_VALUE           CssmErrcode = 0x28
+	CSSM_ERRCODE_INVALID_TP_HANDLE              CssmErrcode = 0x53
+	CSSM_ERRCODE_MDS_ERROR                      CssmErrcode = 0x3
+	CSSM_ERRCODE_MEMORY_ERROR                   CssmErrcode = 0x2
+	CSSM_ERRCODE_MODULE_MANIFEST_VERIFY_FAILED  CssmErrcode = 0xb
+	CSSM_ERRCODE_OBJECT_ACL_NOT_SUPPORTED       CssmErrcode = 0x23
+	CSSM_ERRCODE_OBJECT_ACL_REQUIRED            CssmErrcode = 0x24
+	CSSM_ERRCODE_OBJECT_MANIP_AUTH_DENIED       CssmErrcode = 0x22
+	CSSM_ERRCODE_OBJECT_USE_AUTH_DENIED         CssmErrcode = 0x21
+	CSSM_ERRCODE_OPERATION_AUTH_DENIED          CssmErrcode = 0x20
+	CSSM_ERRCODE_OS_ACCESS_DENIED               CssmErrcode = 0x9
+	CSSM_ERRCODE_PRIVILEGE_NOT_GRANTED          CssmErrcode = 0x4b
+	CSSM_ERRCODE_SAMPLE_VALUE_NOT_SUPPORTED     CssmErrcode = 0x29
+	CSSM_ERRCODE_SELF_CHECK_FAILED              CssmErrcode = 0x8
+	CSSM_ERRCODE_UNKNOWN_FORMAT                 CssmErrcode = 0x4e
+	CSSM_ERRCODE_UNKNOWN_TAG                    CssmErrcode = 0x4f
+	CSSM_ERRCODE_VERIFICATION_FAILURE           CssmErrcode = 0x49
 )
 
 func (e CssmErrcode) String() string {
@@ -2920,16 +2920,16 @@ func (e CssmEstimatedTime) String() string {
 type CssmEvidenceForm uint
 
 const (
-	CSSM_EVIDENCE_FORM_CERT          CssmEvidenceForm = 1
-	CSSM_EVIDENCE_FORM_CERT_ID       CssmEvidenceForm = 3
-	CSSM_EVIDENCE_FORM_CRL           CssmEvidenceForm = 2
-	CSSM_EVIDENCE_FORM_CRL_ID        CssmEvidenceForm = 4
-	CSSM_EVIDENCE_FORM_CRL_NEXTTIME  CssmEvidenceForm = 7
-	CSSM_EVIDENCE_FORM_CRL_THISTIME  CssmEvidenceForm = 6
-	CSSM_EVIDENCE_FORM_POLICYINFO    CssmEvidenceForm = 8
-	CSSM_EVIDENCE_FORM_TUPLEGROUP    CssmEvidenceForm = 9
+	CSSM_EVIDENCE_FORM_CERT          CssmEvidenceForm = 0x1
+	CSSM_EVIDENCE_FORM_CERT_ID       CssmEvidenceForm = 0x3
+	CSSM_EVIDENCE_FORM_CRL           CssmEvidenceForm = 0x2
+	CSSM_EVIDENCE_FORM_CRL_ID        CssmEvidenceForm = 0x4
+	CSSM_EVIDENCE_FORM_CRL_NEXTTIME  CssmEvidenceForm = 0x7
+	CSSM_EVIDENCE_FORM_CRL_THISTIME  CssmEvidenceForm = 0x6
+	CSSM_EVIDENCE_FORM_POLICYINFO    CssmEvidenceForm = 0x8
+	CSSM_EVIDENCE_FORM_TUPLEGROUP    CssmEvidenceForm = 0x9
 	CSSM_EVIDENCE_FORM_UNSPECIFIC    CssmEvidenceForm = 0
-	CSSM_EVIDENCE_FORM_VERIFIER_TIME CssmEvidenceForm = 5
+	CSSM_EVIDENCE_FORM_VERIFIER_TIME CssmEvidenceForm = 0x5
 )
 
 func (e CssmEvidenceForm) String() string {
@@ -3027,7 +3027,7 @@ func (e CssmFeePrimeType) String() string {
 type CssmFieldvalueComplexData uint
 
 const (
-	CSSM_FIELDVALUE_COMPLEX_DATA_TYPE CssmFieldvalueComplexData = 4294967295
+	CSSM_FIELDVALUE_COMPLEX_DATA_TYPE CssmFieldvalueComplexData = 0xffffffff
 )
 
 func (e CssmFieldvalueComplexData) String() string {
@@ -3099,17 +3099,17 @@ func (e CssmKeyHierarchy) String() string {
 type CssmKeyattr uint
 
 const (
-	CSSM_KEYATTR_ALWAYS_SENSITIVE  CssmKeyattr = 16
-	CSSM_KEYATTR_EXTRACTABLE       CssmKeyattr = 32
-	CSSM_KEYATTR_MODIFIABLE        CssmKeyattr = 4
-	CSSM_KEYATTR_NEVER_EXTRACTABLE CssmKeyattr = 64
-	CSSM_KEYATTR_PERMANENT         CssmKeyattr = 1
-	CSSM_KEYATTR_PRIVATE           CssmKeyattr = 2
-	CSSM_KEYATTR_RETURN_DATA       CssmKeyattr = 268435456
+	CSSM_KEYATTR_ALWAYS_SENSITIVE  CssmKeyattr = 0x10
+	CSSM_KEYATTR_EXTRACTABLE       CssmKeyattr = 0x20
+	CSSM_KEYATTR_MODIFIABLE        CssmKeyattr = 0x4
+	CSSM_KEYATTR_NEVER_EXTRACTABLE CssmKeyattr = 0x40
+	CSSM_KEYATTR_PERMANENT         CssmKeyattr = 0x1
+	CSSM_KEYATTR_PRIVATE           CssmKeyattr = 0x2
+	CSSM_KEYATTR_RETURN_DATA       CssmKeyattr = 0x10000000
 	CSSM_KEYATTR_RETURN_DEFAULT    CssmKeyattr = 0
-	CSSM_KEYATTR_RETURN_NONE       CssmKeyattr = 1073741824
-	CSSM_KEYATTR_RETURN_REF        CssmKeyattr = 536870912
-	CSSM_KEYATTR_SENSITIVE         CssmKeyattr = 8
+	CSSM_KEYATTR_RETURN_NONE       CssmKeyattr = 0x40000000
+	CSSM_KEYATTR_RETURN_REF        CssmKeyattr = 0x20000000
+	CSSM_KEYATTR_SENSITIVE         CssmKeyattr = 0x8
 )
 
 func (e CssmKeyattr) String() string {
@@ -3144,8 +3144,8 @@ func (e CssmKeyattr) String() string {
 type CssmKeyattrP uint
 
 const (
-	CSSM_KEYATTR_PARTIAL            CssmKeyattrP = 65536
-	CSSM_KEYATTR_PUBLIC_KEY_ENCRYPT CssmKeyattrP = 131072
+	CSSM_KEYATTR_PARTIAL            CssmKeyattrP = 0x10000
+	CSSM_KEYATTR_PUBLIC_KEY_ENCRYPT CssmKeyattrP = 0x20000
 )
 
 func (e CssmKeyattrP) String() string {
@@ -3162,7 +3162,7 @@ func (e CssmKeyattrP) String() string {
 type CssmKeyblob uint
 
 const (
-	CSSM_KEYBLOB_OTHER     CssmKeyblob = 4294967295
+	CSSM_KEYBLOB_OTHER     CssmKeyblob = 0xffffffff
 	CSSM_KEYBLOB_RAW       CssmKeyblob = 0
 	CSSM_KEYBLOB_REFERENCE CssmKeyblob = 2
 	CSSM_KEYBLOB_WRAPPED   CssmKeyblob = 3
@@ -3195,7 +3195,7 @@ const (
 	CSSM_KEYBLOB_RAW_FORMAT_OPENSSH      CssmKeyblobRawFormat = 2147483649
 	CSSM_KEYBLOB_RAW_FORMAT_OPENSSH2     CssmKeyblobRawFormat = 2147483651
 	CSSM_KEYBLOB_RAW_FORMAT_OPENSSL      CssmKeyblobRawFormat = 2147483650
-	CSSM_KEYBLOB_RAW_FORMAT_OTHER        CssmKeyblobRawFormat = 4294967295
+	CSSM_KEYBLOB_RAW_FORMAT_OTHER        CssmKeyblobRawFormat = 0xffffffff
 	CSSM_KEYBLOB_RAW_FORMAT_PGP          CssmKeyblobRawFormat = 4
 	CSSM_KEYBLOB_RAW_FORMAT_PKCS1        CssmKeyblobRawFormat = 1
 	CSSM_KEYBLOB_RAW_FORMAT_PKCS3        CssmKeyblobRawFormat = 2
@@ -3246,7 +3246,7 @@ func (e CssmKeyblobRawFormat) String() string {
 type CssmKeyblobRawFormatVendor uint
 
 const (
-	CSSM_KEYBLOB_RAW_FORMAT_VENDOR_DEFINED CssmKeyblobRawFormatVendor = 2147483648
+	CSSM_KEYBLOB_RAW_FORMAT_VENDOR_DEFINED CssmKeyblobRawFormatVendor = 0x80000000
 )
 
 func (e CssmKeyblobRawFormatVendor) String() string {
@@ -3262,7 +3262,7 @@ type CssmKeyblobRefFormat uint
 
 const (
 	CSSM_KEYBLOB_REF_FORMAT_INTEGER CssmKeyblobRefFormat = 0
-	CSSM_KEYBLOB_REF_FORMAT_OTHER   CssmKeyblobRefFormat = 4294967295
+	CSSM_KEYBLOB_REF_FORMAT_OTHER   CssmKeyblobRefFormat = 0xffffffff
 	CSSM_KEYBLOB_REF_FORMAT_SPKI    CssmKeyblobRefFormat = 2
 	CSSM_KEYBLOB_REF_FORMAT_STRING  CssmKeyblobRefFormat = 1
 )
@@ -3290,7 +3290,7 @@ const (
 	CSSM_KEYBLOB_WRAPPED_FORMAT_NONE         CssmKeyblobWrappedFormat = 0
 	CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSH1     CssmKeyblobWrappedFormat = 102
 	CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSL      CssmKeyblobWrappedFormat = 101
-	CSSM_KEYBLOB_WRAPPED_FORMAT_OTHER        CssmKeyblobWrappedFormat = 4294967295
+	CSSM_KEYBLOB_WRAPPED_FORMAT_OTHER        CssmKeyblobWrappedFormat = 0xffffffff
 	CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS7        CssmKeyblobWrappedFormat = 2
 	CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS8        CssmKeyblobWrappedFormat = 1
 )
@@ -3321,7 +3321,7 @@ func (e CssmKeyblobWrappedFormat) String() string {
 type CssmKeyclass uint
 
 const (
-	CSSM_KEYCLASS_OTHER       CssmKeyclass = 4294967295
+	CSSM_KEYCLASS_OTHER       CssmKeyclass = 0xffffffff
 	CSSM_KEYCLASS_PRIVATE_KEY CssmKeyclass = 1
 	CSSM_KEYCLASS_PUBLIC_KEY  CssmKeyclass = 0
 	CSSM_KEYCLASS_SECRET_PART CssmKeyclass = 3
@@ -3363,16 +3363,16 @@ func (e CssmKeyheader) String() string {
 type CssmKeyuse uint
 
 const (
-	CSSM_KEYUSE_ANY            CssmKeyuse = 2147483648
-	CSSM_KEYUSE_DECRYPT        CssmKeyuse = 2
-	CSSM_KEYUSE_DERIVE         CssmKeyuse = 256
-	CSSM_KEYUSE_ENCRYPT        CssmKeyuse = 1
-	CSSM_KEYUSE_SIGN           CssmKeyuse = 4
-	CSSM_KEYUSE_SIGN_RECOVER   CssmKeyuse = 16
-	CSSM_KEYUSE_UNWRAP         CssmKeyuse = 128
-	CSSM_KEYUSE_VERIFY         CssmKeyuse = 8
-	CSSM_KEYUSE_VERIFY_RECOVER CssmKeyuse = 32
-	CSSM_KEYUSE_WRAP           CssmKeyuse = 64
+	CSSM_KEYUSE_ANY            CssmKeyuse = 0x80000000
+	CSSM_KEYUSE_DECRYPT        CssmKeyuse = 0x2
+	CSSM_KEYUSE_DERIVE         CssmKeyuse = 0x100
+	CSSM_KEYUSE_ENCRYPT        CssmKeyuse = 0x1
+	CSSM_KEYUSE_SIGN           CssmKeyuse = 0x4
+	CSSM_KEYUSE_SIGN_RECOVER   CssmKeyuse = 0x10
+	CSSM_KEYUSE_UNWRAP         CssmKeyuse = 0x80
+	CSSM_KEYUSE_VERIFY         CssmKeyuse = 0x8
+	CSSM_KEYUSE_VERIFY_RECOVER CssmKeyuse = 0x20
+	CSSM_KEYUSE_WRAP           CssmKeyuse = 0x40
 )
 
 func (e CssmKeyuse) String() string {
@@ -3406,8 +3406,8 @@ type CssmListElement uint
 
 const (
 	CSSM_LIST_ELEMENT_DATUM   CssmListElement = 0
-	CSSM_LIST_ELEMENT_SUBLIST CssmListElement = 1
-	CSSM_LIST_ELEMENT_WORDID  CssmListElement = 2
+	CSSM_LIST_ELEMENT_SUBLIST CssmListElement = 0x1
+	CSSM_LIST_ELEMENT_WORDID  CssmListElement = 0x2
 )
 
 func (e CssmListElement) String() string {
@@ -3679,7 +3679,7 @@ func (e CssmPvc) String() string {
 type CssmQueryReturn uint
 
 const (
-	CSSM_QUERY_RETURN_DATA CssmQueryReturn = 1
+	CSSM_QUERY_RETURN_DATA CssmQueryReturn = 0x1
 )
 
 func (e CssmQueryReturn) String() string {
@@ -3796,13 +3796,13 @@ func (e CssmSampleType) String() string {
 type CssmService uint
 
 const (
-	CSSM_SERVICE_AC   CssmService = 32
-	CSSM_SERVICE_CL   CssmService = 8
-	CSSM_SERVICE_CSP  CssmService = 2
-	CSSM_SERVICE_CSSM CssmService = 1
-	CSSM_SERVICE_DL   CssmService = 4
-	CSSM_SERVICE_KR   CssmService = 64
-	CSSM_SERVICE_TP   CssmService = 16
+	CSSM_SERVICE_AC   CssmService = 0x20
+	CSSM_SERVICE_CL   CssmService = 0x8
+	CSSM_SERVICE_CSP  CssmService = 0x2
+	CSSM_SERVICE_CSSM CssmService = 0x1
+	CSSM_SERVICE_DL   CssmService = 0x4
+	CSSM_SERVICE_KR   CssmService = 0x40
+	CSSM_SERVICE_TP   CssmService = 0x10
 )
 
 func (e CssmService) String() string {
@@ -3829,11 +3829,11 @@ func (e CssmService) String() string {
 type CssmTp uint
 
 const (
-	CSSM_TP_CERT_DIR_UPDATE   CssmTp = 8
-	CSSM_TP_CERT_NOTIFY_RENEW CssmTp = 4
-	CSSM_TP_CERT_PUBLISH      CssmTp = 2
-	CSSM_TP_CRL_DISTRIBUTE    CssmTp = 16
-	CSSM_TP_KEY_ARCHIVE       CssmTp = 1
+	CSSM_TP_CERT_DIR_UPDATE   CssmTp = 0x8
+	CSSM_TP_CERT_NOTIFY_RENEW CssmTp = 0x4
+	CSSM_TP_CERT_PUBLISH      CssmTp = 0x2
+	CSSM_TP_CRL_DISTRIBUTE    CssmTp = 0x10
+	CSSM_TP_KEY_ARCHIVE       CssmTp = 0x1
 )
 
 func (e CssmTp) String() string {
@@ -3856,18 +3856,18 @@ func (e CssmTp) String() string {
 type CssmTpAction uint
 
 const (
-	CSSM_TP_ACTION_ALLOW_EXPIRED          CssmTpAction = 1
-	CSSM_TP_ACTION_ALLOW_EXPIRED_ROOT     CssmTpAction = 8
-	CSSM_TP_ACTION_CRL_SUFFICIENT         CssmTpAction = 4
+	CSSM_TP_ACTION_ALLOW_EXPIRED          CssmTpAction = 0x1
+	CSSM_TP_ACTION_ALLOW_EXPIRED_ROOT     CssmTpAction = 0x8
+	CSSM_TP_ACTION_CRL_SUFFICIENT         CssmTpAction = 0x4
 	CSSM_TP_ACTION_DEFAULT                CssmTpAction = 0
-	CSSM_TP_ACTION_FETCH_CERT_FROM_NET    CssmTpAction = 4
-	CSSM_TP_ACTION_FETCH_CRL_FROM_NET     CssmTpAction = 2
-	CSSM_TP_ACTION_IMPLICIT_ANCHORS       CssmTpAction = 64
-	CSSM_TP_ACTION_LEAF_IS_CA             CssmTpAction = 2
-	CSSM_TP_ACTION_REQUIRE_CRL_IF_PRESENT CssmTpAction = 8
-	CSSM_TP_ACTION_REQUIRE_CRL_PER_CERT   CssmTpAction = 1
-	CSSM_TP_ACTION_REQUIRE_REV_PER_CERT   CssmTpAction = 16
-	CSSM_TP_ACTION_TRUST_SETTINGS         CssmTpAction = 32
+	CSSM_TP_ACTION_FETCH_CERT_FROM_NET    CssmTpAction = 0x4
+	CSSM_TP_ACTION_FETCH_CRL_FROM_NET     CssmTpAction = 0x2
+	CSSM_TP_ACTION_IMPLICIT_ANCHORS       CssmTpAction = 0x40
+	CSSM_TP_ACTION_LEAF_IS_CA             CssmTpAction = 0x2
+	CSSM_TP_ACTION_REQUIRE_CRL_IF_PRESENT CssmTpAction = 0x8
+	CSSM_TP_ACTION_REQUIRE_CRL_PER_CERT   CssmTpAction = 0x1
+	CSSM_TP_ACTION_REQUIRE_REV_PER_CERT   CssmTpAction = 0x10
+	CSSM_TP_ACTION_TRUST_SETTINGS         CssmTpAction = 0x20
 )
 
 func (e CssmTpAction) String() string {
@@ -3896,14 +3896,14 @@ func (e CssmTpAction) String() string {
 type CssmTpAuthorityRequestC uint
 
 const (
-	CSSM_TP_AUTHORITY_REQUEST_CERTISSUE      CssmTpAuthorityRequestC = 1
-	CSSM_TP_AUTHORITY_REQUEST_CERTNOTARIZE   CssmTpAuthorityRequestC = 6
-	CSSM_TP_AUTHORITY_REQUEST_CERTRESUME     CssmTpAuthorityRequestC = 4
-	CSSM_TP_AUTHORITY_REQUEST_CERTREVOKE     CssmTpAuthorityRequestC = 2
-	CSSM_TP_AUTHORITY_REQUEST_CERTSUSPEND    CssmTpAuthorityRequestC = 3
-	CSSM_TP_AUTHORITY_REQUEST_CERTUSERECOVER CssmTpAuthorityRequestC = 7
-	CSSM_TP_AUTHORITY_REQUEST_CERTVERIFY     CssmTpAuthorityRequestC = 5
-	CSSM_TP_AUTHORITY_REQUEST_CRLISSUE       CssmTpAuthorityRequestC = 256
+	CSSM_TP_AUTHORITY_REQUEST_CERTISSUE      CssmTpAuthorityRequestC = 0x1
+	CSSM_TP_AUTHORITY_REQUEST_CERTNOTARIZE   CssmTpAuthorityRequestC = 0x6
+	CSSM_TP_AUTHORITY_REQUEST_CERTRESUME     CssmTpAuthorityRequestC = 0x4
+	CSSM_TP_AUTHORITY_REQUEST_CERTREVOKE     CssmTpAuthorityRequestC = 0x2
+	CSSM_TP_AUTHORITY_REQUEST_CERTSUSPEND    CssmTpAuthorityRequestC = 0x3
+	CSSM_TP_AUTHORITY_REQUEST_CERTUSERECOVER CssmTpAuthorityRequestC = 0x7
+	CSSM_TP_AUTHORITY_REQUEST_CERTVERIFY     CssmTpAuthorityRequestC = 0x5
+	CSSM_TP_AUTHORITY_REQUEST_CRLISSUE       CssmTpAuthorityRequestC = 0x100
 )
 
 func (e CssmTpAuthorityRequestC) String() string {
@@ -3932,16 +3932,16 @@ func (e CssmTpAuthorityRequestC) String() string {
 type CssmTpCertchange uint
 
 const (
-	CSSM_TP_CERTCHANGE_HOLD           CssmTpCertchange = 2
+	CSSM_TP_CERTCHANGE_HOLD           CssmTpCertchange = 0x2
 	CSSM_TP_CERTCHANGE_NONE           CssmTpCertchange = 0
-	CSSM_TP_CERTCHANGE_NOT_AUTHORIZED CssmTpCertchange = 5
-	CSSM_TP_CERTCHANGE_OK             CssmTpCertchange = 1
-	CSSM_TP_CERTCHANGE_OKWITHNEWTIME  CssmTpCertchange = 2
-	CSSM_TP_CERTCHANGE_REJECTED       CssmTpCertchange = 4
-	CSSM_TP_CERTCHANGE_RELEASE        CssmTpCertchange = 3
-	CSSM_TP_CERTCHANGE_REVOKE         CssmTpCertchange = 1
+	CSSM_TP_CERTCHANGE_NOT_AUTHORIZED CssmTpCertchange = 0x5
+	CSSM_TP_CERTCHANGE_OK             CssmTpCertchange = 0x1
+	CSSM_TP_CERTCHANGE_OKWITHNEWTIME  CssmTpCertchange = 0x2
+	CSSM_TP_CERTCHANGE_REJECTED       CssmTpCertchange = 0x4
+	CSSM_TP_CERTCHANGE_RELEASE        CssmTpCertchange = 0x3
+	CSSM_TP_CERTCHANGE_REVOKE         CssmTpCertchange = 0x1
 	CSSM_TP_CERTCHANGE_STATUS_UNKNOWN CssmTpCertchange = 0
-	CSSM_TP_CERTCHANGE_WRONGCA        CssmTpCertchange = 3
+	CSSM_TP_CERTCHANGE_WRONGCA        CssmTpCertchange = 0x3
 )
 
 func (e CssmTpCertchange) String() string {
@@ -3966,13 +3966,13 @@ func (e CssmTpCertchange) String() string {
 type CssmTpCertchangeReason uint
 
 const (
-	CSSM_TP_CERTCHANGE_REASON_AFFILIATIONCHANGE   CssmTpCertchangeReason = 4
-	CSSM_TP_CERTCHANGE_REASON_CACOMPROMISE        CssmTpCertchangeReason = 2
-	CSSM_TP_CERTCHANGE_REASON_CEASEOPERATION      CssmTpCertchangeReason = 3
-	CSSM_TP_CERTCHANGE_REASON_HOLDRELEASE         CssmTpCertchangeReason = 7
-	CSSM_TP_CERTCHANGE_REASON_KEYCOMPROMISE       CssmTpCertchangeReason = 1
-	CSSM_TP_CERTCHANGE_REASON_SUPERCEDED          CssmTpCertchangeReason = 5
-	CSSM_TP_CERTCHANGE_REASON_SUSPECTEDCOMPROMISE CssmTpCertchangeReason = 6
+	CSSM_TP_CERTCHANGE_REASON_AFFILIATIONCHANGE   CssmTpCertchangeReason = 0x4
+	CSSM_TP_CERTCHANGE_REASON_CACOMPROMISE        CssmTpCertchangeReason = 0x2
+	CSSM_TP_CERTCHANGE_REASON_CEASEOPERATION      CssmTpCertchangeReason = 0x3
+	CSSM_TP_CERTCHANGE_REASON_HOLDRELEASE         CssmTpCertchangeReason = 0x7
+	CSSM_TP_CERTCHANGE_REASON_KEYCOMPROMISE       CssmTpCertchangeReason = 0x1
+	CSSM_TP_CERTCHANGE_REASON_SUPERCEDED          CssmTpCertchangeReason = 0x5
+	CSSM_TP_CERTCHANGE_REASON_SUSPECTEDCOMPROMISE CssmTpCertchangeReason = 0x6
 	CSSM_TP_CERTCHANGE_REASON_UNKNOWN             CssmTpCertchangeReason = 0
 )
 
@@ -4002,13 +4002,13 @@ func (e CssmTpCertchangeReason) String() string {
 type CssmTpCertissue uint
 
 const (
-	CSSM_TP_CERTISSUE_NOT_AUTHORIZED    CssmTpCertissue = 5
-	CSSM_TP_CERTISSUE_OK                CssmTpCertissue = 1
-	CSSM_TP_CERTISSUE_OKWITHCERTMODS    CssmTpCertissue = 2
-	CSSM_TP_CERTISSUE_OKWITHSERVICEMODS CssmTpCertissue = 3
-	CSSM_TP_CERTISSUE_REJECTED          CssmTpCertissue = 4
+	CSSM_TP_CERTISSUE_NOT_AUTHORIZED    CssmTpCertissue = 0x5
+	CSSM_TP_CERTISSUE_OK                CssmTpCertissue = 0x1
+	CSSM_TP_CERTISSUE_OKWITHCERTMODS    CssmTpCertissue = 0x2
+	CSSM_TP_CERTISSUE_OKWITHSERVICEMODS CssmTpCertissue = 0x3
+	CSSM_TP_CERTISSUE_REJECTED          CssmTpCertissue = 0x4
 	CSSM_TP_CERTISSUE_STATUS_UNKNOWN    CssmTpCertissue = 0
-	CSSM_TP_CERTISSUE_WILL_BE_REVOKED   CssmTpCertissue = 6
+	CSSM_TP_CERTISSUE_WILL_BE_REVOKED   CssmTpCertissue = 0x6
 )
 
 func (e CssmTpCertissue) String() string {
@@ -4035,11 +4035,11 @@ func (e CssmTpCertissue) String() string {
 type CssmTpCertnotarize uint
 
 const (
-	CSSM_TP_CERTNOTARIZE_NOT_AUTHORIZED    CssmTpCertnotarize = 5
-	CSSM_TP_CERTNOTARIZE_OK                CssmTpCertnotarize = 1
-	CSSM_TP_CERTNOTARIZE_OKWITHOUTFIELDS   CssmTpCertnotarize = 2
-	CSSM_TP_CERTNOTARIZE_OKWITHSERVICEMODS CssmTpCertnotarize = 3
-	CSSM_TP_CERTNOTARIZE_REJECTED          CssmTpCertnotarize = 4
+	CSSM_TP_CERTNOTARIZE_NOT_AUTHORIZED    CssmTpCertnotarize = 0x5
+	CSSM_TP_CERTNOTARIZE_OK                CssmTpCertnotarize = 0x1
+	CSSM_TP_CERTNOTARIZE_OKWITHOUTFIELDS   CssmTpCertnotarize = 0x2
+	CSSM_TP_CERTNOTARIZE_OKWITHSERVICEMODS CssmTpCertnotarize = 0x3
+	CSSM_TP_CERTNOTARIZE_REJECTED          CssmTpCertnotarize = 0x4
 	CSSM_TP_CERTNOTARIZE_STATUS_UNKNOWN    CssmTpCertnotarize = 0
 )
 
@@ -4065,10 +4065,10 @@ func (e CssmTpCertnotarize) String() string {
 type CssmTpCertreclaim uint
 
 const (
-	CSSM_TP_CERTRECLAIM_NOMATCH        CssmTpCertreclaim = 2
-	CSSM_TP_CERTRECLAIM_NOT_AUTHORIZED CssmTpCertreclaim = 4
-	CSSM_TP_CERTRECLAIM_OK             CssmTpCertreclaim = 1
-	CSSM_TP_CERTRECLAIM_REJECTED       CssmTpCertreclaim = 3
+	CSSM_TP_CERTRECLAIM_NOMATCH        CssmTpCertreclaim = 0x2
+	CSSM_TP_CERTRECLAIM_NOT_AUTHORIZED CssmTpCertreclaim = 0x4
+	CSSM_TP_CERTRECLAIM_OK             CssmTpCertreclaim = 0x1
+	CSSM_TP_CERTRECLAIM_REJECTED       CssmTpCertreclaim = 0x3
 	CSSM_TP_CERTRECLAIM_STATUS_UNKNOWN CssmTpCertreclaim = 0
 )
 
@@ -4092,23 +4092,23 @@ func (e CssmTpCertreclaim) String() string {
 type CssmTpCertverify uint
 
 const (
-	CSSM_TP_CERTVERIFY_EXPIRED                   CssmTpCertverify = 5
-	CSSM_TP_CERTVERIFY_INVALID                   CssmTpCertverify = 2
-	CSSM_TP_CERTVERIFY_INVALID_AUTHORITY         CssmTpCertverify = 7
-	CSSM_TP_CERTVERIFY_INVALID_BASIC_CONSTRAINTS CssmTpCertverify = 13
-	CSSM_TP_CERTVERIFY_INVALID_CERTGROUP         CssmTpCertverify = 10
-	CSSM_TP_CERTVERIFY_INVALID_CERT_VALUE        CssmTpCertverify = 9
-	CSSM_TP_CERTVERIFY_INVALID_CRL_DIST_PT       CssmTpCertverify = 14
-	CSSM_TP_CERTVERIFY_INVALID_NAME_TREE         CssmTpCertverify = 15
-	CSSM_TP_CERTVERIFY_INVALID_POLICY            CssmTpCertverify = 11
-	CSSM_TP_CERTVERIFY_INVALID_POLICY_IDS        CssmTpCertverify = 12
-	CSSM_TP_CERTVERIFY_INVALID_SIGNATURE         CssmTpCertverify = 8
-	CSSM_TP_CERTVERIFY_NOT_VALID_YET             CssmTpCertverify = 6
-	CSSM_TP_CERTVERIFY_REVOKED                   CssmTpCertverify = 3
-	CSSM_TP_CERTVERIFY_SUSPENDED                 CssmTpCertverify = 4
+	CSSM_TP_CERTVERIFY_EXPIRED                   CssmTpCertverify = 0x5
+	CSSM_TP_CERTVERIFY_INVALID                   CssmTpCertverify = 0x2
+	CSSM_TP_CERTVERIFY_INVALID_AUTHORITY         CssmTpCertverify = 0x7
+	CSSM_TP_CERTVERIFY_INVALID_BASIC_CONSTRAINTS CssmTpCertverify = 0xd
+	CSSM_TP_CERTVERIFY_INVALID_CERTGROUP         CssmTpCertverify = 0xa
+	CSSM_TP_CERTVERIFY_INVALID_CERT_VALUE        CssmTpCertverify = 0x9
+	CSSM_TP_CERTVERIFY_INVALID_CRL_DIST_PT       CssmTpCertverify = 0xe
+	CSSM_TP_CERTVERIFY_INVALID_NAME_TREE         CssmTpCertverify = 0xf
+	CSSM_TP_CERTVERIFY_INVALID_POLICY            CssmTpCertverify = 0xb
+	CSSM_TP_CERTVERIFY_INVALID_POLICY_IDS        CssmTpCertverify = 0xc
+	CSSM_TP_CERTVERIFY_INVALID_SIGNATURE         CssmTpCertverify = 0x8
+	CSSM_TP_CERTVERIFY_NOT_VALID_YET             CssmTpCertverify = 0x6
+	CSSM_TP_CERTVERIFY_REVOKED                   CssmTpCertverify = 0x3
+	CSSM_TP_CERTVERIFY_SUSPENDED                 CssmTpCertverify = 0x4
 	CSSM_TP_CERTVERIFY_UNKNOWN                   CssmTpCertverify = 0
-	CSSM_TP_CERTVERIFY_UNKNOWN_CRITICAL_EXT      CssmTpCertverify = 16
-	CSSM_TP_CERTVERIFY_VALID                     CssmTpCertverify = 1
+	CSSM_TP_CERTVERIFY_UNKNOWN_CRITICAL_EXT      CssmTpCertverify = 0x10
+	CSSM_TP_CERTVERIFY_VALID                     CssmTpCertverify = 0x1
 )
 
 func (e CssmTpCertverify) String() string {
@@ -4155,8 +4155,8 @@ func (e CssmTpCertverify) String() string {
 type CssmTpConfirm uint
 
 const (
-	CSSM_TP_CONFIRM_ACCEPT         CssmTpConfirm = 1
-	CSSM_TP_CONFIRM_REJECT         CssmTpConfirm = 2
+	CSSM_TP_CONFIRM_ACCEPT         CssmTpConfirm = 0x1
+	CSSM_TP_CONFIRM_REJECT         CssmTpConfirm = 0x2
 	CSSM_TP_CONFIRM_STATUS_UNKNOWN CssmTpConfirm = 0
 )
 
@@ -4176,13 +4176,13 @@ func (e CssmTpConfirm) String() string {
 type CssmTpCrlissue uint
 
 const (
-	CSSM_TP_CRLISSUE_INVALID_DOMAIN     CssmTpCrlissue = 3
-	CSSM_TP_CRLISSUE_NOT_AUTHORIZED     CssmTpCrlissue = 6
-	CSSM_TP_CRLISSUE_NOT_CURRENT        CssmTpCrlissue = 2
-	CSSM_TP_CRLISSUE_OK                 CssmTpCrlissue = 1
-	CSSM_TP_CRLISSUE_REJECTED           CssmTpCrlissue = 5
+	CSSM_TP_CRLISSUE_INVALID_DOMAIN     CssmTpCrlissue = 0x3
+	CSSM_TP_CRLISSUE_NOT_AUTHORIZED     CssmTpCrlissue = 0x6
+	CSSM_TP_CRLISSUE_NOT_CURRENT        CssmTpCrlissue = 0x2
+	CSSM_TP_CRLISSUE_OK                 CssmTpCrlissue = 0x1
+	CSSM_TP_CRLISSUE_REJECTED           CssmTpCrlissue = 0x5
 	CSSM_TP_CRLISSUE_STATUS_UNKNOWN     CssmTpCrlissue = 0
-	CSSM_TP_CRLISSUE_UNKNOWN_IDENTIFIER CssmTpCrlissue = 4
+	CSSM_TP_CRLISSUE_UNKNOWN_IDENTIFIER CssmTpCrlissue = 0x4
 )
 
 func (e CssmTpCrlissue) String() string {
@@ -4210,7 +4210,7 @@ type CssmTpFormType uint
 
 const (
 	CSSM_TP_FORM_TYPE_GENERIC      CssmTpFormType = 0
-	CSSM_TP_FORM_TYPE_REGISTRATION CssmTpFormType = 1
+	CSSM_TP_FORM_TYPE_REGISTRATION CssmTpFormType = 0x1
 )
 
 func (e CssmTpFormType) String() string {
@@ -4258,7 +4258,7 @@ const (
 	CSSM_USEE_KEYEXCH        CssmUsee = 7
 	CSSM_USEE_KRENT          CssmUsee = 4
 	CSSM_USEE_KRLE           CssmUsee = 3
-	CSSM_USEE_LAST           CssmUsee = 255
+	CSSM_USEE_LAST           CssmUsee = 0xff
 	CSSM_USEE_MEDICAL        CssmUsee = 8
 	CSSM_USEE_NONE           CssmUsee = 0
 	CSSM_USEE_SSL            CssmUsee = 5
@@ -4451,8 +4451,8 @@ const (
 	CSSM_WORDID_THRESHOLD            CssmWordid = 123
 	CSSM_WORDID_TIME                 CssmWordid = 124
 	CSSM_WORDID_URI                  CssmWordid = 125
-	CSSM_WORDID_VENDOR_END           CssmWordid = 2147418112
-	CSSM_WORDID_VENDOR_START         CssmWordid = 65536
+	CSSM_WORDID_VENDOR_END           CssmWordid = 0x7fff0000
+	CSSM_WORDID_VENDOR_START         CssmWordid = 0x10000
 	CSSM_WORDID_VERSION              CssmWordid = 126
 	CSSM_WORDID_X509V1               CssmWordid = 128
 	CSSM_WORDID_X509V2               CssmWordid = 129
@@ -8687,24 +8687,24 @@ type SecCodeSignatureFlags uint32
 
 const (
 	// KSecCodeSignatureAdhoc: Must be used without a signing identity.
-	KSecCodeSignatureAdhoc SecCodeSignatureFlags = 2
+	KSecCodeSignatureAdhoc SecCodeSignatureFlags = 0x2
 	// KSecCodeSignatureEnforcement: Enforce code signing.
-	KSecCodeSignatureEnforcement SecCodeSignatureFlags = 4096
+	KSecCodeSignatureEnforcement SecCodeSignatureFlags = 0x1000
 	// KSecCodeSignatureForceExpiration: Always set the considerExpiration flag when validating the code.
-	KSecCodeSignatureForceExpiration SecCodeSignatureFlags = 1024
+	KSecCodeSignatureForceExpiration SecCodeSignatureFlags = 0x400
 	// KSecCodeSignatureForceHard: Always set the hard status flag on launch.
-	KSecCodeSignatureForceHard SecCodeSignatureFlags = 256
+	KSecCodeSignatureForceHard SecCodeSignatureFlags = 0x100
 	// KSecCodeSignatureForceKill: Always set the termination status flag on launch.
-	KSecCodeSignatureForceKill SecCodeSignatureFlags = 512
+	KSecCodeSignatureForceKill SecCodeSignatureFlags = 0x200
 	// KSecCodeSignatureHost: May host guest code.
-	KSecCodeSignatureHost SecCodeSignatureFlags = 1
+	KSecCodeSignatureHost SecCodeSignatureFlags = 0x1
 	// KSecCodeSignatureLibraryValidation: Require library validation.
-	KSecCodeSignatureLibraryValidation SecCodeSignatureFlags = 8192
-	KSecCodeSignatureLinkerSigned      SecCodeSignatureFlags = 131072
+	KSecCodeSignatureLibraryValidation SecCodeSignatureFlags = 0x2000
+	KSecCodeSignatureLinkerSigned      SecCodeSignatureFlags = 0x20000
 	// KSecCodeSignatureRestrict: Restrict dyld loading.
-	KSecCodeSignatureRestrict SecCodeSignatureFlags = 2048
+	KSecCodeSignatureRestrict SecCodeSignatureFlags = 0x800
 	// KSecCodeSignatureRuntime: Apply runtime hardening policies as required by the hardened runtime version.
-	KSecCodeSignatureRuntime SecCodeSignatureFlags = 65536
+	KSecCodeSignatureRuntime SecCodeSignatureFlags = 0x10000
 )
 
 func (e SecCodeSignatureFlags) String() string {
@@ -8739,15 +8739,15 @@ type SecCodeStatus int32
 
 const (
 	// KSecCodeStatusDebugged: The code has been debugged by another process that was allowed to do so.
-	KSecCodeStatusDebugged SecCodeStatus = 268435456
+	KSecCodeStatusDebugged SecCodeStatus = 0x10000000
 	// KSecCodeStatusHard: The code prefers to be denied access to resources if gaining access would invalidate it.
-	KSecCodeStatusHard SecCodeStatus = 256
+	KSecCodeStatusHard SecCodeStatus = 0x100
 	// KSecCodeStatusKill: The code wants to be terminated if it ever loses its validity.
-	KSecCodeStatusKill SecCodeStatus = 512
+	KSecCodeStatusKill SecCodeStatus = 0x200
 	// KSecCodeStatusPlatform: The code ships with the operating system and is signed by Apple.
-	KSecCodeStatusPlatform SecCodeStatus = 67108864
+	KSecCodeStatusPlatform SecCodeStatus = 0x4000000
 	// KSecCodeStatusValid: The code is dynamically valid.
-	KSecCodeStatusValid SecCodeStatus = 1
+	KSecCodeStatusValid SecCodeStatus = 0x1
 )
 
 func (e SecCodeStatus) String() string {
@@ -9032,17 +9032,17 @@ type SecItemClass int
 
 const (
 	// KSecCertificateItemClass: Indicates that the item is an X509 certificate.
-	KSecCertificateItemClass SecItemClass = 2147487744
+	KSecCertificateItemClass SecItemClass = 0x80001000
 	// KSecGenericPasswordItemClass: Indicates that the item is a generic password.
 	KSecGenericPasswordItemClass SecItemClass = 'g'<<24 | 'e'<<16 | 'n'<<8 | 'p' // 'genp'
 	// KSecInternetPasswordItemClass: Indicates that the item is an Internet password.
 	KSecInternetPasswordItemClass SecItemClass = 'i'<<24 | 'n'<<16 | 'e'<<8 | 't' // 'inet'
 	// KSecPrivateKeyItemClass: Indicates that the item is a private key of a public-private pair.
-	KSecPrivateKeyItemClass SecItemClass = 16
+	KSecPrivateKeyItemClass SecItemClass = 0x10
 	// KSecPublicKeyItemClass: Indicates that the item is a public key of a public-private pair.
-	KSecPublicKeyItemClass SecItemClass = 15
+	KSecPublicKeyItemClass SecItemClass = 0xf
 	// KSecSymmetricKeyItemClass: Indicates that the item is a private key used for symmetric-key encryption.
-	KSecSymmetricKeyItemClass SecItemClass = 17
+	KSecSymmetricKeyItemClass SecItemClass = 0x11
 	// Deprecated.
 	KSecAppleSharePasswordItemClass SecItemClass = 'a'<<24 | 's'<<16 | 'h'<<8 | 'p' // 'ashp'
 )
@@ -9073,7 +9073,7 @@ type SecItemImportExportFlags uint32
 
 const (
 	// KSecItemPemArmour: A flag that indicates the exported data should have PEM armor.
-	KSecItemPemArmour SecItemImportExportFlags = 1
+	KSecItemPemArmour SecItemImportExportFlags = 0x1
 )
 
 func (e SecItemImportExportFlags) String() string {
@@ -9090,11 +9090,11 @@ type SecKeyImportExportFlags uint32
 
 const (
 	// KSecKeyImportOnlyOne: A flag that you set to prevent importing more than one private key.
-	KSecKeyImportOnlyOne SecKeyImportExportFlags = 1
+	KSecKeyImportOnlyOne SecKeyImportExportFlags = 0x1
 	// KSecKeyNoAccessControl: A flag that indicates imported private keys have no access object attached to them.
-	KSecKeyNoAccessControl SecKeyImportExportFlags = 4
+	KSecKeyNoAccessControl SecKeyImportExportFlags = 0x4
 	// KSecKeySecurePassphrase: A flag that indicates the user should be prompted for a passphrase on import or export.
-	KSecKeySecurePassphrase SecKeyImportExportFlags = 2
+	KSecKeySecurePassphrase SecKeyImportExportFlags = 0x2
 )
 
 func (e SecKeyImportExportFlags) String() string {
@@ -9194,7 +9194,7 @@ type SecKeyUsage uint32
 
 const (
 	// KSecKeyUsageAll: All flags set.
-	KSecKeyUsageAll SecKeyUsage = 2147483647
+	KSecKeyUsageAll SecKeyUsage = 0x7fffffff
 	// KSecKeyUsageCRLSign: The [CRLSign] bit is set in KeyUsage extension.
 	KSecKeyUsageCRLSign SecKeyUsage = 64
 	// KSecKeyUsageContentCommitment: The [ContentCommitment] bit is set in KeyUsage extension.
@@ -9315,7 +9315,7 @@ const (
 	// KSecDeleteEventMask: If the bit specified by this mask is set, your callback function is invoked when an item is deleted from a keychain.
 	KSecDeleteEventMask SecKeychainEventMask = 16
 	// KSecEveryEventMask: If all the bits are set, your callback function is invoked whenever any event occurs.
-	KSecEveryEventMask SecKeychainEventMask = 4294967295
+	KSecEveryEventMask SecKeychainEventMask = 0xffffffff
 	// KSecKeychainListChangedMask: If the bit specified by this mask is set, your callback function is invoked when a keychain list is changed.
 	KSecKeychainListChangedMask SecKeychainEventMask = 2048
 	// KSecLockEventMask: If the bit specified by this mask is set, your callback function is invoked when a keychain is locked.
@@ -9366,15 +9366,15 @@ type SecKeychainPromptSelector int
 
 const (
 	// KSecKeychainPromptInvalid: Indicates that a passphrase should be required when an application with an invalid signature attempts to use the keychain, overriding the system default.
-	KSecKeychainPromptInvalid SecKeychainPromptSelector = 64
+	KSecKeychainPromptInvalid SecKeychainPromptSelector = 0x40
 	// KSecKeychainPromptInvalidAct: Indicates that a passphrase should be required when an application with an invalid signature attempts to use the keychain.
-	KSecKeychainPromptInvalidAct SecKeychainPromptSelector = 128
+	KSecKeychainPromptInvalidAct SecKeychainPromptSelector = 0x80
 	// KSecKeychainPromptRequirePassphase: Indicates that a passphrase should be required for every access.
-	KSecKeychainPromptRequirePassphase SecKeychainPromptSelector = 1
+	KSecKeychainPromptRequirePassphase SecKeychainPromptSelector = 0x1
 	// KSecKeychainPromptUnsigned: Indicates that a passphrase should be required when an unsigned application attempts to use the keychain, overriding the system default.
-	KSecKeychainPromptUnsigned SecKeychainPromptSelector = 16
+	KSecKeychainPromptUnsigned SecKeychainPromptSelector = 0x10
 	// KSecKeychainPromptUnsignedAct: Indicates that a passphrase should be required when an unsigned application attempts to use the keychain.
-	KSecKeychainPromptUnsignedAct SecKeychainPromptSelector = 32
+	KSecKeychainPromptUnsignedAct SecKeychainPromptSelector = 0x20
 )
 
 func (e SecKeychainPromptSelector) String() string {
@@ -9405,21 +9405,21 @@ const (
 	// Deprecated.
 	KSecPaddingPKCS1 SecPadding = 1
 	// Deprecated.
-	KSecPaddingPKCS1MD2 SecPadding = 32768
+	KSecPaddingPKCS1MD2 SecPadding = 0x8000
 	// Deprecated.
-	KSecPaddingPKCS1MD5 SecPadding = 32769
+	KSecPaddingPKCS1MD5 SecPadding = 0x8001
 	// Deprecated.
-	KSecPaddingPKCS1SHA1 SecPadding = 32770
+	KSecPaddingPKCS1SHA1 SecPadding = 0x8002
 	// Deprecated.
-	KSecPaddingPKCS1SHA224 SecPadding = 32771
+	KSecPaddingPKCS1SHA224 SecPadding = 0x8003
 	// Deprecated.
-	KSecPaddingPKCS1SHA256 SecPadding = 32772
+	KSecPaddingPKCS1SHA256 SecPadding = 0x8004
 	// Deprecated.
-	KSecPaddingPKCS1SHA384 SecPadding = 32773
+	KSecPaddingPKCS1SHA384 SecPadding = 0x8005
 	// Deprecated.
-	KSecPaddingPKCS1SHA512 SecPadding = 32774
+	KSecPaddingPKCS1SHA512 SecPadding = 0x8006
 	// Deprecated.
-	KSecPaddingSigRaw SecPadding = 16384
+	KSecPaddingSigRaw SecPadding = 0x4000
 )
 
 func (e SecPadding) String() string {
@@ -9734,19 +9734,19 @@ type SecTrustOptionFlags uint32
 
 const (
 	// KSecTrustOptionAllowExpired: Allow expired certificates (except for the root certificate).
-	KSecTrustOptionAllowExpired SecTrustOptionFlags = 1
+	KSecTrustOptionAllowExpired SecTrustOptionFlags = 0x1
 	// KSecTrustOptionAllowExpiredRoot: Allow expired root certificates.
-	KSecTrustOptionAllowExpiredRoot SecTrustOptionFlags = 8
+	KSecTrustOptionAllowExpiredRoot SecTrustOptionFlags = 0x8
 	// KSecTrustOptionFetchIssuerFromNet: Allow network downloads of CA certificates.
-	KSecTrustOptionFetchIssuerFromNet SecTrustOptionFlags = 4
+	KSecTrustOptionFetchIssuerFromNet SecTrustOptionFlags = 0x4
 	// KSecTrustOptionImplicitAnchors: Treat properly self-signed certificates as anchors implicitly.
-	KSecTrustOptionImplicitAnchors SecTrustOptionFlags = 64
+	KSecTrustOptionImplicitAnchors SecTrustOptionFlags = 0x40
 	// KSecTrustOptionLeafIsCA: Allow CA certificates as leaf certificates.
-	KSecTrustOptionLeafIsCA SecTrustOptionFlags = 2
+	KSecTrustOptionLeafIsCA SecTrustOptionFlags = 0x2
 	// KSecTrustOptionRequireRevPerCert: Require a positive revocation check for each certificate.
-	KSecTrustOptionRequireRevPerCert SecTrustOptionFlags = 16
+	KSecTrustOptionRequireRevPerCert SecTrustOptionFlags = 0x10
 	// KSecTrustOptionUseTrustSettings: Use TrustSettings instead of anchors.
-	KSecTrustOptionUseTrustSettings SecTrustOptionFlags = 32
+	KSecTrustOptionUseTrustSettings SecTrustOptionFlags = 0x20
 )
 
 func (e SecTrustOptionFlags) String() string {
@@ -9845,19 +9845,19 @@ type SecTrustSettingsKeyUsage uint32
 
 const (
 	// KSecTrustSettingsKeyUseAny: The key can be used for any purpose.
-	KSecTrustSettingsKeyUseAny SecTrustSettingsKeyUsage = 4294967295
+	KSecTrustSettingsKeyUseAny SecTrustSettingsKeyUsage = 0xffffffff
 	// KSecTrustSettingsKeyUseEnDecryptData: The key can be used to encrypt or decrypt data.
-	KSecTrustSettingsKeyUseEnDecryptData SecTrustSettingsKeyUsage = 2
+	KSecTrustSettingsKeyUseEnDecryptData SecTrustSettingsKeyUsage = 0x2
 	// KSecTrustSettingsKeyUseEnDecryptKey: The key can be used to encrypt or decrypt (wrap or unwrap) a key.
-	KSecTrustSettingsKeyUseEnDecryptKey SecTrustSettingsKeyUsage = 4
+	KSecTrustSettingsKeyUseEnDecryptKey SecTrustSettingsKeyUsage = 0x4
 	// KSecTrustSettingsKeyUseKeyExchange: The key is a private key that has been shared using a key exchange protocol, such as Diffie-Hellman key exchange.
-	KSecTrustSettingsKeyUseKeyExchange SecTrustSettingsKeyUsage = 32
+	KSecTrustSettingsKeyUseKeyExchange SecTrustSettingsKeyUsage = 0x20
 	// KSecTrustSettingsKeyUseSignCert: The key can be used to sign a certificate or verify a signature.
-	KSecTrustSettingsKeyUseSignCert SecTrustSettingsKeyUsage = 8
+	KSecTrustSettingsKeyUseSignCert SecTrustSettingsKeyUsage = 0x8
 	// KSecTrustSettingsKeyUseSignRevocation: The key can be used to sign an OCSP (online certificate status protocol) message or CRL (certificate verification list), or to verify a signature.
-	KSecTrustSettingsKeyUseSignRevocation SecTrustSettingsKeyUsage = 16
+	KSecTrustSettingsKeyUseSignRevocation SecTrustSettingsKeyUsage = 0x10
 	// KSecTrustSettingsKeyUseSignature: The key can be used to sign data or verify a signature.
-	KSecTrustSettingsKeyUseSignature SecTrustSettingsKeyUsage = 1
+	KSecTrustSettingsKeyUseSignature SecTrustSettingsKeyUsage = 0x1
 )
 
 func (e SecTrustSettingsKeyUsage) String() string {
@@ -9919,13 +9919,13 @@ type SessionAttributeBits uint32
 
 const (
 	// SessionHasGraphicAccess: A bit that indicates a graphic subsystem is available.
-	SessionHasGraphicAccess SessionAttributeBits = 16
+	SessionHasGraphicAccess SessionAttributeBits = 0x10
 	// SessionHasTTY: A bit that indicates `/dev/tty` is available.
-	SessionHasTTY SessionAttributeBits = 32
+	SessionHasTTY SessionAttributeBits = 0x20
 	// SessionIsRemote: A bit that indicates the session was initiated over the network.
-	SessionIsRemote SessionAttributeBits = 4096
+	SessionIsRemote SessionAttributeBits = 0x1000
 	// SessionIsRoot: A bit that indicates the session is the root session.
-	SessionIsRoot SessionAttributeBits = 1
+	SessionIsRoot SessionAttributeBits = 0x1
 )
 
 func (e SessionAttributeBits) String() string {
@@ -9948,7 +9948,7 @@ type SessionCreationFlags uint32
 
 const (
 	// SessionKeepCurrentBootstrap: The caller has allocated sub-bootstrap.
-	SessionKeepCurrentBootstrap SessionCreationFlags = 32768
+	SessionKeepCurrentBootstrap SessionCreationFlags = 0x8000
 )
 
 func (e SessionCreationFlags) String() string {
@@ -10185,35 +10185,35 @@ func (e Tls_ciphersuite_group_t) String() string {
 type Tls_ciphersuite_t uint16
 
 const (
-	Tls_ciphersuite_AES_128_GCM_SHA256                        Tls_ciphersuite_t = 4865
-	Tls_ciphersuite_AES_256_GCM_SHA384                        Tls_ciphersuite_t = 4866
-	Tls_ciphersuite_CHACHA20_POLY1305_SHA256                  Tls_ciphersuite_t = 4867
-	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA          Tls_ciphersuite_t = 49161
-	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256       Tls_ciphersuite_t = 49187
-	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256       Tls_ciphersuite_t = 49195
-	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA          Tls_ciphersuite_t = 49162
-	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384       Tls_ciphersuite_t = 49188
-	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384       Tls_ciphersuite_t = 49196
-	Tls_ciphersuite_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 Tls_ciphersuite_t = 52393
-	Tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA            Tls_ciphersuite_t = 49171
-	Tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA256         Tls_ciphersuite_t = 49191
-	Tls_ciphersuite_ECDHE_RSA_WITH_AES_128_GCM_SHA256         Tls_ciphersuite_t = 49199
-	Tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA            Tls_ciphersuite_t = 49172
-	Tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA384         Tls_ciphersuite_t = 49192
-	Tls_ciphersuite_ECDHE_RSA_WITH_AES_256_GCM_SHA384         Tls_ciphersuite_t = 49200
-	Tls_ciphersuite_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256   Tls_ciphersuite_t = 52392
-	Tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA                  Tls_ciphersuite_t = 47
-	Tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA256               Tls_ciphersuite_t = 60
-	Tls_ciphersuite_RSA_WITH_AES_128_GCM_SHA256               Tls_ciphersuite_t = 156
-	Tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA                  Tls_ciphersuite_t = 53
-	Tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA256               Tls_ciphersuite_t = 61
-	Tls_ciphersuite_RSA_WITH_AES_256_GCM_SHA384               Tls_ciphersuite_t = 157
+	Tls_ciphersuite_AES_128_GCM_SHA256                        Tls_ciphersuite_t = 0x1301
+	Tls_ciphersuite_AES_256_GCM_SHA384                        Tls_ciphersuite_t = 0x1302
+	Tls_ciphersuite_CHACHA20_POLY1305_SHA256                  Tls_ciphersuite_t = 0x1303
+	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA          Tls_ciphersuite_t = 0xc009
+	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256       Tls_ciphersuite_t = 0xc023
+	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256       Tls_ciphersuite_t = 0xc02b
+	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA          Tls_ciphersuite_t = 0xc00a
+	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384       Tls_ciphersuite_t = 0xc024
+	Tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384       Tls_ciphersuite_t = 0xc02c
+	Tls_ciphersuite_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 Tls_ciphersuite_t = 0xcca9
+	Tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA            Tls_ciphersuite_t = 0xc013
+	Tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA256         Tls_ciphersuite_t = 0xc027
+	Tls_ciphersuite_ECDHE_RSA_WITH_AES_128_GCM_SHA256         Tls_ciphersuite_t = 0xc02f
+	Tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA            Tls_ciphersuite_t = 0xc014
+	Tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA384         Tls_ciphersuite_t = 0xc028
+	Tls_ciphersuite_ECDHE_RSA_WITH_AES_256_GCM_SHA384         Tls_ciphersuite_t = 0xc030
+	Tls_ciphersuite_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256   Tls_ciphersuite_t = 0xcca8
+	Tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA                  Tls_ciphersuite_t = 0x2f
+	Tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA256               Tls_ciphersuite_t = 0x3c
+	Tls_ciphersuite_RSA_WITH_AES_128_GCM_SHA256               Tls_ciphersuite_t = 0x9c
+	Tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA                  Tls_ciphersuite_t = 0x35
+	Tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA256               Tls_ciphersuite_t = 0x3d
+	Tls_ciphersuite_RSA_WITH_AES_256_GCM_SHA384               Tls_ciphersuite_t = 0x9d
 	// Deprecated.
-	Tls_ciphersuite_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA Tls_ciphersuite_t = 49160
+	Tls_ciphersuite_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA Tls_ciphersuite_t = 0xc008
 	// Deprecated.
-	Tls_ciphersuite_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA Tls_ciphersuite_t = 49170
+	Tls_ciphersuite_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA Tls_ciphersuite_t = 0xc012
 	// Deprecated.
-	Tls_ciphersuite_RSA_WITH_3DES_EDE_CBC_SHA Tls_ciphersuite_t = 10
+	Tls_ciphersuite_RSA_WITH_3DES_EDE_CBC_SHA Tls_ciphersuite_t = 0xa
 )
 
 func (e Tls_ciphersuite_t) String() string {
@@ -10280,17 +10280,17 @@ type Tls_protocol_version_t uint16
 
 const (
 	// Tls_protocol_version_DTLSv12: The DTLS 1.2 protocol.
-	Tls_protocol_version_DTLSv12 Tls_protocol_version_t = 65277
+	Tls_protocol_version_DTLSv12 Tls_protocol_version_t = 0xfefd
 	// Tls_protocol_version_TLSv12: The TLS 1.2 protocol.
-	Tls_protocol_version_TLSv12 Tls_protocol_version_t = 771
+	Tls_protocol_version_TLSv12 Tls_protocol_version_t = 0x303
 	// Tls_protocol_version_TLSv13: The TLS 1.3 protocol.
-	Tls_protocol_version_TLSv13 Tls_protocol_version_t = 772
+	Tls_protocol_version_TLSv13 Tls_protocol_version_t = 0x304
 	// Deprecated.
-	Tls_protocol_version_DTLSv10 Tls_protocol_version_t = 65279
+	Tls_protocol_version_DTLSv10 Tls_protocol_version_t = 0xfeff
 	// Deprecated.
-	Tls_protocol_version_TLSv10 Tls_protocol_version_t = 769
+	Tls_protocol_version_TLSv10 Tls_protocol_version_t = 0x301
 	// Deprecated.
-	Tls_protocol_version_TLSv11 Tls_protocol_version_t = 770
+	Tls_protocol_version_TLSv11 Tls_protocol_version_t = 0x302
 )
 
 func (e Tls_protocol_version_t) String() string {

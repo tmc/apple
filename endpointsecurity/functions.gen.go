@@ -309,6 +309,48 @@ func Es_mute_path_events(client *Es_client_t, path string, type_ EsMutePathType,
 	return result
 }
 
+var _es_mute_process func(client *Es_client_t, audit_token *[32]byte) EsReturn
+var _es_mute_processErr error
+
+func tryEs_mute_process(client *Es_client_t, audit_token *[32]byte) (EsReturn, error) {
+	if _es_mute_process == nil {
+		return *new(EsReturn), symbolCallError("es_mute_process", "10.15", _es_mute_processErr)
+	}
+	return _es_mute_process(client, audit_token), nil
+}
+
+// Es_mute_process suppresses events from a given process.
+//
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_mute_process(_:_:)
+func Es_mute_process(client *Es_client_t, audit_token *[32]byte) EsReturn {
+	result, callErr := tryEs_mute_process(client, audit_token)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _es_mute_process_events func(client *Es_client_t, audit_token *[32]byte, events *EsEventType, event_count uintptr) EsReturn
+var _es_mute_process_eventsErr error
+
+func tryEs_mute_process_events(client *Es_client_t, audit_token *[32]byte, events *EsEventType, event_count uintptr) (EsReturn, error) {
+	if _es_mute_process_events == nil {
+		return *new(EsReturn), symbolCallError("es_mute_process_events", "12.0", _es_mute_process_eventsErr)
+	}
+	return _es_mute_process_events(client, audit_token, events, event_count), nil
+}
+
+// Es_mute_process_events suppresses a subset of events from a given process.
+//
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_mute_process_events(_:_:_:_:)
+func Es_mute_process_events(client *Es_client_t, audit_token *[32]byte, events *EsEventType, event_count uintptr) EsReturn {
+	result, callErr := tryEs_mute_process_events(client, audit_token, events, event_count)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _es_muted_paths_events func(client *Es_client_t, muted_paths *Es_muted_paths_t) EsReturn
 var _es_muted_paths_eventsErr error
 
@@ -351,12 +393,12 @@ func Es_muted_processes_events(client *Es_client_t, muted_processes *Es_muted_pr
 	return result
 }
 
-var _es_muting_inverted func(client *Es_client_t, mute_type EsMuteInversionType) Es_mute_inverted_return_t
+var _es_muting_inverted func(client *Es_client_t, mute_type EsMuteInversionType) EsMute
 var _es_muting_invertedErr error
 
-func tryEs_muting_inverted(client *Es_client_t, mute_type EsMuteInversionType) (Es_mute_inverted_return_t, error) {
+func tryEs_muting_inverted(client *Es_client_t, mute_type EsMuteInversionType) (EsMute, error) {
 	if _es_muting_inverted == nil {
-		return *new(Es_mute_inverted_return_t), symbolCallError("es_muting_inverted", "13.0", _es_muting_invertedErr)
+		return *new(EsMute), symbolCallError("es_muting_inverted", "13.0", _es_muting_invertedErr)
 	}
 	return _es_muting_inverted(client, mute_type), nil
 }
@@ -364,7 +406,7 @@ func tryEs_muting_inverted(client *Es_client_t, mute_type EsMuteInversionType) (
 // Es_muting_inverted.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_muting_inverted(_:_:)
-func Es_muting_inverted(client *Es_client_t, mute_type EsMuteInversionType) Es_mute_inverted_return_t {
+func Es_muting_inverted(client *Es_client_t, mute_type EsMuteInversionType) EsMute {
 	result, callErr := tryEs_muting_inverted(client, mute_type)
 	if callErr != nil {
 		panic(callErr)
@@ -644,6 +686,48 @@ func Es_unmute_path_events(client *Es_client_t, path string, type_ EsMutePathTyp
 	return result
 }
 
+var _es_unmute_process func(client *Es_client_t, audit_token *[32]byte) EsReturn
+var _es_unmute_processErr error
+
+func tryEs_unmute_process(client *Es_client_t, audit_token *[32]byte) (EsReturn, error) {
+	if _es_unmute_process == nil {
+		return *new(EsReturn), symbolCallError("es_unmute_process", "10.15", _es_unmute_processErr)
+	}
+	return _es_unmute_process(client, audit_token), nil
+}
+
+// Es_unmute_process restores event delivery from a previously-muted process.
+//
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_unmute_process(_:_:)
+func Es_unmute_process(client *Es_client_t, audit_token *[32]byte) EsReturn {
+	result, callErr := tryEs_unmute_process(client, audit_token)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _es_unmute_process_events func(client *Es_client_t, audit_token *[32]byte, events *EsEventType, event_count uintptr) EsReturn
+var _es_unmute_process_eventsErr error
+
+func tryEs_unmute_process_events(client *Es_client_t, audit_token *[32]byte, events *EsEventType, event_count uintptr) (EsReturn, error) {
+	if _es_unmute_process_events == nil {
+		return *new(EsReturn), symbolCallError("es_unmute_process_events", "12.0", _es_unmute_process_eventsErr)
+	}
+	return _es_unmute_process_events(client, audit_token, events, event_count), nil
+}
+
+// Es_unmute_process_events restores event delivery of a subset of events from a previously-muted process.
+//
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_unmute_process_events(_:_:_:_:)
+func Es_unmute_process_events(client *Es_client_t, audit_token *[32]byte, events *EsEventType, event_count uintptr) EsReturn {
+	result, callErr := tryEs_unmute_process_events(client, audit_token, events, event_count)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _es_unsubscribe func(client *Es_client_t, events *EsEventType, event_count uint32) EsReturn
 var _es_unsubscribeErr error
 
@@ -701,6 +785,8 @@ func init() {
 	registerFunc(&_es_invert_muting, &_es_invert_mutingErr, frameworkHandle, "es_invert_muting", "13.0")
 	registerFunc(&_es_mute_path, &_es_mute_pathErr, frameworkHandle, "es_mute_path", "12.0")
 	registerFunc(&_es_mute_path_events, &_es_mute_path_eventsErr, frameworkHandle, "es_mute_path_events", "12.0")
+	registerFunc(&_es_mute_process, &_es_mute_processErr, frameworkHandle, "es_mute_process", "10.15")
+	registerFunc(&_es_mute_process_events, &_es_mute_process_eventsErr, frameworkHandle, "es_mute_process_events", "12.0")
 	registerFunc(&_es_muted_paths_events, &_es_muted_paths_eventsErr, frameworkHandle, "es_muted_paths_events", "12.0")
 	registerFunc(&_es_muted_processes_events, &_es_muted_processes_eventsErr, frameworkHandle, "es_muted_processes_events", "12.0")
 	registerFunc(&_es_muting_inverted, &_es_muting_invertedErr, frameworkHandle, "es_muting_inverted", "13.0")
@@ -717,6 +803,8 @@ func init() {
 	registerFunc(&_es_unmute_all_target_paths, &_es_unmute_all_target_pathsErr, frameworkHandle, "es_unmute_all_target_paths", "13.0")
 	registerFunc(&_es_unmute_path, &_es_unmute_pathErr, frameworkHandle, "es_unmute_path", "12.0")
 	registerFunc(&_es_unmute_path_events, &_es_unmute_path_eventsErr, frameworkHandle, "es_unmute_path_events", "12.0")
+	registerFunc(&_es_unmute_process, &_es_unmute_processErr, frameworkHandle, "es_unmute_process", "10.15")
+	registerFunc(&_es_unmute_process_events, &_es_unmute_process_eventsErr, frameworkHandle, "es_unmute_process_events", "12.0")
 	registerFunc(&_es_unsubscribe, &_es_unsubscribeErr, frameworkHandle, "es_unsubscribe", "10.15")
 	registerFunc(&_es_unsubscribe_all, &_es_unsubscribe_allErr, frameworkHandle, "es_unsubscribe_all", "10.15")
 }

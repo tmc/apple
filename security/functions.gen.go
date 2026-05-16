@@ -8299,6 +8299,27 @@ func SecTaskCreateFromSelf(allocator corefoundation.CFAllocatorRef) SecTaskRef {
 	return result
 }
 
+var _secTaskCreateWithAuditToken func(allocator corefoundation.CFAllocatorRef, token *[32]byte) SecTaskRef
+var _secTaskCreateWithAuditTokenErr error
+
+func trySecTaskCreateWithAuditToken(allocator corefoundation.CFAllocatorRef, token [32]byte) (SecTaskRef, error) {
+	if _secTaskCreateWithAuditToken == nil {
+		return 0, symbolCallError("SecTaskCreateWithAuditToken", "10.0", _secTaskCreateWithAuditTokenErr)
+	}
+	return _secTaskCreateWithAuditToken(allocator, &token), nil
+}
+
+// SecTaskCreateWithAuditToken creates a task object for the task that sent the Mach message represented by the audit token.
+//
+// See: https://developer.apple.com/documentation/Security/SecTaskCreateWithAuditToken(_:_:)
+func SecTaskCreateWithAuditToken(allocator corefoundation.CFAllocatorRef, token [32]byte) SecTaskRef {
+	result, callErr := trySecTaskCreateWithAuditToken(allocator, token)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _secTaskGetTypeID func() uint
 var _secTaskGetTypeIDErr error
 
@@ -11195,6 +11216,7 @@ func init() {
 	registerFunc(&_secTaskCopyValueForEntitlement, &_secTaskCopyValueForEntitlementErr, frameworkHandle, "SecTaskCopyValueForEntitlement", "10.0")
 	registerFunc(&_secTaskCopyValuesForEntitlements, &_secTaskCopyValuesForEntitlementsErr, frameworkHandle, "SecTaskCopyValuesForEntitlements", "10.0")
 	registerFunc(&_secTaskCreateFromSelf, &_secTaskCreateFromSelfErr, frameworkHandle, "SecTaskCreateFromSelf", "10.0")
+	registerFunc(&_secTaskCreateWithAuditToken, &_secTaskCreateWithAuditTokenErr, frameworkHandle, "SecTaskCreateWithAuditToken", "10.0")
 	registerFunc(&_secTaskGetTypeID, &_secTaskGetTypeIDErr, frameworkHandle, "SecTaskGetTypeID", "10.0")
 	registerFunc(&_secTrustCopyAnchorCertificates, &_secTrustCopyAnchorCertificatesErr, frameworkHandle, "SecTrustCopyAnchorCertificates", "10.3")
 	registerFunc(&_secTrustCopyCertificateChain, &_secTrustCopyCertificateChainErr, frameworkHandle, "SecTrustCopyCertificateChain", "12.0")

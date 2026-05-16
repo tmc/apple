@@ -171,18 +171,18 @@ type MLMultiArrayDataType int
 
 const (
 	// MLMultiArrayDataTypeDouble: Designates the multiarray’s elements as doubles.
-	MLMultiArrayDataTypeDouble MLMultiArrayDataType = 65600
+	MLMultiArrayDataTypeDouble MLMultiArrayDataType = 0x10040
 	// MLMultiArrayDataTypeFloat: Designates the multiarray’s elements as floats.
-	MLMultiArrayDataTypeFloat MLMultiArrayDataType = 65568
+	MLMultiArrayDataTypeFloat MLMultiArrayDataType = 0x10020
 	// MLMultiArrayDataTypeFloat16: Designates the multiarray’s elements as 16-bit floats.
-	MLMultiArrayDataTypeFloat16 MLMultiArrayDataType = 65552
+	MLMultiArrayDataTypeFloat16 MLMultiArrayDataType = 0x10010
 	// MLMultiArrayDataTypeFloat32: Designates the multiarray’s elements as 32-bit floats.
-	MLMultiArrayDataTypeFloat32 MLMultiArrayDataType = 65568
+	MLMultiArrayDataTypeFloat32 MLMultiArrayDataType = 0x10020
 	// MLMultiArrayDataTypeFloat64: Designates the multiarray’s elements as 64-bit floats.
-	MLMultiArrayDataTypeFloat64 MLMultiArrayDataType = 65600
+	MLMultiArrayDataTypeFloat64 MLMultiArrayDataType = 0x10040
 	// MLMultiArrayDataTypeInt32: Designates the multiarray’s elements as 32-bit integers.
-	MLMultiArrayDataTypeInt32 MLMultiArrayDataType = 131104
-	MLMultiArrayDataTypeInt8  MLMultiArrayDataType = 131080
+	MLMultiArrayDataTypeInt32 MLMultiArrayDataType = 0x20020
+	MLMultiArrayDataTypeInt8  MLMultiArrayDataType = 0x20008
 )
 
 func (e MLMultiArrayDataType) String() string {

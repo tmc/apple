@@ -1571,6 +1571,27 @@ func IOGetSystemLoadAdvisory() IOSystemLoadAdvisoryLevel {
 	return result
 }
 
+var _iOHIDAccessCheckAuditToken func(arg0 IOHIDRequestType, arg1 *[32]byte) bool
+var _iOHIDAccessCheckAuditTokenErr error
+
+func tryIOHIDAccessCheckAuditToken(arg0 IOHIDRequestType, arg1 [32]byte) (bool, error) {
+	if _iOHIDAccessCheckAuditToken == nil {
+		return false, symbolCallError("IOHIDAccessCheckAuditToken", "10.15", _iOHIDAccessCheckAuditTokenErr)
+	}
+	return _iOHIDAccessCheckAuditToken(arg0, &arg1), nil
+}
+
+// IOHIDAccessCheckAuditToken.
+//
+// See: https://developer.apple.com/documentation/iokit/4423108-iohidaccesscheckaudittoken
+func IOHIDAccessCheckAuditToken(arg0 IOHIDRequestType, arg1 [32]byte) bool {
+	result, callErr := tryIOHIDAccessCheckAuditToken(arg0, arg1)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _iOHIDCheckAccess func(arg0 IOHIDRequestType) IOHIDAccessType
 var _iOHIDCheckAccessErr error
 
@@ -8380,6 +8401,7 @@ func init() {
 	registerFunc(&_iOFBGetI2CInterfaceCount, &_iOFBGetI2CInterfaceCountErr, frameworkHandle, "IOFBGetI2CInterfaceCount", "10.3")
 	registerFunc(&_iOFramebufferOpen, &_iOFramebufferOpenErr, frameworkHandle, "IOFramebufferOpen", "10.0")
 	registerFunc(&_iOGetSystemLoadAdvisory, &_iOGetSystemLoadAdvisoryErr, frameworkHandle, "IOGetSystemLoadAdvisory", "10.6")
+	registerFunc(&_iOHIDAccessCheckAuditToken, &_iOHIDAccessCheckAuditTokenErr, frameworkHandle, "IOHIDAccessCheckAuditToken", "10.15")
 	registerFunc(&_iOHIDCheckAccess, &_iOHIDCheckAccessErr, frameworkHandle, "IOHIDCheckAccess", "10.15")
 	registerFunc(&_iOHIDCopyCFTypeParameter, &_iOHIDCopyCFTypeParameterErr, frameworkHandle, "IOHIDCopyCFTypeParameter", "10.3")
 	registerFunc(&_iOHIDCreateSharedMemory, &_iOHIDCreateSharedMemoryErr, frameworkHandle, "IOHIDCreateSharedMemory", "10.0")

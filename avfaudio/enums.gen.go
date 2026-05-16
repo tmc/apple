@@ -554,13 +554,13 @@ type AVAudioQuality int
 
 const (
 	// AVAudioQualityHigh: A value that represents a high audio quality for encoding and conversion.
-	AVAudioQualityHigh AVAudioQuality = 96
+	AVAudioQualityHigh AVAudioQuality = 0x60
 	// AVAudioQualityLow: A value that represents a low audio quality for encoding and conversion.
-	AVAudioQualityLow AVAudioQuality = 32
+	AVAudioQualityLow AVAudioQuality = 0x20
 	// AVAudioQualityMax: A value that represents a maximum audio quality for encoding and conversion.
-	AVAudioQualityMax AVAudioQuality = 127
+	AVAudioQualityMax AVAudioQuality = 0x7f
 	// AVAudioQualityMedium: A value that represents a medium audio quality for encoding and conversion.
-	AVAudioQualityMedium AVAudioQuality = 64
+	AVAudioQualityMedium AVAudioQuality = 0x40
 	// AVAudioQualityMin: A value that represents a minimum audio quality for encoding and conversion.
 	AVAudioQualityMin AVAudioQuality = 0
 )
@@ -647,27 +647,27 @@ type AVAudioSessionCategoryOptions uint
 
 const (
 	// AVAudioSessionCategoryOptionAllowAirPlay: An option that determines whether you can stream audio from this session to AirPlay devices.
-	AVAudioSessionCategoryOptionAllowAirPlay AVAudioSessionCategoryOptions = 64
+	AVAudioSessionCategoryOptionAllowAirPlay AVAudioSessionCategoryOptions = 0x40
 	// AVAudioSessionCategoryOptionAllowBluetoothA2DP: An option that determines whether you can stream audio from this session to Bluetooth devices that support the Advanced Audio Distribution Profile (A2DP).
-	AVAudioSessionCategoryOptionAllowBluetoothA2DP AVAudioSessionCategoryOptions = 32
+	AVAudioSessionCategoryOptionAllowBluetoothA2DP AVAudioSessionCategoryOptions = 0x20
 	// AVAudioSessionCategoryOptionAllowBluetoothHFP: An option that makes Bluetooth Hands-Free Profile (HFP) devices available for audio input.
-	AVAudioSessionCategoryOptionAllowBluetoothHFP AVAudioSessionCategoryOptions = 4
+	AVAudioSessionCategoryOptionAllowBluetoothHFP AVAudioSessionCategoryOptions = 0x4
 	// AVAudioSessionCategoryOptionBluetoothHighQualityRecording: An option that indicates to enable high-quality audio for input and output routes.
 	AVAudioSessionCategoryOptionBluetoothHighQualityRecording AVAudioSessionCategoryOptions = 524288
 	// AVAudioSessionCategoryOptionDefaultToSpeaker: An option that determines whether audio from the session defaults to the built-in speaker instead of the receiver.
-	AVAudioSessionCategoryOptionDefaultToSpeaker AVAudioSessionCategoryOptions = 8
+	AVAudioSessionCategoryOptionDefaultToSpeaker AVAudioSessionCategoryOptions = 0x8
 	// AVAudioSessionCategoryOptionDuckOthers: An option that reduces the volume of other audio sessions while audio from this session plays.
-	AVAudioSessionCategoryOptionDuckOthers AVAudioSessionCategoryOptions = 2
+	AVAudioSessionCategoryOptionDuckOthers AVAudioSessionCategoryOptions = 0x2
 	// AVAudioSessionCategoryOptionFarFieldInput: This option should be used if a session prefers to use FarFieldInput when available.
 	AVAudioSessionCategoryOptionFarFieldInput AVAudioSessionCategoryOptions = 262144
 	// AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers: An option that determines whether to pause spoken audio content from other sessions when your app plays its audio.
-	AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers AVAudioSessionCategoryOptions = 17
+	AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers AVAudioSessionCategoryOptions = 0x11
 	// AVAudioSessionCategoryOptionMixWithOthers: An option that indicates whether audio from this session mixes with audio from active sessions in other audio apps.
-	AVAudioSessionCategoryOptionMixWithOthers AVAudioSessionCategoryOptions = 1
+	AVAudioSessionCategoryOptionMixWithOthers AVAudioSessionCategoryOptions = 0x1
 	// AVAudioSessionCategoryOptionOverrideMutedMicrophoneInterruption: An option that indicates whether the system interrupts the audio session when it mutes the built-in microphone.
-	AVAudioSessionCategoryOptionOverrideMutedMicrophoneInterruption AVAudioSessionCategoryOptions = 128
+	AVAudioSessionCategoryOptionOverrideMutedMicrophoneInterruption AVAudioSessionCategoryOptions = 0x80
 	// Deprecated.
-	AVAudioSessionCategoryOptionAllowBluetooth AVAudioSessionCategoryOptions = 4
+	AVAudioSessionCategoryOptionAllowBluetooth AVAudioSessionCategoryOptions = 0x4
 )
 
 func (e AVAudioSessionCategoryOptions) String() string {
@@ -1630,37 +1630,37 @@ type AVMIDIMetaEventType int
 
 const (
 	// AVMIDIMetaEventTypeCopyright: An event type that represents a copyright.
-	AVMIDIMetaEventTypeCopyright AVMIDIMetaEventType = 2
+	AVMIDIMetaEventTypeCopyright AVMIDIMetaEventType = 0x2
 	// AVMIDIMetaEventTypeCuePoint: An event type that represents a cue point.
-	AVMIDIMetaEventTypeCuePoint AVMIDIMetaEventType = 7
+	AVMIDIMetaEventTypeCuePoint AVMIDIMetaEventType = 0x7
 	// AVMIDIMetaEventTypeEndOfTrack: An event type that represents the end of the track.
-	AVMIDIMetaEventTypeEndOfTrack AVMIDIMetaEventType = 47
+	AVMIDIMetaEventTypeEndOfTrack AVMIDIMetaEventType = 0x2f
 	// AVMIDIMetaEventTypeInstrument: An event type that represents an instrument.
-	AVMIDIMetaEventTypeInstrument AVMIDIMetaEventType = 4
+	AVMIDIMetaEventTypeInstrument AVMIDIMetaEventType = 0x4
 	// AVMIDIMetaEventTypeKeySignature: An event type that represents a key signature.
-	AVMIDIMetaEventTypeKeySignature AVMIDIMetaEventType = 89
+	AVMIDIMetaEventTypeKeySignature AVMIDIMetaEventType = 0x59
 	// AVMIDIMetaEventTypeLyric: An event type that represents a lyric.
-	AVMIDIMetaEventTypeLyric AVMIDIMetaEventType = 5
+	AVMIDIMetaEventTypeLyric AVMIDIMetaEventType = 0x5
 	// AVMIDIMetaEventTypeMarker: An event type that represents a marker.
-	AVMIDIMetaEventTypeMarker AVMIDIMetaEventType = 6
+	AVMIDIMetaEventTypeMarker AVMIDIMetaEventType = 0x6
 	// AVMIDIMetaEventTypeMidiChannel: An event type that represents a MIDI channel.
-	AVMIDIMetaEventTypeMidiChannel AVMIDIMetaEventType = 32
+	AVMIDIMetaEventTypeMidiChannel AVMIDIMetaEventType = 0x20
 	// AVMIDIMetaEventTypeMidiPort: An event type that represents a MIDI port.
-	AVMIDIMetaEventTypeMidiPort AVMIDIMetaEventType = 33
+	AVMIDIMetaEventTypeMidiPort AVMIDIMetaEventType = 0x21
 	// AVMIDIMetaEventTypeProprietaryEvent: An event type that represents a proprietary event.
-	AVMIDIMetaEventTypeProprietaryEvent AVMIDIMetaEventType = 127
+	AVMIDIMetaEventTypeProprietaryEvent AVMIDIMetaEventType = 0x7f
 	// AVMIDIMetaEventTypeSequenceNumber: An event type that represents a sequence number.
 	AVMIDIMetaEventTypeSequenceNumber AVMIDIMetaEventType = 0
 	// AVMIDIMetaEventTypeSmpteOffset: An event type that represents a SMPTE time offset.
-	AVMIDIMetaEventTypeSmpteOffset AVMIDIMetaEventType = 84
+	AVMIDIMetaEventTypeSmpteOffset AVMIDIMetaEventType = 0x54
 	// AVMIDIMetaEventTypeTempo: An event type that represents a tempo.
-	AVMIDIMetaEventTypeTempo AVMIDIMetaEventType = 81
+	AVMIDIMetaEventTypeTempo AVMIDIMetaEventType = 0x51
 	// AVMIDIMetaEventTypeText: An event type that represents text.
-	AVMIDIMetaEventTypeText AVMIDIMetaEventType = 1
+	AVMIDIMetaEventTypeText AVMIDIMetaEventType = 0x1
 	// AVMIDIMetaEventTypeTimeSignature: An event type that represents a time signature.
-	AVMIDIMetaEventTypeTimeSignature AVMIDIMetaEventType = 88
+	AVMIDIMetaEventTypeTimeSignature AVMIDIMetaEventType = 0x58
 	// AVMIDIMetaEventTypeTrackName: An event type that represents a track name.
-	AVMIDIMetaEventTypeTrackName AVMIDIMetaEventType = 3
+	AVMIDIMetaEventTypeTrackName AVMIDIMetaEventType = 0x3
 )
 
 func (e AVMIDIMetaEventType) String() string {

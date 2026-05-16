@@ -204,17 +204,17 @@ const (
 	// NSSymbolStringEncoding: 8-bit Adobe Symbol encoding vector.
 	NSSymbolStringEncoding NS = 6
 	// NSUTF16BigEndianStringEncoding: [NSUTF16StringEncoding] encoding with explicit endianness specified.
-	NSUTF16BigEndianStringEncoding NS = 2415919360
+	NSUTF16BigEndianStringEncoding NS = 0x90000100
 	// NSUTF16LittleEndianStringEncoding: [NSUTF16StringEncoding] encoding with explicit endianness specified.
-	NSUTF16LittleEndianStringEncoding NS = 2483028224
+	NSUTF16LittleEndianStringEncoding NS = 0x94000100
 	// NSUTF16StringEncoding: # Discussion
 	NSUTF16StringEncoding NS = 10
 	// NSUTF32BigEndianStringEncoding: [NSUTF32StringEncoding] encoding with explicit endianness specified.
-	NSUTF32BigEndianStringEncoding NS = 2550137088
+	NSUTF32BigEndianStringEncoding NS = 0x98000100
 	// NSUTF32LittleEndianStringEncoding: [NSUTF32StringEncoding] encoding with explicit endianness specified.
-	NSUTF32LittleEndianStringEncoding NS = 2617245952
+	NSUTF32LittleEndianStringEncoding NS = 0x9c000100
 	// NSUTF32StringEncoding: 32-bit UTF encoding.
-	NSUTF32StringEncoding NS = 2348810496
+	NSUTF32StringEncoding NS = 0x8c000100
 	// NSUTF8StringEncoding: An 8-bit representation of Unicode characters, suitable for transmission or storage by ASCII-based systems.
 	NSUTF8StringEncoding NS = 4
 	// NSUbiquitousFileErrorMaximum: The maximum error code value that represents an iCloud error.
@@ -497,13 +497,13 @@ const (
 	// NSActivityAutomaticTerminationDisabled: A flag to prevent automatic termination.
 	NSActivityAutomaticTerminationDisabled NSActivityOptions = 32768
 	// NSActivityBackground: A flag to indicate the app has initiated some kind of work, but not as the direct result of user request.
-	NSActivityBackground NSActivityOptions = 255
+	NSActivityBackground NSActivityOptions = 0xff
 	// NSActivityIdleDisplaySleepDisabled: A flag to require the screen to stay powered on.
 	NSActivityIdleDisplaySleepDisabled NSActivityOptions = 1099511627776
 	// NSActivityIdleSystemSleepDisabled: A flag to prevent idle sleep.
 	NSActivityIdleSystemSleepDisabled NSActivityOptions = 1048576
 	// NSActivityLatencyCritical: A flag to indicate the activity requires the highest amount of timer and I/O precision available.
-	NSActivityLatencyCritical NSActivityOptions = 1095216660480
+	NSActivityLatencyCritical NSActivityOptions = 0xff00000000
 	// NSActivitySuddenTerminationDisabled: A flag to prevent sudden termination.
 	NSActivitySuddenTerminationDisabled NSActivityOptions = 16384
 	// NSActivityTrackingEnabled: A flag to track the activity with a signpost interval.
@@ -822,15 +822,15 @@ type NSBundleExecutableArchitecture uint
 
 const (
 	// NSBundleExecutableArchitectureARM64: The 64-bit ARM architecture.
-	NSBundleExecutableArchitectureARM64 NSBundleExecutableArchitecture = 16777228
+	NSBundleExecutableArchitectureARM64 NSBundleExecutableArchitecture = 0x100000c
 	// NSBundleExecutableArchitectureI386: The 32-bit Intel architecture.
-	NSBundleExecutableArchitectureI386 NSBundleExecutableArchitecture = 7
+	NSBundleExecutableArchitectureI386 NSBundleExecutableArchitecture = 0x7
 	// NSBundleExecutableArchitecturePPC: The 32-bit PowerPC architecture.
-	NSBundleExecutableArchitecturePPC NSBundleExecutableArchitecture = 18
+	NSBundleExecutableArchitecturePPC NSBundleExecutableArchitecture = 0x12
 	// NSBundleExecutableArchitecturePPC64: The 64-bit PowerPC architecture.
-	NSBundleExecutableArchitecturePPC64 NSBundleExecutableArchitecture = 16777234
+	NSBundleExecutableArchitecturePPC64 NSBundleExecutableArchitecture = 0x1000012
 	// NSBundleExecutableArchitectureX86_64: The 64-bit Intel architecture.
-	NSBundleExecutableArchitectureX86_64 NSBundleExecutableArchitecture = 16777223
+	NSBundleExecutableArchitectureX86_64 NSBundleExecutableArchitecture = 0x1000007
 )
 
 func (e NSBundleExecutableArchitecture) String() string {
@@ -884,7 +884,7 @@ type NSByteCountFormatterUnits uint
 
 const (
 	// NSByteCountFormatterUseAll: Can use any unit in the formatter content.
-	NSByteCountFormatterUseAll NSByteCountFormatterUnits = 65535
+	NSByteCountFormatterUseAll NSByteCountFormatterUnits = 0xffff
 	// NSByteCountFormatterUseBytes: Displays bytes in the formatter content.
 	NSByteCountFormatterUseBytes NSByteCountFormatterUnits = 1
 	// NSByteCountFormatterUseDefault: This causes default units appropriate for the platform to be used.
@@ -902,7 +902,7 @@ const (
 	// NSByteCountFormatterUseTB: Displays terabytes in the formatter content.
 	NSByteCountFormatterUseTB NSByteCountFormatterUnits = 16
 	// NSByteCountFormatterUseYBOrHigher: Displays yottabytes in the formatter content.
-	NSByteCountFormatterUseYBOrHigher NSByteCountFormatterUnits = 255
+	NSByteCountFormatterUseYBOrHigher NSByteCountFormatterUnits = 0xff
 	// NSByteCountFormatterUseZB: Displays zettabytes in the formatter content.
 	NSByteCountFormatterUseZB NSByteCountFormatterUnits = 128
 )
@@ -1185,11 +1185,11 @@ type NSComparisonPredicateOptions uint
 
 const (
 	// NSCaseInsensitivePredicateOption: A case-insensitive predicate.
-	NSCaseInsensitivePredicateOption NSComparisonPredicateOptions = 1
+	NSCaseInsensitivePredicateOption NSComparisonPredicateOptions = 0x1
 	// NSDiacriticInsensitivePredicateOption: A diacritic-insensitive predicate.
-	NSDiacriticInsensitivePredicateOption NSComparisonPredicateOptions = 2
+	NSDiacriticInsensitivePredicateOption NSComparisonPredicateOptions = 0x2
 	// NSNormalizedPredicateOption: A predicate that indicates you’ve preprocessed the strings to compare.
-	NSNormalizedPredicateOption NSComparisonPredicateOptions = 4
+	NSNormalizedPredicateOption NSComparisonPredicateOptions = 0x4
 )
 
 func (e NSComparisonPredicateOptions) String() string {
@@ -1389,16 +1389,16 @@ const (
 	// NSDataWritingAtomic: An option to write data to an auxiliary file first and then replace the original file with the auxiliary file when the write completes.
 	NSDataWritingAtomic NSDataWritingOptions = 1
 	// NSDataWritingFileProtectionComplete: An option to make the file accessible only while the device is unlocked.
-	NSDataWritingFileProtectionComplete NSDataWritingOptions = 536870912
+	NSDataWritingFileProtectionComplete NSDataWritingOptions = 0x20000000
 	// NSDataWritingFileProtectionCompleteUnlessOpen: An option to allow the file to be accessible while the device is unlocked or the file is already open.
-	NSDataWritingFileProtectionCompleteUnlessOpen NSDataWritingOptions = 805306368
+	NSDataWritingFileProtectionCompleteUnlessOpen NSDataWritingOptions = 0x30000000
 	// NSDataWritingFileProtectionCompleteUntilFirstUserAuthentication: An option to allow the file to be accessible after a user first unlocks the device.
-	NSDataWritingFileProtectionCompleteUntilFirstUserAuthentication NSDataWritingOptions = 1073741824
-	NSDataWritingFileProtectionCompleteWhenUserInactive             NSDataWritingOptions = 1342177280
+	NSDataWritingFileProtectionCompleteUntilFirstUserAuthentication NSDataWritingOptions = 0x40000000
+	NSDataWritingFileProtectionCompleteWhenUserInactive             NSDataWritingOptions = 0x50000000
 	// NSDataWritingFileProtectionMask: An option the system uses when determining the file protection options that the system assigns to the data.
-	NSDataWritingFileProtectionMask NSDataWritingOptions = 4026531840
+	NSDataWritingFileProtectionMask NSDataWritingOptions = 0xf0000000
 	// NSDataWritingFileProtectionNone: An option to not encrypt the file when writing it out.
-	NSDataWritingFileProtectionNone NSDataWritingOptions = 268435456
+	NSDataWritingFileProtectionNone NSDataWritingOptions = 0x10000000
 	// NSDataWritingWithoutOverwriting: An option that attempts to write data to a file and fails with an error if the destination file already exists.
 	NSDataWritingWithoutOverwriting NSDataWritingOptions = 2
 	// Deprecated.
@@ -2719,13 +2719,13 @@ type NSKeyValueObservingOptions uint
 
 const (
 	// NSKeyValueObservingOptionInitial: If specified, a notification should be sent to the observer immediately, before the observer registration method even returns.
-	NSKeyValueObservingOptionInitial NSKeyValueObservingOptions = 4
+	NSKeyValueObservingOptionInitial NSKeyValueObservingOptions = 0x4
 	// NSKeyValueObservingOptionNew: Indicates that the change dictionary should provide the new attribute value, if applicable.
-	NSKeyValueObservingOptionNew NSKeyValueObservingOptions = 1
+	NSKeyValueObservingOptionNew NSKeyValueObservingOptions = 0x1
 	// NSKeyValueObservingOptionOld: Indicates that the change dictionary should contain the old attribute value, if applicable.
-	NSKeyValueObservingOptionOld NSKeyValueObservingOptions = 2
+	NSKeyValueObservingOptionOld NSKeyValueObservingOptions = 0x2
 	// NSKeyValueObservingOptionPrior: Whether separate notifications should be sent to the observer before and after each change, instead of a single notification after the change.
-	NSKeyValueObservingOptionPrior NSKeyValueObservingOptions = 8
+	NSKeyValueObservingOptionPrior NSKeyValueObservingOptions = 0x8
 )
 
 func (e NSKeyValueObservingOptions) String() string {
@@ -3318,7 +3318,7 @@ type NSOpenStepUnicodeReserved uint
 
 const (
 	// NSOpenStepUnicodeReservedBase: Specifies lower bound for a Unicode character range reserved for Apple’s corporate use (the range is `0xF400–0xF8FF`).
-	NSOpenStepUnicodeReservedBase NSOpenStepUnicodeReserved = 62464
+	NSOpenStepUnicodeReservedBase NSOpenStepUnicodeReserved = 0xf400
 )
 
 func (e NSOpenStepUnicodeReserved) String() string {
@@ -3781,15 +3781,15 @@ type QualityOfService int
 
 const (
 	// NSQualityOfServiceBackground: # Discussion
-	NSQualityOfServiceBackground QualityOfService = 9
+	NSQualityOfServiceBackground QualityOfService = 0x9
 	// NSQualityOfServiceDefault: # Discussion
 	NSQualityOfServiceDefault QualityOfService = -1
 	// NSQualityOfServiceUserInitiated: # Discussion
-	NSQualityOfServiceUserInitiated QualityOfService = 25
+	NSQualityOfServiceUserInitiated QualityOfService = 0x19
 	// NSQualityOfServiceUserInteractive: # Discussion
-	NSQualityOfServiceUserInteractive QualityOfService = 33
+	NSQualityOfServiceUserInteractive QualityOfService = 0x21
 	// NSQualityOfServiceUtility: # Discussion
-	NSQualityOfServiceUtility QualityOfService = 17
+	NSQualityOfServiceUtility QualityOfService = 0x11
 )
 
 func (e QualityOfService) String() string {
@@ -4138,7 +4138,7 @@ type NSSearchPathDomainMask uint
 
 const (
 	// NSAllDomainsMask: All domains.
-	NSAllDomainsMask NSSearchPathDomainMask = 65535
+	NSAllDomainsMask NSSearchPathDomainMask = 0xffff
 	// NSLocalDomainMask: The place to install items available to everyone on this machine.
 	NSLocalDomainMask NSSearchPathDomainMask = 2
 	// NSNetworkDomainMask: The place to install items available on the network (`/Network`).
@@ -4489,9 +4489,9 @@ type NSTextCheckingAll uint
 
 const (
 	// NSTextCheckingAllCustomTypes: Checking types that can be used by clients.
-	NSTextCheckingAllCustomTypes NSTextCheckingAll = 4294967295
+	NSTextCheckingAllCustomTypes NSTextCheckingAll = 0xffffffff
 	// NSTextCheckingAllSystemTypes: Checking types supported by the system.
-	NSTextCheckingAllSystemTypes NSTextCheckingAll = 4294967295
+	NSTextCheckingAllSystemTypes NSTextCheckingAll = 0xffffffff
 	// NSTextCheckingAllTypes: All possible checking types, both system- and user-supported.
 	NSTextCheckingAllTypes NSTextCheckingAll = 0
 )

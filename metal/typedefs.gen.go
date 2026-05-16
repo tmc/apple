@@ -28,7 +28,7 @@ type MTL4NewMachineLearningPipelineStateCompletionHandler = func(MTL4MachineLear
 // Deprecated: Deprecated since macOS 14.0.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentAccess
-type MTLArgumentAccess = unsafe.Pointer
+type MTLArgumentAccess = MTLBindingAccess
 
 // MTLAutoreleasedComputePipelineReflection is a convenience type alias for an autoreleased compute pipeline reflection object.
 //

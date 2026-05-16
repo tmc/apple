@@ -162,7 +162,7 @@ type CGDisplayStreamUpdateRef uintptr
 type CGErrorCallback = func()
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventErr
-type CGEventErr = unsafe.Pointer
+type CGEventErr = CGError
 
 // CGEventMask is defines a mask that identifies the set of Quartz events to be observed in an event tap.
 //

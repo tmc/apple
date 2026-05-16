@@ -128,8 +128,8 @@ type IETDataTensor interface {
 	SetDataArray(value foundation.INSArray)
 	DataPointer() unsafe.Pointer
 	SetDataPointer(value unsafe.Pointer)
-	Float_buffer() objectivec.IObject
-	SetFloat_buffer(value objectivec.IObject)
+	Float_buffer() Float_buffer_t
+	SetFloat_buffer(value Float_buffer_t)
 	ImageBuffer() unsafe.Pointer
 	SetImageBuffer(value unsafe.Pointer)
 	MaxNumberOfElements() foundation.NSNumber
@@ -265,11 +265,12 @@ func (e ETDataTensor) SetDataPointer(value unsafe.Pointer) {
 }
 
 // See: https://developer.apple.com/documentation/Espresso/ETDataTensor/float_buffer
-func (e ETDataTensor) Float_buffer() objectivec.IObject {
+func (e ETDataTensor) Float_buffer() Float_buffer_t {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("float_buffer"))
-	return objectivec.Object{ID: rv}
+	_ = rv
+	return Float_buffer_t{}
 }
-func (e ETDataTensor) SetFloat_buffer(value objectivec.IObject) {
+func (e ETDataTensor) SetFloat_buffer(value Float_buffer_t) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFloat_buffer:"), value)
 }
 

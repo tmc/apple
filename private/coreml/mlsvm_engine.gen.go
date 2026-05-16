@@ -111,11 +111,11 @@ type IMLSVMEngine interface {
 
 	// Topic: Methods
 
-	AllocSVMNodeVector(vector uint64) *Svm_nodeRef
+	AllocSVMNodeVector(vector uint64) unsafe.Pointer
 	ClassLabels() foundation.INSArray
 	SetClassLabels(value foundation.INSArray)
-	DeallocSVMNodeVector(vector *Svm_nodeRef)
-	FillSVMNodeVectorValuesCount(vector *Svm_nodeRef, values []float64, count uint64)
+	DeallocSVMNodeVector(vector unsafe.Pointer)
+	FillSVMNodeVectorValuesCount(vector unsafe.Pointer, values []float64, count uint64)
 	FreeModelOnDealloc() bool
 	SetFreeModelOnDealloc(value bool)
 	HasProbabilityPredictionEnabled() bool
@@ -179,18 +179,18 @@ func NewSVMEngineWithSpecificationError(specification unsafe.Pointer) (MLSVMEngi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/allocSVMNodeVector:
-func (s MLSVMEngine) AllocSVMNodeVector(vector uint64) *Svm_nodeRef {
+func (s MLSVMEngine) AllocSVMNodeVector(vector uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("allocSVMNodeVector:"), vector)
-	return (*Svm_nodeRef)(rv)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/deallocSVMNodeVector:
-func (s MLSVMEngine) DeallocSVMNodeVector(vector *Svm_nodeRef) {
+func (s MLSVMEngine) DeallocSVMNodeVector(vector unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("deallocSVMNodeVector:"), vector)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVMEngine/fillSVMNodeVector:values:count:
-func (s MLSVMEngine) FillSVMNodeVectorValuesCount(vector *Svm_nodeRef, values []float64, count uint64) {
+func (s MLSVMEngine) FillSVMNodeVectorValuesCount(vector unsafe.Pointer, values []float64, count uint64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("fillSVMNodeVector:values:count:"), objc.CArray(vector), objc.CArray(values), count)
 }
 

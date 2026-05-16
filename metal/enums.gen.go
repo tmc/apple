@@ -1153,19 +1153,19 @@ type MTLColorWriteMask uint
 
 const (
 	// MTLColorWriteMaskAll: All color channels are enabled.
-	MTLColorWriteMaskAll MTLColorWriteMask = 15
+	MTLColorWriteMaskAll MTLColorWriteMask = 0xf
 	// MTLColorWriteMaskAlpha: The alpha color channel is enabled.
-	MTLColorWriteMaskAlpha MTLColorWriteMask = 1
+	MTLColorWriteMaskAlpha MTLColorWriteMask = 0x1
 	// MTLColorWriteMaskBlue: The blue color channel is enabled.
-	MTLColorWriteMaskBlue MTLColorWriteMask = 1
+	MTLColorWriteMaskBlue MTLColorWriteMask = 0x1
 	// MTLColorWriteMaskGreen: The green color channel is enabled.
-	MTLColorWriteMaskGreen MTLColorWriteMask = 1
+	MTLColorWriteMaskGreen MTLColorWriteMask = 0x1
 	// MTLColorWriteMaskNone: All color channels are disabled.
 	MTLColorWriteMaskNone MTLColorWriteMask = 0
 	// MTLColorWriteMaskRed: The red color channel is enabled.
-	MTLColorWriteMaskRed MTLColorWriteMask = 1
+	MTLColorWriteMaskRed MTLColorWriteMask = 0x1
 	// MTLColorWriteMaskUnspecialized: Defers assigning the color write mask.
-	MTLColorWriteMaskUnspecialized MTLColorWriteMask = 16
+	MTLColorWriteMaskUnspecialized MTLColorWriteMask = 0x10
 )
 
 func (e MTLColorWriteMask) String() string {
@@ -1969,7 +1969,7 @@ func (e MTLDepthClipMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLDeviceLocation
-type MTLDeviceLocation uint
+type MTLDeviceLocation int
 
 const (
 	// MTLDeviceLocationBuiltIn: A location that indicates the GPU is permanently connected to the system internally.
@@ -1979,7 +1979,7 @@ const (
 	// MTLDeviceLocationSlot: A GPU location that indicates a person connected the GPU to a system’s internal slot.
 	MTLDeviceLocationSlot MTLDeviceLocation = 1
 	// MTLDeviceLocationUnspecified: A value that indicates the system can’t determine how the GPU connects to it.
-	MTLDeviceLocationUnspecified MTLDeviceLocation = 0
+	MTLDeviceLocationUnspecified MTLDeviceLocation = -1
 )
 
 func (e MTLDeviceLocation) String() string {
@@ -1990,6 +1990,8 @@ func (e MTLDeviceLocation) String() string {
 		return "MTLDeviceLocationExternal"
 	case MTLDeviceLocationSlot:
 		return "MTLDeviceLocationSlot"
+	case MTLDeviceLocationUnspecified:
+		return "MTLDeviceLocationUnspecified"
 	default:
 		return fmt.Sprintf("MTLDeviceLocation(%d)", e)
 	}
@@ -4710,15 +4712,15 @@ type MTLTextureUsage uint
 
 const (
 	// MTLTextureUsagePixelFormatView: An option to create texture views with a different component layout.
-	MTLTextureUsagePixelFormatView MTLTextureUsage = 16
+	MTLTextureUsagePixelFormatView MTLTextureUsage = 0x10
 	// MTLTextureUsageRenderTarget: An option for rendering to the texture in a render pass.
-	MTLTextureUsageRenderTarget MTLTextureUsage = 4
+	MTLTextureUsageRenderTarget MTLTextureUsage = 0x4
 	// MTLTextureUsageShaderAtomic: An option that enables atomic memory operations on texture elements in shader code.
-	MTLTextureUsageShaderAtomic MTLTextureUsage = 32
+	MTLTextureUsageShaderAtomic MTLTextureUsage = 0x20
 	// MTLTextureUsageShaderRead: An option for reading or sampling from the texture in a shader.
-	MTLTextureUsageShaderRead MTLTextureUsage = 1
+	MTLTextureUsageShaderRead MTLTextureUsage = 0x1
 	// MTLTextureUsageShaderWrite: An option for writing to the texture in a shader.
-	MTLTextureUsageShaderWrite MTLTextureUsage = 2
+	MTLTextureUsageShaderWrite MTLTextureUsage = 0x2
 	// MTLTextureUsageUnknown: An option for a texture whose usage is unknown.
 	MTLTextureUsageUnknown MTLTextureUsage = 0
 )

@@ -292,7 +292,7 @@ type CFGregorianUnitFlags int
 
 const (
 	// Deprecated.
-	KCFGregorianAllUnits CFGregorianUnitFlags = 16777215
+	KCFGregorianAllUnits CFGregorianUnitFlags = 0xffffff
 	// Deprecated.
 	KCFGregorianUnitsDays CFGregorianUnitFlags = 4
 	// Deprecated.
@@ -711,7 +711,7 @@ const (
 	// KCFRunLoopAfterWaiting: Inside the event processing loop after the run loop wakes up, but before processing the event that woke it up.
 	KCFRunLoopAfterWaiting CFRunLoopActivity = 64
 	// KCFRunLoopAllActivities: A combination of all the preceding stages.
-	KCFRunLoopAllActivities CFRunLoopActivity = 268435455
+	KCFRunLoopAllActivities CFRunLoopActivity = 0xfffffff
 	// KCFRunLoopBeforeSources: Inside the event processing loop before any sources are processed.
 	KCFRunLoopBeforeSources CFRunLoopActivity = 4
 	// KCFRunLoopBeforeTimers: Inside the event processing loop before any timers are processed.
@@ -948,33 +948,33 @@ type CFStringBuiltInEncodings uint32
 
 const (
 	// KCFStringEncodingASCII: An encoding constant that identifies the ASCII encoding (decimal values 0 through 127).
-	KCFStringEncodingASCII CFStringBuiltInEncodings = 1536
+	KCFStringEncodingASCII CFStringBuiltInEncodings = 0x600
 	// KCFStringEncodingISOLatin1: An encoding constant that identifies the ISO Latin 1 encoding (ISO 8859-1)
-	KCFStringEncodingISOLatin1 CFStringBuiltInEncodings = 513
+	KCFStringEncodingISOLatin1 CFStringBuiltInEncodings = 0x201
 	// KCFStringEncodingMacRoman: An encoding constant that identifies the Mac Roman encoding.
 	KCFStringEncodingMacRoman CFStringBuiltInEncodings = 0
 	// KCFStringEncodingNextStepLatin: An encoding constant that identifies the NextStep/OpenStep encoding.
-	KCFStringEncodingNextStepLatin CFStringBuiltInEncodings = 2817
+	KCFStringEncodingNextStepLatin CFStringBuiltInEncodings = 0xb01
 	// KCFStringEncodingNonLossyASCII: An encoding constant that identifies non-lossy ASCII encoding.
-	KCFStringEncodingNonLossyASCII CFStringBuiltInEncodings = 3071
+	KCFStringEncodingNonLossyASCII CFStringBuiltInEncodings = 0xbff
 	// KCFStringEncodingUTF16: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF16Format encoding (alias of kCFStringEncodingUnicode).
-	KCFStringEncodingUTF16 CFStringBuiltInEncodings = 256
+	KCFStringEncodingUTF16 CFStringBuiltInEncodings = 0x100
 	// KCFStringEncodingUTF16BE: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF16BEFormat encoding.
-	KCFStringEncodingUTF16BE CFStringBuiltInEncodings = 268435712
+	KCFStringEncodingUTF16BE CFStringBuiltInEncodings = 0x10000100
 	// KCFStringEncodingUTF16LE: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF16LEFormat encoding.
-	KCFStringEncodingUTF16LE CFStringBuiltInEncodings = 335544576
+	KCFStringEncodingUTF16LE CFStringBuiltInEncodings = 0x14000100
 	// KCFStringEncodingUTF32: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF32Format encoding.
-	KCFStringEncodingUTF32 CFStringBuiltInEncodings = 201326848
+	KCFStringEncodingUTF32 CFStringBuiltInEncodings = 0xc000100
 	// KCFStringEncodingUTF32BE: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF32BEFormat encoding.
-	KCFStringEncodingUTF32BE CFStringBuiltInEncodings = 402653440
+	KCFStringEncodingUTF32BE CFStringBuiltInEncodings = 0x18000100
 	// KCFStringEncodingUTF32LE: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF32LEFormat encoding.
-	KCFStringEncodingUTF32LE CFStringBuiltInEncodings = 469762304
+	KCFStringEncodingUTF32LE CFStringBuiltInEncodings = 0x1c000100
 	// KCFStringEncodingUTF8: An encoding constant that identifies the UTF 8 encoding.
-	KCFStringEncodingUTF8 CFStringBuiltInEncodings = 134217984
+	KCFStringEncodingUTF8 CFStringBuiltInEncodings = 0x8000100
 	// KCFStringEncodingUnicode: An encoding constant that identifies the Unicode encoding.
-	KCFStringEncodingUnicode CFStringBuiltInEncodings = 256
+	KCFStringEncodingUnicode CFStringBuiltInEncodings = 0x100
 	// KCFStringEncodingWindowsLatin1: An encoding constant that identifies the Windows Latin 1 encoding (ANSI codepage 1252).
-	KCFStringEncodingWindowsLatin1 CFStringBuiltInEncodings = 1280
+	KCFStringEncodingWindowsLatin1 CFStringBuiltInEncodings = 0x500
 )
 
 func (e CFStringBuiltInEncodings) String() string {
@@ -1064,129 +1064,129 @@ type CFStringEncodings int
 
 const (
 	// KCFStringEncodingANSEL: ANSEL (ANSI Z39.47).
-	KCFStringEncodingANSEL CFStringEncodings = 1537
+	KCFStringEncodingANSEL CFStringEncodings = 0x601
 	// KCFStringEncodingBig5: Big-5 (has variants)
-	KCFStringEncodingBig5 CFStringEncodings = 2563
+	KCFStringEncodingBig5 CFStringEncodings = 0xa03
 	// KCFStringEncodingBig5_E: Taiwan Big-5E standard.
-	KCFStringEncodingBig5_E CFStringEncodings = 2569
+	KCFStringEncodingBig5_E CFStringEncodings = 0xa09
 	// KCFStringEncodingBig5_HKSCS_1999: Big-5 with Hong Kong special char set supplement.
-	KCFStringEncodingBig5_HKSCS_1999 CFStringEncodings = 2566
+	KCFStringEncodingBig5_HKSCS_1999 CFStringEncodings = 0xa06
 	// KCFStringEncodingCNS_11643_92_P1: CNS 11643-1992 plane 1.
-	KCFStringEncodingCNS_11643_92_P1 CFStringEncodings = 1617
+	KCFStringEncodingCNS_11643_92_P1 CFStringEncodings = 0x651
 	// KCFStringEncodingCNS_11643_92_P2: CNS 11643-1992 plane 2.
-	KCFStringEncodingCNS_11643_92_P2 CFStringEncodings = 1618
+	KCFStringEncodingCNS_11643_92_P2 CFStringEncodings = 0x652
 	// KCFStringEncodingCNS_11643_92_P3: CNS 11643-1992 plane 3 (was plane 14 in 1986 version).
-	KCFStringEncodingCNS_11643_92_P3 CFStringEncodings = 1619
+	KCFStringEncodingCNS_11643_92_P3 CFStringEncodings = 0x653
 	// KCFStringEncodingDOSArabic: Code page 864.
-	KCFStringEncodingDOSArabic CFStringEncodings = 1049
+	KCFStringEncodingDOSArabic CFStringEncodings = 0x419
 	// KCFStringEncodingDOSBalticRim: Code page 775.
-	KCFStringEncodingDOSBalticRim CFStringEncodings = 1030
+	KCFStringEncodingDOSBalticRim CFStringEncodings = 0x406
 	// KCFStringEncodingDOSCanadianFrench: Code page 863.
-	KCFStringEncodingDOSCanadianFrench CFStringEncodings = 1048
+	KCFStringEncodingDOSCanadianFrench CFStringEncodings = 0x418
 	// KCFStringEncodingDOSChineseSimplif: Code page 936, also for Windows.
-	KCFStringEncodingDOSChineseSimplif CFStringEncodings = 1057
+	KCFStringEncodingDOSChineseSimplif CFStringEncodings = 0x421
 	// KCFStringEncodingDOSChineseTrad: Code page 950, also for Windows.
-	KCFStringEncodingDOSChineseTrad CFStringEncodings = 1059
+	KCFStringEncodingDOSChineseTrad CFStringEncodings = 0x423
 	// KCFStringEncodingDOSCyrillic: Code page 855, IBM Cyrillic.
-	KCFStringEncodingDOSCyrillic CFStringEncodings = 1043
+	KCFStringEncodingDOSCyrillic CFStringEncodings = 0x413
 	// KCFStringEncodingDOSGreek: Code page 737 (formerly code page 437G).
-	KCFStringEncodingDOSGreek CFStringEncodings = 1029
+	KCFStringEncodingDOSGreek CFStringEncodings = 0x405
 	// KCFStringEncodingDOSGreek1: Code page 851.
-	KCFStringEncodingDOSGreek1 CFStringEncodings = 1041
+	KCFStringEncodingDOSGreek1 CFStringEncodings = 0x411
 	// KCFStringEncodingDOSGreek2: Code page 869, IBM Modern Greek.
-	KCFStringEncodingDOSGreek2 CFStringEncodings = 1052
+	KCFStringEncodingDOSGreek2 CFStringEncodings = 0x41c
 	// KCFStringEncodingDOSHebrew: Code page 862.
-	KCFStringEncodingDOSHebrew CFStringEncodings = 1047
+	KCFStringEncodingDOSHebrew CFStringEncodings = 0x417
 	// KCFStringEncodingDOSIcelandic: Code page 861.
-	KCFStringEncodingDOSIcelandic CFStringEncodings = 1046
+	KCFStringEncodingDOSIcelandic CFStringEncodings = 0x416
 	// KCFStringEncodingDOSJapanese: Code page 932, also for Windows.
-	KCFStringEncodingDOSJapanese CFStringEncodings = 1056
+	KCFStringEncodingDOSJapanese CFStringEncodings = 0x420
 	// KCFStringEncodingDOSKorean: Code page 949, also for Windows; Unified Hangul Code.
-	KCFStringEncodingDOSKorean CFStringEncodings = 1058
+	KCFStringEncodingDOSKorean CFStringEncodings = 0x422
 	// KCFStringEncodingDOSLatin1: Code page 850, “Multilingual”.
-	KCFStringEncodingDOSLatin1 CFStringEncodings = 1040
+	KCFStringEncodingDOSLatin1 CFStringEncodings = 0x410
 	// KCFStringEncodingDOSLatin2: Code page 852, Slavic.
-	KCFStringEncodingDOSLatin2 CFStringEncodings = 1042
+	KCFStringEncodingDOSLatin2 CFStringEncodings = 0x412
 	// KCFStringEncodingDOSLatinUS: Code page 437.
-	KCFStringEncodingDOSLatinUS CFStringEncodings = 1024
+	KCFStringEncodingDOSLatinUS CFStringEncodings = 0x400
 	// KCFStringEncodingDOSNordic: Code page 865.
-	KCFStringEncodingDOSNordic CFStringEncodings = 1050
+	KCFStringEncodingDOSNordic CFStringEncodings = 0x41a
 	// KCFStringEncodingDOSPortuguese: Code page 860.
-	KCFStringEncodingDOSPortuguese CFStringEncodings = 1045
+	KCFStringEncodingDOSPortuguese CFStringEncodings = 0x415
 	// KCFStringEncodingDOSRussian: Code page 866.
-	KCFStringEncodingDOSRussian CFStringEncodings = 1051
+	KCFStringEncodingDOSRussian CFStringEncodings = 0x41b
 	// KCFStringEncodingDOSThai: Code page 874, also for Windows.
-	KCFStringEncodingDOSThai CFStringEncodings = 1053
+	KCFStringEncodingDOSThai CFStringEncodings = 0x41d
 	// KCFStringEncodingDOSTurkish: Code page 857, IBM Turkish.
-	KCFStringEncodingDOSTurkish CFStringEncodings = 1044
+	KCFStringEncodingDOSTurkish CFStringEncodings = 0x414
 	// KCFStringEncodingEBCDIC_CP037: code page 037, extended EBCDIC (Latin-1 set) for US, Canada.
-	KCFStringEncodingEBCDIC_CP037 CFStringEncodings = 3074
+	KCFStringEncodingEBCDIC_CP037 CFStringEncodings = 0xc02
 	// KCFStringEncodingEBCDIC_US: basic EBCDIC-US
-	KCFStringEncodingEBCDIC_US CFStringEncodings = 3073
+	KCFStringEncodingEBCDIC_US CFStringEncodings = 0xc01
 	// KCFStringEncodingEUC_CN: ISO 646, GB 2312-80.
-	KCFStringEncodingEUC_CN CFStringEncodings = 2352
+	KCFStringEncodingEUC_CN CFStringEncodings = 0x930
 	// KCFStringEncodingEUC_JP: ISO 646, 1-byte katakana, JIS 208, JIS 212.
-	KCFStringEncodingEUC_JP CFStringEncodings = 2336
+	KCFStringEncodingEUC_JP CFStringEncodings = 0x920
 	// KCFStringEncodingEUC_KR: ISO 646, KS C 5601-1987.
-	KCFStringEncodingEUC_KR CFStringEncodings = 2368
+	KCFStringEncodingEUC_KR CFStringEncodings = 0x940
 	// KCFStringEncodingEUC_TW: ISO 646, CNS 11643-1992 Planes 1-16.
-	KCFStringEncodingEUC_TW CFStringEncodings = 2353
+	KCFStringEncodingEUC_TW CFStringEncodings = 0x931
 	// KCFStringEncodingGBK_95: Annex to GB 13000-93; for Windows 95.
-	KCFStringEncodingGBK_95        CFStringEncodings = 1585
-	KCFStringEncodingGB_18030_2000 CFStringEncodings = 1586
-	KCFStringEncodingGB_2312_80    CFStringEncodings = 1584
+	KCFStringEncodingGBK_95        CFStringEncodings = 0x631
+	KCFStringEncodingGB_18030_2000 CFStringEncodings = 0x632
+	KCFStringEncodingGB_2312_80    CFStringEncodings = 0x630
 	// KCFStringEncodingHZ_GB_2312: HZ (RFC 1842, for Chinese mail & news).
-	KCFStringEncodingHZ_GB_2312 CFStringEncodings = 2565
+	KCFStringEncodingHZ_GB_2312 CFStringEncodings = 0xa05
 	// KCFStringEncodingISOLatin10: ISO 8859-16.
-	KCFStringEncodingISOLatin10 CFStringEncodings = 528
+	KCFStringEncodingISOLatin10 CFStringEncodings = 0x210
 	// KCFStringEncodingISOLatin2: ISO 8859-2.
-	KCFStringEncodingISOLatin2 CFStringEncodings = 514
+	KCFStringEncodingISOLatin2 CFStringEncodings = 0x202
 	// KCFStringEncodingISOLatin3: ISO 8859-3.
-	KCFStringEncodingISOLatin3 CFStringEncodings = 515
+	KCFStringEncodingISOLatin3 CFStringEncodings = 0x203
 	// KCFStringEncodingISOLatin4: ISO 8859-4.
-	KCFStringEncodingISOLatin4 CFStringEncodings = 516
+	KCFStringEncodingISOLatin4 CFStringEncodings = 0x204
 	// KCFStringEncodingISOLatin5: ISO 8859-9.
-	KCFStringEncodingISOLatin5 CFStringEncodings = 521
+	KCFStringEncodingISOLatin5 CFStringEncodings = 0x209
 	// KCFStringEncodingISOLatin6: ISO 8859-10.
-	KCFStringEncodingISOLatin6 CFStringEncodings = 522
+	KCFStringEncodingISOLatin6 CFStringEncodings = 0x20a
 	// KCFStringEncodingISOLatin7: ISO 8859-13.
-	KCFStringEncodingISOLatin7 CFStringEncodings = 525
+	KCFStringEncodingISOLatin7 CFStringEncodings = 0x20d
 	// KCFStringEncodingISOLatin8: ISO 8859-14.
-	KCFStringEncodingISOLatin8 CFStringEncodings = 526
+	KCFStringEncodingISOLatin8 CFStringEncodings = 0x20e
 	// KCFStringEncodingISOLatin9: ISO 8859-15.
-	KCFStringEncodingISOLatin9 CFStringEncodings = 527
+	KCFStringEncodingISOLatin9 CFStringEncodings = 0x20f
 	// KCFStringEncodingISOLatinArabic: ISO 8859-6, =ASMO 708, =DOS CP 708.
-	KCFStringEncodingISOLatinArabic CFStringEncodings = 518
+	KCFStringEncodingISOLatinArabic CFStringEncodings = 0x206
 	// KCFStringEncodingISOLatinCyrillic: ISO 8859-5.
-	KCFStringEncodingISOLatinCyrillic CFStringEncodings = 517
+	KCFStringEncodingISOLatinCyrillic CFStringEncodings = 0x205
 	// KCFStringEncodingISOLatinGreek: ISO 8859-7.
-	KCFStringEncodingISOLatinGreek CFStringEncodings = 519
+	KCFStringEncodingISOLatinGreek CFStringEncodings = 0x207
 	// KCFStringEncodingISOLatinHebrew: ISO 8859-8.
-	KCFStringEncodingISOLatinHebrew CFStringEncodings = 520
+	KCFStringEncodingISOLatinHebrew CFStringEncodings = 0x208
 	// KCFStringEncodingISOLatinThai: ISO 8859-11.
-	KCFStringEncodingISOLatinThai    CFStringEncodings = 523
-	KCFStringEncodingISO_2022_CN     CFStringEncodings = 2096
-	KCFStringEncodingISO_2022_CN_EXT CFStringEncodings = 2097
-	KCFStringEncodingISO_2022_JP     CFStringEncodings = 2080
+	KCFStringEncodingISOLatinThai    CFStringEncodings = 0x20b
+	KCFStringEncodingISO_2022_CN     CFStringEncodings = 0x830
+	KCFStringEncodingISO_2022_CN_EXT CFStringEncodings = 0x831
+	KCFStringEncodingISO_2022_JP     CFStringEncodings = 0x820
 	// KCFStringEncodingISO_2022_JP_1: RFC 2237.
-	KCFStringEncodingISO_2022_JP_1 CFStringEncodings = 2082
-	KCFStringEncodingISO_2022_JP_2 CFStringEncodings = 2081
+	KCFStringEncodingISO_2022_JP_1 CFStringEncodings = 0x822
+	KCFStringEncodingISO_2022_JP_2 CFStringEncodings = 0x821
 	// KCFStringEncodingISO_2022_JP_3: JIS X0213.
-	KCFStringEncodingISO_2022_JP_3 CFStringEncodings = 2083
-	KCFStringEncodingISO_2022_KR   CFStringEncodings = 2112
-	KCFStringEncodingJIS_C6226_78  CFStringEncodings = 1572
-	KCFStringEncodingJIS_X0201_76  CFStringEncodings = 1568
-	KCFStringEncodingJIS_X0208_83  CFStringEncodings = 1569
-	KCFStringEncodingJIS_X0208_90  CFStringEncodings = 1570
-	KCFStringEncodingJIS_X0212_90  CFStringEncodings = 1571
+	KCFStringEncodingISO_2022_JP_3 CFStringEncodings = 0x823
+	KCFStringEncodingISO_2022_KR   CFStringEncodings = 0x840
+	KCFStringEncodingJIS_C6226_78  CFStringEncodings = 0x624
+	KCFStringEncodingJIS_X0201_76  CFStringEncodings = 0x620
+	KCFStringEncodingJIS_X0208_83  CFStringEncodings = 0x621
+	KCFStringEncodingJIS_X0208_90  CFStringEncodings = 0x622
+	KCFStringEncodingJIS_X0212_90  CFStringEncodings = 0x623
 	// KCFStringEncodingKOI8_R: Russian internet standard.
-	KCFStringEncodingKOI8_R CFStringEncodings = 2562
+	KCFStringEncodingKOI8_R CFStringEncodings = 0xa02
 	// KCFStringEncodingKOI8_U: RFC 2319, Ukrainian.
-	KCFStringEncodingKOI8_U CFStringEncodings = 2568
+	KCFStringEncodingKOI8_U CFStringEncodings = 0xa08
 	// KCFStringEncodingKSC_5601_87: Same as KSC 5601-92 without Johab annex.
-	KCFStringEncodingKSC_5601_87 CFStringEncodings = 1600
+	KCFStringEncodingKSC_5601_87 CFStringEncodings = 0x640
 	// KCFStringEncodingKSC_5601_92_Johab: KSC 5601-92 Johab annex.
-	KCFStringEncodingKSC_5601_92_Johab  CFStringEncodings = 1601
+	KCFStringEncodingKSC_5601_92_Johab  CFStringEncodings = 0x641
 	KCFStringEncodingMacArabic          CFStringEncodings = 4
 	KCFStringEncodingMacArmenian        CFStringEncodings = 24
 	KCFStringEncodingMacBengali         CFStringEncodings = 13
@@ -1202,17 +1202,17 @@ const (
 	KCFStringEncodingMacEthiopic        CFStringEncodings = 28
 	KCFStringEncodingMacExtArabic       CFStringEncodings = 31
 	// KCFStringEncodingMacFarsi: Like MacArabic but uses Farsi digits.
-	KCFStringEncodingMacFarsi    CFStringEncodings = 140
+	KCFStringEncodingMacFarsi    CFStringEncodings = 0x8c
 	KCFStringEncodingMacGaelic   CFStringEncodings = 40
 	KCFStringEncodingMacGeorgian CFStringEncodings = 23
 	KCFStringEncodingMacGreek    CFStringEncodings = 6
 	KCFStringEncodingMacGujarati CFStringEncodings = 11
 	KCFStringEncodingMacGurmukhi CFStringEncodings = 10
 	// KCFStringEncodingMacHFS: Meta-value, should never appear in a table.
-	KCFStringEncodingMacHFS       CFStringEncodings = 255
+	KCFStringEncodingMacHFS       CFStringEncodings = 0xff
 	KCFStringEncodingMacHebrew    CFStringEncodings = 5
 	KCFStringEncodingMacIcelandic CFStringEncodings = 37
-	KCFStringEncodingMacInuit     CFStringEncodings = 236
+	KCFStringEncodingMacInuit     CFStringEncodings = 0xec
 	KCFStringEncodingMacJapanese  CFStringEncodings = 1
 	KCFStringEncodingMacKannada   CFStringEncodings = 16
 	KCFStringEncodingMacKhmer     CFStringEncodings = 20
@@ -1222,7 +1222,7 @@ const (
 	KCFStringEncodingMacMongolian CFStringEncodings = 27
 	KCFStringEncodingMacOriya     CFStringEncodings = 12
 	// KCFStringEncodingMacRomanLatin1: Mac OS Roman permuted to align with ISO Latin-1.
-	KCFStringEncodingMacRomanLatin1 CFStringEncodings = 2564
+	KCFStringEncodingMacRomanLatin1 CFStringEncodings = 0xa04
 	KCFStringEncodingMacRomanian    CFStringEncodings = 38
 	KCFStringEncodingMacSinhalese   CFStringEncodings = 18
 	KCFStringEncodingMacSymbol      CFStringEncodings = 33
@@ -1231,44 +1231,44 @@ const (
 	KCFStringEncodingMacThai        CFStringEncodings = 21
 	KCFStringEncodingMacTibetan     CFStringEncodings = 26
 	KCFStringEncodingMacTurkish     CFStringEncodings = 35
-	KCFStringEncodingMacUkrainian   CFStringEncodings = 152
+	KCFStringEncodingMacUkrainian   CFStringEncodings = 0x98
 	// KCFStringEncodingMacVT100: VT100102 font from Comm Toolbox: Latin-1 repertoire + box drawing etc.
-	KCFStringEncodingMacVT100      CFStringEncodings = 252
+	KCFStringEncodingMacVT100      CFStringEncodings = 0xfc
 	KCFStringEncodingMacVietnamese CFStringEncodings = 30
 	// KCFStringEncodingNextStepJapanese: NextStep Japanese encoding.
-	KCFStringEncodingNextStepJapanese CFStringEncodings = 2818
+	KCFStringEncodingNextStepJapanese CFStringEncodings = 0xb02
 	// KCFStringEncodingShiftJIS: Plain Shift-JIS.
-	KCFStringEncodingShiftJIS CFStringEncodings = 2561
+	KCFStringEncodingShiftJIS CFStringEncodings = 0xa01
 	// KCFStringEncodingShiftJIS_X0213: Shift-JIS format encoding of JIS X0213 planes 1 and 2.
-	KCFStringEncodingShiftJIS_X0213 CFStringEncodings = 1576
+	KCFStringEncodingShiftJIS_X0213 CFStringEncodings = 0x628
 	// KCFStringEncodingShiftJIS_X0213_00: Shift-JIS format encoding of JIS X0213 planes 1 and 2.
-	KCFStringEncodingShiftJIS_X0213_00 CFStringEncodings = 1576
+	KCFStringEncodingShiftJIS_X0213_00 CFStringEncodings = 0x628
 	// KCFStringEncodingShiftJIS_X0213_MenKuTen: JIS X0213 in plane-row-column notation.
-	KCFStringEncodingShiftJIS_X0213_MenKuTen CFStringEncodings = 1577
+	KCFStringEncodingShiftJIS_X0213_MenKuTen CFStringEncodings = 0x629
 	// KCFStringEncodingUTF7: kTextEncodingUnicodeDefault + kUnicodeUTF7Format RFC2152.
-	KCFStringEncodingUTF7 CFStringEncodings = 67109120
+	KCFStringEncodingUTF7 CFStringEncodings = 0x4000100
 	// KCFStringEncodingUTF7_IMAP: UTF-7 (IMAP folder variant) RFC3501.
-	KCFStringEncodingUTF7_IMAP CFStringEncodings = 2576
+	KCFStringEncodingUTF7_IMAP CFStringEncodings = 0xa10
 	// KCFStringEncodingVISCII: RFC 1456, Vietnamese.
-	KCFStringEncodingVISCII CFStringEncodings = 2567
+	KCFStringEncodingVISCII CFStringEncodings = 0xa07
 	// KCFStringEncodingWindowsArabic: Code page 1256.
-	KCFStringEncodingWindowsArabic CFStringEncodings = 1286
+	KCFStringEncodingWindowsArabic CFStringEncodings = 0x506
 	// KCFStringEncodingWindowsBalticRim: Code page 1257.
-	KCFStringEncodingWindowsBalticRim CFStringEncodings = 1287
+	KCFStringEncodingWindowsBalticRim CFStringEncodings = 0x507
 	// KCFStringEncodingWindowsCyrillic: Code page 1251, Slavic Cyrillic.
-	KCFStringEncodingWindowsCyrillic CFStringEncodings = 1282
+	KCFStringEncodingWindowsCyrillic CFStringEncodings = 0x502
 	// KCFStringEncodingWindowsGreek: Code page 1253.
-	KCFStringEncodingWindowsGreek CFStringEncodings = 1283
+	KCFStringEncodingWindowsGreek CFStringEncodings = 0x503
 	// KCFStringEncodingWindowsHebrew: Code page 1255.
-	KCFStringEncodingWindowsHebrew CFStringEncodings = 1285
+	KCFStringEncodingWindowsHebrew CFStringEncodings = 0x505
 	// KCFStringEncodingWindowsKoreanJohab: Code page 1361, for Windows NT.
-	KCFStringEncodingWindowsKoreanJohab CFStringEncodings = 1296
+	KCFStringEncodingWindowsKoreanJohab CFStringEncodings = 0x510
 	// KCFStringEncodingWindowsLatin2: Code page 1250, Central Europe.
-	KCFStringEncodingWindowsLatin2 CFStringEncodings = 1281
+	KCFStringEncodingWindowsLatin2 CFStringEncodings = 0x501
 	// KCFStringEncodingWindowsLatin5: Code page 1254, Turkish.
-	KCFStringEncodingWindowsLatin5 CFStringEncodings = 1284
+	KCFStringEncodingWindowsLatin5 CFStringEncodings = 0x504
 	// KCFStringEncodingWindowsVietnamese: Code page 1258.
-	KCFStringEncodingWindowsVietnamese CFStringEncodings = 1288
+	KCFStringEncodingWindowsVietnamese CFStringEncodings = 0x508
 )
 
 func (e CFStringEncodings) String() string {
@@ -1955,7 +1955,7 @@ const (
 	// KCFXMLParserAddImpliedAttributes: Where the DTD specifies implied attribute-value pairs for a particular element, add those pairs to any occurrences of the element in the element tree.
 	KCFXMLParserAddImpliedAttributes CFXMLParserOptions = 32
 	// KCFXMLParserAllOptions: Makes the parser do the most work, returning only the pure elementtree.
-	KCFXMLParserAllOptions CFXMLParserOptions = 16777215
+	KCFXMLParserAllOptions CFXMLParserOptions = 0xffffff
 	// KCFXMLParserNoOptions: Leaves the XML as “intact” as possible (reports all structures; performs no replacements).
 	KCFXMLParserNoOptions CFXMLParserOptions = 0
 	// KCFXMLParserReplacePhysicalEntities: Replaces declared entities like `&lt`;.
@@ -2106,15 +2106,15 @@ func (e CGRectEdge) String() string {
 type KCFBundleExecutableArchitecture uint
 
 const (
-	KCFBundleExecutableArchitectureARM64 KCFBundleExecutableArchitecture = 16777228
+	KCFBundleExecutableArchitectureARM64 KCFBundleExecutableArchitecture = 0x100000c
 	// KCFBundleExecutableArchitectureI386: Specifies the 32-bit Intel architecture.
-	KCFBundleExecutableArchitectureI386 KCFBundleExecutableArchitecture = 7
+	KCFBundleExecutableArchitectureI386 KCFBundleExecutableArchitecture = 0x7
 	// KCFBundleExecutableArchitecturePPC: Specifies the 32-bit PowerPC architecture.
-	KCFBundleExecutableArchitecturePPC KCFBundleExecutableArchitecture = 18
+	KCFBundleExecutableArchitecturePPC KCFBundleExecutableArchitecture = 0x12
 	// KCFBundleExecutableArchitecturePPC64: Specifies the 64-bit PowerPC architecture.
-	KCFBundleExecutableArchitecturePPC64 KCFBundleExecutableArchitecture = 16777234
+	KCFBundleExecutableArchitecturePPC64 KCFBundleExecutableArchitecture = 0x1000012
 	// KCFBundleExecutableArchitectureX86_64: Specifies the 64-bit Intel architecture.
-	KCFBundleExecutableArchitectureX86_64 KCFBundleExecutableArchitecture = 16777223
+	KCFBundleExecutableArchitectureX86_64 KCFBundleExecutableArchitecture = 0x1000007
 )
 
 func (e KCFBundleExecutableArchitecture) String() string {

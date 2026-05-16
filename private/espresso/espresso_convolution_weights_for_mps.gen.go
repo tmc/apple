@@ -108,7 +108,7 @@ type IEspressoConvolutionWeightsForMPS interface {
 	RangesForUInt8Kernel() []objectivec.IObject
 	Ready() bool
 	Weights() unsafe.Pointer
-	InitWithParams(params objectivec.IObject) EspressoConvolutionWeightsForMPS
+	InitWithParams(params Convolution_uniforms) EspressoConvolutionWeightsForMPS
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -135,7 +135,7 @@ func NewEspressoConvolutionWeightsForMPS() EspressoConvolutionWeightsForMPS {
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/initWithParams:
-func NewEspressoConvolutionWeightsForMPSWithParams(params objectivec.IObject) EspressoConvolutionWeightsForMPS {
+func NewEspressoConvolutionWeightsForMPSWithParams(params Convolution_uniforms) EspressoConvolutionWeightsForMPS {
 	instance := getEspressoConvolutionWeightsForMPSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoConvolutionWeightsForMPSFromID(rv)
@@ -197,7 +197,7 @@ func (e EspressoConvolutionWeightsForMPS) Weights() unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/initWithParams:
-func (e EspressoConvolutionWeightsForMPS) InitWithParams(params objectivec.IObject) EspressoConvolutionWeightsForMPS {
+func (e EspressoConvolutionWeightsForMPS) InitWithParams(params Convolution_uniforms) EspressoConvolutionWeightsForMPS {
 	rv := objc.Send[EspressoConvolutionWeightsForMPS](e.ID, objc.Sel("initWithParams:"), params)
 	return rv
 }

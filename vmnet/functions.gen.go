@@ -325,6 +325,27 @@ func Vmnet_ip_port_forwarding_rule_get_details(rule unsafe.Pointer, protocol_ []
 	return result
 }
 
+var _vmnet_network_configuration_add_dhcp_reservation func(config Vmnet_network_configuration_ref, client *[6]byte, reservation uintptr) Vmnet_return_t
+var _vmnet_network_configuration_add_dhcp_reservationErr error
+
+func tryVmnet_network_configuration_add_dhcp_reservation(config Vmnet_network_configuration_ref, client *[6]byte, reservation uintptr) (Vmnet_return_t, error) {
+	if _vmnet_network_configuration_add_dhcp_reservation == nil {
+		return *new(Vmnet_return_t), symbolCallError("vmnet_network_configuration_add_dhcp_reservation", "26.0", _vmnet_network_configuration_add_dhcp_reservationErr)
+	}
+	return _vmnet_network_configuration_add_dhcp_reservation(config, client, reservation), nil
+}
+
+// Vmnet_network_configuration_add_dhcp_reservation.
+//
+// See: https://developer.apple.com/documentation/vmnet/vmnet_network_configuration_add_dhcp_reservation(_:_:_:)
+func Vmnet_network_configuration_add_dhcp_reservation(config Vmnet_network_configuration_ref, client *[6]byte, reservation uintptr) Vmnet_return_t {
+	result, callErr := tryVmnet_network_configuration_add_dhcp_reservation(config, client, reservation)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _vmnet_network_configuration_add_port_forwarding_rule func(config Vmnet_network_configuration_ref, protocol_ uint8, address_family uint8, internal_port uint16, external_port uint16, internal_address unsafe.Pointer) Vmnet_return_t
 var _vmnet_network_configuration_add_port_forwarding_ruleErr error
 
@@ -783,6 +804,7 @@ func init() {
 	registerFunc(&_vmnet_interface_set_event_callback, &_vmnet_interface_set_event_callbackErr, frameworkHandle, "vmnet_interface_set_event_callback", "10.10")
 	registerFunc(&_vmnet_interface_start_with_network, &_vmnet_interface_start_with_networkErr, frameworkHandle, "vmnet_interface_start_with_network", "26.0")
 	registerFunc(&_vmnet_ip_port_forwarding_rule_get_details, &_vmnet_ip_port_forwarding_rule_get_detailsErr, frameworkHandle, "vmnet_ip_port_forwarding_rule_get_details", "11.0")
+	registerFunc(&_vmnet_network_configuration_add_dhcp_reservation, &_vmnet_network_configuration_add_dhcp_reservationErr, frameworkHandle, "vmnet_network_configuration_add_dhcp_reservation", "26.0")
 	registerFunc(&_vmnet_network_configuration_add_port_forwarding_rule, &_vmnet_network_configuration_add_port_forwarding_ruleErr, frameworkHandle, "vmnet_network_configuration_add_port_forwarding_rule", "26.0")
 	registerFunc(&_vmnet_network_configuration_create, &_vmnet_network_configuration_createErr, frameworkHandle, "vmnet_network_configuration_create", "26.0")
 	registerFunc(&_vmnet_network_configuration_disable_dhcp, &_vmnet_network_configuration_disable_dhcpErr, frameworkHandle, "vmnet_network_configuration_disable_dhcp", "26.0")

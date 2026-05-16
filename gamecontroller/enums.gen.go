@@ -203,8 +203,8 @@ func (e GCDualSenseAdaptiveTriggerStatus) String() string {
 type GCExtendedGamepadSnapshotDataVersion int
 
 const (
-	GCExtendedGamepadSnapshotDataVersion1 GCExtendedGamepadSnapshotDataVersion = 256
-	GCExtendedGamepadSnapshotDataVersion2 GCExtendedGamepadSnapshotDataVersion = 257
+	GCExtendedGamepadSnapshotDataVersion1 GCExtendedGamepadSnapshotDataVersion = 0x100
+	GCExtendedGamepadSnapshotDataVersion2 GCExtendedGamepadSnapshotDataVersion = 0x101
 )
 
 func (e GCExtendedGamepadSnapshotDataVersion) String() string {
@@ -222,7 +222,7 @@ func (e GCExtendedGamepadSnapshotDataVersion) String() string {
 type GCMicroGamepadSnapshotDataVersion int
 
 const (
-	GCMicroGamepadSnapshotDataVersion1 GCMicroGamepadSnapshotDataVersion = 256
+	GCMicroGamepadSnapshotDataVersion1 GCMicroGamepadSnapshotDataVersion = 0x100
 )
 
 func (e GCMicroGamepadSnapshotDataVersion) String() string {

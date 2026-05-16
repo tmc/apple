@@ -1159,25 +1159,25 @@ type EsProcCheckType int32
 
 const (
 	// ES_PROC_CHECK_TYPE_DIRTYCONTROL: A type of process check that uses the process’s dirty state.
-	ES_PROC_CHECK_TYPE_DIRTYCONTROL EsProcCheckType = 8
+	ES_PROC_CHECK_TYPE_DIRTYCONTROL EsProcCheckType = 0x8
 	// ES_PROC_CHECK_TYPE_KERNMSGBUF: A type of process check that checks the message buffer.
-	ES_PROC_CHECK_TYPE_KERNMSGBUF EsProcCheckType = 4
+	ES_PROC_CHECK_TYPE_KERNMSGBUF EsProcCheckType = 0x4
 	// ES_PROC_CHECK_TYPE_LISTPIDS: A type of process check that lists related process identifiers.
-	ES_PROC_CHECK_TYPE_LISTPIDS EsProcCheckType = 1
+	ES_PROC_CHECK_TYPE_LISTPIDS EsProcCheckType = 0x1
 	// ES_PROC_CHECK_TYPE_PIDFDINFO: A type of process check that gets file descriptor information.
-	ES_PROC_CHECK_TYPE_PIDFDINFO EsProcCheckType = 3
+	ES_PROC_CHECK_TYPE_PIDFDINFO EsProcCheckType = 0x3
 	// ES_PROC_CHECK_TYPE_PIDFILEPORTINFO: A type of process check that gets port information.
-	ES_PROC_CHECK_TYPE_PIDFILEPORTINFO EsProcCheckType = 6
+	ES_PROC_CHECK_TYPE_PIDFILEPORTINFO EsProcCheckType = 0x6
 	// ES_PROC_CHECK_TYPE_PIDINFO: A type of process check that gets basic process information.
-	ES_PROC_CHECK_TYPE_PIDINFO EsProcCheckType = 2
+	ES_PROC_CHECK_TYPE_PIDINFO EsProcCheckType = 0x2
 	// ES_PROC_CHECK_TYPE_PIDRUSAGE: A type of process check that gets a process’s resource usage information.
-	ES_PROC_CHECK_TYPE_PIDRUSAGE EsProcCheckType = 9
+	ES_PROC_CHECK_TYPE_PIDRUSAGE EsProcCheckType = 0x9
 	// ES_PROC_CHECK_TYPE_SETCONTROL: A type of process check that sets the process control state.
-	ES_PROC_CHECK_TYPE_SETCONTROL EsProcCheckType = 5
+	ES_PROC_CHECK_TYPE_SETCONTROL EsProcCheckType = 0x5
 	// ES_PROC_CHECK_TYPE_TERMINATE: A type of process check that terninates a process.
-	ES_PROC_CHECK_TYPE_TERMINATE EsProcCheckType = 7
+	ES_PROC_CHECK_TYPE_TERMINATE EsProcCheckType = 0x7
 	// ES_PROC_CHECK_TYPE_UDATA_INFO: A type of process check that involves a user data token.
-	ES_PROC_CHECK_TYPE_UDATA_INFO EsProcCheckType = 14
+	ES_PROC_CHECK_TYPE_UDATA_INFO EsProcCheckType = 0xe
 )
 
 func (e EsProcCheckType) String() string {

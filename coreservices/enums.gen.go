@@ -342,7 +342,7 @@ func (e Afp) String() string {
 type Aifc uint
 
 const (
-	AIFCVersion1 Aifc = 0
+	AIFCVersion1 Aifc = 0xa2805140
 )
 
 func (e Aifc) String() string {
@@ -702,15 +702,17 @@ type BadComponent uint
 
 const (
 	// BadComponentInstance: Invalid component  passed to Component Manager.
-	BadComponentInstance BadComponent = 0
+	BadComponentInstance BadComponent = 0x80008001
 	// BadComponentSelector: Component does not support the specified request code.
-	BadComponentSelector BadComponent = 0
+	BadComponentSelector BadComponent = 0x80008002
 )
 
 func (e BadComponent) String() string {
 	switch e {
 	case BadComponentInstance:
 		return "BadComponentInstance"
+	case BadComponentSelector:
+		return "BadComponentSelector"
 	default:
 		return fmt.Sprintf("BadComponent(%d)", e)
 	}
@@ -1031,43 +1033,43 @@ type CKeystroke uint
 const (
 	CKeystrokeValue CKeystroke = 'k'<<24 | 'p'<<16 | 'r'<<8 | 's' // 'kprs'
 	ECapsLockDown   CKeystroke = 'K'<<24 | 'c'<<16 | 'l'<<8 | 'k' // 'Kclk'
-	EClearKey       CKeystroke = 1802716928
+	EClearKey       CKeystroke = 0x6b734700
 	ECommandDown    CKeystroke = 'K'<<24 | 'c'<<16 | 'm'<<8 | 'd' // 'Kcmd'
 	EControlDown    CKeystroke = 'K'<<24 | 'c'<<16 | 't'<<8 | 'l' // 'Kctl'
-	EDeleteKey      CKeystroke = 1802711808
-	EDownArrowKey   CKeystroke = 1802730752
-	EEndKey         CKeystroke = 1802729216
-	EEnterKey       CKeystroke = 1802718208
-	EEscapeKey      CKeystroke = 1802712320
-	EF10Key         CKeystroke = 1802726656
-	EF11Key         CKeystroke = 1802725120
-	EF12Key         CKeystroke = 1802727168
-	EF13Key         CKeystroke = 1802725632
-	EF14Key         CKeystroke = 1802726144
-	EF15Key         CKeystroke = 1802727680
-	EF1Key          CKeystroke = 1802729984
-	EF2Key          CKeystroke = 1802729472
-	EF3Key          CKeystroke = 1802724096
-	EF4Key          CKeystroke = 1802728960
-	EF5Key          CKeystroke = 1802723328
-	EF6Key          CKeystroke = 1802723584
-	EF7Key          CKeystroke = 1802723840
-	EF8Key          CKeystroke = 1802724352
-	EF9Key          CKeystroke = 1802724608
-	EForwardDelKey  CKeystroke = 1802728704
-	EHelpKey        CKeystroke = 1802727936
-	EHomeKey        CKeystroke = 1802728192
+	EDeleteKey      CKeystroke = 0x6b733300
+	EDownArrowKey   CKeystroke = 0x6b737d00
+	EEndKey         CKeystroke = 0x6b737700
+	EEnterKey       CKeystroke = 0x6b734c00
+	EEscapeKey      CKeystroke = 0x6b733500
+	EF10Key         CKeystroke = 0x6b736d00
+	EF11Key         CKeystroke = 0x6b736700
+	EF12Key         CKeystroke = 0x6b736f00
+	EF13Key         CKeystroke = 0x6b736900
+	EF14Key         CKeystroke = 0x6b736b00
+	EF15Key         CKeystroke = 0x6b737100
+	EF1Key          CKeystroke = 0x6b737a00
+	EF2Key          CKeystroke = 0x6b737800
+	EF3Key          CKeystroke = 0x6b736300
+	EF4Key          CKeystroke = 0x6b737600
+	EF5Key          CKeystroke = 0x6b736000
+	EF6Key          CKeystroke = 0x6b736100
+	EF7Key          CKeystroke = 0x6b736200
+	EF8Key          CKeystroke = 0x6b736400
+	EF9Key          CKeystroke = 0x6b736500
+	EForwardDelKey  CKeystroke = 0x6b737500
+	EHelpKey        CKeystroke = 0x6b737200
+	EHomeKey        CKeystroke = 0x6b737300
 	EKeyKind        CKeystroke = 'e'<<24 | 'k'<<16 | 's'<<8 | 't' // 'ekst'
-	ELeftArrowKey   CKeystroke = 1802730240
+	ELeftArrowKey   CKeystroke = 0x6b737b00
 	EModifiers      CKeystroke = 'e'<<24 | 'M'<<16 | 'd'<<8 | 's' // 'eMds'
 	EOptionDown     CKeystroke = 'K'<<24 | 'o'<<16 | 'p'<<8 | 't' // 'Kopt'
-	EPageDownKey    CKeystroke = 1802729728
-	EPageUpKey      CKeystroke = 1802728448
-	EReturnKey      CKeystroke = 1802707968
-	ERightArrowKey  CKeystroke = 1802730496
+	EPageDownKey    CKeystroke = 0x6b737900
+	EPageUpKey      CKeystroke = 0x6b737400
+	EReturnKey      CKeystroke = 0x6b732400
+	ERightArrowKey  CKeystroke = 0x6b737c00
 	EShiftDown      CKeystroke = 'K'<<24 | 's'<<16 | 'f'<<8 | 't' // 'Ksft'
-	ETabKey         CKeystroke = 1802711040
-	EUpArrowKey     CKeystroke = 1802731008
+	ETabKey         CKeystroke = 0x6b733000
+	EUpArrowKey     CKeystroke = 0x6b737e00
 	PKeyKind        CKeystroke = 'k'<<24 | 'k'<<16 | 'n'<<8 | 'd' // 'kknd'
 	PKeystrokeKey   CKeystroke = 'k'<<24 | 'M'<<16 | 's'<<8 | 'g' // 'kMsg'
 	PModifiers      CKeystroke = 'k'<<24 | 'M'<<16 | 'o'<<8 | 'd' // 'kMod'
@@ -2612,83 +2614,83 @@ type DiaeresisUprY uint
 
 const (
 	// Deprecated.
-	AcuteUprA DiaeresisUprY = 231
+	AcuteUprA DiaeresisUprY = 0xe7
 	// Deprecated.
-	AcuteUprI DiaeresisUprY = 234
+	AcuteUprI DiaeresisUprY = 0xea
 	// Deprecated.
-	AcuteUprO DiaeresisUprY = 238
+	AcuteUprO DiaeresisUprY = 0xee
 	// Deprecated.
-	AcuteUprU DiaeresisUprY = 242
+	AcuteUprU DiaeresisUprY = 0xf2
 	// Deprecated.
-	AppleLogo DiaeresisUprY = 240
+	AppleLogo DiaeresisUprY = 0xf0
 	// Deprecated.
-	BaseDblQuote DiaeresisUprY = 227
+	BaseDblQuote DiaeresisUprY = 0xe3
 	// Deprecated.
-	BaseSingQuote DiaeresisUprY = 226
+	BaseSingQuote DiaeresisUprY = 0xe2
 	// Deprecated.
-	BreveMark DiaeresisUprY = 249
+	BreveMark DiaeresisUprY = 0xf9
 	// Deprecated.
-	Cedilla DiaeresisUprY = 252
+	Cedilla DiaeresisUprY = 0xfc
 	// Deprecated.
-	CenteredDot DiaeresisUprY = 225
+	CenteredDot DiaeresisUprY = 0xe1
 	// Deprecated.
-	Circumflex DiaeresisUprY = 246
+	Circumflex DiaeresisUprY = 0xf6
 	// Deprecated.
-	CircumflexUprA DiaeresisUprY = 229
+	CircumflexUprA DiaeresisUprY = 0xe5
 	// Deprecated.
-	CircumflexUprE DiaeresisUprY = 230
+	CircumflexUprE DiaeresisUprY = 0xe6
 	// Deprecated.
-	CircumflexUprI DiaeresisUprY = 235
+	CircumflexUprI DiaeresisUprY = 0xeb
 	// Deprecated.
-	CircumflexUprO DiaeresisUprY = 239
+	CircumflexUprO DiaeresisUprY = 0xef
 	// Deprecated.
-	CircumflexUprU DiaeresisUprY = 243
+	CircumflexUprU DiaeresisUprY = 0xf3
 	// Deprecated.
-	DblDagger DiaeresisUprY = 224
+	DblDagger DiaeresisUprY = 0xe0
 	// Deprecated.
-	DiaeresisUprE DiaeresisUprY = 232
+	DiaeresisUprE DiaeresisUprY = 0xe8
 	// Deprecated.
-	DiaeresisUprI DiaeresisUprY = 236
+	DiaeresisUprI DiaeresisUprY = 0xec
 	// Deprecated.
-	DiaeresisUprYValue DiaeresisUprY = 217
+	DiaeresisUprYValue DiaeresisUprY = 0xd9
 	// Deprecated.
-	DotlessLwrI DiaeresisUprY = 245
+	DotlessLwrI DiaeresisUprY = 0xf5
 	// Deprecated.
-	DoubleAcute DiaeresisUprY = 253
+	DoubleAcute DiaeresisUprY = 0xfd
 	// Deprecated.
-	FiLigature DiaeresisUprY = 222
+	FiLigature DiaeresisUprY = 0xde
 	// Deprecated.
-	FlLigature DiaeresisUprY = 223
+	FlLigature DiaeresisUprY = 0xdf
 	// Deprecated.
-	Fraction DiaeresisUprY = 218
+	Fraction DiaeresisUprY = 0xda
 	// Deprecated.
-	GraveUprE DiaeresisUprY = 233
+	GraveUprE DiaeresisUprY = 0xe9
 	// Deprecated.
-	GraveUprI DiaeresisUprY = 237
+	GraveUprI DiaeresisUprY = 0xed
 	// Deprecated.
-	GraveUprO DiaeresisUprY = 241
+	GraveUprO DiaeresisUprY = 0xf1
 	// Deprecated.
-	GraveUprU DiaeresisUprY = 244
+	GraveUprU DiaeresisUprY = 0xf4
 	// Deprecated.
-	Hachek DiaeresisUprY = 255
+	Hachek DiaeresisUprY = 0xff
 	// Deprecated.
-	IntlCurrency DiaeresisUprY = 219
+	IntlCurrency DiaeresisUprY = 0xdb
 	// Deprecated.
-	LeftSingGuillemet DiaeresisUprY = 220
+	LeftSingGuillemet DiaeresisUprY = 0xdc
 	// Deprecated.
-	Macron DiaeresisUprY = 248
+	Macron DiaeresisUprY = 0xf8
 	// Deprecated.
-	Ogonek DiaeresisUprY = 254
+	Ogonek DiaeresisUprY = 0xfe
 	// Deprecated.
-	OverDot DiaeresisUprY = 250
+	OverDot DiaeresisUprY = 0xfa
 	// Deprecated.
-	PerThousand DiaeresisUprY = 228
+	PerThousand DiaeresisUprY = 0xe4
 	// Deprecated.
-	RightSingGuillemet DiaeresisUprY = 221
+	RightSingGuillemet DiaeresisUprY = 0xdd
 	// Deprecated.
-	RingMark DiaeresisUprY = 251
+	RingMark DiaeresisUprY = 0xfb
 	// Deprecated.
-	Tilde DiaeresisUprY = 247
+	Tilde DiaeresisUprY = 0xf7
 )
 
 func (e DiaeresisUprY) String() string {
@@ -3193,7 +3195,7 @@ const (
 	// Deprecated.
 	DurationDay Duration = 86400000
 	// Deprecated.
-	DurationForever Duration = 2147483647
+	DurationForever Duration = 0x7fffffff
 	// Deprecated.
 	DurationHour Duration = 3600000
 	// Deprecated.
@@ -3463,18 +3465,18 @@ func (e EraField) String() string {
 type EraMask uint
 
 const (
-	DateStdMask    EraMask = 127
-	DayMask        EraMask = 8
-	DayOfWeekMask  EraMask = 128
-	DayOfYearMask  EraMask = 256
-	EraMaskValue   EraMask = 1
-	HourMask       EraMask = 16
-	MinuteMask     EraMask = 32
-	MonthMask      EraMask = 4
-	PmMask         EraMask = 1024
-	SecondMask     EraMask = 64
-	WeekOfYearMask EraMask = 512
-	YearMask       EraMask = 2
+	DateStdMask    EraMask = 0x7f
+	DayMask        EraMask = 0x8
+	DayOfWeekMask  EraMask = 0x80
+	DayOfYearMask  EraMask = 0x100
+	EraMaskValue   EraMask = 0x1
+	HourMask       EraMask = 0x10
+	MinuteMask     EraMask = 0x20
+	MonthMask      EraMask = 0x4
+	PmMask         EraMask = 0x400
+	SecondMask     EraMask = 0x40
+	WeekOfYearMask EraMask = 0x200
+	YearMask       EraMask = 0x2
 )
 
 func (e EraMask) String() string {
@@ -4662,17 +4664,17 @@ func (e False32b) String() string {
 type FatalDateTime uint
 
 const (
-	CantReadUtilities  FatalDateTime = 33280
-	DateTimeInvalid    FatalDateTime = 34816
-	DateTimeNotFound   FatalDateTime = 33792
+	CantReadUtilities  FatalDateTime = 0x8200
+	DateTimeInvalid    FatalDateTime = 0x8800
+	DateTimeNotFound   FatalDateTime = 0x8400
 	ExtraneousStrings  FatalDateTime = 16
-	FatalDateTimeValue FatalDateTime = 32768
+	FatalDateTimeValue FatalDateTime = 0x8000
 	FieldOrderNotIntl  FatalDateTime = 8
 	LeftOverChars      FatalDateTime = 2
 	LongDateFound      FatalDateTime = 1
 	SepNotConsistent   FatalDateTime = 64
 	SepNotIntlSep      FatalDateTime = 4
-	TokenErr           FatalDateTime = 33024
+	TokenErr           FatalDateTime = 0x8100
 	TooManySeps        FatalDateTime = 32
 )
 
@@ -4955,14 +4957,14 @@ const (
 	FsFromLEOF     Fs = 2
 	FsFromMark     Fs = 3
 	FsFromStart    Fs = 1
-	FsRdAccessPerm Fs = 1
-	FsRdDenyPerm   Fs = 16
-	FsRdPerm       Fs = 1
-	FsRdWrPerm     Fs = 3
-	FsRdWrShPerm   Fs = 4
-	FsWrAccessPerm Fs = 2
-	FsWrDenyPerm   Fs = 32
-	FsWrPerm       Fs = 2
+	FsRdAccessPerm Fs = 0x1
+	FsRdDenyPerm   Fs = 0x10
+	FsRdPerm       Fs = 0x1
+	FsRdWrPerm     Fs = 0x3
+	FsRdWrShPerm   Fs = 0x4
+	FsWrAccessPerm Fs = 0x2
+	FsWrDenyPerm   Fs = 0x20
+	FsWrPerm       Fs = 0x2
 )
 
 func (e Fs) String() string {
@@ -5007,63 +5009,63 @@ func (e FsRt) String() string {
 type FsSB uint
 
 const (
-	FsSBAccessDate             FsSB = 131072
+	FsSBAccessDate             FsSB = 0x20000
 	FsSBAccessDateBit          FsSB = 17
-	FsSBAttributeModDate       FsSB = 65536
+	FsSBAttributeModDate       FsSB = 0x10000
 	FsSBAttributeModDateBit    FsSB = 16
-	FsSBDrBkDat                FsSB = 2048
+	FsSBDrBkDat                FsSB = 0x800
 	FsSBDrBkDatBit             FsSB = 11
-	FsSBDrCrDat                FsSB = 512
+	FsSBDrCrDat                FsSB = 0x200
 	FsSBDrCrDatBit             FsSB = 9
-	FsSBDrFndrInfo             FsSB = 4096
+	FsSBDrFndrInfo             FsSB = 0x1000
 	FsSBDrFndrInfoBit          FsSB = 12
-	FsSBDrMdDat                FsSB = 1024
+	FsSBDrMdDat                FsSB = 0x400
 	FsSBDrMdDatBit             FsSB = 10
-	FsSBDrNmFls                FsSB = 16
+	FsSBDrNmFls                FsSB = 0x10
 	FsSBDrNmFlsBit             FsSB = 4
-	FsSBDrParID                FsSB = 8192
+	FsSBDrParID                FsSB = 0x2000
 	FsSBDrParIDBit             FsSB = 13
-	FsSBDrUsrWds               FsSB = 8
+	FsSBDrUsrWds               FsSB = 0x8
 	FsSBDrUsrWdsBit            FsSB = 3
-	FsSBFlAttrib               FsSB = 4
+	FsSBFlAttrib               FsSB = 0x4
 	FsSBFlAttribBit            FsSB = 2
-	FsSBFlBkDat                FsSB = 2048
+	FsSBFlBkDat                FsSB = 0x800
 	FsSBFlBkDatBit             FsSB = 11
-	FsSBFlCrDat                FsSB = 512
+	FsSBFlCrDat                FsSB = 0x200
 	FsSBFlCrDatBit             FsSB = 9
-	FsSBFlFndrInfo             FsSB = 8
+	FsSBFlFndrInfo             FsSB = 0x8
 	FsSBFlFndrInfoBit          FsSB = 3
-	FsSBFlLgLen                FsSB = 32
+	FsSBFlLgLen                FsSB = 0x20
 	FsSBFlLgLenBit             FsSB = 5
-	FsSBFlMdDat                FsSB = 1024
+	FsSBFlMdDat                FsSB = 0x400
 	FsSBFlMdDatBit             FsSB = 10
-	FsSBFlParID                FsSB = 8192
+	FsSBFlParID                FsSB = 0x2000
 	FsSBFlParIDBit             FsSB = 13
-	FsSBFlPyLen                FsSB = 64
+	FsSBFlPyLen                FsSB = 0x40
 	FsSBFlPyLenBit             FsSB = 6
-	FsSBFlRLgLen               FsSB = 128
+	FsSBFlRLgLen               FsSB = 0x80
 	FsSBFlRLgLenBit            FsSB = 7
-	FsSBFlRPyLen               FsSB = 256
+	FsSBFlRPyLen               FsSB = 0x100
 	FsSBFlRPyLenBit            FsSB = 8
-	FsSBFlXFndrInfo            FsSB = 4096
+	FsSBFlXFndrInfo            FsSB = 0x1000
 	FsSBFlXFndrInfoBit         FsSB = 12
-	FsSBFullName               FsSB = 2
+	FsSBFullName               FsSB = 0x2
 	FsSBFullNameBit            FsSB = 1
-	FsSBGroupID                FsSB = 4194304
+	FsSBGroupID                FsSB = 0x400000
 	FsSBGroupIDBit             FsSB = 22
-	FsSBNegate                 FsSB = 16384
+	FsSBNegate                 FsSB = 0x4000
 	FsSBNegateBit              FsSB = 14
-	FsSBNodeID                 FsSB = 32768
+	FsSBNodeID                 FsSB = 0x8000
 	FsSBNodeIDBit              FsSB = 15
-	FsSBPartialName            FsSB = 1
+	FsSBPartialName            FsSB = 0x1
 	FsSBPartialNameBit         FsSB = 0
-	FsSBPermissions            FsSB = 262144
+	FsSBPermissions            FsSB = 0x40000
 	FsSBPermissionsBit         FsSB = 18
-	FsSBSkipHiddenItems        FsSB = 1048576
+	FsSBSkipHiddenItems        FsSB = 0x100000
 	FsSBSkipHiddenItemsBit     FsSB = 20
-	FsSBSkipPackageContents    FsSB = 524288
+	FsSBSkipPackageContents    FsSB = 0x80000
 	FsSBSkipPackageContentsBit FsSB = 19
-	FsSBUserID                 FsSB = 2097152
+	FsSBUserID                 FsSB = 0x200000
 	FsSBUserIDBit              FsSB = 21
 )
 
@@ -5295,10 +5297,10 @@ const (
 	Gestalt32BitAddressing int = 0
 	// Gestalt32BitCapable: If `true`, Machine is 32-bit capable.
 	Gestalt32BitCapable int = 2
-	Gestalt32BitQD      int = 512
-	Gestalt32BitQD11    int = 513
-	Gestalt32BitQD12    int = 544
-	Gestalt32BitQD13    int = 560
+	Gestalt32BitQD      int = 0x200
+	Gestalt32BitQD11    int = 0x201
+	Gestalt32BitQD12    int = 0x220
+	Gestalt32BitQD13    int = 0x230
 	// Gestalt32BitSysZone: If `true`, there is a 32-bit compatible system zone.
 	Gestalt32BitSysZone int = 1
 	Gestalt68000        int = 1
@@ -5314,7 +5316,7 @@ const (
 	Gestalt68882        int = 2
 	// Gestalt68k: If the [Gestalt] function returns `gestalt68k`, the system is a MC680x0 Macintosh.
 	Gestalt68k         int = 1
-	Gestalt8BitQD      int = 256
+	Gestalt8BitQD      int = 0x100
 	GestaltADBISOKbdII int = 11
 	GestaltADBKbdII    int = 10
 	GestaltAMU         int = 1
@@ -5345,9 +5347,9 @@ const (
 	GestaltAddressingModeAttr int = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'r' // 'addr'
 	// GestaltAdminFeaturesFlagsAttr: The [Gestalt] selector you pass to determine the admin features that are present.
 	GestaltAdminFeaturesFlagsAttr int = 'f'<<24 | 'r'<<16 | 'e'<<8 | 'd' // 'fred'
-	GestaltAllegroQD              int = 592
+	GestaltAllegroQD              int = 0x250
 	// GestaltAllegroQDText: This is the version of QuickDraw Text used with Mac OS 8.2 and up.
-	GestaltAllegroQDText                       int = 256
+	GestaltAllegroQDText                       int = 0x100
 	GestaltAltivecRegistersSwappedCorrectlyBit int = 20
 	// GestaltAntiAliasedTextAvailable: Capable of antialiased text.
 	GestaltAntiAliasedTextAvailable int = 2
@@ -5366,21 +5368,21 @@ const (
 	GestaltAsyncSCSIINROM     int = 1
 	// GestaltBuiltInSoundInput: Set if a built-in sound input device is available.
 	GestaltBuiltInSoundInput int = 4
-	GestaltCPU601            int = 257
-	GestaltCPU603            int = 259
-	GestaltCPU603e           int = 262
-	GestaltCPU603ev          int = 263
-	GestaltCPU604            int = 260
-	GestaltCPU604e           int = 265
-	GestaltCPU604ev          int = 266
+	GestaltCPU601            int = 0x101
+	GestaltCPU603            int = 0x103
+	GestaltCPU603e           int = 0x106
+	GestaltCPU603ev          int = 0x107
+	GestaltCPU604            int = 0x104
+	GestaltCPU604e           int = 0x109
+	GestaltCPU604ev          int = 0x10a
 	GestaltCPU68000          int = 0
 	GestaltCPU68010          int = 1
 	GestaltCPU68020          int = 2
 	GestaltCPU68030          int = 3
 	GestaltCPU68040          int = 4
-	GestaltCPU750            int = 264
-	GestaltCPUG4             int = 268
-	GestaltCPUG47450         int = 272
+	GestaltCPU750            int = 0x108
+	GestaltCPUG4             int = 0x10c
+	GestaltCPUG47450         int = 0x110
 	// GestaltCanStartDragInFloatWindow: If the bit specified by this mask is set, the Drag Manager can start a drag in a floating window.
 	GestaltCanStartDragInFloatWindow int = 4
 	GestaltCanUseCGTextRendering     int = 6
@@ -5392,7 +5394,7 @@ const (
 	// GestaltColorMatchingLibLoaded: This constant is provided for backward compatibility only.
 	GestaltColorMatchingLibLoaded int = 1
 	GestaltCreatesAliasFontRsrc   int = 4
-	GestaltCurrentGraphicsVersion int = 66048
+	GestaltCurrentGraphicsVersion int = 0x10200
 	// GestaltDTMgrSupportsFSM: If this bit is set in the `response` parameter, the desktop database supports File System Manager-based foreign file systems.
 	GestaltDTMgrSupportsFSM int = 7
 	// GestaltDesktopSpeechRecognition: If this bit is set, the Speech Recognition Manager supports the desktop microphone.
@@ -5415,7 +5417,7 @@ const (
 	GestaltExtendedWindowAttributes     int = 1
 	GestaltExtendedWindowAttributesBit  int = 1
 	GestaltExtendedWindowAttributesMask int = 2
-	GestaltFBCCurrentVersion            int = 17
+	GestaltFBCCurrentVersion            int = 0x11
 	GestaltFBCVersion                   int = 'f'<<24 | 'b'<<16 | 'c'<<8 | 'v' // 'fbcv'
 	// GestaltFPUType: A constant that represents the type of floating-point unit currently installed, if any.
 	GestaltFPUType                   int = 'f'<<24 | 'p'<<16 | 'u'<<8 | ' ' // 'fpu '
@@ -5577,8 +5579,8 @@ const (
 	GestaltMacLCII                 int = 37
 	GestaltMacLCIII                int = 27
 	GestaltMacOSCompatibilityValue int = 1206
-	GestaltMacOSXQD                int = 768
-	GestaltMacOSXQDText            int = 512
+	GestaltMacOSXQD                int = 0x300
+	GestaltMacOSXQDText            int = 0x200
 	GestaltMacPlus                 int = 4
 	GestaltMacPlusKbd              int = 3
 	GestaltMacQuadra605            int = 94
@@ -5625,7 +5627,7 @@ const (
 	GestaltNoFPU                           int = 0
 	GestaltNoMMU                           int = 0
 	GestaltNuBusPresent                    int = 1
-	GestaltOCETB                           int = 258
+	GestaltOCETB                           int = 0x102
 	GestaltOCEToolboxVersion               int = 'o'<<24 | 'c'<<16 | 'e'<<8 | 't' // 'ocet'
 	// GestaltOFA2available: OFA2 is available.
 	GestaltOFA2available int = 3
@@ -5634,7 +5636,7 @@ const (
 	GestaltOSLCompliantFinder int = 3
 	// GestaltOSLInSystem: A [Gestalt] attribute constant.
 	GestaltOSLInSystem          int = 2
-	GestaltOSXFBCCurrentVersion int = 256
+	GestaltOSXFBCCurrentVersion int = 0x100
 	// GestaltOriginalATSUVersion: Indicates that version 1.0 of ATSUI is installed on the user’s system.
 	GestaltOriginalATSUVersion int = 65536
 	GestaltOriginalQD          int = 0
@@ -5817,7 +5819,7 @@ const (
 	GestaltSCSISlotBoot             int = 2
 	GestaltSE30SlotPresent          int = 3
 	GestaltSESlotPresent            int = 2
-	GestaltSFServer                 int = 256
+	GestaltSFServer                 int = 0x100
 	GestaltSafeOFAttr               int = 's'<<24 | 'a'<<16 | 'f'<<8 | 'e' // 'safe'
 	GestaltSanityCheckResourceFiles int = 2
 	// GestaltSbitFontSupport: sbit-only fonts are supported.
@@ -5931,23 +5933,23 @@ type GestaltAFP uint
 
 const (
 	GestaltAFPClient              GestaltAFP = 'a'<<24 | 'f'<<16 | 'p'<<8 | 's' // 'afps'
-	GestaltAFPClient3_5           GestaltAFP = 1
-	GestaltAFPClient3_6           GestaltAFP = 2
-	GestaltAFPClient3_6_1         GestaltAFP = 3
-	GestaltAFPClient3_6_2         GestaltAFP = 4
-	GestaltAFPClient3_6_3         GestaltAFP = 5
-	GestaltAFPClient3_7           GestaltAFP = 6
-	GestaltAFPClient3_7_2         GestaltAFP = 7
-	GestaltAFPClient3_8           GestaltAFP = 8
-	GestaltAFPClient3_8_1         GestaltAFP = 9
-	GestaltAFPClient3_8_3         GestaltAFP = 10
-	GestaltAFPClient3_8_4         GestaltAFP = 11
-	GestaltAFPClientAttributeMask GestaltAFP = 0
+	GestaltAFPClient3_5           GestaltAFP = 0x1
+	GestaltAFPClient3_6           GestaltAFP = 0x2
+	GestaltAFPClient3_6_1         GestaltAFP = 0x3
+	GestaltAFPClient3_6_2         GestaltAFP = 0x4
+	GestaltAFPClient3_6_3         GestaltAFP = 0x5
+	GestaltAFPClient3_7           GestaltAFP = 0x6
+	GestaltAFPClient3_7_2         GestaltAFP = 0x7
+	GestaltAFPClient3_8           GestaltAFP = 0x8
+	GestaltAFPClient3_8_1         GestaltAFP = 0x9
+	GestaltAFPClient3_8_3         GestaltAFP = 0xa
+	GestaltAFPClient3_8_4         GestaltAFP = 0xb
+	GestaltAFPClientAttributeMask GestaltAFP = 0xffff0000
 	GestaltAFPClientCfgRsrc       GestaltAFP = 16
 	GestaltAFPClientMultiReq      GestaltAFP = 31
 	GestaltAFPClientSupportsIP    GestaltAFP = 29
 	GestaltAFPClientVMUI          GestaltAFP = 30
-	GestaltAFPClientVersionMask   GestaltAFP = 65535
+	GestaltAFPClientVersionMask   GestaltAFP = 0xffff
 )
 
 func (e GestaltAFP) String() string {
@@ -6060,57 +6062,57 @@ type GestaltATSU uint
 
 const (
 	// GestaltATSUAscentDescentControlsFeature: If the bit specified by this mask is set, ascent and descent controls (`kATSUDescentTag` and `kATSUAscentTag`) are available.
-	GestaltATSUAscentDescentControlsFeature GestaltATSU = 16
+	GestaltATSUAscentDescentControlsFeature GestaltATSU = 0x10
 	// GestaltATSUBatchBreakLinesFeature: If the bit specified by this mask is set, the [ATSUBatchBreakLines] function is available.
-	GestaltATSUBatchBreakLinesFeature GestaltATSU = 16
+	GestaltATSUBatchBreakLinesFeature GestaltATSU = 0x10
 	// GestaltATSUBiDiCursorPositionFeature: If the bit specified by this mask is set, support for bidirectional cursor positioning is available.
-	GestaltATSUBiDiCursorPositionFeature GestaltATSU = 32
+	GestaltATSUBiDiCursorPositionFeature GestaltATSU = 0x20
 	// GestaltATSUByCharacterClusterFeature: If the bit specified by this mask is set, ATSUI cursor movement types are available.
-	GestaltATSUByCharacterClusterFeature GestaltATSU = 16
+	GestaltATSUByCharacterClusterFeature GestaltATSU = 0x10
 	// GestaltATSUDecimalTabFeature: If the bit specified by this mask is set, your application can set a decimal tab character.
-	GestaltATSUDecimalTabFeature GestaltATSU = 32
+	GestaltATSUDecimalTabFeature GestaltATSU = 0x20
 	// GestaltATSUDirectAccess: If the bit specified by this mask is set, ATSU direct-access functions are available.
-	GestaltATSUDirectAccess GestaltATSU = 16
+	GestaltATSUDirectAccess GestaltATSU = 0x10
 	// GestaltATSUDropShadowStyleFeature: If the bit specified by this mask is set, drop shadow features are available.
-	GestaltATSUDropShadowStyleFeature GestaltATSU = 32
+	GestaltATSUDropShadowStyleFeature GestaltATSU = 0x20
 	// GestaltATSUFallbacksFeature: If the bit specified by this mask is set, the functions [ATSUSetFontFallbacks] and [ATSUGetFontFallbacks] are available.
-	GestaltATSUFallbacksFeature GestaltATSU = 1
+	GestaltATSUFallbacksFeature GestaltATSU = 0x1
 	// GestaltATSUFallbacksObjFeatures: If the bit specified by this mask is set, [ATSUFontFallbacks] objects are available.
-	GestaltATSUFallbacksObjFeatures GestaltATSU = 8
+	GestaltATSUFallbacksObjFeatures GestaltATSU = 0x8
 	// GestaltATSUFeatures: # Discussion
 	GestaltATSUFeatures GestaltATSU = 'u'<<24 | 'i'<<16 | 's'<<8 | 'f' // 'uisf'
 	// GestaltATSUGlyphBoundsFeature: If the bit specified by this mask is set, the function [ATSUGetGlyphBounds] is available.
-	GestaltATSUGlyphBoundsFeature GestaltATSU = 1
+	GestaltATSUGlyphBoundsFeature GestaltATSU = 0x1
 	// GestaltATSUHighlightColorControlFeature: If the bit specified by this mask is set, your application can control highlight color.
-	GestaltATSUHighlightColorControlFeature GestaltATSU = 32
+	GestaltATSUHighlightColorControlFeature GestaltATSU = 0x20
 	// GestaltATSUHighlightInactiveTextFeature: If the bit specified by this mask is set, the highlight inactive text feature is available.
-	GestaltATSUHighlightInactiveTextFeature GestaltATSU = 16
+	GestaltATSUHighlightInactiveTextFeature GestaltATSU = 0x10
 	// GestaltATSUIgnoreLeadingFeature: If the bit specified by this mask is set, the line layout option (`kATSIgnoreFontLeadingTag`) to ignore the font leading value is available.
-	GestaltATSUIgnoreLeadingFeature GestaltATSU = 8
+	GestaltATSUIgnoreLeadingFeature GestaltATSU = 0x8
 	// GestaltATSULayoutCacheClearFeature: If the bit specified by this mask is set, the function [ATSUClearLayoutCache] is available.
-	GestaltATSULayoutCacheClearFeature GestaltATSU = 1
+	GestaltATSULayoutCacheClearFeature GestaltATSU = 0x1
 	// GestaltATSULayoutCreateAndCopyFeature: If the bit specified by this mask is set, the function [ATSUCreateAndCopyTextLayout] is available.
-	GestaltATSULayoutCreateAndCopyFeature GestaltATSU = 1
+	GestaltATSULayoutCreateAndCopyFeature GestaltATSU = 0x1
 	// GestaltATSULineControlFeature: If the bit specified by this mask is set, the functions [ATSUCopyLineControls], [ATSUSetLineControls], [ATSUGetLineControl], [ATSUGetAllLineControls], and [ATSUClearLineControls] are available.
-	GestaltATSULineControlFeature GestaltATSU = 1
+	GestaltATSULineControlFeature GestaltATSU = 0x1
 	// GestaltATSULowLevelOrigFeatures: If the bit specified by this mask is set, the low-level features introduced in ATSUI version 2.0 are available.
-	GestaltATSULowLevelOrigFeatures GestaltATSU = 4
+	GestaltATSULowLevelOrigFeatures GestaltATSU = 0x4
 	// GestaltATSUMemoryFeature: If the bit specified by this mask is set, the functions [ATSUCreateMemorySetting], [ATSUSetCurrentMemorySetting], [ATSUGetCurrentMemorySetting], and [ATSUDisposeMemorySetting] are available.
-	GestaltATSUMemoryFeature GestaltATSU = 1
+	GestaltATSUMemoryFeature GestaltATSU = 0x1
 	// GestaltATSUNearestCharLineBreakFeature: If the bit specified by this mask is set, the nearest character line break feature is available.
-	GestaltATSUNearestCharLineBreakFeature GestaltATSU = 32
+	GestaltATSUNearestCharLineBreakFeature GestaltATSU = 0x20
 	// GestaltATSUPositionToCursorFeature: If the bit specified by this mask is set, the position-to-cursor feature is available.
-	GestaltATSUPositionToCursorFeature GestaltATSU = 16
+	GestaltATSUPositionToCursorFeature GestaltATSU = 0x10
 	// GestaltATSUStrikeThroughStyleFeature: If the bit specified by this mask is set, strike through styles are available.
-	GestaltATSUStrikeThroughStyleFeature GestaltATSU = 32
+	GestaltATSUStrikeThroughStyleFeature GestaltATSU = 0x20
 	// GestaltATSUTabSupportFeature: If the bit specified by this mask is set, support for tabs is available.
-	GestaltATSUTabSupportFeature GestaltATSU = 16
+	GestaltATSUTabSupportFeature GestaltATSU = 0x10
 	// GestaltATSUTextLocatorUsageFeature: If the bit specified by this mask is set, the text-break locator attribute is available for both style and text layout objects.
-	GestaltATSUTextLocatorUsageFeature GestaltATSU = 2
+	GestaltATSUTextLocatorUsageFeature GestaltATSU = 0x2
 	// GestaltATSUTrackingFeature: If the bit specified by this mask constant is set, the functions [ATSUCountFontTracking] and [ATSUGetIndFontTracking] are available.
-	GestaltATSUTrackingFeature GestaltATSU = 1
+	GestaltATSUTrackingFeature GestaltATSU = 0x1
 	// GestaltATSUUnderlineOptionsStyleFeature: If the bit specified by this mask is set, underline options are available.
-	GestaltATSUUnderlineOptionsStyleFeature GestaltATSU = 32
+	GestaltATSUUnderlineOptionsStyleFeature GestaltATSU = 0x20
 )
 
 func (e GestaltATSU) String() string {
@@ -6338,10 +6340,10 @@ type GestaltCF uint
 
 const (
 	GestaltCFM99Present     GestaltCF = 2
-	GestaltCFM99PresentMask GestaltCF = 4
+	GestaltCFM99PresentMask GestaltCF = 0x4
 	GestaltCFMAttr          GestaltCF = 'c'<<24 | 'f'<<16 | 'r'<<8 | 'g' // 'cfrg'
 	GestaltCFMPresent       GestaltCF = 0
-	GestaltCFMPresentMask   GestaltCF = 1
+	GestaltCFMPresentMask   GestaltCF = 0x1
 )
 
 func (e GestaltCF) String() string {
@@ -6365,12 +6367,12 @@ type GestaltCP uint
 
 const (
 	GestaltCPU486        GestaltCP = 'i'<<24 | '4'<<16 | '8'<<8 | '6' // 'i486'
-	GestaltCPU750FX      GestaltCP = 288
-	GestaltCPU970        GestaltCP = 313
-	GestaltCPU970FX      GestaltCP = 316
-	GestaltCPU970MP      GestaltCP = 324
-	GestaltCPUApollo     GestaltCP = 273
-	GestaltCPUG47447     GestaltCP = 274
+	GestaltCPU750FX      GestaltCP = 0x120
+	GestaltCPU970        GestaltCP = 0x139
+	GestaltCPU970FX      GestaltCP = 0x13c
+	GestaltCPU970MP      GestaltCP = 0x144
+	GestaltCPUApollo     GestaltCP = 0x111
+	GestaltCPUG47447     GestaltCP = 0x112
 	GestaltCPUPentium    GestaltCP = 'i'<<24 | '5'<<16 | '8'<<8 | '6' // 'i586'
 	GestaltCPUPentium4   GestaltCP = 'i'<<24 | '5'<<16 | 'i'<<8 | 'v' // 'i5iv'
 	GestaltCPUPentiumII  GestaltCP = 'i'<<24 | '5'<<16 | 'i'<<8 | 'i' // 'i5ii'
@@ -6527,25 +6529,25 @@ const (
 	GestaltColorPicker          GestaltColor = 'c'<<24 | 'p'<<16 | 'k'<<8 | 'r' // 'cpkr'
 	GestaltColorPickerVersion   GestaltColor = 'c'<<24 | 'p'<<16 | 'k'<<8 | 'r' // 'cpkr'
 	// GestaltColorSync10: A [Gestalt] response value of `gestaltColorSync10` indicates version 1.0 of the ColorSync Manager is present.
-	GestaltColorSync10 GestaltColor = 256
+	GestaltColorSync10 GestaltColor = 0x100
 	// GestaltColorSync104: A [Gestalt] response value of `gestaltColorSync104` indicates version 1.4 of the ColorSync Manager is present.
-	GestaltColorSync104 GestaltColor = 260
+	GestaltColorSync104 GestaltColor = 0x104
 	// GestaltColorSync105: A [Gestalt] response value of `gestaltColorSync105` indicates version 1.5 of the ColorSync Manager is present.
-	GestaltColorSync105 GestaltColor = 261
+	GestaltColorSync105 GestaltColor = 0x105
 	// GestaltColorSync11: A [Gestalt] response value of `gestaltColorSync11` indicates version 1.0.3 of the ColorSync Manager is present.
-	GestaltColorSync11 GestaltColor = 272
+	GestaltColorSync11 GestaltColor = 0x110
 	// GestaltColorSync20: A [Gestalt] response value of `gestaltColorSync20` indicates version 2.0 of the ColorSync Manager is present.
-	GestaltColorSync20 GestaltColor = 512
+	GestaltColorSync20 GestaltColor = 0x200
 	// GestaltColorSync21: A [Gestalt] response value of `gestaltColorSync21` indicates version 2.1 of the ColorSync Manager is present.
-	GestaltColorSync21  GestaltColor = 528
-	GestaltColorSync211 GestaltColor = 529
-	GestaltColorSync212 GestaltColor = 530
-	GestaltColorSync213 GestaltColor = 531
+	GestaltColorSync21  GestaltColor = 0x210
+	GestaltColorSync211 GestaltColor = 0x211
+	GestaltColorSync212 GestaltColor = 0x212
+	GestaltColorSync213 GestaltColor = 0x213
 	// GestaltColorSync25: A [Gestalt] response value of `gestaltColorSync25` indicates version 2.5 of the ColorSync Manager is present.
-	GestaltColorSync25  GestaltColor = 592
-	GestaltColorSync26  GestaltColor = 608
-	GestaltColorSync261 GestaltColor = 609
-	GestaltColorSync30  GestaltColor = 768
+	GestaltColorSync25  GestaltColor = 0x250
+	GestaltColorSync26  GestaltColor = 0x260
+	GestaltColorSync261 GestaltColor = 0x261
+	GestaltColorSync30  GestaltColor = 0x300
 )
 
 func (e GestaltColor) String() string {
@@ -6790,7 +6792,7 @@ type GestaltDTPFeatures uint
 
 const (
 	GestaltDTPFeaturesValue GestaltDTPFeatures = 'd'<<24 | 't'<<16 | 'p'<<8 | 'f' // 'dtpf'
-	KDTPThirdPartySupported GestaltDTPFeatures = 4
+	KDTPThirdPartySupported GestaltDTPFeatures = 0x4
 )
 
 func (e GestaltDTPFeatures) String() string {
@@ -7235,9 +7237,9 @@ type GestaltGraphics uint
 
 const (
 	GestaltGraphicsAttr        GestaltGraphics = 'g'<<24 | 'f'<<16 | 'x'<<8 | 'a' // 'gfxa'
-	GestaltGraphicsIsDebugging GestaltGraphics = 1
-	GestaltGraphicsIsLoaded    GestaltGraphics = 2
-	GestaltGraphicsIsPowerPC   GestaltGraphics = 4
+	GestaltGraphicsIsDebugging GestaltGraphics = 0x1
+	GestaltGraphicsIsLoaded    GestaltGraphics = 0x2
+	GestaltGraphicsIsPowerPC   GestaltGraphics = 0x4
 )
 
 func (e GestaltGraphics) String() string {
@@ -7644,10 +7646,10 @@ func (e GestaltNuBusSlot) String() string {
 type GestaltOCE uint
 
 const (
-	GestaltOCESFServerAvailable     GestaltOCE = 4
-	GestaltOCETBAvailable           GestaltOCE = 2
-	GestaltOCETBNativeGlueAvailable GestaltOCE = 16
-	GestaltOCETBPresent             GestaltOCE = 1
+	GestaltOCESFServerAvailable     GestaltOCE = 0x4
+	GestaltOCETBAvailable           GestaltOCE = 0x2
+	GestaltOCETBNativeGlueAvailable GestaltOCE = 0x10
+	GestaltOCETBPresent             GestaltOCE = 0x1
 	GestaltOCEToolboxAttr           GestaltOCE = 'o'<<24 | 'c'<<16 | 'e'<<8 | 'u' // 'oceu'
 )
 
@@ -7689,21 +7691,21 @@ type GestaltOpen uint
 const (
 	GestaltOpenTptValue                GestaltOpen = 'o'<<24 | 't'<<16 | 'a'<<8 | 'n' // 'otan'
 	GestaltOpenTptAppleTalkLoadedBit   GestaltOpen = 3
-	GestaltOpenTptAppleTalkLoadedMask  GestaltOpen = 8
+	GestaltOpenTptAppleTalkLoadedMask  GestaltOpen = 0x8
 	GestaltOpenTptAppleTalkPresentBit  GestaltOpen = 2
-	GestaltOpenTptAppleTalkPresentMask GestaltOpen = 4
+	GestaltOpenTptAppleTalkPresentMask GestaltOpen = 0x4
 	GestaltOpenTptIPXSPXLoadedBit      GestaltOpen = 7
-	GestaltOpenTptIPXSPXLoadedMask     GestaltOpen = 128
+	GestaltOpenTptIPXSPXLoadedMask     GestaltOpen = 0x80
 	GestaltOpenTptIPXSPXPresentBit     GestaltOpen = 6
-	GestaltOpenTptIPXSPXPresentMask    GestaltOpen = 64
+	GestaltOpenTptIPXSPXPresentMask    GestaltOpen = 0x40
 	GestaltOpenTptLoadedBit            GestaltOpen = 1
-	GestaltOpenTptLoadedMask           GestaltOpen = 2
+	GestaltOpenTptLoadedMask           GestaltOpen = 0x2
 	GestaltOpenTptPresentBit           GestaltOpen = 0
-	GestaltOpenTptPresentMask          GestaltOpen = 1
+	GestaltOpenTptPresentMask          GestaltOpen = 0x1
 	GestaltOpenTptTCPLoadedBit         GestaltOpen = 5
-	GestaltOpenTptTCPLoadedMask        GestaltOpen = 32
+	GestaltOpenTptTCPLoadedMask        GestaltOpen = 0x20
 	GestaltOpenTptTCPPresentBit        GestaltOpen = 4
-	GestaltOpenTptTCPPresentMask       GestaltOpen = 16
+	GestaltOpenTptTCPPresentMask       GestaltOpen = 0x10
 )
 
 func (e GestaltOpen) String() string {
@@ -7880,14 +7882,14 @@ func (e GestaltPCX) String() string {
 type GestaltPPC uint
 
 const (
-	GestaltPPCSupportsIncoming          GestaltPPC = 1
-	GestaltPPCSupportsIncomingAppleTalk GestaltPPC = 16
-	GestaltPPCSupportsIncomingTCP_IP    GestaltPPC = 32
-	GestaltPPCSupportsOutGoing          GestaltPPC = 2
-	GestaltPPCSupportsOutgoingAppleTalk GestaltPPC = 256
-	GestaltPPCSupportsOutgoingTCP_IP    GestaltPPC = 512
-	GestaltPPCSupportsRealTime          GestaltPPC = 4096
-	GestaltPPCSupportsTCP_IP            GestaltPPC = 4
+	GestaltPPCSupportsIncoming          GestaltPPC = 0x1
+	GestaltPPCSupportsIncomingAppleTalk GestaltPPC = 0x10
+	GestaltPPCSupportsIncomingTCP_IP    GestaltPPC = 0x20
+	GestaltPPCSupportsOutGoing          GestaltPPC = 0x2
+	GestaltPPCSupportsOutgoingAppleTalk GestaltPPC = 0x100
+	GestaltPPCSupportsOutgoingTCP_IP    GestaltPPC = 0x200
+	GestaltPPCSupportsRealTime          GestaltPPC = 0x1000
+	GestaltPPCSupportsTCP_IP            GestaltPPC = 0x4
 	// GestaltPPCToolboxAttr: The selector you pass to the Gestalt function to determine the Program-to-Program Communication (PPC) Toolbox attributes.
 	GestaltPPCToolboxAttr    GestaltPPC = 'p'<<24 | 'p'<<16 | 'c'<<8 | ' ' // 'ppc '
 	GestaltPPCToolboxPresent GestaltPPC = 0
@@ -8763,10 +8765,10 @@ type GestaltTS uint
 const (
 	GestaltTSMDisplayMgrAwareBit GestaltTS = 0
 	GestaltTSMdoesTSMTEBit       GestaltTS = 1
-	GestaltTSMgr15               GestaltTS = 336
-	GestaltTSMgr20               GestaltTS = 512
-	GestaltTSMgr22               GestaltTS = 544
-	GestaltTSMgr23               GestaltTS = 560
+	GestaltTSMgr15               GestaltTS = 0x150
+	GestaltTSMgr20               GestaltTS = 0x200
+	GestaltTSMgr22               GestaltTS = 0x220
+	GestaltTSMgr23               GestaltTS = 0x230
 	GestaltTSMgrAttr             GestaltTS = 't'<<24 | 's'<<16 | 'm'<<8 | 'a' // 'tsma'
 	// GestaltTSMgrVersion: The selector you pass to the [Gestalt] function to determine the version of the Text Services Manager.
 	GestaltTSMgrVersion GestaltTS = 't'<<24 | 's'<<16 | 'm'<<8 | 'v' // 'tsmv'
@@ -8799,9 +8801,9 @@ type GestaltTSMT uint
 
 const (
 	GestaltTSMTE        GestaltTSMT = 0
-	GestaltTSMTE1       GestaltTSMT = 256
-	GestaltTSMTE15      GestaltTSMT = 336
-	GestaltTSMTE152     GestaltTSMT = 338
+	GestaltTSMTE1       GestaltTSMT = 0x100
+	GestaltTSMTE15      GestaltTSMT = 0x150
+	GestaltTSMTE152     GestaltTSMT = 0x152
 	GestaltTSMTEAttr    GestaltTSMT = 't'<<24 | 'm'<<16 | 'T'<<8 | 'E' // 'tmTE'
 	GestaltTSMTEPresent GestaltTSMT = 0
 	GestaltTSMTEVersion GestaltTSMT = 't'<<24 | 'm'<<16 | 'T'<<8 | 'V' // 'tmTV'
@@ -8975,11 +8977,11 @@ type GestaltUSBPrinterSharing uint
 
 const (
 	GestaltUSBPrinterSharingAttr        GestaltUSBPrinterSharing = 'z'<<24 | 'a'<<16 | 'k'<<8 | ' ' // 'zak '
-	GestaltUSBPrinterSharingAttrBooted  GestaltUSBPrinterSharing = 1073741824
-	GestaltUSBPrinterSharingAttrMask    GestaltUSBPrinterSharing = 0
-	GestaltUSBPrinterSharingAttrRunning GestaltUSBPrinterSharing = 0
+	GestaltUSBPrinterSharingAttrBooted  GestaltUSBPrinterSharing = 0x40000000
+	GestaltUSBPrinterSharingAttrMask    GestaltUSBPrinterSharing = 0xffff0000
+	GestaltUSBPrinterSharingAttrRunning GestaltUSBPrinterSharing = 0x80000000
 	GestaltUSBPrinterSharingVersion     GestaltUSBPrinterSharing = 'z'<<24 | 'a'<<16 | 'k'<<8 | ' ' // 'zak '
-	GestaltUSBPrinterSharingVersionMask GestaltUSBPrinterSharing = 65535
+	GestaltUSBPrinterSharingVersionMask GestaltUSBPrinterSharing = 0xffff
 )
 
 func (e GestaltUSBPrinterSharing) String() string {
@@ -8990,6 +8992,8 @@ func (e GestaltUSBPrinterSharing) String() string {
 		return "GestaltUSBPrinterSharingAttrBooted"
 	case GestaltUSBPrinterSharingAttrMask:
 		return "GestaltUSBPrinterSharingAttrMask"
+	case GestaltUSBPrinterSharingAttrRunning:
+		return "GestaltUSBPrinterSharingAttrRunning"
 	case GestaltUSBPrinterSharingVersionMask:
 		return "GestaltUSBPrinterSharingVersionMask"
 	default:
@@ -9349,7 +9353,7 @@ const (
 	// Deprecated.
 	IntJapanese Int = 3
 	// Deprecated.
-	IntOutputMask Int = 32768
+	IntOutputMask Int = 0x8000
 	// Deprecated.
 	IntRoman Int = 2
 	// Deprecated.
@@ -9697,15 +9701,15 @@ type K68kInterruptLevelMask uint
 
 const (
 	// Deprecated.
-	K68kInterruptLevelMaskValue K68kInterruptLevelMask = 7
+	K68kInterruptLevelMaskValue K68kInterruptLevelMask = 0x7
 	// Deprecated.
-	KInDeferredTaskMask K68kInterruptLevelMask = 32
+	KInDeferredTaskMask K68kInterruptLevelMask = 0x20
 	// Deprecated.
-	KInNestedInterruptMask K68kInterruptLevelMask = 128
+	KInNestedInterruptMask K68kInterruptLevelMask = 0x80
 	// Deprecated.
-	KInSecondaryIntHandlerMask K68kInterruptLevelMask = 64
+	KInSecondaryIntHandlerMask K68kInterruptLevelMask = 0x40
 	// Deprecated.
-	KInVBLTaskMask K68kInterruptLevelMask = 16
+	KInVBLTaskMask K68kInterruptLevelMask = 0x10
 )
 
 func (e K68kInterruptLevelMask) String() string {
@@ -9730,7 +9734,7 @@ type KAE uint
 const (
 	KAEActivate KAE = 'a'<<24 | 'c'<<16 | 't'<<8 | 'v' // 'actv'
 	// KAEAlwaysInteract: # Discussion
-	KAEAlwaysInteract KAE = 48
+	KAEAlwaysInteract KAE = 0x30
 	// KAEAnswer: Event that is a reply Apple event.
 	KAEAnswer           KAE = 'a'<<24 | 'n'<<16 | 's'<<8 | 'r' // 'ansr'
 	KAEApplicationClass KAE = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'l' // 'appl'
@@ -9745,9 +9749,9 @@ const (
 	KAEBeginsWith KAE = 'b'<<24 | 'g'<<16 | 'w'<<8 | 't' // 'bgwt'
 	KAEBold       KAE = 'b'<<24 | 'o'<<16 | 'l'<<8 | 'd' // 'bold'
 	// KAECanInteract: # Discussion
-	KAECanInteract KAE = 32
+	KAECanInteract KAE = 0x20
 	// KAECanSwitchLayer: # Discussion
-	KAECanSwitchLayer KAE = 64
+	KAECanSwitchLayer KAE = 0x40
 	KAECaseSensEquals KAE = 'c'<<24 | 's'<<16 | 'e'<<8 | 'q' // 'cseq'
 	KAECentered       KAE = 'c'<<24 | 'e'<<16 | 'n'<<8 | 't' // 'cent'
 	KAEChangeView     KAE = 'v'<<24 | 'i'<<16 | 'e'<<8 | 'w' // 'view'
@@ -9773,15 +9777,15 @@ const (
 	// KAEDirectCall: The source of the Apple event is a direct call that bypassed the PPC Toolbox.
 	KAEDirectCall                              KAE = 1
 	KAEDiskEvent                               KAE = 'd'<<24 | 'i'<<16 | 's'<<8 | 'k' // 'disk'
-	KAEDoNotAutomaticallyAddAnnotationsToEvent KAE = 65536
+	KAEDoNotAutomaticallyAddAnnotationsToEvent KAE = 0x10000
 	KAEDoObjectsExist                          KAE = 'd'<<24 | 'o'<<16 | 'e'<<8 | 'x' // 'doex'
 	KAEDoScript                                KAE = 'd'<<24 | 'o'<<16 | 's'<<8 | 'c' // 'dosc'
 	// KAEDontExecute: # Discussion
-	KAEDontExecute KAE = 8192
+	KAEDontExecute KAE = 0x2000
 	// KAEDontReconnect: # Discussion
-	KAEDontReconnect KAE = 128
+	KAEDontReconnect KAE = 0x80
 	// KAEDontRecord: # Discussion
-	KAEDontRecord         KAE = 4096
+	KAEDontRecord         KAE = 0x1000
 	KAEDown               KAE = 'd'<<24 | 'o'<<16 | 'w'<<8 | 'n' // 'down'
 	KAEDrag               KAE = 'd'<<24 | 'r'<<16 | 'a'<<8 | 'g' // 'drag'
 	KAEDuplicateSelection KAE = 's'<<24 | 'd'<<16 | 'u'<<8 | 'p' // 'sdup'
@@ -9815,19 +9819,19 @@ const (
 	KAEHTTPProxyHostAttr KAE = 'x'<<24 | 'h'<<16 | 't'<<8 | 'h' // 'xhth'
 	// KAEHTTPProxyPortAttr: A value of type `typeSInt32`.
 	KAEHTTPProxyPortAttr  KAE = 'x'<<24 | 'h'<<16 | 't'<<8 | 'p' // 'xhtp'
-	KAEHandleSimpleRanges KAE = 32
+	KAEHandleSimpleRanges KAE = 0x20
 	KAEHiQuality          KAE = 'h'<<24 | 'i'<<16 | 'q'<<8 | 'u' // 'hiqu'
 	KAEHidden             KAE = 'h'<<24 | 'i'<<16 | 'd'<<8 | 'n' // 'hidn'
 	KAEHighLevel          KAE = 'h'<<24 | 'i'<<16 | 'g'<<8 | 'h' // 'high'
 	// KAEHighPriority: The Apple Event Manager posts the event at the beginning of the event queue of the server process.
-	KAEHighPriority KAE = 1
+	KAEHighPriority KAE = 0x1
 	// KAEIDoMarking: The application provides marking callback functions.
-	KAEIDoMarking KAE = 4
+	KAEIDoMarking KAE = 0x4
 	// KAEIDoMinimum: The application does not handle whose tests or provide marking callbacks.
 	KAEIDoMinimum KAE = 0
 	// KAEIDoWhose: The application supports whose tests (supports key form `formWhose`).
-	KAEIDoWhose       KAE = 1
-	KAEISWebStarSuite KAE = 1465341885
+	KAEIDoWhose       KAE = 0x1
+	KAEISWebStarSuite KAE = 0x575757bd
 	KAEImageGraphic   KAE = 'i'<<24 | 'm'<<16 | 'g'<<8 | 'r' // 'imgr'
 	KAEInfo           KAE = 11
 	KAEInternetSuite  KAE = 'g'<<24 | 'u'<<16 | 'r'<<8 | 'l' // 'gurl'
@@ -9858,11 +9862,11 @@ const (
 	KAEMoved              KAE = 'm'<<24 | 'o'<<16 | 'v'<<8 | 'e' // 'move'
 	KAENavigationKey      KAE = 'n'<<24 | 'a'<<16 | 'v'<<8 | 'e' // 'nave'
 	// KAENeverInteract: # Discussion
-	KAENeverInteract KAE = 16
+	KAENeverInteract KAE = 0x10
 	KAENo            KAE = 'n'<<24 | 'o'<<16 | ' '<<8 | ' ' // 'no  '
 	KAENoArrow       KAE = 'a'<<24 | 'r'<<16 | 'n'<<8 | 'o' // 'arno'
 	// KAENoReply: The reply preference—your application does not want a reply Apple event.
-	KAENoReply       KAE = 1
+	KAENoReply       KAE = 0x1
 	KAENonmodifiable KAE = 'n'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'nmod'
 	// KAENormalPriority: The Apple Event Manager posts the event at the end of the event queue of the server process and the server processes the Apple event as soon as it has the opportunity.
 	KAENormalPriority KAE = 0
@@ -9886,7 +9890,7 @@ const (
 	// KAEPackedArray: Array items consist of data of the same size and same type, and are packed without regard for word boundaries.
 	KAEPackedArray  KAE = 1
 	KAEPageSetup    KAE = 'p'<<24 | 'g'<<16 | 's'<<8 | 'u' // 'pgsu'
-	KAEPassSubDescs KAE = 8
+	KAEPassSubDescs KAE = 0x8
 	KAEPaste        KAE = 'p'<<24 | 'a'<<16 | 's'<<8 | 't' // 'past'
 	KAEPlain        KAE = 'p'<<24 | 'l'<<16 | 'a'<<8 | 'n' // 'plan'
 	KAEPrint        KAE = 'p'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'pdoc'
@@ -9895,7 +9899,7 @@ const (
 	KAEPrintSelection KAE = 's'<<24 | 'p'<<16 | 'r'<<8 | 'i' // 'spri'
 	KAEPrintWindow    KAE = 'p'<<24 | 'w'<<16 | 'i'<<8 | 'n' // 'pwin'
 	// KAEProcessNonReplyEvents: Allow processing of non-reply Apple events while awaiting a synchronous Apple event reply (you specified `kAEWaitReply` for the reply preference).
-	KAEProcessNonReplyEvents KAE = 32768
+	KAEProcessNonReplyEvents KAE = 0x8000
 	KAEPromise               KAE = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'm' // 'prom'
 	KAEPutAwaySelection      KAE = 's'<<24 | 'p'<<16 | 'u'<<8 | 't' // 'sput'
 	KAEQDAdMax               KAE = 'a'<<24 | 'd'<<16 | 'm'<<8 | 'x' // 'admx'
@@ -9915,7 +9919,7 @@ const (
 	KAEQDSupplementalSuite   KAE = 'q'<<24 | 'd'<<16 | 's'<<8 | 'p' // 'qdsp'
 	KAEQDXor                 KAE = 'x'<<24 | 'o'<<16 | 'r'<<8 | ' ' // 'xor '
 	// KAEQueueReply: The reply preference—your application wants a reply Apple event.
-	KAEQueueReply     KAE = 2
+	KAEQueueReply     KAE = 0x2
 	KAEQuickdrawSuite KAE = 'q'<<24 | 'd'<<16 | 'r'<<8 | 'w' // 'qdrw'
 	KAEQuitAll        KAE = 'q'<<24 | 'u'<<16 | 'i'<<8 | 'a' // 'quia'
 	// KAEQuitApplication: Event that causes the application to quit.
@@ -9931,7 +9935,7 @@ const (
 	KAEReplace            KAE = 'r'<<24 | 'p'<<16 | 'l'<<8 | 'c' // 'rplc'
 	KAERequiredSuite      KAE = 'r'<<24 | 'e'<<16 | 'q'<<8 | 'd' // 'reqd'
 	KAEResized            KAE = 'r'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'rsiz'
-	KAEResolveNestedLists KAE = 16
+	KAEResolveNestedLists KAE = 0x10
 	KAERestart            KAE = 'r'<<24 | 'e'<<16 | 's'<<8 | 't' // 'rest'
 	KAEResume             KAE = 'r'<<24 | 's'<<16 | 'm'<<8 | 'e' // 'rsme'
 	KAERevealSelection    KAE = 's'<<24 | 'r'<<16 | 'e'<<8 | 'v' // 'srev'
@@ -9984,15 +9988,15 @@ const (
 	KAEUpdate        KAE = 'u'<<24 | 'p'<<16 | 'd'<<8 | 't' // 'updt'
 	// KAEUseHTTPProxyAttr: A value of type `typeBoolean`.
 	KAEUseHTTPProxyAttr     KAE = 'x'<<24 | 'u'<<16 | 'p'<<8 | 'r' // 'xupr'
-	KAEUseRelativeIterators KAE = 64
+	KAEUseRelativeIterators KAE = 0x40
 	KAEUseSocksAttr         KAE = 'x'<<24 | 's'<<16 | 'c'<<8 | 's' // 'xscs'
 	KAEUserTerminology      KAE = 'a'<<24 | 'e'<<16 | 'u'<<8 | 't' // 'aeut'
 	KAEVirtualKey           KAE = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'c' // 'keyc'
 	// KAEWaitReply: # Discussion
-	KAEWaitReply   KAE = 3
+	KAEWaitReply   KAE = 0x3
 	KAEWakeUpEvent KAE = 'w'<<24 | 'a'<<16 | 'k'<<8 | 'e' // 'wake'
 	// KAEWantReceipt: # Discussion
-	KAEWantReceipt     KAE = 512
+	KAEWantReceipt     KAE = 0x200
 	KAEWholeWordEquals KAE = 'w'<<24 | 'w'<<16 | 'e'<<8 | 'q' // 'wweq'
 	KAEWindowClass     KAE = 'w'<<24 | 'i'<<16 | 'n'<<8 | 'd' // 'wind'
 	KAEYes             KAE = 'y'<<24 | 'e'<<16 | 's'<<8 | ' ' // 'yes '
@@ -10506,7 +10510,7 @@ type KAEDebug uint
 const (
 	KAEDebugPOSTHeader  KAEDebug = 1
 	KAEDebugReplyHeader KAEDebug = 2
-	KAEDebugXMLDebugAll KAEDebug = 0
+	KAEDebugXMLDebugAll KAEDebug = 0xffffffff
 	KAEDebugXMLRequest  KAEDebug = 4
 	KAEDebugXMLResponse KAEDebug = 8
 )
@@ -10572,7 +10576,7 @@ func (e KAEDescListFactor) String() string {
 type KAEDoNotPromptForUser uint
 
 const (
-	KAEDoNotPromptForUserConsent KAEDoNotPromptForUser = 131072
+	KAEDoNotPromptForUserConsent KAEDoNotPromptForUser = 0x20000
 )
 
 func (e KAEDoNotPromptForUser) String() string {
@@ -10792,9 +10796,9 @@ func (e KAFPExtendedFlagsAlternateAddress) String() string {
 type KAFPTagLength uint
 
 const (
-	KAFPTagLengthDDP    KAFPTagLength = 6
-	KAFPTagLengthIP     KAFPTagLength = 6
-	KAFPTagLengthIPPort KAFPTagLength = 8
+	KAFPTagLengthDDP    KAFPTagLength = 0x6
+	KAFPTagLengthIP     KAFPTagLength = 0x6
+	KAFPTagLengthIPPort KAFPTagLength = 0x8
 )
 
 func (e KAFPTagLength) String() string {
@@ -10811,10 +10815,10 @@ func (e KAFPTagLength) String() string {
 type KAFPTagType uint
 
 const (
-	KAFPTagTypeDDP    KAFPTagType = 3
-	KAFPTagTypeDNS    KAFPTagType = 4
-	KAFPTagTypeIP     KAFPTagType = 1
-	KAFPTagTypeIPPort KAFPTagType = 2
+	KAFPTagTypeDDP    KAFPTagType = 0x3
+	KAFPTagTypeDNS    KAFPTagType = 0x4
+	KAFPTagTypeIP     KAFPTagType = 0x1
+	KAFPTagTypeIPPort KAFPTagType = 0x2
 )
 
 func (e KAFPTagType) String() string {
@@ -10887,19 +10891,19 @@ type KARM uint
 
 const (
 	// Deprecated.
-	KARMMountVol KARM = 1
+	KARMMountVol KARM = 0x1
 	// Deprecated.
-	KARMMultVols KARM = 8
+	KARMMultVols KARM = 0x8
 	// Deprecated.
-	KARMNoUI KARM = 2
+	KARMNoUI KARM = 0x2
 	// Deprecated.
-	KARMSearch KARM = 256
+	KARMSearch KARM = 0x100
 	// Deprecated.
-	KARMSearchMore KARM = 512
+	KARMSearchMore KARM = 0x200
 	// Deprecated.
-	KARMSearchRelFirst KARM = 1024
+	KARMSearchRelFirst KARM = 0x400
 	// Deprecated.
-	KARMTryFileIDFirst KARM = 2048
+	KARMTryFileIDFirst KARM = 0x800
 )
 
 func (e KARM) String() string {
@@ -11080,38 +11084,38 @@ type KAppearanceFolderIcon uint
 
 const (
 	KAppearanceFolderIconValue         KAppearanceFolderIcon = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'r' // 'appr'
-	KAppleExtrasFolderIcon             KAppearanceFolderIcon = 1634040004
+	KAppleExtrasFolderIcon             KAppearanceFolderIcon = 0x616578c4
 	KAppleMenuFolderIcon               KAppearanceFolderIcon = 'a'<<24 | 'm'<<16 | 'n'<<8 | 'u' // 'amnu'
 	KApplicationSupportFolderIcon      KAppearanceFolderIcon = 'a'<<24 | 's'<<16 | 'u'<<8 | 'p' // 'asup'
 	KApplicationsFolderIcon            KAppearanceFolderIcon = 'a'<<24 | 'p'<<16 | 'p'<<8 | 's' // 'apps'
-	KAssistantsFolderIcon              KAppearanceFolderIcon = 1634956484
+	KAssistantsFolderIcon              KAppearanceFolderIcon = 0x617374c4
 	KColorSyncFolderIcon               KAppearanceFolderIcon = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'f' // 'prof'
 	KContextualMenuItemsFolderIcon     KAppearanceFolderIcon = 'c'<<24 | 'm'<<16 | 'n'<<8 | 'u' // 'cmnu'
 	KControlPanelDisabledFolderIcon    KAppearanceFolderIcon = 'c'<<24 | 't'<<16 | 'r'<<8 | 'D' // 'ctrD'
 	KControlPanelFolderIcon            KAppearanceFolderIcon = 'c'<<24 | 't'<<16 | 'r'<<8 | 'l' // 'ctrl'
-	KControlStripModulesFolderIcon     KAppearanceFolderIcon = 1935963844
+	KControlStripModulesFolderIcon     KAppearanceFolderIcon = 0x736476c4
 	KDocumentsFolderIcon               KAppearanceFolderIcon = 'd'<<24 | 'o'<<16 | 'c'<<8 | 's' // 'docs'
 	KExtensionsDisabledFolderIcon      KAppearanceFolderIcon = 'e'<<24 | 'x'<<16 | 't'<<8 | 'D' // 'extD'
 	KExtensionsFolderIcon              KAppearanceFolderIcon = 'e'<<24 | 'x'<<16 | 't'<<8 | 'n' // 'extn'
 	KFavoritesFolderIcon               KAppearanceFolderIcon = 'f'<<24 | 'a'<<16 | 'v'<<8 | 's' // 'favs'
 	KFontsFolderIcon                   KAppearanceFolderIcon = 'f'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'font'
-	KHelpFolderIcon                    KAppearanceFolderIcon = 0
-	KInternetFolderIcon                KAppearanceFolderIcon = 1768846532
-	KInternetPlugInFolderIcon          KAppearanceFolderIcon = 0
+	KHelpFolderIcon                    KAppearanceFolderIcon = 0xc4686c70
+	KInternetFolderIcon                KAppearanceFolderIcon = 0x696e74c4
+	KInternetPlugInFolderIcon          KAppearanceFolderIcon = 0xc46e6574
 	KInternetSearchSitesFolderIcon     KAppearanceFolderIcon = 'i'<<24 | 's'<<16 | 's'<<8 | 'f' // 'issf'
-	KLocalesFolderIcon                 KAppearanceFolderIcon = 0
-	KMacOSReadMeFolderIcon             KAppearanceFolderIcon = 1836020420
-	KPreferencesFolderIcon             KAppearanceFolderIcon = 1886545604
+	KLocalesFolderIcon                 KAppearanceFolderIcon = 0xc46c6f63
+	KMacOSReadMeFolderIcon             KAppearanceFolderIcon = 0x6d6f72c4
+	KPreferencesFolderIcon             KAppearanceFolderIcon = 0x707266c4
 	KPrintMonitorFolderIcon            KAppearanceFolderIcon = 'p'<<24 | 'r'<<16 | 'n'<<8 | 't' // 'prnt'
 	KPrinterDescriptionFolderIcon      KAppearanceFolderIcon = 'p'<<24 | 'p'<<16 | 'd'<<8 | 'f' // 'ppdf'
-	KPrinterDriverFolderIcon           KAppearanceFolderIcon = 0
+	KPrinterDriverFolderIcon           KAppearanceFolderIcon = 0xc4707264
 	KPublicFolderIcon                  KAppearanceFolderIcon = 'p'<<24 | 'u'<<16 | 'b'<<8 | 'f' // 'pubf'
 	KRecentApplicationsFolderIcon      KAppearanceFolderIcon = 'r'<<24 | 'a'<<16 | 'p'<<8 | 'p' // 'rapp'
 	KRecentDocumentsFolderIcon         KAppearanceFolderIcon = 'r'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'rdoc'
 	KRecentServersFolderIcon           KAppearanceFolderIcon = 'r'<<24 | 's'<<16 | 'r'<<8 | 'v' // 'rsrv'
-	KScriptingAdditionsFolderIcon      KAppearanceFolderIcon = 0
-	KScriptsFolderIcon                 KAppearanceFolderIcon = 1935897284
-	KSharedLibrariesFolderIcon         KAppearanceFolderIcon = 0
+	KScriptingAdditionsFolderIcon      KAppearanceFolderIcon = 0xc4736372
+	KScriptsFolderIcon                 KAppearanceFolderIcon = 0x736372c4
+	KSharedLibrariesFolderIcon         KAppearanceFolderIcon = 0xc46c6962
 	KShutdownItemsDisabledFolderIcon   KAppearanceFolderIcon = 's'<<24 | 'h'<<16 | 'd'<<8 | 'D' // 'shdD'
 	KShutdownItemsFolderIcon           KAppearanceFolderIcon = 's'<<24 | 'h'<<16 | 'd'<<8 | 'f' // 'shdf'
 	KSpeakableItemsFolder              KAppearanceFolderIcon = 's'<<24 | 'p'<<16 | 'k'<<8 | 'i' // 'spki'
@@ -11119,9 +11123,9 @@ const (
 	KStartupItemsFolderIcon            KAppearanceFolderIcon = 's'<<24 | 't'<<16 | 'r'<<8 | 't' // 'strt'
 	KSystemExtensionDisabledFolderIcon KAppearanceFolderIcon = 'm'<<24 | 'a'<<16 | 'c'<<8 | 'D' // 'macD'
 	KSystemFolderIcon                  KAppearanceFolderIcon = 'm'<<24 | 'a'<<16 | 'c'<<8 | 's' // 'macs'
-	KTextEncodingsFolderIcon           KAppearanceFolderIcon = 0
-	KUsersFolderIcon                   KAppearanceFolderIcon = 1970500292
-	KUtilitiesFolderIcon               KAppearanceFolderIcon = 1970563524
+	KTextEncodingsFolderIcon           KAppearanceFolderIcon = 0xc4746578
+	KUsersFolderIcon                   KAppearanceFolderIcon = 0x757372c4
+	KUtilitiesFolderIcon               KAppearanceFolderIcon = 0x757469c4
 	KVoicesFolderIcon                  KAppearanceFolderIcon = 'f'<<24 | 'v'<<16 | 'o'<<8 | 'c' // 'fvoc'
 )
 
@@ -11163,8 +11167,12 @@ func (e KAppearanceFolderIcon) String() string {
 		return "KHelpFolderIcon"
 	case KInternetFolderIcon:
 		return "KInternetFolderIcon"
+	case KInternetPlugInFolderIcon:
+		return "KInternetPlugInFolderIcon"
 	case KInternetSearchSitesFolderIcon:
 		return "KInternetSearchSitesFolderIcon"
+	case KLocalesFolderIcon:
+		return "KLocalesFolderIcon"
 	case KMacOSReadMeFolderIcon:
 		return "KMacOSReadMeFolderIcon"
 	case KPreferencesFolderIcon:
@@ -11173,6 +11181,8 @@ func (e KAppearanceFolderIcon) String() string {
 		return "KPrintMonitorFolderIcon"
 	case KPrinterDescriptionFolderIcon:
 		return "KPrinterDescriptionFolderIcon"
+	case KPrinterDriverFolderIcon:
+		return "KPrinterDriverFolderIcon"
 	case KPublicFolderIcon:
 		return "KPublicFolderIcon"
 	case KRecentApplicationsFolderIcon:
@@ -11181,8 +11191,12 @@ func (e KAppearanceFolderIcon) String() string {
 		return "KRecentDocumentsFolderIcon"
 	case KRecentServersFolderIcon:
 		return "KRecentServersFolderIcon"
+	case KScriptingAdditionsFolderIcon:
+		return "KScriptingAdditionsFolderIcon"
 	case KScriptsFolderIcon:
 		return "KScriptsFolderIcon"
+	case KSharedLibrariesFolderIcon:
+		return "KSharedLibrariesFolderIcon"
 	case KShutdownItemsDisabledFolderIcon:
 		return "KShutdownItemsDisabledFolderIcon"
 	case KShutdownItemsFolderIcon:
@@ -11197,6 +11211,8 @@ func (e KAppearanceFolderIcon) String() string {
 		return "KSystemExtensionDisabledFolderIcon"
 	case KSystemFolderIcon:
 		return "KSystemFolderIcon"
+	case KTextEncodingsFolderIcon:
+		return "KTextEncodingsFolderIcon"
 	case KUsersFolderIcon:
 		return "KUsersFolderIcon"
 	case KUtilitiesFolderIcon:
@@ -11658,7 +11674,7 @@ type KBlessedBusError int
 
 const (
 	// Deprecated.
-	KBlessedBusErrorBait KBlessedBusError = 1760651505
+	KBlessedBusErrorBait KBlessedBusError = 0x68f168f1
 )
 
 func (e KBlessedBusError) String() string {
@@ -11852,8 +11868,8 @@ func (e KCSIdentityFlag) String() string {
 type KCSIdentityQuery uint
 
 const (
-	KCSIdentityQueryGenerateUpdateEvents    KCSIdentityQuery = 1
-	KCSIdentityQueryIncludeHiddenIdentities KCSIdentityQuery = 2
+	KCSIdentityQueryGenerateUpdateEvents    KCSIdentityQuery = 0x1
+	KCSIdentityQueryIncludeHiddenIdentities KCSIdentityQuery = 0x2
 )
 
 func (e KCSIdentityQuery) String() string {
@@ -11916,7 +11932,7 @@ type KCallingConventionWidth uint
 
 const (
 	// Deprecated.
-	KCallingConventionMask KCallingConventionWidth = 15
+	KCallingConventionMask KCallingConventionWidth = 0xf
 	// Deprecated.
 	KCallingConventionPhase KCallingConventionWidth = 0
 	// Deprecated.
@@ -11928,7 +11944,7 @@ const (
 	// Deprecated.
 	KDispatchedSelectorSizeWidth KCallingConventionWidth = 2
 	// Deprecated.
-	KRegisterParameterMask KCallingConventionWidth = 2147481600
+	KRegisterParameterMask KCallingConventionWidth = 0x7ffff800
 	// Deprecated.
 	KRegisterParameterPhase KCallingConventionWidth = 0
 	// Deprecated.
@@ -11946,19 +11962,19 @@ const (
 	// Deprecated.
 	KRegisterResultLocationWidth KCallingConventionWidth = 5
 	// Deprecated.
-	KResultSizeMask KCallingConventionWidth = 48
+	KResultSizeMask KCallingConventionWidth = 0x30
 	// Deprecated.
 	KResultSizePhase KCallingConventionWidth = 4
 	// Deprecated.
 	KResultSizeWidth KCallingConventionWidth = 2
 	// Deprecated.
-	KSpecialCaseSelectorMask KCallingConventionWidth = 1008
+	KSpecialCaseSelectorMask KCallingConventionWidth = 0x3f0
 	// Deprecated.
 	KSpecialCaseSelectorPhase KCallingConventionWidth = 4
 	// Deprecated.
 	KSpecialCaseSelectorWidth KCallingConventionWidth = 6
 	// Deprecated.
-	KStackParameterMask KCallingConventionWidth = 0
+	KStackParameterMask KCallingConventionWidth = 0xffffffc0
 	// Deprecated.
 	KStackParameterPhase KCallingConventionWidth = 0
 	// Deprecated.
@@ -11987,6 +12003,8 @@ func (e KCallingConventionWidth) String() string {
 		return "KSpecialCaseSelectorMask"
 	case KSpecialCaseSelectorWidth:
 		return "KSpecialCaseSelectorWidth"
+	case KStackParameterMask:
+		return "KStackParameterMask"
 	default:
 		return fmt.Sprintf("KCallingConventionWidth(%d)", e)
 	}
@@ -12438,9 +12456,9 @@ type KCollection uint
 
 const (
 	// Deprecated.
-	KCollectionAllAttributes KCollection = 0
+	KCollectionAllAttributes KCollection = 0xffffffff
 	// Deprecated.
-	KCollectionDefaultAttributes KCollection = 1073741824
+	KCollectionDefaultAttributes KCollection = 0x40000000
 	// Deprecated.
 	KCollectionLockBit KCollection = 31
 	// Deprecated.
@@ -12572,7 +12590,7 @@ const (
 	// Deprecated.
 	KCollectionUser9Mask KCollection = 512
 	// Deprecated.
-	KCollectionUserAttributes KCollection = 65535
+	KCollectionUserAttributes KCollection = 0xffff
 )
 
 func (e KCollection) String() string {
@@ -12585,6 +12603,8 @@ func (e KCollection) String() string {
 		return "KCollectionLockBit"
 	case KCollectionLockMask:
 		return "KCollectionLockMask"
+	case KCollectionNoAttributes:
+		return "KCollectionNoAttributes"
 	case KCollectionPersistenceBit:
 		return "KCollectionPersistenceBit"
 	case KCollectionReserved0Bit:
@@ -12966,11 +12986,11 @@ const (
 	// Deprecated.
 	KPrinterDescriptionFolderType KColorSyncProfilesFolderType = 'p'<<24 | 'p'<<16 | 'd'<<8 | 'f' // 'ppdf'
 	// Deprecated.
-	KPrinterDriverFolderType KColorSyncProfilesFolderType = 3295703652
+	KPrinterDriverFolderType KColorSyncProfilesFolderType = 0xc4707264
 	// Deprecated.
-	KScriptingAdditionsFolderType KColorSyncProfilesFolderType = 3295896434
+	KScriptingAdditionsFolderType KColorSyncProfilesFolderType = 0xc4736372
 	// Deprecated.
-	KTextEncodingsFolderType KColorSyncProfilesFolderType = 3295962488
+	KTextEncodingsFolderType KColorSyncProfilesFolderType = 0xc4746578
 )
 
 func (e KColorSyncProfilesFolderType) String() string {
@@ -13467,19 +13487,19 @@ type KCreateFolderAtBoot uint
 
 const (
 	// Deprecated.
-	KCreateFolderAtBootValue KCreateFolderAtBoot = 2
+	KCreateFolderAtBootValue KCreateFolderAtBoot = 0x2
 	// Deprecated.
 	KCreateFolderAtBootBit KCreateFolderAtBoot = 1
 	// Deprecated.
-	KFolderCreatedAdminPrivs KCreateFolderAtBoot = 16
+	KFolderCreatedAdminPrivs KCreateFolderAtBoot = 0x10
 	// Deprecated.
 	KFolderCreatedAdminPrivsBit KCreateFolderAtBoot = 4
 	// Deprecated.
-	KFolderCreatedInvisible KCreateFolderAtBoot = 4
+	KFolderCreatedInvisible KCreateFolderAtBoot = 0x4
 	// Deprecated.
 	KFolderCreatedInvisibleBit KCreateFolderAtBoot = 2
 	// Deprecated.
-	KFolderCreatedNameLocked KCreateFolderAtBoot = 8
+	KFolderCreatedNameLocked KCreateFolderAtBoot = 0x8
 	// Deprecated.
 	KFolderCreatedNameLockedBit KCreateFolderAtBoot = 3
 )
@@ -13875,7 +13895,7 @@ const (
 	// Deprecated.
 	KMovieDocumentsFolderType KDocumentsFolderType = 'm'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'mdoc'
 	// Deprecated.
-	KMusicDocumentsFolderType KDocumentsFolderType = 3043258211
+	KMusicDocumentsFolderType KDocumentsFolderType = 0xb5646f63
 	// Deprecated.
 	KPictureDocumentsFolderType KDocumentsFolderType = 'p'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'pdoc'
 	// Deprecated.
@@ -13921,7 +13941,7 @@ type KDuration int
 
 const (
 	// Deprecated.
-	KDurationForever KDuration = 2147483647
+	KDurationForever KDuration = 0x7fffffff
 	// Deprecated.
 	KDurationImmediate KDuration = 0
 	// Deprecated.
@@ -13972,10 +13992,10 @@ func (e KExportedFolderAliasType) String() string {
 type KExtended uint
 
 const (
-	KExtendedFlagHasCustomBadge KExtended = 256
-	KExtendedFlagHasRoutingInfo KExtended = 4
-	KExtendedFlagObjectIsBusy   KExtended = 128
-	KExtendedFlagsAreInvalid    KExtended = 32768
+	KExtendedFlagHasCustomBadge KExtended = 0x100
+	KExtendedFlagHasRoutingInfo KExtended = 0x4
+	KExtendedFlagObjectIsBusy   KExtended = 0x80
+	KExtendedFlagsAreInvalid    KExtended = 0x8000
 )
 
 func (e KExtended) String() string {
@@ -14270,18 +14290,18 @@ type KFS uint
 
 const (
 	KFSAllowConcurrentAsyncIOBit  KFS = 3
-	KFSAllowConcurrentAsyncIOMask KFS = 8
+	KFSAllowConcurrentAsyncIOMask KFS = 0x8
 	KFSForceReadBit               KFS = 6
-	KFSForceReadMask              KFS = 64
+	KFSForceReadMask              KFS = 0x40
 	KFSNewLineBit                 KFS = 7
-	KFSNewLineCharMask            KFS = 65280
-	KFSNewLineMask                KFS = 128
+	KFSNewLineCharMask            KFS = 0xff00
+	KFSNewLineMask                KFS = 0x80
 	KFSNoCacheBit                 KFS = 5
-	KFSNoCacheMask                KFS = 32
+	KFSNoCacheMask                KFS = 0x20
 	KFSPleaseCacheBit             KFS = 4
-	KFSPleaseCacheMask            KFS = 16
+	KFSPleaseCacheMask            KFS = 0x10
 	KFSRdVerifyBit                KFS = 6
-	KFSRdVerifyMask               KFS = 64
+	KFSRdVerifyMask               KFS = 0x40
 )
 
 func (e KFS) String() string {
@@ -14317,21 +14337,21 @@ type KFSAliasInfo uint
 
 const (
 	// Deprecated.
-	KFSAliasInfoFSInfo KFSAliasInfo = 32
+	KFSAliasInfoFSInfo KFSAliasInfo = 0x20
 	// Deprecated.
-	KFSAliasInfoFinderInfo KFSAliasInfo = 4
+	KFSAliasInfoFinderInfo KFSAliasInfo = 0x4
 	// Deprecated.
-	KFSAliasInfoIDs KFSAliasInfo = 16
+	KFSAliasInfoIDs KFSAliasInfo = 0x10
 	// Deprecated.
-	KFSAliasInfoIsDirectory KFSAliasInfo = 8
+	KFSAliasInfoIsDirectory KFSAliasInfo = 0x8
 	// Deprecated.
 	KFSAliasInfoNone KFSAliasInfo = 0
 	// Deprecated.
-	KFSAliasInfoTargetCreateDate KFSAliasInfo = 2
+	KFSAliasInfoTargetCreateDate KFSAliasInfo = 0x2
 	// Deprecated.
-	KFSAliasInfoVolumeCreateDate KFSAliasInfo = 1
+	KFSAliasInfoVolumeCreateDate KFSAliasInfo = 0x1
 	// Deprecated.
-	KFSAliasInfoVolumeFlags KFSAliasInfo = 64
+	KFSAliasInfoVolumeFlags KFSAliasInfo = 0x40
 )
 
 func (e KFSAliasInfo) String() string {
@@ -14360,11 +14380,11 @@ func (e KFSAliasInfo) String() string {
 type KFSAlloc uint
 
 const (
-	KFSAllocAllOrNothingMask KFSAlloc = 1
-	KFSAllocContiguousMask   KFSAlloc = 2
+	KFSAllocAllOrNothingMask KFSAlloc = 0x1
+	KFSAllocContiguousMask   KFSAlloc = 0x2
 	KFSAllocDefaultFlags     KFSAlloc = 0
-	KFSAllocNoRoundUpMask    KFSAlloc = 4
-	KFSAllocReservedMask     KFSAlloc = 65528
+	KFSAllocNoRoundUpMask    KFSAlloc = 0x4
+	KFSAllocReservedMask     KFSAlloc = 0xfff8
 )
 
 func (e KFSAlloc) String() string {
@@ -14387,32 +14407,32 @@ func (e KFSAlloc) String() string {
 type KFSCatInfo uint
 
 const (
-	KFSCatInfoAccessDate        KFSCatInfo = 256
-	KFSCatInfoAllDates          KFSCatInfo = 992
-	KFSCatInfoAttrMod           KFSCatInfo = 128
-	KFSCatInfoBackupDate        KFSCatInfo = 512
-	KFSCatInfoContentMod        KFSCatInfo = 64
-	KFSCatInfoCreateDate        KFSCatInfo = 32
-	KFSCatInfoDataSizes         KFSCatInfo = 16384
-	KFSCatInfoFSFileSecurityRef KFSCatInfo = 4194304
-	KFSCatInfoFinderInfo        KFSCatInfo = 2048
-	KFSCatInfoFinderXInfo       KFSCatInfo = 4096
-	KFSCatInfoGettableInfo      KFSCatInfo = 262143
-	KFSCatInfoNodeFlags         KFSCatInfo = 2
-	KFSCatInfoNodeID            KFSCatInfo = 16
+	KFSCatInfoAccessDate        KFSCatInfo = 0x100
+	KFSCatInfoAllDates          KFSCatInfo = 0x3e0
+	KFSCatInfoAttrMod           KFSCatInfo = 0x80
+	KFSCatInfoBackupDate        KFSCatInfo = 0x200
+	KFSCatInfoContentMod        KFSCatInfo = 0x40
+	KFSCatInfoCreateDate        KFSCatInfo = 0x20
+	KFSCatInfoDataSizes         KFSCatInfo = 0x4000
+	KFSCatInfoFSFileSecurityRef KFSCatInfo = 0x400000
+	KFSCatInfoFinderInfo        KFSCatInfo = 0x800
+	KFSCatInfoFinderXInfo       KFSCatInfo = 0x1000
+	KFSCatInfoGettableInfo      KFSCatInfo = 0x3ffff
+	KFSCatInfoNodeFlags         KFSCatInfo = 0x2
+	KFSCatInfoNodeID            KFSCatInfo = 0x10
 	KFSCatInfoNone              KFSCatInfo = 0
-	KFSCatInfoParentDirID       KFSCatInfo = 8
-	KFSCatInfoPermissions       KFSCatInfo = 1024
-	KFSCatInfoReserved          KFSCatInfo = 0
-	KFSCatInfoRsrcSizes         KFSCatInfo = 32768
-	KFSCatInfoSetOwnership      KFSCatInfo = 1048576
-	KFSCatInfoSettableInfo      KFSCatInfo = 8163
-	KFSCatInfoSharingFlags      KFSCatInfo = 65536
-	KFSCatInfoTextEncoding      KFSCatInfo = 1
-	KFSCatInfoUserAccess        KFSCatInfo = 524288
-	KFSCatInfoUserPrivs         KFSCatInfo = 131072
-	KFSCatInfoValence           KFSCatInfo = 8192
-	KFSCatInfoVolume            KFSCatInfo = 4
+	KFSCatInfoParentDirID       KFSCatInfo = 0x8
+	KFSCatInfoPermissions       KFSCatInfo = 0x400
+	KFSCatInfoReserved          KFSCatInfo = 0xfffc0000
+	KFSCatInfoRsrcSizes         KFSCatInfo = 0x8000
+	KFSCatInfoSetOwnership      KFSCatInfo = 0x100000
+	KFSCatInfoSettableInfo      KFSCatInfo = 0x1fe3
+	KFSCatInfoSharingFlags      KFSCatInfo = 0x10000
+	KFSCatInfoTextEncoding      KFSCatInfo = 0x1
+	KFSCatInfoUserAccess        KFSCatInfo = 0x80000
+	KFSCatInfoUserPrivs         KFSCatInfo = 0x20000
+	KFSCatInfoValence           KFSCatInfo = 0x2000
+	KFSCatInfoVolume            KFSCatInfo = 0x4
 )
 
 func (e KFSCatInfo) String() string {
@@ -14449,6 +14469,8 @@ func (e KFSCatInfo) String() string {
 		return "KFSCatInfoParentDirID"
 	case KFSCatInfoPermissions:
 		return "KFSCatInfoPermissions"
+	case KFSCatInfoReserved:
+		return "KFSCatInfoReserved"
 	case KFSCatInfoRsrcSizes:
 		return "KFSCatInfoRsrcSizes"
 	case KFSCatInfoSetOwnership:
@@ -14491,21 +14513,21 @@ type KFSEventStreamCreate uint
 
 const (
 	// KFSEventStreamCreateFlagFileEvents: # Discussion
-	KFSEventStreamCreateFlagFileEvents  KFSEventStreamCreate = 16
-	KFSEventStreamCreateFlagFullHistory KFSEventStreamCreate = 128
+	KFSEventStreamCreateFlagFileEvents  KFSEventStreamCreate = 0x10
+	KFSEventStreamCreateFlagFullHistory KFSEventStreamCreate = 0x80
 	// KFSEventStreamCreateFlagIgnoreSelf: # Discussion
-	KFSEventStreamCreateFlagIgnoreSelf KFSEventStreamCreate = 8
-	KFSEventStreamCreateFlagMarkSelf   KFSEventStreamCreate = 32
+	KFSEventStreamCreateFlagIgnoreSelf KFSEventStreamCreate = 0x8
+	KFSEventStreamCreateFlagMarkSelf   KFSEventStreamCreate = 0x20
 	// KFSEventStreamCreateFlagNoDefer: # Discussion
-	KFSEventStreamCreateFlagNoDefer KFSEventStreamCreate = 2
+	KFSEventStreamCreateFlagNoDefer KFSEventStreamCreate = 0x2
 	// KFSEventStreamCreateFlagNone: # Discussion
 	KFSEventStreamCreateFlagNone KFSEventStreamCreate = 0
 	// KFSEventStreamCreateFlagUseCFTypes: # Discussion
-	KFSEventStreamCreateFlagUseCFTypes      KFSEventStreamCreate = 1
-	KFSEventStreamCreateFlagUseExtendedData KFSEventStreamCreate = 64
+	KFSEventStreamCreateFlagUseCFTypes      KFSEventStreamCreate = 0x1
+	KFSEventStreamCreateFlagUseExtendedData KFSEventStreamCreate = 0x40
 	// KFSEventStreamCreateFlagWatchRoot: # Discussion
-	KFSEventStreamCreateFlagWatchRoot KFSEventStreamCreate = 4
-	KFSEventStreamCreateWithDocID     KFSEventStreamCreate = 256
+	KFSEventStreamCreateFlagWatchRoot KFSEventStreamCreate = 0x4
+	KFSEventStreamCreateWithDocID     KFSEventStreamCreate = 0x100
 )
 
 func (e KFSEventStreamCreate) String() string {
@@ -14539,37 +14561,37 @@ type KFSEventStreamEventFlag uint
 
 const (
 	// KFSEventStreamEventFlagEventIdsWrapped: # Discussion
-	KFSEventStreamEventFlagEventIdsWrapped KFSEventStreamEventFlag = 8
+	KFSEventStreamEventFlagEventIdsWrapped KFSEventStreamEventFlag = 0x8
 	// KFSEventStreamEventFlagHistoryDone: # Discussion
-	KFSEventStreamEventFlagHistoryDone        KFSEventStreamEventFlag = 16
-	KFSEventStreamEventFlagItemChangeOwner    KFSEventStreamEventFlag = 16384
-	KFSEventStreamEventFlagItemCloned         KFSEventStreamEventFlag = 4194304
-	KFSEventStreamEventFlagItemCreated        KFSEventStreamEventFlag = 256
-	KFSEventStreamEventFlagItemFinderInfoMod  KFSEventStreamEventFlag = 8192
-	KFSEventStreamEventFlagItemInodeMetaMod   KFSEventStreamEventFlag = 1024
-	KFSEventStreamEventFlagItemIsDir          KFSEventStreamEventFlag = 131072
-	KFSEventStreamEventFlagItemIsFile         KFSEventStreamEventFlag = 65536
-	KFSEventStreamEventFlagItemIsHardlink     KFSEventStreamEventFlag = 1048576
-	KFSEventStreamEventFlagItemIsLastHardlink KFSEventStreamEventFlag = 2097152
-	KFSEventStreamEventFlagItemIsSymlink      KFSEventStreamEventFlag = 262144
-	KFSEventStreamEventFlagItemModified       KFSEventStreamEventFlag = 4096
-	KFSEventStreamEventFlagItemRemoved        KFSEventStreamEventFlag = 512
-	KFSEventStreamEventFlagItemRenamed        KFSEventStreamEventFlag = 2048
-	KFSEventStreamEventFlagItemXattrMod       KFSEventStreamEventFlag = 32768
-	KFSEventStreamEventFlagKernelDropped      KFSEventStreamEventFlag = 4
+	KFSEventStreamEventFlagHistoryDone        KFSEventStreamEventFlag = 0x10
+	KFSEventStreamEventFlagItemChangeOwner    KFSEventStreamEventFlag = 0x4000
+	KFSEventStreamEventFlagItemCloned         KFSEventStreamEventFlag = 0x400000
+	KFSEventStreamEventFlagItemCreated        KFSEventStreamEventFlag = 0x100
+	KFSEventStreamEventFlagItemFinderInfoMod  KFSEventStreamEventFlag = 0x2000
+	KFSEventStreamEventFlagItemInodeMetaMod   KFSEventStreamEventFlag = 0x400
+	KFSEventStreamEventFlagItemIsDir          KFSEventStreamEventFlag = 0x20000
+	KFSEventStreamEventFlagItemIsFile         KFSEventStreamEventFlag = 0x10000
+	KFSEventStreamEventFlagItemIsHardlink     KFSEventStreamEventFlag = 0x100000
+	KFSEventStreamEventFlagItemIsLastHardlink KFSEventStreamEventFlag = 0x200000
+	KFSEventStreamEventFlagItemIsSymlink      KFSEventStreamEventFlag = 0x40000
+	KFSEventStreamEventFlagItemModified       KFSEventStreamEventFlag = 0x1000
+	KFSEventStreamEventFlagItemRemoved        KFSEventStreamEventFlag = 0x200
+	KFSEventStreamEventFlagItemRenamed        KFSEventStreamEventFlag = 0x800
+	KFSEventStreamEventFlagItemXattrMod       KFSEventStreamEventFlag = 0x8000
+	KFSEventStreamEventFlagKernelDropped      KFSEventStreamEventFlag = 0x4
 	// KFSEventStreamEventFlagMount: # Discussion
-	KFSEventStreamEventFlagMount KFSEventStreamEventFlag = 64
+	KFSEventStreamEventFlagMount KFSEventStreamEventFlag = 0x40
 	// KFSEventStreamEventFlagMustScanSubDirs: # Discussion
-	KFSEventStreamEventFlagMustScanSubDirs KFSEventStreamEventFlag = 1
+	KFSEventStreamEventFlagMustScanSubDirs KFSEventStreamEventFlag = 0x1
 	// KFSEventStreamEventFlagNone: # Discussion
 	KFSEventStreamEventFlagNone     KFSEventStreamEventFlag = 0
-	KFSEventStreamEventFlagOwnEvent KFSEventStreamEventFlag = 524288
+	KFSEventStreamEventFlagOwnEvent KFSEventStreamEventFlag = 0x80000
 	// KFSEventStreamEventFlagRootChanged: # Discussion
-	KFSEventStreamEventFlagRootChanged KFSEventStreamEventFlag = 32
+	KFSEventStreamEventFlagRootChanged KFSEventStreamEventFlag = 0x20
 	// KFSEventStreamEventFlagUnmount: # Discussion
-	KFSEventStreamEventFlagUnmount KFSEventStreamEventFlag = 128
+	KFSEventStreamEventFlagUnmount KFSEventStreamEventFlag = 0x80
 	// KFSEventStreamEventFlagUserDropped: # Discussion
-	KFSEventStreamEventFlagUserDropped KFSEventStreamEventFlag = 2
+	KFSEventStreamEventFlagUserDropped KFSEventStreamEventFlag = 0x2
 )
 
 func (e KFSEventStreamEventFlag) String() string {
@@ -14646,10 +14668,10 @@ type KFSFileOperation uint
 
 const (
 	KFSFileOperationDefaultOptions             KFSFileOperation = 0
-	KFSFileOperationDoNotMoveAcrossVolumes     KFSFileOperation = 4
-	KFSFileOperationOverwrite                  KFSFileOperation = 1
-	KFSFileOperationSkipPreflight              KFSFileOperation = 8
-	KFSFileOperationSkipSourcePermissionErrors KFSFileOperation = 2
+	KFSFileOperationDoNotMoveAcrossVolumes     KFSFileOperation = 0x4
+	KFSFileOperationOverwrite                  KFSFileOperation = 0x1
+	KFSFileOperationSkipPreflight              KFSFileOperation = 0x8
+	KFSFileOperationSkipSourcePermissionErrors KFSFileOperation = 0x2
 )
 
 func (e KFSFileOperation) String() string {
@@ -14689,7 +14711,7 @@ type KFSIterate uint
 const (
 	KFSIterateDelete   KFSIterate = 2
 	KFSIterateFlat     KFSIterate = 0
-	KFSIterateReserved KFSIterate = 0
+	KFSIterateReserved KFSIterate = 0xfffffffc
 	KFSIterateSubtree  KFSIterate = 1
 )
 
@@ -14699,6 +14721,8 @@ func (e KFSIterate) String() string {
 		return "KFSIterateDelete"
 	case KFSIterateFlat:
 		return "KFSIterateFlat"
+	case KFSIterateReserved:
+		return "KFSIterateReserved"
 	case KFSIterateSubtree:
 		return "KFSIterateSubtree"
 	default:
@@ -14746,25 +14770,25 @@ type KFSNode uint
 
 const (
 	KFSNodeCopyProtectBit   KFSNode = 6
-	KFSNodeCopyProtectMask  KFSNode = 64
+	KFSNodeCopyProtectMask  KFSNode = 0x40
 	KFSNodeDataOpenBit      KFSNode = 3
-	KFSNodeDataOpenMask     KFSNode = 8
+	KFSNodeDataOpenMask     KFSNode = 0x8
 	KFSNodeForkOpenBit      KFSNode = 7
-	KFSNodeForkOpenMask     KFSNode = 128
+	KFSNodeForkOpenMask     KFSNode = 0x80
 	KFSNodeHardLinkBit      KFSNode = 8
-	KFSNodeHardLinkMask     KFSNode = 256
+	KFSNodeHardLinkMask     KFSNode = 0x100
 	KFSNodeInSharedBit      KFSNode = 2
-	KFSNodeInSharedMask     KFSNode = 4
+	KFSNodeInSharedMask     KFSNode = 0x4
 	KFSNodeIsDirectoryBit   KFSNode = 4
-	KFSNodeIsDirectoryMask  KFSNode = 16
+	KFSNodeIsDirectoryMask  KFSNode = 0x10
 	KFSNodeIsMountedBit     KFSNode = 3
-	KFSNodeIsMountedMask    KFSNode = 8
+	KFSNodeIsMountedMask    KFSNode = 0x8
 	KFSNodeIsSharePointBit  KFSNode = 5
-	KFSNodeIsSharePointMask KFSNode = 32
+	KFSNodeIsSharePointMask KFSNode = 0x20
 	KFSNodeLockedBit        KFSNode = 0
-	KFSNodeLockedMask       KFSNode = 1
+	KFSNodeLockedMask       KFSNode = 0x1
 	KFSNodeResOpenBit       KFSNode = 2
-	KFSNodeResOpenMask      KFSNode = 4
+	KFSNodeResOpenMask      KFSNode = 0x4
 )
 
 func (e KFSNode) String() string {
@@ -14830,7 +14854,7 @@ type KFSPathMakeRef uint
 
 const (
 	KFSPathMakeRefDefaultOptions         KFSPathMakeRef = 0
-	KFSPathMakeRefDoNotFollowLeafSymlink KFSPathMakeRef = 1
+	KFSPathMakeRefDoNotFollowLeafSymlink KFSPathMakeRef = 0x1
 )
 
 func (e KFSPathMakeRef) String() string {
@@ -14848,11 +14872,11 @@ type KFSReplaceObject uint
 
 const (
 	KFSReplaceObjectDefaultOptions              KFSReplaceObject = 0
-	KFSReplaceObjectDoNotCheckObjectWriteAccess KFSReplaceObject = 16
-	KFSReplaceObjectPreservePermissionInfo      KFSReplaceObject = 8
-	KFSReplaceObjectReplaceMetadata             KFSReplaceObject = 1
-	KFSReplaceObjectReplacePermissionInfo       KFSReplaceObject = 4
-	KFSReplaceObjectSaveOriginalAsABackup       KFSReplaceObject = 2
+	KFSReplaceObjectDoNotCheckObjectWriteAccess KFSReplaceObject = 0x10
+	KFSReplaceObjectPreservePermissionInfo      KFSReplaceObject = 0x8
+	KFSReplaceObjectReplaceMetadata             KFSReplaceObject = 0x1
+	KFSReplaceObjectReplacePermissionInfo       KFSReplaceObject = 0x4
+	KFSReplaceObjectSaveOriginalAsABackup       KFSReplaceObject = 0x2
 )
 
 func (e KFSReplaceObject) String() string {
@@ -14893,15 +14917,15 @@ type KFSVolFlag uint
 
 const (
 	KFSVolFlagDefaultVolumeBit     KFSVolFlag = 5
-	KFSVolFlagDefaultVolumeMask    KFSVolFlag = 32
+	KFSVolFlagDefaultVolumeMask    KFSVolFlag = 0x20
 	KFSVolFlagFilesOpenBit         KFSVolFlag = 6
-	KFSVolFlagFilesOpenMask        KFSVolFlag = 64
+	KFSVolFlagFilesOpenMask        KFSVolFlag = 0x40
 	KFSVolFlagHardwareLockedBit    KFSVolFlag = 7
-	KFSVolFlagHardwareLockedMask   KFSVolFlag = 128
+	KFSVolFlagHardwareLockedMask   KFSVolFlag = 0x80
 	KFSVolFlagJournalingActiveBit  KFSVolFlag = 14
-	KFSVolFlagJournalingActiveMask KFSVolFlag = 16384
+	KFSVolFlagJournalingActiveMask KFSVolFlag = 0x4000
 	KFSVolFlagSoftwareLockedBit    KFSVolFlag = 15
-	KFSVolFlagSoftwareLockedMask   KFSVolFlag = 32768
+	KFSVolFlagSoftwareLockedMask   KFSVolFlag = 0x8000
 )
 
 func (e KFSVolFlag) String() string {
@@ -14934,25 +14958,25 @@ func (e KFSVolFlag) String() string {
 type KFSVolInfo uint
 
 const (
-	KFSVolInfoBackupDate   KFSVolInfo = 4
-	KFSVolInfoBlocks       KFSVolInfo = 128
-	KFSVolInfoCheckedDate  KFSVolInfo = 8
-	KFSVolInfoCreateDate   KFSVolInfo = 1
-	KFSVolInfoDataClump    KFSVolInfo = 1024
-	KFSVolInfoDirCount     KFSVolInfo = 32
-	KFSVolInfoDriveInfo    KFSVolInfo = 32768
-	KFSVolInfoFSInfo       KFSVolInfo = 16384
-	KFSVolInfoFileCount    KFSVolInfo = 16
-	KFSVolInfoFinderInfo   KFSVolInfo = 4096
-	KFSVolInfoFlags        KFSVolInfo = 8192
-	KFSVolInfoGettableInfo KFSVolInfo = 65535
-	KFSVolInfoModDate      KFSVolInfo = 2
-	KFSVolInfoNextAlloc    KFSVolInfo = 256
-	KFSVolInfoNextID       KFSVolInfo = 2048
+	KFSVolInfoBackupDate   KFSVolInfo = 0x4
+	KFSVolInfoBlocks       KFSVolInfo = 0x80
+	KFSVolInfoCheckedDate  KFSVolInfo = 0x8
+	KFSVolInfoCreateDate   KFSVolInfo = 0x1
+	KFSVolInfoDataClump    KFSVolInfo = 0x400
+	KFSVolInfoDirCount     KFSVolInfo = 0x20
+	KFSVolInfoDriveInfo    KFSVolInfo = 0x8000
+	KFSVolInfoFSInfo       KFSVolInfo = 0x4000
+	KFSVolInfoFileCount    KFSVolInfo = 0x10
+	KFSVolInfoFinderInfo   KFSVolInfo = 0x1000
+	KFSVolInfoFlags        KFSVolInfo = 0x2000
+	KFSVolInfoGettableInfo KFSVolInfo = 0xffff
+	KFSVolInfoModDate      KFSVolInfo = 0x2
+	KFSVolInfoNextAlloc    KFSVolInfo = 0x100
+	KFSVolInfoNextID       KFSVolInfo = 0x800
 	KFSVolInfoNone         KFSVolInfo = 0
-	KFSVolInfoRsrcClump    KFSVolInfo = 512
-	KFSVolInfoSettableInfo KFSVolInfo = 12292
-	KFSVolInfoSizes        KFSVolInfo = 64
+	KFSVolInfoRsrcClump    KFSVolInfo = 0x200
+	KFSVolInfoSettableInfo KFSVolInfo = 0x3004
+	KFSVolInfoSizes        KFSVolInfo = 0x40
 )
 
 func (e KFSVolInfo) String() string {
@@ -15024,17 +15048,17 @@ const (
 	// Deprecated.
 	KFolderInLocalOrRemoteUserFolder KFolder = 32
 	// Deprecated.
-	KFolderInRemoteUserFolderIfAvailable KFolder = 128
+	KFolderInRemoteUserFolderIfAvailable KFolder = 0x80
 	// Deprecated.
 	KFolderInRemoteUserFolderIfAvailableBit KFolder = 7
 	// Deprecated.
-	KFolderInUserFolder KFolder = 32
+	KFolderInUserFolder KFolder = 0x20
 	// Deprecated.
 	KFolderInUserFolderBit KFolder = 5
 	// Deprecated.
 	KFolderManagerFolderInMacOS9FolderIfMacOSXIsInstalledBit KFolder = 10
 	// Deprecated.
-	KFolderManagerFolderInMacOS9FolderIfMacOSXIsInstalledMask KFolder = 1024
+	KFolderManagerFolderInMacOS9FolderIfMacOSXIsInstalledMask KFolder = 0x400
 	// Deprecated.
 	KFolderManagerNewlyCreatedFolderIsLocalizedBit KFolder = 12
 	// Deprecated.
@@ -15044,15 +15068,15 @@ const (
 	// Deprecated.
 	KFolderManagerNotCreatedOnRemoteVolumesMask KFolder = 2048
 	// Deprecated.
-	KFolderMustStayOnSameVolume KFolder = 512
+	KFolderMustStayOnSameVolume KFolder = 0x200
 	// Deprecated.
 	KFolderMustStayOnSameVolumeBit KFolder = 9
 	// Deprecated.
-	KFolderNeverMatchedInIdentifyFolder KFolder = 256
+	KFolderNeverMatchedInIdentifyFolder KFolder = 0x100
 	// Deprecated.
 	KFolderNeverMatchedInIdentifyFolderBit KFolder = 8
 	// Deprecated.
-	KFolderTrackedByAlias KFolder = 64
+	KFolderTrackedByAlias KFolder = 0x40
 	// Deprecated.
 	KFolderTrackedByAliasBit KFolder = 6
 )
@@ -15132,7 +15156,7 @@ const (
 	// Deprecated.
 	KFragmentIsPrepared KFragment = 0
 	// Deprecated.
-	KFragmentNeedsPreparing KFragment = 2
+	KFragmentNeedsPreparing KFragment = 0x2
 )
 
 func (e KFragment) String() string {
@@ -15385,15 +15409,15 @@ const (
 	// Deprecated.
 	KHandleIsResourceBit KHandle = 5
 	// Deprecated.
-	KHandleIsResourceMask KHandle = 32
+	KHandleIsResourceMask KHandle = 0x20
 	// Deprecated.
 	KHandleLockedBit KHandle = 7
 	// Deprecated.
-	KHandleLockedMask KHandle = 128
+	KHandleLockedMask KHandle = 0x80
 	// Deprecated.
 	KHandlePurgeableBit KHandle = 6
 	// Deprecated.
-	KHandlePurgeableMask KHandle = 64
+	KHandlePurgeableMask KHandle = 0x40
 )
 
 func (e KHandle) String() string {
@@ -15586,9 +15610,9 @@ func (e KIconFamily) String() string {
 type KIconServices uint
 
 const (
-	KIconServicesNoBadgeFlag        KIconServices = 1
+	KIconServicesNoBadgeFlag        KIconServices = 0x1
 	KIconServicesNormalUsageFlag    KIconServices = 0
-	KIconServicesUpdateIfNeededFlag KIconServices = 2
+	KIconServicesUpdateIfNeededFlag KIconServices = 0x2
 )
 
 func (e KIconServices) String() string {
@@ -15698,7 +15722,7 @@ const (
 	KDataAccessKCEventMask      KIdleKCEventMask = 1024
 	KDefaultChangedKCEventMask  KIdleKCEventMask = 512
 	KDeleteKCEventMask          KIdleKCEventMask = 16
-	KEveryKCEventMask           KIdleKCEventMask = 65535
+	KEveryKCEventMask           KIdleKCEventMask = 0xffff
 	KIdleKCEventMaskValue       KIdleKCEventMask = 1
 	KLockKCEventMask            KIdleKCEventMask = 2
 	KPasswordChangedKCEventMask KIdleKCEventMask = 64
@@ -15790,17 +15814,17 @@ func (e KInternetLocation) String() string {
 type KIsOnDesk uint
 
 const (
-	KColor         KIsOnDesk = 14
-	KHasBeenInited KIsOnDesk = 256
-	KHasBundle     KIsOnDesk = 8192
-	KHasCustomIcon KIsOnDesk = 1024
-	KHasNoINITs    KIsOnDesk = 128
-	KIsAlias       KIsOnDesk = 32768
-	KIsInvisible   KIsOnDesk = 16384
-	KIsOnDeskValue KIsOnDesk = 1
-	KIsShared      KIsOnDesk = 64
-	KIsStationery  KIsOnDesk = 2048
-	KNameLocked    KIsOnDesk = 4096
+	KColor         KIsOnDesk = 0xe
+	KHasBeenInited KIsOnDesk = 0x100
+	KHasBundle     KIsOnDesk = 0x2000
+	KHasCustomIcon KIsOnDesk = 0x400
+	KHasNoINITs    KIsOnDesk = 0x80
+	KIsAlias       KIsOnDesk = 0x8000
+	KIsInvisible   KIsOnDesk = 0x4000
+	KIsOnDeskValue KIsOnDesk = 0x1
+	KIsShared      KIsOnDesk = 0x40
+	KIsStationery  KIsOnDesk = 0x800
+	KNameLocked    KIsOnDesk = 0x1000
 )
 
 func (e KIsOnDesk) String() string {
@@ -16037,15 +16061,15 @@ type KLSLaunch uint
 
 const (
 	// Deprecated.
-	KLSLaunchHasUntrustedContents KLSLaunch = 4194304
+	KLSLaunchHasUntrustedContents KLSLaunch = 0x400000
 	// Deprecated.
-	KLSLaunchInClassic KLSLaunch = 262144
+	KLSLaunchInClassic KLSLaunch = 0x40000
 	// Deprecated.
-	KLSLaunchInhibitBGOnly KLSLaunch = 128
+	KLSLaunchInhibitBGOnly KLSLaunch = 0x80
 	// Deprecated.
-	KLSLaunchNoParams KLSLaunch = 2048
+	KLSLaunchNoParams KLSLaunch = 0x800
 	// Deprecated.
-	KLSLaunchStartClassic KLSLaunch = 131072
+	KLSLaunchStartClassic KLSLaunch = 0x20000
 )
 
 func (e KLSLaunch) String() string {
@@ -16220,8 +16244,8 @@ func (e KLaunchToGetTerminology) String() string {
 type KLocale uint
 
 const (
-	KLocaleAllPartsMask             KLocale = 63
-	KLocaleAndVariantNameMask       KLocale = 3
+	KLocaleAllPartsMask             KLocale = 0x3f
+	KLocaleAndVariantNameMask       KLocale = 0x3
 	KLocaleLanguageMask             KLocale = 1
 	KLocaleLanguageVariantMask      KLocale = 2
 	KLocaleNameMask                 KLocale = 1
@@ -16351,13 +16375,13 @@ const (
 	// Deprecated.
 	KMPEventInfoVersion KMP = 1
 	// Deprecated.
-	KMPHighLevelDebugger KMP = 536870912
+	KMPHighLevelDebugger KMP = 0x20000000
 	// Deprecated.
 	KMPInterruptRemoteContext KMP = 2
 	// Deprecated.
 	KMPLowLevelDebugger KMP = 0
 	// Deprecated.
-	KMPMidLevelDebugger KMP = 268435456
+	KMPMidLevelDebugger KMP = 0x10000000
 	// Deprecated.
 	KMPNotificationInfoVersion KMP = 1
 	// Deprecated.
@@ -16437,15 +16461,15 @@ type KMPAllocate uint
 
 const (
 	// Deprecated.
-	KMPAllocateClearMask KMPAllocate = 1
+	KMPAllocateClearMask KMPAllocate = 0x1
 	// Deprecated.
-	KMPAllocateGloballyMask KMPAllocate = 2
+	KMPAllocateGloballyMask KMPAllocate = 0x2
 	// Deprecated.
-	KMPAllocateNoCreateMask KMPAllocate = 32
+	KMPAllocateNoCreateMask KMPAllocate = 0x20
 	// Deprecated.
-	KMPAllocateNoGrowthMask KMPAllocate = 16
+	KMPAllocateNoGrowthMask KMPAllocate = 0x10
 	// Deprecated.
-	KMPAllocateResidentMask KMPAllocate = 4
+	KMPAllocateResidentMask KMPAllocate = 0x4
 )
 
 func (e KMPAllocate) String() string {
@@ -16827,7 +16851,7 @@ type KMacMemoryMaximumMemoryManagerBlock uint
 
 const (
 	// Deprecated.
-	KMacMemoryMaximumMemoryManagerBlockSize KMacMemoryMaximumMemoryManagerBlock = 2147483632
+	KMacMemoryMaximumMemoryManagerBlockSize KMacMemoryMaximumMemoryManagerBlock = 0x7ffffff0
 )
 
 func (e KMacMemoryMaximumMemoryManagerBlock) String() string {
@@ -16917,7 +16941,7 @@ const (
 	// KMacRomanStandardVariantValue: The standard variant of Mac OS Roman for Mac OS 8.5 and later; 0xDB is the Euro sign.
 	KMacRomanStandardVariantValue KMacRomanStandardVariant = 0
 	// KTextEncodingShiftJIS_X0213_00: Shift-JIS format encoding of JIS X0213 planes 1 and 2
-	KTextEncodingShiftJIS_X0213_00 KMacRomanStandardVariant = 1576
+	KTextEncodingShiftJIS_X0213_00 KMacRomanStandardVariant = 0x628
 	// KUnicodeCanonicalCompVariant: This is the normal canonical composition according to Unicode 3.2 rules.
 	KUnicodeCanonicalCompVariant KMacRomanStandardVariant = 3
 	// KUnicodeCanonicalDecompVariant: # Discussion
@@ -17015,7 +17039,7 @@ func (e KMachineNameStrI) String() string {
 type KMagicBusyCreation uint
 
 const (
-	KMagicBusyCreationDate KMagicBusyCreation = 1329266096
+	KMagicBusyCreationDate KMagicBusyCreation = 0x4f3afdb0
 )
 
 func (e KMagicBusyCreation) String() string {
@@ -17945,7 +17969,7 @@ const (
 	// Deprecated.
 	KPEFConstantSection KPEF = 3
 	// Deprecated.
-	KPEFDataSymbol KPEF = 1
+	KPEFDataSymbol KPEF = 0x1
 	// Deprecated.
 	KPEFDebugSection KPEF = 5
 	// Deprecated.
@@ -17955,9 +17979,9 @@ const (
 	// Deprecated.
 	KPEFGlobalShare KPEF = 4
 	// Deprecated.
-	KPEFGlueSymbol KPEF = 4
+	KPEFGlueSymbol KPEF = 0x4
 	// Deprecated.
-	KPEFInitLibBeforeMask KPEF = 128
+	KPEFInitLibBeforeMask KPEF = 0x80
 	// Deprecated.
 	KPEFLoaderSection KPEF = 4
 	// Deprecated.
@@ -17969,9 +17993,9 @@ const (
 	// Deprecated.
 	KPEFReexportedImport KPEF = -3
 	// Deprecated.
-	KPEFTOCSymbol KPEF = 3
+	KPEFTOCSymbol KPEF = 0x3
 	// Deprecated.
-	KPEFTVectorSymbol KPEF = 2
+	KPEFTVectorSymbol KPEF = 0x2
 	// Deprecated.
 	KPEFTag1 KPEF = 'J'<<24 | 'o'<<16 | 'y'<<8 | '!' // 'Joy!'
 	// Deprecated.
@@ -17979,15 +18003,15 @@ const (
 	// Deprecated.
 	KPEFTracebackSection KPEF = 8
 	// Deprecated.
-	KPEFUndefinedSymbol KPEF = 15
+	KPEFUndefinedSymbol KPEF = 0xf
 	// Deprecated.
 	KPEFUnpackedDataSection KPEF = 1
 	// Deprecated.
-	KPEFVersion KPEF = 1
+	KPEFVersion KPEF = 0x1
 	// Deprecated.
-	KPEFWeakImportLibMask KPEF = 64
+	KPEFWeakImportLibMask KPEF = 0x40
 	// Deprecated.
-	KPEFWeakImportSymMask KPEF = 128
+	KPEFWeakImportSymMask KPEF = 0x80
 )
 
 func (e KPEF) String() string {
@@ -18035,9 +18059,9 @@ const (
 	// Deprecated.
 	KPEFExpSymClassShift KPEFExpSym = 24
 	// Deprecated.
-	KPEFExpSymMaxNameOffset KPEFExpSym = 16777215
+	KPEFExpSymMaxNameOffset KPEFExpSym = 0xffffff
 	// Deprecated.
-	KPEFExpSymNameOffsetMask KPEFExpSym = 16777215
+	KPEFExpSymNameOffsetMask KPEFExpSym = 0xffffff
 )
 
 func (e KPEFExpSym) String() string {
@@ -18073,9 +18097,9 @@ const (
 	// Deprecated.
 	KPEFHashLengthShift KPEFHash = 16
 	// Deprecated.
-	KPEFHashMaxLength KPEFHash = 65535
+	KPEFHashMaxLength KPEFHash = 0xffff
 	// Deprecated.
-	KPEFHashValueMask KPEFHash = 65535
+	KPEFHashValueMask KPEFHash = 0xffff
 )
 
 func (e KPEFHash) String() string {
@@ -18093,11 +18117,11 @@ type KPEFHashSlot uint
 
 const (
 	// Deprecated.
-	KPEFHashSlotFirstKeyMask KPEFHashSlot = 262143
+	KPEFHashSlotFirstKeyMask KPEFHashSlot = 0x3ffff
 	// Deprecated.
-	KPEFHashSlotMaxKeyIndex KPEFHashSlot = 262143
+	KPEFHashSlotMaxKeyIndex KPEFHashSlot = 0x3ffff
 	// Deprecated.
-	KPEFHashSlotMaxSymbolCount KPEFHashSlot = 16383
+	KPEFHashSlotMaxSymbolCount KPEFHashSlot = 0x3fff
 	// Deprecated.
 	KPEFHashSlotSymCountShift KPEFHashSlot = 18
 )
@@ -18121,9 +18145,9 @@ const (
 	// Deprecated.
 	KPEFImpSymClassShift KPEFImpSym = 24
 	// Deprecated.
-	KPEFImpSymMaxNameOffset KPEFImpSym = 16777215
+	KPEFImpSymMaxNameOffset KPEFImpSym = 0xffffff
 	// Deprecated.
-	KPEFImpSymNameOffsetMask KPEFImpSym = 16777215
+	KPEFImpSymNameOffsetMask KPEFImpSym = 0xffffff
 )
 
 func (e KPEFImpSym) String() string {
@@ -18143,7 +18167,7 @@ const (
 	// Deprecated.
 	KPEFPkDataBlock KPEFPkData = 1
 	// Deprecated.
-	KPEFPkDataCount5Mask KPEFPkData = 31
+	KPEFPkDataCount5Mask KPEFPkData = 0x1f
 	// Deprecated.
 	KPEFPkDataMaxCount5 KPEFPkData = 31
 	// Deprecated.
@@ -18155,9 +18179,9 @@ const (
 	// Deprecated.
 	KPEFPkDataRepeatZero KPEFPkData = 4
 	// Deprecated.
-	KPEFPkDataVCountEndMask KPEFPkData = 128
+	KPEFPkDataVCountEndMask KPEFPkData = 0x80
 	// Deprecated.
-	KPEFPkDataVCountMask KPEFPkData = 127
+	KPEFPkDataVCountMask KPEFPkData = 0x7f
 	// Deprecated.
 	KPEFPkDataVCountShift KPEFPkData = 7
 	// Deprecated.
@@ -18195,41 +18219,41 @@ type KPEFReloc uint
 
 const (
 	// Deprecated.
-	KPEFRelocBySectC KPEFReloc = 32
+	KPEFRelocBySectC KPEFReloc = 0x20
 	// Deprecated.
-	KPEFRelocBySectD KPEFReloc = 33
+	KPEFRelocBySectD KPEFReloc = 0x21
 	// Deprecated.
 	KPEFRelocBySectDWithSkip KPEFReloc = 0
 	// Deprecated.
-	KPEFRelocImportRun KPEFReloc = 37
+	KPEFRelocImportRun KPEFReloc = 0x25
 	// Deprecated.
-	KPEFRelocIncrPosition KPEFReloc = 64
+	KPEFRelocIncrPosition KPEFReloc = 0x40
 	// Deprecated.
-	KPEFRelocLgByImport KPEFReloc = 82
+	KPEFRelocLgByImport KPEFReloc = 0x52
 	// Deprecated.
-	KPEFRelocLgRepeat KPEFReloc = 88
+	KPEFRelocLgRepeat KPEFReloc = 0x58
 	// Deprecated.
-	KPEFRelocLgSetOrBySection KPEFReloc = 90
+	KPEFRelocLgSetOrBySection KPEFReloc = 0x5a
 	// Deprecated.
-	KPEFRelocSetPosition KPEFReloc = 80
+	KPEFRelocSetPosition KPEFReloc = 0x50
 	// Deprecated.
-	KPEFRelocSmByImport KPEFReloc = 48
+	KPEFRelocSmByImport KPEFReloc = 0x30
 	// Deprecated.
-	KPEFRelocSmBySection KPEFReloc = 51
+	KPEFRelocSmBySection KPEFReloc = 0x33
 	// Deprecated.
-	KPEFRelocSmRepeat KPEFReloc = 72
+	KPEFRelocSmRepeat KPEFReloc = 0x48
 	// Deprecated.
-	KPEFRelocSmSetSectC KPEFReloc = 49
+	KPEFRelocSmSetSectC KPEFReloc = 0x31
 	// Deprecated.
-	KPEFRelocSmSetSectD KPEFReloc = 50
+	KPEFRelocSmSetSectD KPEFReloc = 0x32
 	// Deprecated.
-	KPEFRelocTVector12 KPEFReloc = 34
+	KPEFRelocTVector12 KPEFReloc = 0x22
 	// Deprecated.
-	KPEFRelocTVector8 KPEFReloc = 35
+	KPEFRelocTVector8 KPEFReloc = 0x23
 	// Deprecated.
-	KPEFRelocUndefinedOpcode KPEFReloc = 255
+	KPEFRelocUndefinedOpcode KPEFReloc = 0xff
 	// Deprecated.
-	KPEFRelocVTable8 KPEFReloc = 36
+	KPEFRelocVTable8 KPEFReloc = 0x24
 )
 
 func (e KPEFReloc) String() string {
@@ -18313,9 +18337,9 @@ const (
 	// Deprecated.
 	KPEFRelocLgBySectionSubopcode KPEFRelocLg = 0
 	// Deprecated.
-	KPEFRelocLgSetSectCSubopcode KPEFRelocLg = 1
+	KPEFRelocLgSetSectCSubopcode KPEFRelocLg = 0x1
 	// Deprecated.
-	KPEFRelocLgSetSectDSubopcode KPEFRelocLg = 2
+	KPEFRelocLgSetSectDSubopcode KPEFRelocLg = 0x2
 )
 
 func (e KPEFRelocLg) String() string {
@@ -18335,7 +18359,7 @@ type KPEFRelocLgByImportMax uint
 
 const (
 	// Deprecated.
-	KPEFRelocLgByImportMaxIndex KPEFRelocLgByImportMax = 67108863
+	KPEFRelocLgByImportMaxIndex KPEFRelocLgByImportMax = 0x3ffffff
 )
 
 func (e KPEFRelocLgByImportMax) String() string {
@@ -18353,7 +18377,7 @@ const (
 	// Deprecated.
 	KPEFRelocLgRepeatMaxChunkCount KPEFRelocLgRepeatMax = 16
 	// Deprecated.
-	KPEFRelocLgRepeatMaxRepeatCount KPEFRelocLgRepeatMax = 4194303
+	KPEFRelocLgRepeatMaxRepeatCount KPEFRelocLgRepeatMax = 0x3fffff
 )
 
 func (e KPEFRelocLgRepeatMax) String() string {
@@ -18371,7 +18395,7 @@ type KPEFRelocLgSetOrBySectionMax uint
 
 const (
 	// Deprecated.
-	KPEFRelocLgSetOrBySectionMaxIndex KPEFRelocLgSetOrBySectionMax = 4194303
+	KPEFRelocLgSetOrBySectionMaxIndex KPEFRelocLgSetOrBySectionMax = 0x3fffff
 )
 
 func (e KPEFRelocLgSetOrBySectionMax) String() string {
@@ -18403,7 +18427,7 @@ type KPEFRelocSetPosMax uint
 
 const (
 	// Deprecated.
-	KPEFRelocSetPosMaxOffset KPEFRelocSetPosMax = 67108863
+	KPEFRelocSetPosMaxOffset KPEFRelocSetPosMax = 0x3ffffff
 )
 
 func (e KPEFRelocSetPosMax) String() string {
@@ -18864,7 +18888,7 @@ type KPassSelector uint
 
 const (
 	// Deprecated.
-	KDontPassSelector KPassSelector = 8
+	KDontPassSelector KPassSelector = 0x8
 	// Deprecated.
 	KPassSelectorValue KPassSelector = 0
 )
@@ -18949,11 +18973,11 @@ const (
 	// Deprecated.
 	KProcDescriptorIsAbsolute KProcDescriptorIs = 0
 	// Deprecated.
-	KProcDescriptorIsIndex KProcDescriptorIs = 32
+	KProcDescriptorIsIndex KProcDescriptorIs = 0x20
 	// Deprecated.
 	KProcDescriptorIsProcPtr KProcDescriptorIs = 0
 	// Deprecated.
-	KProcDescriptorIsRelative KProcDescriptorIs = 1
+	KProcDescriptorIsRelative KProcDescriptorIs = 0x1
 )
 
 func (e KProcDescriptorIs) String() string {
@@ -19335,9 +19359,9 @@ type KResolveAlias uint
 
 const (
 	// Deprecated.
-	KResolveAliasFileNoUI KResolveAlias = 1
+	KResolveAliasFileNoUI KResolveAlias = 0x1
 	// Deprecated.
-	KResolveAliasTryFileIDFirst KResolveAlias = 2
+	KResolveAliasTryFileIDFirst KResolveAlias = 0x2
 )
 
 func (e KResolveAlias) String() string {
@@ -19371,7 +19395,7 @@ type KRoutineIs uint
 
 const (
 	// Deprecated.
-	KRoutineIsDispatchedDefaultRoutine KRoutineIs = 16
+	KRoutineIsDispatchedDefaultRoutine KRoutineIs = 0x10
 	// Deprecated.
 	KRoutineIsNotDispatchedDefaultRoutine KRoutineIs = 0
 )
@@ -19509,7 +19533,7 @@ func (e KSSp) String() string {
 type KSecOptionReserved uint
 
 const (
-	KCertUsageAllAdd           KSecOptionReserved = 2147483392
+	KCertUsageAllAdd           KSecOptionReserved = 0x7fffff00
 	KCertUsageDecryptAdd       KSecOptionReserved = 1
 	KCertUsageDecryptAskAndAdd KSecOptionReserved = 1
 	KCertUsageEncryptAdd       KSecOptionReserved = 1
@@ -19525,7 +19549,7 @@ const (
 	KCertUsageSigningAskAndAdd KSecOptionReserved = 1
 	KCertUsageVerifyAdd        KSecOptionReserved = 1
 	KCertUsageVerifyAskAndAdd  KSecOptionReserved = 1
-	KSecOptionReservedValue    KSecOptionReserved = 255
+	KSecOptionReservedValue    KSecOptionReserved = 0xff
 )
 
 func (e KSecOptionReserved) String() string {
@@ -19547,7 +19571,7 @@ type KSelectorsAre uint
 
 const (
 	// Deprecated.
-	KSelectorsAreIndexable KSelectorsAre = 1
+	KSelectorsAreIndexable KSelectorsAre = 0x1
 	// Deprecated.
 	KSelectorsAreNotIndexable KSelectorsAre = 0
 )
@@ -19593,15 +19617,15 @@ const (
 	// Deprecated.
 	KKeychainFolderType KSharedLibrariesFolderType = 'k'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'kchn'
 	// Deprecated.
-	KScriptsFolderType KSharedLibrariesFolderType = 1935897284
+	KScriptsFolderType KSharedLibrariesFolderType = 0x736372c4
 	// Deprecated.
-	KSharedLibrariesFolderTypeValue KSharedLibrariesFolderType = 3295439202
+	KSharedLibrariesFolderTypeValue KSharedLibrariesFolderType = 0xc46c6962
 	// Deprecated.
 	KSpeakableItemsFolderType KSharedLibrariesFolderType = 's'<<24 | 'p'<<16 | 'k'<<8 | 'i' // 'spki'
 	// Deprecated.
 	KThemesFolderType KSharedLibrariesFolderType = 't'<<24 | 'h'<<16 | 'm'<<8 | 'e' // 'thme'
 	// Deprecated.
-	KUtilitiesFolderType KSharedLibrariesFolderType = 1970563524
+	KUtilitiesFolderType KSharedLibrariesFolderType = 0x757469c4
 	// Deprecated.
 	KVoicesFolderType KSharedLibrariesFolderType = 'f'<<24 | 'v'<<16 | 'o'<<8 | 'c' // 'fvoc'
 )
@@ -19778,7 +19802,7 @@ type KSpecial uint
 
 const (
 	// Deprecated.
-	KSpecialCaseValue KSpecial = 15
+	KSpecialCaseValue KSpecial = 0xf
 )
 
 func (e KSpecial) String() string {
@@ -19948,13 +19972,13 @@ const (
 	// Deprecated.
 	KAppearanceFolderType KSystemFolderType = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'r' // 'appr'
 	// Deprecated.
-	KAppleExtrasFolderType KSystemFolderType = 1634040004
+	KAppleExtrasFolderType KSystemFolderType = 0x616578c4
 	// Deprecated.
 	KAppleMenuFolderType KSystemFolderType = 'a'<<24 | 'm'<<16 | 'n'<<8 | 'u' // 'amnu'
 	// Deprecated.
-	KAppleshareAutomountServerAliasesFolderType KSystemFolderType = 1936881348
+	KAppleshareAutomountServerAliasesFolderType KSystemFolderType = 0x737276c4
 	// Deprecated.
-	KAssistantsFolderType KSystemFolderType = 1634956484
+	KAssistantsFolderType KSystemFolderType = 0x617374c4
 	// Deprecated.
 	KContextualMenuItemsFolderType KSystemFolderType = 'c'<<24 | 'm'<<16 | 'n'<<8 | 'u' // 'cmnu'
 	// Deprecated.
@@ -19964,7 +19988,7 @@ const (
 	// Deprecated.
 	KControlStripModulesFolderType KSystemFolderType = 's'<<24 | 'd'<<16 | 'e'<<8 | 'v' // 'sdev'
 	// Deprecated.
-	KDesktopPicturesFolderType KSystemFolderType = 1685352644
+	KDesktopPicturesFolderType KSystemFolderType = 0x647470c4
 	// Deprecated.
 	KDisplayExtensionsFolderType KSystemFolderType = 'd'<<24 | 's'<<16 | 'p'<<8 | 'l' // 'dspl'
 	// Deprecated.
@@ -19980,25 +20004,25 @@ const (
 	// Deprecated.
 	KFindSupportFolderType KSystemFolderType = 'f'<<24 | 'n'<<16 | 'd'<<8 | 's' // 'fnds'
 	// Deprecated.
-	KGenEditorsFolderType KSystemFolderType = 3294979177
+	KGenEditorsFolderType KSystemFolderType = 0xc4656469
 	// Deprecated.
-	KHelpFolderType KSystemFolderType = 3295177840
+	KHelpFolderType KSystemFolderType = 0xc4686c70
 	// Deprecated.
-	KInternetFolderType KSystemFolderType = 1768846532
+	KInternetFolderType KSystemFolderType = 0x696e74c4
 	// Deprecated.
-	KInternetPlugInFolderType KSystemFolderType = 3295569268
+	KInternetPlugInFolderType KSystemFolderType = 0xc46e6574
 	// Deprecated.
 	KLauncherItemsFolderType KSystemFolderType = 'l'<<24 | 'a'<<16 | 'u'<<8 | 'n' // 'laun'
 	// Deprecated.
-	KLocalesFolderType KSystemFolderType = 3295440739
+	KLocalesFolderType KSystemFolderType = 0xc46c6f63
 	// Deprecated.
-	KMacOSReadMesFolderType KSystemFolderType = 1836020420
+	KMacOSReadMesFolderType KSystemFolderType = 0x6d6f72c4
 	// Deprecated.
-	KModemScriptsFolderType KSystemFolderType = 3295506276
+	KModemScriptsFolderType KSystemFolderType = 0xc46d6f64
 	// Deprecated.
 	KMultiprocessingFolderType KSystemFolderType = 'm'<<24 | 'p'<<16 | 'x'<<8 | 'f' // 'mpxf'
 	// Deprecated.
-	KOpenDocEditorsFolderType KSystemFolderType = 3295634534
+	KOpenDocEditorsFolderType KSystemFolderType = 0xc46f6466
 	// Deprecated.
 	KOpenDocFolderType KSystemFolderType = 'o'<<24 | 'd'<<16 | 'o'<<8 | 'd' // 'odod'
 	// Deprecated.
@@ -20006,23 +20030,23 @@ const (
 	// Deprecated.
 	KOpenDocShellPlugInsFolderType KSystemFolderType = 'o'<<24 | 'd'<<16 | 's'<<8 | 'p' // 'odsp'
 	// Deprecated.
-	KPreMacOS91AppleExtrasFolderType KSystemFolderType = 2355460292
+	KPreMacOS91AppleExtrasFolderType KSystemFolderType = 0x8c6578c4
 	// Deprecated.
-	KPreMacOS91ApplicationsFolderType KSystemFolderType = 2356179059
+	KPreMacOS91ApplicationsFolderType KSystemFolderType = 0x8c707073
 	// Deprecated.
-	KPreMacOS91AssistantsFolderType KSystemFolderType = 2356376772
+	KPreMacOS91AssistantsFolderType KSystemFolderType = 0x8c7374c4
 	// Deprecated.
-	KPreMacOS91AutomountedServersFolderType KSystemFolderType = 2809296580
+	KPreMacOS91AutomountedServersFolderType KSystemFolderType = 0xa77276c4
 	// Deprecated.
-	KPreMacOS91InstallerLogsFolderType KSystemFolderType = 2490132326
+	KPreMacOS91InstallerLogsFolderType KSystemFolderType = 0x946c6766
 	// Deprecated.
-	KPreMacOS91InternetFolderType KSystemFolderType = 2490266820
+	KPreMacOS91InternetFolderType KSystemFolderType = 0x946e74c4
 	// Deprecated.
-	KPreMacOS91MacOSReadMesFolderType KSystemFolderType = 3043979972
+	KPreMacOS91MacOSReadMesFolderType KSystemFolderType = 0xb56f72c4
 	// Deprecated.
-	KPreMacOS91StationeryFolderType KSystemFolderType = 3211031412
+	KPreMacOS91StationeryFolderType KSystemFolderType = 0xbf647374
 	// Deprecated.
-	KPreMacOS91UtilitiesFolderType KSystemFolderType = 2675206596
+	KPreMacOS91UtilitiesFolderType KSystemFolderType = 0x9f7469c4
 	// Deprecated.
 	KPrintMonitorDocsFolderType KSystemFolderType = 'p'<<24 | 'r'<<16 | 'n'<<8 | 't' // 'prnt'
 	// Deprecated.
@@ -20398,11 +20422,11 @@ const (
 	// KTECPluginDispatchTableCurrentVersion: A meta value that specifies the current version.
 	KTECPluginDispatchTableCurrentVersion KTECPluginDispatchTable = 65538
 	// KTECPluginDispatchTableVersion1: Specifies versions 1.0 through 1.0.3.
-	KTECPluginDispatchTableVersion1 KTECPluginDispatchTable = 65536
+	KTECPluginDispatchTableVersion1 KTECPluginDispatchTable = 0x10000
 	// KTECPluginDispatchTableVersion1_1: Specifies version 1.1.
-	KTECPluginDispatchTableVersion1_1 KTECPluginDispatchTable = 65537
+	KTECPluginDispatchTableVersion1_1 KTECPluginDispatchTable = 0x10001
 	// KTECPluginDispatchTableVersion1_2: Specifies version 1.2.
-	KTECPluginDispatchTableVersion1_2 KTECPluginDispatchTable = 65538
+	KTECPluginDispatchTableVersion1_2 KTECPluginDispatchTable = 0x10002
 )
 
 func (e KTECPluginDispatchTable) String() string {
@@ -20607,150 +20631,150 @@ func (e KText) String() string {
 type KTextEncoding uint
 
 const (
-	KTextEncodingANSEL KTextEncoding = 1537
+	KTextEncodingANSEL KTextEncoding = 0x601
 	// KTextEncodingBaseName: Requests the name of the base encoding.
 	KTextEncodingBaseName KTextEncoding = 1
 	// KTextEncodingBig5: Big-5 encoding.
-	KTextEncodingBig5            KTextEncoding = 2563
-	KTextEncodingBig5_E          KTextEncoding = 2569
-	KTextEncodingBig5_HKSCS_1999 KTextEncoding = 2566
+	KTextEncodingBig5            KTextEncoding = 0xa03
+	KTextEncodingBig5_E          KTextEncoding = 0xa09
+	KTextEncodingBig5_HKSCS_1999 KTextEncoding = 0xa06
 	// KTextEncodingCNS_11643_92_P1: CNS 11643-1992 plane 1.
-	KTextEncodingCNS_11643_92_P1 KTextEncoding = 1617
+	KTextEncodingCNS_11643_92_P1 KTextEncoding = 0x651
 	// KTextEncodingCNS_11643_92_P2: CNS 11643-1992 plane 2.
-	KTextEncodingCNS_11643_92_P2 KTextEncoding = 1618
+	KTextEncodingCNS_11643_92_P2 KTextEncoding = 0x652
 	// KTextEncodingCNS_11643_92_P3: CNS 11643-1992 plane 3 (11643-1986 plane 14).
-	KTextEncodingCNS_11643_92_P3 KTextEncoding = 1619
+	KTextEncodingCNS_11643_92_P3 KTextEncoding = 0x653
 	// KTextEncodingDOSArabic: Code page 864.
-	KTextEncodingDOSArabic KTextEncoding = 1049
+	KTextEncodingDOSArabic KTextEncoding = 0x419
 	// KTextEncodingDOSBalticRim: Code page 775.
-	KTextEncodingDOSBalticRim KTextEncoding = 1030
+	KTextEncodingDOSBalticRim KTextEncoding = 0x406
 	// KTextEncodingDOSCanadianFrench: Code page 863.
-	KTextEncodingDOSCanadianFrench KTextEncoding = 1048
+	KTextEncodingDOSCanadianFrench KTextEncoding = 0x418
 	// KTextEncodingDOSChineseSimplif: Code page 936, also for Windows.
-	KTextEncodingDOSChineseSimplif KTextEncoding = 1057
+	KTextEncodingDOSChineseSimplif KTextEncoding = 0x421
 	// KTextEncodingDOSChineseTrad: Code page 950, also for Windows.
-	KTextEncodingDOSChineseTrad KTextEncoding = 1059
+	KTextEncodingDOSChineseTrad KTextEncoding = 0x423
 	// KTextEncodingDOSCyrillic: Code page 855, IBM Cyrillic.
-	KTextEncodingDOSCyrillic KTextEncoding = 1043
+	KTextEncodingDOSCyrillic KTextEncoding = 0x413
 	// KTextEncodingDOSGreek: Code page 737, formerly 437G.
-	KTextEncodingDOSGreek KTextEncoding = 1029
+	KTextEncodingDOSGreek KTextEncoding = 0x405
 	// KTextEncodingDOSGreek1: Code page 851.
-	KTextEncodingDOSGreek1 KTextEncoding = 1041
+	KTextEncodingDOSGreek1 KTextEncoding = 0x411
 	// KTextEncodingDOSGreek2: Code page 869, IBM Modern Green.
-	KTextEncodingDOSGreek2 KTextEncoding = 1052
+	KTextEncodingDOSGreek2 KTextEncoding = 0x41c
 	// KTextEncodingDOSHebrew: Code page 862.
-	KTextEncodingDOSHebrew KTextEncoding = 1047
+	KTextEncodingDOSHebrew KTextEncoding = 0x417
 	// KTextEncodingDOSIcelandic: Code page 861.
-	KTextEncodingDOSIcelandic KTextEncoding = 1046
+	KTextEncodingDOSIcelandic KTextEncoding = 0x416
 	// KTextEncodingDOSJapanese: Code page 932, also for Windows
-	KTextEncodingDOSJapanese KTextEncoding = 1056
+	KTextEncodingDOSJapanese KTextEncoding = 0x420
 	// KTextEncodingDOSKorean: Code page 949, also for Windows; unified Hangul.
-	KTextEncodingDOSKorean KTextEncoding = 1058
+	KTextEncodingDOSKorean KTextEncoding = 0x422
 	// KTextEncodingDOSLatin1: Code page 860.
-	KTextEncodingDOSLatin1 KTextEncoding = 1040
+	KTextEncodingDOSLatin1 KTextEncoding = 0x410
 	// KTextEncodingDOSLatin2: Code page 852, Slavic.
-	KTextEncodingDOSLatin2 KTextEncoding = 1042
+	KTextEncodingDOSLatin2 KTextEncoding = 0x412
 	// KTextEncodingDOSLatinUS: Code page 437.
-	KTextEncodingDOSLatinUS KTextEncoding = 1024
+	KTextEncodingDOSLatinUS KTextEncoding = 0x400
 	// KTextEncodingDOSNordic: Cde page 865.
-	KTextEncodingDOSNordic KTextEncoding = 1050
+	KTextEncodingDOSNordic KTextEncoding = 0x41a
 	// KTextEncodingDOSPortuguese: Code page 860.
-	KTextEncodingDOSPortuguese KTextEncoding = 1045
+	KTextEncodingDOSPortuguese KTextEncoding = 0x415
 	// KTextEncodingDOSRussian: Code page 866.
-	KTextEncodingDOSRussian KTextEncoding = 1051
+	KTextEncodingDOSRussian KTextEncoding = 0x41b
 	// KTextEncodingDOSThai: Code page 874, also for Windows.
-	KTextEncodingDOSThai KTextEncoding = 1053
+	KTextEncodingDOSThai KTextEncoding = 0x41d
 	// KTextEncodingDOSTurkish: Code page 857, IBM Turkish.
-	KTextEncodingDOSTurkish KTextEncoding = 1044
+	KTextEncodingDOSTurkish KTextEncoding = 0x414
 	// KTextEncodingFormatName: Requests the name of the encoding format, if available.
 	KTextEncodingFormatName KTextEncoding = 3
 	// KTextEncodingFullName: Requests the full name of the text encoding.
 	KTextEncodingFullName KTextEncoding = 0
 	// KTextEncodingGBK_95: Annex to GB13000-93, for Windows 95; EUC-CN extended.
-	KTextEncodingGBK_95        KTextEncoding = 1585
-	KTextEncodingGB_18030_2000 KTextEncoding = 1586
-	KTextEncodingGB_18030_2005 KTextEncoding = 1586
-	KTextEncodingGB_2312_80    KTextEncoding = 1584
+	KTextEncodingGBK_95        KTextEncoding = 0x631
+	KTextEncodingGB_18030_2000 KTextEncoding = 0x632
+	KTextEncodingGB_18030_2005 KTextEncoding = 0x632
+	KTextEncodingGB_2312_80    KTextEncoding = 0x630
 	// KTextEncodingHZ_GB_2312: See RFC 1842; for Chinese mail and news.
-	KTextEncodingHZ_GB_2312 KTextEncoding = 2565
+	KTextEncodingHZ_GB_2312 KTextEncoding = 0xa05
 	// KTextEncodingISO10646_1993: This ISO UCS encoding has code points identical to Unicode 1.1.
-	KTextEncodingISO10646_1993 KTextEncoding = 257
-	KTextEncodingJIS_C6226_78  KTextEncoding = 1572
+	KTextEncodingISO10646_1993 KTextEncoding = 0x101
+	KTextEncodingJIS_C6226_78  KTextEncoding = 0x624
 	// KTextEncodingJIS_X0201_76: JIS Roman and 1-byte katakana (halfwidth).
-	KTextEncodingJIS_X0201_76       KTextEncoding = 1568
-	KTextEncodingJIS_X0208_83       KTextEncoding = 1569
-	KTextEncodingJIS_X0208_90       KTextEncoding = 1570
-	KTextEncodingJIS_X0212_90       KTextEncoding = 1571
-	KTextEncodingJIS_X0213_MenKuTen KTextEncoding = 1577
+	KTextEncodingJIS_X0201_76       KTextEncoding = 0x620
+	KTextEncodingJIS_X0208_83       KTextEncoding = 0x621
+	KTextEncodingJIS_X0208_90       KTextEncoding = 0x622
+	KTextEncodingJIS_X0212_90       KTextEncoding = 0x623
+	KTextEncodingJIS_X0213_MenKuTen KTextEncoding = 0x629
 	// KTextEncodingKOI8_R: Russian Internet standard.
-	KTextEncodingKOI8_R KTextEncoding = 2562
-	KTextEncodingKOI8_U KTextEncoding = 2568
+	KTextEncodingKOI8_R KTextEncoding = 0xa02
+	KTextEncodingKOI8_U KTextEncoding = 0xa08
 	// KTextEncodingKSC_5601_87: This is the same as KSC 5601-92 without Johab annex.
-	KTextEncodingKSC_5601_87 KTextEncoding = 1600
+	KTextEncodingKSC_5601_87 KTextEncoding = 0x640
 	// KTextEncodingKSC_5601_92_Johab: KSC 5601-92 Johab annex.
-	KTextEncodingKSC_5601_92_Johab KTextEncoding = 1601
+	KTextEncodingKSC_5601_92_Johab KTextEncoding = 0x641
 	// KTextEncodingMacRomanLatin1: Mac OS Roman permuted to align with 8859-1.
-	KTextEncodingMacRomanLatin1 KTextEncoding = 2564
+	KTextEncodingMacRomanLatin1 KTextEncoding = 0xa04
 	// KTextEncodingMultiRun: This is a special value for multiple encoded text, external run information.
-	KTextEncodingMultiRun KTextEncoding = 4095
+	KTextEncodingMultiRun KTextEncoding = 0xfff
 	// KTextEncodingShiftJIS: Plain Shift-JIS.
-	KTextEncodingShiftJIS       KTextEncoding = 2561
-	KTextEncodingShiftJIS_X0213 KTextEncoding = 1576
-	KTextEncodingUS_ASCII       KTextEncoding = 1536
+	KTextEncodingShiftJIS       KTextEncoding = 0xa01
+	KTextEncodingShiftJIS_X0213 KTextEncoding = 0x628
+	KTextEncodingUS_ASCII       KTextEncoding = 0x600
 	// KTextEncodingUnicodeDefault: This is a meta value that takes on one of the following values, depending on the system.
-	KTextEncodingUnicodeDefault KTextEncoding = 256
-	KTextEncodingUnicodeV10_0   KTextEncoding = 276
-	KTextEncodingUnicodeV11_0   KTextEncoding = 277
-	KTextEncodingUnicodeV12_1   KTextEncoding = 278
-	KTextEncodingUnicodeV13_0   KTextEncoding = 279
-	KTextEncodingUnicodeV14_0   KTextEncoding = 280
-	KTextEncodingUnicodeV15_0   KTextEncoding = 281
-	KTextEncodingUnicodeV15_1   KTextEncoding = 282
+	KTextEncodingUnicodeDefault KTextEncoding = 0x100
+	KTextEncodingUnicodeV10_0   KTextEncoding = 0x114
+	KTextEncodingUnicodeV11_0   KTextEncoding = 0x115
+	KTextEncodingUnicodeV12_1   KTextEncoding = 0x116
+	KTextEncodingUnicodeV13_0   KTextEncoding = 0x117
+	KTextEncodingUnicodeV14_0   KTextEncoding = 0x118
+	KTextEncodingUnicodeV15_0   KTextEncoding = 0x119
+	KTextEncodingUnicodeV15_1   KTextEncoding = 0x11a
 	// KTextEncodingUnicodeV1_1: This is a Unicode encoding.
-	KTextEncodingUnicodeV1_1 KTextEncoding = 257
+	KTextEncodingUnicodeV1_1 KTextEncoding = 0x101
 	// KTextEncodingUnicodeV2_0: This is the new location for Korean Hangul.
-	KTextEncodingUnicodeV2_0 KTextEncoding = 259
+	KTextEncodingUnicodeV2_0 KTextEncoding = 0x103
 	// KTextEncodingUnicodeV2_1: For the Text Encoding Converter, Unicode 2.0 is equivalent to Unicode 2.1.
-	KTextEncodingUnicodeV2_1 KTextEncoding = 259
-	KTextEncodingUnicodeV3_0 KTextEncoding = 260
+	KTextEncodingUnicodeV2_1 KTextEncoding = 0x103
+	KTextEncodingUnicodeV3_0 KTextEncoding = 0x104
 	// KTextEncodingUnicodeV3_1: Adds characters requiring surrogate pairs in UTF-16
-	KTextEncodingUnicodeV3_1 KTextEncoding = 261
-	KTextEncodingUnicodeV3_2 KTextEncoding = 262
-	KTextEncodingUnicodeV4_0 KTextEncoding = 264
-	KTextEncodingUnicodeV5_0 KTextEncoding = 266
-	KTextEncodingUnicodeV5_1 KTextEncoding = 267
-	KTextEncodingUnicodeV6_0 KTextEncoding = 269
-	KTextEncodingUnicodeV6_1 KTextEncoding = 270
-	KTextEncodingUnicodeV6_3 KTextEncoding = 272
-	KTextEncodingUnicodeV7_0 KTextEncoding = 273
-	KTextEncodingUnicodeV8_0 KTextEncoding = 274
-	KTextEncodingUnicodeV9_0 KTextEncoding = 275
-	KTextEncodingUnknown     KTextEncoding = 65535
-	KTextEncodingVISCII      KTextEncoding = 2567
+	KTextEncodingUnicodeV3_1 KTextEncoding = 0x105
+	KTextEncodingUnicodeV3_2 KTextEncoding = 0x106
+	KTextEncodingUnicodeV4_0 KTextEncoding = 0x108
+	KTextEncodingUnicodeV5_0 KTextEncoding = 0x10a
+	KTextEncodingUnicodeV5_1 KTextEncoding = 0x10b
+	KTextEncodingUnicodeV6_0 KTextEncoding = 0x10d
+	KTextEncodingUnicodeV6_1 KTextEncoding = 0x10e
+	KTextEncodingUnicodeV6_3 KTextEncoding = 0x110
+	KTextEncodingUnicodeV7_0 KTextEncoding = 0x111
+	KTextEncodingUnicodeV8_0 KTextEncoding = 0x112
+	KTextEncodingUnicodeV9_0 KTextEncoding = 0x113
+	KTextEncodingUnknown     KTextEncoding = 0xffff
+	KTextEncodingVISCII      KTextEncoding = 0xa07
 	// KTextEncodingVariantName: Requests the name of the encoding variant, if available.
 	KTextEncodingVariantName KTextEncoding = 2
 	// KTextEncodingWindowsANSI: Code page 1252 (alternate name).
-	KTextEncodingWindowsANSI KTextEncoding = 1280
+	KTextEncodingWindowsANSI KTextEncoding = 0x500
 	// KTextEncodingWindowsArabic: Code page 1256.
-	KTextEncodingWindowsArabic KTextEncoding = 1286
+	KTextEncodingWindowsArabic KTextEncoding = 0x506
 	// KTextEncodingWindowsBalticRim: Code page 1257.
-	KTextEncodingWindowsBalticRim KTextEncoding = 1287
+	KTextEncodingWindowsBalticRim KTextEncoding = 0x507
 	// KTextEncodingWindowsCyrillic: Code page 1251, Slavic Cyrillic.
-	KTextEncodingWindowsCyrillic KTextEncoding = 1282
+	KTextEncodingWindowsCyrillic KTextEncoding = 0x502
 	// KTextEncodingWindowsGreek: Code page 1253.
-	KTextEncodingWindowsGreek KTextEncoding = 1283
+	KTextEncodingWindowsGreek KTextEncoding = 0x503
 	// KTextEncodingWindowsHebrew: Code page 1255.
-	KTextEncodingWindowsHebrew KTextEncoding = 1285
+	KTextEncodingWindowsHebrew KTextEncoding = 0x505
 	// KTextEncodingWindowsKoreanJohab: Code page 1361, for Window NT.
-	KTextEncodingWindowsKoreanJohab KTextEncoding = 1296
+	KTextEncodingWindowsKoreanJohab KTextEncoding = 0x510
 	// KTextEncodingWindowsLatin1: Code page 1252.
-	KTextEncodingWindowsLatin1 KTextEncoding = 1280
+	KTextEncodingWindowsLatin1 KTextEncoding = 0x500
 	// KTextEncodingWindowsLatin2: Code page 1250, Central Europe.
-	KTextEncodingWindowsLatin2 KTextEncoding = 1281
+	KTextEncodingWindowsLatin2 KTextEncoding = 0x501
 	// KTextEncodingWindowsLatin5: Code page 1254, Turkish.
-	KTextEncodingWindowsLatin5 KTextEncoding = 1284
+	KTextEncodingWindowsLatin5 KTextEncoding = 0x504
 	// KTextEncodingWindowsVietnamese: Code page 1258.
-	KTextEncodingWindowsVietnamese KTextEncoding = 1288
+	KTextEncodingWindowsVietnamese KTextEncoding = 0x508
 )
 
 func (e KTextEncoding) String() string {
@@ -20997,10 +21021,10 @@ type KTextEncodingEBCDIC uint
 
 const (
 	// KTextEncodingEBCDIC_CP037: Code page 037, extended EBCDIC-US Latin1.
-	KTextEncodingEBCDIC_CP037     KTextEncodingEBCDIC = 3074
-	KTextEncodingEBCDIC_LatinCore KTextEncodingEBCDIC = 3073
+	KTextEncodingEBCDIC_CP037     KTextEncodingEBCDIC = 0xc02
+	KTextEncodingEBCDIC_LatinCore KTextEncodingEBCDIC = 0xc01
 	// KTextEncodingEBCDIC_US: Basic EBCDIC-US encoding.
-	KTextEncodingEBCDIC_US KTextEncodingEBCDIC = 3073
+	KTextEncodingEBCDIC_US KTextEncodingEBCDIC = 0xc01
 )
 
 func (e KTextEncodingEBCDIC) String() string {
@@ -21018,13 +21042,13 @@ type KTextEncodingEUC uint
 
 const (
 	// KTextEncodingEUC_CN: ISO 646, GB 2312-80.
-	KTextEncodingEUC_CN KTextEncodingEUC = 2352
+	KTextEncodingEUC_CN KTextEncodingEUC = 0x930
 	// KTextEncodingEUC_JP: ISO 646,1-byte katakana,JIS 208 ,JIS 212.
-	KTextEncodingEUC_JP KTextEncodingEUC = 2336
+	KTextEncodingEUC_JP KTextEncodingEUC = 0x920
 	// KTextEncodingEUC_KR: ISO 646, KS C 5601-1987.
-	KTextEncodingEUC_KR KTextEncodingEUC = 2368
+	KTextEncodingEUC_KR KTextEncodingEUC = 0x940
 	// KTextEncodingEUC_TW: ISO 646, CNS 11643-1992 Planes 1-16.
-	KTextEncodingEUC_TW KTextEncodingEUC = 2353
+	KTextEncodingEUC_TW KTextEncodingEUC = 0x931
 )
 
 func (e KTextEncodingEUC) String() string {
@@ -21046,32 +21070,32 @@ type KTextEncodingISO uint
 
 const (
 	// KTextEncodingISOLatin1: ISO 8859-1.
-	KTextEncodingISOLatin1  KTextEncodingISO = 513
-	KTextEncodingISOLatin10 KTextEncodingISO = 528
+	KTextEncodingISOLatin1  KTextEncodingISO = 0x201
+	KTextEncodingISOLatin10 KTextEncodingISO = 0x210
 	// KTextEncodingISOLatin2: ISO 8859-2.
-	KTextEncodingISOLatin2 KTextEncodingISO = 514
+	KTextEncodingISOLatin2 KTextEncodingISO = 0x202
 	// KTextEncodingISOLatin3: ISO 8859-3.
-	KTextEncodingISOLatin3 KTextEncodingISO = 515
+	KTextEncodingISOLatin3 KTextEncodingISO = 0x203
 	// KTextEncodingISOLatin4: ISO 8859-4.
-	KTextEncodingISOLatin4 KTextEncodingISO = 516
+	KTextEncodingISOLatin4 KTextEncodingISO = 0x204
 	// KTextEncodingISOLatin5: ISO 8859-9.
-	KTextEncodingISOLatin5 KTextEncodingISO = 521
+	KTextEncodingISOLatin5 KTextEncodingISO = 0x209
 	// KTextEncodingISOLatin6: ISO 8859-10.
-	KTextEncodingISOLatin6 KTextEncodingISO = 522
+	KTextEncodingISOLatin6 KTextEncodingISO = 0x20a
 	// KTextEncodingISOLatin7: ISO 8859-13; Baltic Rim
-	KTextEncodingISOLatin7 KTextEncodingISO = 525
+	KTextEncodingISOLatin7 KTextEncodingISO = 0x20d
 	// KTextEncodingISOLatin8: ISO 8859-14; Celtic
-	KTextEncodingISOLatin8 KTextEncodingISO = 526
+	KTextEncodingISOLatin8 KTextEncodingISO = 0x20e
 	// KTextEncodingISOLatin9: ISO 8859-15, 8859-1; changed for Euro & CP1252 letters
-	KTextEncodingISOLatin9 KTextEncodingISO = 527
+	KTextEncodingISOLatin9 KTextEncodingISO = 0x20f
 	// KTextEncodingISOLatinArabic: ISO 8859-6; equivalent to ASMO 708 and DOS CP 708.
-	KTextEncodingISOLatinArabic KTextEncodingISO = 518
+	KTextEncodingISOLatinArabic KTextEncodingISO = 0x206
 	// KTextEncodingISOLatinCyrillic: ISO 8859-5.
-	KTextEncodingISOLatinCyrillic KTextEncodingISO = 517
+	KTextEncodingISOLatinCyrillic KTextEncodingISO = 0x205
 	// KTextEncodingISOLatinGreek: ISO 8859-7.
-	KTextEncodingISOLatinGreek KTextEncodingISO = 519
+	KTextEncodingISOLatinGreek KTextEncodingISO = 0x207
 	// KTextEncodingISOLatinHebrew: ISO 8859-8.
-	KTextEncodingISOLatinHebrew KTextEncodingISO = 520
+	KTextEncodingISOLatinHebrew KTextEncodingISO = 0x208
 )
 
 func (e KTextEncodingISO) String() string {
@@ -21142,7 +21166,7 @@ const (
 	// KTextEncodingMacExtArabic: The encoding for Mac OS ExtArabic.
 	KTextEncodingMacExtArabic KTextEncodingMac = 31
 	// KTextEncodingMacFarsi: Uses script code 4, `smArabic`.
-	KTextEncodingMacFarsi KTextEncodingMac = 140
+	KTextEncodingMacFarsi KTextEncodingMac = 0x8c
 	// KTextEncodingMacGaelic: This Mac OS encoding uses script code 0, `smRoman`.
 	KTextEncodingMacGaelic KTextEncodingMac = 40
 	KTextEncodingMacGeez   KTextEncodingMac = 28
@@ -21159,7 +21183,7 @@ const (
 	// KTextEncodingMacIcelandic: This Mac OS encoding uses script code 0, `smRoman`.
 	KTextEncodingMacIcelandic KTextEncodingMac = 37
 	// KTextEncodingMacInuit: Uses script code 28, `smEthiopic`.]
-	KTextEncodingMacInuit KTextEncodingMac = 236
+	KTextEncodingMacInuit KTextEncodingMac = 0xec
 	// KTextEncodingMacJapanese: The encoding for Mac OS Japanese.
 	KTextEncodingMacJapanese KTextEncodingMac = 1
 	// KTextEncodingMacKannada: The encoding for Mac OS Kannada.
@@ -21199,12 +21223,12 @@ const (
 	// KTextEncodingMacTurkish: This Mac OS encoding uses script code 0, `smRoman`.
 	KTextEncodingMacTurkish KTextEncodingMac = 35
 	// KTextEncodingMacUkrainian: Uses script code 7, `smCyrillic`.]
-	KTextEncodingMacUkrainian KTextEncodingMac = 152
+	KTextEncodingMacUkrainian KTextEncodingMac = 0x98
 	// KTextEncodingMacUnicode: # Discussion
-	KTextEncodingMacUnicode  KTextEncodingMac = 126
+	KTextEncodingMacUnicode  KTextEncodingMac = 0x7e
 	KTextEncodingMacUninterp KTextEncodingMac = 32
 	// KTextEncodingMacVT100: Uses script code 32, `smUninterp`; VT100/102 font from the common toolbox; Latin-1 characters plus box drawing.]
-	KTextEncodingMacVT100 KTextEncodingMac = 252
+	KTextEncodingMacVT100 KTextEncodingMac = 0xfc
 	// KTextEncodingMacVietnamese: The encoding for Mac OS Vietnamese.
 	KTextEncodingMacVietnamese KTextEncodingMac = 30
 )
@@ -21314,7 +21338,7 @@ type KTextEncodingMacHF uint
 
 const (
 	// KTextEncodingMacHFS: This is a metavalue for a special Mac OS encoding.
-	KTextEncodingMacHFS KTextEncodingMacHF = 255
+	KTextEncodingMacHFS KTextEncodingMacHF = 0xff
 )
 
 func (e KTextEncodingMacHF) String() string {
@@ -21329,8 +21353,8 @@ func (e KTextEncodingMacHF) String() string {
 type KTextEncodingNextStep uint
 
 const (
-	KTextEncodingNextStepJapanese KTextEncodingNextStep = 2818
-	KTextEncodingNextStepLatin    KTextEncodingNextStep = 2817
+	KTextEncodingNextStepJapanese KTextEncodingNextStep = 0xb02
+	KTextEncodingNextStepLatin    KTextEncodingNextStep = 0xb01
 )
 
 func (e KTextEncodingNextStep) String() string {
@@ -21681,10 +21705,10 @@ func (e KToolbar) String() string {
 type KUC int
 
 const (
-	KUCHighSurrogateRangeEnd       KUC = 56319
-	KUCHighSurrogateRangeStart     KUC = 55296
-	KUCLowSurrogateRangeEnd        KUC = 57343
-	KUCLowSurrogateRangeStart      KUC = 56320
+	KUCHighSurrogateRangeEnd       KUC = 0xdbff
+	KUCHighSurrogateRangeStart     KUC = 0xd800
+	KUCLowSurrogateRangeEnd        KUC = 0xdfff
+	KUCLowSurrogateRangeStart      KUC = 0xdc00
 	KUCOutputBufferTooSmall        KUC = -25340
 	KUCTextBreakLocatorMissingType KUC = -25341
 	KUCTokenNotFound               KUC = -25346
@@ -21912,7 +21936,7 @@ const (
 	// KUCCollateTypeShiftBits: # Discussion
 	KUCCollateTypeShiftBits KUCCollateType = 24
 	// KUCCollateTypeSourceMask: You can use this mask, in conjunction with the `kUCCollateTypeShiftBits` constant, to obtain a value identifying a fixed ordering scheme.
-	KUCCollateTypeSourceMask KUCCollateType = 255
+	KUCCollateTypeSourceMask KUCCollateType = 0xff
 )
 
 func (e KUCCollateType) String() string {
@@ -22080,19 +22104,19 @@ type KUCKey uint
 
 const (
 	// KUCKeyLayoutFeatureInfoFormat: The format of a structure of type UCKeyLayoutFeatureInfo.
-	KUCKeyLayoutFeatureInfoFormat KUCKey = 8193
+	KUCKeyLayoutFeatureInfoFormat KUCKey = 0x2001
 	// KUCKeyLayoutHeaderFormat: The format of a structure of type UCKeyboardLayout.
-	KUCKeyLayoutHeaderFormat KUCKey = 4098
+	KUCKeyLayoutHeaderFormat KUCKey = 0x1002
 	// KUCKeyModifiersToTableNumFormat: The format of a structure of type UCKeyModifiersToTableNum.
-	KUCKeyModifiersToTableNumFormat KUCKey = 12289
+	KUCKeyModifiersToTableNumFormat KUCKey = 0x3001
 	// KUCKeySequenceDataIndexFormat: The format of a structure of type UCKeySequenceDataIndex.
-	KUCKeySequenceDataIndexFormat KUCKey = 28673
+	KUCKeySequenceDataIndexFormat KUCKey = 0x7001
 	// KUCKeyStateRecordsIndexFormat: The format of a structure of type UCKeyStateRecordsIndex.
-	KUCKeyStateRecordsIndexFormat KUCKey = 20481
+	KUCKeyStateRecordsIndexFormat KUCKey = 0x5001
 	// KUCKeyStateTerminatorsFormat: The format of a structure of type UCKeyStateTerminators.
-	KUCKeyStateTerminatorsFormat KUCKey = 24577
+	KUCKeyStateTerminatorsFormat KUCKey = 0x6001
 	// KUCKeyToCharTableIndexFormat: The format of a structure of type UCKeyToCharTableIndex.
-	KUCKeyToCharTableIndexFormat KUCKey = 16385
+	KUCKeyToCharTableIndexFormat KUCKey = 0x4001
 )
 
 func (e KUCKey) String() string {
@@ -22148,13 +22172,13 @@ type KUCKeyOutput uint
 
 const (
 	// KUCKeyOutputGetIndexMask: You can use this mask to test the bits (0–13) in a [UCKeyOutput] value that provide the actual index to another structure.
-	KUCKeyOutputGetIndexMask KUCKeyOutput = 16383
+	KUCKeyOutputGetIndexMask KUCKeyOutput = 0x3fff
 	// KUCKeyOutputSequenceIndexMask: If the bit specified by this mask is set, the [UCKeyOutput] value contains an index into a structure of type UCKeySequenceDataIndex.
-	KUCKeyOutputSequenceIndexMask KUCKeyOutput = 32768
+	KUCKeyOutputSequenceIndexMask KUCKeyOutput = 0x8000
 	// KUCKeyOutputStateIndexMask: If the bit specified by this mask is set, the UCKeyStateRecordsIndex [UCKeyOutput] value contains an index into a structure of type UCKeyStateRecordsIndex.
-	KUCKeyOutputStateIndexMask KUCKeyOutput = 16384
+	KUCKeyOutputStateIndexMask KUCKeyOutput = 0x4000
 	// KUCKeyOutputTestForIndexMask: # Discussion
-	KUCKeyOutputTestForIndexMask KUCKeyOutput = 49152
+	KUCKeyOutputTestForIndexMask KUCKeyOutput = 0xc000
 )
 
 func (e KUCKeyOutput) String() string {
@@ -22176,9 +22200,9 @@ type KUCKeyStateEntry uint
 
 const (
 	// KUCKeyStateEntryRangeFormat: Specifies that the entry format is that of a structure of type UCKeyStateEntryRange.
-	KUCKeyStateEntryRangeFormat KUCKeyStateEntry = 2
+	KUCKeyStateEntryRangeFormat KUCKeyStateEntry = 0x2
 	// KUCKeyStateEntryTerminalFormat: Specifies that the entry format is that of a structure of type UCKeyStateEntryTerminal.
-	KUCKeyStateEntryTerminalFormat KUCKeyStateEntry = 1
+	KUCKeyStateEntryTerminalFormat KUCKeyStateEntry = 0x1
 )
 
 func (e KUCKeyStateEntry) String() string {
@@ -22311,7 +22335,7 @@ func (e KUCTextBreak) String() string {
 type KUCTypeSelectMaxList uint
 
 const (
-	KUCTypeSelectMaxListSize KUCTypeSelectMaxList = 0
+	KUCTypeSelectMaxListSize KUCTypeSelectMaxList = 0xffffffff
 )
 
 func (e KUCTypeSelectMaxList) String() string {
@@ -22639,7 +22663,7 @@ func (e KUTCUnderflowErr) String() string {
 type KUnicode uint
 
 const (
-	KUnicodeByteOrderMark KUnicode = 65279
+	KUnicodeByteOrderMark KUnicode = 0xfeff
 	// KUnicodeDefaultDirection: Use the default direction.
 	KUnicodeDefaultDirection KUnicode = 0
 	// KUnicodeDefaultDirectionMask: # Discussion
@@ -22683,11 +22707,11 @@ const (
 	KUnicodeNormalizationFormC KUnicode = 3
 	KUnicodeNormalizationFormD KUnicode = 5
 	// KUnicodeNotAChar: Not a Unicode character; may be used as a terminator.
-	KUnicodeNotAChar KUnicode = 65535
+	KUnicodeNotAChar KUnicode = 0xffff
 	// KUnicodeObjectReplacement: A placeholder for a non-text object.
-	KUnicodeObjectReplacement KUnicode = 65532
+	KUnicodeObjectReplacement KUnicode = 0xfffc
 	// KUnicodeReplacementChar: Unicode replacement for an input character that cannot be converted.
-	KUnicodeReplacementChar KUnicode = 65533
+	KUnicodeReplacementChar KUnicode = 0xfffd
 	// KUnicodeRightToLeft: Indicates right to left direction.
 	KUnicodeRightToLeft KUnicode = 2
 	// KUnicodeRightToLeftMask: # Discussion
@@ -22697,7 +22721,7 @@ const (
 	// KUnicodeStringUnterminatedMask: # Discussion
 	KUnicodeStringUnterminatedMask KUnicode = 64
 	// KUnicodeSwappedByteOrderMark: Not a Unicode character; byte-swapped version of FEFF.
-	KUnicodeSwappedByteOrderMark KUnicode = 65534
+	KUnicodeSwappedByteOrderMark KUnicode = 0xfffe
 	// KUnicodeTextRunBit: Sets the text-run control flag.
 	KUnicodeTextRunBit            KUnicode = 7
 	KUnicodeTextRunHeuristicsBit  KUnicode = 11
@@ -23064,7 +23088,7 @@ const (
 	// Deprecated.
 	KUseCurrentISA KUse = 0
 	// Deprecated.
-	KUseNativeISA KUse = 4
+	KUseNativeISA KUse = 0x4
 )
 
 func (e KUse) String() string {
@@ -23112,13 +23136,13 @@ type KVCBFlags uint
 
 const (
 	KVCBFlagsHFSPlusAPIsBit   KVCBFlags = 4
-	KVCBFlagsHFSPlusAPIsMask  KVCBFlags = 16
+	KVCBFlagsHFSPlusAPIsMask  KVCBFlags = 0x10
 	KVCBFlagsHardwareGoneBit  KVCBFlags = 5
-	KVCBFlagsHardwareGoneMask KVCBFlags = 32
+	KVCBFlagsHardwareGoneMask KVCBFlags = 0x20
 	KVCBFlagsIdleFlushBit     KVCBFlags = 3
-	KVCBFlagsIdleFlushMask    KVCBFlags = 8
+	KVCBFlagsIdleFlushMask    KVCBFlags = 0x8
 	KVCBFlagsVolumeDirtyBit   KVCBFlags = 15
-	KVCBFlagsVolumeDirtyMask  KVCBFlags = 32768
+	KVCBFlagsVolumeDirtyMask  KVCBFlags = 0x8000
 )
 
 func (e KVCBFlags) String() string {
@@ -23147,7 +23171,7 @@ func (e KVCBFlags) String() string {
 type KWidePosOffsetBit uint
 
 const (
-	KMaximumBlocksIn4GB    KWidePosOffsetBit = 8388607
+	KMaximumBlocksIn4GB    KWidePosOffsetBit = 0x7fffff
 	KUseWidePositioning    KWidePosOffsetBit = 256
 	KWidePosOffsetBitValue KWidePosOffsetBit = 8
 )
@@ -23271,9 +23295,9 @@ const (
 	// Deprecated.
 	KVLibTag2 KXLibTag1 = 'V'<<24 | 'L'<<16 | 'i'<<8 | 'b' // 'VLib'
 	// Deprecated.
-	KXLibTag1Value KXLibTag1 = 0
+	KXLibTag1Value KXLibTag1 = 0xf04d6163
 	// Deprecated.
-	KXLibVersion KXLibTag1 = 1
+	KXLibVersion KXLibTag1 = 0x1
 )
 
 func (e KXLibTag1) String() string {
@@ -24110,36 +24134,36 @@ func (e KeyUserNameAttr) String() string {
 type KioACAccessOwnerBit uint
 
 const (
-	KfullPrivileges               KioACAccessOwnerBit = 458759
+	KfullPrivileges               KioACAccessOwnerBit = 0x70007
 	KioACAccessBlankAccessBit     KioACAccessOwnerBit = 28
-	KioACAccessBlankAccessMask    KioACAccessOwnerBit = 268435456
+	KioACAccessBlankAccessMask    KioACAccessOwnerBit = 0x10000000
 	KioACAccessEveryoneReadBit    KioACAccessOwnerBit = 17
-	KioACAccessEveryoneReadMask   KioACAccessOwnerBit = 131072
+	KioACAccessEveryoneReadMask   KioACAccessOwnerBit = 0x20000
 	KioACAccessEveryoneSearchBit  KioACAccessOwnerBit = 16
-	KioACAccessEveryoneSearchMask KioACAccessOwnerBit = 65536
+	KioACAccessEveryoneSearchMask KioACAccessOwnerBit = 0x10000
 	KioACAccessEveryoneWriteBit   KioACAccessOwnerBit = 18
-	KioACAccessEveryoneWriteMask  KioACAccessOwnerBit = 262144
+	KioACAccessEveryoneWriteMask  KioACAccessOwnerBit = 0x40000
 	KioACAccessGroupReadBit       KioACAccessOwnerBit = 9
-	KioACAccessGroupReadMask      KioACAccessOwnerBit = 512
+	KioACAccessGroupReadMask      KioACAccessOwnerBit = 0x200
 	KioACAccessGroupSearchBit     KioACAccessOwnerBit = 8
-	KioACAccessGroupSearchMask    KioACAccessOwnerBit = 256
+	KioACAccessGroupSearchMask    KioACAccessOwnerBit = 0x100
 	KioACAccessGroupWriteBit      KioACAccessOwnerBit = 10
-	KioACAccessGroupWriteMask     KioACAccessOwnerBit = 1024
+	KioACAccessGroupWriteMask     KioACAccessOwnerBit = 0x400
 	KioACAccessOwnerBitValue      KioACAccessOwnerBit = 31
-	KioACAccessOwnerMask          KioACAccessOwnerBit = 0
+	KioACAccessOwnerMask          KioACAccessOwnerBit = 0x80000000
 	KioACAccessOwnerReadBit       KioACAccessOwnerBit = 1
-	KioACAccessOwnerReadMask      KioACAccessOwnerBit = 2
+	KioACAccessOwnerReadMask      KioACAccessOwnerBit = 0x2
 	KioACAccessOwnerSearchBit     KioACAccessOwnerBit = 0
-	KioACAccessOwnerSearchMask    KioACAccessOwnerBit = 1
+	KioACAccessOwnerSearchMask    KioACAccessOwnerBit = 0x1
 	KioACAccessOwnerWriteBit      KioACAccessOwnerBit = 2
-	KioACAccessOwnerWriteMask     KioACAccessOwnerBit = 4
+	KioACAccessOwnerWriteMask     KioACAccessOwnerBit = 0x4
 	KioACAccessUserReadBit        KioACAccessOwnerBit = 25
-	KioACAccessUserReadMask       KioACAccessOwnerBit = 33554432
+	KioACAccessUserReadMask       KioACAccessOwnerBit = 0x2000000
 	KioACAccessUserSearchBit      KioACAccessOwnerBit = 24
-	KioACAccessUserSearchMask     KioACAccessOwnerBit = 16777216
+	KioACAccessUserSearchMask     KioACAccessOwnerBit = 0x1000000
 	KioACAccessUserWriteBit       KioACAccessOwnerBit = 26
-	KioACAccessUserWriteMask      KioACAccessOwnerBit = 67108864
-	KownerPrivileges              KioACAccessOwnerBit = 7
+	KioACAccessUserWriteMask      KioACAccessOwnerBit = 0x4000000
+	KownerPrivileges              KioACAccessOwnerBit = 0x7
 )
 
 func (e KioACAccessOwnerBit) String() string {
@@ -24182,6 +24206,8 @@ func (e KioACAccessOwnerBit) String() string {
 		return "KioACAccessOwnerReadBit"
 	case KioACAccessOwnerReadMask:
 		return "KioACAccessOwnerReadMask"
+	case KioACAccessOwnerSearchBit:
+		return "KioACAccessOwnerSearchBit"
 	case KioACAccessOwnerWriteMask:
 		return "KioACAccessOwnerWriteMask"
 	case KioACAccessUserReadBit:
@@ -24207,13 +24233,13 @@ type KioACUser uint
 
 const (
 	KioACUserNoMakeChangesBit  KioACUser = 2
-	KioACUserNoMakeChangesMask KioACUser = 4
+	KioACUserNoMakeChangesMask KioACUser = 0x4
 	KioACUserNoSeeFilesBit     KioACUser = 1
-	KioACUserNoSeeFilesMask    KioACUser = 2
+	KioACUserNoSeeFilesMask    KioACUser = 0x2
 	KioACUserNoSeeFolderBit    KioACUser = 0
-	KioACUserNoSeeFolderMask   KioACUser = 1
+	KioACUserNoSeeFolderMask   KioACUser = 0x1
 	KioACUserNotOwnerBit       KioACUser = 7
-	KioACUserNotOwnerMask      KioACUser = 128
+	KioACUserNotOwnerMask      KioACUser = 0x80
 )
 
 func (e KioACUser) String() string {
@@ -24239,21 +24265,21 @@ type KioFCB uint
 
 const (
 	KioFCBFileLockedBit   KioFCB = 13
-	KioFCBFileLockedMask  KioFCB = 8192
+	KioFCBFileLockedMask  KioFCB = 0x2000
 	KioFCBLargeFileBit    KioFCB = 11
-	KioFCBLargeFileMask   KioFCB = 2048
+	KioFCBLargeFileMask   KioFCB = 0x800
 	KioFCBModifiedBit     KioFCB = 15
-	KioFCBModifiedMask    KioFCB = 32768
+	KioFCBModifiedMask    KioFCB = 0x8000
 	KioFCBOwnClumpBit     KioFCB = 14
-	KioFCBOwnClumpMask    KioFCB = 16384
+	KioFCBOwnClumpMask    KioFCB = 0x4000
 	KioFCBResourceBit     KioFCB = 9
-	KioFCBResourceMask    KioFCB = 512
+	KioFCBResourceMask    KioFCB = 0x200
 	KioFCBSharedWriteBit  KioFCB = 12
-	KioFCBSharedWriteMask KioFCB = 4096
+	KioFCBSharedWriteMask KioFCB = 0x1000
 	KioFCBWriteBit        KioFCB = 8
 	KioFCBWriteLockedBit  KioFCB = 10
-	KioFCBWriteLockedMask KioFCB = 1024
-	KioFCBWriteMask       KioFCB = 256
+	KioFCBWriteLockedMask KioFCB = 0x400
+	KioFCBWriteMask       KioFCB = 0x100
 )
 
 func (e KioFCB) String() string {
@@ -24299,25 +24325,25 @@ type KioFlAttribLockedBit uint
 
 const (
 	IoDirFlg                  KioFlAttribLockedBit = 4
-	IoDirMask                 KioFlAttribLockedBit = 16
+	IoDirMask                 KioFlAttribLockedBit = 0x10
 	KioFlAttribCopyProtBit    KioFlAttribLockedBit = 6
-	KioFlAttribCopyProtMask   KioFlAttribLockedBit = 64
+	KioFlAttribCopyProtMask   KioFlAttribLockedBit = 0x40
 	KioFlAttribDataOpenBit    KioFlAttribLockedBit = 3
-	KioFlAttribDataOpenMask   KioFlAttribLockedBit = 8
+	KioFlAttribDataOpenMask   KioFlAttribLockedBit = 0x8
 	KioFlAttribDirBit         KioFlAttribLockedBit = 4
-	KioFlAttribDirMask        KioFlAttribLockedBit = 16
+	KioFlAttribDirMask        KioFlAttribLockedBit = 0x10
 	KioFlAttribFileOpenBit    KioFlAttribLockedBit = 7
-	KioFlAttribFileOpenMask   KioFlAttribLockedBit = 128
+	KioFlAttribFileOpenMask   KioFlAttribLockedBit = 0x80
 	KioFlAttribInSharedBit    KioFlAttribLockedBit = 2
-	KioFlAttribInSharedMask   KioFlAttribLockedBit = 4
+	KioFlAttribInSharedMask   KioFlAttribLockedBit = 0x4
 	KioFlAttribLockedBitValue KioFlAttribLockedBit = 0
-	KioFlAttribLockedMask     KioFlAttribLockedBit = 1
+	KioFlAttribLockedMask     KioFlAttribLockedBit = 0x1
 	KioFlAttribMountedBit     KioFlAttribLockedBit = 3
-	KioFlAttribMountedMask    KioFlAttribLockedBit = 8
+	KioFlAttribMountedMask    KioFlAttribLockedBit = 0x8
 	KioFlAttribResOpenBit     KioFlAttribLockedBit = 2
-	KioFlAttribResOpenMask    KioFlAttribLockedBit = 4
+	KioFlAttribResOpenMask    KioFlAttribLockedBit = 0x4
 	KioFlAttribSharePointBit  KioFlAttribLockedBit = 5
-	KioFlAttribSharePointMask KioFlAttribLockedBit = 32
+	KioFlAttribSharePointMask KioFlAttribLockedBit = 0x20
 )
 
 func (e KioFlAttribLockedBit) String() string {
@@ -24357,13 +24383,13 @@ type KioVAtrb uint
 
 const (
 	KioVAtrbDefaultVolumeBit   KioVAtrb = 5
-	KioVAtrbDefaultVolumeMask  KioVAtrb = 32
+	KioVAtrbDefaultVolumeMask  KioVAtrb = 0x20
 	KioVAtrbFilesOpenBit       KioVAtrb = 6
-	KioVAtrbFilesOpenMask      KioVAtrb = 64
+	KioVAtrbFilesOpenMask      KioVAtrb = 0x40
 	KioVAtrbHardwareLockedBit  KioVAtrb = 7
-	KioVAtrbHardwareLockedMask KioVAtrb = 128
+	KioVAtrbHardwareLockedMask KioVAtrb = 0x80
 	KioVAtrbSoftwareLockedBit  KioVAtrb = 15
-	KioVAtrbSoftwareLockedMask KioVAtrb = 32768
+	KioVAtrbSoftwareLockedMask KioVAtrb = 0x8000
 )
 
 func (e KioVAtrb) String() string {
@@ -24425,17 +24451,17 @@ func (e KnoUser) String() string {
 type Ktextencodingiso2022 uint
 
 const (
-	KTextEncodingISO_2022_CN     Ktextencodingiso2022 = 2096
-	KTextEncodingISO_2022_CN_EXT Ktextencodingiso2022 = 2097
+	KTextEncodingISO_2022_CN     Ktextencodingiso2022 = 0x830
+	KTextEncodingISO_2022_CN_EXT Ktextencodingiso2022 = 0x831
 	// KTextEncodingISO_2022_JP: See RFC 1468.
-	KTextEncodingISO_2022_JP Ktextencodingiso2022 = 2080
+	KTextEncodingISO_2022_JP Ktextencodingiso2022 = 0x820
 	// KTextEncodingISO_2022_JP_1: See RFC 2237.
-	KTextEncodingISO_2022_JP_1 Ktextencodingiso2022 = 2082
+	KTextEncodingISO_2022_JP_1 Ktextencodingiso2022 = 0x822
 	// KTextEncodingISO_2022_JP_2: See RFC 1554.
-	KTextEncodingISO_2022_JP_2 Ktextencodingiso2022 = 2081
+	KTextEncodingISO_2022_JP_2 Ktextencodingiso2022 = 0x821
 	// KTextEncodingISO_2022_JP_3: JIS X0213
-	KTextEncodingISO_2022_JP_3 Ktextencodingiso2022 = 2083
-	KTextEncodingISO_2022_KR   Ktextencodingiso2022 = 2112
+	KTextEncodingISO_2022_JP_3 Ktextencodingiso2022 = 0x823
+	KTextEncodingISO_2022_KR   Ktextencodingiso2022 = 0x840
 )
 
 func (e Ktextencodingiso2022) String() string {
@@ -26890,17 +26916,17 @@ type PleaseCacheBit uint
 
 const (
 	ForceReadBit        PleaseCacheBit = 6
-	ForceReadMask       PleaseCacheBit = 64
+	ForceReadMask       PleaseCacheBit = 0x40
 	NewLineBit          PleaseCacheBit = 7
-	NewLineCharMask     PleaseCacheBit = 65280
-	NewLineMask         PleaseCacheBit = 128
+	NewLineCharMask     PleaseCacheBit = 0xff00
+	NewLineMask         PleaseCacheBit = 0x80
 	NoCacheBit          PleaseCacheBit = 5
-	NoCacheMask         PleaseCacheBit = 32
+	NoCacheMask         PleaseCacheBit = 0x20
 	PleaseCacheBitValue PleaseCacheBit = 4
-	PleaseCacheMask     PleaseCacheBit = 16
+	PleaseCacheMask     PleaseCacheBit = 0x10
 	RdVerify            PleaseCacheBit = 64
 	RdVerifyBit         PleaseCacheBit = 6
-	RdVerifyMask        PleaseCacheBit = 64
+	RdVerifyMask        PleaseCacheBit = 0x40
 )
 
 func (e PleaseCacheBit) String() string {
@@ -27317,15 +27343,15 @@ const (
 	// Deprecated.
 	RomanAppFond RomanSysFond = 3
 	// Deprecated.
-	RomanFlags RomanSysFond = 7
+	RomanFlags RomanSysFond = 0x7
 	// Deprecated.
-	RomanSysFondValue RomanSysFond = 16383
+	RomanSysFondValue RomanSysFond = 0x3fff
 	// Deprecated.
-	SmFondEnd RomanSysFond = 49152
+	SmFondEnd RomanSysFond = 0xc000
 	// Deprecated.
-	SmFondStart RomanSysFond = 16384
+	SmFondStart RomanSysFond = 0x4000
 	// Deprecated.
-	SmUprHalfCharSet RomanSysFond = 128
+	SmUprHalfCharSet RomanSysFond = 0x80
 )
 
 func (e RomanSysFond) String() string {
@@ -27544,11 +27570,11 @@ const (
 	// Deprecated.
 	SmChar1byte Sm = 0
 	// Deprecated.
-	SmChar2byte Sm = 32768
+	SmChar2byte Sm = 0x8000
 	// Deprecated.
-	SmCharFISGreek Sm = 5
+	SmCharFISGreek Sm = 0x5
 	// Deprecated.
-	SmCharFISRussian Sm = 6
+	SmCharFISRussian Sm = 0x6
 	// Deprecated.
 	SmCharHorizontal Sm = 0
 	// Deprecated.
@@ -27556,11 +27582,11 @@ const (
 	// Deprecated.
 	SmCharLower Sm = 0
 	// Deprecated.
-	SmCharRight Sm = 8192
+	SmCharRight Sm = 0x2000
 	// Deprecated.
-	SmCharUpper Sm = 16384
+	SmCharUpper Sm = 0x4000
 	// Deprecated.
-	SmCharVertical Sm = 4096
+	SmCharVertical Sm = 0x1000
 	// Deprecated.
 	SmChinese Sm = 2
 	// Deprecated.
@@ -27578,9 +27604,9 @@ const (
 	// Deprecated.
 	SmFISClassLvl1 Sm = 0
 	// Deprecated.
-	SmFISClassLvl2 Sm = 256
+	SmFISClassLvl2 Sm = 0x100
 	// Deprecated.
-	SmFISClassUser Sm = 512
+	SmFISClassUser Sm = 0x200
 	// Deprecated.
 	SmFirstByte Sm = -1
 	// Deprecated.
@@ -27598,27 +27624,27 @@ const (
 	// Deprecated.
 	SmIdeographicLevel1 Sm = 0
 	// Deprecated.
-	SmIdeographicLevel2 Sm = 256
+	SmIdeographicLevel2 Sm = 0x100
 	// Deprecated.
-	SmIdeographicUser Sm = 512
+	SmIdeographicUser Sm = 0x200
 	// Deprecated.
-	SmJamoBogJaeum Sm = 256
+	SmJamoBogJaeum Sm = 0x100
 	// Deprecated.
-	SmJamoBogMoeum Sm = 768
+	SmJamoBogMoeum Sm = 0x300
 	// Deprecated.
 	SmJamoJaeum Sm = 0
 	// Deprecated.
-	SmJamoMoeum Sm = 512
+	SmJamoMoeum Sm = 0x200
 	// Deprecated.
 	SmJapanese Sm = 1
 	// Deprecated.
 	SmKCHRCache Sm = 38
 	// Deprecated.
-	SmKanaHardOK Sm = 512
+	SmKanaHardOK Sm = 0x200
 	// Deprecated.
-	SmKanaSmall Sm = 256
+	SmKanaSmall Sm = 0x100
 	// Deprecated.
-	SmKanaSoftOK Sm = 768
+	SmKanaSoftOK Sm = 0x300
 	// Deprecated.
 	SmKannada Sm = 16
 	// Deprecated.
@@ -27646,17 +27672,17 @@ const (
 	// Deprecated.
 	SmOriya Sm = 12
 	// Deprecated.
-	SmPunctBlank Sm = 768
+	SmPunctBlank Sm = 0x300
 	// Deprecated.
-	SmPunctGraphic Sm = 1280
+	SmPunctGraphic Sm = 0x500
 	// Deprecated.
 	SmPunctNormal Sm = 0
 	// Deprecated.
-	SmPunctNumber Sm = 256
+	SmPunctNumber Sm = 0x100
 	// Deprecated.
-	SmPunctRepeat Sm = 1024
+	SmPunctRepeat Sm = 0x400
 	// Deprecated.
-	SmPunctSymbol Sm = 512
+	SmPunctSymbol Sm = 0x200
 	// Deprecated.
 	SmRSymbol Sm = 8
 	// Deprecated.
@@ -27858,43 +27884,43 @@ type SmChar uint
 
 const (
 	// Deprecated.
-	SmCharAscii SmChar = 1
+	SmCharAscii SmChar = 0x1
 	// Deprecated.
-	SmCharBidirect SmChar = 8
+	SmCharBidirect SmChar = 0x8
 	// Deprecated.
-	SmCharBopomofo SmChar = 14
+	SmCharBopomofo SmChar = 0xe
 	// Deprecated.
-	SmCharContextualLR SmChar = 9
+	SmCharContextualLR SmChar = 0x9
 	// Deprecated.
-	SmCharEuro SmChar = 7
+	SmCharEuro SmChar = 0x7
 	// Deprecated.
-	SmCharExtAscii SmChar = 7
+	SmCharExtAscii SmChar = 0x7
 	// Deprecated.
-	SmCharFISGana SmChar = 3
+	SmCharFISGana SmChar = 0x3
 	// Deprecated.
-	SmCharFISIdeo SmChar = 4
+	SmCharFISIdeo SmChar = 0x4
 	// Deprecated.
-	SmCharFISKana SmChar = 2
+	SmCharFISKana SmChar = 0x2
 	// Deprecated.
-	SmCharGanaKana SmChar = 15
+	SmCharGanaKana SmChar = 0xf
 	// Deprecated.
-	SmCharHangul SmChar = 12
+	SmCharHangul SmChar = 0xc
 	// Deprecated.
-	SmCharHiragana SmChar = 3
+	SmCharHiragana SmChar = 0x3
 	// Deprecated.
-	SmCharIdeographic SmChar = 4
+	SmCharIdeographic SmChar = 0x4
 	// Deprecated.
-	SmCharJamo SmChar = 13
+	SmCharJamo SmChar = 0xd
 	// Deprecated.
-	SmCharKatakana SmChar = 2
+	SmCharKatakana SmChar = 0x2
 	// Deprecated.
-	SmCharNonContextualLR SmChar = 10
+	SmCharNonContextualLR SmChar = 0xa
 	// Deprecated.
 	SmCharPunct SmChar = 0
 	// Deprecated.
-	SmCharTwoByteGreek SmChar = 5
+	SmCharTwoByteGreek SmChar = 0x5
 	// Deprecated.
-	SmCharTwoByteRussian SmChar = 6
+	SmCharTwoByteRussian SmChar = 0x6
 )
 
 func (e SmChar) String() string {
@@ -28030,27 +28056,27 @@ type SmMask uint
 
 const (
 	// Deprecated.
-	SmMaskAll SmMask = 0
+	SmMaskAll SmMask = 0xffffffff
 	// Deprecated.
-	SmMaskAscii SmMask = 1
+	SmMaskAscii SmMask = 0x1
 	// Deprecated.
-	SmMaskAscii1 SmMask = 4
+	SmMaskAscii1 SmMask = 0x4
 	// Deprecated.
-	SmMaskAscii2 SmMask = 8
+	SmMaskAscii2 SmMask = 0x8
 	// Deprecated.
-	SmMaskBopomofo2 SmMask = 1024
+	SmMaskBopomofo2 SmMask = 0x400
 	// Deprecated.
-	SmMaskGana2 SmMask = 128
+	SmMaskGana2 SmMask = 0x80
 	// Deprecated.
-	SmMaskHangul2 SmMask = 256
+	SmMaskHangul2 SmMask = 0x100
 	// Deprecated.
-	SmMaskJamo2 SmMask = 512
+	SmMaskJamo2 SmMask = 0x200
 	// Deprecated.
-	SmMaskKana1 SmMask = 16
+	SmMaskKana1 SmMask = 0x10
 	// Deprecated.
-	SmMaskKana2 SmMask = 32
+	SmMaskKana2 SmMask = 0x20
 	// Deprecated.
-	SmMaskNative SmMask = 2
+	SmMaskNative SmMask = 0x2
 )
 
 func (e SmMask) String() string {
@@ -28167,7 +28193,7 @@ const (
 	// Deprecated.
 	SmTransBopomofo2 SmTrans = 10
 	// Deprecated.
-	SmTransCase SmTrans = 254
+	SmTransCase SmTrans = 0xfe
 	// Deprecated.
 	SmTransGana2 SmTrans = 7
 	// Deprecated.
@@ -28181,7 +28207,7 @@ const (
 	// Deprecated.
 	SmTransKana2 SmTrans = 5
 	// Deprecated.
-	SmTransLower SmTrans = 16384
+	SmTransLower SmTrans = 0x4000
 	// Deprecated.
 	SmTransNative SmTrans = 1
 	// Deprecated.
@@ -28191,9 +28217,9 @@ const (
 	// Deprecated.
 	SmTransRuleBaseFormat SmTrans = 1
 	// Deprecated.
-	SmTransSystem SmTrans = 255
+	SmTransSystem SmTrans = 0xff
 	// Deprecated.
-	SmTransUpper SmTrans = 32768
+	SmTransUpper SmTrans = 0x8000
 )
 
 func (e SmTrans) String() string {
@@ -28234,7 +28260,7 @@ func (e SmTrans) String() string {
 type SmUnicode uint
 
 const (
-	SmUnicodeScript SmUnicode = 126
+	SmUnicodeScript SmUnicode = 0x7e
 )
 
 func (e SmUnicode) String() string {
@@ -28325,19 +28351,19 @@ type Smc uint
 
 const (
 	// Deprecated.
-	SmcClassMask Smc = 3840
+	SmcClassMask Smc = 0xf00
 	// Deprecated.
-	SmcDoubleMask Smc = 32768
+	SmcDoubleMask Smc = 0x8000
 	// Deprecated.
-	SmcOrientationMask Smc = 4096
+	SmcOrientationMask Smc = 0x1000
 	// Deprecated.
-	SmcReserved Smc = 240
+	SmcReserved Smc = 0xf0
 	// Deprecated.
-	SmcRightMask Smc = 8192
+	SmcRightMask Smc = 0x2000
 	// Deprecated.
-	SmcTypeMask Smc = 15
+	SmcTypeMask Smc = 0xf
 	// Deprecated.
-	SmcUpperMask Smc = 16384
+	SmcUpperMask Smc = 0x4000
 )
 
 func (e Smc) String() string {
@@ -30222,29 +30248,29 @@ type Upp uint
 
 const (
 	// Deprecated.
-	UppCallComponentCanDoProcInfo Upp = 752
+	UppCallComponentCanDoProcInfo Upp = 0x2f0
 	// Deprecated.
-	UppCallComponentCloseProcInfo Upp = 1008
+	UppCallComponentCloseProcInfo Upp = 0x3f0
 	// Deprecated.
-	UppCallComponentGetMPWorkFunctionProcInfo Upp = 4080
+	UppCallComponentGetMPWorkFunctionProcInfo Upp = 0xff0
 	// Deprecated.
-	UppCallComponentGetPublicResourceProcInfo Upp = 15344
+	UppCallComponentGetPublicResourceProcInfo Upp = 0x3bf0
 	// Deprecated.
-	UppCallComponentOpenProcInfo Upp = 1008
+	UppCallComponentOpenProcInfo Upp = 0x3f0
 	// Deprecated.
-	UppCallComponentRegisterProcInfo Upp = 240
+	UppCallComponentRegisterProcInfo Upp = 0xf0
 	// Deprecated.
-	UppCallComponentTargetProcInfo Upp = 1008
+	UppCallComponentTargetProcInfo Upp = 0x3f0
 	// Deprecated.
-	UppCallComponentUnregisterProcInfo Upp = 240
+	UppCallComponentUnregisterProcInfo Upp = 0xf0
 	// Deprecated.
-	UppCallComponentVersionProcInfo Upp = 240
+	UppCallComponentVersionProcInfo Upp = 0xf0
 	// Deprecated.
-	UppComponentFunctionImplementedProcInfo Upp = 752
+	UppComponentFunctionImplementedProcInfo Upp = 0x2f0
 	// Deprecated.
-	UppComponentSetTargetProcInfo Upp = 1008
+	UppComponentSetTargetProcInfo Upp = 0x3f0
 	// Deprecated.
-	UppGetComponentVersionProcInfo Upp = 240
+	UppGetComponentVersionProcInfo Upp = 0xf0
 )
 
 func (e Upp) String() string {
@@ -30913,15 +30939,15 @@ type VolMount uint
 
 const (
 	VolMountChangedBit         VolMount = 14
-	VolMountChangedMask        VolMount = 16384
+	VolMountChangedMask        VolMount = 0x4000
 	VolMountExtendedFlagsBit   VolMount = 7
-	VolMountExtendedFlagsMask  VolMount = 128
-	VolMountFSReservedMask     VolMount = 255
+	VolMountExtendedFlagsMask  VolMount = 0x80
+	VolMountFSReservedMask     VolMount = 0xff
 	VolMountInteractBit        VolMount = 15
-	VolMountInteractMask       VolMount = 32768
+	VolMountInteractMask       VolMount = 0x8000
 	VolMountNoLoginMsgFlagBit  VolMount = 0
-	VolMountNoLoginMsgFlagMask VolMount = 1
-	VolMountSysReservedMask    VolMount = 65280
+	VolMountNoLoginMsgFlagMask VolMount = 0x1
+	VolMountSysReservedMask    VolMount = 0xff00
 )
 
 func (e VolMount) String() string {

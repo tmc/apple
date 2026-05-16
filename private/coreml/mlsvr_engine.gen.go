@@ -97,9 +97,9 @@ type IMLSVREngine interface {
 
 	// Topic: Methods
 
-	AllocSVMNodeVector(vector uint64) *Svm_nodeRef
-	DeallocSVMNodeVector(vector *Svm_nodeRef)
-	FillSVMNodeVectorValuesCount(vector *Svm_nodeRef, values []float64, count uint64)
+	AllocSVMNodeVector(vector uint64) unsafe.Pointer
+	DeallocSVMNodeVector(vector unsafe.Pointer)
+	FillSVMNodeVectorValuesCount(vector unsafe.Pointer, values []float64, count uint64)
 	FreeModelOnDealloc() bool
 	SetFreeModelOnDealloc(value bool)
 	InputSize() uint64
@@ -158,18 +158,18 @@ func NewSVREngineWithSpecificationError(specification unsafe.Pointer) (MLSVREngi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/allocSVMNodeVector:
-func (s MLSVREngine) AllocSVMNodeVector(vector uint64) *Svm_nodeRef {
+func (s MLSVREngine) AllocSVMNodeVector(vector uint64) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("allocSVMNodeVector:"), vector)
-	return (*Svm_nodeRef)(rv)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/deallocSVMNodeVector:
-func (s MLSVREngine) DeallocSVMNodeVector(vector *Svm_nodeRef) {
+func (s MLSVREngine) DeallocSVMNodeVector(vector unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("deallocSVMNodeVector:"), vector)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/fillSVMNodeVector:values:count:
-func (s MLSVREngine) FillSVMNodeVectorValuesCount(vector *Svm_nodeRef, values []float64, count uint64) {
+func (s MLSVREngine) FillSVMNodeVectorValuesCount(vector unsafe.Pointer, values []float64, count uint64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("fillSVMNodeVector:values:count:"), objc.CArray(vector), objc.CArray(values), count)
 }
 

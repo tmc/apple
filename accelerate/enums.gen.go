@@ -1194,7 +1194,7 @@ type Fft int
 
 const (
 	// FFT_FORWARD: Forward FFT.
-	FFT_FORWARD Fft = 0
+	FFT_FORWARD Fft = 1
 	// FFT_INVERSE: Inverse FFT.
 	FFT_INVERSE Fft = -1
 	FFT_RADIX2  Fft = 0
@@ -1208,8 +1208,8 @@ func (e Fft) String() string {
 		return "FFT_FORWARD"
 	case FFT_INVERSE:
 		return "FFT_INVERSE"
-	case FFT_RADIX3:
-		return "FFT_RADIX3"
+	case FFT_RADIX2:
+		return "FFT_RADIX2"
 	case FFT_RADIX5:
 		return "FFT_RADIX5"
 	default:
@@ -1241,7 +1241,7 @@ func (e KFFT) String() string {
 type KFFTDirection int
 
 const (
-	KFFTDirection_Forward KFFTDirection = 0
+	KFFTDirection_Forward KFFTDirection = 1
 	KFFTDirection_Inverse KFFTDirection = -1
 )
 
@@ -1545,7 +1545,7 @@ const (
 	KvImageConvert_DitherOrderedReproducible KvImageConvert = 2
 	// KvImageConvert_OrderedGaussianBlue: A constant that indicates the conversion will distribute the noise according to a Gaussian distribution.
 	KvImageConvert_OrderedGaussianBlue   KvImageConvert = 0
-	KvImageConvert_OrderedNoiseShapeMask KvImageConvert = 0
+	KvImageConvert_OrderedNoiseShapeMask KvImageConvert = 0xf0000000
 	// KvImageConvert_OrderedUniformBlue: A constant that indicates the conversion will distribute the noise uniformly.
 	KvImageConvert_OrderedUniformBlue KvImageConvert = 268435456
 )
@@ -1562,6 +1562,8 @@ func (e KvImageConvert) String() string {
 		return "KvImageConvert_DitherOrdered"
 	case KvImageConvert_DitherOrderedReproducible:
 		return "KvImageConvert_DitherOrderedReproducible"
+	case KvImageConvert_OrderedNoiseShapeMask:
+		return "KvImageConvert_OrderedNoiseShapeMask"
 	case KvImageConvert_OrderedUniformBlue:
 		return "KvImageConvert_OrderedUniformBlue"
 	default:
@@ -2183,7 +2185,7 @@ type VDSP_DFT_Direction int32
 
 const (
 	// VDSP_DFT_FORWARD: A constant that specifies a forward transform.
-	VDSP_DFT_FORWARD VDSP_DFT_Direction = 0
+	VDSP_DFT_FORWARD VDSP_DFT_Direction = 1
 	// VDSP_DFT_INVERSE: A constant that specifies an inverse transform.
 	VDSP_DFT_INVERSE VDSP_DFT_Direction = -1
 )

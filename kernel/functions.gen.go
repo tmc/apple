@@ -4649,6 +4649,27 @@ func OSKextGetCurrentVersionString() *byte {
 	return result
 }
 
+var _oSKextGrabPgoData func(arg0 *[16]byte, arg1 uint64, arg2 int8, arg3 uint64, arg4 int, arg5 int) int
+var _oSKextGrabPgoDataErr error
+
+func tryOSKextGrabPgoData(arg0 [16]byte, arg1 uint64, arg2 int8, arg3 uint64, arg4 int, arg5 int) (int, error) {
+	if _oSKextGrabPgoData == nil {
+		return 0, symbolCallError("OSKextGrabPgoData", "10.11", _oSKextGrabPgoDataErr)
+	}
+	return _oSKextGrabPgoData(&arg0, arg1, arg2, arg3, arg4, arg5), nil
+}
+
+// OSKextGrabPgoData.
+//
+// See: https://developer.apple.com/documentation/kernel/1508333-oskextgrabpgodata
+func OSKextGrabPgoData(arg0 [16]byte, arg1 uint64, arg2 int8, arg3 uint64, arg4 int, arg5 int) int {
+	result, callErr := tryOSKextGrabPgoData(arg0, arg1, arg2, arg3, arg4, arg5)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _oSKextLoadKextWithIdentifier func(arg0 int8) unsafe.Pointer
 var _oSKextLoadKextWithIdentifierErr error
 
@@ -18869,6 +18890,48 @@ func Host_request_notification(arg0 Host_t, arg1 Host_flavor_t, arg2 uint32) int
 	return result
 }
 
+var _host_security_create_task_token func(arg0 Host_security_t, arg1 Task_t, arg2 Security_token_t, arg3 *[32]byte, arg4 Host_t, arg5 Ledger_array_t, arg6 Mach_msg_type_number_t, arg7 bool, arg8 Task_t) int32
+var _host_security_create_task_tokenErr error
+
+func tryHost_security_create_task_token(arg0 Host_security_t, arg1 Task_t, arg2 Security_token_t, arg3 [32]byte, arg4 Host_t, arg5 Ledger_array_t, arg6 Mach_msg_type_number_t, arg7 bool, arg8 Task_t) (int32, error) {
+	if _host_security_create_task_token == nil {
+		return 0, symbolCallError("host_security_create_task_token", "10.0", _host_security_create_task_tokenErr)
+	}
+	return _host_security_create_task_token(arg0, arg1, arg2, &arg3, arg4, arg5, arg6, arg7, arg8), nil
+}
+
+// Host_security_create_task_token.
+//
+// See: https://developer.apple.com/documentation/kernel/1437156-host_security_create_task_token
+func Host_security_create_task_token(arg0 Host_security_t, arg1 Task_t, arg2 Security_token_t, arg3 [32]byte, arg4 Host_t, arg5 Ledger_array_t, arg6 Mach_msg_type_number_t, arg7 bool, arg8 Task_t) int32 {
+	result, callErr := tryHost_security_create_task_token(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _host_security_set_task_token func(arg0 Host_security_t, arg1 Task_t, arg2 Security_token_t, arg3 *[32]byte, arg4 Host_t) int32
+var _host_security_set_task_tokenErr error
+
+func tryHost_security_set_task_token(arg0 Host_security_t, arg1 Task_t, arg2 Security_token_t, arg3 [32]byte, arg4 Host_t) (int32, error) {
+	if _host_security_set_task_token == nil {
+		return 0, symbolCallError("host_security_set_task_token", "10.0", _host_security_set_task_tokenErr)
+	}
+	return _host_security_set_task_token(arg0, arg1, arg2, &arg3, arg4), nil
+}
+
+// Host_security_set_task_token.
+//
+// See: https://developer.apple.com/documentation/kernel/1437135-host_security_set_task_token
+func Host_security_set_task_token(arg0 Host_security_t, arg1 Task_t, arg2 Security_token_t, arg3 [32]byte, arg4 Host_t) int32 {
+	result, callErr := tryHost_security_set_task_token(arg0, arg1, arg2, arg3, arg4)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _host_self func() Host_t
 var _host_selfErr error
 
@@ -32851,6 +32914,27 @@ func Mbuf_type(arg0 Mbuf_t) Mbuf_type_t {
 	return result
 }
 
+var _mcc_memory_error_notification func(arg0 uint32, arg1 Mcc_ecc_event_t, arg2 *[32]byte) int32
+var _mcc_memory_error_notificationErr error
+
+func tryMcc_memory_error_notification(arg0 uint32, arg1 Mcc_ecc_event_t, arg2 [32]byte) (int32, error) {
+	if _mcc_memory_error_notification == nil {
+		return 0, symbolCallError("mcc_memory_error_notification", "13.0", _mcc_memory_error_notificationErr)
+	}
+	return _mcc_memory_error_notification(arg0, arg1, &arg2), nil
+}
+
+// Mcc_memory_error_notification.
+//
+// See: https://developer.apple.com/documentation/kernel/4090620-mcc_memory_error_notification
+func Mcc_memory_error_notification(arg0 uint32, arg1 Mcc_ecc_event_t, arg2 [32]byte) int32 {
+	result, callErr := tryMcc_memory_error_notification(arg0, arg1, arg2)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _memchr func(arg0 int, arg1 uintptr) unsafe.Pointer
 var _memchrErr error
 
@@ -32929,6 +33013,27 @@ func tryMemmove(arg0 uintptr) (unsafe.Pointer, error) {
 // See: https://developer.apple.com/documentation/kernel/1579336-memmove
 func Memmove(arg0 uintptr) unsafe.Pointer {
 	result, callErr := tryMemmove(arg0)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _memory_error_notification func(arg0 uint32, arg1 Ecc_event_t, arg2 *[32]byte) int32
+var _memory_error_notificationErr error
+
+func tryMemory_error_notification(arg0 uint32, arg1 Ecc_event_t, arg2 [32]byte) (int32, error) {
+	if _memory_error_notification == nil {
+		return 0, symbolCallError("memory_error_notification", "13.0", _memory_error_notificationErr)
+	}
+	return _memory_error_notification(arg0, arg1, &arg2), nil
+}
+
+// Memory_error_notification.
+//
+// See: https://developer.apple.com/documentation/kernel/3943628-memory_error_notification
+func Memory_error_notification(arg0 uint32, arg1 Ecc_event_t, arg2 [32]byte) int32 {
+	result, callErr := tryMemory_error_notification(arg0, arg1, arg2)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -37595,6 +37700,27 @@ func Proc_find(arg0 int) Proc_t {
 	return result
 }
 
+var _proc_find_audit_token func(arg0 *[32]byte) Proc_t
+var _proc_find_audit_tokenErr error
+
+func tryProc_find_audit_token(arg0 [32]byte) (Proc_t, error) {
+	if _proc_find_audit_token == nil {
+		return *new(Proc_t), symbolCallError("proc_find_audit_token", "15.4", _proc_find_audit_tokenErr)
+	}
+	return _proc_find_audit_token(&arg0), nil
+}
+
+// Proc_find_audit_token.
+//
+// See: https://developer.apple.com/documentation/kernel/4540848-proc_find_audit_token
+func Proc_find_audit_token(arg0 [32]byte) Proc_t {
+	result, callErr := tryProc_find_audit_token(arg0)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _proc_find_ident func(arg0 unsafe.Pointer) Proc_t
 var _proc_find_identErr error
 
@@ -39195,6 +39321,27 @@ func Receive_sysdiagnose_notification(arg0 uint32, arg1 uint32) int32 {
 	return result
 }
 
+var _receive_sysdiagnose_notification_with_audit_token func(arg0 uint32, arg1 uint32, arg2 *[32]byte) int32
+var _receive_sysdiagnose_notification_with_audit_tokenErr error
+
+func tryReceive_sysdiagnose_notification_with_audit_token(arg0 uint32, arg1 uint32, arg2 [32]byte) (int32, error) {
+	if _receive_sysdiagnose_notification_with_audit_token == nil {
+		return 0, symbolCallError("receive_sysdiagnose_notification_with_audit_token", "10.15.4", _receive_sysdiagnose_notification_with_audit_tokenErr)
+	}
+	return _receive_sysdiagnose_notification_with_audit_token(arg0, arg1, &arg2), nil
+}
+
+// Receive_sysdiagnose_notification_with_audit_token.
+//
+// See: https://developer.apple.com/documentation/kernel/3521293-receive_sysdiagnose_notification
+func Receive_sysdiagnose_notification_with_audit_token(arg0 uint32, arg1 uint32, arg2 [32]byte) int32 {
+	result, callErr := tryReceive_sysdiagnose_notification_with_audit_token(arg0, arg1, arg2)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _receive_vfs_resolve_dir func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uint32, arg4 *byte, arg5 *byte) int32
 var _receive_vfs_resolve_dirErr error
 
@@ -39216,6 +39363,27 @@ func Receive_vfs_resolve_dir(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uint32,
 	return result
 }
 
+var _receive_vfs_resolve_dir_with_audit_token func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 *[32]byte, arg6 *[32]byte) int32
+var _receive_vfs_resolve_dir_with_audit_tokenErr error
+
+func tryReceive_vfs_resolve_dir_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 [32]byte, arg6 [32]byte) (int32, error) {
+	if _receive_vfs_resolve_dir_with_audit_token == nil {
+		return 0, symbolCallError("receive_vfs_resolve_dir_with_audit_token", "12.0", _receive_vfs_resolve_dir_with_audit_tokenErr)
+	}
+	return _receive_vfs_resolve_dir_with_audit_token(arg0, arg1, arg2, arg3, arg4, &arg5, &arg6), nil
+}
+
+// Receive_vfs_resolve_dir_with_audit_token.
+//
+// See: https://developer.apple.com/documentation/kernel/3762970-receive_vfs_resolve_dir_with_aud
+func Receive_vfs_resolve_dir_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 [32]byte, arg6 [32]byte) int32 {
+	result, callErr := tryReceive_vfs_resolve_dir_with_audit_token(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _receive_vfs_resolve_file func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uint32, arg4 int64, arg5 int64, arg6 *byte) int32
 var _receive_vfs_resolve_fileErr error
 
@@ -39231,6 +39399,48 @@ func tryReceive_vfs_resolve_file(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uin
 // See: https://developer.apple.com/documentation/kernel/3753683-receive_vfs_resolve_file
 func Receive_vfs_resolve_file(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uint32, arg4 int64, arg5 int64, arg6 *byte) int32 {
 	result, callErr := tryReceive_vfs_resolve_file(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _receive_vfs_resolve_file_with_audit_token func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 int64, arg4 int64, arg5 *byte, arg6 *[32]byte, arg7 *[32]byte) int32
+var _receive_vfs_resolve_file_with_audit_tokenErr error
+
+func tryReceive_vfs_resolve_file_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 int64, arg4 int64, arg5 *byte, arg6 [32]byte, arg7 [32]byte) (int32, error) {
+	if _receive_vfs_resolve_file_with_audit_token == nil {
+		return 0, symbolCallError("receive_vfs_resolve_file_with_audit_token", "12.0", _receive_vfs_resolve_file_with_audit_tokenErr)
+	}
+	return _receive_vfs_resolve_file_with_audit_token(arg0, arg1, arg2, arg3, arg4, arg5, &arg6, &arg7), nil
+}
+
+// Receive_vfs_resolve_file_with_audit_token.
+//
+// See: https://developer.apple.com/documentation/kernel/3762971-receive_vfs_resolve_file_with_au
+func Receive_vfs_resolve_file_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 int64, arg4 int64, arg5 *byte, arg6 [32]byte, arg7 [32]byte) int32 {
+	result, callErr := tryReceive_vfs_resolve_file_with_audit_token(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _receive_vfs_resolve_reparent_with_audit_token func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 *[32]byte, arg6 *[32]byte) int32
+var _receive_vfs_resolve_reparent_with_audit_tokenErr error
+
+func tryReceive_vfs_resolve_reparent_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 [32]byte, arg6 [32]byte) (int32, error) {
+	if _receive_vfs_resolve_reparent_with_audit_token == nil {
+		return 0, symbolCallError("receive_vfs_resolve_reparent_with_audit_token", "14.0", _receive_vfs_resolve_reparent_with_audit_tokenErr)
+	}
+	return _receive_vfs_resolve_reparent_with_audit_token(arg0, arg1, arg2, arg3, arg4, &arg5, &arg6), nil
+}
+
+// Receive_vfs_resolve_reparent_with_audit_token.
+//
+// See: https://developer.apple.com/documentation/kernel/4160833-receive_vfs_resolve_reparent_wit
+func Receive_vfs_resolve_reparent_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 [32]byte, arg6 [32]byte) int32 {
+	result, callErr := tryReceive_vfs_resolve_reparent_with_audit_token(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -40180,6 +40390,27 @@ func Send_vfs_resolve_dir(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uint32, ar
 	return result
 }
 
+var _send_vfs_resolve_dir_with_audit_token func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 *[32]byte) int32
+var _send_vfs_resolve_dir_with_audit_tokenErr error
+
+func trySend_vfs_resolve_dir_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 [32]byte) (int32, error) {
+	if _send_vfs_resolve_dir_with_audit_token == nil {
+		return 0, symbolCallError("send_vfs_resolve_dir_with_audit_token", "12.0", _send_vfs_resolve_dir_with_audit_tokenErr)
+	}
+	return _send_vfs_resolve_dir_with_audit_token(arg0, arg1, arg2, arg3, arg4, &arg5), nil
+}
+
+// Send_vfs_resolve_dir_with_audit_token.
+//
+// See: https://developer.apple.com/documentation/kernel/3762968-send_vfs_resolve_dir_with_audit_
+func Send_vfs_resolve_dir_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 [32]byte) int32 {
+	result, callErr := trySend_vfs_resolve_dir_with_audit_token(arg0, arg1, arg2, arg3, arg4, arg5)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _send_vfs_resolve_file func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uint32, arg4 int64, arg5 int64, arg6 *byte) int32
 var _send_vfs_resolve_fileErr error
 
@@ -40195,6 +40426,48 @@ func trySend_vfs_resolve_file(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uint32
 // See: https://developer.apple.com/documentation/kernel/3753681-send_vfs_resolve_file
 func Send_vfs_resolve_file(arg0 uint32, arg1 uint32, arg2 uint32, arg3 uint32, arg4 int64, arg5 int64, arg6 *byte) int32 {
 	result, callErr := trySend_vfs_resolve_file(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _send_vfs_resolve_file_with_audit_token func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 int64, arg4 int64, arg5 *byte, arg6 *[32]byte) int32
+var _send_vfs_resolve_file_with_audit_tokenErr error
+
+func trySend_vfs_resolve_file_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 int64, arg4 int64, arg5 *byte, arg6 [32]byte) (int32, error) {
+	if _send_vfs_resolve_file_with_audit_token == nil {
+		return 0, symbolCallError("send_vfs_resolve_file_with_audit_token", "12.0", _send_vfs_resolve_file_with_audit_tokenErr)
+	}
+	return _send_vfs_resolve_file_with_audit_token(arg0, arg1, arg2, arg3, arg4, arg5, &arg6), nil
+}
+
+// Send_vfs_resolve_file_with_audit_token.
+//
+// See: https://developer.apple.com/documentation/kernel/3762969-send_vfs_resolve_file_with_audit
+func Send_vfs_resolve_file_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 int64, arg4 int64, arg5 *byte, arg6 [32]byte) int32 {
+	result, callErr := trySend_vfs_resolve_file_with_audit_token(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _send_vfs_resolve_reparent_with_audit_token func(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 *[32]byte) int32
+var _send_vfs_resolve_reparent_with_audit_tokenErr error
+
+func trySend_vfs_resolve_reparent_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 [32]byte) (int32, error) {
+	if _send_vfs_resolve_reparent_with_audit_token == nil {
+		return 0, symbolCallError("send_vfs_resolve_reparent_with_audit_token", "14.0", _send_vfs_resolve_reparent_with_audit_tokenErr)
+	}
+	return _send_vfs_resolve_reparent_with_audit_token(arg0, arg1, arg2, arg3, arg4, &arg5), nil
+}
+
+// Send_vfs_resolve_reparent_with_audit_token.
+//
+// See: https://developer.apple.com/documentation/kernel/4160832-send_vfs_resolve_reparent_with_a
+func Send_vfs_resolve_reparent_with_audit_token(arg0 uint32, arg1 uint32, arg2 uint32, arg3 *byte, arg4 *byte, arg5 [32]byte) int32 {
+	result, callErr := trySend_vfs_resolve_reparent_with_audit_token(arg0, arg1, arg2, arg3, arg4, arg5)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -48150,6 +48423,249 @@ func Utf8_validatestr(arg0 U_int8_t, arg1 uintptr) int {
 	return result
 }
 
+var _uuid_clear func(arg0 *[16]byte)
+var _uuid_clearErr error
+
+func tryUuid_clear(arg0 [16]byte) error {
+	if _uuid_clear == nil {
+		return symbolCallError("uuid_clear", "10.4", _uuid_clearErr)
+	}
+	_uuid_clear(&arg0)
+	return nil
+}
+
+// Uuid_clear.
+//
+// See: https://developer.apple.com/documentation/kernel/1470606-uuid_clear
+func Uuid_clear(arg0 [16]byte) {
+	if callErr := tryUuid_clear(arg0); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _uuid_compare func(arg0 *[16]byte, arg1 *[16]byte) int
+var _uuid_compareErr error
+
+func tryUuid_compare(arg0 [16]byte, arg1 [16]byte) (int, error) {
+	if _uuid_compare == nil {
+		return 0, symbolCallError("uuid_compare", "10.4", _uuid_compareErr)
+	}
+	return _uuid_compare(&arg0, &arg1), nil
+}
+
+// Uuid_compare.
+//
+// See: https://developer.apple.com/documentation/kernel/1470610-uuid_compare
+func Uuid_compare(arg0 [16]byte, arg1 [16]byte) int {
+	result, callErr := tryUuid_compare(arg0, arg1)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _uuid_copy func(arg0 *[16]byte, arg1 *[16]byte)
+var _uuid_copyErr error
+
+func tryUuid_copy(arg0 [16]byte, arg1 [16]byte) error {
+	if _uuid_copy == nil {
+		return symbolCallError("uuid_copy", "10.4", _uuid_copyErr)
+	}
+	_uuid_copy(&arg0, &arg1)
+	return nil
+}
+
+// Uuid_copy.
+//
+// See: https://developer.apple.com/documentation/kernel/1470608-uuid_copy
+func Uuid_copy(arg0 [16]byte, arg1 [16]byte) {
+	if callErr := tryUuid_copy(arg0, arg1); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _uuid_generate func(arg0 *[16]byte)
+var _uuid_generateErr error
+
+func tryUuid_generate(arg0 [16]byte) error {
+	if _uuid_generate == nil {
+		return symbolCallError("uuid_generate", "10.4", _uuid_generateErr)
+	}
+	_uuid_generate(&arg0)
+	return nil
+}
+
+// Uuid_generate.
+//
+// See: https://developer.apple.com/documentation/kernel/1470614-uuid_generate
+func Uuid_generate(arg0 [16]byte) {
+	if callErr := tryUuid_generate(arg0); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _uuid_generate_early_random func(arg0 *[16]byte)
+var _uuid_generate_early_randomErr error
+
+func tryUuid_generate_early_random(arg0 [16]byte) error {
+	if _uuid_generate_early_random == nil {
+		return symbolCallError("uuid_generate_early_random", "10.14", _uuid_generate_early_randomErr)
+	}
+	_uuid_generate_early_random(&arg0)
+	return nil
+}
+
+// Uuid_generate_early_random.
+//
+// See: https://developer.apple.com/documentation/kernel/2981022-uuid_generate_early_random
+func Uuid_generate_early_random(arg0 [16]byte) {
+	if callErr := tryUuid_generate_early_random(arg0); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _uuid_generate_random func(arg0 *[16]byte)
+var _uuid_generate_randomErr error
+
+func tryUuid_generate_random(arg0 [16]byte) error {
+	if _uuid_generate_random == nil {
+		return symbolCallError("uuid_generate_random", "10.4", _uuid_generate_randomErr)
+	}
+	_uuid_generate_random(&arg0)
+	return nil
+}
+
+// Uuid_generate_random.
+//
+// See: https://developer.apple.com/documentation/kernel/1470612-uuid_generate_random
+func Uuid_generate_random(arg0 [16]byte) {
+	if callErr := tryUuid_generate_random(arg0); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _uuid_generate_time func(arg0 *[16]byte)
+var _uuid_generate_timeErr error
+
+func tryUuid_generate_time(arg0 [16]byte) error {
+	if _uuid_generate_time == nil {
+		return symbolCallError("uuid_generate_time", "10.4", _uuid_generate_timeErr)
+	}
+	_uuid_generate_time(&arg0)
+	return nil
+}
+
+// Uuid_generate_time.
+//
+// See: https://developer.apple.com/documentation/kernel/1470625-uuid_generate_time
+func Uuid_generate_time(arg0 [16]byte) {
+	if callErr := tryUuid_generate_time(arg0); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _uuid_is_null func(arg0 *[16]byte) int
+var _uuid_is_nullErr error
+
+func tryUuid_is_null(arg0 [16]byte) (int, error) {
+	if _uuid_is_null == nil {
+		return 0, symbolCallError("uuid_is_null", "10.4", _uuid_is_nullErr)
+	}
+	return _uuid_is_null(&arg0), nil
+}
+
+// Uuid_is_null.
+//
+// See: https://developer.apple.com/documentation/kernel/1470616-uuid_is_null
+func Uuid_is_null(arg0 [16]byte) int {
+	result, callErr := tryUuid_is_null(arg0)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _uuid_parse func(arg0 Uuid_string_t, arg1 *[16]byte) int
+var _uuid_parseErr error
+
+func tryUuid_parse(arg0 Uuid_string_t, arg1 [16]byte) (int, error) {
+	if _uuid_parse == nil {
+		return 0, symbolCallError("uuid_parse", "10.4", _uuid_parseErr)
+	}
+	return _uuid_parse(arg0, &arg1), nil
+}
+
+// Uuid_parse.
+//
+// See: https://developer.apple.com/documentation/kernel/1470624-uuid_parse
+func Uuid_parse(arg0 Uuid_string_t, arg1 [16]byte) int {
+	result, callErr := tryUuid_parse(arg0, arg1)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _uuid_unparse func(arg0 *[16]byte, arg1 Uuid_string_t)
+var _uuid_unparseErr error
+
+func tryUuid_unparse(arg0 [16]byte, arg1 Uuid_string_t) error {
+	if _uuid_unparse == nil {
+		return symbolCallError("uuid_unparse", "10.4", _uuid_unparseErr)
+	}
+	_uuid_unparse(&arg0, arg1)
+	return nil
+}
+
+// Uuid_unparse.
+//
+// See: https://developer.apple.com/documentation/kernel/1470620-uuid_unparse
+func Uuid_unparse(arg0 [16]byte, arg1 Uuid_string_t) {
+	if callErr := tryUuid_unparse(arg0, arg1); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _uuid_unparse_lower func(arg0 *[16]byte, arg1 Uuid_string_t)
+var _uuid_unparse_lowerErr error
+
+func tryUuid_unparse_lower(arg0 [16]byte, arg1 Uuid_string_t) error {
+	if _uuid_unparse_lower == nil {
+		return symbolCallError("uuid_unparse_lower", "10.4", _uuid_unparse_lowerErr)
+	}
+	_uuid_unparse_lower(&arg0, arg1)
+	return nil
+}
+
+// Uuid_unparse_lower.
+//
+// See: https://developer.apple.com/documentation/kernel/1470622-uuid_unparse_lower
+func Uuid_unparse_lower(arg0 [16]byte, arg1 Uuid_string_t) {
+	if callErr := tryUuid_unparse_lower(arg0, arg1); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _uuid_unparse_upper func(arg0 *[16]byte, arg1 Uuid_string_t)
+var _uuid_unparse_upperErr error
+
+func tryUuid_unparse_upper(arg0 [16]byte, arg1 Uuid_string_t) error {
+	if _uuid_unparse_upper == nil {
+		return symbolCallError("uuid_unparse_upper", "10.4", _uuid_unparse_upperErr)
+	}
+	_uuid_unparse_upper(&arg0, arg1)
+	return nil
+}
+
+// Uuid_unparse_upper.
+//
+// See: https://developer.apple.com/documentation/kernel/1470618-uuid_unparse_upper
+func Uuid_unparse_upper(arg0 [16]byte, arg1 Uuid_string_t) {
+	if callErr := tryUuid_unparse_upper(arg0, arg1); callErr != nil {
+		panic(callErr)
+	}
+}
+
 var _vDSP_biquad2 func(arg0 unsafe.Pointer, arg1 float32, arg2 float32, arg3 uintptr)
 var _vDSP_biquad2Err error
 
@@ -54658,6 +55174,7 @@ func init() {
 	registerFunc(&_oSKextGetCurrentIdentifier, &_oSKextGetCurrentIdentifierErr, frameworkHandle, "OSKextGetCurrentIdentifier", "10.6")
 	registerFunc(&_oSKextGetCurrentLoadTag, &_oSKextGetCurrentLoadTagErr, frameworkHandle, "OSKextGetCurrentLoadTag", "10.6")
 	registerFunc(&_oSKextGetCurrentVersionString, &_oSKextGetCurrentVersionStringErr, frameworkHandle, "OSKextGetCurrentVersionString", "10.6")
+	registerFunc(&_oSKextGrabPgoData, &_oSKextGrabPgoDataErr, frameworkHandle, "OSKextGrabPgoData", "10.11")
 	registerFunc(&_oSKextLoadKextWithIdentifier, &_oSKextLoadKextWithIdentifierErr, frameworkHandle, "OSKextLoadKextWithIdentifier", "10.6")
 	registerFunc(&_oSKextReleaseKextWithLoadTag, &_oSKextReleaseKextWithLoadTagErr, frameworkHandle, "OSKextReleaseKextWithLoadTag", "10.6")
 	registerFunc(&_oSKextRequestResource, &_oSKextRequestResourceErr, frameworkHandle, "OSKextRequestResource", "10.6")
@@ -55342,6 +55859,8 @@ func init() {
 	registerFunc(&_host_register_mach_voucher_attr_manager, &_host_register_mach_voucher_attr_managerErr, frameworkHandle, "host_register_mach_voucher_attr_manager", "10.10")
 	registerFunc(&_host_register_well_known_mach_voucher_attr_manager, &_host_register_well_known_mach_voucher_attr_managerErr, frameworkHandle, "host_register_well_known_mach_voucher_attr_manager", "10.10")
 	registerFunc(&_host_request_notification, &_host_request_notificationErr, frameworkHandle, "host_request_notification", "10.3")
+	registerFunc(&_host_security_create_task_token, &_host_security_create_task_tokenErr, frameworkHandle, "host_security_create_task_token", "10.0")
+	registerFunc(&_host_security_set_task_token, &_host_security_set_task_tokenErr, frameworkHandle, "host_security_set_task_token", "10.0")
 	registerFunc(&_host_self, &_host_selfErr, frameworkHandle, "host_self", "10.0")
 	registerFunc(&_host_set_UNDServer, &_host_set_UNDServerErr, frameworkHandle, "host_set_UNDServer", "10.0")
 	registerFunc(&_host_set_atm_diagnostic_flag, &_host_set_atm_diagnostic_flagErr, frameworkHandle, "host_set_atm_diagnostic_flag", "10.11")
@@ -55997,10 +56516,12 @@ func init() {
 	registerFunc(&_mbuf_tag_id_find, &_mbuf_tag_id_findErr, frameworkHandle, "mbuf_tag_id_find", "10.4")
 	registerFunc(&_mbuf_trailingspace, &_mbuf_trailingspaceErr, frameworkHandle, "mbuf_trailingspace", "10.4")
 	registerFunc(&_mbuf_type, &_mbuf_typeErr, frameworkHandle, "mbuf_type", "10.4")
+	registerFunc(&_mcc_memory_error_notification, &_mcc_memory_error_notificationErr, frameworkHandle, "mcc_memory_error_notification", "13.0")
 	registerFunc(&_memchr, &_memchrErr, frameworkHandle, "memchr", "10.9")
 	registerFunc(&_memcmp, &_memcmpErr, frameworkHandle, "memcmp", "10.0")
 	registerFunc(&_memcpy, &_memcpyErr, frameworkHandle, "memcpy", "10.0")
 	registerFunc(&_memmove, &_memmoveErr, frameworkHandle, "memmove", "10.0")
+	registerFunc(&_memory_error_notification, &_memory_error_notificationErr, frameworkHandle, "memory_error_notification", "13.0")
 	registerFunc(&_memory_error_notification_server, &_memory_error_notification_serverErr, frameworkHandle, "memory_error_notification_server", "13.0")
 	registerFunc(&_memory_error_notification_server_routine, &_memory_error_notification_server_routineErr, frameworkHandle, "memory_error_notification_server_routine", "13.0")
 	registerFunc(&_memset, &_memsetErr, frameworkHandle, "memset", "10.0")
@@ -56226,6 +56747,7 @@ func init() {
 	registerFunc(&_proc_csflags, &_proc_csflagsErr, frameworkHandle, "proc_csflags", "10.15.4")
 	registerFunc(&_proc_exiting, &_proc_exitingErr, frameworkHandle, "proc_exiting", "10.4")
 	registerFunc(&_proc_find, &_proc_findErr, frameworkHandle, "proc_find", "10.4")
+	registerFunc(&_proc_find_audit_token, &_proc_find_audit_tokenErr, frameworkHandle, "proc_find_audit_token", "15.4")
 	registerFunc(&_proc_find_ident, &_proc_find_identErr, frameworkHandle, "proc_find_ident", "11.0")
 	registerFunc(&_proc_forcequota, &_proc_forcequotaErr, frameworkHandle, "proc_forcequota", "10.4")
 	registerFunc(&_proc_gettty, &_proc_getttyErr, frameworkHandle, "proc_gettty", "10.15.4")
@@ -56302,8 +56824,12 @@ func init() {
 	registerFunc(&_receive_nspace_resolve_cancel, &_receive_nspace_resolve_cancelErr, frameworkHandle, "receive_nspace_resolve_cancel", "10.15")
 	registerFunc(&_receive_nspace_resolve_path, &_receive_nspace_resolve_pathErr, frameworkHandle, "receive_nspace_resolve_path", "10.15")
 	registerFunc(&_receive_sysdiagnose_notification, &_receive_sysdiagnose_notificationErr, frameworkHandle, "receive_sysdiagnose_notification", "10.11")
+	registerFunc(&_receive_sysdiagnose_notification_with_audit_token, &_receive_sysdiagnose_notification_with_audit_tokenErr, frameworkHandle, "receive_sysdiagnose_notification_with_audit_token", "10.15.4")
 	registerFunc(&_receive_vfs_resolve_dir, &_receive_vfs_resolve_dirErr, frameworkHandle, "receive_vfs_resolve_dir", "12.0")
+	registerFunc(&_receive_vfs_resolve_dir_with_audit_token, &_receive_vfs_resolve_dir_with_audit_tokenErr, frameworkHandle, "receive_vfs_resolve_dir_with_audit_token", "12.0")
 	registerFunc(&_receive_vfs_resolve_file, &_receive_vfs_resolve_fileErr, frameworkHandle, "receive_vfs_resolve_file", "12.0")
+	registerFunc(&_receive_vfs_resolve_file_with_audit_token, &_receive_vfs_resolve_file_with_audit_tokenErr, frameworkHandle, "receive_vfs_resolve_file_with_audit_token", "12.0")
+	registerFunc(&_receive_vfs_resolve_reparent_with_audit_token, &_receive_vfs_resolve_reparent_with_audit_tokenErr, frameworkHandle, "receive_vfs_resolve_reparent_with_audit_token", "14.0")
 	registerFunc(&_registerPrioritySleepWakeInterest, &_registerPrioritySleepWakeInterestErr, frameworkHandle, "registerPrioritySleepWakeInterest", "10.1")
 	registerFunc(&_registerSleepWakeInterest, &_registerSleepWakeInterestErr, frameworkHandle, "registerSleepWakeInterest", "10.0")
 	registerFunc(&_remainder, &_remainderErr, frameworkHandle, "remainder", "10.10")
@@ -56349,7 +56875,10 @@ func init() {
 	registerFunc(&_send_nspace_resolve_cancel, &_send_nspace_resolve_cancelErr, frameworkHandle, "send_nspace_resolve_cancel", "10.15")
 	registerFunc(&_send_nspace_resolve_path, &_send_nspace_resolve_pathErr, frameworkHandle, "send_nspace_resolve_path", "10.15")
 	registerFunc(&_send_vfs_resolve_dir, &_send_vfs_resolve_dirErr, frameworkHandle, "send_vfs_resolve_dir", "12.0")
+	registerFunc(&_send_vfs_resolve_dir_with_audit_token, &_send_vfs_resolve_dir_with_audit_tokenErr, frameworkHandle, "send_vfs_resolve_dir_with_audit_token", "12.0")
 	registerFunc(&_send_vfs_resolve_file, &_send_vfs_resolve_fileErr, frameworkHandle, "send_vfs_resolve_file", "12.0")
+	registerFunc(&_send_vfs_resolve_file_with_audit_token, &_send_vfs_resolve_file_with_audit_tokenErr, frameworkHandle, "send_vfs_resolve_file_with_audit_token", "12.0")
+	registerFunc(&_send_vfs_resolve_reparent_with_audit_token, &_send_vfs_resolve_reparent_with_audit_tokenErr, frameworkHandle, "send_vfs_resolve_reparent_with_audit_token", "14.0")
 	registerFunc(&_serial_getc, &_serial_getcErr, frameworkHandle, "serial_getc", "10.5")
 	registerFunc(&_serial_init, &_serial_initErr, frameworkHandle, "serial_init", "10.5")
 	registerFunc(&_serial_keyboard_init, &_serial_keyboard_initErr, frameworkHandle, "serial_keyboard_init", "10.13")
@@ -56728,6 +57257,18 @@ func init() {
 	registerFunc(&_utf8_normalizestr, &_utf8_normalizestrErr, frameworkHandle, "utf8_normalizestr", "15.0")
 	registerFunc(&_utf8_to_mac_roman, &_utf8_to_mac_romanErr, frameworkHandle, "utf8_to_mac_roman", "10.12")
 	registerFunc(&_utf8_validatestr, &_utf8_validatestrErr, frameworkHandle, "utf8_validatestr", "15.0")
+	registerFunc(&_uuid_clear, &_uuid_clearErr, frameworkHandle, "uuid_clear", "10.4")
+	registerFunc(&_uuid_compare, &_uuid_compareErr, frameworkHandle, "uuid_compare", "10.4")
+	registerFunc(&_uuid_copy, &_uuid_copyErr, frameworkHandle, "uuid_copy", "10.4")
+	registerFunc(&_uuid_generate, &_uuid_generateErr, frameworkHandle, "uuid_generate", "10.4")
+	registerFunc(&_uuid_generate_early_random, &_uuid_generate_early_randomErr, frameworkHandle, "uuid_generate_early_random", "10.14")
+	registerFunc(&_uuid_generate_random, &_uuid_generate_randomErr, frameworkHandle, "uuid_generate_random", "10.4")
+	registerFunc(&_uuid_generate_time, &_uuid_generate_timeErr, frameworkHandle, "uuid_generate_time", "10.4")
+	registerFunc(&_uuid_is_null, &_uuid_is_nullErr, frameworkHandle, "uuid_is_null", "10.4")
+	registerFunc(&_uuid_parse, &_uuid_parseErr, frameworkHandle, "uuid_parse", "10.4")
+	registerFunc(&_uuid_unparse, &_uuid_unparseErr, frameworkHandle, "uuid_unparse", "10.4")
+	registerFunc(&_uuid_unparse_lower, &_uuid_unparse_lowerErr, frameworkHandle, "uuid_unparse_lower", "10.4")
+	registerFunc(&_uuid_unparse_upper, &_uuid_unparse_upperErr, frameworkHandle, "uuid_unparse_upper", "10.4")
 	registerFunc(&_vDSP_biquad2, &_vDSP_biquad2Err, frameworkHandle, "vDSP_biquad2", "10.9")
 	registerFunc(&_vDSP_biquad2_CopyState, &_vDSP_biquad2_CopyStateErr, frameworkHandle, "vDSP_biquad2_CopyState", "10.9")
 	registerFunc(&_vDSP_biquad2_CreateSetup, &_vDSP_biquad2_CreateSetupErr, frameworkHandle, "vDSP_biquad2_CreateSetup", "10.9")

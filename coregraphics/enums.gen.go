@@ -10,10 +10,10 @@ import (
 type CGBitmapInfo uint32
 
 const (
-	KCGBitmapAlphaInfoMask       CGBitmapInfo = 31
-	KCGBitmapByteOrderInfoMask   CGBitmapInfo = 28672
-	KCGBitmapComponentInfoMask   CGBitmapInfo = 3840
-	KCGBitmapPixelFormatInfoMask CGBitmapInfo = 983040
+	KCGBitmapAlphaInfoMask       CGBitmapInfo = 0x1f
+	KCGBitmapByteOrderInfoMask   CGBitmapInfo = 0x7000
+	KCGBitmapComponentInfoMask   CGBitmapInfo = 0xf00
+	KCGBitmapPixelFormatInfoMask CGBitmapInfo = 0xf0000
 	// Deprecated.
 	KCGBitmapByteOrder16Big CGBitmapInfo = 12288
 	// Deprecated.
@@ -888,9 +888,9 @@ func (e CGEventField) String() string {
 type CGEventFilterMask uint32
 
 const (
-	KCGEventFilterMaskPermitLocalKeyboardEvents CGEventFilterMask = 2
-	KCGEventFilterMaskPermitLocalMouseEvents    CGEventFilterMask = 1
-	KCGEventFilterMaskPermitSystemDefinedEvents CGEventFilterMask = 4
+	KCGEventFilterMaskPermitLocalKeyboardEvents CGEventFilterMask = 0x2
+	KCGEventFilterMaskPermitLocalMouseEvents    CGEventFilterMask = 0x1
+	KCGEventFilterMaskPermitSystemDefinedEvents CGEventFilterMask = 0x4
 )
 
 func (e CGEventFilterMask) String() string {
@@ -911,23 +911,23 @@ type CGEventFlags uint64
 
 const (
 	// KCGEventFlagMaskAlphaShift: Indicates that the Caps Lock key is down for a keyboard, mouse, or flag-changed event.
-	KCGEventFlagMaskAlphaShift CGEventFlags = 65536
+	KCGEventFlagMaskAlphaShift CGEventFlags = 0x10000
 	// KCGEventFlagMaskAlternate: Indicates that the Alt or Option key is down for a keyboard, mouse, or flag-changed event.
-	KCGEventFlagMaskAlternate CGEventFlags = 524288
+	KCGEventFlagMaskAlternate CGEventFlags = 0x80000
 	// KCGEventFlagMaskCommand: Indicates that the Command key is down for a keyboard, mouse, or flag-changed event.
-	KCGEventFlagMaskCommand CGEventFlags = 1048576
+	KCGEventFlagMaskCommand CGEventFlags = 0x100000
 	// KCGEventFlagMaskControl: Indicates that the Control key is down for a keyboard, mouse, or flag-changed event.
-	KCGEventFlagMaskControl CGEventFlags = 262144
+	KCGEventFlagMaskControl CGEventFlags = 0x40000
 	// KCGEventFlagMaskHelp: Indicates that the Help modifier key is down for a keyboard, mouse, or flag-changed event.
-	KCGEventFlagMaskHelp CGEventFlags = 4194304
+	KCGEventFlagMaskHelp CGEventFlags = 0x400000
 	// KCGEventFlagMaskNonCoalesced: Indicates that mouse and pen movement events are not being coalesced.
-	KCGEventFlagMaskNonCoalesced CGEventFlags = 256
+	KCGEventFlagMaskNonCoalesced CGEventFlags = 0x100
 	// KCGEventFlagMaskNumericPad: Identifies key events from the numeric keypad area on extended keyboards.
-	KCGEventFlagMaskNumericPad CGEventFlags = 2097152
+	KCGEventFlagMaskNumericPad CGEventFlags = 0x200000
 	// KCGEventFlagMaskSecondaryFn: Indicates that the Fn (Function) key is down for a keyboard, mouse, or flag-changed event.
-	KCGEventFlagMaskSecondaryFn CGEventFlags = 8388608
+	KCGEventFlagMaskSecondaryFn CGEventFlags = 0x800000
 	// KCGEventFlagMaskShift: Indicates that the Shift key is down for a keyboard, mouse, or flag-changed event.
-	KCGEventFlagMaskShift CGEventFlags = 131072
+	KCGEventFlagMaskShift CGEventFlags = 0x20000
 )
 
 func (e CGEventFlags) String() string {
@@ -1061,7 +1061,7 @@ const (
 	// KCGEventTapOptionDefault: # Discussion
 	KCGEventTapOptionDefault CGEventTapOptions = 0
 	// KCGEventTapOptionListenOnly: # Discussion
-	KCGEventTapOptionListenOnly CGEventTapOptions = 1
+	KCGEventTapOptionListenOnly CGEventTapOptions = 0x1
 )
 
 func (e CGEventTapOptions) String() string {
@@ -1135,9 +1135,9 @@ const (
 	// KCGEventTabletProximity: Specifies a tablet proximity event.
 	KCGEventTabletProximity CGEventType = 24
 	// KCGEventTapDisabledByTimeout: Specifies an event indicating the event tap is disabled because of timeout.
-	KCGEventTapDisabledByTimeout CGEventType = 4294967294
+	KCGEventTapDisabledByTimeout CGEventType = 0xfffffffe
 	// KCGEventTapDisabledByUserInput: Specifies an event indicating the event tap is disabled because of user input.
-	KCGEventTapDisabledByUserInput CGEventType = 4294967295
+	KCGEventTapDisabledByUserInput CGEventType = 0xffffffff
 )
 
 func (e CGEventType) String() string {

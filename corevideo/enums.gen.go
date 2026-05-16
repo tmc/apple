@@ -32,7 +32,7 @@ type CVPixelBufferLockFlags int
 
 const (
 	// KCVPixelBufferLock_ReadOnly: A read-only buffer.
-	KCVPixelBufferLock_ReadOnly CVPixelBufferLockFlags = 1
+	KCVPixelBufferLock_ReadOnly CVPixelBufferLockFlags = 0x1
 )
 
 func (e CVPixelBufferLockFlags) String() string {

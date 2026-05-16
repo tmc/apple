@@ -8,7 +8,7 @@
 //
 // # Event Monitoring
 //
-//   - Client: An opaque type that maintains Endpoint Security client state, and functions related to this type. ([Es_handler_block_t], [Es_muted_processes_t], [Es_muted_paths_t])
+//   - Client: An opaque type that maintains Endpoint Security client state, and functions related to this type. ([Es_handler_block_t], [Es_new_client_result_t], [Es_event_type_t], [Es_auth_result_t], [Es_respond_result_t])
 //   - Message: A type used by Endpoint Security to notify your client when a monitored action occurs. ([Es_message_t], [Es_result_t], [Es_string_token_t], [Es_token_t])
 //   - Event Types: Types used by messages to deliver details specific to different kinds of Endpoint Security events. ([Es_file_t], [Es_event_access_t], [Es_event_clone_t], [Es_event_copyfile_t], [Es_event_create_t])
 //
