@@ -69,6 +69,61 @@ func CreateBlockDevice(attachment vz.VZDiskImageStorageDeviceAttachment) vz.VZVi
 	return config
 }
 
+// CreateBlockDeviceWithAttachment creates a Virtio block device configuration.
+func CreateBlockDeviceWithAttachment(attachment vz.VZStorageDeviceAttachment) (vz.VZVirtioBlockDeviceConfiguration, error) {
+	config := vz.NewVirtioBlockDeviceConfigurationWithAttachment(&attachment)
+	if config.ID == 0 {
+		return vz.VZVirtioBlockDeviceConfiguration{}, fmt.Errorf("create virtio block storage device")
+	}
+	config.Retain()
+	return config, nil
+}
+
+// CreateNVMeDeviceWithAttachment creates an NVMe storage device configuration.
+func CreateNVMeDeviceWithAttachment(attachment vz.VZStorageDeviceAttachment) (vz.VZNVMExpressControllerDeviceConfiguration, error) {
+	config := vz.NewNVMExpressControllerDeviceConfigurationWithAttachment(attachment)
+	if config.ID == 0 {
+		return vz.VZNVMExpressControllerDeviceConfiguration{}, fmt.Errorf("create NVMe storage device")
+	}
+	config.Retain()
+	return config, nil
+}
+
+// CreateUSBMassStorageDeviceWithAttachment creates a USB mass-storage device configuration.
+func CreateUSBMassStorageDeviceWithAttachment(attachment vz.VZStorageDeviceAttachment) (vz.VZUSBMassStorageDeviceConfiguration, error) {
+	config := vz.NewUSBMassStorageDeviceConfigurationWithAttachment(&attachment)
+	if config.ID == 0 {
+		return vz.VZUSBMassStorageDeviceConfiguration{}, fmt.Errorf("create USB mass storage device")
+	}
+	config.Retain()
+	return config, nil
+}
+
+// AppendStorageDevices appends devices to a VM configuration's storage devices.
+func AppendStorageDevices(config vz.VZVirtualMachineConfiguration, devices ...vz.VZStorageDeviceConfiguration) {
+	existing := config.StorageDevices()
+	all := make([]vz.VZStorageDeviceConfiguration, 0, len(existing)+len(devices))
+	for _, dev := range existing {
+		all = append(all, vz.VZStorageDeviceConfigurationFromID(dev.GetID()))
+	}
+	all = append(all, devices...)
+	config.SetStorageDevices(all)
+}
+
+// EnsureUSBController adds a default XHCI controller when none is configured.
+func EnsureUSBController(config vz.VZVirtualMachineConfiguration) {
+	if len(config.UsbControllers()) > 0 {
+		return
+	}
+	controller := vz.NewVZXHCIControllerConfiguration()
+	if controller.ID == 0 {
+		return
+	}
+	config.SetUsbControllers([]vz.VZUSBControllerConfiguration{
+		vz.VZUSBControllerConfigurationFromID(controller.ID),
+	})
+}
+
 // CreateDirectoryShare creates a single-directory share for VirtioFS.
 func CreateDirectoryShare(path string, readOnly bool) (vz.VZSingleDirectoryShare, error) {
 	dirURL := foundation.NewURLFileURLWithPath(path)
