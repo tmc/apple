@@ -25,6 +25,7 @@
 //go:generate applegen-bootstrap -f "dispatch"
 //go:generate applegen-bootstrap -f "endpointsecurity"
 //go:generate applegen-bootstrap -f "foundation"
+//go:generate applegen-bootstrap -f "fskit"
 //go:generate applegen-bootstrap -f "gamecontroller"
 //go:generate applegen-bootstrap -f "hypervisor" --go-names
 //go:generate applegen-bootstrap -f "iokit"
