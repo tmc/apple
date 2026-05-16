@@ -7,7 +7,9 @@ import (
 	"unsafe"
 
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/objectivec"
 )
 
 type unavailableSymbolError struct {
@@ -78,6 +80,41 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
+var _cGEventSetWindowLocation func(event coregraphics.CGEventRef, point corefoundation.CGPoint)
+var _cGEventSetWindowLocationErr error
+
+func tryCGEventSetWindowLocation(event coregraphics.CGEventRef, point corefoundation.CGPoint) error {
+	if _cGEventSetWindowLocation == nil {
+		return symbolCallError("CGEventSetWindowLocation", "", _cGEventSetWindowLocationErr)
+	}
+	_cGEventSetWindowLocation(event, point)
+	return nil
+}
+
+// CGEventSetWindowLocation.
+//
+// See: https://developer.apple.com/documentation/SkyLight/CGEventSetWindowLocation
+func CGEventSetWindowLocation(event coregraphics.CGEventRef, point corefoundation.CGPoint) error {
+	return tryCGEventSetWindowLocation(event, point)
+}
+
+var _cGSMainConnectionID func() CGSConnectionID
+var _cGSMainConnectionIDErr error
+
+func tryCGSMainConnectionID() (CGSConnectionID, error) {
+	if _cGSMainConnectionID == nil {
+		return *new(CGSConnectionID), symbolCallError("CGSMainConnectionID", "", _cGSMainConnectionIDErr)
+	}
+	return _cGSMainConnectionID(), nil
+}
+
+// CGSMainConnectionID.
+//
+// See: https://developer.apple.com/documentation/SkyLight/CGSMainConnectionID
+func CGSMainConnectionID() (CGSConnectionID, error) {
+	return tryCGSMainConnectionID()
+}
+
 var _sLEventPostToPSN func(psn *ProcessSerialNumber, event coregraphics.CGEventRef) int32
 var _sLEventPostToPSNErr error
 
@@ -112,6 +149,42 @@ func SLEventPostToPid(pid int32, event coregraphics.CGEventRef) (int32, error) {
 	return trySLEventPostToPid(pid, event)
 }
 
+var _sLEventSetAuthenticationMessage func(event coregraphics.CGEventRef, message objectivec.Object)
+var _sLEventSetAuthenticationMessageErr error
+
+func trySLEventSetAuthenticationMessage(event coregraphics.CGEventRef, message objectivec.Object) error {
+	if _sLEventSetAuthenticationMessage == nil {
+		return symbolCallError("SLEventSetAuthenticationMessage", "", _sLEventSetAuthenticationMessageErr)
+	}
+	_sLEventSetAuthenticationMessage(event, message)
+	return nil
+}
+
+// SLEventSetAuthenticationMessage.
+//
+// See: https://developer.apple.com/documentation/SkyLight/SLEventSetAuthenticationMessage
+func SLEventSetAuthenticationMessage(event coregraphics.CGEventRef, message objectivec.Object) error {
+	return trySLEventSetAuthenticationMessage(event, message)
+}
+
+var _sLEventSetIntegerValueField func(event coregraphics.CGEventRef, field coregraphics.CGEventField, value int64)
+var _sLEventSetIntegerValueFieldErr error
+
+func trySLEventSetIntegerValueField(event coregraphics.CGEventRef, field coregraphics.CGEventField, value int64) error {
+	if _sLEventSetIntegerValueField == nil {
+		return symbolCallError("SLEventSetIntegerValueField", "", _sLEventSetIntegerValueFieldErr)
+	}
+	_sLEventSetIntegerValueField(event, field, value)
+	return nil
+}
+
+// SLEventSetIntegerValueField.
+//
+// See: https://developer.apple.com/documentation/SkyLight/SLEventSetIntegerValueField
+func SLEventSetIntegerValueField(event coregraphics.CGEventRef, field coregraphics.CGEventField, value int64) error {
+	return trySLEventSetIntegerValueField(event, field, value)
+}
+
 var _sLPSPostEventRecordTo func(psn *ProcessSerialNumber, record *byte) int32
 var _sLPSPostEventRecordToErr error
 
@@ -127,6 +200,40 @@ func trySLPSPostEventRecordTo(psn *ProcessSerialNumber, record []byte) (int32, e
 // See: https://developer.apple.com/documentation/SkyLight/SLPSPostEventRecordTo
 func SLPSPostEventRecordTo(psn *ProcessSerialNumber, record []byte) (int32, error) {
 	return trySLPSPostEventRecordTo(psn, record)
+}
+
+var _sLSGetConnectionPSN func(cid CGSConnectionID, psn *ProcessSerialNumber) coregraphics.CGError
+var _sLSGetConnectionPSNErr error
+
+func trySLSGetConnectionPSN(cid CGSConnectionID, psn *ProcessSerialNumber) (coregraphics.CGError, error) {
+	if _sLSGetConnectionPSN == nil {
+		return *new(coregraphics.CGError), symbolCallError("SLSGetConnectionPSN", "", _sLSGetConnectionPSNErr)
+	}
+	return _sLSGetConnectionPSN(cid, psn), nil
+}
+
+// SLSGetConnectionPSN.
+//
+// See: https://developer.apple.com/documentation/SkyLight/SLSGetConnectionPSN
+func SLSGetConnectionPSN(cid CGSConnectionID, psn *ProcessSerialNumber) (coregraphics.CGError, error) {
+	return trySLSGetConnectionPSN(cid, psn)
+}
+
+var _sLSGetWindowOwner func(cid CGSConnectionID, wid coregraphics.CGWindowID, owner *CGSConnectionID) coregraphics.CGError
+var _sLSGetWindowOwnerErr error
+
+func trySLSGetWindowOwner(cid CGSConnectionID, wid coregraphics.CGWindowID, owner *CGSConnectionID) (coregraphics.CGError, error) {
+	if _sLSGetWindowOwner == nil {
+		return *new(coregraphics.CGError), symbolCallError("SLSGetWindowOwner", "", _sLSGetWindowOwnerErr)
+	}
+	return _sLSGetWindowOwner(cid, wid, owner), nil
+}
+
+// SLSGetWindowOwner.
+//
+// See: https://developer.apple.com/documentation/SkyLight/SLSGetWindowOwner
+func SLSGetWindowOwner(cid CGSConnectionID, wid coregraphics.CGWindowID, owner *CGSConnectionID) (coregraphics.CGError, error) {
+	return trySLSGetWindowOwner(cid, wid, owner)
 }
 
 var _sLPSGetFrontProcess func(psn *ProcessSerialNumber) int32
@@ -167,9 +274,15 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
+	registerFunc(&_cGEventSetWindowLocation, &_cGEventSetWindowLocationErr, frameworkHandle, "CGEventSetWindowLocation", "")
+	registerFunc(&_cGSMainConnectionID, &_cGSMainConnectionIDErr, frameworkHandle, "CGSMainConnectionID", "")
 	registerFunc(&_sLEventPostToPSN, &_sLEventPostToPSNErr, frameworkHandle, "SLEventPostToPSN", "")
 	registerFunc(&_sLEventPostToPid, &_sLEventPostToPidErr, frameworkHandle, "SLEventPostToPid", "")
+	registerFunc(&_sLEventSetAuthenticationMessage, &_sLEventSetAuthenticationMessageErr, frameworkHandle, "SLEventSetAuthenticationMessage", "")
+	registerFunc(&_sLEventSetIntegerValueField, &_sLEventSetIntegerValueFieldErr, frameworkHandle, "SLEventSetIntegerValueField", "")
 	registerFunc(&_sLPSPostEventRecordTo, &_sLPSPostEventRecordToErr, frameworkHandle, "SLPSPostEventRecordTo", "")
+	registerFunc(&_sLSGetConnectionPSN, &_sLSGetConnectionPSNErr, frameworkHandle, "SLSGetConnectionPSN", "")
+	registerFunc(&_sLSGetWindowOwner, &_sLSGetWindowOwnerErr, frameworkHandle, "SLSGetWindowOwner", "")
 	registerFunc(&_sLPSGetFrontProcess, &_sLPSGetFrontProcessErr, frameworkHandle, "_SLPSGetFrontProcess", "")
 	registerFunc(&_sLPSSetFrontProcessWithOptions, &_sLPSSetFrontProcessWithOptionsErr, frameworkHandle, "_SLPSSetFrontProcessWithOptions", "")
 }

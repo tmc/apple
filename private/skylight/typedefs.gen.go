@@ -2,6 +2,9 @@
 
 package skylight
 
+// See: https://developer.apple.com/documentation/SkyLight/CGSConnectionID
+type CGSConnectionID = uint32
+
 // See: https://developer.apple.com/documentation/SkyLight/CPSKeyFocusInfoRecRef
 type CPSKeyFocusInfoRecRef uintptr
 
