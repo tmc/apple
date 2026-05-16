@@ -896,10 +896,10 @@ func HVVCPUConfigGetFeatureReg(config unsafe.Pointer, feature_reg HVFeatureReg, 
 	return result
 }
 
-var _hVVCPUCreate func(vcpu *uint64, exit *HVVCPUExit, config unsafe.Pointer) int32
+var _hVVCPUCreate func(vcpu *uint64, exit **HVVCPUExit, config unsafe.Pointer) int32
 var _hVVCPUCreateErr error
 
-func tryHVVCPUCreate(vcpu *uint64, exit *HVVCPUExit, config unsafe.Pointer) (int32, error) {
+func tryHVVCPUCreate(vcpu *uint64, exit **HVVCPUExit, config unsafe.Pointer) (int32, error) {
 	if _hVVCPUCreate == nil {
 		return 0, symbolCallError("hv_vcpu_create", "11.0", _hVVCPUCreateErr)
 	}
@@ -909,7 +909,7 @@ func tryHVVCPUCreate(vcpu *uint64, exit *HVVCPUExit, config unsafe.Pointer) (int
 // HVVCPUCreate creates a vCPU instance for the current thread.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_create(_:_:_:)
-func HVVCPUCreate(vcpu *uint64, exit *HVVCPUExit, config unsafe.Pointer) int32 {
+func HVVCPUCreate(vcpu *uint64, exit **HVVCPUExit, config unsafe.Pointer) int32 {
 	result, callErr := tryHVVCPUCreate(vcpu, exit, config)
 	if callErr != nil {
 		panic(callErr)
