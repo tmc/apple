@@ -29,6 +29,31 @@ func CreateBlockDevice(attachment vz.VZDiskImageStorageDeviceAttachment) vz.VZVi
 	return storagex.CreateBlockDevice(attachment)
 }
 
+// CreateBlockDeviceWithAttachment creates a Virtio block device configuration.
+func CreateBlockDeviceWithAttachment(attachment vz.VZStorageDeviceAttachment) (vz.VZVirtioBlockDeviceConfiguration, error) {
+	return storagex.CreateBlockDeviceWithAttachment(attachment)
+}
+
+// CreateNVMeDeviceWithAttachment creates an NVMe storage device configuration.
+func CreateNVMeDeviceWithAttachment(attachment vz.VZStorageDeviceAttachment) (vz.VZNVMExpressControllerDeviceConfiguration, error) {
+	return storagex.CreateNVMeDeviceWithAttachment(attachment)
+}
+
+// CreateUSBMassStorageDeviceWithAttachment creates a USB mass-storage device configuration.
+func CreateUSBMassStorageDeviceWithAttachment(attachment vz.VZStorageDeviceAttachment) (vz.VZUSBMassStorageDeviceConfiguration, error) {
+	return storagex.CreateUSBMassStorageDeviceWithAttachment(attachment)
+}
+
+// AppendStorageDevices appends devices to a VM configuration's storage devices.
+func AppendStorageDevices(config vz.VZVirtualMachineConfiguration, devices ...vz.VZStorageDeviceConfiguration) {
+	storagex.AppendStorageDevices(config, devices...)
+}
+
+// EnsureUSBController adds a default XHCI controller when none is configured.
+func EnsureUSBController(config vz.VZVirtualMachineConfiguration) {
+	storagex.EnsureUSBController(config)
+}
+
 // CreateDirectoryShare creates a VZSingleDirectoryShare for VirtioFS.
 func CreateDirectoryShare(path string, readOnly bool) (vz.VZSingleDirectoryShare, error) {
 	return storagex.CreateDirectoryShare(path, readOnly)
