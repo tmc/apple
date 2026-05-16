@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	pvz "github.com/tmc/apple/private/virtualization"
 	vz "github.com/tmc/apple/virtualization"
@@ -159,16 +160,20 @@ func (s *Server) StartVirtualMachine(machine vz.VZVirtualMachine) (StartResult, 
 	s.SetVirtualMachine(pvz.VZVirtualMachineFromID(machine.ID))
 
 	var displayErr error
-	display, err := s.firstGraphicsDisplay(machine)
-	if err == nil && display.ID != 0 {
-		s.SetGraphicsDisplay(display)
-	} else if err != nil {
-		displayErr = err
+	displayAttached := false
+	if s.CanSetGraphicsDisplay() {
+		display, err := s.firstGraphicsDisplay(machine)
+		if err == nil && display.ID != 0 {
+			s.SetGraphicsDisplay(display)
+			displayAttached = true
+		} else if err != nil {
+			displayErr = err
+		}
 	}
 
 	s.Start()
 	return StartResult{
-		DisplayAttached: display.ID != 0,
+		DisplayAttached: displayAttached,
 		Port:            s.Port(),
 		State:           s.State(),
 		Description:     s.Description(),
@@ -188,6 +193,13 @@ func (s *Server) SetVirtualMachine(vm pvz.IVZVirtualMachine) {
 // SetGraphicsDisplay attaches a graphics display to the server.
 func (s *Server) SetGraphicsDisplay(display pvz.IVZGraphicsDisplay) {
 	s.sync(func() { s.raw.SetGraphicsDisplay(display) })
+}
+
+// CanSetGraphicsDisplay reports whether this server accepts an explicit graphics display.
+func (s *Server) CanSetGraphicsDisplay() bool {
+	var ok bool
+	s.sync(func() { ok = objc.RespondsToSelector(s.raw.ID, objc.Sel("setGraphicsDisplay:")) })
+	return ok
 }
 
 func (s *Server) firstGraphicsDisplay(machine vz.VZVirtualMachine) (pvz.VZGraphicsDisplay, error) {
