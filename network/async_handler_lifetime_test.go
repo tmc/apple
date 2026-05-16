@@ -4,24 +4,24 @@ import (
 	"testing"
 )
 
-func newTestBrowser(t testing.TB) Nw_browser_t {
+func newTestBrowser(t testing.TB) NWBrowser {
 	t.Helper()
 
-	descriptor := Nw_browse_descriptor_create_bonjour_service("_appledocs._tcp", "local")
+	descriptor := NWBrowseDescriptorCreateBonjourService("_appledocs._tcp", "local")
 	if descriptor.ID == 0 {
-		t.Fatal("Nw_browse_descriptor_create_bonjour_service returned nil")
+		t.Fatal("NWBrowseDescriptorCreateBonjourService returned nil")
 	}
 	t.Cleanup(descriptor.Release)
 
-	parameters := Nw_parameters_create()
+	parameters := NWParametersCreate()
 	if parameters.ID == 0 {
-		t.Fatal("Nw_parameters_create returned nil")
+		t.Fatal("NWParametersCreate returned nil")
 	}
 	t.Cleanup(parameters.Release)
 
-	browser := Nw_browser_create(descriptor, parameters)
+	browser := NWBrowserCreate(descriptor, parameters)
 	if browser.ID == 0 {
-		t.Fatal("Nw_browser_create returned nil")
+		t.Fatal("NWBrowserCreate returned nil")
 	}
 	t.Cleanup(browser.Release)
 	return browser
@@ -35,7 +35,7 @@ func TestBrowserStateChangedHandlerIsRetained(t *testing.T) {
 	}
 	t.Cleanup(func() { clearNetworkAsyncBlock(browser.ID, key.setter) })
 
-	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, Nw_error_t) {})
+	NWBrowserSetStateChangedHandler(browser, func(NWBrowserState, NWError) {})
 
 	networkAsyncBlockMu.Lock()
 	block := networkAsyncBlocks[key]
@@ -53,7 +53,7 @@ func TestBrowserStateChangedHandlerReplacementKeepsSingleRegistration(t *testing
 	}
 	t.Cleanup(func() { clearNetworkAsyncBlock(browser.ID, key.setter) })
 
-	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, Nw_error_t) {})
+	NWBrowserSetStateChangedHandler(browser, func(NWBrowserState, NWError) {})
 
 	networkAsyncBlockMu.Lock()
 	first := networkAsyncBlocks[key]
@@ -63,7 +63,7 @@ func TestBrowserStateChangedHandlerReplacementKeepsSingleRegistration(t *testing
 		t.Fatal("first retained block missing")
 	}
 
-	Nw_browser_set_state_changed_handler(browser, func(NwBrowserState, Nw_error_t) {})
+	NWBrowserSetStateChangedHandler(browser, func(NWBrowserState, NWError) {})
 
 	networkAsyncBlockMu.Lock()
 	second := networkAsyncBlocks[key]

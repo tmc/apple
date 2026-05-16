@@ -34,7 +34,7 @@
 // # Network Security and Privacy
 //
 //   - Security Options: Configure security options for TLS handshakes.
-//   - Privacy Management: Configure parameters related to user privacy. ([Nw_parameters_attribution_t])
+//   - Privacy Management: Configure parameters related to user privacy. ([NWParametersAttribution])
 //   - Creating an Identity for Local Network TLS: Learn how to create and use a digital identity in your application for local network TLS.
 //
 // # Paths and Interfaces
@@ -58,7 +58,7 @@
 //
 // # C-Language Symbols
 //
-//   - C-Language Symbols ([OS_nw_advertise_descriptor], [OS_nw_browse_descriptor], [OS_nw_browse_result], [OS_nw_browser], [OS_nw_connection])
+//   - C-Language Symbols ([NWConnectionGroupState], [NWBrowserState], [NWConnectionState], [NWDataTransferReportState], [NWEndpointType])
 //
 // # Classes
 //
