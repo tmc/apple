@@ -99,8 +99,8 @@ type INEFilterSocketFlow interface {
 	// The protocol of the socket.
 	SocketProtocol() int
 
-	LocalFlowEndpoint() network.Nw_endpoint_t
-	RemoteFlowEndpoint() network.Nw_endpoint_t
+	LocalFlowEndpoint() network.NWEndpoint
+	RemoteFlowEndpoint() network.NWEndpoint
 }
 
 // Init initializes the instance.
@@ -206,13 +206,13 @@ func (f NEFilterSocketFlow) SocketProtocol() int {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow/localFlowEndpoint-4nt54
-func (f NEFilterSocketFlow) LocalFlowEndpoint() network.Nw_endpoint_t {
-	rv := objc.Send[network.Nw_endpoint_t](f.ID, objc.Sel("localFlowEndpoint"))
-	return network.Nw_endpoint_t(rv)
+func (f NEFilterSocketFlow) LocalFlowEndpoint() network.NWEndpoint {
+	rv := objc.Send[objc.ID](f.ID, objc.Sel("localFlowEndpoint"))
+	return network.NWEndpointFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow/remoteFlowEndpoint-52dxr
-func (f NEFilterSocketFlow) RemoteFlowEndpoint() network.Nw_endpoint_t {
-	rv := objc.Send[network.Nw_endpoint_t](f.ID, objc.Sel("remoteFlowEndpoint"))
-	return network.Nw_endpoint_t(rv)
+func (f NEFilterSocketFlow) RemoteFlowEndpoint() network.NWEndpoint {
+	rv := objc.Send[objc.ID](f.ID, objc.Sel("remoteFlowEndpoint"))
+	return network.NWEndpointFromID(objc.ID(rv))
 }

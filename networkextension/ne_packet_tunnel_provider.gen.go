@@ -161,7 +161,7 @@ type INEPacketTunnelProvider interface {
 	// A [NEPacketTunnelFlow](<doc://com.apple.networkextension/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
 	PacketFlow() INEPacketTunnelFlow
 
-	VirtualInterface() network.Nw_interface_t
+	VirtualInterface() network.NWInterface
 }
 
 // Init initializes the instance.
@@ -273,9 +273,9 @@ func (p NEPacketTunnelProvider) PacketFlow() INEPacketTunnelFlow {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelProvider/virtualInterface-9fpgd
-func (p NEPacketTunnelProvider) VirtualInterface() network.Nw_interface_t {
-	rv := objc.Send[network.Nw_interface_t](p.ID, objc.Sel("virtualInterface"))
-	return network.Nw_interface_t(rv)
+func (p NEPacketTunnelProvider) VirtualInterface() network.NWInterface {
+	rv := objc.Send[network.NWInterface](p.ID, objc.Sel("virtualInterface"))
+	return network.NWInterface(rv)
 }
 
 // StartTunnelWithOptions is a synchronous wrapper around [NEPacketTunnelProvider.StartTunnelWithOptionsCompletionHandler].

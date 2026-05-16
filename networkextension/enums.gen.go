@@ -230,7 +230,7 @@ type NEFilterDataAttribute int
 
 const (
 	// NEFilterDataAttributeHasIPHeader: An attribute that indicates the data includes an IP header.
-	NEFilterDataAttributeHasIPHeader NEFilterDataAttribute = 1
+	NEFilterDataAttributeHasIPHeader NEFilterDataAttribute = 0x1
 )
 
 func (e NEFilterDataAttribute) String() string {

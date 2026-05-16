@@ -167,7 +167,7 @@ type INEAppProxyProvider interface {
 	// Handle a new flow of network data.
 	HandleNewFlow(flow INEAppProxyFlow) bool
 
-	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.Nw_endpoint_t) bool
+	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.NWEndpoint) bool
 }
 
 // Init initializes the instance.
@@ -292,7 +292,7 @@ func (a NEAppProxyProvider) HandleNewFlow(flow INEAppProxyFlow) bool {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyProvider/handleNewUDPFlow:initialRemoteFlowEndpoint:
-func (a NEAppProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.Nw_endpoint_t) bool {
+func (a NEAppProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.NWEndpoint) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("handleNewUDPFlow:initialRemoteFlowEndpoint:"), flow, remoteEndpoint)
 	return rv
 }

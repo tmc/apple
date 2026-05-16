@@ -135,7 +135,7 @@ type INEDNSProxyProvider interface {
 	// The current system DNS settings.
 	SystemDNSSettings() foundation.INSSet
 
-	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.Nw_endpoint_t) bool
+	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.NWEndpoint) bool
 }
 
 // Init initializes the instance.
@@ -250,7 +250,7 @@ func (d NEDNSProxyProvider) HandleNewFlow(flow INEAppProxyFlow) bool {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyProvider/handleNewUDPFlow:initialRemoteFlowEndpoint:
-func (d NEDNSProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.Nw_endpoint_t) bool {
+func (d NEDNSProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint network.NWEndpoint) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("handleNewUDPFlow:initialRemoteFlowEndpoint:"), flow, remoteEndpoint)
 	return rv
 }

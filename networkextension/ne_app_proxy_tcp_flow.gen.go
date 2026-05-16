@@ -104,7 +104,7 @@ type INEAppProxyTCPFlow interface {
 	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 	RemoteEndpoint() INWEndpoint
 
-	RemoteFlowEndpoint() network.Nw_endpoint_t
+	RemoteFlowEndpoint() network.NWEndpoint
 }
 
 // Init initializes the instance.
@@ -184,9 +184,9 @@ func (a NEAppProxyTCPFlow) RemoteEndpoint() INWEndpoint {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow/remoteFlowEndpoint-9lvob
-func (a NEAppProxyTCPFlow) RemoteFlowEndpoint() network.Nw_endpoint_t {
-	rv := objc.Send[network.Nw_endpoint_t](a.ID, objc.Sel("remoteFlowEndpoint"))
-	return network.Nw_endpoint_t(rv)
+func (a NEAppProxyTCPFlow) RemoteFlowEndpoint() network.NWEndpoint {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteFlowEndpoint"))
+	return network.NWEndpointFromID(objc.ID(rv))
 }
 
 // WriteData is a synchronous wrapper around [NEAppProxyTCPFlow.WriteDataWithCompletionHandler].
