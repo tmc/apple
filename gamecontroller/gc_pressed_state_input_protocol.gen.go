@@ -1,0 +1,101 @@
+// Code generated from Apple documentation for GameController. DO NOT EDIT.
+
+package gamecontroller
+
+import (
+	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
+)
+
+// The common properties for an element that has press state input, such as input from a button.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput
+type GCPressedStateInput interface {
+	objectivec.IObject
+
+	// A Boolean value that indicates whether the user presses the button.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
+	IsPressed() bool
+
+	// The time of the most recent press state change.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateTimestamp
+	LastPressedStateTimestamp() float64
+
+	// The time in seconds between the last press state change and the current time.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateLatency
+	LastPressedStateLatency() float64
+
+	// The block that the profile calls when an element’s press state changes.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/pressedDidChangeHandler
+	PressedDidChangeHandler() func(objc.ID, bool)
+
+	// One or more physical actions the user performs to manipulate the input.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/sources
+	Sources() foundation.INSSet
+}
+
+// GCPressedStateInputObject wraps an existing Objective-C object that conforms to the GCPressedStateInput protocol.
+type GCPressedStateInputObject struct {
+	objectivec.Object
+}
+
+func (o GCPressedStateInputObject) BaseObject() objectivec.Object {
+	return o.Object
+}
+
+// GCPressedStateInputObjectFromID constructs a [GCPressedStateInputObject] from an objc.ID.
+// The object is determined to conform to the protocol at runtime.
+func GCPressedStateInputObjectFromID(id objc.ID) GCPressedStateInputObject {
+	return GCPressedStateInputObject{
+		Object: objectivec.ObjectFromID(id),
+	}
+}
+
+// A Boolean value that indicates whether the user presses the button.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
+func (o GCPressedStateInputObject) IsPressed() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isPressed"))
+	return rv
+}
+
+// The time of the most recent press state change.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateTimestamp
+func (o GCPressedStateInputObject) LastPressedStateTimestamp() float64 {
+	rv := objc.Send[float64](o.ID, objc.Sel("lastPressedStateTimestamp"))
+	return rv
+}
+
+// The time in seconds between the last press state change and the current
+// time.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateLatency
+func (o GCPressedStateInputObject) LastPressedStateLatency() float64 {
+	rv := objc.Send[float64](o.ID, objc.Sel("lastPressedStateLatency"))
+	return rv
+}
+
+// The block that the profile calls when an element’s press state changes.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/pressedDidChangeHandler
+func (o GCPressedStateInputObject) PressedDidChangeHandler() func(objc.ID, bool) {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("pressedDidChangeHandler"))
+	// Block/function return - cannot convert from objc.ID to Go func
+	_ = rv
+	return nil
+}
+
+// One or more physical actions the user performs to manipulate the input.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/sources
+func (o GCPressedStateInputObject) Sources() foundation.INSSet {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("sources"))
+	return foundation.NSSetFromID(rv)
+}
