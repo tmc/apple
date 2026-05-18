@@ -155,7 +155,7 @@ func BestMatch(observations []TextObservation, needle string, opts SearchOptions
 }
 
 func (s *Service) recognizeTextInData(data foundation.INSData, width, height int) ([]TextObservation, error) {
-	handler := vision.NewImageRequestHandlerWithDataOptions(data, nil)
+	handler := vision.NewImageRequestHandlerWithDataOptions(foundation.NSDataFromID(data.GetID()), nil)
 
 	request := vision.NewVNRecognizeTextRequest()
 	request.SetRecognitionLevel(vision.VNRequestTextRecognitionLevelAccurate)

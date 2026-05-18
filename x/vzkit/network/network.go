@@ -54,13 +54,13 @@ func Parse(s string) (Config, error) {
 }
 
 const (
-	vmnetSharedMode vmnet.Operating_modes_t = 1001
-	vmnetSuccess    vmnet.Vmnet_return_t    = 1000
+	vmnetSharedMode vmnet.OperatingModes = 1001
+	vmnetSuccess    vmnet.VmnetReturn    = 1000
 )
 
 var (
-	vmnetNetworkConfigurationCreate func(mode vmnet.Vmnet_mode_t, status *vmnet.Vmnet_return_t) vmnet.Vmnet_network_configuration_ref
-	vmnetNetworkCreate              func(config vmnet.Vmnet_network_configuration_ref, status *vmnet.Vmnet_return_t) vmnet.Vmnet_network_ref
+	vmnetNetworkConfigurationCreate func(mode vmnet.VmnetMode, status *vmnet.VmnetReturn) vmnet.VmnetNetworkConfigurationRef
+	vmnetNetworkCreate              func(config vmnet.VmnetNetworkConfigurationRef, status *vmnet.VmnetReturn) vmnet.VmnetNetworkRef
 	vmnetFuncsLoaded                bool
 )
 
@@ -82,11 +82,11 @@ func init() {
 	vmnetFuncsLoaded = true
 }
 
-func createVMNetNetwork() (vmnet.Vmnet_network_ref, error) {
+func createVMNetNetwork() (vmnet.VmnetNetworkRef, error) {
 	if !vmnetFuncsLoaded {
 		return 0, fmt.Errorf("vmnet network APIs unavailable (requires macOS 26+)")
 	}
-	var status vmnet.Vmnet_return_t
+	var status vmnet.VmnetReturn
 	config := vmnetNetworkConfigurationCreate(vmnetSharedMode, &status)
 	if config == 0 || status != vmnetSuccess {
 		return 0, fmt.Errorf("create vmnet network configuration (status %d)", status)

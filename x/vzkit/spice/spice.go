@@ -107,7 +107,7 @@ type Core struct {
 }
 
 // NewCore creates a SPICE core object.
-func NewCore(pasteboard objectivec.IObject, queue *vm.Queue, caps Capabilities, input, output unsafe.Pointer) Core {
+func NewCore(pasteboard objectivec.IObject, queue *vm.Queue, caps Capabilities, input, output pvz.FileDescriptor) Core {
 	var q pvz.DispatchQueue
 	if queue != nil {
 		id := uintptr(queue.Queue().ID())

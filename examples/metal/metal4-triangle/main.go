@@ -297,7 +297,7 @@ func (r *triangleRenderer) drawFrame(view metalkit.MTKView) {
 		return
 	}
 
-	renderPassDesc := view.CurrentMTL4RenderPassDescriptor()
+	renderPassDesc := metal.MTL4RenderPassDescriptorFromID(view.CurrentMTL4RenderPassDescriptor().GetID())
 	if renderPassDesc.ID == 0 {
 		return
 	}

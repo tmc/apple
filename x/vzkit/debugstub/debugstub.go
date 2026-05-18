@@ -2,7 +2,6 @@ package debugstub
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/objectivec"
 	pvz "github.com/tmc/apple/private/virtualization"
@@ -21,7 +20,7 @@ func NewGDBDebugStubConfiguration(port uint16, listenAll bool) pvz.VZGDBDebugStu
 }
 
 // NewForwardingDebugStubConfiguration creates a forwarding debug-stub configuration.
-func NewForwardingDebugStubConfiguration(stub unsafe.Pointer) pvz.VZForwardingDebugStubConfiguration {
+func NewForwardingDebugStubConfiguration(stub pvz.DebugStub) pvz.VZForwardingDebugStubConfiguration {
 	cfg := pvz.NewVZForwardingDebugStubConfiguration()
 	raw, err := cfg.InitWithDebugStub(stub)
 	if err == nil && raw != nil && raw.GetID() != 0 {
@@ -56,7 +55,7 @@ func AttachGDB(config pvz.VZVirtualMachineConfiguration, port uint16, listenAll 
 }
 
 // AttachForwarding builds a forwarding debug stub and attaches it to a VM configuration.
-func AttachForwarding(config pvz.VZVirtualMachineConfiguration, stub unsafe.Pointer) error {
+func AttachForwarding(config pvz.VZVirtualMachineConfiguration, stub pvz.DebugStub) error {
 	return Attach(config, NewForwardingDebugStubConfiguration(stub))
 }
 

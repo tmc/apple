@@ -27,117 +27,117 @@ func (p *pass) Run(n *Network) bool {
 // Fusion passes.
 
 func FuseConvBatchNorm() Pass {
-	return &pass{"fuse_conv_batchnorm", espresso.NewEspressoPass_fuse_conv_batchnorm()}
+	return &pass{"fuse_conv_batchnorm", espresso.NewEspressoPassFuseConvBatchnorm()}
 }
 
 func FuseAddReLU() Pass {
-	return &pass{"fuse_add_and_relu", espresso.NewEspressoPass_fuse_add_and_relu()}
+	return &pass{"fuse_add_and_relu", espresso.NewEspressoPassFuseAddAndRelu()}
 }
 
 func FuseGELU() Pass {
-	return &pass{"fuse_gelu_with_erf", espresso.NewEspressoPass_fuse_gelu_with_erf()}
+	return &pass{"fuse_gelu_with_erf", espresso.NewEspressoPassFuseGeluWithErf()}
 }
 
 func FuseFastGELU() Pass {
-	return &pass{"fuse_fast_gelu", espresso.NewEspressoPass_fuse_fast_gelu_1()}
+	return &pass{"fuse_fast_gelu", espresso.NewEspressoPassFuseFastGelu1()}
 }
 
 func FusePad() Pass {
-	return &pass{"fuse_pad", espresso.NewEspressoPass_fuse_pad()}
+	return &pass{"fuse_pad", espresso.NewEspressoPassFusePad()}
 }
 
 func FuseAffineScale() Pass {
-	return &pass{"fuse_affine_scale", espresso.NewEspressoPass_fuse_affine_scale()}
+	return &pass{"fuse_affine_scale", espresso.NewEspressoPassFuseAffineScale()}
 }
 
 func FuseGRUActivation() Pass {
-	return &pass{"fuse_gru_activation", espresso.NewEspressoPass_fuse_gru_activation()}
+	return &pass{"fuse_gru_activation", espresso.NewEspressoPassFuseGruActivation()}
 }
 
 // Strength reduction passes.
 
 func ReduceBatchMatMulToInnerProduct() Pass {
-	return &pass{"strength_reduction_batch_matmul_to_inner_product", espresso.NewEspressoPass_strength_reduction_batch_matmul_to_inner_product()}
+	return &pass{"strength_reduction_batch_matmul_to_inner_product", espresso.NewEspressoPassStrengthReductionBatchMatmulToInnerProduct()}
 }
 
 func ReduceGatherToSlice() Pass {
-	return &pass{"strength_reduction_gather_to_slice", espresso.NewEspressoPass_strength_reduction_gather_to_slice()}
+	return &pass{"strength_reduction_gather_to_slice", espresso.NewEspressoPassStrengthReductionGatherToSlice()}
 }
 
 func ReduceGatherToLookup() Pass {
-	return &pass{"strength_reduction_gather_to_lookup", espresso.NewEspressoPass_strength_reduction_gather_to_lookup()}
+	return &pass{"strength_reduction_gather_to_lookup", espresso.NewEspressoPassStrengthReductionGatherToLookup()}
 }
 
 func RemoveIdentityTransposes() Pass {
-	return &pass{"strength_reduction_remove_identity_transposes", espresso.NewEspressoPass_strength_reduction_remove_identity_transposes()}
+	return &pass{"strength_reduction_remove_identity_transposes", espresso.NewEspressoPassStrengthReductionRemoveIdentityTransposes()}
 }
 
 func RemoveReshapeChain() Pass {
-	return &pass{"remove_reshape_chain", espresso.NewEspressoPass_remove_reshape_chain()}
+	return &pass{"remove_reshape_chain", espresso.NewEspressoPassRemoveReshapeChain()}
 }
 
 func ReduceReshapeToFlatten() Pass {
-	return &pass{"strength_reduction_reshape_to_flatten", espresso.NewEspressoPass_strength_reduction_reshape_to_flatten()}
+	return &pass{"strength_reduction_reshape_to_flatten", espresso.NewEspressoPassStrengthReductionReshapeToFlatten()}
 }
 
 // Quantization passes.
 
 func QuantizeGathers() Pass {
-	return &pass{"quantize_gathers", espresso.NewEspressoPass_quantize_gathers()}
+	return &pass{"quantize_gathers", espresso.NewEspressoPassQuantizeGathers()}
 }
 
 func TransformQuantizeKernel() Pass {
-	return &pass{"transform_quantize_kernel", espresso.NewEspressoPass_transform_quantize_kernel()}
+	return &pass{"transform_quantize_kernel", espresso.NewEspressoPassTransformQuantizeKernel()}
 }
 
 func TransformStaticQuantizeKernel() Pass {
-	return &pass{"transform_static_quantize_kernel", espresso.NewEspressoPass_transform_static_quantize_kernel()}
+	return &pass{"transform_static_quantize_kernel", espresso.NewEspressoPassTransformStaticQuantizeKernel()}
 }
 
 // Normalization passes.
 
 func MergePyTorchLayerNorm() Pass {
-	return &pass{"merge_pytorch_layernorm", espresso.NewEspressoPass_merge_pytorch_layernorm()}
+	return &pass{"merge_pytorch_layernorm", espresso.NewEspressoPassMergePytorchLayernorm()}
 }
 
 func MergeTFLayerNorm() Pass {
-	return &pass{"merge_tf_layernorm", espresso.NewEspressoPass_merge_tf_layernorm()}
+	return &pass{"merge_tf_layernorm", espresso.NewEspressoPassMergeTfLayernorm()}
 }
 
 func MergeChannelNorm() Pass {
-	return &pass{"merge_channel_norm", espresso.NewEspressoPass_merge_channel_norm()}
+	return &pass{"merge_channel_norm", espresso.NewEspressoPassMergeChannelNorm()}
 }
 
 func MergeTFNormalization() Pass {
-	return &pass{"merge_tf_normalization", espresso.NewEspressoPass_merge_tf_normalization()}
+	return &pass{"merge_tf_normalization", espresso.NewEspressoPassMergeTfNormalization()}
 }
 
 // Layout passes.
 
 func RemoveNHWCNCHWTransposes() Pass {
-	return &pass{"remove_nhwc_nchw_transposes", espresso.NewEspressoPass_remove_nhwc_nchw_transposes()}
+	return &pass{"remove_nhwc_nchw_transposes", espresso.NewEspressoPassRemoveNhwcNchwTransposes()}
 }
 
 func RemoveSeqWWSeqTransposes() Pass {
-	return &pass{"remove_seqw_wseq_transposes", espresso.NewEspressoPass_remove_seqw_wseq_transposes()}
+	return &pass{"remove_seqw_wseq_transposes", espresso.NewEspressoPassRemoveSeqwWseqTransposes()}
 }
 
 // Other passes.
 
 func FoldConstants() Pass {
-	return &pass{"fold_constants", espresso.NewEspressoPass_fold_constants()}
+	return &pass{"fold_constants", espresso.NewEspressoPassFoldConstants()}
 }
 
 func FindSharedWeights() Pass {
-	return &pass{"find_shared_weights", espresso.NewEspressoPass_find_shared_weights()}
+	return &pass{"find_shared_weights", espresso.NewEspressoPassFindSharedWeights()}
 }
 
 func CompressSegments() Pass {
-	return &pass{"compress_segments", espresso.NewEspressoPass_compress_segments()}
+	return &pass{"compress_segments", espresso.NewEspressoPassCompressSegments()}
 }
 
 func TransposeInnerProductWeights() Pass {
-	return &pass{"transpose_inner_product_weights", espresso.NewEspressoPass_transpose_inner_product_weights()}
+	return &pass{"transpose_inner_product_weights", espresso.NewEspressoPassTransposeInnerProductWeights()}
 }
 
 // Optimize applies a standard set of optimization passes to the network.

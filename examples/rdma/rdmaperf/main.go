@@ -859,7 +859,7 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 	if err != nil {
 		return nil, err
 	}
-	ctx, err := rdma.Ibv_open_device(dev.Handle)
+	ctx, err := rdma.IbvOpenDevice(dev.Handle)
 	if err != nil {
 		return nil, fmt.Errorf("ibv_open_device: %w", err)
 	}
@@ -877,11 +877,11 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 	if r.port.State != 4 {
 		return nil, inactivePortError(dev.Name, r.port.State, deviceName != "" || deviceIndex >= 0)
 	}
-	r.pd, err = rdma.Ibv_alloc_pd(ctx)
+	r.pd, err = rdma.IbvAllocPd(ctx)
 	if err != nil || r.pd == 0 {
 		return nil, fmt.Errorf("ibv_alloc_pd: %s", nilReturnError(err, r.pd, "protection domain"))
 	}
-	r.cq, err = rdma.Ibv_create_cq(ctx, 64, 0, 0, 0)
+	r.cq, err = rdma.IbvCreateCq(ctx, 64, 0, 0, 0)
 	if err != nil || r.cq == 0 {
 		return nil, fmt.Errorf("ibv_create_cq: %s", nilReturnError(err, r.cq, "completion queue"))
 	}
@@ -889,7 +889,7 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 	if err != nil {
 		return nil, err
 	}
-	r.mr, err = rdma.Ibv_reg_mr(r.pd, uintptr(unsafe.Pointer(unsafe.SliceData(r.buf))), uintptr(len(r.buf)), rdma.IBV_ACCESS_LOCAL_WRITE|rdma.IBV_ACCESS_REMOTE_READ|rdma.IBV_ACCESS_REMOTE_WRITE)
+	r.mr, err = rdma.IbvRegMr(r.pd, uintptr(unsafe.Pointer(unsafe.SliceData(r.buf))), uintptr(len(r.buf)), rdma.IBV_ACCESS_LOCAL_WRITE|rdma.IBV_ACCESS_REMOTE_READ|rdma.IBV_ACCESS_REMOTE_WRITE)
 	if err != nil || r.mr == 0 {
 		return nil, fmt.Errorf("ibv_reg_mr: %s", nilReturnError(err, r.mr, "memory region"))
 	}
@@ -905,7 +905,7 @@ func openRDMAResources(deviceName string, deviceIndex, gidIndex, size int, probe
 		QPType:   rdma.IBV_QPT_UC,
 		SQSigAll: 0,
 	}
-	r.qp, err = rdma.Ibv_create_qp(r.pd, uintptr(unsafe.Pointer(&init)))
+	r.qp, err = rdma.IbvCreateQp(r.pd, uintptr(unsafe.Pointer(&init)))
 	if err != nil || r.qp == 0 {
 		return nil, fmt.Errorf("ibv_create_qp: %s", nilReturnError(err, r.qp, "queue pair"))
 	}
@@ -1003,13 +1003,13 @@ func queryRDMADevicePortStateLocal(name string) (int32, error) {
 		if dev.Name != name {
 			continue
 		}
-		ctx, err := rdma.Ibv_open_device(dev.Handle)
+		ctx, err := rdma.IbvOpenDevice(dev.Handle)
 		if err != nil || ctx == 0 {
 			return 0, fmt.Errorf("open failed: %v", err)
 		}
 		var attr ibvPortAttr
-		rc, qerr := rdma.Ibv_query_port(ctx, 1, uintptr(unsafe.Pointer(&attr)))
-		_, _ = rdma.Ibv_close_device(ctx)
+		rc, qerr := rdma.IbvQueryPort(ctx, 1, uintptr(unsafe.Pointer(&attr)))
+		_, _ = rdma.IbvCloseDevice(ctx)
 		if qerr != nil || rc != 0 {
 			return 0, fmt.Errorf("query_port failed: %s", errOrCode(qerr, rc))
 		}
@@ -1063,7 +1063,7 @@ func openRDMAResourcesWithTimeout(deviceName string, deviceIndex, gidIndex, size
 }
 
 func (r *rdmaResources) queryPortAndGID(preferredGIDIndex int) error {
-	rc, err := rdma.Ibv_query_port(r.ctx, 1, uintptr(unsafe.Pointer(&r.port)))
+	rc, err := rdma.IbvQueryPort(r.ctx, 1, uintptr(unsafe.Pointer(&r.port)))
 	if err != nil || rc != 0 {
 		return fmt.Errorf("ibv_query_port: %s", errOrCode(err, rc))
 	}
@@ -1080,7 +1080,7 @@ func (r *rdmaResources) queryPortAndGID(preferredGIDIndex int) error {
 	gids := make([]routeGID, 0, 2)
 	for i := 0; i < limit; i++ {
 		var gid rdma.IbvGID
-		rc, err := rdma.Ibv_query_gid(r.ctx, 1, i, uintptr(unsafe.Pointer(&gid)))
+		rc, err := rdma.IbvQueryGid(r.ctx, 1, i, uintptr(unsafe.Pointer(&gid)))
 		if err != nil || rc != 0 {
 			if len(gids) > 0 {
 				break
@@ -1105,7 +1105,7 @@ func (r *rdmaResources) queryPortAndGID(preferredGIDIndex int) error {
 
 func (r *rdmaResources) queryGID(index int) (rdma.IbvGID, error) {
 	var gid rdma.IbvGID
-	rc, err := rdma.Ibv_query_gid(r.ctx, 1, index, uintptr(unsafe.Pointer(&gid)))
+	rc, err := rdma.IbvQueryGid(r.ctx, 1, index, uintptr(unsafe.Pointer(&gid)))
 	if err != nil || rc != 0 {
 		return gid, fmt.Errorf("ibv_query_gid[%d]: %s", index, errOrCode(err, rc))
 	}
@@ -1151,7 +1151,7 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 		PortNum:       1,
 		QPAccessFlags: rdma.IBV_ACCESS_LOCAL_WRITE | rdma.IBV_ACCESS_REMOTE_READ | rdma.IBV_ACCESS_REMOTE_WRITE,
 	}
-	rc, err := rdma.Ibv_modify_qp(r.qp, uintptr(unsafe.Pointer(&init)), rdma.IBV_QP_STATE|rdma.IBV_QP_PKEY_INDEX|rdma.IBV_QP_PORT|rdma.IBV_QP_ACCESS_FLAGS)
+	rc, err := rdma.IbvModifyQp(r.qp, uintptr(unsafe.Pointer(&init)), rdma.IBV_QP_STATE|rdma.IBV_QP_PKEY_INDEX|rdma.IBV_QP_PORT|rdma.IBV_QP_ACCESS_FLAGS)
 	if err != nil || rc != 0 {
 		return fmt.Errorf("modify qp INIT: %s", errOrCode(err, rc))
 	}
@@ -1160,7 +1160,7 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 	if err != nil {
 		return err
 	}
-	rc, err = rdma.Ibv_modify_qp(r.qp, uintptr(unsafe.Pointer(&rtr)), rdma.IBV_QP_STATE|rdma.IBV_QP_AV|rdma.IBV_QP_PATH_MTU|rdma.IBV_QP_DEST_QPN|rdma.IBV_QP_RQ_PSN)
+	rc, err = rdma.IbvModifyQp(r.qp, uintptr(unsafe.Pointer(&rtr)), rdma.IBV_QP_STATE|rdma.IBV_QP_AV|rdma.IBV_QP_PATH_MTU|rdma.IBV_QP_DEST_QPN|rdma.IBV_QP_RQ_PSN)
 	if err != nil || rc != 0 {
 		return fmt.Errorf("modify qp RTR: %s", errOrCode(err, rc))
 	}
@@ -1169,7 +1169,7 @@ func (r *rdmaResources) connect(remote rdmaPeerInfo) error {
 		QPState: rdma.IBV_QPS_RTS,
 		SQPSN:   r.psn,
 	}
-	rc, err = rdma.Ibv_modify_qp(r.qp, uintptr(unsafe.Pointer(&rts)), rdma.IBV_QP_STATE|rdma.IBV_QP_SQ_PSN)
+	rc, err = rdma.IbvModifyQp(r.qp, uintptr(unsafe.Pointer(&rts)), rdma.IBV_QP_STATE|rdma.IBV_QP_SQ_PSN)
 	if err != nil || rc != 0 {
 		return fmt.Errorf("modify qp RTS: %s", errOrCode(err, rc))
 	}
@@ -1324,22 +1324,22 @@ func (r *rdmaResources) poll(want int, timeout time.Duration) error {
 
 func (r *rdmaResources) close() {
 	if r.qp != 0 {
-		_, _ = rdma.Ibv_destroy_qp(r.qp)
+		_, _ = rdma.IbvDestroyQp(r.qp)
 	}
 	if r.mr != 0 {
-		_, _ = rdma.Ibv_dereg_mr(r.mr)
+		_, _ = rdma.IbvDeregMr(r.mr)
 	}
 	if r.mapBuf != nil {
 		_ = syscall.Munmap(r.mapBuf)
 	}
 	if r.cq != 0 {
-		_, _ = rdma.Ibv_destroy_cq(r.cq)
+		_, _ = rdma.IbvDestroyCq(r.cq)
 	}
 	if r.pd != 0 {
-		_, _ = rdma.Ibv_dealloc_pd(r.pd)
+		_, _ = rdma.IbvDeallocPd(r.pd)
 	}
 	if r.ctx != 0 {
-		_, _ = rdma.Ibv_close_device(r.ctx)
+		_, _ = rdma.IbvCloseDevice(r.ctx)
 	}
 }
 
@@ -1374,16 +1374,16 @@ func probeRDMA() *rdmaSummary {
 	}
 	for i, dev := range devs {
 		sum.Devices = append(sum.Devices, rdmaDevice{Index: i, Name: dev.Name, NetInterface: rdmaNetInterface(dev.Name), Handle: hexHandle(dev.Handle)})
-		ctx, err := rdma.Ibv_open_device(dev.Handle)
+		ctx, err := rdma.IbvOpenDevice(dev.Handle)
 		sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_open_device", i), OK: err == nil && ctx != 0, Handle: hexHandle(ctx), Error: errString(err)})
 		if ctx == 0 {
 			continue
 		}
 		buf := make([]byte, 4096)
-		rc, err := rdma.Ibv_query_device(ctx, uintptr(unsafe.Pointer(unsafe.SliceData(buf))))
+		rc, err := rdma.IbvQueryDevice(ctx, uintptr(unsafe.Pointer(unsafe.SliceData(buf))))
 		sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_query_device", i), OK: err == nil && rc == 0, Return: rc, Error: errOrCode(err, rc)})
 		portBuf := make([]byte, unsafe.Sizeof(ibvPortAttr{}))
-		rc, err = rdma.Ibv_query_port(ctx, 1, uintptr(unsafe.Pointer(unsafe.SliceData(portBuf))))
+		rc, err = rdma.IbvQueryPort(ctx, 1, uintptr(unsafe.Pointer(unsafe.SliceData(portBuf))))
 		portStep := rdmaStep{Name: fmt.Sprintf("device[%d].ibv_query_port", i), OK: err == nil && rc == 0, Return: rc, Error: errOrCode(err, rc)}
 		if portStep.OK {
 			portStep.Fields = portAttrFields(portBuf)
@@ -1394,26 +1394,26 @@ func probeRDMA() *rdmaSummary {
 				Name:  fmt.Sprintf("device[%d].rdma_datapath_ready", i),
 				Error: "skipped resource verbs because port 1 is not PORT_ACTIVE",
 			})
-			rc, err = rdma.Ibv_close_device(ctx)
+			rc, err = rdma.IbvCloseDevice(ctx)
 			sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_close_device", i), OK: err == nil && rc == 0, Return: rc, Error: errOrCode(err, rc)})
 			continue
 		}
-		pd, err := rdma.Ibv_alloc_pd(ctx)
+		pd, err := rdma.IbvAllocPd(ctx)
 		sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_alloc_pd", i), OK: err == nil && pd != 0, Handle: hexHandle(pd), Error: nilReturnError(err, pd, "protection domain")})
-		cq, err := rdma.Ibv_create_cq(ctx, 16, 0, 0, 0)
+		cq, err := rdma.IbvCreateCq(ctx, 16, 0, 0, 0)
 		sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_create_cq", i), OK: err == nil && cq != 0, Handle: hexHandle(cq), Error: nilReturnError(err, cq, "completion queue")})
 		if cq != 0 {
-			rc, err := rdma.Ibv_destroy_cq(cq)
+			rc, err := rdma.IbvDestroyCq(cq)
 			sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_destroy_cq", i), OK: err == nil && rc == 0, Return: rc, Error: errOrCode(err, rc)})
 		}
 		if pd != 0 {
-			rc, err := rdma.Ibv_dealloc_pd(pd)
+			rc, err := rdma.IbvDeallocPd(pd)
 			sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_dealloc_pd", i), OK: err == nil && rc == 0, Return: rc, Error: errOrCode(err, rc)})
 		} else {
 			sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_reg_mr", i), Error: "skipped because ibv_alloc_pd failed"})
 			sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_create_qp", i), Error: "skipped because ibv_alloc_pd failed"})
 		}
-		rc, err = rdma.Ibv_close_device(ctx)
+		rc, err = rdma.IbvCloseDevice(ctx)
 		sum.Steps = append(sum.Steps, rdmaStep{Name: fmt.Sprintf("device[%d].ibv_close_device", i), OK: err == nil && rc == 0, Return: rc, Error: errOrCode(err, rc)})
 	}
 	sum.Notes = append(sum.Notes, "true RDMA datapath benchmarking requires successful PD, CQ, MR, and QP lifecycle")

@@ -26,7 +26,7 @@ func imageInfoFrom(img vz.VZMacOSRestoreImage) ImageInfo {
 		Supported:    img.Supported(),
 		Image:        img,
 	}
-	if u := img.URL(); u != nil && u.GetID() != 0 {
+	if u := img.URL(); u.GetID() != 0 {
 		nsurl := foundation.NSURLFromID(u.GetID())
 		info.URL = nsurl.AbsoluteString()
 	}

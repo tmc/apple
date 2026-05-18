@@ -10,6 +10,7 @@
 
 //go:generate applegen-bootstrap --private-companion -f "avfaudio"
 //go:generate applegen-bootstrap --private-companion -f "coreml"
+//go:generate applegen-bootstrap --private-companion -f "network" --go-names
 //go:generate applegen-bootstrap --private-companion -f "virtualization"
 
 //go:generate applegen-bootstrap --private --extra-flags=--framework-path=/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/HIServices HIServices

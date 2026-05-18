@@ -232,7 +232,7 @@ func loadOrCreateGenericMachineID(stateDir string) (vz.VZGenericMachineIdentifie
 	if data, err := os.ReadFile(machineIDPath); err == nil && len(data) > 0 {
 		nsData := NSDataFromBytes(data)
 		if nsData.ID != 0 {
-			machineID := vz.NewGenericMachineIdentifierWithDataRepresentation(&nsData)
+			machineID := vz.NewGenericMachineIdentifierWithDataRepresentation(nsData)
 			if machineID.ID != 0 {
 				return machineID, nil
 			}

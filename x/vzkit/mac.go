@@ -195,7 +195,7 @@ func loadOrCreateMacHardwareModel(stateDir string, override []byte) (vz.VZMacHar
 	if nsData.ID == 0 {
 		return vz.VZMacHardwareModel{}, fmt.Errorf("create NSData for hardware model")
 	}
-	hwModel := vz.NewMacHardwareModelWithDataRepresentation(&nsData)
+	hwModel := vz.NewMacHardwareModelWithDataRepresentation(nsData)
 	if hwModel.ID == 0 {
 		return vz.VZMacHardwareModel{}, fmt.Errorf("invalid hardware model data")
 	}
@@ -218,7 +218,7 @@ func loadOrCreateMacMachineID(stateDir string) (vz.VZMacMachineIdentifier, error
 	if data, err := os.ReadFile(machineIDPath); err == nil && len(data) > 0 {
 		nsData := NSDataFromBytes(data)
 		if nsData.ID != 0 {
-			machineID := vz.NewMacMachineIdentifierWithDataRepresentation(&nsData)
+			machineID := vz.NewMacMachineIdentifierWithDataRepresentation(nsData)
 			if machineID.ID != 0 {
 				return machineID, nil
 			}
