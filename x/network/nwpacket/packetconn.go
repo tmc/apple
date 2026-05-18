@@ -34,8 +34,18 @@ type Config struct {
 	IncludePeerToPeer     bool
 	RequireInterface      bool
 	ReuseLocalAddress     bool
-	QueueLabel            string
-	Tracef                func(format string, args ...any)
+
+	// ConnectTimeout bounds outbound connection readiness before retry. It also
+	// bounds send completion when the caller has not set a write deadline. Zero
+	// means five seconds.
+	ConnectTimeout time.Duration
+
+	// ConnectRetries is the number of extra outbound connection attempts after
+	// a readiness timeout. Retries cancel and recreate only outbound peers.
+	ConnectRetries int
+
+	QueueLabel string
+	Tracef     func(format string, args ...any)
 }
 
 type nwPacket struct {
@@ -44,10 +54,11 @@ type nwPacket struct {
 }
 
 type nwPeerConn struct {
-	conn  applenetwork.NWConnection
-	addr  *net.UDPAddr
-	ready chan error
-	once  sync.Once
+	conn     applenetwork.NWConnection
+	addr     *net.UDPAddr
+	ready    chan error
+	outbound bool
+	once     sync.Once
 }
 
 type nwPacketConn struct {
@@ -268,13 +279,25 @@ func (c *nwPacketConn) WriteTo(b []byte, addr net.Addr) (int, error) {
 	if !deadline.IsZero() && time.Until(deadline) <= 0 {
 		return 0, nwTimeoutError{op: "write"}
 	}
-	peer, err := c.peerConn(addr)
-	if err != nil {
-		return 0, err
+	retries := c.connectRetries()
+	for attempt := 0; ; attempt++ {
+		peer, err := c.peerConn(addr)
+		if err != nil {
+			return 0, err
+		}
+		if err := peer.waitReady(deadline, c.connectTimeout()); err != nil {
+			if attempt < retries && peer.outbound && isTimeoutError(err) {
+				c.tracef("outbound %s readiness timeout; retrying connection", peer.addr)
+				c.dropPeer(peer)
+				continue
+			}
+			return 0, err
+		}
+		return c.writeReadyPeer(b, peer, deadline)
 	}
-	if err := peer.waitReady(deadline); err != nil {
-		return 0, err
-	}
+}
+
+func (c *nwPacketConn) writeReadyPeer(b []byte, peer *nwPeerConn, deadline time.Time) (int, error) {
 	_ = c.connectionPath(peer.conn)
 	data := dispatch.DataCreate(b)
 	context := applenetwork.NWContentContextCreate(fmt.Sprintf("tmc-apple-nwpacket-%d", c.sendSeq.Add(1)))
@@ -291,7 +314,7 @@ func (c *nwPacketConn) WriteTo(b []byte, addr net.Addr) (int, error) {
 		}
 		done <- nwErr
 	})
-	wait := 5 * time.Second
+	wait := c.connectTimeout()
 	if !deadline.IsZero() {
 		wait = time.Until(deadline)
 	}
@@ -405,7 +428,7 @@ func (c *nwPacketConn) peerConn(addr net.Addr) (*nwPeerConn, error) {
 	if conn.ID == 0 {
 		return nil, fmt.Errorf("nw_connection_create %s returned nil", udpAddr)
 	}
-	peer := &nwPeerConn{conn: conn, addr: udpAddr, ready: make(chan error, 1)}
+	peer := &nwPeerConn{conn: conn, addr: udpAddr, ready: make(chan error, 1), outbound: true}
 	applenetwork.NWConnectionSetQueue(conn, c.queue)
 	applenetwork.NWConnectionSetStateChangedHandler(conn, func(state applenetwork.NWConnectionState, nwErr applenetwork.NWError) {
 		c.tracef("outbound %s state=%s err=%s", udpAddr, state, nwErrorString(nwErr))
@@ -437,6 +460,33 @@ func (c *nwPacketConn) peerConn(addr net.Addr) (*nwPeerConn, error) {
 	return peer, nil
 }
 
+func (c *nwPacketConn) dropPeer(peer *nwPeerConn) {
+	if peer == nil {
+		return
+	}
+	key := peer.addr.String()
+	c.mu.Lock()
+	if c.conns[key] == peer {
+		delete(c.conns, key)
+	}
+	c.mu.Unlock()
+	applenetwork.NWConnectionCancel(peer.conn)
+}
+
+func (c *nwPacketConn) connectTimeout() time.Duration {
+	if c.config.ConnectTimeout > 0 {
+		return c.config.ConnectTimeout
+	}
+	return 5 * time.Second
+}
+
+func (c *nwPacketConn) connectRetries() int {
+	if c.config.ConnectRetries <= 0 {
+		return 0
+	}
+	return c.config.ConnectRetries
+}
+
 func (p *nwPeerConn) markReady(err error) {
 	p.once.Do(func() {
 		p.ready <- err
@@ -444,28 +494,31 @@ func (p *nwPeerConn) markReady(err error) {
 	})
 }
 
-func (p *nwPeerConn) waitReady(deadline time.Time) error {
-	var timeout <-chan time.Time
-	var timer *time.Timer
+func (p *nwPeerConn) waitReady(deadline time.Time, connectTimeout time.Duration) error {
+	wait := connectTimeout
 	if !deadline.IsZero() {
-		wait := time.Until(deadline)
-		if wait <= 0 {
+		until := time.Until(deadline)
+		if until <= 0 {
 			return nwTimeoutError{op: "write"}
 		}
-		timer = time.NewTimer(wait)
-		timeout = timer.C
-	} else {
-		timer = time.NewTimer(5 * time.Second)
-		timeout = timer.C
+		if until < wait {
+			wait = until
+		}
 	}
+	timer := time.NewTimer(wait)
 	defer timer.Stop()
 
 	select {
 	case err := <-p.ready:
 		return err
-	case <-timeout:
+	case <-timer.C:
 		return fmt.Errorf("nw connection %s readiness: %w", p.addr, nwTimeoutError{op: "write"})
 	}
+}
+
+func isTimeoutError(err error) bool {
+	var netErr net.Error
+	return errors.As(err, &netErr) && netErr.Timeout()
 }
 
 func (c *nwPacketConn) receive(conn applenetwork.NWConnection, addr *net.UDPAddr) {

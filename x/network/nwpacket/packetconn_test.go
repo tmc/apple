@@ -8,6 +8,7 @@ import (
 	"net"
 	"strings"
 	"testing"
+	"time"
 
 	applenetwork "github.com/tmc/apple/network"
 )
@@ -67,6 +68,39 @@ func TestTimeoutError(t *testing.T) {
 	var netErr net.Error
 	if !errors.As(err, &netErr) {
 		t.Fatal("nwTimeoutError does not satisfy net.Error")
+	}
+}
+
+func TestPeerWaitReadyTimeout(t *testing.T) {
+	peer := &nwPeerConn{
+		addr:  &net.UDPAddr{IP: net.ParseIP("192.0.2.1"), Port: 9999},
+		ready: make(chan error),
+	}
+	err := peer.waitReady(time.Time{}, time.Nanosecond)
+	if err == nil {
+		t.Fatal("waitReady succeeded")
+	}
+	if !isTimeoutError(err) {
+		t.Fatalf("waitReady err = %v, want timeout", err)
+	}
+}
+
+func TestConnectDefaults(t *testing.T) {
+	conn := &nwPacketConn{}
+	if got := conn.connectTimeout(); got != 5*time.Second {
+		t.Fatalf("connectTimeout = %s, want 5s", got)
+	}
+	if got := conn.connectRetries(); got != 0 {
+		t.Fatalf("connectRetries = %d, want 0", got)
+	}
+
+	conn.config.ConnectTimeout = 2 * time.Second
+	conn.config.ConnectRetries = 3
+	if got := conn.connectTimeout(); got != 2*time.Second {
+		t.Fatalf("connectTimeout = %s, want 2s", got)
+	}
+	if got := conn.connectRetries(); got != 3 {
+		t.Fatalf("connectRetries = %d, want 3", got)
 	}
 }
 
