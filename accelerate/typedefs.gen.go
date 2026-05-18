@@ -976,114 +976,596 @@ type VUInt64 = uint64
 // See: https://developer.apple.com/documentation/Accelerate/vUInt8
 type VUInt8 = uint8
 
-// BNNSArithmeticFunction aliases the generated arithmetic-function enum.
+// ComplexSplit is a Go-name alias for COMPLEX_SPLIT.
+type ComplexSplit = COMPLEX_SPLIT
 
+// DoubleComplex is a Go-name alias for DOUBLE_COMPLEX.
+type DoubleComplex = DOUBLE_COMPLEX
+
+// DoubleComplexSplit is a Go-name alias for DOUBLE_COMPLEX_SPLIT.
+type DoubleComplexSplit = DOUBLE_COMPLEX_SPLIT
+
+// Pixel16f is a Go-name alias for Pixel_16F.
+type Pixel16f = Pixel_16F
+
+// Pixel16f16f is a Go-name alias for Pixel_16F16F.
+type Pixel16f16f = Pixel_16F16F
+
+// Pixel16q12 is a Go-name alias for Pixel_16Q12.
+type Pixel16q12 = Pixel_16Q12
+
+// Pixel16s is a Go-name alias for Pixel_16S.
+type Pixel16s = Pixel_16S
+
+// Pixel16s16s is a Go-name alias for Pixel_16S16S.
+type Pixel16s16s = Pixel_16S16S
+
+// Pixel16u is a Go-name alias for Pixel_16U.
+type Pixel16u = Pixel_16U
+
+// Pixel16u16u is a Go-name alias for Pixel_16U16U.
+type Pixel16u16u = Pixel_16U16U
+
+// Pixel32u is a Go-name alias for Pixel_32U.
+type Pixel32u = Pixel_32U
+
+// Pixel8 is a Go-name alias for Pixel_8.
+type Pixel8 = Pixel_8
+
+// Pixel88 is a Go-name alias for Pixel_88.
+type Pixel88 = Pixel_88
+
+// Pixel8888 is a Go-name alias for Pixel_8888.
+type Pixel8888 = Pixel_8888
+
+// PixelArgb16f is a Go-name alias for Pixel_ARGB_16F.
+type PixelArgb16f = Pixel_ARGB_16F
+
+// PixelArgb16s is a Go-name alias for Pixel_ARGB_16S.
+type PixelArgb16s = Pixel_ARGB_16S
+
+// PixelArgb16u is a Go-name alias for Pixel_ARGB_16U.
+type PixelArgb16u = Pixel_ARGB_16U
+
+// PixelF is a Go-name alias for Pixel_F.
+type PixelF = Pixel_F
+
+// PixelFf is a Go-name alias for Pixel_FF.
+type PixelFf = Pixel_FF
+
+// PixelFfff is a Go-name alias for Pixel_FFFF.
+type PixelFfff = Pixel_FFFF
+
+// BnnsGraphCompileMessageFn is a Go-name alias for Bnns_graph_compile_message_fn_t.
+type BnnsGraphCompileMessageFn = Bnns_graph_compile_message_fn_t
+
+// BnnsGraphExecuteMessageFn is a Go-name alias for Bnns_graph_execute_message_fn_t.
+type BnnsGraphExecuteMessageFn = Bnns_graph_execute_message_fn_t
+
+// BnnsGraphFreeAllFn is a Go-name alias for Bnns_graph_free_all_fn_t.
+type BnnsGraphFreeAllFn = Bnns_graph_free_all_fn_t
+
+// BnnsGraphReallocFn is a Go-name alias for Bnns_graph_realloc_fn_t.
+type BnnsGraphReallocFn = Bnns_graph_realloc_fn_t
+
+// LaAttribute is a Go-name alias for La_attribute_t.
+type LaAttribute = La_attribute_t
+
+// LaCount is a Go-name alias for La_count_t.
+type LaCount = La_count_t
+
+// LaDeallocator is a Go-name alias for La_deallocator_t.
+type LaDeallocator = La_deallocator_t
+
+// LaHint is a Go-name alias for La_hint_t.
+type LaHint = La_hint_t
+
+// LaIndex is a Go-name alias for La_index_t.
+type LaIndex = La_index_t
+
+// LaNorm is a Go-name alias for La_norm_t.
+type LaNorm = La_norm_t
+
+// LaObject is a Go-name alias for La_object_t.
+type LaObject = La_object_t
+
+// LaScalarType is a Go-name alias for La_scalar_type_t.
+type LaScalarType = La_scalar_type_t
+
+// LaStatus is a Go-name alias for La_status_t.
+type LaStatus = La_status_t
+
+// QuadratureFunctionArray is a Go-name alias for Quadrature_function_array.
+type QuadratureFunctionArray = Quadrature_function_array
+
+// SIMDBool is a Go-name alias for Simd_bool.
+type SIMDBool = Simd_bool
+
+// SIMDChar1 is a Go-name alias for Simd_char1.
+type SIMDChar1 = Simd_char1
+
+// SIMDChar16 is a Go-name alias for Simd_char16.
+type SIMDChar16 = Simd_char16
+
+// SIMDChar2 is a Go-name alias for Simd_char2.
+type SIMDChar2 = Simd_char2
+
+// SIMDChar3 is a Go-name alias for Simd_char3.
+type SIMDChar3 = Simd_char3
+
+// SIMDChar32 is a Go-name alias for Simd_char32.
+type SIMDChar32 = Simd_char32
+
+// SIMDChar4 is a Go-name alias for Simd_char4.
+type SIMDChar4 = Simd_char4
+
+// SIMDChar64 is a Go-name alias for Simd_char64.
+type SIMDChar64 = Simd_char64
+
+// SIMDChar8 is a Go-name alias for Simd_char8.
+type SIMDChar8 = Simd_char8
+
+// SIMDDouble1 is a Go-name alias for Simd_double1.
+type SIMDDouble1 = Simd_double1
+
+// SIMDDouble2 is a Go-name alias for Simd_double2.
+type SIMDDouble2 = Simd_double2
+
+// SIMDDouble3 is a Go-name alias for Simd_double3.
+type SIMDDouble3 = Simd_double3
+
+// SIMDDouble4 is a Go-name alias for Simd_double4.
+type SIMDDouble4 = Simd_double4
+
+// SIMDDouble8 is a Go-name alias for Simd_double8.
+type SIMDDouble8 = Simd_double8
+
+// SIMDFloat1 is a Go-name alias for Simd_float1.
+type SIMDFloat1 = Simd_float1
+
+// SIMDFloat16 is a Go-name alias for Simd_float16.
+type SIMDFloat16 = Simd_float16
+
+// SIMDFloat2 is a Go-name alias for Simd_float2.
+type SIMDFloat2 = Simd_float2
+
+// SIMDFloat3 is a Go-name alias for Simd_float3.
+type SIMDFloat3 = Simd_float3
+
+// SIMDFloat4 is a Go-name alias for Simd_float4.
+type SIMDFloat4 = Simd_float4
+
+// SIMDFloat8 is a Go-name alias for Simd_float8.
+type SIMDFloat8 = Simd_float8
+
+// SIMDHalf1 is a Go-name alias for Simd_half1.
+type SIMDHalf1 = Simd_half1
+
+// SIMDHalf16 is a Go-name alias for Simd_half16.
+type SIMDHalf16 = Simd_half16
+
+// SIMDHalf2 is a Go-name alias for Simd_half2.
+type SIMDHalf2 = Simd_half2
+
+// SIMDHalf3 is a Go-name alias for Simd_half3.
+type SIMDHalf3 = Simd_half3
+
+// SIMDHalf32 is a Go-name alias for Simd_half32.
+type SIMDHalf32 = Simd_half32
+
+// SIMDHalf4 is a Go-name alias for Simd_half4.
+type SIMDHalf4 = Simd_half4
+
+// SIMDHalf8 is a Go-name alias for Simd_half8.
+type SIMDHalf8 = Simd_half8
+
+// SIMDInt1 is a Go-name alias for Simd_int1.
+type SIMDInt1 = Simd_int1
+
+// SIMDInt16 is a Go-name alias for Simd_int16.
+type SIMDInt16 = Simd_int16
+
+// SIMDInt2 is a Go-name alias for Simd_int2.
+type SIMDInt2 = Simd_int2
+
+// SIMDInt3 is a Go-name alias for Simd_int3.
+type SIMDInt3 = Simd_int3
+
+// SIMDInt4 is a Go-name alias for Simd_int4.
+type SIMDInt4 = Simd_int4
+
+// SIMDInt8 is a Go-name alias for Simd_int8.
+type SIMDInt8 = Simd_int8
+
+// SIMDLong1 is a Go-name alias for Simd_long1.
+type SIMDLong1 = Simd_long1
+
+// SIMDLong2 is a Go-name alias for Simd_long2.
+type SIMDLong2 = Simd_long2
+
+// SIMDLong3 is a Go-name alias for Simd_long3.
+type SIMDLong3 = Simd_long3
+
+// SIMDLong4 is a Go-name alias for Simd_long4.
+type SIMDLong4 = Simd_long4
+
+// SIMDLong8 is a Go-name alias for Simd_long8.
+type SIMDLong8 = Simd_long8
+
+// SIMDPackedChar16 is a Go-name alias for Simd_packed_char16.
+type SIMDPackedChar16 = Simd_packed_char16
+
+// SIMDPackedChar2 is a Go-name alias for Simd_packed_char2.
+type SIMDPackedChar2 = Simd_packed_char2
+
+// SIMDPackedChar32 is a Go-name alias for Simd_packed_char32.
+type SIMDPackedChar32 = Simd_packed_char32
+
+// SIMDPackedChar4 is a Go-name alias for Simd_packed_char4.
+type SIMDPackedChar4 = Simd_packed_char4
+
+// SIMDPackedChar64 is a Go-name alias for Simd_packed_char64.
+type SIMDPackedChar64 = Simd_packed_char64
+
+// SIMDPackedChar8 is a Go-name alias for Simd_packed_char8.
+type SIMDPackedChar8 = Simd_packed_char8
+
+// SIMDPackedDouble2 is a Go-name alias for Simd_packed_double2.
+type SIMDPackedDouble2 = Simd_packed_double2
+
+// SIMDPackedDouble4 is a Go-name alias for Simd_packed_double4.
+type SIMDPackedDouble4 = Simd_packed_double4
+
+// SIMDPackedDouble8 is a Go-name alias for Simd_packed_double8.
+type SIMDPackedDouble8 = Simd_packed_double8
+
+// SIMDPackedFloat16 is a Go-name alias for Simd_packed_float16.
+type SIMDPackedFloat16 = Simd_packed_float16
+
+// SIMDPackedFloat2 is a Go-name alias for Simd_packed_float2.
+type SIMDPackedFloat2 = Simd_packed_float2
+
+// SIMDPackedFloat4 is a Go-name alias for Simd_packed_float4.
+type SIMDPackedFloat4 = Simd_packed_float4
+
+// SIMDPackedFloat8 is a Go-name alias for Simd_packed_float8.
+type SIMDPackedFloat8 = Simd_packed_float8
+
+// SIMDPackedInt16 is a Go-name alias for Simd_packed_int16.
+type SIMDPackedInt16 = Simd_packed_int16
+
+// SIMDPackedInt2 is a Go-name alias for Simd_packed_int2.
+type SIMDPackedInt2 = Simd_packed_int2
+
+// SIMDPackedInt4 is a Go-name alias for Simd_packed_int4.
+type SIMDPackedInt4 = Simd_packed_int4
+
+// SIMDPackedInt8 is a Go-name alias for Simd_packed_int8.
+type SIMDPackedInt8 = Simd_packed_int8
+
+// SIMDPackedLong2 is a Go-name alias for Simd_packed_long2.
+type SIMDPackedLong2 = Simd_packed_long2
+
+// SIMDPackedLong4 is a Go-name alias for Simd_packed_long4.
+type SIMDPackedLong4 = Simd_packed_long4
+
+// SIMDPackedLong8 is a Go-name alias for Simd_packed_long8.
+type SIMDPackedLong8 = Simd_packed_long8
+
+// SIMDPackedShort16 is a Go-name alias for Simd_packed_short16.
+type SIMDPackedShort16 = Simd_packed_short16
+
+// SIMDPackedShort2 is a Go-name alias for Simd_packed_short2.
+type SIMDPackedShort2 = Simd_packed_short2
+
+// SIMDPackedShort32 is a Go-name alias for Simd_packed_short32.
+type SIMDPackedShort32 = Simd_packed_short32
+
+// SIMDPackedShort4 is a Go-name alias for Simd_packed_short4.
+type SIMDPackedShort4 = Simd_packed_short4
+
+// SIMDPackedShort8 is a Go-name alias for Simd_packed_short8.
+type SIMDPackedShort8 = Simd_packed_short8
+
+// SIMDPackedUchar16 is a Go-name alias for Simd_packed_uchar16.
+type SIMDPackedUchar16 = Simd_packed_uchar16
+
+// SIMDPackedUchar2 is a Go-name alias for Simd_packed_uchar2.
+type SIMDPackedUchar2 = Simd_packed_uchar2
+
+// SIMDPackedUchar32 is a Go-name alias for Simd_packed_uchar32.
+type SIMDPackedUchar32 = Simd_packed_uchar32
+
+// SIMDPackedUchar4 is a Go-name alias for Simd_packed_uchar4.
+type SIMDPackedUchar4 = Simd_packed_uchar4
+
+// SIMDPackedUchar64 is a Go-name alias for Simd_packed_uchar64.
+type SIMDPackedUchar64 = Simd_packed_uchar64
+
+// SIMDPackedUchar8 is a Go-name alias for Simd_packed_uchar8.
+type SIMDPackedUchar8 = Simd_packed_uchar8
+
+// SIMDPackedUint16 is a Go-name alias for Simd_packed_uint16.
+type SIMDPackedUint16 = Simd_packed_uint16
+
+// SIMDPackedUint2 is a Go-name alias for Simd_packed_uint2.
+type SIMDPackedUint2 = Simd_packed_uint2
+
+// SIMDPackedUint4 is a Go-name alias for Simd_packed_uint4.
+type SIMDPackedUint4 = Simd_packed_uint4
+
+// SIMDPackedUint8 is a Go-name alias for Simd_packed_uint8.
+type SIMDPackedUint8 = Simd_packed_uint8
+
+// SIMDPackedUlong2 is a Go-name alias for Simd_packed_ulong2.
+type SIMDPackedUlong2 = Simd_packed_ulong2
+
+// SIMDPackedUlong4 is a Go-name alias for Simd_packed_ulong4.
+type SIMDPackedUlong4 = Simd_packed_ulong4
+
+// SIMDPackedUlong8 is a Go-name alias for Simd_packed_ulong8.
+type SIMDPackedUlong8 = Simd_packed_ulong8
+
+// SIMDPackedUshort16 is a Go-name alias for Simd_packed_ushort16.
+type SIMDPackedUshort16 = Simd_packed_ushort16
+
+// SIMDPackedUshort2 is a Go-name alias for Simd_packed_ushort2.
+type SIMDPackedUshort2 = Simd_packed_ushort2
+
+// SIMDPackedUshort32 is a Go-name alias for Simd_packed_ushort32.
+type SIMDPackedUshort32 = Simd_packed_ushort32
+
+// SIMDPackedUshort4 is a Go-name alias for Simd_packed_ushort4.
+type SIMDPackedUshort4 = Simd_packed_ushort4
+
+// SIMDPackedUshort8 is a Go-name alias for Simd_packed_ushort8.
+type SIMDPackedUshort8 = Simd_packed_ushort8
+
+// SIMDShort1 is a Go-name alias for Simd_short1.
+type SIMDShort1 = Simd_short1
+
+// SIMDShort16 is a Go-name alias for Simd_short16.
+type SIMDShort16 = Simd_short16
+
+// SIMDShort2 is a Go-name alias for Simd_short2.
+type SIMDShort2 = Simd_short2
+
+// SIMDShort3 is a Go-name alias for Simd_short3.
+type SIMDShort3 = Simd_short3
+
+// SIMDShort32 is a Go-name alias for Simd_short32.
+type SIMDShort32 = Simd_short32
+
+// SIMDShort4 is a Go-name alias for Simd_short4.
+type SIMDShort4 = Simd_short4
+
+// SIMDShort8 is a Go-name alias for Simd_short8.
+type SIMDShort8 = Simd_short8
+
+// SIMDUchar1 is a Go-name alias for Simd_uchar1.
+type SIMDUchar1 = Simd_uchar1
+
+// SIMDUchar16 is a Go-name alias for Simd_uchar16.
+type SIMDUchar16 = Simd_uchar16
+
+// SIMDUchar2 is a Go-name alias for Simd_uchar2.
+type SIMDUchar2 = Simd_uchar2
+
+// SIMDUchar3 is a Go-name alias for Simd_uchar3.
+type SIMDUchar3 = Simd_uchar3
+
+// SIMDUchar32 is a Go-name alias for Simd_uchar32.
+type SIMDUchar32 = Simd_uchar32
+
+// SIMDUchar4 is a Go-name alias for Simd_uchar4.
+type SIMDUchar4 = Simd_uchar4
+
+// SIMDUchar64 is a Go-name alias for Simd_uchar64.
+type SIMDUchar64 = Simd_uchar64
+
+// SIMDUchar8 is a Go-name alias for Simd_uchar8.
+type SIMDUchar8 = Simd_uchar8
+
+// SIMDUint1 is a Go-name alias for Simd_uint1.
+type SIMDUint1 = Simd_uint1
+
+// SIMDUint16 is a Go-name alias for Simd_uint16.
+type SIMDUint16 = Simd_uint16
+
+// SIMDUint2 is a Go-name alias for Simd_uint2.
+type SIMDUint2 = Simd_uint2
+
+// SIMDUint3 is a Go-name alias for Simd_uint3.
+type SIMDUint3 = Simd_uint3
+
+// SIMDUint4 is a Go-name alias for Simd_uint4.
+type SIMDUint4 = Simd_uint4
+
+// SIMDUint8 is a Go-name alias for Simd_uint8.
+type SIMDUint8 = Simd_uint8
+
+// SIMDUlong1 is a Go-name alias for Simd_ulong1.
+type SIMDUlong1 = Simd_ulong1
+
+// SIMDUlong2 is a Go-name alias for Simd_ulong2.
+type SIMDUlong2 = Simd_ulong2
+
+// SIMDUlong3 is a Go-name alias for Simd_ulong3.
+type SIMDUlong3 = Simd_ulong3
+
+// SIMDUlong4 is a Go-name alias for Simd_ulong4.
+type SIMDUlong4 = Simd_ulong4
+
+// SIMDUlong8 is a Go-name alias for Simd_ulong8.
+type SIMDUlong8 = Simd_ulong8
+
+// SIMDUshort1 is a Go-name alias for Simd_ushort1.
+type SIMDUshort1 = Simd_ushort1
+
+// SIMDUshort16 is a Go-name alias for Simd_ushort16.
+type SIMDUshort16 = Simd_ushort16
+
+// SIMDUshort2 is a Go-name alias for Simd_ushort2.
+type SIMDUshort2 = Simd_ushort2
+
+// SIMDUshort3 is a Go-name alias for Simd_ushort3.
+type SIMDUshort3 = Simd_ushort3
+
+// SIMDUshort32 is a Go-name alias for Simd_ushort32.
+type SIMDUshort32 = Simd_ushort32
+
+// SIMDUshort4 is a Go-name alias for Simd_ushort4.
+type SIMDUshort4 = Simd_ushort4
+
+// SIMDUshort8 is a Go-name alias for Simd_ushort8.
+type SIMDUshort8 = Simd_ushort8
+
+// SparseDimension is a Go-name alias for Sparse_dimension.
+type SparseDimension = Sparse_dimension
+
+// SparseIndex is a Go-name alias for Sparse_index.
+type SparseIndex = Sparse_index
+
+// SparseMatrixDouble is a Go-name alias for Sparse_matrix_double.
+type SparseMatrixDouble = Sparse_matrix_double
+
+// SparseMatrixDoubleComplex is a Go-name alias for Sparse_matrix_double_complex.
+type SparseMatrixDoubleComplex = Sparse_matrix_double_complex
+
+// SparseMatrixFloat is a Go-name alias for Sparse_matrix_float.
+type SparseMatrixFloat = Sparse_matrix_float
+
+// SparseMatrixFloatComplex is a Go-name alias for Sparse_matrix_float_complex.
+type SparseMatrixFloatComplex = Sparse_matrix_float_complex
+
+// SparseStride is a Go-name alias for Sparse_stride.
+type SparseStride = Sparse_stride
+
+// VdspDftInterleavedSetup is a Go-name alias for VDSP_DFT_Interleaved_Setup.
+type VdspDftInterleavedSetup = VDSP_DFT_Interleaved_Setup
+
+// VdspDftInterleavedSetupD is a Go-name alias for VDSP_DFT_Interleaved_SetupD.
+type VdspDftInterleavedSetupD = VDSP_DFT_Interleaved_SetupD
+
+// VdspDftSetup is a Go-name alias for VDSP_DFT_Setup.
+type VdspDftSetup = VDSP_DFT_Setup
+
+// VdspDftSetupD is a Go-name alias for VDSP_DFT_SetupD.
+type VdspDftSetupD = VDSP_DFT_SetupD
+
+// VdspLength is a Go-name alias for VDSP_Length.
+type VdspLength = VDSP_Length
+
+// VdspStride is a Go-name alias for VDSP_Stride.
+type VdspStride = VDSP_Stride
+
+// VdspBiquadSetup is a Go-name alias for VDSP_biquad_Setup.
+type VdspBiquadSetup = VDSP_biquad_Setup
+
+// VdspBiquadSetupD is a Go-name alias for VDSP_biquad_SetupD.
+type VdspBiquadSetupD = VDSP_biquad_SetupD
+
+// VdspBiquadmSetup is a Go-name alias for VDSP_biquadm_Setup.
+type VdspBiquadmSetup = VDSP_biquadm_Setup
+
+// VdspBiquadmSetupD is a Go-name alias for VDSP_biquadm_SetupD.
+type VdspBiquadmSetupD = VDSP_biquadm_SetupD
+
+// VImageCGAffineTransform is a Go-name alias for VImage_CGAffineTransform.
+type VImageCGAffineTransform = VImage_CGAffineTransform
+
+// VImageError is a Go-name alias for VImage_Error.
+type VImageError = VImage_Error
+
+// VImageFlags is a Go-name alias for VImage_Flags.
+type VImageFlags = VImage_Flags
+
+// VImageMultidimensionalTable is a Go-name alias for VImage_MultidimensionalTable.
+type VImageMultidimensionalTable = VImage_MultidimensionalTable
+
+// VImageWarpInterpolation is a Go-name alias for VImage_WarpInterpolation.
+type VImageWarpInterpolation = VImage_WarpInterpolation
+
+// BNNSArithmeticFunction aliases the generated arithmetic-function enum.
 type BNNSArithmeticFunction = BNNSArithmetic
 
 // BNNSBoxCoordinateMode aliases the generated box-coordinate enum family.
-
 type BNNSBoxCoordinateMode = Bnns
 
 // BNNSDescriptorType is the descriptor-kind enum used by BNNS tensor parameter structs.
-
 type BNNSDescriptorType = Bnns
 
 // BNNSDataLayout is the layout enum used by BNNSNDArrayDescriptor.
-
 type BNNSDataLayout = BNNSData
 
 // BNNSEmbeddingFlags aliases the generated embedding-flags enum.
-
 type BNNSEmbeddingFlags = BNNSEmbeddingFlagScaleGradientBy
 
 // BNNSFilterType aliases the generated BNNS filter-type enum family.
-
 type BNNSFilterType = Bnns
 
 // BNNSLinearSamplingMode aliases the generated linear-sampling enum.
-
 type BNNSLinearSamplingMode = BNNSLinearSampling
 
 // BNNSLossReductionFunction aliases the generated loss-reduction enum.
-
 type BNNSLossReductionFunction = BNNSLossReduction
 
 // BNNSNDArrayFlags is the flag enum used by BNNSNDArrayDescriptor.
-
 type BNNSNDArrayFlags = BNNSNDArrayFlagBackprop
 
 // BNNSNormType aliases the generated norm-type enum.
-
 type BNNSNormType = Bnnsl2
 
 // BNNSOptimizerClippingFunction aliases the generated optimizer-clipping enum.
-
 type BNNSOptimizerClippingFunction = BNNSOptimizerClipping
 
 // BNNSOptimizerRegularizationFunction aliases the generated regularization enum.
-
 type BNNSOptimizerRegularizationFunction = BNNSOptimizerRegularization
 
 // BNNSOptimizerSGDMomentumVariant aliases the generated SGD-momentum enum.
-
 type BNNSOptimizerSGDMomentumVariant = BNNSSGDMomentum
 
 // BNNSRandomGeneratorMethod aliases the generated random-generator enum.
-
 type BNNSRandomGeneratorMethod = BNNSRandomGeneratorMethodAES
 
 // Quadrature_integrator aliases the generated quadrature-integrator enum.
-
 type Quadrature_integrator = QuadratureIntegrateQ
 
 // Quadrature_status aliases the generated quadrature status enum.
-
 type Quadrature_status = Quadrature
 
 // SparseControl_t aliases the generated sparse-control enum.
-
 type SparseControl_t = SparseDefault
 
 // SparseGMRESVariant_t aliases the generated sparse-variant enum.
-
 type SparseGMRESVariant_t = SparseVariant
 
 // SparseKind_t aliases the generated sparse matrix-kind enum.
-
 type SparseKind_t = Sparse
 
 // SparseLSMRConvergenceTest_t aliases the generated sparse LSMR convergence enum.
-
 type SparseLSMRConvergenceTest_t = SparseLSMRCT
 
 // SparseStatus_t aliases the generated sparse status enum.
-
 type SparseStatus_t = Sparse
 
 // SparseTriangle_t aliases the generated sparse triangle enum.
-
 type SparseTriangle_t = Sparse
 
 // Sparse_matrix_property aliases the generated sparse matrix-property enum.
-
 type Sparse_matrix_property = Sparse
 
 // Sparse_status aliases the generated sparse status enum.
-
 type Sparse_status = Sparse
 
 // VImageARGBType aliases the generated vImage ARGB pixel-type enum.
-
 type VImageARGBType = KvImageARG
 
 // VImageMDTableUsageHint aliases the generated multidimensional-table hint enum.
-
 type VImageMDTableUsageHint = KvImageMDTableHint
 
 // VImage_InterpolationMethod aliases the generated vImage interpolation enum.
-
 type VImage_InterpolationMethod = KvImage
 
 // VImageYpCbCrType aliases the generated vImage YpCbCr pixel-type enum.
-
 type VImageYpCbCrType = Kv

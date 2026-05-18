@@ -3060,10 +3060,10 @@ func Appleblas_sgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TR
 	}
 }
 
-var _catlas_caxpby func(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _catlas_caxpby func(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _catlas_caxpbyErr error
 
-func tryCatlas_caxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCatlas_caxpby(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _catlas_caxpby == nil {
 		return symbolCallError("catlas_caxpby", "13.3", _catlas_caxpbyErr)
 	}
@@ -3074,16 +3074,16 @@ func tryCatlas_caxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y
 // Catlas_caxpby computes the product of two vectors, scaling each one separately (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/catlas_caxpby(_:_:_:_:_:_:_:)
-func Catlas_caxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Catlas_caxpby(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCatlas_caxpby(N, ALPHA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _catlas_cset func(N int, ALPHA uintptr, X uintptr, INCX int)
+var _catlas_cset func(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int)
 var _catlas_csetErr error
 
-func tryCatlas_cset(N int, ALPHA uintptr, X uintptr, INCX int) error {
+func tryCatlas_cset(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int) error {
 	if _catlas_cset == nil {
 		return symbolCallError("catlas_cset", "13.3", _catlas_csetErr)
 	}
@@ -3094,7 +3094,7 @@ func tryCatlas_cset(N int, ALPHA uintptr, X uintptr, INCX int) error {
 // Catlas_cset modifies a vector (single-precision complex) in place, setting each element to a given value.
 //
 // See: https://developer.apple.com/documentation/Accelerate/catlas_cset(_:_:_:_:)
-func Catlas_cset(N int, ALPHA uintptr, X uintptr, INCX int) {
+func Catlas_cset(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int) {
 	if callErr := tryCatlas_cset(N, ALPHA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
@@ -3180,10 +3180,10 @@ func Catlas_sset(N int, ALPHA float32, X []float32, INCX int) {
 	}
 }
 
-var _catlas_zaxpby func(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _catlas_zaxpby func(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _catlas_zaxpbyErr error
 
-func tryCatlas_zaxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCatlas_zaxpby(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _catlas_zaxpby == nil {
 		return symbolCallError("catlas_zaxpby", "13.3", _catlas_zaxpbyErr)
 	}
@@ -3194,16 +3194,16 @@ func tryCatlas_zaxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y
 // Catlas_zaxpby computes the sum of two vectors, scaling each one separately (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/catlas_zaxpby(_:_:_:_:_:_:_:)
-func Catlas_zaxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Catlas_zaxpby(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCatlas_zaxpby(N, ALPHA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _catlas_zset func(N int, ALPHA uintptr, X uintptr, INCX int)
+var _catlas_zset func(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int)
 var _catlas_zsetErr error
 
-func tryCatlas_zset(N int, ALPHA uintptr, X uintptr, INCX int) error {
+func tryCatlas_zset(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int) error {
 	if _catlas_zset == nil {
 		return symbolCallError("catlas_zset", "13.3", _catlas_zsetErr)
 	}
@@ -3214,16 +3214,16 @@ func tryCatlas_zset(N int, ALPHA uintptr, X uintptr, INCX int) error {
 // Catlas_zset modifies a vector (double-precision complex) in place, setting each element to a given value.
 //
 // See: https://developer.apple.com/documentation/Accelerate/catlas_zset(_:_:_:_:)
-func Catlas_zset(N int, ALPHA uintptr, X uintptr, INCX int) {
+func Catlas_zset(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int) {
 	if callErr := tryCatlas_zset(N, ALPHA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_caxpy func(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int)
+var _cblas_caxpy func(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int)
 var _cblas_caxpyErr error
 
-func tryCblas_caxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int) error {
+func tryCblas_caxpy(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) error {
 	if _cblas_caxpy == nil {
 		return symbolCallError("cblas_caxpy", "13.3", _cblas_caxpyErr)
 	}
@@ -3234,16 +3234,16 @@ func tryCblas_caxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY i
 // Cblas_caxpy computes a constant times a vector plus a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_caxpy(_:_:_:_:_:_:)
-func Cblas_caxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int) {
+func Cblas_caxpy(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_caxpy(N, ALPHA, X, INCX, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ccopy func(N int, X uintptr, INCX int, Y uintptr, INCY int)
+var _cblas_ccopy func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int)
 var _cblas_ccopyErr error
 
-func tryCblas_ccopy(N int, X uintptr, INCX int, Y uintptr, INCY int) error {
+func tryCblas_ccopy(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) error {
 	if _cblas_ccopy == nil {
 		return symbolCallError("cblas_ccopy", "13.3", _cblas_ccopyErr)
 	}
@@ -3254,16 +3254,16 @@ func tryCblas_ccopy(N int, X uintptr, INCX int, Y uintptr, INCY int) error {
 // Cblas_ccopy copies a vector to another vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ccopy(_:_:_:_:_:)
-func Cblas_ccopy(N int, X uintptr, INCX int, Y uintptr, INCY int) {
+func Cblas_ccopy(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_ccopy(N, X, INCX, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cdotc_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr)
+var _cblas_cdotc_sub func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTC unsafe.Pointer)
 var _cblas_cdotc_subErr error
 
-func tryCblas_cdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr) error {
+func tryCblas_cdotc_sub(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTC unsafe.Pointer) error {
 	if _cblas_cdotc_sub == nil {
 		return symbolCallError("cblas_cdotc_sub", "13.3", _cblas_cdotc_subErr)
 	}
@@ -3274,16 +3274,16 @@ func tryCblas_cdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC ui
 // Cblas_cdotc_sub calculates the dot product of the complex conjugate of a single-precision complex vector with a second single-precision complex vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cdotc_sub(_:_:_:_:_:_:)
-func Cblas_cdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr) {
+func Cblas_cdotc_sub(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTC unsafe.Pointer) {
 	if callErr := tryCblas_cdotc_sub(N, X, INCX, Y, INCY, DOTC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cdotu_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr)
+var _cblas_cdotu_sub func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTU unsafe.Pointer)
 var _cblas_cdotu_subErr error
 
-func tryCblas_cdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr) error {
+func tryCblas_cdotu_sub(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTU unsafe.Pointer) error {
 	if _cblas_cdotu_sub == nil {
 		return symbolCallError("cblas_cdotu_sub", "13.3", _cblas_cdotu_subErr)
 	}
@@ -3294,16 +3294,16 @@ func tryCblas_cdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU ui
 // Cblas_cdotu_sub computes the dot product of two single-precision complex vectors.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cdotu_sub(_:_:_:_:_:_:)
-func Cblas_cdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr) {
+func Cblas_cdotu_sub(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTU unsafe.Pointer) {
 	if callErr := tryCblas_cdotu_sub(N, X, INCX, Y, INCY, DOTU); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_cgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_cgbmvErr error
 
-func tryCblas_cgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_cgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_cgbmv == nil {
 		return symbolCallError("cblas_cgbmv", "13.3", _cblas_cgbmvErr)
 	}
@@ -3314,16 +3314,16 @@ func tryCblas_cgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL 
 // Cblas_cgbmv scales a general band matrix, then multiplies by a vector, then adds a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cgbmv(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_cgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_cgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_cgbmv(ORDER, TRANSA, M, N, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+var _cblas_cgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_cgemmErr error
 
-func tryCblas_cgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_cgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_cgemm == nil {
 		return symbolCallError("cblas_cgemm", "13.3", _cblas_cgemmErr)
 	}
@@ -3334,16 +3334,16 @@ func tryCblas_cgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRAN
 // Cblas_cgemm multiplies two matrices (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cgemm(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_cgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_cgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_cgemm(ORDER, TRANSA, TRANSB, M, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_cgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_cgemvErr error
 
-func tryCblas_cgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_cgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_cgemv == nil {
 		return symbolCallError("cblas_cgemv", "13.3", _cblas_cgemvErr)
 	}
@@ -3354,16 +3354,16 @@ func tryCblas_cgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALP
 // Cblas_cgemv multiplies a matrix by a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cgemv(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_cgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_cgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_cgemv(ORDER, TRANSA, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cgerc func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+var _cblas_cgerc func(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int)
 var _cblas_cgercErr error
 
-func tryCblas_cgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) error {
+func tryCblas_cgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) error {
 	if _cblas_cgerc == nil {
 		return symbolCallError("cblas_cgerc", "13.3", _cblas_cgercErr)
 	}
@@ -3374,16 +3374,16 @@ func tryCblas_cgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, I
 // Cblas_cgerc multiplies vector X by the conjugate transpose of vector Y, then adds matrix A (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cgerc(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_cgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+func Cblas_cgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) {
 	if callErr := tryCblas_cgerc(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cgeru func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+var _cblas_cgeru func(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int)
 var _cblas_cgeruErr error
 
-func tryCblas_cgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) error {
+func tryCblas_cgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) error {
 	if _cblas_cgeru == nil {
 		return symbolCallError("cblas_cgeru", "13.3", _cblas_cgeruErr)
 	}
@@ -3394,16 +3394,16 @@ func tryCblas_cgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, I
 // Cblas_cgeru multiplies vector X by the transpose of vector Y, then adds matrix A (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cgeru(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_cgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+func Cblas_cgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) {
 	if callErr := tryCblas_cgeru(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_chbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_chbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_chbmvErr error
 
-func tryCblas_chbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_chbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_chbmv == nil {
 		return symbolCallError("cblas_chbmv", "13.3", _cblas_chbmvErr)
 	}
@@ -3414,16 +3414,16 @@ func tryCblas_chbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uint
 // Cblas_chbmv scales a Hermitian band matrix, then multiplies by a vector, then adds a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_chbmv(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_chbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_chbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_chbmv(ORDER, UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_chemm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+var _cblas_chemm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_chemmErr error
 
-func tryCblas_chemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_chemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_chemm == nil {
 		return symbolCallError("cblas_chemm", "13.3", _cblas_chemmErr)
 	}
@@ -3434,16 +3434,16 @@ func tryCblas_chemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, 
 // Cblas_chemm multiplies two Hermitian matrices (single-precision complex), then adds a third (with scaling).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_chemm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_chemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_chemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_chemm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_chemv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_chemv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_chemvErr error
 
-func tryCblas_chemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_chemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_chemv == nil {
 		return symbolCallError("cblas_chemv", "13.3", _cblas_chemvErr)
 	}
@@ -3454,16 +3454,16 @@ func tryCblas_chemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A 
 // Cblas_chemv scales and multiplies a Hermitian matrix by a vector, then adds a second (scaled) vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_chemv(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_chemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_chemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_chemv(ORDER, UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cher func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr, LDA int)
+var _cblas_cher func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X unsafe.Pointer, INCX int, A unsafe.Pointer, LDA int)
 var _cblas_cherErr error
 
-func tryCblas_cher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr, LDA int) error {
+func tryCblas_cher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X unsafe.Pointer, INCX int, A unsafe.Pointer, LDA int) error {
 	if _cblas_cher == nil {
 		return symbolCallError("cblas_cher", "13.3", _cblas_cherErr)
 	}
@@ -3474,16 +3474,16 @@ func tryCblas_cher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X u
 // Cblas_cher hermitian rank 1 update: adds the product of a scaling factor, vector [X], and the conjugate transpose of [X] to matrix [A].
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cher(_:_:_:_:_:_:_:_:)
-func Cblas_cher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr, LDA int) {
+func Cblas_cher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X unsafe.Pointer, INCX int, A unsafe.Pointer, LDA int) {
 	if callErr := tryCblas_cher(ORDER, UPLO, N, ALPHA, X, INCX, A, LDA); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cher2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+var _cblas_cher2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int)
 var _cblas_cher2Err error
 
-func tryCblas_cher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) error {
+func tryCblas_cher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) error {
 	if _cblas_cher2 == nil {
 		return symbolCallError("cblas_cher2", "13.3", _cblas_cher2Err)
 	}
@@ -3494,16 +3494,16 @@ func tryCblas_cher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X 
 // Cblas_cher2 hermitian rank 2 update: adds the product of a scaling factor, vector [X], and the conjugate transpose of vector [Y] to the product of the conjugate of the scaling factor, vector [Y], and the conjugate transpose of vector [X], and adds the result to matrix [A].
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cher2(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_cher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+func Cblas_cher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) {
 	if callErr := tryCblas_cher2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, A, LDA); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cher2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float32, C uintptr, LDC int)
+var _cblas_cher2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA float32, C unsafe.Pointer, LDC int)
 var _cblas_cher2kErr error
 
-func tryCblas_cher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float32, C uintptr, LDC int) error {
+func tryCblas_cher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA float32, C unsafe.Pointer, LDC int) error {
 	if _cblas_cher2k == nil {
 		return symbolCallError("cblas_cher2k", "13.3", _cblas_cher2kErr)
 	}
@@ -3514,16 +3514,16 @@ func tryCblas_cher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, 
 // Cblas_cher2k performs a rank-2k update of a complex Hermitian matrix (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cher2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_cher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float32, C uintptr, LDC int) {
+func Cblas_cher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA float32, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_cher2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cherk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A uintptr, LDA int, BETA float32, C uintptr, LDC int)
+var _cblas_cherk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A unsafe.Pointer, LDA int, BETA float32, C unsafe.Pointer, LDC int)
 var _cblas_cherkErr error
 
-func tryCblas_cherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A uintptr, LDA int, BETA float32, C uintptr, LDC int) error {
+func tryCblas_cherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A unsafe.Pointer, LDA int, BETA float32, C unsafe.Pointer, LDC int) error {
 	if _cblas_cherk == nil {
 		return symbolCallError("cblas_cherk", "13.3", _cblas_cherkErr)
 	}
@@ -3534,16 +3534,16 @@ func tryCblas_cherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N
 // Cblas_cherk rank-k update—multiplies a Hermitian matrix by its transpose and adds a second matrix (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cherk(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_cherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A uintptr, LDA int, BETA float32, C uintptr, LDC int) {
+func Cblas_cherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A unsafe.Pointer, LDA int, BETA float32, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_cherk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_chpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_chpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, AP unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_chpmvErr error
 
-func tryCblas_chpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_chpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, AP unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_chpmv == nil {
 		return symbolCallError("cblas_chpmv", "13.3", _cblas_chpmvErr)
 	}
@@ -3554,16 +3554,16 @@ func tryCblas_chpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP
 // Cblas_chpmv scales a packed hermitian matrix, multiplies it by a vector, and adds a scaled vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_chpmv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_chpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_chpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, AP unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_chpmv(ORDER, UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_chpr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr)
+var _cblas_chpr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X unsafe.Pointer, INCX int, A unsafe.Pointer)
 var _cblas_chprErr error
 
-func tryCblas_chpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr) error {
+func tryCblas_chpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X unsafe.Pointer, INCX int, A unsafe.Pointer) error {
 	if _cblas_chpr == nil {
 		return symbolCallError("cblas_chpr", "13.3", _cblas_chprErr)
 	}
@@ -3574,16 +3574,16 @@ func tryCblas_chpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X u
 // Cblas_chpr scales and multiplies a vector times its conjugate transpose, then adds a matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_chpr(_:_:_:_:_:_:_:)
-func Cblas_chpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr) {
+func Cblas_chpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X unsafe.Pointer, INCX int, A unsafe.Pointer) {
 	if callErr := tryCblas_chpr(ORDER, UPLO, N, ALPHA, X, INCX, A); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_chpr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr)
+var _cblas_chpr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, AP unsafe.Pointer)
 var _cblas_chpr2Err error
 
-func tryCblas_chpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr) error {
+func tryCblas_chpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, AP unsafe.Pointer) error {
 	if _cblas_chpr2 == nil {
 		return symbolCallError("cblas_chpr2", "13.3", _cblas_chpr2Err)
 	}
@@ -3594,16 +3594,16 @@ func tryCblas_chpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X 
 // Cblas_chpr2 multiplies a vector times the conjugate transpose of a second vector and vice-versa, sums the results, and adds a matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_chpr2(_:_:_:_:_:_:_:_:_:)
-func Cblas_chpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr) {
+func Cblas_chpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, AP unsafe.Pointer) {
 	if callErr := tryCblas_chpr2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, AP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_crotg func(A uintptr, B uintptr, C *float32, S uintptr)
+var _cblas_crotg func(A unsafe.Pointer, B unsafe.Pointer, C *float32, S unsafe.Pointer)
 var _cblas_crotgErr error
 
-func tryCblas_crotg(A uintptr, B uintptr, C []float32, S uintptr) error {
+func tryCblas_crotg(A unsafe.Pointer, B unsafe.Pointer, C []float32, S unsafe.Pointer) error {
 	if _cblas_crotg == nil {
 		return symbolCallError("cblas_crotg", "13.3", _cblas_crotgErr)
 	}
@@ -3614,16 +3614,16 @@ func tryCblas_crotg(A uintptr, B uintptr, C []float32, S uintptr) error {
 // Cblas_crotg constructs a complex Givens rotation.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_crotg(_:_:_:_:)
-func Cblas_crotg(A uintptr, B uintptr, C []float32, S uintptr) {
+func Cblas_crotg(A unsafe.Pointer, B unsafe.Pointer, C []float32, S unsafe.Pointer) {
 	if callErr := tryCblas_crotg(A, B, C, S); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cscal func(N int, ALPHA uintptr, X uintptr, INCX int)
+var _cblas_cscal func(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int)
 var _cblas_cscalErr error
 
-func tryCblas_cscal(N int, ALPHA uintptr, X uintptr, INCX int) error {
+func tryCblas_cscal(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int) error {
 	if _cblas_cscal == nil {
 		return symbolCallError("cblas_cscal", "13.3", _cblas_cscalErr)
 	}
@@ -3634,16 +3634,16 @@ func tryCblas_cscal(N int, ALPHA uintptr, X uintptr, INCX int) error {
 // Cblas_cscal multiplies each element of a vector by a constant (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cscal(_:_:_:_:)
-func Cblas_cscal(N int, ALPHA uintptr, X uintptr, INCX int) {
+func Cblas_cscal(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_cscal(N, ALPHA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_csrot func(N int, X uintptr, INCX int, Y uintptr, INCY int, C float32, S float32)
+var _cblas_csrot func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, C float32, S float32)
 var _cblas_csrotErr error
 
-func tryCblas_csrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float32, S float32) error {
+func tryCblas_csrot(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, C float32, S float32) error {
 	if _cblas_csrot == nil {
 		return symbolCallError("cblas_csrot", "13.3", _cblas_csrotErr)
 	}
@@ -3654,16 +3654,16 @@ func tryCblas_csrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float32, 
 // Cblas_csrot applies a Givens rotation matrix to a pair of complex vectors.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_csrot(_:_:_:_:_:_:_:)
-func Cblas_csrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float32, S float32) {
+func Cblas_csrot(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, C float32, S float32) {
 	if callErr := tryCblas_csrot(N, X, INCX, Y, INCY, C, S); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_csscal func(N int, ALPHA float32, X uintptr, INCX int)
+var _cblas_csscal func(N int, ALPHA float32, X unsafe.Pointer, INCX int)
 var _cblas_csscalErr error
 
-func tryCblas_csscal(N int, ALPHA float32, X uintptr, INCX int) error {
+func tryCblas_csscal(N int, ALPHA float32, X unsafe.Pointer, INCX int) error {
 	if _cblas_csscal == nil {
 		return symbolCallError("cblas_csscal", "13.3", _cblas_csscalErr)
 	}
@@ -3674,16 +3674,16 @@ func tryCblas_csscal(N int, ALPHA float32, X uintptr, INCX int) error {
 // Cblas_csscal multiplies each element of a vector by a constant (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_csscal(_:_:_:_:)
-func Cblas_csscal(N int, ALPHA float32, X uintptr, INCX int) {
+func Cblas_csscal(N int, ALPHA float32, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_csscal(N, ALPHA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_cswap func(N int, X uintptr, INCX int, Y uintptr, INCY int)
+var _cblas_cswap func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int)
 var _cblas_cswapErr error
 
-func tryCblas_cswap(N int, X uintptr, INCX int, Y uintptr, INCY int) error {
+func tryCblas_cswap(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) error {
 	if _cblas_cswap == nil {
 		return symbolCallError("cblas_cswap", "13.3", _cblas_cswapErr)
 	}
@@ -3694,16 +3694,16 @@ func tryCblas_cswap(N int, X uintptr, INCX int, Y uintptr, INCY int) error {
 // Cblas_cswap exchanges the elements of two vectors (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_cswap(_:_:_:_:_:)
-func Cblas_cswap(N int, X uintptr, INCX int, Y uintptr, INCY int) {
+func Cblas_cswap(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_cswap(N, X, INCX, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_csymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+var _cblas_csymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_csymmErr error
 
-func tryCblas_csymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_csymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_csymm == nil {
 		return symbolCallError("cblas_csymm", "13.3", _cblas_csymmErr)
 	}
@@ -3714,16 +3714,16 @@ func tryCblas_csymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, 
 // Cblas_csymm multiplies a matrix by a symmetric matrix (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_csymm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_csymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_csymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_csymm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_csyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+var _cblas_csyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_csyr2kErr error
 
-func tryCblas_csyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_csyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_csyr2k == nil {
 		return symbolCallError("cblas_csyr2k", "13.3", _cblas_csyr2kErr)
 	}
@@ -3734,16 +3734,16 @@ func tryCblas_csyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, 
 // Cblas_csyr2k performs a rank-2k update of a symmetric matrix (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_csyr2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_csyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_csyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_csyr2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_csyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int)
+var _cblas_csyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_csyrkErr error
 
-func tryCblas_csyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_csyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_csyrk == nil {
 		return symbolCallError("cblas_csyrk", "13.3", _cblas_csyrkErr)
 	}
@@ -3754,16 +3754,16 @@ func tryCblas_csyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N
 // Cblas_csyrk rank-k update—multiplies a symmetric matrix by its transpose and adds a second matrix (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_csyrk(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_csyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_csyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_csyrk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ctbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
+var _cblas_ctbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int)
 var _cblas_ctbmvErr error
 
-func tryCblas_ctbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) error {
+func tryCblas_ctbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) error {
 	if _cblas_ctbmv == nil {
 		return symbolCallError("cblas_ctbmv", "13.3", _cblas_ctbmvErr)
 	}
@@ -3774,16 +3774,16 @@ func tryCblas_ctbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ctbmv scales a triangular band matrix, then multiplies by a vector (single-precision compex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ctbmv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ctbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) {
+func Cblas_ctbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ctbmv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ctbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
+var _cblas_ctbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int)
 var _cblas_ctbsvErr error
 
-func tryCblas_ctbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) error {
+func tryCblas_ctbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) error {
 	if _cblas_ctbsv == nil {
 		return symbolCallError("cblas_ctbsv", "13.3", _cblas_ctbsvErr)
 	}
@@ -3794,16 +3794,16 @@ func tryCblas_ctbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ctbsv solves a triangular banded system of equations.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ctbsv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ctbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) {
+func Cblas_ctbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ctbsv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ctpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
+var _cblas_ctpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int)
 var _cblas_ctpmvErr error
 
-func tryCblas_ctpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) error {
+func tryCblas_ctpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int) error {
 	if _cblas_ctpmv == nil {
 		return symbolCallError("cblas_ctpmv", "13.3", _cblas_ctpmvErr)
 	}
@@ -3814,16 +3814,16 @@ func tryCblas_ctpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ctpmv multiplies a triangular matrix by a vector, then adds a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ctpmv(_:_:_:_:_:_:_:_:)
-func Cblas_ctpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) {
+func Cblas_ctpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ctpmv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ctpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
+var _cblas_ctpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int)
 var _cblas_ctpsvErr error
 
-func tryCblas_ctpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) error {
+func tryCblas_ctpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int) error {
 	if _cblas_ctpsv == nil {
 		return symbolCallError("cblas_ctpsv", "13.3", _cblas_ctpsvErr)
 	}
@@ -3834,16 +3834,16 @@ func tryCblas_ctpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ctpsv solves a packed triangular system of equations.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ctpsv(_:_:_:_:_:_:_:_:)
-func Cblas_ctpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) {
+func Cblas_ctpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ctpsv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ctrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
+var _cblas_ctrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int)
 var _cblas_ctrmmErr error
 
-func tryCblas_ctrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) error {
+func tryCblas_ctrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int) error {
 	if _cblas_ctrmm == nil {
 		return symbolCallError("cblas_ctrmm", "13.3", _cblas_ctrmmErr)
 	}
@@ -3854,16 +3854,16 @@ func tryCblas_ctrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA 
 // Cblas_ctrmm scales a triangular matrix and multiplies it by a matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ctrmm(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ctrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) {
+func Cblas_ctrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int) {
 	if callErr := tryCblas_ctrmm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ctrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
+var _cblas_ctrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int)
 var _cblas_ctrmvErr error
 
-func tryCblas_ctrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) error {
+func tryCblas_ctrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) error {
 	if _cblas_ctrmv == nil {
 		return symbolCallError("cblas_ctrmv", "13.3", _cblas_ctrmvErr)
 	}
@@ -3874,16 +3874,16 @@ func tryCblas_ctrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ctrmv multiplies a triangular matrix by a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ctrmv(_:_:_:_:_:_:_:_:_:)
-func Cblas_ctrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) {
+func Cblas_ctrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ctrmv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ctrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
+var _cblas_ctrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int)
 var _cblas_ctrsmErr error
 
-func tryCblas_ctrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) error {
+func tryCblas_ctrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int) error {
 	if _cblas_ctrsm == nil {
 		return symbolCallError("cblas_ctrsm", "13.3", _cblas_ctrsmErr)
 	}
@@ -3894,16 +3894,16 @@ func tryCblas_ctrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA 
 // Cblas_ctrsm solves a triangular system of equations with multiple values for the right side.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ctrsm(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ctrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) {
+func Cblas_ctrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int) {
 	if callErr := tryCblas_ctrsm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ctrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
+var _cblas_ctrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int)
 var _cblas_ctrsvErr error
 
-func tryCblas_ctrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) error {
+func tryCblas_ctrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) error {
 	if _cblas_ctrsv == nil {
 		return symbolCallError("cblas_ctrsv", "13.3", _cblas_ctrsvErr)
 	}
@@ -3914,7 +3914,7 @@ func tryCblas_ctrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ctrsv solves a triangular system of equations with a single value for the right side.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ctrsv(_:_:_:_:_:_:_:_:_:)
-func Cblas_ctrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) {
+func Cblas_ctrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ctrsv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
@@ -4604,10 +4604,10 @@ func Cblas_dtrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 }
 
-var _cblas_dzasum func(N int, X uintptr, INCX int) float64
+var _cblas_dzasum func(N int, X unsafe.Pointer, INCX int) float64
 var _cblas_dzasumErr error
 
-func tryCblas_dzasum(N int, X uintptr, INCX int) (float64, error) {
+func tryCblas_dzasum(N int, X unsafe.Pointer, INCX int) (float64, error) {
 	if _cblas_dzasum == nil {
 		return 0.0, symbolCallError("cblas_dzasum", "13.3", _cblas_dzasumErr)
 	}
@@ -4617,7 +4617,7 @@ func tryCblas_dzasum(N int, X uintptr, INCX int) (float64, error) {
 // Cblas_dzasum computes the sum of the absolute values of real and imaginary parts of elements in a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dzasum(_:_:_:)
-func Cblas_dzasum(N int, X uintptr, INCX int) float64 {
+func Cblas_dzasum(N int, X unsafe.Pointer, INCX int) float64 {
 	result, callErr := tryCblas_dzasum(N, X, INCX)
 	if callErr != nil {
 		panic(callErr)
@@ -4625,10 +4625,10 @@ func Cblas_dzasum(N int, X uintptr, INCX int) float64 {
 	return result
 }
 
-var _cblas_dznrm2 func(N int, X uintptr, INCX int) float64
+var _cblas_dznrm2 func(N int, X unsafe.Pointer, INCX int) float64
 var _cblas_dznrm2Err error
 
-func tryCblas_dznrm2(N int, X uintptr, INCX int) (float64, error) {
+func tryCblas_dznrm2(N int, X unsafe.Pointer, INCX int) (float64, error) {
 	if _cblas_dznrm2 == nil {
 		return 0.0, symbolCallError("cblas_dznrm2", "13.3", _cblas_dznrm2Err)
 	}
@@ -4638,7 +4638,7 @@ func tryCblas_dznrm2(N int, X uintptr, INCX int) (float64, error) {
 // Cblas_dznrm2 computes the unitary norm of a vector (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dznrm2(_:_:_:)
-func Cblas_dznrm2(N int, X uintptr, INCX int) float64 {
+func Cblas_dznrm2(N int, X unsafe.Pointer, INCX int) float64 {
 	result, callErr := tryCblas_dznrm2(N, X, INCX)
 	if callErr != nil {
 		panic(callErr)
@@ -4667,10 +4667,10 @@ func Cblas_errprn(ierr int, info int, form string) int {
 	return result
 }
 
-var _cblas_icamax func(N int, X uintptr, INCX int) int
+var _cblas_icamax func(N int, X unsafe.Pointer, INCX int) int
 var _cblas_icamaxErr error
 
-func tryCblas_icamax(N int, X uintptr, INCX int) (int, error) {
+func tryCblas_icamax(N int, X unsafe.Pointer, INCX int) (int, error) {
 	if _cblas_icamax == nil {
 		return 0, symbolCallError("cblas_icamax", "13.3", _cblas_icamaxErr)
 	}
@@ -4680,7 +4680,7 @@ func tryCblas_icamax(N int, X uintptr, INCX int) (int, error) {
 // Cblas_icamax returns the index of the element with the largest absolute value in a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_icamax(_:_:_:)
-func Cblas_icamax(N int, X uintptr, INCX int) int {
+func Cblas_icamax(N int, X unsafe.Pointer, INCX int) int {
 	result, callErr := tryCblas_icamax(N, X, INCX)
 	if callErr != nil {
 		panic(callErr)
@@ -4730,10 +4730,10 @@ func Cblas_isamax(N int, X []float32, INCX int) int {
 	return result
 }
 
-var _cblas_izamax func(N int, X uintptr, INCX int) int
+var _cblas_izamax func(N int, X unsafe.Pointer, INCX int) int
 var _cblas_izamaxErr error
 
-func tryCblas_izamax(N int, X uintptr, INCX int) (int, error) {
+func tryCblas_izamax(N int, X unsafe.Pointer, INCX int) (int, error) {
 	if _cblas_izamax == nil {
 		return 0, symbolCallError("cblas_izamax", "13.3", _cblas_izamaxErr)
 	}
@@ -4743,7 +4743,7 @@ func tryCblas_izamax(N int, X uintptr, INCX int) (int, error) {
 // Cblas_izamax returns the index of the element with the largest absolute value in a vector (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_izamax(_:_:_:)
-func Cblas_izamax(N int, X uintptr, INCX int) int {
+func Cblas_izamax(N int, X unsafe.Pointer, INCX int) int {
 	result, callErr := tryCblas_izamax(N, X, INCX)
 	if callErr != nil {
 		panic(callErr)
@@ -4792,10 +4792,10 @@ func Cblas_saxpy(N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY 
 	}
 }
 
-var _cblas_scasum func(N int, X uintptr, INCX int) float32
+var _cblas_scasum func(N int, X unsafe.Pointer, INCX int) float32
 var _cblas_scasumErr error
 
-func tryCblas_scasum(N int, X uintptr, INCX int) (float32, error) {
+func tryCblas_scasum(N int, X unsafe.Pointer, INCX int) (float32, error) {
 	if _cblas_scasum == nil {
 		return 0.0, symbolCallError("cblas_scasum", "13.3", _cblas_scasumErr)
 	}
@@ -4805,7 +4805,7 @@ func tryCblas_scasum(N int, X uintptr, INCX int) (float32, error) {
 // Cblas_scasum computes the sum of the absolute values of real and imaginary parts of elements in a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_scasum(_:_:_:)
-func Cblas_scasum(N int, X uintptr, INCX int) float32 {
+func Cblas_scasum(N int, X unsafe.Pointer, INCX int) float32 {
 	result, callErr := tryCblas_scasum(N, X, INCX)
 	if callErr != nil {
 		panic(callErr)
@@ -4813,10 +4813,10 @@ func Cblas_scasum(N int, X uintptr, INCX int) float32 {
 	return result
 }
 
-var _cblas_scnrm2 func(N int, X uintptr, INCX int) float32
+var _cblas_scnrm2 func(N int, X unsafe.Pointer, INCX int) float32
 var _cblas_scnrm2Err error
 
-func tryCblas_scnrm2(N int, X uintptr, INCX int) (float32, error) {
+func tryCblas_scnrm2(N int, X unsafe.Pointer, INCX int) (float32, error) {
 	if _cblas_scnrm2 == nil {
 		return 0.0, symbolCallError("cblas_scnrm2", "13.3", _cblas_scnrm2Err)
 	}
@@ -4826,7 +4826,7 @@ func tryCblas_scnrm2(N int, X uintptr, INCX int) (float32, error) {
 // Cblas_scnrm2 computes the unitary norm of a vector (single-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_scnrm2(_:_:_:)
-func Cblas_scnrm2(N int, X uintptr, INCX int) float32 {
+func Cblas_scnrm2(N int, X unsafe.Pointer, INCX int) float32 {
 	result, callErr := tryCblas_scnrm2(N, X, INCX)
 	if callErr != nil {
 		panic(callErr)
@@ -5497,10 +5497,10 @@ func Cblas_xerbla(p int, rout string, form string) {
 	}
 }
 
-var _cblas_zaxpy func(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int)
+var _cblas_zaxpy func(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int)
 var _cblas_zaxpyErr error
 
-func tryCblas_zaxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int) error {
+func tryCblas_zaxpy(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) error {
 	if _cblas_zaxpy == nil {
 		return symbolCallError("cblas_zaxpy", "13.3", _cblas_zaxpyErr)
 	}
@@ -5511,16 +5511,16 @@ func tryCblas_zaxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY i
 // Cblas_zaxpy computes a constant times a vector plus a vector (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zaxpy(_:_:_:_:_:_:)
-func Cblas_zaxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int) {
+func Cblas_zaxpy(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_zaxpy(N, ALPHA, X, INCX, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zcopy func(N int, X uintptr, INCX int, Y uintptr, INCY int)
+var _cblas_zcopy func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int)
 var _cblas_zcopyErr error
 
-func tryCblas_zcopy(N int, X uintptr, INCX int, Y uintptr, INCY int) error {
+func tryCblas_zcopy(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) error {
 	if _cblas_zcopy == nil {
 		return symbolCallError("cblas_zcopy", "13.3", _cblas_zcopyErr)
 	}
@@ -5531,16 +5531,16 @@ func tryCblas_zcopy(N int, X uintptr, INCX int, Y uintptr, INCY int) error {
 // Cblas_zcopy copies a vector to another vector (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zcopy(_:_:_:_:_:)
-func Cblas_zcopy(N int, X uintptr, INCX int, Y uintptr, INCY int) {
+func Cblas_zcopy(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_zcopy(N, X, INCX, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zdotc_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr)
+var _cblas_zdotc_sub func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTC unsafe.Pointer)
 var _cblas_zdotc_subErr error
 
-func tryCblas_zdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr) error {
+func tryCblas_zdotc_sub(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTC unsafe.Pointer) error {
 	if _cblas_zdotc_sub == nil {
 		return symbolCallError("cblas_zdotc_sub", "13.3", _cblas_zdotc_subErr)
 	}
@@ -5551,16 +5551,16 @@ func tryCblas_zdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC ui
 // Cblas_zdotc_sub calculates the dot product of the complex conjugate of a double-precision complex vector with a second double-precision complex vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zdotc_sub(_:_:_:_:_:_:)
-func Cblas_zdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr) {
+func Cblas_zdotc_sub(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTC unsafe.Pointer) {
 	if callErr := tryCblas_zdotc_sub(N, X, INCX, Y, INCY, DOTC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zdotu_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr)
+var _cblas_zdotu_sub func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTU unsafe.Pointer)
 var _cblas_zdotu_subErr error
 
-func tryCblas_zdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr) error {
+func tryCblas_zdotu_sub(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTU unsafe.Pointer) error {
 	if _cblas_zdotu_sub == nil {
 		return symbolCallError("cblas_zdotu_sub", "13.3", _cblas_zdotu_subErr)
 	}
@@ -5571,16 +5571,16 @@ func tryCblas_zdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU ui
 // Cblas_zdotu_sub computes the dot product of two double-precision complex vectors.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zdotu_sub(_:_:_:_:_:_:)
-func Cblas_zdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr) {
+func Cblas_zdotu_sub(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, DOTU unsafe.Pointer) {
 	if callErr := tryCblas_zdotu_sub(N, X, INCX, Y, INCY, DOTU); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zdrot func(N int, X uintptr, INCX int, Y uintptr, INCY int, C float64, S float64)
+var _cblas_zdrot func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, C float64, S float64)
 var _cblas_zdrotErr error
 
-func tryCblas_zdrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float64, S float64) error {
+func tryCblas_zdrot(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, C float64, S float64) error {
 	if _cblas_zdrot == nil {
 		return symbolCallError("cblas_zdrot", "13.3", _cblas_zdrotErr)
 	}
@@ -5591,16 +5591,16 @@ func tryCblas_zdrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float64, 
 // Cblas_zdrot applies a Givens rotation matrix to a pair of complex vectors.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zdrot(_:_:_:_:_:_:_:)
-func Cblas_zdrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float64, S float64) {
+func Cblas_zdrot(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, C float64, S float64) {
 	if callErr := tryCblas_zdrot(N, X, INCX, Y, INCY, C, S); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zdscal func(N int, ALPHA float64, X uintptr, INCX int)
+var _cblas_zdscal func(N int, ALPHA float64, X unsafe.Pointer, INCX int)
 var _cblas_zdscalErr error
 
-func tryCblas_zdscal(N int, ALPHA float64, X uintptr, INCX int) error {
+func tryCblas_zdscal(N int, ALPHA float64, X unsafe.Pointer, INCX int) error {
 	if _cblas_zdscal == nil {
 		return symbolCallError("cblas_zdscal", "13.3", _cblas_zdscalErr)
 	}
@@ -5611,16 +5611,16 @@ func tryCblas_zdscal(N int, ALPHA float64, X uintptr, INCX int) error {
 // Cblas_zdscal multiplies each element of a vector by a constant (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zdscal(_:_:_:_:)
-func Cblas_zdscal(N int, ALPHA float64, X uintptr, INCX int) {
+func Cblas_zdscal(N int, ALPHA float64, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_zdscal(N, ALPHA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_zgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_zgbmvErr error
 
-func tryCblas_zgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_zgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_zgbmv == nil {
 		return symbolCallError("cblas_zgbmv", "13.3", _cblas_zgbmvErr)
 	}
@@ -5631,16 +5631,16 @@ func tryCblas_zgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL 
 // Cblas_zgbmv scales a general band matrix, then multiplies by a vector, then adds a vector (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zgbmv(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_zgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_zgbmv(ORDER, TRANSA, M, N, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+var _cblas_zgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_zgemmErr error
 
-func tryCblas_zgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_zgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_zgemm == nil {
 		return symbolCallError("cblas_zgemm", "13.3", _cblas_zgemmErr)
 	}
@@ -5651,16 +5651,16 @@ func tryCblas_zgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRAN
 // Cblas_zgemm multiplies two matrices (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zgemm(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_zgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_zgemm(ORDER, TRANSA, TRANSB, M, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_zgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_zgemvErr error
 
-func tryCblas_zgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_zgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_zgemv == nil {
 		return symbolCallError("cblas_zgemv", "13.3", _cblas_zgemvErr)
 	}
@@ -5671,16 +5671,16 @@ func tryCblas_zgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALP
 // Cblas_zgemv multiplies a matrix by a vector (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zgemv(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_zgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_zgemv(ORDER, TRANSA, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zgerc func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+var _cblas_zgerc func(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int)
 var _cblas_zgercErr error
 
-func tryCblas_zgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) error {
+func tryCblas_zgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) error {
 	if _cblas_zgerc == nil {
 		return symbolCallError("cblas_zgerc", "13.3", _cblas_zgercErr)
 	}
@@ -5691,16 +5691,16 @@ func tryCblas_zgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, I
 // Cblas_zgerc multiplies vector X by the conjugate transpose of vector Y, then adds matrix A (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zgerc(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+func Cblas_zgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) {
 	if callErr := tryCblas_zgerc(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zgeru func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+var _cblas_zgeru func(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int)
 var _cblas_zgeruErr error
 
-func tryCblas_zgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) error {
+func tryCblas_zgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) error {
 	if _cblas_zgeru == nil {
 		return symbolCallError("cblas_zgeru", "13.3", _cblas_zgeruErr)
 	}
@@ -5711,16 +5711,16 @@ func tryCblas_zgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, I
 // Cblas_zgeru multiplies vector X by the transpose of vector Y, then adds matrix A (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zgeru(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+func Cblas_zgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) {
 	if callErr := tryCblas_zgeru(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zhbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_zhbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_zhbmvErr error
 
-func tryCblas_zhbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_zhbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_zhbmv == nil {
 		return symbolCallError("cblas_zhbmv", "13.3", _cblas_zhbmvErr)
 	}
@@ -5731,16 +5731,16 @@ func tryCblas_zhbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uint
 // Cblas_zhbmv scales a Hermitian band matrix, then multiplies by a vector, then adds a vector (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zhbmv(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zhbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_zhbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_zhbmv(ORDER, UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zhemm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+var _cblas_zhemm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_zhemmErr error
 
-func tryCblas_zhemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_zhemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_zhemm == nil {
 		return symbolCallError("cblas_zhemm", "13.3", _cblas_zhemmErr)
 	}
@@ -5751,16 +5751,16 @@ func tryCblas_zhemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, 
 // Cblas_zhemm multiplies two Hermitian matrices (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zhemm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zhemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_zhemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_zhemm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zhemv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_zhemv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_zhemvErr error
 
-func tryCblas_zhemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_zhemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_zhemv == nil {
 		return symbolCallError("cblas_zhemv", "13.3", _cblas_zhemvErr)
 	}
@@ -5771,16 +5771,16 @@ func tryCblas_zhemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A 
 // Cblas_zhemv scales and multiplies a Hermitian matrix by a vector, then adds a second (scaled) vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zhemv(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zhemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_zhemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_zhemv(ORDER, UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zher func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr, LDA int)
+var _cblas_zher func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X unsafe.Pointer, INCX int, A unsafe.Pointer, LDA int)
 var _cblas_zherErr error
 
-func tryCblas_zher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr, LDA int) error {
+func tryCblas_zher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X unsafe.Pointer, INCX int, A unsafe.Pointer, LDA int) error {
 	if _cblas_zher == nil {
 		return symbolCallError("cblas_zher", "13.3", _cblas_zherErr)
 	}
@@ -5791,16 +5791,16 @@ func tryCblas_zher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X u
 // Cblas_zher adds the product of a scaling factor, vector [X], and the conjugate transpose of [X] to matrix [A].
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zher(_:_:_:_:_:_:_:_:)
-func Cblas_zher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr, LDA int) {
+func Cblas_zher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X unsafe.Pointer, INCX int, A unsafe.Pointer, LDA int) {
 	if callErr := tryCblas_zher(ORDER, UPLO, N, ALPHA, X, INCX, A, LDA); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zher2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+var _cblas_zher2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int)
 var _cblas_zher2Err error
 
-func tryCblas_zher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) error {
+func tryCblas_zher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) error {
 	if _cblas_zher2 == nil {
 		return symbolCallError("cblas_zher2", "13.3", _cblas_zher2Err)
 	}
@@ -5811,16 +5811,16 @@ func tryCblas_zher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X 
 // Cblas_zher2 hermitian rank 2 update: adds the product of a scaling factor, vector [X], and the conjugate transpose of vector [Y] to the product of the conjugate of the scaling factor, vector [Y], and the conjugate transpose of vector [X], and adds the result to matrix [A].
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zher2(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+func Cblas_zher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, A unsafe.Pointer, LDA int) {
 	if callErr := tryCblas_zher2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, A, LDA); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zher2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float64, C uintptr, LDC int)
+var _cblas_zher2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA float64, C unsafe.Pointer, LDC int)
 var _cblas_zher2kErr error
 
-func tryCblas_zher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float64, C uintptr, LDC int) error {
+func tryCblas_zher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA float64, C unsafe.Pointer, LDC int) error {
 	if _cblas_zher2k == nil {
 		return symbolCallError("cblas_zher2k", "13.3", _cblas_zher2kErr)
 	}
@@ -5831,16 +5831,16 @@ func tryCblas_zher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, 
 // Cblas_zher2k performs a rank-2k update of a complex Hermitian matrix (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zher2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float64, C uintptr, LDC int) {
+func Cblas_zher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA float64, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_zher2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zherk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A uintptr, LDA int, BETA float64, C uintptr, LDC int)
+var _cblas_zherk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A unsafe.Pointer, LDA int, BETA float64, C unsafe.Pointer, LDC int)
 var _cblas_zherkErr error
 
-func tryCblas_zherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A uintptr, LDA int, BETA float64, C uintptr, LDC int) error {
+func tryCblas_zherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A unsafe.Pointer, LDA int, BETA float64, C unsafe.Pointer, LDC int) error {
 	if _cblas_zherk == nil {
 		return symbolCallError("cblas_zherk", "13.3", _cblas_zherkErr)
 	}
@@ -5851,16 +5851,16 @@ func tryCblas_zherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N
 // Cblas_zherk rank-k update—multiplies a Hermitian matrix by its transpose and adds a second matrix (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zherk(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A uintptr, LDA int, BETA float64, C uintptr, LDC int) {
+func Cblas_zherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A unsafe.Pointer, LDA int, BETA float64, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_zherk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zhpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+var _cblas_zhpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, AP unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int)
 var _cblas_zhpmvErr error
 
-func tryCblas_zhpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) error {
+func tryCblas_zhpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, AP unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) error {
 	if _cblas_zhpmv == nil {
 		return symbolCallError("cblas_zhpmv", "13.3", _cblas_zhpmvErr)
 	}
@@ -5871,16 +5871,16 @@ func tryCblas_zhpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP
 // Cblas_zhpmv scales a packed hermitian matrix, multiplies it by a vector, and adds a scaled vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zhpmv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zhpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+func Cblas_zhpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, AP unsafe.Pointer, X unsafe.Pointer, INCX int, BETA unsafe.Pointer, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_zhpmv(ORDER, UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zhpr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr)
+var _cblas_zhpr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X unsafe.Pointer, INCX int, A unsafe.Pointer)
 var _cblas_zhprErr error
 
-func tryCblas_zhpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr) error {
+func tryCblas_zhpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X unsafe.Pointer, INCX int, A unsafe.Pointer) error {
 	if _cblas_zhpr == nil {
 		return symbolCallError("cblas_zhpr", "13.3", _cblas_zhprErr)
 	}
@@ -5891,16 +5891,16 @@ func tryCblas_zhpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X u
 // Cblas_zhpr scales and multiplies a vector times its conjugate transpose, then adds a matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zhpr(_:_:_:_:_:_:_:)
-func Cblas_zhpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr) {
+func Cblas_zhpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X unsafe.Pointer, INCX int, A unsafe.Pointer) {
 	if callErr := tryCblas_zhpr(ORDER, UPLO, N, ALPHA, X, INCX, A); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zhpr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr)
+var _cblas_zhpr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, AP unsafe.Pointer)
 var _cblas_zhpr2Err error
 
-func tryCblas_zhpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr) error {
+func tryCblas_zhpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, AP unsafe.Pointer) error {
 	if _cblas_zhpr2 == nil {
 		return symbolCallError("cblas_zhpr2", "13.3", _cblas_zhpr2Err)
 	}
@@ -5911,16 +5911,16 @@ func tryCblas_zhpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X 
 // Cblas_zhpr2 multiplies a vector times the conjugate transpose of a second vector and vice-versa, sums the results, and adds a matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zhpr2(_:_:_:_:_:_:_:_:_:)
-func Cblas_zhpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr) {
+func Cblas_zhpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int, AP unsafe.Pointer) {
 	if callErr := tryCblas_zhpr2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, AP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zrotg func(A uintptr, B uintptr, C *float64, S uintptr)
+var _cblas_zrotg func(A unsafe.Pointer, B unsafe.Pointer, C *float64, S unsafe.Pointer)
 var _cblas_zrotgErr error
 
-func tryCblas_zrotg(A uintptr, B uintptr, C []float64, S uintptr) error {
+func tryCblas_zrotg(A unsafe.Pointer, B unsafe.Pointer, C []float64, S unsafe.Pointer) error {
 	if _cblas_zrotg == nil {
 		return symbolCallError("cblas_zrotg", "13.3", _cblas_zrotgErr)
 	}
@@ -5931,16 +5931,16 @@ func tryCblas_zrotg(A uintptr, B uintptr, C []float64, S uintptr) error {
 // Cblas_zrotg constructs a complex Givens rotation.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zrotg(_:_:_:_:)
-func Cblas_zrotg(A uintptr, B uintptr, C []float64, S uintptr) {
+func Cblas_zrotg(A unsafe.Pointer, B unsafe.Pointer, C []float64, S unsafe.Pointer) {
 	if callErr := tryCblas_zrotg(A, B, C, S); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zscal func(N int, ALPHA uintptr, X uintptr, INCX int)
+var _cblas_zscal func(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int)
 var _cblas_zscalErr error
 
-func tryCblas_zscal(N int, ALPHA uintptr, X uintptr, INCX int) error {
+func tryCblas_zscal(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int) error {
 	if _cblas_zscal == nil {
 		return symbolCallError("cblas_zscal", "13.3", _cblas_zscalErr)
 	}
@@ -5951,16 +5951,16 @@ func tryCblas_zscal(N int, ALPHA uintptr, X uintptr, INCX int) error {
 // Cblas_zscal multiplies each element of a vector by a constant (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zscal(_:_:_:_:)
-func Cblas_zscal(N int, ALPHA uintptr, X uintptr, INCX int) {
+func Cblas_zscal(N int, ALPHA unsafe.Pointer, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_zscal(N, ALPHA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zswap func(N int, X uintptr, INCX int, Y uintptr, INCY int)
+var _cblas_zswap func(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int)
 var _cblas_zswapErr error
 
-func tryCblas_zswap(N int, X uintptr, INCX int, Y uintptr, INCY int) error {
+func tryCblas_zswap(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) error {
 	if _cblas_zswap == nil {
 		return symbolCallError("cblas_zswap", "13.3", _cblas_zswapErr)
 	}
@@ -5971,16 +5971,16 @@ func tryCblas_zswap(N int, X uintptr, INCX int, Y uintptr, INCY int) error {
 // Cblas_zswap exchanges the elements of two vectors (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zswap(_:_:_:_:_:)
-func Cblas_zswap(N int, X uintptr, INCX int, Y uintptr, INCY int) {
+func Cblas_zswap(N int, X unsafe.Pointer, INCX int, Y unsafe.Pointer, INCY int) {
 	if callErr := tryCblas_zswap(N, X, INCX, Y, INCY); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zsymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+var _cblas_zsymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_zsymmErr error
 
-func tryCblas_zsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_zsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_zsymm == nil {
 		return symbolCallError("cblas_zsymm", "13.3", _cblas_zsymmErr)
 	}
@@ -5991,16 +5991,16 @@ func tryCblas_zsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, 
 // Cblas_zsymm multiplies a matrix by a symmetric matrix (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zsymm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_zsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_zsymm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zsyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+var _cblas_zsyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_zsyr2kErr error
 
-func tryCblas_zsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_zsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_zsyr2k == nil {
 		return symbolCallError("cblas_zsyr2k", "13.3", _cblas_zsyr2kErr)
 	}
@@ -6011,16 +6011,16 @@ func tryCblas_zsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, 
 // Cblas_zsyr2k performs a rank-2k update of a symmetric matrix (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zsyr2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_zsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_zsyr2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_zsyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int)
+var _cblas_zsyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int)
 var _cblas_zsyrkErr error
 
-func tryCblas_zsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int) error {
+func tryCblas_zsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) error {
 	if _cblas_zsyrk == nil {
 		return symbolCallError("cblas_zsyrk", "13.3", _cblas_zsyrkErr)
 	}
@@ -6031,16 +6031,16 @@ func tryCblas_zsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N
 // Cblas_zsyrk rank-k update—multiplies a symmetric matrix by its transpose and adds a second matrix (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_zsyrk(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_zsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int) {
+func Cblas_zsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, BETA unsafe.Pointer, C unsafe.Pointer, LDC int) {
 	if callErr := tryCblas_zsyrk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ztbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
+var _cblas_ztbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int)
 var _cblas_ztbmvErr error
 
-func tryCblas_ztbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) error {
+func tryCblas_ztbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) error {
 	if _cblas_ztbmv == nil {
 		return symbolCallError("cblas_ztbmv", "13.3", _cblas_ztbmvErr)
 	}
@@ -6051,16 +6051,16 @@ func tryCblas_ztbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ztbmv scales a triangular band matrix, then multiplies by a vector (double-precision complex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ztbmv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ztbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) {
+func Cblas_ztbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ztbmv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ztbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
+var _cblas_ztbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int)
 var _cblas_ztbsvErr error
 
-func tryCblas_ztbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) error {
+func tryCblas_ztbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) error {
 	if _cblas_ztbsv == nil {
 		return symbolCallError("cblas_ztbsv", "13.3", _cblas_ztbsvErr)
 	}
@@ -6071,16 +6071,16 @@ func tryCblas_ztbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ztbsv solves a triangular banded system of equations.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ztbsv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ztbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) {
+func Cblas_ztbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ztbsv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ztpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
+var _cblas_ztpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int)
 var _cblas_ztpmvErr error
 
-func tryCblas_ztpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) error {
+func tryCblas_ztpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int) error {
 	if _cblas_ztpmv == nil {
 		return symbolCallError("cblas_ztpmv", "13.3", _cblas_ztpmvErr)
 	}
@@ -6091,16 +6091,16 @@ func tryCblas_ztpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ztpmv multiplies a triangular matrix by a vector, then adds a vector (double-precision compex).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ztpmv(_:_:_:_:_:_:_:_:)
-func Cblas_ztpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) {
+func Cblas_ztpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ztpmv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ztpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
+var _cblas_ztpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int)
 var _cblas_ztpsvErr error
 
-func tryCblas_ztpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) error {
+func tryCblas_ztpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int) error {
 	if _cblas_ztpsv == nil {
 		return symbolCallError("cblas_ztpsv", "13.3", _cblas_ztpsvErr)
 	}
@@ -6111,16 +6111,16 @@ func tryCblas_ztpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ztpsv solves a packed triangular system of equations.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ztpsv(_:_:_:_:_:_:_:_:)
-func Cblas_ztpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) {
+func Cblas_ztpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP unsafe.Pointer, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ztpsv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ztrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
+var _cblas_ztrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int)
 var _cblas_ztrmmErr error
 
-func tryCblas_ztrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) error {
+func tryCblas_ztrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int) error {
 	if _cblas_ztrmm == nil {
 		return symbolCallError("cblas_ztrmm", "13.3", _cblas_ztrmmErr)
 	}
@@ -6131,16 +6131,16 @@ func tryCblas_ztrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA 
 // Cblas_ztrmm scales a triangular matrix and multiplies it by a matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ztrmm(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ztrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) {
+func Cblas_ztrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int) {
 	if callErr := tryCblas_ztrmm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ztrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
+var _cblas_ztrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int)
 var _cblas_ztrmvErr error
 
-func tryCblas_ztrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) error {
+func tryCblas_ztrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) error {
 	if _cblas_ztrmv == nil {
 		return symbolCallError("cblas_ztrmv", "13.3", _cblas_ztrmvErr)
 	}
@@ -6151,16 +6151,16 @@ func tryCblas_ztrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ztrmv multiplies a triangular matrix by a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ztrmv(_:_:_:_:_:_:_:_:_:)
-func Cblas_ztrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) {
+func Cblas_ztrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ztrmv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ztrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
+var _cblas_ztrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int)
 var _cblas_ztrsmErr error
 
-func tryCblas_ztrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) error {
+func tryCblas_ztrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int) error {
 	if _cblas_ztrsm == nil {
 		return symbolCallError("cblas_ztrsm", "13.3", _cblas_ztrsmErr)
 	}
@@ -6171,16 +6171,16 @@ func tryCblas_ztrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA 
 // Cblas_ztrsm solves a triangular system of equations with multiple values for the right side.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ztrsm(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ztrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) {
+func Cblas_ztrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA unsafe.Pointer, A unsafe.Pointer, LDA int, B unsafe.Pointer, LDB int) {
 	if callErr := tryCblas_ztrsm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cblas_ztrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
+var _cblas_ztrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int)
 var _cblas_ztrsvErr error
 
-func tryCblas_ztrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) error {
+func tryCblas_ztrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) error {
 	if _cblas_ztrsv == nil {
 		return symbolCallError("cblas_ztrsv", "13.3", _cblas_ztrsvErr)
 	}
@@ -6191,16 +6191,16 @@ func tryCblas_ztrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, 
 // Cblas_ztrsv solves a triangular system of equations with a single value for the right side.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ztrsv(_:_:_:_:_:_:_:_:_:)
-func Cblas_ztrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) {
+func Cblas_ztrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A unsafe.Pointer, LDA int, X unsafe.Pointer, INCX int) {
 	if callErr := tryCblas_ztrsv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _quadrature_integrate func(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status *Quadrature_status, abs_error *float64, workspace_size uintptr, workspace uintptr) float64
+var _quadrature_integrate func(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status *Quadrature_status, abs_error *float64, workspace_size uintptr, workspace unsafe.Pointer) float64
 var _quadrature_integrateErr error
 
-func tryQuadrature_integrate(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status *Quadrature_status, abs_error []float64, workspace_size uintptr, workspace uintptr) (float64, error) {
+func tryQuadrature_integrate(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status *Quadrature_status, abs_error []float64, workspace_size uintptr, workspace unsafe.Pointer) (float64, error) {
 	if _quadrature_integrate == nil {
 		return 0.0, symbolCallError("quadrature_integrate", "10.12", _quadrature_integrateErr)
 	}
@@ -6210,7 +6210,7 @@ func tryQuadrature_integrate(__f *Quadrature_integrate_function, __a float64, __
 // Quadrature_integrate computes an approximation to the definite integral of a function on a specified interval.
 //
 // See: https://developer.apple.com/documentation/Accelerate/quadrature_integrate
-func Quadrature_integrate(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status *Quadrature_status, abs_error []float64, workspace_size uintptr, workspace uintptr) float64 {
+func Quadrature_integrate(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status *Quadrature_status, abs_error []float64, workspace_size uintptr, workspace unsafe.Pointer) float64 {
 	result, callErr := tryQuadrature_integrate(__f, __a, __b, options, status, abs_error, workspace_size, workspace)
 	if callErr != nil {
 		panic(callErr)
@@ -6323,10 +6323,10 @@ func Sparse_elementwise_norm_float_complex(A Sparse_matrix_float_complex, norm S
 	return result
 }
 
-var _sparse_extract_block_double func(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) Sparse_status
+var _sparse_extract_block_double func(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) Sparse_status
 var _sparse_extract_block_doubleErr error
 
-func trySparse_extract_block_double(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) (Sparse_status, error) {
+func trySparse_extract_block_double(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) (Sparse_status, error) {
 	if _sparse_extract_block_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_extract_block_double", "10.11", _sparse_extract_block_doubleErr)
 	}
@@ -6336,7 +6336,7 @@ func trySparse_extract_block_double(A Sparse_matrix_double, bi Sparse_index, bj 
 // Sparse_extract_block_double extracts values from a specified block of a double-precision matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_block_double(_:_:_:_:_:_:)
-func Sparse_extract_block_double(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) Sparse_status {
+func Sparse_extract_block_double(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) Sparse_status {
 	result, callErr := trySparse_extract_block_double(A, bi, bj, row_stride, col_stride, val)
 	if callErr != nil {
 		panic(callErr)
@@ -6365,10 +6365,10 @@ func Sparse_extract_block_double_complex(A Sparse_matrix_double_complex, bi Spar
 	return result
 }
 
-var _sparse_extract_block_float func(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) Sparse_status
+var _sparse_extract_block_float func(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) Sparse_status
 var _sparse_extract_block_floatErr error
 
-func trySparse_extract_block_float(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) (Sparse_status, error) {
+func trySparse_extract_block_float(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) (Sparse_status, error) {
 	if _sparse_extract_block_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_extract_block_float", "10.11", _sparse_extract_block_floatErr)
 	}
@@ -6378,7 +6378,7 @@ func trySparse_extract_block_float(A Sparse_matrix_float, bi Sparse_index, bj Sp
 // Sparse_extract_block_float extracts values from a specified block of a single-precision matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_block_float(_:_:_:_:_:_:)
-func Sparse_extract_block_float(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) Sparse_status {
+func Sparse_extract_block_float(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) Sparse_status {
 	result, callErr := trySparse_extract_block_float(A, bi, bj, row_stride, col_stride, val)
 	if callErr != nil {
 		panic(callErr)
@@ -6407,10 +6407,10 @@ func Sparse_extract_block_float_complex(A Sparse_matrix_float_complex, bi Sparse
 	return result
 }
 
-var _sparse_extract_sparse_column_double func(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) Sparse_status
+var _sparse_extract_sparse_column_double func(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) Sparse_status
 var _sparse_extract_sparse_column_doubleErr error
 
-func trySparse_extract_sparse_column_double(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) (Sparse_status, error) {
+func trySparse_extract_sparse_column_double(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) (Sparse_status, error) {
 	if _sparse_extract_sparse_column_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_extract_sparse_column_double", "10.11", _sparse_extract_sparse_column_doubleErr)
 	}
@@ -6420,7 +6420,7 @@ func trySparse_extract_sparse_column_double(A Sparse_matrix_double, column Spars
 // Sparse_extract_sparse_column_double extracts values from a specified column of a double-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_column_double(_:_:_:_:_:_:_:)
-func Sparse_extract_sparse_column_double(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) Sparse_status {
+func Sparse_extract_sparse_column_double(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_extract_sparse_column_double(A, column, row_start, row_end, nz, val, indx)
 	if callErr != nil {
 		panic(callErr)
@@ -6449,10 +6449,10 @@ func Sparse_extract_sparse_column_double_complex(A Sparse_matrix_double_complex,
 	return result
 }
 
-var _sparse_extract_sparse_column_float func(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) Sparse_status
+var _sparse_extract_sparse_column_float func(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) Sparse_status
 var _sparse_extract_sparse_column_floatErr error
 
-func trySparse_extract_sparse_column_float(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) (Sparse_status, error) {
+func trySparse_extract_sparse_column_float(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) (Sparse_status, error) {
 	if _sparse_extract_sparse_column_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_extract_sparse_column_float", "10.11", _sparse_extract_sparse_column_floatErr)
 	}
@@ -6462,7 +6462,7 @@ func trySparse_extract_sparse_column_float(A Sparse_matrix_float, column Sparse_
 // Sparse_extract_sparse_column_float extracts values from a specified column of a single-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_column_float(_:_:_:_:_:_:_:)
-func Sparse_extract_sparse_column_float(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) Sparse_status {
+func Sparse_extract_sparse_column_float(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_extract_sparse_column_float(A, column, row_start, row_end, nz, val, indx)
 	if callErr != nil {
 		panic(callErr)
@@ -6491,10 +6491,10 @@ func Sparse_extract_sparse_column_float_complex(A Sparse_matrix_float_complex, c
 	return result
 }
 
-var _sparse_extract_sparse_row_double func(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) Sparse_status
+var _sparse_extract_sparse_row_double func(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) Sparse_status
 var _sparse_extract_sparse_row_doubleErr error
 
-func trySparse_extract_sparse_row_double(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) (Sparse_status, error) {
+func trySparse_extract_sparse_row_double(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) (Sparse_status, error) {
 	if _sparse_extract_sparse_row_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_extract_sparse_row_double", "10.11", _sparse_extract_sparse_row_doubleErr)
 	}
@@ -6504,7 +6504,7 @@ func trySparse_extract_sparse_row_double(A Sparse_matrix_double, row Sparse_inde
 // Sparse_extract_sparse_row_double extracts values from a specified row of a double-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_row_double(_:_:_:_:_:_:_:)
-func Sparse_extract_sparse_row_double(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) Sparse_status {
+func Sparse_extract_sparse_row_double(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_extract_sparse_row_double(A, row, column_start, column_end, nz, val, jndx)
 	if callErr != nil {
 		panic(callErr)
@@ -6533,10 +6533,10 @@ func Sparse_extract_sparse_row_double_complex(A Sparse_matrix_double_complex, ro
 	return result
 }
 
-var _sparse_extract_sparse_row_float func(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) Sparse_status
+var _sparse_extract_sparse_row_float func(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) Sparse_status
 var _sparse_extract_sparse_row_floatErr error
 
-func trySparse_extract_sparse_row_float(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) (Sparse_status, error) {
+func trySparse_extract_sparse_row_float(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) (Sparse_status, error) {
 	if _sparse_extract_sparse_row_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_extract_sparse_row_float", "10.11", _sparse_extract_sparse_row_floatErr)
 	}
@@ -6546,7 +6546,7 @@ func trySparse_extract_sparse_row_float(A Sparse_matrix_float, row Sparse_index,
 // Sparse_extract_sparse_row_float extracts values from a specified row of a single-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_row_float(_:_:_:_:_:_:_:)
-func Sparse_extract_sparse_row_float(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) Sparse_status {
+func Sparse_extract_sparse_row_float(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_extract_sparse_row_float(A, row, column_start, column_end, nz, val, jndx)
 	if callErr != nil {
 		panic(callErr)
@@ -6743,10 +6743,10 @@ func Sparse_get_matrix_property(A unsafe.Pointer, pname Sparse_matrix_property) 
 	return result
 }
 
-var _sparse_get_vector_nonzero_count_double func(N Sparse_dimension, x uintptr, incx Sparse_stride) int
+var _sparse_get_vector_nonzero_count_double func(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int
 var _sparse_get_vector_nonzero_count_doubleErr error
 
-func trySparse_get_vector_nonzero_count_double(N Sparse_dimension, x uintptr, incx Sparse_stride) (int, error) {
+func trySparse_get_vector_nonzero_count_double(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) (int, error) {
 	if _sparse_get_vector_nonzero_count_double == nil {
 		return 0, symbolCallError("sparse_get_vector_nonzero_count_double", "10.11", _sparse_get_vector_nonzero_count_doubleErr)
 	}
@@ -6756,7 +6756,7 @@ func trySparse_get_vector_nonzero_count_double(N Sparse_dimension, x uintptr, in
 // Sparse_get_vector_nonzero_count_double returns the number of nonzero values in the double-precision dense vector .
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_get_vector_nonzero_count_double(_:_:_:)
-func Sparse_get_vector_nonzero_count_double(N Sparse_dimension, x uintptr, incx Sparse_stride) int {
+func Sparse_get_vector_nonzero_count_double(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int {
 	result, callErr := trySparse_get_vector_nonzero_count_double(N, x, incx)
 	if callErr != nil {
 		panic(callErr)
@@ -6785,10 +6785,10 @@ func Sparse_get_vector_nonzero_count_double_complex(N Sparse_dimension, x *uintp
 	return result
 }
 
-var _sparse_get_vector_nonzero_count_float func(N Sparse_dimension, x uintptr, incx Sparse_stride) int
+var _sparse_get_vector_nonzero_count_float func(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int
 var _sparse_get_vector_nonzero_count_floatErr error
 
-func trySparse_get_vector_nonzero_count_float(N Sparse_dimension, x uintptr, incx Sparse_stride) (int, error) {
+func trySparse_get_vector_nonzero_count_float(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) (int, error) {
 	if _sparse_get_vector_nonzero_count_float == nil {
 		return 0, symbolCallError("sparse_get_vector_nonzero_count_float", "10.11", _sparse_get_vector_nonzero_count_floatErr)
 	}
@@ -6798,7 +6798,7 @@ func trySparse_get_vector_nonzero_count_float(N Sparse_dimension, x uintptr, inc
 // Sparse_get_vector_nonzero_count_float returns the number of nonzero values in the single-precision dense vector .
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_get_vector_nonzero_count_float(_:_:_:)
-func Sparse_get_vector_nonzero_count_float(N Sparse_dimension, x uintptr, incx Sparse_stride) int {
+func Sparse_get_vector_nonzero_count_float(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int {
 	result, callErr := trySparse_get_vector_nonzero_count_float(N, x, incx)
 	if callErr != nil {
 		panic(callErr)
@@ -6827,10 +6827,10 @@ func Sparse_get_vector_nonzero_count_float_complex(N Sparse_dimension, x *uintpt
 	return result
 }
 
-var _sparse_inner_product_dense_double func(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float64
+var _sparse_inner_product_dense_double func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) float64
 var _sparse_inner_product_dense_doubleErr error
 
-func trySparse_inner_product_dense_double(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) (float64, error) {
+func trySparse_inner_product_dense_double(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) (float64, error) {
 	if _sparse_inner_product_dense_double == nil {
 		return 0.0, symbolCallError("sparse_inner_product_dense_double", "10.11", _sparse_inner_product_dense_doubleErr)
 	}
@@ -6840,7 +6840,7 @@ func trySparse_inner_product_dense_double(nz Sparse_dimension, x uintptr, indx *
 // Sparse_inner_product_dense_double computes the inner product of sparse vector with double-precision , with both vectors containing double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_dense_double(_:_:_:_:_:)
-func Sparse_inner_product_dense_double(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float64 {
+func Sparse_inner_product_dense_double(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) float64 {
 	result, callErr := trySparse_inner_product_dense_double(nz, x, indx, y, incy)
 	if callErr != nil {
 		panic(callErr)
@@ -6869,10 +6869,10 @@ func Sparse_inner_product_dense_double_complex(nz Sparse_dimension, x *uintptr, 
 	return result
 }
 
-var _sparse_inner_product_dense_float func(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float32
+var _sparse_inner_product_dense_float func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) float32
 var _sparse_inner_product_dense_floatErr error
 
-func trySparse_inner_product_dense_float(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) (float32, error) {
+func trySparse_inner_product_dense_float(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) (float32, error) {
 	if _sparse_inner_product_dense_float == nil {
 		return 0.0, symbolCallError("sparse_inner_product_dense_float", "10.11", _sparse_inner_product_dense_floatErr)
 	}
@@ -6882,7 +6882,7 @@ func trySparse_inner_product_dense_float(nz Sparse_dimension, x uintptr, indx *S
 // Sparse_inner_product_dense_float computes the inner product of sparse vector with dense vector with both vectors containing single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_dense_float(_:_:_:_:_:)
-func Sparse_inner_product_dense_float(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float32 {
+func Sparse_inner_product_dense_float(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) float32 {
 	result, callErr := trySparse_inner_product_dense_float(nz, x, indx, y, incy)
 	if callErr != nil {
 		panic(callErr)
@@ -6911,10 +6911,10 @@ func Sparse_inner_product_dense_float_complex(nz Sparse_dimension, x *uintptr, i
 	return result
 }
 
-var _sparse_inner_product_sparse_double func(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float64
+var _sparse_inner_product_sparse_double func(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) float64
 var _sparse_inner_product_sparse_doubleErr error
 
-func trySparse_inner_product_sparse_double(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) (float64, error) {
+func trySparse_inner_product_sparse_double(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) (float64, error) {
 	if _sparse_inner_product_sparse_double == nil {
 		return 0.0, symbolCallError("sparse_inner_product_sparse_double", "10.11", _sparse_inner_product_sparse_doubleErr)
 	}
@@ -6924,7 +6924,7 @@ func trySparse_inner_product_sparse_double(nzx Sparse_dimension, nzy Sparse_dime
 // Sparse_inner_product_sparse_double computes the inner product of sparse vector with sparse vector with both vectors containing double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_sparse_double(_:_:_:_:_:_:)
-func Sparse_inner_product_sparse_double(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float64 {
+func Sparse_inner_product_sparse_double(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) float64 {
 	result, callErr := trySparse_inner_product_sparse_double(nzx, nzy, x, indx, y, indy)
 	if callErr != nil {
 		panic(callErr)
@@ -6953,10 +6953,10 @@ func Sparse_inner_product_sparse_double_complex(nzx Sparse_dimension, nzy Sparse
 	return result
 }
 
-var _sparse_inner_product_sparse_float func(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float32
+var _sparse_inner_product_sparse_float func(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) float32
 var _sparse_inner_product_sparse_floatErr error
 
-func trySparse_inner_product_sparse_float(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) (float32, error) {
+func trySparse_inner_product_sparse_float(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) (float32, error) {
 	if _sparse_inner_product_sparse_float == nil {
 		return 0.0, symbolCallError("sparse_inner_product_sparse_float", "10.11", _sparse_inner_product_sparse_floatErr)
 	}
@@ -6966,7 +6966,7 @@ func trySparse_inner_product_sparse_float(nzx Sparse_dimension, nzy Sparse_dimen
 // Sparse_inner_product_sparse_float computes the inner product of sparse vector with sparse vector with both vectors containing single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_sparse_float(_:_:_:_:_:_:)
-func Sparse_inner_product_sparse_float(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float32 {
+func Sparse_inner_product_sparse_float(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) float32 {
 	result, callErr := trySparse_inner_product_sparse_float(nzx, nzy, x, indx, y, indy)
 	if callErr != nil {
 		panic(callErr)
@@ -6995,10 +6995,10 @@ func Sparse_inner_product_sparse_float_complex(nzx Sparse_dimension, nzy Sparse_
 	return result
 }
 
-var _sparse_insert_block_double func(A Sparse_matrix_double, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) Sparse_status
+var _sparse_insert_block_double func(A Sparse_matrix_double, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) Sparse_status
 var _sparse_insert_block_doubleErr error
 
-func trySparse_insert_block_double(A Sparse_matrix_double, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) (Sparse_status, error) {
+func trySparse_insert_block_double(A Sparse_matrix_double, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) (Sparse_status, error) {
 	if _sparse_insert_block_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_insert_block_double", "10.11", _sparse_insert_block_doubleErr)
 	}
@@ -7008,7 +7008,7 @@ func trySparse_insert_block_double(A Sparse_matrix_double, val uintptr, row_stri
 // Sparse_insert_block_double inserts a dense block of entries into a double-precision matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_block_double(_:_:_:_:_:_:)
-func Sparse_insert_block_double(A Sparse_matrix_double, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) Sparse_status {
+func Sparse_insert_block_double(A Sparse_matrix_double, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) Sparse_status {
 	result, callErr := trySparse_insert_block_double(A, val, row_stride, col_stride, bi, bj)
 	if callErr != nil {
 		panic(callErr)
@@ -7037,10 +7037,10 @@ func Sparse_insert_block_double_complex(A Sparse_matrix_double_complex, val *uin
 	return result
 }
 
-var _sparse_insert_block_float func(A Sparse_matrix_float, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) Sparse_status
+var _sparse_insert_block_float func(A Sparse_matrix_float, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) Sparse_status
 var _sparse_insert_block_floatErr error
 
-func trySparse_insert_block_float(A Sparse_matrix_float, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) (Sparse_status, error) {
+func trySparse_insert_block_float(A Sparse_matrix_float, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) (Sparse_status, error) {
 	if _sparse_insert_block_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_insert_block_float", "10.11", _sparse_insert_block_floatErr)
 	}
@@ -7050,7 +7050,7 @@ func trySparse_insert_block_float(A Sparse_matrix_float, val uintptr, row_stride
 // Sparse_insert_block_float inserts a dense block of entries into a single-precision matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_block_float(_:_:_:_:_:_:)
-func Sparse_insert_block_float(A Sparse_matrix_float, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) Sparse_status {
+func Sparse_insert_block_float(A Sparse_matrix_float, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) Sparse_status {
 	result, callErr := trySparse_insert_block_float(A, val, row_stride, col_stride, bi, bj)
 	if callErr != nil {
 		panic(callErr)
@@ -7079,10 +7079,10 @@ func Sparse_insert_block_float_complex(A Sparse_matrix_float_complex, val *uintp
 	return result
 }
 
-var _sparse_insert_col_double func(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) Sparse_status
+var _sparse_insert_col_double func(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) Sparse_status
 var _sparse_insert_col_doubleErr error
 
-func trySparse_insert_col_double(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) (Sparse_status, error) {
+func trySparse_insert_col_double(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) (Sparse_status, error) {
 	if _sparse_insert_col_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_insert_col_double", "10.11", _sparse_insert_col_doubleErr)
 	}
@@ -7092,7 +7092,7 @@ func trySparse_insert_col_double(A Sparse_matrix_double, j Sparse_index, nz Spar
 // Sparse_insert_col_double inserts a list of scalar entries into a single column of a double-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_col_double(_:_:_:_:_:)
-func Sparse_insert_col_double(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) Sparse_status {
+func Sparse_insert_col_double(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_insert_col_double(A, j, nz, val, indx)
 	if callErr != nil {
 		panic(callErr)
@@ -7121,10 +7121,10 @@ func Sparse_insert_col_double_complex(A Sparse_matrix_double_complex, j Sparse_i
 	return result
 }
 
-var _sparse_insert_col_float func(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) Sparse_status
+var _sparse_insert_col_float func(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) Sparse_status
 var _sparse_insert_col_floatErr error
 
-func trySparse_insert_col_float(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) (Sparse_status, error) {
+func trySparse_insert_col_float(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) (Sparse_status, error) {
 	if _sparse_insert_col_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_insert_col_float", "10.11", _sparse_insert_col_floatErr)
 	}
@@ -7134,7 +7134,7 @@ func trySparse_insert_col_float(A Sparse_matrix_float, j Sparse_index, nz Sparse
 // Sparse_insert_col_float inserts a list of scalar entries into a single column of a single-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_col_float(_:_:_:_:_:)
-func Sparse_insert_col_float(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) Sparse_status {
+func Sparse_insert_col_float(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_insert_col_float(A, j, nz, val, indx)
 	if callErr != nil {
 		panic(callErr)
@@ -7163,10 +7163,10 @@ func Sparse_insert_col_float_complex(A Sparse_matrix_float_complex, j Sparse_ind
 	return result
 }
 
-var _sparse_insert_entries_double func(A Sparse_matrix_double, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) Sparse_status
+var _sparse_insert_entries_double func(A Sparse_matrix_double, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) Sparse_status
 var _sparse_insert_entries_doubleErr error
 
-func trySparse_insert_entries_double(A Sparse_matrix_double, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) (Sparse_status, error) {
+func trySparse_insert_entries_double(A Sparse_matrix_double, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) (Sparse_status, error) {
 	if _sparse_insert_entries_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_insert_entries_double", "10.11", _sparse_insert_entries_doubleErr)
 	}
@@ -7176,7 +7176,7 @@ func trySparse_insert_entries_double(A Sparse_matrix_double, N Sparse_dimension,
 // Sparse_insert_entries_double inserts a list of scalar entries into a double-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entries_double(_:_:_:_:_:)
-func Sparse_insert_entries_double(A Sparse_matrix_double, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) Sparse_status {
+func Sparse_insert_entries_double(A Sparse_matrix_double, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_insert_entries_double(A, N, val, indx, jndx)
 	if callErr != nil {
 		panic(callErr)
@@ -7205,10 +7205,10 @@ func Sparse_insert_entries_double_complex(A Sparse_matrix_double_complex, N Spar
 	return result
 }
 
-var _sparse_insert_entries_float func(A Sparse_matrix_float, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) Sparse_status
+var _sparse_insert_entries_float func(A Sparse_matrix_float, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) Sparse_status
 var _sparse_insert_entries_floatErr error
 
-func trySparse_insert_entries_float(A Sparse_matrix_float, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) (Sparse_status, error) {
+func trySparse_insert_entries_float(A Sparse_matrix_float, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) (Sparse_status, error) {
 	if _sparse_insert_entries_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_insert_entries_float", "10.11", _sparse_insert_entries_floatErr)
 	}
@@ -7218,7 +7218,7 @@ func trySparse_insert_entries_float(A Sparse_matrix_float, N Sparse_dimension, v
 // Sparse_insert_entries_float inserts a list of scalar entries into a single-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entries_float(_:_:_:_:_:)
-func Sparse_insert_entries_float(A Sparse_matrix_float, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) Sparse_status {
+func Sparse_insert_entries_float(A Sparse_matrix_float, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_insert_entries_float(A, N, val, indx, jndx)
 	if callErr != nil {
 		panic(callErr)
@@ -7331,10 +7331,10 @@ func Sparse_insert_entry_float_complex(A Sparse_matrix_float_complex, val unsafe
 	return result
 }
 
-var _sparse_insert_row_double func(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) Sparse_status
+var _sparse_insert_row_double func(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) Sparse_status
 var _sparse_insert_row_doubleErr error
 
-func trySparse_insert_row_double(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) (Sparse_status, error) {
+func trySparse_insert_row_double(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) (Sparse_status, error) {
 	if _sparse_insert_row_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_insert_row_double", "10.11", _sparse_insert_row_doubleErr)
 	}
@@ -7344,7 +7344,7 @@ func trySparse_insert_row_double(A Sparse_matrix_double, i Sparse_index, nz Spar
 // Sparse_insert_row_double inserts a list of scalar entries into a single row of a double-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_row_double(_:_:_:_:_:)
-func Sparse_insert_row_double(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) Sparse_status {
+func Sparse_insert_row_double(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_insert_row_double(A, i, nz, val, jndx)
 	if callErr != nil {
 		panic(callErr)
@@ -7373,10 +7373,10 @@ func Sparse_insert_row_double_complex(A Sparse_matrix_double_complex, i Sparse_i
 	return result
 }
 
-var _sparse_insert_row_float func(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) Sparse_status
+var _sparse_insert_row_float func(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) Sparse_status
 var _sparse_insert_row_floatErr error
 
-func trySparse_insert_row_float(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) (Sparse_status, error) {
+func trySparse_insert_row_float(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) (Sparse_status, error) {
 	if _sparse_insert_row_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_insert_row_float", "10.11", _sparse_insert_row_floatErr)
 	}
@@ -7386,7 +7386,7 @@ func trySparse_insert_row_float(A Sparse_matrix_float, i Sparse_index, nz Sparse
 // Sparse_insert_row_float inserts a list of scalar entries into a single row of a single-precision sparse matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_row_float(_:_:_:_:_:)
-func Sparse_insert_row_float(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) Sparse_status {
+func Sparse_insert_row_float(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) Sparse_status {
 	result, callErr := trySparse_insert_row_float(A, i, nz, val, jndx)
 	if callErr != nil {
 		panic(callErr)
@@ -7604,10 +7604,10 @@ func Sparse_matrix_destroy(A unsafe.Pointer) Sparse_status {
 	return result
 }
 
-var _sparse_matrix_product_dense_double func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) Sparse_status
+var _sparse_matrix_product_dense_double func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) Sparse_status
 var _sparse_matrix_product_dense_doubleErr error
 
-func trySparse_matrix_product_dense_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) (Sparse_status, error) {
+func trySparse_matrix_product_dense_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) (Sparse_status, error) {
 	if _sparse_matrix_product_dense_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_matrix_product_dense_double", "10.11", _sparse_matrix_product_dense_doubleErr)
 	}
@@ -7617,7 +7617,7 @@ func trySparse_matrix_product_dense_double(order CBLAS_ORDER, transa CBLAS_TRANS
 // Sparse_matrix_product_dense_double multiplies the dense matrix by the sparse matrix and adds the result to the dense matrix , all with double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_dense_double(_:_:_:_:_:_:_:_:_:)
-func Sparse_matrix_product_dense_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) Sparse_status {
+func Sparse_matrix_product_dense_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) Sparse_status {
 	result, callErr := trySparse_matrix_product_dense_double(order, transa, n, alpha, A, B, ldb, C, ldc)
 	if callErr != nil {
 		panic(callErr)
@@ -7646,10 +7646,10 @@ func Sparse_matrix_product_dense_double_complex(order CBLAS_ORDER, transa CBLAS_
 	return result
 }
 
-var _sparse_matrix_product_dense_float func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) Sparse_status
+var _sparse_matrix_product_dense_float func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) Sparse_status
 var _sparse_matrix_product_dense_floatErr error
 
-func trySparse_matrix_product_dense_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) (Sparse_status, error) {
+func trySparse_matrix_product_dense_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) (Sparse_status, error) {
 	if _sparse_matrix_product_dense_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_matrix_product_dense_float", "10.11", _sparse_matrix_product_dense_floatErr)
 	}
@@ -7659,7 +7659,7 @@ func trySparse_matrix_product_dense_float(order CBLAS_ORDER, transa CBLAS_TRANSP
 // Sparse_matrix_product_dense_float multiplies the dense matrix by the sparse matrix and adds the result to the dense matrix , all with single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_dense_float(_:_:_:_:_:_:_:_:_:)
-func Sparse_matrix_product_dense_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) Sparse_status {
+func Sparse_matrix_product_dense_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) Sparse_status {
 	result, callErr := trySparse_matrix_product_dense_float(order, transa, n, alpha, A, B, ldb, C, ldc)
 	if callErr != nil {
 		panic(callErr)
@@ -7688,10 +7688,10 @@ func Sparse_matrix_product_dense_float_complex(order CBLAS_ORDER, transa CBLAS_T
 	return result
 }
 
-var _sparse_matrix_product_sparse_double func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C uintptr, ldc Sparse_dimension) Sparse_status
+var _sparse_matrix_product_sparse_double func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C unsafe.Pointer, ldc Sparse_dimension) Sparse_status
 var _sparse_matrix_product_sparse_doubleErr error
 
-func trySparse_matrix_product_sparse_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C uintptr, ldc Sparse_dimension) (Sparse_status, error) {
+func trySparse_matrix_product_sparse_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C unsafe.Pointer, ldc Sparse_dimension) (Sparse_status, error) {
 	if _sparse_matrix_product_sparse_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_matrix_product_sparse_double", "10.11", _sparse_matrix_product_sparse_doubleErr)
 	}
@@ -7701,7 +7701,7 @@ func trySparse_matrix_product_sparse_double(order CBLAS_ORDER, transa CBLAS_TRAN
 // Sparse_matrix_product_sparse_double multiplies the sparse matrix by the sparse matrix and adds the result to the dense matrix , all with double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_sparse_double(_:_:_:_:_:_:_:)
-func Sparse_matrix_product_sparse_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C uintptr, ldc Sparse_dimension) Sparse_status {
+func Sparse_matrix_product_sparse_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C unsafe.Pointer, ldc Sparse_dimension) Sparse_status {
 	result, callErr := trySparse_matrix_product_sparse_double(order, transa, alpha, A, B, C, ldc)
 	if callErr != nil {
 		panic(callErr)
@@ -7730,10 +7730,10 @@ func Sparse_matrix_product_sparse_double_complex(order CBLAS_ORDER, transa CBLAS
 	return result
 }
 
-var _sparse_matrix_product_sparse_float func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C uintptr, ldc Sparse_dimension) Sparse_status
+var _sparse_matrix_product_sparse_float func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C unsafe.Pointer, ldc Sparse_dimension) Sparse_status
 var _sparse_matrix_product_sparse_floatErr error
 
-func trySparse_matrix_product_sparse_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C uintptr, ldc Sparse_dimension) (Sparse_status, error) {
+func trySparse_matrix_product_sparse_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C unsafe.Pointer, ldc Sparse_dimension) (Sparse_status, error) {
 	if _sparse_matrix_product_sparse_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_matrix_product_sparse_float", "10.11", _sparse_matrix_product_sparse_floatErr)
 	}
@@ -7743,7 +7743,7 @@ func trySparse_matrix_product_sparse_float(order CBLAS_ORDER, transa CBLAS_TRANS
 // Sparse_matrix_product_sparse_float multiplies the sparse matrix by the sparse matrix and adds the result to the dense matrix , all with single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_sparse_float(_:_:_:_:_:_:_:)
-func Sparse_matrix_product_sparse_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C uintptr, ldc Sparse_dimension) Sparse_status {
+func Sparse_matrix_product_sparse_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C unsafe.Pointer, ldc Sparse_dimension) Sparse_status {
 	result, callErr := trySparse_matrix_product_sparse_float(order, transa, alpha, A, B, C, ldc)
 	if callErr != nil {
 		panic(callErr)
@@ -7856,10 +7856,10 @@ func Sparse_matrix_trace_float_complex(A Sparse_matrix_float_complex, offset Spa
 	return result
 }
 
-var _sparse_matrix_triangular_solve_dense_double func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B uintptr, ldb Sparse_dimension) Sparse_status
+var _sparse_matrix_triangular_solve_dense_double func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B unsafe.Pointer, ldb Sparse_dimension) Sparse_status
 var _sparse_matrix_triangular_solve_dense_doubleErr error
 
-func trySparse_matrix_triangular_solve_dense_double(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B uintptr, ldb Sparse_dimension) (Sparse_status, error) {
+func trySparse_matrix_triangular_solve_dense_double(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B unsafe.Pointer, ldb Sparse_dimension) (Sparse_status, error) {
 	if _sparse_matrix_triangular_solve_dense_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_matrix_triangular_solve_dense_double", "10.11", _sparse_matrix_triangular_solve_dense_doubleErr)
 	}
@@ -7869,7 +7869,7 @@ func trySparse_matrix_triangular_solve_dense_double(order CBLAS_ORDER, transt CB
 // Sparse_matrix_triangular_solve_dense_double solves the system of equations for where is a dense matrix and is a triangular sparse matrix, both with double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_triangular_solve_dense_double(_:_:_:_:_:_:_:)
-func Sparse_matrix_triangular_solve_dense_double(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B uintptr, ldb Sparse_dimension) Sparse_status {
+func Sparse_matrix_triangular_solve_dense_double(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B unsafe.Pointer, ldb Sparse_dimension) Sparse_status {
 	result, callErr := trySparse_matrix_triangular_solve_dense_double(order, transt, nrhs, alpha, T, B, ldb)
 	if callErr != nil {
 		panic(callErr)
@@ -7898,10 +7898,10 @@ func Sparse_matrix_triangular_solve_dense_double_complex(order CBLAS_ORDER, tran
 	return result
 }
 
-var _sparse_matrix_triangular_solve_dense_float func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B uintptr, ldb Sparse_dimension) Sparse_status
+var _sparse_matrix_triangular_solve_dense_float func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B unsafe.Pointer, ldb Sparse_dimension) Sparse_status
 var _sparse_matrix_triangular_solve_dense_floatErr error
 
-func trySparse_matrix_triangular_solve_dense_float(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B uintptr, ldb Sparse_dimension) (Sparse_status, error) {
+func trySparse_matrix_triangular_solve_dense_float(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B unsafe.Pointer, ldb Sparse_dimension) (Sparse_status, error) {
 	if _sparse_matrix_triangular_solve_dense_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_matrix_triangular_solve_dense_float", "10.11", _sparse_matrix_triangular_solve_dense_floatErr)
 	}
@@ -7911,7 +7911,7 @@ func trySparse_matrix_triangular_solve_dense_float(order CBLAS_ORDER, transt CBL
 // Sparse_matrix_triangular_solve_dense_float solves the system of equations for where is a dense matrix and is a triangular sparse matrix, both with double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_triangular_solve_dense_float(_:_:_:_:_:_:_:)
-func Sparse_matrix_triangular_solve_dense_float(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B uintptr, ldb Sparse_dimension) Sparse_status {
+func Sparse_matrix_triangular_solve_dense_float(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B unsafe.Pointer, ldb Sparse_dimension) Sparse_status {
 	result, callErr := trySparse_matrix_triangular_solve_dense_float(order, transt, nrhs, alpha, T, B, ldb)
 	if callErr != nil {
 		panic(callErr)
@@ -8024,10 +8024,10 @@ func Sparse_matrix_variable_block_create_float_complex(Mb Sparse_dimension, Nb S
 	return result
 }
 
-var _sparse_matrix_vector_product_dense_double func(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) Sparse_status
+var _sparse_matrix_vector_product_dense_double func(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) Sparse_status
 var _sparse_matrix_vector_product_dense_doubleErr error
 
-func trySparse_matrix_vector_product_dense_double(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) (Sparse_status, error) {
+func trySparse_matrix_vector_product_dense_double(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) (Sparse_status, error) {
 	if _sparse_matrix_vector_product_dense_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_matrix_vector_product_dense_double", "10.11", _sparse_matrix_vector_product_dense_doubleErr)
 	}
@@ -8037,7 +8037,7 @@ func trySparse_matrix_vector_product_dense_double(transa CBLAS_TRANSPOSE, alpha 
 // Sparse_matrix_vector_product_dense_double multiplies the dense vector by the sparse matrix and adds the result to the dense vector , with all operands containing double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_vector_product_dense_double(_:_:_:_:_:_:_:)
-func Sparse_matrix_vector_product_dense_double(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) Sparse_status {
+func Sparse_matrix_vector_product_dense_double(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) Sparse_status {
 	result, callErr := trySparse_matrix_vector_product_dense_double(transa, alpha, A, x, incx, y, incy)
 	if callErr != nil {
 		panic(callErr)
@@ -8066,10 +8066,10 @@ func Sparse_matrix_vector_product_dense_double_complex(transa CBLAS_TRANSPOSE, a
 	return result
 }
 
-var _sparse_matrix_vector_product_dense_float func(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) Sparse_status
+var _sparse_matrix_vector_product_dense_float func(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) Sparse_status
 var _sparse_matrix_vector_product_dense_floatErr error
 
-func trySparse_matrix_vector_product_dense_float(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) (Sparse_status, error) {
+func trySparse_matrix_vector_product_dense_float(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) (Sparse_status, error) {
 	if _sparse_matrix_vector_product_dense_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_matrix_vector_product_dense_float", "10.11", _sparse_matrix_vector_product_dense_floatErr)
 	}
@@ -8079,7 +8079,7 @@ func trySparse_matrix_vector_product_dense_float(transa CBLAS_TRANSPOSE, alpha f
 // Sparse_matrix_vector_product_dense_float multiplies the dense vector by the sparse matrix and adds the result to the dense vector , with all operands containing single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_vector_product_dense_float(_:_:_:_:_:_:_:)
-func Sparse_matrix_vector_product_dense_float(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) Sparse_status {
+func Sparse_matrix_vector_product_dense_float(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) Sparse_status {
 	result, callErr := trySparse_matrix_vector_product_dense_float(transa, alpha, A, x, incx, y, incy)
 	if callErr != nil {
 		panic(callErr)
@@ -8108,10 +8108,10 @@ func Sparse_matrix_vector_product_dense_float_complex(transa CBLAS_TRANSPOSE, al
 	return result
 }
 
-var _sparse_outer_product_dense_double func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_double) Sparse_status
+var _sparse_outer_product_dense_double func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_double) Sparse_status
 var _sparse_outer_product_dense_doubleErr error
 
-func trySparse_outer_product_dense_double(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_double) (Sparse_status, error) {
+func trySparse_outer_product_dense_double(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_double) (Sparse_status, error) {
 	if _sparse_outer_product_dense_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_outer_product_dense_double", "10.11", _sparse_outer_product_dense_doubleErr)
 	}
@@ -8121,7 +8121,7 @@ func trySparse_outer_product_dense_double(M Sparse_dimension, N Sparse_dimension
 // Sparse_outer_product_dense_double computes the outer product of the dense vector and the sparse vector , with both operands containing double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_outer_product_dense_double(_:_:_:_:_:_:_:_:_:)
-func Sparse_outer_product_dense_double(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_double) Sparse_status {
+func Sparse_outer_product_dense_double(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_double) Sparse_status {
 	result, callErr := trySparse_outer_product_dense_double(M, N, nz, alpha, x, incx, y, indy, C)
 	if callErr != nil {
 		panic(callErr)
@@ -8150,10 +8150,10 @@ func Sparse_outer_product_dense_double_complex(M Sparse_dimension, N Sparse_dime
 	return result
 }
 
-var _sparse_outer_product_dense_float func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_float) Sparse_status
+var _sparse_outer_product_dense_float func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_float) Sparse_status
 var _sparse_outer_product_dense_floatErr error
 
-func trySparse_outer_product_dense_float(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_float) (Sparse_status, error) {
+func trySparse_outer_product_dense_float(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_float) (Sparse_status, error) {
 	if _sparse_outer_product_dense_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_outer_product_dense_float", "10.11", _sparse_outer_product_dense_floatErr)
 	}
@@ -8163,7 +8163,7 @@ func trySparse_outer_product_dense_float(M Sparse_dimension, N Sparse_dimension,
 // Sparse_outer_product_dense_float computes the outer product of the dense vector and the sparse vector , with both operands containing single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_outer_product_dense_float(_:_:_:_:_:_:_:_:_:)
-func Sparse_outer_product_dense_float(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_float) Sparse_status {
+func Sparse_outer_product_dense_float(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_float) Sparse_status {
 	result, callErr := trySparse_outer_product_dense_float(M, N, nz, alpha, x, incx, y, indy, C)
 	if callErr != nil {
 		panic(callErr)
@@ -8192,10 +8192,10 @@ func Sparse_outer_product_dense_float_complex(M Sparse_dimension, N Sparse_dimen
 	return result
 }
 
-var _sparse_pack_vector_double func(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int
+var _sparse_pack_vector_double func(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int
 var _sparse_pack_vector_doubleErr error
 
-func trySparse_pack_vector_double(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) (int, error) {
+func trySparse_pack_vector_double(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) (int, error) {
 	if _sparse_pack_vector_double == nil {
 		return 0, symbolCallError("sparse_pack_vector_double", "10.11", _sparse_pack_vector_doubleErr)
 	}
@@ -8205,7 +8205,7 @@ func trySparse_pack_vector_double(N Sparse_dimension, nz Sparse_dimension, x uin
 // Sparse_pack_vector_double packs nonzero values from a double-precision dense vector to a destination array.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_pack_vector_double(_:_:_:_:_:_:)
-func Sparse_pack_vector_double(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int {
+func Sparse_pack_vector_double(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int {
 	result, callErr := trySparse_pack_vector_double(N, nz, x, incx, y, indy)
 	if callErr != nil {
 		panic(callErr)
@@ -8234,10 +8234,10 @@ func Sparse_pack_vector_double_complex(N Sparse_dimension, nz Sparse_dimension, 
 	return result
 }
 
-var _sparse_pack_vector_float func(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int
+var _sparse_pack_vector_float func(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int
 var _sparse_pack_vector_floatErr error
 
-func trySparse_pack_vector_float(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) (int, error) {
+func trySparse_pack_vector_float(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) (int, error) {
 	if _sparse_pack_vector_float == nil {
 		return 0, symbolCallError("sparse_pack_vector_float", "10.11", _sparse_pack_vector_floatErr)
 	}
@@ -8247,7 +8247,7 @@ func trySparse_pack_vector_float(N Sparse_dimension, nz Sparse_dimension, x uint
 // Sparse_pack_vector_float packs nonzero values from a single-precision dense vector to a destination array.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_pack_vector_float(_:_:_:_:_:_:)
-func Sparse_pack_vector_float(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int {
+func Sparse_pack_vector_float(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int {
 	result, callErr := trySparse_pack_vector_float(N, nz, x, incx, y, indy)
 	if callErr != nil {
 		panic(callErr)
@@ -8465,10 +8465,10 @@ func Sparse_set_matrix_property(A unsafe.Pointer, pname Sparse_matrix_property) 
 	return result
 }
 
-var _sparse_unpack_vector_double func(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
+var _sparse_unpack_vector_double func(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
 var _sparse_unpack_vector_doubleErr error
 
-func trySparse_unpack_vector_double(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) error {
+func trySparse_unpack_vector_double(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) error {
 	if _sparse_unpack_vector_double == nil {
 		return symbolCallError("sparse_unpack_vector_double", "10.11", _sparse_unpack_vector_doubleErr)
 	}
@@ -8479,7 +8479,7 @@ func trySparse_unpack_vector_double(N Sparse_dimension, nz Sparse_dimension, zer
 // Sparse_unpack_vector_double extracts elements from the sparse vector into the corresponding location in the dense vector , with both vectors containing double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_unpack_vector_double(_:_:_:_:_:_:_:)
-func Sparse_unpack_vector_double(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) {
+func Sparse_unpack_vector_double(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
 	if callErr := trySparse_unpack_vector_double(N, nz, zero, x, indx, y, incy); callErr != nil {
 		panic(callErr)
 	}
@@ -8505,10 +8505,10 @@ func Sparse_unpack_vector_double_complex(N Sparse_dimension, nz Sparse_dimension
 	}
 }
 
-var _sparse_unpack_vector_float func(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
+var _sparse_unpack_vector_float func(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
 var _sparse_unpack_vector_floatErr error
 
-func trySparse_unpack_vector_float(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) error {
+func trySparse_unpack_vector_float(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) error {
 	if _sparse_unpack_vector_float == nil {
 		return symbolCallError("sparse_unpack_vector_float", "10.11", _sparse_unpack_vector_floatErr)
 	}
@@ -8519,7 +8519,7 @@ func trySparse_unpack_vector_float(N Sparse_dimension, nz Sparse_dimension, zero
 // Sparse_unpack_vector_float extracts elements from the sparse vector into the corresponding location in the dense vector , with both vectors containing single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_unpack_vector_float(_:_:_:_:_:_:_:)
-func Sparse_unpack_vector_float(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) {
+func Sparse_unpack_vector_float(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
 	if callErr := trySparse_unpack_vector_float(N, nz, zero, x, indx, y, incy); callErr != nil {
 		panic(callErr)
 	}
@@ -8545,10 +8545,10 @@ func Sparse_unpack_vector_float_complex(N Sparse_dimension, nz Sparse_dimension,
 	}
 }
 
-var _sparse_vector_add_with_scale_dense_double func(nz Sparse_dimension, alpha float64, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
+var _sparse_vector_add_with_scale_dense_double func(nz Sparse_dimension, alpha float64, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
 var _sparse_vector_add_with_scale_dense_doubleErr error
 
-func trySparse_vector_add_with_scale_dense_double(nz Sparse_dimension, alpha float64, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) error {
+func trySparse_vector_add_with_scale_dense_double(nz Sparse_dimension, alpha float64, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) error {
 	if _sparse_vector_add_with_scale_dense_double == nil {
 		return symbolCallError("sparse_vector_add_with_scale_dense_double", "10.11", _sparse_vector_add_with_scale_dense_doubleErr)
 	}
@@ -8559,7 +8559,7 @@ func trySparse_vector_add_with_scale_dense_double(nz Sparse_dimension, alpha flo
 // Sparse_vector_add_with_scale_dense_double scales the sparse vector by and adds the result to the dense vector with both vectors containing double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_add_with_scale_dense_double(_:_:_:_:_:_:)
-func Sparse_vector_add_with_scale_dense_double(nz Sparse_dimension, alpha float64, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) {
+func Sparse_vector_add_with_scale_dense_double(nz Sparse_dimension, alpha float64, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
 	if callErr := trySparse_vector_add_with_scale_dense_double(nz, alpha, x, indx, y, incy); callErr != nil {
 		panic(callErr)
 	}
@@ -8585,10 +8585,10 @@ func Sparse_vector_add_with_scale_dense_double_complex(nz Sparse_dimension, alph
 	}
 }
 
-var _sparse_vector_add_with_scale_dense_float func(nz Sparse_dimension, alpha float32, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
+var _sparse_vector_add_with_scale_dense_float func(nz Sparse_dimension, alpha float32, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
 var _sparse_vector_add_with_scale_dense_floatErr error
 
-func trySparse_vector_add_with_scale_dense_float(nz Sparse_dimension, alpha float32, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) error {
+func trySparse_vector_add_with_scale_dense_float(nz Sparse_dimension, alpha float32, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) error {
 	if _sparse_vector_add_with_scale_dense_float == nil {
 		return symbolCallError("sparse_vector_add_with_scale_dense_float", "10.11", _sparse_vector_add_with_scale_dense_floatErr)
 	}
@@ -8599,7 +8599,7 @@ func trySparse_vector_add_with_scale_dense_float(nz Sparse_dimension, alpha floa
 // Sparse_vector_add_with_scale_dense_float scales the sparse vector by and adds the result to the dense vector with both vectors containing single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_add_with_scale_dense_float(_:_:_:_:_:_:)
-func Sparse_vector_add_with_scale_dense_float(nz Sparse_dimension, alpha float32, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) {
+func Sparse_vector_add_with_scale_dense_float(nz Sparse_dimension, alpha float32, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
 	if callErr := trySparse_vector_add_with_scale_dense_float(nz, alpha, x, indx, y, incy); callErr != nil {
 		panic(callErr)
 	}
@@ -8625,10 +8625,10 @@ func Sparse_vector_add_with_scale_dense_float_complex(nz Sparse_dimension, alpha
 	}
 }
 
-var _sparse_vector_norm_double func(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm SparseNorm) float64
+var _sparse_vector_norm_double func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm SparseNorm) float64
 var _sparse_vector_norm_doubleErr error
 
-func trySparse_vector_norm_double(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm SparseNorm) (float64, error) {
+func trySparse_vector_norm_double(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm SparseNorm) (float64, error) {
 	if _sparse_vector_norm_double == nil {
 		return 0.0, symbolCallError("sparse_vector_norm_double", "10.11", _sparse_vector_norm_doubleErr)
 	}
@@ -8638,7 +8638,7 @@ func trySparse_vector_norm_double(nz Sparse_dimension, x uintptr, indx *Sparse_i
 // Sparse_vector_norm_double computes the specified norm of the double-precision sparse vector .
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_norm_double(_:_:_:_:)
-func Sparse_vector_norm_double(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm SparseNorm) float64 {
+func Sparse_vector_norm_double(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm SparseNorm) float64 {
 	result, callErr := trySparse_vector_norm_double(nz, x, indx, norm)
 	if callErr != nil {
 		panic(callErr)
@@ -8667,10 +8667,10 @@ func Sparse_vector_norm_double_complex(nz Sparse_dimension, x *uintptr, indx *Sp
 	return result
 }
 
-var _sparse_vector_norm_float func(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm SparseNorm) float32
+var _sparse_vector_norm_float func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm SparseNorm) float32
 var _sparse_vector_norm_floatErr error
 
-func trySparse_vector_norm_float(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm SparseNorm) (float32, error) {
+func trySparse_vector_norm_float(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm SparseNorm) (float32, error) {
 	if _sparse_vector_norm_float == nil {
 		return 0.0, symbolCallError("sparse_vector_norm_float", "10.11", _sparse_vector_norm_floatErr)
 	}
@@ -8680,7 +8680,7 @@ func trySparse_vector_norm_float(nz Sparse_dimension, x uintptr, indx *Sparse_in
 // Sparse_vector_norm_float computes the specified norm of the single-precision sparse vector .
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_norm_float(_:_:_:_:)
-func Sparse_vector_norm_float(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm SparseNorm) float32 {
+func Sparse_vector_norm_float(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm SparseNorm) float32 {
 	result, callErr := trySparse_vector_norm_float(nz, x, indx, norm)
 	if callErr != nil {
 		panic(callErr)
@@ -8709,10 +8709,10 @@ func Sparse_vector_norm_float_complex(nz Sparse_dimension, x *uintptr, indx *Spa
 	return result
 }
 
-var _sparse_vector_triangular_solve_dense_double func(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x uintptr, incx Sparse_stride) Sparse_status
+var _sparse_vector_triangular_solve_dense_double func(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x unsafe.Pointer, incx Sparse_stride) Sparse_status
 var _sparse_vector_triangular_solve_dense_doubleErr error
 
-func trySparse_vector_triangular_solve_dense_double(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x uintptr, incx Sparse_stride) (Sparse_status, error) {
+func trySparse_vector_triangular_solve_dense_double(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x unsafe.Pointer, incx Sparse_stride) (Sparse_status, error) {
 	if _sparse_vector_triangular_solve_dense_double == nil {
 		return *new(Sparse_status), symbolCallError("sparse_vector_triangular_solve_dense_double", "10.11", _sparse_vector_triangular_solve_dense_doubleErr)
 	}
@@ -8722,7 +8722,7 @@ func trySparse_vector_triangular_solve_dense_double(transt CBLAS_TRANSPOSE, alph
 // Sparse_vector_triangular_solve_dense_double solves the system of equations for x where is a dense vector and is a triangular sparse matrix, with all operands containing double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_triangular_solve_dense_double(_:_:_:_:_:)
-func Sparse_vector_triangular_solve_dense_double(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x uintptr, incx Sparse_stride) Sparse_status {
+func Sparse_vector_triangular_solve_dense_double(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x unsafe.Pointer, incx Sparse_stride) Sparse_status {
 	result, callErr := trySparse_vector_triangular_solve_dense_double(transt, alpha, T, x, incx)
 	if callErr != nil {
 		panic(callErr)
@@ -8751,10 +8751,10 @@ func Sparse_vector_triangular_solve_dense_double_complex(transt CBLAS_TRANSPOSE,
 	return result
 }
 
-var _sparse_vector_triangular_solve_dense_float func(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x uintptr, incx Sparse_stride) Sparse_status
+var _sparse_vector_triangular_solve_dense_float func(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x unsafe.Pointer, incx Sparse_stride) Sparse_status
 var _sparse_vector_triangular_solve_dense_floatErr error
 
-func trySparse_vector_triangular_solve_dense_float(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x uintptr, incx Sparse_stride) (Sparse_status, error) {
+func trySparse_vector_triangular_solve_dense_float(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x unsafe.Pointer, incx Sparse_stride) (Sparse_status, error) {
 	if _sparse_vector_triangular_solve_dense_float == nil {
 		return *new(Sparse_status), symbolCallError("sparse_vector_triangular_solve_dense_float", "10.11", _sparse_vector_triangular_solve_dense_floatErr)
 	}
@@ -8764,7 +8764,7 @@ func trySparse_vector_triangular_solve_dense_float(transt CBLAS_TRANSPOSE, alpha
 // Sparse_vector_triangular_solve_dense_float solves the system of equations for x where is a dense vector and is a triangular sparse matrix, with all operands containing single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_triangular_solve_dense_float(_:_:_:_:_:)
-func Sparse_vector_triangular_solve_dense_float(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x uintptr, incx Sparse_stride) Sparse_status {
+func Sparse_vector_triangular_solve_dense_float(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x unsafe.Pointer, incx Sparse_stride) Sparse_status {
 	result, callErr := trySparse_vector_triangular_solve_dense_float(transt, alpha, T, x, incx)
 	if callErr != nil {
 		panic(callErr)
@@ -8793,10 +8793,10 @@ func Sparse_vector_triangular_solve_dense_float_complex(transt CBLAS_TRANSPOSE, 
 	return result
 }
 
-var _vA1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vA1024Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vA1024ShiftErr error
 
-func tryVA1024Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVA1024Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vA1024Shift == nil {
 		return symbolCallError("vA1024Shift", "10.0", _vA1024ShiftErr)
 	}
@@ -8807,7 +8807,7 @@ func tryVA1024Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VA1024Shift 1024-bit arithmetic shift.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vA1024Shift(_:_:_:)
-func VA1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VA1024Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVA1024Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -8834,10 +8834,10 @@ func VA128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vA256Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vA256Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vA256ShiftErr error
 
-func tryVA256Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVA256Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vA256Shift == nil {
 		return symbolCallError("vA256Shift", "10.0", _vA256ShiftErr)
 	}
@@ -8848,16 +8848,16 @@ func tryVA256Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VA256Shift 256-bit arithmetic shift.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vA256Shift(_:_:_:)
-func VA256Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VA256Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVA256Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vA512Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vA512Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vA512ShiftErr error
 
-func tryVA512Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVA512Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vA512Shift == nil {
 		return symbolCallError("vA512Shift", "10.0", _vA512ShiftErr)
 	}
@@ -8868,7 +8868,7 @@ func tryVA512Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VA512Shift 512-bit arithmetic shift.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vA512Shift(_:_:_:)
-func VA512Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VA512Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVA512Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -8937,10 +8937,10 @@ func VDSP_DCT_CreateSetup(__Previous VDSP_DFT_Setup, __Length VDSP_Length, __Typ
 	return result
 }
 
-var _vDSP_DCT_Execute func(__Setup uintptr, __Input *float32, __Output *float32)
+var _vDSP_DCT_Execute func(__Setup unsafe.Pointer, __Input *float32, __Output *float32)
 var _vDSP_DCT_ExecuteErr error
 
-func tryVDSP_DCT_Execute(__Setup uintptr, __Input []float32, __Output []float32) error {
+func tryVDSP_DCT_Execute(__Setup unsafe.Pointer, __Input []float32, __Output []float32) error {
 	if _vDSP_DCT_Execute == nil {
 		return symbolCallError("vDSP_DCT_Execute", "10.9", _vDSP_DCT_ExecuteErr)
 	}
@@ -8951,7 +8951,7 @@ func tryVDSP_DCT_Execute(__Setup uintptr, __Input []float32, __Output []float32)
 // VDSP_DCT_Execute calculates the discrete cosine transform for a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DCT_Execute
-func VDSP_DCT_Execute(__Setup uintptr, __Input []float32, __Output []float32) {
+func VDSP_DCT_Execute(__Setup unsafe.Pointer, __Input []float32, __Output []float32) {
 	if callErr := tryVDSP_DCT_Execute(__Setup, __Input, __Output); callErr != nil {
 		panic(callErr)
 	}
@@ -9018,10 +9018,10 @@ func VDSP_DFT_DestroySetupD(__Setup VDSP_DFT_SetupD) {
 	}
 }
 
-var _vDSP_DFT_Execute func(__Setup uintptr, __Ir *float32, __Ii *float32, __Or *float32, __Oi *float32)
+var _vDSP_DFT_Execute func(__Setup unsafe.Pointer, __Ir *float32, __Ii *float32, __Or *float32, __Oi *float32)
 var _vDSP_DFT_ExecuteErr error
 
-func tryVDSP_DFT_Execute(__Setup uintptr, __Ir []float32, __Ii []float32, __Or []float32, __Oi []float32) error {
+func tryVDSP_DFT_Execute(__Setup unsafe.Pointer, __Ir []float32, __Ii []float32, __Or []float32, __Oi []float32) error {
 	if _vDSP_DFT_Execute == nil {
 		return symbolCallError("vDSP_DFT_Execute", "10.7", _vDSP_DFT_ExecuteErr)
 	}
@@ -9032,16 +9032,16 @@ func tryVDSP_DFT_Execute(__Setup uintptr, __Ir []float32, __Ii []float32, __Or [
 // VDSP_DFT_Execute calculates the discrete single-precision Fourier transform for a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_Execute
-func VDSP_DFT_Execute(__Setup uintptr, __Ir []float32, __Ii []float32, __Or []float32, __Oi []float32) {
+func VDSP_DFT_Execute(__Setup unsafe.Pointer, __Ir []float32, __Ii []float32, __Or []float32, __Oi []float32) {
 	if callErr := tryVDSP_DFT_Execute(__Setup, __Ir, __Ii, __Or, __Oi); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vDSP_DFT_ExecuteD func(__Setup uintptr, __Ir *float64, __Ii *float64, __Or *float64, __Oi *float64)
+var _vDSP_DFT_ExecuteD func(__Setup unsafe.Pointer, __Ir *float64, __Ii *float64, __Or *float64, __Oi *float64)
 var _vDSP_DFT_ExecuteDErr error
 
-func tryVDSP_DFT_ExecuteD(__Setup uintptr, __Ir []float64, __Ii []float64, __Or []float64, __Oi []float64) error {
+func tryVDSP_DFT_ExecuteD(__Setup unsafe.Pointer, __Ir []float64, __Ii []float64, __Or []float64, __Oi []float64) error {
 	if _vDSP_DFT_ExecuteD == nil {
 		return symbolCallError("vDSP_DFT_ExecuteD", "10.9", _vDSP_DFT_ExecuteDErr)
 	}
@@ -9052,7 +9052,7 @@ func tryVDSP_DFT_ExecuteD(__Setup uintptr, __Ir []float64, __Ii []float64, __Or 
 // VDSP_DFT_ExecuteD calculates the discrete double-precision Fourier transform for a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_ExecuteD
-func VDSP_DFT_ExecuteD(__Setup uintptr, __Ir []float64, __Ii []float64, __Or []float64, __Oi []float64) {
+func VDSP_DFT_ExecuteD(__Setup unsafe.Pointer, __Ir []float64, __Ii []float64, __Or []float64, __Oi []float64) {
 	if callErr := tryVDSP_DFT_ExecuteD(__Setup, __Ir, __Ii, __Or, __Oi); callErr != nil {
 		panic(callErr)
 	}
@@ -9180,10 +9180,10 @@ func VDSP_DFT_Interleaved_ExecuteD(Setup VDSP_DFT_Interleaved_SetupD, Iri *DSPDo
 	}
 }
 
-var _vDSP_DFT_zop func(__Setup uintptr, __Ir *float32, __Ii *float32, __Is VDSP_Stride, __Or *float32, __Oi *float32, __Os VDSP_Stride, __Direction VDSP_DFT_Direction)
+var _vDSP_DFT_zop func(__Setup unsafe.Pointer, __Ir *float32, __Ii *float32, __Is VDSP_Stride, __Or *float32, __Oi *float32, __Os VDSP_Stride, __Direction VDSP_DFT_Direction)
 var _vDSP_DFT_zopErr error
 
-func tryVDSP_DFT_zop(__Setup uintptr, __Ir []float32, __Ii []float32, __Is VDSP_Stride, __Or []float32, __Oi []float32, __Os VDSP_Stride, __Direction VDSP_DFT_Direction) error {
+func tryVDSP_DFT_zop(__Setup unsafe.Pointer, __Ir []float32, __Ii []float32, __Is VDSP_Stride, __Or []float32, __Oi []float32, __Os VDSP_Stride, __Direction VDSP_DFT_Direction) error {
 	if _vDSP_DFT_zop == nil {
 		return symbolCallError("vDSP_DFT_zop", "10.6", _vDSP_DFT_zopErr)
 	}
@@ -9194,7 +9194,7 @@ func tryVDSP_DFT_zop(__Setup uintptr, __Ir []float32, __Ii []float32, __Is VDSP_
 // VDSP_DFT_zop.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_zop
-func VDSP_DFT_zop(__Setup uintptr, __Ir []float32, __Ii []float32, __Is VDSP_Stride, __Or []float32, __Oi []float32, __Os VDSP_Stride, __Direction VDSP_DFT_Direction) {
+func VDSP_DFT_zop(__Setup unsafe.Pointer, __Ir []float32, __Ii []float32, __Is VDSP_Stride, __Or []float32, __Oi []float32, __Os VDSP_Stride, __Direction VDSP_DFT_Direction) {
 	if callErr := tryVDSP_DFT_zop(__Setup, __Ir, __Ii, __Is, __Or, __Oi, __Os, __Direction); callErr != nil {
 		panic(callErr)
 	}
@@ -9364,10 +9364,10 @@ func VDSP_FFT32_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []floa
 	}
 }
 
-var _vDSP_biquad func(__Setup uintptr, __Delay *float32, __X *float32, __IX VDSP_Stride, __Y *float32, __IY VDSP_Stride, __N VDSP_Length)
+var _vDSP_biquad func(__Setup unsafe.Pointer, __Delay *float32, __X *float32, __IX VDSP_Stride, __Y *float32, __IY VDSP_Stride, __N VDSP_Length)
 var _vDSP_biquadErr error
 
-func tryVDSP_biquad(__Setup uintptr, __Delay []float32, __X []float32, __IX VDSP_Stride, __Y []float32, __IY VDSP_Stride, __N VDSP_Length) error {
+func tryVDSP_biquad(__Setup unsafe.Pointer, __Delay []float32, __X []float32, __IX VDSP_Stride, __Y []float32, __IY VDSP_Stride, __N VDSP_Length) error {
 	if _vDSP_biquad == nil {
 		return symbolCallError("vDSP_biquad", "10.9", _vDSP_biquadErr)
 	}
@@ -9378,16 +9378,16 @@ func tryVDSP_biquad(__Setup uintptr, __Delay []float32, __X []float32, __IX VDSP
 // VDSP_biquad applies a single-precision single-channel biquadratic IIR filter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_biquad
-func VDSP_biquad(__Setup uintptr, __Delay []float32, __X []float32, __IX VDSP_Stride, __Y []float32, __IY VDSP_Stride, __N VDSP_Length) {
+func VDSP_biquad(__Setup unsafe.Pointer, __Delay []float32, __X []float32, __IX VDSP_Stride, __Y []float32, __IY VDSP_Stride, __N VDSP_Length) {
 	if callErr := tryVDSP_biquad(__Setup, __Delay, __X, __IX, __Y, __IY, __N); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vDSP_biquadD func(__Setup uintptr, __Delay *float64, __X *float64, __IX VDSP_Stride, __Y *float64, __IY VDSP_Stride, __N VDSP_Length)
+var _vDSP_biquadD func(__Setup unsafe.Pointer, __Delay *float64, __X *float64, __IX VDSP_Stride, __Y *float64, __IY VDSP_Stride, __N VDSP_Length)
 var _vDSP_biquadDErr error
 
-func tryVDSP_biquadD(__Setup uintptr, __Delay []float64, __X []float64, __IX VDSP_Stride, __Y []float64, __IY VDSP_Stride, __N VDSP_Length) error {
+func tryVDSP_biquadD(__Setup unsafe.Pointer, __Delay []float64, __X []float64, __IX VDSP_Stride, __Y []float64, __IY VDSP_Stride, __N VDSP_Length) error {
 	if _vDSP_biquadD == nil {
 		return symbolCallError("vDSP_biquadD", "10.9", _vDSP_biquadDErr)
 	}
@@ -9398,7 +9398,7 @@ func tryVDSP_biquadD(__Setup uintptr, __Delay []float64, __X []float64, __IX VDS
 // VDSP_biquadD applies a double-precision single-channel biquadratic IIR filter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadD
-func VDSP_biquadD(__Setup uintptr, __Delay []float64, __X []float64, __IX VDSP_Stride, __Y []float64, __IY VDSP_Stride, __N VDSP_Length) {
+func VDSP_biquadD(__Setup unsafe.Pointer, __Delay []float64, __X []float64, __IX VDSP_Stride, __Y []float64, __IY VDSP_Stride, __N VDSP_Length) {
 	if callErr := tryVDSP_biquadD(__Setup, __Delay, __X, __IX, __Y, __IY, __N); callErr != nil {
 		panic(callErr)
 	}
@@ -9566,10 +9566,10 @@ func VDSP_biquadmD(__Setup VDSP_biquadm_SetupD, __X []float64, __IX VDSP_Stride,
 	}
 }
 
-var _vDSP_biquadm_CopyState func(__dest VDSP_biquadm_Setup, __src uintptr)
+var _vDSP_biquadm_CopyState func(__dest VDSP_biquadm_Setup, __src unsafe.Pointer)
 var _vDSP_biquadm_CopyStateErr error
 
-func tryVDSP_biquadm_CopyState(__dest VDSP_biquadm_Setup, __src uintptr) error {
+func tryVDSP_biquadm_CopyState(__dest VDSP_biquadm_Setup, __src unsafe.Pointer) error {
 	if _vDSP_biquadm_CopyState == nil {
 		return symbolCallError("vDSP_biquadm_CopyState", "10.9", _vDSP_biquadm_CopyStateErr)
 	}
@@ -9580,16 +9580,16 @@ func tryVDSP_biquadm_CopyState(__dest VDSP_biquadm_Setup, __src uintptr) error {
 // VDSP_biquadm_CopyState copies the filter state from one single-precision multichannel biquadratic IIR filter object to another.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_CopyState
-func VDSP_biquadm_CopyState(__dest VDSP_biquadm_Setup, __src uintptr) {
+func VDSP_biquadm_CopyState(__dest VDSP_biquadm_Setup, __src unsafe.Pointer) {
 	if callErr := tryVDSP_biquadm_CopyState(__dest, __src); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vDSP_biquadm_CopyStateD func(__dest VDSP_biquadm_SetupD, __src uintptr)
+var _vDSP_biquadm_CopyStateD func(__dest VDSP_biquadm_SetupD, __src unsafe.Pointer)
 var _vDSP_biquadm_CopyStateDErr error
 
-func tryVDSP_biquadm_CopyStateD(__dest VDSP_biquadm_SetupD, __src uintptr) error {
+func tryVDSP_biquadm_CopyStateD(__dest VDSP_biquadm_SetupD, __src unsafe.Pointer) error {
 	if _vDSP_biquadm_CopyStateD == nil {
 		return symbolCallError("vDSP_biquadm_CopyStateD", "10.10", _vDSP_biquadm_CopyStateDErr)
 	}
@@ -9600,7 +9600,7 @@ func tryVDSP_biquadm_CopyStateD(__dest VDSP_biquadm_SetupD, __src uintptr) error
 // VDSP_biquadm_CopyStateD copies the filter state from one double-precision multichannel biquadratic IIR filter object to another.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_CopyStateD
-func VDSP_biquadm_CopyStateD(__dest VDSP_biquadm_SetupD, __src uintptr) {
+func VDSP_biquadm_CopyStateD(__dest VDSP_biquadm_SetupD, __src unsafe.Pointer) {
 	if callErr := tryVDSP_biquadm_CopyStateD(__dest, __src); callErr != nil {
 		panic(callErr)
 	}
@@ -19263,10 +19263,10 @@ func VImageBuffer_Init(buf *VImage_Buffer, height uint, width uint, pixelBits ui
 	return result
 }
 
-var _vImageBuffer_InitForCopyFromCVPixelBuffer func(buffers *VImage_Buffer, converter unsafe.Pointer, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int
+var _vImageBuffer_InitForCopyFromCVPixelBuffer func(buffers *VImage_Buffer, converter VImageConverterRef, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int
 var _vImageBuffer_InitForCopyFromCVPixelBufferErr error
 
-func tryVImageBuffer_InitForCopyFromCVPixelBuffer(buffers *VImage_Buffer, converter unsafe.Pointer, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) (int, error) {
+func tryVImageBuffer_InitForCopyFromCVPixelBuffer(buffers *VImage_Buffer, converter VImageConverterRef, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) (int, error) {
 	if _vImageBuffer_InitForCopyFromCVPixelBuffer == nil {
 		return 0, symbolCallError("vImageBuffer_InitForCopyFromCVPixelBuffer", "10.10", _vImageBuffer_InitForCopyFromCVPixelBufferErr)
 	}
@@ -19276,7 +19276,7 @@ func tryVImageBuffer_InitForCopyFromCVPixelBuffer(buffers *VImage_Buffer, conver
 // VImageBuffer_InitForCopyFromCVPixelBuffer initializes an array of vImage buffers in the order necessary to copy from a Core Video pixel buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageBuffer_InitForCopyFromCVPixelBuffer(_:_:_:_:)
-func VImageBuffer_InitForCopyFromCVPixelBuffer(buffers *VImage_Buffer, converter unsafe.Pointer, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int {
+func VImageBuffer_InitForCopyFromCVPixelBuffer(buffers *VImage_Buffer, converter VImageConverterRef, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int {
 	result, callErr := tryVImageBuffer_InitForCopyFromCVPixelBuffer(buffers, converter, pixelBuffer, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -19284,10 +19284,10 @@ func VImageBuffer_InitForCopyFromCVPixelBuffer(buffers *VImage_Buffer, converter
 	return result
 }
 
-var _vImageBuffer_InitForCopyToCVPixelBuffer func(buffers *VImage_Buffer, converter unsafe.Pointer, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int
+var _vImageBuffer_InitForCopyToCVPixelBuffer func(buffers *VImage_Buffer, converter VImageConverterRef, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int
 var _vImageBuffer_InitForCopyToCVPixelBufferErr error
 
-func tryVImageBuffer_InitForCopyToCVPixelBuffer(buffers *VImage_Buffer, converter unsafe.Pointer, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) (int, error) {
+func tryVImageBuffer_InitForCopyToCVPixelBuffer(buffers *VImage_Buffer, converter VImageConverterRef, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) (int, error) {
 	if _vImageBuffer_InitForCopyToCVPixelBuffer == nil {
 		return 0, symbolCallError("vImageBuffer_InitForCopyToCVPixelBuffer", "10.10", _vImageBuffer_InitForCopyToCVPixelBufferErr)
 	}
@@ -19297,7 +19297,7 @@ func tryVImageBuffer_InitForCopyToCVPixelBuffer(buffers *VImage_Buffer, converte
 // VImageBuffer_InitForCopyToCVPixelBuffer initializes an array of vImage buffers in the order necessary to copy to a Core Video pixel buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageBuffer_InitForCopyToCVPixelBuffer(_:_:_:_:)
-func VImageBuffer_InitForCopyToCVPixelBuffer(buffers *VImage_Buffer, converter unsafe.Pointer, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int {
+func VImageBuffer_InitForCopyToCVPixelBuffer(buffers *VImage_Buffer, converter VImageConverterRef, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int {
 	result, callErr := tryVImageBuffer_InitForCopyToCVPixelBuffer(buffers, converter, pixelBuffer, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -19410,12 +19410,12 @@ func VImageCGImageFormat_IsEqual(f1 *VImage_CGImageFormat, f2 *VImage_CGImageFor
 	return result
 }
 
-var _vImageCVImageFormat_Copy func(format unsafe.Pointer) VImageCVImageFormatRef
+var _vImageCVImageFormat_Copy func(format VImageConstCVImageFormatRef) VImageCVImageFormatRef
 var _vImageCVImageFormat_CopyErr error
 
-func tryVImageCVImageFormat_Copy(format unsafe.Pointer) (VImageCVImageFormatRef, error) {
+func tryVImageCVImageFormat_Copy(format VImageConstCVImageFormatRef) (VImageCVImageFormatRef, error) {
 	if _vImageCVImageFormat_Copy == nil {
-		return 0, symbolCallError("vImageCVImageFormat_Copy", "10.10", _vImageCVImageFormat_CopyErr)
+		return *new(VImageCVImageFormatRef), symbolCallError("vImageCVImageFormat_Copy", "10.10", _vImageCVImageFormat_CopyErr)
 	}
 	return _vImageCVImageFormat_Copy(format), nil
 }
@@ -19423,7 +19423,7 @@ func tryVImageCVImageFormat_Copy(format unsafe.Pointer) (VImageCVImageFormatRef,
 // VImageCVImageFormat_Copy returns a mutable copy of an immutable Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Copy(_:)
-func VImageCVImageFormat_Copy(format unsafe.Pointer) VImageCVImageFormatRef {
+func VImageCVImageFormat_Copy(format VImageConstCVImageFormatRef) VImageCVImageFormatRef {
 	result, callErr := tryVImageCVImageFormat_Copy(format)
 	if callErr != nil {
 		panic(callErr)
@@ -19478,7 +19478,7 @@ var _vImageCVImageFormat_CreateErr error
 
 func tryVImageCVImageFormat_Create(imageFormatType uint32, matrix *VImage_ARGBToYpCbCrMatrix, cvImageBufferChromaLocation corefoundation.CFStringRef, baseColorspace coregraphics.CGColorSpaceRef, alphaIsOneHint int) (VImageCVImageFormatRef, error) {
 	if _vImageCVImageFormat_Create == nil {
-		return 0, symbolCallError("vImageCVImageFormat_Create", "10.10", _vImageCVImageFormat_CreateErr)
+		return *new(VImageCVImageFormatRef), symbolCallError("vImageCVImageFormat_Create", "10.10", _vImageCVImageFormat_CreateErr)
 	}
 	return _vImageCVImageFormat_Create(imageFormatType, matrix, cvImageBufferChromaLocation, baseColorspace, alphaIsOneHint), nil
 }
@@ -19499,7 +19499,7 @@ var _vImageCVImageFormat_CreateWithCVPixelBufferErr error
 
 func tryVImageCVImageFormat_CreateWithCVPixelBuffer(buffer corevideo.CVPixelBufferRef) (VImageCVImageFormatRef, error) {
 	if _vImageCVImageFormat_CreateWithCVPixelBuffer == nil {
-		return 0, symbolCallError("vImageCVImageFormat_CreateWithCVPixelBuffer", "10.10", _vImageCVImageFormat_CreateWithCVPixelBufferErr)
+		return *new(VImageCVImageFormatRef), symbolCallError("vImageCVImageFormat_CreateWithCVPixelBuffer", "10.10", _vImageCVImageFormat_CreateWithCVPixelBufferErr)
 	}
 	return _vImageCVImageFormat_CreateWithCVPixelBuffer(buffer), nil
 }
@@ -19515,10 +19515,10 @@ func VImageCVImageFormat_CreateWithCVPixelBuffer(buffer corevideo.CVPixelBufferR
 	return result
 }
 
-var _vImageCVImageFormat_GetAlphaHint func(format unsafe.Pointer) int
+var _vImageCVImageFormat_GetAlphaHint func(format VImageConstCVImageFormatRef) int
 var _vImageCVImageFormat_GetAlphaHintErr error
 
-func tryVImageCVImageFormat_GetAlphaHint(format unsafe.Pointer) (int, error) {
+func tryVImageCVImageFormat_GetAlphaHint(format VImageConstCVImageFormatRef) (int, error) {
 	if _vImageCVImageFormat_GetAlphaHint == nil {
 		return 0, symbolCallError("vImageCVImageFormat_GetAlphaHint", "10.10", _vImageCVImageFormat_GetAlphaHintErr)
 	}
@@ -19528,7 +19528,7 @@ func tryVImageCVImageFormat_GetAlphaHint(format unsafe.Pointer) (int, error) {
 // VImageCVImageFormat_GetAlphaHint returns the alpha hint of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetAlphaHint(_:)
-func VImageCVImageFormat_GetAlphaHint(format unsafe.Pointer) int {
+func VImageCVImageFormat_GetAlphaHint(format VImageConstCVImageFormatRef) int {
 	result, callErr := tryVImageCVImageFormat_GetAlphaHint(format)
 	if callErr != nil {
 		panic(callErr)
@@ -19536,10 +19536,10 @@ func VImageCVImageFormat_GetAlphaHint(format unsafe.Pointer) int {
 	return result
 }
 
-var _vImageCVImageFormat_GetChannelCount func(format unsafe.Pointer) uint32
+var _vImageCVImageFormat_GetChannelCount func(format VImageConstCVImageFormatRef) uint32
 var _vImageCVImageFormat_GetChannelCountErr error
 
-func tryVImageCVImageFormat_GetChannelCount(format unsafe.Pointer) (uint32, error) {
+func tryVImageCVImageFormat_GetChannelCount(format VImageConstCVImageFormatRef) (uint32, error) {
 	if _vImageCVImageFormat_GetChannelCount == nil {
 		return 0, symbolCallError("vImageCVImageFormat_GetChannelCount", "10.10", _vImageCVImageFormat_GetChannelCountErr)
 	}
@@ -19549,7 +19549,7 @@ func tryVImageCVImageFormat_GetChannelCount(format unsafe.Pointer) (uint32, erro
 // VImageCVImageFormat_GetChannelCount returns the number of channels, including alpha, for the Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetChannelCount(_:)
-func VImageCVImageFormat_GetChannelCount(format unsafe.Pointer) uint32 {
+func VImageCVImageFormat_GetChannelCount(format VImageConstCVImageFormatRef) uint32 {
 	result, callErr := tryVImageCVImageFormat_GetChannelCount(format)
 	if callErr != nil {
 		panic(callErr)
@@ -19557,10 +19557,10 @@ func VImageCVImageFormat_GetChannelCount(format unsafe.Pointer) uint32 {
 	return result
 }
 
-var _vImageCVImageFormat_GetChannelDescription func(format unsafe.Pointer, type_ VImageBufferTypeCode) *VImageChannelDescription
+var _vImageCVImageFormat_GetChannelDescription func(format VImageConstCVImageFormatRef, type_ VImageBufferTypeCode) *VImageChannelDescription
 var _vImageCVImageFormat_GetChannelDescriptionErr error
 
-func tryVImageCVImageFormat_GetChannelDescription(format unsafe.Pointer, type_ VImageBufferTypeCode) (*VImageChannelDescription, error) {
+func tryVImageCVImageFormat_GetChannelDescription(format VImageConstCVImageFormatRef, type_ VImageBufferTypeCode) (*VImageChannelDescription, error) {
 	if _vImageCVImageFormat_GetChannelDescription == nil {
 		return nil, symbolCallError("vImageCVImageFormat_GetChannelDescription", "10.10", _vImageCVImageFormat_GetChannelDescriptionErr)
 	}
@@ -19570,7 +19570,7 @@ func tryVImageCVImageFormat_GetChannelDescription(format unsafe.Pointer, type_ V
 // VImageCVImageFormat_GetChannelDescription returns the channel description for a particular channel type.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetChannelDescription(_:_:)
-func VImageCVImageFormat_GetChannelDescription(format unsafe.Pointer, type_ VImageBufferTypeCode) *VImageChannelDescription {
+func VImageCVImageFormat_GetChannelDescription(format VImageConstCVImageFormatRef, type_ VImageBufferTypeCode) *VImageChannelDescription {
 	result, callErr := tryVImageCVImageFormat_GetChannelDescription(format, type_)
 	if callErr != nil {
 		panic(callErr)
@@ -19578,10 +19578,10 @@ func VImageCVImageFormat_GetChannelDescription(format unsafe.Pointer, type_ VIma
 	return result
 }
 
-var _vImageCVImageFormat_GetChannelNames func(format unsafe.Pointer) *VImageBufferTypeCode
+var _vImageCVImageFormat_GetChannelNames func(format VImageConstCVImageFormatRef) *VImageBufferTypeCode
 var _vImageCVImageFormat_GetChannelNamesErr error
 
-func tryVImageCVImageFormat_GetChannelNames(format unsafe.Pointer) (*VImageBufferTypeCode, error) {
+func tryVImageCVImageFormat_GetChannelNames(format VImageConstCVImageFormatRef) (*VImageBufferTypeCode, error) {
 	if _vImageCVImageFormat_GetChannelNames == nil {
 		return nil, symbolCallError("vImageCVImageFormat_GetChannelNames", "10.10", _vImageCVImageFormat_GetChannelNamesErr)
 	}
@@ -19591,7 +19591,7 @@ func tryVImageCVImageFormat_GetChannelNames(format unsafe.Pointer) (*VImageBuffe
 // VImageCVImageFormat_GetChannelNames returns the names of the channels of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetChannelNames(_:)
-func VImageCVImageFormat_GetChannelNames(format unsafe.Pointer) *VImageBufferTypeCode {
+func VImageCVImageFormat_GetChannelNames(format VImageConstCVImageFormatRef) *VImageBufferTypeCode {
 	result, callErr := tryVImageCVImageFormat_GetChannelNames(format)
 	if callErr != nil {
 		panic(callErr)
@@ -19599,12 +19599,12 @@ func VImageCVImageFormat_GetChannelNames(format unsafe.Pointer) *VImageBufferTyp
 	return result
 }
 
-var _vImageCVImageFormat_GetChromaSiting func(format unsafe.Pointer) corefoundation.CFStringRef
+var _vImageCVImageFormat_GetChromaSiting func(format VImageConstCVImageFormatRef) corefoundation.CFStringRef
 var _vImageCVImageFormat_GetChromaSitingErr error
 
-func tryVImageCVImageFormat_GetChromaSiting(format unsafe.Pointer) (corefoundation.CFStringRef, error) {
+func tryVImageCVImageFormat_GetChromaSiting(format VImageConstCVImageFormatRef) (corefoundation.CFStringRef, error) {
 	if _vImageCVImageFormat_GetChromaSiting == nil {
-		return 0, symbolCallError("vImageCVImageFormat_GetChromaSiting", "10.10", _vImageCVImageFormat_GetChromaSitingErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("vImageCVImageFormat_GetChromaSiting", "10.10", _vImageCVImageFormat_GetChromaSitingErr)
 	}
 	return _vImageCVImageFormat_GetChromaSiting(format), nil
 }
@@ -19612,7 +19612,7 @@ func tryVImageCVImageFormat_GetChromaSiting(format unsafe.Pointer) (corefoundati
 // VImageCVImageFormat_GetChromaSiting returns the chrominance siting of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetChromaSiting(_:)
-func VImageCVImageFormat_GetChromaSiting(format unsafe.Pointer) corefoundation.CFStringRef {
+func VImageCVImageFormat_GetChromaSiting(format VImageConstCVImageFormatRef) corefoundation.CFStringRef {
 	result, callErr := tryVImageCVImageFormat_GetChromaSiting(format)
 	if callErr != nil {
 		panic(callErr)
@@ -19620,12 +19620,12 @@ func VImageCVImageFormat_GetChromaSiting(format unsafe.Pointer) corefoundation.C
 	return result
 }
 
-var _vImageCVImageFormat_GetColorSpace func(format unsafe.Pointer) coregraphics.CGColorSpaceRef
+var _vImageCVImageFormat_GetColorSpace func(format VImageConstCVImageFormatRef) coregraphics.CGColorSpaceRef
 var _vImageCVImageFormat_GetColorSpaceErr error
 
-func tryVImageCVImageFormat_GetColorSpace(format unsafe.Pointer) (coregraphics.CGColorSpaceRef, error) {
+func tryVImageCVImageFormat_GetColorSpace(format VImageConstCVImageFormatRef) (coregraphics.CGColorSpaceRef, error) {
 	if _vImageCVImageFormat_GetColorSpace == nil {
-		return 0, symbolCallError("vImageCVImageFormat_GetColorSpace", "10.10", _vImageCVImageFormat_GetColorSpaceErr)
+		return *new(coregraphics.CGColorSpaceRef), symbolCallError("vImageCVImageFormat_GetColorSpace", "10.10", _vImageCVImageFormat_GetColorSpaceErr)
 	}
 	return _vImageCVImageFormat_GetColorSpace(format), nil
 }
@@ -19633,7 +19633,7 @@ func tryVImageCVImageFormat_GetColorSpace(format unsafe.Pointer) (coregraphics.C
 // VImageCVImageFormat_GetColorSpace returns the color space of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetColorSpace(_:)
-func VImageCVImageFormat_GetColorSpace(format unsafe.Pointer) coregraphics.CGColorSpaceRef {
+func VImageCVImageFormat_GetColorSpace(format VImageConstCVImageFormatRef) coregraphics.CGColorSpaceRef {
 	result, callErr := tryVImageCVImageFormat_GetColorSpace(format)
 	if callErr != nil {
 		panic(callErr)
@@ -19641,10 +19641,10 @@ func VImageCVImageFormat_GetColorSpace(format unsafe.Pointer) coregraphics.CGCol
 	return result
 }
 
-var _vImageCVImageFormat_GetConversionMatrix func(format unsafe.Pointer, outType *VImageMatrixType) unsafe.Pointer
+var _vImageCVImageFormat_GetConversionMatrix func(format VImageConstCVImageFormatRef, outType *VImageMatrixType) unsafe.Pointer
 var _vImageCVImageFormat_GetConversionMatrixErr error
 
-func tryVImageCVImageFormat_GetConversionMatrix(format unsafe.Pointer, outType *VImageMatrixType) (unsafe.Pointer, error) {
+func tryVImageCVImageFormat_GetConversionMatrix(format VImageConstCVImageFormatRef, outType *VImageMatrixType) (unsafe.Pointer, error) {
 	if _vImageCVImageFormat_GetConversionMatrix == nil {
 		return nil, symbolCallError("vImageCVImageFormat_GetConversionMatrix", "10.10", _vImageCVImageFormat_GetConversionMatrixErr)
 	}
@@ -19654,7 +19654,7 @@ func tryVImageCVImageFormat_GetConversionMatrix(format unsafe.Pointer, outType *
 // VImageCVImageFormat_GetConversionMatrix returns a pointer to the RGB-to-YpCbCr conversion matrix of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetConversionMatrix(_:_:)
-func VImageCVImageFormat_GetConversionMatrix(format unsafe.Pointer, outType *VImageMatrixType) unsafe.Pointer {
+func VImageCVImageFormat_GetConversionMatrix(format VImageConstCVImageFormatRef, outType *VImageMatrixType) unsafe.Pointer {
 	result, callErr := tryVImageCVImageFormat_GetConversionMatrix(format, outType)
 	if callErr != nil {
 		panic(callErr)
@@ -19662,10 +19662,10 @@ func VImageCVImageFormat_GetConversionMatrix(format unsafe.Pointer, outType *VIm
 	return result
 }
 
-var _vImageCVImageFormat_GetFormatCode func(format unsafe.Pointer) uint32
+var _vImageCVImageFormat_GetFormatCode func(format VImageConstCVImageFormatRef) uint32
 var _vImageCVImageFormat_GetFormatCodeErr error
 
-func tryVImageCVImageFormat_GetFormatCode(format unsafe.Pointer) (uint32, error) {
+func tryVImageCVImageFormat_GetFormatCode(format VImageConstCVImageFormatRef) (uint32, error) {
 	if _vImageCVImageFormat_GetFormatCode == nil {
 		return 0, symbolCallError("vImageCVImageFormat_GetFormatCode", "10.10", _vImageCVImageFormat_GetFormatCodeErr)
 	}
@@ -19675,7 +19675,7 @@ func tryVImageCVImageFormat_GetFormatCode(format unsafe.Pointer) (uint32, error)
 // VImageCVImageFormat_GetFormatCode returns the four-character code that encodes the pixel format of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetFormatCode(_:)
-func VImageCVImageFormat_GetFormatCode(format unsafe.Pointer) uint32 {
+func VImageCVImageFormat_GetFormatCode(format VImageConstCVImageFormatRef) uint32 {
 	result, callErr := tryVImageCVImageFormat_GetFormatCode(format)
 	if callErr != nil {
 		panic(callErr)
@@ -19683,10 +19683,10 @@ func VImageCVImageFormat_GetFormatCode(format unsafe.Pointer) uint32 {
 	return result
 }
 
-var _vImageCVImageFormat_GetUserData func(format unsafe.Pointer) unsafe.Pointer
+var _vImageCVImageFormat_GetUserData func(format VImageConstCVImageFormatRef) unsafe.Pointer
 var _vImageCVImageFormat_GetUserDataErr error
 
-func tryVImageCVImageFormat_GetUserData(format unsafe.Pointer) (unsafe.Pointer, error) {
+func tryVImageCVImageFormat_GetUserData(format VImageConstCVImageFormatRef) (unsafe.Pointer, error) {
 	if _vImageCVImageFormat_GetUserData == nil {
 		return nil, symbolCallError("vImageCVImageFormat_GetUserData", "10.10", _vImageCVImageFormat_GetUserDataErr)
 	}
@@ -19696,7 +19696,7 @@ func tryVImageCVImageFormat_GetUserData(format unsafe.Pointer) (unsafe.Pointer, 
 // VImageCVImageFormat_GetUserData returns the user data of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetUserData(_:)
-func VImageCVImageFormat_GetUserData(format unsafe.Pointer) unsafe.Pointer {
+func VImageCVImageFormat_GetUserData(format VImageConstCVImageFormatRef) unsafe.Pointer {
 	result, callErr := tryVImageCVImageFormat_GetUserData(format)
 	if callErr != nil {
 		panic(callErr)
@@ -21823,10 +21823,10 @@ func VImageConvert_ARGBToYpCbCr_GenerateConversion(matrix *VImage_ARGBToYpCbCrMa
 	return result
 }
 
-var _vImageConvert_AnyToAny func(converter unsafe.Pointer, srcs *VImage_Buffer, dests *VImage_Buffer, tempBuffer unsafe.Pointer, flags uint32) int
+var _vImageConvert_AnyToAny func(converter VImageConverterRef, srcs *VImage_Buffer, dests *VImage_Buffer, tempBuffer unsafe.Pointer, flags uint32) int
 var _vImageConvert_AnyToAnyErr error
 
-func tryVImageConvert_AnyToAny(converter unsafe.Pointer, srcs *VImage_Buffer, dests *VImage_Buffer, tempBuffer unsafe.Pointer, flags uint32) (int, error) {
+func tryVImageConvert_AnyToAny(converter VImageConverterRef, srcs *VImage_Buffer, dests *VImage_Buffer, tempBuffer unsafe.Pointer, flags uint32) (int, error) {
 	if _vImageConvert_AnyToAny == nil {
 		return 0, symbolCallError("vImageConvert_AnyToAny", "10.9", _vImageConvert_AnyToAnyErr)
 	}
@@ -21836,7 +21836,7 @@ func tryVImageConvert_AnyToAny(converter unsafe.Pointer, srcs *VImage_Buffer, de
 // VImageConvert_AnyToAny converts the pixels in a vImage buffer to another format, using the specified converter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConvert_AnyToAny(_:_:_:_:_:)
-func VImageConvert_AnyToAny(converter unsafe.Pointer, srcs *VImage_Buffer, dests *VImage_Buffer, tempBuffer unsafe.Pointer, flags uint32) int {
+func VImageConvert_AnyToAny(converter VImageConverterRef, srcs *VImage_Buffer, dests *VImage_Buffer, tempBuffer unsafe.Pointer, flags uint32) int {
 	result, callErr := tryVImageConvert_AnyToAny(converter, srcs, dests, tempBuffer, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -23965,12 +23965,12 @@ func VImageConvert_YpCbCrToARGB_GenerateConversion(matrix *VImage_YpCbCrToARGBMa
 	return result
 }
 
-var _vImageConverter_CreateForCGToCVImageFormat func(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
+var _vImageConverter_CreateForCGToCVImageFormat func(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) VImageConverterRef
 var _vImageConverter_CreateForCGToCVImageFormatErr error
 
-func tryVImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) (unsafe.Pointer, error) {
+func tryVImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) (VImageConverterRef, error) {
 	if _vImageConverter_CreateForCGToCVImageFormat == nil {
-		return nil, symbolCallError("vImageConverter_CreateForCGToCVImageFormat", "10.10", _vImageConverter_CreateForCGToCVImageFormatErr)
+		return *new(VImageConverterRef), symbolCallError("vImageConverter_CreateForCGToCVImageFormat", "10.10", _vImageConverter_CreateForCGToCVImageFormatErr)
 	}
 	return _vImageConverter_CreateForCGToCVImageFormat(srcFormat, destFormat, backgroundColor, flags, err), nil
 }
@@ -23978,7 +23978,7 @@ func tryVImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageForm
 // VImageConverter_CreateForCGToCVImageFormat creates a vImage converter that converts a Core Graphics-formatted image to a Core Video-formatted image.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateForCGToCVImageFormat(_:_:_:_:_:)
-func VImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
+func VImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) VImageConverterRef {
 	result, callErr := tryVImageConverter_CreateForCGToCVImageFormat(srcFormat, destFormat, backgroundColor, flags, err)
 	if callErr != nil {
 		panic(callErr)
@@ -23986,12 +23986,12 @@ func VImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat,
 	return result
 }
 
-var _vImageConverter_CreateForCVToCGImageFormat func(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
+var _vImageConverter_CreateForCVToCGImageFormat func(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) VImageConverterRef
 var _vImageConverter_CreateForCVToCGImageFormatErr error
 
-func tryVImageConverter_CreateForCVToCGImageFormat(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) (unsafe.Pointer, error) {
+func tryVImageConverter_CreateForCVToCGImageFormat(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) (VImageConverterRef, error) {
 	if _vImageConverter_CreateForCVToCGImageFormat == nil {
-		return nil, symbolCallError("vImageConverter_CreateForCVToCGImageFormat", "10.10", _vImageConverter_CreateForCVToCGImageFormatErr)
+		return *new(VImageConverterRef), symbolCallError("vImageConverter_CreateForCVToCGImageFormat", "10.10", _vImageConverter_CreateForCVToCGImageFormatErr)
 	}
 	return _vImageConverter_CreateForCVToCGImageFormat(srcFormat, destFormat, backgroundColor, flags, err), nil
 }
@@ -23999,7 +23999,7 @@ func tryVImageConverter_CreateForCVToCGImageFormat(srcFormat VImageCVImageFormat
 // VImageConverter_CreateForCVToCGImageFormat creates a vImage converter that converts a Core Video-formatted image to a Core Graphics-formatted image.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateForCVToCGImageFormat(_:_:_:_:_:)
-func VImageConverter_CreateForCVToCGImageFormat(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
+func VImageConverter_CreateForCVToCGImageFormat(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) VImageConverterRef {
 	result, callErr := tryVImageConverter_CreateForCVToCGImageFormat(srcFormat, destFormat, backgroundColor, flags, err)
 	if callErr != nil {
 		panic(callErr)
@@ -24007,12 +24007,12 @@ func VImageConverter_CreateForCVToCGImageFormat(srcFormat VImageCVImageFormatRef
 	return result
 }
 
-var _vImageConverter_CreateWithCGColorConversionInfo func(colorConversionInfoRef coregraphics.CGColorConversionInfoRef, sFormat *VImage_CGImageFormat, dFormat *VImage_CGImageFormat, bg *float64, flags uint32, err *int) unsafe.Pointer
+var _vImageConverter_CreateWithCGColorConversionInfo func(colorConversionInfoRef coregraphics.CGColorConversionInfoRef, sFormat *VImage_CGImageFormat, dFormat *VImage_CGImageFormat, bg *float64, flags uint32, err *int) VImageConverterRef
 var _vImageConverter_CreateWithCGColorConversionInfoErr error
 
-func tryVImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef coregraphics.CGColorConversionInfoRef, sFormat *VImage_CGImageFormat, dFormat *VImage_CGImageFormat, bg *float64, flags uint32, err *int) (unsafe.Pointer, error) {
+func tryVImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef coregraphics.CGColorConversionInfoRef, sFormat *VImage_CGImageFormat, dFormat *VImage_CGImageFormat, bg *float64, flags uint32, err *int) (VImageConverterRef, error) {
 	if _vImageConverter_CreateWithCGColorConversionInfo == nil {
-		return nil, symbolCallError("vImageConverter_CreateWithCGColorConversionInfo", "11.0", _vImageConverter_CreateWithCGColorConversionInfoErr)
+		return *new(VImageConverterRef), symbolCallError("vImageConverter_CreateWithCGColorConversionInfo", "11.0", _vImageConverter_CreateWithCGColorConversionInfoErr)
 	}
 	return _vImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef, sFormat, dFormat, bg, flags, err), nil
 }
@@ -24020,7 +24020,7 @@ func tryVImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef c
 // VImageConverter_CreateWithCGColorConversionInfo creates an any-to-any converter that uses a color conversion information object to convert from one image format to another.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateWithCGColorConversionInfo(_:_:_:_:_:_:)
-func VImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef coregraphics.CGColorConversionInfoRef, sFormat *VImage_CGImageFormat, dFormat *VImage_CGImageFormat, bg *float64, flags uint32, err *int) unsafe.Pointer {
+func VImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef coregraphics.CGColorConversionInfoRef, sFormat *VImage_CGImageFormat, dFormat *VImage_CGImageFormat, bg *float64, flags uint32, err *int) VImageConverterRef {
 	result, callErr := tryVImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef, sFormat, dFormat, bg, flags, err)
 	if callErr != nil {
 		panic(callErr)
@@ -24028,12 +24028,12 @@ func VImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef core
 	return result
 }
 
-var _vImageConverter_CreateWithCGImageFormat func(srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
+var _vImageConverter_CreateWithCGImageFormat func(srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) VImageConverterRef
 var _vImageConverter_CreateWithCGImageFormatErr error
 
-func tryVImageConverter_CreateWithCGImageFormat(srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) (unsafe.Pointer, error) {
+func tryVImageConverter_CreateWithCGImageFormat(srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) (VImageConverterRef, error) {
 	if _vImageConverter_CreateWithCGImageFormat == nil {
-		return nil, symbolCallError("vImageConverter_CreateWithCGImageFormat", "10.9", _vImageConverter_CreateWithCGImageFormatErr)
+		return *new(VImageConverterRef), symbolCallError("vImageConverter_CreateWithCGImageFormat", "10.9", _vImageConverter_CreateWithCGImageFormatErr)
 	}
 	return _vImageConverter_CreateWithCGImageFormat(srcFormat, destFormat, backgroundColor, flags, err), nil
 }
@@ -24041,7 +24041,7 @@ func tryVImageConverter_CreateWithCGImageFormat(srcFormat *VImage_CGImageFormat,
 // VImageConverter_CreateWithCGImageFormat creates a vImage converter that converts from one vImage Core Graphics image format to another.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateWithCGImageFormat(_:_:_:_:_:)
-func VImageConverter_CreateWithCGImageFormat(srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
+func VImageConverter_CreateWithCGImageFormat(srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) VImageConverterRef {
 	result, callErr := tryVImageConverter_CreateWithCGImageFormat(srcFormat, destFormat, backgroundColor, flags, err)
 	if callErr != nil {
 		panic(callErr)
@@ -24049,12 +24049,12 @@ func VImageConverter_CreateWithCGImageFormat(srcFormat *VImage_CGImageFormat, de
 	return result
 }
 
-var _vImageConverter_CreateWithColorSyncCodeFragment func(codeFragment corefoundation.CFTypeRef, srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
+var _vImageConverter_CreateWithColorSyncCodeFragment func(codeFragment corefoundation.CFTypeRef, srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) VImageConverterRef
 var _vImageConverter_CreateWithColorSyncCodeFragmentErr error
 
-func tryVImageConverter_CreateWithColorSyncCodeFragment(codeFragment corefoundation.CFTypeRef, srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) (unsafe.Pointer, error) {
+func tryVImageConverter_CreateWithColorSyncCodeFragment(codeFragment corefoundation.CFTypeRef, srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) (VImageConverterRef, error) {
 	if _vImageConverter_CreateWithColorSyncCodeFragment == nil {
-		return nil, symbolCallError("vImageConverter_CreateWithColorSyncCodeFragment", "10.9", _vImageConverter_CreateWithColorSyncCodeFragmentErr)
+		return *new(VImageConverterRef), symbolCallError("vImageConverter_CreateWithColorSyncCodeFragment", "10.9", _vImageConverter_CreateWithColorSyncCodeFragmentErr)
 	}
 	return _vImageConverter_CreateWithColorSyncCodeFragment(codeFragment, srcFormat, destFormat, backgroundColor, flags, err), nil
 }
@@ -24062,7 +24062,7 @@ func tryVImageConverter_CreateWithColorSyncCodeFragment(codeFragment corefoundat
 // VImageConverter_CreateWithColorSyncCodeFragment creates a vImage converter to convert from one vImage Core Graphics image format to another, using custom ColorSync transform.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateWithColorSyncCodeFragment(_:_:_:_:_:_:)
-func VImageConverter_CreateWithColorSyncCodeFragment(codeFragment corefoundation.CFTypeRef, srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
+func VImageConverter_CreateWithColorSyncCodeFragment(codeFragment corefoundation.CFTypeRef, srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) VImageConverterRef {
 	result, callErr := tryVImageConverter_CreateWithColorSyncCodeFragment(codeFragment, srcFormat, destFormat, backgroundColor, flags, err)
 	if callErr != nil {
 		panic(callErr)
@@ -24070,10 +24070,10 @@ func VImageConverter_CreateWithColorSyncCodeFragment(codeFragment corefoundation
 	return result
 }
 
-var _vImageConverter_GetDestinationBufferOrder func(converter unsafe.Pointer) *VImageBufferTypeCode
+var _vImageConverter_GetDestinationBufferOrder func(converter VImageConverterRef) *VImageBufferTypeCode
 var _vImageConverter_GetDestinationBufferOrderErr error
 
-func tryVImageConverter_GetDestinationBufferOrder(converter unsafe.Pointer) (*VImageBufferTypeCode, error) {
+func tryVImageConverter_GetDestinationBufferOrder(converter VImageConverterRef) (*VImageBufferTypeCode, error) {
 	if _vImageConverter_GetDestinationBufferOrder == nil {
 		return nil, symbolCallError("vImageConverter_GetDestinationBufferOrder", "10.10", _vImageConverter_GetDestinationBufferOrderErr)
 	}
@@ -24083,7 +24083,7 @@ func tryVImageConverter_GetDestinationBufferOrder(converter unsafe.Pointer) (*VI
 // VImageConverter_GetDestinationBufferOrder returns a list of vImage destination buffer channel names, specifying the order of planes.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_GetDestinationBufferOrder(_:)
-func VImageConverter_GetDestinationBufferOrder(converter unsafe.Pointer) *VImageBufferTypeCode {
+func VImageConverter_GetDestinationBufferOrder(converter VImageConverterRef) *VImageBufferTypeCode {
 	result, callErr := tryVImageConverter_GetDestinationBufferOrder(converter)
 	if callErr != nil {
 		panic(callErr)
@@ -24091,10 +24091,10 @@ func VImageConverter_GetDestinationBufferOrder(converter unsafe.Pointer) *VImage
 	return result
 }
 
-var _vImageConverter_GetNumberOfDestinationBuffers func(converter unsafe.Pointer) uint
+var _vImageConverter_GetNumberOfDestinationBuffers func(converter VImageConverterRef) uint
 var _vImageConverter_GetNumberOfDestinationBuffersErr error
 
-func tryVImageConverter_GetNumberOfDestinationBuffers(converter unsafe.Pointer) (uint, error) {
+func tryVImageConverter_GetNumberOfDestinationBuffers(converter VImageConverterRef) (uint, error) {
 	if _vImageConverter_GetNumberOfDestinationBuffers == nil {
 		return 0, symbolCallError("vImageConverter_GetNumberOfDestinationBuffers", "10.10", _vImageConverter_GetNumberOfDestinationBuffersErr)
 	}
@@ -24104,7 +24104,7 @@ func tryVImageConverter_GetNumberOfDestinationBuffers(converter unsafe.Pointer) 
 // VImageConverter_GetNumberOfDestinationBuffers returns the number of destination buffers written to by the converter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_GetNumberOfDestinationBuffers(_:)
-func VImageConverter_GetNumberOfDestinationBuffers(converter unsafe.Pointer) uint {
+func VImageConverter_GetNumberOfDestinationBuffers(converter VImageConverterRef) uint {
 	result, callErr := tryVImageConverter_GetNumberOfDestinationBuffers(converter)
 	if callErr != nil {
 		panic(callErr)
@@ -24112,10 +24112,10 @@ func VImageConverter_GetNumberOfDestinationBuffers(converter unsafe.Pointer) uin
 	return result
 }
 
-var _vImageConverter_GetNumberOfSourceBuffers func(converter unsafe.Pointer) uint
+var _vImageConverter_GetNumberOfSourceBuffers func(converter VImageConverterRef) uint
 var _vImageConverter_GetNumberOfSourceBuffersErr error
 
-func tryVImageConverter_GetNumberOfSourceBuffers(converter unsafe.Pointer) (uint, error) {
+func tryVImageConverter_GetNumberOfSourceBuffers(converter VImageConverterRef) (uint, error) {
 	if _vImageConverter_GetNumberOfSourceBuffers == nil {
 		return 0, symbolCallError("vImageConverter_GetNumberOfSourceBuffers", "10.10", _vImageConverter_GetNumberOfSourceBuffersErr)
 	}
@@ -24125,7 +24125,7 @@ func tryVImageConverter_GetNumberOfSourceBuffers(converter unsafe.Pointer) (uint
 // VImageConverter_GetNumberOfSourceBuffers returns the number of source buffers consumed by the converter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_GetNumberOfSourceBuffers(_:)
-func VImageConverter_GetNumberOfSourceBuffers(converter unsafe.Pointer) uint {
+func VImageConverter_GetNumberOfSourceBuffers(converter VImageConverterRef) uint {
 	result, callErr := tryVImageConverter_GetNumberOfSourceBuffers(converter)
 	if callErr != nil {
 		panic(callErr)
@@ -24133,10 +24133,10 @@ func VImageConverter_GetNumberOfSourceBuffers(converter unsafe.Pointer) uint {
 	return result
 }
 
-var _vImageConverter_GetSourceBufferOrder func(converter unsafe.Pointer) *VImageBufferTypeCode
+var _vImageConverter_GetSourceBufferOrder func(converter VImageConverterRef) *VImageBufferTypeCode
 var _vImageConverter_GetSourceBufferOrderErr error
 
-func tryVImageConverter_GetSourceBufferOrder(converter unsafe.Pointer) (*VImageBufferTypeCode, error) {
+func tryVImageConverter_GetSourceBufferOrder(converter VImageConverterRef) (*VImageBufferTypeCode, error) {
 	if _vImageConverter_GetSourceBufferOrder == nil {
 		return nil, symbolCallError("vImageConverter_GetSourceBufferOrder", "10.10", _vImageConverter_GetSourceBufferOrderErr)
 	}
@@ -24146,7 +24146,7 @@ func tryVImageConverter_GetSourceBufferOrder(converter unsafe.Pointer) (*VImageB
 // VImageConverter_GetSourceBufferOrder returns a list of vImage source buffer channel names, specifying the order of planes.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_GetSourceBufferOrder(_:)
-func VImageConverter_GetSourceBufferOrder(converter unsafe.Pointer) *VImageBufferTypeCode {
+func VImageConverter_GetSourceBufferOrder(converter VImageConverterRef) *VImageBufferTypeCode {
 	result, callErr := tryVImageConverter_GetSourceBufferOrder(converter)
 	if callErr != nil {
 		panic(callErr)
@@ -24154,10 +24154,10 @@ func VImageConverter_GetSourceBufferOrder(converter unsafe.Pointer) *VImageBuffe
 	return result
 }
 
-var _vImageConverter_MustOperateOutOfPlace func(converter unsafe.Pointer, srcs *VImage_Buffer, dests *VImage_Buffer, flags uint32) int
+var _vImageConverter_MustOperateOutOfPlace func(converter VImageConverterRef, srcs *VImage_Buffer, dests *VImage_Buffer, flags uint32) int
 var _vImageConverter_MustOperateOutOfPlaceErr error
 
-func tryVImageConverter_MustOperateOutOfPlace(converter unsafe.Pointer, srcs *VImage_Buffer, dests *VImage_Buffer, flags uint32) (int, error) {
+func tryVImageConverter_MustOperateOutOfPlace(converter VImageConverterRef, srcs *VImage_Buffer, dests *VImage_Buffer, flags uint32) (int, error) {
 	if _vImageConverter_MustOperateOutOfPlace == nil {
 		return 0, symbolCallError("vImageConverter_MustOperateOutOfPlace", "10.9", _vImageConverter_MustOperateOutOfPlaceErr)
 	}
@@ -24167,7 +24167,7 @@ func tryVImageConverter_MustOperateOutOfPlace(converter unsafe.Pointer, srcs *VI
 // VImageConverter_MustOperateOutOfPlace determines whether a converter is capable of operating in place.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_MustOperateOutOfPlace(_:_:_:_:)
-func VImageConverter_MustOperateOutOfPlace(converter unsafe.Pointer, srcs *VImage_Buffer, dests *VImage_Buffer, flags uint32) int {
+func VImageConverter_MustOperateOutOfPlace(converter VImageConverterRef, srcs *VImage_Buffer, dests *VImage_Buffer, flags uint32) int {
 	result, callErr := tryVImageConverter_MustOperateOutOfPlace(converter, srcs, dests, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -24175,10 +24175,10 @@ func VImageConverter_MustOperateOutOfPlace(converter unsafe.Pointer, srcs *VImag
 	return result
 }
 
-var _vImageConverter_Release func(converter unsafe.Pointer)
+var _vImageConverter_Release func(converter VImageConverterRef)
 var _vImageConverter_ReleaseErr error
 
-func tryVImageConverter_Release(converter unsafe.Pointer) error {
+func tryVImageConverter_Release(converter VImageConverterRef) error {
 	if _vImageConverter_Release == nil {
 		return symbolCallError("vImageConverter_Release", "10.9", _vImageConverter_ReleaseErr)
 	}
@@ -24189,16 +24189,16 @@ func tryVImageConverter_Release(converter unsafe.Pointer) error {
 // VImageConverter_Release releases a vImage converter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_Release
-func VImageConverter_Release(converter unsafe.Pointer) {
+func VImageConverter_Release(converter VImageConverterRef) {
 	if callErr := tryVImageConverter_Release(converter); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vImageConverter_Retain func(converter unsafe.Pointer)
+var _vImageConverter_Retain func(converter VImageConverterRef)
 var _vImageConverter_RetainErr error
 
-func tryVImageConverter_Retain(converter unsafe.Pointer) error {
+func tryVImageConverter_Retain(converter VImageConverterRef) error {
 	if _vImageConverter_Retain == nil {
 		return symbolCallError("vImageConverter_Retain", "10.9", _vImageConverter_RetainErr)
 	}
@@ -24209,7 +24209,7 @@ func tryVImageConverter_Retain(converter unsafe.Pointer) error {
 // VImageConverter_Retain retains a vImage converter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_Retain
-func VImageConverter_Retain(converter unsafe.Pointer) {
+func VImageConverter_Retain(converter VImageConverterRef) {
 	if callErr := tryVImageConverter_Retain(converter); callErr != nil {
 		panic(callErr)
 	}
@@ -24257,10 +24257,10 @@ func VImageConvolveMultiKernel_ARGB8888(src *VImage_Buffer, dest *VImage_Buffer,
 	return result
 }
 
-var _vImageConvolveMultiKernel_ARGBFFFF func(src *VImage_Buffer, dest *VImage_Buffer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels uintptr, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) int
+var _vImageConvolveMultiKernel_ARGBFFFF func(src *VImage_Buffer, dest *VImage_Buffer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels unsafe.Pointer, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) int
 var _vImageConvolveMultiKernel_ARGBFFFFErr error
 
-func tryVImageConvolveMultiKernel_ARGBFFFF(src *VImage_Buffer, dest *VImage_Buffer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels uintptr, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) (int, error) {
+func tryVImageConvolveMultiKernel_ARGBFFFF(src *VImage_Buffer, dest *VImage_Buffer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels unsafe.Pointer, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) (int, error) {
 	if _vImageConvolveMultiKernel_ARGBFFFF == nil {
 		return 0, symbolCallError("vImageConvolveMultiKernel_ARGBFFFF", "10.4", _vImageConvolveMultiKernel_ARGBFFFFErr)
 	}
@@ -24270,7 +24270,7 @@ func tryVImageConvolveMultiKernel_ARGBFFFF(src *VImage_Buffer, dest *VImage_Buff
 // VImageConvolveMultiKernel_ARGBFFFF convolves each channel of a floating-point 32-bit-per-channel, 4-channel interleaved image by one of the four 2D kernels.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConvolveMultiKernel_ARGBFFFF(_:_:_:_:_:_:_:_:_:_:_:)
-func VImageConvolveMultiKernel_ARGBFFFF(src *VImage_Buffer, dest *VImage_Buffer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels uintptr, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) int {
+func VImageConvolveMultiKernel_ARGBFFFF(src *VImage_Buffer, dest *VImage_Buffer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels unsafe.Pointer, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) int {
 	result, callErr := tryVImageConvolveMultiKernel_ARGBFFFF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernels, kernel_height, kernel_width, biases, backgroundColor, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -24556,7 +24556,7 @@ var _vImageCreateCGImageFromBufferErr error
 
 func tryVImageCreateCGImageFromBuffer(buf *VImage_Buffer, format *VImage_CGImageFormat, userData unsafe.Pointer, flags uint32, err *int) (coregraphics.CGImageRef, error) {
 	if _vImageCreateCGImageFromBuffer == nil {
-		return 0, symbolCallError("vImageCreateCGImageFromBuffer", "10.9", _vImageCreateCGImageFromBufferErr)
+		return *new(coregraphics.CGImageRef), symbolCallError("vImageCreateCGImageFromBuffer", "10.9", _vImageCreateCGImageFromBufferErr)
 	}
 	return _vImageCreateCGImageFromBuffer(buf, format, userData, flags, err), nil
 }
@@ -24598,7 +24598,7 @@ var _vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunctionErr error
 
 func tryVImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunction(whitePoint *VImageWhitePoint, tf *VImageTransferFunction, intent coregraphics.CGColorRenderingIntent, flags uint32, err *int) (coregraphics.CGColorSpaceRef, error) {
 	if _vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunction == nil {
-		return 0, symbolCallError("vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunction", "10.10", _vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunctionErr)
+		return *new(coregraphics.CGColorSpaceRef), symbolCallError("vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunction", "10.10", _vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunctionErr)
 	}
 	return _vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunction(whitePoint, tf, intent, flags, err), nil
 }
@@ -24619,7 +24619,7 @@ var _vImageCreateRGBColorSpaceWithPrimariesAndTransferFunctionErr error
 
 func tryVImageCreateRGBColorSpaceWithPrimariesAndTransferFunction(primaries *VImageRGBPrimaries, tf *VImageTransferFunction, intent coregraphics.CGColorRenderingIntent, flags uint32, err *int) (coregraphics.CGColorSpaceRef, error) {
 	if _vImageCreateRGBColorSpaceWithPrimariesAndTransferFunction == nil {
-		return 0, symbolCallError("vImageCreateRGBColorSpaceWithPrimariesAndTransferFunction", "10.10", _vImageCreateRGBColorSpaceWithPrimariesAndTransferFunctionErr)
+		return *new(coregraphics.CGColorSpaceRef), symbolCallError("vImageCreateRGBColorSpaceWithPrimariesAndTransferFunction", "10.10", _vImageCreateRGBColorSpaceWithPrimariesAndTransferFunctionErr)
 	}
 	return _vImageCreateRGBColorSpaceWithPrimariesAndTransferFunction(primaries, tf, intent, flags, err), nil
 }
@@ -30618,10 +30618,10 @@ func VImageVerticalShear_XRGB2101010W(src *VImage_Buffer, dest *VImage_Buffer, s
 	return result
 }
 
-var _vL1024Rotate func(a uintptr, rotateAmount uint32, result uintptr)
+var _vL1024Rotate func(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer)
 var _vL1024RotateErr error
 
-func tryVL1024Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
+func tryVL1024Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) error {
 	if _vL1024Rotate == nil {
 		return symbolCallError("vL1024Rotate", "10.0", _vL1024RotateErr)
 	}
@@ -30632,7 +30632,7 @@ func tryVL1024Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
 // VL1024Rotate 1024-bit left rotate.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vL1024Rotate(_:_:_:)
-func VL1024Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+func VL1024Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVL1024Rotate(a, rotateAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -30659,10 +30659,10 @@ func VL128Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vL256Rotate func(a uintptr, rotateAmount uint32, result uintptr)
+var _vL256Rotate func(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer)
 var _vL256RotateErr error
 
-func tryVL256Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
+func tryVL256Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) error {
 	if _vL256Rotate == nil {
 		return symbolCallError("vL256Rotate", "10.0", _vL256RotateErr)
 	}
@@ -30673,16 +30673,16 @@ func tryVL256Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
 // VL256Rotate 256-bit left rotate.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vL256Rotate(_:_:_:)
-func VL256Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+func VL256Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVL256Rotate(a, rotateAmount, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vL512Rotate func(a uintptr, rotateAmount uint32, result uintptr)
+var _vL512Rotate func(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer)
 var _vL512RotateErr error
 
-func tryVL512Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
+func tryVL512Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) error {
 	if _vL512Rotate == nil {
 		return symbolCallError("vL512Rotate", "10.0", _vL512RotateErr)
 	}
@@ -30693,7 +30693,7 @@ func tryVL512Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
 // VL512Rotate 512-bit left rotate.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vL512Rotate(_:_:_:)
-func VL512Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+func VL512Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVL512Rotate(a, rotateAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -30741,10 +30741,10 @@ func VL64Rotate2(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vLL1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vLL1024Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vLL1024ShiftErr error
 
-func tryVLL1024Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVLL1024Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vLL1024Shift == nil {
 		return symbolCallError("vLL1024Shift", "10.0", _vLL1024ShiftErr)
 	}
@@ -30755,7 +30755,7 @@ func tryVLL1024Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VLL1024Shift 1024-bit logical left shift.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vLL1024Shift(_:_:_:)
-func VLL1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VLL1024Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVLL1024Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -30782,10 +30782,10 @@ func VLL128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vLL256Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vLL256Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vLL256ShiftErr error
 
-func tryVLL256Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVLL256Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vLL256Shift == nil {
 		return symbolCallError("vLL256Shift", "10.0", _vLL256ShiftErr)
 	}
@@ -30796,16 +30796,16 @@ func tryVLL256Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VLL256Shift 256-bit logical left shift.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vLL256Shift(_:_:_:)
-func VLL256Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VLL256Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVLL256Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vLL512Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vLL512Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vLL512ShiftErr error
 
-func tryVLL512Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVLL512Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vLL512Shift == nil {
 		return symbolCallError("vLL512Shift", "10.0", _vLL512ShiftErr)
 	}
@@ -30816,7 +30816,7 @@ func tryVLL512Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VLL512Shift 512-bit logical left shift.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vLL512Shift(_:_:_:)
-func VLL512Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VLL512Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVLL512Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -30843,10 +30843,10 @@ func VLL64Shift2(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vLR1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vLR1024Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vLR1024ShiftErr error
 
-func tryVLR1024Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVLR1024Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vLR1024Shift == nil {
 		return symbolCallError("vLR1024Shift", "10.0", _vLR1024ShiftErr)
 	}
@@ -30857,7 +30857,7 @@ func tryVLR1024Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VLR1024Shift 1024-bit logical right shift .
 //
 // See: https://developer.apple.com/documentation/Accelerate/vLR1024Shift(_:_:_:)
-func VLR1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VLR1024Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVLR1024Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -30884,10 +30884,10 @@ func VLR128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vLR256Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vLR256Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vLR256ShiftErr error
 
-func tryVLR256Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVLR256Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vLR256Shift == nil {
 		return symbolCallError("vLR256Shift", "10.0", _vLR256ShiftErr)
 	}
@@ -30898,16 +30898,16 @@ func tryVLR256Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VLR256Shift 256-bit logical right shift.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vLR256Shift(_:_:_:)
-func VLR256Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VLR256Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVLR256Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vLR512Shift func(a uintptr, shiftAmount uint32, result uintptr)
+var _vLR512Shift func(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer)
 var _vLR512ShiftErr error
 
-func tryVLR512Shift(a uintptr, shiftAmount uint32, result uintptr) error {
+func tryVLR512Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) error {
 	if _vLR512Shift == nil {
 		return symbolCallError("vLR512Shift", "10.0", _vLR512ShiftErr)
 	}
@@ -30918,7 +30918,7 @@ func tryVLR512Shift(a uintptr, shiftAmount uint32, result uintptr) error {
 // VLR512Shift 512-bit logical right shift .
 //
 // See: https://developer.apple.com/documentation/Accelerate/vLR512Shift(_:_:_:)
-func VLR512Shift(a uintptr, shiftAmount uint32, result uintptr) {
+func VLR512Shift(a unsafe.Pointer, shiftAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVLR512Shift(a, shiftAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -30945,10 +30945,10 @@ func VLR64Shift2(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vR1024Rotate func(a uintptr, rotateAmount uint32, result uintptr)
+var _vR1024Rotate func(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer)
 var _vR1024RotateErr error
 
-func tryVR1024Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
+func tryVR1024Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) error {
 	if _vR1024Rotate == nil {
 		return symbolCallError("vR1024Rotate", "10.0", _vR1024RotateErr)
 	}
@@ -30959,7 +30959,7 @@ func tryVR1024Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
 // VR1024Rotate 1024-bit right rotate.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vR1024Rotate(_:_:_:)
-func VR1024Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+func VR1024Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVR1024Rotate(a, rotateAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -30986,10 +30986,10 @@ func VR128Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vR256Rotate func(a uintptr, rotateAmount uint32, result uintptr)
+var _vR256Rotate func(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer)
 var _vR256RotateErr error
 
-func tryVR256Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
+func tryVR256Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) error {
 	if _vR256Rotate == nil {
 		return symbolCallError("vR256Rotate", "10.0", _vR256RotateErr)
 	}
@@ -31000,16 +31000,16 @@ func tryVR256Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
 // VR256Rotate 256-bit right rotate.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vR256Rotate(_:_:_:)
-func VR256Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+func VR256Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVR256Rotate(a, rotateAmount, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vR512Rotate func(a uintptr, rotateAmount uint32, result uintptr)
+var _vR512Rotate func(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer)
 var _vR512RotateErr error
 
-func tryVR512Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
+func tryVR512Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) error {
 	if _vR512Rotate == nil {
 		return symbolCallError("vR512Rotate", "10.0", _vR512RotateErr)
 	}
@@ -31020,7 +31020,7 @@ func tryVR512Rotate(a uintptr, rotateAmount uint32, result uintptr) error {
 // VR512Rotate 512-bit right rotate.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vR512Rotate(_:_:_:)
-func VR512Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+func VR512Rotate(a unsafe.Pointer, rotateAmount uint32, result unsafe.Pointer) {
 	if callErr := tryVR512Rotate(a, rotateAmount, result); callErr != nil {
 		panic(callErr)
 	}
@@ -31068,10 +31068,10 @@ func VR64Rotate2(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	return result
 }
 
-var _vS1024Add func(a uintptr, b uintptr, result uintptr)
+var _vS1024Add func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS1024AddErr error
 
-func tryVS1024Add(a uintptr, b uintptr, result uintptr) error {
+func tryVS1024Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS1024Add == nil {
 		return symbolCallError("vS1024Add", "10.0", _vS1024AddErr)
 	}
@@ -31082,16 +31082,16 @@ func tryVS1024Add(a uintptr, b uintptr, result uintptr) error {
 // VS1024Add signed 1024-bit addition (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS1024Add(_:_:_:)
-func VS1024Add(a uintptr, b uintptr, result uintptr) {
+func VS1024Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS1024Add(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS1024AddS func(a uintptr, b uintptr, result uintptr)
+var _vS1024AddS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS1024AddSErr error
 
-func tryVS1024AddS(a uintptr, b uintptr, result uintptr) error {
+func tryVS1024AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS1024AddS == nil {
 		return symbolCallError("vS1024AddS", "10.0", _vS1024AddSErr)
 	}
@@ -31102,16 +31102,16 @@ func tryVS1024AddS(a uintptr, b uintptr, result uintptr) error {
 // VS1024AddS signed 1024-bit addition with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS1024AddS(_:_:_:)
-func VS1024AddS(a uintptr, b uintptr, result uintptr) {
+func VS1024AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS1024AddS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS1024Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
+var _vS1024Divide func(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer)
 var _vS1024DivideErr error
 
-func tryVS1024Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) error {
+func tryVS1024Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vS1024Divide == nil {
 		return symbolCallError("vS1024Divide", "10.0", _vS1024DivideErr)
 	}
@@ -31122,16 +31122,16 @@ func tryVS1024Divide(numerator uintptr, divisor uintptr, result uintptr, remaind
 // VS1024Divide signed 1024-bit division.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS1024Divide(_:_:_:_:)
-func VS1024Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+func VS1024Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVS1024Divide(numerator, divisor, result, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS1024HalfMultiply func(a uintptr, b uintptr, result uintptr)
+var _vS1024HalfMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS1024HalfMultiplyErr error
 
-func tryVS1024HalfMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVS1024HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS1024HalfMultiply == nil {
 		return symbolCallError("vS1024HalfMultiply", "10.0", _vS1024HalfMultiplyErr)
 	}
@@ -31142,16 +31142,16 @@ func tryVS1024HalfMultiply(a uintptr, b uintptr, result uintptr) error {
 // VS1024HalfMultiply signed 1024-bit multiplication; result is the same width as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS1024HalfMultiply(_:_:_:)
-func VS1024HalfMultiply(a uintptr, b uintptr, result uintptr) {
+func VS1024HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS1024HalfMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS1024Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
+var _vS1024Mod func(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer)
 var _vS1024ModErr error
 
-func tryVS1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
+func tryVS1024Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vS1024Mod == nil {
 		return symbolCallError("vS1024Mod", "10.0", _vS1024ModErr)
 	}
@@ -31162,16 +31162,16 @@ func tryVS1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
 // VS1024Mod signed 256-bit Mod.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS1024Mod(_:_:_:)
-func VS1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+func VS1024Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVS1024Mod(numerator, divisor, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS1024Neg func(a uintptr, result uintptr)
+var _vS1024Neg func(a unsafe.Pointer, result unsafe.Pointer)
 var _vS1024NegErr error
 
-func tryVS1024Neg(a uintptr, result uintptr) error {
+func tryVS1024Neg(a unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS1024Neg == nil {
 		return symbolCallError("vS1024Neg", "10.0", _vS1024NegErr)
 	}
@@ -31182,16 +31182,16 @@ func tryVS1024Neg(a uintptr, result uintptr) error {
 // VS1024Neg signed 1024-bit negation.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS1024Neg(_:_:)
-func VS1024Neg(a uintptr, result uintptr) {
+func VS1024Neg(a unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS1024Neg(a, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS1024Sub func(a uintptr, b uintptr, result uintptr)
+var _vS1024Sub func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS1024SubErr error
 
-func tryVS1024Sub(a uintptr, b uintptr, result uintptr) error {
+func tryVS1024Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS1024Sub == nil {
 		return symbolCallError("vS1024Sub", "10.0", _vS1024SubErr)
 	}
@@ -31202,16 +31202,16 @@ func tryVS1024Sub(a uintptr, b uintptr, result uintptr) error {
 // VS1024Sub signed 1024-bit subtraction (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS1024Sub(_:_:_:)
-func VS1024Sub(a uintptr, b uintptr, result uintptr) {
+func VS1024Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS1024Sub(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS1024SubS func(a uintptr, b uintptr, result uintptr)
+var _vS1024SubS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS1024SubSErr error
 
-func tryVS1024SubS(a uintptr, b uintptr, result uintptr) error {
+func tryVS1024SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS1024SubS == nil {
 		return symbolCallError("vS1024SubS", "10.0", _vS1024SubSErr)
 	}
@@ -31222,7 +31222,7 @@ func tryVS1024SubS(a uintptr, b uintptr, result uintptr) error {
 // VS1024SubS signed 1024-bit subtraction with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS1024SubS(_:_:_:)
-func VS1024SubS(a uintptr, b uintptr, result uintptr) {
+func VS1024SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS1024SubS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
@@ -31291,10 +31291,10 @@ func VS128Divide(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32 {
 	return result
 }
 
-var _vS128FullMultiply func(a uintptr, b uintptr, result uintptr)
+var _vS128FullMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS128FullMultiplyErr error
 
-func tryVS128FullMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVS128FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS128FullMultiply == nil {
 		return symbolCallError("vS128FullMultiply", "10.0", _vS128FullMultiplyErr)
 	}
@@ -31305,7 +31305,7 @@ func tryVS128FullMultiply(a uintptr, b uintptr, result uintptr) error {
 // VS128FullMultiply signed 128-bit multiplication; result is twice as wide as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS128FullMultiply(_:_:_:)
-func VS128FullMultiply(a uintptr, b uintptr, result uintptr) {
+func VS128FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS128FullMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
@@ -31416,10 +31416,10 @@ func VS16Divide(vN VSInt16, vD VSInt16, vRemainder *VSInt16) VSInt16 {
 	return result
 }
 
-var _vS256Add func(a uintptr, b uintptr, result uintptr)
+var _vS256Add func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS256AddErr error
 
-func tryVS256Add(a uintptr, b uintptr, result uintptr) error {
+func tryVS256Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS256Add == nil {
 		return symbolCallError("vS256Add", "10.0", _vS256AddErr)
 	}
@@ -31430,16 +31430,16 @@ func tryVS256Add(a uintptr, b uintptr, result uintptr) error {
 // VS256Add signed 256-bit addition (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256Add(_:_:_:)
-func VS256Add(a uintptr, b uintptr, result uintptr) {
+func VS256Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS256Add(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS256AddS func(a uintptr, b uintptr, result uintptr)
+var _vS256AddS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS256AddSErr error
 
-func tryVS256AddS(a uintptr, b uintptr, result uintptr) error {
+func tryVS256AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS256AddS == nil {
 		return symbolCallError("vS256AddS", "10.0", _vS256AddSErr)
 	}
@@ -31450,16 +31450,16 @@ func tryVS256AddS(a uintptr, b uintptr, result uintptr) error {
 // VS256AddS signed 256-bit addition with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256AddS(_:_:_:)
-func VS256AddS(a uintptr, b uintptr, result uintptr) {
+func VS256AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS256AddS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS256Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
+var _vS256Divide func(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer)
 var _vS256DivideErr error
 
-func tryVS256Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) error {
+func tryVS256Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vS256Divide == nil {
 		return symbolCallError("vS256Divide", "10.0", _vS256DivideErr)
 	}
@@ -31470,16 +31470,16 @@ func tryVS256Divide(numerator uintptr, divisor uintptr, result uintptr, remainde
 // VS256Divide computes the signed 256-bit division.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256Divide(_:_:_:_:)
-func VS256Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+func VS256Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVS256Divide(numerator, divisor, result, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS256FullMultiply func(a uintptr, b uintptr, result uintptr)
+var _vS256FullMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS256FullMultiplyErr error
 
-func tryVS256FullMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVS256FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS256FullMultiply == nil {
 		return symbolCallError("vS256FullMultiply", "10.0", _vS256FullMultiplyErr)
 	}
@@ -31490,16 +31490,16 @@ func tryVS256FullMultiply(a uintptr, b uintptr, result uintptr) error {
 // VS256FullMultiply signed 256-bit multiplication; result is twice as wide as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256FullMultiply(_:_:_:)
-func VS256FullMultiply(a uintptr, b uintptr, result uintptr) {
+func VS256FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS256FullMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS256HalfMultiply func(a uintptr, b uintptr, result uintptr)
+var _vS256HalfMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS256HalfMultiplyErr error
 
-func tryVS256HalfMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVS256HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS256HalfMultiply == nil {
 		return symbolCallError("vS256HalfMultiply", "10.0", _vS256HalfMultiplyErr)
 	}
@@ -31510,16 +31510,16 @@ func tryVS256HalfMultiply(a uintptr, b uintptr, result uintptr) error {
 // VS256HalfMultiply signed 256-bit multiplication; result is the same width as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256HalfMultiply(_:_:_:)
-func VS256HalfMultiply(a uintptr, b uintptr, result uintptr) {
+func VS256HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS256HalfMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS256Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
+var _vS256Mod func(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer)
 var _vS256ModErr error
 
-func tryVS256Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
+func tryVS256Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vS256Mod == nil {
 		return symbolCallError("vS256Mod", "10.0", _vS256ModErr)
 	}
@@ -31530,16 +31530,16 @@ func tryVS256Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
 // VS256Mod signed 256-bit mod.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256Mod(_:_:_:)
-func VS256Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+func VS256Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVS256Mod(numerator, divisor, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS256Neg func(a uintptr, result uintptr)
+var _vS256Neg func(a unsafe.Pointer, result unsafe.Pointer)
 var _vS256NegErr error
 
-func tryVS256Neg(a uintptr, result uintptr) error {
+func tryVS256Neg(a unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS256Neg == nil {
 		return symbolCallError("vS256Neg", "10.0", _vS256NegErr)
 	}
@@ -31550,16 +31550,16 @@ func tryVS256Neg(a uintptr, result uintptr) error {
 // VS256Neg signed 256-bit negation.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256Neg(_:_:)
-func VS256Neg(a uintptr, result uintptr) {
+func VS256Neg(a unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS256Neg(a, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS256Sub func(a uintptr, b uintptr, result uintptr)
+var _vS256Sub func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS256SubErr error
 
-func tryVS256Sub(a uintptr, b uintptr, result uintptr) error {
+func tryVS256Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS256Sub == nil {
 		return symbolCallError("vS256Sub", "10.0", _vS256SubErr)
 	}
@@ -31570,16 +31570,16 @@ func tryVS256Sub(a uintptr, b uintptr, result uintptr) error {
 // VS256Sub signed 256-bit subtraction (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256Sub(_:_:_:)
-func VS256Sub(a uintptr, b uintptr, result uintptr) {
+func VS256Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS256Sub(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS256SubS func(a uintptr, b uintptr, result uintptr)
+var _vS256SubS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS256SubSErr error
 
-func tryVS256SubS(a uintptr, b uintptr, result uintptr) error {
+func tryVS256SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS256SubS == nil {
 		return symbolCallError("vS256SubS", "10.0", _vS256SubSErr)
 	}
@@ -31590,7 +31590,7 @@ func tryVS256SubS(a uintptr, b uintptr, result uintptr) error {
 // VS256SubS signed 256-bit subtraction with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS256SubS(_:_:_:)
-func VS256SubS(a uintptr, b uintptr, result uintptr) {
+func VS256SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS256SubS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
@@ -31680,10 +31680,10 @@ func VS32HalfMultiply(vA VSInt32, vB VSInt32) VSInt32 {
 	return result
 }
 
-var _vS512Add func(a uintptr, b uintptr, result uintptr)
+var _vS512Add func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS512AddErr error
 
-func tryVS512Add(a uintptr, b uintptr, result uintptr) error {
+func tryVS512Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS512Add == nil {
 		return symbolCallError("vS512Add", "10.0", _vS512AddErr)
 	}
@@ -31694,16 +31694,16 @@ func tryVS512Add(a uintptr, b uintptr, result uintptr) error {
 // VS512Add signed 512-bit addition (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512Add(_:_:_:)
-func VS512Add(a uintptr, b uintptr, result uintptr) {
+func VS512Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS512Add(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS512AddS func(a uintptr, b uintptr, result uintptr)
+var _vS512AddS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS512AddSErr error
 
-func tryVS512AddS(a uintptr, b uintptr, result uintptr) error {
+func tryVS512AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS512AddS == nil {
 		return symbolCallError("vS512AddS", "10.0", _vS512AddSErr)
 	}
@@ -31714,16 +31714,16 @@ func tryVS512AddS(a uintptr, b uintptr, result uintptr) error {
 // VS512AddS signed 512-bit addition with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512AddS(_:_:_:)
-func VS512AddS(a uintptr, b uintptr, result uintptr) {
+func VS512AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS512AddS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS512Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
+var _vS512Divide func(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer)
 var _vS512DivideErr error
 
-func tryVS512Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) error {
+func tryVS512Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vS512Divide == nil {
 		return symbolCallError("vS512Divide", "10.0", _vS512DivideErr)
 	}
@@ -31734,16 +31734,16 @@ func tryVS512Divide(numerator uintptr, divisor uintptr, result uintptr, remainde
 // VS512Divide signed 512-bit division.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512Divide(_:_:_:_:)
-func VS512Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+func VS512Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVS512Divide(numerator, divisor, result, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS512FullMultiply func(a uintptr, b uintptr, result uintptr)
+var _vS512FullMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS512FullMultiplyErr error
 
-func tryVS512FullMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVS512FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS512FullMultiply == nil {
 		return symbolCallError("vS512FullMultiply", "10.0", _vS512FullMultiplyErr)
 	}
@@ -31754,16 +31754,16 @@ func tryVS512FullMultiply(a uintptr, b uintptr, result uintptr) error {
 // VS512FullMultiply signed 512-bit multiplication; result is twice as wide as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512FullMultiply(_:_:_:)
-func VS512FullMultiply(a uintptr, b uintptr, result uintptr) {
+func VS512FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS512FullMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS512HalfMultiply func(a uintptr, b uintptr, result uintptr)
+var _vS512HalfMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS512HalfMultiplyErr error
 
-func tryVS512HalfMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVS512HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS512HalfMultiply == nil {
 		return symbolCallError("vS512HalfMultiply", "10.0", _vS512HalfMultiplyErr)
 	}
@@ -31774,16 +31774,16 @@ func tryVS512HalfMultiply(a uintptr, b uintptr, result uintptr) error {
 // VS512HalfMultiply signed 512-bit multiplication; result is the same width as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512HalfMultiply(_:_:_:)
-func VS512HalfMultiply(a uintptr, b uintptr, result uintptr) {
+func VS512HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS512HalfMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS512Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
+var _vS512Mod func(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer)
 var _vS512ModErr error
 
-func tryVS512Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
+func tryVS512Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vS512Mod == nil {
 		return symbolCallError("vS512Mod", "10.0", _vS512ModErr)
 	}
@@ -31794,16 +31794,16 @@ func tryVS512Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
 // VS512Mod signed 512-bit mod.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512Mod(_:_:_:)
-func VS512Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+func VS512Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVS512Mod(numerator, divisor, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS512Neg func(a uintptr, result uintptr)
+var _vS512Neg func(a unsafe.Pointer, result unsafe.Pointer)
 var _vS512NegErr error
 
-func tryVS512Neg(a uintptr, result uintptr) error {
+func tryVS512Neg(a unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS512Neg == nil {
 		return symbolCallError("vS512Neg", "10.0", _vS512NegErr)
 	}
@@ -31814,16 +31814,16 @@ func tryVS512Neg(a uintptr, result uintptr) error {
 // VS512Neg signed 512-bit negation.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512Neg(_:_:)
-func VS512Neg(a uintptr, result uintptr) {
+func VS512Neg(a unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS512Neg(a, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS512Sub func(a uintptr, b uintptr, result uintptr)
+var _vS512Sub func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS512SubErr error
 
-func tryVS512Sub(a uintptr, b uintptr, result uintptr) error {
+func tryVS512Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS512Sub == nil {
 		return symbolCallError("vS512Sub", "10.0", _vS512SubErr)
 	}
@@ -31834,16 +31834,16 @@ func tryVS512Sub(a uintptr, b uintptr, result uintptr) error {
 // VS512Sub signed 512-bit subtraction (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512Sub(_:_:_:)
-func VS512Sub(a uintptr, b uintptr, result uintptr) {
+func VS512Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS512Sub(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vS512SubS func(a uintptr, b uintptr, result uintptr)
+var _vS512SubS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vS512SubSErr error
 
-func tryVS512SubS(a uintptr, b uintptr, result uintptr) error {
+func tryVS512SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vS512SubS == nil {
 		return symbolCallError("vS512SubS", "10.0", _vS512SubSErr)
 	}
@@ -31854,7 +31854,7 @@ func tryVS512SubS(a uintptr, b uintptr, result uintptr) error {
 // VS512SubS signed 512-bit subtraction with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vS512SubS(_:_:_:)
-func VS512SubS(a uintptr, b uintptr, result uintptr) {
+func VS512SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVS512SubS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
@@ -32049,10 +32049,10 @@ func VS8HalfMultiply(vA VSInt8, vB VSInt8) VSInt8 {
 	return result
 }
 
-var _vU1024Add func(a uintptr, b uintptr, result uintptr)
+var _vU1024Add func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU1024AddErr error
 
-func tryVU1024Add(a uintptr, b uintptr, result uintptr) error {
+func tryVU1024Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU1024Add == nil {
 		return symbolCallError("vU1024Add", "10.0", _vU1024AddErr)
 	}
@@ -32063,16 +32063,16 @@ func tryVU1024Add(a uintptr, b uintptr, result uintptr) error {
 // VU1024Add unsigned 1024-bit addition (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU1024Add(_:_:_:)
-func VU1024Add(a uintptr, b uintptr, result uintptr) {
+func VU1024Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU1024Add(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU1024AddS func(a uintptr, b uintptr, result uintptr)
+var _vU1024AddS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU1024AddSErr error
 
-func tryVU1024AddS(a uintptr, b uintptr, result uintptr) error {
+func tryVU1024AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU1024AddS == nil {
 		return symbolCallError("vU1024AddS", "10.0", _vU1024AddSErr)
 	}
@@ -32083,16 +32083,16 @@ func tryVU1024AddS(a uintptr, b uintptr, result uintptr) error {
 // VU1024AddS unsigned 1024-bit addition with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU1024AddS(_:_:_:)
-func VU1024AddS(a uintptr, b uintptr, result uintptr) {
+func VU1024AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU1024AddS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU1024Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
+var _vU1024Divide func(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer)
 var _vU1024DivideErr error
 
-func tryVU1024Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) error {
+func tryVU1024Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vU1024Divide == nil {
 		return symbolCallError("vU1024Divide", "10.0", _vU1024DivideErr)
 	}
@@ -32103,16 +32103,16 @@ func tryVU1024Divide(numerator uintptr, divisor uintptr, result uintptr, remaind
 // VU1024Divide unsigned 1024-bit division.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU1024Divide(_:_:_:_:)
-func VU1024Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+func VU1024Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVU1024Divide(numerator, divisor, result, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU1024HalfMultiply func(a uintptr, b uintptr, result uintptr)
+var _vU1024HalfMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU1024HalfMultiplyErr error
 
-func tryVU1024HalfMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVU1024HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU1024HalfMultiply == nil {
 		return symbolCallError("vU1024HalfMultiply", "10.0", _vU1024HalfMultiplyErr)
 	}
@@ -32123,16 +32123,16 @@ func tryVU1024HalfMultiply(a uintptr, b uintptr, result uintptr) error {
 // VU1024HalfMultiply unsigned 1024-bit multiplication; result is the same width as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU1024HalfMultiply(_:_:_:)
-func VU1024HalfMultiply(a uintptr, b uintptr, result uintptr) {
+func VU1024HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU1024HalfMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU1024Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
+var _vU1024Mod func(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer)
 var _vU1024ModErr error
 
-func tryVU1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
+func tryVU1024Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vU1024Mod == nil {
 		return symbolCallError("vU1024Mod", "10.0", _vU1024ModErr)
 	}
@@ -32143,16 +32143,16 @@ func tryVU1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
 // VU1024Mod unsigned 1024-bit mod.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU1024Mod(_:_:_:)
-func VU1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+func VU1024Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVU1024Mod(numerator, divisor, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU1024Neg func(a uintptr, result uintptr)
+var _vU1024Neg func(a unsafe.Pointer, result unsafe.Pointer)
 var _vU1024NegErr error
 
-func tryVU1024Neg(a uintptr, result uintptr) error {
+func tryVU1024Neg(a unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU1024Neg == nil {
 		return symbolCallError("vU1024Neg", "10.0", _vU1024NegErr)
 	}
@@ -32163,16 +32163,16 @@ func tryVU1024Neg(a uintptr, result uintptr) error {
 // VU1024Neg unsigned 1024-bit negation.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU1024Neg(_:_:)
-func VU1024Neg(a uintptr, result uintptr) {
+func VU1024Neg(a unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU1024Neg(a, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU1024Sub func(a uintptr, b uintptr, result uintptr)
+var _vU1024Sub func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU1024SubErr error
 
-func tryVU1024Sub(a uintptr, b uintptr, result uintptr) error {
+func tryVU1024Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU1024Sub == nil {
 		return symbolCallError("vU1024Sub", "10.0", _vU1024SubErr)
 	}
@@ -32183,16 +32183,16 @@ func tryVU1024Sub(a uintptr, b uintptr, result uintptr) error {
 // VU1024Sub unsigned 1024-bit subtraction (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU1024Sub(_:_:_:)
-func VU1024Sub(a uintptr, b uintptr, result uintptr) {
+func VU1024Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU1024Sub(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU1024SubS func(a uintptr, b uintptr, result uintptr)
+var _vU1024SubS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU1024SubSErr error
 
-func tryVU1024SubS(a uintptr, b uintptr, result uintptr) error {
+func tryVU1024SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU1024SubS == nil {
 		return symbolCallError("vU1024SubS", "10.0", _vU1024SubSErr)
 	}
@@ -32203,7 +32203,7 @@ func tryVU1024SubS(a uintptr, b uintptr, result uintptr) error {
 // VU1024SubS unsigned 1024-bit subtraction with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU1024SubS(_:_:_:)
-func VU1024SubS(a uintptr, b uintptr, result uintptr) {
+func VU1024SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU1024SubS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
@@ -32272,10 +32272,10 @@ func VU128Divide(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32 {
 	return result
 }
 
-var _vU128FullMultiply func(a uintptr, b uintptr, result uintptr)
+var _vU128FullMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU128FullMultiplyErr error
 
-func tryVU128FullMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVU128FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU128FullMultiply == nil {
 		return symbolCallError("vU128FullMultiply", "10.0", _vU128FullMultiplyErr)
 	}
@@ -32286,7 +32286,7 @@ func tryVU128FullMultiply(a uintptr, b uintptr, result uintptr) error {
 // VU128FullMultiply unsigned 128-bit multiplication; result is twice as wide as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU128FullMultiply(_:_:_:)
-func VU128FullMultiply(a uintptr, b uintptr, result uintptr) {
+func VU128FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU128FullMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
@@ -32397,10 +32397,10 @@ func VU16Divide(vN VUInt16, vD VUInt16, vRemainder *VUInt16) VUInt16 {
 	return result
 }
 
-var _vU256Add func(a uintptr, b uintptr, result uintptr)
+var _vU256Add func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU256AddErr error
 
-func tryVU256Add(a uintptr, b uintptr, result uintptr) error {
+func tryVU256Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU256Add == nil {
 		return symbolCallError("vU256Add", "10.0", _vU256AddErr)
 	}
@@ -32411,16 +32411,16 @@ func tryVU256Add(a uintptr, b uintptr, result uintptr) error {
 // VU256Add unsigned 256-bit addition (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256Add(_:_:_:)
-func VU256Add(a uintptr, b uintptr, result uintptr) {
+func VU256Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU256Add(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU256AddS func(a uintptr, b uintptr, result uintptr)
+var _vU256AddS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU256AddSErr error
 
-func tryVU256AddS(a uintptr, b uintptr, result uintptr) error {
+func tryVU256AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU256AddS == nil {
 		return symbolCallError("vU256AddS", "10.0", _vU256AddSErr)
 	}
@@ -32431,16 +32431,16 @@ func tryVU256AddS(a uintptr, b uintptr, result uintptr) error {
 // VU256AddS unsigned 256-bit addition with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256AddS(_:_:_:)
-func VU256AddS(a uintptr, b uintptr, result uintptr) {
+func VU256AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU256AddS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU256Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
+var _vU256Divide func(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer)
 var _vU256DivideErr error
 
-func tryVU256Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) error {
+func tryVU256Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vU256Divide == nil {
 		return symbolCallError("vU256Divide", "10.0", _vU256DivideErr)
 	}
@@ -32451,16 +32451,16 @@ func tryVU256Divide(numerator uintptr, divisor uintptr, result uintptr, remainde
 // VU256Divide unsigned 256-bit division.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256Divide(_:_:_:_:)
-func VU256Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+func VU256Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVU256Divide(numerator, divisor, result, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU256FullMultiply func(a uintptr, b uintptr, result uintptr)
+var _vU256FullMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU256FullMultiplyErr error
 
-func tryVU256FullMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVU256FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU256FullMultiply == nil {
 		return symbolCallError("vU256FullMultiply", "10.0", _vU256FullMultiplyErr)
 	}
@@ -32471,16 +32471,16 @@ func tryVU256FullMultiply(a uintptr, b uintptr, result uintptr) error {
 // VU256FullMultiply unsigned 256-bit multiplication; result is twice as wide as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256FullMultiply(_:_:_:)
-func VU256FullMultiply(a uintptr, b uintptr, result uintptr) {
+func VU256FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU256FullMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU256HalfMultiply func(a uintptr, b uintptr, result uintptr)
+var _vU256HalfMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU256HalfMultiplyErr error
 
-func tryVU256HalfMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVU256HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU256HalfMultiply == nil {
 		return symbolCallError("vU256HalfMultiply", "10.0", _vU256HalfMultiplyErr)
 	}
@@ -32491,16 +32491,16 @@ func tryVU256HalfMultiply(a uintptr, b uintptr, result uintptr) error {
 // VU256HalfMultiply unsigned 256-bit multiplication; result is the same width as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256HalfMultiply(_:_:_:)
-func VU256HalfMultiply(a uintptr, b uintptr, result uintptr) {
+func VU256HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU256HalfMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU256Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
+var _vU256Mod func(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer)
 var _vU256ModErr error
 
-func tryVU256Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
+func tryVU256Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vU256Mod == nil {
 		return symbolCallError("vU256Mod", "10.0", _vU256ModErr)
 	}
@@ -32511,16 +32511,16 @@ func tryVU256Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
 // VU256Mod unsigned 256-bit mod.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256Mod(_:_:_:)
-func VU256Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+func VU256Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVU256Mod(numerator, divisor, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU256Neg func(a uintptr, result uintptr)
+var _vU256Neg func(a unsafe.Pointer, result unsafe.Pointer)
 var _vU256NegErr error
 
-func tryVU256Neg(a uintptr, result uintptr) error {
+func tryVU256Neg(a unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU256Neg == nil {
 		return symbolCallError("vU256Neg", "10.0", _vU256NegErr)
 	}
@@ -32531,16 +32531,16 @@ func tryVU256Neg(a uintptr, result uintptr) error {
 // VU256Neg unsigned 256-bit negation.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256Neg(_:_:)
-func VU256Neg(a uintptr, result uintptr) {
+func VU256Neg(a unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU256Neg(a, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU256Sub func(a uintptr, b uintptr, result uintptr)
+var _vU256Sub func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU256SubErr error
 
-func tryVU256Sub(a uintptr, b uintptr, result uintptr) error {
+func tryVU256Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU256Sub == nil {
 		return symbolCallError("vU256Sub", "10.0", _vU256SubErr)
 	}
@@ -32551,16 +32551,16 @@ func tryVU256Sub(a uintptr, b uintptr, result uintptr) error {
 // VU256Sub unsigned 256-bit subtraction (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256Sub(_:_:_:)
-func VU256Sub(a uintptr, b uintptr, result uintptr) {
+func VU256Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU256Sub(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU256SubS func(a uintptr, b uintptr, result uintptr)
+var _vU256SubS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU256SubSErr error
 
-func tryVU256SubS(a uintptr, b uintptr, result uintptr) error {
+func tryVU256SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU256SubS == nil {
 		return symbolCallError("vU256SubS", "10.0", _vU256SubSErr)
 	}
@@ -32571,7 +32571,7 @@ func tryVU256SubS(a uintptr, b uintptr, result uintptr) error {
 // VU256SubS unsigned 256-bit subtraction with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU256SubS(_:_:_:)
-func VU256SubS(a uintptr, b uintptr, result uintptr) {
+func VU256SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU256SubS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
@@ -32619,10 +32619,10 @@ func VU32HalfMultiply(vA VUInt32, vB VUInt32) VUInt32 {
 	return result
 }
 
-var _vU512Add func(a uintptr, b uintptr, result uintptr)
+var _vU512Add func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU512AddErr error
 
-func tryVU512Add(a uintptr, b uintptr, result uintptr) error {
+func tryVU512Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU512Add == nil {
 		return symbolCallError("vU512Add", "10.0", _vU512AddErr)
 	}
@@ -32633,16 +32633,16 @@ func tryVU512Add(a uintptr, b uintptr, result uintptr) error {
 // VU512Add unsigned 512-bit addition (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512Add(_:_:_:)
-func VU512Add(a uintptr, b uintptr, result uintptr) {
+func VU512Add(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU512Add(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU512AddS func(a uintptr, b uintptr, result uintptr)
+var _vU512AddS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU512AddSErr error
 
-func tryVU512AddS(a uintptr, b uintptr, result uintptr) error {
+func tryVU512AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU512AddS == nil {
 		return symbolCallError("vU512AddS", "10.0", _vU512AddSErr)
 	}
@@ -32653,16 +32653,16 @@ func tryVU512AddS(a uintptr, b uintptr, result uintptr) error {
 // VU512AddS unsigned 512-bit addition with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512AddS(_:_:_:)
-func VU512AddS(a uintptr, b uintptr, result uintptr) {
+func VU512AddS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU512AddS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU512Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
+var _vU512Divide func(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer)
 var _vU512DivideErr error
 
-func tryVU512Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) error {
+func tryVU512Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vU512Divide == nil {
 		return symbolCallError("vU512Divide", "10.0", _vU512DivideErr)
 	}
@@ -32673,16 +32673,16 @@ func tryVU512Divide(numerator uintptr, divisor uintptr, result uintptr, remainde
 // VU512Divide computes the unsigned 512-bit division.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512Divide(_:_:_:_:)
-func VU512Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+func VU512Divide(numerator unsafe.Pointer, divisor unsafe.Pointer, result unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVU512Divide(numerator, divisor, result, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU512FullMultiply func(a uintptr, b uintptr, result uintptr)
+var _vU512FullMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU512FullMultiplyErr error
 
-func tryVU512FullMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVU512FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU512FullMultiply == nil {
 		return symbolCallError("vU512FullMultiply", "10.0", _vU512FullMultiplyErr)
 	}
@@ -32693,16 +32693,16 @@ func tryVU512FullMultiply(a uintptr, b uintptr, result uintptr) error {
 // VU512FullMultiply unsigned 512-bit multiplication; result is twice as wide as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512FullMultiply(_:_:_:)
-func VU512FullMultiply(a uintptr, b uintptr, result uintptr) {
+func VU512FullMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU512FullMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU512HalfMultiply func(a uintptr, b uintptr, result uintptr)
+var _vU512HalfMultiply func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU512HalfMultiplyErr error
 
-func tryVU512HalfMultiply(a uintptr, b uintptr, result uintptr) error {
+func tryVU512HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU512HalfMultiply == nil {
 		return symbolCallError("vU512HalfMultiply", "10.0", _vU512HalfMultiplyErr)
 	}
@@ -32713,16 +32713,16 @@ func tryVU512HalfMultiply(a uintptr, b uintptr, result uintptr) error {
 // VU512HalfMultiply unsigned 512-bit multiplication; result is the same width as multiplicands.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512HalfMultiply(_:_:_:)
-func VU512HalfMultiply(a uintptr, b uintptr, result uintptr) {
+func VU512HalfMultiply(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU512HalfMultiply(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU512Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
+var _vU512Mod func(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer)
 var _vU512ModErr error
 
-func tryVU512Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
+func tryVU512Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) error {
 	if _vU512Mod == nil {
 		return symbolCallError("vU512Mod", "10.0", _vU512ModErr)
 	}
@@ -32733,16 +32733,16 @@ func tryVU512Mod(numerator uintptr, divisor uintptr, remainder uintptr) error {
 // VU512Mod unsigned 512-bit mod.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512Mod(_:_:_:)
-func VU512Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+func VU512Mod(numerator unsafe.Pointer, divisor unsafe.Pointer, remainder unsafe.Pointer) {
 	if callErr := tryVU512Mod(numerator, divisor, remainder); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU512Neg func(a uintptr, result uintptr)
+var _vU512Neg func(a unsafe.Pointer, result unsafe.Pointer)
 var _vU512NegErr error
 
-func tryVU512Neg(a uintptr, result uintptr) error {
+func tryVU512Neg(a unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU512Neg == nil {
 		return symbolCallError("vU512Neg", "10.0", _vU512NegErr)
 	}
@@ -32753,16 +32753,16 @@ func tryVU512Neg(a uintptr, result uintptr) error {
 // VU512Neg unsigned 512-bit negation.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512Neg(_:_:)
-func VU512Neg(a uintptr, result uintptr) {
+func VU512Neg(a unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU512Neg(a, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU512Sub func(a uintptr, b uintptr, result uintptr)
+var _vU512Sub func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU512SubErr error
 
-func tryVU512Sub(a uintptr, b uintptr, result uintptr) error {
+func tryVU512Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU512Sub == nil {
 		return symbolCallError("vU512Sub", "10.0", _vU512SubErr)
 	}
@@ -32773,16 +32773,16 @@ func tryVU512Sub(a uintptr, b uintptr, result uintptr) error {
 // VU512Sub unsigned 512-bit subtraction (modular arithmetic).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512Sub(_:_:_:)
-func VU512Sub(a uintptr, b uintptr, result uintptr) {
+func VU512Sub(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU512Sub(a, b, result); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vU512SubS func(a uintptr, b uintptr, result uintptr)
+var _vU512SubS func(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer)
 var _vU512SubSErr error
 
-func tryVU512SubS(a uintptr, b uintptr, result uintptr) error {
+func tryVU512SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) error {
 	if _vU512SubS == nil {
 		return symbolCallError("vU512SubS", "10.0", _vU512SubSErr)
 	}
@@ -32793,7 +32793,7 @@ func tryVU512SubS(a uintptr, b uintptr, result uintptr) error {
 // VU512SubS unsigned 512-bit subtraction with saturation (clipping).
 //
 // See: https://developer.apple.com/documentation/Accelerate/vU512SubS(_:_:_:)
-func VU512SubS(a uintptr, b uintptr, result uintptr) {
+func VU512SubS(a unsafe.Pointer, b unsafe.Pointer, result unsafe.Pointer) {
 	if callErr := tryVU512SubS(a, b, result); callErr != nil {
 		panic(callErr)
 	}
@@ -34375,10 +34375,10 @@ func Vvcoshf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 }
 
-var _vvcosisin func(arg0 uintptr, arg1 *float64, arg2 *int)
+var _vvcosisin func(arg0 unsafe.Pointer, arg1 *float64, arg2 *int)
 var _vvcosisinErr error
 
-func tryVvcosisin(arg0 uintptr, arg1 []float64, arg2 []int) error {
+func tryVvcosisin(arg0 unsafe.Pointer, arg1 []float64, arg2 []int) error {
 	if _vvcosisin == nil {
 		return symbolCallError("vvcosisin", "10.4", _vvcosisinErr)
 	}
@@ -34389,16 +34389,16 @@ func tryVvcosisin(arg0 uintptr, arg1 []float64, arg2 []int) error {
 // Vvcosisin calculates the cosine and sine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcosisin(_:_:_:)
-func Vvcosisin(arg0 uintptr, arg1 []float64, arg2 []int) {
+func Vvcosisin(arg0 unsafe.Pointer, arg1 []float64, arg2 []int) {
 	if callErr := tryVvcosisin(arg0, arg1, arg2); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _vvcosisinf func(arg0 uintptr, arg1 *float32, arg2 *int)
+var _vvcosisinf func(arg0 unsafe.Pointer, arg1 *float32, arg2 *int)
 var _vvcosisinfErr error
 
-func tryVvcosisinf(arg0 uintptr, arg1 []float32, arg2 []int) error {
+func tryVvcosisinf(arg0 unsafe.Pointer, arg1 []float32, arg2 []int) error {
 	if _vvcosisinf == nil {
 		return symbolCallError("vvcosisinf", "10.4", _vvcosisinfErr)
 	}
@@ -34409,7 +34409,7 @@ func tryVvcosisinf(arg0 uintptr, arg1 []float32, arg2 []int) error {
 // Vvcosisinf calculates the cosine and sine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcosisinf(_:_:_:)
-func Vvcosisinf(arg0 uintptr, arg1 []float32, arg2 []int) {
+func Vvcosisinf(arg0 unsafe.Pointer, arg1 []float32, arg2 []int) {
 	if callErr := tryVvcosisinf(arg0, arg1, arg2); callErr != nil {
 		panic(callErr)
 	}

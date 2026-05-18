@@ -34,75 +34,75 @@ type BNNSActivationFunction uint
 
 const (
 	// BNNSActivationFunctionAbs: An activation function that returns the absolute value of its input.
-	BNNSActivationFunctionAbs BNNSActivationFunction = 4
+	BNNSActivationFunctionAbs BNNSActivationFunction = 6
 	// BNNSActivationFunctionCELU: An activation function that evaluates the continuously differentiable exponential linear units (CELU) on its input.
-	BNNSActivationFunctionCELU BNNSActivationFunction = 8
+	BNNSActivationFunctionCELU BNNSActivationFunction = 24
 	// BNNSActivationFunctionClamp: An activation function that returns its input clamped to the specified range.
-	BNNSActivationFunctionClamp BNNSActivationFunction = 5
+	BNNSActivationFunctionClamp BNNSActivationFunction = 8
 	// BNNSActivationFunctionClampedLeakyRectifiedLinear: An activation function that returns its input clamped to beta when that is greater than or equal to zero, otherwise it returns its input multiplied by alpha clamped to beta.
-	BNNSActivationFunctionClampedLeakyRectifiedLinear BNNSActivationFunction = 8
+	BNNSActivationFunctionClampedLeakyRectifiedLinear BNNSActivationFunction = 19
 	// BNNSActivationFunctionELU: An activation function that evaluates the exponential linear units (ELU) on its input.
-	BNNSActivationFunctionELU  BNNSActivationFunction = 8
-	BNNSActivationFunctionErf  BNNSActivationFunction = 10
-	BNNSActivationFunctionGELU BNNSActivationFunction = 10
+	BNNSActivationFunctionELU  BNNSActivationFunction = 18
+	BNNSActivationFunctionErf  BNNSActivationFunction = 33
+	BNNSActivationFunctionGELU BNNSActivationFunction = 34
 	// BNNSActivationFunctionGELUApproximation: An activation function that evaluates the Gaussian error linear units (GELU) approximation on its input.
-	BNNSActivationFunctionGELUApproximation BNNSActivationFunction = 5
+	BNNSActivationFunctionGELUApproximation BNNSActivationFunction = 12
 	// BNNSActivationFunctionGELUApproximation2: An activation function that provides a fast evaluation of the Gaussian error linear units (GELU) approximation on its input.
-	BNNSActivationFunctionGELUApproximation2       BNNSActivationFunction = 8
-	BNNSActivationFunctionGELUApproximationSigmoid BNNSActivationFunction = 10
+	BNNSActivationFunctionGELUApproximation2       BNNSActivationFunction = 30
+	BNNSActivationFunctionGELUApproximationSigmoid BNNSActivationFunction = 35
 	// BNNSActivationFunctionGumbel: An activation function that returns random numbers from the Gumbel distribution.
-	BNNSActivationFunctionGumbel BNNSActivationFunction = 8
+	BNNSActivationFunctionGumbel BNNSActivationFunction = 13
 	// BNNSActivationFunctionGumbelMax: An activation function that returns random numbers from the Gumbel distribution.
-	BNNSActivationFunctionGumbelMax BNNSActivationFunction = 8
+	BNNSActivationFunctionGumbelMax BNNSActivationFunction = 14
 	// BNNSActivationFunctionHardShrink: An activation function that returns zero when the absolute input is less than alpha, otherwise it returns its input.
-	BNNSActivationFunctionHardShrink BNNSActivationFunction = 8
+	BNNSActivationFunctionHardShrink BNNSActivationFunction = 25
 	// BNNSActivationFunctionHardSigmoid: An activation function that returns the hard sigmoid function of its input.
-	BNNSActivationFunctionHardSigmoid BNNSActivationFunction = 8
+	BNNSActivationFunctionHardSigmoid BNNSActivationFunction = 15
 	// BNNSActivationFunctionHardSwish: An activation function that returns the hard swish function of its input.
-	BNNSActivationFunctionHardSwish BNNSActivationFunction = 8
+	BNNSActivationFunctionHardSwish BNNSActivationFunction = 31
 	// BNNSActivationFunctionIdentity: An activation function that returns its input.
 	BNNSActivationFunctionIdentity BNNSActivationFunction = 0
 	// BNNSActivationFunctionIntegerLinearSaturate: An activation function that returns an arithmetic shift, preserving sign.
-	BNNSActivationFunctionIntegerLinearSaturate BNNSActivationFunction = 5
+	BNNSActivationFunctionIntegerLinearSaturate BNNSActivationFunction = 9
 	// BNNSActivationFunctionIntegerLinearSaturatePerChannel: An activation function that returns an arithmetic shift, preserving sign for each channel.
-	BNNSActivationFunctionIntegerLinearSaturatePerChannel BNNSActivationFunction = 5
+	BNNSActivationFunctionIntegerLinearSaturatePerChannel BNNSActivationFunction = 10
 	// BNNSActivationFunctionLeakyRectifiedLinear: An activation function that returns its input when that is greater than or equal to zero, otherwise it returns its input multiplied by a specified value.
-	BNNSActivationFunctionLeakyRectifiedLinear BNNSActivationFunction = 4
+	BNNSActivationFunctionLeakyRectifiedLinear BNNSActivationFunction = 2
 	// BNNSActivationFunctionLinear: An activation function that returns its input multiplied by a specified value.
-	BNNSActivationFunctionLinear BNNSActivationFunction = 4
+	BNNSActivationFunctionLinear BNNSActivationFunction = 7
 	// BNNSActivationFunctionLinearWithBias: An activation function that returns its input multiplied by a scale and added to a bias.
-	BNNSActivationFunctionLinearWithBias BNNSActivationFunction = 8
+	BNNSActivationFunctionLinearWithBias BNNSActivationFunction = 20
 	// BNNSActivationFunctionLogSigmoid: An activation function that returns the logarithm of the sigmoid function of its input.
-	BNNSActivationFunctionLogSigmoid BNNSActivationFunction = 8
+	BNNSActivationFunctionLogSigmoid BNNSActivationFunction = 22
 	// BNNSActivationFunctionLogSoftmax: An activation function that returns the logarithm of the softmax function of its input.
-	BNNSActivationFunctionLogSoftmax BNNSActivationFunction = 8
+	BNNSActivationFunctionLogSoftmax BNNSActivationFunction = 21
 	// BNNSActivationFunctionPReLUPerChannel: An activation function provides per-channel alpha values to Leaky Rectified Linear.
-	BNNSActivationFunctionPReLUPerChannel BNNSActivationFunction = 8
-	BNNSActivationFunctionReLU6           BNNSActivationFunction = 9
+	BNNSActivationFunctionPReLUPerChannel BNNSActivationFunction = 29
+	BNNSActivationFunctionReLU6           BNNSActivationFunction = 32
 	// BNNSActivationFunctionRectifiedLinear: An activation function that returns its input when that is greater than or equal to zero, otherwise it returns zero.
-	BNNSActivationFunctionRectifiedLinear BNNSActivationFunction = 4
+	BNNSActivationFunctionRectifiedLinear BNNSActivationFunction = 1
 	// BNNSActivationFunctionSELU: An activation function that evaluates the scaled exponential linear units (SELU) on its input.
-	BNNSActivationFunctionSELU BNNSActivationFunction = 8
+	BNNSActivationFunctionSELU BNNSActivationFunction = 23
 	// BNNSActivationFunctionScaledTanh: An activation function that returns the scaled hyperbolic tangent of its input.
-	BNNSActivationFunctionScaledTanh BNNSActivationFunction = 4
+	BNNSActivationFunctionScaledTanh BNNSActivationFunction = 5
 	// BNNSActivationFunctionSiLU: An activation function that returns the sigmoid linear unit (SiLU) function of its input.
-	BNNSActivationFunctionSiLU BNNSActivationFunction = 9
+	BNNSActivationFunctionSiLU BNNSActivationFunction = 31
 	// BNNSActivationFunctionSigmoid: An activation function that returns the sigmoid function of its input.
-	BNNSActivationFunctionSigmoid BNNSActivationFunction = 4
+	BNNSActivationFunctionSigmoid BNNSActivationFunction = 3
 	// BNNSActivationFunctionSoftShrink: An activation function that returns zero when the absolute input is less than alpha, otherwise it returns its input minus alpha.
-	BNNSActivationFunctionSoftShrink BNNSActivationFunction = 8
+	BNNSActivationFunctionSoftShrink BNNSActivationFunction = 26
 	// BNNSActivationFunctionSoftmax: An activation function that returns the softmax function of its input.
-	BNNSActivationFunctionSoftmax BNNSActivationFunction = 5
+	BNNSActivationFunctionSoftmax BNNSActivationFunction = 11
 	// BNNSActivationFunctionSoftplus: An activation function that returns the softplus function of its input.
-	BNNSActivationFunctionSoftplus BNNSActivationFunction = 8
+	BNNSActivationFunctionSoftplus BNNSActivationFunction = 16
 	// BNNSActivationFunctionSoftsign: An activation function that returns the softsign function of its input.
-	BNNSActivationFunctionSoftsign BNNSActivationFunction = 8
+	BNNSActivationFunctionSoftsign BNNSActivationFunction = 17
 	// BNNSActivationFunctionTanh: An activation function that returns the hyperbolic tangent of its input.
 	BNNSActivationFunctionTanh BNNSActivationFunction = 4
 	// BNNSActivationFunctionTanhShrink: An activation function that returns its input minus the hyperbolic tangent of its input.
-	BNNSActivationFunctionTanhShrink BNNSActivationFunction = 8
+	BNNSActivationFunctionTanhShrink BNNSActivationFunction = 27
 	// BNNSActivationFunctionThreshold: An activation function that returns beta if its input is less than a specified threshold, otherwise it returns its input.
-	BNNSActivationFunctionThreshold BNNSActivationFunction = 8
+	BNNSActivationFunctionThreshold BNNSActivationFunction = 28
 )
 
 func (e BNNSActivationFunction) String() string {
@@ -113,12 +113,72 @@ func (e BNNSActivationFunction) String() string {
 		return "BNNSActivationFunctionCELU"
 	case BNNSActivationFunctionClamp:
 		return "BNNSActivationFunctionClamp"
+	case BNNSActivationFunctionClampedLeakyRectifiedLinear:
+		return "BNNSActivationFunctionClampedLeakyRectifiedLinear"
+	case BNNSActivationFunctionELU:
+		return "BNNSActivationFunctionELU"
 	case BNNSActivationFunctionErf:
 		return "BNNSActivationFunctionErf"
+	case BNNSActivationFunctionGELU:
+		return "BNNSActivationFunctionGELU"
+	case BNNSActivationFunctionGELUApproximation:
+		return "BNNSActivationFunctionGELUApproximation"
+	case BNNSActivationFunctionGELUApproximation2:
+		return "BNNSActivationFunctionGELUApproximation2"
+	case BNNSActivationFunctionGELUApproximationSigmoid:
+		return "BNNSActivationFunctionGELUApproximationSigmoid"
+	case BNNSActivationFunctionGumbel:
+		return "BNNSActivationFunctionGumbel"
+	case BNNSActivationFunctionGumbelMax:
+		return "BNNSActivationFunctionGumbelMax"
+	case BNNSActivationFunctionHardShrink:
+		return "BNNSActivationFunctionHardShrink"
+	case BNNSActivationFunctionHardSigmoid:
+		return "BNNSActivationFunctionHardSigmoid"
+	case BNNSActivationFunctionHardSwish:
+		return "BNNSActivationFunctionHardSwish"
 	case BNNSActivationFunctionIdentity:
 		return "BNNSActivationFunctionIdentity"
+	case BNNSActivationFunctionIntegerLinearSaturate:
+		return "BNNSActivationFunctionIntegerLinearSaturate"
+	case BNNSActivationFunctionIntegerLinearSaturatePerChannel:
+		return "BNNSActivationFunctionIntegerLinearSaturatePerChannel"
+	case BNNSActivationFunctionLeakyRectifiedLinear:
+		return "BNNSActivationFunctionLeakyRectifiedLinear"
+	case BNNSActivationFunctionLinear:
+		return "BNNSActivationFunctionLinear"
+	case BNNSActivationFunctionLinearWithBias:
+		return "BNNSActivationFunctionLinearWithBias"
+	case BNNSActivationFunctionLogSigmoid:
+		return "BNNSActivationFunctionLogSigmoid"
+	case BNNSActivationFunctionLogSoftmax:
+		return "BNNSActivationFunctionLogSoftmax"
+	case BNNSActivationFunctionPReLUPerChannel:
+		return "BNNSActivationFunctionPReLUPerChannel"
 	case BNNSActivationFunctionReLU6:
 		return "BNNSActivationFunctionReLU6"
+	case BNNSActivationFunctionRectifiedLinear:
+		return "BNNSActivationFunctionRectifiedLinear"
+	case BNNSActivationFunctionSELU:
+		return "BNNSActivationFunctionSELU"
+	case BNNSActivationFunctionScaledTanh:
+		return "BNNSActivationFunctionScaledTanh"
+	case BNNSActivationFunctionSigmoid:
+		return "BNNSActivationFunctionSigmoid"
+	case BNNSActivationFunctionSoftShrink:
+		return "BNNSActivationFunctionSoftShrink"
+	case BNNSActivationFunctionSoftmax:
+		return "BNNSActivationFunctionSoftmax"
+	case BNNSActivationFunctionSoftplus:
+		return "BNNSActivationFunctionSoftplus"
+	case BNNSActivationFunctionSoftsign:
+		return "BNNSActivationFunctionSoftsign"
+	case BNNSActivationFunctionTanh:
+		return "BNNSActivationFunctionTanh"
+	case BNNSActivationFunctionTanhShrink:
+		return "BNNSActivationFunctionTanhShrink"
+	case BNNSActivationFunctionThreshold:
+		return "BNNSActivationFunctionThreshold"
 	default:
 		return fmt.Sprintf("BNNSActivationFunction(%d)", e)
 	}
@@ -128,87 +188,87 @@ type BNNSArithmetic uint
 
 const (
 	// BNNSArithmeticAbs: An operation that calculates the element-wise absolute of its input.
-	BNNSArithmeticAbs BNNSArithmetic = 9
+	BNNSArithmeticAbs BNNSArithmetic = 32
 	// BNNSArithmeticAcos: An operation that calculates the element-wise inverse cosine of its input.
-	BNNSArithmeticAcos BNNSArithmetic = 8
+	BNNSArithmeticAcos BNNSArithmetic = 13
 	// BNNSArithmeticAcosh: An operation that calculates the element-wise inverse hyperbolic cosine of its input.
-	BNNSArithmeticAcosh BNNSArithmetic = 8
+	BNNSArithmeticAcosh BNNSArithmetic = 19
 	// BNNSArithmeticAdd: An operation that calculates the element-wise sum of its two inputs.
 	BNNSArithmeticAdd BNNSArithmetic = 0
 	// BNNSArithmeticAsin: An operation that calculates the element-wise inverse sine of its input.
-	BNNSArithmeticAsin BNNSArithmetic = 8
+	BNNSArithmeticAsin BNNSArithmetic = 12
 	// BNNSArithmeticAsinh: An operation that calculates the element-wise inverse hyperbolic sine of its input.
-	BNNSArithmeticAsinh BNNSArithmetic = 8
+	BNNSArithmeticAsinh BNNSArithmetic = 18
 	// BNNSArithmeticAtan: An operation that calculates the element-wise inverse tangent of its input.
-	BNNSArithmeticAtan BNNSArithmetic = 8
+	BNNSArithmeticAtan BNNSArithmetic = 14
 	// BNNSArithmeticAtanh: An operation that calculates the element-wise inverse hyperbolic tangent of its input.
-	BNNSArithmeticAtanh BNNSArithmetic = 8
+	BNNSArithmeticAtanh BNNSArithmetic = 20
 	// BNNSArithmeticCeil: An operation that calculates the element-wise ceiling of its input.
-	BNNSArithmeticCeil BNNSArithmetic = 8
+	BNNSArithmeticCeil BNNSArithmetic = 6
 	// BNNSArithmeticCos: An operation that calculates the element-wise cosine of its input.
-	BNNSArithmeticCos BNNSArithmetic = 8
+	BNNSArithmeticCos BNNSArithmetic = 10
 	// BNNSArithmeticCosh: An operation that calculates the element-wise hyperbolic cosine of its input.
-	BNNSArithmeticCosh BNNSArithmetic = 8
+	BNNSArithmeticCosh BNNSArithmetic = 16
 	// BNNSArithmeticDivide: An operation that calculates the element-wise division of its two inputs.
-	BNNSArithmeticDivide BNNSArithmetic = 8
+	BNNSArithmeticDivide BNNSArithmetic = 3
 	// BNNSArithmeticDivideNoNaN: An operation that calculates the element-wise division of its two inputs and returns zero if the divisor is zero, even if the first input is NaN or infinity.
-	BNNSArithmeticDivideNoNaN BNNSArithmetic = 8
+	BNNSArithmeticDivideNoNaN BNNSArithmetic = 27
 	// BNNSArithmeticErf: An operation that calculates the element-wise error function of its input.
-	BNNSArithmeticErf BNNSArithmetic = 10
+	BNNSArithmeticErf BNNSArithmetic = 40
 	// BNNSArithmeticExp: An operation that calculates the element-wise result of  raised to the power of its input.
-	BNNSArithmeticExp BNNSArithmetic = 8
+	BNNSArithmeticExp BNNSArithmetic = 22
 	// BNNSArithmeticExp2: An operation that calculates the element-wise result of 2 raised to the power of its input.
-	BNNSArithmeticExp2 BNNSArithmetic = 8
+	BNNSArithmeticExp2 BNNSArithmetic = 23
 	// BNNSArithmeticFloor: An operation that calculates the element-wise floor of its input.
-	BNNSArithmeticFloor BNNSArithmetic = 8
+	BNNSArithmeticFloor BNNSArithmetic = 7
 	// BNNSArithmeticFloorDivide: An operation that calculates the element-wise floor division of its inputs.
-	BNNSArithmeticFloorDivide BNNSArithmetic = 10
+	BNNSArithmeticFloorDivide BNNSArithmetic = 37
 	// BNNSArithmeticLog: An operation that calculates the element-wise natural logarithm of its input.
-	BNNSArithmeticLog BNNSArithmetic = 8
+	BNNSArithmeticLog BNNSArithmetic = 24
 	// BNNSArithmeticLog2: An operation that calculates the element-wise base 2 logarithm of its input.
-	BNNSArithmeticLog2 BNNSArithmetic = 8
+	BNNSArithmeticLog2 BNNSArithmetic = 25
 	// BNNSArithmeticMaximum: An operation that calculates the element-wise maximum of its two inputs.
-	BNNSArithmeticMaximum BNNSArithmetic = 9
+	BNNSArithmeticMaximum BNNSArithmetic = 30
 	// BNNSArithmeticMinimum: An operation that calculates the element-wise minimum of its two inputs.
-	BNNSArithmeticMinimum BNNSArithmetic = 9
+	BNNSArithmeticMinimum BNNSArithmetic = 29
 	// BNNSArithmeticMultiply: An operation that calculates the element-wise product of its two inputs.
-	BNNSArithmeticMultiply BNNSArithmetic = 8
+	BNNSArithmeticMultiply BNNSArithmetic = 2
 	// BNNSArithmeticMultiplyAdd: An operation that calculates the element-wise fused multiply-add of its three inputs.
-	BNNSArithmeticMultiplyAdd BNNSArithmetic = 8
+	BNNSArithmeticMultiplyAdd BNNSArithmetic = 28
 	// BNNSArithmeticMultiplyNoNaN: An operation that calculates the element-wise product of its two inputs and returns zero, even if the first input is NaN or infinity.
-	BNNSArithmeticMultiplyNoNaN BNNSArithmetic = 8
+	BNNSArithmeticMultiplyNoNaN BNNSArithmetic = 26
 	// BNNSArithmeticNegate: An operation that calculates the element-wise negation of its input.
-	BNNSArithmeticNegate BNNSArithmetic = 10
+	BNNSArithmeticNegate BNNSArithmetic = 34
 	// BNNSArithmeticPow: An operation that calculates the element-wise first input raised to the power of its second input.
-	BNNSArithmeticPow BNNSArithmetic = 8
+	BNNSArithmeticPow BNNSArithmetic = 21
 	// BNNSArithmeticReciprocal: An operation that calculates the element-wise reciprocal of its input.
-	BNNSArithmeticReciprocal BNNSArithmetic = 10
+	BNNSArithmeticReciprocal BNNSArithmetic = 35
 	// BNNSArithmeticReciprocalSquareRoot: An operation that calculates the element-wise reciprocal square root of its input.
-	BNNSArithmeticReciprocalSquareRoot BNNSArithmetic = 8
+	BNNSArithmeticReciprocalSquareRoot BNNSArithmetic = 5
 	// BNNSArithmeticRound: An operation that calculates the element-wise rounding of its input.
 	BNNSArithmeticRound BNNSArithmetic = 8
 	// BNNSArithmeticSelect: An operation that selects elements from either its second or third input based on the corresponding value of its first input.
-	BNNSArithmeticSelect BNNSArithmetic = 9
+	BNNSArithmeticSelect BNNSArithmetic = 31
 	// BNNSArithmeticSign: An operation that calculates the element-wise sign of its input.
-	BNNSArithmeticSign BNNSArithmetic = 10
+	BNNSArithmeticSign BNNSArithmetic = 33
 	// BNNSArithmeticSin: An operation that calculates the element-wise sine of its input.
-	BNNSArithmeticSin BNNSArithmetic = 8
+	BNNSArithmeticSin BNNSArithmetic = 9
 	// BNNSArithmeticSinh: An operation that calculates the element-wise hyperbolic sine of its input.
-	BNNSArithmeticSinh BNNSArithmetic = 8
+	BNNSArithmeticSinh BNNSArithmetic = 15
 	// BNNSArithmeticSquare: An operation that calculates the element-wise square of its input.
-	BNNSArithmeticSquare BNNSArithmetic = 10
+	BNNSArithmeticSquare BNNSArithmetic = 36
 	// BNNSArithmeticSquareRoot: An operation that calculates the element-wise square root of its input.
-	BNNSArithmeticSquareRoot BNNSArithmetic = 8
+	BNNSArithmeticSquareRoot BNNSArithmetic = 4
 	// BNNSArithmeticSubtract: An operation that calculates the element-wise difference of its two inputs.
-	BNNSArithmeticSubtract BNNSArithmetic = 8
+	BNNSArithmeticSubtract BNNSArithmetic = 1
 	// BNNSArithmeticTan: An operation that calculates the element-wise tangent of its input.
-	BNNSArithmeticTan BNNSArithmetic = 8
+	BNNSArithmeticTan BNNSArithmetic = 11
 	// BNNSArithmeticTanh: An operation that calculates the element-wise hyperbolic tangent of its input.
-	BNNSArithmeticTanh BNNSArithmetic = 8
+	BNNSArithmeticTanh BNNSArithmetic = 17
 	// BNNSArithmeticTruncDivide: An operation that calculates the element-wise truncated division of its inputs.
-	BNNSArithmeticTruncDivide BNNSArithmetic = 10
+	BNNSArithmeticTruncDivide BNNSArithmetic = 38
 	// BNNSArithmeticTruncRemainder: An operation that calculates the element-wise remainder of truncated division of its inputs.
-	BNNSArithmeticTruncRemainder BNNSArithmetic = 10
+	BNNSArithmeticTruncRemainder BNNSArithmetic = 39
 )
 
 func (e BNNSArithmetic) String() string {
@@ -217,10 +277,84 @@ func (e BNNSArithmetic) String() string {
 		return "BNNSArithmeticAbs"
 	case BNNSArithmeticAcos:
 		return "BNNSArithmeticAcos"
+	case BNNSArithmeticAcosh:
+		return "BNNSArithmeticAcosh"
 	case BNNSArithmeticAdd:
 		return "BNNSArithmeticAdd"
+	case BNNSArithmeticAsin:
+		return "BNNSArithmeticAsin"
+	case BNNSArithmeticAsinh:
+		return "BNNSArithmeticAsinh"
+	case BNNSArithmeticAtan:
+		return "BNNSArithmeticAtan"
+	case BNNSArithmeticAtanh:
+		return "BNNSArithmeticAtanh"
+	case BNNSArithmeticCeil:
+		return "BNNSArithmeticCeil"
+	case BNNSArithmeticCos:
+		return "BNNSArithmeticCos"
+	case BNNSArithmeticCosh:
+		return "BNNSArithmeticCosh"
+	case BNNSArithmeticDivide:
+		return "BNNSArithmeticDivide"
+	case BNNSArithmeticDivideNoNaN:
+		return "BNNSArithmeticDivideNoNaN"
 	case BNNSArithmeticErf:
 		return "BNNSArithmeticErf"
+	case BNNSArithmeticExp:
+		return "BNNSArithmeticExp"
+	case BNNSArithmeticExp2:
+		return "BNNSArithmeticExp2"
+	case BNNSArithmeticFloor:
+		return "BNNSArithmeticFloor"
+	case BNNSArithmeticFloorDivide:
+		return "BNNSArithmeticFloorDivide"
+	case BNNSArithmeticLog:
+		return "BNNSArithmeticLog"
+	case BNNSArithmeticLog2:
+		return "BNNSArithmeticLog2"
+	case BNNSArithmeticMaximum:
+		return "BNNSArithmeticMaximum"
+	case BNNSArithmeticMinimum:
+		return "BNNSArithmeticMinimum"
+	case BNNSArithmeticMultiply:
+		return "BNNSArithmeticMultiply"
+	case BNNSArithmeticMultiplyAdd:
+		return "BNNSArithmeticMultiplyAdd"
+	case BNNSArithmeticMultiplyNoNaN:
+		return "BNNSArithmeticMultiplyNoNaN"
+	case BNNSArithmeticNegate:
+		return "BNNSArithmeticNegate"
+	case BNNSArithmeticPow:
+		return "BNNSArithmeticPow"
+	case BNNSArithmeticReciprocal:
+		return "BNNSArithmeticReciprocal"
+	case BNNSArithmeticReciprocalSquareRoot:
+		return "BNNSArithmeticReciprocalSquareRoot"
+	case BNNSArithmeticRound:
+		return "BNNSArithmeticRound"
+	case BNNSArithmeticSelect:
+		return "BNNSArithmeticSelect"
+	case BNNSArithmeticSign:
+		return "BNNSArithmeticSign"
+	case BNNSArithmeticSin:
+		return "BNNSArithmeticSin"
+	case BNNSArithmeticSinh:
+		return "BNNSArithmeticSinh"
+	case BNNSArithmeticSquare:
+		return "BNNSArithmeticSquare"
+	case BNNSArithmeticSquareRoot:
+		return "BNNSArithmeticSquareRoot"
+	case BNNSArithmeticSubtract:
+		return "BNNSArithmeticSubtract"
+	case BNNSArithmeticTan:
+		return "BNNSArithmeticTan"
+	case BNNSArithmeticTanh:
+		return "BNNSArithmeticTanh"
+	case BNNSArithmeticTruncDivide:
+		return "BNNSArithmeticTruncDivide"
+	case BNNSArithmeticTruncRemainder:
+		return "BNNSArithmeticTruncRemainder"
 	default:
 		return fmt.Sprintf("BNNSArithmetic(%d)", e)
 	}
@@ -230,69 +364,115 @@ type BNNSData uint
 
 const (
 	// BNNSDataLayout1DFirstMajor: A constant that represents a 1D first-major vector.
-	BNNSDataLayout1DFirstMajor BNNSData = 8
+	BNNSDataLayout1DFirstMajor BNNSData = 0x18001
 	// BNNSDataLayout1DLastMajor: A constant that represents a 1D last-major vector.
-	BNNSDataLayout1DLastMajor BNNSData = 8
+	BNNSDataLayout1DLastMajor BNNSData = 0x18000
 	// BNNSDataLayout2DFirstMajor: A constant that represents a 2D first-major matrix.
-	BNNSDataLayout2DFirstMajor BNNSData = 8
+	BNNSDataLayout2DFirstMajor BNNSData = 0x28001
 	// BNNSDataLayout2DLastMajor: A constant that represents a 2D last-major matrix.
-	BNNSDataLayout2DLastMajor BNNSData = 8
+	BNNSDataLayout2DLastMajor BNNSData = 0x28000
 	// BNNSDataLayout3DFirstMajor: A constant that represents a 3D first-major tensor.
-	BNNSDataLayout3DFirstMajor BNNSData = 8
+	BNNSDataLayout3DFirstMajor BNNSData = 0x38001
 	// BNNSDataLayout3DLastMajor: A constant that represents a 3D last-major tensor.
-	BNNSDataLayout3DLastMajor BNNSData = 10
+	BNNSDataLayout3DLastMajor BNNSData = 0x38000
 	// BNNSDataLayout4DFirstMajor: A constant that represents a 4D first-major tensor.
-	BNNSDataLayout4DFirstMajor BNNSData = 8
+	BNNSDataLayout4DFirstMajor BNNSData = 0x48001
 	// BNNSDataLayout4DLastMajor: A constant that represents a 4D last-major tensor.
-	BNNSDataLayout4DLastMajor BNNSData = 8
+	BNNSDataLayout4DLastMajor BNNSData = 0x48000
 	// BNNSDataLayout5DFirstMajor: A constant that represents a 5D first-major tensor.
-	BNNSDataLayout5DFirstMajor BNNSData = 8
+	BNNSDataLayout5DFirstMajor BNNSData = 0x58001
 	// BNNSDataLayout5DLastMajor: A constant that represents a 5D last-major tensor.
-	BNNSDataLayout5DLastMajor BNNSData = 8
+	BNNSDataLayout5DLastMajor BNNSData = 0x58000
 	// BNNSDataLayout6DFirstMajor: A constant that represents a 6D first-major tensor.
-	BNNSDataLayout6DFirstMajor BNNSData = 8
+	BNNSDataLayout6DFirstMajor BNNSData = 0x68001
 	// BNNSDataLayout6DLastMajor: A constant that represents a 6D last-major tensor.
-	BNNSDataLayout6DLastMajor BNNSData = 8
+	BNNSDataLayout6DLastMajor BNNSData = 0x68000
 	// BNNSDataLayout7DFirstMajor: A constant that represents a 7D first-major tensor.
-	BNNSDataLayout7DFirstMajor BNNSData = 8
+	BNNSDataLayout7DFirstMajor BNNSData = 0x78001
 	// BNNSDataLayout7DLastMajor: A constant that represents a 7D last-major tensor.
-	BNNSDataLayout7DLastMajor BNNSData = 8
+	BNNSDataLayout7DLastMajor BNNSData = 0x78000
 	// BNNSDataLayout8DFirstMajor: A constant that represents a 8D first-major tensor.
-	BNNSDataLayout8DFirstMajor BNNSData = 8
+	BNNSDataLayout8DFirstMajor BNNSData = 0x88001
 	// BNNSDataLayout8DLastMajor: A constant that represents a 8D last-major tensor.
-	BNNSDataLayout8DLastMajor BNNSData = 8
+	BNNSDataLayout8DLastMajor BNNSData = 0x88000
 	// BNNSDataLayoutColumnMajorMatrix: A constant that represents a 2D column-major matrix.
-	BNNSDataLayoutColumnMajorMatrix BNNSData = 8
+	BNNSDataLayoutColumnMajorMatrix BNNSData = 0x20001
 	// BNNSDataLayoutConvolutionWeightsIOHrWr: A constant that represents a 4D array of rotated convolution weights.
-	BNNSDataLayoutConvolutionWeightsIOHrWr BNNSData = 8
+	BNNSDataLayoutConvolutionWeightsIOHrWr BNNSData = 0x40002
 	// BNNSDataLayoutConvolutionWeightsOIHW: A constant that represents a 4D array of convolution weights.
-	BNNSDataLayoutConvolutionWeightsOIHW BNNSData = 8
+	BNNSDataLayoutConvolutionWeightsOIHW BNNSData = 0x40000
 	// BNNSDataLayoutConvolutionWeightsOIHW_Pack32: A constant that represents a 4D array of packed convolution weights with 32-output channel packing and 128-byte array address alignment.
-	BNNSDataLayoutConvolutionWeightsOIHW_Pack32 BNNSData = 8
+	BNNSDataLayoutConvolutionWeightsOIHW_Pack32 BNNSData = 0x40010
 	// BNNSDataLayoutConvolutionWeightsOIHrWr: A constant that represents a 4D array of rotated convolution weights.
-	BNNSDataLayoutConvolutionWeightsOIHrWr BNNSData = 8
-	BNNSDataLayoutFullyConnectedSparse     BNNSData = 8
+	BNNSDataLayoutConvolutionWeightsOIHrWr BNNSData = 0x40001
+	BNNSDataLayoutFullyConnectedSparse     BNNSData = 0x21001
 	// BNNSDataLayoutImageCHW: A constant that represents a 3D image stack.
-	BNNSDataLayoutImageCHW BNNSData = 10
-	BNNSDataLayoutMHA_DHK  BNNSData = 9
+	BNNSDataLayoutImageCHW BNNSData = 0x30000
+	BNNSDataLayoutMHA_DHK  BNNSData = 0x30003
 	// BNNSDataLayoutNSE: A constant that represents a 3D tensor with the size elements embedding dimension, sequence length, and batch size.
-	BNNSDataLayoutNSE BNNSData = 9
+	BNNSDataLayoutNSE BNNSData = 0x30002
 	// BNNSDataLayoutRowMajorMatrix: A constant that represents a 2D row-major matrix.
-	BNNSDataLayoutRowMajorMatrix BNNSData = 8
+	BNNSDataLayoutRowMajorMatrix BNNSData = 0x20000
 	// BNNSDataLayoutSNE: A constant that represents a 3D tensor with the size elements embedding dimension, batch size, and sequence length.
-	BNNSDataLayoutSNE BNNSData = 7
+	BNNSDataLayoutSNE BNNSData = 0x30001
 	// BNNSDataLayoutVector: A constant that represents a 1D vector.
-	BNNSDataLayoutVector BNNSData = 0
+	BNNSDataLayoutVector BNNSData = 0x10000
 )
 
 func (e BNNSData) String() string {
 	switch e {
 	case BNNSDataLayout1DFirstMajor:
 		return "BNNSDataLayout1DFirstMajor"
+	case BNNSDataLayout1DLastMajor:
+		return "BNNSDataLayout1DLastMajor"
+	case BNNSDataLayout2DFirstMajor:
+		return "BNNSDataLayout2DFirstMajor"
+	case BNNSDataLayout2DLastMajor:
+		return "BNNSDataLayout2DLastMajor"
+	case BNNSDataLayout3DFirstMajor:
+		return "BNNSDataLayout3DFirstMajor"
 	case BNNSDataLayout3DLastMajor:
 		return "BNNSDataLayout3DLastMajor"
+	case BNNSDataLayout4DFirstMajor:
+		return "BNNSDataLayout4DFirstMajor"
+	case BNNSDataLayout4DLastMajor:
+		return "BNNSDataLayout4DLastMajor"
+	case BNNSDataLayout5DFirstMajor:
+		return "BNNSDataLayout5DFirstMajor"
+	case BNNSDataLayout5DLastMajor:
+		return "BNNSDataLayout5DLastMajor"
+	case BNNSDataLayout6DFirstMajor:
+		return "BNNSDataLayout6DFirstMajor"
+	case BNNSDataLayout6DLastMajor:
+		return "BNNSDataLayout6DLastMajor"
+	case BNNSDataLayout7DFirstMajor:
+		return "BNNSDataLayout7DFirstMajor"
+	case BNNSDataLayout7DLastMajor:
+		return "BNNSDataLayout7DLastMajor"
+	case BNNSDataLayout8DFirstMajor:
+		return "BNNSDataLayout8DFirstMajor"
+	case BNNSDataLayout8DLastMajor:
+		return "BNNSDataLayout8DLastMajor"
+	case BNNSDataLayoutColumnMajorMatrix:
+		return "BNNSDataLayoutColumnMajorMatrix"
+	case BNNSDataLayoutConvolutionWeightsIOHrWr:
+		return "BNNSDataLayoutConvolutionWeightsIOHrWr"
+	case BNNSDataLayoutConvolutionWeightsOIHW:
+		return "BNNSDataLayoutConvolutionWeightsOIHW"
+	case BNNSDataLayoutConvolutionWeightsOIHW_Pack32:
+		return "BNNSDataLayoutConvolutionWeightsOIHW_Pack32"
+	case BNNSDataLayoutConvolutionWeightsOIHrWr:
+		return "BNNSDataLayoutConvolutionWeightsOIHrWr"
+	case BNNSDataLayoutFullyConnectedSparse:
+		return "BNNSDataLayoutFullyConnectedSparse"
+	case BNNSDataLayoutImageCHW:
+		return "BNNSDataLayoutImageCHW"
 	case BNNSDataLayoutMHA_DHK:
 		return "BNNSDataLayoutMHA_DHK"
+	case BNNSDataLayoutNSE:
+		return "BNNSDataLayoutNSE"
+	case BNNSDataLayoutRowMajorMatrix:
+		return "BNNSDataLayoutRowMajorMatrix"
 	case BNNSDataLayoutSNE:
 		return "BNNSDataLayoutSNE"
 	case BNNSDataLayoutVector:
@@ -306,63 +486,63 @@ type BNNSDataType uint
 
 const (
 	// BNNSDataTypeBFloat16: # Discussion
-	BNNSDataTypeBFloat16 BNNSDataType = 11
+	BNNSDataTypeBFloat16 BNNSDataType = 65536
 	// BNNSDataTypeBoolean: # Discussion
-	BNNSDataTypeBoolean BNNSDataType = 8
+	BNNSDataTypeBoolean BNNSDataType = 1048576
 	// BNNSDataTypeFloat16: # Discussion
-	BNNSDataTypeFloat16 BNNSDataType = 4
+	BNNSDataTypeFloat16 BNNSDataType = 65536
 	// BNNSDataTypeFloat32: # Discussion
-	BNNSDataTypeFloat32 BNNSDataType = 11
+	BNNSDataTypeFloat32 BNNSDataType = 65536
 	// BNNSDataTypeFloatBit: # Discussion
-	BNNSDataTypeFloatBit BNNSDataType = 0
+	BNNSDataTypeFloatBit BNNSDataType = 0x10000
 	// BNNSDataTypeIndexed1: # Discussion
-	BNNSDataTypeIndexed1 BNNSDataType = 4
+	BNNSDataTypeIndexed1 BNNSDataType = 524288
 	// BNNSDataTypeIndexed2: # Discussion
-	BNNSDataTypeIndexed2 BNNSDataType = 15
+	BNNSDataTypeIndexed2 BNNSDataType = 524288
 	// BNNSDataTypeIndexed4: # Discussion
-	BNNSDataTypeIndexed4 BNNSDataType = 15
+	BNNSDataTypeIndexed4 BNNSDataType = 524288
 	// BNNSDataTypeIndexed8: # Discussion
-	BNNSDataTypeIndexed8 BNNSDataType = 15
+	BNNSDataTypeIndexed8 BNNSDataType = 524288
 	// BNNSDataTypeIndexedBit: # Discussion
-	BNNSDataTypeIndexedBit BNNSDataType = 16
+	BNNSDataTypeIndexedBit BNNSDataType = 0x80000
 	// BNNSDataTypeInt1: # Discussion
-	BNNSDataTypeInt1 BNNSDataType = 4
+	BNNSDataTypeInt1 BNNSDataType = 131072
 	// BNNSDataTypeInt16: # Discussion
-	BNNSDataTypeInt16 BNNSDataType = 11
+	BNNSDataTypeInt16 BNNSDataType = 131072
 	// BNNSDataTypeInt2: # Discussion
-	BNNSDataTypeInt2 BNNSDataType = 15
+	BNNSDataTypeInt2 BNNSDataType = 131072
 	// BNNSDataTypeInt32: # Discussion
-	BNNSDataTypeInt32 BNNSDataType = 11
+	BNNSDataTypeInt32 BNNSDataType = 131072
 	// BNNSDataTypeInt4: # Discussion
-	BNNSDataTypeInt4 BNNSDataType = 15
+	BNNSDataTypeInt4 BNNSDataType = 131072
 	// BNNSDataTypeInt64: # Discussion
-	BNNSDataTypeInt64 BNNSDataType = 11
+	BNNSDataTypeInt64 BNNSDataType = 131072
 	// BNNSDataTypeInt8: # Discussion
-	BNNSDataTypeInt8 BNNSDataType = 15
+	BNNSDataTypeInt8 BNNSDataType = 131072
 	// BNNSDataTypeIntBit: # Discussion
-	BNNSDataTypeIntBit BNNSDataType = 16
+	BNNSDataTypeIntBit BNNSDataType = 0x20000
 	// BNNSDataTypeMiscellaneousBit: # Discussion
-	BNNSDataTypeMiscellaneousBit BNNSDataType = 11
+	BNNSDataTypeMiscellaneousBit BNNSDataType = 0x100000
 	// BNNSDataTypeUInt1: # Discussion
-	BNNSDataTypeUInt1 BNNSDataType = 5
+	BNNSDataTypeUInt1 BNNSDataType = 262144
 	// BNNSDataTypeUInt16: # Discussion
-	BNNSDataTypeUInt16 BNNSDataType = 12
+	BNNSDataTypeUInt16 BNNSDataType = 262144
 	// BNNSDataTypeUInt2: # Discussion
-	BNNSDataTypeUInt2 BNNSDataType = 15
+	BNNSDataTypeUInt2 BNNSDataType = 262144
 	// BNNSDataTypeUInt3: # Discussion
-	BNNSDataTypeUInt3 BNNSDataType = 15
+	BNNSDataTypeUInt3 BNNSDataType = 262144
 	// BNNSDataTypeUInt32: # Discussion
-	BNNSDataTypeUInt32 BNNSDataType = 12
+	BNNSDataTypeUInt32 BNNSDataType = 262144
 	// BNNSDataTypeUInt4: # Discussion
-	BNNSDataTypeUInt4 BNNSDataType = 19
+	BNNSDataTypeUInt4 BNNSDataType = 262144
 	// BNNSDataTypeUInt6: # Discussion
-	BNNSDataTypeUInt6 BNNSDataType = 15
+	BNNSDataTypeUInt6 BNNSDataType = 262144
 	// BNNSDataTypeUInt64: # Discussion
-	BNNSDataTypeUInt64 BNNSDataType = 12
+	BNNSDataTypeUInt64 BNNSDataType = 262144
 	// BNNSDataTypeUInt8: # Discussion
-	BNNSDataTypeUInt8 BNNSDataType = 19
+	BNNSDataTypeUInt8 BNNSDataType = 262144
 	// BNNSDataTypeUIntBit: # Discussion
-	BNNSDataTypeUIntBit BNNSDataType = 16
+	BNNSDataTypeUIntBit BNNSDataType = 0x40000
 )
 
 func (e BNNSDataType) String() string {
@@ -371,20 +551,12 @@ func (e BNNSDataType) String() string {
 		return "BNNSDataTypeBFloat16"
 	case BNNSDataTypeBoolean:
 		return "BNNSDataTypeBoolean"
-	case BNNSDataTypeFloat16:
-		return "BNNSDataTypeFloat16"
-	case BNNSDataTypeFloatBit:
-		return "BNNSDataTypeFloatBit"
-	case BNNSDataTypeIndexed2:
-		return "BNNSDataTypeIndexed2"
-	case BNNSDataTypeIndexedBit:
-		return "BNNSDataTypeIndexedBit"
+	case BNNSDataTypeIndexed1:
+		return "BNNSDataTypeIndexed1"
+	case BNNSDataTypeInt1:
+		return "BNNSDataTypeInt1"
 	case BNNSDataTypeUInt1:
 		return "BNNSDataTypeUInt1"
-	case BNNSDataTypeUInt16:
-		return "BNNSDataTypeUInt16"
-	case BNNSDataTypeUInt4:
-		return "BNNSDataTypeUInt4"
 	default:
 		return fmt.Sprintf("BNNSDataType(%d)", e)
 	}
@@ -394,7 +566,7 @@ type BNNSEmbeddingFlagScaleGradientBy uint
 
 const (
 	// BNNSEmbeddingFlagScaleGradientByFrequency: A flag that specifies that the operation scales calculated gradients based on the number of occurrence of the corresponding index in the input.
-	BNNSEmbeddingFlagScaleGradientByFrequency BNNSEmbeddingFlagScaleGradientBy = 0
+	BNNSEmbeddingFlagScaleGradientByFrequency BNNSEmbeddingFlagScaleGradientBy = 1
 )
 
 func (e BNNSEmbeddingFlagScaleGradientBy) String() string {
@@ -410,7 +582,7 @@ type BNNSFlagsUseClient uint
 
 const (
 	// BNNSFlagsUseClientPtr: A flag that instructs the filter to use pointers to data you provide at creation time.
-	BNNSFlagsUseClientPtr BNNSFlagsUseClient = 0
+	BNNSFlagsUseClientPtr BNNSFlagsUseClient = 0x1
 )
 
 func (e BNNSFlagsUseClient) String() string {
@@ -426,19 +598,19 @@ type BNNSGraphArgumentIntent uint
 
 const (
 	// BNNSGraphArgumentIntentIn: A constant that specifies the argument provides an input tensor.
-	BNNSGraphArgumentIntentIn BNNSGraphArgumentIntent = 0
+	BNNSGraphArgumentIntentIn BNNSGraphArgumentIntent = 1
 	// BNNSGraphArgumentIntentInOut: A constant that specifies the argument is an in-place input and output tensor.
-	BNNSGraphArgumentIntentInOut BNNSGraphArgumentIntent = 12
+	BNNSGraphArgumentIntentInOut BNNSGraphArgumentIntent = 1
 	// BNNSGraphArgumentIntentOut: A constant that specifies the argument provides an output tensor.
-	BNNSGraphArgumentIntentOut BNNSGraphArgumentIntent = 12
+	BNNSGraphArgumentIntentOut BNNSGraphArgumentIntent = 2
 )
 
 func (e BNNSGraphArgumentIntent) String() string {
 	switch e {
 	case BNNSGraphArgumentIntentIn:
 		return "BNNSGraphArgumentIntentIn"
-	case BNNSGraphArgumentIntentInOut:
-		return "BNNSGraphArgumentIntentInOut"
+	case BNNSGraphArgumentIntentOut:
+		return "BNNSGraphArgumentIntentOut"
 	default:
 		return fmt.Sprintf("BNNSGraphArgumentIntent(%d)", e)
 	}
@@ -450,7 +622,7 @@ const (
 	// BNNSGraphArgumentTypePointer: A pointer to the raw data for the tensor.
 	BNNSGraphArgumentTypePointer BNNSGraphArgumentType = 0
 	// BNNSGraphArgumentTypeTensor: A tensor structure.
-	BNNSGraphArgumentTypeTensor BNNSGraphArgumentType = 12
+	BNNSGraphArgumentTypeTensor BNNSGraphArgumentType = 2
 )
 
 func (e BNNSGraphArgumentType) String() string {
@@ -468,13 +640,13 @@ type BNNSGraphMessageLevel uint
 
 const (
 	// BNNSGraphMessageLevelError: A constant that specifies error message types.
-	BNNSGraphMessageLevelError BNNSGraphMessageLevel = 12
+	BNNSGraphMessageLevelError BNNSGraphMessageLevel = 8
 	// BNNSGraphMessageLevelInfo: A constant that specifies information message types.
-	BNNSGraphMessageLevelInfo BNNSGraphMessageLevel = 0
+	BNNSGraphMessageLevelInfo BNNSGraphMessageLevel = 1
 	// BNNSGraphMessageLevelUnsupported: A constant that specifies unsupported function message types.
-	BNNSGraphMessageLevelUnsupported BNNSGraphMessageLevel = 12
+	BNNSGraphMessageLevelUnsupported BNNSGraphMessageLevel = 2
 	// BNNSGraphMessageLevelWarning: A constant that specifies warning message types.
-	BNNSGraphMessageLevelWarning BNNSGraphMessageLevel = 12
+	BNNSGraphMessageLevelWarning BNNSGraphMessageLevel = 4
 )
 
 func (e BNNSGraphMessageLevel) String() string {
@@ -483,6 +655,10 @@ func (e BNNSGraphMessageLevel) String() string {
 		return "BNNSGraphMessageLevelError"
 	case BNNSGraphMessageLevelInfo:
 		return "BNNSGraphMessageLevelInfo"
+	case BNNSGraphMessageLevelUnsupported:
+		return "BNNSGraphMessageLevelUnsupported"
+	case BNNSGraphMessageLevelWarning:
+		return "BNNSGraphMessageLevelWarning"
 	default:
 		return fmt.Sprintf("BNNSGraphMessageLevel(%d)", e)
 	}
@@ -492,7 +668,7 @@ type BNNSGraphOptimizationPreference uint
 
 const (
 	// BNNSGraphOptimizationPreferenceIRSize: A constant that specifies compilation optimization for smallest graph size on disk.
-	BNNSGraphOptimizationPreferenceIRSize BNNSGraphOptimizationPreference = 12
+	BNNSGraphOptimizationPreferenceIRSize BNNSGraphOptimizationPreference = 1
 	// BNNSGraphOptimizationPreferencePerformance: A constant that specifies compilation optimization for best execution performance.
 	BNNSGraphOptimizationPreferencePerformance BNNSGraphOptimizationPreference = 0
 )
@@ -512,7 +688,7 @@ type BNNSInterpolationMethod uint
 
 const (
 	// BNNSInterpolationMethodLinear: Interpolation that is linear or bilinear depending on the number of resized dimensions.
-	BNNSInterpolationMethodLinear BNNSInterpolationMethod = 8
+	BNNSInterpolationMethodLinear BNNSInterpolationMethod = 1
 	// BNNSInterpolationMethodNearest: Nearest-neighbor interpolation.
 	BNNSInterpolationMethodNearest BNNSInterpolationMethod = 0
 )
@@ -532,9 +708,9 @@ type BNNSLayerFlagsLSTM uint
 
 const (
 	// BNNSLayerFlagsLSTMBidirectional: A flag that enables bidirectional long short-term memory (LSTM).
-	BNNSLayerFlagsLSTMBidirectional BNNSLayerFlagsLSTM = 0
+	BNNSLayerFlagsLSTMBidirectional BNNSLayerFlagsLSTM = 0x1
 	// BNNSLayerFlagsLSTMDefaultActivations: A flag that ignores the specified gate activations and instructs the operation to use default activations.
-	BNNSLayerFlagsLSTMDefaultActivations BNNSLayerFlagsLSTM = 8
+	BNNSLayerFlagsLSTMDefaultActivations BNNSLayerFlagsLSTM = 0x2
 )
 
 func (e BNNSLayerFlagsLSTM) String() string {
@@ -552,15 +728,15 @@ type BNNSLinearSampling uint
 
 const (
 	// BNNSLinearSamplingAlignCorners: The align corners sampling mode.
-	BNNSLinearSamplingAlignCorners BNNSLinearSampling = 10
+	BNNSLinearSamplingAlignCorners BNNSLinearSampling = 1
 	// BNNSLinearSamplingDefault: The default linear sampling mode.
 	BNNSLinearSamplingDefault BNNSLinearSampling = 0
 	// BNNSLinearSamplingOffsetCorners: The offset corners sampling mode.
-	BNNSLinearSamplingOffsetCorners BNNSLinearSampling = 10
+	BNNSLinearSamplingOffsetCorners BNNSLinearSampling = 4
 	// BNNSLinearSamplingStrictAlignCorners: The strict align corners sampling mode.
-	BNNSLinearSamplingStrictAlignCorners BNNSLinearSampling = 10
+	BNNSLinearSamplingStrictAlignCorners BNNSLinearSampling = 3
 	// BNNSLinearSamplingUnalignCorners: The unalign corners sampling mode.
-	BNNSLinearSamplingUnalignCorners BNNSLinearSampling = 10
+	BNNSLinearSamplingUnalignCorners BNNSLinearSampling = 2
 )
 
 func (e BNNSLinearSampling) String() string {
@@ -569,6 +745,12 @@ func (e BNNSLinearSampling) String() string {
 		return "BNNSLinearSamplingAlignCorners"
 	case BNNSLinearSamplingDefault:
 		return "BNNSLinearSamplingDefault"
+	case BNNSLinearSamplingOffsetCorners:
+		return "BNNSLinearSamplingOffsetCorners"
+	case BNNSLinearSamplingStrictAlignCorners:
+		return "BNNSLinearSamplingStrictAlignCorners"
+	case BNNSLinearSamplingUnalignCorners:
+		return "BNNSLinearSamplingUnalignCorners"
 	default:
 		return fmt.Sprintf("BNNSLinearSampling(%d)", e)
 	}
@@ -578,33 +760,49 @@ type BNNSLossFunction uint
 
 const (
 	// BNNSLossFunctionCategoricalCrossEntropy: Performs categorical cross entropy computation between input prediction and labels.
-	BNNSLossFunctionCategoricalCrossEntropy BNNSLossFunction = 8
+	BNNSLossFunctionCategoricalCrossEntropy BNNSLossFunction = 10
 	// BNNSLossFunctionCosineDistance: Performs cosine distance loss computation between input predictions and labels.
-	BNNSLossFunctionCosineDistance BNNSLossFunction = 8
+	BNNSLossFunctionCosineDistance BNNSLossFunction = 7
 	// BNNSLossFunctionHinge: Performs Hinge loss computation between labels and unbounded zero-centered binary predictions.
 	BNNSLossFunctionHinge BNNSLossFunction = 8
 	// BNNSLossFunctionHuber: Huber loss computation between input logits and one-hot encoded labels.
-	BNNSLossFunctionHuber BNNSLossFunction = 8
+	BNNSLossFunctionHuber BNNSLossFunction = 4
 	// BNNSLossFunctionLog: Log loss computation between labels and predictions.
-	BNNSLossFunctionLog BNNSLossFunction = 8
+	BNNSLossFunctionLog BNNSLossFunction = 6
 	// BNNSLossFunctionMeanAbsoluteError: Mean absolute error (MAE) computation between input prediction and labels.
-	BNNSLossFunctionMeanAbsoluteError BNNSLossFunction = 8
+	BNNSLossFunctionMeanAbsoluteError BNNSLossFunction = 9
 	// BNNSLossFunctionMeanSquareError: Mean square error (MSE) computation between input logits and one-hot encoded labels.
-	BNNSLossFunctionMeanSquareError BNNSLossFunction = 8
+	BNNSLossFunctionMeanSquareError BNNSLossFunction = 3
 	// BNNSLossFunctionSigmoidCrossEntropy: Sigmoid activation on input logits, and independent computation of cross-entropy loss for each class.
-	BNNSLossFunctionSigmoidCrossEntropy BNNSLossFunction = 8
+	BNNSLossFunctionSigmoidCrossEntropy BNNSLossFunction = 2
 	// BNNSLossFunctionSoftmaxCrossEntropy: Softmax activation on input logits, and computation of cross-entropy loss with one-hot encoded labels.
-	BNNSLossFunctionSoftmaxCrossEntropy BNNSLossFunction = 0
+	BNNSLossFunctionSoftmaxCrossEntropy BNNSLossFunction = 1
 	// BNNSLossFunctionYolo: You Only Look Once (YOLO) loss computation between prediction and ground truth labels.
-	BNNSLossFunctionYolo BNNSLossFunction = 8
+	BNNSLossFunctionYolo BNNSLossFunction = 5
 )
 
 func (e BNNSLossFunction) String() string {
 	switch e {
 	case BNNSLossFunctionCategoricalCrossEntropy:
 		return "BNNSLossFunctionCategoricalCrossEntropy"
+	case BNNSLossFunctionCosineDistance:
+		return "BNNSLossFunctionCosineDistance"
+	case BNNSLossFunctionHinge:
+		return "BNNSLossFunctionHinge"
+	case BNNSLossFunctionHuber:
+		return "BNNSLossFunctionHuber"
+	case BNNSLossFunctionLog:
+		return "BNNSLossFunctionLog"
+	case BNNSLossFunctionMeanAbsoluteError:
+		return "BNNSLossFunctionMeanAbsoluteError"
+	case BNNSLossFunctionMeanSquareError:
+		return "BNNSLossFunctionMeanSquareError"
+	case BNNSLossFunctionSigmoidCrossEntropy:
+		return "BNNSLossFunctionSigmoidCrossEntropy"
 	case BNNSLossFunctionSoftmaxCrossEntropy:
 		return "BNNSLossFunctionSoftmaxCrossEntropy"
+	case BNNSLossFunctionYolo:
+		return "BNNSLossFunctionYolo"
 	default:
 		return fmt.Sprintf("BNNSLossFunction(%d)", e)
 	}
@@ -614,23 +812,29 @@ type BNNSLossReduction uint
 
 const (
 	// BNNSLossReductionMean: Sums the loss of all samples in the batch and divides by the number of samples.
-	BNNSLossReductionMean BNNSLossReduction = 8
+	BNNSLossReductionMean BNNSLossReduction = 3
 	// BNNSLossReductionNonZeroWeightMean: Sums the loss of all samples in the batch and divides by the number of non-zero weights.
-	BNNSLossReductionNonZeroWeightMean BNNSLossReduction = 8
+	BNNSLossReductionNonZeroWeightMean BNNSLossReduction = 4
 	// BNNSLossReductionNone: Returns the loss without any reduction.
 	BNNSLossReductionNone BNNSLossReduction = 0
 	// BNNSLossReductionSum: Sums the loss of all samples in the batch.
-	BNNSLossReductionSum BNNSLossReduction = 8
+	BNNSLossReductionSum BNNSLossReduction = 1
 	// BNNSLossReductionWeightedMean: Sums the loss of all samples in the batch and divides by the sum of all weights.
-	BNNSLossReductionWeightedMean BNNSLossReduction = 8
+	BNNSLossReductionWeightedMean BNNSLossReduction = 2
 )
 
 func (e BNNSLossReduction) String() string {
 	switch e {
 	case BNNSLossReductionMean:
 		return "BNNSLossReductionMean"
+	case BNNSLossReductionNonZeroWeightMean:
+		return "BNNSLossReductionNonZeroWeightMean"
 	case BNNSLossReductionNone:
 		return "BNNSLossReductionNone"
+	case BNNSLossReductionSum:
+		return "BNNSLossReductionSum"
+	case BNNSLossReductionWeightedMean:
+		return "BNNSLossReductionWeightedMean"
 	default:
 		return fmt.Sprintf("BNNSLossReduction(%d)", e)
 	}
@@ -640,7 +844,7 @@ type BNNSNDArrayFlagBackprop uint
 
 const (
 	// BNNSNDArrayFlagBackpropAccumulate: A flag that indicates backpropagation adds the value of the Jacobian to the elements of this n-dimensional array.
-	BNNSNDArrayFlagBackpropAccumulate BNNSNDArrayFlagBackprop = 8
+	BNNSNDArrayFlagBackpropAccumulate BNNSNDArrayFlagBackprop = 1
 	// BNNSNDArrayFlagBackpropSet: A flag that indicates the elements of this n-dimensional array are overwritten by the Jacobian during backpropagation.
 	BNNSNDArrayFlagBackpropSet BNNSNDArrayFlagBackprop = 0
 )
@@ -660,11 +864,11 @@ type BNNSOptimizerClipping uint
 
 const (
 	// BNNSOptimizerClippingByGlobalNorm: A constant that specifes clipping to a maximum global Euclidean norm.
-	BNNSOptimizerClippingByGlobalNorm BNNSOptimizerClipping = 9
+	BNNSOptimizerClippingByGlobalNorm BNNSOptimizerClipping = 3
 	// BNNSOptimizerClippingByNorm: A constant that specifes clipping to a maximum Euclidean norm.
-	BNNSOptimizerClippingByNorm BNNSOptimizerClipping = 9
+	BNNSOptimizerClippingByNorm BNNSOptimizerClipping = 2
 	// BNNSOptimizerClippingByValue: A constant that specifes clipping to minimum and maximum values.
-	BNNSOptimizerClippingByValue BNNSOptimizerClipping = 9
+	BNNSOptimizerClippingByValue BNNSOptimizerClipping = 1
 	// BNNSOptimizerClippingNone: A constant that specifes no clipping.
 	BNNSOptimizerClippingNone BNNSOptimizerClipping = 0
 )
@@ -673,6 +877,10 @@ func (e BNNSOptimizerClipping) String() string {
 	switch e {
 	case BNNSOptimizerClippingByGlobalNorm:
 		return "BNNSOptimizerClippingByGlobalNorm"
+	case BNNSOptimizerClippingByNorm:
+		return "BNNSOptimizerClippingByNorm"
+	case BNNSOptimizerClippingByValue:
+		return "BNNSOptimizerClippingByValue"
 	case BNNSOptimizerClippingNone:
 		return "BNNSOptimizerClippingNone"
 	default:
@@ -684,29 +892,29 @@ type BNNSOptimizerFunction uint
 
 const (
 	// BNNSOptimizerFunctionAdam: An optimizer function that updates parameters according to the Adam algorithm.
-	BNNSOptimizerFunctionAdam BNNSOptimizerFunction = 8
+	BNNSOptimizerFunctionAdam BNNSOptimizerFunction = 2
 	// BNNSOptimizerFunctionAdamAMSGrad: An optimizer function that updates parameters according to the AMSGrad variant of the Adam algorithm.
-	BNNSOptimizerFunctionAdamAMSGrad BNNSOptimizerFunction = 9
+	BNNSOptimizerFunctionAdamAMSGrad BNNSOptimizerFunction = 5
 	// BNNSOptimizerFunctionAdamAMSGradWithClipping: An optimizer function that updates parameters according to the AMSGrad variant of the Adam algorithm and optionally clips the gradient by value or by norm.
-	BNNSOptimizerFunctionAdamAMSGradWithClipping BNNSOptimizerFunction = 9
+	BNNSOptimizerFunctionAdamAMSGradWithClipping BNNSOptimizerFunction = 11
 	// BNNSOptimizerFunctionAdamW: An optimizer function that updates parameters according to the AdamW algorithm.
-	BNNSOptimizerFunctionAdamW BNNSOptimizerFunction = 8
+	BNNSOptimizerFunctionAdamW BNNSOptimizerFunction = 4
 	// BNNSOptimizerFunctionAdamWAMSGrad: An optimizer function that updates parameters according to the AMSGrad variant of the AdamW algorithm.
-	BNNSOptimizerFunctionAdamWAMSGrad BNNSOptimizerFunction = 9
+	BNNSOptimizerFunctionAdamWAMSGrad BNNSOptimizerFunction = 6
 	// BNNSOptimizerFunctionAdamWAMSGradWithClipping: An optimizer function that updates parameters according to the AMSGrad variant of the AdamW algorithm and optionally clips the gradient by value or by norm.
-	BNNSOptimizerFunctionAdamWAMSGradWithClipping BNNSOptimizerFunction = 9
+	BNNSOptimizerFunctionAdamWAMSGradWithClipping BNNSOptimizerFunction = 12
 	// BNNSOptimizerFunctionAdamWWithClipping: An optimizer function that updates parameters according to the AdamW algorithm and optionally clips the gradient by value or by norm.
-	BNNSOptimizerFunctionAdamWWithClipping BNNSOptimizerFunction = 9
+	BNNSOptimizerFunctionAdamWWithClipping BNNSOptimizerFunction = 10
 	// BNNSOptimizerFunctionAdamWithClipping: An optimizer function that updates parameters according to the Adam algorithm and optionally clips the gradient by value or by norm.
-	BNNSOptimizerFunctionAdamWithClipping BNNSOptimizerFunction = 9
+	BNNSOptimizerFunctionAdamWithClipping BNNSOptimizerFunction = 8
 	// BNNSOptimizerFunctionRMSProp: An optimizer function that updates parameters according to the root mean square propagation (RMSProp) algorithm.
-	BNNSOptimizerFunctionRMSProp BNNSOptimizerFunction = 8
+	BNNSOptimizerFunctionRMSProp BNNSOptimizerFunction = 3
 	// BNNSOptimizerFunctionRMSPropWithClipping: An optimizer function that updates parameters according to the root mean square propagation (RMSProp) algorithm and optionally clips the gradient by value or by norm.
 	BNNSOptimizerFunctionRMSPropWithClipping BNNSOptimizerFunction = 9
 	// BNNSOptimizerFunctionSGDMomentum: An optimizer function that updates parameters according to the stochastic gradient descent (SGD) with momentum algorithm.
-	BNNSOptimizerFunctionSGDMomentum BNNSOptimizerFunction = 0
+	BNNSOptimizerFunctionSGDMomentum BNNSOptimizerFunction = 1
 	// BNNSOptimizerFunctionSGDMomentumWithClipping: An optimizer function that updates parameters according to the stochastic gradient descent (SGD) with momentum algorithm and optionally clips the gradient by value or by norm.
-	BNNSOptimizerFunctionSGDMomentumWithClipping BNNSOptimizerFunction = 9
+	BNNSOptimizerFunctionSGDMomentumWithClipping BNNSOptimizerFunction = 7
 )
 
 func (e BNNSOptimizerFunction) String() string {
@@ -715,8 +923,26 @@ func (e BNNSOptimizerFunction) String() string {
 		return "BNNSOptimizerFunctionAdam"
 	case BNNSOptimizerFunctionAdamAMSGrad:
 		return "BNNSOptimizerFunctionAdamAMSGrad"
+	case BNNSOptimizerFunctionAdamAMSGradWithClipping:
+		return "BNNSOptimizerFunctionAdamAMSGradWithClipping"
+	case BNNSOptimizerFunctionAdamW:
+		return "BNNSOptimizerFunctionAdamW"
+	case BNNSOptimizerFunctionAdamWAMSGrad:
+		return "BNNSOptimizerFunctionAdamWAMSGrad"
+	case BNNSOptimizerFunctionAdamWAMSGradWithClipping:
+		return "BNNSOptimizerFunctionAdamWAMSGradWithClipping"
+	case BNNSOptimizerFunctionAdamWWithClipping:
+		return "BNNSOptimizerFunctionAdamWWithClipping"
+	case BNNSOptimizerFunctionAdamWithClipping:
+		return "BNNSOptimizerFunctionAdamWithClipping"
+	case BNNSOptimizerFunctionRMSProp:
+		return "BNNSOptimizerFunctionRMSProp"
+	case BNNSOptimizerFunctionRMSPropWithClipping:
+		return "BNNSOptimizerFunctionRMSPropWithClipping"
 	case BNNSOptimizerFunctionSGDMomentum:
 		return "BNNSOptimizerFunctionSGDMomentum"
+	case BNNSOptimizerFunctionSGDMomentumWithClipping:
+		return "BNNSOptimizerFunctionSGDMomentumWithClipping"
 	default:
 		return fmt.Sprintf("BNNSOptimizerFunction(%d)", e)
 	}
@@ -726,9 +952,9 @@ type BNNSOptimizerRegularization uint
 
 const (
 	// BNNSOptimizerRegularizationL1: A regularization function that applies L1 regularization.
-	BNNSOptimizerRegularizationL1 BNNSOptimizerRegularization = 8
+	BNNSOptimizerRegularizationL1 BNNSOptimizerRegularization = 1
 	// BNNSOptimizerRegularizationL2: A regularization function that applies L2 regularization.
-	BNNSOptimizerRegularizationL2 BNNSOptimizerRegularization = 8
+	BNNSOptimizerRegularizationL2 BNNSOptimizerRegularization = 2
 	// BNNSOptimizerRegularizationNone: A regularization function that adoesn’t apply any regularization.
 	BNNSOptimizerRegularizationNone BNNSOptimizerRegularization = 0
 )
@@ -737,6 +963,8 @@ func (e BNNSOptimizerRegularization) String() string {
 	switch e {
 	case BNNSOptimizerRegularizationL1:
 		return "BNNSOptimizerRegularizationL1"
+	case BNNSOptimizerRegularizationL2:
+		return "BNNSOptimizerRegularizationL2"
 	case BNNSOptimizerRegularizationNone:
 		return "BNNSOptimizerRegularizationNone"
 	default:
@@ -750,9 +978,9 @@ const (
 	// BNNSPaddingModeConstant: A constant that indicates that a padding operation fills the padded area with a specified constant.
 	BNNSPaddingModeConstant BNNSPaddingMode = 0
 	// BNNSPaddingModeReflect: A constant that indicates that a padding operation fills the padded area to form an odd-symmetric pattern.
-	BNNSPaddingModeReflect BNNSPaddingMode = 8
+	BNNSPaddingModeReflect BNNSPaddingMode = 1
 	// BNNSPaddingModeSymmetric: A constant that indicates that a padding operation fills the padded area to form an even-symmetric pattern.
-	BNNSPaddingModeSymmetric BNNSPaddingMode = 8
+	BNNSPaddingModeSymmetric BNNSPaddingMode = 2
 )
 
 func (e BNNSPaddingMode) String() string {
@@ -761,6 +989,8 @@ func (e BNNSPaddingMode) String() string {
 		return "BNNSPaddingModeConstant"
 	case BNNSPaddingModeReflect:
 		return "BNNSPaddingModeReflect"
+	case BNNSPaddingModeSymmetric:
+		return "BNNSPaddingModeSymmetric"
 	default:
 		return fmt.Sprintf("BNNSPaddingMode(%d)", e)
 	}
@@ -772,7 +1002,7 @@ const (
 	// BNNSPointerSpecifierAlpha: A constant that specifies the alpha pointer.
 	BNNSPointerSpecifierAlpha BNNSPointerSpecifier = 0
 	// BNNSPointerSpecifierBeta: A constant that specifies the beta pointer.
-	BNNSPointerSpecifierBeta BNNSPointerSpecifier = 8
+	BNNSPointerSpecifierBeta BNNSPointerSpecifier = 1
 )
 
 func (e BNNSPointerSpecifier) String() string {
@@ -790,17 +1020,17 @@ type BNNSPoolingFunction uint
 
 const (
 	// BNNSPoolingFunctionAverageCountExcludePadding: A function for pooling that computes the average of each element in the pooling kernel, excluding zero-padding.
-	BNNSPoolingFunctionAverageCountExcludePadding BNNSPoolingFunction = 8
+	BNNSPoolingFunctionAverageCountExcludePadding BNNSPoolingFunction = 2
 	// BNNSPoolingFunctionAverageCountIncludePadding: A function for pooling that computes the average of each element in the pooling kernel, including zero-padding.
-	BNNSPoolingFunctionAverageCountIncludePadding BNNSPoolingFunction = 4
+	BNNSPoolingFunctionAverageCountIncludePadding BNNSPoolingFunction = 1
 	// BNNSPoolingFunctionL2Norm: A function for pooling that computes the square root of the sum of squares of each element in the pooling kernel.
-	BNNSPoolingFunctionL2Norm BNNSPoolingFunction = 8
+	BNNSPoolingFunctionL2Norm BNNSPoolingFunction = 4
 	// BNNSPoolingFunctionMax: A function for pooling that computes the maximum of each element in the pooling kernel.
 	BNNSPoolingFunctionMax BNNSPoolingFunction = 0
 	// BNNSPoolingFunctionUnMax: A function for pooling that’s the partial inverse of max pooling and sets all nonmaximal values to zero.
-	BNNSPoolingFunctionUnMax BNNSPoolingFunction = 8
+	BNNSPoolingFunctionUnMax BNNSPoolingFunction = 3
 	// Deprecated.
-	BNNSPoolingFunctionAverage BNNSPoolingFunction = 8
+	BNNSPoolingFunctionAverage BNNSPoolingFunction = 5
 )
 
 func (e BNNSPoolingFunction) String() string {
@@ -809,8 +1039,14 @@ func (e BNNSPoolingFunction) String() string {
 		return "BNNSPoolingFunctionAverageCountExcludePadding"
 	case BNNSPoolingFunctionAverageCountIncludePadding:
 		return "BNNSPoolingFunctionAverageCountIncludePadding"
+	case BNNSPoolingFunctionL2Norm:
+		return "BNNSPoolingFunctionL2Norm"
 	case BNNSPoolingFunctionMax:
 		return "BNNSPoolingFunctionMax"
+	case BNNSPoolingFunctionUnMax:
+		return "BNNSPoolingFunctionUnMax"
+	case BNNSPoolingFunctionAverage:
+		return "BNNSPoolingFunctionAverage"
 	default:
 		return fmt.Sprintf("BNNSPoolingFunction(%d)", e)
 	}
@@ -820,7 +1056,7 @@ type BNNSQuantizerFunction uint
 
 const (
 	// BNNSQuantizerFunctionDequantize: A constant that specifes conversion to a higher precision.
-	BNNSQuantizerFunctionDequantize BNNSQuantizerFunction = 9
+	BNNSQuantizerFunctionDequantize BNNSQuantizerFunction = 1
 	// BNNSQuantizerFunctionQuantize: A constant that specifes conversion to a lower precision.
 	BNNSQuantizerFunctionQuantize BNNSQuantizerFunction = 0
 )
@@ -856,42 +1092,42 @@ type BNNSReduceFunction uint
 
 const (
 	// BNNSReduceFunctionAll: An alias of the logical AND reduction function.
-	BNNSReduceFunctionAll BNNSReduceFunction = 8
+	BNNSReduceFunctionAll BNNSReduceFunction = 18
 	// BNNSReduceFunctionAny: An alias of the logical OR reduction function.
-	BNNSReduceFunctionAny BNNSReduceFunction = 10
+	BNNSReduceFunctionAny BNNSReduceFunction = 17
 	// BNNSReduceFunctionArgMax: A reduction function that computes the index of the maximum value.
-	BNNSReduceFunctionArgMax BNNSReduceFunction = 8
+	BNNSReduceFunctionArgMax BNNSReduceFunction = 2
 	// BNNSReduceFunctionArgMin: A reduction function that computes the index of the minimum value.
-	BNNSReduceFunctionArgMin BNNSReduceFunction = 8
+	BNNSReduceFunctionArgMin BNNSReduceFunction = 3
 	// BNNSReduceFunctionL1Norm: A reduction function that computes the sum of the absolute value of each element.
-	BNNSReduceFunctionL1Norm BNNSReduceFunction = 8
+	BNNSReduceFunctionL1Norm BNNSReduceFunction = 9
 	// BNNSReduceFunctionL2Norm: A reduction function that computes the Euclidean norm.
-	BNNSReduceFunctionL2Norm BNNSReduceFunction = 8
-	BNNSReduceFunctionLogSum BNNSReduceFunction = 10
+	BNNSReduceFunctionL2Norm BNNSReduceFunction = 12
+	BNNSReduceFunctionLogSum BNNSReduceFunction = 16
 	// BNNSReduceFunctionLogSumExp: A reduction function that computes the logarithm of the sum of the exponentials of each element.
-	BNNSReduceFunctionLogSumExp BNNSReduceFunction = 10
+	BNNSReduceFunctionLogSumExp BNNSReduceFunction = 13
 	// BNNSReduceFunctionLogicalAnd: A reduction function that reduces a tensor to true if all elements are true.
-	BNNSReduceFunctionLogicalAnd BNNSReduceFunction = 8
+	BNNSReduceFunctionLogicalAnd BNNSReduceFunction = 11
 	// BNNSReduceFunctionLogicalOr: A reduction function that reduces a tensor to true if any element is true.
-	BNNSReduceFunctionLogicalOr BNNSReduceFunction = 8
+	BNNSReduceFunctionLogicalOr BNNSReduceFunction = 10
 	// BNNSReduceFunctionMax: A reduction function that computes the maximum value.
 	BNNSReduceFunctionMax BNNSReduceFunction = 0
 	// BNNSReduceFunctionMean: A reduction function that computes the mean value.
-	BNNSReduceFunctionMean BNNSReduceFunction = 8
+	BNNSReduceFunctionMean BNNSReduceFunction = 4
 	// BNNSReduceFunctionMeanNonZero: A reduction function that computes the mean value of nonzero elements.
-	BNNSReduceFunctionMeanNonZero BNNSReduceFunction = 8
+	BNNSReduceFunctionMeanNonZero BNNSReduceFunction = 5
 	// BNNSReduceFunctionMin: A reduction function that computes the minimum value.
-	BNNSReduceFunctionMin BNNSReduceFunction = 8
+	BNNSReduceFunctionMin BNNSReduceFunction = 1
 	// BNNSReduceFunctionNone: A reduction function that copies the input to the output.
-	BNNSReduceFunctionNone BNNSReduceFunction = 10
+	BNNSReduceFunctionNone BNNSReduceFunction = 15
 	// BNNSReduceFunctionProduct: A reduction function that computes the product of all values.
-	BNNSReduceFunctionProduct BNNSReduceFunction = 10
+	BNNSReduceFunctionProduct BNNSReduceFunction = 14
 	// BNNSReduceFunctionSum: A reduction function that computes the sum of all values.
-	BNNSReduceFunctionSum BNNSReduceFunction = 8
+	BNNSReduceFunctionSum BNNSReduceFunction = 6
 	// BNNSReduceFunctionSumLog: A reduction function that computes the sum of the natural logarithm of all values.
 	BNNSReduceFunctionSumLog BNNSReduceFunction = 8
 	// BNNSReduceFunctionSumSquare: A reduction function that computes the sum of the square of all values.
-	BNNSReduceFunctionSumSquare BNNSReduceFunction = 8
+	BNNSReduceFunctionSumSquare BNNSReduceFunction = 7
 )
 
 func (e BNNSReduceFunction) String() string {
@@ -900,8 +1136,40 @@ func (e BNNSReduceFunction) String() string {
 		return "BNNSReduceFunctionAll"
 	case BNNSReduceFunctionAny:
 		return "BNNSReduceFunctionAny"
+	case BNNSReduceFunctionArgMax:
+		return "BNNSReduceFunctionArgMax"
+	case BNNSReduceFunctionArgMin:
+		return "BNNSReduceFunctionArgMin"
+	case BNNSReduceFunctionL1Norm:
+		return "BNNSReduceFunctionL1Norm"
+	case BNNSReduceFunctionL2Norm:
+		return "BNNSReduceFunctionL2Norm"
+	case BNNSReduceFunctionLogSum:
+		return "BNNSReduceFunctionLogSum"
+	case BNNSReduceFunctionLogSumExp:
+		return "BNNSReduceFunctionLogSumExp"
+	case BNNSReduceFunctionLogicalAnd:
+		return "BNNSReduceFunctionLogicalAnd"
+	case BNNSReduceFunctionLogicalOr:
+		return "BNNSReduceFunctionLogicalOr"
 	case BNNSReduceFunctionMax:
 		return "BNNSReduceFunctionMax"
+	case BNNSReduceFunctionMean:
+		return "BNNSReduceFunctionMean"
+	case BNNSReduceFunctionMeanNonZero:
+		return "BNNSReduceFunctionMeanNonZero"
+	case BNNSReduceFunctionMin:
+		return "BNNSReduceFunctionMin"
+	case BNNSReduceFunctionNone:
+		return "BNNSReduceFunctionNone"
+	case BNNSReduceFunctionProduct:
+		return "BNNSReduceFunctionProduct"
+	case BNNSReduceFunctionSum:
+		return "BNNSReduceFunctionSum"
+	case BNNSReduceFunctionSumLog:
+		return "BNNSReduceFunctionSumLog"
+	case BNNSReduceFunctionSumSquare:
+		return "BNNSReduceFunctionSumSquare"
 	default:
 		return fmt.Sprintf("BNNSReduceFunction(%d)", e)
 	}
@@ -913,27 +1181,27 @@ const (
 	// BNNSRelationalOperatorEqual: The operator that indicates the equal-to relationship.
 	BNNSRelationalOperatorEqual BNNSRelationalOperator = 0
 	// BNNSRelationalOperatorGreater: The operator that indicates the greater-than relationship.
-	BNNSRelationalOperatorGreater BNNSRelationalOperator = 8
+	BNNSRelationalOperatorGreater BNNSRelationalOperator = 3
 	// BNNSRelationalOperatorGreaterEqual: The operator that indicates the greater-than or equal-to relationship.
-	BNNSRelationalOperatorGreaterEqual BNNSRelationalOperator = 8
+	BNNSRelationalOperatorGreaterEqual BNNSRelationalOperator = 4
 	// BNNSRelationalOperatorLess: The operator that indicates the less-than relationship.
-	BNNSRelationalOperatorLess BNNSRelationalOperator = 8
+	BNNSRelationalOperatorLess BNNSRelationalOperator = 1
 	// BNNSRelationalOperatorLessEqual: The operator that indicates the less-than or equal-to relationship.
-	BNNSRelationalOperatorLessEqual BNNSRelationalOperator = 8
+	BNNSRelationalOperatorLessEqual BNNSRelationalOperator = 2
 	// BNNSRelationalOperatorLogicalAND: The operator that indicates the logical AND relationship.
-	BNNSRelationalOperatorLogicalAND BNNSRelationalOperator = 8
+	BNNSRelationalOperatorLogicalAND BNNSRelationalOperator = 6
 	// BNNSRelationalOperatorLogicalNAND: The operator that indicates the logical NAND relationship.
-	BNNSRelationalOperatorLogicalNAND BNNSRelationalOperator = 8
+	BNNSRelationalOperatorLogicalNAND BNNSRelationalOperator = 9
 	// BNNSRelationalOperatorLogicalNOR: The operator that indicates the logical NOR relationship.
-	BNNSRelationalOperatorLogicalNOR BNNSRelationalOperator = 8
+	BNNSRelationalOperatorLogicalNOR BNNSRelationalOperator = 10
 	// BNNSRelationalOperatorLogicalNOT: The operator that indicates the logical NOT relationship.
 	BNNSRelationalOperatorLogicalNOT BNNSRelationalOperator = 8
 	// BNNSRelationalOperatorLogicalOR: The operator that indicates the logical OR relationship.
-	BNNSRelationalOperatorLogicalOR BNNSRelationalOperator = 8
+	BNNSRelationalOperatorLogicalOR BNNSRelationalOperator = 7
 	// BNNSRelationalOperatorLogicalXOR: The operator that indicates the logical XOR relationship.
-	BNNSRelationalOperatorLogicalXOR BNNSRelationalOperator = 8
+	BNNSRelationalOperatorLogicalXOR BNNSRelationalOperator = 11
 	// BNNSRelationalOperatorNotEqual: The operator that indicates the not-equal relationship.
-	BNNSRelationalOperatorNotEqual BNNSRelationalOperator = 8
+	BNNSRelationalOperatorNotEqual BNNSRelationalOperator = 5
 )
 
 func (e BNNSRelationalOperator) String() string {
@@ -942,6 +1210,26 @@ func (e BNNSRelationalOperator) String() string {
 		return "BNNSRelationalOperatorEqual"
 	case BNNSRelationalOperatorGreater:
 		return "BNNSRelationalOperatorGreater"
+	case BNNSRelationalOperatorGreaterEqual:
+		return "BNNSRelationalOperatorGreaterEqual"
+	case BNNSRelationalOperatorLess:
+		return "BNNSRelationalOperatorLess"
+	case BNNSRelationalOperatorLessEqual:
+		return "BNNSRelationalOperatorLessEqual"
+	case BNNSRelationalOperatorLogicalAND:
+		return "BNNSRelationalOperatorLogicalAND"
+	case BNNSRelationalOperatorLogicalNAND:
+		return "BNNSRelationalOperatorLogicalNAND"
+	case BNNSRelationalOperatorLogicalNOR:
+		return "BNNSRelationalOperatorLogicalNOR"
+	case BNNSRelationalOperatorLogicalNOT:
+		return "BNNSRelationalOperatorLogicalNOT"
+	case BNNSRelationalOperatorLogicalOR:
+		return "BNNSRelationalOperatorLogicalOR"
+	case BNNSRelationalOperatorLogicalXOR:
+		return "BNNSRelationalOperatorLogicalXOR"
+	case BNNSRelationalOperatorNotEqual:
+		return "BNNSRelationalOperatorNotEqual"
 	default:
 		return fmt.Sprintf("BNNSRelationalOperator(%d)", e)
 	}
@@ -953,9 +1241,9 @@ const (
 	// BNNSSGDMomentumVariant0: A constant that indicates SGD momentum variant 0.
 	BNNSSGDMomentumVariant0 BNNSSGDMomentum = 0
 	// BNNSSGDMomentumVariant1: A constant that indicates SGD momentum variant 1.
-	BNNSSGDMomentumVariant1 BNNSSGDMomentum = 8
+	BNNSSGDMomentumVariant1 BNNSSGDMomentum = 1
 	// BNNSSGDMomentumVariant2: A constant that indicates SGD momentum variant 2.
-	BNNSSGDMomentumVariant2 BNNSSGDMomentum = 8
+	BNNSSGDMomentumVariant2 BNNSSGDMomentum = 2
 )
 
 func (e BNNSSGDMomentum) String() string {
@@ -964,6 +1252,8 @@ func (e BNNSSGDMomentum) String() string {
 		return "BNNSSGDMomentumVariant0"
 	case BNNSSGDMomentumVariant1:
 		return "BNNSSGDMomentumVariant1"
+	case BNNSSGDMomentumVariant2:
+		return "BNNSSGDMomentumVariant2"
 	default:
 		return fmt.Sprintf("BNNSSGDMomentum(%d)", e)
 	}
@@ -972,12 +1262,12 @@ func (e BNNSSGDMomentum) String() string {
 type BNNSShuffleType uint
 
 const (
-	BNNSShuffleTypeDepthToSpaceNCHW BNNSShuffleType = 10
+	BNNSShuffleTypeDepthToSpaceNCHW BNNSShuffleType = 2
 	// BNNSShuffleTypePixelShuffleNCHW: The pixel shuffle for the NCHW (batch, channels, height, width) format, equivalent to depth-to-space in Column Row Depth (CRD) mode.
 	BNNSShuffleTypePixelShuffleNCHW BNNSShuffleType = 0
 	// BNNSShuffleTypePixelUnshuffleNCHW: The pixel unshuffle for the NCHW (batch, channels, height, width) format, equivalent to space-to-depth in Column Row Depth (CRD) mode.
-	BNNSShuffleTypePixelUnshuffleNCHW BNNSShuffleType = 10
-	BNNSShuffleTypeSpaceToDepthNCHW   BNNSShuffleType = 10
+	BNNSShuffleTypePixelUnshuffleNCHW BNNSShuffleType = 1
+	BNNSShuffleTypeSpaceToDepthNCHW   BNNSShuffleType = 3
 )
 
 func (e BNNSShuffleType) String() string {
@@ -986,6 +1276,10 @@ func (e BNNSShuffleType) String() string {
 		return "BNNSShuffleTypeDepthToSpaceNCHW"
 	case BNNSShuffleTypePixelShuffleNCHW:
 		return "BNNSShuffleTypePixelShuffleNCHW"
+	case BNNSShuffleTypePixelUnshuffleNCHW:
+		return "BNNSShuffleTypePixelUnshuffleNCHW"
+	case BNNSShuffleTypeSpaceToDepthNCHW:
+		return "BNNSShuffleTypeSpaceToDepthNCHW"
 	default:
 		return fmt.Sprintf("BNNSShuffleType(%d)", e)
 	}
@@ -1025,13 +1319,13 @@ type Bnns uint
 
 const (
 	// BnnsArithmetic: An arithmetic filter.
-	BnnsArithmetic Bnns = 9
+	BnnsArithmetic Bnns = 8
 	// BNNSBatchNorm: A batch normalization filter.
-	BNNSBatchNorm Bnns = 8
+	BNNSBatchNorm Bnns = 2
 	// BNNSCenterSizeHeightFirst: Specifies coordinates as corners with the order: height start, width start, height end, width end.
-	BNNSCenterSizeHeightFirst Bnns = 10
+	BNNSCenterSizeHeightFirst Bnns = 2
 	// BNNSCenterSizeWidthFirst: Specifies coordinates as corners with the order: width start, height start, width end, height end.
-	BNNSCenterSizeWidthFirst Bnns = 10
+	BNNSCenterSizeWidthFirst Bnns = 3
 	// BNNSConstant: A constant that doesn’t have a gradient.
 	BNNSConstant Bnns = 0
 	// BNNSConvolution: A convolution filter.
@@ -1039,23 +1333,23 @@ const (
 	// BNNSCornersHeightFirst: Specifies coordinates as center and size with the order: height center, width center, height, width.
 	BNNSCornersHeightFirst Bnns = 0
 	// BNNSCornersWidthFirst: Specifies coordinates as center and size with the order: width center, height center, width, height.
-	BNNSCornersWidthFirst Bnns = 10
+	BNNSCornersWidthFirst Bnns = 1
 	// BNNSFullyConnected: A fully connected filter.
-	BNNSFullyConnected Bnns = 8
+	BNNSFullyConnected Bnns = 1
 	// BNNSGroupNorm: A group normalization filter.
-	BNNSGroupNorm Bnns = 8
+	BNNSGroupNorm Bnns = 5
 	// BNNSInstanceNorm: An instance normalization filter.
-	BNNSInstanceNorm Bnns = 8
+	BNNSInstanceNorm Bnns = 3
 	// BNNSLayerNorm: A layer normalization filter.
-	BNNSLayerNorm Bnns = 8
+	BNNSLayerNorm Bnns = 4
 	// BNNSParameter: A parameter that’s trainable, such as weights or bias.
-	BNNSParameter Bnns = 8
+	BNNSParameter Bnns = 2
 	// BNNSQuantization: A quantization filter.
-	BNNSQuantization Bnns = 8
+	BNNSQuantization Bnns = 7
 	// BNNSSample: A sample such as input or output.
-	BNNSSample Bnns = 8
+	BNNSSample Bnns = 1
 	// BNNSTransposedConvolution: A transposed convolution filter.
-	BNNSTransposedConvolution Bnns = 8
+	BNNSTransposedConvolution Bnns = 6
 )
 
 func (e Bnns) String() string {
@@ -1064,10 +1358,20 @@ func (e Bnns) String() string {
 		return "BnnsArithmetic"
 	case BNNSBatchNorm:
 		return "BNNSBatchNorm"
-	case BNNSCenterSizeHeightFirst:
-		return "BNNSCenterSizeHeightFirst"
+	case BNNSCenterSizeWidthFirst:
+		return "BNNSCenterSizeWidthFirst"
 	case BNNSConstant:
 		return "BNNSConstant"
+	case BNNSCornersWidthFirst:
+		return "BNNSCornersWidthFirst"
+	case BNNSGroupNorm:
+		return "BNNSGroupNorm"
+	case BNNSLayerNorm:
+		return "BNNSLayerNorm"
+	case BNNSQuantization:
+		return "BNNSQuantization"
+	case BNNSTransposedConvolution:
+		return "BNNSTransposedConvolution"
 	default:
 		return fmt.Sprintf("Bnns(%d)", e)
 	}
@@ -1077,7 +1381,7 @@ type Bnnsl2 uint
 
 const (
 	// BNNSL2Norm: A constant that represents the L2 norm.
-	BNNSL2Norm Bnnsl2 = 0
+	BNNSL2Norm Bnnsl2 = 1
 )
 
 func (e Bnnsl2) String() string {
@@ -1771,11 +2075,11 @@ const (
 	// SparseFactorizationFailed: The factorization failed due to a numerical issue.
 	SparseFactorizationFailed Sparse = -1
 	// SparseHermitian: A flag to describe the type of matrix represented.
-	SparseHermitian Sparse = 5
+	SparseHermitian Sparse = 7
 	// SparseInternalError: The factorization encountered an internal error, such as failing to allocate memory.
 	SparseInternalError Sparse = -3
 	// SparseLowerTriangle: A constant that specifies the lower triangle.
-	SparseLowerTriangle Sparse = 5
+	SparseLowerTriangle Sparse = 1
 	// SparseMatrixIsSingular: The factorization aborted because the matrix is singular.
 	SparseMatrixIsSingular Sparse = -2
 	// SparseOrdinary: An unsymmetric sparse matrix without special structure.
@@ -1787,11 +2091,11 @@ const (
 	// SparseStatusReleased: The system freed the factorization object.
 	SparseStatusReleased Sparse = -2147483647
 	// SparseSymmetric: A symmetric sparse matrix.
-	SparseSymmetric Sparse = 5
+	SparseSymmetric Sparse = 3
 	// SparseTriangular: A triangular sparse matrix with a nonunit diagonal.
-	SparseTriangular Sparse = 5
+	SparseTriangular Sparse = 1
 	// SparseUnitTriangular: A triangular sparse matrix with a unit diagonal.
-	SparseUnitTriangular Sparse = 5
+	SparseUnitTriangular Sparse = 2
 	// SparseUpperTriangle: A constant that specifies the upper triangle.
 	SparseUpperTriangle Sparse = 0
 )
@@ -1826,6 +2130,8 @@ func (e Sparse) String() string {
 		return "SparseParameterError"
 	case SparseStatusReleased:
 		return "SparseStatusReleased"
+	case SparseSymmetric:
+		return "SparseSymmetric"
 	default:
 		return fmt.Sprintf("Sparse(%d)", e)
 	}
@@ -1853,25 +2159,25 @@ const (
 	// SparseFactorizationCholesky: A constant that represents Cholesky () factorization.
 	SparseFactorizationCholesky SparseFactorization = 0
 	// SparseFactorizationCholeskyAtA: A constant that represents  factorization without storing .
-	SparseFactorizationCholeskyAtA SparseFactorization = 5
+	SparseFactorizationCholeskyAtA SparseFactorization = 41
 	// SparseFactorizationLDLT: A constant that represents the default  factorization.
-	SparseFactorizationLDLT SparseFactorization = 5
+	SparseFactorizationLDLT SparseFactorization = 1
 	// SparseFactorizationLDLTSBK: A constant that represents  factorization with Supernode-Bunch-Kaufman and static pivoting.
-	SparseFactorizationLDLTSBK SparseFactorization = 5
+	SparseFactorizationLDLTSBK SparseFactorization = 3
 	// SparseFactorizationLDLTTPP: A constant that represents  factorization with full-threshold partial pivoting.
-	SparseFactorizationLDLTTPP SparseFactorization = 5
+	SparseFactorizationLDLTTPP SparseFactorization = 4
 	// SparseFactorizationLDLTUnpivoted: A constant that represents Cholesky-like  factorization with only one-by-one pivots and no pivoting.
-	SparseFactorizationLDLTUnpivoted SparseFactorization = 5
+	SparseFactorizationLDLTUnpivoted SparseFactorization = 2
 	// SparseFactorizationLU: Default LU factorization, currently LU with TPP.
-	SparseFactorizationLU SparseFactorization = 5
+	SparseFactorizationLU SparseFactorization = 80
 	// SparseFactorizationLUSPP: LU factorization with partial pivoting restricted to within supernodes only.
-	SparseFactorizationLUSPP SparseFactorization = 12
+	SparseFactorizationLUSPP SparseFactorization = 82
 	// SparseFactorizationLUTPP: LU factorization with threshold partial pivoting.
-	SparseFactorizationLUTPP SparseFactorization = 12
+	SparseFactorizationLUTPP SparseFactorization = 83
 	// SparseFactorizationLUUnpivoted: LU factorization with no numerical pivoting.
-	SparseFactorizationLUUnpivoted SparseFactorization = 12
+	SparseFactorizationLUUnpivoted SparseFactorization = 81
 	// SparseFactorizationQR: A constant that represents QR factorization.
-	SparseFactorizationQR SparseFactorization = 5
+	SparseFactorizationQR SparseFactorization = 40
 )
 
 func (e SparseFactorization) String() string {
@@ -1880,8 +2186,24 @@ func (e SparseFactorization) String() string {
 		return "SparseFactorizationCholesky"
 	case SparseFactorizationCholeskyAtA:
 		return "SparseFactorizationCholeskyAtA"
+	case SparseFactorizationLDLT:
+		return "SparseFactorizationLDLT"
+	case SparseFactorizationLDLTSBK:
+		return "SparseFactorizationLDLTSBK"
+	case SparseFactorizationLDLTTPP:
+		return "SparseFactorizationLDLTTPP"
+	case SparseFactorizationLDLTUnpivoted:
+		return "SparseFactorizationLDLTUnpivoted"
+	case SparseFactorizationLU:
+		return "SparseFactorizationLU"
 	case SparseFactorizationLUSPP:
 		return "SparseFactorizationLUSPP"
+	case SparseFactorizationLUTPP:
+		return "SparseFactorizationLUTPP"
+	case SparseFactorizationLUUnpivoted:
+		return "SparseFactorizationLUUnpivoted"
+	case SparseFactorizationQR:
+		return "SparseFactorizationQR"
 	default:
 		return fmt.Sprintf("SparseFactorization(%d)", e)
 	}
@@ -1971,25 +2293,33 @@ type SparseOrder uint
 
 const (
 	// SparseOrderAMD: Approximate minimum degree (AMD) ordering.
-	SparseOrderAMD SparseOrder = 5
+	SparseOrderAMD SparseOrder = 2
 	// SparseOrderCOLAMD: The column AMD ordering for .
-	SparseOrderCOLAMD SparseOrder = 5
+	SparseOrderCOLAMD SparseOrder = 4
 	// SparseOrderDefault: The default ordering.
 	SparseOrderDefault SparseOrder = 0
 	// SparseOrderMTMetis: Specifies type of fill-reducing ordering.
 	SparseOrderMTMetis SparseOrder = 5
 	// SparseOrderMetis: METIS nested dissection ordering.
-	SparseOrderMetis SparseOrder = 5
+	SparseOrderMetis SparseOrder = 3
 	// SparseOrderUser: The user-supplied ordering, or identity if the order parameter is null.
-	SparseOrderUser SparseOrder = 5
+	SparseOrderUser SparseOrder = 1
 )
 
 func (e SparseOrder) String() string {
 	switch e {
 	case SparseOrderAMD:
 		return "SparseOrderAMD"
+	case SparseOrderCOLAMD:
+		return "SparseOrderCOLAMD"
 	case SparseOrderDefault:
 		return "SparseOrderDefault"
+	case SparseOrderMTMetis:
+		return "SparseOrderMTMetis"
+	case SparseOrderMetis:
+		return "SparseOrderMetis"
+	case SparseOrderUser:
+		return "SparseOrderUser"
 	default:
 		return fmt.Sprintf("SparseOrder(%d)", e)
 	}
@@ -2029,13 +2359,13 @@ const (
 	// SparseScalingDefault: Default scaling.
 	SparseScalingDefault SparseScaling = 0
 	// SparseScalingEquilibriationInf: The norm equilibration scaling using infinity norm.
-	SparseScalingEquilibriationInf SparseScaling = 5
+	SparseScalingEquilibriationInf SparseScaling = 2
 	// SparseScalingHungarianScalingAndOrdering: Scaling and ordering using the Hungarian algorithm.
-	SparseScalingHungarianScalingAndOrdering SparseScaling = 27
+	SparseScalingHungarianScalingAndOrdering SparseScaling = 4
 	// SparseScalingHungarianScalingOnly: Scaling using the Hungarian algorithm.
-	SparseScalingHungarianScalingOnly SparseScaling = 5
+	SparseScalingHungarianScalingOnly SparseScaling = 3
 	// SparseScalingUser: User scaling.
-	SparseScalingUser SparseScaling = 5
+	SparseScalingUser SparseScaling = 1
 )
 
 func (e SparseScaling) String() string {
@@ -2046,6 +2376,10 @@ func (e SparseScaling) String() string {
 		return "SparseScalingEquilibriationInf"
 	case SparseScalingHungarianScalingAndOrdering:
 		return "SparseScalingHungarianScalingAndOrdering"
+	case SparseScalingHungarianScalingOnly:
+		return "SparseScalingHungarianScalingOnly"
+	case SparseScalingUser:
+		return "SparseScalingUser"
 	default:
 		return fmt.Sprintf("SparseScaling(%d)", e)
 	}
@@ -2055,27 +2389,27 @@ type SparseSubfactor uint
 
 const (
 	// SparseSubfactorD: A  factor subfactor that’s valid for ` `only.
-	SparseSubfactorD SparseSubfactor = 5
+	SparseSubfactorD SparseSubfactor = 4
 	// SparseSubfactorInvalid: An invalid subfactor that indicates the requested type is incompatible with the supplied factorization or the system has destroyed it.
 	SparseSubfactorInvalid SparseSubfactor = 0
 	// SparseSubfactorL: An  factor subfactor that’s valid for Cholesky and  only.
-	SparseSubfactorL SparseSubfactor = 5
+	SparseSubfactorL SparseSubfactor = 3
 	// SparseSubfactorP: A permutation subfactor that’s valid for all factorization types.
-	SparseSubfactorP SparseSubfactor = 5
+	SparseSubfactorP SparseSubfactor = 1
 	// SparseSubfactorPLPS: A half-solve subfactor that’s valid for Cholesky and  only.
 	SparseSubfactorPLPS SparseSubfactor = 5
 	// SparseSubfactorQ: A  factor subfactor that’s valid for QR only.
-	SparseSubfactorQ SparseSubfactor = 5
+	SparseSubfactorQ SparseSubfactor = 6
 	// SparseSubfactorR: An  factor subfactor that’s valid for QR and Cholesky  only.
-	SparseSubfactorR SparseSubfactor = 5
+	SparseSubfactorR SparseSubfactor = 7
 	// SparseSubfactorRP: A half-solve subfactor that’s valid for QR and Cholesky  only.
-	SparseSubfactorRP SparseSubfactor = 5
+	SparseSubfactorRP SparseSubfactor = 8
 	// SparseSubfactorS: A diagonal scaling subfactor that’s valid for Cholesky and  only.
-	SparseSubfactorS SparseSubfactor = 5
+	SparseSubfactorS SparseSubfactor = 2
 	// SparseSubfactorSc: Types of sub-factor object.
-	SparseSubfactorSc SparseSubfactor = 12
+	SparseSubfactorSc SparseSubfactor = 10
 	// SparseSubfactorSr: Types of sub-factor object.
-	SparseSubfactorSr SparseSubfactor = 5
+	SparseSubfactorSr SparseSubfactor = 9
 )
 
 func (e SparseSubfactor) String() string {
@@ -2084,8 +2418,24 @@ func (e SparseSubfactor) String() string {
 		return "SparseSubfactorD"
 	case SparseSubfactorInvalid:
 		return "SparseSubfactorInvalid"
+	case SparseSubfactorL:
+		return "SparseSubfactorL"
+	case SparseSubfactorP:
+		return "SparseSubfactorP"
+	case SparseSubfactorPLPS:
+		return "SparseSubfactorPLPS"
+	case SparseSubfactorQ:
+		return "SparseSubfactorQ"
+	case SparseSubfactorR:
+		return "SparseSubfactorR"
+	case SparseSubfactorRP:
+		return "SparseSubfactorRP"
+	case SparseSubfactorS:
+		return "SparseSubfactorS"
 	case SparseSubfactorSc:
 		return "SparseSubfactorSc"
+	case SparseSubfactorSr:
+		return "SparseSubfactorSr"
 	default:
 		return fmt.Sprintf("SparseSubfactor(%d)", e)
 	}
@@ -2219,3 +2569,30 @@ func (e VDSP_DFT_RealtoComplex) String() string {
 		return fmt.Sprintf("VDSP_DFT_RealtoComplex(%d)", e)
 	}
 }
+
+// BlasThreading is a Go-name alias for BLAS_THREADING.
+type BlasThreading = BLAS_THREADING
+
+// CblasDiag is a Go-name alias for CBLAS_DIAG.
+type CblasDiag = CBLAS_DIAG
+
+// CblasOrder is a Go-name alias for CBLAS_ORDER.
+type CblasOrder = CBLAS_ORDER
+
+// CblasSide is a Go-name alias for CBLAS_SIDE.
+type CblasSide = CBLAS_SIDE
+
+// CblasTranspose is a Go-name alias for CBLAS_TRANSPOSE.
+type CblasTranspose = CBLAS_TRANSPOSE
+
+// CblasUplo is a Go-name alias for CBLAS_UPLO.
+type CblasUplo = CBLAS_UPLO
+
+// VdspDctType is a Go-name alias for VDSP_DCT_Type.
+type VdspDctType = VDSP_DCT_Type
+
+// VdspDftDirection is a Go-name alias for VDSP_DFT_Direction.
+type VdspDftDirection = VDSP_DFT_Direction
+
+// VdspDftRealtoComplex is a Go-name alias for VDSP_DFT_RealtoComplex.
+type VdspDftRealtoComplex = VDSP_DFT_RealtoComplex

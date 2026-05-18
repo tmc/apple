@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/coregraphics"
-	"github.com/tmc/apple/objectivec"
 )
 
 // C struct types
@@ -781,7 +780,7 @@ type DenseMatrix_Complex_Double struct {
 	ColumnCount  int
 	ColumnStride int
 	Attributes   SparseAttributesComplex_t // A type representing the attributes of a matrix.
-	Data         objectivec.IObject
+	Data         unsafe.Pointer
 }
 
 // DenseMatrix_Complex_Float - Contains a dense `rowCount` x `columnCount` matrix of complex float values stored in column-major order.
@@ -793,7 +792,7 @@ type DenseMatrix_Complex_Float struct {
 	ColumnCount  int
 	ColumnStride int
 	Attributes   SparseAttributesComplex_t // A type representing the attributes of a matrix.
-	Data         objectivec.IObject
+	Data         unsafe.Pointer
 }
 
 // DenseMatrix_Double - A structure that contains a dense matrix of double-precision, floating-point values.
@@ -828,7 +827,7 @@ type DenseMatrix_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseVector_Complex_Double
 type DenseVector_Complex_Double struct {
 	Count int
-	Data  objectivec.IObject
+	Data  unsafe.Pointer
 }
 
 // DenseVector_Complex_Float - Contains a dense vector of float complex values.
@@ -837,7 +836,7 @@ type DenseVector_Complex_Double struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseVector_Complex_Float
 type DenseVector_Complex_Float struct {
 	Count int
-	Data  objectivec.IObject
+	Data  unsafe.Pointer
 }
 
 // DenseVector_Double - A structure that contains a dense vector of double-precision, floating-point values.
@@ -972,7 +971,7 @@ type SparseMatrixStructureComplex struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseMatrix_Complex_Double
 type SparseMatrix_Complex_Double struct {
 	Structure SparseMatrixStructureComplex // A type representing the sparsity structure of a sparse complex matrix.
-	Data      objectivec.IObject
+	Data      unsafe.Pointer
 }
 
 // SparseMatrix_Complex_Float - A type representing a sparse complex matrix.
@@ -981,7 +980,7 @@ type SparseMatrix_Complex_Double struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseMatrix_Complex_Float
 type SparseMatrix_Complex_Float struct {
 	Structure SparseMatrixStructureComplex // A type representing the sparsity structure of a sparse complex matrix.
-	Data      objectivec.IObject
+	Data      unsafe.Pointer
 }
 
 // SparseMatrix_Double - A structure that contains a sparse matrix of double-precision, floating-point values.
