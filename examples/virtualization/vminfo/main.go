@@ -18,7 +18,7 @@ func main() {
 	vmClass := virtualization.GetVZVirtualMachineClass()
 	cfgClass := virtualization.GetVZVirtualMachineConfigurationClass()
 
-	supported := vmClass.Supported()
+	supported := vmClass.IsSupported()
 	minCPU := cfgClass.MinimumAllowedCPUCount()
 	maxCPU := cfgClass.MaximumAllowedCPUCount()
 	minMem := cfgClass.MinimumAllowedMemorySize()

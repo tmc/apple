@@ -110,7 +110,7 @@ func describeFeatures(dict foundation.NSDictionary) []featureInfo {
 		fi := featureInfo{
 			Name:     name,
 			Type:     featureTypeName(fd.Type()),
-			Optional: fd.Optional(),
+			Optional: fd.IsOptional(),
 		}
 
 		switch fd.Type() {

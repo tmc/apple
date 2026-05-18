@@ -109,7 +109,7 @@ func listContent(content *screencapturekit.SCShareableContent) error {
 			title = "(untitled)"
 		}
 		onScreen := ""
-		if w.OnScreen() {
+		if w.IsOnScreen() {
 			onScreen = " [on-screen]"
 		}
 		fmt.Printf("  id=%d  %q  app=%q  %.0fx%.0f%s\n",

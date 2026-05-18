@@ -75,7 +75,7 @@ func run(showDisplays, onScreenOnly bool) error {
 	windows := content.Windows()
 	var entries []windowEntry
 	for _, w := range windows {
-		if onScreenOnly && !w.OnScreen() {
+		if onScreenOnly && !w.IsOnScreen() {
 			continue
 		}
 		frame := w.Frame()
@@ -97,8 +97,8 @@ func run(showDisplays, onScreenOnly bool) error {
 			Y:        frame.Origin.Y,
 			Width:    frame.Size.Width,
 			Height:   frame.Size.Height,
-			OnScreen: w.OnScreen(),
-			Active:   w.Active(),
+			OnScreen: w.IsOnScreen(),
+			Active:   w.IsActive(),
 			Layer:    w.WindowLayer(),
 		})
 	}
