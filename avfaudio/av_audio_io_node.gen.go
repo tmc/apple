@@ -69,7 +69,7 @@ func (ac AVAudioIONodeClass) Alloc() AVAudioIONode {
 // # Getting and Setting the Voice Processing State
 //
 //   - [AVAudioIONode.SetVoiceProcessingEnabledError]: Enables or disables voice processing on the I/O node.
-//   - [AVAudioIONode.VoiceProcessingEnabled]: A Boolean value that indicates whether voice processing is in an enabled state.
+//   - [AVAudioIONode.IsVoiceProcessingEnabled]: A Boolean value that indicates whether voice processing is in an enabled state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode
 //
@@ -101,7 +101,7 @@ func AVAudioIONodeFromID(id objc.ID) AVAudioIONode {
 // # Getting and Setting the Voice Processing State
 //
 //   - [IAVAudioIONode.SetVoiceProcessingEnabledError]: Enables or disables voice processing on the I/O node.
-//   - [IAVAudioIONode.VoiceProcessingEnabled]: A Boolean value that indicates whether voice processing is in an enabled state.
+//   - [IAVAudioIONode.IsVoiceProcessingEnabled]: A Boolean value that indicates whether voice processing is in an enabled state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode
 type IAVAudioIONode interface {
@@ -122,7 +122,7 @@ type IAVAudioIONode interface {
 	// Enables or disables voice processing on the I/O node.
 	SetVoiceProcessingEnabledError(enabled bool) (bool, error)
 	// A Boolean value that indicates whether voice processing is in an enabled state.
-	VoiceProcessingEnabled() bool
+	IsVoiceProcessingEnabled() bool
 }
 
 // Init initializes the instance.
@@ -190,7 +190,7 @@ func (a AVAudioIONode) PresentationLatency() float64 {
 // state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/isVoiceProcessingEnabled
-func (a AVAudioIONode) VoiceProcessingEnabled() bool {
+func (a AVAudioIONode) IsVoiceProcessingEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isVoiceProcessingEnabled"))
 	return rv
 }

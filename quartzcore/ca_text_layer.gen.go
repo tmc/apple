@@ -65,7 +65,7 @@ func (cc CATextLayerClass) Alloc() CATextLayer {
 //
 // # Text Alignment and Truncation
 //
-//   - [CATextLayer.Wrapped]: Determines whether the text is wrapped to fit within the receiver’s bounds.
+//   - [CATextLayer.IsWrapped]: Determines whether the text is wrapped to fit within the receiver’s bounds.
 //   - [CATextLayer.SetWrapped]
 //   - [CATextLayer.AlignmentMode]: Determines how individual lines of text are horizontally aligned within the receiver’s bounds.
 //   - [CATextLayer.SetAlignmentMode]
@@ -103,7 +103,7 @@ func CATextLayerFromID(id objc.ID) CATextLayer {
 //
 // # Text Alignment and Truncation
 //
-//   - [ICATextLayer.Wrapped]: Determines whether the text is wrapped to fit within the receiver’s bounds.
+//   - [ICATextLayer.IsWrapped]: Determines whether the text is wrapped to fit within the receiver’s bounds.
 //   - [ICATextLayer.SetWrapped]
 //   - [ICATextLayer.AlignmentMode]: Determines how individual lines of text are horizontally aligned within the receiver’s bounds.
 //   - [ICATextLayer.SetAlignmentMode]
@@ -132,7 +132,7 @@ type ICATextLayer interface {
 	// Topic: Text Alignment and Truncation
 
 	// Determines whether the text is wrapped to fit within the receiver’s bounds.
-	Wrapped() bool
+	IsWrapped() bool
 	SetWrapped(value bool)
 	// Determines how individual lines of text are horizontally aligned within the receiver’s bounds.
 	AlignmentMode() CATextLayerAlignmentMode
@@ -275,7 +275,7 @@ func (t CATextLayer) SetAllowsFontSubpixelQuantization(value bool) {
 // Defaults to false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/isWrapped
-func (t CATextLayer) Wrapped() bool {
+func (t CATextLayer) IsWrapped() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isWrapped"))
 	return rv
 }

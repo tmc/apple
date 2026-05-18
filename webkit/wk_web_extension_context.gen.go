@@ -84,9 +84,9 @@ func (wc WKWebExtensionContextClass) Alloc() WKWebExtensionContext {
 //   - [WKWebExtensionContext.SetHasRequestedOptionalAccessToAllHosts]
 //   - [WKWebExtensionContext.InspectionName]: The name shown when inspecting the background web view.
 //   - [WKWebExtensionContext.SetInspectionName]
-//   - [WKWebExtensionContext.Inspectable]: Determines whether Web Inspector can inspect the [WKWebView](<doc://com.apple.webkit/documentation/WebKit/WKWebView>) instances for this context.
+//   - [WKWebExtensionContext.IsInspectable]: Determines whether Web Inspector can inspect the [WKWebView](<doc://com.apple.webkit/documentation/WebKit/WKWebView>) instances for this context.
 //   - [WKWebExtensionContext.SetInspectable]
-//   - [WKWebExtensionContext.Loaded]: A Boolean value indicating if this context is loaded in an extension controller.
+//   - [WKWebExtensionContext.IsLoaded]: A Boolean value indicating if this context is loaded in an extension controller.
 //   - [WKWebExtensionContext.OpenTabs]: A set of open tabs in all open windows that are exposed to this extension.
 //   - [WKWebExtensionContext.OpenWindows]: The open windows that are exposed to this extension.
 //   - [WKWebExtensionContext.OptionsPageURL]: The URL of the extension’s options page, if the extension has one.
@@ -185,9 +185,9 @@ func WKWebExtensionContextFromID(id objc.ID) WKWebExtensionContext {
 //   - [IWKWebExtensionContext.SetHasRequestedOptionalAccessToAllHosts]
 //   - [IWKWebExtensionContext.InspectionName]: The name shown when inspecting the background web view.
 //   - [IWKWebExtensionContext.SetInspectionName]
-//   - [IWKWebExtensionContext.Inspectable]: Determines whether Web Inspector can inspect the [WKWebView](<doc://com.apple.webkit/documentation/WebKit/WKWebView>) instances for this context.
+//   - [IWKWebExtensionContext.IsInspectable]: Determines whether Web Inspector can inspect the [WKWebView](<doc://com.apple.webkit/documentation/WebKit/WKWebView>) instances for this context.
 //   - [IWKWebExtensionContext.SetInspectable]
-//   - [IWKWebExtensionContext.Loaded]: A Boolean value indicating if this context is loaded in an extension controller.
+//   - [IWKWebExtensionContext.IsLoaded]: A Boolean value indicating if this context is loaded in an extension controller.
 //   - [IWKWebExtensionContext.OpenTabs]: A set of open tabs in all open windows that are exposed to this extension.
 //   - [IWKWebExtensionContext.OpenWindows]: The open windows that are exposed to this extension.
 //   - [IWKWebExtensionContext.OptionsPageURL]: The URL of the extension’s options page, if the extension has one.
@@ -292,10 +292,10 @@ type IWKWebExtensionContext interface {
 	InspectionName() string
 	SetInspectionName(value string)
 	// Determines whether Web Inspector can inspect the [WKWebView](<doc://com.apple.webkit/documentation/WebKit/WKWebView>) instances for this context.
-	Inspectable() bool
+	IsInspectable() bool
 	SetInspectable(value bool)
 	// A Boolean value indicating if this context is loaded in an extension controller.
-	Loaded() bool
+	IsLoaded() bool
 	// A set of open tabs in all open windows that are exposed to this extension.
 	OpenTabs() foundation.INSSet
 	// The open windows that are exposed to this extension.
@@ -1489,7 +1489,7 @@ func (w WKWebExtensionContext) SetInspectionName(value string) {
 // default value is [NO].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/isInspectable
-func (w WKWebExtensionContext) Inspectable() bool {
+func (w WKWebExtensionContext) IsInspectable() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isInspectable"))
 	return rv
 }
@@ -1501,7 +1501,7 @@ func (w WKWebExtensionContext) SetInspectable(value bool) {
 // controller.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/isLoaded
-func (w WKWebExtensionContext) Loaded() bool {
+func (w WKWebExtensionContext) IsLoaded() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isLoaded"))
 	return rv
 }

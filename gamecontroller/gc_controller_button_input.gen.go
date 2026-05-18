@@ -50,8 +50,8 @@ func (gc GCControllerButtonInputClass) Alloc() GCControllerButtonInput {
 //
 // # Accessing input values
 //
-//   - [GCControllerButtonInput.Touched]: A Boolean value that indicates whether the user is touching the button.
-//   - [GCControllerButtonInput.Pressed]: A Boolean value that indicates whether the user is pressing the button.
+//   - [GCControllerButtonInput.IsTouched]: A Boolean value that indicates whether the user is touching the button.
+//   - [GCControllerButtonInput.IsPressed]: A Boolean value that indicates whether the user is pressing the button.
 //   - [GCControllerButtonInput.Value]: The level of pressure the user is applying to the button.
 //
 // # Getting change information
@@ -82,8 +82,8 @@ func GCControllerButtonInputFromID(id objc.ID) GCControllerButtonInput {
 //
 // # Accessing input values
 //
-//   - [IGCControllerButtonInput.Touched]: A Boolean value that indicates whether the user is touching the button.
-//   - [IGCControllerButtonInput.Pressed]: A Boolean value that indicates whether the user is pressing the button.
+//   - [IGCControllerButtonInput.IsTouched]: A Boolean value that indicates whether the user is touching the button.
+//   - [IGCControllerButtonInput.IsPressed]: A Boolean value that indicates whether the user is pressing the button.
 //   - [IGCControllerButtonInput.Value]: The level of pressure the user is applying to the button.
 //
 // # Getting change information
@@ -102,9 +102,9 @@ type IGCControllerButtonInput interface {
 	// Topic: Accessing input values
 
 	// A Boolean value that indicates whether the user is touching the button.
-	Touched() bool
+	IsTouched() bool
 	// A Boolean value that indicates whether the user is pressing the button.
-	Pressed() bool
+	IsPressed() bool
 	// The level of pressure the user is applying to the button.
 	Value() float32
 
@@ -151,7 +151,7 @@ func NewGCControllerButtonInput() GCControllerButtonInput {
 // touching the button when the value property is greater than `0`.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerButtonInput/isTouched
-func (g GCControllerButtonInput) Touched() bool {
+func (g GCControllerButtonInput) IsTouched() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isTouched"))
 	return rv
 }
@@ -168,7 +168,7 @@ func (g GCControllerButtonInput) Touched() bool {
 // its touch surfaces.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerButtonInput/isPressed
-func (g GCControllerButtonInput) Pressed() bool {
+func (g GCControllerButtonInput) IsPressed() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isPressed"))
 	return rv
 }

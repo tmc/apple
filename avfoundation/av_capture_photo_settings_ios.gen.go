@@ -201,7 +201,7 @@ func (c AVCapturePhotoSettings) RawPhotoPixelFormatType() uint32 {
 // flash captures.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isAutoRedEyeReductionEnabled
-func (c AVCapturePhotoSettings) AutoRedEyeReductionEnabled() bool {
+func (c AVCapturePhotoSettings) IsAutoRedEyeReductionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoRedEyeReductionEnabled"))
 	return rv
 }
@@ -224,7 +224,7 @@ func (c AVCapturePhotoSettings) SetAutoRedEyeReductionEnabled(value bool) {
 // performing computer vision tasks on the resulting images.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isCameraCalibrationDataDeliveryEnabled
-func (c AVCapturePhotoSettings) CameraCalibrationDataDeliveryEnabled() bool {
+func (c AVCapturePhotoSettings) IsCameraCalibrationDataDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCameraCalibrationDataDeliveryEnabled"))
 	return rv
 }
@@ -241,7 +241,7 @@ func (c AVCapturePhotoSettings) SetCameraCalibrationDataDeliveryEnabled(value bo
 // of latency when processing the photo request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isAutoContentAwareDistortionCorrectionEnabled
-func (c AVCapturePhotoSettings) AutoContentAwareDistortionCorrectionEnabled() bool {
+func (c AVCapturePhotoSettings) IsAutoContentAwareDistortionCorrectionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoContentAwareDistortionCorrectionEnabled"))
 	return rv
 }
@@ -267,7 +267,7 @@ func (c AVCapturePhotoSettings) SetAutoContentAwareDistortionCorrectionEnabled(v
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isAutoVirtualDeviceFusionEnabled
 //
 // [AVCapturePhotoBracketSettings]: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoBracketSettings
-func (c AVCapturePhotoSettings) AutoVirtualDeviceFusionEnabled() bool {
+func (c AVCapturePhotoSettings) IsAutoVirtualDeviceFusionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoVirtualDeviceFusionEnabled"))
 	return rv
 }
@@ -322,7 +322,7 @@ func (c AVCapturePhotoSettings) SetVirtualDeviceConstituentPhotoDeliveryEnabledD
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isDualCameraDualPhotoDeliveryEnabled
 //
 // [builtInDualCamera]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/DeviceType-swift.struct/builtInDualCamera
-func (c AVCapturePhotoSettings) DualCameraDualPhotoDeliveryEnabled() bool {
+func (c AVCapturePhotoSettings) IsDualCameraDualPhotoDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDualCameraDualPhotoDeliveryEnabled"))
 	return rv
 }
@@ -347,7 +347,7 @@ func (c AVCapturePhotoSettings) SetDualCameraDualPhotoDeliveryEnabled(value bool
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isAutoDualCameraFusionEnabled
 //
 // [builtInDualCamera]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/DeviceType-swift.struct/builtInDualCamera
-func (c AVCapturePhotoSettings) AutoDualCameraFusionEnabled() bool {
+func (c AVCapturePhotoSettings) IsAutoDualCameraFusionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoDualCameraFusionEnabled"))
 	return rv
 }
@@ -377,7 +377,7 @@ func (c AVCapturePhotoSettings) SetAutoDualCameraFusionEnabled(value bool) {
 // delegate is always false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isAutoStillImageStabilizationEnabled
-func (c AVCapturePhotoSettings) AutoStillImageStabilizationEnabled() bool {
+func (c AVCapturePhotoSettings) IsAutoStillImageStabilizationEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoStillImageStabilizationEnabled"))
 	return rv
 }
@@ -603,7 +603,7 @@ func (c AVCapturePhotoSettings) SetLivePhotoVideoCodecType(value AVVideoCodecTyp
 // otherwise).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isDepthDataDeliveryEnabled
-func (c AVCapturePhotoSettings) DepthDataDeliveryEnabled() bool {
+func (c AVCapturePhotoSettings) IsDepthDataDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDepthDataDeliveryEnabled"))
 	return rv
 }
@@ -651,7 +651,7 @@ func (c AVCapturePhotoSettings) SetEmbedsDepthDataInPhoto(value bool) {
 // receive unfiltered depth data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isDepthDataFiltered
-func (c AVCapturePhotoSettings) DepthDataFiltered() bool {
+func (c AVCapturePhotoSettings) IsDepthDataFiltered() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDepthDataFiltered"))
 	return rv
 }
@@ -679,7 +679,7 @@ func (c AVCapturePhotoSettings) SetDepthDataFiltered(value bool) {
 // delivery of your [CaptureOutputDidFinishProcessingPhotoError] callback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isPortraitEffectsMatteDeliveryEnabled
-func (c AVCapturePhotoSettings) PortraitEffectsMatteDeliveryEnabled() bool {
+func (c AVCapturePhotoSettings) IsPortraitEffectsMatteDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPortraitEffectsMatteDeliveryEnabled"))
 	return rv
 }

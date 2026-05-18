@@ -78,7 +78,7 @@ func (ac AVMutableMovieTrackClass) Alloc() AVMutableMovieTrack {
 //
 // # Configuring track information
 //
-//   - [AVMutableMovieTrack.Modified]: A Boolean value that indicates whether a track is in a modified state.
+//   - [AVMutableMovieTrack.IsModified]: A Boolean value that indicates whether a track is in a modified state.
 //   - [AVMutableMovieTrack.SetModified]
 //   - [AVMutableMovieTrack.SampleReferenceBaseURL]: The base URL for sample references.
 //   - [AVMutableMovieTrack.SetSampleReferenceBaseURL]
@@ -89,7 +89,7 @@ func (ac AVMutableMovieTrackClass) Alloc() AVMutableMovieTrack {
 //   - [AVMutableMovieTrack.SetPlayable]
 //   - [AVMutableMovieTrack.IsDecodable]: A Boolean value that indicates whether the track is decodable in the current environment.
 //   - [AVMutableMovieTrack.SetDecodable]
-//   - [AVMutableMovieTrack.Enabled]: A Boolean value that indicates whether the track’s container enables it.
+//   - [AVMutableMovieTrack.IsEnabled]: A Boolean value that indicates whether the track’s container enables it.
 //   - [AVMutableMovieTrack.SetEnabled]
 //   - [AVMutableMovieTrack.IsSelfContained]: A Boolean value that indicates whether this track references sample data only within its container file.
 //   - [AVMutableMovieTrack.SetSelfContained]
@@ -223,7 +223,7 @@ func AVMutableMovieTrackFromID(id objc.ID) AVMutableMovieTrack {
 //
 // # Configuring track information
 //
-//   - [IAVMutableMovieTrack.Modified]: A Boolean value that indicates whether a track is in a modified state.
+//   - [IAVMutableMovieTrack.IsModified]: A Boolean value that indicates whether a track is in a modified state.
 //   - [IAVMutableMovieTrack.SetModified]
 //   - [IAVMutableMovieTrack.SampleReferenceBaseURL]: The base URL for sample references.
 //   - [IAVMutableMovieTrack.SetSampleReferenceBaseURL]
@@ -234,7 +234,7 @@ func AVMutableMovieTrackFromID(id objc.ID) AVMutableMovieTrack {
 //   - [IAVMutableMovieTrack.SetPlayable]
 //   - [IAVMutableMovieTrack.IsDecodable]: A Boolean value that indicates whether the track is decodable in the current environment.
 //   - [IAVMutableMovieTrack.SetDecodable]
-//   - [IAVMutableMovieTrack.Enabled]: A Boolean value that indicates whether the track’s container enables it.
+//   - [IAVMutableMovieTrack.IsEnabled]: A Boolean value that indicates whether the track’s container enables it.
 //   - [IAVMutableMovieTrack.SetEnabled]
 //   - [IAVMutableMovieTrack.IsSelfContained]: A Boolean value that indicates whether this track references sample data only within its container file.
 //   - [IAVMutableMovieTrack.SetSelfContained]
@@ -365,7 +365,7 @@ type IAVMutableMovieTrack interface {
 	// Topic: Configuring track information
 
 	// A Boolean value that indicates whether a track is in a modified state.
-	Modified() bool
+	IsModified() bool
 	SetModified(value bool)
 	// The base URL for sample references.
 	SampleReferenceBaseURL() foundation.NSURL
@@ -380,7 +380,7 @@ type IAVMutableMovieTrack interface {
 	IsDecodable() bool
 	SetDecodable(value bool)
 	// A Boolean value that indicates whether the track’s container enables it.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// A Boolean value that indicates whether this track references sample data only within its container file.
 	IsSelfContained() bool
@@ -860,7 +860,7 @@ func (m AVMutableMovieTrack) SetFormatDescriptions(value objectivec.IObject) {
 // cleared.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/isModified
-func (m AVMutableMovieTrack) Modified() bool {
+func (m AVMutableMovieTrack) IsModified() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isModified"))
 	return rv
 }
@@ -932,7 +932,7 @@ func (m AVMutableMovieTrack) SetDecodable(value bool) {
 // [AVPlayerItemTrack].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/isEnabled
-func (m AVMutableMovieTrack) Enabled() bool {
+func (m AVMutableMovieTrack) IsEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isEnabled"))
 	return rv
 }

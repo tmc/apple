@@ -73,7 +73,7 @@ func (nc NSImageRepClass) Alloc() NSImageRep {
 //   - [NSImageRep.SetColorSpaceName]
 //   - [NSImageRep.Alpha]: A Boolean value that indicates whether the image data has an alpha channel.
 //   - [NSImageRep.SetAlpha]
-//   - [NSImageRep.Opaque]: A Boolean value that indicates whether the image is opaque.
+//   - [NSImageRep.IsOpaque]: A Boolean value that indicates whether the image is opaque.
 //   - [NSImageRep.SetOpaque]
 //   - [NSImageRep.PixelsHigh]: The height of the image, measured in pixels.
 //   - [NSImageRep.SetPixelsHigh]
@@ -128,7 +128,7 @@ func NSImageRepFromID(id objc.ID) NSImageRep {
 //   - [INSImageRep.SetColorSpaceName]
 //   - [INSImageRep.Alpha]: A Boolean value that indicates whether the image data has an alpha channel.
 //   - [INSImageRep.SetAlpha]
-//   - [INSImageRep.Opaque]: A Boolean value that indicates whether the image is opaque.
+//   - [INSImageRep.IsOpaque]: A Boolean value that indicates whether the image is opaque.
 //   - [INSImageRep.SetOpaque]
 //   - [INSImageRep.PixelsHigh]: The height of the image, measured in pixels.
 //   - [INSImageRep.SetPixelsHigh]
@@ -175,7 +175,7 @@ type INSImageRep interface {
 	Alpha() bool
 	SetAlpha(value bool)
 	// A Boolean value that indicates whether the image is opaque.
-	Opaque() bool
+	IsOpaque() bool
 	SetOpaque(value bool)
 	// The height of the image, measured in pixels.
 	PixelsHigh() int
@@ -889,7 +889,7 @@ func (i NSImageRep) SetAlpha(value bool) {
 // Use the [Alpha] property to determine if the image has an alpha channel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/isOpaque
-func (i NSImageRep) Opaque() bool {
+func (i NSImageRep) IsOpaque() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isOpaque"))
 	return rv
 }

@@ -67,7 +67,7 @@ func (ac AVAudioUnitComponentClass) Alloc() AVAudioUnitComponent {
 //   - [AVAudioUnitComponent.ManufacturerName]: The name of the manufacturer of the audio unit component.
 //   - [AVAudioUnitComponent.Name]: The name of the audio unit component.
 //   - [AVAudioUnitComponent.PassesAUVal]: A Boolean value that indicates whether the audio unit component passes the validation tests.
-//   - [AVAudioUnitComponent.SandboxSafe]: A Boolean value that indicates whether the audio unit component is safe for sandboxing.
+//   - [AVAudioUnitComponent.IsSandboxSafe]: A Boolean value that indicates whether the audio unit component is safe for sandboxing.
 //   - [AVAudioUnitComponent.SupportsNumberInputChannelsOutputChannels]: Gets a Boolean value that indicates whether the audio unit component supports the specified number of input and output channels.
 //   - [AVAudioUnitComponent.TypeName]: The audio unit component type.
 //   - [AVAudioUnitComponent.Version]: The audio unit component version number.
@@ -131,7 +131,7 @@ func AVAudioUnitComponentFromID(id objc.ID) AVAudioUnitComponent {
 //   - [IAVAudioUnitComponent.ManufacturerName]: The name of the manufacturer of the audio unit component.
 //   - [IAVAudioUnitComponent.Name]: The name of the audio unit component.
 //   - [IAVAudioUnitComponent.PassesAUVal]: A Boolean value that indicates whether the audio unit component passes the validation tests.
-//   - [IAVAudioUnitComponent.SandboxSafe]: A Boolean value that indicates whether the audio unit component is safe for sandboxing.
+//   - [IAVAudioUnitComponent.IsSandboxSafe]: A Boolean value that indicates whether the audio unit component is safe for sandboxing.
 //   - [IAVAudioUnitComponent.SupportsNumberInputChannelsOutputChannels]: Gets a Boolean value that indicates whether the audio unit component supports the specified number of input and output channels.
 //   - [IAVAudioUnitComponent.TypeName]: The audio unit component type.
 //   - [IAVAudioUnitComponent.Version]: The audio unit component version number.
@@ -193,7 +193,7 @@ type IAVAudioUnitComponent interface {
 	// A Boolean value that indicates whether the audio unit component passes the validation tests.
 	PassesAUVal() bool
 	// A Boolean value that indicates whether the audio unit component is safe for sandboxing.
-	SandboxSafe() bool
+	IsSandboxSafe() bool
 	// Gets a Boolean value that indicates whether the audio unit component supports the specified number of input and output channels.
 	SupportsNumberInputChannelsOutputChannels(numInputChannels int, numOutputChannels int) bool
 	// The audio unit component type.
@@ -402,7 +402,7 @@ func (a AVAudioUnitComponent) PassesAUVal() bool {
 // false. This only applies to the current process.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/isSandboxSafe
-func (a AVAudioUnitComponent) SandboxSafe() bool {
+func (a AVAudioUnitComponent) IsSandboxSafe() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isSandboxSafe"))
 	return rv
 }

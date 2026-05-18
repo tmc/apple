@@ -460,7 +460,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) ExtrinsicMatrixFromDeviceToDev
 // and infrared cameras pointed in the same direction.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isVirtualDevice
-func (c AVCaptureDevice) VirtualDevice() bool {
+func (c AVCaptureDevice) IsVirtualDevice() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVirtualDevice"))
 	return rv
 }
@@ -504,7 +504,7 @@ func (c AVCaptureDevice) ConstituentDevices() []AVCaptureDevice {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isSubjectAreaChangeMonitoringEnabled
 //
 // [subjectAreaDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/subjectAreaDidChangeNotification
-func (c AVCaptureDevice) SubjectAreaChangeMonitoringEnabled() bool {
+func (c AVCaptureDevice) IsSubjectAreaChangeMonitoringEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSubjectAreaChangeMonitoringEnabled"))
 	return rv
 }
@@ -773,7 +773,7 @@ func (c AVCaptureDevice) SetAutoFocusRangeRestriction(value AVCaptureAutoFocusRa
 // [AutoFocusRangeRestriction] raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isAutoFocusRangeRestrictionSupported
-func (c AVCaptureDevice) AutoFocusRangeRestrictionSupported() bool {
+func (c AVCaptureDevice) IsAutoFocusRangeRestrictionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoFocusRangeRestrictionSupported"))
 	return rv
 }
@@ -998,7 +998,7 @@ func (c AVCaptureDevice) ExposureTargetOffset() float32 {
 // [UnlockForConfiguration] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFaceDrivenAutoExposureEnabled
-func (c AVCaptureDevice) FaceDrivenAutoExposureEnabled() bool {
+func (c AVCaptureDevice) IsFaceDrivenAutoExposureEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFaceDrivenAutoExposureEnabled"))
 	return rv
 }
@@ -1028,7 +1028,7 @@ func (c AVCaptureDevice) SetFaceDrivenAutoExposureEnabled(value bool) {
 // [UnlockForConfiguration] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFaceDrivenAutoFocusEnabled
-func (c AVCaptureDevice) FaceDrivenAutoFocusEnabled() bool {
+func (c AVCaptureDevice) IsFaceDrivenAutoFocusEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFaceDrivenAutoFocusEnabled"))
 	return rv
 }
@@ -1045,7 +1045,7 @@ func (c AVCaptureDevice) SetFaceDrivenAutoFocusEnabled(value bool) {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFlashActive
-func (c AVCaptureDevice) FlashActive() bool {
+func (c AVCaptureDevice) IsFlashActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFlashActive"))
 	return rv
 }
@@ -1059,7 +1059,7 @@ func (c AVCaptureDevice) FlashActive() bool {
 // value is true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isGeometricDistortionCorrectionEnabled
-func (c AVCaptureDevice) GeometricDistortionCorrectionEnabled() bool {
+func (c AVCaptureDevice) IsGeometricDistortionCorrectionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isGeometricDistortionCorrectionEnabled"))
 	return rv
 }
@@ -1079,7 +1079,7 @@ func (c AVCaptureDevice) SetGeometricDistortionCorrectionEnabled(value bool) {
 // corrected image to the original image size.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isGeometricDistortionCorrectionSupported
-func (c AVCaptureDevice) GeometricDistortionCorrectionSupported() bool {
+func (c AVCaptureDevice) IsGeometricDistortionCorrectionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isGeometricDistortionCorrectionSupported"))
 	return rv
 }
@@ -1112,7 +1112,7 @@ func (c AVCaptureDevice) GeometricDistortionCorrectionSupported() bool {
 // Key-value observe this property to observe automatic changes to its value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isGlobalToneMappingEnabled
-func (c AVCaptureDevice) GlobalToneMappingEnabled() bool {
+func (c AVCaptureDevice) IsGlobalToneMappingEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isGlobalToneMappingEnabled"))
 	return rv
 }
@@ -1190,7 +1190,7 @@ func (c AVCaptureDevice) LensPosition() float32 {
 // position value other than [CurrentLensPosition] raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isLockingFocusWithCustomLensPositionSupported
-func (c AVCaptureDevice) LockingFocusWithCustomLensPositionSupported() bool {
+func (c AVCaptureDevice) IsLockingFocusWithCustomLensPositionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLockingFocusWithCustomLensPositionSupported"))
 	return rv
 }
@@ -1208,7 +1208,7 @@ func (c AVCaptureDevice) LockingFocusWithCustomLensPositionSupported() bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isLockingWhiteBalanceWithCustomDeviceGainsSupported
 //
 // [currentWhiteBalanceGains]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/currentWhiteBalanceGains
-func (c AVCaptureDevice) LockingWhiteBalanceWithCustomDeviceGainsSupported() bool {
+func (c AVCaptureDevice) IsLockingWhiteBalanceWithCustomDeviceGainsSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLockingWhiteBalanceWithCustomDeviceGainsSupported"))
 	return rv
 }
@@ -1226,7 +1226,7 @@ func (c AVCaptureDevice) LockingWhiteBalanceWithCustomDeviceGainsSupported() boo
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isLowLightBoostEnabled
-func (c AVCaptureDevice) LowLightBoostEnabled() bool {
+func (c AVCaptureDevice) IsLowLightBoostEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLowLightBoostEnabled"))
 	return rv
 }
@@ -1243,7 +1243,7 @@ func (c AVCaptureDevice) LowLightBoostEnabled() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isLowLightBoostSupported
-func (c AVCaptureDevice) LowLightBoostSupported() bool {
+func (c AVCaptureDevice) IsLowLightBoostSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLowLightBoostSupported"))
 	return rv
 }
@@ -1330,7 +1330,7 @@ func (c AVCaptureDevice) MinExposureTargetBias() float32 {
 // or ends.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isRampingVideoZoom
-func (c AVCaptureDevice) RampingVideoZoom() bool {
+func (c AVCaptureDevice) IsRampingVideoZoom() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isRampingVideoZoom"))
 	return rv
 }
@@ -1352,7 +1352,7 @@ func (c AVCaptureDevice) RampingVideoZoom() bool {
 // configure the settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isSmoothAutoFocusEnabled
-func (c AVCaptureDevice) SmoothAutoFocusEnabled() bool {
+func (c AVCaptureDevice) IsSmoothAutoFocusEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSmoothAutoFocusEnabled"))
 	return rv
 }
@@ -1370,7 +1370,7 @@ func (c AVCaptureDevice) SetSmoothAutoFocusEnabled(value bool) {
 // to true raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isSmoothAutoFocusSupported
-func (c AVCaptureDevice) SmoothAutoFocusSupported() bool {
+func (c AVCaptureDevice) IsSmoothAutoFocusSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSmoothAutoFocusSupported"))
 	return rv
 }
@@ -1400,7 +1400,7 @@ func (c AVCaptureDevice) SmoothAutoFocusSupported() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isVideoHDREnabled
-func (c AVCaptureDevice) VideoHDREnabled() bool {
+func (c AVCaptureDevice) IsVideoHDREnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoHDREnabled"))
 	return rv
 }

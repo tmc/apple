@@ -59,7 +59,7 @@ func (vc VZMacOSRestoreImageClass) Alloc() VZMacOSRestoreImage {
 // # Getting Information About the Restore Image
 //
 //   - [VZMacOSRestoreImage.BuildVersion]: The build version this restore image contains.
-//   - [VZMacOSRestoreImage.Supported]: A Boolean value that indicates whether the current host supports this restore image.
+//   - [VZMacOSRestoreImage.IsSupported]: A Boolean value that indicates whether the current host supports this restore image.
 //   - [VZMacOSRestoreImage.MostFeaturefulSupportedConfiguration]: This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
 //   - [VZMacOSRestoreImage.OperatingSystemVersion]: The operating system version this restore image contains.
 //   - [VZMacOSRestoreImage.URL]: The URL of this restore image.
@@ -85,7 +85,7 @@ func VZMacOSRestoreImageFromID(id objc.ID) VZMacOSRestoreImage {
 // # Getting Information About the Restore Image
 //
 //   - [IVZMacOSRestoreImage.BuildVersion]: The build version this restore image contains.
-//   - [IVZMacOSRestoreImage.Supported]: A Boolean value that indicates whether the current host supports this restore image.
+//   - [IVZMacOSRestoreImage.IsSupported]: A Boolean value that indicates whether the current host supports this restore image.
 //   - [IVZMacOSRestoreImage.MostFeaturefulSupportedConfiguration]: This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
 //   - [IVZMacOSRestoreImage.OperatingSystemVersion]: The operating system version this restore image contains.
 //   - [IVZMacOSRestoreImage.URL]: The URL of this restore image.
@@ -99,7 +99,7 @@ type IVZMacOSRestoreImage interface {
 	// The build version this restore image contains.
 	BuildVersion() string
 	// A Boolean value that indicates whether the current host supports this restore image.
-	Supported() bool
+	IsSupported() bool
 	// This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
 	MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements
 	// The operating system version this restore image contains.
@@ -180,7 +180,7 @@ func (m VZMacOSRestoreImage) BuildVersion() string {
 // restore image.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/isSupported
-func (m VZMacOSRestoreImage) Supported() bool {
+func (m VZMacOSRestoreImage) IsSupported() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSupported"))
 	return rv
 }

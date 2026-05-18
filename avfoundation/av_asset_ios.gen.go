@@ -13,7 +13,7 @@ import (
 // Photos album.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/isCompatibleWithSavedPhotosAlbum
-func (a AVAsset) CompatibleWithSavedPhotosAlbum() bool {
+func (a AVAsset) IsCompatibleWithSavedPhotosAlbum() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isCompatibleWithSavedPhotosAlbum"))
 	return rv
 }

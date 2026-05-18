@@ -82,13 +82,13 @@ func (nc NSSplitViewItemClass) Alloc() NSSplitViewItem {
 //
 // # Collapsing and expanding the item
 //
-//   - [NSSplitViewItem.Collapsed]: A Boolean value that determines whether the child view controller that corresponds to the split view item is in a collapsed state in the split view controller.
+//   - [NSSplitViewItem.IsCollapsed]: A Boolean value that determines whether the child view controller that corresponds to the split view item is in a collapsed state in the split view controller.
 //   - [NSSplitViewItem.SetCollapsed]
 //   - [NSSplitViewItem.CanCollapse]: A Boolean value that determines whether a user interaction can collapse the child view controller that corresponds to the split view item.
 //   - [NSSplitViewItem.SetCanCollapse]
 //   - [NSSplitViewItem.CollapseBehavior]: The resizing behavior when the split view item toggles its collapsed state.
 //   - [NSSplitViewItem.SetCollapseBehavior]
-//   - [NSSplitViewItem.SpringLoaded]: A Boolean value that determines whether the split view item can temporarily expand during a drag.
+//   - [NSSplitViewItem.IsSpringLoaded]: A Boolean value that determines whether the split view item can temporarily expand during a drag.
 //   - [NSSplitViewItem.SetSpringLoaded]
 //   - [NSSplitViewItem.CanCollapseFromWindowResize]: A Boolean value that determines whether a window resize can collapse the child view controller that corresponds to the split view item.
 //   - [NSSplitViewItem.SetCanCollapseFromWindowResize]
@@ -159,13 +159,13 @@ func NSSplitViewItemFromID(id objc.ID) NSSplitViewItem {
 //
 // # Collapsing and expanding the item
 //
-//   - [INSSplitViewItem.Collapsed]: A Boolean value that determines whether the child view controller that corresponds to the split view item is in a collapsed state in the split view controller.
+//   - [INSSplitViewItem.IsCollapsed]: A Boolean value that determines whether the child view controller that corresponds to the split view item is in a collapsed state in the split view controller.
 //   - [INSSplitViewItem.SetCollapsed]
 //   - [INSSplitViewItem.CanCollapse]: A Boolean value that determines whether a user interaction can collapse the child view controller that corresponds to the split view item.
 //   - [INSSplitViewItem.SetCanCollapse]
 //   - [INSSplitViewItem.CollapseBehavior]: The resizing behavior when the split view item toggles its collapsed state.
 //   - [INSSplitViewItem.SetCollapseBehavior]
-//   - [INSSplitViewItem.SpringLoaded]: A Boolean value that determines whether the split view item can temporarily expand during a drag.
+//   - [INSSplitViewItem.IsSpringLoaded]: A Boolean value that determines whether the split view item can temporarily expand during a drag.
 //   - [INSSplitViewItem.SetSpringLoaded]
 //   - [INSSplitViewItem.CanCollapseFromWindowResize]: A Boolean value that determines whether a window resize can collapse the child view controller that corresponds to the split view item.
 //   - [INSSplitViewItem.SetCanCollapseFromWindowResize]
@@ -231,7 +231,7 @@ type INSSplitViewItem interface {
 	// Topic: Collapsing and expanding the item
 
 	// A Boolean value that determines whether the child view controller that corresponds to the split view item is in a collapsed state in the split view controller.
-	Collapsed() bool
+	IsCollapsed() bool
 	SetCollapsed(value bool)
 	// A Boolean value that determines whether a user interaction can collapse the child view controller that corresponds to the split view item.
 	CanCollapse() bool
@@ -240,7 +240,7 @@ type INSSplitViewItem interface {
 	CollapseBehavior() NSSplitViewItemCollapseBehavior
 	SetCollapseBehavior(value NSSplitViewItemCollapseBehavior)
 	// A Boolean value that determines whether the split view item can temporarily expand during a drag.
-	SpringLoaded() bool
+	IsSpringLoaded() bool
 	SetSpringLoaded(value bool)
 	// A Boolean value that determines whether a window resize can collapse the child view controller that corresponds to the split view item.
 	CanCollapseFromWindowResize() bool
@@ -659,7 +659,7 @@ func (s NSSplitViewItem) Behavior() NSSplitViewItemBehavior {
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/isCollapsed
-func (s NSSplitViewItem) Collapsed() bool {
+func (s NSSplitViewItem) IsCollapsed() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isCollapsed"))
 	return rv
 }
@@ -711,7 +711,7 @@ func (s NSSplitViewItem) SetCollapseBehavior(value NSSplitViewItemCollapseBehavi
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/isSpringLoaded
-func (s NSSplitViewItem) SpringLoaded() bool {
+func (s NSSplitViewItem) IsSpringLoaded() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSpringLoaded"))
 	return rv
 }

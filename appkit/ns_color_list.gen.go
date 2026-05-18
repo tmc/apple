@@ -63,7 +63,7 @@ func (nc NSColorListClass) Alloc() NSColorList {
 // # Getting Information About Lists of Colors
 //
 //   - [NSColorList.Name]: The name of the color list.
-//   - [NSColorList.Editable]: A Boolean value that indicates whether the color list can be modified.
+//   - [NSColorList.IsEditable]: A Boolean value that indicates whether the color list can be modified.
 //
 // # Managing Colors By Key
 //
@@ -103,7 +103,7 @@ func NSColorListFromID(id objc.ID) NSColorList {
 // # Getting Information About Lists of Colors
 //
 //   - [INSColorList.Name]: The name of the color list.
-//   - [INSColorList.Editable]: A Boolean value that indicates whether the color list can be modified.
+//   - [INSColorList.IsEditable]: A Boolean value that indicates whether the color list can be modified.
 //
 // # Managing Colors By Key
 //
@@ -134,7 +134,7 @@ type INSColorList interface {
 	// The name of the color list.
 	Name() NSColorListName
 	// A Boolean value that indicates whether the color list can be modified.
-	Editable() bool
+	IsEditable() bool
 
 	// Topic: Managing Colors By Key
 
@@ -425,7 +425,7 @@ func (c NSColorList) Name() NSColorListName {
 // A Boolean value that indicates whether the color list can be modified.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/isEditable
-func (c NSColorList) Editable() bool {
+func (c NSColorList) IsEditable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEditable"))
 	return rv
 }

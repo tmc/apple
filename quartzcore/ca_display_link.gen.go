@@ -115,7 +115,7 @@ func (cc CADisplayLinkClass) Alloc() CADisplayLink {
 //   - [CADisplayLink.Duration]: The time interval between screen refresh updates.
 //   - [CADisplayLink.PreferredFrameRateRange]: A range of frequencies your app allows for frame updates, affecting how often the system invokes your delegate’s callback.
 //   - [CADisplayLink.SetPreferredFrameRateRange]
-//   - [CADisplayLink.Paused]: A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
+//   - [CADisplayLink.IsPaused]: A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
 //   - [CADisplayLink.SetPaused]
 //   - [CADisplayLink.Timestamp]: The time interval that represents when the last frame displayed.
 //   - [CADisplayLink.TargetTimestamp]: The time interval that represents when the next frame displays.
@@ -149,7 +149,7 @@ func CADisplayLinkFromID(id objc.ID) CADisplayLink {
 //   - [ICADisplayLink.Duration]: The time interval between screen refresh updates.
 //   - [ICADisplayLink.PreferredFrameRateRange]: A range of frequencies your app allows for frame updates, affecting how often the system invokes your delegate’s callback.
 //   - [ICADisplayLink.SetPreferredFrameRateRange]
-//   - [ICADisplayLink.Paused]: A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
+//   - [ICADisplayLink.IsPaused]: A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
 //   - [ICADisplayLink.SetPaused]
 //   - [ICADisplayLink.Timestamp]: The time interval that represents when the last frame displayed.
 //   - [ICADisplayLink.TargetTimestamp]: The time interval that represents when the next frame displays.
@@ -172,7 +172,7 @@ type ICADisplayLink interface {
 	PreferredFrameRateRange() CAFrameRateRange
 	SetPreferredFrameRateRange(value CAFrameRateRange)
 	// A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
-	Paused() bool
+	IsPaused() bool
 	SetPaused(value bool)
 	// The time interval that represents when the last frame displayed.
 	Timestamp() float64
@@ -357,7 +357,7 @@ func (d CADisplayLink) SetPreferredFrameRateRange(value CAFrameRateRange) {
 // the one in which the display link runs.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CADisplayLink/isPaused
-func (d CADisplayLink) Paused() bool {
+func (d CADisplayLink) IsPaused() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isPaused"))
 	return rv
 }

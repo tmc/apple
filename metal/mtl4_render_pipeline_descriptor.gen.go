@@ -64,7 +64,7 @@ func (mc MTL4RenderPipelineDescriptorClass) Alloc() MTL4RenderPipelineDescriptor
 //   - [MTL4RenderPipelineDescriptor.SetFragmentStaticLinkingDescriptor]
 //   - [MTL4RenderPipelineDescriptor.InputPrimitiveTopology]: Assigns type of primitive topology this pipeline renders.
 //   - [MTL4RenderPipelineDescriptor.SetInputPrimitiveTopology]
-//   - [MTL4RenderPipelineDescriptor.RasterizationEnabled]: Determines whether the pipeline rasterizes primitives.
+//   - [MTL4RenderPipelineDescriptor.IsRasterizationEnabled]: Determines whether the pipeline rasterizes primitives.
 //   - [MTL4RenderPipelineDescriptor.SetRasterizationEnabled]
 //   - [MTL4RenderPipelineDescriptor.MaxVertexAmplificationCount]: Determines the maximum value that can you can pass as the pipeline’s amplification count.
 //   - [MTL4RenderPipelineDescriptor.SetMaxVertexAmplificationCount]
@@ -119,7 +119,7 @@ func MTL4RenderPipelineDescriptorFromID(id objc.ID) MTL4RenderPipelineDescriptor
 //   - [IMTL4RenderPipelineDescriptor.SetFragmentStaticLinkingDescriptor]
 //   - [IMTL4RenderPipelineDescriptor.InputPrimitiveTopology]: Assigns type of primitive topology this pipeline renders.
 //   - [IMTL4RenderPipelineDescriptor.SetInputPrimitiveTopology]
-//   - [IMTL4RenderPipelineDescriptor.RasterizationEnabled]: Determines whether the pipeline rasterizes primitives.
+//   - [IMTL4RenderPipelineDescriptor.IsRasterizationEnabled]: Determines whether the pipeline rasterizes primitives.
 //   - [IMTL4RenderPipelineDescriptor.SetRasterizationEnabled]
 //   - [IMTL4RenderPipelineDescriptor.MaxVertexAmplificationCount]: Determines the maximum value that can you can pass as the pipeline’s amplification count.
 //   - [IMTL4RenderPipelineDescriptor.SetMaxVertexAmplificationCount]
@@ -169,7 +169,7 @@ type IMTL4RenderPipelineDescriptor interface {
 	InputPrimitiveTopology() MTLPrimitiveTopologyClass
 	SetInputPrimitiveTopology(value MTLPrimitiveTopologyClass)
 	// Determines whether the pipeline rasterizes primitives.
-	RasterizationEnabled() bool
+	IsRasterizationEnabled() bool
 	SetRasterizationEnabled(value bool)
 	// Determines the maximum value that can you can pass as the pipeline’s amplification count.
 	MaxVertexAmplificationCount() uint
@@ -330,7 +330,7 @@ func (m MTL4RenderPipelineDescriptor) SetInputPrimitiveTopology(value MTLPrimiti
 // shader function via function [FragmentFunctionDescriptor].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDescriptor/isRasterizationEnabled
-func (m MTL4RenderPipelineDescriptor) RasterizationEnabled() bool {
+func (m MTL4RenderPipelineDescriptor) IsRasterizationEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isRasterizationEnabled"))
 	return rv
 }

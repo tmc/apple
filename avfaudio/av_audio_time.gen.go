@@ -68,13 +68,13 @@ func (ac AVAudioTimeClass) Alloc() AVAudioTime {
 // # Manipulating Host Time
 //
 //   - [AVAudioTime.HostTime]: The host time.
-//   - [AVAudioTime.HostTimeValid]: A Boolean value that indicates whether the host time value is valid.
+//   - [AVAudioTime.IsHostTimeValid]: A Boolean value that indicates whether the host time value is valid.
 //
 // # Getting Sample Rate Information
 //
 //   - [AVAudioTime.SampleRate]: The sampling rate that the sample time property expresses.
 //   - [AVAudioTime.SampleTime]: The time as a number of audio samples that the current audio device tracks.
-//   - [AVAudioTime.SampleTimeValid]: A Boolean value that indicates whether the sample time and sample rate properties are in a valid state.
+//   - [AVAudioTime.IsSampleTimeValid]: A Boolean value that indicates whether the sample time and sample rate properties are in a valid state.
 //
 // # Getting the Core Audio Time Stamp
 //
@@ -108,13 +108,13 @@ func AVAudioTimeFromID(id objc.ID) AVAudioTime {
 // # Manipulating Host Time
 //
 //   - [IAVAudioTime.HostTime]: The host time.
-//   - [IAVAudioTime.HostTimeValid]: A Boolean value that indicates whether the host time value is valid.
+//   - [IAVAudioTime.IsHostTimeValid]: A Boolean value that indicates whether the host time value is valid.
 //
 // # Getting Sample Rate Information
 //
 //   - [IAVAudioTime.SampleRate]: The sampling rate that the sample time property expresses.
 //   - [IAVAudioTime.SampleTime]: The time as a number of audio samples that the current audio device tracks.
-//   - [IAVAudioTime.SampleTimeValid]: A Boolean value that indicates whether the sample time and sample rate properties are in a valid state.
+//   - [IAVAudioTime.IsSampleTimeValid]: A Boolean value that indicates whether the sample time and sample rate properties are in a valid state.
 //
 // # Getting the Core Audio Time Stamp
 //
@@ -142,7 +142,7 @@ type IAVAudioTime interface {
 	// The host time.
 	HostTime() uint64
 	// A Boolean value that indicates whether the host time value is valid.
-	HostTimeValid() bool
+	IsHostTimeValid() bool
 
 	// Topic: Getting Sample Rate Information
 
@@ -151,7 +151,7 @@ type IAVAudioTime interface {
 	// The time as a number of audio samples that the current audio device tracks.
 	SampleTime() AVAudioFramePosition
 	// A Boolean value that indicates whether the sample time and sample rate properties are in a valid state.
-	SampleTimeValid() bool
+	IsSampleTimeValid() bool
 
 	// Topic: Getting the Core Audio Time Stamp
 
@@ -453,7 +453,7 @@ func (a AVAudioTime) HostTime() uint64 {
 // it returns false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/isHostTimeValid
-func (a AVAudioTime) HostTimeValid() bool {
+func (a AVAudioTime) IsHostTimeValid() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isHostTimeValid"))
 	return rv
 }
@@ -478,7 +478,7 @@ func (a AVAudioTime) SampleTime() AVAudioFramePosition {
 // properties are in a valid state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/isSampleTimeValid
-func (a AVAudioTime) SampleTimeValid() bool {
+func (a AVAudioTime) IsSampleTimeValid() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isSampleTimeValid"))
 	return rv
 }

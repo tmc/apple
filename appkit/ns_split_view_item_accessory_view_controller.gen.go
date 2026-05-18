@@ -52,7 +52,7 @@ func (nc NSSplitViewItemAccessoryViewControllerClass) Alloc() NSSplitViewItemAcc
 //
 //   - [NSSplitViewItemAccessoryViewController.AutomaticallyAppliesContentInsets]: Whether or not standard content insets should be applied to the view. Defaults to YES.
 //   - [NSSplitViewItemAccessoryViewController.SetAutomaticallyAppliesContentInsets]
-//   - [NSSplitViewItemAccessoryViewController.Hidden]: When set, this property will collapse the accessory view to 0 height (animatable) but not remove it from the window. Set through the animator object to animate it.
+//   - [NSSplitViewItemAccessoryViewController.IsHidden]: When set, this property will collapse the accessory view to 0 height (animatable) but not remove it from the window. Set through the animator object to animate it.
 //   - [NSSplitViewItemAccessoryViewController.SetHidden]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItemAccessoryViewController
@@ -79,7 +79,7 @@ func NSSplitViewItemAccessoryViewControllerFromID(id objc.ID) NSSplitViewItemAcc
 //
 //   - [INSSplitViewItemAccessoryViewController.AutomaticallyAppliesContentInsets]: Whether or not standard content insets should be applied to the view. Defaults to YES.
 //   - [INSSplitViewItemAccessoryViewController.SetAutomaticallyAppliesContentInsets]
-//   - [INSSplitViewItemAccessoryViewController.Hidden]: When set, this property will collapse the accessory view to 0 height (animatable) but not remove it from the window. Set through the animator object to animate it.
+//   - [INSSplitViewItemAccessoryViewController.IsHidden]: When set, this property will collapse the accessory view to 0 height (animatable) but not remove it from the window. Set through the animator object to animate it.
 //   - [INSSplitViewItemAccessoryViewController.SetHidden]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItemAccessoryViewController
@@ -98,7 +98,7 @@ type INSSplitViewItemAccessoryViewController interface {
 	AutomaticallyAppliesContentInsets() bool
 	SetAutomaticallyAppliesContentInsets(value bool)
 	// When set, this property will collapse the accessory view to 0 height (animatable) but not remove it from the window. Set through the animator object to animate it.
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 
 	BottomAlignedAccessoryViewControllers() INSSplitViewItemAccessoryViewController
@@ -314,7 +314,7 @@ func (s NSSplitViewItemAccessoryViewController) SetAutomaticallyAppliesContentIn
 // object to animate it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItemAccessoryViewController/isHidden
-func (s NSSplitViewItemAccessoryViewController) Hidden() bool {
+func (s NSSplitViewItemAccessoryViewController) IsHidden() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isHidden"))
 	return rv
 }

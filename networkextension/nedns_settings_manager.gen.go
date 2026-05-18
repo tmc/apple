@@ -65,7 +65,7 @@ func (nc NEDNSSettingsManagerClass) Alloc() NEDNSSettingsManager {
 //
 // # Accessing DNS configuration properties
 //
-//   - [NEDNSSettingsManager.Enabled]: A Boolean you use to query the enabled state of the DNS settings configuration.
+//   - [NEDNSSettingsManager.IsEnabled]: A Boolean you use to query the enabled state of the DNS settings configuration.
 //   - [NEDNSSettingsManager.DnsSettings]: An object that contains the configuration settings for a DNS server.
 //   - [NEDNSSettingsManager.SetDnsSettings]
 //   - [NEDNSSettingsManager.LocalizedDescription]: A string that contains the display name of the DNS settings configuration.
@@ -102,7 +102,7 @@ func NEDNSSettingsManagerFromID(id objc.ID) NEDNSSettingsManager {
 //
 // # Accessing DNS configuration properties
 //
-//   - [INEDNSSettingsManager.Enabled]: A Boolean you use to query the enabled state of the DNS settings configuration.
+//   - [INEDNSSettingsManager.IsEnabled]: A Boolean you use to query the enabled state of the DNS settings configuration.
 //   - [INEDNSSettingsManager.DnsSettings]: An object that contains the configuration settings for a DNS server.
 //   - [INEDNSSettingsManager.SetDnsSettings]
 //   - [INEDNSSettingsManager.LocalizedDescription]: A string that contains the display name of the DNS settings configuration.
@@ -130,7 +130,7 @@ type INEDNSSettingsManager interface {
 	// Topic: Accessing DNS configuration properties
 
 	// A Boolean you use to query the enabled state of the DNS settings configuration.
-	Enabled() bool
+	IsEnabled() bool
 	// An object that contains the configuration settings for a DNS server.
 	DnsSettings() INEDNSSettings
 	SetDnsSettings(value INEDNSSettings)
@@ -254,7 +254,7 @@ func (_NEDNSSettingsManagerClass NEDNSSettingsManagerClass) SharedManager() NEDN
 // macOS.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettingsManager/isEnabled
-func (d NEDNSSettingsManager) Enabled() bool {
+func (d NEDNSSettingsManager) IsEnabled() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEnabled"))
 	return rv
 }

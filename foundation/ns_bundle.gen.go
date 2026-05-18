@@ -236,7 +236,7 @@ func (bc BundleClass) Alloc() Bundle {
 //   - [Bundle.PreflightAndReturnError]: Returns a Boolean value indicating whether the bundle’s executable code could be loaded successfully.
 //   - [Bundle.LoadAndReturnError]: Loads the bundle’s executable code and returns any errors.
 //   - [Bundle.Unload]: Unloads the code associated with the receiver.
-//   - [Bundle.Loaded]: The load status of a bundle.
+//   - [Bundle.IsLoaded]: The load status of a bundle.
 //
 // # Errors
 //
@@ -376,7 +376,7 @@ func NSBundleFromID(id objc.ID) Bundle { return BundleFromID(id) }
 //   - [IBundle.PreflightAndReturnError]: Returns a Boolean value indicating whether the bundle’s executable code could be loaded successfully.
 //   - [IBundle.LoadAndReturnError]: Loads the bundle’s executable code and returns any errors.
 //   - [IBundle.Unload]: Unloads the code associated with the receiver.
-//   - [IBundle.Loaded]: The load status of a bundle.
+//   - [IBundle.IsLoaded]: The load status of a bundle.
 //
 // # Errors
 //
@@ -539,7 +539,7 @@ type IBundle interface {
 	// Unloads the code associated with the receiver.
 	Unload() bool
 	// The load status of a bundle.
-	Loaded() bool
+	IsLoaded() bool
 
 	// Topic: Errors
 
@@ -2160,7 +2160,7 @@ func (b Bundle) ExecutableArchitectures() []NSNumber {
 // true if the bundle’s code is currently loaded, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/isLoaded
-func (b Bundle) Loaded() bool {
+func (b Bundle) IsLoaded() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isLoaded"))
 	return rv
 }

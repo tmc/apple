@@ -85,7 +85,7 @@ func (ac AVCapturePhotoClass) Alloc() AVCapturePhoto {
 //
 //   - [AVCapturePhoto.ConstantColorCenterWeightedMeanConfidenceLevel]: A score that summarizes the overall confidence level of a constant color photo.
 //   - [AVCapturePhoto.ConstantColorConfidenceMap]: A pixel buffer where each pixel value indicates how fully the system achieves the constant color effect in the corresponding region of the photo.
-//   - [AVCapturePhoto.ConstantColorFallbackPhoto]: A Boolean value that Indicates whether this photo is a fallback photo for a constant color capture.
+//   - [AVCapturePhoto.IsConstantColorFallbackPhoto]: A Boolean value that Indicates whether this photo is a fallback photo for a constant color capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto
 type AVCapturePhoto struct {
@@ -123,7 +123,7 @@ func AVCapturePhotoFromID(id objc.ID) AVCapturePhoto {
 //
 //   - [IAVCapturePhoto.ConstantColorCenterWeightedMeanConfidenceLevel]: A score that summarizes the overall confidence level of a constant color photo.
 //   - [IAVCapturePhoto.ConstantColorConfidenceMap]: A pixel buffer where each pixel value indicates how fully the system achieves the constant color effect in the corresponding region of the photo.
-//   - [IAVCapturePhoto.ConstantColorFallbackPhoto]: A Boolean value that Indicates whether this photo is a fallback photo for a constant color capture.
+//   - [IAVCapturePhoto.IsConstantColorFallbackPhoto]: A Boolean value that Indicates whether this photo is a fallback photo for a constant color capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto
 type IAVCapturePhoto interface {
@@ -157,7 +157,7 @@ type IAVCapturePhoto interface {
 	// A pixel buffer where each pixel value indicates how fully the system achieves the constant color effect in the corresponding region of the photo.
 	ConstantColorConfidenceMap() corevideo.CVImageBufferRef
 	// A Boolean value that Indicates whether this photo is a fallback photo for a constant color capture.
-	ConstantColorFallbackPhoto() bool
+	IsConstantColorFallbackPhoto() bool
 }
 
 // Init initializes the instance.
@@ -329,7 +329,7 @@ func (c AVCapturePhoto) ConstantColorConfidenceMap() corevideo.CVImageBufferRef 
 // constant color capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/isConstantColorFallbackPhoto
-func (c AVCapturePhoto) ConstantColorFallbackPhoto() bool {
+func (c AVCapturePhoto) IsConstantColorFallbackPhoto() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isConstantColorFallbackPhoto"))
 	return rv
 }

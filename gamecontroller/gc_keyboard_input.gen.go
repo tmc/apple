@@ -55,7 +55,7 @@ func (gc GCKeyboardInputClass) Alloc() GCKeyboardInput {
 //
 // # Accessing Buttons
 //
-//   - [GCKeyboardInput.AnyKeyPressed]: A Boolean value that indicates whether the user is pressing any of the keys.
+//   - [GCKeyboardInput.IsAnyKeyPressed]: A Boolean value that indicates whether the user is pressing any of the keys.
 //   - [GCKeyboardInput.ButtonForKeyCode]: Returns the button element for the specified key code.
 //
 // See: https://developer.apple.com/documentation/GameController/GCKeyboardInput
@@ -82,7 +82,7 @@ func GCKeyboardInputFromID(id objc.ID) GCKeyboardInput {
 //
 // # Accessing Buttons
 //
-//   - [IGCKeyboardInput.AnyKeyPressed]: A Boolean value that indicates whether the user is pressing any of the keys.
+//   - [IGCKeyboardInput.IsAnyKeyPressed]: A Boolean value that indicates whether the user is pressing any of the keys.
 //   - [IGCKeyboardInput.ButtonForKeyCode]: Returns the button element for the specified key code.
 //
 // See: https://developer.apple.com/documentation/GameController/GCKeyboardInput
@@ -98,7 +98,7 @@ type IGCKeyboardInput interface {
 	// Topic: Accessing Buttons
 
 	// A Boolean value that indicates whether the user is pressing any of the keys.
-	AnyKeyPressed() bool
+	IsAnyKeyPressed() bool
 	// Returns the button element for the specified key code.
 	ButtonForKeyCode(code GCKeyCode) IGCControllerButtonInput
 }
@@ -169,7 +169,7 @@ func (g GCKeyboardInput) SetKeyChangedHandler(value GCKeyboardValueChangedHandle
 // the state of specific keys.
 //
 // See: https://developer.apple.com/documentation/GameController/GCKeyboardInput/isAnyKeyPressed
-func (g GCKeyboardInput) AnyKeyPressed() bool {
+func (g GCKeyboardInput) IsAnyKeyPressed() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isAnyKeyPressed"))
 	return rv
 }

@@ -71,7 +71,7 @@ func (mc MTLDepthStencilDescriptorClass) Alloc() MTLDepthStencilDescriptor {
 //
 //   - [MTLDepthStencilDescriptor.DepthCompareFunction]: The comparison that is performed between a fragment’s depth value and the depth value in the attachment, which determines whether to discard the fragment.
 //   - [MTLDepthStencilDescriptor.SetDepthCompareFunction]
-//   - [MTLDepthStencilDescriptor.DepthWriteEnabled]: A Boolean value that indicates whether depth values can be written to the depth attachment.
+//   - [MTLDepthStencilDescriptor.IsDepthWriteEnabled]: A Boolean value that indicates whether depth values can be written to the depth attachment.
 //   - [MTLDepthStencilDescriptor.SetDepthWriteEnabled]
 //
 // # Specifying stencil descriptors for primitives
@@ -107,7 +107,7 @@ func MTLDepthStencilDescriptorFromID(id objc.ID) MTLDepthStencilDescriptor {
 //
 //   - [IMTLDepthStencilDescriptor.DepthCompareFunction]: The comparison that is performed between a fragment’s depth value and the depth value in the attachment, which determines whether to discard the fragment.
 //   - [IMTLDepthStencilDescriptor.SetDepthCompareFunction]
-//   - [IMTLDepthStencilDescriptor.DepthWriteEnabled]: A Boolean value that indicates whether depth values can be written to the depth attachment.
+//   - [IMTLDepthStencilDescriptor.IsDepthWriteEnabled]: A Boolean value that indicates whether depth values can be written to the depth attachment.
 //   - [IMTLDepthStencilDescriptor.SetDepthWriteEnabled]
 //
 // # Specifying stencil descriptors for primitives
@@ -132,7 +132,7 @@ type IMTLDepthStencilDescriptor interface {
 	DepthCompareFunction() MTLCompareFunction
 	SetDepthCompareFunction(value MTLCompareFunction)
 	// A Boolean value that indicates whether depth values can be written to the depth attachment.
-	DepthWriteEnabled() bool
+	IsDepthWriteEnabled() bool
 	SetDepthWriteEnabled(value bool)
 
 	// Topic: Specifying stencil descriptors for primitives
@@ -201,7 +201,7 @@ func (d MTLDepthStencilDescriptor) SetDepthCompareFunction(value MTLCompareFunct
 // read-only.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilDescriptor/isDepthWriteEnabled
-func (d MTLDepthStencilDescriptor) DepthWriteEnabled() bool {
+func (d MTLDepthStencilDescriptor) IsDepthWriteEnabled() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isDepthWriteEnabled"))
 	return rv
 }

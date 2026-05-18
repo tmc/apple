@@ -48,7 +48,7 @@ func (nc NSGridColumnClass) Alloc() NSGridColumn {
 // # Instance Properties
 //
 //   - [NSGridColumn.GridView]
-//   - [NSGridColumn.Hidden]
+//   - [NSGridColumn.IsHidden]
 //   - [NSGridColumn.SetHidden]
 //   - [NSGridColumn.LeadingPadding]
 //   - [NSGridColumn.SetLeadingPadding]
@@ -85,7 +85,7 @@ func NSGridColumnFromID(id objc.ID) NSGridColumn {
 // # Instance Properties
 //
 //   - [INSGridColumn.GridView]
-//   - [INSGridColumn.Hidden]
+//   - [INSGridColumn.IsHidden]
 //   - [INSGridColumn.SetHidden]
 //   - [INSGridColumn.LeadingPadding]
 //   - [INSGridColumn.SetLeadingPadding]
@@ -109,7 +109,7 @@ type INSGridColumn interface {
 	// Topic: Instance Properties
 
 	GridView() INSGridView
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 	LeadingPadding() float64
 	SetLeadingPadding(value float64)
@@ -169,7 +169,7 @@ func (g NSGridColumn) GridView() INSGridView {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSGridColumn/isHidden
-func (g NSGridColumn) Hidden() bool {
+func (g NSGridColumn) IsHidden() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isHidden"))
 	return rv
 }

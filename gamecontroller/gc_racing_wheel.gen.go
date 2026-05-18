@@ -58,7 +58,7 @@ func (gc GCRacingWheelClass) Alloc() GCRacingWheel {
 //
 //   - [GCRacingWheel.AcquireDeviceWithError]: Starts receiving events from the racing wheel.
 //   - [GCRacingWheel.RelinquishDevice]: Stops receiving events from the racing wheel.
-//   - [GCRacingWheel.Acquired]: A Boolean value that indicates whether the racing wheel sends events to the app.
+//   - [GCRacingWheel.IsAcquired]: A Boolean value that indicates whether the racing wheel sends events to the app.
 //
 // # Accessing the controller profile
 //
@@ -67,7 +67,7 @@ func (gc GCRacingWheelClass) Alloc() GCRacingWheel {
 // # Creating snapshots
 //
 //   - [GCRacingWheel.Capture]: Returns a snapshot of the racing wheel with its current element values.
-//   - [GCRacingWheel.Snapshot]: A Boolean value that indicates whether the object is a snapshot of a racing wheel.
+//   - [GCRacingWheel.IsSnapshot]: A Boolean value that indicates whether the object is a snapshot of a racing wheel.
 //
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheel
 type GCRacingWheel struct {
@@ -96,7 +96,7 @@ func GCRacingWheelFromID(id objc.ID) GCRacingWheel {
 //
 //   - [IGCRacingWheel.AcquireDeviceWithError]: Starts receiving events from the racing wheel.
 //   - [IGCRacingWheel.RelinquishDevice]: Stops receiving events from the racing wheel.
-//   - [IGCRacingWheel.Acquired]: A Boolean value that indicates whether the racing wheel sends events to the app.
+//   - [IGCRacingWheel.IsAcquired]: A Boolean value that indicates whether the racing wheel sends events to the app.
 //
 // # Accessing the controller profile
 //
@@ -105,7 +105,7 @@ func GCRacingWheelFromID(id objc.ID) GCRacingWheel {
 // # Creating snapshots
 //
 //   - [IGCRacingWheel.Capture]: Returns a snapshot of the racing wheel with its current element values.
-//   - [IGCRacingWheel.Snapshot]: A Boolean value that indicates whether the object is a snapshot of a racing wheel.
+//   - [IGCRacingWheel.IsSnapshot]: A Boolean value that indicates whether the object is a snapshot of a racing wheel.
 //
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheel
 type IGCRacingWheel interface {
@@ -125,7 +125,7 @@ type IGCRacingWheel interface {
 	// Stops receiving events from the racing wheel.
 	RelinquishDevice()
 	// A Boolean value that indicates whether the racing wheel sends events to the app.
-	Acquired() bool
+	IsAcquired() bool
 
 	// Topic: Accessing the controller profile
 
@@ -137,7 +137,7 @@ type IGCRacingWheel interface {
 	// Returns a snapshot of the racing wheel with its current element values.
 	Capture() IGCRacingWheel
 	// A Boolean value that indicates whether the object is a snapshot of a racing wheel.
-	Snapshot() bool
+	IsSnapshot() bool
 }
 
 // Init initializes the instance.
@@ -258,7 +258,7 @@ func (g GCRacingWheel) GCRacingWheelDidDisconnect() foundation.NSString {
 // app.
 //
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheel/isAcquired
-func (g GCRacingWheel) Acquired() bool {
+func (g GCRacingWheel) IsAcquired() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isAcquired"))
 	return rv
 }
@@ -280,7 +280,7 @@ func (g GCRacingWheel) WheelInput() IGCRacingWheelInput {
 // device; otherwise, it’s an actual racing wheel.
 //
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheel/isSnapshot
-func (g GCRacingWheel) Snapshot() bool {
+func (g GCRacingWheel) IsSnapshot() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isSnapshot"))
 	return rv
 }

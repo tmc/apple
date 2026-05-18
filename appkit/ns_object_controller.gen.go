@@ -116,7 +116,7 @@ func (nc NSObjectControllerClass) Alloc() NSObjectController {
 //
 // # Managing editing
 //
-//   - [NSObjectController.Editable]: A Boolean that indicates whether the receiver allows adding and removing objects.
+//   - [NSObjectController.IsEditable]: A Boolean that indicates whether the receiver allows adding and removing objects.
 //   - [NSObjectController.SetEditable]
 //
 // # Core Data support
@@ -191,7 +191,7 @@ func NSObjectControllerFromID(id objc.ID) NSObjectController {
 //
 // # Managing editing
 //
-//   - [INSObjectController.Editable]: A Boolean that indicates whether the receiver allows adding and removing objects.
+//   - [INSObjectController.IsEditable]: A Boolean that indicates whether the receiver allows adding and removing objects.
 //   - [INSObjectController.SetEditable]
 //
 // # Core Data support
@@ -263,7 +263,7 @@ type INSObjectController interface {
 	// Topic: Managing editing
 
 	// A Boolean that indicates whether the receiver allows adding and removing objects.
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 
 	// Topic: Core Data support
@@ -643,7 +643,7 @@ func (o NSObjectController) CanRemove() bool {
 // The default is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/isEditable
-func (o NSObjectController) Editable() bool {
+func (o NSObjectController) IsEditable() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isEditable"))
 	return rv
 }

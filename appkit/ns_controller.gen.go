@@ -53,7 +53,7 @@ func (nc NSControllerClass) Alloc() NSController {
 //   - [NSController.CommitEditing]: Attempts to commit any pending edits.
 //   - [NSController.CommitEditingWithDelegateDidCommitSelectorContextInfo]: Attempts to commit any pending changes in known editors of the receiver.
 //   - [NSController.DiscardEditing]: Discards any pending changes by registered editors.
-//   - [NSController.Editing]: A Boolean value indicating if any editors are registered with the controller.
+//   - [NSController.IsEditing]: A Boolean value indicating if any editors are registered with the controller.
 //
 // # Initializers
 //
@@ -82,7 +82,7 @@ func NSControllerFromID(id objc.ID) NSController {
 //   - [INSController.CommitEditing]: Attempts to commit any pending edits.
 //   - [INSController.CommitEditingWithDelegateDidCommitSelectorContextInfo]: Attempts to commit any pending changes in known editors of the receiver.
 //   - [INSController.DiscardEditing]: Discards any pending changes by registered editors.
-//   - [INSController.Editing]: A Boolean value indicating if any editors are registered with the controller.
+//   - [INSController.IsEditing]: A Boolean value indicating if any editors are registered with the controller.
 //
 // # Initializers
 //
@@ -102,7 +102,7 @@ type INSController interface {
 	// Discards any pending changes by registered editors.
 	DiscardEditing()
 	// A Boolean value indicating if any editors are registered with the controller.
-	Editing() bool
+	IsEditing() bool
 
 	// Topic: Initializers
 
@@ -267,7 +267,7 @@ func (c NSController) EncodeWithCoder(coder foundation.INSCoder) {
 // controller object or false when no editor is registered.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSController/isEditing
-func (c NSController) Editing() bool {
+func (c NSController) IsEditing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEditing"))
 	return rv
 }

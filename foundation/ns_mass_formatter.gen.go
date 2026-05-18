@@ -47,7 +47,7 @@ func (mc MassFormatterClass) Alloc() MassFormatter {
 //
 // # Formatting Mass Strings
 //
-//   - [MassFormatter.ForPersonMassUse]: A Boolean value that indicates whether the resulting string represents a person’s mass.
+//   - [MassFormatter.IsForPersonMassUse]: A Boolean value that indicates whether the resulting string represents a person’s mass.
 //   - [MassFormatter.SetForPersonMassUse]
 //   - [MassFormatter.NumberFormatter]: The number formatter used to format the numbers in a mass strings.
 //   - [MassFormatter.SetNumberFormatter]
@@ -80,7 +80,7 @@ func NSMassFormatterFromID(id objc.ID) MassFormatter { return MassFormatterFromI
 //
 // # Formatting Mass Strings
 //
-//   - [IMassFormatter.ForPersonMassUse]: A Boolean value that indicates whether the resulting string represents a person’s mass.
+//   - [IMassFormatter.IsForPersonMassUse]: A Boolean value that indicates whether the resulting string represents a person’s mass.
 //   - [IMassFormatter.SetForPersonMassUse]
 //   - [IMassFormatter.NumberFormatter]: The number formatter used to format the numbers in a mass strings.
 //   - [IMassFormatter.SetNumberFormatter]
@@ -98,7 +98,7 @@ type IMassFormatter interface {
 	// Topic: Formatting Mass Strings
 
 	// A Boolean value that indicates whether the resulting string represents a person’s mass.
-	ForPersonMassUse() bool
+	IsForPersonMassUse() bool
 	SetForPersonMassUse(value bool)
 	// The number formatter used to format the numbers in a mass strings.
 	NumberFormatter() INSNumberFormatter
@@ -234,7 +234,7 @@ func (m MassFormatter) UnitStringFromValueUnit(value float64, unit NSMassFormatt
 // given locale (for example, in the [StringFromKilograms] method).
 //
 // See: https://developer.apple.com/documentation/Foundation/MassFormatter/isForPersonMassUse
-func (m MassFormatter) ForPersonMassUse() bool {
+func (m MassFormatter) IsForPersonMassUse() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isForPersonMassUse"))
 	return rv
 }

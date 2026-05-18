@@ -48,7 +48,7 @@ func (nc NWTCPConnectionClass) Alloc() NWTCPConnection {
 // # Monitoring the connection status
 //
 //   - [NWTCPConnection.State]: The status of the connection.
-//   - [NWTCPConnection.Viable]: The viability of a TCP connection indicates whether or not data can be transferred.
+//   - [NWTCPConnection.IsViable]: The viability of a TCP connection indicates whether or not data can be transferred.
 //   - [NWTCPConnection.Error]: The connection-wide error property.
 //
 // # Responding to network changes
@@ -83,7 +83,7 @@ func NWTCPConnectionFromID(id objc.ID) NWTCPConnection {
 // # Monitoring the connection status
 //
 //   - [INWTCPConnection.State]: The status of the connection.
-//   - [INWTCPConnection.Viable]: The viability of a TCP connection indicates whether or not data can be transferred.
+//   - [INWTCPConnection.IsViable]: The viability of a TCP connection indicates whether or not data can be transferred.
 //   - [INWTCPConnection.Error]: The connection-wide error property.
 //
 // # Responding to network changes
@@ -107,7 +107,7 @@ type INWTCPConnection interface {
 	// The status of the connection.
 	State() NWTCPConnectionState
 	// The viability of a TCP connection indicates whether or not data can be transferred.
-	Viable() bool
+	IsViable() bool
 	// The connection-wide error property.
 	Error() foundation.NSError
 
@@ -201,7 +201,7 @@ func (n NWTCPConnection) State() NWTCPConnectionState {
 // otherwise. Use Key-Value Observing to watch this property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/isViable
-func (n NWTCPConnection) Viable() bool {
+func (n NWTCPConnection) IsViable() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isViable"))
 	return rv
 }

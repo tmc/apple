@@ -72,7 +72,7 @@ func (ac AVAudioPlayerClass) Alloc() AVAudioPlayer {
 //   - [AVAudioPlayer.PlayAtTime]: Plays audio asynchronously, starting at a specified point in the audio output device’s timeline.
 //   - [AVAudioPlayer.Pause]: Pauses audio playback.
 //   - [AVAudioPlayer.Stop]: Stops playback and undoes the setup the system requires for playback.
-//   - [AVAudioPlayer.Playing]: A Boolean value that indicates whether the player is currently playing audio.
+//   - [AVAudioPlayer.IsPlaying]: A Boolean value that indicates whether the player is currently playing audio.
 //
 // # Configuring playback settings
 //
@@ -100,7 +100,7 @@ func (ac AVAudioPlayerClass) Alloc() AVAudioPlayer {
 //
 // # Managing audio-level metering
 //
-//   - [AVAudioPlayer.MeteringEnabled]: A Boolean value that indicates whether the player is able to generate audio-level metering data.
+//   - [AVAudioPlayer.IsMeteringEnabled]: A Boolean value that indicates whether the player is able to generate audio-level metering data.
 //   - [AVAudioPlayer.SetMeteringEnabled]
 //   - [AVAudioPlayer.UpdateMeters]: Refreshes the average and peak power values for all channels of an audio player.
 //   - [AVAudioPlayer.AveragePowerForChannel]: Returns the average power, in decibels full-scale (dBFS), for an audio channel.
@@ -157,7 +157,7 @@ func AVAudioPlayerFromID(id objc.ID) AVAudioPlayer {
 //   - [IAVAudioPlayer.PlayAtTime]: Plays audio asynchronously, starting at a specified point in the audio output device’s timeline.
 //   - [IAVAudioPlayer.Pause]: Pauses audio playback.
 //   - [IAVAudioPlayer.Stop]: Stops playback and undoes the setup the system requires for playback.
-//   - [IAVAudioPlayer.Playing]: A Boolean value that indicates whether the player is currently playing audio.
+//   - [IAVAudioPlayer.IsPlaying]: A Boolean value that indicates whether the player is currently playing audio.
 //
 // # Configuring playback settings
 //
@@ -185,7 +185,7 @@ func AVAudioPlayerFromID(id objc.ID) AVAudioPlayer {
 //
 // # Managing audio-level metering
 //
-//   - [IAVAudioPlayer.MeteringEnabled]: A Boolean value that indicates whether the player is able to generate audio-level metering data.
+//   - [IAVAudioPlayer.IsMeteringEnabled]: A Boolean value that indicates whether the player is able to generate audio-level metering data.
 //   - [IAVAudioPlayer.SetMeteringEnabled]
 //   - [IAVAudioPlayer.UpdateMeters]: Refreshes the average and peak power values for all channels of an audio player.
 //   - [IAVAudioPlayer.AveragePowerForChannel]: Returns the average power, in decibels full-scale (dBFS), for an audio channel.
@@ -237,7 +237,7 @@ type IAVAudioPlayer interface {
 	// Stops playback and undoes the setup the system requires for playback.
 	Stop()
 	// A Boolean value that indicates whether the player is currently playing audio.
-	Playing() bool
+	IsPlaying() bool
 
 	// Topic: Configuring playback settings
 
@@ -275,7 +275,7 @@ type IAVAudioPlayer interface {
 	// Topic: Managing audio-level metering
 
 	// A Boolean value that indicates whether the player is able to generate audio-level metering data.
-	MeteringEnabled() bool
+	IsMeteringEnabled() bool
 	SetMeteringEnabled(value bool)
 	// Refreshes the average and peak power values for all channels of an audio player.
 	UpdateMeters()
@@ -714,7 +714,7 @@ func (a AVAudioPlayer) PeakPowerForChannel(channelNumber uint) float32 {
 // audio.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/isPlaying
-func (a AVAudioPlayer) Playing() bool {
+func (a AVAudioPlayer) IsPlaying() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPlaying"))
 	return rv
 }
@@ -855,7 +855,7 @@ func (a AVAudioPlayer) NumberOfChannels() uint {
 // use it.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/isMeteringEnabled
-func (a AVAudioPlayer) MeteringEnabled() bool {
+func (a AVAudioPlayer) IsMeteringEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isMeteringEnabled"))
 	return rv
 }

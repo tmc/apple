@@ -66,7 +66,7 @@ func (ac AVMetadataObjectClass) Alloc() AVMetadataObject {
 //   - [AVMetadataObject.Duration]: The duration of the media associated with this metadata object.
 //   - [AVMetadataObject.Time]: The media time value associated with the metadata object.
 //   - [AVMetadataObject.Type]: The type of metadata that this object provides.
-//   - [AVMetadataObject.FixedFocus]: A BOOL indicating whether this metadata object represents a fixed focus.
+//   - [AVMetadataObject.IsFixedFocus]: A BOOL indicating whether this metadata object represents a fixed focus.
 //   - [AVMetadataObject.CinematicVideoFocusMode]: The current focus mode when an object is detected during a Cinematic Video recording.
 //   - [AVMetadataObject.GroupID]: An identifier associated with a metadata object used to group it with other metadata objects belonging to a common parent.
 //   - [AVMetadataObject.ObjectID]: A unique identifier for each detected object type (face, body, hands, heads and salient objects) in a collection.
@@ -94,7 +94,7 @@ func AVMetadataObjectFromID(id objc.ID) AVMetadataObject {
 //   - [IAVMetadataObject.Duration]: The duration of the media associated with this metadata object.
 //   - [IAVMetadataObject.Time]: The media time value associated with the metadata object.
 //   - [IAVMetadataObject.Type]: The type of metadata that this object provides.
-//   - [IAVMetadataObject.FixedFocus]: A BOOL indicating whether this metadata object represents a fixed focus.
+//   - [IAVMetadataObject.IsFixedFocus]: A BOOL indicating whether this metadata object represents a fixed focus.
 //   - [IAVMetadataObject.CinematicVideoFocusMode]: The current focus mode when an object is detected during a Cinematic Video recording.
 //   - [IAVMetadataObject.GroupID]: An identifier associated with a metadata object used to group it with other metadata objects belonging to a common parent.
 //   - [IAVMetadataObject.ObjectID]: A unique identifier for each detected object type (face, body, hands, heads and salient objects) in a collection.
@@ -114,7 +114,7 @@ type IAVMetadataObject interface {
 	// The type of metadata that this object provides.
 	Type() AVMetadataObjectType
 	// A BOOL indicating whether this metadata object represents a fixed focus.
-	FixedFocus() bool
+	IsFixedFocus() bool
 	// The current focus mode when an object is detected during a Cinematic Video recording.
 	CinematicVideoFocusMode() AVCaptureCinematicVideoFocusMode
 	// An identifier associated with a metadata object used to group it with other metadata objects belonging to a common parent.
@@ -213,7 +213,7 @@ func (m AVMetadataObject) Type() AVMetadataObjectType {
 // A BOOL indicating whether this metadata object represents a fixed focus.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/isFixedFocus
-func (m AVMetadataObject) FixedFocus() bool {
+func (m AVMetadataObject) IsFixedFocus() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isFixedFocus"))
 	return rv
 }

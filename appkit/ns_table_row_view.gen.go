@@ -53,15 +53,15 @@ func (nc NSTableRowViewClass) Alloc() NSTableRowView {
 //
 // # Display Style
 //
-//   - [NSTableRowView.Emphasized]: Determines whether the row will draw with the alternate or secondary color (unless overridden).
+//   - [NSTableRowView.IsEmphasized]: Determines whether the row will draw with the alternate or secondary color (unless overridden).
 //   - [NSTableRowView.SetEmphasized]
 //   - [NSTableRowView.InteriorBackgroundStyle]: Specifies how the subviews should draw.
-//   - [NSTableRowView.Floating]: Specifies whether the row is drawn using the floating style.
+//   - [NSTableRowView.IsFloating]: Specifies whether the row is drawn using the floating style.
 //   - [NSTableRowView.SetFloating]
 //
 // # Row Selection
 //
-//   - [NSTableRowView.Selected]: Determines whether the row is selected.
+//   - [NSTableRowView.IsSelected]: Determines whether the row is selected.
 //   - [NSTableRowView.SetSelected]
 //   - [NSTableRowView.SelectionHighlightStyle]: Specifies the selection highlight style.
 //   - [NSTableRowView.SetSelectionHighlightStyle]
@@ -72,12 +72,12 @@ func (nc NSTableRowViewClass) Alloc() NSTableRowView {
 //   - [NSTableRowView.SetDraggingDestinationFeedbackStyle]
 //   - [NSTableRowView.IndentationForDropOperation]: Defines the amount the drag target for a row should be indented.
 //   - [NSTableRowView.SetIndentationForDropOperation]
-//   - [NSTableRowView.TargetForDropOperation]: Specifies whether this row will draw a drop indicator based on the current dragging feedback style.
+//   - [NSTableRowView.IsTargetForDropOperation]: Specifies whether this row will draw a drop indicator based on the current dragging feedback style.
 //   - [NSTableRowView.SetTargetForDropOperation]
 //
 // # Row Grouping
 //
-//   - [NSTableRowView.GroupRowStyle]: Specifies whether this row view is a group row.
+//   - [NSTableRowView.IsGroupRowStyle]: Specifies whether this row view is a group row.
 //   - [NSTableRowView.SetGroupRowStyle]
 //   - [NSTableRowView.NumberOfColumns]: Returns the number of columns represented by views in the table row view.
 //
@@ -96,9 +96,9 @@ func (nc NSTableRowViewClass) Alloc() NSTableRowView {
 //
 // # Instance Properties
 //
-//   - [NSTableRowView.NextRowSelected]
+//   - [NSTableRowView.IsNextRowSelected]
 //   - [NSTableRowView.SetNextRowSelected]
-//   - [NSTableRowView.PreviousRowSelected]
+//   - [NSTableRowView.IsPreviousRowSelected]
 //   - [NSTableRowView.SetPreviousRowSelected]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView
@@ -120,15 +120,15 @@ func NSTableRowViewFromID(id objc.ID) NSTableRowView {
 //
 // # Display Style
 //
-//   - [INSTableRowView.Emphasized]: Determines whether the row will draw with the alternate or secondary color (unless overridden).
+//   - [INSTableRowView.IsEmphasized]: Determines whether the row will draw with the alternate or secondary color (unless overridden).
 //   - [INSTableRowView.SetEmphasized]
 //   - [INSTableRowView.InteriorBackgroundStyle]: Specifies how the subviews should draw.
-//   - [INSTableRowView.Floating]: Specifies whether the row is drawn using the floating style.
+//   - [INSTableRowView.IsFloating]: Specifies whether the row is drawn using the floating style.
 //   - [INSTableRowView.SetFloating]
 //
 // # Row Selection
 //
-//   - [INSTableRowView.Selected]: Determines whether the row is selected.
+//   - [INSTableRowView.IsSelected]: Determines whether the row is selected.
 //   - [INSTableRowView.SetSelected]
 //   - [INSTableRowView.SelectionHighlightStyle]: Specifies the selection highlight style.
 //   - [INSTableRowView.SetSelectionHighlightStyle]
@@ -139,12 +139,12 @@ func NSTableRowViewFromID(id objc.ID) NSTableRowView {
 //   - [INSTableRowView.SetDraggingDestinationFeedbackStyle]
 //   - [INSTableRowView.IndentationForDropOperation]: Defines the amount the drag target for a row should be indented.
 //   - [INSTableRowView.SetIndentationForDropOperation]
-//   - [INSTableRowView.TargetForDropOperation]: Specifies whether this row will draw a drop indicator based on the current dragging feedback style.
+//   - [INSTableRowView.IsTargetForDropOperation]: Specifies whether this row will draw a drop indicator based on the current dragging feedback style.
 //   - [INSTableRowView.SetTargetForDropOperation]
 //
 // # Row Grouping
 //
-//   - [INSTableRowView.GroupRowStyle]: Specifies whether this row view is a group row.
+//   - [INSTableRowView.IsGroupRowStyle]: Specifies whether this row view is a group row.
 //   - [INSTableRowView.SetGroupRowStyle]
 //   - [INSTableRowView.NumberOfColumns]: Returns the number of columns represented by views in the table row view.
 //
@@ -163,9 +163,9 @@ func NSTableRowViewFromID(id objc.ID) NSTableRowView {
 //
 // # Instance Properties
 //
-//   - [INSTableRowView.NextRowSelected]
+//   - [INSTableRowView.IsNextRowSelected]
 //   - [INSTableRowView.SetNextRowSelected]
-//   - [INSTableRowView.PreviousRowSelected]
+//   - [INSTableRowView.IsPreviousRowSelected]
 //   - [INSTableRowView.SetPreviousRowSelected]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView
@@ -176,18 +176,18 @@ type INSTableRowView interface {
 	// Topic: Display Style
 
 	// Determines whether the row will draw with the alternate or secondary color (unless overridden).
-	Emphasized() bool
+	IsEmphasized() bool
 	SetEmphasized(value bool)
 	// Specifies how the subviews should draw.
 	InteriorBackgroundStyle() NSBackgroundStyle
 	// Specifies whether the row is drawn using the floating style.
-	Floating() bool
+	IsFloating() bool
 	SetFloating(value bool)
 
 	// Topic: Row Selection
 
 	// Determines whether the row is selected.
-	Selected() bool
+	IsSelected() bool
 	SetSelected(value bool)
 	// Specifies the selection highlight style.
 	SelectionHighlightStyle() NSTableViewSelectionHighlightStyle
@@ -202,13 +202,13 @@ type INSTableRowView interface {
 	IndentationForDropOperation() float64
 	SetIndentationForDropOperation(value float64)
 	// Specifies whether this row will draw a drop indicator based on the current dragging feedback style.
-	TargetForDropOperation() bool
+	IsTargetForDropOperation() bool
 	SetTargetForDropOperation(value bool)
 
 	// Topic: Row Grouping
 
 	// Specifies whether this row view is a group row.
-	GroupRowStyle() bool
+	IsGroupRowStyle() bool
 	SetGroupRowStyle(value bool)
 	// Returns the number of columns represented by views in the table row view.
 	NumberOfColumns() int
@@ -234,9 +234,9 @@ type INSTableRowView interface {
 
 	// Topic: Instance Properties
 
-	NextRowSelected() bool
+	IsNextRowSelected() bool
 	SetNextRowSelected(value bool)
-	PreviousRowSelected() bool
+	IsPreviousRowSelected() bool
 	SetPreviousRowSelected(value bool)
 }
 
@@ -437,7 +437,7 @@ func (t NSTableRowView) AccessibilityIndex() int {
 //
 // [alternateSelectedControlColor]: https://developer.apple.com/documentation/AppKit/NSColor/alternateSelectedControlColor
 // [secondarySelectedControlColor]: https://developer.apple.com/documentation/AppKit/NSColor/secondarySelectedControlColor
-func (t NSTableRowView) Emphasized() bool {
+func (t NSTableRowView) IsEmphasized() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEmphasized"))
 	return rv
 }
@@ -476,7 +476,7 @@ func (t NSTableRowView) InteriorBackgroundStyle() NSBackgroundStyle {
 // that are currently ‘floating’.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isFloating
-func (t NSTableRowView) Floating() bool {
+func (t NSTableRowView) IsFloating() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isFloating"))
 	return rv
 }
@@ -491,7 +491,7 @@ func (t NSTableRowView) SetFloating(value bool) {
 // true if selected, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isSelected
-func (t NSTableRowView) Selected() bool {
+func (t NSTableRowView) IsSelected() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSelected"))
 	return rv
 }
@@ -559,7 +559,7 @@ func (t NSTableRowView) SetIndentationForDropOperation(value float64) {
 // [DraggingDestinationFeedbackStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isTargetForDropOperation
-func (t NSTableRowView) TargetForDropOperation() bool {
+func (t NSTableRowView) IsTargetForDropOperation() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isTargetForDropOperation"))
 	return rv
 }
@@ -574,7 +574,7 @@ func (t NSTableRowView) SetTargetForDropOperation(value bool) {
 // When true this row is a group row and will draw appropriately.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isGroupRowStyle
-func (t NSTableRowView) GroupRowStyle() bool {
+func (t NSTableRowView) IsGroupRowStyle() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isGroupRowStyle"))
 	return rv
 }
@@ -618,7 +618,7 @@ func (t NSTableRowView) SetBackgroundColor(value INSColor) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isNextRowSelected
-func (t NSTableRowView) NextRowSelected() bool {
+func (t NSTableRowView) IsNextRowSelected() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isNextRowSelected"))
 	return rv
 }
@@ -627,7 +627,7 @@ func (t NSTableRowView) SetNextRowSelected(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isPreviousRowSelected
-func (t NSTableRowView) PreviousRowSelected() bool {
+func (t NSTableRowView) IsPreviousRowSelected() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPreviousRowSelected"))
 	return rv
 }

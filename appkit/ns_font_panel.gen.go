@@ -55,7 +55,7 @@ func (nc NSFontPanelClass) Alloc() NSFontPanel {
 //
 // # Enabling Font Changes
 //
-//   - [NSFontPanel.Enabled]: A Boolean that shows whether the receiver’s Set button is enabled.
+//   - [NSFontPanel.IsEnabled]: A Boolean that shows whether the receiver’s Set button is enabled.
 //   - [NSFontPanel.SetEnabled]
 //   - [NSFontPanel.ReloadDefaultFontFamilies]: Triggers a reload to the default state, so that the delegate is called.
 //
@@ -93,7 +93,7 @@ func NSFontPanelFromID(id objc.ID) NSFontPanel {
 //
 // # Enabling Font Changes
 //
-//   - [INSFontPanel.Enabled]: A Boolean that shows whether the receiver’s Set button is enabled.
+//   - [INSFontPanel.IsEnabled]: A Boolean that shows whether the receiver’s Set button is enabled.
 //   - [INSFontPanel.SetEnabled]
 //   - [INSFontPanel.ReloadDefaultFontFamilies]: Triggers a reload to the default state, so that the delegate is called.
 //
@@ -117,7 +117,7 @@ type INSFontPanel interface {
 	// Topic: Enabling Font Changes
 
 	// A Boolean that shows whether the receiver’s Set button is enabled.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// Triggers a reload to the default state, so that the delegate is called.
 	ReloadDefaultFontFamilies()
@@ -357,7 +357,7 @@ func (f NSFontPanel) PanelConvertFont(fontObj NSFont) NSFont {
 // text objects regardless of this setting.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontPanel/isEnabled
-func (f NSFontPanel) Enabled() bool {
+func (f NSFontPanel) IsEnabled() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isEnabled"))
 	return rv
 }

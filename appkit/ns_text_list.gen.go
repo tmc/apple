@@ -82,7 +82,7 @@ func (nc NSTextListClass) Alloc() NSTextList {
 //
 // # Getting list options
 //
-//   - [NSTextList.Ordered]
+//   - [NSTextList.IsOrdered]
 //   - [NSTextList.ListOptions]: Returns the list options mask value of the receiver.
 //
 // # Managing item numbering
@@ -124,7 +124,7 @@ func NSTextListFromID(id objc.ID) NSTextList {
 //
 // # Getting list options
 //
-//   - [INSTextList.Ordered]
+//   - [INSTextList.IsOrdered]
 //   - [INSTextList.ListOptions]: Returns the list options mask value of the receiver.
 //
 // # Managing item numbering
@@ -154,7 +154,7 @@ type INSTextList interface {
 
 	// Topic: Getting list options
 
-	Ordered() bool
+	IsOrdered() bool
 	// Returns the list options mask value of the receiver.
 	ListOptions() NSTextListOptions
 
@@ -346,7 +346,7 @@ func (t NSTextList) MarkerFormat() NSTextListMarkerFormat {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextList/isOrdered
-func (t NSTextList) Ordered() bool {
+func (t NSTextList) IsOrdered() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isOrdered"))
 	return rv
 }

@@ -59,8 +59,8 @@ func (ac AVCaptureFileOutputClass) Alloc() AVCaptureFileOutput {
 //   - [AVCaptureFileOutput.OutputFileURL]: The URL to which output is directed.
 //   - [AVCaptureFileOutput.RecordedDuration]: Indicates the duration of the media recorded to the current output file.
 //   - [AVCaptureFileOutput.RecordedFileSize]: Indicates the size, in bytes, of the data recorded to the current output file.
-//   - [AVCaptureFileOutput.Recording]: Indicates whether recording is in progress.
-//   - [AVCaptureFileOutput.RecordingPaused]: Indicates whether recording to the current output file is paused.
+//   - [AVCaptureFileOutput.IsRecording]: Indicates whether recording is in progress.
+//   - [AVCaptureFileOutput.IsRecordingPaused]: Indicates whether recording to the current output file is paused.
 //
 // # Managing recording
 //
@@ -100,8 +100,8 @@ func AVCaptureFileOutputFromID(id objc.ID) AVCaptureFileOutput {
 //   - [IAVCaptureFileOutput.OutputFileURL]: The URL to which output is directed.
 //   - [IAVCaptureFileOutput.RecordedDuration]: Indicates the duration of the media recorded to the current output file.
 //   - [IAVCaptureFileOutput.RecordedFileSize]: Indicates the size, in bytes, of the data recorded to the current output file.
-//   - [IAVCaptureFileOutput.Recording]: Indicates whether recording is in progress.
-//   - [IAVCaptureFileOutput.RecordingPaused]: Indicates whether recording to the current output file is paused.
+//   - [IAVCaptureFileOutput.IsRecording]: Indicates whether recording is in progress.
+//   - [IAVCaptureFileOutput.IsRecordingPaused]: Indicates whether recording to the current output file is paused.
 //
 // # Managing recording
 //
@@ -135,9 +135,9 @@ type IAVCaptureFileOutput interface {
 	// Indicates the size, in bytes, of the data recorded to the current output file.
 	RecordedFileSize() int64
 	// Indicates whether recording is in progress.
-	Recording() bool
+	IsRecording() bool
 	// Indicates whether recording to the current output file is paused.
-	RecordingPaused() bool
+	IsRecordingPaused() bool
 
 	// Topic: Managing recording
 
@@ -402,7 +402,7 @@ func (c AVCaptureFileOutput) RecordedFileSize() int64 {
 // file to which it is writing new samples, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/isRecording
-func (c AVCaptureFileOutput) Recording() bool {
+func (c AVCaptureFileOutput) IsRecording() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isRecording"))
 	return rv
 }
@@ -418,7 +418,7 @@ func (c AVCaptureFileOutput) Recording() bool {
 // [ResumeRecording].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/isRecordingPaused
-func (c AVCaptureFileOutput) RecordingPaused() bool {
+func (c AVCaptureFileOutput) IsRecordingPaused() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isRecordingPaused"))
 	return rv
 }

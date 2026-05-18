@@ -144,7 +144,7 @@ func (nc NSViewControllerClass) Alloc() NSViewController {
 //
 //   - [NSViewController.ViewDidLoad]: Called after the view controller’s view has been loaded into memory.
 //   - [NSViewController.LoadViewIfNeeded]
-//   - [NSViewController.ViewLoaded]: A Boolean value indicating whether the view controller’s view is loaded into memory.
+//   - [NSViewController.IsViewLoaded]: A Boolean value indicating whether the view controller’s view is loaded into memory.
 //   - [NSViewController.ViewIfLoaded]
 //   - [NSViewController.ViewWillAppear]: Called after the view controller’s view has been loaded into memory is about to be added to the view hierarchy in the window.
 //   - [NSViewController.ViewDidAppear]: Called when the view controller’s view is fully transitioned onto the screen.
@@ -249,7 +249,7 @@ func NSViewControllerFromID(id objc.ID) NSViewController {
 //
 //   - [INSViewController.ViewDidLoad]: Called after the view controller’s view has been loaded into memory.
 //   - [INSViewController.LoadViewIfNeeded]
-//   - [INSViewController.ViewLoaded]: A Boolean value indicating whether the view controller’s view is loaded into memory.
+//   - [INSViewController.IsViewLoaded]: A Boolean value indicating whether the view controller’s view is loaded into memory.
 //   - [INSViewController.ViewIfLoaded]
 //   - [INSViewController.ViewWillAppear]: Called after the view controller’s view has been loaded into memory is about to be added to the view hierarchy in the window.
 //   - [INSViewController.ViewDidAppear]: Called when the view controller’s view is fully transitioned onto the screen.
@@ -355,7 +355,7 @@ type INSViewController interface {
 	ViewDidLoad()
 	LoadViewIfNeeded()
 	// A Boolean value indicating whether the view controller’s view is loaded into memory.
-	ViewLoaded() bool
+	IsViewLoaded() bool
 	ViewIfLoaded() INSView
 	// Called after the view controller’s view has been loaded into memory is about to be added to the view hierarchy in the window.
 	ViewWillAppear()
@@ -1300,7 +1300,7 @@ func (v NSViewController) Storyboard() INSStoryboard {
 // into memory.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/isViewLoaded
-func (v NSViewController) ViewLoaded() bool {
+func (v NSViewController) IsViewLoaded() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isViewLoaded"))
 	return rv
 }

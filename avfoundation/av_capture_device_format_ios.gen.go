@@ -54,7 +54,7 @@ func (c AVCaptureDeviceFormat) VideoFieldOfViewForAspectRatioGeometricDistortion
 // sensitivity at the cost of reduced resolution.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isVideoBinned
-func (c AVCaptureDeviceFormat) VideoBinned() bool {
+func (c AVCaptureDeviceFormat) IsVideoBinned() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoBinned"))
 	return rv
 }
@@ -63,7 +63,7 @@ func (c AVCaptureDeviceFormat) VideoBinned() bool {
 // range streaming.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isVideoHDRSupported
-func (c AVCaptureDeviceFormat) VideoHDRSupported() bool {
+func (c AVCaptureDeviceFormat) IsVideoHDRSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoHDRSupported"))
 	return rv
 }
@@ -82,7 +82,7 @@ func (c AVCaptureDeviceFormat) VideoHDRSupported() bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isMultiCamSupported
 //
 // [AVCaptureMultiCamSession]: https://developer.apple.com/documentation/AVFoundation/AVCaptureMultiCamSession
-func (c AVCaptureDeviceFormat) MultiCamSupported() bool {
+func (c AVCaptureDeviceFormat) IsMultiCamSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isMultiCamSupported"))
 	return rv
 }
@@ -146,7 +146,7 @@ func (c AVCaptureDeviceFormat) GeometricDistortionCorrectedVideoFieldOfView() fl
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isHighestPhotoQualitySupported
 //
 // [photo]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/Preset/photo
-func (c AVCaptureDeviceFormat) HighestPhotoQualitySupported() bool {
+func (c AVCaptureDeviceFormat) IsHighestPhotoQualitySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isHighestPhotoQualitySupported"))
 	return rv
 }
@@ -155,7 +155,7 @@ func (c AVCaptureDeviceFormat) HighestPhotoQualitySupported() bool {
 // mapping.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isGlobalToneMappingSupported
-func (c AVCaptureDeviceFormat) GlobalToneMappingSupported() bool {
+func (c AVCaptureDeviceFormat) IsGlobalToneMappingSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isGlobalToneMappingSupported"))
 	return rv
 }
@@ -233,7 +233,7 @@ func (c AVCaptureDeviceFormat) VideoZoomFactorUpscaleThreshold() float64 {
 // formats.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isSmartFramingSupported
-func (c AVCaptureDeviceFormat) SmartFramingSupported() bool {
+func (c AVCaptureDeviceFormat) IsSmartFramingSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSmartFramingSupported"))
 	return rv
 }
@@ -256,7 +256,7 @@ func (c AVCaptureDeviceFormat) SupportedDynamicAspectRatios() []string {
 // still-image capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isPortraitEffectsMatteStillImageDeliverySupported
-func (c AVCaptureDeviceFormat) PortraitEffectsMatteStillImageDeliverySupported() bool {
+func (c AVCaptureDeviceFormat) IsPortraitEffectsMatteStillImageDeliverySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPortraitEffectsMatteStillImageDeliverySupported"))
 	return rv
 }
@@ -363,7 +363,7 @@ func (c AVCaptureDeviceFormat) VideoMinZoomFactorForDepthDataDelivery() float64 
 // [AVCaptureConnection] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isVideoStabilizationSupported
-func (c AVCaptureDeviceFormat) VideoStabilizationSupported() bool {
+func (c AVCaptureDeviceFormat) IsVideoStabilizationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoStabilizationSupported"))
 	return rv
 }

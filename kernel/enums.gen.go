@@ -9534,13 +9534,13 @@ type KFW uint
 
 const (
 	KFWAddressBusID                KFW = 0xffffffc00000
-	KFWAddressBusIDPhase           KFW = (31 - (25)) + (16)
+	KFWAddressBusIDPhase           KFW = (31 - (25)) + (31 - (15))
 	KFWAddressNodeID               KFW = 0xffffffff0000
-	KFWAddressNodeIDPhase          KFW = (31 - (31)) + (16)
+	KFWAddressNodeIDPhase          KFW = (31 - (31)) + (31 - (15))
 	KFWAllowMultiMode              KFW = 0
 	KFWAlwaysMultiMode             KFW = 0
 	KFWBadNodeID                   KFW = 0xffff
-	KFWBroadcastAddress            KFW = (63) << ((31 - (31)) + (16))
+	KFWBroadcastAddress            KFW = (63) << ((31 - (31)) + (31 - (15)))
 	KFWBroadcastNodeID             KFW = 63
 	KFWConfigurationPacketID       KFW = 0
 	KFWDCLInvalidNotification      KFW = 0
@@ -9548,7 +9548,7 @@ const (
 	KFWDCLUpdateNotification       KFW = 1
 	KFWDefaultIsochResourceFlags   KFW = 0
 	KFWLinkOnPacketID              KFW = 1
-	KFWLocalBusAddress             KFW = (1023) << ((31 - (25)) + (16))
+	KFWLocalBusAddress             KFW = (1023) << ((31 - (25)) + (31 - (15)))
 	KFWLocalBusID                  KFW = 1023
 	KFWNeverMultiMode              KFW = 0
 	KFWNuDCLModifyJumpNotification KFW = 4

@@ -59,9 +59,9 @@ func (nc NSBrowserCellClass) Alloc() NSBrowserCell {
 //
 //   - [NSBrowserCell.Reset]: Unhighlights the receiver and unsets its state.
 //   - [NSBrowserCell.Set]: Highlights the receiver and sets its state.
-//   - [NSBrowserCell.Leaf]: A Boolean that indicates whether the browser cell is a leaf or a branch cell.
+//   - [NSBrowserCell.IsLeaf]: A Boolean that indicates whether the browser cell is a leaf or a branch cell.
 //   - [NSBrowserCell.SetLeaf]
-//   - [NSBrowserCell.Loaded]: A Boolean that indicates whether the cell is ready to display.
+//   - [NSBrowserCell.IsLoaded]: A Boolean that indicates whether the cell is ready to display.
 //   - [NSBrowserCell.SetLoaded]
 //   - [NSBrowserCell.HighlightColorInView]: Returns the highlight color that the receiver wants to display.
 //
@@ -91,9 +91,9 @@ func NSBrowserCellFromID(id objc.ID) NSBrowserCell {
 //
 //   - [INSBrowserCell.Reset]: Unhighlights the receiver and unsets its state.
 //   - [INSBrowserCell.Set]: Highlights the receiver and sets its state.
-//   - [INSBrowserCell.Leaf]: A Boolean that indicates whether the browser cell is a leaf or a branch cell.
+//   - [INSBrowserCell.IsLeaf]: A Boolean that indicates whether the browser cell is a leaf or a branch cell.
 //   - [INSBrowserCell.SetLeaf]
-//   - [INSBrowserCell.Loaded]: A Boolean that indicates whether the cell is ready to display.
+//   - [INSBrowserCell.IsLoaded]: A Boolean that indicates whether the cell is ready to display.
 //   - [INSBrowserCell.SetLoaded]
 //   - [INSBrowserCell.HighlightColorInView]: Returns the highlight color that the receiver wants to display.
 //
@@ -114,10 +114,10 @@ type INSBrowserCell interface {
 	// Highlights the receiver and sets its state.
 	Set()
 	// A Boolean that indicates whether the browser cell is a leaf or a branch cell.
-	Leaf() bool
+	IsLeaf() bool
 	SetLeaf(value bool)
 	// A Boolean that indicates whether the cell is ready to display.
-	Loaded() bool
+	IsLoaded() bool
 	SetLoaded(value bool)
 	// Returns the highlight color that the receiver wants to display.
 	HighlightColorInView(controlView INSView) INSColor
@@ -230,7 +230,7 @@ func (b NSBrowserCell) SetAlternateImage(value INSImage) {
 // information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/isLeaf
-func (b NSBrowserCell) Leaf() bool {
+func (b NSBrowserCell) IsLeaf() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isLeaf"))
 	return rv
 }
@@ -246,7 +246,7 @@ func (b NSBrowserCell) SetLeaf(value bool) {
 // been set and the cell is ready to display.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/isLoaded
-func (b NSBrowserCell) Loaded() bool {
+func (b NSBrowserCell) IsLoaded() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isLoaded"))
 	return rv
 }

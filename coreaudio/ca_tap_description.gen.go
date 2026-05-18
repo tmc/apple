@@ -54,15 +54,15 @@ func (cc CATapDescriptionClass) Alloc() CATapDescription {
 //   - [CATapDescription.SetBundleIDs]
 //   - [CATapDescription.DeviceUID]
 //   - [CATapDescription.SetDeviceUID]
-//   - [CATapDescription.Exclusive]
+//   - [CATapDescription.IsExclusive]
 //   - [CATapDescription.SetExclusive]
-//   - [CATapDescription.Mixdown]
+//   - [CATapDescription.IsMixdown]
 //   - [CATapDescription.SetMixdown]
-//   - [CATapDescription.Mono]
+//   - [CATapDescription.IsMono]
 //   - [CATapDescription.SetMono]
-//   - [CATapDescription.PrivateTap]
+//   - [CATapDescription.IsPrivate]
 //   - [CATapDescription.SetPrivate]
-//   - [CATapDescription.ProcessRestoreEnabled]
+//   - [CATapDescription.IsProcessRestoreEnabled]
 //   - [CATapDescription.SetProcessRestoreEnabled]
 //   - [CATapDescription.MuteBehavior]
 //   - [CATapDescription.SetMuteBehavior]
@@ -96,15 +96,15 @@ func CATapDescriptionFromID(id objc.ID) CATapDescription {
 //   - [ICATapDescription.SetBundleIDs]
 //   - [ICATapDescription.DeviceUID]
 //   - [ICATapDescription.SetDeviceUID]
-//   - [ICATapDescription.Exclusive]
+//   - [ICATapDescription.IsExclusive]
 //   - [ICATapDescription.SetExclusive]
-//   - [ICATapDescription.Mixdown]
+//   - [ICATapDescription.IsMixdown]
 //   - [ICATapDescription.SetMixdown]
-//   - [ICATapDescription.Mono]
+//   - [ICATapDescription.IsMono]
 //   - [ICATapDescription.SetMono]
-//   - [ICATapDescription.PrivateTap]
+//   - [ICATapDescription.IsPrivate]
 //   - [ICATapDescription.SetPrivate]
-//   - [ICATapDescription.ProcessRestoreEnabled]
+//   - [ICATapDescription.IsProcessRestoreEnabled]
 //   - [ICATapDescription.SetProcessRestoreEnabled]
 //   - [ICATapDescription.MuteBehavior]
 //   - [ICATapDescription.SetMuteBehavior]
@@ -127,15 +127,15 @@ type ICATapDescription interface {
 	SetBundleIDs(value []string)
 	DeviceUID() string
 	SetDeviceUID(value string)
-	Exclusive() bool
+	IsExclusive() bool
 	SetExclusive(value bool)
-	Mixdown() bool
+	IsMixdown() bool
 	SetMixdown(value bool)
-	Mono() bool
+	IsMono() bool
 	SetMono(value bool)
-	PrivateTap() bool
+	IsPrivate() bool
 	SetPrivate(value bool)
-	ProcessRestoreEnabled() bool
+	IsProcessRestoreEnabled() bool
 	SetProcessRestoreEnabled(value bool)
 	MuteBehavior() CATapMuteBehavior
 	SetMuteBehavior(value CATapMuteBehavior)
@@ -409,7 +409,7 @@ func (t CATapDescription) SetDeviceUID(value string) {
 // in the ‘processes’ property.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/isExclusive
-func (t CATapDescription) Exclusive() bool {
+func (t CATapDescription) IsExclusive() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isExclusive"))
 	return rv
 }
@@ -423,7 +423,7 @@ func (t CATapDescription) SetExclusive(value bool) {
 // channels.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/isMixdown
-func (t CATapDescription) Mixdown() bool {
+func (t CATapDescription) IsMixdown() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isMixdown"))
 	return rv
 }
@@ -436,7 +436,7 @@ func (t CATapDescription) SetMixdown(value bool) {
 // True if this description is a mono mixdown of channels.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/isMono
-func (t CATapDescription) Mono() bool {
+func (t CATapDescription) IsMono() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isMono"))
 	return rv
 }
@@ -450,7 +450,7 @@ func (t CATapDescription) SetMono(value bool) {
 // tap.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/isPrivate
-func (t CATapDescription) PrivateTap() bool {
+func (t CATapDescription) IsPrivate() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPrivate"))
 	return rv
 }
@@ -464,7 +464,7 @@ func (t CATapDescription) SetPrivate(value bool) {
 // and restore them to the tap when they start up again.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/isProcessRestoreEnabled
-func (t CATapDescription) ProcessRestoreEnabled() bool {
+func (t CATapDescription) IsProcessRestoreEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isProcessRestoreEnabled"))
 	return rv
 }

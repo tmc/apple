@@ -52,7 +52,7 @@ func (ac AVSampleBufferDisplayLayerClass) Alloc() AVSampleBufferDisplayLayer {
 //
 // # Configuring the layer
 //
-//   - [AVSampleBufferDisplayLayer.ReadyForDisplay]: A Boolean value that indicates whether the first video frame is ready for display.
+//   - [AVSampleBufferDisplayLayer.IsReadyForDisplay]: A Boolean value that indicates whether the first video frame is ready for display.
 //   - [AVSampleBufferDisplayLayer.ControlTimebase]: A timebase that determines how the layer interprets timestamps.
 //   - [AVSampleBufferDisplayLayer.SetControlTimebase]
 //   - [AVSampleBufferDisplayLayer.VideoGravity]: A value that indicates how the layer displays video within its bounds.
@@ -97,7 +97,7 @@ func AVSampleBufferDisplayLayerFromID(id objc.ID) AVSampleBufferDisplayLayer {
 //
 // # Configuring the layer
 //
-//   - [IAVSampleBufferDisplayLayer.ReadyForDisplay]: A Boolean value that indicates whether the first video frame is ready for display.
+//   - [IAVSampleBufferDisplayLayer.IsReadyForDisplay]: A Boolean value that indicates whether the first video frame is ready for display.
 //   - [IAVSampleBufferDisplayLayer.ControlTimebase]: A timebase that determines how the layer interprets timestamps.
 //   - [IAVSampleBufferDisplayLayer.SetControlTimebase]
 //   - [IAVSampleBufferDisplayLayer.VideoGravity]: A value that indicates how the layer displays video within its bounds.
@@ -132,7 +132,7 @@ type IAVSampleBufferDisplayLayer interface {
 	// Topic: Configuring the layer
 
 	// A Boolean value that indicates whether the first video frame is ready for display.
-	ReadyForDisplay() bool
+	IsReadyForDisplay() bool
 	// A timebase that determines how the layer interprets timestamps.
 	ControlTimebase() coremedia.CMTimebaseRef
 	SetControlTimebase(value coremedia.CMTimebaseRef)
@@ -188,15 +188,6 @@ func NewAVSampleBufferDisplayLayer() AVSampleBufferDisplayLayer {
 	return rv
 }
 
-// A Boolean value that indicates whether the receiver is able to accept more
-// sample buffers.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
-func (s AVSampleBufferDisplayLayer) IsReadyForMoreMediaData() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isReadyForMoreMediaData"))
-	return rv
-}
-
 // An object that enqueues video sample buffers for rendering.
 //
 // # Discussion
@@ -214,7 +205,7 @@ func (s AVSampleBufferDisplayLayer) SampleBufferRenderer() IAVSampleBufferVideoR
 // display.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer/isReadyForDisplay
-func (s AVSampleBufferDisplayLayer) ReadyForDisplay() bool {
+func (s AVSampleBufferDisplayLayer) IsReadyForDisplay() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isReadyForDisplay"))
 	return rv
 }
@@ -428,3 +419,12 @@ func (s AVSampleBufferDisplayLayer) Timebase() coremedia.CMTimebaseRef {
 }
 
 // Protocol methods for AVQueuedSampleBufferRendering
+
+// A Boolean value that indicates whether the receiver is able to accept more
+// sample buffers.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
+func (o AVSampleBufferDisplayLayer) IsReadyForMoreMediaData() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isReadyForMoreMediaData"))
+	return rv
+}

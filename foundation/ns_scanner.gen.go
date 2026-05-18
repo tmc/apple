@@ -97,7 +97,7 @@ func (sc ScannerClass) Alloc() Scanner {
 //
 // # Monitoring Scanner Progress
 //
-//   - [Scanner.AtEnd]: Flag that indicates whether the receiver has exhausted all significant characters.
+//   - [Scanner.IsAtEnd]: Flag that indicates whether the receiver has exhausted all significant characters.
 //
 // # Instance Properties
 //
@@ -156,7 +156,7 @@ func NSScannerFromID(id objc.ID) Scanner { return ScannerFromID(id) }
 //
 // # Monitoring Scanner Progress
 //
-//   - [IScanner.AtEnd]: Flag that indicates whether the receiver has exhausted all significant characters.
+//   - [IScanner.IsAtEnd]: Flag that indicates whether the receiver has exhausted all significant characters.
 //
 // # Instance Properties
 //
@@ -207,7 +207,7 @@ type IScanner interface {
 	// Topic: Monitoring Scanner Progress
 
 	// Flag that indicates whether the receiver has exhausted all significant characters.
-	AtEnd() bool
+	IsAtEnd() bool
 
 	// Topic: Instance Properties
 
@@ -568,7 +568,7 @@ func (s Scanner) SetLocale(value objectivec.IObject) {
 // If only characters from the set to be skipped remain, returns true.
 //
 // See: https://developer.apple.com/documentation/Foundation/Scanner/isAtEnd
-func (s Scanner) AtEnd() bool {
+func (s Scanner) IsAtEnd() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isAtEnd"))
 	return rv
 }

@@ -98,9 +98,9 @@ func (nc NSPrintInfoClass) Alloc() NSPrintInfo {
 //
 // # Positioning the Image on the Page
 //
-//   - [NSPrintInfo.HorizontallyCentered]: A Boolean value that indicates whether the image is centered horizontally.
+//   - [NSPrintInfo.IsHorizontallyCentered]: A Boolean value that indicates whether the image is centered horizontally.
 //   - [NSPrintInfo.SetHorizontallyCentered]
-//   - [NSPrintInfo.VerticallyCentered]: A Boolean value that indicates whether the image is centered vertically.
+//   - [NSPrintInfo.IsVerticallyCentered]: A Boolean value that indicates whether the image is centered vertically.
 //   - [NSPrintInfo.SetVerticallyCentered]
 //
 // # Specifying the Printer
@@ -120,7 +120,7 @@ func (nc NSPrintInfoClass) Alloc() NSPrintInfo {
 //
 // # Print Settings Convenience Methods
 //
-//   - [NSPrintInfo.SelectionOnly]: A Boolean value that indicates whether only the currently selected contents should be printed.
+//   - [NSPrintInfo.IsSelectionOnly]: A Boolean value that indicates whether only the currently selected contents should be printed.
 //   - [NSPrintInfo.SetSelectionOnly]
 //   - [NSPrintInfo.ScalingFactor]: The current scaling factor.
 //   - [NSPrintInfo.SetScalingFactor]
@@ -188,9 +188,9 @@ func NSPrintInfoFromID(id objc.ID) NSPrintInfo {
 //
 // # Positioning the Image on the Page
 //
-//   - [INSPrintInfo.HorizontallyCentered]: A Boolean value that indicates whether the image is centered horizontally.
+//   - [INSPrintInfo.IsHorizontallyCentered]: A Boolean value that indicates whether the image is centered horizontally.
 //   - [INSPrintInfo.SetHorizontallyCentered]
-//   - [INSPrintInfo.VerticallyCentered]: A Boolean value that indicates whether the image is centered vertically.
+//   - [INSPrintInfo.IsVerticallyCentered]: A Boolean value that indicates whether the image is centered vertically.
 //   - [INSPrintInfo.SetVerticallyCentered]
 //
 // # Specifying the Printer
@@ -210,7 +210,7 @@ func NSPrintInfoFromID(id objc.ID) NSPrintInfo {
 //
 // # Print Settings Convenience Methods
 //
-//   - [INSPrintInfo.SelectionOnly]: A Boolean value that indicates whether only the currently selected contents should be printed.
+//   - [INSPrintInfo.IsSelectionOnly]: A Boolean value that indicates whether only the currently selected contents should be printed.
 //   - [INSPrintInfo.SetSelectionOnly]
 //   - [INSPrintInfo.ScalingFactor]: The current scaling factor.
 //   - [INSPrintInfo.SetScalingFactor]
@@ -276,10 +276,10 @@ type INSPrintInfo interface {
 	// Topic: Positioning the Image on the Page
 
 	// A Boolean value that indicates whether the image is centered horizontally.
-	HorizontallyCentered() bool
+	IsHorizontallyCentered() bool
 	SetHorizontallyCentered(value bool)
 	// A Boolean value that indicates whether the image is centered vertically.
-	VerticallyCentered() bool
+	IsVerticallyCentered() bool
 	SetVerticallyCentered(value bool)
 
 	// Topic: Specifying the Printer
@@ -304,7 +304,7 @@ type INSPrintInfo interface {
 	// Topic: Print Settings Convenience Methods
 
 	// A Boolean value that indicates whether only the currently selected contents should be printed.
-	SelectionOnly() bool
+	IsSelectionOnly() bool
 	SetSelectionOnly(value bool)
 	// The current scaling factor.
 	ScalingFactor() float64
@@ -750,7 +750,7 @@ func (p NSPrintInfo) SetVerticalPagination(value NSPrintingPaginationMode) {
 // true if the image is centered horizontally; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/isHorizontallyCentered
-func (p NSPrintInfo) HorizontallyCentered() bool {
+func (p NSPrintInfo) IsHorizontallyCentered() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isHorizontallyCentered"))
 	return rv
 }
@@ -765,7 +765,7 @@ func (p NSPrintInfo) SetHorizontallyCentered(value bool) {
 // true if the image is centered vertically; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/isVerticallyCentered
-func (p NSPrintInfo) VerticallyCentered() bool {
+func (p NSPrintInfo) IsVerticallyCentered() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isVerticallyCentered"))
 	return rv
 }
@@ -817,7 +817,7 @@ func (p NSPrintInfo) SetJobDisposition(value NSPrintJobDispositionValue) {
 // false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/isSelectionOnly
-func (p NSPrintInfo) SelectionOnly() bool {
+func (p NSPrintInfo) IsSelectionOnly() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isSelectionOnly"))
 	return rv
 }

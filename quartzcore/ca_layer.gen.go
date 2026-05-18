@@ -101,13 +101,13 @@ func (cc CALayerClass) Alloc() CALayer {
 //   - [CALayer.SetContentsGravity]
 //   - [CALayer.Opacity]: The opacity of the receiver. Animatable.
 //   - [CALayer.SetOpacity]
-//   - [CALayer.Hidden]: A Boolean indicating whether the layer is displayed. Animatable.
+//   - [CALayer.IsHidden]: A Boolean indicating whether the layer is displayed. Animatable.
 //   - [CALayer.SetHidden]
 //   - [CALayer.MasksToBounds]: A Boolean indicating whether sublayers are clipped to the layer’s bounds. Animatable.
 //   - [CALayer.SetMasksToBounds]
 //   - [CALayer.Mask]: An optional layer whose alpha channel is used to mask the layer’s content.
 //   - [CALayer.SetMask]
-//   - [CALayer.DoubleSided]: A Boolean indicating whether the layer displays its content when facing away from the viewer. Animatable.
+//   - [CALayer.IsDoubleSided]: A Boolean indicating whether the layer displays its content when facing away from the viewer. Animatable.
 //   - [CALayer.SetDoubleSided]
 //   - [CALayer.CornerRadius]: The radius to use when drawing rounded corners for the layer’s background. Animatable.
 //   - [CALayer.SetCornerRadius]
@@ -153,12 +153,12 @@ func (cc CALayerClass) Alloc() CALayer {
 //
 // # Configuring the layer’s rendering behavior
 //
-//   - [CALayer.Opaque]: A Boolean value indicating whether the layer contains completely opaque content.
+//   - [CALayer.IsOpaque]: A Boolean value indicating whether the layer contains completely opaque content.
 //   - [CALayer.SetOpaque]
 //   - [CALayer.EdgeAntialiasingMask]: A bitmask defining how the edges of the receiver are rasterized.
 //   - [CALayer.SetEdgeAntialiasingMask]
 //   - [CALayer.ContentsAreFlipped]: Returns a Boolean indicating whether the layer content is implicitly flipped when rendered.
-//   - [CALayer.GeometryFlipped]: A Boolean that indicates whether the geometry of the layer and its sublayers is flipped vertically.
+//   - [CALayer.IsGeometryFlipped]: A Boolean that indicates whether the geometry of the layer and its sublayers is flipped vertically.
 //   - [CALayer.SetGeometryFlipped]
 //   - [CALayer.DrawsAsynchronously]: A Boolean indicating whether drawing commands are deferred and processed asynchronously in a background thread.
 //   - [CALayer.SetDrawsAsynchronously]
@@ -348,13 +348,13 @@ func CALayerFromID(id objc.ID) CALayer {
 //   - [ICALayer.SetContentsGravity]
 //   - [ICALayer.Opacity]: The opacity of the receiver. Animatable.
 //   - [ICALayer.SetOpacity]
-//   - [ICALayer.Hidden]: A Boolean indicating whether the layer is displayed. Animatable.
+//   - [ICALayer.IsHidden]: A Boolean indicating whether the layer is displayed. Animatable.
 //   - [ICALayer.SetHidden]
 //   - [ICALayer.MasksToBounds]: A Boolean indicating whether sublayers are clipped to the layer’s bounds. Animatable.
 //   - [ICALayer.SetMasksToBounds]
 //   - [ICALayer.Mask]: An optional layer whose alpha channel is used to mask the layer’s content.
 //   - [ICALayer.SetMask]
-//   - [ICALayer.DoubleSided]: A Boolean indicating whether the layer displays its content when facing away from the viewer. Animatable.
+//   - [ICALayer.IsDoubleSided]: A Boolean indicating whether the layer displays its content when facing away from the viewer. Animatable.
 //   - [ICALayer.SetDoubleSided]
 //   - [ICALayer.CornerRadius]: The radius to use when drawing rounded corners for the layer’s background. Animatable.
 //   - [ICALayer.SetCornerRadius]
@@ -400,12 +400,12 @@ func CALayerFromID(id objc.ID) CALayer {
 //
 // # Configuring the layer’s rendering behavior
 //
-//   - [ICALayer.Opaque]: A Boolean value indicating whether the layer contains completely opaque content.
+//   - [ICALayer.IsOpaque]: A Boolean value indicating whether the layer contains completely opaque content.
 //   - [ICALayer.SetOpaque]
 //   - [ICALayer.EdgeAntialiasingMask]: A bitmask defining how the edges of the receiver are rasterized.
 //   - [ICALayer.SetEdgeAntialiasingMask]
 //   - [ICALayer.ContentsAreFlipped]: Returns a Boolean indicating whether the layer content is implicitly flipped when rendered.
-//   - [ICALayer.GeometryFlipped]: A Boolean that indicates whether the geometry of the layer and its sublayers is flipped vertically.
+//   - [ICALayer.IsGeometryFlipped]: A Boolean that indicates whether the geometry of the layer and its sublayers is flipped vertically.
 //   - [ICALayer.SetGeometryFlipped]
 //   - [ICALayer.DrawsAsynchronously]: A Boolean indicating whether drawing commands are deferred and processed asynchronously in a background thread.
 //   - [ICALayer.SetDrawsAsynchronously]
@@ -593,7 +593,7 @@ type ICALayer interface {
 	Opacity() float32
 	SetOpacity(value float32)
 	// A Boolean indicating whether the layer is displayed. Animatable.
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 	// A Boolean indicating whether sublayers are clipped to the layer’s bounds. Animatable.
 	MasksToBounds() bool
@@ -602,7 +602,7 @@ type ICALayer interface {
 	Mask() ICALayer
 	SetMask(value ICALayer)
 	// A Boolean indicating whether the layer displays its content when facing away from the viewer. Animatable.
-	DoubleSided() bool
+	IsDoubleSided() bool
 	SetDoubleSided(value bool)
 	// The radius to use when drawing rounded corners for the layer’s background. Animatable.
 	CornerRadius() float64
@@ -667,7 +667,7 @@ type ICALayer interface {
 	// Topic: Configuring the layer’s rendering behavior
 
 	// A Boolean value indicating whether the layer contains completely opaque content.
-	Opaque() bool
+	IsOpaque() bool
 	SetOpaque(value bool)
 	// A bitmask defining how the edges of the receiver are rasterized.
 	EdgeAntialiasingMask() CAEdgeAntialiasingMask
@@ -675,7 +675,7 @@ type ICALayer interface {
 	// Returns a Boolean indicating whether the layer content is implicitly flipped when rendered.
 	ContentsAreFlipped() bool
 	// A Boolean that indicates whether the geometry of the layer and its sublayers is flipped vertically.
-	GeometryFlipped() bool
+	IsGeometryFlipped() bool
 	SetGeometryFlipped(value bool)
 	// A Boolean indicating whether drawing commands are deferred and processed asynchronously in a background thread.
 	DrawsAsynchronously() bool
@@ -2198,7 +2198,7 @@ func (l CALayer) SetOpacity(value float32) {
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/isHidden
-func (l CALayer) Hidden() bool {
+func (l CALayer) IsHidden() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isHidden"))
 	return rv
 }
@@ -2264,7 +2264,7 @@ func (l CALayer) SetMask(value ICALayer) {
 // it faces away from the viewer. The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/isDoubleSided
-func (l CALayer) DoubleSided() bool {
+func (l CALayer) IsDoubleSided() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isDoubleSided"))
 	return rv
 }
@@ -2799,7 +2799,7 @@ func (l CALayer) SetMagnificationFilter(value CALayerContentsFilter) {
 // value of this property.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/isOpaque
-func (l CALayer) Opaque() bool {
+func (l CALayer) IsOpaque() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isOpaque"))
 	return rv
 }
@@ -2845,7 +2845,7 @@ func (l CALayer) SetEdgeAntialiasingMask(value CAEdgeAntialiasingMask) {
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/isGeometryFlipped
-func (l CALayer) GeometryFlipped() bool {
+func (l CALayer) IsGeometryFlipped() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isGeometryFlipped"))
 	return rv
 }

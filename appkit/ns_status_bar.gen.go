@@ -64,7 +64,7 @@ func (nc NSStatusBarClass) Alloc() NSStatusBar {
 //
 // # Getting Status-Bar Attributes
 //
-//   - [NSStatusBar.Vertical]: A Boolean value indicating whether the status bar has a vertical orientation.
+//   - [NSStatusBar.IsVertical]: A Boolean value indicating whether the status bar has a vertical orientation.
 //   - [NSStatusBar.Thickness]: The thickness of the status bar, in pixels.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBar
@@ -92,7 +92,7 @@ func NSStatusBarFromID(id objc.ID) NSStatusBar {
 //
 // # Getting Status-Bar Attributes
 //
-//   - [INSStatusBar.Vertical]: A Boolean value indicating whether the status bar has a vertical orientation.
+//   - [INSStatusBar.IsVertical]: A Boolean value indicating whether the status bar has a vertical orientation.
 //   - [INSStatusBar.Thickness]: The thickness of the status bar, in pixels.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBar
@@ -109,7 +109,7 @@ type INSStatusBar interface {
 	// Topic: Getting Status-Bar Attributes
 
 	// A Boolean value indicating whether the status bar has a vertical orientation.
-	Vertical() bool
+	IsVertical() bool
 	// The thickness of the status bar, in pixels.
 	Thickness() float64
 }
@@ -182,7 +182,7 @@ func (s NSStatusBar) RemoveStatusItem(item INSStatusItem) {
 // horizontal and has the value false for this property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBar/isVertical
-func (s NSStatusBar) Vertical() bool {
+func (s NSStatusBar) IsVertical() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isVertical"))
 	return rv
 }

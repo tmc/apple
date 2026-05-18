@@ -68,7 +68,7 @@ func (nc NSUserInterfaceCompressionOptionsClass) Alloc() NSUserInterfaceCompress
 //
 // # Comparing compression options
 //
-//   - [NSUserInterfaceCompressionOptions.Empty]: A Boolean value that denotes whether the option is empty.
+//   - [NSUserInterfaceCompressionOptions.IsEmpty]: A Boolean value that denotes whether the option is empty.
 //   - [NSUserInterfaceCompressionOptions.ContainsOptions]: Determines whether the supplied compression options are all present in the current instance.
 //   - [NSUserInterfaceCompressionOptions.IntersectsOptions]: Determines whether the supplied compression options intersect with the current instance’s options.
 //
@@ -103,7 +103,7 @@ func NSUserInterfaceCompressionOptionsFromID(id objc.ID) NSUserInterfaceCompress
 //
 // # Comparing compression options
 //
-//   - [INSUserInterfaceCompressionOptions.Empty]: A Boolean value that denotes whether the option is empty.
+//   - [INSUserInterfaceCompressionOptions.IsEmpty]: A Boolean value that denotes whether the option is empty.
 //   - [INSUserInterfaceCompressionOptions.ContainsOptions]: Determines whether the supplied compression options are all present in the current instance.
 //   - [INSUserInterfaceCompressionOptions.IntersectsOptions]: Determines whether the supplied compression options intersect with the current instance’s options.
 //
@@ -128,7 +128,7 @@ type INSUserInterfaceCompressionOptions interface {
 	// Topic: Comparing compression options
 
 	// A Boolean value that denotes whether the option is empty.
-	Empty() bool
+	IsEmpty() bool
 	// Determines whether the supplied compression options are all present in the current instance.
 	ContainsOptions(options INSUserInterfaceCompressionOptions) bool
 	// Determines whether the supplied compression options intersect with the current instance’s options.
@@ -300,7 +300,7 @@ func (u NSUserInterfaceCompressionOptions) EncodeWithCoder(coder foundation.INSC
 // otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/isEmpty
-func (u NSUserInterfaceCompressionOptions) Empty() bool {
+func (u NSUserInterfaceCompressionOptions) IsEmpty() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isEmpty"))
 	return rv
 }

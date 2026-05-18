@@ -18,7 +18,7 @@ func (w WKWebView) ScrollView() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/isFindInteractionEnabled
-func (w WKWebView) FindInteractionEnabled() bool {
+func (w WKWebView) IsFindInteractionEnabled() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isFindInteractionEnabled"))
 	return rv
 }

@@ -65,7 +65,7 @@ func (cc CAEmitterCellClass) Alloc() CAEmitterCell {
 //
 // # Setting Emitter Cell Visual Attributes
 //
-//   - [CAEmitterCell.Enabled]: A Boolean value indicating whether or not cells from this emitter are rendered.
+//   - [CAEmitterCell.IsEnabled]: A Boolean value indicating whether or not cells from this emitter are rendered.
 //   - [CAEmitterCell.SetEnabled]
 //   - [CAEmitterCell.Color]: The color of each emitted object. Animatable.
 //   - [CAEmitterCell.SetColor]
@@ -168,7 +168,7 @@ func CAEmitterCellFromID(id objc.ID) CAEmitterCell {
 //
 // # Setting Emitter Cell Visual Attributes
 //
-//   - [ICAEmitterCell.Enabled]: A Boolean value indicating whether or not cells from this emitter are rendered.
+//   - [ICAEmitterCell.IsEnabled]: A Boolean value indicating whether or not cells from this emitter are rendered.
 //   - [ICAEmitterCell.SetEnabled]
 //   - [ICAEmitterCell.Color]: The color of each emitted object. Animatable.
 //   - [ICAEmitterCell.SetColor]
@@ -262,7 +262,7 @@ type ICAEmitterCell interface {
 	// Topic: Setting Emitter Cell Visual Attributes
 
 	// A Boolean value indicating whether or not cells from this emitter are rendered.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// The color of each emitted object. Animatable.
 	Color() coregraphics.CGColorRef
@@ -605,7 +605,7 @@ func (e CAEmitterCell) SetEmitterCells(value []CAEmitterCell) {
 // The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/isEnabled
-func (e CAEmitterCell) Enabled() bool {
+func (e CAEmitterCell) IsEnabled() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isEnabled"))
 	return rv
 }

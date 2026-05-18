@@ -63,7 +63,7 @@ func (nc NSPrintOperationClass) Alloc() NSPrintOperation {
 //
 // # Determining the Type of Operation
 //
-//   - [NSPrintOperation.CopyingOperation]: A Boolean value that indicates whether the print operation is an EPS or PDF copy operation.
+//   - [NSPrintOperation.IsCopyingOperation]: A Boolean value that indicates whether the print operation is an EPS or PDF copy operation.
 //
 // # Modifying the Printing Information
 //
@@ -136,7 +136,7 @@ func NSPrintOperationFromID(id objc.ID) NSPrintOperation {
 //
 // # Determining the Type of Operation
 //
-//   - [INSPrintOperation.CopyingOperation]: A Boolean value that indicates whether the print operation is an EPS or PDF copy operation.
+//   - [INSPrintOperation.IsCopyingOperation]: A Boolean value that indicates whether the print operation is an EPS or PDF copy operation.
 //
 // # Modifying the Printing Information
 //
@@ -196,7 +196,7 @@ type INSPrintOperation interface {
 	// Topic: Determining the Type of Operation
 
 	// A Boolean value that indicates whether the print operation is an EPS or PDF copy operation.
-	CopyingOperation() bool
+	IsCopyingOperation() bool
 
 	// Topic: Modifying the Printing Information
 
@@ -635,7 +635,7 @@ func (_NSPrintOperationClass NSPrintOperationClass) PDFOperationWithViewInsideRe
 // true if the receiver is an EPS or PDF copy operation; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/isCopyingOperation
-func (p NSPrintOperation) CopyingOperation() bool {
+func (p NSPrintOperation) IsCopyingOperation() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isCopyingOperation"))
 	return rv
 }

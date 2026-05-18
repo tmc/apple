@@ -57,9 +57,9 @@ func (mc MTLVertexAttributeClass) Alloc() MTLVertexAttribute {
 //   - [MTLVertexAttribute.Name]: The name of the attribute.
 //   - [MTLVertexAttribute.AttributeIndex]: The index of the attribute, as declared in Metal shader source code.
 //   - [MTLVertexAttribute.AttributeType]: The data type for the attribute, as declared in Metal shader source code.
-//   - [MTLVertexAttribute.Active]: A Boolean value that indicates whether this vertex attribute is active.
-//   - [MTLVertexAttribute.PatchControlPointData]: A Boolean value that indicates whether this vertex attribute represents control point data.
-//   - [MTLVertexAttribute.PatchData]: A Boolean value that indicates whether this vertex attribute represents patch data.
+//   - [MTLVertexAttribute.IsActive]: A Boolean value that indicates whether this vertex attribute is active.
+//   - [MTLVertexAttribute.IsPatchControlPointData]: A Boolean value that indicates whether this vertex attribute represents control point data.
+//   - [MTLVertexAttribute.IsPatchData]: A Boolean value that indicates whether this vertex attribute represents patch data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute
 type MTLVertexAttribute struct {
@@ -83,9 +83,9 @@ func MTLVertexAttributeFromID(id objc.ID) MTLVertexAttribute {
 //   - [IMTLVertexAttribute.Name]: The name of the attribute.
 //   - [IMTLVertexAttribute.AttributeIndex]: The index of the attribute, as declared in Metal shader source code.
 //   - [IMTLVertexAttribute.AttributeType]: The data type for the attribute, as declared in Metal shader source code.
-//   - [IMTLVertexAttribute.Active]: A Boolean value that indicates whether this vertex attribute is active.
-//   - [IMTLVertexAttribute.PatchControlPointData]: A Boolean value that indicates whether this vertex attribute represents control point data.
-//   - [IMTLVertexAttribute.PatchData]: A Boolean value that indicates whether this vertex attribute represents patch data.
+//   - [IMTLVertexAttribute.IsActive]: A Boolean value that indicates whether this vertex attribute is active.
+//   - [IMTLVertexAttribute.IsPatchControlPointData]: A Boolean value that indicates whether this vertex attribute represents control point data.
+//   - [IMTLVertexAttribute.IsPatchData]: A Boolean value that indicates whether this vertex attribute represents patch data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute
 type IMTLVertexAttribute interface {
@@ -100,11 +100,11 @@ type IMTLVertexAttribute interface {
 	// The data type for the attribute, as declared in Metal shader source code.
 	AttributeType() MTLDataType
 	// A Boolean value that indicates whether this vertex attribute is active.
-	Active() bool
+	IsActive() bool
 	// A Boolean value that indicates whether this vertex attribute represents control point data.
-	PatchControlPointData() bool
+	IsPatchControlPointData() bool
 	// A Boolean value that indicates whether this vertex attribute represents patch data.
-	PatchData() bool
+	IsPatchData() bool
 
 	// An array that describes the vertex input attributes to a vertex function.
 	VertexAttributes() IMTLVertexAttribute
@@ -161,7 +161,7 @@ func (v MTLVertexAttribute) AttributeType() MTLDataType {
 // If false, this attribute is inactive and can be ignored.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/isActive
-func (v MTLVertexAttribute) Active() bool {
+func (v MTLVertexAttribute) IsActive() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isActive"))
 	return rv
 }
@@ -175,7 +175,7 @@ func (v MTLVertexAttribute) Active() bool {
 // post-tessellation vertex function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/isPatchControlPointData
-func (v MTLVertexAttribute) PatchControlPointData() bool {
+func (v MTLVertexAttribute) IsPatchControlPointData() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPatchControlPointData"))
 	return rv
 }
@@ -189,7 +189,7 @@ func (v MTLVertexAttribute) PatchControlPointData() bool {
 // post-tessellation vertex function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/isPatchData
-func (v MTLVertexAttribute) PatchData() bool {
+func (v MTLVertexAttribute) IsPatchData() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPatchData"))
 	return rv
 }

@@ -88,7 +88,7 @@ func (ac AVCaptureResolvedPhotoSettingsClass) Alloc() AVCaptureResolvedPhotoSett
 //
 // # Examining photo capture settings
 //
-//   - [AVCaptureResolvedPhotoSettings.FastCapturePrioritizationEnabled]: A Boolean value that indicates whether the system uses fast capture prioritization when capturing the photo.
+//   - [AVCaptureResolvedPhotoSettings.IsFastCapturePrioritizationEnabled]: A Boolean value that indicates whether the system uses fast capture prioritization when capturing the photo.
 //
 // # Examining output dimensions
 //
@@ -119,7 +119,7 @@ func AVCaptureResolvedPhotoSettingsFromID(id objc.ID) AVCaptureResolvedPhotoSett
 //
 // # Examining photo capture settings
 //
-//   - [IAVCaptureResolvedPhotoSettings.FastCapturePrioritizationEnabled]: A Boolean value that indicates whether the system uses fast capture prioritization when capturing the photo.
+//   - [IAVCaptureResolvedPhotoSettings.IsFastCapturePrioritizationEnabled]: A Boolean value that indicates whether the system uses fast capture prioritization when capturing the photo.
 //
 // # Examining output dimensions
 //
@@ -139,7 +139,7 @@ type IAVCaptureResolvedPhotoSettings interface {
 	// Topic: Examining photo capture settings
 
 	// A Boolean value that indicates whether the system uses fast capture prioritization when capturing the photo.
-	FastCapturePrioritizationEnabled() bool
+	IsFastCapturePrioritizationEnabled() bool
 
 	// Topic: Examining output dimensions
 
@@ -215,7 +215,7 @@ func (c AVCaptureResolvedPhotoSettings) ExpectedPhotoCount() uint {
 // prioritization when capturing the photo.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/isFastCapturePrioritizationEnabled
-func (c AVCaptureResolvedPhotoSettings) FastCapturePrioritizationEnabled() bool {
+func (c AVCaptureResolvedPhotoSettings) IsFastCapturePrioritizationEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFastCapturePrioritizationEnabled"))
 	return rv
 }

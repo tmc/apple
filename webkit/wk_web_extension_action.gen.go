@@ -61,7 +61,7 @@ func (wc WKWebExtensionActionClass) Alloc() WKWebExtensionAction {
 //   - [WKWebExtensionAction.SetHasUnreadBadgeText]
 //   - [WKWebExtensionAction.InspectionName]: The name shown when inspecting the pop-up web view.
 //   - [WKWebExtensionAction.SetInspectionName]
-//   - [WKWebExtensionAction.Enabled]: A Boolean value indicating whether the action is enabled.
+//   - [WKWebExtensionAction.IsEnabled]: A Boolean value indicating whether the action is enabled.
 //   - [WKWebExtensionAction.Label]: The localized display label for the action.
 //   - [WKWebExtensionAction.MenuItems]: The menu items provided by the extension for this action.
 //   - [WKWebExtensionAction.PopupPopover]: A popover that presents a web view loaded with the pop-up page for this action, or `nil` if no popup is specified.
@@ -100,7 +100,7 @@ func WKWebExtensionActionFromID(id objc.ID) WKWebExtensionAction {
 //   - [IWKWebExtensionAction.SetHasUnreadBadgeText]
 //   - [IWKWebExtensionAction.InspectionName]: The name shown when inspecting the pop-up web view.
 //   - [IWKWebExtensionAction.SetInspectionName]
-//   - [IWKWebExtensionAction.Enabled]: A Boolean value indicating whether the action is enabled.
+//   - [IWKWebExtensionAction.IsEnabled]: A Boolean value indicating whether the action is enabled.
 //   - [IWKWebExtensionAction.Label]: The localized display label for the action.
 //   - [IWKWebExtensionAction.MenuItems]: The menu items provided by the extension for this action.
 //   - [IWKWebExtensionAction.PopupPopover]: A popover that presents a web view loaded with the pop-up page for this action, or `nil` if no popup is specified.
@@ -130,7 +130,7 @@ type IWKWebExtensionAction interface {
 	InspectionName() string
 	SetInspectionName(value string)
 	// A Boolean value indicating whether the action is enabled.
-	Enabled() bool
+	IsEnabled() bool
 	// The localized display label for the action.
 	Label() string
 	// The menu items provided by the extension for this action.
@@ -276,7 +276,7 @@ func (w WKWebExtensionAction) SetInspectionName(value string) {
 // A Boolean value indicating whether the action is enabled.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/Action/isEnabled
-func (w WKWebExtensionAction) Enabled() bool {
+func (w WKWebExtensionAction) IsEnabled() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isEnabled"))
 	return rv
 }

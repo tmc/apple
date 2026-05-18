@@ -64,9 +64,9 @@ func (ac AVCaptureOutputClass) Alloc() AVCaptureOutput {
 //
 // # Managing deferred start
 //
-//   - [AVCaptureOutput.DeferredStartEnabled]: A Boolean value that indicates whether to defer starting this capture output.
+//   - [AVCaptureOutput.IsDeferredStartEnabled]: A Boolean value that indicates whether to defer starting this capture output.
 //   - [AVCaptureOutput.SetDeferredStartEnabled]
-//   - [AVCaptureOutput.DeferredStartSupported]: A [BOOL] value that indicates whether the output supports deferred start.
+//   - [AVCaptureOutput.IsDeferredStartSupported]: A [BOOL] value that indicates whether the output supports deferred start.
 //
 // # Converting between coordinate systems
 //
@@ -99,9 +99,9 @@ func AVCaptureOutputFromID(id objc.ID) AVCaptureOutput {
 //
 // # Managing deferred start
 //
-//   - [IAVCaptureOutput.DeferredStartEnabled]: A Boolean value that indicates whether to defer starting this capture output.
+//   - [IAVCaptureOutput.IsDeferredStartEnabled]: A Boolean value that indicates whether to defer starting this capture output.
 //   - [IAVCaptureOutput.SetDeferredStartEnabled]
-//   - [IAVCaptureOutput.DeferredStartSupported]: A [BOOL] value that indicates whether the output supports deferred start.
+//   - [IAVCaptureOutput.IsDeferredStartSupported]: A [BOOL] value that indicates whether the output supports deferred start.
 //
 // # Converting between coordinate systems
 //
@@ -123,10 +123,10 @@ type IAVCaptureOutput interface {
 	// Topic: Managing deferred start
 
 	// A Boolean value that indicates whether to defer starting this capture output.
-	DeferredStartEnabled() bool
+	IsDeferredStartEnabled() bool
 	SetDeferredStartEnabled(value bool)
 	// A [BOOL] value that indicates whether the output supports deferred start.
-	DeferredStartSupported() bool
+	IsDeferredStartSupported() bool
 
 	// Topic: Converting between coordinate systems
 
@@ -302,7 +302,7 @@ func (c AVCaptureOutput) Connections() []AVCaptureConnection {
 // `true` results in the system throwing an invalid argument exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureOutput/isDeferredStartEnabled
-func (c AVCaptureOutput) DeferredStartEnabled() bool {
+func (c AVCaptureOutput) IsDeferredStartEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDeferredStartEnabled"))
 	return rv
 }
@@ -318,7 +318,7 @@ func (c AVCaptureOutput) SetDeferredStartEnabled(value bool) {
 // output supports deferred start.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureOutput/isDeferredStartSupported
-func (c AVCaptureOutput) DeferredStartSupported() bool {
+func (c AVCaptureOutput) IsDeferredStartSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDeferredStartSupported"))
 	return rv
 }

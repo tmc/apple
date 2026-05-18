@@ -77,7 +77,7 @@ func (ac AVSampleBufferAudioRendererClass) Alloc() AVSampleBufferAudioRenderer {
 //
 //   - [AVSampleBufferAudioRenderer.Volume]: The current audio volume for the audio renderer.
 //   - [AVSampleBufferAudioRenderer.SetVolume]
-//   - [AVSampleBufferAudioRenderer.Muted]: A Boolean value that indicates whether audio for the renderer is in a muted state.
+//   - [AVSampleBufferAudioRenderer.IsMuted]: A Boolean value that indicates whether audio for the renderer is in a muted state.
 //   - [AVSampleBufferAudioRenderer.SetMuted]
 //   - [AVSampleBufferAudioRenderer.AudioOutputDeviceUniqueID]: The unique identifier of the output device used to play audio.
 //   - [AVSampleBufferAudioRenderer.SetAudioOutputDeviceUniqueID]
@@ -127,7 +127,7 @@ func AVSampleBufferAudioRendererFromID(id objc.ID) AVSampleBufferAudioRenderer {
 //
 //   - [IAVSampleBufferAudioRenderer.Volume]: The current audio volume for the audio renderer.
 //   - [IAVSampleBufferAudioRenderer.SetVolume]
-//   - [IAVSampleBufferAudioRenderer.Muted]: A Boolean value that indicates whether audio for the renderer is in a muted state.
+//   - [IAVSampleBufferAudioRenderer.IsMuted]: A Boolean value that indicates whether audio for the renderer is in a muted state.
 //   - [IAVSampleBufferAudioRenderer.SetMuted]
 //   - [IAVSampleBufferAudioRenderer.AudioOutputDeviceUniqueID]: The unique identifier of the output device used to play audio.
 //   - [IAVSampleBufferAudioRenderer.SetAudioOutputDeviceUniqueID]
@@ -170,7 +170,7 @@ type IAVSampleBufferAudioRenderer interface {
 	Volume() float32
 	SetVolume(value float32)
 	// A Boolean value that indicates whether audio for the renderer is in a muted state.
-	Muted() bool
+	IsMuted() bool
 	SetMuted(value bool)
 	// The unique identifier of the output device used to play audio.
 	AudioOutputDeviceUniqueID() string
@@ -439,7 +439,7 @@ func (s AVSampleBufferAudioRenderer) SetVolume(value float32) {
 // This property only affects muting the renderer instance and not the device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/isMuted
-func (s AVSampleBufferAudioRenderer) Muted() bool {
+func (s AVSampleBufferAudioRenderer) IsMuted() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isMuted"))
 	return rv
 }

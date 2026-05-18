@@ -146,8 +146,8 @@ func (nc NSWorkspaceClass) Alloc() NSWorkspace {
 //   - [NSWorkspace.AccessibilityDisplayShouldReduceTransparency]: A Boolean value that indicates whether the app avoids using semitransparent backgrounds.
 //   - [NSWorkspace.AccessibilityDisplayShouldInvertColors]: A Boolean value that indicates whether the accessibility option to invert colors is in an enabled state.
 //   - [NSWorkspace.AccessibilityDisplayShouldReduceMotion]: A Boolean value that indicates whether the accessibility option to reduce motion is in an enabled state.
-//   - [NSWorkspace.SwitchControlEnabled]: A Boolean value that indicates whether Switch Control is currently running.
-//   - [NSWorkspace.VoiceOverEnabled]: A Boolean value that indicates whether VoiceOver is currently running.
+//   - [NSWorkspace.IsSwitchControlEnabled]: A Boolean value that indicates whether Switch Control is currently running.
+//   - [NSWorkspace.IsVoiceOverEnabled]: A Boolean value that indicates whether VoiceOver is currently running.
 //
 // # Performing Privileged Operations
 //
@@ -254,8 +254,8 @@ func NSWorkspaceFromID(id objc.ID) NSWorkspace {
 //   - [INSWorkspace.AccessibilityDisplayShouldReduceTransparency]: A Boolean value that indicates whether the app avoids using semitransparent backgrounds.
 //   - [INSWorkspace.AccessibilityDisplayShouldInvertColors]: A Boolean value that indicates whether the accessibility option to invert colors is in an enabled state.
 //   - [INSWorkspace.AccessibilityDisplayShouldReduceMotion]: A Boolean value that indicates whether the accessibility option to reduce motion is in an enabled state.
-//   - [INSWorkspace.SwitchControlEnabled]: A Boolean value that indicates whether Switch Control is currently running.
-//   - [INSWorkspace.VoiceOverEnabled]: A Boolean value that indicates whether VoiceOver is currently running.
+//   - [INSWorkspace.IsSwitchControlEnabled]: A Boolean value that indicates whether Switch Control is currently running.
+//   - [INSWorkspace.IsVoiceOverEnabled]: A Boolean value that indicates whether VoiceOver is currently running.
 //
 // # Performing Privileged Operations
 //
@@ -391,9 +391,9 @@ type INSWorkspace interface {
 	// A Boolean value that indicates whether the accessibility option to reduce motion is in an enabled state.
 	AccessibilityDisplayShouldReduceMotion() bool
 	// A Boolean value that indicates whether Switch Control is currently running.
-	SwitchControlEnabled() bool
+	IsSwitchControlEnabled() bool
 	// A Boolean value that indicates whether VoiceOver is currently running.
-	VoiceOverEnabled() bool
+	IsVoiceOverEnabled() bool
 
 	// Topic: Performing Privileged Operations
 
@@ -1398,7 +1398,7 @@ func (w NSWorkspace) AccessibilityDisplayShouldReduceMotion() bool {
 // You can observe this property with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/isSwitchControlEnabled
-func (w NSWorkspace) SwitchControlEnabled() bool {
+func (w NSWorkspace) IsSwitchControlEnabled() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isSwitchControlEnabled"))
 	return rv
 }
@@ -1410,7 +1410,7 @@ func (w NSWorkspace) SwitchControlEnabled() bool {
 // You can observe this property with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/isVoiceOverEnabled
-func (w NSWorkspace) VoiceOverEnabled() bool {
+func (w NSWorkspace) IsVoiceOverEnabled() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isVoiceOverEnabled"))
 	return rv
 }

@@ -49,7 +49,7 @@ func (fc FSModuleIdentityClass) Alloc() FSModuleIdentity {
 //
 //   - [FSModuleIdentity.BundleIdentifier]: The module’s bundle identifier.
 //   - [FSModuleIdentity.Url]: The module’s URL.
-//   - [FSModuleIdentity.Enabled]: A Boolean value that indicates if the module is enabled.
+//   - [FSModuleIdentity.IsEnabled]: A Boolean value that indicates if the module is enabled.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSModuleIdentity
 type FSModuleIdentity struct {
@@ -72,7 +72,7 @@ func FSModuleIdentityFromID(id objc.ID) FSModuleIdentity {
 //
 //   - [IFSModuleIdentity.BundleIdentifier]: The module’s bundle identifier.
 //   - [IFSModuleIdentity.Url]: The module’s URL.
-//   - [IFSModuleIdentity.Enabled]: A Boolean value that indicates if the module is enabled.
+//   - [IFSModuleIdentity.IsEnabled]: A Boolean value that indicates if the module is enabled.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSModuleIdentity
 type IFSModuleIdentity interface {
@@ -85,7 +85,7 @@ type IFSModuleIdentity interface {
 	// The module’s URL.
 	Url() foundation.NSURL
 	// A Boolean value that indicates if the module is enabled.
-	Enabled() bool
+	IsEnabled() bool
 }
 
 // Init initializes the instance.
@@ -126,7 +126,7 @@ func (m FSModuleIdentity) Url() foundation.NSURL {
 // A Boolean value that indicates if the module is enabled.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSModuleIdentity/isEnabled
-func (m FSModuleIdentity) Enabled() bool {
+func (m FSModuleIdentity) IsEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isEnabled"))
 	return rv
 }

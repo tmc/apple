@@ -47,9 +47,9 @@ func (ac AVAssetVariantAudioRenditionSpecificAttributesClass) Alloc() AVAssetVar
 //
 // # Accessing attributes
 //
-//   - [AVAssetVariantAudioRenditionSpecificAttributes.Binaural]: A Boolean value that indicates the variant is best suited for delivery to headphones.
-//   - [AVAssetVariantAudioRenditionSpecificAttributes.Immersive]: A Boolean value that indicates whether this variant contains virtualized or otherwise preprocessed audio content suitable for various purposes.
-//   - [AVAssetVariantAudioRenditionSpecificAttributes.Downmix]: A Boolean value that indicates whether the variant is a downmix derivative of other media of greater channel count.
+//   - [AVAssetVariantAudioRenditionSpecificAttributes.IsBinaural]: A Boolean value that indicates the variant is best suited for delivery to headphones.
+//   - [AVAssetVariantAudioRenditionSpecificAttributes.IsImmersive]: A Boolean value that indicates whether this variant contains virtualized or otherwise preprocessed audio content suitable for various purposes.
+//   - [AVAssetVariantAudioRenditionSpecificAttributes.IsDownmix]: A Boolean value that indicates whether the variant is a downmix derivative of other media of greater channel count.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/AudioAttributes-swift.class/RenditionSpecificAttributes
 type AVAssetVariantAudioRenditionSpecificAttributes struct {
@@ -70,9 +70,9 @@ func AVAssetVariantAudioRenditionSpecificAttributesFromID(id objc.ID) AVAssetVar
 //
 // # Accessing attributes
 //
-//   - [IAVAssetVariantAudioRenditionSpecificAttributes.Binaural]: A Boolean value that indicates the variant is best suited for delivery to headphones.
-//   - [IAVAssetVariantAudioRenditionSpecificAttributes.Immersive]: A Boolean value that indicates whether this variant contains virtualized or otherwise preprocessed audio content suitable for various purposes.
-//   - [IAVAssetVariantAudioRenditionSpecificAttributes.Downmix]: A Boolean value that indicates whether the variant is a downmix derivative of other media of greater channel count.
+//   - [IAVAssetVariantAudioRenditionSpecificAttributes.IsBinaural]: A Boolean value that indicates the variant is best suited for delivery to headphones.
+//   - [IAVAssetVariantAudioRenditionSpecificAttributes.IsImmersive]: A Boolean value that indicates whether this variant contains virtualized or otherwise preprocessed audio content suitable for various purposes.
+//   - [IAVAssetVariantAudioRenditionSpecificAttributes.IsDownmix]: A Boolean value that indicates whether the variant is a downmix derivative of other media of greater channel count.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/AudioAttributes-swift.class/RenditionSpecificAttributes
 type IAVAssetVariantAudioRenditionSpecificAttributes interface {
@@ -81,11 +81,11 @@ type IAVAssetVariantAudioRenditionSpecificAttributes interface {
 	// Topic: Accessing attributes
 
 	// A Boolean value that indicates the variant is best suited for delivery to headphones.
-	Binaural() bool
+	IsBinaural() bool
 	// A Boolean value that indicates whether this variant contains virtualized or otherwise preprocessed audio content suitable for various purposes.
-	Immersive() bool
+	IsImmersive() bool
 	// A Boolean value that indicates whether the variant is a downmix derivative of other media of greater channel count.
-	Downmix() bool
+	IsDownmix() bool
 
 	// The count of audio channels in the rendition.
 	ChannelCount() int
@@ -122,7 +122,7 @@ func NewAVAssetVariantAudioRenditionSpecificAttributes() AVAssetVariantAudioRend
 // the processing of a multichannel audio source.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/AudioAttributes-swift.class/RenditionSpecificAttributes/isBinaural
-func (a AVAssetVariantAudioRenditionSpecificAttributes) Binaural() bool {
+func (a AVAssetVariantAudioRenditionSpecificAttributes) IsBinaural() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isBinaural"))
 	return rv
 }
@@ -136,7 +136,7 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) Binaural() bool {
 // headphones or speakers.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/AudioAttributes-swift.class/RenditionSpecificAttributes/isImmersive
-func (a AVAssetVariantAudioRenditionSpecificAttributes) Immersive() bool {
+func (a AVAssetVariantAudioRenditionSpecificAttributes) IsImmersive() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isImmersive"))
 	return rv
 }
@@ -153,7 +153,7 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) Immersive() bool {
 // a suitable substitute for a multichannel variant under some conditions.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/AudioAttributes-swift.class/RenditionSpecificAttributes/isDownmix
-func (a AVAssetVariantAudioRenditionSpecificAttributes) Downmix() bool {
+func (a AVAssetVariantAudioRenditionSpecificAttributes) IsDownmix() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isDownmix"))
 	return rv
 }

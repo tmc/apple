@@ -28,7 +28,7 @@ import (
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/isPreviewing
 //
 // [AVCaptureMultiCamSession]: https://developer.apple.com/documentation/AVFoundation/AVCaptureMultiCamSession
-func (c AVCaptureVideoPreviewLayer) Previewing() bool {
+func (c AVCaptureVideoPreviewLayer) IsPreviewing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPreviewing"))
 	return rv
 }
@@ -64,7 +64,7 @@ func (c AVCaptureVideoPreviewLayer) SetAutomaticallyAdjustsMirroring(value bool)
 // attempting to change this value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/mirrored
-func (c AVCaptureVideoPreviewLayer) Mirrored() bool {
+func (c AVCaptureVideoPreviewLayer) IsMirrored() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isMirrored"))
 	return rv
 }
@@ -75,7 +75,7 @@ func (c AVCaptureVideoPreviewLayer) SetMirrored(value bool) {
 // Indicates whether the layer display supports mirroring.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/mirroringSupported
-func (c AVCaptureVideoPreviewLayer) MirroringSupported() bool {
+func (c AVCaptureVideoPreviewLayer) IsMirroringSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isMirroringSupported"))
 	return rv
 }
@@ -101,7 +101,7 @@ func (c AVCaptureVideoPreviewLayer) SetOrientation(value AVCaptureVideoOrientati
 // Indicates whether the layer display supports changing the orientation.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/orientationSupported
-func (c AVCaptureVideoPreviewLayer) OrientationSupported() bool {
+func (c AVCaptureVideoPreviewLayer) IsOrientationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isOrientationSupported"))
 	return rv
 }

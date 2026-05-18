@@ -65,7 +65,7 @@ func (nc NSSliderClass) Alloc() NSSlider {
 //   - [NSSlider.AltIncrementValue]: The amount by which the slider changes its value when the user Option-drags the slider knob.
 //   - [NSSlider.SetAltIncrementValue]
 //   - [NSSlider.KnobThickness]: The knob’s thickness, in pixels.
-//   - [NSSlider.Vertical]: An integer indicating the orientation (horizontal or vertical) of the slider.
+//   - [NSSlider.IsVertical]: An integer indicating the orientation (horizontal or vertical) of the slider.
 //   - [NSSlider.SetVertical]
 //   - [NSSlider.TrackFillColor]: The color of the filled portion of the slider track, in appearances that support it.
 //   - [NSSlider.SetTrackFillColor]
@@ -122,7 +122,7 @@ func NSSliderFromID(id objc.ID) NSSlider {
 //   - [INSSlider.AltIncrementValue]: The amount by which the slider changes its value when the user Option-drags the slider knob.
 //   - [INSSlider.SetAltIncrementValue]
 //   - [INSSlider.KnobThickness]: The knob’s thickness, in pixels.
-//   - [INSSlider.Vertical]: An integer indicating the orientation (horizontal or vertical) of the slider.
+//   - [INSSlider.IsVertical]: An integer indicating the orientation (horizontal or vertical) of the slider.
 //   - [INSSlider.SetVertical]
 //   - [INSSlider.TrackFillColor]: The color of the filled portion of the slider track, in appearances that support it.
 //   - [INSSlider.SetTrackFillColor]
@@ -169,7 +169,7 @@ type INSSlider interface {
 	// The knob’s thickness, in pixels.
 	KnobThickness() float64
 	// An integer indicating the orientation (horizontal or vertical) of the slider.
-	Vertical() bool
+	IsVertical() bool
 	SetVertical(value bool)
 	// The color of the filled portion of the slider track, in appearances that support it.
 	TrackFillColor() INSColor
@@ -517,7 +517,7 @@ func (s NSSlider) KnobThickness() float64 {
 // height is greater than its width.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/isVertical
-func (s NSSlider) Vertical() bool {
+func (s NSSlider) IsVertical() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isVertical"))
 	return rv
 }

@@ -99,7 +99,7 @@ func (ac AVCaptureSessionClass) Alloc() AVCaptureSession {
 //
 // # Configuring deferred start
 //
-//   - [AVCaptureSession.ManualDeferredStartSupported]: A [BOOL] value that indicates whether the session supports manually running deferred start.
+//   - [AVCaptureSession.IsManualDeferredStartSupported]: A [BOOL] value that indicates whether the session supports manually running deferred start.
 //   - [AVCaptureSession.AutomaticallyRunsDeferredStart]: A Boolean value that indicates whether deferred start runs automatically.
 //   - [AVCaptureSession.SetAutomaticallyRunsDeferredStart]
 //   - [AVCaptureSession.RunDeferredStartWhenNeeded]: Tells the session to run deferred start when appropriate.
@@ -126,7 +126,7 @@ func (ac AVCaptureSessionClass) Alloc() AVCaptureSession {
 //
 // # Observing session state
 //
-//   - [AVCaptureSession.Running]: A Boolean value that indicates whether the capture session is in a running state.
+//   - [AVCaptureSession.IsRunning]: A Boolean value that indicates whether the capture session is in a running state.
 //
 // # Synchronizing output
 //
@@ -186,7 +186,7 @@ func AVCaptureSessionFromID(id objc.ID) AVCaptureSession {
 //
 // # Configuring deferred start
 //
-//   - [IAVCaptureSession.ManualDeferredStartSupported]: A [BOOL] value that indicates whether the session supports manually running deferred start.
+//   - [IAVCaptureSession.IsManualDeferredStartSupported]: A [BOOL] value that indicates whether the session supports manually running deferred start.
 //   - [IAVCaptureSession.AutomaticallyRunsDeferredStart]: A Boolean value that indicates whether deferred start runs automatically.
 //   - [IAVCaptureSession.SetAutomaticallyRunsDeferredStart]
 //   - [IAVCaptureSession.RunDeferredStartWhenNeeded]: Tells the session to run deferred start when appropriate.
@@ -213,7 +213,7 @@ func AVCaptureSessionFromID(id objc.ID) AVCaptureSession {
 //
 // # Observing session state
 //
-//   - [IAVCaptureSession.Running]: A Boolean value that indicates whether the capture session is in a running state.
+//   - [IAVCaptureSession.IsRunning]: A Boolean value that indicates whether the capture session is in a running state.
 //
 // # Synchronizing output
 //
@@ -278,7 +278,7 @@ type IAVCaptureSession interface {
 	// Topic: Configuring deferred start
 
 	// A [BOOL] value that indicates whether the session supports manually running deferred start.
-	ManualDeferredStartSupported() bool
+	IsManualDeferredStartSupported() bool
 	// A Boolean value that indicates whether deferred start runs automatically.
 	AutomaticallyRunsDeferredStart() bool
 	SetAutomaticallyRunsDeferredStart(value bool)
@@ -322,7 +322,7 @@ type IAVCaptureSession interface {
 	// Topic: Observing session state
 
 	// A Boolean value that indicates whether the capture session is in a running state.
-	Running() bool
+	IsRunning() bool
 
 	// Topic: Synchronizing output
 
@@ -854,7 +854,7 @@ func (c AVCaptureSession) Connections() []AVCaptureConnection {
 // `false` if the session supports manual deferred start.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/isManualDeferredStartSupported
-func (c AVCaptureSession) ManualDeferredStartSupported() bool {
+func (c AVCaptureSession) IsManualDeferredStartSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isManualDeferredStartSupported"))
 	return rv
 }
@@ -992,7 +992,7 @@ func (c AVCaptureSession) ControlsDelegateCallbackQueue() dispatch.Queue {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/isRunning
-func (c AVCaptureSession) Running() bool {
+func (c AVCaptureSession) IsRunning() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isRunning"))
 	return rv
 }

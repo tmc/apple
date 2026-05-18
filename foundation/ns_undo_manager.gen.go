@@ -101,12 +101,12 @@ func (uc UndoManagerClass) Alloc() UndoManager {
 //
 //   - [UndoManager.DisableUndoRegistration]: Disables the recording of undo operations.
 //   - [UndoManager.EnableUndoRegistration]: Enables the recording of undo operations.
-//   - [UndoManager.UndoRegistrationEnabled]: A Boolean value that indicates whether the recording of undo operations is enabled.
+//   - [UndoManager.IsUndoRegistrationEnabled]: A Boolean value that indicates whether the recording of undo operations is enabled.
 //
 // # Checking whether undo or redo is in process
 //
-//   - [UndoManager.Undoing]: Returns a Boolean value that indicates whether the manager is in the process of performing an undo action.
-//   - [UndoManager.Redoing]: Returns a Boolean value that indicates whether the manager is in the process of performing a redo action.
+//   - [UndoManager.IsUndoing]: Returns a Boolean value that indicates whether the manager is in the process of performing an undo action.
+//   - [UndoManager.IsRedoing]: Returns a Boolean value that indicates whether the manager is in the process of performing a redo action.
 //
 // # Clearing undo operations
 //
@@ -212,12 +212,12 @@ func NSUndoManagerFromID(id objc.ID) UndoManager { return UndoManagerFromID(id) 
 //
 //   - [IUndoManager.DisableUndoRegistration]: Disables the recording of undo operations.
 //   - [IUndoManager.EnableUndoRegistration]: Enables the recording of undo operations.
-//   - [IUndoManager.UndoRegistrationEnabled]: A Boolean value that indicates whether the recording of undo operations is enabled.
+//   - [IUndoManager.IsUndoRegistrationEnabled]: A Boolean value that indicates whether the recording of undo operations is enabled.
 //
 // # Checking whether undo or redo is in process
 //
-//   - [IUndoManager.Undoing]: Returns a Boolean value that indicates whether the manager is in the process of performing an undo action.
-//   - [IUndoManager.Redoing]: Returns a Boolean value that indicates whether the manager is in the process of performing a redo action.
+//   - [IUndoManager.IsUndoing]: Returns a Boolean value that indicates whether the manager is in the process of performing an undo action.
+//   - [IUndoManager.IsRedoing]: Returns a Boolean value that indicates whether the manager is in the process of performing a redo action.
 //
 // # Clearing undo operations
 //
@@ -324,14 +324,14 @@ type IUndoManager interface {
 	// Enables the recording of undo operations.
 	EnableUndoRegistration()
 	// A Boolean value that indicates whether the recording of undo operations is enabled.
-	UndoRegistrationEnabled() bool
+	IsUndoRegistrationEnabled() bool
 
 	// Topic: Checking whether undo or redo is in process
 
 	// Returns a Boolean value that indicates whether the manager is in the process of performing an undo action.
-	Undoing() bool
+	IsUndoing() bool
 	// Returns a Boolean value that indicates whether the manager is in the process of performing a redo action.
-	Redoing() bool
+	IsRedoing() bool
 
 	// Topic: Clearing undo operations
 
@@ -917,7 +917,7 @@ func (u UndoManager) GroupingLevel() int {
 // The default is true.
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/isUndoRegistrationEnabled
-func (u UndoManager) UndoRegistrationEnabled() bool {
+func (u UndoManager) IsUndoRegistrationEnabled() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isUndoRegistrationEnabled"))
 	return rv
 }
@@ -931,7 +931,7 @@ func (u UndoManager) UndoRegistrationEnabled() bool {
 // [UndoNestedGroup] method, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/isUndoing
-func (u UndoManager) Undoing() bool {
+func (u UndoManager) IsUndoing() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isUndoing"))
 	return rv
 }
@@ -945,7 +945,7 @@ func (u UndoManager) Undoing() bool {
 // false.
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/isRedoing
-func (u UndoManager) Redoing() bool {
+func (u UndoManager) IsRedoing() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isRedoing"))
 	return rv
 }

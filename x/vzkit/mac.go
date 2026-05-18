@@ -199,7 +199,7 @@ func loadOrCreateMacHardwareModel(stateDir string, override []byte) (vz.VZMacHar
 	if hwModel.ID == 0 {
 		return vz.VZMacHardwareModel{}, fmt.Errorf("invalid hardware model data")
 	}
-	if !hwModel.Supported() {
+	if !hwModel.IsSupported() {
 		return vz.VZMacHardwareModel{}, fmt.Errorf("hardware model not supported on this host")
 	}
 

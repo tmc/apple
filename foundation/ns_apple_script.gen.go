@@ -73,7 +73,7 @@ func (nc NSAppleScriptClass) Alloc() NSAppleScript {
 //
 // # Getting Information About a Script
 //
-//   - [NSAppleScript.Compiled]: A Boolean value that indicates whether the receiver’s script has been compiled.
+//   - [NSAppleScript.IsCompiled]: A Boolean value that indicates whether the receiver’s script has been compiled.
 //   - [NSAppleScript.Source]: The script source for the receiver.
 //
 // # Compiling and Executing a Script
@@ -112,7 +112,7 @@ func NSAppleScriptFromID(id objc.ID) NSAppleScript {
 //
 // # Getting Information About a Script
 //
-//   - [INSAppleScript.Compiled]: A Boolean value that indicates whether the receiver’s script has been compiled.
+//   - [INSAppleScript.IsCompiled]: A Boolean value that indicates whether the receiver’s script has been compiled.
 //   - [INSAppleScript.Source]: The script source for the receiver.
 //
 // # Compiling and Executing a Script
@@ -139,7 +139,7 @@ type INSAppleScript interface {
 	// Topic: Getting Information About a Script
 
 	// A Boolean value that indicates whether the receiver’s script has been compiled.
-	Compiled() bool
+	IsCompiled() bool
 	// The script source for the receiver.
 	Source() string
 
@@ -320,7 +320,7 @@ func (a NSAppleScript) ExecuteAppleEventError(event INSAppleEventDescriptor, err
 // compiled.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/isCompiled
-func (a NSAppleScript) Compiled() bool {
+func (a NSAppleScript) IsCompiled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isCompiled"))
 	return rv
 }

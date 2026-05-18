@@ -61,9 +61,9 @@ func (cc CAPropertyAnimationClass) Alloc() CAPropertyAnimation {
 //
 // # Property Value Calculation Behavior
 //
-//   - [CAPropertyAnimation.Cumulative]: Determines if the value of the property is the value at the end of the previous repeat cycle, plus the value of the current repeat cycle.
+//   - [CAPropertyAnimation.IsCumulative]: Determines if the value of the property is the value at the end of the previous repeat cycle, plus the value of the current repeat cycle.
 //   - [CAPropertyAnimation.SetCumulative]
-//   - [CAPropertyAnimation.Additive]: Determines if the value specified by the animation is added to the current render tree value to produce the new render tree value.
+//   - [CAPropertyAnimation.IsAdditive]: Determines if the value specified by the animation is added to the current render tree value to produce the new render tree value.
 //   - [CAPropertyAnimation.SetAdditive]
 //   - [CAPropertyAnimation.ValueFunction]: An optional value function that is applied to interpolated values.
 //   - [CAPropertyAnimation.SetValueFunction]
@@ -93,9 +93,9 @@ func CAPropertyAnimationFromID(id objc.ID) CAPropertyAnimation {
 //
 // # Property Value Calculation Behavior
 //
-//   - [ICAPropertyAnimation.Cumulative]: Determines if the value of the property is the value at the end of the previous repeat cycle, plus the value of the current repeat cycle.
+//   - [ICAPropertyAnimation.IsCumulative]: Determines if the value of the property is the value at the end of the previous repeat cycle, plus the value of the current repeat cycle.
 //   - [ICAPropertyAnimation.SetCumulative]
-//   - [ICAPropertyAnimation.Additive]: Determines if the value specified by the animation is added to the current render tree value to produce the new render tree value.
+//   - [ICAPropertyAnimation.IsAdditive]: Determines if the value specified by the animation is added to the current render tree value to produce the new render tree value.
 //   - [ICAPropertyAnimation.SetAdditive]
 //   - [ICAPropertyAnimation.ValueFunction]: An optional value function that is applied to interpolated values.
 //   - [ICAPropertyAnimation.SetValueFunction]
@@ -113,10 +113,10 @@ type ICAPropertyAnimation interface {
 	// Topic: Property Value Calculation Behavior
 
 	// Determines if the value of the property is the value at the end of the previous repeat cycle, plus the value of the current repeat cycle.
-	Cumulative() bool
+	IsCumulative() bool
 	SetCumulative(value bool)
 	// Determines if the value specified by the animation is added to the current render tree value to produce the new render tree value.
-	Additive() bool
+	IsAdditive() bool
 	SetAdditive(value bool)
 	// An optional value function that is applied to interpolated values.
 	ValueFunction() ICAValueFunction
@@ -183,7 +183,7 @@ func (p CAPropertyAnimation) SetKeyPath(value string) {
 // current repeat cycle. The default is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAPropertyAnimation/isCumulative
-func (p CAPropertyAnimation) Cumulative() bool {
+func (p CAPropertyAnimation) IsCumulative() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isCumulative"))
 	return rv
 }
@@ -202,7 +202,7 @@ func (p CAPropertyAnimation) SetCumulative(value bool) {
 // matrices are concatenated. The default is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAPropertyAnimation/isAdditive
-func (p CAPropertyAnimation) Additive() bool {
+func (p CAPropertyAnimation) IsAdditive() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isAdditive"))
 	return rv
 }

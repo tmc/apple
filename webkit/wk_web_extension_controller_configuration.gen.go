@@ -55,7 +55,7 @@ func (wc WKWebExtensionControllerConfigurationClass) Alloc() WKWebExtensionContr
 //   - [WKWebExtensionControllerConfiguration.DefaultWebsiteDataStore]: The default data store for website data and cookie access in extension contexts.
 //   - [WKWebExtensionControllerConfiguration.SetDefaultWebsiteDataStore]
 //   - [WKWebExtensionControllerConfiguration.Identifier]: The unique identifier used for persistent configuration storage, or `nil` when it is the default or not persistent.
-//   - [WKWebExtensionControllerConfiguration.Persistent]: A Boolean value indicating if this context will write data to the the file system.
+//   - [WKWebExtensionControllerConfiguration.IsPersistent]: A Boolean value indicating if this context will write data to the the file system.
 //   - [WKWebExtensionControllerConfiguration.WebViewConfiguration]: The web view configuration to be used as a basis for configuring web views in extension contexts.
 //   - [WKWebExtensionControllerConfiguration.SetWebViewConfiguration]
 //
@@ -82,7 +82,7 @@ func WKWebExtensionControllerConfigurationFromID(id objc.ID) WKWebExtensionContr
 //   - [IWKWebExtensionControllerConfiguration.DefaultWebsiteDataStore]: The default data store for website data and cookie access in extension contexts.
 //   - [IWKWebExtensionControllerConfiguration.SetDefaultWebsiteDataStore]
 //   - [IWKWebExtensionControllerConfiguration.Identifier]: The unique identifier used for persistent configuration storage, or `nil` when it is the default or not persistent.
-//   - [IWKWebExtensionControllerConfiguration.Persistent]: A Boolean value indicating if this context will write data to the the file system.
+//   - [IWKWebExtensionControllerConfiguration.IsPersistent]: A Boolean value indicating if this context will write data to the the file system.
 //   - [IWKWebExtensionControllerConfiguration.WebViewConfiguration]: The web view configuration to be used as a basis for configuring web views in extension contexts.
 //   - [IWKWebExtensionControllerConfiguration.SetWebViewConfiguration]
 //
@@ -98,7 +98,7 @@ type IWKWebExtensionControllerConfiguration interface {
 	// The unique identifier used for persistent configuration storage, or `nil` when it is the default or not persistent.
 	Identifier() foundation.NSUUID
 	// A Boolean value indicating if this context will write data to the the file system.
-	Persistent() bool
+	IsPersistent() bool
 	// The web view configuration to be used as a basis for configuring web views in extension contexts.
 	WebViewConfiguration() IWKWebViewConfiguration
 	SetWebViewConfiguration(value IWKWebViewConfiguration)
@@ -204,7 +204,7 @@ func (w WKWebExtensionControllerConfiguration) Identifier() foundation.NSUUID {
 // system.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionController/Configuration-swift.class/isPersistent
-func (w WKWebExtensionControllerConfiguration) Persistent() bool {
+func (w WKWebExtensionControllerConfiguration) IsPersistent() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isPersistent"))
 	return rv
 }

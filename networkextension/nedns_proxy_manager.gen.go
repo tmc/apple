@@ -72,7 +72,7 @@ func (nc NEDNSProxyManagerClass) Alloc() NEDNSProxyManager {
 //
 // # Accessing DNS proxy configuration properties
 //
-//   - [NEDNSProxyManager.Enabled]: The status of a DNS proxy.
+//   - [NEDNSProxyManager.IsEnabled]: The status of a DNS proxy.
 //   - [NEDNSProxyManager.SetEnabled]
 //   - [NEDNSProxyManager.ProviderProtocol]: The provider-specific portion of the DNS proxy configuration.
 //   - [NEDNSProxyManager.SetProviderProtocol]
@@ -112,7 +112,7 @@ func NEDNSProxyManagerFromID(id objc.ID) NEDNSProxyManager {
 //
 // # Accessing DNS proxy configuration properties
 //
-//   - [INEDNSProxyManager.Enabled]: The status of a DNS proxy.
+//   - [INEDNSProxyManager.IsEnabled]: The status of a DNS proxy.
 //   - [INEDNSProxyManager.SetEnabled]
 //   - [INEDNSProxyManager.ProviderProtocol]: The provider-specific portion of the DNS proxy configuration.
 //   - [INEDNSProxyManager.SetProviderProtocol]
@@ -143,7 +143,7 @@ type INEDNSProxyManager interface {
 	// Topic: Accessing DNS proxy configuration properties
 
 	// The status of a DNS proxy.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// The provider-specific portion of the DNS proxy configuration.
 	ProviderProtocol() INEDNSProxyProviderProtocol
@@ -310,7 +310,7 @@ func (_NEDNSProxyManagerClass NEDNSProxyManagerClass) SharedManager() NEDNSProxy
 // other DNS proxy configuration is enabled.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/isEnabled
-func (d NEDNSProxyManager) Enabled() bool {
+func (d NEDNSProxyManager) IsEnabled() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEnabled"))
 	return rv
 }

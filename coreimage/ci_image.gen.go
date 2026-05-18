@@ -187,7 +187,7 @@ func (cc CIImageClass) Alloc() CIImage {
 // # Instance Properties
 //
 //   - [CIImage.ContentHeadroom]: Returns the content headroom of the image.
-//   - [CIImage.Opaque]: Returns YES if the image is known to have and alpha value of `1.0` over the entire image extent.
+//   - [CIImage.IsOpaque]: Returns YES if the image is known to have and alpha value of `1.0` over the entire image extent.
 //   - [CIImage.MetalTexture]
 //   - [CIImage.ContentAverageLightLevel]: Returns the content average light level of the image.
 //
@@ -323,7 +323,7 @@ func CIImageFromID(id objc.ID) CIImage {
 // # Instance Properties
 //
 //   - [ICIImage.ContentHeadroom]: Returns the content headroom of the image.
-//   - [ICIImage.Opaque]: Returns YES if the image is known to have and alpha value of `1.0` over the entire image extent.
+//   - [ICIImage.IsOpaque]: Returns YES if the image is known to have and alpha value of `1.0` over the entire image extent.
 //   - [ICIImage.MetalTexture]
 //   - [ICIImage.ContentAverageLightLevel]: Returns the content average light level of the image.
 //
@@ -497,7 +497,7 @@ type ICIImage interface {
 	// Returns the content headroom of the image.
 	ContentHeadroom() float32
 	// Returns YES if the image is known to have and alpha value of `1.0` over the entire image extent.
-	Opaque() bool
+	IsOpaque() bool
 	MetalTexture() metal.MTLTexture
 	// Returns the content average light level of the image.
 	ContentAverageLightLevel() float32
@@ -2701,7 +2701,7 @@ func (i CIImage) ContentHeadroom() float32 {
 // entire image extent.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/isOpaque
-func (i CIImage) Opaque() bool {
+func (i CIImage) IsOpaque() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isOpaque"))
 	return rv
 }

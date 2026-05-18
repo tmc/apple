@@ -102,7 +102,7 @@ func (nc NSSegmentedControlClass) Alloc() NSSegmentedControl {
 //   - [NSSegmentedControl.MenuForSegment]: Returns the menu for the specified segment.
 //   - [NSSegmentedControl.SetShowsMenuIndicatorForSegment]
 //   - [NSSegmentedControl.ShowsMenuIndicatorForSegment]
-//   - [NSSegmentedControl.SpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the control.
+//   - [NSSegmentedControl.IsSpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the control.
 //   - [NSSegmentedControl.SetSpringLoaded]
 //
 // # Managing the selected segment
@@ -192,7 +192,7 @@ func NSSegmentedControlFromID(id objc.ID) NSSegmentedControl {
 //   - [INSSegmentedControl.MenuForSegment]: Returns the menu for the specified segment.
 //   - [INSSegmentedControl.SetShowsMenuIndicatorForSegment]
 //   - [INSSegmentedControl.ShowsMenuIndicatorForSegment]
-//   - [INSSegmentedControl.SpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the control.
+//   - [INSSegmentedControl.IsSpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the control.
 //   - [INSSegmentedControl.SetSpringLoaded]
 //
 // # Managing the selected segment
@@ -280,7 +280,7 @@ type INSSegmentedControl interface {
 	SetShowsMenuIndicatorForSegment(showsMenuIndicator bool, segment int)
 	ShowsMenuIndicatorForSegment(segment int) bool
 	// A Boolean value that indicates whether spring loading is enabled for the control.
-	SpringLoaded() bool
+	IsSpringLoaded() bool
 	SetSpringLoaded(value bool)
 
 	// Topic: Managing the selected segment
@@ -800,7 +800,7 @@ func (s NSSegmentedControl) SetSegmentCount(value int) {
 // segment.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/isSpringLoaded
-func (s NSSegmentedControl) SpringLoaded() bool {
+func (s NSSegmentedControl) IsSpringLoaded() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSpringLoaded"))
 	return rv
 }

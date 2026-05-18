@@ -80,7 +80,7 @@ func (fc FSResourceClass) Alloc() FSResource {
 // # Revoking the resource
 //
 //   - [FSResource.Revoke]: Revokes the resource.
-//   - [FSResource.Revoked]: A Boolean value that indicates whether the resource is revoked.
+//   - [FSResource.IsRevoked]: A Boolean value that indicates whether the resource is revoked.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSResource
 type FSResource struct {
@@ -106,7 +106,7 @@ func FSResourceFromID(id objc.ID) FSResource {
 // # Revoking the resource
 //
 //   - [IFSResource.Revoke]: Revokes the resource.
-//   - [IFSResource.Revoked]: A Boolean value that indicates whether the resource is revoked.
+//   - [IFSResource.IsRevoked]: A Boolean value that indicates whether the resource is revoked.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSResource
 type IFSResource interface {
@@ -122,7 +122,7 @@ type IFSResource interface {
 	// Revokes the resource.
 	Revoke()
 	// A Boolean value that indicates whether the resource is revoked.
-	Revoked() bool
+	IsRevoked() bool
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -183,7 +183,7 @@ func (r FSResource) EncodeWithCoder(coder foundation.INSCoder) {
 // (Swift) or [YES] (Objective-C).
 //
 // See: https://developer.apple.com/documentation/FSKit/FSResource/isRevoked
-func (r FSResource) Revoked() bool {
+func (r FSResource) IsRevoked() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isRevoked"))
 	return rv
 }

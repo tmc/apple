@@ -81,7 +81,7 @@ func (nc NSDateComponentsClass) Alloc() NSDateComponents {
 //
 // # Validating a Date
 //
-//   - [NSDateComponents.ValidDate]: A Boolean value that indicates whether the current combination of properties represents a date which exists in the current calendar.
+//   - [NSDateComponents.IsValidDate]: A Boolean value that indicates whether the current combination of properties represents a date which exists in the current calendar.
 //   - [NSDateComponents.IsValidDateInCalendar]: Returns a Boolean value that indicates whether the current combination of properties represents a date which exists in the specified calendar.
 //   - [NSDateComponents.Date]: The date calculated from the current components using the stored calendar.
 //
@@ -97,7 +97,7 @@ func (nc NSDateComponentsClass) Alloc() NSDateComponents {
 //   - [NSDateComponents.SetQuarter]
 //   - [NSDateComponents.Month]: The number of months.
 //   - [NSDateComponents.SetMonth]
-//   - [NSDateComponents.LeapMonth]: A Boolean value that indicates whether the month is a leap month.
+//   - [NSDateComponents.IsLeapMonth]: A Boolean value that indicates whether the month is a leap month.
 //   - [NSDateComponents.SetLeapMonth]
 //
 // # Accessing Weeks and Days
@@ -133,7 +133,7 @@ func (nc NSDateComponentsClass) Alloc() NSDateComponents {
 //
 //   - [NSDateComponents.DayOfYear]
 //   - [NSDateComponents.SetDayOfYear]
-//   - [NSDateComponents.RepeatedDay]
+//   - [NSDateComponents.IsRepeatedDay]
 //   - [NSDateComponents.SetRepeatedDay]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents
@@ -168,7 +168,7 @@ func NSDateComponentsFromID(id objc.ID) NSDateComponents {
 //
 // # Validating a Date
 //
-//   - [INSDateComponents.ValidDate]: A Boolean value that indicates whether the current combination of properties represents a date which exists in the current calendar.
+//   - [INSDateComponents.IsValidDate]: A Boolean value that indicates whether the current combination of properties represents a date which exists in the current calendar.
 //   - [INSDateComponents.IsValidDateInCalendar]: Returns a Boolean value that indicates whether the current combination of properties represents a date which exists in the specified calendar.
 //   - [INSDateComponents.Date]: The date calculated from the current components using the stored calendar.
 //
@@ -184,7 +184,7 @@ func NSDateComponentsFromID(id objc.ID) NSDateComponents {
 //   - [INSDateComponents.SetQuarter]
 //   - [INSDateComponents.Month]: The number of months.
 //   - [INSDateComponents.SetMonth]
-//   - [INSDateComponents.LeapMonth]: A Boolean value that indicates whether the month is a leap month.
+//   - [INSDateComponents.IsLeapMonth]: A Boolean value that indicates whether the month is a leap month.
 //   - [INSDateComponents.SetLeapMonth]
 //
 // # Accessing Weeks and Days
@@ -220,7 +220,7 @@ func NSDateComponentsFromID(id objc.ID) NSDateComponents {
 //
 //   - [INSDateComponents.DayOfYear]
 //   - [INSDateComponents.SetDayOfYear]
-//   - [INSDateComponents.RepeatedDay]
+//   - [INSDateComponents.IsRepeatedDay]
 //   - [INSDateComponents.SetRepeatedDay]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents
@@ -240,7 +240,7 @@ type INSDateComponents interface {
 	// Topic: Validating a Date
 
 	// A Boolean value that indicates whether the current combination of properties represents a date which exists in the current calendar.
-	ValidDate() bool
+	IsValidDate() bool
 	// Returns a Boolean value that indicates whether the current combination of properties represents a date which exists in the specified calendar.
 	IsValidDateInCalendar(calendar INSCalendar) bool
 	// The date calculated from the current components using the stored calendar.
@@ -264,7 +264,7 @@ type INSDateComponents interface {
 	Month() int
 	SetMonth(value int)
 	// A Boolean value that indicates whether the month is a leap month.
-	LeapMonth() bool
+	IsLeapMonth() bool
 	SetLeapMonth(value bool)
 
 	// Topic: Accessing Weeks and Days
@@ -311,7 +311,7 @@ type INSDateComponents interface {
 
 	DayOfYear() int
 	SetDayOfYear(value int)
-	RepeatedDay() bool
+	IsRepeatedDay() bool
 	SetRepeatedDay(value bool)
 
 	// Specifies a date component without a value.
@@ -476,7 +476,7 @@ func (d NSDateComponents) SetTimeZone(value INSTimeZone) {
 // is returned.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/isValidDate
-func (d NSDateComponents) ValidDate() bool {
+func (d NSDateComponents) IsValidDate() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isValidDate"))
 	return rv
 }
@@ -611,7 +611,7 @@ func (d NSDateComponents) SetMonth(value int) {
 // true if the month is a leap month, false otherwise.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/isLeapMonth
-func (d NSDateComponents) LeapMonth() bool {
+func (d NSDateComponents) IsLeapMonth() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isLeapMonth"))
 	return rv
 }
@@ -817,7 +817,7 @@ func (d NSDateComponents) SetDayOfYear(value int) {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/isRepeatedDay
-func (d NSDateComponents) RepeatedDay() bool {
+func (d NSDateComponents) IsRepeatedDay() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isRepeatedDay"))
 	return rv
 }

@@ -63,7 +63,7 @@ func (wc WKUserScriptClass) Alloc() WKUserScript {
 //
 //   - [WKUserScript.Source]: The script’s source code.
 //   - [WKUserScript.InjectionTime]: The time at which to inject the script into the webpage.
-//   - [WKUserScript.ForMainFrameOnly]: A Boolean value that indicates whether to inject the script into the main frame or all frames.
+//   - [WKUserScript.IsForMainFrameOnly]: A Boolean value that indicates whether to inject the script into the main frame or all frames.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUserScript
 type WKUserScript struct {
@@ -91,7 +91,7 @@ func WKUserScriptFromID(id objc.ID) WKUserScript {
 //
 //   - [IWKUserScript.Source]: The script’s source code.
 //   - [IWKUserScript.InjectionTime]: The time at which to inject the script into the webpage.
-//   - [IWKUserScript.ForMainFrameOnly]: A Boolean value that indicates whether to inject the script into the main frame or all frames.
+//   - [IWKUserScript.IsForMainFrameOnly]: A Boolean value that indicates whether to inject the script into the main frame or all frames.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUserScript
 type IWKUserScript interface {
@@ -111,7 +111,7 @@ type IWKUserScript interface {
 	// The time at which to inject the script into the webpage.
 	InjectionTime() WKUserScriptInjectionTime
 	// A Boolean value that indicates whether to inject the script into the main frame or all frames.
-	ForMainFrameOnly() bool
+	IsForMainFrameOnly() bool
 }
 
 // Init initializes the instance.
@@ -284,7 +284,7 @@ func (u WKUserScript) InjectionTime() WKUserScriptInjectionTime {
 // script into all frames.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUserScript/isForMainFrameOnly
-func (u WKUserScript) ForMainFrameOnly() bool {
+func (u WKUserScript) IsForMainFrameOnly() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isForMainFrameOnly"))
 	return rv
 }

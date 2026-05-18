@@ -44,7 +44,7 @@ func (c AVCaptureResolvedPhotoSettings) DimensionsForSemanticSegmentationMatteOf
 // property to determine whether a capture uses the flash.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/isFlashEnabled
-func (c AVCaptureResolvedPhotoSettings) FlashEnabled() bool {
+func (c AVCaptureResolvedPhotoSettings) IsFlashEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFlashEnabled"))
 	return rv
 }
@@ -53,7 +53,7 @@ func (c AVCaptureResolvedPhotoSettings) FlashEnabled() bool {
 // when capturing photos.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/isRedEyeReductionEnabled
-func (c AVCaptureResolvedPhotoSettings) RedEyeReductionEnabled() bool {
+func (c AVCaptureResolvedPhotoSettings) IsRedEyeReductionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isRedEyeReductionEnabled"))
 	return rv
 }
@@ -62,7 +62,7 @@ func (c AVCaptureResolvedPhotoSettings) RedEyeReductionEnabled() bool {
 // virtual device image fusion.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/isVirtualDeviceFusionEnabled
-func (c AVCaptureResolvedPhotoSettings) VirtualDeviceFusionEnabled() bool {
+func (c AVCaptureResolvedPhotoSettings) IsVirtualDeviceFusionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVirtualDeviceFusionEnabled"))
 	return rv
 }
@@ -71,7 +71,7 @@ func (c AVCaptureResolvedPhotoSettings) VirtualDeviceFusionEnabled() bool {
 // distortion correction when capturing the photo.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/isContentAwareDistortionCorrectionEnabled
-func (c AVCaptureResolvedPhotoSettings) ContentAwareDistortionCorrectionEnabled() bool {
+func (c AVCaptureResolvedPhotoSettings) IsContentAwareDistortionCorrectionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isContentAwareDistortionCorrectionEnabled"))
 	return rv
 }
@@ -98,7 +98,7 @@ func (c AVCaptureResolvedPhotoSettings) ContentAwareDistortionCorrectionEnabled(
 // property to determine whether stabilization is active.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/isStillImageStabilizationEnabled
-func (c AVCaptureResolvedPhotoSettings) StillImageStabilizationEnabled() bool {
+func (c AVCaptureResolvedPhotoSettings) IsStillImageStabilizationEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isStillImageStabilizationEnabled"))
 	return rv
 }
@@ -128,7 +128,7 @@ func (c AVCaptureResolvedPhotoSettings) StillImageStabilizationEnabled() bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/isDualCameraFusionEnabled
 //
 // [builtInDualCamera]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/DeviceType-swift.struct/builtInDualCamera
-func (c AVCaptureResolvedPhotoSettings) DualCameraFusionEnabled() bool {
+func (c AVCaptureResolvedPhotoSettings) IsDualCameraFusionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDualCameraFusionEnabled"))
 	return rv
 }

@@ -64,7 +64,7 @@ func (nc NSOpenPanelClass) Alloc() NSOpenPanel {
 //   - [NSOpenPanel.SetResolvesAliases]
 //   - [NSOpenPanel.AllowsMultipleSelection]: A Boolean that indicates whether the user may select multiple files and directories.
 //   - [NSOpenPanel.SetAllowsMultipleSelection]
-//   - [NSOpenPanel.AccessoryViewDisclosed]: A Boolean value that indicates whether the panel’s accessory view is visible.
+//   - [NSOpenPanel.IsAccessoryViewDisclosed]: A Boolean value that indicates whether the panel’s accessory view is visible.
 //   - [NSOpenPanel.SetAccessoryViewDisclosed]
 //
 // # Accessing User Selection
@@ -105,7 +105,7 @@ func NSOpenPanelFromID(id objc.ID) NSOpenPanel {
 //   - [INSOpenPanel.SetResolvesAliases]
 //   - [INSOpenPanel.AllowsMultipleSelection]: A Boolean that indicates whether the user may select multiple files and directories.
 //   - [INSOpenPanel.SetAllowsMultipleSelection]
-//   - [INSOpenPanel.AccessoryViewDisclosed]: A Boolean value that indicates whether the panel’s accessory view is visible.
+//   - [INSOpenPanel.IsAccessoryViewDisclosed]: A Boolean value that indicates whether the panel’s accessory view is visible.
 //   - [INSOpenPanel.SetAccessoryViewDisclosed]
 //
 // # Accessing User Selection
@@ -138,7 +138,7 @@ type INSOpenPanel interface {
 	AllowsMultipleSelection() bool
 	SetAllowsMultipleSelection(value bool)
 	// A Boolean value that indicates whether the panel’s accessory view is visible.
-	AccessoryViewDisclosed() bool
+	IsAccessoryViewDisclosed() bool
 	SetAccessoryViewDisclosed(value bool)
 
 	// Topic: Accessing User Selection
@@ -407,7 +407,7 @@ func (o NSOpenPanel) SetAllowsMultipleSelection(value bool) {
 // present, setting this property does nothing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/isAccessoryViewDisclosed
-func (o NSOpenPanel) AccessoryViewDisclosed() bool {
+func (o NSOpenPanel) IsAccessoryViewDisclosed() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessoryViewDisclosed"))
 	return rv
 }

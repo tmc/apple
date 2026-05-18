@@ -154,7 +154,7 @@ func (nc NSBrowserClass) Alloc() NSBrowser {
 //   - [NSBrowser.NumberOfVisibleColumns]: The number of visible columns.
 //   - [NSBrowser.LastVisibleColumn]: The index of the last visible column.
 //   - [NSBrowser.ValidateVisibleColumns]: Validates the browser’s visible columns.
-//   - [NSBrowser.Loaded]: A Boolean that indicates whether column 0 is loaded.
+//   - [NSBrowser.IsLoaded]: A Boolean that indicates whether column 0 is loaded.
 //   - [NSBrowser.LoadColumnZero]: Loads column 0; unloads previously loaded columns.
 //   - [NSBrowser.ReloadColumn]: Reloads the given column.
 //
@@ -162,7 +162,7 @@ func (nc NSBrowserClass) Alloc() NSBrowser {
 //
 //   - [NSBrowser.TitleOfColumn]: Returns the title displayed for the given column.
 //   - [NSBrowser.SetTitleOfColumn]: Sets the title of the given column.
-//   - [NSBrowser.Titled]: A Boolean that indicates whether columns display titles.
+//   - [NSBrowser.IsTitled]: A Boolean that indicates whether columns display titles.
 //   - [NSBrowser.SetTitled]
 //   - [NSBrowser.DrawTitleOfColumnInRect]: Draws the title for the specified column within the given rectangle.
 //   - [NSBrowser.TitleHeight]: The height of the column titles for the browser.
@@ -327,7 +327,7 @@ func NSBrowserFromID(id objc.ID) NSBrowser {
 //   - [INSBrowser.NumberOfVisibleColumns]: The number of visible columns.
 //   - [INSBrowser.LastVisibleColumn]: The index of the last visible column.
 //   - [INSBrowser.ValidateVisibleColumns]: Validates the browser’s visible columns.
-//   - [INSBrowser.Loaded]: A Boolean that indicates whether column 0 is loaded.
+//   - [INSBrowser.IsLoaded]: A Boolean that indicates whether column 0 is loaded.
 //   - [INSBrowser.LoadColumnZero]: Loads column 0; unloads previously loaded columns.
 //   - [INSBrowser.ReloadColumn]: Reloads the given column.
 //
@@ -335,7 +335,7 @@ func NSBrowserFromID(id objc.ID) NSBrowser {
 //
 //   - [INSBrowser.TitleOfColumn]: Returns the title displayed for the given column.
 //   - [INSBrowser.SetTitleOfColumn]: Sets the title of the given column.
-//   - [INSBrowser.Titled]: A Boolean that indicates whether columns display titles.
+//   - [INSBrowser.IsTitled]: A Boolean that indicates whether columns display titles.
 //   - [INSBrowser.SetTitled]
 //   - [INSBrowser.DrawTitleOfColumnInRect]: Draws the title for the specified column within the given rectangle.
 //   - [INSBrowser.TitleHeight]: The height of the column titles for the browser.
@@ -525,7 +525,7 @@ type INSBrowser interface {
 	// Validates the browser’s visible columns.
 	ValidateVisibleColumns()
 	// A Boolean that indicates whether column 0 is loaded.
-	Loaded() bool
+	IsLoaded() bool
 	// Loads column 0; unloads previously loaded columns.
 	LoadColumnZero()
 	// Reloads the given column.
@@ -538,7 +538,7 @@ type INSBrowser interface {
 	// Sets the title of the given column.
 	SetTitleOfColumn(string_ string, column int)
 	// A Boolean that indicates whether columns display titles.
-	Titled() bool
+	IsTitled() bool
 	SetTitled(value bool)
 	// Draws the title for the specified column within the given rectangle.
 	DrawTitleOfColumnInRect(column int, rect corefoundation.CGRect)
@@ -1695,7 +1695,7 @@ func (b NSBrowser) LastVisibleColumn() int {
 // When the value of this property is true, column 0 is loaded.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/isLoaded
-func (b NSBrowser) Loaded() bool {
+func (b NSBrowser) IsLoaded() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isLoaded"))
 	return rv
 }
@@ -1708,7 +1708,7 @@ func (b NSBrowser) Loaded() bool {
 // titles.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/isTitled
-func (b NSBrowser) Titled() bool {
+func (b NSBrowser) IsTitled() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isTitled"))
 	return rv
 }

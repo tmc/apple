@@ -54,7 +54,7 @@ func (nc NSDictionaryControllerKeyValuePairClass) Alloc() NSDictionaryController
 //
 // # Instance Properties
 //
-//   - [NSDictionaryControllerKeyValuePair.ExplicitlyIncluded]
+//   - [NSDictionaryControllerKeyValuePair.IsExplicitlyIncluded]
 //   - [NSDictionaryControllerKeyValuePair.Key]
 //   - [NSDictionaryControllerKeyValuePair.SetKey]
 //   - [NSDictionaryControllerKeyValuePair.LocalizedKey]
@@ -82,7 +82,7 @@ func NSDictionaryControllerKeyValuePairFromID(id objc.ID) NSDictionaryController
 //
 // # Instance Properties
 //
-//   - [INSDictionaryControllerKeyValuePair.ExplicitlyIncluded]
+//   - [INSDictionaryControllerKeyValuePair.IsExplicitlyIncluded]
 //   - [INSDictionaryControllerKeyValuePair.Key]
 //   - [INSDictionaryControllerKeyValuePair.SetKey]
 //   - [INSDictionaryControllerKeyValuePair.LocalizedKey]
@@ -96,7 +96,7 @@ type INSDictionaryControllerKeyValuePair interface {
 
 	// Topic: Instance Properties
 
-	ExplicitlyIncluded() bool
+	IsExplicitlyIncluded() bool
 	Key() string
 	SetKey(value string)
 	LocalizedKey() string
@@ -125,7 +125,7 @@ func NewNSDictionaryControllerKeyValuePair() NSDictionaryControllerKeyValuePair 
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryControllerKeyValuePair/isExplicitlyIncluded
-func (d NSDictionaryControllerKeyValuePair) ExplicitlyIncluded() bool {
+func (d NSDictionaryControllerKeyValuePair) IsExplicitlyIncluded() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isExplicitlyIncluded"))
 	return rv
 }

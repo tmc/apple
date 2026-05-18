@@ -59,7 +59,7 @@ func (ac AVPlayerLayerClass) Alloc() AVPlayerLayer {
 //
 // # Determining display readiness
 //
-//   - [AVPlayerLayer.ReadyForDisplay]: A Boolean value that indicates whether the first video frame of the player’s current item is ready for display.
+//   - [AVPlayerLayer.IsReadyForDisplay]: A Boolean value that indicates whether the first video frame of the player’s current item is ready for display.
 //
 // # Accessing the player
 //
@@ -103,7 +103,7 @@ func AVPlayerLayerFromID(id objc.ID) AVPlayerLayer {
 //
 // # Determining display readiness
 //
-//   - [IAVPlayerLayer.ReadyForDisplay]: A Boolean value that indicates whether the first video frame of the player’s current item is ready for display.
+//   - [IAVPlayerLayer.IsReadyForDisplay]: A Boolean value that indicates whether the first video frame of the player’s current item is ready for display.
 //
 // # Accessing the player
 //
@@ -135,7 +135,7 @@ type IAVPlayerLayer interface {
 	// Topic: Determining display readiness
 
 	// A Boolean value that indicates whether the first video frame of the player’s current item is ready for display.
-	ReadyForDisplay() bool
+	IsReadyForDisplay() bool
 
 	// Topic: Accessing the player
 
@@ -297,7 +297,7 @@ func (p AVPlayerLayer) SetVideoGravity(value AVLayerVideoGravity) {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLayer/isReadyForDisplay
-func (p AVPlayerLayer) ReadyForDisplay() bool {
+func (p AVPlayerLayer) IsReadyForDisplay() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isReadyForDisplay"))
 	return rv
 }

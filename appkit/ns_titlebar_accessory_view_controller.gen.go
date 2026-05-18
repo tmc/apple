@@ -83,7 +83,7 @@ func (nc NSTitlebarAccessoryViewControllerClass) Alloc() NSTitlebarAccessoryView
 //
 //   - [NSTitlebarAccessoryViewController.AutomaticallyAdjustsSize]
 //   - [NSTitlebarAccessoryViewController.SetAutomaticallyAdjustsSize]
-//   - [NSTitlebarAccessoryViewController.Hidden]
+//   - [NSTitlebarAccessoryViewController.IsHidden]
 //   - [NSTitlebarAccessoryViewController.SetHidden]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController
@@ -120,7 +120,7 @@ func NSTitlebarAccessoryViewControllerFromID(id objc.ID) NSTitlebarAccessoryView
 //
 //   - [INSTitlebarAccessoryViewController.AutomaticallyAdjustsSize]
 //   - [INSTitlebarAccessoryViewController.SetAutomaticallyAdjustsSize]
-//   - [INSTitlebarAccessoryViewController.Hidden]
+//   - [INSTitlebarAccessoryViewController.IsHidden]
 //   - [INSTitlebarAccessoryViewController.SetHidden]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController
@@ -147,7 +147,7 @@ type INSTitlebarAccessoryViewController interface {
 
 	AutomaticallyAdjustsSize() bool
 	SetAutomaticallyAdjustsSize(value bool)
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 
 	// The toolbar’s full screen accessory view.
@@ -515,7 +515,7 @@ func (t NSTitlebarAccessoryViewController) SetAutomaticallyAdjustsSize(value boo
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/isHidden
-func (t NSTitlebarAccessoryViewController) Hidden() bool {
+func (t NSTitlebarAccessoryViewController) IsHidden() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isHidden"))
 	return rv
 }

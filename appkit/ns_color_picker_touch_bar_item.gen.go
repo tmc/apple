@@ -57,7 +57,7 @@ func (nc NSColorPickerTouchBarItemClass) Alloc() NSColorPickerTouchBarItem {
 //   - [NSColorPickerTouchBarItem.SetAllowedColorSpaces]
 //   - [NSColorPickerTouchBarItem.ShowsAlpha]: A Boolean value that controls whether the color picker allows picking of colors with alpha values other than `1.0`.
 //   - [NSColorPickerTouchBarItem.SetShowsAlpha]
-//   - [NSColorPickerTouchBarItem.Enabled]: A Boolean value that determines whether the color picker is enabled.
+//   - [NSColorPickerTouchBarItem.IsEnabled]: A Boolean value that determines whether the color picker is enabled.
 //   - [NSColorPickerTouchBarItem.SetEnabled]
 //
 // # Obtaining the selected color
@@ -96,7 +96,7 @@ func NSColorPickerTouchBarItemFromID(id objc.ID) NSColorPickerTouchBarItem {
 //   - [INSColorPickerTouchBarItem.SetAllowedColorSpaces]
 //   - [INSColorPickerTouchBarItem.ShowsAlpha]: A Boolean value that controls whether the color picker allows picking of colors with alpha values other than `1.0`.
 //   - [INSColorPickerTouchBarItem.SetShowsAlpha]
-//   - [INSColorPickerTouchBarItem.Enabled]: A Boolean value that determines whether the color picker is enabled.
+//   - [INSColorPickerTouchBarItem.IsEnabled]: A Boolean value that determines whether the color picker is enabled.
 //   - [INSColorPickerTouchBarItem.SetEnabled]
 //
 // # Obtaining the selected color
@@ -124,7 +124,7 @@ type INSColorPickerTouchBarItem interface {
 	ShowsAlpha() bool
 	SetShowsAlpha(value bool)
 	// A Boolean value that determines whether the color picker is enabled.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 
 	// Topic: Obtaining the selected color
@@ -273,7 +273,7 @@ func (c NSColorPickerTouchBarItem) SetShowsAlpha(value bool) {
 // this property to false, the picker is dismissed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/isEnabled
-func (c NSColorPickerTouchBarItem) Enabled() bool {
+func (c NSColorPickerTouchBarItem) IsEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEnabled"))
 	return rv
 }

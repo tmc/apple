@@ -356,7 +356,7 @@ func (nc NSTextFinderClass) Alloc() NSTextFinder {
 // # Incremental Search Configuration
 //
 //   - [NSTextFinder.IncrementalMatchRanges]: Array of incremental search matches posted on the main queue, which have been found during a background search.
-//   - [NSTextFinder.IncrementalSearchingEnabled]: Determines if incremental searching is enabled.
+//   - [NSTextFinder.IsIncrementalSearchingEnabled]: Determines if incremental searching is enabled.
 //   - [NSTextFinder.SetIncrementalSearchingEnabled]
 //   - [NSTextFinder.IncrementalSearchingShouldDimContentView]: Determines the type of incremental search feedback to be presented
 //   - [NSTextFinder.SetIncrementalSearchingShouldDimContentView]
@@ -414,7 +414,7 @@ func NSTextFinderFromID(id objc.ID) NSTextFinder {
 // # Incremental Search Configuration
 //
 //   - [INSTextFinder.IncrementalMatchRanges]: Array of incremental search matches posted on the main queue, which have been found during a background search.
-//   - [INSTextFinder.IncrementalSearchingEnabled]: Determines if incremental searching is enabled.
+//   - [INSTextFinder.IsIncrementalSearchingEnabled]: Determines if incremental searching is enabled.
 //   - [INSTextFinder.SetIncrementalSearchingEnabled]
 //   - [INSTextFinder.IncrementalSearchingShouldDimContentView]: Determines the type of incremental search feedback to be presented
 //   - [INSTextFinder.SetIncrementalSearchingShouldDimContentView]
@@ -464,7 +464,7 @@ type INSTextFinder interface {
 	// Array of incremental search matches posted on the main queue, which have been found during a background search.
 	IncrementalMatchRanges() []foundation.NSValue
 	// Determines if incremental searching is enabled.
-	IncrementalSearchingEnabled() bool
+	IsIncrementalSearchingEnabled() bool
 	SetIncrementalSearchingEnabled(value bool)
 	// Determines the type of incremental search feedback to be presented
 	IncrementalSearchingShouldDimContentView() bool
@@ -762,7 +762,7 @@ func (t NSTextFinder) IncrementalMatchRanges() []foundation.NSValue {
 // The default value is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinder/isIncrementalSearchingEnabled
-func (t NSTextFinder) IncrementalSearchingEnabled() bool {
+func (t NSTextFinder) IsIncrementalSearchingEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isIncrementalSearchingEnabled"))
 	return rv
 }

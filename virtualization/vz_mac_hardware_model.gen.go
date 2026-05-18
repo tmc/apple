@@ -85,7 +85,7 @@ func (vc VZMacHardwareModelClass) Alloc() VZMacHardwareModel {
 // # Configuring the hardware model
 //
 //   - [VZMacHardwareModel.DataRepresentation]: Returns the opaque data representation of the hardware model.
-//   - [VZMacHardwareModel.Supported]: A Boolean value that indicates whether the host supports this hardware model.
+//   - [VZMacHardwareModel.IsSupported]: A Boolean value that indicates whether the host supports this hardware model.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel
 type VZMacHardwareModel struct {
@@ -112,7 +112,7 @@ func VZMacHardwareModelFromID(id objc.ID) VZMacHardwareModel {
 // # Configuring the hardware model
 //
 //   - [IVZMacHardwareModel.DataRepresentation]: Returns the opaque data representation of the hardware model.
-//   - [IVZMacHardwareModel.Supported]: A Boolean value that indicates whether the host supports this hardware model.
+//   - [IVZMacHardwareModel.IsSupported]: A Boolean value that indicates whether the host supports this hardware model.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel
 type IVZMacHardwareModel interface {
@@ -128,7 +128,7 @@ type IVZMacHardwareModel interface {
 	// Returns the opaque data representation of the hardware model.
 	DataRepresentation() foundation.NSData
 	// A Boolean value that indicates whether the host supports this hardware model.
-	Supported() bool
+	IsSupported() bool
 
 	// The Mac hardware model.
 	HardwareModel() IVZMacHardwareModel
@@ -205,7 +205,7 @@ func (m VZMacHardwareModel) DataRepresentation() foundation.NSData {
 // information about why the hardware model isn’t supported.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/isSupported
-func (m VZMacHardwareModel) Supported() bool {
+func (m VZMacHardwareModel) IsSupported() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSupported"))
 	return rv
 }

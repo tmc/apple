@@ -84,9 +84,9 @@ func (tc ThreadClass) Alloc() Thread {
 //
 // # Determining the Thread’s Execution State
 //
-//   - [Thread.Executing]: A Boolean value that indicates whether the receiver is executing.
-//   - [Thread.Finished]: A Boolean value that indicates whether the receiver has finished execution.
-//   - [Thread.Cancelled]: A Boolean value that indicates whether the receiver is cancelled.
+//   - [Thread.IsExecuting]: A Boolean value that indicates whether the receiver is executing.
+//   - [Thread.IsFinished]: A Boolean value that indicates whether the receiver has finished execution.
+//   - [Thread.IsCancelled]: A Boolean value that indicates whether the receiver is cancelled.
 //
 // # Working with the Main Thread
 //
@@ -153,9 +153,9 @@ func NSThreadFromID(id objc.ID) Thread { return ThreadFromID(id) }
 //
 // # Determining the Thread’s Execution State
 //
-//   - [IThread.Executing]: A Boolean value that indicates whether the receiver is executing.
-//   - [IThread.Finished]: A Boolean value that indicates whether the receiver has finished execution.
-//   - [IThread.Cancelled]: A Boolean value that indicates whether the receiver is cancelled.
+//   - [IThread.IsExecuting]: A Boolean value that indicates whether the receiver is executing.
+//   - [IThread.IsFinished]: A Boolean value that indicates whether the receiver has finished execution.
+//   - [IThread.IsCancelled]: A Boolean value that indicates whether the receiver is cancelled.
 //
 // # Working with the Main Thread
 //
@@ -211,11 +211,11 @@ type IThread interface {
 	// Topic: Determining the Thread’s Execution State
 
 	// A Boolean value that indicates whether the receiver is executing.
-	Executing() bool
+	IsExecuting() bool
 	// A Boolean value that indicates whether the receiver has finished execution.
-	Finished() bool
+	IsFinished() bool
 	// A Boolean value that indicates whether the receiver is cancelled.
-	Cancelled() bool
+	IsCancelled() bool
 
 	// Topic: Working with the Main Thread
 
@@ -537,7 +537,7 @@ func (_ThreadClass ThreadClass) DetachNewThreadWithBlock(block VoidHandler) {
 // true if the receiver is executing, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/isExecuting
-func (t Thread) Executing() bool {
+func (t Thread) IsExecuting() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isExecuting"))
 	return rv
 }
@@ -549,7 +549,7 @@ func (t Thread) Executing() bool {
 // true if the receiver has finished execution, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/isFinished
-func (t Thread) Finished() bool {
+func (t Thread) IsFinished() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isFinished"))
 	return rv
 }
@@ -564,7 +564,7 @@ func (t Thread) Finished() bool {
 // periodically and exit if it ever returns true.
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/isCancelled
-func (t Thread) Cancelled() bool {
+func (t Thread) IsCancelled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isCancelled"))
 	return rv
 }

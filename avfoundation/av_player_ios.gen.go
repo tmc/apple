@@ -129,7 +129,7 @@ func (p AVPlayer) SetAllowsAirPlayVideo(value bool) {
 // AirPlay.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/isAirPlayVideoActive
-func (p AVPlayer) AirPlayVideoActive() bool {
+func (p AVPlayer) IsAirPlayVideoActive() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isAirPlayVideoActive"))
 	return rv
 }

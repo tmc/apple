@@ -58,16 +58,16 @@ func (ac AVCaptureDeviceFormatClass) Alloc() AVCaptureDeviceFormat {
 //
 // # Determining spatial capture support
 //
-//   - [AVCaptureDeviceFormat.SpatialVideoCaptureSupported]: A Boolean value that indicates whether the format supports capturing spatial video to a file.
+//   - [AVCaptureDeviceFormat.IsSpatialVideoCaptureSupported]: A Boolean value that indicates whether the format supports capturing spatial video to a file.
 //
 // # Determining background replacement support
 //
-//   - [AVCaptureDeviceFormat.BackgroundReplacementSupported]: A Boolean value that indicates whether the format supports background replacement.
+//   - [AVCaptureDeviceFormat.IsBackgroundReplacementSupported]: A Boolean value that indicates whether the format supports background replacement.
 //   - [AVCaptureDeviceFormat.VideoFrameRateRangeForBackgroundReplacement]: The minimum and maximum frame rates available when Background Replacement is active.
 //
 // # Determining video capture support
 //
-//   - [AVCaptureDeviceFormat.AutoVideoFrameRateSupported]: A Boolean value that Indicates whether the format supports performing automatic video frame rate adjustments.
+//   - [AVCaptureDeviceFormat.IsAutoVideoFrameRateSupported]: A Boolean value that Indicates whether the format supports performing automatic video frame rate adjustments.
 //   - [AVCaptureDeviceFormat.VideoSupportedFrameRateRanges]: A list of frame rate ranges that a format supports.
 //
 // # Determining reaction effects support
@@ -82,7 +82,7 @@ func (ac AVCaptureDeviceFormatClass) Alloc() AVCaptureDeviceFormat {
 //
 // # Determining photo quality
 //
-//   - [AVCaptureDeviceFormat.HighPhotoQualitySupported]: A Boolean value that indicates whether this format supports high-quality capture with the current quality prioritization setting.
+//   - [AVCaptureDeviceFormat.IsHighPhotoQualitySupported]: A Boolean value that indicates whether this format supports high-quality capture with the current quality prioritization setting.
 //
 // # Determining zoom capabilities
 //
@@ -94,7 +94,7 @@ func (ac AVCaptureDeviceFormatClass) Alloc() AVCaptureDeviceFormat {
 //
 // # Determining Cinematic video support
 //
-//   - [AVCaptureDeviceFormat.CinematicVideoCaptureSupported]: Indicates whether the format supports Cinematic Video capture.
+//   - [AVCaptureDeviceFormat.IsCinematicVideoCaptureSupported]: Indicates whether the format supports Cinematic Video capture.
 //   - [AVCaptureDeviceFormat.DefaultSimulatedAperture]: Default shallow depth of field simulated aperture.
 //   - [AVCaptureDeviceFormat.MinSimulatedAperture]: Minimum supported shallow depth of field simulated aperture.
 //   - [AVCaptureDeviceFormat.MaxSimulatedAperture]: Maximum supported shallow depth of field simulated aperture.
@@ -104,28 +104,28 @@ func (ac AVCaptureDeviceFormatClass) Alloc() AVCaptureDeviceFormat {
 //
 // # Determining lens smudge detection support
 //
-//   - [AVCaptureDeviceFormat.CameraLensSmudgeDetectionSupported]: Whether camera lens smudge detection is supported.
+//   - [AVCaptureDeviceFormat.IsCameraLensSmudgeDetectionSupported]: Whether camera lens smudge detection is supported.
 //
 // # Determining Center Stage support
 //
-//   - [AVCaptureDeviceFormat.CenterStageSupported]: A Boolean value that indicates whether the format supports Center Stage.
+//   - [AVCaptureDeviceFormat.IsCenterStageSupported]: A Boolean value that indicates whether the format supports Center Stage.
 //   - [AVCaptureDeviceFormat.VideoFrameRateRangeForCenterStage]: The range of frame rates available when Center Stage is active.
 //   - [AVCaptureDeviceFormat.VideoMinZoomFactorForCenterStage]: The minimum zoom factor available when Center Stage is active.
 //   - [AVCaptureDeviceFormat.VideoMaxZoomFactorForCenterStage]: The maximum zoom factor available when Center Stage is active.
 //
 // # Determining Portrait Effects support
 //
-//   - [AVCaptureDeviceFormat.PortraitEffectSupported]: A Boolean value that indicates whether the format supports the Portrait Effect feature.
+//   - [AVCaptureDeviceFormat.IsPortraitEffectSupported]: A Boolean value that indicates whether the format supports the Portrait Effect feature.
 //   - [AVCaptureDeviceFormat.VideoFrameRateRangeForPortraitEffect]: The range of frame rates available when Portrait Effect is active.
 //
 // # Determining Studio Light support
 //
-//   - [AVCaptureDeviceFormat.StudioLightSupported]: A Boolean value that indicates whether the format supports Studio Light.
+//   - [AVCaptureDeviceFormat.IsStudioLightSupported]: A Boolean value that indicates whether the format supports Studio Light.
 //   - [AVCaptureDeviceFormat.VideoFrameRateRangeForStudioLight]: A value that indicates the minimum and maximum frame rates available when a user enables Studio Light.
 //
 // # Instance Properties
 //
-//   - [AVCaptureDeviceFormat.EdgeLightSupported]: Indicates whether the format supports the Edge Light feature.
+//   - [AVCaptureDeviceFormat.IsEdgeLightSupported]: Indicates whether the format supports the Edge Light feature.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format
 //
@@ -149,16 +149,16 @@ func AVCaptureDeviceFormatFromID(id objc.ID) AVCaptureDeviceFormat {
 //
 // # Determining spatial capture support
 //
-//   - [IAVCaptureDeviceFormat.SpatialVideoCaptureSupported]: A Boolean value that indicates whether the format supports capturing spatial video to a file.
+//   - [IAVCaptureDeviceFormat.IsSpatialVideoCaptureSupported]: A Boolean value that indicates whether the format supports capturing spatial video to a file.
 //
 // # Determining background replacement support
 //
-//   - [IAVCaptureDeviceFormat.BackgroundReplacementSupported]: A Boolean value that indicates whether the format supports background replacement.
+//   - [IAVCaptureDeviceFormat.IsBackgroundReplacementSupported]: A Boolean value that indicates whether the format supports background replacement.
 //   - [IAVCaptureDeviceFormat.VideoFrameRateRangeForBackgroundReplacement]: The minimum and maximum frame rates available when Background Replacement is active.
 //
 // # Determining video capture support
 //
-//   - [IAVCaptureDeviceFormat.AutoVideoFrameRateSupported]: A Boolean value that Indicates whether the format supports performing automatic video frame rate adjustments.
+//   - [IAVCaptureDeviceFormat.IsAutoVideoFrameRateSupported]: A Boolean value that Indicates whether the format supports performing automatic video frame rate adjustments.
 //   - [IAVCaptureDeviceFormat.VideoSupportedFrameRateRanges]: A list of frame rate ranges that a format supports.
 //
 // # Determining reaction effects support
@@ -173,7 +173,7 @@ func AVCaptureDeviceFormatFromID(id objc.ID) AVCaptureDeviceFormat {
 //
 // # Determining photo quality
 //
-//   - [IAVCaptureDeviceFormat.HighPhotoQualitySupported]: A Boolean value that indicates whether this format supports high-quality capture with the current quality prioritization setting.
+//   - [IAVCaptureDeviceFormat.IsHighPhotoQualitySupported]: A Boolean value that indicates whether this format supports high-quality capture with the current quality prioritization setting.
 //
 // # Determining zoom capabilities
 //
@@ -185,7 +185,7 @@ func AVCaptureDeviceFormatFromID(id objc.ID) AVCaptureDeviceFormat {
 //
 // # Determining Cinematic video support
 //
-//   - [IAVCaptureDeviceFormat.CinematicVideoCaptureSupported]: Indicates whether the format supports Cinematic Video capture.
+//   - [IAVCaptureDeviceFormat.IsCinematicVideoCaptureSupported]: Indicates whether the format supports Cinematic Video capture.
 //   - [IAVCaptureDeviceFormat.DefaultSimulatedAperture]: Default shallow depth of field simulated aperture.
 //   - [IAVCaptureDeviceFormat.MinSimulatedAperture]: Minimum supported shallow depth of field simulated aperture.
 //   - [IAVCaptureDeviceFormat.MaxSimulatedAperture]: Maximum supported shallow depth of field simulated aperture.
@@ -195,28 +195,28 @@ func AVCaptureDeviceFormatFromID(id objc.ID) AVCaptureDeviceFormat {
 //
 // # Determining lens smudge detection support
 //
-//   - [IAVCaptureDeviceFormat.CameraLensSmudgeDetectionSupported]: Whether camera lens smudge detection is supported.
+//   - [IAVCaptureDeviceFormat.IsCameraLensSmudgeDetectionSupported]: Whether camera lens smudge detection is supported.
 //
 // # Determining Center Stage support
 //
-//   - [IAVCaptureDeviceFormat.CenterStageSupported]: A Boolean value that indicates whether the format supports Center Stage.
+//   - [IAVCaptureDeviceFormat.IsCenterStageSupported]: A Boolean value that indicates whether the format supports Center Stage.
 //   - [IAVCaptureDeviceFormat.VideoFrameRateRangeForCenterStage]: The range of frame rates available when Center Stage is active.
 //   - [IAVCaptureDeviceFormat.VideoMinZoomFactorForCenterStage]: The minimum zoom factor available when Center Stage is active.
 //   - [IAVCaptureDeviceFormat.VideoMaxZoomFactorForCenterStage]: The maximum zoom factor available when Center Stage is active.
 //
 // # Determining Portrait Effects support
 //
-//   - [IAVCaptureDeviceFormat.PortraitEffectSupported]: A Boolean value that indicates whether the format supports the Portrait Effect feature.
+//   - [IAVCaptureDeviceFormat.IsPortraitEffectSupported]: A Boolean value that indicates whether the format supports the Portrait Effect feature.
 //   - [IAVCaptureDeviceFormat.VideoFrameRateRangeForPortraitEffect]: The range of frame rates available when Portrait Effect is active.
 //
 // # Determining Studio Light support
 //
-//   - [IAVCaptureDeviceFormat.StudioLightSupported]: A Boolean value that indicates whether the format supports Studio Light.
+//   - [IAVCaptureDeviceFormat.IsStudioLightSupported]: A Boolean value that indicates whether the format supports Studio Light.
 //   - [IAVCaptureDeviceFormat.VideoFrameRateRangeForStudioLight]: A value that indicates the minimum and maximum frame rates available when a user enables Studio Light.
 //
 // # Instance Properties
 //
-//   - [IAVCaptureDeviceFormat.EdgeLightSupported]: Indicates whether the format supports the Edge Light feature.
+//   - [IAVCaptureDeviceFormat.IsEdgeLightSupported]: Indicates whether the format supports the Edge Light feature.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format
 type IAVCaptureDeviceFormat interface {
@@ -225,19 +225,19 @@ type IAVCaptureDeviceFormat interface {
 	// Topic: Determining spatial capture support
 
 	// A Boolean value that indicates whether the format supports capturing spatial video to a file.
-	SpatialVideoCaptureSupported() bool
+	IsSpatialVideoCaptureSupported() bool
 
 	// Topic: Determining background replacement support
 
 	// A Boolean value that indicates whether the format supports background replacement.
-	BackgroundReplacementSupported() bool
+	IsBackgroundReplacementSupported() bool
 	// The minimum and maximum frame rates available when Background Replacement is active.
 	VideoFrameRateRangeForBackgroundReplacement() IAVFrameRateRange
 
 	// Topic: Determining video capture support
 
 	// A Boolean value that Indicates whether the format supports performing automatic video frame rate adjustments.
-	AutoVideoFrameRateSupported() bool
+	IsAutoVideoFrameRateSupported() bool
 	// A list of frame rate ranges that a format supports.
 	VideoSupportedFrameRateRanges() []AVFrameRateRange
 
@@ -258,7 +258,7 @@ type IAVCaptureDeviceFormat interface {
 	// Topic: Determining photo quality
 
 	// A Boolean value that indicates whether this format supports high-quality capture with the current quality prioritization setting.
-	HighPhotoQualitySupported() bool
+	IsHighPhotoQualitySupported() bool
 
 	// Topic: Determining zoom capabilities
 
@@ -273,7 +273,7 @@ type IAVCaptureDeviceFormat interface {
 	// Topic: Determining Cinematic video support
 
 	// Indicates whether the format supports Cinematic Video capture.
-	CinematicVideoCaptureSupported() bool
+	IsCinematicVideoCaptureSupported() bool
 	// Default shallow depth of field simulated aperture.
 	DefaultSimulatedAperture() float32
 	// Minimum supported shallow depth of field simulated aperture.
@@ -290,12 +290,12 @@ type IAVCaptureDeviceFormat interface {
 	// Topic: Determining lens smudge detection support
 
 	// Whether camera lens smudge detection is supported.
-	CameraLensSmudgeDetectionSupported() bool
+	IsCameraLensSmudgeDetectionSupported() bool
 
 	// Topic: Determining Center Stage support
 
 	// A Boolean value that indicates whether the format supports Center Stage.
-	CenterStageSupported() bool
+	IsCenterStageSupported() bool
 	// The range of frame rates available when Center Stage is active.
 	VideoFrameRateRangeForCenterStage() IAVFrameRateRange
 	// The minimum zoom factor available when Center Stage is active.
@@ -306,21 +306,21 @@ type IAVCaptureDeviceFormat interface {
 	// Topic: Determining Portrait Effects support
 
 	// A Boolean value that indicates whether the format supports the Portrait Effect feature.
-	PortraitEffectSupported() bool
+	IsPortraitEffectSupported() bool
 	// The range of frame rates available when Portrait Effect is active.
 	VideoFrameRateRangeForPortraitEffect() IAVFrameRateRange
 
 	// Topic: Determining Studio Light support
 
 	// A Boolean value that indicates whether the format supports Studio Light.
-	StudioLightSupported() bool
+	IsStudioLightSupported() bool
 	// A value that indicates the minimum and maximum frame rates available when a user enables Studio Light.
 	VideoFrameRateRangeForStudioLight() IAVFrameRateRange
 
 	// Topic: Instance Properties
 
 	// Indicates whether the format supports the Edge Light feature.
-	EdgeLightSupported() bool
+	IsEdgeLightSupported() bool
 
 	// The currently active depth data format of the capture device.
 	ActiveDepthDataFormat() IAVCaptureDeviceFormat
@@ -371,7 +371,7 @@ func NewAVCaptureDeviceFormat() AVCaptureDeviceFormat {
 // spatial video to a file.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isSpatialVideoCaptureSupported
-func (c AVCaptureDeviceFormat) SpatialVideoCaptureSupported() bool {
+func (c AVCaptureDeviceFormat) IsSpatialVideoCaptureSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSpatialVideoCaptureSupported"))
 	return rv
 }
@@ -380,7 +380,7 @@ func (c AVCaptureDeviceFormat) SpatialVideoCaptureSupported() bool {
 // replacement.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isBackgroundReplacementSupported
-func (c AVCaptureDeviceFormat) BackgroundReplacementSupported() bool {
+func (c AVCaptureDeviceFormat) IsBackgroundReplacementSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isBackgroundReplacementSupported"))
 	return rv
 }
@@ -409,7 +409,7 @@ func (c AVCaptureDeviceFormat) VideoFrameRateRangeForBackgroundReplacement() IAV
 // [AutoVideoFrameRateEnabled] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isAutoVideoFrameRateSupported
-func (c AVCaptureDeviceFormat) AutoVideoFrameRateSupported() bool {
+func (c AVCaptureDeviceFormat) IsAutoVideoFrameRateSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoVideoFrameRateSupported"))
 	return rv
 }
@@ -508,7 +508,7 @@ func (c AVCaptureDeviceFormat) FormatDescription() coremedia.CMFormatDescription
 // quality regardless of the current [PhotoQualityPrioritization] setting.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isHighPhotoQualitySupported
-func (c AVCaptureDeviceFormat) HighPhotoQualitySupported() bool {
+func (c AVCaptureDeviceFormat) IsHighPhotoQualitySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isHighPhotoQualitySupported"))
 	return rv
 }
@@ -548,7 +548,7 @@ func (c AVCaptureDeviceFormat) AutoFocusSystem() AVCaptureAutoFocusSystem {
 // transitions for a cinema-grade look.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isCinematicVideoCaptureSupported
-func (c AVCaptureDeviceFormat) CinematicVideoCaptureSupported() bool {
+func (c AVCaptureDeviceFormat) IsCinematicVideoCaptureSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCinematicVideoCaptureSupported"))
 	return rv
 }
@@ -649,7 +649,7 @@ func (c AVCaptureDeviceFormat) VideoFrameRateRangeForCinematicVideo() IAVFrameRa
 // [CameraLensSmudgeDetectionEnabled] to `true` again.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isCameraLensSmudgeDetectionSupported
-func (c AVCaptureDeviceFormat) CameraLensSmudgeDetectionSupported() bool {
+func (c AVCaptureDeviceFormat) IsCameraLensSmudgeDetectionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCameraLensSmudgeDetectionSupported"))
 	return rv
 }
@@ -661,7 +661,7 @@ func (c AVCaptureDeviceFormat) CameraLensSmudgeDetectionSupported() bool {
 // See [AVCaptureDevice] for more information on using Center Stage.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isCenterStageSupported
-func (c AVCaptureDeviceFormat) CenterStageSupported() bool {
+func (c AVCaptureDeviceFormat) IsCenterStageSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCenterStageSupported"))
 	return rv
 }
@@ -715,7 +715,7 @@ func (c AVCaptureDeviceFormat) VideoMaxZoomFactorForCenterStage() float64 {
 // [AVCaptureDevice] for more information.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isPortraitEffectSupported
-func (c AVCaptureDeviceFormat) PortraitEffectSupported() bool {
+func (c AVCaptureDeviceFormat) IsPortraitEffectSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPortraitEffectSupported"))
 	return rv
 }
@@ -741,7 +741,7 @@ func (c AVCaptureDeviceFormat) VideoFrameRateRangeForPortraitEffect() IAVFrameRa
 // See [StudioLightEnabled] for more information on the Studio Light feature.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isStudioLightSupported
-func (c AVCaptureDeviceFormat) StudioLightSupported() bool {
+func (c AVCaptureDeviceFormat) IsStudioLightSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isStudioLightSupported"))
 	return rv
 }
@@ -768,7 +768,7 @@ func (c AVCaptureDeviceFormat) VideoFrameRateRangeForStudioLight() IAVFrameRateR
 // See +AVCaptureDevice.edgeLightEnabled.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/isEdgeLightSupported
-func (c AVCaptureDeviceFormat) EdgeLightSupported() bool {
+func (c AVCaptureDeviceFormat) IsEdgeLightSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEdgeLightSupported"))
 	return rv
 }

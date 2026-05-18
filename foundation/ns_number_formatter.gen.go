@@ -258,12 +258,12 @@ func (nc NumberFormatterClass) Alloc() NumberFormatter {
 //
 // # Managing Leniency Behavior
 //
-//   - [NumberFormatter.Lenient]: Determines whether the receiver will use heuristics to guess at the number which is intended by a string.
+//   - [NumberFormatter.IsLenient]: Determines whether the receiver will use heuristics to guess at the number which is intended by a string.
 //   - [NumberFormatter.SetLenient]
 //
 // # Managing the Validation of Partial Numeric Strings
 //
-//   - [NumberFormatter.PartialStringValidationEnabled]: Determines whether partial string validation is enabled for the receiver.
+//   - [NumberFormatter.IsPartialStringValidationEnabled]: Determines whether partial string validation is enabled for the receiver.
 //   - [NumberFormatter.SetPartialStringValidationEnabled]
 //
 // # Instance Properties
@@ -465,12 +465,12 @@ func NSNumberFormatterFromID(id objc.ID) NumberFormatter { return NumberFormatte
 //
 // # Managing Leniency Behavior
 //
-//   - [INumberFormatter.Lenient]: Determines whether the receiver will use heuristics to guess at the number which is intended by a string.
+//   - [INumberFormatter.IsLenient]: Determines whether the receiver will use heuristics to guess at the number which is intended by a string.
 //   - [INumberFormatter.SetLenient]
 //
 // # Managing the Validation of Partial Numeric Strings
 //
-//   - [INumberFormatter.PartialStringValidationEnabled]: Determines whether partial string validation is enabled for the receiver.
+//   - [INumberFormatter.IsPartialStringValidationEnabled]: Determines whether partial string validation is enabled for the receiver.
 //   - [INumberFormatter.SetPartialStringValidationEnabled]
 //
 // # Instance Properties
@@ -722,13 +722,13 @@ type INumberFormatter interface {
 	// Topic: Managing Leniency Behavior
 
 	// Determines whether the receiver will use heuristics to guess at the number which is intended by a string.
-	Lenient() bool
+	IsLenient() bool
 	SetLenient(value bool)
 
 	// Topic: Managing the Validation of Partial Numeric Strings
 
 	// Determines whether partial string validation is enabled for the receiver.
-	PartialStringValidationEnabled() bool
+	IsPartialStringValidationEnabled() bool
 	SetPartialStringValidationEnabled(value bool)
 
 	// Topic: Instance Properties
@@ -1866,7 +1866,7 @@ func (n NumberFormatter) SetMaximum(value INSNumber) {
 // result number wrong (that is, a number other than that which was intended).
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/isLenient
-func (n NumberFormatter) Lenient() bool {
+func (n NumberFormatter) IsLenient() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isLenient"))
 	return rv
 }
@@ -1877,7 +1877,7 @@ func (n NumberFormatter) SetLenient(value bool) {
 // Determines whether partial string validation is enabled for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/isPartialStringValidationEnabled
-func (n NumberFormatter) PartialStringValidationEnabled() bool {
+func (n NumberFormatter) IsPartialStringValidationEnabled() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isPartialStringValidationEnabled"))
 	return rv
 }

@@ -216,7 +216,7 @@ func (nc NSApplicationClass) Alloc() NSApplication {
 //   - [NSApplication.NextEventMatchingMaskUntilDateInModeDequeue]: Returns the next event matching a given mask, or `nil` if no such event is found before a specified expiration date.
 //   - [NSApplication.DiscardEventsMatchingMaskBeforeEvent]: Removes all events matching the given mask and generated before the specified event.
 //   - [NSApplication.CurrentEvent]: The last event object that the app retrieved from the event queue.
-//   - [NSApplication.Running]: A Boolean value indicating whether the main event loop is running.
+//   - [NSApplication.IsRunning]: A Boolean value indicating whether the main event loop is running.
 //   - [NSApplication.Run]: Starts the main event loop.
 //   - [NSApplication.FinishLaunching]: Activates the app, opens any files specified by the [NSOpen] user default, and unhighlights the app’s icon.
 //   - [NSApplication.Stop]: Stops the main event loop.
@@ -238,7 +238,7 @@ func (nc NSApplicationClass) Alloc() NSApplication {
 //
 //   - [NSApplication.Activate]: Activates the receiver app, if appropriate.
 //   - [NSApplication.Deactivate]: Deactivates the receiver.
-//   - [NSApplication.Active]: A Boolean value indicating whether this is the active app.
+//   - [NSApplication.IsActive]: A Boolean value indicating whether this is the active app.
 //   - [NSApplication.YieldActivationToApplication]: Explicitly allows another app to make itself active.
 //   - [NSApplication.YieldActivationToApplicationWithBundleIdentifier]: Explicitly allows another app to make itself active.
 //
@@ -253,7 +253,7 @@ func (nc NSApplicationClass) Alloc() NSApplication {
 //   - [NSApplication.UnregisterForRemoteNotifications]: Unregister for notifications received from Apple Push Notification service.
 //   - [NSApplication.EnabledRemoteNotificationTypes]: The types of push notifications that the app accepts.
 //   - [NSApplication.RegisterForRemoteNotificationTypes]: Register to receive notifications of the specified types from a provider through the Apple Push Notification service.
-//   - [NSApplication.RegisteredForRemoteNotifications]: A Boolean value indicating whether the app is registered with Apple Push Notification service (APNs).
+//   - [NSApplication.IsRegisteredForRemoteNotifications]: A Boolean value indicating whether the app is registered with Apple Push Notification service (APNs).
 //
 // # Managing the app’s appearance
 //
@@ -299,7 +299,7 @@ func (nc NSApplicationClass) Alloc() NSApplication {
 //
 // # Determining access to the keyboard
 //
-//   - [NSApplication.FullKeyboardAccessEnabled]: A Boolean value indicating whether Full Keyboard Access is enabled in the Keyboard preference pane.
+//   - [NSApplication.IsFullKeyboardAccessEnabled]: A Boolean value indicating whether Full Keyboard Access is enabled in the Keyboard preference pane.
 //
 // # Hiding apps
 //
@@ -357,7 +357,7 @@ func NSApplicationFromID(id objc.ID) NSApplication {
 //   - [INSApplication.NextEventMatchingMaskUntilDateInModeDequeue]: Returns the next event matching a given mask, or `nil` if no such event is found before a specified expiration date.
 //   - [INSApplication.DiscardEventsMatchingMaskBeforeEvent]: Removes all events matching the given mask and generated before the specified event.
 //   - [INSApplication.CurrentEvent]: The last event object that the app retrieved from the event queue.
-//   - [INSApplication.Running]: A Boolean value indicating whether the main event loop is running.
+//   - [INSApplication.IsRunning]: A Boolean value indicating whether the main event loop is running.
 //   - [INSApplication.Run]: Starts the main event loop.
 //   - [INSApplication.FinishLaunching]: Activates the app, opens any files specified by the [NSOpen] user default, and unhighlights the app’s icon.
 //   - [INSApplication.Stop]: Stops the main event loop.
@@ -379,7 +379,7 @@ func NSApplicationFromID(id objc.ID) NSApplication {
 //
 //   - [INSApplication.Activate]: Activates the receiver app, if appropriate.
 //   - [INSApplication.Deactivate]: Deactivates the receiver.
-//   - [INSApplication.Active]: A Boolean value indicating whether this is the active app.
+//   - [INSApplication.IsActive]: A Boolean value indicating whether this is the active app.
 //   - [INSApplication.YieldActivationToApplication]: Explicitly allows another app to make itself active.
 //   - [INSApplication.YieldActivationToApplicationWithBundleIdentifier]: Explicitly allows another app to make itself active.
 //
@@ -394,7 +394,7 @@ func NSApplicationFromID(id objc.ID) NSApplication {
 //   - [INSApplication.UnregisterForRemoteNotifications]: Unregister for notifications received from Apple Push Notification service.
 //   - [INSApplication.EnabledRemoteNotificationTypes]: The types of push notifications that the app accepts.
 //   - [INSApplication.RegisterForRemoteNotificationTypes]: Register to receive notifications of the specified types from a provider through the Apple Push Notification service.
-//   - [INSApplication.RegisteredForRemoteNotifications]: A Boolean value indicating whether the app is registered with Apple Push Notification service (APNs).
+//   - [INSApplication.IsRegisteredForRemoteNotifications]: A Boolean value indicating whether the app is registered with Apple Push Notification service (APNs).
 //
 // # Managing the app’s appearance
 //
@@ -440,7 +440,7 @@ func NSApplicationFromID(id objc.ID) NSApplication {
 //
 // # Determining access to the keyboard
 //
-//   - [INSApplication.FullKeyboardAccessEnabled]: A Boolean value indicating whether Full Keyboard Access is enabled in the Keyboard preference pane.
+//   - [INSApplication.IsFullKeyboardAccessEnabled]: A Boolean value indicating whether Full Keyboard Access is enabled in the Keyboard preference pane.
 //
 // # Hiding apps
 //
@@ -482,7 +482,7 @@ type INSApplication interface {
 	// The last event object that the app retrieved from the event queue.
 	CurrentEvent() INSEvent
 	// A Boolean value indicating whether the main event loop is running.
-	Running() bool
+	IsRunning() bool
 	// Starts the main event loop.
 	Run()
 	// Activates the app, opens any files specified by the [NSOpen] user default, and unhighlights the app’s icon.
@@ -517,7 +517,7 @@ type INSApplication interface {
 	// Deactivates the receiver.
 	Deactivate()
 	// A Boolean value indicating whether this is the active app.
-	Active() bool
+	IsActive() bool
 	// Explicitly allows another app to make itself active.
 	YieldActivationToApplication(application INSRunningApplication)
 	// Explicitly allows another app to make itself active.
@@ -541,7 +541,7 @@ type INSApplication interface {
 	// Register to receive notifications of the specified types from a provider through the Apple Push Notification service.
 	RegisterForRemoteNotificationTypes(types NSRemoteNotificationType)
 	// A Boolean value indicating whether the app is registered with Apple Push Notification service (APNs).
-	RegisteredForRemoteNotifications() bool
+	IsRegisteredForRemoteNotifications() bool
 
 	// Topic: Managing the app’s appearance
 
@@ -605,7 +605,7 @@ type INSApplication interface {
 	// Topic: Determining access to the keyboard
 
 	// A Boolean value indicating whether Full Keyboard Access is enabled in the Keyboard preference pane.
-	FullKeyboardAccessEnabled() bool
+	IsFullKeyboardAccessEnabled() bool
 
 	// Topic: Hiding apps
 
@@ -630,10 +630,10 @@ type INSApplication interface {
 	ActivationPolicy() NSApplicationActivationPolicy
 	SetActivationPolicy(value NSApplicationActivationPolicy)
 	// A Boolean value indicating whether the main menu contains an item for customizing the contents of the Touch Bar.
-	AutomaticCustomizeTouchBarMenuItemEnabled() bool
+	IsAutomaticCustomizeTouchBarMenuItemEnabled() bool
 	SetAutomaticCustomizeTouchBarMenuItemEnabled(value bool)
 	// A Boolean value indicating whether the app is hidden.
-	Hidden() bool
+	IsHidden() bool
 	// The window that currently receives keyboard events.
 	KeyWindow() INSWindow
 	// The app’s main menu bar.
@@ -645,7 +645,7 @@ type INSApplication interface {
 	ModalWindow() INSWindow
 	// The occlusion state of the app.
 	OcclusionState() NSApplicationOcclusionState
-	ProtectedDataAvailable() bool
+	IsProtectedDataAvailable() bool
 	// The app’s Services menu.
 	ServicesMenu() INSMenu
 	SetServicesMenu(value INSMenu)
@@ -2202,7 +2202,7 @@ func (a NSApplication) CurrentEvent() INSEvent {
 // false when it’s not. Calling the [Stop] method sets the value to false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/isRunning
-func (a NSApplication) Running() bool {
+func (a NSApplication) IsRunning() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRunning"))
 	return rv
 }
@@ -2215,7 +2215,7 @@ func (a NSApplication) Running() bool {
 // not.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/isActive
-func (a NSApplication) Active() bool {
+func (a NSApplication) IsActive() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isActive"))
 	return rv
 }
@@ -2250,7 +2250,7 @@ func (a NSApplication) EnabledRemoteNotificationTypes() NSRemoteNotificationType
 // Notification service (APNs).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/isRegisteredForRemoteNotifications
-func (a NSApplication) RegisteredForRemoteNotifications() bool {
+func (a NSApplication) IsRegisteredForRemoteNotifications() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRegisteredForRemoteNotifications"))
 	return rv
 }
@@ -2443,7 +2443,7 @@ func (a NSApplication) SetServicesProvider(value objectivec.IObject) {
 // can access it directly rather than caching it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/isFullKeyboardAccessEnabled
-func (a NSApplication) FullKeyboardAccessEnabled() bool {
+func (a NSApplication) IsFullKeyboardAccessEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isFullKeyboardAccessEnabled"))
 	return rv
 }
@@ -2523,7 +2523,7 @@ func (a NSApplication) SetActivationPolicy(value NSApplicationActivationPolicy) 
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/isAutomaticCustomizeTouchBarMenuItemEnabled
-func (a NSApplication) AutomaticCustomizeTouchBarMenuItemEnabled() bool {
+func (a NSApplication) IsAutomaticCustomizeTouchBarMenuItemEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isAutomaticCustomizeTouchBarMenuItemEnabled"))
 	return rv
 }
@@ -2539,7 +2539,7 @@ func (a NSApplication) SetAutomaticCustomizeTouchBarMenuItemEnabled(value bool) 
 // not.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/isHidden
-func (a NSApplication) Hidden() bool {
+func (a NSApplication) IsHidden() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isHidden"))
 	return rv
 }
@@ -2618,7 +2618,7 @@ func (a NSApplication) OcclusionState() NSApplicationOcclusionState {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/isProtectedDataAvailable
-func (a NSApplication) ProtectedDataAvailable() bool {
+func (a NSApplication) IsProtectedDataAvailable() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isProtectedDataAvailable"))
 	return rv
 }

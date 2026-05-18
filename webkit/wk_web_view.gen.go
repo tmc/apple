@@ -152,7 +152,7 @@ func (wc WKWebViewClass) Alloc() WKWebView {
 //   - [WKWebView.LoadFileURLAllowingReadAccessToURL]: Loads the web content from the specified file and navigates to it.
 //   - [WKWebView.LoadSimulatedRequestResponseResponseData]: Loads the web content from the data you provide as if the data were the response to the request.
 //   - [WKWebView.LoadSimulatedRequestResponseHTMLString]: Loads the web content from the HTML you provide as if the HTML were the response to the request.
-//   - [WKWebView.Loading]: A Boolean value that indicates whether the view is currently loading content.
+//   - [WKWebView.IsLoading]: A Boolean value that indicates whether the view is currently loading content.
 //   - [WKWebView.EstimatedProgress]: An estimate of what fraction of the current navigation has been loaded.
 //
 // # Managing the loading process
@@ -171,7 +171,7 @@ func (wc WKWebViewClass) Alloc() WKWebView {
 //
 // # Making web content inspectable
 //
-//   - [WKWebView.Inspectable]: A Boolean value that indicates whether you can inspect the view with Safari Web Inspector.
+//   - [WKWebView.IsInspectable]: A Boolean value that indicates whether you can inspect the view with Safari Web Inspector.
 //   - [WKWebView.SetInspectable]
 //
 // # Inspecting the view information
@@ -251,7 +251,7 @@ func (wc WKWebViewClass) Alloc() WKWebView {
 // # Instance Properties
 //
 //   - [WKWebView.IsBlockedByScreenTime]
-//   - [WKWebView.WritingToolsActive]
+//   - [WKWebView.IsWritingToolsActive]
 //   - [WKWebView.ObscuredContentInsets]
 //   - [WKWebView.SetObscuredContentInsets]
 //
@@ -308,7 +308,7 @@ func WKWebViewFromID(id objc.ID) WKWebView {
 //   - [IWKWebView.LoadFileURLAllowingReadAccessToURL]: Loads the web content from the specified file and navigates to it.
 //   - [IWKWebView.LoadSimulatedRequestResponseResponseData]: Loads the web content from the data you provide as if the data were the response to the request.
 //   - [IWKWebView.LoadSimulatedRequestResponseHTMLString]: Loads the web content from the HTML you provide as if the HTML were the response to the request.
-//   - [IWKWebView.Loading]: A Boolean value that indicates whether the view is currently loading content.
+//   - [IWKWebView.IsLoading]: A Boolean value that indicates whether the view is currently loading content.
 //   - [IWKWebView.EstimatedProgress]: An estimate of what fraction of the current navigation has been loaded.
 //
 // # Managing the loading process
@@ -327,7 +327,7 @@ func WKWebViewFromID(id objc.ID) WKWebView {
 //
 // # Making web content inspectable
 //
-//   - [IWKWebView.Inspectable]: A Boolean value that indicates whether you can inspect the view with Safari Web Inspector.
+//   - [IWKWebView.IsInspectable]: A Boolean value that indicates whether you can inspect the view with Safari Web Inspector.
 //   - [IWKWebView.SetInspectable]
 //
 // # Inspecting the view information
@@ -407,7 +407,7 @@ func WKWebViewFromID(id objc.ID) WKWebView {
 // # Instance Properties
 //
 //   - [IWKWebView.IsBlockedByScreenTime]
-//   - [IWKWebView.WritingToolsActive]
+//   - [IWKWebView.IsWritingToolsActive]
 //   - [IWKWebView.ObscuredContentInsets]
 //   - [IWKWebView.SetObscuredContentInsets]
 //
@@ -456,7 +456,7 @@ type IWKWebView interface {
 	// Loads the web content from the HTML you provide as if the HTML were the response to the request.
 	LoadSimulatedRequestResponseHTMLString(request foundation.NSURLRequest, string_ string) IWKNavigation
 	// A Boolean value that indicates whether the view is currently loading content.
-	Loading() bool
+	IsLoading() bool
 	// An estimate of what fraction of the current navigation has been loaded.
 	EstimatedProgress() float64
 
@@ -485,7 +485,7 @@ type IWKWebView interface {
 	// Topic: Making web content inspectable
 
 	// A Boolean value that indicates whether you can inspect the view with Safari Web Inspector.
-	Inspectable() bool
+	IsInspectable() bool
 	SetInspectable(value bool)
 
 	// Topic: Inspecting the view information
@@ -599,7 +599,7 @@ type IWKWebView interface {
 	// Topic: Instance Properties
 
 	IsBlockedByScreenTime() bool
-	WritingToolsActive() bool
+	IsWritingToolsActive() bool
 	ObscuredContentInsets() foundation.NSEdgeInsets
 	SetObscuredContentInsets(value foundation.NSEdgeInsets)
 
@@ -1364,7 +1364,7 @@ func (w WKWebView) SetNavigationDelegate(value WKNavigationDelegate) {
 // property.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/isLoading
-func (w WKWebView) Loading() bool {
+func (w WKWebView) IsLoading() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isLoading"))
 	return rv
 }
@@ -1407,7 +1407,7 @@ func (w WKWebView) EstimatedProgress() float64 {
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/isInspectable
 //
 // [Enabling the Inspection of Web Content in Apps]: https://webkit.org/blog/13936/enabling-the-inspection-of-web-content-in-apps/
-func (w WKWebView) Inspectable() bool {
+func (w WKWebView) IsInspectable() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isInspectable"))
 	return rv
 }
@@ -1728,7 +1728,7 @@ func (w WKWebView) IsBlockedByScreenTime() bool {
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/isWritingToolsActive
-func (w WKWebView) WritingToolsActive() bool {
+func (w WKWebView) IsWritingToolsActive() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isWritingToolsActive"))
 	return rv
 }

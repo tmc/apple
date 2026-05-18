@@ -142,7 +142,7 @@ func (nc NSCollectionViewItemClass) Alloc() NSCollectionViewItem {
 //
 // # Managing the Selection and Highlight States
 //
-//   - [NSCollectionViewItem.Selected]: A Boolean indicating whether the item is currently selected.
+//   - [NSCollectionViewItem.IsSelected]: A Boolean indicating whether the item is currently selected.
 //   - [NSCollectionViewItem.SetSelected]
 //   - [NSCollectionViewItem.HighlightState]: The highlight state currently applied to the item.
 //   - [NSCollectionViewItem.SetHighlightState]
@@ -183,7 +183,7 @@ func NSCollectionViewItemFromID(id objc.ID) NSCollectionViewItem {
 //
 // # Managing the Selection and Highlight States
 //
-//   - [INSCollectionViewItem.Selected]: A Boolean indicating whether the item is currently selected.
+//   - [INSCollectionViewItem.IsSelected]: A Boolean indicating whether the item is currently selected.
 //   - [INSCollectionViewItem.SetSelected]
 //   - [INSCollectionViewItem.HighlightState]: The highlight state currently applied to the item.
 //   - [INSCollectionViewItem.SetHighlightState]
@@ -213,7 +213,7 @@ type INSCollectionViewItem interface {
 	// Topic: Managing the Selection and Highlight States
 
 	// A Boolean indicating whether the item is currently selected.
-	Selected() bool
+	IsSelected() bool
 	SetSelected(value bool)
 	// The highlight state currently applied to the item.
 	HighlightState() NSCollectionViewItemHighlightState
@@ -451,7 +451,7 @@ func (c NSCollectionViewItem) SetTextField(value INSTextField) {
 // it is not.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewItem/isSelected
-func (c NSCollectionViewItem) Selected() bool {
+func (c NSCollectionViewItem) IsSelected() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSelected"))
 	return rv
 }

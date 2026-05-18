@@ -759,7 +759,7 @@ func (v VZVirtualMachine) Queue() dispatch.Queue {
 // examine the returned error object.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/isSupported
-func (_VZVirtualMachineClass VZVirtualMachineClass) Supported() bool {
+func (_VZVirtualMachineClass VZVirtualMachineClass) IsSupported() bool {
 	rv := objc.Send[bool](objc.ID(_VZVirtualMachineClass.class), objc.Sel("isSupported"))
 	return rv
 }

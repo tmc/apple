@@ -88,7 +88,7 @@ func (nc NSTableColumnClass) Alloc() NSTableColumn {
 //
 // # Controlling Editability in a Cell-Based Table
 //
-//   - [NSTableColumn.Editable]: A Boolean that indicates whether a cell-based table’s column cells are user editable.
+//   - [NSTableColumn.IsEditable]: A Boolean that indicates whether a cell-based table’s column cells are user editable.
 //   - [NSTableColumn.SetEditable]
 //
 // # Sorting
@@ -98,7 +98,7 @@ func (nc NSTableColumnClass) Alloc() NSTableColumn {
 //
 // # Setting Column Visibility
 //
-//   - [NSTableColumn.Hidden]: A Boolean that indicates whether the table column is hidden.
+//   - [NSTableColumn.IsHidden]: A Boolean that indicates whether the table column is hidden.
 //   - [NSTableColumn.SetHidden]
 //
 // # Setting Tooltips
@@ -163,7 +163,7 @@ func NSTableColumnFromID(id objc.ID) NSTableColumn {
 //
 // # Controlling Editability in a Cell-Based Table
 //
-//   - [INSTableColumn.Editable]: A Boolean that indicates whether a cell-based table’s column cells are user editable.
+//   - [INSTableColumn.IsEditable]: A Boolean that indicates whether a cell-based table’s column cells are user editable.
 //   - [INSTableColumn.SetEditable]
 //
 // # Sorting
@@ -173,7 +173,7 @@ func NSTableColumnFromID(id objc.ID) NSTableColumn {
 //
 // # Setting Column Visibility
 //
-//   - [INSTableColumn.Hidden]: A Boolean that indicates whether the table column is hidden.
+//   - [INSTableColumn.IsHidden]: A Boolean that indicates whether the table column is hidden.
 //   - [INSTableColumn.SetHidden]
 //
 // # Setting Tooltips
@@ -236,7 +236,7 @@ type INSTableColumn interface {
 	// Topic: Controlling Editability in a Cell-Based Table
 
 	// A Boolean that indicates whether a cell-based table’s column cells are user editable.
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 
 	// Topic: Sorting
@@ -248,7 +248,7 @@ type INSTableColumn interface {
 	// Topic: Setting Column Visibility
 
 	// A Boolean that indicates whether the table column is hidden.
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 
 	// Topic: Setting Tooltips
@@ -560,7 +560,7 @@ func (t NSTableColumn) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 // property, use the [NSTableView] [EditColumnRowWithEventSelect] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/isEditable
-func (t NSTableColumn) Editable() bool {
+func (t NSTableColumn) IsEditable() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEditable"))
 	return rv
 }
@@ -600,7 +600,7 @@ func (t NSTableColumn) SetSortDescriptorPrototype(value foundation.NSSortDescrip
 // state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/isHidden
-func (t NSTableColumn) Hidden() bool {
+func (t NSTableColumn) IsHidden() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isHidden"))
 	return rv
 }

@@ -77,7 +77,7 @@ func (cc CAAnimationClass) Alloc() CAAnimation {
 //
 // # Animation Attributes
 //
-//   - [CAAnimation.RemovedOnCompletion]: Determines if the animation is removed from the target layer’s animations upon completion.
+//   - [CAAnimation.IsRemovedOnCompletion]: Determines if the animation is removed from the target layer’s animations upon completion.
 //   - [CAAnimation.SetRemovedOnCompletion]
 //   - [CAAnimation.TimingFunction]: An optional timing function defining the pacing of the animation.
 //   - [CAAnimation.SetTimingFunction]
@@ -135,7 +135,7 @@ func CAAnimationFromID(id objc.ID) CAAnimation {
 //
 // # Animation Attributes
 //
-//   - [ICAAnimation.RemovedOnCompletion]: Determines if the animation is removed from the target layer’s animations upon completion.
+//   - [ICAAnimation.IsRemovedOnCompletion]: Determines if the animation is removed from the target layer’s animations upon completion.
 //   - [ICAAnimation.SetRemovedOnCompletion]
 //   - [ICAAnimation.TimingFunction]: An optional timing function defining the pacing of the animation.
 //   - [ICAAnimation.SetTimingFunction]
@@ -178,7 +178,7 @@ type ICAAnimation interface {
 	// Topic: Animation Attributes
 
 	// Determines if the animation is removed from the target layer’s animations upon completion.
-	RemovedOnCompletion() bool
+	IsRemovedOnCompletion() bool
 	SetRemovedOnCompletion(value bool)
 	// An optional timing function defining the pacing of the animation.
 	TimingFunction() ICAMediaTimingFunction
@@ -422,7 +422,7 @@ func (_CAAnimationClass CAAnimationClass) Animation() CAAnimation {
 // once its active duration has passed. Defaults to true.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/isRemovedOnCompletion
-func (a CAAnimation) RemovedOnCompletion() bool {
+func (a CAAnimation) IsRemovedOnCompletion() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRemovedOnCompletion"))
 	return rv
 }

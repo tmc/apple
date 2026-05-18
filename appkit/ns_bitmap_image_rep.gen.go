@@ -89,7 +89,7 @@ func (nc NSBitmapImageRepClass) Alloc() NSBitmapImageRep {
 //   - [NSBitmapImageRep.BitsPerPixel]: The number of bits allocated for each pixel in each plane of data.
 //   - [NSBitmapImageRep.BytesPerPlane]: The number of bytes in each plane or channel of data.
 //   - [NSBitmapImageRep.BytesPerRow]: The minimum number of bytes required to specify a scan line in each data plane.
-//   - [NSBitmapImageRep.Planar]: A Boolean value that indicates whether the image data is in a planar configuration.
+//   - [NSBitmapImageRep.IsPlanar]: A Boolean value that indicates whether the image data is in a planar configuration.
 //   - [NSBitmapImageRep.NumberOfPlanes]: The number of separate planes into which the image data is organized.
 //   - [NSBitmapImageRep.SamplesPerPixel]: The number of components for each pixel.
 //
@@ -170,7 +170,7 @@ func NSBitmapImageRepFromID(id objc.ID) NSBitmapImageRep {
 //   - [INSBitmapImageRep.BitsPerPixel]: The number of bits allocated for each pixel in each plane of data.
 //   - [INSBitmapImageRep.BytesPerPlane]: The number of bytes in each plane or channel of data.
 //   - [INSBitmapImageRep.BytesPerRow]: The minimum number of bytes required to specify a scan line in each data plane.
-//   - [INSBitmapImageRep.Planar]: A Boolean value that indicates whether the image data is in a planar configuration.
+//   - [INSBitmapImageRep.IsPlanar]: A Boolean value that indicates whether the image data is in a planar configuration.
 //   - [INSBitmapImageRep.NumberOfPlanes]: The number of separate planes into which the image data is organized.
 //   - [INSBitmapImageRep.SamplesPerPixel]: The number of components for each pixel.
 //
@@ -246,7 +246,7 @@ type INSBitmapImageRep interface {
 	// The minimum number of bytes required to specify a scan line in each data plane.
 	BytesPerRow() int
 	// A Boolean value that indicates whether the image data is in a planar configuration.
-	Planar() bool
+	IsPlanar() bool
 	// The number of separate planes into which the image data is organized.
 	NumberOfPlanes() int
 	// The number of components for each pixel.
@@ -1651,7 +1651,7 @@ func (b NSBitmapImageRep) BytesPerRow() int {
 // plane.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/isPlanar
-func (b NSBitmapImageRep) Planar() bool {
+func (b NSBitmapImageRep) IsPlanar() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isPlanar"))
 	return rv
 }

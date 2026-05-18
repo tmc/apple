@@ -60,7 +60,7 @@ func (ac AVMediaSelectionOptionClass) Alloc() AVMediaSelectionOption {
 //
 // # Determining playability
 //
-//   - [AVMediaSelectionOption.Playable]: A Boolean value that indicates whether the media selection option is playable.
+//   - [AVMediaSelectionOption.IsPlayable]: A Boolean value that indicates whether the media selection option is playable.
 //
 // # Getting the language and locale settings
 //
@@ -113,7 +113,7 @@ func AVMediaSelectionOptionFromID(id objc.ID) AVMediaSelectionOption {
 //
 // # Determining playability
 //
-//   - [IAVMediaSelectionOption.Playable]: A Boolean value that indicates whether the media selection option is playable.
+//   - [IAVMediaSelectionOption.IsPlayable]: A Boolean value that indicates whether the media selection option is playable.
 //
 // # Getting the language and locale settings
 //
@@ -159,7 +159,7 @@ type IAVMediaSelectionOption interface {
 	// Topic: Determining playability
 
 	// A Boolean value that indicates whether the media selection option is playable.
-	Playable() bool
+	IsPlayable() bool
 
 	// Topic: Getting the language and locale settings
 
@@ -411,7 +411,7 @@ func (m AVMediaSelectionOption) AvailableMetadataFormats() []string {
 // rendered, the value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/isPlayable
-func (m AVMediaSelectionOption) Playable() bool {
+func (m AVMediaSelectionOption) IsPlayable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPlayable"))
 	return rv
 }

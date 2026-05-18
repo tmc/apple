@@ -104,7 +104,7 @@ func (nc NSPathControlClass) Alloc() NSPathControl {
 //   - [NSPathControl.AllowedTypes]
 //   - [NSPathControl.SetAllowedTypes]
 //   - [NSPathControl.ClickedPathItem]
-//   - [NSPathControl.Editable]
+//   - [NSPathControl.IsEditable]
 //   - [NSPathControl.SetEditable]
 //   - [NSPathControl.PathItems]
 //   - [NSPathControl.SetPathItems]
@@ -169,7 +169,7 @@ func NSPathControlFromID(id objc.ID) NSPathControl {
 //   - [INSPathControl.AllowedTypes]
 //   - [INSPathControl.SetAllowedTypes]
 //   - [INSPathControl.ClickedPathItem]
-//   - [INSPathControl.Editable]
+//   - [INSPathControl.IsEditable]
 //   - [INSPathControl.SetEditable]
 //   - [INSPathControl.PathItems]
 //   - [INSPathControl.SetPathItems]
@@ -222,7 +222,7 @@ type INSPathControl interface {
 	AllowedTypes() []string
 	SetAllowedTypes(value []string)
 	ClickedPathItem() INSPathControlItem
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 	PathItems() []NSPathControlItem
 	SetPathItems(value []NSPathControlItem)
@@ -395,7 +395,7 @@ func (p NSPathControl) ClickedPathItem() INSPathControlItem {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/isEditable
-func (p NSPathControl) Editable() bool {
+func (p NSPathControl) IsEditable() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isEditable"))
 	return rv
 }

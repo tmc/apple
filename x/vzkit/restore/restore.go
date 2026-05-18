@@ -23,7 +23,7 @@ func imageInfoFrom(img vz.VZMacOSRestoreImage) ImageInfo {
 	info := ImageInfo{
 		BuildVersion: img.BuildVersion(),
 		OSVersion:    img.OperatingSystemVersion(),
-		Supported:    img.Supported(),
+		Supported:    img.IsSupported(),
 		Image:        img,
 	}
 	if u := img.URL(); u.GetID() != 0 {

@@ -65,7 +65,7 @@ func (nc NSStatusItemClass) Alloc() NSStatusItem {
 //
 // # Configuring the Status Item’s Appearance
 //
-//   - [NSStatusItem.Visible]: A Boolean value indicating if the menu bar currently displays the status item.
+//   - [NSStatusItem.IsVisible]: A Boolean value indicating if the menu bar currently displays the status item.
 //   - [NSStatusItem.SetVisible]
 //   - [NSStatusItem.Length]: The amount of space in the status bar that should be allocated to the status item.
 //   - [NSStatusItem.SetLength]
@@ -106,7 +106,7 @@ func NSStatusItemFromID(id objc.ID) NSStatusItem {
 //
 // # Configuring the Status Item’s Appearance
 //
-//   - [INSStatusItem.Visible]: A Boolean value indicating if the menu bar currently displays the status item.
+//   - [INSStatusItem.IsVisible]: A Boolean value indicating if the menu bar currently displays the status item.
 //   - [INSStatusItem.SetVisible]
 //   - [INSStatusItem.Length]: The amount of space in the status bar that should be allocated to the status item.
 //   - [INSStatusItem.SetLength]
@@ -139,7 +139,7 @@ type INSStatusItem interface {
 	// Topic: Configuring the Status Item’s Appearance
 
 	// A Boolean value indicating if the menu bar currently displays the status item.
-	Visible() bool
+	IsVisible() bool
 	SetVisible(value bool)
 	// The amount of space in the status bar that should be allocated to the status item.
 	Length() float64
@@ -243,7 +243,7 @@ func (s NSStatusItem) SetMenu(value INSMenu) {
 // due to insufficient space in the menu bar. The default value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusItem/isVisible
-func (s NSStatusItem) Visible() bool {
+func (s NSStatusItem) IsVisible() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isVisible"))
 	return rv
 }

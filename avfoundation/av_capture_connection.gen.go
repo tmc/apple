@@ -68,9 +68,9 @@ func (ac AVCaptureConnectionClass) Alloc() AVCaptureConnection {
 //
 // # Enabling a connection
 //
-//   - [AVCaptureConnection.Enabled]: Turns the connection on and off.
+//   - [AVCaptureConnection.IsEnabled]: Turns the connection on and off.
 //   - [AVCaptureConnection.SetEnabled]
-//   - [AVCaptureConnection.Active]: Indicates whether the connection is active.
+//   - [AVCaptureConnection.IsActive]: Indicates whether the connection is active.
 //
 // # Inspecting a connection
 //
@@ -87,30 +87,30 @@ func (ac AVCaptureConnectionClass) Alloc() AVCaptureConnection {
 //
 // # Mirroring a video
 //
-//   - [AVCaptureConnection.SupportsVideoMirroring]: A Boolean value that indicates whether the connection supports video mirroring.
-//   - [AVCaptureConnection.VideoMirrored]: A Boolean value that indicates whether the connection horizontally flips the video flowing through it.
+//   - [AVCaptureConnection.IsVideoMirroringSupported]: A Boolean value that indicates whether the connection supports video mirroring.
+//   - [AVCaptureConnection.IsVideoMirrored]: A Boolean value that indicates whether the connection horizontally flips the video flowing through it.
 //   - [AVCaptureConnection.SetVideoMirrored]
 //   - [AVCaptureConnection.AutomaticallyAdjustsVideoMirroring]: A Boolean value that indicates whether you can enable mirroring based on a session’s configuration.
 //   - [AVCaptureConnection.SetAutomaticallyAdjustsVideoMirroring]
 //
 // # Configuring a video’s frame rate
 //
-//   - [AVCaptureConnection.SupportsVideoMinFrameDuration]: A Boolean value that indicates whether the connection supports a minimum frame duration.
+//   - [AVCaptureConnection.IsVideoMinFrameDurationSupported]: A Boolean value that indicates whether the connection supports a minimum frame duration.
 //   - [AVCaptureConnection.VideoMinFrameDuration]: The smallest time interval the connection can apply between consecutive video frames.
 //   - [AVCaptureConnection.SetVideoMinFrameDuration]
-//   - [AVCaptureConnection.SupportsVideoMaxFrameDuration]: A Boolean value that indicates whether the connection supports a maximum frame duration.
+//   - [AVCaptureConnection.IsVideoMaxFrameDurationSupported]: A Boolean value that indicates whether the connection supports a maximum frame duration.
 //   - [AVCaptureConnection.VideoMaxFrameDuration]: The largest time interval the connection can apply between consecutive video frames.
 //   - [AVCaptureConnection.SetVideoMaxFrameDuration]
 //
 // # Interlacing video
 //
-//   - [AVCaptureConnection.SupportsVideoFieldMode]: A Boolean value that indicates whether the connection supports setting a video field mode.
+//   - [AVCaptureConnection.IsVideoFieldModeSupported]: A Boolean value that indicates whether the connection supports setting a video field mode.
 //   - [AVCaptureConnection.VideoFieldMode]: A setting that tells the connection how to interlace video flowing through it.
 //   - [AVCaptureConnection.SetVideoFieldMode]
 //
 // # Deprecated
 //
-//   - [AVCaptureConnection.SupportsVideoOrientation]: A Boolean value that indicates whether the connection supports changing the orientation of the video.
+//   - [AVCaptureConnection.IsVideoOrientationSupported]: A Boolean value that indicates whether the connection supports changing the orientation of the video.
 //   - [AVCaptureConnection.VideoOrientation]: An orientation that tells the connection how to rotate a video flowing through it.
 //   - [AVCaptureConnection.SetVideoOrientation]
 //
@@ -139,9 +139,9 @@ func AVCaptureConnectionFromID(id objc.ID) AVCaptureConnection {
 //
 // # Enabling a connection
 //
-//   - [IAVCaptureConnection.Enabled]: Turns the connection on and off.
+//   - [IAVCaptureConnection.IsEnabled]: Turns the connection on and off.
 //   - [IAVCaptureConnection.SetEnabled]
-//   - [IAVCaptureConnection.Active]: Indicates whether the connection is active.
+//   - [IAVCaptureConnection.IsActive]: Indicates whether the connection is active.
 //
 // # Inspecting a connection
 //
@@ -158,30 +158,30 @@ func AVCaptureConnectionFromID(id objc.ID) AVCaptureConnection {
 //
 // # Mirroring a video
 //
-//   - [IAVCaptureConnection.SupportsVideoMirroring]: A Boolean value that indicates whether the connection supports video mirroring.
-//   - [IAVCaptureConnection.VideoMirrored]: A Boolean value that indicates whether the connection horizontally flips the video flowing through it.
+//   - [IAVCaptureConnection.IsVideoMirroringSupported]: A Boolean value that indicates whether the connection supports video mirroring.
+//   - [IAVCaptureConnection.IsVideoMirrored]: A Boolean value that indicates whether the connection horizontally flips the video flowing through it.
 //   - [IAVCaptureConnection.SetVideoMirrored]
 //   - [IAVCaptureConnection.AutomaticallyAdjustsVideoMirroring]: A Boolean value that indicates whether you can enable mirroring based on a session’s configuration.
 //   - [IAVCaptureConnection.SetAutomaticallyAdjustsVideoMirroring]
 //
 // # Configuring a video’s frame rate
 //
-//   - [IAVCaptureConnection.SupportsVideoMinFrameDuration]: A Boolean value that indicates whether the connection supports a minimum frame duration.
+//   - [IAVCaptureConnection.IsVideoMinFrameDurationSupported]: A Boolean value that indicates whether the connection supports a minimum frame duration.
 //   - [IAVCaptureConnection.VideoMinFrameDuration]: The smallest time interval the connection can apply between consecutive video frames.
 //   - [IAVCaptureConnection.SetVideoMinFrameDuration]
-//   - [IAVCaptureConnection.SupportsVideoMaxFrameDuration]: A Boolean value that indicates whether the connection supports a maximum frame duration.
+//   - [IAVCaptureConnection.IsVideoMaxFrameDurationSupported]: A Boolean value that indicates whether the connection supports a maximum frame duration.
 //   - [IAVCaptureConnection.VideoMaxFrameDuration]: The largest time interval the connection can apply between consecutive video frames.
 //   - [IAVCaptureConnection.SetVideoMaxFrameDuration]
 //
 // # Interlacing video
 //
-//   - [IAVCaptureConnection.SupportsVideoFieldMode]: A Boolean value that indicates whether the connection supports setting a video field mode.
+//   - [IAVCaptureConnection.IsVideoFieldModeSupported]: A Boolean value that indicates whether the connection supports setting a video field mode.
 //   - [IAVCaptureConnection.VideoFieldMode]: A setting that tells the connection how to interlace video flowing through it.
 //   - [IAVCaptureConnection.SetVideoFieldMode]
 //
 // # Deprecated
 //
-//   - [IAVCaptureConnection.SupportsVideoOrientation]: A Boolean value that indicates whether the connection supports changing the orientation of the video.
+//   - [IAVCaptureConnection.IsVideoOrientationSupported]: A Boolean value that indicates whether the connection supports changing the orientation of the video.
 //   - [IAVCaptureConnection.VideoOrientation]: An orientation that tells the connection how to rotate a video flowing through it.
 //   - [IAVCaptureConnection.SetVideoOrientation]
 //
@@ -199,10 +199,10 @@ type IAVCaptureConnection interface {
 	// Topic: Enabling a connection
 
 	// Turns the connection on and off.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// Indicates whether the connection is active.
-	Active() bool
+	IsActive() bool
 
 	// Topic: Inspecting a connection
 
@@ -226,9 +226,9 @@ type IAVCaptureConnection interface {
 	// Topic: Mirroring a video
 
 	// A Boolean value that indicates whether the connection supports video mirroring.
-	SupportsVideoMirroring() bool
+	IsVideoMirroringSupported() bool
 	// A Boolean value that indicates whether the connection horizontally flips the video flowing through it.
-	VideoMirrored() bool
+	IsVideoMirrored() bool
 	SetVideoMirrored(value bool)
 	// A Boolean value that indicates whether you can enable mirroring based on a session’s configuration.
 	AutomaticallyAdjustsVideoMirroring() bool
@@ -237,12 +237,12 @@ type IAVCaptureConnection interface {
 	// Topic: Configuring a video’s frame rate
 
 	// A Boolean value that indicates whether the connection supports a minimum frame duration.
-	SupportsVideoMinFrameDuration() bool
+	IsVideoMinFrameDurationSupported() bool
 	// The smallest time interval the connection can apply between consecutive video frames.
 	VideoMinFrameDuration() coremedia.CMTime
 	SetVideoMinFrameDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether the connection supports a maximum frame duration.
-	SupportsVideoMaxFrameDuration() bool
+	IsVideoMaxFrameDurationSupported() bool
 	// The largest time interval the connection can apply between consecutive video frames.
 	VideoMaxFrameDuration() coremedia.CMTime
 	SetVideoMaxFrameDuration(value coremedia.CMTime)
@@ -250,7 +250,7 @@ type IAVCaptureConnection interface {
 	// Topic: Interlacing video
 
 	// A Boolean value that indicates whether the connection supports setting a video field mode.
-	SupportsVideoFieldMode() bool
+	IsVideoFieldModeSupported() bool
 	// A setting that tells the connection how to interlace video flowing through it.
 	VideoFieldMode() AVVideoFieldMode
 	SetVideoFieldMode(value AVVideoFieldMode)
@@ -258,7 +258,7 @@ type IAVCaptureConnection interface {
 	// Topic: Deprecated
 
 	// A Boolean value that indicates whether the connection supports changing the orientation of the video.
-	SupportsVideoOrientation() bool
+	IsVideoOrientationSupported() bool
 	// An orientation that tells the connection how to rotate a video flowing through it.
 	VideoOrientation() AVCaptureVideoOrientation
 	SetVideoOrientation(value AVCaptureVideoOrientation)
@@ -473,7 +473,7 @@ func (_AVCaptureConnectionClass AVCaptureConnectionClass) ConnectionWithInputPor
 // Turns the connection on and off.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isEnabled
-func (c AVCaptureConnection) Enabled() bool {
+func (c AVCaptureConnection) IsEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEnabled"))
 	return rv
 }
@@ -484,7 +484,7 @@ func (c AVCaptureConnection) SetEnabled(value bool) {
 // Indicates whether the connection is active.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isActive
-func (c AVCaptureConnection) Active() bool {
+func (c AVCaptureConnection) IsActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isActive"))
 	return rv
 }
@@ -582,7 +582,7 @@ func (c AVCaptureConnection) SetVideoRotationAngle(value float64) {
 // mirroring.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoMirroringSupported
-func (c AVCaptureConnection) SupportsVideoMirroring() bool {
+func (c AVCaptureConnection) IsVideoMirroringSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoMirroringSupported"))
 	return rv
 }
@@ -619,7 +619,7 @@ func (c AVCaptureConnection) SupportsVideoMirroring() bool {
 //
 // [AVCaptureDepthDataOutput]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutput
 // [depthDataOutput(_:didOutput:timestamp:connection:)]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutputDelegate/depthDataOutput(_:didOutput:timestamp:connection:)
-func (c AVCaptureConnection) VideoMirrored() bool {
+func (c AVCaptureConnection) IsVideoMirrored() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoMirrored"))
 	return rv
 }
@@ -658,7 +658,7 @@ func (c AVCaptureConnection) SetAutomaticallyAdjustsVideoMirroring(value bool) {
 // [VideoMinFrameDuration] property for a video connection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoMinFrameDurationSupported
-func (c AVCaptureConnection) SupportsVideoMinFrameDuration() bool {
+func (c AVCaptureConnection) IsVideoMinFrameDurationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoMinFrameDurationSupported"))
 	return rv
 }
@@ -697,7 +697,7 @@ func (c AVCaptureConnection) SetVideoMinFrameDuration(value coremedia.CMTime) {
 // [VideoMaxFrameDuration] property for a video connection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoMaxFrameDurationSupported
-func (c AVCaptureConnection) SupportsVideoMaxFrameDuration() bool {
+func (c AVCaptureConnection) IsVideoMaxFrameDurationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoMaxFrameDurationSupported"))
 	return rv
 }
@@ -736,7 +736,7 @@ func (c AVCaptureConnection) SetVideoMaxFrameDuration(value coremedia.CMTime) {
 // property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoFieldModeSupported
-func (c AVCaptureConnection) SupportsVideoFieldMode() bool {
+func (c AVCaptureConnection) IsVideoFieldModeSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoFieldModeSupported"))
 	return rv
 }
@@ -762,7 +762,7 @@ func (c AVCaptureConnection) SetVideoFieldMode(value AVVideoFieldMode) {
 // orientation of the video.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoOrientationSupported
-func (c AVCaptureConnection) SupportsVideoOrientation() bool {
+func (c AVCaptureConnection) IsVideoOrientationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoOrientationSupported"))
 	return rv
 }

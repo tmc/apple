@@ -92,10 +92,10 @@ func (nc NSMetadataQueryClass) Alloc() NSMetadataQuery {
 //
 // # Running Queries
 //
-//   - [NSMetadataQuery.Started]: A Boolean value that indicates whether the query has started. (read-only)
+//   - [NSMetadataQuery.IsStarted]: A Boolean value that indicates whether the query has started. (read-only)
 //   - [NSMetadataQuery.StartQuery]: Attempts to start the query.
-//   - [NSMetadataQuery.Gathering]: A Boolean value that indicates whether the receiver is in the initial gathering phase of the query. (read-only)
-//   - [NSMetadataQuery.Stopped]: A Boolean value that indicates whether the query has stopped.
+//   - [NSMetadataQuery.IsGathering]: A Boolean value that indicates whether the receiver is in the initial gathering phase of the query. (read-only)
+//   - [NSMetadataQuery.IsStopped]: A Boolean value that indicates whether the query has stopped.
 //   - [NSMetadataQuery.StopQuery]: Stops the receiver’s current query from gathering any further results.
 //
 // # Getting Query Results
@@ -161,10 +161,10 @@ func NSMetadataQueryFromID(id objc.ID) NSMetadataQuery {
 //
 // # Running Queries
 //
-//   - [INSMetadataQuery.Started]: A Boolean value that indicates whether the query has started. (read-only)
+//   - [INSMetadataQuery.IsStarted]: A Boolean value that indicates whether the query has started. (read-only)
 //   - [INSMetadataQuery.StartQuery]: Attempts to start the query.
-//   - [INSMetadataQuery.Gathering]: A Boolean value that indicates whether the receiver is in the initial gathering phase of the query. (read-only)
-//   - [INSMetadataQuery.Stopped]: A Boolean value that indicates whether the query has stopped.
+//   - [INSMetadataQuery.IsGathering]: A Boolean value that indicates whether the receiver is in the initial gathering phase of the query. (read-only)
+//   - [INSMetadataQuery.IsStopped]: A Boolean value that indicates whether the query has stopped.
 //   - [INSMetadataQuery.StopQuery]: Stops the receiver’s current query from gathering any further results.
 //
 // # Getting Query Results
@@ -224,13 +224,13 @@ type INSMetadataQuery interface {
 	// Topic: Running Queries
 
 	// A Boolean value that indicates whether the query has started. (read-only)
-	Started() bool
+	IsStarted() bool
 	// Attempts to start the query.
 	StartQuery() bool
 	// A Boolean value that indicates whether the receiver is in the initial gathering phase of the query. (read-only)
-	Gathering() bool
+	IsGathering() bool
 	// A Boolean value that indicates whether the query has stopped.
-	Stopped() bool
+	IsStopped() bool
 	// Stops the receiver’s current query from gathering any further results.
 	StopQuery()
 
@@ -602,7 +602,7 @@ func (m NSMetadataQuery) SetSearchItems(value INSArray) {
 // method; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/isStarted
-func (m NSMetadataQuery) Started() bool {
+func (m NSMetadataQuery) IsStarted() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isStarted"))
 	return rv
 }
@@ -616,7 +616,7 @@ func (m NSMetadataQuery) Started() bool {
 // phase; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/isGathering
-func (m NSMetadataQuery) Gathering() bool {
+func (m NSMetadataQuery) IsGathering() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isGathering"))
 	return rv
 }
@@ -629,7 +629,7 @@ func (m NSMetadataQuery) Gathering() bool {
 // otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/isStopped
-func (m NSMetadataQuery) Stopped() bool {
+func (m NSMetadataQuery) IsStopped() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isStopped"))
 	return rv
 }

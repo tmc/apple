@@ -54,7 +54,7 @@ func (ac AVCoordinatedPlaybackParticipantClass) Alloc() AVCoordinatedPlaybackPar
 // # Accessing participant status
 //
 //   - [AVCoordinatedPlaybackParticipant.Identifier]: A unique identifier for the participant.
-//   - [AVCoordinatedPlaybackParticipant.ReadyToPlay]: A Boolean value that indicates whether the participant is ready to start coordinated playback.
+//   - [AVCoordinatedPlaybackParticipant.IsReadyToPlay]: A Boolean value that indicates whether the participant is ready to start coordinated playback.
 //   - [AVCoordinatedPlaybackParticipant.SuspensionReasons]: The reasons a participant isn’t currently participating in coordinated playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCoordinatedPlaybackParticipant
@@ -77,7 +77,7 @@ func AVCoordinatedPlaybackParticipantFromID(id objc.ID) AVCoordinatedPlaybackPar
 // # Accessing participant status
 //
 //   - [IAVCoordinatedPlaybackParticipant.Identifier]: A unique identifier for the participant.
-//   - [IAVCoordinatedPlaybackParticipant.ReadyToPlay]: A Boolean value that indicates whether the participant is ready to start coordinated playback.
+//   - [IAVCoordinatedPlaybackParticipant.IsReadyToPlay]: A Boolean value that indicates whether the participant is ready to start coordinated playback.
 //   - [IAVCoordinatedPlaybackParticipant.SuspensionReasons]: The reasons a participant isn’t currently participating in coordinated playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCoordinatedPlaybackParticipant
@@ -89,7 +89,7 @@ type IAVCoordinatedPlaybackParticipant interface {
 	// A unique identifier for the participant.
 	Identifier() foundation.NSUUID
 	// A Boolean value that indicates whether the participant is ready to start coordinated playback.
-	ReadyToPlay() bool
+	IsReadyToPlay() bool
 	// The reasons a participant isn’t currently participating in coordinated playback.
 	SuspensionReasons() []string
 
@@ -129,7 +129,7 @@ func (c AVCoordinatedPlaybackParticipant) Identifier() foundation.NSUUID {
 // coordinated playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCoordinatedPlaybackParticipant/isReadyToPlay
-func (c AVCoordinatedPlaybackParticipant) ReadyToPlay() bool {
+func (c AVCoordinatedPlaybackParticipant) IsReadyToPlay() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isReadyToPlay"))
 	return rv
 }

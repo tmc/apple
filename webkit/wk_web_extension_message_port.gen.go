@@ -56,7 +56,7 @@ func (wc WKWebExtensionMessagePortClass) Alloc() WKWebExtensionMessagePort {
 //   - [WKWebExtensionMessagePort.ApplicationIdentifier]: The unique identifier for the app to which this port should be connected.
 //   - [WKWebExtensionMessagePort.DisconnectHandler]: The block to be executed when the port disconnects.
 //   - [WKWebExtensionMessagePort.SetDisconnectHandler]
-//   - [WKWebExtensionMessagePort.Disconnected]: Indicates whether the message port is disconnected.
+//   - [WKWebExtensionMessagePort.IsDisconnected]: Indicates whether the message port is disconnected.
 //   - [WKWebExtensionMessagePort.MessageHandler]: The block to be executed when a message is received from the web extension.
 //   - [WKWebExtensionMessagePort.SetMessageHandler]
 //
@@ -88,7 +88,7 @@ func WKWebExtensionMessagePortFromID(id objc.ID) WKWebExtensionMessagePort {
 //   - [IWKWebExtensionMessagePort.ApplicationIdentifier]: The unique identifier for the app to which this port should be connected.
 //   - [IWKWebExtensionMessagePort.DisconnectHandler]: The block to be executed when the port disconnects.
 //   - [IWKWebExtensionMessagePort.SetDisconnectHandler]
-//   - [IWKWebExtensionMessagePort.Disconnected]: Indicates whether the message port is disconnected.
+//   - [IWKWebExtensionMessagePort.IsDisconnected]: Indicates whether the message port is disconnected.
 //   - [IWKWebExtensionMessagePort.MessageHandler]: The block to be executed when a message is received from the web extension.
 //   - [IWKWebExtensionMessagePort.SetMessageHandler]
 //
@@ -110,7 +110,7 @@ type IWKWebExtensionMessagePort interface {
 	DisconnectHandler() ErrorHandler
 	SetDisconnectHandler(value ErrorHandler)
 	// Indicates whether the message port is disconnected.
-	Disconnected() bool
+	IsDisconnected() bool
 	// The block to be executed when a message is received from the web extension.
 	MessageHandler() ObjectErrorHandler
 	SetMessageHandler(value ObjectErrorHandler)
@@ -212,7 +212,7 @@ func (w WKWebExtensionMessagePort) SetDisconnectHandler(value ErrorHandler) {
 // Indicates whether the message port is disconnected.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MessagePort/isDisconnected
-func (w WKWebExtensionMessagePort) Disconnected() bool {
+func (w WKWebExtensionMessagePort) IsDisconnected() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isDisconnected"))
 	return rv
 }

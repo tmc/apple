@@ -143,9 +143,9 @@ func (ac AVPlayerItemClass) Alloc() AVPlayerItem {
 //
 // # Determining buffering status
 //
-//   - [AVPlayerItem.PlaybackLikelyToKeepUp]: A Boolean value that indicates whether the item will likely play through without stalling.
-//   - [AVPlayerItem.PlaybackBufferFull]: A Boolean value that indicates whether the internal media buffer is full and that further I/O is suspended.
-//   - [AVPlayerItem.PlaybackBufferEmpty]: A Boolean value that indicates whether playback has consumed all buffered media and that playback will stall or end.
+//   - [AVPlayerItem.IsPlaybackLikelyToKeepUp]: A Boolean value that indicates whether the item will likely play through without stalling.
+//   - [AVPlayerItem.IsPlaybackBufferFull]: A Boolean value that indicates whether the internal media buffer is full and that further I/O is suspended.
+//   - [AVPlayerItem.IsPlaybackBufferEmpty]: A Boolean value that indicates whether playback has consumed all buffered media and that playback will stall or end.
 //
 // # Configuring expensive network behavior
 //
@@ -201,7 +201,7 @@ func (ac AVPlayerItemClass) Alloc() AVPlayerItem {
 //   - [AVPlayerItem.SetAudioTimePitchAlgorithm]
 //   - [AVPlayerItem.AllowedAudioSpatializationFormats]: The source audio channel layouts the player item supports for spatialization.
 //   - [AVPlayerItem.SetAllowedAudioSpatializationFormats]
-//   - [AVPlayerItem.AudioSpatializationAllowed]: A Boolean value that indicates whether the player item allows spatialized audio playback.
+//   - [AVPlayerItem.IsAudioSpatializationAllowed]: A Boolean value that indicates whether the player item allows spatialized audio playback.
 //   - [AVPlayerItem.SetAudioSpatializationAllowed]
 //
 // # Managing player item outputs
@@ -227,9 +227,9 @@ func (ac AVPlayerItemClass) Alloc() AVPlayerItem {
 //
 // # Managing playback authorization in macOS
 //
-//   - [AVPlayerItem.ContentAuthorizedForPlayback]: A Boolean value that indicates whether the content has been authorized by the user.
-//   - [AVPlayerItem.AuthorizationRequiredForPlayback]: A Boolean value that indicates whether authorization is required to play the content.
-//   - [AVPlayerItem.ApplicationAuthorizedForPlayback]: A Boolean value that indicates whether the application can be used to play the content.
+//   - [AVPlayerItem.IsContentAuthorizedForPlayback]: A Boolean value that indicates whether the content has been authorized by the user.
+//   - [AVPlayerItem.IsAuthorizationRequiredForPlayback]: A Boolean value that indicates whether authorization is required to play the content.
+//   - [AVPlayerItem.IsApplicationAuthorizedForPlayback]: A Boolean value that indicates whether the application can be used to play the content.
 //   - [AVPlayerItem.RequestContentAuthorizationAsynchronouslyWithTimeoutIntervalCompletionHandler]: Presents the user the opportunity to authorize the content for playback.
 //   - [AVPlayerItem.ContentAuthorizationRequestStatus]: The status of the most recent content authorization request.
 //   - [AVPlayerItem.CancelContentAuthorizationRequest]: Cancels the currently outstanding content authorization request.
@@ -348,9 +348,9 @@ func AVPlayerItemFromID(id objc.ID) AVPlayerItem {
 //
 // # Determining buffering status
 //
-//   - [IAVPlayerItem.PlaybackLikelyToKeepUp]: A Boolean value that indicates whether the item will likely play through without stalling.
-//   - [IAVPlayerItem.PlaybackBufferFull]: A Boolean value that indicates whether the internal media buffer is full and that further I/O is suspended.
-//   - [IAVPlayerItem.PlaybackBufferEmpty]: A Boolean value that indicates whether playback has consumed all buffered media and that playback will stall or end.
+//   - [IAVPlayerItem.IsPlaybackLikelyToKeepUp]: A Boolean value that indicates whether the item will likely play through without stalling.
+//   - [IAVPlayerItem.IsPlaybackBufferFull]: A Boolean value that indicates whether the internal media buffer is full and that further I/O is suspended.
+//   - [IAVPlayerItem.IsPlaybackBufferEmpty]: A Boolean value that indicates whether playback has consumed all buffered media and that playback will stall or end.
 //
 // # Configuring expensive network behavior
 //
@@ -406,7 +406,7 @@ func AVPlayerItemFromID(id objc.ID) AVPlayerItem {
 //   - [IAVPlayerItem.SetAudioTimePitchAlgorithm]
 //   - [IAVPlayerItem.AllowedAudioSpatializationFormats]: The source audio channel layouts the player item supports for spatialization.
 //   - [IAVPlayerItem.SetAllowedAudioSpatializationFormats]
-//   - [IAVPlayerItem.AudioSpatializationAllowed]: A Boolean value that indicates whether the player item allows spatialized audio playback.
+//   - [IAVPlayerItem.IsAudioSpatializationAllowed]: A Boolean value that indicates whether the player item allows spatialized audio playback.
 //   - [IAVPlayerItem.SetAudioSpatializationAllowed]
 //
 // # Managing player item outputs
@@ -432,9 +432,9 @@ func AVPlayerItemFromID(id objc.ID) AVPlayerItem {
 //
 // # Managing playback authorization in macOS
 //
-//   - [IAVPlayerItem.ContentAuthorizedForPlayback]: A Boolean value that indicates whether the content has been authorized by the user.
-//   - [IAVPlayerItem.AuthorizationRequiredForPlayback]: A Boolean value that indicates whether authorization is required to play the content.
-//   - [IAVPlayerItem.ApplicationAuthorizedForPlayback]: A Boolean value that indicates whether the application can be used to play the content.
+//   - [IAVPlayerItem.IsContentAuthorizedForPlayback]: A Boolean value that indicates whether the content has been authorized by the user.
+//   - [IAVPlayerItem.IsAuthorizationRequiredForPlayback]: A Boolean value that indicates whether authorization is required to play the content.
+//   - [IAVPlayerItem.IsApplicationAuthorizedForPlayback]: A Boolean value that indicates whether the application can be used to play the content.
 //   - [IAVPlayerItem.RequestContentAuthorizationAsynchronouslyWithTimeoutIntervalCompletionHandler]: Presents the user the opportunity to authorize the content for playback.
 //   - [IAVPlayerItem.ContentAuthorizationRequestStatus]: The status of the most recent content authorization request.
 //   - [IAVPlayerItem.CancelContentAuthorizationRequest]: Cancels the currently outstanding content authorization request.
@@ -578,11 +578,11 @@ type IAVPlayerItem interface {
 	// Topic: Determining buffering status
 
 	// A Boolean value that indicates whether the item will likely play through without stalling.
-	PlaybackLikelyToKeepUp() bool
+	IsPlaybackLikelyToKeepUp() bool
 	// A Boolean value that indicates whether the internal media buffer is full and that further I/O is suspended.
-	PlaybackBufferFull() bool
+	IsPlaybackBufferFull() bool
 	// A Boolean value that indicates whether playback has consumed all buffered media and that playback will stall or end.
-	PlaybackBufferEmpty() bool
+	IsPlaybackBufferEmpty() bool
 
 	// Topic: Configuring expensive network behavior
 
@@ -657,7 +657,7 @@ type IAVPlayerItem interface {
 	AllowedAudioSpatializationFormats() AVAudioSpatializationFormats
 	SetAllowedAudioSpatializationFormats(value AVAudioSpatializationFormats)
 	// A Boolean value that indicates whether the player item allows spatialized audio playback.
-	AudioSpatializationAllowed() bool
+	IsAudioSpatializationAllowed() bool
 	SetAudioSpatializationAllowed(value bool)
 
 	// Topic: Managing player item outputs
@@ -693,11 +693,11 @@ type IAVPlayerItem interface {
 	// Topic: Managing playback authorization in macOS
 
 	// A Boolean value that indicates whether the content has been authorized by the user.
-	ContentAuthorizedForPlayback() bool
+	IsContentAuthorizedForPlayback() bool
 	// A Boolean value that indicates whether authorization is required to play the content.
-	AuthorizationRequiredForPlayback() bool
+	IsAuthorizationRequiredForPlayback() bool
 	// A Boolean value that indicates whether the application can be used to play the content.
-	ApplicationAuthorizedForPlayback() bool
+	IsApplicationAuthorizedForPlayback() bool
 	// Presents the user the opportunity to authorize the content for playback.
 	RequestContentAuthorizationAsynchronouslyWithTimeoutIntervalCompletionHandler(timeoutInterval float64, handler VoidHandler)
 	// The status of the most recent content authorization request.
@@ -1797,7 +1797,7 @@ func (p AVPlayerItem) SeekableTimeRanges() []foundation.NSValue {
 // is up to you to decide whether to continue media playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/isPlaybackLikelyToKeepUp
-func (p AVPlayerItem) PlaybackLikelyToKeepUp() bool {
+func (p AVPlayerItem) IsPlaybackLikelyToKeepUp() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isPlaybackLikelyToKeepUp"))
 	return rv
 }
@@ -1812,7 +1812,7 @@ func (p AVPlayerItem) PlaybackLikelyToKeepUp() bool {
 // prediction of true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/isPlaybackBufferFull
-func (p AVPlayerItem) PlaybackBufferFull() bool {
+func (p AVPlayerItem) IsPlaybackBufferFull() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isPlaybackBufferFull"))
 	return rv
 }
@@ -1821,7 +1821,7 @@ func (p AVPlayerItem) PlaybackBufferFull() bool {
 // media and that playback will stall or end.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/isPlaybackBufferEmpty
-func (p AVPlayerItem) PlaybackBufferEmpty() bool {
+func (p AVPlayerItem) IsPlaybackBufferEmpty() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isPlaybackBufferEmpty"))
 	return rv
 }
@@ -2128,7 +2128,7 @@ func (p AVPlayerItem) SetAllowedAudioSpatializationFormats(value AVAudioSpatiali
 // audio playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/isAudioSpatializationAllowed
-func (p AVPlayerItem) AudioSpatializationAllowed() bool {
+func (p AVPlayerItem) IsAudioSpatializationAllowed() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isAudioSpatializationAllowed"))
 	return rv
 }
@@ -2242,7 +2242,7 @@ func (p AVPlayerItem) SetCanUseNetworkResourcesForLiveStreamingWhilePaused(value
 // This property is not key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/isContentAuthorizedForPlayback
-func (p AVPlayerItem) ContentAuthorizedForPlayback() bool {
+func (p AVPlayerItem) IsContentAuthorizedForPlayback() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isContentAuthorizedForPlayback"))
 	return rv
 }
@@ -2260,7 +2260,7 @@ func (p AVPlayerItem) ContentAuthorizedForPlayback() bool {
 // This property is not key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/isAuthorizationRequiredForPlayback
-func (p AVPlayerItem) AuthorizationRequiredForPlayback() bool {
+func (p AVPlayerItem) IsAuthorizationRequiredForPlayback() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isAuthorizationRequiredForPlayback"))
 	return rv
 }
@@ -2283,7 +2283,7 @@ func (p AVPlayerItem) AuthorizationRequiredForPlayback() bool {
 // This property is not key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/isApplicationAuthorizedForPlayback
-func (p AVPlayerItem) ApplicationAuthorizedForPlayback() bool {
+func (p AVPlayerItem) IsApplicationAuthorizedForPlayback() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isApplicationAuthorizedForPlayback"))
 	return rv
 }

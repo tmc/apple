@@ -143,7 +143,7 @@ func (dc DateFormatterClass) Alloc() DateFormatter {
 //
 // # Managing Natural Language Support
 //
-//   - [DateFormatter.Lenient]: A Boolean value that indicates whether the receiver uses heuristics when parsing a string.
+//   - [DateFormatter.IsLenient]: A Boolean value that indicates whether the receiver uses heuristics when parsing a string.
 //   - [DateFormatter.SetLenient]
 //   - [DateFormatter.DoesRelativeDateFormatting]: A Boolean value that indicates whether the receiver uses phrases such as “today” and “tomorrow” for the date component.
 //   - [DateFormatter.SetDoesRelativeDateFormatting]
@@ -270,7 +270,7 @@ func NSDateFormatterFromID(id objc.ID) DateFormatter { return DateFormatterFromI
 //
 // # Managing Natural Language Support
 //
-//   - [IDateFormatter.Lenient]: A Boolean value that indicates whether the receiver uses heuristics when parsing a string.
+//   - [IDateFormatter.IsLenient]: A Boolean value that indicates whether the receiver uses heuristics when parsing a string.
 //   - [IDateFormatter.SetLenient]
 //   - [IDateFormatter.DoesRelativeDateFormatting]: A Boolean value that indicates whether the receiver uses phrases such as “today” and “tomorrow” for the date component.
 //   - [IDateFormatter.SetDoesRelativeDateFormatting]
@@ -395,7 +395,7 @@ type IDateFormatter interface {
 	// Topic: Managing Natural Language Support
 
 	// A Boolean value that indicates whether the receiver uses heuristics when parsing a string.
-	Lenient() bool
+	IsLenient() bool
 	SetLenient(value bool)
 	// A Boolean value that indicates whether the receiver uses phrases such as “today” and “tomorrow” for the date component.
 	DoesRelativeDateFormatting() bool
@@ -863,7 +863,7 @@ func (d DateFormatter) SetFormatterBehavior(value NSDateFormatterBehavior) {
 // intended).
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/isLenient
-func (d DateFormatter) Lenient() bool {
+func (d DateFormatter) IsLenient() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isLenient"))
 	return rv
 }

@@ -17,7 +17,7 @@ import (
 // types, but may not be available for all resolutions.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoStabilizationSupported
-func (c AVCaptureConnection) SupportsVideoStabilization() bool {
+func (c AVCaptureConnection) IsVideoStabilizationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoStabilizationSupported"))
 	return rv
 }
@@ -93,7 +93,7 @@ func (c AVCaptureConnection) SetPreferredVideoStabilizationMode(value AVCaptureV
 // camera intrinsics.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isCameraIntrinsicMatrixDeliverySupported
-func (c AVCaptureConnection) CameraIntrinsicMatrixDeliverySupported() bool {
+func (c AVCaptureConnection) IsCameraIntrinsicMatrixDeliverySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCameraIntrinsicMatrixDeliverySupported"))
 	return rv
 }
@@ -117,7 +117,7 @@ func (c AVCaptureConnection) CameraIntrinsicMatrixDeliverySupported() bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isCameraIntrinsicMatrixDeliveryEnabled
 //
 // [kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix
-func (c AVCaptureConnection) CameraIntrinsicMatrixDeliveryEnabled() bool {
+func (c AVCaptureConnection) IsCameraIntrinsicMatrixDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCameraIntrinsicMatrixDeliveryEnabled"))
 	return rv
 }
@@ -162,7 +162,7 @@ func (c AVCaptureConnection) SetVideoScaleAndCropFactor(value float64) {
 // the connection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/isVideoStabilizationEnabled
-func (c AVCaptureConnection) VideoStabilizationEnabled() bool {
+func (c AVCaptureConnection) IsVideoStabilizationEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoStabilizationEnabled"))
 	return rv
 }

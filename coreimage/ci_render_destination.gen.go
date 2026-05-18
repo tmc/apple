@@ -90,11 +90,11 @@ func (cc CIRenderDestinationClass) Alloc() CIRenderDestination {
 //   - [CIRenderDestination.SetColorSpace]
 //   - [CIRenderDestination.Width]: The render destination’s row width.
 //   - [CIRenderDestination.Height]: The render destination’s buffer height.
-//   - [CIRenderDestination.Clamped]: Indicator of whether or not the destination clamps.
+//   - [CIRenderDestination.IsClamped]: Indicator of whether or not the destination clamps.
 //   - [CIRenderDestination.SetClamped]
-//   - [CIRenderDestination.Dithered]: Indicator of whether or not the destination dithers.
+//   - [CIRenderDestination.IsDithered]: Indicator of whether or not the destination dithers.
 //   - [CIRenderDestination.SetDithered]
-//   - [CIRenderDestination.Flipped]: Indicator of whether the destination is flipped.
+//   - [CIRenderDestination.IsFlipped]: Indicator of whether the destination is flipped.
 //   - [CIRenderDestination.SetFlipped]
 //
 // # Instance Properties
@@ -141,11 +141,11 @@ func CIRenderDestinationFromID(id objc.ID) CIRenderDestination {
 //   - [ICIRenderDestination.SetColorSpace]
 //   - [ICIRenderDestination.Width]: The render destination’s row width.
 //   - [ICIRenderDestination.Height]: The render destination’s buffer height.
-//   - [ICIRenderDestination.Clamped]: Indicator of whether or not the destination clamps.
+//   - [ICIRenderDestination.IsClamped]: Indicator of whether or not the destination clamps.
 //   - [ICIRenderDestination.SetClamped]
-//   - [ICIRenderDestination.Dithered]: Indicator of whether or not the destination dithers.
+//   - [ICIRenderDestination.IsDithered]: Indicator of whether or not the destination dithers.
 //   - [ICIRenderDestination.SetDithered]
-//   - [ICIRenderDestination.Flipped]: Indicator of whether the destination is flipped.
+//   - [ICIRenderDestination.IsFlipped]: Indicator of whether the destination is flipped.
 //   - [ICIRenderDestination.SetFlipped]
 //
 // # Instance Properties
@@ -191,13 +191,13 @@ type ICIRenderDestination interface {
 	// The render destination’s buffer height.
 	Height() uint
 	// Indicator of whether or not the destination clamps.
-	Clamped() bool
+	IsClamped() bool
 	SetClamped(value bool)
 	// Indicator of whether or not the destination dithers.
-	Dithered() bool
+	IsDithered() bool
 	SetDithered(value bool)
 	// Indicator of whether the destination is flipped.
-	Flipped() bool
+	IsFlipped() bool
 	SetFlipped(value bool)
 
 	// Topic: Instance Properties
@@ -660,7 +660,7 @@ func (r CIRenderDestination) Height() uint {
 // Indicator of whether or not the destination clamps.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/isClamped
-func (r CIRenderDestination) Clamped() bool {
+func (r CIRenderDestination) IsClamped() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isClamped"))
 	return rv
 }
@@ -671,7 +671,7 @@ func (r CIRenderDestination) SetClamped(value bool) {
 // Indicator of whether or not the destination dithers.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/isDithered
-func (r CIRenderDestination) Dithered() bool {
+func (r CIRenderDestination) IsDithered() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isDithered"))
 	return rv
 }
@@ -682,7 +682,7 @@ func (r CIRenderDestination) SetDithered(value bool) {
 // Indicator of whether the destination is flipped.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/isFlipped
-func (r CIRenderDestination) Flipped() bool {
+func (r CIRenderDestination) IsFlipped() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isFlipped"))
 	return rv
 }

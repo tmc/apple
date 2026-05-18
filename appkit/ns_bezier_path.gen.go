@@ -139,7 +139,7 @@ func (nc NSBezierPathClass) Alloc() NSBezierPath {
 //   - [NSBezierPath.Bounds]: The bounding box of the path.
 //   - [NSBezierPath.ControlPointBounds]: The bounding box of the path, including any control points.
 //   - [NSBezierPath.CurrentPoint]: The current point (the trailing point or ending point in the most recently added segment).
-//   - [NSBezierPath.Empty]: A Boolean value that indicates whether the path is empty.
+//   - [NSBezierPath.IsEmpty]: A Boolean value that indicates whether the path is empty.
 //
 // # Applying Transformations
 //
@@ -238,7 +238,7 @@ func NSBezierPathFromID(id objc.ID) NSBezierPath {
 //   - [INSBezierPath.Bounds]: The bounding box of the path.
 //   - [INSBezierPath.ControlPointBounds]: The bounding box of the path, including any control points.
 //   - [INSBezierPath.CurrentPoint]: The current point (the trailing point or ending point in the most recently added segment).
-//   - [INSBezierPath.Empty]: A Boolean value that indicates whether the path is empty.
+//   - [INSBezierPath.IsEmpty]: A Boolean value that indicates whether the path is empty.
 //
 // # Applying Transformations
 //
@@ -360,7 +360,7 @@ type INSBezierPath interface {
 	// The current point (the trailing point or ending point in the most recently added segment).
 	CurrentPoint() corefoundation.CGPoint
 	// A Boolean value that indicates whether the path is empty.
-	Empty() bool
+	IsEmpty() bool
 
 	// Topic: Applying Transformations
 
@@ -1432,7 +1432,7 @@ func (b NSBezierPath) CurrentPoint() corefoundation.CGPoint {
 // false if it contains at least one element.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/isEmpty
-func (b NSBezierPath) Empty() bool {
+func (b NSBezierPath) IsEmpty() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isEmpty"))
 	return rv
 }

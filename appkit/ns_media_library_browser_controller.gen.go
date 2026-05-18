@@ -119,7 +119,7 @@ func (nc NSMediaLibraryBrowserControllerClass) Alloc() NSMediaLibraryBrowserCont
 //   - [NSMediaLibraryBrowserController.Frame]: The frame, in global coordinates, used to display the Media Library Browser panel.
 //   - [NSMediaLibraryBrowserController.SetFrame]
 //   - [NSMediaLibraryBrowserController.TogglePanel]: Toggles the visibility of the Media Library Browser.
-//   - [NSMediaLibraryBrowserController.Visible]: A Boolean value that determines whether the Media Library Browser panel is visible.
+//   - [NSMediaLibraryBrowserController.IsVisible]: A Boolean value that determines whether the Media Library Browser panel is visible.
 //   - [NSMediaLibraryBrowserController.SetVisible]
 //
 // # Displayed Media Library Types
@@ -158,7 +158,7 @@ func NSMediaLibraryBrowserControllerFromID(id objc.ID) NSMediaLibraryBrowserCont
 //   - [INSMediaLibraryBrowserController.Frame]: The frame, in global coordinates, used to display the Media Library Browser panel.
 //   - [INSMediaLibraryBrowserController.SetFrame]
 //   - [INSMediaLibraryBrowserController.TogglePanel]: Toggles the visibility of the Media Library Browser.
-//   - [INSMediaLibraryBrowserController.Visible]: A Boolean value that determines whether the Media Library Browser panel is visible.
+//   - [INSMediaLibraryBrowserController.IsVisible]: A Boolean value that determines whether the Media Library Browser panel is visible.
 //   - [INSMediaLibraryBrowserController.SetVisible]
 //
 // # Displayed Media Library Types
@@ -178,7 +178,7 @@ type INSMediaLibraryBrowserController interface {
 	// Toggles the visibility of the Media Library Browser.
 	TogglePanel(sender objectivec.IObject)
 	// A Boolean value that determines whether the Media Library Browser panel is visible.
-	Visible() bool
+	IsVisible() bool
 	SetVisible(value bool)
 
 	// Topic: Displayed Media Library Types
@@ -240,7 +240,7 @@ func (m NSMediaLibraryBrowserController) SetFrame(value corefoundation.CGRect) {
 // panel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMediaLibraryBrowserController/isVisible
-func (m NSMediaLibraryBrowserController) Visible() bool {
+func (m NSMediaLibraryBrowserController) IsVisible() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isVisible"))
 	return rv
 }

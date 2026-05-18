@@ -107,7 +107,7 @@ func (nc NSEventClass) Alloc() NSEvent {
 //   - [NSEvent.CharactersByApplyingModifiers]: Returns the new characters that result if you apply the specified modifier keys to the event.
 //   - [NSEvent.SpecialKey]: The code associated with a function key or other special key.
 //   - [NSEvent.SetSpecialKey]
-//   - [NSEvent.ARepeat]: A Boolean value that indicates whether the key event is a repeat.
+//   - [NSEvent.IsARepeat]: A Boolean value that indicates whether the key event is a repeat.
 //
 // # Getting mouse event information
 //
@@ -124,7 +124,7 @@ func (nc NSEventClass) Alloc() NSEvent {
 //   - [NSEvent.ScrollingDeltaX]: The scroll wheel’s horizontal delta.
 //   - [NSEvent.ScrollingDeltaY]: The scroll wheel’s vertical delta.
 //   - [NSEvent.MomentumPhase]: The momentum phase for a scroll or flick gesture.
-//   - [NSEvent.DirectionInvertedFromDevice]: A Boolean value that indicates whether the user has changed the device inversion.
+//   - [NSEvent.IsDirectionInvertedFromDevice]: A Boolean value that indicates whether the user has changed the device inversion.
 //
 // # Configuring swipe event behaviors
 //
@@ -150,7 +150,7 @@ func (nc NSEventClass) Alloc() NSEvent {
 //
 //   - [NSEvent.CapabilityMask]: A mask that indicates the capabilities of the tablet device that generated this event.
 //   - [NSEvent.DeviceID]: A special identifier the system matches against tablet-pointer and tablet-proximity events.
-//   - [NSEvent.EnteringProximity]: A Boolean value that indicates whether a pointing device is entering or leaving the proximity of its tablet.
+//   - [NSEvent.IsEnteringProximity]: A Boolean value that indicates whether a pointing device is entering or leaving the proximity of its tablet.
 //   - [NSEvent.PointingDeviceID]: The index of the pointing device currently in proximity with the tablet.
 //   - [NSEvent.PointingDeviceSerialNumber]: The vendor-assigned serial number of a pointing device.
 //   - [NSEvent.PointingDeviceType]: The kind of pointing device associated with this event.
@@ -231,7 +231,7 @@ func NSEventFromID(id objc.ID) NSEvent {
 //   - [INSEvent.CharactersByApplyingModifiers]: Returns the new characters that result if you apply the specified modifier keys to the event.
 //   - [INSEvent.SpecialKey]: The code associated with a function key or other special key.
 //   - [INSEvent.SetSpecialKey]
-//   - [INSEvent.ARepeat]: A Boolean value that indicates whether the key event is a repeat.
+//   - [INSEvent.IsARepeat]: A Boolean value that indicates whether the key event is a repeat.
 //
 // # Getting mouse event information
 //
@@ -248,7 +248,7 @@ func NSEventFromID(id objc.ID) NSEvent {
 //   - [INSEvent.ScrollingDeltaX]: The scroll wheel’s horizontal delta.
 //   - [INSEvent.ScrollingDeltaY]: The scroll wheel’s vertical delta.
 //   - [INSEvent.MomentumPhase]: The momentum phase for a scroll or flick gesture.
-//   - [INSEvent.DirectionInvertedFromDevice]: A Boolean value that indicates whether the user has changed the device inversion.
+//   - [INSEvent.IsDirectionInvertedFromDevice]: A Boolean value that indicates whether the user has changed the device inversion.
 //
 // # Configuring swipe event behaviors
 //
@@ -274,7 +274,7 @@ func NSEventFromID(id objc.ID) NSEvent {
 //
 //   - [INSEvent.CapabilityMask]: A mask that indicates the capabilities of the tablet device that generated this event.
 //   - [INSEvent.DeviceID]: A special identifier the system matches against tablet-pointer and tablet-proximity events.
-//   - [INSEvent.EnteringProximity]: A Boolean value that indicates whether a pointing device is entering or leaving the proximity of its tablet.
+//   - [INSEvent.IsEnteringProximity]: A Boolean value that indicates whether a pointing device is entering or leaving the proximity of its tablet.
 //   - [INSEvent.PointingDeviceID]: The index of the pointing device currently in proximity with the tablet.
 //   - [INSEvent.PointingDeviceSerialNumber]: The vendor-assigned serial number of a pointing device.
 //   - [INSEvent.PointingDeviceType]: The kind of pointing device associated with this event.
@@ -356,7 +356,7 @@ type INSEvent interface {
 	SpecialKey() string
 	SetSpecialKey(value string)
 	// A Boolean value that indicates whether the key event is a repeat.
-	ARepeat() bool
+	IsARepeat() bool
 
 	// Topic: Getting mouse event information
 
@@ -384,7 +384,7 @@ type INSEvent interface {
 	// The momentum phase for a scroll or flick gesture.
 	MomentumPhase() NSEventPhase
 	// A Boolean value that indicates whether the user has changed the device inversion.
-	DirectionInvertedFromDevice() bool
+	IsDirectionInvertedFromDevice() bool
 
 	// Topic: Configuring swipe event behaviors
 
@@ -424,7 +424,7 @@ type INSEvent interface {
 	// A special identifier the system matches against tablet-pointer and tablet-proximity events.
 	DeviceID() uint
 	// A Boolean value that indicates whether a pointing device is entering or leaving the proximity of its tablet.
-	EnteringProximity() bool
+	IsEnteringProximity() bool
 	// The index of the pointing device currently in proximity with the tablet.
 	PointingDeviceID() uint
 	// The vendor-assigned serial number of a pointing device.
@@ -1326,7 +1326,7 @@ func (e NSEvent) SetSpecialKey(value string) {
 // sent to an [NSFlagsChanged] event or other non-key event.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/isARepeat
-func (e NSEvent) ARepeat() bool {
+func (e NSEvent) IsARepeat() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isARepeat"))
 	return rv
 }
@@ -1544,7 +1544,7 @@ func (e NSEvent) MomentumPhase() NSEventPhase {
 // `-1` if needed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/isDirectionInvertedFromDevice
-func (e NSEvent) DirectionInvertedFromDevice() bool {
+func (e NSEvent) IsDirectionInvertedFromDevice() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isDirectionInvertedFromDevice"))
 	return rv
 }
@@ -1763,7 +1763,7 @@ func (e NSEvent) DeviceID() uint {
 // otherwise it is set to false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/isEnteringProximity
-func (e NSEvent) EnteringProximity() bool {
+func (e NSEvent) IsEnteringProximity() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isEnteringProximity"))
 	return rv
 }
@@ -2273,7 +2273,7 @@ func (_NSEventClass NSEventClass) MouseLocation() corefoundation.CGPoint {
 // behavior.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/isSwipeTrackingFromScrollEventsEnabled
-func (_NSEventClass NSEventClass) SwipeTrackingFromScrollEventsEnabled() bool {
+func (_NSEventClass NSEventClass) IsSwipeTrackingFromScrollEventsEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSEventClass.class), objc.Sel("isSwipeTrackingFromScrollEventsEnabled"))
 	return rv
 }
@@ -2288,7 +2288,7 @@ func (_NSEventClass NSEventClass) SwipeTrackingFromScrollEventsEnabled() bool {
 // disabled. The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/isMouseCoalescingEnabled
-func (_NSEventClass NSEventClass) MouseCoalescingEnabled() bool {
+func (_NSEventClass NSEventClass) IsMouseCoalescingEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSEventClass.class), objc.Sel("isMouseCoalescingEnabled"))
 	return rv
 }

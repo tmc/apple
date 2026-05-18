@@ -58,7 +58,7 @@ func (nc NWUDPSessionClass) Alloc() NWUDPSession {
 // # Monitoring the session state
 //
 //   - [NWUDPSession.State]: The current state of the UDP session.
-//   - [NWUDPSession.Viable]: The viability of a UDP session represents whether or not data can be transferred.
+//   - [NWUDPSession.IsViable]: The viability of a UDP session represents whether or not data can be transferred.
 //
 // # Selecting remote endpoints
 //
@@ -97,7 +97,7 @@ func NWUDPSessionFromID(id objc.ID) NWUDPSession {
 // # Monitoring the session state
 //
 //   - [INWUDPSession.State]: The current state of the UDP session.
-//   - [INWUDPSession.Viable]: The viability of a UDP session represents whether or not data can be transferred.
+//   - [INWUDPSession.IsViable]: The viability of a UDP session represents whether or not data can be transferred.
 //
 // # Selecting remote endpoints
 //
@@ -125,7 +125,7 @@ type INWUDPSession interface {
 	// The current state of the UDP session.
 	State() NWUDPSessionState
 	// The viability of a UDP session represents whether or not data can be transferred.
-	Viable() bool
+	IsViable() bool
 
 	// Topic: Selecting remote endpoints
 
@@ -215,7 +215,7 @@ func (n NWUDPSession) State() NWUDPSessionState {
 // Use Key-Value Observing to watch this property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWUDPSession/isViable
-func (n NWUDPSession) Viable() bool {
+func (n NWUDPSession) IsViable() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isViable"))
 	return rv
 }

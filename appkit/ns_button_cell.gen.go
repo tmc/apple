@@ -116,7 +116,7 @@ func (nc NSButtonCellClass) Alloc() NSButtonCell {
 //   - [NSButtonCell.SetBezelStyle]
 //   - [NSButtonCell.ImageDimsWhenDisabled]: A Boolean value that indicates if the button’s image and text appear “dim” when the button is disabled.
 //   - [NSButtonCell.SetImageDimsWhenDisabled]
-//   - [NSButtonCell.Transparent]: A Boolean value that indicates if the button is transparent.
+//   - [NSButtonCell.IsTransparent]: A Boolean value that indicates if the button is transparent.
 //   - [NSButtonCell.SetTransparent]
 //   - [NSButtonCell.ShowsBorderOnlyWhileMouseInside]: A Boolean value that indicates if the button displays its border only when the pointer is over it.
 //   - [NSButtonCell.SetShowsBorderOnlyWhileMouseInside]
@@ -202,7 +202,7 @@ func NSButtonCellFromID(id objc.ID) NSButtonCell {
 //   - [INSButtonCell.SetBezelStyle]
 //   - [INSButtonCell.ImageDimsWhenDisabled]: A Boolean value that indicates if the button’s image and text appear “dim” when the button is disabled.
 //   - [INSButtonCell.SetImageDimsWhenDisabled]
-//   - [INSButtonCell.Transparent]: A Boolean value that indicates if the button is transparent.
+//   - [INSButtonCell.IsTransparent]: A Boolean value that indicates if the button is transparent.
 //   - [INSButtonCell.SetTransparent]
 //   - [INSButtonCell.ShowsBorderOnlyWhileMouseInside]: A Boolean value that indicates if the button displays its border only when the pointer is over it.
 //   - [INSButtonCell.SetShowsBorderOnlyWhileMouseInside]
@@ -282,7 +282,7 @@ type INSButtonCell interface {
 	ImageDimsWhenDisabled() bool
 	SetImageDimsWhenDisabled(value bool)
 	// A Boolean value that indicates if the button is transparent.
-	Transparent() bool
+	IsTransparent() bool
 	SetTransparent(value bool)
 	// A Boolean value that indicates if the button displays its border only when the pointer is over it.
 	ShowsBorderOnlyWhileMouseInside() bool
@@ -712,7 +712,7 @@ func (b NSButtonCell) SetImageDimsWhenDisabled(value bool) {
 // gets sent to a target when the area receives a mouse click.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/isTransparent
-func (b NSButtonCell) Transparent() bool {
+func (b NSButtonCell) IsTransparent() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isTransparent"))
 	return rv
 }

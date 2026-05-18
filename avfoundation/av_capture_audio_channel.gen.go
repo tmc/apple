@@ -55,7 +55,7 @@ func (ac AVCaptureAudioChannelClass) Alloc() AVCaptureAudioChannel {
 //
 // # Configuring a channel
 //
-//   - [AVCaptureAudioChannel.Enabled]: A Boolean value that indicates whether the channel is in an enabled state.
+//   - [AVCaptureAudioChannel.IsEnabled]: A Boolean value that indicates whether the channel is in an enabled state.
 //   - [AVCaptureAudioChannel.SetEnabled]
 //   - [AVCaptureAudioChannel.Volume]: The current volume (gain) of the channel.
 //   - [AVCaptureAudioChannel.SetVolume]
@@ -85,7 +85,7 @@ func AVCaptureAudioChannelFromID(id objc.ID) AVCaptureAudioChannel {
 //
 // # Configuring a channel
 //
-//   - [IAVCaptureAudioChannel.Enabled]: A Boolean value that indicates whether the channel is in an enabled state.
+//   - [IAVCaptureAudioChannel.IsEnabled]: A Boolean value that indicates whether the channel is in an enabled state.
 //   - [IAVCaptureAudioChannel.SetEnabled]
 //   - [IAVCaptureAudioChannel.Volume]: The current volume (gain) of the channel.
 //   - [IAVCaptureAudioChannel.SetVolume]
@@ -102,7 +102,7 @@ type IAVCaptureAudioChannel interface {
 	// Topic: Configuring a channel
 
 	// A Boolean value that indicates whether the channel is in an enabled state.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// The current volume (gain) of the channel.
 	Volume() float32
@@ -148,7 +148,7 @@ func NewAVCaptureAudioChannel() AVCaptureAudioChannel {
 // channel.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioChannel/isEnabled
-func (c AVCaptureAudioChannel) Enabled() bool {
+func (c AVCaptureAudioChannel) IsEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEnabled"))
 	return rv
 }

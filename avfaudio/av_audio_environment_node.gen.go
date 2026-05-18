@@ -100,7 +100,7 @@ func (ac AVAudioEnvironmentNodeClass) Alloc() AVAudioEnvironmentNode {
 //
 // # Getting the Head Tracking Status
 //
-//   - [AVAudioEnvironmentNode.ListenerHeadTrackingEnabled]: A Boolean value that indicates whether the listener orientation is automatically rotated based on head orientation.
+//   - [AVAudioEnvironmentNode.IsListenerHeadTrackingEnabled]: A Boolean value that indicates whether the listener orientation is automatically rotated based on head orientation.
 //   - [AVAudioEnvironmentNode.SetListenerHeadTrackingEnabled]
 //
 // # Getting the Input Bus
@@ -154,7 +154,7 @@ func AVAudioEnvironmentNodeFromID(id objc.ID) AVAudioEnvironmentNode {
 //
 // # Getting the Head Tracking Status
 //
-//   - [IAVAudioEnvironmentNode.ListenerHeadTrackingEnabled]: A Boolean value that indicates whether the listener orientation is automatically rotated based on head orientation.
+//   - [IAVAudioEnvironmentNode.IsListenerHeadTrackingEnabled]: A Boolean value that indicates whether the listener orientation is automatically rotated based on head orientation.
 //   - [IAVAudioEnvironmentNode.SetListenerHeadTrackingEnabled]
 //
 // # Getting the Input Bus
@@ -201,7 +201,7 @@ type IAVAudioEnvironmentNode interface {
 	// Topic: Getting the Head Tracking Status
 
 	// A Boolean value that indicates whether the listener orientation is automatically rotated based on head orientation.
-	ListenerHeadTrackingEnabled() bool
+	IsListenerHeadTrackingEnabled() bool
 	SetListenerHeadTrackingEnabled(value bool)
 
 	// Topic: Getting the Input Bus
@@ -498,7 +498,7 @@ func (a AVAudioEnvironmentNode) ApplicableRenderingAlgorithms() []foundation.NSN
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentNode/isListenerHeadTrackingEnabled
 //
 // [com.apple.developer.coremotion.head-pose]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.developer.coremotion.head-pose
-func (a AVAudioEnvironmentNode) ListenerHeadTrackingEnabled() bool {
+func (a AVAudioEnvironmentNode) IsListenerHeadTrackingEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isListenerHeadTrackingEnabled"))
 	return rv
 }

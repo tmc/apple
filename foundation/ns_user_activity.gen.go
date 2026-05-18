@@ -158,11 +158,11 @@ func (nc NSUserActivityClass) Alloc() NSUserActivity {
 //
 // # Specifying the activity’s eligibility
 //
-//   - [NSUserActivity.EligibleForHandoff]: A Boolean value that indicates whether the activity can be continued on another device using Handoff.
+//   - [NSUserActivity.IsEligibleForHandoff]: A Boolean value that indicates whether the activity can be continued on another device using Handoff.
 //   - [NSUserActivity.SetEligibleForHandoff]
-//   - [NSUserActivity.EligibleForSearch]: A Boolean value that indicates whether the activity should be added to the on-device index.
+//   - [NSUserActivity.IsEligibleForSearch]: A Boolean value that indicates whether the activity should be added to the on-device index.
 //   - [NSUserActivity.SetEligibleForSearch]
-//   - [NSUserActivity.EligibleForPublicIndexing]: A Boolean value that indicates whether the activity can be publicly accessed by all iOS users.
+//   - [NSUserActivity.IsEligibleForPublicIndexing]: A Boolean value that indicates whether the activity can be publicly accessed by all iOS users.
 //   - [NSUserActivity.SetEligibleForPublicIndexing]
 //   - [NSUserActivity.ExpirationDate]: The date after which the activity is no longer eligible for Handoff or indexing.
 //   - [NSUserActivity.SetExpirationDate]
@@ -288,11 +288,11 @@ func NSUserActivityFromID(id objc.ID) NSUserActivity {
 //
 // # Specifying the activity’s eligibility
 //
-//   - [INSUserActivity.EligibleForHandoff]: A Boolean value that indicates whether the activity can be continued on another device using Handoff.
+//   - [INSUserActivity.IsEligibleForHandoff]: A Boolean value that indicates whether the activity can be continued on another device using Handoff.
 //   - [INSUserActivity.SetEligibleForHandoff]
-//   - [INSUserActivity.EligibleForSearch]: A Boolean value that indicates whether the activity should be added to the on-device index.
+//   - [INSUserActivity.IsEligibleForSearch]: A Boolean value that indicates whether the activity should be added to the on-device index.
 //   - [INSUserActivity.SetEligibleForSearch]
-//   - [INSUserActivity.EligibleForPublicIndexing]: A Boolean value that indicates whether the activity can be publicly accessed by all iOS users.
+//   - [INSUserActivity.IsEligibleForPublicIndexing]: A Boolean value that indicates whether the activity can be publicly accessed by all iOS users.
 //   - [INSUserActivity.SetEligibleForPublicIndexing]
 //   - [INSUserActivity.ExpirationDate]: The date after which the activity is no longer eligible for Handoff or indexing.
 //   - [INSUserActivity.SetExpirationDate]
@@ -412,13 +412,13 @@ type INSUserActivity interface {
 	// Topic: Specifying the activity’s eligibility
 
 	// A Boolean value that indicates whether the activity can be continued on another device using Handoff.
-	EligibleForHandoff() bool
+	IsEligibleForHandoff() bool
 	SetEligibleForHandoff(value bool)
 	// A Boolean value that indicates whether the activity should be added to the on-device index.
-	EligibleForSearch() bool
+	IsEligibleForSearch() bool
 	SetEligibleForSearch(value bool)
 	// A Boolean value that indicates whether the activity can be publicly accessed by all iOS users.
-	EligibleForPublicIndexing() bool
+	IsEligibleForPublicIndexing() bool
 	SetEligibleForPublicIndexing(value bool)
 	// The date after which the activity is no longer eligible for Handoff or indexing.
 	ExpirationDate() INSDate
@@ -972,7 +972,7 @@ func (u NSUserActivity) SetPersistentIdentifier(value NSUserActivityPersistentId
 // The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/isEligibleForHandoff
-func (u NSUserActivity) EligibleForHandoff() bool {
+func (u NSUserActivity) IsEligibleForHandoff() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isEligibleForHandoff"))
 	return rv
 }
@@ -988,7 +988,7 @@ func (u NSUserActivity) SetEligibleForHandoff(value bool) {
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/isEligibleForSearch
-func (u NSUserActivity) EligibleForSearch() bool {
+func (u NSUserActivity) IsEligibleForSearch() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isEligibleForSearch"))
 	return rv
 }
@@ -1017,7 +1017,7 @@ func (u NSUserActivity) SetEligibleForSearch(value bool) {
 // website’s content.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/isEligibleForPublicIndexing
-func (u NSUserActivity) EligibleForPublicIndexing() bool {
+func (u NSUserActivity) IsEligibleForPublicIndexing() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isEligibleForPublicIndexing"))
 	return rv
 }

@@ -127,7 +127,7 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 // # Getting the disk image details
 //
 //   - [VZDiskImageStorageDeviceAttachment.URL]: The URL of the underlying disk image.
-//   - [VZDiskImageStorageDeviceAttachment.ReadOnly]: A Boolean value that indicates whether the underlying disk image is read-only.
+//   - [VZDiskImageStorageDeviceAttachment.IsReadOnly]: A Boolean value that indicates whether the underlying disk image is read-only.
 //   - [VZDiskImageStorageDeviceAttachment.CachingMode]: The current cacheing mode for the virtual disk image.
 //   - [VZDiskImageStorageDeviceAttachment.SynchronizationMode]: The mode in which the disk image synchronizes data with the underlying storage device.
 //
@@ -158,7 +158,7 @@ func VZDiskImageStorageDeviceAttachmentFromID(id objc.ID) VZDiskImageStorageDevi
 // # Getting the disk image details
 //
 //   - [IVZDiskImageStorageDeviceAttachment.URL]: The URL of the underlying disk image.
-//   - [IVZDiskImageStorageDeviceAttachment.ReadOnly]: A Boolean value that indicates whether the underlying disk image is read-only.
+//   - [IVZDiskImageStorageDeviceAttachment.IsReadOnly]: A Boolean value that indicates whether the underlying disk image is read-only.
 //   - [IVZDiskImageStorageDeviceAttachment.CachingMode]: The current cacheing mode for the virtual disk image.
 //   - [IVZDiskImageStorageDeviceAttachment.SynchronizationMode]: The mode in which the disk image synchronizes data with the underlying storage device.
 //
@@ -178,7 +178,7 @@ type IVZDiskImageStorageDeviceAttachment interface {
 	// The URL of the underlying disk image.
 	URL() foundation.NSURL
 	// A Boolean value that indicates whether the underlying disk image is read-only.
-	ReadOnly() bool
+	IsReadOnly() bool
 	// The current cacheing mode for the virtual disk image.
 	CachingMode() VZDiskImageCachingMode
 	// The mode in which the disk image synchronizes data with the underlying storage device.
@@ -331,7 +331,7 @@ func (d VZDiskImageStorageDeviceAttachment) URL() foundation.NSURL {
 // the contents of the disk image, but may not write to it.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/isReadOnly
-func (d VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
+func (d VZDiskImageStorageDeviceAttachment) IsReadOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isReadOnly"))
 	return rv
 }

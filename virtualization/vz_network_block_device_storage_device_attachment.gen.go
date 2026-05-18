@@ -89,7 +89,7 @@ func (vc VZNetworkBlockDeviceStorageDeviceAttachmentClass) Alloc() VZNetworkBloc
 //
 // # Getting information about the attachment point
 //
-//   - [VZNetworkBlockDeviceStorageDeviceAttachment.ForcedReadOnly]: Returns a Boolean value that indicates whether the underlying disk attachment network is in a read-only state.
+//   - [VZNetworkBlockDeviceStorageDeviceAttachment.IsForcedReadOnly]: Returns a Boolean value that indicates whether the underlying disk attachment network is in a read-only state.
 //   - [VZNetworkBlockDeviceStorageDeviceAttachment.SynchronizationMode]: The mode in which the NBD client synchronizes data with the NBD server.
 //   - [VZNetworkBlockDeviceStorageDeviceAttachment.Timeout]: The timeout value in seconds for the connection between the client and server.
 //   - [VZNetworkBlockDeviceStorageDeviceAttachment.URL]: The URL that refers to the NBD server to which the NBD client will connect.
@@ -127,7 +127,7 @@ func VZNetworkBlockDeviceStorageDeviceAttachmentFromID(id objc.ID) VZNetworkBloc
 //
 // # Getting information about the attachment point
 //
-//   - [IVZNetworkBlockDeviceStorageDeviceAttachment.ForcedReadOnly]: Returns a Boolean value that indicates whether the underlying disk attachment network is in a read-only state.
+//   - [IVZNetworkBlockDeviceStorageDeviceAttachment.IsForcedReadOnly]: Returns a Boolean value that indicates whether the underlying disk attachment network is in a read-only state.
 //   - [IVZNetworkBlockDeviceStorageDeviceAttachment.SynchronizationMode]: The mode in which the NBD client synchronizes data with the NBD server.
 //   - [IVZNetworkBlockDeviceStorageDeviceAttachment.Timeout]: The timeout value in seconds for the connection between the client and server.
 //   - [IVZNetworkBlockDeviceStorageDeviceAttachment.URL]: The URL that refers to the NBD server to which the NBD client will connect.
@@ -151,7 +151,7 @@ type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 	// Topic: Getting information about the attachment point
 
 	// Returns a Boolean value that indicates whether the underlying disk attachment network is in a read-only state.
-	ForcedReadOnly() bool
+	IsForcedReadOnly() bool
 	// The mode in which the NBD client synchronizes data with the NBD server.
 	SynchronizationMode() VZDiskSynchronizationMode
 	// The timeout value in seconds for the connection between the client and server.
@@ -338,7 +338,7 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 // read-only.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/isForcedReadOnly
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) ForcedReadOnly() bool {
+func (n VZNetworkBlockDeviceStorageDeviceAttachment) IsForcedReadOnly() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isForcedReadOnly"))
 	return rv
 }

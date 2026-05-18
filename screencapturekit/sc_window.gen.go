@@ -66,8 +66,8 @@ func (sc SCWindowClass) Alloc() SCWindow {
 //
 // # Determining visibility
 //
-//   - [SCWindow.OnScreen]: A Boolean value that indicates whether the window is on screen.
-//   - [SCWindow.Active]: A Boolean value that indicates if the window is currently streaming.
+//   - [SCWindow.IsOnScreen]: A Boolean value that indicates whether the window is on screen.
+//   - [SCWindow.IsActive]: A Boolean value that indicates if the window is currently streaming.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow
 type SCWindow struct {
@@ -99,8 +99,8 @@ func SCWindowFromID(id objc.ID) SCWindow {
 //
 // # Determining visibility
 //
-//   - [ISCWindow.OnScreen]: A Boolean value that indicates whether the window is on screen.
-//   - [ISCWindow.Active]: A Boolean value that indicates if the window is currently streaming.
+//   - [ISCWindow.IsOnScreen]: A Boolean value that indicates whether the window is on screen.
+//   - [ISCWindow.IsActive]: A Boolean value that indicates if the window is currently streaming.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow
 type ISCWindow interface {
@@ -125,9 +125,9 @@ type ISCWindow interface {
 	// Topic: Determining visibility
 
 	// A Boolean value that indicates whether the window is on screen.
-	OnScreen() bool
+	IsOnScreen() bool
 	// A Boolean value that indicates if the window is currently streaming.
-	Active() bool
+	IsActive() bool
 }
 
 // Init initializes the instance.
@@ -197,7 +197,7 @@ func (w SCWindow) Frame() corefoundation.CGRect {
 // window.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/isOnScreen
-func (w SCWindow) OnScreen() bool {
+func (w SCWindow) IsOnScreen() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isOnScreen"))
 	return rv
 }
@@ -210,7 +210,7 @@ func (w SCWindow) OnScreen() bool {
 // offscreen.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/isActive
-func (w SCWindow) Active() bool {
+func (w SCWindow) IsActive() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isActive"))
 	return rv
 }

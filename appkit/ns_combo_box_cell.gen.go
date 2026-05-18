@@ -62,7 +62,7 @@ func (nc NSComboBoxCellClass) Alloc() NSComboBoxCell {
 //
 //   - [NSComboBoxCell.HasVerticalScroller]: A Boolean value that indicates if the combo box displays a vertical scroller.
 //   - [NSComboBoxCell.SetHasVerticalScroller]
-//   - [NSComboBoxCell.ButtonBordered]: A Boolean value that indicates whether the combo box button displays a border.
+//   - [NSComboBoxCell.IsButtonBordered]: A Boolean value that indicates whether the combo box button displays a border.
 //   - [NSComboBoxCell.SetButtonBordered]
 //   - [NSComboBoxCell.IntercellSpacing]: The spacing between cells in the combo box’s pop-up list.
 //   - [NSComboBoxCell.SetIntercellSpacing]
@@ -133,7 +133,7 @@ func NSComboBoxCellFromID(id objc.ID) NSComboBoxCell {
 //
 //   - [INSComboBoxCell.HasVerticalScroller]: A Boolean value that indicates if the combo box displays a vertical scroller.
 //   - [INSComboBoxCell.SetHasVerticalScroller]
-//   - [INSComboBoxCell.ButtonBordered]: A Boolean value that indicates whether the combo box button displays a border.
+//   - [INSComboBoxCell.IsButtonBordered]: A Boolean value that indicates whether the combo box button displays a border.
 //   - [INSComboBoxCell.SetButtonBordered]
 //   - [INSComboBoxCell.IntercellSpacing]: The spacing between cells in the combo box’s pop-up list.
 //   - [INSComboBoxCell.SetIntercellSpacing]
@@ -193,7 +193,7 @@ type INSComboBoxCell interface {
 	HasVerticalScroller() bool
 	SetHasVerticalScroller(value bool)
 	// A Boolean value that indicates whether the combo box button displays a border.
-	ButtonBordered() bool
+	IsButtonBordered() bool
 	SetButtonBordered(value bool)
 	// The spacing between cells in the combo box’s pop-up list.
 	IntercellSpacing() corefoundation.CGSize
@@ -647,7 +647,7 @@ func (c NSComboBoxCell) SetHasVerticalScroller(value bool) {
 // border.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/isButtonBordered
-func (c NSComboBoxCell) ButtonBordered() bool {
+func (c NSComboBoxCell) IsButtonBordered() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isButtonBordered"))
 	return rv
 }

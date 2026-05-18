@@ -62,7 +62,7 @@ func (cc CKOperationConfigurationClass) Alloc() CKOperationConfiguration {
 //   - [CKOperationConfiguration.SetAllowsCellularAccess]
 //   - [CKOperationConfiguration.Container]: The configuration’s container.
 //   - [CKOperationConfiguration.SetContainer]
-//   - [CKOperationConfiguration.LongLived]: A Boolean value that indicates whether the operations that use this configuration are long-lived.
+//   - [CKOperationConfiguration.IsLongLived]: A Boolean value that indicates whether the operations that use this configuration are long-lived.
 //   - [CKOperationConfiguration.SetLongLived]
 //   - [CKOperationConfiguration.QualityOfService]: The priority that the system uses when it allocates resources to the operations that use this configuration.
 //   - [CKOperationConfiguration.SetQualityOfService]
@@ -94,7 +94,7 @@ func CKOperationConfigurationFromID(id objc.ID) CKOperationConfiguration {
 //   - [ICKOperationConfiguration.SetAllowsCellularAccess]
 //   - [ICKOperationConfiguration.Container]: The configuration’s container.
 //   - [ICKOperationConfiguration.SetContainer]
-//   - [ICKOperationConfiguration.LongLived]: A Boolean value that indicates whether the operations that use this configuration are long-lived.
+//   - [ICKOperationConfiguration.IsLongLived]: A Boolean value that indicates whether the operations that use this configuration are long-lived.
 //   - [ICKOperationConfiguration.SetLongLived]
 //   - [ICKOperationConfiguration.QualityOfService]: The priority that the system uses when it allocates resources to the operations that use this configuration.
 //   - [ICKOperationConfiguration.SetQualityOfService]
@@ -116,7 +116,7 @@ type ICKOperationConfiguration interface {
 	Container() ICKContainer
 	SetContainer(value ICKContainer)
 	// A Boolean value that indicates whether the operations that use this configuration are long-lived.
-	LongLived() bool
+	IsLongLived() bool
 	SetLongLived(value bool)
 	// The priority that the system uses when it allocates resources to the operations that use this configuration.
 	QualityOfService() foundation.NSQualityOfService
@@ -193,7 +193,7 @@ func (c CKOperationConfiguration) SetContainer(value ICKContainer) {
 // configuration are long-lived.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKOperation/Configuration-swift.class/isLongLived
-func (c CKOperationConfiguration) LongLived() bool {
+func (c CKOperationConfiguration) IsLongLived() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLongLived"))
 	return rv
 }

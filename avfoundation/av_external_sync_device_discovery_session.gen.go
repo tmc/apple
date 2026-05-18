@@ -146,7 +146,7 @@ func (_AVExternalSyncDeviceDiscoverySessionClass AVExternalSyncDeviceDiscoverySe
 // `false` indicates they are not.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDevice/DiscoverySession/isSupported
-func (_AVExternalSyncDeviceDiscoverySessionClass AVExternalSyncDeviceDiscoverySessionClass) Supported() bool {
+func (_AVExternalSyncDeviceDiscoverySessionClass AVExternalSyncDeviceDiscoverySessionClass) IsSupported() bool {
 	rv := objc.Send[bool](objc.ID(_AVExternalSyncDeviceDiscoverySessionClass.class), objc.Sel("isSupported"))
 	return rv
 }

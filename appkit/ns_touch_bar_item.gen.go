@@ -274,7 +274,7 @@ func (nc NSTouchBarItemClass) Alloc() NSTouchBarItem {
 //
 //   - [NSTouchBarItem.VisibilityPriority]: Determines which items are shown in a bar when space is limited.
 //   - [NSTouchBarItem.SetVisibilityPriority]
-//   - [NSTouchBarItem.Visible]: A Boolean value that reflects whether or not the item is visible.
+//   - [NSTouchBarItem.IsVisible]: A Boolean value that reflects whether or not the item is visible.
 //
 // # Configuring bar customization
 //
@@ -325,7 +325,7 @@ func NSTouchBarItemFromID(id objc.ID) NSTouchBarItem {
 //
 //   - [INSTouchBarItem.VisibilityPriority]: Determines which items are shown in a bar when space is limited.
 //   - [INSTouchBarItem.SetVisibilityPriority]
-//   - [INSTouchBarItem.Visible]: A Boolean value that reflects whether or not the item is visible.
+//   - [INSTouchBarItem.IsVisible]: A Boolean value that reflects whether or not the item is visible.
 //
 // # Configuring bar customization
 //
@@ -358,7 +358,7 @@ type INSTouchBarItem interface {
 	VisibilityPriority() NSTouchBarItemPriority
 	SetVisibilityPriority(value NSTouchBarItemPriority)
 	// A Boolean value that reflects whether or not the item is visible.
-	Visible() bool
+	IsVisible() bool
 
 	// Topic: Configuring bar customization
 
@@ -503,7 +503,7 @@ func (t NSTouchBarItem) SetVisibilityPriority(value NSTouchBarItemPriority) {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/isVisible
-func (t NSTouchBarItem) Visible() bool {
+func (t NSTouchBarItem) IsVisible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isVisible"))
 	return rv
 }

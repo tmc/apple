@@ -73,11 +73,11 @@ func (ac AVAudioInputNodeClass) Alloc() AVAudioInputNode {
 //
 // # Getting and Setting Voice Processing Properties
 //
-//   - [AVAudioInputNode.VoiceProcessingInputMuted]: A Boolean that indicates whether the input of the voice processing unit is in a muted state.
+//   - [AVAudioInputNode.IsVoiceProcessingInputMuted]: A Boolean that indicates whether the input of the voice processing unit is in a muted state.
 //   - [AVAudioInputNode.SetVoiceProcessingInputMuted]
-//   - [AVAudioInputNode.VoiceProcessingBypassed]: A Boolean that indicates whether the node bypasses all microphone uplink processing of the voice-processing unit.
+//   - [AVAudioInputNode.IsVoiceProcessingBypassed]: A Boolean that indicates whether the node bypasses all microphone uplink processing of the voice-processing unit.
 //   - [AVAudioInputNode.SetVoiceProcessingBypassed]
-//   - [AVAudioInputNode.VoiceProcessingAGCEnabled]: A Boolean that indicates whether automatic gain control on the processed microphone uplink signal is active.
+//   - [AVAudioInputNode.IsVoiceProcessingAGCEnabled]: A Boolean that indicates whether automatic gain control on the processed microphone uplink signal is active.
 //   - [AVAudioInputNode.SetVoiceProcessingAGCEnabled]
 //   - [AVAudioInputNode.VoiceProcessingOtherAudioDuckingConfiguration]: The ducking configuration of nonvoice audio.
 //   - [AVAudioInputNode.SetVoiceProcessingOtherAudioDuckingConfiguration]
@@ -109,11 +109,11 @@ func AVAudioInputNodeFromID(id objc.ID) AVAudioInputNode {
 //
 // # Getting and Setting Voice Processing Properties
 //
-//   - [IAVAudioInputNode.VoiceProcessingInputMuted]: A Boolean that indicates whether the input of the voice processing unit is in a muted state.
+//   - [IAVAudioInputNode.IsVoiceProcessingInputMuted]: A Boolean that indicates whether the input of the voice processing unit is in a muted state.
 //   - [IAVAudioInputNode.SetVoiceProcessingInputMuted]
-//   - [IAVAudioInputNode.VoiceProcessingBypassed]: A Boolean that indicates whether the node bypasses all microphone uplink processing of the voice-processing unit.
+//   - [IAVAudioInputNode.IsVoiceProcessingBypassed]: A Boolean that indicates whether the node bypasses all microphone uplink processing of the voice-processing unit.
 //   - [IAVAudioInputNode.SetVoiceProcessingBypassed]
-//   - [IAVAudioInputNode.VoiceProcessingAGCEnabled]: A Boolean that indicates whether automatic gain control on the processed microphone uplink signal is active.
+//   - [IAVAudioInputNode.IsVoiceProcessingAGCEnabled]: A Boolean that indicates whether automatic gain control on the processed microphone uplink signal is active.
 //   - [IAVAudioInputNode.SetVoiceProcessingAGCEnabled]
 //   - [IAVAudioInputNode.VoiceProcessingOtherAudioDuckingConfiguration]: The ducking configuration of nonvoice audio.
 //   - [IAVAudioInputNode.SetVoiceProcessingOtherAudioDuckingConfiguration]
@@ -134,13 +134,13 @@ type IAVAudioInputNode interface {
 	// Topic: Getting and Setting Voice Processing Properties
 
 	// A Boolean that indicates whether the input of the voice processing unit is in a muted state.
-	VoiceProcessingInputMuted() bool
+	IsVoiceProcessingInputMuted() bool
 	SetVoiceProcessingInputMuted(value bool)
 	// A Boolean that indicates whether the node bypasses all microphone uplink processing of the voice-processing unit.
-	VoiceProcessingBypassed() bool
+	IsVoiceProcessingBypassed() bool
 	SetVoiceProcessingBypassed(value bool)
 	// A Boolean that indicates whether automatic gain control on the processed microphone uplink signal is active.
-	VoiceProcessingAGCEnabled() bool
+	IsVoiceProcessingAGCEnabled() bool
 	SetVoiceProcessingAGCEnabled(value bool)
 	// The ducking configuration of nonvoice audio.
 	VoiceProcessingOtherAudioDuckingConfiguration() AVAudioVoiceProcessingOtherAudioDuckingConfiguration
@@ -318,7 +318,7 @@ func (a AVAudioInputNode) Volume() float32 {
 // in a muted state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/isVoiceProcessingInputMuted
-func (a AVAudioInputNode) VoiceProcessingInputMuted() bool {
+func (a AVAudioInputNode) IsVoiceProcessingInputMuted() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isVoiceProcessingInputMuted"))
 	return rv
 }
@@ -330,7 +330,7 @@ func (a AVAudioInputNode) SetVoiceProcessingInputMuted(value bool) {
 // processing of the voice-processing unit.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/isVoiceProcessingBypassed
-func (a AVAudioInputNode) VoiceProcessingBypassed() bool {
+func (a AVAudioInputNode) IsVoiceProcessingBypassed() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isVoiceProcessingBypassed"))
 	return rv
 }
@@ -346,7 +346,7 @@ func (a AVAudioInputNode) SetVoiceProcessingBypassed(value bool) {
 // This property is in an enabled state by default.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/isVoiceProcessingAGCEnabled
-func (a AVAudioInputNode) VoiceProcessingAGCEnabled() bool {
+func (a AVAudioInputNode) IsVoiceProcessingAGCEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isVoiceProcessingAGCEnabled"))
 	return rv
 }

@@ -107,14 +107,14 @@ func (nc NSToolbarItemClass) Alloc() NSToolbarItem {
 //
 // # Getting the item’s configuration
 //
-//   - [NSToolbarItem.Visible]: A Boolean value that indicates whether the item is currently visible in the toolbar, and not in the overflow menu.
-//   - [NSToolbarItem.Hidden]
+//   - [NSToolbarItem.IsVisible]: A Boolean value that indicates whether the item is currently visible in the toolbar, and not in the overflow menu.
+//   - [NSToolbarItem.IsHidden]
 //   - [NSToolbarItem.SetHidden]
-//   - [NSToolbarItem.Bordered]: A Boolean value that indicates whether the toolbar item has a bordered style.
+//   - [NSToolbarItem.IsBordered]: A Boolean value that indicates whether the toolbar item has a bordered style.
 //   - [NSToolbarItem.SetBordered]
-//   - [NSToolbarItem.Navigational]: A Boolean value that indicates whether the item behaves as a navigation item in the toolbar.
+//   - [NSToolbarItem.IsNavigational]: A Boolean value that indicates whether the item behaves as a navigation item in the toolbar.
 //   - [NSToolbarItem.SetNavigational]
-//   - [NSToolbarItem.Enabled]: A Boolean value that indicates whether the item is enabled.
+//   - [NSToolbarItem.IsEnabled]: A Boolean value that indicates whether the item is enabled.
 //   - [NSToolbarItem.SetEnabled]
 //   - [NSToolbarItem.Badge]: A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
 //   - [NSToolbarItem.SetBadge]
@@ -196,14 +196,14 @@ func NSToolbarItemFromID(id objc.ID) NSToolbarItem {
 //
 // # Getting the item’s configuration
 //
-//   - [INSToolbarItem.Visible]: A Boolean value that indicates whether the item is currently visible in the toolbar, and not in the overflow menu.
-//   - [INSToolbarItem.Hidden]
+//   - [INSToolbarItem.IsVisible]: A Boolean value that indicates whether the item is currently visible in the toolbar, and not in the overflow menu.
+//   - [INSToolbarItem.IsHidden]
 //   - [INSToolbarItem.SetHidden]
-//   - [INSToolbarItem.Bordered]: A Boolean value that indicates whether the toolbar item has a bordered style.
+//   - [INSToolbarItem.IsBordered]: A Boolean value that indicates whether the toolbar item has a bordered style.
 //   - [INSToolbarItem.SetBordered]
-//   - [INSToolbarItem.Navigational]: A Boolean value that indicates whether the item behaves as a navigation item in the toolbar.
+//   - [INSToolbarItem.IsNavigational]: A Boolean value that indicates whether the item behaves as a navigation item in the toolbar.
 //   - [INSToolbarItem.SetNavigational]
-//   - [INSToolbarItem.Enabled]: A Boolean value that indicates whether the item is enabled.
+//   - [INSToolbarItem.IsEnabled]: A Boolean value that indicates whether the item is enabled.
 //   - [INSToolbarItem.SetEnabled]
 //   - [INSToolbarItem.Badge]: A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
 //   - [INSToolbarItem.SetBadge]
@@ -285,17 +285,17 @@ type INSToolbarItem interface {
 	// Topic: Getting the item’s configuration
 
 	// A Boolean value that indicates whether the item is currently visible in the toolbar, and not in the overflow menu.
-	Visible() bool
-	Hidden() bool
+	IsVisible() bool
+	IsHidden() bool
 	SetHidden(value bool)
 	// A Boolean value that indicates whether the toolbar item has a bordered style.
-	Bordered() bool
+	IsBordered() bool
 	SetBordered(value bool)
 	// A Boolean value that indicates whether the item behaves as a navigation item in the toolbar.
-	Navigational() bool
+	IsNavigational() bool
 	SetNavigational(value bool)
 	// A Boolean value that indicates whether the item is enabled.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
 	Badge() INSItemBadge
@@ -656,13 +656,13 @@ func (t NSToolbarItem) SetMenuFormRepresentation(value INSMenuItem) {
 // overflow menu. This property is key-value observing (KVO) compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isVisible
-func (t NSToolbarItem) Visible() bool {
+func (t NSToolbarItem) IsVisible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isVisible"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isHidden
-func (t NSToolbarItem) Hidden() bool {
+func (t NSToolbarItem) IsHidden() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isHidden"))
 	return rv
 }
@@ -680,7 +680,7 @@ func (t NSToolbarItem) SetHidden(value bool) {
 // default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isBordered
-func (t NSToolbarItem) Bordered() bool {
+func (t NSToolbarItem) IsBordered() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isBordered"))
 	return rv
 }
@@ -702,7 +702,7 @@ func (t NSToolbarItem) SetBordered(value bool) {
 // [ToolbarDefaultItemIdentifiers] method of the toolbar delegate object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isNavigational
-func (t NSToolbarItem) Navigational() bool {
+func (t NSToolbarItem) IsNavigational() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isNavigational"))
 	return rv
 }
@@ -720,7 +720,7 @@ func (t NSToolbarItem) SetNavigational(value bool) {
 // item as appropriate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isEnabled
-func (t NSToolbarItem) Enabled() bool {
+func (t NSToolbarItem) IsEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEnabled"))
 	return rv
 }

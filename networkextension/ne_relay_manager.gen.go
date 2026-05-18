@@ -62,7 +62,7 @@ func (nc NERelayManagerClass) Alloc() NERelayManager {
 //
 // # Accessing relay configuration properties
 //
-//   - [NERelayManager.Enabled]: A Boolean used to toggle the enabled state of the relay configuration.
+//   - [NERelayManager.IsEnabled]: A Boolean used to toggle the enabled state of the relay configuration.
 //   - [NERelayManager.SetEnabled]
 //   - [NERelayManager.Relays]: An array of one or two relay server configurations. If multiple relays are configured, application traffic routes through both of them in the order they appear in the array.
 //   - [NERelayManager.SetRelays]
@@ -83,9 +83,9 @@ func (nc NERelayManagerClass) Alloc() NERelayManager {
 //
 //   - [NERelayManager.ExcludedFQDNs]
 //   - [NERelayManager.SetExcludedFQDNs]
-//   - [NERelayManager.AllowDNSFailover]
+//   - [NERelayManager.IsDNSFailoverAllowed]
 //   - [NERelayManager.SetAllowDNSFailover]
-//   - [NERelayManager.UIToggleEnabled]
+//   - [NERelayManager.IsUIToggleEnabled]
 //   - [NERelayManager.SetUIToggleEnabled]
 //   - [NERelayManager.MatchFQDNs]
 //   - [NERelayManager.SetMatchFQDNs]
@@ -119,7 +119,7 @@ func NERelayManagerFromID(id objc.ID) NERelayManager {
 //
 // # Accessing relay configuration properties
 //
-//   - [INERelayManager.Enabled]: A Boolean used to toggle the enabled state of the relay configuration.
+//   - [INERelayManager.IsEnabled]: A Boolean used to toggle the enabled state of the relay configuration.
 //   - [INERelayManager.SetEnabled]
 //   - [INERelayManager.Relays]: An array of one or two relay server configurations. If multiple relays are configured, application traffic routes through both of them in the order they appear in the array.
 //   - [INERelayManager.SetRelays]
@@ -140,9 +140,9 @@ func NERelayManagerFromID(id objc.ID) NERelayManager {
 //
 //   - [INERelayManager.ExcludedFQDNs]
 //   - [INERelayManager.SetExcludedFQDNs]
-//   - [INERelayManager.AllowDNSFailover]
+//   - [INERelayManager.IsDNSFailoverAllowed]
 //   - [INERelayManager.SetAllowDNSFailover]
-//   - [INERelayManager.UIToggleEnabled]
+//   - [INERelayManager.IsUIToggleEnabled]
 //   - [INERelayManager.SetUIToggleEnabled]
 //   - [INERelayManager.MatchFQDNs]
 //   - [INERelayManager.SetMatchFQDNs]
@@ -167,7 +167,7 @@ type INERelayManager interface {
 	// Topic: Accessing relay configuration properties
 
 	// A Boolean used to toggle the enabled state of the relay configuration.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// An array of one or two relay server configurations. If multiple relays are configured, application traffic routes through both of them in the order they appear in the array.
 	Relays() []NERelay
@@ -194,9 +194,9 @@ type INERelayManager interface {
 
 	ExcludedFQDNs() []string
 	SetExcludedFQDNs(value []string)
-	AllowDNSFailover() bool
+	IsDNSFailoverAllowed() bool
 	SetAllowDNSFailover(value bool)
-	UIToggleEnabled() bool
+	IsUIToggleEnabled() bool
 	SetUIToggleEnabled(value bool)
 	MatchFQDNs() []string
 	SetMatchFQDNs(value []string)
@@ -314,7 +314,7 @@ func (_NERelayManagerClass NERelayManagerClass) SharedManager() NERelayManager {
 // application traffic.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/isEnabled
-func (r NERelayManager) Enabled() bool {
+func (r NERelayManager) IsEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isEnabled"))
 	return rv
 }
@@ -437,7 +437,7 @@ func (r NERelayManager) SetExcludedFQDNs(value []string) {
 // # Determines if DNS queries that fail over relay can fallback to default DNS
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/isDNSFailoverAllowed
-func (r NERelayManager) AllowDNSFailover() bool {
+func (r NERelayManager) IsDNSFailoverAllowed() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isDNSFailoverAllowed"))
 	return rv
 }
@@ -451,7 +451,7 @@ func (r NERelayManager) SetAllowDNSFailover(value bool) {
 // relay
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/isUIToggleEnabled
-func (r NERelayManager) UIToggleEnabled() bool {
+func (r NERelayManager) IsUIToggleEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isUIToggleEnabled"))
 	return rv
 }

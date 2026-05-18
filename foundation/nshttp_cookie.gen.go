@@ -73,12 +73,12 @@ func (hc HTTPCookieClass) Alloc() HTTPCookie {
 // # Determining cookie lifespan
 //
 //   - [HTTPCookie.ExpiresDate]: The cookie’s expiration date.
-//   - [HTTPCookie.SessionOnly]: A Boolean value that indicates whether the cookie should be discarded at the end of the session (regardless of expiration date).
+//   - [HTTPCookie.IsSessionOnly]: A Boolean value that indicates whether the cookie should be discarded at the end of the session (regardless of expiration date).
 //
 // # Securing cookies
 //
-//   - [HTTPCookie.HTTPOnly]: A Boolean value that indicates whether the cookie should only be sent to HTTP servers.
-//   - [HTTPCookie.Secure]: A Boolean value that indicates whether the cookie may only be sent over secure channels.
+//   - [HTTPCookie.IsHTTPOnly]: A Boolean value that indicates whether the cookie should only be sent to HTTP servers.
+//   - [HTTPCookie.IsSecure]: A Boolean value that indicates whether the cookie may only be sent over secure channels.
 //   - [HTTPCookie.SameSitePolicy]: A Boolean value that indicates whether to restrict the cookie to requests sent back to the same site that created it.
 //
 // # Accessing cookie properties as key-value pairs
@@ -131,12 +131,12 @@ func NSHTTPCookieFromID(id objc.ID) HTTPCookie { return HTTPCookieFromID(id) }
 // # Determining cookie lifespan
 //
 //   - [IHTTPCookie.ExpiresDate]: The cookie’s expiration date.
-//   - [IHTTPCookie.SessionOnly]: A Boolean value that indicates whether the cookie should be discarded at the end of the session (regardless of expiration date).
+//   - [IHTTPCookie.IsSessionOnly]: A Boolean value that indicates whether the cookie should be discarded at the end of the session (regardless of expiration date).
 //
 // # Securing cookies
 //
-//   - [IHTTPCookie.HTTPOnly]: A Boolean value that indicates whether the cookie should only be sent to HTTP servers.
-//   - [IHTTPCookie.Secure]: A Boolean value that indicates whether the cookie may only be sent over secure channels.
+//   - [IHTTPCookie.IsHTTPOnly]: A Boolean value that indicates whether the cookie should only be sent to HTTP servers.
+//   - [IHTTPCookie.IsSecure]: A Boolean value that indicates whether the cookie may only be sent over secure channels.
 //   - [IHTTPCookie.SameSitePolicy]: A Boolean value that indicates whether to restrict the cookie to requests sent back to the same site that created it.
 //
 // # Accessing cookie properties as key-value pairs
@@ -180,14 +180,14 @@ type IHTTPCookie interface {
 	// The cookie’s expiration date.
 	ExpiresDate() INSDate
 	// A Boolean value that indicates whether the cookie should be discarded at the end of the session (regardless of expiration date).
-	SessionOnly() bool
+	IsSessionOnly() bool
 
 	// Topic: Securing cookies
 
 	// A Boolean value that indicates whether the cookie should only be sent to HTTP servers.
-	HTTPOnly() bool
+	IsHTTPOnly() bool
 	// A Boolean value that indicates whether the cookie may only be sent over secure channels.
-	Secure() bool
+	IsSecure() bool
 	// A Boolean value that indicates whether to restrict the cookie to requests sent back to the same site that created it.
 	SameSitePolicy() NSHTTPCookieStringPolicy
 
@@ -472,7 +472,7 @@ func (h HTTPCookie) ExpiresDate() INSDate {
 // session (regardless of expiration date), otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/isSessionOnly
-func (h HTTPCookie) SessionOnly() bool {
+func (h HTTPCookie) IsSessionOnly() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isSessionOnly"))
 	return rv
 }
@@ -490,7 +490,7 @@ func (h HTTPCookie) SessionOnly() bool {
 // for URLs that match both the path and domain of the respective cookies.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/isHTTPOnly
-func (h HTTPCookie) HTTPOnly() bool {
+func (h HTTPCookie) IsHTTPOnly() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isHTTPOnly"))
 	return rv
 }
@@ -504,7 +504,7 @@ func (h HTTPCookie) HTTPOnly() bool {
 // otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/isSecure
-func (h HTTPCookie) Secure() bool {
+func (h HTTPCookie) IsSecure() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isSecure"))
 	return rv
 }

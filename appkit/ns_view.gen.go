@@ -233,7 +233,7 @@ type INSView interface {
 	ContentFilters() []coreimage.CIFilter
 	SetContentFilters(value []coreimage.CIFilter)
 	// A Boolean value indicating whether the view or one of its ancestors is being drawn for a find indicator.
-	DrawingFindIndicator() bool
+	IsDrawingFindIndicator() bool
 	// The menu item containing the view or any of its superviews in the view hierarchy.
 	EnclosingMenuItem() INSMenuItem
 	// The nearest ancestor scroll view that contains the current view.
@@ -245,7 +245,7 @@ type INSView interface {
 	// The minimum size of the view that satisfies the constraints it holds.
 	FittingSize() corefoundation.CGSize
 	// A Boolean value indicating whether the view uses a flipped coordinate system.
-	Flipped() bool
+	IsFlipped() bool
 	// The focus ring mask bounds, specified in the view’s coordinate space.
 	FocusRingMaskBounds() corefoundation.CGRect
 	// The type of focus ring drawn around the view.
@@ -270,15 +270,15 @@ type INSView interface {
 	// A layout anchor representing the height of the view’s frame.
 	HeightAnchor() INSLayoutDimension
 	// A Boolean value indicating whether the view is hidden.
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 	// A Boolean value indicating whether the view is hidden from sight because it, or one of its ancestors, is marked as hidden.
-	HiddenOrHasHiddenAncestor() bool
+	IsHiddenOrHasHiddenAncestor() bool
 	// A Boolean value that indicates whether the view’s horizontal size constraints are active.
-	HorizontalContentSizeConstraintActive() bool
+	IsHorizontalContentSizeConstraintActive() bool
 	SetHorizontalContentSizeConstraintActive(value bool)
 	// A Boolean value indicating whether the view is in full screen mode.
-	InFullScreenMode() bool
+	IsInFullScreenMode() bool
 	// A Boolean value indicating whether the view is being rendered as part of a live resizing operation.
 	InLiveResize() bool
 	// The text input context object for the view.
@@ -328,7 +328,7 @@ type INSView interface {
 	// The closest view object in the key view loop that follows the current view in the key view loop and accepts first responder status.
 	NextValidKeyView() INSView
 	// A Boolean value indicating whether the view fills its frame rectangle with opaque content.
-	Opaque() bool
+	IsOpaque() bool
 	// The view’s closest opaque ancestor, which might be the view itself.
 	OpaqueAncestor() INSView
 	// A default footer string that includes the current page number and page count.
@@ -362,9 +362,9 @@ type INSView interface {
 	// A layout anchor representing the right edge of the view’s frame.
 	RightAnchor() INSLayoutXAxisAnchor
 	// A Boolean value indicating whether the view or any of its ancestors has ever had a rotation factor applied to its frame or bounds.
-	RotatedFromBase() bool
+	IsRotatedFromBase() bool
 	// A Boolean value indicating whether the view or any of its ancestors has ever had a rotation factor applied to its frame or bounds, or has been scaled from the window’s base coordinate system.
-	RotatedOrScaledFromBase() bool
+	IsRotatedOrScaledFromBase() bool
 	// The distances from the edges of your view that define the safe area.
 	SafeAreaInsets() foundation.NSEdgeInsets
 	// The layout guide you use to position content inside your view’s safe area.
@@ -397,7 +397,7 @@ type INSView interface {
 	UserInterfaceLayoutDirection() NSUserInterfaceLayoutDirection
 	SetUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirection)
 	// A Boolean value that indicates whether the view’s vertical size constraints are active.
-	VerticalContentSizeConstraintActive() bool
+	IsVerticalContentSizeConstraintActive() bool
 	SetVerticalContentSizeConstraintActive(value bool)
 	// The portion of the view that isn’t clipped by its superviews.
 	VisibleRect() corefoundation.CGRect
@@ -4949,7 +4949,7 @@ func (v NSView) SetContentFilters(value []coreimage.CIFilter) {
 // default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isDrawingFindIndicator
-func (v NSView) DrawingFindIndicator() bool {
+func (v NSView) IsDrawingFindIndicator() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isDrawingFindIndicator"))
 	return rv
 }
@@ -5047,7 +5047,7 @@ func (v NSView) FittingSize() corefoundation.CGSize {
 // property and return true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isFlipped
-func (v NSView) Flipped() bool {
+func (v NSView) IsFlipped() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isFlipped"))
 	return rv
 }
@@ -5291,7 +5291,7 @@ func (v NSView) HeightAnchor() INSLayoutDimension {
 // previously part of, but is ignored during keyboard navigation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isHidden
-func (v NSView) Hidden() bool {
+func (v NSView) IsHidden() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isHidden"))
 	return rv
 }
@@ -5312,7 +5312,7 @@ func (v NSView) SetHidden(value bool) {
 // overlapped by another window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isHiddenOrHasHiddenAncestor
-func (v NSView) HiddenOrHasHiddenAncestor() bool {
+func (v NSView) IsHiddenOrHasHiddenAncestor() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isHiddenOrHasHiddenAncestor"))
 	return rv
 }
@@ -5328,7 +5328,7 @@ func (v NSView) HiddenOrHasHiddenAncestor() bool {
 // into account.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isHorizontalContentSizeConstraintActive
-func (v NSView) HorizontalContentSizeConstraintActive() bool {
+func (v NSView) IsHorizontalContentSizeConstraintActive() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isHorizontalContentSizeConstraintActive"))
 	return rv
 }
@@ -5344,7 +5344,7 @@ func (v NSView) SetHorizontalContentSizeConstraintActive(value bool) {
 // false when it is not.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isInFullScreenMode
-func (v NSView) InFullScreenMode() bool {
+func (v NSView) IsInFullScreenMode() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isInFullScreenMode"))
 	return rv
 }
@@ -5786,7 +5786,7 @@ func (v NSView) NextValidKeyView() INSView {
 // by eliminating the need to render content behind the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isOpaque
-func (v NSView) Opaque() bool {
+func (v NSView) IsOpaque() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isOpaque"))
 	return rv
 }
@@ -6087,7 +6087,7 @@ func (v NSView) RightAnchor() INSLayoutXAxisAnchor {
 // use it to reflect the exact state of the view’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isRotatedFromBase
-func (v NSView) RotatedFromBase() bool {
+func (v NSView) IsRotatedFromBase() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isRotatedFromBase"))
 	return rv
 }
@@ -6107,7 +6107,7 @@ func (v NSView) RotatedFromBase() bool {
 // use it to reflect the exact state of the view’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isRotatedOrScaledFromBase
-func (v NSView) RotatedOrScaledFromBase() bool {
+func (v NSView) IsRotatedOrScaledFromBase() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isRotatedOrScaledFromBase"))
 	return rv
 }
@@ -6396,7 +6396,7 @@ func (v NSView) SetUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirec
 // into account.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isVerticalContentSizeConstraintActive
-func (v NSView) VerticalContentSizeConstraintActive() bool {
+func (v NSView) IsVerticalContentSizeConstraintActive() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isVerticalContentSizeConstraintActive"))
 	return rv
 }
@@ -6617,7 +6617,7 @@ func (v NSView) Window() INSWindow {
 // property and perform additional checks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/isCompatibleWithResponsiveScrolling
-func (_NSViewClass NSViewClass) CompatibleWithResponsiveScrolling() bool {
+func (_NSViewClass NSViewClass) IsCompatibleWithResponsiveScrolling() bool {
 	rv := objc.Send[bool](objc.ID(_NSViewClass.class), objc.Sel("isCompatibleWithResponsiveScrolling"))
 	return rv
 }

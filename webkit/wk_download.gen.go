@@ -59,7 +59,7 @@ func (wc WKDownloadClass) Alloc() WKDownload {
 //
 // # Instance Properties
 //
-//   - [WKDownload.UserInitiated]
+//   - [WKDownload.IsUserInitiated]
 //   - [WKDownload.OriginatingFrame]
 //
 // See: https://developer.apple.com/documentation/WebKit/WKDownload
@@ -92,7 +92,7 @@ func WKDownloadFromID(id objc.ID) WKDownload {
 //
 // # Instance Properties
 //
-//   - [IWKDownload.UserInitiated]
+//   - [IWKDownload.IsUserInitiated]
 //   - [IWKDownload.OriginatingFrame]
 //
 // See: https://developer.apple.com/documentation/WebKit/WKDownload
@@ -116,7 +116,7 @@ type IWKDownload interface {
 
 	// Topic: Instance Properties
 
-	UserInitiated() bool
+	IsUserInitiated() bool
 	OriginatingFrame() IWKFrameInfo
 }
 
@@ -180,7 +180,7 @@ func (d WKDownload) WebView() IWKWebView {
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKDownload/isUserInitiated
-func (d WKDownload) UserInitiated() bool {
+func (d WKDownload) IsUserInitiated() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isUserInitiated"))
 	return rv
 }

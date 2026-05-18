@@ -64,8 +64,8 @@ func (ac AVCaptureVideoPreviewLayerClass) Alloc() AVCaptureVideoPreviewLayer {
 //
 // # Configuring deferred start
 //
-//   - [AVCaptureVideoPreviewLayer.DeferredStartSupported]: A [BOOL] value that indicates whether the preview layer supports deferred start.
-//   - [AVCaptureVideoPreviewLayer.DeferredStartEnabled]: A [BOOL] value that indicates whether to defer starting this preview layer.
+//   - [AVCaptureVideoPreviewLayer.IsDeferredStartSupported]: A [BOOL] value that indicates whether the preview layer supports deferred start.
+//   - [AVCaptureVideoPreviewLayer.IsDeferredStartEnabled]: A [BOOL] value that indicates whether to defer starting this preview layer.
 //   - [AVCaptureVideoPreviewLayer.SetDeferredStartEnabled]
 //
 // # Session configuration
@@ -112,8 +112,8 @@ func AVCaptureVideoPreviewLayerFromID(id objc.ID) AVCaptureVideoPreviewLayer {
 //
 // # Configuring deferred start
 //
-//   - [IAVCaptureVideoPreviewLayer.DeferredStartSupported]: A [BOOL] value that indicates whether the preview layer supports deferred start.
-//   - [IAVCaptureVideoPreviewLayer.DeferredStartEnabled]: A [BOOL] value that indicates whether to defer starting this preview layer.
+//   - [IAVCaptureVideoPreviewLayer.IsDeferredStartSupported]: A [BOOL] value that indicates whether the preview layer supports deferred start.
+//   - [IAVCaptureVideoPreviewLayer.IsDeferredStartEnabled]: A [BOOL] value that indicates whether to defer starting this preview layer.
 //   - [IAVCaptureVideoPreviewLayer.SetDeferredStartEnabled]
 //
 // # Session configuration
@@ -151,9 +151,9 @@ type IAVCaptureVideoPreviewLayer interface {
 	// Topic: Configuring deferred start
 
 	// A [BOOL] value that indicates whether the preview layer supports deferred start.
-	DeferredStartSupported() bool
+	IsDeferredStartSupported() bool
 	// A [BOOL] value that indicates whether to defer starting this preview layer.
-	DeferredStartEnabled() bool
+	IsDeferredStartEnabled() bool
 	SetDeferredStartEnabled(value bool)
 
 	// Topic: Session configuration
@@ -471,7 +471,7 @@ func (c AVCaptureVideoPreviewLayer) SetVideoGravity(value AVLayerVideoGravity) {
 // preview layer supports deferred start.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/isDeferredStartSupported
-func (c AVCaptureVideoPreviewLayer) DeferredStartSupported() bool {
+func (c AVCaptureVideoPreviewLayer) IsDeferredStartSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDeferredStartSupported"))
 	return rv
 }
@@ -499,7 +499,7 @@ func (c AVCaptureVideoPreviewLayer) DeferredStartSupported() bool {
 // `true` results in the session throwing an [NSInvalidArgumentException].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/isDeferredStartEnabled
-func (c AVCaptureVideoPreviewLayer) DeferredStartEnabled() bool {
+func (c AVCaptureVideoPreviewLayer) IsDeferredStartEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDeferredStartEnabled"))
 	return rv
 }

@@ -131,7 +131,7 @@ func (ac AVAudioPlayerNodeClass) Alloc() AVAudioPlayerNode {
 //   - [AVAudioPlayerNode.PrepareWithFrameCount]: Prepares the file regions or buffers you schedule for playback.
 //   - [AVAudioPlayerNode.Play]: Starts or resumes playback immediately.
 //   - [AVAudioPlayerNode.PlayAtTime]: Starts or resumes playback at a time you specify.
-//   - [AVAudioPlayerNode.Playing]: A Boolean value that indicates whether the player is playing.
+//   - [AVAudioPlayerNode.IsPlaying]: A Boolean value that indicates whether the player is playing.
 //   - [AVAudioPlayerNode.Pause]: Pauses the node’s playback.
 //   - [AVAudioPlayerNode.Stop]: Clears all of the node’s events you schedule and stops playback.
 //
@@ -176,7 +176,7 @@ func AVAudioPlayerNodeFromID(id objc.ID) AVAudioPlayerNode {
 //   - [IAVAudioPlayerNode.PrepareWithFrameCount]: Prepares the file regions or buffers you schedule for playback.
 //   - [IAVAudioPlayerNode.Play]: Starts or resumes playback immediately.
 //   - [IAVAudioPlayerNode.PlayAtTime]: Starts or resumes playback at a time you specify.
-//   - [IAVAudioPlayerNode.Playing]: A Boolean value that indicates whether the player is playing.
+//   - [IAVAudioPlayerNode.IsPlaying]: A Boolean value that indicates whether the player is playing.
 //   - [IAVAudioPlayerNode.Pause]: Pauses the node’s playback.
 //   - [IAVAudioPlayerNode.Stop]: Clears all of the node’s events you schedule and stops playback.
 //
@@ -219,7 +219,7 @@ type IAVAudioPlayerNode interface {
 	// Starts or resumes playback at a time you specify.
 	PlayAtTime(when IAVAudioTime)
 	// A Boolean value that indicates whether the player is playing.
-	Playing() bool
+	IsPlaying() bool
 	// Pauses the node’s playback.
 	Pause()
 	// Clears all of the node’s events you schedule and stops playback.
@@ -633,7 +633,7 @@ func (a AVAudioPlayerNode) Volume() float32 {
 // A Boolean value that indicates whether the player is playing.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/isPlaying
-func (a AVAudioPlayerNode) Playing() bool {
+func (a AVAudioPlayerNode) IsPlaying() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPlaying"))
 	return rv
 }

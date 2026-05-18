@@ -120,7 +120,7 @@ func (e AVExternalStorageDeviceDiscoverySession) ExternalStorageDevices() []AVEx
 // devices.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDeviceDiscoverySession/isSupported
-func (_AVExternalStorageDeviceDiscoverySessionClass AVExternalStorageDeviceDiscoverySessionClass) Supported() bool {
+func (_AVExternalStorageDeviceDiscoverySessionClass AVExternalStorageDeviceDiscoverySessionClass) IsSupported() bool {
 	rv := objc.Send[bool](objc.ID(_AVExternalStorageDeviceDiscoverySessionClass.class), objc.Sel("isSupported"))
 	return rv
 }

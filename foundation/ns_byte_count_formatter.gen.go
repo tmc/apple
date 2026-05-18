@@ -61,7 +61,7 @@ func (bc ByteCountFormatterClass) Alloc() ByteCountFormatter {
 //   - [ByteCountFormatter.SetAllowsNonnumericFormatting]
 //   - [ByteCountFormatter.IncludesActualByteCount]: Determines whether to include the number of bytes after the formatted string.
 //   - [ByteCountFormatter.SetIncludesActualByteCount]
-//   - [ByteCountFormatter.Adaptive]: Determines the display style of the size representation.
+//   - [ByteCountFormatter.IsAdaptive]: Determines the display style of the size representation.
 //   - [ByteCountFormatter.SetAdaptive]
 //   - [ByteCountFormatter.AllowedUnits]: Specify the units that can be used in the output.
 //   - [ByteCountFormatter.SetAllowedUnits]
@@ -112,7 +112,7 @@ func NSByteCountFormatterFromID(id objc.ID) ByteCountFormatter { return ByteCoun
 //   - [IByteCountFormatter.SetAllowsNonnumericFormatting]
 //   - [IByteCountFormatter.IncludesActualByteCount]: Determines whether to include the number of bytes after the formatted string.
 //   - [IByteCountFormatter.SetIncludesActualByteCount]
-//   - [IByteCountFormatter.Adaptive]: Determines the display style of the size representation.
+//   - [IByteCountFormatter.IsAdaptive]: Determines the display style of the size representation.
 //   - [IByteCountFormatter.SetAdaptive]
 //   - [IByteCountFormatter.AllowedUnits]: Specify the units that can be used in the output.
 //   - [IByteCountFormatter.SetAllowedUnits]
@@ -151,7 +151,7 @@ type IByteCountFormatter interface {
 	IncludesActualByteCount() bool
 	SetIncludesActualByteCount(value bool)
 	// Determines the display style of the size representation.
-	Adaptive() bool
+	IsAdaptive() bool
 	SetAdaptive(value bool)
 	// Specify the units that can be used in the output.
 	AllowedUnits() NSByteCountFormatterUnits
@@ -336,7 +336,7 @@ func (b ByteCountFormatter) SetIncludesActualByteCount(value bool) {
 // Default is true.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/isAdaptive
-func (b ByteCountFormatter) Adaptive() bool {
+func (b ByteCountFormatter) IsAdaptive() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isAdaptive"))
 	return rv
 }

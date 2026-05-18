@@ -82,9 +82,9 @@ func (fc FileWrapperClass) Alloc() FileWrapper {
 //
 // # Querying File Wrappers
 //
-//   - [FileWrapper.RegularFile]: This property contains a boolean value that indicates whether the file wrapper object is a regular-file.
-//   - [FileWrapper.Directory]: This property contains a boolean value indicating whether the file wrapper is a directory file wrapper.
-//   - [FileWrapper.SymbolicLink]: A boolean that indicates whether the file wrapper object is a symbolic-link file wrapper.
+//   - [FileWrapper.IsRegularFile]: This property contains a boolean value that indicates whether the file wrapper object is a regular-file.
+//   - [FileWrapper.IsDirectory]: This property contains a boolean value indicating whether the file wrapper is a directory file wrapper.
+//   - [FileWrapper.IsSymbolicLink]: A boolean that indicates whether the file wrapper object is a symbolic-link file wrapper.
 //
 // # Accessing File-Wrapper Information
 //
@@ -154,9 +154,9 @@ func NSFileWrapperFromID(id objc.ID) FileWrapper { return FileWrapperFromID(id) 
 //
 // # Querying File Wrappers
 //
-//   - [IFileWrapper.RegularFile]: This property contains a boolean value that indicates whether the file wrapper object is a regular-file.
-//   - [IFileWrapper.Directory]: This property contains a boolean value indicating whether the file wrapper is a directory file wrapper.
-//   - [IFileWrapper.SymbolicLink]: A boolean that indicates whether the file wrapper object is a symbolic-link file wrapper.
+//   - [IFileWrapper.IsRegularFile]: This property contains a boolean value that indicates whether the file wrapper object is a regular-file.
+//   - [IFileWrapper.IsDirectory]: This property contains a boolean value indicating whether the file wrapper is a directory file wrapper.
+//   - [IFileWrapper.IsSymbolicLink]: A boolean that indicates whether the file wrapper object is a symbolic-link file wrapper.
 //
 // # Accessing File-Wrapper Information
 //
@@ -216,11 +216,11 @@ type IFileWrapper interface {
 	// Topic: Querying File Wrappers
 
 	// This property contains a boolean value that indicates whether the file wrapper object is a regular-file.
-	RegularFile() bool
+	IsRegularFile() bool
 	// This property contains a boolean value indicating whether the file wrapper is a directory file wrapper.
-	Directory() bool
+	IsDirectory() bool
 	// A boolean that indicates whether the file wrapper object is a symbolic-link file wrapper.
-	SymbolicLink() bool
+	IsSymbolicLink() bool
 
 	// Topic: Accessing File-Wrapper Information
 
@@ -835,7 +835,7 @@ func (f FileWrapper) EncodeWithCoder(coder INSCoder) {
 // of the file on disk has changed.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/isRegularFile
-func (f FileWrapper) RegularFile() bool {
+func (f FileWrapper) IsRegularFile() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isRegularFile"))
 	return rv
 }
@@ -849,7 +849,7 @@ func (f FileWrapper) RegularFile() bool {
 // wrapper, otherwise it contains NO.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/isDirectory
-func (f FileWrapper) Directory() bool {
+func (f FileWrapper) IsDirectory() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isDirectory"))
 	return rv
 }
@@ -866,7 +866,7 @@ func (f FileWrapper) Directory() bool {
 // this property, if the type of the file on disk has changed.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/isSymbolicLink
-func (f FileWrapper) SymbolicLink() bool {
+func (f FileWrapper) IsSymbolicLink() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isSymbolicLink"))
 	return rv
 }

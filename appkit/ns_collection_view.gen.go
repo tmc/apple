@@ -304,7 +304,7 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 //
 // # Managing the Selection
 //
-//   - [NSCollectionView.Selectable]: A Boolean value that indicates whether the user may select items in the collection view.
+//   - [NSCollectionView.IsSelectable]: A Boolean value that indicates whether the user may select items in the collection view.
 //   - [NSCollectionView.SetSelectable]
 //   - [NSCollectionView.AllowsMultipleSelection]: A Boolean value that indicates whether the user may select more than one item in the collection view.
 //   - [NSCollectionView.SetAllowsMultipleSelection]
@@ -339,7 +339,7 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 //
 // # Working with the Responder Chain
 //
-//   - [NSCollectionView.FirstResponder]: A Boolean value indicating whether the collection view is the first responder.
+//   - [NSCollectionView.IsFirstResponder]: A Boolean value indicating whether the collection view is the first responder.
 //
 // # Getting a Drag Image
 //
@@ -435,7 +435,7 @@ func NSCollectionViewFromID(id objc.ID) NSCollectionView {
 //
 // # Managing the Selection
 //
-//   - [INSCollectionView.Selectable]: A Boolean value that indicates whether the user may select items in the collection view.
+//   - [INSCollectionView.IsSelectable]: A Boolean value that indicates whether the user may select items in the collection view.
 //   - [INSCollectionView.SetSelectable]
 //   - [INSCollectionView.AllowsMultipleSelection]: A Boolean value that indicates whether the user may select more than one item in the collection view.
 //   - [INSCollectionView.SetAllowsMultipleSelection]
@@ -470,7 +470,7 @@ func NSCollectionViewFromID(id objc.ID) NSCollectionView {
 //
 // # Working with the Responder Chain
 //
-//   - [INSCollectionView.FirstResponder]: A Boolean value indicating whether the collection view is the first responder.
+//   - [INSCollectionView.IsFirstResponder]: A Boolean value indicating whether the collection view is the first responder.
 //
 // # Getting a Drag Image
 //
@@ -579,7 +579,7 @@ type INSCollectionView interface {
 	// Topic: Managing the Selection
 
 	// A Boolean value that indicates whether the user may select items in the collection view.
-	Selectable() bool
+	IsSelectable() bool
 	SetSelectable(value bool)
 	// A Boolean value that indicates whether the user may select more than one item in the collection view.
 	AllowsMultipleSelection() bool
@@ -633,7 +633,7 @@ type INSCollectionView interface {
 	// Topic: Working with the Responder Chain
 
 	// A Boolean value indicating whether the collection view is the first responder.
-	FirstResponder() bool
+	IsFirstResponder() bool
 
 	// Topic: Getting a Drag Image
 
@@ -2013,7 +2013,7 @@ func (c NSCollectionView) NumberOfSections() int {
 // to false removes the current selection if there is one.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/isSelectable
-func (c NSCollectionView) Selectable() bool {
+func (c NSCollectionView) IsSelectable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSelectable"))
 	return rv
 }
@@ -2098,7 +2098,7 @@ func (c NSCollectionView) SetSelectionIndexPaths(value foundation.INSSet) {
 // responder. This property is fully key-value observing compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/isFirstResponder
-func (c NSCollectionView) FirstResponder() bool {
+func (c NSCollectionView) IsFirstResponder() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFirstResponder"))
 	return rv
 }

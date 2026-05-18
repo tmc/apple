@@ -91,7 +91,7 @@ func (cc CAMetalDisplayLinkClass) Alloc() CAMetalDisplayLink {
 //
 // # Pausing Callbacks
 //
-//   - [CAMetalDisplayLink.Paused]: A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
+//   - [CAMetalDisplayLink.IsPaused]: A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
 //   - [CAMetalDisplayLink.SetPaused]
 //
 // # Deregistering for callbacks
@@ -139,7 +139,7 @@ func CAMetalDisplayLinkFromID(id objc.ID) CAMetalDisplayLink {
 //
 // # Pausing Callbacks
 //
-//   - [ICAMetalDisplayLink.Paused]: A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
+//   - [ICAMetalDisplayLink.IsPaused]: A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
 //   - [ICAMetalDisplayLink.SetPaused]
 //
 // # Deregistering for callbacks
@@ -176,7 +176,7 @@ type ICAMetalDisplayLink interface {
 	// Topic: Pausing Callbacks
 
 	// A Boolean value that indicates whether the system suspends the display link’s notifications to the target.
-	Paused() bool
+	IsPaused() bool
 	SetPaused(value bool)
 
 	// Topic: Deregistering for callbacks
@@ -345,7 +345,7 @@ func (m CAMetalDisplayLink) SetDelegate(value CAMetalDisplayLinkDelegate) {
 // delegate by setting the property to true. The property defaults to false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLink/isPaused
-func (m CAMetalDisplayLink) Paused() bool {
+func (m CAMetalDisplayLink) IsPaused() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPaused"))
 	return rv
 }

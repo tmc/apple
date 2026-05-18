@@ -103,7 +103,7 @@ func (pc PDFAnnotationClass) Alloc() PDFAnnotation {
 //   - [PDFAnnotation.SetFontColor]
 //   - [PDFAnnotation.Border]: Sets the border style for the annotation.
 //   - [PDFAnnotation.SetBorder]
-//   - [PDFAnnotation.Highlighted]: A Boolean value that indicates whether the annotation is in a highlighted state, such as when the mouse is down on a link annotation.
+//   - [PDFAnnotation.IsHighlighted]: A Boolean value that indicates whether the annotation is in a highlighted state, such as when the mouse is down on a link annotation.
 //   - [PDFAnnotation.SetHighlighted]
 //   - [PDFAnnotation.Color]: Sets the stroke color for the annotation.
 //   - [PDFAnnotation.SetColor]
@@ -141,7 +141,7 @@ func (pc PDFAnnotationClass) Alloc() PDFAnnotation {
 //
 //   - [PDFAnnotation.Popup]: Returns the pop-up annotation associated with an annotation.
 //   - [PDFAnnotation.SetPopup]
-//   - [PDFAnnotation.Open]: A Boolean value that indicates whether the pop-up annotation is in an opened state, displaying its text content, or in a closed state, displaying an icon.
+//   - [PDFAnnotation.IsOpen]: A Boolean value that indicates whether the pop-up annotation is in an opened state, displaying its text content, or in a closed state, displaying an icon.
 //   - [PDFAnnotation.SetOpen]
 //
 // # Configuring Text Markup Annotations
@@ -163,12 +163,12 @@ func (pc PDFAnnotationClass) Alloc() PDFAnnotation {
 //   - [PDFAnnotation.SetFieldName]
 //   - [PDFAnnotation.BackgroundColor]: The color of the widget’s background.
 //   - [PDFAnnotation.SetBackgroundColor]
-//   - [PDFAnnotation.ReadOnly]: A Boolean value that determines whether the widget is editable.
+//   - [PDFAnnotation.IsReadOnly]: A Boolean value that determines whether the widget is editable.
 //   - [PDFAnnotation.SetReadOnly]
 //
 // # Configuring Text Widget Annotations
 //
-//   - [PDFAnnotation.Multiline]: A Boolean value that indicates whether the text widget annotation displays multiple lines.
+//   - [PDFAnnotation.IsMultiline]: A Boolean value that indicates whether the text widget annotation displays multiple lines.
 //   - [PDFAnnotation.SetMultiline]
 //   - [PDFAnnotation.IsPasswordField]: A Boolean value that indicates whether the text widget annotation displays a password field using bullet characters.
 //   - [PDFAnnotation.MaximumLength]: The maximum number of characters the text widget annotation allows.
@@ -195,7 +195,7 @@ func (pc PDFAnnotationClass) Alloc() PDFAnnotation {
 //
 //   - [PDFAnnotation.Choices]: An array of strings that specifies the options in either a list or a pop-up menu.
 //   - [PDFAnnotation.SetChoices]
-//   - [PDFAnnotation.ListChoice]: A Boolean value that indicates whether the choice widget annotation is a list or a pop-up menu.
+//   - [PDFAnnotation.IsListChoice]: A Boolean value that indicates whether the choice widget annotation is a list or a pop-up menu.
 //   - [PDFAnnotation.SetListChoice]
 //   - [PDFAnnotation.Values]: An array of strings that specifies the export values for items in a list or a pop-up menu.
 //   - [PDFAnnotation.SetValues]
@@ -213,7 +213,7 @@ func (pc PDFAnnotationClass) Alloc() PDFAnnotation {
 //
 // # Instance Properties
 //
-//   - [PDFAnnotation.ActivatableTextField]
+//   - [PDFAnnotation.IsActivatableTextField]
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation
 type PDFAnnotation struct {
@@ -280,7 +280,7 @@ func PDFAnnotationFromID(id objc.ID) PDFAnnotation {
 //   - [IPDFAnnotation.SetFontColor]
 //   - [IPDFAnnotation.Border]: Sets the border style for the annotation.
 //   - [IPDFAnnotation.SetBorder]
-//   - [IPDFAnnotation.Highlighted]: A Boolean value that indicates whether the annotation is in a highlighted state, such as when the mouse is down on a link annotation.
+//   - [IPDFAnnotation.IsHighlighted]: A Boolean value that indicates whether the annotation is in a highlighted state, such as when the mouse is down on a link annotation.
 //   - [IPDFAnnotation.SetHighlighted]
 //   - [IPDFAnnotation.Color]: Sets the stroke color for the annotation.
 //   - [IPDFAnnotation.SetColor]
@@ -318,7 +318,7 @@ func PDFAnnotationFromID(id objc.ID) PDFAnnotation {
 //
 //   - [IPDFAnnotation.Popup]: Returns the pop-up annotation associated with an annotation.
 //   - [IPDFAnnotation.SetPopup]
-//   - [IPDFAnnotation.Open]: A Boolean value that indicates whether the pop-up annotation is in an opened state, displaying its text content, or in a closed state, displaying an icon.
+//   - [IPDFAnnotation.IsOpen]: A Boolean value that indicates whether the pop-up annotation is in an opened state, displaying its text content, or in a closed state, displaying an icon.
 //   - [IPDFAnnotation.SetOpen]
 //
 // # Configuring Text Markup Annotations
@@ -340,12 +340,12 @@ func PDFAnnotationFromID(id objc.ID) PDFAnnotation {
 //   - [IPDFAnnotation.SetFieldName]
 //   - [IPDFAnnotation.BackgroundColor]: The color of the widget’s background.
 //   - [IPDFAnnotation.SetBackgroundColor]
-//   - [IPDFAnnotation.ReadOnly]: A Boolean value that determines whether the widget is editable.
+//   - [IPDFAnnotation.IsReadOnly]: A Boolean value that determines whether the widget is editable.
 //   - [IPDFAnnotation.SetReadOnly]
 //
 // # Configuring Text Widget Annotations
 //
-//   - [IPDFAnnotation.Multiline]: A Boolean value that indicates whether the text widget annotation displays multiple lines.
+//   - [IPDFAnnotation.IsMultiline]: A Boolean value that indicates whether the text widget annotation displays multiple lines.
 //   - [IPDFAnnotation.SetMultiline]
 //   - [IPDFAnnotation.IsPasswordField]: A Boolean value that indicates whether the text widget annotation displays a password field using bullet characters.
 //   - [IPDFAnnotation.MaximumLength]: The maximum number of characters the text widget annotation allows.
@@ -372,7 +372,7 @@ func PDFAnnotationFromID(id objc.ID) PDFAnnotation {
 //
 //   - [IPDFAnnotation.Choices]: An array of strings that specifies the options in either a list or a pop-up menu.
 //   - [IPDFAnnotation.SetChoices]
-//   - [IPDFAnnotation.ListChoice]: A Boolean value that indicates whether the choice widget annotation is a list or a pop-up menu.
+//   - [IPDFAnnotation.IsListChoice]: A Boolean value that indicates whether the choice widget annotation is a list or a pop-up menu.
 //   - [IPDFAnnotation.SetListChoice]
 //   - [IPDFAnnotation.Values]: An array of strings that specifies the export values for items in a list or a pop-up menu.
 //   - [IPDFAnnotation.SetValues]
@@ -390,7 +390,7 @@ func PDFAnnotationFromID(id objc.ID) PDFAnnotation {
 //
 // # Instance Properties
 //
-//   - [IPDFAnnotation.ActivatableTextField]
+//   - [IPDFAnnotation.IsActivatableTextField]
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation
 type IPDFAnnotation interface {
@@ -466,7 +466,7 @@ type IPDFAnnotation interface {
 	Border() IPDFBorder
 	SetBorder(value IPDFBorder)
 	// A Boolean value that indicates whether the annotation is in a highlighted state, such as when the mouse is down on a link annotation.
-	Highlighted() bool
+	IsHighlighted() bool
 	SetHighlighted(value bool)
 	// Sets the stroke color for the annotation.
 	Color() appkit.NSColor
@@ -516,7 +516,7 @@ type IPDFAnnotation interface {
 	Popup() IPDFAnnotation
 	SetPopup(value IPDFAnnotation)
 	// A Boolean value that indicates whether the pop-up annotation is in an opened state, displaying its text content, or in a closed state, displaying an icon.
-	Open() bool
+	IsOpen() bool
 	SetOpen(value bool)
 
 	// Topic: Configuring Text Markup Annotations
@@ -546,13 +546,13 @@ type IPDFAnnotation interface {
 	BackgroundColor() appkit.NSColor
 	SetBackgroundColor(value appkit.NSColor)
 	// A Boolean value that determines whether the widget is editable.
-	ReadOnly() bool
+	IsReadOnly() bool
 	SetReadOnly(value bool)
 
 	// Topic: Configuring Text Widget Annotations
 
 	// A Boolean value that indicates whether the text widget annotation displays multiple lines.
-	Multiline() bool
+	IsMultiline() bool
 	SetMultiline(value bool)
 	// A Boolean value that indicates whether the text widget annotation displays a password field using bullet characters.
 	IsPasswordField() bool
@@ -590,7 +590,7 @@ type IPDFAnnotation interface {
 	Choices() []string
 	SetChoices(value []string)
 	// A Boolean value that indicates whether the choice widget annotation is a list or a pop-up menu.
-	ListChoice() bool
+	IsListChoice() bool
 	SetListChoice(value bool)
 	// An array of strings that specifies the export values for items in a list or a pop-up menu.
 	Values() []string
@@ -613,7 +613,7 @@ type IPDFAnnotation interface {
 
 	// Topic: Instance Properties
 
-	ActivatableTextField() bool
+	IsActivatableTextField() bool
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -1034,7 +1034,7 @@ func (p PDFAnnotation) SetBorder(value IPDFBorder) {
 // state, such as when the mouse is down on a link annotation.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/isHighlighted
-func (p PDFAnnotation) Highlighted() bool {
+func (p PDFAnnotation) IsHighlighted() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isHighlighted"))
 	return rv
 }
@@ -1194,7 +1194,7 @@ func (p PDFAnnotation) SetPopup(value IPDFAnnotation) {
 // an icon.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/isOpen
-func (p PDFAnnotation) Open() bool {
+func (p PDFAnnotation) IsOpen() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isOpen"))
 	return rv
 }
@@ -1317,7 +1317,7 @@ func (p PDFAnnotation) SetBackgroundColor(value appkit.NSColor) {
 // A Boolean value that determines whether the widget is editable.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/isReadOnly
-func (p PDFAnnotation) ReadOnly() bool {
+func (p PDFAnnotation) IsReadOnly() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isReadOnly"))
 	return rv
 }
@@ -1329,7 +1329,7 @@ func (p PDFAnnotation) SetReadOnly(value bool) {
 // multiple lines.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/isMultiline
-func (p PDFAnnotation) Multiline() bool {
+func (p PDFAnnotation) IsMultiline() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isMultiline"))
 	return rv
 }
@@ -1475,7 +1475,7 @@ func (p PDFAnnotation) SetChoices(value []string) {
 // list or a pop-up menu.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/isListChoice
-func (p PDFAnnotation) ListChoice() bool {
+func (p PDFAnnotation) IsListChoice() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isListChoice"))
 	return rv
 }
@@ -1527,7 +1527,7 @@ func (p PDFAnnotation) SetStampName(value string) {
 }
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/isActivatableTextField
-func (p PDFAnnotation) ActivatableTextField() bool {
+func (p PDFAnnotation) IsActivatableTextField() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isActivatableTextField"))
 	return rv
 }

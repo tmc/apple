@@ -94,7 +94,7 @@ func (nc NSBoxClass) Alloc() NSBox {
 //   - [NSBox.BorderRect]: The rectangle in which the receiver’s border is drawn.
 //   - [NSBox.BoxType]: The receiver’s box type.
 //   - [NSBox.SetBoxType]
-//   - [NSBox.Transparent]: A Boolean value that indicates whether the receiver is transparent.
+//   - [NSBox.IsTransparent]: A Boolean value that indicates whether the receiver is transparent.
 //   - [NSBox.SetTransparent]
 //   - [NSBox.Title]: The receiver’s title.
 //   - [NSBox.SetTitle]
@@ -150,7 +150,7 @@ func NSBoxFromID(id objc.ID) NSBox {
 //   - [INSBox.BorderRect]: The rectangle in which the receiver’s border is drawn.
 //   - [INSBox.BoxType]: The receiver’s box type.
 //   - [INSBox.SetBoxType]
-//   - [INSBox.Transparent]: A Boolean value that indicates whether the receiver is transparent.
+//   - [INSBox.IsTransparent]: A Boolean value that indicates whether the receiver is transparent.
 //   - [INSBox.SetTransparent]
 //   - [INSBox.Title]: The receiver’s title.
 //   - [INSBox.SetTitle]
@@ -196,7 +196,7 @@ type INSBox interface {
 	BoxType() NSBoxType
 	SetBoxType(value NSBoxType)
 	// A Boolean value that indicates whether the receiver is transparent.
-	Transparent() bool
+	IsTransparent() bool
 	SetTransparent(value bool)
 	// The receiver’s title.
 	Title() string
@@ -368,7 +368,7 @@ func (b NSBox) SetBoxType(value NSBoxType) {
 // true when the receiver is transparent, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/isTransparent
-func (b NSBox) Transparent() bool {
+func (b NSBox) IsTransparent() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isTransparent"))
 	return rv
 }

@@ -63,7 +63,7 @@ func (ac AVCaptureExternalDisplayConfiguratorClass) Alloc() AVCaptureExternalDis
 //
 //   - [AVCaptureExternalDisplayConfigurator.ActiveExternalDisplayFrameRate]: The currently configured frame rate on the external display that’s displaying the preview layer.
 //   - [AVCaptureExternalDisplayConfigurator.Device]: The device for which the coordinator configures the preview layer.
-//   - [AVCaptureExternalDisplayConfigurator.Active]: This property tells you whether the configurator is actively configuring the external display.
+//   - [AVCaptureExternalDisplayConfigurator.IsActive]: This property tells you whether the configurator is actively configuring the external display.
 //   - [AVCaptureExternalDisplayConfigurator.PreviewLayer]: The layer for which the configurator adjusts display properties to match the device’s state.
 //
 // # Stopping configuration
@@ -96,7 +96,7 @@ func AVCaptureExternalDisplayConfiguratorFromID(id objc.ID) AVCaptureExternalDis
 //
 //   - [IAVCaptureExternalDisplayConfigurator.ActiveExternalDisplayFrameRate]: The currently configured frame rate on the external display that’s displaying the preview layer.
 //   - [IAVCaptureExternalDisplayConfigurator.Device]: The device for which the coordinator configures the preview layer.
-//   - [IAVCaptureExternalDisplayConfigurator.Active]: This property tells you whether the configurator is actively configuring the external display.
+//   - [IAVCaptureExternalDisplayConfigurator.IsActive]: This property tells you whether the configurator is actively configuring the external display.
 //   - [IAVCaptureExternalDisplayConfigurator.PreviewLayer]: The layer for which the configurator adjusts display properties to match the device’s state.
 //
 // # Stopping configuration
@@ -119,7 +119,7 @@ type IAVCaptureExternalDisplayConfigurator interface {
 	// The device for which the coordinator configures the preview layer.
 	Device() IAVCaptureDevice
 	// This property tells you whether the configurator is actively configuring the external display.
-	Active() bool
+	IsActive() bool
 	// The layer for which the configurator adjusts display properties to match the device’s state.
 	PreviewLayer() quartzcore.CALayer
 
@@ -278,7 +278,7 @@ func (c AVCaptureExternalDisplayConfigurator) Device() IAVCaptureDevice {
 // configuration of the external display, this property returns `false`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/isActive
-func (c AVCaptureExternalDisplayConfigurator) Active() bool {
+func (c AVCaptureExternalDisplayConfigurator) IsActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isActive"))
 	return rv
 }
@@ -321,7 +321,7 @@ func (c AVCaptureExternalDisplayConfigurator) SetActiveFormat(value IAVCaptureDe
 // specifying [ShouldMatchFrameRate] set to `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/isMatchingFrameRateSupported
-func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) ShouldMatchFrameRateSupported() bool {
+func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) IsMatchingFrameRateSupported() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureExternalDisplayConfiguratorClass.class), objc.Sel("isMatchingFrameRateSupported"))
 	return rv
 }
@@ -335,7 +335,7 @@ func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfigu
 // specifying [PreferredResolution] set to `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/isPreferredResolutionSupported
-func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) SupportsPreferredResolution() bool {
+func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) IsPreferredResolutionSupported() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureExternalDisplayConfiguratorClass.class), objc.Sel("isPreferredResolutionSupported"))
 	return rv
 }
@@ -348,7 +348,7 @@ func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfigu
 // specifying [BypassColorSpaceConversion] set to `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfigurator/isBypassingColorSpaceConversionSupported
-func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) SupportsBypassingColorSpaceConversion() bool {
+func (_AVCaptureExternalDisplayConfiguratorClass AVCaptureExternalDisplayConfiguratorClass) IsBypassingColorSpaceConversionSupported() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureExternalDisplayConfiguratorClass.class), objc.Sel("isBypassingColorSpaceConversionSupported"))
 	return rv
 }

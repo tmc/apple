@@ -57,7 +57,7 @@ func (nc NSWorkspaceOpenConfigurationClass) Alloc() NSWorkspaceOpenConfiguration
 //
 //   - [NSWorkspaceOpenConfiguration.RequiresUniversalLinks]: A Boolean value indicating whether you require the URL to have an associated universal link.
 //   - [NSWorkspaceOpenConfiguration.SetRequiresUniversalLinks]
-//   - [NSWorkspaceOpenConfiguration.ForPrinting]: A Boolean value indicating whether you want to print the contents of documents and URLs instead of opening them.
+//   - [NSWorkspaceOpenConfiguration.IsForPrinting]: A Boolean value indicating whether you want to print the contents of documents and URLs instead of opening them.
 //   - [NSWorkspaceOpenConfiguration.SetForPrinting]
 //
 // # Specifying app-related behaviors
@@ -112,7 +112,7 @@ func NSWorkspaceOpenConfigurationFromID(id objc.ID) NSWorkspaceOpenConfiguration
 //
 //   - [INSWorkspaceOpenConfiguration.RequiresUniversalLinks]: A Boolean value indicating whether you require the URL to have an associated universal link.
 //   - [INSWorkspaceOpenConfiguration.SetRequiresUniversalLinks]
-//   - [INSWorkspaceOpenConfiguration.ForPrinting]: A Boolean value indicating whether you want to print the contents of documents and URLs instead of opening them.
+//   - [INSWorkspaceOpenConfiguration.IsForPrinting]: A Boolean value indicating whether you want to print the contents of documents and URLs instead of opening them.
 //   - [INSWorkspaceOpenConfiguration.SetForPrinting]
 //
 // # Specifying app-related behaviors
@@ -156,7 +156,7 @@ type INSWorkspaceOpenConfiguration interface {
 	RequiresUniversalLinks() bool
 	SetRequiresUniversalLinks(value bool)
 	// A Boolean value indicating whether you want to print the contents of documents and URLs instead of opening them.
-	ForPrinting() bool
+	IsForPrinting() bool
 	SetForPrinting(value bool)
 
 	// Topic: Specifying app-related behaviors
@@ -267,7 +267,7 @@ func (w NSWorkspaceOpenConfiguration) SetRequiresUniversalLinks(value bool) {
 // items instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/isForPrinting
-func (w NSWorkspaceOpenConfiguration) ForPrinting() bool {
+func (w NSWorkspaceOpenConfiguration) IsForPrinting() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isForPrinting"))
 	return rv
 }

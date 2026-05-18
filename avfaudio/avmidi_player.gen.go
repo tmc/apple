@@ -61,7 +61,7 @@ func (ac AVMIDIPlayerClass) Alloc() AVMIDIPlayer {
 //   - [AVMIDIPlayer.PrepareToPlay]: Prepares the player to play the sequence by prerolling all events.
 //   - [AVMIDIPlayer.Play]: Plays the MIDI sequence.
 //   - [AVMIDIPlayer.Stop]: Stops playing the sequence.
-//   - [AVMIDIPlayer.Playing]: A Boolean value that indicates whether the sequence is playing.
+//   - [AVMIDIPlayer.IsPlaying]: A Boolean value that indicates whether the sequence is playing.
 //
 // # Configuring playback settings
 //
@@ -103,7 +103,7 @@ func AVMIDIPlayerFromID(id objc.ID) AVMIDIPlayer {
 //   - [IAVMIDIPlayer.PrepareToPlay]: Prepares the player to play the sequence by prerolling all events.
 //   - [IAVMIDIPlayer.Play]: Plays the MIDI sequence.
 //   - [IAVMIDIPlayer.Stop]: Stops playing the sequence.
-//   - [IAVMIDIPlayer.Playing]: A Boolean value that indicates whether the sequence is playing.
+//   - [IAVMIDIPlayer.IsPlaying]: A Boolean value that indicates whether the sequence is playing.
 //
 // # Configuring playback settings
 //
@@ -136,7 +136,7 @@ type IAVMIDIPlayer interface {
 	// Stops playing the sequence.
 	Stop()
 	// A Boolean value that indicates whether the sequence is playing.
-	Playing() bool
+	IsPlaying() bool
 
 	// Topic: Configuring playback settings
 
@@ -301,7 +301,7 @@ func (m AVMIDIPlayer) Stop() {
 // A Boolean value that indicates whether the sequence is playing.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/isPlaying
-func (m AVMIDIPlayer) Playing() bool {
+func (m AVMIDIPlayer) IsPlaying() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPlaying"))
 	return rv
 }

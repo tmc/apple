@@ -77,7 +77,7 @@ func (gc GCControllerElementClass) Alloc() GCControllerElement {
 //
 // # Accessing input values
 //
-//   - [GCControllerElement.Analog]: A Boolean value that indicates whether the element provides analog data.
+//   - [GCControllerElement.IsAnalog]: A Boolean value that indicates whether the element provides analog data.
 //
 // # Getting a localized name
 //
@@ -103,7 +103,7 @@ func (gc GCControllerElementClass) Alloc() GCControllerElement {
 //
 // # Handling system gesture input
 //
-//   - [GCControllerElement.BoundToSystemGesture]: A Boolean value that indicates whether the user binds the element to a system gesture.
+//   - [GCControllerElement.IsBoundToSystemGesture]: A Boolean value that indicates whether the user binds the element to a system gesture.
 //   - [GCControllerElement.PreferredSystemGestureState]: The preferred state for handling input when the user binds the element to a system gesture.
 //   - [GCControllerElement.SetPreferredSystemGestureState]
 //
@@ -126,7 +126,7 @@ func GCControllerElementFromID(id objc.ID) GCControllerElement {
 //
 // # Accessing input values
 //
-//   - [IGCControllerElement.Analog]: A Boolean value that indicates whether the element provides analog data.
+//   - [IGCControllerElement.IsAnalog]: A Boolean value that indicates whether the element provides analog data.
 //
 // # Getting a localized name
 //
@@ -152,7 +152,7 @@ func GCControllerElementFromID(id objc.ID) GCControllerElement {
 //
 // # Handling system gesture input
 //
-//   - [IGCControllerElement.BoundToSystemGesture]: A Boolean value that indicates whether the user binds the element to a system gesture.
+//   - [IGCControllerElement.IsBoundToSystemGesture]: A Boolean value that indicates whether the user binds the element to a system gesture.
 //   - [IGCControllerElement.PreferredSystemGestureState]: The preferred state for handling input when the user binds the element to a system gesture.
 //   - [IGCControllerElement.SetPreferredSystemGestureState]
 //
@@ -163,7 +163,7 @@ type IGCControllerElement interface {
 	// Topic: Accessing input values
 
 	// A Boolean value that indicates whether the element provides analog data.
-	Analog() bool
+	IsAnalog() bool
 
 	// Topic: Getting a localized name
 
@@ -196,7 +196,7 @@ type IGCControllerElement interface {
 	// Topic: Handling system gesture input
 
 	// A Boolean value that indicates whether the user binds the element to a system gesture.
-	BoundToSystemGesture() bool
+	IsBoundToSystemGesture() bool
 	// The preferred state for handling input when the user binds the element to a system gesture.
 	PreferredSystemGestureState() GCSystemGestureState
 	SetPreferredSystemGestureState(value GCSystemGestureState)
@@ -233,7 +233,7 @@ func NewGCControllerElement() GCControllerElement {
 // `1` if the element is on.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerElement/isAnalog
-func (g GCControllerElement) Analog() bool {
+func (g GCControllerElement) IsAnalog() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isAnalog"))
 	return rv
 }
@@ -334,7 +334,7 @@ func (g GCControllerElement) Collection() IGCControllerElement {
 // otherwise, it’s false.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerElement/isBoundToSystemGesture
-func (g GCControllerElement) BoundToSystemGesture() bool {
+func (g GCControllerElement) IsBoundToSystemGesture() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isBoundToSystemGesture"))
 	return rv
 }

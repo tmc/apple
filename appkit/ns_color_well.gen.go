@@ -83,13 +83,13 @@ func (nc NSColorWellClass) Alloc() NSColorWell {
 //   - [NSColorWell.SetColorWellStyle]
 //   - [NSColorWell.Image]: The image to display on the button portion of a color well that adopts the expanded style.
 //   - [NSColorWell.SetImage]
-//   - [NSColorWell.Bordered]: A Boolean value that determines whether the color well has a border.
+//   - [NSColorWell.IsBordered]: A Boolean value that determines whether the color well has a border.
 //   - [NSColorWell.SetBordered]
 //
 // # Activating and deactivating color wells
 //
 //   - [NSColorWell.Activate]: Activates the color well, displays the color panel, and synchronizes the two UI elements.
-//   - [NSColorWell.Active]: A Boolean value that indicates whether the color well is currently active.
+//   - [NSColorWell.IsActive]: A Boolean value that indicates whether the color well is currently active.
 //   - [NSColorWell.Deactivate]: Deactivates the color well.
 //
 // # Drawing color wells
@@ -140,13 +140,13 @@ func NSColorWellFromID(id objc.ID) NSColorWell {
 //   - [INSColorWell.SetColorWellStyle]
 //   - [INSColorWell.Image]: The image to display on the button portion of a color well that adopts the expanded style.
 //   - [INSColorWell.SetImage]
-//   - [INSColorWell.Bordered]: A Boolean value that determines whether the color well has a border.
+//   - [INSColorWell.IsBordered]: A Boolean value that determines whether the color well has a border.
 //   - [INSColorWell.SetBordered]
 //
 // # Activating and deactivating color wells
 //
 //   - [INSColorWell.Activate]: Activates the color well, displays the color panel, and synchronizes the two UI elements.
-//   - [INSColorWell.Active]: A Boolean value that indicates whether the color well is currently active.
+//   - [INSColorWell.IsActive]: A Boolean value that indicates whether the color well is currently active.
 //   - [INSColorWell.Deactivate]: Deactivates the color well.
 //
 // # Drawing color wells
@@ -190,7 +190,7 @@ type INSColorWell interface {
 	Image() INSImage
 	SetImage(value INSImage)
 	// A Boolean value that determines whether the color well has a border.
-	Bordered() bool
+	IsBordered() bool
 	SetBordered(value bool)
 
 	// Topic: Activating and deactivating color wells
@@ -198,7 +198,7 @@ type INSColorWell interface {
 	// Activates the color well, displays the color panel, and synchronizes the two UI elements.
 	Activate(exclusive bool)
 	// A Boolean value that indicates whether the color well is currently active.
-	Active() bool
+	IsActive() bool
 	// Deactivates the color well.
 	Deactivate()
 
@@ -447,7 +447,7 @@ func (c NSColorWell) SetImage(value INSImage) {
 // clicks it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/isBordered
-func (c NSColorWell) Bordered() bool {
+func (c NSColorWell) IsBordered() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isBordered"))
 	return rv
 }
@@ -458,7 +458,7 @@ func (c NSColorWell) SetBordered(value bool) {
 // A Boolean value that indicates whether the color well is currently active.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/isActive
-func (c NSColorWell) Active() bool {
+func (c NSColorWell) IsActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isActive"))
 	return rv
 }

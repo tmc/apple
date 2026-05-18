@@ -52,7 +52,7 @@ func (wc WKFrameInfoClass) Alloc() WKFrameInfo {
 //
 // # Inspecting frame information
 //
-//   - [WKFrameInfo.MainFrame]: A Boolean value indicating whether the frame is the web site’s main frame or a subframe.
+//   - [WKFrameInfo.IsMainFrame]: A Boolean value indicating whether the frame is the web site’s main frame or a subframe.
 //   - [WKFrameInfo.Request]: The frame’s current request.
 //   - [WKFrameInfo.SecurityOrigin]: The frame’s security origin.
 //   - [WKFrameInfo.WebView]: The web view that contains this frame and the containing webpage.
@@ -76,7 +76,7 @@ func WKFrameInfoFromID(id objc.ID) WKFrameInfo {
 //
 // # Inspecting frame information
 //
-//   - [IWKFrameInfo.MainFrame]: A Boolean value indicating whether the frame is the web site’s main frame or a subframe.
+//   - [IWKFrameInfo.IsMainFrame]: A Boolean value indicating whether the frame is the web site’s main frame or a subframe.
 //   - [IWKFrameInfo.Request]: The frame’s current request.
 //   - [IWKFrameInfo.SecurityOrigin]: The frame’s security origin.
 //   - [IWKFrameInfo.WebView]: The web view that contains this frame and the containing webpage.
@@ -88,7 +88,7 @@ type IWKFrameInfo interface {
 	// Topic: Inspecting frame information
 
 	// A Boolean value indicating whether the frame is the web site’s main frame or a subframe.
-	MainFrame() bool
+	IsMainFrame() bool
 	// The frame’s current request.
 	Request() foundation.NSURLRequest
 	// The frame’s security origin.
@@ -120,7 +120,7 @@ func NewWKFrameInfo() WKFrameInfo {
 // or a subframe.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKFrameInfo/isMainFrame
-func (f WKFrameInfo) MainFrame() bool {
+func (f WKFrameInfo) IsMainFrame() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isMainFrame"))
 	return rv
 }

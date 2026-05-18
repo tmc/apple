@@ -86,7 +86,7 @@ func (nc NSControlClass) Alloc() NSControl {
 //
 // # Enabling and Disabling the Control
 //
-//   - [NSControl.Enabled]: A Boolean value that indicates whether the receiver reacts to mouse events.
+//   - [NSControl.IsEnabled]: A Boolean value that indicates whether the receiver reacts to mouse events.
 //   - [NSControl.SetEnabled]
 //
 // # Accessing the Control’s Value
@@ -155,7 +155,7 @@ func (nc NSControlClass) Alloc() NSControl {
 //
 // # Displaying a Cell
 //
-//   - [NSControl.Highlighted]: A Boolean value that indicates whether the cell is highlighted.
+//   - [NSControl.IsHighlighted]: A Boolean value that indicates whether the cell is highlighted.
 //   - [NSControl.SetHighlighted]
 //
 // # Implementing the Target-Action Mechanism
@@ -164,7 +164,7 @@ func (nc NSControlClass) Alloc() NSControl {
 //   - [NSControl.SetAction]
 //   - [NSControl.Target]: The target object that receives action messages from the cell.
 //   - [NSControl.SetTarget]
-//   - [NSControl.Continuous]: A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
+//   - [NSControl.IsContinuous]: A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
 //   - [NSControl.SetContinuous]
 //   - [NSControl.SendActionTo]: Causes the specified action to be sent to the target.
 //   - [NSControl.SendActionOn]: Sets the conditions on which the receiver sends action messages to its target.
@@ -208,7 +208,7 @@ func NSControlFromID(id objc.ID) NSControl {
 //
 // # Enabling and Disabling the Control
 //
-//   - [INSControl.Enabled]: A Boolean value that indicates whether the receiver reacts to mouse events.
+//   - [INSControl.IsEnabled]: A Boolean value that indicates whether the receiver reacts to mouse events.
 //   - [INSControl.SetEnabled]
 //
 // # Accessing the Control’s Value
@@ -277,7 +277,7 @@ func NSControlFromID(id objc.ID) NSControl {
 //
 // # Displaying a Cell
 //
-//   - [INSControl.Highlighted]: A Boolean value that indicates whether the cell is highlighted.
+//   - [INSControl.IsHighlighted]: A Boolean value that indicates whether the cell is highlighted.
 //   - [INSControl.SetHighlighted]
 //
 // # Implementing the Target-Action Mechanism
@@ -286,7 +286,7 @@ func NSControlFromID(id objc.ID) NSControl {
 //   - [INSControl.SetAction]
 //   - [INSControl.Target]: The target object that receives action messages from the cell.
 //   - [INSControl.SetTarget]
-//   - [INSControl.Continuous]: A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
+//   - [INSControl.IsContinuous]: A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
 //   - [INSControl.SetContinuous]
 //   - [INSControl.SendActionTo]: Causes the specified action to be sent to the target.
 //   - [INSControl.SendActionOn]: Sets the conditions on which the receiver sends action messages to its target.
@@ -313,7 +313,7 @@ type INSControl interface {
 	// Topic: Enabling and Disabling the Control
 
 	// A Boolean value that indicates whether the receiver reacts to mouse events.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 
 	// Topic: Accessing the Control’s Value
@@ -414,7 +414,7 @@ type INSControl interface {
 	// Topic: Displaying a Cell
 
 	// A Boolean value that indicates whether the cell is highlighted.
-	Highlighted() bool
+	IsHighlighted() bool
 	SetHighlighted(value bool)
 
 	// Topic: Implementing the Target-Action Mechanism
@@ -426,7 +426,7 @@ type INSControl interface {
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
 	// A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
-	Continuous() bool
+	IsContinuous() bool
 	SetContinuous(value bool)
 	// Causes the specified action to be sent to the target.
 	SendActionTo(action objc.SEL, target objectivec.IObject) bool
@@ -1067,7 +1067,7 @@ func (c NSControl) UpdateCellInside(cell INSCell) {
 // events; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/isEnabled
-func (c NSControl) Enabled() bool {
+func (c NSControl) IsEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEnabled"))
 	return rv
 }
@@ -1382,7 +1382,7 @@ func (c NSControl) SetControlSize(value NSControlSize) {
 // A Boolean value that indicates whether the cell is highlighted.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/isHighlighted
-func (c NSControl) Highlighted() bool {
+func (c NSControl) IsHighlighted() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isHighlighted"))
 	return rv
 }
@@ -1439,7 +1439,7 @@ func (c NSControl) SetTarget(value objectivec.IObject) {
 // continuously; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/isContinuous
-func (c NSControl) Continuous() bool {
+func (c NSControl) IsContinuous() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isContinuous"))
 	return rv
 }

@@ -79,7 +79,7 @@ func (nc NSTaskClass) Alloc() NSTask {
 //
 // # Querying the State
 //
-//   - [NSTask.Running]: A status that indicates whether the receiver is still running.
+//   - [NSTask.IsRunning]: A status that indicates whether the receiver is still running.
 //   - [NSTask.TerminationStatus]: The exit status the receiver’s executable returns.
 //   - [NSTask.TerminationReason]: The reason the system terminated the task.
 //
@@ -153,7 +153,7 @@ func NSTaskFromID(id objc.ID) NSTask {
 //
 // # Querying the State
 //
-//   - [INSTask.Running]: A status that indicates whether the receiver is still running.
+//   - [INSTask.IsRunning]: A status that indicates whether the receiver is still running.
 //   - [INSTask.TerminationStatus]: The exit status the receiver’s executable returns.
 //   - [INSTask.TerminationReason]: The reason the system terminated the task.
 //
@@ -222,7 +222,7 @@ type INSTask interface {
 	// Topic: Querying the State
 
 	// A status that indicates whether the receiver is still running.
-	Running() bool
+	IsRunning() bool
 	// The exit status the receiver’s executable returns.
 	TerminationStatus() int
 	// The reason the system terminated the task.
@@ -444,7 +444,7 @@ func (t NSTask) ProcessIdentifier() int {
 // the receiver could not run or it has terminated.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/isRunning
-func (t NSTask) Running() bool {
+func (t NSTask) IsRunning() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRunning"))
 	return rv
 }

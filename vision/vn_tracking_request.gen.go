@@ -59,7 +59,7 @@ func (vc VNTrackingRequestClass) Alloc() VNTrackingRequest {
 //   - [VNTrackingRequest.SetInputObservation]
 //   - [VNTrackingRequest.TrackingLevel]: A value for specifying whether to prioritize speed or location accuracy.
 //   - [VNTrackingRequest.SetTrackingLevel]
-//   - [VNTrackingRequest.LastFrame]: A Boolean that indicates the last frame in a tracking sequence.
+//   - [VNTrackingRequest.IsLastFrame]: A Boolean that indicates the last frame in a tracking sequence.
 //   - [VNTrackingRequest.SetLastFrame]
 //
 // # Getting the Number of Trackers
@@ -90,7 +90,7 @@ func VNTrackingRequestFromID(id objc.ID) VNTrackingRequest {
 //   - [IVNTrackingRequest.SetInputObservation]
 //   - [IVNTrackingRequest.TrackingLevel]: A value for specifying whether to prioritize speed or location accuracy.
 //   - [IVNTrackingRequest.SetTrackingLevel]
-//   - [IVNTrackingRequest.LastFrame]: A Boolean that indicates the last frame in a tracking sequence.
+//   - [IVNTrackingRequest.IsLastFrame]: A Boolean that indicates the last frame in a tracking sequence.
 //   - [IVNTrackingRequest.SetLastFrame]
 //
 // # Getting the Number of Trackers
@@ -110,7 +110,7 @@ type IVNTrackingRequest interface {
 	TrackingLevel() VNRequestTrackingLevel
 	SetTrackingLevel(value VNRequestTrackingLevel)
 	// A Boolean that indicates the last frame in a tracking sequence.
-	LastFrame() bool
+	IsLastFrame() bool
 	SetLastFrame(value bool)
 
 	// Topic: Getting the Number of Trackers
@@ -217,7 +217,7 @@ func (t VNTrackingRequest) SetTrackingLevel(value VNRequestTrackingLevel) {
 // available trackers when the current frame finishes processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackingRequest/isLastFrame
-func (t VNTrackingRequest) LastFrame() bool {
+func (t VNTrackingRequest) IsLastFrame() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isLastFrame"))
 	return rv
 }

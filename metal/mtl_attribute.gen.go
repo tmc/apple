@@ -51,9 +51,9 @@ func (mc MTLAttributeClass) Alloc() MTLAttribute {
 //   - [MTLAttribute.Name]: The name of the attribute.
 //   - [MTLAttribute.AttributeIndex]: The index of the attribute, as declared in Metal shader source code.
 //   - [MTLAttribute.AttributeType]: The data type for the attribute, as declared in Metal shader source code.
-//   - [MTLAttribute.Active]: A Boolean value that indicates whether the attribute is active.
-//   - [MTLAttribute.PatchControlPointData]: A Boolean value that indicates whether the attribute represents control point data.
-//   - [MTLAttribute.PatchData]: A Boolean value that indicates whether the attribute represents tessellation patch data.
+//   - [MTLAttribute.IsActive]: A Boolean value that indicates whether the attribute is active.
+//   - [MTLAttribute.IsPatchControlPointData]: A Boolean value that indicates whether the attribute represents control point data.
+//   - [MTLAttribute.IsPatchData]: A Boolean value that indicates whether the attribute represents tessellation patch data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute
 type MTLAttribute struct {
@@ -78,9 +78,9 @@ func MTLAttributeFromID(id objc.ID) MTLAttribute {
 //   - [IMTLAttribute.Name]: The name of the attribute.
 //   - [IMTLAttribute.AttributeIndex]: The index of the attribute, as declared in Metal shader source code.
 //   - [IMTLAttribute.AttributeType]: The data type for the attribute, as declared in Metal shader source code.
-//   - [IMTLAttribute.Active]: A Boolean value that indicates whether the attribute is active.
-//   - [IMTLAttribute.PatchControlPointData]: A Boolean value that indicates whether the attribute represents control point data.
-//   - [IMTLAttribute.PatchData]: A Boolean value that indicates whether the attribute represents tessellation patch data.
+//   - [IMTLAttribute.IsActive]: A Boolean value that indicates whether the attribute is active.
+//   - [IMTLAttribute.IsPatchControlPointData]: A Boolean value that indicates whether the attribute represents control point data.
+//   - [IMTLAttribute.IsPatchData]: A Boolean value that indicates whether the attribute represents tessellation patch data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute
 type IMTLAttribute interface {
@@ -95,11 +95,11 @@ type IMTLAttribute interface {
 	// The data type for the attribute, as declared in Metal shader source code.
 	AttributeType() MTLDataType
 	// A Boolean value that indicates whether the attribute is active.
-	Active() bool
+	IsActive() bool
 	// A Boolean value that indicates whether the attribute represents control point data.
-	PatchControlPointData() bool
+	IsPatchControlPointData() bool
 	// A Boolean value that indicates whether the attribute represents tessellation patch data.
-	PatchData() bool
+	IsPatchData() bool
 }
 
 // Init initializes the instance.
@@ -148,7 +148,7 @@ func (a MTLAttribute) AttributeType() MTLDataType {
 // A Boolean value that indicates whether the attribute is active.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/isActive
-func (a MTLAttribute) Active() bool {
+func (a MTLAttribute) IsActive() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isActive"))
 	return rv
 }
@@ -157,7 +157,7 @@ func (a MTLAttribute) Active() bool {
 // point data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/isPatchControlPointData
-func (a MTLAttribute) PatchControlPointData() bool {
+func (a MTLAttribute) IsPatchControlPointData() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPatchControlPointData"))
 	return rv
 }
@@ -166,7 +166,7 @@ func (a MTLAttribute) PatchControlPointData() bool {
 // tessellation patch data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/isPatchData
-func (a MTLAttribute) PatchData() bool {
+func (a MTLAttribute) IsPatchData() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPatchData"))
 	return rv
 }

@@ -72,13 +72,13 @@ func (nc NSTextClass) Alloc() NSText {
 //
 // # Setting behavioral attributes
 //
-//   - [NSText.Editable]: A Boolean that controls whether the receiver allows the user to edit its text.
+//   - [NSText.IsEditable]: A Boolean that controls whether the receiver allows the user to edit its text.
 //   - [NSText.SetEditable]
-//   - [NSText.Selectable]: A Boolean that controls whether the receiver allows the user to select its text.
+//   - [NSText.IsSelectable]: A Boolean that controls whether the receiver allows the user to select its text.
 //   - [NSText.SetSelectable]
-//   - [NSText.FieldEditor]: A Boolean that controls whether the receiver interprets Tab, Shift-Tab, and Return (Enter) as cues to end editing and possibly to change the first responder.
+//   - [NSText.IsFieldEditor]: A Boolean that controls whether the receiver interprets Tab, Shift-Tab, and Return (Enter) as cues to end editing and possibly to change the first responder.
 //   - [NSText.SetFieldEditor]
-//   - [NSText.RichText]: A Boolean that controls whether the receiver allows the user to apply attributes to specific ranges of the text.
+//   - [NSText.IsRichText]: A Boolean that controls whether the receiver allows the user to apply attributes to specific ranges of the text.
 //   - [NSText.SetRichText]
 //   - [NSText.ImportsGraphics]: A Boolean that controls whether the receiver allows the user to import files by dragging.
 //   - [NSText.SetImportsGraphics]
@@ -91,7 +91,7 @@ func (nc NSTextClass) Alloc() NSText {
 // # Using the ruler
 //
 //   - [NSText.ToggleRuler]: This action method shows or hides the ruler, if the receiver is enclosed in a scroll view.
-//   - [NSText.RulerVisible]: A Boolean value that indicates whether the receiver’s enclosing scroll view shows its ruler.
+//   - [NSText.IsRulerVisible]: A Boolean value that indicates whether the receiver’s enclosing scroll view shows its ruler.
 //
 // # Changing the selection
 //
@@ -169,9 +169,9 @@ func (nc NSTextClass) Alloc() NSText {
 //   - [NSText.SetMaxSize]
 //   - [NSText.MinSize]: The receiver’s minimum size.
 //   - [NSText.SetMinSize]
-//   - [NSText.VerticallyResizable]: A Boolean that controls whether the receiver changes its height to fit the height of its text.
+//   - [NSText.IsVerticallyResizable]: A Boolean that controls whether the receiver changes its height to fit the height of its text.
 //   - [NSText.SetVerticallyResizable]
-//   - [NSText.HorizontallyResizable]: A Boolean that controls whether the receiver changes its width to fit the width of its text.
+//   - [NSText.IsHorizontallyResizable]: A Boolean that controls whether the receiver changes its width to fit the width of its text.
 //   - [NSText.SetHorizontallyResizable]
 //   - [NSText.SizeToFit]: Resizes the receiver to fit its text.
 //
@@ -210,13 +210,13 @@ func NSTextFromID(id objc.ID) NSText {
 //
 // # Setting behavioral attributes
 //
-//   - [INSText.Editable]: A Boolean that controls whether the receiver allows the user to edit its text.
+//   - [INSText.IsEditable]: A Boolean that controls whether the receiver allows the user to edit its text.
 //   - [INSText.SetEditable]
-//   - [INSText.Selectable]: A Boolean that controls whether the receiver allows the user to select its text.
+//   - [INSText.IsSelectable]: A Boolean that controls whether the receiver allows the user to select its text.
 //   - [INSText.SetSelectable]
-//   - [INSText.FieldEditor]: A Boolean that controls whether the receiver interprets Tab, Shift-Tab, and Return (Enter) as cues to end editing and possibly to change the first responder.
+//   - [INSText.IsFieldEditor]: A Boolean that controls whether the receiver interprets Tab, Shift-Tab, and Return (Enter) as cues to end editing and possibly to change the first responder.
 //   - [INSText.SetFieldEditor]
-//   - [INSText.RichText]: A Boolean that controls whether the receiver allows the user to apply attributes to specific ranges of the text.
+//   - [INSText.IsRichText]: A Boolean that controls whether the receiver allows the user to apply attributes to specific ranges of the text.
 //   - [INSText.SetRichText]
 //   - [INSText.ImportsGraphics]: A Boolean that controls whether the receiver allows the user to import files by dragging.
 //   - [INSText.SetImportsGraphics]
@@ -229,7 +229,7 @@ func NSTextFromID(id objc.ID) NSText {
 // # Using the ruler
 //
 //   - [INSText.ToggleRuler]: This action method shows or hides the ruler, if the receiver is enclosed in a scroll view.
-//   - [INSText.RulerVisible]: A Boolean value that indicates whether the receiver’s enclosing scroll view shows its ruler.
+//   - [INSText.IsRulerVisible]: A Boolean value that indicates whether the receiver’s enclosing scroll view shows its ruler.
 //
 // # Changing the selection
 //
@@ -307,9 +307,9 @@ func NSTextFromID(id objc.ID) NSText {
 //   - [INSText.SetMaxSize]
 //   - [INSText.MinSize]: The receiver’s minimum size.
 //   - [INSText.SetMinSize]
-//   - [INSText.VerticallyResizable]: A Boolean that controls whether the receiver changes its height to fit the height of its text.
+//   - [INSText.IsVerticallyResizable]: A Boolean that controls whether the receiver changes its height to fit the height of its text.
 //   - [INSText.SetVerticallyResizable]
-//   - [INSText.HorizontallyResizable]: A Boolean that controls whether the receiver changes its width to fit the width of its text.
+//   - [INSText.IsHorizontallyResizable]: A Boolean that controls whether the receiver changes its width to fit the width of its text.
 //   - [INSText.SetHorizontallyResizable]
 //   - [INSText.SizeToFit]: Resizes the receiver to fit its text.
 //
@@ -338,16 +338,16 @@ type INSText interface {
 	// Topic: Setting behavioral attributes
 
 	// A Boolean that controls whether the receiver allows the user to edit its text.
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 	// A Boolean that controls whether the receiver allows the user to select its text.
-	Selectable() bool
+	IsSelectable() bool
 	SetSelectable(value bool)
 	// A Boolean that controls whether the receiver interprets Tab, Shift-Tab, and Return (Enter) as cues to end editing and possibly to change the first responder.
-	FieldEditor() bool
+	IsFieldEditor() bool
 	SetFieldEditor(value bool)
 	// A Boolean that controls whether the receiver allows the user to apply attributes to specific ranges of the text.
-	RichText() bool
+	IsRichText() bool
 	SetRichText(value bool)
 	// A Boolean that controls whether the receiver allows the user to import files by dragging.
 	ImportsGraphics() bool
@@ -364,7 +364,7 @@ type INSText interface {
 	// This action method shows or hides the ruler, if the receiver is enclosed in a scroll view.
 	ToggleRuler(sender objectivec.IObject)
 	// A Boolean value that indicates whether the receiver’s enclosing scroll view shows its ruler.
-	RulerVisible() bool
+	IsRulerVisible() bool
 
 	// Topic: Changing the selection
 
@@ -477,10 +477,10 @@ type INSText interface {
 	MinSize() corefoundation.CGSize
 	SetMinSize(value corefoundation.CGSize)
 	// A Boolean that controls whether the receiver changes its height to fit the height of its text.
-	VerticallyResizable() bool
+	IsVerticallyResizable() bool
 	SetVerticallyResizable(value bool)
 	// A Boolean that controls whether the receiver changes its width to fit the width of its text.
-	HorizontallyResizable() bool
+	IsHorizontallyResizable() bool
 	SetHorizontallyResizable(value bool)
 	// Resizes the receiver to fit its text.
 	SizeToFit()
@@ -1005,7 +1005,7 @@ func (t NSText) SetDrawsBackground(value bool) {
 // [NSText] objects are by default editable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isEditable
-func (t NSText) Editable() bool {
+func (t NSText) IsEditable() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEditable"))
 	return rv
 }
@@ -1026,7 +1026,7 @@ func (t NSText) SetEditable(value bool) {
 // objects are by default editable and selectable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isSelectable
-func (t NSText) Selectable() bool {
+func (t NSText) IsSelectable() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSelectable"))
 	return rv
 }
@@ -1049,7 +1049,7 @@ func (t NSText) SetSelectable(value bool) {
 // editors. By default, [NSText] objects don’t behave as field editors.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isFieldEditor
-func (t NSText) FieldEditor() bool {
+func (t NSText) IsFieldEditor() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isFieldEditor"))
 	return rv
 }
@@ -1066,7 +1066,7 @@ func (t NSText) SetFieldEditor(value bool) {
 // specific ranges of the text; if `flag` is false it doesn’t.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isRichText
-func (t NSText) RichText() bool {
+func (t NSText) IsRichText() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRichText"))
 	return rv
 }
@@ -1122,7 +1122,7 @@ func (t NSText) SetUsesFontPanel(value bool) {
 // false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isRulerVisible
-func (t NSText) RulerVisible() bool {
+func (t NSText) IsRulerVisible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRulerVisible"))
 	return rv
 }
@@ -1236,7 +1236,7 @@ func (t NSText) SetMinSize(value corefoundation.CGSize) {
 // If `flag` is true it does; if `flag` is false it doesn’t.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isVerticallyResizable
-func (t NSText) VerticallyResizable() bool {
+func (t NSText) IsVerticallyResizable() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isVerticallyResizable"))
 	return rv
 }
@@ -1252,7 +1252,7 @@ func (t NSText) SetVerticallyResizable(value bool) {
 // If `flag` is true it does; if `flag` is false it doesn’t
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isHorizontallyResizable
-func (t NSText) HorizontallyResizable() bool {
+func (t NSText) IsHorizontallyResizable() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isHorizontallyResizable"))
 	return rv
 }

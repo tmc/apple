@@ -60,7 +60,7 @@ func (ac AVAudioApplicationClass) Alloc() AVAudioApplication {
 //
 // # Managing audio input mute state
 //
-//   - [AVAudioApplication.InputMuted]: A Boolean value that indicates whether the app’s audio input is in a muted state.
+//   - [AVAudioApplication.IsInputMuted]: A Boolean value that indicates whether the app’s audio input is in a muted state.
 //   - [AVAudioApplication.SetInputMutedError]: Sets a Boolean value that indicates whether the app’s audio input is in a muted state.
 //   - [AVAudioApplication.SetInputMuteStateChangeHandlerError]: Sets a callback to handle changes to application-level audio muting states.
 //
@@ -87,7 +87,7 @@ func AVAudioApplicationFromID(id objc.ID) AVAudioApplication {
 //
 // # Managing audio input mute state
 //
-//   - [IAVAudioApplication.InputMuted]: A Boolean value that indicates whether the app’s audio input is in a muted state.
+//   - [IAVAudioApplication.IsInputMuted]: A Boolean value that indicates whether the app’s audio input is in a muted state.
 //   - [IAVAudioApplication.SetInputMutedError]: Sets a Boolean value that indicates whether the app’s audio input is in a muted state.
 //   - [IAVAudioApplication.SetInputMuteStateChangeHandlerError]: Sets a callback to handle changes to application-level audio muting states.
 //
@@ -103,7 +103,7 @@ type IAVAudioApplication interface {
 	// Topic: Managing audio input mute state
 
 	// A Boolean value that indicates whether the app’s audio input is in a muted state.
-	InputMuted() bool
+	IsInputMuted() bool
 	// Sets a Boolean value that indicates whether the app’s audio input is in a muted state.
 	SetInputMutedError(muted bool) (bool, error)
 	// Sets a callback to handle changes to application-level audio muting states.
@@ -242,7 +242,7 @@ func (a AVAudioApplication) RecordPermission() AVAudioApplicationRecordPermissio
 // method.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/isInputMuted
-func (a AVAudioApplication) InputMuted() bool {
+func (a AVAudioApplication) IsInputMuted() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isInputMuted"))
 	return rv
 }

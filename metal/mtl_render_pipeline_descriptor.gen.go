@@ -139,11 +139,11 @@ func (mc MTLRenderPipelineDescriptorClass) Alloc() MTLRenderPipelineDescriptor {
 //
 // # Specifying rasterization and visibility state
 //
-//   - [MTLRenderPipelineDescriptor.AlphaToCoverageEnabled]: A Boolean value that indicates whether to read and use the alpha channel fragment output for color attachments to compute a sample coverage mask.
+//   - [MTLRenderPipelineDescriptor.IsAlphaToCoverageEnabled]: A Boolean value that indicates whether to read and use the alpha channel fragment output for color attachments to compute a sample coverage mask.
 //   - [MTLRenderPipelineDescriptor.SetAlphaToCoverageEnabled]
-//   - [MTLRenderPipelineDescriptor.AlphaToOneEnabled]: A Boolean value that indicates whether to force alpha channel values for color attachments to the largest representable value.
+//   - [MTLRenderPipelineDescriptor.IsAlphaToOneEnabled]: A Boolean value that indicates whether to force alpha channel values for color attachments to the largest representable value.
 //   - [MTLRenderPipelineDescriptor.SetAlphaToOneEnabled]
-//   - [MTLRenderPipelineDescriptor.RasterizationEnabled]: A Boolean value that determines whether the pipeline rasterizes primitives.
+//   - [MTLRenderPipelineDescriptor.IsRasterizationEnabled]: A Boolean value that determines whether the pipeline rasterizes primitives.
 //   - [MTLRenderPipelineDescriptor.SetRasterizationEnabled]
 //   - [MTLRenderPipelineDescriptor.InputPrimitiveTopology]: The type of primitive topology the pipeline renders.
 //   - [MTLRenderPipelineDescriptor.SetInputPrimitiveTopology]
@@ -154,7 +154,7 @@ func (mc MTLRenderPipelineDescriptorClass) Alloc() MTLRenderPipelineDescriptor {
 //
 //   - [MTLRenderPipelineDescriptor.MaxTessellationFactor]: The maximum tessellation factor that the tessellator uses when tessellating patches.
 //   - [MTLRenderPipelineDescriptor.SetMaxTessellationFactor]
-//   - [MTLRenderPipelineDescriptor.TessellationFactorScaleEnabled]: A Boolean value that determines whether the pipeline scales the tessellation factor.
+//   - [MTLRenderPipelineDescriptor.IsTessellationFactorScaleEnabled]: A Boolean value that determines whether the pipeline scales the tessellation factor.
 //   - [MTLRenderPipelineDescriptor.SetTessellationFactorScaleEnabled]
 //   - [MTLRenderPipelineDescriptor.TessellationFactorFormat]: The format of the tessellation factors in the tessellation factor buffer.
 //   - [MTLRenderPipelineDescriptor.SetTessellationFactorFormat]
@@ -262,11 +262,11 @@ func MTLRenderPipelineDescriptorFromID(id objc.ID) MTLRenderPipelineDescriptor {
 //
 // # Specifying rasterization and visibility state
 //
-//   - [IMTLRenderPipelineDescriptor.AlphaToCoverageEnabled]: A Boolean value that indicates whether to read and use the alpha channel fragment output for color attachments to compute a sample coverage mask.
+//   - [IMTLRenderPipelineDescriptor.IsAlphaToCoverageEnabled]: A Boolean value that indicates whether to read and use the alpha channel fragment output for color attachments to compute a sample coverage mask.
 //   - [IMTLRenderPipelineDescriptor.SetAlphaToCoverageEnabled]
-//   - [IMTLRenderPipelineDescriptor.AlphaToOneEnabled]: A Boolean value that indicates whether to force alpha channel values for color attachments to the largest representable value.
+//   - [IMTLRenderPipelineDescriptor.IsAlphaToOneEnabled]: A Boolean value that indicates whether to force alpha channel values for color attachments to the largest representable value.
 //   - [IMTLRenderPipelineDescriptor.SetAlphaToOneEnabled]
-//   - [IMTLRenderPipelineDescriptor.RasterizationEnabled]: A Boolean value that determines whether the pipeline rasterizes primitives.
+//   - [IMTLRenderPipelineDescriptor.IsRasterizationEnabled]: A Boolean value that determines whether the pipeline rasterizes primitives.
 //   - [IMTLRenderPipelineDescriptor.SetRasterizationEnabled]
 //   - [IMTLRenderPipelineDescriptor.InputPrimitiveTopology]: The type of primitive topology the pipeline renders.
 //   - [IMTLRenderPipelineDescriptor.SetInputPrimitiveTopology]
@@ -277,7 +277,7 @@ func MTLRenderPipelineDescriptorFromID(id objc.ID) MTLRenderPipelineDescriptor {
 //
 //   - [IMTLRenderPipelineDescriptor.MaxTessellationFactor]: The maximum tessellation factor that the tessellator uses when tessellating patches.
 //   - [IMTLRenderPipelineDescriptor.SetMaxTessellationFactor]
-//   - [IMTLRenderPipelineDescriptor.TessellationFactorScaleEnabled]: A Boolean value that determines whether the pipeline scales the tessellation factor.
+//   - [IMTLRenderPipelineDescriptor.IsTessellationFactorScaleEnabled]: A Boolean value that determines whether the pipeline scales the tessellation factor.
 //   - [IMTLRenderPipelineDescriptor.SetTessellationFactorScaleEnabled]
 //   - [IMTLRenderPipelineDescriptor.TessellationFactorFormat]: The format of the tessellation factors in the tessellation factor buffer.
 //   - [IMTLRenderPipelineDescriptor.SetTessellationFactorFormat]
@@ -382,13 +382,13 @@ type IMTLRenderPipelineDescriptor interface {
 	// Topic: Specifying rasterization and visibility state
 
 	// A Boolean value that indicates whether to read and use the alpha channel fragment output for color attachments to compute a sample coverage mask.
-	AlphaToCoverageEnabled() bool
+	IsAlphaToCoverageEnabled() bool
 	SetAlphaToCoverageEnabled(value bool)
 	// A Boolean value that indicates whether to force alpha channel values for color attachments to the largest representable value.
-	AlphaToOneEnabled() bool
+	IsAlphaToOneEnabled() bool
 	SetAlphaToOneEnabled(value bool)
 	// A Boolean value that determines whether the pipeline rasterizes primitives.
-	RasterizationEnabled() bool
+	IsRasterizationEnabled() bool
 	SetRasterizationEnabled(value bool)
 	// The type of primitive topology the pipeline renders.
 	InputPrimitiveTopology() MTLPrimitiveTopologyClass
@@ -403,7 +403,7 @@ type IMTLRenderPipelineDescriptor interface {
 	MaxTessellationFactor() uint
 	SetMaxTessellationFactor(value uint)
 	// A Boolean value that determines whether the pipeline scales the tessellation factor.
-	TessellationFactorScaleEnabled() bool
+	IsTessellationFactorScaleEnabled() bool
 	SetTessellationFactorScaleEnabled(value bool)
 	// The format of the tessellation factors in the tessellation factor buffer.
 	TessellationFactorFormat() MTLTessellationFactorFormat
@@ -663,7 +663,7 @@ func (r MTLRenderPipelineDescriptor) SetStencilAttachmentPixelFormat(value MTLPi
 // The default value is false.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/isAlphaToCoverageEnabled
-func (r MTLRenderPipelineDescriptor) AlphaToCoverageEnabled() bool {
+func (r MTLRenderPipelineDescriptor) IsAlphaToCoverageEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isAlphaToCoverageEnabled"))
 	return rv
 }
@@ -686,7 +686,7 @@ func (r MTLRenderPipelineDescriptor) SetAlphaToCoverageEnabled(value bool) {
 // (by forcing alpha to one).
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/isAlphaToOneEnabled
-func (r MTLRenderPipelineDescriptor) AlphaToOneEnabled() bool {
+func (r MTLRenderPipelineDescriptor) IsAlphaToOneEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isAlphaToOneEnabled"))
 	return rv
 }
@@ -707,7 +707,7 @@ func (r MTLRenderPipelineDescriptor) SetAlphaToOneEnabled(value bool) {
 // function needs to return `void`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/isRasterizationEnabled
-func (r MTLRenderPipelineDescriptor) RasterizationEnabled() bool {
+func (r MTLRenderPipelineDescriptor) IsRasterizationEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isRasterizationEnabled"))
 	return rv
 }
@@ -797,7 +797,7 @@ func (r MTLRenderPipelineDescriptor) SetMaxTessellationFactor(value uint) {
 // factor is applied only if the patch is not culled.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/isTessellationFactorScaleEnabled
-func (r MTLRenderPipelineDescriptor) TessellationFactorScaleEnabled() bool {
+func (r MTLRenderPipelineDescriptor) IsTessellationFactorScaleEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isTessellationFactorScaleEnabled"))
 	return rv
 }

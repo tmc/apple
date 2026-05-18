@@ -368,7 +368,7 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 //   - [NSScrubber.SetMode]
 //   - [NSScrubber.ItemAlignment]: A setting that specifies the snapping behavior of items in the scrubber.
 //   - [NSScrubber.SetItemAlignment]
-//   - [NSScrubber.Continuous]: A Boolean value that, together with the [mode](<doc://com.apple.appkit/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
+//   - [NSScrubber.IsContinuous]: A Boolean value that, together with the [mode](<doc://com.apple.appkit/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
 //   - [NSScrubber.SetContinuous]
 //
 // # Configuring the scrubber’s appearance
@@ -463,7 +463,7 @@ func NSScrubberFromID(id objc.ID) NSScrubber {
 //   - [INSScrubber.SetMode]
 //   - [INSScrubber.ItemAlignment]: A setting that specifies the snapping behavior of items in the scrubber.
 //   - [INSScrubber.SetItemAlignment]
-//   - [INSScrubber.Continuous]: A Boolean value that, together with the [mode](<doc://com.apple.appkit/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
+//   - [INSScrubber.IsContinuous]: A Boolean value that, together with the [mode](<doc://com.apple.appkit/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
 //   - [INSScrubber.SetContinuous]
 //
 // # Configuring the scrubber’s appearance
@@ -550,7 +550,7 @@ type INSScrubber interface {
 	ItemAlignment() NSScrubberAlignment
 	SetItemAlignment(value NSScrubberAlignment)
 	// A Boolean value that, together with the [mode](<doc://com.apple.appkit/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
-	Continuous() bool
+	IsContinuous() bool
 	SetContinuous(value bool)
 
 	// Topic: Configuring the scrubber’s appearance
@@ -931,7 +931,7 @@ func (s NSScrubber) SetItemAlignment(value NSScrubberAlignment) {
 // [NSScrubber].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubber/isContinuous
-func (s NSScrubber) Continuous() bool {
+func (s NSScrubber) IsContinuous() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isContinuous"))
 	return rv
 }

@@ -86,18 +86,18 @@ func (nc NSCellClass) Alloc() NSCell {
 //   - [NSCell.CellAttribute]: Returns the value for the specified cell attribute.
 //   - [NSCell.Type]: The type of the cell.
 //   - [NSCell.SetType]
-//   - [NSCell.Enabled]: A Boolean value indicating whether the cell is currently enabled.
+//   - [NSCell.IsEnabled]: A Boolean value indicating whether the cell is currently enabled.
 //   - [NSCell.SetEnabled]
 //   - [NSCell.AllowsUndo]: A Boolean value indicating whether the cell assumes responsibility for undo operations.
 //   - [NSCell.SetAllowsUndo]
 //
 // # Managing Display Attributes
 //
-//   - [NSCell.Bezeled]: A Boolean value indicating whether the cell has a bezeled border.
+//   - [NSCell.IsBezeled]: A Boolean value indicating whether the cell has a bezeled border.
 //   - [NSCell.SetBezeled]
-//   - [NSCell.Bordered]: A Boolean value indicating whether the cell draws itself outlined with a plain border.
+//   - [NSCell.IsBordered]: A Boolean value indicating whether the cell draws itself outlined with a plain border.
 //   - [NSCell.SetBordered]
-//   - [NSCell.Opaque]: A Boolean value indicating whether the cell is completely opaque.
+//   - [NSCell.IsOpaque]: A Boolean value indicating whether the cell is completely opaque.
 //   - [NSCell.BackgroundStyle]: The cell’s background style.
 //   - [NSCell.SetBackgroundStyle]
 //   - [NSCell.InteriorBackgroundStyle]: The cell’s interior background style.
@@ -113,11 +113,11 @@ func (nc NSCellClass) Alloc() NSCell {
 //
 // # Modifying Textual Attributes
 //
-//   - [NSCell.Editable]: A Boolean value indicating whether the cell is editable.
+//   - [NSCell.IsEditable]: A Boolean value indicating whether the cell is editable.
 //   - [NSCell.SetEditable]
-//   - [NSCell.Selectable]: A Boolean value indicating whether the cell’s text can be selected.
+//   - [NSCell.IsSelectable]: A Boolean value indicating whether the cell’s text can be selected.
 //   - [NSCell.SetSelectable]
-//   - [NSCell.Scrollable]: A Boolean value indicating whether excess text scrolls past the cell’s bounds.
+//   - [NSCell.IsScrollable]: A Boolean value indicating whether excess text scrolls past the cell’s bounds.
 //   - [NSCell.SetScrollable]
 //   - [NSCell.Alignment]: The alignment of the cell’s text.
 //   - [NSCell.SetAlignment]
@@ -147,7 +147,7 @@ func (nc NSCellClass) Alloc() NSCell {
 //   - [NSCell.SetAction]
 //   - [NSCell.Target]: The object that receives the cell’s action messages.
 //   - [NSCell.SetTarget]
-//   - [NSCell.Continuous]: A Boolean value indicating whether the cell sends its action message continuously during mouse tracking.
+//   - [NSCell.IsContinuous]: A Boolean value indicating whether the cell sends its action message continuously during mouse tracking.
 //   - [NSCell.SetContinuous]
 //   - [NSCell.SendActionOn]: Sets the conditions on which the receiver sends action messages to its target.
 //
@@ -250,7 +250,7 @@ func (nc NSCellClass) Alloc() NSCell {
 //   - [NSCell.ControlView]: The view associated with the cell.
 //   - [NSCell.SetControlView]
 //   - [NSCell.HighlightWithFrameInView]: Redraws the receiver with the specified highlight setting.
-//   - [NSCell.Highlighted]: A Boolean value indicating whether the cell has a highlighted appearance.
+//   - [NSCell.IsHighlighted]: A Boolean value indicating whether the cell has a highlighted appearance.
 //   - [NSCell.SetHighlighted]
 //
 // # Editing and Selecting Text
@@ -324,18 +324,18 @@ func NSCellFromID(id objc.ID) NSCell {
 //   - [INSCell.CellAttribute]: Returns the value for the specified cell attribute.
 //   - [INSCell.Type]: The type of the cell.
 //   - [INSCell.SetType]
-//   - [INSCell.Enabled]: A Boolean value indicating whether the cell is currently enabled.
+//   - [INSCell.IsEnabled]: A Boolean value indicating whether the cell is currently enabled.
 //   - [INSCell.SetEnabled]
 //   - [INSCell.AllowsUndo]: A Boolean value indicating whether the cell assumes responsibility for undo operations.
 //   - [INSCell.SetAllowsUndo]
 //
 // # Managing Display Attributes
 //
-//   - [INSCell.Bezeled]: A Boolean value indicating whether the cell has a bezeled border.
+//   - [INSCell.IsBezeled]: A Boolean value indicating whether the cell has a bezeled border.
 //   - [INSCell.SetBezeled]
-//   - [INSCell.Bordered]: A Boolean value indicating whether the cell draws itself outlined with a plain border.
+//   - [INSCell.IsBordered]: A Boolean value indicating whether the cell draws itself outlined with a plain border.
 //   - [INSCell.SetBordered]
-//   - [INSCell.Opaque]: A Boolean value indicating whether the cell is completely opaque.
+//   - [INSCell.IsOpaque]: A Boolean value indicating whether the cell is completely opaque.
 //   - [INSCell.BackgroundStyle]: The cell’s background style.
 //   - [INSCell.SetBackgroundStyle]
 //   - [INSCell.InteriorBackgroundStyle]: The cell’s interior background style.
@@ -351,11 +351,11 @@ func NSCellFromID(id objc.ID) NSCell {
 //
 // # Modifying Textual Attributes
 //
-//   - [INSCell.Editable]: A Boolean value indicating whether the cell is editable.
+//   - [INSCell.IsEditable]: A Boolean value indicating whether the cell is editable.
 //   - [INSCell.SetEditable]
-//   - [INSCell.Selectable]: A Boolean value indicating whether the cell’s text can be selected.
+//   - [INSCell.IsSelectable]: A Boolean value indicating whether the cell’s text can be selected.
 //   - [INSCell.SetSelectable]
-//   - [INSCell.Scrollable]: A Boolean value indicating whether excess text scrolls past the cell’s bounds.
+//   - [INSCell.IsScrollable]: A Boolean value indicating whether excess text scrolls past the cell’s bounds.
 //   - [INSCell.SetScrollable]
 //   - [INSCell.Alignment]: The alignment of the cell’s text.
 //   - [INSCell.SetAlignment]
@@ -385,7 +385,7 @@ func NSCellFromID(id objc.ID) NSCell {
 //   - [INSCell.SetAction]
 //   - [INSCell.Target]: The object that receives the cell’s action messages.
 //   - [INSCell.SetTarget]
-//   - [INSCell.Continuous]: A Boolean value indicating whether the cell sends its action message continuously during mouse tracking.
+//   - [INSCell.IsContinuous]: A Boolean value indicating whether the cell sends its action message continuously during mouse tracking.
 //   - [INSCell.SetContinuous]
 //   - [INSCell.SendActionOn]: Sets the conditions on which the receiver sends action messages to its target.
 //
@@ -488,7 +488,7 @@ func NSCellFromID(id objc.ID) NSCell {
 //   - [INSCell.ControlView]: The view associated with the cell.
 //   - [INSCell.SetControlView]
 //   - [INSCell.HighlightWithFrameInView]: Redraws the receiver with the specified highlight setting.
-//   - [INSCell.Highlighted]: A Boolean value indicating whether the cell has a highlighted appearance.
+//   - [INSCell.IsHighlighted]: A Boolean value indicating whether the cell has a highlighted appearance.
 //   - [INSCell.SetHighlighted]
 //
 // # Editing and Selecting Text
@@ -561,7 +561,7 @@ type INSCell interface {
 	Type() NSCellType
 	SetType(value NSCellType)
 	// A Boolean value indicating whether the cell is currently enabled.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// A Boolean value indicating whether the cell assumes responsibility for undo operations.
 	AllowsUndo() bool
@@ -570,13 +570,13 @@ type INSCell interface {
 	// Topic: Managing Display Attributes
 
 	// A Boolean value indicating whether the cell has a bezeled border.
-	Bezeled() bool
+	IsBezeled() bool
 	SetBezeled(value bool)
 	// A Boolean value indicating whether the cell draws itself outlined with a plain border.
-	Bordered() bool
+	IsBordered() bool
 	SetBordered(value bool)
 	// A Boolean value indicating whether the cell is completely opaque.
-	Opaque() bool
+	IsOpaque() bool
 	// The cell’s background style.
 	BackgroundStyle() NSBackgroundStyle
 	SetBackgroundStyle(value NSBackgroundStyle)
@@ -599,13 +599,13 @@ type INSCell interface {
 	// Topic: Modifying Textual Attributes
 
 	// A Boolean value indicating whether the cell is editable.
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 	// A Boolean value indicating whether the cell’s text can be selected.
-	Selectable() bool
+	IsSelectable() bool
 	SetSelectable(value bool)
 	// A Boolean value indicating whether excess text scrolls past the cell’s bounds.
-	Scrollable() bool
+	IsScrollable() bool
 	SetScrollable(value bool)
 	// The alignment of the cell’s text.
 	Alignment() NSTextAlignment
@@ -649,7 +649,7 @@ type INSCell interface {
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
 	// A Boolean value indicating whether the cell sends its action message continuously during mouse tracking.
-	Continuous() bool
+	IsContinuous() bool
 	SetContinuous(value bool)
 	// Sets the conditions on which the receiver sends action messages to its target.
 	SendActionOn(mask NSEventMask) int
@@ -796,7 +796,7 @@ type INSCell interface {
 	// Redraws the receiver with the specified highlight setting.
 	HighlightWithFrameInView(flag bool, cellFrame corefoundation.CGRect, controlView INSView)
 	// A Boolean value indicating whether the cell has a highlighted appearance.
-	Highlighted() bool
+	IsHighlighted() bool
 	SetHighlighted(value bool)
 
 	// Topic: Editing and Selecting Text
@@ -2035,7 +2035,7 @@ func (c NSCell) SetType(value NSCellType) {
 // (The [State] property, for instance, still works.)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isEnabled
-func (c NSCell) Enabled() bool {
+func (c NSCell) IsEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEnabled"))
 	return rv
 }
@@ -2077,7 +2077,7 @@ func (c NSCell) SetAllowsUndo(value bool) {
 // property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isBezeled
-func (c NSCell) Bezeled() bool {
+func (c NSCell) IsBezeled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isBezeled"))
 	return rv
 }
@@ -2097,7 +2097,7 @@ func (c NSCell) SetBezeled(value bool) {
 // has been set, regardless of the value you assign to the property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isBordered
-func (c NSCell) Bordered() bool {
+func (c NSCell) IsBordered() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isBordered"))
 	return rv
 }
@@ -2113,7 +2113,7 @@ func (c NSCell) SetBordered(value bool) {
 // false if it contains some transparency.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isOpaque
-func (c NSCell) Opaque() bool {
+func (c NSCell) IsOpaque() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isOpaque"))
 	return rv
 }
@@ -2237,7 +2237,7 @@ func (c NSCell) SetState(value NSControlStateValue) {
 // restored to the value it had before the cell was made editable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isEditable
-func (c NSCell) Editable() bool {
+func (c NSCell) IsEditable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEditable"))
 	return rv
 }
@@ -2255,7 +2255,7 @@ func (c NSCell) SetEditable(value bool) {
 // [Editable] property is not affected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isSelectable
-func (c NSCell) Selectable() bool {
+func (c NSCell) IsSelectable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSelectable"))
 	return rv
 }
@@ -2272,7 +2272,7 @@ func (c NSCell) SetSelectable(value bool) {
 // cell’s bound. When the value is false, the cell wraps its text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isScrollable
-func (c NSCell) Scrollable() bool {
+func (c NSCell) IsScrollable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isScrollable"))
 	return rv
 }
@@ -2532,7 +2532,7 @@ func (c NSCell) SetTarget(value objectivec.IObject) {
 // doesn’t provide a target or action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isContinuous
-func (c NSCell) Continuous() bool {
+func (c NSCell) IsContinuous() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isContinuous"))
 	return rv
 }
@@ -2814,7 +2814,7 @@ func (c NSCell) SetControlView(value INSView) {
 // [NSCellLightsByGray].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/isHighlighted
-func (c NSCell) Highlighted() bool {
+func (c NSCell) IsHighlighted() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isHighlighted"))
 	return rv
 }

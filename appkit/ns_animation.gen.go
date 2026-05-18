@@ -100,7 +100,7 @@ func (nc NSAnimationClass) Alloc() NSAnimation {
 //
 //   - [NSAnimation.StartAnimation]: Starts the animation represented by the receiver.
 //   - [NSAnimation.StopAnimation]: Stops the animation represented by the receiver.
-//   - [NSAnimation.Animating]: A Boolean value indicating whether the animation is in progress.
+//   - [NSAnimation.IsAnimating]: A Boolean value indicating whether the animation is in progress.
 //   - [NSAnimation.CurrentProgress]: The current progress of the animation.
 //   - [NSAnimation.SetCurrentProgress]
 //   - [NSAnimation.CurrentValue]: The current value of the animation effect, based on the current progress
@@ -168,7 +168,7 @@ func NSAnimationFromID(id objc.ID) NSAnimation {
 //
 //   - [INSAnimation.StartAnimation]: Starts the animation represented by the receiver.
 //   - [INSAnimation.StopAnimation]: Stops the animation represented by the receiver.
-//   - [INSAnimation.Animating]: A Boolean value indicating whether the animation is in progress.
+//   - [INSAnimation.IsAnimating]: A Boolean value indicating whether the animation is in progress.
 //   - [INSAnimation.CurrentProgress]: The current progress of the animation.
 //   - [INSAnimation.SetCurrentProgress]
 //   - [INSAnimation.CurrentValue]: The current value of the animation effect, based on the current progress
@@ -230,7 +230,7 @@ type INSAnimation interface {
 	// Stops the animation represented by the receiver.
 	StopAnimation()
 	// A Boolean value indicating whether the animation is in progress.
-	Animating() bool
+	IsAnimating() bool
 	// The current progress of the animation.
 	CurrentProgress() NSAnimationProgress
 	SetCurrentProgress(value NSAnimationProgress)
@@ -615,7 +615,7 @@ func (a NSAnimation) SetDelegate(value NSAnimationDelegate) {
 // false when it is stopped.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/isAnimating
-func (a NSAnimation) Animating() bool {
+func (a NSAnimation) IsAnimating() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isAnimating"))
 	return rv
 }

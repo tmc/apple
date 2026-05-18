@@ -70,7 +70,7 @@ func (mc MLFeatureDescriptionClass) Alloc() MLFeatureDescription {
 //
 //   - [MLFeatureDescription.Name]: The name of this feature.
 //   - [MLFeatureDescription.Type]: The type of this feature.
-//   - [MLFeatureDescription.Optional]: A Boolean value that indicates whether this feature is optional.
+//   - [MLFeatureDescription.IsOptional]: A Boolean value that indicates whether this feature is optional.
 //
 // # Checking for validity
 //
@@ -107,7 +107,7 @@ func MLFeatureDescriptionFromID(id objc.ID) MLFeatureDescription {
 //
 //   - [IMLFeatureDescription.Name]: The name of this feature.
 //   - [IMLFeatureDescription.Type]: The type of this feature.
-//   - [IMLFeatureDescription.Optional]: A Boolean value that indicates whether this feature is optional.
+//   - [IMLFeatureDescription.IsOptional]: A Boolean value that indicates whether this feature is optional.
 //
 // # Checking for validity
 //
@@ -132,7 +132,7 @@ type IMLFeatureDescription interface {
 	// The type of this feature.
 	Type() MLFeatureType
 	// A Boolean value that indicates whether this feature is optional.
-	Optional() bool
+	IsOptional() bool
 
 	// Topic: Checking for validity
 
@@ -226,7 +226,7 @@ func (f MLFeatureDescription) Type() MLFeatureType {
 // features being present or not.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/isOptional
-func (f MLFeatureDescription) Optional() bool {
+func (f MLFeatureDescription) IsOptional() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isOptional"))
 	return rv
 }

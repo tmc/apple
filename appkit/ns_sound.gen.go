@@ -87,7 +87,7 @@ func (nc NSSoundClass) Alloc() NSSound {
 //
 // # Playing Sounds
 //
-//   - [NSSound.Playing]: A Boolean that indicates whether the sound is playing its audio data.
+//   - [NSSound.IsPlaying]: A Boolean that indicates whether the sound is playing its audio data.
 //   - [NSSound.Pause]: Pauses audio playback.
 //   - [NSSound.Play]: Initiates audio playback.
 //   - [NSSound.Resume]: Resumes audio playback.
@@ -146,7 +146,7 @@ func NSSoundFromID(id objc.ID) NSSound {
 //
 // # Playing Sounds
 //
-//   - [INSSound.Playing]: A Boolean that indicates whether the sound is playing its audio data.
+//   - [INSSound.IsPlaying]: A Boolean that indicates whether the sound is playing its audio data.
 //   - [INSSound.Pause]: Pauses audio playback.
 //   - [INSSound.Play]: Initiates audio playback.
 //   - [INSSound.Resume]: Resumes audio playback.
@@ -202,7 +202,7 @@ type INSSound interface {
 	// Topic: Playing Sounds
 
 	// A Boolean that indicates whether the sound is playing its audio data.
-	Playing() bool
+	IsPlaying() bool
 	// Pauses audio playback.
 	Pause() bool
 	// Initiates audio playback.
@@ -836,7 +836,7 @@ func (s NSSound) Duration() float64 {
 // data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSound/isPlaying
-func (s NSSound) Playing() bool {
+func (s NSSound) IsPlaying() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isPlaying"))
 	return rv
 }

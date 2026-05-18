@@ -157,7 +157,7 @@ func (tc TimerClass) Alloc() Timer {
 //
 // # Retrieving Timer Information
 //
-//   - [Timer.Valid]: A Boolean value that indicates whether the timer is currently valid.
+//   - [Timer.IsValid]: A Boolean value that indicates whether the timer is currently valid.
 //   - [Timer.FireDate]: The date at which the timer will fire.
 //   - [Timer.SetFireDate]
 //   - [Timer.TimeInterval]: The timer’s time interval, in seconds.
@@ -208,7 +208,7 @@ func NSTimerFromID(id objc.ID) Timer { return TimerFromID(id) }
 //
 // # Retrieving Timer Information
 //
-//   - [ITimer.Valid]: A Boolean value that indicates whether the timer is currently valid.
+//   - [ITimer.IsValid]: A Boolean value that indicates whether the timer is currently valid.
 //   - [ITimer.FireDate]: The date at which the timer will fire.
 //   - [ITimer.SetFireDate]
 //   - [ITimer.TimeInterval]: The timer’s time interval, in seconds.
@@ -243,7 +243,7 @@ type ITimer interface {
 	// Topic: Retrieving Timer Information
 
 	// A Boolean value that indicates whether the timer is currently valid.
-	Valid() bool
+	IsValid() bool
 	// The date at which the timer will fire.
 	FireDate() INSDate
 	SetFireDate(value INSDate)
@@ -637,7 +637,7 @@ func (_TimerClass TimerClass) TimerWithTimeIntervalRepeatsBlock(interval float64
 // been invalidated and is no longer capable of firing.
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/isValid
-func (t Timer) Valid() bool {
+func (t Timer) IsValid() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isValid"))
 	return rv
 }

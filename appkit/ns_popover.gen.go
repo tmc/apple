@@ -86,8 +86,8 @@ func (nc NSPopoverClass) Alloc() NSPopover {
 //   - [NSPopover.SetAnimates]
 //   - [NSPopover.ContentSize]: The content size of the popover.
 //   - [NSPopover.SetContentSize]
-//   - [NSPopover.Shown]: The display state of the popover.
-//   - [NSPopover.Detached]: A Boolean value that indicates whether the window created by a popover’s detachment is automatically created.
+//   - [NSPopover.IsShown]: The display state of the popover.
+//   - [NSPopover.IsDetached]: A Boolean value that indicates whether the window created by a popover’s detachment is automatically created.
 //
 // # Closing a Popover
 //
@@ -145,8 +145,8 @@ func NSPopoverFromID(id objc.ID) NSPopover {
 //   - [INSPopover.SetAnimates]
 //   - [INSPopover.ContentSize]: The content size of the popover.
 //   - [INSPopover.SetContentSize]
-//   - [INSPopover.Shown]: The display state of the popover.
-//   - [INSPopover.Detached]: A Boolean value that indicates whether the window created by a popover’s detachment is automatically created.
+//   - [INSPopover.IsShown]: The display state of the popover.
+//   - [INSPopover.IsDetached]: A Boolean value that indicates whether the window created by a popover’s detachment is automatically created.
 //
 // # Closing a Popover
 //
@@ -198,9 +198,9 @@ type INSPopover interface {
 	ContentSize() corefoundation.CGSize
 	SetContentSize(value corefoundation.CGSize)
 	// The display state of the popover.
-	Shown() bool
+	IsShown() bool
 	// A Boolean value that indicates whether the window created by a popover’s detachment is automatically created.
-	Detached() bool
+	IsDetached() bool
 
 	// Topic: Closing a Popover
 
@@ -483,7 +483,7 @@ func (p NSPopover) SetContentSize(value corefoundation.CGSize) {
 // closed in response to an invocation of either [Close] or [PerformClose].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopover/isShown
-func (p NSPopover) Shown() bool {
+func (p NSPopover) IsShown() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isShown"))
 	return rv
 }
@@ -498,7 +498,7 @@ func (p NSPopover) Shown() bool {
 // returned by [DetachableWindowForPopover].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopover/isDetached
-func (p NSPopover) Detached() bool {
+func (p NSPopover) IsDetached() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isDetached"))
 	return rv
 }

@@ -79,8 +79,8 @@ func (ac AVAudioFormatClass) Alloc() AVAudioFormat {
 //
 // # Determining the Audio Format
 //
-//   - [AVAudioFormat.Interleaved]: A Boolean value that indicates whether the samples mix into one stream.
-//   - [AVAudioFormat.Standard]: A Boolean value that indicates whether the format is in a deinterleaved native-endian float state.
+//   - [AVAudioFormat.IsInterleaved]: A Boolean value that indicates whether the samples mix into one stream.
+//   - [AVAudioFormat.IsStandard]: A Boolean value that indicates whether the format is in a deinterleaved native-endian float state.
 //   - [AVAudioFormat.CommonFormat]: The common format identifier instance.
 //   - [AVAudioFormat.Settings]: A dictionary that represents the format as a dictionary using audio setting keys.
 //   - [AVAudioFormat.MagicCookie]: An object that contains metadata that encoders and decoders require.
@@ -129,8 +129,8 @@ func AVAudioFormatFromID(id objc.ID) AVAudioFormat {
 //
 // # Determining the Audio Format
 //
-//   - [IAVAudioFormat.Interleaved]: A Boolean value that indicates whether the samples mix into one stream.
-//   - [IAVAudioFormat.Standard]: A Boolean value that indicates whether the format is in a deinterleaved native-endian float state.
+//   - [IAVAudioFormat.IsInterleaved]: A Boolean value that indicates whether the samples mix into one stream.
+//   - [IAVAudioFormat.IsStandard]: A Boolean value that indicates whether the format is in a deinterleaved native-endian float state.
 //   - [IAVAudioFormat.CommonFormat]: The common format identifier instance.
 //   - [IAVAudioFormat.Settings]: A dictionary that represents the format as a dictionary using audio setting keys.
 //   - [IAVAudioFormat.MagicCookie]: An object that contains metadata that encoders and decoders require.
@@ -178,9 +178,9 @@ type IAVAudioFormat interface {
 	// Topic: Determining the Audio Format
 
 	// A Boolean value that indicates whether the samples mix into one stream.
-	Interleaved() bool
+	IsInterleaved() bool
 	// A Boolean value that indicates whether the format is in a deinterleaved native-endian float state.
-	Standard() bool
+	IsStandard() bool
 	// The common format identifier instance.
 	CommonFormat() AVAudioCommonFormat
 	// A dictionary that represents the format as a dictionary using audio setting keys.
@@ -657,7 +657,7 @@ func (a AVAudioFormat) FormatDescription() coremedia.CMFormatDescriptionRef {
 // This value is only valid for PCM formats.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/isInterleaved
-func (a AVAudioFormat) Interleaved() bool {
+func (a AVAudioFormat) IsInterleaved() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isInterleaved"))
 	return rv
 }
@@ -671,7 +671,7 @@ func (a AVAudioFormat) Interleaved() bool {
 // otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/isStandard
-func (a AVAudioFormat) Standard() bool {
+func (a AVAudioFormat) IsStandard() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isStandard"))
 	return rv
 }

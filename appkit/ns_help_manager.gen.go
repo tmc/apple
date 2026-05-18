@@ -301,7 +301,7 @@ func (_NSHelpManagerClass NSHelpManagerClass) SharedHelpManager() NSHelpManager 
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSHelpManager/isContextHelpModeActive
-func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeActive() bool {
+func (_NSHelpManagerClass NSHelpManagerClass) IsContextHelpModeActive() bool {
 	rv := objc.Send[bool](objc.ID(_NSHelpManagerClass.class), objc.Sel("isContextHelpModeActive"))
 	return rv
 }

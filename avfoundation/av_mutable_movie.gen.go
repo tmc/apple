@@ -81,7 +81,7 @@ func (ac AVMutableMovieClass) Alloc() AVMutableMovie {
 //
 // # Configuring a movie
 //
-//   - [AVMutableMovie.Modified]: A Boolean value that indicates whether the movie is in a modified state.
+//   - [AVMutableMovie.IsModified]: A Boolean value that indicates whether the movie is in a modified state.
 //   - [AVMutableMovie.SetModified]
 //   - [AVMutableMovie.Timescale]: The time scale of the movie.
 //   - [AVMutableMovie.SetTimescale]
@@ -216,7 +216,7 @@ func AVMutableMovieFromID(id objc.ID) AVMutableMovie {
 //
 // # Configuring a movie
 //
-//   - [IAVMutableMovie.Modified]: A Boolean value that indicates whether the movie is in a modified state.
+//   - [IAVMutableMovie.IsModified]: A Boolean value that indicates whether the movie is in a modified state.
 //   - [IAVMutableMovie.SetModified]
 //   - [IAVMutableMovie.Timescale]: The time scale of the movie.
 //   - [IAVMutableMovie.SetTimescale]
@@ -341,7 +341,7 @@ type IAVMutableMovie interface {
 	// Topic: Configuring a movie
 
 	// A Boolean value that indicates whether the movie is in a modified state.
-	Modified() bool
+	IsModified() bool
 	SetModified(value bool)
 	// The time scale of the movie.
 	Timescale() int32
@@ -1254,7 +1254,7 @@ func (_AVMutableMovieClass AVMutableMovieClass) MovieWithURLOptionsError(URL fou
 // saved it, or had its modified state cleared.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/isModified
-func (m AVMutableMovie) Modified() bool {
+func (m AVMutableMovie) IsModified() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isModified"))
 	return rv
 }

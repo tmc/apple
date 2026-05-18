@@ -1021,49 +1021,49 @@ func (_NSSpellCheckerClass NSSpellCheckerClass) SharedSpellCheckerExists() bool 
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticCapitalizationEnabled
-func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticCapitalizationEnabled() bool {
+func (_NSSpellCheckerClass NSSpellCheckerClass) IsAutomaticCapitalizationEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticCapitalizationEnabled"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticDashSubstitutionEnabled
-func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticDashSubstitutionEnabled() bool {
+func (_NSSpellCheckerClass NSSpellCheckerClass) IsAutomaticDashSubstitutionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticDashSubstitutionEnabled"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticInlinePredictionEnabled
-func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticInlinePredictionEnabled() bool {
+func (_NSSpellCheckerClass NSSpellCheckerClass) IsAutomaticInlinePredictionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticInlinePredictionEnabled"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticPeriodSubstitutionEnabled
-func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticPeriodSubstitutionEnabled() bool {
+func (_NSSpellCheckerClass NSSpellCheckerClass) IsAutomaticPeriodSubstitutionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticPeriodSubstitutionEnabled"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticQuoteSubstitutionEnabled
-func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticQuoteSubstitutionEnabled() bool {
+func (_NSSpellCheckerClass NSSpellCheckerClass) IsAutomaticQuoteSubstitutionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticQuoteSubstitutionEnabled"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticSpellingCorrectionEnabled
-func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticSpellingCorrectionEnabled() bool {
+func (_NSSpellCheckerClass NSSpellCheckerClass) IsAutomaticSpellingCorrectionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticSpellingCorrectionEnabled"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticTextCompletionEnabled
-func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticTextCompletionEnabled() bool {
+func (_NSSpellCheckerClass NSSpellCheckerClass) IsAutomaticTextCompletionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticTextCompletionEnabled"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticTextReplacementEnabled
-func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticTextReplacementEnabled() bool {
+func (_NSSpellCheckerClass NSSpellCheckerClass) IsAutomaticTextReplacementEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticTextReplacementEnabled"))
 	return rv
 }

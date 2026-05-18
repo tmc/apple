@@ -76,7 +76,7 @@ func (nc NSSliderCellClass) Alloc() NSSliderCell {
 // # Managing Cell Appearance
 //
 //   - [NSSliderCell.KnobThickness]: The thickness of the slider knob, in pixels.
-//   - [NSSliderCell.Vertical]: An integer indicating the orientation (vertical or horizontal) of the slider.
+//   - [NSSliderCell.IsVertical]: An integer indicating the orientation (vertical or horizontal) of the slider.
 //   - [NSSliderCell.SetVertical]
 //
 // # Managing Value Limits
@@ -139,7 +139,7 @@ func NSSliderCellFromID(id objc.ID) NSSliderCell {
 // # Managing Cell Appearance
 //
 //   - [INSSliderCell.KnobThickness]: The thickness of the slider knob, in pixels.
-//   - [INSSliderCell.Vertical]: An integer indicating the orientation (vertical or horizontal) of the slider.
+//   - [INSSliderCell.IsVertical]: An integer indicating the orientation (vertical or horizontal) of the slider.
 //   - [INSSliderCell.SetVertical]
 //
 // # Managing Value Limits
@@ -200,7 +200,7 @@ type INSSliderCell interface {
 	// The thickness of the slider knob, in pixels.
 	KnobThickness() float64
 	// An integer indicating the orientation (vertical or horizontal) of the slider.
-	Vertical() bool
+	IsVertical() bool
 	SetVertical(value bool)
 
 	// Topic: Managing Value Limits
@@ -585,7 +585,7 @@ func (s NSSliderCell) KnobThickness() float64 {
 // if its height is greater than its width.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderCell/isVertical
-func (s NSSliderCell) Vertical() bool {
+func (s NSSliderCell) IsVertical() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isVertical"))
 	return rv
 }

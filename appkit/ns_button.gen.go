@@ -112,7 +112,7 @@ func (nc NSButtonClass) Alloc() NSButton {
 //   - [NSButton.SetSymbolConfiguration]
 //   - [NSButton.Sound]: The sound that plays when the user clicks the button.
 //   - [NSButton.SetSound]
-//   - [NSButton.SpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the button.
+//   - [NSButton.IsSpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the button.
 //   - [NSButton.SetSpringLoaded]
 //   - [NSButton.MaxAcceleratorLevel]: An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<doc://com.apple.appkit/documentation/AppKit/NSMultiLevelAcceleratorButton>).
 //   - [NSButton.SetMaxAcceleratorLevel]
@@ -129,9 +129,9 @@ func (nc NSButtonClass) Alloc() NSButton {
 //   - [NSButton.SetAlternateImage]
 //   - [NSButton.ImagePosition]: The position of the button’s image relative to its title.
 //   - [NSButton.SetImagePosition]
-//   - [NSButton.Bordered]: A Boolean value that determines whether the button has a border.
+//   - [NSButton.IsBordered]: A Boolean value that determines whether the button has a border.
 //   - [NSButton.SetBordered]
-//   - [NSButton.Transparent]: A Boolean value that indicates whether the button is transparent.
+//   - [NSButton.IsTransparent]: A Boolean value that indicates whether the button is transparent.
 //   - [NSButton.SetTransparent]
 //   - [NSButton.BezelStyle]: The appearance of the button’s border.
 //   - [NSButton.SetBezelStyle]
@@ -202,7 +202,7 @@ func NSButtonFromID(id objc.ID) NSButton {
 //   - [INSButton.SetSymbolConfiguration]
 //   - [INSButton.Sound]: The sound that plays when the user clicks the button.
 //   - [INSButton.SetSound]
-//   - [INSButton.SpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the button.
+//   - [INSButton.IsSpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the button.
 //   - [INSButton.SetSpringLoaded]
 //   - [INSButton.MaxAcceleratorLevel]: An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<doc://com.apple.appkit/documentation/AppKit/NSMultiLevelAcceleratorButton>).
 //   - [INSButton.SetMaxAcceleratorLevel]
@@ -219,9 +219,9 @@ func NSButtonFromID(id objc.ID) NSButton {
 //   - [INSButton.SetAlternateImage]
 //   - [INSButton.ImagePosition]: The position of the button’s image relative to its title.
 //   - [INSButton.SetImagePosition]
-//   - [INSButton.Bordered]: A Boolean value that determines whether the button has a border.
+//   - [INSButton.IsBordered]: A Boolean value that determines whether the button has a border.
 //   - [INSButton.SetBordered]
-//   - [INSButton.Transparent]: A Boolean value that indicates whether the button is transparent.
+//   - [INSButton.IsTransparent]: A Boolean value that indicates whether the button is transparent.
 //   - [INSButton.SetTransparent]
 //   - [INSButton.BezelStyle]: The appearance of the button’s border.
 //   - [INSButton.SetBezelStyle]
@@ -288,7 +288,7 @@ type INSButton interface {
 	Sound() INSSound
 	SetSound(value INSSound)
 	// A Boolean value that indicates whether spring loading is enabled for the button.
-	SpringLoaded() bool
+	IsSpringLoaded() bool
 	SetSpringLoaded(value bool)
 	// An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<doc://com.apple.appkit/documentation/AppKit/NSMultiLevelAcceleratorButton>).
 	MaxAcceleratorLevel() int
@@ -311,10 +311,10 @@ type INSButton interface {
 	ImagePosition() NSCellImagePosition
 	SetImagePosition(value NSCellImagePosition)
 	// A Boolean value that determines whether the button has a border.
-	Bordered() bool
+	IsBordered() bool
 	SetBordered(value bool)
 	// A Boolean value that indicates whether the button is transparent.
-	Transparent() bool
+	IsTransparent() bool
 	SetTransparent(value bool)
 	// The appearance of the button’s border.
 	BezelStyle() NSBezelStyle
@@ -813,7 +813,7 @@ func (b NSButton) SetSound(value INSSound) {
 // the button for a short period of time is sufficient to activate the button.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/isSpringLoaded
-func (b NSButton) SpringLoaded() bool {
+func (b NSButton) IsSpringLoaded() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isSpringLoaded"))
 	return rv
 }
@@ -947,7 +947,7 @@ func (b NSButton) SetImagePosition(value NSCellImagePosition) {
 // are bordered. If the bordered state of a button changes, it gets redrawn.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/isBordered
-func (b NSButton) Bordered() bool {
+func (b NSButton) IsBordered() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isBordered"))
 	return rv
 }
@@ -967,7 +967,7 @@ func (b NSButton) SetBordered(value bool) {
 // this property causes the button to redraw if necessary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/isTransparent
-func (b NSButton) Transparent() bool {
+func (b NSButton) IsTransparent() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isTransparent"))
 	return rv
 }

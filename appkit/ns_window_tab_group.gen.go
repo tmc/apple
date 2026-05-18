@@ -57,9 +57,9 @@ func (nc NSWindowTabGroupClass) Alloc() NSWindowTabGroup {
 //
 // # Configuring the Tab User Interface
 //
-//   - [NSWindowTabGroup.OverviewVisible]: A Boolean value indicating if the tab overview is currently displayed.
+//   - [NSWindowTabGroup.IsOverviewVisible]: A Boolean value indicating if the tab overview is currently displayed.
 //   - [NSWindowTabGroup.SetOverviewVisible]
-//   - [NSWindowTabGroup.TabBarVisible]: A Boolean value indicating whether the tabbed window group currently displays a tab bar.
+//   - [NSWindowTabGroup.IsTabBarVisible]: A Boolean value indicating whether the tabbed window group currently displays a tab bar.
 //
 // # Managing Tabbed Windows
 //
@@ -93,9 +93,9 @@ func NSWindowTabGroupFromID(id objc.ID) NSWindowTabGroup {
 //
 // # Configuring the Tab User Interface
 //
-//   - [INSWindowTabGroup.OverviewVisible]: A Boolean value indicating if the tab overview is currently displayed.
+//   - [INSWindowTabGroup.IsOverviewVisible]: A Boolean value indicating if the tab overview is currently displayed.
 //   - [INSWindowTabGroup.SetOverviewVisible]
-//   - [INSWindowTabGroup.TabBarVisible]: A Boolean value indicating whether the tabbed window group currently displays a tab bar.
+//   - [INSWindowTabGroup.IsTabBarVisible]: A Boolean value indicating whether the tabbed window group currently displays a tab bar.
 //
 // # Managing Tabbed Windows
 //
@@ -118,10 +118,10 @@ type INSWindowTabGroup interface {
 	// Topic: Configuring the Tab User Interface
 
 	// A Boolean value indicating if the tab overview is currently displayed.
-	OverviewVisible() bool
+	IsOverviewVisible() bool
 	SetOverviewVisible(value bool)
 	// A Boolean value indicating whether the tabbed window group currently displays a tab bar.
-	TabBarVisible() bool
+	IsTabBarVisible() bool
 
 	// Topic: Managing Tabbed Windows
 
@@ -242,7 +242,7 @@ func (w NSWindowTabGroup) Identifier() NSWindowTabbingIdentifier {
 // You can monitor this property for changes using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowTabGroup/isOverviewVisible
-func (w NSWindowTabGroup) OverviewVisible() bool {
+func (w NSWindowTabGroup) IsOverviewVisible() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isOverviewVisible"))
 	return rv
 }
@@ -260,7 +260,7 @@ func (w NSWindowTabGroup) SetOverviewVisible(value bool) {
 // the [ToggleTabBar] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowTabGroup/isTabBarVisible
-func (w NSWindowTabGroup) TabBarVisible() bool {
+func (w NSWindowTabGroup) IsTabBarVisible() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isTabBarVisible"))
 	return rv
 }

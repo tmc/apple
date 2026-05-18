@@ -77,14 +77,14 @@ func (nc NSRunningApplicationClass) Alloc() NSRunningApplication {
 //
 //   - [NSRunningApplication.ActivateWithOptions]: Attempts to activate the application using the specified options.
 //   - [NSRunningApplication.ActivateFromApplicationOptions]: Attempts to activate the application using the specified options.
-//   - [NSRunningApplication.Active]: Indicates whether the application is currently frontmost.
+//   - [NSRunningApplication.IsActive]: Indicates whether the application is currently frontmost.
 //   - [NSRunningApplication.ActivationPolicy]: Indicates the activation policy of the application.
 //
 // # Hiding and unhiding applications
 //
 //   - [NSRunningApplication.Hide]: Attempts to hide or the application.
 //   - [NSRunningApplication.Unhide]: Attempts to unhide or the application.
-//   - [NSRunningApplication.Hidden]: Indicates whether the application is currently hidden.
+//   - [NSRunningApplication.IsHidden]: Indicates whether the application is currently hidden.
 //
 // # Application information
 //
@@ -95,7 +95,7 @@ func (nc NSRunningApplicationClass) Alloc() NSRunningApplication {
 //   - [NSRunningApplication.ExecutableArchitecture]: Indicates the executing processor architecture for the application.
 //   - [NSRunningApplication.ExecutableURL]: Indicates the URL to the application’s executable.
 //   - [NSRunningApplication.LaunchDate]: Indicates the date when the application was launched.
-//   - [NSRunningApplication.FinishedLaunching]: A Boolean value that determines whether the receiver’s process has finished launching.
+//   - [NSRunningApplication.IsFinishedLaunching]: A Boolean value that determines whether the receiver’s process has finished launching.
 //   - [NSRunningApplication.ProcessIdentifier]: Indicates the process identifier (pid) of the application.
 //   - [NSRunningApplication.OwnsMenuBar]: Returns whether the application owns the current menu bar.
 //
@@ -103,7 +103,7 @@ func (nc NSRunningApplicationClass) Alloc() NSRunningApplication {
 //
 //   - [NSRunningApplication.ForceTerminate]: Attempts to force the receiver to quit.
 //   - [NSRunningApplication.Terminate]: Attempts to quit the receiver normally.
-//   - [NSRunningApplication.Terminated]: Indicates that the receiver’s application has terminated.
+//   - [NSRunningApplication.IsTerminated]: Indicates that the receiver’s application has terminated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication
 type NSRunningApplication struct {
@@ -127,14 +127,14 @@ func NSRunningApplicationFromID(id objc.ID) NSRunningApplication {
 //
 //   - [INSRunningApplication.ActivateWithOptions]: Attempts to activate the application using the specified options.
 //   - [INSRunningApplication.ActivateFromApplicationOptions]: Attempts to activate the application using the specified options.
-//   - [INSRunningApplication.Active]: Indicates whether the application is currently frontmost.
+//   - [INSRunningApplication.IsActive]: Indicates whether the application is currently frontmost.
 //   - [INSRunningApplication.ActivationPolicy]: Indicates the activation policy of the application.
 //
 // # Hiding and unhiding applications
 //
 //   - [INSRunningApplication.Hide]: Attempts to hide or the application.
 //   - [INSRunningApplication.Unhide]: Attempts to unhide or the application.
-//   - [INSRunningApplication.Hidden]: Indicates whether the application is currently hidden.
+//   - [INSRunningApplication.IsHidden]: Indicates whether the application is currently hidden.
 //
 // # Application information
 //
@@ -145,7 +145,7 @@ func NSRunningApplicationFromID(id objc.ID) NSRunningApplication {
 //   - [INSRunningApplication.ExecutableArchitecture]: Indicates the executing processor architecture for the application.
 //   - [INSRunningApplication.ExecutableURL]: Indicates the URL to the application’s executable.
 //   - [INSRunningApplication.LaunchDate]: Indicates the date when the application was launched.
-//   - [INSRunningApplication.FinishedLaunching]: A Boolean value that determines whether the receiver’s process has finished launching.
+//   - [INSRunningApplication.IsFinishedLaunching]: A Boolean value that determines whether the receiver’s process has finished launching.
 //   - [INSRunningApplication.ProcessIdentifier]: Indicates the process identifier (pid) of the application.
 //   - [INSRunningApplication.OwnsMenuBar]: Returns whether the application owns the current menu bar.
 //
@@ -153,7 +153,7 @@ func NSRunningApplicationFromID(id objc.ID) NSRunningApplication {
 //
 //   - [INSRunningApplication.ForceTerminate]: Attempts to force the receiver to quit.
 //   - [INSRunningApplication.Terminate]: Attempts to quit the receiver normally.
-//   - [INSRunningApplication.Terminated]: Indicates that the receiver’s application has terminated.
+//   - [INSRunningApplication.IsTerminated]: Indicates that the receiver’s application has terminated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication
 type INSRunningApplication interface {
@@ -166,7 +166,7 @@ type INSRunningApplication interface {
 	// Attempts to activate the application using the specified options.
 	ActivateFromApplicationOptions(application INSRunningApplication, options NSApplicationActivationOptions) bool
 	// Indicates whether the application is currently frontmost.
-	Active() bool
+	IsActive() bool
 	// Indicates the activation policy of the application.
 	ActivationPolicy() NSApplicationActivationPolicy
 
@@ -177,7 +177,7 @@ type INSRunningApplication interface {
 	// Attempts to unhide or the application.
 	Unhide() bool
 	// Indicates whether the application is currently hidden.
-	Hidden() bool
+	IsHidden() bool
 
 	// Topic: Application information
 
@@ -196,7 +196,7 @@ type INSRunningApplication interface {
 	// Indicates the date when the application was launched.
 	LaunchDate() foundation.NSDate
 	// A Boolean value that determines whether the receiver’s process has finished launching.
-	FinishedLaunching() bool
+	IsFinishedLaunching() bool
 	// Indicates the process identifier (pid) of the application.
 	ProcessIdentifier() int32
 	// Returns whether the application owns the current menu bar.
@@ -209,7 +209,7 @@ type INSRunningApplication interface {
 	// Attempts to quit the receiver normally.
 	Terminate() bool
 	// Indicates that the receiver’s application has terminated.
-	Terminated() bool
+	IsTerminated() bool
 
 	// Returns an array of running apps.
 	RunningApplications() INSRunningApplication
@@ -421,7 +421,7 @@ func (_NSRunningApplicationClass NSRunningApplicationClass) TerminateAutomatical
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/isActive
-func (r NSRunningApplication) Active() bool {
+func (r NSRunningApplication) IsActive() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isActive"))
 	return rv
 }
@@ -448,7 +448,7 @@ func (r NSRunningApplication) ActivationPolicy() NSApplicationActivationPolicy {
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/isHidden
-func (r NSRunningApplication) Hidden() bool {
+func (r NSRunningApplication) IsHidden() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isHidden"))
 	return rv
 }
@@ -551,7 +551,7 @@ func (r NSRunningApplication) LaunchDate() foundation.NSDate {
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/isFinishedLaunching
 //
 // [didFinishLaunchingNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishLaunchingNotification
-func (r NSRunningApplication) FinishedLaunching() bool {
+func (r NSRunningApplication) IsFinishedLaunching() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isFinishedLaunching"))
 	return rv
 }
@@ -596,7 +596,7 @@ func (r NSRunningApplication) OwnsMenuBar() bool {
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/isTerminated
-func (r NSRunningApplication) Terminated() bool {
+func (r NSRunningApplication) IsTerminated() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isTerminated"))
 	return rv
 }

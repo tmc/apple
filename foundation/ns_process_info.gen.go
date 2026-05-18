@@ -181,9 +181,9 @@ func (pc ProcessInfoClass) Alloc() ProcessInfo {
 //   - [ProcessInfo.Arguments]: Array of strings with the command-line arguments for the process.
 //   - [ProcessInfo.Environment]: The variable names (keys) and their values in the environment from which the process was launched.
 //   - [ProcessInfo.GloballyUniqueString]: Global unique identifier for the process.
-//   - [ProcessInfo.MacCatalystApp]: A Boolean value that indicates whether the process originated as an iOS app and runs on macOS.
-//   - [ProcessInfo.IOSAppOnMac]: A Boolean value that indicates whether the process is an iPhone or iPad app running on a Mac.
-//   - [ProcessInfo.IOSAppOnVision]: A Boolean value that indicates whether the process is an iPhone or iPad app running on visionOS.
+//   - [ProcessInfo.IsMacCatalystApp]: A Boolean value that indicates whether the process originated as an iOS app and runs on macOS.
+//   - [ProcessInfo.IsiOSAppOnMac]: A Boolean value that indicates whether the process is an iPhone or iPad app running on a Mac.
+//   - [ProcessInfo.IsiOSAppOnVision]: A Boolean value that indicates whether the process is an iPhone or iPad app running on visionOS.
 //   - [ProcessInfo.ProcessIdentifier]: The identifier of the process (often called process ID).
 //   - [ProcessInfo.ProcessName]: The name of the process.
 //   - [ProcessInfo.SetProcessName]
@@ -233,7 +233,7 @@ func (pc ProcessInfoClass) Alloc() ProcessInfo {
 //
 // # Determining Whether Low Power Mode is Enabled
 //
-//   - [ProcessInfo.LowPowerModeEnabled]: A Boolean value that indicates the current state of Low Power Mode.
+//   - [ProcessInfo.IsLowPowerModeEnabled]: A Boolean value that indicates the current state of Low Power Mode.
 //
 // # Notifications
 //
@@ -270,9 +270,9 @@ func NSProcessInfoFromID(id objc.ID) ProcessInfo { return ProcessInfoFromID(id) 
 //   - [IProcessInfo.Arguments]: Array of strings with the command-line arguments for the process.
 //   - [IProcessInfo.Environment]: The variable names (keys) and their values in the environment from which the process was launched.
 //   - [IProcessInfo.GloballyUniqueString]: Global unique identifier for the process.
-//   - [IProcessInfo.MacCatalystApp]: A Boolean value that indicates whether the process originated as an iOS app and runs on macOS.
-//   - [IProcessInfo.IOSAppOnMac]: A Boolean value that indicates whether the process is an iPhone or iPad app running on a Mac.
-//   - [IProcessInfo.IOSAppOnVision]: A Boolean value that indicates whether the process is an iPhone or iPad app running on visionOS.
+//   - [IProcessInfo.IsMacCatalystApp]: A Boolean value that indicates whether the process originated as an iOS app and runs on macOS.
+//   - [IProcessInfo.IsiOSAppOnMac]: A Boolean value that indicates whether the process is an iPhone or iPad app running on a Mac.
+//   - [IProcessInfo.IsiOSAppOnVision]: A Boolean value that indicates whether the process is an iPhone or iPad app running on visionOS.
 //   - [IProcessInfo.ProcessIdentifier]: The identifier of the process (often called process ID).
 //   - [IProcessInfo.ProcessName]: The name of the process.
 //   - [IProcessInfo.SetProcessName]
@@ -322,7 +322,7 @@ func NSProcessInfoFromID(id objc.ID) ProcessInfo { return ProcessInfoFromID(id) 
 //
 // # Determining Whether Low Power Mode is Enabled
 //
-//   - [IProcessInfo.LowPowerModeEnabled]: A Boolean value that indicates the current state of Low Power Mode.
+//   - [IProcessInfo.IsLowPowerModeEnabled]: A Boolean value that indicates the current state of Low Power Mode.
 //
 // # Notifications
 //
@@ -341,11 +341,11 @@ type IProcessInfo interface {
 	// Global unique identifier for the process.
 	GloballyUniqueString() string
 	// A Boolean value that indicates whether the process originated as an iOS app and runs on macOS.
-	MacCatalystApp() bool
+	IsMacCatalystApp() bool
 	// A Boolean value that indicates whether the process is an iPhone or iPad app running on a Mac.
-	IOSAppOnMac() bool
+	IsiOSAppOnMac() bool
 	// A Boolean value that indicates whether the process is an iPhone or iPad app running on visionOS.
-	IOSAppOnVision() bool
+	IsiOSAppOnVision() bool
 	// The identifier of the process (often called process ID).
 	ProcessIdentifier() int
 	// The name of the process.
@@ -419,7 +419,7 @@ type IProcessInfo interface {
 	// Topic: Determining Whether Low Power Mode is Enabled
 
 	// A Boolean value that indicates the current state of Low Power Mode.
-	LowPowerModeEnabled() bool
+	IsLowPowerModeEnabled() bool
 
 	// Topic: Notifications
 
@@ -707,7 +707,7 @@ func (p ProcessInfo) GloballyUniqueString() string {
 // Objective-C) instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/isMacCatalystApp
-func (p ProcessInfo) MacCatalystApp() bool {
+func (p ProcessInfo) IsMacCatalystApp() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isMacCatalystApp"))
 	return rv
 }
@@ -723,7 +723,7 @@ func (p ProcessInfo) MacCatalystApp() bool {
 // false for processes running on platforms other than macOS.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/isiOSAppOnMac
-func (p ProcessInfo) IOSAppOnMac() bool {
+func (p ProcessInfo) IsiOSAppOnMac() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isiOSAppOnMac"))
 	return rv
 }
@@ -739,7 +739,7 @@ func (p ProcessInfo) IOSAppOnMac() bool {
 // platforms other than visonOS.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/isiOSAppOnVision
-func (p ProcessInfo) IOSAppOnVision() bool {
+func (p ProcessInfo) IsiOSAppOnVision() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isiOSAppOnVision"))
 	return rv
 }
@@ -937,7 +937,7 @@ func (p ProcessInfo) ThermalState() NSProcessInfoThermalState {
 //
 // [Energy Efficiency Guide for iOS Apps]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/index.html#//apple_ref/doc/uid/TP40015243
 // [React to Low Power Mode on iPhones]: https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/LowPowerMode.html#//apple_ref/doc/uid/TP40015243-CH31
-func (p ProcessInfo) LowPowerModeEnabled() bool {
+func (p ProcessInfo) IsLowPowerModeEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isLowPowerModeEnabled"))
 	return rv
 }

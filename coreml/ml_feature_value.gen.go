@@ -69,7 +69,7 @@ func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
 //
 // # Accessing the feature’s value
 //
-//   - [MLFeatureValue.Undefined]: A Boolean value that indicates whether the feature value is undefined or missing.
+//   - [MLFeatureValue.IsUndefined]: A Boolean value that indicates whether the feature value is undefined or missing.
 //   - [MLFeatureValue.Int64Value]: The underlying integer of the feature value.
 //   - [MLFeatureValue.DoubleValue]: The underlying double of the feature value.
 //   - [MLFeatureValue.StringValue]: The underlying string of the feature value.
@@ -107,7 +107,7 @@ func MLFeatureValueFromID(id objc.ID) MLFeatureValue {
 //
 // # Accessing the feature’s value
 //
-//   - [IMLFeatureValue.Undefined]: A Boolean value that indicates whether the feature value is undefined or missing.
+//   - [IMLFeatureValue.IsUndefined]: A Boolean value that indicates whether the feature value is undefined or missing.
 //   - [IMLFeatureValue.Int64Value]: The underlying integer of the feature value.
 //   - [IMLFeatureValue.DoubleValue]: The underlying double of the feature value.
 //   - [IMLFeatureValue.StringValue]: The underlying string of the feature value.
@@ -132,7 +132,7 @@ type IMLFeatureValue interface {
 	// Topic: Accessing the feature’s value
 
 	// A Boolean value that indicates whether the feature value is undefined or missing.
-	Undefined() bool
+	IsUndefined() bool
 	// The underlying integer of the feature value.
 	Int64Value() int64
 	// The underlying double of the feature value.
@@ -532,7 +532,7 @@ func (f MLFeatureValue) Type() MLFeatureType {
 // missing.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/isUndefined
-func (f MLFeatureValue) Undefined() bool {
+func (f MLFeatureValue) IsUndefined() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isUndefined"))
 	return rv
 }

@@ -68,9 +68,9 @@ func (nc NSTextFieldClass) Alloc() NSTextField {
 //
 // # Controlling Selection and Editing
 //
-//   - [NSTextField.Selectable]: A Boolean value that determines whether the user can select the content of the text field.
+//   - [NSTextField.IsSelectable]: A Boolean value that determines whether the user can select the content of the text field.
 //   - [NSTextField.SetSelectable]
-//   - [NSTextField.Editable]: A Boolean value that controls whether the user can edit the value in the text field.
+//   - [NSTextField.IsEditable]: A Boolean value that controls whether the user can edit the value in the text field.
 //   - [NSTextField.SetEditable]
 //
 // # Controlling Rich Text Behavior
@@ -112,14 +112,14 @@ func (nc NSTextFieldClass) Alloc() NSTextField {
 //   - [NSTextField.SetBackgroundColor]
 //   - [NSTextField.DrawsBackground]: A Boolean value that controls whether the text field’s cell draws a background color behind the text.
 //   - [NSTextField.SetDrawsBackground]
-//   - [NSTextField.Bezeled]: A Boolean value that controls whether the text field draws a bezeled background around its contents.
+//   - [NSTextField.IsBezeled]: A Boolean value that controls whether the text field draws a bezeled background around its contents.
 //   - [NSTextField.SetBezeled]
 //   - [NSTextField.BezelStyle]: The text field’s bezel style, square or rounded.
 //   - [NSTextField.SetBezelStyle]
 //
 // # Setting a Border
 //
-//   - [NSTextField.Bordered]: A Boolean value that controls whether the text field draws a solid black border around its contents.
+//   - [NSTextField.IsBordered]: A Boolean value that controls whether the text field draws a solid black border around its contents.
 //   - [NSTextField.SetBordered]
 //
 // # Selecting the Text
@@ -133,7 +133,7 @@ func (nc NSTextFieldClass) Alloc() NSTextField {
 //
 // # Supporting Text Completion and Suggestions
 //
-//   - [NSTextField.AutomaticTextCompletionEnabled]: A Boolean value that indicates whether the text field automatically completes text as the user types.
+//   - [NSTextField.IsAutomaticTextCompletionEnabled]: A Boolean value that indicates whether the text field automatically completes text as the user types.
 //   - [NSTextField.SetAutomaticTextCompletionEnabled]
 //
 // # Setting the Delegate
@@ -184,9 +184,9 @@ func NSTextFieldFromID(id objc.ID) NSTextField {
 //
 // # Controlling Selection and Editing
 //
-//   - [INSTextField.Selectable]: A Boolean value that determines whether the user can select the content of the text field.
+//   - [INSTextField.IsSelectable]: A Boolean value that determines whether the user can select the content of the text field.
 //   - [INSTextField.SetSelectable]
-//   - [INSTextField.Editable]: A Boolean value that controls whether the user can edit the value in the text field.
+//   - [INSTextField.IsEditable]: A Boolean value that controls whether the user can edit the value in the text field.
 //   - [INSTextField.SetEditable]
 //
 // # Controlling Rich Text Behavior
@@ -228,14 +228,14 @@ func NSTextFieldFromID(id objc.ID) NSTextField {
 //   - [INSTextField.SetBackgroundColor]
 //   - [INSTextField.DrawsBackground]: A Boolean value that controls whether the text field’s cell draws a background color behind the text.
 //   - [INSTextField.SetDrawsBackground]
-//   - [INSTextField.Bezeled]: A Boolean value that controls whether the text field draws a bezeled background around its contents.
+//   - [INSTextField.IsBezeled]: A Boolean value that controls whether the text field draws a bezeled background around its contents.
 //   - [INSTextField.SetBezeled]
 //   - [INSTextField.BezelStyle]: The text field’s bezel style, square or rounded.
 //   - [INSTextField.SetBezelStyle]
 //
 // # Setting a Border
 //
-//   - [INSTextField.Bordered]: A Boolean value that controls whether the text field draws a solid black border around its contents.
+//   - [INSTextField.IsBordered]: A Boolean value that controls whether the text field draws a solid black border around its contents.
 //   - [INSTextField.SetBordered]
 //
 // # Selecting the Text
@@ -249,7 +249,7 @@ func NSTextFieldFromID(id objc.ID) NSTextField {
 //
 // # Supporting Text Completion and Suggestions
 //
-//   - [INSTextField.AutomaticTextCompletionEnabled]: A Boolean value that indicates whether the text field automatically completes text as the user types.
+//   - [INSTextField.IsAutomaticTextCompletionEnabled]: A Boolean value that indicates whether the text field automatically completes text as the user types.
 //   - [INSTextField.SetAutomaticTextCompletionEnabled]
 //
 // # Setting the Delegate
@@ -287,10 +287,10 @@ type INSTextField interface {
 	// Topic: Controlling Selection and Editing
 
 	// A Boolean value that determines whether the user can select the content of the text field.
-	Selectable() bool
+	IsSelectable() bool
 	SetSelectable(value bool)
 	// A Boolean value that controls whether the user can edit the value in the text field.
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 
 	// Topic: Controlling Rich Text Behavior
@@ -344,7 +344,7 @@ type INSTextField interface {
 	DrawsBackground() bool
 	SetDrawsBackground(value bool)
 	// A Boolean value that controls whether the text field draws a bezeled background around its contents.
-	Bezeled() bool
+	IsBezeled() bool
 	SetBezeled(value bool)
 	// The text field’s bezel style, square or rounded.
 	BezelStyle() NSTextFieldBezelStyle
@@ -353,7 +353,7 @@ type INSTextField interface {
 	// Topic: Setting a Border
 
 	// A Boolean value that controls whether the text field draws a solid black border around its contents.
-	Bordered() bool
+	IsBordered() bool
 	SetBordered(value bool)
 
 	// Topic: Selecting the Text
@@ -370,7 +370,7 @@ type INSTextField interface {
 	// Topic: Supporting Text Completion and Suggestions
 
 	// A Boolean value that indicates whether the text field automatically completes text as the user types.
-	AutomaticTextCompletionEnabled() bool
+	IsAutomaticTextCompletionEnabled() bool
 	SetAutomaticTextCompletionEnabled(value bool)
 
 	// Topic: Setting the Delegate
@@ -816,7 +816,7 @@ func (t NSTextField) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem
 // neither editable nor selectable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/isSelectable
-func (t NSTextField) Selectable() bool {
+func (t NSTextField) IsSelectable() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSelectable"))
 	return rv
 }
@@ -839,7 +839,7 @@ func (t NSTextField) SetSelectable(value bool) {
 // [Selectable] to disable text selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/isEditable
-func (t NSTextField) Editable() bool {
+func (t NSTextField) IsEditable() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEditable"))
 	return rv
 }
@@ -1040,7 +1040,7 @@ func (t NSTextField) SetDrawsBackground(value bool) {
 // if false, it doesn’t draw a bezeled background.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/isBezeled
-func (t NSTextField) Bezeled() bool {
+func (t NSTextField) IsBezeled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isBezeled"))
 	return rv
 }
@@ -1075,7 +1075,7 @@ func (t NSTextField) SetBezelStyle(value NSTextFieldBezelStyle) {
 // border.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/isBordered
-func (t NSTextField) Bordered() bool {
+func (t NSTextField) IsBordered() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isBordered"))
 	return rv
 }
@@ -1087,7 +1087,7 @@ func (t NSTextField) SetBordered(value bool) {
 // completes text as the user types.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/isAutomaticTextCompletionEnabled
-func (t NSTextField) AutomaticTextCompletionEnabled() bool {
+func (t NSTextField) IsAutomaticTextCompletionEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isAutomaticTextCompletionEnabled"))
 	return rv
 }

@@ -64,7 +64,7 @@ func (wc WKWebpagePreferencesClass) Alloc() WKWebpagePreferences {
 //
 // # Getting Lockdown Mode info
 //
-//   - [WKWebpagePreferences.LockdownModeEnabled]: A Boolean value that indicates whether to use Lockdown Mode in the web view.
+//   - [WKWebpagePreferences.IsLockdownModeEnabled]: A Boolean value that indicates whether to use Lockdown Mode in the web view.
 //   - [WKWebpagePreferences.SetLockdownModeEnabled]
 //
 // # Instance Properties
@@ -102,7 +102,7 @@ func WKWebpagePreferencesFromID(id objc.ID) WKWebpagePreferences {
 //
 // # Getting Lockdown Mode info
 //
-//   - [IWKWebpagePreferences.LockdownModeEnabled]: A Boolean value that indicates whether to use Lockdown Mode in the web view.
+//   - [IWKWebpagePreferences.IsLockdownModeEnabled]: A Boolean value that indicates whether to use Lockdown Mode in the web view.
 //   - [IWKWebpagePreferences.SetLockdownModeEnabled]
 //
 // # Instance Properties
@@ -129,7 +129,7 @@ type IWKWebpagePreferences interface {
 	// Topic: Getting Lockdown Mode info
 
 	// A Boolean value that indicates whether to use Lockdown Mode in the web view.
-	LockdownModeEnabled() bool
+	IsLockdownModeEnabled() bool
 	SetLockdownModeEnabled(value bool)
 
 	// Topic: Instance Properties
@@ -210,7 +210,7 @@ func (w WKWebpagePreferences) SetPreferredContentMode(value WKContentMode) {
 // See: https://developer.apple.com/documentation/WebKit/WKWebpagePreferences/isLockdownModeEnabled
 //
 // [About Lockdown Mode]: https://support.apple.com/en-us/HT212650
-func (w WKWebpagePreferences) LockdownModeEnabled() bool {
+func (w WKWebpagePreferences) IsLockdownModeEnabled() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isLockdownModeEnabled"))
 	return rv
 }

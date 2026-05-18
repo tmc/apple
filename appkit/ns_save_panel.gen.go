@@ -106,9 +106,9 @@ func (nc NSSavePanelClass) Alloc() NSSavePanel {
 //   - [NSSavePanel.SetCanSelectHiddenExtension]
 //   - [NSSavePanel.ShowsHiddenFiles]: A Boolean value that indicates whether the panel displays files that are normally hidden from the user.
 //   - [NSSavePanel.SetShowsHiddenFiles]
-//   - [NSSavePanel.ExtensionHidden]: A Boolean value that indicates whether to display filename extensions.
+//   - [NSSavePanel.IsExtensionHidden]: A Boolean value that indicates whether to display filename extensions.
 //   - [NSSavePanel.SetExtensionHidden]
-//   - [NSSavePanel.Expanded]: A Boolean value that indicates whether whether the panel is expanded.
+//   - [NSSavePanel.IsExpanded]: A Boolean value that indicates whether whether the panel is expanded.
 //
 // # Configuring the File Types
 //
@@ -186,9 +186,9 @@ func NSSavePanelFromID(id objc.ID) NSSavePanel {
 //   - [INSSavePanel.SetCanSelectHiddenExtension]
 //   - [INSSavePanel.ShowsHiddenFiles]: A Boolean value that indicates whether the panel displays files that are normally hidden from the user.
 //   - [INSSavePanel.SetShowsHiddenFiles]
-//   - [INSSavePanel.ExtensionHidden]: A Boolean value that indicates whether to display filename extensions.
+//   - [INSSavePanel.IsExtensionHidden]: A Boolean value that indicates whether to display filename extensions.
 //   - [INSSavePanel.SetExtensionHidden]
-//   - [INSSavePanel.Expanded]: A Boolean value that indicates whether whether the panel is expanded.
+//   - [INSSavePanel.IsExpanded]: A Boolean value that indicates whether whether the panel is expanded.
 //
 // # Configuring the File Types
 //
@@ -270,10 +270,10 @@ type INSSavePanel interface {
 	ShowsHiddenFiles() bool
 	SetShowsHiddenFiles(value bool)
 	// A Boolean value that indicates whether to display filename extensions.
-	ExtensionHidden() bool
+	IsExtensionHidden() bool
 	SetExtensionHidden(value bool)
 	// A Boolean value that indicates whether whether the panel is expanded.
-	Expanded() bool
+	IsExpanded() bool
 
 	// Topic: Configuring the File Types
 
@@ -806,7 +806,7 @@ func (s NSSavePanel) SetShowsHiddenFiles(value bool) {
 // the panel updates this property to reflect that choice.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/isExtensionHidden
-func (s NSSavePanel) ExtensionHidden() bool {
+func (s NSSavePanel) IsExtensionHidden() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isExtensionHidden"))
 	return rv
 }
@@ -822,7 +822,7 @@ func (s NSSavePanel) SetExtensionHidden(value bool) {
 // false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/isExpanded
-func (s NSSavePanel) Expanded() bool {
+func (s NSSavePanel) IsExpanded() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isExpanded"))
 	return rv
 }

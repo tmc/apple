@@ -53,7 +53,7 @@ func (ac AVCaptureControlClass) Alloc() AVCaptureControl {
 //
 // # Setting the enabled state
 //
-//   - [AVCaptureControl.Enabled]: A Boolean value that indicates whether this control supports user interaction.
+//   - [AVCaptureControl.IsEnabled]: A Boolean value that indicates whether this control supports user interaction.
 //   - [AVCaptureControl.SetEnabled]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureControl
@@ -75,7 +75,7 @@ func AVCaptureControlFromID(id objc.ID) AVCaptureControl {
 //
 // # Setting the enabled state
 //
-//   - [IAVCaptureControl.Enabled]: A Boolean value that indicates whether this control supports user interaction.
+//   - [IAVCaptureControl.IsEnabled]: A Boolean value that indicates whether this control supports user interaction.
 //   - [IAVCaptureControl.SetEnabled]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureControl
@@ -85,7 +85,7 @@ type IAVCaptureControl interface {
 	// Topic: Setting the enabled state
 
 	// A Boolean value that indicates whether this control supports user interaction.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 }
 
@@ -120,7 +120,7 @@ func NewAVCaptureControl() AVCaptureControl {
 // The default value is `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureControl/isEnabled
-func (c AVCaptureControl) Enabled() bool {
+func (c AVCaptureControl) IsEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEnabled"))
 	return rv
 }

@@ -47,7 +47,7 @@ func (vc VZGenericPlatformConfigurationClass) Alloc() VZGenericPlatformConfigura
 //
 //   - [VZGenericPlatformConfiguration.MachineIdentifier]: A value that represents a unique identifier for the virtual machine.
 //   - [VZGenericPlatformConfiguration.SetMachineIdentifier]
-//   - [VZGenericPlatformConfiguration.NestedVirtualizationEnabled]: A Boolean value that indicates whether nested virtualization is in an enabled state.
+//   - [VZGenericPlatformConfiguration.IsNestedVirtualizationEnabled]: A Boolean value that indicates whether nested virtualization is in an enabled state.
 //   - [VZGenericPlatformConfiguration.SetNestedVirtualizationEnabled]
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration
@@ -71,7 +71,7 @@ func VZGenericPlatformConfigurationFromID(id objc.ID) VZGenericPlatformConfigura
 //
 //   - [IVZGenericPlatformConfiguration.MachineIdentifier]: A value that represents a unique identifier for the virtual machine.
 //   - [IVZGenericPlatformConfiguration.SetMachineIdentifier]
-//   - [IVZGenericPlatformConfiguration.NestedVirtualizationEnabled]: A Boolean value that indicates whether nested virtualization is in an enabled state.
+//   - [IVZGenericPlatformConfiguration.IsNestedVirtualizationEnabled]: A Boolean value that indicates whether nested virtualization is in an enabled state.
 //   - [IVZGenericPlatformConfiguration.SetNestedVirtualizationEnabled]
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration
@@ -84,7 +84,7 @@ type IVZGenericPlatformConfiguration interface {
 	MachineIdentifier() IVZGenericMachineIdentifier
 	SetMachineIdentifier(value IVZGenericMachineIdentifier)
 	// A Boolean value that indicates whether nested virtualization is in an enabled state.
-	NestedVirtualizationEnabled() bool
+	IsNestedVirtualizationEnabled() bool
 	SetNestedVirtualizationEnabled(value bool)
 }
 
@@ -122,7 +122,7 @@ func (g VZGenericPlatformConfiguration) SetMachineIdentifier(value IVZGenericMac
 // enabled state.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/isNestedVirtualizationEnabled
-func (g VZGenericPlatformConfiguration) NestedVirtualizationEnabled() bool {
+func (g VZGenericPlatformConfiguration) IsNestedVirtualizationEnabled() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isNestedVirtualizationEnabled"))
 	return rv
 }
@@ -141,7 +141,7 @@ func (g VZGenericPlatformConfiguration) SetNestedVirtualizationEnabled(value boo
 // feature:
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/isNestedVirtualizationSupported
-func (_VZGenericPlatformConfigurationClass VZGenericPlatformConfigurationClass) NestedVirtualizationSupported() bool {
+func (_VZGenericPlatformConfigurationClass VZGenericPlatformConfigurationClass) IsNestedVirtualizationSupported() bool {
 	rv := objc.Send[bool](objc.ID(_VZGenericPlatformConfigurationClass.class), objc.Sel("isNestedVirtualizationSupported"))
 	return rv
 }

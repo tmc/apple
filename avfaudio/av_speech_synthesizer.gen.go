@@ -83,8 +83,8 @@ func (ac AVSpeechSynthesizerClass) Alloc() AVSpeechSynthesizer {
 //
 // # Inspecting a speech synthesizer
 //
-//   - [AVSpeechSynthesizer.Speaking]: A Boolean value that indicates whether the speech synthesizer is speaking or is in a paused state and has utterances to speak.
-//   - [AVSpeechSynthesizer.Paused]: A Boolean value that indicates whether a speech synthesizer is in a paused state.
+//   - [AVSpeechSynthesizer.IsSpeaking]: A Boolean value that indicates whether the speech synthesizer is speaking or is in a paused state and has utterances to speak.
+//   - [AVSpeechSynthesizer.IsPaused]: A Boolean value that indicates whether a speech synthesizer is in a paused state.
 //
 // # Managing the delegate
 //
@@ -123,8 +123,8 @@ func AVSpeechSynthesizerFromID(id objc.ID) AVSpeechSynthesizer {
 //
 // # Inspecting a speech synthesizer
 //
-//   - [IAVSpeechSynthesizer.Speaking]: A Boolean value that indicates whether the speech synthesizer is speaking or is in a paused state and has utterances to speak.
-//   - [IAVSpeechSynthesizer.Paused]: A Boolean value that indicates whether a speech synthesizer is in a paused state.
+//   - [IAVSpeechSynthesizer.IsSpeaking]: A Boolean value that indicates whether the speech synthesizer is speaking or is in a paused state and has utterances to speak.
+//   - [IAVSpeechSynthesizer.IsPaused]: A Boolean value that indicates whether a speech synthesizer is in a paused state.
 //
 // # Managing the delegate
 //
@@ -154,9 +154,9 @@ type IAVSpeechSynthesizer interface {
 	// Topic: Inspecting a speech synthesizer
 
 	// A Boolean value that indicates whether the speech synthesizer is speaking or is in a paused state and has utterances to speak.
-	Speaking() bool
+	IsSpeaking() bool
 	// A Boolean value that indicates whether a speech synthesizer is in a paused state.
-	Paused() bool
+	IsPaused() bool
 
 	// Topic: Managing the delegate
 
@@ -341,7 +341,7 @@ func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) RequestPersonalVoiceAu
 // it doesn’t have any utterances in its queue.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/isSpeaking
-func (s AVSpeechSynthesizer) Speaking() bool {
+func (s AVSpeechSynthesizer) IsSpeaking() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSpeaking"))
 	return rv
 }
@@ -355,7 +355,7 @@ func (s AVSpeechSynthesizer) Speaking() bool {
 // speak an utterance; otherwise, `false`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/isPaused
-func (s AVSpeechSynthesizer) Paused() bool {
+func (s AVSpeechSynthesizer) IsPaused() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isPaused"))
 	return rv
 }

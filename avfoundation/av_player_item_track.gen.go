@@ -48,7 +48,7 @@ func (ac AVPlayerItemTrackClass) Alloc() AVPlayerItemTrack {
 //
 // # Setting the enabled state
 //
-//   - [AVPlayerItemTrack.Enabled]: A Boolean value that indicates whether the player item presents the track’s media during playback.
+//   - [AVPlayerItemTrack.IsEnabled]: A Boolean value that indicates whether the player item presents the track’s media during playback.
 //   - [AVPlayerItemTrack.SetEnabled]
 //
 // # Configuring video properties
@@ -82,7 +82,7 @@ func AVPlayerItemTrackFromID(id objc.ID) AVPlayerItemTrack {
 //
 // # Setting the enabled state
 //
-//   - [IAVPlayerItemTrack.Enabled]: A Boolean value that indicates whether the player item presents the track’s media during playback.
+//   - [IAVPlayerItemTrack.IsEnabled]: A Boolean value that indicates whether the player item presents the track’s media during playback.
 //   - [IAVPlayerItemTrack.SetEnabled]
 //
 // # Configuring video properties
@@ -103,7 +103,7 @@ type IAVPlayerItemTrack interface {
 	// Topic: Setting the enabled state
 
 	// A Boolean value that indicates whether the player item presents the track’s media during playback.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 
 	// Topic: Configuring video properties
@@ -149,7 +149,7 @@ func NewAVPlayerItemTrack() AVPlayerItemTrack {
 // This property isn’t key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemTrack/isEnabled
-func (p AVPlayerItemTrack) Enabled() bool {
+func (p AVPlayerItemTrack) IsEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isEnabled"))
 	return rv
 }

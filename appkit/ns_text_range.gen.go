@@ -63,7 +63,7 @@ func (nc NSTextRangeClass) Alloc() NSTextRange {
 //
 //   - [NSTextRange.Location]: The starting location of the text range.
 //   - [NSTextRange.EndLocation]: The ending location of the text range.
-//   - [NSTextRange.Empty]: Returns whether the text range is empty.
+//   - [NSTextRange.IsEmpty]: Returns whether the text range is empty.
 //
 // # Comparing text ranges
 //
@@ -104,7 +104,7 @@ func NSTextRangeFromID(id objc.ID) NSTextRange {
 //
 //   - [INSTextRange.Location]: The starting location of the text range.
 //   - [INSTextRange.EndLocation]: The ending location of the text range.
-//   - [INSTextRange.Empty]: Returns whether the text range is empty.
+//   - [INSTextRange.IsEmpty]: Returns whether the text range is empty.
 //
 // # Comparing text ranges
 //
@@ -136,7 +136,7 @@ type INSTextRange interface {
 	// The ending location of the text range.
 	EndLocation() NSTextLocation
 	// Returns whether the text range is empty.
-	Empty() bool
+	IsEmpty() bool
 
 	// Topic: Comparing text ranges
 
@@ -335,7 +335,7 @@ func (t NSTextRange) EndLocation() NSTextLocation {
 // Returns whether the text range is empty.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/isEmpty
-func (t NSTextRange) Empty() bool {
+func (t NSTextRange) IsEmpty() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEmpty"))
 	return rv
 }

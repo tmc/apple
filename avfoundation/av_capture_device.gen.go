@@ -83,9 +83,9 @@ func (ac AVCaptureDeviceClass) Alloc() AVCaptureDevice {
 //
 // # Accessing device state
 //
-//   - [AVCaptureDevice.Connected]: A Boolean value that indicates whether a device is currently connected to the system and available for use.
-//   - [AVCaptureDevice.Suspended]: A Boolean value that indicates whether the device is in a suspended state.
-//   - [AVCaptureDevice.InUseByAnotherApplication]: A Boolean value that indicates whether another app is using the device.
+//   - [AVCaptureDevice.IsConnected]: A Boolean value that indicates whether a device is currently connected to the system and available for use.
+//   - [AVCaptureDevice.IsSuspended]: A Boolean value that indicates whether the device is in a suspended state.
+//   - [AVCaptureDevice.IsInUseByAnotherApplication]: A Boolean value that indicates whether another app is using the device.
 //
 // # Inspecting device characteristics
 //
@@ -108,7 +108,7 @@ func (ac AVCaptureDeviceClass) Alloc() AVCaptureDevice {
 //
 // # Enabling automatic frame rate
 //
-//   - [AVCaptureDevice.AutoVideoFrameRateEnabled]: A Boolean value that indicates whether the capture device performs automatic video frame rate adjustments.
+//   - [AVCaptureDevice.IsAutoVideoFrameRateEnabled]: A Boolean value that indicates whether the capture device performs automatic video frame rate adjustments.
 //   - [AVCaptureDevice.SetAutoVideoFrameRateEnabled]
 //
 // # Supporting spatial capture
@@ -117,7 +117,7 @@ func (ac AVCaptureDeviceClass) Alloc() AVCaptureDevice {
 //
 // # Supporting Continuity Camera
 //
-//   - [AVCaptureDevice.ContinuityCamera]: A Boolean value that indicates whether the device is a Continuity Camera.
+//   - [AVCaptureDevice.IsContinuityCamera]: A Boolean value that indicates whether the device is a Continuity Camera.
 //   - [AVCaptureDevice.CompanionDeskViewCamera]: A Desk View camera associated with a device.
 //
 // # Monitoring system pressure
@@ -138,16 +138,16 @@ func (ac AVCaptureDeviceClass) Alloc() AVCaptureDevice {
 //
 // # Configuring lens smudge detection
 //
-//   - [AVCaptureDevice.CameraLensSmudgeDetectionEnabled]: Whether camera lens smudge detection is enabled.
+//   - [AVCaptureDevice.IsCameraLensSmudgeDetectionEnabled]: Whether camera lens smudge detection is enabled.
 //   - [AVCaptureDevice.SetCameraLensSmudgeDetectionEnabledDetectionInterval]: Specify whether to enable camera lens smudge detection, and the interval time between each run of detections.
 //   - [AVCaptureDevice.CameraLensSmudgeDetectionInterval]: The camera lens smudge detection interval.
 //   - [AVCaptureDevice.CameraLensSmudgeDetectionStatus]: A value specifying the status of camera lens smudge detection.
 //
 // # Synchronizing with external devices
 //
-//   - [AVCaptureDevice.FollowingExternalSyncDevice]: Whether the device is following an external sync device.
+//   - [AVCaptureDevice.IsFollowingExternalSyncDevice]: Whether the device is following an external sync device.
 //   - [AVCaptureDevice.MinSupportedExternalSyncFrameDuration]: The minimum frame duration that can be passed as the `videoFrameDuration` when directing your device input to follow an external sync device.
-//   - [AVCaptureDevice.VideoFrameDurationLocked]: Whether the device’s video frame rate (expressed as a duration) is currently locked.
+//   - [AVCaptureDevice.IsVideoFrameDurationLocked]: Whether the device’s video frame rate (expressed as a duration) is currently locked.
 //   - [AVCaptureDevice.MinSupportedLockedVideoFrameDuration]: The maximum frame rate (expressed as a minimum duration) that can be set on an input associated with this device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice
@@ -179,9 +179,9 @@ func AVCaptureDeviceFromID(id objc.ID) AVCaptureDevice {
 //
 // # Accessing device state
 //
-//   - [IAVCaptureDevice.Connected]: A Boolean value that indicates whether a device is currently connected to the system and available for use.
-//   - [IAVCaptureDevice.Suspended]: A Boolean value that indicates whether the device is in a suspended state.
-//   - [IAVCaptureDevice.InUseByAnotherApplication]: A Boolean value that indicates whether another app is using the device.
+//   - [IAVCaptureDevice.IsConnected]: A Boolean value that indicates whether a device is currently connected to the system and available for use.
+//   - [IAVCaptureDevice.IsSuspended]: A Boolean value that indicates whether the device is in a suspended state.
+//   - [IAVCaptureDevice.IsInUseByAnotherApplication]: A Boolean value that indicates whether another app is using the device.
 //
 // # Inspecting device characteristics
 //
@@ -204,7 +204,7 @@ func AVCaptureDeviceFromID(id objc.ID) AVCaptureDevice {
 //
 // # Enabling automatic frame rate
 //
-//   - [IAVCaptureDevice.AutoVideoFrameRateEnabled]: A Boolean value that indicates whether the capture device performs automatic video frame rate adjustments.
+//   - [IAVCaptureDevice.IsAutoVideoFrameRateEnabled]: A Boolean value that indicates whether the capture device performs automatic video frame rate adjustments.
 //   - [IAVCaptureDevice.SetAutoVideoFrameRateEnabled]
 //
 // # Supporting spatial capture
@@ -213,7 +213,7 @@ func AVCaptureDeviceFromID(id objc.ID) AVCaptureDevice {
 //
 // # Supporting Continuity Camera
 //
-//   - [IAVCaptureDevice.ContinuityCamera]: A Boolean value that indicates whether the device is a Continuity Camera.
+//   - [IAVCaptureDevice.IsContinuityCamera]: A Boolean value that indicates whether the device is a Continuity Camera.
 //   - [IAVCaptureDevice.CompanionDeskViewCamera]: A Desk View camera associated with a device.
 //
 // # Monitoring system pressure
@@ -234,16 +234,16 @@ func AVCaptureDeviceFromID(id objc.ID) AVCaptureDevice {
 //
 // # Configuring lens smudge detection
 //
-//   - [IAVCaptureDevice.CameraLensSmudgeDetectionEnabled]: Whether camera lens smudge detection is enabled.
+//   - [IAVCaptureDevice.IsCameraLensSmudgeDetectionEnabled]: Whether camera lens smudge detection is enabled.
 //   - [IAVCaptureDevice.SetCameraLensSmudgeDetectionEnabledDetectionInterval]: Specify whether to enable camera lens smudge detection, and the interval time between each run of detections.
 //   - [IAVCaptureDevice.CameraLensSmudgeDetectionInterval]: The camera lens smudge detection interval.
 //   - [IAVCaptureDevice.CameraLensSmudgeDetectionStatus]: A value specifying the status of camera lens smudge detection.
 //
 // # Synchronizing with external devices
 //
-//   - [IAVCaptureDevice.FollowingExternalSyncDevice]: Whether the device is following an external sync device.
+//   - [IAVCaptureDevice.IsFollowingExternalSyncDevice]: Whether the device is following an external sync device.
 //   - [IAVCaptureDevice.MinSupportedExternalSyncFrameDuration]: The minimum frame duration that can be passed as the `videoFrameDuration` when directing your device input to follow an external sync device.
-//   - [IAVCaptureDevice.VideoFrameDurationLocked]: Whether the device’s video frame rate (expressed as a duration) is currently locked.
+//   - [IAVCaptureDevice.IsVideoFrameDurationLocked]: Whether the device’s video frame rate (expressed as a duration) is currently locked.
 //   - [IAVCaptureDevice.MinSupportedLockedVideoFrameDuration]: The maximum frame rate (expressed as a minimum duration) that can be set on an input associated with this device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice
@@ -268,11 +268,11 @@ type IAVCaptureDevice interface {
 	// Topic: Accessing device state
 
 	// A Boolean value that indicates whether a device is currently connected to the system and available for use.
-	Connected() bool
+	IsConnected() bool
 	// A Boolean value that indicates whether the device is in a suspended state.
-	Suspended() bool
+	IsSuspended() bool
 	// A Boolean value that indicates whether another app is using the device.
-	InUseByAnotherApplication() bool
+	IsInUseByAnotherApplication() bool
 
 	// Topic: Inspecting device characteristics
 
@@ -306,7 +306,7 @@ type IAVCaptureDevice interface {
 	// Topic: Enabling automatic frame rate
 
 	// A Boolean value that indicates whether the capture device performs automatic video frame rate adjustments.
-	AutoVideoFrameRateEnabled() bool
+	IsAutoVideoFrameRateEnabled() bool
 	SetAutoVideoFrameRateEnabled(value bool)
 
 	// Topic: Supporting spatial capture
@@ -317,7 +317,7 @@ type IAVCaptureDevice interface {
 	// Topic: Supporting Continuity Camera
 
 	// A Boolean value that indicates whether the device is a Continuity Camera.
-	ContinuityCamera() bool
+	IsContinuityCamera() bool
 	// A Desk View camera associated with a device.
 	CompanionDeskViewCamera() IAVCaptureDevice
 
@@ -349,7 +349,7 @@ type IAVCaptureDevice interface {
 	// Topic: Configuring lens smudge detection
 
 	// Whether camera lens smudge detection is enabled.
-	CameraLensSmudgeDetectionEnabled() bool
+	IsCameraLensSmudgeDetectionEnabled() bool
 	// Specify whether to enable camera lens smudge detection, and the interval time between each run of detections.
 	SetCameraLensSmudgeDetectionEnabledDetectionInterval(cameraLensSmudgeDetectionEnabled bool, detectionInterval coremedia.CMTime)
 	// The camera lens smudge detection interval.
@@ -360,11 +360,11 @@ type IAVCaptureDevice interface {
 	// Topic: Synchronizing with external devices
 
 	// Whether the device is following an external sync device.
-	FollowingExternalSyncDevice() bool
+	IsFollowingExternalSyncDevice() bool
 	// The minimum frame duration that can be passed as the `videoFrameDuration` when directing your device input to follow an external sync device.
 	MinSupportedExternalSyncFrameDuration() coremedia.CMTime
 	// Whether the device’s video frame rate (expressed as a duration) is currently locked.
-	VideoFrameDurationLocked() bool
+	IsVideoFrameDurationLocked() bool
 	// The maximum frame rate (expressed as a minimum duration) that can be set on an input associated with this device.
 	MinSupportedLockedVideoFrameDuration() coremedia.CMTime
 
@@ -384,23 +384,23 @@ type IAVCaptureDevice interface {
 	ActiveVideoMinFrameDuration() coremedia.CMTime
 	SetActiveVideoMinFrameDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether the device is currently adjusting its exposure setting.
-	AdjustingExposure() bool
+	IsAdjustingExposure() bool
 	// A Boolean value that indicates whether the device is currently adjusting its focus setting.
-	AdjustingFocus() bool
+	IsAdjustingFocus() bool
 	// A Boolean value that indicates whether the device is currently adjusting the white balance.
-	AdjustingWhiteBalance() bool
+	IsAdjustingWhiteBalance() bool
 	// A set of reactions types that a device supports performing.
 	AvailableReactionTypes() foundation.INSSet
 	// A Boolean value that indicates whether Background Replacement is currently active on a capture device.
-	BackgroundReplacementActive() bool
+	IsBackgroundReplacementActive() bool
 	// A Boolean value that indicates whether you can perform reaction effects on a capture device.
 	CanPerformReactionEffects() bool
 	// A Boolean value that indicates whether Center Stage is active on a device.
-	CenterStageActive() bool
+	IsCenterStageActive() bool
 	// The effective region within the output pixel buffer to perform Center Stage framing.
 	CenterStageRectOfInterest() corefoundation.CGRect
 	SetCenterStageRectOfInterest(value corefoundation.CGRect)
-	CenterStageRectOfInterestSupported() bool
+	IsCenterStageRectOfInterestSupported() bool
 	// A video zoom factor multiplier to use when displaying zoom information in a user interface.
 	DisplayVideoZoomFactorMultiplier() float64
 	// The exposure mode for the device.
@@ -410,14 +410,14 @@ type IAVCaptureDevice interface {
 	ExposurePointOfInterest() corefoundation.CGPoint
 	SetExposurePointOfInterest(value corefoundation.CGPoint)
 	// A Boolean value that indicates whether the device supports a point of interest for exposure.
-	ExposurePointOfInterestSupported() bool
+	IsExposurePointOfInterestSupported() bool
 	// The device’s current exposure rectangle of interest, if it has one.
 	ExposureRectOfInterest() corefoundation.CGRect
 	SetExposureRectOfInterest(value corefoundation.CGRect)
 	// Whether the device supports exposure rectangles of interest.
-	ExposureRectOfInterestSupported() bool
+	IsExposureRectOfInterestSupported() bool
 	// A Boolean value that indicates whether the flash is currently available for use.
-	FlashAvailable() bool
+	IsFlashAvailable() bool
 	// The device’s current flash mode.
 	FlashMode() AVCaptureFlashMode
 	SetFlashMode(value AVCaptureFlashMode)
@@ -428,12 +428,12 @@ type IAVCaptureDevice interface {
 	FocusPointOfInterest() corefoundation.CGPoint
 	SetFocusPointOfInterest(value corefoundation.CGPoint)
 	// A Boolean value that indicates whether the device supports a point of interest for focus.
-	FocusPointOfInterestSupported() bool
+	IsFocusPointOfInterestSupported() bool
 	// The device’s current focus rectangle of interest, if it has one.
 	FocusRectOfInterest() corefoundation.CGRect
 	SetFocusRectOfInterest(value corefoundation.CGRect)
 	// Whether the receiver supports focus rectangles of interest.
-	FocusRectOfInterestSupported() bool
+	IsFocusRectOfInterestSupported() bool
 	// The capture formats a device supports.
 	Formats() []AVCaptureDeviceFormat
 	// A Boolean value that indicates whether the capture device has a flash.
@@ -451,15 +451,15 @@ type IAVCaptureDevice interface {
 	// The capture device’s minimum focus distance in millimeters.
 	MinimumFocusDistance() int
 	// A Boolean value that indicates whether the Portrait video effect is active on a device.
-	PortraitEffectActive() bool
+	IsPortraitEffectActive() bool
 	// An array of reaction effects that the device is currently performing, sorted by timestamp.
 	ReactionEffectsInProgress() []AVCaptureReactionEffectState
 	// A Boolean value that indicates whether Studio Light is active on a device.
-	StudioLightActive() bool
+	IsStudioLightActive() bool
 	// A Boolean value that indicates whether the device’s torch is currently active.
-	TorchActive() bool
+	IsTorchActive() bool
 	// A Boolean value that indicates whether the torch is currently available for use.
-	TorchAvailable() bool
+	IsTorchAvailable() bool
 	// The current torch brightness level.
 	TorchLevel() float32
 	// The current torch mode.
@@ -1106,7 +1106,7 @@ func (c AVCaptureDevice) Position() AVCaptureDevicePosition {
 // no longer available.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isConnected
-func (c AVCaptureDevice) Connected() bool {
+func (c AVCaptureDevice) IsConnected() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isConnected"))
 	return rv
 }
@@ -1118,7 +1118,7 @@ func (c AVCaptureDevice) Connected() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isSuspended
-func (c AVCaptureDevice) Suspended() bool {
+func (c AVCaptureDevice) IsSuspended() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSuspended"))
 	return rv
 }
@@ -1130,7 +1130,7 @@ func (c AVCaptureDevice) Suspended() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isInUseByAnotherApplication
-func (c AVCaptureDevice) InUseByAnotherApplication() bool {
+func (c AVCaptureDevice) IsInUseByAnotherApplication() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isInUseByAnotherApplication"))
 	return rv
 }
@@ -1189,7 +1189,7 @@ func (c AVCaptureDevice) CinematicVideoCaptureSceneMonitoringStatuses() foundati
 // value of false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isAutoVideoFrameRateEnabled
-func (c AVCaptureDevice) AutoVideoFrameRateEnabled() bool {
+func (c AVCaptureDevice) IsAutoVideoFrameRateEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoVideoFrameRateEnabled"))
 	return rv
 }
@@ -1221,7 +1221,7 @@ func (c AVCaptureDevice) SpatialCaptureDiscomfortReasons() foundation.INSSet {
 // external webcam in macOS.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isContinuityCamera
-func (c AVCaptureDevice) ContinuityCamera() bool {
+func (c AVCaptureDevice) IsContinuityCamera() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isContinuityCamera"))
 	return rv
 }
@@ -1391,7 +1391,7 @@ func (c AVCaptureDevice) SetFallbackPrimaryConstituentDevices(value []AVCaptureD
 // property is returns `false`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isCameraLensSmudgeDetectionEnabled
-func (c AVCaptureDevice) CameraLensSmudgeDetectionEnabled() bool {
+func (c AVCaptureDevice) IsCameraLensSmudgeDetectionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCameraLensSmudgeDetectionEnabled"))
 	return rv
 }
@@ -1434,7 +1434,7 @@ func (c AVCaptureDevice) CameraLensSmudgeDetectionStatus() AVCaptureCameraLensSm
 // information on external sync.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFollowingExternalSyncDevice
-func (c AVCaptureDevice) FollowingExternalSyncDevice() bool {
+func (c AVCaptureDevice) IsFollowingExternalSyncDevice() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFollowingExternalSyncDevice"))
 	return rv
 }
@@ -1466,7 +1466,7 @@ func (c AVCaptureDevice) MinSupportedExternalSyncFrameDuration() coremedia.CMTim
 // information on video frame duration locking.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isVideoFrameDurationLocked
-func (c AVCaptureDevice) VideoFrameDurationLocked() bool {
+func (c AVCaptureDevice) IsVideoFrameDurationLocked() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVideoFrameDurationLocked"))
 	return rv
 }
@@ -1642,7 +1642,7 @@ func (c AVCaptureDevice) SetActiveVideoMinFrameDuration(value coremedia.CMTime) 
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isAdjustingExposure
-func (c AVCaptureDevice) AdjustingExposure() bool {
+func (c AVCaptureDevice) IsAdjustingExposure() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAdjustingExposure"))
 	return rv
 }
@@ -1655,7 +1655,7 @@ func (c AVCaptureDevice) AdjustingExposure() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isAdjustingFocus
-func (c AVCaptureDevice) AdjustingFocus() bool {
+func (c AVCaptureDevice) IsAdjustingFocus() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAdjustingFocus"))
 	return rv
 }
@@ -1668,7 +1668,7 @@ func (c AVCaptureDevice) AdjustingFocus() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isAdjustingWhiteBalance
-func (c AVCaptureDevice) AdjustingWhiteBalance() bool {
+func (c AVCaptureDevice) IsAdjustingWhiteBalance() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAdjustingWhiteBalance"))
 	return rv
 }
@@ -1696,7 +1696,7 @@ func (c AVCaptureDevice) AvailableReactionTypes() foundation.INSSet {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isBackgroundReplacementActive
-func (c AVCaptureDevice) BackgroundReplacementActive() bool {
+func (c AVCaptureDevice) IsBackgroundReplacementActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isBackgroundReplacementActive"))
 	return rv
 }
@@ -1747,7 +1747,7 @@ func (c AVCaptureDevice) CanPerformReactionEffects() bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isCenterStageActive
 //
 // [AVCaptureDepthDataOutput]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutput
-func (c AVCaptureDevice) CenterStageActive() bool {
+func (c AVCaptureDevice) IsCenterStageActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCenterStageActive"))
 	return rv
 }
@@ -1792,7 +1792,7 @@ func (c AVCaptureDevice) SetCenterStageRectOfInterest(value corefoundation.CGRec
 // Interest.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/centerStageRectOfInterestSupported
-func (c AVCaptureDevice) CenterStageRectOfInterestSupported() bool {
+func (c AVCaptureDevice) IsCenterStageRectOfInterestSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCenterStageRectOfInterestSupported"))
 	return rv
 }
@@ -1883,7 +1883,7 @@ func (c AVCaptureDevice) SetExposurePointOfInterest(value corefoundation.CGPoint
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isExposurePointOfInterestSupported
-func (c AVCaptureDevice) ExposurePointOfInterestSupported() bool {
+func (c AVCaptureDevice) IsExposurePointOfInterestSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isExposurePointOfInterestSupported"))
 	return rv
 }
@@ -1932,7 +1932,7 @@ func (c AVCaptureDevice) SetExposureRectOfInterest(value corefoundation.CGRect) 
 // property returns `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isExposureRectOfInterestSupported
-func (c AVCaptureDevice) ExposureRectOfInterestSupported() bool {
+func (c AVCaptureDevice) IsExposureRectOfInterestSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isExposureRectOfInterestSupported"))
 	return rv
 }
@@ -1948,7 +1948,7 @@ func (c AVCaptureDevice) ExposureRectOfInterestSupported() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFlashAvailable
-func (c AVCaptureDevice) FlashAvailable() bool {
+func (c AVCaptureDevice) IsFlashAvailable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFlashAvailable"))
 	return rv
 }
@@ -2041,7 +2041,7 @@ func (c AVCaptureDevice) SetFocusPointOfInterest(value corefoundation.CGPoint) {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFocusPointOfInterestSupported
-func (c AVCaptureDevice) FocusPointOfInterestSupported() bool {
+func (c AVCaptureDevice) IsFocusPointOfInterestSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFocusPointOfInterestSupported"))
 	return rv
 }
@@ -2090,7 +2090,7 @@ func (c AVCaptureDevice) SetFocusRectOfInterest(value corefoundation.CGRect) {
 // property returns `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isFocusRectOfInterestSupported
-func (c AVCaptureDevice) FocusRectOfInterestSupported() bool {
+func (c AVCaptureDevice) IsFocusRectOfInterestSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFocusRectOfInterestSupported"))
 	return rv
 }
@@ -2245,7 +2245,7 @@ func (c AVCaptureDevice) MinimumFocusDistance() int {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isPortraitEffectActive
-func (c AVCaptureDevice) PortraitEffectActive() bool {
+func (c AVCaptureDevice) IsPortraitEffectActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPortraitEffectActive"))
 	return rv
 }
@@ -2281,7 +2281,7 @@ func (c AVCaptureDevice) ReactionEffectsInProgress() []AVCaptureReactionEffectSt
 // to simulate the presence of a studio light near the camera.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isStudioLightActive
-func (c AVCaptureDevice) StudioLightActive() bool {
+func (c AVCaptureDevice) IsStudioLightActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isStudioLightActive"))
 	return rv
 }
@@ -2297,7 +2297,7 @@ func (c AVCaptureDevice) StudioLightActive() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isTorchActive
-func (c AVCaptureDevice) TorchActive() bool {
+func (c AVCaptureDevice) IsTorchActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isTorchActive"))
 	return rv
 }
@@ -2313,7 +2313,7 @@ func (c AVCaptureDevice) TorchActive() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isTorchAvailable
-func (c AVCaptureDevice) TorchAvailable() bool {
+func (c AVCaptureDevice) IsTorchAvailable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isTorchAvailable"))
 	return rv
 }
@@ -2504,7 +2504,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) SetUserPreferredCamera(value A
 // shown on a screen. It is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isEdgeLightActive
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) EdgeLightActive() bool {
+func (_AVCaptureDeviceClass AVCaptureDeviceClass) IsEdgeLightActive() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("isEdgeLightActive"))
 	return rv
 }
@@ -2518,7 +2518,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) EdgeLightActive() bool {
 // Center. It is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isEdgeLightEnabled
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) EdgeLightEnabled() bool {
+func (_AVCaptureDeviceClass AVCaptureDeviceClass) IsEdgeLightEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("isEdgeLightEnabled"))
 	return rv
 }
@@ -2542,7 +2542,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) ActiveMicrophoneMode() AVCaptu
 // Replacement feature for this app.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isBackgroundReplacementEnabled
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) BackgroundReplacementEnabled() bool {
+func (_AVCaptureDeviceClass AVCaptureDeviceClass) IsBackgroundReplacementEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("isBackgroundReplacementEnabled"))
 	return rv
 }
@@ -2573,7 +2573,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) SetCenterStageControlMode(valu
 // exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isCenterStageEnabled
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) CenterStageEnabled() bool {
+func (_AVCaptureDeviceClass AVCaptureDeviceClass) IsCenterStageEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("isCenterStageEnabled"))
 	return rv
 }
@@ -2609,7 +2609,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) MaxAvailableTorchLevel() float
 // effect in Control Center.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isPortraitEffectEnabled
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) PortraitEffectEnabled() bool {
+func (_AVCaptureDeviceClass AVCaptureDeviceClass) IsPortraitEffectEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("isPortraitEffectEnabled"))
 	return rv
 }
@@ -2679,7 +2679,7 @@ func (_AVCaptureDeviceClass AVCaptureDeviceClass) ReactionEffectsEnabled() bool 
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/isStudioLightEnabled
-func (_AVCaptureDeviceClass AVCaptureDeviceClass) StudioLightEnabled() bool {
+func (_AVCaptureDeviceClass AVCaptureDeviceClass) IsStudioLightEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_AVCaptureDeviceClass.class), objc.Sel("isStudioLightEnabled"))
 	return rv
 }

@@ -158,15 +158,15 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 //   - [NSTextView.Outline]: Adds the outline attribute to the selected text attributes if absent; removes the attribute if present.
 //   - [NSTextView.AllowsImageEditing]: Indicates whether image attachments should permit editing of their images.
 //   - [NSTextView.SetAllowsImageEditing]
-//   - [NSTextView.AutomaticQuoteSubstitutionEnabled]: A Boolean value that enables and disables automatic quotation mark substitution.
+//   - [NSTextView.IsAutomaticQuoteSubstitutionEnabled]: A Boolean value that enables and disables automatic quotation mark substitution.
 //   - [NSTextView.SetAutomaticQuoteSubstitutionEnabled]
 //   - [NSTextView.ToggleAutomaticQuoteSubstitution]: Changes the state of automatic quotation mark substitution from enabled to disabled and vice versa.
-//   - [NSTextView.AutomaticLinkDetectionEnabled]: A Boolean value that enables or disables automatic link detection.
+//   - [NSTextView.IsAutomaticLinkDetectionEnabled]: A Boolean value that enables or disables automatic link detection.
 //   - [NSTextView.SetAutomaticLinkDetectionEnabled]
 //   - [NSTextView.ToggleAutomaticLinkDetection]: Changes the state of automatic link detection from enabled to disabled and vice versa.
 //   - [NSTextView.DisplaysLinkToolTips]: A Boolean value that indicates whether the text view automatically supplies the destination of a link as a tooltip for text that has a link attribute.
 //   - [NSTextView.SetDisplaysLinkToolTips]
-//   - [NSTextView.AutomaticTextCompletionEnabled]: A Boolean value that indicates whether the text view supplies autocompletion suggestions as the user types.
+//   - [NSTextView.IsAutomaticTextCompletionEnabled]: A Boolean value that indicates whether the text view supplies autocompletion suggestions as the user types.
 //   - [NSTextView.SetAutomaticTextCompletionEnabled]
 //   - [NSTextView.ToggleAutomaticTextCompletion]
 //   - [NSTextView.UsesAdaptiveColorMappingForDarkAppearance]: A Boolean value that indicates whether the framework should use adaptive color mapping for dark appearance.
@@ -239,7 +239,7 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 // # Supporting undo
 //
 //   - [NSTextView.BreakUndoCoalescing]: Informs the receiver that it should begin coalescing successive typing operations in a new undo grouping.
-//   - [NSTextView.CoalescingUndo]: A Boolean value that indicates whether undo coalescing is in progress.
+//   - [NSTextView.IsCoalescingUndo]: A Boolean value that indicates whether undo coalescing is in progress.
 //
 // # Customizing subclass behaviors
 //
@@ -267,11 +267,11 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 //
 // # Working with the spelling checker
 //
-//   - [NSTextView.ContinuousSpellCheckingEnabled]: A Boolean value that indicates whether the receiver has continuous spell checking enabled.
+//   - [NSTextView.IsContinuousSpellCheckingEnabled]: A Boolean value that indicates whether the receiver has continuous spell checking enabled.
 //   - [NSTextView.SetContinuousSpellCheckingEnabled]
 //   - [NSTextView.SpellCheckerDocumentTag]: A tag identifying the text view’s text as a document for the spell checker server.
 //   - [NSTextView.ToggleContinuousSpellChecking]: Toggles whether continuous spell checking is enabled for the receiver.
-//   - [NSTextView.GrammarCheckingEnabled]: Enables and disables grammar checking.
+//   - [NSTextView.IsGrammarCheckingEnabled]: Enables and disables grammar checking.
 //   - [NSTextView.SetGrammarCheckingEnabled]
 //   - [NSTextView.ToggleGrammarChecking]: Changes the state of grammar checking from enabled to disabled and vice versa.
 //   - [NSTextView.SetSpellingStateRange]: Sets the spelling state, which controls the display of the spelling and grammar indicators on the given text range.
@@ -318,23 +318,23 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 //   - [NSTextView.HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount]: Handles the text checking results returned by the text view
 //   - [NSTextView.EnabledTextCheckingTypes]: The default text checking types.
 //   - [NSTextView.SetEnabledTextCheckingTypes]
-//   - [NSTextView.AutomaticDashSubstitutionEnabled]: A Boolean value that indicates whether automatic dash substitution is enabled.
+//   - [NSTextView.IsAutomaticDashSubstitutionEnabled]: A Boolean value that indicates whether automatic dash substitution is enabled.
 //   - [NSTextView.SetAutomaticDashSubstitutionEnabled]
 //   - [NSTextView.ToggleAutomaticDashSubstitution]: Toggles the state of the automatic dash substitution.
-//   - [NSTextView.AutomaticDataDetectionEnabled]: A Boolean value that indicates whether automatic data detection is enabled.
+//   - [NSTextView.IsAutomaticDataDetectionEnabled]: A Boolean value that indicates whether automatic data detection is enabled.
 //   - [NSTextView.SetAutomaticDataDetectionEnabled]
 //   - [NSTextView.ToggleAutomaticDataDetection]: Toggles the state of the automatic data detection.
-//   - [NSTextView.AutomaticSpellingCorrectionEnabled]: A Boolean value that indicates whether automatic spelling correction is enabled.
+//   - [NSTextView.IsAutomaticSpellingCorrectionEnabled]: A Boolean value that indicates whether automatic spelling correction is enabled.
 //   - [NSTextView.SetAutomaticSpellingCorrectionEnabled]
 //   - [NSTextView.ToggleAutomaticSpellingCorrection]: Toggles the state of the automatic spelling correction.
-//   - [NSTextView.AutomaticTextReplacementEnabled]: A Boolean value that indicates whether automatic text replacement is enabled.
+//   - [NSTextView.IsAutomaticTextReplacementEnabled]: A Boolean value that indicates whether automatic text replacement is enabled.
 //   - [NSTextView.SetAutomaticTextReplacementEnabled]
 //   - [NSTextView.ToggleAutomaticTextReplacement]: Toggles the state of the automatic text replacement.
 //   - [NSTextView.PerformValidatedReplacementInRangeWithAttributedString]: Replaces text in the range you specify with the attributed string you provide.
 //
 // # Getting the writing tools status
 //
-//   - [NSTextView.WritingToolsActive]
+//   - [NSTextView.IsWritingToolsActive]
 //
 // # Supporting QuickLook
 //
@@ -351,7 +351,7 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 //
 //   - [NSTextView.UsesFindBar]: A Boolean value that indicates whether to use the find bar for this text view.
 //   - [NSTextView.SetUsesFindBar]
-//   - [NSTextView.IncrementalSearchingEnabled]: A Boolean value that indicates whether incremental searching is enabled.
+//   - [NSTextView.IsIncrementalSearchingEnabled]: A Boolean value that indicates whether incremental searching is enabled.
 //   - [NSTextView.SetIncrementalSearchingEnabled]
 //
 // # Interacting with the Touch Bar
@@ -446,15 +446,15 @@ func NSTextViewFromID(id objc.ID) NSTextView {
 //   - [INSTextView.Outline]: Adds the outline attribute to the selected text attributes if absent; removes the attribute if present.
 //   - [INSTextView.AllowsImageEditing]: Indicates whether image attachments should permit editing of their images.
 //   - [INSTextView.SetAllowsImageEditing]
-//   - [INSTextView.AutomaticQuoteSubstitutionEnabled]: A Boolean value that enables and disables automatic quotation mark substitution.
+//   - [INSTextView.IsAutomaticQuoteSubstitutionEnabled]: A Boolean value that enables and disables automatic quotation mark substitution.
 //   - [INSTextView.SetAutomaticQuoteSubstitutionEnabled]
 //   - [INSTextView.ToggleAutomaticQuoteSubstitution]: Changes the state of automatic quotation mark substitution from enabled to disabled and vice versa.
-//   - [INSTextView.AutomaticLinkDetectionEnabled]: A Boolean value that enables or disables automatic link detection.
+//   - [INSTextView.IsAutomaticLinkDetectionEnabled]: A Boolean value that enables or disables automatic link detection.
 //   - [INSTextView.SetAutomaticLinkDetectionEnabled]
 //   - [INSTextView.ToggleAutomaticLinkDetection]: Changes the state of automatic link detection from enabled to disabled and vice versa.
 //   - [INSTextView.DisplaysLinkToolTips]: A Boolean value that indicates whether the text view automatically supplies the destination of a link as a tooltip for text that has a link attribute.
 //   - [INSTextView.SetDisplaysLinkToolTips]
-//   - [INSTextView.AutomaticTextCompletionEnabled]: A Boolean value that indicates whether the text view supplies autocompletion suggestions as the user types.
+//   - [INSTextView.IsAutomaticTextCompletionEnabled]: A Boolean value that indicates whether the text view supplies autocompletion suggestions as the user types.
 //   - [INSTextView.SetAutomaticTextCompletionEnabled]
 //   - [INSTextView.ToggleAutomaticTextCompletion]
 //   - [INSTextView.UsesAdaptiveColorMappingForDarkAppearance]: A Boolean value that indicates whether the framework should use adaptive color mapping for dark appearance.
@@ -527,7 +527,7 @@ func NSTextViewFromID(id objc.ID) NSTextView {
 // # Supporting undo
 //
 //   - [INSTextView.BreakUndoCoalescing]: Informs the receiver that it should begin coalescing successive typing operations in a new undo grouping.
-//   - [INSTextView.CoalescingUndo]: A Boolean value that indicates whether undo coalescing is in progress.
+//   - [INSTextView.IsCoalescingUndo]: A Boolean value that indicates whether undo coalescing is in progress.
 //
 // # Customizing subclass behaviors
 //
@@ -555,11 +555,11 @@ func NSTextViewFromID(id objc.ID) NSTextView {
 //
 // # Working with the spelling checker
 //
-//   - [INSTextView.ContinuousSpellCheckingEnabled]: A Boolean value that indicates whether the receiver has continuous spell checking enabled.
+//   - [INSTextView.IsContinuousSpellCheckingEnabled]: A Boolean value that indicates whether the receiver has continuous spell checking enabled.
 //   - [INSTextView.SetContinuousSpellCheckingEnabled]
 //   - [INSTextView.SpellCheckerDocumentTag]: A tag identifying the text view’s text as a document for the spell checker server.
 //   - [INSTextView.ToggleContinuousSpellChecking]: Toggles whether continuous spell checking is enabled for the receiver.
-//   - [INSTextView.GrammarCheckingEnabled]: Enables and disables grammar checking.
+//   - [INSTextView.IsGrammarCheckingEnabled]: Enables and disables grammar checking.
 //   - [INSTextView.SetGrammarCheckingEnabled]
 //   - [INSTextView.ToggleGrammarChecking]: Changes the state of grammar checking from enabled to disabled and vice versa.
 //   - [INSTextView.SetSpellingStateRange]: Sets the spelling state, which controls the display of the spelling and grammar indicators on the given text range.
@@ -606,23 +606,23 @@ func NSTextViewFromID(id objc.ID) NSTextView {
 //   - [INSTextView.HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount]: Handles the text checking results returned by the text view
 //   - [INSTextView.EnabledTextCheckingTypes]: The default text checking types.
 //   - [INSTextView.SetEnabledTextCheckingTypes]
-//   - [INSTextView.AutomaticDashSubstitutionEnabled]: A Boolean value that indicates whether automatic dash substitution is enabled.
+//   - [INSTextView.IsAutomaticDashSubstitutionEnabled]: A Boolean value that indicates whether automatic dash substitution is enabled.
 //   - [INSTextView.SetAutomaticDashSubstitutionEnabled]
 //   - [INSTextView.ToggleAutomaticDashSubstitution]: Toggles the state of the automatic dash substitution.
-//   - [INSTextView.AutomaticDataDetectionEnabled]: A Boolean value that indicates whether automatic data detection is enabled.
+//   - [INSTextView.IsAutomaticDataDetectionEnabled]: A Boolean value that indicates whether automatic data detection is enabled.
 //   - [INSTextView.SetAutomaticDataDetectionEnabled]
 //   - [INSTextView.ToggleAutomaticDataDetection]: Toggles the state of the automatic data detection.
-//   - [INSTextView.AutomaticSpellingCorrectionEnabled]: A Boolean value that indicates whether automatic spelling correction is enabled.
+//   - [INSTextView.IsAutomaticSpellingCorrectionEnabled]: A Boolean value that indicates whether automatic spelling correction is enabled.
 //   - [INSTextView.SetAutomaticSpellingCorrectionEnabled]
 //   - [INSTextView.ToggleAutomaticSpellingCorrection]: Toggles the state of the automatic spelling correction.
-//   - [INSTextView.AutomaticTextReplacementEnabled]: A Boolean value that indicates whether automatic text replacement is enabled.
+//   - [INSTextView.IsAutomaticTextReplacementEnabled]: A Boolean value that indicates whether automatic text replacement is enabled.
 //   - [INSTextView.SetAutomaticTextReplacementEnabled]
 //   - [INSTextView.ToggleAutomaticTextReplacement]: Toggles the state of the automatic text replacement.
 //   - [INSTextView.PerformValidatedReplacementInRangeWithAttributedString]: Replaces text in the range you specify with the attributed string you provide.
 //
 // # Getting the writing tools status
 //
-//   - [INSTextView.WritingToolsActive]
+//   - [INSTextView.IsWritingToolsActive]
 //
 // # Supporting QuickLook
 //
@@ -639,7 +639,7 @@ func NSTextViewFromID(id objc.ID) NSTextView {
 //
 //   - [INSTextView.UsesFindBar]: A Boolean value that indicates whether to use the find bar for this text view.
 //   - [INSTextView.SetUsesFindBar]
-//   - [INSTextView.IncrementalSearchingEnabled]: A Boolean value that indicates whether incremental searching is enabled.
+//   - [INSTextView.IsIncrementalSearchingEnabled]: A Boolean value that indicates whether incremental searching is enabled.
 //   - [INSTextView.SetIncrementalSearchingEnabled]
 //
 // # Interacting with the Touch Bar
@@ -750,12 +750,12 @@ type INSTextView interface {
 	AllowsImageEditing() bool
 	SetAllowsImageEditing(value bool)
 	// A Boolean value that enables and disables automatic quotation mark substitution.
-	AutomaticQuoteSubstitutionEnabled() bool
+	IsAutomaticQuoteSubstitutionEnabled() bool
 	SetAutomaticQuoteSubstitutionEnabled(value bool)
 	// Changes the state of automatic quotation mark substitution from enabled to disabled and vice versa.
 	ToggleAutomaticQuoteSubstitution(sender objectivec.IObject)
 	// A Boolean value that enables or disables automatic link detection.
-	AutomaticLinkDetectionEnabled() bool
+	IsAutomaticLinkDetectionEnabled() bool
 	SetAutomaticLinkDetectionEnabled(value bool)
 	// Changes the state of automatic link detection from enabled to disabled and vice versa.
 	ToggleAutomaticLinkDetection(sender objectivec.IObject)
@@ -763,7 +763,7 @@ type INSTextView interface {
 	DisplaysLinkToolTips() bool
 	SetDisplaysLinkToolTips(value bool)
 	// A Boolean value that indicates whether the text view supplies autocompletion suggestions as the user types.
-	AutomaticTextCompletionEnabled() bool
+	IsAutomaticTextCompletionEnabled() bool
 	SetAutomaticTextCompletionEnabled(value bool)
 	ToggleAutomaticTextCompletion(sender objectivec.IObject)
 	// A Boolean value that indicates whether the framework should use adaptive color mapping for dark appearance.
@@ -876,7 +876,7 @@ type INSTextView interface {
 	// Informs the receiver that it should begin coalescing successive typing operations in a new undo grouping.
 	BreakUndoCoalescing()
 	// A Boolean value that indicates whether undo coalescing is in progress.
-	CoalescingUndo() bool
+	IsCoalescingUndo() bool
 
 	// Topic: Customizing subclass behaviors
 
@@ -925,14 +925,14 @@ type INSTextView interface {
 	// Topic: Working with the spelling checker
 
 	// A Boolean value that indicates whether the receiver has continuous spell checking enabled.
-	ContinuousSpellCheckingEnabled() bool
+	IsContinuousSpellCheckingEnabled() bool
 	SetContinuousSpellCheckingEnabled(value bool)
 	// A tag identifying the text view’s text as a document for the spell checker server.
 	SpellCheckerDocumentTag() int
 	// Toggles whether continuous spell checking is enabled for the receiver.
 	ToggleContinuousSpellChecking(sender objectivec.IObject)
 	// Enables and disables grammar checking.
-	GrammarCheckingEnabled() bool
+	IsGrammarCheckingEnabled() bool
 	SetGrammarCheckingEnabled(value bool)
 	// Changes the state of grammar checking from enabled to disabled and vice versa.
 	ToggleGrammarChecking(sender objectivec.IObject)
@@ -1004,22 +1004,22 @@ type INSTextView interface {
 	EnabledTextCheckingTypes() uint64
 	SetEnabledTextCheckingTypes(value uint64)
 	// A Boolean value that indicates whether automatic dash substitution is enabled.
-	AutomaticDashSubstitutionEnabled() bool
+	IsAutomaticDashSubstitutionEnabled() bool
 	SetAutomaticDashSubstitutionEnabled(value bool)
 	// Toggles the state of the automatic dash substitution.
 	ToggleAutomaticDashSubstitution(sender objectivec.IObject)
 	// A Boolean value that indicates whether automatic data detection is enabled.
-	AutomaticDataDetectionEnabled() bool
+	IsAutomaticDataDetectionEnabled() bool
 	SetAutomaticDataDetectionEnabled(value bool)
 	// Toggles the state of the automatic data detection.
 	ToggleAutomaticDataDetection(sender objectivec.IObject)
 	// A Boolean value that indicates whether automatic spelling correction is enabled.
-	AutomaticSpellingCorrectionEnabled() bool
+	IsAutomaticSpellingCorrectionEnabled() bool
 	SetAutomaticSpellingCorrectionEnabled(value bool)
 	// Toggles the state of the automatic spelling correction.
 	ToggleAutomaticSpellingCorrection(sender objectivec.IObject)
 	// A Boolean value that indicates whether automatic text replacement is enabled.
-	AutomaticTextReplacementEnabled() bool
+	IsAutomaticTextReplacementEnabled() bool
 	SetAutomaticTextReplacementEnabled(value bool)
 	// Toggles the state of the automatic text replacement.
 	ToggleAutomaticTextReplacement(sender objectivec.IObject)
@@ -1028,7 +1028,7 @@ type INSTextView interface {
 
 	// Topic: Getting the writing tools status
 
-	WritingToolsActive() bool
+	IsWritingToolsActive() bool
 
 	// Topic: Supporting QuickLook
 
@@ -1052,7 +1052,7 @@ type INSTextView interface {
 	UsesFindBar() bool
 	SetUsesFindBar(value bool)
 	// A Boolean value that indicates whether incremental searching is enabled.
-	IncrementalSearchingEnabled() bool
+	IsIncrementalSearchingEnabled() bool
 	SetIncrementalSearchingEnabled(value bool)
 
 	// Topic: Interacting with the Touch Bar
@@ -3700,7 +3700,7 @@ func (t NSTextView) SetAllowsImageEditing(value bool) {
 // typographically accurate symbols.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isAutomaticQuoteSubstitutionEnabled
-func (t NSTextView) AutomaticQuoteSubstitutionEnabled() bool {
+func (t NSTextView) IsAutomaticQuoteSubstitutionEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isAutomaticQuoteSubstitutionEnabled"))
 	return rv
 }
@@ -3718,7 +3718,7 @@ func (t NSTextView) SetAutomaticQuoteSubstitutionEnabled(value bool) {
 // to be automatically made into links to those URLs.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isAutomaticLinkDetectionEnabled
-func (t NSTextView) AutomaticLinkDetectionEnabled() bool {
+func (t NSTextView) IsAutomaticLinkDetectionEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isAutomaticLinkDetectionEnabled"))
 	return rv
 }
@@ -3749,7 +3749,7 @@ func (t NSTextView) SetDisplaysLinkToolTips(value bool) {
 // autocompletion suggestions as the user types.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isAutomaticTextCompletionEnabled
-func (t NSTextView) AutomaticTextCompletionEnabled() bool {
+func (t NSTextView) IsAutomaticTextCompletionEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isAutomaticTextCompletionEnabled"))
 	return rv
 }
@@ -3982,7 +3982,7 @@ func (t NSTextView) SetTypingAttributes(value foundation.INSDictionary) {
 // true if undo coalescing is in progress, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isCoalescingUndo
-func (t NSTextView) CoalescingUndo() bool {
+func (t NSTextView) IsCoalescingUndo() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isCoalescingUndo"))
 	return rv
 }
@@ -4123,7 +4123,7 @@ func (t NSTextView) SetSmartInsertDeleteEnabled(value bool) {
 // checking enabled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isContinuousSpellCheckingEnabled
-func (t NSTextView) ContinuousSpellCheckingEnabled() bool {
+func (t NSTextView) IsContinuousSpellCheckingEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isContinuousSpellCheckingEnabled"))
 	return rv
 }
@@ -4156,7 +4156,7 @@ func (t NSTextView) SpellCheckerDocumentTag() int {
 // If true, grammar checking is enabled; if false, it is disabled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isGrammarCheckingEnabled
-func (t NSTextView) GrammarCheckingEnabled() bool {
+func (t NSTextView) IsGrammarCheckingEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isGrammarCheckingEnabled"))
 	return rv
 }
@@ -4237,7 +4237,7 @@ func (t NSTextView) SetEnabledTextCheckingTypes(value uint64) {
 // two ASCII hyphen (`-`) characters into an em-dash.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isAutomaticDashSubstitutionEnabled
-func (t NSTextView) AutomaticDashSubstitutionEnabled() bool {
+func (t NSTextView) IsAutomaticDashSubstitutionEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isAutomaticDashSubstitutionEnabled"))
 	return rv
 }
@@ -4253,7 +4253,7 @@ func (t NSTextView) SetAutomaticDashSubstitutionEnabled(value bool) {
 // numbers.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isAutomaticDataDetectionEnabled
-func (t NSTextView) AutomaticDataDetectionEnabled() bool {
+func (t NSTextView) IsAutomaticDataDetectionEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isAutomaticDataDetectionEnabled"))
 	return rv
 }
@@ -4269,7 +4269,7 @@ func (t NSTextView) SetAutomaticDataDetectionEnabled(value bool) {
 // true if it is enabled, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isAutomaticSpellingCorrectionEnabled
-func (t NSTextView) AutomaticSpellingCorrectionEnabled() bool {
+func (t NSTextView) IsAutomaticSpellingCorrectionEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isAutomaticSpellingCorrectionEnabled"))
 	return rv
 }
@@ -4288,7 +4288,7 @@ func (t NSTextView) SetAutomaticSpellingCorrectionEnabled(value bool) {
 // variety of static text items based on user preferences.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isAutomaticTextReplacementEnabled
-func (t NSTextView) AutomaticTextReplacementEnabled() bool {
+func (t NSTextView) IsAutomaticTextReplacementEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isAutomaticTextReplacementEnabled"))
 	return rv
 }
@@ -4297,7 +4297,7 @@ func (t NSTextView) SetAutomaticTextReplacementEnabled(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isWritingToolsActive
-func (t NSTextView) WritingToolsActive() bool {
+func (t NSTextView) IsWritingToolsActive() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isWritingToolsActive"))
 	return rv
 }
@@ -4330,7 +4330,7 @@ func (t NSTextView) SetUsesFindBar(value bool) {
 // See [NSTextFinder] for information about the find bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isIncrementalSearchingEnabled
-func (t NSTextView) IncrementalSearchingEnabled() bool {
+func (t NSTextView) IsIncrementalSearchingEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isIncrementalSearchingEnabled"))
 	return rv
 }

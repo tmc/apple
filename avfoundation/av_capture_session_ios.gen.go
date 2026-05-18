@@ -16,7 +16,7 @@ import (
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/isInterrupted
-func (c AVCaptureSession) Interrupted() bool {
+func (c AVCaptureSession) IsInterrupted() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isInterrupted"))
 	return rv
 }
@@ -47,7 +47,7 @@ func (c AVCaptureSession) Interrupted() bool {
 // [Accessing the camera while multitasking on iPad]: https://developer.apple.com/documentation/AVKit/accessing-the-camera-while-multitasking-on-ipad
 // [UIBackgroundModes]: https://developer.apple.com/documentation/BundleResources/Information-Property-List/UIBackgroundModes
 // [com.apple.developer.avfoundation.multitasking-camera-access]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.developer.avfoundation.multitasking-camera-access
-func (c AVCaptureSession) MultitaskingCameraAccessSupported() bool {
+func (c AVCaptureSession) IsMultitaskingCameraAccessSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isMultitaskingCameraAccessSupported"))
 	return rv
 }
@@ -71,7 +71,7 @@ func (c AVCaptureSession) MultitaskingCameraAccessSupported() bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/isMultitaskingCameraAccessEnabled
 //
 // [Accessing the camera while multitasking on iPad]: https://developer.apple.com/documentation/AVKit/accessing-the-camera-while-multitasking-on-ipad
-func (c AVCaptureSession) MultitaskingCameraAccessEnabled() bool {
+func (c AVCaptureSession) IsMultitaskingCameraAccessEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isMultitaskingCameraAccessEnabled"))
 	return rv
 }

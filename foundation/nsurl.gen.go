@@ -201,7 +201,7 @@ func (nc NSURLClass) Alloc() NSURL {
 //
 //   - [NSURL.CheckResourceIsReachableAndReturnError]: Returns whether the resource pointed to by a file URL can be reached.
 //   - [NSURL.IsFileReferenceURL]: Returns whether the URL is a file reference URL.
-//   - [NSURL.FileURL]: A boolean value that determines whether the receiver is a file URL.
+//   - [NSURL.IsFileURL]: A boolean value that determines whether the receiver is a file URL.
 //
 // # Accessing the Parts of the URL
 //
@@ -332,7 +332,7 @@ func NSURLFromID(id objc.ID) NSURL {
 //
 //   - [INSURL.CheckResourceIsReachableAndReturnError]: Returns whether the resource pointed to by a file URL can be reached.
 //   - [INSURL.IsFileReferenceURL]: Returns whether the URL is a file reference URL.
-//   - [INSURL.FileURL]: A boolean value that determines whether the receiver is a file URL.
+//   - [INSURL.IsFileURL]: A boolean value that determines whether the receiver is a file URL.
 //
 // # Accessing the Parts of the URL
 //
@@ -438,7 +438,7 @@ type INSURL interface {
 	// Returns whether the URL is a file reference URL.
 	IsFileReferenceURL() bool
 	// A boolean value that determines whether the receiver is a file URL.
-	FileURL() bool
+	IsFileURL() bool
 
 	// Topic: Accessing the Parts of the URL
 
@@ -2373,7 +2373,7 @@ func (u NSURL) DataRepresentation() INSData {
 // [NSPathUtilities].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/isFileURL
-func (u NSURL) FileURL() bool {
+func (u NSURL) IsFileURL() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isFileURL"))
 	return rv
 }

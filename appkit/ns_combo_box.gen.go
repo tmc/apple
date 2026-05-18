@@ -74,7 +74,7 @@ func (nc NSComboBoxClass) Alloc() NSComboBox {
 //   - [NSComboBox.SetHasVerticalScroller]
 //   - [NSComboBox.IntercellSpacing]: The horizontal and vertical spacing between cells in the pop-up list.
 //   - [NSComboBox.SetIntercellSpacing]
-//   - [NSComboBox.ButtonBordered]: A Boolean value indicating whether the combo box displays a border.
+//   - [NSComboBox.IsButtonBordered]: A Boolean value indicating whether the combo box displays a border.
 //   - [NSComboBox.SetButtonBordered]
 //   - [NSComboBox.ItemHeight]: The height of each item in the pop-up list.
 //   - [NSComboBox.SetItemHeight]
@@ -145,7 +145,7 @@ func NSComboBoxFromID(id objc.ID) NSComboBox {
 //   - [INSComboBox.SetHasVerticalScroller]
 //   - [INSComboBox.IntercellSpacing]: The horizontal and vertical spacing between cells in the pop-up list.
 //   - [INSComboBox.SetIntercellSpacing]
-//   - [INSComboBox.ButtonBordered]: A Boolean value indicating whether the combo box displays a border.
+//   - [INSComboBox.IsButtonBordered]: A Boolean value indicating whether the combo box displays a border.
 //   - [INSComboBox.SetButtonBordered]
 //   - [INSComboBox.ItemHeight]: The height of each item in the pop-up list.
 //   - [INSComboBox.SetItemHeight]
@@ -205,7 +205,7 @@ type INSComboBox interface {
 	IntercellSpacing() corefoundation.CGSize
 	SetIntercellSpacing(value corefoundation.CGSize)
 	// A Boolean value indicating whether the combo box displays a border.
-	ButtonBordered() bool
+	IsButtonBordered() bool
 	SetButtonBordered(value bool)
 	// The height of each item in the pop-up list.
 	ItemHeight() float64
@@ -690,7 +690,7 @@ func (c NSComboBox) SetIntercellSpacing(value corefoundation.CGSize) {
 // is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBox/isButtonBordered
-func (c NSComboBox) ButtonBordered() bool {
+func (c NSComboBox) IsButtonBordered() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isButtonBordered"))
 	return rv
 }

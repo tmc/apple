@@ -75,12 +75,12 @@ func (nc NSGraphicsContextClass) Alloc() NSGraphicsContext {
 //
 // # Testing the Drawing Destination
 //
-//   - [NSGraphicsContext.DrawingToScreen]: A Boolean value that indicates whether the drawing destination is the screen.
+//   - [NSGraphicsContext.IsDrawingToScreen]: A Boolean value that indicates whether the drawing destination is the screen.
 //
 // # Getting Information About the Context
 //
 //   - [NSGraphicsContext.Attributes]: The attributes used to create this instance.
-//   - [NSGraphicsContext.Flipped]: A Boolean value that indicates the graphics context’s flipped state.
+//   - [NSGraphicsContext.IsFlipped]: A Boolean value that indicates the graphics context’s flipped state.
 //
 // # Flushing Graphics to the Context
 //
@@ -131,12 +131,12 @@ func NSGraphicsContextFromID(id objc.ID) NSGraphicsContext {
 //
 // # Testing the Drawing Destination
 //
-//   - [INSGraphicsContext.DrawingToScreen]: A Boolean value that indicates whether the drawing destination is the screen.
+//   - [INSGraphicsContext.IsDrawingToScreen]: A Boolean value that indicates whether the drawing destination is the screen.
 //
 // # Getting Information About the Context
 //
 //   - [INSGraphicsContext.Attributes]: The attributes used to create this instance.
-//   - [INSGraphicsContext.Flipped]: A Boolean value that indicates the graphics context’s flipped state.
+//   - [INSGraphicsContext.IsFlipped]: A Boolean value that indicates the graphics context’s flipped state.
 //
 // # Flushing Graphics to the Context
 //
@@ -174,14 +174,14 @@ type INSGraphicsContext interface {
 	// Topic: Testing the Drawing Destination
 
 	// A Boolean value that indicates whether the drawing destination is the screen.
-	DrawingToScreen() bool
+	IsDrawingToScreen() bool
 
 	// Topic: Getting Information About the Context
 
 	// The attributes used to create this instance.
 	Attributes() foundation.INSDictionary
 	// A Boolean value that indicates the graphics context’s flipped state.
-	Flipped() bool
+	IsFlipped() bool
 
 	// Topic: Flushing Graphics to the Context
 
@@ -377,7 +377,7 @@ func (g NSGraphicsContext) CGContext() coregraphics.CGContextRef {
 // if additional information is available about the drawing destination.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/isDrawingToScreen
-func (g NSGraphicsContext) DrawingToScreen() bool {
+func (g NSGraphicsContext) IsDrawingToScreen() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isDrawingToScreen"))
 	return rv
 }
@@ -405,7 +405,7 @@ func (g NSGraphicsContext) Attributes() foundation.INSDictionary {
 // the `flipped` parameter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/isFlipped
-func (g NSGraphicsContext) Flipped() bool {
+func (g NSGraphicsContext) IsFlipped() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isFlipped"))
 	return rv
 }

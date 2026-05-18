@@ -47,9 +47,9 @@ func (nc NSScrubberArrangedViewClass) Alloc() NSScrubberArrangedView {
 //
 // # Managing selection and highlighting
 //
-//   - [NSScrubberArrangedView.Highlighted]: A Boolean value that specifies whether the view is currently highlighted.
+//   - [NSScrubberArrangedView.IsHighlighted]: A Boolean value that specifies whether the view is currently highlighted.
 //   - [NSScrubberArrangedView.SetHighlighted]
-//   - [NSScrubberArrangedView.Selected]: A Boolean value that specifies whether the current view is selected.
+//   - [NSScrubberArrangedView.IsSelected]: A Boolean value that specifies whether the current view is selected.
 //   - [NSScrubberArrangedView.SetSelected]
 //
 // # Controlling the layout
@@ -75,9 +75,9 @@ func NSScrubberArrangedViewFromID(id objc.ID) NSScrubberArrangedView {
 //
 // # Managing selection and highlighting
 //
-//   - [INSScrubberArrangedView.Highlighted]: A Boolean value that specifies whether the view is currently highlighted.
+//   - [INSScrubberArrangedView.IsHighlighted]: A Boolean value that specifies whether the view is currently highlighted.
 //   - [INSScrubberArrangedView.SetHighlighted]
-//   - [INSScrubberArrangedView.Selected]: A Boolean value that specifies whether the current view is selected.
+//   - [INSScrubberArrangedView.IsSelected]: A Boolean value that specifies whether the current view is selected.
 //   - [INSScrubberArrangedView.SetSelected]
 //
 // # Controlling the layout
@@ -91,10 +91,10 @@ type INSScrubberArrangedView interface {
 	// Topic: Managing selection and highlighting
 
 	// A Boolean value that specifies whether the view is currently highlighted.
-	Highlighted() bool
+	IsHighlighted() bool
 	SetHighlighted(value bool)
 	// A Boolean value that specifies whether the current view is selected.
-	Selected() bool
+	IsSelected() bool
 	SetSelected(value bool)
 
 	// Topic: Controlling the layout
@@ -173,7 +173,7 @@ func (s NSScrubberArrangedView) ApplyLayoutAttributes(layoutAttributes INSScrubb
 // A Boolean value that specifies whether the view is currently highlighted.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberArrangedView/isHighlighted
-func (s NSScrubberArrangedView) Highlighted() bool {
+func (s NSScrubberArrangedView) IsHighlighted() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isHighlighted"))
 	return rv
 }
@@ -184,7 +184,7 @@ func (s NSScrubberArrangedView) SetHighlighted(value bool) {
 // A Boolean value that specifies whether the current view is selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberArrangedView/isSelected
-func (s NSScrubberArrangedView) Selected() bool {
+func (s NSScrubberArrangedView) IsSelected() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSelected"))
 	return rv
 }

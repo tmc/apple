@@ -53,7 +53,7 @@ func (ac AVRouteDetectorClass) Alloc() AVRouteDetector {
 //
 // # Detecting routes
 //
-//   - [AVRouteDetector.RouteDetectionEnabled]: A Boolean value that indicates whether route detection is in an enabled state.
+//   - [AVRouteDetector.IsRouteDetectionEnabled]: A Boolean value that indicates whether route detection is in an enabled state.
 //   - [AVRouteDetector.SetRouteDetectionEnabled]
 //   - [AVRouteDetector.MultipleRoutesDetected]: A Boolean value that indicates whether the object detects more than one playback route.
 //   - [AVRouteDetector.AVRouteDetectorMultipleRoutesDetectedDidChange]: A notification the system posts when changes occur to its detected routes.
@@ -79,7 +79,7 @@ func AVRouteDetectorFromID(id objc.ID) AVRouteDetector {
 //
 // # Detecting routes
 //
-//   - [IAVRouteDetector.RouteDetectionEnabled]: A Boolean value that indicates whether route detection is in an enabled state.
+//   - [IAVRouteDetector.IsRouteDetectionEnabled]: A Boolean value that indicates whether route detection is in an enabled state.
 //   - [IAVRouteDetector.SetRouteDetectionEnabled]
 //   - [IAVRouteDetector.MultipleRoutesDetected]: A Boolean value that indicates whether the object detects more than one playback route.
 //   - [IAVRouteDetector.AVRouteDetectorMultipleRoutesDetectedDidChange]: A notification the system posts when changes occur to its detected routes.
@@ -91,7 +91,7 @@ type IAVRouteDetector interface {
 	// Topic: Detecting routes
 
 	// A Boolean value that indicates whether route detection is in an enabled state.
-	RouteDetectionEnabled() bool
+	IsRouteDetectionEnabled() bool
 	SetRouteDetectionEnabled(value bool)
 	// A Boolean value that indicates whether the object detects more than one playback route.
 	MultipleRoutesDetected() bool
@@ -126,7 +126,7 @@ func NewAVRouteDetector() AVRouteDetector {
 // The default value is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVRouteDetector/isRouteDetectionEnabled
-func (r AVRouteDetector) RouteDetectionEnabled() bool {
+func (r AVRouteDetector) IsRouteDetectionEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isRouteDetectionEnabled"))
 	return rv
 }

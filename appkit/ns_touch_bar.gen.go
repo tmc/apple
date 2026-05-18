@@ -589,7 +589,7 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 //
 // # Observing bar status
 //
-//   - [NSTouchBar.Visible]: A Boolean value that Indicates whether the Touch Bar is eligible for display.
+//   - [NSTouchBar.IsVisible]: A Boolean value that Indicates whether the Touch Bar is eligible for display.
 //   - [NSTouchBar.ItemIdentifiers]: The list of identifiers for the current items in the Touch Bar.
 //   - [NSTouchBar.ItemForIdentifier]: Returns the Touch Bar item that corresponds to a given identifier.
 //
@@ -648,7 +648,7 @@ func NSTouchBarFromID(id objc.ID) NSTouchBar {
 //
 // # Observing bar status
 //
-//   - [INSTouchBar.Visible]: A Boolean value that Indicates whether the Touch Bar is eligible for display.
+//   - [INSTouchBar.IsVisible]: A Boolean value that Indicates whether the Touch Bar is eligible for display.
 //   - [INSTouchBar.ItemIdentifiers]: The list of identifiers for the current items in the Touch Bar.
 //   - [INSTouchBar.ItemForIdentifier]: Returns the Touch Bar item that corresponds to a given identifier.
 //
@@ -691,7 +691,7 @@ type INSTouchBar interface {
 	// Topic: Observing bar status
 
 	// A Boolean value that Indicates whether the Touch Bar is eligible for display.
-	Visible() bool
+	IsVisible() bool
 	// The list of identifiers for the current items in the Touch Bar.
 	ItemIdentifiers() []string
 	// Returns the Touch Bar item that corresponds to a given identifier.
@@ -960,7 +960,7 @@ func (t NSTouchBar) SetEscapeKeyReplacementItemIdentifier(value NSTouchBarItemId
 // This property is key–value observable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBar/isVisible
-func (t NSTouchBar) Visible() bool {
+func (t NSTouchBar) IsVisible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isVisible"))
 	return rv
 }
@@ -1184,7 +1184,7 @@ func (t NSTouchBar) SetTrackFillColor(value INSColor) {
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBar/isAutomaticCustomizeTouchBarMenuItemEnabled
-func (_NSTouchBarClass NSTouchBarClass) AutomaticCustomizeTouchBarMenuItemEnabled() bool {
+func (_NSTouchBarClass NSTouchBarClass) IsAutomaticCustomizeTouchBarMenuItemEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSTouchBarClass.class), objc.Sel("isAutomaticCustomizeTouchBarMenuItemEnabled"))
 	return rv
 }

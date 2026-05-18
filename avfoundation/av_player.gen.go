@@ -180,7 +180,7 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 //
 //   - [AVPlayer.Volume]: The audio playback volume for the player.
 //   - [AVPlayer.SetVolume]
-//   - [AVPlayer.Muted]: A Boolean value that indicates whether the audio output of the player is muted.
+//   - [AVPlayer.IsMuted]: A Boolean value that indicates whether the audio output of the player is muted.
 //   - [AVPlayer.SetMuted]
 //   - [AVPlayer.AllowedAudioSpatializationFormats]: The source audio channel layouts the player item supports for spatialization.
 //   - [AVPlayer.SetAllowedAudioSpatializationFormats]
@@ -196,7 +196,7 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 //
 //   - [AVPlayer.AllowsExternalPlayback]: A Boolean value that indicates whether the player allows switching to external playback mode.
 //   - [AVPlayer.SetAllowsExternalPlayback]
-//   - [AVPlayer.ExternalPlaybackActive]: A Boolean value that indicates whether the player is currently playing video in external playback mode.
+//   - [AVPlayer.IsExternalPlaybackActive]: A Boolean value that indicates whether the player is currently playing video in external playback mode.
 //
 // # Coordinating playback
 //
@@ -328,7 +328,7 @@ func AVPlayerFromID(id objc.ID) AVPlayer {
 //
 //   - [IAVPlayer.Volume]: The audio playback volume for the player.
 //   - [IAVPlayer.SetVolume]
-//   - [IAVPlayer.Muted]: A Boolean value that indicates whether the audio output of the player is muted.
+//   - [IAVPlayer.IsMuted]: A Boolean value that indicates whether the audio output of the player is muted.
 //   - [IAVPlayer.SetMuted]
 //   - [IAVPlayer.AllowedAudioSpatializationFormats]: The source audio channel layouts the player item supports for spatialization.
 //   - [IAVPlayer.SetAllowedAudioSpatializationFormats]
@@ -344,7 +344,7 @@ func AVPlayerFromID(id objc.ID) AVPlayer {
 //
 //   - [IAVPlayer.AllowsExternalPlayback]: A Boolean value that indicates whether the player allows switching to external playback mode.
 //   - [IAVPlayer.SetAllowsExternalPlayback]
-//   - [IAVPlayer.ExternalPlaybackActive]: A Boolean value that indicates whether the player is currently playing video in external playback mode.
+//   - [IAVPlayer.IsExternalPlaybackActive]: A Boolean value that indicates whether the player is currently playing video in external playback mode.
 //
 // # Coordinating playback
 //
@@ -490,7 +490,7 @@ type IAVPlayer interface {
 	Volume() float32
 	SetVolume(value float32)
 	// A Boolean value that indicates whether the audio output of the player is muted.
-	Muted() bool
+	IsMuted() bool
 	SetMuted(value bool)
 	// The source audio channel layouts the player item supports for spatialization.
 	AllowedAudioSpatializationFormats() AVAudioSpatializationFormats
@@ -511,7 +511,7 @@ type IAVPlayer interface {
 	AllowsExternalPlayback() bool
 	SetAllowsExternalPlayback(value bool)
 	// A Boolean value that indicates whether the player is currently playing video in external playback mode.
-	ExternalPlaybackActive() bool
+	IsExternalPlaybackActive() bool
 
 	// Topic: Coordinating playback
 
@@ -1426,7 +1426,7 @@ func (p AVPlayer) SetVolume(value float32) {
 // muted.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/isMuted
-func (p AVPlayer) Muted() bool {
+func (p AVPlayer) IsMuted() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isMuted"))
 	return rv
 }
@@ -1490,7 +1490,7 @@ func (p AVPlayer) SetAllowsExternalPlayback(value bool) {
 // video in external playback mode.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/isExternalPlaybackActive
-func (p AVPlayer) ExternalPlaybackActive() bool {
+func (p AVPlayer) IsExternalPlaybackActive() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isExternalPlaybackActive"))
 	return rv
 }
@@ -1700,7 +1700,7 @@ func (_AVPlayerClass AVPlayerClass) EligibleForHDRPlayback() bool {
 // please refer to https://developer.apple.com/documentation/swiftui/state.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/isObservationEnabled
-func (_AVPlayerClass AVPlayerClass) ObservationEnabled() bool {
+func (_AVPlayerClass AVPlayerClass) IsObservationEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_AVPlayerClass.class), objc.Sel("isObservationEnabled"))
 	return rv
 }

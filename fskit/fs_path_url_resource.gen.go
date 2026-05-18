@@ -57,7 +57,7 @@ func (fc FSPathURLResourceClass) Alloc() FSPathURLResource {
 // # Accessing resource properties
 //
 //   - [FSPathURLResource.Url]: The URL represented by the resource.
-//   - [FSPathURLResource.Writable]: A Boolean value that indicates whether the file system supports writing to the contents of the path URL.
+//   - [FSPathURLResource.IsWritable]: A Boolean value that indicates whether the file system supports writing to the contents of the path URL.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSPathURLResource
 type FSPathURLResource struct {
@@ -83,7 +83,7 @@ func FSPathURLResourceFromID(id objc.ID) FSPathURLResource {
 // # Accessing resource properties
 //
 //   - [IFSPathURLResource.Url]: The URL represented by the resource.
-//   - [IFSPathURLResource.Writable]: A Boolean value that indicates whether the file system supports writing to the contents of the path URL.
+//   - [IFSPathURLResource.IsWritable]: A Boolean value that indicates whether the file system supports writing to the contents of the path URL.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSPathURLResource
 type IFSPathURLResource interface {
@@ -99,7 +99,7 @@ type IFSPathURLResource interface {
 	// The URL represented by the resource.
 	Url() foundation.NSURL
 	// A Boolean value that indicates whether the file system supports writing to the contents of the path URL.
-	Writable() bool
+	IsWritable() bool
 }
 
 // Init initializes the instance.
@@ -162,7 +162,7 @@ func (p FSPathURLResource) Url() foundation.NSURL {
 // the contents of the path URL.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/isWritable
-func (p FSPathURLResource) Writable() bool {
+func (p FSPathURLResource) IsWritable() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isWritable"))
 	return rv
 }

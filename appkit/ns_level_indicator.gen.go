@@ -114,7 +114,7 @@ func (nc NSLevelIndicatorClass) Alloc() NSLevelIndicator {
 //
 // # Controlling the Edit Behavior
 //
-//   - [NSLevelIndicator.Editable]
+//   - [NSLevelIndicator.IsEditable]
 //   - [NSLevelIndicator.SetEditable]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator
@@ -180,7 +180,7 @@ func NSLevelIndicatorFromID(id objc.ID) NSLevelIndicator {
 //
 // # Controlling the Edit Behavior
 //
-//   - [INSLevelIndicator.Editable]
+//   - [INSLevelIndicator.IsEditable]
 //   - [INSLevelIndicator.SetEditable]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator
@@ -245,7 +245,7 @@ type INSLevelIndicator interface {
 
 	// Topic: Controlling the Edit Behavior
 
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 }
 
@@ -523,7 +523,7 @@ func (l NSLevelIndicator) SetPlaceholderVisibility(value NSLevelIndicatorPlaceho
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/isEditable
-func (l NSLevelIndicator) Editable() bool {
+func (l NSLevelIndicator) IsEditable() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isEditable"))
 	return rv
 }

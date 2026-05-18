@@ -62,7 +62,7 @@ func (nc NSColorPanelClass) Alloc() NSColorPanel {
 //
 //   - [NSColorPanel.AccessoryView]: The accessory view.
 //   - [NSColorPanel.SetAccessoryView]
-//   - [NSColorPanel.Continuous]: A Boolean value indicating whether the receiver continuously sends the action message to the target.
+//   - [NSColorPanel.IsContinuous]: A Boolean value indicating whether the receiver continuously sends the action message to the target.
 //   - [NSColorPanel.SetContinuous]
 //   - [NSColorPanel.SetAction]: Sets the color panel’s action message.
 //   - [NSColorPanel.SetTarget]: Sets the target of the receiver.
@@ -114,7 +114,7 @@ func NSColorPanelFromID(id objc.ID) NSColorPanel {
 //
 //   - [INSColorPanel.AccessoryView]: The accessory view.
 //   - [INSColorPanel.SetAccessoryView]
-//   - [INSColorPanel.Continuous]: A Boolean value indicating whether the receiver continuously sends the action message to the target.
+//   - [INSColorPanel.IsContinuous]: A Boolean value indicating whether the receiver continuously sends the action message to the target.
 //   - [INSColorPanel.SetContinuous]
 //   - [INSColorPanel.SetAction]: Sets the color panel’s action message.
 //   - [INSColorPanel.SetTarget]: Sets the target of the receiver.
@@ -156,7 +156,7 @@ type INSColorPanel interface {
 	AccessoryView() INSView
 	SetAccessoryView(value INSView)
 	// A Boolean value indicating whether the receiver continuously sends the action message to the target.
-	Continuous() bool
+	IsContinuous() bool
 	SetContinuous(value bool)
 	// Sets the color panel’s action message.
 	SetAction(selector objc.SEL)
@@ -501,7 +501,7 @@ func (c NSColorPanel) SetAccessoryView(value INSView) {
 // action message to the target.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/isContinuous
-func (c NSColorPanel) Continuous() bool {
+func (c NSColorPanel) IsContinuous() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isContinuous"))
 	return rv
 }

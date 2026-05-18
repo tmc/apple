@@ -48,7 +48,7 @@ func (ac AVAssetTrackSegmentClass) Alloc() AVAssetTrackSegment {
 // # Retrieving segment information
 //
 //   - [AVAssetTrackSegment.TimeMapping]: The time range of the track that this segment presents.
-//   - [AVAssetTrackSegment.Empty]: A Boolean value that indicates whether the segment is empty.
+//   - [AVAssetTrackSegment.IsEmpty]: A Boolean value that indicates whether the segment is empty.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackSegment
 type AVAssetTrackSegment struct {
@@ -70,7 +70,7 @@ func AVAssetTrackSegmentFromID(id objc.ID) AVAssetTrackSegment {
 // # Retrieving segment information
 //
 //   - [IAVAssetTrackSegment.TimeMapping]: The time range of the track that this segment presents.
-//   - [IAVAssetTrackSegment.Empty]: A Boolean value that indicates whether the segment is empty.
+//   - [IAVAssetTrackSegment.IsEmpty]: A Boolean value that indicates whether the segment is empty.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackSegment
 type IAVAssetTrackSegment interface {
@@ -81,7 +81,7 @@ type IAVAssetTrackSegment interface {
 	// The time range of the track that this segment presents.
 	TimeMapping() coremedia.CMTimeMapping
 	// A Boolean value that indicates whether the segment is empty.
-	Empty() bool
+	IsEmpty() bool
 }
 
 // Init initializes the instance.
@@ -114,7 +114,7 @@ func (a AVAssetTrackSegment) TimeMapping() coremedia.CMTimeMapping {
 // A Boolean value that indicates whether the segment is empty.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackSegment/isEmpty
-func (a AVAssetTrackSegment) Empty() bool {
+func (a AVAssetTrackSegment) IsEmpty() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isEmpty"))
 	return rv
 }

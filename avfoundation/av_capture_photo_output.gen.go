@@ -117,15 +117,15 @@ func (ac AVCapturePhotoOutputClass) Alloc() AVCapturePhotoOutput {
 // # Managing responsive capture
 //
 //   - [AVCapturePhotoOutput.CaptureReadiness]: A value that specifies whether the photo output is ready to respond to new capture requests in a timely manner.
-//   - [AVCapturePhotoOutput.FastCapturePrioritizationSupported]: A Boolean value that indicates whether the photo output supports fast capture prioritization.
+//   - [AVCapturePhotoOutput.IsFastCapturePrioritizationSupported]: A Boolean value that indicates whether the photo output supports fast capture prioritization.
 //   - [AVCapturePhotoOutput.SetFastCapturePrioritizationSupported]
-//   - [AVCapturePhotoOutput.FastCapturePrioritizationEnabled]: A Boolean value that indicates whether the output enables fast capture prioritization.
+//   - [AVCapturePhotoOutput.IsFastCapturePrioritizationEnabled]: A Boolean value that indicates whether the output enables fast capture prioritization.
 //   - [AVCapturePhotoOutput.SetFastCapturePrioritizationEnabled]
-//   - [AVCapturePhotoOutput.ResponsiveCaptureSupported]: A Boolean value that indicates whether the photo output supports responsive capture.
-//   - [AVCapturePhotoOutput.ResponsiveCaptureEnabled]: A Boolean value that indicates whether the photo output configuration enables responsive capture.
+//   - [AVCapturePhotoOutput.IsResponsiveCaptureSupported]: A Boolean value that indicates whether the photo output supports responsive capture.
+//   - [AVCapturePhotoOutput.IsResponsiveCaptureEnabled]: A Boolean value that indicates whether the photo output configuration enables responsive capture.
 //   - [AVCapturePhotoOutput.SetResponsiveCaptureEnabled]
-//   - [AVCapturePhotoOutput.ZeroShutterLagSupported]: A Boolean value that indicates whether the photo output supports zero shutter lag.
-//   - [AVCapturePhotoOutput.ZeroShutterLagEnabled]: A Boolean value that indicates whether the photo output configuration enables zero shutter lag.
+//   - [AVCapturePhotoOutput.IsZeroShutterLagSupported]: A Boolean value that indicates whether the photo output supports zero shutter lag.
+//   - [AVCapturePhotoOutput.IsZeroShutterLagEnabled]: A Boolean value that indicates whether the photo output configuration enables zero shutter lag.
 //   - [AVCapturePhotoOutput.SetZeroShutterLagEnabled]
 //
 // # Determining supported pixel formats
@@ -143,7 +143,7 @@ func (ac AVCapturePhotoOutputClass) Alloc() AVCapturePhotoOutput {
 //
 // # Suppressing the shutter sound
 //
-//   - [AVCapturePhotoOutput.ShutterSoundSuppressionSupported]: A Boolean value that indicates whether the photo output supports suppressing the system shutter sound.
+//   - [AVCapturePhotoOutput.IsShutterSoundSuppressionSupported]: A Boolean value that indicates whether the photo output supports suppressing the system shutter sound.
 //
 // # Determining available settings
 //
@@ -166,8 +166,8 @@ func (ac AVCapturePhotoOutputClass) Alloc() AVCapturePhotoOutput {
 //
 // # Configuring constant color
 //
-//   - [AVCapturePhotoOutput.ConstantColorSupported]: A Boolean value that indicates whether a photo output supports constant color capture.
-//   - [AVCapturePhotoOutput.ConstantColorEnabled]: A Boolean value that indicates whether the photo output configures the render pipeline to perform constant color capture.
+//   - [AVCapturePhotoOutput.IsConstantColorSupported]: A Boolean value that indicates whether a photo output supports constant color capture.
+//   - [AVCapturePhotoOutput.IsConstantColorEnabled]: A Boolean value that indicates whether the photo output configures the render pipeline to perform constant color capture.
 //   - [AVCapturePhotoOutput.SetConstantColorEnabled]
 //
 // # Setting the capture prioritization
@@ -203,15 +203,15 @@ func AVCapturePhotoOutputFromID(id objc.ID) AVCapturePhotoOutput {
 // # Managing responsive capture
 //
 //   - [IAVCapturePhotoOutput.CaptureReadiness]: A value that specifies whether the photo output is ready to respond to new capture requests in a timely manner.
-//   - [IAVCapturePhotoOutput.FastCapturePrioritizationSupported]: A Boolean value that indicates whether the photo output supports fast capture prioritization.
+//   - [IAVCapturePhotoOutput.IsFastCapturePrioritizationSupported]: A Boolean value that indicates whether the photo output supports fast capture prioritization.
 //   - [IAVCapturePhotoOutput.SetFastCapturePrioritizationSupported]
-//   - [IAVCapturePhotoOutput.FastCapturePrioritizationEnabled]: A Boolean value that indicates whether the output enables fast capture prioritization.
+//   - [IAVCapturePhotoOutput.IsFastCapturePrioritizationEnabled]: A Boolean value that indicates whether the output enables fast capture prioritization.
 //   - [IAVCapturePhotoOutput.SetFastCapturePrioritizationEnabled]
-//   - [IAVCapturePhotoOutput.ResponsiveCaptureSupported]: A Boolean value that indicates whether the photo output supports responsive capture.
-//   - [IAVCapturePhotoOutput.ResponsiveCaptureEnabled]: A Boolean value that indicates whether the photo output configuration enables responsive capture.
+//   - [IAVCapturePhotoOutput.IsResponsiveCaptureSupported]: A Boolean value that indicates whether the photo output supports responsive capture.
+//   - [IAVCapturePhotoOutput.IsResponsiveCaptureEnabled]: A Boolean value that indicates whether the photo output configuration enables responsive capture.
 //   - [IAVCapturePhotoOutput.SetResponsiveCaptureEnabled]
-//   - [IAVCapturePhotoOutput.ZeroShutterLagSupported]: A Boolean value that indicates whether the photo output supports zero shutter lag.
-//   - [IAVCapturePhotoOutput.ZeroShutterLagEnabled]: A Boolean value that indicates whether the photo output configuration enables zero shutter lag.
+//   - [IAVCapturePhotoOutput.IsZeroShutterLagSupported]: A Boolean value that indicates whether the photo output supports zero shutter lag.
+//   - [IAVCapturePhotoOutput.IsZeroShutterLagEnabled]: A Boolean value that indicates whether the photo output configuration enables zero shutter lag.
 //   - [IAVCapturePhotoOutput.SetZeroShutterLagEnabled]
 //
 // # Determining supported pixel formats
@@ -229,7 +229,7 @@ func AVCapturePhotoOutputFromID(id objc.ID) AVCapturePhotoOutput {
 //
 // # Suppressing the shutter sound
 //
-//   - [IAVCapturePhotoOutput.ShutterSoundSuppressionSupported]: A Boolean value that indicates whether the photo output supports suppressing the system shutter sound.
+//   - [IAVCapturePhotoOutput.IsShutterSoundSuppressionSupported]: A Boolean value that indicates whether the photo output supports suppressing the system shutter sound.
 //
 // # Determining available settings
 //
@@ -252,8 +252,8 @@ func AVCapturePhotoOutputFromID(id objc.ID) AVCapturePhotoOutput {
 //
 // # Configuring constant color
 //
-//   - [IAVCapturePhotoOutput.ConstantColorSupported]: A Boolean value that indicates whether a photo output supports constant color capture.
-//   - [IAVCapturePhotoOutput.ConstantColorEnabled]: A Boolean value that indicates whether the photo output configures the render pipeline to perform constant color capture.
+//   - [IAVCapturePhotoOutput.IsConstantColorSupported]: A Boolean value that indicates whether a photo output supports constant color capture.
+//   - [IAVCapturePhotoOutput.IsConstantColorEnabled]: A Boolean value that indicates whether the photo output configures the render pipeline to perform constant color capture.
 //   - [IAVCapturePhotoOutput.SetConstantColorEnabled]
 //
 // # Setting the capture prioritization
@@ -275,20 +275,20 @@ type IAVCapturePhotoOutput interface {
 	// A value that specifies whether the photo output is ready to respond to new capture requests in a timely manner.
 	CaptureReadiness() AVCapturePhotoOutputCaptureReadiness
 	// A Boolean value that indicates whether the photo output supports fast capture prioritization.
-	FastCapturePrioritizationSupported() bool
+	IsFastCapturePrioritizationSupported() bool
 	SetFastCapturePrioritizationSupported(value bool)
 	// A Boolean value that indicates whether the output enables fast capture prioritization.
-	FastCapturePrioritizationEnabled() bool
+	IsFastCapturePrioritizationEnabled() bool
 	SetFastCapturePrioritizationEnabled(value bool)
 	// A Boolean value that indicates whether the photo output supports responsive capture.
-	ResponsiveCaptureSupported() bool
+	IsResponsiveCaptureSupported() bool
 	// A Boolean value that indicates whether the photo output configuration enables responsive capture.
-	ResponsiveCaptureEnabled() bool
+	IsResponsiveCaptureEnabled() bool
 	SetResponsiveCaptureEnabled(value bool)
 	// A Boolean value that indicates whether the photo output supports zero shutter lag.
-	ZeroShutterLagSupported() bool
+	IsZeroShutterLagSupported() bool
 	// A Boolean value that indicates whether the photo output configuration enables zero shutter lag.
-	ZeroShutterLagEnabled() bool
+	IsZeroShutterLagEnabled() bool
 	SetZeroShutterLagEnabled(value bool)
 
 	// Topic: Determining supported pixel formats
@@ -311,7 +311,7 @@ type IAVCapturePhotoOutput interface {
 	// Topic: Suppressing the shutter sound
 
 	// A Boolean value that indicates whether the photo output supports suppressing the system shutter sound.
-	ShutterSoundSuppressionSupported() bool
+	IsShutterSoundSuppressionSupported() bool
 
 	// Topic: Determining available settings
 
@@ -339,9 +339,9 @@ type IAVCapturePhotoOutput interface {
 	// Topic: Configuring constant color
 
 	// A Boolean value that indicates whether a photo output supports constant color capture.
-	ConstantColorSupported() bool
+	IsConstantColorSupported() bool
 	// A Boolean value that indicates whether the photo output configures the render pipeline to perform constant color capture.
-	ConstantColorEnabled() bool
+	IsConstantColorEnabled() bool
 	SetConstantColorEnabled(value bool)
 
 	// Topic: Setting the capture prioritization
@@ -480,7 +480,7 @@ func (c AVCapturePhotoOutput) CaptureReadiness() AVCapturePhotoOutputCaptureRead
 // capture prioritization.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isFastCapturePrioritizationSupported
-func (c AVCapturePhotoOutput) FastCapturePrioritizationSupported() bool {
+func (c AVCapturePhotoOutput) IsFastCapturePrioritizationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFastCapturePrioritizationSupported"))
 	return rv
 }
@@ -492,7 +492,7 @@ func (c AVCapturePhotoOutput) SetFastCapturePrioritizationSupported(value bool) 
 // prioritization.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isFastCapturePrioritizationEnabled
-func (c AVCapturePhotoOutput) FastCapturePrioritizationEnabled() bool {
+func (c AVCapturePhotoOutput) IsFastCapturePrioritizationEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFastCapturePrioritizationEnabled"))
 	return rv
 }
@@ -504,7 +504,7 @@ func (c AVCapturePhotoOutput) SetFastCapturePrioritizationEnabled(value bool) {
 // capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isResponsiveCaptureSupported
-func (c AVCapturePhotoOutput) ResponsiveCaptureSupported() bool {
+func (c AVCapturePhotoOutput) IsResponsiveCaptureSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isResponsiveCaptureSupported"))
 	return rv
 }
@@ -513,7 +513,7 @@ func (c AVCapturePhotoOutput) ResponsiveCaptureSupported() bool {
 // enables responsive capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isResponsiveCaptureEnabled
-func (c AVCapturePhotoOutput) ResponsiveCaptureEnabled() bool {
+func (c AVCapturePhotoOutput) IsResponsiveCaptureEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isResponsiveCaptureEnabled"))
 	return rv
 }
@@ -525,7 +525,7 @@ func (c AVCapturePhotoOutput) SetResponsiveCaptureEnabled(value bool) {
 // shutter lag.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isZeroShutterLagSupported
-func (c AVCapturePhotoOutput) ZeroShutterLagSupported() bool {
+func (c AVCapturePhotoOutput) IsZeroShutterLagSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isZeroShutterLagSupported"))
 	return rv
 }
@@ -534,7 +534,7 @@ func (c AVCapturePhotoOutput) ZeroShutterLagSupported() bool {
 // enables zero shutter lag.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isZeroShutterLagEnabled
-func (c AVCapturePhotoOutput) ZeroShutterLagEnabled() bool {
+func (c AVCapturePhotoOutput) IsZeroShutterLagEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isZeroShutterLagEnabled"))
 	return rv
 }
@@ -620,7 +620,7 @@ func (c AVCapturePhotoOutput) AvailablePhotoFileTypes() []string {
 // [AVCapturePhotoSettings].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isShutterSoundSuppressionSupported
-func (c AVCapturePhotoOutput) ShutterSoundSuppressionSupported() bool {
+func (c AVCapturePhotoOutput) IsShutterSoundSuppressionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isShutterSoundSuppressionSupported"))
 	return rv
 }
@@ -737,7 +737,7 @@ func (c AVCapturePhotoOutput) SetPortraitEffectsMatte(value IAVPortraitEffectsMa
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isConstantColorSupported
-func (c AVCapturePhotoOutput) ConstantColorSupported() bool {
+func (c AVCapturePhotoOutput) IsConstantColorSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isConstantColorSupported"))
 	return rv
 }
@@ -752,7 +752,7 @@ func (c AVCapturePhotoOutput) ConstantColorSupported() bool {
 // the value of [ConstantColorSupported] is true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isConstantColorEnabled
-func (c AVCapturePhotoOutput) ConstantColorEnabled() bool {
+func (c AVCapturePhotoOutput) IsConstantColorEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isConstantColorEnabled"))
 	return rv
 }

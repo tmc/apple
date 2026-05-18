@@ -104,7 +104,7 @@ func (nc NSCollectionViewLayoutAttributesClass) Alloc() NSCollectionViewLayoutAt
 //   - [NSCollectionViewLayoutAttributes.SetSize]
 //   - [NSCollectionViewLayoutAttributes.Alpha]: The transparency of the element.
 //   - [NSCollectionViewLayoutAttributes.SetAlpha]
-//   - [NSCollectionViewLayoutAttributes.Hidden]: A Boolean value indicating whether the element is hidden.
+//   - [NSCollectionViewLayoutAttributes.IsHidden]: A Boolean value indicating whether the element is hidden.
 //   - [NSCollectionViewLayoutAttributes.SetHidden]
 //   - [NSCollectionViewLayoutAttributes.ZIndex]: The element’s position on the z axis.
 //   - [NSCollectionViewLayoutAttributes.SetZIndex]
@@ -146,7 +146,7 @@ func NSCollectionViewLayoutAttributesFromID(id objc.ID) NSCollectionViewLayoutAt
 //   - [INSCollectionViewLayoutAttributes.SetSize]
 //   - [INSCollectionViewLayoutAttributes.Alpha]: The transparency of the element.
 //   - [INSCollectionViewLayoutAttributes.SetAlpha]
-//   - [INSCollectionViewLayoutAttributes.Hidden]: A Boolean value indicating whether the element is hidden.
+//   - [INSCollectionViewLayoutAttributes.IsHidden]: A Boolean value indicating whether the element is hidden.
 //   - [INSCollectionViewLayoutAttributes.SetHidden]
 //   - [INSCollectionViewLayoutAttributes.ZIndex]: The element’s position on the z axis.
 //   - [INSCollectionViewLayoutAttributes.SetZIndex]
@@ -177,7 +177,7 @@ type INSCollectionViewLayoutAttributes interface {
 	Alpha() float64
 	SetAlpha(value float64)
 	// A Boolean value indicating whether the element is hidden.
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 	// The element’s position on the z axis.
 	ZIndex() int
@@ -428,7 +428,7 @@ func (c NSCollectionViewLayoutAttributes) SetAlpha(value float64) {
 // do not participate in hit testing for the collection view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/isHidden
-func (c NSCollectionViewLayoutAttributes) Hidden() bool {
+func (c NSCollectionViewLayoutAttributes) IsHidden() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isHidden"))
 	return rv
 }

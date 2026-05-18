@@ -48,9 +48,9 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 //
 // # Configuring Music Track Properties
 //
-//   - [AVMusicTrack.Muted]: A Boolean value that indicates whether the track is in a muted state.
+//   - [AVMusicTrack.IsMuted]: A Boolean value that indicates whether the track is in a muted state.
 //   - [AVMusicTrack.SetMuted]
-//   - [AVMusicTrack.Soloed]: A Boolean value that indicates whether the track is in a soloed state.
+//   - [AVMusicTrack.IsSoloed]: A Boolean value that indicates whether the track is in a soloed state.
 //   - [AVMusicTrack.SetSoloed]
 //   - [AVMusicTrack.OffsetTime]: The offset of the track’s start time, in beats.
 //   - [AVMusicTrack.SetOffsetTime]
@@ -72,7 +72,7 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 //
 // # Configuring the Looping State
 //
-//   - [AVMusicTrack.LoopingEnabled]: A Boolean value that indicates whether the track is in a looping state.
+//   - [AVMusicTrack.IsLoopingEnabled]: A Boolean value that indicates whether the track is in a looping state.
 //   - [AVMusicTrack.SetLoopingEnabled]
 //   - [AVMusicTrack.LoopRange]: The timestamp range for the loop, in beats.
 //   - [AVMusicTrack.SetLoopRange]
@@ -121,9 +121,9 @@ func AVMusicTrackFromID(id objc.ID) AVMusicTrack {
 //
 // # Configuring Music Track Properties
 //
-//   - [IAVMusicTrack.Muted]: A Boolean value that indicates whether the track is in a muted state.
+//   - [IAVMusicTrack.IsMuted]: A Boolean value that indicates whether the track is in a muted state.
 //   - [IAVMusicTrack.SetMuted]
-//   - [IAVMusicTrack.Soloed]: A Boolean value that indicates whether the track is in a soloed state.
+//   - [IAVMusicTrack.IsSoloed]: A Boolean value that indicates whether the track is in a soloed state.
 //   - [IAVMusicTrack.SetSoloed]
 //   - [IAVMusicTrack.OffsetTime]: The offset of the track’s start time, in beats.
 //   - [IAVMusicTrack.SetOffsetTime]
@@ -145,7 +145,7 @@ func AVMusicTrackFromID(id objc.ID) AVMusicTrack {
 //
 // # Configuring the Looping State
 //
-//   - [IAVMusicTrack.LoopingEnabled]: A Boolean value that indicates whether the track is in a looping state.
+//   - [IAVMusicTrack.IsLoopingEnabled]: A Boolean value that indicates whether the track is in a looping state.
 //   - [IAVMusicTrack.SetLoopingEnabled]
 //   - [IAVMusicTrack.LoopRange]: The timestamp range for the loop, in beats.
 //   - [IAVMusicTrack.SetLoopRange]
@@ -180,10 +180,10 @@ type IAVMusicTrack interface {
 	// Topic: Configuring Music Track Properties
 
 	// A Boolean value that indicates whether the track is in a muted state.
-	Muted() bool
+	IsMuted() bool
 	SetMuted(value bool)
 	// A Boolean value that indicates whether the track is in a soloed state.
-	Soloed() bool
+	IsSoloed() bool
 	SetSoloed(value bool)
 	// The offset of the track’s start time, in beats.
 	OffsetTime() AVMusicTimeStamp
@@ -212,7 +212,7 @@ type IAVMusicTrack interface {
 	// Topic: Configuring the Looping State
 
 	// A Boolean value that indicates whether the track is in a looping state.
-	LoopingEnabled() bool
+	IsLoopingEnabled() bool
 	SetLoopingEnabled(value bool)
 	// The timestamp range for the loop, in beats.
 	LoopRange() AVBeatRange
@@ -402,7 +402,7 @@ func (m AVMusicTrack) EnumerateEventsInRangeUsingBlock(range_ AVBeatRange, block
 // A Boolean value that indicates whether the track is in a muted state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/isMuted
-func (m AVMusicTrack) Muted() bool {
+func (m AVMusicTrack) IsMuted() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isMuted"))
 	return rv
 }
@@ -413,7 +413,7 @@ func (m AVMusicTrack) SetMuted(value bool) {
 // A Boolean value that indicates whether the track is in a soloed state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/isSoloed
-func (m AVMusicTrack) Soloed() bool {
+func (m AVMusicTrack) IsSoloed() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSoloed"))
 	return rv
 }
@@ -545,7 +545,7 @@ func (m AVMusicTrack) SetDestinationAudioUnit(value IAVAudioUnit) {
 // If you don’t set [LoopRange], the framework loops the full track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/isLoopingEnabled
-func (m AVMusicTrack) LoopingEnabled() bool {
+func (m AVMusicTrack) IsLoopingEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isLoopingEnabled"))
 	return rv
 }

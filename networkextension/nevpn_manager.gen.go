@@ -62,13 +62,13 @@ func (nc NEVPNManagerClass) Alloc() NEVPNManager {
 //
 // # Accessing VPN configuration properties
 //
-//   - [NEVPNManager.Enabled]: A Boolean used to toggle the enabled state of the VPN configuration.
+//   - [NEVPNManager.IsEnabled]: A Boolean used to toggle the enabled state of the VPN configuration.
 //   - [NEVPNManager.SetEnabled]
 //   - [NEVPNManager.ProtocolConfiguration]: An [NEVPNProtocol](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
 //   - [NEVPNManager.SetProtocolConfiguration]
 //   - [NEVPNManager.LocalizedDescription]: A string containing the display name of the VPN configuration.
 //   - [NEVPNManager.SetLocalizedDescription]
-//   - [NEVPNManager.OnDemandEnabled]: A Boolean used to toggle the Connect On Demand capability.
+//   - [NEVPNManager.IsOnDemandEnabled]: A Boolean used to toggle the Connect On Demand capability.
 //   - [NEVPNManager.SetOnDemandEnabled]
 //   - [NEVPNManager.OnDemandRules]: An ordered list of Connect On Demand rules.
 //   - [NEVPNManager.SetOnDemandRules]
@@ -110,13 +110,13 @@ func NEVPNManagerFromID(id objc.ID) NEVPNManager {
 //
 // # Accessing VPN configuration properties
 //
-//   - [INEVPNManager.Enabled]: A Boolean used to toggle the enabled state of the VPN configuration.
+//   - [INEVPNManager.IsEnabled]: A Boolean used to toggle the enabled state of the VPN configuration.
 //   - [INEVPNManager.SetEnabled]
 //   - [INEVPNManager.ProtocolConfiguration]: An [NEVPNProtocol](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
 //   - [INEVPNManager.SetProtocolConfiguration]
 //   - [INEVPNManager.LocalizedDescription]: A string containing the display name of the VPN configuration.
 //   - [INEVPNManager.SetLocalizedDescription]
-//   - [INEVPNManager.OnDemandEnabled]: A Boolean used to toggle the Connect On Demand capability.
+//   - [INEVPNManager.IsOnDemandEnabled]: A Boolean used to toggle the Connect On Demand capability.
 //   - [INEVPNManager.SetOnDemandEnabled]
 //   - [INEVPNManager.OnDemandRules]: An ordered list of Connect On Demand rules.
 //   - [INEVPNManager.SetOnDemandRules]
@@ -149,7 +149,7 @@ type INEVPNManager interface {
 	// Topic: Accessing VPN configuration properties
 
 	// A Boolean used to toggle the enabled state of the VPN configuration.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// An [NEVPNProtocol](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
 	ProtocolConfiguration() INEVPNProtocol
@@ -158,7 +158,7 @@ type INEVPNManager interface {
 	LocalizedDescription() string
 	SetLocalizedDescription(value string)
 	// A Boolean used to toggle the Connect On Demand capability.
-	OnDemandEnabled() bool
+	IsOnDemandEnabled() bool
 	SetOnDemandEnabled(value bool)
 	// An ordered list of Connect On Demand rules.
 	OnDemandRules() []NEOnDemandRule
@@ -299,7 +299,7 @@ func (_NEVPNManagerClass NEVPNManagerClass) SharedManager() NEVPNManager {
 //
 // [NEVPNConfigurationChangeNotification]: https://developer.apple.com/documentation/NetworkExtension/NEVPNConfigurationChangeNotification
 // [NotificationCenter]: https://developer.apple.com/documentation/Foundation/NotificationCenter
-func (v NEVPNManager) Enabled() bool {
+func (v NEVPNManager) IsEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isEnabled"))
 	return rv
 }
@@ -349,7 +349,7 @@ func (v NEVPNManager) SetLocalizedDescription(value string) {
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/isOnDemandEnabled
-func (v NEVPNManager) OnDemandEnabled() bool {
+func (v NEVPNManager) IsOnDemandEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isOnDemandEnabled"))
 	return rv
 }

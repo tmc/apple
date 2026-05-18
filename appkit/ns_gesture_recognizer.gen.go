@@ -185,7 +185,7 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 //
 //   - [NSGestureRecognizer.State]: The current state of the gesture recognizer.
 //   - [NSGestureRecognizer.View]: The view to which the gesture recognizer is attached.
-//   - [NSGestureRecognizer.Enabled]: A Boolean value indicating whether the gesture recognizer is able to handle events.
+//   - [NSGestureRecognizer.IsEnabled]: A Boolean value indicating whether the gesture recognizer is able to handle events.
 //   - [NSGestureRecognizer.SetEnabled]
 //
 // # Delaying Events
@@ -296,7 +296,7 @@ func NSGestureRecognizerFromID(id objc.ID) NSGestureRecognizer {
 //
 //   - [INSGestureRecognizer.State]: The current state of the gesture recognizer.
 //   - [INSGestureRecognizer.View]: The view to which the gesture recognizer is attached.
-//   - [INSGestureRecognizer.Enabled]: A Boolean value indicating whether the gesture recognizer is able to handle events.
+//   - [INSGestureRecognizer.IsEnabled]: A Boolean value indicating whether the gesture recognizer is able to handle events.
 //   - [INSGestureRecognizer.SetEnabled]
 //
 // # Delaying Events
@@ -398,7 +398,7 @@ type INSGestureRecognizer interface {
 	// The view to which the gesture recognizer is attached.
 	View() INSView
 	// A Boolean value indicating whether the gesture recognizer is able to handle events.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 
 	// Topic: Delaying Events
@@ -1208,7 +1208,7 @@ func (g NSGestureRecognizer) View() INSView {
 // The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/isEnabled
-func (g NSGestureRecognizer) Enabled() bool {
+func (g NSGestureRecognizer) IsEnabled() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isEnabled"))
 	return rv
 }

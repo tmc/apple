@@ -64,9 +64,9 @@ func (wc WKPreferencesClass) Alloc() WKPreferences {
 //
 //   - [WKPreferences.TabFocusesLinks]: A Boolean value that indicates whether pressing the tab key changes the focus to links and form controls.
 //   - [WKPreferences.SetTabFocusesLinks]
-//   - [WKPreferences.TextInteractionEnabled]: A Boolean value that indicates whether to allow people to select or otherwise interact with text.
+//   - [WKPreferences.IsTextInteractionEnabled]: A Boolean value that indicates whether to allow people to select or otherwise interact with text.
 //   - [WKPreferences.SetTextInteractionEnabled]
-//   - [WKPreferences.ElementFullscreenEnabled]: A Boolean value that indicates whether a web view can display content full screen.
+//   - [WKPreferences.IsElementFullscreenEnabled]: A Boolean value that indicates whether a web view can display content full screen.
 //   - [WKPreferences.SetElementFullscreenEnabled]
 //   - [WKPreferences.InactiveSchedulingPolicy]: A policy you set to specify how a web view that’s not in a window handles tasks.
 //   - [WKPreferences.SetInactiveSchedulingPolicy]
@@ -75,12 +75,12 @@ func (wc WKPreferencesClass) Alloc() WKPreferences {
 //
 //   - [WKPreferences.JavaScriptCanOpenWindowsAutomatically]: A Boolean value that indicates whether JavaScript can open windows without user interaction.
 //   - [WKPreferences.SetJavaScriptCanOpenWindowsAutomatically]
-//   - [WKPreferences.SiteSpecificQuirksModeEnabled]: A Boolean that indicates whether to apply site-specific compatibility workarounds.
+//   - [WKPreferences.IsSiteSpecificQuirksModeEnabled]: A Boolean that indicates whether to apply site-specific compatibility workarounds.
 //   - [WKPreferences.SetSiteSpecificQuirksModeEnabled]
 //
 // # Setting Fraud Warning Preferences
 //
-//   - [WKPreferences.FraudulentWebsiteWarningEnabled]: A Boolean value that indicates whether the web view shows warnings for suspected fraudulent content, such as malware or phishing attemps.
+//   - [WKPreferences.IsFraudulentWebsiteWarningEnabled]: A Boolean value that indicates whether the web view shows warnings for suspected fraudulent content, such as malware or phishing attemps.
 //   - [WKPreferences.SetFraudulentWebsiteWarningEnabled]
 //
 // See: https://developer.apple.com/documentation/WebKit/WKPreferences
@@ -111,9 +111,9 @@ func WKPreferencesFromID(id objc.ID) WKPreferences {
 //
 //   - [IWKPreferences.TabFocusesLinks]: A Boolean value that indicates whether pressing the tab key changes the focus to links and form controls.
 //   - [IWKPreferences.SetTabFocusesLinks]
-//   - [IWKPreferences.TextInteractionEnabled]: A Boolean value that indicates whether to allow people to select or otherwise interact with text.
+//   - [IWKPreferences.IsTextInteractionEnabled]: A Boolean value that indicates whether to allow people to select or otherwise interact with text.
 //   - [IWKPreferences.SetTextInteractionEnabled]
-//   - [IWKPreferences.ElementFullscreenEnabled]: A Boolean value that indicates whether a web view can display content full screen.
+//   - [IWKPreferences.IsElementFullscreenEnabled]: A Boolean value that indicates whether a web view can display content full screen.
 //   - [IWKPreferences.SetElementFullscreenEnabled]
 //   - [IWKPreferences.InactiveSchedulingPolicy]: A policy you set to specify how a web view that’s not in a window handles tasks.
 //   - [IWKPreferences.SetInactiveSchedulingPolicy]
@@ -122,12 +122,12 @@ func WKPreferencesFromID(id objc.ID) WKPreferences {
 //
 //   - [IWKPreferences.JavaScriptCanOpenWindowsAutomatically]: A Boolean value that indicates whether JavaScript can open windows without user interaction.
 //   - [IWKPreferences.SetJavaScriptCanOpenWindowsAutomatically]
-//   - [IWKPreferences.SiteSpecificQuirksModeEnabled]: A Boolean that indicates whether to apply site-specific compatibility workarounds.
+//   - [IWKPreferences.IsSiteSpecificQuirksModeEnabled]: A Boolean that indicates whether to apply site-specific compatibility workarounds.
 //   - [IWKPreferences.SetSiteSpecificQuirksModeEnabled]
 //
 // # Setting Fraud Warning Preferences
 //
-//   - [IWKPreferences.FraudulentWebsiteWarningEnabled]: A Boolean value that indicates whether the web view shows warnings for suspected fraudulent content, such as malware or phishing attemps.
+//   - [IWKPreferences.IsFraudulentWebsiteWarningEnabled]: A Boolean value that indicates whether the web view shows warnings for suspected fraudulent content, such as malware or phishing attemps.
 //   - [IWKPreferences.SetFraudulentWebsiteWarningEnabled]
 //
 // See: https://developer.apple.com/documentation/WebKit/WKPreferences
@@ -149,10 +149,10 @@ type IWKPreferences interface {
 	TabFocusesLinks() bool
 	SetTabFocusesLinks(value bool)
 	// A Boolean value that indicates whether to allow people to select or otherwise interact with text.
-	TextInteractionEnabled() bool
+	IsTextInteractionEnabled() bool
 	SetTextInteractionEnabled(value bool)
 	// A Boolean value that indicates whether a web view can display content full screen.
-	ElementFullscreenEnabled() bool
+	IsElementFullscreenEnabled() bool
 	SetElementFullscreenEnabled(value bool)
 	// A policy you set to specify how a web view that’s not in a window handles tasks.
 	InactiveSchedulingPolicy() WKInactiveSchedulingPolicy
@@ -164,13 +164,13 @@ type IWKPreferences interface {
 	JavaScriptCanOpenWindowsAutomatically() bool
 	SetJavaScriptCanOpenWindowsAutomatically(value bool)
 	// A Boolean that indicates whether to apply site-specific compatibility workarounds.
-	SiteSpecificQuirksModeEnabled() bool
+	IsSiteSpecificQuirksModeEnabled() bool
 	SetSiteSpecificQuirksModeEnabled(value bool)
 
 	// Topic: Setting Fraud Warning Preferences
 
 	// A Boolean value that indicates whether the web view shows warnings for suspected fraudulent content, such as malware or phishing attemps.
-	FraudulentWebsiteWarningEnabled() bool
+	IsFraudulentWebsiteWarningEnabled() bool
 	SetFraudulentWebsiteWarningEnabled(value bool)
 
 	// The object that manages the preference-related settings for the web view.
@@ -260,7 +260,7 @@ func (p WKPreferences) SetTabFocusesLinks(value bool) {
 // the default value is false.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKPreferences/isTextInteractionEnabled
-func (p WKPreferences) TextInteractionEnabled() bool {
+func (p WKPreferences) IsTextInteractionEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isTextInteractionEnabled"))
 	return rv
 }
@@ -276,7 +276,7 @@ func (p WKPreferences) SetTextInteractionEnabled(value bool) {
 // The default value for this preference is false.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKPreferences/isElementFullscreenEnabled
-func (p WKPreferences) ElementFullscreenEnabled() bool {
+func (p WKPreferences) IsElementFullscreenEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isElementFullscreenEnabled"))
 	return rv
 }
@@ -330,7 +330,7 @@ func (p WKPreferences) SetJavaScriptCanOpenWindowsAutomatically(value bool) {
 // The default value for this preference is true.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKPreferences/isSiteSpecificQuirksModeEnabled
-func (p WKPreferences) SiteSpecificQuirksModeEnabled() bool {
+func (p WKPreferences) IsSiteSpecificQuirksModeEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isSiteSpecificQuirksModeEnabled"))
 	return rv
 }
@@ -346,7 +346,7 @@ func (p WKPreferences) SetSiteSpecificQuirksModeEnabled(value bool) {
 // The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKPreferences/isFraudulentWebsiteWarningEnabled
-func (p WKPreferences) FraudulentWebsiteWarningEnabled() bool {
+func (p WKPreferences) IsFraudulentWebsiteWarningEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isFraudulentWebsiteWarningEnabled"))
 	return rv
 }

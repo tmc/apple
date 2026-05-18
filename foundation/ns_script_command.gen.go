@@ -109,7 +109,7 @@ func (nc NSScriptCommandClass) Alloc() NSScriptCommand {
 // # Getting command information
 //
 //   - [NSScriptCommand.CommandDescription]: Returns the command description for the command.
-//   - [NSScriptCommand.WellFormed]: Returns a Boolean value indicating whether the receiver is well formed according to its command description.
+//   - [NSScriptCommand.IsWellFormed]: Returns a Boolean value indicating whether the receiver is well formed according to its command description.
 //
 // # Handling script execution errors
 //
@@ -180,7 +180,7 @@ func NSScriptCommandFromID(id objc.ID) NSScriptCommand {
 // # Getting command information
 //
 //   - [INSScriptCommand.CommandDescription]: Returns the command description for the command.
-//   - [INSScriptCommand.WellFormed]: Returns a Boolean value indicating whether the receiver is well formed according to its command description.
+//   - [INSScriptCommand.IsWellFormed]: Returns a Boolean value indicating whether the receiver is well formed according to its command description.
 //
 // # Handling script execution errors
 //
@@ -246,7 +246,7 @@ type INSScriptCommand interface {
 	// Returns the command description for the command.
 	CommandDescription() INSScriptCommandDescription
 	// Returns a Boolean value indicating whether the receiver is well formed according to its command description.
-	WellFormed() bool
+	IsWellFormed() bool
 
 	// Topic: Handling script execution errors
 
@@ -585,7 +585,7 @@ func (s NSScriptCommand) CommandDescription() INSScriptCommandDescription {
 // command description.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/isWellFormed
-func (s NSScriptCommand) WellFormed() bool {
+func (s NSScriptCommand) IsWellFormed() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isWellFormed"))
 	return rv
 }

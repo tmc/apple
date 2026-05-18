@@ -59,7 +59,7 @@ func (nc NSSharingServicePickerTouchBarItemClass) Alloc() NSSharingServicePicker
 //
 // # Enabling the item
 //
-//   - [NSSharingServicePickerTouchBarItem.Enabled]: A Boolean value that specifies whether the sharing service picker item is enabled.
+//   - [NSSharingServicePickerTouchBarItem.IsEnabled]: A Boolean value that specifies whether the sharing service picker item is enabled.
 //   - [NSSharingServicePickerTouchBarItem.SetEnabled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerTouchBarItem
@@ -94,7 +94,7 @@ func NSSharingServicePickerTouchBarItemFromID(id objc.ID) NSSharingServicePicker
 //
 // # Enabling the item
 //
-//   - [INSSharingServicePickerTouchBarItem.Enabled]: A Boolean value that specifies whether the sharing service picker item is enabled.
+//   - [INSSharingServicePickerTouchBarItem.IsEnabled]: A Boolean value that specifies whether the sharing service picker item is enabled.
 //   - [INSSharingServicePickerTouchBarItem.SetEnabled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerTouchBarItem
@@ -119,7 +119,7 @@ type INSSharingServicePickerTouchBarItem interface {
 	// Topic: Enabling the item
 
 	// A Boolean value that specifies whether the sharing service picker item is enabled.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 }
 
@@ -218,7 +218,7 @@ func (s NSSharingServicePickerTouchBarItem) SetButtonTitle(value string) {
 // to false, the popover is dismissed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerTouchBarItem/isEnabled
-func (s NSSharingServicePickerTouchBarItem) Enabled() bool {
+func (s NSSharingServicePickerTouchBarItem) IsEnabled() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEnabled"))
 	return rv
 }

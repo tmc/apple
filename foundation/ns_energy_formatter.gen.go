@@ -47,7 +47,7 @@ func (ec EnergyFormatterClass) Alloc() EnergyFormatter {
 //
 // # Formatting Energy Strings
 //
-//   - [EnergyFormatter.ForFoodEnergyUse]: A Boolean value that indicates whether the energy value is used to measure food energy.
+//   - [EnergyFormatter.IsForFoodEnergyUse]: A Boolean value that indicates whether the energy value is used to measure food energy.
 //   - [EnergyFormatter.SetForFoodEnergyUse]
 //   - [EnergyFormatter.NumberFormatter]: The number formatter used to format the numbers in energy strings.
 //   - [EnergyFormatter.SetNumberFormatter]
@@ -80,7 +80,7 @@ func NSEnergyFormatterFromID(id objc.ID) EnergyFormatter { return EnergyFormatte
 //
 // # Formatting Energy Strings
 //
-//   - [IEnergyFormatter.ForFoodEnergyUse]: A Boolean value that indicates whether the energy value is used to measure food energy.
+//   - [IEnergyFormatter.IsForFoodEnergyUse]: A Boolean value that indicates whether the energy value is used to measure food energy.
 //   - [IEnergyFormatter.SetForFoodEnergyUse]
 //   - [IEnergyFormatter.NumberFormatter]: The number formatter used to format the numbers in energy strings.
 //   - [IEnergyFormatter.SetNumberFormatter]
@@ -98,7 +98,7 @@ type IEnergyFormatter interface {
 	// Topic: Formatting Energy Strings
 
 	// A Boolean value that indicates whether the energy value is used to measure food energy.
-	ForFoodEnergyUse() bool
+	IsForFoodEnergyUse() bool
 	SetForFoodEnergyUse(value bool)
 	// The number formatter used to format the numbers in energy strings.
 	NumberFormatter() INSNumberFormatter
@@ -230,7 +230,7 @@ func (e EnergyFormatter) UnitStringFromValueUnit(value float64, unit NSEnergyFor
 // returns false.
 //
 // See: https://developer.apple.com/documentation/Foundation/EnergyFormatter/isForFoodEnergyUse
-func (e EnergyFormatter) ForFoodEnergyUse() bool {
+func (e EnergyFormatter) IsForFoodEnergyUse() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isForFoodEnergyUse"))
 	return rv
 }

@@ -81,7 +81,7 @@ func (mc MTLRenderPipelineColorAttachmentDescriptorClass) Alloc() MTLRenderPipel
 //
 // # Controlling blend operations
 //
-//   - [MTLRenderPipelineColorAttachmentDescriptor.BlendingEnabled]: A Boolean value that determines whether blending is enabled.
+//   - [MTLRenderPipelineColorAttachmentDescriptor.IsBlendingEnabled]: A Boolean value that determines whether blending is enabled.
 //   - [MTLRenderPipelineColorAttachmentDescriptor.SetBlendingEnabled]
 //   - [MTLRenderPipelineColorAttachmentDescriptor.AlphaBlendOperation]: The blend operation assigned for the alpha data.
 //   - [MTLRenderPipelineColorAttachmentDescriptor.SetAlphaBlendOperation]
@@ -126,7 +126,7 @@ func MTLRenderPipelineColorAttachmentDescriptorFromID(id objc.ID) MTLRenderPipel
 //
 // # Controlling blend operations
 //
-//   - [IMTLRenderPipelineColorAttachmentDescriptor.BlendingEnabled]: A Boolean value that determines whether blending is enabled.
+//   - [IMTLRenderPipelineColorAttachmentDescriptor.IsBlendingEnabled]: A Boolean value that determines whether blending is enabled.
 //   - [IMTLRenderPipelineColorAttachmentDescriptor.SetBlendingEnabled]
 //   - [IMTLRenderPipelineColorAttachmentDescriptor.AlphaBlendOperation]: The blend operation assigned for the alpha data.
 //   - [IMTLRenderPipelineColorAttachmentDescriptor.SetAlphaBlendOperation]
@@ -160,7 +160,7 @@ type IMTLRenderPipelineColorAttachmentDescriptor interface {
 	// Topic: Controlling blend operations
 
 	// A Boolean value that determines whether blending is enabled.
-	BlendingEnabled() bool
+	IsBlendingEnabled() bool
 	SetBlendingEnabled(value bool)
 	// The blend operation assigned for the alpha data.
 	AlphaBlendOperation() MTLBlendOperation
@@ -259,7 +259,7 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SetWriteMask(value MTLColorW
 // combined.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineColorAttachmentDescriptor/isBlendingEnabled
-func (r MTLRenderPipelineColorAttachmentDescriptor) BlendingEnabled() bool {
+func (r MTLRenderPipelineColorAttachmentDescriptor) IsBlendingEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isBlendingEnabled"))
 	return rv
 }

@@ -56,7 +56,7 @@ func (nc NSButtonTouchBarItemClass) Alloc() NSButtonTouchBarItem {
 //
 // # Configuring button state
 //
-//   - [NSButtonTouchBarItem.Enabled]
+//   - [NSButtonTouchBarItem.IsEnabled]
 //   - [NSButtonTouchBarItem.SetEnabled]
 //
 // # Handling button interaction
@@ -94,7 +94,7 @@ func NSButtonTouchBarItemFromID(id objc.ID) NSButtonTouchBarItem {
 //
 // # Configuring button state
 //
-//   - [INSButtonTouchBarItem.Enabled]
+//   - [INSButtonTouchBarItem.IsEnabled]
 //   - [INSButtonTouchBarItem.SetEnabled]
 //
 // # Handling button interaction
@@ -119,7 +119,7 @@ type INSButtonTouchBarItem interface {
 
 	// Topic: Configuring button state
 
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 
 	// Topic: Handling button interaction
@@ -218,7 +218,7 @@ func (b NSButtonTouchBarItem) SetBezelColor(value INSColor) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/isEnabled
-func (b NSButtonTouchBarItem) Enabled() bool {
+func (b NSButtonTouchBarItem) IsEnabled() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isEnabled"))
 	return rv
 }

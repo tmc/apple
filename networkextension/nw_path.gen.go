@@ -64,8 +64,8 @@ func (nc NWPathClass) Alloc() NWPath {
 // # Getting network path properties
 //
 //   - [NWPath.Status]: The evaluated status of the network path.
-//   - [NWPath.Expensive]: A Boolean that indicates whether or not the path uses an expensive interface.
-//   - [NWPath.Constrained]: A Boolean that indicates whether or not the path uses a constrained interface, such as when using low-data mode.
+//   - [NWPath.IsExpensive]: A Boolean that indicates whether or not the path uses an expensive interface.
+//   - [NWPath.IsConstrained]: A Boolean that indicates whether or not the path uses a constrained interface, such as when using low-data mode.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWPath
 //
@@ -90,8 +90,8 @@ func NWPathFromID(id objc.ID) NWPath {
 // # Getting network path properties
 //
 //   - [INWPath.Status]: The evaluated status of the network path.
-//   - [INWPath.Expensive]: A Boolean that indicates whether or not the path uses an expensive interface.
-//   - [INWPath.Constrained]: A Boolean that indicates whether or not the path uses a constrained interface, such as when using low-data mode.
+//   - [INWPath.IsExpensive]: A Boolean that indicates whether or not the path uses an expensive interface.
+//   - [INWPath.IsConstrained]: A Boolean that indicates whether or not the path uses a constrained interface, such as when using low-data mode.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWPath
 type INWPath interface {
@@ -102,9 +102,9 @@ type INWPath interface {
 	// The evaluated status of the network path.
 	Status() NWPathStatus
 	// A Boolean that indicates whether or not the path uses an expensive interface.
-	Expensive() bool
+	IsExpensive() bool
 	// A Boolean that indicates whether or not the path uses a constrained interface, such as when using low-data mode.
-	Constrained() bool
+	IsConstrained() bool
 }
 
 // Init initializes the instance.
@@ -150,7 +150,7 @@ func (n NWPath) Status() NWPathStatus {
 // such as when using a cellular data plan.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWPath/isExpensive
-func (n NWPath) Expensive() bool {
+func (n NWPath) IsExpensive() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isExpensive"))
 	return rv
 }
@@ -159,7 +159,7 @@ func (n NWPath) Expensive() bool {
 // interface, such as when using low-data mode.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWPath/isConstrained
-func (n NWPath) Constrained() bool {
+func (n NWPath) IsConstrained() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isConstrained"))
 	return rv
 }

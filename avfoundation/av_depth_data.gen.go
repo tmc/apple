@@ -100,7 +100,7 @@ func (ac AVDepthDataClass) Alloc() AVDepthData {
 //
 // # Evaluating depth data
 //
-//   - [AVDepthData.DepthDataFiltered]: A Boolean value indicating whether the depth map contains temporally smoothed data.
+//   - [AVDepthData.IsDepthDataFiltered]: A Boolean value indicating whether the depth map contains temporally smoothed data.
 //   - [AVDepthData.DepthDataAccuracy]: The general accuracy of depth data map values.
 //   - [AVDepthData.DepthDataQuality]: The overall quality of the depth map.
 //
@@ -147,7 +147,7 @@ func AVDepthDataFromID(id objc.ID) AVDepthData {
 //
 // # Evaluating depth data
 //
-//   - [IAVDepthData.DepthDataFiltered]: A Boolean value indicating whether the depth map contains temporally smoothed data.
+//   - [IAVDepthData.IsDepthDataFiltered]: A Boolean value indicating whether the depth map contains temporally smoothed data.
 //   - [IAVDepthData.DepthDataAccuracy]: The general accuracy of depth data map values.
 //   - [IAVDepthData.DepthDataQuality]: The overall quality of the depth map.
 //
@@ -181,7 +181,7 @@ type IAVDepthData interface {
 	// Topic: Evaluating depth data
 
 	// A Boolean value indicating whether the depth map contains temporally smoothed data.
-	DepthDataFiltered() bool
+	IsDepthDataFiltered() bool
 	// The general accuracy of depth data map values.
 	DepthDataAccuracy() AVDepthDataAccuracy
 	// The overall quality of the depth map.
@@ -397,7 +397,7 @@ func (d AVDepthData) DepthDataType() uint32 {
 //
 // [AVCaptureDepthDataOutput]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutput
 // [isFilteringEnabled]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutput/isFilteringEnabled
-func (d AVDepthData) DepthDataFiltered() bool {
+func (d AVDepthData) IsDepthDataFiltered() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isDepthDataFiltered"))
 	return rv
 }

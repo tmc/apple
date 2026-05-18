@@ -84,7 +84,7 @@ func (nc NEFilterManagerClass) Alloc() NEFilterManager {
 //
 // # Accessing filter configuration properties
 //
-//   - [NEFilterManager.Enabled]: A Boolean used to toggle the enabled state of the filter.
+//   - [NEFilterManager.IsEnabled]: A Boolean used to toggle the enabled state of the filter.
 //   - [NEFilterManager.SetEnabled]
 //   - [NEFilterManager.ProviderConfiguration]: A [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
 //   - [NEFilterManager.SetProviderConfiguration]
@@ -137,7 +137,7 @@ func NEFilterManagerFromID(id objc.ID) NEFilterManager {
 //
 // # Accessing filter configuration properties
 //
-//   - [INEFilterManager.Enabled]: A Boolean used to toggle the enabled state of the filter.
+//   - [INEFilterManager.IsEnabled]: A Boolean used to toggle the enabled state of the filter.
 //   - [INEFilterManager.SetEnabled]
 //   - [INEFilterManager.ProviderConfiguration]: A [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
 //   - [INEFilterManager.SetProviderConfiguration]
@@ -178,7 +178,7 @@ type INEFilterManager interface {
 	// Topic: Accessing filter configuration properties
 
 	// A Boolean used to toggle the enabled state of the filter.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// A [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
 	ProviderConfiguration() INEFilterProviderConfiguration
@@ -322,7 +322,7 @@ func (_NEFilterManagerClass NEFilterManagerClass) SharedManager() NEFilterManage
 // Provider extensions.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/isEnabled
-func (f NEFilterManager) Enabled() bool {
+func (f NEFilterManager) IsEnabled() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isEnabled"))
 	return rv
 }

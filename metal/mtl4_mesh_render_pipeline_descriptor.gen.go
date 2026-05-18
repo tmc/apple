@@ -64,7 +64,7 @@ func (mc MTL4MeshRenderPipelineDescriptorClass) Alloc() MTL4MeshRenderPipelineDe
 //   - [MTL4MeshRenderPipelineDescriptor.SetFragmentFunctionDescriptor]
 //   - [MTL4MeshRenderPipelineDescriptor.FragmentStaticLinkingDescriptor]: Provides static linking information for the fragment stage of the render pipeline.
 //   - [MTL4MeshRenderPipelineDescriptor.SetFragmentStaticLinkingDescriptor]
-//   - [MTL4MeshRenderPipelineDescriptor.RasterizationEnabled]: Determines whether the pipeline rasterizes primitives.
+//   - [MTL4MeshRenderPipelineDescriptor.IsRasterizationEnabled]: Determines whether the pipeline rasterizes primitives.
 //   - [MTL4MeshRenderPipelineDescriptor.SetRasterizationEnabled]
 //   - [MTL4MeshRenderPipelineDescriptor.MaxTotalThreadgroupsPerMeshGrid]: Controls the largest number of threads the pipeline state can execute when the object stage of a mesh render pipeline you create from this descriptor dispatches its mesh stage.
 //   - [MTL4MeshRenderPipelineDescriptor.SetMaxTotalThreadgroupsPerMeshGrid]
@@ -138,7 +138,7 @@ func MTL4MeshRenderPipelineDescriptorFromID(id objc.ID) MTL4MeshRenderPipelineDe
 //   - [IMTL4MeshRenderPipelineDescriptor.SetFragmentFunctionDescriptor]
 //   - [IMTL4MeshRenderPipelineDescriptor.FragmentStaticLinkingDescriptor]: Provides static linking information for the fragment stage of the render pipeline.
 //   - [IMTL4MeshRenderPipelineDescriptor.SetFragmentStaticLinkingDescriptor]
-//   - [IMTL4MeshRenderPipelineDescriptor.RasterizationEnabled]: Determines whether the pipeline rasterizes primitives.
+//   - [IMTL4MeshRenderPipelineDescriptor.IsRasterizationEnabled]: Determines whether the pipeline rasterizes primitives.
 //   - [IMTL4MeshRenderPipelineDescriptor.SetRasterizationEnabled]
 //   - [IMTL4MeshRenderPipelineDescriptor.MaxTotalThreadgroupsPerMeshGrid]: Controls the largest number of threads the pipeline state can execute when the object stage of a mesh render pipeline you create from this descriptor dispatches its mesh stage.
 //   - [IMTL4MeshRenderPipelineDescriptor.SetMaxTotalThreadgroupsPerMeshGrid]
@@ -205,7 +205,7 @@ type IMTL4MeshRenderPipelineDescriptor interface {
 	FragmentStaticLinkingDescriptor() IMTL4StaticLinkingDescriptor
 	SetFragmentStaticLinkingDescriptor(value IMTL4StaticLinkingDescriptor)
 	// Determines whether the pipeline rasterizes primitives.
-	RasterizationEnabled() bool
+	IsRasterizationEnabled() bool
 	SetRasterizationEnabled(value bool)
 	// Controls the largest number of threads the pipeline state can execute when the object stage of a mesh render pipeline you create from this descriptor dispatches its mesh stage.
 	MaxTotalThreadgroupsPerMeshGrid() uint
@@ -381,7 +381,7 @@ func (m MTL4MeshRenderPipelineDescriptor) SetFragmentStaticLinkingDescriptor(val
 // shader function via function [FragmentFunctionDescriptor].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MeshRenderPipelineDescriptor/isRasterizationEnabled
-func (m MTL4MeshRenderPipelineDescriptor) RasterizationEnabled() bool {
+func (m MTL4MeshRenderPipelineDescriptor) IsRasterizationEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isRasterizationEnabled"))
 	return rv
 }

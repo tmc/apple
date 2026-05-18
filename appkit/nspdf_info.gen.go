@@ -58,7 +58,7 @@ func (nc NSPDFInfoClass) Alloc() NSPDFInfo {
 //
 //   - [NSPDFInfo.URL]: The URL identifying the location at which the PDF file will be created.
 //   - [NSPDFInfo.SetURL]
-//   - [NSPDFInfo.FileExtensionHidden]: A Boolean value that indicates whether the file extension should appear after the filename.
+//   - [NSPDFInfo.IsFileExtensionHidden]: A Boolean value that indicates whether the file extension should appear after the filename.
 //   - [NSPDFInfo.SetFileExtensionHidden]
 //   - [NSPDFInfo.TagNames]: An array of tag names that should be applied to the PDF file after it’s created.
 //   - [NSPDFInfo.SetTagNames]
@@ -90,7 +90,7 @@ func NSPDFInfoFromID(id objc.ID) NSPDFInfo {
 //
 //   - [INSPDFInfo.URL]: The URL identifying the location at which the PDF file will be created.
 //   - [INSPDFInfo.SetURL]
-//   - [INSPDFInfo.FileExtensionHidden]: A Boolean value that indicates whether the file extension should appear after the filename.
+//   - [INSPDFInfo.IsFileExtensionHidden]: A Boolean value that indicates whether the file extension should appear after the filename.
 //   - [INSPDFInfo.SetFileExtensionHidden]
 //   - [INSPDFInfo.TagNames]: An array of tag names that should be applied to the PDF file after it’s created.
 //   - [INSPDFInfo.SetTagNames]
@@ -110,7 +110,7 @@ type INSPDFInfo interface {
 	URL() foundation.NSURL
 	SetURL(value foundation.NSURL)
 	// A Boolean value that indicates whether the file extension should appear after the filename.
-	FileExtensionHidden() bool
+	IsFileExtensionHidden() bool
 	SetFileExtensionHidden(value bool)
 	// An array of tag names that should be applied to the PDF file after it’s created.
 	TagNames() []string
@@ -165,7 +165,7 @@ func (p NSPDFInfo) SetURL(value foundation.NSURL) {
 // after the filename.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/isFileExtensionHidden
-func (p NSPDFInfo) FileExtensionHidden() bool {
+func (p NSPDFInfo) IsFileExtensionHidden() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isFileExtensionHidden"))
 	return rv
 }

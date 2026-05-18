@@ -76,7 +76,7 @@ func (nc NSMatrixClass) Alloc() NSMatrix {
 //   - [NSMatrix.SetMode]
 //   - [NSMatrix.AllowsEmptySelection]: A Boolean that indicates whether a radio-mode matrix supports an empty selection.
 //   - [NSMatrix.SetAllowsEmptySelection]
-//   - [NSMatrix.SelectionByRect]: A Boolean that indicates whether the user can select a rectangle of cells in the receiver by dragging the cursor.
+//   - [NSMatrix.IsSelectionByRect]: A Boolean that indicates whether the user can select a rectangle of cells in the receiver by dragging the cursor.
 //   - [NSMatrix.SetSelectionByRect]
 //
 // # Managing the Cell Class
@@ -234,7 +234,7 @@ func NSMatrixFromID(id objc.ID) NSMatrix {
 //   - [INSMatrix.SetMode]
 //   - [INSMatrix.AllowsEmptySelection]: A Boolean that indicates whether a radio-mode matrix supports an empty selection.
 //   - [INSMatrix.SetAllowsEmptySelection]
-//   - [INSMatrix.SelectionByRect]: A Boolean that indicates whether the user can select a rectangle of cells in the receiver by dragging the cursor.
+//   - [INSMatrix.IsSelectionByRect]: A Boolean that indicates whether the user can select a rectangle of cells in the receiver by dragging the cursor.
 //   - [INSMatrix.SetSelectionByRect]
 //
 // # Managing the Cell Class
@@ -383,7 +383,7 @@ type INSMatrix interface {
 	AllowsEmptySelection() bool
 	SetAllowsEmptySelection(value bool)
 	// A Boolean that indicates whether the user can select a rectangle of cells in the receiver by dragging the cursor.
-	SelectionByRect() bool
+	IsSelectionByRect() bool
 	SetSelectionByRect(value bool)
 
 	// Topic: Managing the Cell Class
@@ -1700,7 +1700,7 @@ func (m NSMatrix) SetAllowsEmptySelection(value bool) {
 // of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/isSelectionByRect
-func (m NSMatrix) SelectionByRect() bool {
+func (m NSMatrix) IsSelectionByRect() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSelectionByRect"))
 	return rv
 }

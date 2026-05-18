@@ -64,9 +64,9 @@ func (uc UTTypeClass) Alloc() UTType {
 //
 // # Obtaining additional type information
 //
-//   - [UTType.Declared]: A Boolean value that indicates whether the system declares the type.
-//   - [UTType.Dynamic]: A Boolean value that indicates whether the system generates the type.
-//   - [UTType.PublicType]: A Boolean value that indicates whether the type is in the public domain.
+//   - [UTType.IsDeclared]: A Boolean value that indicates whether the system declares the type.
+//   - [UTType.IsDynamic]: A Boolean value that indicates whether the system generates the type.
+//   - [UTType.IsPublicType]: A Boolean value that indicates whether the type is in the public domain.
 //
 // # Checking a type’s relationship to another type
 //
@@ -105,9 +105,9 @@ func UTTypeFromID(id objc.ID) UTType {
 //
 // # Obtaining additional type information
 //
-//   - [IUTType.Declared]: A Boolean value that indicates whether the system declares the type.
-//   - [IUTType.Dynamic]: A Boolean value that indicates whether the system generates the type.
-//   - [IUTType.PublicType]: A Boolean value that indicates whether the type is in the public domain.
+//   - [IUTType.IsDeclared]: A Boolean value that indicates whether the system declares the type.
+//   - [IUTType.IsDynamic]: A Boolean value that indicates whether the system generates the type.
+//   - [IUTType.IsPublicType]: A Boolean value that indicates whether the type is in the public domain.
 //
 // # Checking a type’s relationship to another type
 //
@@ -129,11 +129,11 @@ type IUTType interface {
 	// Topic: Obtaining additional type information
 
 	// A Boolean value that indicates whether the system declares the type.
-	Declared() bool
+	IsDeclared() bool
 	// A Boolean value that indicates whether the system generates the type.
-	Dynamic() bool
+	IsDynamic() bool
 	// A Boolean value that indicates whether the type is in the public domain.
-	PublicType() bool
+	IsPublicType() bool
 
 	// Topic: Checking a type’s relationship to another type
 
@@ -435,7 +435,7 @@ func (_UTTypeClass UTTypeClass) TypesWithTagTagClassConformingToType(tag string,
 // both.
 //
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/isDeclared
-func (t UTType) Declared() bool {
+func (t UTType) IsDeclared() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDeclared"))
 	return rv
 }
@@ -453,7 +453,7 @@ func (t UTType) Declared() bool {
 // both.
 //
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/isDynamic
-func (t UTType) Dynamic() bool {
+func (t UTType) IsDynamic() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDynamic"))
 	return rv
 }
@@ -467,7 +467,7 @@ func (t UTType) Dynamic() bool {
 // aren’t dynamic.
 //
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/isPublic
-func (t UTType) PublicType() bool {
+func (t UTType) IsPublicType() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPublicType"))
 	return rv
 }

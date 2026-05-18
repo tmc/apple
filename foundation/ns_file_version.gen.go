@@ -79,13 +79,13 @@ func (nc NSFileVersionClass) Alloc() NSFileVersion {
 //   - [NSFileVersion.LocalizedNameOfSavingComputer]: The user-presentable name of the computer on which the revision was saved.
 //   - [NSFileVersion.ModificationDate]: The modification date of the version.
 //   - [NSFileVersion.PersistentIdentifier]: The identifier for this version of the file.
-//   - [NSFileVersion.Discardable]: A Boolean value that specifies whether the system can delete the associated file at some future time.
+//   - [NSFileVersion.IsDiscardable]: A Boolean value that specifies whether the system can delete the associated file at some future time.
 //   - [NSFileVersion.SetDiscardable]
 //
 // # Handling Version Conflicts
 //
-//   - [NSFileVersion.Conflict]: A Boolean value indicating whether the contents of the version are in conflict with the contents of another version.
-//   - [NSFileVersion.Resolved]: A Boolean value that indicates if the version object is in conflict or not.
+//   - [NSFileVersion.IsConflict]: A Boolean value indicating whether the contents of the version are in conflict with the contents of another version.
+//   - [NSFileVersion.IsResolved]: A Boolean value that indicates if the version object is in conflict or not.
 //   - [NSFileVersion.SetResolved]
 //
 // # Replacing and Deleting Versions
@@ -123,13 +123,13 @@ func NSFileVersionFromID(id objc.ID) NSFileVersion {
 //   - [INSFileVersion.LocalizedNameOfSavingComputer]: The user-presentable name of the computer on which the revision was saved.
 //   - [INSFileVersion.ModificationDate]: The modification date of the version.
 //   - [INSFileVersion.PersistentIdentifier]: The identifier for this version of the file.
-//   - [INSFileVersion.Discardable]: A Boolean value that specifies whether the system can delete the associated file at some future time.
+//   - [INSFileVersion.IsDiscardable]: A Boolean value that specifies whether the system can delete the associated file at some future time.
 //   - [INSFileVersion.SetDiscardable]
 //
 // # Handling Version Conflicts
 //
-//   - [INSFileVersion.Conflict]: A Boolean value indicating whether the contents of the version are in conflict with the contents of another version.
-//   - [INSFileVersion.Resolved]: A Boolean value that indicates if the version object is in conflict or not.
+//   - [INSFileVersion.IsConflict]: A Boolean value indicating whether the contents of the version are in conflict with the contents of another version.
+//   - [INSFileVersion.IsResolved]: A Boolean value that indicates if the version object is in conflict or not.
 //   - [INSFileVersion.SetResolved]
 //
 // # Replacing and Deleting Versions
@@ -160,15 +160,15 @@ type INSFileVersion interface {
 	// The identifier for this version of the file.
 	PersistentIdentifier() NSCoding
 	// A Boolean value that specifies whether the system can delete the associated file at some future time.
-	Discardable() bool
+	IsDiscardable() bool
 	SetDiscardable(value bool)
 
 	// Topic: Handling Version Conflicts
 
 	// A Boolean value indicating whether the contents of the version are in conflict with the contents of another version.
-	Conflict() bool
+	IsConflict() bool
 	// A Boolean value that indicates if the version object is in conflict or not.
-	Resolved() bool
+	IsResolved() bool
 	SetResolved(value bool)
 
 	// Topic: Replacing and Deleting Versions
@@ -550,7 +550,7 @@ func (f NSFileVersion) PersistentIdentifier() NSCoding {
 // [CurrentVersionOfItemAtURL] method, the system raises an exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/isDiscardable
-func (f NSFileVersion) Discardable() bool {
+func (f NSFileVersion) IsDiscardable() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isDiscardable"))
 	return rv
 }
@@ -571,7 +571,7 @@ func (f NSFileVersion) SetDiscardable(value bool) {
 // that are in conflict.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/isConflict
-func (f NSFileVersion) Conflict() bool {
+func (f NSFileVersion) IsConflict() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isConflict"))
 	return rv
 }
@@ -595,7 +595,7 @@ func (f NSFileVersion) Conflict() bool {
 // [UnresolvedConflictVersionsOfItemAtURL] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/isResolved
-func (f NSFileVersion) Resolved() bool {
+func (f NSFileVersion) IsResolved() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isResolved"))
 	return rv
 }

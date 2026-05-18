@@ -54,7 +54,7 @@ func (ac AVCaptureInputPortClass) Alloc() AVCaptureInputPort {
 //
 // # Inspecting an input port
 //
-//   - [AVCaptureInputPort.Enabled]: A Boolean value that indicates whether the port is in an enabled state.
+//   - [AVCaptureInputPort.IsEnabled]: A Boolean value that indicates whether the port is in an enabled state.
 //   - [AVCaptureInputPort.SetEnabled]
 //   - [AVCaptureInputPort.MediaType]: The media type of the port.
 //   - [AVCaptureInputPort.FormatDescription]: A description of the port format.
@@ -83,7 +83,7 @@ func AVCaptureInputPortFromID(id objc.ID) AVCaptureInputPort {
 //
 // # Inspecting an input port
 //
-//   - [IAVCaptureInputPort.Enabled]: A Boolean value that indicates whether the port is in an enabled state.
+//   - [IAVCaptureInputPort.IsEnabled]: A Boolean value that indicates whether the port is in an enabled state.
 //   - [IAVCaptureInputPort.SetEnabled]
 //   - [IAVCaptureInputPort.MediaType]: The media type of the port.
 //   - [IAVCaptureInputPort.FormatDescription]: A description of the port format.
@@ -100,7 +100,7 @@ type IAVCaptureInputPort interface {
 	// Topic: Inspecting an input port
 
 	// A Boolean value that indicates whether the port is in an enabled state.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// The media type of the port.
 	MediaType() AVMediaType
@@ -147,7 +147,7 @@ func NewAVCaptureInputPort() AVCaptureInputPort {
 // to selectively disable streams.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/isEnabled
-func (c AVCaptureInputPort) Enabled() bool {
+func (c AVCaptureInputPort) IsEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEnabled"))
 	return rv
 }

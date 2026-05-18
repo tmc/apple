@@ -94,7 +94,7 @@ func (nc NSTextContainerClass) Alloc() NSTextContainer {
 //   - [NSTextContainer.LineFragmentPadding]: The value for the text inset within line fragment rectangles.
 //   - [NSTextContainer.SetLineFragmentPadding]
 //   - [NSTextContainer.LineFragmentRectForProposedRectAtIndexWritingDirectionRemainingRect]: Returns the bounds of a line fragment rectangle inside the text container for the proposed rectangle.
-//   - [NSTextContainer.SimpleRectangularTextContainer]: A Boolean that indicates whether the text container’s region is a rectangle with no holes or gaps, and whose edges are parallel to the text view’s coordinate system axes.
+//   - [NSTextContainer.IsSimpleRectangularTextContainer]: A Boolean that indicates whether the text container’s region is a rectangle with no holes or gaps, and whose edges are parallel to the text view’s coordinate system axes.
 //
 // # Deprecated
 //
@@ -154,7 +154,7 @@ func NSTextContainerFromID(id objc.ID) NSTextContainer {
 //   - [INSTextContainer.LineFragmentPadding]: The value for the text inset within line fragment rectangles.
 //   - [INSTextContainer.SetLineFragmentPadding]
 //   - [INSTextContainer.LineFragmentRectForProposedRectAtIndexWritingDirectionRemainingRect]: Returns the bounds of a line fragment rectangle inside the text container for the proposed rectangle.
-//   - [INSTextContainer.SimpleRectangularTextContainer]: A Boolean that indicates whether the text container’s region is a rectangle with no holes or gaps, and whose edges are parallel to the text view’s coordinate system axes.
+//   - [INSTextContainer.IsSimpleRectangularTextContainer]: A Boolean that indicates whether the text container’s region is a rectangle with no holes or gaps, and whose edges are parallel to the text view’s coordinate system axes.
 //
 // # Deprecated
 //
@@ -215,7 +215,7 @@ type INSTextContainer interface {
 	// Returns the bounds of a line fragment rectangle inside the text container for the proposed rectangle.
 	LineFragmentRectForProposedRectAtIndexWritingDirectionRemainingRect(proposedRect corefoundation.CGRect, characterIndex uint, baseWritingDirection NSWritingDirection, remainingRect *corefoundation.CGRect) corefoundation.CGRect
 	// A Boolean that indicates whether the text container’s region is a rectangle with no holes or gaps, and whose edges are parallel to the text view’s coordinate system axes.
-	SimpleRectangularTextContainer() bool
+	IsSimpleRectangularTextContainer() bool
 
 	// Topic: Deprecated
 
@@ -669,7 +669,7 @@ func (t NSTextContainer) SetLineFragmentPadding(value float64) {
 // method. Otherwise, the default value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer/isSimpleRectangularTextContainer
-func (t NSTextContainer) SimpleRectangularTextContainer() bool {
+func (t NSTextContainer) IsSimpleRectangularTextContainer() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSimpleRectangularTextContainer"))
 	return rv
 }

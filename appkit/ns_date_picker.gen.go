@@ -53,9 +53,9 @@ func (nc NSDatePickerClass) Alloc() NSDatePicker {
 //
 // # Configuring Date Pickers
 //
-//   - [NSDatePicker.Bezeled]: A Boolean value that indicates whether the date picker draws a bezeled border.
+//   - [NSDatePicker.IsBezeled]: A Boolean value that indicates whether the date picker draws a bezeled border.
 //   - [NSDatePicker.SetBezeled]
-//   - [NSDatePicker.Bordered]: A Boolean value that indicates whether the date picker has a plain border.
+//   - [NSDatePicker.IsBordered]: A Boolean value that indicates whether the date picker has a plain border.
 //   - [NSDatePicker.SetBordered]
 //   - [NSDatePicker.BackgroundColor]: The date picker’s background color.
 //   - [NSDatePicker.SetBackgroundColor]
@@ -116,9 +116,9 @@ func NSDatePickerFromID(id objc.ID) NSDatePicker {
 //
 // # Configuring Date Pickers
 //
-//   - [INSDatePicker.Bezeled]: A Boolean value that indicates whether the date picker draws a bezeled border.
+//   - [INSDatePicker.IsBezeled]: A Boolean value that indicates whether the date picker draws a bezeled border.
 //   - [INSDatePicker.SetBezeled]
-//   - [INSDatePicker.Bordered]: A Boolean value that indicates whether the date picker has a plain border.
+//   - [INSDatePicker.IsBordered]: A Boolean value that indicates whether the date picker has a plain border.
 //   - [INSDatePicker.SetBordered]
 //   - [INSDatePicker.BackgroundColor]: The date picker’s background color.
 //   - [INSDatePicker.SetBackgroundColor]
@@ -167,10 +167,10 @@ type INSDatePicker interface {
 	// Topic: Configuring Date Pickers
 
 	// A Boolean value that indicates whether the date picker draws a bezeled border.
-	Bezeled() bool
+	IsBezeled() bool
 	SetBezeled(value bool)
 	// A Boolean value that indicates whether the date picker has a plain border.
-	Bordered() bool
+	IsBordered() bool
 	SetBordered(value bool)
 	// The date picker’s background color.
 	BackgroundColor() INSColor
@@ -291,7 +291,7 @@ func NewDatePickerWithFrame(frameRect corefoundation.CGRect) NSDatePicker {
 // otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/isBezeled
-func (d NSDatePicker) Bezeled() bool {
+func (d NSDatePicker) IsBezeled() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isBezeled"))
 	return rv
 }
@@ -307,7 +307,7 @@ func (d NSDatePicker) SetBezeled(value bool) {
 // otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/isBordered
-func (d NSDatePicker) Bordered() bool {
+func (d NSDatePicker) IsBordered() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isBordered"))
 	return rv
 }

@@ -48,7 +48,7 @@ func (nc NSGridRowClass) Alloc() NSGridRow {
 // # Getting the Row Details
 //
 //   - [NSGridRow.NumberOfCells]
-//   - [NSGridRow.Hidden]
+//   - [NSGridRow.IsHidden]
 //   - [NSGridRow.SetHidden]
 //
 // # Formatting the Row
@@ -96,7 +96,7 @@ func NSGridRowFromID(id objc.ID) NSGridRow {
 // # Getting the Row Details
 //
 //   - [INSGridRow.NumberOfCells]
-//   - [INSGridRow.Hidden]
+//   - [INSGridRow.IsHidden]
 //   - [INSGridRow.SetHidden]
 //
 // # Formatting the Row
@@ -131,7 +131,7 @@ type INSGridRow interface {
 	// Topic: Getting the Row Details
 
 	NumberOfCells() int
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 
 	// Topic: Formatting the Row
@@ -202,7 +202,7 @@ func (g NSGridRow) NumberOfCells() int {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/isHidden
-func (g NSGridRow) Hidden() bool {
+func (g NSGridRow) IsHidden() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isHidden"))
 	return rv
 }

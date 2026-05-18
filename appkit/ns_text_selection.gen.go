@@ -59,9 +59,9 @@ func (nc NSTextSelectionClass) Alloc() NSTextSelection {
 //   - [NSTextSelection.AnchorPositionOffset]: Represents the anchor position offset from the beginning of a line fragment in the visual order for the initial tap or click location.
 //   - [NSTextSelection.SetAnchorPositionOffset]
 //   - [NSTextSelection.Granularity]: The granularity of the selection.
-//   - [NSTextSelection.Logical]: A Boolean value that indicates whether the framework interprets the selection as logical or visual.
+//   - [NSTextSelection.IsLogical]: A Boolean value that indicates whether the framework interprets the selection as logical or visual.
 //   - [NSTextSelection.SetLogical]
-//   - [NSTextSelection.Transient]: A Boolean value that indicates transient text selection during drag handling.
+//   - [NSTextSelection.IsTransient]: A Boolean value that indicates transient text selection during drag handling.
 //   - [NSTextSelection.SecondarySelectionLocation]: Specifies the secondary character location when user taps or clicks at a directional boundary.
 //   - [NSTextSelection.SetSecondarySelectionLocation]
 //   - [NSTextSelection.TextRanges]: Represents an array of noncontiguous logical ranges in the selection.
@@ -103,9 +103,9 @@ func NSTextSelectionFromID(id objc.ID) NSTextSelection {
 //   - [INSTextSelection.AnchorPositionOffset]: Represents the anchor position offset from the beginning of a line fragment in the visual order for the initial tap or click location.
 //   - [INSTextSelection.SetAnchorPositionOffset]
 //   - [INSTextSelection.Granularity]: The granularity of the selection.
-//   - [INSTextSelection.Logical]: A Boolean value that indicates whether the framework interprets the selection as logical or visual.
+//   - [INSTextSelection.IsLogical]: A Boolean value that indicates whether the framework interprets the selection as logical or visual.
 //   - [INSTextSelection.SetLogical]
-//   - [INSTextSelection.Transient]: A Boolean value that indicates transient text selection during drag handling.
+//   - [INSTextSelection.IsTransient]: A Boolean value that indicates transient text selection during drag handling.
 //   - [INSTextSelection.SecondarySelectionLocation]: Specifies the secondary character location when user taps or clicks at a directional boundary.
 //   - [INSTextSelection.SetSecondarySelectionLocation]
 //   - [INSTextSelection.TextRanges]: Represents an array of noncontiguous logical ranges in the selection.
@@ -141,10 +141,10 @@ type INSTextSelection interface {
 	// The granularity of the selection.
 	Granularity() NSTextSelectionGranularity
 	// A Boolean value that indicates whether the framework interprets the selection as logical or visual.
-	Logical() bool
+	IsLogical() bool
 	SetLogical(value bool)
 	// A Boolean value that indicates transient text selection during drag handling.
-	Transient() bool
+	IsTransient() bool
 	// Specifies the secondary character location when user taps or clicks at a directional boundary.
 	SecondarySelectionLocation() NSTextLocation
 	SetSecondarySelectionLocation(value NSTextLocation)
@@ -381,7 +381,7 @@ func (t NSTextSelection) Granularity() NSTextSelectionGranularity {
 // selection as logical or visual.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/isLogical
-func (t NSTextSelection) Logical() bool {
+func (t NSTextSelection) IsLogical() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isLogical"))
 	return rv
 }
@@ -393,7 +393,7 @@ func (t NSTextSelection) SetLogical(value bool) {
 // handling.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/isTransient
-func (t NSTextSelection) Transient() bool {
+func (t NSTextSelection) IsTransient() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isTransient"))
 	return rv
 }

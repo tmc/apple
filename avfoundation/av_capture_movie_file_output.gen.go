@@ -68,13 +68,13 @@ func (ac AVCaptureMovieFileOutputClass) Alloc() AVCaptureMovieFileOutput {
 //
 // # Enabling spatial capture
 //
-//   - [AVCaptureMovieFileOutput.SpatialVideoCaptureSupported]: A Boolean value that indicates whether a movie file output supports capturing spatial videos.
-//   - [AVCaptureMovieFileOutput.SpatialVideoCaptureEnabled]: A Boolean value that indicates whether a movie file output captures spatial videos.
+//   - [AVCaptureMovieFileOutput.IsSpatialVideoCaptureSupported]: A Boolean value that indicates whether a movie file output supports capturing spatial videos.
+//   - [AVCaptureMovieFileOutput.IsSpatialVideoCaptureEnabled]: A Boolean value that indicates whether a movie file output captures spatial videos.
 //   - [AVCaptureMovieFileOutput.SetSpatialVideoCaptureEnabled]
 //
 // # Restricting camera switching
 //
-//   - [AVCaptureMovieFileOutput.PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled]: A Boolean value that indicates whether to restrict constituent device switching behavior during recording.
+//   - [AVCaptureMovieFileOutput.IsPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled]: A Boolean value that indicates whether to restrict constituent device switching behavior during recording.
 //   - [AVCaptureMovieFileOutput.SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled]
 //   - [AVCaptureMovieFileOutput.SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions]: Sets the camera switching behavior to use during recording.
 //   - [AVCaptureMovieFileOutput.PrimaryConstituentDeviceSwitchingBehaviorForRecording]: The camera switching behavior to use for recording.
@@ -111,13 +111,13 @@ func AVCaptureMovieFileOutputFromID(id objc.ID) AVCaptureMovieFileOutput {
 //
 // # Enabling spatial capture
 //
-//   - [IAVCaptureMovieFileOutput.SpatialVideoCaptureSupported]: A Boolean value that indicates whether a movie file output supports capturing spatial videos.
-//   - [IAVCaptureMovieFileOutput.SpatialVideoCaptureEnabled]: A Boolean value that indicates whether a movie file output captures spatial videos.
+//   - [IAVCaptureMovieFileOutput.IsSpatialVideoCaptureSupported]: A Boolean value that indicates whether a movie file output supports capturing spatial videos.
+//   - [IAVCaptureMovieFileOutput.IsSpatialVideoCaptureEnabled]: A Boolean value that indicates whether a movie file output captures spatial videos.
 //   - [IAVCaptureMovieFileOutput.SetSpatialVideoCaptureEnabled]
 //
 // # Restricting camera switching
 //
-//   - [IAVCaptureMovieFileOutput.PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled]: A Boolean value that indicates whether to restrict constituent device switching behavior during recording.
+//   - [IAVCaptureMovieFileOutput.IsPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled]: A Boolean value that indicates whether to restrict constituent device switching behavior during recording.
 //   - [IAVCaptureMovieFileOutput.SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled]
 //   - [IAVCaptureMovieFileOutput.SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions]: Sets the camera switching behavior to use during recording.
 //   - [IAVCaptureMovieFileOutput.PrimaryConstituentDeviceSwitchingBehaviorForRecording]: The camera switching behavior to use for recording.
@@ -146,15 +146,15 @@ type IAVCaptureMovieFileOutput interface {
 	// Topic: Enabling spatial capture
 
 	// A Boolean value that indicates whether a movie file output supports capturing spatial videos.
-	SpatialVideoCaptureSupported() bool
+	IsSpatialVideoCaptureSupported() bool
 	// A Boolean value that indicates whether a movie file output captures spatial videos.
-	SpatialVideoCaptureEnabled() bool
+	IsSpatialVideoCaptureEnabled() bool
 	SetSpatialVideoCaptureEnabled(value bool)
 
 	// Topic: Restricting camera switching
 
 	// A Boolean value that indicates whether to restrict constituent device switching behavior during recording.
-	PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled() bool
+	IsPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled() bool
 	SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled(value bool)
 	// Sets the camera switching behavior to use during recording.
 	SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions(switchingBehavior AVCapturePrimaryConstituentDeviceSwitchingBehavior, restrictedSwitchingBehaviorConditions AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions)
@@ -335,7 +335,7 @@ func (c AVCaptureMovieFileOutput) SetMetadata(value []AVMetadataItem) {
 // capturing spatial videos.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/isSpatialVideoCaptureSupported
-func (c AVCaptureMovieFileOutput) SpatialVideoCaptureSupported() bool {
+func (c AVCaptureMovieFileOutput) IsSpatialVideoCaptureSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSpatialVideoCaptureSupported"))
 	return rv
 }
@@ -352,7 +352,7 @@ func (c AVCaptureMovieFileOutput) SpatialVideoCaptureSupported() bool {
 // The default value is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/isSpatialVideoCaptureEnabled
-func (c AVCaptureMovieFileOutput) SpatialVideoCaptureEnabled() bool {
+func (c AVCaptureMovieFileOutput) IsSpatialVideoCaptureEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSpatialVideoCaptureEnabled"))
 	return rv
 }
@@ -376,7 +376,7 @@ func (c AVCaptureMovieFileOutput) SetSpatialVideoCaptureEnabled(value bool) {
 // supports constituent device switching.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/isPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled
-func (c AVCaptureMovieFileOutput) PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled() bool {
+func (c AVCaptureMovieFileOutput) IsPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled"))
 	return rv
 }

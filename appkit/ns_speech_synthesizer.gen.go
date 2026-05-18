@@ -116,7 +116,7 @@ func (nc NSSpeechSynthesizerClass) Alloc() NSSpeechSynthesizer {
 //
 // # Synthesizing Speech
 //
-//   - [NSSpeechSynthesizer.Speaking]: Indicates whether the receiver is currently generating synthesized speech.
+//   - [NSSpeechSynthesizer.IsSpeaking]: Indicates whether the receiver is currently generating synthesized speech.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer
 type NSSpeechSynthesizer struct {
@@ -151,7 +151,7 @@ func NSSpeechSynthesizerFromID(id objc.ID) NSSpeechSynthesizer {
 //
 // # Synthesizing Speech
 //
-//   - [INSSpeechSynthesizer.Speaking]: Indicates whether the receiver is currently generating synthesized speech.
+//   - [INSSpeechSynthesizer.IsSpeaking]: Indicates whether the receiver is currently generating synthesized speech.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer
 type INSSpeechSynthesizer interface {
@@ -178,7 +178,7 @@ type INSSpeechSynthesizer interface {
 	// Topic: Synthesizing Speech
 
 	// Indicates whether the receiver is currently generating synthesized speech.
-	Speaking() bool
+	IsSpeaking() bool
 
 	// The perceived gender of the voice. The supported values are listed in
 	Gender() NSVoiceAttributeKey
@@ -296,7 +296,7 @@ func (s NSSpeechSynthesizer) SetVolume(value float32) {
 // true when the receiver is generating synthesized speech, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/isSpeaking
-func (s NSSpeechSynthesizer) Speaking() bool {
+func (s NSSpeechSynthesizer) IsSpeaking() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSpeaking"))
 	return rv
 }
@@ -345,7 +345,7 @@ func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) DefaultVoice() NSSpeec
 // application or system component.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/isAnyApplicationSpeaking
-func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) AnyApplicationSpeaking() bool {
+func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) IsAnyApplicationSpeaking() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpeechSynthesizerClass.class), objc.Sel("isAnyApplicationSpeaking"))
 	return rv
 }

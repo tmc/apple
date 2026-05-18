@@ -58,11 +58,11 @@ func (mc MTLMeshRenderPipelineDescriptorClass) Alloc() MTLMeshRenderPipelineDesc
 //   - [MTLMeshRenderPipelineDescriptor.SetFragmentFunction]
 //   - [MTLMeshRenderPipelineDescriptor.FragmentLinkedFunctions]
 //   - [MTLMeshRenderPipelineDescriptor.SetFragmentLinkedFunctions]
-//   - [MTLMeshRenderPipelineDescriptor.AlphaToCoverageEnabled]
+//   - [MTLMeshRenderPipelineDescriptor.IsAlphaToCoverageEnabled]
 //   - [MTLMeshRenderPipelineDescriptor.SetAlphaToCoverageEnabled]
-//   - [MTLMeshRenderPipelineDescriptor.AlphaToOneEnabled]
+//   - [MTLMeshRenderPipelineDescriptor.IsAlphaToOneEnabled]
 //   - [MTLMeshRenderPipelineDescriptor.SetAlphaToOneEnabled]
-//   - [MTLMeshRenderPipelineDescriptor.RasterizationEnabled]
+//   - [MTLMeshRenderPipelineDescriptor.IsRasterizationEnabled]
 //   - [MTLMeshRenderPipelineDescriptor.SetRasterizationEnabled]
 //   - [MTLMeshRenderPipelineDescriptor.Label]
 //   - [MTLMeshRenderPipelineDescriptor.SetLabel]
@@ -137,11 +137,11 @@ func MTLMeshRenderPipelineDescriptorFromID(id objc.ID) MTLMeshRenderPipelineDesc
 //   - [IMTLMeshRenderPipelineDescriptor.SetFragmentFunction]
 //   - [IMTLMeshRenderPipelineDescriptor.FragmentLinkedFunctions]
 //   - [IMTLMeshRenderPipelineDescriptor.SetFragmentLinkedFunctions]
-//   - [IMTLMeshRenderPipelineDescriptor.AlphaToCoverageEnabled]
+//   - [IMTLMeshRenderPipelineDescriptor.IsAlphaToCoverageEnabled]
 //   - [IMTLMeshRenderPipelineDescriptor.SetAlphaToCoverageEnabled]
-//   - [IMTLMeshRenderPipelineDescriptor.AlphaToOneEnabled]
+//   - [IMTLMeshRenderPipelineDescriptor.IsAlphaToOneEnabled]
 //   - [IMTLMeshRenderPipelineDescriptor.SetAlphaToOneEnabled]
-//   - [IMTLMeshRenderPipelineDescriptor.RasterizationEnabled]
+//   - [IMTLMeshRenderPipelineDescriptor.IsRasterizationEnabled]
 //   - [IMTLMeshRenderPipelineDescriptor.SetRasterizationEnabled]
 //   - [IMTLMeshRenderPipelineDescriptor.Label]
 //   - [IMTLMeshRenderPipelineDescriptor.SetLabel]
@@ -202,11 +202,11 @@ type IMTLMeshRenderPipelineDescriptor interface {
 	SetFragmentFunction(value MTLFunction)
 	FragmentLinkedFunctions() IMTLLinkedFunctions
 	SetFragmentLinkedFunctions(value IMTLLinkedFunctions)
-	AlphaToCoverageEnabled() bool
+	IsAlphaToCoverageEnabled() bool
 	SetAlphaToCoverageEnabled(value bool)
-	AlphaToOneEnabled() bool
+	IsAlphaToOneEnabled() bool
 	SetAlphaToOneEnabled(value bool)
-	RasterizationEnabled() bool
+	IsRasterizationEnabled() bool
 	SetRasterizationEnabled(value bool)
 	Label() string
 	SetLabel(value string)
@@ -328,7 +328,7 @@ func (m MTLMeshRenderPipelineDescriptor) SetFragmentLinkedFunctions(value IMTLLi
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/isAlphaToCoverageEnabled
-func (m MTLMeshRenderPipelineDescriptor) AlphaToCoverageEnabled() bool {
+func (m MTLMeshRenderPipelineDescriptor) IsAlphaToCoverageEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isAlphaToCoverageEnabled"))
 	return rv
 }
@@ -337,7 +337,7 @@ func (m MTLMeshRenderPipelineDescriptor) SetAlphaToCoverageEnabled(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/isAlphaToOneEnabled
-func (m MTLMeshRenderPipelineDescriptor) AlphaToOneEnabled() bool {
+func (m MTLMeshRenderPipelineDescriptor) IsAlphaToOneEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isAlphaToOneEnabled"))
 	return rv
 }
@@ -346,7 +346,7 @@ func (m MTLMeshRenderPipelineDescriptor) SetAlphaToOneEnabled(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/isRasterizationEnabled
-func (m MTLMeshRenderPipelineDescriptor) RasterizationEnabled() bool {
+func (m MTLMeshRenderPipelineDescriptor) IsRasterizationEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isRasterizationEnabled"))
 	return rv
 }

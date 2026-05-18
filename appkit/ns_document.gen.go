@@ -189,16 +189,16 @@ func (nc NSDocumentClass) Alloc() NSDocument {
 //
 //   - [NSDocument.FileURL]: The location of the document’s on-disk representation.
 //   - [NSDocument.SetFileURL]
-//   - [NSDocument.EntireFileLoaded]: A Boolean value that indicates whether the document’s file is completely loaded into memory.
+//   - [NSDocument.IsEntireFileLoaded]: A Boolean value that indicates whether the document’s file is completely loaded into memory.
 //   - [NSDocument.FileModificationDate]: The last-known modification date of the document’s on-disk representation.
 //   - [NSDocument.SetFileModificationDate]
 //   - [NSDocument.KeepBackupFile]: A Boolean value that indicates whether the document archives previously saved versions of the document.
-//   - [NSDocument.Draft]: A Boolean value that indicates whether the document is a draft that the user has not yet saved.
+//   - [NSDocument.IsDraft]: A Boolean value that indicates whether the document is a draft that the user has not yet saved.
 //   - [NSDocument.SetDraft]
 //   - [NSDocument.FileType]: The name of the document type, as specified in the app’s information property-list file.
 //   - [NSDocument.SetFileType]
-//   - [NSDocument.DocumentEdited]: A Boolean value that indicates whether the document has unsaved changes.
-//   - [NSDocument.InViewingMode]: A Boolean value that indicates whether the document is in read-only mode.
+//   - [NSDocument.IsDocumentEdited]: A Boolean value that indicates whether the document has unsaved changes.
+//   - [NSDocument.IsInViewingMode]: A Boolean value that indicates whether the document is in read-only mode.
 //
 // # Managing File Type Information
 //
@@ -245,7 +245,7 @@ func (nc NSDocumentClass) Alloc() NSDocument {
 // # Browsing Document Versions
 //
 //   - [NSDocument.BrowseDocumentVersions]: Opens the Versions browser in the document’s main window.
-//   - [NSDocument.BrowsingVersions]: A Boolean value that indicates whether the document is currently displaying the Versions browser.
+//   - [NSDocument.IsBrowsingVersions]: A Boolean value that indicates whether the document is currently displaying the Versions browser.
 //   - [NSDocument.StopBrowsingVersionsWithCompletionHandler]: Dismiss the Versions browser for the current document.
 //
 // # Storing Documents in iCloud
@@ -338,7 +338,7 @@ func (nc NSDocumentClass) Alloc() NSDocument {
 //   - [NSDocument.LockWithCompletionHandler]: Prevents the user from making changes to the document’s file.
 //   - [NSDocument.UnlockDocumentWithCompletionHandler]: Allows the user to make modifications to the document.
 //   - [NSDocument.UnlockWithCompletionHandler]: Allows the user to make modifications to the document’s file.
-//   - [NSDocument.Locked]: A Boolean value that indicates whether or not the file can be written to.
+//   - [NSDocument.IsLocked]: A Boolean value that indicates whether or not the file can be written to.
 //
 // # Printing the Document
 //
@@ -448,16 +448,16 @@ func NSDocumentFromID(id objc.ID) NSDocument {
 //
 //   - [INSDocument.FileURL]: The location of the document’s on-disk representation.
 //   - [INSDocument.SetFileURL]
-//   - [INSDocument.EntireFileLoaded]: A Boolean value that indicates whether the document’s file is completely loaded into memory.
+//   - [INSDocument.IsEntireFileLoaded]: A Boolean value that indicates whether the document’s file is completely loaded into memory.
 //   - [INSDocument.FileModificationDate]: The last-known modification date of the document’s on-disk representation.
 //   - [INSDocument.SetFileModificationDate]
 //   - [INSDocument.KeepBackupFile]: A Boolean value that indicates whether the document archives previously saved versions of the document.
-//   - [INSDocument.Draft]: A Boolean value that indicates whether the document is a draft that the user has not yet saved.
+//   - [INSDocument.IsDraft]: A Boolean value that indicates whether the document is a draft that the user has not yet saved.
 //   - [INSDocument.SetDraft]
 //   - [INSDocument.FileType]: The name of the document type, as specified in the app’s information property-list file.
 //   - [INSDocument.SetFileType]
-//   - [INSDocument.DocumentEdited]: A Boolean value that indicates whether the document has unsaved changes.
-//   - [INSDocument.InViewingMode]: A Boolean value that indicates whether the document is in read-only mode.
+//   - [INSDocument.IsDocumentEdited]: A Boolean value that indicates whether the document has unsaved changes.
+//   - [INSDocument.IsInViewingMode]: A Boolean value that indicates whether the document is in read-only mode.
 //
 // # Managing File Type Information
 //
@@ -504,7 +504,7 @@ func NSDocumentFromID(id objc.ID) NSDocument {
 // # Browsing Document Versions
 //
 //   - [INSDocument.BrowseDocumentVersions]: Opens the Versions browser in the document’s main window.
-//   - [INSDocument.BrowsingVersions]: A Boolean value that indicates whether the document is currently displaying the Versions browser.
+//   - [INSDocument.IsBrowsingVersions]: A Boolean value that indicates whether the document is currently displaying the Versions browser.
 //   - [INSDocument.StopBrowsingVersionsWithCompletionHandler]: Dismiss the Versions browser for the current document.
 //
 // # Storing Documents in iCloud
@@ -597,7 +597,7 @@ func NSDocumentFromID(id objc.ID) NSDocument {
 //   - [INSDocument.LockWithCompletionHandler]: Prevents the user from making changes to the document’s file.
 //   - [INSDocument.UnlockDocumentWithCompletionHandler]: Allows the user to make modifications to the document.
 //   - [INSDocument.UnlockWithCompletionHandler]: Allows the user to make modifications to the document’s file.
-//   - [INSDocument.Locked]: A Boolean value that indicates whether or not the file can be written to.
+//   - [INSDocument.IsLocked]: A Boolean value that indicates whether or not the file can be written to.
 //
 // # Printing the Document
 //
@@ -708,22 +708,22 @@ type INSDocument interface {
 	FileURL() foundation.NSURL
 	SetFileURL(value foundation.NSURL)
 	// A Boolean value that indicates whether the document’s file is completely loaded into memory.
-	EntireFileLoaded() bool
+	IsEntireFileLoaded() bool
 	// The last-known modification date of the document’s on-disk representation.
 	FileModificationDate() foundation.NSDate
 	SetFileModificationDate(value foundation.NSDate)
 	// A Boolean value that indicates whether the document archives previously saved versions of the document.
 	KeepBackupFile() bool
 	// A Boolean value that indicates whether the document is a draft that the user has not yet saved.
-	Draft() bool
+	IsDraft() bool
 	SetDraft(value bool)
 	// The name of the document type, as specified in the app’s information property-list file.
 	FileType() string
 	SetFileType(value string)
 	// A Boolean value that indicates whether the document has unsaved changes.
-	DocumentEdited() bool
+	IsDocumentEdited() bool
 	// A Boolean value that indicates whether the document is in read-only mode.
-	InViewingMode() bool
+	IsInViewingMode() bool
 
 	// Topic: Managing File Type Information
 
@@ -797,7 +797,7 @@ type INSDocument interface {
 	// Opens the Versions browser in the document’s main window.
 	BrowseDocumentVersions(sender objectivec.IObject)
 	// A Boolean value that indicates whether the document is currently displaying the Versions browser.
-	BrowsingVersions() bool
+	IsBrowsingVersions() bool
 	// Dismiss the Versions browser for the current document.
 	StopBrowsingVersionsWithCompletionHandler(completionHandler VoidHandler)
 
@@ -938,7 +938,7 @@ type INSDocument interface {
 	// Allows the user to make modifications to the document’s file.
 	UnlockWithCompletionHandler(completionHandler ErrorHandler)
 	// A Boolean value that indicates whether or not the file can be written to.
-	Locked() bool
+	IsLocked() bool
 
 	// Topic: Printing the Document
 
@@ -3960,7 +3960,7 @@ func (d NSDocument) SetFileURL(value foundation.NSURL) {
 // a partially loaded file disappears from the file system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/isEntireFileLoaded
-func (d NSDocument) EntireFileLoaded() bool {
+func (d NSDocument) IsEntireFileLoaded() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEntireFileLoaded"))
 	return rv
 }
@@ -4009,7 +4009,7 @@ func (d NSDocument) KeepBackupFile() bool {
 // considered drafts.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/isDraft
-func (d NSDocument) Draft() bool {
+func (d NSDocument) IsDraft() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isDraft"))
 	return rv
 }
@@ -4049,7 +4049,7 @@ func (d NSDocument) SetFileType(value string) {
 // status.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/isDocumentEdited
-func (d NSDocument) DocumentEdited() bool {
+func (d NSDocument) IsDocumentEdited() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isDocumentEdited"))
 	return rv
 }
@@ -4064,7 +4064,7 @@ func (d NSDocument) DocumentEdited() bool {
 // user is viewing an old document revision.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/isInViewingMode
-func (d NSDocument) InViewingMode() bool {
+func (d NSDocument) IsInViewingMode() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isInViewingMode"))
 	return rv
 }
@@ -4312,7 +4312,7 @@ func (d NSDocument) BackupFileURL() foundation.NSURL {
 // The value of this property is true when the versions browser is visible.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/isBrowsingVersions
-func (d NSDocument) BrowsingVersions() bool {
+func (d NSDocument) IsBrowsingVersions() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isBrowsingVersions"))
 	return rv
 }
@@ -4473,7 +4473,7 @@ func (d NSDocument) NSUserActivityDocumentURLKey() string {
 // override this property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/isLocked
-func (d NSDocument) Locked() bool {
+func (d NSDocument) IsLocked() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isLocked"))
 	return rv
 }

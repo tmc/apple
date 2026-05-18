@@ -154,7 +154,7 @@ func (_AVCapturePhotoOutputClass AVCapturePhotoOutputClass) IsBayerRAWPixelForma
 // value of [AutoDeferredPhotoDeliverySupported] is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isAutoDeferredPhotoDeliveryEnabled
-func (c AVCapturePhotoOutput) AutoDeferredPhotoDeliveryEnabled() bool {
+func (c AVCapturePhotoOutput) IsAutoDeferredPhotoDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoDeferredPhotoDeliveryEnabled"))
 	return rv
 }
@@ -166,7 +166,7 @@ func (c AVCapturePhotoOutput) SetAutoDeferredPhotoDeliveryEnabled(value bool) {
 // photo delivery.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isAutoDeferredPhotoDeliverySupported
-func (c AVCapturePhotoOutput) AutoDeferredPhotoDeliverySupported() bool {
+func (c AVCapturePhotoOutput) IsAutoDeferredPhotoDeliverySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoDeferredPhotoDeliverySupported"))
 	return rv
 }
@@ -220,7 +220,7 @@ func (c AVCapturePhotoOutput) AvailableRawPhotoFileTypes() []string {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isAppleProRAWSupported
-func (c AVCapturePhotoOutput) AppleProRAWSupported() bool {
+func (c AVCapturePhotoOutput) IsAppleProRAWSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAppleProRAWSupported"))
 	return rv
 }
@@ -248,7 +248,7 @@ func (c AVCapturePhotoOutput) AppleProRAWSupported() bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isAppleProRAWEnabled
 //
 // [availableRawPhotoPixelFormatTypes]: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/availableRawPhotoPixelFormatTypes-9t9k5
-func (c AVCapturePhotoOutput) AppleProRAWEnabled() bool {
+func (c AVCapturePhotoOutput) IsAppleProRAWEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAppleProRAWEnabled"))
 	return rv
 }
@@ -276,7 +276,7 @@ func (c AVCapturePhotoOutput) SetAppleProRAWEnabled(value bool) {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isContentAwareDistortionCorrectionSupported
-func (c AVCapturePhotoOutput) ContentAwareDistortionCorrectionSupported() bool {
+func (c AVCapturePhotoOutput) IsContentAwareDistortionCorrectionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isContentAwareDistortionCorrectionSupported"))
 	return rv
 }
@@ -299,7 +299,7 @@ func (c AVCapturePhotoOutput) ContentAwareDistortionCorrectionSupported() bool {
 // on the capture session.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isContentAwareDistortionCorrectionEnabled
-func (c AVCapturePhotoOutput) ContentAwareDistortionCorrectionEnabled() bool {
+func (c AVCapturePhotoOutput) IsContentAwareDistortionCorrectionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isContentAwareDistortionCorrectionEnabled"))
 	return rv
 }
@@ -321,7 +321,7 @@ func (c AVCapturePhotoOutput) SetContentAwareDistortionCorrectionEnabled(value b
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLensStabilizationDuringBracketedCaptureSupported
 //
 // [isLensStabilizationEnabled]: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoBracketSettings/isLensStabilizationEnabled
-func (c AVCapturePhotoOutput) LensStabilizationDuringBracketedCaptureSupported() bool {
+func (c AVCapturePhotoOutput) IsLensStabilizationDuringBracketedCaptureSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLensStabilizationDuringBracketedCaptureSupported"))
 	return rv
 }
@@ -365,7 +365,7 @@ func (c AVCapturePhotoOutput) MaxBracketedCapturePhotoCount() uint {
 // processed photo, the RAW photo.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isAutoRedEyeReductionSupported
-func (c AVCapturePhotoOutput) AutoRedEyeReductionSupported() bool {
+func (c AVCapturePhotoOutput) IsAutoRedEyeReductionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAutoRedEyeReductionSupported"))
 	return rv
 }
@@ -448,7 +448,7 @@ func (c AVCapturePhotoOutput) SetPhotoSettingsForSceneMonitoring(value IAVCaptur
 // [LivePhotoCaptureEnabled] to true again.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLivePhotoCaptureSupported
-func (c AVCapturePhotoOutput) LivePhotoCaptureSupported() bool {
+func (c AVCapturePhotoOutput) IsLivePhotoCaptureSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLivePhotoCaptureSupported"))
 	return rv
 }
@@ -472,7 +472,7 @@ func (c AVCapturePhotoOutput) LivePhotoCaptureSupported() bool {
 // capture requests for both Live Photo captures and still photos.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLivePhotoCaptureEnabled
-func (c AVCapturePhotoOutput) LivePhotoCaptureEnabled() bool {
+func (c AVCapturePhotoOutput) IsLivePhotoCaptureEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLivePhotoCaptureEnabled"))
 	return rv
 }
@@ -502,7 +502,7 @@ func (c AVCapturePhotoOutput) SetLivePhotoCaptureEnabled(value bool) {
 // the session.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLivePhotoCaptureSuspended
-func (c AVCapturePhotoOutput) LivePhotoCaptureSuspended() bool {
+func (c AVCapturePhotoOutput) IsLivePhotoCaptureSuspended() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLivePhotoCaptureSuspended"))
 	return rv
 }
@@ -531,7 +531,7 @@ func (c AVCapturePhotoOutput) SetLivePhotoCaptureSuspended(value bool) {
 // cancel, and the video preview temporarily freezes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isLivePhotoAutoTrimmingEnabled
-func (c AVCapturePhotoOutput) LivePhotoAutoTrimmingEnabled() bool {
+func (c AVCapturePhotoOutput) IsLivePhotoAutoTrimmingEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLivePhotoAutoTrimmingEnabled"))
 	return rv
 }
@@ -581,7 +581,7 @@ func (c AVCapturePhotoOutput) AvailableLivePhotoVideoCodecTypes() []string {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isDepthDataDeliverySupported
-func (c AVCapturePhotoOutput) DepthDataDeliverySupported() bool {
+func (c AVCapturePhotoOutput) IsDepthDataDeliverySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDepthDataDeliverySupported"))
 	return rv
 }
@@ -611,7 +611,7 @@ func (c AVCapturePhotoOutput) DepthDataDeliverySupported() bool {
 // photo capture requests both with and without depth data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isDepthDataDeliveryEnabled
-func (c AVCapturePhotoOutput) DepthDataDeliveryEnabled() bool {
+func (c AVCapturePhotoOutput) IsDepthDataDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDepthDataDeliveryEnabled"))
 	return rv
 }
@@ -623,7 +623,7 @@ func (c AVCapturePhotoOutput) SetDepthDataDeliveryEnabled(value bool) {
 // effects matte.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isPortraitEffectsMatteDeliveryEnabled
-func (c AVCapturePhotoOutput) PortraitEffectsMatteDeliveryEnabled() bool {
+func (c AVCapturePhotoOutput) IsPortraitEffectsMatteDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPortraitEffectsMatteDeliveryEnabled"))
 	return rv
 }
@@ -635,7 +635,7 @@ func (c AVCapturePhotoOutput) SetPortraitEffectsMatteDeliveryEnabled(value bool)
 // delivery of a portrait effects matte.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isPortraitEffectsMatteDeliverySupported
-func (c AVCapturePhotoOutput) PortraitEffectsMatteDeliverySupported() bool {
+func (c AVCapturePhotoOutput) IsPortraitEffectsMatteDeliverySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPortraitEffectsMatteDeliverySupported"))
 	return rv
 }
@@ -651,7 +651,7 @@ func (c AVCapturePhotoOutput) PortraitEffectsMatteDeliverySupported() bool {
 // ProRaw captures.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isCameraSensorOrientationCompensationSupported
-func (c AVCapturePhotoOutput) CameraSensorOrientationCompensationSupported() bool {
+func (c AVCapturePhotoOutput) IsCameraSensorOrientationCompensationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCameraSensorOrientationCompensationSupported"))
 	return rv
 }
@@ -665,7 +665,7 @@ func (c AVCapturePhotoOutput) CameraSensorOrientationCompensationSupported() boo
 // Set to NO if your app does not require sensor orientation compensation.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isCameraSensorOrientationCompensationEnabled
-func (c AVCapturePhotoOutput) CameraSensorOrientationCompensationEnabled() bool {
+func (c AVCapturePhotoOutput) IsCameraSensorOrientationCompensationEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCameraSensorOrientationCompensationEnabled"))
 	return rv
 }
@@ -687,7 +687,7 @@ func (c AVCapturePhotoOutput) SetCameraSensorOrientationCompensationEnabled(valu
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isVirtualDeviceFusionSupported
-func (c AVCapturePhotoOutput) VirtualDeviceFusionSupported() bool {
+func (c AVCapturePhotoOutput) IsVirtualDeviceFusionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVirtualDeviceFusionSupported"))
 	return rv
 }
@@ -707,7 +707,7 @@ func (c AVCapturePhotoOutput) VirtualDeviceFusionSupported() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isVirtualDeviceConstituentPhotoDeliverySupported
-func (c AVCapturePhotoOutput) VirtualDeviceConstituentPhotoDeliverySupported() bool {
+func (c AVCapturePhotoOutput) IsVirtualDeviceConstituentPhotoDeliverySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVirtualDeviceConstituentPhotoDeliverySupported"))
 	return rv
 }
@@ -723,7 +723,7 @@ func (c AVCapturePhotoOutput) VirtualDeviceConstituentPhotoDeliverySupported() b
 // The default value is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isVirtualDeviceConstituentPhotoDeliveryEnabled
-func (c AVCapturePhotoOutput) VirtualDeviceConstituentPhotoDeliveryEnabled() bool {
+func (c AVCapturePhotoOutput) IsVirtualDeviceConstituentPhotoDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isVirtualDeviceConstituentPhotoDeliveryEnabled"))
 	return rv
 }
@@ -807,7 +807,7 @@ func (c AVCapturePhotoOutput) SetEnabledSemanticSegmentationMatteTypes(value []s
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isCameraCalibrationDataDeliverySupported
-func (c AVCapturePhotoOutput) CameraCalibrationDataDeliverySupported() bool {
+func (c AVCapturePhotoOutput) IsCameraCalibrationDataDeliverySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCameraCalibrationDataDeliverySupported"))
 	return rv
 }
@@ -841,7 +841,7 @@ func (c AVCapturePhotoOutput) AvailableRawPhotoCodecTypes() []string {
 // issue photo capture requests both with and without dual photo delivery.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isDualCameraDualPhotoDeliveryEnabled
-func (c AVCapturePhotoOutput) DualCameraDualPhotoDeliveryEnabled() bool {
+func (c AVCapturePhotoOutput) IsDualCameraDualPhotoDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDualCameraDualPhotoDeliveryEnabled"))
 	return rv
 }
@@ -864,7 +864,7 @@ func (c AVCapturePhotoOutput) SetDualCameraDualPhotoDeliveryEnabled(value bool) 
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isDualCameraDualPhotoDeliverySupported
-func (c AVCapturePhotoOutput) DualCameraDualPhotoDeliverySupported() bool {
+func (c AVCapturePhotoOutput) IsDualCameraDualPhotoDeliverySupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDualCameraDualPhotoDeliverySupported"))
 	return rv
 }
@@ -886,7 +886,7 @@ func (c AVCapturePhotoOutput) DualCameraDualPhotoDeliverySupported() bool {
 // This property supports key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isDualCameraFusionSupported
-func (c AVCapturePhotoOutput) DualCameraFusionSupported() bool {
+func (c AVCapturePhotoOutput) IsDualCameraFusionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDualCameraFusionSupported"))
 	return rv
 }
@@ -930,7 +930,7 @@ func (c AVCapturePhotoOutput) IsStillImageStabilizationScene() bool {
 // This property supports key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isStillImageStabilizationSupported
-func (c AVCapturePhotoOutput) StillImageStabilizationSupported() bool {
+func (c AVCapturePhotoOutput) IsStillImageStabilizationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isStillImageStabilizationSupported"))
 	return rv
 }

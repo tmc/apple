@@ -47,7 +47,7 @@ func (nc NSSliderAccessoryClass) Alloc() NSSliderAccessory {
 //
 //   - [NSSliderAccessory.Behavior]: The effect on interaction with the accessory.
 //   - [NSSliderAccessory.SetBehavior]
-//   - [NSSliderAccessory.Enabled]
+//   - [NSSliderAccessory.IsEnabled]
 //   - [NSSliderAccessory.SetEnabled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory
@@ -69,7 +69,7 @@ func NSSliderAccessoryFromID(id objc.ID) NSSliderAccessory {
 //
 //   - [INSSliderAccessory.Behavior]: The effect on interaction with the accessory.
 //   - [INSSliderAccessory.SetBehavior]
-//   - [INSSliderAccessory.Enabled]
+//   - [INSSliderAccessory.IsEnabled]
 //   - [INSSliderAccessory.SetEnabled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory
@@ -81,7 +81,7 @@ type INSSliderAccessory interface {
 	// The effect on interaction with the accessory.
 	Behavior() INSSliderAccessoryBehavior
 	SetBehavior(value INSSliderAccessoryBehavior)
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -132,7 +132,7 @@ func (s NSSliderAccessory) SetBehavior(value INSSliderAccessoryBehavior) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory/isEnabled
-func (s NSSliderAccessory) Enabled() bool {
+func (s NSSliderAccessory) IsEnabled() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEnabled"))
 	return rv
 }

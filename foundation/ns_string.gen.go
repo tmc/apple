@@ -349,7 +349,7 @@ func (nc NSStringClass) Alloc() NSString {
 //   - [NSString.CompletePathIntoStringCaseSensitiveMatchesIntoArrayFilterTypes]: Interprets the receiver as a path in the file system and attempts to perform filename completion, returning a numeric value that indicates whether a match was possible, and by reference the longest path that matches the receiver.
 //   - [NSString.FileSystemRepresentation]: A file system-specific representation of the receiver.
 //   - [NSString.GetFileSystemRepresentationMaxLength]: Interprets the receiver as a system-independent path and fills a buffer with a C-string in a format and encoding suitable for use with file-system calls.
-//   - [NSString.AbsolutePath]: A Boolean value that indicates whether the receiver represents an absolute path.
+//   - [NSString.IsAbsolutePath]: A Boolean value that indicates whether the receiver represents an absolute path.
 //   - [NSString.LastPathComponent]: The last path component of the receiver.
 //   - [NSString.PathExtension]: The path extension, if any, of the string as interpreted as a path.
 //   - [NSString.StringByAbbreviatingWithTildeInPath]: A new string that replaces the current home directory portion of the current path with a tilde (`~`) character.
@@ -584,7 +584,7 @@ func NSStringFromID(id objc.ID) NSString {
 //   - [INSString.CompletePathIntoStringCaseSensitiveMatchesIntoArrayFilterTypes]: Interprets the receiver as a path in the file system and attempts to perform filename completion, returning a numeric value that indicates whether a match was possible, and by reference the longest path that matches the receiver.
 //   - [INSString.FileSystemRepresentation]: A file system-specific representation of the receiver.
 //   - [INSString.GetFileSystemRepresentationMaxLength]: Interprets the receiver as a system-independent path and fills a buffer with a C-string in a format and encoding suitable for use with file-system calls.
-//   - [INSString.AbsolutePath]: A Boolean value that indicates whether the receiver represents an absolute path.
+//   - [INSString.IsAbsolutePath]: A Boolean value that indicates whether the receiver represents an absolute path.
 //   - [INSString.LastPathComponent]: The last path component of the receiver.
 //   - [INSString.PathExtension]: The path extension, if any, of the string as interpreted as a path.
 //   - [INSString.StringByAbbreviatingWithTildeInPath]: A new string that replaces the current home directory portion of the current path with a tilde (`~`) character.
@@ -901,7 +901,7 @@ type INSString interface {
 	// Interprets the receiver as a system-independent path and fills a buffer with a C-string in a format and encoding suitable for use with file-system calls.
 	GetFileSystemRepresentationMaxLength(cname string, max uint) bool
 	// A Boolean value that indicates whether the receiver represents an absolute path.
-	AbsolutePath() bool
+	IsAbsolutePath() bool
 	// The last path component of the receiver.
 	LastPathComponent() string
 	// The path extension, if any, of the string as interpreted as a path.
@@ -5077,7 +5077,7 @@ func (s NSString) FileSystemRepresentation() string {
 // See: https://developer.apple.com/documentation/Foundation/NSString/isAbsolutePath
 //
 // [String Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035i
-func (s NSString) AbsolutePath() bool {
+func (s NSString) IsAbsolutePath() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isAbsolutePath"))
 	return rv
 }

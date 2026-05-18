@@ -140,7 +140,7 @@ func (oc OperationQueueClass) Alloc() OperationQueue {
 //
 // # Suspending Execution
 //
-//   - [OperationQueue.Suspended]: A Boolean value indicating whether the queue is actively scheduling operations for execution.
+//   - [OperationQueue.IsSuspended]: A Boolean value indicating whether the queue is actively scheduling operations for execution.
 //   - [OperationQueue.SetSuspended]
 //
 // # Configuring the Queue
@@ -194,7 +194,7 @@ func NSOperationQueueFromID(id objc.ID) OperationQueue { return OperationQueueFr
 //
 // # Suspending Execution
 //
-//   - [IOperationQueue.Suspended]: A Boolean value indicating whether the queue is actively scheduling operations for execution.
+//   - [IOperationQueue.IsSuspended]: A Boolean value indicating whether the queue is actively scheduling operations for execution.
 //   - [IOperationQueue.SetSuspended]
 //
 // # Configuring the Queue
@@ -239,7 +239,7 @@ type IOperationQueue interface {
 	// Topic: Suspending Execution
 
 	// A Boolean value indicating whether the queue is actively scheduling operations for execution.
-	Suspended() bool
+	IsSuspended() bool
 	SetSuspended(value bool)
 
 	// Topic: Configuring the Queue
@@ -553,7 +553,7 @@ func (o OperationQueue) Progress() INSProgress {
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/isSuspended
 //
 // [Key-value observing]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/KVO.html#//apple_ref/doc/uid/TP40008195-CH16
-func (o OperationQueue) Suspended() bool {
+func (o OperationQueue) IsSuspended() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isSuspended"))
 	return rv
 }

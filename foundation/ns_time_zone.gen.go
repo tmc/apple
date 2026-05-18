@@ -91,7 +91,7 @@ func (nc NSTimeZoneClass) Alloc() NSTimeZone {
 //
 // # Working with Daylight Savings
 //
-//   - [NSTimeZone.DaylightSavingTime]: A Boolean value that indicates whether the receiver is currently using daylight saving time.
+//   - [NSTimeZone.IsDaylightSavingTime]: A Boolean value that indicates whether the receiver is currently using daylight saving time.
 //   - [NSTimeZone.IsDaylightSavingTimeForDate]: Indicates whether the receiver uses daylight saving time on a given date.
 //   - [NSTimeZone.DaylightSavingTimeOffset]: The current daylight saving time offset of the receiver.
 //   - [NSTimeZone.DaylightSavingTimeOffsetForDate]: Returns the daylight saving time offset for a given date.
@@ -149,7 +149,7 @@ func NSTimeZoneFromID(id objc.ID) NSTimeZone {
 //
 // # Working with Daylight Savings
 //
-//   - [INSTimeZone.DaylightSavingTime]: A Boolean value that indicates whether the receiver is currently using daylight saving time.
+//   - [INSTimeZone.IsDaylightSavingTime]: A Boolean value that indicates whether the receiver is currently using daylight saving time.
 //   - [INSTimeZone.IsDaylightSavingTimeForDate]: Indicates whether the receiver uses daylight saving time on a given date.
 //   - [INSTimeZone.DaylightSavingTimeOffset]: The current daylight saving time offset of the receiver.
 //   - [INSTimeZone.DaylightSavingTimeOffsetForDate]: Returns the daylight saving time offset for a given date.
@@ -199,7 +199,7 @@ type INSTimeZone interface {
 	// Topic: Working with Daylight Savings
 
 	// A Boolean value that indicates whether the receiver is currently using daylight saving time.
-	DaylightSavingTime() bool
+	IsDaylightSavingTime() bool
 	// Indicates whether the receiver uses daylight saving time on a given date.
 	IsDaylightSavingTimeForDate(aDate INSDate) bool
 	// The current daylight saving time offset of the receiver.
@@ -615,7 +615,7 @@ func (t NSTimeZone) Data() INSData {
 // date as the argument.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/isDaylightSavingTime
-func (t NSTimeZone) DaylightSavingTime() bool {
+func (t NSTimeZone) IsDaylightSavingTime() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDaylightSavingTime"))
 	return rv
 }

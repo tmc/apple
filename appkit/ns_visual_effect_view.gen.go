@@ -129,7 +129,7 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 //
 //   - [NSVisualEffectView.BlendingMode]: A value indicating how the view’s contents blend with the surrounding content.
 //   - [NSVisualEffectView.SetBlendingMode]
-//   - [NSVisualEffectView.Emphasized]: A Boolean value indicating whether to emphasize the look of the material.
+//   - [NSVisualEffectView.IsEmphasized]: A Boolean value indicating whether to emphasize the look of the material.
 //   - [NSVisualEffectView.SetEmphasized]
 //   - [NSVisualEffectView.InteriorBackgroundStyle]: The view’s interior background style.
 //
@@ -170,7 +170,7 @@ func NSVisualEffectViewFromID(id objc.ID) NSVisualEffectView {
 //
 //   - [INSVisualEffectView.BlendingMode]: A value indicating how the view’s contents blend with the surrounding content.
 //   - [INSVisualEffectView.SetBlendingMode]
-//   - [INSVisualEffectView.Emphasized]: A Boolean value indicating whether to emphasize the look of the material.
+//   - [INSVisualEffectView.IsEmphasized]: A Boolean value indicating whether to emphasize the look of the material.
 //   - [INSVisualEffectView.SetEmphasized]
 //   - [INSVisualEffectView.InteriorBackgroundStyle]: The view’s interior background style.
 //
@@ -200,7 +200,7 @@ type INSVisualEffectView interface {
 	BlendingMode() NSVisualEffectBlendingMode
 	SetBlendingMode(value NSVisualEffectBlendingMode)
 	// A Boolean value indicating whether to emphasize the look of the material.
-	Emphasized() bool
+	IsEmphasized() bool
 	SetEmphasized(value bool)
 	// The view’s interior background style.
 	InteriorBackgroundStyle() NSBackgroundStyle
@@ -322,7 +322,7 @@ func (v NSVisualEffectView) SetBlendingMode(value NSVisualEffectBlendingMode) {
 // The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/isEmphasized
-func (v NSVisualEffectView) Emphasized() bool {
+func (v NSVisualEffectView) IsEmphasized() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isEmphasized"))
 	return rv
 }

@@ -78,7 +78,7 @@ func (nc NSToolbarClass) Alloc() NSToolbar {
 //
 // # Configuring the toolbar’s behavior
 //
-//   - [NSToolbar.Visible]: A Boolean value that indicates whether the toolbar is visible.
+//   - [NSToolbar.IsVisible]: A Boolean value that indicates whether the toolbar is visible.
 //   - [NSToolbar.SetVisible]
 //   - [NSToolbar.DisplayMode]: A value that indicates whether the toolbar displays items using a name, icon, or combination of elements.
 //   - [NSToolbar.SetDisplayMode]
@@ -168,7 +168,7 @@ func NSToolbarFromID(id objc.ID) NSToolbar {
 //
 // # Configuring the toolbar’s behavior
 //
-//   - [INSToolbar.Visible]: A Boolean value that indicates whether the toolbar is visible.
+//   - [INSToolbar.IsVisible]: A Boolean value that indicates whether the toolbar is visible.
 //   - [INSToolbar.SetVisible]
 //   - [INSToolbar.DisplayMode]: A value that indicates whether the toolbar displays items using a name, icon, or combination of elements.
 //   - [INSToolbar.SetDisplayMode]
@@ -246,7 +246,7 @@ type INSToolbar interface {
 	// Topic: Configuring the toolbar’s behavior
 
 	// A Boolean value that indicates whether the toolbar is visible.
-	Visible() bool
+	IsVisible() bool
 	SetVisible(value bool)
 	// A value that indicates whether the toolbar displays items using a name, icon, or combination of elements.
 	DisplayMode() NSToolbarDisplayMode
@@ -534,7 +534,7 @@ func (t NSToolbar) Identifier() NSToolbarIdentifier {
 // it’s false. Change the value to hide or show the toolbar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/isVisible
-func (t NSToolbar) Visible() bool {
+func (t NSToolbar) IsVisible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isVisible"))
 	return rv
 }

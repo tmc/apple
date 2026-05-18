@@ -70,9 +70,9 @@ func (ac AVAssetResourceLoadingRequestClass) Alloc() AVAssetResourceLoadingReque
 //   - [AVAssetResourceLoadingRequest.Response]: The URL response for the loading request.
 //   - [AVAssetResourceLoadingRequest.SetResponse]
 //   - [AVAssetResourceLoadingRequest.FinishLoading]: Causes the receiver to treat the processing of the request as complete.
-//   - [AVAssetResourceLoadingRequest.Cancelled]: A Boolean value that indicates whether the request has been cancelled.
+//   - [AVAssetResourceLoadingRequest.IsCancelled]: A Boolean value that indicates whether the request has been cancelled.
 //   - [AVAssetResourceLoadingRequest.FinishLoadingWithError]: Causes the receiver to handle the failure to load a resource for which a resource loader’s delegate took responsibility.
-//   - [AVAssetResourceLoadingRequest.Finished]: A Boolean value that indicates whether loading of the resource has finished.
+//   - [AVAssetResourceLoadingRequest.IsFinished]: A Boolean value that indicates whether loading of the resource has finished.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest
 type AVAssetResourceLoadingRequest struct {
@@ -107,9 +107,9 @@ func AVAssetResourceLoadingRequestFromID(id objc.ID) AVAssetResourceLoadingReque
 //   - [IAVAssetResourceLoadingRequest.Response]: The URL response for the loading request.
 //   - [IAVAssetResourceLoadingRequest.SetResponse]
 //   - [IAVAssetResourceLoadingRequest.FinishLoading]: Causes the receiver to treat the processing of the request as complete.
-//   - [IAVAssetResourceLoadingRequest.Cancelled]: A Boolean value that indicates whether the request has been cancelled.
+//   - [IAVAssetResourceLoadingRequest.IsCancelled]: A Boolean value that indicates whether the request has been cancelled.
 //   - [IAVAssetResourceLoadingRequest.FinishLoadingWithError]: Causes the receiver to handle the failure to load a resource for which a resource loader’s delegate took responsibility.
-//   - [IAVAssetResourceLoadingRequest.Finished]: A Boolean value that indicates whether loading of the resource has finished.
+//   - [IAVAssetResourceLoadingRequest.IsFinished]: A Boolean value that indicates whether loading of the resource has finished.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest
 type IAVAssetResourceLoadingRequest interface {
@@ -139,11 +139,11 @@ type IAVAssetResourceLoadingRequest interface {
 	// Causes the receiver to treat the processing of the request as complete.
 	FinishLoading()
 	// A Boolean value that indicates whether the request has been cancelled.
-	Cancelled() bool
+	IsCancelled() bool
 	// Causes the receiver to handle the failure to load a resource for which a resource loader’s delegate took responsibility.
 	FinishLoadingWithError(error_ foundation.NSError)
 	// A Boolean value that indicates whether loading of the resource has finished.
-	Finished() bool
+	IsFinished() bool
 }
 
 // Init initializes the instance.
@@ -304,7 +304,7 @@ func (a AVAssetResourceLoadingRequest) SetResponse(value foundation.NSURLRespons
 // the delegate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest/isCancelled
-func (a AVAssetResourceLoadingRequest) Cancelled() bool {
+func (a AVAssetResourceLoadingRequest) IsCancelled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isCancelled"))
 	return rv
 }
@@ -321,7 +321,7 @@ func (a AVAssetResourceLoadingRequest) Cancelled() bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest/isFinished
 //
 // [finishLoading(with:data:redirect:)]: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest/finishLoading(with:data:redirect:)
-func (a AVAssetResourceLoadingRequest) Finished() bool {
+func (a AVAssetResourceLoadingRequest) IsFinished() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isFinished"))
 	return rv
 }

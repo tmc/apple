@@ -60,7 +60,7 @@ func (ic IOSurfaceClass) Alloc() IOSurface {
 //   - [IOSurface.ElementHeight]
 //   - [IOSurface.ElementWidth]
 //   - [IOSurface.Height]
-//   - [IOSurface.InUse]
+//   - [IOSurface.IsInUse]
 //   - [IOSurface.LocalUseCount]
 //   - [IOSurface.PixelFormat]
 //   - [IOSurface.PlaneCount]
@@ -120,7 +120,7 @@ func IOSurfaceFromID(id objc.ID) IOSurface {
 //   - [IIOSurface.ElementHeight]
 //   - [IIOSurface.ElementWidth]
 //   - [IIOSurface.Height]
-//   - [IIOSurface.InUse]
+//   - [IIOSurface.IsInUse]
 //   - [IIOSurface.LocalUseCount]
 //   - [IIOSurface.PixelFormat]
 //   - [IIOSurface.PlaneCount]
@@ -167,7 +167,7 @@ type IIOSurface interface {
 	ElementHeight() int
 	ElementWidth() int
 	Height() int
-	InUse() bool
+	IsInUse() bool
 	LocalUseCount() int32
 	PixelFormat() uint32
 	PlaneCount() uint
@@ -385,7 +385,7 @@ func (s IOSurface) Height() int {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/isInUse
-func (s IOSurface) InUse() bool {
+func (s IOSurface) IsInUse() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isInUse"))
 	return rv
 }

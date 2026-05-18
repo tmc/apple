@@ -59,14 +59,14 @@ func (nc NSMenuItemClass) Alloc() NSMenuItem {
 //
 // # Enabling a menu item
 //
-//   - [NSMenuItem.Enabled]: A Boolean value that indicates whether the menu item is enabled.
+//   - [NSMenuItem.IsEnabled]: A Boolean value that indicates whether the menu item is enabled.
 //   - [NSMenuItem.SetEnabled]
 //
 // # Managing hidden status
 //
-//   - [NSMenuItem.Hidden]: A Boolean value that indicates whether the menu item is hidden.
+//   - [NSMenuItem.IsHidden]: A Boolean value that indicates whether the menu item is hidden.
 //   - [NSMenuItem.SetHidden]
-//   - [NSMenuItem.HiddenOrHasHiddenAncestor]: A Boolean value that indicates whether the menu item or any of its superitems is hidden.
+//   - [NSMenuItem.IsHiddenOrHasHiddenAncestor]: A Boolean value that indicates whether the menu item or any of its superitems is hidden.
 //
 // # Managing the target and action
 //
@@ -103,7 +103,7 @@ func (nc NSMenuItemClass) Alloc() NSMenuItem {
 //
 // # Managing the section header
 //
-//   - [NSMenuItem.SectionHeader]: A Boolean value indicating whether the menu item is a section header.
+//   - [NSMenuItem.IsSectionHeader]: A Boolean value indicating whether the menu item is a section header.
 //
 // # Managing submenus
 //
@@ -114,7 +114,7 @@ func (nc NSMenuItemClass) Alloc() NSMenuItem {
 //
 // # Managing the separator item
 //
-//   - [NSMenuItem.SeparatorItem]: A Boolean value indicating whether the menu item is a separator item.
+//   - [NSMenuItem.IsSeparatorItem]: A Boolean value indicating whether the menu item is a separator item.
 //
 // # Managing the owning menu
 //
@@ -140,7 +140,7 @@ func (nc NSMenuItemClass) Alloc() NSMenuItem {
 //
 // # Managing alternates
 //
-//   - [NSMenuItem.Alternate]: A Boolean value that marks the menu item as an alternate to the previous menu item.
+//   - [NSMenuItem.IsAlternate]: A Boolean value that marks the menu item as an alternate to the previous menu item.
 //   - [NSMenuItem.SetAlternate]
 //
 // # Managing indentation levels
@@ -165,7 +165,7 @@ func (nc NSMenuItemClass) Alloc() NSMenuItem {
 //
 // # Getting highlighted status
 //
-//   - [NSMenuItem.Highlighted]: A Boolean value that indicates whether the menu item should be drawn highlighted.
+//   - [NSMenuItem.IsHighlighted]: A Boolean value that indicates whether the menu item should be drawn highlighted.
 //
 // # Instance Properties
 //
@@ -196,14 +196,14 @@ func NSMenuItemFromID(id objc.ID) NSMenuItem {
 //
 // # Enabling a menu item
 //
-//   - [INSMenuItem.Enabled]: A Boolean value that indicates whether the menu item is enabled.
+//   - [INSMenuItem.IsEnabled]: A Boolean value that indicates whether the menu item is enabled.
 //   - [INSMenuItem.SetEnabled]
 //
 // # Managing hidden status
 //
-//   - [INSMenuItem.Hidden]: A Boolean value that indicates whether the menu item is hidden.
+//   - [INSMenuItem.IsHidden]: A Boolean value that indicates whether the menu item is hidden.
 //   - [INSMenuItem.SetHidden]
-//   - [INSMenuItem.HiddenOrHasHiddenAncestor]: A Boolean value that indicates whether the menu item or any of its superitems is hidden.
+//   - [INSMenuItem.IsHiddenOrHasHiddenAncestor]: A Boolean value that indicates whether the menu item or any of its superitems is hidden.
 //
 // # Managing the target and action
 //
@@ -240,7 +240,7 @@ func NSMenuItemFromID(id objc.ID) NSMenuItem {
 //
 // # Managing the section header
 //
-//   - [INSMenuItem.SectionHeader]: A Boolean value indicating whether the menu item is a section header.
+//   - [INSMenuItem.IsSectionHeader]: A Boolean value indicating whether the menu item is a section header.
 //
 // # Managing submenus
 //
@@ -251,7 +251,7 @@ func NSMenuItemFromID(id objc.ID) NSMenuItem {
 //
 // # Managing the separator item
 //
-//   - [INSMenuItem.SeparatorItem]: A Boolean value indicating whether the menu item is a separator item.
+//   - [INSMenuItem.IsSeparatorItem]: A Boolean value indicating whether the menu item is a separator item.
 //
 // # Managing the owning menu
 //
@@ -277,7 +277,7 @@ func NSMenuItemFromID(id objc.ID) NSMenuItem {
 //
 // # Managing alternates
 //
-//   - [INSMenuItem.Alternate]: A Boolean value that marks the menu item as an alternate to the previous menu item.
+//   - [INSMenuItem.IsAlternate]: A Boolean value that marks the menu item as an alternate to the previous menu item.
 //   - [INSMenuItem.SetAlternate]
 //
 // # Managing indentation levels
@@ -302,7 +302,7 @@ func NSMenuItemFromID(id objc.ID) NSMenuItem {
 //
 // # Getting highlighted status
 //
-//   - [INSMenuItem.Highlighted]: A Boolean value that indicates whether the menu item should be drawn highlighted.
+//   - [INSMenuItem.IsHighlighted]: A Boolean value that indicates whether the menu item should be drawn highlighted.
 //
 // # Instance Properties
 //
@@ -323,16 +323,16 @@ type INSMenuItem interface {
 	// Topic: Enabling a menu item
 
 	// A Boolean value that indicates whether the menu item is enabled.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 
 	// Topic: Managing hidden status
 
 	// A Boolean value that indicates whether the menu item is hidden.
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 	// A Boolean value that indicates whether the menu item or any of its superitems is hidden.
-	HiddenOrHasHiddenAncestor() bool
+	IsHiddenOrHasHiddenAncestor() bool
 
 	// Topic: Managing the target and action
 
@@ -379,7 +379,7 @@ type INSMenuItem interface {
 	// Topic: Managing the section header
 
 	// A Boolean value indicating whether the menu item is a section header.
-	SectionHeader() bool
+	IsSectionHeader() bool
 
 	// Topic: Managing submenus
 
@@ -394,7 +394,7 @@ type INSMenuItem interface {
 	// Topic: Managing the separator item
 
 	// A Boolean value indicating whether the menu item is a separator item.
-	SeparatorItem() bool
+	IsSeparatorItem() bool
 
 	// Topic: Managing the owning menu
 
@@ -427,7 +427,7 @@ type INSMenuItem interface {
 	// Topic: Managing alternates
 
 	// A Boolean value that marks the menu item as an alternate to the previous menu item.
-	Alternate() bool
+	IsAlternate() bool
 	SetAlternate(value bool)
 
 	// Topic: Managing indentation levels
@@ -457,7 +457,7 @@ type INSMenuItem interface {
 	// Topic: Getting highlighted status
 
 	// A Boolean value that indicates whether the menu item should be drawn highlighted.
-	Highlighted() bool
+	IsHighlighted() bool
 
 	// Topic: Instance Properties
 
@@ -615,7 +615,7 @@ func (_NSMenuItemClass NSMenuItemClass) SectionHeaderWithTitle(title string) NSM
 // protocol specification for cautions regarding this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/isEnabled
-func (m NSMenuItem) Enabled() bool {
+func (m NSMenuItem) IsEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isEnabled"))
 	return rv
 }
@@ -631,7 +631,7 @@ func (m NSMenuItem) SetEnabled(value bool) {
 // menu and do not participate in command key matching.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/isHidden
-func (m NSMenuItem) Hidden() bool {
+func (m NSMenuItem) IsHidden() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isHidden"))
 	return rv
 }
@@ -643,7 +643,7 @@ func (m NSMenuItem) SetHidden(value bool) {
 // superitems is hidden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/isHiddenOrHasHiddenAncestor
-func (m NSMenuItem) HiddenOrHasHiddenAncestor() bool {
+func (m NSMenuItem) IsHiddenOrHasHiddenAncestor() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isHiddenOrHasHiddenAncestor"))
 	return rv
 }
@@ -807,7 +807,7 @@ func (m NSMenuItem) SetBadge(value INSMenuItemBadge) {
 // A Boolean value indicating whether the menu item is a section header.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/isSectionHeader
-func (m NSMenuItem) SectionHeader() bool {
+func (m NSMenuItem) IsSectionHeader() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSectionHeader"))
 	return rv
 }
@@ -851,7 +851,7 @@ func (m NSMenuItem) ParentItem() INSMenuItem {
 // This menu item is disabled. The default separator item is blank space.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/isSeparatorItem
-func (m NSMenuItem) SeparatorItem() bool {
+func (m NSMenuItem) IsSeparatorItem() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSeparatorItem"))
 	return rv
 }
@@ -1010,7 +1010,7 @@ func (m NSMenuItem) SetAllowsKeyEquivalentWhenHidden(value bool) {
 // menu item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/isAlternate
-func (m NSMenuItem) Alternate() bool {
+func (m NSMenuItem) IsAlternate() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isAlternate"))
 	return rv
 }
@@ -1091,7 +1091,7 @@ func (m NSMenuItem) SetView(value INSView) {
 // highlighted.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/isHighlighted
-func (m NSMenuItem) Highlighted() bool {
+func (m NSMenuItem) IsHighlighted() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isHighlighted"))
 	return rv
 }

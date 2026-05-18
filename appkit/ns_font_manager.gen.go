@@ -76,7 +76,7 @@ func (nc NSFontManagerClass) Alloc() NSFontManager {
 //
 //   - [NSFontManager.SetSelectedFontIsMultiple]: Records the specified font as the currently selected font and updates the Font panel.
 //   - [NSFontManager.SelectedFont]: The currently selected font object.
-//   - [NSFontManager.Multiple]: A Boolean value that indicates whether the currently selected font has multiple fonts.
+//   - [NSFontManager.IsMultiple]: A Boolean value that indicates whether the currently selected font has multiple fonts.
 //   - [NSFontManager.SendAction]: A Boolean value that indicates whether a responder handled the font manager’s action message.
 //   - [NSFontManager.LocalizedNameForFamilyFace]: Returns a localized string with the name of the specified font family and face, if one exists.
 //
@@ -116,7 +116,7 @@ func (nc NSFontManagerClass) Alloc() NSFontManager {
 //
 // # Managing the Font Panel and Font Menu
 //
-//   - [NSFontManager.Enabled]: A Boolean value that indicates whether the font conversion system’s Font panel and Font menu items are enabled.
+//   - [NSFontManager.IsEnabled]: A Boolean value that indicates whether the font conversion system’s Font panel and Font menu items are enabled.
 //   - [NSFontManager.SetEnabled]
 //   - [NSFontManager.FontPanel]: Returns the application’s shared Font panel object, creating it if necessary.
 //   - [NSFontManager.SetFontMenu]: Records the given menu as the application’s Font menu.
@@ -162,7 +162,7 @@ func NSFontManagerFromID(id objc.ID) NSFontManager {
 //
 //   - [INSFontManager.SetSelectedFontIsMultiple]: Records the specified font as the currently selected font and updates the Font panel.
 //   - [INSFontManager.SelectedFont]: The currently selected font object.
-//   - [INSFontManager.Multiple]: A Boolean value that indicates whether the currently selected font has multiple fonts.
+//   - [INSFontManager.IsMultiple]: A Boolean value that indicates whether the currently selected font has multiple fonts.
 //   - [INSFontManager.SendAction]: A Boolean value that indicates whether a responder handled the font manager’s action message.
 //   - [INSFontManager.LocalizedNameForFamilyFace]: Returns a localized string with the name of the specified font family and face, if one exists.
 //
@@ -202,7 +202,7 @@ func NSFontManagerFromID(id objc.ID) NSFontManager {
 //
 // # Managing the Font Panel and Font Menu
 //
-//   - [INSFontManager.Enabled]: A Boolean value that indicates whether the font conversion system’s Font panel and Font menu items are enabled.
+//   - [INSFontManager.IsEnabled]: A Boolean value that indicates whether the font conversion system’s Font panel and Font menu items are enabled.
 //   - [INSFontManager.SetEnabled]
 //   - [INSFontManager.FontPanel]: Returns the application’s shared Font panel object, creating it if necessary.
 //   - [INSFontManager.SetFontMenu]: Records the given menu as the application’s Font menu.
@@ -242,7 +242,7 @@ type INSFontManager interface {
 	// The currently selected font object.
 	SelectedFont() NSFont
 	// A Boolean value that indicates whether the currently selected font has multiple fonts.
-	Multiple() bool
+	IsMultiple() bool
 	// A Boolean value that indicates whether a responder handled the font manager’s action message.
 	SendAction() bool
 	// Returns a localized string with the name of the specified font family and face, if one exists.
@@ -304,7 +304,7 @@ type INSFontManager interface {
 	// Topic: Managing the Font Panel and Font Menu
 
 	// A Boolean value that indicates whether the font conversion system’s Font panel and Font menu items are enabled.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// Returns the application’s shared Font panel object, creating it if necessary.
 	FontPanel(create bool) NSFontPanel
@@ -1048,7 +1048,7 @@ func (f NSFontManager) SelectedFont() NSFont {
 // the value is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/isMultiple
-func (f NSFontManager) Multiple() bool {
+func (f NSFontManager) IsMultiple() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isMultiple"))
 	return rv
 }
@@ -1080,7 +1080,7 @@ func (f NSFontManager) CurrentFontAction() NSFontAction {
 // the value is false, these items are not enabled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/isEnabled
-func (f NSFontManager) Enabled() bool {
+func (f NSFontManager) IsEnabled() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isEnabled"))
 	return rv
 }

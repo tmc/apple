@@ -62,14 +62,14 @@ func (cc CIRAWFilterClass) Alloc() CIRAWFilter {
 // # Inspecting supported camera models, decoders, and filters
 //
 //   - [CIRAWFilter.SupportedDecoderVersions]: An array of all supported decoder versions for the given image type.
-//   - [CIRAWFilter.ColorNoiseReductionSupported]: A Boolean that indicates if the current image supports color noise reduction adjustments.
-//   - [CIRAWFilter.ContrastSupported]: A Boolean that indicates if the current image supports contrast adjustments.
-//   - [CIRAWFilter.DetailSupported]: A Boolean that indicates if the current image supports detail enhancement adjustments.
-//   - [CIRAWFilter.LensCorrectionSupported]: A Boolean that indicates if you can enable lens correction for the current image.
-//   - [CIRAWFilter.LocalToneMapSupported]: A Boolean that indicates if the current image supports local tone curve adjustments.
-//   - [CIRAWFilter.LuminanceNoiseReductionSupported]: A Boolean that indicates if the current image supports luminance noise reduction adjustments.
-//   - [CIRAWFilter.MoireReductionSupported]: A Boolean that indicates if the current image supports moire artifact reduction adjustments.
-//   - [CIRAWFilter.SharpnessSupported]: A Boolean that indicates if the current image supports sharpness adjustments.
+//   - [CIRAWFilter.IsColorNoiseReductionSupported]: A Boolean that indicates if the current image supports color noise reduction adjustments.
+//   - [CIRAWFilter.IsContrastSupported]: A Boolean that indicates if the current image supports contrast adjustments.
+//   - [CIRAWFilter.IsDetailSupported]: A Boolean that indicates if the current image supports detail enhancement adjustments.
+//   - [CIRAWFilter.IsLensCorrectionSupported]: A Boolean that indicates if you can enable lens correction for the current image.
+//   - [CIRAWFilter.IsLocalToneMapSupported]: A Boolean that indicates if the current image supports local tone curve adjustments.
+//   - [CIRAWFilter.IsLuminanceNoiseReductionSupported]: A Boolean that indicates if the current image supports luminance noise reduction adjustments.
+//   - [CIRAWFilter.IsMoireReductionSupported]: A Boolean that indicates if the current image supports moire artifact reduction adjustments.
+//   - [CIRAWFilter.IsSharpnessSupported]: A Boolean that indicates if the current image supports sharpness adjustments.
 //   - [CIRAWFilter.NativeSize]: The full native size of the unscaled image.
 //
 // # Configuring a filter
@@ -92,11 +92,11 @@ func (cc CIRAWFilterClass) Alloc() CIRAWFilter {
 //   - [CIRAWFilter.SetExposure]
 //   - [CIRAWFilter.ExtendedDynamicRangeAmount]: A value that indicates the amount of extended dynamic range (EDR) to apply to the image.
 //   - [CIRAWFilter.SetExtendedDynamicRangeAmount]
-//   - [CIRAWFilter.DraftModeEnabled]: A Boolean that indicates whether to enable draft mode.
+//   - [CIRAWFilter.IsDraftModeEnabled]: A Boolean that indicates whether to enable draft mode.
 //   - [CIRAWFilter.SetDraftModeEnabled]
-//   - [CIRAWFilter.GamutMappingEnabled]: A Boolean that indicates whether to enable gamut mapping.
+//   - [CIRAWFilter.IsGamutMappingEnabled]: A Boolean that indicates whether to enable gamut mapping.
 //   - [CIRAWFilter.SetGamutMappingEnabled]
-//   - [CIRAWFilter.LensCorrectionEnabled]: A Boolean that indicates whether to enable lens correction.
+//   - [CIRAWFilter.IsLensCorrectionEnabled]: A Boolean that indicates whether to enable lens correction.
 //   - [CIRAWFilter.SetLensCorrectionEnabled]
 //   - [CIRAWFilter.LinearSpaceFilter]: An optional filter you can apply to the RAW image while it’s in linear space.
 //   - [CIRAWFilter.SetLinearSpaceFilter]
@@ -133,9 +133,9 @@ func (cc CIRAWFilterClass) Alloc() CIRAWFilter {
 //
 // # Instance Properties
 //
-//   - [CIRAWFilter.HighlightRecoveryEnabled]
+//   - [CIRAWFilter.IsHighlightRecoveryEnabled]
 //   - [CIRAWFilter.SetHighlightRecoveryEnabled]
-//   - [CIRAWFilter.HighlightRecoverySupported]
+//   - [CIRAWFilter.IsHighlightRecoverySupported]
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter
 type CIRAWFilter struct {
@@ -158,14 +158,14 @@ func CIRAWFilterFromID(id objc.ID) CIRAWFilter {
 // # Inspecting supported camera models, decoders, and filters
 //
 //   - [ICIRAWFilter.SupportedDecoderVersions]: An array of all supported decoder versions for the given image type.
-//   - [ICIRAWFilter.ColorNoiseReductionSupported]: A Boolean that indicates if the current image supports color noise reduction adjustments.
-//   - [ICIRAWFilter.ContrastSupported]: A Boolean that indicates if the current image supports contrast adjustments.
-//   - [ICIRAWFilter.DetailSupported]: A Boolean that indicates if the current image supports detail enhancement adjustments.
-//   - [ICIRAWFilter.LensCorrectionSupported]: A Boolean that indicates if you can enable lens correction for the current image.
-//   - [ICIRAWFilter.LocalToneMapSupported]: A Boolean that indicates if the current image supports local tone curve adjustments.
-//   - [ICIRAWFilter.LuminanceNoiseReductionSupported]: A Boolean that indicates if the current image supports luminance noise reduction adjustments.
-//   - [ICIRAWFilter.MoireReductionSupported]: A Boolean that indicates if the current image supports moire artifact reduction adjustments.
-//   - [ICIRAWFilter.SharpnessSupported]: A Boolean that indicates if the current image supports sharpness adjustments.
+//   - [ICIRAWFilter.IsColorNoiseReductionSupported]: A Boolean that indicates if the current image supports color noise reduction adjustments.
+//   - [ICIRAWFilter.IsContrastSupported]: A Boolean that indicates if the current image supports contrast adjustments.
+//   - [ICIRAWFilter.IsDetailSupported]: A Boolean that indicates if the current image supports detail enhancement adjustments.
+//   - [ICIRAWFilter.IsLensCorrectionSupported]: A Boolean that indicates if you can enable lens correction for the current image.
+//   - [ICIRAWFilter.IsLocalToneMapSupported]: A Boolean that indicates if the current image supports local tone curve adjustments.
+//   - [ICIRAWFilter.IsLuminanceNoiseReductionSupported]: A Boolean that indicates if the current image supports luminance noise reduction adjustments.
+//   - [ICIRAWFilter.IsMoireReductionSupported]: A Boolean that indicates if the current image supports moire artifact reduction adjustments.
+//   - [ICIRAWFilter.IsSharpnessSupported]: A Boolean that indicates if the current image supports sharpness adjustments.
 //   - [ICIRAWFilter.NativeSize]: The full native size of the unscaled image.
 //
 // # Configuring a filter
@@ -188,11 +188,11 @@ func CIRAWFilterFromID(id objc.ID) CIRAWFilter {
 //   - [ICIRAWFilter.SetExposure]
 //   - [ICIRAWFilter.ExtendedDynamicRangeAmount]: A value that indicates the amount of extended dynamic range (EDR) to apply to the image.
 //   - [ICIRAWFilter.SetExtendedDynamicRangeAmount]
-//   - [ICIRAWFilter.DraftModeEnabled]: A Boolean that indicates whether to enable draft mode.
+//   - [ICIRAWFilter.IsDraftModeEnabled]: A Boolean that indicates whether to enable draft mode.
 //   - [ICIRAWFilter.SetDraftModeEnabled]
-//   - [ICIRAWFilter.GamutMappingEnabled]: A Boolean that indicates whether to enable gamut mapping.
+//   - [ICIRAWFilter.IsGamutMappingEnabled]: A Boolean that indicates whether to enable gamut mapping.
 //   - [ICIRAWFilter.SetGamutMappingEnabled]
-//   - [ICIRAWFilter.LensCorrectionEnabled]: A Boolean that indicates whether to enable lens correction.
+//   - [ICIRAWFilter.IsLensCorrectionEnabled]: A Boolean that indicates whether to enable lens correction.
 //   - [ICIRAWFilter.SetLensCorrectionEnabled]
 //   - [ICIRAWFilter.LinearSpaceFilter]: An optional filter you can apply to the RAW image while it’s in linear space.
 //   - [ICIRAWFilter.SetLinearSpaceFilter]
@@ -229,9 +229,9 @@ func CIRAWFilterFromID(id objc.ID) CIRAWFilter {
 //
 // # Instance Properties
 //
-//   - [ICIRAWFilter.HighlightRecoveryEnabled]
+//   - [ICIRAWFilter.IsHighlightRecoveryEnabled]
 //   - [ICIRAWFilter.SetHighlightRecoveryEnabled]
-//   - [ICIRAWFilter.HighlightRecoverySupported]
+//   - [ICIRAWFilter.IsHighlightRecoverySupported]
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter
 type ICIRAWFilter interface {
@@ -242,21 +242,21 @@ type ICIRAWFilter interface {
 	// An array of all supported decoder versions for the given image type.
 	SupportedDecoderVersions() []string
 	// A Boolean that indicates if the current image supports color noise reduction adjustments.
-	ColorNoiseReductionSupported() bool
+	IsColorNoiseReductionSupported() bool
 	// A Boolean that indicates if the current image supports contrast adjustments.
-	ContrastSupported() bool
+	IsContrastSupported() bool
 	// A Boolean that indicates if the current image supports detail enhancement adjustments.
-	DetailSupported() bool
+	IsDetailSupported() bool
 	// A Boolean that indicates if you can enable lens correction for the current image.
-	LensCorrectionSupported() bool
+	IsLensCorrectionSupported() bool
 	// A Boolean that indicates if the current image supports local tone curve adjustments.
-	LocalToneMapSupported() bool
+	IsLocalToneMapSupported() bool
 	// A Boolean that indicates if the current image supports luminance noise reduction adjustments.
-	LuminanceNoiseReductionSupported() bool
+	IsLuminanceNoiseReductionSupported() bool
 	// A Boolean that indicates if the current image supports moire artifact reduction adjustments.
-	MoireReductionSupported() bool
+	IsMoireReductionSupported() bool
 	// A Boolean that indicates if the current image supports sharpness adjustments.
-	SharpnessSupported() bool
+	IsSharpnessSupported() bool
 	// The full native size of the unscaled image.
 	NativeSize() corefoundation.CGSize
 
@@ -290,13 +290,13 @@ type ICIRAWFilter interface {
 	ExtendedDynamicRangeAmount() float32
 	SetExtendedDynamicRangeAmount(value float32)
 	// A Boolean that indicates whether to enable draft mode.
-	DraftModeEnabled() bool
+	IsDraftModeEnabled() bool
 	SetDraftModeEnabled(value bool)
 	// A Boolean that indicates whether to enable gamut mapping.
-	GamutMappingEnabled() bool
+	IsGamutMappingEnabled() bool
 	SetGamutMappingEnabled(value bool)
 	// A Boolean that indicates whether to enable lens correction.
-	LensCorrectionEnabled() bool
+	IsLensCorrectionEnabled() bool
 	SetLensCorrectionEnabled(value bool)
 	// An optional filter you can apply to the RAW image while it’s in linear space.
 	LinearSpaceFilter() CIFilter
@@ -353,9 +353,9 @@ type ICIRAWFilter interface {
 
 	// Topic: Instance Properties
 
-	HighlightRecoveryEnabled() bool
+	IsHighlightRecoveryEnabled() bool
 	SetHighlightRecoveryEnabled(value bool)
-	HighlightRecoverySupported() bool
+	IsHighlightRecoverySupported() bool
 }
 
 // Init initializes the instance.
@@ -434,7 +434,7 @@ func (r CIRAWFilter) SupportedDecoderVersions() []string {
 // to apply to the image by setting [ColorNoiseReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isColorNoiseReductionSupported
-func (r CIRAWFilter) ColorNoiseReductionSupported() bool {
+func (r CIRAWFilter) IsColorNoiseReductionSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isColorNoiseReductionSupported"))
 	return rv
 }
@@ -448,7 +448,7 @@ func (r CIRAWFilter) ColorNoiseReductionSupported() bool {
 // the image by setting [ContrastAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isContrastSupported
-func (r CIRAWFilter) ContrastSupported() bool {
+func (r CIRAWFilter) IsContrastSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isContrastSupported"))
 	return rv
 }
@@ -462,7 +462,7 @@ func (r CIRAWFilter) ContrastSupported() bool {
 // apply to the image by setting [DetailAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isDetailSupported
-func (r CIRAWFilter) DetailSupported() bool {
+func (r CIRAWFilter) IsDetailSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isDetailSupported"))
 	return rv
 }
@@ -476,7 +476,7 @@ func (r CIRAWFilter) DetailSupported() bool {
 // setting [LensCorrectionEnabled] to true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLensCorrectionSupported
-func (r CIRAWFilter) LensCorrectionSupported() bool {
+func (r CIRAWFilter) IsLensCorrectionSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isLensCorrectionSupported"))
 	return rv
 }
@@ -490,7 +490,7 @@ func (r CIRAWFilter) LensCorrectionSupported() bool {
 // apply to the image by setting [LocalToneMapAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLocalToneMapSupported
-func (r CIRAWFilter) LocalToneMapSupported() bool {
+func (r CIRAWFilter) IsLocalToneMapSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isLocalToneMapSupported"))
 	return rv
 }
@@ -504,7 +504,7 @@ func (r CIRAWFilter) LocalToneMapSupported() bool {
 // reduction to apply to the image by setting [LuminanceNoiseReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLuminanceNoiseReductionSupported
-func (r CIRAWFilter) LuminanceNoiseReductionSupported() bool {
+func (r CIRAWFilter) IsLuminanceNoiseReductionSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isLuminanceNoiseReductionSupported"))
 	return rv
 }
@@ -518,7 +518,7 @@ func (r CIRAWFilter) LuminanceNoiseReductionSupported() bool {
 // reduction to apply to the image by setting [MoireReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isMoireReductionSupported
-func (r CIRAWFilter) MoireReductionSupported() bool {
+func (r CIRAWFilter) IsMoireReductionSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isMoireReductionSupported"))
 	return rv
 }
@@ -532,7 +532,7 @@ func (r CIRAWFilter) MoireReductionSupported() bool {
 // the image by setting [SharpnessAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isSharpnessSupported
-func (r CIRAWFilter) SharpnessSupported() bool {
+func (r CIRAWFilter) IsSharpnessSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isSharpnessSupported"))
 	return rv
 }
@@ -722,7 +722,7 @@ func (r CIRAWFilter) SetExtendedDynamicRangeAmount(value float32) {
 // loss of quality. The default value is false.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isDraftModeEnabled
-func (r CIRAWFilter) DraftModeEnabled() bool {
+func (r CIRAWFilter) IsDraftModeEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isDraftModeEnabled"))
 	return rv
 }
@@ -737,7 +737,7 @@ func (r CIRAWFilter) SetDraftModeEnabled(value bool) {
 // The default value is true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isGamutMappingEnabled
-func (r CIRAWFilter) GamutMappingEnabled() bool {
+func (r CIRAWFilter) IsGamutMappingEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isGamutMappingEnabled"))
 	return rv
 }
@@ -752,7 +752,7 @@ func (r CIRAWFilter) SetGamutMappingEnabled(value bool) {
 // The default value varies by image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLensCorrectionEnabled
-func (r CIRAWFilter) LensCorrectionEnabled() bool {
+func (r CIRAWFilter) IsLensCorrectionEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isLensCorrectionEnabled"))
 	return rv
 }
@@ -1063,7 +1063,7 @@ func (r CIRAWFilter) SetSharpnessAmount(value float32) {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isHighlightRecoveryEnabled
-func (r CIRAWFilter) HighlightRecoveryEnabled() bool {
+func (r CIRAWFilter) IsHighlightRecoveryEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isHighlightRecoveryEnabled"))
 	return rv
 }
@@ -1072,7 +1072,7 @@ func (r CIRAWFilter) SetHighlightRecoveryEnabled(value bool) {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isHighlightRecoverySupported
-func (r CIRAWFilter) HighlightRecoverySupported() bool {
+func (r CIRAWFilter) IsHighlightRecoverySupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isHighlightRecoverySupported"))
 	return rv
 }

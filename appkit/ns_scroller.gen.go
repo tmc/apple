@@ -512,7 +512,7 @@ func (_NSScrollerClass NSScrollerClass) PreferredScrollerStyleDidChangeNotificat
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/isCompatibleWithOverlayScrollers
-func (_NSScrollerClass NSScrollerClass) CompatibleWithOverlayScrollers() bool {
+func (_NSScrollerClass NSScrollerClass) IsCompatibleWithOverlayScrollers() bool {
 	rv := objc.Send[bool](objc.ID(_NSScrollerClass.class), objc.Sel("isCompatibleWithOverlayScrollers"))
 	return rv
 }

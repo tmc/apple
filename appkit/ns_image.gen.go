@@ -141,7 +141,7 @@ func (nc NSImageClass) Alloc() NSImage {
 //
 //   - [NSImage.Size]: The size of the image.
 //   - [NSImage.SetSize]
-//   - [NSImage.Template]: A Boolean value that determines whether the image represents a template image.
+//   - [NSImage.IsTemplate]: A Boolean value that determines whether the image represents a template image.
 //   - [NSImage.SetTemplate]
 //
 // # Working with Representations of Images
@@ -171,7 +171,7 @@ func (nc NSImageClass) Alloc() NSImage {
 //
 // # Managing Drawing Options
 //
-//   - [NSImage.Valid]: A Boolean value that indicates whether it is possible to draw an image representation.
+//   - [NSImage.IsValid]: A Boolean value that indicates whether it is possible to draw an image representation.
 //   - [NSImage.BackgroundColor]: The background color for the image.
 //   - [NSImage.SetBackgroundColor]
 //   - [NSImage.CapInsets]: The cap insets for the image.
@@ -284,7 +284,7 @@ func NSImageFromID(id objc.ID) NSImage {
 //
 //   - [INSImage.Size]: The size of the image.
 //   - [INSImage.SetSize]
-//   - [INSImage.Template]: A Boolean value that determines whether the image represents a template image.
+//   - [INSImage.IsTemplate]: A Boolean value that determines whether the image represents a template image.
 //   - [INSImage.SetTemplate]
 //
 // # Working with Representations of Images
@@ -314,7 +314,7 @@ func NSImageFromID(id objc.ID) NSImage {
 //
 // # Managing Drawing Options
 //
-//   - [INSImage.Valid]: A Boolean value that indicates whether it is possible to draw an image representation.
+//   - [INSImage.IsValid]: A Boolean value that indicates whether it is possible to draw an image representation.
 //   - [INSImage.BackgroundColor]: The background color for the image.
 //   - [INSImage.SetBackgroundColor]
 //   - [INSImage.CapInsets]: The cap insets for the image.
@@ -428,7 +428,7 @@ type INSImage interface {
 	Size() corefoundation.CGSize
 	SetSize(value corefoundation.CGSize)
 	// A Boolean value that determines whether the image represents a template image.
-	Template() bool
+	IsTemplate() bool
 	SetTemplate(value bool)
 
 	// Topic: Working with Representations of Images
@@ -472,7 +472,7 @@ type INSImage interface {
 	// Topic: Managing Drawing Options
 
 	// A Boolean value that indicates whether it is possible to draw an image representation.
-	Valid() bool
+	IsValid() bool
 	// The background color for the image.
 	BackgroundColor() INSColor
 	SetBackgroundColor(value INSColor)
@@ -2081,7 +2081,7 @@ func (i NSImage) SetSize(value corefoundation.CGSize) {
 // appearance of the corresponding control in each of its supported states.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/isTemplate
-func (i NSImage) Template() bool {
+func (i NSImage) IsTemplate() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isTemplate"))
 	return rv
 }
@@ -2176,7 +2176,7 @@ func (i NSImage) SetMatchesOnMultipleResolution(value bool) {
 // existing file is invalid, this method returns false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/isValid
-func (i NSImage) Valid() bool {
+func (i NSImage) IsValid() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isValid"))
 	return rv
 }

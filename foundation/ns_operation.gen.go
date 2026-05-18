@@ -306,12 +306,12 @@ func (oc OperationClass) Alloc() Operation {
 //
 // # Getting the Operation Status
 //
-//   - [Operation.Cancelled]: A Boolean value indicating whether the operation has been cancelled
-//   - [Operation.Executing]: A Boolean value indicating whether the operation is currently executing.
-//   - [Operation.Finished]: A Boolean value indicating whether the operation has finished executing its task.
-//   - [Operation.Concurrent]: A Boolean value indicating whether the operation executes its task asynchronously.
-//   - [Operation.Asynchronous]: A Boolean value indicating whether the operation executes its task asynchronously.
-//   - [Operation.Ready]: A Boolean value indicating whether the operation can be performed now.
+//   - [Operation.IsCancelled]: A Boolean value indicating whether the operation has been cancelled
+//   - [Operation.IsExecuting]: A Boolean value indicating whether the operation is currently executing.
+//   - [Operation.IsFinished]: A Boolean value indicating whether the operation has finished executing its task.
+//   - [Operation.IsConcurrent]: A Boolean value indicating whether the operation executes its task asynchronously.
+//   - [Operation.IsAsynchronous]: A Boolean value indicating whether the operation executes its task asynchronously.
+//   - [Operation.IsReady]: A Boolean value indicating whether the operation can be performed now.
 //   - [Operation.Name]: The name of the operation.
 //   - [Operation.SetName]
 //
@@ -371,12 +371,12 @@ func NSOperationFromID(id objc.ID) Operation { return OperationFromID(id) }
 //
 // # Getting the Operation Status
 //
-//   - [IOperation.Cancelled]: A Boolean value indicating whether the operation has been cancelled
-//   - [IOperation.Executing]: A Boolean value indicating whether the operation is currently executing.
-//   - [IOperation.Finished]: A Boolean value indicating whether the operation has finished executing its task.
-//   - [IOperation.Concurrent]: A Boolean value indicating whether the operation executes its task asynchronously.
-//   - [IOperation.Asynchronous]: A Boolean value indicating whether the operation executes its task asynchronously.
-//   - [IOperation.Ready]: A Boolean value indicating whether the operation can be performed now.
+//   - [IOperation.IsCancelled]: A Boolean value indicating whether the operation has been cancelled
+//   - [IOperation.IsExecuting]: A Boolean value indicating whether the operation is currently executing.
+//   - [IOperation.IsFinished]: A Boolean value indicating whether the operation has finished executing its task.
+//   - [IOperation.IsConcurrent]: A Boolean value indicating whether the operation executes its task asynchronously.
+//   - [IOperation.IsAsynchronous]: A Boolean value indicating whether the operation executes its task asynchronously.
+//   - [IOperation.IsReady]: A Boolean value indicating whether the operation can be performed now.
 //   - [IOperation.Name]: The name of the operation.
 //   - [IOperation.SetName]
 //
@@ -419,17 +419,17 @@ type IOperation interface {
 	// Topic: Getting the Operation Status
 
 	// A Boolean value indicating whether the operation has been cancelled
-	Cancelled() bool
+	IsCancelled() bool
 	// A Boolean value indicating whether the operation is currently executing.
-	Executing() bool
+	IsExecuting() bool
 	// A Boolean value indicating whether the operation has finished executing its task.
-	Finished() bool
+	IsFinished() bool
 	// A Boolean value indicating whether the operation executes its task asynchronously.
-	Concurrent() bool
+	IsConcurrent() bool
 	// A Boolean value indicating whether the operation executes its task asynchronously.
-	Asynchronous() bool
+	IsAsynchronous() bool
 	// A Boolean value indicating whether the operation can be performed now.
-	Ready() bool
+	IsReady() bool
 	// The name of the operation.
 	Name() string
 	SetName(value string)
@@ -696,7 +696,7 @@ func (o Operation) SetCompletionBlock(value VoidHandler) {
 // as quickly as possible when an operation is cancelled.
 //
 // See: https://developer.apple.com/documentation/Foundation/Operation/isCancelled
-func (o Operation) Cancelled() bool {
+func (o Operation) IsCancelled() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isCancelled"))
 	return rv
 }
@@ -720,7 +720,7 @@ func (o Operation) Cancelled() bool {
 // See: https://developer.apple.com/documentation/Foundation/Operation/isExecuting
 //
 // [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
-func (o Operation) Executing() bool {
+func (o Operation) IsExecuting() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isExecuting"))
 	return rv
 }
@@ -745,7 +745,7 @@ func (o Operation) Executing() bool {
 // See: https://developer.apple.com/documentation/Foundation/Operation/isFinished
 //
 // [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
-func (o Operation) Finished() bool {
+func (o Operation) IsFinished() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isFinished"))
 	return rv
 }
@@ -766,7 +766,7 @@ func (o Operation) Finished() bool {
 // and always start operations on a separate thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/Operation/isConcurrent
-func (o Operation) Concurrent() bool {
+func (o Operation) IsConcurrent() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isConcurrent"))
 	return rv
 }
@@ -786,7 +786,7 @@ func (o Operation) Concurrent() bool {
 // asynchronous operation, see [NSOperation].
 //
 // See: https://developer.apple.com/documentation/Foundation/Operation/isAsynchronous
-func (o Operation) Asynchronous() bool {
+func (o Operation) IsAsynchronous() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAsynchronous"))
 	return rv
 }
@@ -813,7 +813,7 @@ func (o Operation) Asynchronous() bool {
 // See: https://developer.apple.com/documentation/Foundation/Operation/isReady
 //
 // [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
-func (o Operation) Ready() bool {
+func (o Operation) IsReady() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isReady"))
 	return rv
 }

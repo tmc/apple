@@ -59,7 +59,7 @@ func (nc NSTreeNodeClass) Alloc() NSTreeNode {
 //
 //   - [NSTreeNode.RepresentedObject]: The object the tree node represents.
 //   - [NSTreeNode.IndexPath]: The position of the receiver relative to its root parent.
-//   - [NSTreeNode.Leaf]: A Boolean that indicates whether the receiver is a leaf node.
+//   - [NSTreeNode.IsLeaf]: A Boolean that indicates whether the receiver is a leaf node.
 //   - [NSTreeNode.ChildNodes]: An array containing receiver’s child nodes.
 //   - [NSTreeNode.MutableChildNodes]: A mutable array that provides read-write access to the receiver’s child nodes.
 //   - [NSTreeNode.DescendantNodeAtIndexPath]: Returns the receiver’s descendant at the specified index path.
@@ -94,7 +94,7 @@ func NSTreeNodeFromID(id objc.ID) NSTreeNode {
 //
 //   - [INSTreeNode.RepresentedObject]: The object the tree node represents.
 //   - [INSTreeNode.IndexPath]: The position of the receiver relative to its root parent.
-//   - [INSTreeNode.Leaf]: A Boolean that indicates whether the receiver is a leaf node.
+//   - [INSTreeNode.IsLeaf]: A Boolean that indicates whether the receiver is a leaf node.
 //   - [INSTreeNode.ChildNodes]: An array containing receiver’s child nodes.
 //   - [INSTreeNode.MutableChildNodes]: A mutable array that provides read-write access to the receiver’s child nodes.
 //   - [INSTreeNode.DescendantNodeAtIndexPath]: Returns the receiver’s descendant at the specified index path.
@@ -120,7 +120,7 @@ type INSTreeNode interface {
 	// The position of the receiver relative to its root parent.
 	IndexPath() objc.ID
 	// A Boolean that indicates whether the receiver is a leaf node.
-	Leaf() bool
+	IsLeaf() bool
 	// An array containing receiver’s child nodes.
 	ChildNodes() []NSTreeNode
 	// A mutable array that provides read-write access to the receiver’s child nodes.
@@ -255,7 +255,7 @@ func (t NSTreeNode) IndexPath() objc.ID {
 // true if the receiver is a leaf node (has no child nodes), otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/isLeaf
-func (t NSTreeNode) Leaf() bool {
+func (t NSTreeNode) IsLeaf() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isLeaf"))
 	return rv
 }

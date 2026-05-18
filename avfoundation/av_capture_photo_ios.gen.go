@@ -77,7 +77,7 @@ func (c AVCapturePhoto) SemanticSegmentationMatteForType(semanticSegmentationMat
 // RAW and processed results from the same capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/isRawPhoto
-func (c AVCapturePhoto) RawPhoto() bool {
+func (c AVCapturePhoto) IsRawPhoto() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isRawPhoto"))
 	return rv
 }

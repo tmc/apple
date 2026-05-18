@@ -88,7 +88,7 @@ func (pc PortClass) Alloc() Port {
 // # Validation
 //
 //   - [Port.Invalidate]: Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<doc://com.apple.foundation/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
-//   - [Port.Valid]: A Boolean value that indicates whether the receiver is valid.
+//   - [Port.IsValid]: A Boolean value that indicates whether the receiver is valid.
 //
 // # Setting the Delegate
 //
@@ -132,7 +132,7 @@ func NSPortFromID(id objc.ID) Port { return PortFromID(id) }
 // # Validation
 //
 //   - [IPort.Invalidate]: Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<doc://com.apple.foundation/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
-//   - [IPort.Valid]: A Boolean value that indicates whether the receiver is valid.
+//   - [IPort.IsValid]: A Boolean value that indicates whether the receiver is valid.
 //
 // # Setting the Delegate
 //
@@ -159,7 +159,7 @@ type IPort interface {
 	// Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<doc://com.apple.foundation/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
 	Invalidate()
 	// A Boolean value that indicates whether the receiver is valid.
-	Valid() bool
+	IsValid() bool
 
 	// Topic: Setting the Delegate
 
@@ -367,7 +367,7 @@ func (_PortClass PortClass) Port() NSPort {
 // resource, which is operating system dependent, is closed or damaged.
 //
 // See: https://developer.apple.com/documentation/Foundation/Port/isValid
-func (p Port) Valid() bool {
+func (p Port) IsValid() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isValid"))
 	return rv
 }

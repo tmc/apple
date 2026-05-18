@@ -58,7 +58,7 @@ func (ac AVMutableCompositionTrackClass) Alloc() AVMutableCompositionTrack {
 //
 // # Configuring track properties
 //
-//   - [AVMutableCompositionTrack.Enabled]: A Boolean value that indicates whether the tracks is in an enabled state.
+//   - [AVMutableCompositionTrack.IsEnabled]: A Boolean value that indicates whether the tracks is in an enabled state.
 //   - [AVMutableCompositionTrack.SetEnabled]
 //
 // # Managing time ranges
@@ -102,7 +102,7 @@ func AVMutableCompositionTrackFromID(id objc.ID) AVMutableCompositionTrack {
 //
 // # Configuring track properties
 //
-//   - [IAVMutableCompositionTrack.Enabled]: A Boolean value that indicates whether the tracks is in an enabled state.
+//   - [IAVMutableCompositionTrack.IsEnabled]: A Boolean value that indicates whether the tracks is in an enabled state.
 //   - [IAVMutableCompositionTrack.SetEnabled]
 //
 // # Managing time ranges
@@ -133,7 +133,7 @@ type IAVMutableCompositionTrack interface {
 	// Topic: Configuring track properties
 
 	// A Boolean value that indicates whether the tracks is in an enabled state.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 
 	// Topic: Managing time ranges
@@ -325,7 +325,7 @@ func (m AVMutableCompositionTrack) ValidateTrackSegmentsError(trackSegments []AV
 // A Boolean value that indicates whether the tracks is in an enabled state.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack/isEnabled
-func (m AVMutableCompositionTrack) Enabled() bool {
+func (m AVMutableCompositionTrack) IsEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isEnabled"))
 	return rv
 }

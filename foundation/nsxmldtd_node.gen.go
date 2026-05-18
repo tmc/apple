@@ -78,7 +78,7 @@ func (xc XMLDTDNodeClass) Alloc() XMLDTDNode {
 //
 // # Managing DTD Identifiers
 //
-//   - [XMLDTDNode.External]
+//   - [XMLDTDNode.IsExternal]
 //   - [XMLDTDNode.NotationName]: Returns the name of the notation associated with the receiver.
 //   - [XMLDTDNode.SetNotationName]
 //   - [XMLDTDNode.PublicID]: Returns the public identifier associated with the receiver.
@@ -121,7 +121,7 @@ func NSXMLDTDNodeFromID(id objc.ID) XMLDTDNode { return XMLDTDNodeFromID(id) }
 //
 // # Managing DTD Identifiers
 //
-//   - [IXMLDTDNode.External]
+//   - [IXMLDTDNode.IsExternal]
 //   - [IXMLDTDNode.NotationName]: Returns the name of the notation associated with the receiver.
 //   - [IXMLDTDNode.SetNotationName]
 //   - [IXMLDTDNode.PublicID]: Returns the public identifier associated with the receiver.
@@ -146,7 +146,7 @@ type IXMLDTDNode interface {
 
 	// Topic: Managing DTD Identifiers
 
-	External() bool
+	IsExternal() bool
 	// Returns the name of the notation associated with the receiver.
 	NotationName() string
 	SetNotationName(value string)
@@ -296,7 +296,7 @@ func (x XMLDTDNode) SetDTDKind(value NSXMLDTDNodeKind) {
 // True if the system id is set. Valid for entities and notations.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/isExternal
-func (x XMLDTDNode) External() bool {
+func (x XMLDTDNode) IsExternal() bool {
 	rv := objc.Send[bool](x.ID, objc.Sel("isExternal"))
 	return rv
 }

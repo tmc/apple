@@ -76,11 +76,11 @@ func (ac AVAssetResourceLoadingContentInformationRequestClass) Alloc() AVAssetRe
 //   - [AVAssetResourceLoadingContentInformationRequest.SetContentType]
 //   - [AVAssetResourceLoadingContentInformationRequest.ContentLength]: The length, in bytes, of the requested resource.
 //   - [AVAssetResourceLoadingContentInformationRequest.SetContentLength]
-//   - [AVAssetResourceLoadingContentInformationRequest.ByteRangeAccessSupported]: A Boolean value that indicates whether random access to arbitrary ranges of bytes of the resource is supported.
+//   - [AVAssetResourceLoadingContentInformationRequest.IsByteRangeAccessSupported]: A Boolean value that indicates whether random access to arbitrary ranges of bytes of the resource is supported.
 //   - [AVAssetResourceLoadingContentInformationRequest.SetByteRangeAccessSupported]
 //   - [AVAssetResourceLoadingContentInformationRequest.RenewalDate]: The date at which a new resource loading request will be issued for resources that expire, if the media system still requires it.
 //   - [AVAssetResourceLoadingContentInformationRequest.SetRenewalDate]
-//   - [AVAssetResourceLoadingContentInformationRequest.EntireLengthAvailableOnDemand]: A Boolean value that indicates whether asset data loading can expect data immediately.
+//   - [AVAssetResourceLoadingContentInformationRequest.IsEntireLengthAvailableOnDemand]: A Boolean value that indicates whether asset data loading can expect data immediately.
 //   - [AVAssetResourceLoadingContentInformationRequest.SetEntireLengthAvailableOnDemand]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingContentInformationRequest
@@ -108,11 +108,11 @@ func AVAssetResourceLoadingContentInformationRequestFromID(id objc.ID) AVAssetRe
 //   - [IAVAssetResourceLoadingContentInformationRequest.SetContentType]
 //   - [IAVAssetResourceLoadingContentInformationRequest.ContentLength]: The length, in bytes, of the requested resource.
 //   - [IAVAssetResourceLoadingContentInformationRequest.SetContentLength]
-//   - [IAVAssetResourceLoadingContentInformationRequest.ByteRangeAccessSupported]: A Boolean value that indicates whether random access to arbitrary ranges of bytes of the resource is supported.
+//   - [IAVAssetResourceLoadingContentInformationRequest.IsByteRangeAccessSupported]: A Boolean value that indicates whether random access to arbitrary ranges of bytes of the resource is supported.
 //   - [IAVAssetResourceLoadingContentInformationRequest.SetByteRangeAccessSupported]
 //   - [IAVAssetResourceLoadingContentInformationRequest.RenewalDate]: The date at which a new resource loading request will be issued for resources that expire, if the media system still requires it.
 //   - [IAVAssetResourceLoadingContentInformationRequest.SetRenewalDate]
-//   - [IAVAssetResourceLoadingContentInformationRequest.EntireLengthAvailableOnDemand]: A Boolean value that indicates whether asset data loading can expect data immediately.
+//   - [IAVAssetResourceLoadingContentInformationRequest.IsEntireLengthAvailableOnDemand]: A Boolean value that indicates whether asset data loading can expect data immediately.
 //   - [IAVAssetResourceLoadingContentInformationRequest.SetEntireLengthAvailableOnDemand]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingContentInformationRequest
@@ -130,13 +130,13 @@ type IAVAssetResourceLoadingContentInformationRequest interface {
 	ContentLength() int64
 	SetContentLength(value int64)
 	// A Boolean value that indicates whether random access to arbitrary ranges of bytes of the resource is supported.
-	ByteRangeAccessSupported() bool
+	IsByteRangeAccessSupported() bool
 	SetByteRangeAccessSupported(value bool)
 	// The date at which a new resource loading request will be issued for resources that expire, if the media system still requires it.
 	RenewalDate() foundation.NSDate
 	SetRenewalDate(value foundation.NSDate)
 	// A Boolean value that indicates whether asset data loading can expect data immediately.
-	EntireLengthAvailableOnDemand() bool
+	IsEntireLengthAvailableOnDemand() bool
 	SetEntireLengthAvailableOnDemand(value bool)
 
 	// The information for a requested resource.
@@ -243,7 +243,7 @@ func (a AVAssetResourceLoadingContentInformationRequest) SetContentLength(value 
 // more than once.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingContentInformationRequest/isByteRangeAccessSupported
-func (a AVAssetResourceLoadingContentInformationRequest) ByteRangeAccessSupported() bool {
+func (a AVAssetResourceLoadingContentInformationRequest) IsByteRangeAccessSupported() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isByteRangeAccessSupported"))
 	return rv
 }
@@ -287,7 +287,7 @@ func (a AVAssetResourceLoadingContentInformationRequest) SetRenewalDate(value fo
 // For backward compatibility, this property defaults to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingContentInformationRequest/isEntireLengthAvailableOnDemand
-func (a AVAssetResourceLoadingContentInformationRequest) EntireLengthAvailableOnDemand() bool {
+func (a AVAssetResourceLoadingContentInformationRequest) IsEntireLengthAvailableOnDemand() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isEntireLengthAvailableOnDemand"))
 	return rv
 }

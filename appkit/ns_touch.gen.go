@@ -66,7 +66,7 @@ func (nc NSTouchClass) Alloc() NSTouch {
 //   - [NSTouch.Identity]: The changes to a particular touch during its lifetime.
 //   - [NSTouch.Phase]: The current phase of the touch.
 //   - [NSTouch.NormalizedPosition]: The normalized position of the touch.
-//   - [NSTouch.Resting]: The indicator for a resting touch.
+//   - [NSTouch.IsResting]: The indicator for a resting touch.
 //
 // # Using Touch Device Properties
 //
@@ -104,7 +104,7 @@ func NSTouchFromID(id objc.ID) NSTouch {
 //   - [INSTouch.Identity]: The changes to a particular touch during its lifetime.
 //   - [INSTouch.Phase]: The current phase of the touch.
 //   - [INSTouch.NormalizedPosition]: The normalized position of the touch.
-//   - [INSTouch.Resting]: The indicator for a resting touch.
+//   - [INSTouch.IsResting]: The indicator for a resting touch.
 //
 // # Using Touch Device Properties
 //
@@ -134,7 +134,7 @@ type INSTouch interface {
 	// The normalized position of the touch.
 	NormalizedPosition() corefoundation.CGPoint
 	// The indicator for a resting touch.
-	Resting() bool
+	IsResting() bool
 
 	// Topic: Using Touch Device Properties
 
@@ -249,7 +249,7 @@ func (t NSTouch) NormalizedPosition() corefoundation.CGPoint {
 // device.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouch/isResting
-func (t NSTouch) Resting() bool {
+func (t NSTouch) IsResting() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isResting"))
 	return rv
 }

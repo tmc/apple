@@ -61,7 +61,7 @@ func (nc NSMorphologyClass) Alloc() NSMorphology {
 //
 // # Accessing Grammatical Properties
 //
-//   - [NSMorphology.Unspecified]: A Boolean value that indicates whether this instance specifies no particular grammar.
+//   - [NSMorphology.IsUnspecified]: A Boolean value that indicates whether this instance specifies no particular grammar.
 //   - [NSMorphology.GrammaticalGender]: The grammatical gender used for inflecting strings with this morphology.
 //   - [NSMorphology.SetGrammaticalGender]
 //   - [NSMorphology.Number]: The grammatical number used for inflecting strings with this morphology.
@@ -101,7 +101,7 @@ func NSMorphologyFromID(id objc.ID) NSMorphology {
 //
 // # Accessing Grammatical Properties
 //
-//   - [INSMorphology.Unspecified]: A Boolean value that indicates whether this instance specifies no particular grammar.
+//   - [INSMorphology.IsUnspecified]: A Boolean value that indicates whether this instance specifies no particular grammar.
 //   - [INSMorphology.GrammaticalGender]: The grammatical gender used for inflecting strings with this morphology.
 //   - [INSMorphology.SetGrammaticalGender]
 //   - [INSMorphology.Number]: The grammatical number used for inflecting strings with this morphology.
@@ -130,7 +130,7 @@ type INSMorphology interface {
 	// Topic: Accessing Grammatical Properties
 
 	// A Boolean value that indicates whether this instance specifies no particular grammar.
-	Unspecified() bool
+	IsUnspecified() bool
 	// The grammatical gender used for inflecting strings with this morphology.
 	GrammaticalGender() NSGrammaticalGender
 	SetGrammaticalGender(value NSGrammaticalGender)
@@ -204,7 +204,7 @@ func (m NSMorphology) EncodeWithCoder(coder INSCoder) {
 // unspecified, inflecting a string with this morphology does nothing.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/unspecified
-func (m NSMorphology) Unspecified() bool {
+func (m NSMorphology) IsUnspecified() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isUnspecified"))
 	return rv
 }

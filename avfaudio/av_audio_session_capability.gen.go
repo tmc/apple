@@ -47,8 +47,8 @@ func (ac AVAudioSessionCapabilityClass) Alloc() AVAudioSessionCapability {
 //
 // # Inspecting a capability
 //
-//   - [AVAudioSessionCapability.Enabled]: A Boolean value that indicates whether the capability is enabled.
-//   - [AVAudioSessionCapability.Supported]: A Boolean value that indicates whether the capability is supported.
+//   - [AVAudioSessionCapability.IsEnabled]: A Boolean value that indicates whether the capability is enabled.
+//   - [AVAudioSessionCapability.IsSupported]: A Boolean value that indicates whether the capability is supported.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability
 type AVAudioSessionCapability struct {
@@ -70,8 +70,8 @@ func AVAudioSessionCapabilityFromID(id objc.ID) AVAudioSessionCapability {
 //
 // # Inspecting a capability
 //
-//   - [IAVAudioSessionCapability.Enabled]: A Boolean value that indicates whether the capability is enabled.
-//   - [IAVAudioSessionCapability.Supported]: A Boolean value that indicates whether the capability is supported.
+//   - [IAVAudioSessionCapability.IsEnabled]: A Boolean value that indicates whether the capability is enabled.
+//   - [IAVAudioSessionCapability.IsSupported]: A Boolean value that indicates whether the capability is supported.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability
 type IAVAudioSessionCapability interface {
@@ -80,9 +80,9 @@ type IAVAudioSessionCapability interface {
 	// Topic: Inspecting a capability
 
 	// A Boolean value that indicates whether the capability is enabled.
-	Enabled() bool
+	IsEnabled() bool
 	// A Boolean value that indicates whether the capability is supported.
-	Supported() bool
+	IsSupported() bool
 
 	// An optional port extension that describes capabilities relevant to Bluetooth microphone ports.
 	BluetoothMicrophoneExtension() objc.ID
@@ -111,7 +111,7 @@ func NewAVAudioSessionCapability() AVAudioSessionCapability {
 // A Boolean value that indicates whether the capability is enabled.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability/isEnabled
-func (a AVAudioSessionCapability) Enabled() bool {
+func (a AVAudioSessionCapability) IsEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isEnabled"))
 	return rv
 }
@@ -119,7 +119,7 @@ func (a AVAudioSessionCapability) Enabled() bool {
 // A Boolean value that indicates whether the capability is supported.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability/isSupported
-func (a AVAudioSessionCapability) Supported() bool {
+func (a AVAudioSessionCapability) IsSupported() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isSupported"))
 	return rv
 }

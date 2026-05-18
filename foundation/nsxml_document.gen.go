@@ -115,7 +115,7 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 //   - [XMLDocument.SetDocumentContentKind]
 //   - [XMLDocument.DTD]: Returns an [XMLDTD](<doc://com.apple.foundation/documentation/Foundation/XMLDTD>) object representing the internal DTD associated with the receiver.
 //   - [XMLDocument.SetDTD]
-//   - [XMLDocument.Standalone]: Sets a Boolean value that specifies whether the receiver represents a standalone XML document.
+//   - [XMLDocument.IsStandalone]: Sets a Boolean value that specifies whether the receiver represents a standalone XML document.
 //   - [XMLDocument.SetStandalone]
 //   - [XMLDocument.MIMEType]: Returns the MIME type for the receiver.
 //   - [XMLDocument.SetMIMEType]
@@ -187,7 +187,7 @@ func NSXMLDocumentFromID(id objc.ID) XMLDocument { return XMLDocumentFromID(id) 
 //   - [IXMLDocument.SetDocumentContentKind]
 //   - [IXMLDocument.DTD]: Returns an [XMLDTD](<doc://com.apple.foundation/documentation/Foundation/XMLDTD>) object representing the internal DTD associated with the receiver.
 //   - [IXMLDocument.SetDTD]
-//   - [IXMLDocument.Standalone]: Sets a Boolean value that specifies whether the receiver represents a standalone XML document.
+//   - [IXMLDocument.IsStandalone]: Sets a Boolean value that specifies whether the receiver represents a standalone XML document.
 //   - [IXMLDocument.SetStandalone]
 //   - [IXMLDocument.MIMEType]: Returns the MIME type for the receiver.
 //   - [IXMLDocument.SetMIMEType]
@@ -249,7 +249,7 @@ type IXMLDocument interface {
 	DTD() INSXMLDTD
 	SetDTD(value INSXMLDTD)
 	// Sets a Boolean value that specifies whether the receiver represents a standalone XML document.
-	Standalone() bool
+	IsStandalone() bool
 	SetStandalone(value bool)
 	// Returns the MIME type for the receiver.
 	MIMEType() string
@@ -930,7 +930,7 @@ func (x XMLDocument) SetDTD(value INSXMLDTD) {
 // A standalone document does not have an external DTD associated with it.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/isStandalone
-func (x XMLDocument) Standalone() bool {
+func (x XMLDocument) IsStandalone() bool {
 	rv := objc.Send[bool](x.ID, objc.Sel("isStandalone"))
 	return rv
 }

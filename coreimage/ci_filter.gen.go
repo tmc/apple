@@ -122,7 +122,7 @@ func (cc CIFilterClass) Alloc() CIFilter {
 //
 //   - [CIFilter.Name]: A name associated with a filter.
 //   - [CIFilter.SetName]
-//   - [CIFilter.Enabled]: A Boolean value that determines whether the filter is enabled. Animatable.
+//   - [CIFilter.IsEnabled]: A Boolean value that determines whether the filter is enabled. Animatable.
 //   - [CIFilter.SetEnabled]
 //   - [CIFilter.Attributes]: A dictionary of key-value pairs that describe the filter.
 //   - [CIFilter.InputKeys]: The names of all input parameters to the filter.
@@ -167,7 +167,7 @@ func CIFilterFromID(id objc.ID) CIFilter {
 //
 //   - [ICIFilter.Name]: A name associated with a filter.
 //   - [ICIFilter.SetName]
-//   - [ICIFilter.Enabled]: A Boolean value that determines whether the filter is enabled. Animatable.
+//   - [ICIFilter.IsEnabled]: A Boolean value that determines whether the filter is enabled. Animatable.
 //   - [ICIFilter.SetEnabled]
 //   - [ICIFilter.Attributes]: A dictionary of key-value pairs that describe the filter.
 //   - [ICIFilter.InputKeys]: The names of all input parameters to the filter.
@@ -196,7 +196,7 @@ type ICIFilter interface {
 	Name() string
 	SetName(value string)
 	// A Boolean value that determines whether the filter is enabled. Animatable.
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	// A dictionary of key-value pairs that describe the filter.
 	Attributes() foundation.INSDictionary
@@ -8022,7 +8022,7 @@ func (f CIFilter) SetName(value string) {
 // property on a layer.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class/isEnabled
-func (f CIFilter) Enabled() bool {
+func (f CIFilter) IsEnabled() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isEnabled"))
 	return rv
 }

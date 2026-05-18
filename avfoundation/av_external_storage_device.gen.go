@@ -61,12 +61,12 @@ func (ac AVExternalStorageDeviceClass) Alloc() AVExternalStorageDevice {
 //
 // # Inspecting a storage device
 //
-//   - [AVExternalStorageDevice.Connected]: A Boolean value that indicates whether the system has a connection to the external storage device.
+//   - [AVExternalStorageDevice.IsConnected]: A Boolean value that indicates whether the system has a connection to the external storage device.
 //   - [AVExternalStorageDevice.DisplayName]: The name of an external storage device that’s appropriate for a user interface.
 //   - [AVExternalStorageDevice.Uuid]: The external storage device’s unique identifier.
 //   - [AVExternalStorageDevice.FreeSize]: The amount of free storage space, in bytes, that’s available on the external storage device.
 //   - [AVExternalStorageDevice.TotalSize]: The total amount of storage space, in bytes, that’s available on the external storage device.
-//   - [AVExternalStorageDevice.NotRecommendedForCaptureUse]: A Boolean value that indicates whether the external storage device is suitable for camera capture.
+//   - [AVExternalStorageDevice.IsNotRecommendedForCaptureUse]: A Boolean value that indicates whether the external storage device is suitable for camera capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice
 type AVExternalStorageDevice struct {
@@ -91,12 +91,12 @@ func AVExternalStorageDeviceFromID(id objc.ID) AVExternalStorageDevice {
 //
 // # Inspecting a storage device
 //
-//   - [IAVExternalStorageDevice.Connected]: A Boolean value that indicates whether the system has a connection to the external storage device.
+//   - [IAVExternalStorageDevice.IsConnected]: A Boolean value that indicates whether the system has a connection to the external storage device.
 //   - [IAVExternalStorageDevice.DisplayName]: The name of an external storage device that’s appropriate for a user interface.
 //   - [IAVExternalStorageDevice.Uuid]: The external storage device’s unique identifier.
 //   - [IAVExternalStorageDevice.FreeSize]: The amount of free storage space, in bytes, that’s available on the external storage device.
 //   - [IAVExternalStorageDevice.TotalSize]: The total amount of storage space, in bytes, that’s available on the external storage device.
-//   - [IAVExternalStorageDevice.NotRecommendedForCaptureUse]: A Boolean value that indicates whether the external storage device is suitable for camera capture.
+//   - [IAVExternalStorageDevice.IsNotRecommendedForCaptureUse]: A Boolean value that indicates whether the external storage device is suitable for camera capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice
 type IAVExternalStorageDevice interface {
@@ -110,7 +110,7 @@ type IAVExternalStorageDevice interface {
 	// Topic: Inspecting a storage device
 
 	// A Boolean value that indicates whether the system has a connection to the external storage device.
-	Connected() bool
+	IsConnected() bool
 	// The name of an external storage device that’s appropriate for a user interface.
 	DisplayName() string
 	// The external storage device’s unique identifier.
@@ -120,7 +120,7 @@ type IAVExternalStorageDevice interface {
 	// The total amount of storage space, in bytes, that’s available on the external storage device.
 	TotalSize() int
 	// A Boolean value that indicates whether the external storage device is suitable for camera capture.
-	NotRecommendedForCaptureUse() bool
+	IsNotRecommendedForCaptureUse() bool
 
 	// An array of external storage devices the session updates as individual devices connect or disconnect from the system.
 	ExternalStorageDevices() IAVExternalStorageDevice
@@ -219,7 +219,7 @@ func (_AVExternalStorageDeviceClass AVExternalStorageDeviceClass) RequestAccessW
 // external storage device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice/isConnected
-func (e AVExternalStorageDevice) Connected() bool {
+func (e AVExternalStorageDevice) IsConnected() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isConnected"))
 	return rv
 }
@@ -283,7 +283,7 @@ func (e AVExternalStorageDevice) TotalSize() int {
 // suitable for camera capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice/isNotRecommendedForCaptureUse
-func (e AVExternalStorageDevice) NotRecommendedForCaptureUse() bool {
+func (e AVExternalStorageDevice) IsNotRecommendedForCaptureUse() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isNotRecommendedForCaptureUse"))
 	return rv
 }

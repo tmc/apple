@@ -48,7 +48,7 @@ func (lc LengthFormatterClass) Alloc() LengthFormatter {
 //
 // # Formatting Length Strings
 //
-//   - [LengthFormatter.ForPersonHeightUse]: A Boolean value that indicates whether the resulting string represents a person’s height.
+//   - [LengthFormatter.IsForPersonHeightUse]: A Boolean value that indicates whether the resulting string represents a person’s height.
 //   - [LengthFormatter.SetForPersonHeightUse]
 //   - [LengthFormatter.NumberFormatter]: The number formatter used to format the numbers in length strings.
 //   - [LengthFormatter.SetNumberFormatter]
@@ -82,7 +82,7 @@ func NSLengthFormatterFromID(id objc.ID) LengthFormatter { return LengthFormatte
 //
 // # Formatting Length Strings
 //
-//   - [ILengthFormatter.ForPersonHeightUse]: A Boolean value that indicates whether the resulting string represents a person’s height.
+//   - [ILengthFormatter.IsForPersonHeightUse]: A Boolean value that indicates whether the resulting string represents a person’s height.
 //   - [ILengthFormatter.SetForPersonHeightUse]
 //   - [ILengthFormatter.NumberFormatter]: The number formatter used to format the numbers in length strings.
 //   - [ILengthFormatter.SetNumberFormatter]
@@ -100,7 +100,7 @@ type ILengthFormatter interface {
 	// Topic: Formatting Length Strings
 
 	// A Boolean value that indicates whether the resulting string represents a person’s height.
-	ForPersonHeightUse() bool
+	IsForPersonHeightUse() bool
 	SetForPersonHeightUse(value bool)
 	// The number formatter used to format the numbers in length strings.
 	NumberFormatter() INSNumberFormatter
@@ -234,7 +234,7 @@ func (l LengthFormatter) UnitStringFromValueUnit(value float64, unit NSLengthFor
 // a given locale (for example, in the [StringFromMeters] method).
 //
 // See: https://developer.apple.com/documentation/Foundation/LengthFormatter/isForPersonHeightUse
-func (l LengthFormatter) ForPersonHeightUse() bool {
+func (l LengthFormatter) IsForPersonHeightUse() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isForPersonHeightUse"))
 	return rv
 }

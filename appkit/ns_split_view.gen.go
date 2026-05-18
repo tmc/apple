@@ -80,7 +80,7 @@ func (nc NSSplitViewClass) Alloc() NSSplitView {
 //
 // # Managing Divider Orientation
 //
-//   - [NSSplitView.Vertical]: A Boolean value that determines the geometric orientation of the split view’s dividers.
+//   - [NSSplitView.IsVertical]: A Boolean value that determines the geometric orientation of the split view’s dividers.
 //   - [NSSplitView.SetVertical]
 //
 // # Configuring and Drawing Dividers
@@ -143,7 +143,7 @@ func NSSplitViewFromID(id objc.ID) NSSplitView {
 //
 // # Managing Divider Orientation
 //
-//   - [INSSplitView.Vertical]: A Boolean value that determines the geometric orientation of the split view’s dividers.
+//   - [INSSplitView.IsVertical]: A Boolean value that determines the geometric orientation of the split view’s dividers.
 //   - [INSSplitView.SetVertical]
 //
 // # Configuring and Drawing Dividers
@@ -203,7 +203,7 @@ type INSSplitView interface {
 	// Topic: Managing Divider Orientation
 
 	// A Boolean value that determines the geometric orientation of the split view’s dividers.
-	Vertical() bool
+	IsVertical() bool
 	SetVertical(value bool)
 
 	// Topic: Configuring and Drawing Dividers
@@ -596,7 +596,7 @@ func (s NSSplitView) ArrangedSubviews() []NSView {
 // true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitView/isVertical
-func (s NSSplitView) Vertical() bool {
+func (s NSSplitView) IsVertical() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isVertical"))
 	return rv
 }

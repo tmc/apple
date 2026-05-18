@@ -50,7 +50,7 @@ func (sc SCContentSharingPickerClass) Alloc() SCContentSharingPicker {
 //
 // # Picker availability
 //
-//   - [SCContentSharingPicker.Active]: A Boolean value that indicates if the picker is active.
+//   - [SCContentSharingPicker.IsActive]: A Boolean value that indicates if the picker is active.
 //   - [SCContentSharingPicker.SetActive]
 //
 // # Stream configuration
@@ -94,7 +94,7 @@ func SCContentSharingPickerFromID(id objc.ID) SCContentSharingPicker {
 //
 // # Picker availability
 //
-//   - [ISCContentSharingPicker.Active]: A Boolean value that indicates if the picker is active.
+//   - [ISCContentSharingPicker.IsActive]: A Boolean value that indicates if the picker is active.
 //   - [ISCContentSharingPicker.SetActive]
 //
 // # Stream configuration
@@ -125,7 +125,7 @@ type ISCContentSharingPicker interface {
 	// Topic: Picker availability
 
 	// A Boolean value that indicates if the picker is active.
-	Active() bool
+	IsActive() bool
 	SetActive(value bool)
 
 	// Topic: Stream configuration
@@ -261,7 +261,7 @@ func (c SCContentSharingPicker) SetConfigurationForStream(pickerConfig ISCConten
 // for managing capture. The default value is `false`.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPicker/isActive
-func (c SCContentSharingPicker) Active() bool {
+func (c SCContentSharingPicker) IsActive() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isActive"))
 	return rv
 }

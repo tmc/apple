@@ -56,7 +56,7 @@ func (vc VZSharedDirectoryClass) Alloc() VZSharedDirectory {
 // # Accessing Directory Properties
 //
 //   - [VZSharedDirectory.URL]: A file URL to a directory on the host system to expose to the guest.
-//   - [VZSharedDirectory.ReadOnly]: A Boolean value that indicates whether the directory is read-only to the guest.
+//   - [VZSharedDirectory.IsReadOnly]: A Boolean value that indicates whether the directory is read-only to the guest.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory
 type VZSharedDirectory struct {
@@ -82,7 +82,7 @@ func VZSharedDirectoryFromID(id objc.ID) VZSharedDirectory {
 // # Accessing Directory Properties
 //
 //   - [IVZSharedDirectory.URL]: A file URL to a directory on the host system to expose to the guest.
-//   - [IVZSharedDirectory.ReadOnly]: A Boolean value that indicates whether the directory is read-only to the guest.
+//   - [IVZSharedDirectory.IsReadOnly]: A Boolean value that indicates whether the directory is read-only to the guest.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory
 type IVZSharedDirectory interface {
@@ -98,7 +98,7 @@ type IVZSharedDirectory interface {
 	// A file URL to a directory on the host system to expose to the guest.
 	URL() foundation.NSURL
 	// A Boolean value that indicates whether the directory is read-only to the guest.
-	ReadOnly() bool
+	IsReadOnly() bool
 }
 
 // Init initializes the instance.
@@ -167,7 +167,7 @@ func (s VZSharedDirectory) URL() foundation.NSURL {
 // guest.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/isReadOnly
-func (s VZSharedDirectory) ReadOnly() bool {
+func (s VZSharedDirectory) IsReadOnly() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isReadOnly"))
 	return rv
 }

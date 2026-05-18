@@ -55,7 +55,7 @@ func BuildLinuxVMConfig(cfg LinuxVMConfig) (vz.VZVirtualMachineConfiguration, er
 
 	// Nested virtualization: default on, opt-out with NestedVirtualization=false.
 	enableNested := cfg.NestedVirtualization == nil || *cfg.NestedVirtualization
-	if enableNested && vz.GetVZGenericPlatformConfigurationClass().NestedVirtualizationSupported() {
+	if enableNested && vz.GetVZGenericPlatformConfigurationClass().IsNestedVirtualizationSupported() {
 		platformConfig.SetNestedVirtualizationEnabled(true)
 	}
 

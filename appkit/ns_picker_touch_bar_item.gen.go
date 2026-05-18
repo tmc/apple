@@ -62,7 +62,7 @@ func (nc NSPickerTouchBarItemClass) Alloc() NSPickerTouchBarItem {
 //
 // # Configuring picker state
 //
-//   - [NSPickerTouchBarItem.Enabled]
+//   - [NSPickerTouchBarItem.IsEnabled]
 //   - [NSPickerTouchBarItem.SetEnabled]
 //   - [NSPickerTouchBarItem.IsEnabledAtIndex]
 //   - [NSPickerTouchBarItem.SetEnabledAtIndex]
@@ -117,7 +117,7 @@ func NSPickerTouchBarItemFromID(id objc.ID) NSPickerTouchBarItem {
 //
 // # Configuring picker state
 //
-//   - [INSPickerTouchBarItem.Enabled]
+//   - [INSPickerTouchBarItem.IsEnabled]
 //   - [INSPickerTouchBarItem.SetEnabled]
 //   - [INSPickerTouchBarItem.IsEnabledAtIndex]
 //   - [INSPickerTouchBarItem.SetEnabledAtIndex]
@@ -159,7 +159,7 @@ type INSPickerTouchBarItem interface {
 
 	// Topic: Configuring picker state
 
-	Enabled() bool
+	IsEnabled() bool
 	SetEnabled(value bool)
 	IsEnabledAtIndex(index int) bool
 	SetEnabledAtIndex(enabled bool, index int)
@@ -305,7 +305,7 @@ func (p NSPickerTouchBarItem) SetControlRepresentation(value NSPickerTouchBarIte
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/isEnabled
-func (p NSPickerTouchBarItem) Enabled() bool {
+func (p NSPickerTouchBarItem) IsEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isEnabled"))
 	return rv
 }

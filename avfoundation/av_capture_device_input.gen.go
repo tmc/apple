@@ -61,14 +61,14 @@ func (ac AVCaptureDeviceInputClass) Alloc() AVCaptureDeviceInput {
 //   - [AVCaptureDeviceInput.IsMultichannelAudioModeSupported]: A Boolean value that indicates whether the input supports the specified multichannel audio mode.
 //   - [AVCaptureDeviceInput.MultichannelAudioMode]: The multichannel audio mode to apply when recording audio.
 //   - [AVCaptureDeviceInput.SetMultichannelAudioMode]
-//   - [AVCaptureDeviceInput.WindNoiseRemovalSupported]
-//   - [AVCaptureDeviceInput.WindNoiseRemovalEnabled]
+//   - [AVCaptureDeviceInput.IsWindNoiseRemovalSupported]
+//   - [AVCaptureDeviceInput.IsWindNoiseRemovalEnabled]
 //   - [AVCaptureDeviceInput.SetWindNoiseRemovalEnabled]
 //
 // # Configuring Cinematic video capture
 //
-//   - [AVCaptureDeviceInput.CinematicVideoCaptureSupported]: A BOOL value specifying whether Cinematic Video capture is supported.
-//   - [AVCaptureDeviceInput.CinematicVideoCaptureEnabled]: A BOOL value specifying whether the Cinematic Video effect is being applied to any movie file output, video data output, metadata output, or video preview layer added to the capture session.
+//   - [AVCaptureDeviceInput.IsCinematicVideoCaptureSupported]: A BOOL value specifying whether Cinematic Video capture is supported.
+//   - [AVCaptureDeviceInput.IsCinematicVideoCaptureEnabled]: A BOOL value specifying whether the Cinematic Video effect is being applied to any movie file output, video data output, metadata output, or video preview layer added to the capture session.
 //   - [AVCaptureDeviceInput.SetCinematicVideoCaptureEnabled]
 //   - [AVCaptureDeviceInput.SimulatedAperture]: Shallow depth of field simulated aperture.
 //   - [AVCaptureDeviceInput.SetSimulatedAperture]
@@ -77,11 +77,11 @@ func (ac AVCaptureDeviceInputClass) Alloc() AVCaptureDeviceInput {
 //
 //   - [AVCaptureDeviceInput.ActiveLockedVideoFrameDuration]: The receiver’s locked frame duration (the reciprocal of its frame rate). Setting this property guarantees the intra-frame duration delivered by the device input is precisely the frame duration you request.
 //   - [AVCaptureDeviceInput.SetActiveLockedVideoFrameDuration]
-//   - [AVCaptureDeviceInput.LockedVideoFrameDurationSupported]: Indicates whether the device input supports locked frame durations.
+//   - [AVCaptureDeviceInput.IsLockedVideoFrameDurationSupported]: Indicates whether the device input supports locked frame durations.
 //
 // # Synchronizing with external devices
 //
-//   - [AVCaptureDeviceInput.ExternalSyncSupported]: Indicates whether the device input supports being configured to follow an external sync device.
+//   - [AVCaptureDeviceInput.IsExternalSyncSupported]: Indicates whether the device input supports being configured to follow an external sync device.
 //   - [AVCaptureDeviceInput.FollowExternalSyncDeviceVideoFrameDurationDelegate]: Configures the the device input to follow an external sync device at the given frame duration.
 //   - [AVCaptureDeviceInput.UnfollowExternalSyncDevice]: Discontinues external sync.
 //   - [AVCaptureDeviceInput.ActiveExternalSyncVideoFrameDuration]: The receiver’s external sync frame duration (the reciprocal of its frame rate) when being driven by an external sync device.
@@ -93,9 +93,9 @@ func (ac AVCaptureDeviceInputClass) Alloc() AVCaptureDeviceInput {
 //
 // # Instance Properties
 //
-//   - [AVCaptureDeviceInput.AudioZoomEnabled]: Whether or not audio zoom is enabled.
+//   - [AVCaptureDeviceInput.IsAudioZoomEnabled]: Whether or not audio zoom is enabled.
 //   - [AVCaptureDeviceInput.SetAudioZoomEnabled]
-//   - [AVCaptureDeviceInput.AudioZoomSupported]: Whether or not audio zoom is supported.
+//   - [AVCaptureDeviceInput.IsAudioZoomSupported]: Whether or not audio zoom is supported.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput
 type AVCaptureDeviceInput struct {
@@ -124,14 +124,14 @@ func AVCaptureDeviceInputFromID(id objc.ID) AVCaptureDeviceInput {
 //   - [IAVCaptureDeviceInput.IsMultichannelAudioModeSupported]: A Boolean value that indicates whether the input supports the specified multichannel audio mode.
 //   - [IAVCaptureDeviceInput.MultichannelAudioMode]: The multichannel audio mode to apply when recording audio.
 //   - [IAVCaptureDeviceInput.SetMultichannelAudioMode]
-//   - [IAVCaptureDeviceInput.WindNoiseRemovalSupported]
-//   - [IAVCaptureDeviceInput.WindNoiseRemovalEnabled]
+//   - [IAVCaptureDeviceInput.IsWindNoiseRemovalSupported]
+//   - [IAVCaptureDeviceInput.IsWindNoiseRemovalEnabled]
 //   - [IAVCaptureDeviceInput.SetWindNoiseRemovalEnabled]
 //
 // # Configuring Cinematic video capture
 //
-//   - [IAVCaptureDeviceInput.CinematicVideoCaptureSupported]: A BOOL value specifying whether Cinematic Video capture is supported.
-//   - [IAVCaptureDeviceInput.CinematicVideoCaptureEnabled]: A BOOL value specifying whether the Cinematic Video effect is being applied to any movie file output, video data output, metadata output, or video preview layer added to the capture session.
+//   - [IAVCaptureDeviceInput.IsCinematicVideoCaptureSupported]: A BOOL value specifying whether Cinematic Video capture is supported.
+//   - [IAVCaptureDeviceInput.IsCinematicVideoCaptureEnabled]: A BOOL value specifying whether the Cinematic Video effect is being applied to any movie file output, video data output, metadata output, or video preview layer added to the capture session.
 //   - [IAVCaptureDeviceInput.SetCinematicVideoCaptureEnabled]
 //   - [IAVCaptureDeviceInput.SimulatedAperture]: Shallow depth of field simulated aperture.
 //   - [IAVCaptureDeviceInput.SetSimulatedAperture]
@@ -140,11 +140,11 @@ func AVCaptureDeviceInputFromID(id objc.ID) AVCaptureDeviceInput {
 //
 //   - [IAVCaptureDeviceInput.ActiveLockedVideoFrameDuration]: The receiver’s locked frame duration (the reciprocal of its frame rate). Setting this property guarantees the intra-frame duration delivered by the device input is precisely the frame duration you request.
 //   - [IAVCaptureDeviceInput.SetActiveLockedVideoFrameDuration]
-//   - [IAVCaptureDeviceInput.LockedVideoFrameDurationSupported]: Indicates whether the device input supports locked frame durations.
+//   - [IAVCaptureDeviceInput.IsLockedVideoFrameDurationSupported]: Indicates whether the device input supports locked frame durations.
 //
 // # Synchronizing with external devices
 //
-//   - [IAVCaptureDeviceInput.ExternalSyncSupported]: Indicates whether the device input supports being configured to follow an external sync device.
+//   - [IAVCaptureDeviceInput.IsExternalSyncSupported]: Indicates whether the device input supports being configured to follow an external sync device.
 //   - [IAVCaptureDeviceInput.FollowExternalSyncDeviceVideoFrameDurationDelegate]: Configures the the device input to follow an external sync device at the given frame duration.
 //   - [IAVCaptureDeviceInput.UnfollowExternalSyncDevice]: Discontinues external sync.
 //   - [IAVCaptureDeviceInput.ActiveExternalSyncVideoFrameDuration]: The receiver’s external sync frame duration (the reciprocal of its frame rate) when being driven by an external sync device.
@@ -156,9 +156,9 @@ func AVCaptureDeviceInputFromID(id objc.ID) AVCaptureDeviceInput {
 //
 // # Instance Properties
 //
-//   - [IAVCaptureDeviceInput.AudioZoomEnabled]: Whether or not audio zoom is enabled.
+//   - [IAVCaptureDeviceInput.IsAudioZoomEnabled]: Whether or not audio zoom is enabled.
 //   - [IAVCaptureDeviceInput.SetAudioZoomEnabled]
-//   - [IAVCaptureDeviceInput.AudioZoomSupported]: Whether or not audio zoom is supported.
+//   - [IAVCaptureDeviceInput.IsAudioZoomSupported]: Whether or not audio zoom is supported.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput
 type IAVCaptureDeviceInput interface {
@@ -176,16 +176,16 @@ type IAVCaptureDeviceInput interface {
 	// The multichannel audio mode to apply when recording audio.
 	MultichannelAudioMode() AVCaptureMultichannelAudioMode
 	SetMultichannelAudioMode(value AVCaptureMultichannelAudioMode)
-	WindNoiseRemovalSupported() bool
-	WindNoiseRemovalEnabled() bool
+	IsWindNoiseRemovalSupported() bool
+	IsWindNoiseRemovalEnabled() bool
 	SetWindNoiseRemovalEnabled(value bool)
 
 	// Topic: Configuring Cinematic video capture
 
 	// A BOOL value specifying whether Cinematic Video capture is supported.
-	CinematicVideoCaptureSupported() bool
+	IsCinematicVideoCaptureSupported() bool
 	// A BOOL value specifying whether the Cinematic Video effect is being applied to any movie file output, video data output, metadata output, or video preview layer added to the capture session.
-	CinematicVideoCaptureEnabled() bool
+	IsCinematicVideoCaptureEnabled() bool
 	SetCinematicVideoCaptureEnabled(value bool)
 	// Shallow depth of field simulated aperture.
 	SimulatedAperture() float32
@@ -197,12 +197,12 @@ type IAVCaptureDeviceInput interface {
 	ActiveLockedVideoFrameDuration() coremedia.CMTime
 	SetActiveLockedVideoFrameDuration(value coremedia.CMTime)
 	// Indicates whether the device input supports locked frame durations.
-	LockedVideoFrameDurationSupported() bool
+	IsLockedVideoFrameDurationSupported() bool
 
 	// Topic: Synchronizing with external devices
 
 	// Indicates whether the device input supports being configured to follow an external sync device.
-	ExternalSyncSupported() bool
+	IsExternalSyncSupported() bool
 	// Configures the the device input to follow an external sync device at the given frame duration.
 	FollowExternalSyncDeviceVideoFrameDurationDelegate(externalSyncDevice IAVExternalSyncDevice, frameDuration coremedia.CMTime, delegate AVExternalSyncDeviceDelegate)
 	// Discontinues external sync.
@@ -220,10 +220,10 @@ type IAVCaptureDeviceInput interface {
 	// Topic: Instance Properties
 
 	// Whether or not audio zoom is enabled.
-	AudioZoomEnabled() bool
+	IsAudioZoomEnabled() bool
 	SetAudioZoomEnabled(value bool)
 	// Whether or not audio zoom is supported.
-	AudioZoomSupported() bool
+	IsAudioZoomSupported() bool
 }
 
 // Init initializes the instance.
@@ -401,13 +401,13 @@ func (c AVCaptureDeviceInput) SetMultichannelAudioMode(value AVCaptureMultichann
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isWindNoiseRemovalSupported
-func (c AVCaptureDeviceInput) WindNoiseRemovalSupported() bool {
+func (c AVCaptureDeviceInput) IsWindNoiseRemovalSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isWindNoiseRemovalSupported"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isWindNoiseRemovalEnabled
-func (c AVCaptureDeviceInput) WindNoiseRemovalEnabled() bool {
+func (c AVCaptureDeviceInput) IsWindNoiseRemovalEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isWindNoiseRemovalEnabled"))
 	return rv
 }
@@ -448,7 +448,7 @@ func (c AVCaptureDeviceInput) SetWindNoiseRemovalEnabled(value bool) {
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isCinematicVideoCaptureSupported
 //
 // [AVCaptureDevice.CinematicVideoFocusMode]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/CinematicVideoFocusMode
-func (c AVCaptureDeviceInput) CinematicVideoCaptureSupported() bool {
+func (c AVCaptureDeviceInput) IsCinematicVideoCaptureSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCinematicVideoCaptureSupported"))
 	return rv
 }
@@ -470,7 +470,7 @@ func (c AVCaptureDeviceInput) CinematicVideoCaptureSupported() bool {
 // [CinematicVideoCaptureSupported] is `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isCinematicVideoCaptureEnabled
-func (c AVCaptureDeviceInput) CinematicVideoCaptureEnabled() bool {
+func (c AVCaptureDeviceInput) IsCinematicVideoCaptureEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCinematicVideoCaptureEnabled"))
 	return rv
 }
@@ -535,7 +535,7 @@ func (c AVCaptureDeviceInput) SetActiveLockedVideoFrameDuration(value coremedia.
 // duration locking.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isLockedVideoFrameDurationSupported
-func (c AVCaptureDeviceInput) LockedVideoFrameDurationSupported() bool {
+func (c AVCaptureDeviceInput) IsLockedVideoFrameDurationSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isLockedVideoFrameDurationSupported"))
 	return rv
 }
@@ -549,7 +549,7 @@ func (c AVCaptureDeviceInput) LockedVideoFrameDurationSupported() bool {
 // information on external sync.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isExternalSyncSupported
-func (c AVCaptureDeviceInput) ExternalSyncSupported() bool {
+func (c AVCaptureDeviceInput) IsExternalSyncSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isExternalSyncSupported"))
 	return rv
 }
@@ -613,7 +613,7 @@ func (c AVCaptureDeviceInput) Device() IAVCaptureDevice {
 //
 // [AVCaptureMultiCamSession]: https://developer.apple.com/documentation/AVFoundation/AVCaptureMultiCamSession
 // [AVCaptureMultichannelAudioMode]: https://developer.apple.com/documentation/AVFoundation/AVCaptureMultichannelAudioMode
-func (c AVCaptureDeviceInput) AudioZoomEnabled() bool {
+func (c AVCaptureDeviceInput) IsAudioZoomEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAudioZoomEnabled"))
 	return rv
 }
@@ -628,7 +628,7 @@ func (c AVCaptureDeviceInput) SetAudioZoomEnabled(value bool) {
 // This property returns `true` if the device supports audio zoom.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/isAudioZoomSupported
-func (c AVCaptureDeviceInput) AudioZoomSupported() bool {
+func (c AVCaptureDeviceInput) IsAudioZoomSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAudioZoomSupported"))
 	return rv
 }

@@ -41,7 +41,7 @@ func (u NSUserActivity) AppClipActivationPayload() objectivec.IObject {
 // [UIResponder]: https://developer.apple.com/documentation/UIKit/UIResponder
 // [UIViewController]: https://developer.apple.com/documentation/UIKit/UIViewController
 // [userActivity]: https://developer.apple.com/documentation/UIKit/UIResponder/userActivity
-func (u NSUserActivity) EligibleForPrediction() bool {
+func (u NSUserActivity) IsEligibleForPrediction() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isEligibleForPrediction"))
 	return rv
 }

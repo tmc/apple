@@ -204,7 +204,7 @@ func (_CAEDRMetadataClass CAEDRMetadataClass) HLGMetadata() CAEDRMetadata {
 }
 
 // See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata/isAvailable
-func (_CAEDRMetadataClass CAEDRMetadataClass) Available() bool {
+func (_CAEDRMetadataClass CAEDRMetadataClass) IsAvailable() bool {
 	rv := objc.Send[bool](objc.ID(_CAEDRMetadataClass.class), objc.Sel("isAvailable"))
 	return rv
 }

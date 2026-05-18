@@ -73,7 +73,7 @@ func (nc NSRuleEditorClass) Alloc() NSRuleEditor {
 //
 // # Configuring a Rule Editor
 //
-//   - [NSRuleEditor.Editable]: A Boolean value that determines whether the rule editor is editable.
+//   - [NSRuleEditor.IsEditable]: A Boolean value that determines whether the rule editor is editable.
 //   - [NSRuleEditor.SetEditable]
 //   - [NSRuleEditor.NestingMode]: The rule editor’s nesting mode.
 //   - [NSRuleEditor.SetNestingMode]
@@ -161,7 +161,7 @@ func NSRuleEditorFromID(id objc.ID) NSRuleEditor {
 //
 // # Configuring a Rule Editor
 //
-//   - [INSRuleEditor.Editable]: A Boolean value that determines whether the rule editor is editable.
+//   - [INSRuleEditor.IsEditable]: A Boolean value that determines whether the rule editor is editable.
 //   - [INSRuleEditor.SetEditable]
 //   - [INSRuleEditor.NestingMode]: The rule editor’s nesting mode.
 //   - [INSRuleEditor.SetNestingMode]
@@ -236,7 +236,7 @@ type INSRuleEditor interface {
 	// Topic: Configuring a Rule Editor
 
 	// A Boolean value that determines whether the rule editor is editable.
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 	// The rule editor’s nesting mode.
 	NestingMode() NSRuleEditorNestingMode
@@ -648,7 +648,7 @@ func (r NSRuleEditor) SetDelegate(value NSRuleEditorDelegate) {
 // The default is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/isEditable
-func (r NSRuleEditor) Editable() bool {
+func (r NSRuleEditor) IsEditable() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isEditable"))
 	return rv
 }

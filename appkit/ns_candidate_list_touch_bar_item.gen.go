@@ -66,12 +66,12 @@ func (nc NSCandidateListTouchBarItemClass) Alloc() NSCandidateListTouchBarItem {
 //
 //   - [NSCandidateListTouchBarItem.AllowsCollapsing]: A Boolean value that specifies whether the item can be collapsed.
 //   - [NSCandidateListTouchBarItem.SetAllowsCollapsing]
-//   - [NSCandidateListTouchBarItem.Collapsed]: A Boolean value that controls the visibility of the candidate list.
+//   - [NSCandidateListTouchBarItem.IsCollapsed]: A Boolean value that controls the visibility of the candidate list.
 //   - [NSCandidateListTouchBarItem.SetCollapsed]
 //
 // # Managing candidate list visibility
 //
-//   - [NSCandidateListTouchBarItem.CandidateListVisible]: A Boolean value that represents the visibility of this item’s candidate list.
+//   - [NSCandidateListTouchBarItem.IsCandidateListVisible]: A Boolean value that represents the visibility of this item’s candidate list.
 //   - [NSCandidateListTouchBarItem.UpdateWithInsertionPointVisibility]: Updates the candidate list visibility configuration based on the client’s insertion point state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem
@@ -112,12 +112,12 @@ func NSCandidateListTouchBarItemFromID(id objc.ID) NSCandidateListTouchBarItem {
 //
 //   - [INSCandidateListTouchBarItem.AllowsCollapsing]: A Boolean value that specifies whether the item can be collapsed.
 //   - [INSCandidateListTouchBarItem.SetAllowsCollapsing]
-//   - [INSCandidateListTouchBarItem.Collapsed]: A Boolean value that controls the visibility of the candidate list.
+//   - [INSCandidateListTouchBarItem.IsCollapsed]: A Boolean value that controls the visibility of the candidate list.
 //   - [INSCandidateListTouchBarItem.SetCollapsed]
 //
 // # Managing candidate list visibility
 //
-//   - [INSCandidateListTouchBarItem.CandidateListVisible]: A Boolean value that represents the visibility of this item’s candidate list.
+//   - [INSCandidateListTouchBarItem.IsCandidateListVisible]: A Boolean value that represents the visibility of this item’s candidate list.
 //   - [INSCandidateListTouchBarItem.UpdateWithInsertionPointVisibility]: Updates the candidate list visibility configuration based on the client’s insertion point state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem
@@ -152,13 +152,13 @@ type INSCandidateListTouchBarItem interface {
 	AllowsCollapsing() bool
 	SetAllowsCollapsing(value bool)
 	// A Boolean value that controls the visibility of the candidate list.
-	Collapsed() bool
+	IsCollapsed() bool
 	SetCollapsed(value bool)
 
 	// Topic: Managing candidate list visibility
 
 	// A Boolean value that represents the visibility of this item’s candidate list.
-	CandidateListVisible() bool
+	IsCandidateListVisible() bool
 	// Updates the candidate list visibility configuration based on the client’s insertion point state.
 	UpdateWithInsertionPointVisibility(isVisible bool)
 }
@@ -359,7 +359,7 @@ func (c NSCandidateListTouchBarItem) SetAllowsCollapsing(value bool) {
 // The default value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/isCollapsed
-func (c NSCandidateListTouchBarItem) Collapsed() bool {
+func (c NSCandidateListTouchBarItem) IsCollapsed() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCollapsed"))
 	return rv
 }
@@ -381,7 +381,7 @@ func (c NSCandidateListTouchBarItem) SetCollapsed(value bool) {
 // its value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/isCandidateListVisible
-func (c NSCandidateListTouchBarItem) CandidateListVisible() bool {
+func (c NSCandidateListTouchBarItem) IsCandidateListVisible() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCandidateListVisible"))
 	return rv
 }

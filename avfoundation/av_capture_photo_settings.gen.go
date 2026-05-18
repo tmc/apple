@@ -79,14 +79,14 @@ func (ac AVCapturePhotoSettingsClass) Alloc() AVCapturePhotoSettings {
 //
 // # Suppressing the shutter sound
 //
-//   - [AVCapturePhotoSettings.ShutterSoundSuppressionEnabled]: A Boolean value that indicates whether to suppress the built-in shutter sound when capturing a photo.
+//   - [AVCapturePhotoSettings.IsShutterSoundSuppressionEnabled]: A Boolean value that indicates whether to suppress the built-in shutter sound when capturing a photo.
 //   - [AVCapturePhotoSettings.SetShutterSoundSuppressionEnabled]
 //
 // # Configuring constant color
 //
-//   - [AVCapturePhotoSettings.ConstantColorEnabled]: A Boolean value that indicates whether to capture the photo with constant color.
+//   - [AVCapturePhotoSettings.IsConstantColorEnabled]: A Boolean value that indicates whether to capture the photo with constant color.
 //   - [AVCapturePhotoSettings.SetConstantColorEnabled]
-//   - [AVCapturePhotoSettings.ConstantColorFallbackPhotoDeliveryEnabled]: A Boolean value that indicates whether to deliver a fallback photo when taking a constant color capture.
+//   - [AVCapturePhotoSettings.IsConstantColorFallbackPhotoDeliveryEnabled]: A Boolean value that indicates whether to deliver a fallback photo when taking a constant color capture.
 //   - [AVCapturePhotoSettings.SetConstantColorFallbackPhotoDeliveryEnabled]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings
@@ -124,14 +124,14 @@ func AVCapturePhotoSettingsFromID(id objc.ID) AVCapturePhotoSettings {
 //
 // # Suppressing the shutter sound
 //
-//   - [IAVCapturePhotoSettings.ShutterSoundSuppressionEnabled]: A Boolean value that indicates whether to suppress the built-in shutter sound when capturing a photo.
+//   - [IAVCapturePhotoSettings.IsShutterSoundSuppressionEnabled]: A Boolean value that indicates whether to suppress the built-in shutter sound when capturing a photo.
 //   - [IAVCapturePhotoSettings.SetShutterSoundSuppressionEnabled]
 //
 // # Configuring constant color
 //
-//   - [IAVCapturePhotoSettings.ConstantColorEnabled]: A Boolean value that indicates whether to capture the photo with constant color.
+//   - [IAVCapturePhotoSettings.IsConstantColorEnabled]: A Boolean value that indicates whether to capture the photo with constant color.
 //   - [IAVCapturePhotoSettings.SetConstantColorEnabled]
-//   - [IAVCapturePhotoSettings.ConstantColorFallbackPhotoDeliveryEnabled]: A Boolean value that indicates whether to deliver a fallback photo when taking a constant color capture.
+//   - [IAVCapturePhotoSettings.IsConstantColorFallbackPhotoDeliveryEnabled]: A Boolean value that indicates whether to deliver a fallback photo when taking a constant color capture.
 //   - [IAVCapturePhotoSettings.SetConstantColorFallbackPhotoDeliveryEnabled]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings
@@ -162,16 +162,16 @@ type IAVCapturePhotoSettings interface {
 	// Topic: Suppressing the shutter sound
 
 	// A Boolean value that indicates whether to suppress the built-in shutter sound when capturing a photo.
-	ShutterSoundSuppressionEnabled() bool
+	IsShutterSoundSuppressionEnabled() bool
 	SetShutterSoundSuppressionEnabled(value bool)
 
 	// Topic: Configuring constant color
 
 	// A Boolean value that indicates whether to capture the photo with constant color.
-	ConstantColorEnabled() bool
+	IsConstantColorEnabled() bool
 	SetConstantColorEnabled(value bool)
 	// A Boolean value that indicates whether to deliver a fallback photo when taking a constant color capture.
-	ConstantColorFallbackPhotoDeliveryEnabled() bool
+	IsConstantColorFallbackPhotoDeliveryEnabled() bool
 	SetConstantColorFallbackPhotoDeliveryEnabled(value bool)
 
 	// Name of an exception that occurs when you pass an invalid argument to a method, such as a `nil` pointer where a non-`nil` object is required.
@@ -607,7 +607,7 @@ func (c AVCapturePhotoSettings) SetPhotoQualityPrioritization(value AVCapturePho
 // [ShutterSoundSuppressionSupported] property returns false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isShutterSoundSuppressionEnabled
-func (c AVCapturePhotoSettings) ShutterSoundSuppressionEnabled() bool {
+func (c AVCapturePhotoSettings) IsShutterSoundSuppressionEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isShutterSoundSuppressionEnabled"))
 	return rv
 }
@@ -624,7 +624,7 @@ func (c AVCapturePhotoSettings) SetShutterSoundSuppressionEnabled(value bool) {
 // color photo.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isConstantColorEnabled
-func (c AVCapturePhotoSettings) ConstantColorEnabled() bool {
+func (c AVCapturePhotoSettings) IsConstantColorEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isConstantColorEnabled"))
 	return rv
 }
@@ -642,7 +642,7 @@ func (c AVCapturePhotoSettings) SetConstantColorEnabled(value bool) {
 // level doesn’t meet your requirement.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/isConstantColorFallbackPhotoDeliveryEnabled
-func (c AVCapturePhotoSettings) ConstantColorFallbackPhotoDeliveryEnabled() bool {
+func (c AVCapturePhotoSettings) IsConstantColorFallbackPhotoDeliveryEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isConstantColorFallbackPhotoDeliveryEnabled"))
 	return rv
 }

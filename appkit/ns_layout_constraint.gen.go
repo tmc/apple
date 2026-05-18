@@ -96,7 +96,7 @@ func (nc NSLayoutConstraintClass) Alloc() NSLayoutConstraint {
 //
 // # Activating and deactivating constraints
 //
-//   - [NSLayoutConstraint.Active]: The active state of the constraint.
+//   - [NSLayoutConstraint.IsActive]: The active state of the constraint.
 //   - [NSLayoutConstraint.SetActive]
 //
 // # Accessing constraint data
@@ -151,7 +151,7 @@ func NSLayoutConstraintFromID(id objc.ID) NSLayoutConstraint {
 //
 // # Activating and deactivating constraints
 //
-//   - [INSLayoutConstraint.Active]: The active state of the constraint.
+//   - [INSLayoutConstraint.IsActive]: The active state of the constraint.
 //   - [INSLayoutConstraint.SetActive]
 //
 // # Accessing constraint data
@@ -189,7 +189,7 @@ type INSLayoutConstraint interface {
 	// Topic: Activating and deactivating constraints
 
 	// The active state of the constraint.
-	Active() bool
+	IsActive() bool
 	SetActive(value bool)
 
 	// Topic: Accessing constraint data
@@ -497,7 +497,7 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) DefaultAnimationForKey(k
 // [AddConstraint] or [RemoveConstraint] directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/isActive
-func (l NSLayoutConstraint) Active() bool {
+func (l NSLayoutConstraint) IsActive() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isActive"))
 	return rv
 }

@@ -80,7 +80,7 @@ func (pc PDFViewClass) Alloc() PDFView {
 //
 // # Instance Properties
 //
-//   - [PDFView.InMarkupMode]
+//   - [PDFView.IsInMarkupMode]
 //   - [PDFView.SetInMarkupMode]
 //   - [PDFView.PageOverlayViewProvider]
 //   - [PDFView.SetPageOverlayViewProvider]
@@ -123,7 +123,7 @@ func PDFViewFromID(id objc.ID) PDFView {
 //
 // # Instance Properties
 //
-//   - [IPDFView.InMarkupMode]
+//   - [IPDFView.IsInMarkupMode]
 //   - [IPDFView.SetInMarkupMode]
 //   - [IPDFView.PageOverlayViewProvider]
 //   - [IPDFView.SetPageOverlayViewProvider]
@@ -157,7 +157,7 @@ type IPDFView interface {
 
 	// Topic: Instance Properties
 
-	InMarkupMode() bool
+	IsInMarkupMode() bool
 	SetInMarkupMode(value bool)
 	PageOverlayViewProvider() PDFPageOverlayViewProvider
 	SetPageOverlayViewProvider(value PDFPageOverlayViewProvider)
@@ -779,7 +779,7 @@ func (p PDFView) SetDelegate(value PDFViewDelegate) {
 }
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/isInMarkupMode
-func (p PDFView) InMarkupMode() bool {
+func (p PDFView) IsInMarkupMode() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isInMarkupMode"))
 	return rv
 }

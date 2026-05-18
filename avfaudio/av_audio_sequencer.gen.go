@@ -91,7 +91,7 @@ func (ac AVAudioSequencerClass) Alloc() AVAudioSequencer {
 //
 // # Getting Sequence Properties
 //
-//   - [AVAudioSequencer.Playing]: A Boolean value that indicates whether the sequencer’s player is in a playing state.
+//   - [AVAudioSequencer.IsPlaying]: A Boolean value that indicates whether the sequencer’s player is in a playing state.
 //   - [AVAudioSequencer.Rate]: The playback rate of the sequencer’s player.
 //   - [AVAudioSequencer.SetRate]
 //   - [AVAudioSequencer.Tracks]: An array that contains all the tracks in the sequence.
@@ -164,7 +164,7 @@ func AVAudioSequencerFromID(id objc.ID) AVAudioSequencer {
 //
 // # Getting Sequence Properties
 //
-//   - [IAVAudioSequencer.Playing]: A Boolean value that indicates whether the sequencer’s player is in a playing state.
+//   - [IAVAudioSequencer.IsPlaying]: A Boolean value that indicates whether the sequencer’s player is in a playing state.
 //   - [IAVAudioSequencer.Rate]: The playback rate of the sequencer’s player.
 //   - [IAVAudioSequencer.SetRate]
 //   - [IAVAudioSequencer.Tracks]: An array that contains all the tracks in the sequence.
@@ -240,7 +240,7 @@ type IAVAudioSequencer interface {
 	// Topic: Getting Sequence Properties
 
 	// A Boolean value that indicates whether the sequencer’s player is in a playing state.
-	Playing() bool
+	IsPlaying() bool
 	// The playback rate of the sequencer’s player.
 	Rate() float32
 	SetRate(value float32)
@@ -589,7 +589,7 @@ func (a AVAudioSequencer) DataWithSMPTEResolutionError(SMPTEResolution int) (fou
 // including when playing past the end of the events in a sequence.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/isPlaying
-func (a AVAudioSequencer) Playing() bool {
+func (a AVAudioSequencer) IsPlaying() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPlaying"))
 	return rv
 }

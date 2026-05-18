@@ -114,12 +114,12 @@ func (uc URLSessionTaskTransactionMetricsClass) Alloc() URLSessionTaskTransactio
 //   - [URLSessionTaskTransactionMetrics.NetworkProtocolName]: The network protocol used to fetch the resource.
 //   - [URLSessionTaskTransactionMetrics.RemoteAddress]: The IP address string of the remote interface for the connection.
 //   - [URLSessionTaskTransactionMetrics.LocalAddress]: The IP address string of the local interface for the connection.
-//   - [URLSessionTaskTransactionMetrics.Cellular]: A Boolean value that indicates whether the connection operates over a cellular interface.
-//   - [URLSessionTaskTransactionMetrics.Expensive]: A Boolean value that indicates whether the connection operates over an expensive interface.
-//   - [URLSessionTaskTransactionMetrics.Constrained]: A Boolean value that indicates whether the connection operates over an interface marked as constrained.
-//   - [URLSessionTaskTransactionMetrics.ProxyConnection]: A Boolean value that indicastes whether the task used a proxy connection to fetch the resource.
-//   - [URLSessionTaskTransactionMetrics.ReusedConnection]: A Boolean value that indicates whether the task used a persistent connection to fetch the resource.
-//   - [URLSessionTaskTransactionMetrics.Multipath]: A Boolean value that indicates whether the connection uses a successfully negotiated multipath protocol.
+//   - [URLSessionTaskTransactionMetrics.IsCellular]: A Boolean value that indicates whether the connection operates over a cellular interface.
+//   - [URLSessionTaskTransactionMetrics.IsExpensive]: A Boolean value that indicates whether the connection operates over an expensive interface.
+//   - [URLSessionTaskTransactionMetrics.IsConstrained]: A Boolean value that indicates whether the connection operates over an interface marked as constrained.
+//   - [URLSessionTaskTransactionMetrics.IsProxyConnection]: A Boolean value that indicastes whether the task used a proxy connection to fetch the resource.
+//   - [URLSessionTaskTransactionMetrics.IsReusedConnection]: A Boolean value that indicates whether the task used a persistent connection to fetch the resource.
+//   - [URLSessionTaskTransactionMetrics.IsMultipath]: A Boolean value that indicates whether the connection uses a successfully negotiated multipath protocol.
 //   - [URLSessionTaskTransactionMetrics.ResourceFetchType]: A value that indicates whether the resource was loaded, pushed, or retrieved from the local cache.
 //   - [URLSessionTaskTransactionMetrics.DomainResolutionProtocol]
 //
@@ -179,12 +179,12 @@ func NSURLSessionTaskTransactionMetricsFromID(id objc.ID) URLSessionTaskTransact
 //   - [IURLSessionTaskTransactionMetrics.NetworkProtocolName]: The network protocol used to fetch the resource.
 //   - [IURLSessionTaskTransactionMetrics.RemoteAddress]: The IP address string of the remote interface for the connection.
 //   - [IURLSessionTaskTransactionMetrics.LocalAddress]: The IP address string of the local interface for the connection.
-//   - [IURLSessionTaskTransactionMetrics.Cellular]: A Boolean value that indicates whether the connection operates over a cellular interface.
-//   - [IURLSessionTaskTransactionMetrics.Expensive]: A Boolean value that indicates whether the connection operates over an expensive interface.
-//   - [IURLSessionTaskTransactionMetrics.Constrained]: A Boolean value that indicates whether the connection operates over an interface marked as constrained.
-//   - [IURLSessionTaskTransactionMetrics.ProxyConnection]: A Boolean value that indicastes whether the task used a proxy connection to fetch the resource.
-//   - [IURLSessionTaskTransactionMetrics.ReusedConnection]: A Boolean value that indicates whether the task used a persistent connection to fetch the resource.
-//   - [IURLSessionTaskTransactionMetrics.Multipath]: A Boolean value that indicates whether the connection uses a successfully negotiated multipath protocol.
+//   - [IURLSessionTaskTransactionMetrics.IsCellular]: A Boolean value that indicates whether the connection operates over a cellular interface.
+//   - [IURLSessionTaskTransactionMetrics.IsExpensive]: A Boolean value that indicates whether the connection operates over an expensive interface.
+//   - [IURLSessionTaskTransactionMetrics.IsConstrained]: A Boolean value that indicates whether the connection operates over an interface marked as constrained.
+//   - [IURLSessionTaskTransactionMetrics.IsProxyConnection]: A Boolean value that indicastes whether the task used a proxy connection to fetch the resource.
+//   - [IURLSessionTaskTransactionMetrics.IsReusedConnection]: A Boolean value that indicates whether the task used a persistent connection to fetch the resource.
+//   - [IURLSessionTaskTransactionMetrics.IsMultipath]: A Boolean value that indicates whether the connection uses a successfully negotiated multipath protocol.
 //   - [IURLSessionTaskTransactionMetrics.ResourceFetchType]: A value that indicates whether the resource was loaded, pushed, or retrieved from the local cache.
 //   - [IURLSessionTaskTransactionMetrics.DomainResolutionProtocol]
 //
@@ -248,17 +248,17 @@ type IURLSessionTaskTransactionMetrics interface {
 	// The IP address string of the local interface for the connection.
 	LocalAddress() string
 	// A Boolean value that indicates whether the connection operates over a cellular interface.
-	Cellular() bool
+	IsCellular() bool
 	// A Boolean value that indicates whether the connection operates over an expensive interface.
-	Expensive() bool
+	IsExpensive() bool
 	// A Boolean value that indicates whether the connection operates over an interface marked as constrained.
-	Constrained() bool
+	IsConstrained() bool
 	// A Boolean value that indicastes whether the task used a proxy connection to fetch the resource.
-	ProxyConnection() bool
+	IsProxyConnection() bool
 	// A Boolean value that indicates whether the task used a persistent connection to fetch the resource.
-	ReusedConnection() bool
+	IsReusedConnection() bool
 	// A Boolean value that indicates whether the connection uses a successfully negotiated multipath protocol.
-	Multipath() bool
+	IsMultipath() bool
 	// A value that indicates whether the resource was loaded, pushed, or retrieved from the local cache.
 	ResourceFetchType() NSURLSessionTaskMetricsResourceFetchType
 	DomainResolutionProtocol() NSURLSessionTaskMetricsDomainResolutionProtocol
@@ -569,7 +569,7 @@ func (u URLSessionTaskTransactionMetrics) LocalAddress() string {
 //
 // [URLRequest]: https://developer.apple.com/documentation/Foundation/URLRequest
 // [allowsCellularAccess]: https://developer.apple.com/documentation/Foundation/URLRequest/allowsCellularAccess
-func (u URLSessionTaskTransactionMetrics) Cellular() bool {
+func (u URLSessionTaskTransactionMetrics) IsCellular() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isCellular"))
 	return rv
 }
@@ -589,7 +589,7 @@ func (u URLSessionTaskTransactionMetrics) Cellular() bool {
 //
 // [URLRequest]: https://developer.apple.com/documentation/Foundation/URLRequest
 // [allowsExpensiveNetworkAccess]: https://developer.apple.com/documentation/Foundation/URLRequest/allowsExpensiveNetworkAccess
-func (u URLSessionTaskTransactionMetrics) Expensive() bool {
+func (u URLSessionTaskTransactionMetrics) IsExpensive() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isExpensive"))
 	return rv
 }
@@ -609,7 +609,7 @@ func (u URLSessionTaskTransactionMetrics) Expensive() bool {
 //
 // [URLRequest]: https://developer.apple.com/documentation/Foundation/URLRequest
 // [allowsConstrainedNetworkAccess]: https://developer.apple.com/documentation/Foundation/URLRequest/allowsConstrainedNetworkAccess
-func (u URLSessionTaskTransactionMetrics) Constrained() bool {
+func (u URLSessionTaskTransactionMetrics) IsConstrained() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isConstrained"))
 	return rv
 }
@@ -618,7 +618,7 @@ func (u URLSessionTaskTransactionMetrics) Constrained() bool {
 // fetch the resource.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/isProxyConnection
-func (u URLSessionTaskTransactionMetrics) ProxyConnection() bool {
+func (u URLSessionTaskTransactionMetrics) IsProxyConnection() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isProxyConnection"))
 	return rv
 }
@@ -627,7 +627,7 @@ func (u URLSessionTaskTransactionMetrics) ProxyConnection() bool {
 // connection to fetch the resource.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/isReusedConnection
-func (u URLSessionTaskTransactionMetrics) ReusedConnection() bool {
+func (u URLSessionTaskTransactionMetrics) IsReusedConnection() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isReusedConnection"))
 	return rv
 }
@@ -641,7 +641,7 @@ func (u URLSessionTaskTransactionMetrics) ReusedConnection() bool {
 // [MultipathServiceType] property on [NSURLSessionConfiguration].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/isMultipath
-func (u URLSessionTaskTransactionMetrics) Multipath() bool {
+func (u URLSessionTaskTransactionMetrics) IsMultipath() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isMultipath"))
 	return rv
 }

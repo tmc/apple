@@ -188,7 +188,7 @@ func (pc PersonNameComponentsFormatterClass) Alloc() PersonNameComponentsFormatt
 //
 //   - [PersonNameComponentsFormatter.Style]: The formatting style of the receiver.
 //   - [PersonNameComponentsFormatter.SetStyle]
-//   - [PersonNameComponentsFormatter.Phonetic]: A Boolean value that specifies whether the receiver should use only the phonetic representations of name components.
+//   - [PersonNameComponentsFormatter.IsPhonetic]: A Boolean value that specifies whether the receiver should use only the phonetic representations of name components.
 //   - [PersonNameComponentsFormatter.SetPhonetic]
 //
 // # Converting Between Person Name Components and Strings
@@ -229,7 +229,7 @@ func NSPersonNameComponentsFormatterFromID(id objc.ID) PersonNameComponentsForma
 //
 //   - [IPersonNameComponentsFormatter.Style]: The formatting style of the receiver.
 //   - [IPersonNameComponentsFormatter.SetStyle]
-//   - [IPersonNameComponentsFormatter.Phonetic]: A Boolean value that specifies whether the receiver should use only the phonetic representations of name components.
+//   - [IPersonNameComponentsFormatter.IsPhonetic]: A Boolean value that specifies whether the receiver should use only the phonetic representations of name components.
 //   - [IPersonNameComponentsFormatter.SetPhonetic]
 //
 // # Converting Between Person Name Components and Strings
@@ -253,7 +253,7 @@ type IPersonNameComponentsFormatter interface {
 	Style() NSPersonNameComponentsFormatterStyle
 	SetStyle(value NSPersonNameComponentsFormatterStyle)
 	// A Boolean value that specifies whether the receiver should use only the phonetic representations of name components.
-	Phonetic() bool
+	IsPhonetic() bool
 	SetPhonetic(value bool)
 
 	// Topic: Converting Between Person Name Components and Strings
@@ -431,7 +431,7 @@ func (p PersonNameComponentsFormatter) SetStyle(value NSPersonNameComponentsForm
 // The default value is false.
 //
 // See: https://developer.apple.com/documentation/Foundation/PersonNameComponentsFormatter/isPhonetic
-func (p PersonNameComponentsFormatter) Phonetic() bool {
+func (p PersonNameComponentsFormatter) IsPhonetic() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isPhonetic"))
 	return rv
 }

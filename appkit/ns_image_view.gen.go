@@ -81,7 +81,7 @@ func (nc NSImageViewClass) Alloc() NSImageView {
 //
 // # Responding to user events
 //
-//   - [NSImageView.Editable]: A Boolean value indicating whether the user can drag a new image into the image view.
+//   - [NSImageView.IsEditable]: A Boolean value indicating whether the user can drag a new image into the image view.
 //   - [NSImageView.SetEditable]
 //   - [NSImageView.AllowsCutCopyPaste]: A Boolean value indicating whether the image view lets the user cut, copy, and paste the image contents.
 //   - [NSImageView.SetAllowsCutCopyPaste]
@@ -131,7 +131,7 @@ func NSImageViewFromID(id objc.ID) NSImageView {
 //
 // # Responding to user events
 //
-//   - [INSImageView.Editable]: A Boolean value indicating whether the user can drag a new image into the image view.
+//   - [INSImageView.IsEditable]: A Boolean value indicating whether the user can drag a new image into the image view.
 //   - [INSImageView.SetEditable]
 //   - [INSImageView.AllowsCutCopyPaste]: A Boolean value indicating whether the image view lets the user cut, copy, and paste the image contents.
 //   - [INSImageView.SetAllowsCutCopyPaste]
@@ -177,7 +177,7 @@ type INSImageView interface {
 	// Topic: Responding to user events
 
 	// A Boolean value indicating whether the user can drag a new image into the image view.
-	Editable() bool
+	IsEditable() bool
 	SetEditable(value bool)
 	// A Boolean value indicating whether the image view lets the user cut, copy, and paste the image contents.
 	AllowsCutCopyPaste() bool
@@ -610,7 +610,7 @@ func (i NSImageView) SetPreferredImageDynamicRange(value NSImageDynamicRange) {
 // programmatically set image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/isEditable
-func (i NSImageView) Editable() bool {
+func (i NSImageView) IsEditable() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isEditable"))
 	return rv
 }

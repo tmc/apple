@@ -82,14 +82,14 @@ func (nc NSProgressIndicatorClass) Alloc() NSProgressIndicator {
 //   - [NSProgressIndicator.SetControlSize]
 //   - [NSProgressIndicator.ControlTint]: The progress indicator’s control tint.
 //   - [NSProgressIndicator.SetControlTint]
-//   - [NSProgressIndicator.Bezeled]: A Boolean that indicates whether the progress indicator’s frame has a three-dimensional bezel.
+//   - [NSProgressIndicator.IsBezeled]: A Boolean that indicates whether the progress indicator’s frame has a three-dimensional bezel.
 //   - [NSProgressIndicator.SetBezeled]
-//   - [NSProgressIndicator.Indeterminate]: A Boolean that indicates whether the progress indicator is indeterminate.
+//   - [NSProgressIndicator.IsIndeterminate]: A Boolean that indicates whether the progress indicator is indeterminate.
 //   - [NSProgressIndicator.SetIndeterminate]
 //   - [NSProgressIndicator.Style]: The style of the progress indicator (bar or spinning).
 //   - [NSProgressIndicator.SetStyle]
 //   - [NSProgressIndicator.SizeToFit]: This action method resizes the progress indicator to an appropriate size depending on the value of [style](<doc://com.apple.appkit/documentation/AppKit/NSProgressIndicator/style-swift.property>).
-//   - [NSProgressIndicator.DisplayedWhenStopped]: A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
+//   - [NSProgressIndicator.IsDisplayedWhenStopped]: A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
 //   - [NSProgressIndicator.SetDisplayedWhenStopped]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator
@@ -138,14 +138,14 @@ func NSProgressIndicatorFromID(id objc.ID) NSProgressIndicator {
 //   - [INSProgressIndicator.SetControlSize]
 //   - [INSProgressIndicator.ControlTint]: The progress indicator’s control tint.
 //   - [INSProgressIndicator.SetControlTint]
-//   - [INSProgressIndicator.Bezeled]: A Boolean that indicates whether the progress indicator’s frame has a three-dimensional bezel.
+//   - [INSProgressIndicator.IsBezeled]: A Boolean that indicates whether the progress indicator’s frame has a three-dimensional bezel.
 //   - [INSProgressIndicator.SetBezeled]
-//   - [INSProgressIndicator.Indeterminate]: A Boolean that indicates whether the progress indicator is indeterminate.
+//   - [INSProgressIndicator.IsIndeterminate]: A Boolean that indicates whether the progress indicator is indeterminate.
 //   - [INSProgressIndicator.SetIndeterminate]
 //   - [INSProgressIndicator.Style]: The style of the progress indicator (bar or spinning).
 //   - [INSProgressIndicator.SetStyle]
 //   - [INSProgressIndicator.SizeToFit]: This action method resizes the progress indicator to an appropriate size depending on the value of [style](<doc://com.apple.appkit/documentation/AppKit/NSProgressIndicator/style-swift.property>).
-//   - [INSProgressIndicator.DisplayedWhenStopped]: A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
+//   - [INSProgressIndicator.IsDisplayedWhenStopped]: A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
 //   - [INSProgressIndicator.SetDisplayedWhenStopped]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator
@@ -192,10 +192,10 @@ type INSProgressIndicator interface {
 	ControlTint() NSControlTint
 	SetControlTint(value NSControlTint)
 	// A Boolean that indicates whether the progress indicator’s frame has a three-dimensional bezel.
-	Bezeled() bool
+	IsBezeled() bool
 	SetBezeled(value bool)
 	// A Boolean that indicates whether the progress indicator is indeterminate.
-	Indeterminate() bool
+	IsIndeterminate() bool
 	SetIndeterminate(value bool)
 	// The style of the progress indicator (bar or spinning).
 	Style() NSProgressIndicatorStyle
@@ -203,7 +203,7 @@ type INSProgressIndicator interface {
 	// This action method resizes the progress indicator to an appropriate size depending on the value of [style](<doc://com.apple.appkit/documentation/AppKit/NSProgressIndicator/style-swift.property>).
 	SizeToFit()
 	// A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
-	DisplayedWhenStopped() bool
+	IsDisplayedWhenStopped() bool
 	SetDisplayedWhenStopped(value bool)
 }
 
@@ -469,7 +469,7 @@ func (p NSProgressIndicator) SetControlTint(value NSControlTint) {
 // When the value of this property is true, the progress indicator is bezeled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/isBezeled
-func (p NSProgressIndicator) Bezeled() bool {
+func (p NSProgressIndicator) IsBezeled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isBezeled"))
 	return rv
 }
@@ -488,7 +488,7 @@ func (p NSProgressIndicator) SetBezeled(value bool) {
 // indeterminate; otherwise, it is determinate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/isIndeterminate
-func (p NSProgressIndicator) Indeterminate() bool {
+func (p NSProgressIndicator) IsIndeterminate() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isIndeterminate"))
 	return rv
 }
@@ -522,7 +522,7 @@ func (p NSProgressIndicator) SetStyle(value NSProgressIndicatorStyle) {
 // when it isn’t animating. The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/isDisplayedWhenStopped
-func (p NSProgressIndicator) DisplayedWhenStopped() bool {
+func (p NSProgressIndicator) IsDisplayedWhenStopped() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isDisplayedWhenStopped"))
 	return rv
 }

@@ -72,7 +72,7 @@ func (wc WKWebsiteDataStoreClass) Alloc() WKWebsiteDataStore {
 // # Inspecting data store properties
 //
 //   - [WKWebsiteDataStore.Identifier]: An identifier that uniquely identifies a data store.
-//   - [WKWebsiteDataStore.Persistent]: A Boolean value that indicates whether this object stores data to disk.
+//   - [WKWebsiteDataStore.IsPersistent]: A Boolean value that indicates whether this object stores data to disk.
 //
 // # Retrieving a cookie store
 //
@@ -114,7 +114,7 @@ func WKWebsiteDataStoreFromID(id objc.ID) WKWebsiteDataStore {
 // # Inspecting data store properties
 //
 //   - [IWKWebsiteDataStore.Identifier]: An identifier that uniquely identifies a data store.
-//   - [IWKWebsiteDataStore.Persistent]: A Boolean value that indicates whether this object stores data to disk.
+//   - [IWKWebsiteDataStore.IsPersistent]: A Boolean value that indicates whether this object stores data to disk.
 //
 // # Retrieving a cookie store
 //
@@ -144,7 +144,7 @@ type IWKWebsiteDataStore interface {
 	// An identifier that uniquely identifies a data store.
 	Identifier() foundation.NSUUID
 	// A Boolean value that indicates whether this object stores data to disk.
-	Persistent() bool
+	IsPersistent() bool
 
 	// Topic: Retrieving a cookie store
 
@@ -353,7 +353,7 @@ func (w WKWebsiteDataStore) Identifier() foundation.NSUUID {
 // or false if it doesn’t.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebsiteDataStore/isPersistent
-func (w WKWebsiteDataStore) Persistent() bool {
+func (w WKWebsiteDataStore) IsPersistent() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isPersistent"))
 	return rv
 }

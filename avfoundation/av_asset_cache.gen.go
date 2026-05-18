@@ -52,7 +52,7 @@ func (ac AVAssetCacheClass) Alloc() AVAssetCache {
 //
 // # Inspecting the cached media
 //
-//   - [AVAssetCache.PlayableOffline]: A Boolean value that indicates whether the asset is playable without an internet connection.
+//   - [AVAssetCache.IsPlayableOffline]: A Boolean value that indicates whether the asset is playable without an internet connection.
 //   - [AVAssetCache.MediaSelectionOptionsInMediaSelectionGroup]: Returns an array of locally cached media selection options that are available for offline use.
 //   - [AVAssetCache.MediaPresentationLanguagesForMediaSelectionGroup]: Returns an array of extended language tags for languages that can be selected for offline operations via use of the AVMediaSelectionGroup’s AVCustomMediaSelectionScheme.
 //   - [AVAssetCache.MediaPresentationSettingsForMediaSelectionGroup]: For each AVMediaPresentationSelector defined by the AVCustomMediaSelectionScheme of an AVMediaSelectionGroup, returns the AVMediaPresentationSettings that can be satisfied for offline operations, e.g. playback.
@@ -76,7 +76,7 @@ func AVAssetCacheFromID(id objc.ID) AVAssetCache {
 //
 // # Inspecting the cached media
 //
-//   - [IAVAssetCache.PlayableOffline]: A Boolean value that indicates whether the asset is playable without an internet connection.
+//   - [IAVAssetCache.IsPlayableOffline]: A Boolean value that indicates whether the asset is playable without an internet connection.
 //   - [IAVAssetCache.MediaSelectionOptionsInMediaSelectionGroup]: Returns an array of locally cached media selection options that are available for offline use.
 //   - [IAVAssetCache.MediaPresentationLanguagesForMediaSelectionGroup]: Returns an array of extended language tags for languages that can be selected for offline operations via use of the AVMediaSelectionGroup’s AVCustomMediaSelectionScheme.
 //   - [IAVAssetCache.MediaPresentationSettingsForMediaSelectionGroup]: For each AVMediaPresentationSelector defined by the AVCustomMediaSelectionScheme of an AVMediaSelectionGroup, returns the AVMediaPresentationSettings that can be satisfied for offline operations, e.g. playback.
@@ -88,7 +88,7 @@ type IAVAssetCache interface {
 	// Topic: Inspecting the cached media
 
 	// A Boolean value that indicates whether the asset is playable without an internet connection.
-	PlayableOffline() bool
+	IsPlayableOffline() bool
 	// Returns an array of locally cached media selection options that are available for offline use.
 	MediaSelectionOptionsInMediaSelectionGroup(mediaSelectionGroup IAVMediaSelectionGroup) []AVMediaSelectionOption
 	// Returns an array of extended language tags for languages that can be selected for offline operations via use of the AVMediaSelectionGroup’s AVCustomMediaSelectionScheme.
@@ -164,7 +164,7 @@ func (a AVAssetCache) MediaPresentationSettingsForMediaSelectionGroup(mediaSelec
 // playback before presenting or attempting to play it.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetCache/isPlayableOffline
-func (a AVAssetCache) PlayableOffline() bool {
+func (a AVAssetCache) IsPlayableOffline() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPlayableOffline"))
 	return rv
 }

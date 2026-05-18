@@ -73,7 +73,7 @@ func (fc FSBlockDeviceResourceClass) Alloc() FSBlockDeviceResource {
 // # Accessing resource properties
 //
 //   - [FSBlockDeviceResource.BSDName]: The device name of the resource.
-//   - [FSBlockDeviceResource.Writable]: A Boolean property that indicates whether the resource can write data to the device.
+//   - [FSBlockDeviceResource.IsWritable]: A Boolean property that indicates whether the resource can write data to the device.
 //   - [FSBlockDeviceResource.BlockCount]: The block count on this resource.
 //   - [FSBlockDeviceResource.BlockSize]: The logical block size, the size of data blocks used by the file system.
 //   - [FSBlockDeviceResource.PhysicalBlockSize]: The sector size of the device.
@@ -105,7 +105,7 @@ func FSBlockDeviceResourceFromID(id objc.ID) FSBlockDeviceResource {
 // # Accessing resource properties
 //
 //   - [IFSBlockDeviceResource.BSDName]: The device name of the resource.
-//   - [IFSBlockDeviceResource.Writable]: A Boolean property that indicates whether the resource can write data to the device.
+//   - [IFSBlockDeviceResource.IsWritable]: A Boolean property that indicates whether the resource can write data to the device.
 //   - [IFSBlockDeviceResource.BlockCount]: The block count on this resource.
 //   - [IFSBlockDeviceResource.BlockSize]: The logical block size, the size of data blocks used by the file system.
 //   - [IFSBlockDeviceResource.PhysicalBlockSize]: The sector size of the device.
@@ -126,7 +126,7 @@ type IFSBlockDeviceResource interface {
 	// The device name of the resource.
 	BSDName() string
 	// A Boolean property that indicates whether the resource can write data to the device.
-	Writable() bool
+	IsWritable() bool
 	// The block count on this resource.
 	BlockCount() uint64
 	// The logical block size, the size of data blocks used by the file system.
@@ -566,7 +566,7 @@ func (b FSBlockDeviceResource) BSDName() string {
 // the device.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSBlockDeviceResource/isWritable
-func (b FSBlockDeviceResource) Writable() bool {
+func (b FSBlockDeviceResource) IsWritable() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isWritable"))
 	return rv
 }

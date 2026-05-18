@@ -70,7 +70,7 @@ func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
 //   - [AVAudioRecorder.RecordAtTimeForDuration]: Records audio starting at a specific time for the indicated duration.
 //   - [AVAudioRecorder.Pause]: Pauses an audio recording.
 //   - [AVAudioRecorder.Stop]: Stops recording and closes the audio file.
-//   - [AVAudioRecorder.Recording]: A Boolean value that indicates whether the audio recorder is recording.
+//   - [AVAudioRecorder.IsRecording]: A Boolean value that indicates whether the audio recorder is recording.
 //   - [AVAudioRecorder.DeleteRecording]: Deletes a recorded audio file.
 //
 // # Accessing recorder timing
@@ -80,7 +80,7 @@ func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
 //
 // # Managing audio-level metering
 //
-//   - [AVAudioRecorder.MeteringEnabled]: A Boolean value that indicates whether you’ve enabled the recorder to generate audio-level metering data.
+//   - [AVAudioRecorder.IsMeteringEnabled]: A Boolean value that indicates whether you’ve enabled the recorder to generate audio-level metering data.
 //   - [AVAudioRecorder.SetMeteringEnabled]
 //   - [AVAudioRecorder.UpdateMeters]: Refreshes the average and peak power values for all channels of an audio recorder.
 //   - [AVAudioRecorder.AveragePowerForChannel]: Returns the average power, in decibels full-scale (dBFS), for an audio channel.
@@ -127,7 +127,7 @@ func AVAudioRecorderFromID(id objc.ID) AVAudioRecorder {
 //   - [IAVAudioRecorder.RecordAtTimeForDuration]: Records audio starting at a specific time for the indicated duration.
 //   - [IAVAudioRecorder.Pause]: Pauses an audio recording.
 //   - [IAVAudioRecorder.Stop]: Stops recording and closes the audio file.
-//   - [IAVAudioRecorder.Recording]: A Boolean value that indicates whether the audio recorder is recording.
+//   - [IAVAudioRecorder.IsRecording]: A Boolean value that indicates whether the audio recorder is recording.
 //   - [IAVAudioRecorder.DeleteRecording]: Deletes a recorded audio file.
 //
 // # Accessing recorder timing
@@ -137,7 +137,7 @@ func AVAudioRecorderFromID(id objc.ID) AVAudioRecorder {
 //
 // # Managing audio-level metering
 //
-//   - [IAVAudioRecorder.MeteringEnabled]: A Boolean value that indicates whether you’ve enabled the recorder to generate audio-level metering data.
+//   - [IAVAudioRecorder.IsMeteringEnabled]: A Boolean value that indicates whether you’ve enabled the recorder to generate audio-level metering data.
 //   - [IAVAudioRecorder.SetMeteringEnabled]
 //   - [IAVAudioRecorder.UpdateMeters]: Refreshes the average and peak power values for all channels of an audio recorder.
 //   - [IAVAudioRecorder.AveragePowerForChannel]: Returns the average power, in decibels full-scale (dBFS), for an audio channel.
@@ -180,7 +180,7 @@ type IAVAudioRecorder interface {
 	// Stops recording and closes the audio file.
 	Stop()
 	// A Boolean value that indicates whether the audio recorder is recording.
-	Recording() bool
+	IsRecording() bool
 	// Deletes a recorded audio file.
 	DeleteRecording() bool
 
@@ -194,7 +194,7 @@ type IAVAudioRecorder interface {
 	// Topic: Managing audio-level metering
 
 	// A Boolean value that indicates whether you’ve enabled the recorder to generate audio-level metering data.
-	MeteringEnabled() bool
+	IsMeteringEnabled() bool
 	SetMeteringEnabled(value bool)
 	// Refreshes the average and peak power values for all channels of an audio recorder.
 	UpdateMeters()
@@ -542,7 +542,7 @@ func (a AVAudioRecorder) PeakPowerForChannel(channelNumber uint) float32 {
 // A Boolean value that indicates whether the audio recorder is recording.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/isRecording
-func (a AVAudioRecorder) Recording() bool {
+func (a AVAudioRecorder) IsRecording() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRecording"))
 	return rv
 }
@@ -583,7 +583,7 @@ func (a AVAudioRecorder) DeviceCurrentTime() float64 {
 // use it.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/isMeteringEnabled
-func (a AVAudioRecorder) MeteringEnabled() bool {
+func (a AVAudioRecorder) IsMeteringEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isMeteringEnabled"))
 	return rv
 }

@@ -77,7 +77,7 @@ func (nc NSFontClass) Alloc() NSFont {
 //   - [NSFont.PointSize]: The point size of the font.
 //   - [NSFont.CoveredCharacterSet]: The character set containing all of the nominal characters that the font can render.
 //   - [NSFont.FontDescriptor]: The font descriptor object for the font.
-//   - [NSFont.FixedPitch]: A Boolean value indicating whether all glyphs in the font have the same advancement.
+//   - [NSFont.IsFixedPitch]: A Boolean value indicating whether all glyphs in the font have the same advancement.
 //   - [NSFont.MostCompatibleStringEncoding]: The string encoding that works best with the font.
 //
 // # Getting Information About Glyphs
@@ -96,7 +96,7 @@ func (nc NSFontClass) Alloc() NSFont {
 //
 // # Vertical Fonts
 //
-//   - [NSFont.Vertical]: A Boolean value indicating whether the font is a vertical font.
+//   - [NSFont.IsVertical]: A Boolean value indicating whether the font is a vertical font.
 //   - [NSFont.VerticalFont]: A vertical version of the font.
 //
 // # Instance Properties
@@ -145,7 +145,7 @@ func NSFontFromID(id objc.ID) NSFont {
 //   - [INSFont.PointSize]: The point size of the font.
 //   - [INSFont.CoveredCharacterSet]: The character set containing all of the nominal characters that the font can render.
 //   - [INSFont.FontDescriptor]: The font descriptor object for the font.
-//   - [INSFont.FixedPitch]: A Boolean value indicating whether all glyphs in the font have the same advancement.
+//   - [INSFont.IsFixedPitch]: A Boolean value indicating whether all glyphs in the font have the same advancement.
 //   - [INSFont.MostCompatibleStringEncoding]: The string encoding that works best with the font.
 //
 // # Getting Information About Glyphs
@@ -164,7 +164,7 @@ func NSFontFromID(id objc.ID) NSFont {
 //
 // # Vertical Fonts
 //
-//   - [INSFont.Vertical]: A Boolean value indicating whether the font is a vertical font.
+//   - [INSFont.IsVertical]: A Boolean value indicating whether the font is a vertical font.
 //   - [INSFont.VerticalFont]: A vertical version of the font.
 //
 // # Instance Properties
@@ -204,7 +204,7 @@ type INSFont interface {
 	// The font descriptor object for the font.
 	FontDescriptor() INSFontDescriptor
 	// A Boolean value indicating whether all glyphs in the font have the same advancement.
-	FixedPitch() bool
+	IsFixedPitch() bool
 	// The string encoding that works best with the font.
 	MostCompatibleStringEncoding() uint
 
@@ -231,7 +231,7 @@ type INSFont interface {
 	// Topic: Vertical Fonts
 
 	// A Boolean value indicating whether the font is a vertical font.
-	Vertical() bool
+	IsVertical() bool
 	// A vertical version of the font.
 	VerticalFont() NSFont
 
@@ -1113,7 +1113,7 @@ func (f NSFont) FontDescriptor() INSFontDescriptor {
 // some applications.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/isFixedPitch
-func (f NSFont) FixedPitch() bool {
+func (f NSFont) IsFixedPitch() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isFixedPitch"))
 	return rv
 }
@@ -1230,7 +1230,7 @@ func (f NSFont) FontName() string {
 // The value in this property is true for a vertical font or false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/isVertical
-func (f NSFont) Vertical() bool {
+func (f NSFont) IsVertical() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isVertical"))
 	return rv
 }

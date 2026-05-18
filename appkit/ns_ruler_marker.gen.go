@@ -71,9 +71,9 @@ func (nc NSRulerMarkerClass) Alloc() NSRulerMarker {
 //
 // # Setting movability
 //
-//   - [NSRulerMarker.Movable]: A Boolean that indicates whether the user can move the receiver in its ruler view.
+//   - [NSRulerMarker.IsMovable]: A Boolean that indicates whether the user can move the receiver in its ruler view.
 //   - [NSRulerMarker.SetMovable]
-//   - [NSRulerMarker.Removable]: A Boolean that indicates whether the user can remove the receiver from its ruler view.
+//   - [NSRulerMarker.IsRemovable]: A Boolean that indicates whether the user can remove the receiver from its ruler view.
 //   - [NSRulerMarker.SetRemovable]
 //
 // # Setting the location
@@ -89,7 +89,7 @@ func (nc NSRulerMarkerClass) Alloc() NSRulerMarker {
 // # Drawing and event handling
 //
 //   - [NSRulerMarker.DrawRect]: Draws the receiver’s image that appears in the supplied rectangle.
-//   - [NSRulerMarker.Dragging]: A Boolean that indicates whether the receiver is being dragged.
+//   - [NSRulerMarker.IsDragging]: A Boolean that indicates whether the receiver is being dragged.
 //   - [NSRulerMarker.TrackMouseAdding]: Handles user manipulation of the receiver in its ruler view.
 //
 // # Initializers
@@ -133,9 +133,9 @@ func NSRulerMarkerFromID(id objc.ID) NSRulerMarker {
 //
 // # Setting movability
 //
-//   - [INSRulerMarker.Movable]: A Boolean that indicates whether the user can move the receiver in its ruler view.
+//   - [INSRulerMarker.IsMovable]: A Boolean that indicates whether the user can move the receiver in its ruler view.
 //   - [INSRulerMarker.SetMovable]
-//   - [INSRulerMarker.Removable]: A Boolean that indicates whether the user can remove the receiver from its ruler view.
+//   - [INSRulerMarker.IsRemovable]: A Boolean that indicates whether the user can remove the receiver from its ruler view.
 //   - [INSRulerMarker.SetRemovable]
 //
 // # Setting the location
@@ -151,7 +151,7 @@ func NSRulerMarkerFromID(id objc.ID) NSRulerMarker {
 // # Drawing and event handling
 //
 //   - [INSRulerMarker.DrawRect]: Draws the receiver’s image that appears in the supplied rectangle.
-//   - [INSRulerMarker.Dragging]: A Boolean that indicates whether the receiver is being dragged.
+//   - [INSRulerMarker.IsDragging]: A Boolean that indicates whether the receiver is being dragged.
 //   - [INSRulerMarker.TrackMouseAdding]: Handles user manipulation of the receiver in its ruler view.
 //
 // # Initializers
@@ -188,10 +188,10 @@ type INSRulerMarker interface {
 	// Topic: Setting movability
 
 	// A Boolean that indicates whether the user can move the receiver in its ruler view.
-	Movable() bool
+	IsMovable() bool
 	SetMovable(value bool)
 	// A Boolean that indicates whether the user can remove the receiver from its ruler view.
-	Removable() bool
+	IsRemovable() bool
 	SetRemovable(value bool)
 
 	// Topic: Setting the location
@@ -211,7 +211,7 @@ type INSRulerMarker interface {
 	// Draws the receiver’s image that appears in the supplied rectangle.
 	DrawRect(rect corefoundation.CGRect)
 	// A Boolean that indicates whether the receiver is being dragged.
-	Dragging() bool
+	IsDragging() bool
 	// Handles user manipulation of the receiver in its ruler view.
 	TrackMouseAdding(mouseDownEvent INSEvent, isAdding bool) bool
 
@@ -505,7 +505,7 @@ func (r NSRulerMarker) ThicknessRequiredInRuler() float64 {
 // By default, ruler markers are movable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/isMovable
-func (r NSRulerMarker) Movable() bool {
+func (r NSRulerMarker) IsMovable() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isMovable"))
 	return rv
 }
@@ -524,7 +524,7 @@ func (r NSRulerMarker) SetMovable(value bool) {
 // By default ruler markers are not removable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/isRemovable
-func (r NSRulerMarker) Removable() bool {
+func (r NSRulerMarker) IsRemovable() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isRemovable"))
 	return rv
 }
@@ -573,7 +573,7 @@ func (r NSRulerMarker) SetRepresentedObject(value foundation.NSCopying) {
 // true if the receiver is being dragged, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/isDragging
-func (r NSRulerMarker) Dragging() bool {
+func (r NSRulerMarker) IsDragging() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isDragging"))
 	return rv
 }

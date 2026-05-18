@@ -25,7 +25,7 @@ func (p PDFView) FindInteraction() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/isFindInteractionEnabled
-func (p PDFView) FindInteractionEnabled() bool {
+func (p PDFView) IsFindInteractionEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isFindInteractionEnabled"))
 	return rv
 }

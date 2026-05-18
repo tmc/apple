@@ -99,7 +99,7 @@ func (gc GCControllerClass) Alloc() GCController {
 //
 // # Inspecting a controller
 //
-//   - [GCController.AttachedToDevice]: A Boolean value that indicates whether the controller closely integrates with the device.
+//   - [GCController.IsAttachedToDevice]: A Boolean value that indicates whether the controller closely integrates with the device.
 //
 // # Accessing controller input
 //
@@ -125,7 +125,7 @@ func (gc GCControllerClass) Alloc() GCController {
 // # Creating snapshots
 //
 //   - [GCController.Capture]: Returns a snapshot of the controller with its current element values.
-//   - [GCController.Snapshot]: A Boolean value that indicates whether the controller is a snapshot of a controller.
+//   - [GCController.IsSnapshot]: A Boolean value that indicates whether the controller is a snapshot of a controller.
 //
 // See: https://developer.apple.com/documentation/GameController/GCController
 type GCController struct {
@@ -157,7 +157,7 @@ func GCControllerFromID(id objc.ID) GCController {
 //
 // # Inspecting a controller
 //
-//   - [IGCController.AttachedToDevice]: A Boolean value that indicates whether the controller closely integrates with the device.
+//   - [IGCController.IsAttachedToDevice]: A Boolean value that indicates whether the controller closely integrates with the device.
 //
 // # Accessing controller input
 //
@@ -183,7 +183,7 @@ func GCControllerFromID(id objc.ID) GCController {
 // # Creating snapshots
 //
 //   - [IGCController.Capture]: Returns a snapshot of the controller with its current element values.
-//   - [IGCController.Snapshot]: A Boolean value that indicates whether the controller is a snapshot of a controller.
+//   - [IGCController.IsSnapshot]: A Boolean value that indicates whether the controller is a snapshot of a controller.
 //
 // See: https://developer.apple.com/documentation/GameController/GCController
 type IGCController interface {
@@ -206,7 +206,7 @@ type IGCController interface {
 	// Topic: Inspecting a controller
 
 	// A Boolean value that indicates whether the controller closely integrates with the device.
-	AttachedToDevice() bool
+	IsAttachedToDevice() bool
 
 	// Topic: Accessing controller input
 
@@ -242,7 +242,7 @@ type IGCController interface {
 	// Returns a snapshot of the controller with its current element values.
 	Capture() IGCController
 	// A Boolean value that indicates whether the controller is a snapshot of a controller.
-	Snapshot() bool
+	IsSnapshot() bool
 
 	// The controller’s left thumbstick element.
 	LeftThumbstick() IGCControllerDirectionPad
@@ -489,7 +489,7 @@ func (g GCController) GCControllerDidStopBeingCurrent() foundation.NSString {
 // attachment to the device.
 //
 // See: https://developer.apple.com/documentation/GameController/GCController/isAttachedToDevice
-func (g GCController) AttachedToDevice() bool {
+func (g GCController) IsAttachedToDevice() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isAttachedToDevice"))
 	return rv
 }
@@ -639,7 +639,7 @@ func (g GCController) Light() IGCDeviceLight {
 // element values. If false, the controller is a real or virtual controller.
 //
 // See: https://developer.apple.com/documentation/GameController/GCController/isSnapshot
-func (g GCController) Snapshot() bool {
+func (g GCController) IsSnapshot() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isSnapshot"))
 	return rv
 }

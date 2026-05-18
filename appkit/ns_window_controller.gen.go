@@ -118,7 +118,7 @@ func (nc NSWindowControllerClass) Alloc() NSWindowController {
 //
 //   - [NSWindowController.LoadWindow]: Loads the receiver’s window from the nib file.
 //   - [NSWindowController.ShowWindow]: Displays the window associated with the receiver.
-//   - [NSWindowController.WindowLoaded]: A Boolean value that indicates whether the nib file containing the receiver’s window has been loaded.
+//   - [NSWindowController.IsWindowLoaded]: A Boolean value that indicates whether the nib file containing the receiver’s window has been loaded.
 //   - [NSWindowController.Window]: The window owned by the receiver.
 //   - [NSWindowController.SetWindow]
 //   - [NSWindowController.WindowDidLoad]: Sent after the window owned by the receiver has been loaded.
@@ -188,7 +188,7 @@ func NSWindowControllerFromID(id objc.ID) NSWindowController {
 //
 //   - [INSWindowController.LoadWindow]: Loads the receiver’s window from the nib file.
 //   - [INSWindowController.ShowWindow]: Displays the window associated with the receiver.
-//   - [INSWindowController.WindowLoaded]: A Boolean value that indicates whether the nib file containing the receiver’s window has been loaded.
+//   - [INSWindowController.IsWindowLoaded]: A Boolean value that indicates whether the nib file containing the receiver’s window has been loaded.
 //   - [INSWindowController.Window]: The window owned by the receiver.
 //   - [INSWindowController.SetWindow]
 //   - [INSWindowController.WindowDidLoad]: Sent after the window owned by the receiver has been loaded.
@@ -253,7 +253,7 @@ type INSWindowController interface {
 	// Displays the window associated with the receiver.
 	ShowWindow(sender objectivec.IObject)
 	// A Boolean value that indicates whether the nib file containing the receiver’s window has been loaded.
-	WindowLoaded() bool
+	IsWindowLoaded() bool
 	// The window owned by the receiver.
 	Window() INSWindow
 	SetWindow(value INSWindow)
@@ -748,7 +748,7 @@ func (w NSWindowController) ShouldPerformSegueWithIdentifierSender(identifier NS
 // receiver’s window has been loaded, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/isWindowLoaded
-func (w NSWindowController) WindowLoaded() bool {
+func (w NSWindowController) IsWindowLoaded() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isWindowLoaded"))
 	return rv
 }

@@ -178,22 +178,22 @@ func (pc ProgressClass) Alloc() Progress {
 //   - [Progress.SetLocalizedDescription]
 //   - [Progress.LocalizedAdditionalDescription]: A more specific localized description of tracked progress for the receiver.
 //   - [Progress.SetLocalizedAdditionalDescription]
-//   - [Progress.Cancellable]: A Boolean value that indicates whether the receiver is tracking work that you can cancel.
+//   - [Progress.IsCancellable]: A Boolean value that indicates whether the receiver is tracking work that you can cancel.
 //   - [Progress.SetCancellable]
-//   - [Progress.Cancelled]: A Boolean value that Indicates whether the receiver is tracking canceled work.
+//   - [Progress.IsCancelled]: A Boolean value that Indicates whether the receiver is tracking canceled work.
 //   - [Progress.CancellationHandler]: The block to invoke when canceling progress.
 //   - [Progress.SetCancellationHandler]
-//   - [Progress.Pausable]: A Boolean value that indicates whether the receiver is tracking work that you can pause.
+//   - [Progress.IsPausable]: A Boolean value that indicates whether the receiver is tracking work that you can pause.
 //   - [Progress.SetPausable]
-//   - [Progress.Paused]: A Boolean value that indicates whether the receiver is tracking paused work.
+//   - [Progress.IsPaused]: A Boolean value that indicates whether the receiver is tracking paused work.
 //   - [Progress.PausingHandler]: The block to invoke when pausing progress.
 //   - [Progress.SetPausingHandler]
 //
 // # Observing Progress
 //
-//   - [Progress.Indeterminate]: A Boolean value that indicates whether the tracked progress is indeterminate.
+//   - [Progress.IsIndeterminate]: A Boolean value that indicates whether the tracked progress is indeterminate.
 //   - [Progress.FractionCompleted]: The fraction of the overall work that the progress object completes, including work from its suboperations.
-//   - [Progress.Finished]: A Boolean value that indicates the progress object is complete.
+//   - [Progress.IsFinished]: A Boolean value that indicates the progress object is complete.
 //
 // # Controlling Progress
 //
@@ -224,7 +224,7 @@ func (pc ProgressClass) Alloc() Progress {
 //
 // # Observing and Controlling File Progress by Other Processes
 //
-//   - [Progress.Old]: A Boolean value that indicates when the observed progress object invokes the publish method before you subscribe to it.
+//   - [Progress.IsOld]: A Boolean value that indicates when the observed progress object invokes the publish method before you subscribe to it.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress
 type Progress struct {
@@ -266,22 +266,22 @@ func NSProgressFromID(id objc.ID) Progress { return ProgressFromID(id) }
 //   - [IProgress.SetLocalizedDescription]
 //   - [IProgress.LocalizedAdditionalDescription]: A more specific localized description of tracked progress for the receiver.
 //   - [IProgress.SetLocalizedAdditionalDescription]
-//   - [IProgress.Cancellable]: A Boolean value that indicates whether the receiver is tracking work that you can cancel.
+//   - [IProgress.IsCancellable]: A Boolean value that indicates whether the receiver is tracking work that you can cancel.
 //   - [IProgress.SetCancellable]
-//   - [IProgress.Cancelled]: A Boolean value that Indicates whether the receiver is tracking canceled work.
+//   - [IProgress.IsCancelled]: A Boolean value that Indicates whether the receiver is tracking canceled work.
 //   - [IProgress.CancellationHandler]: The block to invoke when canceling progress.
 //   - [IProgress.SetCancellationHandler]
-//   - [IProgress.Pausable]: A Boolean value that indicates whether the receiver is tracking work that you can pause.
+//   - [IProgress.IsPausable]: A Boolean value that indicates whether the receiver is tracking work that you can pause.
 //   - [IProgress.SetPausable]
-//   - [IProgress.Paused]: A Boolean value that indicates whether the receiver is tracking paused work.
+//   - [IProgress.IsPaused]: A Boolean value that indicates whether the receiver is tracking paused work.
 //   - [IProgress.PausingHandler]: The block to invoke when pausing progress.
 //   - [IProgress.SetPausingHandler]
 //
 // # Observing Progress
 //
-//   - [IProgress.Indeterminate]: A Boolean value that indicates whether the tracked progress is indeterminate.
+//   - [IProgress.IsIndeterminate]: A Boolean value that indicates whether the tracked progress is indeterminate.
 //   - [IProgress.FractionCompleted]: The fraction of the overall work that the progress object completes, including work from its suboperations.
-//   - [IProgress.Finished]: A Boolean value that indicates the progress object is complete.
+//   - [IProgress.IsFinished]: A Boolean value that indicates the progress object is complete.
 //
 // # Controlling Progress
 //
@@ -312,7 +312,7 @@ func NSProgressFromID(id objc.ID) Progress { return ProgressFromID(id) }
 //
 // # Observing and Controlling File Progress by Other Processes
 //
-//   - [IProgress.Old]: A Boolean value that indicates when the observed progress object invokes the publish method before you subscribe to it.
+//   - [IProgress.IsOld]: A Boolean value that indicates when the observed progress object invokes the publish method before you subscribe to it.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress
 type IProgress interface {
@@ -347,18 +347,18 @@ type IProgress interface {
 	LocalizedAdditionalDescription() string
 	SetLocalizedAdditionalDescription(value string)
 	// A Boolean value that indicates whether the receiver is tracking work that you can cancel.
-	Cancellable() bool
+	IsCancellable() bool
 	SetCancellable(value bool)
 	// A Boolean value that Indicates whether the receiver is tracking canceled work.
-	Cancelled() bool
+	IsCancelled() bool
 	// The block to invoke when canceling progress.
 	CancellationHandler() VoidHandler
 	SetCancellationHandler(value VoidHandler)
 	// A Boolean value that indicates whether the receiver is tracking work that you can pause.
-	Pausable() bool
+	IsPausable() bool
 	SetPausable(value bool)
 	// A Boolean value that indicates whether the receiver is tracking paused work.
-	Paused() bool
+	IsPaused() bool
 	// The block to invoke when pausing progress.
 	PausingHandler() VoidHandler
 	SetPausingHandler(value VoidHandler)
@@ -366,11 +366,11 @@ type IProgress interface {
 	// Topic: Observing Progress
 
 	// A Boolean value that indicates whether the tracked progress is indeterminate.
-	Indeterminate() bool
+	IsIndeterminate() bool
 	// The fraction of the overall work that the progress object completes, including work from its suboperations.
 	FractionCompleted() float64
 	// A Boolean value that indicates the progress object is complete.
-	Finished() bool
+	IsFinished() bool
 
 	// Topic: Controlling Progress
 
@@ -413,7 +413,7 @@ type IProgress interface {
 	// Topic: Observing and Controlling File Progress by Other Processes
 
 	// A Boolean value that indicates when the observed progress object invokes the publish method before you subscribe to it.
-	Old() bool
+	IsOld() bool
 
 	// A value that indicates the estimated amount of time remaining to complete the progress.
 	EstimatedTimeRemaining() INSNumber
@@ -980,7 +980,7 @@ func (p Progress) SetLocalizedAdditionalDescription(value string) {
 // property.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isCancellable
-func (p Progress) Cancellable() bool {
+func (p Progress) IsCancellable() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isCancellable"))
 	return rv
 }
@@ -1000,7 +1000,7 @@ func (p Progress) SetCancellable(value bool) {
 // reports a canceled status.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isCancelled
-func (p Progress) Cancelled() bool {
+func (p Progress) IsCancelled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isCancelled"))
 	return rv
 }
@@ -1055,7 +1055,7 @@ func (p Progress) SetCancellationHandler(value VoidHandler) {
 // property.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isPausable
-func (p Progress) Pausable() bool {
+func (p Progress) IsPausable() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isPausable"))
 	return rv
 }
@@ -1075,7 +1075,7 @@ func (p Progress) SetPausable(value bool) {
 // reports a paused status.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isPaused
-func (p Progress) Paused() bool {
+func (p Progress) IsPaused() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isPaused"))
 	return rv
 }
@@ -1127,7 +1127,7 @@ func (p Progress) SetPausingHandler(value VoidHandler) {
 // [TotalUnitCount] and [CompletedUnitCount] to `0`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isIndeterminate
-func (p Progress) Indeterminate() bool {
+func (p Progress) IsIndeterminate() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isIndeterminate"))
 	return rv
 }
@@ -1166,7 +1166,7 @@ func (p Progress) FractionCompleted() float64 {
 // notifications on the same thread that updates the property.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isFinished
-func (p Progress) Finished() bool {
+func (p Progress) IsFinished() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isFinished"))
 	return rv
 }
@@ -1301,7 +1301,7 @@ func (p Progress) SetFileURL(value INSURL) {
 // actions.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isOld
-func (p Progress) Old() bool {
+func (p Progress) IsOld() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isOld"))
 	return rv
 }

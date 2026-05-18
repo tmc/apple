@@ -146,7 +146,7 @@ func (uc URLSessionConfigurationClass) Alloc() URLSessionConfiguration {
 //
 //   - [URLSessionConfiguration.SessionSendsLaunchEvents]: A Boolean value that indicates whether the app should be resumed or launched in the background when transfers finish.
 //   - [URLSessionConfiguration.SetSessionSendsLaunchEvents]
-//   - [URLSessionConfiguration.Discretionary]: A Boolean value that determines whether background tasks can be scheduled at the discretion of the system for optimal performance.
+//   - [URLSessionConfiguration.IsDiscretionary]: A Boolean value that determines whether background tasks can be scheduled at the discretion of the system for optimal performance.
 //   - [URLSessionConfiguration.SetDiscretionary]
 //   - [URLSessionConfiguration.ShouldUseExtendedBackgroundIdleMode]: A Boolean value that indicates whether TCP connections should be kept open when the app moves to the background.
 //   - [URLSessionConfiguration.SetShouldUseExtendedBackgroundIdleMode]
@@ -257,7 +257,7 @@ func NSURLSessionConfigurationFromID(id objc.ID) URLSessionConfiguration {
 //
 //   - [IURLSessionConfiguration.SessionSendsLaunchEvents]: A Boolean value that indicates whether the app should be resumed or launched in the background when transfers finish.
 //   - [IURLSessionConfiguration.SetSessionSendsLaunchEvents]
-//   - [IURLSessionConfiguration.Discretionary]: A Boolean value that determines whether background tasks can be scheduled at the discretion of the system for optimal performance.
+//   - [IURLSessionConfiguration.IsDiscretionary]: A Boolean value that determines whether background tasks can be scheduled at the discretion of the system for optimal performance.
 //   - [IURLSessionConfiguration.SetDiscretionary]
 //   - [IURLSessionConfiguration.ShouldUseExtendedBackgroundIdleMode]: A Boolean value that indicates whether TCP connections should be kept open when the app moves to the background.
 //   - [IURLSessionConfiguration.SetShouldUseExtendedBackgroundIdleMode]
@@ -369,7 +369,7 @@ type IURLSessionConfiguration interface {
 	SessionSendsLaunchEvents() bool
 	SetSessionSendsLaunchEvents(value bool)
 	// A Boolean value that determines whether background tasks can be scheduled at the discretion of the system for optimal performance.
-	Discretionary() bool
+	IsDiscretionary() bool
 	SetDiscretionary(value bool)
 	// A Boolean value that indicates whether TCP connections should be kept open when the app moves to the background.
 	ShouldUseExtendedBackgroundIdleMode() bool
@@ -940,7 +940,7 @@ func (u URLSessionConfiguration) SetSessionSendsLaunchEvents(value bool) {
 // and ignores any value you specified.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/isDiscretionary
-func (u URLSessionConfiguration) Discretionary() bool {
+func (u URLSessionConfiguration) IsDiscretionary() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isDiscretionary"))
 	return rv
 }

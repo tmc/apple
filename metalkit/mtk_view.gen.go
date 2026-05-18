@@ -188,7 +188,7 @@ func (mc MTKViewClass) Alloc() MTKView {
 //
 //   - [MTKView.PreferredFramesPerSecond]: The rate at which the view redraws its contents.
 //   - [MTKView.SetPreferredFramesPerSecond]
-//   - [MTKView.Paused]: A Boolean value that indicates whether the draw loop is paused.
+//   - [MTKView.IsPaused]: A Boolean value that indicates whether the draw loop is paused.
 //   - [MTKView.SetPaused]
 //   - [MTKView.EnableSetNeedsDisplay]: A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<doc://com.apple.documentation/documentation/UIKit/UIView/setNeedsDisplay()>).
 //   - [MTKView.SetEnableSetNeedsDisplay]
@@ -292,7 +292,7 @@ func MTKViewFromID(id objc.ID) MTKView {
 //
 //   - [IMTKView.PreferredFramesPerSecond]: The rate at which the view redraws its contents.
 //   - [IMTKView.SetPreferredFramesPerSecond]
-//   - [IMTKView.Paused]: A Boolean value that indicates whether the draw loop is paused.
+//   - [IMTKView.IsPaused]: A Boolean value that indicates whether the draw loop is paused.
 //   - [IMTKView.SetPaused]
 //   - [IMTKView.EnableSetNeedsDisplay]: A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<doc://com.apple.documentation/documentation/UIKit/UIView/setNeedsDisplay()>).
 //   - [IMTKView.SetEnableSetNeedsDisplay]
@@ -398,7 +398,7 @@ type IMTKView interface {
 	PreferredFramesPerSecond() int
 	SetPreferredFramesPerSecond(value int)
 	// A Boolean value that indicates whether the draw loop is paused.
-	Paused() bool
+	IsPaused() bool
 	SetPaused(value bool)
 	// A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<doc://com.apple.documentation/documentation/UIKit/UIView/setNeedsDisplay()>).
 	EnableSetNeedsDisplay() bool
@@ -991,7 +991,7 @@ func (v MTKView) SetPreferredFramesPerSecond(value int) {
 // The default value is false.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/isPaused
-func (v MTKView) Paused() bool {
+func (v MTKView) IsPaused() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPaused"))
 	return rv
 }

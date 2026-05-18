@@ -88,12 +88,12 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //   - [NSWindow.SetDynamicDepthLimit]: Sets a Boolean value that indicates whether the window’s depth limit can change to match the depth of the screen it’s on.
 //   - [NSWindow.CanHide]: A Boolean value that indicates whether the window can hide when its application becomes hidden.
 //   - [NSWindow.SetCanHide]
-//   - [NSWindow.OnActiveSpace]: A Boolean value that indicates whether the window is on the currently active space.
+//   - [NSWindow.IsOnActiveSpace]: A Boolean value that indicates whether the window is on the currently active space.
 //   - [NSWindow.HidesOnDeactivate]: A Boolean value that indicates whether the window is removed from the screen when its application becomes inactive.
 //   - [NSWindow.SetHidesOnDeactivate]
 //   - [NSWindow.CollectionBehavior]: A value that identifies the window’s behavior in window collections.
 //   - [NSWindow.SetCollectionBehavior]
-//   - [NSWindow.Opaque]: A Boolean value that indicates whether the window is opaque.
+//   - [NSWindow.IsOpaque]: A Boolean value that indicates whether the window is opaque.
 //   - [NSWindow.SetOpaque]
 //   - [NSWindow.HasShadow]: A Boolean value that indicates whether the window has a shadow.
 //   - [NSWindow.SetHasShadow]
@@ -135,7 +135,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 // # Managing Sheets
 //
 //   - [NSWindow.AttachedSheet]: The sheet attached to the window.
-//   - [NSWindow.Sheet]: A Boolean value that indicates whether the window has ever run as a modal sheet.
+//   - [NSWindow.IsSheet]: A Boolean value that indicates whether the window has ever run as a modal sheet.
 //   - [NSWindow.BeginSheetCompletionHandler]: Starts a document-modal session and presents—or queues for presentation—a sheet.
 //   - [NSWindow.BeginCriticalSheetCompletionHandler]: Starts a document-modal session and presents the specified critical sheet.
 //   - [NSWindow.EndSheet]: Ends a document-modal session and dismisses the specified sheet.
@@ -159,7 +159,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //   - [NSWindow.SetMinSize]
 //   - [NSWindow.MaxSize]: The maximum size to which the window’s frame (including its title bar) can be sized.
 //   - [NSWindow.SetMaxSize]
-//   - [NSWindow.Zoomed]: A Boolean value that indicates whether the window is in a zoomed state.
+//   - [NSWindow.IsZoomed]: A Boolean value that indicates whether the window is in a zoomed state.
 //   - [NSWindow.PerformZoom]: This action method simulates the user clicking the zoom box by momentarily highlighting the button and then zooming the window.
 //   - [NSWindow.Zoom]: Toggles the size and location of the window between its standard state (which the application provides as the best size to display the window’s data) and its user state (a new size and location the user may have set by moving or resizing the window).
 //   - [NSWindow.ResizeFlags]: The flags field of the event record for the mouse-down event that initiated the resizing session.
@@ -199,7 +199,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 // # Managing Window Visibility and Occlusion State
 //
-//   - [NSWindow.Visible]: A Boolean value that indicates whether the window is visible onscreen (even when it’s obscured by other windows).
+//   - [NSWindow.IsVisible]: A Boolean value that indicates whether the window is visible onscreen (even when it’s obscured by other windows).
 //   - [NSWindow.OcclusionState]: The occlusion state of the window.
 //
 // # Managing Window Frames in User Defaults
@@ -213,7 +213,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 // # Managing Key Status
 //
-//   - [NSWindow.KeyWindow]: A Boolean value that indicates whether the window is the key window for the application.
+//   - [NSWindow.IsKeyWindow]: A Boolean value that indicates whether the window is the key window for the application.
 //   - [NSWindow.CanBecomeKeyWindow]: A Boolean value that indicates whether the window can become the key window.
 //   - [NSWindow.MakeKeyWindow]: Makes the window the key window.
 //   - [NSWindow.MakeKeyAndOrderFront]: Moves the window to the front of the screen list, within its level, and makes it the key window; that is, it shows the window.
@@ -222,7 +222,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 // # Managing Main Status
 //
-//   - [NSWindow.MainWindow]: A Boolean value that indicates whether the window is the application’s main window.
+//   - [NSWindow.IsMainWindow]: A Boolean value that indicates whether the window is the application’s main window.
 //   - [NSWindow.CanBecomeMainWindow]: A Boolean value that indicates whether the window can become the application’s main window.
 //   - [NSWindow.MakeMainWindow]: Makes the window the main window.
 //   - [NSWindow.BecomeMainWindow]: Informs the window that it has become the main window.
@@ -257,7 +257,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 // # Managing the Window Menu
 //
-//   - [NSWindow.ExcludedFromWindowsMenu]: A Boolean value that indicates whether the window is excluded from the application’s Windows menu.
+//   - [NSWindow.IsExcludedFromWindowsMenu]: A Boolean value that indicates whether the window is excluded from the application’s Windows menu.
 //   - [NSWindow.SetExcludedFromWindowsMenu]
 //
 // # Managing Cursor Rectangles
@@ -356,7 +356,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 // # Handling Window Restoration
 //
-//   - [NSWindow.Restorable]: A Boolean value indicating whether the window configuration is preserved between application launches.
+//   - [NSWindow.IsRestorable]: A Boolean value indicating whether the window configuration is preserved between application launches.
 //   - [NSWindow.SetRestorable]
 //   - [NSWindow.RestorationClass]: The restoration class associated with the window.
 //   - [NSWindow.SetRestorationClass]
@@ -388,7 +388,7 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 // # Accessing Edited Status
 //
-//   - [NSWindow.DocumentEdited]: A Boolean value that indicates whether the window’s document has been edited.
+//   - [NSWindow.IsDocumentEdited]: A Boolean value that indicates whether the window’s document has been edited.
 //   - [NSWindow.SetDocumentEdited]
 //
 // # Converting Coordinates
@@ -427,9 +427,9 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 // # Moving Windows
 //
-//   - [NSWindow.MovableByWindowBackground]: A Boolean value that indicates whether the window is movable by clicking and dragging anywhere in its background.
+//   - [NSWindow.IsMovableByWindowBackground]: A Boolean value that indicates whether the window is movable by clicking and dragging anywhere in its background.
 //   - [NSWindow.SetMovableByWindowBackground]
-//   - [NSWindow.Movable]: A Boolean value that indicates whether the window can be dragged by clicking in its title bar or background.
+//   - [NSWindow.IsMovable]: A Boolean value that indicates whether the window can be dragged by clicking in its title bar or background.
 //   - [NSWindow.SetMovable]
 //   - [NSWindow.Center]: Sets the window’s location to the center of the screen.
 //
@@ -437,12 +437,12 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 //   - [NSWindow.PerformClose]: Simulates the user clicking the close button by momentarily highlighting the button and then closing the window.
 //   - [NSWindow.Close]: Removes the window from the screen.
-//   - [NSWindow.ReleasedWhenClosed]: A Boolean value that indicates whether the window is released when it receives the `close` message.
+//   - [NSWindow.IsReleasedWhenClosed]: A Boolean value that indicates whether the window is released when it receives the `close` message.
 //   - [NSWindow.SetReleasedWhenClosed]
 //
 // # Minimizing Windows
 //
-//   - [NSWindow.Miniaturized]: A Boolean value that indicates whether the window is minimized.
+//   - [NSWindow.IsMiniaturized]: A Boolean value that indicates whether the window is minimized.
 //   - [NSWindow.PerformMiniaturize]: Simulates the user clicking the minimize button by momentarily highlighting the button, then minimizing the window.
 //   - [NSWindow.Miniaturize]: Removes the window from the screen list and displays the minimized window in the Dock.
 //   - [NSWindow.Deminiaturize]: De-minimizes the window.
@@ -493,11 +493,11 @@ func (nc NSWindowClass) Alloc() NSWindow {
 //
 //   - [NSWindow.HasCloseBox]: A Boolean value that indicates if the window has a close box.
 //   - [NSWindow.HasTitleBar]: A Boolean value that indicates if the window has a title bar.
-//   - [NSWindow.ModalPanel]: A Boolean value that indicates whether the window is a modal panel.
-//   - [NSWindow.FloatingPanel]: A Boolean value that indicates whether the window is a floating panel.
-//   - [NSWindow.Zoomable]: A Boolean value that indicates whether the window allows zooming.
-//   - [NSWindow.Resizable]: A Boolean value that indicates if the user can resize the window.
-//   - [NSWindow.Miniaturizable]: A Boolean value that indicates whether the window can minimize.
+//   - [NSWindow.IsModalPanel]: A Boolean value that indicates whether the window is a modal panel.
+//   - [NSWindow.IsFloatingPanel]: A Boolean value that indicates whether the window is a floating panel.
+//   - [NSWindow.IsZoomable]: A Boolean value that indicates whether the window allows zooming.
+//   - [NSWindow.IsResizable]: A Boolean value that indicates if the user can resize the window.
+//   - [NSWindow.IsMiniaturizable]: A Boolean value that indicates whether the window can minimize.
 //   - [NSWindow.OrderedIndex]: The zero-based position of the window, based on its order from front to back among all visible application windows.
 //   - [NSWindow.SetOrderedIndex]
 //
@@ -572,12 +572,12 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //   - [INSWindow.SetDynamicDepthLimit]: Sets a Boolean value that indicates whether the window’s depth limit can change to match the depth of the screen it’s on.
 //   - [INSWindow.CanHide]: A Boolean value that indicates whether the window can hide when its application becomes hidden.
 //   - [INSWindow.SetCanHide]
-//   - [INSWindow.OnActiveSpace]: A Boolean value that indicates whether the window is on the currently active space.
+//   - [INSWindow.IsOnActiveSpace]: A Boolean value that indicates whether the window is on the currently active space.
 //   - [INSWindow.HidesOnDeactivate]: A Boolean value that indicates whether the window is removed from the screen when its application becomes inactive.
 //   - [INSWindow.SetHidesOnDeactivate]
 //   - [INSWindow.CollectionBehavior]: A value that identifies the window’s behavior in window collections.
 //   - [INSWindow.SetCollectionBehavior]
-//   - [INSWindow.Opaque]: A Boolean value that indicates whether the window is opaque.
+//   - [INSWindow.IsOpaque]: A Boolean value that indicates whether the window is opaque.
 //   - [INSWindow.SetOpaque]
 //   - [INSWindow.HasShadow]: A Boolean value that indicates whether the window has a shadow.
 //   - [INSWindow.SetHasShadow]
@@ -619,7 +619,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 // # Managing Sheets
 //
 //   - [INSWindow.AttachedSheet]: The sheet attached to the window.
-//   - [INSWindow.Sheet]: A Boolean value that indicates whether the window has ever run as a modal sheet.
+//   - [INSWindow.IsSheet]: A Boolean value that indicates whether the window has ever run as a modal sheet.
 //   - [INSWindow.BeginSheetCompletionHandler]: Starts a document-modal session and presents—or queues for presentation—a sheet.
 //   - [INSWindow.BeginCriticalSheetCompletionHandler]: Starts a document-modal session and presents the specified critical sheet.
 //   - [INSWindow.EndSheet]: Ends a document-modal session and dismisses the specified sheet.
@@ -643,7 +643,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //   - [INSWindow.SetMinSize]
 //   - [INSWindow.MaxSize]: The maximum size to which the window’s frame (including its title bar) can be sized.
 //   - [INSWindow.SetMaxSize]
-//   - [INSWindow.Zoomed]: A Boolean value that indicates whether the window is in a zoomed state.
+//   - [INSWindow.IsZoomed]: A Boolean value that indicates whether the window is in a zoomed state.
 //   - [INSWindow.PerformZoom]: This action method simulates the user clicking the zoom box by momentarily highlighting the button and then zooming the window.
 //   - [INSWindow.Zoom]: Toggles the size and location of the window between its standard state (which the application provides as the best size to display the window’s data) and its user state (a new size and location the user may have set by moving or resizing the window).
 //   - [INSWindow.ResizeFlags]: The flags field of the event record for the mouse-down event that initiated the resizing session.
@@ -683,7 +683,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 // # Managing Window Visibility and Occlusion State
 //
-//   - [INSWindow.Visible]: A Boolean value that indicates whether the window is visible onscreen (even when it’s obscured by other windows).
+//   - [INSWindow.IsVisible]: A Boolean value that indicates whether the window is visible onscreen (even when it’s obscured by other windows).
 //   - [INSWindow.OcclusionState]: The occlusion state of the window.
 //
 // # Managing Window Frames in User Defaults
@@ -697,7 +697,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 // # Managing Key Status
 //
-//   - [INSWindow.KeyWindow]: A Boolean value that indicates whether the window is the key window for the application.
+//   - [INSWindow.IsKeyWindow]: A Boolean value that indicates whether the window is the key window for the application.
 //   - [INSWindow.CanBecomeKeyWindow]: A Boolean value that indicates whether the window can become the key window.
 //   - [INSWindow.MakeKeyWindow]: Makes the window the key window.
 //   - [INSWindow.MakeKeyAndOrderFront]: Moves the window to the front of the screen list, within its level, and makes it the key window; that is, it shows the window.
@@ -706,7 +706,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 // # Managing Main Status
 //
-//   - [INSWindow.MainWindow]: A Boolean value that indicates whether the window is the application’s main window.
+//   - [INSWindow.IsMainWindow]: A Boolean value that indicates whether the window is the application’s main window.
 //   - [INSWindow.CanBecomeMainWindow]: A Boolean value that indicates whether the window can become the application’s main window.
 //   - [INSWindow.MakeMainWindow]: Makes the window the main window.
 //   - [INSWindow.BecomeMainWindow]: Informs the window that it has become the main window.
@@ -741,7 +741,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 // # Managing the Window Menu
 //
-//   - [INSWindow.ExcludedFromWindowsMenu]: A Boolean value that indicates whether the window is excluded from the application’s Windows menu.
+//   - [INSWindow.IsExcludedFromWindowsMenu]: A Boolean value that indicates whether the window is excluded from the application’s Windows menu.
 //   - [INSWindow.SetExcludedFromWindowsMenu]
 //
 // # Managing Cursor Rectangles
@@ -840,7 +840,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 // # Handling Window Restoration
 //
-//   - [INSWindow.Restorable]: A Boolean value indicating whether the window configuration is preserved between application launches.
+//   - [INSWindow.IsRestorable]: A Boolean value indicating whether the window configuration is preserved between application launches.
 //   - [INSWindow.SetRestorable]
 //   - [INSWindow.RestorationClass]: The restoration class associated with the window.
 //   - [INSWindow.SetRestorationClass]
@@ -872,7 +872,7 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 // # Accessing Edited Status
 //
-//   - [INSWindow.DocumentEdited]: A Boolean value that indicates whether the window’s document has been edited.
+//   - [INSWindow.IsDocumentEdited]: A Boolean value that indicates whether the window’s document has been edited.
 //   - [INSWindow.SetDocumentEdited]
 //
 // # Converting Coordinates
@@ -911,9 +911,9 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 // # Moving Windows
 //
-//   - [INSWindow.MovableByWindowBackground]: A Boolean value that indicates whether the window is movable by clicking and dragging anywhere in its background.
+//   - [INSWindow.IsMovableByWindowBackground]: A Boolean value that indicates whether the window is movable by clicking and dragging anywhere in its background.
 //   - [INSWindow.SetMovableByWindowBackground]
-//   - [INSWindow.Movable]: A Boolean value that indicates whether the window can be dragged by clicking in its title bar or background.
+//   - [INSWindow.IsMovable]: A Boolean value that indicates whether the window can be dragged by clicking in its title bar or background.
 //   - [INSWindow.SetMovable]
 //   - [INSWindow.Center]: Sets the window’s location to the center of the screen.
 //
@@ -921,12 +921,12 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 //   - [INSWindow.PerformClose]: Simulates the user clicking the close button by momentarily highlighting the button and then closing the window.
 //   - [INSWindow.Close]: Removes the window from the screen.
-//   - [INSWindow.ReleasedWhenClosed]: A Boolean value that indicates whether the window is released when it receives the `close` message.
+//   - [INSWindow.IsReleasedWhenClosed]: A Boolean value that indicates whether the window is released when it receives the `close` message.
 //   - [INSWindow.SetReleasedWhenClosed]
 //
 // # Minimizing Windows
 //
-//   - [INSWindow.Miniaturized]: A Boolean value that indicates whether the window is minimized.
+//   - [INSWindow.IsMiniaturized]: A Boolean value that indicates whether the window is minimized.
 //   - [INSWindow.PerformMiniaturize]: Simulates the user clicking the minimize button by momentarily highlighting the button, then minimizing the window.
 //   - [INSWindow.Miniaturize]: Removes the window from the screen list and displays the minimized window in the Dock.
 //   - [INSWindow.Deminiaturize]: De-minimizes the window.
@@ -977,11 +977,11 @@ func NSWindowFromID(id objc.ID) NSWindow {
 //
 //   - [INSWindow.HasCloseBox]: A Boolean value that indicates if the window has a close box.
 //   - [INSWindow.HasTitleBar]: A Boolean value that indicates if the window has a title bar.
-//   - [INSWindow.ModalPanel]: A Boolean value that indicates whether the window is a modal panel.
-//   - [INSWindow.FloatingPanel]: A Boolean value that indicates whether the window is a floating panel.
-//   - [INSWindow.Zoomable]: A Boolean value that indicates whether the window allows zooming.
-//   - [INSWindow.Resizable]: A Boolean value that indicates if the user can resize the window.
-//   - [INSWindow.Miniaturizable]: A Boolean value that indicates whether the window can minimize.
+//   - [INSWindow.IsModalPanel]: A Boolean value that indicates whether the window is a modal panel.
+//   - [INSWindow.IsFloatingPanel]: A Boolean value that indicates whether the window is a floating panel.
+//   - [INSWindow.IsZoomable]: A Boolean value that indicates whether the window allows zooming.
+//   - [INSWindow.IsResizable]: A Boolean value that indicates if the user can resize the window.
+//   - [INSWindow.IsMiniaturizable]: A Boolean value that indicates whether the window can minimize.
 //   - [INSWindow.OrderedIndex]: The zero-based position of the window, based on its order from front to back among all visible application windows.
 //   - [INSWindow.SetOrderedIndex]
 //
@@ -1057,7 +1057,7 @@ type INSWindow interface {
 	CanHide() bool
 	SetCanHide(value bool)
 	// A Boolean value that indicates whether the window is on the currently active space.
-	OnActiveSpace() bool
+	IsOnActiveSpace() bool
 	// A Boolean value that indicates whether the window is removed from the screen when its application becomes inactive.
 	HidesOnDeactivate() bool
 	SetHidesOnDeactivate(value bool)
@@ -1065,7 +1065,7 @@ type INSWindow interface {
 	CollectionBehavior() NSWindowCollectionBehavior
 	SetCollectionBehavior(value NSWindowCollectionBehavior)
 	// A Boolean value that indicates whether the window is opaque.
-	Opaque() bool
+	IsOpaque() bool
 	SetOpaque(value bool)
 	// A Boolean value that indicates whether the window has a shadow.
 	HasShadow() bool
@@ -1128,7 +1128,7 @@ type INSWindow interface {
 	// The sheet attached to the window.
 	AttachedSheet() INSWindow
 	// A Boolean value that indicates whether the window has ever run as a modal sheet.
-	Sheet() bool
+	IsSheet() bool
 	// Starts a document-modal session and presents—or queues for presentation—a sheet.
 	BeginSheetCompletionHandler(sheetWindow INSWindow, handler ModalResponseHandler)
 	// Starts a document-modal session and presents the specified critical sheet.
@@ -1170,7 +1170,7 @@ type INSWindow interface {
 	MaxSize() corefoundation.CGSize
 	SetMaxSize(value corefoundation.CGSize)
 	// A Boolean value that indicates whether the window is in a zoomed state.
-	Zoomed() bool
+	IsZoomed() bool
 	// This action method simulates the user clicking the zoom box by momentarily highlighting the button and then zooming the window.
 	PerformZoom(sender objectivec.IObject)
 	// Toggles the size and location of the window between its standard state (which the application provides as the best size to display the window’s data) and its user state (a new size and location the user may have set by moving or resizing the window).
@@ -1232,7 +1232,7 @@ type INSWindow interface {
 	// Topic: Managing Window Visibility and Occlusion State
 
 	// A Boolean value that indicates whether the window is visible onscreen (even when it’s obscured by other windows).
-	Visible() bool
+	IsVisible() bool
 	// The occlusion state of the window.
 	OcclusionState() NSWindowOcclusionState
 
@@ -1254,7 +1254,7 @@ type INSWindow interface {
 	// Topic: Managing Key Status
 
 	// A Boolean value that indicates whether the window is the key window for the application.
-	KeyWindow() bool
+	IsKeyWindow() bool
 	// A Boolean value that indicates whether the window can become the key window.
 	CanBecomeKeyWindow() bool
 	// Makes the window the key window.
@@ -1269,7 +1269,7 @@ type INSWindow interface {
 	// Topic: Managing Main Status
 
 	// A Boolean value that indicates whether the window is the application’s main window.
-	MainWindow() bool
+	IsMainWindow() bool
 	// A Boolean value that indicates whether the window can become the application’s main window.
 	CanBecomeMainWindow() bool
 	// Makes the window the main window.
@@ -1321,7 +1321,7 @@ type INSWindow interface {
 	// Topic: Managing the Window Menu
 
 	// A Boolean value that indicates whether the window is excluded from the application’s Windows menu.
-	ExcludedFromWindowsMenu() bool
+	IsExcludedFromWindowsMenu() bool
 	SetExcludedFromWindowsMenu(value bool)
 
 	// Topic: Managing Cursor Rectangles
@@ -1472,7 +1472,7 @@ type INSWindow interface {
 	// Topic: Handling Window Restoration
 
 	// A Boolean value indicating whether the window configuration is preserved between application launches.
-	Restorable() bool
+	IsRestorable() bool
 	SetRestorable(value bool)
 	// The restoration class associated with the window.
 	RestorationClass() objc.Class
@@ -1516,7 +1516,7 @@ type INSWindow interface {
 	// Topic: Accessing Edited Status
 
 	// A Boolean value that indicates whether the window’s document has been edited.
-	DocumentEdited() bool
+	IsDocumentEdited() bool
 	SetDocumentEdited(value bool)
 
 	// Topic: Converting Coordinates
@@ -1575,10 +1575,10 @@ type INSWindow interface {
 	// Topic: Moving Windows
 
 	// A Boolean value that indicates whether the window is movable by clicking and dragging anywhere in its background.
-	MovableByWindowBackground() bool
+	IsMovableByWindowBackground() bool
 	SetMovableByWindowBackground(value bool)
 	// A Boolean value that indicates whether the window can be dragged by clicking in its title bar or background.
-	Movable() bool
+	IsMovable() bool
 	SetMovable(value bool)
 	// Sets the window’s location to the center of the screen.
 	Center()
@@ -1590,13 +1590,13 @@ type INSWindow interface {
 	// Removes the window from the screen.
 	Close()
 	// A Boolean value that indicates whether the window is released when it receives the `close` message.
-	ReleasedWhenClosed() bool
+	IsReleasedWhenClosed() bool
 	SetReleasedWhenClosed(value bool)
 
 	// Topic: Minimizing Windows
 
 	// A Boolean value that indicates whether the window is minimized.
-	Miniaturized() bool
+	IsMiniaturized() bool
 	// Simulates the user clicking the minimize button by momentarily highlighting the button, then minimizing the window.
 	PerformMiniaturize(sender objectivec.IObject)
 	// Removes the window from the screen list and displays the minimized window in the Dock.
@@ -1670,15 +1670,15 @@ type INSWindow interface {
 	// A Boolean value that indicates if the window has a title bar.
 	HasTitleBar() bool
 	// A Boolean value that indicates whether the window is a modal panel.
-	ModalPanel() bool
+	IsModalPanel() bool
 	// A Boolean value that indicates whether the window is a floating panel.
-	FloatingPanel() bool
+	IsFloatingPanel() bool
 	// A Boolean value that indicates whether the window allows zooming.
-	Zoomable() bool
+	IsZoomable() bool
 	// A Boolean value that indicates if the user can resize the window.
-	Resizable() bool
+	IsResizable() bool
 	// A Boolean value that indicates whether the window can minimize.
-	Miniaturizable() bool
+	IsMiniaturizable() bool
 	// The zero-based position of the window, based on its order from front to back among all visible application windows.
 	OrderedIndex() int
 	SetOrderedIndex(value int)
@@ -4576,7 +4576,7 @@ func (w NSWindow) SetCanHide(value bool) {
 // to be on the active space.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isOnActiveSpace
-func (w NSWindow) OnActiveSpace() bool {
+func (w NSWindow) IsOnActiveSpace() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isOnActiveSpace"))
 	return rv
 }
@@ -4626,7 +4626,7 @@ func (w NSWindow) SetCollectionBehavior(value NSWindowCollectionBehavior) {
 // false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isOpaque
-func (w NSWindow) Opaque() bool {
+func (w NSWindow) IsOpaque() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isOpaque"))
 	return rv
 }
@@ -4859,7 +4859,7 @@ func (w NSWindow) AttachedSheet() INSWindow {
 // sheet; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isSheet
-func (w NSWindow) Sheet() bool {
+func (w NSWindow) IsSheet() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isSheet"))
 	return rv
 }
@@ -5003,7 +5003,7 @@ func (w NSWindow) SetMaxSize(value corefoundation.CGSize) {
 // to the zoomed frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isZoomed
-func (w NSWindow) Zoomed() bool {
+func (w NSWindow) IsZoomed() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isZoomed"))
 	return rv
 }
@@ -5284,7 +5284,7 @@ func (w NSWindow) SetLevel(value NSWindowLevel) {
 // it’s obscured by other windows); otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isVisible
-func (w NSWindow) Visible() bool {
+func (w NSWindow) IsVisible() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isVisible"))
 	return rv
 }
@@ -5339,7 +5339,7 @@ func (w NSWindow) StringWithSavedFrame() NSWindowPersistableFrameDescriptor {
 // application; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isKeyWindow
-func (w NSWindow) KeyWindow() bool {
+func (w NSWindow) IsKeyWindow() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isKeyWindow"))
 	return rv
 }
@@ -5371,7 +5371,7 @@ func (w NSWindow) CanBecomeKeyWindow() bool {
 // the application; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isMainWindow
-func (w NSWindow) MainWindow() bool {
+func (w NSWindow) IsMainWindow() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isMainWindow"))
 	return rv
 }
@@ -5470,7 +5470,7 @@ func (w NSWindow) SetDefaultButtonCell(value INSButtonCell) {
 // Windows menu; otherwise, false. The default initial setting is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isExcludedFromWindowsMenu
-func (w NSWindow) ExcludedFromWindowsMenu() bool {
+func (w NSWindow) IsExcludedFromWindowsMenu() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isExcludedFromWindowsMenu"))
 	return rv
 }
@@ -5853,7 +5853,7 @@ func (w NSWindow) MouseLocationOutsideOfEventStream() corefoundation.CGPoint {
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isRestorable
 //
 // [NSTitledWindowMask]: https://developer.apple.com/documentation/AppKit/NSTitledWindowMask
-func (w NSWindow) Restorable() bool {
+func (w NSWindow) IsRestorable() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isRestorable"))
 	return rv
 }
@@ -5981,7 +5981,7 @@ func (w NSWindow) SetAnimationBehavior(value NSWindowAnimationBehavior) {
 // user a chance to save the document.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isDocumentEdited
-func (w NSWindow) DocumentEdited() bool {
+func (w NSWindow) IsDocumentEdited() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isDocumentEdited"))
 	return rv
 }
@@ -6163,7 +6163,7 @@ func (w NSWindow) SetDisplaysWhenScreenProfileChanges(value bool) {
 // background.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isMovableByWindowBackground
-func (w NSWindow) MovableByWindowBackground() bool {
+func (w NSWindow) IsMovableByWindowBackground() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isMovableByWindowBackground"))
 	return rv
 }
@@ -6192,7 +6192,7 @@ func (w NSWindow) SetMovableByWindowBackground(value bool) {
 // [NSWindow] subclass.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isMovable
-func (w NSWindow) Movable() bool {
+func (w NSWindow) IsMovable() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isMovable"))
 	return rv
 }
@@ -6214,7 +6214,7 @@ func (w NSWindow) SetMovable(value bool) {
 // its delegate autorelease it on receiving a [WindowShouldClose] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isReleasedWhenClosed
-func (w NSWindow) ReleasedWhenClosed() bool {
+func (w NSWindow) IsReleasedWhenClosed() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isReleasedWhenClosed"))
 	return rv
 }
@@ -6231,7 +6231,7 @@ func (w NSWindow) SetReleasedWhenClosed(value bool) {
 // image, icon, or button that represents it, called the counterpart.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isMiniaturized
-func (w NSWindow) Miniaturized() bool {
+func (w NSWindow) IsMiniaturized() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isMiniaturized"))
 	return rv
 }
@@ -6379,7 +6379,7 @@ func (w NSWindow) HasTitleBar() bool {
 // This property is key-value coding compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isModalPanel
-func (w NSWindow) ModalPanel() bool {
+func (w NSWindow) IsModalPanel() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isModalPanel"))
 	return rv
 }
@@ -6391,7 +6391,7 @@ func (w NSWindow) ModalPanel() bool {
 // This property is key-value coding compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isFloatingPanel
-func (w NSWindow) FloatingPanel() bool {
+func (w NSWindow) IsFloatingPanel() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isFloatingPanel"))
 	return rv
 }
@@ -6403,7 +6403,7 @@ func (w NSWindow) FloatingPanel() bool {
 // This property is key-value coding compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isZoomable
-func (w NSWindow) Zoomable() bool {
+func (w NSWindow) IsZoomable() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isZoomable"))
 	return rv
 }
@@ -6415,7 +6415,7 @@ func (w NSWindow) Zoomable() bool {
 // This property is key-value coding compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isResizable
-func (w NSWindow) Resizable() bool {
+func (w NSWindow) IsResizable() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isResizable"))
 	return rv
 }
@@ -6427,7 +6427,7 @@ func (w NSWindow) Resizable() bool {
 // This property is key-value coding compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/isMiniaturizable
-func (w NSWindow) Miniaturizable() bool {
+func (w NSWindow) IsMiniaturizable() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isMiniaturizable"))
 	return rv
 }

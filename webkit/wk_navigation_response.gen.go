@@ -62,7 +62,7 @@ func (wc WKNavigationResponseClass) Alloc() WKNavigationResponse {
 // # Getting Additional Response Information
 //
 //   - [WKNavigationResponse.CanShowMIMEType]: A Boolean value that indicates whether WebKit is capable of displaying the response’s MIME type natively.
-//   - [WKNavigationResponse.ForMainFrame]: A Boolean value that indicates whether the response targets the web view’s main frame.
+//   - [WKNavigationResponse.IsForMainFrame]: A Boolean value that indicates whether the response targets the web view’s main frame.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationResponse
 type WKNavigationResponse struct {
@@ -89,7 +89,7 @@ func WKNavigationResponseFromID(id objc.ID) WKNavigationResponse {
 // # Getting Additional Response Information
 //
 //   - [IWKNavigationResponse.CanShowMIMEType]: A Boolean value that indicates whether WebKit is capable of displaying the response’s MIME type natively.
-//   - [IWKNavigationResponse.ForMainFrame]: A Boolean value that indicates whether the response targets the web view’s main frame.
+//   - [IWKNavigationResponse.IsForMainFrame]: A Boolean value that indicates whether the response targets the web view’s main frame.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationResponse
 type IWKNavigationResponse interface {
@@ -105,7 +105,7 @@ type IWKNavigationResponse interface {
 	// A Boolean value that indicates whether WebKit is capable of displaying the response’s MIME type natively.
 	CanShowMIMEType() bool
 	// A Boolean value that indicates whether the response targets the web view’s main frame.
-	ForMainFrame() bool
+	IsForMainFrame() bool
 }
 
 // Init initializes the instance.
@@ -164,7 +164,7 @@ func (n WKNavigationResponse) CanShowMIMEType() bool {
 // frame in a new window.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationResponse/isForMainFrame
-func (n WKNavigationResponse) ForMainFrame() bool {
+func (n WKNavigationResponse) IsForMainFrame() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isForMainFrame"))
 	return rv
 }

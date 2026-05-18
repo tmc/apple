@@ -115,7 +115,7 @@ func (ac AVAudioEngineClass) Alloc() AVAudioEngine {
 //
 //   - [AVAudioEngine.Prepare]: Prepares the audio engine for starting.
 //   - [AVAudioEngine.StartAndReturnError]: Starts the audio engine.
-//   - [AVAudioEngine.Running]: A Boolean value that indicates whether the audio engine is running.
+//   - [AVAudioEngine.IsRunning]: A Boolean value that indicates whether the audio engine is running.
 //   - [AVAudioEngine.Pause]: Pauses the audio engine.
 //   - [AVAudioEngine.Stop]: Stops the audio engine and releases any previously prepared resources.
 //   - [AVAudioEngine.Reset]: Resets all audio nodes in the audio engine.
@@ -135,7 +135,7 @@ func (ac AVAudioEngineClass) Alloc() AVAudioEngine {
 //   - [AVAudioEngine.ManualRenderingMaximumFrameCount]: The maximum number of PCM sample frames the engine produces in any single render call in manual rendering mode.
 //   - [AVAudioEngine.ManualRenderingMode]: The manual rendering mode configured on the engine.
 //   - [AVAudioEngine.ManualRenderingSampleTime]: An indication of where the engine is on its render timeline in manual rendering mode.
-//   - [AVAudioEngine.AutoShutdownEnabled]: A Boolean value that indicates whether autoshutdown is in an enabled state.
+//   - [AVAudioEngine.IsAutoShutdownEnabled]: A Boolean value that indicates whether autoshutdown is in an enabled state.
 //   - [AVAudioEngine.SetAutoShutdownEnabled]
 //   - [AVAudioEngine.IsInManualRenderingMode]: A Boolean value that indicates whether the engine is operating in manual rendering mode.
 //
@@ -197,7 +197,7 @@ func AVAudioEngineFromID(id objc.ID) AVAudioEngine {
 //
 //   - [IAVAudioEngine.Prepare]: Prepares the audio engine for starting.
 //   - [IAVAudioEngine.StartAndReturnError]: Starts the audio engine.
-//   - [IAVAudioEngine.Running]: A Boolean value that indicates whether the audio engine is running.
+//   - [IAVAudioEngine.IsRunning]: A Boolean value that indicates whether the audio engine is running.
 //   - [IAVAudioEngine.Pause]: Pauses the audio engine.
 //   - [IAVAudioEngine.Stop]: Stops the audio engine and releases any previously prepared resources.
 //   - [IAVAudioEngine.Reset]: Resets all audio nodes in the audio engine.
@@ -217,7 +217,7 @@ func AVAudioEngineFromID(id objc.ID) AVAudioEngine {
 //   - [IAVAudioEngine.ManualRenderingMaximumFrameCount]: The maximum number of PCM sample frames the engine produces in any single render call in manual rendering mode.
 //   - [IAVAudioEngine.ManualRenderingMode]: The manual rendering mode configured on the engine.
 //   - [IAVAudioEngine.ManualRenderingSampleTime]: An indication of where the engine is on its render timeline in manual rendering mode.
-//   - [IAVAudioEngine.AutoShutdownEnabled]: A Boolean value that indicates whether autoshutdown is in an enabled state.
+//   - [IAVAudioEngine.IsAutoShutdownEnabled]: A Boolean value that indicates whether autoshutdown is in an enabled state.
 //   - [IAVAudioEngine.SetAutoShutdownEnabled]
 //   - [IAVAudioEngine.IsInManualRenderingMode]: A Boolean value that indicates whether the engine is operating in manual rendering mode.
 //
@@ -286,7 +286,7 @@ type IAVAudioEngine interface {
 	// Starts the audio engine.
 	StartAndReturnError() (bool, error)
 	// A Boolean value that indicates whether the audio engine is running.
-	Running() bool
+	IsRunning() bool
 	// Pauses the audio engine.
 	Pause()
 	// Stops the audio engine and releases any previously prepared resources.
@@ -319,7 +319,7 @@ type IAVAudioEngine interface {
 	// An indication of where the engine is on its render timeline in manual rendering mode.
 	ManualRenderingSampleTime() AVAudioFramePosition
 	// A Boolean value that indicates whether autoshutdown is in an enabled state.
-	AutoShutdownEnabled() bool
+	IsAutoShutdownEnabled() bool
 	SetAutoShutdownEnabled(value bool)
 	// A Boolean value that indicates whether the engine is operating in manual rendering mode.
 	IsInManualRenderingMode() bool
@@ -926,7 +926,7 @@ func (a AVAudioEngine) MainMixerNode() IAVAudioMixerNode {
 // false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/isRunning
-func (a AVAudioEngine) Running() bool {
+func (a AVAudioEngine) IsRunning() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRunning"))
 	return rv
 }
@@ -999,7 +999,7 @@ func (a AVAudioEngine) ManualRenderingSampleTime() AVAudioFramePosition {
 // by default.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/isAutoShutdownEnabled
-func (a AVAudioEngine) AutoShutdownEnabled() bool {
+func (a AVAudioEngine) IsAutoShutdownEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isAutoShutdownEnabled"))
 	return rv
 }
