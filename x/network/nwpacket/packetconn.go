@@ -514,20 +514,11 @@ func (c *nwPacketConn) connectionEndpoint(conn applenetwork.NWConnection) *net.U
 
 func (c *nwPacketConn) connectionPath(conn applenetwork.NWConnection) string {
 	path := applenetwork.NWConnectionCopyCurrentPath(conn)
-	if path.ID == 0 {
+	info, err := pathFromNWPath(path)
+	if err != nil {
 		return "none"
 	}
-	var parts []string
-	applenetwork.NWPathEnumerateInterfaces(path, func(obj objectivec.Object) bool {
-		iface := applenetwork.NWInterfaceFromID(obj.ID)
-		name := objc.GoString(applenetwork.NWInterfaceGetName(iface))
-		parts = append(parts, fmt.Sprintf("%s/%s", name, applenetwork.NWInterfaceGetType(iface)))
-		return true
-	})
-	if len(parts) == 0 {
-		return "interfaces=none"
-	}
-	return strings.Join(parts, ",")
+	return info.String()
 }
 
 func (c *nwPacketConn) readDeadlineState() (time.Time, <-chan struct{}) {

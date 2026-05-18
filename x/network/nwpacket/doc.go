@@ -5,7 +5,8 @@
 // It is intentionally narrow: callers choose the local address, interface
 // policy, and tracing hook. The package opens clear UDP Network.framework
 // listeners and outbound connections, then exposes them through net.PacketConn
-// for demos that need to plug into Go or Pion surfaces. Use
-// ListenPacketContext when listener startup must be canceled by a caller-owned
-// context.
+// for demos that need to plug into Go or Pion surfaces. Returned connections
+// also implement PathReporter, which reports the observed Network.framework
+// path for an established peer. Use ListenPacketContext when listener startup
+// must be canceled by a caller-owned context.
 package nwpacket

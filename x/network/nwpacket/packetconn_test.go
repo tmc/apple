@@ -6,7 +6,10 @@ import (
 	"context"
 	"errors"
 	"net"
+	"strings"
 	"testing"
+
+	applenetwork "github.com/tmc/apple/network"
 )
 
 func TestEndpointHost(t *testing.T) {
@@ -81,5 +84,39 @@ func TestListenPacketContextCanceled(t *testing.T) {
 	})
 	if !errors.Is(err, context.Canceled) {
 		t.Fatalf("ListenPacketContext err = %v, want %v", err, context.Canceled)
+	}
+}
+
+func TestPathStringAndInterfaces(t *testing.T) {
+	path := Path{
+		Status: applenetwork.NWPathStatusSatisfied,
+		Interfaces: []PathInterface{
+			{Name: "awdl0", Index: 16, Type: applenetwork.NWInterfaceTypeWifi},
+			{Name: "en0", Index: 6, Type: applenetwork.NWInterfaceTypeWifi},
+		},
+	}
+	if !path.UsesInterface("awdl0") {
+		t.Fatal("Path did not report awdl0")
+	}
+	if path.UsesInterface("bridge0") {
+		t.Fatal("Path reported bridge0")
+	}
+	if got := strings.Join(path.InterfaceNames(), ","); got != "awdl0,en0" {
+		t.Fatalf("InterfaceNames = %q, want awdl0,en0", got)
+	}
+	want := "status=NWPathStatusSatisfied interfaces=awdl0/NWInterfaceTypeWifi(16),en0/NWInterfaceTypeWifi(6)"
+	if got := path.String(); got != want {
+		t.Fatalf("Path.String = %q, want %q", got, want)
+	}
+}
+
+func TestPeerPathRequiresExistingPeer(t *testing.T) {
+	conn := &nwPacketConn{
+		config: Config{InterfaceName: "awdl0"},
+		conns:  make(map[string]*nwPeerConn),
+	}
+	_, err := conn.PeerPath(&net.UDPAddr{IP: net.ParseIP("fe80::1"), Port: 9999})
+	if err == nil || !strings.Contains(err.Error(), "no peer connection") {
+		t.Fatalf("PeerPath err = %v, want no peer connection", err)
 	}
 }
