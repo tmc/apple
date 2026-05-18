@@ -4,7 +4,6 @@ package virtualization
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -72,7 +71,7 @@ type IVZForwardingDebugStub interface {
 
 	// Topic: Methods
 
-	_initWithDebugStub(stub unsafe.Pointer) objectivec.IObject
+	_initWithDebugStub(stub DebugStub) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -95,13 +94,13 @@ func NewVZForwardingDebugStub() VZForwardingDebugStub {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZForwardingDebugStub/_initWithDebugStub:
-func (v VZForwardingDebugStub) _initWithDebugStub(stub unsafe.Pointer) objectivec.IObject {
+func (v VZForwardingDebugStub) _initWithDebugStub(stub DebugStub) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithDebugStub:"), stub)
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithDebugStub is an exported wrapper for the private method _initWithDebugStub.
-func (v VZForwardingDebugStub) InitWithDebugStub(stub unsafe.Pointer) (objectivec.IObject, error) {
+func (v VZForwardingDebugStub) InitWithDebugStub(stub DebugStub) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithDebugStub:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithDebugStub:"}
 		return nil, err

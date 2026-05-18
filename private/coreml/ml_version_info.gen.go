@@ -97,14 +97,14 @@ type IMLVersionInfo interface {
 }
 
 // Init initializes the instance.
-func (v MLVersionInfo) Init() MLVersionInfo {
-	rv := objc.Send[MLVersionInfo](v.ID, objc.Sel("init"))
+func (m MLVersionInfo) Init() MLVersionInfo {
+	rv := objc.Send[MLVersionInfo](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v MLVersionInfo) Autorelease() MLVersionInfo {
-	rv := objc.Send[MLVersionInfo](v.ID, objc.Sel("autorelease"))
+func (m MLVersionInfo) Autorelease() MLVersionInfo {
+	rv := objc.Send[MLVersionInfo](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -123,14 +123,14 @@ func NewVersionInfoWithMajorMinorPatchVariant(major int64, minor int64, patch in
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/olderThan:
-func (v MLVersionInfo) OlderThan(than objectivec.IObject) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("olderThan:"), than)
+func (m MLVersionInfo) OlderThan(than objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("olderThan:"), than)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/initWithMajor:minor:patch:variant:
-func (v MLVersionInfo) InitWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) MLVersionInfo {
-	rv := objc.Send[MLVersionInfo](v.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
+func (m MLVersionInfo) InitWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) MLVersionInfo {
+	rv := objc.Send[MLVersionInfo](m.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
 	return rv
 }
 
@@ -153,37 +153,37 @@ func (_MLVersionInfoClass MLVersionInfoClass) VersionInfoWithStringProgressive(p
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/majorVersion
-func (v MLVersionInfo) MajorVersion() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("majorVersion"))
+func (m MLVersionInfo) MajorVersion() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("majorVersion"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/minorVersion
-func (v MLVersionInfo) MinorVersion() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("minorVersion"))
+func (m MLVersionInfo) MinorVersion() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("minorVersion"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/patchVersion
-func (v MLVersionInfo) PatchVersion() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("patchVersion"))
+func (m MLVersionInfo) PatchVersion() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("patchVersion"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/variantString
-func (v MLVersionInfo) VariantString() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("variantString"))
+func (m MLVersionInfo) VariantString() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("variantString"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/versionNumberString
-func (v MLVersionInfo) VersionNumberString() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("versionNumberString"))
+func (m MLVersionInfo) VersionNumberString() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("versionNumberString"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLVersionInfo/versionString
-func (v MLVersionInfo) VersionString() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("versionString"))
+func (m MLVersionInfo) VersionString() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("versionString"))
 	return foundation.NSStringFromID(rv).String()
 }

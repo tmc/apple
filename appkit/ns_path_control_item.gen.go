@@ -90,7 +90,7 @@ type INSPathControlItem interface {
 	SetImage(value INSImage)
 	Title() string
 	SetTitle(value string)
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -140,7 +140,7 @@ func (p NSPathControlItem) SetTitle(value string) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlItem/url
-func (p NSPathControlItem) URL() foundation.INSURL {
+func (p NSPathControlItem) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

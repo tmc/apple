@@ -83,14 +83,14 @@ type IVZDiskBlockDeviceStorageDeviceAttachment interface {
 }
 
 // Init initializes the instance.
-func (d VZDiskBlockDeviceStorageDeviceAttachment) Init() VZDiskBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZDiskBlockDeviceStorageDeviceAttachment](d.ID, objc.Sel("init"))
+func (v VZDiskBlockDeviceStorageDeviceAttachment) Init() VZDiskBlockDeviceStorageDeviceAttachment {
+	rv := objc.Send[VZDiskBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d VZDiskBlockDeviceStorageDeviceAttachment) Autorelease() VZDiskBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZDiskBlockDeviceStorageDeviceAttachment](d.ID, objc.Sel("autorelease"))
+func (v VZDiskBlockDeviceStorageDeviceAttachment) Autorelease() VZDiskBlockDeviceStorageDeviceAttachment {
+	rv := objc.Send[VZDiskBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -102,9 +102,9 @@ func NewVZDiskBlockDeviceStorageDeviceAttachment() VZDiskBlockDeviceStorageDevic
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskBlockDeviceStorageDeviceAttachment/_initWithURL:readOnly:synchronizationMode:error:
-func (d VZDiskBlockDeviceStorageDeviceAttachment) _initWithURLReadOnlySynchronizationModeError(url foundation.INSURL, only bool, mode int64) (objectivec.IObject, error) {
+func (v VZDiskBlockDeviceStorageDeviceAttachment) _initWithURLReadOnlySynchronizationModeError(url foundation.INSURL, only bool, mode int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("_initWithURL:readOnly:synchronizationMode:error:"), url, only, mode, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithURL:readOnly:synchronizationMode:error:"), url, only, mode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -114,40 +114,40 @@ func (d VZDiskBlockDeviceStorageDeviceAttachment) _initWithURLReadOnlySynchroniz
 }
 
 // InitWithURLReadOnlySynchronizationModeError is an exported wrapper for the private method _initWithURLReadOnlySynchronizationModeError.
-func (d VZDiskBlockDeviceStorageDeviceAttachment) InitWithURLReadOnlySynchronizationModeError(url foundation.INSURL, only bool, mode int64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(d.ID, objc.Sel("_initWithURL:readOnly:synchronizationMode:error:")) {
+func (v VZDiskBlockDeviceStorageDeviceAttachment) InitWithURLReadOnlySynchronizationModeError(url foundation.INSURL, only bool, mode int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithURL:readOnly:synchronizationMode:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithURL:readOnly:synchronizationMode:error:"}
 		return nil, err
 	}
-	return d._initWithURLReadOnlySynchronizationModeError(url, only, mode)
+	return v._initWithURLReadOnlySynchronizationModeError(url, only, mode)
 }
 
 // CanInitWithURLReadOnlySynchronizationModeError reports whether the receiver responds to the private selector _initWithURL:readOnly:synchronizationMode:error:.
-func (d VZDiskBlockDeviceStorageDeviceAttachment) CanInitWithURLReadOnlySynchronizationModeError() bool {
-	return objc.RespondsToSelector(d.ID, objc.Sel("_initWithURL:readOnly:synchronizationMode:error:"))
+func (v VZDiskBlockDeviceStorageDeviceAttachment) CanInitWithURLReadOnlySynchronizationModeError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithURL:readOnly:synchronizationMode:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskBlockDeviceStorageDeviceAttachment/_url
-func (d VZDiskBlockDeviceStorageDeviceAttachment) _url() foundation.INSURL {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("_url"))
+func (v VZDiskBlockDeviceStorageDeviceAttachment) _url() foundation.INSURL {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_url"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
 // CanUrl reports whether the receiver responds to the private selector _url.
-func (d VZDiskBlockDeviceStorageDeviceAttachment) CanUrl() bool {
-	return objc.RespondsToSelector(d.ID, objc.Sel("_url"))
+func (v VZDiskBlockDeviceStorageDeviceAttachment) CanUrl() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_url"))
 }
 
 // Url is an exported wrapper for the private property _url.
-func (d VZDiskBlockDeviceStorageDeviceAttachment) Url() (foundation.INSURL, error) {
-	if !objc.RespondsToSelector(d.ID, objc.Sel("_url")) {
+func (v VZDiskBlockDeviceStorageDeviceAttachment) Url() (foundation.INSURL, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_url")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_url"}
 	}
-	return d._url(), nil
+	return v._url(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskBlockDeviceStorageDeviceAttachment/readOnly
-func (d VZDiskBlockDeviceStorageDeviceAttachment) ReadOnly() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("readOnly"))
+func (v VZDiskBlockDeviceStorageDeviceAttachment) ReadOnly() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }

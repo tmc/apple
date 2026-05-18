@@ -78,7 +78,7 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvidePersistabl
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:didProvide:forInitializationData:)
-func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvideContentKeyRequestsForInitializationData(session IAVContentKeySession, keyRequests []AVContentKeyRequest, initializationData foundation.INSData) {
+func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvideContentKeyRequestsForInitializationData(session IAVContentKeySession, keyRequests []AVContentKeyRequest, initializationData foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didProvideContentKeyRequests:forInitializationData:"), session, objectivec.IObjectSliceToNSArray(keyRequests), initializationData)
 }
 
@@ -109,7 +109,7 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionExternalProtectionSt
 // loading requests.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:didUpdatePersistableContentKey:forContentKeyIdentifier:)
-func (o AVContentKeySessionDelegateObject) ContentKeySessionDidUpdatePersistableContentKeyForContentKeyIdentifier(session IAVContentKeySession, persistableContentKey foundation.INSData, keyIdentifier objectivec.IObject) {
+func (o AVContentKeySessionDelegateObject) ContentKeySessionDidUpdatePersistableContentKeyForContentKeyIdentifier(session IAVContentKeySession, persistableContentKey foundation.NSData, keyIdentifier objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didUpdatePersistableContentKey:forContentKeyIdentifier:"), session, persistableContentKey, keyIdentifier)
 }
 
@@ -147,7 +147,7 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionContentProtectionSes
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:contentKeyRequest:didFailWithError:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (o AVContentKeySessionDelegateObject) ContentKeySessionContentKeyRequestDidFailWithError(session IAVContentKeySession, keyRequest IAVContentKeyRequest, err foundation.INSError) {
+func (o AVContentKeySessionDelegateObject) ContentKeySessionContentKeyRequestDidFailWithError(session IAVContentKeySession, keyRequest IAVContentKeyRequest, err foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:contentKeyRequest:didFailWithError:"), session, keyRequest, err)
 }
 

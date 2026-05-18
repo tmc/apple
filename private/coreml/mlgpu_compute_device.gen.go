@@ -88,14 +88,14 @@ type IMLGPUComputeDevice interface {
 }
 
 // Init initializes the instance.
-func (g MLGPUComputeDevice) Init() MLGPUComputeDevice {
-	rv := objc.Send[MLGPUComputeDevice](g.ID, objc.Sel("init"))
+func (m MLGPUComputeDevice) Init() MLGPUComputeDevice {
+	rv := objc.Send[MLGPUComputeDevice](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g MLGPUComputeDevice) Autorelease() MLGPUComputeDevice {
-	rv := objc.Send[MLGPUComputeDevice](g.ID, objc.Sel("autorelease"))
+func (m MLGPUComputeDevice) Autorelease() MLGPUComputeDevice {
+	rv := objc.Send[MLGPUComputeDevice](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -114,8 +114,8 @@ func NewGPUComputeDeviceWithMetalDevice(device objectivec.IObject) MLGPUComputeD
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/initWithMetalDevice:
-func (g MLGPUComputeDevice) InitWithMetalDevice(device objectivec.IObject) MLGPUComputeDevice {
-	rv := objc.Send[MLGPUComputeDevice](g.ID, objc.Sel("initWithMetalDevice:"), device)
+func (m MLGPUComputeDevice) InitWithMetalDevice(device objectivec.IObject) MLGPUComputeDevice {
+	rv := objc.Send[MLGPUComputeDevice](m.ID, objc.Sel("initWithMetalDevice:"), device)
 	return rv
 }
 
@@ -126,25 +126,25 @@ func (_MLGPUComputeDeviceClass MLGPUComputeDeviceClass) DeviceWithMetalDevice(de
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/debugDescription
-func (g MLGPUComputeDevice) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+func (m MLGPUComputeDevice) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/description
-func (g MLGPUComputeDevice) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+func (m MLGPUComputeDevice) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/hash
-func (g MLGPUComputeDevice) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+func (m MLGPUComputeDevice) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/superclass
-func (g MLGPUComputeDevice) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
+func (m MLGPUComputeDevice) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -99,16 +98,16 @@ type ICPXLegacyEventProcessor interface {
 
 	// Topic: Methods
 
-	CleanupForProcessDeath(death *CPSProcessRecRef)
+	CleanupForProcessDeath(death CPSProcessRec)
 	ClearEventState()
-	ExitSpecialKeyModeForProcess(mode uint32, process *CPSProcessRecRef)
+	ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec)
 	HotKeyChanged(changed objectivec.IObject)
-	ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64
-	ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event *SLSEventRecordRef, id uint64, down bool, context unsafe.Pointer, dispatcher objectivec.IObject) int64
-	RegisterSpecialKeyConnectionForProcess(key uint32, connection unsafe.Pointer, process *CPSProcessRecRef) int
-	UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRecRef) int
+	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int
+	UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int
 	InitWithProcessManagerFocusManagerSymbolicHotKeyRegistryCallbackSchedulerNotificationCenter(manager objectivec.IObject, manager2 objectivec.IObject, registry objectivec.IObject, scheduler objectivec.IObject, center objectivec.IObject) CPXLegacyEventProcessor
-	InitWithSession(session unsafe.Pointer) CPXLegacyEventProcessor
+	InitWithSession(session CGXSession) CPXLegacyEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -142,14 +141,14 @@ func NewCPXLegacyEventProcessorWithProcessManagerFocusManagerSymbolicHotKeyRegis
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/initWithSession:
-func NewCPXLegacyEventProcessorWithSession(session unsafe.Pointer) CPXLegacyEventProcessor {
+func NewCPXLegacyEventProcessorWithSession(session CGXSession) CPXLegacyEventProcessor {
 	instance := getCPXLegacyEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXLegacyEventProcessorFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/cleanupForProcessDeath:
-func (c CPXLegacyEventProcessor) CleanupForProcessDeath(death *CPSProcessRecRef) {
+func (c CPXLegacyEventProcessor) CleanupForProcessDeath(death CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
 
@@ -159,7 +158,7 @@ func (c CPXLegacyEventProcessor) ClearEventState() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/exitSpecialKeyMode:forProcess:
-func (c CPXLegacyEventProcessor) ExitSpecialKeyModeForProcess(mode uint32, process *CPSProcessRecRef) {
+func (c CPXLegacyEventProcessor) ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("exitSpecialKeyMode:forProcess:"), mode, process)
 }
 
@@ -169,25 +168,25 @@ func (c CPXLegacyEventProcessor) HotKeyChanged(changed objectivec.IObject) {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/processEvent:context:dispatcher:
-func (c CPXLegacyEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (c CPXLegacyEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/processHotKeyEvent:hotKeyID:isDown:context:dispatcher:
-func (c CPXLegacyEventProcessor) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event *SLSEventRecordRef, id uint64, down bool, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (c CPXLegacyEventProcessor) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processHotKeyEvent:hotKeyID:isDown:context:dispatcher:"), event, id, down, context, dispatcher)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/registerSpecialKey:connection:forProcess:
-func (c CPXLegacyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection unsafe.Pointer, process *CPSProcessRecRef) int {
+func (c CPXLegacyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int {
 	rv := objc.Send[int](c.ID, objc.Sel("registerSpecialKey:connection:forProcess:"), key, connection, process)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/unregisterSpecialKey:forProcess:
-func (c CPXLegacyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRecRef) int {
+func (c CPXLegacyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int {
 	rv := objc.Send[int](c.ID, objc.Sel("unregisterSpecialKey:forProcess:"), key, process)
 	return rv
 }
@@ -199,7 +198,7 @@ func (c CPXLegacyEventProcessor) InitWithProcessManagerFocusManagerSymbolicHotKe
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXLegacyEventProcessor/initWithSession:
-func (c CPXLegacyEventProcessor) InitWithSession(session unsafe.Pointer) CPXLegacyEventProcessor {
+func (c CPXLegacyEventProcessor) InitWithSession(session CGXSession) CPXLegacyEventProcessor {
 	rv := objc.Send[CPXLegacyEventProcessor](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }

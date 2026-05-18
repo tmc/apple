@@ -110,7 +110,7 @@ func (o NSTextViewDelegateObject) TextViewWillDisplayToolTipForCharacterAtIndex(
 // implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:urlForContentsOf:at:)
-func (o NSTextViewDelegateObject) TextViewURLForContentsOfTextAttachmentAtIndex(textView INSTextView, textAttachment INSTextAttachment, charIndex uint) foundation.INSURL {
+func (o NSTextViewDelegateObject) TextViewURLForContentsOfTextAttachmentAtIndex(textView INSTextView, textAttachment INSTextAttachment, charIndex uint) foundation.NSURL {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:URLForContentsOfTextAttachment:atIndex:"), textView, textAttachment, charIndex)
 	return foundation.NSURLFromID(rv)
 }

@@ -206,12 +206,10 @@ func (o MTLIndirectComputeCommandObject) ClearBarrier() {
 // the compute command encoder adds additional barriers. If [DispatchType] is
 // [MTLDispatchTypeSerial], the compute command encoder adds a barrier before
 // and after the range of commands. If [DispatchType] is
-// [MTLDispatchType.concurrent], then the compute command encoder does
-// nothing, and you are responsible for synchronizing access to resources.
+// [MTLDispatchTypeConcurrent], then the compute command encoder does nothing,
+// and you are responsible for synchronizing access to resources.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/concurrentDispatchThreadgroups(_:threadsPerThreadgroup:)
-//
-// [MTLDispatchType.concurrent]: https://developer.apple.com/documentation/Metal/MTLDispatchType/concurrent
 func (o MTLIndirectComputeCommandObject) ConcurrentDispatchThreadgroupsThreadsPerThreadgroup(threadgroupsPerGrid MTLSize, threadsPerThreadgroup MTLSize) {
 	objc.Send[struct{}](o.ID, objc.Sel("concurrentDispatchThreadgroups:threadsPerThreadgroup:"), threadgroupsPerGrid, threadsPerThreadgroup)
 }
@@ -237,12 +235,10 @@ func (o MTLIndirectComputeCommandObject) ConcurrentDispatchThreadgroupsThreadsPe
 // the compute command encoder adds additional barriers. If [DispatchType] is
 // [MTLDispatchTypeSerial], the compute command encoder adds a barrier before
 // and after the range of commands. If [DispatchType] is
-// [MTLDispatchType.concurrent], then the compute command encoder does
-// nothing, and you are responsible for synchronizing access to resources.
+// [MTLDispatchTypeConcurrent], then the compute command encoder does nothing,
+// and you are responsible for synchronizing access to resources.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/concurrentDispatchThreads(_:threadsPerThreadgroup:)
-//
-// [MTLDispatchType.concurrent]: https://developer.apple.com/documentation/Metal/MTLDispatchType/concurrent
 func (o MTLIndirectComputeCommandObject) ConcurrentDispatchThreadsThreadsPerThreadgroup(threadsPerGrid MTLSize, threadsPerThreadgroup MTLSize) {
 	objc.Send[struct{}](o.ID, objc.Sel("concurrentDispatchThreads:threadsPerThreadgroup:"), threadsPerGrid, threadsPerThreadgroup)
 }

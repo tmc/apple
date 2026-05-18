@@ -18,20 +18,12 @@ type CIStraighten interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIStraighten/angle
 	Angle() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIStraighten/inputImage
-	InputImage() ICIImage
-
-	// The rotation angle, in radians.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIStraighten/angle
 	SetAngle(value float32)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIStraighten/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -52,22 +44,6 @@ func CIStraightenObjectFromID(id objc.ID) CIStraightenObject {
 	}
 }
 
-// The rotation angle, in radians.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIStraighten/angle
-func (o CIStraightenObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIStraighten/inputImage
-func (o CIStraightenObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIStraightenObject) OutputImage() ICIImage {
 // The rotation angle, in radians.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStraighten/angle
+func (o CIStraightenObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CIStraightenObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIStraightenObject) SetAngle(value float32) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStraighten/inputImage
+func (o CIStraightenObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIStraightenObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

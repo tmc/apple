@@ -76,21 +76,6 @@ type MTLIOCommandBuffer interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/waitUntilCompleted()
 	WaitUntilCompleted()
 
-	// Represents the state of the input/output command buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/status
-	Status() MTLIOStatus
-
-	// Stores the details of an error when the GPU experienced a problem with the input/output command buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/error
-	Error() foundation.INSError
-
-	// An optional name for the input/output command buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/label
-	Label() string
-
 	// Sets the current name for this input/output command encoder by adding it to the top of the debug name stack.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/pushDebugGroup(_:)
@@ -101,9 +86,20 @@ type MTLIOCommandBuffer interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/popDebugGroup()
 	PopDebugGroup()
 
+	// Represents the state of the input/output command buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/status
+	Status() MTLIOStatus
+
+	// Stores the details of an error when the GPU experienced a problem with the input/output command buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/error
+	Error() foundation.NSError
+
 	// An optional name for the input/output command buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/label
+	Label() string
 	SetLabel(value string)
 }
 
@@ -309,31 +305,6 @@ func (o MTLIOCommandBufferObject) WaitUntilCompleted() {
 	objc.Send[struct{}](o.ID, objc.Sel("waitUntilCompleted"))
 }
 
-// Represents the state of the input/output command buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/status
-func (o MTLIOCommandBufferObject) Status() MTLIOStatus {
-	rv := objc.Send[MTLIOStatus](o.ID, objc.Sel("status"))
-	return rv
-}
-
-// Stores the details of an error when the GPU experienced a problem with the
-// input/output command buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/error
-func (o MTLIOCommandBufferObject) Error() foundation.INSError {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("error"))
-	return foundation.NSErrorFromID(rv)
-}
-
-// An optional name for the input/output command buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/label
-func (o MTLIOCommandBufferObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // Sets the current name for this input/output command encoder by adding it to
 // the top of the debug name stack.
 //
@@ -352,9 +323,31 @@ func (o MTLIOCommandBufferObject) PopDebugGroup() {
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 }
 
+// Represents the state of the input/output command buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/status
+func (o MTLIOCommandBufferObject) Status() MTLIOStatus {
+	rv := objc.Send[MTLIOStatus](o.ID, objc.Sel("status"))
+	return MTLIOStatus(rv)
+}
+
+// Stores the details of an error when the GPU experienced a problem with the
+// input/output command buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/error
+func (o MTLIOCommandBufferObject) Error() foundation.NSError {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("error"))
+	return foundation.NSErrorFromID(rv)
+}
+
 // An optional name for the input/output command buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/label
+func (o MTLIOCommandBufferObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLIOCommandBufferObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

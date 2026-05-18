@@ -19,30 +19,18 @@ type CIBarsSwipeTransition interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/angle
 	Angle() float32
-
-	// The offset of one bar with respect to another.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/barOffset
-	BarOffset() float32
-
-	// The width of each bar.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/width
-	Width() float32
-
-	// The angle, in radians, of the bars.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/angle
 	SetAngle(value float32)
 
 	// The offset of one bar with respect to another.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/barOffset
+	BarOffset() float32
 	SetBarOffset(value float32)
 
 	// The width of each bar.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/width
+	Width() float32
 	SetWidth(value float32)
 }
 
@@ -61,30 +49,6 @@ func CIBarsSwipeTransitionObjectFromID(id objc.ID) CIBarsSwipeTransitionObject {
 	return CIBarsSwipeTransitionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The angle, in radians, of the bars.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/angle
-func (o CIBarsSwipeTransitionObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The offset of one bar with respect to another.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/barOffset
-func (o CIBarsSwipeTransitionObject) BarOffset() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("barOffset"))
-	return rv
-}
-
-// The width of each bar.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/width
-func (o CIBarsSwipeTransitionObject) Width() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("width"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -123,6 +87,11 @@ func (o CIBarsSwipeTransitionObject) Time() float32 {
 // The angle, in radians, of the bars.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/angle
+func (o CIBarsSwipeTransitionObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CIBarsSwipeTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -130,6 +99,11 @@ func (o CIBarsSwipeTransitionObject) SetAngle(value float32) {
 // The offset of one bar with respect to another.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/barOffset
+func (o CIBarsSwipeTransitionObject) BarOffset() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("barOffset"))
+	return float32(rv)
+}
+
 func (o CIBarsSwipeTransitionObject) SetBarOffset(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBarOffset:"), value)
 }
@@ -137,6 +111,11 @@ func (o CIBarsSwipeTransitionObject) SetBarOffset(value float32) {
 // The width of each bar.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/width
+func (o CIBarsSwipeTransitionObject) Width() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("width"))
+	return float32(rv)
+}
+
 func (o CIBarsSwipeTransitionObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }

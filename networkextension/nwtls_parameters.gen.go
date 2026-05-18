@@ -91,8 +91,8 @@ type INWTLSParameters interface {
 	// Topic: Accessing TLS parameters
 
 	// The Session ID to use for the associated TCP connection.
-	TLSSessionID() foundation.INSData
-	SetTLSSessionID(value foundation.INSData)
+	TLSSessionID() foundation.NSData
+	SetTLSSessionID(value foundation.NSData)
 	// The set of allowed cipher suites when negotiating TLS.
 	SSLCipherSuites() foundation.INSSet
 	SetSSLCipherSuites(value foundation.INSSet)
@@ -130,11 +130,11 @@ func NewNWTLSParameters() NWTLSParameters {
 // The Session ID is used for TLS session resumption.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTLSParameters/tlsSessionID
-func (n NWTLSParameters) TLSSessionID() foundation.INSData {
+func (n NWTLSParameters) TLSSessionID() foundation.NSData {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("TLSSessionID"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (n NWTLSParameters) SetTLSSessionID(value foundation.INSData) {
+func (n NWTLSParameters) SetTLSSessionID(value foundation.NSData) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTLSSessionID:"), value)
 }
 

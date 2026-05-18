@@ -22,7 +22,7 @@ type MTLFunctionLogDebugLocation interface {
 	// The URL of the file that contains the shader function.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLFunctionLogDebugLocation/url
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// The line that the log message appears on.
 	//
@@ -63,7 +63,7 @@ func (o MTLFunctionLogDebugLocationObject) FunctionName() string {
 // The URL of the file that contains the shader function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLogDebugLocation/url
-func (o MTLFunctionLogDebugLocationObject) URL() foundation.INSURL {
+func (o MTLFunctionLogDebugLocationObject) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(rv)
 }
@@ -73,7 +73,7 @@ func (o MTLFunctionLogDebugLocationObject) URL() foundation.INSURL {
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLogDebugLocation/line
 func (o MTLFunctionLogDebugLocationObject) Line() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("line"))
-	return rv
+	return uint(rv)
 }
 
 // The column where the log message appears.
@@ -81,5 +81,5 @@ func (o MTLFunctionLogDebugLocationObject) Line() uint {
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLogDebugLocation/column
 func (o MTLFunctionLogDebugLocationObject) Column() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("column"))
-	return rv
+	return uint(rv)
 }

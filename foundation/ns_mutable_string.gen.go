@@ -228,7 +228,7 @@ func NewMutableStringWithCString(bytes string) NSMutableString {
 	return NSMutableStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)-20f9h
 func NewMutableStringWithCStringEncoding(nullTerminatedCString string, encoding uint) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")), encoding)
@@ -626,7 +626,7 @@ func NewMutableStringWithString(aString string) NSMutableString {
 	return NSMutableStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)-vg2b
 func NewMutableStringWithUTF8String(nullTerminatedCString string) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")))

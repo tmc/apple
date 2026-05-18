@@ -257,7 +257,7 @@ type IPDFPage interface {
 	// Topic: Instance Properties
 
 	// Returns the PDF data (that is, a PDF document) representing this page. This method does not preserve external page links.
-	DataRepresentation() foundation.INSData
+	DataRepresentation() foundation.NSData
 	PageRef() coregraphics.CGPDFPageRef
 
 	// Topic: Instance Methods
@@ -619,7 +619,7 @@ func (p PDFPage) AttributedString() foundation.NSAttributedString {
 // method does not preserve external page links.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFPage/dataRepresentation
-func (p PDFPage) DataRepresentation() foundation.INSData {
+func (p PDFPage) DataRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

@@ -4,7 +4,6 @@ package gamecontroller
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -93,7 +92,7 @@ type IGCDeviceHaptics interface {
 	// Topic: Creating a haptics engine
 
 	// Creates a haptics engine with the specified locality.
-	CreateEngineWithLocality(locality GCHapticsLocality) unsafe.Pointer
+	CreateEngineWithLocality(locality GCHapticsLocality) objectivec.IObject
 	// An infinite duration for a haptics event.
 	GCHapticDurationInfinite() float32
 
@@ -145,9 +144,9 @@ func NewGCDeviceHaptics() GCDeviceHaptics {
 // See: https://developer.apple.com/documentation/GameController/GCDeviceHaptics/createEngine(withLocality:)
 //
 // [default]: https://developer.apple.com/documentation/GameController/GCHapticsLocality/default
-func (g GCDeviceHaptics) CreateEngineWithLocality(locality GCHapticsLocality) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("createEngineWithLocality:"), objc.String(string(locality)))
-	return rv
+func (g GCDeviceHaptics) CreateEngineWithLocality(locality GCHapticsLocality) objectivec.IObject {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("createEngineWithLocality:"), objc.String(string(locality)))
+	return objectivec.Object{ID: rv}
 }
 
 // An infinite duration for a haptics event.

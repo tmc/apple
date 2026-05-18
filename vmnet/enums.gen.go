@@ -101,3 +101,12 @@ func (e Vmnet_return_t) String() string {
 		return fmt.Sprintf("Vmnet_return_t(%d)", e)
 	}
 }
+
+// InterfaceEvent is a Go-name alias for Interface_event_t.
+type InterfaceEvent = Interface_event_t
+
+// OperatingModes is a Go-name alias for Operating_modes_t.
+type OperatingModes = Operating_modes_t
+
+// VmnetReturn is a Go-name alias for Vmnet_return_t.
+type VmnetReturn = Vmnet_return_t

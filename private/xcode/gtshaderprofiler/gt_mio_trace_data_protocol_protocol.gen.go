@@ -18,12 +18,12 @@ type GTMioTraceDataProtocol interface {
 	// ChildCliqueOfClique protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/childCliqueOfClique:
-	ChildCliqueOfClique(clique *GTMioUSCCliqueMetadataRef) unsafe.Pointer
+	ChildCliqueOfClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer
 
 	// CliqueFromCliqueIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/cliqueFromCliqueIndex:
-	CliqueFromCliqueIndex(index unsafe.Pointer) unsafe.Pointer
+	CliqueFromCliqueIndex(index GTMioUSCCliqueIndex) unsafe.Pointer
 
 	// CoalescedFunctionIndexForEncoderFunctionIndex protocol.
 	//
@@ -48,12 +48,12 @@ type GTMioTraceDataProtocol interface {
 	// CostForContextCost protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/costForContext:cost:
-	CostForContextCost(context unsafe.Pointer, cost unsafe.Pointer) bool
+	CostForContextCost(context GTMioCostContext, cost GTMioCostInfo) bool
 
 	// CostForLevelLevelIdentifierScopeScopeIdentifierCost protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/costForLevel:levelIdentifier:scope:scopeIdentifier:cost:
-	CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost unsafe.Pointer) bool
+	CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost GTMioCostInfo) bool
 
 	// DataType protocol.
 	//
@@ -238,7 +238,7 @@ type GTMioTraceDataProtocol interface {
 	// PipelineStateIdForCliqueIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/pipelineStateIdForCliqueIndex:
-	PipelineStateIdForCliqueIndex(index unsafe.Pointer) uint64
+	PipelineStateIdForCliqueIndex(index GTMioUSCCliqueIndex) uint64
 
 	// ProfiledState protocol.
 	//
@@ -253,7 +253,7 @@ type GTMioTraceDataProtocol interface {
 	// ReferenceComputePositionForClique protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/referenceComputePositionForClique:
-	ReferenceComputePositionForClique(clique *GTMioUSCCliqueMetadataRef) unsafe.Pointer
+	ReferenceComputePositionForClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer
 
 	// RiaTraceCount protocol.
 	//
@@ -377,13 +377,13 @@ func (o GTMioTraceDataProtocolObject) BinaryForPipelineStateProgramType(state ui
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/childCliqueOfClique:
-func (o GTMioTraceDataProtocolObject) ChildCliqueOfClique(clique *GTMioUSCCliqueMetadataRef) unsafe.Pointer {
+func (o GTMioTraceDataProtocolObject) ChildCliqueOfClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("childCliqueOfClique:"), clique)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/cliqueFromCliqueIndex:
-func (o GTMioTraceDataProtocolObject) CliqueFromCliqueIndex(index unsafe.Pointer) unsafe.Pointer {
+func (o GTMioTraceDataProtocolObject) CliqueFromCliqueIndex(index GTMioUSCCliqueIndex) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("cliqueFromCliqueIndex:"), index)
 	return rv
 }
@@ -413,13 +413,13 @@ func (o GTMioTraceDataProtocolObject) ConsistentStateAchieved() bool {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/costForContext:cost:
-func (o GTMioTraceDataProtocolObject) CostForContextCost(context unsafe.Pointer, cost unsafe.Pointer) bool {
+func (o GTMioTraceDataProtocolObject) CostForContextCost(context GTMioCostContext, cost GTMioCostInfo) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("costForContext:cost:"), context, cost)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/costForLevel:levelIdentifier:scope:scopeIdentifier:cost:
-func (o GTMioTraceDataProtocolObject) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost unsafe.Pointer) bool {
+func (o GTMioTraceDataProtocolObject) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost GTMioCostInfo) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("costForLevel:levelIdentifier:scope:scopeIdentifier:cost:"), level, identifier, scope, identifier2, cost)
 	return rv
 }
@@ -505,7 +505,7 @@ func (o GTMioTraceDataProtocolObject) EnumerateBinariesForPipelineStateEnumerato
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinaryRangesForClique:uscData:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadataRef, data objectivec.IObject, enumerator GTMioShaderBinaryDebugBinaryRangeHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator GTMioShaderBinaryDebugBinaryRangeHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateBinaryRangesForClique:uscData:enumerator:"), clique, data, enumerator)
 }
 
@@ -530,7 +530,7 @@ func (o GTMioTraceDataProtocolObject) EnumerateEncoders(encoders UintHandler) {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateInstructionsForClique:uscData:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateInstructionsForCliqueUscDataEnumerator(clique *GTMioUSCCliqueMetadataRef, data objectivec.IObject, enumerator GTMioShaderInstructionInfoHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateInstructionsForCliqueUscDataEnumerator(clique GTMioUSCCliqueMetadata, data objectivec.IObject, enumerator GTMioShaderInstructionInfoHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateInstructionsForClique:uscData:enumerator:"), clique, data, enumerator)
 }
 
@@ -672,7 +672,7 @@ func (o GTMioTraceDataProtocolObject) PipelineStateCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/pipelineStateIdForCliqueIndex:
-func (o GTMioTraceDataProtocolObject) PipelineStateIdForCliqueIndex(index unsafe.Pointer) uint64 {
+func (o GTMioTraceDataProtocolObject) PipelineStateIdForCliqueIndex(index GTMioUSCCliqueIndex) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("pipelineStateIdForCliqueIndex:"), index)
 	return rv
 }
@@ -690,7 +690,7 @@ func (o GTMioTraceDataProtocolObject) ProfiledWithOverlapEnabled() bool {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/referenceComputePositionForClique:
-func (o GTMioTraceDataProtocolObject) ReferenceComputePositionForClique(clique *GTMioUSCCliqueMetadataRef) unsafe.Pointer {
+func (o GTMioTraceDataProtocolObject) ReferenceComputePositionForClique(clique GTMioUSCCliqueMetadata) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("referenceComputePositionForClique:"), clique)
 	return rv
 }

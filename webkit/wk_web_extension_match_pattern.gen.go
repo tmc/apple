@@ -139,11 +139,11 @@ type IWKWebExtensionMatchPattern interface {
 	// Topic: Instance Methods
 
 	// Matches the receiver pattern against the specified URL.
-	MatchesURL(url foundation.INSURL) bool
+	MatchesURL(url foundation.NSURL) bool
 	// Matches the receiver pattern against the specified pattern.
 	MatchesPattern(pattern IWKWebExtensionMatchPattern) bool
 	// Matches the receiver pattern against the specified URL with options.
-	MatchesURLOptions(url foundation.INSURL, options WKWebExtensionMatchPatternOptions) bool
+	MatchesURLOptions(url foundation.NSURL, options WKWebExtensionMatchPatternOptions) bool
 	// Matches the receiver pattern against the specified pattern with options.
 	MatchesPatternOptions(pattern IWKWebExtensionMatchPattern, options WKWebExtensionMatchPatternOptions) bool
 
@@ -270,7 +270,7 @@ func (w WKWebExtensionMatchPattern) InitWithStringError(string_ string) (WKWebEx
 // A Boolean value indicating if the pattern matches the specified URL.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matches(_:)-471rf
-func (w WKWebExtensionMatchPattern) MatchesURL(url foundation.INSURL) bool {
+func (w WKWebExtensionMatchPattern) MatchesURL(url foundation.NSURL) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("matchesURL:"), url)
 	return rv
 }
@@ -301,7 +301,7 @@ func (w WKWebExtensionMatchPattern) MatchesPattern(pattern IWKWebExtensionMatchP
 // A Boolean value indicating if the pattern matches the specified URL.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matches(_:options:)-5wo3g
-func (w WKWebExtensionMatchPattern) MatchesURLOptions(url foundation.INSURL, options WKWebExtensionMatchPatternOptions) bool {
+func (w WKWebExtensionMatchPattern) MatchesURLOptions(url foundation.NSURL, options WKWebExtensionMatchPatternOptions) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("matchesURL:options:"), url, options)
 	return rv
 }

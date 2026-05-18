@@ -21,6 +21,21 @@ func (e KDADiskClaimOption) String() string {
 	}
 }
 
+type KDADiskEjectOption uint
+
+const (
+	KDADiskEjectOptionDefault KDADiskEjectOption = 0
+)
+
+func (e KDADiskEjectOption) String() string {
+	switch e {
+	case KDADiskEjectOptionDefault:
+		return "KDADiskEjectOptionDefault"
+	default:
+		return fmt.Sprintf("KDADiskEjectOption(%d)", e)
+	}
+}
+
 type KDADiskMountOption uint
 
 const (

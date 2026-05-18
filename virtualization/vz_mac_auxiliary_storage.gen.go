@@ -129,14 +129,14 @@ type IVZMacAuxiliaryStorage interface {
 	// Topic: Creating the auxiliary storage
 
 	// Initializes an auxiliary storage object with data from the location at the URL you provide.
-	InitWithURL(URL foundation.INSURL) VZMacAuxiliaryStorage
+	InitWithURL(URL foundation.NSURL) VZMacAuxiliaryStorage
 	// Creates an initialized Mac auxiliary storage instance that describes a specific hardware model at a URL you specify.
-	InitCreatingStorageAtURLHardwareModelOptionsError(URL foundation.INSURL, hardwareModel IVZMacHardwareModel, options VZMacAuxiliaryStorageInitializationOptions) (VZMacAuxiliaryStorage, error)
+	InitCreatingStorageAtURLHardwareModelOptionsError(URL foundation.NSURL, hardwareModel IVZMacHardwareModel, options VZMacAuxiliaryStorageInitializationOptions) (VZMacAuxiliaryStorage, error)
 
 	// Topic: Configuring the auxiliary storage location
 
 	// The URL of the auxiliary storage on the local file system.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// The Mac auxiliary storage.
 	AuxiliaryStorage() IVZMacAuxiliaryStorage
@@ -195,7 +195,7 @@ func NewVZMacAuxiliaryStorage() VZMacAuxiliaryStorage {
 //
 // [VZMacAuxiliaryStorage.InitializationOptions]: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/InitializationOptions
 // [init(contentsOfURL:)]: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(contentsOfURL:)
-func NewMacAuxiliaryStorageCreatingStorageAtURLHardwareModelOptionsError(URL foundation.INSURL, hardwareModel IVZMacHardwareModel, options VZMacAuxiliaryStorageInitializationOptions) (VZMacAuxiliaryStorage, error) {
+func NewMacAuxiliaryStorageCreatingStorageAtURLHardwareModelOptionsError(URL foundation.NSURL, hardwareModel IVZMacHardwareModel, options VZMacAuxiliaryStorageInitializationOptions) (VZMacAuxiliaryStorage, error) {
 	var errorPtr objc.ID
 	instance := getVZMacAuxiliaryStorageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initCreatingStorageAtURL:hardwareModel:options:error:"), URL, hardwareModel, options, unsafe.Pointer(&errorPtr))
@@ -207,7 +207,7 @@ func NewMacAuxiliaryStorageCreatingStorageAtURLHardwareModelOptionsError(URL fou
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(contentsOf:)
-func NewMacAuxiliaryStorageWithContentsOfURL(URL foundation.INSURL) VZMacAuxiliaryStorage {
+func NewMacAuxiliaryStorageWithContentsOfURL(URL foundation.NSURL) VZMacAuxiliaryStorage {
 	instance := getVZMacAuxiliaryStorageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), URL)
 	return VZMacAuxiliaryStorageFromID(rv)
@@ -218,8 +218,8 @@ func NewMacAuxiliaryStorageWithContentsOfURL(URL foundation.INSURL) VZMacAuxilia
 //
 // URL: The URL of the auxiliary storage on the local file system.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(url:)
-func NewMacAuxiliaryStorageWithURL(URL foundation.INSURL) VZMacAuxiliaryStorage {
+// See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(url:)-68cz
+func NewMacAuxiliaryStorageWithURL(URL foundation.NSURL) VZMacAuxiliaryStorage {
 	instance := getVZMacAuxiliaryStorageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
 	return VZMacAuxiliaryStorageFromID(rv)
@@ -230,8 +230,8 @@ func NewMacAuxiliaryStorageWithURL(URL foundation.INSURL) VZMacAuxiliaryStorage 
 //
 // URL: The URL of the auxiliary storage on the local file system.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(url:)
-func (m VZMacAuxiliaryStorage) InitWithURL(URL foundation.INSURL) VZMacAuxiliaryStorage {
+// See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(url:)-68cz
+func (m VZMacAuxiliaryStorage) InitWithURL(URL foundation.NSURL) VZMacAuxiliaryStorage {
 	rv := objc.Send[VZMacAuxiliaryStorage](m.ID, objc.Sel("initWithURL:"), URL)
 	return rv
 }
@@ -263,7 +263,7 @@ func (m VZMacAuxiliaryStorage) InitWithURL(URL foundation.INSURL) VZMacAuxiliary
 //
 // [VZMacAuxiliaryStorage.InitializationOptions]: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/InitializationOptions
 // [init(contentsOfURL:)]: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(contentsOfURL:)
-func (m VZMacAuxiliaryStorage) InitCreatingStorageAtURLHardwareModelOptionsError(URL foundation.INSURL, hardwareModel IVZMacHardwareModel, options VZMacAuxiliaryStorageInitializationOptions) (VZMacAuxiliaryStorage, error) {
+func (m VZMacAuxiliaryStorage) InitCreatingStorageAtURLHardwareModelOptionsError(URL foundation.NSURL, hardwareModel IVZMacHardwareModel, options VZMacAuxiliaryStorageInitializationOptions) (VZMacAuxiliaryStorage, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initCreatingStorageAtURL:hardwareModel:options:error:"), URL, hardwareModel, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -277,7 +277,7 @@ func (m VZMacAuxiliaryStorage) InitCreatingStorageAtURLHardwareModelOptionsError
 // The URL of the auxiliary storage on the local file system.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/url
-func (m VZMacAuxiliaryStorage) URL() foundation.INSURL {
+func (m VZMacAuxiliaryStorage) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

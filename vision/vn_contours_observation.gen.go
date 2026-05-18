@@ -98,7 +98,7 @@ type IVNContoursObservation interface {
 	// Retrieves the contour object at the specified index, irrespective of hierarchy.
 	ContourAtIndexError(contourIndex int) (IVNContour, error)
 	// Retrieves the contour object at the specified index path.
-	ContourAtIndexPathError(indexPath foundation.INSIndexPath) (IVNContour, error)
+	ContourAtIndexPathError(indexPath foundation.NSIndexPath) (IVNContour, error)
 
 	// The results of the request to detect contours.
 	Results() IVNContoursObservation
@@ -155,7 +155,7 @@ func (c VNContoursObservation) ContourAtIndexError(contourIndex int) (IVNContour
 // The contour object at the specified index path.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/contour(at:)-52odo
-func (c VNContoursObservation) ContourAtIndexPathError(indexPath foundation.INSIndexPath) (IVNContour, error) {
+func (c VNContoursObservation) ContourAtIndexPathError(indexPath foundation.NSIndexPath) (IVNContour, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("contourAtIndexPath:error:"), indexPath, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -171,7 +171,7 @@ func (c VNContoursObservation) ContourAtIndexPathError(indexPath foundation.INSI
 // # Discussion
 //
 // Use this value to determine the number of indices available for calling
-// [ContourAtIndexError].
+// [ContourAtIndexPathError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/contourCount
 func (c VNContoursObservation) ContourCount() int {

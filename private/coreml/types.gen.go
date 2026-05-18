@@ -64,53 +64,53 @@ type Path struct {
 type Prediction struct {
 }
 
-// _CVBuffer
+// CVBuffer
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/__CVBuffer
-type _CVBuffer struct {
+type CVBuffer struct {
 }
 
-// _CVPixelBufferPool
+// CVPixelBufferPool
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/__CVPixelBufferPool
-type _CVPixelBufferPool struct {
+type CVPixelBufferPool struct {
 }
 
-// E5rt_execution_stream
+// E5rtExecutionStream
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/e5rt_execution_stream
-type E5rt_execution_stream struct {
+type E5rtExecutionStream struct {
 }
 
-// E5rt_execution_stream_operation
+// E5rtExecutionStreamOperation
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/e5rt_execution_stream_operation
-type E5rt_execution_stream_operation struct {
+type E5rtExecutionStreamOperation struct {
 }
 
-// E5rt_io_port
+// E5rtIOPort
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/e5rt_io_port
-type E5rt_io_port struct {
+type E5rtIOPort struct {
 }
 
-// E5rt_program_library
+// E5rtProgramLibrary
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/e5rt_program_library
-type E5rt_program_library struct {
+type E5rtProgramLibrary struct {
 }
 
-// Mach_timebase_info
+// MachTimebaseInfo
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/mach_timebase_info
-type Mach_timebase_info struct {
+type MachTimebaseInfo struct {
 	Numer uint
 	Denom uint
 }
@@ -123,24 +123,24 @@ type Mutex struct {
 	__m_ unsafe.Pointer
 }
 
-// Os_unfair_lock_s
+// OSUnfairLockS
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/os_unfair_lock_s
-type Os_unfair_lock_s struct {
+type OSUnfairLockS struct {
 	_os_unfair_lock_opaque uint
 }
 
-// Svm_model
+// SvmModel
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/svm_model
-type Svm_model struct {
+type SvmModel struct {
 }
 
-// Svm_node
+// SvmNode
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreML/svm_node
-type Svm_node struct {
+type SvmNode struct {
 }

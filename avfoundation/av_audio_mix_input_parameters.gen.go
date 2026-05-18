@@ -126,7 +126,7 @@ type IAVAudioMixInputParameters interface {
 	// Topic: Getting volume ramps
 
 	// Retrieves the volume ramp that includes the specified time.
-	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool)
+	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange objectivec.IObject) (float32, float32, bool)
 
 	// Topic: Getting the time pitch algorithm setting
 
@@ -188,7 +188,7 @@ func NewAVAudioMixInputParameters() AVAudioMixInputParameters {
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParameters/getVolumeRamp(for:startVolume:endVolume:timeRange:)
 //
 // [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
-func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool) {
+func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange objectivec.IObject) (float32, float32, bool) {
 	var startVolume float32
 	var endVolume float32
 	rv := objc.Send[bool](a.ID, objc.Sel("getVolumeRampForTime:startVolume:endVolume:timeRange:"), time, unsafe.Pointer(&startVolume), unsafe.Pointer(&endVolume), timeRange)

@@ -316,8 +316,6 @@ func NSPersonNameComponentsFromID(id objc.ID) NSPersonNameComponents {
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents
 type INSPersonNameComponents interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Accessing Person Name Components

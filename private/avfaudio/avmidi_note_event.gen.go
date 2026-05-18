@@ -63,14 +63,14 @@ type IAVMIDINoteEvent interface {
 }
 
 // Init initializes the instance.
-func (m AVMIDINoteEvent) Init() AVMIDINoteEvent {
-	rv := objc.Send[AVMIDINoteEvent](m.ID, objc.Sel("init"))
+func (a AVMIDINoteEvent) Init() AVMIDINoteEvent {
+	rv := objc.Send[AVMIDINoteEvent](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m AVMIDINoteEvent) Autorelease() AVMIDINoteEvent {
-	rv := objc.Send[AVMIDINoteEvent](m.ID, objc.Sel("autorelease"))
+func (a AVMIDINoteEvent) Autorelease() AVMIDINoteEvent {
+	rv := objc.Send[AVMIDINoteEvent](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 

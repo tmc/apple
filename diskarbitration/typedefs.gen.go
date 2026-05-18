@@ -51,6 +51,11 @@ type DADiskEjectApprovalCallback = func(uintptr, unsafe.Pointer) uintptr
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskEjectCallback
 type DADiskEjectCallback = func(uintptr, uintptr, unsafe.Pointer)
 
+// DADiskEjectOptions is options for DADiskEject().
+//
+// See: https://developer.apple.com/documentation/DiskArbitration/DADiskEjectOptions
+type DADiskEjectOptions = uint32
+
 // DADiskMountApprovalCallback is type of the callback function used by DARegisterDiskMountApprovalCallback().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskMountApprovalCallback

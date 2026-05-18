@@ -13,6 +13,11 @@ import (
 type MTL4CompilerTask interface {
 	objectivec.IObject
 
+	// Waits synchronously for this compile task to complete by blocking the calling thread.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/waitUntilCompleted
+	WaitUntilCompleted()
+
 	// Returns the compiler instance that this asynchronous compiler task belongs to.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/compiler
@@ -22,11 +27,6 @@ type MTL4CompilerTask interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/status
 	Status() MTL4CompilerTaskStatus
-
-	// Waits synchronously for this compile task to complete by blocking the calling thread.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/waitUntilCompleted
-	WaitUntilCompleted()
 }
 
 // MTL4CompilerTaskObject wraps an existing Objective-C object that conforms to the MTL4CompilerTask protocol.
@@ -46,6 +46,14 @@ func MTL4CompilerTaskObjectFromID(id objc.ID) MTL4CompilerTaskObject {
 	}
 }
 
+// Waits synchronously for this compile task to complete by blocking the
+// calling thread.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/waitUntilCompleted
+func (o MTL4CompilerTaskObject) WaitUntilCompleted() {
+	objc.Send[struct{}](o.ID, objc.Sel("waitUntilCompleted"))
+}
+
 // Returns the compiler instance that this asynchronous compiler task belongs
 // to.
 //
@@ -57,16 +65,12 @@ func (o MTL4CompilerTaskObject) Compiler() MTL4Compiler {
 
 // Returns the compiler task status.
 //
+// # Discussion
+//
+// The default is [MTL4CompilerStatusNone].
+//
 // See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/status
 func (o MTL4CompilerTaskObject) Status() MTL4CompilerTaskStatus {
 	rv := objc.Send[MTL4CompilerTaskStatus](o.ID, objc.Sel("status"))
-	return rv
-}
-
-// Waits synchronously for this compile task to complete by blocking the
-// calling thread.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/waitUntilCompleted
-func (o MTL4CompilerTaskObject) WaitUntilCompleted() {
-	objc.Send[struct{}](o.ID, objc.Sel("waitUntilCompleted"))
+	return MTL4CompilerTaskStatus(rv)
 }

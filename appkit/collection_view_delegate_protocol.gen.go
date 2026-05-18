@@ -239,7 +239,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidChangeItemsAtIndexPaths
 // related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:willDisplay:forRepresentedObjectAt:)
-func (o NSCollectionViewDelegateObject) CollectionViewWillDisplayItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath foundation.INSIndexPath) {
+func (o NSCollectionViewDelegateObject) CollectionViewWillDisplayItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath foundation.NSIndexPath) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:willDisplayItem:forRepresentedObjectAtIndexPath:"), collectionView, item, indexPath)
 }
 
@@ -259,7 +259,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewWillDisplayItemForRepresen
 // related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didEndDisplaying:forRepresentedObjectAt:)
-func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath foundation.INSIndexPath) {
+func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath foundation.NSIndexPath) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didEndDisplayingItem:forRepresentedObjectAtIndexPath:"), collectionView, item, indexPath)
 }
 
@@ -282,7 +282,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingItemForRep
 // views and perform related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:willDisplaySupplementaryView:forElementKind:at:)
-func (o NSCollectionViewDelegateObject) CollectionViewWillDisplaySupplementaryViewForElementKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) {
+func (o NSCollectionViewDelegateObject) CollectionViewWillDisplaySupplementaryViewForElementKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.NSIndexPath) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:willDisplaySupplementaryView:forElementKind:atIndexPath:"), collectionView, view, objc.String(string(elementKind)), indexPath)
 }
 
@@ -305,7 +305,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewWillDisplaySupplementaryVi
 // perform related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didEndDisplayingSupplementaryView:forElementOfKind:at:)
-func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingSupplementaryViewForElementOfKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) {
+func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingSupplementaryViewForElementOfKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.NSIndexPath) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didEndDisplayingSupplementaryView:forElementOfKind:atIndexPath:"), collectionView, view, objc.String(string(elementKind)), indexPath)
 }
 
@@ -409,14 +409,14 @@ func (o NSCollectionViewDelegateObject) CollectionViewCanDragItemsAtIndexPathsWi
 // specified index path.
 //
 // If you implement this method, the collection view does not call the
-// [CollectionViewDraggingImageForItemsAtIndexPathsWithEventOffset] of your
-// delegate or the [DraggingImageForItemsAtIndexPathsWithEventOffset] method
-// of [NSCollectionView].
+// [CollectionViewDraggingImageForItemsAtIndexesWithEventOffset] of your
+// delegate or the [DraggingImageForItemsAtIndexesWithEventOffset] method of
+// [NSCollectionView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:pasteboardWriterForItemAt:)-5eyyl
 //
 // [collectionView(_:writeItemsAt:to:)]: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:writeItemsAt:to:)-23ozm
-func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtIndexPath(collectionView INSCollectionView, indexPath foundation.INSIndexPath) NSPasteboardWriting {
+func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtIndexPath(collectionView INSCollectionView, indexPath foundation.NSIndexPath) NSPasteboardWriting {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:pasteboardWriterForItemAtIndexPath:"), collectionView, indexPath)
 	return NSPasteboardWritingObjectFromID(rv)
 }
@@ -450,7 +450,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtI
 // specified amount.
 //
 // If you do not implement this method, the collection view uses the drag
-// image returned by the [DraggingImageForItemsAtIndexPathsWithEventOffset]
+// image returned by the [DraggingImageForItemsAtIndexesWithEventOffset]
 // method instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingImageForItemsAt:with:offset:)-898js
@@ -609,7 +609,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexP
 // method of the dragging information object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:acceptDrop:indexPath:dropOperation:)
-func (o NSCollectionViewDelegateObject) CollectionViewAcceptDropIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, indexPath foundation.INSIndexPath, dropOperation NSCollectionViewDropOperation) bool {
+func (o NSCollectionViewDelegateObject) CollectionViewAcceptDropIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, indexPath foundation.NSIndexPath, dropOperation NSCollectionViewDropOperation) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("collectionView:acceptDrop:indexPath:dropOperation:"), collectionView, draggingInfo, indexPath, dropOperation)
 	return rv
 }

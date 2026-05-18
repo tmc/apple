@@ -689,7 +689,7 @@ func NewBundleWithPath(path string) Bundle {
 // also use the [BundleWithURL] class method to obtain a bundle identified by
 // its file URL.
 //
-// See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)-3n9rf
 func NewBundleWithURL(url INSURL) Bundle {
 	instance := getBundleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
@@ -717,7 +717,7 @@ func NewBundleWithURL(url INSURL) Bundle {
 // also use the [BundleWithURL] class method to obtain a bundle identified by
 // its file URL.
 //
-// See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)-3n9rf
 func (b Bundle) InitWithURL(url INSURL) Bundle {
 	rv := objc.Send[Bundle](b.ID, objc.Sel("initWithURL:"), url)
 	return rv

@@ -120,8 +120,8 @@ type IKDNode interface {
 	// Topic: Methods
 
 	AssignSplitsForDataIndicesNumDimensions(data unsafe.Pointer, indices unsafe.Pointer, dimensions uint64)
-	BoundingBox() objectivec.IObject
-	SetBoundingBox(value objectivec.IObject)
+	BoundingBox() KDBoundingBox
+	SetBoundingBox(value KDBoundingBox)
 	Count() uint64
 	SetCount(value uint64)
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -209,11 +209,12 @@ func (_KDNodeClass KDNodeClass) SupportsSecureCoding() bool {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/_KDNode/boundingBox
-func (k KDNode) BoundingBox() objectivec.IObject {
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("boundingBox"))
-	return objectivec.Object{ID: rv}
+func (k KDNode) BoundingBox() KDBoundingBox {
+	rv := objc.Send[KDBoundingBox](k.ID, objc.Sel("boundingBox"))
+	_ = rv
+	return KDBoundingBox{}
 }
-func (k KDNode) SetBoundingBox(value objectivec.IObject) {
+func (k KDNode) SetBoundingBox(value KDBoundingBox) {
 	objc.Send[struct{}](k.ID, objc.Sel("setBoundingBox:"), value)
 }
 

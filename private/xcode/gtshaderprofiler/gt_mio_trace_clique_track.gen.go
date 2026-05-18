@@ -78,7 +78,7 @@ type IGTMioTraceCliqueTrack interface {
 	// Topic: Methods
 
 	PostProcess()
-	Take(take *GTMioUSCCliqueMetadataRef)
+	Take(take GTMioUSCCliqueMetadata)
 	TraceCount() uint64
 	Traces() *GTMioUSCCliqueMetadataRef
 }
@@ -115,7 +115,7 @@ func (g GTMioTraceCliqueTrack) PostProcess() {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/take:
-func (g GTMioTraceCliqueTrack) Take(take *GTMioUSCCliqueMetadataRef) {
+func (g GTMioTraceCliqueTrack) Take(take GTMioUSCCliqueMetadata) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
 }
 

@@ -171,7 +171,7 @@ type IWKWebExtensionController interface {
 	// Should be called by the app when tabs are selected to fire appropriate events with all loaded web extensions.
 	DidSelectTabs(selectedTabs []objectivec.IObject)
 	// Returns a loaded extension context matching the specified URL.
-	ExtensionContextForURL(URL foundation.INSURL) IWKWebExtensionContext
+	ExtensionContextForURL(URL foundation.NSURL) IWKWebExtensionContext
 	// Returns a loaded extension context for the specified extension.
 	ExtensionContextForExtension(extension IWKWebExtension) IWKWebExtensionContext
 	// Fetches a data record containing the given extension data types for a specific known web extension context.
@@ -425,7 +425,7 @@ func (w WKWebExtensionController) DidSelectTabs(selectedTabs []objectivec.IObjec
 // URL.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionController/extensionContext(for:)-2kr4
-func (w WKWebExtensionController) ExtensionContextForURL(URL foundation.INSURL) IWKWebExtensionContext {
+func (w WKWebExtensionController) ExtensionContextForURL(URL foundation.NSURL) IWKWebExtensionContext {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("extensionContextForURL:"), URL)
 	return WKWebExtensionContextFromID(rv)
 }

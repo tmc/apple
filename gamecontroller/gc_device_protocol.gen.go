@@ -15,6 +15,11 @@ import (
 type GCDevice interface {
 	objectivec.IObject
 
+	// The device’s physical input profile, such as a controller’s extended gamepad.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCDevice/physicalInputProfile
+	PhysicalInputProfile() IGCPhysicalInputProfile
+
 	// The manufacturer-provided name for the device, or the user’s name for the device.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
@@ -29,15 +34,6 @@ type GCDevice interface {
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
 	HandlerQueue() dispatch.Queue
-
-	// The device’s physical input profile, such as a controller’s extended gamepad.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCDevice/physicalInputProfile
-	PhysicalInputProfile() IGCPhysicalInputProfile
-
-	// The dispatch queue that the framework uses to call element value change handlers.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
 	SetHandlerQueue(value dispatch.Queue)
 }
 
@@ -58,8 +54,22 @@ func GCDeviceObjectFromID(id objc.ID) GCDeviceObject {
 	}
 }
 
+// The device’s physical input profile, such as a controller’s extended
+// gamepad.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/physicalInputProfile
+func (o GCDeviceObject) PhysicalInputProfile() IGCPhysicalInputProfile {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("physicalInputProfile"))
+	return GCPhysicalInputProfileFromID(rv)
+}
+
 // The manufacturer-provided name for the device, or the user’s name for the
 // device.
+//
+// # Discussion
+//
+// The value of this property may be `nil` and may not be unique. Use this
+// property to present information about the device to the user.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
 func (o GCDeviceObject) VendorName() string {
@@ -78,24 +88,6 @@ func (o GCDeviceObject) ProductCategory() string {
 // The dispatch queue that the framework uses to call element value change
 // handlers.
 //
-// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
-func (o GCDeviceObject) HandlerQueue() dispatch.Queue {
-	rv := objc.Send[uintptr](o.ID, objc.Sel("handlerQueue"))
-	return dispatch.QueueFromHandle(rv)
-}
-
-// The device’s physical input profile, such as a controller’s extended
-// gamepad.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/physicalInputProfile
-func (o GCDeviceObject) PhysicalInputProfile() IGCPhysicalInputProfile {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("physicalInputProfile"))
-	return GCPhysicalInputProfileFromID(rv)
-}
-
-// The dispatch queue that the framework uses to call element value change
-// handlers.
-//
 // # Discussion
 //
 // The default queue is the main queue. Set this property to another queue to
@@ -105,6 +97,11 @@ func (o GCDeviceObject) PhysicalInputProfile() IGCPhysicalInputProfile {
 // first access the input device.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
+func (o GCDeviceObject) HandlerQueue() dispatch.Queue {
+	rv := objc.Send[uintptr](o.ID, objc.Sel("handlerQueue"))
+	return dispatch.QueueFromHandle(rv)
+}
+
 func (o GCDeviceObject) SetHandlerQueue(value dispatch.Queue) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHandlerQueue:"), value)
 }

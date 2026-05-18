@@ -5,6 +5,7 @@ package appkit
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -368,7 +369,6 @@ func NSImageFromID(id objc.ID) NSImage {
 // See: https://developer.apple.com/documentation/AppKit/NSImage
 type INSImage interface {
 	objectivec.IObject
-	NSPasteboardWriting
 
 	// Topic: Creating Images by Name
 
@@ -382,18 +382,18 @@ type INSImage interface {
 	// Initializes and returns an image object using the specified file.
 	InitByReferencingFile(fileName string) NSImage
 	// Initializes and returns an image object using the specified URL.
-	InitByReferencingURL(url foundation.INSURL) NSImage
+	InitByReferencingURL(url foundation.NSURL) NSImage
 	// Initializes and returns an image object with the contents of the specified file.
 	InitWithContentsOfFile(fileName string) NSImage
 	// Initializes and returns an image object with the contents of the specified URL.
-	InitWithContentsOfURL(url foundation.INSURL) NSImage
+	InitWithContentsOfURL(url foundation.NSURL) NSImage
 
 	// Topic: Creating Images from Existing Data
 
 	// Initializes and returns an image object using the provided image data.
-	InitWithData(data foundation.INSData) NSImage
+	InitWithData(data foundation.NSData) NSImage
 	// Initializes and returns an image object using the provided image data and ignoring the EXIF orientation tags.
-	InitWithDataIgnoringOrientation(data foundation.INSData) NSImage
+	InitWithDataIgnoringOrientation(data foundation.NSData) NSImage
 	// Creates a new image using the contents of the provided image.
 	InitWithCGImageSize(cgImage coregraphics.CGImageRef, size corefoundation.CGSize) NSImage
 	// Initializes and returns an image object with data from the specified pasteboard.
@@ -500,9 +500,9 @@ type INSImage interface {
 	// Topic: Producing TIFF Data for Images
 
 	// A data object containing TIFF data for all of the image representations in the image.
-	TIFFRepresentation() foundation.INSData
+	TIFFRepresentation() foundation.NSData
 	// Returns a data object that contains TIFF data with the specified compression settings for all of the image representations in the image.
-	TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.INSData
+	TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.NSData
 
 	// Topic: Producing Core Graphics Images
 
@@ -539,8 +539,8 @@ type INSImage interface {
 	Locale() foundation.NSLocale
 
 	// An object that provides the contents of the layer. Animatable.
-	Contents() objectivec.IObject
-	SetContents(value objectivec.IObject)
+	Contents() unsafe.Pointer
+	SetContents(value unsafe.Pointer)
 	// A constant that specifies how the layer’s contents are positioned or scaled within its bounds.
 	ContentsGravity() foundation.NSString
 	SetContentsGravity(value foundation.NSString)
@@ -652,7 +652,7 @@ func NewImageByReferencingFile(fileName string) NSImage {
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(byReferencing:)
 //
 // [setDataRetained:]: https://developer.apple.com/documentation/AppKit/NSImage/setDataRetained:
-func NewImageByReferencingURL(url foundation.INSURL) NSImage {
+func NewImageByReferencingURL(url foundation.NSURL) NSImage {
 	instance := getNSImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initByReferencingURL:"), url)
 	return NSImageFromID(rv)
@@ -734,7 +734,7 @@ func NewImageNamed(name NSImageName) NSImage {
 //
 // This is not a designated initializer.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)
+// See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)-8oznv
 //
 // [zero]: https://developer.apple.com/documentation/CoreFoundation/CGSize/zero
 func NewImageWithCGImageSize(cgImage coregraphics.CGImageRef, size corefoundation.CGSize) NSImage {
@@ -791,7 +791,7 @@ func NewImageWithContentsOfFile(fileName string) NSImage {
 // image representation from the contents of the specified URL.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(contentsOf:)
-func NewImageWithContentsOfURL(url foundation.INSURL) NSImage {
+func NewImageWithContentsOfURL(url foundation.NSURL) NSImage {
 	instance := getNSImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return NSImageFromID(rv)
@@ -816,7 +816,7 @@ func NewImageWithContentsOfURL(url foundation.INSURL) NSImage {
 // most appropriate for the type of data you provided.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(data:)
-func NewImageWithData(data foundation.INSData) NSImage {
+func NewImageWithData(data foundation.NSData) NSImage {
 	instance := getNSImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return NSImageFromID(rv)
@@ -835,7 +835,7 @@ func NewImageWithData(data foundation.INSData) NSImage {
 // image representation from the contents of the specified data object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(dataIgnoringOrientation:)
-func NewImageWithDataIgnoringOrientation(data foundation.INSData) NSImage {
+func NewImageWithDataIgnoringOrientation(data foundation.NSData) NSImage {
 	instance := getNSImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataIgnoringOrientation:"), data)
 	return NSImageFromID(rv)
@@ -1127,7 +1127,7 @@ func (i NSImage) InitByReferencingFile(fileName string) NSImage {
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(byReferencing:)
 //
 // [setDataRetained:]: https://developer.apple.com/documentation/AppKit/NSImage/setDataRetained:
-func (i NSImage) InitByReferencingURL(url foundation.INSURL) NSImage {
+func (i NSImage) InitByReferencingURL(url foundation.NSURL) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initByReferencingURL:"), url)
 	return rv
 }
@@ -1170,7 +1170,7 @@ func (i NSImage) InitWithContentsOfFile(fileName string) NSImage {
 // image representation from the contents of the specified URL.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(contentsOf:)
-func (i NSImage) InitWithContentsOfURL(url foundation.INSURL) NSImage {
+func (i NSImage) InitWithContentsOfURL(url foundation.NSURL) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return rv
 }
@@ -1194,7 +1194,7 @@ func (i NSImage) InitWithContentsOfURL(url foundation.INSURL) NSImage {
 // most appropriate for the type of data you provided.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(data:)
-func (i NSImage) InitWithData(data foundation.INSData) NSImage {
+func (i NSImage) InitWithData(data foundation.NSData) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
@@ -1212,7 +1212,7 @@ func (i NSImage) InitWithData(data foundation.INSData) NSImage {
 // image representation from the contents of the specified data object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(dataIgnoringOrientation:)
-func (i NSImage) InitWithDataIgnoringOrientation(data foundation.INSData) NSImage {
+func (i NSImage) InitWithDataIgnoringOrientation(data foundation.NSData) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithDataIgnoringOrientation:"), data)
 	return rv
 }
@@ -1231,7 +1231,7 @@ func (i NSImage) InitWithDataIgnoringOrientation(data foundation.INSData) NSImag
 //
 // This is not a designated initializer.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)
+// See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)-8oznv
 //
 // [zero]: https://developer.apple.com/documentation/CoreFoundation/CGSize/zero
 func (i NSImage) InitWithCGImageSize(cgImage coregraphics.CGImageRef, size corefoundation.CGSize) NSImage {
@@ -1606,7 +1606,7 @@ func (i NSImage) Recache() {
 // method [RepresentationUsingTypeProperties].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/tiffRepresentation(using:factor:)
-func (i NSImage) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.INSData {
+func (i NSImage) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.NSData {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("TIFFRepresentationUsingCompression:factor:"), comp, factor)
 	return foundation.NSDataFromID(rv)
 }
@@ -2295,7 +2295,7 @@ func (i NSImage) SetCacheMode(value NSImageCacheMode) {
 // method [RepresentationUsingTypeProperties].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/tiffRepresentation
-func (i NSImage) TIFFRepresentation() foundation.INSData {
+func (i NSImage) TIFFRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("TIFFRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -2353,11 +2353,11 @@ func (i NSImage) Locale() foundation.NSLocale {
 // An object that provides the contents of the layer. Animatable.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/contents
-func (i NSImage) Contents() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("contents"))
-	return objectivec.Object{ID: rv}
+func (i NSImage) Contents() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("contents"))
+	return rv
 }
-func (i NSImage) SetContents(value objectivec.IObject) {
+func (i NSImage) SetContents(value unsafe.Pointer) {
 	objc.Send[struct{}](i.ID, objc.Sel("setContents:"), value)
 }
 

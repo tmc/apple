@@ -77,7 +77,7 @@ type ILADomainStateBiometry interface {
 	// Indicates biometry type available on the device.
 	BiometryType() LABiometryType
 	// Contains state hash data for the available biometry type. Returns `nil` if no biometry entities are enrolled.
-	StateHash() foundation.INSData
+	StateHash() foundation.NSData
 }
 
 // Init initializes the instance.
@@ -118,7 +118,7 @@ func (d LADomainStateBiometry) BiometryType() LABiometryType {
 // calls will reveal the fact database was changed between the calls.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LADomainStateBiometry/stateHash
-func (d LADomainStateBiometry) StateHash() foundation.INSData {
+func (d LADomainStateBiometry) StateHash() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stateHash"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

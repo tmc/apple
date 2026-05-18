@@ -64,7 +64,7 @@ func (mc MTLRenderPipelineColorAttachmentDescriptorClass) Alloc() MTLRenderPipel
 // color channels to be blended. - The [MTLRenderPipelineColorAttachmentDescriptor.RgbBlendOperation] and
 // [MTLRenderPipelineColorAttachmentDescriptor.AlphaBlendOperation] properties assign the blend operations for RGB and
 // alpha pixel data. The default value for both properties is
-// [MTLBlendOperation.add]. - The [MTLRenderPipelineColorAttachmentDescriptor.SourceRGBBlendFactor],
+// [MTLBlendOperationAdd]. - The [MTLRenderPipelineColorAttachmentDescriptor.SourceRGBBlendFactor],
 // [MTLRenderPipelineColorAttachmentDescriptor.SourceAlphaBlendFactor], [MTLRenderPipelineColorAttachmentDescriptor.DestinationRGBBlendFactor], and
 // [MTLRenderPipelineColorAttachmentDescriptor.DestinationAlphaBlendFactor] properties assign the source and destination
 // blend factors. The default value for [MTLRenderPipelineColorAttachmentDescriptor.SourceRGBBlendFactor] and
@@ -100,8 +100,6 @@ func (mc MTLRenderPipelineColorAttachmentDescriptorClass) Alloc() MTLRenderPipel
 //   - [MTLRenderPipelineColorAttachmentDescriptor.SetSourceRGBBlendFactor]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineColorAttachmentDescriptor
-//
-// [MTLBlendOperation.add]: https://developer.apple.com/documentation/Metal/MTLBlendOperation/add
 type MTLRenderPipelineColorAttachmentDescriptor struct {
 	objectivec.Object
 }
@@ -188,7 +186,7 @@ type IMTLRenderPipelineColorAttachmentDescriptor interface {
 
 	// All color channels are enabled.
 	All() MTLColorWriteMask
-	SetAll(value MTLColorWriteMask)
+	SetMTLColorWriteMaskAll(value MTLColorWriteMask)
 }
 
 // Init initializes the instance.
@@ -273,11 +271,9 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SetBlendingEnabled(value boo
 //
 // # Discussion
 //
-// The default value is [MTLBlendOperation.add].
+// The default value is [MTLBlendOperationAdd].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineColorAttachmentDescriptor/alphaBlendOperation
-//
-// [MTLBlendOperation.add]: https://developer.apple.com/documentation/Metal/MTLBlendOperation/add
 func (r MTLRenderPipelineColorAttachmentDescriptor) AlphaBlendOperation() MTLBlendOperation {
 	rv := objc.Send[MTLBlendOperation](r.ID, objc.Sel("alphaBlendOperation"))
 	return MTLBlendOperation(rv)
@@ -290,11 +286,9 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SetAlphaBlendOperation(value
 //
 // # Discussion
 //
-// The default value is [MTLBlendOperation.add].
+// The default value is [MTLBlendOperationAdd].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineColorAttachmentDescriptor/rgbBlendOperation
-//
-// [MTLBlendOperation.add]: https://developer.apple.com/documentation/Metal/MTLBlendOperation/add
 func (r MTLRenderPipelineColorAttachmentDescriptor) RgbBlendOperation() MTLBlendOperation {
 	rv := objc.Send[MTLBlendOperation](r.ID, objc.Sel("rgbBlendOperation"))
 	return MTLBlendOperation(rv)
@@ -370,6 +364,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) All() MTLColorWriteMask {
 	rv := objc.Send[MTLColorWriteMask](r.ID, objc.Sel("MTLColorWriteMaskAll"))
 	return MTLColorWriteMask(rv)
 }
-func (r MTLRenderPipelineColorAttachmentDescriptor) SetAll(value MTLColorWriteMask) {
+func (r MTLRenderPipelineColorAttachmentDescriptor) SetMTLColorWriteMaskAll(value MTLColorWriteMask) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMTLColorWriteMaskAll:"), value)
 }

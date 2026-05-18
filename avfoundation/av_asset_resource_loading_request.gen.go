@@ -141,7 +141,7 @@ type IAVAssetResourceLoadingRequest interface {
 	// A Boolean value that indicates whether the request has been cancelled.
 	Cancelled() bool
 	// Causes the receiver to handle the failure to load a resource for which a resource loader’s delegate took responsibility.
-	FinishLoadingWithError(error_ foundation.INSError)
+	FinishLoadingWithError(error_ foundation.NSError)
 	// A Boolean value that indicates whether loading of the resource has finished.
 	Finished() bool
 }
@@ -193,7 +193,7 @@ func (a AVAssetResourceLoadingRequest) FinishLoading() {
 // the resource loader object that the resource could not be loaded.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest/finishLoading(with:)
-func (a AVAssetResourceLoadingRequest) FinishLoadingWithError(error_ foundation.INSError) {
+func (a AVAssetResourceLoadingRequest) FinishLoadingWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishLoadingWithError:"), error_)
 }
 
@@ -300,8 +300,8 @@ func (a AVAssetResourceLoadingRequest) SetResponse(value foundation.NSURLRespons
 // # Discussion
 //
 // true when the resource loader cancels the loading of a request, just prior
-// to sending the message [ResourceLoaderDidCancelLoadingRequest] to the
-// delegate.
+// to sending the message [ResourceLoaderDidCancelAuthenticationChallenge] to
+// the delegate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingRequest/isCancelled
 func (a AVAssetResourceLoadingRequest) Cancelled() bool {

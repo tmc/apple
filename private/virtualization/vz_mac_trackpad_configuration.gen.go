@@ -62,14 +62,14 @@ type IVZMacTrackpadConfiguration interface {
 }
 
 // Init initializes the instance.
-func (m VZMacTrackpadConfiguration) Init() VZMacTrackpadConfiguration {
-	rv := objc.Send[VZMacTrackpadConfiguration](m.ID, objc.Sel("init"))
+func (v VZMacTrackpadConfiguration) Init() VZMacTrackpadConfiguration {
+	rv := objc.Send[VZMacTrackpadConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacTrackpadConfiguration) Autorelease() VZMacTrackpadConfiguration {
-	rv := objc.Send[VZMacTrackpadConfiguration](m.ID, objc.Sel("autorelease"))
+func (v VZMacTrackpadConfiguration) Autorelease() VZMacTrackpadConfiguration {
+	rv := objc.Send[VZMacTrackpadConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_fuse_conv_batchnorm] class.
+// The class instance for the [EspressoPassFuseConvBatchnorm] class.
 var (
-	_EspressoPass_fuse_conv_batchnormClass     EspressoPass_fuse_conv_batchnormClass
-	_EspressoPass_fuse_conv_batchnormClassOnce sync.Once
+	_EspressoPassFuseConvBatchnormClass     EspressoPassFuseConvBatchnormClass
+	_EspressoPassFuseConvBatchnormClassOnce sync.Once
 )
 
-func getEspressoPass_fuse_conv_batchnormClass() EspressoPass_fuse_conv_batchnormClass {
-	_EspressoPass_fuse_conv_batchnormClassOnce.Do(func() {
-		_EspressoPass_fuse_conv_batchnormClass = EspressoPass_fuse_conv_batchnormClass{class: objc.GetClass("EspressoPass_fuse_conv_batchnorm")}
+func getEspressoPassFuseConvBatchnormClass() EspressoPassFuseConvBatchnormClass {
+	_EspressoPassFuseConvBatchnormClassOnce.Do(func() {
+		_EspressoPassFuseConvBatchnormClass = EspressoPassFuseConvBatchnormClass{class: objc.GetClass("EspressoPass_fuse_conv_batchnorm")}
 	})
-	return _EspressoPass_fuse_conv_batchnormClass
+	return _EspressoPassFuseConvBatchnormClass
 }
 
-// GetEspressoPass_fuse_conv_batchnormClass returns the class object for EspressoPass_fuse_conv_batchnorm.
-func GetEspressoPass_fuse_conv_batchnormClass() EspressoPass_fuse_conv_batchnormClass {
-	return getEspressoPass_fuse_conv_batchnormClass()
+// GetEspressoPassFuseConvBatchnormClass returns the class object for EspressoPass_fuse_conv_batchnorm.
+func GetEspressoPassFuseConvBatchnormClass() EspressoPassFuseConvBatchnormClass {
+	return getEspressoPassFuseConvBatchnormClass()
 }
 
-type EspressoPass_fuse_conv_batchnormClass struct {
+type EspressoPassFuseConvBatchnormClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_fuse_conv_batchnormClass) Class() objc.Class {
+func (ec EspressoPassFuseConvBatchnormClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_fuse_conv_batchnormClass) Alloc() EspressoPass_fuse_conv_batchnorm {
-	rv := objc.Send[EspressoPass_fuse_conv_batchnorm](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFuseConvBatchnormClass) Alloc() EspressoPassFuseConvBatchnorm {
+	rv := objc.Send[EspressoPassFuseConvBatchnorm](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_conv_batchnorm
-type EspressoPass_fuse_conv_batchnorm struct {
+type EspressoPassFuseConvBatchnorm struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_fuse_conv_batchnormFromID constructs a [EspressoPass_fuse_conv_batchnorm] from an objc.ID.
-func EspressoPass_fuse_conv_batchnormFromID(id objc.ID) EspressoPass_fuse_conv_batchnorm {
-	return EspressoPass_fuse_conv_batchnorm{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFuseConvBatchnormFromID constructs a [EspressoPassFuseConvBatchnorm] from an objc.ID.
+func EspressoPassFuseConvBatchnormFromID(id objc.ID) EspressoPassFuseConvBatchnorm {
+	return EspressoPassFuseConvBatchnorm{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_fuse_conv_batchnorm implements IEspressoPass_fuse_conv_batchnorm.
-var _ IEspressoPass_fuse_conv_batchnorm = EspressoPass_fuse_conv_batchnorm{}
+// EspressoPass_fuse_conv_batchnormFromID is an alias for [EspressoPassFuseConvBatchnormFromID] for cross-framework compatibility.
+func EspressoPass_fuse_conv_batchnormFromID(id objc.ID) EspressoPassFuseConvBatchnorm {
+	return EspressoPassFuseConvBatchnormFromID(id)
+}
 
-// An interface definition for the [EspressoPass_fuse_conv_batchnorm] class.
+// Ensure EspressoPassFuseConvBatchnorm implements IEspressoPassFuseConvBatchnorm.
+var _ IEspressoPassFuseConvBatchnorm = EspressoPassFuseConvBatchnorm{}
+
+// An interface definition for the [EspressoPassFuseConvBatchnorm] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_conv_batchnorm
-type IEspressoPass_fuse_conv_batchnorm interface {
+type IEspressoPassFuseConvBatchnorm interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_fuse_conv_batchnorm) Init() EspressoPass_fuse_conv_batchnorm {
-	rv := objc.Send[EspressoPass_fuse_conv_batchnorm](e.ID, objc.Sel("init"))
+func (e EspressoPassFuseConvBatchnorm) Init() EspressoPassFuseConvBatchnorm {
+	rv := objc.Send[EspressoPassFuseConvBatchnorm](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_fuse_conv_batchnorm) Autorelease() EspressoPass_fuse_conv_batchnorm {
-	rv := objc.Send[EspressoPass_fuse_conv_batchnorm](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFuseConvBatchnorm) Autorelease() EspressoPassFuseConvBatchnorm {
+	rv := objc.Send[EspressoPassFuseConvBatchnorm](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_fuse_conv_batchnorm creates a new EspressoPass_fuse_conv_batchnorm instance.
-func NewEspressoPass_fuse_conv_batchnorm() EspressoPass_fuse_conv_batchnorm {
-	class := getEspressoPass_fuse_conv_batchnormClass()
-	rv := objc.Send[EspressoPass_fuse_conv_batchnorm](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFuseConvBatchnorm creates a new EspressoPassFuseConvBatchnorm instance.
+func NewEspressoPassFuseConvBatchnorm() EspressoPassFuseConvBatchnorm {
+	class := getEspressoPassFuseConvBatchnormClass()
+	rv := objc.Send[EspressoPassFuseConvBatchnorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

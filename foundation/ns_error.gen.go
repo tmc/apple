@@ -175,8 +175,6 @@ func NSErrorFromID(id objc.ID) NSError {
 // See: https://developer.apple.com/documentation/Foundation/NSError
 type INSError interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating Error Objects
@@ -391,9 +389,9 @@ func (_NSErrorClass NSErrorClass) SetUserInfoValueProviderForDomainProvider(erro
 // The user info provider of the error domain, or `nil` if none is specified.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSError/userInfoValueProvider(forDomain:)
-func (_NSErrorClass NSErrorClass) UserInfoValueProviderForDomain(errorDomain NSErrorDomain) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("userInfoValueProviderForDomain:"), objc.String(string(errorDomain)))
-	return objectivec.Object{ID: rv}
+func (_NSErrorClass NSErrorClass) UserInfoValueProviderForDomain(errorDomain NSErrorDomain) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](objc.ID(_NSErrorClass.class), objc.Sel("userInfoValueProviderForDomain:"), objc.String(string(errorDomain)))
+	return rv
 }
 
 // Returns a properly formatted error object with a

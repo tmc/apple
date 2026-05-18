@@ -95,14 +95,14 @@ type IMLOneHotEncoder interface {
 }
 
 // Init initializes the instance.
-func (o MLOneHotEncoder) Init() MLOneHotEncoder {
-	rv := objc.Send[MLOneHotEncoder](o.ID, objc.Sel("init"))
+func (m MLOneHotEncoder) Init() MLOneHotEncoder {
+	rv := objc.Send[MLOneHotEncoder](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (o MLOneHotEncoder) Autorelease() MLOneHotEncoder {
-	rv := objc.Send[MLOneHotEncoder](o.ID, objc.Sel("autorelease"))
+func (m MLOneHotEncoder) Autorelease() MLOneHotEncoder {
+	rv := objc.Send[MLOneHotEncoder](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -135,26 +135,26 @@ func NewOneHotEncoderWithNameInputDescriptionOutputDescriptionOrderedInputFeatur
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOneHotEncoder/encodeFeatureValue:
-func (o MLOneHotEncoder) EncodeFeatureValue(value objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("encodeFeatureValue:"), value)
+func (m MLOneHotEncoder) EncodeFeatureValue(value objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("encodeFeatureValue:"), value)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOneHotEncoder/encodeFeatureValueIntString:
-func (o MLOneHotEncoder) EncodeFeatureValueIntString(string_ uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("encodeFeatureValueIntString:"), string_)
+func (m MLOneHotEncoder) EncodeFeatureValueIntString(string_ uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("encodeFeatureValueIntString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOneHotEncoder/unknownDenseVector
-func (o MLOneHotEncoder) UnknownDenseVector() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("unknownDenseVector"))
+func (m MLOneHotEncoder) UnknownDenseVector() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("unknownDenseVector"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOneHotEncoder/initWith:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
-func (o MLOneHotEncoder) InitWithDataTransformerNameOuputSparseHandleUnknownInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, name objectivec.IObject, sparse bool, unknown bool, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
-	rv := objc.Send[MLOneHotEncoder](o.ID, objc.Sel("initWith:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, sparse, unknown, description, description2, names, names2, configuration)
+func (m MLOneHotEncoder) InitWithDataTransformerNameOuputSparseHandleUnknownInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, name objectivec.IObject, sparse bool, unknown bool, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
+	rv := objc.Send[MLOneHotEncoder](m.ID, objc.Sel("initWith:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, sparse, unknown, description, description2, names, names2, configuration)
 	return rv
 }
 
@@ -189,19 +189,19 @@ func (_MLOneHotEncoderClass MLOneHotEncoderClass) LoadModelFromSpecificationConf
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOneHotEncoder/featureEncoding
-func (o MLOneHotEncoder) FeatureEncoding() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureEncoding"))
+func (m MLOneHotEncoder) FeatureEncoding() foundation.INSOrderedSet {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureEncoding"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOneHotEncoder/handleUnknown
-func (o MLOneHotEncoder) HandleUnknown() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("handleUnknown"))
+func (m MLOneHotEncoder) HandleUnknown() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("handleUnknown"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOneHotEncoder/ouputSparse
-func (o MLOneHotEncoder) OuputSparse() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("ouputSparse"))
+func (m MLOneHotEncoder) OuputSparse() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("ouputSparse"))
 	return rv
 }

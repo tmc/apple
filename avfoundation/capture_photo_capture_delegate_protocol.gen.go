@@ -131,7 +131,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidCapturePhotoForReso
 // relate to this capture request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishCaptureFor:error:)
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCaptureForResolvedSettingsError(output IAVCapturePhotoOutput, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.INSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCaptureForResolvedSettingsError(output IAVCapturePhotoOutput, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishCaptureForResolvedSettings:error:"), output, resolvedSettings, error_)
 }
 
@@ -162,7 +162,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCaptureForRes
 // exposure.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishProcessingPhoto:error:)
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingPhotoError(output IAVCapturePhotoOutput, photo IAVCapturePhoto, error_ foundation.INSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingPhotoError(output IAVCapturePhotoOutput, photo IAVCapturePhoto, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishProcessingPhoto:error:"), output, photo, error_)
 }
 
@@ -197,7 +197,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingPho
 // The photo output calls this method only once for each Live Photo capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishRecordingLivePhotoMovieForEventualFileAt:resolvedSettings:)
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLivePhotoMovieForEventualFileAtURLResolvedSettings(output IAVCapturePhotoOutput, outputFileURL foundation.INSURL, resolvedSettings IAVCaptureResolvedPhotoSettings) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLivePhotoMovieForEventualFileAtURLResolvedSettings(output IAVCapturePhotoOutput, outputFileURL foundation.NSURL, resolvedSettings IAVCaptureResolvedPhotoSettings) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishRecordingLivePhotoMovieForEventualFileAtURL:resolvedSettings:"), output, outputFileURL, resolvedSettings)
 }
 
@@ -238,7 +238,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLive
 // The photo output calls this method only once for each Live Photo capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishProcessingLivePhotoToMovieFileAt:duration:photoDisplayTime:resolvedSettings:error:)
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError(output IAVCapturePhotoOutput, outputFileURL foundation.INSURL, duration coremedia.CMTime, photoDisplayTime coremedia.CMTime, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.INSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError(output IAVCapturePhotoOutput, outputFileURL foundation.NSURL, duration coremedia.CMTime, photoDisplayTime coremedia.CMTime, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:"), output, outputFileURL, duration, photoDisplayTime, resolvedSettings, error_)
 }
 
@@ -272,7 +272,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLiv
 // [AVCaptureDeferredPhotoProxy]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeferredPhotoProxy
 // [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 // [PHAssetCreationRequest]: https://developer.apple.com/documentation/Photos/PHAssetCreationRequest
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy objectivec.IObject, error_ foundation.INSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy objectivec.IObject, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishCapturingDeferredPhotoProxy:error:"), output, deferredPhotoProxy, error_)
 }
 

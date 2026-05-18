@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -58,9 +59,9 @@ func (nc NSSortDescriptorClass) Alloc() NSSortDescriptor {
 // You can use sort descriptors for the following:
 //
 // - Sorting an array (an instance of [NSArray] or [NSMutableArray] — see
-// [SortedArrayUsingDescriptors] and [SortUsingDescriptors]) - Comparing two
-// objects directly (see [NSSortDescriptor.CompareObjectToObject]) - Specifying the order of
-// objects that return from a Core Data fetch request (see [NSSortDescriptor.SortDescriptors])
+// [SortedArrayUsingSelector] and [SortUsingSelector]) - Comparing two objects
+// directly (see [NSSortDescriptor.CompareObjectToObject]) - Specifying the order of objects
+// that return from a Core Data fetch request (see [NSSortDescriptor.SortDescriptors])
 //
 // # Creating a Sort Descriptor
 //
@@ -125,8 +126,6 @@ func NSSortDescriptorFromID(id objc.ID) NSSortDescriptor {
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor
 type INSSortDescriptor interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating a Sort Descriptor
@@ -145,8 +144,8 @@ type INSSortDescriptor interface {
 	// The key that specifies the property to compare during sorting.
 	Key() string
 	// The key path that specifies the property to compare during sorting.
-	KeyPath() objectivec.IObject
-	SetKeyPath(value objectivec.IObject)
+	KeyPath() unsafe.Pointer
+	SetKeyPath(value unsafe.Pointer)
 	// The selector for comparing objects.
 	Selector() objc.SEL
 	// The comparator for the sort descriptor.
@@ -528,11 +527,11 @@ func (s NSSortDescriptor) Key() string {
 // The key path that specifies the property to compare during sorting.
 //
 // See: https://developer.apple.com/documentation/foundation/nssortdescriptor/keypath
-func (s NSSortDescriptor) KeyPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("keyPath"))
-	return objectivec.Object{ID: rv}
+func (s NSSortDescriptor) KeyPath() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("keyPath"))
+	return rv
 }
-func (s NSSortDescriptor) SetKeyPath(value objectivec.IObject) {
+func (s NSSortDescriptor) SetKeyPath(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setKeyPath:"), value)
 }
 

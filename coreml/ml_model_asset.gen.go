@@ -143,7 +143,7 @@ func NewMLModelAsset() MLModelAsset {
 // dictionary must contain all the reference URLs used in the specification.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/init(specification:blobMapping:)
-func NewModelAssetWithSpecificationDataBlobMappingError(specificationData foundation.INSData, blobMapping foundation.INSDictionary) (MLModelAsset, error) {
+func NewModelAssetWithSpecificationDataBlobMappingError(specificationData foundation.NSData, blobMapping foundation.INSDictionary) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLModelAssetClass().class), objc.Sel("modelAssetWithSpecificationData:blobMapping:error:"), specificationData, blobMapping, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -158,7 +158,7 @@ func NewModelAssetWithSpecificationDataBlobMappingError(specificationData founda
 // specificationData: The contents of a `XCUIElementTypeMlmodel` as a data blob.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/init(specification:)
-func NewModelAssetWithSpecificationDataError(specificationData foundation.INSData) (MLModelAsset, error) {
+func NewModelAssetWithSpecificationDataError(specificationData foundation.NSData) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLModelAssetClass().class), objc.Sel("modelAssetWithSpecificationData:error:"), specificationData, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -176,8 +176,8 @@ func NewModelAssetWithSpecificationDataError(specificationData foundation.INSDat
 //
 // A model asset or nil if there is an error.
 //
-// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/init(url:)
-func NewModelAssetWithURLError(compiledModelURL foundation.INSURL) (MLModelAsset, error) {
+// See: https://developer.apple.com/documentation/CoreML/MLModelAsset/init(url:)-43988
+func NewModelAssetWithURLError(compiledModelURL foundation.NSURL) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLModelAssetClass().class), objc.Sel("modelAssetWithURL:error:"), compiledModelURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

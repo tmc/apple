@@ -245,8 +245,8 @@ type IAVAssetExportSession interface {
 	FileLengthLimit() int64
 	SetFileLengthLimit(value int64)
 	// A directory suitable to store temporary files that the export process generates.
-	DirectoryForTemporaryFiles() foundation.INSURL
-	SetDirectoryForTemporaryFiles(value foundation.INSURL)
+	DirectoryForTemporaryFiles() foundation.NSURL
+	SetDirectoryForTemporaryFiles(value foundation.NSURL)
 
 	// Topic: Configuring metadata
 
@@ -285,7 +285,7 @@ type IAVAssetExportSession interface {
 	// The status of the export session.
 	Status() AVAssetExportSessionStatus
 	// An optional error object.
-	Error() foundation.INSError
+	Error() foundation.NSError
 
 	// Topic: Estimating file length and duration
 
@@ -565,11 +565,11 @@ func (a AVAssetExportSession) SetFileLengthLimit(value int64) {
 // generates.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/directoryForTemporaryFiles
-func (a AVAssetExportSession) DirectoryForTemporaryFiles() foundation.INSURL {
+func (a AVAssetExportSession) DirectoryForTemporaryFiles() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("directoryForTemporaryFiles"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (a AVAssetExportSession) SetDirectoryForTemporaryFiles(value foundation.INSURL) {
+func (a AVAssetExportSession) SetDirectoryForTemporaryFiles(value foundation.NSURL) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDirectoryForTemporaryFiles:"), value)
 }
 
@@ -709,7 +709,7 @@ func (a AVAssetExportSession) Status() AVAssetExportSessionStatus {
 // or [AVAssetExportSessionStatusCancelled].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/error
-func (a AVAssetExportSession) Error() foundation.INSError {
+func (a AVAssetExportSession) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

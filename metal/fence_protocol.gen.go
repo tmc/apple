@@ -23,10 +23,6 @@ type MTLFence interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLFence/label
 	Label() string
-
-	// A string that identifies the fence.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLFence/label
 	SetLabel(value string)
 }
 
@@ -49,18 +45,14 @@ func MTLFenceObjectFromID(id objc.ID) MTLFenceObject {
 
 // The device object that created the fence.
 //
+// # Discussion
+//
+// Only the device that created the fence can use it.
+//
 // See: https://developer.apple.com/documentation/Metal/MTLFence/device
 func (o MTLFenceObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-}
-
-// A string that identifies the fence.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLFence/label
-func (o MTLFenceObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // A string that identifies the fence.
@@ -74,6 +66,11 @@ func (o MTLFenceObject) Label() string {
 // See: https://developer.apple.com/documentation/Metal/MTLFence/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLFenceObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLFenceObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

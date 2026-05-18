@@ -108,7 +108,6 @@ func NSTermOfAddressFromID(id objc.ID) NSTermOfAddress {
 // See: https://developer.apple.com/documentation/Foundation/NSTermOfAddress
 type INSTermOfAddress interface {
 	objectivec.IObject
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Defining your own terms of address

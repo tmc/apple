@@ -91,14 +91,14 @@ type IMLArrayDictionaryFeatureProvider interface {
 }
 
 // Init initializes the instance.
-func (a MLArrayDictionaryFeatureProvider) Init() MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](a.ID, objc.Sel("init"))
+func (m MLArrayDictionaryFeatureProvider) Init() MLArrayDictionaryFeatureProvider {
+	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLArrayDictionaryFeatureProvider) Autorelease() MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](a.ID, objc.Sel("autorelease"))
+func (m MLArrayDictionaryFeatureProvider) Autorelease() MLArrayDictionaryFeatureProvider {
+	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -124,25 +124,25 @@ func NewArrayDictionaryFeatureProviderWithDictionaryFeatureProviderArray(array o
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/encodeWithCoder:
-func (a MLArrayDictionaryFeatureProvider) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+func (m MLArrayDictionaryFeatureProvider) EncodeWithCoder(coder foundation.INSCoder) {
+	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/featuresAtIndex:
-func (a MLArrayDictionaryFeatureProvider) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("featuresAtIndex:"), index)
+func (m MLArrayDictionaryFeatureProvider) FeaturesAtIndex(index int64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithCoder:
-func (a MLArrayDictionaryFeatureProvider) InitWithCoder(coder foundation.INSCoder) MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](a.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLArrayDictionaryFeatureProvider) InitWithCoder(coder foundation.INSCoder) MLArrayDictionaryFeatureProvider {
+	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithDictionaryFeatureProviderArray:
-func (a MLArrayDictionaryFeatureProvider) InitWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
-	rv := objc.Send[MLArrayDictionaryFeatureProvider](a.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
+func (m MLArrayDictionaryFeatureProvider) InitWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
+	rv := objc.Send[MLArrayDictionaryFeatureProvider](m.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
 	return rv
 }
 
@@ -153,13 +153,13 @@ func (_MLArrayDictionaryFeatureProviderClass MLArrayDictionaryFeatureProviderCla
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/array
-func (a MLArrayDictionaryFeatureProvider) Array() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("array"))
+func (m MLArrayDictionaryFeatureProvider) Array() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("array"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/count
-func (a MLArrayDictionaryFeatureProvider) Count() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("count"))
+func (m MLArrayDictionaryFeatureProvider) Count() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("count"))
 	return rv
 }

@@ -214,7 +214,7 @@ type NSDataArrayErrorHandler = func(*[]foundation.NSData, error)
 //
 // Used by:
 //   - [NWTCPConnectionAuthenticationDelegate.EvaluateTrustForConnectionPeerCertificateChainCompletionHandler]
-type SecTrustRefHandler = func(security.SecTrustRef)
+type SecTrustRefHandler = func(security.SecTrust)
 
 // NewSecTrustRefBlock wraps a Go [SecTrustRefHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -225,7 +225,7 @@ func NewSecTrustRefBlock(handler SecTrustRefHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecTrustRef) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecTrust) {
 		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
@@ -270,7 +270,7 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [NWTCPConnectionAuthenticationDelegate.ProvideIdentityForConnectionCompletionHandler]
-type idArrayHandler = func(security.SecIdentityRef)
+type idArrayHandler = func(security.SecIdentity)
 
 // NewidArrayBlock wraps a Go [idArrayHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -281,7 +281,7 @@ func NewidArrayBlock(handler idArrayHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecIdentityRef) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecIdentity) {
 		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }

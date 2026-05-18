@@ -15,11 +15,6 @@ type MTLSharedEvent interface {
 	objectivec.IObject
 	MTLEvent
 
-	// The current signal value for the shareable event.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/signaledValue
-	SignaledValue() uint64
-
 	// Schedules a notification handler to be called after the shareable event’s signal value equals or exceeds a given value.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/notify(_:atValue:block:)
@@ -38,6 +33,7 @@ type MTLSharedEvent interface {
 	// The current signal value for the shareable event.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/signaledValue
+	SignaledValue() uint64
 	SetSignaledValue(value uint64)
 }
 
@@ -56,14 +52,6 @@ func MTLSharedEventObjectFromID(id objc.ID) MTLSharedEventObject {
 	return MTLSharedEventObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The current signal value for the shareable event.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/signaledValue
-func (o MTLSharedEventObject) SignaledValue() uint64 {
-	rv := objc.Send[uint64](o.ID, objc.Sel("signaledValue"))
-	return rv
 }
 
 // Schedules a notification handler to be called after the shareable event’s
@@ -126,6 +114,11 @@ func (o MTLSharedEventObject) Label() string {
 // they are waiting.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/signaledValue
+func (o MTLSharedEventObject) SignaledValue() uint64 {
+	rv := objc.Send[uint64](o.ID, objc.Sel("signaledValue"))
+	return uint64(rv)
+}
+
 func (o MTLSharedEventObject) SetSignaledValue(value uint64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSignaledValue:"), value)
 }

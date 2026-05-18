@@ -136,13 +136,12 @@ type INSPersistentDocument interface {
 	// The managed object model of the document.
 	ManagedObjectModel() unsafe.Pointer
 	// Configures the receiver’s persistent store coordinator with the appropriate stores for a given URL.
-	ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.INSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error)
+	ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.NSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error)
 	// Returns the type of persistent store associated with the specified file type.
 	PersistentStoreTypeForFileType(fileType string) string
 
 	// A Boolean value that indicates whether the document has unsaved changes.
 	IsDocumentEdited() bool
-	SetIsDocumentEdited(value bool)
 }
 
 // Init initializes the instance.
@@ -193,7 +192,7 @@ func NewNSPersistentDocument() NSPersistentDocument {
 // change type.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(for:withContentsOf:ofType:)
-func NewPersistentDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, typeName string) (NSPersistentDocument, error) {
+func NewPersistentDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, typeName string) (NSPersistentDocument, error) {
 	var errorPtr objc.ID
 	instance := getNSPersistentDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForURL:withContentsOfURL:ofType:error:"), urlOrNil, contentsURL, objc.String(typeName), unsafe.Pointer(&errorPtr))
@@ -222,7 +221,7 @@ func NewPersistentDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation
 //
 // This method is invoked by the [NSDocumentController] method
 // [DocumentWithContentsOfURLOfTypeError]. The default implementation of this
-// method calls the [Init] and [ReadFromURLOfTypeError] methods and sets
+// method calls the [Init] and [ReadFromDataOfTypeError] methods and sets
 // values for the [FileURL], [FileType], and [FileModificationDate]
 // properties.
 //
@@ -235,7 +234,7 @@ func NewPersistentDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(contentsOf:ofType:)
 //
 // [initWithContentsOfFile:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/initWithContentsOfFile:ofType:
-func NewPersistentDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (NSPersistentDocument, error) {
+func NewPersistentDocumentWithContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (NSPersistentDocument, error) {
 	var errorPtr objc.ID
 	instance := getNSPersistentDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
@@ -307,7 +306,7 @@ func NewPersistentDocumentWithTypeError(typeName string) (NSPersistentDocument, 
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument/configurePersistentStoreCoordinator(for:ofType:modelConfiguration:storeOptions:)
 //
 // [NSPersistentStoreCoordinator]: https://developer.apple.com/documentation/CoreData/NSPersistentStoreCoordinator
-func (p NSPersistentDocument) ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.INSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error) {
+func (p NSPersistentDocument) ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.NSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](p.ID, objc.Sel("configurePersistentStoreCoordinatorForURL:ofType:modelConfiguration:storeOptions:error:"), url, objc.String(fileType), objc.String(configuration), storeOptions, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -390,6 +389,6 @@ func (p NSPersistentDocument) IsDocumentEdited() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("documentEdited"))
 	return rv
 }
-func (p NSPersistentDocument) SetIsDocumentEdited(value bool) {
+func (p NSPersistentDocument) SetDocumentEdited(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDocumentEdited:"), value)
 }

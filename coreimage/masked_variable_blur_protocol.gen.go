@@ -18,30 +18,18 @@ type CIMaskedVariableBlur interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/inputImage
 	InputImage() ICIImage
-
-	// A grayscale mask that defines the blur amount.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/mask
-	Mask() ICIImage
-
-	// The distance from the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/radius
-	Radius() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/inputImage
 	SetInputImage(value ICIImage)
 
 	// A grayscale mask that defines the blur amount.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/mask
+	Mask() ICIImage
 	SetMask(value ICIImage)
 
 	// The distance from the center of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -62,30 +50,6 @@ func CIMaskedVariableBlurObjectFromID(id objc.ID) CIMaskedVariableBlurObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/inputImage
-func (o CIMaskedVariableBlurObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// A grayscale mask that defines the blur amount.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/mask
-func (o CIMaskedVariableBlurObject) Mask() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("mask"))
-	return CIImageFromID(rv)
-}
-
-// The distance from the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/radius
-func (o CIMaskedVariableBlurObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -98,6 +62,11 @@ func (o CIMaskedVariableBlurObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/inputImage
+func (o CIMaskedVariableBlurObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIMaskedVariableBlurObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -105,6 +74,11 @@ func (o CIMaskedVariableBlurObject) SetInputImage(value ICIImage) {
 // A grayscale mask that defines the blur amount.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/mask
+func (o CIMaskedVariableBlurObject) Mask() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("mask"))
+	return CIImageFromID(rv)
+}
+
 func (o CIMaskedVariableBlurObject) SetMask(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMask:"), value)
 }
@@ -112,6 +86,11 @@ func (o CIMaskedVariableBlurObject) SetMask(value ICIImage) {
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/radius
+func (o CIMaskedVariableBlurObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIMaskedVariableBlurObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

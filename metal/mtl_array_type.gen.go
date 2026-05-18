@@ -164,11 +164,9 @@ func NewMTLArrayType() MTLArrayType {
 //
 // # Discussion
 //
-// Use this method if [ElementType] is [MTLDataType.array].
+// Use this method if [ElementType] is [MTLDataTypeArray].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/element()
-//
-// [MTLDataType.array]: https://developer.apple.com/documentation/Metal/MTLDataType/array
 func (a MTLArrayType) ElementArrayType() IMTLArrayType {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("elementArrayType"))
 	return MTLArrayTypeFromID(rv)

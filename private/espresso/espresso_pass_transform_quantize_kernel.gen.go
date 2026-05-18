@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_transform_quantize_kernel] class.
+// The class instance for the [EspressoPassTransformQuantizeKernel] class.
 var (
-	_EspressoPass_transform_quantize_kernelClass     EspressoPass_transform_quantize_kernelClass
-	_EspressoPass_transform_quantize_kernelClassOnce sync.Once
+	_EspressoPassTransformQuantizeKernelClass     EspressoPassTransformQuantizeKernelClass
+	_EspressoPassTransformQuantizeKernelClassOnce sync.Once
 )
 
-func getEspressoPass_transform_quantize_kernelClass() EspressoPass_transform_quantize_kernelClass {
-	_EspressoPass_transform_quantize_kernelClassOnce.Do(func() {
-		_EspressoPass_transform_quantize_kernelClass = EspressoPass_transform_quantize_kernelClass{class: objc.GetClass("EspressoPass_transform_quantize_kernel")}
+func getEspressoPassTransformQuantizeKernelClass() EspressoPassTransformQuantizeKernelClass {
+	_EspressoPassTransformQuantizeKernelClassOnce.Do(func() {
+		_EspressoPassTransformQuantizeKernelClass = EspressoPassTransformQuantizeKernelClass{class: objc.GetClass("EspressoPass_transform_quantize_kernel")}
 	})
-	return _EspressoPass_transform_quantize_kernelClass
+	return _EspressoPassTransformQuantizeKernelClass
 }
 
-// GetEspressoPass_transform_quantize_kernelClass returns the class object for EspressoPass_transform_quantize_kernel.
-func GetEspressoPass_transform_quantize_kernelClass() EspressoPass_transform_quantize_kernelClass {
-	return getEspressoPass_transform_quantize_kernelClass()
+// GetEspressoPassTransformQuantizeKernelClass returns the class object for EspressoPass_transform_quantize_kernel.
+func GetEspressoPassTransformQuantizeKernelClass() EspressoPassTransformQuantizeKernelClass {
+	return getEspressoPassTransformQuantizeKernelClass()
 }
 
-type EspressoPass_transform_quantize_kernelClass struct {
+type EspressoPassTransformQuantizeKernelClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_transform_quantize_kernelClass) Class() objc.Class {
+func (ec EspressoPassTransformQuantizeKernelClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_transform_quantize_kernelClass) Alloc() EspressoPass_transform_quantize_kernel {
-	rv := objc.Send[EspressoPass_transform_quantize_kernel](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassTransformQuantizeKernelClass) Alloc() EspressoPassTransformQuantizeKernel {
+	rv := objc.Send[EspressoPassTransformQuantizeKernel](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_transform_quantize_kernel
-type EspressoPass_transform_quantize_kernel struct {
+type EspressoPassTransformQuantizeKernel struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_transform_quantize_kernelFromID constructs a [EspressoPass_transform_quantize_kernel] from an objc.ID.
-func EspressoPass_transform_quantize_kernelFromID(id objc.ID) EspressoPass_transform_quantize_kernel {
-	return EspressoPass_transform_quantize_kernel{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassTransformQuantizeKernelFromID constructs a [EspressoPassTransformQuantizeKernel] from an objc.ID.
+func EspressoPassTransformQuantizeKernelFromID(id objc.ID) EspressoPassTransformQuantizeKernel {
+	return EspressoPassTransformQuantizeKernel{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_transform_quantize_kernel implements IEspressoPass_transform_quantize_kernel.
-var _ IEspressoPass_transform_quantize_kernel = EspressoPass_transform_quantize_kernel{}
+// EspressoPass_transform_quantize_kernelFromID is an alias for [EspressoPassTransformQuantizeKernelFromID] for cross-framework compatibility.
+func EspressoPass_transform_quantize_kernelFromID(id objc.ID) EspressoPassTransformQuantizeKernel {
+	return EspressoPassTransformQuantizeKernelFromID(id)
+}
 
-// An interface definition for the [EspressoPass_transform_quantize_kernel] class.
+// Ensure EspressoPassTransformQuantizeKernel implements IEspressoPassTransformQuantizeKernel.
+var _ IEspressoPassTransformQuantizeKernel = EspressoPassTransformQuantizeKernel{}
+
+// An interface definition for the [EspressoPassTransformQuantizeKernel] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_transform_quantize_kernel
-type IEspressoPass_transform_quantize_kernel interface {
+type IEspressoPassTransformQuantizeKernel interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_transform_quantize_kernel) Init() EspressoPass_transform_quantize_kernel {
-	rv := objc.Send[EspressoPass_transform_quantize_kernel](e.ID, objc.Sel("init"))
+func (e EspressoPassTransformQuantizeKernel) Init() EspressoPassTransformQuantizeKernel {
+	rv := objc.Send[EspressoPassTransformQuantizeKernel](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_transform_quantize_kernel) Autorelease() EspressoPass_transform_quantize_kernel {
-	rv := objc.Send[EspressoPass_transform_quantize_kernel](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassTransformQuantizeKernel) Autorelease() EspressoPassTransformQuantizeKernel {
+	rv := objc.Send[EspressoPassTransformQuantizeKernel](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_transform_quantize_kernel creates a new EspressoPass_transform_quantize_kernel instance.
-func NewEspressoPass_transform_quantize_kernel() EspressoPass_transform_quantize_kernel {
-	class := getEspressoPass_transform_quantize_kernelClass()
-	rv := objc.Send[EspressoPass_transform_quantize_kernel](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassTransformQuantizeKernel creates a new EspressoPassTransformQuantizeKernel instance.
+func NewEspressoPassTransformQuantizeKernel() EspressoPassTransformQuantizeKernel {
+	class := getEspressoPassTransformQuantizeKernelClass()
+	rv := objc.Send[EspressoPassTransformQuantizeKernel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

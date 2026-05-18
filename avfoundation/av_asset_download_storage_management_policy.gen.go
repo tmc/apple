@@ -81,7 +81,7 @@ type IAVAssetDownloadStorageManagementPolicy interface {
 	// Topic: Inspecting a policy
 
 	// The expiration date for an asset.
-	ExpirationDate() foundation.INSDate
+	ExpirationDate() foundation.NSDate
 	// The eviction priority for an asset.
 	Priority() AVAssetDownloadedAssetEvictionPriority
 }
@@ -108,7 +108,7 @@ func NewAVAssetDownloadStorageManagementPolicy() AVAssetDownloadStorageManagemen
 // The expiration date for an asset.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadStorageManagementPolicy/expirationDate
-func (a AVAssetDownloadStorageManagementPolicy) ExpirationDate() foundation.INSDate {
+func (a AVAssetDownloadStorageManagementPolicy) ExpirationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("expirationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

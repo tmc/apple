@@ -480,7 +480,7 @@ func NewXMLDocumentWithRootElement(element INSXMLElement) XMLDocument {
 //
 // The encoding of the document is set to UTF-8.
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)
+// See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)-65m2r
 func NewXMLDocumentWithXMLStringOptionsError(string_ string, mask NSXMLNodeOptions) (XMLDocument, error) {
 	var errorPtr objc.ID
 	instance := getXMLDocumentClass().Alloc()
@@ -586,7 +586,7 @@ func (x XMLDocument) InitWithRootElement(element INSXMLElement) XMLDocument {
 //
 // The encoding of the document is set to UTF-8.
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)
+// See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)-65m2r
 func (x XMLDocument) InitWithXMLStringOptionsError(string_ string, mask NSXMLNodeOptions) (XMLDocument, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithXMLString:options:error:"), objc.String(string_), mask, unsafe.Pointer(&errorPtr))

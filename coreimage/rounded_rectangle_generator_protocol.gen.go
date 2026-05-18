@@ -19,40 +19,24 @@ type CIRoundedRectangleGenerator interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/color
 	Color() ICIColor
-
-	// A rectangle that defines the extent of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/extent
-	Extent() corefoundation.CGRect
-
-	// The distance from the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/radius
-	Radius() float32
-
-	// A value to control the smoothness of the transition between the curved and linear edges of the shape.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/smoothness
-	Smoothness() float32
-
-	// The color of the rounded rectangle.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/color
 	SetColor(value ICIColor)
 
 	// A rectangle that defines the extent of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/extent
+	Extent() corefoundation.CGRect
 	SetExtent(value corefoundation.CGRect)
 
 	// The distance from the center of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/radius
+	Radius() float32
 	SetRadius(value float32)
 
 	// A value to control the smoothness of the transition between the curved and linear edges of the shape.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/smoothness
+	Smoothness() float32
 	SetSmoothness(value float32)
 }
 
@@ -73,39 +57,6 @@ func CIRoundedRectangleGeneratorObjectFromID(id objc.ID) CIRoundedRectangleGener
 	}
 }
 
-// The color of the rounded rectangle.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/color
-func (o CIRoundedRectangleGeneratorObject) Color() ICIColor {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
-	return CIColorFromID(rv)
-}
-
-// A rectangle that defines the extent of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/extent
-func (o CIRoundedRectangleGeneratorObject) Extent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
-	return rv
-}
-
-// The distance from the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/radius
-func (o CIRoundedRectangleGeneratorObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
-// A value to control the smoothness of the transition between the curved and
-// linear edges of the shape.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/smoothness
-func (o CIRoundedRectangleGeneratorObject) Smoothness() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("smoothness"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -118,6 +69,11 @@ func (o CIRoundedRectangleGeneratorObject) OutputImage() ICIImage {
 // The color of the rounded rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/color
+func (o CIRoundedRectangleGeneratorObject) Color() ICIColor {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
+	return CIColorFromID(rv)
+}
+
 func (o CIRoundedRectangleGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
@@ -125,6 +81,11 @@ func (o CIRoundedRectangleGeneratorObject) SetColor(value ICIColor) {
 // A rectangle that defines the extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/extent
+func (o CIRoundedRectangleGeneratorObject) Extent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CIRoundedRectangleGeneratorObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
@@ -132,6 +93,11 @@ func (o CIRoundedRectangleGeneratorObject) SetExtent(value corefoundation.CGRect
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/radius
+func (o CIRoundedRectangleGeneratorObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIRoundedRectangleGeneratorObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
@@ -140,6 +106,11 @@ func (o CIRoundedRectangleGeneratorObject) SetRadius(value float32) {
 // linear edges of the shape.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/smoothness
+func (o CIRoundedRectangleGeneratorObject) Smoothness() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("smoothness"))
+	return float32(rv)
+}
+
 func (o CIRoundedRectangleGeneratorObject) SetSmoothness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmoothness:"), value)
 }

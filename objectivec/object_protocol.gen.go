@@ -13,20 +13,10 @@ import (
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol
 type NSObject interface {
 
-	// Returns the class object for the receiver’s superclass.
-	//
-	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/superclass
-	Superclass() objc.Class
-
-	// Returns an integer that can be used as a table address in a hash table structure.
-	//
-	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
-	Hash() uint
-
 	// Returns the receiver.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/self()
-	Self() IObject
+	Self() unsafe.Pointer
 
 	// Returns a Boolean value that indicates whether the receiver is an instance of given class or an instance of any class that inherits from that class.
 	//
@@ -48,16 +38,6 @@ type NSObject interface {
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/conforms(to:)
 	ConformsToProtocol(aProtocol unsafe.Pointer) bool
 
-	// A textual representation of the receiver.
-	//
-	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
-	Description() IObject
-
-	// A textual representation of the receiver to use with a debugger.
-	//
-	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/debugDescription
-	DebugDescription() IObject
-
 	// Returns a Boolean value that indicates whether the receiver does not descend from [NSObject](<doc://com.apple.objectivec/documentation/ObjectiveC/NSObject-swift.class>).
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isProxy()
@@ -76,12 +56,32 @@ type NSObject interface {
 	// Increments the receiver’s reference count.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-	Retain() IObject
+	Retain() unsafe.Pointer
 
 	// Do not use this method.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retainCount
 	RetainCount() uint
+
+	// Returns the class object for the receiver’s superclass.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/superclass
+	Superclass() objc.Class
+
+	// Returns an integer that can be used as a table address in a hash table structure.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
+	Hash() uint
+
+	// A textual representation of the receiver.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
+	Description() IObject
+
+	// A textual representation of the receiver to use with a debugger.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/debugDescription
+	DebugDescription() IObject
 }
 
 // NSObjectObject wraps an existing Objective-C object that conforms to the NSObject protocol.
@@ -99,14 +99,6 @@ func NSObjectObjectFromID(id objc.ID) NSObjectObject {
 	return NSObjectObject{
 		Object: ObjectFromID(id),
 	}
-}
-
-// Returns the class object for the receiver’s superclass.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/superclass
-func (o NSObjectObject) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](o.ID, objc.Sel("superclass"))
-	return rv
 }
 
 // Returns a Boolean value that indicates whether the receiver and a given
@@ -143,15 +135,6 @@ func (o NSObjectObject) IsEqual(object IObject) bool {
 	return rv
 }
 
-// Returns an integer that can be used as a table address in a hash table
-// structure.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
-func (o NSObjectObject) Hash() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("hash"))
-	return rv
-}
-
 // Returns the receiver.
 //
 // # Return Value
@@ -159,9 +142,9 @@ func (o NSObjectObject) Hash() uint {
 // The receiver.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/self()
-func (o NSObjectObject) Self() IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("self"))
-	return Object{ID: rv}
+func (o NSObjectObject) Self() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("self"))
+	return rv
 }
 
 // Returns a Boolean value that indicates whether the receiver is an instance
@@ -289,22 +272,6 @@ func (o NSObjectObject) RespondsToSelector(aSelector objc.SEL) bool {
 func (o NSObjectObject) ConformsToProtocol(aProtocol unsafe.Pointer) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("conformsToProtocol:"), aProtocol)
 	return rv
-}
-
-// A textual representation of the receiver.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
-func (o NSObjectObject) Description() IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("description"))
-	return Object{ID: rv}
-}
-
-// A textual representation of the receiver to use with a debugger.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/debugDescription
-func (o NSObjectObject) DebugDescription() IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("debugDescription"))
-	return Object{ID: rv}
 }
 
 // Sends a specified message to the receiver and returns the result of the
@@ -532,9 +499,9 @@ func (o NSObjectObject) Release() {
 //
 // [Advanced Memory Management Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i
 // [Transitioning to ARC Release Notes]: https://developer.apple.com/library/archive/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226
-func (o NSObjectObject) Retain() IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("retain"))
-	return Object{ID: rv}
+func (o NSObjectObject) Retain() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("retain"))
+	return rv
 }
 
 // Do not use this method.
@@ -568,4 +535,77 @@ func (o NSObjectObject) Retain() IObject {
 func (o NSObjectObject) RetainCount() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("retainCount"))
 	return rv
+}
+
+// Returns the class object for the receiver’s superclass.
+//
+// # Return Value
+//
+// The class object for the receiver’s superclass.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/superclass
+func (o NSObjectObject) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](o.ID, objc.Sel("superclass"))
+	return objc.Class(rv)
+}
+
+// Returns an integer that can be used as a table address in a hash table
+// structure.
+//
+// # Return Value
+//
+// An integer that can be used as a table address in a hash table structure.
+//
+// # Discussion
+//
+// If two objects are equal (as determined by the [IsEqual] method), they must
+// have the same hash value. This last point is particularly important if you
+// define [Hash] in a subclass and intend to put instances of that subclass
+// into a collection.
+//
+// If a mutable object is added to a collection that uses hash values to
+// determine the object’s position in the collection, the value returned by
+// the [Hash] method of the object must not change while the object is in the
+// collection. Therefore, either the [Hash] method must not rely on any of the
+// object’s internal state information or you must make sure the object’s
+// internal state information does not change while the object is in the
+// collection. Thus, for example, a mutable dictionary can be put in a hash
+// table but you must not change it while it is in there. (Note that it can be
+// difficult to know whether or not a given object is in a collection.)
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
+func (o NSObjectObject) Hash() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("hash"))
+	return uint(rv)
+}
+
+// A textual representation of the receiver.
+//
+// # Return Value
+//
+// A string that describes the object.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
+func (o NSObjectObject) Description() IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("description"))
+	return Object{ID: rv}
+}
+
+// A textual representation of the receiver to use with a debugger.
+//
+// # Return Value
+//
+// A string that describes the object for debugging purposes.
+//
+// # Discussion
+//
+// The debugger’s `po` command uses this property to create a textual
+// representation of the object suitable for display in the debugger. The
+// default implemention returns the same value as [Description]. Override
+// either property to provide custom object descriptions.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/debugDescription
+func (o NSObjectObject) DebugDescription() IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("debugDescription"))
+	return Object{ID: rv}
 }

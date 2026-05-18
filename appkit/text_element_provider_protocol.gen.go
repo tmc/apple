@@ -13,11 +13,6 @@ import (
 type NSTextElementProvider interface {
 	objectivec.IObject
 
-	// Describes the starting and ending locations for the document.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/documentRange
-	DocumentRange() INSTextRange
-
 	// Enumerates text elements starting at the text location you provide.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/enumerateTextElements(from:options:using:)
@@ -32,6 +27,11 @@ type NSTextElementProvider interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/synchronizeToBackingStore(_:)
 	SynchronizeToBackingStore(completionHandler ErrorHandler)
+
+	// Describes the starting and ending locations for the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/documentRange
+	DocumentRange() INSTextRange
 }
 
 // NSTextElementProviderObject wraps an existing Objective-C object that conforms to the NSTextElementProvider protocol.
@@ -49,14 +49,6 @@ func NSTextElementProviderObjectFromID(id objc.ID) NSTextElementProviderObject {
 	return NSTextElementProviderObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Describes the starting and ending locations for the document.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/documentRange
-func (o NSTextElementProviderObject) DocumentRange() INSTextRange {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("documentRange"))
-	return NSTextRangeFromID(rv)
 }
 
 // Enumerates text elements starting at the text location you provide.
@@ -189,4 +181,17 @@ func (o NSTextElementProviderObject) AdjustedRangeFromRangeForEditingTextSelecti
 func (o NSTextElementProviderObject) OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int {
 	rv := objc.Send[int](o.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
 	return rv
+}
+
+// Describes the starting and ending locations for the document.
+//
+// # Discussion
+//
+// The subclass could use its own implementation of a location object
+// conforming to [NSTextRange].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/documentRange
+func (o NSTextElementProviderObject) DocumentRange() INSTextRange {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("documentRange"))
+	return NSTextRangeFromID(rv)
 }

@@ -3,10 +3,10 @@
 package diskimages2
 
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3Context_implRef
-type AAS3Context_implRef uintptr
+type AAS3ContextImplRef uintptr
 
 // See: https://developer.apple.com/documentation/DiskImages2/AEAAuthData_implRef
-type AEAAuthData_implRef uintptr
+type AEAAuthDataImplRef uintptr
 
 // See: https://developer.apple.com/documentation/DiskImages2/AuthorizationOpaqueRefRef
 type AuthorizationOpaqueRefRef uintptr
@@ -30,16 +30,16 @@ type DiskImageRef uintptr
 type MKMediaRef uintptr
 
 // See: https://developer.apple.com/documentation/DiskImages2/diskimage_open_params_implRef
-type Diskimage_open_params_implRef uintptr
+type DiskimageOpenParamsImplRef uintptr
 
 // See: https://developer.apple.com/documentation/DiskImages2/headerRef
 type HeaderRef uintptr
 
 // See: https://developer.apple.com/documentation/DiskImages2/passphrase_headerRef
-type Passphrase_headerRef uintptr
+type PassphraseHeaderRef uintptr
 
 // See: https://developer.apple.com/documentation/DiskImages2/qtn_fileRef
-type Qtn_fileRef uintptr
+type QtnFileRef uintptr
 
 // See: https://developer.apple.com/documentation/DiskImages2/shared_weak_countRef
-type Shared_weak_countRef uintptr
+type SharedWeakCountRef uintptr

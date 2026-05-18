@@ -82,14 +82,14 @@ type IMLImageSize interface {
 }
 
 // Init initializes the instance.
-func (i MLImageSize) Init() MLImageSize {
-	rv := objc.Send[MLImageSize](i.ID, objc.Sel("init"))
+func (m MLImageSize) Init() MLImageSize {
+	rv := objc.Send[MLImageSize](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (i MLImageSize) Autorelease() MLImageSize {
-	rv := objc.Send[MLImageSize](i.ID, objc.Sel("autorelease"))
+func (m MLImageSize) Autorelease() MLImageSize {
+	rv := objc.Send[MLImageSize](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -115,20 +115,20 @@ func NewImageSizeWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/isEqualToImageSize:
-func (i MLImageSize) IsEqualToImageSize(size objectivec.IObject) bool {
-	rv := objc.Send[bool](i.ID, objc.Sel("isEqualToImageSize:"), size)
+func (m MLImageSize) IsEqualToImageSize(size objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToImageSize:"), size)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/initWithCoder:
-func (i MLImageSize) InitWithCoder(coder foundation.INSCoder) MLImageSize {
-	rv := objc.Send[MLImageSize](i.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLImageSize) InitWithCoder(coder foundation.INSCoder) MLImageSize {
+	rv := objc.Send[MLImageSize](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/initWithPixelsWide:pixelsHigh:
-func (i MLImageSize) InitWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
-	rv := objc.Send[MLImageSize](i.ID, objc.Sel("initWithPixelsWide:pixelsHigh:"), wide, high)
+func (m MLImageSize) InitWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
+	rv := objc.Send[MLImageSize](m.ID, objc.Sel("initWithPixelsWide:pixelsHigh:"), wide, high)
 	return rv
 }
 

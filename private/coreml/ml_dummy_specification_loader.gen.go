@@ -86,14 +86,14 @@ type IMLDummySpecificationLoader interface {
 }
 
 // Init initializes the instance.
-func (d MLDummySpecificationLoader) Init() MLDummySpecificationLoader {
-	rv := objc.Send[MLDummySpecificationLoader](d.ID, objc.Sel("init"))
+func (m MLDummySpecificationLoader) Init() MLDummySpecificationLoader {
+	rv := objc.Send[MLDummySpecificationLoader](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d MLDummySpecificationLoader) Autorelease() MLDummySpecificationLoader {
-	rv := objc.Send[MLDummySpecificationLoader](d.ID, objc.Sel("autorelease"))
+func (m MLDummySpecificationLoader) Autorelease() MLDummySpecificationLoader {
+	rv := objc.Send[MLDummySpecificationLoader](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -117,25 +117,25 @@ func (_MLDummySpecificationLoaderClass MLDummySpecificationLoaderClass) LoadMode
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/debugDescription
-func (d MLDummySpecificationLoader) DebugDescription() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("debugDescription"))
+func (m MLDummySpecificationLoader) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/description
-func (d MLDummySpecificationLoader) Description() string {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
+func (m MLDummySpecificationLoader) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/hash
-func (d MLDummySpecificationLoader) Hash() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("hash"))
+func (m MLDummySpecificationLoader) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/superclass
-func (d MLDummySpecificationLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](d.ID, objc.Sel("superclass"))
+func (m MLDummySpecificationLoader) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

@@ -288,16 +288,13 @@ func NewMTLSamplerDescriptor() MTLSamplerDescriptor {
 // textures with the following conditions; otherwise, the results of sampling
 // are undefined.
 //
-// - The [MTLSamplerAddressMode.clampToEdge] or
-// [MTLSamplerAddressMode.clampToZero] address mode. - The
+// - The [MTLSamplerAddressModeClampToEdge] or
+// [MTLSamplerAddressModeClampToZero] address mode. - The
 // [MTLSamplerMipFilterNotMipmapped] mipmap filtering option. - [MinFilter]
 // and [MagFilter] need to be equal to each other. - [MaxAnisotropy] needs to
 // be `1`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerDescriptor/normalizedCoordinates
-//
-// [MTLSamplerAddressMode.clampToEdge]: https://developer.apple.com/documentation/Metal/MTLSamplerAddressMode/clampToEdge
-// [MTLSamplerAddressMode.clampToZero]: https://developer.apple.com/documentation/Metal/MTLSamplerAddressMode/clampToZero
 func (s MTLSamplerDescriptor) NormalizedCoordinates() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("normalizedCoordinates"))
 	return rv
@@ -310,11 +307,9 @@ func (s MTLSamplerDescriptor) SetNormalizedCoordinates(value bool) {
 //
 // # Discussion
 //
-// The default value is [MTLSamplerAddressMode.clampToEdge].
+// The default value is [MTLSamplerAddressModeClampToEdge].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerDescriptor/rAddressMode
-//
-// [MTLSamplerAddressMode.clampToEdge]: https://developer.apple.com/documentation/Metal/MTLSamplerAddressMode/clampToEdge
 func (s MTLSamplerDescriptor) RAddressMode() MTLSamplerAddressMode {
 	rv := objc.Send[MTLSamplerAddressMode](s.ID, objc.Sel("rAddressMode"))
 	return MTLSamplerAddressMode(rv)
@@ -327,11 +322,9 @@ func (s MTLSamplerDescriptor) SetRAddressMode(value MTLSamplerAddressMode) {
 //
 // # Discussion
 //
-// The default value is [MTLSamplerAddressMode.clampToEdge].
+// The default value is [MTLSamplerAddressModeClampToEdge].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerDescriptor/sAddressMode
-//
-// [MTLSamplerAddressMode.clampToEdge]: https://developer.apple.com/documentation/Metal/MTLSamplerAddressMode/clampToEdge
 func (s MTLSamplerDescriptor) SAddressMode() MTLSamplerAddressMode {
 	rv := objc.Send[MTLSamplerAddressMode](s.ID, objc.Sel("sAddressMode"))
 	return MTLSamplerAddressMode(rv)
@@ -344,11 +337,9 @@ func (s MTLSamplerDescriptor) SetSAddressMode(value MTLSamplerAddressMode) {
 //
 // # Discussion
 //
-// The default value is [MTLSamplerAddressMode.clampToEdge].
+// The default value is [MTLSamplerAddressModeClampToEdge].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerDescriptor/tAddressMode
-//
-// [MTLSamplerAddressMode.clampToEdge]: https://developer.apple.com/documentation/Metal/MTLSamplerAddressMode/clampToEdge
 func (s MTLSamplerDescriptor) TAddressMode() MTLSamplerAddressMode {
 	rv := objc.Send[MTLSamplerAddressMode](s.ID, objc.Sel("tAddressMode"))
 	return MTLSamplerAddressMode(rv)
@@ -362,11 +353,9 @@ func (s MTLSamplerDescriptor) SetTAddressMode(value MTLSamplerAddressMode) {
 // # Discussion
 //
 // This value is only used when the sampler address mode is
-// [MTLSamplerAddressMode.clampToBorderColor].
+// [MTLSamplerAddressModeClampToBorderColor].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerDescriptor/borderColor
-//
-// [MTLSamplerAddressMode.clampToBorderColor]: https://developer.apple.com/documentation/Metal/MTLSamplerAddressMode/clampToBorderColor
 func (s MTLSamplerDescriptor) BorderColor() MTLSamplerBorderColor {
 	rv := objc.Send[MTLSamplerBorderColor](s.ID, objc.Sel("borderColor"))
 	return MTLSamplerBorderColor(rv)
@@ -498,7 +487,7 @@ func (s MTLSamplerDescriptor) SetMaxAnisotropy(value uint) {
 //
 // The default value is [MTLCompareFunctionNever].
 //
-// The [MTLFeatureSet.iOS_GPUFamily3_v1] and [MTLFeatureSet.iOS_GPUFamily1_v1]
+// The [MTLFeatureSet_iOS_GPUFamily3_v1] and [MTLFeatureSet_iOS_GPUFamily1_v1]
 // feature sets allow you to define a framework-side sampler comparison
 // function for an [MTLSamplerState] instance. All feature sets support
 // shader-side sampler comparison functions, as described in the [Metal
@@ -506,8 +495,6 @@ func (s MTLSamplerDescriptor) SetMaxAnisotropy(value uint) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerDescriptor/compareFunction
 //
-// [MTLFeatureSet.iOS_GPUFamily1_v1]: https://developer.apple.com/documentation/Metal/MTLFeatureSet/iOS_GPUFamily1_v1
-// [MTLFeatureSet.iOS_GPUFamily3_v1]: https://developer.apple.com/documentation/Metal/MTLFeatureSet/iOS_GPUFamily3_v1
 // [Metal Shading Language Specification]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
 func (s MTLSamplerDescriptor) CompareFunction() MTLCompareFunction {
 	rv := objc.Send[MTLCompareFunction](s.ID, objc.Sel("compareFunction"))

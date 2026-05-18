@@ -18,20 +18,12 @@ type CIColorPosterize interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/inputImage
 	InputImage() ICIImage
-
-	// The number of brightness levels to use for each color component.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/levels
-	Levels() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/inputImage
 	SetInputImage(value ICIImage)
 
 	// The number of brightness levels to use for each color component.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/levels
+	Levels() float32
 	SetLevels(value float32)
 }
 
@@ -52,22 +44,6 @@ func CIColorPosterizeObjectFromID(id objc.ID) CIColorPosterizeObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/inputImage
-func (o CIColorPosterizeObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The number of brightness levels to use for each color component.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/levels
-func (o CIColorPosterizeObject) Levels() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("levels"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIColorPosterizeObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/inputImage
+func (o CIColorPosterizeObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIColorPosterizeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIColorPosterizeObject) SetInputImage(value ICIImage) {
 // The number of brightness levels to use for each color component.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/levels
+func (o CIColorPosterizeObject) Levels() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("levels"))
+	return float32(rv)
+}
+
 func (o CIColorPosterizeObject) SetLevels(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLevels:"), value)
 }

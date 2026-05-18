@@ -405,10 +405,6 @@ func NSURLFromID(id objc.ID) NSURL {
 // See: https://developer.apple.com/documentation/Foundation/NSURL
 type INSURL interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSItemProviderReading
-	NSItemProviderWriting
 	NSSecureCoding
 
 	// Topic: Creating a URL object
@@ -555,8 +551,8 @@ type INSURL interface {
 	// Topic: Using Quick Looks
 
 	// A custom playground Quick Look for this instance.
-	CustomPlaygroundQuickLook() objectivec.IObject
-	SetCustomPlaygroundQuickLook(value objectivec.IObject)
+	CustomPlaygroundQuickLook() unsafe.Pointer
+	SetCustomPlaygroundQuickLook(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -1947,6 +1943,15 @@ func (u NSURL) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeId
 	return NSProgressFromID(rv)
 }
 
+// An array of UTI strings representing the types of data that can be loaded
+// for an item provider.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
+func (u NSURL) WritableTypeIdentifiersForItemProvider() []string {
+	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
+	return objc.ConvertSliceToStrings(rv)
+}
+
 // Initializes and returns a newly created NSURL object as a file URL with a
 // specified path.
 //
@@ -2825,34 +2830,12 @@ func (u NSURL) HasDirectoryPath() bool {
 // A custom playground Quick Look for this instance.
 //
 // See: https://developer.apple.com/documentation/foundation/nsurl/customplaygroundquicklook
-func (u NSURL) CustomPlaygroundQuickLook() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("customPlaygroundQuickLook"))
-	return objectivec.Object{ID: rv}
+func (u NSURL) CustomPlaygroundQuickLook() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("customPlaygroundQuickLook"))
+	return rv
 }
-func (u NSURL) SetCustomPlaygroundQuickLook(value objectivec.IObject) {
+func (u NSURL) SetCustomPlaygroundQuickLook(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
-}
-
-// An array of UTI strings representing the types of data that can be loaded
-// for an item provider.
-//
-// # Discussion
-//
-// Provide uniform type identifiers (UTIs) in order from highest fidelity to
-// lowest. If your app employs a native data representation, place that first
-// in the array.
-//
-// Use the instance version of this property when you initialize an item
-// provider with an object. As possible, implement this property to provide an
-// extended array of UTIs based on the object. For example, for an [NSURL]
-// object, your implementation could offer the `public.File()-url` UTI, in
-// addition to the `public.Url()` UTI, if your implementation detects that the
-// stored URL uses the `//` scheme.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
-func (u NSURL) WritableTypeIdentifiersForItemProvider() []string {
-	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
-	return objc.ConvertSliceToStrings(rv)
 }
 
 // Protocol methods for NSCopying

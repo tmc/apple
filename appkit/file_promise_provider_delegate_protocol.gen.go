@@ -26,7 +26,7 @@ type NSFilePromiseProviderDelegate interface {
 	// Writes the contents of a promise to the specified URL.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProviderDelegate/filePromiseProvider(_:writePromiseTo:completionHandler:)
-	FilePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider INSFilePromiseProvider, url foundation.INSURL, completionHandler ErrorHandler)
+	FilePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider INSFilePromiseProvider, url foundation.NSURL, completionHandler ErrorHandler)
 }
 
 // NSFilePromiseProviderDelegateObject wraps an existing Objective-C object that conforms to the NSFilePromiseProviderDelegate protocol.
@@ -84,7 +84,7 @@ func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderFileNameForType(
 //
 // [NSFileCoordinator]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator
 // [OperationQueue]: https://developer.apple.com/documentation/Foundation/OperationQueue
-func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider INSFilePromiseProvider, url foundation.INSURL, completionHandler ErrorHandler) {
+func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider INSFilePromiseProvider, url foundation.NSURL, completionHandler ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("filePromiseProvider:writePromiseToURL:completionHandler:"), filePromiseProvider, url, completionHandler)
 }
 

@@ -18,50 +18,30 @@ type CIPerspectiveRotate interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/focalLength
 	FocalLength() float32
-
-	// The image to process.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/inputImage
-	InputImage() ICIImage
-
-	// The pitch angle, in radians.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/pitch
-	Pitch() float32
-
-	// The roll angle, in radians.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/roll
-	Roll() float32
-
-	// The yaw angle, in radians.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/yaw
-	Yaw() float32
-
-	// The 35mm equivalent focal length of the input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/focalLength
 	SetFocalLength(value float32)
 
 	// The image to process.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The pitch angle, in radians.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/pitch
+	Pitch() float32
 	SetPitch(value float32)
 
 	// The roll angle, in radians.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/roll
+	Roll() float32
 	SetRoll(value float32)
 
 	// The yaw angle, in radians.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/yaw
+	Yaw() float32
 	SetYaw(value float32)
 }
 
@@ -82,46 +62,6 @@ func CIPerspectiveRotateObjectFromID(id objc.ID) CIPerspectiveRotateObject {
 	}
 }
 
-// The 35mm equivalent focal length of the input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/focalLength
-func (o CIPerspectiveRotateObject) FocalLength() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("focalLength"))
-	return rv
-}
-
-// The image to process.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/inputImage
-func (o CIPerspectiveRotateObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The pitch angle, in radians.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/pitch
-func (o CIPerspectiveRotateObject) Pitch() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("pitch"))
-	return rv
-}
-
-// The roll angle, in radians.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/roll
-func (o CIPerspectiveRotateObject) Roll() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("roll"))
-	return rv
-}
-
-// The yaw angle, in radians.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/yaw
-func (o CIPerspectiveRotateObject) Yaw() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("yaw"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -134,6 +74,11 @@ func (o CIPerspectiveRotateObject) OutputImage() ICIImage {
 // The 35mm equivalent focal length of the input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/focalLength
+func (o CIPerspectiveRotateObject) FocalLength() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("focalLength"))
+	return float32(rv)
+}
+
 func (o CIPerspectiveRotateObject) SetFocalLength(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFocalLength:"), value)
 }
@@ -141,6 +86,11 @@ func (o CIPerspectiveRotateObject) SetFocalLength(value float32) {
 // The image to process.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/inputImage
+func (o CIPerspectiveRotateObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPerspectiveRotateObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -148,6 +98,11 @@ func (o CIPerspectiveRotateObject) SetInputImage(value ICIImage) {
 // The pitch angle, in radians.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/pitch
+func (o CIPerspectiveRotateObject) Pitch() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("pitch"))
+	return float32(rv)
+}
+
 func (o CIPerspectiveRotateObject) SetPitch(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPitch:"), value)
 }
@@ -155,6 +110,11 @@ func (o CIPerspectiveRotateObject) SetPitch(value float32) {
 // The roll angle, in radians.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/roll
+func (o CIPerspectiveRotateObject) Roll() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("roll"))
+	return float32(rv)
+}
+
 func (o CIPerspectiveRotateObject) SetRoll(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRoll:"), value)
 }
@@ -162,6 +122,11 @@ func (o CIPerspectiveRotateObject) SetRoll(value float32) {
 // The yaw angle, in radians.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveRotate/yaw
+func (o CIPerspectiveRotateObject) Yaw() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("yaw"))
+	return float32(rv)
+}
+
 func (o CIPerspectiveRotateObject) SetYaw(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setYaw:"), value)
 }

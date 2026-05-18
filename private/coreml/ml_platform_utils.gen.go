@@ -63,14 +63,14 @@ type IMLPlatformUtils interface {
 }
 
 // Init initializes the instance.
-func (p MLPlatformUtils) Init() MLPlatformUtils {
-	rv := objc.Send[MLPlatformUtils](p.ID, objc.Sel("init"))
+func (m MLPlatformUtils) Init() MLPlatformUtils {
+	rv := objc.Send[MLPlatformUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPlatformUtils) Autorelease() MLPlatformUtils {
-	rv := objc.Send[MLPlatformUtils](p.ID, objc.Sel("autorelease"))
+func (m MLPlatformUtils) Autorelease() MLPlatformUtils {
+	rv := objc.Send[MLPlatformUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

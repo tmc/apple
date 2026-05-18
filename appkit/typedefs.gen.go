@@ -710,5 +710,4 @@ type NSWindowTabbingIdentifier = string
 type NSWorkspaceDesktopImageOptionKey = string
 
 // WindowRef is an opaque Carbon window reference.
-
 type WindowRef = unsafe.Pointer

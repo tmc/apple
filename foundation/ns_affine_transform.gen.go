@@ -147,8 +147,6 @@ func NSAffineTransformFromID(id objc.ID) NSAffineTransform {
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform
 type INSAffineTransform interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating an Affine Transform

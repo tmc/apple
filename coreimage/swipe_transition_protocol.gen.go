@@ -20,50 +20,30 @@ type CISwipeTransition interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/angle
 	Angle() float32
-
-	// The color of the swipe.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/color
-	Color() ICIColor
-
-	// The extent of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/extent
-	Extent() corefoundation.CGRect
-
-	// The opacity of the swipe.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/opacity
-	Opacity() float32
-
-	// The width of the swipe.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/width
-	Width() float32
-
-	// The angle of the swipe.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/angle
 	SetAngle(value float32)
 
 	// The color of the swipe.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/color
+	Color() ICIColor
 	SetColor(value ICIColor)
 
 	// The extent of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/extent
+	Extent() corefoundation.CGRect
 	SetExtent(value corefoundation.CGRect)
 
 	// The opacity of the swipe.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/opacity
+	Opacity() float32
 	SetOpacity(value float32)
 
 	// The width of the swipe.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/width
+	Width() float32
 	SetWidth(value float32)
 }
 
@@ -82,46 +62,6 @@ func CISwipeTransitionObjectFromID(id objc.ID) CISwipeTransitionObject {
 	return CISwipeTransitionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The angle of the swipe.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/angle
-func (o CISwipeTransitionObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The color of the swipe.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/color
-func (o CISwipeTransitionObject) Color() ICIColor {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
-	return CIColorFromID(rv)
-}
-
-// The extent of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/extent
-func (o CISwipeTransitionObject) Extent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
-	return rv
-}
-
-// The opacity of the swipe.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/opacity
-func (o CISwipeTransitionObject) Opacity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("opacity"))
-	return rv
-}
-
-// The width of the swipe.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/width
-func (o CISwipeTransitionObject) Width() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("width"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -160,6 +100,11 @@ func (o CISwipeTransitionObject) Time() float32 {
 // The angle of the swipe.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/angle
+func (o CISwipeTransitionObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CISwipeTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -167,6 +112,11 @@ func (o CISwipeTransitionObject) SetAngle(value float32) {
 // The color of the swipe.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/color
+func (o CISwipeTransitionObject) Color() ICIColor {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
+	return CIColorFromID(rv)
+}
+
 func (o CISwipeTransitionObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
@@ -174,6 +124,11 @@ func (o CISwipeTransitionObject) SetColor(value ICIColor) {
 // The extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/extent
+func (o CISwipeTransitionObject) Extent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CISwipeTransitionObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
@@ -181,6 +136,11 @@ func (o CISwipeTransitionObject) SetExtent(value corefoundation.CGRect) {
 // The opacity of the swipe.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/opacity
+func (o CISwipeTransitionObject) Opacity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("opacity"))
+	return float32(rv)
+}
+
 func (o CISwipeTransitionObject) SetOpacity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setOpacity:"), value)
 }
@@ -188,6 +148,11 @@ func (o CISwipeTransitionObject) SetOpacity(value float32) {
 // The width of the swipe.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/width
+func (o CISwipeTransitionObject) Width() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("width"))
+	return float32(rv)
+}
+
 func (o CISwipeTransitionObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }

@@ -91,14 +91,14 @@ type IMLProbabilityDictionarySharedKeySet interface {
 }
 
 // Init initializes the instance.
-func (p MLProbabilityDictionarySharedKeySet) Init() MLProbabilityDictionarySharedKeySet {
-	rv := objc.Send[MLProbabilityDictionarySharedKeySet](p.ID, objc.Sel("init"))
+func (m MLProbabilityDictionarySharedKeySet) Init() MLProbabilityDictionarySharedKeySet {
+	rv := objc.Send[MLProbabilityDictionarySharedKeySet](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLProbabilityDictionarySharedKeySet) Autorelease() MLProbabilityDictionarySharedKeySet {
-	rv := objc.Send[MLProbabilityDictionarySharedKeySet](p.ID, objc.Sel("autorelease"))
+func (m MLProbabilityDictionarySharedKeySet) Autorelease() MLProbabilityDictionarySharedKeySet {
+	rv := objc.Send[MLProbabilityDictionarySharedKeySet](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -117,37 +117,37 @@ func NewProbabilityDictionarySharedKeySetWithLabels(labels objectivec.IObject) M
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionarySharedKeySet/indexOfLabel:
-func (p MLProbabilityDictionarySharedKeySet) IndexOfLabel(label objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("indexOfLabel:"), label)
+func (m MLProbabilityDictionarySharedKeySet) IndexOfLabel(label objectivec.IObject) uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("indexOfLabel:"), label)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionarySharedKeySet/labelAtIndex:
-func (p MLProbabilityDictionarySharedKeySet) LabelAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("labelAtIndex:"), index)
+func (m MLProbabilityDictionarySharedKeySet) LabelAtIndex(index uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionarySharedKeySet/initWithLabels:
-func (p MLProbabilityDictionarySharedKeySet) InitWithLabels(labels objectivec.IObject) MLProbabilityDictionarySharedKeySet {
-	rv := objc.Send[MLProbabilityDictionarySharedKeySet](p.ID, objc.Sel("initWithLabels:"), labels)
+func (m MLProbabilityDictionarySharedKeySet) InitWithLabels(labels objectivec.IObject) MLProbabilityDictionarySharedKeySet {
+	rv := objc.Send[MLProbabilityDictionarySharedKeySet](m.ID, objc.Sel("initWithLabels:"), labels)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionarySharedKeySet/count
-func (p MLProbabilityDictionarySharedKeySet) Count() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("count"))
+func (m MLProbabilityDictionarySharedKeySet) Count() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("count"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionarySharedKeySet/labelEnumerator
-func (p MLProbabilityDictionarySharedKeySet) LabelEnumerator() foundation.NSEnumerator {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("labelEnumerator"))
+func (m MLProbabilityDictionarySharedKeySet) LabelEnumerator() foundation.NSEnumerator {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelEnumerator"))
 	return foundation.NSEnumeratorFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionarySharedKeySet/uniqueLabelCount
-func (p MLProbabilityDictionarySharedKeySet) UniqueLabelCount() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("uniqueLabelCount"))
+func (m MLProbabilityDictionarySharedKeySet) UniqueLabelCount() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("uniqueLabelCount"))
 	return rv
 }

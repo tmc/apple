@@ -98,12 +98,12 @@ type ICIDataMatrixCodeDescriptor interface {
 	// Topic: Creating a Descriptor
 
 	// Initializes a Data Matrix code descriptor for the given payload and parameters.
-	InitWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.INSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor
+	InitWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.NSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor
 
 	// Topic: Examining a Descriptor
 
 	// The error-corrected payload containing the data encoded in the Data Matrix code symbol.
-	ErrorCorrectedPayload() foundation.INSData
+	ErrorCorrectedPayload() foundation.NSData
 	// The number of rows in the Data Matrix code symbol.
 	RowCount() int
 	// The number of columns in the Data Matrix code symbol.
@@ -151,7 +151,7 @@ func NewCIDataMatrixCodeDescriptor() CIDataMatrixCodeDescriptor {
 // See: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/init(payload:rowCount:columnCount:eccVersion:)
 //
 // [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
-func NewDataMatrixCodeDescriptorWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.INSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
+func NewDataMatrixCodeDescriptorWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.NSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
 	instance := getCIDataMatrixCodeDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPayload:rowCount:columnCount:eccVersion:"), errorCorrectedPayload, rowCount, columnCount, eccVersion)
 	return CIDataMatrixCodeDescriptorFromID(rv)
@@ -177,7 +177,7 @@ func NewDataMatrixCodeDescriptorWithPayloadRowCountColumnCountEccVersion(errorCo
 // See: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/init(payload:rowCount:columnCount:eccVersion:)
 //
 // [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
-func (d CIDataMatrixCodeDescriptor) InitWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.INSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
+func (d CIDataMatrixCodeDescriptor) InitWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.NSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
 	rv := objc.Send[CIDataMatrixCodeDescriptor](d.ID, objc.Sel("initWithPayload:rowCount:columnCount:eccVersion:"), errorCorrectedPayload, rowCount, columnCount, eccVersion)
 	return rv
 }
@@ -201,7 +201,7 @@ func (d CIDataMatrixCodeDescriptor) InitWithPayloadRowCountColumnCountEccVersion
 // See: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/descriptorWithPayload:rowCount:columnCount:eccVersion:
 //
 // [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
-func (_CIDataMatrixCodeDescriptorClass CIDataMatrixCodeDescriptorClass) DescriptorWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.INSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
+func (_CIDataMatrixCodeDescriptorClass CIDataMatrixCodeDescriptorClass) DescriptorWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.NSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_CIDataMatrixCodeDescriptorClass.class), objc.Sel("descriptorWithPayload:rowCount:columnCount:eccVersion:"), errorCorrectedPayload, rowCount, columnCount, eccVersion)
 	return CIDataMatrixCodeDescriptorFromID(rv)
 }
@@ -220,7 +220,7 @@ func (_CIDataMatrixCodeDescriptorClass CIDataMatrixCodeDescriptorClass) Descript
 // end of Step 1: Data encodation.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/errorCorrectedPayload-swift.property
-func (d CIDataMatrixCodeDescriptor) ErrorCorrectedPayload() foundation.INSData {
+func (d CIDataMatrixCodeDescriptor) ErrorCorrectedPayload() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("errorCorrectedPayload"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

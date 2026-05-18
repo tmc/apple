@@ -89,14 +89,14 @@ type IMLCustomModelWrapper interface {
 }
 
 // Init initializes the instance.
-func (c MLCustomModelWrapper) Init() MLCustomModelWrapper {
-	rv := objc.Send[MLCustomModelWrapper](c.ID, objc.Sel("init"))
+func (m MLCustomModelWrapper) Init() MLCustomModelWrapper {
+	rv := objc.Send[MLCustomModelWrapper](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCustomModelWrapper) Autorelease() MLCustomModelWrapper {
-	rv := objc.Send[MLCustomModelWrapper](c.ID, objc.Sel("autorelease"))
+func (m MLCustomModelWrapper) Autorelease() MLCustomModelWrapper {
+	rv := objc.Send[MLCustomModelWrapper](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -167,9 +167,9 @@ func NewCustomModelWrapperWithNameInputDescriptionOutputDescriptionOrderedInputF
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/predictionFromFeatures:options:error:
-func (c MLCustomModelWrapper) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLCustomModelWrapper) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -179,9 +179,9 @@ func (c MLCustomModelWrapper) PredictionFromFeaturesOptionsError(features object
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/predictionsFromBatch:options:error:
-func (c MLCustomModelWrapper) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLCustomModelWrapper) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -191,16 +191,16 @@ func (c MLCustomModelWrapper) PredictionsFromBatchOptionsError(batch objectivec.
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/initWithModelDescription:customModel:configuration:
-func (c MLCustomModelWrapper) InitWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
-	rv := objc.Send[MLCustomModelWrapper](c.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
+func (m MLCustomModelWrapper) InitWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
+	rv := objc.Send[MLCustomModelWrapper](m.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/customModel
-func (c MLCustomModelWrapper) CustomModel() objectivec.Object {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("customModel"))
+func (m MLCustomModelWrapper) CustomModel() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("customModel"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (c MLCustomModelWrapper) SetCustomModel(value objectivec.Object) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCustomModel:"), value)
+func (m MLCustomModelWrapper) SetCustomModel(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setCustomModel:"), value)
 }

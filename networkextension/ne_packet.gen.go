@@ -90,11 +90,11 @@ type INEPacket interface {
 
 	// Topic: Initializing a packet
 
-	InitWithDataProtocolFamily(data foundation.INSData, protocolFamily uint8) NEPacket
+	InitWithDataProtocolFamily(data foundation.NSData, protocolFamily uint8) NEPacket
 
 	// Topic: Accessing packet properties
 
-	Data() foundation.INSData
+	Data() foundation.NSData
 	Metadata() INEFlowMetaData
 	ProtocolFamily() uint8
 	// The direction of the packet.
@@ -123,14 +123,14 @@ func NewNEPacket() NEPacket {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacket/init(data:protocolFamily:)
-func NewPacketWithDataProtocolFamily(data foundation.INSData, protocolFamily uint8) NEPacket {
+func NewPacketWithDataProtocolFamily(data foundation.NSData, protocolFamily uint8) NEPacket {
 	instance := getNEPacketClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:protocolFamily:"), data, protocolFamily)
 	return NEPacketFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacket/init(data:protocolFamily:)
-func (p NEPacket) InitWithDataProtocolFamily(data foundation.INSData, protocolFamily uint8) NEPacket {
+func (p NEPacket) InitWithDataProtocolFamily(data foundation.NSData, protocolFamily uint8) NEPacket {
 	rv := objc.Send[NEPacket](p.ID, objc.Sel("initWithData:protocolFamily:"), data, protocolFamily)
 	return rv
 }
@@ -139,7 +139,7 @@ func (p NEPacket) EncodeWithCoder(coder foundation.INSCoder) {
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacket/data
-func (p NEPacket) Data() foundation.INSData {
+func (p NEPacket) Data() foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

@@ -250,8 +250,15 @@ func (v AVVideoCompositionInstruction) SetInstructions(value objc.ID) {
 
 // A Boolean value that indicates whether the composition contains tweening.
 //
+// # Discussion
+//
+// A value of true indicates that rendering a frame from the same source
+// buffers and the same composition instruction at two different
+// [CompositionTime] values may yield different output frames. A value of
+// false indicates that two compositions yield the same frame.
+//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/containsTweening
 func (o AVVideoCompositionInstruction) ContainsTweening() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("containsTweening"))
-	return rv
+	return bool(rv)
 }

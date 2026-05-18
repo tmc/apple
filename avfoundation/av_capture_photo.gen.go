@@ -146,7 +146,7 @@ type IAVCapturePhoto interface {
 	// Topic: Packaging data for file output
 
 	// Generates and returns a flat data representation of the photo and its attachments.
-	FileDataRepresentation() foundation.INSData
+	FileDataRepresentation() foundation.NSData
 	// Extracts and returns the captured photo’s primary image as a Core Graphics image object.
 	CGImageRepresentation() coregraphics.CGImageRef
 
@@ -200,7 +200,7 @@ func NewAVCapturePhoto() AVCapturePhoto {
 // of that type.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/fileDataRepresentation()
-func (c AVCapturePhoto) FileDataRepresentation() foundation.INSData {
+func (c AVCapturePhoto) FileDataRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("fileDataRepresentation"))
 	return foundation.NSDataFromID(rv)
 }

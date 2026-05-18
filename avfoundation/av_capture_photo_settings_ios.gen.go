@@ -417,6 +417,28 @@ func (c AVCapturePhotoSettings) SetPreviewPhotoFormat(value foundation.INSDictio
 	objc.Send[struct{}](c.ID, objc.Sel("setPreviewPhotoFormat:"), value)
 }
 
+// An array of pixel format types compatible with the photo settings for
+// delivery of preview-sized images.
+//
+// # Discussion
+//
+// To enable delivery of preview-sized images along with the main image
+// captured by a photo output, set the [PreviewPhotoFormat] property using one
+// of the [kCVPixelBufferPixelFormatTypeKey] values listed in this array.
+//
+// The order of this array is such that the format requiring the least
+// conversion is listed first.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/availablePreviewPhotoPixelFormatTypes-2vfwu
+//
+// [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
+func (c AVCapturePhotoSettings) AvailablePreviewPhotoPixelFormatTypes() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availablePreviewPhotoPixelFormatTypes"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+
 // A dictionary describing the format for delivery of thumbnail images
 // embedded in photo file output.
 //
@@ -512,11 +534,11 @@ func (c AVCapturePhotoSettings) AvailableEmbeddedThumbnailPhotoCodecTypes() []st
 // don’t meet these requirements, that method raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/livePhotoMovieFileURL
-func (c AVCapturePhotoSettings) LivePhotoMovieFileURL() foundation.INSURL {
+func (c AVCapturePhotoSettings) LivePhotoMovieFileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("livePhotoMovieFileURL"))
 	return foundation.NSURLFromID(rv)
 }
-func (c AVCapturePhotoSettings) SetLivePhotoMovieFileURL(value foundation.INSURL) {
+func (c AVCapturePhotoSettings) SetLivePhotoMovieFileURL(value foundation.NSURL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLivePhotoMovieFileURL:"), value)
 }
 
@@ -753,26 +775,4 @@ func (c AVCapturePhotoSettings) RawFileFormat() foundation.INSDictionary {
 }
 func (c AVCapturePhotoSettings) SetRawFileFormat(value foundation.INSDictionary) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRawFileFormat:"), value)
-}
-
-// An array of pixel format types compatible with the photo settings for
-// delivery of preview-sized images.
-//
-// # Discussion
-//
-// To enable delivery of preview-sized images along with the main image
-// captured by a photo output, set the [PreviewPhotoFormat] property using one
-// of the [kCVPixelBufferPixelFormatTypeKey] values listed in this array.
-//
-// The order of this array is such that the format requiring the least
-// conversion is listed first.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/availablePreviewPhotoPixelFormatTypes-2vfwu
-//
-// [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
-func (c AVCapturePhotoSettings) AvailablePreviewPhotoPixelFormatTypes() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availablePreviewPhotoPixelFormatTypes"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
 }

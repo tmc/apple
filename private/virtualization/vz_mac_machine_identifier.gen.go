@@ -94,14 +94,14 @@ type IVZMacMachineIdentifier interface {
 }
 
 // Init initializes the instance.
-func (m VZMacMachineIdentifier) Init() VZMacMachineIdentifier {
-	rv := objc.Send[VZMacMachineIdentifier](m.ID, objc.Sel("init"))
+func (v VZMacMachineIdentifier) Init() VZMacMachineIdentifier {
+	rv := objc.Send[VZMacMachineIdentifier](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacMachineIdentifier) Autorelease() VZMacMachineIdentifier {
-	rv := objc.Send[VZMacMachineIdentifier](m.ID, objc.Sel("autorelease"))
+func (v VZMacMachineIdentifier) Autorelease() VZMacMachineIdentifier {
+	rv := objc.Send[VZMacMachineIdentifier](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -213,46 +213,46 @@ func (_VZMacMachineIdentifierClass VZMacMachineIdentifierClass) CanMachineIdenti
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_ECID
-func (m VZMacMachineIdentifier) _ECID() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("_ECID"))
+func (v VZMacMachineIdentifier) _ECID() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("_ECID"))
 	return rv
 }
 
 // CanECID reports whether the receiver responds to the private selector _ECID.
-func (m VZMacMachineIdentifier) CanECID() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_ECID"))
+func (v VZMacMachineIdentifier) CanECID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_ECID"))
 }
 
 // ECID is an exported wrapper for the private property _ECID.
-func (m VZMacMachineIdentifier) ECID() (uint64, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_ECID")) {
+func (v VZMacMachineIdentifier) ECID() (uint64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_ECID")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_ECID"}
 	}
-	return m._ECID(), nil
+	return v._ECID(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_ECIDChecksDisabled
-func (m VZMacMachineIdentifier) _ECIDChecksDisabled() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_ECIDChecksDisabled"))
+func (v VZMacMachineIdentifier) _ECIDChecksDisabled() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("_ECIDChecksDisabled"))
 	return rv
 }
 
 // CanECIDChecksDisabled reports whether the receiver responds to the private selector _ECIDChecksDisabled.
-func (m VZMacMachineIdentifier) CanECIDChecksDisabled() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_ECIDChecksDisabled"))
+func (v VZMacMachineIdentifier) CanECIDChecksDisabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_ECIDChecksDisabled"))
 }
 
 // ECIDChecksDisabled is an exported wrapper for the private property _ECIDChecksDisabled.
-func (m VZMacMachineIdentifier) ECIDChecksDisabled() (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_ECIDChecksDisabled")) {
+func (v VZMacMachineIdentifier) ECIDChecksDisabled() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_ECIDChecksDisabled")) {
 		return false, &objc.UnrecognizedSelectorError{Selector: "_ECIDChecksDisabled"}
 	}
-	return m._ECIDChecksDisabled(), nil
+	return v._ECIDChecksDisabled(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_serialNumber
-func (m VZMacMachineIdentifier) _serialNumber() *VZMacSerialNumber {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_serialNumber"))
+func (v VZMacMachineIdentifier) _serialNumber() *VZMacSerialNumber {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_serialNumber"))
 	if rv == 0 {
 		return nil
 	}
@@ -261,38 +261,38 @@ func (m VZMacMachineIdentifier) _serialNumber() *VZMacSerialNumber {
 }
 
 // CanSerialNumber reports whether the receiver responds to the private selector _serialNumber.
-func (m VZMacMachineIdentifier) CanSerialNumber() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_serialNumber"))
+func (v VZMacMachineIdentifier) CanSerialNumber() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_serialNumber"))
 }
 
 // SerialNumber is an exported wrapper for the private property _serialNumber.
-func (m VZMacMachineIdentifier) SerialNumber() (*VZMacSerialNumber, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_serialNumber")) {
+func (v VZMacMachineIdentifier) SerialNumber() (*VZMacSerialNumber, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_serialNumber")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_serialNumber"}
 	}
-	return m._serialNumber(), nil
+	return v._serialNumber(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/debugDescription
-func (m VZMacMachineIdentifier) DebugDescription() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
+func (v VZMacMachineIdentifier) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/description
-func (m VZMacMachineIdentifier) Description() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
+func (v VZMacMachineIdentifier) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/hash
-func (m VZMacMachineIdentifier) Hash() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
+func (v VZMacMachineIdentifier) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/superclass
-func (m VZMacMachineIdentifier) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
+func (v VZMacMachineIdentifier) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

@@ -91,14 +91,14 @@ type IVZAudioInputStreamSource interface {
 }
 
 // Init initializes the instance.
-func (a VZAudioInputStreamSource) Init() VZAudioInputStreamSource {
-	rv := objc.Send[VZAudioInputStreamSource](a.ID, objc.Sel("init"))
+func (v VZAudioInputStreamSource) Init() VZAudioInputStreamSource {
+	rv := objc.Send[VZAudioInputStreamSource](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a VZAudioInputStreamSource) Autorelease() VZAudioInputStreamSource {
-	rv := objc.Send[VZAudioInputStreamSource](a.ID, objc.Sel("autorelease"))
+func (v VZAudioInputStreamSource) Autorelease() VZAudioInputStreamSource {
+	rv := objc.Send[VZAudioInputStreamSource](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,50 +110,50 @@ func NewVZAudioInputStreamSource() VZAudioInputStreamSource {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/_init
-func (a VZAudioInputStreamSource) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("_init"))
+func (v VZAudioInputStreamSource) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/_attachment
-func (a VZAudioInputStreamSource) _attachment() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("_attachment"))
+func (v VZAudioInputStreamSource) _attachment() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
 }
 
 // CanAttachment reports whether the receiver responds to the private selector _attachment.
-func (a VZAudioInputStreamSource) CanAttachment() bool {
-	return objc.RespondsToSelector(a.ID, objc.Sel("_attachment"))
+func (v VZAudioInputStreamSource) CanAttachment() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_attachment"))
 }
 
 // Attachment is an exported wrapper for the private property _attachment.
-func (a VZAudioInputStreamSource) Attachment() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(a.ID, objc.Sel("_attachment")) {
+func (v VZAudioInputStreamSource) Attachment() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_attachment")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
 	}
-	return a._attachment(), nil
+	return v._attachment(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/debugDescription
-func (a VZAudioInputStreamSource) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+func (v VZAudioInputStreamSource) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/description
-func (a VZAudioInputStreamSource) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+func (v VZAudioInputStreamSource) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/hash
-func (a VZAudioInputStreamSource) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+func (v VZAudioInputStreamSource) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/superclass
-func (a VZAudioInputStreamSource) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
+func (v VZAudioInputStreamSource) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

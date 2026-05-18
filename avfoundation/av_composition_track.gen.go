@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
@@ -55,13 +56,13 @@ func (ac AVCompositionTrackClass) Alloc() AVCompositionTrack {
 // # Accessing track information
 //
 //   - [AVCompositionTrack.IsPlayable]: A Boolean value that indicates whether the track is playable in the current environment.
-//   - [AVCompositionTrack.SetIsPlayable]
+//   - [AVCompositionTrack.SetPlayable]
 //   - [AVCompositionTrack.IsDecodable]: A Boolean value that indicates whether the track is decodable in the current environment.
-//   - [AVCompositionTrack.SetIsDecodable]
+//   - [AVCompositionTrack.SetDecodable]
 //   - [AVCompositionTrack.IsEnabled]: A Boolean value that indicates whether the track’s container enables it.
-//   - [AVCompositionTrack.SetIsEnabled]
+//   - [AVCompositionTrack.SetEnabled]
 //   - [AVCompositionTrack.IsSelfContained]: A Boolean value that indicates whether this track references sample data only within its container file.
-//   - [AVCompositionTrack.SetIsSelfContained]
+//   - [AVCompositionTrack.SetSelfContained]
 //   - [AVCompositionTrack.TotalSampleDataLength]: The total number of bytes of sample data the track requires.
 //   - [AVCompositionTrack.SetTotalSampleDataLength]
 //   - [AVCompositionTrack.HasMediaCharacteristic]: Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
@@ -158,13 +159,13 @@ func AVCompositionTrackFromID(id objc.ID) AVCompositionTrack {
 // # Accessing track information
 //
 //   - [IAVCompositionTrack.IsPlayable]: A Boolean value that indicates whether the track is playable in the current environment.
-//   - [IAVCompositionTrack.SetIsPlayable]
+//   - [IAVCompositionTrack.SetPlayable]
 //   - [IAVCompositionTrack.IsDecodable]: A Boolean value that indicates whether the track is decodable in the current environment.
-//   - [IAVCompositionTrack.SetIsDecodable]
+//   - [IAVCompositionTrack.SetDecodable]
 //   - [IAVCompositionTrack.IsEnabled]: A Boolean value that indicates whether the track’s container enables it.
-//   - [IAVCompositionTrack.SetIsEnabled]
+//   - [IAVCompositionTrack.SetEnabled]
 //   - [IAVCompositionTrack.IsSelfContained]: A Boolean value that indicates whether this track references sample data only within its container file.
-//   - [IAVCompositionTrack.SetIsSelfContained]
+//   - [IAVCompositionTrack.SetSelfContained]
 //   - [IAVCompositionTrack.TotalSampleDataLength]: The total number of bytes of sample data the track requires.
 //   - [IAVCompositionTrack.SetTotalSampleDataLength]
 //   - [IAVCompositionTrack.HasMediaCharacteristic]: Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
@@ -249,19 +250,19 @@ type IAVCompositionTrack interface {
 
 	// A Boolean value that indicates whether the track is playable in the current environment.
 	IsPlayable() bool
-	SetIsPlayable(value bool)
+	SetPlayable(value bool)
 	// A Boolean value that indicates whether the track is decodable in the current environment.
 	IsDecodable() bool
-	SetIsDecodable(value bool)
+	SetDecodable(value bool)
 	// A Boolean value that indicates whether the track’s container enables it.
 	IsEnabled() bool
-	SetIsEnabled(value bool)
+	SetEnabled(value bool)
 	// A Boolean value that indicates whether this track references sample data only within its container file.
 	IsSelfContained() bool
-	SetIsSelfContained(value bool)
+	SetSelfContained(value bool)
 	// The total number of bytes of sample data the track requires.
-	TotalSampleDataLength() objectivec.IObject
-	SetTotalSampleDataLength(value objectivec.IObject)
+	TotalSampleDataLength() unsafe.Pointer
+	SetTotalSampleDataLength(value unsafe.Pointer)
 	// Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 	HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool
 
@@ -484,7 +485,7 @@ func (c AVCompositionTrack) IsPlayable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPlayable"))
 	return rv
 }
-func (c AVCompositionTrack) SetIsPlayable(value bool) {
+func (c AVCompositionTrack) SetPlayable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPlayable:"), value)
 }
 
@@ -501,7 +502,7 @@ func (c AVCompositionTrack) IsDecodable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDecodable"))
 	return rv
 }
-func (c AVCompositionTrack) SetIsDecodable(value bool) {
+func (c AVCompositionTrack) SetDecodable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDecodable:"), value)
 }
 
@@ -517,7 +518,7 @@ func (c AVCompositionTrack) IsEnabled() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEnabled"))
 	return rv
 }
-func (c AVCompositionTrack) SetIsEnabled(value bool) {
+func (c AVCompositionTrack) SetEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEnabled:"), value)
 }
 
@@ -529,7 +530,7 @@ func (c AVCompositionTrack) IsSelfContained() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSelfContained"))
 	return rv
 }
-func (c AVCompositionTrack) SetIsSelfContained(value bool) {
+func (c AVCompositionTrack) SetSelfContained(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelfContained:"), value)
 }
 
@@ -541,11 +542,11 @@ func (c AVCompositionTrack) SetIsSelfContained(value bool) {
 // data length.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/totalSampleDataLength
-func (c AVCompositionTrack) TotalSampleDataLength() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("totalSampleDataLength"))
-	return objectivec.Object{ID: rv}
+func (c AVCompositionTrack) TotalSampleDataLength() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("totalSampleDataLength"))
+	return rv
 }
-func (c AVCompositionTrack) SetTotalSampleDataLength(value objectivec.IObject) {
+func (c AVCompositionTrack) SetTotalSampleDataLength(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTotalSampleDataLength:"), value)
 }
 

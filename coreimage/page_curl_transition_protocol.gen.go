@@ -20,50 +20,30 @@ type CIPageCurlTransition interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/angle
 	Angle() float32
-
-	// The image that appears on the back of the source image as the page curls to reveal the target image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/backsideImage
-	BacksideImage() ICIImage
-
-	// The extent of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/extent
-	Extent() corefoundation.CGRect
-
-	// The radius of the curl.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/radius
-	Radius() float32
-
-	// An image that looks like a shaded sphere enclosed in a square.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/shadingImage
-	ShadingImage() ICIImage
-
-	// The angle of the curling page.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/angle
 	SetAngle(value float32)
 
 	// The image that appears on the back of the source image as the page curls to reveal the target image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/backsideImage
+	BacksideImage() ICIImage
 	SetBacksideImage(value ICIImage)
 
 	// The extent of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/extent
+	Extent() corefoundation.CGRect
 	SetExtent(value corefoundation.CGRect)
 
 	// The radius of the curl.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/radius
+	Radius() float32
 	SetRadius(value float32)
 
 	// An image that looks like a shaded sphere enclosed in a square.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/shadingImage
+	ShadingImage() ICIImage
 	SetShadingImage(value ICIImage)
 }
 
@@ -82,47 +62,6 @@ func CIPageCurlTransitionObjectFromID(id objc.ID) CIPageCurlTransitionObject {
 	return CIPageCurlTransitionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The angle of the curling page.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/angle
-func (o CIPageCurlTransitionObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The image that appears on the back of the source image as the page curls to
-// reveal the target image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/backsideImage
-func (o CIPageCurlTransitionObject) BacksideImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("backsideImage"))
-	return CIImageFromID(rv)
-}
-
-// The extent of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/extent
-func (o CIPageCurlTransitionObject) Extent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
-	return rv
-}
-
-// The radius of the curl.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/radius
-func (o CIPageCurlTransitionObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
-// An image that looks like a shaded sphere enclosed in a square.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/shadingImage
-func (o CIPageCurlTransitionObject) ShadingImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
-	return CIImageFromID(rv)
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -161,6 +100,11 @@ func (o CIPageCurlTransitionObject) Time() float32 {
 // The angle of the curling page.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/angle
+func (o CIPageCurlTransitionObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CIPageCurlTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -169,6 +113,11 @@ func (o CIPageCurlTransitionObject) SetAngle(value float32) {
 // reveal the target image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/backsideImage
+func (o CIPageCurlTransitionObject) BacksideImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("backsideImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPageCurlTransitionObject) SetBacksideImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBacksideImage:"), value)
 }
@@ -176,6 +125,11 @@ func (o CIPageCurlTransitionObject) SetBacksideImage(value ICIImage) {
 // The extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/extent
+func (o CIPageCurlTransitionObject) Extent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CIPageCurlTransitionObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
@@ -183,6 +137,11 @@ func (o CIPageCurlTransitionObject) SetExtent(value corefoundation.CGRect) {
 // The radius of the curl.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/radius
+func (o CIPageCurlTransitionObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIPageCurlTransitionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
@@ -190,6 +149,11 @@ func (o CIPageCurlTransitionObject) SetRadius(value float32) {
 // An image that looks like a shaded sphere enclosed in a square.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/shadingImage
+func (o CIPageCurlTransitionObject) ShadingImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPageCurlTransitionObject) SetShadingImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadingImage:"), value)
 }

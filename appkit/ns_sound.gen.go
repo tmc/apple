@@ -159,7 +159,6 @@ func NSSoundFromID(id objc.ID) NSSound {
 // See: https://developer.apple.com/documentation/AppKit/NSSound
 type INSSound interface {
 	objectivec.IObject
-	NSPasteboardWriting
 
 	// Topic: Detecting When a Sound Finishes Playing
 
@@ -172,9 +171,9 @@ type INSSound interface {
 	// Initializes the receiver with the audio data located at a given filepath.
 	InitWithContentsOfFileByReference(path string, byRef bool) NSSound
 	// Initializes the receiver with the audio data located at a given URL.
-	InitWithContentsOfURLByReference(url foundation.INSURL, byRef bool) NSSound
+	InitWithContentsOfURLByReference(url foundation.NSURL, byRef bool) NSSound
 	// Initializes the receiver with a given audio data.
-	InitWithData(data foundation.INSData) NSSound
+	InitWithData(data foundation.NSData) NSSound
 	// Initializes the receiver with data from a pasteboard. The pasteboard should contain a type returned by [NSSound](<doc://com.apple.appkit/documentation/AppKit/NSSound>). [NSSound] expects the data to have a proper magic number, sound header, and data for the formats it supports.
 	InitWithPasteboard(pasteboard INSPasteboard) NSSound
 
@@ -318,7 +317,7 @@ func NewSoundWithContentsOfFileByReference(path string, byRef bool) NSSound {
 // See: https://developer.apple.com/documentation/AppKit/NSSound/init(contentsOf:byReference:)
 //
 // [encode(with:)]: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func NewSoundWithContentsOfURLByReference(url foundation.INSURL, byRef bool) NSSound {
+func NewSoundWithContentsOfURLByReference(url foundation.NSURL, byRef bool) NSSound {
 	instance := getNSSoundClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:byReference:"), url, byRef)
 	return NSSoundFromID(rv)
@@ -335,7 +334,7 @@ func NewSoundWithContentsOfURLByReference(url foundation.INSURL, byRef bool) NSS
 // Initialized [NSSound] instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSound/init(data:)
-func NewSoundWithData(data foundation.INSData) NSSound {
+func NewSoundWithData(data foundation.NSData) NSSound {
 	instance := getNSSoundClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return NSSoundFromID(rv)
@@ -428,7 +427,7 @@ func (s NSSound) InitWithContentsOfFileByReference(path string, byRef bool) NSSo
 // See: https://developer.apple.com/documentation/AppKit/NSSound/init(contentsOf:byReference:)
 //
 // [encode(with:)]: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (s NSSound) InitWithContentsOfURLByReference(url foundation.INSURL, byRef bool) NSSound {
+func (s NSSound) InitWithContentsOfURLByReference(url foundation.NSURL, byRef bool) NSSound {
 	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithContentsOfURL:byReference:"), url, byRef)
 	return rv
 }
@@ -444,7 +443,7 @@ func (s NSSound) InitWithContentsOfURLByReference(url foundation.INSURL, byRef b
 // Initialized [NSSound] instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSound/init(data:)
-func (s NSSound) InitWithData(data foundation.INSData) NSSound {
+func (s NSSound) InitWithData(data foundation.NSData) NSSound {
 	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithData:"), data)
 	return rv
 }

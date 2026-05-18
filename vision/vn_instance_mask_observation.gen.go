@@ -144,7 +144,7 @@ func (i VNInstanceMaskObservation) GenerateMaskForInstancesError(instances found
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("generateMaskForInstances:error:"), instances, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -170,7 +170,7 @@ func (i VNInstanceMaskObservation) GenerateMaskedImageOfInstancesFromRequestHand
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("generateMaskedImageOfInstances:fromRequestHandler:croppedToInstancesExtent:error:"), instances, requestHandler, cropResult, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -193,7 +193,7 @@ func (i VNInstanceMaskObservation) GenerateScaledMaskForImageForInstancesFromReq
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("generateScaledMaskForImageForInstances:fromRequestHandler:error:"), instances, requestHandler, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 

@@ -88,14 +88,14 @@ type IPKGCoreUITransaction interface {
 }
 
 // Init initializes the instance.
-func (g PKGCoreUITransaction) Init() PKGCoreUITransaction {
-	rv := objc.Send[PKGCoreUITransaction](g.ID, objc.Sel("init"))
+func (p PKGCoreUITransaction) Init() PKGCoreUITransaction {
+	rv := objc.Send[PKGCoreUITransaction](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g PKGCoreUITransaction) Autorelease() PKGCoreUITransaction {
-	rv := objc.Send[PKGCoreUITransaction](g.ID, objc.Sel("autorelease"))
+func (p PKGCoreUITransaction) Autorelease() PKGCoreUITransaction {
+	rv := objc.Send[PKGCoreUITransaction](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -114,69 +114,69 @@ func NewGCoreUITransactionWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransac
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/_layerUpdateKeyForOptions:
-func (g PKGCoreUITransaction) _layerUpdateKeyForOptions(options objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_layerUpdateKeyForOptions:"), options)
+func (p PKGCoreUITransaction) _layerUpdateKeyForOptions(options objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("_layerUpdateKeyForOptions:"), options)
 	return objectivec.Object{ID: rv}
 }
 
 // LayerUpdateKeyForOptions is an exported wrapper for the private method _layerUpdateKeyForOptions.
-func (g PKGCoreUITransaction) LayerUpdateKeyForOptions(options objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_layerUpdateKeyForOptions:")) {
+func (p PKGCoreUITransaction) LayerUpdateKeyForOptions(options objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(p.ID, objc.Sel("_layerUpdateKeyForOptions:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_layerUpdateKeyForOptions:"}
 		return nil, err
 	}
-	return g._layerUpdateKeyForOptions(options), nil
+	return p._layerUpdateKeyForOptions(options), nil
 }
 
 // CanLayerUpdateKeyForOptions reports whether the receiver responds to the private selector _layerUpdateKeyForOptions:.
-func (g PKGCoreUITransaction) CanLayerUpdateKeyForOptions() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_layerUpdateKeyForOptions:"))
+func (p PKGCoreUITransaction) CanLayerUpdateKeyForOptions() bool {
+	return objc.RespondsToSelector(p.ID, objc.Sel("_layerUpdateKeyForOptions:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/_scheduleRendererWork:mainThreadWork:
-func (g PKGCoreUITransaction) _scheduleRendererWorkMainThreadWork(work VoidHandler, work2 VoidHandler) {
+func (p PKGCoreUITransaction) _scheduleRendererWorkMainThreadWork(work VoidHandler, work2 VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
 	_block1, _ := NewVoidBlock(work2)
-	objc.Send[objc.ID](g.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"), _block0, _block1)
+	objc.Send[objc.ID](p.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"), _block0, _block1)
 }
 
 // ScheduleRendererWorkMainThreadWork is an exported wrapper for the private method _scheduleRendererWorkMainThreadWork.
-func (g PKGCoreUITransaction) ScheduleRendererWorkMainThreadWork(work VoidHandler, work2 VoidHandler) error {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:")) {
+func (p PKGCoreUITransaction) ScheduleRendererWorkMainThreadWork(work VoidHandler, work2 VoidHandler) error {
+	if !objc.RespondsToSelector(p.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_scheduleRendererWork:mainThreadWork:"}
 		return err
 	}
-	g._scheduleRendererWorkMainThreadWork(work, work2)
+	p._scheduleRendererWorkMainThreadWork(work, work2)
 	return nil
 }
 
 // CanScheduleRendererWorkMainThreadWork reports whether the receiver responds to the private selector _scheduleRendererWork:mainThreadWork:.
-func (g PKGCoreUITransaction) CanScheduleRendererWorkMainThreadWork() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"))
+func (p PKGCoreUITransaction) CanScheduleRendererWorkMainThreadWork() bool {
+	return objc.RespondsToSelector(p.ID, objc.Sel("_scheduleRendererWork:mainThreadWork:"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/commit
-func (g PKGCoreUITransaction) Commit() {
-	objc.Send[objc.ID](g.ID, objc.Sel("commit"))
+func (p PKGCoreUITransaction) Commit() {
+	objc.Send[objc.ID](p.ID, objc.Sel("commit"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/updateLayer:key:rendererWork:
-func (g PKGCoreUITransaction) UpdateLayerKeyRendererWork(layer objectivec.IObject, key objectivec.IObject, work VoidHandler) {
+func (p PKGCoreUITransaction) UpdateLayerKeyRendererWork(layer objectivec.IObject, key objectivec.IObject, work VoidHandler) {
 	_block2, _ := NewVoidBlock(work)
-	objc.Send[objc.ID](g.ID, objc.Sel("updateLayer:key:rendererWork:"), layer, key, _block2)
+	objc.Send[objc.ID](p.ID, objc.Sel("updateLayer:key:rendererWork:"), layer, key, _block2)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUITransaction/initWithTheme:useAX:
-func (g PKGCoreUITransaction) InitWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransaction {
-	rv := objc.Send[PKGCoreUITransaction](g.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
+func (p PKGCoreUITransaction) InitWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransaction {
+	rv := objc.Send[PKGCoreUITransaction](p.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
 	return rv
 }
 
 // _scheduleRendererWorkMainThreadWorkSync is a synchronous wrapper around [PKGCoreUITransaction._scheduleRendererWorkMainThreadWork].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g PKGCoreUITransaction) _scheduleRendererWorkMainThreadWorkSync(ctx context.Context, work VoidHandler) error {
+func (p PKGCoreUITransaction) _scheduleRendererWorkMainThreadWorkSync(ctx context.Context, work VoidHandler) error {
 	done := make(chan struct{}, 1)
-	g._scheduleRendererWorkMainThreadWork(work, func() {
+	p._scheduleRendererWorkMainThreadWork(work, func() {
 		done <- struct{}{}
 	})
 	select {
@@ -189,9 +189,9 @@ func (g PKGCoreUITransaction) _scheduleRendererWorkMainThreadWorkSync(ctx contex
 
 // UpdateLayerKeyRendererWorkSync is a synchronous wrapper around [PKGCoreUITransaction.UpdateLayerKeyRendererWork].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g PKGCoreUITransaction) UpdateLayerKeyRendererWorkSync(ctx context.Context, layer objectivec.IObject, key objectivec.IObject) error {
+func (p PKGCoreUITransaction) UpdateLayerKeyRendererWorkSync(ctx context.Context, layer objectivec.IObject, key objectivec.IObject) error {
 	done := make(chan struct{}, 1)
-	g.UpdateLayerKeyRendererWork(layer, key, func() {
+	p.UpdateLayerKeyRendererWork(layer, key, func() {
 		done <- struct{}{}
 	})
 	select {

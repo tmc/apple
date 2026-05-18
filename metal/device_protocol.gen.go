@@ -18,16 +18,6 @@ import (
 type MTLDevice interface {
 	objectivec.IObject
 
-	// The maximum number of concurrent compilation tasks the device is running.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLDevice/maximumConcurrentCompilationTaskCount
-	MaximumConcurrentCompilationTaskCount() uint
-
-	// A Boolean value that indicates whether the device uses additional CPU threads for compilation tasks.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLDevice/shouldMaximizeConcurrentCompilation
-	ShouldMaximizeConcurrentCompilation() bool
-
 	// FunctionHandleWithFunction protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/functionHandle(function:)-4bw39
@@ -41,7 +31,7 @@ type MTLDevice interface {
 	// Creates a new archive from data available at an [NSURL] address.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeArchive(url:)
-	NewArchiveWithURLError(url foundation.INSURL) (MTL4Archive, error)
+	NewArchiveWithURLError(url foundation.NSURL) (MTL4Archive, error)
 
 	// Creates a new argument table from an argument table descriptor.
 	//
@@ -127,6 +117,36 @@ type MTLDevice interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/tensorSizeAndAlign(descriptor:)
 	TensorSizeAndAlignWithDescriptor(descriptor IMTLTensorDescriptor) MTLSizeAndAlign
+
+	// Returns the buffer sizes the GPU device needs to build, refit, and store an acceleration structure.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
+	AccelerationStructureSizesWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLAccelerationStructureSizes
+
+	// Retrieves the default sample positions for a specific sample count.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/getDefaultSamplePositions:count:
+	GetDefaultSamplePositionsCount(positions *MTLSamplePosition, count uint)
+
+	// Returns the size and alignment, in bytes, of an acceleration structure if you create it from a heap with a descriptor.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(descriptor:)
+	HeapAccelerationStructureSizeAndAlignWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLSizeAndAlign
+
+	// Returns the size and alignment, in bytes, of an acceleration structure if you create it from a heap.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(size:)
+	HeapAccelerationStructureSizeAndAlignWithSize(size uint) MTLSizeAndAlign
+
+	// Returns the size and alignment, in bytes, of a buffer if you create it from a heap.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/heapBufferSizeAndAlign(length:options:)
+	HeapBufferSizeAndAlignWithLengthOptions(length uint, options MTLResourceOptions) MTLSizeAndAlign
+
+	// Returns the size and alignment, in bytes, of a texture if you create it from a heap.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/heapTextureSizeAndAlign(descriptor:)
+	HeapTextureSizeAndAlignWithDescriptor(desc IMTLTextureDescriptor) MTLSizeAndAlign
 
 	// Returns the minimum alignment the GPU device requires to create a linear texture from a buffer.
 	//
@@ -246,7 +266,7 @@ type MTLDevice interface {
 	// Creates a Metal dynamic library instance that contains the functions in the Metal library file at a URL.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDynamicLibrary(url:)
-	NewDynamicLibraryWithURLError(url foundation.INSURL) (MTLDynamicLibrary, error)
+	NewDynamicLibraryWithURLError(url foundation.NSURL) (MTLDynamicLibrary, error)
 
 	// Creates a new event instance that you can use to synchronize commands and resources within the same GPU device.
 	//
@@ -271,12 +291,12 @@ type MTLDevice interface {
 	// Creates an input/output file handle instance that represents a compressed file at a URL.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOFileHandle(url:compressionMethod:)
-	NewIOFileHandleWithURLCompressionMethodError(url foundation.INSURL, compressionMethod MTLIOCompressionMethod) (MTLIOFileHandle, error)
+	NewIOFileHandleWithURLCompressionMethodError(url foundation.NSURL, compressionMethod MTLIOCompressionMethod) (MTLIOFileHandle, error)
 
 	// Creates an input/output file handle instance that represents a file at a URL.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOFileHandle(url:)
-	NewIOFileHandleWithURLError(url foundation.INSURL) (MTLIOFileHandle, error)
+	NewIOFileHandleWithURLError(url foundation.NSURL) (MTLIOFileHandle, error)
 
 	// Creates an indirect command buffer instance.
 	//
@@ -311,7 +331,7 @@ type MTLDevice interface {
 	// Creates a Metal library instance that contains the functions in the Metal library file at a URL.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(URL:)
-	NewLibraryWithURLError(url foundation.INSURL) (MTLLibrary, error)
+	NewLibraryWithURLError(url foundation.NSURL) (MTLLibrary, error)
 
 	// Creates a rasterization rate map instance.
 	//
@@ -428,11 +448,6 @@ type MTLDevice interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsFamily(_:)
 	SupportsFamily(gpuFamily MTLGPUFamily) bool
 
-	// A Boolean value that indicates whether the device supports placement sparse resources.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsPlacementSparse
-	SupportsPlacementSparse() bool
-
 	// Returns a Boolean value that indicates whether the GPU can create a rasterization rate map with a specific number of layers.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsRasterizationRateMap(layerCount:)
@@ -448,15 +463,46 @@ type MTLDevice interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsVertexAmplificationCount(_:)
 	SupportsVertexAmplificationCount(count uint) bool
 
+	// The maximum number of concurrent compilation tasks the device is running.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/maximumConcurrentCompilationTaskCount
+	MaximumConcurrentCompilationTaskCount() uint
+
 	// A Boolean value that indicates whether the device uses additional CPU threads for compilation tasks.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/shouldMaximizeConcurrentCompilation
+	ShouldMaximizeConcurrentCompilation() bool
 	SetShouldMaximizeConcurrentCompilation(value bool)
+
+	// The architectural details of the GPU device.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/architecture
+	Architecture() IMTLArchitecture
+
+	// Returns the GPU device’s support tier for argument buffers.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/argumentBuffersSupport
+	ArgumentBuffersSupport() MTLArgumentBuffersTier
+
+	// The counter sets supported by the device object.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/counterSets
+	CounterSets() []objectivec.IObject
+
+	// The total amount of memory, in bytes, the GPU device is using for all of its resources.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/currentAllocatedSize
+	CurrentAllocatedSize() uint
 
 	// A Boolean value that indicates whether a device supports a packed depth-and-stencil pixel format.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/isDepth24Stencil8PixelFormatSupported
 	Depth24Stencil8PixelFormatSupported() bool
+
+	// A Boolean value that indicates whether the GPU shares all of its memory with the CPU.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/hasUnifiedMemory
+	HasUnifiedMemory() bool
 
 	// A Boolean value that indicates whether a GPU device doesn’t have a connection to a display.
 	//
@@ -523,6 +569,16 @@ type MTLDevice interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/peerIndex
 	PeerIndex() uint32
 
+	// A Boolean value that indicates whether the GPU supports programmable sample positions.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/areProgrammableSamplePositionsSupported
+	ProgrammableSamplePositionsSupported() bool
+
+	// A Boolean value that indicates whether the GPU supports raster order groups.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/areRasterOrderGroupsSupported
+	RasterOrderGroupsSupported() bool
+
 	// The GPU device’s texture support tier.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/readWriteTextureSupport
@@ -578,6 +634,11 @@ type MTLDevice interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsFunctionPointersFromRender
 	SupportsFunctionPointersFromRender() bool
 
+	// A Boolean value that indicates whether the device supports placement sparse resources.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsPlacementSparse
+	SupportsPlacementSparse() bool
+
 	// A Boolean value that indicates whether the GPU device supports motion blur for ray tracing.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsPrimitiveMotionBlur
@@ -631,23 +692,6 @@ func MTLDeviceObjectFromID(id objc.ID) MTLDeviceObject {
 	}
 }
 
-// The maximum number of concurrent compilation tasks the device is running.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDevice/maximumConcurrentCompilationTaskCount
-func (o MTLDeviceObject) MaximumConcurrentCompilationTaskCount() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("maximumConcurrentCompilationTaskCount"))
-	return rv
-}
-
-// A Boolean value that indicates whether the device uses additional CPU
-// threads for compilation tasks.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDevice/shouldMaximizeConcurrentCompilation
-func (o MTLDeviceObject) ShouldMaximizeConcurrentCompilation() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("shouldMaximizeConcurrentCompilation"))
-	return rv
-}
-
 // # Discussion
 //
 // Returns the function handle for a function that was compiled with
@@ -685,7 +729,7 @@ func (o MTLDeviceObject) FunctionHandleWithBinaryFunction(function MTL4BinaryFun
 // A [MTL4Archive] instance, or `nil` if the function failed.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeArchive(url:)
-func (o MTLDeviceObject) NewArchiveWithURLError(url foundation.INSURL) (MTL4Archive, error) {
+func (o MTLDeviceObject) NewArchiveWithURLError(url foundation.NSURL) (MTL4Archive, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newArchiveWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -986,6 +1030,169 @@ func (o MTLDeviceObject) SizeOfCounterHeapEntry(type_ MTL4CounterHeapType) uint 
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/tensorSizeAndAlign(descriptor:)
 func (o MTLDeviceObject) TensorSizeAndAlignWithDescriptor(descriptor IMTLTensorDescriptor) MTLSizeAndAlign {
 	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("tensorSizeAndAlignWithDescriptor:"), descriptor)
+	return rv
+}
+
+// Returns the buffer sizes the GPU device needs to build, refit, and store an
+// acceleration structure.
+//
+// descriptor: An [MTLAccelerationStructureDescriptor] instance.
+//
+// # Return Value
+//
+// A new [MTLAccelerationStructureSizes] instance.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
+//
+// [MTLAccelerationStructureSizes]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureSizes
+func (o MTLDeviceObject) AccelerationStructureSizesWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLAccelerationStructureSizes {
+	rv := objc.Send[MTLAccelerationStructureSizes](o.ID, objc.Sel("accelerationStructureSizesWithDescriptor:"), descriptor)
+	return rv
+}
+
+// Retrieves the default sample positions for a specific sample count.
+//
+// positions: A pointer to a destination C array of [MTLSamplePosition] instances —
+// with at least `count` elements — the method writes the default positions
+// to.
+//
+// count: The number of points a GPU can sample from a texture. Ensure the GPU can
+// support the `count` value by first calling the device’s
+// [SupportsTextureSampleCount] method.
+//
+// # Discussion
+//
+// The default sample positions are the same on all GPUs that support
+// programmable sample positions (see
+// [areProgrammableSamplePositionsSupported]).
+//
+// The default sample position for GPUs that can sample one time is at the
+// pixel’s center.
+//
+// [positioning-samples-programmatically-2]
+//
+// The default sample positions for GPUs that can sample two times have
+// locations in the center of the pixel’s second quadrant and fourth
+// quadrants.
+//
+// [getDefaultSamplePositions-2]
+//
+// The default sample positions for GPUs that can sample four times have one
+// location in each of the pixel’s quadrants. Each location is at the center
+// of one of that quadrant’s subquadrants.
+//
+// [getDefaultSamplePositions-3]
+//
+// The default sample positions for GPUs that can sample eight times have two
+// locations in each of the pixel’s quadrants.
+//
+// [getDefaultSamplePositions-4]
+//
+// The table lists the indices and default locations for GPUs that support 1,
+// 2, 4, or 8 sample positions.
+//
+// [Table data omitted]
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/getDefaultSamplePositions:count:
+//
+// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
+// [areProgrammableSamplePositionsSupported]: https://developer.apple.com/documentation/Metal/MTLDevice/areProgrammableSamplePositionsSupported
+func (o MTLDeviceObject) GetDefaultSamplePositionsCount(positions *MTLSamplePosition, count uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("getDefaultSamplePositions:count:"), objc.CArray(positions), count)
+}
+
+// Returns the size and alignment, in bytes, of an acceleration structure if
+// you create it from a heap with a descriptor.
+//
+// descriptor: An [MTLAccelerationStructureDescriptor] instance.
+//
+// # Return Value
+//
+// An [MTLSizeAndAlign] instance.
+//
+// # Discussion
+//
+// Use this method to help estimate an appropriate size for a new heap before
+// you create it.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(descriptor:)
+//
+// [MTLSizeAndAlign]: https://developer.apple.com/documentation/Metal/MTLSizeAndAlign
+func (o MTLDeviceObject) HeapAccelerationStructureSizeAndAlignWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLSizeAndAlign {
+	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("heapAccelerationStructureSizeAndAlignWithDescriptor:"), descriptor)
+	return rv
+}
+
+// Returns the size and alignment, in bytes, of an acceleration structure if
+// you create it from a heap.
+//
+// size: The size of an acceleration structure, in bytes.
+//
+// # Return Value
+//
+// An [MTLSizeAndAlign] instance
+//
+// # Discussion
+//
+// Use this method to help estimate an appropriate size for a new heap before
+// you create it.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(size:)
+//
+// [MTLSizeAndAlign]: https://developer.apple.com/documentation/Metal/MTLSizeAndAlign
+func (o MTLDeviceObject) HeapAccelerationStructureSizeAndAlignWithSize(size uint) MTLSizeAndAlign {
+	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("heapAccelerationStructureSizeAndAlignWithSize:"), size)
+	return rv
+}
+
+// Returns the size and alignment, in bytes, of a buffer if you create it from
+// a heap.
+//
+// length: The size of the buffer, in bytes.
+//
+// options: An [MTLResourceOptions] instance for a would-be buffer’s storage and
+// hazard tracking modes. See [Resource fundamentals] and [Setting resource
+// storage modes] for more information.
+//
+// # Return Value
+//
+// An [MTLSizeAndAlign] instance.
+//
+// # Discussion
+//
+// Use this method to help estimate an appropriate size for a new heap before
+// you create it.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/heapBufferSizeAndAlign(length:options:)
+//
+// [MTLResourceOptions]: https://developer.apple.com/documentation/Metal/MTLResourceOptions
+// [Resource fundamentals]: https://developer.apple.com/documentation/Metal/resource-fundamentals
+// [Setting resource storage modes]: https://developer.apple.com/documentation/Metal/setting-resource-storage-modes
+// [MTLSizeAndAlign]: https://developer.apple.com/documentation/Metal/MTLSizeAndAlign
+func (o MTLDeviceObject) HeapBufferSizeAndAlignWithLengthOptions(length uint, options MTLResourceOptions) MTLSizeAndAlign {
+	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("heapBufferSizeAndAlignWithLength:options:"), length, options)
+	return rv
+}
+
+// Returns the size and alignment, in bytes, of a texture if you create it
+// from a heap.
+//
+// desc: An [MTLTextureDescriptor] instance.
+//
+// # Return Value
+//
+// An [MTLSizeAndAlign] instance.
+//
+// # Discussion
+//
+// Use this method to help estimate an appropriate size for a new heap before
+// you create it.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/heapTextureSizeAndAlign(descriptor:)
+//
+// [MTLSizeAndAlign]: https://developer.apple.com/documentation/Metal/MTLSizeAndAlign
+func (o MTLDeviceObject) HeapTextureSizeAndAlignWithDescriptor(desc IMTLTextureDescriptor) MTLSizeAndAlign {
+	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("heapTextureSizeAndAlignWithDescriptor:"), desc)
 	return rv
 }
 
@@ -1468,7 +1675,7 @@ func (o MTLDeviceObject) NewDynamicLibraryError(library MTLLibrary) (MTLDynamicL
 // otherwise Swift throws an error and Objective-C returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDynamicLibrary(url:)
-func (o MTLDeviceObject) NewDynamicLibraryWithURLError(url foundation.INSURL) (MTLDynamicLibrary, error) {
+func (o MTLDeviceObject) NewDynamicLibraryWithURLError(url foundation.NSURL) (MTLDynamicLibrary, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newDynamicLibraryWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -1560,7 +1767,7 @@ func (o MTLDeviceObject) NewIOCommandQueueWithDescriptorError(descriptor IMTLIOC
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOFileHandle(url:compressionMethod:)
 //
 // [Resource loading]: https://developer.apple.com/documentation/Metal/resource-loading
-func (o MTLDeviceObject) NewIOFileHandleWithURLCompressionMethodError(url foundation.INSURL, compressionMethod MTLIOCompressionMethod) (MTLIOFileHandle, error) {
+func (o MTLDeviceObject) NewIOFileHandleWithURLCompressionMethodError(url foundation.NSURL, compressionMethod MTLIOCompressionMethod) (MTLIOFileHandle, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newIOFileHandleWithURL:compressionMethod:error:"), url, compressionMethod)
 	if err != nil {
 		return nil, err
@@ -1586,7 +1793,7 @@ func (o MTLDeviceObject) NewIOFileHandleWithURLCompressionMethodError(url founda
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOFileHandle(url:)
 //
 // [Resource loading]: https://developer.apple.com/documentation/Metal/resource-loading
-func (o MTLDeviceObject) NewIOFileHandleWithURLError(url foundation.INSURL) (MTLIOFileHandle, error) {
+func (o MTLDeviceObject) NewIOFileHandleWithURLError(url foundation.NSURL) (MTLIOFileHandle, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newIOFileHandleWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -1628,8 +1835,8 @@ func (o MTLDeviceObject) NewIndirectCommandBufferWithDescriptorMaxCommandCountOp
 //
 // # Discussion
 //
-// In Swift, you can also use the [makeLibrary(data:)] default implementation,
-// which has a [DispatchData] parameter.
+// In Swift, you can also use the [NewLibraryWithDataError] default
+// implementation, which has a [DispatchData] parameter.
 //
 // Use either method if your application manages its own archiving system for
 // libraries — for example, if your app uses a single file that contains
@@ -1639,7 +1846,6 @@ func (o MTLDeviceObject) NewIndirectCommandBufferWithDescriptorMaxCommandCountOp
 //
 // [Building a shader library by precompiling source files]: https://developer.apple.com/documentation/Metal/building-a-shader-library-by-precompiling-source-files
 // [DispatchData]: https://developer.apple.com/documentation/Dispatch/DispatchData
-// [makeLibrary(data:)]: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(data:)-7khmh
 func (o MTLDeviceObject) NewLibraryWithDataError(data dispatch.Data) (MTLLibrary, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newLibraryWithData:error:"), uintptr(data.Handle()))
 	if err != nil {
@@ -1747,7 +1953,7 @@ func (o MTLDeviceObject) NewLibraryWithStitchedDescriptorError(descriptor IMTLSt
 // Swift throws an error and Objective-C returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(URL:)
-func (o MTLDeviceObject) NewLibraryWithURLError(url foundation.INSURL) (MTLLibrary, error) {
+func (o MTLDeviceObject) NewLibraryWithURLError(url foundation.NSURL) (MTLLibrary, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newLibraryWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -2257,15 +2463,6 @@ func (o MTLDeviceObject) SupportsFamily(gpuFamily MTLGPUFamily) bool {
 	return rv
 }
 
-// A Boolean value that indicates whether the device supports placement sparse
-// resources.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsPlacementSparse
-func (o MTLDeviceObject) SupportsPlacementSparse() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportsPlacementSparse"))
-	return rv
-}
-
 // Returns a Boolean value that indicates whether the GPU can create a
 // rasterization rate map with a specific number of layers.
 //
@@ -2328,6 +2525,62 @@ func (o MTLDeviceObject) SupportsVertexAmplificationCount(count uint) bool {
 	return rv
 }
 
+// Converts a list of sparse pixel regions to tile regions.
+//
+// pixelRegions: A pointer to a C array of pixel [MTLRegion] instances.
+//
+// tileRegions: A pointer to a C array of tile [MTLRegion] instances.
+//
+// tileSize: An [MTLSize] instance that represents a sparse tile’s size, in pixels.
+//
+// mode: An [MTLSparseTextureRegionAlignmentMode] instance.
+//
+// numRegions: The number of regions you want the method to convert.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/convertSparsePixelRegions(_:toTileRegions:withTileSize:alignmentMode:numRegions:)
+//
+// [MTLRegion]: https://developer.apple.com/documentation/Metal/MTLRegion
+// [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
+// [MTLSparseTextureRegionAlignmentMode]: https://developer.apple.com/documentation/Metal/MTLSparseTextureRegionAlignmentMode
+//
+// [MTLRegion]: https://developer.apple.com/documentation/Metal/MTLRegion
+func (o MTLDeviceObject) ConvertSparsePixelRegionsToTileRegionsWithTileSizeAlignmentModeNumRegions(pixelRegions []MTLRegion, tileRegions []MTLRegion, tileSize MTLSize, mode MTLSparseTextureRegionAlignmentMode, numRegions uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("convertSparsePixelRegions:toTileRegions:withTileSize:alignmentMode:numRegions:"), pixelRegions, tileRegions, tileSize, mode, numRegions)
+}
+
+// Converts a list of sparse tile regions to pixel regions.
+//
+// tileRegions: A pointer to a C array of tile [MTLRegion] instances.
+//
+// pixelRegions: A pointer to a C array of pixel [MTLRegion] instances.
+//
+// tileSize: An [MTLSize] instance that represents a sparse tile’s size, in pixels.
+//
+// numRegions: The number of regions you want the method to convert.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/convertSparseTileRegions(_:toPixelRegions:withTileSize:numRegions:)
+//
+// [MTLRegion]: https://developer.apple.com/documentation/Metal/MTLRegion
+// [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
+//
+// [MTLRegion]: https://developer.apple.com/documentation/Metal/MTLRegion
+func (o MTLDeviceObject) ConvertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions(tileRegions []MTLRegion, pixelRegions []MTLRegion, tileSize MTLSize, numRegions uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("convertSparseTileRegions:toPixelRegions:withTileSize:numRegions:"), tileRegions, pixelRegions, tileSize, numRegions)
+}
+
+// The maximum number of concurrent compilation tasks the device is running.
+//
+// # Discussion
+//
+// The property’s value can change when you set the
+// [ShouldMaximizeConcurrentCompilation] property to a new value.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/maximumConcurrentCompilationTaskCount
+func (o MTLDeviceObject) MaximumConcurrentCompilationTaskCount() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("maximumConcurrentCompilationTaskCount"))
+	return uint(rv)
+}
+
 // A Boolean value that indicates whether the device uses additional CPU
 // threads for compilation tasks.
 //
@@ -2338,8 +2591,50 @@ func (o MTLDeviceObject) SupportsVertexAmplificationCount(count uint) bool {
 // [MaximumConcurrentCompilationTaskCount] property.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/shouldMaximizeConcurrentCompilation
+func (o MTLDeviceObject) ShouldMaximizeConcurrentCompilation() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("shouldMaximizeConcurrentCompilation"))
+	return bool(rv)
+}
+
 func (o MTLDeviceObject) SetShouldMaximizeConcurrentCompilation(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShouldMaximizeConcurrentCompilation:"), value)
+}
+
+// The architectural details of the GPU device.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/architecture
+func (o MTLDeviceObject) Architecture() IMTLArchitecture {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("architecture"))
+	return MTLArchitectureFromID(rv)
+}
+
+// Returns the GPU device’s support tier for argument buffers.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/argumentBuffersSupport
+func (o MTLDeviceObject) ArgumentBuffersSupport() MTLArgumentBuffersTier {
+	rv := objc.Send[MTLArgumentBuffersTier](o.ID, objc.Sel("argumentBuffersSupport"))
+	return MTLArgumentBuffersTier(rv)
+}
+
+// The counter sets supported by the device object.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/counterSets
+func (o MTLDeviceObject) CounterSets() []objectivec.IObject {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("counterSets"))
+	result := make([]objectivec.IObject, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = objectivec.Object{ID: id}
+	}
+	return result
+}
+
+// The total amount of memory, in bytes, the GPU device is using for all of
+// its resources.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/currentAllocatedSize
+func (o MTLDeviceObject) CurrentAllocatedSize() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("currentAllocatedSize"))
+	return uint(rv)
 }
 
 // A Boolean value that indicates whether a device supports a packed
@@ -2348,13 +2643,26 @@ func (o MTLDeviceObject) SetShouldMaximizeConcurrentCompilation(value bool) {
 // # Discussion
 //
 // If the value is true, the device supports the
-// [MTLPixelFormat.depth24Unorm_stencil8] pixel format.
+// [MTLPixelFormatDepth24Unorm_Stencil8] pixel format.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/isDepth24Stencil8PixelFormatSupported
-//
-// [MTLPixelFormat.depth24Unorm_stencil8]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/depth24Unorm_stencil8
 func (o MTLDeviceObject) Depth24Stencil8PixelFormatSupported() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isDepth24Stencil8PixelFormatSupported"))
+	return bool(rv)
+}
+
+// A Boolean value that indicates whether the GPU shares all of its memory
+// with the CPU.
+//
+// # Discussion
+//
+// A GPU with unified memory (true) is typically an integrated GPU. A GPU with
+// dedicated memory (false) may take additional time to synchronize managed
+// resources or copy data into private GPU resources.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/hasUnifiedMemory
+func (o MTLDeviceObject) HasUnifiedMemory() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("hasUnifiedMemory"))
 	return bool(rv)
 }
 
@@ -2392,16 +2700,13 @@ func (o MTLDeviceObject) Location() MTLDeviceLocation {
 // The meaning of the location number depends on a device’s [Location]
 // property:
 //
-// - For [MTLDeviceLocation.builtIn], the location number is `0` for low-power
+// - For [MTLDeviceLocationBuiltIn], the location number is `0` for low-power
 // GPUs (see [IsLowPower]) and `1` for other GPUs. - For
 // [MTLDeviceLocationSlot], the location number represents the slot. - For
-// [MTLDeviceLocation.external], the location number represents the
-// Thunderbolt port.
+// [MTLDeviceLocationExternal], the location number represents the Thunderbolt
+// port.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/locationNumber
-//
-// [MTLDeviceLocation.builtIn]: https://developer.apple.com/documentation/Metal/MTLDeviceLocation/builtIn
-// [MTLDeviceLocation.external]: https://developer.apple.com/documentation/Metal/MTLDeviceLocation/external
 func (o MTLDeviceObject) LocationNumber() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("locationNumber"))
 	return uint(rv)
@@ -2562,6 +2867,24 @@ func (o MTLDeviceObject) PeerIndex() uint32 {
 	return uint32(rv)
 }
 
+// A Boolean value that indicates whether the GPU supports programmable sample
+// positions.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/areProgrammableSamplePositionsSupported
+func (o MTLDeviceObject) ProgrammableSamplePositionsSupported() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("areProgrammableSamplePositionsSupported"))
+	return bool(rv)
+}
+
+// A Boolean value that indicates whether the GPU supports raster order
+// groups.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/areRasterOrderGroupsSupported
+func (o MTLDeviceObject) RasterOrderGroupsSupported() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("areRasterOrderGroupsSupported"))
+	return bool(rv)
+}
+
 // The GPU device’s texture support tier.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/readWriteTextureSupport
@@ -2676,6 +2999,15 @@ func (o MTLDeviceObject) SupportsFunctionPointers() bool {
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsFunctionPointersFromRender
 func (o MTLDeviceObject) SupportsFunctionPointersFromRender() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsFunctionPointersFromRender"))
+	return bool(rv)
+}
+
+// A Boolean value that indicates whether the device supports placement sparse
+// resources.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsPlacementSparse
+func (o MTLDeviceObject) SupportsPlacementSparse() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("supportsPlacementSparse"))
 	return bool(rv)
 }
 

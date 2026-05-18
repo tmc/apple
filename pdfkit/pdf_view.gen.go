@@ -456,7 +456,7 @@ func (p PDFView) DrawPageToContext(page IPDFPage, context coregraphics.CGContext
 // # Discussion
 //
 // The page history gets built as your application calls navigation methods
-// such as [GoToDestination] and [GoToLastPage].
+// such as [GoToSelection] and [GoToLastPage].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/goBack(_:)
 func (p PDFView) GoBack(sender objectivec.IObject) {
@@ -468,7 +468,7 @@ func (p PDFView) GoBack(sender objectivec.IObject) {
 // # Discussion
 //
 // The page history gets built as your application calls navigation methods
-// such as [GoToDestination] and [GoToLastPage].
+// such as [GoToSelection] and [GoToLastPage].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/goForward(_:)
 func (p PDFView) GoForward(sender objectivec.IObject) {
@@ -850,7 +850,7 @@ func (p PDFView) SetBackgroundColor(value appkit.NSColor) {
 // # Discussion
 //
 // The page history gets built as your application calls navigation methods
-// such as [GoToDestination] and [GoToLastPage].
+// such as [GoToSelection] and [GoToLastPage].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/canGoBack
 func (p PDFView) CanGoBack() bool {
@@ -864,7 +864,7 @@ func (p PDFView) CanGoBack() bool {
 // # Discussion
 //
 // The page history gets built as your application calls navigation methods
-// such as [GoToDestination] and [GoToLastPage].
+// such as [GoToSelection] and [GoToLastPage].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFView/canGoForward
 func (p PDFView) CanGoForward() bool {

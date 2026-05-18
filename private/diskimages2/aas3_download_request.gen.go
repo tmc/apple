@@ -136,7 +136,7 @@ type IAAS3DownloadRequest interface {
 	SetStream(value unsafe.Pointer)
 	UrlRequest() foundation.NSMutableURLRequest
 	SetUrlRequest(value foundation.NSMutableURLRequest)
-	InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream unsafe.Pointer, semaphore objectivec.IObject) AAS3DownloadRequest
+	InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest
 }
 
 // Init initializes the instance.
@@ -159,7 +159,7 @@ func NewAAS3DownloadRequest() AAS3DownloadRequest {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:
-func NewAAS3DownloadRequestWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream unsafe.Pointer, semaphore objectivec.IObject) AAS3DownloadRequest {
+func NewAAS3DownloadRequestWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest {
 	instance := getAAS3DownloadRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
 	return AAS3DownloadRequestFromID(rv)
@@ -172,7 +172,7 @@ func (a AAS3DownloadRequest) CreateAndResumeTask() int {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:
-func (a AAS3DownloadRequest) InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream unsafe.Pointer, semaphore objectivec.IObject) AAS3DownloadRequest {
+func (a AAS3DownloadRequest) InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest {
 	rv := objc.Send[AAS3DownloadRequest](a.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
 	return rv
 }

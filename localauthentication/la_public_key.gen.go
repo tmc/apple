@@ -100,11 +100,11 @@ type ILAPublicKey interface {
 	// Topic: Performing cryptographic operations
 
 	// Encrypts the data you supply with a given algorithm.
-	EncryptDataSecKeyAlgorithmCompletion(data foundation.INSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler)
+	EncryptDataSecKeyAlgorithmCompletion(data foundation.NSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler)
 	// Exports the data that represents a public key.
 	ExportBytesWithCompletion(handler DataErrorHandler)
 	// Verifies a digital signature for the data you supply.
-	VerifyDataSignatureSecKeyAlgorithmCompletion(signedData foundation.INSData, signature foundation.INSData, algorithm corefoundation.CFStringRef, handler ErrorHandler)
+	VerifyDataSignatureSecKeyAlgorithmCompletion(signedData foundation.NSData, signature foundation.NSData, algorithm corefoundation.CFStringRef, handler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -172,7 +172,7 @@ func (p LAPublicKey) CanVerifyUsingSecKeyAlgorithm(algorithm corefoundation.CFSt
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAPublicKey/encrypt(_:algorithm:completion:)
-func (p LAPublicKey) EncryptDataSecKeyAlgorithmCompletion(data foundation.INSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler) {
+func (p LAPublicKey) EncryptDataSecKeyAlgorithmCompletion(data foundation.NSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler) {
 	_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("encryptData:secKeyAlgorithm:completion:"), data, algorithm, _block2)
 }
@@ -208,14 +208,14 @@ func (p LAPublicKey) ExportBytesWithCompletion(handler DataErrorHandler) {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAPublicKey/verify(_:signature:algorithm:completion:)
-func (p LAPublicKey) VerifyDataSignatureSecKeyAlgorithmCompletion(signedData foundation.INSData, signature foundation.INSData, algorithm corefoundation.CFStringRef, handler ErrorHandler) {
+func (p LAPublicKey) VerifyDataSignatureSecKeyAlgorithmCompletion(signedData foundation.NSData, signature foundation.NSData, algorithm corefoundation.CFStringRef, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("verifyData:signature:secKeyAlgorithm:completion:"), signedData, signature, algorithm, _block3)
 }
 
 // EncryptDataSecKeyAlgorithmCompletionSync is a synchronous wrapper around [LAPublicKey.EncryptDataSecKeyAlgorithmCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p LAPublicKey) EncryptDataSecKeyAlgorithmCompletionSync(ctx context.Context, data foundation.INSData, algorithm corefoundation.CFStringRef) (*foundation.NSData, error) {
+func (p LAPublicKey) EncryptDataSecKeyAlgorithmCompletionSync(ctx context.Context, data foundation.NSData, algorithm corefoundation.CFStringRef) (*foundation.NSData, error) {
 	type result struct {
 		val *foundation.NSData
 		err error
@@ -253,7 +253,7 @@ func (p LAPublicKey) ExportBytes(ctx context.Context) (*foundation.NSData, error
 
 // VerifyDataSignatureSecKeyAlgorithmCompletionSync is a synchronous wrapper around [LAPublicKey.VerifyDataSignatureSecKeyAlgorithmCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p LAPublicKey) VerifyDataSignatureSecKeyAlgorithmCompletionSync(ctx context.Context, signedData foundation.INSData, signature foundation.INSData, algorithm corefoundation.CFStringRef) error {
+func (p LAPublicKey) VerifyDataSignatureSecKeyAlgorithmCompletionSync(ctx context.Context, signedData foundation.NSData, signature foundation.NSData, algorithm corefoundation.CFStringRef) error {
 	done := make(chan error, 1)
 	p.VerifyDataSignatureSecKeyAlgorithmCompletion(signedData, signature, algorithm, func(err error) {
 		done <- err

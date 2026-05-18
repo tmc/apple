@@ -112,14 +112,14 @@ type IPKGSystemStatusIndicatorsShim interface {
 }
 
 // Init initializes the instance.
-func (g PKGSystemStatusIndicatorsShim) Init() PKGSystemStatusIndicatorsShim {
-	rv := objc.Send[PKGSystemStatusIndicatorsShim](g.ID, objc.Sel("init"))
+func (p PKGSystemStatusIndicatorsShim) Init() PKGSystemStatusIndicatorsShim {
+	rv := objc.Send[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g PKGSystemStatusIndicatorsShim) Autorelease() PKGSystemStatusIndicatorsShim {
-	rv := objc.Send[PKGSystemStatusIndicatorsShim](g.ID, objc.Sel("autorelease"))
+func (p PKGSystemStatusIndicatorsShim) Autorelease() PKGSystemStatusIndicatorsShim {
+	rv := objc.Send[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -138,51 +138,51 @@ func NewGSystemStatusIndicatorsShimWithWindowSize(size corefoundation.CGSize) PK
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/displayNeedsSecureIndicatorFlush:
-func (g PKGSystemStatusIndicatorsShim) DisplayNeedsSecureIndicatorFlush(flush objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("displayNeedsSecureIndicatorFlush:"), flush)
+func (p PKGSystemStatusIndicatorsShim) DisplayNeedsSecureIndicatorFlush(flush objectivec.IObject) bool {
+	rv := objc.Send[bool](p.ID, objc.Sel("displayNeedsSecureIndicatorFlush:"), flush)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/hasIndicatorWindows
-func (g PKGSystemStatusIndicatorsShim) HasIndicatorWindows() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("hasIndicatorWindows"))
+func (p PKGSystemStatusIndicatorsShim) HasIndicatorWindows() bool {
+	rv := objc.Send[bool](p.ID, objc.Sel("hasIndicatorWindows"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/overrideIndicatorSize:
-func (g PKGSystemStatusIndicatorsShim) OverrideIndicatorSize(size float32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("overrideIndicatorSize:"), size)
+func (p PKGSystemStatusIndicatorsShim) OverrideIndicatorSize(size float32) {
+	objc.Send[objc.ID](p.ID, objc.Sel("overrideIndicatorSize:"), size)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/rebuildDisplays:
-func (g PKGSystemStatusIndicatorsShim) RebuildDisplays(displays bool) {
-	objc.Send[objc.ID](g.ID, objc.Sel("rebuildDisplays:"), displays)
+func (p PKGSystemStatusIndicatorsShim) RebuildDisplays(displays bool) {
+	objc.Send[objc.ID](p.ID, objc.Sel("rebuildDisplays:"), displays)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/rebuildLayers
-func (g PKGSystemStatusIndicatorsShim) RebuildLayers() {
-	objc.Send[objc.ID](g.ID, objc.Sel("rebuildLayers"))
+func (p PKGSystemStatusIndicatorsShim) RebuildLayers() {
+	objc.Send[objc.ID](p.ID, objc.Sel("rebuildLayers"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/rebuildOcclusionMetadata
-func (g PKGSystemStatusIndicatorsShim) RebuildOcclusionMetadata() uint32 {
-	rv := objc.Send[uint32](g.ID, objc.Sel("rebuildOcclusionMetadata"))
+func (p PKGSystemStatusIndicatorsShim) RebuildOcclusionMetadata() uint32 {
+	rv := objc.Send[uint32](p.ID, objc.Sel("rebuildOcclusionMetadata"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/setDisplay:needsSecureIndicatorFlush:
-func (g PKGSystemStatusIndicatorsShim) SetDisplayNeedsSecureIndicatorFlush(display objectivec.IObject, flush bool) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setDisplay:needsSecureIndicatorFlush:"), display, flush)
+func (p PKGSystemStatusIndicatorsShim) SetDisplayNeedsSecureIndicatorFlush(display objectivec.IObject, flush bool) {
+	objc.Send[objc.ID](p.ID, objc.Sel("setDisplay:needsSecureIndicatorFlush:"), display, flush)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/updateForIndicators:
-func (g PKGSystemStatusIndicatorsShim) UpdateForIndicators(indicators uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("updateForIndicators:"), indicators)
+func (p PKGSystemStatusIndicatorsShim) UpdateForIndicators(indicators uint32) {
+	objc.Send[objc.ID](p.ID, objc.Sel("updateForIndicators:"), indicators)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/initWithWindowSize:
-func (g PKGSystemStatusIndicatorsShim) InitWithWindowSize(size corefoundation.CGSize) PKGSystemStatusIndicatorsShim {
-	rv := objc.Send[PKGSystemStatusIndicatorsShim](g.ID, objc.Sel("initWithWindowSize:"), size)
+func (p PKGSystemStatusIndicatorsShim) InitWithWindowSize(size corefoundation.CGSize) PKGSystemStatusIndicatorsShim {
+	rv := objc.Send[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("initWithWindowSize:"), size)
 	return rv
 }
 
@@ -193,19 +193,19 @@ func (_PKGSystemStatusIndicatorsShimClass PKGSystemStatusIndicatorsShimClass) Ad
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/globalEnableSecureIndicators
-func (g PKGSystemStatusIndicatorsShim) GlobalEnableSecureIndicators() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("globalEnableSecureIndicators"))
+func (p PKGSystemStatusIndicatorsShim) GlobalEnableSecureIndicators() bool {
+	rv := objc.Send[bool](p.ID, objc.Sel("globalEnableSecureIndicators"))
 	return rv
 }
-func (g PKGSystemStatusIndicatorsShim) SetGlobalEnableSecureIndicators(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setGlobalEnableSecureIndicators:"), value)
+func (p PKGSystemStatusIndicatorsShim) SetGlobalEnableSecureIndicators(value bool) {
+	objc.Send[struct{}](p.ID, objc.Sel("setGlobalEnableSecureIndicators:"), value)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGSystemStatusIndicatorsShim/suspendUpdates
-func (g PKGSystemStatusIndicatorsShim) SuspendUpdates() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("suspendUpdates"))
+func (p PKGSystemStatusIndicatorsShim) SuspendUpdates() bool {
+	rv := objc.Send[bool](p.ID, objc.Sel("suspendUpdates"))
 	return rv
 }
-func (g PKGSystemStatusIndicatorsShim) SetSuspendUpdates(value bool) {
-	objc.Send[struct{}](g.ID, objc.Sel("setSuspendUpdates:"), value)
+func (p PKGSystemStatusIndicatorsShim) SetSuspendUpdates(value bool) {
+	objc.Send[struct{}](p.ID, objc.Sel("setSuspendUpdates:"), value)
 }

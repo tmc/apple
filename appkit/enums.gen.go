@@ -1169,6 +1169,7 @@ func (e NSApplicationTerminateReply) String() string {
 type NSAttachment uint
 
 const (
+	// NSAttachmentCharacter: Specifies a character that denotes an attachment.
 	NSAttachmentCharacter NSAttachment = 0xfffc
 )
 

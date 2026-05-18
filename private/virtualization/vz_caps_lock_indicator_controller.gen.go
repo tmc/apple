@@ -63,14 +63,14 @@ type IVZCapsLockIndicatorController interface {
 }
 
 // Init initializes the instance.
-func (c VZCapsLockIndicatorController) Init() VZCapsLockIndicatorController {
-	rv := objc.Send[VZCapsLockIndicatorController](c.ID, objc.Sel("init"))
+func (v VZCapsLockIndicatorController) Init() VZCapsLockIndicatorController {
+	rv := objc.Send[VZCapsLockIndicatorController](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c VZCapsLockIndicatorController) Autorelease() VZCapsLockIndicatorController {
-	rv := objc.Send[VZCapsLockIndicatorController](c.ID, objc.Sel("autorelease"))
+func (v VZCapsLockIndicatorController) Autorelease() VZCapsLockIndicatorController {
+	rv := objc.Send[VZCapsLockIndicatorController](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

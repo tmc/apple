@@ -191,14 +191,14 @@ type IAVSpeechSynthesisVoice interface {
 }
 
 // Init initializes the instance.
-func (s AVSpeechSynthesisVoice) Init() AVSpeechSynthesisVoice {
-	rv := objc.Send[AVSpeechSynthesisVoice](s.ID, objc.Sel("init"))
+func (a AVSpeechSynthesisVoice) Init() AVSpeechSynthesisVoice {
+	rv := objc.Send[AVSpeechSynthesisVoice](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s AVSpeechSynthesisVoice) Autorelease() AVSpeechSynthesisVoice {
-	rv := objc.Send[AVSpeechSynthesisVoice](s.ID, objc.Sel("autorelease"))
+func (a AVSpeechSynthesisVoice) Autorelease() AVSpeechSynthesisVoice {
+	rv := objc.Send[AVSpeechSynthesisVoice](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -224,81 +224,81 @@ func NewSpeechSynthesisVoiceWithLanguage(language objectivec.IObject) AVSpeechSy
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/assetSize
-func (s AVSpeechSynthesisVoice) AssetSize() int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("assetSize"))
+func (a AVSpeechSynthesisVoice) AssetSize() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("assetSize"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/backupName
-func (s AVSpeechSynthesisVoice) BackupName() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("backupName"))
+func (a AVSpeechSynthesisVoice) BackupName() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("backupName"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/canBeDownloaded
-func (s AVSpeechSynthesisVoice) CanBeDownloaded() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("canBeDownloaded"))
+func (a AVSpeechSynthesisVoice) CanBeDownloaded() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("canBeDownloaded"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/isDefault
-func (s AVSpeechSynthesisVoice) IsDefault() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isDefault"))
+func (a AVSpeechSynthesisVoice) IsDefault() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isDefault"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/isInstalled
-func (s AVSpeechSynthesisVoice) IsInstalled() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isInstalled"))
+func (a AVSpeechSynthesisVoice) IsInstalled() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isInstalled"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/isSystemVoice
-func (s AVSpeechSynthesisVoice) IsSystemVoice() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isSystemVoice"))
+func (a AVSpeechSynthesisVoice) IsSystemVoice() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isSystemVoice"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/setAssetSize:
-func (s AVSpeechSynthesisVoice) SetAssetSize(size int64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setAssetSize:"), size)
+func (a AVSpeechSynthesisVoice) SetAssetSize(size int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setAssetSize:"), size)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/setBackupName:
-func (s AVSpeechSynthesisVoice) SetBackupName(name objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setBackupName:"), name)
+func (a AVSpeechSynthesisVoice) SetBackupName(name objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setBackupName:"), name)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/setCanBeDownloaded:
-func (s AVSpeechSynthesisVoice) SetCanBeDownloaded(downloaded bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setCanBeDownloaded:"), downloaded)
+func (a AVSpeechSynthesisVoice) SetCanBeDownloaded(downloaded bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setCanBeDownloaded:"), downloaded)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/setIsDefault:
-func (s AVSpeechSynthesisVoice) SetIsDefault(default_ bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setIsDefault:"), default_)
+func (a AVSpeechSynthesisVoice) SetIsDefault(default_ bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setIsDefault:"), default_)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/setIsInstalled:
-func (s AVSpeechSynthesisVoice) SetIsInstalled(installed bool) {
-	objc.Send[objc.ID](s.ID, objc.Sel("setIsInstalled:"), installed)
+func (a AVSpeechSynthesisVoice) SetIsInstalled(installed bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setIsInstalled:"), installed)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/siriDisplayName
-func (s AVSpeechSynthesisVoice) SiriDisplayName() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("siriDisplayName"))
+func (a AVSpeechSynthesisVoice) SiriDisplayName() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("siriDisplayName"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/initWithCoder:
-func (s AVSpeechSynthesisVoice) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisVoice {
-	rv := objc.Send[AVSpeechSynthesisVoice](s.ID, objc.Sel("initWithCoder:"), coder)
+func (a AVSpeechSynthesisVoice) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisVoice {
+	rv := objc.Send[AVSpeechSynthesisVoice](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/initWithLanguage:
-func (s AVSpeechSynthesisVoice) InitWithLanguage(language objectivec.IObject) AVSpeechSynthesisVoice {
-	rv := objc.Send[AVSpeechSynthesisVoice](s.ID, objc.Sel("initWithLanguage:"), language)
+func (a AVSpeechSynthesisVoice) InitWithLanguage(language objectivec.IObject) AVSpeechSynthesisVoice {
+	rv := objc.Send[AVSpeechSynthesisVoice](a.ID, objc.Sel("initWithLanguage:"), language)
 	return rv
 }
 
@@ -472,133 +472,133 @@ func (_AVSpeechSynthesisVoiceClass AVSpeechSynthesisVoiceClass) VoiceWithLanguag
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/coreVoiceIsSiriVoice
-func (s AVSpeechSynthesisVoice) CoreVoiceIsSiriVoice() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("coreVoiceIsSiriVoice"))
+func (a AVSpeechSynthesisVoice) CoreVoiceIsSiriVoice() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("coreVoiceIsSiriVoice"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/coreVoiceIsSystemVoice
-func (s AVSpeechSynthesisVoice) CoreVoiceIsSystemVoice() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("coreVoiceIsSystemVoice"))
+func (a AVSpeechSynthesisVoice) CoreVoiceIsSystemVoice() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("coreVoiceIsSystemVoice"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/coreVoiceLocalizedName
-func (s AVSpeechSynthesisVoice) CoreVoiceLocalizedName() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("coreVoiceLocalizedName"))
+func (a AVSpeechSynthesisVoice) CoreVoiceLocalizedName() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("coreVoiceLocalizedName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/coreVoiceWrapper
-func (s AVSpeechSynthesisVoice) CoreVoiceWrapper() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("coreVoiceWrapper"))
+func (a AVSpeechSynthesisVoice) CoreVoiceWrapper() objectivec.Object {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("coreVoiceWrapper"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (s AVSpeechSynthesisVoice) SetCoreVoiceWrapper(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCoreVoiceWrapper:"), value)
+func (a AVSpeechSynthesisVoice) SetCoreVoiceWrapper(value objectivec.Object) {
+	objc.Send[struct{}](a.ID, objc.Sel("setCoreVoiceWrapper:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/gender
-func (s AVSpeechSynthesisVoice) Gender() int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("gender"))
+func (a AVSpeechSynthesisVoice) Gender() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("gender"))
 	return rv
 }
-func (s AVSpeechSynthesisVoice) SetGender(value int64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setGender:"), value)
+func (a AVSpeechSynthesisVoice) SetGender(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setGender:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/identifier
-func (s AVSpeechSynthesisVoice) Identifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("identifier"))
+func (a AVSpeechSynthesisVoice) Identifier() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s AVSpeechSynthesisVoice) SetIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIdentifier:"), objc.String(value))
+func (a AVSpeechSynthesisVoice) SetIdentifier(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/isNoveltyVoice
-func (s AVSpeechSynthesisVoice) IsNoveltyVoice() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isNoveltyVoice"))
+func (a AVSpeechSynthesisVoice) IsNoveltyVoice() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isNoveltyVoice"))
 	return rv
 }
-func (s AVSpeechSynthesisVoice) SetIsNoveltyVoice(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIsNoveltyVoice:"), value)
+func (a AVSpeechSynthesisVoice) SetIsNoveltyVoice(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setIsNoveltyVoice:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/isSiriVoice
-func (s AVSpeechSynthesisVoice) IsSiriVoice() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isSiriVoice"))
+func (a AVSpeechSynthesisVoice) IsSiriVoice() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isSiriVoice"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/language
-func (s AVSpeechSynthesisVoice) Language() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("language"))
+func (a AVSpeechSynthesisVoice) Language() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s AVSpeechSynthesisVoice) SetLanguage(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setLanguage:"), objc.String(value))
+func (a AVSpeechSynthesisVoice) SetLanguage(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/name
-func (s AVSpeechSynthesisVoice) Name() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
+func (a AVSpeechSynthesisVoice) Name() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s AVSpeechSynthesisVoice) SetName(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setName:"), objc.String(value))
+func (a AVSpeechSynthesisVoice) SetName(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/nameWithoutQuality
-func (s AVSpeechSynthesisVoice) NameWithoutQuality() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("nameWithoutQuality"))
+func (a AVSpeechSynthesisVoice) NameWithoutQuality() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("nameWithoutQuality"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/nonLocalizedName
-func (s AVSpeechSynthesisVoice) NonLocalizedName() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("nonLocalizedName"))
+func (a AVSpeechSynthesisVoice) NonLocalizedName() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("nonLocalizedName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/nonLocalizedNameWithoutQuality
-func (s AVSpeechSynthesisVoice) NonLocalizedNameWithoutQuality() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("nonLocalizedNameWithoutQuality"))
+func (a AVSpeechSynthesisVoice) NonLocalizedNameWithoutQuality() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("nonLocalizedNameWithoutQuality"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/quality
-func (s AVSpeechSynthesisVoice) Quality() int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("quality"))
+func (a AVSpeechSynthesisVoice) Quality() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("quality"))
 	return rv
 }
-func (s AVSpeechSynthesisVoice) SetQuality(value int64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setQuality:"), value)
+func (a AVSpeechSynthesisVoice) SetQuality(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setQuality:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/synthesisProviderVoice
-func (s AVSpeechSynthesisVoice) SynthesisProviderVoice() IAVSpeechSynthesisProviderVoice {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("synthesisProviderVoice"))
+func (a AVSpeechSynthesisVoice) SynthesisProviderVoice() IAVSpeechSynthesisProviderVoice {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("synthesisProviderVoice"))
 	return AVSpeechSynthesisProviderVoiceFromID(objc.ID(rv))
 }
-func (s AVSpeechSynthesisVoice) SetSynthesisProviderVoice(value IAVSpeechSynthesisProviderVoice) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSynthesisProviderVoice:"), value)
+func (a AVSpeechSynthesisVoice) SetSynthesisProviderVoice(value IAVSpeechSynthesisProviderVoice) {
+	objc.Send[struct{}](a.ID, objc.Sel("setSynthesisProviderVoice:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisVoice/voiceTraits
-func (s AVSpeechSynthesisVoice) VoiceTraits() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("voiceTraits"))
+func (a AVSpeechSynthesisVoice) VoiceTraits() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("voiceTraits"))
 	return rv
 }
-func (s AVSpeechSynthesisVoice) SetVoiceTraits(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setVoiceTraits:"), value)
+func (a AVSpeechSynthesisVoice) SetVoiceTraits(value uint64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setVoiceTraits:"), value)
 }
 
 // _speechVoicesIncludingSiriAndSuperCompactSync is a synchronous wrapper around [AVSpeechSynthesisVoice._speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (sc AVSpeechSynthesisVoiceClass) _speechVoicesIncludingSiriAndSuperCompactSync(ctx context.Context) error {
+func (ac AVSpeechSynthesisVoiceClass) _speechVoicesIncludingSiriAndSuperCompactSync(ctx context.Context) error {
 	done := make(chan error, 1)
-	sc._speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler(func(err error) {
+	ac._speechVoicesIncludingSiriAndSuperCompactWithCompletionHandler(func(err error) {
 		done <- err
 	})
 	select {
@@ -611,9 +611,9 @@ func (sc AVSpeechSynthesisVoiceClass) _speechVoicesIncludingSiriAndSuperCompactS
 
 // _speechVoicesIncludingSiriSync is a synchronous wrapper around [AVSpeechSynthesisVoice._speechVoicesIncludingSiriWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (sc AVSpeechSynthesisVoiceClass) _speechVoicesIncludingSiriSync(ctx context.Context) error {
+func (ac AVSpeechSynthesisVoiceClass) _speechVoicesIncludingSiriSync(ctx context.Context) error {
 	done := make(chan error, 1)
-	sc._speechVoicesIncludingSiriWithCompletionHandler(func(err error) {
+	ac._speechVoicesIncludingSiriWithCompletionHandler(func(err error) {
 		done <- err
 	})
 	select {
@@ -626,9 +626,9 @@ func (sc AVSpeechSynthesisVoiceClass) _speechVoicesIncludingSiriSync(ctx context
 
 // SpeechVoicesIncludingSuperCompactSync is a synchronous wrapper around [AVSpeechSynthesisVoice.SpeechVoicesIncludingSuperCompactWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (sc AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSuperCompactSync(ctx context.Context) error {
+func (ac AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSuperCompactSync(ctx context.Context) error {
 	done := make(chan error, 1)
-	sc.SpeechVoicesIncludingSuperCompactWithCompletionHandler(func(err error) {
+	ac.SpeechVoicesIncludingSuperCompactWithCompletionHandler(func(err error) {
 		done <- err
 	})
 	select {
@@ -641,9 +641,9 @@ func (sc AVSpeechSynthesisVoiceClass) SpeechVoicesIncludingSuperCompactSync(ctx 
 
 // SpeechVoices is a synchronous wrapper around [AVSpeechSynthesisVoice.SpeechVoicesWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (sc AVSpeechSynthesisVoiceClass) SpeechVoices(ctx context.Context) error {
+func (ac AVSpeechSynthesisVoiceClass) SpeechVoices(ctx context.Context) error {
 	done := make(chan error, 1)
-	sc.SpeechVoicesWithCompletionHandler(func(err error) {
+	ac.SpeechVoicesWithCompletionHandler(func(err error) {
 		done <- err
 	})
 	select {

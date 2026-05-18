@@ -188,7 +188,6 @@ func GCControllerFromID(id objc.ID) GCController {
 // See: https://developer.apple.com/documentation/GameController/GCController
 type IGCController interface {
 	objectivec.IObject
-	GCDevice
 
 	// Topic: Discovering controllers
 
@@ -288,6 +287,32 @@ func NewGCController() GCController {
 func (g GCController) Capture() IGCController {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("capture"))
 	return GCControllerFromID(rv)
+}
+
+// The dispatch queue that the framework uses to call element value change
+// handlers.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
+func (g GCController) HandlerQueue() dispatch.Queue {
+	rv := objc.Send[uintptr](g.ID, objc.Sel("handlerQueue"))
+	return dispatch.QueueFromHandle(rv)
+}
+
+// The product category that identifies the type of controller.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/productCategory
+func (g GCController) ProductCategory() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("productCategory"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// The manufacturer-provided name for the device, or the user’s name for the
+// device.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
+func (g GCController) VendorName() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
+	return foundation.NSStringFromID(rv).String()
 }
 
 // Returns the connected controllers for the device.
@@ -547,14 +572,11 @@ func (g GCController) PhysicalInputProfile() IGCPhysicalInputProfile {
 // player lights up. You don’t need to provide a unique player index for
 // each active game controller. For example, players on the same team can
 // share a common player index. If your game no longer uses a controller, set
-// the controller’s index value to [GCControllerPlayerIndex.indexUnset].
+// the controller’s index value to [GCControllerPlayerIndexUnset].
 //
-// The default value for this property is
-// [GCControllerPlayerIndex.indexUnset].
+// The default value for this property is [GCControllerPlayerIndexUnset].
 //
 // See: https://developer.apple.com/documentation/GameController/GCController/playerIndex
-//
-// [GCControllerPlayerIndex.indexUnset]: https://developer.apple.com/documentation/GameController/GCControllerPlayerIndex/indexUnset
 func (g GCController) PlayerIndex() GCControllerPlayerIndex {
 	rv := objc.Send[GCControllerPlayerIndex](g.ID, objc.Sel("playerIndex"))
 	return GCControllerPlayerIndex(rv)
@@ -622,26 +644,6 @@ func (g GCController) Snapshot() bool {
 	return rv
 }
 
-// The dispatch queue that the framework uses to call element value change
-// handlers.
-//
-// # Discussion
-//
-// The default queue is the main queue. Set this property to another queue to
-// asynchronously call value change handlers (see [GCControllerAxisInput],
-// [GCControllerButtonInput], [GCControllerDirectionPad], and [GCMotion]). For
-// example, if you handle input on another queue, set this property when you
-// first access the input device.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
-func (g GCController) HandlerQueue() dispatch.Queue {
-	rv := objc.Send[uintptr](g.ID, objc.Sel("handlerQueue"))
-	return dispatch.QueueFromHandle(rv)
-}
-func (g GCController) SetHandlerQueue(value dispatch.Queue) {
-	objc.Send[struct{}](g.ID, objc.Sel("setHandlerQueue:"), uintptr(value.Handle()))
-}
-
 // The controller’s left thumbstick element.
 //
 // See: https://developer.apple.com/documentation/gamecontroller/gcextendedgamepad/leftthumbstick
@@ -653,14 +655,6 @@ func (g GCController) SetLeftThumbstick(value IGCControllerDirectionPad) {
 	objc.Send[struct{}](g.ID, objc.Sel("setLeftThumbstick:"), value)
 }
 
-// The product category that identifies the type of controller.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/productCategory
-func (g GCController) ProductCategory() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("productCategory"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The block that the profile calls when an element’s value changes.
 //
 // See: https://developer.apple.com/documentation/gamecontroller/gcextendedgamepad/valuechangedhandler
@@ -670,20 +664,6 @@ func (g GCController) ValueChangedHandler() GCExtendedGamepadValueChangedHandler
 }
 func (g GCController) SetValueChangedHandler(value GCExtendedGamepadValueChangedHandler) {
 	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), value)
-}
-
-// The manufacturer-provided name for the device, or the user’s name for the
-// device.
-//
-// # Discussion
-//
-// The value of this property may be `nil` and may not be unique. Use this
-// property to present information about the device to the user.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
-func (g GCController) VendorName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // The most recently used game controller.
@@ -718,6 +698,22 @@ func (_GCControllerClass GCControllerClass) SetShouldMonitorBackgroundEvents(val
 }
 
 // Protocol methods for GCDevice
+
+// The dispatch queue that the framework uses to call element value change
+// handlers.
+//
+// # Discussion
+//
+// The default queue is the main queue. Set this property to another queue to
+// asynchronously call value change handlers (see [GCControllerAxisInput],
+// [GCControllerButtonInput], [GCControllerDirectionPad], and [GCMotion]). For
+// example, if you handle input on another queue, set this property when you
+// first access the input device.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
+func (o GCController) SetHandlerQueue(value dispatch.Queue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setHandlerQueue:"), value)
+}
 
 // StartWirelessControllerDiscovery is a synchronous wrapper around [GCController.StartWirelessControllerDiscoveryWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.

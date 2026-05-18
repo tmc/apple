@@ -138,18 +138,18 @@ type IAVMovie interface {
 	// Topic: Creating a movie
 
 	// Creates a movie object from a movie header stored in a QuickTime movie file of ISO base media file.
-	InitWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVMovie
+	InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie
 	// Creates a movie object from a movie file’s data.
-	InitWithDataOptions(data foundation.INSData, options foundation.INSDictionary) AVMovie
+	InitWithDataOptions(data foundation.NSData, options foundation.INSDictionary) AVMovie
 
 	// Topic: Creating and writing headers
 
 	// Returns a Boolean value that indicates whether the system can create a movie header of the specified type.
 	IsCompatibleWithFileType(fileType AVFileType) bool
 	// Creates a header for a movie for the specified file type.
-	MovieHeaderWithFileTypeError(fileType AVFileType) (foundation.INSData, error)
+	MovieHeaderWithFileTypeError(fileType AVFileType) (foundation.NSData, error)
 	// Writes the movie header to the specified URL.
-	WriteMovieHeaderToURLFileTypeOptionsError(URL foundation.INSURL, fileType AVFileType, options AVMovieWritingOptions) (bool, error)
+	WriteMovieHeaderToURLFileTypeOptionsError(URL foundation.NSURL, fileType AVFileType, options AVMovieWritingOptions) (bool, error)
 
 	// Topic: Determining fragment support
 
@@ -161,9 +161,9 @@ type IAVMovie interface {
 	// Topic: Accessing movie information
 
 	// A URL to a QuickTime or ISO base media file.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	// A data object that contains the movie file’s data.
-	Data() foundation.INSData
+	Data() foundation.NSData
 
 	// Topic: Accessing tracks
 
@@ -199,8 +199,8 @@ func NewAVMovie() AVMovie {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
-func NewMovieAssetWithURL(URL foundation.INSURL) AVMovie {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+func NewMovieAssetWithURL(URL foundation.NSURL) AVMovie {
 	rv := objc.Send[objc.ID](objc.ID(getAVMovieClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVMovieFromID(rv)
 }
@@ -217,7 +217,7 @@ func NewMovieAssetWithURL(URL foundation.INSURL) AVMovie {
 // files, which can include movies that the pasteboard contains.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(data:options:)
-func NewMovieWithDataOptions(data foundation.INSData, options foundation.INSDictionary) AVMovie {
+func NewMovieWithDataOptions(data foundation.NSData, options foundation.INSDictionary) AVMovie {
 	instance := getAVMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:"), data, options)
 	return AVMovieFromID(rv)
@@ -235,8 +235,8 @@ func NewMovieWithDataOptions(data foundation.INSData, options foundation.INSDict
 // Upon creation, the values of the [DefaultMediaDataStorage] property and any
 // associated [MediaDataStorage] properties are `nil`.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)
-func NewMovieWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVMovie {
+// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
+func NewMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie {
 	instance := getAVMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return AVMovieFromID(rv)
@@ -254,8 +254,8 @@ func NewMovieWithURLOptions(URL foundation.INSURL, options foundation.INSDiction
 // Upon creation, the values of the [DefaultMediaDataStorage] property and any
 // associated [MediaDataStorage] properties are `nil`.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)
-func (m AVMovie) InitWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVMovie {
+// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
+func (m AVMovie) InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie {
 	rv := objc.Send[AVMovie](m.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return rv
 }
@@ -272,7 +272,7 @@ func (m AVMovie) InitWithURLOptions(URL foundation.INSURL, options foundation.IN
 // files, which can include movies that the pasteboard contains.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(data:options:)
-func (m AVMovie) InitWithDataOptions(data foundation.INSData, options foundation.INSDictionary) AVMovie {
+func (m AVMovie) InitWithDataOptions(data foundation.NSData, options foundation.INSDictionary) AVMovie {
 	rv := objc.Send[AVMovie](m.ID, objc.Sel("initWithData:options:"), data, options)
 	return rv
 }
@@ -309,7 +309,7 @@ func (m AVMovie) IsCompatibleWithFileType(fileType AVFileType) bool {
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/makeMovieHeader(fileType:)
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-func (m AVMovie) MovieHeaderWithFileTypeError(fileType AVFileType) (foundation.INSData, error) {
+func (m AVMovie) MovieHeaderWithFileTypeError(fileType AVFileType) (foundation.NSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("movieHeaderWithFileType:error:"), objc.String(string(fileType)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -332,7 +332,7 @@ func (m AVMovie) MovieHeaderWithFileTypeError(fileType AVFileType) (foundation.I
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/writeHeader(to:fileType:options:)
 //
 // [AVMovieWritingOptions]: https://developer.apple.com/documentation/AVFoundation/AVMovieWritingOptions
-func (m AVMovie) WriteMovieHeaderToURLFileTypeOptionsError(URL foundation.INSURL, fileType AVFileType, options AVMovieWritingOptions) (bool, error) {
+func (m AVMovie) WriteMovieHeaderToURLFileTypeOptionsError(URL foundation.NSURL, fileType AVFileType, options AVMovieWritingOptions) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("writeMovieHeaderToURL:fileType:options:error:"), URL, objc.String(string(fileType)), options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -374,7 +374,7 @@ func (_AVMovieClass AVMovieClass) MovieTypes() []string {
 // files, which can include movies that the pasteboard contains.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/movieWithData:options:
-func (_AVMovieClass AVMovieClass) MovieWithDataOptions(data foundation.INSData, options foundation.INSDictionary) AVMovie {
+func (_AVMovieClass AVMovieClass) MovieWithDataOptions(data foundation.NSData, options foundation.INSDictionary) AVMovie {
 	rv := objc.Send[objc.ID](objc.ID(_AVMovieClass.class), objc.Sel("movieWithData:options:"), data, options)
 	return AVMovieFromID(rv)
 }
@@ -396,7 +396,7 @@ func (_AVMovieClass AVMovieClass) MovieWithDataOptions(data foundation.INSData, 
 // associated [MediaDataStorage] properties are `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/movieWithURL:options:
-func (_AVMovieClass AVMovieClass) MovieWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVMovie {
+func (_AVMovieClass AVMovieClass) MovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie {
 	rv := objc.Send[objc.ID](objc.ID(_AVMovieClass.class), objc.Sel("movieWithURL:options:"), URL, options)
 	return AVMovieFromID(rv)
 }
@@ -436,7 +436,7 @@ func (m AVMovie) ContainsMovieFragments() bool {
 // The value is `nil` if you didn’t initialize the movie with a URL.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/url
-func (m AVMovie) URL() foundation.INSURL {
+func (m AVMovie) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -448,7 +448,7 @@ func (m AVMovie) URL() foundation.INSURL {
 // The value is `nil` if you didn’t initialize the movie with data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/data
-func (m AVMovie) Data() foundation.INSData {
+func (m AVMovie) Data() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

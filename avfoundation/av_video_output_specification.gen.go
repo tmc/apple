@@ -51,6 +51,7 @@ func (ac AVVideoOutputSpecificationClass) Alloc() AVVideoOutputSpecification {
 //
 //   - [AVVideoOutputSpecification.DefaultOutputSettings]
 //   - [AVVideoOutputSpecification.SetDefaultOutputSettings]
+//   - [AVVideoOutputSpecification.PreferredTagCollections]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoOutputSpecification
 type AVVideoOutputSpecification struct {
@@ -74,6 +75,7 @@ func AVVideoOutputSpecificationFromID(id objc.ID) AVVideoOutputSpecification {
 //
 //   - [IAVVideoOutputSpecification.DefaultOutputSettings]
 //   - [IAVVideoOutputSpecification.SetDefaultOutputSettings]
+//   - [IAVVideoOutputSpecification.PreferredTagCollections]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoOutputSpecification
 type IAVVideoOutputSpecification interface {
@@ -83,8 +85,8 @@ type IAVVideoOutputSpecification interface {
 
 	DefaultOutputSettings() foundation.INSDictionary
 	SetDefaultOutputSettings(value foundation.INSDictionary)
-
 	PreferredTagCollections() foundation.INSArray
+
 	InitWithTagCollections(tagCollections foundation.INSArray) AVVideoOutputSpecification
 	SetOutputSettingsForTagCollection(outputSettings foundation.INSDictionary, tagCollection coremedia.CMTagCollectionRef)
 }

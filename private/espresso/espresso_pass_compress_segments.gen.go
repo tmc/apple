@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_compress_segments] class.
+// The class instance for the [EspressoPassCompressSegments] class.
 var (
-	_EspressoPass_compress_segmentsClass     EspressoPass_compress_segmentsClass
-	_EspressoPass_compress_segmentsClassOnce sync.Once
+	_EspressoPassCompressSegmentsClass     EspressoPassCompressSegmentsClass
+	_EspressoPassCompressSegmentsClassOnce sync.Once
 )
 
-func getEspressoPass_compress_segmentsClass() EspressoPass_compress_segmentsClass {
-	_EspressoPass_compress_segmentsClassOnce.Do(func() {
-		_EspressoPass_compress_segmentsClass = EspressoPass_compress_segmentsClass{class: objc.GetClass("EspressoPass_compress_segments")}
+func getEspressoPassCompressSegmentsClass() EspressoPassCompressSegmentsClass {
+	_EspressoPassCompressSegmentsClassOnce.Do(func() {
+		_EspressoPassCompressSegmentsClass = EspressoPassCompressSegmentsClass{class: objc.GetClass("EspressoPass_compress_segments")}
 	})
-	return _EspressoPass_compress_segmentsClass
+	return _EspressoPassCompressSegmentsClass
 }
 
-// GetEspressoPass_compress_segmentsClass returns the class object for EspressoPass_compress_segments.
-func GetEspressoPass_compress_segmentsClass() EspressoPass_compress_segmentsClass {
-	return getEspressoPass_compress_segmentsClass()
+// GetEspressoPassCompressSegmentsClass returns the class object for EspressoPass_compress_segments.
+func GetEspressoPassCompressSegmentsClass() EspressoPassCompressSegmentsClass {
+	return getEspressoPassCompressSegmentsClass()
 }
 
-type EspressoPass_compress_segmentsClass struct {
+type EspressoPassCompressSegmentsClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_compress_segmentsClass) Class() objc.Class {
+func (ec EspressoPassCompressSegmentsClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_compress_segmentsClass) Alloc() EspressoPass_compress_segments {
-	rv := objc.Send[EspressoPass_compress_segments](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassCompressSegmentsClass) Alloc() EspressoPassCompressSegments {
+	rv := objc.Send[EspressoPassCompressSegments](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_compress_segments
-type EspressoPass_compress_segments struct {
+type EspressoPassCompressSegments struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_compress_segmentsFromID constructs a [EspressoPass_compress_segments] from an objc.ID.
-func EspressoPass_compress_segmentsFromID(id objc.ID) EspressoPass_compress_segments {
-	return EspressoPass_compress_segments{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassCompressSegmentsFromID constructs a [EspressoPassCompressSegments] from an objc.ID.
+func EspressoPassCompressSegmentsFromID(id objc.ID) EspressoPassCompressSegments {
+	return EspressoPassCompressSegments{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_compress_segments implements IEspressoPass_compress_segments.
-var _ IEspressoPass_compress_segments = EspressoPass_compress_segments{}
+// EspressoPass_compress_segmentsFromID is an alias for [EspressoPassCompressSegmentsFromID] for cross-framework compatibility.
+func EspressoPass_compress_segmentsFromID(id objc.ID) EspressoPassCompressSegments {
+	return EspressoPassCompressSegmentsFromID(id)
+}
 
-// An interface definition for the [EspressoPass_compress_segments] class.
+// Ensure EspressoPassCompressSegments implements IEspressoPassCompressSegments.
+var _ IEspressoPassCompressSegments = EspressoPassCompressSegments{}
+
+// An interface definition for the [EspressoPassCompressSegments] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_compress_segments
-type IEspressoPass_compress_segments interface {
+type IEspressoPassCompressSegments interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_compress_segments) Init() EspressoPass_compress_segments {
-	rv := objc.Send[EspressoPass_compress_segments](e.ID, objc.Sel("init"))
+func (e EspressoPassCompressSegments) Init() EspressoPassCompressSegments {
+	rv := objc.Send[EspressoPassCompressSegments](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_compress_segments) Autorelease() EspressoPass_compress_segments {
-	rv := objc.Send[EspressoPass_compress_segments](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassCompressSegments) Autorelease() EspressoPassCompressSegments {
+	rv := objc.Send[EspressoPassCompressSegments](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_compress_segments creates a new EspressoPass_compress_segments instance.
-func NewEspressoPass_compress_segments() EspressoPass_compress_segments {
-	class := getEspressoPass_compress_segmentsClass()
-	rv := objc.Send[EspressoPass_compress_segments](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassCompressSegments creates a new EspressoPassCompressSegments instance.
+func NewEspressoPassCompressSegments() EspressoPassCompressSegments {
+	class := getEspressoPassCompressSegmentsClass()
+	rv := objc.Send[EspressoPassCompressSegments](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

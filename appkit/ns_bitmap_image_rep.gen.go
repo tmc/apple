@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/coregraphics"
-	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -230,9 +229,9 @@ type INSBitmapImageRep interface {
 	// Returns a bitmap image representation from a Core Graphics image object.
 	InitWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImageRep
 	// Returns a bitmap image representation from a Core Image object.
-	InitWithCIImage(ciImage coreimage.CIImage) NSBitmapImageRep
+	InitWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep
 	// Initializes a newly allocated bitmap image representation from the specified data.
-	InitWithData(data foundation.INSData) NSBitmapImageRep
+	InitWithData(data foundation.NSData) NSBitmapImageRep
 	// Initializes a newly allocated bitmap image representation for incremental loading.
 	InitForIncrementalLoad() NSBitmapImageRep
 
@@ -263,11 +262,11 @@ type INSBitmapImageRep interface {
 	// Topic: Producing Other Representations of Images
 
 	// A TIFF representation of the bitmap image data.
-	TIFFRepresentation() foundation.INSData
+	TIFFRepresentation() foundation.NSData
 	// Returns a TIFF representation of the image using the specified compression.
-	TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.INSData
+	TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.NSData
 	// Formats the bitmap representation’s image data using the specified storage type and properties and returns it in a data object.
-	RepresentationUsingTypeProperties(storageType NSBitmapImageFileType, properties foundation.INSDictionary) foundation.INSData
+	RepresentationUsingTypeProperties(storageType NSBitmapImageFileType, properties foundation.INSDictionary) foundation.NSData
 
 	// Topic: Managing Compression Types
 
@@ -285,7 +284,7 @@ type INSBitmapImageRep interface {
 	// Topic: Loading Images Incrementally
 
 	// Loads the current image data into an incrementally-loaded image representation and returns the current status of the image.
-	IncrementalLoadFromDataComplete(data foundation.INSData, complete bool) int
+	IncrementalLoadFromDataComplete(data foundation.NSData, complete bool) int
 
 	// Topic: Managing Pixel Values
 
@@ -587,7 +586,7 @@ func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSampl
 // pixel data requires the creation of a copy of that data in memory. Changes
 // to that data are not saved back to the Core Graphics image.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(cgImage:)
+// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(cgImage:)-7o5tz
 func NewBitmapImageRepWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGImage:"), cgImage)
@@ -624,12 +623,12 @@ func NewBitmapImageRepWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImage
 // If you pass in a [CIImage] object whose extents are not finite, this method
 // raises an exception.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)
+// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)-7bi19
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func NewBitmapImageRepWithCIImage(ciImage coreimage.CIImage) NSBitmapImageRep {
+func NewBitmapImageRepWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:"), ciImage)
 	return NSBitmapImageRepFromID(rv)
@@ -659,7 +658,7 @@ func NewBitmapImageRepWithCoder(coder foundation.INSCoder) NSBitmapImageRep {
 // `bitmapData`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(data:)
-func NewBitmapImageRepWithData(data foundation.INSData) NSBitmapImageRep {
+func NewBitmapImageRepWithData(data foundation.NSData) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return NSBitmapImageRepFromID(rv)
@@ -927,7 +926,7 @@ func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSam
 // pixel data requires the creation of a copy of that data in memory. Changes
 // to that data are not saved back to the Core Graphics image.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(cgImage:)
+// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(cgImage:)-7o5tz
 func (b NSBitmapImageRep) InitWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImageRep {
 	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithCGImage:"), cgImage)
 	return rv
@@ -963,12 +962,12 @@ func (b NSBitmapImageRep) InitWithCGImage(cgImage coregraphics.CGImageRef) NSBit
 // If you pass in a [CIImage] object whose extents are not finite, this method
 // raises an exception.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)
+// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)-7bi19
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (b NSBitmapImageRep) InitWithCIImage(ciImage coreimage.CIImage) NSBitmapImageRep {
+func (b NSBitmapImageRep) InitWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep {
 	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithCIImage:"), ciImage)
 	return rv
 }
@@ -987,7 +986,7 @@ func (b NSBitmapImageRep) InitWithCIImage(ciImage coreimage.CIImage) NSBitmapIma
 // `bitmapData`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(data:)
-func (b NSBitmapImageRep) InitWithData(data foundation.INSData) NSBitmapImageRep {
+func (b NSBitmapImageRep) InitWithData(data foundation.NSData) NSBitmapImageRep {
 	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
@@ -1058,7 +1057,7 @@ func (b NSBitmapImageRep) GetBitmapDataPlanes(data unsafe.Pointer) {
 // [NSBitmapImageRep.TIFFCompression]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/TIFFCompression
 // [NSBadBitmapParametersException]: https://developer.apple.com/documentation/AppKit/NSBadBitmapParametersException
 // [NSTIFFException]: https://developer.apple.com/documentation/AppKit/NSTIFFException
-func (b NSBitmapImageRep) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.INSData {
+func (b NSBitmapImageRep) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression, factor float32) foundation.NSData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("TIFFRepresentationUsingCompression:factor:"), comp, factor)
 	return foundation.NSDataFromID(rv)
 }
@@ -1087,7 +1086,7 @@ func (b NSBitmapImageRep) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCo
 // [NSJPEGFileType]: https://developer.apple.com/documentation/AppKit/NSJPEGFileType
 // [NSPNGFileType]: https://developer.apple.com/documentation/AppKit/NSPNGFileType
 // [NSTIFFFileType]: https://developer.apple.com/documentation/AppKit/NSTIFFFileType
-func (b NSBitmapImageRep) RepresentationUsingTypeProperties(storageType NSBitmapImageFileType, properties foundation.INSDictionary) foundation.INSData {
+func (b NSBitmapImageRep) RepresentationUsingTypeProperties(storageType NSBitmapImageFileType, properties foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("representationUsingType:properties:"), storageType, properties)
 	return foundation.NSDataFromID(rv)
 }
@@ -1281,7 +1280,7 @@ func (b NSBitmapImageRep) ValueForProperty(property NSBitmapImageRepPropertyKey)
 // [NSBitmapImageRep] that was not initialized with [InitForIncrementalLoad].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/incrementalLoad(from:complete:)
-func (b NSBitmapImageRep) IncrementalLoadFromDataComplete(data foundation.INSData, complete bool) int {
+func (b NSBitmapImageRep) IncrementalLoadFromDataComplete(data foundation.NSData, complete bool) int {
 	rv := objc.Send[int](b.ID, objc.Sel("incrementalLoadFromData:complete:"), data, complete)
 	return rv
 }
@@ -1416,7 +1415,7 @@ func (b NSBitmapImageRep) BitmapImageRepByRetaggingWithColorSpace(newSpace INSCo
 // unable to create any image representations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/imageReps(with:)
-func (_NSBitmapImageRepClass NSBitmapImageRepClass) ImageRepsWithData(data foundation.INSData) []NSImageRep {
+func (_NSBitmapImageRepClass NSBitmapImageRepClass) ImageRepsWithData(data foundation.NSData) []NSImageRep {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSBitmapImageRepClass.class), objc.Sel("imageRepsWithData:"), data)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSImageRep {
 		return NSImageRepFromID(id)
@@ -1571,7 +1570,7 @@ func (_NSBitmapImageRepClass NSBitmapImageRepClass) LocalizedNameForTIFFCompress
 // image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/imageRepWithData:
-func (_NSBitmapImageRepClass NSBitmapImageRepClass) ImageRepWithData(data foundation.INSData) NSBitmapImageRep {
+func (_NSBitmapImageRepClass NSBitmapImageRepClass) ImageRepWithData(data foundation.NSData) NSBitmapImageRep {
 	rv := objc.Send[objc.ID](objc.ID(_NSBitmapImageRepClass.class), objc.Sel("imageRepWithData:"), data)
 	return NSBitmapImageRepFromID(rv)
 }
@@ -1717,7 +1716,7 @@ func (b NSBitmapImageRep) BitmapData() string {
 //
 // [NSBadBitmapParametersException]: https://developer.apple.com/documentation/AppKit/NSBadBitmapParametersException
 // [NSTIFFException]: https://developer.apple.com/documentation/AppKit/NSTIFFException
-func (b NSBitmapImageRep) TIFFRepresentation() foundation.INSData {
+func (b NSBitmapImageRep) TIFFRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("TIFFRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

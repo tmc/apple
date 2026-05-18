@@ -106,7 +106,7 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 // following:
 //
 // - Register your header and footer views using the
-// [RegisterClassForSupplementaryViewOfKindWithIdentifier] or
+// [RegisterNibForSupplementaryViewOfKindWithIdentifier] or
 // [RegisterNibForSupplementaryViewOfKindWithIdentifier] method. - Implement
 // the [CollectionViewViewForSupplementaryElementOfKindAtIndexPath] method in
 // your collection view’s data source object.

@@ -118,13 +118,13 @@ type INSAdaptiveImageGlyph interface {
 	// Topic: Creating an adaptive image glyph
 
 	// Create an adaptive image glyph from the previously saved data.
-	InitWithImageContent(imageContent foundation.INSData) NSAdaptiveImageGlyph
+	InitWithImageContent(imageContent foundation.NSData) NSAdaptiveImageGlyph
 	InitWithCoder(coder foundation.INSCoder) NSAdaptiveImageGlyph
 
 	// Topic: Getting the image data
 
 	// The raw data for the image.
-	ImageContent() foundation.INSData
+	ImageContent() foundation.NSData
 
 	// Topic: Getting the content metadata
 
@@ -182,7 +182,7 @@ func NewAdaptiveImageGlyphWithCoder(coder foundation.INSCoder) NSAdaptiveImageGl
 // previously saved.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyph/init(imageContent:)
-func NewAdaptiveImageGlyphWithImageContent(imageContent foundation.INSData) NSAdaptiveImageGlyph {
+func NewAdaptiveImageGlyphWithImageContent(imageContent foundation.NSData) NSAdaptiveImageGlyph {
 	instance := getNSAdaptiveImageGlyphClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImageContent:"), imageContent)
 	return NSAdaptiveImageGlyphFromID(rv)
@@ -206,7 +206,7 @@ func NewAdaptiveImageGlyphWithImageContent(imageContent foundation.INSData) NSAd
 // previously saved.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyph/init(imageContent:)
-func (a NSAdaptiveImageGlyph) InitWithImageContent(imageContent foundation.INSData) NSAdaptiveImageGlyph {
+func (a NSAdaptiveImageGlyph) InitWithImageContent(imageContent foundation.NSData) NSAdaptiveImageGlyph {
 	rv := objc.Send[NSAdaptiveImageGlyph](a.ID, objc.Sel("initWithImageContent:"), imageContent)
 	return rv
 }
@@ -231,7 +231,7 @@ func (a NSAdaptiveImageGlyph) EncodeWithCoder(coder foundation.INSCoder) {
 // [ContentType] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyph/imageContent
-func (a NSAdaptiveImageGlyph) ImageContent() foundation.INSData {
+func (a NSAdaptiveImageGlyph) ImageContent() foundation.NSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("imageContent"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

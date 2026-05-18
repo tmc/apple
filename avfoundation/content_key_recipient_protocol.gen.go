@@ -36,15 +36,6 @@ func AVContentKeyRecipientObjectFromID(id objc.ID) AVContentKeyRecipientObject {
 	}
 }
 
-// A Boolean value that indicates whether the recipient requires decryption
-// keys for media data to enable processing.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRecipient/mayRequireContentKeysForMediaDataProcessing
-func (o AVContentKeyRecipientObject) MayRequireContentKeysForMediaDataProcessing() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("mayRequireContentKeysForMediaDataProcessing"))
-	return rv
-}
-
 // Tells the recipient that a content key is available.
 //
 // contentKeySession: The current content key session.
@@ -57,4 +48,19 @@ func (o AVContentKeyRecipientObject) MayRequireContentKeysForMediaDataProcessing
 // [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 func (o AVContentKeyRecipientObject) ContentKeySessionDidProvideContentKey(contentKeySession IAVContentKeySession, contentKey IAVContentKey) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didProvideContentKey:"), contentKeySession, contentKey)
+}
+
+// A Boolean value that indicates whether the recipient requires decryption
+// keys for media data to enable processing.
+//
+// # Discussion
+//
+// When the value is true, adding the recipient to a content key session
+// allows the recipient to use the session’s existing keys. It also enables
+// handling of new key requests by the session’s delegate object.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRecipient/mayRequireContentKeysForMediaDataProcessing
+func (o AVContentKeyRecipientObject) MayRequireContentKeysForMediaDataProcessing() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("mayRequireContentKeysForMediaDataProcessing"))
+	return bool(rv)
 }

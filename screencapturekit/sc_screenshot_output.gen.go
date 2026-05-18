@@ -88,8 +88,8 @@ type ISCScreenshotOutput interface {
 	// Topic: Instance Properties
 
 	// A URL property that specifies the location of the saved image.
-	FileURL() foundation.INSURL
-	SetFileURL(value foundation.INSURL)
+	FileURL() foundation.NSURL
+	SetFileURL(value foundation.NSURL)
 	// An output property that specifies the high dynamic range version of the screenshot.
 	HdrImage() coregraphics.CGImageRef
 	SetHdrImage(value coregraphics.CGImageRef)
@@ -124,11 +124,11 @@ func NewSCScreenshotOutput() SCScreenshotOutput {
 // If `fileURL` is `nil`, then the file isn’t saved.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotOutput/fileURL
-func (s SCScreenshotOutput) FileURL() foundation.INSURL {
+func (s SCScreenshotOutput) FileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("fileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (s SCScreenshotOutput) SetFileURL(value foundation.INSURL) {
+func (s SCScreenshotOutput) SetFileURL(value foundation.NSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFileURL:"), value)
 }
 

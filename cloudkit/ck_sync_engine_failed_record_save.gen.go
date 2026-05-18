@@ -92,7 +92,7 @@ type ICKSyncEngineFailedRecordSave interface {
 	// Topic: Accessing the error
 
 	// A error that describes the reason for the unsuccessful attempt to modify the associated record.
-	Error() foundation.INSError
+	Error() foundation.NSError
 }
 
 // Init initializes the instance.
@@ -126,7 +126,7 @@ func (c CKSyncEngineFailedRecordSave) Record() ICKRecord {
 // the associated record.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSyncEngineFailedRecordSave/error
-func (c CKSyncEngineFailedRecordSave) Error() foundation.INSError {
+func (c CKSyncEngineFailedRecordSave) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

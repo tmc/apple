@@ -84,14 +84,14 @@ type IMLAppleWordTagger interface {
 }
 
 // Init initializes the instance.
-func (a MLAppleWordTagger) Init() MLAppleWordTagger {
-	rv := objc.Send[MLAppleWordTagger](a.ID, objc.Sel("init"))
+func (m MLAppleWordTagger) Init() MLAppleWordTagger {
+	rv := objc.Send[MLAppleWordTagger](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAppleWordTagger) Autorelease() MLAppleWordTagger {
-	rv := objc.Send[MLAppleWordTagger](a.ID, objc.Sel("autorelease"))
+func (m MLAppleWordTagger) Autorelease() MLAppleWordTagger {
+	rv := objc.Send[MLAppleWordTagger](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -167,9 +167,9 @@ func NewAppleWordTaggerWithParametersModelDescriptionNlpHandleConfigurationError
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTagger/predictionFromFeatures:options:error:
-func (a MLAppleWordTagger) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLAppleWordTagger) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -179,9 +179,9 @@ func (a MLAppleWordTagger) PredictionFromFeaturesOptionsError(features objective
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTagger/initWithParameters:modelDescription:nlpHandle:configuration:error:
-func (a MLAppleWordTagger) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleWordTagger, error) {
+func (m MLAppleWordTagger) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleWordTagger, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleWordTagger{}, foundation.NSErrorFrom(errorPtr)
@@ -218,7 +218,7 @@ func (_MLAppleWordTaggerClass MLAppleWordTaggerClass) SaveAppleWordTaggingModelT
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTagger/parameters
-func (a MLAppleWordTagger) Parameters() IMLAppleWordTaggerParameters {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
+func (m MLAppleWordTagger) Parameters() IMLAppleWordTaggerParameters {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return MLAppleWordTaggerParametersFromID(objc.ID(rv))
 }

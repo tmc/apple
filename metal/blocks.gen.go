@@ -7,7 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// ErrorHandler handles A Swift closure or an Objective-C block the method calls when it finishes creating the compute pipeline state.
+// ErrorHandler handles A completetion handler that you provide, which the task calls when it finishes compiling the binary function.
 //
 // Used by:
 //   - [MTL4Compiler.NewBinaryFunctionWithDescriptorCompilerTaskOptionsCompletionHandler]

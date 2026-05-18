@@ -111,7 +111,7 @@ type IMTLCommandBufferDescriptor interface {
 	MTLCommandBufferErrorDomain() string
 	// An option that instructs a command buffer to save additional details about a GPU runtime error.
 	EncoderExecutionStatus() MTLCommandBufferErrorOption
-	SetEncoderExecutionStatus(value MTLCommandBufferErrorOption)
+	SetMTLCommandBufferErrorOptionEncoderExecutionStatus(value MTLCommandBufferErrorOption)
 }
 
 // Init initializes the instance.
@@ -216,6 +216,6 @@ func (c MTLCommandBufferDescriptor) EncoderExecutionStatus() MTLCommandBufferErr
 	rv := objc.Send[MTLCommandBufferErrorOption](c.ID, objc.Sel("MTLCommandBufferErrorOptionEncoderExecutionStatus"))
 	return MTLCommandBufferErrorOption(rv)
 }
-func (c MTLCommandBufferDescriptor) SetEncoderExecutionStatus(value MTLCommandBufferErrorOption) {
+func (c MTLCommandBufferDescriptor) SetMTLCommandBufferErrorOptionEncoderExecutionStatus(value MTLCommandBufferErrorOption) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMTLCommandBufferErrorOptionEncoderExecutionStatus:"), value)
 }

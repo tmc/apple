@@ -141,19 +141,19 @@ type INSDataDetector interface {
 
 	// Attempts to locate dates.
 	Date() NSTextCheckingType
-	SetDate(value NSTextCheckingType)
+	SetNSTextCheckingTypeDate(value NSTextCheckingType)
 	// The duration component of a type checking result.
 	Duration() float64
 	SetDuration(value float64)
 	// Attempts to locate URL links.
 	Link() NSTextCheckingType
-	SetLink(value NSTextCheckingType)
+	SetNSTextCheckingTypeLink(value NSTextCheckingType)
 	// The time zone component of a type checking result.
 	TimeZone() INSTimeZone
 	SetTimeZone(value INSTimeZone)
 	// The URL of a type checking result.
 	Url() INSURL
-	SetUrl(value INSURL)
+	SetURL(value INSURL)
 }
 
 // Init initializes the instance.
@@ -338,7 +338,7 @@ func (d NSDataDetector) Date() NSTextCheckingType {
 	rv := objc.Send[NSTextCheckingType](d.ID, objc.Sel("NSTextCheckingTypeDate"))
 	return NSTextCheckingType(rv)
 }
-func (d NSDataDetector) SetDate(value NSTextCheckingType) {
+func (d NSDataDetector) SetNSTextCheckingTypeDate(value NSTextCheckingType) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeDate:"), value)
 }
 
@@ -360,7 +360,7 @@ func (d NSDataDetector) Link() NSTextCheckingType {
 	rv := objc.Send[NSTextCheckingType](d.ID, objc.Sel("NSTextCheckingTypeLink"))
 	return NSTextCheckingType(rv)
 }
-func (d NSDataDetector) SetLink(value NSTextCheckingType) {
+func (d NSDataDetector) SetNSTextCheckingTypeLink(value NSTextCheckingType) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeLink:"), value)
 }
 
@@ -382,6 +382,6 @@ func (d NSDataDetector) Url() INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
 	return NSURLFromID(objc.ID(rv))
 }
-func (d NSDataDetector) SetUrl(value INSURL) {
+func (d NSDataDetector) SetURL(value INSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setURL:"), value)
 }

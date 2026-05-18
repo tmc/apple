@@ -96,7 +96,7 @@ type IVNFeaturePrintObservation interface {
 	// Topic: Fetching Feature Print Data
 
 	// The feature print data.
-	Data() foundation.INSData
+	Data() foundation.NSData
 	// The total number of elements in the data.
 	ElementCount() uint
 
@@ -163,7 +163,7 @@ func (f VNFeaturePrintObservation) ComputeDistanceToFeaturePrintObservationError
 // using [ElementType], and the number of elements using [ElementCount].
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/data
-func (f VNFeaturePrintObservation) Data() foundation.INSData {
+func (f VNFeaturePrintObservation) Data() foundation.NSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

@@ -234,6 +234,8 @@ type INSLayoutConstraint interface {
 
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Sets the option dictionary that maps event trigger keys to animation objects.
+	Animations() foundation.INSDictionary
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
 	Animator() INSLayoutConstraint
 }
@@ -325,6 +327,15 @@ func NewLayoutConstraintWithItemAttributeRelatedByToItemAttributeMultiplierConst
 func (l NSLayoutConstraint) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
+}
+
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (l NSLayoutConstraint) Animations() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](l.ID, objc.Sel("animations"))
+	return foundation.NSDictionaryFromID(rv)
 }
 
 // Returns a proxy object for the receiver that can be used to initiate
@@ -649,16 +660,4 @@ func (l NSLayoutConstraint) ShouldBeArchived() bool {
 }
 func (l NSLayoutConstraint) SetShouldBeArchived(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setShouldBeArchived:"), value)
-}
-
-// Sets the option dictionary that maps event trigger keys to animation
-// objects.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
-func (l NSLayoutConstraint) Animations() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("animations"))
-	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-func (l NSLayoutConstraint) SetAnimations(value foundation.INSDictionary) {
-	objc.Send[struct{}](l.ID, objc.Sel("setAnimations:"), value)
 }

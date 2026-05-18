@@ -94,14 +94,14 @@ type IMLNumericConstraint interface {
 }
 
 // Init initializes the instance.
-func (n MLNumericConstraint) Init() MLNumericConstraint {
-	rv := objc.Send[MLNumericConstraint](n.ID, objc.Sel("init"))
+func (m MLNumericConstraint) Init() MLNumericConstraint {
+	rv := objc.Send[MLNumericConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNumericConstraint) Autorelease() MLNumericConstraint {
-	rv := objc.Send[MLNumericConstraint](n.ID, objc.Sel("autorelease"))
+func (m MLNumericConstraint) Autorelease() MLNumericConstraint {
+	rv := objc.Send[MLNumericConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -120,8 +120,8 @@ func NewNumericConstraintWithCoder(coder objectivec.IObject) MLNumericConstraint
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/initWithCoder:
-func (n MLNumericConstraint) InitWithCoder(coder foundation.INSCoder) MLNumericConstraint {
-	rv := objc.Send[MLNumericConstraint](n.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLNumericConstraint) InitWithCoder(coder foundation.INSCoder) MLNumericConstraint {
+	rv := objc.Send[MLNumericConstraint](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -144,28 +144,28 @@ func (_MLNumericConstraintClass MLNumericConstraintClass) SupportsSecureCoding()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/enumeratedNumbers
-func (n MLNumericConstraint) EnumeratedNumbers() foundation.INSSet {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("enumeratedNumbers"))
+func (m MLNumericConstraint) EnumeratedNumbers() foundation.INSSet {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("enumeratedNumbers"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-func (n MLNumericConstraint) SetEnumeratedNumbers(value foundation.INSSet) {
-	objc.Send[struct{}](n.ID, objc.Sel("setEnumeratedNumbers:"), value)
+func (m MLNumericConstraint) SetEnumeratedNumbers(value foundation.INSSet) {
+	objc.Send[struct{}](m.ID, objc.Sel("setEnumeratedNumbers:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/maxNumber
-func (n MLNumericConstraint) MaxNumber() foundation.NSNumber {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("maxNumber"))
+func (m MLNumericConstraint) MaxNumber() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("maxNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (n MLNumericConstraint) SetMaxNumber(value foundation.NSNumber) {
-	objc.Send[struct{}](n.ID, objc.Sel("setMaxNumber:"), value)
+func (m MLNumericConstraint) SetMaxNumber(value foundation.NSNumber) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMaxNumber:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/minNumber
-func (n MLNumericConstraint) MinNumber() foundation.NSNumber {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("minNumber"))
+func (m MLNumericConstraint) MinNumber() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("minNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (n MLNumericConstraint) SetMinNumber(value foundation.NSNumber) {
-	objc.Send[struct{}](n.ID, objc.Sel("setMinNumber:"), value)
+func (m MLNumericConstraint) SetMinNumber(value foundation.NSNumber) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMinNumber:"), value)
 }

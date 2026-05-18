@@ -115,8 +115,7 @@ func NewFSDirectoryEntryPacker() FSDirectoryEntryPacker {
 // itemType: The type of the item.
 //
 // itemID: The item’s identifier. Typically this is an inode number, or one of the
-// constants defined by [FSItem.Identifier] like
-// [FSItem.Identifier.rootDirectory].
+// constants defined by [FSItem.Identifier] like [FSItemIDRootDirectory].
 //
 // nextCookie: A value to indicate the next entry in the directory to enumerate. FSKit
 // passes this value as the `cookie` parameter on the next call to
@@ -142,7 +141,6 @@ func NewFSDirectoryEntryPacker() FSDirectoryEntryPacker {
 //
 // See: https://developer.apple.com/documentation/FSKit/FSDirectoryEntryPacker/packEntry(name:itemType:itemID:nextCookie:attributes:)
 //
-// [FSItem.Identifier.rootDirectory]: https://developer.apple.com/documentation/FSKit/FSItem/Identifier/rootDirectory
 // [FSItem.Identifier]: https://developer.apple.com/documentation/FSKit/FSItem/Identifier
 func (d FSDirectoryEntryPacker) PackEntryWithNameItemTypeItemIDNextCookieAttributes(name IFSFileName, itemType FSItemType, itemID FSItemID, nextCookie FSDirectoryCookie, attributes IFSItemAttributes) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("packEntryWithName:itemType:itemID:nextCookie:attributes:"), name, itemType, itemID, nextCookie, attributes)

@@ -341,6 +341,8 @@ type INSPageController interface {
 
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Sets the option dictionary that maps event trigger keys to animation objects.
+	Animations() foundation.INSDictionary
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
 	Animator() INSPageController
 }
@@ -517,6 +519,15 @@ func (p NSPageController) AnimationForKey(key NSAnimatablePropertyKey) objective
 	return objectivec.Object{ID: rv}
 }
 
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (p NSPageController) Animations() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("animations"))
+	return foundation.NSDictionaryFromID(rv)
+}
+
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
@@ -670,16 +681,4 @@ func (p NSPageController) SetTransitionStyle(value NSPageControllerTransitionSty
 func (p NSPageController) SelectedViewController() INSViewController {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("selectedViewController"))
 	return NSViewControllerFromID(objc.ID(rv))
-}
-
-// Sets the option dictionary that maps event trigger keys to animation
-// objects.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
-func (p NSPageController) Animations() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("animations"))
-	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-func (p NSPageController) SetAnimations(value foundation.INSDictionary) {
-	objc.Send[struct{}](p.ID, objc.Sel("setAnimations:"), value)
 }

@@ -170,8 +170,6 @@ func NSHashTableFromID(id objc.ID) NSHashTable {
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable
 type INSHashTable interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Initialization

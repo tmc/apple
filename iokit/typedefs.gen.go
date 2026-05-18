@@ -5,8 +5,8 @@ package iokit
 import (
 	"unsafe"
 
+	"github.com/tmc/apple/applicationservices"
 	"github.com/tmc/apple/kernel"
-	"github.com/tmc/apple/objectivec"
 )
 
 // See: https://developer.apple.com/documentation/iokit/ataoperationtype
@@ -40,7 +40,7 @@ type BDMediaType = uint32
 type BDTrackInfo = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/block0
-type Block0 = objectivec.IObject
+type Block0 = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/cdatip
 type CDATIP = unsafe.Pointer
@@ -109,13 +109,13 @@ type CSRNodeUniqueID = uint64
 type ColorSpec = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/colorspecptr
-type ColorSpecPtr = unsafe.Pointer
+type ColorSpecPtr = applicationservices.ColorSpec
 
 // See: https://developer.apple.com/documentation/iokit/dasdmodeparameterblockdescriptor
-type DASDModeParameterBlockDescriptor = objectivec.IObject
+type DASDModeParameterBlockDescriptor = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dclcallcommandproc
-type DCLCallCommandProc = objectivec.IObject
+type DCLCallCommandProc = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dclcallcommandprocptr
 type DCLCallCommandProcPtr = unsafe.Pointer
@@ -310,7 +310,7 @@ type FWSBP2NotifyParams = unsafe.Pointer
 type FWSBP2ReconnectParams = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2statusblock
-type FWSBP2StatusBlock = objectivec.IObject
+type FWSBP2StatusBlock = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2virtualrange
 type FWSBP2VirtualRange = unsafe.Pointer
@@ -377,7 +377,7 @@ type IOAppleTimingID = uint32
 // IOAsyncCallback is standard callback function for asynchronous I/O requests with lots of extra arguments beyond a refcon and result code.
 //
 // See: https://developer.apple.com/documentation/iokit/ioasynccallback
-type IOAsyncCallback = func(unsafe.Pointer, int, objectivec.IObject, uint32)
+type IOAsyncCallback = func(unsafe.Pointer, int, unsafe.Pointer, uint32)
 
 // IOAsyncCallback0 is standard callback function for asynchronous I/O requests with no extra arguments beyond a refcon and result code.
 //
@@ -1432,7 +1432,7 @@ type IOUSBFindInterfaceRequest = unsafe.Pointer
 type IOUSBGetFrameStruct = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbhiddataptr
-type IOUSBHIDDataPtr = kernel.IOUSBHIDData
+type IOUSBHIDDataPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbhiddescriptor
 type IOUSBHIDDescriptor = unsafe.Pointer
@@ -1611,7 +1611,7 @@ type IOVideoStreamDescription = unsafe.Pointer
 type IOVirtualAddress = kernel.Mach_vm_address_t
 
 // See: https://developer.apple.com/documentation/iokit/longlbamodeparameterblockdescriptor
-type LongLBAModeParameterBlockDescriptor = objectivec.IObject
+type LongLBAModeParameterBlockDescriptor = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/lowlatencyuserbufferinfo
 type LowLatencyUserBufferInfo = unsafe.Pointer
@@ -1631,7 +1631,7 @@ type MMCDeviceInterface = unsafe.Pointer
 type ModePageFormatHeader = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/modeparameterblockdescriptor
-type ModeParameterBlockDescriptor = objectivec.IObject
+type ModeParameterBlockDescriptor = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/nvmeidentifycontrollerstruct
 type NVMeIdentifyControllerStruct = unsafe.Pointer
@@ -1748,7 +1748,7 @@ type RGBColor = unsafe.Pointer
 type RGBColorHdl = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/rgbcolorptr
-type RGBColorPtr = unsafe.Pointer
+type RGBColorPtr = applicationservices.RGBColor
 
 // See: https://developer.apple.com/documentation/iokit/rawsensecode
 type RawSenseCode = uint8
@@ -2146,7 +2146,7 @@ type USBStatus = uint16
 type USBStatusPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclcallcommandproc
-type UserExportDCLCallCommandProc = objectivec.IObject
+type UserExportDCLCallCommandProc = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclcallproc
 type UserExportDCLCallProc = unsafe.Pointer
@@ -2221,7 +2221,7 @@ type VDConvolutionInfoRec = unsafe.Pointer
 type VDDDCBlockPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdddcblockrec
-type VDDDCBlockRec = objectivec.IObject
+type VDDDCBlockRec = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vddefmode
 type VDDefMode = uint
@@ -2268,7 +2268,7 @@ type VDFlagRecord = unsafe.Pointer
 // VDGamRecPtr is represents a type used by the Video Components API.
 //
 // See: https://developer.apple.com/documentation/iokit/vdgamrecptr
-type VDGamRecPtr = unsafe.Pointer
+type VDGamRecPtr = applicationservices.VDGammaRecord
 
 // See: https://developer.apple.com/documentation/iokit/vdgammainfoptr
 type VDGammaInfoPtr = unsafe.Pointer
@@ -2406,7 +2406,7 @@ type VDVideoParametersInfoPtr = unsafe.Pointer
 type VDVideoParametersInfoRec = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vpblock
-type VPBlock = objectivec.IObject
+type VPBlock = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vpblockptr
 type VPBlockPtr = unsafe.Pointer
@@ -2563,3 +2563,183 @@ type User_ul_t = uint64
 
 // See: https://developer.apple.com/documentation/iokit/user_us_t
 type User_us_t = uint32
+
+// IOFireWireCompareSwapCommandInterfaceV3 is a Go-name alias for IOFireWireCompareSwapCommandInterface_v3.
+type IOFireWireCompareSwapCommandInterfaceV3 = IOFireWireCompareSwapCommandInterface_v3
+
+// IOUPSPlugInInterfaceV140 is a Go-name alias for IOUPSPlugInInterface_v140.
+type IOUPSPlugInInterfaceV140 = IOUPSPlugInInterface_v140
+
+// IOVideoDeviceInterfaceV1 is a Go-name alias for IOVideoDeviceInterface_v1_t.
+type IOVideoDeviceInterfaceV1 = IOVideoDeviceInterface_v1_t
+
+// ReportLunsLogicalUnitAddressing is a Go-name alias for REPORT_LUNS_LOGICAL_UNIT_ADDRESSING.
+type ReportLunsLogicalUnitAddressing = REPORT_LUNS_LOGICAL_UNIT_ADDRESSING
+
+// ReportLunsPeripheralDeviceAddressing is a Go-name alias for REPORT_LUNS_PERIPHERAL_DEVICE_ADDRESSING.
+type ReportLunsPeripheralDeviceAddressing = REPORT_LUNS_PERIPHERAL_DEVICE_ADDRESSING
+
+// SCSICmdInquiryPAGECxHeader is a Go-name alias for SCSICmd_INQUIRY_PAGECx_Header.
+type SCSICmdInquiryPAGECxHeader = SCSICmd_INQUIRY_PAGECx_Header
+
+// SCSICmdInquiryPage00Header is a Go-name alias for SCSICmd_INQUIRY_Page00_Header.
+type SCSICmdInquiryPage00Header = SCSICmd_INQUIRY_Page00_Header
+
+// SCSICmdInquiryPage00HeaderSpc16 is a Go-name alias for SCSICmd_INQUIRY_Page00_Header_SPC_16.
+type SCSICmdInquiryPage00HeaderSpc16 = SCSICmd_INQUIRY_Page00_Header_SPC_16
+
+// SCSICmdInquiryPage80Header is a Go-name alias for SCSICmd_INQUIRY_Page80_Header.
+type SCSICmdInquiryPage80Header = SCSICmd_INQUIRY_Page80_Header
+
+// SCSICmdInquiryPage80HeaderSpc16 is a Go-name alias for SCSICmd_INQUIRY_Page80_Header_SPC_16.
+type SCSICmdInquiryPage80HeaderSpc16 = SCSICmd_INQUIRY_Page80_Header_SPC_16
+
+// SCSICmdInquiryPage83Header is a Go-name alias for SCSICmd_INQUIRY_Page83_Header.
+type SCSICmdInquiryPage83Header = SCSICmd_INQUIRY_Page83_Header
+
+// SCSICmdInquiryPage83HeaderSpc16 is a Go-name alias for SCSICmd_INQUIRY_Page83_Header_SPC_16.
+type SCSICmdInquiryPage83HeaderSpc16 = SCSICmd_INQUIRY_Page83_Header_SPC_16
+
+// SCSICmdInquiryPage83IdentificationDescriptor is a Go-name alias for SCSICmd_INQUIRY_Page83_Identification_Descriptor.
+type SCSICmdInquiryPage83IdentificationDescriptor = SCSICmd_INQUIRY_Page83_Identification_Descriptor
+
+// SCSICmdInquiryPage83LogicalUnitGroupIdentifier is a Go-name alias for SCSICmd_INQUIRY_Page83_LogicalUnitGroup_Identifier.
+type SCSICmdInquiryPage83LogicalUnitGroupIdentifier = SCSICmd_INQUIRY_Page83_LogicalUnitGroup_Identifier
+
+// SCSICmdInquiryPage83RelativeTargetPortIdentifier is a Go-name alias for SCSICmd_INQUIRY_Page83_RelativeTargetPort_Identifier.
+type SCSICmdInquiryPage83RelativeTargetPortIdentifier = SCSICmd_INQUIRY_Page83_RelativeTargetPort_Identifier
+
+// SCSICmdInquiryPage83TargetPortGroupIdentifier is a Go-name alias for SCSICmd_INQUIRY_Page83_TargetPortGroup_Identifier.
+type SCSICmdInquiryPage83TargetPortGroupIdentifier = SCSICmd_INQUIRY_Page83_TargetPortGroup_Identifier
+
+// SCSICmdInquiryPage89Data is a Go-name alias for SCSICmd_INQUIRY_Page89_Data.
+type SCSICmdInquiryPage89Data = SCSICmd_INQUIRY_Page89_Data
+
+// SCSICmdInquiryPageB0Data is a Go-name alias for SCSICmd_INQUIRY_PageB0_Data.
+type SCSICmdInquiryPageB0Data = SCSICmd_INQUIRY_PageB0_Data
+
+// SCSICmdInquiryPageB1Data is a Go-name alias for SCSICmd_INQUIRY_PageB1_Data.
+type SCSICmdInquiryPageB1Data = SCSICmd_INQUIRY_PageB1_Data
+
+// SCSICmdInquiryPageB2Data is a Go-name alias for SCSICmd_INQUIRY_PageB2_Data.
+type SCSICmdInquiryPageB2Data = SCSICmd_INQUIRY_PageB2_Data
+
+// SCSICmdInquiryPageB2ProvisioningGroupDescriptor is a Go-name alias for SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor.
+type SCSICmdInquiryPageB2ProvisioningGroupDescriptor = SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor
+
+// SCSICmdInquiryPageC0Data is a Go-name alias for SCSICmd_INQUIRY_PageC0_Data.
+type SCSICmdInquiryPageC0Data = SCSICmd_INQUIRY_PageC0_Data
+
+// SCSICmdInquiryPageC1Data is a Go-name alias for SCSICmd_INQUIRY_PageC1_Data.
+type SCSICmdInquiryPageC1Data = SCSICmd_INQUIRY_PageC1_Data
+
+// SCSICmdInquiryStandardData is a Go-name alias for SCSICmd_INQUIRY_StandardData.
+type SCSICmdInquiryStandardData = SCSICmd_INQUIRY_StandardData
+
+// SCSICmdInquiryStandardDataAll is a Go-name alias for SCSICmd_INQUIRY_StandardDataAll.
+type SCSICmdInquiryStandardDataAll = SCSICmd_INQUIRY_StandardDataAll
+
+// SCSICmdInquiryStandardDataPtr is a Go-name alias for SCSICmd_INQUIRY_StandardDataPtr.
+type SCSICmdInquiryStandardDataPtr = SCSICmd_INQUIRY_StandardDataPtr
+
+// SCSICmdReportLunsHeader is a Go-name alias for SCSICmd_REPORT_LUNS_Header.
+type SCSICmdReportLunsHeader = SCSICmd_REPORT_LUNS_Header
+
+// SCSICmdReportLunsLunEntry is a Go-name alias for SCSICmd_REPORT_LUNS_LUN_ENTRY.
+type SCSICmdReportLunsLunEntry = SCSICmd_REPORT_LUNS_LUN_ENTRY
+
+// ScsiCapacityData is a Go-name alias for SCSI_Capacity_Data.
+type ScsiCapacityData = SCSI_Capacity_Data
+
+// ScsiCapacityDataLong is a Go-name alias for SCSI_Capacity_Data_Long.
+type ScsiCapacityDataLong = SCSI_Capacity_Data_Long
+
+// ScsiSenseData is a Go-name alias for SCSI_Sense_Data.
+type ScsiSenseData = SCSI_Sense_Data
+
+// DkBdReadDiscInfo is a Go-name alias for Dk_bd_read_disc_info_t.
+type DkBdReadDiscInfo = Dk_bd_read_disc_info_t
+
+// DkBdReadStructure is a Go-name alias for Dk_bd_read_structure_t.
+type DkBdReadStructure = Dk_bd_read_structure_t
+
+// DkBdReadTrackInfo is a Go-name alias for Dk_bd_read_track_info_t.
+type DkBdReadTrackInfo = Dk_bd_read_track_info_t
+
+// DkBdReportKey is a Go-name alias for Dk_bd_report_key_t.
+type DkBdReportKey = Dk_bd_report_key_t
+
+// DkBdSendKey is a Go-name alias for Dk_bd_send_key_t.
+type DkBdSendKey = Dk_bd_send_key_t
+
+// DkCdReadDiscInfo is a Go-name alias for Dk_cd_read_disc_info_t.
+type DkCdReadDiscInfo = Dk_cd_read_disc_info_t
+
+// DkCdReadIsrc is a Go-name alias for Dk_cd_read_isrc_t.
+type DkCdReadIsrc = Dk_cd_read_isrc_t
+
+// DkCdReadMcn is a Go-name alias for Dk_cd_read_mcn_t.
+type DkCdReadMcn = Dk_cd_read_mcn_t
+
+// DkCdRead is a Go-name alias for Dk_cd_read_t.
+type DkCdRead = Dk_cd_read_t
+
+// DkCdReadToc is a Go-name alias for Dk_cd_read_toc_t.
+type DkCdReadToc = Dk_cd_read_toc_t
+
+// DkCdReadTrackInfo is a Go-name alias for Dk_cd_read_track_info_t.
+type DkCdReadTrackInfo = Dk_cd_read_track_info_t
+
+// DkDvdReadDiscInfo is a Go-name alias for Dk_dvd_read_disc_info_t.
+type DkDvdReadDiscInfo = Dk_dvd_read_disc_info_t
+
+// DkDvdReadRzoneInfo is a Go-name alias for Dk_dvd_read_rzone_info_t.
+type DkDvdReadRzoneInfo = Dk_dvd_read_rzone_info_t
+
+// DkDvdReadStructure is a Go-name alias for Dk_dvd_read_structure_t.
+type DkDvdReadStructure = Dk_dvd_read_structure_t
+
+// DkDvdReportKey is a Go-name alias for Dk_dvd_report_key_t.
+type DkDvdReportKey = Dk_dvd_report_key_t
+
+// DkDvdSendKey is a Go-name alias for Dk_dvd_send_key_t.
+type DkDvdSendKey = Dk_dvd_send_key_t
+
+// EvioSpecialKeyMsg is a Go-name alias for EvioSpecialKeyMsg_t.
+type EvioSpecialKeyMsg = EvioSpecialKeyMsg_t
+
+// IOConnect is a Go-name alias for Io_connect_t.
+type IOConnect = Io_connect_t
+
+// IOEnumerator is a Go-name alias for Io_enumerator_t.
+type IOEnumerator = Io_enumerator_t
+
+// IOIdent is a Go-name alias for Io_ident_t.
+type IOIdent = Io_ident_t
+
+// IOIterator is a Go-name alias for Io_iterator_t.
+type IOIterator = Io_iterator_t
+
+// IOObject is a Go-name alias for Io_object_t.
+type IOObject = Io_object_t
+
+// IORegistryEntry is a Go-name alias for Io_registry_entry_t.
+type IORegistryEntry = Io_registry_entry_t
+
+// IOService is a Go-name alias for Io_service_t.
+type IOService = Io_service_t
+
+// UextObject is a Go-name alias for Uext_object_t.
+type UextObject = Uext_object_t
+
+// UserShspeed is a Go-name alias for User_shspeed_t.
+type UserShspeed = User_shspeed_t
+
+// UserSpeed is a Go-name alias for User_speed_t.
+type UserSpeed = User_speed_t
+
+// UserUl is a Go-name alias for User_ul_t.
+type UserUl = User_ul_t
+
+// UserUs is a Go-name alias for User_us_t.
+type UserUs = User_us_t

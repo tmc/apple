@@ -14,34 +14,22 @@ type CIMaximumScaleTransform interface {
 	objectivec.IObject
 	CIFilterProtocol
 
-	// AspectRatio protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/aspectRatio
-	AspectRatio() float32
-
-	// InputImage protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/inputImage
-	InputImage() ICIImage
-
-	// Scale protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/scale
-	Scale() float32
-
 	// aspectRatio protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/aspectRatio
+	AspectRatio() float32
 	SetAspectRatio(value float32)
 
 	// inputImage protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// scale protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/scale
+	Scale() float32
 	SetScale(value float32)
 }
 
@@ -62,24 +50,6 @@ func CIMaximumScaleTransformObjectFromID(id objc.ID) CIMaximumScaleTransformObje
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/aspectRatio
-func (o CIMaximumScaleTransformObject) AspectRatio() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("aspectRatio"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/inputImage
-func (o CIMaximumScaleTransformObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/scale
-func (o CIMaximumScaleTransformObject) Scale() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -90,16 +60,31 @@ func (o CIMaximumScaleTransformObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/aspectRatio
+func (o CIMaximumScaleTransformObject) AspectRatio() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("aspectRatio"))
+	return float32(rv)
+}
+
 func (o CIMaximumScaleTransformObject) SetAspectRatio(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAspectRatio:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/inputImage
+func (o CIMaximumScaleTransformObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIMaximumScaleTransformObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/scale
+func (o CIMaximumScaleTransformObject) Scale() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
+	return float32(rv)
+}
+
 func (o CIMaximumScaleTransformObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }

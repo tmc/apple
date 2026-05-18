@@ -28,6 +28,7 @@ type MTLCaptureScope interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/label
 	Label() string
+	SetLabel(value string)
 
 	// The device object from which you created the capture scope.
 	//
@@ -43,11 +44,6 @@ type MTLCaptureScope interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/mtl4CommandQueue
 	Mtl4CommandQueue() MTL4CommandQueue
-
-	// A string that helps you identify the capture scope.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/label
-	SetLabel(value string)
 }
 
 // MTLCaptureScopeObject wraps an existing Objective-C object that conforms to the MTLCaptureScope protocol.
@@ -83,10 +79,21 @@ func (o MTLCaptureScopeObject) EndScope() {
 
 // A string that helps you identify the capture scope.
 //
+// # Discussion
+//
+// Setting a capture scope’s label makes it easier to find in Xcode. See
+// [Creating and using custom capture scopes] for more information.
+//
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/label
+//
+// [Creating and using custom capture scopes]: https://developer.apple.com/documentation/Xcode/Creating-and-using-custom-capture-scopes
 func (o MTLCaptureScopeObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
+}
+
+func (o MTLCaptureScopeObject) SetLabel(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
 // The device object from which you created the capture scope.
@@ -99,6 +106,12 @@ func (o MTLCaptureScopeObject) Device() MTLDevice {
 
 // The command queue that this capture scope uses to limit which commands are
 // recorded.
+//
+// # Discussion
+//
+// This value is only available if you created the capture scope by calling
+// the [NewCaptureScopeWithMTL4CommandQueue] method. Otherwise, the value is
+// `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/commandQueue
 func (o MTLCaptureScopeObject) CommandQueue() MTLCommandQueue {
@@ -114,18 +127,4 @@ func (o MTLCaptureScopeObject) CommandQueue() MTLCommandQueue {
 func (o MTLCaptureScopeObject) Mtl4CommandQueue() MTL4CommandQueue {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("mtl4CommandQueue"))
 	return MTL4CommandQueueObjectFromID(rv)
-}
-
-// A string that helps you identify the capture scope.
-//
-// # Discussion
-//
-// Setting a capture scope’s label makes it easier to find in Xcode. See
-// [Creating and using custom capture scopes] for more information.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/label
-//
-// [Creating and using custom capture scopes]: https://developer.apple.com/documentation/Xcode/Creating-and-using-custom-capture-scopes
-func (o MTLCaptureScopeObject) SetLabel(value string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

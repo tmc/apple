@@ -166,8 +166,8 @@ type ICKModifyRecordsOperation interface {
 	RecordIDsToDelete() []CKRecordID
 	SetRecordIDsToDelete(value []CKRecordID)
 	// A token that tracks local changes to records.
-	ClientChangeTokenData() foundation.INSData
-	SetClientChangeTokenData(value foundation.INSData)
+	ClientChangeTokenData() foundation.NSData
+	SetClientChangeTokenData(value foundation.NSData)
 	// A Boolean value that indicates whether the entire operation fails when CloudKit can’t update one or more records in a record zone.
 	Atomic() bool
 	SetAtomic(value bool)
@@ -295,11 +295,11 @@ func (c CKModifyRecordsOperation) SetRecordIDsToDelete(value []CKRecordID) {
 // execute the operation or submit the operation to a queue.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKModifyRecordsOperation/clientChangeTokenData
-func (c CKModifyRecordsOperation) ClientChangeTokenData() foundation.INSData {
+func (c CKModifyRecordsOperation) ClientChangeTokenData() foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("clientChangeTokenData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (c CKModifyRecordsOperation) SetClientChangeTokenData(value foundation.INSData) {
+func (c CKModifyRecordsOperation) SetClientChangeTokenData(value foundation.NSData) {
 	objc.Send[struct{}](c.ID, objc.Sel("setClientChangeTokenData:"), value)
 }
 

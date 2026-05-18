@@ -159,6 +159,6 @@ func (_LAPersistedRightClass LAPersistedRightClass) Shared() LARightStore {
 	rv := objc.Send[objc.ID](objc.ID(_LAPersistedRightClass.class), objc.Sel("sharedStore"))
 	return LARightStoreFromID(objc.ID(rv))
 }
-func (_LAPersistedRightClass LAPersistedRightClass) SetShared(value LARightStore) {
+func (_LAPersistedRightClass LAPersistedRightClass) SetSharedStore(value LARightStore) {
 	objc.Send[struct{}](objc.ID(_LAPersistedRightClass.class), objc.Sel("setSharedStore:"), value)
 }

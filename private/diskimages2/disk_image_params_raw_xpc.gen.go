@@ -9,95 +9,100 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [DiskImageParamsRaw_XPC] class.
+// The class instance for the [DiskImageParamsRawXPC] class.
 var (
-	_DiskImageParamsRaw_XPCClass     DiskImageParamsRaw_XPCClass
-	_DiskImageParamsRaw_XPCClassOnce sync.Once
+	_DiskImageParamsRawXPCClass     DiskImageParamsRawXPCClass
+	_DiskImageParamsRawXPCClassOnce sync.Once
 )
 
-func getDiskImageParamsRaw_XPCClass() DiskImageParamsRaw_XPCClass {
-	_DiskImageParamsRaw_XPCClassOnce.Do(func() {
-		_DiskImageParamsRaw_XPCClass = DiskImageParamsRaw_XPCClass{class: objc.GetClass("DiskImageParamsRaw_XPC")}
+func getDiskImageParamsRawXPCClass() DiskImageParamsRawXPCClass {
+	_DiskImageParamsRawXPCClassOnce.Do(func() {
+		_DiskImageParamsRawXPCClass = DiskImageParamsRawXPCClass{class: objc.GetClass("DiskImageParamsRaw_XPC")}
 	})
-	return _DiskImageParamsRaw_XPCClass
+	return _DiskImageParamsRawXPCClass
 }
 
-// GetDiskImageParamsRaw_XPCClass returns the class object for DiskImageParamsRaw_XPC.
-func GetDiskImageParamsRaw_XPCClass() DiskImageParamsRaw_XPCClass {
-	return getDiskImageParamsRaw_XPCClass()
+// GetDiskImageParamsRawXPCClass returns the class object for DiskImageParamsRaw_XPC.
+func GetDiskImageParamsRawXPCClass() DiskImageParamsRawXPCClass {
+	return getDiskImageParamsRawXPCClass()
 }
 
-type DiskImageParamsRaw_XPCClass struct {
+type DiskImageParamsRawXPCClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (dc DiskImageParamsRaw_XPCClass) Class() objc.Class {
+func (dc DiskImageParamsRawXPCClass) Class() objc.Class {
 	return dc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (dc DiskImageParamsRaw_XPCClass) Alloc() DiskImageParamsRaw_XPC {
-	rv := objc.Send[DiskImageParamsRaw_XPC](objc.ID(dc.class), objc.Sel("alloc"))
+func (dc DiskImageParamsRawXPCClass) Alloc() DiskImageParamsRawXPC {
+	rv := objc.Send[DiskImageParamsRawXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRaw_XPC
-type DiskImageParamsRaw_XPC struct {
+type DiskImageParamsRawXPC struct {
 	DiskImageParamsXPC
 }
 
-// DiskImageParamsRaw_XPCFromID constructs a [DiskImageParamsRaw_XPC] from an objc.ID.
-func DiskImageParamsRaw_XPCFromID(id objc.ID) DiskImageParamsRaw_XPC {
-	return DiskImageParamsRaw_XPC{DiskImageParamsXPC: DiskImageParamsXPCFromID(id)}
+// DiskImageParamsRawXPCFromID constructs a [DiskImageParamsRawXPC] from an objc.ID.
+func DiskImageParamsRawXPCFromID(id objc.ID) DiskImageParamsRawXPC {
+	return DiskImageParamsRawXPC{DiskImageParamsXPC: DiskImageParamsXPCFromID(id)}
 }
 
-// Ensure DiskImageParamsRaw_XPC implements IDiskImageParamsRaw_XPC.
-var _ IDiskImageParamsRaw_XPC = DiskImageParamsRaw_XPC{}
+// DiskImageParamsRaw_XPCFromID is an alias for [DiskImageParamsRawXPCFromID] for cross-framework compatibility.
+func DiskImageParamsRaw_XPCFromID(id objc.ID) DiskImageParamsRawXPC {
+	return DiskImageParamsRawXPCFromID(id)
+}
 
-// An interface definition for the [DiskImageParamsRaw_XPC] class.
+// Ensure DiskImageParamsRawXPC implements IDiskImageParamsRawXPC.
+var _ IDiskImageParamsRawXPC = DiskImageParamsRawXPC{}
+
+// An interface definition for the [DiskImageParamsRawXPC] class.
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRaw_XPC
-type IDiskImageParamsRaw_XPC interface {
+type IDiskImageParamsRawXPC interface {
 	IDiskImageParamsXPC
 }
 
 // Init initializes the instance.
-func (d DiskImageParamsRaw_XPC) Init() DiskImageParamsRaw_XPC {
-	rv := objc.Send[DiskImageParamsRaw_XPC](d.ID, objc.Sel("init"))
+func (d DiskImageParamsRawXPC) Init() DiskImageParamsRawXPC {
+	rv := objc.Send[DiskImageParamsRawXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d DiskImageParamsRaw_XPC) Autorelease() DiskImageParamsRaw_XPC {
-	rv := objc.Send[DiskImageParamsRaw_XPC](d.ID, objc.Sel("autorelease"))
+func (d DiskImageParamsRawXPC) Autorelease() DiskImageParamsRawXPC {
+	rv := objc.Send[DiskImageParamsRawXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewDiskImageParamsRaw_XPC creates a new DiskImageParamsRaw_XPC instance.
-func NewDiskImageParamsRaw_XPC() DiskImageParamsRaw_XPC {
-	class := getDiskImageParamsRaw_XPCClass()
-	rv := objc.Send[DiskImageParamsRaw_XPC](objc.ID(class.class), objc.Sel("new"))
+// NewDiskImageParamsRawXPC creates a new DiskImageParamsRawXPC instance.
+func NewDiskImageParamsRawXPC() DiskImageParamsRawXPC {
+	class := getDiskImageParamsRawXPCClass()
+	rv := objc.Send[DiskImageParamsRawXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
-func NewDiskImageParamsRaw_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRaw_XPC {
-	instance := getDiskImageParamsRaw_XPCClass().Alloc()
+func NewDiskImageParamsRaw_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRawXPC {
+	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
-	return DiskImageParamsRaw_XPCFromID(rv)
+	return DiskImageParamsRawXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
-func NewDiskImageParamsRaw_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRaw_XPC {
-	instance := getDiskImageParamsRaw_XPCClass().Alloc()
+func NewDiskImageParamsRaw_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRawXPC {
+	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
-	return DiskImageParamsRaw_XPCFromID(rv)
+	return DiskImageParamsRawXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
-func NewDiskImageParamsRaw_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRaw_XPC {
-	instance := getDiskImageParamsRaw_XPCClass().Alloc()
+func NewDiskImageParamsRaw_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRawXPC {
+	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return DiskImageParamsRaw_XPCFromID(rv)
+	return DiskImageParamsRawXPCFromID(rv)
 }

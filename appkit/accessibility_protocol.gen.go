@@ -20,435 +20,35 @@ type NSAccessibilityProtocol interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityElement()
 	IsAccessibilityElement() bool
 
-	// Sets a Boolean value that determines whether the accessibility element participates in the accessibility hierarchy.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityElement(_:)
-	SetAccessibilityElement(accessibilityElement bool)
-
 	// Returns a Boolean value that determines whether the accessibility element responds to user events.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEnabled()
 	IsAccessibilityEnabled() bool
-
-	// Sets a Boolean value that determines whether the accessibility element responds to user events.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityEnabled(_:)
-	SetAccessibilityEnabled(accessibilityEnabled bool)
-
-	// Returns the accessibility element’s frame in screen coordinates.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFrame()
-	AccessibilityFrame() corefoundation.CGRect
-
-	// Sets the accessibility element’s frame in screen coordinates.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFrame(_:)
-	SetAccessibilityFrame(accessibilityFrame corefoundation.CGRect)
-
-	// Returns the help text for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHelp()
-	AccessibilityHelp() string
-
-	// Sets the help text for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHelp(_:)
-	SetAccessibilityHelp(accessibilityHelp string)
-
-	// Returns a short description of the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLabel()
-	AccessibilityLabel() string
-
-	// Sets a short description of the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityLabel(_:)
-	SetAccessibilityLabel(accessibilityLabel string)
-
-	// Returns the title of the accessibility element—for example, a button’s visible text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityTitle()
-	AccessibilityTitle() string
-
-	// Sets the title of the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityTitle(_:)
-	SetAccessibilityTitle(accessibilityTitle string)
-
-	// Returns the accessibility element’s value.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityValue()
-	AccessibilityValue() objectivec.IObject
-
-	// Sets the accessibility element’s value.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityValue(_:)
-	SetAccessibilityValue(accessibilityValue objectivec.IObject)
 
 	// Returns a Boolean value that indicates whether assistive apps can invoke the specified selector on the accessibility element.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelectorAllowed(_:)
 	IsAccessibilitySelectorAllowed(selector objc.SEL) bool
 
-	// Returns the contents of the current accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityContents()
-	AccessibilityContents() foundation.INSArray
-
-	// Sets the contents of the current accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityContents(_:)
-	SetAccessibilityContents(accessibilityContents objectivec.IObject)
-
-	// Returns the critical value for the level indicator.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCriticalValue()
-	AccessibilityCriticalValue() objectivec.IObject
-
-	// Sets the critical value for the level indicator.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCriticalValue(_:)
-	SetAccessibilityCriticalValue(accessibilityCriticalValue objectivec.IObject)
-
-	// Returns the accessibility element’s identity.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityIdentifier()
-	AccessibilityIdentifier() string
-
-	// Sets the accessibility element’s identity.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityIdentifier(_:)
-	SetAccessibilityIdentifier(accessibilityIdentifier string)
-
-	// Returns the maximum value for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMaxValue()
-	AccessibilityMaxValue() objectivec.IObject
-
-	// Sets the maximum value for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMaxValue(_:)
-	SetAccessibilityMaxValue(accessibilityMaxValue objectivec.IObject)
-
-	// Returns the minimum value for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMinValue()
-	AccessibilityMinValue() objectivec.IObject
-
-	// Sets the minimum value for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMinValue(_:)
-	SetAccessibilityMinValue(accessibilityMinValue objectivec.IObject)
-
-	// Returns the orientation of the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityOrientation()
-	AccessibilityOrientation() NSAccessibilityOrientation
-
-	// Sets the orientation of the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityOrientation(_:)
-	SetAccessibilityOrientation(accessibilityOrientation NSAccessibilityOrientation)
-
 	// Returns a Boolean value that determines whether the accessibility element contains protected content.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityProtectedContent()
 	IsAccessibilityProtectedContent() bool
-
-	// Sets a Boolean value that determines whether the accessibility element contains protected content.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityProtectedContent(_:)
-	SetAccessibilityProtectedContent(accessibilityProtectedContent bool)
 
 	// Returns a Boolean value that determines whether the accessibility element is currently in a selected state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelected()
 	IsAccessibilitySelected() bool
 
-	// Sets a Boolean value that determines whether the accessibility element is currently in a selected state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelected(_:)
-	SetAccessibilitySelected(accessibilitySelected bool)
-
-	// Returns the URL for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityURL()
-	AccessibilityURL() foundation.INSURL
-
-	// Sets the URL for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityURL(_:)
-	SetAccessibilityURL(accessibilityURL foundation.INSURL)
-
-	// Returns the human-readable description of the accessibility element’s value.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityValueDescription()
-	AccessibilityValueDescription() string
-
-	// Sets the human-readable description of the accessibility element’s value.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityValueDescription(_:)
-	SetAccessibilityValueDescription(accessibilityValueDescription string)
-
-	// Returns the warning value for the level indicator.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityWarningValue()
-	AccessibilityWarningValue() objectivec.IObject
-
-	// Sets the warning value for the level indicator.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityWarningValue(_:)
-	SetAccessibilityWarningValue(accessibilityWarningValue objectivec.IObject)
-
-	// Returns the child accessibility elements in the accessibility hierarchy.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityChildren()
-	AccessibilityChildren() foundation.INSArray
-
-	// Sets the child accessibility elements in the accessibility hierarchy.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityChildren(_:)
-	SetAccessibilityChildren(accessibilityChildren objectivec.IObject)
-
-	// Returns the array of child accessibility elements in order for linear navigation.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityChildrenInNavigationOrder()
-	AccessibilityChildrenInNavigationOrder() foundation.INSArray
-
-	// Sets the array of child accessibility elements in order for linear navigation.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityChildrenInNavigationOrder(_:)
-	SetAccessibilityChildrenInNavigationOrder(accessibilityChildrenInNavigationOrder objectivec.IObject)
-
-	// Returns the accessibility element’s parent in the accessibility hierarchy.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityParent()
-	AccessibilityParent() objectivec.IObject
-
-	// Sets the accessibility element’s parent in the accessibility hierarchy.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityParent(_:)
-	SetAccessibilityParent(accessibilityParent objectivec.IObject)
-
-	// Returns the accessibility element’s currently selected children.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedChildren()
-	AccessibilitySelectedChildren() foundation.INSArray
-
-	// Sets the accessibility element’s currently selected children.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedChildren(_:)
-	SetAccessibilitySelectedChildren(accessibilitySelectedChildren objectivec.IObject)
-
-	// Returns the top-level element that contains the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityTopLevelUIElement()
-	AccessibilityTopLevelUIElement() objectivec.IObject
-
-	// Sets the top-level element that contains the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityTopLevelUIElement(_:)
-	SetAccessibilityTopLevelUIElement(accessibilityTopLevelUIElement objectivec.IObject)
-
-	// Returns the accessibility element’s visible child accessibility elements.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleChildren()
-	AccessibilityVisibleChildren() foundation.INSArray
-
-	// Sets the accessibility element’s visible child accessibility elements.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleChildren(_:)
-	SetAccessibilityVisibleChildren(accessibilityVisibleChildren objectivec.IObject)
-
-	// Returns the child accessibility element with the current focus.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityApplicationFocusedUIElement()
-	AccessibilityApplicationFocusedUIElement() objectivec.IObject
-
-	// Sets the child accessibility element with the current focus.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityApplicationFocusedUIElement(_:)
-	SetAccessibilityApplicationFocusedUIElement(accessibilityApplicationFocusedUIElement objectivec.IObject)
-
 	// Returns a Boolean value that determines whether the accessibility element has the keyboard focus.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityFocused()
 	IsAccessibilityFocused() bool
 
-	// Sets a Boolean value that determines whether the accessibility element has the keyboard focus.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFocused(_:)
-	SetAccessibilityFocused(accessibilityFocused bool)
-
-	// Returns the child window with the current focus.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFocusedWindow()
-	AccessibilityFocusedWindow() objectivec.IObject
-
-	// Sets the child window with the current focus.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFocusedWindow(_:)
-	SetAccessibilityFocusedWindow(accessibilityFocusedWindow objectivec.IObject)
-
-	// Returns the array of elements that shares the keyboard focus with the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySharedFocusElements()
-	AccessibilitySharedFocusElements() foundation.INSArray
-
-	// Sets the array of elements that shares the keyboard focus with the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySharedFocusElements(_:)
-	SetAccessibilitySharedFocusElements(accessibilitySharedFocusElements objectivec.IObject)
-
 	// Returns a Boolean value that determines whether the accessibility element must have content for successful submission of a form.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityRequired()
 	IsAccessibilityRequired() bool
-
-	// Sets a Boolean value that determines whether the accessibility element must have content for successful submission of a form.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRequired(_:)
-	SetAccessibilityRequired(accessibilityRequired bool)
-
-	// Returns the type of interface element that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRole()
-	AccessibilityRole() NSAccessibilityRole
-
-	// Sets the type of interface element that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRole(_:)
-	SetAccessibilityRole(accessibilityRole NSAccessibilityRole)
-
-	// Returns a localized, human-intelligible description of the accessibility element’s role, such as .
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRoleDescription()
-	AccessibilityRoleDescription() string
-
-	// Sets the localized, human-intelligible description of the accessibility element’s role, such as .
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRoleDescription(_:)
-	SetAccessibilityRoleDescription(accessibilityRoleDescription string)
-
-	// Returns the specialized interface element type that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySubrole()
-	AccessibilitySubrole() NSAccessibilitySubrole
-
-	// Sets the specialized interface element type that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySubrole(_:)
-	SetAccessibilitySubrole(accessibilitySubrole NSAccessibilitySubrole)
-
-	// Returns the custom actions of the current accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCustomActions()
-	AccessibilityCustomActions() foundation.INSArray
-
-	// Sets the custom actions of the current accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCustomActions(_:)
-	SetAccessibilityCustomActions(accessibilityCustomActions objectivec.IObject)
-
-	// Returns the custom rotors of the current accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCustomRotors()
-	AccessibilityCustomRotors() foundation.INSArray
-
-	// Sets the custom rotors of the current accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCustomRotors(_:)
-	SetAccessibilityCustomRotors(accessibilityCustomRotors objectivec.IObject)
-
-	// Returns the line number that contains the insertion point.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityInsertionPointLineNumber()
-	AccessibilityInsertionPointLineNumber() int
-
-	// Sets the line number that contains the insertion point.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityInsertionPointLineNumber(_:)
-	SetAccessibilityInsertionPointLineNumber(accessibilityInsertionPointLineNumber int)
-
-	// Returns the number of characters in the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityNumberOfCharacters()
-	AccessibilityNumberOfCharacters() int
-
-	// Sets the number of characters in the text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityNumberOfCharacters(_:)
-	SetAccessibilityNumberOfCharacters(accessibilityNumberOfCharacters int)
-
-	// Returns the placeholder value for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPlaceholderValue()
-	AccessibilityPlaceholderValue() string
-
-	// Sets the placeholder value for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityPlaceholderValue(_:)
-	SetAccessibilityPlaceholderValue(accessibilityPlaceholderValue string)
-
-	// Returns the currently selected text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedText()
-	AccessibilitySelectedText() string
-
-	// Sets the currently selected text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedText(_:)
-	SetAccessibilitySelectedText(accessibilitySelectedText string)
-
-	// Returns the range of the currently selected text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedTextRange()
-	AccessibilitySelectedTextRange() foundation.NSRange
-
-	// Sets the range of the currently selected text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedTextRange(_:)
-	SetAccessibilitySelectedTextRange(accessibilitySelectedTextRange foundation.NSRange)
-
-	// Returns an array of ranges for the currently selected text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedTextRanges()
-	AccessibilitySelectedTextRanges() foundation.INSArray
-
-	// Sets an array of ranges for the currently selected text.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedTextRanges(_:)
-	SetAccessibilitySelectedTextRanges(accessibilitySelectedTextRanges objectivec.IObject)
-
-	// Returns the range of characters that the accessibility element displays.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySharedCharacterRange()
-	AccessibilitySharedCharacterRange() foundation.NSRange
-
-	// Sets the range of characters that the accessibility element displays.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySharedCharacterRange(_:)
-	SetAccessibilitySharedCharacterRange(accessibilitySharedCharacterRange foundation.NSRange)
-
-	// Returns the other elements that share text with the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySharedTextUIElements()
-	AccessibilitySharedTextUIElements() foundation.INSArray
-
-	// Sets the other elements that share text with the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySharedTextUIElements(_:)
-	SetAccessibilitySharedTextUIElements(accessibilitySharedTextUIElements objectivec.IObject)
-
-	// Returns the range of visible characters in the document.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleCharacterRange()
-	AccessibilityVisibleCharacterRange() foundation.NSRange
-
-	// Sets the range of visible characters in the document.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleCharacterRange(_:)
-	SetAccessibilityVisibleCharacterRange(accessibilityVisibleCharacterRange foundation.NSRange)
 
 	// Returns the substring for the specified range.
 	//
@@ -463,7 +63,7 @@ type NSAccessibilityProtocol interface {
 	// Returns the rich text format (RTF) data that describes the specified range of characters.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRTF(for:)
-	AccessibilityRTFForRange(range_ foundation.NSRange) foundation.INSData
+	AccessibilityRTFForRange(range_ foundation.NSRange) foundation.NSData
 
 	// Returns the rectangle that encloses the specified range of characters.
 	//
@@ -495,535 +95,50 @@ type NSAccessibilityProtocol interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-1iudm
 	AccessibilityRangeForPosition(point corefoundation.CGPoint) foundation.NSRange
 
-	// Returns the activation point for the user interface element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityActivationPoint()
-	AccessibilityActivationPoint() corefoundation.CGPoint
-
-	// Sets the activation point for the user interface element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityActivationPoint(_:)
-	SetAccessibilityActivationPoint(accessibilityActivationPoint corefoundation.CGPoint)
-
 	// Returns the Boolean value that determines whether the accessibility element’s alternative UI is currently visible.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityAlternateUIVisible()
 	IsAccessibilityAlternateUIVisible() bool
-
-	// Sets the Boolean value that determines whether the accessibility element’s alternative UI is currently visible.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityAlternateUIVisible(_:)
-	SetAccessibilityAlternateUIVisible(accessibilityAlternateUIVisible bool)
-
-	// Returns the child accessibility element that represents the window’s cancel button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCancelButton()
-	AccessibilityCancelButton() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s cancel button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCancelButton(_:)
-	SetAccessibilityCancelButton(accessibilityCancelButton objectivec.IObject)
-
-	// Returns the child accessibility element that represents the window’s close button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCloseButton()
-	AccessibilityCloseButton() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s close button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCloseButton(_:)
-	SetAccessibilityCloseButton(accessibilityCloseButton objectivec.IObject)
-
-	// Returns the child accessibility element that represents the window’s default button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDefaultButton()
-	AccessibilityDefaultButton() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s default button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDefaultButton(_:)
-	SetAccessibilityDefaultButton(accessibilityDefaultButton objectivec.IObject)
-
-	// Returns the child accessibility element that represents the window’s full-screen button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFullScreenButton()
-	AccessibilityFullScreenButton() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s full-screen button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFullScreenButton(_:)
-	SetAccessibilityFullScreenButton(accessibilityFullScreenButton objectivec.IObject)
-
-	// Returns the child accessibility element that represents the window’s grow area.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityGrowArea()
-	AccessibilityGrowArea() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s grow area.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityGrowArea(_:)
-	SetAccessibilityGrowArea(accessibilityGrowArea objectivec.IObject)
 
 	// Returns a Boolean value that determines whether the window is the app’s main window.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMain()
 	IsAccessibilityMain() bool
 
-	// Sets a Boolean value that determines whether the window is the app’s main window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMain(_:)
-	SetAccessibilityMain(accessibilityMain bool)
-
-	// Returns the child accessibility element that represents the window’s minimize button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMinimizeButton()
-	AccessibilityMinimizeButton() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s minimize button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMinimizeButton(_:)
-	SetAccessibilityMinimizeButton(accessibilityMinimizeButton objectivec.IObject)
-
 	// Returns the Boolean value that determines whether the window is in a minimized state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMinimized()
 	IsAccessibilityMinimized() bool
-
-	// Sets the Boolean value that determines whether the window is in a minimized state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMinimized(_:)
-	SetAccessibilityMinimized(accessibilityMinimized bool)
 
 	// Returns a Boolean value that determines whether the window is modal.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityModal()
 	IsAccessibilityModal() bool
 
-	// Sets a Boolean value that determines whether the window is modal.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityModal(_:)
-	SetAccessibilityModal(accessibilityModal bool)
-
-	// Returns the child accessibility element that represents the window’s proxy icon.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityProxy()
-	AccessibilityProxy() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s proxy icon.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityProxy(_:)
-	SetAccessibilityProxy(accessibilityProxy objectivec.IObject)
-
-	// Returns the menu currently displaying for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityShownMenu()
-	AccessibilityShownMenu() objectivec.IObject
-
-	// Sets the menu currently displaying for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityShownMenu(_:)
-	SetAccessibilityShownMenu(accessibilityShownMenu objectivec.IObject)
-
-	// Returns the child accessibility element that represents the window’s toolbar button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityToolbarButton()
-	AccessibilityToolbarButton() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s toolbar button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityToolbarButton(_:)
-	SetAccessibilityToolbarButton(accessibilityToolbarButton objectivec.IObject)
-
-	// Returns the window that contains the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityWindow()
-	AccessibilityWindow() objectivec.IObject
-
-	// Sets the window that contains the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityWindow(_:)
-	SetAccessibilityWindow(accessibilityWindow objectivec.IObject)
-
-	// Returns the child accessibility element that represents the window’s zoom button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityZoomButton()
-	AccessibilityZoomButton() objectivec.IObject
-
-	// Sets the child accessibility element that represents the window’s zoom button.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityZoomButton(_:)
-	SetAccessibilityZoomButton(accessibilityZoomButton objectivec.IObject)
-
-	// Returns the icon for the app’s menu bar extra.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityExtrasMenuBar()
-	AccessibilityExtrasMenuBar() objectivec.IObject
-
-	// Sets the icon for the app’s menu bar extra.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityExtrasMenuBar(_:)
-	SetAccessibilityExtrasMenuBar(accessibilityExtrasMenuBar objectivec.IObject)
-
 	// Returns a Boolean value that determines whether the app is the frontmost app.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityFrontmost()
 	IsAccessibilityFrontmost() bool
-
-	// Sets a Boolean value that determines whether the app is the frontmost app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFrontmost(_:)
-	SetAccessibilityFrontmost(accessibilityFrontmost bool)
 
 	// Returns a Boolean value that determines whether the app is in a hidden state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityHidden()
 	IsAccessibilityHidden() bool
 
-	// Sets a Boolean value that determines whether the app is in a hidden state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHidden(_:)
-	SetAccessibilityHidden(accessibilityHidden bool)
-
-	// Returns the app’s main window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMainWindow()
-	AccessibilityMainWindow() objectivec.IObject
-
-	// Sets the app’s main window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMainWindow(_:)
-	SetAccessibilityMainWindow(accessibilityMainWindow objectivec.IObject)
-
-	// Returns the app’s menu bar.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMenuBar()
-	AccessibilityMenuBar() objectivec.IObject
-
-	// Sets the app’s menu bar.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMenuBar(_:)
-	SetAccessibilityMenuBar(accessibilityMenuBar objectivec.IObject)
-
-	// Returns an array that contains all the app’s windows.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityWindows()
-	AccessibilityWindows() foundation.INSArray
-
-	// Sets the array that contains all the app’s windows.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityWindows(_:)
-	SetAccessibilityWindows(accessibilityWindows objectivec.IObject)
-
-	// Returns the number of columns in the accessibility element’s grid.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumnCount()
-	AccessibilityColumnCount() int
-
-	// Sets the number of columns in the accessibility element’s grid.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumnCount(_:)
-	SetAccessibilityColumnCount(accessibilityColumnCount int)
-
 	// Returns a Boolean value that determines whether the accessibility element’s grid is in row major order or in column major order.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityOrderedByRow()
 	IsAccessibilityOrderedByRow() bool
-
-	// Sets a Boolean value that determines whether the element’s grid is in row major order or in column major order.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityOrderedByRow(_:)
-	SetAccessibilityOrderedByRow(accessibilityOrderedByRow bool)
-
-	// Returns the number of rows in the accessibility element’s grid.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRowCount()
-	AccessibilityRowCount() int
-
-	// Sets the number of rows in the accessibility element’s grid.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRowCount(_:)
-	SetAccessibilityRowCount(accessibilityRowCount int)
-
-	// Returns the horizontal scroll bar for the scroll view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHorizontalScrollBar()
-	AccessibilityHorizontalScrollBar() objectivec.IObject
-
-	// Sets the horizontal scroll bar for the scroll view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHorizontalScrollBar(_:)
-	SetAccessibilityHorizontalScrollBar(accessibilityHorizontalScrollBar objectivec.IObject)
-
-	// Returns the vertical scroll bar for the scroll view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVerticalScrollBar()
-	AccessibilityVerticalScrollBar() objectivec.IObject
-
-	// Sets the vertical scroll bar for the scroll view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVerticalScrollBar(_:)
-	SetAccessibilityVerticalScrollBar(accessibilityVerticalScrollBar objectivec.IObject)
-
-	// Returns the column header accessibility elements for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumnHeaderUIElements()
-	AccessibilityColumnHeaderUIElements() foundation.INSArray
-
-	// Sets the column header accessibility elements for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumnHeaderUIElements(_:)
-	SetAccessibilityColumnHeaderUIElements(accessibilityColumnHeaderUIElements objectivec.IObject)
-
-	// Returns the column accessibility elements for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumns()
-	AccessibilityColumns() foundation.INSArray
-
-	// Sets the column accessibility elements for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumns(_:)
-	SetAccessibilityColumns(accessibilityColumns objectivec.IObject)
-
-	// Returns the column titles for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumnTitles()
-	AccessibilityColumnTitles() foundation.INSArray
-
-	// Sets the column titles for the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumnTitles(_:)
-	SetAccessibilityColumnTitles(accessibilityColumnTitles objectivec.IObject)
 
 	// Returns a Boolean value that determines whether the accessibility element is in an expanded state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityExpanded()
 	IsAccessibilityExpanded() bool
 
-	// Sets a Boolean value that determines whether accessibility element is in an expanded state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityExpanded(_:)
-	SetAccessibilityExpanded(accessibilityExpanded bool)
-
-	// Returns the header for the table view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHeader()
-	AccessibilityHeader() objectivec.IObject
-
-	// Sets the header for the table view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHeader(_:)
-	SetAccessibilityHeader(accessibilityHeader objectivec.IObject)
-
-	// Returns the index of the row or column that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityIndex()
-	AccessibilityIndex() int
-
-	// Sets the index of the row or column that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityIndex(_:)
-	SetAccessibilityIndex(accessibilityIndex int)
-
-	// Returns the row header accessibility elements for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRowHeaderUIElements()
-	AccessibilityRowHeaderUIElements() foundation.INSArray
-
-	// Sets the row header accessibility elements for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRowHeaderUIElements(_:)
-	SetAccessibilityRowHeaderUIElements(accessibilityRowHeaderUIElements objectivec.IObject)
-
-	// Returns the row accessibility elements for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRows()
-	AccessibilityRows() foundation.INSArray
-
-	// Sets the row accessibility elements for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRows(_:)
-	SetAccessibilityRows(accessibilityRows objectivec.IObject)
-
-	// Returns the currently selected columns for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedColumns()
-	AccessibilitySelectedColumns() foundation.INSArray
-
-	// Sets the currently selected columns for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedColumns(_:)
-	SetAccessibilitySelectedColumns(accessibilitySelectedColumns objectivec.IObject)
-
-	// Returns the currently selected rows for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedRows()
-	AccessibilitySelectedRows() foundation.INSArray
-
-	// Sets the currently selected rows for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedRows(_:)
-	SetAccessibilitySelectedRows(accessibilitySelectedRows objectivec.IObject)
-
-	// Returns the accessibility element’s sort direction.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySortDirection()
-	AccessibilitySortDirection() NSAccessibilitySortDirection
-
-	// Sets the accessibility element’s sort direction.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySortDirection(_:)
-	SetAccessibilitySortDirection(accessibilitySortDirection NSAccessibilitySortDirection)
-
-	// Returns the visible columns for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleColumns()
-	AccessibilityVisibleColumns() foundation.INSArray
-
-	// Sets the visible columns for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleColumns(_:)
-	SetAccessibilityVisibleColumns(accessibilityVisibleColumns objectivec.IObject)
-
-	// Returns the visible rows for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleRows()
-	AccessibilityVisibleRows() foundation.INSArray
-
-	// Sets the visible rows for the table or outline.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleRows(_:)
-	SetAccessibilityVisibleRows(accessibilityVisibleRows objectivec.IObject)
-
 	// Returns a Boolean value that determines whether the row is disclosing other rows.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityDisclosed()
 	IsAccessibilityDisclosed() bool
-
-	// Sets a Boolean value that determines whether the row is disclosing other rows.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDisclosed(_:)
-	SetAccessibilityDisclosed(accessibilityDisclosed bool)
-
-	// Returns the row disclosing the current row.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDisclosedByRow()
-	AccessibilityDisclosedByRow() objectivec.IObject
-
-	// Sets the row disclosing the current row.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDisclosedByRow(_:)
-	SetAccessibilityDisclosedByRow(accessibilityDisclosedByRow objectivec.IObject)
-
-	// Returns the rows that the current row discloses.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDisclosedRows()
-	AccessibilityDisclosedRows() objectivec.IObject
-
-	// Sets the rows that the current row discloses.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDisclosedRows(_:)
-	SetAccessibilityDisclosedRows(accessibilityDisclosedRows objectivec.IObject)
-
-	// Returns the indention level for the row.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDisclosureLevel()
-	AccessibilityDisclosureLevel() int
-
-	// Sets the indention level for the row.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDisclosureLevel(_:)
-	SetAccessibilityDisclosureLevel(accessibilityDisclosureLevel int)
-
-	// Returns the column index range of the cell.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumnIndexRange()
-	AccessibilityColumnIndexRange() foundation.NSRange
-
-	// Sets the column index range of the cell.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumnIndexRange(_:)
-	SetAccessibilityColumnIndexRange(accessibilityColumnIndexRange foundation.NSRange)
-
-	// Returns the row index range of the cell.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRowIndexRange()
-	AccessibilityRowIndexRange() foundation.NSRange
-
-	// Sets the row index range of the cell.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRowIndexRange(_:)
-	SetAccessibilityRowIndexRange(accessibilityRowIndexRange foundation.NSRange)
-
-	// Returns the currently selected cells for the table.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedCells()
-	AccessibilitySelectedCells() foundation.INSArray
-
-	// Sets the currently selected cells for the table.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedCells(_:)
-	SetAccessibilitySelectedCells(accessibilitySelectedCells objectivec.IObject)
-
-	// Returns the visible cells for the table.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleCells()
-	AccessibilityVisibleCells() foundation.INSArray
-
-	// Sets the visible cells for the table.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleCells(_:)
-	SetAccessibilityVisibleCells(accessibilityVisibleCells objectivec.IObject)
-
-	// Returns the drag handle elements for the layout item element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHandles()
-	AccessibilityHandles() foundation.INSArray
-
-	// Sets the drag handle accessibility elements for the layout item element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHandles(_:)
-	SetAccessibilityHandles(accessibilityHandles objectivec.IObject)
-
-	// Returns the units that the layout area uses for horizontal values.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHorizontalUnits()
-	AccessibilityHorizontalUnits() NSAccessibilityUnits
-
-	// Sets the units that the layout area uses for horizontal values.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHorizontalUnits(_:)
-	SetAccessibilityHorizontalUnits(accessibilityHorizontalUnits NSAccessibilityUnits)
-
-	// Returns the description of the layout area’s horizontal units.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHorizontalUnitDescription()
-	AccessibilityHorizontalUnitDescription() string
-
-	// Sets the description of the layout area’s horizontal units.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHorizontalUnitDescription(_:)
-	SetAccessibilityHorizontalUnitDescription(accessibilityHorizontalUnitDescription string)
-
-	// Returns the units that the layout area uses for vertical values.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVerticalUnits()
-	AccessibilityVerticalUnits() NSAccessibilityUnits
-
-	// Sets the units that the layout area uses for vertical values.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVerticalUnits(_:)
-	SetAccessibilityVerticalUnits(accessibilityVerticalUnits NSAccessibilityUnits)
-
-	// Returns the description of the layout area’s vertical units.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVerticalUnitDescription()
-	AccessibilityVerticalUnitDescription() string
-
-	// Sets the description of the layout area’s vertical units.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVerticalUnitDescription(_:)
-	SetAccessibilityVerticalUnitDescription(accessibilityVerticalUnitDescription string)
 
 	// Converts the provided point in screen coordinates to a point in the layout area’s coordinate system.
 	//
@@ -1045,245 +160,10 @@ type NSAccessibilityProtocol interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenSize(forLayoutSize:)
 	AccessibilityScreenSizeForLayoutSize(size corefoundation.CGSize) corefoundation.CGSize
 
-	// Returns the allowed values for the slider accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityAllowedValues()
-	AccessibilityAllowedValues() foundation.INSArray
-
-	// Sets the allowed values for the slider accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityAllowedValues(_:)
-	SetAccessibilityAllowedValues(accessibilityAllowedValues objectivec.IObject)
-
-	// Returns the child label elements for the slider accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLabelUIElements()
-	AccessibilityLabelUIElements() foundation.INSArray
-
-	// Sets the child label elements for the slider accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityLabelUIElements(_:)
-	SetAccessibilityLabelUIElements(accessibilityLabelUIElements objectivec.IObject)
-
-	// Returns the value of the label accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLabelValue()
-	AccessibilityLabelValue() float32
-
-	// Sets the value of the label accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityLabelValue(_:)
-	SetAccessibilityLabelValue(accessibilityLabelValue float32)
-
-	// Returns the contents that follow the divider accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityNextContents()
-	AccessibilityNextContents() foundation.INSArray
-
-	// Sets the contents that follow the divider accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityNextContents(_:)
-	SetAccessibilityNextContents(accessibilityNextContents objectivec.IObject)
-
-	// Returns the contents that precede the divider accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPreviousContents()
-	AccessibilityPreviousContents() foundation.INSArray
-
-	// Sets the contents that precede the divider accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityPreviousContents(_:)
-	SetAccessibilityPreviousContents(accessibilityPreviousContents objectivec.IObject)
-
-	// Returns an array that contains the views and splitter bar from the split view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySplitters()
-	AccessibilitySplitters() foundation.INSArray
-
-	// Sets the array that contains the views and splitter bar from the split view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySplitters(_:)
-	SetAccessibilitySplitters(accessibilitySplitters objectivec.IObject)
-
-	// Returns the overflow button for the toolbar.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityOverflowButton()
-	AccessibilityOverflowButton() objectivec.IObject
-
-	// Sets the overflow button for the toolbar.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityOverflowButton(_:)
-	SetAccessibilityOverflowButton(accessibilityOverflowButton objectivec.IObject)
-
-	// Returns the tab accessibility elements for the tab view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityTabs()
-	AccessibilityTabs() foundation.INSArray
-
-	// Sets the tab accessibility elements for the tab view.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityTabs(_:)
-	SetAccessibilityTabs(accessibilityTabs objectivec.IObject)
-
-	// Returns the user interface element that functions as a marker group for the ruler accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMarkerGroupUIElement()
-	AccessibilityMarkerGroupUIElement() objectivec.IObject
-
-	// Sets the user interface element that functions as a marker group for the ruler accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMarkerGroupUIElement(_:)
-	SetAccessibilityMarkerGroupUIElement(accessibilityMarkerGroupUIElement objectivec.IObject)
-
-	// Returns the human-readable description of the marker type.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMarkerTypeDescription()
-	AccessibilityMarkerTypeDescription() string
-
-	// Sets the human-readable description of the marker type.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMarkerTypeDescription(_:)
-	SetAccessibilityMarkerTypeDescription(accessibilityMarkerTypeDescription string)
-
-	// Returns the array of marker accessibility elements for the ruler.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMarkerUIElements()
-	AccessibilityMarkerUIElements() foundation.INSArray
-
-	// Sets the array of marker accessibility elements for the ruler.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMarkerUIElements(_:)
-	SetAccessibilityMarkerUIElements(accessibilityMarkerUIElements objectivec.IObject)
-
-	// Returns the marker values for the ruler.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMarkerValues()
-	AccessibilityMarkerValues() objectivec.IObject
-
-	// Sets the marker values for the ruler.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMarkerValues(_:)
-	SetAccessibilityMarkerValues(accessibilityMarkerValues objectivec.IObject)
-
-	// Returns the type of markers for the ruler.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRulerMarkerType()
-	AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType
-
-	// Sets the type of markers for the ruler.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRulerMarkerType(_:)
-	SetAccessibilityRulerMarkerType(accessibilityRulerMarkerType NSAccessibilityRulerMarkerType)
-
-	// Returns the units for the ruler.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityUnits()
-	AccessibilityUnits() NSAccessibilityUnits
-
-	// Sets the units used for the ruler.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityUnits(_:)
-	SetAccessibilityUnits(accessibilityUnits NSAccessibilityUnits)
-
-	// Returns the human-readable description of the ruler’s units.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityUnitDescription()
-	AccessibilityUnitDescription() string
-
-	// Sets the human-readable description of the ruler’s units.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityUnitDescription(_:)
-	SetAccessibilityUnitDescription(accessibilityUnitDescription string)
-
-	// Returns the URL for the file that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDocument()
-	AccessibilityDocument() string
-
-	// Sets the URL for the file that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDocument(_:)
-	SetAccessibilityDocument(accessibilityDocument string)
-
 	// Returns a Boolean value that indicates whether the accessibility element is in an edited state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEdited()
 	IsAccessibilityEdited() bool
-
-	// Sets a Boolean value that indicates whether the accessibility element is in an edited state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityEdited(_:)
-	SetAccessibilityEdited(accessibilityEdited bool)
-
-	// Returns the filename for the file that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFilename()
-	AccessibilityFilename() string
-
-	// Sets the filename for the file that the accessibility element represents.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFilename(_:)
-	SetAccessibilityFilename(accessibilityFilename string)
-
-	// Returns the elements that have links with the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLinkedUIElements()
-	AccessibilityLinkedUIElements() foundation.INSArray
-
-	// Sets the elements that have links with the accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityLinkedUIElements(_:)
-	SetAccessibilityLinkedUIElements(accessibilityLinkedUIElements objectivec.IObject)
-
-	// Returns the list of elements that the accessibility element is a title for.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityServesAsTitleForUIElements()
-	AccessibilityServesAsTitleForUIElements() foundation.INSArray
-
-	// Sets the list of elements that the accessibility element is a title for.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityServesAsTitleForUIElements(_:)
-	SetAccessibilityServesAsTitleForUIElements(accessibilityServesAsTitleForUIElements objectivec.IObject)
-
-	// Returns the static text element that represents the accessibility element’s title.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityTitleUIElement()
-	AccessibilityTitleUIElement() objectivec.IObject
-
-	// Sets the static text element that represents the accessibility element’s title.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityTitleUIElement(_:)
-	SetAccessibilityTitleUIElement(accessibilityTitleUIElement objectivec.IObject)
-
-	// Returns the clear button for the search field.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityClearButton()
-	AccessibilityClearButton() objectivec.IObject
-
-	// Sets the clear button for the search field.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityClearButton(_:)
-	SetAccessibilityClearButton(accessibilityClearButton objectivec.IObject)
-
-	// Returns the search button for the search field.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySearchButton()
-	AccessibilitySearchButton() objectivec.IObject
-
-	// Sets the search button for the search field.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySearchButton(_:)
-	SetAccessibilitySearchButton(accessibilitySearchButton objectivec.IObject)
-
-	// Returns the search menu for the search field.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySearchMenu()
-	AccessibilitySearchMenu() objectivec.IObject
-
-	// Sets the search menu for the search field.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySearchMenu(_:)
-	SetAccessibilitySearchMenu(accessibilitySearchMenu objectivec.IObject)
 
 	// Cancels the current operation.
 	//
@@ -1325,26 +205,6 @@ type NSAccessibilityProtocol interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformRaise()
 	AccessibilityPerformRaise() bool
 
-	// Returns the increment button for the stepper accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityIncrementButton()
-	AccessibilityIncrementButton() objectivec.IObject
-
-	// Sets the increment button for the stepper accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityIncrementButton(_:)
-	SetAccessibilityIncrementButton(accessibilityIncrementButton objectivec.IObject)
-
-	// Returns the decrement button for the stepper accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDecrementButton()
-	AccessibilityDecrementButton() objectivec.IObject
-
-	// Sets the decrement button for the stepper accessibility element.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDecrementButton(_:)
-	SetAccessibilityDecrementButton(accessibilityDecrementButton objectivec.IObject)
-
 	// Increments the accessibility element’s value.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformIncrement()
@@ -1360,25 +220,749 @@ type NSAccessibilityProtocol interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDelete()
 	AccessibilityPerformDelete() bool
 
-	// AccessibilityAttributedUserInputLabels protocol.
+	// The activation point for the user interface element.
 	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityAttributedUserInputLabels()
-	AccessibilityAttributedUserInputLabels() foundation.INSArray
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityActivationPoint
+	AccessibilityActivationPoint() corefoundation.CGPoint
+	SetAccessibilityActivationPoint(value corefoundation.CGPoint)
 
-	// AccessibilityUserInputLabels protocol.
+	// The allowed values for the slider accessibility element.
 	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityUserInputLabels()
-	AccessibilityUserInputLabels() foundation.INSArray
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAllowedValues
+	AccessibilityAllowedValues() []foundation.NSNumber
+	SetAccessibilityAllowedValues(value []foundation.NSNumber)
 
-	// SetAccessibilityAttributedUserInputLabels protocol.
+	// A Boolean value that determines whether the accessibility element’s alternative UI is currently visible.
 	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityAttributedUserInputLabels(_:)
-	SetAccessibilityAttributedUserInputLabels(accessibilityAttributedUserInputLabels objectivec.IObject)
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAlternateUIVisible
+	AccessibilityAlternateUIVisible() bool
+	SetAccessibilityAlternateUIVisible(value bool)
 
-	// SetAccessibilityUserInputLabels protocol.
+	// The child accessibility element with the current focus.
 	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityUserInputLabels(_:)
-	SetAccessibilityUserInputLabels(accessibilityUserInputLabels objectivec.IObject)
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityApplicationFocusedUIElement
+	AccessibilityApplicationFocusedUIElement() objectivec.IObject
+	SetAccessibilityApplicationFocusedUIElement(value objectivec.IObject)
+
+	// accessibilityAttributedUserInputLabels protocol.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAttributedUserInputLabels
+	AccessibilityAttributedUserInputLabels() []foundation.NSAttributedString
+	SetAccessibilityAttributedUserInputLabels(value []foundation.NSAttributedString)
+
+	// The child accessibility element that represents the window’s cancel button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCancelButton
+	AccessibilityCancelButton() objectivec.IObject
+	SetAccessibilityCancelButton(value objectivec.IObject)
+
+	// The child accessibility elements in the accessibility hierarchy.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
+	AccessibilityChildren() foundation.INSArray
+	SetAccessibilityChildren(value foundation.INSArray)
+
+	// An array of child accessibility elements in order for linear navigation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildrenInNavigationOrder
+	AccessibilityChildrenInNavigationOrder() []objectivec.IObject
+	SetAccessibilityChildrenInNavigationOrder(value []objectivec.IObject)
+
+	// The clear button for the search field.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityClearButton
+	AccessibilityClearButton() objectivec.IObject
+	SetAccessibilityClearButton(value objectivec.IObject)
+
+	// The child accessibility element that represents the window’s close button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCloseButton
+	AccessibilityCloseButton() objectivec.IObject
+	SetAccessibilityCloseButton(value objectivec.IObject)
+
+	// The number of columns in the accessibility element’s grid.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnCount
+	AccessibilityColumnCount() int
+	SetAccessibilityColumnCount(value int)
+
+	// The column header accessibility elements for the table or outline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnHeaderUIElements
+	AccessibilityColumnHeaderUIElements() foundation.INSArray
+	SetAccessibilityColumnHeaderUIElements(value foundation.INSArray)
+
+	// The column index range of the cell.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnIndexRange
+	AccessibilityColumnIndexRange() foundation.NSRange
+	SetAccessibilityColumnIndexRange(value foundation.NSRange)
+
+	// The column titles for the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnTitles
+	AccessibilityColumnTitles() foundation.INSArray
+	SetAccessibilityColumnTitles(value foundation.INSArray)
+
+	// The column accessibility elements for the table or outline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumns
+	AccessibilityColumns() foundation.INSArray
+	SetAccessibilityColumns(value foundation.INSArray)
+
+	// The contents of the current accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityContents
+	AccessibilityContents() foundation.INSArray
+	SetAccessibilityContents(value foundation.INSArray)
+
+	// The critical value for the level indicator.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCriticalValue
+	AccessibilityCriticalValue() objectivec.IObject
+	SetAccessibilityCriticalValue(value objectivec.IObject)
+
+	// The custom actions of the current accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomActions
+	AccessibilityCustomActions() []NSAccessibilityCustomAction
+	SetAccessibilityCustomActions(value []NSAccessibilityCustomAction)
+
+	// The custom rotors of the current accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomRotors
+	AccessibilityCustomRotors() []NSAccessibilityCustomRotor
+	SetAccessibilityCustomRotors(value []NSAccessibilityCustomRotor)
+
+	// The decrement button for the stepper accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDecrementButton
+	AccessibilityDecrementButton() objectivec.IObject
+	SetAccessibilityDecrementButton(value objectivec.IObject)
+
+	// The child accessibility element that represents the window’s default button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDefaultButton
+	AccessibilityDefaultButton() objectivec.IObject
+	SetAccessibilityDefaultButton(value objectivec.IObject)
+
+	// A Boolean value that determines whether the row is disclosing other rows.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosed
+	AccessibilityDisclosed() bool
+	SetAccessibilityDisclosed(value bool)
+
+	// The row disclosing the current row.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosedByRow
+	AccessibilityDisclosedByRow() objectivec.IObject
+	SetAccessibilityDisclosedByRow(value objectivec.IObject)
+
+	// The rows that the current row discloses.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosedRows
+	AccessibilityDisclosedRows() objectivec.IObject
+	SetAccessibilityDisclosedRows(value objectivec.IObject)
+
+	// The indention level for the row.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosureLevel
+	AccessibilityDisclosureLevel() int
+	SetAccessibilityDisclosureLevel(value int)
+
+	// The URL for the file that the accessibility element represents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDocument
+	AccessibilityDocument() string
+	SetAccessibilityDocument(value string)
+
+	// A Boolean value that indicates whether the accessibility element is in an edited state.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEdited
+	AccessibilityEdited() bool
+	SetAccessibilityEdited(value bool)
+
+	// A Boolean value that determines whether the accessibility element participates in the accessibility hierarchy.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityElement
+	AccessibilityElement() bool
+	SetAccessibilityElement(value bool)
+
+	// A Boolean value that determines whether the accessibility element responds to user events.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEnabled
+	AccessibilityEnabled() bool
+	SetAccessibilityEnabled(value bool)
+
+	// A Boolean value that determines whether the accessibility element is in an expanded state.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExpanded
+	AccessibilityExpanded() bool
+	SetAccessibilityExpanded(value bool)
+
+	// The icon for the app’s menu bar extra.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExtrasMenuBar
+	AccessibilityExtrasMenuBar() objectivec.IObject
+	SetAccessibilityExtrasMenuBar(value objectivec.IObject)
+
+	// The filename for the file that the accessibility element represents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFilename
+	AccessibilityFilename() string
+	SetAccessibilityFilename(value string)
+
+	// A Boolean value that determines whether the accessibility element has the keyboard focus.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
+	AccessibilityFocused() bool
+	SetAccessibilityFocused(value bool)
+
+	// The child window with the current focus.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocusedWindow
+	AccessibilityFocusedWindow() objectivec.IObject
+	SetAccessibilityFocusedWindow(value objectivec.IObject)
+
+	// The accessibility element’s frame in screen coordinates.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
+	AccessibilityFrame() corefoundation.CGRect
+	SetAccessibilityFrame(value corefoundation.CGRect)
+
+	// A Boolean value that determines whether the app is the frontmost app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrontmost
+	AccessibilityFrontmost() bool
+	SetAccessibilityFrontmost(value bool)
+
+	// The child accessibility element that represents the window’s full-screen button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFullScreenButton
+	AccessibilityFullScreenButton() objectivec.IObject
+	SetAccessibilityFullScreenButton(value objectivec.IObject)
+
+	// The child accessibility element that represents the window’s grow area.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityGrowArea
+	AccessibilityGrowArea() objectivec.IObject
+	SetAccessibilityGrowArea(value objectivec.IObject)
+
+	// The drag handle accessibility elements for the layout item element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHandles
+	AccessibilityHandles() foundation.INSArray
+	SetAccessibilityHandles(value foundation.INSArray)
+
+	// The header for the table view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHeader
+	AccessibilityHeader() objectivec.IObject
+	SetAccessibilityHeader(value objectivec.IObject)
+
+	// The help text for the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHelp
+	AccessibilityHelp() string
+	SetAccessibilityHelp(value string)
+
+	// A Boolean value that determines whether the app is in a hidden state.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHidden
+	AccessibilityHidden() bool
+	SetAccessibilityHidden(value bool)
+
+	// The horizontal scroll bar for the scroll view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalScrollBar
+	AccessibilityHorizontalScrollBar() objectivec.IObject
+	SetAccessibilityHorizontalScrollBar(value objectivec.IObject)
+
+	// A description of the layout area’s horizontal units.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalUnitDescription
+	AccessibilityHorizontalUnitDescription() string
+	SetAccessibilityHorizontalUnitDescription(value string)
+
+	// The units that the layout area uses for horizontal values.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalUnits
+	AccessibilityHorizontalUnits() NSAccessibilityUnits
+	SetAccessibilityHorizontalUnits(value NSAccessibilityUnits)
+
+	// The accessibility element’s identity.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
+	AccessibilityIdentifier() string
+	SetAccessibilityIdentifier(value string)
+
+	// The increment button for the stepper accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIncrementButton
+	AccessibilityIncrementButton() objectivec.IObject
+	SetAccessibilityIncrementButton(value objectivec.IObject)
+
+	// The index of the row or column that the accessibility element represents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIndex
+	AccessibilityIndex() int
+	SetAccessibilityIndex(value int)
+
+	// The line number that contains the insertion point.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityInsertionPointLineNumber
+	AccessibilityInsertionPointLineNumber() int
+	SetAccessibilityInsertionPointLineNumber(value int)
+
+	// A short description of the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
+	AccessibilityLabel() string
+	SetAccessibilityLabel(value string)
+
+	// The child label elements for the slider accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabelUIElements
+	AccessibilityLabelUIElements() foundation.INSArray
+	SetAccessibilityLabelUIElements(value foundation.INSArray)
+
+	// The value of the label accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabelValue
+	AccessibilityLabelValue() float32
+	SetAccessibilityLabelValue(value float32)
+
+	// The elements that have links with the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLinkedUIElements
+	AccessibilityLinkedUIElements() foundation.INSArray
+	SetAccessibilityLinkedUIElements(value foundation.INSArray)
+
+	// A Boolean value that determines whether the window is the app’s main window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMain
+	AccessibilityMain() bool
+	SetAccessibilityMain(value bool)
+
+	// The app’s main window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMainWindow
+	AccessibilityMainWindow() objectivec.IObject
+	SetAccessibilityMainWindow(value objectivec.IObject)
+
+	// The user interface element that functions as a marker group for the ruler accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerGroupUIElement
+	AccessibilityMarkerGroupUIElement() objectivec.IObject
+	SetAccessibilityMarkerGroupUIElement(value objectivec.IObject)
+
+	// A human-readable description of the marker type.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerTypeDescription
+	AccessibilityMarkerTypeDescription() string
+	SetAccessibilityMarkerTypeDescription(value string)
+
+	// An array of marker accessibility elements for the ruler.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerUIElements
+	AccessibilityMarkerUIElements() foundation.INSArray
+	SetAccessibilityMarkerUIElements(value foundation.INSArray)
+
+	// The marker values for the ruler.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerValues
+	AccessibilityMarkerValues() objectivec.IObject
+	SetAccessibilityMarkerValues(value objectivec.IObject)
+
+	// The maximum value for the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMaxValue
+	AccessibilityMaxValue() objectivec.IObject
+	SetAccessibilityMaxValue(value objectivec.IObject)
+
+	// The app’s menu bar.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMenuBar
+	AccessibilityMenuBar() objectivec.IObject
+	SetAccessibilityMenuBar(value objectivec.IObject)
+
+	// The minimum value for the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinValue
+	AccessibilityMinValue() objectivec.IObject
+	SetAccessibilityMinValue(value objectivec.IObject)
+
+	// The child accessibility element that represents the window’s minimize button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimizeButton
+	AccessibilityMinimizeButton() objectivec.IObject
+	SetAccessibilityMinimizeButton(value objectivec.IObject)
+
+	// A Boolean value that determines whether this window is in a minimized state.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimized
+	AccessibilityMinimized() bool
+	SetAccessibilityMinimized(value bool)
+
+	// A Boolean value that determines whether the window is modal.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityModal
+	AccessibilityModal() bool
+	SetAccessibilityModal(value bool)
+
+	// The contents that follow the divider accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityNextContents
+	AccessibilityNextContents() foundation.INSArray
+	SetAccessibilityNextContents(value foundation.INSArray)
+
+	// The number of characters in the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityNumberOfCharacters
+	AccessibilityNumberOfCharacters() int
+	SetAccessibilityNumberOfCharacters(value int)
+
+	// A Boolean value that determines whether the accessibility element’s grid is in row major order or in column major order.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrderedByRow
+	AccessibilityOrderedByRow() bool
+	SetAccessibilityOrderedByRow(value bool)
+
+	// The orientation of the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrientation
+	AccessibilityOrientation() NSAccessibilityOrientation
+	SetAccessibilityOrientation(value NSAccessibilityOrientation)
+
+	// The overflow button for the toolbar.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOverflowButton
+	AccessibilityOverflowButton() objectivec.IObject
+	SetAccessibilityOverflowButton(value objectivec.IObject)
+
+	// The accessibility element’s parent in the accessibility hierarchy.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
+	AccessibilityParent() objectivec.IObject
+	SetAccessibilityParent(value objectivec.IObject)
+
+	// The placeholder value for the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityPlaceholderValue
+	AccessibilityPlaceholderValue() string
+	SetAccessibilityPlaceholderValue(value string)
+
+	// The contents that precede the divider accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityPreviousContents
+	AccessibilityPreviousContents() foundation.INSArray
+	SetAccessibilityPreviousContents(value foundation.INSArray)
+
+	// A Boolean value that determines whether the accessibility element contains protected content.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProtectedContent
+	AccessibilityProtectedContent() bool
+	SetAccessibilityProtectedContent(value bool)
+
+	// The child accessibility element that represents the window’s proxy icon.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProxy
+	AccessibilityProxy() objectivec.IObject
+	SetAccessibilityProxy(value objectivec.IObject)
+
+	// A Boolean value that determines whether the accessibility element must have content for successful submission of a form.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRequired
+	AccessibilityRequired() bool
+	SetAccessibilityRequired(value bool)
+
+	// The type of interface element that the accessibility element represents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRole
+	AccessibilityRole() NSAccessibilityRole
+	SetAccessibilityRole(value NSAccessibilityRole)
+
+	// A localized, human-intelligible description of the accessibility element’s role, such as .
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRoleDescription
+	AccessibilityRoleDescription() string
+	SetAccessibilityRoleDescription(value string)
+
+	// The number of rows in the accessibility element’s grid.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowCount
+	AccessibilityRowCount() int
+	SetAccessibilityRowCount(value int)
+
+	// The row header accessibility elements for the table or outline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowHeaderUIElements
+	AccessibilityRowHeaderUIElements() foundation.INSArray
+	SetAccessibilityRowHeaderUIElements(value foundation.INSArray)
+
+	// The row index range of the cell.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowIndexRange
+	AccessibilityRowIndexRange() foundation.NSRange
+	SetAccessibilityRowIndexRange(value foundation.NSRange)
+
+	// The row accessibility elements for the table or outline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRows
+	AccessibilityRows() foundation.INSArray
+	SetAccessibilityRows(value foundation.INSArray)
+
+	// The type of markers for the ruler.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRulerMarkerType
+	AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType
+	SetAccessibilityRulerMarkerType(value NSAccessibilityRulerMarkerType)
+
+	// The search button for the search field.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySearchButton
+	AccessibilitySearchButton() objectivec.IObject
+	SetAccessibilitySearchButton(value objectivec.IObject)
+
+	// The search menu for the search field.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySearchMenu
+	AccessibilitySearchMenu() objectivec.IObject
+	SetAccessibilitySearchMenu(value objectivec.IObject)
+
+	// A Boolean value that determines whether the accessibility element is currently in a selected state.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelected
+	AccessibilitySelected() bool
+	SetAccessibilitySelected(value bool)
+
+	// The currently selected cells for the table.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedCells
+	AccessibilitySelectedCells() foundation.INSArray
+	SetAccessibilitySelectedCells(value foundation.INSArray)
+
+	// The accessibility element’s currently selected children.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedChildren
+	AccessibilitySelectedChildren() foundation.INSArray
+	SetAccessibilitySelectedChildren(value foundation.INSArray)
+
+	// The currently selected columns for the table or outline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedColumns
+	AccessibilitySelectedColumns() foundation.INSArray
+	SetAccessibilitySelectedColumns(value foundation.INSArray)
+
+	// The currently selected rows for the table or outline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
+	AccessibilitySelectedRows() foundation.INSArray
+	SetAccessibilitySelectedRows(value foundation.INSArray)
+
+	// The currently selected text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedText
+	AccessibilitySelectedText() string
+	SetAccessibilitySelectedText(value string)
+
+	// The range of the currently selected text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedTextRange
+	AccessibilitySelectedTextRange() foundation.NSRange
+	SetAccessibilitySelectedTextRange(value foundation.NSRange)
+
+	// An array of ranges for the currently selected text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedTextRanges
+	AccessibilitySelectedTextRanges() []foundation.NSValue
+	SetAccessibilitySelectedTextRanges(value []foundation.NSValue)
+
+	// The list of elements that the accessibility element is a title for.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityServesAsTitleForUIElements
+	AccessibilityServesAsTitleForUIElements() foundation.INSArray
+	SetAccessibilityServesAsTitleForUIElements(value foundation.INSArray)
+
+	// The range of characters that the accessibility element displays.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedCharacterRange
+	AccessibilitySharedCharacterRange() foundation.NSRange
+	SetAccessibilitySharedCharacterRange(value foundation.NSRange)
+
+	// An array of elements that shares the keyboard focus with the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedFocusElements
+	AccessibilitySharedFocusElements() foundation.INSArray
+	SetAccessibilitySharedFocusElements(value foundation.INSArray)
+
+	// Other elements that share text with the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedTextUIElements
+	AccessibilitySharedTextUIElements() foundation.INSArray
+	SetAccessibilitySharedTextUIElements(value foundation.INSArray)
+
+	// The menu currently displaying for the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityShownMenu
+	AccessibilityShownMenu() objectivec.IObject
+	SetAccessibilityShownMenu(value objectivec.IObject)
+
+	// The accessibility element’s sort direction.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySortDirection
+	AccessibilitySortDirection() NSAccessibilitySortDirection
+	SetAccessibilitySortDirection(value NSAccessibilitySortDirection)
+
+	// An array that contains the views and splitter bar from the split view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySplitters
+	AccessibilitySplitters() foundation.INSArray
+	SetAccessibilitySplitters(value foundation.INSArray)
+
+	// The specialized interface element type that the accessibility element represents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySubrole
+	AccessibilitySubrole() NSAccessibilitySubrole
+	SetAccessibilitySubrole(value NSAccessibilitySubrole)
+
+	// The tab accessibility elements for the tab view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTabs
+	AccessibilityTabs() foundation.INSArray
+	SetAccessibilityTabs(value foundation.INSArray)
+
+	// The title of the accessibility element—for example, a button’s visible text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTitle
+	AccessibilityTitle() string
+	SetAccessibilityTitle(value string)
+
+	// A static text element that represents the accessibility element’s title.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTitleUIElement
+	AccessibilityTitleUIElement() objectivec.IObject
+	SetAccessibilityTitleUIElement(value objectivec.IObject)
+
+	// The child accessibility element that represents the window’s toolbar button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityToolbarButton
+	AccessibilityToolbarButton() objectivec.IObject
+	SetAccessibilityToolbarButton(value objectivec.IObject)
+
+	// The top-level element that contains the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTopLevelUIElement
+	AccessibilityTopLevelUIElement() objectivec.IObject
+	SetAccessibilityTopLevelUIElement(value objectivec.IObject)
+
+	// The URL for the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityURL
+	AccessibilityURL() foundation.NSURL
+	SetAccessibilityURL(value foundation.NSURL)
+
+	// A human-readable description of the ruler’s units.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUnitDescription
+	AccessibilityUnitDescription() string
+	SetAccessibilityUnitDescription(value string)
+
+	// The units for the ruler.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUnits
+	AccessibilityUnits() NSAccessibilityUnits
+	SetAccessibilityUnits(value NSAccessibilityUnits)
+
+	// accessibilityUserInputLabels protocol.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUserInputLabels
+	AccessibilityUserInputLabels() []string
+	SetAccessibilityUserInputLabels(value []string)
+
+	// The accessibility element’s value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+	AccessibilityValue() objectivec.IObject
+	SetAccessibilityValue(value objectivec.IObject)
+
+	// A human-readable description of the accessibility element’s value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValueDescription
+	AccessibilityValueDescription() string
+	SetAccessibilityValueDescription(value string)
+
+	// The vertical scroll bar for the scroll view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalScrollBar
+	AccessibilityVerticalScrollBar() objectivec.IObject
+	SetAccessibilityVerticalScrollBar(value objectivec.IObject)
+
+	// A description of the layout area’s vertical units.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalUnitDescription
+	AccessibilityVerticalUnitDescription() string
+	SetAccessibilityVerticalUnitDescription(value string)
+
+	// The units that the layout area uses for vertical values.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalUnits
+	AccessibilityVerticalUnits() NSAccessibilityUnits
+	SetAccessibilityVerticalUnits(value NSAccessibilityUnits)
+
+	// The visible cells for the table.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCells
+	AccessibilityVisibleCells() foundation.INSArray
+	SetAccessibilityVisibleCells(value foundation.INSArray)
+
+	// The range of visible characters in the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCharacterRange
+	AccessibilityVisibleCharacterRange() foundation.NSRange
+	SetAccessibilityVisibleCharacterRange(value foundation.NSRange)
+
+	// The accessibility element’s visible child accessibility elements.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleChildren
+	AccessibilityVisibleChildren() foundation.INSArray
+	SetAccessibilityVisibleChildren(value foundation.INSArray)
+
+	// The visible columns for the table or outline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleColumns
+	AccessibilityVisibleColumns() foundation.INSArray
+	SetAccessibilityVisibleColumns(value foundation.INSArray)
+
+	// The visible rows for the table or outline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleRows
+	AccessibilityVisibleRows() foundation.INSArray
+	SetAccessibilityVisibleRows(value foundation.INSArray)
+
+	// The warning value for the level indicator.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWarningValue
+	AccessibilityWarningValue() objectivec.IObject
+	SetAccessibilityWarningValue(value objectivec.IObject)
+
+	// The window that contains the accessibility element.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWindow
+	AccessibilityWindow() objectivec.IObject
+	SetAccessibilityWindow(value objectivec.IObject)
+
+	// An array that contains all the app’s windows.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWindows
+	AccessibilityWindows() foundation.INSArray
+	SetAccessibilityWindows(value foundation.INSArray)
+
+	// The child accessibility element that represents the window’s zoom button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityZoomButton
+	AccessibilityZoomButton() objectivec.IObject
+	SetAccessibilityZoomButton(value objectivec.IObject)
 }
 
 // NSAccessibilityProtocolObject wraps an existing Objective-C object that conforms to the NSAccessibilityProtocol protocol.
@@ -1407,14 +991,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilityElement() bool {
 	return rv
 }
 
-// Sets a Boolean value that determines whether the accessibility element
-// participates in the accessibility hierarchy.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityElement(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityElement(accessibilityElement bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityElement:"), accessibilityElement)
-}
-
 // Returns a Boolean value that determines whether the accessibility element
 // responds to user events.
 //
@@ -1422,90 +998,6 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityElement(accessibilityElem
 func (o NSAccessibilityProtocolObject) IsAccessibilityEnabled() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
 	return rv
-}
-
-// Sets a Boolean value that determines whether the accessibility element
-// responds to user events.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityEnabled(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityEnabled(accessibilityEnabled bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEnabled:"), accessibilityEnabled)
-}
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFrame()
-func (o NSAccessibilityProtocolObject) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Sets the accessibility element’s frame in screen coordinates.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFrame(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityFrame(accessibilityFrame corefoundation.CGRect) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrame:"), accessibilityFrame)
-}
-
-// Returns the help text for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHelp()
-func (o NSAccessibilityProtocolObject) AccessibilityHelp() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHelp"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the help text for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHelp(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityHelp(accessibilityHelp string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHelp:"), objc.String(accessibilityHelp))
-}
-
-// Returns a short description of the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLabel()
-func (o NSAccessibilityProtocolObject) AccessibilityLabel() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets a short description of the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityLabel(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityLabel(accessibilityLabel string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabel:"), objc.String(accessibilityLabel))
-}
-
-// Returns the title of the accessibility element—for example, a button’s
-// visible text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityTitle()
-func (o NSAccessibilityProtocolObject) AccessibilityTitle() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitle"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the title of the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityTitle(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityTitle(accessibilityTitle string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitle:"), objc.String(accessibilityTitle))
-}
-
-// Returns the accessibility element’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityValue()
-func (o NSAccessibilityProtocolObject) AccessibilityValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the accessibility element’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityValue(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityValue(accessibilityValue objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValue:"), accessibilityValue)
 }
 
 // Returns a Boolean value that indicates whether assistive apps can invoke
@@ -1523,96 +1015,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilitySelectorAllowed(selector o
 	return rv
 }
 
-// Returns the contents of the current accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityContents()
-func (o NSAccessibilityProtocolObject) AccessibilityContents() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityContents"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the contents of the current accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityContents(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityContents(accessibilityContents objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityContents:"), accessibilityContents)
-}
-
-// Returns the critical value for the level indicator.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCriticalValue()
-func (o NSAccessibilityProtocolObject) AccessibilityCriticalValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCriticalValue"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the critical value for the level indicator.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCriticalValue(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityCriticalValue(accessibilityCriticalValue objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCriticalValue:"), accessibilityCriticalValue)
-}
-
-// Returns the accessibility element’s identity.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityIdentifier()
-func (o NSAccessibilityProtocolObject) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the accessibility element’s identity.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityIdentifier(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityIdentifier(accessibilityIdentifier string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIdentifier:"), objc.String(accessibilityIdentifier))
-}
-
-// Returns the maximum value for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMaxValue()
-func (o NSAccessibilityProtocolObject) AccessibilityMaxValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMaxValue"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the maximum value for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMaxValue(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMaxValue(accessibilityMaxValue objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMaxValue:"), accessibilityMaxValue)
-}
-
-// Returns the minimum value for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMinValue()
-func (o NSAccessibilityProtocolObject) AccessibilityMinValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinValue"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the minimum value for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMinValue(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMinValue(accessibilityMinValue objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinValue:"), accessibilityMinValue)
-}
-
-// Returns the orientation of the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityOrientation()
-func (o NSAccessibilityProtocolObject) AccessibilityOrientation() NSAccessibilityOrientation {
-	rv := objc.Send[NSAccessibilityOrientation](o.ID, objc.Sel("accessibilityOrientation"))
-	return rv
-}
-
-// Sets the orientation of the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityOrientation(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityOrientation(accessibilityOrientation NSAccessibilityOrientation) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrientation:"), accessibilityOrientation)
-}
-
 // Returns a Boolean value that determines whether the accessibility element
 // contains protected content.
 //
@@ -1620,14 +1022,6 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityOrientation(accessibility
 func (o NSAccessibilityProtocolObject) IsAccessibilityProtectedContent() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
 	return rv
-}
-
-// Sets a Boolean value that determines whether the accessibility element
-// contains protected content.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityProtectedContent(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityProtectedContent(accessibilityProtectedContent bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProtectedContent:"), accessibilityProtectedContent)
 }
 
 // Returns a Boolean value that determines whether the accessibility element
@@ -1639,168 +1033,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilitySelected() bool {
 	return rv
 }
 
-// Sets a Boolean value that determines whether the accessibility element is
-// currently in a selected state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelected(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySelected(accessibilitySelected bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelected:"), accessibilitySelected)
-}
-
-// Returns the URL for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityURL()
-func (o NSAccessibilityProtocolObject) AccessibilityURL() foundation.INSURL {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityURL"))
-	return foundation.NSURLFromID(rv)
-}
-
-// Sets the URL for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityURL(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityURL(accessibilityURL foundation.INSURL) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityURL:"), accessibilityURL)
-}
-
-// Returns the human-readable description of the accessibility element’s
-// value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityValueDescription()
-func (o NSAccessibilityProtocolObject) AccessibilityValueDescription() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValueDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the human-readable description of the accessibility element’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityValueDescription(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityValueDescription(accessibilityValueDescription string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValueDescription:"), objc.String(accessibilityValueDescription))
-}
-
-// Returns the warning value for the level indicator.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityWarningValue()
-func (o NSAccessibilityProtocolObject) AccessibilityWarningValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWarningValue"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the warning value for the level indicator.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityWarningValue(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityWarningValue(accessibilityWarningValue objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWarningValue:"), accessibilityWarningValue)
-}
-
-// Returns the child accessibility elements in the accessibility hierarchy.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityChildren()
-func (o NSAccessibilityProtocolObject) AccessibilityChildren() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the child accessibility elements in the accessibility hierarchy.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityChildren(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityChildren(accessibilityChildren objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildren:"), accessibilityChildren)
-}
-
-// Returns the array of child accessibility elements in order for linear
-// navigation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityChildrenInNavigationOrder()
-func (o NSAccessibilityProtocolObject) AccessibilityChildrenInNavigationOrder() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildrenInNavigationOrder"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the array of child accessibility elements in order for linear
-// navigation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityChildrenInNavigationOrder(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityChildrenInNavigationOrder(accessibilityChildrenInNavigationOrder objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildrenInNavigationOrder:"), accessibilityChildrenInNavigationOrder)
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityParent()
-func (o NSAccessibilityProtocolObject) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the accessibility element’s parent in the accessibility hierarchy.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityParent(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityParent(accessibilityParent objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityParent:"), accessibilityParent)
-}
-
-// Returns the accessibility element’s currently selected children.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedChildren()
-func (o NSAccessibilityProtocolObject) AccessibilitySelectedChildren() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the accessibility element’s currently selected children.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedChildren(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedChildren(accessibilitySelectedChildren objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedChildren:"), accessibilitySelectedChildren)
-}
-
-// Returns the top-level element that contains the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityTopLevelUIElement()
-func (o NSAccessibilityProtocolObject) AccessibilityTopLevelUIElement() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTopLevelUIElement"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the top-level element that contains the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityTopLevelUIElement(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityTopLevelUIElement(accessibilityTopLevelUIElement objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTopLevelUIElement:"), accessibilityTopLevelUIElement)
-}
-
-// Returns the accessibility element’s visible child accessibility elements.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleChildren()
-func (o NSAccessibilityProtocolObject) AccessibilityVisibleChildren() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleChildren"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the accessibility element’s visible child accessibility elements.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleChildren(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleChildren(accessibilityVisibleChildren objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleChildren:"), accessibilityVisibleChildren)
-}
-
-// Returns the child accessibility element with the current focus.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityApplicationFocusedUIElement()
-func (o NSAccessibilityProtocolObject) AccessibilityApplicationFocusedUIElement() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityApplicationFocusedUIElement"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element with the current focus.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityApplicationFocusedUIElement(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityApplicationFocusedUIElement(accessibilityApplicationFocusedUIElement objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityApplicationFocusedUIElement:"), accessibilityApplicationFocusedUIElement)
-}
-
 // Returns a Boolean value that determines whether the accessibility element
 // has the keyboard focus.
 //
@@ -1810,46 +1042,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilityFocused() bool {
 	return rv
 }
 
-// Sets a Boolean value that determines whether the accessibility element has
-// the keyboard focus.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFocused(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityFocused(accessibilityFocused bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocused:"), accessibilityFocused)
-}
-
-// Returns the child window with the current focus.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFocusedWindow()
-func (o NSAccessibilityProtocolObject) AccessibilityFocusedWindow() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedWindow"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child window with the current focus.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFocusedWindow(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityFocusedWindow(accessibilityFocusedWindow objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocusedWindow:"), accessibilityFocusedWindow)
-}
-
-// Returns the array of elements that shares the keyboard focus with the
-// accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySharedFocusElements()
-func (o NSAccessibilityProtocolObject) AccessibilitySharedFocusElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedFocusElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the array of elements that shares the keyboard focus with the
-// accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySharedFocusElements(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySharedFocusElements(accessibilitySharedFocusElements objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedFocusElements:"), accessibilitySharedFocusElements)
-}
-
 // Returns a Boolean value that determines whether the accessibility element
 // must have content for successful submission of a form.
 //
@@ -1857,230 +1049,6 @@ func (o NSAccessibilityProtocolObject) SetAccessibilitySharedFocusElements(acces
 func (o NSAccessibilityProtocolObject) IsAccessibilityRequired() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
 	return rv
-}
-
-// Sets a Boolean value that determines whether the accessibility element must
-// have content for successful submission of a form.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRequired(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityRequired(accessibilityRequired bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRequired:"), accessibilityRequired)
-}
-
-// Returns the type of interface element that the accessibility element
-// represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRole()
-func (o NSAccessibilityProtocolObject) AccessibilityRole() NSAccessibilityRole {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRole"))
-	return NSAccessibilityRole(foundation.NSStringFromID(rv).String())
-}
-
-// Sets the type of interface element that the accessibility element
-// represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRole(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityRole(accessibilityRole NSAccessibilityRole) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRole:"), objc.String(string(accessibilityRole)))
-}
-
-// Returns a localized, human-intelligible description of the accessibility
-// element’s role, such as .
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRoleDescription()
-func (o NSAccessibilityProtocolObject) AccessibilityRoleDescription() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRoleDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the localized, human-intelligible description of the accessibility
-// element’s role, such as .
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRoleDescription(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityRoleDescription(accessibilityRoleDescription string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRoleDescription:"), objc.String(accessibilityRoleDescription))
-}
-
-// Returns the specialized interface element type that the accessibility
-// element represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySubrole()
-func (o NSAccessibilityProtocolObject) AccessibilitySubrole() NSAccessibilitySubrole {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySubrole"))
-	return NSAccessibilitySubrole(foundation.NSStringFromID(rv).String())
-}
-
-// Sets the specialized interface element type that the accessibility element
-// represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySubrole(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySubrole(accessibilitySubrole NSAccessibilitySubrole) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySubrole:"), objc.String(string(accessibilitySubrole)))
-}
-
-// Returns the custom actions of the current accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCustomActions()
-func (o NSAccessibilityProtocolObject) AccessibilityCustomActions() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCustomActions"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the custom actions of the current accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCustomActions(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityCustomActions(accessibilityCustomActions objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomActions:"), accessibilityCustomActions)
-}
-
-// Returns the custom rotors of the current accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCustomRotors()
-func (o NSAccessibilityProtocolObject) AccessibilityCustomRotors() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCustomRotors"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the custom rotors of the current accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCustomRotors(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityCustomRotors(accessibilityCustomRotors objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomRotors:"), accessibilityCustomRotors)
-}
-
-// Returns the line number that contains the insertion point.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityInsertionPointLineNumber()
-func (o NSAccessibilityProtocolObject) AccessibilityInsertionPointLineNumber() int {
-	rv := objc.Send[int](o.ID, objc.Sel("accessibilityInsertionPointLineNumber"))
-	return rv
-}
-
-// Sets the line number that contains the insertion point.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityInsertionPointLineNumber(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityInsertionPointLineNumber(accessibilityInsertionPointLineNumber int) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityInsertionPointLineNumber:"), accessibilityInsertionPointLineNumber)
-}
-
-// Returns the number of characters in the text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityNumberOfCharacters()
-func (o NSAccessibilityProtocolObject) AccessibilityNumberOfCharacters() int {
-	rv := objc.Send[int](o.ID, objc.Sel("accessibilityNumberOfCharacters"))
-	return rv
-}
-
-// Sets the number of characters in the text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityNumberOfCharacters(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityNumberOfCharacters(accessibilityNumberOfCharacters int) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNumberOfCharacters:"), accessibilityNumberOfCharacters)
-}
-
-// Returns the placeholder value for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPlaceholderValue()
-func (o NSAccessibilityProtocolObject) AccessibilityPlaceholderValue() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPlaceholderValue"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the placeholder value for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityPlaceholderValue(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityPlaceholderValue(accessibilityPlaceholderValue string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPlaceholderValue:"), objc.String(accessibilityPlaceholderValue))
-}
-
-// Returns the currently selected text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedText()
-func (o NSAccessibilityProtocolObject) AccessibilitySelectedText() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedText"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the currently selected text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedText(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedText(accessibilitySelectedText string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedText:"), objc.String(accessibilitySelectedText))
-}
-
-// Returns the range of the currently selected text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedTextRange()
-func (o NSAccessibilityProtocolObject) AccessibilitySelectedTextRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySelectedTextRange"))
-	return rv
-}
-
-// Sets the range of the currently selected text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedTextRange(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedTextRange(accessibilitySelectedTextRange foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRange:"), accessibilitySelectedTextRange)
-}
-
-// Returns an array of ranges for the currently selected text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedTextRanges()
-func (o NSAccessibilityProtocolObject) AccessibilitySelectedTextRanges() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedTextRanges"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets an array of ranges for the currently selected text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedTextRanges(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedTextRanges(accessibilitySelectedTextRanges objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRanges:"), accessibilitySelectedTextRanges)
-}
-
-// Returns the range of characters that the accessibility element displays.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySharedCharacterRange()
-func (o NSAccessibilityProtocolObject) AccessibilitySharedCharacterRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySharedCharacterRange"))
-	return rv
-}
-
-// Sets the range of characters that the accessibility element displays.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySharedCharacterRange(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySharedCharacterRange(accessibilitySharedCharacterRange foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedCharacterRange:"), accessibilitySharedCharacterRange)
-}
-
-// Returns the other elements that share text with the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySharedTextUIElements()
-func (o NSAccessibilityProtocolObject) AccessibilitySharedTextUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedTextUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the other elements that share text with the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySharedTextUIElements(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySharedTextUIElements(accessibilitySharedTextUIElements objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedTextUIElements:"), accessibilitySharedTextUIElements)
-}
-
-// Returns the range of visible characters in the document.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleCharacterRange()
-func (o NSAccessibilityProtocolObject) AccessibilityVisibleCharacterRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityVisibleCharacterRange"))
-	return rv
-}
-
-// Sets the range of visible characters in the document.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleCharacterRange(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleCharacterRange(accessibilityVisibleCharacterRange foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCharacterRange:"), accessibilityVisibleCharacterRange)
 }
 
 // Returns the substring for the specified range.
@@ -2121,7 +1089,7 @@ func (o NSAccessibilityProtocolObject) AccessibilityAttributedStringForRange(ran
 // A data object containing an RTF representation of the specified characters.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRTF(for:)
-func (o NSAccessibilityProtocolObject) AccessibilityRTFForRange(range_ foundation.NSRange) foundation.INSData {
+func (o NSAccessibilityProtocolObject) AccessibilityRTFForRange(range_ foundation.NSRange) foundation.NSData {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRTFForRange:"), range_)
 	return foundation.NSDataFromID(rv)
 }
@@ -2232,21 +1200,6 @@ func (o NSAccessibilityProtocolObject) AccessibilityRangeForPosition(point coref
 	return rv
 }
 
-// Returns the activation point for the user interface element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityActivationPoint()
-func (o NSAccessibilityProtocolObject) AccessibilityActivationPoint() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityActivationPoint"))
-	return rv
-}
-
-// Sets the activation point for the user interface element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityActivationPoint(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityActivationPoint(accessibilityActivationPoint corefoundation.CGPoint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityActivationPoint:"), accessibilityActivationPoint)
-}
-
 // Returns the Boolean value that determines whether the accessibility
 // element’s alternative UI is currently visible.
 //
@@ -2254,99 +1207,6 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityActivationPoint(accessibi
 func (o NSAccessibilityProtocolObject) IsAccessibilityAlternateUIVisible() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
 	return rv
-}
-
-// Sets the Boolean value that determines whether the accessibility
-// element’s alternative UI is currently visible.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityAlternateUIVisible(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityAlternateUIVisible(accessibilityAlternateUIVisible bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAlternateUIVisible:"), accessibilityAlternateUIVisible)
-}
-
-// Returns the child accessibility element that represents the window’s
-// cancel button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCancelButton()
-func (o NSAccessibilityProtocolObject) AccessibilityCancelButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCancelButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s cancel
-// button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCancelButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityCancelButton(accessibilityCancelButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCancelButton:"), accessibilityCancelButton)
-}
-
-// Returns the child accessibility element that represents the window’s
-// close button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCloseButton()
-func (o NSAccessibilityProtocolObject) AccessibilityCloseButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCloseButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s close
-// button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityCloseButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityCloseButton(accessibilityCloseButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCloseButton:"), accessibilityCloseButton)
-}
-
-// Returns the child accessibility element that represents the window’s
-// default button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDefaultButton()
-func (o NSAccessibilityProtocolObject) AccessibilityDefaultButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDefaultButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s default
-// button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDefaultButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityDefaultButton(accessibilityDefaultButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDefaultButton:"), accessibilityDefaultButton)
-}
-
-// Returns the child accessibility element that represents the window’s
-// full-screen button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFullScreenButton()
-func (o NSAccessibilityProtocolObject) AccessibilityFullScreenButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFullScreenButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s
-// full-screen button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFullScreenButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityFullScreenButton(accessibilityFullScreenButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFullScreenButton:"), accessibilityFullScreenButton)
-}
-
-// Returns the child accessibility element that represents the window’s grow
-// area.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityGrowArea()
-func (o NSAccessibilityProtocolObject) AccessibilityGrowArea() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityGrowArea"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s grow
-// area.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityGrowArea(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityGrowArea(accessibilityGrowArea objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityGrowArea:"), accessibilityGrowArea)
 }
 
 // Returns a Boolean value that determines whether the window is the app’s
@@ -2358,31 +1218,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilityMain() bool {
 	return rv
 }
 
-// Sets a Boolean value that determines whether the window is the app’s main
-// window.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMain(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMain(accessibilityMain bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMain:"), accessibilityMain)
-}
-
-// Returns the child accessibility element that represents the window’s
-// minimize button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMinimizeButton()
-func (o NSAccessibilityProtocolObject) AccessibilityMinimizeButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinimizeButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s
-// minimize button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMinimizeButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMinimizeButton(accessibilityMinimizeButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimizeButton:"), accessibilityMinimizeButton)
-}
-
 // Returns the Boolean value that determines whether the window is in a
 // minimized state.
 //
@@ -2392,123 +1227,12 @@ func (o NSAccessibilityProtocolObject) IsAccessibilityMinimized() bool {
 	return rv
 }
 
-// Sets the Boolean value that determines whether the window is in a minimized
-// state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMinimized(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMinimized(accessibilityMinimized bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimized:"), accessibilityMinimized)
-}
-
 // Returns a Boolean value that determines whether the window is modal.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityModal()
 func (o NSAccessibilityProtocolObject) IsAccessibilityModal() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
 	return rv
-}
-
-// Sets a Boolean value that determines whether the window is modal.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityModal(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityModal(accessibilityModal bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityModal:"), accessibilityModal)
-}
-
-// Returns the child accessibility element that represents the window’s
-// proxy icon.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityProxy()
-func (o NSAccessibilityProtocolObject) AccessibilityProxy() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityProxy"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s proxy
-// icon.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityProxy(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityProxy(accessibilityProxy objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProxy:"), accessibilityProxy)
-}
-
-// Returns the menu currently displaying for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityShownMenu()
-func (o NSAccessibilityProtocolObject) AccessibilityShownMenu() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityShownMenu"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the menu currently displaying for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityShownMenu(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityShownMenu(accessibilityShownMenu objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityShownMenu:"), accessibilityShownMenu)
-}
-
-// Returns the child accessibility element that represents the window’s
-// toolbar button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityToolbarButton()
-func (o NSAccessibilityProtocolObject) AccessibilityToolbarButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityToolbarButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s toolbar
-// button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityToolbarButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityToolbarButton(accessibilityToolbarButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityToolbarButton:"), accessibilityToolbarButton)
-}
-
-// Returns the window that contains the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityWindow()
-func (o NSAccessibilityProtocolObject) AccessibilityWindow() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindow"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the window that contains the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityWindow(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityWindow(accessibilityWindow objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindow:"), accessibilityWindow)
-}
-
-// Returns the child accessibility element that represents the window’s zoom
-// button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityZoomButton()
-func (o NSAccessibilityProtocolObject) AccessibilityZoomButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityZoomButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the child accessibility element that represents the window’s zoom
-// button.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityZoomButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityZoomButton(accessibilityZoomButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityZoomButton:"), accessibilityZoomButton)
-}
-
-// Returns the icon for the app’s menu bar extra.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityExtrasMenuBar()
-func (o NSAccessibilityProtocolObject) AccessibilityExtrasMenuBar() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityExtrasMenuBar"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the icon for the app’s menu bar extra.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityExtrasMenuBar(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityExtrasMenuBar(accessibilityExtrasMenuBar objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExtrasMenuBar:"), accessibilityExtrasMenuBar)
 }
 
 // Returns a Boolean value that determines whether the app is the frontmost
@@ -2520,13 +1244,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilityFrontmost() bool {
 	return rv
 }
 
-// Sets a Boolean value that determines whether the app is the frontmost app.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFrontmost(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityFrontmost(accessibilityFrontmost bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrontmost:"), accessibilityFrontmost)
-}
-
 // Returns a Boolean value that determines whether the app is in a hidden
 // state.
 //
@@ -2534,73 +1251,6 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityFrontmost(accessibilityFr
 func (o NSAccessibilityProtocolObject) IsAccessibilityHidden() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
 	return rv
-}
-
-// Sets a Boolean value that determines whether the app is in a hidden state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHidden(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityHidden(accessibilityHidden bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHidden:"), accessibilityHidden)
-}
-
-// Returns the app’s main window.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMainWindow()
-func (o NSAccessibilityProtocolObject) AccessibilityMainWindow() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMainWindow"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the app’s main window.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMainWindow(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMainWindow(accessibilityMainWindow objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMainWindow:"), accessibilityMainWindow)
-}
-
-// Returns the app’s menu bar.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMenuBar()
-func (o NSAccessibilityProtocolObject) AccessibilityMenuBar() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMenuBar"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the app’s menu bar.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMenuBar(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMenuBar(accessibilityMenuBar objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMenuBar:"), accessibilityMenuBar)
-}
-
-// Returns an array that contains all the app’s windows.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityWindows()
-func (o NSAccessibilityProtocolObject) AccessibilityWindows() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindows"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the array that contains all the app’s windows.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityWindows(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityWindows(accessibilityWindows objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindows:"), accessibilityWindows)
-}
-
-// Returns the number of columns in the accessibility element’s grid.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumnCount()
-func (o NSAccessibilityProtocolObject) AccessibilityColumnCount() int {
-	rv := objc.Send[int](o.ID, objc.Sel("accessibilityColumnCount"))
-	return rv
-}
-
-// Sets the number of columns in the accessibility element’s grid.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumnCount(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityColumnCount(accessibilityColumnCount int) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnCount:"), accessibilityColumnCount)
 }
 
 // Returns a Boolean value that determines whether the accessibility
@@ -2612,104 +1262,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilityOrderedByRow() bool {
 	return rv
 }
 
-// Sets a Boolean value that determines whether the element’s grid is in row
-// major order or in column major order.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityOrderedByRow(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityOrderedByRow(accessibilityOrderedByRow bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrderedByRow:"), accessibilityOrderedByRow)
-}
-
-// Returns the number of rows in the accessibility element’s grid.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRowCount()
-func (o NSAccessibilityProtocolObject) AccessibilityRowCount() int {
-	rv := objc.Send[int](o.ID, objc.Sel("accessibilityRowCount"))
-	return rv
-}
-
-// Sets the number of rows in the accessibility element’s grid.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRowCount(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityRowCount(accessibilityRowCount int) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowCount:"), accessibilityRowCount)
-}
-
-// Returns the horizontal scroll bar for the scroll view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHorizontalScrollBar()
-func (o NSAccessibilityProtocolObject) AccessibilityHorizontalScrollBar() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalScrollBar"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the horizontal scroll bar for the scroll view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHorizontalScrollBar(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityHorizontalScrollBar(accessibilityHorizontalScrollBar objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalScrollBar:"), accessibilityHorizontalScrollBar)
-}
-
-// Returns the vertical scroll bar for the scroll view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVerticalScrollBar()
-func (o NSAccessibilityProtocolObject) AccessibilityVerticalScrollBar() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalScrollBar"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the vertical scroll bar for the scroll view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVerticalScrollBar(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityVerticalScrollBar(accessibilityVerticalScrollBar objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalScrollBar:"), accessibilityVerticalScrollBar)
-}
-
-// Returns the column header accessibility elements for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumnHeaderUIElements()
-func (o NSAccessibilityProtocolObject) AccessibilityColumnHeaderUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the column header accessibility elements for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumnHeaderUIElements(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityColumnHeaderUIElements(accessibilityColumnHeaderUIElements objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnHeaderUIElements:"), accessibilityColumnHeaderUIElements)
-}
-
-// Returns the column accessibility elements for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumns()
-func (o NSAccessibilityProtocolObject) AccessibilityColumns() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumns"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the column accessibility elements for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumns(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityColumns(accessibilityColumns objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumns:"), accessibilityColumns)
-}
-
-// Returns the column titles for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumnTitles()
-func (o NSAccessibilityProtocolObject) AccessibilityColumnTitles() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnTitles"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the column titles for the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumnTitles(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityColumnTitles(accessibilityColumnTitles objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnTitles:"), accessibilityColumnTitles)
-}
-
 // Returns a Boolean value that determines whether the accessibility element
 // is in an expanded state.
 //
@@ -2719,151 +1271,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilityExpanded() bool {
 	return rv
 }
 
-// Sets a Boolean value that determines whether accessibility element is in an
-// expanded state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityExpanded(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityExpanded(accessibilityExpanded bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExpanded:"), accessibilityExpanded)
-}
-
-// Returns the header for the table view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHeader()
-func (o NSAccessibilityProtocolObject) AccessibilityHeader() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHeader"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the header for the table view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHeader(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityHeader(accessibilityHeader objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHeader:"), accessibilityHeader)
-}
-
-// Returns the index of the row or column that the accessibility element
-// represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityIndex()
-func (o NSAccessibilityProtocolObject) AccessibilityIndex() int {
-	rv := objc.Send[int](o.ID, objc.Sel("accessibilityIndex"))
-	return rv
-}
-
-// Sets the index of the row or column that the accessibility element
-// represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityIndex(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityIndex(accessibilityIndex int) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIndex:"), accessibilityIndex)
-}
-
-// Returns the row header accessibility elements for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRowHeaderUIElements()
-func (o NSAccessibilityProtocolObject) AccessibilityRowHeaderUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRowHeaderUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the row header accessibility elements for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRowHeaderUIElements(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityRowHeaderUIElements(accessibilityRowHeaderUIElements objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowHeaderUIElements:"), accessibilityRowHeaderUIElements)
-}
-
-// Returns the row accessibility elements for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRows()
-func (o NSAccessibilityProtocolObject) AccessibilityRows() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRows"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the row accessibility elements for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRows(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityRows(accessibilityRows objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRows:"), accessibilityRows)
-}
-
-// Returns the currently selected columns for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedColumns()
-func (o NSAccessibilityProtocolObject) AccessibilitySelectedColumns() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedColumns"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the currently selected columns for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedColumns(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedColumns(accessibilitySelectedColumns objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedColumns:"), accessibilitySelectedColumns)
-}
-
-// Returns the currently selected rows for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedRows()
-func (o NSAccessibilityProtocolObject) AccessibilitySelectedRows() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedRows"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the currently selected rows for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedRows(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedRows(accessibilitySelectedRows objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), accessibilitySelectedRows)
-}
-
-// Returns the accessibility element’s sort direction.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySortDirection()
-func (o NSAccessibilityProtocolObject) AccessibilitySortDirection() NSAccessibilitySortDirection {
-	rv := objc.Send[NSAccessibilitySortDirection](o.ID, objc.Sel("accessibilitySortDirection"))
-	return rv
-}
-
-// Sets the accessibility element’s sort direction.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySortDirection(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySortDirection(accessibilitySortDirection NSAccessibilitySortDirection) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySortDirection:"), accessibilitySortDirection)
-}
-
-// Returns the visible columns for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleColumns()
-func (o NSAccessibilityProtocolObject) AccessibilityVisibleColumns() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleColumns"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the visible columns for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleColumns(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleColumns(accessibilityVisibleColumns objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleColumns:"), accessibilityVisibleColumns)
-}
-
-// Returns the visible rows for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleRows()
-func (o NSAccessibilityProtocolObject) AccessibilityVisibleRows() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleRows"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the visible rows for the table or outline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleRows(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleRows(accessibilityVisibleRows objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleRows:"), accessibilityVisibleRows)
-}
-
 // Returns a Boolean value that determines whether the row is disclosing other
 // rows.
 //
@@ -2871,119 +1278,6 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleRows(accessibility
 func (o NSAccessibilityProtocolObject) IsAccessibilityDisclosed() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
 	return rv
-}
-
-// Sets a Boolean value that determines whether the row is disclosing other
-// rows.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDisclosed(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityDisclosed(accessibilityDisclosed bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosed:"), accessibilityDisclosed)
-}
-
-// Returns the row disclosing the current row.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDisclosedByRow()
-func (o NSAccessibilityProtocolObject) AccessibilityDisclosedByRow() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedByRow"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the row disclosing the current row.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDisclosedByRow(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityDisclosedByRow(accessibilityDisclosedByRow objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedByRow:"), accessibilityDisclosedByRow)
-}
-
-// Returns the rows that the current row discloses.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDisclosedRows()
-func (o NSAccessibilityProtocolObject) AccessibilityDisclosedRows() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedRows"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the rows that the current row discloses.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDisclosedRows(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityDisclosedRows(accessibilityDisclosedRows objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedRows:"), accessibilityDisclosedRows)
-}
-
-// Returns the indention level for the row.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDisclosureLevel()
-func (o NSAccessibilityProtocolObject) AccessibilityDisclosureLevel() int {
-	rv := objc.Send[int](o.ID, objc.Sel("accessibilityDisclosureLevel"))
-	return rv
-}
-
-// Sets the indention level for the row.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDisclosureLevel(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityDisclosureLevel(accessibilityDisclosureLevel int) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosureLevel:"), accessibilityDisclosureLevel)
-}
-
-// Returns the column index range of the cell.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityColumnIndexRange()
-func (o NSAccessibilityProtocolObject) AccessibilityColumnIndexRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityColumnIndexRange"))
-	return rv
-}
-
-// Sets the column index range of the cell.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityColumnIndexRange(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityColumnIndexRange(accessibilityColumnIndexRange foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnIndexRange:"), accessibilityColumnIndexRange)
-}
-
-// Returns the row index range of the cell.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRowIndexRange()
-func (o NSAccessibilityProtocolObject) AccessibilityRowIndexRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRowIndexRange"))
-	return rv
-}
-
-// Sets the row index range of the cell.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRowIndexRange(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityRowIndexRange(accessibilityRowIndexRange foundation.NSRange) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowIndexRange:"), accessibilityRowIndexRange)
-}
-
-// Returns the currently selected cells for the table.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySelectedCells()
-func (o NSAccessibilityProtocolObject) AccessibilitySelectedCells() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedCells"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the currently selected cells for the table.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySelectedCells(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedCells(accessibilitySelectedCells objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedCells:"), accessibilitySelectedCells)
-}
-
-// Returns the visible cells for the table.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVisibleCells()
-func (o NSAccessibilityProtocolObject) AccessibilityVisibleCells() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleCells"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the visible cells for the table.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVisibleCells(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleCells(accessibilityVisibleCells objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCells:"), accessibilityVisibleCells)
 }
 
 // Returns the cell at the specified column and row.
@@ -3005,81 +1299,6 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleCells(accessibilit
 func (o NSAccessibilityProtocolObject) AccessibilityCellForColumnRow(column int, row int) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCellForColumn:row:"), column, row)
 	return objectivec.Object{ID: rv}
-}
-
-// Returns the drag handle elements for the layout item element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHandles()
-func (o NSAccessibilityProtocolObject) AccessibilityHandles() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHandles"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the drag handle accessibility elements for the layout item element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHandles(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityHandles(accessibilityHandles objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHandles:"), accessibilityHandles)
-}
-
-// Returns the units that the layout area uses for horizontal values.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHorizontalUnits()
-func (o NSAccessibilityProtocolObject) AccessibilityHorizontalUnits() NSAccessibilityUnits {
-	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityHorizontalUnits"))
-	return rv
-}
-
-// Sets the units that the layout area uses for horizontal values.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHorizontalUnits(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityHorizontalUnits(accessibilityHorizontalUnits NSAccessibilityUnits) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnits:"), accessibilityHorizontalUnits)
-}
-
-// Returns the description of the layout area’s horizontal units.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityHorizontalUnitDescription()
-func (o NSAccessibilityProtocolObject) AccessibilityHorizontalUnitDescription() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalUnitDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the description of the layout area’s horizontal units.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityHorizontalUnitDescription(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityHorizontalUnitDescription(accessibilityHorizontalUnitDescription string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnitDescription:"), objc.String(accessibilityHorizontalUnitDescription))
-}
-
-// Returns the units that the layout area uses for vertical values.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVerticalUnits()
-func (o NSAccessibilityProtocolObject) AccessibilityVerticalUnits() NSAccessibilityUnits {
-	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityVerticalUnits"))
-	return rv
-}
-
-// Sets the units that the layout area uses for vertical values.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVerticalUnits(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityVerticalUnits(accessibilityVerticalUnits NSAccessibilityUnits) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnits:"), accessibilityVerticalUnits)
-}
-
-// Returns the description of the layout area’s vertical units.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityVerticalUnitDescription()
-func (o NSAccessibilityProtocolObject) AccessibilityVerticalUnitDescription() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalUnitDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the description of the layout area’s vertical units.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityVerticalUnitDescription(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityVerticalUnitDescription(accessibilityVerticalUnitDescription string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnitDescription:"), objc.String(accessibilityVerticalUnitDescription))
 }
 
 // Converts the provided point in screen coordinates to a point in the layout
@@ -3142,254 +1361,6 @@ func (o NSAccessibilityProtocolObject) AccessibilityScreenSizeForLayoutSize(size
 	return rv
 }
 
-// Returns the allowed values for the slider accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityAllowedValues()
-func (o NSAccessibilityProtocolObject) AccessibilityAllowedValues() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAllowedValues"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the allowed values for the slider accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityAllowedValues(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityAllowedValues(accessibilityAllowedValues objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAllowedValues:"), accessibilityAllowedValues)
-}
-
-// Returns the child label elements for the slider accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLabelUIElements()
-func (o NSAccessibilityProtocolObject) AccessibilityLabelUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabelUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the child label elements for the slider accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityLabelUIElements(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityLabelUIElements(accessibilityLabelUIElements objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelUIElements:"), accessibilityLabelUIElements)
-}
-
-// Returns the value of the label accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLabelValue()
-func (o NSAccessibilityProtocolObject) AccessibilityLabelValue() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("accessibilityLabelValue"))
-	return rv
-}
-
-// Sets the value of the label accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityLabelValue(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityLabelValue(accessibilityLabelValue float32) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelValue:"), accessibilityLabelValue)
-}
-
-// Returns the contents that follow the divider accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityNextContents()
-func (o NSAccessibilityProtocolObject) AccessibilityNextContents() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityNextContents"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the contents that follow the divider accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityNextContents(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityNextContents(accessibilityNextContents objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNextContents:"), accessibilityNextContents)
-}
-
-// Returns the contents that precede the divider accessibility element.
-//
-// # Return Value
-//
-// Sets the contents preceding this divider element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPreviousContents()
-func (o NSAccessibilityProtocolObject) AccessibilityPreviousContents() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPreviousContents"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the contents that precede the divider accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityPreviousContents(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityPreviousContents(accessibilityPreviousContents objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPreviousContents:"), accessibilityPreviousContents)
-}
-
-// Returns an array that contains the views and splitter bar from the split
-// view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySplitters()
-func (o NSAccessibilityProtocolObject) AccessibilitySplitters() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySplitters"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the array that contains the views and splitter bar from the split
-// view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySplitters(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySplitters(accessibilitySplitters objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySplitters:"), accessibilitySplitters)
-}
-
-// Returns the overflow button for the toolbar.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityOverflowButton()
-func (o NSAccessibilityProtocolObject) AccessibilityOverflowButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityOverflowButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the overflow button for the toolbar.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityOverflowButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityOverflowButton(accessibilityOverflowButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOverflowButton:"), accessibilityOverflowButton)
-}
-
-// Returns the tab accessibility elements for the tab view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityTabs()
-func (o NSAccessibilityProtocolObject) AccessibilityTabs() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTabs"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the tab accessibility elements for the tab view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityTabs(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityTabs(accessibilityTabs objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTabs:"), accessibilityTabs)
-}
-
-// Returns the user interface element that functions as a marker group for the
-// ruler accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMarkerGroupUIElement()
-func (o NSAccessibilityProtocolObject) AccessibilityMarkerGroupUIElement() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerGroupUIElement"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the user interface element that functions as a marker group for the
-// ruler accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMarkerGroupUIElement(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerGroupUIElement(accessibilityMarkerGroupUIElement objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerGroupUIElement:"), accessibilityMarkerGroupUIElement)
-}
-
-// Returns the human-readable description of the marker type.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMarkerTypeDescription()
-func (o NSAccessibilityProtocolObject) AccessibilityMarkerTypeDescription() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerTypeDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the human-readable description of the marker type.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMarkerTypeDescription(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerTypeDescription(accessibilityMarkerTypeDescription string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerTypeDescription:"), objc.String(accessibilityMarkerTypeDescription))
-}
-
-// Returns the array of marker accessibility elements for the ruler.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMarkerUIElements()
-func (o NSAccessibilityProtocolObject) AccessibilityMarkerUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the array of marker accessibility elements for the ruler.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMarkerUIElements(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerUIElements(accessibilityMarkerUIElements objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerUIElements:"), accessibilityMarkerUIElements)
-}
-
-// Returns the marker values for the ruler.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityMarkerValues()
-func (o NSAccessibilityProtocolObject) AccessibilityMarkerValues() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerValues"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the marker values for the ruler.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityMarkerValues(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerValues(accessibilityMarkerValues objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerValues:"), accessibilityMarkerValues)
-}
-
-// Returns the type of markers for the ruler.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRulerMarkerType()
-func (o NSAccessibilityProtocolObject) AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType {
-	rv := objc.Send[NSAccessibilityRulerMarkerType](o.ID, objc.Sel("accessibilityRulerMarkerType"))
-	return rv
-}
-
-// Sets the type of markers for the ruler.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityRulerMarkerType(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityRulerMarkerType(accessibilityRulerMarkerType NSAccessibilityRulerMarkerType) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRulerMarkerType:"), accessibilityRulerMarkerType)
-}
-
-// Returns the units for the ruler.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityUnits()
-func (o NSAccessibilityProtocolObject) AccessibilityUnits() NSAccessibilityUnits {
-	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityUnits"))
-	return rv
-}
-
-// Sets the units used for the ruler.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityUnits(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityUnits(accessibilityUnits NSAccessibilityUnits) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnits:"), accessibilityUnits)
-}
-
-// Returns the human-readable description of the ruler’s units.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityUnitDescription()
-func (o NSAccessibilityProtocolObject) AccessibilityUnitDescription() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUnitDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the human-readable description of the ruler’s units.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityUnitDescription(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityUnitDescription(accessibilityUnitDescription string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnitDescription:"), objc.String(accessibilityUnitDescription))
-}
-
-// Returns the URL for the file that the accessibility element represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDocument()
-func (o NSAccessibilityProtocolObject) AccessibilityDocument() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDocument"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the URL for the file that the accessibility element represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDocument(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityDocument(accessibilityDocument string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDocument:"), objc.String(accessibilityDocument))
-}
-
 // Returns a Boolean value that indicates whether the accessibility element is
 // in an edited state.
 //
@@ -3397,122 +1368,6 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityDocument(accessibilityDoc
 func (o NSAccessibilityProtocolObject) IsAccessibilityEdited() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
 	return rv
-}
-
-// Sets a Boolean value that indicates whether the accessibility element is in
-// an edited state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityEdited(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityEdited(accessibilityEdited bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEdited:"), accessibilityEdited)
-}
-
-// Returns the filename for the file that the accessibility element
-// represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFilename()
-func (o NSAccessibilityProtocolObject) AccessibilityFilename() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFilename"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Sets the filename for the file that the accessibility element represents.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityFilename(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityFilename(accessibilityFilename string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFilename:"), objc.String(accessibilityFilename))
-}
-
-// Returns the elements that have links with the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLinkedUIElements()
-func (o NSAccessibilityProtocolObject) AccessibilityLinkedUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLinkedUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the elements that have links with the accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityLinkedUIElements(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityLinkedUIElements(accessibilityLinkedUIElements objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLinkedUIElements:"), accessibilityLinkedUIElements)
-}
-
-// Returns the list of elements that the accessibility element is a title for.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityServesAsTitleForUIElements()
-func (o NSAccessibilityProtocolObject) AccessibilityServesAsTitleForUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityServesAsTitleForUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the list of elements that the accessibility element is a title for.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityServesAsTitleForUIElements(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityServesAsTitleForUIElements(accessibilityServesAsTitleForUIElements objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityServesAsTitleForUIElements:"), accessibilityServesAsTitleForUIElements)
-}
-
-// Returns the static text element that represents the accessibility
-// element’s title.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityTitleUIElement()
-func (o NSAccessibilityProtocolObject) AccessibilityTitleUIElement() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitleUIElement"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the static text element that represents the accessibility element’s
-// title.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityTitleUIElement(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityTitleUIElement(accessibilityTitleUIElement objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitleUIElement:"), accessibilityTitleUIElement)
-}
-
-// Returns the clear button for the search field.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityClearButton()
-func (o NSAccessibilityProtocolObject) AccessibilityClearButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityClearButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the clear button for the search field.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityClearButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityClearButton(accessibilityClearButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityClearButton:"), accessibilityClearButton)
-}
-
-// Returns the search button for the search field.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySearchButton()
-func (o NSAccessibilityProtocolObject) AccessibilitySearchButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the search button for the search field.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySearchButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySearchButton(accessibilitySearchButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchButton:"), accessibilitySearchButton)
-}
-
-// Returns the search menu for the search field.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilitySearchMenu()
-func (o NSAccessibilityProtocolObject) AccessibilitySearchMenu() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchMenu"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the search menu for the search field.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilitySearchMenu(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilitySearchMenu(accessibilitySearchMenu objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchMenu:"), accessibilitySearchMenu)
 }
 
 // Cancels the current operation.
@@ -3657,36 +1512,6 @@ func (o NSAccessibilityProtocolObject) AccessibilityPerformRaise() bool {
 	return rv
 }
 
-// Returns the increment button for the stepper accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityIncrementButton()
-func (o NSAccessibilityProtocolObject) AccessibilityIncrementButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIncrementButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the increment button for the stepper accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityIncrementButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityIncrementButton(accessibilityIncrementButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIncrementButton:"), accessibilityIncrementButton)
-}
-
-// Returns the decrement button for the stepper accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityDecrementButton()
-func (o NSAccessibilityProtocolObject) AccessibilityDecrementButton() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDecrementButton"))
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the decrement button for the stepper accessibility element.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityDecrementButton(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityDecrementButton(accessibilityDecrementButton objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDecrementButton:"), accessibilityDecrementButton)
-}
-
 // Increments the accessibility element’s value.
 //
 // # Return Value
@@ -3747,24 +1572,1930 @@ func (o NSAccessibilityProtocolObject) AccessibilityPerformDelete() bool {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityAttributedUserInputLabels()
-func (o NSAccessibilityProtocolObject) AccessibilityAttributedUserInputLabels() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAttributedUserInputLabels"))
+// The activation point for the user interface element.
+//
+// # Discussion
+//
+// The activation point in screen coordinates.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityActivationPoint
+func (o NSAccessibilityProtocolObject) AccessibilityActivationPoint() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityActivationPoint"))
+	return corefoundation.CGPoint(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityActivationPoint(value corefoundation.CGPoint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityActivationPoint:"), value)
+}
+
+// The allowed values for the slider accessibility element.
+//
+// # Discussion
+//
+// Use this property if the slider can be set only to predefined values (for
+// example, if the slider’s level indicator automatically snaps to the
+// closest integer values between 0 and 100).
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAllowedValues
+func (o NSAccessibilityProtocolObject) AccessibilityAllowedValues() []foundation.NSNumber {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityAllowedValues"))
+	result := make([]foundation.NSNumber, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSNumberFromID(id)
+	}
+	return result
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityAllowedValues(value []foundation.NSNumber) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAllowedValues:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// A Boolean value that determines whether the accessibility element’s
+// alternative UI is currently visible.
+//
+// # Discussion
+//
+// Use this property for elements that present an alternative UI—for
+// example, when the pointer hovers over an interface element for a few
+// seconds.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAlternateUIVisible
+func (o NSAccessibilityProtocolObject) AccessibilityAlternateUIVisible() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityAlternateUIVisible(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAlternateUIVisible:"), value)
+}
+
+// The child accessibility element with the current focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityApplicationFocusedUIElement
+func (o NSAccessibilityProtocolObject) AccessibilityApplicationFocusedUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityApplicationFocusedUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityApplicationFocusedUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityApplicationFocusedUIElement:"), value)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAttributedUserInputLabels
+func (o NSAccessibilityProtocolObject) AccessibilityAttributedUserInputLabels() []foundation.NSAttributedString {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityAttributedUserInputLabels"))
+	result := make([]foundation.NSAttributedString, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSAttributedStringFromID(id)
+	}
+	return result
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityAttributedUserInputLabels(value []foundation.NSAttributedString) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAttributedUserInputLabels:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The child accessibility element that represents the window’s cancel
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCancelButton
+func (o NSAccessibilityProtocolObject) AccessibilityCancelButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCancelButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityCancelButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCancelButton:"), value)
+}
+
+// The child accessibility elements in the accessibility hierarchy.
+//
+// # Discussion
+//
+// This property contains references to child elements in the accessibility
+// hierarchy. If you create an [NSView] subclass, you don’t typically need
+// to set this value. The system automatically populates the
+// `accessibilityChildren` property with descendants in the view hierarchy
+// that are also in the accessibility hierarchy. If you use an
+// [NSAccessibilityElement] subclass to represent an interface element that is
+// not backed by a view, you can either set the `accessibilityChildren`
+// property or you can call the [AccessibilityAddChildElement] convenience
+// method.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
+func (o NSAccessibilityProtocolObject) AccessibilityChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
 	return foundation.NSArrayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityUserInputLabels()
-func (o NSAccessibilityProtocolObject) AccessibilityUserInputLabels() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUserInputLabels"))
+func (o NSAccessibilityProtocolObject) SetAccessibilityChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildren:"), value)
+}
+
+// An array of child accessibility elements in order for linear navigation.
+//
+// # Discussion
+//
+// The array should match all elements found in [accessibilityChildren],
+// rearranged in an easily navigable order.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildrenInNavigationOrder
+//
+// [accessibilityChildren]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
+func (o NSAccessibilityProtocolObject) AccessibilityChildrenInNavigationOrder() []objectivec.IObject {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityChildrenInNavigationOrder"))
+	result := make([]objectivec.IObject, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = objectivec.Object{ID: id}
+	}
+	return result
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityChildrenInNavigationOrder(value []objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildrenInNavigationOrder:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The clear button for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityClearButton
+func (o NSAccessibilityProtocolObject) AccessibilityClearButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityClearButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityClearButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityClearButton:"), value)
+}
+
+// The child accessibility element that represents the window’s close
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCloseButton
+func (o NSAccessibilityProtocolObject) AccessibilityCloseButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCloseButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityCloseButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCloseButton:"), value)
+}
+
+// The number of columns in the accessibility element’s grid.
+//
+// # Discussion
+//
+// Use this property for UI elements that present a grid of child elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnCount
+func (o NSAccessibilityProtocolObject) AccessibilityColumnCount() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityColumnCount"))
+	return int(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityColumnCount(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnCount:"), value)
+}
+
+// The column header accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnHeaderUIElements
+func (o NSAccessibilityProtocolObject) AccessibilityColumnHeaderUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
 	return foundation.NSArrayFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityAttributedUserInputLabels(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityAttributedUserInputLabels(accessibilityAttributedUserInputLabels objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAttributedUserInputLabels:"), accessibilityAttributedUserInputLabels)
+func (o NSAccessibilityProtocolObject) SetAccessibilityColumnHeaderUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnHeaderUIElements:"), value)
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/setAccessibilityUserInputLabels(_:)
-func (o NSAccessibilityProtocolObject) SetAccessibilityUserInputLabels(accessibilityUserInputLabels objectivec.IObject) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
+// The column index range of the cell.
+//
+// # Discussion
+//
+// This property contains the column’s starting index and index span in the
+// table. Use this property in the elements representing a table’s cell.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnIndexRange
+func (o NSAccessibilityProtocolObject) AccessibilityColumnIndexRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityColumnIndexRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityColumnIndexRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnIndexRange:"), value)
+}
+
+// The column titles for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnTitles
+func (o NSAccessibilityProtocolObject) AccessibilityColumnTitles() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnTitles"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityColumnTitles(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnTitles:"), value)
+}
+
+// The column accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumns
+func (o NSAccessibilityProtocolObject) AccessibilityColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumns:"), value)
+}
+
+// The contents of the current accessibility element.
+//
+// # Discussion
+//
+// This property is used by container elements. It holds an array of the
+// container’s contents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityContents
+func (o NSAccessibilityProtocolObject) AccessibilityContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityContents:"), value)
+}
+
+// The critical value for the level indicator.
+//
+// # Discussion
+//
+// Use this property for elements such as the battery level indicator. This
+// property sets a boundary value. If the element’s value exceeds the
+// boundary value, the element has reached a critical stage.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCriticalValue
+func (o NSAccessibilityProtocolObject) AccessibilityCriticalValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCriticalValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityCriticalValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCriticalValue:"), value)
+}
+
+// The custom actions of the current accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomActions
+func (o NSAccessibilityProtocolObject) AccessibilityCustomActions() []NSAccessibilityCustomAction {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityCustomActions"))
+	result := make([]NSAccessibilityCustomAction, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = NSAccessibilityCustomActionFromID(id)
+	}
+	return result
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityCustomActions(value []NSAccessibilityCustomAction) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomActions:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The custom rotors of the current accessibility element.
+//
+// # Discussion
+//
+// Custom rotors are lists of items of a specific category. For example, a
+// “headings” rotor returns a list of headings a given document.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomRotors
+func (o NSAccessibilityProtocolObject) AccessibilityCustomRotors() []NSAccessibilityCustomRotor {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityCustomRotors"))
+	result := make([]NSAccessibilityCustomRotor, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = NSAccessibilityCustomRotorFromID(id)
+	}
+	return result
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityCustomRotors(value []NSAccessibilityCustomRotor) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomRotors:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The decrement button for the stepper accessibility element.
+//
+// # Discussion
+//
+// Use this property on a stepper.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDecrementButton
+func (o NSAccessibilityProtocolObject) AccessibilityDecrementButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDecrementButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityDecrementButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDecrementButton:"), value)
+}
+
+// The child accessibility element that represents the window’s default
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDefaultButton
+func (o NSAccessibilityProtocolObject) AccessibilityDefaultButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDefaultButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityDefaultButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDefaultButton:"), value)
+}
+
+// A Boolean value that determines whether the row is disclosing other rows.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosed
+func (o NSAccessibilityProtocolObject) AccessibilityDisclosed() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityDisclosed(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosed:"), value)
+}
+
+// The row disclosing the current row.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosedByRow
+func (o NSAccessibilityProtocolObject) AccessibilityDisclosedByRow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedByRow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityDisclosedByRow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedByRow:"), value)
+}
+
+// The rows that the current row discloses.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosedRows
+func (o NSAccessibilityProtocolObject) AccessibilityDisclosedRows() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedRows"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityDisclosedRows(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedRows:"), value)
+}
+
+// The indention level for the row.
+//
+// # Discussion
+//
+// Use this property in the elements representing an outline’s row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosureLevel
+func (o NSAccessibilityProtocolObject) AccessibilityDisclosureLevel() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityDisclosureLevel"))
+	return int(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityDisclosureLevel(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosureLevel:"), value)
+}
+
+// The URL for the file that the accessibility element represents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDocument
+func (o NSAccessibilityProtocolObject) AccessibilityDocument() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDocument"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityDocument(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDocument:"), objc.String(value))
+}
+
+// A Boolean value that indicates whether the accessibility element is in an
+// edited state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEdited
+func (o NSAccessibilityProtocolObject) AccessibilityEdited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityEdited(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEdited:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element
+// participates in the accessibility hierarchy.
+//
+// # Discussion
+//
+// Use this property to expose this object to accessibility clients as a
+// functional interface element. For example, when you place a button in a
+// window, the system typically creates a button cell inside a button control
+// inside a container view inside a window. Users, however, don’t care about
+// the view hierarchy details. They should only be told that there’s a
+// button in a window.
+//
+// If this property is set to false, accessibility clients ignore this
+// element. By default, [NSView] and its subclasses set this value to false;
+// however, if your [NSView] subclass adopts one of the accessibility
+// protocols, the system changes the default value to true.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityElement
+func (o NSAccessibilityProtocolObject) AccessibilityElement() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityElement(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityElement:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element responds
+// to user events.
+//
+// # Discussion
+//
+// Returns YES if the element is enabled; otherwise, NO. Enabled elements
+// respond to user events.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEnabled
+func (o NSAccessibilityProtocolObject) AccessibilityEnabled() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityEnabled(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEnabled:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element is in an
+// expanded state.
+//
+// # Discussion
+//
+// Use this property on elements that can expand to reveal additional
+// information, such as outline rows and combo boxes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExpanded
+func (o NSAccessibilityProtocolObject) AccessibilityExpanded() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityExpanded(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExpanded:"), value)
+}
+
+// The icon for the app’s menu bar extra.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExtrasMenuBar
+func (o NSAccessibilityProtocolObject) AccessibilityExtrasMenuBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityExtrasMenuBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityExtrasMenuBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExtrasMenuBar:"), value)
+}
+
+// The filename for the file that the accessibility element represents.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFilename
+func (o NSAccessibilityProtocolObject) AccessibilityFilename() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFilename"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityFilename(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFilename:"), objc.String(value))
+}
+
+// A Boolean value that determines whether the accessibility element has the
+// keyboard focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
+func (o NSAccessibilityProtocolObject) AccessibilityFocused() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityFocused(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocused:"), value)
+}
+
+// The child window with the current focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocusedWindow
+func (o NSAccessibilityProtocolObject) AccessibilityFocusedWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityFocusedWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocusedWindow:"), value)
+}
+
+// The accessibility element’s frame in screen coordinates.
+//
+// # Discussion
+//
+// This property is accessed by the system whenever an accessibility client
+// requests the element’s size or position.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
+func (o NSAccessibilityProtocolObject) AccessibilityFrame() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
+	return corefoundation.CGRect(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityFrame(value corefoundation.CGRect) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrame:"), value)
+}
+
+// A Boolean value that determines whether the app is the frontmost app.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrontmost
+func (o NSAccessibilityProtocolObject) AccessibilityFrontmost() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityFrontmost(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrontmost:"), value)
+}
+
+// The child accessibility element that represents the window’s full-screen
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFullScreenButton
+func (o NSAccessibilityProtocolObject) AccessibilityFullScreenButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFullScreenButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityFullScreenButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFullScreenButton:"), value)
+}
+
+// The child accessibility element that represents the window’s grow area.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityGrowArea
+func (o NSAccessibilityProtocolObject) AccessibilityGrowArea() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityGrowArea"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityGrowArea(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityGrowArea:"), value)
+}
+
+// The drag handle accessibility elements for the layout item element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHandles
+func (o NSAccessibilityProtocolObject) AccessibilityHandles() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHandles"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityHandles(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHandles:"), value)
+}
+
+// The header for the table view.
+//
+// # Discussion
+//
+// Use this property on a table view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHeader
+func (o NSAccessibilityProtocolObject) AccessibilityHeader() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHeader"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityHeader(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHeader:"), value)
+}
+
+// The help text for the accessibility element.
+//
+// # Discussion
+//
+// Use this property only when the results of activating this element are not
+// obvious from the element’s label. This string functions as a tooltip. For
+// example, VoiceOver reads this string when you pause over a control. To help
+// ensure that accessibility clients like VoiceOver read the help text with
+// the proper inflection, begin this string with a verb, capitalize the first
+// letter, and end the string with a period. Always localize this string. The
+// default value is `nil`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHelp
+func (o NSAccessibilityProtocolObject) AccessibilityHelp() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHelp"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityHelp(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHelp:"), objc.String(value))
+}
+
+// A Boolean value that determines whether the app is in a hidden state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHidden
+func (o NSAccessibilityProtocolObject) AccessibilityHidden() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityHidden(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHidden:"), value)
+}
+
+// The horizontal scroll bar for the scroll view.
+//
+// # Discussion
+//
+// Use this property on a scrollable view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalScrollBar
+func (o NSAccessibilityProtocolObject) AccessibilityHorizontalScrollBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalScrollBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityHorizontalScrollBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalScrollBar:"), value)
+}
+
+// A description of the layout area’s horizontal units.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalUnitDescription
+func (o NSAccessibilityProtocolObject) AccessibilityHorizontalUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityHorizontalUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnitDescription:"), objc.String(value))
+}
+
+// The units that the layout area uses for horizontal values.
+//
+// # Discussion
+//
+// For a list of possible values, see [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHorizontalUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSAccessibilityProtocolObject) AccessibilityHorizontalUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityHorizontalUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityHorizontalUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnits:"), value)
+}
+
+// The accessibility element’s identity.
+//
+// # Discussion
+//
+// This property holds the unique ID for the accessibility element. It is
+// often used in automated testing.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
+func (o NSAccessibilityProtocolObject) AccessibilityIdentifier() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityIdentifier(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIdentifier:"), objc.String(value))
+}
+
+// The increment button for the stepper accessibility element.
+//
+// # Discussion
+//
+// Use this property on a stepper.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIncrementButton
+func (o NSAccessibilityProtocolObject) AccessibilityIncrementButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIncrementButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityIncrementButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIncrementButton:"), value)
+}
+
+// The index of the row or column that the accessibility element represents.
+//
+// # Discussion
+//
+// Use this property for any element that can be accessed through an index:
+// cells, rows, columns, and so forth.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIndex
+func (o NSAccessibilityProtocolObject) AccessibilityIndex() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityIndex"))
+	return int(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityIndex(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIndex:"), value)
+}
+
+// The line number that contains the insertion point.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityInsertionPointLineNumber
+func (o NSAccessibilityProtocolObject) AccessibilityInsertionPointLineNumber() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityInsertionPointLineNumber"))
+	return int(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityInsertionPointLineNumber(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityInsertionPointLineNumber:"), value)
+}
+
+// A short description of the accessibility element.
+//
+// # Discussion
+//
+// Do not include the accessibility element’s type in the label (for
+// example, write [Play], not `Play button`.). If possible, use a single word.
+// To help ensure that accessibility clients such as VoiceOver read the label
+// with the correct intonation, start this label with a capital letter. Do not
+// put a period at the end. Always localize the label.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
+func (o NSAccessibilityProtocolObject) AccessibilityLabel() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityLabel(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabel:"), objc.String(value))
+}
+
+// The child label elements for the slider accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabelUIElements
+func (o NSAccessibilityProtocolObject) AccessibilityLabelUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabelUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityLabelUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelUIElements:"), value)
+}
+
+// The value of the label accessibility element.
+//
+// # Discussion
+//
+// Use this property on a slider element’s labels.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabelValue
+func (o NSAccessibilityProtocolObject) AccessibilityLabelValue() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("accessibilityLabelValue"))
+	return float32(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityLabelValue(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelValue:"), value)
+}
+
+// The elements that have links with the accessibility element.
+//
+// # Discussion
+//
+// Use this property to define a relationship between different user interface
+// elements. For example, use this property to link a list item with contents
+// displayed in another pane or window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLinkedUIElements
+func (o NSAccessibilityProtocolObject) AccessibilityLinkedUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLinkedUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityLinkedUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLinkedUIElements:"), value)
+}
+
+// A Boolean value that determines whether the window is the app’s main
+// window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMain
+func (o NSAccessibilityProtocolObject) AccessibilityMain() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMain(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMain:"), value)
+}
+
+// The app’s main window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMainWindow
+func (o NSAccessibilityProtocolObject) AccessibilityMainWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMainWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMainWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMainWindow:"), value)
+}
+
+// The user interface element that functions as a marker group for the ruler
+// accessibility element.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerGroupUIElement
+func (o NSAccessibilityProtocolObject) AccessibilityMarkerGroupUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerGroupUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerGroupUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerGroupUIElement:"), value)
+}
+
+// A human-readable description of the marker type.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerTypeDescription
+func (o NSAccessibilityProtocolObject) AccessibilityMarkerTypeDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerTypeDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerTypeDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerTypeDescription:"), objc.String(value))
+}
+
+// An array of marker accessibility elements for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerUIElements
+func (o NSAccessibilityProtocolObject) AccessibilityMarkerUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerUIElements:"), value)
+}
+
+// The marker values for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMarkerValues
+func (o NSAccessibilityProtocolObject) AccessibilityMarkerValues() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerValues"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerValues(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerValues:"), value)
+}
+
+// The maximum value for the accessibility element.
+//
+// # Discussion
+//
+// This property is set to `nil` by default. Only a few AppKit controls (for
+// example, [NSSliderCell]) support this value. Set this property only when
+// the element has an [accessibilityValue] property and you want to define the
+// maximum possible value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMaxValue
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSAccessibilityProtocolObject) AccessibilityMaxValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMaxValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMaxValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMaxValue:"), value)
+}
+
+// The app’s menu bar.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMenuBar
+func (o NSAccessibilityProtocolObject) AccessibilityMenuBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMenuBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMenuBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMenuBar:"), value)
+}
+
+// The minimum value for the accessibility element.
+//
+// # Discussion
+//
+// This property is set to `nil` by default. Only a few AppKit controls (for
+// example, [NSSliderCell]) support this value. Set this property only when
+// the element has an [accessibilityValue] property and you want to define the
+// minimum possible value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinValue
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+func (o NSAccessibilityProtocolObject) AccessibilityMinValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMinValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinValue:"), value)
+}
+
+// The child accessibility element that represents the window’s minimize
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimizeButton
+func (o NSAccessibilityProtocolObject) AccessibilityMinimizeButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinimizeButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMinimizeButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimizeButton:"), value)
+}
+
+// A Boolean value that determines whether this window is in a minimized
+// state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimized
+func (o NSAccessibilityProtocolObject) AccessibilityMinimized() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityMinimized(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimized:"), value)
+}
+
+// A Boolean value that determines whether the window is modal.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityModal
+func (o NSAccessibilityProtocolObject) AccessibilityModal() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityModal(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityModal:"), value)
+}
+
+// The contents that follow the divider accessibility element.
+//
+// # Discussion
+//
+// For example, use this property to set the subview adjacent to a split
+// view’s splitter element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityNextContents
+func (o NSAccessibilityProtocolObject) AccessibilityNextContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityNextContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityNextContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNextContents:"), value)
+}
+
+// The number of characters in the text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityNumberOfCharacters
+func (o NSAccessibilityProtocolObject) AccessibilityNumberOfCharacters() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityNumberOfCharacters"))
+	return int(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityNumberOfCharacters(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNumberOfCharacters:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element’s grid
+// is in row major order or in column major order.
+//
+// # Discussion
+//
+// Use this property for UI elements that present a grid of child elements.
+// Set the property to true if the grid is ordered row major; otherwise, set
+// to false.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrderedByRow
+func (o NSAccessibilityProtocolObject) AccessibilityOrderedByRow() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityOrderedByRow(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrderedByRow:"), value)
+}
+
+// The orientation of the accessibility element.
+//
+// # Discussion
+//
+// This property can hold either the [NSAccessibilityOrientationHorizontal]
+// value or the [NSAccessibilityOrientationVertical] value.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrientation
+func (o NSAccessibilityProtocolObject) AccessibilityOrientation() NSAccessibilityOrientation {
+	rv := objc.Send[NSAccessibilityOrientation](o.ID, objc.Sel("accessibilityOrientation"))
+	return NSAccessibilityOrientation(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityOrientation(value NSAccessibilityOrientation) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrientation:"), value)
+}
+
+// The overflow button for the toolbar.
+//
+// # Discussion
+//
+// Use this property on a toolbar element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOverflowButton
+func (o NSAccessibilityProtocolObject) AccessibilityOverflowButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityOverflowButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityOverflowButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOverflowButton:"), value)
+}
+
+// The accessibility element’s parent in the accessibility hierarchy.
+//
+// # Discussion
+//
+// This property must contain a reference to another element in the
+// accessibility hierarchy. If you create an [NSView] subclass, you don’t
+// typically need to set this value. The system automatically sets the parent
+// to the nearest ancestor in the view hierarchy that is also in the
+// accessibility hierarchy. If you use an [NSAccessibilityElement] subclass to
+// represent an interface element that is not backed by a view, you can either
+// set the parent property or you can call the
+// [AccessibilityElementWithRoleFrameLabelParent] convenience method, which
+// sets it automatically.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
+func (o NSAccessibilityProtocolObject) AccessibilityParent() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityParent(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityParent:"), value)
+}
+
+// The placeholder value for the accessibility element.
+//
+// # Discussion
+//
+// Use this property for accessibility elements that support placeholder
+// values, such as text fields.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityPlaceholderValue
+func (o NSAccessibilityProtocolObject) AccessibilityPlaceholderValue() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPlaceholderValue"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityPlaceholderValue(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPlaceholderValue:"), objc.String(value))
+}
+
+// The contents that precede the divider accessibility element.
+//
+// # Discussion
+//
+// For example, use this property to set the subview adjacent to a split
+// view’s splitter element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityPreviousContents
+func (o NSAccessibilityProtocolObject) AccessibilityPreviousContents() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPreviousContents"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityPreviousContents(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPreviousContents:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element contains
+// protected content.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProtectedContent
+func (o NSAccessibilityProtocolObject) AccessibilityProtectedContent() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityProtectedContent(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProtectedContent:"), value)
+}
+
+// The child accessibility element that represents the window’s proxy icon.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProxy
+func (o NSAccessibilityProtocolObject) AccessibilityProxy() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityProxy"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityProxy(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProxy:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element must have
+// content for successful submission of a form.
+//
+// # Discussion
+//
+// Returns YES if the element is required to have content; otherwise, NO.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRequired
+func (o NSAccessibilityProtocolObject) AccessibilityRequired() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityRequired(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRequired:"), value)
+}
+
+// The type of interface element that the accessibility element represents.
+//
+// # Discussion
+//
+// This property contains a nonlocalized string that defines the element’s
+// role in the app. For a list of possible roles, see [Roles]. This property
+// is set automatically when you adopt one of the accessibility protocols.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRole
+func (o NSAccessibilityProtocolObject) AccessibilityRole() NSAccessibilityRole {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRole"))
+	return NSAccessibilityRole(foundation.NSStringFromID(rv).String())
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityRole(value NSAccessibilityRole) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRole:"), objc.String(string(value)))
+}
+
+// A localized, human-intelligible description of the accessibility
+// element’s role, such as .
+//
+// # Discussion
+//
+// This property is set automatically based on the value of the
+// [accessibilityRole] property; however, you can customize the value of this
+// property to better describe your element’s role. Keep role descriptions
+// short. If possible, use a single word. These descriptions should be noun
+// phrases, all lowercase, with no period at the end.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRoleDescription
+//
+// [accessibilityRole]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRole
+func (o NSAccessibilityProtocolObject) AccessibilityRoleDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRoleDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityRoleDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRoleDescription:"), objc.String(value))
+}
+
+// The number of rows in the accessibility element’s grid.
+//
+// # Discussion
+//
+// Use this property for elements that present a grid of child elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowCount
+func (o NSAccessibilityProtocolObject) AccessibilityRowCount() int {
+	rv := objc.Send[int](o.ID, objc.Sel("accessibilityRowCount"))
+	return int(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityRowCount(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowCount:"), value)
+}
+
+// The row header accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowHeaderUIElements
+func (o NSAccessibilityProtocolObject) AccessibilityRowHeaderUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRowHeaderUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityRowHeaderUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowHeaderUIElements:"), value)
+}
+
+// The row index range of the cell.
+//
+// # Discussion
+//
+// This property contains the row’s starting index and index span in the
+// table. Use this property in the elements representing a table’s cell.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowIndexRange
+func (o NSAccessibilityProtocolObject) AccessibilityRowIndexRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRowIndexRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityRowIndexRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowIndexRange:"), value)
+}
+
+// The row accessibility elements for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRows
+func (o NSAccessibilityProtocolObject) AccessibilityRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRows:"), value)
+}
+
+// The type of markers for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element. For a complete list of marker types,
+// see [NSAccessibilityRulerMarkerType].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRulerMarkerType
+//
+// [NSAccessibilityRulerMarkerType]: https://developer.apple.com/documentation/AppKit/NSAccessibilityRulerMarkerType
+func (o NSAccessibilityProtocolObject) AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType {
+	rv := objc.Send[NSAccessibilityRulerMarkerType](o.ID, objc.Sel("accessibilityRulerMarkerType"))
+	return NSAccessibilityRulerMarkerType(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityRulerMarkerType(value NSAccessibilityRulerMarkerType) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRulerMarkerType:"), value)
+}
+
+// The search button for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySearchButton
+func (o NSAccessibilityProtocolObject) AccessibilitySearchButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySearchButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchButton:"), value)
+}
+
+// The search menu for the search field.
+//
+// # Discussion
+//
+// Use this property on a search field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySearchMenu
+func (o NSAccessibilityProtocolObject) AccessibilitySearchMenu() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchMenu"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySearchMenu(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchMenu:"), value)
+}
+
+// A Boolean value that determines whether the accessibility element is
+// currently in a selected state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelected
+func (o NSAccessibilityProtocolObject) AccessibilitySelected() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
+	return bool(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySelected(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelected:"), value)
+}
+
+// The currently selected cells for the table.
+//
+// # Discussion
+//
+// This property is required for all elements that act like cell-based tables.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedCells
+func (o NSAccessibilityProtocolObject) AccessibilitySelectedCells() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedCells"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedCells(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedCells:"), value)
+}
+
+// The accessibility element’s currently selected children.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedChildren
+func (o NSAccessibilityProtocolObject) AccessibilitySelectedChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedChildren:"), value)
+}
+
+// The currently selected columns for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedColumns
+func (o NSAccessibilityProtocolObject) AccessibilitySelectedColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedColumns:"), value)
+}
+
+// The currently selected rows for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
+func (o NSAccessibilityProtocolObject) AccessibilitySelectedRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), value)
+}
+
+// The currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedText
+func (o NSAccessibilityProtocolObject) AccessibilitySelectedText() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedText"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedText(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedText:"), objc.String(value))
+}
+
+// The range of the currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedTextRange
+func (o NSAccessibilityProtocolObject) AccessibilitySelectedTextRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySelectedTextRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedTextRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRange:"), value)
+}
+
+// An array of ranges for the currently selected text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedTextRanges
+func (o NSAccessibilityProtocolObject) AccessibilitySelectedTextRanges() []foundation.NSValue {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilitySelectedTextRanges"))
+	result := make([]foundation.NSValue, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSValueFromID(id)
+	}
+	return result
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySelectedTextRanges(value []foundation.NSValue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRanges:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// The list of elements that the accessibility element is a title for.
+//
+// # Discussion
+//
+// Use on a static text label to associate that label with one or more user
+// interface elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityServesAsTitleForUIElements
+func (o NSAccessibilityProtocolObject) AccessibilityServesAsTitleForUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityServesAsTitleForUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityServesAsTitleForUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityServesAsTitleForUIElements:"), value)
+}
+
+// The range of characters that the accessibility element displays.
+//
+// # Discussion
+//
+// Use this property to manage text that is split across multiple
+// elements—for example, an ebook reader that splits the text into multiple
+// pages.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedCharacterRange
+func (o NSAccessibilityProtocolObject) AccessibilitySharedCharacterRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySharedCharacterRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySharedCharacterRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedCharacterRange:"), value)
+}
+
+// An array of elements that shares the keyboard focus with the accessibility
+// element.
+//
+// # Discussion
+//
+// Use this property to manage elements that share the keyboard focus—for
+// example, a search field with completion menu below it.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedFocusElements
+func (o NSAccessibilityProtocolObject) AccessibilitySharedFocusElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedFocusElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySharedFocusElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedFocusElements:"), value)
+}
+
+// Other elements that share text with the accessibility element.
+//
+// # Discussion
+//
+// Use this property to manage text that is split across multiple
+// elements—for example, an ebook reader that splits the text into multiple
+// pages.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySharedTextUIElements
+func (o NSAccessibilityProtocolObject) AccessibilitySharedTextUIElements() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedTextUIElements"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySharedTextUIElements(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedTextUIElements:"), value)
+}
+
+// The menu currently displaying for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityShownMenu
+func (o NSAccessibilityProtocolObject) AccessibilityShownMenu() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityShownMenu"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityShownMenu(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityShownMenu:"), value)
+}
+
+// The accessibility element’s sort direction.
+//
+// # Discussion
+//
+// Used by an element with an [button] role and an
+// [NSAccessibilitySortButtonRole] subrole. For a list of possible sort
+// directions, see [NSAccessibilitySortDirection].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySortDirection
+//
+// [NSAccessibilitySortButtonRole]: https://developer.apple.com/documentation/AppKit/NSAccessibilitySortButtonRole
+// [NSAccessibilitySortDirection]: https://developer.apple.com/documentation/AppKit/NSAccessibilitySortDirection
+// [button]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/button
+func (o NSAccessibilityProtocolObject) AccessibilitySortDirection() NSAccessibilitySortDirection {
+	rv := objc.Send[NSAccessibilitySortDirection](o.ID, objc.Sel("accessibilitySortDirection"))
+	return NSAccessibilitySortDirection(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySortDirection(value NSAccessibilitySortDirection) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySortDirection:"), value)
+}
+
+// An array that contains the views and splitter bar from the split view.
+//
+// # Discussion
+//
+// Use this property on a split view element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySplitters
+func (o NSAccessibilityProtocolObject) AccessibilitySplitters() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySplitters"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySplitters(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySplitters:"), value)
+}
+
+// The specialized interface element type that the accessibility element
+// represents.
+//
+// # Discussion
+//
+// For a list of possible subroles, see [Subroles].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySubrole
+func (o NSAccessibilityProtocolObject) AccessibilitySubrole() NSAccessibilitySubrole {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySubrole"))
+	return NSAccessibilitySubrole(foundation.NSStringFromID(rv).String())
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilitySubrole(value NSAccessibilitySubrole) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySubrole:"), objc.String(string(value)))
+}
+
+// The tab accessibility elements for the tab view.
+//
+// # Discussion
+//
+// Use this property on a tab view element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTabs
+func (o NSAccessibilityProtocolObject) AccessibilityTabs() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTabs"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityTabs(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTabs:"), value)
+}
+
+// The title of the accessibility element—for example, a button’s visible
+// text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTitle
+func (o NSAccessibilityProtocolObject) AccessibilityTitle() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitle"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityTitle(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitle:"), objc.String(value))
+}
+
+// A static text element that represents the accessibility element’s title.
+//
+// # Discussion
+//
+// Use this property to associate a static text label with another
+// element—for example, to associate a label with its corresponding text
+// field.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTitleUIElement
+func (o NSAccessibilityProtocolObject) AccessibilityTitleUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitleUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityTitleUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitleUIElement:"), value)
+}
+
+// The child accessibility element that represents the window’s toolbar
+// button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityToolbarButton
+func (o NSAccessibilityProtocolObject) AccessibilityToolbarButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityToolbarButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityToolbarButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityToolbarButton:"), value)
+}
+
+// The top-level element that contains the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityTopLevelUIElement
+func (o NSAccessibilityProtocolObject) AccessibilityTopLevelUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTopLevelUIElement"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityTopLevelUIElement(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTopLevelUIElement:"), value)
+}
+
+// The URL for the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityURL
+func (o NSAccessibilityProtocolObject) AccessibilityURL() foundation.NSURL {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityURL"))
+	return foundation.NSURLFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityURL(value foundation.NSURL) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityURL:"), value)
+}
+
+// A human-readable description of the ruler’s units.
+//
+// # Discussion
+//
+// Use this property on a ruler element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUnitDescription
+func (o NSAccessibilityProtocolObject) AccessibilityUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnitDescription:"), objc.String(value))
+}
+
+// The units for the ruler.
+//
+// # Discussion
+//
+// Use this property on a ruler element. For a complete list of units, see
+// [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSAccessibilityProtocolObject) AccessibilityUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnits:"), value)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityUserInputLabels
+func (o NSAccessibilityProtocolObject) AccessibilityUserInputLabels() []string {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityUserInputLabels"))
+	return objc.ConvertSliceToStrings(rvIDs)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityUserInputLabels(value []string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), objectivec.StringSliceToNSArray(value))
+}
+
+// The accessibility element’s value.
+//
+// # Discussion
+//
+// The accessibility protocols for roles that support values typically
+// redefine this property to take a more specific value type. For example, the
+// [staticText] protocol uses [NSString] values, and the [progressIndicator]
+// protocol uses [NSNumber] values.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+//
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
+// [progressIndicator]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/progressIndicator
+// [staticText]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/staticText
+func (o NSAccessibilityProtocolObject) AccessibilityValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValue:"), value)
+}
+
+// A human-readable description of the accessibility element’s value.
+//
+// # Discussion
+//
+// Use this property to provide a more useful description of the accessibility
+// element’s raw value. For example, you might set the value to `600`, but
+// set the description to `10 minutes`. Always localize this description.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValueDescription
+func (o NSAccessibilityProtocolObject) AccessibilityValueDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValueDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityValueDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValueDescription:"), objc.String(value))
+}
+
+// The vertical scroll bar for the scroll view.
+//
+// # Discussion
+//
+// Use this property on a scrollable view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalScrollBar
+func (o NSAccessibilityProtocolObject) AccessibilityVerticalScrollBar() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalScrollBar"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityVerticalScrollBar(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalScrollBar:"), value)
+}
+
+// A description of the layout area’s vertical units.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalUnitDescription
+func (o NSAccessibilityProtocolObject) AccessibilityVerticalUnitDescription() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalUnitDescription"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityVerticalUnitDescription(value string) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnitDescription:"), objc.String(value))
+}
+
+// The units that the layout area uses for vertical values.
+//
+// # Discussion
+//
+// For a list of possible values, see [NSAccessibilityUnits].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVerticalUnits
+//
+// [NSAccessibilityUnits]: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnits
+func (o NSAccessibilityProtocolObject) AccessibilityVerticalUnits() NSAccessibilityUnits {
+	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityVerticalUnits"))
+	return NSAccessibilityUnits(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityVerticalUnits(value NSAccessibilityUnits) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnits:"), value)
+}
+
+// The visible cells for the table.
+//
+// # Discussion
+//
+// This property is required for all elements that act like cell-based tables.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCells
+func (o NSAccessibilityProtocolObject) AccessibilityVisibleCells() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleCells"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleCells(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCells:"), value)
+}
+
+// The range of visible characters in the document.
+//
+// # Discussion
+//
+// Use this property to store the range for entire lines. Characters that are
+// horizontally clipped are included in this range.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCharacterRange
+func (o NSAccessibilityProtocolObject) AccessibilityVisibleCharacterRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityVisibleCharacterRange"))
+	return foundation.NSRange(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleCharacterRange(value foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCharacterRange:"), value)
+}
+
+// The accessibility element’s visible child accessibility elements.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleChildren
+func (o NSAccessibilityProtocolObject) AccessibilityVisibleChildren() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleChildren"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleChildren(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleChildren:"), value)
+}
+
+// The visible columns for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleColumns
+func (o NSAccessibilityProtocolObject) AccessibilityVisibleColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleColumns(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleColumns:"), value)
+}
+
+// The visible rows for the table or outline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleRows
+func (o NSAccessibilityProtocolObject) AccessibilityVisibleRows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleRows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityVisibleRows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleRows:"), value)
+}
+
+// The warning value for the level indicator.
+//
+// # Discussion
+//
+// Use this property for elements such as the battery level indicator. This
+// property sets a boundary value. If the element’s value exceeds the
+// boundary value, the element has reached a warning stage.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWarningValue
+func (o NSAccessibilityProtocolObject) AccessibilityWarningValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWarningValue"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityWarningValue(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWarningValue:"), value)
+}
+
+// The window that contains the accessibility element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWindow
+func (o NSAccessibilityProtocolObject) AccessibilityWindow() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindow"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityWindow(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindow:"), value)
+}
+
+// An array that contains all the app’s windows.
+//
+// # Discussion
+//
+// Use on the app element.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityWindows
+func (o NSAccessibilityProtocolObject) AccessibilityWindows() foundation.INSArray {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindows"))
+	return foundation.NSArrayFromID(rv)
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityWindows(value foundation.INSArray) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindows:"), value)
+}
+
+// The child accessibility element that represents the window’s zoom button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityZoomButton
+func (o NSAccessibilityProtocolObject) AccessibilityZoomButton() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityZoomButton"))
+	return objectivec.Object{ID: rv}
+}
+
+func (o NSAccessibilityProtocolObject) SetAccessibilityZoomButton(value objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityZoomButton:"), value)
 }

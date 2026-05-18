@@ -88,14 +88,14 @@ type IMLOptimizationHints interface {
 }
 
 // Init initializes the instance.
-func (o MLOptimizationHints) Init() MLOptimizationHints {
-	rv := objc.Send[MLOptimizationHints](o.ID, objc.Sel("init"))
+func (m MLOptimizationHints) Init() MLOptimizationHints {
+	rv := objc.Send[MLOptimizationHints](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (o MLOptimizationHints) Autorelease() MLOptimizationHints {
-	rv := objc.Send[MLOptimizationHints](o.ID, objc.Sel("autorelease"))
+func (m MLOptimizationHints) Autorelease() MLOptimizationHints {
+	rv := objc.Send[MLOptimizationHints](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -114,20 +114,20 @@ func NewOptimizationHintsWithCoder(coder objectivec.IObject) MLOptimizationHints
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints/reshapeFrequencyToString:
-func (o MLOptimizationHints) ReshapeFrequencyToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("reshapeFrequencyToString:"), string_)
+func (m MLOptimizationHints) ReshapeFrequencyToString(string_ int64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("reshapeFrequencyToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints/specializationStrategyToString:
-func (o MLOptimizationHints) SpecializationStrategyToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("specializationStrategyToString:"), string_)
+func (m MLOptimizationHints) SpecializationStrategyToString(string_ int64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("specializationStrategyToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints/initWithCoder:
-func (o MLOptimizationHints) InitWithCoder(coder foundation.INSCoder) MLOptimizationHints {
-	rv := objc.Send[MLOptimizationHints](o.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLOptimizationHints) InitWithCoder(coder foundation.INSCoder) MLOptimizationHints {
+	rv := objc.Send[MLOptimizationHints](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -138,10 +138,10 @@ func (_MLOptimizationHintsClass MLOptimizationHintsClass) SupportsSecureCoding()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints/hotHandDuration
-func (o MLOptimizationHints) HotHandDuration() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("hotHandDuration"))
+func (m MLOptimizationHints) HotHandDuration() float64 {
+	rv := objc.Send[float64](m.ID, objc.Sel("hotHandDuration"))
 	return rv
 }
-func (o MLOptimizationHints) SetHotHandDuration(value float64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setHotHandDuration:"), value)
+func (m MLOptimizationHints) SetHotHandDuration(value float64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setHotHandDuration:"), value)
 }

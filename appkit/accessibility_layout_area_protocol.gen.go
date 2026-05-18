@@ -31,6 +31,11 @@ type NSAccessibilityLayoutArea interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilitySelectedChildren()
 	AccessibilitySelectedChildren() foundation.INSArray
+
+	// The child accessibility element with the current focus.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityFocusedUIElement
+	AccessibilityFocusedUIElement() objectivec.IObject
 }
 
 // NSAccessibilityLayoutAreaObject wraps an existing Objective-C object that conforms to the NSAccessibilityLayoutArea protocol.
@@ -69,14 +74,6 @@ func NSAccessibilityLayoutAreaObjectFromID(id objc.ID) NSAccessibilityLayoutArea
 func (o NSAccessibilityLayoutAreaObject) AccessibilityChildren() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
 	return foundation.NSArrayFromID(rv)
-}
-
-// The child accessibility element with the current focus.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityFocusedUIElement
-func (o NSAccessibilityLayoutAreaObject) AccessibilityFocusedUIElement() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedUIElement"))
-	return objectivec.Object{ID: rv}
 }
 
 // Returns a short description of the layout area.
@@ -204,4 +201,12 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityIdentifier() string {
 func (o NSAccessibilityLayoutAreaObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
+}
+
+// The child accessibility element with the current focus.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityFocusedUIElement
+func (o NSAccessibilityLayoutAreaObject) AccessibilityFocusedUIElement() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedUIElement"))
+	return objectivec.Object{ID: rv}
 }

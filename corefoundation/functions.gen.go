@@ -168,7 +168,7 @@ var _cFAllocatorCreateErr error
 
 func tryCFAllocatorCreate(allocator CFAllocatorRef, context *CFAllocatorContext) (CFAllocatorRef, error) {
 	if _cFAllocatorCreate == nil {
-		return 0, symbolCallError("CFAllocatorCreate", "", _cFAllocatorCreateErr)
+		return *new(CFAllocatorRef), symbolCallError("CFAllocatorCreate", "", _cFAllocatorCreateErr)
 	}
 	return _cFAllocatorCreate(allocator, context), nil
 }
@@ -189,7 +189,7 @@ var _cFAllocatorCreateWithZoneErr error
 
 func tryCFAllocatorCreateWithZone(allocator CFAllocatorRef, zone unsafe.Pointer) (CFAllocatorRef, error) {
 	if _cFAllocatorCreateWithZone == nil {
-		return 0, symbolCallError("CFAllocatorCreateWithZone", "", _cFAllocatorCreateWithZoneErr)
+		return *new(CFAllocatorRef), symbolCallError("CFAllocatorCreateWithZone", "", _cFAllocatorCreateWithZoneErr)
 	}
 	return _cFAllocatorCreateWithZone(allocator, zone), nil
 }
@@ -250,7 +250,7 @@ var _cFAllocatorGetDefaultErr error
 
 func tryCFAllocatorGetDefault() (CFAllocatorRef, error) {
 	if _cFAllocatorGetDefault == nil {
-		return 0, symbolCallError("CFAllocatorGetDefault", "", _cFAllocatorGetDefaultErr)
+		return *new(CFAllocatorRef), symbolCallError("CFAllocatorGetDefault", "", _cFAllocatorGetDefaultErr)
 	}
 	return _cFAllocatorGetDefault(), nil
 }
@@ -498,7 +498,7 @@ var _cFArrayCreateErr error
 
 func tryCFArrayCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFArrayCallBacks) (CFArrayRef, error) {
 	if _cFArrayCreate == nil {
-		return 0, symbolCallError("CFArrayCreate", "", _cFArrayCreateErr)
+		return *new(CFArrayRef), symbolCallError("CFArrayCreate", "", _cFArrayCreateErr)
 	}
 	return _cFArrayCreate(allocator, values, numValues, callBacks), nil
 }
@@ -519,7 +519,7 @@ var _cFArrayCreateCopyErr error
 
 func tryCFArrayCreateCopy(allocator CFAllocatorRef, theArray CFArrayRef) (CFArrayRef, error) {
 	if _cFArrayCreateCopy == nil {
-		return 0, symbolCallError("CFArrayCreateCopy", "", _cFArrayCreateCopyErr)
+		return *new(CFArrayRef), symbolCallError("CFArrayCreateCopy", "", _cFArrayCreateCopyErr)
 	}
 	return _cFArrayCreateCopy(allocator, theArray), nil
 }
@@ -540,7 +540,7 @@ var _cFArrayCreateMutableErr error
 
 func tryCFArrayCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFArrayCallBacks) (CFMutableArrayRef, error) {
 	if _cFArrayCreateMutable == nil {
-		return 0, symbolCallError("CFArrayCreateMutable", "", _cFArrayCreateMutableErr)
+		return *new(CFMutableArrayRef), symbolCallError("CFArrayCreateMutable", "", _cFArrayCreateMutableErr)
 	}
 	return _cFArrayCreateMutable(allocator, capacity, callBacks), nil
 }
@@ -561,7 +561,7 @@ var _cFArrayCreateMutableCopyErr error
 
 func tryCFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity int, theArray CFArrayRef) (CFMutableArrayRef, error) {
 	if _cFArrayCreateMutableCopy == nil {
-		return 0, symbolCallError("CFArrayCreateMutableCopy", "", _cFArrayCreateMutableCopyErr)
+		return *new(CFMutableArrayRef), symbolCallError("CFArrayCreateMutableCopy", "", _cFArrayCreateMutableCopyErr)
 	}
 	return _cFArrayCreateMutableCopy(allocator, capacity, theArray), nil
 }
@@ -888,7 +888,7 @@ var _cFAttributedStringCreateErr error
 
 func tryCFAttributedStringCreate(alloc CFAllocatorRef, str CFStringRef, attributes CFDictionaryRef) (CFAttributedStringRef, error) {
 	if _cFAttributedStringCreate == nil {
-		return 0, symbolCallError("CFAttributedStringCreate", "", _cFAttributedStringCreateErr)
+		return *new(CFAttributedStringRef), symbolCallError("CFAttributedStringCreate", "", _cFAttributedStringCreateErr)
 	}
 	return _cFAttributedStringCreate(alloc, str, attributes), nil
 }
@@ -909,7 +909,7 @@ var _cFAttributedStringCreateCopyErr error
 
 func tryCFAttributedStringCreateCopy(alloc CFAllocatorRef, aStr CFAttributedStringRef) (CFAttributedStringRef, error) {
 	if _cFAttributedStringCreateCopy == nil {
-		return 0, symbolCallError("CFAttributedStringCreateCopy", "", _cFAttributedStringCreateCopyErr)
+		return *new(CFAttributedStringRef), symbolCallError("CFAttributedStringCreateCopy", "", _cFAttributedStringCreateCopyErr)
 	}
 	return _cFAttributedStringCreateCopy(alloc, aStr), nil
 }
@@ -930,7 +930,7 @@ var _cFAttributedStringCreateMutableErr error
 
 func tryCFAttributedStringCreateMutable(alloc CFAllocatorRef, maxLength int) (CFMutableAttributedStringRef, error) {
 	if _cFAttributedStringCreateMutable == nil {
-		return 0, symbolCallError("CFAttributedStringCreateMutable", "", _cFAttributedStringCreateMutableErr)
+		return *new(CFMutableAttributedStringRef), symbolCallError("CFAttributedStringCreateMutable", "", _cFAttributedStringCreateMutableErr)
 	}
 	return _cFAttributedStringCreateMutable(alloc, maxLength), nil
 }
@@ -951,7 +951,7 @@ var _cFAttributedStringCreateMutableCopyErr error
 
 func tryCFAttributedStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, aStr CFAttributedStringRef) (CFMutableAttributedStringRef, error) {
 	if _cFAttributedStringCreateMutableCopy == nil {
-		return 0, symbolCallError("CFAttributedStringCreateMutableCopy", "", _cFAttributedStringCreateMutableCopyErr)
+		return *new(CFMutableAttributedStringRef), symbolCallError("CFAttributedStringCreateMutableCopy", "", _cFAttributedStringCreateMutableCopyErr)
 	}
 	return _cFAttributedStringCreateMutableCopy(alloc, maxLength, aStr), nil
 }
@@ -972,7 +972,7 @@ var _cFAttributedStringCreateWithSubstringErr error
 
 func tryCFAttributedStringCreateWithSubstring(alloc CFAllocatorRef, aStr CFAttributedStringRef, range_ CFRange) (CFAttributedStringRef, error) {
 	if _cFAttributedStringCreateWithSubstring == nil {
-		return 0, symbolCallError("CFAttributedStringCreateWithSubstring", "", _cFAttributedStringCreateWithSubstringErr)
+		return *new(CFAttributedStringRef), symbolCallError("CFAttributedStringCreateWithSubstring", "", _cFAttributedStringCreateWithSubstringErr)
 	}
 	return _cFAttributedStringCreateWithSubstring(alloc, aStr, range_), nil
 }
@@ -1013,7 +1013,7 @@ var _cFAttributedStringGetAttributeErr error
 
 func tryCFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc int, attrName CFStringRef, effectiveRange *CFRange) (CFTypeRef, error) {
 	if _cFAttributedStringGetAttribute == nil {
-		return nil, symbolCallError("CFAttributedStringGetAttribute", "", _cFAttributedStringGetAttributeErr)
+		return *new(CFTypeRef), symbolCallError("CFAttributedStringGetAttribute", "", _cFAttributedStringGetAttributeErr)
 	}
 	return _cFAttributedStringGetAttribute(aStr, loc, attrName, effectiveRange), nil
 }
@@ -1034,7 +1034,7 @@ var _cFAttributedStringGetAttributeAndLongestEffectiveRangeErr error
 
 func tryCFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributedStringRef, loc int, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) (CFTypeRef, error) {
 	if _cFAttributedStringGetAttributeAndLongestEffectiveRange == nil {
-		return nil, symbolCallError("CFAttributedStringGetAttributeAndLongestEffectiveRange", "", _cFAttributedStringGetAttributeAndLongestEffectiveRangeErr)
+		return *new(CFTypeRef), symbolCallError("CFAttributedStringGetAttributeAndLongestEffectiveRange", "", _cFAttributedStringGetAttributeAndLongestEffectiveRangeErr)
 	}
 	return _cFAttributedStringGetAttributeAndLongestEffectiveRange(aStr, loc, attrName, inRange, longestEffectiveRange), nil
 }
@@ -1055,7 +1055,7 @@ var _cFAttributedStringGetAttributesErr error
 
 func tryCFAttributedStringGetAttributes(aStr CFAttributedStringRef, loc int, effectiveRange *CFRange) (CFDictionaryRef, error) {
 	if _cFAttributedStringGetAttributes == nil {
-		return 0, symbolCallError("CFAttributedStringGetAttributes", "", _cFAttributedStringGetAttributesErr)
+		return *new(CFDictionaryRef), symbolCallError("CFAttributedStringGetAttributes", "", _cFAttributedStringGetAttributesErr)
 	}
 	return _cFAttributedStringGetAttributes(aStr, loc, effectiveRange), nil
 }
@@ -1076,7 +1076,7 @@ var _cFAttributedStringGetAttributesAndLongestEffectiveRangeErr error
 
 func tryCFAttributedStringGetAttributesAndLongestEffectiveRange(aStr CFAttributedStringRef, loc int, inRange CFRange, longestEffectiveRange *CFRange) (CFDictionaryRef, error) {
 	if _cFAttributedStringGetAttributesAndLongestEffectiveRange == nil {
-		return 0, symbolCallError("CFAttributedStringGetAttributesAndLongestEffectiveRange", "", _cFAttributedStringGetAttributesAndLongestEffectiveRangeErr)
+		return *new(CFDictionaryRef), symbolCallError("CFAttributedStringGetAttributesAndLongestEffectiveRange", "", _cFAttributedStringGetAttributesAndLongestEffectiveRangeErr)
 	}
 	return _cFAttributedStringGetAttributesAndLongestEffectiveRange(aStr, loc, inRange, longestEffectiveRange), nil
 }
@@ -1139,7 +1139,7 @@ var _cFAttributedStringGetMutableStringErr error
 
 func tryCFAttributedStringGetMutableString(aStr CFMutableAttributedStringRef) (CFMutableStringRef, error) {
 	if _cFAttributedStringGetMutableString == nil {
-		return 0, symbolCallError("CFAttributedStringGetMutableString", "", _cFAttributedStringGetMutableStringErr)
+		return *new(CFMutableStringRef), symbolCallError("CFAttributedStringGetMutableString", "", _cFAttributedStringGetMutableStringErr)
 	}
 	return _cFAttributedStringGetMutableString(aStr), nil
 }
@@ -1181,7 +1181,7 @@ var _cFAttributedStringGetStringErr error
 
 func tryCFAttributedStringGetString(aStr CFAttributedStringRef) (CFStringRef, error) {
 	if _cFAttributedStringGetString == nil {
-		return 0, symbolCallError("CFAttributedStringGetString", "", _cFAttributedStringGetStringErr)
+		return *new(CFStringRef), symbolCallError("CFAttributedStringGetString", "", _cFAttributedStringGetStringErr)
 	}
 	return _cFAttributedStringGetString(aStr), nil
 }
@@ -1323,7 +1323,7 @@ var _cFAutoreleaseErr error
 
 func tryCFAutorelease(arg CFTypeRef) (CFTypeRef, error) {
 	if _cFAutorelease == nil {
-		return nil, symbolCallError("CFAutorelease", "10.9", _cFAutoreleaseErr)
+		return *new(CFTypeRef), symbolCallError("CFAutorelease", "10.9", _cFAutoreleaseErr)
 	}
 	return _cFAutorelease(arg), nil
 }
@@ -1405,7 +1405,7 @@ var _cFBagCreateErr error
 
 func tryCFBagCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFBagCallBacks) (CFBagRef, error) {
 	if _cFBagCreate == nil {
-		return 0, symbolCallError("CFBagCreate", "", _cFBagCreateErr)
+		return *new(CFBagRef), symbolCallError("CFBagCreate", "", _cFBagCreateErr)
 	}
 	return _cFBagCreate(allocator, values, numValues, callBacks), nil
 }
@@ -1426,7 +1426,7 @@ var _cFBagCreateCopyErr error
 
 func tryCFBagCreateCopy(allocator CFAllocatorRef, theBag CFBagRef) (CFBagRef, error) {
 	if _cFBagCreateCopy == nil {
-		return 0, symbolCallError("CFBagCreateCopy", "", _cFBagCreateCopyErr)
+		return *new(CFBagRef), symbolCallError("CFBagCreateCopy", "", _cFBagCreateCopyErr)
 	}
 	return _cFBagCreateCopy(allocator, theBag), nil
 }
@@ -1447,7 +1447,7 @@ var _cFBagCreateMutableErr error
 
 func tryCFBagCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFBagCallBacks) (CFMutableBagRef, error) {
 	if _cFBagCreateMutable == nil {
-		return 0, symbolCallError("CFBagCreateMutable", "", _cFBagCreateMutableErr)
+		return *new(CFMutableBagRef), symbolCallError("CFBagCreateMutable", "", _cFBagCreateMutableErr)
 	}
 	return _cFBagCreateMutable(allocator, capacity, callBacks), nil
 }
@@ -1468,7 +1468,7 @@ var _cFBagCreateMutableCopyErr error
 
 func tryCFBagCreateMutableCopy(allocator CFAllocatorRef, capacity int, theBag CFBagRef) (CFMutableBagRef, error) {
 	if _cFBagCreateMutableCopy == nil {
-		return 0, symbolCallError("CFBagCreateMutableCopy", "", _cFBagCreateMutableCopyErr)
+		return *new(CFMutableBagRef), symbolCallError("CFBagCreateMutableCopy", "", _cFBagCreateMutableCopyErr)
 	}
 	return _cFBagCreateMutableCopy(allocator, capacity, theBag), nil
 }
@@ -1755,7 +1755,7 @@ var _cFBinaryHeapCreateErr error
 
 func tryCFBinaryHeapCreate(allocator CFAllocatorRef, capacity int, callBacks *CFBinaryHeapCallBacks, compareContext *CFBinaryHeapCompareContext) (CFBinaryHeapRef, error) {
 	if _cFBinaryHeapCreate == nil {
-		return 0, symbolCallError("CFBinaryHeapCreate", "", _cFBinaryHeapCreateErr)
+		return *new(CFBinaryHeapRef), symbolCallError("CFBinaryHeapCreate", "", _cFBinaryHeapCreateErr)
 	}
 	return _cFBinaryHeapCreate(allocator, capacity, callBacks, compareContext), nil
 }
@@ -1776,7 +1776,7 @@ var _cFBinaryHeapCreateCopyErr error
 
 func tryCFBinaryHeapCreateCopy(allocator CFAllocatorRef, capacity int, heap CFBinaryHeapRef) (CFBinaryHeapRef, error) {
 	if _cFBinaryHeapCreateCopy == nil {
-		return 0, symbolCallError("CFBinaryHeapCreateCopy", "", _cFBinaryHeapCreateCopyErr)
+		return *new(CFBinaryHeapRef), symbolCallError("CFBinaryHeapCreateCopy", "", _cFBinaryHeapCreateCopyErr)
 	}
 	return _cFBinaryHeapCreateCopy(allocator, capacity, heap), nil
 }
@@ -1983,7 +1983,7 @@ var _cFBitVectorCreateErr error
 
 func tryCFBitVectorCreate(allocator CFAllocatorRef, bytes []byte, numBits int) (CFBitVectorRef, error) {
 	if _cFBitVectorCreate == nil {
-		return 0, symbolCallError("CFBitVectorCreate", "", _cFBitVectorCreateErr)
+		return *new(CFBitVectorRef), symbolCallError("CFBitVectorCreate", "", _cFBitVectorCreateErr)
 	}
 	return _cFBitVectorCreate(allocator, unsafe.SliceData(bytes), numBits), nil
 }
@@ -2004,7 +2004,7 @@ var _cFBitVectorCreateCopyErr error
 
 func tryCFBitVectorCreateCopy(allocator CFAllocatorRef, bv CFBitVectorRef) (CFBitVectorRef, error) {
 	if _cFBitVectorCreateCopy == nil {
-		return 0, symbolCallError("CFBitVectorCreateCopy", "", _cFBitVectorCreateCopyErr)
+		return *new(CFBitVectorRef), symbolCallError("CFBitVectorCreateCopy", "", _cFBitVectorCreateCopyErr)
 	}
 	return _cFBitVectorCreateCopy(allocator, bv), nil
 }
@@ -2025,7 +2025,7 @@ var _cFBitVectorCreateMutableErr error
 
 func tryCFBitVectorCreateMutable(allocator CFAllocatorRef, capacity int) (CFMutableBitVectorRef, error) {
 	if _cFBitVectorCreateMutable == nil {
-		return 0, symbolCallError("CFBitVectorCreateMutable", "", _cFBitVectorCreateMutableErr)
+		return *new(CFMutableBitVectorRef), symbolCallError("CFBitVectorCreateMutable", "", _cFBitVectorCreateMutableErr)
 	}
 	return _cFBitVectorCreateMutable(allocator, capacity), nil
 }
@@ -2046,7 +2046,7 @@ var _cFBitVectorCreateMutableCopyErr error
 
 func tryCFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity int, bv CFBitVectorRef) (CFMutableBitVectorRef, error) {
 	if _cFBitVectorCreateMutableCopy == nil {
-		return 0, symbolCallError("CFBitVectorCreateMutableCopy", "", _cFBitVectorCreateMutableCopyErr)
+		return *new(CFMutableBitVectorRef), symbolCallError("CFBitVectorCreateMutableCopy", "", _cFBitVectorCreateMutableCopyErr)
 	}
 	return _cFBitVectorCreateMutableCopy(allocator, capacity, bv), nil
 }
@@ -2375,7 +2375,7 @@ var _cFBundleCopyAuxiliaryExecutableURLErr error
 
 func tryCFBundleCopyAuxiliaryExecutableURL(bundle CFBundleRef, executableName CFStringRef) (CFURLRef, error) {
 	if _cFBundleCopyAuxiliaryExecutableURL == nil {
-		return 0, symbolCallError("CFBundleCopyAuxiliaryExecutableURL", "", _cFBundleCopyAuxiliaryExecutableURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyAuxiliaryExecutableURL", "", _cFBundleCopyAuxiliaryExecutableURLErr)
 	}
 	return _cFBundleCopyAuxiliaryExecutableURL(bundle, executableName), nil
 }
@@ -2396,7 +2396,7 @@ var _cFBundleCopyBuiltInPlugInsURLErr error
 
 func tryCFBundleCopyBuiltInPlugInsURL(bundle CFBundleRef) (CFURLRef, error) {
 	if _cFBundleCopyBuiltInPlugInsURL == nil {
-		return 0, symbolCallError("CFBundleCopyBuiltInPlugInsURL", "", _cFBundleCopyBuiltInPlugInsURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyBuiltInPlugInsURL", "", _cFBundleCopyBuiltInPlugInsURLErr)
 	}
 	return _cFBundleCopyBuiltInPlugInsURL(bundle), nil
 }
@@ -2417,7 +2417,7 @@ var _cFBundleCopyBundleLocalizationsErr error
 
 func tryCFBundleCopyBundleLocalizations(bundle CFBundleRef) (CFArrayRef, error) {
 	if _cFBundleCopyBundleLocalizations == nil {
-		return 0, symbolCallError("CFBundleCopyBundleLocalizations", "", _cFBundleCopyBundleLocalizationsErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyBundleLocalizations", "", _cFBundleCopyBundleLocalizationsErr)
 	}
 	return _cFBundleCopyBundleLocalizations(bundle), nil
 }
@@ -2438,7 +2438,7 @@ var _cFBundleCopyBundleURLErr error
 
 func tryCFBundleCopyBundleURL(bundle CFBundleRef) (CFURLRef, error) {
 	if _cFBundleCopyBundleURL == nil {
-		return 0, symbolCallError("CFBundleCopyBundleURL", "", _cFBundleCopyBundleURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyBundleURL", "", _cFBundleCopyBundleURLErr)
 	}
 	return _cFBundleCopyBundleURL(bundle), nil
 }
@@ -2459,7 +2459,7 @@ var _cFBundleCopyExecutableArchitecturesErr error
 
 func tryCFBundleCopyExecutableArchitectures(bundle CFBundleRef) (CFArrayRef, error) {
 	if _cFBundleCopyExecutableArchitectures == nil {
-		return 0, symbolCallError("CFBundleCopyExecutableArchitectures", "10.5", _cFBundleCopyExecutableArchitecturesErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyExecutableArchitectures", "10.5", _cFBundleCopyExecutableArchitecturesErr)
 	}
 	return _cFBundleCopyExecutableArchitectures(bundle), nil
 }
@@ -2480,7 +2480,7 @@ var _cFBundleCopyExecutableArchitecturesForURLErr error
 
 func tryCFBundleCopyExecutableArchitecturesForURL(url CFURLRef) (CFArrayRef, error) {
 	if _cFBundleCopyExecutableArchitecturesForURL == nil {
-		return 0, symbolCallError("CFBundleCopyExecutableArchitecturesForURL", "10.5", _cFBundleCopyExecutableArchitecturesForURLErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyExecutableArchitecturesForURL", "10.5", _cFBundleCopyExecutableArchitecturesForURLErr)
 	}
 	return _cFBundleCopyExecutableArchitecturesForURL(url), nil
 }
@@ -2501,7 +2501,7 @@ var _cFBundleCopyExecutableURLErr error
 
 func tryCFBundleCopyExecutableURL(bundle CFBundleRef) (CFURLRef, error) {
 	if _cFBundleCopyExecutableURL == nil {
-		return 0, symbolCallError("CFBundleCopyExecutableURL", "", _cFBundleCopyExecutableURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyExecutableURL", "", _cFBundleCopyExecutableURLErr)
 	}
 	return _cFBundleCopyExecutableURL(bundle), nil
 }
@@ -2522,7 +2522,7 @@ var _cFBundleCopyInfoDictionaryForURLErr error
 
 func tryCFBundleCopyInfoDictionaryForURL(url CFURLRef) (CFDictionaryRef, error) {
 	if _cFBundleCopyInfoDictionaryForURL == nil {
-		return 0, symbolCallError("CFBundleCopyInfoDictionaryForURL", "", _cFBundleCopyInfoDictionaryForURLErr)
+		return *new(CFDictionaryRef), symbolCallError("CFBundleCopyInfoDictionaryForURL", "", _cFBundleCopyInfoDictionaryForURLErr)
 	}
 	return _cFBundleCopyInfoDictionaryForURL(url), nil
 }
@@ -2543,7 +2543,7 @@ var _cFBundleCopyInfoDictionaryInDirectoryErr error
 
 func tryCFBundleCopyInfoDictionaryInDirectory(bundleURL CFURLRef) (CFDictionaryRef, error) {
 	if _cFBundleCopyInfoDictionaryInDirectory == nil {
-		return 0, symbolCallError("CFBundleCopyInfoDictionaryInDirectory", "", _cFBundleCopyInfoDictionaryInDirectoryErr)
+		return *new(CFDictionaryRef), symbolCallError("CFBundleCopyInfoDictionaryInDirectory", "", _cFBundleCopyInfoDictionaryInDirectoryErr)
 	}
 	return _cFBundleCopyInfoDictionaryInDirectory(bundleURL), nil
 }
@@ -2564,7 +2564,7 @@ var _cFBundleCopyLocalizationsForPreferencesErr error
 
 func tryCFBundleCopyLocalizationsForPreferences(locArray CFArrayRef, prefArray CFArrayRef) (CFArrayRef, error) {
 	if _cFBundleCopyLocalizationsForPreferences == nil {
-		return 0, symbolCallError("CFBundleCopyLocalizationsForPreferences", "", _cFBundleCopyLocalizationsForPreferencesErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyLocalizationsForPreferences", "", _cFBundleCopyLocalizationsForPreferencesErr)
 	}
 	return _cFBundleCopyLocalizationsForPreferences(locArray, prefArray), nil
 }
@@ -2585,7 +2585,7 @@ var _cFBundleCopyLocalizationsForURLErr error
 
 func tryCFBundleCopyLocalizationsForURL(url CFURLRef) (CFArrayRef, error) {
 	if _cFBundleCopyLocalizationsForURL == nil {
-		return 0, symbolCallError("CFBundleCopyLocalizationsForURL", "", _cFBundleCopyLocalizationsForURLErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyLocalizationsForURL", "", _cFBundleCopyLocalizationsForURLErr)
 	}
 	return _cFBundleCopyLocalizationsForURL(url), nil
 }
@@ -2606,7 +2606,7 @@ var _cFBundleCopyLocalizedStringErr error
 
 func tryCFBundleCopyLocalizedString(bundle CFBundleRef, key CFStringRef, value CFStringRef, tableName CFStringRef) (CFStringRef, error) {
 	if _cFBundleCopyLocalizedString == nil {
-		return 0, symbolCallError("CFBundleCopyLocalizedString", "", _cFBundleCopyLocalizedStringErr)
+		return *new(CFStringRef), symbolCallError("CFBundleCopyLocalizedString", "", _cFBundleCopyLocalizedStringErr)
 	}
 	return _cFBundleCopyLocalizedString(bundle, key, value, tableName), nil
 }
@@ -2627,7 +2627,7 @@ var _cFBundleCopyLocalizedStringForLocalizationsErr error
 
 func tryCFBundleCopyLocalizedStringForLocalizations(bundle CFBundleRef, key CFStringRef, value CFStringRef, tableName CFStringRef, localizations CFArrayRef) (CFStringRef, error) {
 	if _cFBundleCopyLocalizedStringForLocalizations == nil {
-		return 0, symbolCallError("CFBundleCopyLocalizedStringForLocalizations", "15.4", _cFBundleCopyLocalizedStringForLocalizationsErr)
+		return *new(CFStringRef), symbolCallError("CFBundleCopyLocalizedStringForLocalizations", "15.4", _cFBundleCopyLocalizedStringForLocalizationsErr)
 	}
 	return _cFBundleCopyLocalizedStringForLocalizations(bundle, key, value, tableName, localizations), nil
 }
@@ -2648,7 +2648,7 @@ var _cFBundleCopyPreferredLocalizationsFromArrayErr error
 
 func tryCFBundleCopyPreferredLocalizationsFromArray(locArray CFArrayRef) (CFArrayRef, error) {
 	if _cFBundleCopyPreferredLocalizationsFromArray == nil {
-		return 0, symbolCallError("CFBundleCopyPreferredLocalizationsFromArray", "", _cFBundleCopyPreferredLocalizationsFromArrayErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyPreferredLocalizationsFromArray", "", _cFBundleCopyPreferredLocalizationsFromArrayErr)
 	}
 	return _cFBundleCopyPreferredLocalizationsFromArray(locArray), nil
 }
@@ -2669,7 +2669,7 @@ var _cFBundleCopyPrivateFrameworksURLErr error
 
 func tryCFBundleCopyPrivateFrameworksURL(bundle CFBundleRef) (CFURLRef, error) {
 	if _cFBundleCopyPrivateFrameworksURL == nil {
-		return 0, symbolCallError("CFBundleCopyPrivateFrameworksURL", "", _cFBundleCopyPrivateFrameworksURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyPrivateFrameworksURL", "", _cFBundleCopyPrivateFrameworksURLErr)
 	}
 	return _cFBundleCopyPrivateFrameworksURL(bundle), nil
 }
@@ -2690,7 +2690,7 @@ var _cFBundleCopyResourceURLErr error
 
 func tryCFBundleCopyResourceURL(bundle CFBundleRef, resourceName CFStringRef, resourceType CFStringRef, subDirName CFStringRef) (CFURLRef, error) {
 	if _cFBundleCopyResourceURL == nil {
-		return 0, symbolCallError("CFBundleCopyResourceURL", "", _cFBundleCopyResourceURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyResourceURL", "", _cFBundleCopyResourceURLErr)
 	}
 	return _cFBundleCopyResourceURL(bundle, resourceName, resourceType, subDirName), nil
 }
@@ -2711,7 +2711,7 @@ var _cFBundleCopyResourceURLForLocalizationErr error
 
 func tryCFBundleCopyResourceURLForLocalization(bundle CFBundleRef, resourceName CFStringRef, resourceType CFStringRef, subDirName CFStringRef, localizationName CFStringRef) (CFURLRef, error) {
 	if _cFBundleCopyResourceURLForLocalization == nil {
-		return 0, symbolCallError("CFBundleCopyResourceURLForLocalization", "", _cFBundleCopyResourceURLForLocalizationErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyResourceURLForLocalization", "", _cFBundleCopyResourceURLForLocalizationErr)
 	}
 	return _cFBundleCopyResourceURLForLocalization(bundle, resourceName, resourceType, subDirName, localizationName), nil
 }
@@ -2732,7 +2732,7 @@ var _cFBundleCopyResourceURLInDirectoryErr error
 
 func tryCFBundleCopyResourceURLInDirectory(bundleURL CFURLRef, resourceName CFStringRef, resourceType CFStringRef, subDirName CFStringRef) (CFURLRef, error) {
 	if _cFBundleCopyResourceURLInDirectory == nil {
-		return 0, symbolCallError("CFBundleCopyResourceURLInDirectory", "", _cFBundleCopyResourceURLInDirectoryErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyResourceURLInDirectory", "", _cFBundleCopyResourceURLInDirectoryErr)
 	}
 	return _cFBundleCopyResourceURLInDirectory(bundleURL, resourceName, resourceType, subDirName), nil
 }
@@ -2753,7 +2753,7 @@ var _cFBundleCopyResourceURLsOfTypeErr error
 
 func tryCFBundleCopyResourceURLsOfType(bundle CFBundleRef, resourceType CFStringRef, subDirName CFStringRef) (CFArrayRef, error) {
 	if _cFBundleCopyResourceURLsOfType == nil {
-		return 0, symbolCallError("CFBundleCopyResourceURLsOfType", "", _cFBundleCopyResourceURLsOfTypeErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyResourceURLsOfType", "", _cFBundleCopyResourceURLsOfTypeErr)
 	}
 	return _cFBundleCopyResourceURLsOfType(bundle, resourceType, subDirName), nil
 }
@@ -2774,7 +2774,7 @@ var _cFBundleCopyResourceURLsOfTypeForLocalizationErr error
 
 func tryCFBundleCopyResourceURLsOfTypeForLocalization(bundle CFBundleRef, resourceType CFStringRef, subDirName CFStringRef, localizationName CFStringRef) (CFArrayRef, error) {
 	if _cFBundleCopyResourceURLsOfTypeForLocalization == nil {
-		return 0, symbolCallError("CFBundleCopyResourceURLsOfTypeForLocalization", "", _cFBundleCopyResourceURLsOfTypeForLocalizationErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyResourceURLsOfTypeForLocalization", "", _cFBundleCopyResourceURLsOfTypeForLocalizationErr)
 	}
 	return _cFBundleCopyResourceURLsOfTypeForLocalization(bundle, resourceType, subDirName, localizationName), nil
 }
@@ -2795,7 +2795,7 @@ var _cFBundleCopyResourceURLsOfTypeInDirectoryErr error
 
 func tryCFBundleCopyResourceURLsOfTypeInDirectory(bundleURL CFURLRef, resourceType CFStringRef, subDirName CFStringRef) (CFArrayRef, error) {
 	if _cFBundleCopyResourceURLsOfTypeInDirectory == nil {
-		return 0, symbolCallError("CFBundleCopyResourceURLsOfTypeInDirectory", "", _cFBundleCopyResourceURLsOfTypeInDirectoryErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCopyResourceURLsOfTypeInDirectory", "", _cFBundleCopyResourceURLsOfTypeInDirectoryErr)
 	}
 	return _cFBundleCopyResourceURLsOfTypeInDirectory(bundleURL, resourceType, subDirName), nil
 }
@@ -2816,7 +2816,7 @@ var _cFBundleCopyResourcesDirectoryURLErr error
 
 func tryCFBundleCopyResourcesDirectoryURL(bundle CFBundleRef) (CFURLRef, error) {
 	if _cFBundleCopyResourcesDirectoryURL == nil {
-		return 0, symbolCallError("CFBundleCopyResourcesDirectoryURL", "", _cFBundleCopyResourcesDirectoryURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopyResourcesDirectoryURL", "", _cFBundleCopyResourcesDirectoryURLErr)
 	}
 	return _cFBundleCopyResourcesDirectoryURL(bundle), nil
 }
@@ -2837,7 +2837,7 @@ var _cFBundleCopySharedFrameworksURLErr error
 
 func tryCFBundleCopySharedFrameworksURL(bundle CFBundleRef) (CFURLRef, error) {
 	if _cFBundleCopySharedFrameworksURL == nil {
-		return 0, symbolCallError("CFBundleCopySharedFrameworksURL", "", _cFBundleCopySharedFrameworksURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopySharedFrameworksURL", "", _cFBundleCopySharedFrameworksURLErr)
 	}
 	return _cFBundleCopySharedFrameworksURL(bundle), nil
 }
@@ -2858,7 +2858,7 @@ var _cFBundleCopySharedSupportURLErr error
 
 func tryCFBundleCopySharedSupportURL(bundle CFBundleRef) (CFURLRef, error) {
 	if _cFBundleCopySharedSupportURL == nil {
-		return 0, symbolCallError("CFBundleCopySharedSupportURL", "", _cFBundleCopySharedSupportURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopySharedSupportURL", "", _cFBundleCopySharedSupportURLErr)
 	}
 	return _cFBundleCopySharedSupportURL(bundle), nil
 }
@@ -2879,7 +2879,7 @@ var _cFBundleCopySupportFilesDirectoryURLErr error
 
 func tryCFBundleCopySupportFilesDirectoryURL(bundle CFBundleRef) (CFURLRef, error) {
 	if _cFBundleCopySupportFilesDirectoryURL == nil {
-		return 0, symbolCallError("CFBundleCopySupportFilesDirectoryURL", "", _cFBundleCopySupportFilesDirectoryURLErr)
+		return *new(CFURLRef), symbolCallError("CFBundleCopySupportFilesDirectoryURL", "", _cFBundleCopySupportFilesDirectoryURLErr)
 	}
 	return _cFBundleCopySupportFilesDirectoryURL(bundle), nil
 }
@@ -2900,7 +2900,7 @@ var _cFBundleCreateErr error
 
 func tryCFBundleCreate(allocator CFAllocatorRef, bundleURL CFURLRef) (CFBundleRef, error) {
 	if _cFBundleCreate == nil {
-		return 0, symbolCallError("CFBundleCreate", "", _cFBundleCreateErr)
+		return *new(CFBundleRef), symbolCallError("CFBundleCreate", "", _cFBundleCreateErr)
 	}
 	return _cFBundleCreate(allocator, bundleURL), nil
 }
@@ -2921,7 +2921,7 @@ var _cFBundleCreateBundlesFromDirectoryErr error
 
 func tryCFBundleCreateBundlesFromDirectory(allocator CFAllocatorRef, directoryURL CFURLRef, bundleType CFStringRef) (CFArrayRef, error) {
 	if _cFBundleCreateBundlesFromDirectory == nil {
-		return 0, symbolCallError("CFBundleCreateBundlesFromDirectory", "", _cFBundleCreateBundlesFromDirectoryErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleCreateBundlesFromDirectory", "", _cFBundleCreateBundlesFromDirectoryErr)
 	}
 	return _cFBundleCreateBundlesFromDirectory(allocator, directoryURL, bundleType), nil
 }
@@ -2942,7 +2942,7 @@ var _cFBundleGetAllBundlesErr error
 
 func tryCFBundleGetAllBundles() (CFArrayRef, error) {
 	if _cFBundleGetAllBundles == nil {
-		return 0, symbolCallError("CFBundleGetAllBundles", "", _cFBundleGetAllBundlesErr)
+		return *new(CFArrayRef), symbolCallError("CFBundleGetAllBundles", "", _cFBundleGetAllBundlesErr)
 	}
 	return _cFBundleGetAllBundles(), nil
 }
@@ -2963,7 +2963,7 @@ var _cFBundleGetBundleWithIdentifierErr error
 
 func tryCFBundleGetBundleWithIdentifier(bundleID CFStringRef) (CFBundleRef, error) {
 	if _cFBundleGetBundleWithIdentifier == nil {
-		return 0, symbolCallError("CFBundleGetBundleWithIdentifier", "", _cFBundleGetBundleWithIdentifierErr)
+		return *new(CFBundleRef), symbolCallError("CFBundleGetBundleWithIdentifier", "", _cFBundleGetBundleWithIdentifierErr)
 	}
 	return _cFBundleGetBundleWithIdentifier(bundleID), nil
 }
@@ -3025,7 +3025,7 @@ var _cFBundleGetDevelopmentRegionErr error
 
 func tryCFBundleGetDevelopmentRegion(bundle CFBundleRef) (CFStringRef, error) {
 	if _cFBundleGetDevelopmentRegion == nil {
-		return 0, symbolCallError("CFBundleGetDevelopmentRegion", "", _cFBundleGetDevelopmentRegionErr)
+		return *new(CFStringRef), symbolCallError("CFBundleGetDevelopmentRegion", "", _cFBundleGetDevelopmentRegionErr)
 	}
 	return _cFBundleGetDevelopmentRegion(bundle), nil
 }
@@ -3087,7 +3087,7 @@ var _cFBundleGetIdentifierErr error
 
 func tryCFBundleGetIdentifier(bundle CFBundleRef) (CFStringRef, error) {
 	if _cFBundleGetIdentifier == nil {
-		return 0, symbolCallError("CFBundleGetIdentifier", "", _cFBundleGetIdentifierErr)
+		return *new(CFStringRef), symbolCallError("CFBundleGetIdentifier", "", _cFBundleGetIdentifierErr)
 	}
 	return _cFBundleGetIdentifier(bundle), nil
 }
@@ -3108,7 +3108,7 @@ var _cFBundleGetInfoDictionaryErr error
 
 func tryCFBundleGetInfoDictionary(bundle CFBundleRef) (CFDictionaryRef, error) {
 	if _cFBundleGetInfoDictionary == nil {
-		return 0, symbolCallError("CFBundleGetInfoDictionary", "", _cFBundleGetInfoDictionaryErr)
+		return *new(CFDictionaryRef), symbolCallError("CFBundleGetInfoDictionary", "", _cFBundleGetInfoDictionaryErr)
 	}
 	return _cFBundleGetInfoDictionary(bundle), nil
 }
@@ -3129,7 +3129,7 @@ var _cFBundleGetLocalInfoDictionaryErr error
 
 func tryCFBundleGetLocalInfoDictionary(bundle CFBundleRef) (CFDictionaryRef, error) {
 	if _cFBundleGetLocalInfoDictionary == nil {
-		return 0, symbolCallError("CFBundleGetLocalInfoDictionary", "", _cFBundleGetLocalInfoDictionaryErr)
+		return *new(CFDictionaryRef), symbolCallError("CFBundleGetLocalInfoDictionary", "", _cFBundleGetLocalInfoDictionaryErr)
 	}
 	return _cFBundleGetLocalInfoDictionary(bundle), nil
 }
@@ -3150,7 +3150,7 @@ var _cFBundleGetMainBundleErr error
 
 func tryCFBundleGetMainBundle() (CFBundleRef, error) {
 	if _cFBundleGetMainBundle == nil {
-		return 0, symbolCallError("CFBundleGetMainBundle", "", _cFBundleGetMainBundleErr)
+		return *new(CFBundleRef), symbolCallError("CFBundleGetMainBundle", "", _cFBundleGetMainBundleErr)
 	}
 	return _cFBundleGetMainBundle(), nil
 }
@@ -3212,7 +3212,7 @@ var _cFBundleGetPlugInErr error
 
 func tryCFBundleGetPlugIn(bundle CFBundleRef) (CFPlugInRef, error) {
 	if _cFBundleGetPlugIn == nil {
-		return 0, symbolCallError("CFBundleGetPlugIn", "", _cFBundleGetPlugInErr)
+		return *new(CFPlugInRef), symbolCallError("CFBundleGetPlugIn", "", _cFBundleGetPlugInErr)
 	}
 	return _cFBundleGetPlugIn(bundle), nil
 }
@@ -3254,7 +3254,7 @@ var _cFBundleGetValueForInfoDictionaryKeyErr error
 
 func tryCFBundleGetValueForInfoDictionaryKey(bundle CFBundleRef, key CFStringRef) (CFTypeRef, error) {
 	if _cFBundleGetValueForInfoDictionaryKey == nil {
-		return nil, symbolCallError("CFBundleGetValueForInfoDictionaryKey", "", _cFBundleGetValueForInfoDictionaryKeyErr)
+		return *new(CFTypeRef), symbolCallError("CFBundleGetValueForInfoDictionaryKey", "", _cFBundleGetValueForInfoDictionaryKeyErr)
 	}
 	return _cFBundleGetValueForInfoDictionaryKey(bundle, key), nil
 }
@@ -3505,7 +3505,7 @@ var _cFCalendarCopyCurrentErr error
 
 func tryCFCalendarCopyCurrent() (CFCalendarRef, error) {
 	if _cFCalendarCopyCurrent == nil {
-		return 0, symbolCallError("CFCalendarCopyCurrent", "", _cFCalendarCopyCurrentErr)
+		return *new(CFCalendarRef), symbolCallError("CFCalendarCopyCurrent", "", _cFCalendarCopyCurrentErr)
 	}
 	return _cFCalendarCopyCurrent(), nil
 }
@@ -3526,7 +3526,7 @@ var _cFCalendarCopyLocaleErr error
 
 func tryCFCalendarCopyLocale(calendar CFCalendarRef) (CFLocaleRef, error) {
 	if _cFCalendarCopyLocale == nil {
-		return 0, symbolCallError("CFCalendarCopyLocale", "", _cFCalendarCopyLocaleErr)
+		return *new(CFLocaleRef), symbolCallError("CFCalendarCopyLocale", "", _cFCalendarCopyLocaleErr)
 	}
 	return _cFCalendarCopyLocale(calendar), nil
 }
@@ -3547,7 +3547,7 @@ var _cFCalendarCopyTimeZoneErr error
 
 func tryCFCalendarCopyTimeZone(calendar CFCalendarRef) (CFTimeZoneRef, error) {
 	if _cFCalendarCopyTimeZone == nil {
-		return 0, symbolCallError("CFCalendarCopyTimeZone", "", _cFCalendarCopyTimeZoneErr)
+		return *new(CFTimeZoneRef), symbolCallError("CFCalendarCopyTimeZone", "", _cFCalendarCopyTimeZoneErr)
 	}
 	return _cFCalendarCopyTimeZone(calendar), nil
 }
@@ -3568,7 +3568,7 @@ var _cFCalendarCreateWithIdentifierErr error
 
 func tryCFCalendarCreateWithIdentifier(allocator CFAllocatorRef, identifier CFCalendarIdentifier) (CFCalendarRef, error) {
 	if _cFCalendarCreateWithIdentifier == nil {
-		return 0, symbolCallError("CFCalendarCreateWithIdentifier", "", _cFCalendarCreateWithIdentifierErr)
+		return *new(CFCalendarRef), symbolCallError("CFCalendarCreateWithIdentifier", "", _cFCalendarCreateWithIdentifierErr)
 	}
 	return _cFCalendarCreateWithIdentifier(allocator, identifier), nil
 }
@@ -3940,7 +3940,7 @@ var _cFCharacterSetCreateBitmapRepresentationErr error
 
 func tryCFCharacterSetCreateBitmapRepresentation(alloc CFAllocatorRef, theSet CFCharacterSetRef) (CFDataRef, error) {
 	if _cFCharacterSetCreateBitmapRepresentation == nil {
-		return 0, symbolCallError("CFCharacterSetCreateBitmapRepresentation", "", _cFCharacterSetCreateBitmapRepresentationErr)
+		return *new(CFDataRef), symbolCallError("CFCharacterSetCreateBitmapRepresentation", "", _cFCharacterSetCreateBitmapRepresentationErr)
 	}
 	return _cFCharacterSetCreateBitmapRepresentation(alloc, theSet), nil
 }
@@ -3961,7 +3961,7 @@ var _cFCharacterSetCreateCopyErr error
 
 func tryCFCharacterSetCreateCopy(alloc CFAllocatorRef, theSet CFCharacterSetRef) (CFCharacterSetRef, error) {
 	if _cFCharacterSetCreateCopy == nil {
-		return 0, symbolCallError("CFCharacterSetCreateCopy", "", _cFCharacterSetCreateCopyErr)
+		return *new(CFCharacterSetRef), symbolCallError("CFCharacterSetCreateCopy", "", _cFCharacterSetCreateCopyErr)
 	}
 	return _cFCharacterSetCreateCopy(alloc, theSet), nil
 }
@@ -3982,7 +3982,7 @@ var _cFCharacterSetCreateInvertedSetErr error
 
 func tryCFCharacterSetCreateInvertedSet(alloc CFAllocatorRef, theSet CFCharacterSetRef) (CFCharacterSetRef, error) {
 	if _cFCharacterSetCreateInvertedSet == nil {
-		return 0, symbolCallError("CFCharacterSetCreateInvertedSet", "", _cFCharacterSetCreateInvertedSetErr)
+		return *new(CFCharacterSetRef), symbolCallError("CFCharacterSetCreateInvertedSet", "", _cFCharacterSetCreateInvertedSetErr)
 	}
 	return _cFCharacterSetCreateInvertedSet(alloc, theSet), nil
 }
@@ -4003,7 +4003,7 @@ var _cFCharacterSetCreateMutableErr error
 
 func tryCFCharacterSetCreateMutable(alloc CFAllocatorRef) (CFMutableCharacterSetRef, error) {
 	if _cFCharacterSetCreateMutable == nil {
-		return 0, symbolCallError("CFCharacterSetCreateMutable", "", _cFCharacterSetCreateMutableErr)
+		return *new(CFMutableCharacterSetRef), symbolCallError("CFCharacterSetCreateMutable", "", _cFCharacterSetCreateMutableErr)
 	}
 	return _cFCharacterSetCreateMutable(alloc), nil
 }
@@ -4024,7 +4024,7 @@ var _cFCharacterSetCreateMutableCopyErr error
 
 func tryCFCharacterSetCreateMutableCopy(alloc CFAllocatorRef, theSet CFCharacterSetRef) (CFMutableCharacterSetRef, error) {
 	if _cFCharacterSetCreateMutableCopy == nil {
-		return 0, symbolCallError("CFCharacterSetCreateMutableCopy", "", _cFCharacterSetCreateMutableCopyErr)
+		return *new(CFMutableCharacterSetRef), symbolCallError("CFCharacterSetCreateMutableCopy", "", _cFCharacterSetCreateMutableCopyErr)
 	}
 	return _cFCharacterSetCreateMutableCopy(alloc, theSet), nil
 }
@@ -4045,7 +4045,7 @@ var _cFCharacterSetCreateWithBitmapRepresentationErr error
 
 func tryCFCharacterSetCreateWithBitmapRepresentation(alloc CFAllocatorRef, theData CFDataRef) (CFCharacterSetRef, error) {
 	if _cFCharacterSetCreateWithBitmapRepresentation == nil {
-		return 0, symbolCallError("CFCharacterSetCreateWithBitmapRepresentation", "", _cFCharacterSetCreateWithBitmapRepresentationErr)
+		return *new(CFCharacterSetRef), symbolCallError("CFCharacterSetCreateWithBitmapRepresentation", "", _cFCharacterSetCreateWithBitmapRepresentationErr)
 	}
 	return _cFCharacterSetCreateWithBitmapRepresentation(alloc, theData), nil
 }
@@ -4066,7 +4066,7 @@ var _cFCharacterSetCreateWithCharactersInRangeErr error
 
 func tryCFCharacterSetCreateWithCharactersInRange(alloc CFAllocatorRef, theRange CFRange) (CFCharacterSetRef, error) {
 	if _cFCharacterSetCreateWithCharactersInRange == nil {
-		return 0, symbolCallError("CFCharacterSetCreateWithCharactersInRange", "", _cFCharacterSetCreateWithCharactersInRangeErr)
+		return *new(CFCharacterSetRef), symbolCallError("CFCharacterSetCreateWithCharactersInRange", "", _cFCharacterSetCreateWithCharactersInRangeErr)
 	}
 	return _cFCharacterSetCreateWithCharactersInRange(alloc, theRange), nil
 }
@@ -4087,7 +4087,7 @@ var _cFCharacterSetCreateWithCharactersInStringErr error
 
 func tryCFCharacterSetCreateWithCharactersInString(alloc CFAllocatorRef, theString CFStringRef) (CFCharacterSetRef, error) {
 	if _cFCharacterSetCreateWithCharactersInString == nil {
-		return 0, symbolCallError("CFCharacterSetCreateWithCharactersInString", "", _cFCharacterSetCreateWithCharactersInStringErr)
+		return *new(CFCharacterSetRef), symbolCallError("CFCharacterSetCreateWithCharactersInString", "", _cFCharacterSetCreateWithCharactersInStringErr)
 	}
 	return _cFCharacterSetCreateWithCharactersInString(alloc, theString), nil
 }
@@ -4108,7 +4108,7 @@ var _cFCharacterSetGetPredefinedErr error
 
 func tryCFCharacterSetGetPredefined(theSetIdentifier CFCharacterSetPredefinedSet) (CFCharacterSetRef, error) {
 	if _cFCharacterSetGetPredefined == nil {
-		return 0, symbolCallError("CFCharacterSetGetPredefined", "", _cFCharacterSetGetPredefinedErr)
+		return *new(CFCharacterSetRef), symbolCallError("CFCharacterSetGetPredefined", "", _cFCharacterSetGetPredefinedErr)
 	}
 	return _cFCharacterSetGetPredefined(theSetIdentifier), nil
 }
@@ -4334,7 +4334,7 @@ var _cFCopyDescriptionErr error
 
 func tryCFCopyDescription(cf CFTypeRef) (CFStringRef, error) {
 	if _cFCopyDescription == nil {
-		return 0, symbolCallError("CFCopyDescription", "", _cFCopyDescriptionErr)
+		return *new(CFStringRef), symbolCallError("CFCopyDescription", "", _cFCopyDescriptionErr)
 	}
 	return _cFCopyDescription(cf), nil
 }
@@ -4355,7 +4355,7 @@ var _cFCopyTypeIDDescriptionErr error
 
 func tryCFCopyTypeIDDescription(type_id uint) (CFStringRef, error) {
 	if _cFCopyTypeIDDescription == nil {
-		return 0, symbolCallError("CFCopyTypeIDDescription", "", _cFCopyTypeIDDescriptionErr)
+		return *new(CFStringRef), symbolCallError("CFCopyTypeIDDescription", "", _cFCopyTypeIDDescriptionErr)
 	}
 	return _cFCopyTypeIDDescription(type_id), nil
 }
@@ -4396,7 +4396,7 @@ var _cFDataCreateErr error
 
 func tryCFDataCreate(allocator CFAllocatorRef, bytes []byte, length int) (CFDataRef, error) {
 	if _cFDataCreate == nil {
-		return 0, symbolCallError("CFDataCreate", "", _cFDataCreateErr)
+		return *new(CFDataRef), symbolCallError("CFDataCreate", "", _cFDataCreateErr)
 	}
 	return _cFDataCreate(allocator, unsafe.SliceData(bytes), length), nil
 }
@@ -4417,7 +4417,7 @@ var _cFDataCreateCopyErr error
 
 func tryCFDataCreateCopy(allocator CFAllocatorRef, theData CFDataRef) (CFDataRef, error) {
 	if _cFDataCreateCopy == nil {
-		return 0, symbolCallError("CFDataCreateCopy", "", _cFDataCreateCopyErr)
+		return *new(CFDataRef), symbolCallError("CFDataCreateCopy", "", _cFDataCreateCopyErr)
 	}
 	return _cFDataCreateCopy(allocator, theData), nil
 }
@@ -4438,7 +4438,7 @@ var _cFDataCreateMutableErr error
 
 func tryCFDataCreateMutable(allocator CFAllocatorRef, capacity int) (CFMutableDataRef, error) {
 	if _cFDataCreateMutable == nil {
-		return 0, symbolCallError("CFDataCreateMutable", "", _cFDataCreateMutableErr)
+		return *new(CFMutableDataRef), symbolCallError("CFDataCreateMutable", "", _cFDataCreateMutableErr)
 	}
 	return _cFDataCreateMutable(allocator, capacity), nil
 }
@@ -4459,7 +4459,7 @@ var _cFDataCreateMutableCopyErr error
 
 func tryCFDataCreateMutableCopy(allocator CFAllocatorRef, capacity int, theData CFDataRef) (CFMutableDataRef, error) {
 	if _cFDataCreateMutableCopy == nil {
-		return 0, symbolCallError("CFDataCreateMutableCopy", "", _cFDataCreateMutableCopyErr)
+		return *new(CFMutableDataRef), symbolCallError("CFDataCreateMutableCopy", "", _cFDataCreateMutableCopyErr)
 	}
 	return _cFDataCreateMutableCopy(allocator, capacity, theData), nil
 }
@@ -4480,7 +4480,7 @@ var _cFDataCreateWithBytesNoCopyErr error
 
 func tryCFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) (CFDataRef, error) {
 	if _cFDataCreateWithBytesNoCopy == nil {
-		return 0, symbolCallError("CFDataCreateWithBytesNoCopy", "", _cFDataCreateWithBytesNoCopyErr)
+		return *new(CFDataRef), symbolCallError("CFDataCreateWithBytesNoCopy", "", _cFDataCreateWithBytesNoCopyErr)
 	}
 	return _cFDataCreateWithBytesNoCopy(allocator, unsafe.SliceData(bytes), length, bytesDeallocator), nil
 }
@@ -4727,7 +4727,7 @@ var _cFDateCreateErr error
 
 func tryCFDateCreate(allocator CFAllocatorRef, at CFAbsoluteTime) (CFDateRef, error) {
 	if _cFDateCreate == nil {
-		return 0, symbolCallError("CFDateCreate", "", _cFDateCreateErr)
+		return *new(CFDateRef), symbolCallError("CFDateCreate", "", _cFDateCreateErr)
 	}
 	return _cFDateCreate(allocator, at), nil
 }
@@ -4748,7 +4748,7 @@ var _cFDateFormatterCopyPropertyErr error
 
 func tryCFDateFormatterCopyProperty(formatter CFDateFormatterRef, key CFDateFormatterKey) (CFTypeRef, error) {
 	if _cFDateFormatterCopyProperty == nil {
-		return nil, symbolCallError("CFDateFormatterCopyProperty", "", _cFDateFormatterCopyPropertyErr)
+		return *new(CFTypeRef), symbolCallError("CFDateFormatterCopyProperty", "", _cFDateFormatterCopyPropertyErr)
 	}
 	return _cFDateFormatterCopyProperty(formatter, key), nil
 }
@@ -4769,7 +4769,7 @@ var _cFDateFormatterCreateErr error
 
 func tryCFDateFormatterCreate(allocator CFAllocatorRef, locale CFLocaleRef, dateStyle CFDateFormatterStyle, timeStyle CFDateFormatterStyle) (CFDateFormatterRef, error) {
 	if _cFDateFormatterCreate == nil {
-		return 0, symbolCallError("CFDateFormatterCreate", "", _cFDateFormatterCreateErr)
+		return *new(CFDateFormatterRef), symbolCallError("CFDateFormatterCreate", "", _cFDateFormatterCreateErr)
 	}
 	return _cFDateFormatterCreate(allocator, locale, dateStyle, timeStyle), nil
 }
@@ -4790,7 +4790,7 @@ var _cFDateFormatterCreateDateFormatFromTemplateErr error
 
 func tryCFDateFormatterCreateDateFormatFromTemplate(allocator CFAllocatorRef, tmplate CFStringRef, options uint64, locale CFLocaleRef) (CFStringRef, error) {
 	if _cFDateFormatterCreateDateFormatFromTemplate == nil {
-		return 0, symbolCallError("CFDateFormatterCreateDateFormatFromTemplate", "10.6", _cFDateFormatterCreateDateFormatFromTemplateErr)
+		return *new(CFStringRef), symbolCallError("CFDateFormatterCreateDateFormatFromTemplate", "10.6", _cFDateFormatterCreateDateFormatFromTemplateErr)
 	}
 	return _cFDateFormatterCreateDateFormatFromTemplate(allocator, tmplate, options, locale), nil
 }
@@ -4811,7 +4811,7 @@ var _cFDateFormatterCreateDateFromStringErr error
 
 func tryCFDateFormatterCreateDateFromString(allocator CFAllocatorRef, formatter CFDateFormatterRef, string_ CFStringRef, rangep *CFRange) (CFDateRef, error) {
 	if _cFDateFormatterCreateDateFromString == nil {
-		return 0, symbolCallError("CFDateFormatterCreateDateFromString", "", _cFDateFormatterCreateDateFromStringErr)
+		return *new(CFDateRef), symbolCallError("CFDateFormatterCreateDateFromString", "", _cFDateFormatterCreateDateFromStringErr)
 	}
 	return _cFDateFormatterCreateDateFromString(allocator, formatter, string_, rangep), nil
 }
@@ -4832,7 +4832,7 @@ var _cFDateFormatterCreateISO8601FormatterErr error
 
 func tryCFDateFormatterCreateISO8601Formatter(allocator CFAllocatorRef, formatOptions CFISO8601DateFormatOptions) (CFDateFormatterRef, error) {
 	if _cFDateFormatterCreateISO8601Formatter == nil {
-		return 0, symbolCallError("CFDateFormatterCreateISO8601Formatter", "10.12", _cFDateFormatterCreateISO8601FormatterErr)
+		return *new(CFDateFormatterRef), symbolCallError("CFDateFormatterCreateISO8601Formatter", "10.12", _cFDateFormatterCreateISO8601FormatterErr)
 	}
 	return _cFDateFormatterCreateISO8601Formatter(allocator, formatOptions), nil
 }
@@ -4853,7 +4853,7 @@ var _cFDateFormatterCreateStringWithAbsoluteTimeErr error
 
 func tryCFDateFormatterCreateStringWithAbsoluteTime(allocator CFAllocatorRef, formatter CFDateFormatterRef, at CFAbsoluteTime) (CFStringRef, error) {
 	if _cFDateFormatterCreateStringWithAbsoluteTime == nil {
-		return 0, symbolCallError("CFDateFormatterCreateStringWithAbsoluteTime", "", _cFDateFormatterCreateStringWithAbsoluteTimeErr)
+		return *new(CFStringRef), symbolCallError("CFDateFormatterCreateStringWithAbsoluteTime", "", _cFDateFormatterCreateStringWithAbsoluteTimeErr)
 	}
 	return _cFDateFormatterCreateStringWithAbsoluteTime(allocator, formatter, at), nil
 }
@@ -4874,7 +4874,7 @@ var _cFDateFormatterCreateStringWithDateErr error
 
 func tryCFDateFormatterCreateStringWithDate(allocator CFAllocatorRef, formatter CFDateFormatterRef, date CFDateRef) (CFStringRef, error) {
 	if _cFDateFormatterCreateStringWithDate == nil {
-		return 0, symbolCallError("CFDateFormatterCreateStringWithDate", "", _cFDateFormatterCreateStringWithDateErr)
+		return *new(CFStringRef), symbolCallError("CFDateFormatterCreateStringWithDate", "", _cFDateFormatterCreateStringWithDateErr)
 	}
 	return _cFDateFormatterCreateStringWithDate(allocator, formatter, date), nil
 }
@@ -4937,7 +4937,7 @@ var _cFDateFormatterGetFormatErr error
 
 func tryCFDateFormatterGetFormat(formatter CFDateFormatterRef) (CFStringRef, error) {
 	if _cFDateFormatterGetFormat == nil {
-		return 0, symbolCallError("CFDateFormatterGetFormat", "", _cFDateFormatterGetFormatErr)
+		return *new(CFStringRef), symbolCallError("CFDateFormatterGetFormat", "", _cFDateFormatterGetFormatErr)
 	}
 	return _cFDateFormatterGetFormat(formatter), nil
 }
@@ -4958,7 +4958,7 @@ var _cFDateFormatterGetLocaleErr error
 
 func tryCFDateFormatterGetLocale(formatter CFDateFormatterRef) (CFLocaleRef, error) {
 	if _cFDateFormatterGetLocale == nil {
-		return 0, symbolCallError("CFDateFormatterGetLocale", "", _cFDateFormatterGetLocaleErr)
+		return *new(CFLocaleRef), symbolCallError("CFDateFormatterGetLocale", "", _cFDateFormatterGetLocaleErr)
 	}
 	return _cFDateFormatterGetLocale(formatter), nil
 }
@@ -5206,7 +5206,7 @@ var _cFDictionaryCreateErr error
 
 func tryCFDictionaryCreate(allocator CFAllocatorRef, keys unsafe.Pointer, values unsafe.Pointer, numValues int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) (CFDictionaryRef, error) {
 	if _cFDictionaryCreate == nil {
-		return 0, symbolCallError("CFDictionaryCreate", "", _cFDictionaryCreateErr)
+		return *new(CFDictionaryRef), symbolCallError("CFDictionaryCreate", "", _cFDictionaryCreateErr)
 	}
 	return _cFDictionaryCreate(allocator, keys, values, numValues, keyCallBacks, valueCallBacks), nil
 }
@@ -5227,7 +5227,7 @@ var _cFDictionaryCreateCopyErr error
 
 func tryCFDictionaryCreateCopy(allocator CFAllocatorRef, theDict CFDictionaryRef) (CFDictionaryRef, error) {
 	if _cFDictionaryCreateCopy == nil {
-		return 0, symbolCallError("CFDictionaryCreateCopy", "", _cFDictionaryCreateCopyErr)
+		return *new(CFDictionaryRef), symbolCallError("CFDictionaryCreateCopy", "", _cFDictionaryCreateCopyErr)
 	}
 	return _cFDictionaryCreateCopy(allocator, theDict), nil
 }
@@ -5248,7 +5248,7 @@ var _cFDictionaryCreateMutableErr error
 
 func tryCFDictionaryCreateMutable(allocator CFAllocatorRef, capacity int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) (CFMutableDictionaryRef, error) {
 	if _cFDictionaryCreateMutable == nil {
-		return 0, symbolCallError("CFDictionaryCreateMutable", "", _cFDictionaryCreateMutableErr)
+		return *new(CFMutableDictionaryRef), symbolCallError("CFDictionaryCreateMutable", "", _cFDictionaryCreateMutableErr)
 	}
 	return _cFDictionaryCreateMutable(allocator, capacity, keyCallBacks, valueCallBacks), nil
 }
@@ -5269,7 +5269,7 @@ var _cFDictionaryCreateMutableCopyErr error
 
 func tryCFDictionaryCreateMutableCopy(allocator CFAllocatorRef, capacity int, theDict CFDictionaryRef) (CFMutableDictionaryRef, error) {
 	if _cFDictionaryCreateMutableCopy == nil {
-		return 0, symbolCallError("CFDictionaryCreateMutableCopy", "", _cFDictionaryCreateMutableCopyErr)
+		return *new(CFMutableDictionaryRef), symbolCallError("CFDictionaryCreateMutableCopy", "", _cFDictionaryCreateMutableCopyErr)
 	}
 	return _cFDictionaryCreateMutableCopy(allocator, capacity, theDict), nil
 }
@@ -5537,7 +5537,7 @@ var _cFErrorCopyDescriptionErr error
 
 func tryCFErrorCopyDescription(err CFErrorRef) (CFStringRef, error) {
 	if _cFErrorCopyDescription == nil {
-		return 0, symbolCallError("CFErrorCopyDescription", "10.5", _cFErrorCopyDescriptionErr)
+		return *new(CFStringRef), symbolCallError("CFErrorCopyDescription", "10.5", _cFErrorCopyDescriptionErr)
 	}
 	return _cFErrorCopyDescription(err), nil
 }
@@ -5558,7 +5558,7 @@ var _cFErrorCopyFailureReasonErr error
 
 func tryCFErrorCopyFailureReason(err CFErrorRef) (CFStringRef, error) {
 	if _cFErrorCopyFailureReason == nil {
-		return 0, symbolCallError("CFErrorCopyFailureReason", "10.5", _cFErrorCopyFailureReasonErr)
+		return *new(CFStringRef), symbolCallError("CFErrorCopyFailureReason", "10.5", _cFErrorCopyFailureReasonErr)
 	}
 	return _cFErrorCopyFailureReason(err), nil
 }
@@ -5579,7 +5579,7 @@ var _cFErrorCopyRecoverySuggestionErr error
 
 func tryCFErrorCopyRecoverySuggestion(err CFErrorRef) (CFStringRef, error) {
 	if _cFErrorCopyRecoverySuggestion == nil {
-		return 0, symbolCallError("CFErrorCopyRecoverySuggestion", "10.5", _cFErrorCopyRecoverySuggestionErr)
+		return *new(CFStringRef), symbolCallError("CFErrorCopyRecoverySuggestion", "10.5", _cFErrorCopyRecoverySuggestionErr)
 	}
 	return _cFErrorCopyRecoverySuggestion(err), nil
 }
@@ -5600,7 +5600,7 @@ var _cFErrorCopyUserInfoErr error
 
 func tryCFErrorCopyUserInfo(err CFErrorRef) (CFDictionaryRef, error) {
 	if _cFErrorCopyUserInfo == nil {
-		return 0, symbolCallError("CFErrorCopyUserInfo", "10.5", _cFErrorCopyUserInfoErr)
+		return *new(CFDictionaryRef), symbolCallError("CFErrorCopyUserInfo", "10.5", _cFErrorCopyUserInfoErr)
 	}
 	return _cFErrorCopyUserInfo(err), nil
 }
@@ -5621,7 +5621,7 @@ var _cFErrorCreateErr error
 
 func tryCFErrorCreate(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfo CFDictionaryRef) (CFErrorRef, error) {
 	if _cFErrorCreate == nil {
-		return 0, symbolCallError("CFErrorCreate", "10.5", _cFErrorCreateErr)
+		return *new(CFErrorRef), symbolCallError("CFErrorCreate", "10.5", _cFErrorCreateErr)
 	}
 	return _cFErrorCreate(allocator, domain, code, userInfo), nil
 }
@@ -5642,7 +5642,7 @@ var _cFErrorCreateWithUserInfoKeysAndValuesErr error
 
 func tryCFErrorCreateWithUserInfoKeysAndValues(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfoKeys unsafe.Pointer, userInfoValues unsafe.Pointer, numUserInfoValues int) (CFErrorRef, error) {
 	if _cFErrorCreateWithUserInfoKeysAndValues == nil {
-		return 0, symbolCallError("CFErrorCreateWithUserInfoKeysAndValues", "10.5", _cFErrorCreateWithUserInfoKeysAndValuesErr)
+		return *new(CFErrorRef), symbolCallError("CFErrorCreateWithUserInfoKeysAndValues", "10.5", _cFErrorCreateWithUserInfoKeysAndValuesErr)
 	}
 	return _cFErrorCreateWithUserInfoKeysAndValues(allocator, domain, code, userInfoKeys, userInfoValues, numUserInfoValues), nil
 }
@@ -5726,7 +5726,7 @@ var _cFFileDescriptorCreateErr error
 
 func tryCFFileDescriptorCreate(allocator CFAllocatorRef, fd CFFileDescriptorNativeDescriptor, closeOnInvalidate bool, callout CFFileDescriptorCallBack, context *CFFileDescriptorContext) (CFFileDescriptorRef, error) {
 	if _cFFileDescriptorCreate == nil {
-		return 0, symbolCallError("CFFileDescriptorCreate", "10.5", _cFFileDescriptorCreateErr)
+		return *new(CFFileDescriptorRef), symbolCallError("CFFileDescriptorCreate", "10.5", _cFFileDescriptorCreateErr)
 	}
 	return _cFFileDescriptorCreate(allocator, fd, closeOnInvalidate, callout, context), nil
 }
@@ -5747,7 +5747,7 @@ var _cFFileDescriptorCreateRunLoopSourceErr error
 
 func tryCFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDescriptorRef, order int) (CFRunLoopSourceRef, error) {
 	if _cFFileDescriptorCreateRunLoopSource == nil {
-		return 0, symbolCallError("CFFileDescriptorCreateRunLoopSource", "10.5", _cFFileDescriptorCreateRunLoopSourceErr)
+		return *new(CFRunLoopSourceRef), symbolCallError("CFFileDescriptorCreateRunLoopSource", "10.5", _cFFileDescriptorCreateRunLoopSourceErr)
 	}
 	return _cFFileDescriptorCreateRunLoopSource(allocator, f, order), nil
 }
@@ -5927,10 +5927,10 @@ func CFFileSecurityClearProperties(fileSec CFFileSecurityRef, clearPropertyMask 
 	return result
 }
 
-var _cFFileSecurityCopyAccessControlList func(fileSec CFFileSecurityRef, accessControlList uintptr) bool
+var _cFFileSecurityCopyAccessControlList func(fileSec CFFileSecurityRef, accessControlList unsafe.Pointer) bool
 var _cFFileSecurityCopyAccessControlListErr error
 
-func tryCFFileSecurityCopyAccessControlList(fileSec CFFileSecurityRef, accessControlList uintptr) (bool, error) {
+func tryCFFileSecurityCopyAccessControlList(fileSec CFFileSecurityRef, accessControlList unsafe.Pointer) (bool, error) {
 	if _cFFileSecurityCopyAccessControlList == nil {
 		return false, symbolCallError("CFFileSecurityCopyAccessControlList", "10.7", _cFFileSecurityCopyAccessControlListErr)
 	}
@@ -5940,7 +5940,7 @@ func tryCFFileSecurityCopyAccessControlList(fileSec CFFileSecurityRef, accessCon
 // CFFileSecurityCopyAccessControlList copies the access control list associated with a [CFFileSecurityRef] object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurityCopyAccessControlList(_:_:)
-func CFFileSecurityCopyAccessControlList(fileSec CFFileSecurityRef, accessControlList uintptr) bool {
+func CFFileSecurityCopyAccessControlList(fileSec CFFileSecurityRef, accessControlList unsafe.Pointer) bool {
 	result, callErr := tryCFFileSecurityCopyAccessControlList(fileSec, accessControlList)
 	if callErr != nil {
 		panic(callErr)
@@ -5995,7 +5995,7 @@ var _cFFileSecurityCreateErr error
 
 func tryCFFileSecurityCreate(allocator CFAllocatorRef) (CFFileSecurityRef, error) {
 	if _cFFileSecurityCreate == nil {
-		return 0, symbolCallError("CFFileSecurityCreate", "10.7", _cFFileSecurityCreateErr)
+		return *new(CFFileSecurityRef), symbolCallError("CFFileSecurityCreate", "10.7", _cFFileSecurityCreateErr)
 	}
 	return _cFFileSecurityCreate(allocator), nil
 }
@@ -6016,7 +6016,7 @@ var _cFFileSecurityCreateCopyErr error
 
 func tryCFFileSecurityCreateCopy(allocator CFAllocatorRef, fileSec CFFileSecurityRef) (CFFileSecurityRef, error) {
 	if _cFFileSecurityCreateCopy == nil {
-		return 0, symbolCallError("CFFileSecurityCreateCopy", "10.7", _cFFileSecurityCreateCopyErr)
+		return *new(CFFileSecurityRef), symbolCallError("CFFileSecurityCreateCopy", "10.7", _cFFileSecurityCreateCopyErr)
 	}
 	return _cFFileSecurityCreateCopy(allocator, fileSec), nil
 }
@@ -6247,7 +6247,7 @@ var _cFGetAllocatorErr error
 
 func tryCFGetAllocator(cf CFTypeRef) (CFAllocatorRef, error) {
 	if _cFGetAllocator == nil {
-		return 0, symbolCallError("CFGetAllocator", "", _cFGetAllocatorErr)
+		return *new(CFAllocatorRef), symbolCallError("CFGetAllocator", "", _cFGetAllocatorErr)
 	}
 	return _cFGetAllocator(cf), nil
 }
@@ -6331,7 +6331,7 @@ var _cFLocaleCopyAvailableLocaleIdentifiersErr error
 
 func tryCFLocaleCopyAvailableLocaleIdentifiers() (CFArrayRef, error) {
 	if _cFLocaleCopyAvailableLocaleIdentifiers == nil {
-		return 0, symbolCallError("CFLocaleCopyAvailableLocaleIdentifiers", "", _cFLocaleCopyAvailableLocaleIdentifiersErr)
+		return *new(CFArrayRef), symbolCallError("CFLocaleCopyAvailableLocaleIdentifiers", "", _cFLocaleCopyAvailableLocaleIdentifiersErr)
 	}
 	return _cFLocaleCopyAvailableLocaleIdentifiers(), nil
 }
@@ -6352,7 +6352,7 @@ var _cFLocaleCopyCommonISOCurrencyCodesErr error
 
 func tryCFLocaleCopyCommonISOCurrencyCodes() (CFArrayRef, error) {
 	if _cFLocaleCopyCommonISOCurrencyCodes == nil {
-		return 0, symbolCallError("CFLocaleCopyCommonISOCurrencyCodes", "10.5", _cFLocaleCopyCommonISOCurrencyCodesErr)
+		return *new(CFArrayRef), symbolCallError("CFLocaleCopyCommonISOCurrencyCodes", "10.5", _cFLocaleCopyCommonISOCurrencyCodesErr)
 	}
 	return _cFLocaleCopyCommonISOCurrencyCodes(), nil
 }
@@ -6373,7 +6373,7 @@ var _cFLocaleCopyCurrentErr error
 
 func tryCFLocaleCopyCurrent() (CFLocaleRef, error) {
 	if _cFLocaleCopyCurrent == nil {
-		return 0, symbolCallError("CFLocaleCopyCurrent", "", _cFLocaleCopyCurrentErr)
+		return *new(CFLocaleRef), symbolCallError("CFLocaleCopyCurrent", "", _cFLocaleCopyCurrentErr)
 	}
 	return _cFLocaleCopyCurrent(), nil
 }
@@ -6394,7 +6394,7 @@ var _cFLocaleCopyDisplayNameForPropertyValueErr error
 
 func tryCFLocaleCopyDisplayNameForPropertyValue(displayLocale CFLocaleRef, key CFLocaleKey, value CFStringRef) (CFStringRef, error) {
 	if _cFLocaleCopyDisplayNameForPropertyValue == nil {
-		return 0, symbolCallError("CFLocaleCopyDisplayNameForPropertyValue", "", _cFLocaleCopyDisplayNameForPropertyValueErr)
+		return *new(CFStringRef), symbolCallError("CFLocaleCopyDisplayNameForPropertyValue", "", _cFLocaleCopyDisplayNameForPropertyValueErr)
 	}
 	return _cFLocaleCopyDisplayNameForPropertyValue(displayLocale, key, value), nil
 }
@@ -6415,7 +6415,7 @@ var _cFLocaleCopyISOCountryCodesErr error
 
 func tryCFLocaleCopyISOCountryCodes() (CFArrayRef, error) {
 	if _cFLocaleCopyISOCountryCodes == nil {
-		return 0, symbolCallError("CFLocaleCopyISOCountryCodes", "", _cFLocaleCopyISOCountryCodesErr)
+		return *new(CFArrayRef), symbolCallError("CFLocaleCopyISOCountryCodes", "", _cFLocaleCopyISOCountryCodesErr)
 	}
 	return _cFLocaleCopyISOCountryCodes(), nil
 }
@@ -6436,7 +6436,7 @@ var _cFLocaleCopyISOCurrencyCodesErr error
 
 func tryCFLocaleCopyISOCurrencyCodes() (CFArrayRef, error) {
 	if _cFLocaleCopyISOCurrencyCodes == nil {
-		return 0, symbolCallError("CFLocaleCopyISOCurrencyCodes", "", _cFLocaleCopyISOCurrencyCodesErr)
+		return *new(CFArrayRef), symbolCallError("CFLocaleCopyISOCurrencyCodes", "", _cFLocaleCopyISOCurrencyCodesErr)
 	}
 	return _cFLocaleCopyISOCurrencyCodes(), nil
 }
@@ -6457,7 +6457,7 @@ var _cFLocaleCopyISOLanguageCodesErr error
 
 func tryCFLocaleCopyISOLanguageCodes() (CFArrayRef, error) {
 	if _cFLocaleCopyISOLanguageCodes == nil {
-		return 0, symbolCallError("CFLocaleCopyISOLanguageCodes", "", _cFLocaleCopyISOLanguageCodesErr)
+		return *new(CFArrayRef), symbolCallError("CFLocaleCopyISOLanguageCodes", "", _cFLocaleCopyISOLanguageCodesErr)
 	}
 	return _cFLocaleCopyISOLanguageCodes(), nil
 }
@@ -6478,7 +6478,7 @@ var _cFLocaleCopyPreferredLanguagesErr error
 
 func tryCFLocaleCopyPreferredLanguages() (CFArrayRef, error) {
 	if _cFLocaleCopyPreferredLanguages == nil {
-		return 0, symbolCallError("CFLocaleCopyPreferredLanguages", "10.5", _cFLocaleCopyPreferredLanguagesErr)
+		return *new(CFArrayRef), symbolCallError("CFLocaleCopyPreferredLanguages", "10.5", _cFLocaleCopyPreferredLanguagesErr)
 	}
 	return _cFLocaleCopyPreferredLanguages(), nil
 }
@@ -6499,7 +6499,7 @@ var _cFLocaleCreateErr error
 
 func tryCFLocaleCreate(allocator CFAllocatorRef, localeIdentifier CFLocaleIdentifier) (CFLocaleRef, error) {
 	if _cFLocaleCreate == nil {
-		return 0, symbolCallError("CFLocaleCreate", "", _cFLocaleCreateErr)
+		return *new(CFLocaleRef), symbolCallError("CFLocaleCreate", "", _cFLocaleCreateErr)
 	}
 	return _cFLocaleCreate(allocator, localeIdentifier), nil
 }
@@ -6583,7 +6583,7 @@ var _cFLocaleCreateComponentsFromLocaleIdentifierErr error
 
 func tryCFLocaleCreateComponentsFromLocaleIdentifier(allocator CFAllocatorRef, localeID CFLocaleIdentifier) (CFDictionaryRef, error) {
 	if _cFLocaleCreateComponentsFromLocaleIdentifier == nil {
-		return 0, symbolCallError("CFLocaleCreateComponentsFromLocaleIdentifier", "", _cFLocaleCreateComponentsFromLocaleIdentifierErr)
+		return *new(CFDictionaryRef), symbolCallError("CFLocaleCreateComponentsFromLocaleIdentifier", "", _cFLocaleCreateComponentsFromLocaleIdentifierErr)
 	}
 	return _cFLocaleCreateComponentsFromLocaleIdentifier(allocator, localeID), nil
 }
@@ -6604,7 +6604,7 @@ var _cFLocaleCreateCopyErr error
 
 func tryCFLocaleCreateCopy(allocator CFAllocatorRef, locale CFLocaleRef) (CFLocaleRef, error) {
 	if _cFLocaleCreateCopy == nil {
-		return 0, symbolCallError("CFLocaleCreateCopy", "", _cFLocaleCreateCopyErr)
+		return *new(CFLocaleRef), symbolCallError("CFLocaleCreateCopy", "", _cFLocaleCreateCopyErr)
 	}
 	return _cFLocaleCreateCopy(allocator, locale), nil
 }
@@ -6730,7 +6730,7 @@ var _cFLocaleGetSystemErr error
 
 func tryCFLocaleGetSystem() (CFLocaleRef, error) {
 	if _cFLocaleGetSystem == nil {
-		return 0, symbolCallError("CFLocaleGetSystem", "", _cFLocaleGetSystemErr)
+		return *new(CFLocaleRef), symbolCallError("CFLocaleGetSystem", "", _cFLocaleGetSystemErr)
 	}
 	return _cFLocaleGetSystem(), nil
 }
@@ -6772,7 +6772,7 @@ var _cFLocaleGetValueErr error
 
 func tryCFLocaleGetValue(locale CFLocaleRef, key CFLocaleKey) (CFTypeRef, error) {
 	if _cFLocaleGetValue == nil {
-		return nil, symbolCallError("CFLocaleGetValue", "", _cFLocaleGetValueErr)
+		return *new(CFTypeRef), symbolCallError("CFLocaleGetValue", "", _cFLocaleGetValueErr)
 	}
 	return _cFLocaleGetValue(locale, key), nil
 }
@@ -6814,7 +6814,7 @@ var _cFMachPortCreateErr error
 
 func tryCFMachPortCreate(allocator CFAllocatorRef, callout CFMachPortCallBack, context *CFMachPortContext, shouldFreeInfo *bool) (CFMachPortRef, error) {
 	if _cFMachPortCreate == nil {
-		return 0, symbolCallError("CFMachPortCreate", "", _cFMachPortCreateErr)
+		return *new(CFMachPortRef), symbolCallError("CFMachPortCreate", "", _cFMachPortCreateErr)
 	}
 	return _cFMachPortCreate(allocator, callout, context, shouldFreeInfo), nil
 }
@@ -6835,7 +6835,7 @@ var _cFMachPortCreateRunLoopSourceErr error
 
 func tryCFMachPortCreateRunLoopSource(allocator CFAllocatorRef, port CFMachPortRef, order int) (CFRunLoopSourceRef, error) {
 	if _cFMachPortCreateRunLoopSource == nil {
-		return 0, symbolCallError("CFMachPortCreateRunLoopSource", "", _cFMachPortCreateRunLoopSourceErr)
+		return *new(CFRunLoopSourceRef), symbolCallError("CFMachPortCreateRunLoopSource", "", _cFMachPortCreateRunLoopSourceErr)
 	}
 	return _cFMachPortCreateRunLoopSource(allocator, port, order), nil
 }
@@ -6856,7 +6856,7 @@ var _cFMachPortCreateWithPortErr error
 
 func tryCFMachPortCreateWithPort(allocator CFAllocatorRef, portNum uint32, callout CFMachPortCallBack, context *CFMachPortContext, shouldFreeInfo *bool) (CFMachPortRef, error) {
 	if _cFMachPortCreateWithPort == nil {
-		return 0, symbolCallError("CFMachPortCreateWithPort", "", _cFMachPortCreateWithPortErr)
+		return *new(CFMachPortRef), symbolCallError("CFMachPortCreateWithPort", "", _cFMachPortCreateWithPortErr)
 	}
 	return _cFMachPortCreateWithPort(allocator, portNum, callout, context, shouldFreeInfo), nil
 }
@@ -7021,7 +7021,7 @@ var _cFMakeCollectableErr error
 
 func tryCFMakeCollectable(cf CFTypeRef) (CFTypeRef, error) {
 	if _cFMakeCollectable == nil {
-		return nil, symbolCallError("CFMakeCollectable", "", _cFMakeCollectableErr)
+		return *new(CFTypeRef), symbolCallError("CFMakeCollectable", "", _cFMakeCollectableErr)
 	}
 	return _cFMakeCollectable(cf), nil
 }
@@ -7042,7 +7042,7 @@ var _cFMessagePortCreateLocalErr error
 
 func tryCFMessagePortCreateLocal(allocator CFAllocatorRef, name CFStringRef, callout CFMessagePortCallBack, context *CFMessagePortContext, shouldFreeInfo *bool) (CFMessagePortRef, error) {
 	if _cFMessagePortCreateLocal == nil {
-		return 0, symbolCallError("CFMessagePortCreateLocal", "", _cFMessagePortCreateLocalErr)
+		return *new(CFMessagePortRef), symbolCallError("CFMessagePortCreateLocal", "", _cFMessagePortCreateLocalErr)
 	}
 	return _cFMessagePortCreateLocal(allocator, name, callout, context, shouldFreeInfo), nil
 }
@@ -7063,7 +7063,7 @@ var _cFMessagePortCreateRemoteErr error
 
 func tryCFMessagePortCreateRemote(allocator CFAllocatorRef, name CFStringRef) (CFMessagePortRef, error) {
 	if _cFMessagePortCreateRemote == nil {
-		return 0, symbolCallError("CFMessagePortCreateRemote", "", _cFMessagePortCreateRemoteErr)
+		return *new(CFMessagePortRef), symbolCallError("CFMessagePortCreateRemote", "", _cFMessagePortCreateRemoteErr)
 	}
 	return _cFMessagePortCreateRemote(allocator, name), nil
 }
@@ -7084,7 +7084,7 @@ var _cFMessagePortCreateRunLoopSourceErr error
 
 func tryCFMessagePortCreateRunLoopSource(allocator CFAllocatorRef, local CFMessagePortRef, order int) (CFRunLoopSourceRef, error) {
 	if _cFMessagePortCreateRunLoopSource == nil {
-		return 0, symbolCallError("CFMessagePortCreateRunLoopSource", "", _cFMessagePortCreateRunLoopSourceErr)
+		return *new(CFRunLoopSourceRef), symbolCallError("CFMessagePortCreateRunLoopSource", "", _cFMessagePortCreateRunLoopSourceErr)
 	}
 	return _cFMessagePortCreateRunLoopSource(allocator, local, order), nil
 }
@@ -7146,7 +7146,7 @@ var _cFMessagePortGetNameErr error
 
 func tryCFMessagePortGetName(ms CFMessagePortRef) (CFStringRef, error) {
 	if _cFMessagePortGetName == nil {
-		return 0, symbolCallError("CFMessagePortGetName", "", _cFMessagePortGetNameErr)
+		return *new(CFStringRef), symbolCallError("CFMessagePortGetName", "", _cFMessagePortGetNameErr)
 	}
 	return _cFMessagePortGetName(ms), nil
 }
@@ -7352,7 +7352,7 @@ var _cFNotificationCenterGetDarwinNotifyCenterErr error
 
 func tryCFNotificationCenterGetDarwinNotifyCenter() (CFNotificationCenterRef, error) {
 	if _cFNotificationCenterGetDarwinNotifyCenter == nil {
-		return 0, symbolCallError("CFNotificationCenterGetDarwinNotifyCenter", "", _cFNotificationCenterGetDarwinNotifyCenterErr)
+		return *new(CFNotificationCenterRef), symbolCallError("CFNotificationCenterGetDarwinNotifyCenter", "", _cFNotificationCenterGetDarwinNotifyCenterErr)
 	}
 	return _cFNotificationCenterGetDarwinNotifyCenter(), nil
 }
@@ -7373,7 +7373,7 @@ var _cFNotificationCenterGetDistributedCenterErr error
 
 func tryCFNotificationCenterGetDistributedCenter() (CFNotificationCenterRef, error) {
 	if _cFNotificationCenterGetDistributedCenter == nil {
-		return 0, symbolCallError("CFNotificationCenterGetDistributedCenter", "", _cFNotificationCenterGetDistributedCenterErr)
+		return *new(CFNotificationCenterRef), symbolCallError("CFNotificationCenterGetDistributedCenter", "", _cFNotificationCenterGetDistributedCenterErr)
 	}
 	return _cFNotificationCenterGetDistributedCenter(), nil
 }
@@ -7394,7 +7394,7 @@ var _cFNotificationCenterGetLocalCenterErr error
 
 func tryCFNotificationCenterGetLocalCenter() (CFNotificationCenterRef, error) {
 	if _cFNotificationCenterGetLocalCenter == nil {
-		return 0, symbolCallError("CFNotificationCenterGetLocalCenter", "", _cFNotificationCenterGetLocalCenterErr)
+		return *new(CFNotificationCenterRef), symbolCallError("CFNotificationCenterGetLocalCenter", "", _cFNotificationCenterGetLocalCenterErr)
 	}
 	return _cFNotificationCenterGetLocalCenter(), nil
 }
@@ -7558,7 +7558,7 @@ var _cFNumberCreateErr error
 
 func tryCFNumberCreate(allocator CFAllocatorRef, theType CFNumberType, valuePtr unsafe.Pointer) (CFNumberRef, error) {
 	if _cFNumberCreate == nil {
-		return 0, symbolCallError("CFNumberCreate", "", _cFNumberCreateErr)
+		return *new(CFNumberRef), symbolCallError("CFNumberCreate", "", _cFNumberCreateErr)
 	}
 	return _cFNumberCreate(allocator, theType, valuePtr), nil
 }
@@ -7579,7 +7579,7 @@ var _cFNumberFormatterCopyPropertyErr error
 
 func tryCFNumberFormatterCopyProperty(formatter CFNumberFormatterRef, key CFNumberFormatterKey) (CFTypeRef, error) {
 	if _cFNumberFormatterCopyProperty == nil {
-		return nil, symbolCallError("CFNumberFormatterCopyProperty", "", _cFNumberFormatterCopyPropertyErr)
+		return *new(CFTypeRef), symbolCallError("CFNumberFormatterCopyProperty", "", _cFNumberFormatterCopyPropertyErr)
 	}
 	return _cFNumberFormatterCopyProperty(formatter, key), nil
 }
@@ -7600,7 +7600,7 @@ var _cFNumberFormatterCreateErr error
 
 func tryCFNumberFormatterCreate(allocator CFAllocatorRef, locale CFLocaleRef, style CFNumberFormatterStyle) (CFNumberFormatterRef, error) {
 	if _cFNumberFormatterCreate == nil {
-		return 0, symbolCallError("CFNumberFormatterCreate", "", _cFNumberFormatterCreateErr)
+		return *new(CFNumberFormatterRef), symbolCallError("CFNumberFormatterCreate", "", _cFNumberFormatterCreateErr)
 	}
 	return _cFNumberFormatterCreate(allocator, locale, style), nil
 }
@@ -7621,7 +7621,7 @@ var _cFNumberFormatterCreateNumberFromStringErr error
 
 func tryCFNumberFormatterCreateNumberFromString(allocator CFAllocatorRef, formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, options uint64) (CFNumberRef, error) {
 	if _cFNumberFormatterCreateNumberFromString == nil {
-		return 0, symbolCallError("CFNumberFormatterCreateNumberFromString", "", _cFNumberFormatterCreateNumberFromStringErr)
+		return *new(CFNumberRef), symbolCallError("CFNumberFormatterCreateNumberFromString", "", _cFNumberFormatterCreateNumberFromStringErr)
 	}
 	return _cFNumberFormatterCreateNumberFromString(allocator, formatter, string_, rangep, options), nil
 }
@@ -7642,7 +7642,7 @@ var _cFNumberFormatterCreateStringWithNumberErr error
 
 func tryCFNumberFormatterCreateStringWithNumber(allocator CFAllocatorRef, formatter CFNumberFormatterRef, number CFNumberRef) (CFStringRef, error) {
 	if _cFNumberFormatterCreateStringWithNumber == nil {
-		return 0, symbolCallError("CFNumberFormatterCreateStringWithNumber", "", _cFNumberFormatterCreateStringWithNumberErr)
+		return *new(CFStringRef), symbolCallError("CFNumberFormatterCreateStringWithNumber", "", _cFNumberFormatterCreateStringWithNumberErr)
 	}
 	return _cFNumberFormatterCreateStringWithNumber(allocator, formatter, number), nil
 }
@@ -7663,7 +7663,7 @@ var _cFNumberFormatterCreateStringWithValueErr error
 
 func tryCFNumberFormatterCreateStringWithValue(allocator CFAllocatorRef, formatter CFNumberFormatterRef, numberType CFNumberType, valuePtr unsafe.Pointer) (CFStringRef, error) {
 	if _cFNumberFormatterCreateStringWithValue == nil {
-		return 0, symbolCallError("CFNumberFormatterCreateStringWithValue", "", _cFNumberFormatterCreateStringWithValueErr)
+		return *new(CFStringRef), symbolCallError("CFNumberFormatterCreateStringWithValue", "", _cFNumberFormatterCreateStringWithValueErr)
 	}
 	return _cFNumberFormatterCreateStringWithValue(allocator, formatter, numberType, valuePtr), nil
 }
@@ -7705,7 +7705,7 @@ var _cFNumberFormatterGetFormatErr error
 
 func tryCFNumberFormatterGetFormat(formatter CFNumberFormatterRef) (CFStringRef, error) {
 	if _cFNumberFormatterGetFormat == nil {
-		return 0, symbolCallError("CFNumberFormatterGetFormat", "", _cFNumberFormatterGetFormatErr)
+		return *new(CFStringRef), symbolCallError("CFNumberFormatterGetFormat", "", _cFNumberFormatterGetFormatErr)
 	}
 	return _cFNumberFormatterGetFormat(formatter), nil
 }
@@ -7726,7 +7726,7 @@ var _cFNumberFormatterGetLocaleErr error
 
 func tryCFNumberFormatterGetLocale(formatter CFNumberFormatterRef) (CFLocaleRef, error) {
 	if _cFNumberFormatterGetLocale == nil {
-		return 0, symbolCallError("CFNumberFormatterGetLocale", "", _cFNumberFormatterGetLocaleErr)
+		return *new(CFLocaleRef), symbolCallError("CFNumberFormatterGetLocale", "", _cFNumberFormatterGetLocaleErr)
 	}
 	return _cFNumberFormatterGetLocale(formatter), nil
 }
@@ -7975,7 +7975,7 @@ var _cFPlugInCreateErr error
 
 func tryCFPlugInCreate(allocator CFAllocatorRef, plugInURL CFURLRef) (CFPlugInRef, error) {
 	if _cFPlugInCreate == nil {
-		return 0, symbolCallError("CFPlugInCreate", "", _cFPlugInCreateErr)
+		return *new(CFPlugInRef), symbolCallError("CFPlugInCreate", "", _cFPlugInCreateErr)
 	}
 	return _cFPlugInCreate(allocator, plugInURL), nil
 }
@@ -7996,7 +7996,7 @@ var _cFPlugInFindFactoriesForPlugInTypeErr error
 
 func tryCFPlugInFindFactoriesForPlugInType(typeUUID CFUUIDRef) (CFArrayRef, error) {
 	if _cFPlugInFindFactoriesForPlugInType == nil {
-		return 0, symbolCallError("CFPlugInFindFactoriesForPlugInType", "", _cFPlugInFindFactoriesForPlugInTypeErr)
+		return *new(CFArrayRef), symbolCallError("CFPlugInFindFactoriesForPlugInType", "", _cFPlugInFindFactoriesForPlugInTypeErr)
 	}
 	return _cFPlugInFindFactoriesForPlugInType(typeUUID), nil
 }
@@ -8017,7 +8017,7 @@ var _cFPlugInFindFactoriesForPlugInTypeInPlugInErr error
 
 func tryCFPlugInFindFactoriesForPlugInTypeInPlugIn(typeUUID CFUUIDRef, plugIn CFPlugInRef) (CFArrayRef, error) {
 	if _cFPlugInFindFactoriesForPlugInTypeInPlugIn == nil {
-		return 0, symbolCallError("CFPlugInFindFactoriesForPlugInTypeInPlugIn", "", _cFPlugInFindFactoriesForPlugInTypeInPlugInErr)
+		return *new(CFArrayRef), symbolCallError("CFPlugInFindFactoriesForPlugInTypeInPlugIn", "", _cFPlugInFindFactoriesForPlugInTypeInPlugInErr)
 	}
 	return _cFPlugInFindFactoriesForPlugInTypeInPlugIn(typeUUID, plugIn), nil
 }
@@ -8038,7 +8038,7 @@ var _cFPlugInGetBundleErr error
 
 func tryCFPlugInGetBundle(plugIn CFPlugInRef) (CFBundleRef, error) {
 	if _cFPlugInGetBundle == nil {
-		return 0, symbolCallError("CFPlugInGetBundle", "", _cFPlugInGetBundleErr)
+		return *new(CFBundleRef), symbolCallError("CFPlugInGetBundle", "", _cFPlugInGetBundleErr)
 	}
 	return _cFPlugInGetBundle(plugIn), nil
 }
@@ -8101,7 +8101,7 @@ var _cFPlugInInstanceCreateWithInstanceDataSizeErr error
 
 func tryCFPlugInInstanceCreateWithInstanceDataSize(allocator CFAllocatorRef, instanceDataSize int, deallocateInstanceFunction CFPlugInInstanceDeallocateInstanceDataFunction, factoryName CFStringRef, getInterfaceFunction CFPlugInInstanceGetInterfaceFunction) (CFPlugInInstanceRef, error) {
 	if _cFPlugInInstanceCreateWithInstanceDataSize == nil {
-		return 0, symbolCallError("CFPlugInInstanceCreateWithInstanceDataSize", "", _cFPlugInInstanceCreateWithInstanceDataSizeErr)
+		return *new(CFPlugInInstanceRef), symbolCallError("CFPlugInInstanceCreateWithInstanceDataSize", "", _cFPlugInInstanceCreateWithInstanceDataSizeErr)
 	}
 	return _cFPlugInInstanceCreateWithInstanceDataSize(allocator, instanceDataSize, deallocateInstanceFunction, factoryName, getInterfaceFunction), nil
 }
@@ -8122,7 +8122,7 @@ var _cFPlugInInstanceGetFactoryNameErr error
 
 func tryCFPlugInInstanceGetFactoryName(instance CFPlugInInstanceRef) (CFStringRef, error) {
 	if _cFPlugInInstanceGetFactoryName == nil {
-		return 0, symbolCallError("CFPlugInInstanceGetFactoryName", "", _cFPlugInInstanceGetFactoryNameErr)
+		return *new(CFStringRef), symbolCallError("CFPlugInInstanceGetFactoryName", "", _cFPlugInInstanceGetFactoryNameErr)
 	}
 	return _cFPlugInInstanceGetFactoryName(instance), nil
 }
@@ -8434,7 +8434,7 @@ var _cFPreferencesCopyAppValueErr error
 
 func tryCFPreferencesCopyAppValue(key CFStringRef, applicationID CFStringRef) (CFPropertyListRef, error) {
 	if _cFPreferencesCopyAppValue == nil {
-		return 0, symbolCallError("CFPreferencesCopyAppValue", "", _cFPreferencesCopyAppValueErr)
+		return *new(CFPropertyListRef), symbolCallError("CFPreferencesCopyAppValue", "", _cFPreferencesCopyAppValueErr)
 	}
 	return _cFPreferencesCopyAppValue(key, applicationID), nil
 }
@@ -8455,7 +8455,7 @@ var _cFPreferencesCopyKeyListErr error
 
 func tryCFPreferencesCopyKeyList(applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) (CFArrayRef, error) {
 	if _cFPreferencesCopyKeyList == nil {
-		return 0, symbolCallError("CFPreferencesCopyKeyList", "", _cFPreferencesCopyKeyListErr)
+		return *new(CFArrayRef), symbolCallError("CFPreferencesCopyKeyList", "", _cFPreferencesCopyKeyListErr)
 	}
 	return _cFPreferencesCopyKeyList(applicationID, userName, hostName), nil
 }
@@ -8476,7 +8476,7 @@ var _cFPreferencesCopyMultipleErr error
 
 func tryCFPreferencesCopyMultiple(keysToFetch CFArrayRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) (CFDictionaryRef, error) {
 	if _cFPreferencesCopyMultiple == nil {
-		return 0, symbolCallError("CFPreferencesCopyMultiple", "", _cFPreferencesCopyMultipleErr)
+		return *new(CFDictionaryRef), symbolCallError("CFPreferencesCopyMultiple", "", _cFPreferencesCopyMultipleErr)
 	}
 	return _cFPreferencesCopyMultiple(keysToFetch, applicationID, userName, hostName), nil
 }
@@ -8497,7 +8497,7 @@ var _cFPreferencesCopyValueErr error
 
 func tryCFPreferencesCopyValue(key CFStringRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) (CFPropertyListRef, error) {
 	if _cFPreferencesCopyValue == nil {
-		return 0, symbolCallError("CFPreferencesCopyValue", "", _cFPreferencesCopyValueErr)
+		return *new(CFPropertyListRef), symbolCallError("CFPreferencesCopyValue", "", _cFPreferencesCopyValueErr)
 	}
 	return _cFPreferencesCopyValue(key, applicationID, userName, hostName), nil
 }
@@ -8661,7 +8661,7 @@ var _cFPropertyListCreateDataErr error
 
 func tryCFPropertyListCreateData(allocator CFAllocatorRef, propertyList CFPropertyListRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) (CFDataRef, error) {
 	if _cFPropertyListCreateData == nil {
-		return 0, symbolCallError("CFPropertyListCreateData", "10.6", _cFPropertyListCreateDataErr)
+		return *new(CFDataRef), symbolCallError("CFPropertyListCreateData", "10.6", _cFPropertyListCreateDataErr)
 	}
 	return _cFPropertyListCreateData(allocator, propertyList, format, options, err), nil
 }
@@ -8682,7 +8682,7 @@ var _cFPropertyListCreateDeepCopyErr error
 
 func tryCFPropertyListCreateDeepCopy(allocator CFAllocatorRef, propertyList CFPropertyListRef, mutabilityOption uint64) (CFPropertyListRef, error) {
 	if _cFPropertyListCreateDeepCopy == nil {
-		return 0, symbolCallError("CFPropertyListCreateDeepCopy", "", _cFPropertyListCreateDeepCopyErr)
+		return *new(CFPropertyListRef), symbolCallError("CFPropertyListCreateDeepCopy", "", _cFPropertyListCreateDeepCopyErr)
 	}
 	return _cFPropertyListCreateDeepCopy(allocator, propertyList, mutabilityOption), nil
 }
@@ -8703,7 +8703,7 @@ var _cFPropertyListCreateWithDataErr error
 
 func tryCFPropertyListCreateWithData(allocator CFAllocatorRef, data CFDataRef, options uint64, format *CFPropertyListFormat, err *CFErrorRef) (CFPropertyListRef, error) {
 	if _cFPropertyListCreateWithData == nil {
-		return 0, symbolCallError("CFPropertyListCreateWithData", "10.6", _cFPropertyListCreateWithDataErr)
+		return *new(CFPropertyListRef), symbolCallError("CFPropertyListCreateWithData", "10.6", _cFPropertyListCreateWithDataErr)
 	}
 	return _cFPropertyListCreateWithData(allocator, data, options, format, err), nil
 }
@@ -8724,7 +8724,7 @@ var _cFPropertyListCreateWithStreamErr error
 
 func tryCFPropertyListCreateWithStream(allocator CFAllocatorRef, stream CFReadStreamRef, streamLength int, options uint64, format *CFPropertyListFormat, err *CFErrorRef) (CFPropertyListRef, error) {
 	if _cFPropertyListCreateWithStream == nil {
-		return 0, symbolCallError("CFPropertyListCreateWithStream", "10.6", _cFPropertyListCreateWithStreamErr)
+		return *new(CFPropertyListRef), symbolCallError("CFPropertyListCreateWithStream", "10.6", _cFPropertyListCreateWithStreamErr)
 	}
 	return _cFPropertyListCreateWithStream(allocator, stream, streamLength, options, format, err), nil
 }
@@ -8828,7 +8828,7 @@ var _cFReadStreamCopyErrorErr error
 
 func tryCFReadStreamCopyError(stream CFReadStreamRef) (CFErrorRef, error) {
 	if _cFReadStreamCopyError == nil {
-		return 0, symbolCallError("CFReadStreamCopyError", "10.5", _cFReadStreamCopyErrorErr)
+		return *new(CFErrorRef), symbolCallError("CFReadStreamCopyError", "10.5", _cFReadStreamCopyErrorErr)
 	}
 	return _cFReadStreamCopyError(stream), nil
 }
@@ -8849,7 +8849,7 @@ var _cFReadStreamCopyPropertyErr error
 
 func tryCFReadStreamCopyProperty(stream CFReadStreamRef, propertyName CFStreamPropertyKey) (CFTypeRef, error) {
 	if _cFReadStreamCopyProperty == nil {
-		return nil, symbolCallError("CFReadStreamCopyProperty", "", _cFReadStreamCopyPropertyErr)
+		return *new(CFTypeRef), symbolCallError("CFReadStreamCopyProperty", "", _cFReadStreamCopyPropertyErr)
 	}
 	return _cFReadStreamCopyProperty(stream, propertyName), nil
 }
@@ -8870,7 +8870,7 @@ var _cFReadStreamCreateWithBytesNoCopyErr error
 
 func tryCFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) (CFReadStreamRef, error) {
 	if _cFReadStreamCreateWithBytesNoCopy == nil {
-		return 0, symbolCallError("CFReadStreamCreateWithBytesNoCopy", "", _cFReadStreamCreateWithBytesNoCopyErr)
+		return *new(CFReadStreamRef), symbolCallError("CFReadStreamCreateWithBytesNoCopy", "", _cFReadStreamCreateWithBytesNoCopyErr)
 	}
 	return _cFReadStreamCreateWithBytesNoCopy(alloc, unsafe.SliceData(bytes), length, bytesDeallocator), nil
 }
@@ -8891,7 +8891,7 @@ var _cFReadStreamCreateWithFileErr error
 
 func tryCFReadStreamCreateWithFile(alloc CFAllocatorRef, fileURL CFURLRef) (CFReadStreamRef, error) {
 	if _cFReadStreamCreateWithFile == nil {
-		return 0, symbolCallError("CFReadStreamCreateWithFile", "", _cFReadStreamCreateWithFileErr)
+		return *new(CFReadStreamRef), symbolCallError("CFReadStreamCreateWithFile", "", _cFReadStreamCreateWithFileErr)
 	}
 	return _cFReadStreamCreateWithFile(alloc, fileURL), nil
 }
@@ -9183,7 +9183,7 @@ var _cFRetainErr error
 
 func tryCFRetain(cf CFTypeRef) (CFTypeRef, error) {
 	if _cFRetain == nil {
-		return nil, symbolCallError("CFRetain", "", _cFRetainErr)
+		return *new(CFTypeRef), symbolCallError("CFRetain", "", _cFRetainErr)
 	}
 	return _cFRetain(cf), nil
 }
@@ -9347,7 +9347,7 @@ var _cFRunLoopCopyAllModesErr error
 
 func tryCFRunLoopCopyAllModes(rl CFRunLoopRef) (CFArrayRef, error) {
 	if _cFRunLoopCopyAllModes == nil {
-		return 0, symbolCallError("CFRunLoopCopyAllModes", "", _cFRunLoopCopyAllModesErr)
+		return *new(CFArrayRef), symbolCallError("CFRunLoopCopyAllModes", "", _cFRunLoopCopyAllModesErr)
 	}
 	return _cFRunLoopCopyAllModes(rl), nil
 }
@@ -9389,7 +9389,7 @@ var _cFRunLoopGetCurrentErr error
 
 func tryCFRunLoopGetCurrent() (CFRunLoopRef, error) {
 	if _cFRunLoopGetCurrent == nil {
-		return 0, symbolCallError("CFRunLoopGetCurrent", "", _cFRunLoopGetCurrentErr)
+		return *new(CFRunLoopRef), symbolCallError("CFRunLoopGetCurrent", "", _cFRunLoopGetCurrentErr)
 	}
 	return _cFRunLoopGetCurrent(), nil
 }
@@ -9410,7 +9410,7 @@ var _cFRunLoopGetMainErr error
 
 func tryCFRunLoopGetMain() (CFRunLoopRef, error) {
 	if _cFRunLoopGetMain == nil {
-		return 0, symbolCallError("CFRunLoopGetMain", "", _cFRunLoopGetMainErr)
+		return *new(CFRunLoopRef), symbolCallError("CFRunLoopGetMain", "", _cFRunLoopGetMainErr)
 	}
 	return _cFRunLoopGetMain(), nil
 }
@@ -9494,7 +9494,7 @@ var _cFRunLoopObserverCreateErr error
 
 func tryCFRunLoopObserverCreate(allocator CFAllocatorRef, activities uint64, repeats bool, order int, callout CFRunLoopObserverCallBack, context *CFRunLoopObserverContext) (CFRunLoopObserverRef, error) {
 	if _cFRunLoopObserverCreate == nil {
-		return 0, symbolCallError("CFRunLoopObserverCreate", "", _cFRunLoopObserverCreateErr)
+		return *new(CFRunLoopObserverRef), symbolCallError("CFRunLoopObserverCreate", "", _cFRunLoopObserverCreateErr)
 	}
 	return _cFRunLoopObserverCreate(allocator, activities, repeats, order, callout, context), nil
 }
@@ -9515,7 +9515,7 @@ var _cFRunLoopObserverCreateWithHandlerErr error
 
 func tryCFRunLoopObserverCreateWithHandler(allocator CFAllocatorRef, activities uint64, repeats bool, order int) (CFRunLoopObserverRef, error) {
 	if _cFRunLoopObserverCreateWithHandler == nil {
-		return 0, symbolCallError("CFRunLoopObserverCreateWithHandler", "10.7", _cFRunLoopObserverCreateWithHandlerErr)
+		return *new(CFRunLoopObserverRef), symbolCallError("CFRunLoopObserverCreateWithHandler", "10.7", _cFRunLoopObserverCreateWithHandlerErr)
 	}
 	return _cFRunLoopObserverCreateWithHandler(allocator, activities, repeats, order), nil
 }
@@ -9802,7 +9802,7 @@ var _cFRunLoopSourceCreateErr error
 
 func tryCFRunLoopSourceCreate(allocator CFAllocatorRef, order int, context *CFRunLoopSourceContext) (CFRunLoopSourceRef, error) {
 	if _cFRunLoopSourceCreate == nil {
-		return 0, symbolCallError("CFRunLoopSourceCreate", "", _cFRunLoopSourceCreateErr)
+		return *new(CFRunLoopSourceRef), symbolCallError("CFRunLoopSourceCreate", "", _cFRunLoopSourceCreateErr)
 	}
 	return _cFRunLoopSourceCreate(allocator, order, context), nil
 }
@@ -9966,7 +9966,7 @@ var _cFRunLoopTimerCreateErr error
 
 func tryCFRunLoopTimerCreate(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int, callout CFRunLoopTimerCallBack, context *CFRunLoopTimerContext) (CFRunLoopTimerRef, error) {
 	if _cFRunLoopTimerCreate == nil {
-		return 0, symbolCallError("CFRunLoopTimerCreate", "", _cFRunLoopTimerCreateErr)
+		return *new(CFRunLoopTimerRef), symbolCallError("CFRunLoopTimerCreate", "", _cFRunLoopTimerCreateErr)
 	}
 	return _cFRunLoopTimerCreate(allocator, fireDate, interval, flags, order, callout, context), nil
 }
@@ -9987,7 +9987,7 @@ var _cFRunLoopTimerCreateWithHandlerErr error
 
 func tryCFRunLoopTimerCreateWithHandler(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int) (CFRunLoopTimerRef, error) {
 	if _cFRunLoopTimerCreateWithHandler == nil {
-		return 0, symbolCallError("CFRunLoopTimerCreateWithHandler", "10.7", _cFRunLoopTimerCreateWithHandlerErr)
+		return *new(CFRunLoopTimerRef), symbolCallError("CFRunLoopTimerCreateWithHandler", "10.7", _cFRunLoopTimerCreateWithHandlerErr)
 	}
 	return _cFRunLoopTimerCreateWithHandler(allocator, fireDate, interval, flags, order), nil
 }
@@ -10316,7 +10316,7 @@ var _cFSetCreateErr error
 
 func tryCFSetCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFSetCallBacks) (CFSetRef, error) {
 	if _cFSetCreate == nil {
-		return 0, symbolCallError("CFSetCreate", "", _cFSetCreateErr)
+		return *new(CFSetRef), symbolCallError("CFSetCreate", "", _cFSetCreateErr)
 	}
 	return _cFSetCreate(allocator, values, numValues, callBacks), nil
 }
@@ -10337,7 +10337,7 @@ var _cFSetCreateCopyErr error
 
 func tryCFSetCreateCopy(allocator CFAllocatorRef, theSet CFSetRef) (CFSetRef, error) {
 	if _cFSetCreateCopy == nil {
-		return 0, symbolCallError("CFSetCreateCopy", "", _cFSetCreateCopyErr)
+		return *new(CFSetRef), symbolCallError("CFSetCreateCopy", "", _cFSetCreateCopyErr)
 	}
 	return _cFSetCreateCopy(allocator, theSet), nil
 }
@@ -10358,7 +10358,7 @@ var _cFSetCreateMutableErr error
 
 func tryCFSetCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFSetCallBacks) (CFMutableSetRef, error) {
 	if _cFSetCreateMutable == nil {
-		return 0, symbolCallError("CFSetCreateMutable", "", _cFSetCreateMutableErr)
+		return *new(CFMutableSetRef), symbolCallError("CFSetCreateMutable", "", _cFSetCreateMutableErr)
 	}
 	return _cFSetCreateMutable(allocator, capacity, callBacks), nil
 }
@@ -10379,7 +10379,7 @@ var _cFSetCreateMutableCopyErr error
 
 func tryCFSetCreateMutableCopy(allocator CFAllocatorRef, capacity int, theSet CFSetRef) (CFMutableSetRef, error) {
 	if _cFSetCreateMutableCopy == nil {
-		return 0, symbolCallError("CFSetCreateMutableCopy", "", _cFSetCreateMutableCopyErr)
+		return *new(CFMutableSetRef), symbolCallError("CFSetCreateMutableCopy", "", _cFSetCreateMutableCopyErr)
 	}
 	return _cFSetCreateMutableCopy(allocator, capacity, theSet), nil
 }
@@ -10666,7 +10666,7 @@ var _cFSocketCopyAddressErr error
 
 func tryCFSocketCopyAddress(s CFSocketRef) (CFDataRef, error) {
 	if _cFSocketCopyAddress == nil {
-		return 0, symbolCallError("CFSocketCopyAddress", "", _cFSocketCopyAddressErr)
+		return *new(CFDataRef), symbolCallError("CFSocketCopyAddress", "", _cFSocketCopyAddressErr)
 	}
 	return _cFSocketCopyAddress(s), nil
 }
@@ -10687,7 +10687,7 @@ var _cFSocketCopyPeerAddressErr error
 
 func tryCFSocketCopyPeerAddress(s CFSocketRef) (CFDataRef, error) {
 	if _cFSocketCopyPeerAddress == nil {
-		return 0, symbolCallError("CFSocketCopyPeerAddress", "", _cFSocketCopyPeerAddressErr)
+		return *new(CFDataRef), symbolCallError("CFSocketCopyPeerAddress", "", _cFSocketCopyPeerAddressErr)
 	}
 	return _cFSocketCopyPeerAddress(s), nil
 }
@@ -10750,7 +10750,7 @@ var _cFSocketCreateErr error
 
 func tryCFSocketCreate(allocator CFAllocatorRef, protocolFamily int32, socketType int32, protocol_ int32, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
 	if _cFSocketCreate == nil {
-		return 0, symbolCallError("CFSocketCreate", "", _cFSocketCreateErr)
+		return *new(CFSocketRef), symbolCallError("CFSocketCreate", "", _cFSocketCreateErr)
 	}
 	return _cFSocketCreate(allocator, protocolFamily, socketType, protocol_, callBackTypes, callout, context), nil
 }
@@ -10771,7 +10771,7 @@ var _cFSocketCreateConnectedToSocketSignatureErr error
 
 func tryCFSocketCreateConnectedToSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext, timeout float64) (CFSocketRef, error) {
 	if _cFSocketCreateConnectedToSocketSignature == nil {
-		return 0, symbolCallError("CFSocketCreateConnectedToSocketSignature", "", _cFSocketCreateConnectedToSocketSignatureErr)
+		return *new(CFSocketRef), symbolCallError("CFSocketCreateConnectedToSocketSignature", "", _cFSocketCreateConnectedToSocketSignatureErr)
 	}
 	return _cFSocketCreateConnectedToSocketSignature(allocator, signature, callBackTypes, callout, context, timeout), nil
 }
@@ -10792,7 +10792,7 @@ var _cFSocketCreateRunLoopSourceErr error
 
 func tryCFSocketCreateRunLoopSource(allocator CFAllocatorRef, s CFSocketRef, order int) (CFRunLoopSourceRef, error) {
 	if _cFSocketCreateRunLoopSource == nil {
-		return 0, symbolCallError("CFSocketCreateRunLoopSource", "", _cFSocketCreateRunLoopSourceErr)
+		return *new(CFRunLoopSourceRef), symbolCallError("CFSocketCreateRunLoopSource", "", _cFSocketCreateRunLoopSourceErr)
 	}
 	return _cFSocketCreateRunLoopSource(allocator, s, order), nil
 }
@@ -10813,7 +10813,7 @@ var _cFSocketCreateWithNativeErr error
 
 func tryCFSocketCreateWithNative(allocator CFAllocatorRef, sock CFSocketNativeHandle, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
 	if _cFSocketCreateWithNative == nil {
-		return 0, symbolCallError("CFSocketCreateWithNative", "", _cFSocketCreateWithNativeErr)
+		return *new(CFSocketRef), symbolCallError("CFSocketCreateWithNative", "", _cFSocketCreateWithNativeErr)
 	}
 	return _cFSocketCreateWithNative(allocator, sock, callBackTypes, callout, context), nil
 }
@@ -10834,7 +10834,7 @@ var _cFSocketCreateWithSocketSignatureErr error
 
 func tryCFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
 	if _cFSocketCreateWithSocketSignature == nil {
-		return 0, symbolCallError("CFSocketCreateWithSocketSignature", "", _cFSocketCreateWithSocketSignatureErr)
+		return *new(CFSocketRef), symbolCallError("CFSocketCreateWithSocketSignature", "", _cFSocketCreateWithSocketSignatureErr)
 	}
 	return _cFSocketCreateWithSocketSignature(allocator, signature, callBackTypes, callout, context), nil
 }
@@ -11474,7 +11474,7 @@ var _cFStringConvertEncodingToIANACharSetNameErr error
 
 func tryCFStringConvertEncodingToIANACharSetName(encoding uint32) (CFStringRef, error) {
 	if _cFStringConvertEncodingToIANACharSetName == nil {
-		return 0, symbolCallError("CFStringConvertEncodingToIANACharSetName", "", _cFStringConvertEncodingToIANACharSetNameErr)
+		return *new(CFStringRef), symbolCallError("CFStringConvertEncodingToIANACharSetName", "", _cFStringConvertEncodingToIANACharSetNameErr)
 	}
 	return _cFStringConvertEncodingToIANACharSetName(encoding), nil
 }
@@ -11600,7 +11600,7 @@ var _cFStringCreateArrayBySeparatingStringsErr error
 
 func tryCFStringCreateArrayBySeparatingStrings(alloc CFAllocatorRef, theString CFStringRef, separatorString CFStringRef) (CFArrayRef, error) {
 	if _cFStringCreateArrayBySeparatingStrings == nil {
-		return 0, symbolCallError("CFStringCreateArrayBySeparatingStrings", "", _cFStringCreateArrayBySeparatingStringsErr)
+		return *new(CFArrayRef), symbolCallError("CFStringCreateArrayBySeparatingStrings", "", _cFStringCreateArrayBySeparatingStringsErr)
 	}
 	return _cFStringCreateArrayBySeparatingStrings(alloc, theString, separatorString), nil
 }
@@ -11621,7 +11621,7 @@ var _cFStringCreateArrayWithFindResultsErr error
 
 func tryCFStringCreateArrayWithFindResults(alloc CFAllocatorRef, theString CFStringRef, stringToFind CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) (CFArrayRef, error) {
 	if _cFStringCreateArrayWithFindResults == nil {
-		return 0, symbolCallError("CFStringCreateArrayWithFindResults", "", _cFStringCreateArrayWithFindResultsErr)
+		return *new(CFArrayRef), symbolCallError("CFStringCreateArrayWithFindResults", "", _cFStringCreateArrayWithFindResultsErr)
 	}
 	return _cFStringCreateArrayWithFindResults(alloc, theString, stringToFind, rangeToSearch, compareOptions), nil
 }
@@ -11642,7 +11642,7 @@ var _cFStringCreateByCombiningStringsErr error
 
 func tryCFStringCreateByCombiningStrings(alloc CFAllocatorRef, theArray CFArrayRef, separatorString CFStringRef) (CFStringRef, error) {
 	if _cFStringCreateByCombiningStrings == nil {
-		return 0, symbolCallError("CFStringCreateByCombiningStrings", "", _cFStringCreateByCombiningStringsErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateByCombiningStrings", "", _cFStringCreateByCombiningStringsErr)
 	}
 	return _cFStringCreateByCombiningStrings(alloc, theArray, separatorString), nil
 }
@@ -11663,7 +11663,7 @@ var _cFStringCreateCopyErr error
 
 func tryCFStringCreateCopy(alloc CFAllocatorRef, theString CFStringRef) (CFStringRef, error) {
 	if _cFStringCreateCopy == nil {
-		return 0, symbolCallError("CFStringCreateCopy", "", _cFStringCreateCopyErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateCopy", "", _cFStringCreateCopyErr)
 	}
 	return _cFStringCreateCopy(alloc, theString), nil
 }
@@ -11684,7 +11684,7 @@ var _cFStringCreateExternalRepresentationErr error
 
 func tryCFStringCreateExternalRepresentation(alloc CFAllocatorRef, theString CFStringRef, encoding uint32, lossByte uint8) (CFDataRef, error) {
 	if _cFStringCreateExternalRepresentation == nil {
-		return 0, symbolCallError("CFStringCreateExternalRepresentation", "", _cFStringCreateExternalRepresentationErr)
+		return *new(CFDataRef), symbolCallError("CFStringCreateExternalRepresentation", "", _cFStringCreateExternalRepresentationErr)
 	}
 	return _cFStringCreateExternalRepresentation(alloc, theString, encoding, lossByte), nil
 }
@@ -11705,7 +11705,7 @@ var _cFStringCreateFromExternalRepresentationErr error
 
 func tryCFStringCreateFromExternalRepresentation(alloc CFAllocatorRef, data CFDataRef, encoding uint32) (CFStringRef, error) {
 	if _cFStringCreateFromExternalRepresentation == nil {
-		return 0, symbolCallError("CFStringCreateFromExternalRepresentation", "", _cFStringCreateFromExternalRepresentationErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateFromExternalRepresentation", "", _cFStringCreateFromExternalRepresentationErr)
 	}
 	return _cFStringCreateFromExternalRepresentation(alloc, data, encoding), nil
 }
@@ -11726,7 +11726,7 @@ var _cFStringCreateMutableErr error
 
 func tryCFStringCreateMutable(alloc CFAllocatorRef, maxLength int) (CFMutableStringRef, error) {
 	if _cFStringCreateMutable == nil {
-		return 0, symbolCallError("CFStringCreateMutable", "", _cFStringCreateMutableErr)
+		return *new(CFMutableStringRef), symbolCallError("CFStringCreateMutable", "", _cFStringCreateMutableErr)
 	}
 	return _cFStringCreateMutable(alloc, maxLength), nil
 }
@@ -11747,7 +11747,7 @@ var _cFStringCreateMutableCopyErr error
 
 func tryCFStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, theString CFStringRef) (CFMutableStringRef, error) {
 	if _cFStringCreateMutableCopy == nil {
-		return 0, symbolCallError("CFStringCreateMutableCopy", "", _cFStringCreateMutableCopyErr)
+		return *new(CFMutableStringRef), symbolCallError("CFStringCreateMutableCopy", "", _cFStringCreateMutableCopyErr)
 	}
 	return _cFStringCreateMutableCopy(alloc, maxLength, theString), nil
 }
@@ -11768,7 +11768,7 @@ var _cFStringCreateMutableWithExternalCharactersNoCopyErr error
 
 func tryCFStringCreateMutableWithExternalCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars int, capacity int, externalCharactersAllocator CFAllocatorRef) (CFMutableStringRef, error) {
 	if _cFStringCreateMutableWithExternalCharactersNoCopy == nil {
-		return 0, symbolCallError("CFStringCreateMutableWithExternalCharactersNoCopy", "", _cFStringCreateMutableWithExternalCharactersNoCopyErr)
+		return *new(CFMutableStringRef), symbolCallError("CFStringCreateMutableWithExternalCharactersNoCopy", "", _cFStringCreateMutableWithExternalCharactersNoCopyErr)
 	}
 	return _cFStringCreateMutableWithExternalCharactersNoCopy(alloc, chars, numChars, capacity, externalCharactersAllocator), nil
 }
@@ -11789,7 +11789,7 @@ var _cFStringCreateStringWithValidatedFormatErr error
 
 func tryCFStringCreateStringWithValidatedFormat(alloc CFAllocatorRef, formatOptions CFDictionaryRef, validFormatSpecifiers CFStringRef, format CFStringRef, errorPtr *CFErrorRef) (CFStringRef, error) {
 	if _cFStringCreateStringWithValidatedFormat == nil {
-		return 0, symbolCallError("CFStringCreateStringWithValidatedFormat", "13.0", _cFStringCreateStringWithValidatedFormatErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateStringWithValidatedFormat", "13.0", _cFStringCreateStringWithValidatedFormatErr)
 	}
 	return _cFStringCreateStringWithValidatedFormat(alloc, formatOptions, validFormatSpecifiers, format, errorPtr), nil
 }
@@ -11810,7 +11810,7 @@ var _cFStringCreateStringWithValidatedFormatAndArgumentsErr error
 
 func tryCFStringCreateStringWithValidatedFormatAndArguments(alloc CFAllocatorRef, formatOptions CFDictionaryRef, validFormatSpecifiers CFStringRef, format CFStringRef, arguments kernel.Va_list, errorPtr *CFErrorRef) (CFStringRef, error) {
 	if _cFStringCreateStringWithValidatedFormatAndArguments == nil {
-		return 0, symbolCallError("CFStringCreateStringWithValidatedFormatAndArguments", "13.0", _cFStringCreateStringWithValidatedFormatAndArgumentsErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateStringWithValidatedFormatAndArguments", "13.0", _cFStringCreateStringWithValidatedFormatAndArgumentsErr)
 	}
 	return _cFStringCreateStringWithValidatedFormatAndArguments(alloc, formatOptions, validFormatSpecifiers, format, arguments, errorPtr), nil
 }
@@ -11831,7 +11831,7 @@ var _cFStringCreateWithBytesErr error
 
 func tryCFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool) (CFStringRef, error) {
 	if _cFStringCreateWithBytes == nil {
-		return 0, symbolCallError("CFStringCreateWithBytes", "", _cFStringCreateWithBytesErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithBytes", "", _cFStringCreateWithBytesErr)
 	}
 	return _cFStringCreateWithBytes(alloc, unsafe.SliceData(bytes), numBytes, encoding, isExternalRepresentation), nil
 }
@@ -11852,7 +11852,7 @@ var _cFStringCreateWithBytesNoCopyErr error
 
 func tryCFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithBytesNoCopy == nil {
-		return 0, symbolCallError("CFStringCreateWithBytesNoCopy", "", _cFStringCreateWithBytesNoCopyErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithBytesNoCopy", "", _cFStringCreateWithBytesNoCopyErr)
 	}
 	return _cFStringCreateWithBytesNoCopy(alloc, unsafe.SliceData(bytes), numBytes, encoding, isExternalRepresentation, contentsDeallocator), nil
 }
@@ -11873,7 +11873,7 @@ var _cFStringCreateWithCStringErr error
 
 func tryCFStringCreateWithCString(alloc CFAllocatorRef, cStr string, encoding uint32) (CFStringRef, error) {
 	if _cFStringCreateWithCString == nil {
-		return 0, symbolCallError("CFStringCreateWithCString", "", _cFStringCreateWithCStringErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithCString", "", _cFStringCreateWithCStringErr)
 	}
 	return _cFStringCreateWithCString(alloc, cStr, encoding), nil
 }
@@ -11894,7 +11894,7 @@ var _cFStringCreateWithCStringNoCopyErr error
 
 func tryCFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr string, encoding uint32, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithCStringNoCopy == nil {
-		return 0, symbolCallError("CFStringCreateWithCStringNoCopy", "", _cFStringCreateWithCStringNoCopyErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithCStringNoCopy", "", _cFStringCreateWithCStringNoCopyErr)
 	}
 	return _cFStringCreateWithCStringNoCopy(alloc, cStr, encoding, contentsDeallocator), nil
 }
@@ -11915,7 +11915,7 @@ var _cFStringCreateWithCharactersErr error
 
 func tryCFStringCreateWithCharacters(alloc CFAllocatorRef, chars *uint16, numChars int) (CFStringRef, error) {
 	if _cFStringCreateWithCharacters == nil {
-		return 0, symbolCallError("CFStringCreateWithCharacters", "", _cFStringCreateWithCharactersErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithCharacters", "", _cFStringCreateWithCharactersErr)
 	}
 	return _cFStringCreateWithCharacters(alloc, chars, numChars), nil
 }
@@ -11936,7 +11936,7 @@ var _cFStringCreateWithCharactersNoCopyErr error
 
 func tryCFStringCreateWithCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars int, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithCharactersNoCopy == nil {
-		return 0, symbolCallError("CFStringCreateWithCharactersNoCopy", "", _cFStringCreateWithCharactersNoCopyErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithCharactersNoCopy", "", _cFStringCreateWithCharactersNoCopyErr)
 	}
 	return _cFStringCreateWithCharactersNoCopy(alloc, chars, numChars, contentsDeallocator), nil
 }
@@ -11957,7 +11957,7 @@ var _cFStringCreateWithFileSystemRepresentationErr error
 
 func tryCFStringCreateWithFileSystemRepresentation(alloc CFAllocatorRef, buffer *byte) (CFStringRef, error) {
 	if _cFStringCreateWithFileSystemRepresentation == nil {
-		return 0, symbolCallError("CFStringCreateWithFileSystemRepresentation", "", _cFStringCreateWithFileSystemRepresentationErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithFileSystemRepresentation", "", _cFStringCreateWithFileSystemRepresentationErr)
 	}
 	return _cFStringCreateWithFileSystemRepresentation(alloc, buffer), nil
 }
@@ -11978,7 +11978,7 @@ var _cFStringCreateWithFormatErr error
 
 func tryCFStringCreateWithFormat(alloc CFAllocatorRef, formatOptions CFDictionaryRef, format CFStringRef) (CFStringRef, error) {
 	if _cFStringCreateWithFormat == nil {
-		return 0, symbolCallError("CFStringCreateWithFormat", "", _cFStringCreateWithFormatErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithFormat", "", _cFStringCreateWithFormatErr)
 	}
 	return _cFStringCreateWithFormat(alloc, formatOptions, format), nil
 }
@@ -11999,7 +11999,7 @@ var _cFStringCreateWithFormatAndArgumentsErr error
 
 func tryCFStringCreateWithFormatAndArguments(alloc CFAllocatorRef, formatOptions CFDictionaryRef, format CFStringRef, arguments kernel.Va_list) (CFStringRef, error) {
 	if _cFStringCreateWithFormatAndArguments == nil {
-		return 0, symbolCallError("CFStringCreateWithFormatAndArguments", "", _cFStringCreateWithFormatAndArgumentsErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithFormatAndArguments", "", _cFStringCreateWithFormatAndArgumentsErr)
 	}
 	return _cFStringCreateWithFormatAndArguments(alloc, formatOptions, format, arguments), nil
 }
@@ -12020,7 +12020,7 @@ var _cFStringCreateWithPascalStringErr error
 
 func tryCFStringCreateWithPascalString(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32) (CFStringRef, error) {
 	if _cFStringCreateWithPascalString == nil {
-		return 0, symbolCallError("CFStringCreateWithPascalString", "", _cFStringCreateWithPascalStringErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithPascalString", "", _cFStringCreateWithPascalStringErr)
 	}
 	return _cFStringCreateWithPascalString(alloc, pStr, encoding), nil
 }
@@ -12041,7 +12041,7 @@ var _cFStringCreateWithPascalStringNoCopyErr error
 
 func tryCFStringCreateWithPascalStringNoCopy(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithPascalStringNoCopy == nil {
-		return 0, symbolCallError("CFStringCreateWithPascalStringNoCopy", "", _cFStringCreateWithPascalStringNoCopyErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithPascalStringNoCopy", "", _cFStringCreateWithPascalStringNoCopyErr)
 	}
 	return _cFStringCreateWithPascalStringNoCopy(alloc, pStr, encoding, contentsDeallocator), nil
 }
@@ -12062,7 +12062,7 @@ var _cFStringCreateWithSubstringErr error
 
 func tryCFStringCreateWithSubstring(alloc CFAllocatorRef, str CFStringRef, range_ CFRange) (CFStringRef, error) {
 	if _cFStringCreateWithSubstring == nil {
-		return 0, symbolCallError("CFStringCreateWithSubstring", "", _cFStringCreateWithSubstringErr)
+		return *new(CFStringRef), symbolCallError("CFStringCreateWithSubstring", "", _cFStringCreateWithSubstringErr)
 	}
 	return _cFStringCreateWithSubstring(alloc, str, range_), nil
 }
@@ -12583,7 +12583,7 @@ var _cFStringGetNameOfEncodingErr error
 
 func tryCFStringGetNameOfEncoding(encoding uint32) (CFStringRef, error) {
 	if _cFStringGetNameOfEncoding == nil {
-		return 0, symbolCallError("CFStringGetNameOfEncoding", "", _cFStringGetNameOfEncodingErr)
+		return *new(CFStringRef), symbolCallError("CFStringGetNameOfEncoding", "", _cFStringGetNameOfEncodingErr)
 	}
 	return _cFStringGetNameOfEncoding(encoding), nil
 }
@@ -12995,7 +12995,7 @@ var _cFStringTokenizerCopyBestStringLanguageErr error
 
 func tryCFStringTokenizerCopyBestStringLanguage(string_ CFStringRef, range_ CFRange) (CFStringRef, error) {
 	if _cFStringTokenizerCopyBestStringLanguage == nil {
-		return 0, symbolCallError("CFStringTokenizerCopyBestStringLanguage", "10.5", _cFStringTokenizerCopyBestStringLanguageErr)
+		return *new(CFStringRef), symbolCallError("CFStringTokenizerCopyBestStringLanguage", "10.5", _cFStringTokenizerCopyBestStringLanguageErr)
 	}
 	return _cFStringTokenizerCopyBestStringLanguage(string_, range_), nil
 }
@@ -13016,7 +13016,7 @@ var _cFStringTokenizerCopyCurrentTokenAttributeErr error
 
 func tryCFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRef, attribute uint64) (CFTypeRef, error) {
 	if _cFStringTokenizerCopyCurrentTokenAttribute == nil {
-		return nil, symbolCallError("CFStringTokenizerCopyCurrentTokenAttribute", "10.5", _cFStringTokenizerCopyCurrentTokenAttributeErr)
+		return *new(CFTypeRef), symbolCallError("CFStringTokenizerCopyCurrentTokenAttribute", "10.5", _cFStringTokenizerCopyCurrentTokenAttributeErr)
 	}
 	return _cFStringTokenizerCopyCurrentTokenAttribute(tokenizer, attribute), nil
 }
@@ -13037,7 +13037,7 @@ var _cFStringTokenizerCreateErr error
 
 func tryCFStringTokenizerCreate(alloc CFAllocatorRef, string_ CFStringRef, range_ CFRange, options uint64, locale CFLocaleRef) (CFStringTokenizerRef, error) {
 	if _cFStringTokenizerCreate == nil {
-		return 0, symbolCallError("CFStringTokenizerCreate", "10.5", _cFStringTokenizerCreateErr)
+		return *new(CFStringTokenizerRef), symbolCallError("CFStringTokenizerCreate", "10.5", _cFStringTokenizerCreateErr)
 	}
 	return _cFStringTokenizerCreate(alloc, string_, range_, options, locale), nil
 }
@@ -13243,7 +13243,7 @@ var _cFTimeZoneCopyAbbreviationErr error
 
 func tryCFTimeZoneCopyAbbreviation(tz CFTimeZoneRef, at CFAbsoluteTime) (CFStringRef, error) {
 	if _cFTimeZoneCopyAbbreviation == nil {
-		return 0, symbolCallError("CFTimeZoneCopyAbbreviation", "", _cFTimeZoneCopyAbbreviationErr)
+		return *new(CFStringRef), symbolCallError("CFTimeZoneCopyAbbreviation", "", _cFTimeZoneCopyAbbreviationErr)
 	}
 	return _cFTimeZoneCopyAbbreviation(tz, at), nil
 }
@@ -13264,7 +13264,7 @@ var _cFTimeZoneCopyAbbreviationDictionaryErr error
 
 func tryCFTimeZoneCopyAbbreviationDictionary() (CFDictionaryRef, error) {
 	if _cFTimeZoneCopyAbbreviationDictionary == nil {
-		return 0, symbolCallError("CFTimeZoneCopyAbbreviationDictionary", "", _cFTimeZoneCopyAbbreviationDictionaryErr)
+		return *new(CFDictionaryRef), symbolCallError("CFTimeZoneCopyAbbreviationDictionary", "", _cFTimeZoneCopyAbbreviationDictionaryErr)
 	}
 	return _cFTimeZoneCopyAbbreviationDictionary(), nil
 }
@@ -13285,7 +13285,7 @@ var _cFTimeZoneCopyDefaultErr error
 
 func tryCFTimeZoneCopyDefault() (CFTimeZoneRef, error) {
 	if _cFTimeZoneCopyDefault == nil {
-		return 0, symbolCallError("CFTimeZoneCopyDefault", "", _cFTimeZoneCopyDefaultErr)
+		return *new(CFTimeZoneRef), symbolCallError("CFTimeZoneCopyDefault", "", _cFTimeZoneCopyDefaultErr)
 	}
 	return _cFTimeZoneCopyDefault(), nil
 }
@@ -13306,7 +13306,7 @@ var _cFTimeZoneCopyKnownNamesErr error
 
 func tryCFTimeZoneCopyKnownNames() (CFArrayRef, error) {
 	if _cFTimeZoneCopyKnownNames == nil {
-		return 0, symbolCallError("CFTimeZoneCopyKnownNames", "", _cFTimeZoneCopyKnownNamesErr)
+		return *new(CFArrayRef), symbolCallError("CFTimeZoneCopyKnownNames", "", _cFTimeZoneCopyKnownNamesErr)
 	}
 	return _cFTimeZoneCopyKnownNames(), nil
 }
@@ -13327,7 +13327,7 @@ var _cFTimeZoneCopyLocalizedNameErr error
 
 func tryCFTimeZoneCopyLocalizedName(tz CFTimeZoneRef, style CFTimeZoneNameStyle, locale CFLocaleRef) (CFStringRef, error) {
 	if _cFTimeZoneCopyLocalizedName == nil {
-		return 0, symbolCallError("CFTimeZoneCopyLocalizedName", "10.5", _cFTimeZoneCopyLocalizedNameErr)
+		return *new(CFStringRef), symbolCallError("CFTimeZoneCopyLocalizedName", "10.5", _cFTimeZoneCopyLocalizedNameErr)
 	}
 	return _cFTimeZoneCopyLocalizedName(tz, style, locale), nil
 }
@@ -13348,7 +13348,7 @@ var _cFTimeZoneCopySystemErr error
 
 func tryCFTimeZoneCopySystem() (CFTimeZoneRef, error) {
 	if _cFTimeZoneCopySystem == nil {
-		return 0, symbolCallError("CFTimeZoneCopySystem", "", _cFTimeZoneCopySystemErr)
+		return *new(CFTimeZoneRef), symbolCallError("CFTimeZoneCopySystem", "", _cFTimeZoneCopySystemErr)
 	}
 	return _cFTimeZoneCopySystem(), nil
 }
@@ -13369,7 +13369,7 @@ var _cFTimeZoneCreateErr error
 
 func tryCFTimeZoneCreate(allocator CFAllocatorRef, name CFStringRef, data CFDataRef) (CFTimeZoneRef, error) {
 	if _cFTimeZoneCreate == nil {
-		return 0, symbolCallError("CFTimeZoneCreate", "", _cFTimeZoneCreateErr)
+		return *new(CFTimeZoneRef), symbolCallError("CFTimeZoneCreate", "", _cFTimeZoneCreateErr)
 	}
 	return _cFTimeZoneCreate(allocator, name, data), nil
 }
@@ -13390,7 +13390,7 @@ var _cFTimeZoneCreateWithNameErr error
 
 func tryCFTimeZoneCreateWithName(allocator CFAllocatorRef, name CFStringRef, tryAbbrev bool) (CFTimeZoneRef, error) {
 	if _cFTimeZoneCreateWithName == nil {
-		return 0, symbolCallError("CFTimeZoneCreateWithName", "", _cFTimeZoneCreateWithNameErr)
+		return *new(CFTimeZoneRef), symbolCallError("CFTimeZoneCreateWithName", "", _cFTimeZoneCreateWithNameErr)
 	}
 	return _cFTimeZoneCreateWithName(allocator, name, tryAbbrev), nil
 }
@@ -13411,7 +13411,7 @@ var _cFTimeZoneCreateWithTimeIntervalFromGMTErr error
 
 func tryCFTimeZoneCreateWithTimeIntervalFromGMT(allocator CFAllocatorRef, ti float64) (CFTimeZoneRef, error) {
 	if _cFTimeZoneCreateWithTimeIntervalFromGMT == nil {
-		return 0, symbolCallError("CFTimeZoneCreateWithTimeIntervalFromGMT", "", _cFTimeZoneCreateWithTimeIntervalFromGMTErr)
+		return *new(CFTimeZoneRef), symbolCallError("CFTimeZoneCreateWithTimeIntervalFromGMT", "", _cFTimeZoneCreateWithTimeIntervalFromGMTErr)
 	}
 	return _cFTimeZoneCreateWithTimeIntervalFromGMT(allocator, ti), nil
 }
@@ -13432,7 +13432,7 @@ var _cFTimeZoneGetDataErr error
 
 func tryCFTimeZoneGetData(tz CFTimeZoneRef) (CFDataRef, error) {
 	if _cFTimeZoneGetData == nil {
-		return 0, symbolCallError("CFTimeZoneGetData", "", _cFTimeZoneGetDataErr)
+		return *new(CFDataRef), symbolCallError("CFTimeZoneGetData", "", _cFTimeZoneGetDataErr)
 	}
 	return _cFTimeZoneGetData(tz), nil
 }
@@ -13474,7 +13474,7 @@ var _cFTimeZoneGetNameErr error
 
 func tryCFTimeZoneGetName(tz CFTimeZoneRef) (CFStringRef, error) {
 	if _cFTimeZoneGetName == nil {
-		return 0, symbolCallError("CFTimeZoneGetName", "", _cFTimeZoneGetNameErr)
+		return *new(CFStringRef), symbolCallError("CFTimeZoneGetName", "", _cFTimeZoneGetNameErr)
 	}
 	return _cFTimeZoneGetName(tz), nil
 }
@@ -13679,7 +13679,7 @@ var _cFTreeCreateErr error
 
 func tryCFTreeCreate(allocator CFAllocatorRef, context *CFTreeContext) (CFTreeRef, error) {
 	if _cFTreeCreate == nil {
-		return 0, symbolCallError("CFTreeCreate", "", _cFTreeCreateErr)
+		return *new(CFTreeRef), symbolCallError("CFTreeCreate", "", _cFTreeCreateErr)
 	}
 	return _cFTreeCreate(allocator, context), nil
 }
@@ -13700,7 +13700,7 @@ var _cFTreeFindRootErr error
 
 func tryCFTreeFindRoot(tree CFTreeRef) (CFTreeRef, error) {
 	if _cFTreeFindRoot == nil {
-		return 0, symbolCallError("CFTreeFindRoot", "", _cFTreeFindRootErr)
+		return *new(CFTreeRef), symbolCallError("CFTreeFindRoot", "", _cFTreeFindRootErr)
 	}
 	return _cFTreeFindRoot(tree), nil
 }
@@ -13721,7 +13721,7 @@ var _cFTreeGetChildAtIndexErr error
 
 func tryCFTreeGetChildAtIndex(tree CFTreeRef, idx int) (CFTreeRef, error) {
 	if _cFTreeGetChildAtIndex == nil {
-		return 0, symbolCallError("CFTreeGetChildAtIndex", "", _cFTreeGetChildAtIndexErr)
+		return *new(CFTreeRef), symbolCallError("CFTreeGetChildAtIndex", "", _cFTreeGetChildAtIndexErr)
 	}
 	return _cFTreeGetChildAtIndex(tree, idx), nil
 }
@@ -13803,7 +13803,7 @@ var _cFTreeGetFirstChildErr error
 
 func tryCFTreeGetFirstChild(tree CFTreeRef) (CFTreeRef, error) {
 	if _cFTreeGetFirstChild == nil {
-		return 0, symbolCallError("CFTreeGetFirstChild", "", _cFTreeGetFirstChildErr)
+		return *new(CFTreeRef), symbolCallError("CFTreeGetFirstChild", "", _cFTreeGetFirstChildErr)
 	}
 	return _cFTreeGetFirstChild(tree), nil
 }
@@ -13824,7 +13824,7 @@ var _cFTreeGetNextSiblingErr error
 
 func tryCFTreeGetNextSibling(tree CFTreeRef) (CFTreeRef, error) {
 	if _cFTreeGetNextSibling == nil {
-		return 0, symbolCallError("CFTreeGetNextSibling", "", _cFTreeGetNextSiblingErr)
+		return *new(CFTreeRef), symbolCallError("CFTreeGetNextSibling", "", _cFTreeGetNextSiblingErr)
 	}
 	return _cFTreeGetNextSibling(tree), nil
 }
@@ -13845,7 +13845,7 @@ var _cFTreeGetParentErr error
 
 func tryCFTreeGetParent(tree CFTreeRef) (CFTreeRef, error) {
 	if _cFTreeGetParent == nil {
-		return 0, symbolCallError("CFTreeGetParent", "", _cFTreeGetParentErr)
+		return *new(CFTreeRef), symbolCallError("CFTreeGetParent", "", _cFTreeGetParentErr)
 	}
 	return _cFTreeGetParent(tree), nil
 }
@@ -14068,7 +14068,7 @@ var _cFURLCopyAbsoluteURLErr error
 
 func tryCFURLCopyAbsoluteURL(relativeURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCopyAbsoluteURL == nil {
-		return 0, symbolCallError("CFURLCopyAbsoluteURL", "", _cFURLCopyAbsoluteURLErr)
+		return *new(CFURLRef), symbolCallError("CFURLCopyAbsoluteURL", "", _cFURLCopyAbsoluteURLErr)
 	}
 	return _cFURLCopyAbsoluteURL(relativeURL), nil
 }
@@ -14089,7 +14089,7 @@ var _cFURLCopyFileSystemPathErr error
 
 func tryCFURLCopyFileSystemPath(anURL CFURLRef, pathStyle CFURLPathStyle) (CFStringRef, error) {
 	if _cFURLCopyFileSystemPath == nil {
-		return 0, symbolCallError("CFURLCopyFileSystemPath", "", _cFURLCopyFileSystemPathErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyFileSystemPath", "", _cFURLCopyFileSystemPathErr)
 	}
 	return _cFURLCopyFileSystemPath(anURL, pathStyle), nil
 }
@@ -14110,7 +14110,7 @@ var _cFURLCopyFragmentErr error
 
 func tryCFURLCopyFragment(anURL CFURLRef, charactersToLeaveEscaped CFStringRef) (CFStringRef, error) {
 	if _cFURLCopyFragment == nil {
-		return 0, symbolCallError("CFURLCopyFragment", "", _cFURLCopyFragmentErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyFragment", "", _cFURLCopyFragmentErr)
 	}
 	return _cFURLCopyFragment(anURL, charactersToLeaveEscaped), nil
 }
@@ -14131,7 +14131,7 @@ var _cFURLCopyHostNameErr error
 
 func tryCFURLCopyHostName(anURL CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyHostName == nil {
-		return 0, symbolCallError("CFURLCopyHostName", "", _cFURLCopyHostNameErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyHostName", "", _cFURLCopyHostNameErr)
 	}
 	return _cFURLCopyHostName(anURL), nil
 }
@@ -14152,7 +14152,7 @@ var _cFURLCopyLastPathComponentErr error
 
 func tryCFURLCopyLastPathComponent(url CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyLastPathComponent == nil {
-		return 0, symbolCallError("CFURLCopyLastPathComponent", "", _cFURLCopyLastPathComponentErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyLastPathComponent", "", _cFURLCopyLastPathComponentErr)
 	}
 	return _cFURLCopyLastPathComponent(url), nil
 }
@@ -14173,7 +14173,7 @@ var _cFURLCopyNetLocationErr error
 
 func tryCFURLCopyNetLocation(anURL CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyNetLocation == nil {
-		return 0, symbolCallError("CFURLCopyNetLocation", "", _cFURLCopyNetLocationErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyNetLocation", "", _cFURLCopyNetLocationErr)
 	}
 	return _cFURLCopyNetLocation(anURL), nil
 }
@@ -14194,7 +14194,7 @@ var _cFURLCopyPasswordErr error
 
 func tryCFURLCopyPassword(anURL CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyPassword == nil {
-		return 0, symbolCallError("CFURLCopyPassword", "", _cFURLCopyPasswordErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyPassword", "", _cFURLCopyPasswordErr)
 	}
 	return _cFURLCopyPassword(anURL), nil
 }
@@ -14215,7 +14215,7 @@ var _cFURLCopyPathErr error
 
 func tryCFURLCopyPath(anURL CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyPath == nil {
-		return 0, symbolCallError("CFURLCopyPath", "", _cFURLCopyPathErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyPath", "", _cFURLCopyPathErr)
 	}
 	return _cFURLCopyPath(anURL), nil
 }
@@ -14236,7 +14236,7 @@ var _cFURLCopyPathExtensionErr error
 
 func tryCFURLCopyPathExtension(url CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyPathExtension == nil {
-		return 0, symbolCallError("CFURLCopyPathExtension", "", _cFURLCopyPathExtensionErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyPathExtension", "", _cFURLCopyPathExtensionErr)
 	}
 	return _cFURLCopyPathExtension(url), nil
 }
@@ -14257,7 +14257,7 @@ var _cFURLCopyQueryStringErr error
 
 func tryCFURLCopyQueryString(anURL CFURLRef, charactersToLeaveEscaped CFStringRef) (CFStringRef, error) {
 	if _cFURLCopyQueryString == nil {
-		return 0, symbolCallError("CFURLCopyQueryString", "", _cFURLCopyQueryStringErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyQueryString", "", _cFURLCopyQueryStringErr)
 	}
 	return _cFURLCopyQueryString(anURL, charactersToLeaveEscaped), nil
 }
@@ -14278,7 +14278,7 @@ var _cFURLCopyResourcePropertiesForKeysErr error
 
 func tryCFURLCopyResourcePropertiesForKeys(url CFURLRef, keys CFArrayRef, err *CFErrorRef) (CFDictionaryRef, error) {
 	if _cFURLCopyResourcePropertiesForKeys == nil {
-		return 0, symbolCallError("CFURLCopyResourcePropertiesForKeys", "10.6", _cFURLCopyResourcePropertiesForKeysErr)
+		return *new(CFDictionaryRef), symbolCallError("CFURLCopyResourcePropertiesForKeys", "10.6", _cFURLCopyResourcePropertiesForKeysErr)
 	}
 	return _cFURLCopyResourcePropertiesForKeys(url, keys, err), nil
 }
@@ -14320,7 +14320,7 @@ var _cFURLCopyResourceSpecifierErr error
 
 func tryCFURLCopyResourceSpecifier(anURL CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyResourceSpecifier == nil {
-		return 0, symbolCallError("CFURLCopyResourceSpecifier", "", _cFURLCopyResourceSpecifierErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyResourceSpecifier", "", _cFURLCopyResourceSpecifierErr)
 	}
 	return _cFURLCopyResourceSpecifier(anURL), nil
 }
@@ -14341,7 +14341,7 @@ var _cFURLCopySchemeErr error
 
 func tryCFURLCopyScheme(anURL CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyScheme == nil {
-		return 0, symbolCallError("CFURLCopyScheme", "", _cFURLCopySchemeErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyScheme", "", _cFURLCopySchemeErr)
 	}
 	return _cFURLCopyScheme(anURL), nil
 }
@@ -14362,7 +14362,7 @@ var _cFURLCopyStrictPathErr error
 
 func tryCFURLCopyStrictPath(anURL CFURLRef, isAbsolute *bool) (CFStringRef, error) {
 	if _cFURLCopyStrictPath == nil {
-		return 0, symbolCallError("CFURLCopyStrictPath", "", _cFURLCopyStrictPathErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyStrictPath", "", _cFURLCopyStrictPathErr)
 	}
 	return _cFURLCopyStrictPath(anURL, isAbsolute), nil
 }
@@ -14383,7 +14383,7 @@ var _cFURLCopyUserNameErr error
 
 func tryCFURLCopyUserName(anURL CFURLRef) (CFStringRef, error) {
 	if _cFURLCopyUserName == nil {
-		return 0, symbolCallError("CFURLCopyUserName", "", _cFURLCopyUserNameErr)
+		return *new(CFStringRef), symbolCallError("CFURLCopyUserName", "", _cFURLCopyUserNameErr)
 	}
 	return _cFURLCopyUserName(anURL), nil
 }
@@ -14404,7 +14404,7 @@ var _cFURLCreateAbsoluteURLWithBytesErr error
 
 func tryCFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes []byte, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) (CFURLRef, error) {
 	if _cFURLCreateAbsoluteURLWithBytes == nil {
-		return 0, symbolCallError("CFURLCreateAbsoluteURLWithBytes", "", _cFURLCreateAbsoluteURLWithBytesErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateAbsoluteURLWithBytes", "", _cFURLCreateAbsoluteURLWithBytesErr)
 	}
 	return _cFURLCreateAbsoluteURLWithBytes(alloc, unsafe.SliceData(relativeURLBytes), length, encoding, baseURL, useCompatibilityMode), nil
 }
@@ -14425,7 +14425,7 @@ var _cFURLCreateBookmarkDataErr error
 
 func tryCFURLCreateBookmarkData(allocator CFAllocatorRef, url CFURLRef, options CFURLBookmarkCreationOptions, resourcePropertiesToInclude CFArrayRef, relativeToURL CFURLRef, err *CFErrorRef) (CFDataRef, error) {
 	if _cFURLCreateBookmarkData == nil {
-		return 0, symbolCallError("CFURLCreateBookmarkData", "10.6", _cFURLCreateBookmarkDataErr)
+		return *new(CFDataRef), symbolCallError("CFURLCreateBookmarkData", "10.6", _cFURLCreateBookmarkDataErr)
 	}
 	return _cFURLCreateBookmarkData(allocator, url, options, resourcePropertiesToInclude, relativeToURL, err), nil
 }
@@ -14446,7 +14446,7 @@ var _cFURLCreateBookmarkDataFromFileErr error
 
 func tryCFURLCreateBookmarkDataFromFile(allocator CFAllocatorRef, fileURL CFURLRef, errorRef *CFErrorRef) (CFDataRef, error) {
 	if _cFURLCreateBookmarkDataFromFile == nil {
-		return 0, symbolCallError("CFURLCreateBookmarkDataFromFile", "10.6", _cFURLCreateBookmarkDataFromFileErr)
+		return *new(CFDataRef), symbolCallError("CFURLCreateBookmarkDataFromFile", "10.6", _cFURLCreateBookmarkDataFromFileErr)
 	}
 	return _cFURLCreateBookmarkDataFromFile(allocator, fileURL, errorRef), nil
 }
@@ -14467,7 +14467,7 @@ var _cFURLCreateByResolvingBookmarkDataErr error
 
 func tryCFURLCreateByResolvingBookmarkData(allocator CFAllocatorRef, bookmark CFDataRef, options CFURLBookmarkResolutionOptions, relativeToURL CFURLRef, resourcePropertiesToInclude CFArrayRef, isStale *bool, err *CFErrorRef) (CFURLRef, error) {
 	if _cFURLCreateByResolvingBookmarkData == nil {
-		return 0, symbolCallError("CFURLCreateByResolvingBookmarkData", "10.6", _cFURLCreateByResolvingBookmarkDataErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateByResolvingBookmarkData", "10.6", _cFURLCreateByResolvingBookmarkDataErr)
 	}
 	return _cFURLCreateByResolvingBookmarkData(allocator, bookmark, options, relativeToURL, resourcePropertiesToInclude, isStale, err), nil
 }
@@ -14488,7 +14488,7 @@ var _cFURLCreateCopyAppendingPathComponentErr error
 
 func tryCFURLCreateCopyAppendingPathComponent(allocator CFAllocatorRef, url CFURLRef, pathComponent CFStringRef, isDirectory bool) (CFURLRef, error) {
 	if _cFURLCreateCopyAppendingPathComponent == nil {
-		return 0, symbolCallError("CFURLCreateCopyAppendingPathComponent", "", _cFURLCreateCopyAppendingPathComponentErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateCopyAppendingPathComponent", "", _cFURLCreateCopyAppendingPathComponentErr)
 	}
 	return _cFURLCreateCopyAppendingPathComponent(allocator, url, pathComponent, isDirectory), nil
 }
@@ -14509,7 +14509,7 @@ var _cFURLCreateCopyAppendingPathExtensionErr error
 
 func tryCFURLCreateCopyAppendingPathExtension(allocator CFAllocatorRef, url CFURLRef, extension CFStringRef) (CFURLRef, error) {
 	if _cFURLCreateCopyAppendingPathExtension == nil {
-		return 0, symbolCallError("CFURLCreateCopyAppendingPathExtension", "", _cFURLCreateCopyAppendingPathExtensionErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateCopyAppendingPathExtension", "", _cFURLCreateCopyAppendingPathExtensionErr)
 	}
 	return _cFURLCreateCopyAppendingPathExtension(allocator, url, extension), nil
 }
@@ -14530,7 +14530,7 @@ var _cFURLCreateCopyDeletingLastPathComponentErr error
 
 func tryCFURLCreateCopyDeletingLastPathComponent(allocator CFAllocatorRef, url CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateCopyDeletingLastPathComponent == nil {
-		return 0, symbolCallError("CFURLCreateCopyDeletingLastPathComponent", "", _cFURLCreateCopyDeletingLastPathComponentErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateCopyDeletingLastPathComponent", "", _cFURLCreateCopyDeletingLastPathComponentErr)
 	}
 	return _cFURLCreateCopyDeletingLastPathComponent(allocator, url), nil
 }
@@ -14551,7 +14551,7 @@ var _cFURLCreateCopyDeletingPathExtensionErr error
 
 func tryCFURLCreateCopyDeletingPathExtension(allocator CFAllocatorRef, url CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateCopyDeletingPathExtension == nil {
-		return 0, symbolCallError("CFURLCreateCopyDeletingPathExtension", "", _cFURLCreateCopyDeletingPathExtensionErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateCopyDeletingPathExtension", "", _cFURLCreateCopyDeletingPathExtensionErr)
 	}
 	return _cFURLCreateCopyDeletingPathExtension(allocator, url), nil
 }
@@ -14572,7 +14572,7 @@ var _cFURLCreateDataErr error
 
 func tryCFURLCreateData(allocator CFAllocatorRef, url CFURLRef, encoding uint32, escapeWhitespace bool) (CFDataRef, error) {
 	if _cFURLCreateData == nil {
-		return 0, symbolCallError("CFURLCreateData", "", _cFURLCreateDataErr)
+		return *new(CFDataRef), symbolCallError("CFURLCreateData", "", _cFURLCreateDataErr)
 	}
 	return _cFURLCreateData(allocator, url, encoding, escapeWhitespace), nil
 }
@@ -14593,7 +14593,7 @@ var _cFURLCreateFilePathURLErr error
 
 func tryCFURLCreateFilePathURL(allocator CFAllocatorRef, url CFURLRef, err *CFErrorRef) (CFURLRef, error) {
 	if _cFURLCreateFilePathURL == nil {
-		return 0, symbolCallError("CFURLCreateFilePathURL", "10.6", _cFURLCreateFilePathURLErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateFilePathURL", "10.6", _cFURLCreateFilePathURLErr)
 	}
 	return _cFURLCreateFilePathURL(allocator, url, err), nil
 }
@@ -14614,7 +14614,7 @@ var _cFURLCreateFileReferenceURLErr error
 
 func tryCFURLCreateFileReferenceURL(allocator CFAllocatorRef, url CFURLRef, err *CFErrorRef) (CFURLRef, error) {
 	if _cFURLCreateFileReferenceURL == nil {
-		return 0, symbolCallError("CFURLCreateFileReferenceURL", "10.6", _cFURLCreateFileReferenceURLErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateFileReferenceURL", "10.6", _cFURLCreateFileReferenceURLErr)
 	}
 	return _cFURLCreateFileReferenceURL(allocator, url, err), nil
 }
@@ -14635,7 +14635,7 @@ var _cFURLCreateFromFileSystemRepresentationErr error
 
 func tryCFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool) (CFURLRef, error) {
 	if _cFURLCreateFromFileSystemRepresentation == nil {
-		return 0, symbolCallError("CFURLCreateFromFileSystemRepresentation", "", _cFURLCreateFromFileSystemRepresentationErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateFromFileSystemRepresentation", "", _cFURLCreateFromFileSystemRepresentationErr)
 	}
 	return _cFURLCreateFromFileSystemRepresentation(allocator, unsafe.SliceData(buffer), bufLen, isDirectory), nil
 }
@@ -14656,7 +14656,7 @@ var _cFURLCreateFromFileSystemRepresentationRelativeToBaseErr error
 
 func tryCFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool, baseURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateFromFileSystemRepresentationRelativeToBase == nil {
-		return 0, symbolCallError("CFURLCreateFromFileSystemRepresentationRelativeToBase", "", _cFURLCreateFromFileSystemRepresentationRelativeToBaseErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateFromFileSystemRepresentationRelativeToBase", "", _cFURLCreateFromFileSystemRepresentationRelativeToBaseErr)
 	}
 	return _cFURLCreateFromFileSystemRepresentationRelativeToBase(allocator, unsafe.SliceData(buffer), bufLen, isDirectory, baseURL), nil
 }
@@ -14677,7 +14677,7 @@ var _cFURLCreateResourcePropertiesForKeysFromBookmarkDataErr error
 
 func tryCFURLCreateResourcePropertiesForKeysFromBookmarkData(allocator CFAllocatorRef, resourcePropertiesToReturn CFArrayRef, bookmark CFDataRef) (CFDictionaryRef, error) {
 	if _cFURLCreateResourcePropertiesForKeysFromBookmarkData == nil {
-		return 0, symbolCallError("CFURLCreateResourcePropertiesForKeysFromBookmarkData", "10.6", _cFURLCreateResourcePropertiesForKeysFromBookmarkDataErr)
+		return *new(CFDictionaryRef), symbolCallError("CFURLCreateResourcePropertiesForKeysFromBookmarkData", "10.6", _cFURLCreateResourcePropertiesForKeysFromBookmarkDataErr)
 	}
 	return _cFURLCreateResourcePropertiesForKeysFromBookmarkData(allocator, resourcePropertiesToReturn, bookmark), nil
 }
@@ -14698,7 +14698,7 @@ var _cFURLCreateResourcePropertyForKeyFromBookmarkDataErr error
 
 func tryCFURLCreateResourcePropertyForKeyFromBookmarkData(allocator CFAllocatorRef, resourcePropertyKey CFStringRef, bookmark CFDataRef) (CFTypeRef, error) {
 	if _cFURLCreateResourcePropertyForKeyFromBookmarkData == nil {
-		return nil, symbolCallError("CFURLCreateResourcePropertyForKeyFromBookmarkData", "10.6", _cFURLCreateResourcePropertyForKeyFromBookmarkDataErr)
+		return *new(CFTypeRef), symbolCallError("CFURLCreateResourcePropertyForKeyFromBookmarkData", "10.6", _cFURLCreateResourcePropertyForKeyFromBookmarkDataErr)
 	}
 	return _cFURLCreateResourcePropertyForKeyFromBookmarkData(allocator, resourcePropertyKey, bookmark), nil
 }
@@ -14719,7 +14719,7 @@ var _cFURLCreateStringByReplacingPercentEscapesErr error
 
 func tryCFURLCreateStringByReplacingPercentEscapes(allocator CFAllocatorRef, originalString CFStringRef, charactersToLeaveEscaped CFStringRef) (CFStringRef, error) {
 	if _cFURLCreateStringByReplacingPercentEscapes == nil {
-		return 0, symbolCallError("CFURLCreateStringByReplacingPercentEscapes", "", _cFURLCreateStringByReplacingPercentEscapesErr)
+		return *new(CFStringRef), symbolCallError("CFURLCreateStringByReplacingPercentEscapes", "", _cFURLCreateStringByReplacingPercentEscapesErr)
 	}
 	return _cFURLCreateStringByReplacingPercentEscapes(allocator, originalString, charactersToLeaveEscaped), nil
 }
@@ -14740,7 +14740,7 @@ var _cFURLCreateWithBytesErr error
 
 func tryCFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes []byte, length int, encoding uint32, baseURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateWithBytes == nil {
-		return 0, symbolCallError("CFURLCreateWithBytes", "", _cFURLCreateWithBytesErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateWithBytes", "", _cFURLCreateWithBytesErr)
 	}
 	return _cFURLCreateWithBytes(allocator, unsafe.SliceData(URLBytes), length, encoding, baseURL), nil
 }
@@ -14761,7 +14761,7 @@ var _cFURLCreateWithFileSystemPathErr error
 
 func tryCFURLCreateWithFileSystemPath(allocator CFAllocatorRef, filePath CFStringRef, pathStyle CFURLPathStyle, isDirectory bool) (CFURLRef, error) {
 	if _cFURLCreateWithFileSystemPath == nil {
-		return 0, symbolCallError("CFURLCreateWithFileSystemPath", "", _cFURLCreateWithFileSystemPathErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateWithFileSystemPath", "", _cFURLCreateWithFileSystemPathErr)
 	}
 	return _cFURLCreateWithFileSystemPath(allocator, filePath, pathStyle, isDirectory), nil
 }
@@ -14782,7 +14782,7 @@ var _cFURLCreateWithFileSystemPathRelativeToBaseErr error
 
 func tryCFURLCreateWithFileSystemPathRelativeToBase(allocator CFAllocatorRef, filePath CFStringRef, pathStyle CFURLPathStyle, isDirectory bool, baseURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateWithFileSystemPathRelativeToBase == nil {
-		return 0, symbolCallError("CFURLCreateWithFileSystemPathRelativeToBase", "", _cFURLCreateWithFileSystemPathRelativeToBaseErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateWithFileSystemPathRelativeToBase", "", _cFURLCreateWithFileSystemPathRelativeToBaseErr)
 	}
 	return _cFURLCreateWithFileSystemPathRelativeToBase(allocator, filePath, pathStyle, isDirectory, baseURL), nil
 }
@@ -14803,7 +14803,7 @@ var _cFURLCreateWithStringErr error
 
 func tryCFURLCreateWithString(allocator CFAllocatorRef, URLString CFStringRef, baseURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateWithString == nil {
-		return 0, symbolCallError("CFURLCreateWithString", "", _cFURLCreateWithStringErr)
+		return *new(CFURLRef), symbolCallError("CFURLCreateWithString", "", _cFURLCreateWithStringErr)
 	}
 	return _cFURLCreateWithString(allocator, URLString, baseURL), nil
 }
@@ -14824,7 +14824,7 @@ var _cFURLEnumeratorCreateForDirectoryURLErr error
 
 func tryCFURLEnumeratorCreateForDirectoryURL(alloc CFAllocatorRef, directoryURL CFURLRef, option CFURLEnumeratorOptions, propertyKeys CFArrayRef) (CFURLEnumeratorRef, error) {
 	if _cFURLEnumeratorCreateForDirectoryURL == nil {
-		return 0, symbolCallError("CFURLEnumeratorCreateForDirectoryURL", "10.6", _cFURLEnumeratorCreateForDirectoryURLErr)
+		return *new(CFURLEnumeratorRef), symbolCallError("CFURLEnumeratorCreateForDirectoryURL", "10.6", _cFURLEnumeratorCreateForDirectoryURLErr)
 	}
 	return _cFURLEnumeratorCreateForDirectoryURL(alloc, directoryURL, option, propertyKeys), nil
 }
@@ -14845,7 +14845,7 @@ var _cFURLEnumeratorCreateForMountedVolumesErr error
 
 func tryCFURLEnumeratorCreateForMountedVolumes(alloc CFAllocatorRef, option CFURLEnumeratorOptions, propertyKeys CFArrayRef) (CFURLEnumeratorRef, error) {
 	if _cFURLEnumeratorCreateForMountedVolumes == nil {
-		return 0, symbolCallError("CFURLEnumeratorCreateForMountedVolumes", "10.6", _cFURLEnumeratorCreateForMountedVolumesErr)
+		return *new(CFURLEnumeratorRef), symbolCallError("CFURLEnumeratorCreateForMountedVolumes", "10.6", _cFURLEnumeratorCreateForMountedVolumesErr)
 	}
 	return _cFURLEnumeratorCreateForMountedVolumes(alloc, option, propertyKeys), nil
 }
@@ -14949,7 +14949,7 @@ var _cFURLGetBaseURLErr error
 
 func tryCFURLGetBaseURL(anURL CFURLRef) (CFURLRef, error) {
 	if _cFURLGetBaseURL == nil {
-		return 0, symbolCallError("CFURLGetBaseURL", "", _cFURLGetBaseURLErr)
+		return *new(CFURLRef), symbolCallError("CFURLGetBaseURL", "", _cFURLGetBaseURLErr)
 	}
 	return _cFURLGetBaseURL(anURL), nil
 }
@@ -15054,7 +15054,7 @@ var _cFURLGetStringErr error
 
 func tryCFURLGetString(anURL CFURLRef) (CFStringRef, error) {
 	if _cFURLGetString == nil {
-		return 0, symbolCallError("CFURLGetString", "", _cFURLGetStringErr)
+		return *new(CFStringRef), symbolCallError("CFURLGetString", "", _cFURLGetStringErr)
 	}
 	return _cFURLGetString(anURL), nil
 }
@@ -15283,7 +15283,7 @@ var _cFUUIDCreateErr error
 
 func tryCFUUIDCreate(alloc CFAllocatorRef) (CFUUIDRef, error) {
 	if _cFUUIDCreate == nil {
-		return 0, symbolCallError("CFUUIDCreate", "", _cFUUIDCreateErr)
+		return *new(CFUUIDRef), symbolCallError("CFUUIDCreate", "", _cFUUIDCreateErr)
 	}
 	return _cFUUIDCreate(alloc), nil
 }
@@ -15304,7 +15304,7 @@ var _cFUUIDCreateFromStringErr error
 
 func tryCFUUIDCreateFromString(alloc CFAllocatorRef, uuidStr CFStringRef) (CFUUIDRef, error) {
 	if _cFUUIDCreateFromString == nil {
-		return 0, symbolCallError("CFUUIDCreateFromString", "", _cFUUIDCreateFromStringErr)
+		return *new(CFUUIDRef), symbolCallError("CFUUIDCreateFromString", "", _cFUUIDCreateFromStringErr)
 	}
 	return _cFUUIDCreateFromString(alloc, uuidStr), nil
 }
@@ -15325,7 +15325,7 @@ var _cFUUIDCreateFromUUIDBytesErr error
 
 func tryCFUUIDCreateFromUUIDBytes(alloc CFAllocatorRef, bytes CFUUIDBytes) (CFUUIDRef, error) {
 	if _cFUUIDCreateFromUUIDBytes == nil {
-		return 0, symbolCallError("CFUUIDCreateFromUUIDBytes", "", _cFUUIDCreateFromUUIDBytesErr)
+		return *new(CFUUIDRef), symbolCallError("CFUUIDCreateFromUUIDBytes", "", _cFUUIDCreateFromUUIDBytesErr)
 	}
 	return _cFUUIDCreateFromUUIDBytes(alloc, bytes), nil
 }
@@ -15346,7 +15346,7 @@ var _cFUUIDCreateStringErr error
 
 func tryCFUUIDCreateString(alloc CFAllocatorRef, uuid CFUUIDRef) (CFStringRef, error) {
 	if _cFUUIDCreateString == nil {
-		return 0, symbolCallError("CFUUIDCreateString", "", _cFUUIDCreateStringErr)
+		return *new(CFStringRef), symbolCallError("CFUUIDCreateString", "", _cFUUIDCreateStringErr)
 	}
 	return _cFUUIDCreateString(alloc, uuid), nil
 }
@@ -15367,7 +15367,7 @@ var _cFUUIDCreateWithBytesErr error
 
 func tryCFUUIDCreateWithBytes(alloc CFAllocatorRef, byte0 uint8, byte1 uint8, byte2 uint8, byte3 uint8, byte4 uint8, byte5 uint8, byte6 uint8, byte7 uint8, byte8 uint8, byte9 uint8, byte10 uint8, byte11 uint8, byte12 uint8, byte13 uint8, byte14 uint8, byte15 uint8) (CFUUIDRef, error) {
 	if _cFUUIDCreateWithBytes == nil {
-		return 0, symbolCallError("CFUUIDCreateWithBytes", "", _cFUUIDCreateWithBytesErr)
+		return *new(CFUUIDRef), symbolCallError("CFUUIDCreateWithBytes", "", _cFUUIDCreateWithBytesErr)
 	}
 	return _cFUUIDCreateWithBytes(alloc, byte0, byte1, byte2, byte3, byte4, byte5, byte6, byte7, byte8, byte9, byte10, byte11, byte12, byte13, byte14, byte15), nil
 }
@@ -15388,7 +15388,7 @@ var _cFUUIDGetConstantUUIDWithBytesErr error
 
 func tryCFUUIDGetConstantUUIDWithBytes(alloc CFAllocatorRef, byte0 uint8, byte1 uint8, byte2 uint8, byte3 uint8, byte4 uint8, byte5 uint8, byte6 uint8, byte7 uint8, byte8 uint8, byte9 uint8, byte10 uint8, byte11 uint8, byte12 uint8, byte13 uint8, byte14 uint8, byte15 uint8) (CFUUIDRef, error) {
 	if _cFUUIDGetConstantUUIDWithBytes == nil {
-		return 0, symbolCallError("CFUUIDGetConstantUUIDWithBytes", "", _cFUUIDGetConstantUUIDWithBytesErr)
+		return *new(CFUUIDRef), symbolCallError("CFUUIDGetConstantUUIDWithBytes", "", _cFUUIDGetConstantUUIDWithBytesErr)
 	}
 	return _cFUUIDGetConstantUUIDWithBytes(alloc, byte0, byte1, byte2, byte3, byte4, byte5, byte6, byte7, byte8, byte9, byte10, byte11, byte12, byte13, byte14, byte15), nil
 }
@@ -15472,7 +15472,7 @@ var _cFUserNotificationCreateErr error
 
 func tryCFUserNotificationCreate(allocator CFAllocatorRef, timeout float64, flags uint64, err *int32, dictionary CFDictionaryRef) (CFUserNotificationRef, error) {
 	if _cFUserNotificationCreate == nil {
-		return 0, symbolCallError("CFUserNotificationCreate", "10.0", _cFUserNotificationCreateErr)
+		return *new(CFUserNotificationRef), symbolCallError("CFUserNotificationCreate", "10.0", _cFUserNotificationCreateErr)
 	}
 	return _cFUserNotificationCreate(allocator, timeout, flags, err, dictionary), nil
 }
@@ -15493,7 +15493,7 @@ var _cFUserNotificationCreateRunLoopSourceErr error
 
 func tryCFUserNotificationCreateRunLoopSource(allocator CFAllocatorRef, userNotification CFUserNotificationRef, callout CFUserNotificationCallBack, order int) (CFRunLoopSourceRef, error) {
 	if _cFUserNotificationCreateRunLoopSource == nil {
-		return 0, symbolCallError("CFUserNotificationCreateRunLoopSource", "10.0", _cFUserNotificationCreateRunLoopSourceErr)
+		return *new(CFRunLoopSourceRef), symbolCallError("CFUserNotificationCreateRunLoopSource", "10.0", _cFUserNotificationCreateRunLoopSourceErr)
 	}
 	return _cFUserNotificationCreateRunLoopSource(allocator, userNotification, callout, order), nil
 }
@@ -15556,7 +15556,7 @@ var _cFUserNotificationGetResponseDictionaryErr error
 
 func tryCFUserNotificationGetResponseDictionary(userNotification CFUserNotificationRef) (CFDictionaryRef, error) {
 	if _cFUserNotificationGetResponseDictionary == nil {
-		return 0, symbolCallError("CFUserNotificationGetResponseDictionary", "10.0", _cFUserNotificationGetResponseDictionaryErr)
+		return *new(CFDictionaryRef), symbolCallError("CFUserNotificationGetResponseDictionary", "10.0", _cFUserNotificationGetResponseDictionaryErr)
 	}
 	return _cFUserNotificationGetResponseDictionary(userNotification), nil
 }
@@ -15577,7 +15577,7 @@ var _cFUserNotificationGetResponseValueErr error
 
 func tryCFUserNotificationGetResponseValue(userNotification CFUserNotificationRef, key CFStringRef, idx int) (CFStringRef, error) {
 	if _cFUserNotificationGetResponseValue == nil {
-		return 0, symbolCallError("CFUserNotificationGetResponseValue", "10.0", _cFUserNotificationGetResponseValueErr)
+		return *new(CFStringRef), symbolCallError("CFUserNotificationGetResponseValue", "10.0", _cFUserNotificationGetResponseValueErr)
 	}
 	return _cFUserNotificationGetResponseValue(userNotification, key, idx), nil
 }
@@ -15723,7 +15723,7 @@ var _cFWriteStreamCopyErrorErr error
 
 func tryCFWriteStreamCopyError(stream CFWriteStreamRef) (CFErrorRef, error) {
 	if _cFWriteStreamCopyError == nil {
-		return 0, symbolCallError("CFWriteStreamCopyError", "10.5", _cFWriteStreamCopyErrorErr)
+		return *new(CFErrorRef), symbolCallError("CFWriteStreamCopyError", "10.5", _cFWriteStreamCopyErrorErr)
 	}
 	return _cFWriteStreamCopyError(stream), nil
 }
@@ -15744,7 +15744,7 @@ var _cFWriteStreamCopyPropertyErr error
 
 func tryCFWriteStreamCopyProperty(stream CFWriteStreamRef, propertyName CFStreamPropertyKey) (CFTypeRef, error) {
 	if _cFWriteStreamCopyProperty == nil {
-		return nil, symbolCallError("CFWriteStreamCopyProperty", "", _cFWriteStreamCopyPropertyErr)
+		return *new(CFTypeRef), symbolCallError("CFWriteStreamCopyProperty", "", _cFWriteStreamCopyPropertyErr)
 	}
 	return _cFWriteStreamCopyProperty(stream, propertyName), nil
 }
@@ -15765,7 +15765,7 @@ var _cFWriteStreamCreateWithAllocatedBuffersErr error
 
 func tryCFWriteStreamCreateWithAllocatedBuffers(alloc CFAllocatorRef, bufferAllocator CFAllocatorRef) (CFWriteStreamRef, error) {
 	if _cFWriteStreamCreateWithAllocatedBuffers == nil {
-		return 0, symbolCallError("CFWriteStreamCreateWithAllocatedBuffers", "", _cFWriteStreamCreateWithAllocatedBuffersErr)
+		return *new(CFWriteStreamRef), symbolCallError("CFWriteStreamCreateWithAllocatedBuffers", "", _cFWriteStreamCreateWithAllocatedBuffersErr)
 	}
 	return _cFWriteStreamCreateWithAllocatedBuffers(alloc, bufferAllocator), nil
 }
@@ -15786,7 +15786,7 @@ var _cFWriteStreamCreateWithBufferErr error
 
 func tryCFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer []byte, bufferCapacity int) (CFWriteStreamRef, error) {
 	if _cFWriteStreamCreateWithBuffer == nil {
-		return 0, symbolCallError("CFWriteStreamCreateWithBuffer", "", _cFWriteStreamCreateWithBufferErr)
+		return *new(CFWriteStreamRef), symbolCallError("CFWriteStreamCreateWithBuffer", "", _cFWriteStreamCreateWithBufferErr)
 	}
 	return _cFWriteStreamCreateWithBuffer(alloc, unsafe.SliceData(buffer), bufferCapacity), nil
 }
@@ -15807,7 +15807,7 @@ var _cFWriteStreamCreateWithFileErr error
 
 func tryCFWriteStreamCreateWithFile(alloc CFAllocatorRef, fileURL CFURLRef) (CFWriteStreamRef, error) {
 	if _cFWriteStreamCreateWithFile == nil {
-		return 0, symbolCallError("CFWriteStreamCreateWithFile", "", _cFWriteStreamCreateWithFileErr)
+		return *new(CFWriteStreamRef), symbolCallError("CFWriteStreamCreateWithFile", "", _cFWriteStreamCreateWithFileErr)
 	}
 	return _cFWriteStreamCreateWithFile(alloc, fileURL), nil
 }
@@ -16037,7 +16037,7 @@ var _cFXMLCreateStringByEscapingEntitiesErr error
 
 func tryCFXMLCreateStringByEscapingEntities(allocator CFAllocatorRef, string_ CFStringRef, entitiesDictionary CFDictionaryRef) (CFStringRef, error) {
 	if _cFXMLCreateStringByEscapingEntities == nil {
-		return 0, symbolCallError("CFXMLCreateStringByEscapingEntities", "", _cFXMLCreateStringByEscapingEntitiesErr)
+		return *new(CFStringRef), symbolCallError("CFXMLCreateStringByEscapingEntities", "", _cFXMLCreateStringByEscapingEntitiesErr)
 	}
 	return _cFXMLCreateStringByEscapingEntities(allocator, string_, entitiesDictionary), nil
 }
@@ -16058,7 +16058,7 @@ var _cFXMLCreateStringByUnescapingEntitiesErr error
 
 func tryCFXMLCreateStringByUnescapingEntities(allocator CFAllocatorRef, string_ CFStringRef, entitiesDictionary CFDictionaryRef) (CFStringRef, error) {
 	if _cFXMLCreateStringByUnescapingEntities == nil {
-		return 0, symbolCallError("CFXMLCreateStringByUnescapingEntities", "", _cFXMLCreateStringByUnescapingEntitiesErr)
+		return *new(CFStringRef), symbolCallError("CFXMLCreateStringByUnescapingEntities", "", _cFXMLCreateStringByUnescapingEntitiesErr)
 	}
 	return _cFXMLCreateStringByUnescapingEntities(allocator, string_, entitiesDictionary), nil
 }
@@ -16148,7 +16148,7 @@ var _cFXMLNodeGetStringErr error
 
 func tryCFXMLNodeGetString(node unsafe.Pointer) (CFStringRef, error) {
 	if _cFXMLNodeGetString == nil {
-		return 0, symbolCallError("CFXMLNodeGetString", "10.0", _cFXMLNodeGetStringErr)
+		return *new(CFStringRef), symbolCallError("CFXMLNodeGetString", "10.0", _cFXMLNodeGetStringErr)
 	}
 	return _cFXMLNodeGetString(node), nil
 }
@@ -16262,7 +16262,7 @@ var _cFXMLParserCopyErrorDescriptionErr error
 
 func tryCFXMLParserCopyErrorDescription(parser CFXMLParserRef) (CFStringRef, error) {
 	if _cFXMLParserCopyErrorDescription == nil {
-		return 0, symbolCallError("CFXMLParserCopyErrorDescription", "10.0", _cFXMLParserCopyErrorDescriptionErr)
+		return *new(CFStringRef), symbolCallError("CFXMLParserCopyErrorDescription", "10.0", _cFXMLParserCopyErrorDescriptionErr)
 	}
 	return _cFXMLParserCopyErrorDescription(parser), nil
 }
@@ -16285,7 +16285,7 @@ var _cFXMLParserCreateErr error
 
 func tryCFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) (CFXMLParserRef, error) {
 	if _cFXMLParserCreate == nil {
-		return 0, symbolCallError("CFXMLParserCreate", "10.0", _cFXMLParserCreateErr)
+		return *new(CFXMLParserRef), symbolCallError("CFXMLParserCreate", "10.0", _cFXMLParserCreateErr)
 	}
 	return _cFXMLParserCreate(allocator, xmlData, dataSource, parseOptions, versionOfNodes, callBacks, context), nil
 }
@@ -16308,7 +16308,7 @@ var _cFXMLParserCreateWithDataFromURLErr error
 
 func tryCFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) (CFXMLParserRef, error) {
 	if _cFXMLParserCreateWithDataFromURL == nil {
-		return 0, symbolCallError("CFXMLParserCreateWithDataFromURL", "10.0", _cFXMLParserCreateWithDataFromURLErr)
+		return *new(CFXMLParserRef), symbolCallError("CFXMLParserCreateWithDataFromURL", "10.0", _cFXMLParserCreateWithDataFromURLErr)
 	}
 	return _cFXMLParserCreateWithDataFromURL(allocator, dataSource, parseOptions, versionOfNodes, callBacks, context), nil
 }
@@ -16444,7 +16444,7 @@ var _cFXMLParserGetSourceURLErr error
 
 func tryCFXMLParserGetSourceURL(parser CFXMLParserRef) (CFURLRef, error) {
 	if _cFXMLParserGetSourceURL == nil {
-		return 0, symbolCallError("CFXMLParserGetSourceURL", "10.0", _cFXMLParserGetSourceURLErr)
+		return *new(CFURLRef), symbolCallError("CFXMLParserGetSourceURL", "10.0", _cFXMLParserGetSourceURLErr)
 	}
 	return _cFXMLParserGetSourceURL(parser), nil
 }
@@ -16536,7 +16536,7 @@ var _cFXMLTreeCreateFromDataErr error
 
 func tryCFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) (CFXMLTreeRef, error) {
 	if _cFXMLTreeCreateFromData == nil {
-		return 0, symbolCallError("CFXMLTreeCreateFromData", "10.0", _cFXMLTreeCreateFromDataErr)
+		return *new(CFXMLTreeRef), symbolCallError("CFXMLTreeCreateFromData", "10.0", _cFXMLTreeCreateFromDataErr)
 	}
 	return _cFXMLTreeCreateFromData(allocator, xmlData, dataSource, parseOptions, versionOfNodes), nil
 }
@@ -16559,7 +16559,7 @@ var _cFXMLTreeCreateFromDataWithErrorErr error
 
 func tryCFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, errorDict *CFDictionaryRef) (CFXMLTreeRef, error) {
 	if _cFXMLTreeCreateFromDataWithError == nil {
-		return 0, symbolCallError("CFXMLTreeCreateFromDataWithError", "10.0", _cFXMLTreeCreateFromDataWithErrorErr)
+		return *new(CFXMLTreeRef), symbolCallError("CFXMLTreeCreateFromDataWithError", "10.0", _cFXMLTreeCreateFromDataWithErrorErr)
 	}
 	return _cFXMLTreeCreateFromDataWithError(allocator, xmlData, dataSource, parseOptions, versionOfNodes, errorDict), nil
 }
@@ -16582,7 +16582,7 @@ var _cFXMLTreeCreateWithDataFromURLErr error
 
 func tryCFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) (CFXMLTreeRef, error) {
 	if _cFXMLTreeCreateWithDataFromURL == nil {
-		return 0, symbolCallError("CFXMLTreeCreateWithDataFromURL", "10.0", _cFXMLTreeCreateWithDataFromURLErr)
+		return *new(CFXMLTreeRef), symbolCallError("CFXMLTreeCreateWithDataFromURL", "10.0", _cFXMLTreeCreateWithDataFromURLErr)
 	}
 	return _cFXMLTreeCreateWithDataFromURL(allocator, dataSource, parseOptions, versionOfNodes), nil
 }
@@ -16605,7 +16605,7 @@ var _cFXMLTreeCreateWithNodeErr error
 
 func tryCFXMLTreeCreateWithNode(allocator CFAllocatorRef, node unsafe.Pointer) (CFXMLTreeRef, error) {
 	if _cFXMLTreeCreateWithNode == nil {
-		return 0, symbolCallError("CFXMLTreeCreateWithNode", "10.0", _cFXMLTreeCreateWithNodeErr)
+		return *new(CFXMLTreeRef), symbolCallError("CFXMLTreeCreateWithNode", "10.0", _cFXMLTreeCreateWithNodeErr)
 	}
 	return _cFXMLTreeCreateWithNode(allocator, node), nil
 }
@@ -16628,7 +16628,7 @@ var _cFXMLTreeCreateXMLDataErr error
 
 func tryCFXMLTreeCreateXMLData(allocator CFAllocatorRef, xmlTree CFXMLTreeRef) (CFDataRef, error) {
 	if _cFXMLTreeCreateXMLData == nil {
-		return 0, symbolCallError("CFXMLTreeCreateXMLData", "10.0", _cFXMLTreeCreateXMLDataErr)
+		return *new(CFDataRef), symbolCallError("CFXMLTreeCreateXMLData", "10.0", _cFXMLTreeCreateXMLDataErr)
 	}
 	return _cFXMLTreeCreateXMLData(allocator, xmlTree), nil
 }

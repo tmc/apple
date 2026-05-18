@@ -90,9 +90,9 @@ type IAVMediaExtensionProperties interface {
 	ContainingBundleName() string
 	ExtensionIdentifier() string
 	// The file URL of the Media Extension bundle.
-	ExtensionURL() foundation.INSURL
+	ExtensionURL() foundation.NSURL
 	// The file URL of the host application for the Media Extension.
-	ContainingBundleURL() foundation.INSURL
+	ContainingBundleURL() foundation.NSURL
 
 	// The properties of the media extension format reader that decodes the asset.
 	MediaExtensionProperties() IAVMediaExtensionProperties
@@ -149,7 +149,7 @@ func (m AVMediaExtensionProperties) ExtensionIdentifier() string {
 // The file URL of the Media Extension bundle.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaExtensionProperties/extensionURL
-func (m AVMediaExtensionProperties) ExtensionURL() foundation.INSURL {
+func (m AVMediaExtensionProperties) ExtensionURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("extensionURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -157,7 +157,7 @@ func (m AVMediaExtensionProperties) ExtensionURL() foundation.INSURL {
 // The file URL of the host application for the Media Extension.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaExtensionProperties/containingBundleURL
-func (m AVMediaExtensionProperties) ContainingBundleURL() foundation.INSURL {
+func (m AVMediaExtensionProperties) ContainingBundleURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("containingBundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

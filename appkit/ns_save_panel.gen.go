@@ -229,7 +229,7 @@ type INSSavePanel interface {
 	// Topic: Getting the Selected Item
 
 	// A URL that contains the fully specified location of the targeted file.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// Topic: Configuring the Panel’s Appearance
 
@@ -246,8 +246,8 @@ type INSSavePanel interface {
 	NameFieldStringValue() string
 	SetNameFieldStringValue(value string)
 	// The current directory shown in the panel.
-	DirectoryURL() foundation.INSURL
-	SetDirectoryURL(value foundation.INSURL)
+	DirectoryURL() foundation.NSURL
+	SetDirectoryURL(value foundation.NSURL)
 	// The custom accessory view for the current app.
 	AccessoryView() INSView
 	SetAccessoryView(value INSView)
@@ -584,7 +584,7 @@ func (_NSSavePanelClass NSSavePanelClass) SavePanel() NSSavePanel {
 // contains multiple items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/url
-func (s NSSavePanel) URL() foundation.INSURL {
+func (s NSSavePanel) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -662,11 +662,11 @@ func (s NSSavePanel) SetNameFieldStringValue(value string) {
 // The current directory shown in the panel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/directoryURL
-func (s NSSavePanel) DirectoryURL() foundation.INSURL {
+func (s NSSavePanel) DirectoryURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("directoryURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (s NSSavePanel) SetDirectoryURL(value foundation.INSURL) {
+func (s NSSavePanel) SetDirectoryURL(value foundation.NSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDirectoryURL:"), value)
 }
 

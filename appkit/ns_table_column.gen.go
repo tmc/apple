@@ -242,8 +242,8 @@ type INSTableColumn interface {
 	// Topic: Sorting
 
 	// The table column’s sort descriptor prototype.
-	SortDescriptorPrototype() foundation.INSSortDescriptor
-	SetSortDescriptorPrototype(value foundation.INSSortDescriptor)
+	SortDescriptorPrototype() foundation.NSSortDescriptor
+	SetSortDescriptorPrototype(value foundation.NSSortDescriptor)
 
 	// Topic: Setting Column Visibility
 
@@ -577,11 +577,11 @@ func (t NSTableColumn) SetEditable(value bool) {
 // defines how to sort.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/sortDescriptorPrototype
-func (t NSTableColumn) SortDescriptorPrototype() foundation.INSSortDescriptor {
+func (t NSTableColumn) SortDescriptorPrototype() foundation.NSSortDescriptor {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("sortDescriptorPrototype"))
 	return foundation.NSSortDescriptorFromID(objc.ID(rv))
 }
-func (t NSTableColumn) SetSortDescriptorPrototype(value foundation.INSSortDescriptor) {
+func (t NSTableColumn) SetSortDescriptorPrototype(value foundation.NSSortDescriptor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSortDescriptorPrototype:"), value)
 }
 

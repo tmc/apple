@@ -63,14 +63,14 @@ type IMLE5ExecutionStreamOperationPoolFactory interface {
 }
 
 // Init initializes the instance.
-func (e MLE5ExecutionStreamOperationPoolFactory) Init() MLE5ExecutionStreamOperationPoolFactory {
-	rv := objc.Send[MLE5ExecutionStreamOperationPoolFactory](e.ID, objc.Sel("init"))
+func (m MLE5ExecutionStreamOperationPoolFactory) Init() MLE5ExecutionStreamOperationPoolFactory {
+	rv := objc.Send[MLE5ExecutionStreamOperationPoolFactory](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e MLE5ExecutionStreamOperationPoolFactory) Autorelease() MLE5ExecutionStreamOperationPoolFactory {
-	rv := objc.Send[MLE5ExecutionStreamOperationPoolFactory](e.ID, objc.Sel("autorelease"))
+func (m MLE5ExecutionStreamOperationPoolFactory) Autorelease() MLE5ExecutionStreamOperationPoolFactory {
+	rv := objc.Send[MLE5ExecutionStreamOperationPoolFactory](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

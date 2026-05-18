@@ -14,11 +14,6 @@ import (
 type NSTextAttachmentCellProtocol interface {
 	objectivec.IObject
 
-	// Returns the text attachment object that owns the cell.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/attachment
-	Attachment() INSTextAttachment
-
 	// Draws the cell’s image in the specified rectangle of the currently focused view.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/draw(withFrame:in:)
@@ -77,6 +72,7 @@ type NSTextAttachmentCellProtocol interface {
 	// Returns the text attachment object that owns the cell.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/attachment
+	Attachment() INSTextAttachment
 	SetAttachment(value INSTextAttachment)
 }
 
@@ -95,14 +91,6 @@ func NSTextAttachmentCellProtocolObjectFromID(id objc.ID) NSTextAttachmentCellPr
 	return NSTextAttachmentCellProtocolObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Returns the text attachment object that owns the cell.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/attachment
-func (o NSTextAttachmentCellProtocolObject) Attachment() INSTextAttachment {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("attachment"))
-	return NSTextAttachmentFromID(rv)
 }
 
 // Draws the cell’s image in the specified rectangle of the currently
@@ -317,6 +305,11 @@ func (o NSTextAttachmentCellProtocolObject) TrackMouseInRectOfViewAtCharacterInd
 // Returns the text attachment object that owns the cell.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/attachment
+func (o NSTextAttachmentCellProtocolObject) Attachment() INSTextAttachment {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("attachment"))
+	return NSTextAttachmentFromID(rv)
+}
+
 func (o NSTextAttachmentCellProtocolObject) SetAttachment(value INSTextAttachment) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAttachment:"), value)
 }

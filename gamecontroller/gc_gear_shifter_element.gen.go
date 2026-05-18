@@ -75,7 +75,6 @@ func GCGearShifterElementFromID(id objc.ID) GCGearShifterElement {
 // See: https://developer.apple.com/documentation/GameController/GCGearShifterElement
 type IGCGearShifterElement interface {
 	objectivec.IObject
-	GCPhysicalInputElement
 
 	// Topic: Accessing input values
 
@@ -102,6 +101,31 @@ func NewGCGearShifterElement() GCGearShifterElement {
 	class := getGCGearShifterElementClass()
 	rv := objc.Send[GCGearShifterElement](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// The element’s aliases to use when accessing it with the subscript
+// notation.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/aliases
+func (g GCGearShifterElement) Aliases() foundation.INSSet {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("aliases"))
+	return foundation.NSSetFromID(rv)
+}
+
+// The localized name for the element.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/localizedName
+func (g GCGearShifterElement) LocalizedName() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("localizedName"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// A system symbol for the element.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/sfSymbolsName
+func (g GCGearShifterElement) SfSymbolsName() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("sfSymbolsName"))
+	return foundation.NSStringFromID(rv).String()
 }
 
 // The input object for a pattern gear shift.
@@ -131,31 +155,6 @@ func (g GCGearShifterElement) PatternInput() GCSwitchPositionInput {
 func (g GCGearShifterElement) SequentialInput() GCRelativeInput {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("sequentialInput"))
 	return GCRelativeInputObjectFromID(rv)
-}
-
-// The element’s aliases to use when accessing it with the subscript
-// notation.
-//
-// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/aliases
-func (g GCGearShifterElement) Aliases() foundation.INSSet {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("aliases"))
-	return foundation.NSSetFromID(objc.ID(rv))
-}
-
-// The localized name for the element.
-//
-// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/localizedName
-func (g GCGearShifterElement) LocalizedName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("localizedName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A system symbol for the element.
-//
-// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/sfSymbolsName
-func (g GCGearShifterElement) SfSymbolsName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("sfSymbolsName"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Protocol methods for GCPhysicalInputElement

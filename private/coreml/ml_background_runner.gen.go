@@ -134,14 +134,14 @@ type IMLBackgroundRunner interface {
 }
 
 // Init initializes the instance.
-func (b MLBackgroundRunner) Init() MLBackgroundRunner {
-	rv := objc.Send[MLBackgroundRunner](b.ID, objc.Sel("init"))
+func (m MLBackgroundRunner) Init() MLBackgroundRunner {
+	rv := objc.Send[MLBackgroundRunner](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (b MLBackgroundRunner) Autorelease() MLBackgroundRunner {
-	rv := objc.Send[MLBackgroundRunner](b.ID, objc.Sel("autorelease"))
+func (m MLBackgroundRunner) Autorelease() MLBackgroundRunner {
+	rv := objc.Send[MLBackgroundRunner](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -153,102 +153,102 @@ func NewMLBackgroundRunner() MLBackgroundRunner {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/createExtensionDataSourceWithInfoKey:conformingToProtocol:
-func (b MLBackgroundRunner) CreateExtensionDataSourceWithInfoKeyConformingToProtocol(key objectivec.IObject, protocol_ objectivec.IObject) bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("createExtensionDataSourceWithInfoKey:conformingToProtocol:"), key, protocol_)
+func (m MLBackgroundRunner) CreateExtensionDataSourceWithInfoKeyConformingToProtocol(key objectivec.IObject, protocol_ objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("createExtensionDataSourceWithInfoKey:conformingToProtocol:"), key, protocol_)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/prepareForActivity:
-func (b MLBackgroundRunner) PrepareForActivity(activity objectivec.IObject) bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("prepareForActivity:"), activity)
+func (m MLBackgroundRunner) PrepareForActivity(activity objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("prepareForActivity:"), activity)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/start
-func (b MLBackgroundRunner) Start() byte {
-	rv := objc.Send[byte](b.ID, objc.Sel("start"))
+func (m MLBackgroundRunner) Start() byte {
+	rv := objc.Send[byte](m.ID, objc.Sel("start"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/stop
-func (b MLBackgroundRunner) Stop() {
-	objc.Send[objc.ID](b.ID, objc.Sel("stop"))
+func (m MLBackgroundRunner) Stop() {
+	objc.Send[objc.ID](m.ID, objc.Sel("stop"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/activity
-func (b MLBackgroundRunner) Activity() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](b.ID, objc.Sel("activity"))
+func (m MLBackgroundRunner) Activity() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("activity"))
 	return rv
 }
-func (b MLBackgroundRunner) SetActivity(value unsafe.Pointer) {
-	objc.Send[struct{}](b.ID, objc.Sel("setActivity:"), value)
+func (m MLBackgroundRunner) SetActivity(value unsafe.Pointer) {
+	objc.Send[struct{}](m.ID, objc.Sel("setActivity:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/dataSource
-func (b MLBackgroundRunner) DataSource() objectivec.IObject {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("dataSource"))
+func (m MLBackgroundRunner) DataSource() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataSource"))
 	return objectivec.Object{ID: rv}
 }
-func (b MLBackgroundRunner) SetDataSource(value objectivec.IObject) {
-	objc.Send[struct{}](b.ID, objc.Sel("setDataSource:"), value)
+func (m MLBackgroundRunner) SetDataSource(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setDataSource:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/debugDescription
-func (b MLBackgroundRunner) DebugDescription() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("debugDescription"))
+func (m MLBackgroundRunner) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/delegateQueue
-func (b MLBackgroundRunner) DelegateQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("delegateQueue"))
+func (m MLBackgroundRunner) DelegateQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("delegateQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (b MLBackgroundRunner) SetDelegateQueue(value objectivec.Object) {
-	objc.Send[struct{}](b.ID, objc.Sel("setDelegateQueue:"), value)
+func (m MLBackgroundRunner) SetDelegateQueue(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setDelegateQueue:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/description
-func (b MLBackgroundRunner) Description() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("description"))
+func (m MLBackgroundRunner) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/hash
-func (b MLBackgroundRunner) Hash() uint64 {
-	rv := objc.Send[uint64](b.ID, objc.Sel("hash"))
+func (m MLBackgroundRunner) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/shouldStop
-func (b MLBackgroundRunner) ShouldStop() bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("shouldStop"))
+func (m MLBackgroundRunner) ShouldStop() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shouldStop"))
 	return rv
 }
-func (b MLBackgroundRunner) SetShouldStop(value bool) {
-	objc.Send[struct{}](b.ID, objc.Sel("setShouldStop:"), value)
+func (m MLBackgroundRunner) SetShouldStop(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setShouldStop:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/superclass
-func (b MLBackgroundRunner) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](b.ID, objc.Sel("superclass"))
+func (m MLBackgroundRunner) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/task
-func (b MLBackgroundRunner) Task() IMLBackgroundTask {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("task"))
+func (m MLBackgroundRunner) Task() IMLBackgroundTask {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("task"))
 	return MLBackgroundTaskFromID(objc.ID(rv))
 }
-func (b MLBackgroundRunner) SetTask(value IMLBackgroundTask) {
-	objc.Send[struct{}](b.ID, objc.Sel("setTask:"), value)
+func (m MLBackgroundRunner) SetTask(value IMLBackgroundTask) {
+	objc.Send[struct{}](m.ID, objc.Sel("setTask:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundRunner/watchdogQueue
-func (b MLBackgroundRunner) WatchdogQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("watchdogQueue"))
+func (m MLBackgroundRunner) WatchdogQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("watchdogQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (b MLBackgroundRunner) SetWatchdogQueue(value objectivec.Object) {
-	objc.Send[struct{}](b.ID, objc.Sel("setWatchdogQueue:"), value)
+func (m MLBackgroundRunner) SetWatchdogQueue(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setWatchdogQueue:"), value)
 }

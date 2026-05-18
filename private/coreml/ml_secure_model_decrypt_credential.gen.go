@@ -85,14 +85,14 @@ type IMLSecureModelDecryptCredential interface {
 }
 
 // Init initializes the instance.
-func (s MLSecureModelDecryptCredential) Init() MLSecureModelDecryptCredential {
-	rv := objc.Send[MLSecureModelDecryptCredential](s.ID, objc.Sel("init"))
+func (m MLSecureModelDecryptCredential) Init() MLSecureModelDecryptCredential {
+	rv := objc.Send[MLSecureModelDecryptCredential](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSecureModelDecryptCredential) Autorelease() MLSecureModelDecryptCredential {
-	rv := objc.Send[MLSecureModelDecryptCredential](s.ID, objc.Sel("autorelease"))
+func (m MLSecureModelDecryptCredential) Autorelease() MLSecureModelDecryptCredential {
+	rv := objc.Send[MLSecureModelDecryptCredential](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -111,13 +111,13 @@ func NewSecureModelDecryptCredentialWithCoder(coder objectivec.IObject) MLSecure
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/encodeWithCoder:
-func (s MLSecureModelDecryptCredential) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+func (m MLSecureModelDecryptCredential) EncodeWithCoder(coder foundation.INSCoder) {
+	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/initWithCoder:
-func (s MLSecureModelDecryptCredential) InitWithCoder(coder foundation.INSCoder) MLSecureModelDecryptCredential {
-	rv := objc.Send[MLSecureModelDecryptCredential](s.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLSecureModelDecryptCredential) InitWithCoder(coder foundation.INSCoder) MLSecureModelDecryptCredential {
+	rv := objc.Send[MLSecureModelDecryptCredential](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -128,10 +128,10 @@ func (_MLSecureModelDecryptCredentialClass MLSecureModelDecryptCredentialClass) 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/cryptoKey
-func (s MLSecureModelDecryptCredential) CryptoKey() int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("cryptoKey"))
+func (m MLSecureModelDecryptCredential) CryptoKey() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("cryptoKey"))
 	return rv
 }
-func (s MLSecureModelDecryptCredential) SetCryptoKey(value int64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setCryptoKey:"), value)
+func (m MLSecureModelDecryptCredential) SetCryptoKey(value int64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setCryptoKey:"), value)
 }

@@ -11,140 +11,145 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [DiskImageParamsRAM_XPC] class.
+// The class instance for the [DiskImageParamsRAMXPC] class.
 var (
-	_DiskImageParamsRAM_XPCClass     DiskImageParamsRAM_XPCClass
-	_DiskImageParamsRAM_XPCClassOnce sync.Once
+	_DiskImageParamsRAMXPCClass     DiskImageParamsRAMXPCClass
+	_DiskImageParamsRAMXPCClassOnce sync.Once
 )
 
-func getDiskImageParamsRAM_XPCClass() DiskImageParamsRAM_XPCClass {
-	_DiskImageParamsRAM_XPCClassOnce.Do(func() {
-		_DiskImageParamsRAM_XPCClass = DiskImageParamsRAM_XPCClass{class: objc.GetClass("DiskImageParamsRAM_XPC")}
+func getDiskImageParamsRAMXPCClass() DiskImageParamsRAMXPCClass {
+	_DiskImageParamsRAMXPCClassOnce.Do(func() {
+		_DiskImageParamsRAMXPCClass = DiskImageParamsRAMXPCClass{class: objc.GetClass("DiskImageParamsRAM_XPC")}
 	})
-	return _DiskImageParamsRAM_XPCClass
+	return _DiskImageParamsRAMXPCClass
 }
 
-// GetDiskImageParamsRAM_XPCClass returns the class object for DiskImageParamsRAM_XPC.
-func GetDiskImageParamsRAM_XPCClass() DiskImageParamsRAM_XPCClass {
-	return getDiskImageParamsRAM_XPCClass()
+// GetDiskImageParamsRAMXPCClass returns the class object for DiskImageParamsRAM_XPC.
+func GetDiskImageParamsRAMXPCClass() DiskImageParamsRAMXPCClass {
+	return getDiskImageParamsRAMXPCClass()
 }
 
-type DiskImageParamsRAM_XPCClass struct {
+type DiskImageParamsRAMXPCClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (dc DiskImageParamsRAM_XPCClass) Class() objc.Class {
+func (dc DiskImageParamsRAMXPCClass) Class() objc.Class {
 	return dc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (dc DiskImageParamsRAM_XPCClass) Alloc() DiskImageParamsRAM_XPC {
-	rv := objc.Send[DiskImageParamsRAM_XPC](objc.ID(dc.class), objc.Sel("alloc"))
+func (dc DiskImageParamsRAMXPCClass) Alloc() DiskImageParamsRAMXPC {
+	rv := objc.Send[DiskImageParamsRAMXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
-//   - [DiskImageParamsRAM_XPC.RamSizeStr]
-//   - [DiskImageParamsRAM_XPC.InitWithURLError]
+//   - [DiskImageParamsRAMXPC.RamSizeStr]
+//   - [DiskImageParamsRAMXPC.InitWithURLError]
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRAM_XPC
-type DiskImageParamsRAM_XPC struct {
-	DiskImageParamsRaw_XPC
+type DiskImageParamsRAMXPC struct {
+	DiskImageParamsRawXPC
 }
 
-// DiskImageParamsRAM_XPCFromID constructs a [DiskImageParamsRAM_XPC] from an objc.ID.
-func DiskImageParamsRAM_XPCFromID(id objc.ID) DiskImageParamsRAM_XPC {
-	return DiskImageParamsRAM_XPC{DiskImageParamsRaw_XPC: DiskImageParamsRaw_XPCFromID(id)}
+// DiskImageParamsRAMXPCFromID constructs a [DiskImageParamsRAMXPC] from an objc.ID.
+func DiskImageParamsRAMXPCFromID(id objc.ID) DiskImageParamsRAMXPC {
+	return DiskImageParamsRAMXPC{DiskImageParamsRawXPC: DiskImageParamsRawXPCFromID(id)}
 }
 
-// Ensure DiskImageParamsRAM_XPC implements IDiskImageParamsRAM_XPC.
-var _ IDiskImageParamsRAM_XPC = DiskImageParamsRAM_XPC{}
+// DiskImageParamsRAM_XPCFromID is an alias for [DiskImageParamsRAMXPCFromID] for cross-framework compatibility.
+func DiskImageParamsRAM_XPCFromID(id objc.ID) DiskImageParamsRAMXPC {
+	return DiskImageParamsRAMXPCFromID(id)
+}
 
-// An interface definition for the [DiskImageParamsRAM_XPC] class.
+// Ensure DiskImageParamsRAMXPC implements IDiskImageParamsRAMXPC.
+var _ IDiskImageParamsRAMXPC = DiskImageParamsRAMXPC{}
+
+// An interface definition for the [DiskImageParamsRAMXPC] class.
 //
 // # Methods
 //
-//   - [IDiskImageParamsRAM_XPC.RamSizeStr]
-//   - [IDiskImageParamsRAM_XPC.InitWithURLError]
+//   - [IDiskImageParamsRAMXPC.RamSizeStr]
+//   - [IDiskImageParamsRAMXPC.InitWithURLError]
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRAM_XPC
-type IDiskImageParamsRAM_XPC interface {
-	IDiskImageParamsRaw_XPC
+type IDiskImageParamsRAMXPC interface {
+	IDiskImageParamsRawXPC
 
 	// Topic: Methods
 
 	RamSizeStr() string
-	InitWithURLError(url foundation.INSURL) (DiskImageParamsRAM_XPC, error)
+	InitWithURLError(url foundation.INSURL) (DiskImageParamsRAMXPC, error)
 }
 
 // Init initializes the instance.
-func (d DiskImageParamsRAM_XPC) Init() DiskImageParamsRAM_XPC {
-	rv := objc.Send[DiskImageParamsRAM_XPC](d.ID, objc.Sel("init"))
+func (d DiskImageParamsRAMXPC) Init() DiskImageParamsRAMXPC {
+	rv := objc.Send[DiskImageParamsRAMXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d DiskImageParamsRAM_XPC) Autorelease() DiskImageParamsRAM_XPC {
-	rv := objc.Send[DiskImageParamsRAM_XPC](d.ID, objc.Sel("autorelease"))
+func (d DiskImageParamsRAMXPC) Autorelease() DiskImageParamsRAMXPC {
+	rv := objc.Send[DiskImageParamsRAMXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewDiskImageParamsRAM_XPC creates a new DiskImageParamsRAM_XPC instance.
-func NewDiskImageParamsRAM_XPC() DiskImageParamsRAM_XPC {
-	class := getDiskImageParamsRAM_XPCClass()
-	rv := objc.Send[DiskImageParamsRAM_XPC](objc.ID(class.class), objc.Sel("new"))
+// NewDiskImageParamsRAMXPC creates a new DiskImageParamsRAMXPC instance.
+func NewDiskImageParamsRAMXPC() DiskImageParamsRAMXPC {
+	class := getDiskImageParamsRAMXPCClass()
+	rv := objc.Send[DiskImageParamsRAMXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
-func NewDiskImageParamsRAM_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRAM_XPC {
-	instance := getDiskImageParamsRAM_XPCClass().Alloc()
+func NewDiskImageParamsRAM_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRAMXPC {
+	instance := getDiskImageParamsRAMXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
-	return DiskImageParamsRAM_XPCFromID(rv)
+	return DiskImageParamsRAMXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
-func NewDiskImageParamsRAM_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRAM_XPC {
-	instance := getDiskImageParamsRAM_XPCClass().Alloc()
+func NewDiskImageParamsRAM_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRAMXPC {
+	instance := getDiskImageParamsRAMXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
-	return DiskImageParamsRAM_XPCFromID(rv)
+	return DiskImageParamsRAMXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
-func NewDiskImageParamsRAM_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRAM_XPC {
-	instance := getDiskImageParamsRAM_XPCClass().Alloc()
+func NewDiskImageParamsRAM_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRAMXPC {
+	instance := getDiskImageParamsRAMXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return DiskImageParamsRAM_XPCFromID(rv)
+	return DiskImageParamsRAMXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRAM_XPC/initWithURL:error:
-func NewDiskImageParamsRAM_XPCWithURLError(url foundation.INSURL) (DiskImageParamsRAM_XPC, error) {
+func NewDiskImageParamsRAM_XPCWithURLError(url foundation.INSURL) (DiskImageParamsRAMXPC, error) {
 	var errorPtr objc.ID
-	instance := getDiskImageParamsRAM_XPCClass().Alloc()
+	instance := getDiskImageParamsRAMXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DiskImageParamsRAM_XPC{}, foundation.NSErrorFrom(errorPtr)
+		return DiskImageParamsRAMXPC{}, foundation.NSErrorFrom(errorPtr)
 	}
-	return DiskImageParamsRAM_XPCFromID(rv), nil
+	return DiskImageParamsRAMXPCFromID(rv), nil
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRAM_XPC/initWithURL:error:
-func (d DiskImageParamsRAM_XPC) InitWithURLError(url foundation.INSURL) (DiskImageParamsRAM_XPC, error) {
+func (d DiskImageParamsRAMXPC) InitWithURLError(url foundation.INSURL) (DiskImageParamsRAMXPC, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DiskImageParamsRAM_XPC{}, foundation.NSErrorFrom(errorPtr)
+		return DiskImageParamsRAMXPC{}, foundation.NSErrorFrom(errorPtr)
 	}
-	return DiskImageParamsRAM_XPCFromID(rv), nil
+	return DiskImageParamsRAMXPCFromID(rv), nil
 
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRAM_XPC/ramSizeStr
-func (d DiskImageParamsRAM_XPC) RamSizeStr() string {
+func (d DiskImageParamsRAMXPC) RamSizeStr() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("ramSizeStr"))
 	return foundation.NSStringFromID(rv).String()
 }

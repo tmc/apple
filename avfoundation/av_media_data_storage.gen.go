@@ -85,12 +85,12 @@ type IAVMediaDataStorage interface {
 	// Topic: Creating media data storage
 
 	// Creates a media data storage object associated with a file URL.
-	InitWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVMediaDataStorage
+	InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMediaDataStorage
 
 	// Topic: Accessing the URL
 
 	// Returns the URL used to initialize the receiver.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -123,8 +123,8 @@ func NewAVMediaDataStorage() AVMediaDataStorage {
 //
 // An [AVMediaDataStorage] object.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)
-func NewMediaDataStorageWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVMediaDataStorage {
+// See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)-5cv8s
+func NewMediaDataStorageWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMediaDataStorage {
 	instance := getAVMediaDataStorageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return AVMediaDataStorageFromID(rv)
@@ -141,8 +141,8 @@ func NewMediaDataStorageWithURLOptions(URL foundation.INSURL, options foundation
 //
 // An [AVMediaDataStorage] object.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)
-func (m AVMediaDataStorage) InitWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVMediaDataStorage {
+// See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)-5cv8s
+func (m AVMediaDataStorage) InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMediaDataStorage {
 	rv := objc.Send[AVMediaDataStorage](m.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return rv
 }
@@ -157,7 +157,7 @@ func (m AVMediaDataStorage) InitWithURLOptions(URL foundation.INSURL, options fo
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/url()
 //
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-func (m AVMediaDataStorage) URL() foundation.INSURL {
+func (m AVMediaDataStorage) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(rv)
 }

@@ -113,11 +113,14 @@ func (nc NSCoderClass) Alloc() NSCoder {
 //   - [NSCoder.EncodeSizeForKey]: Encodes a size structure and associates it with the given string key.
 //   - [NSCoder.EncodeValueOfObjCTypeAt]: Encodes a value of the given type at the given address.
 //
+// # Encoding Geometry-Based Data
+//
+//   - [NSCoder.EncodeCMTimeMappingForKey]: Encodes a given Core Media time mapping structure and associates it with a specified key.
+//
 // # Encoding Core Media Time Structures
 //
 //   - [NSCoder.EncodeCMTimeForKey]: Encodes a given Core Media time structure and associates it with a specified key.
 //   - [NSCoder.EncodeCMTimeRangeForKey]: Encodes a given Core Media time range structure and associates it with a specified key.
-//   - [NSCoder.EncodeCMTimeMappingForKey]: Encodes a given Core Media time mapping structure and associates it with a specified key.
 //
 // # Secure Coding
 //
@@ -242,11 +245,14 @@ func NSCoderFromID(id objc.ID) NSCoder {
 //   - [INSCoder.EncodeSizeForKey]: Encodes a size structure and associates it with the given string key.
 //   - [INSCoder.EncodeValueOfObjCTypeAt]: Encodes a value of the given type at the given address.
 //
+// # Encoding Geometry-Based Data
+//
+//   - [INSCoder.EncodeCMTimeMappingForKey]: Encodes a given Core Media time mapping structure and associates it with a specified key.
+//
 // # Encoding Core Media Time Structures
 //
 //   - [INSCoder.EncodeCMTimeForKey]: Encodes a given Core Media time structure and associates it with a specified key.
 //   - [INSCoder.EncodeCMTimeRangeForKey]: Encodes a given Core Media time range structure and associates it with a specified key.
-//   - [INSCoder.EncodeCMTimeMappingForKey]: Encodes a given Core Media time mapping structure and associates it with a specified key.
 //
 // # Secure Coding
 //
@@ -380,14 +386,17 @@ type INSCoder interface {
 	// Encodes a value of the given type at the given address.
 	EncodeValueOfObjCTypeAt(type_ string, addr unsafe.Pointer)
 
+	// Topic: Encoding Geometry-Based Data
+
+	// Encodes a given Core Media time mapping structure and associates it with a specified key.
+	EncodeCMTimeMappingForKey(timeMapping unsafe.Pointer, key string)
+
 	// Topic: Encoding Core Media Time Structures
 
 	// Encodes a given Core Media time structure and associates it with a specified key.
 	EncodeCMTimeForKey(time unsafe.Pointer, key string)
 	// Encodes a given Core Media time range structure and associates it with a specified key.
 	EncodeCMTimeRangeForKey(timeRange unsafe.Pointer, key string)
-	// Encodes a given Core Media time mapping structure and associates it with a specified key.
-	EncodeCMTimeMappingForKey(timeMapping unsafe.Pointer, key string)
 
 	// Topic: Secure Coding
 
@@ -600,7 +609,7 @@ func (c NSCoder) EncodeBoolForKey(value bool, key string) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation simply invokes [EncodeObject].
+// [NSCoder]’s implementation simply invokes [EncodeSize].
 //
 // This method must be matched by a corresponding [DecodeObject] message.
 //
@@ -614,7 +623,7 @@ func (c NSCoder) EncodeBycopyObject(anObject objectivec.IObject) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation simply invokes [EncodeObject].
+// [NSCoder]’s implementation simply invokes [EncodeSize].
 //
 // This method must be matched by a corresponding [DecodeObject] message.
 //
@@ -664,7 +673,7 @@ func (c NSCoder) EncodeBytesLengthForKey(bytes []byte, length uint, key string) 
 // returns `nil` in place of `object`. However, if `object` was encoded
 // unconditionally, all references to `object` must be resolved.
 //
-// [NSCoder]’s implementation simply invokes [EncodeObject].
+// [NSCoder]’s implementation simply invokes [EncodeSize].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeConditionalObject(_:)
 func (c NSCoder) EncodeConditionalObject(object objectivec.IObject) {
@@ -860,7 +869,7 @@ func (c NSCoder) EncodeRectForKey(rect corefoundation.CGRect, key string) {
 //
 // # Discussion
 //
-// [NSCoder]’s implementation simply invokes [EncodeObject].
+// [NSCoder]’s implementation simply invokes [EncodeSize].
 //
 // This method must be matched by a subsequent [DecodeObject] message.
 //
@@ -987,7 +996,7 @@ func (c NSCoder) DecodeArrayOfObjCTypeCountAt(itemType []string, count uint, arr
 }
 
 // Decodes and returns a boolean value that was previously encoded with
-// [EncodeBoolForKey] and associated with the string `key`.
+// [EncodeCMTimeMappingForKey] and associated with the string `key`.
 //
 // # Discussion
 //
@@ -1033,16 +1042,16 @@ func (c NSCoder) DecodeBytesWithReturnedLength(lengthp unsafe.Pointer) unsafe.Po
 }
 
 // Decodes and returns an [NSData] object that was previously encoded with
-// [EncodeDataObject]. Subclasses must override this method.
+// [EncodeSize]. Subclasses must override this method.
 //
 // # Discussion
 //
 // The implementation of your overriding method must match the implementation
-// of your [EncodeDataObject] method. For example, a typical
-// [EncodeDataObject] method encodes the number of bytes of data followed by
-// the bytes themselves. Your override of this method must read the number of
-// bytes, create an [NSData] object of the appropriate size, and decode the
-// bytes into the new [NSData] object.
+// of your [EncodeSize] method. For example, a typical [EncodeSize] method
+// encodes the number of bytes of data followed by the bytes themselves. Your
+// override of this method must read the number of bytes, create an [NSData]
+// object of the appropriate size, and decode the bytes into the new [NSData]
+// object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeData()
 func (c NSCoder) DecodeDataObject() INSData {
@@ -1051,8 +1060,8 @@ func (c NSCoder) DecodeDataObject() INSData {
 }
 
 // Decodes and returns a double value that was previously encoded with either
-// [EncodeFloatForKey] or [EncodeDoubleForKey] and associated with the string
-// `key`.
+// [EncodeCMTimeMappingForKey] or [EncodeCMTimeMappingForKey] and associated
+// with the string `key`.
 //
 // # Discussion
 //
@@ -1065,8 +1074,8 @@ func (c NSCoder) DecodeDoubleForKey(key string) float64 {
 }
 
 // Decodes and returns a float value that was previously encoded with
-// [EncodeFloatForKey] or [EncodeDoubleForKey] and associated with the string
-// `key`.
+// [EncodeCMTimeMappingForKey] or [EncodeCMTimeMappingForKey] and associated
+// with the string `key`.
 //
 // # Discussion
 //
@@ -1082,8 +1091,9 @@ func (c NSCoder) DecodeFloatForKey(key string) float32 {
 }
 
 // Decodes and returns an int value that was previously encoded with
-// [EncodeIntForKey], [EncodeIntegerForKey], [EncodeInt32ForKey], or
-// [EncodeInt64ForKey] and associated with the string `key`.
+// [EncodeIntForKey], [EncodeCMTimeMappingForKey],
+// [EncodeCMTimeMappingForKey], or [EncodeCMTimeMappingForKey] and associated
+// with the string `key`.
 //
 // # Discussion
 //
@@ -1098,8 +1108,9 @@ func (c NSCoder) DecodeIntForKey(key string) int {
 }
 
 // Decodes and returns an NSInteger value that was previously encoded with
-// [EncodeIntForKey], [EncodeIntegerForKey], [EncodeInt32ForKey], or
-// [EncodeInt64ForKey] and associated with the string `key`.
+// [EncodeIntForKey], [EncodeCMTimeMappingForKey],
+// [EncodeCMTimeMappingForKey], or [EncodeCMTimeMappingForKey] and associated
+// with the string `key`.
 //
 // # Discussion
 //
@@ -1114,8 +1125,9 @@ func (c NSCoder) DecodeIntegerForKey(key string) int {
 }
 
 // Decodes and returns a 32-bit integer value that was previously encoded with
-// [EncodeIntForKey], [EncodeIntegerForKey], [EncodeInt32ForKey], or
-// [EncodeInt64ForKey] and associated with the string `key`.
+// [EncodeIntForKey], [EncodeCMTimeMappingForKey],
+// [EncodeCMTimeMappingForKey], or [EncodeCMTimeMappingForKey] and associated
+// with the string `key`.
 //
 // # Discussion
 //
@@ -1130,8 +1142,9 @@ func (c NSCoder) DecodeInt32ForKey(key string) int32 {
 }
 
 // Decodes and returns a 64-bit integer value that was previously encoded with
-// [EncodeIntForKey], [EncodeIntegerForKey], [EncodeInt32ForKey], or
-// [EncodeInt64ForKey] and associated with the string `key`.
+// [EncodeIntForKey], [EncodeCMTimeMappingForKey],
+// [EncodeCMTimeMappingForKey], or [EncodeCMTimeMappingForKey] and associated
+// with the string `key`.
 //
 // # Discussion
 //
@@ -1163,8 +1176,8 @@ func (c NSCoder) DecodeObject() objectivec.IObject {
 }
 
 // Decodes and returns a previously-encoded object that was previously encoded
-// with [EncodeObjectForKey] or [EncodeConditionalObjectForKey] and associated
-// with the string `key`.
+// with [EncodeCMTimeMappingForKey] or [EncodeConditionalObjectForKey] and
+// associated with the string `key`.
 //
 // # Discussion
 //
@@ -1177,7 +1190,7 @@ func (c NSCoder) DecodeObjectForKey(key string) objectivec.IObject {
 }
 
 // Decodes and returns an NSPoint structure that was previously encoded with
-// [EncodePoint].
+// [EncodeSize].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodePoint()
 func (c NSCoder) DecodePoint() NSPoint {
@@ -1186,7 +1199,7 @@ func (c NSCoder) DecodePoint() NSPoint {
 }
 
 // Decodes and returns an NSPoint structure that was previously encoded with
-// [EncodePointForKey].
+// [EncodeCMTimeMappingForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodePoint(forKey:)
 func (c NSCoder) DecodePointForKey(key string) NSPoint {
@@ -1204,7 +1217,7 @@ func (c NSCoder) DecodePropertyList() objectivec.IObject {
 }
 
 // Decodes and returns an NSRect structure that was previously encoded with
-// [EncodeRect].
+// [EncodeSize].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeRect()
 func (c NSCoder) DecodeRect() NSRect {
@@ -1213,7 +1226,7 @@ func (c NSCoder) DecodeRect() NSRect {
 }
 
 // Decodes and returns an NSRect structure that was previously encoded with
-// [EncodeRectForKey].
+// [EncodeCMTimeMappingForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeRect(forKey:)
 func (c NSCoder) DecodeRectForKey(key string) NSRect {
@@ -1231,7 +1244,7 @@ func (c NSCoder) DecodeSize() NSSize {
 }
 
 // Decodes and returns an NSSize structure that was previously encoded with
-// [EncodeSizeForKey].
+// [EncodeCMTimeMappingForKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeSize(forKey:)
 func (c NSCoder) DecodeSizeForKey(key string) NSSize {

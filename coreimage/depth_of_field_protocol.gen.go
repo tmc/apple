@@ -19,70 +19,42 @@ type CIDepthOfField interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/inputImage
 	InputImage() ICIImage
-
-	// The first point in the focused region of the output image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point0
-	Point0() corefoundation.CGPoint
-
-	// The second point in the focused region of the output image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point1
-	Point1() corefoundation.CGPoint
-
-	// The distance from the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/radius
-	Radius() float32
-
-	// The amount to adjust the saturation by.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/saturation
-	Saturation() float32
-
-	// The intensity of the unsharp mask effect applied to the in-focus area.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskIntensity
-	UnsharpMaskIntensity() float32
-
-	// The radius of the unsharp mask effect applied to the in-focus area.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskRadius
-	UnsharpMaskRadius() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/inputImage
 	SetInputImage(value ICIImage)
 
 	// The first point in the focused region of the output image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point0
+	Point0() corefoundation.CGPoint
 	SetPoint0(value corefoundation.CGPoint)
 
 	// The second point in the focused region of the output image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point1
+	Point1() corefoundation.CGPoint
 	SetPoint1(value corefoundation.CGPoint)
 
 	// The distance from the center of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/radius
+	Radius() float32
 	SetRadius(value float32)
 
 	// The amount to adjust the saturation by.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/saturation
+	Saturation() float32
 	SetSaturation(value float32)
 
 	// The intensity of the unsharp mask effect applied to the in-focus area.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskIntensity
+	UnsharpMaskIntensity() float32
 	SetUnsharpMaskIntensity(value float32)
 
 	// The radius of the unsharp mask effect applied to the in-focus area.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskRadius
+	UnsharpMaskRadius() float32
 	SetUnsharpMaskRadius(value float32)
 }
 
@@ -103,62 +75,6 @@ func CIDepthOfFieldObjectFromID(id objc.ID) CIDepthOfFieldObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/inputImage
-func (o CIDepthOfFieldObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The first point in the focused region of the output image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point0
-func (o CIDepthOfFieldObject) Point0() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
-	return rv
-}
-
-// The second point in the focused region of the output image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point1
-func (o CIDepthOfFieldObject) Point1() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
-	return rv
-}
-
-// The distance from the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/radius
-func (o CIDepthOfFieldObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
-// The amount to adjust the saturation by.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/saturation
-func (o CIDepthOfFieldObject) Saturation() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("saturation"))
-	return rv
-}
-
-// The intensity of the unsharp mask effect applied to the in-focus area.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskIntensity
-func (o CIDepthOfFieldObject) UnsharpMaskIntensity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("unsharpMaskIntensity"))
-	return rv
-}
-
-// The radius of the unsharp mask effect applied to the in-focus area.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskRadius
-func (o CIDepthOfFieldObject) UnsharpMaskRadius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("unsharpMaskRadius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -171,6 +87,11 @@ func (o CIDepthOfFieldObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/inputImage
+func (o CIDepthOfFieldObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIDepthOfFieldObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -178,6 +99,11 @@ func (o CIDepthOfFieldObject) SetInputImage(value ICIImage) {
 // The first point in the focused region of the output image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point0
+func (o CIDepthOfFieldObject) Point0() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIDepthOfFieldObject) SetPoint0(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint0:"), value)
 }
@@ -185,6 +111,11 @@ func (o CIDepthOfFieldObject) SetPoint0(value corefoundation.CGPoint) {
 // The second point in the focused region of the output image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point1
+func (o CIDepthOfFieldObject) Point1() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIDepthOfFieldObject) SetPoint1(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint1:"), value)
 }
@@ -192,6 +123,11 @@ func (o CIDepthOfFieldObject) SetPoint1(value corefoundation.CGPoint) {
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/radius
+func (o CIDepthOfFieldObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIDepthOfFieldObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
@@ -199,6 +135,11 @@ func (o CIDepthOfFieldObject) SetRadius(value float32) {
 // The amount to adjust the saturation by.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/saturation
+func (o CIDepthOfFieldObject) Saturation() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("saturation"))
+	return float32(rv)
+}
+
 func (o CIDepthOfFieldObject) SetSaturation(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSaturation:"), value)
 }
@@ -206,6 +147,11 @@ func (o CIDepthOfFieldObject) SetSaturation(value float32) {
 // The intensity of the unsharp mask effect applied to the in-focus area.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskIntensity
+func (o CIDepthOfFieldObject) UnsharpMaskIntensity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("unsharpMaskIntensity"))
+	return float32(rv)
+}
+
 func (o CIDepthOfFieldObject) SetUnsharpMaskIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUnsharpMaskIntensity:"), value)
 }
@@ -213,6 +159,11 @@ func (o CIDepthOfFieldObject) SetUnsharpMaskIntensity(value float32) {
 // The radius of the unsharp mask effect applied to the in-focus area.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskRadius
+func (o CIDepthOfFieldObject) UnsharpMaskRadius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("unsharpMaskRadius"))
+	return float32(rv)
+}
+
 func (o CIDepthOfFieldObject) SetUnsharpMaskRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUnsharpMaskRadius:"), value)
 }

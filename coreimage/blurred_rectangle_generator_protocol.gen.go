@@ -15,34 +15,22 @@ type CIBlurredRectangleGenerator interface {
 	objectivec.IObject
 	CIFilterProtocol
 
-	// Color protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/color
-	Color() ICIColor
-
-	// Extent protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/extent
-	Extent() corefoundation.CGRect
-
-	// Sigma protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/sigma
-	Sigma() float32
-
 	// color protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/color
+	Color() ICIColor
 	SetColor(value ICIColor)
 
 	// extent protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/extent
+	Extent() corefoundation.CGRect
 	SetExtent(value corefoundation.CGRect)
 
 	// sigma protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/sigma
+	Sigma() float32
 	SetSigma(value float32)
 }
 
@@ -63,24 +51,6 @@ func CIBlurredRectangleGeneratorObjectFromID(id objc.ID) CIBlurredRectangleGener
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/color
-func (o CIBlurredRectangleGeneratorObject) Color() ICIColor {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
-	return CIColorFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/extent
-func (o CIBlurredRectangleGeneratorObject) Extent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/sigma
-func (o CIBlurredRectangleGeneratorObject) Sigma() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("sigma"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -91,16 +61,31 @@ func (o CIBlurredRectangleGeneratorObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/color
+func (o CIBlurredRectangleGeneratorObject) Color() ICIColor {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
+	return CIColorFromID(rv)
+}
+
 func (o CIBlurredRectangleGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/extent
+func (o CIBlurredRectangleGeneratorObject) Extent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CIBlurredRectangleGeneratorObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRectangleGenerator/sigma
+func (o CIBlurredRectangleGeneratorObject) Sigma() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("sigma"))
+	return float32(rv)
+}
+
 func (o CIBlurredRectangleGeneratorObject) SetSigma(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSigma:"), value)
 }

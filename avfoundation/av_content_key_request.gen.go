@@ -140,7 +140,7 @@ type IAVContentKeyRequest interface {
 	// Topic: Getting content key request data
 
 	// Obtains encrypted key request data for a specific combination of app and content.
-	MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler(appIdentifier foundation.INSData, contentIdentifier foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler)
+	MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler(appIdentifier foundation.NSData, contentIdentifier foundation.NSData, options foundation.INSDictionary, handler DataErrorHandler)
 	// A key that specifies the versions of the content protection protocol supported by the application.
 	AVContentKeyRequestProtocolVersionsKey() string
 	// A key that requires the secure token to have extended validation data.
@@ -155,7 +155,7 @@ type IAVContentKeyRequest interface {
 	// Sends the specified content key response to the receiver for processing.
 	ProcessContentKeyResponse(keyResponse IAVContentKeyResponse)
 	// Tells the receiver that the app was unable to obtain a content key response.
-	ProcessContentKeyResponseError(error_ foundation.INSError)
+	ProcessContentKeyResponseError(error_ foundation.NSError)
 
 	// Topic: Getting content key request properties
 
@@ -166,9 +166,9 @@ type IAVContentKeyRequest interface {
 	// The content key request used to create a persistable content key or respond to a previous request with a persistable content key.
 	CanProvidePersistableContentKey() bool
 	// The error description for a failed key request.
-	Error() foundation.INSError
+	Error() foundation.NSError
 	// The data used to obtain a key response.
-	InitializationData() foundation.INSData
+	InitializationData() foundation.NSData
 	// A Boolean value that indicates whether the content key request renews previously provided response data.
 	RenewsExpiringResponseData() bool
 	// The current state of the content key request.
@@ -234,7 +234,7 @@ func NewAVContentKeyRequest() AVContentKeyRequest {
 // `options` parameter, the default protocol of `1` is used.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequest/makeStreamingContentKeyRequestData(forApp:contentIdentifier:options:completionHandler:)
-func (c AVContentKeyRequest) MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler(appIdentifier foundation.INSData, contentIdentifier foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler) {
+func (c AVContentKeyRequest) MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler(appIdentifier foundation.NSData, contentIdentifier foundation.NSData, options foundation.INSDictionary, handler DataErrorHandler) {
 	_block3, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("makeStreamingContentKeyRequestDataForApp:contentIdentifier:options:completionHandler:"), appIdentifier, contentIdentifier, options, _block3)
 }
@@ -266,7 +266,7 @@ func (c AVContentKeyRequest) ProcessContentKeyResponse(keyResponse IAVContentKey
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequest/processContentKeyResponseError(_:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (c AVContentKeyRequest) ProcessContentKeyResponseError(error_ foundation.INSError) {
+func (c AVContentKeyRequest) ProcessContentKeyResponseError(error_ foundation.NSError) {
 	objc.Send[objc.ID](c.ID, objc.Sel("processContentKeyResponseError:"), error_)
 }
 
@@ -392,8 +392,8 @@ func (c AVContentKeyRequest) OriginatingRecipient() AVContentKeyRecipient {
 // to create a persistable content key from the response.
 //
 // When this property is set to [NO] and there is a request for a persistable
-// content key, send the [RespondByRequestingPersistableContentKeyRequest]
-// method.
+// content key, send the
+// [RespondByRequestingPersistableContentKeyRequestAndReturnError] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequest/canProvidePersistableContentKey
 func (c AVContentKeyRequest) CanProvidePersistableContentKey() bool {
@@ -404,7 +404,7 @@ func (c AVContentKeyRequest) CanProvidePersistableContentKey() bool {
 // The error description for a failed key request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequest/error
-func (c AVContentKeyRequest) Error() foundation.INSError {
+func (c AVContentKeyRequest) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
@@ -416,7 +416,7 @@ func (c AVContentKeyRequest) Error() foundation.INSError {
 // This property is specific to the container and the protocol.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequest/initializationData
-func (c AVContentKeyRequest) InitializationData() foundation.INSData {
+func (c AVContentKeyRequest) InitializationData() foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initializationData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -494,7 +494,7 @@ func (c AVContentKeyRequest) CanBeFulfilledWithAdvisoryKey() bool {
 
 // MakeStreamingContentKeyRequestDataForAppContentIdentifierOptions is a synchronous wrapper around [AVContentKeyRequest.MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c AVContentKeyRequest) MakeStreamingContentKeyRequestDataForAppContentIdentifierOptions(ctx context.Context, appIdentifier foundation.INSData, contentIdentifier foundation.INSData, options foundation.INSDictionary) (*foundation.NSData, error) {
+func (c AVContentKeyRequest) MakeStreamingContentKeyRequestDataForAppContentIdentifierOptions(ctx context.Context, appIdentifier foundation.NSData, contentIdentifier foundation.NSData, options foundation.INSDictionary) (*foundation.NSData, error) {
 	type result struct {
 		val *foundation.NSData
 		err error

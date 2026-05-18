@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
@@ -206,8 +207,6 @@ func NSDateFromID(id objc.ID) NSDate {
 // See: https://developer.apple.com/documentation/Foundation/NSDate
 type INSDate interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Initializing a Date
@@ -256,8 +255,8 @@ type INSDate interface {
 	// Returns a string representation of the date using the given locale.
 	DescriptionWithLocale(locale objectivec.IObject) string
 	// A custom playground Quick Look for this object.
-	CustomPlaygroundQuickLook() objectivec.IObject
-	SetCustomPlaygroundQuickLook(value objectivec.IObject)
+	CustomPlaygroundQuickLook() unsafe.Pointer
+	SetCustomPlaygroundQuickLook(value unsafe.Pointer)
 
 	// Topic: Recognizing Notifications
 
@@ -768,11 +767,11 @@ func (d NSDate) Description() string {
 // A custom playground Quick Look for this object.
 //
 // See: https://developer.apple.com/documentation/foundation/nsdate/customplaygroundquicklook
-func (d NSDate) CustomPlaygroundQuickLook() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("customPlaygroundQuickLook"))
-	return objectivec.Object{ID: rv}
+func (d NSDate) CustomPlaygroundQuickLook() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("customPlaygroundQuickLook"))
+	return rv
 }
-func (d NSDate) SetCustomPlaygroundQuickLook(value objectivec.IObject) {
+func (d NSDate) SetCustomPlaygroundQuickLook(value unsafe.Pointer) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
 }
 

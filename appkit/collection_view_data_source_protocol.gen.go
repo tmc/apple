@@ -22,7 +22,7 @@ type NSCollectionViewDataSource interface {
 	// Asks your data source object to provide the item at the specified location in the collection view.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:itemForRepresentedObjectAt:)
-	CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath foundation.INSIndexPath) INSCollectionViewItem
+	CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath foundation.NSIndexPath) INSCollectionViewItem
 }
 
 // NSCollectionViewDataSourceObject wraps an existing Objective-C object that conforms to the NSCollectionViewDataSource protocol.
@@ -96,7 +96,7 @@ func (o NSCollectionViewDataSourceObject) CollectionViewNumberOfItemsInSection(c
 // attributes from the layout object during a separate step.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:itemForRepresentedObjectAt:)
-func (o NSCollectionViewDataSourceObject) CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath foundation.INSIndexPath) INSCollectionViewItem {
+func (o NSCollectionViewDataSourceObject) CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath foundation.NSIndexPath) INSCollectionViewItem {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:itemForRepresentedObjectAtIndexPath:"), collectionView, indexPath)
 	return NSCollectionViewItemFromID(rv)
 }
@@ -154,7 +154,7 @@ func (o NSCollectionViewDataSourceObject) NumberOfSectionsInCollectionView(colle
 // separate step.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:viewForSupplementaryElementOfKind:at:)
-func (o NSCollectionViewDataSourceObject) CollectionViewViewForSupplementaryElementOfKindAtIndexPath(collectionView INSCollectionView, kind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSView {
+func (o NSCollectionViewDataSourceObject) CollectionViewViewForSupplementaryElementOfKindAtIndexPath(collectionView INSCollectionView, kind NSCollectionViewSupplementaryElementKind, indexPath foundation.NSIndexPath) INSView {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:viewForSupplementaryElementOfKind:atIndexPath:"), collectionView, objc.String(string(kind)), indexPath)
 	return NSViewFromID(rv)
 }

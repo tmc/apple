@@ -42,5 +42,5 @@ func VNRequestRevisionProvidingObjectFromID(id objc.ID) VNRequestRevisionProvidi
 // See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
 func (o VNRequestRevisionProvidingObject) RequestRevision() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("requestRevision"))
-	return rv
+	return uint(rv)
 }

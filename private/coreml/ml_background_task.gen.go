@@ -88,14 +88,14 @@ type IMLBackgroundTask interface {
 }
 
 // Init initializes the instance.
-func (b MLBackgroundTask) Init() MLBackgroundTask {
-	rv := objc.Send[MLBackgroundTask](b.ID, objc.Sel("init"))
+func (m MLBackgroundTask) Init() MLBackgroundTask {
+	rv := objc.Send[MLBackgroundTask](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (b MLBackgroundTask) Autorelease() MLBackgroundTask {
-	rv := objc.Send[MLBackgroundTask](b.ID, objc.Sel("autorelease"))
+func (m MLBackgroundTask) Autorelease() MLBackgroundTask {
+	rv := objc.Send[MLBackgroundTask](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -114,19 +114,19 @@ func NewBackgroundTaskWithCoder(coder objectivec.IObject) MLBackgroundTask {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/activityForScheduling
-func (b MLBackgroundTask) ActivityForScheduling() objectivec.IObject {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("activityForScheduling"))
+func (m MLBackgroundTask) ActivityForScheduling() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("activityForScheduling"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/encodeWithCoder:
-func (b MLBackgroundTask) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
+func (m MLBackgroundTask) EncodeWithCoder(coder foundation.INSCoder) {
+	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/initWithCoder:
-func (b MLBackgroundTask) InitWithCoder(coder foundation.INSCoder) MLBackgroundTask {
-	rv := objc.Send[MLBackgroundTask](b.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLBackgroundTask) InitWithCoder(coder foundation.INSCoder) MLBackgroundTask {
+	rv := objc.Send[MLBackgroundTask](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -161,10 +161,10 @@ func (_MLBackgroundTaskClass MLBackgroundTaskClass) TaskIsScheduledWithIdentifie
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/taskIdentifier
-func (b MLBackgroundTask) TaskIdentifier() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("taskIdentifier"))
+func (m MLBackgroundTask) TaskIdentifier() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("taskIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (b MLBackgroundTask) SetTaskIdentifier(value string) {
-	objc.Send[struct{}](b.ID, objc.Sel("setTaskIdentifier:"), objc.String(value))
+func (m MLBackgroundTask) SetTaskIdentifier(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setTaskIdentifier:"), objc.String(value))
 }

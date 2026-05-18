@@ -8,6 +8,9 @@ import (
 	"unsafe"
 )
 
+// CFString is the Apple documentation topic name for CFStringRef.
+type CFString = CFStringRef
+
 // Byte order
 
 func cfByteOrderGetCurrent() CFByteOrder {

@@ -66,14 +66,14 @@ type IMLNeuralNetworkCompiler interface {
 }
 
 // Init initializes the instance.
-func (n MLNeuralNetworkCompiler) Init() MLNeuralNetworkCompiler {
-	rv := objc.Send[MLNeuralNetworkCompiler](n.ID, objc.Sel("init"))
+func (m MLNeuralNetworkCompiler) Init() MLNeuralNetworkCompiler {
+	rv := objc.Send[MLNeuralNetworkCompiler](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNeuralNetworkCompiler) Autorelease() MLNeuralNetworkCompiler {
-	rv := objc.Send[MLNeuralNetworkCompiler](n.ID, objc.Sel("autorelease"))
+func (m MLNeuralNetworkCompiler) Autorelease() MLNeuralNetworkCompiler {
+	rv := objc.Send[MLNeuralNetworkCompiler](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

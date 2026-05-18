@@ -71,8 +71,6 @@ func NSFileSecurityFromID(id objc.ID) NSFileSecurity {
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity
 type INSFileSecurity interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 }
 

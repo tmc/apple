@@ -19,30 +19,18 @@ type CICode128BarcodeGenerator interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/barcodeHeight
 	BarcodeHeight() float32
-
-	// The message to encode in the Code 128 barcode.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/message
-	Message() foundation.INSData
-
-	// The number of empty white pixels that should surround the barcode.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/quietSpace
-	QuietSpace() float32
-
-	// The height, in pixels, of the generated barcode.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/barcodeHeight
 	SetBarcodeHeight(value float32)
 
 	// The message to encode in the Code 128 barcode.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/message
-	SetMessage(value foundation.INSData)
+	Message() foundation.NSData
+	SetMessage(value foundation.NSData)
 
 	// The number of empty white pixels that should surround the barcode.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/quietSpace
+	QuietSpace() float32
 	SetQuietSpace(value float32)
 }
 
@@ -63,30 +51,6 @@ func CICode128BarcodeGeneratorObjectFromID(id objc.ID) CICode128BarcodeGenerator
 	}
 }
 
-// The height, in pixels, of the generated barcode.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/barcodeHeight
-func (o CICode128BarcodeGeneratorObject) BarcodeHeight() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("barcodeHeight"))
-	return rv
-}
-
-// The message to encode in the Code 128 barcode.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/message
-func (o CICode128BarcodeGeneratorObject) Message() foundation.INSData {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
-	return foundation.NSDataFromID(rv)
-}
-
-// The number of empty white pixels that should surround the barcode.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/quietSpace
-func (o CICode128BarcodeGeneratorObject) QuietSpace() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("quietSpace"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -99,6 +63,11 @@ func (o CICode128BarcodeGeneratorObject) OutputImage() ICIImage {
 // The height, in pixels, of the generated barcode.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/barcodeHeight
+func (o CICode128BarcodeGeneratorObject) BarcodeHeight() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("barcodeHeight"))
+	return float32(rv)
+}
+
 func (o CICode128BarcodeGeneratorObject) SetBarcodeHeight(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBarcodeHeight:"), value)
 }
@@ -106,13 +75,23 @@ func (o CICode128BarcodeGeneratorObject) SetBarcodeHeight(value float32) {
 // The message to encode in the Code 128 barcode.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/message
-func (o CICode128BarcodeGeneratorObject) SetMessage(value foundation.INSData) {
+func (o CICode128BarcodeGeneratorObject) Message() foundation.NSData {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
+	return foundation.NSDataFromID(rv)
+}
+
+func (o CICode128BarcodeGeneratorObject) SetMessage(value foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMessage:"), value)
 }
 
 // The number of empty white pixels that should surround the barcode.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/quietSpace
+func (o CICode128BarcodeGeneratorObject) QuietSpace() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("quietSpace"))
+	return float32(rv)
+}
+
 func (o CICode128BarcodeGeneratorObject) SetQuietSpace(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQuietSpace:"), value)
 }

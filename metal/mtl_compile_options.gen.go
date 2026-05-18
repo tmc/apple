@@ -56,7 +56,7 @@ func (mc MTLCompileOptionsClass) Alloc() MTLCompileOptions {
 // Choose what the Metal compiler’s optimizer prioritizes by setting the
 // [MTLCompileOptions.OptimizationLevel] property to an [MTLLibraryOptimizationLevel] case. -
 // Allow the compiler to optimize for floating-point arithmetic that may
-// violate the IEEE 754 standard by setting [MTLCompileOptions.MathMode] to [MTLMathMode.fast].
+// violate the IEEE 754 standard by setting [MTLCompileOptions.MathMode] to [MTLMathModeFast].
 //
 // You can compile a library with your compile options instance by calling an
 // [MTLDevice] instance’s [NewLibraryWithSourceOptionsError] or
@@ -105,7 +105,6 @@ func (mc MTLCompileOptionsClass) Alloc() MTLCompileOptions {
 //
 // [MTLLanguageVersion]: https://developer.apple.com/documentation/Metal/MTLLanguageVersion
 // [MTLLibraryOptimizationLevel]: https://developer.apple.com/documentation/Metal/MTLLibraryOptimizationLevel
-// [MTLMathMode.fast]: https://developer.apple.com/documentation/Metal/MTLMathMode/fast
 type MTLCompileOptions struct {
 	objectivec.Object
 }
@@ -259,8 +258,8 @@ func (c MTLCompileOptions) SetEnableLogging(value bool) {
 // This property replaces the [FastMathEnabled] property.
 //
 // If [FastMathEnabled] is `true`, the system sets [MathMode] to
-// [MTLMathMode.fast] and [MathFloatingPointFunctions] to
-// [MTLMathFloatingPointFunctions.fast].
+// [MTLMathModeFast] and [MathFloatingPointFunctions] to
+// [MTLMathFloatingPointFunctionsFast].
 //
 // If [FastMathEnabled] is `false`, the system sets [MathMode] to
 // [MTLMathModeSafe] and [MathFloatingPointFunctions] to
@@ -270,9 +269,6 @@ func (c MTLCompileOptions) SetEnableLogging(value bool) {
 // variables directly.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/mathMode
-//
-// [MTLMathFloatingPointFunctions.fast]: https://developer.apple.com/documentation/Metal/MTLMathFloatingPointFunctions/fast
-// [MTLMathMode.fast]: https://developer.apple.com/documentation/Metal/MTLMathMode/fast
 func (c MTLCompileOptions) MathMode() MTLMathMode {
 	rv := objc.Send[MTLMathMode](c.ID, objc.Sel("mathMode"))
 	return MTLMathMode(rv)
@@ -398,11 +394,9 @@ func (c MTLCompileOptions) SetFastMathEnabled(value bool) {
 //
 // # Discussion
 //
-// The default value is [MTLLibraryType.executable].
+// The default value is [MTLLibraryTypeExecutable].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/libraryType
-//
-// [MTLLibraryType.executable]: https://developer.apple.com/documentation/Metal/MTLLibraryType/executable
 func (c MTLCompileOptions) LibraryType() MTLLibraryType {
 	rv := objc.Send[MTLLibraryType](c.ID, objc.Sel("libraryType"))
 	return MTLLibraryType(rv)

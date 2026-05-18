@@ -105,7 +105,6 @@ func NSMorphologyCustomPronounFromID(id objc.ID) NSMorphologyCustomPronoun {
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyCustomPronoun
 type INSMorphologyCustomPronoun interface {
 	objectivec.IObject
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Determining Pronoun Forms

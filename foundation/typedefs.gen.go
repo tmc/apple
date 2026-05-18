@@ -13,7 +13,7 @@ import (
 // CompletionHandler is a completion handler for getting an asynchronous attributed string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/CompletionHandler
-type CompletionHandler = func(NSAttributedString, objectivec.IObject, objectivec.IObject)
+type CompletionHandler = func(NSAttributedString, unsafe.Pointer, unsafe.Pointer)
 
 // NSAppleEventManagerSuspensionID is identifies an Apple event whose handling has been suspended. Can be used to resume handling of the Apple event.
 //
@@ -313,7 +313,7 @@ type NSURLUbiquitousSharedItemPermissions = string
 type NSURLUbiquitousSharedItemRole = string
 
 // See: https://developer.apple.com/documentation/Foundation/NSUncaughtExceptionHandler
-type NSUncaughtExceptionHandler = objectivec.IObject
+type NSUncaughtExceptionHandler = uintptr
 
 // NSUndoManagerUserInfoKey is an extensible namespace for undo and redo user info keys.
 //
@@ -361,5 +361,4 @@ type NSZone = unsafe.Pointer
 type Unichar = uint16
 
 // UIEdgeInsets is modeled as a CGFloat-based edge inset value for cross-platform NSValue helpers.
-
 type UIEdgeInsets = struct{ Top, Left, Bottom, Right float64 }

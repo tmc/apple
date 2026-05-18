@@ -75,9 +75,9 @@ type ISLSBridgedSpaceSetFrontPSNOperation interface {
 
 	// Topic: Methods
 
-	Psn() objectivec.IObject
+	Psn() CPSProcessSerNum
 	SpaceID() uint64
-	InitWithSpaceIDPsn(id uint64, psn objectivec.IObject) SLSBridgedSpaceSetFrontPSNOperation
+	InitWithSpaceIDPsn(id uint64, psn CPSProcessSerNum) SLSBridgedSpaceSetFrontPSNOperation
 }
 
 // Init initializes the instance.
@@ -107,22 +107,23 @@ func NewSLSBridgedSpaceSetFrontPSNOperationWithCoder(coder objectivec.IObject) S
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/initWithSpaceID:psn:
-func NewSLSBridgedSpaceSetFrontPSNOperationWithSpaceIDPsn(id uint64, psn objectivec.IObject) SLSBridgedSpaceSetFrontPSNOperation {
+func NewSLSBridgedSpaceSetFrontPSNOperationWithSpaceIDPsn(id uint64, psn CPSProcessSerNum) SLSBridgedSpaceSetFrontPSNOperation {
 	instance := getSLSBridgedSpaceSetFrontPSNOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSpaceID:psn:"), id, psn)
 	return SLSBridgedSpaceSetFrontPSNOperationFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/initWithSpaceID:psn:
-func (s SLSBridgedSpaceSetFrontPSNOperation) InitWithSpaceIDPsn(id uint64, psn objectivec.IObject) SLSBridgedSpaceSetFrontPSNOperation {
+func (s SLSBridgedSpaceSetFrontPSNOperation) InitWithSpaceIDPsn(id uint64, psn CPSProcessSerNum) SLSBridgedSpaceSetFrontPSNOperation {
 	rv := objc.Send[SLSBridgedSpaceSetFrontPSNOperation](s.ID, objc.Sel("initWithSpaceID:psn:"), id, psn)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/psn
-func (s SLSBridgedSpaceSetFrontPSNOperation) Psn() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("psn"))
-	return objectivec.Object{ID: rv}
+func (s SLSBridgedSpaceSetFrontPSNOperation) Psn() CPSProcessSerNum {
+	rv := objc.Send[CPSProcessSerNum](s.ID, objc.Sel("psn"))
+	_ = rv
+	return CPSProcessSerNum{}
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSBridgedSpaceSetFrontPSNOperation/spaceID

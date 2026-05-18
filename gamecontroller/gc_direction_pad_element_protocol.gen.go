@@ -68,6 +68,31 @@ func GCDirectionPadElementObjectFromID(id objc.ID) GCDirectionPadElementObject {
 	}
 }
 
+// The localized name for the element.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/localizedName
+func (o GCDirectionPadElementObject) LocalizedName() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("localizedName"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// A system symbol for the element.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/sfSymbolsName
+func (o GCDirectionPadElementObject) SfSymbolsName() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("sfSymbolsName"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// The element’s aliases to use when accessing it with the subscript
+// notation.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/aliases
+func (o GCDirectionPadElementObject) Aliases() foundation.INSSet {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("aliases"))
+	return foundation.NSSetFromID(rv)
+}
+
 // The input object that represents the left button on the directional pad.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDirectionPadElement/left
@@ -122,29 +147,4 @@ func (o GCDirectionPadElementObject) YAxis() GCAxisInput {
 func (o GCDirectionPadElementObject) XyAxes() GCAxis2DInput {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("xyAxes"))
 	return GCAxis2DInputObjectFromID(rv)
-}
-
-// The localized name for the element.
-//
-// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/localizedName
-func (o GCDirectionPadElementObject) LocalizedName() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("localizedName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A system symbol for the element.
-//
-// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/sfSymbolsName
-func (o GCDirectionPadElementObject) SfSymbolsName() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("sfSymbolsName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The element’s aliases to use when accessing it with the subscript
-// notation.
-//
-// See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/aliases
-func (o GCDirectionPadElementObject) Aliases() foundation.INSSet {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("aliases"))
-	return foundation.NSSetFromID(rv)
 }

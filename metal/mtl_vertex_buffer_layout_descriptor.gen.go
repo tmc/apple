@@ -136,13 +136,11 @@ func NewMTLVertexBufferLayoutDescriptor() MTLVertexBufferLayoutDescriptor {
 // qualifier. In this case, `stepRate` needs to be greater than `0` and its
 // value determines how often the function fetches new attribute data.
 //
-// If `stepFunction` is [MTLVertexStepFunction.constant], the function fetches
+// If `stepFunction` is [MTLVertexStepFunctionConstant], the function fetches
 // attribute data just once, and that attribute data is used for every vertex.
 // In this case,`stepRate` needs to be set to `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexBufferLayoutDescriptor/stepFunction
-//
-// [MTLVertexStepFunction.constant]: https://developer.apple.com/documentation/Metal/MTLVertexStepFunction/constant
 func (v MTLVertexBufferLayoutDescriptor) StepFunction() MTLVertexStepFunction {
 	rv := objc.Send[MTLVertexStepFunction](v.ID, objc.Sel("stepFunction"))
 	return MTLVertexStepFunction(rv)

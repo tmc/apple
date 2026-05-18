@@ -115,14 +115,14 @@ type IMLGatherBrick interface {
 }
 
 // Init initializes the instance.
-func (g MLGatherBrick) Init() MLGatherBrick {
-	rv := objc.Send[MLGatherBrick](g.ID, objc.Sel("init"))
+func (m MLGatherBrick) Init() MLGatherBrick {
+	rv := objc.Send[MLGatherBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g MLGatherBrick) Autorelease() MLGatherBrick {
-	rv := objc.Send[MLGatherBrick](g.ID, objc.Sel("autorelease"))
+func (m MLGatherBrick) Autorelease() MLGatherBrick {
+	rv := objc.Send[MLGatherBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -141,84 +141,84 @@ func NewGatherBrickWithParameters(parameters objectivec.IObject) MLGatherBrick {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/computeOnCPUWithInputTensors:outputTensors:
-func (g MLGatherBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLGatherBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/hasGPUSupport
-func (g MLGatherBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("hasGPUSupport"))
+func (m MLGatherBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/setupForInputShapes:withParameters:
-func (g MLGatherBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLGatherBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/initWithParameters:
-func (g MLGatherBrick) InitWithParameters(parameters objectivec.IObject) MLGatherBrick {
-	rv := objc.Send[MLGatherBrick](g.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLGatherBrick) InitWithParameters(parameters objectivec.IObject) MLGatherBrick {
+	rv := objc.Send[MLGatherBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/axis
-func (g MLGatherBrick) Axis() foundation.NSNumber {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("axis"))
+func (m MLGatherBrick) Axis() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/debugDescription
-func (g MLGatherBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+func (m MLGatherBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/description
-func (g MLGatherBrick) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+func (m MLGatherBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/hash
-func (g MLGatherBrick) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+func (m MLGatherBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/inputRanks
-func (g MLGatherBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("inputRanks"))
+func (m MLGatherBrick) InputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/inputShapes
-func (g MLGatherBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("inputShapes"))
+func (m MLGatherBrick) InputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/outputRanks
-func (g MLGatherBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("outputRanks"))
+func (m MLGatherBrick) OutputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/outputShapes
-func (g MLGatherBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("outputShapes"))
+func (m MLGatherBrick) OutputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/shapeInfoNeeded
-func (g MLGatherBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("shapeInfoNeeded"))
+func (m MLGatherBrick) ShapeInfoNeeded() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGatherBrick/superclass
-func (g MLGatherBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
+func (m MLGatherBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

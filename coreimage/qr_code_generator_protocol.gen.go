@@ -19,21 +19,13 @@ type CIQRCodeGenerator interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/correctionLevel
 	CorrectionLevel() string
-
-	// The message to encode in the QR code.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/message
-	Message() foundation.INSData
-
-	// The QR code correction level: L, M, Q, or H.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/correctionLevel
 	SetCorrectionLevel(value string)
 
 	// The message to encode in the QR code.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/message
-	SetMessage(value foundation.INSData)
+	Message() foundation.NSData
+	SetMessage(value foundation.NSData)
 }
 
 // CIQRCodeGeneratorObject wraps an existing Objective-C object that conforms to the CIQRCodeGenerator protocol.
@@ -53,22 +45,6 @@ func CIQRCodeGeneratorObjectFromID(id objc.ID) CIQRCodeGeneratorObject {
 	}
 }
 
-// The QR code correction level: L, M, Q, or H.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/correctionLevel
-func (o CIQRCodeGeneratorObject) CorrectionLevel() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("correctionLevel"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The message to encode in the QR code.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/message
-func (o CIQRCodeGeneratorObject) Message() foundation.INSData {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
-	return foundation.NSDataFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -81,6 +57,11 @@ func (o CIQRCodeGeneratorObject) OutputImage() ICIImage {
 // The QR code correction level: L, M, Q, or H.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/correctionLevel
+func (o CIQRCodeGeneratorObject) CorrectionLevel() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("correctionLevel"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o CIQRCodeGeneratorObject) SetCorrectionLevel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCorrectionLevel:"), objc.String(value))
 }
@@ -88,6 +69,11 @@ func (o CIQRCodeGeneratorObject) SetCorrectionLevel(value string) {
 // The message to encode in the QR code.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/message
-func (o CIQRCodeGeneratorObject) SetMessage(value foundation.INSData) {
+func (o CIQRCodeGeneratorObject) Message() foundation.NSData {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
+	return foundation.NSDataFromID(rv)
+}
+
+func (o CIQRCodeGeneratorObject) SetMessage(value foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMessage:"), value)
 }

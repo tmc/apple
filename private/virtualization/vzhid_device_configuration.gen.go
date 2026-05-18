@@ -86,7 +86,7 @@ type IVZHIDDeviceConfiguration interface {
 
 	// Topic: Methods
 
-	_hidDevice() objectivec.IObject
+	_hidDevice() AvpHidGenericDevice
 	_init() objectivec.IObject
 	EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject
 	MakeHIDDeviceForVirtualMachineHidDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
@@ -134,9 +134,10 @@ func (v VZHIDDeviceConfiguration) MakeHIDDeviceForVirtualMachineHidDeviceIndex(m
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration/_hidDevice
-func (v VZHIDDeviceConfiguration) _hidDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevice"))
-	return objectivec.Object{ID: rv}
+func (v VZHIDDeviceConfiguration) _hidDevice() AvpHidGenericDevice {
+	rv := objc.Send[AvpHidGenericDevice](v.ID, objc.Sel("_hidDevice"))
+	_ = rv
+	return AvpHidGenericDevice{}
 }
 
 // CanHidDevice reports whether the receiver responds to the private selector _hidDevice.
@@ -145,9 +146,9 @@ func (v VZHIDDeviceConfiguration) CanHidDevice() bool {
 }
 
 // HidDevice is an exported wrapper for the private property _hidDevice.
-func (v VZHIDDeviceConfiguration) HidDevice() (objectivec.IObject, error) {
+func (v VZHIDDeviceConfiguration) HidDevice() (AvpHidGenericDevice, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_hidDevice")) {
-		return nil, &objc.UnrecognizedSelectorError{Selector: "_hidDevice"}
+		return AvpHidGenericDevice{}, &objc.UnrecognizedSelectorError{Selector: "_hidDevice"}
 	}
 	return v._hidDevice(), nil
 }

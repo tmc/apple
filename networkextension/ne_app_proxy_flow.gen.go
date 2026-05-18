@@ -5,6 +5,7 @@ package networkextension
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/network"
@@ -129,9 +130,9 @@ type INEAppProxyFlow interface {
 	// Topic: Managing the flow life cycle
 
 	// Close the flow for further read operations.
-	CloseReadWithError(error_ foundation.INSError)
+	CloseReadWithError(error_ foundation.NSError)
 	// Close the flow for further write operations.
-	CloseWriteWithError(error_ foundation.INSError)
+	CloseWriteWithError(error_ foundation.NSError)
 
 	// Topic: Accessing flow information
 
@@ -154,8 +155,8 @@ type INEAppProxyFlow interface {
 
 	// Topic: Instance Properties
 
-	Interface() network.NWInterface
-	SetInterface(value network.NWInterface)
+	Interface() unsafe.Pointer
+	SetInterface(value unsafe.Pointer)
 
 	OpenWithLocalFlowEndpointCompletionHandler(localEndpoint network.NWEndpoint, completionHandler ErrorHandler)
 }
@@ -189,7 +190,7 @@ func NewNEAppProxyFlow() NEAppProxyFlow {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlow/closeReadWithError(_:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (a NEAppProxyFlow) CloseReadWithError(error_ foundation.INSError) {
+func (a NEAppProxyFlow) CloseReadWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](a.ID, objc.Sel("closeReadWithError:"), error_)
 }
 
@@ -201,7 +202,7 @@ func (a NEAppProxyFlow) CloseReadWithError(error_ foundation.INSError) {
 // acceptable error codes.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlow/closeWriteWithError(_:)
-func (a NEAppProxyFlow) CloseWriteWithError(error_ foundation.INSError) {
+func (a NEAppProxyFlow) CloseWriteWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](a.ID, objc.Sel("closeWriteWithError:"), error_)
 }
 
@@ -293,11 +294,11 @@ func (a NEAppProxyFlow) NEAppProxyErrorDomain() string {
 }
 
 // See: https://developer.apple.com/documentation/networkextension/neappproxyflow/interface
-func (a NEAppProxyFlow) Interface() network.NWInterface {
-	rv := objc.Send[network.NWInterface](a.ID, objc.Sel("interface"))
-	return network.NWInterface(rv)
+func (a NEAppProxyFlow) Interface() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("interface"))
+	return rv
 }
-func (a NEAppProxyFlow) SetInterface(value network.NWInterface) {
+func (a NEAppProxyFlow) SetInterface(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInterface:"), value)
 }
 

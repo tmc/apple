@@ -174,14 +174,14 @@ type INEVPNProtocol interface {
 	Username() string
 	SetUsername(value string)
 	// A persistent keychain reference to a keychain item containing the password component of the tunneling protocol authentication credential.
-	PasswordReference() foundation.INSData
-	SetPasswordReference(value foundation.INSData)
+	PasswordReference() foundation.NSData
+	SetPasswordReference(value foundation.NSData)
 	// A persistent keychain reference to a keychain item containing the certificate and private key components of the tunneling protocol authentication credential.
-	IdentityReference() foundation.INSData
-	SetIdentityReference(value foundation.INSData)
+	IdentityReference() foundation.NSData
+	SetIdentityReference(value foundation.NSData)
 	// The certificate and private key components of the tunneling protocol authentication credential, in PKCS12 format.
-	IdentityData() foundation.INSData
-	SetIdentityData(value foundation.INSData)
+	IdentityData() foundation.NSData
+	SetIdentityData(value foundation.NSData)
 	// The password for the PKCS12 tunneling protocol authentication credentials.
 	IdentityDataPassword() string
 	SetIdentityDataPassword(value string)
@@ -308,11 +308,11 @@ func (v NEVPNProtocol) SetUsername(value string) {
 // The keychain item must have the kSecClassGenericPassword class.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/passwordReference
-func (v NEVPNProtocol) PasswordReference() foundation.INSData {
+func (v NEVPNProtocol) PasswordReference() foundation.NSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("passwordReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (v NEVPNProtocol) SetPasswordReference(value foundation.INSData) {
+func (v NEVPNProtocol) SetPasswordReference(value foundation.NSData) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPasswordReference:"), value)
 }
 
@@ -331,11 +331,11 @@ func (v NEVPNProtocol) SetPasswordReference(value foundation.INSData) {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/identityReference
 //
 // [kSecClassIdentity]: https://developer.apple.com/documentation/Security/kSecClassIdentity
-func (v NEVPNProtocol) IdentityReference() foundation.INSData {
+func (v NEVPNProtocol) IdentityReference() foundation.NSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("identityReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (v NEVPNProtocol) SetIdentityReference(value foundation.INSData) {
+func (v NEVPNProtocol) SetIdentityReference(value foundation.NSData) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIdentityReference:"), value)
 }
 
@@ -351,11 +351,11 @@ func (v NEVPNProtocol) SetIdentityReference(value foundation.INSData) {
 // property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/identityData
-func (v NEVPNProtocol) IdentityData() foundation.INSData {
+func (v NEVPNProtocol) IdentityData() foundation.NSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("identityData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (v NEVPNProtocol) SetIdentityData(value foundation.INSData) {
+func (v NEVPNProtocol) SetIdentityData(value foundation.NSData) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIdentityData:"), value)
 }
 

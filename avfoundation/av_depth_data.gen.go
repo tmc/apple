@@ -108,6 +108,7 @@ func (ac AVDepthDataClass) Alloc() AVDepthData {
 //
 //   - [AVDepthData.DepthDataByApplyingExifOrientation]: Returns a derivative depth data object by mirroring or rotating it to the specified orientation.
 //   - [AVDepthData.DepthDataByConvertingToDepthDataType]: Returns a derivative depth data object by converting the depth data map to the specified data type.
+//   - [AVDepthData.AvailableDepthDataTypes]: The list of depth data formats to which you can convert this depth data.
 //   - [AVDepthData.DepthDataByReplacingDepthDataMapWithPixelBufferError]: Returns a derivative depth data object by replacing the depth data map.
 //
 // # Using calibration data
@@ -154,6 +155,7 @@ func AVDepthDataFromID(id objc.ID) AVDepthData {
 //
 //   - [IAVDepthData.DepthDataByApplyingExifOrientation]: Returns a derivative depth data object by mirroring or rotating it to the specified orientation.
 //   - [IAVDepthData.DepthDataByConvertingToDepthDataType]: Returns a derivative depth data object by converting the depth data map to the specified data type.
+//   - [IAVDepthData.AvailableDepthDataTypes]: The list of depth data formats to which you can convert this depth data.
 //   - [IAVDepthData.DepthDataByReplacingDepthDataMapWithPixelBufferError]: Returns a derivative depth data object by replacing the depth data map.
 //
 // # Using calibration data
@@ -191,6 +193,8 @@ type IAVDepthData interface {
 	DepthDataByApplyingExifOrientation(exifOrientation uint) IAVDepthData
 	// Returns a derivative depth data object by converting the depth data map to the specified data type.
 	DepthDataByConvertingToDepthDataType(depthDataType uint32) IAVDepthData
+	// The list of depth data formats to which you can convert this depth data.
+	AvailableDepthDataTypes() []foundation.NSNumber
 	// Returns a derivative depth data object by replacing the depth data map.
 	DepthDataByReplacingDepthDataMapWithPixelBufferError(pixelBuffer corevideo.CVImageBufferRef) (IAVDepthData, error)
 
@@ -198,9 +202,6 @@ type IAVDepthData interface {
 
 	// The imaging parameters with which this depth data was captured.
 	CameraCalibrationData() IAVCameraCalibrationData
-
-	// The list of depth data formats to which you can convert this depth data.
-	AvailableDepthDataTypes() []foundation.NSNumber
 }
 
 // Init initializes the instance.
@@ -446,6 +447,21 @@ func (d AVDepthData) DepthDataQuality() AVDepthDataQuality {
 	return AVDepthDataQuality(rv)
 }
 
+// The list of depth data formats to which you can convert this depth data.
+//
+// # Discussion
+//
+// Use the [DepthDataByConvertingToDepthDataType] method to obtain a converted
+// depth data object using one of the types in this list.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/availableDepthDataTypes-472g0
+func (d AVDepthData) AvailableDepthDataTypes() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("availableDepthDataTypes"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+
 // The imaging parameters with which this depth data was captured.
 //
 // # Discussion
@@ -460,19 +476,4 @@ func (d AVDepthData) DepthDataQuality() AVDepthDataQuality {
 func (d AVDepthData) CameraCalibrationData() IAVCameraCalibrationData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("cameraCalibrationData"))
 	return AVCameraCalibrationDataFromID(objc.ID(rv))
-}
-
-// The list of depth data formats to which you can convert this depth data.
-//
-// # Discussion
-//
-// Use the [DepthDataByConvertingToDepthDataType] method to obtain a converted
-// depth data object using one of the types in this list.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/availableDepthDataTypes-472g0
-func (d AVDepthData) AvailableDepthDataTypes() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("availableDepthDataTypes"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
 }

@@ -79,10 +79,6 @@
 //
 //   - Transforms: Define transform matrices to apply affine transformations to layers in Core Animation. ([CATransform3D])
 //
-// # Quartz Composer
-//
-//   - QCCompositionLayer: A layer that loads, plays, and controls Quartz Composer compositions in a Core Animation layer hierarchy.
-//
 // # Key Types
 //
 //   - [CALayer] - An object that manages image-based content and allows you to perform animations on that content.

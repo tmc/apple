@@ -162,9 +162,9 @@ type LSLaunchURLSpec struct {
 // [Full Topic]: https://developer.apple.com/documentation/coreservices/mdexporterinterfacestruct
 type MDExporterInterfaceStruct struct {
 	ImporterExportData unsafe.Pointer
-	Release            corefoundation.ULONG
-	AddRef             corefoundation.ULONG
-	QueryInterface     corefoundation.HRESULT
+	Release            unsafe.Pointer
+	AddRef             unsafe.Pointer
+	QueryInterface     unsafe.Pointer
 }
 
 // MDImporterBundleWrapperURLInterfaceStruct
@@ -172,10 +172,10 @@ type MDExporterInterfaceStruct struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/coreservices/mdimporterbundlewrapperurlinterfacestruct
 type MDImporterBundleWrapperURLInterfaceStruct struct {
-	AddRef                             corefoundation.ULONG
+	AddRef                             unsafe.Pointer
 	ImporterImportBundleWrapperURLData unsafe.Pointer
-	QueryInterface                     corefoundation.HRESULT
-	Release                            corefoundation.ULONG
+	QueryInterface                     unsafe.Pointer
+	Release                            unsafe.Pointer
 }
 
 // MDImporterInterfaceStruct
@@ -183,10 +183,10 @@ type MDImporterBundleWrapperURLInterfaceStruct struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/coreservices/mdimporterinterfacestruct
 type MDImporterInterfaceStruct struct {
-	Release            corefoundation.ULONG
-	AddRef             corefoundation.ULONG
+	Release            unsafe.Pointer
+	AddRef             unsafe.Pointer
 	ImporterImportData unsafe.Pointer
-	QueryInterface     corefoundation.HRESULT
+	QueryInterface     unsafe.Pointer
 }
 
 // MDImporterURLInterfaceStruct
@@ -194,10 +194,10 @@ type MDImporterInterfaceStruct struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/coreservices/mdimporterurlinterfacestruct
 type MDImporterURLInterfaceStruct struct {
-	QueryInterface        corefoundation.HRESULT
+	QueryInterface        unsafe.Pointer
 	ImporterImportURLData unsafe.Pointer
-	AddRef                corefoundation.ULONG
-	Release               corefoundation.ULONG
+	AddRef                unsafe.Pointer
+	Release               unsafe.Pointer
 }
 
 // MDQueryBatchingParams - Structure containing the progress notification batchingparameters of a MDQuery.

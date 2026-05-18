@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_strength_reduction_batch_matmul_to_inner_product] class.
+// The class instance for the [EspressoPassStrengthReductionBatchMatmulToInnerProduct] class.
 var (
-	_EspressoPass_strength_reduction_batch_matmul_to_inner_productClass     EspressoPass_strength_reduction_batch_matmul_to_inner_productClass
-	_EspressoPass_strength_reduction_batch_matmul_to_inner_productClassOnce sync.Once
+	_EspressoPassStrengthReductionBatchMatmulToInnerProductClass     EspressoPassStrengthReductionBatchMatmulToInnerProductClass
+	_EspressoPassStrengthReductionBatchMatmulToInnerProductClassOnce sync.Once
 )
 
-func getEspressoPass_strength_reduction_batch_matmul_to_inner_productClass() EspressoPass_strength_reduction_batch_matmul_to_inner_productClass {
-	_EspressoPass_strength_reduction_batch_matmul_to_inner_productClassOnce.Do(func() {
-		_EspressoPass_strength_reduction_batch_matmul_to_inner_productClass = EspressoPass_strength_reduction_batch_matmul_to_inner_productClass{class: objc.GetClass("EspressoPass_strength_reduction_batch_matmul_to_inner_product")}
+func getEspressoPassStrengthReductionBatchMatmulToInnerProductClass() EspressoPassStrengthReductionBatchMatmulToInnerProductClass {
+	_EspressoPassStrengthReductionBatchMatmulToInnerProductClassOnce.Do(func() {
+		_EspressoPassStrengthReductionBatchMatmulToInnerProductClass = EspressoPassStrengthReductionBatchMatmulToInnerProductClass{class: objc.GetClass("EspressoPass_strength_reduction_batch_matmul_to_inner_product")}
 	})
-	return _EspressoPass_strength_reduction_batch_matmul_to_inner_productClass
+	return _EspressoPassStrengthReductionBatchMatmulToInnerProductClass
 }
 
-// GetEspressoPass_strength_reduction_batch_matmul_to_inner_productClass returns the class object for EspressoPass_strength_reduction_batch_matmul_to_inner_product.
-func GetEspressoPass_strength_reduction_batch_matmul_to_inner_productClass() EspressoPass_strength_reduction_batch_matmul_to_inner_productClass {
-	return getEspressoPass_strength_reduction_batch_matmul_to_inner_productClass()
+// GetEspressoPassStrengthReductionBatchMatmulToInnerProductClass returns the class object for EspressoPass_strength_reduction_batch_matmul_to_inner_product.
+func GetEspressoPassStrengthReductionBatchMatmulToInnerProductClass() EspressoPassStrengthReductionBatchMatmulToInnerProductClass {
+	return getEspressoPassStrengthReductionBatchMatmulToInnerProductClass()
 }
 
-type EspressoPass_strength_reduction_batch_matmul_to_inner_productClass struct {
+type EspressoPassStrengthReductionBatchMatmulToInnerProductClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_strength_reduction_batch_matmul_to_inner_productClass) Class() objc.Class {
+func (ec EspressoPassStrengthReductionBatchMatmulToInnerProductClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_strength_reduction_batch_matmul_to_inner_productClass) Alloc() EspressoPass_strength_reduction_batch_matmul_to_inner_product {
-	rv := objc.Send[EspressoPass_strength_reduction_batch_matmul_to_inner_product](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassStrengthReductionBatchMatmulToInnerProductClass) Alloc() EspressoPassStrengthReductionBatchMatmulToInnerProduct {
+	rv := objc.Send[EspressoPassStrengthReductionBatchMatmulToInnerProduct](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_batch_matmul_to_inner_product
-type EspressoPass_strength_reduction_batch_matmul_to_inner_product struct {
+type EspressoPassStrengthReductionBatchMatmulToInnerProduct struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_strength_reduction_batch_matmul_to_inner_productFromID constructs a [EspressoPass_strength_reduction_batch_matmul_to_inner_product] from an objc.ID.
-func EspressoPass_strength_reduction_batch_matmul_to_inner_productFromID(id objc.ID) EspressoPass_strength_reduction_batch_matmul_to_inner_product {
-	return EspressoPass_strength_reduction_batch_matmul_to_inner_product{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassStrengthReductionBatchMatmulToInnerProductFromID constructs a [EspressoPassStrengthReductionBatchMatmulToInnerProduct] from an objc.ID.
+func EspressoPassStrengthReductionBatchMatmulToInnerProductFromID(id objc.ID) EspressoPassStrengthReductionBatchMatmulToInnerProduct {
+	return EspressoPassStrengthReductionBatchMatmulToInnerProduct{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_strength_reduction_batch_matmul_to_inner_product implements IEspressoPass_strength_reduction_batch_matmul_to_inner_product.
-var _ IEspressoPass_strength_reduction_batch_matmul_to_inner_product = EspressoPass_strength_reduction_batch_matmul_to_inner_product{}
+// EspressoPass_strength_reduction_batch_matmul_to_inner_productFromID is an alias for [EspressoPassStrengthReductionBatchMatmulToInnerProductFromID] for cross-framework compatibility.
+func EspressoPass_strength_reduction_batch_matmul_to_inner_productFromID(id objc.ID) EspressoPassStrengthReductionBatchMatmulToInnerProduct {
+	return EspressoPassStrengthReductionBatchMatmulToInnerProductFromID(id)
+}
 
-// An interface definition for the [EspressoPass_strength_reduction_batch_matmul_to_inner_product] class.
+// Ensure EspressoPassStrengthReductionBatchMatmulToInnerProduct implements IEspressoPassStrengthReductionBatchMatmulToInnerProduct.
+var _ IEspressoPassStrengthReductionBatchMatmulToInnerProduct = EspressoPassStrengthReductionBatchMatmulToInnerProduct{}
+
+// An interface definition for the [EspressoPassStrengthReductionBatchMatmulToInnerProduct] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_batch_matmul_to_inner_product
-type IEspressoPass_strength_reduction_batch_matmul_to_inner_product interface {
+type IEspressoPassStrengthReductionBatchMatmulToInnerProduct interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_strength_reduction_batch_matmul_to_inner_product) Init() EspressoPass_strength_reduction_batch_matmul_to_inner_product {
-	rv := objc.Send[EspressoPass_strength_reduction_batch_matmul_to_inner_product](e.ID, objc.Sel("init"))
+func (e EspressoPassStrengthReductionBatchMatmulToInnerProduct) Init() EspressoPassStrengthReductionBatchMatmulToInnerProduct {
+	rv := objc.Send[EspressoPassStrengthReductionBatchMatmulToInnerProduct](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_strength_reduction_batch_matmul_to_inner_product) Autorelease() EspressoPass_strength_reduction_batch_matmul_to_inner_product {
-	rv := objc.Send[EspressoPass_strength_reduction_batch_matmul_to_inner_product](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassStrengthReductionBatchMatmulToInnerProduct) Autorelease() EspressoPassStrengthReductionBatchMatmulToInnerProduct {
+	rv := objc.Send[EspressoPassStrengthReductionBatchMatmulToInnerProduct](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_strength_reduction_batch_matmul_to_inner_product creates a new EspressoPass_strength_reduction_batch_matmul_to_inner_product instance.
-func NewEspressoPass_strength_reduction_batch_matmul_to_inner_product() EspressoPass_strength_reduction_batch_matmul_to_inner_product {
-	class := getEspressoPass_strength_reduction_batch_matmul_to_inner_productClass()
-	rv := objc.Send[EspressoPass_strength_reduction_batch_matmul_to_inner_product](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassStrengthReductionBatchMatmulToInnerProduct creates a new EspressoPassStrengthReductionBatchMatmulToInnerProduct instance.
+func NewEspressoPassStrengthReductionBatchMatmulToInnerProduct() EspressoPassStrengthReductionBatchMatmulToInnerProduct {
+	class := getEspressoPassStrengthReductionBatchMatmulToInnerProductClass()
+	rv := objc.Send[EspressoPassStrengthReductionBatchMatmulToInnerProduct](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

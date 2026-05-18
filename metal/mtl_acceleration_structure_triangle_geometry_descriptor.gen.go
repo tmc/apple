@@ -196,6 +196,14 @@ func NewMTLAccelerationStructureTriangleGeometryDescriptor() MTLAccelerationStru
 	return rv
 }
 
+// Creates a new triangle descriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureTriangleGeometryDescriptor/descriptor
+func (_MTLAccelerationStructureTriangleGeometryDescriptorClass MTLAccelerationStructureTriangleGeometryDescriptorClass) Descriptor() MTLAccelerationStructureTriangleGeometryDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureTriangleGeometryDescriptorClass.class), objc.Sel("descriptor"))
+	return MTLAccelerationStructureTriangleGeometryDescriptorFromID(rv)
+}
+
 // The number of triangles in the buffers.
 //
 // # Discussion
@@ -270,11 +278,9 @@ func (a MTLAccelerationStructureTriangleGeometryDescriptor) SetIndexBufferOffset
 //
 // Set this property to a value that represents the pixel format of the data
 // you assign to the [VertexBuffer] property. The property’s default is
-// [MTLAttributeFormat.float3].
+// [MTLAttributeFormatFloat3].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureTriangleGeometryDescriptor/vertexFormat
-//
-// [MTLAttributeFormat.float3]: https://developer.apple.com/documentation/Metal/MTLAttributeFormat/float3
 func (a MTLAccelerationStructureTriangleGeometryDescriptor) VertexFormat() MTLAttributeFormat {
 	rv := objc.Send[MTLAttributeFormat](a.ID, objc.Sel("vertexFormat"))
 	return MTLAttributeFormat(rv)

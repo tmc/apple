@@ -90,8 +90,8 @@ type ISCRecordingOutputConfiguration interface {
 	AvailableVideoCodecTypes() []string
 	OutputFileType() foundation.NSString
 	SetOutputFileType(value foundation.NSString)
-	OutputURL() foundation.INSURL
-	SetOutputURL(value foundation.INSURL)
+	OutputURL() foundation.NSURL
+	SetOutputURL(value foundation.NSURL)
 	VideoCodecType() foundation.NSString
 	SetVideoCodecType(value foundation.NSString)
 }
@@ -137,11 +137,11 @@ func (r SCRecordingOutputConfiguration) SetOutputFileType(value foundation.NSStr
 }
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputConfiguration/outputURL
-func (r SCRecordingOutputConfiguration) OutputURL() foundation.INSURL {
+func (r SCRecordingOutputConfiguration) OutputURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("outputURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (r SCRecordingOutputConfiguration) SetOutputURL(value foundation.INSURL) {
+func (r SCRecordingOutputConfiguration) SetOutputURL(value foundation.NSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOutputURL:"), value)
 }
 

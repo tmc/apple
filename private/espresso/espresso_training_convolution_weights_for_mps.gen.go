@@ -86,7 +86,7 @@ type IEspressoTrainingConvolutionWeightsForMPS interface {
 	WeightsBuffer() objectivec.IObject
 	SetWeightsBuffer(value objectivec.IObject)
 	WeightsLayout() uint32
-	InitWithParamsForMode(params Convolution_uniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS
+	InitWithParamsForMode(params ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS
 }
 
 // Init initializes the instance.
@@ -109,14 +109,14 @@ func NewEspressoTrainingConvolutionWeightsForMPS() EspressoTrainingConvolutionWe
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/initWithParams:
-func NewEspressoTrainingConvolutionWeightsForMPSWithParams(params Convolution_uniforms) EspressoTrainingConvolutionWeightsForMPS {
+func NewEspressoTrainingConvolutionWeightsForMPSWithParams(params ConvolutionUniforms) EspressoTrainingConvolutionWeightsForMPS {
 	instance := getEspressoTrainingConvolutionWeightsForMPSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoTrainingConvolutionWeightsForMPSFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/initWithParams:forMode:
-func NewEspressoTrainingConvolutionWeightsForMPSWithParamsForMode(params Convolution_uniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS {
+func NewEspressoTrainingConvolutionWeightsForMPSWithParamsForMode(params ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS {
 	instance := getEspressoTrainingConvolutionWeightsForMPSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return EspressoTrainingConvolutionWeightsForMPSFromID(rv)
@@ -129,7 +129,7 @@ func (e EspressoTrainingConvolutionWeightsForMPS) WeightsLayout() uint32 {
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/initWithParams:forMode:
-func (e EspressoTrainingConvolutionWeightsForMPS) InitWithParamsForMode(params Convolution_uniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS {
+func (e EspressoTrainingConvolutionWeightsForMPS) InitWithParamsForMode(params ConvolutionUniforms, mode bool) EspressoTrainingConvolutionWeightsForMPS {
 	rv := objc.Send[EspressoTrainingConvolutionWeightsForMPS](e.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return rv
 }

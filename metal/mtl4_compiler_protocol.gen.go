@@ -14,21 +14,6 @@ import (
 type MTL4Compiler interface {
 	objectivec.IObject
 
-	// Returns the device that this compiler belongs to.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/device
-	Device() MTLDevice
-
-	// Returns the optional label you specify at creation time.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/label
-	Label() string
-
-	// Returns the pipeline data set serializer into which this compiler stores data for all pipelines it creates.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/pipelineDataSetSerializer
-	PipelineDataSetSerializer() MTL4PipelineDataSetSerializer
-
 	// Creates a new dynamic library from a library containing Metal IR code synchronously.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/makeDynamicLibrary(library:)
@@ -37,7 +22,7 @@ type MTL4Compiler interface {
 	// Creates a new dynamic library from the contents of a file at an URL location synchronously.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/makeDynamicLibrary(url:)
-	NewDynamicLibraryWithURLError(url foundation.INSURL) (MTLDynamicLibrary, error)
+	NewDynamicLibraryWithURLError(url foundation.NSURL) (MTLDynamicLibrary, error)
 
 	// Creates a new Metal library synchronously.
 	//
@@ -82,7 +67,7 @@ type MTL4Compiler interface {
 	// Creates a new dynamic library from the contents of a file at an URL location synchronously.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibraryWithURL:completionHandler:
-	NewDynamicLibraryWithURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler) MTL4CompilerTask
+	NewDynamicLibraryWithURLCompletionHandler(url foundation.NSURL, completionHandler ErrorHandler) MTL4CompilerTask
 
 	// Creates a new Metal library instance asynchronously.
 	//
@@ -128,6 +113,21 @@ type MTL4Compiler interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newRenderPipelineStateWithDescriptor:dynamicLinkingDescriptor:compilerTaskOptions:error:
 	NewRenderPipelineStateWithDescriptorDynamicLinkingDescriptorCompilerTaskOptionsError(descriptor IMTL4PipelineDescriptor, dynamicLinkingDescriptor IMTL4RenderPipelineDynamicLinkingDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions) (MTLRenderPipelineState, error)
+
+	// Returns the device that this compiler belongs to.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/device
+	Device() MTLDevice
+
+	// Returns the optional label you specify at creation time.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/label
+	Label() string
+
+	// Returns the pipeline data set serializer into which this compiler stores data for all pipelines it creates.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/pipelineDataSetSerializer
+	PipelineDataSetSerializer() MTL4PipelineDataSetSerializer
 }
 
 // MTL4CompilerObject wraps an existing Objective-C object that conforms to the MTL4Compiler protocol.
@@ -145,31 +145,6 @@ func MTL4CompilerObjectFromID(id objc.ID) MTL4CompilerObject {
 	return MTL4CompilerObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Returns the device that this compiler belongs to.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/device
-func (o MTL4CompilerObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// Returns the optional label you specify at creation time.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/label
-func (o MTL4CompilerObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the pipeline data set serializer into which this compiler stores
-// data for all pipelines it creates.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/pipelineDataSetSerializer
-func (o MTL4CompilerObject) PipelineDataSetSerializer() MTL4PipelineDataSetSerializer {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("pipelineDataSetSerializer"))
-	return MTL4PipelineDataSetSerializerObjectFromID(rv)
 }
 
 // Creates a new dynamic library from a library containing Metal IR code
@@ -201,7 +176,7 @@ func (o MTL4CompilerObject) NewDynamicLibraryError(library MTLLibrary) (MTLDynam
 // A new dynamic Metal library upon success, `nil` otherwise.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4Compiler/makeDynamicLibrary(url:)
-func (o MTL4CompilerObject) NewDynamicLibraryWithURLError(url foundation.INSURL) (MTLDynamicLibrary, error) {
+func (o MTL4CompilerObject) NewDynamicLibraryWithURLError(url foundation.NSURL) (MTLDynamicLibrary, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newDynamicLibraryWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -389,7 +364,7 @@ func (o MTL4CompilerObject) NewDynamicLibraryCompletionHandler(library MTLLibrar
 // A compiler task representing the asynchronous compilation task.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibraryWithURL:completionHandler:
-func (o MTL4CompilerObject) NewDynamicLibraryWithURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler) MTL4CompilerTask {
+func (o MTL4CompilerObject) NewDynamicLibraryWithURLCompletionHandler(url foundation.NSURL, completionHandler ErrorHandler) MTL4CompilerTask {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newDynamicLibraryWithURL:completionHandler:"), url, completionHandler)
 	return MTL4CompilerTaskObjectFromID(rv)
 }
@@ -655,4 +630,29 @@ func (o MTL4CompilerObject) NewRenderPipelineStateWithDescriptorDynamicLinkingDe
 		return nil, err
 	}
 	return MTLRenderPipelineStateObjectFromID(rv), nil
+}
+
+// Returns the device that this compiler belongs to.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/device
+func (o MTL4CompilerObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
+// Returns the optional label you specify at creation time.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/label
+func (o MTL4CompilerObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// Returns the pipeline data set serializer into which this compiler stores
+// data for all pipelines it creates.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/pipelineDataSetSerializer
+func (o MTL4CompilerObject) PipelineDataSetSerializer() MTL4PipelineDataSetSerializer {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("pipelineDataSetSerializer"))
+	return MTL4PipelineDataSetSerializerObjectFromID(rv)
 }

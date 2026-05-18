@@ -190,7 +190,7 @@ type IXMLDTD interface {
 
 	// Returns an
 	Dtd() INSXMLDTD
-	SetDtd(value INSXMLDTD)
+	SetDTD(value INSXMLDTD)
 }
 
 // Init initializes the instance.
@@ -575,6 +575,6 @@ func (x XMLDTD) Dtd() INSXMLDTD {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("DTD"))
 	return NSXMLDTDFromID(objc.ID(rv))
 }
-func (x XMLDTD) SetDtd(value INSXMLDTD) {
+func (x XMLDTD) SetDTD(value INSXMLDTD) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDTD:"), value)
 }

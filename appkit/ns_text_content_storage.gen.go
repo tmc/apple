@@ -124,7 +124,6 @@ func NSTextContentStorageFromID(id objc.ID) NSTextContentStorage {
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentStorage
 type INSTextContentStorage interface {
 	INSTextContentManager
-	NSTextStorageObserving
 
 	// Topic: Managing the stored text
 
@@ -230,6 +229,12 @@ func (t NSTextContentStorage) ProcessEditingForTextStorageEditedRangeChangeInLen
 	objc.Send[objc.ID](t.ID, objc.Sel("processEditingForTextStorage:edited:range:changeInLength:invalidatedRange:"), textStorage, editMask, newCharRange, delta, invalidatedCharRange)
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
+func (t NSTextContentStorage) TextStorage() NSTextStorage {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("textStorage"))
+	return NSTextStorageFromID(rv)
+}
+
 // An attributed string that contains the contents of the document.
 //
 // # Discussion
@@ -265,16 +270,12 @@ func (t NSTextContentStorage) SetIncludesTextListMarkers(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIncludesTextListMarkers:"), value)
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
-func (t NSTextContentStorage) TextStorage() NSTextStorage {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("textStorage"))
-	return NSTextStorageFromID(objc.ID(rv))
-}
-func (t NSTextContentStorage) SetTextStorage(value NSTextStorage) {
-	objc.Send[struct{}](t.ID, objc.Sel("setTextStorage:"), value)
-}
-
 // Protocol methods for NSTextStorageObserving
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
+func (o NSTextContentStorage) SetTextStorage(value NSTextStorage) {
+	objc.Send[struct{}](o.ID, objc.Sel("setTextStorage:"), value)
+}
 
 // PerformEditingTransactionForTextStorageUsingBlockSync is a synchronous wrapper around [NSTextContentStorage.PerformEditingTransactionForTextStorageUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.

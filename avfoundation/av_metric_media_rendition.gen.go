@@ -75,7 +75,7 @@ type IAVMetricMediaRendition interface {
 	// Topic: Inspecting the rendition
 
 	StableID() string
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -120,7 +120,7 @@ func (m AVMetricMediaRendition) StableID() string {
 // available, value is nil.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaRendition/url
-func (m AVMetricMediaRendition) URL() foundation.INSURL {
+func (m AVMetricMediaRendition) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

@@ -53,6 +53,15 @@ func MTL4MachineLearningPipelineStateObjectFromID(id objc.ID) MTL4MachineLearnin
 	}
 }
 
+// The amount of memory, in byes, a resource consumes, such as for a buffer,
+// texture, or heap.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
+func (o MTL4MachineLearningPipelineStateObject) AllocatedSize() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
+	return rv
+}
+
 // Returns the device the pipeline state belongs to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineState/device
@@ -64,10 +73,19 @@ func (o MTL4MachineLearningPipelineStateObject) Device() MTLDevice {
 // Obtain the size of the heap, in bytes, this pipeline requires during the
 // execution.
 //
+// # Discussion
+//
+// Use this value to allocate a [MTLHeap] instance of sufficient size that you
+// can then provide to [DispatchNetworkWithIntermediatesHeap].
+//
+// Metal uses this heap to store intermediate data as it executes the
+// pipeline. It is your responsibility to provide a heap at least as large as
+// this property requests.
+//
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineState/intermediatesHeapSize
 func (o MTL4MachineLearningPipelineStateObject) IntermediatesHeapSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("intermediatesHeapSize"))
-	return rv
+	return uint(rv)
 }
 
 // Queries the string that helps identify this object.
@@ -84,13 +102,4 @@ func (o MTL4MachineLearningPipelineStateObject) Label() string {
 func (o MTL4MachineLearningPipelineStateObject) Reflection() IMTL4MachineLearningPipelineReflection {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
 	return MTL4MachineLearningPipelineReflectionFromID(rv)
-}
-
-// The amount of memory, in byes, a resource consumes, such as for a buffer,
-// texture, or heap.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
-func (o MTL4MachineLearningPipelineStateObject) AllocatedSize() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
-	return rv
 }

@@ -117,7 +117,7 @@ func NewMLUpdateTask() MLUpdateTask {
 // progressHandlers: The closures the task calls during the update process.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:configuration:progressHandlers:)
-func NewUpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(modelURL foundation.INSURL, trainingData MLBatchProvider, configuration IMLModelConfiguration, progressHandlers IMLUpdateProgressHandlers) (MLUpdateTask, error) {
+func NewUpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(modelURL foundation.NSURL, trainingData MLBatchProvider, configuration IMLModelConfiguration, progressHandlers IMLUpdateProgressHandlers) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLUpdateTaskClass().class), objc.Sel("updateTaskForModelAtURL:trainingData:configuration:progressHandlers:error:"), modelURL, trainingData, configuration, progressHandlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -138,7 +138,7 @@ func NewUpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(mo
 // progressHandlers: The closures the task calls during the update process.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:progressHandlers:)
-func NewUpdateTaskForModelAtURLTrainingDataProgressHandlersError(modelURL foundation.INSURL, trainingData MLBatchProvider, progressHandlers IMLUpdateProgressHandlers) (MLUpdateTask, error) {
+func NewUpdateTaskForModelAtURLTrainingDataProgressHandlersError(modelURL foundation.NSURL, trainingData MLBatchProvider, progressHandlers IMLUpdateProgressHandlers) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLUpdateTaskClass().class), objc.Sel("updateTaskForModelAtURL:trainingData:progressHandlers:error:"), modelURL, trainingData, progressHandlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -175,7 +175,7 @@ func (u MLUpdateTask) ResumeWithParameters(updateParameters foundation.INSDictio
 // completionHandler: The closure the task calls when it finishes.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:completionHandler:)
-func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataCompletionHandlerError(modelURL foundation.INSURL, trainingData MLBatchProvider, completionHandler func(*MLUpdateContext)) (MLUpdateTask, error) {
+func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataCompletionHandlerError(modelURL foundation.NSURL, trainingData MLBatchProvider, completionHandler func(*MLUpdateContext)) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:completionHandler:error:"), modelURL, trainingData, completionHandler, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -199,7 +199,7 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 // completionHandler: The closure the task calls when it finishes.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:configuration:completionHandler:)
-func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataConfigurationCompletionHandlerError(modelURL foundation.INSURL, trainingData MLBatchProvider, configuration IMLModelConfiguration, completionHandler func(*MLUpdateContext)) (MLUpdateTask, error) {
+func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataConfigurationCompletionHandlerError(modelURL foundation.NSURL, trainingData MLBatchProvider, configuration IMLModelConfiguration, completionHandler func(*MLUpdateContext)) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:configuration:completionHandler:error:"), modelURL, trainingData, configuration, completionHandler, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

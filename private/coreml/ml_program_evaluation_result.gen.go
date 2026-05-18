@@ -84,14 +84,14 @@ type IMLProgramEvaluationResult interface {
 }
 
 // Init initializes the instance.
-func (p MLProgramEvaluationResult) Init() MLProgramEvaluationResult {
-	rv := objc.Send[MLProgramEvaluationResult](p.ID, objc.Sel("init"))
+func (m MLProgramEvaluationResult) Init() MLProgramEvaluationResult {
+	rv := objc.Send[MLProgramEvaluationResult](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLProgramEvaluationResult) Autorelease() MLProgramEvaluationResult {
-	rv := objc.Send[MLProgramEvaluationResult](p.ID, objc.Sel("autorelease"))
+func (m MLProgramEvaluationResult) Autorelease() MLProgramEvaluationResult {
+	rv := objc.Send[MLProgramEvaluationResult](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -103,19 +103,19 @@ func NewMLProgramEvaluationResult() MLProgramEvaluationResult {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluationResult/evaluationMetrics
-func (p MLProgramEvaluationResult) EvaluationMetrics() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("evaluationMetrics"))
+func (m MLProgramEvaluationResult) EvaluationMetrics() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluationMetrics"))
 	return objectivec.Object{ID: rv}
 }
-func (p MLProgramEvaluationResult) SetEvaluationMetrics(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setEvaluationMetrics:"), value)
+func (m MLProgramEvaluationResult) SetEvaluationMetrics(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setEvaluationMetrics:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluationResult/loss
-func (p MLProgramEvaluationResult) Loss() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("loss"))
+func (m MLProgramEvaluationResult) Loss() float64 {
+	rv := objc.Send[float64](m.ID, objc.Sel("loss"))
 	return rv
 }
-func (p MLProgramEvaluationResult) SetLoss(value float64) {
-	objc.Send[struct{}](p.ID, objc.Sel("setLoss:"), value)
+func (m MLProgramEvaluationResult) SetLoss(value float64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setLoss:"), value)
 }

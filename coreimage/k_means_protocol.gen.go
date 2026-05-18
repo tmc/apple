@@ -16,44 +16,28 @@ type CIKMeans interface {
 	CIAreaReductionFilter
 	CIFilterProtocol
 
-	// Count protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/count
-	Count() int
-
-	// InputMeans protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/inputMeans
-	InputMeans() ICIImage
-
-	// Passes protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/passes
-	Passes() float32
-
-	// Perceptual protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/perceptual
-	Perceptual() bool
-
 	// count protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/count
+	Count() int
 	SetCount(value int)
 
 	// inputMeans protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/inputMeans
+	InputMeans() ICIImage
 	SetInputMeans(value ICIImage)
 
 	// passes protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/passes
+	Passes() float32
 	SetPasses(value float32)
 
 	// perceptual protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/perceptual
+	Perceptual() bool
 	SetPerceptual(value bool)
 }
 
@@ -72,30 +56,6 @@ func CIKMeansObjectFromID(id objc.ID) CIKMeansObject {
 	return CIKMeansObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/count
-func (o CIKMeansObject) Count() int {
-	rv := objc.Send[int](o.ID, objc.Sel("count"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/inputMeans
-func (o CIKMeansObject) InputMeans() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputMeans"))
-	return CIImageFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/passes
-func (o CIKMeansObject) Passes() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("passes"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIKMeans/perceptual
-func (o CIKMeansObject) Perceptual() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("perceptual"))
-	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
@@ -122,21 +82,41 @@ func (o CIKMeansObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIKMeans/count
+func (o CIKMeansObject) Count() int {
+	rv := objc.Send[int](o.ID, objc.Sel("count"))
+	return int(rv)
+}
+
 func (o CIKMeansObject) SetCount(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCount:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIKMeans/inputMeans
+func (o CIKMeansObject) InputMeans() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputMeans"))
+	return CIImageFromID(rv)
+}
+
 func (o CIKMeansObject) SetInputMeans(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputMeans:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIKMeans/passes
+func (o CIKMeansObject) Passes() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("passes"))
+	return float32(rv)
+}
+
 func (o CIKMeansObject) SetPasses(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPasses:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIKMeans/perceptual
+func (o CIKMeansObject) Perceptual() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("perceptual"))
+	return bool(rv)
+}
+
 func (o CIKMeansObject) SetPerceptual(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPerceptual:"), value)
 }

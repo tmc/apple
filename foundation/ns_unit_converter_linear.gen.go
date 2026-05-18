@@ -121,7 +121,6 @@ func NSUnitConverterLinearFromID(id objc.ID) UnitConverterLinear {
 // See: https://developer.apple.com/documentation/Foundation/UnitConverterLinear
 type IUnitConverterLinear interface {
 	INSUnitConverter
-	NSCoding
 	NSSecureCoding
 
 	// Topic: Accessing Linear Parameters

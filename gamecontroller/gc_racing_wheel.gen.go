@@ -110,7 +110,6 @@ func GCRacingWheelFromID(id objc.ID) GCRacingWheel {
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheel
 type IGCRacingWheel interface {
 	objectivec.IObject
-	GCDevice
 
 	// Topic: Discovering racing wheels
 
@@ -202,6 +201,15 @@ func (g GCRacingWheel) Capture() IGCRacingWheel {
 	return GCRacingWheelFromID(rv)
 }
 
+// The dispatch queue that the framework uses to call element value change
+// handlers.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
+func (g GCRacingWheel) HandlerQueue() dispatch.Queue {
+	rv := objc.Send[uintptr](g.ID, objc.Sel("handlerQueue"))
+	return dispatch.QueueFromHandle(rv)
+}
+
 // The device’s physical input profile, such as a controller’s extended
 // gamepad.
 //
@@ -209,6 +217,23 @@ func (g GCRacingWheel) Capture() IGCRacingWheel {
 func (g GCRacingWheel) PhysicalInputProfile() IGCPhysicalInputProfile {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("physicalInputProfile"))
 	return GCPhysicalInputProfileFromID(rv)
+}
+
+// The product category that identifies the type of controller.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/productCategory
+func (g GCRacingWheel) ProductCategory() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("productCategory"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// The manufacturer-provided name for the device, or the user’s name for the
+// device.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
+func (g GCRacingWheel) VendorName() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
+	return foundation.NSStringFromID(rv).String()
 }
 
 // A notification that posts after a racing wheel controller connects to the
@@ -260,6 +285,16 @@ func (g GCRacingWheel) Snapshot() bool {
 	return rv
 }
 
+// The racing wheels connected to the device.
+//
+// See: https://developer.apple.com/documentation/GameController/GCRacingWheel/connectedRacingWheels
+func (_GCRacingWheelClass GCRacingWheelClass) ConnectedRacingWheels() foundation.INSSet {
+	rv := objc.Send[objc.ID](objc.ID(_GCRacingWheelClass.class), objc.Sel("connectedRacingWheels"))
+	return foundation.NSSetFromID(objc.ID(rv))
+}
+
+// Protocol methods for GCDevice
+
 // The dispatch queue that the framework uses to call element value change
 // handlers.
 //
@@ -272,42 +307,6 @@ func (g GCRacingWheel) Snapshot() bool {
 // first access the input device.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
-func (g GCRacingWheel) HandlerQueue() dispatch.Queue {
-	rv := objc.Send[uintptr](g.ID, objc.Sel("handlerQueue"))
-	return dispatch.QueueFromHandle(rv)
+func (o GCRacingWheel) SetHandlerQueue(value dispatch.Queue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setHandlerQueue:"), value)
 }
-func (g GCRacingWheel) SetHandlerQueue(value dispatch.Queue) {
-	objc.Send[struct{}](g.ID, objc.Sel("setHandlerQueue:"), uintptr(value.Handle()))
-}
-
-// The product category that identifies the type of controller.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/productCategory
-func (g GCRacingWheel) ProductCategory() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("productCategory"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The manufacturer-provided name for the device, or the user’s name for the
-// device.
-//
-// # Discussion
-//
-// The value of this property may be `nil` and may not be unique. Use this
-// property to present information about the device to the user.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
-func (g GCRacingWheel) VendorName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The racing wheels connected to the device.
-//
-// See: https://developer.apple.com/documentation/GameController/GCRacingWheel/connectedRacingWheels
-func (_GCRacingWheelClass GCRacingWheelClass) ConnectedRacingWheels() foundation.INSSet {
-	rv := objc.Send[objc.ID](objc.ID(_GCRacingWheelClass.class), objc.Sel("connectedRacingWheels"))
-	return foundation.NSSetFromID(objc.ID(rv))
-}
-
-// Protocol methods for GCDevice

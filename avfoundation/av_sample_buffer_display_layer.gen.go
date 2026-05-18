@@ -162,7 +162,7 @@ type IAVSampleBufferDisplayLayer interface {
 	AVSampleBufferDisplayLayerFailedToDecodeNotificationErrorKey() string
 
 	// The error that caused the failure.
-	Error() foundation.INSError
+	Error() foundation.NSError
 	// A Boolean value that indicates whether the layer needs to flush its state to continue decoding frames.
 	RequiresFlushToResumeDecoding() bool
 	// The ability of the display layer to be used for enqueuing sample buffers.
@@ -336,7 +336,7 @@ func (s AVSampleBufferDisplayLayer) AVSampleBufferDisplayLayerFailedToDecodeNoti
 // property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer/error
-func (s AVSampleBufferDisplayLayer) Error() foundation.INSError {
+func (s AVSampleBufferDisplayLayer) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

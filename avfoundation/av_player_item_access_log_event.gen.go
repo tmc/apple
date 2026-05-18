@@ -163,7 +163,7 @@ type IAVPlayerItemAccessLogEvent interface {
 	// Topic: Getting playback-related log events
 
 	// The date and time at which playback began for this event.
-	PlaybackStartDate() foundation.INSDate
+	PlaybackStartDate() foundation.NSDate
 	// A GUID that identifies the playback session.
 	PlaybackSessionID() string
 	// The offset, in seconds, in the playlist where the last uninterrupted period of playback began.
@@ -349,7 +349,7 @@ func (p AVPlayerItemAccessLogEvent) NumberOfMediaRequests() int {
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/playbackStartDate
-func (p AVPlayerItemAccessLogEvent) PlaybackStartDate() foundation.INSDate {
+func (p AVPlayerItemAccessLogEvent) PlaybackStartDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("playbackStartDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

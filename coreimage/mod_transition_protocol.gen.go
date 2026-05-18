@@ -20,40 +20,24 @@ type CIModTransition interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/angle
 	Angle() float32
-
-	// The x and y position to use as the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/center
-	Center() corefoundation.CGPoint
-
-	// The amount of stretching applied to the mod hole pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/compression
-	Compression() float32
-
-	// The radius of the undistorted mod holes in the pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/radius
-	Radius() float32
-
-	// The angle of the mod hole pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/angle
 	SetAngle(value float32)
 
 	// The x and y position to use as the center of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/center
+	Center() corefoundation.CGPoint
 	SetCenter(value corefoundation.CGPoint)
 
 	// The amount of stretching applied to the mod hole pattern.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/compression
+	Compression() float32
 	SetCompression(value float32)
 
 	// The radius of the undistorted mod holes in the pattern.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -72,38 +56,6 @@ func CIModTransitionObjectFromID(id objc.ID) CIModTransitionObject {
 	return CIModTransitionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The angle of the mod hole pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/angle
-func (o CIModTransitionObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The x and y position to use as the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/center
-func (o CIModTransitionObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The amount of stretching applied to the mod hole pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/compression
-func (o CIModTransitionObject) Compression() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("compression"))
-	return rv
-}
-
-// The radius of the undistorted mod holes in the pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIModTransition/radius
-func (o CIModTransitionObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -142,6 +94,11 @@ func (o CIModTransitionObject) Time() float32 {
 // The angle of the mod hole pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIModTransition/angle
+func (o CIModTransitionObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CIModTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -149,6 +106,11 @@ func (o CIModTransitionObject) SetAngle(value float32) {
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIModTransition/center
+func (o CIModTransitionObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIModTransitionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -161,6 +123,11 @@ func (o CIModTransitionObject) SetCenter(value corefoundation.CGPoint) {
 // image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIModTransition/compression
+func (o CIModTransitionObject) Compression() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("compression"))
+	return float32(rv)
+}
+
 func (o CIModTransitionObject) SetCompression(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCompression:"), value)
 }
@@ -168,6 +135,11 @@ func (o CIModTransitionObject) SetCompression(value float32) {
 // The radius of the undistorted mod holes in the pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIModTransition/radius
+func (o CIModTransitionObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIModTransitionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

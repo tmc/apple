@@ -148,11 +148,11 @@ type INEFilterProviderConfiguration interface {
 	Organization() string
 	SetOrganization(value string)
 	// A persistent reference to a keychain item containing a password associated with the filter.
-	PasswordReference() foundation.INSData
-	SetPasswordReference(value foundation.INSData)
+	PasswordReference() foundation.NSData
+	SetPasswordReference(value foundation.NSData)
 	// A persistent reference to a keychain item containing a certificate and private key associated with the filter.
-	IdentityReference() foundation.INSData
-	SetIdentityReference(value foundation.INSData)
+	IdentityReference() foundation.NSData
+	SetIdentityReference(value foundation.NSData)
 
 	// Topic: Accessing bundle identifiers
 
@@ -272,11 +272,11 @@ func (f NEFilterProviderConfiguration) SetOrganization(value string) {
 // with the filter.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration/passwordReference
-func (f NEFilterProviderConfiguration) PasswordReference() foundation.INSData {
+func (f NEFilterProviderConfiguration) PasswordReference() foundation.NSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("passwordReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (f NEFilterProviderConfiguration) SetPasswordReference(value foundation.INSData) {
+func (f NEFilterProviderConfiguration) SetPasswordReference(value foundation.NSData) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPasswordReference:"), value)
 }
 
@@ -284,11 +284,11 @@ func (f NEFilterProviderConfiguration) SetPasswordReference(value foundation.INS
 // private key associated with the filter.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration/identityReference
-func (f NEFilterProviderConfiguration) IdentityReference() foundation.INSData {
+func (f NEFilterProviderConfiguration) IdentityReference() foundation.NSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("identityReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (f NEFilterProviderConfiguration) SetIdentityReference(value foundation.INSData) {
+func (f NEFilterProviderConfiguration) SetIdentityReference(value foundation.NSData) {
 	objc.Send[struct{}](f.ID, objc.Sel("setIdentityReference:"), value)
 }
 

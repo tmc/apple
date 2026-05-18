@@ -254,7 +254,7 @@ func NewOutputStreamToMemory() OutputStream {
 //
 // The stream must be opened before it can be used.
 //
-// See: https://developer.apple.com/documentation/Foundation/OutputStream/init(url:append:)
+// See: https://developer.apple.com/documentation/Foundation/OutputStream/init(url:append:)-5soau
 func NewOutputStreamWithURLAppend(url INSURL, shouldAppend bool) OutputStream {
 	instance := getOutputStreamClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:append:"), url, shouldAppend)
@@ -339,7 +339,7 @@ func (o OutputStream) InitToFileAtPathAppend(path string, shouldAppend bool) Out
 //
 // The stream must be opened before it can be used.
 //
-// See: https://developer.apple.com/documentation/Foundation/OutputStream/init(url:append:)
+// See: https://developer.apple.com/documentation/Foundation/OutputStream/init(url:append:)-5soau
 func (o OutputStream) InitWithURLAppend(url INSURL, shouldAppend bool) OutputStream {
 	rv := objc.Send[OutputStream](o.ID, objc.Sel("initWithURL:append:"), url, shouldAppend)
 	return rv

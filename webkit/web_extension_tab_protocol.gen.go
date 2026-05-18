@@ -271,7 +271,7 @@ func (o WKWebExtensionTabObject) IsSelectedForWebExtensionContext(context IWKWeb
 // the tab’s web view via [LoadRequest] if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/loadURL(_:for:completionHandler:)
-func (o WKWebExtensionTabObject) LoadURLForWebExtensionContextCompletionHandler(url foundation.INSURL, context IWKWebExtensionContext, completionHandler ErrorHandler) {
+func (o WKWebExtensionTabObject) LoadURLForWebExtensionContextCompletionHandler(url foundation.NSURL, context IWKWebExtensionContext, completionHandler ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("loadURL:forWebExtensionContext:completionHandler:"), url, context, completionHandler)
 }
 
@@ -301,7 +301,7 @@ func (o WKWebExtensionTabObject) ParentTabForWebExtensionContext(context IWKWebE
 // Defaults to `nil` if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/pendingURL(for:)
-func (o WKWebExtensionTabObject) PendingURLForWebExtensionContext(context IWKWebExtensionContext) foundation.INSURL {
+func (o WKWebExtensionTabObject) PendingURLForWebExtensionContext(context IWKWebExtensionContext) foundation.NSURL {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("pendingURLForWebExtensionContext:"), context)
 	return foundation.NSURLFromID(rv)
 }
@@ -533,7 +533,7 @@ func (o WKWebExtensionTabObject) TitleForWebExtensionContext(context IWKWebExten
 // Defaults to [URL] of the tab’s web view if not implemented.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/url(for:)
-func (o WKWebExtensionTabObject) UrlForWebExtensionContext(context IWKWebExtensionContext) foundation.INSURL {
+func (o WKWebExtensionTabObject) UrlForWebExtensionContext(context IWKWebExtensionContext) foundation.NSURL {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("urlForWebExtensionContext:"), context)
 	return foundation.NSURLFromID(rv)
 }

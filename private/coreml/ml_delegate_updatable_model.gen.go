@@ -99,14 +99,14 @@ type IMLDelegateUpdatableModel interface {
 }
 
 // Init initializes the instance.
-func (d MLDelegateUpdatableModel) Init() MLDelegateUpdatableModel {
-	rv := objc.Send[MLDelegateUpdatableModel](d.ID, objc.Sel("init"))
+func (m MLDelegateUpdatableModel) Init() MLDelegateUpdatableModel {
+	rv := objc.Send[MLDelegateUpdatableModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d MLDelegateUpdatableModel) Autorelease() MLDelegateUpdatableModel {
-	rv := objc.Send[MLDelegateUpdatableModel](d.ID, objc.Sel("autorelease"))
+func (m MLDelegateUpdatableModel) Autorelease() MLDelegateUpdatableModel {
+	rv := objc.Send[MLDelegateUpdatableModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -182,35 +182,35 @@ func NewDelegateUpdatableModelWithNameInputDescriptionOutputDescriptionOrderedIn
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/cancelUpdate
-func (d MLDelegateUpdatableModel) CancelUpdate() {
-	objc.Send[objc.ID](d.ID, objc.Sel("cancelUpdate"))
+func (m MLDelegateUpdatableModel) CancelUpdate() {
+	objc.Send[objc.ID](m.ID, objc.Sel("cancelUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/resumeUpdate
-func (d MLDelegateUpdatableModel) ResumeUpdate() {
-	objc.Send[objc.ID](d.ID, objc.Sel("resumeUpdate"))
+func (m MLDelegateUpdatableModel) ResumeUpdate() {
+	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/resumeUpdateWithParameters:
-func (d MLDelegateUpdatableModel) ResumeUpdateWithParameters(parameters objectivec.IObject) {
-	objc.Send[objc.ID](d.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
+func (m MLDelegateUpdatableModel) ResumeUpdateWithParameters(parameters objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/setUpdateProgressHandlers:dispatchQueue:
-func (d MLDelegateUpdatableModel) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
+func (m MLDelegateUpdatableModel) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
 	_block0, _ := NewErrorBlock(handlers)
-	objc.Send[objc.ID](d.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
+	objc.Send[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/updateModelWithData:
-func (d MLDelegateUpdatableModel) UpdateModelWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](d.ID, objc.Sel("updateModelWithData:"), data)
+func (m MLDelegateUpdatableModel) UpdateModelWithData(data objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/writeToURL:error:
-func (d MLDelegateUpdatableModel) WriteToURLError(url foundation.INSURL) (bool, error) {
+func (m MLDelegateUpdatableModel) WriteToURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -235,13 +235,13 @@ func (_MLDelegateUpdatableModelClass MLDelegateUpdatableModelClass) LoadModelFro
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/metadata
-func (d MLDelegateUpdatableModel) Metadata() IMLModelMetadata {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("metadata"))
+func (m MLDelegateUpdatableModel) Metadata() IMLModelMetadata {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/updatableEngine
-func (d MLDelegateUpdatableModel) UpdatableEngine() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("updatableEngine"))
+func (m MLDelegateUpdatableModel) UpdatableEngine() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatableEngine"))
 	return objectivec.Object{ID: rv}
 }

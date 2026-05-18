@@ -72,6 +72,8 @@ func (nc NLLanguageRecognizerClass) Alloc() NLLanguageRecognizer {
 //
 // # Guiding the recognizer
 //
+//   - [NLLanguageRecognizer.LanguageHints]: A dictionary that maps languages to their probabilities in the language identification process.
+//   - [NLLanguageRecognizer.SetLanguageHints]
 //   - [NLLanguageRecognizer.LanguageConstraints]: Limits the set of possible languages that the recognizer will return.
 //   - [NLLanguageRecognizer.SetLanguageConstraints]
 //
@@ -100,6 +102,8 @@ func NLLanguageRecognizerFromID(id objc.ID) NLLanguageRecognizer {
 //
 // # Guiding the recognizer
 //
+//   - [INLLanguageRecognizer.LanguageHints]: A dictionary that maps languages to their probabilities in the language identification process.
+//   - [INLLanguageRecognizer.SetLanguageHints]
 //   - [INLLanguageRecognizer.LanguageConstraints]: Limits the set of possible languages that the recognizer will return.
 //   - [INLLanguageRecognizer.SetLanguageConstraints]
 //
@@ -118,13 +122,13 @@ type INLLanguageRecognizer interface {
 
 	// Topic: Guiding the recognizer
 
+	// A dictionary that maps languages to their probabilities in the language identification process.
+	LanguageHints() foundation.INSDictionary
+	SetLanguageHints(value foundation.INSDictionary)
 	// Limits the set of possible languages that the recognizer will return.
 	LanguageConstraints() []string
 	SetLanguageConstraints(value []string)
 
-	// A dictionary that maps languages to their probabilities in the language identification process.
-	LanguageHints() foundation.INSDictionary
-	SetLanguageHints(value foundation.INSDictionary)
 	// Generates the probabilities of possible languages for the processed text.
 	LanguageHypothesesWithMaximum(maxHypotheses uint) foundation.INSDictionary
 }
@@ -204,17 +208,6 @@ func (l NLLanguageRecognizer) DominantLanguage() NLLanguage {
 	return NLLanguage(foundation.NSStringFromID(rv).String())
 }
 
-// Limits the set of possible languages that the recognizer will return.
-//
-// See: https://developer.apple.com/documentation/NaturalLanguage/NLLanguageRecognizer/languageConstraints
-func (l NLLanguageRecognizer) LanguageConstraints() []string {
-	rv := objc.Send[[]objc.ID](l.ID, objc.Sel("languageConstraints"))
-	return objc.ConvertSliceToStrings(rv)
-}
-func (l NLLanguageRecognizer) SetLanguageConstraints(value []string) {
-	objc.Send[struct{}](l.ID, objc.Sel("setLanguageConstraints:"), objectivec.StringSliceToNSArray(value))
-}
-
 // A dictionary that maps languages to their probabilities in the language
 // identification process.
 //
@@ -230,4 +223,15 @@ func (l NLLanguageRecognizer) LanguageHints() foundation.INSDictionary {
 }
 func (l NLLanguageRecognizer) SetLanguageHints(value foundation.INSDictionary) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLanguageHints:"), value)
+}
+
+// Limits the set of possible languages that the recognizer will return.
+//
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLLanguageRecognizer/languageConstraints
+func (l NLLanguageRecognizer) LanguageConstraints() []string {
+	rv := objc.Send[[]objc.ID](l.ID, objc.Sel("languageConstraints"))
+	return objc.ConvertSliceToStrings(rv)
+}
+func (l NLLanguageRecognizer) SetLanguageConstraints(value []string) {
+	objc.Send[struct{}](l.ID, objc.Sel("setLanguageConstraints:"), objectivec.StringSliceToNSArray(value))
 }

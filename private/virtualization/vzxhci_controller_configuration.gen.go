@@ -62,14 +62,14 @@ type IVZXHCIControllerConfiguration interface {
 }
 
 // Init initializes the instance.
-func (x VZXHCIControllerConfiguration) Init() VZXHCIControllerConfiguration {
-	rv := objc.Send[VZXHCIControllerConfiguration](x.ID, objc.Sel("init"))
+func (v VZXHCIControllerConfiguration) Init() VZXHCIControllerConfiguration {
+	rv := objc.Send[VZXHCIControllerConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (x VZXHCIControllerConfiguration) Autorelease() VZXHCIControllerConfiguration {
-	rv := objc.Send[VZXHCIControllerConfiguration](x.ID, objc.Sel("autorelease"))
+func (v VZXHCIControllerConfiguration) Autorelease() VZXHCIControllerConfiguration {
+	rv := objc.Send[VZXHCIControllerConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

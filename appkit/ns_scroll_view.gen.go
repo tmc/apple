@@ -477,6 +477,8 @@ type INSScrollView interface {
 	// Magnify the content by the given amount and center the result on the given point.
 	SetMagnificationCenteredAtPoint(magnification float64, point corefoundation.CGPoint)
 
+	// The view assigned by the text bar as the find bar view for the container.
+	FindBarView() INSView
 	// Notifies the find bar container that the find bar has changed its height.
 	FindBarViewDidChangeHeight()
 	// Returns whether the container should display its find bar.
@@ -602,6 +604,14 @@ func (s NSScrollView) MagnifyToFitRect(rect corefoundation.CGRect) {
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/setMagnification(_:centeredAt:)
 func (s NSScrollView) SetMagnificationCenteredAtPoint(magnification float64, point corefoundation.CGPoint) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setMagnification:centeredAtPoint:"), magnification, point)
+}
+
+// The view assigned by the text bar as the find bar view for the container.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
+func (s NSScrollView) FindBarView() INSView {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("findBarView"))
+	return NSViewFromID(rv)
 }
 
 // Notifies the find bar container that the find bar has changed its height.
@@ -1448,25 +1458,6 @@ func (s NSScrollView) MinMagnification() float64 {
 }
 func (s NSScrollView) SetMinMagnification(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinMagnification:"), value)
-}
-
-// The view assigned by the text bar as the find bar view for the container.
-//
-// # Discussion
-//
-// This property is managed by [NSTextFinder] and you must not set this
-// property.
-//
-// The container may freely modify the view’s width, but should not modify
-// its height.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
-func (s NSScrollView) FindBarView() INSView {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("findBarView"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (s NSScrollView) SetFindBarView(value INSView) {
-	objc.Send[struct{}](s.ID, objc.Sel("setFindBarView:"), value)
 }
 
 // Returns the default class to be used for ruler objects in NSScrollViews.

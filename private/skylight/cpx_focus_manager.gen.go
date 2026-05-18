@@ -113,23 +113,23 @@ type ICPXFocusManager interface {
 
 	// Topic: Methods
 
-	_fixBadForegroundProcess(process *CPSProcessRecRef)
-	AddToPermittedFrontList(list objectivec.IObject) int16
-	CleanupForProcessDeath(death *CPSProcessRecRef)
+	_fixBadForegroundProcess(process CPSProcessRec)
+	AddToPermittedFrontList(list CPSProcessSerNum) int16
+	CleanupForProcessDeath(death CPSProcessRec)
 	FocusController() objectivec.IObject
-	FrontVisibleProcess() *CPSProcessRecRef
-	FrontmostProcess() *CPSProcessRecRef
-	GetProcessToBringForwardAtNextCheckin(checkin unsafe.Pointer) bool
-	IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRecRef) bool
-	IsProcessToBringForwardAtNextCheckin(checkin objectivec.IObject) bool
+	FrontVisibleProcess() unsafe.Pointer
+	FrontmostProcess() unsafe.Pointer
+	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
+	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
+	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
 	KeyThiefConnectionID() uint32
-	ProcessDidUpdateConnectionOldConnectionID(connection *CPSProcessRecRef, id uint32)
+	ProcessDidUpdateConnectionOldConnectionID(connection CPSProcessRec, id uint32)
 	ReleaseAllKeyThiefInstancesNotPermittedFrontmost()
-	RemoveFromPermittedFrontList(list objectivec.IObject) int16
-	SetProcessToBringForwardAtNextCheckinPSN(psn objectivec.IObject) int16
+	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
+	SetProcessToBringForwardAtNextCheckinPSN(psn CPSProcessSerNum) int16
 	SuppressDeferringPolicyUpdatesForReason(reason objectivec.IObject) objectivec.IObject
-	InitWithSessionDeferringManagerLaunchServicesProviderProcessManager(session unsafe.Pointer, manager objectivec.IObject, provider objectivec.IObject, manager2 objectivec.IObject) CPXFocusManager
-	InitWithSessionPolicyDeferringPolicySanitizerDeferringManagerDataSourceProcessManagerCallbackScheduler(session unsafe.Pointer, policy objectivec.IObject, sanitizer objectivec.IObject, manager objectivec.IObject, source objectivec.IObject, manager2 objectivec.IObject, scheduler objectivec.IObject) CPXFocusManager
+	InitWithSessionDeferringManagerLaunchServicesProviderProcessManager(session CGXSession, manager objectivec.IObject, provider objectivec.IObject, manager2 objectivec.IObject) CPXFocusManager
+	InitWithSessionPolicyDeferringPolicySanitizerDeferringManagerDataSourceProcessManagerCallbackScheduler(session CGXSession, policy objectivec.IObject, sanitizer objectivec.IObject, manager objectivec.IObject, source objectivec.IObject, manager2 objectivec.IObject, scheduler objectivec.IObject) CPXFocusManager
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -156,26 +156,26 @@ func NewCPXFocusManager() CPXFocusManager {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/initWithSession:deferringManager:launchServicesProvider:processManager:
-func NewCPXFocusManagerWithSessionDeferringManagerLaunchServicesProviderProcessManager(session unsafe.Pointer, manager objectivec.IObject, provider objectivec.IObject, manager2 objectivec.IObject) CPXFocusManager {
+func NewCPXFocusManagerWithSessionDeferringManagerLaunchServicesProviderProcessManager(session CGXSession, manager objectivec.IObject, provider objectivec.IObject, manager2 objectivec.IObject) CPXFocusManager {
 	instance := getCPXFocusManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:deferringManager:launchServicesProvider:processManager:"), session, manager, provider, manager2)
 	return CPXFocusManagerFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/initWithSession:policy:deferringPolicySanitizer:deferringManager:dataSource:processManager:callbackScheduler:
-func NewCPXFocusManagerWithSessionPolicyDeferringPolicySanitizerDeferringManagerDataSourceProcessManagerCallbackScheduler(session unsafe.Pointer, policy objectivec.IObject, sanitizer objectivec.IObject, manager objectivec.IObject, source objectivec.IObject, manager2 objectivec.IObject, scheduler objectivec.IObject) CPXFocusManager {
+func NewCPXFocusManagerWithSessionPolicyDeferringPolicySanitizerDeferringManagerDataSourceProcessManagerCallbackScheduler(session CGXSession, policy objectivec.IObject, sanitizer objectivec.IObject, manager objectivec.IObject, source objectivec.IObject, manager2 objectivec.IObject, scheduler objectivec.IObject) CPXFocusManager {
 	instance := getCPXFocusManagerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:policy:deferringPolicySanitizer:deferringManager:dataSource:processManager:callbackScheduler:"), session, policy, sanitizer, manager, source, manager2, scheduler)
 	return CPXFocusManagerFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/_fixBadForegroundProcess:
-func (c CPXFocusManager) _fixBadForegroundProcess(process *CPSProcessRecRef) {
+func (c CPXFocusManager) _fixBadForegroundProcess(process CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("_fixBadForegroundProcess:"), process)
 }
 
 // FixBadForegroundProcess is an exported wrapper for the private method _fixBadForegroundProcess.
-func (c CPXFocusManager) FixBadForegroundProcess(process *CPSProcessRecRef) error {
+func (c CPXFocusManager) FixBadForegroundProcess(process CPSProcessRec) error {
 	if !objc.RespondsToSelector(c.ID, objc.Sel("_fixBadForegroundProcess:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_fixBadForegroundProcess:"}
 		return err
@@ -190,36 +190,36 @@ func (c CPXFocusManager) CanFixBadForegroundProcess() bool {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/addToPermittedFrontList:
-func (c CPXFocusManager) AddToPermittedFrontList(list objectivec.IObject) int16 {
+func (c CPXFocusManager) AddToPermittedFrontList(list CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](c.ID, objc.Sel("addToPermittedFrontList:"), list)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/cleanupForProcessDeath:
-func (c CPXFocusManager) CleanupForProcessDeath(death *CPSProcessRecRef) {
+func (c CPXFocusManager) CleanupForProcessDeath(death CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/getProcessToBringForwardAtNextCheckin:
-func (c CPXFocusManager) GetProcessToBringForwardAtNextCheckin(checkin unsafe.Pointer) bool {
+func (c CPXFocusManager) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/isProcessPermittedToBeFrontmost:
-func (c CPXFocusManager) IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRecRef) bool {
+func (c CPXFocusManager) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/isProcessToBringForwardAtNextCheckin:
-func (c CPXFocusManager) IsProcessToBringForwardAtNextCheckin(checkin objectivec.IObject) bool {
+func (c CPXFocusManager) IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/processDidUpdateConnection:oldConnectionID:
-func (c CPXFocusManager) ProcessDidUpdateConnectionOldConnectionID(connection *CPSProcessRecRef, id uint32) {
+func (c CPXFocusManager) ProcessDidUpdateConnectionOldConnectionID(connection CPSProcessRec, id uint32) {
 	objc.Send[objc.ID](c.ID, objc.Sel("processDidUpdateConnection:oldConnectionID:"), connection, id)
 }
 
@@ -229,13 +229,13 @@ func (c CPXFocusManager) ReleaseAllKeyThiefInstancesNotPermittedFrontmost() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/removeFromPermittedFrontList:
-func (c CPXFocusManager) RemoveFromPermittedFrontList(list objectivec.IObject) int16 {
+func (c CPXFocusManager) RemoveFromPermittedFrontList(list CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](c.ID, objc.Sel("removeFromPermittedFrontList:"), list)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/setProcessToBringForwardAtNextCheckinPSN:
-func (c CPXFocusManager) SetProcessToBringForwardAtNextCheckinPSN(psn objectivec.IObject) int16 {
+func (c CPXFocusManager) SetProcessToBringForwardAtNextCheckinPSN(psn CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](c.ID, objc.Sel("setProcessToBringForwardAtNextCheckinPSN:"), psn)
 	return rv
 }
@@ -247,13 +247,13 @@ func (c CPXFocusManager) SuppressDeferringPolicyUpdatesForReason(reason objectiv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/initWithSession:deferringManager:launchServicesProvider:processManager:
-func (c CPXFocusManager) InitWithSessionDeferringManagerLaunchServicesProviderProcessManager(session unsafe.Pointer, manager objectivec.IObject, provider objectivec.IObject, manager2 objectivec.IObject) CPXFocusManager {
+func (c CPXFocusManager) InitWithSessionDeferringManagerLaunchServicesProviderProcessManager(session CGXSession, manager objectivec.IObject, provider objectivec.IObject, manager2 objectivec.IObject) CPXFocusManager {
 	rv := objc.Send[CPXFocusManager](c.ID, objc.Sel("initWithSession:deferringManager:launchServicesProvider:processManager:"), session, manager, provider, manager2)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/initWithSession:policy:deferringPolicySanitizer:deferringManager:dataSource:processManager:callbackScheduler:
-func (c CPXFocusManager) InitWithSessionPolicyDeferringPolicySanitizerDeferringManagerDataSourceProcessManagerCallbackScheduler(session unsafe.Pointer, policy objectivec.IObject, sanitizer objectivec.IObject, manager objectivec.IObject, source objectivec.IObject, manager2 objectivec.IObject, scheduler objectivec.IObject) CPXFocusManager {
+func (c CPXFocusManager) InitWithSessionPolicyDeferringPolicySanitizerDeferringManagerDataSourceProcessManagerCallbackScheduler(session CGXSession, policy objectivec.IObject, sanitizer objectivec.IObject, manager objectivec.IObject, source objectivec.IObject, manager2 objectivec.IObject, scheduler objectivec.IObject) CPXFocusManager {
 	rv := objc.Send[CPXFocusManager](c.ID, objc.Sel("initWithSession:policy:deferringPolicySanitizer:deferringManager:dataSource:processManager:callbackScheduler:"), session, policy, sanitizer, manager, source, manager2, scheduler)
 	return rv
 }
@@ -277,15 +277,15 @@ func (c CPXFocusManager) FocusController() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/frontVisibleProcess
-func (c CPXFocusManager) FrontVisibleProcess() *CPSProcessRecRef {
+func (c CPXFocusManager) FrontVisibleProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("frontVisibleProcess"))
-	return (*CPSProcessRecRef)(rv)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/frontmostProcess
-func (c CPXFocusManager) FrontmostProcess() *CPSProcessRecRef {
+func (c CPXFocusManager) FrontmostProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("frontmostProcess"))
-	return (*CPSProcessRecRef)(rv)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManager/hash

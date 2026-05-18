@@ -15,54 +15,34 @@ type CINinePartTiled interface {
 	objectivec.IObject
 	CIFilterProtocol
 
-	// Breakpoint0 protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/breakpoint0
-	Breakpoint0() corefoundation.CGPoint
-
-	// Breakpoint1 protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/breakpoint1
-	Breakpoint1() corefoundation.CGPoint
-
-	// FlipYTiles protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/flipYTiles
-	FlipYTiles() bool
-
-	// GrowAmount protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/growAmount
-	GrowAmount() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/inputImage
-	InputImage() ICIImage
-
 	// breakpoint0 protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/breakpoint0
+	Breakpoint0() corefoundation.CGPoint
 	SetBreakpoint0(value corefoundation.CGPoint)
 
 	// breakpoint1 protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/breakpoint1
+	Breakpoint1() corefoundation.CGPoint
 	SetBreakpoint1(value corefoundation.CGPoint)
 
 	// flipYTiles protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/flipYTiles
+	FlipYTiles() bool
 	SetFlipYTiles(value bool)
 
 	// growAmount protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/growAmount
+	GrowAmount() corefoundation.CGPoint
 	SetGrowAmount(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -83,38 +63,6 @@ func CINinePartTiledObjectFromID(id objc.ID) CINinePartTiledObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/breakpoint0
-func (o CINinePartTiledObject) Breakpoint0() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("breakpoint0"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/breakpoint1
-func (o CINinePartTiledObject) Breakpoint1() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("breakpoint1"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/flipYTiles
-func (o CINinePartTiledObject) FlipYTiles() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("flipYTiles"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/growAmount
-func (o CINinePartTiledObject) GrowAmount() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("growAmount"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/inputImage
-func (o CINinePartTiledObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -125,21 +73,41 @@ func (o CINinePartTiledObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/breakpoint0
+func (o CINinePartTiledObject) Breakpoint0() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("breakpoint0"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CINinePartTiledObject) SetBreakpoint0(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBreakpoint0:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/breakpoint1
+func (o CINinePartTiledObject) Breakpoint1() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("breakpoint1"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CINinePartTiledObject) SetBreakpoint1(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBreakpoint1:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/flipYTiles
+func (o CINinePartTiledObject) FlipYTiles() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("flipYTiles"))
+	return bool(rv)
+}
+
 func (o CINinePartTiledObject) SetFlipYTiles(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFlipYTiles:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/growAmount
+func (o CINinePartTiledObject) GrowAmount() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("growAmount"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CINinePartTiledObject) SetGrowAmount(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setGrowAmount:"), value)
 }
@@ -147,6 +115,11 @@ func (o CINinePartTiledObject) SetGrowAmount(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartTiled/inputImage
+func (o CINinePartTiledObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CINinePartTiledObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

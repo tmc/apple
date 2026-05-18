@@ -212,8 +212,8 @@ type INSDatePicker interface {
 	// Topic: Accessing Object Values
 
 	// The date selected by the date picker.
-	DateValue() foundation.INSDate
-	SetDateValue(value foundation.INSDate)
+	DateValue() foundation.NSDate
+	SetDateValue(value foundation.NSDate)
 	// The time interval selected by the date picker.
 	TimeInterval() float64
 	SetTimeInterval(value float64)
@@ -221,11 +221,11 @@ type INSDatePicker interface {
 	// Topic: Constraining the Displayable/Selectable Range
 
 	// The date picker’s minimum date value.
-	MinDate() foundation.INSDate
-	SetMinDate(value foundation.INSDate)
+	MinDate() foundation.NSDate
+	SetMinDate(value foundation.NSDate)
 	// The date picker’s maximum date value.
-	MaxDate() foundation.INSDate
-	SetMaxDate(value foundation.INSDate)
+	MaxDate() foundation.NSDate
+	SetMaxDate(value foundation.NSDate)
 }
 
 // Init initializes the instance.
@@ -464,11 +464,11 @@ func (d NSDatePicker) SetTimeZone(value foundation.NSTimeZone) {
 // starting date.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/dateValue
-func (d NSDatePicker) DateValue() foundation.INSDate {
+func (d NSDatePicker) DateValue() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dateValue"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (d NSDatePicker) SetDateValue(value foundation.INSDate) {
+func (d NSDatePicker) SetDateValue(value foundation.NSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateValue:"), value)
 }
 
@@ -497,11 +497,11 @@ func (d NSDatePicker) SetTimeInterval(value float64) {
 // input. `nil` indicates no minimum date.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/minDate
-func (d NSDatePicker) MinDate() foundation.INSDate {
+func (d NSDatePicker) MinDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("minDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (d NSDatePicker) SetMinDate(value foundation.INSDate) {
+func (d NSDatePicker) SetMinDate(value foundation.NSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinDate:"), value)
 }
 
@@ -513,10 +513,10 @@ func (d NSDatePicker) SetMinDate(value foundation.INSDate) {
 // input. `nil` indicates no maximum date.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/maxDate
-func (d NSDatePicker) MaxDate() foundation.INSDate {
+func (d NSDatePicker) MaxDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("maxDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (d NSDatePicker) SetMaxDate(value foundation.INSDate) {
+func (d NSDatePicker) SetMaxDate(value foundation.NSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaxDate:"), value)
 }

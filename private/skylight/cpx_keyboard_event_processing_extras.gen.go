@@ -91,7 +91,7 @@ type ICPXKeyboardEventProcessingExtras interface {
 	// Topic: Methods
 
 	AppendDescriptionToStream(stream objectivec.IObject)
-	ApplyToEvent(event *SLSEventRecordRef)
+	ApplyToEvent(event SLSEventRecord)
 	MainDisplayHeight() uint16
 	Window() uint32
 	WindowHeight() uint16
@@ -134,7 +134,7 @@ func (c CPXKeyboardEventProcessingExtras) AppendDescriptionToStream(stream objec
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessingExtras/applyToEvent:
-func (c CPXKeyboardEventProcessingExtras) ApplyToEvent(event *SLSEventRecordRef) {
+func (c CPXKeyboardEventProcessingExtras) ApplyToEvent(event SLSEventRecord) {
 	objc.Send[objc.ID](c.ID, objc.Sel("applyToEvent:"), event)
 }
 

@@ -185,7 +185,6 @@ type INSTabViewController interface {
 
 	// An array of view controllers that are hierarchical children of the view controller.
 	Children() INSViewController
-	SetChildren(value INSViewController)
 }
 
 // Init initializes the instance.
@@ -779,7 +778,7 @@ func (t NSTabViewController) Children() INSViewController {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("childViewControllers"))
 	return NSViewControllerFromID(objc.ID(rv))
 }
-func (t NSTabViewController) SetChildren(value INSViewController) {
+func (t NSTabViewController) SetChildViewControllers(value INSViewController) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChildViewControllers:"), value)
 }
 

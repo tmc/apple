@@ -109,7 +109,7 @@ type INWTCPConnection interface {
 	// The viability of a TCP connection indicates whether or not data can be transferred.
 	Viable() bool
 	// The connection-wide error property.
-	Error() foundation.INSError
+	Error() foundation.NSError
 
 	// Topic: Responding to network changes
 
@@ -127,7 +127,7 @@ type INWTCPConnection interface {
 	// The network path over which the connection was established.
 	ConnectedPath() INWPath
 	// The TXT record associated with a connected Bonjour service endpoint.
-	TxtRecord() foundation.INSData
+	TxtRecord() foundation.NSData
 }
 
 // Init initializes the instance.
@@ -215,7 +215,7 @@ func (n NWTCPConnection) Viable() bool {
 // property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/error
-func (n NWTCPConnection) Error() foundation.INSError {
+func (n NWTCPConnection) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
@@ -290,7 +290,7 @@ func (n NWTCPConnection) ConnectedPath() INWPath {
 // record associated with the Bonjour service is available via this property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/txtRecord
-func (n NWTCPConnection) TxtRecord() foundation.INSData {
+func (n NWTCPConnection) TxtRecord() foundation.NSData {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("txtRecord"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

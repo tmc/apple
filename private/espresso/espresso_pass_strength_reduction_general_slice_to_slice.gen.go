@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_strength_reduction_general_slice_to_slice] class.
+// The class instance for the [EspressoPassStrengthReductionGeneralSliceToSlice] class.
 var (
-	_EspressoPass_strength_reduction_general_slice_to_sliceClass     EspressoPass_strength_reduction_general_slice_to_sliceClass
-	_EspressoPass_strength_reduction_general_slice_to_sliceClassOnce sync.Once
+	_EspressoPassStrengthReductionGeneralSliceToSliceClass     EspressoPassStrengthReductionGeneralSliceToSliceClass
+	_EspressoPassStrengthReductionGeneralSliceToSliceClassOnce sync.Once
 )
 
-func getEspressoPass_strength_reduction_general_slice_to_sliceClass() EspressoPass_strength_reduction_general_slice_to_sliceClass {
-	_EspressoPass_strength_reduction_general_slice_to_sliceClassOnce.Do(func() {
-		_EspressoPass_strength_reduction_general_slice_to_sliceClass = EspressoPass_strength_reduction_general_slice_to_sliceClass{class: objc.GetClass("EspressoPass_strength_reduction_general_slice_to_slice")}
+func getEspressoPassStrengthReductionGeneralSliceToSliceClass() EspressoPassStrengthReductionGeneralSliceToSliceClass {
+	_EspressoPassStrengthReductionGeneralSliceToSliceClassOnce.Do(func() {
+		_EspressoPassStrengthReductionGeneralSliceToSliceClass = EspressoPassStrengthReductionGeneralSliceToSliceClass{class: objc.GetClass("EspressoPass_strength_reduction_general_slice_to_slice")}
 	})
-	return _EspressoPass_strength_reduction_general_slice_to_sliceClass
+	return _EspressoPassStrengthReductionGeneralSliceToSliceClass
 }
 
-// GetEspressoPass_strength_reduction_general_slice_to_sliceClass returns the class object for EspressoPass_strength_reduction_general_slice_to_slice.
-func GetEspressoPass_strength_reduction_general_slice_to_sliceClass() EspressoPass_strength_reduction_general_slice_to_sliceClass {
-	return getEspressoPass_strength_reduction_general_slice_to_sliceClass()
+// GetEspressoPassStrengthReductionGeneralSliceToSliceClass returns the class object for EspressoPass_strength_reduction_general_slice_to_slice.
+func GetEspressoPassStrengthReductionGeneralSliceToSliceClass() EspressoPassStrengthReductionGeneralSliceToSliceClass {
+	return getEspressoPassStrengthReductionGeneralSliceToSliceClass()
 }
 
-type EspressoPass_strength_reduction_general_slice_to_sliceClass struct {
+type EspressoPassStrengthReductionGeneralSliceToSliceClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_strength_reduction_general_slice_to_sliceClass) Class() objc.Class {
+func (ec EspressoPassStrengthReductionGeneralSliceToSliceClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_strength_reduction_general_slice_to_sliceClass) Alloc() EspressoPass_strength_reduction_general_slice_to_slice {
-	rv := objc.Send[EspressoPass_strength_reduction_general_slice_to_slice](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassStrengthReductionGeneralSliceToSliceClass) Alloc() EspressoPassStrengthReductionGeneralSliceToSlice {
+	rv := objc.Send[EspressoPassStrengthReductionGeneralSliceToSlice](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_general_slice_to_slice
-type EspressoPass_strength_reduction_general_slice_to_slice struct {
+type EspressoPassStrengthReductionGeneralSliceToSlice struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_strength_reduction_general_slice_to_sliceFromID constructs a [EspressoPass_strength_reduction_general_slice_to_slice] from an objc.ID.
-func EspressoPass_strength_reduction_general_slice_to_sliceFromID(id objc.ID) EspressoPass_strength_reduction_general_slice_to_slice {
-	return EspressoPass_strength_reduction_general_slice_to_slice{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassStrengthReductionGeneralSliceToSliceFromID constructs a [EspressoPassStrengthReductionGeneralSliceToSlice] from an objc.ID.
+func EspressoPassStrengthReductionGeneralSliceToSliceFromID(id objc.ID) EspressoPassStrengthReductionGeneralSliceToSlice {
+	return EspressoPassStrengthReductionGeneralSliceToSlice{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_strength_reduction_general_slice_to_slice implements IEspressoPass_strength_reduction_general_slice_to_slice.
-var _ IEspressoPass_strength_reduction_general_slice_to_slice = EspressoPass_strength_reduction_general_slice_to_slice{}
+// EspressoPass_strength_reduction_general_slice_to_sliceFromID is an alias for [EspressoPassStrengthReductionGeneralSliceToSliceFromID] for cross-framework compatibility.
+func EspressoPass_strength_reduction_general_slice_to_sliceFromID(id objc.ID) EspressoPassStrengthReductionGeneralSliceToSlice {
+	return EspressoPassStrengthReductionGeneralSliceToSliceFromID(id)
+}
 
-// An interface definition for the [EspressoPass_strength_reduction_general_slice_to_slice] class.
+// Ensure EspressoPassStrengthReductionGeneralSliceToSlice implements IEspressoPassStrengthReductionGeneralSliceToSlice.
+var _ IEspressoPassStrengthReductionGeneralSliceToSlice = EspressoPassStrengthReductionGeneralSliceToSlice{}
+
+// An interface definition for the [EspressoPassStrengthReductionGeneralSliceToSlice] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_general_slice_to_slice
-type IEspressoPass_strength_reduction_general_slice_to_slice interface {
+type IEspressoPassStrengthReductionGeneralSliceToSlice interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_strength_reduction_general_slice_to_slice) Init() EspressoPass_strength_reduction_general_slice_to_slice {
-	rv := objc.Send[EspressoPass_strength_reduction_general_slice_to_slice](e.ID, objc.Sel("init"))
+func (e EspressoPassStrengthReductionGeneralSliceToSlice) Init() EspressoPassStrengthReductionGeneralSliceToSlice {
+	rv := objc.Send[EspressoPassStrengthReductionGeneralSliceToSlice](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_strength_reduction_general_slice_to_slice) Autorelease() EspressoPass_strength_reduction_general_slice_to_slice {
-	rv := objc.Send[EspressoPass_strength_reduction_general_slice_to_slice](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassStrengthReductionGeneralSliceToSlice) Autorelease() EspressoPassStrengthReductionGeneralSliceToSlice {
+	rv := objc.Send[EspressoPassStrengthReductionGeneralSliceToSlice](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_strength_reduction_general_slice_to_slice creates a new EspressoPass_strength_reduction_general_slice_to_slice instance.
-func NewEspressoPass_strength_reduction_general_slice_to_slice() EspressoPass_strength_reduction_general_slice_to_slice {
-	class := getEspressoPass_strength_reduction_general_slice_to_sliceClass()
-	rv := objc.Send[EspressoPass_strength_reduction_general_slice_to_slice](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassStrengthReductionGeneralSliceToSlice creates a new EspressoPassStrengthReductionGeneralSliceToSlice instance.
+func NewEspressoPassStrengthReductionGeneralSliceToSlice() EspressoPassStrengthReductionGeneralSliceToSlice {
+	class := getEspressoPassStrengthReductionGeneralSliceToSliceClass()
+	rv := objc.Send[EspressoPassStrengthReductionGeneralSliceToSlice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -18,30 +18,18 @@ type CIVignette interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIVignette/inputImage
 	InputImage() ICIImage
-
-	// The intensity of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIVignette/intensity
-	Intensity() float32
-
-	// The distance from the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIVignette/radius
-	Radius() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIVignette/inputImage
 	SetInputImage(value ICIImage)
 
 	// The intensity of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIVignette/intensity
+	Intensity() float32
 	SetIntensity(value float32)
 
 	// The distance from the center of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIVignette/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -62,30 +50,6 @@ func CIVignetteObjectFromID(id objc.ID) CIVignetteObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIVignette/inputImage
-func (o CIVignetteObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The intensity of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIVignette/intensity
-func (o CIVignetteObject) Intensity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
-	return rv
-}
-
-// The distance from the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIVignette/radius
-func (o CIVignetteObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -98,6 +62,11 @@ func (o CIVignetteObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignette/inputImage
+func (o CIVignetteObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIVignetteObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -105,6 +74,11 @@ func (o CIVignetteObject) SetInputImage(value ICIImage) {
 // The intensity of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignette/intensity
+func (o CIVignetteObject) Intensity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
+	return float32(rv)
+}
+
 func (o CIVignetteObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }
@@ -112,6 +86,11 @@ func (o CIVignetteObject) SetIntensity(value float32) {
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignette/radius
+func (o CIVignetteObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIVignetteObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

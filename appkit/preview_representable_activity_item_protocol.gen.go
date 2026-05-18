@@ -14,6 +14,11 @@ import (
 type NSPreviewRepresentableActivityItem interface {
 	objectivec.IObject
 
+	// The app-specific item you want to share.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/item
+	Item() objectivec.IObject
+
 	// A localized string that contains the name of the item.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/title
@@ -49,7 +54,15 @@ func NSPreviewRepresentableActivityItemObjectFromID(id objc.ID) NSPreviewReprese
 
 // The app-specific item you want to share.
 //
+// # Discussion
+//
+// Use this property to provide the data you want to pass to the sharing
+// service. The item must conform to the [NSPasteboardWriting] protocol, or be
+// an [NSItemProvider] or [NSDocument] object.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/item
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 func (o NSPreviewRepresentableActivityItemObject) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
@@ -65,6 +78,12 @@ func (o NSPreviewRepresentableActivityItemObject) Title() string {
 
 // An object that provides a visual representation of the item.
 //
+// # Discussion
+//
+// Provide a full-size representation of the content you’re sharing. For
+// example, if the shared item is a link to a webpage, provide the hero image
+// for that webpage or a rendering of the page.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/imageProvider
 func (o NSPreviewRepresentableActivityItemObject) ImageProvider() foundation.NSItemProvider {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageProvider"))
@@ -72,6 +91,12 @@ func (o NSPreviewRepresentableActivityItemObject) ImageProvider() foundation.NSI
 }
 
 // An object that provides an icon that represents the item’s source.
+//
+// # Discussion
+//
+// Typically, the icon is a thumbnail-sized representation of the source app
+// for the content. For example, provide your app’s icon for content you
+// manage.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/iconProvider
 func (o NSPreviewRepresentableActivityItemObject) IconProvider() foundation.NSItemProvider {

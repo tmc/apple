@@ -4,10 +4,10 @@ package metal
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [MTLTensorReferenceType] class.
@@ -95,8 +95,8 @@ type IMTLTensorReferenceType interface {
 
 	// An error domain for errors that pertain to creating a tensor.
 	MTLTensorDomain() string
-	MTL_TENSOR_MAX_RANK() objectivec.IObject
-	SetMTL_TENSOR_MAX_RANK(value objectivec.IObject)
+	MTL_TENSOR_MAX_RANK() unsafe.Pointer
+	SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -165,10 +165,10 @@ func (t MTLTensorReferenceType) MTLTensorDomain() string {
 }
 
 // See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
-func (t MTLTensorReferenceType) MTL_TENSOR_MAX_RANK() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
-	return objectivec.Object{ID: rv}
+func (t MTLTensorReferenceType) MTL_TENSOR_MAX_RANK() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
+	return rv
 }
-func (t MTLTensorReferenceType) SetMTL_TENSOR_MAX_RANK(value objectivec.IObject) {
+func (t MTLTensorReferenceType) SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }

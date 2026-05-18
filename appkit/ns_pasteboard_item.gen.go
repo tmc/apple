@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -150,7 +149,6 @@ func NSPasteboardItemFromID(id objc.ID) NSPasteboardItem {
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItem
 type INSPasteboardItem interface {
 	objectivec.IObject
-	NSPasteboardWriting
 
 	// Topic: Getting types
 
@@ -167,7 +165,7 @@ type INSPasteboardItem interface {
 	// Topic: Setting values
 
 	// Sets the value for a specified type as a data object.
-	SetDataForType(data foundation.INSData, type_ NSPasteboardType) bool
+	SetDataForType(data foundation.NSData, type_ NSPasteboardType) bool
 	// Sets the value for a specified type as a string.
 	SetStringForType(string_ string, type_ NSPasteboardType) bool
 	// Sets the value for a specified type as a property list.
@@ -176,7 +174,7 @@ type INSPasteboardItem interface {
 	// Topic: Getting values
 
 	// Returns the value for the specified type as a data object.
-	DataForType(type_ NSPasteboardType) foundation.INSData
+	DataForType(type_ NSPasteboardType) foundation.NSData
 	// Returns the value for the specified type as a string.
 	StringForType(type_ NSPasteboardType) string
 	// Returns the value for the specified type as a property list.
@@ -185,8 +183,8 @@ type INSPasteboardItem interface {
 	// Topic: Instance Properties
 
 	// A model object you use for conveying data during a collaboration.
-	CollaborationMetadata() unsafe.Pointer
-	SetCollaborationMetadata(value unsafe.Pointer)
+	CollaborationMetadata() objectivec.IObject
+	SetCollaborationMetadata(value objectivec.IObject)
 
 	// An array that contains all the items held by the pasteboard.
 	PasteboardItems() INSPasteboardItem
@@ -303,7 +301,7 @@ func (p NSPasteboardItem) SetDataProviderForTypes(dataProvider NSPasteboardItemD
 // true if the value was set successfully, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItem/setData(_:forType:)
-func (p NSPasteboardItem) SetDataForType(data foundation.INSData, type_ NSPasteboardType) bool {
+func (p NSPasteboardItem) SetDataForType(data foundation.NSData, type_ NSPasteboardType) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("setData:forType:"), data, objc.String(string(type_)))
 	return rv
 }
@@ -350,7 +348,7 @@ func (p NSPasteboardItem) SetPropertyListForType(propertyList objectivec.IObject
 // The value for the specified type as an [NSData] object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItem/data(forType:)
-func (p NSPasteboardItem) DataForType(type_ NSPasteboardType) foundation.INSData {
+func (p NSPasteboardItem) DataForType(type_ NSPasteboardType) foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("dataForType:"), objc.String(string(type_)))
 	return foundation.NSDataFromID(rv)
 }
@@ -565,11 +563,11 @@ func (p NSPasteboardItem) Types() []string {
 // A model object you use for conveying data during a collaboration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItem/collaborationMetadata
-func (p NSPasteboardItem) CollaborationMetadata() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("collaborationMetadata"))
-	return rv
+func (p NSPasteboardItem) CollaborationMetadata() objectivec.IObject {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("collaborationMetadata"))
+	return objectivec.Object{ID: rv}
 }
-func (p NSPasteboardItem) SetCollaborationMetadata(value unsafe.Pointer) {
+func (p NSPasteboardItem) SetCollaborationMetadata(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollaborationMetadata:"), value)
 }
 

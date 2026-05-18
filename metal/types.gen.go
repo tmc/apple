@@ -491,3 +491,45 @@ type MTLViewport struct {
 	Zfar    float64 // The z coordinate of the far clipping plane of the viewport.
 
 }
+
+// _Unnamed_struct___Anonymous_field0
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/__Unnamed_struct___Anonymous_field0
+type _Unnamed_struct___Anonymous_field0 struct {
+}
+
+// _Unnamed_union___Anonymous_field0
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/__Unnamed_union___Anonymous_field0
+type _Unnamed_union___Anonymous_field0 struct {
+}
+
+// Elements
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/elements-9o66u
+type Elements struct {
+}
+
+// X
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/x-5cc6v
+type X struct {
+}
+
+// Y
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/y-3zmij
+type Y struct {
+}
+
+// Z
+//
+// [Full Topic]
+// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/z-5juk6
+type Z struct {
+}

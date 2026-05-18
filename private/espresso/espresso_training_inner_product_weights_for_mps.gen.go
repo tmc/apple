@@ -83,7 +83,7 @@ type IEspressoTrainingInnerProductWeightsForMPS interface {
 	SetBiasesBuffer(value objectivec.IObject)
 	WeightsBuffer() objectivec.IObject
 	SetWeightsBuffer(value objectivec.IObject)
-	InitWithParamsForMode(params Inner_product_uniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS
+	InitWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS
 }
 
 // Init initializes the instance.
@@ -106,21 +106,21 @@ func NewEspressoTrainingInnerProductWeightsForMPS() EspressoTrainingInnerProduct
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoInnerProductWeightsForMPS/initWithParams:
-func NewEspressoTrainingInnerProductWeightsForMPSWithParams(params Inner_product_uniforms) EspressoTrainingInnerProductWeightsForMPS {
+func NewEspressoTrainingInnerProductWeightsForMPSWithParams(params InnerProductUniforms) EspressoTrainingInnerProductWeightsForMPS {
 	instance := getEspressoTrainingInnerProductWeightsForMPSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoTrainingInnerProductWeightsForMPSFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS/initWithParams:forMode:
-func NewEspressoTrainingInnerProductWeightsForMPSWithParamsForMode(params Inner_product_uniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
+func NewEspressoTrainingInnerProductWeightsForMPSWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
 	instance := getEspressoTrainingInnerProductWeightsForMPSClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return EspressoTrainingInnerProductWeightsForMPSFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS/initWithParams:forMode:
-func (e EspressoTrainingInnerProductWeightsForMPS) InitWithParamsForMode(params Inner_product_uniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
+func (e EspressoTrainingInnerProductWeightsForMPS) InitWithParamsForMode(params InnerProductUniforms, mode bool) EspressoTrainingInnerProductWeightsForMPS {
 	rv := objc.Send[EspressoTrainingInnerProductWeightsForMPS](e.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return rv
 }

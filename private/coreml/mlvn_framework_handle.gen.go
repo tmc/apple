@@ -164,7 +164,7 @@ func (m MLVNFrameworkHandle) CreatePixelBufferFromCGImageConstraintCropRectCropA
 	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("createPixelBufferFromCGImage:constraint:cropRect:cropAndScaleOption:options:error:"), cGImage, constraint, rect, option, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -176,7 +176,7 @@ func (m MLVNFrameworkHandle) CreatePixelBufferFromImageAtURLConstraintCropRectCr
 	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("createPixelBufferFromImageAtURL:constraint:cropRect:cropAndScaleOption:options:error:"), url, constraint, rect, option, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -188,7 +188,7 @@ func (m MLVNFrameworkHandle) CreatePixelBufferFromVNImageBufferConstraintCropRec
 	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("createPixelBufferFromVNImageBuffer:constraint:cropRect:cropAndScaleOption:options:error:"), buffer, constraint, rect, option, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 

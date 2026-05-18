@@ -22,16 +22,12 @@ type FSVolumeXattrOperations interface {
 	// Sets the specified extended attribute data on the given item.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/setXattr(named:to:on:policy:replyHandler:)
-	SetXattrNamedToDataOnItemPolicyReplyHandler(name IFSFileName, value foundation.INSData, item IFSItem, policy FSSetXattrPolicy, reply ErrorHandler)
+	SetXattrNamedToDataOnItemPolicyReplyHandler(name IFSFileName, value foundation.NSData, item IFSItem, policy FSSetXattrPolicy, reply ErrorHandler)
 
 	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/xattrOperationsInhibited
 	XattrOperationsInhibited() bool
-
-	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
-	//
-	// See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/xattrOperationsInhibited
 	SetXattrOperationsInhibited(value bool)
 }
 
@@ -75,7 +71,7 @@ func (o FSVolumeXattrOperationsObject) GetXattrNamedOfItemReplyHandler(name IFSF
 // name: The extended attribute name.
 //
 // value: The extended attribute value to set. This can’t be `nil`, unless the
-// policy is [FSVolume.SetXattrPolicy.delete].
+// policy is [FSSetXattrPolicyDelete].
 //
 // item: The item on which to set the extended attribute.
 //
@@ -89,19 +85,9 @@ func (o FSVolumeXattrOperationsObject) GetXattrNamedOfItemReplyHandler(name IFSF
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/setXattr(named:to:on:policy:replyHandler:)
 //
-// [FSVolume.SetXattrPolicy.delete]: https://developer.apple.com/documentation/FSKit/FSVolume/SetXattrPolicy/delete
 // [FSVolume.SetXattrPolicy]: https://developer.apple.com/documentation/FSKit/FSVolume/SetXattrPolicy
-func (o FSVolumeXattrOperationsObject) SetXattrNamedToDataOnItemPolicyReplyHandler(name IFSFileName, value foundation.INSData, item IFSItem, policy FSSetXattrPolicy, reply ErrorHandler) {
+func (o FSVolumeXattrOperationsObject) SetXattrNamedToDataOnItemPolicyReplyHandler(name IFSFileName, value foundation.NSData, item IFSItem, policy FSSetXattrPolicy, reply ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("setXattrNamed:toData:onItem:policy:replyHandler:"), name, value, item, policy, reply)
-}
-
-// A Boolean value that instructs FSKit not to call this protocol’s methods,
-// even if the volume conforms to it.
-//
-// See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/xattrOperationsInhibited
-func (o FSVolumeXattrOperationsObject) XattrOperationsInhibited() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("xattrOperationsInhibited"))
-	return rv
 }
 
 // Returns an array that specifies the extended attribute names the given item
@@ -136,6 +122,11 @@ func (o FSVolumeXattrOperationsObject) SupportedXattrNamesForItem(item IFSItem) 
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/xattrOperationsInhibited
+func (o FSVolumeXattrOperationsObject) XattrOperationsInhibited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("xattrOperationsInhibited"))
+	return bool(rv)
+}
+
 func (o FSVolumeXattrOperationsObject) SetXattrOperationsInhibited(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setXattrOperationsInhibited:"), value)
 }

@@ -459,10 +459,10 @@ func (g NSGradient) DrawInRectAngle(rect corefoundation.CGRect, angle float64) {
 //
 // # Discussion
 //
-// This convenience method behaves in a similar way to the [DrawInRectAngle]
-// method, with the path object replacing the rectangle as the clipping
-// region. Like the other method, the start and end colors are guaranteed to
-// be visible at the farthest ends of the path.
+// This convenience method behaves in a similar way to the
+// [DrawInBezierPathAngle] method, with the path object replacing the
+// rectangle as the clipping region. Like the other method, the start and end
+// colors are guaranteed to be visible at the farthest ends of the path.
 //
 // The gradient formed by this method is clipped to `path`.
 //

@@ -116,7 +116,7 @@ type IMLTask interface {
 	// The current state of the machine learning task.
 	State() MLTaskState
 	// The underlying error if the task is in a failed state.
-	Error() foundation.INSError
+	Error() foundation.NSError
 }
 
 // Init initializes the instance.
@@ -178,7 +178,7 @@ func (t MLTask) State() MLTaskState {
 // The underlying error if the task is in a failed state.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/error
-func (t MLTask) Error() foundation.INSError {
+func (t MLTask) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

@@ -103,14 +103,14 @@ type IMLE5ExecutionStreamPool interface {
 }
 
 // Init initializes the instance.
-func (e MLE5ExecutionStreamPool) Init() MLE5ExecutionStreamPool {
-	rv := objc.Send[MLE5ExecutionStreamPool](e.ID, objc.Sel("init"))
+func (m MLE5ExecutionStreamPool) Init() MLE5ExecutionStreamPool {
+	rv := objc.Send[MLE5ExecutionStreamPool](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e MLE5ExecutionStreamPool) Autorelease() MLE5ExecutionStreamPool {
-	rv := objc.Send[MLE5ExecutionStreamPool](e.ID, objc.Sel("autorelease"))
+func (m MLE5ExecutionStreamPool) Autorelease() MLE5ExecutionStreamPool {
+	rv := objc.Send[MLE5ExecutionStreamPool](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -129,73 +129,73 @@ func NewE5ExecutionStreamPoolWithModelConfigurationModelSignpostId(configuration
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/_emitMappingTracepointForStream:
-func (e MLE5ExecutionStreamPool) _emitMappingTracepointForStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("_emitMappingTracepointForStream:"), stream)
+func (m MLE5ExecutionStreamPool) _emitMappingTracepointForStream(stream objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_emitMappingTracepointForStream:"), stream)
 }
 
 // EmitMappingTracepointForStream is an exported wrapper for the private method _emitMappingTracepointForStream.
-func (e MLE5ExecutionStreamPool) EmitMappingTracepointForStream(stream objectivec.IObject) error {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_emitMappingTracepointForStream:")) {
+func (m MLE5ExecutionStreamPool) EmitMappingTracepointForStream(stream objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_emitMappingTracepointForStream:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_emitMappingTracepointForStream:"}
 		return err
 	}
-	e._emitMappingTracepointForStream(stream)
+	m._emitMappingTracepointForStream(stream)
 	return nil
 }
 
 // CanEmitMappingTracepointForStream reports whether the receiver responds to the private selector _emitMappingTracepointForStream:.
-func (e MLE5ExecutionStreamPool) CanEmitMappingTracepointForStream() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_emitMappingTracepointForStream:"))
+func (m MLE5ExecutionStreamPool) CanEmitMappingTracepointForStream() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_emitMappingTracepointForStream:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/enableInstrumentsTracing
-func (e MLE5ExecutionStreamPool) EnableInstrumentsTracing() {
-	objc.Send[objc.ID](e.ID, objc.Sel("enableInstrumentsTracing"))
+func (m MLE5ExecutionStreamPool) EnableInstrumentsTracing() {
+	objc.Send[objc.ID](m.ID, objc.Sel("enableInstrumentsTracing"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/putBack:
-func (e MLE5ExecutionStreamPool) PutBack(back objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("putBack:"), back)
+func (m MLE5ExecutionStreamPool) PutBack(back objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("putBack:"), back)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/takeOut
-func (e MLE5ExecutionStreamPool) TakeOut() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("takeOut"))
+func (m MLE5ExecutionStreamPool) TakeOut() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("takeOut"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/initWithModelConfiguration:modelSignpostId:
-func (e MLE5ExecutionStreamPool) InitWithModelConfigurationModelSignpostId(configuration objectivec.IObject, id uint64) MLE5ExecutionStreamPool {
-	rv := objc.Send[MLE5ExecutionStreamPool](e.ID, objc.Sel("initWithModelConfiguration:modelSignpostId:"), configuration, id)
+func (m MLE5ExecutionStreamPool) InitWithModelConfigurationModelSignpostId(configuration objectivec.IObject, id uint64) MLE5ExecutionStreamPool {
+	rv := objc.Send[MLE5ExecutionStreamPool](m.ID, objc.Sel("initWithModelConfiguration:modelSignpostId:"), configuration, id)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/allStreams
-func (e MLE5ExecutionStreamPool) AllStreams() foundation.INSSet {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("allStreams"))
+func (m MLE5ExecutionStreamPool) AllStreams() foundation.INSSet {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("allStreams"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/modelConfiguration
-func (e MLE5ExecutionStreamPool) ModelConfiguration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelConfiguration"))
+func (m MLE5ExecutionStreamPool) ModelConfiguration() IMLModelConfiguration {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/modelSignpostId
-func (e MLE5ExecutionStreamPool) ModelSignpostId() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("modelSignpostId"))
+func (m MLE5ExecutionStreamPool) ModelSignpostId() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/pool
-func (e MLE5ExecutionStreamPool) Pool() foundation.INSSet {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("pool"))
+func (m MLE5ExecutionStreamPool) Pool() foundation.INSSet {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pool"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/serialQueue
-func (e MLE5ExecutionStreamPool) SerialQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("serialQueue"))
+func (m MLE5ExecutionStreamPool) SerialQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("serialQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

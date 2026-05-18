@@ -19,70 +19,42 @@ type CISunbeamsGenerator interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/center
 	Center() corefoundation.CGPoint
-
-	// The color of the sun.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/color
-	Color() ICIColor
-
-	// The radius of the sunbeams.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/maxStriationRadius
-	MaxStriationRadius() float32
-
-	// The contrast of the sunbeams.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationContrast
-	StriationContrast() float32
-
-	// The intensity of the sunbeams.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationStrength
-	StriationStrength() float32
-
-	// The radius of the sun.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/sunRadius
-	SunRadius() float32
-
-	// The duration of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/time
-	Time() float32
-
-	// The x and y position to use as the center of the sunbeam pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/center
 	SetCenter(value corefoundation.CGPoint)
 
 	// The color of the sun.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/color
+	Color() ICIColor
 	SetColor(value ICIColor)
 
 	// The radius of the sunbeams.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/maxStriationRadius
+	MaxStriationRadius() float32
 	SetMaxStriationRadius(value float32)
 
 	// The contrast of the sunbeams.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationContrast
+	StriationContrast() float32
 	SetStriationContrast(value float32)
 
 	// The intensity of the sunbeams.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationStrength
+	StriationStrength() float32
 	SetStriationStrength(value float32)
 
 	// The radius of the sun.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/sunRadius
+	SunRadius() float32
 	SetSunRadius(value float32)
 
 	// The duration of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/time
+	Time() float32
 	SetTime(value float32)
 }
 
@@ -103,62 +75,6 @@ func CISunbeamsGeneratorObjectFromID(id objc.ID) CISunbeamsGeneratorObject {
 	}
 }
 
-// The x and y position to use as the center of the sunbeam pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/center
-func (o CISunbeamsGeneratorObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The color of the sun.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/color
-func (o CISunbeamsGeneratorObject) Color() ICIColor {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
-	return CIColorFromID(rv)
-}
-
-// The radius of the sunbeams.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/maxStriationRadius
-func (o CISunbeamsGeneratorObject) MaxStriationRadius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("maxStriationRadius"))
-	return rv
-}
-
-// The contrast of the sunbeams.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationContrast
-func (o CISunbeamsGeneratorObject) StriationContrast() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
-	return rv
-}
-
-// The intensity of the sunbeams.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationStrength
-func (o CISunbeamsGeneratorObject) StriationStrength() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
-	return rv
-}
-
-// The radius of the sun.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/sunRadius
-func (o CISunbeamsGeneratorObject) SunRadius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("sunRadius"))
-	return rv
-}
-
-// The duration of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/time
-func (o CISunbeamsGeneratorObject) Time() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("time"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -171,6 +87,11 @@ func (o CISunbeamsGeneratorObject) OutputImage() ICIImage {
 // The x and y position to use as the center of the sunbeam pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/center
+func (o CISunbeamsGeneratorObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CISunbeamsGeneratorObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -178,6 +99,11 @@ func (o CISunbeamsGeneratorObject) SetCenter(value corefoundation.CGPoint) {
 // The color of the sun.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/color
+func (o CISunbeamsGeneratorObject) Color() ICIColor {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
+	return CIColorFromID(rv)
+}
+
 func (o CISunbeamsGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
@@ -185,6 +111,11 @@ func (o CISunbeamsGeneratorObject) SetColor(value ICIColor) {
 // The radius of the sunbeams.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/maxStriationRadius
+func (o CISunbeamsGeneratorObject) MaxStriationRadius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("maxStriationRadius"))
+	return float32(rv)
+}
+
 func (o CISunbeamsGeneratorObject) SetMaxStriationRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaxStriationRadius:"), value)
 }
@@ -192,6 +123,11 @@ func (o CISunbeamsGeneratorObject) SetMaxStriationRadius(value float32) {
 // The contrast of the sunbeams.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationContrast
+func (o CISunbeamsGeneratorObject) StriationContrast() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
+	return float32(rv)
+}
+
 func (o CISunbeamsGeneratorObject) SetStriationContrast(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStriationContrast:"), value)
 }
@@ -199,6 +135,11 @@ func (o CISunbeamsGeneratorObject) SetStriationContrast(value float32) {
 // The intensity of the sunbeams.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationStrength
+func (o CISunbeamsGeneratorObject) StriationStrength() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
+	return float32(rv)
+}
+
 func (o CISunbeamsGeneratorObject) SetStriationStrength(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStriationStrength:"), value)
 }
@@ -206,6 +147,11 @@ func (o CISunbeamsGeneratorObject) SetStriationStrength(value float32) {
 // The radius of the sun.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/sunRadius
+func (o CISunbeamsGeneratorObject) SunRadius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("sunRadius"))
+	return float32(rv)
+}
+
 func (o CISunbeamsGeneratorObject) SetSunRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSunRadius:"), value)
 }
@@ -213,6 +159,11 @@ func (o CISunbeamsGeneratorObject) SetSunRadius(value float32) {
 // The duration of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/time
+func (o CISunbeamsGeneratorObject) Time() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("time"))
+	return float32(rv)
+}
+
 func (o CISunbeamsGeneratorObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }

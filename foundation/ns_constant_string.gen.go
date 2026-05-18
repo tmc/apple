@@ -148,7 +148,7 @@ func NewConstantStringWithCString(bytes string) NSConstantString {
 	return NSConstantStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)-20f9h
 func NewConstantStringWithCStringEncoding(nullTerminatedCString string, encoding uint) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")), encoding)
@@ -522,7 +522,7 @@ func NewConstantStringWithString(aString string) NSConstantString {
 	return NSConstantStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)-vg2b
 func NewConstantStringWithUTF8String(nullTerminatedCString string) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")))

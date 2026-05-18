@@ -138,7 +138,7 @@ type IAVPlayerLooper interface {
 	// Topic: Monitoring errors
 
 	// An error that describes the reason looping failed.
-	Error() foundation.INSError
+	Error() foundation.NSError
 }
 
 // Init initializes the instance.
@@ -476,7 +476,7 @@ func (p AVPlayerLooper) Status() AVPlayerLooperStatus {
 // prevented looping.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/error
-func (p AVPlayerLooper) Error() foundation.INSError {
+func (p AVPlayerLooper) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

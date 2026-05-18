@@ -87,14 +87,14 @@ type IMLPipelineLoader interface {
 }
 
 // Init initializes the instance.
-func (p MLPipelineLoader) Init() MLPipelineLoader {
-	rv := objc.Send[MLPipelineLoader](p.ID, objc.Sel("init"))
+func (m MLPipelineLoader) Init() MLPipelineLoader {
+	rv := objc.Send[MLPipelineLoader](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPipelineLoader) Autorelease() MLPipelineLoader {
-	rv := objc.Send[MLPipelineLoader](p.ID, objc.Sel("autorelease"))
+func (m MLPipelineLoader) Autorelease() MLPipelineLoader {
+	rv := objc.Send[MLPipelineLoader](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -145,25 +145,25 @@ func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelFromCompiledArchive
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/debugDescription
-func (p MLPipelineLoader) DebugDescription() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
+func (m MLPipelineLoader) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/description
-func (p MLPipelineLoader) Description() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
+func (m MLPipelineLoader) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/hash
-func (p MLPipelineLoader) Hash() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
+func (m MLPipelineLoader) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/superclass
-func (p MLPipelineLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
+func (m MLPipelineLoader) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

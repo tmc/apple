@@ -134,7 +134,7 @@ type IGTMioShaderExecutionHistoryNode interface {
 
 	// Topic: Methods
 
-	_costForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool
+	_costForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
 	_dfsEnumerator(_dfs uint32, enumerator VoidHandler)
 	AddChild(child objectivec.IObject)
 	AddInstructionHitNumHits(hit uint32, hits uint32)
@@ -143,7 +143,7 @@ type IGTMioShaderExecutionHistoryNode interface {
 	Children() foundation.INSArray
 	CliqueRoot() objectivec.IObject
 	ContainsInstructionBinaryIndex(instruction uint32, index uint32) bool
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
 	Dfs(dfs VoidHandler)
 	DurationPercentage() float64
 	EndTimestamp(timestamp uint64)
@@ -153,12 +153,12 @@ type IGTMioShaderExecutionHistoryNode interface {
 	InstructionForInstructionIndex(index uint32) objectivec.IObject
 	IsSameLocation(location objectivec.IObject) bool
 	LastInstructionIndex() uint32
-	NormalizedInstructionCostScopeIdentifierBinaryCost(cost uint16, identifier uint64, binary objectivec.IObject, cost2 unsafe.Pointer) bool
+	NormalizedInstructionCostScopeIdentifierBinaryCost(cost uint16, identifier uint64, binary objectivec.IObject, cost2 GTMioCostInfo) bool
 	OverlapsWithInstructionInstructionCountBinaryIndex(instruction uint32, count uint32, index uint32) bool
 	Parent() IGTMioShaderExecutionHistoryNode
 	ParentFunction() IGTMioShaderExecutionHistoryFunctionNode
 	Root() IGTMioShaderExecutionHistoryRootNode
-	SelfCostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool
+	SelfCostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
 	StartTimestamps() unsafe.Pointer
 	TimestampCount() uint32
 	TopCostPercentage() float64
@@ -194,13 +194,13 @@ func NewGTMioShaderExecutionHistoryNodeWithTypeParent(type_ uint32, parent objec
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/_costForScope:scopeIdentifier:cacheCost:
-func (g GTMioShaderExecutionHistoryNode) _costForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool {
+func (g GTMioShaderExecutionHistoryNode) _costForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_costForScope:scopeIdentifier:cacheCost:"), scope, identifier, cost)
 	return rv
 }
 
 // CostForScopeScopeIdentifierCacheCost is an exported wrapper for the private method _costForScopeScopeIdentifierCacheCost.
-func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost unsafe.Pointer) (bool, error) {
+func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCacheCost(scope uint16, identifier uint64, cost GTMioCostInfo) (bool, error) {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_costForScope:scopeIdentifier:cacheCost:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_costForScope:scopeIdentifier:cacheCost:"}
 		return false, err
@@ -262,7 +262,7 @@ func (g GTMioShaderExecutionHistoryNode) ContainsInstructionBinaryIndex(instruct
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/costForScope:scopeIdentifier:cost:
-func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool {
+func (g GTMioShaderExecutionHistoryNode) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }
@@ -309,7 +309,7 @@ func (g GTMioShaderExecutionHistoryNode) LastInstructionIndex() uint32 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/normalizedInstructionCost:scopeIdentifier:binary:cost:
-func (g GTMioShaderExecutionHistoryNode) NormalizedInstructionCostScopeIdentifierBinaryCost(cost uint16, identifier uint64, binary objectivec.IObject, cost2 unsafe.Pointer) bool {
+func (g GTMioShaderExecutionHistoryNode) NormalizedInstructionCostScopeIdentifierBinaryCost(cost uint16, identifier uint64, binary objectivec.IObject, cost2 GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("normalizedInstructionCost:scopeIdentifier:binary:cost:"), cost, identifier, binary, cost2)
 	return rv
 }
@@ -321,7 +321,7 @@ func (g GTMioShaderExecutionHistoryNode) OverlapsWithInstructionInstructionCount
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/selfCostForScope:scopeIdentifier:cost:
-func (g GTMioShaderExecutionHistoryNode) SelfCostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool {
+func (g GTMioShaderExecutionHistoryNode) SelfCostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("selfCostForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }

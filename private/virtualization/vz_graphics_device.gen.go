@@ -91,14 +91,14 @@ type IVZGraphicsDevice interface {
 }
 
 // Init initializes the instance.
-func (g VZGraphicsDevice) Init() VZGraphicsDevice {
-	rv := objc.Send[VZGraphicsDevice](g.ID, objc.Sel("init"))
+func (v VZGraphicsDevice) Init() VZGraphicsDevice {
+	rv := objc.Send[VZGraphicsDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g VZGraphicsDevice) Autorelease() VZGraphicsDevice {
-	rv := objc.Send[VZGraphicsDevice](g.ID, objc.Sel("autorelease"))
+func (v VZGraphicsDevice) Autorelease() VZGraphicsDevice {
+	rv := objc.Send[VZGraphicsDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,71 +110,71 @@ func NewVZGraphicsDevice() VZGraphicsDevice {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_attachDisplay:completionHandler:
-func (g VZGraphicsDevice) _attachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
+func (v VZGraphicsDevice) _attachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](g.ID, objc.Sel("_attachDisplay:completionHandler:"), display, _block1)
+	objc.Send[objc.ID](v.ID, objc.Sel("_attachDisplay:completionHandler:"), display, _block1)
 }
 
 // AttachDisplayCompletionHandler is an exported wrapper for the private method _attachDisplayCompletionHandler.
-func (g VZGraphicsDevice) AttachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) error {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_attachDisplay:completionHandler:")) {
+func (v VZGraphicsDevice) AttachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_attachDisplay:completionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_attachDisplay:completionHandler:"}
 		return err
 	}
-	g._attachDisplayCompletionHandler(display, handler)
+	v._attachDisplayCompletionHandler(display, handler)
 	return nil
 }
 
 // CanAttachDisplayCompletionHandler reports whether the receiver responds to the private selector _attachDisplay:completionHandler:.
-func (g VZGraphicsDevice) CanAttachDisplayCompletionHandler() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_attachDisplay:completionHandler:"))
+func (v VZGraphicsDevice) CanAttachDisplayCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_attachDisplay:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_detachDisplay:completionHandler:
-func (g VZGraphicsDevice) _detachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
+func (v VZGraphicsDevice) _detachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](g.ID, objc.Sel("_detachDisplay:completionHandler:"), display, _block1)
+	objc.Send[objc.ID](v.ID, objc.Sel("_detachDisplay:completionHandler:"), display, _block1)
 }
 
 // DetachDisplayCompletionHandler is an exported wrapper for the private method _detachDisplayCompletionHandler.
-func (g VZGraphicsDevice) DetachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) error {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_detachDisplay:completionHandler:")) {
+func (v VZGraphicsDevice) DetachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_detachDisplay:completionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_detachDisplay:completionHandler:"}
 		return err
 	}
-	g._detachDisplayCompletionHandler(display, handler)
+	v._detachDisplayCompletionHandler(display, handler)
 	return nil
 }
 
 // CanDetachDisplayCompletionHandler reports whether the receiver responds to the private selector _detachDisplay:completionHandler:.
-func (g VZGraphicsDevice) CanDetachDisplayCompletionHandler() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_detachDisplay:completionHandler:"))
+func (v VZGraphicsDevice) CanDetachDisplayCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_detachDisplay:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:
-func (g VZGraphicsDevice) _initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"), machine, index, count, displays)
+func (v VZGraphicsDevice) _initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"), machine, index, count, displays)
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays is an exported wrapper for the private method _initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays.
-func (g VZGraphicsDevice) InitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:")) {
+func (v VZGraphicsDevice) InitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"}
 		return nil, err
 	}
-	return g._initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine, index, count, displays), nil
+	return v._initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine, index, count, displays), nil
 }
 
 // CanInitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays reports whether the receiver responds to the private selector _initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:.
-func (g VZGraphicsDevice) CanInitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"))
+func (v VZGraphicsDevice) CanInitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_validateDisplayForHotPlug:error:
-func (g VZGraphicsDevice) _validateDisplayForHotPlugError(plug objectivec.IObject) (bool, error) {
+func (v VZGraphicsDevice) _validateDisplayForHotPlugError(plug objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](g.ID, objc.Sel("_validateDisplayForHotPlug:error:"), plug, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](v.ID, objc.Sel("_validateDisplayForHotPlug:error:"), plug, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -187,43 +187,43 @@ func (g VZGraphicsDevice) _validateDisplayForHotPlugError(plug objectivec.IObjec
 }
 
 // ValidateDisplayForHotPlugError is an exported wrapper for the private method _validateDisplayForHotPlugError.
-func (g VZGraphicsDevice) ValidateDisplayForHotPlugError(plug objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_validateDisplayForHotPlug:error:")) {
+func (v VZGraphicsDevice) ValidateDisplayForHotPlugError(plug objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_validateDisplayForHotPlug:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_validateDisplayForHotPlug:error:"}
 		return false, err
 	}
-	return g._validateDisplayForHotPlugError(plug)
+	return v._validateDisplayForHotPlugError(plug)
 }
 
 // CanValidateDisplayForHotPlugError reports whether the receiver responds to the private selector _validateDisplayForHotPlug:error:.
-func (g VZGraphicsDevice) CanValidateDisplayForHotPlugError() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_validateDisplayForHotPlug:error:"))
+func (v VZGraphicsDevice) CanValidateDisplayForHotPlugError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_validateDisplayForHotPlug:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_displayPortCount
-func (g VZGraphicsDevice) _displayPortCount() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("_displayPortCount"))
+func (v VZGraphicsDevice) _displayPortCount() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("_displayPortCount"))
 	return rv
 }
 
 // CanDisplayPortCount reports whether the receiver responds to the private selector _displayPortCount.
-func (g VZGraphicsDevice) CanDisplayPortCount() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_displayPortCount"))
+func (v VZGraphicsDevice) CanDisplayPortCount() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_displayPortCount"))
 }
 
 // DisplayPortCount is an exported wrapper for the private property _displayPortCount.
-func (g VZGraphicsDevice) DisplayPortCount() (uint64, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_displayPortCount")) {
+func (v VZGraphicsDevice) DisplayPortCount() (uint64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_displayPortCount")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_displayPortCount"}
 	}
-	return g._displayPortCount(), nil
+	return v._displayPortCount(), nil
 }
 
 // _attachDisplay is a synchronous wrapper around [VZGraphicsDevice._attachDisplayCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g VZGraphicsDevice) _attachDisplay(ctx context.Context, display objectivec.IObject) error {
+func (v VZGraphicsDevice) _attachDisplay(ctx context.Context, display objectivec.IObject) error {
 	done := make(chan error, 1)
-	g._attachDisplayCompletionHandler(display, func(err error) {
+	v._attachDisplayCompletionHandler(display, func(err error) {
 		done <- err
 	})
 	select {
@@ -236,9 +236,9 @@ func (g VZGraphicsDevice) _attachDisplay(ctx context.Context, display objectivec
 
 // _detachDisplay is a synchronous wrapper around [VZGraphicsDevice._detachDisplayCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g VZGraphicsDevice) _detachDisplay(ctx context.Context, display objectivec.IObject) error {
+func (v VZGraphicsDevice) _detachDisplay(ctx context.Context, display objectivec.IObject) error {
 	done := make(chan error, 1)
-	g._detachDisplayCompletionHandler(display, func(err error) {
+	v._detachDisplayCompletionHandler(display, func(err error) {
 		done <- err
 	})
 	select {

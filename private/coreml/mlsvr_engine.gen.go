@@ -113,14 +113,14 @@ type IMLSVREngine interface {
 }
 
 // Init initializes the instance.
-func (s MLSVREngine) Init() MLSVREngine {
-	rv := objc.Send[MLSVREngine](s.ID, objc.Sel("init"))
+func (m MLSVREngine) Init() MLSVREngine {
+	rv := objc.Send[MLSVREngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSVREngine) Autorelease() MLSVREngine {
-	rv := objc.Send[MLSVREngine](s.ID, objc.Sel("autorelease"))
+func (m MLSVREngine) Autorelease() MLSVREngine {
+	rv := objc.Send[MLSVREngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -158,43 +158,43 @@ func NewSVREngineWithSpecificationError(specification unsafe.Pointer) (MLSVREngi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/allocSVMNodeVector:
-func (s MLSVREngine) AllocSVMNodeVector(vector uint64) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("allocSVMNodeVector:"), vector)
+func (m MLSVREngine) AllocSVMNodeVector(vector uint64) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("allocSVMNodeVector:"), vector)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/deallocSVMNodeVector:
-func (s MLSVREngine) DeallocSVMNodeVector(vector unsafe.Pointer) {
-	objc.Send[objc.ID](s.ID, objc.Sel("deallocSVMNodeVector:"), vector)
+func (m MLSVREngine) DeallocSVMNodeVector(vector unsafe.Pointer) {
+	objc.Send[objc.ID](m.ID, objc.Sel("deallocSVMNodeVector:"), vector)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/fillSVMNodeVector:values:count:
-func (s MLSVREngine) FillSVMNodeVectorValuesCount(vector unsafe.Pointer, values []float64, count uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("fillSVMNodeVector:values:count:"), objc.CArray(vector), objc.CArray(values), count)
+func (m MLSVREngine) FillSVMNodeVectorValuesCount(vector unsafe.Pointer, values []float64, count uint64) {
+	objc.Send[objc.ID](m.ID, objc.Sel("fillSVMNodeVector:values:count:"), objc.CArray(vector), objc.CArray(values), count)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/predict:
-func (s MLSVREngine) Predict(predict objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("predict:"), predict)
+func (m MLSVREngine) Predict(predict objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predict:"), predict)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithLibSVMFile:
-func (s MLSVREngine) InitWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
-	rv := objc.Send[MLSVREngine](s.ID, objc.Sel("initWithLibSVMFile:"), sVMFile)
+func (m MLSVREngine) InitWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
+	rv := objc.Send[MLSVREngine](m.ID, objc.Sel("initWithLibSVMFile:"), sVMFile)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:
-func (s MLSVREngine) InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVMModel unsafe.Pointer, dealloc bool, only bool, size uint64) MLSVREngine {
-	rv := objc.Send[MLSVREngine](s.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:"), sVMModel, dealloc, only, size)
+func (m MLSVREngine) InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVMModel unsafe.Pointer, dealloc bool, only bool, size uint64) MLSVREngine {
+	rv := objc.Send[MLSVREngine](m.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:"), sVMModel, dealloc, only, size)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithSpecification:error:
-func (s MLSVREngine) InitWithSpecificationError(specification unsafe.Pointer) (MLSVREngine, error) {
+func (m MLSVREngine) InitWithSpecificationError(specification unsafe.Pointer) (MLSVREngine, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithSpecification:error:"), specification, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithSpecification:error:"), specification, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLSVREngine{}, foundation.NSErrorFrom(errorPtr)
@@ -204,31 +204,31 @@ func (s MLSVREngine) InitWithSpecificationError(specification unsafe.Pointer) (M
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/freeModelOnDealloc
-func (s MLSVREngine) FreeModelOnDealloc() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("freeModelOnDealloc"))
+func (m MLSVREngine) FreeModelOnDealloc() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("freeModelOnDealloc"))
 	return rv
 }
-func (s MLSVREngine) SetFreeModelOnDealloc(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setFreeModelOnDealloc:"), value)
+func (m MLSVREngine) SetFreeModelOnDealloc(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setFreeModelOnDealloc:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/inputSize
-func (s MLSVREngine) InputSize() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("inputSize"))
+func (m MLSVREngine) InputSize() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("inputSize"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/isInputSizeLowerBoundOnly
-func (s MLSVREngine) IsInputSizeLowerBoundOnly() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isInputSizeLowerBoundOnly"))
+func (m MLSVREngine) IsInputSizeLowerBoundOnly() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("isInputSizeLowerBoundOnly"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/model
-func (s MLSVREngine) Model() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("model"))
+func (m MLSVREngine) Model() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("model"))
 	return rv
 }
-func (s MLSVREngine) SetModel(value unsafe.Pointer) {
-	objc.Send[struct{}](s.ID, objc.Sel("setModel:"), value)
+func (m MLSVREngine) SetModel(value unsafe.Pointer) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModel:"), value)
 }

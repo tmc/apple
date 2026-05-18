@@ -18,30 +18,18 @@ type CIMorphologyRectangleMinimum interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/height
 	Height() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/inputImage
-	InputImage() ICIImage
-
-	// The width, in pixels, of the morphological structuring element.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/width
-	Width() float32
-
-	// The height, in pixels, of the morphological structuring element.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/height
 	SetHeight(value float32)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The width, in pixels, of the morphological structuring element.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/width
+	Width() float32
 	SetWidth(value float32)
 }
 
@@ -62,30 +50,6 @@ func CIMorphologyRectangleMinimumObjectFromID(id objc.ID) CIMorphologyRectangleM
 	}
 }
 
-// The height, in pixels, of the morphological structuring element.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/height
-func (o CIMorphologyRectangleMinimumObject) Height() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("height"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/inputImage
-func (o CIMorphologyRectangleMinimumObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The width, in pixels, of the morphological structuring element.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/width
-func (o CIMorphologyRectangleMinimumObject) Width() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("width"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -102,6 +66,11 @@ func (o CIMorphologyRectangleMinimumObject) OutputImage() ICIImage {
 // The value is rounded to the nearest odd integer.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/height
+func (o CIMorphologyRectangleMinimumObject) Height() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("height"))
+	return float32(rv)
+}
+
 func (o CIMorphologyRectangleMinimumObject) SetHeight(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHeight:"), value)
 }
@@ -109,6 +78,11 @@ func (o CIMorphologyRectangleMinimumObject) SetHeight(value float32) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/inputImage
+func (o CIMorphologyRectangleMinimumObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIMorphologyRectangleMinimumObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -120,6 +94,11 @@ func (o CIMorphologyRectangleMinimumObject) SetInputImage(value ICIImage) {
 // The value is rounded to the nearest odd integer.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/width
+func (o CIMorphologyRectangleMinimumObject) Width() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("width"))
+	return float32(rv)
+}
+
 func (o CIMorphologyRectangleMinimumObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }

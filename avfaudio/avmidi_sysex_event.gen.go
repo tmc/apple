@@ -88,7 +88,7 @@ type IAVMIDISysexEvent interface {
 	// Topic: Creates a System Event
 
 	// Creates a system event with the data you specify.
-	InitWithData(data foundation.INSData) AVMIDISysexEvent
+	InitWithData(data foundation.NSData) AVMIDISysexEvent
 
 	// Topic: Getting the Size of the Event
 
@@ -120,7 +120,7 @@ func NewAVMIDISysexEvent() AVMIDISysexEvent {
 // data: The data that contains the contents of the system event.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDISysexEvent/init(data:)
-func NewMIDISysexEventWithData(data foundation.INSData) AVMIDISysexEvent {
+func NewMIDISysexEventWithData(data foundation.NSData) AVMIDISysexEvent {
 	instance := getAVMIDISysexEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return AVMIDISysexEventFromID(rv)
@@ -131,7 +131,7 @@ func NewMIDISysexEventWithData(data foundation.INSData) AVMIDISysexEvent {
 // data: The data that contains the contents of the system event.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDISysexEvent/init(data:)
-func (m AVMIDISysexEvent) InitWithData(data foundation.INSData) AVMIDISysexEvent {
+func (m AVMIDISysexEvent) InitWithData(data foundation.NSData) AVMIDISysexEvent {
 	rv := objc.Send[AVMIDISysexEvent](m.ID, objc.Sel("initWithData:"), data)
 	return rv
 }

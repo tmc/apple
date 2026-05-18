@@ -202,30 +202,30 @@ type WSMainThreadBlockHoist struct {
 type WSStructuralRegion struct {
 }
 
-// _CFUUID
+// Cfuuid
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/SkyLight/__CFUUID
-type _CFUUID struct {
+type Cfuuid struct {
 }
 
-// _CGEvent
+// CGEvent
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/SkyLight/__CGEvent
-type _CGEvent struct {
+type CGEvent struct {
 }
 
-// _IOHIDEvent
+// IOHIDEvent
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/SkyLight/__IOHIDEvent
-type _IOHIDEvent struct {
+type IOHIDEvent struct {
 }
 
-// _LSASN
+// Lsasn
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/SkyLight/__LSASN
-type _LSASN struct {
+type Lsasn struct {
 }

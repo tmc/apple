@@ -145,7 +145,7 @@ type INETunnelProvider interface {
 	// Topic: Communicating with the containing app
 
 	// Handle messages sent by the tunnel provider extension’s containing app.
-	HandleAppMessageCompletionHandler(messageData foundation.INSData, completionHandler DataHandler)
+	HandleAppMessageCompletionHandler(messageData foundation.NSData, completionHandler DataHandler)
 
 	// Topic: Setting tunnel status
 
@@ -235,7 +235,7 @@ func (t NETunnelProvider) SetTunnelNetworkSettingsCompletionHandler(tunnelNetwor
 // the Tunnel Provider’s containing app.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider/handleAppMessage(_:completionHandler:)
-func (t NETunnelProvider) HandleAppMessageCompletionHandler(messageData foundation.INSData, completionHandler DataHandler) {
+func (t NETunnelProvider) HandleAppMessageCompletionHandler(messageData foundation.NSData, completionHandler DataHandler) {
 	_block1, _ := NewDataBlock(completionHandler)
 	objc.Send[objc.ID](t.ID, objc.Sel("handleAppMessage:completionHandler:"), messageData, _block1)
 }
@@ -336,7 +336,7 @@ func (t NETunnelProvider) SetTunnelNetworkSettings(ctx context.Context, tunnelNe
 
 // HandleAppMessage is a synchronous wrapper around [NETunnelProvider.HandleAppMessageCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t NETunnelProvider) HandleAppMessage(ctx context.Context, messageData foundation.INSData) (*foundation.NSData, error) {
+func (t NETunnelProvider) HandleAppMessage(ctx context.Context, messageData foundation.NSData) (*foundation.NSData, error) {
 	done := make(chan *foundation.NSData, 1)
 	t.HandleAppMessageCompletionHandler(messageData, func(val *foundation.NSData) {
 		done <- val

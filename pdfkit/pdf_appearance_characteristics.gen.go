@@ -136,7 +136,7 @@ type IPDFAppearanceCharacteristics interface {
 	SetFieldName(value string)
 	// A Boolean value that determines whether the widget is editable.
 	IsReadOnly() bool
-	SetIsReadOnly(value bool)
+	SetReadOnly(value bool)
 	// The string value that the widget reverts to when performing a reset form action.
 	WidgetDefaultStringValue() string
 	SetWidgetDefaultStringValue(value string)
@@ -275,7 +275,7 @@ func (p PDFAppearanceCharacteristics) IsReadOnly() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("readOnly"))
 	return rv
 }
-func (p PDFAppearanceCharacteristics) SetIsReadOnly(value bool) {
+func (p PDFAppearanceCharacteristics) SetReadOnly(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setReadOnly:"), value)
 }
 

@@ -91,7 +91,6 @@ func MLDictionaryFeatureProviderFromID(id objc.ID) MLDictionaryFeatureProvider {
 // See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider
 type IMLDictionaryFeatureProvider interface {
 	objectivec.IObject
-	MLFeatureProvider
 
 	// Topic: Creating the provider
 
@@ -168,6 +167,14 @@ func (d MLDictionaryFeatureProvider) ObjectForKeyedSubscript(featureName string)
 	return MLFeatureValueFromID(rv)
 }
 
+// The set of valid feature names.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureNames
+func (d MLDictionaryFeatureProvider) FeatureNames() foundation.INSSet {
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("featureNames"))
+	return foundation.NSSetFromID(rv)
+}
+
 // Accesses the feature value given the feature’s name.
 //
 // featureName: The name of the feature of the desired value.
@@ -191,14 +198,6 @@ func (d MLDictionaryFeatureProvider) EncodeWithCoder(coder foundation.INSCoder) 
 func (d MLDictionaryFeatureProvider) Dictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-
-// The set of valid feature names.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureNames
-func (d MLDictionaryFeatureProvider) FeatureNames() foundation.INSSet {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("featureNames"))
-	return foundation.NSSetFromID(objc.ID(rv))
 }
 
 // Protocol methods for MLFeatureProvider

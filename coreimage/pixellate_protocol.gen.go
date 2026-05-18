@@ -19,30 +19,18 @@ type CIPixellate interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/center
 	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/inputImage
-	InputImage() ICIImage
-
-	// A value that determines the size of the squares.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/scale
-	Scale() float32
-
-	// The x and y position to use as the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/center
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// A value that determines the size of the squares.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/scale
+	Scale() float32
 	SetScale(value float32)
 }
 
@@ -63,30 +51,6 @@ func CIPixellateObjectFromID(id objc.ID) CIPixellateObject {
 	}
 }
 
-// The x and y position to use as the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/center
-func (o CIPixellateObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/inputImage
-func (o CIPixellateObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// A value that determines the size of the squares.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPixellate/scale
-func (o CIPixellateObject) Scale() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -99,6 +63,11 @@ func (o CIPixellateObject) OutputImage() ICIImage {
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPixellate/center
+func (o CIPixellateObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIPixellateObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -106,6 +75,11 @@ func (o CIPixellateObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPixellate/inputImage
+func (o CIPixellateObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPixellateObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -113,6 +87,11 @@ func (o CIPixellateObject) SetInputImage(value ICIImage) {
 // A value that determines the size of the squares.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPixellate/scale
+func (o CIPixellateObject) Scale() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
+	return float32(rv)
+}
+
 func (o CIPixellateObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }

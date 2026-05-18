@@ -8,6 +8,10 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
+type Dispatch_autorelease_frequency_t = DispatchAutoreleaseFrequency
+
+type Dispatch_block_flags_t = DispatchBlock
+
 // Dispatch_block_t is the prototype of blocks submitted to dispatch queues, which take no arguments and have no return value.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_block_t
@@ -170,3 +174,102 @@ type Dispatch_time_t = uint64
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_workloop_t
 type Dispatch_workloop_t = dispatch_queue_t
+
+// DispatchBlockFlags is a Go-name alias for Dispatch_block_flags_t.
+type DispatchBlockFlags = Dispatch_block_flags_t
+
+// DispatchDataApplier is a Go-name alias for Dispatch_data_applier_t.
+type DispatchDataApplier = Dispatch_data_applier_t
+
+// DispatchData is a Go-name alias for dispatch_data_t.
+type DispatchData = dispatch_data_t
+
+// DispatchFd is a Go-name alias for Dispatch_fd_t.
+type DispatchFd = Dispatch_fd_t
+
+// DispatchFunction is a Go-name alias for Dispatch_function_t.
+type DispatchFunction = Dispatch_function_t
+
+// DispatchGroup is a Go-name alias for dispatch_group_t.
+type DispatchGroup = dispatch_group_t
+
+// DispatchIOCloseFlags is a Go-name alias for Dispatch_io_close_flags_t.
+type DispatchIOCloseFlags = Dispatch_io_close_flags_t
+
+// DispatchIOHandler is a Go-name alias for Dispatch_io_handler_t.
+type DispatchIOHandler = Dispatch_io_handler_t
+
+// DispatchIOIntervalFlags is a Go-name alias for Dispatch_io_interval_flags_t.
+type DispatchIOIntervalFlags = Dispatch_io_interval_flags_t
+
+// DispatchIO is a Go-name alias for dispatch_io_t.
+type DispatchIO = dispatch_io_t
+
+// DispatchIOType is a Go-name alias for dispatch_io_type_t.
+type DispatchIOType = dispatch_io_type_t
+
+// DispatchObject is a Go-name alias for dispatch_object_t.
+type DispatchObject = dispatch_object_t
+
+// DispatchOnce is a Go-name alias for Dispatch_once_t.
+type DispatchOnce = Dispatch_once_t
+
+// DispatchQosClass is a Go-name alias for Dispatch_qos_class_t.
+type DispatchQosClass = Dispatch_qos_class_t
+
+// DispatchQueueAttr is a Go-name alias for dispatch_queue_attr_t.
+type DispatchQueueAttr = dispatch_queue_attr_t
+
+// DispatchQueueConcurrent is a Go-name alias for Dispatch_queue_concurrent_t.
+type DispatchQueueConcurrent = Dispatch_queue_concurrent_t
+
+// DispatchQueueGlobal is a Go-name alias for Dispatch_queue_global_t.
+type DispatchQueueGlobal = Dispatch_queue_global_t
+
+// DispatchQueueMain is a Go-name alias for Dispatch_queue_main_t.
+type DispatchQueueMain = Dispatch_queue_main_t
+
+// DispatchQueuePriority is a Go-name alias for Dispatch_queue_priority_t.
+type DispatchQueuePriority = Dispatch_queue_priority_t
+
+// DispatchQueueSerialExecutor is a Go-name alias for Dispatch_queue_serial_executor_t.
+type DispatchQueueSerialExecutor = Dispatch_queue_serial_executor_t
+
+// DispatchQueueSerial is a Go-name alias for Dispatch_queue_serial_t.
+type DispatchQueueSerial = Dispatch_queue_serial_t
+
+// DispatchQueue is a Go-name alias for dispatch_queue_t.
+type DispatchQueue = dispatch_queue_t
+
+// DispatchSemaphore is a Go-name alias for dispatch_semaphore_t.
+type DispatchSemaphore = dispatch_semaphore_t
+
+// DispatchSourceMachRecvFlags is a Go-name alias for Dispatch_source_mach_recv_flags_t.
+type DispatchSourceMachRecvFlags = Dispatch_source_mach_recv_flags_t
+
+// DispatchSourceMachSendFlags is a Go-name alias for Dispatch_source_mach_send_flags_t.
+type DispatchSourceMachSendFlags = Dispatch_source_mach_send_flags_t
+
+// DispatchSourceMemorypressureFlags is a Go-name alias for Dispatch_source_memorypressure_flags_t.
+type DispatchSourceMemorypressureFlags = Dispatch_source_memorypressure_flags_t
+
+// DispatchSourceProcFlags is a Go-name alias for Dispatch_source_proc_flags_t.
+type DispatchSourceProcFlags = Dispatch_source_proc_flags_t
+
+// DispatchSource is a Go-name alias for dispatch_source_t.
+type DispatchSource = dispatch_source_t
+
+// DispatchSourceTimerFlags is a Go-name alias for Dispatch_source_timer_flags_t.
+type DispatchSourceTimerFlags = Dispatch_source_timer_flags_t
+
+// DispatchSourceType is a Go-name alias for dispatch_source_type_t.
+type DispatchSourceType = dispatch_source_type_t
+
+// DispatchSourceVnodeFlags is a Go-name alias for Dispatch_source_vnode_flags_t.
+type DispatchSourceVnodeFlags = Dispatch_source_vnode_flags_t
+
+// DispatchTime is a Go-name alias for Dispatch_time_t.
+type DispatchTime = Dispatch_time_t
+
+// DispatchWorkloop is a Go-name alias for Dispatch_workloop_t.
+type DispatchWorkloop = Dispatch_workloop_t

@@ -93,8 +93,6 @@ func NSSwitchFromID(id objc.ID) NSSwitch {
 // See: https://developer.apple.com/documentation/AppKit/NSSwitch
 type INSSwitch interface {
 	INSControl
-	NSAccessibilityButton
-	NSAccessibilitySwitch
 
 	// Topic: Managing Switch State
 
@@ -104,7 +102,6 @@ type INSSwitch interface {
 
 	// A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
 	IsContinuous() bool
-	SetIsContinuous(value bool)
 }
 
 // Init initializes the instance.
@@ -266,7 +263,7 @@ func (s NSSwitch) IsContinuous() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("continuous"))
 	return rv
 }
-func (s NSSwitch) SetIsContinuous(value bool) {
+func (s NSSwitch) SetContinuous(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContinuous:"), value)
 }
 

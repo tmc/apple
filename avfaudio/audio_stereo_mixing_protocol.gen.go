@@ -17,10 +17,6 @@ type AVAudioStereoMixing interface {
 	//
 	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
 	Pan() float32
-
-	// The bus’s stereo pan.
-	//
-	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
 	SetPan(value float32)
 }
 
@@ -43,20 +39,17 @@ func AVAudioStereoMixingObjectFromID(id objc.ID) AVAudioStereoMixingObject {
 
 // The bus’s stereo pan.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
-func (o AVAudioStereoMixingObject) Pan() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("pan"))
-	return rv
-}
-
-// The bus’s stereo pan.
-//
 // # Discussion
 //
 // The default value is `0.0`, and the range of valid values is `-1.0` to
 // `1.0`. Only the [AVAudioEnvironmentNode] class implements this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
+func (o AVAudioStereoMixingObject) Pan() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("pan"))
+	return float32(rv)
+}
+
 func (o AVAudioStereoMixingObject) SetPan(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPan:"), value)
 }

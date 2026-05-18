@@ -18,20 +18,12 @@ type CIVibrance interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIVibrance/amount
 	Amount() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIVibrance/inputImage
-	InputImage() ICIImage
-
-	// The amount to adjust the saturation by.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIVibrance/amount
 	SetAmount(value float32)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIVibrance/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -52,22 +44,6 @@ func CIVibranceObjectFromID(id objc.ID) CIVibranceObject {
 	}
 }
 
-// The amount to adjust the saturation by.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIVibrance/amount
-func (o CIVibranceObject) Amount() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIVibrance/inputImage
-func (o CIVibranceObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIVibranceObject) OutputImage() ICIImage {
 // The amount to adjust the saturation by.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVibrance/amount
+func (o CIVibranceObject) Amount() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
+	return float32(rv)
+}
+
 func (o CIVibranceObject) SetAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAmount:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIVibranceObject) SetAmount(value float32) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVibrance/inputImage
+func (o CIVibranceObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIVibranceObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

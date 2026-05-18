@@ -83,14 +83,14 @@ type IMLScaler interface {
 }
 
 // Init initializes the instance.
-func (s MLScaler) Init() MLScaler {
-	rv := objc.Send[MLScaler](s.ID, objc.Sel("init"))
+func (m MLScaler) Init() MLScaler {
+	rv := objc.Send[MLScaler](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLScaler) Autorelease() MLScaler {
-	rv := objc.Send[MLScaler](s.ID, objc.Sel("autorelease"))
+func (m MLScaler) Autorelease() MLScaler {
+	rv := objc.Send[MLScaler](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -123,8 +123,8 @@ func NewScalerWithShiftValueScaleValueDescriptionConfiguration(value objectivec.
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLScaler/initWithShiftValue:scaleValue:description:configuration:
-func (s MLScaler) InitWithShiftValueScaleValueDescriptionConfiguration(value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) MLScaler {
-	rv := objc.Send[MLScaler](s.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
+func (m MLScaler) InitWithShiftValueScaleValueDescriptionConfiguration(value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) MLScaler {
+	rv := objc.Send[MLScaler](m.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
 	return rv
 }
 
@@ -141,13 +141,13 @@ func (_MLScalerClass MLScalerClass) LoadModelFromSpecificationConfigurationError
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLScaler/scaleValue
-func (s MLScaler) ScaleValue() IMLFeatureValue {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("scaleValue"))
+func (m MLScaler) ScaleValue() IMLFeatureValue {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("scaleValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLScaler/shiftValue
-func (s MLScaler) ShiftValue() IMLFeatureValue {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("shiftValue"))
+func (m MLScaler) ShiftValue() IMLFeatureValue {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("shiftValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }

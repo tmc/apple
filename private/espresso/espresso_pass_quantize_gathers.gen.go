@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_quantize_gathers] class.
+// The class instance for the [EspressoPassQuantizeGathers] class.
 var (
-	_EspressoPass_quantize_gathersClass     EspressoPass_quantize_gathersClass
-	_EspressoPass_quantize_gathersClassOnce sync.Once
+	_EspressoPassQuantizeGathersClass     EspressoPassQuantizeGathersClass
+	_EspressoPassQuantizeGathersClassOnce sync.Once
 )
 
-func getEspressoPass_quantize_gathersClass() EspressoPass_quantize_gathersClass {
-	_EspressoPass_quantize_gathersClassOnce.Do(func() {
-		_EspressoPass_quantize_gathersClass = EspressoPass_quantize_gathersClass{class: objc.GetClass("EspressoPass_quantize_gathers")}
+func getEspressoPassQuantizeGathersClass() EspressoPassQuantizeGathersClass {
+	_EspressoPassQuantizeGathersClassOnce.Do(func() {
+		_EspressoPassQuantizeGathersClass = EspressoPassQuantizeGathersClass{class: objc.GetClass("EspressoPass_quantize_gathers")}
 	})
-	return _EspressoPass_quantize_gathersClass
+	return _EspressoPassQuantizeGathersClass
 }
 
-// GetEspressoPass_quantize_gathersClass returns the class object for EspressoPass_quantize_gathers.
-func GetEspressoPass_quantize_gathersClass() EspressoPass_quantize_gathersClass {
-	return getEspressoPass_quantize_gathersClass()
+// GetEspressoPassQuantizeGathersClass returns the class object for EspressoPass_quantize_gathers.
+func GetEspressoPassQuantizeGathersClass() EspressoPassQuantizeGathersClass {
+	return getEspressoPassQuantizeGathersClass()
 }
 
-type EspressoPass_quantize_gathersClass struct {
+type EspressoPassQuantizeGathersClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_quantize_gathersClass) Class() objc.Class {
+func (ec EspressoPassQuantizeGathersClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_quantize_gathersClass) Alloc() EspressoPass_quantize_gathers {
-	rv := objc.Send[EspressoPass_quantize_gathers](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassQuantizeGathersClass) Alloc() EspressoPassQuantizeGathers {
+	rv := objc.Send[EspressoPassQuantizeGathers](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_quantize_gathers
-type EspressoPass_quantize_gathers struct {
+type EspressoPassQuantizeGathers struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_quantize_gathersFromID constructs a [EspressoPass_quantize_gathers] from an objc.ID.
-func EspressoPass_quantize_gathersFromID(id objc.ID) EspressoPass_quantize_gathers {
-	return EspressoPass_quantize_gathers{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassQuantizeGathersFromID constructs a [EspressoPassQuantizeGathers] from an objc.ID.
+func EspressoPassQuantizeGathersFromID(id objc.ID) EspressoPassQuantizeGathers {
+	return EspressoPassQuantizeGathers{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_quantize_gathers implements IEspressoPass_quantize_gathers.
-var _ IEspressoPass_quantize_gathers = EspressoPass_quantize_gathers{}
+// EspressoPass_quantize_gathersFromID is an alias for [EspressoPassQuantizeGathersFromID] for cross-framework compatibility.
+func EspressoPass_quantize_gathersFromID(id objc.ID) EspressoPassQuantizeGathers {
+	return EspressoPassQuantizeGathersFromID(id)
+}
 
-// An interface definition for the [EspressoPass_quantize_gathers] class.
+// Ensure EspressoPassQuantizeGathers implements IEspressoPassQuantizeGathers.
+var _ IEspressoPassQuantizeGathers = EspressoPassQuantizeGathers{}
+
+// An interface definition for the [EspressoPassQuantizeGathers] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_quantize_gathers
-type IEspressoPass_quantize_gathers interface {
+type IEspressoPassQuantizeGathers interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_quantize_gathers) Init() EspressoPass_quantize_gathers {
-	rv := objc.Send[EspressoPass_quantize_gathers](e.ID, objc.Sel("init"))
+func (e EspressoPassQuantizeGathers) Init() EspressoPassQuantizeGathers {
+	rv := objc.Send[EspressoPassQuantizeGathers](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_quantize_gathers) Autorelease() EspressoPass_quantize_gathers {
-	rv := objc.Send[EspressoPass_quantize_gathers](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassQuantizeGathers) Autorelease() EspressoPassQuantizeGathers {
+	rv := objc.Send[EspressoPassQuantizeGathers](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_quantize_gathers creates a new EspressoPass_quantize_gathers instance.
-func NewEspressoPass_quantize_gathers() EspressoPass_quantize_gathers {
-	class := getEspressoPass_quantize_gathersClass()
-	rv := objc.Send[EspressoPass_quantize_gathers](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassQuantizeGathers creates a new EspressoPassQuantizeGathers instance.
+func NewEspressoPassQuantizeGathers() EspressoPassQuantizeGathers {
+	class := getEspressoPassQuantizeGathersClass()
+	rv := objc.Send[EspressoPassQuantizeGathers](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

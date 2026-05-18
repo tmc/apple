@@ -75,8 +75,6 @@ func NSNullFromID(id objc.ID) NSNull {
 // See: https://developer.apple.com/documentation/Foundation/NSNull
 type INSNull interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// A value indicating that a requested item couldn’t be found or doesn’t exist.

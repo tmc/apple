@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -214,8 +215,8 @@ type ICAEmitterLayer interface {
 	EmissionRange() float64
 	SetEmissionRange(value float64)
 	// The mathematical constant pi (π), approximately equal to 3.14159.
-	Pi() objectivec.IObject
-	SetPi(value objectivec.IObject)
+	Pi() unsafe.Pointer
+	SetPi(value unsafe.Pointer)
 	// Particles are emitted from a single point at (
 	Point() CAEmitterLayerEmitterShape
 }
@@ -560,11 +561,11 @@ func (e CAEmitterLayer) SetEmissionRange(value float64) {
 // The mathematical constant pi (π), approximately equal to 3.14159.
 //
 // See: https://developer.apple.com/documentation/Swift/FloatingPoint/pi
-func (e CAEmitterLayer) Pi() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("pi"))
-	return objectivec.Object{ID: rv}
+func (e CAEmitterLayer) Pi() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("pi"))
+	return rv
 }
-func (e CAEmitterLayer) SetPi(value objectivec.IObject) {
+func (e CAEmitterLayer) SetPi(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setPi:"), value)
 }
 

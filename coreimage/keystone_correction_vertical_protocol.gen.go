@@ -20,10 +20,6 @@ type CIKeystoneCorrectionVertical interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIKeystoneCorrectionVertical/focalLength
 	FocalLength() float32
-
-	// The 35mm equivalent focal length of the input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIKeystoneCorrectionVertical/focalLength
 	SetFocalLength(value float32)
 }
 
@@ -42,14 +38,6 @@ func CIKeystoneCorrectionVerticalObjectFromID(id objc.ID) CIKeystoneCorrectionVe
 	return CIKeystoneCorrectionVerticalObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The 35mm equivalent focal length of the input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIKeystoneCorrectionVertical/focalLength
-func (o CIKeystoneCorrectionVerticalObject) FocalLength() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("focalLength"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -96,6 +84,11 @@ func (o CIKeystoneCorrectionVerticalObject) TopRight() corefoundation.CGPoint {
 // The 35mm equivalent focal length of the input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKeystoneCorrectionVertical/focalLength
+func (o CIKeystoneCorrectionVerticalObject) FocalLength() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("focalLength"))
+	return float32(rv)
+}
+
 func (o CIKeystoneCorrectionVerticalObject) SetFocalLength(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFocalLength:"), value)
 }

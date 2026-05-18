@@ -214,7 +214,6 @@ func NSURLComponentsFromID(id objc.ID) NSURLComponents {
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents
 type INSURLComponents interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Creating URL components
 
@@ -380,7 +379,7 @@ func NewURLComponentsWithStringEncodingInvalidCharacters(URLString string, encod
 // Returns the initialized URL components object, or `nil` if the URL could
 // not be parsed.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/init(url:resolvingAgainstBaseURL:)
+// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/init(url:resolvingAgainstBaseURL:)-3bbte
 func NewURLComponentsWithURLResolvingAgainstBaseURL(url INSURL, resolve bool) NSURLComponents {
 	instance := getNSURLComponentsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:resolvingAgainstBaseURL:"), url, resolve)
@@ -436,7 +435,7 @@ func (u NSURLComponents) InitWithStringEncodingInvalidCharacters(URLString strin
 // Returns the initialized URL components object, or `nil` if the URL could
 // not be parsed.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/init(url:resolvingAgainstBaseURL:)
+// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/init(url:resolvingAgainstBaseURL:)-3bbte
 func (u NSURLComponents) InitWithURLResolvingAgainstBaseURL(url INSURL, resolve bool) NSURLComponents {
 	rv := objc.Send[NSURLComponents](u.ID, objc.Sel("initWithURL:resolvingAgainstBaseURL:"), url, resolve)
 	return rv

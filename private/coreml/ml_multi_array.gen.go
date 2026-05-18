@@ -656,7 +656,7 @@ func (_MLMultiArrayClass MLMultiArrayClass) MultiArrayByConcatenatingMultiArrays
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/multiArrayOwningBufferObjectOfPort:error:
-func (_MLMultiArrayClass MLMultiArrayClass) MultiArrayOwningBufferObjectOfPortError(port E5rt_io_portRef) (objectivec.IObject, error) {
+func (_MLMultiArrayClass MLMultiArrayClass) MultiArrayOwningBufferObjectOfPortError(port E5rtIOPortRef) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLMultiArrayClass.class), objc.Sel("multiArrayOwningBufferObjectOfPort:error:"), port, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -685,7 +685,7 @@ func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferBGRA8FromMultiArrayCHWCha
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferBGRA8FromMultiArrayCHW:channelOrderIsBGR:error:"), chw, bgr, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -697,7 +697,7 @@ func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferGray16HalfFromMultiArrayH
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferGray16HalfFromMultiArrayHW:error:"), hw, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -709,7 +709,7 @@ func (_MLMultiArrayClass MLMultiArrayClass) PixelBufferGray8FromMultiArrayHWErro
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_MLMultiArrayClass.class), objc.Sel("pixelBufferGray8FromMultiArrayHW:error:"), hw, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 

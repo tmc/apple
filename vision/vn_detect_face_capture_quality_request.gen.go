@@ -86,7 +86,6 @@ func VNDetectFaceCaptureQualityRequestFromID(id objc.ID) VNDetectFaceCaptureQual
 // See: https://developer.apple.com/documentation/Vision/VNDetectFaceCaptureQualityRequest
 type IVNDetectFaceCaptureQualityRequest interface {
 	IVNImageBasedRequest
-	VNFaceObservationAccepting
 
 	// Topic: Identifying Request Revisions
 
@@ -136,6 +135,16 @@ func NewDetectFaceCaptureQualityRequestWithCompletionHandler(completionHandler V
 	return VNDetectFaceCaptureQualityRequestFromID(rv)
 }
 
+// An array of [VNFaceObservation] objects to process as part of the request.
+//
+// See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
+func (d VNDetectFaceCaptureQualityRequest) InputFaceObservations() []VNFaceObservation {
+	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("inputFaceObservations"))
+	return objc.ConvertSlice(rv, func(id objc.ID) VNFaceObservation {
+		return VNFaceObservationFromID(id)
+	})
+}
+
 // Revision 2 of the request algorithm.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectfacecapturequalityrequestrevision2
@@ -163,17 +172,11 @@ func (d VNDetectFaceCaptureQualityRequest) SetFaceCaptureQuality(value float32) 
 	objc.Send[struct{}](d.ID, objc.Sel("setFaceCaptureQuality:"), value)
 }
 
+// Protocol methods for VNFaceObservationAccepting
+
 // An array of [VNFaceObservation] objects to process as part of the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
-func (d VNDetectFaceCaptureQualityRequest) InputFaceObservations() []VNFaceObservation {
-	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("inputFaceObservations"))
-	return objc.ConvertSlice(rv, func(id objc.ID) VNFaceObservation {
-		return VNFaceObservationFromID(id)
-	})
+func (o VNDetectFaceCaptureQualityRequest) SetInputFaceObservations(value []VNFaceObservation) {
+	objc.Send[struct{}](o.ID, objc.Sel("setInputFaceObservations:"), objectivec.IObjectSliceToNSArray(value))
 }
-func (d VNDetectFaceCaptureQualityRequest) SetInputFaceObservations(value []VNFaceObservation) {
-	objc.Send[struct{}](d.ID, objc.Sel("setInputFaceObservations:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-// Protocol methods for VNFaceObservationAccepting

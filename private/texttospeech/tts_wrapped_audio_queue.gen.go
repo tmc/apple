@@ -208,7 +208,7 @@ type ITTSWrappedAudioQueue interface {
 	AudioQueueActive() bool
 	AudioQueueFlags() uint32
 	SetAudioQueueFlags(value uint32)
-	BufferCallback(callback *avfaudio.AudioQueueBufferRef)
+	BufferCallback(callback AudioQueueBuffer)
 	CachedAudioConverter() unsafe.Pointer
 	SetCachedAudioConverter(value unsafe.Pointer)
 	CallbackQueue() objectivec.Object
@@ -239,7 +239,7 @@ type ITTSWrappedAudioQueue interface {
 	SetProcNodeRef(value OpaqueATAudioProcessingNodeRef)
 	QueueFormat() avfaudio.AVAudioFormat
 	SetQueueFormat(value avfaudio.AVAudioFormat)
-	QueueStreamDescription() objectivec.IObject
+	QueueStreamDescription() AudioStreamBasicDescription
 	ScheduleBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler)
 	ScheduleBufferCompletionHandlerLastBuffer(buffer objectivec.IObject, handler ErrorHandler, buffer2 bool)
 	ShouldRebuildAudioQueue() bool
@@ -509,7 +509,7 @@ func (t TTSWrappedAudioQueue) CanTearDownDSPGraphAU() bool {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/bufferCallback:
-func (t TTSWrappedAudioQueue) BufferCallback(callback *avfaudio.AudioQueueBufferRef) {
+func (t TTSWrappedAudioQueue) BufferCallback(callback AudioQueueBuffer) {
 	objc.Send[objc.ID](t.ID, objc.Sel("bufferCallback:"), callback)
 }
 
@@ -548,9 +548,10 @@ func (t TTSWrappedAudioQueue) PlayBufferCompletionHandler(buffer objectivec.IObj
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/queueStreamDescription
-func (t TTSWrappedAudioQueue) QueueStreamDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("queueStreamDescription"))
-	return objectivec.Object{ID: rv}
+func (t TTSWrappedAudioQueue) QueueStreamDescription() AudioStreamBasicDescription {
+	rv := objc.Send[AudioStreamBasicDescription](t.ID, objc.Sel("queueStreamDescription"))
+	_ = rv
+	return AudioStreamBasicDescription{}
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/scheduleBuffer:completionHandler:

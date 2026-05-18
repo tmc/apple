@@ -76,7 +76,7 @@ func FSVolumePathConfOperationsObjectFromID(id objc.ID) FSVolumePathConfOperatio
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PathConfOperations/maximumLinkCount
 func (o FSVolumePathConfOperationsObject) MaximumLinkCount() int {
 	rv := objc.Send[int](o.ID, objc.Sel("maximumLinkCount"))
-	return rv
+	return int(rv)
 }
 
 // A property that represents the maximum length of a component of a filename.
@@ -84,56 +84,98 @@ func (o FSVolumePathConfOperationsObject) MaximumLinkCount() int {
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PathConfOperations/maximumNameLength
 func (o FSVolumePathConfOperationsObject) MaximumNameLength() int {
 	rv := objc.Send[int](o.ID, objc.Sel("maximumNameLength"))
-	return rv
+	return int(rv)
 }
 
 // A Boolean property that indicates whether the volume restricts ownership
 // changes based on authorization.
 //
+// # Discussion
+//
+// If this value is true, the volume rejects a `chown(2)` from anyone other
+// than the superuser.
+//
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PathConfOperations/restrictsOwnershipChanges
 func (o FSVolumePathConfOperationsObject) RestrictsOwnershipChanges() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("restrictsOwnershipChanges"))
-	return rv
+	return bool(rv)
 }
 
 // A property that indicates whether the volume truncates files longer than
 // its maximum supported length.
 //
+// # Discussion
+//
+// If this value is `true`, the volume truncates the filename to
+// [MaximumNameLength] if the filename is longer than that. If this value is
+// false, the file system responds with the error code [ENAMETOOLONG] if the
+// filename is longer than [MaximumNameLength].
+//
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PathConfOperations/truncatesLongNames
 func (o FSVolumePathConfOperationsObject) TruncatesLongNames() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("truncatesLongNames"))
-	return rv
+	return bool(rv)
 }
 
 // The maximum size of a regular file allowed in the volume.
 //
+// # Discussion
+//
+// Implement at least one of `maximumFileSize` or [MaximumFileSizeInBits].
+// FSKit automatically converts from one to another if needed. If you
+// implement both, FSKit uses only the `maximumFileSizeInBits` implementation.
+//
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PathConfOperations/maximumFileSize
 func (o FSVolumePathConfOperationsObject) MaximumFileSize() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("maximumFileSize"))
-	return rv
+	return uint64(rv)
 }
 
 // The minimum number of bits needed to represent, as a signed integer value,
 // the maximum size of a regular file allowed in the volume.
 //
+// # Discussion
+//
+// The maximum file size is `2^(maximumFileSizeInBits - 1)`.
+//
+// [Table data omitted]
+//
+// Implement at least one of [MaximumFileSize] or `maximumFileSizeInBits`.
+// FSKit automatically converts from one to another if needed. If you
+// implement both, FSKit uses only the `maximumFileSizeInBits` implementation.
+//
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PathConfOperations/maximumFileSizeInBits
 func (o FSVolumePathConfOperationsObject) MaximumFileSizeInBits() int {
 	rv := objc.Send[int](o.ID, objc.Sel("maximumFileSizeInBits"))
-	return rv
+	return int(rv)
 }
 
 // The maximum extended attribute size in bytes.
 //
+// # Discussion
+//
+// Implement at least one of `maximumXattrSize` or [MaximumXattrSizeInBits].
+// FSKit automatically converts from one to another if needed. If you
+// implement both, FSKit uses only the `maximumXattrSizeInBits`
+// implementation.
+//
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PathConfOperations/maximumXattrSize
 func (o FSVolumePathConfOperationsObject) MaximumXattrSize() int {
 	rv := objc.Send[int](o.ID, objc.Sel("maximumXattrSize"))
-	return rv
+	return int(rv)
 }
 
 // The maximum extended attribute size in bits.
 //
+// # Discussion
+//
+// Implement at least one of [MaximumXattrSize] or `maximumXattrSizeInBits`.
+// FSKit automatically converts from one to another if needed. If you
+// implement both, FSKit uses only the `maximumXattrSizeInBits`
+// implementation.
+//
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PathConfOperations/maximumXattrSizeInBits
 func (o FSVolumePathConfOperationsObject) MaximumXattrSizeInBits() int {
 	rv := objc.Send[int](o.ID, objc.Sel("maximumXattrSizeInBits"))
-	return rv
+	return int(rv)
 }

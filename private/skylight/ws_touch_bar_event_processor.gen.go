@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -82,7 +81,7 @@ func NewWSTouchBarEventProcessor() WSTouchBarEventProcessor {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
-func NewWSTouchBarEventProcessorWithSession(session unsafe.Pointer) WSTouchBarEventProcessor {
+func NewWSTouchBarEventProcessorWithSession(session CGXSession) WSTouchBarEventProcessor {
 	instance := getWSTouchBarEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSTouchBarEventProcessorFromID(rv)

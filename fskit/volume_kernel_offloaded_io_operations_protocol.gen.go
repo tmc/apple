@@ -22,7 +22,7 @@ type FSVolumeKernelOffloadedIOOperations interface {
 	// Completes an I/O operation for a given file.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolumeKernelOffloadedIOOperations/completeIO(for:offset:length:status:flags:operationID:replyHandler:)
-	CompleteIOForFileOffsetLengthStatusFlagsOperationIDReplyHandler(file IFSItem, offset int64, length uintptr, status foundation.INSError, flags FSCompleteIOFlags, operationID FSOperationID, reply ErrorHandler)
+	CompleteIOForFileOffsetLengthStatusFlagsOperationIDReplyHandler(file IFSItem, offset int64, length uintptr, status foundation.NSError, flags FSCompleteIOFlags, operationID FSOperationID, reply ErrorHandler)
 
 	// Creates a new file item and map its disk space.
 	//
@@ -143,7 +143,7 @@ func (o FSVolumeKernelOffloadedIOOperationsObject) BlockmapFileOffsetLengthFlags
 // [unspecified]: https://developer.apple.com/documentation/FSKit/FSOperationID/unspecified
 //
 // [unspecified]: https://developer.apple.com/documentation/FSKit/FSOperationID/unspecified
-func (o FSVolumeKernelOffloadedIOOperationsObject) CompleteIOForFileOffsetLengthStatusFlagsOperationIDReplyHandler(file IFSItem, offset int64, length uintptr, status foundation.INSError, flags FSCompleteIOFlags, operationID FSOperationID, reply ErrorHandler) {
+func (o FSVolumeKernelOffloadedIOOperationsObject) CompleteIOForFileOffsetLengthStatusFlagsOperationIDReplyHandler(file IFSItem, offset int64, length uintptr, status foundation.NSError, flags FSCompleteIOFlags, operationID FSOperationID, reply ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("completeIOForFile:offset:length:status:flags:operationID:replyHandler:"), file, offset, length, status, flags, operationID, reply)
 }
 

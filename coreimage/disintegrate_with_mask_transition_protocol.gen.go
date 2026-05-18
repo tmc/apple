@@ -20,40 +20,24 @@ type CIDisintegrateWithMaskTransition interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/maskImage
 	MaskImage() ICIImage
-
-	// The density of the shadow the mask creates.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowDensity
-	ShadowDensity() float32
-
-	// The offset of the shadow the mask creates.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowOffset
-	ShadowOffset() corefoundation.CGPoint
-
-	// The radius of the shadow the mask creates.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowRadius
-	ShadowRadius() float32
-
-	// An image that defines the shape to use when disintegrating from the source to the target image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/maskImage
 	SetMaskImage(value ICIImage)
 
 	// The density of the shadow the mask creates.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowDensity
+	ShadowDensity() float32
 	SetShadowDensity(value float32)
 
 	// The offset of the shadow the mask creates.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowOffset
+	ShadowOffset() corefoundation.CGPoint
 	SetShadowOffset(value corefoundation.CGPoint)
 
 	// The radius of the shadow the mask creates.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowRadius
+	ShadowRadius() float32
 	SetShadowRadius(value float32)
 }
 
@@ -72,39 +56,6 @@ func CIDisintegrateWithMaskTransitionObjectFromID(id objc.ID) CIDisintegrateWith
 	return CIDisintegrateWithMaskTransitionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// An image that defines the shape to use when disintegrating from the source
-// to the target image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/maskImage
-func (o CIDisintegrateWithMaskTransitionObject) MaskImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("maskImage"))
-	return CIImageFromID(rv)
-}
-
-// The density of the shadow the mask creates.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowDensity
-func (o CIDisintegrateWithMaskTransitionObject) ShadowDensity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("shadowDensity"))
-	return rv
-}
-
-// The offset of the shadow the mask creates.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowOffset
-func (o CIDisintegrateWithMaskTransitionObject) ShadowOffset() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("shadowOffset"))
-	return rv
-}
-
-// The radius of the shadow the mask creates.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowRadius
-func (o CIDisintegrateWithMaskTransitionObject) ShadowRadius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("shadowRadius"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -144,6 +95,11 @@ func (o CIDisintegrateWithMaskTransitionObject) Time() float32 {
 // to the target image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/maskImage
+func (o CIDisintegrateWithMaskTransitionObject) MaskImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("maskImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIDisintegrateWithMaskTransitionObject) SetMaskImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaskImage:"), value)
 }
@@ -151,6 +107,11 @@ func (o CIDisintegrateWithMaskTransitionObject) SetMaskImage(value ICIImage) {
 // The density of the shadow the mask creates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowDensity
+func (o CIDisintegrateWithMaskTransitionObject) ShadowDensity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("shadowDensity"))
+	return float32(rv)
+}
+
 func (o CIDisintegrateWithMaskTransitionObject) SetShadowDensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowDensity:"), value)
 }
@@ -158,6 +119,11 @@ func (o CIDisintegrateWithMaskTransitionObject) SetShadowDensity(value float32) 
 // The offset of the shadow the mask creates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowOffset
+func (o CIDisintegrateWithMaskTransitionObject) ShadowOffset() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("shadowOffset"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIDisintegrateWithMaskTransitionObject) SetShadowOffset(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowOffset:"), value)
 }
@@ -165,6 +131,11 @@ func (o CIDisintegrateWithMaskTransitionObject) SetShadowOffset(value corefounda
 // The radius of the shadow the mask creates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDisintegrateWithMaskTransition/shadowRadius
+func (o CIDisintegrateWithMaskTransitionObject) ShadowRadius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("shadowRadius"))
+	return float32(rv)
+}
+
 func (o CIDisintegrateWithMaskTransitionObject) SetShadowRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowRadius:"), value)
 }

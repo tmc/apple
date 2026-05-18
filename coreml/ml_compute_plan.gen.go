@@ -194,7 +194,7 @@ func (c MLComputePlan) EstimatedCostOfMLProgramOperation(operation IMLModelStruc
 // NSError object.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan-85vdw/loadContentsOfURL:configuration:completionHandler:
-func (_MLComputePlanClass MLComputePlanClass) LoadContentsOfURLConfigurationCompletionHandler(url foundation.INSURL, configuration IMLModelConfiguration, handler MLComputePlanErrorHandler) {
+func (_MLComputePlanClass MLComputePlanClass) LoadContentsOfURLConfigurationCompletionHandler(url foundation.NSURL, configuration IMLModelConfiguration, handler MLComputePlanErrorHandler) {
 	_block2, _ := NewMLComputePlanErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadContentsOfURL:configuration:completionHandler:"), url, configuration, _block2)
 }
@@ -225,7 +225,7 @@ func (c MLComputePlan) ModelStructure() IMLModelStructure {
 
 // LoadContentsOfURLConfiguration is a synchronous wrapper around [MLComputePlan.LoadContentsOfURLConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (cc MLComputePlanClass) LoadContentsOfURLConfiguration(ctx context.Context, url foundation.INSURL, configuration IMLModelConfiguration) (*MLComputePlan, error) {
+func (cc MLComputePlanClass) LoadContentsOfURLConfiguration(ctx context.Context, url foundation.NSURL, configuration IMLModelConfiguration) (*MLComputePlan, error) {
 	type result struct {
 		val *MLComputePlan
 		err error

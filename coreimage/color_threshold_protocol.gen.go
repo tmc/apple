@@ -18,20 +18,12 @@ type CIColorThreshold interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/inputImage
 	InputImage() ICIImage
-
-	// The threshold to use.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/threshold
-	Threshold() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/inputImage
 	SetInputImage(value ICIImage)
 
 	// The threshold to use.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/threshold
+	Threshold() float32
 	SetThreshold(value float32)
 }
 
@@ -52,22 +44,6 @@ func CIColorThresholdObjectFromID(id objc.ID) CIColorThresholdObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/inputImage
-func (o CIColorThresholdObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The threshold to use.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/threshold
-func (o CIColorThresholdObject) Threshold() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("threshold"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIColorThresholdObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/inputImage
+func (o CIColorThresholdObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIColorThresholdObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIColorThresholdObject) SetInputImage(value ICIImage) {
 // The threshold to use.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/threshold
+func (o CIColorThresholdObject) Threshold() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("threshold"))
+	return float32(rv)
+}
+
 func (o CIColorThresholdObject) SetThreshold(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setThreshold:"), value)
 }

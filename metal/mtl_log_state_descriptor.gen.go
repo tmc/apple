@@ -144,15 +144,13 @@ func (l MTLLogStateDescriptor) SetBufferSize(value int) {
 //
 // # Discussion
 //
-// The default value is [MTLLogLevel.debug].
+// The default value is [MTLLogLevelDebug].
 //
 // Use this value to limit which logs from your shader the log state stores.
 // The log state doesn’t store messages at a lower level. Increase the level
 // to reduce verbosity of logging.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLogStateDescriptor/level
-//
-// [MTLLogLevel.debug]: https://developer.apple.com/documentation/Metal/MTLLogLevel/debug
 func (l MTLLogStateDescriptor) Level() MTLLogLevel {
 	rv := objc.Send[MTLLogLevel](l.ID, objc.Sel("level"))
 	return MTLLogLevel(rv)

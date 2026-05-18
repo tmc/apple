@@ -53,8 +53,8 @@ func NSURLSessionDataDelegateObjectFromID(id objc.ID) NSURLSessionDataDelegateOb
 // - If you pass [NSURLSessionResponseAllow], the task continues as a data
 // task. - If you pass [NSURLSessionResponseCancel], the task is canceled. -
 // If you pass [NSURLSessionResponseBecomeDownload], your delegate’s
-// [URLSessionDataTaskDidBecomeDownloadTask] method is called to provide the
-// new download task that supersedes the current task.
+// [URLSessionDataTaskDidBecomeStreamTask] method is called to provide the new
+// download task that supersedes the current task.
 //
 // # Discussion
 //

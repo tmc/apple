@@ -94,14 +94,14 @@ type IVZPointingDeviceConfiguration interface {
 }
 
 // Init initializes the instance.
-func (p VZPointingDeviceConfiguration) Init() VZPointingDeviceConfiguration {
-	rv := objc.Send[VZPointingDeviceConfiguration](p.ID, objc.Sel("init"))
+func (v VZPointingDeviceConfiguration) Init() VZPointingDeviceConfiguration {
+	rv := objc.Send[VZPointingDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p VZPointingDeviceConfiguration) Autorelease() VZPointingDeviceConfiguration {
-	rv := objc.Send[VZPointingDeviceConfiguration](p.ID, objc.Sel("autorelease"))
+func (v VZPointingDeviceConfiguration) Autorelease() VZPointingDeviceConfiguration {
+	rv := objc.Send[VZPointingDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -113,56 +113,56 @@ func NewVZPointingDeviceConfiguration() VZPointingDeviceConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPointingDeviceConfiguration/_init
-func (p VZPointingDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("_init"))
+func (v VZPointingDeviceConfiguration) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPointingDeviceConfiguration/makePointingDeviceForVirtualMachine:pointingDeviceIndex:
-func (p VZPointingDeviceConfiguration) MakePointingDeviceForVirtualMachinePointingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("makePointingDeviceForVirtualMachine:pointingDeviceIndex:"), machine, index)
+func (v VZPointingDeviceConfiguration) MakePointingDeviceForVirtualMachinePointingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("makePointingDeviceForVirtualMachine:pointingDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPointingDeviceConfiguration/_pointingDevice
-func (p VZPointingDeviceConfiguration) _pointingDevice() int {
-	rv := objc.Send[int](p.ID, objc.Sel("_pointingDevice"))
+func (v VZPointingDeviceConfiguration) _pointingDevice() int {
+	rv := objc.Send[int](v.ID, objc.Sel("_pointingDevice"))
 	return rv
 }
 
 // CanPointingDevice reports whether the receiver responds to the private selector _pointingDevice.
-func (p VZPointingDeviceConfiguration) CanPointingDevice() bool {
-	return objc.RespondsToSelector(p.ID, objc.Sel("_pointingDevice"))
+func (v VZPointingDeviceConfiguration) CanPointingDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_pointingDevice"))
 }
 
 // PointingDevice is an exported wrapper for the private property _pointingDevice.
-func (p VZPointingDeviceConfiguration) PointingDevice() (int, error) {
-	if !objc.RespondsToSelector(p.ID, objc.Sel("_pointingDevice")) {
+func (v VZPointingDeviceConfiguration) PointingDevice() (int, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_pointingDevice")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_pointingDevice"}
 	}
-	return p._pointingDevice(), nil
+	return v._pointingDevice(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPointingDeviceConfiguration/debugDescription
-func (p VZPointingDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
+func (v VZPointingDeviceConfiguration) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPointingDeviceConfiguration/description
-func (p VZPointingDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
+func (v VZPointingDeviceConfiguration) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPointingDeviceConfiguration/hash
-func (p VZPointingDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
+func (v VZPointingDeviceConfiguration) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPointingDeviceConfiguration/superclass
-func (p VZPointingDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
+func (v VZPointingDeviceConfiguration) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

@@ -80,14 +80,14 @@ type IMLAppleSoundAnalysisPreprocessing interface {
 }
 
 // Init initializes the instance.
-func (a MLAppleSoundAnalysisPreprocessing) Init() MLAppleSoundAnalysisPreprocessing {
-	rv := objc.Send[MLAppleSoundAnalysisPreprocessing](a.ID, objc.Sel("init"))
+func (m MLAppleSoundAnalysisPreprocessing) Init() MLAppleSoundAnalysisPreprocessing {
+	rv := objc.Send[MLAppleSoundAnalysisPreprocessing](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAppleSoundAnalysisPreprocessing) Autorelease() MLAppleSoundAnalysisPreprocessing {
-	rv := objc.Send[MLAppleSoundAnalysisPreprocessing](a.ID, objc.Sel("autorelease"))
+func (m MLAppleSoundAnalysisPreprocessing) Autorelease() MLAppleSoundAnalysisPreprocessing {
+	rv := objc.Send[MLAppleSoundAnalysisPreprocessing](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -163,9 +163,9 @@ func NewAppleSoundAnalysisPreprocessingWithNameInputDescriptionOutputDescription
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/predictionFromFeatures:options:error:
-func (a MLAppleSoundAnalysisPreprocessing) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLAppleSoundAnalysisPreprocessing) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -175,9 +175,9 @@ func (a MLAppleSoundAnalysisPreprocessing) PredictionFromFeaturesOptionsError(fe
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/initWithDescription:configuration:error:
-func (a MLAppleSoundAnalysisPreprocessing) InitWithDescriptionConfigurationError(description objectivec.IObject, configuration objectivec.IObject) (MLAppleSoundAnalysisPreprocessing, error) {
+func (m MLAppleSoundAnalysisPreprocessing) InitWithDescriptionConfigurationError(description objectivec.IObject, configuration objectivec.IObject) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithDescription:configuration:error:"), description, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithDescription:configuration:error:"), description, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleSoundAnalysisPreprocessing{}, foundation.NSErrorFrom(errorPtr)

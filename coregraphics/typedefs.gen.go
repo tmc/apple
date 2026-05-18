@@ -471,9 +471,7 @@ type ColorSyncProfileRef uintptr
 type IOSurfaceRef uintptr
 
 // CGEvent is an opaque Core Graphics event reference type.
-
 type CGEvent = CGEventRef
 
 // CGFont is a bare alias for CGFontRef.
-
 type CGFont = CGFontRef

@@ -125,7 +125,6 @@ func VNRecognizeTextRequestFromID(id objc.ID) VNRecognizeTextRequest {
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest
 type IVNRecognizeTextRequest interface {
 	IVNImageBasedRequest
-	VNRequestProgressProviding
 
 	// Topic: Customizing Recognition Constraints
 
@@ -215,6 +214,24 @@ func (r VNRecognizeTextRequest) SupportedRecognitionLanguagesAndReturnError() ([
 	}
 	return objc.ConvertSliceToStrings(rv), nil
 
+}
+
+// A Boolean set to true when a request can’t determine its progress in
+// fractions completed.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/indeterminate
+func (r VNRecognizeTextRequest) Indeterminate() bool {
+	rv := objc.Send[bool](r.ID, objc.Sel("indeterminate"))
+	return rv
+}
+
+// A block of code executed periodically during a Vision request to report
+// progress on long-running tasks.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
+func (r VNRecognizeTextRequest) ProgressHandler() VNRequestProgressHandler {
+	rv := objc.Send[VNRequestProgressHandler](r.ID, objc.Sel("progressHandler"))
+	return VNRequestProgressHandler(rv)
 }
 
 // The minimum height, relative to the image height, of the text to recognize.
@@ -345,21 +362,7 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision1() int {
 	return rv
 }
 
-// A Boolean set to true when a request can’t determine its progress in
-// fractions completed.
-//
-// # Discussion
-//
-// A value of true doesn’t mean that the request will run forever. Rather,
-// it means that the nature of the request can’t be broken down into
-// identifiable fractions to report. The [ProgressHandler] will still be
-// called at suitable intervals.
-//
-// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/indeterminate
-func (r VNRecognizeTextRequest) Indeterminate() bool {
-	rv := objc.Send[bool](r.ID, objc.Sel("indeterminate"))
-	return rv
-}
+// Protocol methods for VNRequestProgressProviding
 
 // A block of code executed periodically during a Vision request to report
 // progress on long-running tasks.
@@ -374,12 +377,6 @@ func (r VNRecognizeTextRequest) Indeterminate() bool {
 // in a thread-safe manner.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
-func (r VNRecognizeTextRequest) ProgressHandler() VNRequestProgressHandler {
-	rv := objc.Send[VNRequestProgressHandler](r.ID, objc.Sel("progressHandler"))
-	return VNRequestProgressHandler(rv)
+func (o VNRecognizeTextRequest) SetProgressHandler(value VNRequestProgressHandler) {
+	objc.Send[struct{}](o.ID, objc.Sel("setProgressHandler:"), value)
 }
-func (r VNRecognizeTextRequest) SetProgressHandler(value VNRequestProgressHandler) {
-	objc.Send[struct{}](r.ID, objc.Sel("setProgressHandler:"), value)
-}
-
-// Protocol methods for VNRequestProgressProviding

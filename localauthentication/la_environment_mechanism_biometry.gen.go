@@ -83,7 +83,7 @@ type ILAEnvironmentMechanismBiometry interface {
 	BuiltInSensorInaccessible() bool
 	IsEnrolled() bool
 	IsLockedOut() bool
-	StateHash() foundation.INSData
+	StateHash() foundation.NSData
 }
 
 // Init initializes the instance.
@@ -176,7 +176,7 @@ func (e LAEnvironmentMechanismBiometry) IsLockedOut() bool {
 // values to different apps to prevent tracking of user identity.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAEnvironment/MechanismBiometry/stateHash
-func (e LAEnvironmentMechanismBiometry) StateHash() foundation.INSData {
+func (e LAEnvironmentMechanismBiometry) StateHash() foundation.NSData {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("stateHash"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

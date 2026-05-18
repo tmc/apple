@@ -87,9 +87,9 @@ type IVZVmnetNetworkDeviceAttachment interface {
 	// Topic: Creating the vmnet network device attachment
 
 	// Creates the attachment and configures it with the specified data.
-	InitWithNetwork(network vmnet.Vmnet_network_ref) VZVmnetNetworkDeviceAttachment
+	InitWithNetwork(network vmnet.VmnetNetworkRef) VZVmnetNetworkDeviceAttachment
 	// The network object that the you initialize the attachment with.
-	Network() vmnet.Vmnet_network_ref
+	Network() vmnet.VmnetNetworkRef
 }
 
 // Init initializes the instance.
@@ -136,7 +136,7 @@ func NewVZVmnetNetworkDeviceAttachment() VZVmnetNetworkDeviceAttachment {
 // See: https://developer.apple.com/documentation/Virtualization/VZVmnetNetworkDeviceAttachment/init(network:)
 //
 // [vmnet]: https://developer.apple.com/documentation/vmnet
-func NewVmnetNetworkDeviceAttachmentWithNetwork(network vmnet.Vmnet_network_ref) VZVmnetNetworkDeviceAttachment {
+func NewVmnetNetworkDeviceAttachmentWithNetwork(network vmnet.VmnetNetworkRef) VZVmnetNetworkDeviceAttachment {
 	instance := getVZVmnetNetworkDeviceAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return VZVmnetNetworkDeviceAttachmentFromID(rv)
@@ -167,7 +167,7 @@ func NewVmnetNetworkDeviceAttachmentWithNetwork(network vmnet.Vmnet_network_ref)
 // See: https://developer.apple.com/documentation/Virtualization/VZVmnetNetworkDeviceAttachment/init(network:)
 //
 // [vmnet]: https://developer.apple.com/documentation/vmnet
-func (v VZVmnetNetworkDeviceAttachment) InitWithNetwork(network vmnet.Vmnet_network_ref) VZVmnetNetworkDeviceAttachment {
+func (v VZVmnetNetworkDeviceAttachment) InitWithNetwork(network vmnet.VmnetNetworkRef) VZVmnetNetworkDeviceAttachment {
 	rv := objc.Send[VZVmnetNetworkDeviceAttachment](v.ID, objc.Sel("initWithNetwork:"), network)
 	return rv
 }
@@ -175,7 +175,7 @@ func (v VZVmnetNetworkDeviceAttachment) InitWithNetwork(network vmnet.Vmnet_netw
 // The network object that the you initialize the attachment with.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVmnetNetworkDeviceAttachment/network
-func (v VZVmnetNetworkDeviceAttachment) Network() vmnet.Vmnet_network_ref {
-	rv := objc.Send[vmnet.Vmnet_network_ref](v.ID, objc.Sel("network"))
-	return vmnet.Vmnet_network_ref(rv)
+func (v VZVmnetNetworkDeviceAttachment) Network() vmnet.VmnetNetworkRef {
+	rv := objc.Send[vmnet.VmnetNetworkRef](v.ID, objc.Sel("network"))
+	return vmnet.VmnetNetworkRef(rv)
 }

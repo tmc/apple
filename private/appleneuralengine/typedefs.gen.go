@@ -61,22 +61,22 @@ type TypeRef uintptr
 type ValueImplRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/abstract_blob_containerRef
-type Abstract_blob_containerRef uintptr
+type AbstractBlobContainerRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/abstract_contextRef
-type Abstract_contextRef uintptr
+type AbstractContextRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/blob_cpuRef
-type Blob_cpuRef uintptr
+type BlobCpuRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/fast_pyramid_resizerRef
-type Fast_pyramid_resizerRef uintptr
+type FastPyramidResizerRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/generic_load_constant_kernelRef
-type Generic_load_constant_kernelRef uintptr
+type GenericLoadConstantKernelRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/gradient_builderRef
-type Gradient_builderRef uintptr
+type GradientBuilderRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/netRef
 type NetRef uintptr
@@ -85,10 +85,10 @@ type NetRef uintptr
 type SFILEXRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/shared_weak_countRef
-type Shared_weak_countRef uintptr
+type SharedWeakCountRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/surface_and_bufferRef
-type Surface_and_bufferRef uintptr
+type SurfaceAndBufferRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/v9_noise_kernelRef
-type V9_noise_kernelRef uintptr
+type V9NoiseKernelRef uintptr

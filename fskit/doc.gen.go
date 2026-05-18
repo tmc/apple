@@ -83,11 +83,11 @@
 //   - [FSItemAttributes] - Attributes of an item, such as size, creation and modification times, and user and group identifiers.
 //   - [FSStatFSResult] - A type used to report a volume’s statistics.
 //   - [FSBlockDeviceResource] - A resource that represents a block storage disk partition.
+//   - [FSFileName] - The name of a file, expressed as a data buffer.
 //   - [FSContainerStatus] - A type that represents a container’s status.
 //   - [FSProbeResult] - An object that represents the results of a specific probe.
 //   - [FSEntityIdentifier] - A base type that identifies containers and volumes.
 //   - [FSContainerIdentifier] - A type that identifies a container.
-//   - [FSFileName] - The name of a file, expressed as a data buffer.
 //   - [FSMetadataRange] - A range that describes contiguous metadata segments on disk.
 //
 // [FSKit Documentation]: https://developer.apple.com/documentation/FSKit

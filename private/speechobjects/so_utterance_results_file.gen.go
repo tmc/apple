@@ -148,8 +148,8 @@ type ISOUtteranceResultsFile interface {
 	SetRecognizerType(value string)
 	RxGrammar() string
 	SetRxGrammar(value string)
-	StreamDescription() objectivec.IObject
-	SetStreamDescription(value objectivec.IObject)
+	StreamDescription() AudioStreamBasicDescription
+	SetStreamDescription(value AudioStreamBasicDescription)
 	UtteranceResults() foundation.INSArray
 	SetUtteranceResults(value foundation.INSArray)
 	WriteToFile(file objectivec.IObject) bool
@@ -316,11 +316,12 @@ func (s SOUtteranceResultsFile) SetRxGrammar(value string) {
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOUtteranceResultsFile/streamDescription
-func (s SOUtteranceResultsFile) StreamDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("streamDescription"))
-	return objectivec.Object{ID: rv}
+func (s SOUtteranceResultsFile) StreamDescription() AudioStreamBasicDescription {
+	rv := objc.Send[AudioStreamBasicDescription](s.ID, objc.Sel("streamDescription"))
+	_ = rv
+	return AudioStreamBasicDescription{}
 }
-func (s SOUtteranceResultsFile) SetStreamDescription(value objectivec.IObject) {
+func (s SOUtteranceResultsFile) SetStreamDescription(value AudioStreamBasicDescription) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStreamDescription:"), value)
 }
 

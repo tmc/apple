@@ -226,7 +226,7 @@ type ICKShare interface {
 	// An array that contains the share’s participants.
 	Participants() []CKShareParticipant
 	// The URL for inviting participants to the share.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// Topic: Configuring the Share
 
@@ -575,7 +575,7 @@ func (c CKShare) Participants() []CKShareParticipant {
 // record.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/url
-func (c CKShare) URL() foundation.INSURL {
+func (c CKShare) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

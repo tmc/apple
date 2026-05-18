@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -93,10 +92,10 @@ type ICPXCallbackScheduler interface {
 
 	DescheduleForceLogoutCallback()
 	DescheduleKillProcessCallback()
-	ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRecRef)
+	ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec)
 	ScheduleForceLogoutCallbackForTime(time float64)
 	ScheduleKillProcessCallbackForTime(time float64)
-	InitWithSession(session unsafe.Pointer) CPXCallbackScheduler
+	InitWithSession(session CGXSession) CPXCallbackScheduler
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -123,7 +122,7 @@ func NewCPXCallbackScheduler() CPXCallbackScheduler {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/initWithSession:
-func NewCPXCallbackSchedulerWithSession(session unsafe.Pointer) CPXCallbackScheduler {
+func NewCPXCallbackSchedulerWithSession(session CGXSession) CPXCallbackScheduler {
 	instance := getCPXCallbackSchedulerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXCallbackSchedulerFromID(rv)
@@ -140,7 +139,7 @@ func (c CPXCallbackScheduler) DescheduleKillProcessCallback() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/scheduleFixBadForegroundCallbackForProcess:
-func (c CPXCallbackScheduler) ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRecRef) {
+func (c CPXCallbackScheduler) ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), process)
 }
 
@@ -155,7 +154,7 @@ func (c CPXCallbackScheduler) ScheduleKillProcessCallbackForTime(time float64) {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduler/initWithSession:
-func (c CPXCallbackScheduler) InitWithSession(session unsafe.Pointer) CPXCallbackScheduler {
+func (c CPXCallbackScheduler) InitWithSession(session CGXSession) CPXCallbackScheduler {
 	rv := objc.Send[CPXCallbackScheduler](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }

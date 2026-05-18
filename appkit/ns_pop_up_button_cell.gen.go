@@ -210,7 +210,6 @@ func NSPopUpButtonCellFromID(id objc.ID) NSPopUpButtonCell {
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell
 type INSPopUpButtonCell interface {
 	INSMenuItemCell
-	NSMenuItemValidation
 
 	// Topic: Initialization
 

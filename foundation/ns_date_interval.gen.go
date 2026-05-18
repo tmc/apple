@@ -138,8 +138,6 @@ func NSDateIntervalFromID(id objc.ID) NSDateInterval {
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval
 type INSDateInterval interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating Date Intervals

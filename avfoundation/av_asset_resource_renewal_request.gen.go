@@ -81,8 +81,8 @@ type IAVAssetResourceRenewalRequest interface {
 	IAVAssetResourceLoadingRequest
 
 	// The date at which a new resource loading request will be issued for resources that expire, if the media system still requires it.
-	RenewalDate() foundation.INSDate
-	SetRenewalDate(value foundation.INSDate)
+	RenewalDate() foundation.NSDate
+	SetRenewalDate(value foundation.NSDate)
 }
 
 // Init initializes the instance.
@@ -108,10 +108,10 @@ func NewAVAssetResourceRenewalRequest() AVAssetResourceRenewalRequest {
 // resources that expire, if the media system still requires it.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetresourceloadingcontentinformationrequest/renewaldate
-func (a AVAssetResourceRenewalRequest) RenewalDate() foundation.INSDate {
+func (a AVAssetResourceRenewalRequest) RenewalDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("renewalDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (a AVAssetResourceRenewalRequest) SetRenewalDate(value foundation.INSDate) {
+func (a AVAssetResourceRenewalRequest) SetRenewalDate(value foundation.NSDate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRenewalDate:"), value)
 }

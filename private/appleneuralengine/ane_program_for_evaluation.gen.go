@@ -113,7 +113,7 @@ type IANEProgramForEvaluation interface {
 	ProcessSessionHintOptionsReportError(hint objectivec.IObject, options objectivec.IObject, report objectivec.IObject) (bool, error)
 	ProgramHandle() uint64
 	SetProgramHandle(value uint64)
-	ProgramInferenceOtherErrorForMessageModelMethodName(message unsafe.Pointer, model objectivec.IObject, name objectivec.IObject) objectivec.IObject
+	ProgramInferenceOtherErrorForMessageModelMethodName(message ANENotificationMessageStruct, model objectivec.IObject, name objectivec.IObject) objectivec.IObject
 	QueueDepth() int8
 	RequestsInFlight() objectivec.Object
 	InitWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) ANEProgramForEvaluation
@@ -206,7 +206,7 @@ func (a ANEProgramForEvaluation) ProcessSessionHintOptionsReportError(hint objec
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/programInferenceOtherErrorForMessage:model:methodName:
-func (a ANEProgramForEvaluation) ProgramInferenceOtherErrorForMessageModelMethodName(message unsafe.Pointer, model objectivec.IObject, name objectivec.IObject) objectivec.IObject {
+func (a ANEProgramForEvaluation) ProgramInferenceOtherErrorForMessageModelMethodName(message ANENotificationMessageStruct, model objectivec.IObject, name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("programInferenceOtherErrorForMessage:model:methodName:"), message, model, name)
 	return objectivec.Object{ID: rv}
 }

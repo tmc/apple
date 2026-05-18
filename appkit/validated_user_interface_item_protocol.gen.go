@@ -43,16 +43,24 @@ func NSValidatedUserInterfaceItemObjectFromID(id objc.ID) NSValidatedUserInterfa
 
 // Returns the selector of the receiver’s action method.
 //
+// # Return Value
+//
+// The selector of the receiver’s action method.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSValidatedUserInterfaceItem/action
 func (o NSValidatedUserInterfaceItemObject) Action() objc.SEL {
 	rv := objc.Send[objc.SEL](o.ID, objc.Sel("action"))
-	return rv
+	return objc.SEL(rv)
 }
 
 // Returns the receiver’s tag integer.
 //
+// # Return Value
+//
+// The receiver’s tag.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSValidatedUserInterfaceItem/tag
 func (o NSValidatedUserInterfaceItemObject) Tag() int {
 	rv := objc.Send[int](o.ID, objc.Sel("tag"))
-	return rv
+	return int(rv)
 }

@@ -34,22 +34,22 @@ type ModelRef uintptr
 type MultiArrayBufferRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreML/e5rt_execution_streamRef
-type E5rt_execution_streamRef uintptr
+type E5rtExecutionStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreML/e5rt_execution_stream_operationRef
-type E5rt_execution_stream_operationRef uintptr
+type E5rtExecutionStreamOperationRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreML/e5rt_io_portRef
-type E5rt_io_portRef uintptr
+type E5rtIOPortRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreML/e5rt_program_libraryRef
-type E5rt_program_libraryRef uintptr
+type E5rtProgramLibraryRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreML/netRef
 type NetRef uintptr
 
 // See: https://developer.apple.com/documentation/CoreML/shared_weak_countRef
-type Shared_weak_countRef = unsafe.Pointer
+type SharedWeakCountRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/CoreML/svm_nodeRef
-type Svm_nodeRef uintptr
+type SvmNodeRef uintptr

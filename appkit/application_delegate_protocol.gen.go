@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -439,7 +438,7 @@ func (o NSApplicationDelegateObject) ApplicationShouldAutomaticallyLocalizeKeyEq
 // return the passed-in error object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:willPresentError:)
-func (o NSApplicationDelegateObject) ApplicationWillPresentError(application INSApplication, error_ foundation.INSError) foundation.INSError {
+func (o NSApplicationDelegateObject) ApplicationWillPresentError(application INSApplication, error_ foundation.NSError) foundation.NSError {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("application:willPresentError:"), application, error_)
 	return foundation.NSErrorFromID(rv)
 }
@@ -562,7 +561,7 @@ func (o NSApplicationDelegateObject) ApplicationContinueUserActivityRestorationH
 // to the user with an appropriate message about the reason for the failure.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didFailToContinueUserActivityWithType:error:)
-func (o NSApplicationDelegateObject) ApplicationDidFailToContinueUserActivityWithTypeError(application INSApplication, userActivityType string, error_ foundation.INSError) {
+func (o NSApplicationDelegateObject) ApplicationDidFailToContinueUserActivityWithTypeError(application INSApplication, userActivityType string, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("application:didFailToContinueUserActivityWithType:error:"), application, objc.String(userActivityType), error_)
 }
 
@@ -611,7 +610,7 @@ func (o NSApplicationDelegateObject) ApplicationDidUpdateUserActivity(applicatio
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didRegisterForRemoteNotificationsWithDeviceToken:)
 //
 // [Local and Remote Notification Programming Guide]: https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/index.html#//apple_ref/doc/uid/TP40008194
-func (o NSApplicationDelegateObject) ApplicationDidRegisterForRemoteNotificationsWithDeviceToken(application INSApplication, deviceToken foundation.INSData) {
+func (o NSApplicationDelegateObject) ApplicationDidRegisterForRemoteNotificationsWithDeviceToken(application INSApplication, deviceToken foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("application:didRegisterForRemoteNotificationsWithDeviceToken:"), application, deviceToken)
 }
 
@@ -636,7 +635,7 @@ func (o NSApplicationDelegateObject) ApplicationDidRegisterForRemoteNotification
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didFailToRegisterForRemoteNotificationsWithError:)
 //
 // [Local and Remote Notification Programming Guide]: https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/index.html#//apple_ref/doc/uid/TP40008194
-func (o NSApplicationDelegateObject) ApplicationDidFailToRegisterForRemoteNotificationsWithError(application INSApplication, error_ foundation.INSError) {
+func (o NSApplicationDelegateObject) ApplicationDidFailToRegisterForRemoteNotificationsWithError(application INSApplication, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("application:didFailToRegisterForRemoteNotificationsWithError:"), application, error_)
 }
 
@@ -721,7 +720,7 @@ func (o NSApplicationDelegateObject) ApplicationDidReceiveRemoteNotification(app
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 // [containerIdentifier]: https://developer.apple.com/documentation/CloudKit/CKShare/Metadata/containerIdentifier
 // [CloudKit]: https://developer.apple.com/documentation/CloudKit
-func (o NSApplicationDelegateObject) ApplicationUserDidAcceptCloudKitShareWithMetadata(application INSApplication, metadata unsafe.Pointer) {
+func (o NSApplicationDelegateObject) ApplicationUserDidAcceptCloudKitShareWithMetadata(application INSApplication, metadata objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("application:userDidAcceptCloudKitShareWithMetadata:"), application, metadata)
 }
 
@@ -766,7 +765,7 @@ func (o NSApplicationDelegateObject) ApplicationUserDidAcceptCloudKitShareWithMe
 // [INPlayMediaIntentHandling]: https://developer.apple.com/documentation/Intents/INPlayMediaIntentHandling
 // [INPlayMediaIntent]: https://developer.apple.com/documentation/Intents/INPlayMediaIntent
 // [Resolving and Handling Intents]: https://developer.apple.com/documentation/SiriKit/resolving-and-handling-intents
-func (o NSApplicationDelegateObject) ApplicationHandlerForIntent(application INSApplication, intent unsafe.Pointer) objectivec.IObject {
+func (o NSApplicationDelegateObject) ApplicationHandlerForIntent(application INSApplication, intent objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("application:handlerForIntent:"), application, intent)
 	return objectivec.Object{ID: rv}
 }

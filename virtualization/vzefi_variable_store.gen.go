@@ -90,14 +90,14 @@ type IVZEFIVariableStore interface {
 	// Topic: Creating the variable store
 
 	// Creates a new EFI variable store at specified the URL on the filesystem, initialization options, and error-return variable.
-	InitCreatingVariableStoreAtURLOptionsError(URL foundation.INSURL, options VZEFIVariableStoreInitializationOptions) (VZEFIVariableStore, error)
+	InitCreatingVariableStoreAtURLOptionsError(URL foundation.NSURL, options VZEFIVariableStoreInitializationOptions) (VZEFIVariableStore, error)
 	// Initialize the variable store from the URL of an existing file.
-	InitWithURL(URL foundation.INSURL) VZEFIVariableStore
+	InitWithURL(URL foundation.NSURL) VZEFIVariableStore
 
 	// Topic: Instance properties
 
 	// The URL of the variable store on the local file system.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -130,7 +130,7 @@ func NewVZEFIVariableStore() VZEFIVariableStore {
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(creatingVariableStoreAt:options:)
 //
 // [VZEFIVariableStore.InitializationOptions]: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/InitializationOptions
-func NewEFIVariableStoreCreatingVariableStoreAtURLOptionsError(URL foundation.INSURL, options VZEFIVariableStoreInitializationOptions) (VZEFIVariableStore, error) {
+func NewEFIVariableStoreCreatingVariableStoreAtURLOptionsError(URL foundation.NSURL, options VZEFIVariableStoreInitializationOptions) (VZEFIVariableStore, error) {
 	var errorPtr objc.ID
 	instance := getVZEFIVariableStoreClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initCreatingVariableStoreAtURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
@@ -145,8 +145,8 @@ func NewEFIVariableStoreCreatingVariableStoreAtURLOptionsError(URL foundation.IN
 //
 // URL: The URL of the location on disk that contains the stored EFI information.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(url:)
-func NewEFIVariableStoreWithURL(URL foundation.INSURL) VZEFIVariableStore {
+// See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(url:)-83pcn
+func NewEFIVariableStoreWithURL(URL foundation.NSURL) VZEFIVariableStore {
 	instance := getVZEFIVariableStoreClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
 	return VZEFIVariableStoreFromID(rv)
@@ -163,7 +163,7 @@ func NewEFIVariableStoreWithURL(URL foundation.INSURL) VZEFIVariableStore {
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(creatingVariableStoreAt:options:)
 //
 // [VZEFIVariableStore.InitializationOptions]: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/InitializationOptions
-func (e VZEFIVariableStore) InitCreatingVariableStoreAtURLOptionsError(URL foundation.INSURL, options VZEFIVariableStoreInitializationOptions) (VZEFIVariableStore, error) {
+func (e VZEFIVariableStore) InitCreatingVariableStoreAtURLOptionsError(URL foundation.NSURL, options VZEFIVariableStoreInitializationOptions) (VZEFIVariableStore, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initCreatingVariableStoreAtURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -178,8 +178,8 @@ func (e VZEFIVariableStore) InitCreatingVariableStoreAtURLOptionsError(URL found
 //
 // URL: The URL of the location on disk that contains the stored EFI information.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(url:)
-func (e VZEFIVariableStore) InitWithURL(URL foundation.INSURL) VZEFIVariableStore {
+// See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(url:)-83pcn
+func (e VZEFIVariableStore) InitWithURL(URL foundation.NSURL) VZEFIVariableStore {
 	rv := objc.Send[VZEFIVariableStore](e.ID, objc.Sel("initWithURL:"), URL)
 	return rv
 }
@@ -187,7 +187,7 @@ func (e VZEFIVariableStore) InitWithURL(URL foundation.INSURL) VZEFIVariableStor
 // The URL of the variable store on the local file system.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/url
-func (e VZEFIVariableStore) URL() foundation.INSURL {
+func (e VZEFIVariableStore) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

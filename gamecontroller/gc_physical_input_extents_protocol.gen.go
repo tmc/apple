@@ -51,7 +51,7 @@ func GCPhysicalInputExtentsObjectFromID(id objc.ID) GCPhysicalInputExtentsObject
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputExtents/maximumValue
 func (o GCPhysicalInputExtentsObject) MaximumValue() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("maximumValue"))
-	return rv
+	return float64(rv)
 }
 
 // The minimum value for the physical extent of the input.
@@ -59,7 +59,7 @@ func (o GCPhysicalInputExtentsObject) MaximumValue() float64 {
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputExtents/minimumValue
 func (o GCPhysicalInputExtentsObject) MinimumValue() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("minimumValue"))
-	return rv
+	return float64(rv)
 }
 
 // The value of the input, scaled into physical units.
@@ -67,5 +67,5 @@ func (o GCPhysicalInputExtentsObject) MinimumValue() float64 {
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputExtents/scaledValue
 func (o GCPhysicalInputExtentsObject) ScaledValue() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("scaledValue"))
-	return rv
+	return float64(rv)
 }

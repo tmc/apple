@@ -88,7 +88,7 @@ func CIImageProcessorOutputObjectFromID(id objc.ID) CIImageProcessorOutputObject
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/baseAddress
 func (o CIImageProcessorOutputObject) BaseAddress() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
-	return rv
+	return unsafe.Pointer(rv)
 }
 
 // A Metal texture object that can be bound for output using Metal.
@@ -105,7 +105,7 @@ func (o CIImageProcessorOutputObject) MetalTexture() metal.MTLTexture {
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/pixelBuffer
 func (o CIImageProcessorOutputObject) PixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](o.ID, objc.Sel("pixelBuffer"))
-	return rv
+	return corevideo.CVImageBufferRef(rv)
 }
 
 // An output surface object that your Core Image Processor Kernel can write
@@ -114,16 +114,18 @@ func (o CIImageProcessorOutputObject) PixelBuffer() corevideo.CVImageBufferRef {
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/surface
 func (o CIImageProcessorOutputObject) Surface() iosurface.IOSurfaceRef {
 	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("surface"))
-	return rv
+	return iosurface.IOSurfaceRef(rv)
 }
 
 // The rectangular region of the output image that your Core Image Processor
 // Kernel must provide.
 //
+// # Discussion
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/region
 func (o CIImageProcessorOutputObject) Region() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("region"))
-	return rv
+	return corefoundation.CGRect(rv)
 }
 
 // Returns a Metal command buffer object that can be used for encoding
@@ -141,7 +143,7 @@ func (o CIImageProcessorOutputObject) MetalCommandBuffer() metal.MTLCommandBuffe
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/bytesPerRow
 func (o CIImageProcessorOutputObject) BytesPerRow() uintptr {
 	rv := objc.Send[uintptr](o.ID, objc.Sel("bytesPerRow"))
-	return rv
+	return uintptr(rv)
 }
 
 // The pixel format of the CPU memory that your Core Image Processor Kernel
@@ -150,14 +152,19 @@ func (o CIImageProcessorOutputObject) BytesPerRow() uintptr {
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/format
 func (o CIImageProcessorOutputObject) Format() CIFormat {
 	rv := objc.Send[CIFormat](o.ID, objc.Sel("format"))
-	return rv
+	return CIFormat(rv)
 }
 
 // A 64-bit digest that uniquely describes the contents of the output of a
 // processor.
 //
+// # Discussion
+//
+// This digest will change if the graph up to and including the output of the
+// processor changes in any way.
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/digest
 func (o CIImageProcessorOutputObject) Digest() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("digest"))
-	return rv
+	return uint64(rv)
 }

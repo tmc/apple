@@ -146,8 +146,8 @@ type IVNRequest interface {
 	// Topic: Configuring the Compute Device
 
 	// The collection of compute devices per stage that a request supports.
-	SupportedComputeStageDevices() objectivec.IObject
-	SetSupportedComputeStageDevices(value objectivec.IObject)
+	SupportedComputeStageDevices() unsafe.Pointer
+	SetSupportedComputeStageDevices(value unsafe.Pointer)
 
 	// Topic: Canceling a Request
 
@@ -361,11 +361,11 @@ func (r VNRequest) SetUsesCPUOnly(value bool) {
 // The collection of compute devices per stage that a request supports.
 //
 // See: https://developer.apple.com/documentation/vision/vnrequest/supportedcomputestagedevices
-func (r VNRequest) SupportedComputeStageDevices() objectivec.IObject {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("supportedComputeStageDevices"))
-	return objectivec.Object{ID: rv}
+func (r VNRequest) SupportedComputeStageDevices() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("supportedComputeStageDevices"))
+	return rv
 }
-func (r VNRequest) SetSupportedComputeStageDevices(value objectivec.IObject) {
+func (r VNRequest) SetSupportedComputeStageDevices(value unsafe.Pointer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSupportedComputeStageDevices:"), value)
 }
 

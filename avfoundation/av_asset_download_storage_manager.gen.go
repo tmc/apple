@@ -79,9 +79,9 @@ type IAVAssetDownloadStorageManager interface {
 	// Topic: Setting the storage policy
 
 	// Returns the storage management policy for a downloaded asset.
-	StorageManagementPolicyForURL(downloadStorageURL foundation.INSURL) IAVAssetDownloadStorageManagementPolicy
+	StorageManagementPolicyForURL(downloadStorageURL foundation.NSURL) IAVAssetDownloadStorageManagementPolicy
 	// Sets a storage policy for the downloaded asset.
-	SetStorageManagementPolicyForURL(storageManagementPolicy IAVAssetDownloadStorageManagementPolicy, downloadStorageURL foundation.INSURL)
+	SetStorageManagementPolicyForURL(storageManagementPolicy IAVAssetDownloadStorageManagementPolicy, downloadStorageURL foundation.NSURL)
 }
 
 // Init initializes the instance.
@@ -112,7 +112,7 @@ func NewAVAssetDownloadStorageManager() AVAssetDownloadStorageManager {
 // The storage management policy for the asset, or `nil` if one isn’t set.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadStorageManager/storageManagementPolicy(for:)
-func (a AVAssetDownloadStorageManager) StorageManagementPolicyForURL(downloadStorageURL foundation.INSURL) IAVAssetDownloadStorageManagementPolicy {
+func (a AVAssetDownloadStorageManager) StorageManagementPolicyForURL(downloadStorageURL foundation.NSURL) IAVAssetDownloadStorageManagementPolicy {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("storageManagementPolicyForURL:"), downloadStorageURL)
 	return AVAssetDownloadStorageManagementPolicyFromID(rv)
 }
@@ -124,7 +124,7 @@ func (a AVAssetDownloadStorageManager) StorageManagementPolicyForURL(downloadSto
 // downloadStorageURL: The location of the downloaded asset.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadStorageManager/setStorageManagementPolicy(_:for:)
-func (a AVAssetDownloadStorageManager) SetStorageManagementPolicyForURL(storageManagementPolicy IAVAssetDownloadStorageManagementPolicy, downloadStorageURL foundation.INSURL) {
+func (a AVAssetDownloadStorageManager) SetStorageManagementPolicyForURL(storageManagementPolicy IAVAssetDownloadStorageManagementPolicy, downloadStorageURL foundation.NSURL) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setStorageManagementPolicy:forURL:"), storageManagementPolicy, downloadStorageURL)
 }
 

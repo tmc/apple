@@ -165,7 +165,7 @@ func NewAVSemanticSegmentationMatte() AVSemanticSegmentationMatte {
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/init(fromImageSourceAuxiliaryDataType:dictionaryRepresentation:)
 //
 // [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)
-func NewSemanticSegmentationMatteFromImageSourceAuxiliaryDataTypeDictionaryRepresentationError(imageSourceAuxiliaryDataType corefoundation.CFStringRef, imageSourceAuxiliaryDataInfoDictionary foundation.INSDictionary) (AVSemanticSegmentationMatte, error) {
+func NewSemanticSegmentationMatteFromImageSourceAuxiliaryDataTypeDictionaryRepresentationError(imageSourceAuxiliaryDataType corefoundation.CFString, imageSourceAuxiliaryDataInfoDictionary foundation.INSDictionary) (AVSemanticSegmentationMatte, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getAVSemanticSegmentationMatteClass().class), objc.Sel("semanticSegmentationMatteFromImageSourceAuxiliaryDataType:dictionaryRepresentation:error:"), imageSourceAuxiliaryDataType, imageSourceAuxiliaryDataInfoDictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

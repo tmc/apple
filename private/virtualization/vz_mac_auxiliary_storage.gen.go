@@ -105,14 +105,14 @@ type IVZMacAuxiliaryStorage interface {
 }
 
 // Init initializes the instance.
-func (m VZMacAuxiliaryStorage) Init() VZMacAuxiliaryStorage {
-	rv := objc.Send[VZMacAuxiliaryStorage](m.ID, objc.Sel("init"))
+func (v VZMacAuxiliaryStorage) Init() VZMacAuxiliaryStorage {
+	rv := objc.Send[VZMacAuxiliaryStorage](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacAuxiliaryStorage) Autorelease() VZMacAuxiliaryStorage {
-	rv := objc.Send[VZMacAuxiliaryStorage](m.ID, objc.Sel("autorelease"))
+func (v VZMacAuxiliaryStorage) Autorelease() VZMacAuxiliaryStorage {
+	rv := objc.Send[VZMacAuxiliaryStorage](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -124,9 +124,9 @@ func NewVZMacAuxiliaryStorage() VZMacAuxiliaryStorage {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_allNVRAMDataVariablesInPartition:error:
-func (m VZMacAuxiliaryStorage) _allNVRAMDataVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
+func (v VZMacAuxiliaryStorage) _allNVRAMDataVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_allNVRAMDataVariablesInPartition:error:"), partition, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_allNVRAMDataVariablesInPartition:error:"), partition, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -136,23 +136,23 @@ func (m VZMacAuxiliaryStorage) _allNVRAMDataVariablesInPartitionError(partition 
 }
 
 // AllNVRAMDataVariablesInPartitionError is an exported wrapper for the private method _allNVRAMDataVariablesInPartitionError.
-func (m VZMacAuxiliaryStorage) AllNVRAMDataVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_allNVRAMDataVariablesInPartition:error:")) {
+func (v VZMacAuxiliaryStorage) AllNVRAMDataVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_allNVRAMDataVariablesInPartition:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_allNVRAMDataVariablesInPartition:error:"}
 		return nil, err
 	}
-	return m._allNVRAMDataVariablesInPartitionError(partition)
+	return v._allNVRAMDataVariablesInPartitionError(partition)
 }
 
 // CanAllNVRAMDataVariablesInPartitionError reports whether the receiver responds to the private selector _allNVRAMDataVariablesInPartition:error:.
-func (m VZMacAuxiliaryStorage) CanAllNVRAMDataVariablesInPartitionError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_allNVRAMDataVariablesInPartition:error:"))
+func (v VZMacAuxiliaryStorage) CanAllNVRAMDataVariablesInPartitionError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_allNVRAMDataVariablesInPartition:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_allNVRAMDataVariablesWithError:
-func (m VZMacAuxiliaryStorage) _allNVRAMDataVariablesWithError() (objectivec.IObject, error) {
+func (v VZMacAuxiliaryStorage) _allNVRAMDataVariablesWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_allNVRAMDataVariablesWithError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_allNVRAMDataVariablesWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -162,23 +162,23 @@ func (m VZMacAuxiliaryStorage) _allNVRAMDataVariablesWithError() (objectivec.IOb
 }
 
 // AllNVRAMDataVariablesWithError is an exported wrapper for the private method _allNVRAMDataVariablesWithError.
-func (m VZMacAuxiliaryStorage) AllNVRAMDataVariablesWithError() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_allNVRAMDataVariablesWithError:")) {
+func (v VZMacAuxiliaryStorage) AllNVRAMDataVariablesWithError() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_allNVRAMDataVariablesWithError:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_allNVRAMDataVariablesWithError:"}
 		return nil, err
 	}
-	return m._allNVRAMDataVariablesWithError()
+	return v._allNVRAMDataVariablesWithError()
 }
 
 // CanAllNVRAMDataVariablesWithError reports whether the receiver responds to the private selector _allNVRAMDataVariablesWithError:.
-func (m VZMacAuxiliaryStorage) CanAllNVRAMDataVariablesWithError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_allNVRAMDataVariablesWithError:"))
+func (v VZMacAuxiliaryStorage) CanAllNVRAMDataVariablesWithError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_allNVRAMDataVariablesWithError:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_allNVRAMVariablesInPartition:error:
-func (m VZMacAuxiliaryStorage) _allNVRAMVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
+func (v VZMacAuxiliaryStorage) _allNVRAMVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_allNVRAMVariablesInPartition:error:"), partition, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_allNVRAMVariablesInPartition:error:"), partition, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -188,23 +188,23 @@ func (m VZMacAuxiliaryStorage) _allNVRAMVariablesInPartitionError(partition uint
 }
 
 // AllNVRAMVariablesInPartitionError is an exported wrapper for the private method _allNVRAMVariablesInPartitionError.
-func (m VZMacAuxiliaryStorage) AllNVRAMVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_allNVRAMVariablesInPartition:error:")) {
+func (v VZMacAuxiliaryStorage) AllNVRAMVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_allNVRAMVariablesInPartition:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_allNVRAMVariablesInPartition:error:"}
 		return nil, err
 	}
-	return m._allNVRAMVariablesInPartitionError(partition)
+	return v._allNVRAMVariablesInPartitionError(partition)
 }
 
 // CanAllNVRAMVariablesInPartitionError reports whether the receiver responds to the private selector _allNVRAMVariablesInPartition:error:.
-func (m VZMacAuxiliaryStorage) CanAllNVRAMVariablesInPartitionError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_allNVRAMVariablesInPartition:error:"))
+func (v VZMacAuxiliaryStorage) CanAllNVRAMVariablesInPartitionError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_allNVRAMVariablesInPartition:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_allNVRAMVariablesWithError:
-func (m VZMacAuxiliaryStorage) _allNVRAMVariablesWithError() (objectivec.IObject, error) {
+func (v VZMacAuxiliaryStorage) _allNVRAMVariablesWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_allNVRAMVariablesWithError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_allNVRAMVariablesWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -214,23 +214,23 @@ func (m VZMacAuxiliaryStorage) _allNVRAMVariablesWithError() (objectivec.IObject
 }
 
 // AllNVRAMVariablesWithError is an exported wrapper for the private method _allNVRAMVariablesWithError.
-func (m VZMacAuxiliaryStorage) AllNVRAMVariablesWithError() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_allNVRAMVariablesWithError:")) {
+func (v VZMacAuxiliaryStorage) AllNVRAMVariablesWithError() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_allNVRAMVariablesWithError:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_allNVRAMVariablesWithError:"}
 		return nil, err
 	}
-	return m._allNVRAMVariablesWithError()
+	return v._allNVRAMVariablesWithError()
 }
 
 // CanAllNVRAMVariablesWithError reports whether the receiver responds to the private selector _allNVRAMVariablesWithError:.
-func (m VZMacAuxiliaryStorage) CanAllNVRAMVariablesWithError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_allNVRAMVariablesWithError:"))
+func (v VZMacAuxiliaryStorage) CanAllNVRAMVariablesWithError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_allNVRAMVariablesWithError:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_dataValueForNVRAMVariableNamed:error:
-func (m VZMacAuxiliaryStorage) _dataValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
+func (v VZMacAuxiliaryStorage) _dataValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_dataValueForNVRAMVariableNamed:error:"), named, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_dataValueForNVRAMVariableNamed:error:"), named, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -240,23 +240,23 @@ func (m VZMacAuxiliaryStorage) _dataValueForNVRAMVariableNamedError(named object
 }
 
 // DataValueForNVRAMVariableNamedError is an exported wrapper for the private method _dataValueForNVRAMVariableNamedError.
-func (m VZMacAuxiliaryStorage) DataValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_dataValueForNVRAMVariableNamed:error:")) {
+func (v VZMacAuxiliaryStorage) DataValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_dataValueForNVRAMVariableNamed:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_dataValueForNVRAMVariableNamed:error:"}
 		return nil, err
 	}
-	return m._dataValueForNVRAMVariableNamedError(named)
+	return v._dataValueForNVRAMVariableNamedError(named)
 }
 
 // CanDataValueForNVRAMVariableNamedError reports whether the receiver responds to the private selector _dataValueForNVRAMVariableNamed:error:.
-func (m VZMacAuxiliaryStorage) CanDataValueForNVRAMVariableNamedError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_dataValueForNVRAMVariableNamed:error:"))
+func (v VZMacAuxiliaryStorage) CanDataValueForNVRAMVariableNamedError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_dataValueForNVRAMVariableNamed:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_initializeUIDKeyWithWrappingKey:error:
-func (m VZMacAuxiliaryStorage) _initializeUIDKeyWithWrappingKeyError(key objectivec.IObject) (bool, error) {
+func (v VZMacAuxiliaryStorage) _initializeUIDKeyWithWrappingKeyError(key objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](m.ID, objc.Sel("_initializeUIDKeyWithWrappingKey:error:"), key, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](v.ID, objc.Sel("_initializeUIDKeyWithWrappingKey:error:"), key, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -269,23 +269,23 @@ func (m VZMacAuxiliaryStorage) _initializeUIDKeyWithWrappingKeyError(key objecti
 }
 
 // InitializeUIDKeyWithWrappingKeyError is an exported wrapper for the private method _initializeUIDKeyWithWrappingKeyError.
-func (m VZMacAuxiliaryStorage) InitializeUIDKeyWithWrappingKeyError(key objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_initializeUIDKeyWithWrappingKey:error:")) {
+func (v VZMacAuxiliaryStorage) InitializeUIDKeyWithWrappingKeyError(key objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initializeUIDKeyWithWrappingKey:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initializeUIDKeyWithWrappingKey:error:"}
 		return false, err
 	}
-	return m._initializeUIDKeyWithWrappingKeyError(key)
+	return v._initializeUIDKeyWithWrappingKeyError(key)
 }
 
 // CanInitializeUIDKeyWithWrappingKeyError reports whether the receiver responds to the private selector _initializeUIDKeyWithWrappingKey:error:.
-func (m VZMacAuxiliaryStorage) CanInitializeUIDKeyWithWrappingKeyError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_initializeUIDKeyWithWrappingKey:error:"))
+func (v VZMacAuxiliaryStorage) CanInitializeUIDKeyWithWrappingKeyError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initializeUIDKeyWithWrappingKey:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_removeNVRAMVariableNamed:error:
-func (m VZMacAuxiliaryStorage) _removeNVRAMVariableNamedError(named objectivec.IObject) (bool, error) {
+func (v VZMacAuxiliaryStorage) _removeNVRAMVariableNamedError(named objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](m.ID, objc.Sel("_removeNVRAMVariableNamed:error:"), named, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](v.ID, objc.Sel("_removeNVRAMVariableNamed:error:"), named, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -298,23 +298,23 @@ func (m VZMacAuxiliaryStorage) _removeNVRAMVariableNamedError(named objectivec.I
 }
 
 // RemoveNVRAMVariableNamedError is an exported wrapper for the private method _removeNVRAMVariableNamedError.
-func (m VZMacAuxiliaryStorage) RemoveNVRAMVariableNamedError(named objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_removeNVRAMVariableNamed:error:")) {
+func (v VZMacAuxiliaryStorage) RemoveNVRAMVariableNamedError(named objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_removeNVRAMVariableNamed:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_removeNVRAMVariableNamed:error:"}
 		return false, err
 	}
-	return m._removeNVRAMVariableNamedError(named)
+	return v._removeNVRAMVariableNamedError(named)
 }
 
 // CanRemoveNVRAMVariableNamedError reports whether the receiver responds to the private selector _removeNVRAMVariableNamed:error:.
-func (m VZMacAuxiliaryStorage) CanRemoveNVRAMVariableNamedError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_removeNVRAMVariableNamed:error:"))
+func (v VZMacAuxiliaryStorage) CanRemoveNVRAMVariableNamedError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_removeNVRAMVariableNamed:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_setDataValue:forNVRAMVariableNamed:error:
-func (m VZMacAuxiliaryStorage) _setDataValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
+func (v VZMacAuxiliaryStorage) _setDataValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](m.ID, objc.Sel("_setDataValue:forNVRAMVariableNamed:error:"), value, named, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](v.ID, objc.Sel("_setDataValue:forNVRAMVariableNamed:error:"), value, named, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -327,23 +327,23 @@ func (m VZMacAuxiliaryStorage) _setDataValueForNVRAMVariableNamedError(value obj
 }
 
 // SetDataValueForNVRAMVariableNamedError is an exported wrapper for the private method _setDataValueForNVRAMVariableNamedError.
-func (m VZMacAuxiliaryStorage) SetDataValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_setDataValue:forNVRAMVariableNamed:error:")) {
+func (v VZMacAuxiliaryStorage) SetDataValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setDataValue:forNVRAMVariableNamed:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setDataValue:forNVRAMVariableNamed:error:"}
 		return false, err
 	}
-	return m._setDataValueForNVRAMVariableNamedError(value, named)
+	return v._setDataValueForNVRAMVariableNamedError(value, named)
 }
 
 // CanSetDataValueForNVRAMVariableNamedError reports whether the receiver responds to the private selector _setDataValue:forNVRAMVariableNamed:error:.
-func (m VZMacAuxiliaryStorage) CanSetDataValueForNVRAMVariableNamedError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_setDataValue:forNVRAMVariableNamed:error:"))
+func (v VZMacAuxiliaryStorage) CanSetDataValueForNVRAMVariableNamedError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setDataValue:forNVRAMVariableNamed:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_setValue:forNVRAMVariableNamed:error:
-func (m VZMacAuxiliaryStorage) _setValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
+func (v VZMacAuxiliaryStorage) _setValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](m.ID, objc.Sel("_setValue:forNVRAMVariableNamed:error:"), value, named, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](v.ID, objc.Sel("_setValue:forNVRAMVariableNamed:error:"), value, named, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -356,23 +356,23 @@ func (m VZMacAuxiliaryStorage) _setValueForNVRAMVariableNamedError(value objecti
 }
 
 // SetValueForNVRAMVariableNamedError is an exported wrapper for the private method _setValueForNVRAMVariableNamedError.
-func (m VZMacAuxiliaryStorage) SetValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_setValue:forNVRAMVariableNamed:error:")) {
+func (v VZMacAuxiliaryStorage) SetValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setValue:forNVRAMVariableNamed:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setValue:forNVRAMVariableNamed:error:"}
 		return false, err
 	}
-	return m._setValueForNVRAMVariableNamedError(value, named)
+	return v._setValueForNVRAMVariableNamedError(value, named)
 }
 
 // CanSetValueForNVRAMVariableNamedError reports whether the receiver responds to the private selector _setValue:forNVRAMVariableNamed:error:.
-func (m VZMacAuxiliaryStorage) CanSetValueForNVRAMVariableNamedError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_setValue:forNVRAMVariableNamed:error:"))
+func (v VZMacAuxiliaryStorage) CanSetValueForNVRAMVariableNamedError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setValue:forNVRAMVariableNamed:error:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_valueForNVRAMVariableNamed:error:
-func (m VZMacAuxiliaryStorage) _valueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
+func (v VZMacAuxiliaryStorage) _valueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_valueForNVRAMVariableNamed:error:"), named, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_valueForNVRAMVariableNamed:error:"), named, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -382,15 +382,15 @@ func (m VZMacAuxiliaryStorage) _valueForNVRAMVariableNamedError(named objectivec
 }
 
 // ValueForNVRAMVariableNamedError is an exported wrapper for the private method _valueForNVRAMVariableNamedError.
-func (m VZMacAuxiliaryStorage) ValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_valueForNVRAMVariableNamed:error:")) {
+func (v VZMacAuxiliaryStorage) ValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_valueForNVRAMVariableNamed:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_valueForNVRAMVariableNamed:error:"}
 		return nil, err
 	}
-	return m._valueForNVRAMVariableNamedError(named)
+	return v._valueForNVRAMVariableNamedError(named)
 }
 
 // CanValueForNVRAMVariableNamedError reports whether the receiver responds to the private selector _valueForNVRAMVariableNamed:error:.
-func (m VZMacAuxiliaryStorage) CanValueForNVRAMVariableNamedError() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_valueForNVRAMVariableNamed:error:"))
+func (v VZMacAuxiliaryStorage) CanValueForNVRAMVariableNamedError() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_valueForNVRAMVariableNamed:error:"))
 }

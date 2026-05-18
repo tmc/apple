@@ -14,6 +14,11 @@ import (
 type MTLDynamicLibrary interface {
 	objectivec.IObject
 
+	// Writes the contents of the dynamic library to a file.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/serialize(to:)
+	SerializeToURLError(url foundation.NSURL) (bool, error)
+
 	// The Metal device object that created the dynamic library.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/device
@@ -28,15 +33,6 @@ type MTLDynamicLibrary interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/label
 	Label() string
-
-	// Writes the contents of the dynamic library to a file.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/serialize(to:)
-	SerializeToURLError(url foundation.INSURL) (bool, error)
-
-	// A string that identifies the library.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/label
 	SetLabel(value string)
 }
 
@@ -57,30 +53,6 @@ func MTLDynamicLibraryObjectFromID(id objc.ID) MTLDynamicLibraryObject {
 	}
 }
 
-// The Metal device object that created the dynamic library.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/device
-func (o MTLDynamicLibraryObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// A file path for this dynamic library.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/installName
-func (o MTLDynamicLibraryObject) InstallName() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("installName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A string that identifies the library.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/label
-func (o MTLDynamicLibraryObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // Writes the contents of the dynamic library to a file.
 //
 // url: The URL for the destination file.
@@ -99,12 +71,28 @@ func (o MTLDynamicLibraryObject) Label() string {
 // written (since only compiled code for the current device was loaded).
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/serialize(to:)
-func (o MTLDynamicLibraryObject) SerializeToURLError(url foundation.INSURL) (bool, error) {
+func (o MTLDynamicLibraryObject) SerializeToURLError(url foundation.NSURL) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("serializeToURL:error:"), url)
 	if err != nil {
 		return false, err
 	}
 	return rv, nil
+}
+
+// The Metal device object that created the dynamic library.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/device
+func (o MTLDynamicLibraryObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
+// A file path for this dynamic library.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/installName
+func (o MTLDynamicLibraryObject) InstallName() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("installName"))
+	return foundation.NSStringFromID(rv).String()
 }
 
 // A string that identifies the library.
@@ -118,6 +106,11 @@ func (o MTLDynamicLibraryObject) SerializeToURLError(url foundation.INSURL) (boo
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLDynamicLibraryObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLDynamicLibraryObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

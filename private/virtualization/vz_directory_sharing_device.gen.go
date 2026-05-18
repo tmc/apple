@@ -75,14 +75,14 @@ type IVZDirectorySharingDevice interface {
 }
 
 // Init initializes the instance.
-func (d VZDirectorySharingDevice) Init() VZDirectorySharingDevice {
-	rv := objc.Send[VZDirectorySharingDevice](d.ID, objc.Sel("init"))
+func (v VZDirectorySharingDevice) Init() VZDirectorySharingDevice {
+	rv := objc.Send[VZDirectorySharingDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d VZDirectorySharingDevice) Autorelease() VZDirectorySharingDevice {
-	rv := objc.Send[VZDirectorySharingDevice](d.ID, objc.Sel("autorelease"))
+func (v VZDirectorySharingDevice) Autorelease() VZDirectorySharingDevice {
+	rv := objc.Send[VZDirectorySharingDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -94,21 +94,21 @@ func NewVZDirectorySharingDevice() VZDirectorySharingDevice {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDevice/_initWithVirtualMachine:directorySharingDeviceIndex:
-func (d VZDirectorySharingDevice) _initWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:"), machine, index)
+func (v VZDirectorySharingDevice) _initWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithVirtualMachineDirectorySharingDeviceIndex is an exported wrapper for the private method _initWithVirtualMachineDirectorySharingDeviceIndex.
-func (d VZDirectorySharingDevice) InitWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(d.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:")) {
+func (v VZDirectorySharingDevice) InitWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithVirtualMachine:directorySharingDeviceIndex:"}
 		return nil, err
 	}
-	return d._initWithVirtualMachineDirectorySharingDeviceIndex(machine, index), nil
+	return v._initWithVirtualMachineDirectorySharingDeviceIndex(machine, index), nil
 }
 
 // CanInitWithVirtualMachineDirectorySharingDeviceIndex reports whether the receiver responds to the private selector _initWithVirtualMachine:directorySharingDeviceIndex:.
-func (d VZDirectorySharingDevice) CanInitWithVirtualMachineDirectorySharingDeviceIndex() bool {
-	return objc.RespondsToSelector(d.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:"))
+func (v VZDirectorySharingDevice) CanInitWithVirtualMachineDirectorySharingDeviceIndex() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:"))
 }

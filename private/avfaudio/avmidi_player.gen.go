@@ -87,14 +87,14 @@ type IAVMIDIPlayer interface {
 }
 
 // Init initializes the instance.
-func (m AVMIDIPlayer) Init() AVMIDIPlayer {
-	rv := objc.Send[AVMIDIPlayer](m.ID, objc.Sel("init"))
+func (a AVMIDIPlayer) Init() AVMIDIPlayer {
+	rv := objc.Send[AVMIDIPlayer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m AVMIDIPlayer) Autorelease() AVMIDIPlayer {
-	rv := objc.Send[AVMIDIPlayer](m.ID, objc.Sel("autorelease"))
+func (a AVMIDIPlayer) Autorelease() AVMIDIPlayer {
+	rv := objc.Send[AVMIDIPlayer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -113,30 +113,30 @@ func NewMIDIPlayerBase() AVMIDIPlayer {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/beatsForHostTime:
-func (m AVMIDIPlayer) BeatsForHostTime(time uint64) float64 {
-	rv := objc.Send[float64](m.ID, objc.Sel("beatsForHostTime:"), time)
+func (a AVMIDIPlayer) BeatsForHostTime(time uint64) float64 {
+	rv := objc.Send[float64](a.ID, objc.Sel("beatsForHostTime:"), time)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/destroyBase
-func (m AVMIDIPlayer) DestroyBase() {
-	objc.Send[objc.ID](m.ID, objc.Sel("destroyBase"))
+func (a AVMIDIPlayer) DestroyBase() {
+	objc.Send[objc.ID](a.ID, objc.Sel("destroyBase"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/hostTimeForBeats:
-func (m AVMIDIPlayer) HostTimeForBeats(beats float64) uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("hostTimeForBeats:"), beats)
+func (a AVMIDIPlayer) HostTimeForBeats(beats float64) uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("hostTimeForBeats:"), beats)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/initBase
-func (m AVMIDIPlayer) InitBase() AVMIDIPlayer {
-	rv := objc.Send[AVMIDIPlayer](m.ID, objc.Sel("initBase"))
+func (a AVMIDIPlayer) InitBase() AVMIDIPlayer {
+	rv := objc.Send[AVMIDIPlayer](a.ID, objc.Sel("initBase"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/playing
-func (m AVMIDIPlayer) Playing() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("playing"))
+func (a AVMIDIPlayer) Playing() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("playing"))
 	return rv
 }

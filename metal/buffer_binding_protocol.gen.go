@@ -15,27 +15,27 @@ type MTLBufferBinding interface {
 	objectivec.IObject
 	MTLBinding
 
-	// BufferAlignment protocol.
+	// bufferAlignment protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferAlignment
 	BufferAlignment() uint
 
-	// BufferDataSize protocol.
+	// bufferDataSize protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferDataSize
 	BufferDataSize() uint
 
-	// BufferDataType protocol.
+	// bufferDataType protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferDataType
 	BufferDataType() MTLDataType
 
-	// BufferPointerType protocol.
+	// bufferPointerType protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferPointerType
 	BufferPointerType() IMTLPointerType
 
-	// BufferStructType protocol.
+	// bufferStructType protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferStructType
 	BufferStructType() IMTLStructType
@@ -56,36 +56,6 @@ func MTLBufferBindingObjectFromID(id objc.ID) MTLBufferBindingObject {
 	return MTLBufferBindingObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferAlignment
-func (o MTLBufferBindingObject) BufferAlignment() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("bufferAlignment"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferDataSize
-func (o MTLBufferBindingObject) BufferDataSize() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("bufferDataSize"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferDataType
-func (o MTLBufferBindingObject) BufferDataType() MTLDataType {
-	rv := objc.Send[MTLDataType](o.ID, objc.Sel("bufferDataType"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferPointerType
-func (o MTLBufferBindingObject) BufferPointerType() IMTLPointerType {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("bufferPointerType"))
-	return MTLPointerTypeFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferStructType
-func (o MTLBufferBindingObject) BufferStructType() IMTLStructType {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("bufferStructType"))
-	return MTLStructTypeFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/access
@@ -122,4 +92,46 @@ func (o MTLBufferBindingObject) Name() string {
 func (o MTLBufferBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferAlignment
+func (o MTLBufferBindingObject) BufferAlignment() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("bufferAlignment"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferDataSize
+func (o MTLBufferBindingObject) BufferDataSize() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("bufferDataSize"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferDataType
+func (o MTLBufferBindingObject) BufferDataType() MTLDataType {
+	rv := objc.Send[MTLDataType](o.ID, objc.Sel("bufferDataType"))
+	return MTLDataType(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferPointerType
+func (o MTLBufferBindingObject) BufferPointerType() IMTLPointerType {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("bufferPointerType"))
+	return MTLPointerTypeFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferStructType
+func (o MTLBufferBindingObject) BufferStructType() IMTLStructType {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("bufferStructType"))
+	return MTLStructTypeFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
+func (o MTLBufferBindingObject) Argument() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
+	return bool(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
+func (o MTLBufferBindingObject) Used() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
+	return bool(rv)
 }

@@ -91,14 +91,14 @@ type IVZPlatformConfiguration interface {
 }
 
 // Init initializes the instance.
-func (p VZPlatformConfiguration) Init() VZPlatformConfiguration {
-	rv := objc.Send[VZPlatformConfiguration](p.ID, objc.Sel("init"))
+func (v VZPlatformConfiguration) Init() VZPlatformConfiguration {
+	rv := objc.Send[VZPlatformConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p VZPlatformConfiguration) Autorelease() VZPlatformConfiguration {
-	rv := objc.Send[VZPlatformConfiguration](p.ID, objc.Sel("autorelease"))
+func (v VZPlatformConfiguration) Autorelease() VZPlatformConfiguration {
+	rv := objc.Send[VZPlatformConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,50 +110,50 @@ func NewVZPlatformConfiguration() VZPlatformConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/_init
-func (p VZPlatformConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("_init"))
+func (v VZPlatformConfiguration) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/_platform
-func (p VZPlatformConfiguration) _platform() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("_platform"))
+func (v VZPlatformConfiguration) _platform() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_platform"))
 	return objectivec.Object{ID: rv}
 }
 
 // CanPlatform reports whether the receiver responds to the private selector _platform.
-func (p VZPlatformConfiguration) CanPlatform() bool {
-	return objc.RespondsToSelector(p.ID, objc.Sel("_platform"))
+func (v VZPlatformConfiguration) CanPlatform() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_platform"))
 }
 
 // Platform is an exported wrapper for the private property _platform.
-func (p VZPlatformConfiguration) Platform() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(p.ID, objc.Sel("_platform")) {
+func (v VZPlatformConfiguration) Platform() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_platform")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_platform"}
 	}
-	return p._platform(), nil
+	return v._platform(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/debugDescription
-func (p VZPlatformConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
+func (v VZPlatformConfiguration) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/description
-func (p VZPlatformConfiguration) Description() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
+func (v VZPlatformConfiguration) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/hash
-func (p VZPlatformConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
+func (v VZPlatformConfiguration) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/superclass
-func (p VZPlatformConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
+func (v VZPlatformConfiguration) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

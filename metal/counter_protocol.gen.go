@@ -39,7 +39,15 @@ func MTLCounterObjectFromID(id objc.ID) MTLCounterObject {
 
 // The name of a GPU’s counter instance.
 //
+// # Discussion
+//
+// The property typically matches one of the common counter names that
+// [MTLCommonCounter] defines (see [Confirming which counters and counter sets
+// a GPU supports]).
+//
 // See: https://developer.apple.com/documentation/Metal/MTLCounter/name
+//
+// [Confirming which counters and counter sets a GPU supports]: https://developer.apple.com/documentation/Metal/confirming-which-counters-and-counter-sets-a-gpu-supports
 func (o MTLCounterObject) Name() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()

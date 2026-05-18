@@ -123,9 +123,9 @@ type IAVMIDIPlayer interface {
 	// Topic: Creating a MIDI player
 
 	// Creates a player to play a MIDI file with the specified soundbank.
-	InitWithContentsOfURLSoundBankURLError(inURL foundation.INSURL, bankURL foundation.INSURL) (AVMIDIPlayer, error)
+	InitWithContentsOfURLSoundBankURLError(inURL foundation.NSURL, bankURL foundation.NSURL) (AVMIDIPlayer, error)
 	// Creates a player to play MIDI data with the specified soundbank.
-	InitWithDataSoundBankURLError(data foundation.INSData, bankURL foundation.INSURL) (AVMIDIPlayer, error)
+	InitWithDataSoundBankURLError(data foundation.NSData, bankURL foundation.NSURL) (AVMIDIPlayer, error)
 
 	// Topic: Controlling playback
 
@@ -185,7 +185,7 @@ func NewAVMIDIPlayer() AVMIDIPlayer {
 // A new MIDI player, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/init(contentsOf:soundBankURL:)
-func NewMIDIPlayerWithContentsOfURLSoundBankURLError(inURL foundation.INSURL, bankURL foundation.INSURL) (AVMIDIPlayer, error) {
+func NewMIDIPlayerWithContentsOfURLSoundBankURLError(inURL foundation.NSURL, bankURL foundation.NSURL) (AVMIDIPlayer, error) {
 	var errorPtr objc.ID
 	instance := getAVMIDIPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:soundBankURL:error:"), inURL, bankURL, unsafe.Pointer(&errorPtr))
@@ -209,7 +209,7 @@ func NewMIDIPlayerWithContentsOfURLSoundBankURLError(inURL foundation.INSURL, ba
 // A new MIDI player, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/init(data:soundBankURL:)
-func NewMIDIPlayerWithDataSoundBankURLError(data foundation.INSData, bankURL foundation.INSURL) (AVMIDIPlayer, error) {
+func NewMIDIPlayerWithDataSoundBankURLError(data foundation.NSData, bankURL foundation.NSURL) (AVMIDIPlayer, error) {
 	var errorPtr objc.ID
 	instance := getAVMIDIPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:soundBankURL:error:"), data, bankURL, unsafe.Pointer(&errorPtr))
@@ -233,7 +233,7 @@ func NewMIDIPlayerWithDataSoundBankURLError(data foundation.INSData, bankURL fou
 // A new MIDI player, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/init(contentsOf:soundBankURL:)
-func (m AVMIDIPlayer) InitWithContentsOfURLSoundBankURLError(inURL foundation.INSURL, bankURL foundation.INSURL) (AVMIDIPlayer, error) {
+func (m AVMIDIPlayer) InitWithContentsOfURLSoundBankURLError(inURL foundation.NSURL, bankURL foundation.NSURL) (AVMIDIPlayer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithContentsOfURL:soundBankURL:error:"), inURL, bankURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -257,7 +257,7 @@ func (m AVMIDIPlayer) InitWithContentsOfURLSoundBankURLError(inURL foundation.IN
 // A new MIDI player, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/init(data:soundBankURL:)
-func (m AVMIDIPlayer) InitWithDataSoundBankURLError(data foundation.INSData, bankURL foundation.INSURL) (AVMIDIPlayer, error) {
+func (m AVMIDIPlayer) InitWithDataSoundBankURLError(data foundation.NSData, bankURL foundation.NSURL) (AVMIDIPlayer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithData:soundBankURL:error:"), data, bankURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

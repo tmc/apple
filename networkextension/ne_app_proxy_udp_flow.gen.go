@@ -55,6 +55,10 @@ func (nc NEAppProxyUDPFlowClass) Alloc() NEAppProxyUDPFlow {
 //
 //   - [NEAppProxyUDPFlow.LocalEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
 //
+// # Instance Properties
+//
+//   - [NEAppProxyUDPFlow.LocalFlowEndpoint]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow
 type NEAppProxyUDPFlow struct {
 	NEAppProxyFlow
@@ -77,6 +81,10 @@ func NEAppProxyUDPFlowFromID(id objc.ID) NEAppProxyUDPFlow {
 //
 //   - [INEAppProxyUDPFlow.LocalEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
 //
+// # Instance Properties
+//
+//   - [INEAppProxyUDPFlow.LocalFlowEndpoint]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow
 type INEAppProxyUDPFlow interface {
 	INEAppProxyFlow
@@ -86,7 +94,10 @@ type INEAppProxyUDPFlow interface {
 	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
 	LocalEndpoint() INWEndpoint
 
+	// Topic: Instance Properties
+
 	LocalFlowEndpoint() network.NWEndpoint
+
 	ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler VoidHandler)
 	WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints *NWEndpointArray, completionHandler ErrorHandler)
 }

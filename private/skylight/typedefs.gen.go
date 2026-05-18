@@ -87,7 +87,7 @@ type WSStructuralRegionRef uintptr
 type ZoomManagerRef uintptr
 
 // See: https://developer.apple.com/documentation/SkyLight/shared_weak_countRef
-type Shared_weak_countRef uintptr
+type SharedWeakCountRef uintptr
 
 // See: https://developer.apple.com/documentation/SkyLight/x_list_structRef
-type X_list_structRef uintptr
+type XListStructRef uintptr

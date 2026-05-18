@@ -19,30 +19,18 @@ type CIAccordionFoldTransition interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/bottomHeight
 	BottomHeight() float32
-
-	// A value that specifies the intensity of the shadow in the transtion.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/foldShadowAmount
-	FoldShadowAmount() float32
-
-	// The number of folds used in the transition.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/numberOfFolds
-	NumberOfFolds() float32
-
-	// The height of the accordion-fold part of the transition.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/bottomHeight
 	SetBottomHeight(value float32)
 
 	// A value that specifies the intensity of the shadow in the transtion.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/foldShadowAmount
+	FoldShadowAmount() float32
 	SetFoldShadowAmount(value float32)
 
 	// The number of folds used in the transition.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/numberOfFolds
+	NumberOfFolds() float32
 	SetNumberOfFolds(value float32)
 }
 
@@ -61,30 +49,6 @@ func CIAccordionFoldTransitionObjectFromID(id objc.ID) CIAccordionFoldTransition
 	return CIAccordionFoldTransitionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The height of the accordion-fold part of the transition.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/bottomHeight
-func (o CIAccordionFoldTransitionObject) BottomHeight() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("bottomHeight"))
-	return rv
-}
-
-// A value that specifies the intensity of the shadow in the transtion.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/foldShadowAmount
-func (o CIAccordionFoldTransitionObject) FoldShadowAmount() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("foldShadowAmount"))
-	return rv
-}
-
-// The number of folds used in the transition.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/numberOfFolds
-func (o CIAccordionFoldTransitionObject) NumberOfFolds() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("numberOfFolds"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -123,6 +87,11 @@ func (o CIAccordionFoldTransitionObject) Time() float32 {
 // The height of the accordion-fold part of the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/bottomHeight
+func (o CIAccordionFoldTransitionObject) BottomHeight() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("bottomHeight"))
+	return float32(rv)
+}
+
 func (o CIAccordionFoldTransitionObject) SetBottomHeight(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomHeight:"), value)
 }
@@ -130,6 +99,11 @@ func (o CIAccordionFoldTransitionObject) SetBottomHeight(value float32) {
 // A value that specifies the intensity of the shadow in the transtion.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/foldShadowAmount
+func (o CIAccordionFoldTransitionObject) FoldShadowAmount() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("foldShadowAmount"))
+	return float32(rv)
+}
+
 func (o CIAccordionFoldTransitionObject) SetFoldShadowAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFoldShadowAmount:"), value)
 }
@@ -137,6 +111,11 @@ func (o CIAccordionFoldTransitionObject) SetFoldShadowAmount(value float32) {
 // The number of folds used in the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/numberOfFolds
+func (o CIAccordionFoldTransitionObject) NumberOfFolds() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("numberOfFolds"))
+	return float32(rv)
+}
+
 func (o CIAccordionFoldTransitionObject) SetNumberOfFolds(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNumberOfFolds:"), value)
 }

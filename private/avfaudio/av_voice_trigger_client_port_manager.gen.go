@@ -148,14 +148,14 @@ type IAVVoiceTriggerClientPortManager interface {
 }
 
 // Init initializes the instance.
-func (v AVVoiceTriggerClientPortManager) Init() AVVoiceTriggerClientPortManager {
-	rv := objc.Send[AVVoiceTriggerClientPortManager](v.ID, objc.Sel("init"))
+func (a AVVoiceTriggerClientPortManager) Init() AVVoiceTriggerClientPortManager {
+	rv := objc.Send[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVoiceTriggerClientPortManager) Autorelease() AVVoiceTriggerClientPortManager {
-	rv := objc.Send[AVVoiceTriggerClientPortManager](v.ID, objc.Sel("autorelease"))
+func (a AVVoiceTriggerClientPortManager) Autorelease() AVVoiceTriggerClientPortManager {
+	rv := objc.Send[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -167,131 +167,131 @@ func NewAVVoiceTriggerClientPortManager() AVVoiceTriggerClientPortManager {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/callMuteStateChangeNotificationBlock:
-func (v AVVoiceTriggerClientPortManager) CallMuteStateChangeNotificationBlock(block bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("callMuteStateChangeNotificationBlock:"), block)
+func (a AVVoiceTriggerClientPortManager) CallMuteStateChangeNotificationBlock(block bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("callMuteStateChangeNotificationBlock:"), block)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/callRunningStateChangeNotificationBlock:
-func (v AVVoiceTriggerClientPortManager) CallRunningStateChangeNotificationBlock(block bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("callRunningStateChangeNotificationBlock:"), block)
+func (a AVVoiceTriggerClientPortManager) CallRunningStateChangeNotificationBlock(block bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("callRunningStateChangeNotificationBlock:"), block)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/notifyMuteStateChanged
-func (v AVVoiceTriggerClientPortManager) NotifyMuteStateChanged() {
-	objc.Send[objc.ID](v.ID, objc.Sel("notifyMuteStateChanged"))
+func (a AVVoiceTriggerClientPortManager) NotifyMuteStateChanged() {
+	objc.Send[objc.ID](a.ID, objc.Sel("notifyMuteStateChanged"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/notifyRunningStateChangedWithHysteresis
-func (v AVVoiceTriggerClientPortManager) NotifyRunningStateChangedWithHysteresis() {
-	objc.Send[objc.ID](v.ID, objc.Sel("notifyRunningStateChangedWithHysteresis"))
+func (a AVVoiceTriggerClientPortManager) NotifyRunningStateChangedWithHysteresis() {
+	objc.Send[objc.ID](a.ID, objc.Sel("notifyRunningStateChangedWithHysteresis"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/setMuteStateChangeNotificationBlock:
-func (v AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationBlock(block VoidHandler) {
+func (a AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setMuteStateChangeNotificationBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setMuteStateChangeNotificationBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/setRunningStateChangeNotificationBlock:
-func (v AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlock(block VoidHandler) {
+func (a AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setRunningStateChangeNotificationBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setRunningStateChangeNotificationBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/initWithSerialQueue:portType:hysteresisDurationSeconds:runningStateChangeNotificationBlock:muteStateChangeNotificationBlock:
-func (v AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock(queue objectivec.IObject, type_ uint64, seconds float32, block VoidHandler, block2 VoidHandler) AVVoiceTriggerClientPortManager {
+func (a AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock(queue objectivec.IObject, type_ uint64, seconds float32, block VoidHandler, block2 VoidHandler) AVVoiceTriggerClientPortManager {
 	_block3, _ := NewVoidBlock(block)
 	_block4, _ := NewVoidBlock(block2)
-	rv := objc.Send[AVVoiceTriggerClientPortManager](v.ID, objc.Sel("initWithSerialQueue:portType:hysteresisDurationSeconds:runningStateChangeNotificationBlock:muteStateChangeNotificationBlock:"), queue, type_, seconds, _block3, _block4)
+	rv := objc.Send[AVVoiceTriggerClientPortManager](a.ID, objc.Sel("initWithSerialQueue:portType:hysteresisDurationSeconds:runningStateChangeNotificationBlock:muteStateChangeNotificationBlock:"), queue, type_, seconds, _block3, _block4)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/deviceID
-func (v AVVoiceTriggerClientPortManager) DeviceID() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("deviceID"))
+func (a AVVoiceTriggerClientPortManager) DeviceID() uint32 {
+	rv := objc.Send[uint32](a.ID, objc.Sel("deviceID"))
 	return rv
 }
-func (v AVVoiceTriggerClientPortManager) SetDeviceID(value uint32) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDeviceID:"), value)
+func (a AVVoiceTriggerClientPortManager) SetDeviceID(value uint32) {
+	objc.Send[struct{}](a.ID, objc.Sel("setDeviceID:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/generation
-func (v AVVoiceTriggerClientPortManager) Generation() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("generation"))
+func (a AVVoiceTriggerClientPortManager) Generation() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("generation"))
 	return rv
 }
-func (v AVVoiceTriggerClientPortManager) SetGeneration(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setGeneration:"), value)
+func (a AVVoiceTriggerClientPortManager) SetGeneration(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setGeneration:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/hysteresisDurationSeconds
-func (v AVVoiceTriggerClientPortManager) HysteresisDurationSeconds() float32 {
-	rv := objc.Send[float32](v.ID, objc.Sel("hysteresisDurationSeconds"))
+func (a AVVoiceTriggerClientPortManager) HysteresisDurationSeconds() float32 {
+	rv := objc.Send[float32](a.ID, objc.Sel("hysteresisDurationSeconds"))
 	return rv
 }
-func (v AVVoiceTriggerClientPortManager) SetHysteresisDurationSeconds(value float32) {
-	objc.Send[struct{}](v.ID, objc.Sel("setHysteresisDurationSeconds:"), value)
+func (a AVVoiceTriggerClientPortManager) SetHysteresisDurationSeconds(value float32) {
+	objc.Send[struct{}](a.ID, objc.Sel("setHysteresisDurationSeconds:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/lastRunningStateSent
-func (v AVVoiceTriggerClientPortManager) LastRunningStateSent() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("lastRunningStateSent"))
+func (a AVVoiceTriggerClientPortManager) LastRunningStateSent() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("lastRunningStateSent"))
 	return rv
 }
-func (v AVVoiceTriggerClientPortManager) SetLastRunningStateSent(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setLastRunningStateSent:"), value)
+func (a AVVoiceTriggerClientPortManager) SetLastRunningStateSent(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setLastRunningStateSent:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/listeningEnabled
-func (v AVVoiceTriggerClientPortManager) ListeningEnabled() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("listeningEnabled"))
+func (a AVVoiceTriggerClientPortManager) ListeningEnabled() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("listeningEnabled"))
 	return rv
 }
-func (v AVVoiceTriggerClientPortManager) SetListeningEnabled(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setListeningEnabled:"), value)
+func (a AVVoiceTriggerClientPortManager) SetListeningEnabled(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setListeningEnabled:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/muteStateChangeNotificationRegistered
-func (v AVVoiceTriggerClientPortManager) MuteStateChangeNotificationRegistered() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("muteStateChangeNotificationRegistered"))
+func (a AVVoiceTriggerClientPortManager) MuteStateChangeNotificationRegistered() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("muteStateChangeNotificationRegistered"))
 	return rv
 }
-func (v AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationRegistered(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setMuteStateChangeNotificationRegistered:"), value)
+func (a AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationRegistered(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setMuteStateChangeNotificationRegistered:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/portType
-func (v AVVoiceTriggerClientPortManager) PortType() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("portType"))
+func (a AVVoiceTriggerClientPortManager) PortType() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("portType"))
 	return rv
 }
-func (v AVVoiceTriggerClientPortManager) SetPortType(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPortType:"), value)
+func (a AVVoiceTriggerClientPortManager) SetPortType(value uint64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setPortType:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/queue
-func (v AVVoiceTriggerClientPortManager) Queue() objectivec.Object {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("queue"))
+func (a AVVoiceTriggerClientPortManager) Queue() objectivec.Object {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (v AVVoiceTriggerClientPortManager) SetQueue(value objectivec.Object) {
-	objc.Send[struct{}](v.ID, objc.Sel("setQueue:"), value)
+func (a AVVoiceTriggerClientPortManager) SetQueue(value objectivec.Object) {
+	objc.Send[struct{}](a.ID, objc.Sel("setQueue:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClientPortManager/runningStateChangeNotificationRegistered
-func (v AVVoiceTriggerClientPortManager) RunningStateChangeNotificationRegistered() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("runningStateChangeNotificationRegistered"))
+func (a AVVoiceTriggerClientPortManager) RunningStateChangeNotificationRegistered() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("runningStateChangeNotificationRegistered"))
 	return rv
 }
-func (v AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationRegistered(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setRunningStateChangeNotificationRegistered:"), value)
+func (a AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationRegistered(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setRunningStateChangeNotificationRegistered:"), value)
 }
 
 // SetMuteStateChangeNotificationBlockSync is a synchronous wrapper around [AVVoiceTriggerClientPortManager.SetMuteStateChangeNotificationBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetMuteStateChangeNotificationBlock(func() {
+	a.SetMuteStateChangeNotificationBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -304,9 +304,9 @@ func (v AVVoiceTriggerClientPortManager) SetMuteStateChangeNotificationBlockSync
 
 // SetRunningStateChangeNotificationBlockSync is a synchronous wrapper around [AVVoiceTriggerClientPortManager.SetRunningStateChangeNotificationBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetRunningStateChangeNotificationBlock(func() {
+	a.SetRunningStateChangeNotificationBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -319,9 +319,9 @@ func (v AVVoiceTriggerClientPortManager) SetRunningStateChangeNotificationBlockS
 
 // InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlockSync is a synchronous wrapper around [AVVoiceTriggerClientPortManager.InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlockSync(ctx context.Context, queue objectivec.IObject, type_ uint64, seconds float32, block VoidHandler) error {
+func (a AVVoiceTriggerClientPortManager) InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlockSync(ctx context.Context, queue objectivec.IObject, type_ uint64, seconds float32, block VoidHandler) error {
 	done := make(chan struct{}, 1)
-	v.InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock(queue, type_, seconds, block, func() {
+	a.InitWithSerialQueuePortTypeHysteresisDurationSecondsRunningStateChangeNotificationBlockMuteStateChangeNotificationBlock(queue, type_, seconds, block, func() {
 		done <- struct{}{}
 	})
 	select {

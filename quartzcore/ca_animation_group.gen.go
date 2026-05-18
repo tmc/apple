@@ -102,7 +102,6 @@ type ICAAnimationGroup interface {
 
 	// Determines if the animation is removed from the target layer’s animations upon completion.
 	IsRemovedOnCompletion() bool
-	SetIsRemovedOnCompletion(value bool)
 }
 
 // Init initializes the instance.
@@ -150,6 +149,6 @@ func (a CAAnimationGroup) IsRemovedOnCompletion() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("removedOnCompletion"))
 	return rv
 }
-func (a CAAnimationGroup) SetIsRemovedOnCompletion(value bool) {
+func (a CAAnimationGroup) SetRemovedOnCompletion(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRemovedOnCompletion:"), value)
 }

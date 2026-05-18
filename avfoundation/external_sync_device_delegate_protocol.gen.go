@@ -37,7 +37,7 @@ func AVExternalSyncDeviceDelegateObjectFromID(id objc.ID) AVExternalSyncDeviceDe
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDeviceDelegate/externalSyncDevice(_:failedWithError:)
-func (o AVExternalSyncDeviceDelegateObject) ExternalSyncDeviceFailedWithError(device IAVExternalSyncDevice, error_ foundation.INSError) {
+func (o AVExternalSyncDeviceDelegateObject) ExternalSyncDeviceFailedWithError(device IAVExternalSyncDevice, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("externalSyncDevice:failedWithError:"), device, error_)
 }
 

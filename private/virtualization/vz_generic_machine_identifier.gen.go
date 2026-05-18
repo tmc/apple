@@ -85,14 +85,14 @@ type IVZGenericMachineIdentifier interface {
 }
 
 // Init initializes the instance.
-func (g VZGenericMachineIdentifier) Init() VZGenericMachineIdentifier {
-	rv := objc.Send[VZGenericMachineIdentifier](g.ID, objc.Sel("init"))
+func (v VZGenericMachineIdentifier) Init() VZGenericMachineIdentifier {
+	rv := objc.Send[VZGenericMachineIdentifier](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g VZGenericMachineIdentifier) Autorelease() VZGenericMachineIdentifier {
-	rv := objc.Send[VZGenericMachineIdentifier](g.ID, objc.Sel("autorelease"))
+func (v VZGenericMachineIdentifier) Autorelease() VZGenericMachineIdentifier {
+	rv := objc.Send[VZGenericMachineIdentifier](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -104,25 +104,25 @@ func NewVZGenericMachineIdentifier() VZGenericMachineIdentifier {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/debugDescription
-func (g VZGenericMachineIdentifier) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+func (v VZGenericMachineIdentifier) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/description
-func (g VZGenericMachineIdentifier) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+func (v VZGenericMachineIdentifier) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/hash
-func (g VZGenericMachineIdentifier) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+func (v VZGenericMachineIdentifier) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/superclass
-func (g VZGenericMachineIdentifier) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
+func (v VZGenericMachineIdentifier) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

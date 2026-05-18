@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -99,16 +98,16 @@ type ICPXSpecialKeyEventProcessor interface {
 
 	// Topic: Methods
 
-	CleanupForProcessDeath(death *CPSProcessRecRef)
+	CleanupForProcessDeath(death CPSProcessRec)
 	ClearEventState()
-	ExitSpecialKeyModeForProcess(mode uint32, process *CPSProcessRecRef)
+	ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec)
 	HotKeyChanged(changed objectivec.IObject)
-	ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64
-	ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event *SLSEventRecordRef, id uint64, down bool, context unsafe.Pointer, dispatcher objectivec.IObject) int64
-	RegisterSpecialKeyConnectionForProcess(key uint32, connection unsafe.Pointer, process *CPSProcessRecRef) int
-	UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRecRef) int
+	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int
+	UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int
 	InitWithProcessManagerFocusManagerSymbolicHotKeyRegistryCallbackSchedulerNotificationCenter(manager objectivec.IObject, manager2 objectivec.IObject, registry objectivec.IObject, scheduler objectivec.IObject, center objectivec.IObject) CPXSpecialKeyEventProcessor
-	InitWithSession(session unsafe.Pointer) CPXSpecialKeyEventProcessor
+	InitWithSession(session CGXSession) CPXSpecialKeyEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -142,14 +141,14 @@ func NewCPXSpecialKeyEventProcessorWithProcessManagerFocusManagerSymbolicHotKeyR
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessor/initWithSession:
-func NewCPXSpecialKeyEventProcessorWithSession(session unsafe.Pointer) CPXSpecialKeyEventProcessor {
+func NewCPXSpecialKeyEventProcessorWithSession(session CGXSession) CPXSpecialKeyEventProcessor {
 	instance := getCPXSpecialKeyEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXSpecialKeyEventProcessorFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessor/cleanupForProcessDeath:
-func (c CPXSpecialKeyEventProcessor) CleanupForProcessDeath(death *CPSProcessRecRef) {
+func (c CPXSpecialKeyEventProcessor) CleanupForProcessDeath(death CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
 
@@ -159,7 +158,7 @@ func (c CPXSpecialKeyEventProcessor) ClearEventState() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessor/exitSpecialKeyMode:forProcess:
-func (c CPXSpecialKeyEventProcessor) ExitSpecialKeyModeForProcess(mode uint32, process *CPSProcessRecRef) {
+func (c CPXSpecialKeyEventProcessor) ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("exitSpecialKeyMode:forProcess:"), mode, process)
 }
 
@@ -169,25 +168,25 @@ func (c CPXSpecialKeyEventProcessor) HotKeyChanged(changed objectivec.IObject) {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessor/processEvent:context:dispatcher:
-func (c CPXSpecialKeyEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (c CPXSpecialKeyEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessor/processHotKeyEvent:hotKeyID:isDown:context:dispatcher:
-func (c CPXSpecialKeyEventProcessor) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event *SLSEventRecordRef, id uint64, down bool, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (c CPXSpecialKeyEventProcessor) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processHotKeyEvent:hotKeyID:isDown:context:dispatcher:"), event, id, down, context, dispatcher)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessor/registerSpecialKey:connection:forProcess:
-func (c CPXSpecialKeyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection unsafe.Pointer, process *CPSProcessRecRef) int {
+func (c CPXSpecialKeyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int {
 	rv := objc.Send[int](c.ID, objc.Sel("registerSpecialKey:connection:forProcess:"), key, connection, process)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessor/unregisterSpecialKey:forProcess:
-func (c CPXSpecialKeyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRecRef) int {
+func (c CPXSpecialKeyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int {
 	rv := objc.Send[int](c.ID, objc.Sel("unregisterSpecialKey:forProcess:"), key, process)
 	return rv
 }
@@ -199,7 +198,7 @@ func (c CPXSpecialKeyEventProcessor) InitWithProcessManagerFocusManagerSymbolicH
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessor/initWithSession:
-func (c CPXSpecialKeyEventProcessor) InitWithSession(session unsafe.Pointer) CPXSpecialKeyEventProcessor {
+func (c CPXSpecialKeyEventProcessor) InitWithSession(session CGXSession) CPXSpecialKeyEventProcessor {
 	rv := objc.Send[CPXSpecialKeyEventProcessor](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }

@@ -4,7 +4,6 @@ package usernotifications
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -85,7 +84,7 @@ func NewUNNotificationAttributedMessageContext() UNNotificationAttributedMessage
 }
 
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttributedMessageContext/init(sendMessageIntent:attributedContent:)
-func NewUNNotificationAttributedMessageContextWithSendMessageIntentAttributedContent(sendMessageIntent unsafe.Pointer, attributedContent foundation.NSAttributedString) UNNotificationAttributedMessageContext {
+func NewUNNotificationAttributedMessageContextWithSendMessageIntentAttributedContent(sendMessageIntent objectivec.IObject, attributedContent foundation.NSAttributedString) UNNotificationAttributedMessageContext {
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationAttributedMessageContextClass().class), objc.Sel("contextWithSendMessageIntent:attributedContent:"), sendMessageIntent, attributedContent)
 	return UNNotificationAttributedMessageContextFromID(rv)
 }

@@ -340,7 +340,6 @@ type INSStackView interface {
 
 	// A Boolean value indicating whether the view is hidden.
 	IsHidden() bool
-	SetIsHidden(value bool)
 	// A required constraint.
 	Required() NSLayoutPriority
 }
@@ -1117,7 +1116,7 @@ func (s NSStackView) IsHidden() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hidden"))
 	return rv
 }
-func (s NSStackView) SetIsHidden(value bool) {
+func (s NSStackView) SetHidden(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHidden:"), value)
 }
 

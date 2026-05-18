@@ -56,7 +56,7 @@ func (ac AVPlayerPlaybackCoordinatorClass) Alloc() AVPlayerPlaybackCoordinator {
 // Use the standard interfaces of [AVPlayer] to control playback in your app.
 // The coordinator automatically intercepts calls that affect transport
 // control state, like [SetRateTimeAtHostTime], [Pause], and
-// [SeekToTimeCompletionHandler], and propagates them to other participants in
+// [SeekToDateCompletionHandler], and propagates them to other participants in
 // the group when appropriate. Similarly, the coordinator observes rate and
 // time changes from other participants and imposes them on the player. If
 // this occurs, the player item posts notifications that identify the

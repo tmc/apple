@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -76,8 +75,8 @@ type ICPXEntryPointsService interface {
 
 	// Topic: Methods
 
-	ClientAddToPermittedFrontList(client unsafe.Pointer, list objectivec.IObject) int
-	ClientRemoveFromPermittedFrontList(client unsafe.Pointer, list objectivec.IObject) int
+	ClientAddToPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int
+	ClientRemoveFromPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int
 	InitWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService
 }
 
@@ -108,13 +107,13 @@ func NewCPXEntryPointsServiceWithFocusControllerProcessManager(controller object
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEntryPointsService/client:addToPermittedFrontList:
-func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client unsafe.Pointer, list objectivec.IObject) int {
+func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int {
 	rv := objc.Send[int](c.ID, objc.Sel("client:addToPermittedFrontList:"), client, list)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEntryPointsService/client:removeFromPermittedFrontList:
-func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client unsafe.Pointer, list objectivec.IObject) int {
+func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client CGXConnection, list CPSProcessSerNum) int {
 	rv := objc.Send[int](c.ID, objc.Sel("client:removeFromPermittedFrontList:"), client, list)
 	return rv
 }

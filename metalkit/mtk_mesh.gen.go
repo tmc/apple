@@ -275,7 +275,7 @@ func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.M
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 // [MDLMesh]: https://developer.apple.com/documentation/ModelIO/MDLMesh
-func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset unsafe.Pointer, device metal.MTLDevice, sourceMeshes []objc.ID) ([]MTKMesh, error) {
+func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset objectivec.IObject, device metal.MTLDevice, sourceMeshes []objc.ID) ([]MTKMesh, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](objc.ID(_MTKMeshClass.class), objc.Sel("newMeshesFromAsset:device:sourceMeshes:error:"), asset, device, objectivec.IDSliceToNSArray(sourceMeshes), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

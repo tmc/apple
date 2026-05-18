@@ -27,7 +27,7 @@ type SCContentSharingPickerObserver interface {
 	// Tells the observer that a sharing picker was unable to start.
 	//
 	// See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerObserver/contentSharingPickerStartDidFailWithError(_:)
-	ContentSharingPickerStartDidFailWithError(error_ foundation.INSError)
+	ContentSharingPickerStartDidFailWithError(error_ foundation.NSError)
 }
 
 // SCContentSharingPickerObserverObject wraps an existing Objective-C object that conforms to the SCContentSharingPickerObserver protocol.
@@ -77,6 +77,6 @@ func (o SCContentSharingPickerObserverObject) ContentSharingPickerDidUpdateWithF
 // error: The error that caused the picker failure.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerObserver/contentSharingPickerStartDidFailWithError(_:)
-func (o SCContentSharingPickerObserverObject) ContentSharingPickerStartDidFailWithError(error_ foundation.INSError) {
+func (o SCContentSharingPickerObserverObject) ContentSharingPickerStartDidFailWithError(error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentSharingPickerStartDidFailWithError:"), error_)
 }

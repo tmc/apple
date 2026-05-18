@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -145,8 +146,8 @@ type IMLModelDescription interface {
 	ParameterDescriptionsByKey() foundation.INSDictionary
 
 	// The list of available compute devices that the model’s prediction methods use.
-	AvailableComputeDevices() objectivec.IObject
-	SetAvailableComputeDevices(value objectivec.IObject)
+	AvailableComputeDevices() unsafe.Pointer
+	SetAvailableComputeDevices(value unsafe.Pointer)
 	// The configuration of the model set during initialization.
 	Configuration() IMLModelConfiguration
 	SetConfiguration(value IMLModelConfiguration)
@@ -277,11 +278,11 @@ func (m MLModelDescription) ParameterDescriptionsByKey() foundation.INSDictionar
 // use.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodel/availablecomputedevices-6klyt
-func (m MLModelDescription) AvailableComputeDevices() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableComputeDevices"))
-	return objectivec.Object{ID: rv}
+func (m MLModelDescription) AvailableComputeDevices() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("availableComputeDevices"))
+	return rv
 }
-func (m MLModelDescription) SetAvailableComputeDevices(value objectivec.IObject) {
+func (m MLModelDescription) SetAvailableComputeDevices(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableComputeDevices:"), value)
 }
 

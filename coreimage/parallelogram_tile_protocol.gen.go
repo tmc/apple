@@ -19,50 +19,30 @@ type CIParallelogramTile interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/acuteAngle
 	AcuteAngle() float32
-
-	// The angle, in radians, of the tiled pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/angle
-	Angle() float32
-
-	// The x and y position to use as the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/center
-	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/inputImage
-	InputImage() ICIImage
-
-	// The width of a tile.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/width
-	Width() float32
-
-	// The primary angle for the repeating parallelogram tile.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/acuteAngle
 	SetAcuteAngle(value float32)
 
 	// The angle, in radians, of the tiled pattern.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/angle
+	Angle() float32
 	SetAngle(value float32)
 
 	// The x and y position to use as the center of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/center
+	Center() corefoundation.CGPoint
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The width of a tile.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/width
+	Width() float32
 	SetWidth(value float32)
 }
 
@@ -83,46 +63,6 @@ func CIParallelogramTileObjectFromID(id objc.ID) CIParallelogramTileObject {
 	}
 }
 
-// The primary angle for the repeating parallelogram tile.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/acuteAngle
-func (o CIParallelogramTileObject) AcuteAngle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("acuteAngle"))
-	return rv
-}
-
-// The angle, in radians, of the tiled pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/angle
-func (o CIParallelogramTileObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The x and y position to use as the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/center
-func (o CIParallelogramTileObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/inputImage
-func (o CIParallelogramTileObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The width of a tile.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/width
-func (o CIParallelogramTileObject) Width() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("width"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -140,6 +80,11 @@ func (o CIParallelogramTileObject) OutputImage() ICIImage {
 // parallelogram tiles.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/acuteAngle
+func (o CIParallelogramTileObject) AcuteAngle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("acuteAngle"))
+	return float32(rv)
+}
+
 func (o CIParallelogramTileObject) SetAcuteAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAcuteAngle:"), value)
 }
@@ -147,6 +92,11 @@ func (o CIParallelogramTileObject) SetAcuteAngle(value float32) {
 // The angle, in radians, of the tiled pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/angle
+func (o CIParallelogramTileObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CIParallelogramTileObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -154,6 +104,11 @@ func (o CIParallelogramTileObject) SetAngle(value float32) {
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/center
+func (o CIParallelogramTileObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIParallelogramTileObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -161,6 +116,11 @@ func (o CIParallelogramTileObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/inputImage
+func (o CIParallelogramTileObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIParallelogramTileObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -168,6 +128,11 @@ func (o CIParallelogramTileObject) SetInputImage(value ICIImage) {
 // The width of a tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/width
+func (o CIParallelogramTileObject) Width() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("width"))
+	return float32(rv)
+}
+
 func (o CIParallelogramTileObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }

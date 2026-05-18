@@ -3,8 +3,6 @@
 package skylight
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,12 +16,12 @@ type CPXSpecialKeyEventProcessing interface {
 	// CleanupForProcessDeath protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/cleanupForProcessDeath:
-	CleanupForProcessDeath(death *CPSProcessRecRef)
+	CleanupForProcessDeath(death CPSProcessRec)
 
 	// ExitSpecialKeyModeForProcess protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/exitSpecialKeyMode:forProcess:
-	ExitSpecialKeyModeForProcess(mode uint32, process *CPSProcessRecRef)
+	ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec)
 
 	// HotKeyChanged protocol.
 	//
@@ -33,12 +31,12 @@ type CPXSpecialKeyEventProcessing interface {
 	// RegisterSpecialKeyConnectionForProcess protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/registerSpecialKey:connection:forProcess:
-	RegisterSpecialKeyConnectionForProcess(key uint32, connection unsafe.Pointer, process *CPSProcessRecRef) int
+	RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int
 
 	// UnregisterSpecialKeyForProcess protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/unregisterSpecialKey:forProcess:
-	UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRecRef) int
+	UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int
 }
 
 // CPXSpecialKeyEventProcessingObject wraps an existing Objective-C object that conforms to the CPXSpecialKeyEventProcessing protocol.
@@ -59,12 +57,12 @@ func CPXSpecialKeyEventProcessingObjectFromID(id objc.ID) CPXSpecialKeyEventProc
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/cleanupForProcessDeath:
-func (o CPXSpecialKeyEventProcessingObject) CleanupForProcessDeath(death *CPSProcessRecRef) {
+func (o CPXSpecialKeyEventProcessingObject) CleanupForProcessDeath(death CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/exitSpecialKeyMode:forProcess:
-func (o CPXSpecialKeyEventProcessingObject) ExitSpecialKeyModeForProcess(mode uint32, process *CPSProcessRecRef) {
+func (o CPXSpecialKeyEventProcessingObject) ExitSpecialKeyModeForProcess(mode uint32, process CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("exitSpecialKeyMode:forProcess:"), mode, process)
 }
 
@@ -74,19 +72,19 @@ func (o CPXSpecialKeyEventProcessingObject) HotKeyChanged(changed objectivec.IOb
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/processHotKeyEvent:hotKeyID:isDown:context:dispatcher:
-func (o CPXSpecialKeyEventProcessingObject) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event *SLSEventRecordRef, id uint64, down bool, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (o CPXSpecialKeyEventProcessingObject) ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event SLSEventRecord, id uint64, down bool, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("processHotKeyEvent:hotKeyID:isDown:context:dispatcher:"), event, id, down, context, dispatcher)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/registerSpecialKey:connection:forProcess:
-func (o CPXSpecialKeyEventProcessingObject) RegisterSpecialKeyConnectionForProcess(key uint32, connection unsafe.Pointer, process *CPSProcessRecRef) int {
+func (o CPXSpecialKeyEventProcessingObject) RegisterSpecialKeyConnectionForProcess(key uint32, connection CGXConnection, process CPSProcessRec) int {
 	rv := objc.Send[int](o.ID, objc.Sel("registerSpecialKey:connection:forProcess:"), key, connection, process)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSpecialKeyEventProcessing/unregisterSpecialKey:forProcess:
-func (o CPXSpecialKeyEventProcessingObject) UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRecRef) int {
+func (o CPXSpecialKeyEventProcessingObject) UnregisterSpecialKeyForProcess(key uint32, process CPSProcessRec) int {
 	rv := objc.Send[int](o.ID, objc.Sel("unregisterSpecialKey:forProcess:"), key, process)
 	return rv
 }

@@ -73,7 +73,6 @@ func VNFaceLandmarkRegionFromID(id objc.ID) VNFaceLandmarkRegion {
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion
 type IVNFaceLandmarkRegion interface {
 	objectivec.IObject
-	VNRequestRevisionProviding
 
 	// Topic: Instance Properties
 
@@ -105,6 +104,14 @@ func NewVNFaceLandmarkRegion() VNFaceLandmarkRegion {
 	return rv
 }
 
+// The revision of the [VNRequest] subclass used to generate the implementing
+// object.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
+func (f VNFaceLandmarkRegion) RequestRevision() uint {
+	rv := objc.Send[uint](f.ID, objc.Sel("requestRevision"))
+	return rv
+}
 func (f VNFaceLandmarkRegion) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -130,15 +137,6 @@ func (f VNFaceLandmarkRegion) Landmarks() IVNFaceLandmarks2D {
 }
 func (f VNFaceLandmarkRegion) SetLandmarks(value IVNFaceLandmarks2D) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
-}
-
-// The revision of the [VNRequest] subclass used to generate the implementing
-// object.
-//
-// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
-func (f VNFaceLandmarkRegion) RequestRevision() uint {
-	rv := objc.Send[uint](f.ID, objc.Sel("requestRevision"))
-	return rv
 }
 
 // Protocol methods for VNRequestRevisionProviding

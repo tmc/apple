@@ -75,14 +75,14 @@ type IVZMemoryBalloonDevice interface {
 }
 
 // Init initializes the instance.
-func (m VZMemoryBalloonDevice) Init() VZMemoryBalloonDevice {
-	rv := objc.Send[VZMemoryBalloonDevice](m.ID, objc.Sel("init"))
+func (v VZMemoryBalloonDevice) Init() VZMemoryBalloonDevice {
+	rv := objc.Send[VZMemoryBalloonDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMemoryBalloonDevice) Autorelease() VZMemoryBalloonDevice {
-	rv := objc.Send[VZMemoryBalloonDevice](m.ID, objc.Sel("autorelease"))
+func (v VZMemoryBalloonDevice) Autorelease() VZMemoryBalloonDevice {
+	rv := objc.Send[VZMemoryBalloonDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -94,7 +94,7 @@ func NewVZMemoryBalloonDevice() VZMemoryBalloonDevice {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDevice/_init
-func (m VZMemoryBalloonDevice) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_init"))
+func (v VZMemoryBalloonDevice) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }

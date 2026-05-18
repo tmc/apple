@@ -12,6 +12,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/quartzcore"
 )
 
@@ -415,7 +416,7 @@ type IMTKView interface {
 
 	// Topic: Instance Properties
 
-	CurrentMTL4RenderPassDescriptor() metal.MTL4RenderPassDescriptor
+	CurrentMTL4RenderPassDescriptor() objectivec.IObject
 
 	ResidencySet() metal.MTLResidencySet
 }
@@ -1056,9 +1057,9 @@ func (v MTKView) SetPresentsWithTransaction(value bool) {
 // there is no requirement for an app to use this descriptor.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/currentMTL4RenderPassDescriptor
-func (v MTKView) CurrentMTL4RenderPassDescriptor() metal.MTL4RenderPassDescriptor {
+func (v MTKView) CurrentMTL4RenderPassDescriptor() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("currentMTL4RenderPassDescriptor"))
-	return metal.MTL4RenderPassDescriptorFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
 
 // # Discussion

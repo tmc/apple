@@ -14,11 +14,6 @@ import (
 type NSTextSelectionDataSource interface {
 	objectivec.IObject
 
-	// Returns the starting and ending locations for the document.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/documentRange
-	DocumentRange() INSTextRange
-
 	// Enumerates all the insertion point caret offsets from left to right in visual order.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
@@ -48,6 +43,11 @@ type NSTextSelectionDataSource interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/baseWritingDirection(at:)
 	BaseWritingDirectionAtLocation(location NSTextLocation) NSTextSelectionNavigationWritingDirection
+
+	// Returns the starting and ending locations for the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/documentRange
+	DocumentRange() INSTextRange
 }
 
 // NSTextSelectionDataSourceObject wraps an existing Objective-C object that conforms to the NSTextSelectionDataSource protocol.
@@ -65,14 +65,6 @@ func NSTextSelectionDataSourceObjectFromID(id objc.ID) NSTextSelectionDataSource
 	return NSTextSelectionDataSourceObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Returns the starting and ending locations for the document.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/documentRange
-func (o NSTextSelectionDataSourceObject) DocumentRange() INSTextRange {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("documentRange"))
-	return NSTextRangeFromID(rv)
 }
 
 // Enumerates all the insertion point caret offsets from left to right in
@@ -221,4 +213,12 @@ func (o NSTextSelectionDataSourceObject) EnumerateContainerBoundariesFromLocatio
 func (o NSTextSelectionDataSourceObject) TextLayoutOrientationAtLocation(location NSTextLocation) NSTextSelectionNavigationLayoutOrientation {
 	rv := objc.Send[NSTextSelectionNavigationLayoutOrientation](o.ID, objc.Sel("textLayoutOrientationAtLocation:"), location)
 	return rv
+}
+
+// Returns the starting and ending locations for the document.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/documentRange
+func (o NSTextSelectionDataSourceObject) DocumentRange() INSTextRange {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("documentRange"))
+	return NSTextRangeFromID(rv)
 }

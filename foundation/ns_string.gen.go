@@ -629,11 +629,6 @@ func NSStringFromID(id objc.ID) NSString {
 // See: https://developer.apple.com/documentation/Foundation/NSString
 type INSString interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSItemProviderReading
-	NSItemProviderWriting
-	NSMutableCopying
 	NSSecureCoding
 
 	// Topic: Creating and Initializing Strings
@@ -957,8 +952,8 @@ type INSString interface {
 	// Topic: Instance Properties
 
 	// A custom playground Quick Look for this instance.
-	CustomPlaygroundQuickLook() objectivec.IObject
-	SetCustomPlaygroundQuickLook(value objectivec.IObject)
+	CustomPlaygroundQuickLook() unsafe.Pointer
+	SetCustomPlaygroundQuickLook(value unsafe.Pointer)
 
 	// Topic: Instance Methods
 
@@ -1062,7 +1057,7 @@ func NewStringWithCString(bytes string) NSString {
 	return NSStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)-20f9h
 func NewStringWithCStringEncoding(nullTerminatedCString string, encoding uint) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")), encoding)
@@ -1436,7 +1431,7 @@ func NewStringWithString(aString string) NSString {
 	return NSStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)-vg2b
 func NewStringWithUTF8String(nullTerminatedCString string) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")))
@@ -3485,7 +3480,7 @@ func (s NSString) DrawInRectWithAttributes(rect corefoundation.CGRect, attrs INS
 // about the actual values used to render the string. This parameter may be
 // `nil`.
 //
-// context is a [*appkit.NSStringDrawingContext].
+// context is a [*uikit.NSStringDrawingContext].
 //
 // # Discussion
 //
@@ -3531,7 +3526,7 @@ func (s NSString) DrawWithRectOptionsAttributesContext(rect corefoundation.CGRec
 // context: The string drawing context to use for the receiver, specifying minimum
 // scale factor and tracking adjustments.
 //
-// context is a [*appkit.NSStringDrawingContext].
+// context is a [*uikit.NSStringDrawingContext].
 //
 // # Return Value
 //
@@ -4010,7 +4005,7 @@ func (s NSString) InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Poin
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)-20f9h
 func (s NSString) InitWithCStringEncoding(nullTerminatedCString string, encoding uint) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")), encoding)
 	return rv
@@ -4046,7 +4041,7 @@ func (s NSString) InitWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.
 
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)-vg2b
 func (s NSString) InitWithUTF8String(nullTerminatedCString string) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")))
 	return rv
@@ -4243,6 +4238,15 @@ func (s NSString) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typ
 func (s NSString) StringByAppendingFormat(format string) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("stringByAppendingFormat:"), objc.String(format))
 	return NSStringFromID(rv).String()
+}
+
+// An array of UTI strings representing the types of data that can be loaded
+// for an item provider.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
+func (s NSString) WritableTypeIdentifiersForItemProvider() []string {
+	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
+	return objc.ConvertSliceToStrings(rv)
 }
 
 // Returns a localized string intended for display in a notification alert.
@@ -5288,34 +5292,12 @@ func (s NSString) StringByRemovingPercentEncoding() string {
 // A custom playground Quick Look for this instance.
 //
 // See: https://developer.apple.com/documentation/foundation/nsstring/customplaygroundquicklook
-func (s NSString) CustomPlaygroundQuickLook() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("customPlaygroundQuickLook"))
-	return objectivec.Object{ID: rv}
+func (s NSString) CustomPlaygroundQuickLook() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("customPlaygroundQuickLook"))
+	return rv
 }
-func (s NSString) SetCustomPlaygroundQuickLook(value objectivec.IObject) {
+func (s NSString) SetCustomPlaygroundQuickLook(value unsafe.Pointer) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
-}
-
-// An array of UTI strings representing the types of data that can be loaded
-// for an item provider.
-//
-// # Discussion
-//
-// Provide uniform type identifiers (UTIs) in order from highest fidelity to
-// lowest. If your app employs a native data representation, place that first
-// in the array.
-//
-// Use the instance version of this property when you initialize an item
-// provider with an object. As possible, implement this property to provide an
-// extended array of UTIs based on the object. For example, for an [NSURL]
-// object, your implementation could offer the `public.File()-url` UTI, in
-// addition to the `public.Url()` UTI, if your implementation detects that the
-// stored URL uses the `//` scheme.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
-func (s NSString) WritableTypeIdentifiersForItemProvider() []string {
-	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
-	return objc.ConvertSliceToStrings(rv)
 }
 
 // Returns a zero-terminated list of the encodings string objects support in

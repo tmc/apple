@@ -84,6 +84,8 @@ func (nc NSScreenClass) Alloc() NSScreen {
 //
 //   - [NSScreen.VisibleFrame]: The current location and dimensions of the visible screen.
 //   - [NSScreen.SafeAreaInsets]: The distances from the screen’s edges at which content isn’t obscured.
+//   - [NSScreen.AuxiliaryTopLeftArea]
+//   - [NSScreen.AuxiliaryTopRightArea]
 //
 // # Getting Extended Dynamic Range Details
 //
@@ -102,6 +104,10 @@ func (nc NSScreenClass) Alloc() NSScreen {
 // # Synchronizing with the display’s refresh rate
 //
 //   - [NSScreen.DisplayLinkWithTargetSelector]: Returns a new display link whose callback will be invoked in-sync with the display the screen is on.
+//
+// # Instance Properties
+//
+//   - [NSScreen.CGDirectDisplayID]: The CGDirectDisplayID for this screen. This will return kCGNullDirectDisplay if there isn’t one.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen
 type NSScreen struct {
@@ -142,6 +148,8 @@ func NSScreenFromID(id objc.ID) NSScreen {
 //
 //   - [INSScreen.VisibleFrame]: The current location and dimensions of the visible screen.
 //   - [INSScreen.SafeAreaInsets]: The distances from the screen’s edges at which content isn’t obscured.
+//   - [INSScreen.AuxiliaryTopLeftArea]
+//   - [INSScreen.AuxiliaryTopRightArea]
 //
 // # Getting Extended Dynamic Range Details
 //
@@ -160,6 +168,10 @@ func NSScreenFromID(id objc.ID) NSScreen {
 // # Synchronizing with the display’s refresh rate
 //
 //   - [INSScreen.DisplayLinkWithTargetSelector]: Returns a new display link whose callback will be invoked in-sync with the display the screen is on.
+//
+// # Instance Properties
+//
+//   - [INSScreen.CGDirectDisplayID]: The CGDirectDisplayID for this screen. This will return kCGNullDirectDisplay if there isn’t one.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen
 type INSScreen interface {
@@ -199,6 +211,8 @@ type INSScreen interface {
 	VisibleFrame() corefoundation.CGRect
 	// The distances from the screen’s edges at which content isn’t obscured.
 	SafeAreaInsets() foundation.NSEdgeInsets
+	AuxiliaryTopLeftArea() corefoundation.CGRect
+	AuxiliaryTopRightArea() corefoundation.CGRect
 
 	// Topic: Getting Extended Dynamic Range Details
 
@@ -227,10 +241,10 @@ type INSScreen interface {
 	// Returns a new display link whose callback will be invoked in-sync with the display the screen is on.
 	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) quartzcore.CADisplayLink
 
+	// Topic: Instance Properties
+
 	// The CGDirectDisplayID for this screen. This will return kCGNullDirectDisplay if there isn’t one.
 	CGDirectDisplayID() uint32
-	AuxiliaryTopLeftArea() corefoundation.CGRect
-	AuxiliaryTopRightArea() corefoundation.CGRect
 }
 
 // Init initializes the instance.
@@ -482,6 +496,18 @@ func (s NSScreen) SafeAreaInsets() foundation.NSEdgeInsets {
 	return foundation.NSEdgeInsets(rv)
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSScreen/auxiliaryTopLeftArea-4ow3p
+func (s NSScreen) AuxiliaryTopLeftArea() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("auxiliaryTopLeftArea"))
+	return corefoundation.CGRect(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSScreen/auxiliaryTopRightArea-6gb2v
+func (s NSScreen) AuxiliaryTopRightArea() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("auxiliaryTopRightArea"))
+	return corefoundation.CGRect(rv)
+}
+
 // The maximum possible color component value for the screen when it’s in
 // extended dynamic range (EDR) mode.
 //
@@ -626,18 +652,6 @@ func (s NSScreen) CGDirectDisplayID() uint32 {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSScreen/auxiliaryTopLeftArea-4ow3p
-func (s NSScreen) AuxiliaryTopLeftArea() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("auxiliaryTopLeftArea"))
-	return corefoundation.CGRect(rv)
-}
-
-// See: https://developer.apple.com/documentation/AppKit/NSScreen/auxiliaryTopRightArea-6gb2v
-func (s NSScreen) AuxiliaryTopRightArea() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("auxiliaryTopRightArea"))
-	return corefoundation.CGRect(rv)
-}
-
 // Returns the screen object containing the window with the keyboard focus.
 //
 // # Return Value
@@ -733,6 +747,6 @@ func (_NSScreenClass NSScreenClass) Shared() NSApplication {
 	rv := objc.Send[objc.ID](objc.ID(_NSScreenClass.class), objc.Sel("sharedApplication"))
 	return NSApplicationFromID(objc.ID(rv))
 }
-func (_NSScreenClass NSScreenClass) SetShared(value NSApplication) {
+func (_NSScreenClass NSScreenClass) SetSharedApplication(value NSApplication) {
 	objc.Send[struct{}](objc.ID(_NSScreenClass.class), objc.Sel("setSharedApplication:"), value)
 }

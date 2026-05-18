@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -86,8 +85,8 @@ type IWSUberEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64
-	InitWithSession(session unsafe.Pointer) WSUberEventProcessor
+	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
+	InitWithSession(session CGXSession) WSUberEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -114,7 +113,7 @@ func NewWSUberEventProcessor() WSUberEventProcessor {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/initWithSession:
-func NewWSUberEventProcessorWithSession(session unsafe.Pointer) WSUberEventProcessor {
+func NewWSUberEventProcessorWithSession(session CGXSession) WSUberEventProcessor {
 	instance := getWSUberEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSUberEventProcessorFromID(rv)
@@ -126,13 +125,13 @@ func (w WSUberEventProcessor) ClearEventState() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/processEvent:context:dispatcher:
-func (w WSUberEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (w WSUberEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](w.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSUberEventProcessor/initWithSession:
-func (w WSUberEventProcessor) InitWithSession(session unsafe.Pointer) WSUberEventProcessor {
+func (w WSUberEventProcessor) InitWithSession(session CGXSession) WSUberEventProcessor {
 	rv := objc.Send[WSUberEventProcessor](w.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }

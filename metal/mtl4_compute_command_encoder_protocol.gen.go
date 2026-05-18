@@ -145,6 +145,41 @@ type MTL4ComputeCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/writeTimestamp(granularity:counterHeap:index:)
 	WriteTimestampWithGranularityIntoHeapAtIndex(granularity MTL4TimestampGranularity, counterHeap MTL4CounterHeap, index uint)
 
+	// Encodes a command to copy image data from a buffer instance into a texture.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:
+	CopyFromBufferSourceOffsetSourceBytesPerRowSourceBytesPerImageSourceSizeToTextureDestinationSliceDestinationLevelDestinationOrigin(sourceBuffer MTLBuffer, sourceOffset uint, sourceBytesPerRow uint, sourceBytesPerImage uint, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin)
+
+	// Encodes a command to copy image data from a buffer into a texture with options for special texture formats.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:options:
+	CopyFromBufferSourceOffsetSourceBytesPerRowSourceBytesPerImageSourceSizeToTextureDestinationSliceDestinationLevelDestinationOriginOptions(sourceBuffer MTLBuffer, sourceOffset uint, sourceBytesPerRow uint, sourceBytesPerImage uint, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin, options MTLBlitOption)
+
+	// Encodes a command that copies image data from a slice of an [MTLTexture](<doc://com.apple.metal/documentation/Metal/MTLTexture>) instance to an [MTLBuffer](<doc://com.apple.metal/documentation/Metal/MTLBuffer>) instance.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:
+	CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToBufferDestinationOffsetDestinationBytesPerRowDestinationBytesPerImage(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationBuffer MTLBuffer, destinationOffset uint, destinationBytesPerRow uint, destinationBytesPerImage uint)
+
+	// Encodes a command that copies image data from a slice of a texture instance to a buffer, with options for special texture formats.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:options:
+	CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToBufferDestinationOffsetDestinationBytesPerRowDestinationBytesPerImageOptions(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationBuffer MTLBuffer, destinationOffset uint, destinationBytesPerRow uint, destinationBytesPerImage uint, options MTLBlitOption)
+
+	// Encodes a command that copies commands from an indirect command buffer into another.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:
+	CopyIndirectCommandBufferSourceRangeDestinationDestinationIndex(source MTLIndirectCommandBuffer, sourceRange foundation.NSRange, destination MTLIndirectCommandBuffer, destinationIndex uint)
+
+	// Encodes a command to execute a series of commands from an indirect command buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/executeCommandsInBuffer:withRange:
+	ExecuteCommandsInBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, executionRange foundation.NSRange)
+
+	// Encodes a command that fills a buffer with a constant value for each byte.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/fillBuffer:range:value:
+	FillBufferRangeValue(buffer MTLBuffer, range_ foundation.NSRange, value uint8)
+
 	// Encode a command to attempt to improve the performance of a range of commands within an indirect command buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/optimizeIndirectCommandBuffer:withRange:
@@ -617,15 +652,13 @@ func (o MTL4ComputeCommandEncoderObject) OptimizeContentsForGPUAccessSliceLevel(
 //
 // You are responsible for ensuring that the acceleration structure and
 // scratch buffer are at least the size that the query
-// [accelerationStructureSizes(descriptor:)] returns.
+// [AccelerationStructureSizesWithDescriptor] returns.
 //
 // Use an instance of [MTLResidencySet] to mark residency of the scratch
 // buffer the `scratchBuffer` parameter references, as well as for all the
 // primitive acceleration structures you directly and indirectly reference.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/build(destinationAccelerationStructure:descriptor:scratchBuffer:)
-//
-// [accelerationStructureSizes(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
 func (o MTL4ComputeCommandEncoderObject) BuildAccelerationStructureDescriptorScratchBuffer(accelerationStructure MTLAccelerationStructure, descriptor IMTL4AccelerationStructureDescriptor, scratchBuffer MTL4BufferRange) {
 	objc.Send[struct{}](o.ID, objc.Sel("buildAccelerationStructure:descriptor:scratchBuffer:"), accelerationStructure, descriptor, scratchBuffer)
 }
@@ -742,7 +775,7 @@ func (o MTL4ComputeCommandEncoderObject) WriteCompactedAccelerationStructureSize
 //
 // The scratch buffer you provide for the refit operation needs to be at least
 // as large as the size that the query
-// [accelerationStructureSizes(descriptor:)] returns. If the size this query
+// [AccelerationStructureSizesWithDescriptor] returns. If the size this query
 // returns is zero, you can omit providing a scratch buffer by passing `0` as
 // the address to the `scratchBuffer` parameter.
 //
@@ -752,8 +785,6 @@ func (o MTL4ComputeCommandEncoderObject) WriteCompactedAccelerationStructureSize
 // reference.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/refit(sourceAccelerationStructure:descriptor:destinationAccelerationStructure:scratchBuffer:options:)
-//
-// [accelerationStructureSizes(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
 func (o MTL4ComputeCommandEncoderObject) RefitAccelerationStructureDescriptorDestinationScratchBufferOptions(sourceAccelerationStructure MTLAccelerationStructure, descriptor IMTL4AccelerationStructureDescriptor, destinationAccelerationStructure MTLAccelerationStructure, scratchBuffer MTL4BufferRange, options MTLAccelerationStructureRefitOptions) {
 	objc.Send[struct{}](o.ID, objc.Sel("refitAccelerationStructure:descriptor:destination:scratchBuffer:options:"), sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, options)
 }
@@ -811,6 +842,276 @@ func (o MTL4ComputeCommandEncoderObject) WriteTimestampWithGranularityIntoHeapAt
 	objc.Send[struct{}](o.ID, objc.Sel("writeTimestampWithGranularity:intoHeap:atIndex:"), granularity, counterHeap, index)
 }
 
+// Encodes a command to copy image data from a buffer instance into a texture.
+//
+// sourceBuffer: A [MTLBuffer] instance the command copies data from.
+//
+// sourceOffset: A byte offset within `sourceBuffer` the command copies from. Set this value
+// to a multiple of `destinationTexture's` pixel size, in bytes.
+//
+// sourceBytesPerRow: The number of bytes between adjacent rows of pixels in `sourceBuffer`. Set
+// this value to a multiple of `destinationTexture's` pixel size, in bytes,
+// and less than or equal to the product of `destinationTexture's` pixel size,
+// in bytes, and the largest pixel width `destinationTexture's` type allows.
+// If `destinationTexture` uses a compressed pixel format, set
+// `sourceBytesPerRow` to the number of bytes between the starts of two row
+// blocks.
+//
+// sourceBytesPerImage: The number of bytes between each 2D image of a 3D texture. Set this value
+// to a multiple of `destinationTexture's` pixel size, in bytes, or `0` if
+// `sourceSize's` [depth] value is `1`.
+//
+// sourceSize: A [MTLSize] instance that represents the size of the region in
+// `destinationTexture`, in pixels, that the command copies data to, starting
+// at `destinationOrigin`. Assign `1` to each dimension that’s not relevant
+// to `destinationTexture`. If `destinationTexture` uses a compressed pixel
+// format, set `sourceSize` to a multiple of `destinationTexture's`
+// [PixelFormat] block size. If the block extends outside the bounds of the
+// texture, clamp `sourceSize` to the edge of the texture.
+//
+// destinationTexture: An [MTLTexture] instance the command copies data to. In order to copy the
+// contents into the destination texture, set its [IsFramebufferOnly] property
+// to false and don’t use a combined depth/stencil [PixelFormat].
+//
+// destinationSlice: A slice within `destinationTexture` the command uses as its starting point
+// for copying data to. Set this to `0` if `destinationTexture` isn’t a
+// texture array or a cube texture.
+//
+// destinationLevel: A mipmap level within `destinationTexture` the command copies data to.
+//
+// destinationOrigin: An [MTLOrigin] instance that represents a location within
+// `destinationTexture` that the command begins copying data to. Assign `0` to
+// each dimension that’s not relevant to `destinationTexture`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:
+//
+// [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
+// [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
+// [MTLOrigin]: https://developer.apple.com/documentation/Metal/MTLOrigin
+func (o MTL4ComputeCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRowSourceBytesPerImageSourceSizeToTextureDestinationSliceDestinationLevelDestinationOrigin(sourceBuffer MTLBuffer, sourceOffset uint, sourceBytesPerRow uint, sourceBytesPerImage uint, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:"), sourceBuffer, sourceOffset, sourceBytesPerRow, sourceBytesPerImage, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin)
+}
+
+// Encodes a command to copy image data from a buffer into a texture with
+// options for special texture formats.
+//
+// sourceBuffer: An [MTLBuffer] instance the command copies data from.
+//
+// sourceOffset: A byte offset within `sourceBuffer` the command copies from. Set this value
+// to a multiple of `destinationTexture's` pixel size, in bytes.
+//
+// sourceBytesPerRow: The number of bytes between adjacent rows of pixels in `sourceBuffer`. Set
+// this value to a multiple of `destinationTexture's` pixel size, in bytes,
+// and less than or equal to the product of `destinationTexture's` pixel size,
+// in bytes, and the largest pixel width `destinationTexture's` type allows.
+// If `destinationTexture` uses a compressed pixel format, set
+// `sourceBytesPerRow` to the number of bytes between the starts of two row
+// blocks.
+//
+// sourceBytesPerImage: The number of bytes between each 2D image of a 3D texture. Set this value
+// to a multiple of `destinationTexture's` pixel size, in bytes, or `0` if
+// `sourceSize's` [depth] value is `1`.
+//
+// sourceSize: An [MTLSize] instance that represents the size of the region in
+// `destinationTexture`, in pixels, that the command copies data to, starting
+// at `destinationOrigin`. Assign `1` to each dimension that’s not relevant
+// to `destinationTexture`. If `destinationTexture` uses a compressed pixel
+// format, set `sourceSize` to a multiple of `destinationTexture's`
+// [PixelFormat] block size. If the block extends outside the bounds of the
+// texture, clamp `sourceSize` to the edge of the texture.
+//
+// destinationTexture: An [MTLTexture] instance the command copies data to. In order to copy the
+// contents into the destination texture, set its [IsFramebufferOnly] property
+// to false and don’t use a combined depth/stencil [PixelFormat].
+//
+// destinationSlice: A slice within `destinationTexture` the command uses as its starting point
+// for copying data to. Set this to `0` if `destinationTexture` isn’t a
+// texture array or a cube texture.
+//
+// destinationLevel: A mipmap level within `destinationTexture` the command copies data to.
+//
+// destinationOrigin: An [MTLOrigin] instance that represents a location within
+// `destinationTexture` that the command begins copying data to. Assign `0` to
+// each dimension that’s not relevant to `destinationTexture`.
+//
+// options: An [MTLBlitOption] value that applies to textures with applicable pixel
+// formats, such as combined depth/stencil or PVRTC formats. If
+// `destinationTexture's` [PixelFormat] is a combined depth/stencil format,
+// set `options` to either [MTLBlitOptionDepthFromDepthStencil] or
+// [MTLBlitOptionStencilFromDepthStencil], but not both. If
+// `destinationTexture's` [PixelFormat] is a PVRTC format, set `options` to
+// [MTLBlitOptionRowLinearPVRTC].
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:options:
+//
+// [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
+// [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
+// [MTLOrigin]: https://developer.apple.com/documentation/Metal/MTLOrigin
+// [MTLBlitOption]: https://developer.apple.com/documentation/Metal/MTLBlitOption
+func (o MTL4ComputeCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRowSourceBytesPerImageSourceSizeToTextureDestinationSliceDestinationLevelDestinationOriginOptions(sourceBuffer MTLBuffer, sourceOffset uint, sourceBytesPerRow uint, sourceBytesPerImage uint, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin, options MTLBlitOption) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:options:"), sourceBuffer, sourceOffset, sourceBytesPerRow, sourceBytesPerImage, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin, options)
+}
+
+// Encodes a command that copies image data from a slice of an [MTLTexture]
+// instance to an [MTLBuffer] instance.
+//
+// sourceTexture: An [MTLTexture] texture that the command copies data from. To read the
+// source texture contents, you need to set its [IsFramebufferOnly] property
+// to false prior to drawing into it.
+//
+// sourceSlice: A slice within `sourceTexture` the command uses as a starting point to copy
+// data from. Set this to `0` if `sourceTexture` isn’t a texture array or a
+// cube texture.
+//
+// sourceLevel: A mipmap level within `sourceTexture`.
+//
+// sourceOrigin: An [MTLOrigin] instance that represents a location within `sourceTexture`
+// that the command begins copying data from. Assign `0` to each dimension
+// that’s not relevant to `sourceTexture`.
+//
+// sourceSize: An [MTLSize] instance that represents the size of the region, in pixels,
+// that the command copies from `sourceTexture`, starting at `sourceOrigin`.
+// Assign `1` to each dimension that’s not relevant to `sourceTexture`. If
+// `sourceTexture` uses a compressed pixel format, set `sourceSize` to a
+// multiple of the `sourceTexture's` [PixelFormat] block size. If the block
+// extends outside the bounds of the texture, clamp `sourceSize` to the edge
+// of the texture.
+//
+// destinationBuffer: An [MTLBuffer] instance the command copies data to.
+//
+// destinationOffset: A byte offset within `destinationBuffer` the command copies to. The value
+// you provide as this argument needs to be a multiple of `sourceTexture's`
+// pixel size, in bytes.
+//
+// destinationBytesPerRow: The number of bytes between adjacent rows of pixels in `destinationBuffer`.
+// This value must be a multiple of `sourceTexture's` pixel size, in bytes,
+// and less than or equal to the product of `sourceTexture's` pixel size, in
+// bytes, and the largest pixel width `sourceTexture’s` type allows. If
+// `sourceTexture` uses a compressed pixel format, set
+// `destinationBytesPerRow` to the number of bytes between the starts of two
+// row blocks.
+//
+// destinationBytesPerImage: The number of bytes between each 2D image of a 3D texture. This value must
+// be a multiple of `sourceTexture's` pixel size, in bytes. Set this value to
+// `0` if `sourceSize's` [depth] value is `1`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:
+//
+// [MTLOrigin]: https://developer.apple.com/documentation/Metal/MTLOrigin
+// [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
+// [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
+func (o MTL4ComputeCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToBufferDestinationOffsetDestinationBytesPerRowDestinationBytesPerImage(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationBuffer MTLBuffer, destinationOffset uint, destinationBytesPerRow uint, destinationBytesPerImage uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:"), sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationBuffer, destinationOffset, destinationBytesPerRow, destinationBytesPerImage)
+}
+
+// Encodes a command that copies image data from a slice of a texture instance
+// to a buffer, with options for special texture formats.
+//
+// sourceTexture: An [MTLTexture] texture that the command copies data from. To read the
+// source texture contents, you need to set its [IsFramebufferOnly] property
+// to false prior to drawing into it.
+//
+// sourceSlice: A slice within `sourceTexture` the command uses as a starting point to copy
+// data from. Set this to `0` if `sourceTexture` isn’t a texture array or a
+// cube texture.
+//
+// sourceLevel: A mipmap level within `sourceTexture`.
+//
+// sourceOrigin: An [MTLOrigin] instance that represents a location within `sourceTexture`
+// that the command begins copying data from. Assign `0` to each dimension
+// that’s not relevant to `sourceTexture`.
+//
+// sourceSize: An [MTLSize] instance that represents the size of the region, in pixels,
+// that the command copies from `sourceTexture`, starting at `sourceOrigin`.
+// Assign `1` to each dimension that’s not relevant to `sourceTexture`. If
+// `sourceTexture` uses a compressed pixel format, set `sourceSize` to a
+// multiple of the `sourceTexture's` [PixelFormat] block size. If the block
+// extends outside the bounds of the texture, clamp `sourceSize` to the edge
+// of the texture.
+//
+// destinationBuffer: An [MTLBuffer] instance the command copies data to.
+//
+// destinationOffset: A byte offset within `destinationBuffer` the command copies to. The value
+// you provide as this argument needs to be a multiple of `sourceTexture's`
+// pixel size, in bytes.
+//
+// destinationBytesPerRow: The number of bytes between adjacent rows of pixels in `destinationBuffer`.
+// This value must be a multiple of `sourceTexture's` pixel size, in bytes,
+// and less than or equal to the product of `sourceTexture's` pixel size, in
+// bytes, and the largest pixel width `sourceTexture’s` type allows. If
+// `sourceTexture` uses a compressed pixel format, set
+// `destinationBytesPerRow` to the number of bytes between the starts of two
+// row blocks.
+//
+// destinationBytesPerImage: The number of bytes between each 2D image of a 3D texture. This value must
+// be a multiple of `sourceTexture's` pixel size, in bytes. Set this value to
+// `0` if `sourceSize's` [depth] value is `1`.
+//
+// options: A [MTLBlitOption] value that applies to textures with applicable pixel
+// formats, such as combined depth/stencil or PVRTC formats. If
+// `sourceTexture's` [PixelFormat] is a combined depth/stencil format, set
+// `options` to either [MTLBlitOptionDepthFromDepthStencil] or
+// [MTLBlitOptionStencilFromDepthStencil], but not both. If `sourceTexture's`
+// [PixelFormat] is a PVRTC format, set `options` to
+// [MTLBlitOptionRowLinearPVRTC].
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:options:
+//
+// [MTLOrigin]: https://developer.apple.com/documentation/Metal/MTLOrigin
+// [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
+// [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
+// [MTLBlitOption]: https://developer.apple.com/documentation/Metal/MTLBlitOption
+func (o MTL4ComputeCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToBufferDestinationOffsetDestinationBytesPerRowDestinationBytesPerImageOptions(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationBuffer MTLBuffer, destinationOffset uint, destinationBytesPerRow uint, destinationBytesPerImage uint, options MTLBlitOption) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:options:"), sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationBuffer, destinationOffset, destinationBytesPerRow, destinationBytesPerImage, options)
+}
+
+// Encodes a command that copies commands from an indirect command buffer into
+// another.
+//
+// source: An [MTLIndirectCommandBuffer] instance from where the command copies.
+//
+// sourceRange: The range of commands in `source` to copy. The copy operation requires that
+// the source range starts at a valid execution point.
+//
+// destination: Another [MTLIndirectCommandBuffer] instance into which the command copies.
+//
+// destinationIndex: An index in `destination` into where the command copies content to. The
+// copy operation requires that the destination index is a valid execution
+// point with enough space left in `destination` to accommodate
+// `sourceRange.Count()` commands.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:
+func (o MTL4ComputeCommandEncoderObject) CopyIndirectCommandBufferSourceRangeDestinationDestinationIndex(source MTLIndirectCommandBuffer, sourceRange foundation.NSRange, destination MTLIndirectCommandBuffer, destinationIndex uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:"), source, sourceRange, destination, destinationIndex)
+}
+
+// Encodes a command to execute a series of commands from an indirect command
+// buffer.
+//
+// indirectCommandBuffer: [MTLIndirectCommandBuffer] instance containing the commands to execute.
+//
+// executionRange: The range of commands to execute.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/executeCommandsInBuffer:withRange:
+func (o MTL4ComputeCommandEncoderObject) ExecuteCommandsInBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, executionRange foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:withRange:"), indirectCommandBuffer, executionRange)
+}
+
+// Encodes a command that fills a buffer with a constant value for each byte.
+//
+// buffer: A [MTLBuffer] instance for which this command assigns each byte in a range
+// to a value.
+//
+// range: A range of bytes within `buffer` the command assigns value to. When calling
+// this method, pass in a range with a length greater than `0`.
+//
+// value: The value to write to each byte.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/fillBuffer:range:value:
+func (o MTL4ComputeCommandEncoderObject) FillBufferRangeValue(buffer MTLBuffer, range_ foundation.NSRange, value uint8) {
+	objc.Send[struct{}](o.ID, objc.Sel("fillBuffer:range:value:"), buffer, range_, value)
+}
+
 // Encode a command to attempt to improve the performance of a range of
 // commands within an indirect command buffer.
 //
@@ -863,7 +1164,7 @@ func (o MTL4ComputeCommandEncoderObject) OptimizeIndirectCommandBufferWithRange(
 //
 // The scratch buffer you provide for the refit operation needs to be at least
 // as large as the size that the query
-// [accelerationStructureSizes(descriptor:)] returns. If the size this query
+// [AccelerationStructureSizesWithDescriptor] returns. If the size this query
 // returns is zero, you can omit providing a scratch buffer by passing `0` as
 // the address to the `scratchBuffer` parameter.
 //
@@ -873,8 +1174,6 @@ func (o MTL4ComputeCommandEncoderObject) OptimizeIndirectCommandBufferWithRange(
 // reference.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/refitAccelerationStructure:descriptor:destination:scratchBuffer:
-//
-// [accelerationStructureSizes(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
 func (o MTL4ComputeCommandEncoderObject) RefitAccelerationStructureDescriptorDestinationScratchBuffer(sourceAccelerationStructure MTLAccelerationStructure, descriptor IMTL4AccelerationStructureDescriptor, destinationAccelerationStructure MTLAccelerationStructure, scratchBuffer MTL4BufferRange) {
 	objc.Send[struct{}](o.ID, objc.Sel("refitAccelerationStructure:descriptor:destination:scratchBuffer:"), sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer)
 }
@@ -1042,6 +1341,117 @@ func (o MTL4ComputeCommandEncoderObject) UpdateFenceAfterEncoderStages(fence MTL
 // [Synchronizing stages within a pass]: https://developer.apple.com/documentation/Metal/synchronizing-stages-within-a-pass
 func (o MTL4ComputeCommandEncoderObject) WaitForFenceBeforeEncoderStages(fence MTLFence, beforeEncoderStages MTLStages) {
 	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:beforeEncoderStages:"), fence, beforeEncoderStages)
+}
+
+// Encodes an intra-pass barrier.
+//
+// afterEncoderStages: [MTLStages] mask that represents the stages of work to wait for. This
+// argument only applies to subsequent work you encode in the current command
+// encoder.
+//
+// beforeEncoderStages: [MTLStages] mask that represents the stages of work that wait. This
+// argument only applies to work you encode in the current command encoder
+// prior to this barrier.
+//
+// visibilityOptions: [MTL4VisibilityOptions] of the barrier, controlling cache flush behavior.
+//
+// # Discussion
+//
+// Encode a barrier that guarantees that any subsequent work you encode in the
+// , corresponding to `beforeEncoderStages`, doesn’t begin until all prior
+// commands in this command encoder, corresponding to `afterEncoderStages`,
+// completes.
+//
+// When calling this method, it’s your responsibility to ensure parameters
+// `afterEncoderStages` and `beforeEncoderStages` contain a combination of
+// [MTLStages] for which this encoder can encode commands. For example, for a
+// [MTL4ComputeCommandEncoder] instance, you can provide any combination of
+// [MTLStageDispatch], [MTLStageBlit] and [MTLStageAccelerationStructure].
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:
+//
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+// [MTL4VisibilityOptions]: https://developer.apple.com/documentation/Metal/MTL4VisibilityOptions
+//
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+func (o MTL4ComputeCommandEncoderObject) BarrierAfterEncoderStagesBeforeEncoderStagesVisibilityOptions(afterEncoderStages MTLStages, beforeEncoderStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
+	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:"), afterEncoderStages, beforeEncoderStages, visibilityOptions)
+}
+
+// Encodes a consumer barrier on work you commit to the same command queue.
+//
+// afterQueueStages: [MTLStages] mask that represents the stages of work to wait for. This
+// argument applies to work corresponding to these stages you encode in prior
+// command encoders, and not for the current encoder.
+//
+// beforeStages: [MTLStages] mask that represents the stages of work that wait. This
+// argument applies to work you encode in the current command encoder.
+//
+// visibilityOptions: [MTL4VisibilityOptions] of the barrier.
+//
+// # Discussion
+//
+// Encode a barrier that guarantees that any subsequent work you encode in the
+// current command encoder that corresponds to the `beforeStages` stages
+// doesn’t proceed until Metal completes all work prior to the current
+// command encoder corresponding to the `afterQueueStages` stages, completes.
+//
+// Metal can reorder the exact point where it applies the barrier, so encode
+// the barrier as close to the command that consumes the resource as possible.
+// Don’t use this method for synchronizing resource access within the same
+// pass.
+//
+// If you need to synchronize work within a pass that you encode with an
+// instance of a subclass of [MTLCommandEncoder], use memory barriers instead.
+// For subclasses of [MTL4CommandEncoder], use encoder barriers.
+//
+// You can specify `afterQueueStages` and `beforeStages` that contain
+// [MTLStages] unrelated to the current command encoder.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterQueueStages:beforeStages:visibilityOptions:
+//
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+// [MTL4VisibilityOptions]: https://developer.apple.com/documentation/Metal/MTL4VisibilityOptions
+//
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+func (o MTL4ComputeCommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisibilityOptions(afterQueueStages MTLStages, beforeStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
+	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:visibilityOptions:"), afterQueueStages, beforeStages, visibilityOptions)
+}
+
+// Encodes a producer barrier on work committed to the same command queue.
+//
+// afterStages: [MTLStages] mask that represents the stages of work to wait for. This
+// argument applies to work corresponding to these stages you encode in the
+// current command encoder prior to this barrier command.
+//
+// beforeQueueStages: [MTLStages] mask that represents the stages of work that need to wait. This
+// argument applies to subsequent encoders and not to work in the current
+// command encoder.
+//
+// visibilityOptions: [MTL4VisibilityOptions] of the barrier, controlling cache flush behavior.
+//
+// # Discussion
+//
+// This method encodes a barrier that guarantees that any work you encode
+// using , corresponding to `beforeQueueStages`, don’t begin until all
+// commands you previously encode in the current encoder (and prior encoders),
+// corresponding to `afterStages`, complete.
+//
+// When calling this method, you can pass any [MTLStages] to parameters
+// `afterStages` and `beforeQueueStages`, even stages that don’t relate to
+// the current or prior command encoders.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterStages:beforeQueueStages:visibilityOptions:
+//
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+// [MTL4VisibilityOptions]: https://developer.apple.com/documentation/Metal/MTL4VisibilityOptions
+//
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+func (o MTL4ComputeCommandEncoderObject) BarrierAfterStagesBeforeQueueStagesVisibilityOptions(afterStages MTLStages, beforeQueueStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
+	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterStages:beforeQueueStages:visibilityOptions:"), afterStages, beforeQueueStages, visibilityOptions)
 }
 
 // Provides an optional label to assign to the command encoder for debug

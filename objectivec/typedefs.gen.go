@@ -92,3 +92,36 @@ type Objc_uncaught_exception_handler = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_zone_t
 type Objc_zone_t = uintptr
+
+// ObjcExceptionHandler is a Go-name alias for Objc_exception_handler.
+type ObjcExceptionHandler = Objc_exception_handler
+
+// ObjcExceptionMatcher is a Go-name alias for Objc_exception_matcher.
+type ObjcExceptionMatcher = Objc_exception_matcher
+
+// ObjcExceptionPreprocessor is a Go-name alias for Objc_exception_preprocessor.
+type ObjcExceptionPreprocessor = Objc_exception_preprocessor
+
+// ObjcFuncLoadImage is a Go-name alias for Objc_func_loadImage.
+type ObjcFuncLoadImage = Objc_func_loadImage
+
+// ObjcHookGetClass is a Go-name alias for Objc_hook_getClass.
+type ObjcHookGetClass = Objc_hook_getClass
+
+// ObjcHookGetImageName is a Go-name alias for Objc_hook_getImageName.
+type ObjcHookGetImageName = Objc_hook_getImageName
+
+// ObjcHookLazyClassNamer is a Go-name alias for Objc_hook_lazyClassNamer.
+type ObjcHookLazyClassNamer = Objc_hook_lazyClassNamer
+
+// ObjcObjectptr is a Go-name alias for Objc_objectptr_t.
+type ObjcObjectptr = Objc_objectptr_t
+
+// ObjcProperty is a Go-name alias for Objc_property_t.
+type ObjcProperty = Objc_property_t
+
+// ObjcUncaughtExceptionHandler is a Go-name alias for Objc_uncaught_exception_handler.
+type ObjcUncaughtExceptionHandler = Objc_uncaught_exception_handler
+
+// ObjcZone is a Go-name alias for Objc_zone_t.
+type ObjcZone = Objc_zone_t

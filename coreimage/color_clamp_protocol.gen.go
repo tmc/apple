@@ -18,30 +18,18 @@ type CIColorClamp interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/inputImage
 	InputImage() ICIImage
-
-	// A vector containing the higher clamping values.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/maxComponents
-	MaxComponents() ICIVector
-
-	// A vector containing the lower clamping values.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/minComponents
-	MinComponents() ICIVector
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/inputImage
 	SetInputImage(value ICIImage)
 
 	// A vector containing the higher clamping values.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/maxComponents
+	MaxComponents() ICIVector
 	SetMaxComponents(value ICIVector)
 
 	// A vector containing the lower clamping values.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/minComponents
+	MinComponents() ICIVector
 	SetMinComponents(value ICIVector)
 }
 
@@ -62,30 +50,6 @@ func CIColorClampObjectFromID(id objc.ID) CIColorClampObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/inputImage
-func (o CIColorClampObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// A vector containing the higher clamping values.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/maxComponents
-func (o CIColorClampObject) MaxComponents() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("maxComponents"))
-	return CIVectorFromID(rv)
-}
-
-// A vector containing the lower clamping values.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/minComponents
-func (o CIColorClampObject) MinComponents() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("minComponents"))
-	return CIVectorFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -98,6 +62,11 @@ func (o CIColorClampObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/inputImage
+func (o CIColorClampObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIColorClampObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -105,6 +74,11 @@ func (o CIColorClampObject) SetInputImage(value ICIImage) {
 // A vector containing the higher clamping values.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/maxComponents
+func (o CIColorClampObject) MaxComponents() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("maxComponents"))
+	return CIVectorFromID(rv)
+}
+
 func (o CIColorClampObject) SetMaxComponents(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaxComponents:"), value)
 }
@@ -112,6 +86,11 @@ func (o CIColorClampObject) SetMaxComponents(value ICIVector) {
 // A vector containing the lower clamping values.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/minComponents
+func (o CIColorClampObject) MinComponents() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("minComponents"))
+	return CIVectorFromID(rv)
+}
+
 func (o CIColorClampObject) SetMinComponents(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMinComponents:"), value)
 }

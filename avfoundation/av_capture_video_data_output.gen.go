@@ -151,7 +151,7 @@ type IAVCaptureVideoDataOutput interface {
 	// Returns a video settings dictionary appropriate for capturing video to a file with the specified codec and type.
 	RecommendedVideoSettingsForVideoCodecTypeAssetWriterOutputFileType(videoCodecType AVVideoCodecType, outputFileType AVFileType) foundation.INSDictionary
 	// Returns a dictionary of recommended output settings for writing the specified code, file type, and output URL.
-	RecommendedVideoSettingsForVideoCodecTypeAssetWriterOutputFileTypeOutputFileURL(videoCodecType AVVideoCodecType, outputFileType AVFileType, outputFileURL foundation.INSURL) foundation.INSDictionary
+	RecommendedVideoSettingsForVideoCodecTypeAssetWriterOutputFileTypeOutputFileURL(videoCodecType AVVideoCodecType, outputFileType AVFileType, outputFileURL foundation.NSURL) foundation.INSDictionary
 	// Specifies the recommended settings for use with an AVAssetWriterInput.
 	RecommendedVideoSettingsForAssetWriterWithOutputFileType(outputFileType AVFileType) foundation.INSDictionary
 
@@ -290,7 +290,7 @@ func (c AVCaptureVideoDataOutput) RecommendedVideoSettingsForVideoCodecTypeAsset
 // asset writer input.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/recommendedVideoSettings(forVideoCodecType:assetWriterOutputFileType:outputFileURL:)
-func (c AVCaptureVideoDataOutput) RecommendedVideoSettingsForVideoCodecTypeAssetWriterOutputFileTypeOutputFileURL(videoCodecType AVVideoCodecType, outputFileType AVFileType, outputFileURL foundation.INSURL) foundation.INSDictionary {
+func (c AVCaptureVideoDataOutput) RecommendedVideoSettingsForVideoCodecTypeAssetWriterOutputFileTypeOutputFileURL(videoCodecType AVVideoCodecType, outputFileType AVFileType, outputFileURL foundation.NSURL) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("recommendedVideoSettingsForVideoCodecType:assetWriterOutputFileType:outputFileURL:"), objc.String(string(videoCodecType)), objc.String(string(outputFileType)), outputFileURL)
 	return foundation.NSDictionaryFromID(rv)
 }

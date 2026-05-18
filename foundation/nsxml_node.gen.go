@@ -228,7 +228,6 @@ func NSXMLNodeFromID(id objc.ID) XMLNode { return XMLNodeFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/XMLNode
 type IXMLNode interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Creating and Initializing Node Objects
 

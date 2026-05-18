@@ -51478,12 +51478,12 @@ func Vfs_setup_vattr_from_attrlist(arg0 Attrlist, arg1 Vnode_attr, arg2 Vtype, a
 	return result
 }
 
-var _vfs_statfs func(arg0 Mount_t) uintptr
+var _vfs_statfs func(arg0 Mount_t) *Vfsstatfs
 var _vfs_statfsErr error
 
-func tryVfs_statfs(arg0 Mount_t) (uintptr, error) {
+func tryVfs_statfs(arg0 Mount_t) (*Vfsstatfs, error) {
 	if _vfs_statfs == nil {
-		return 0, symbolCallError("vfs_statfs", "10.4", _vfs_statfsErr)
+		return nil, symbolCallError("vfs_statfs", "10.4", _vfs_statfsErr)
 	}
 	return _vfs_statfs(arg0), nil
 }
@@ -51491,7 +51491,7 @@ func tryVfs_statfs(arg0 Mount_t) (uintptr, error) {
 // Vfs_statfs get information about filesystem status.
 //
 // See: https://developer.apple.com/documentation/kernel/1523098-vfs_statfs
-func Vfs_statfs(arg0 Mount_t) uintptr {
+func Vfs_statfs(arg0 Mount_t) *Vfsstatfs {
 	result, callErr := tryVfs_statfs(arg0)
 	if callErr != nil {
 		panic(callErr)

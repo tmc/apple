@@ -45,13 +45,25 @@ func CAMetalDrawableObjectFromID(id objc.ID) CAMetalDrawableObject {
 
 // A Metal texture object that contains the drawable’s contents.
 //
+// # Discussion
+//
+// Use this object to configure a [MTLRenderPipelineColorAttachmentDescriptor]
+// object to render to the drawable object.
+//
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDrawable/texture
+//
+// [MTLRenderPipelineColorAttachmentDescriptor]: https://developer.apple.com/documentation/Metal/MTLRenderPipelineColorAttachmentDescriptor
 func (o CAMetalDrawableObject) Texture() metal.MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("texture"))
 	return metal.MTLTextureObjectFromID(rv)
 }
 
 // The layer that owns this drawable object.
+//
+// # Discussion
+//
+// When you present the drawable object, it becomes the owning layer’s
+// content.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDrawable/layer
 func (o CAMetalDrawableObject) Layer() ICAMetalLayer {

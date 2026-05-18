@@ -145,7 +145,7 @@ type INEVPNConnection interface {
 	// The current status of the VPN connection.
 	Status() NEVPNStatus
 	// The date and time when the connection status changed to [NEVPNStatusConnected].
-	ConnectedDate() foundation.INSDate
+	ConnectedDate() foundation.NSDate
 
 	// Topic: Notifications
 
@@ -309,7 +309,7 @@ func (v NEVPNConnection) Status() NEVPNStatus {
 // changes to [NEVPNStatusDisconnected].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNConnection/connectedDate
-func (v NEVPNConnection) ConnectedDate() foundation.INSDate {
+func (v NEVPNConnection) ConnectedDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("connectedDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

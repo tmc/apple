@@ -6,9 +6,9 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNRecognizedPointsObservation] class.
@@ -103,7 +103,7 @@ type IVNRecognizedPointsObservation interface {
 	// Topic: Converting Points for Core ML
 
 	// Retrieves the grouping of normalized point coordinates and confidence scores in a format compatible with Core ML.
-	KeypointsMultiArrayAndReturnError() (coreml.MLMultiArray, error)
+	KeypointsMultiArrayAndReturnError() (objectivec.IObject, error)
 }
 
 // Init initializes the instance.
@@ -175,14 +175,14 @@ func (r VNRecognizedPointsObservation) RecognizedPointsForGroupKeyError(groupKey
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/keypointsMultiArray()
 //
 // [MLMultiArray]: https://developer.apple.com/documentation/CoreML/MLMultiArray
-func (r VNRecognizedPointsObservation) KeypointsMultiArrayAndReturnError() (coreml.MLMultiArray, error) {
+func (r VNRecognizedPointsObservation) KeypointsMultiArrayAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("keypointsMultiArrayAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return coreml.MLMultiArray{}, foundation.NSErrorFrom(errorPtr)
+		return nil, foundation.NSErrorFrom(errorPtr)
 	}
-	return coreml.MLMultiArrayFromID(rv), nil
+	return objectivec.Object{ID: rv}, nil
 
 }
 

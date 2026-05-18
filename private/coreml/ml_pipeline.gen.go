@@ -63,14 +63,14 @@ type IMLPipeline interface {
 }
 
 // Init initializes the instance.
-func (p MLPipeline) Init() MLPipeline {
-	rv := objc.Send[MLPipeline](p.ID, objc.Sel("init"))
+func (m MLPipeline) Init() MLPipeline {
+	rv := objc.Send[MLPipeline](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPipeline) Autorelease() MLPipeline {
-	rv := objc.Send[MLPipeline](p.ID, objc.Sel("autorelease"))
+func (m MLPipeline) Autorelease() MLPipeline {
+	rv := objc.Send[MLPipeline](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

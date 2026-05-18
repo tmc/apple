@@ -214,7 +214,6 @@ func NSTextStorageFromID(id objc.ID) NSTextStorage {
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorage
 type INSTextStorage interface {
 	foundation.INSMutableAttributedString
-	NSPasteboardWriting
 
 	// Topic: Processing the editing actions
 

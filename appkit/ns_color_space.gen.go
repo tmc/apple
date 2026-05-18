@@ -117,7 +117,7 @@ type INSColorSpace interface {
 	// Initializes and returns a color space object from the specified ColorSync profile.
 	InitWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace
 	// Initializes and returns a color space object from the specified ICC profile.
-	InitWithICCProfileData(iccData foundation.INSData) NSColorSpace
+	InitWithICCProfileData(iccData foundation.NSData) NSColorSpace
 
 	// Topic: Accessing Color Space Data and Attributes
 
@@ -128,7 +128,7 @@ type INSColorSpace interface {
 	// The ColorSync profile from which the color space was created.
 	ColorSyncProfile() unsafe.Pointer
 	// The ICC profile data from which the color space was created.
-	ICCProfileData() foundation.INSData
+	ICCProfileData() foundation.NSData
 	// The localized name of the color space.
 	LocalizedName() string
 	// The number of components, excluding alpha, the color space supports.
@@ -175,7 +175,7 @@ func NewNSColorSpace() NSColorSpace {
 // pointer equality is preserved during runtime, it may not be after the
 // [NSColorSpace] object is archived and unarchived.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)-889nv
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 func NewColorSpaceWithCGColorSpace(cgColorSpace coregraphics.CGColorSpaceRef) NSColorSpace {
@@ -217,10 +217,10 @@ func NewColorSpaceWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace {
 // The initialized [NSColorSpace] object or `nil` if initialization was not
 // successful.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(iccProfileData:)
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(iccProfileData:)-8rl9d
 //
 // [International Color Consortium website]: http://www.color.org/icc_specs2.html
-func NewColorSpaceWithICCProfileData(iccData foundation.INSData) NSColorSpace {
+func NewColorSpaceWithICCProfileData(iccData foundation.NSData) NSColorSpace {
 	instance := getNSColorSpaceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithICCProfileData:"), iccData)
 	return NSColorSpaceFromID(rv)
@@ -245,7 +245,7 @@ func NewColorSpaceWithICCProfileData(iccData foundation.INSData) NSColorSpace {
 // pointer equality is preserved during runtime, it may not be after the
 // [NSColorSpace] object is archived and unarchived.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)-889nv
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 func (c NSColorSpace) InitWithCGColorSpace(cgColorSpace coregraphics.CGColorSpaceRef) NSColorSpace {
@@ -285,10 +285,10 @@ func (c NSColorSpace) InitWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace
 // The initialized [NSColorSpace] object or `nil` if initialization was not
 // successful.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(iccProfileData:)
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(iccProfileData:)-8rl9d
 //
 // [International Color Consortium website]: http://www.color.org/icc_specs2.html
-func (c NSColorSpace) InitWithICCProfileData(iccData foundation.INSData) NSColorSpace {
+func (c NSColorSpace) InitWithICCProfileData(iccData foundation.NSData) NSColorSpace {
 	rv := objc.Send[NSColorSpace](c.ID, objc.Sel("initWithICCProfileData:"), iccData)
 	return rv
 }
@@ -382,7 +382,7 @@ func (c NSColorSpace) ColorSyncProfile() unsafe.Pointer {
 // See: https://developer.apple.com/documentation/AppKit/NSColorSpace/iccProfileData
 //
 // [International Color Consortium website]: http://www.color.org/icc_specs2.html
-func (c NSColorSpace) ICCProfileData() foundation.INSData {
+func (c NSColorSpace) ICCProfileData() foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("ICCProfileData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

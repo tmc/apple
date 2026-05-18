@@ -126,8 +126,6 @@ func NSNotificationFromID(id objc.ID) NSNotification {
 // See: https://developer.apple.com/documentation/Foundation/NSNotification
 type INSNotification interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 
 	// Topic: Creating Notifications
 

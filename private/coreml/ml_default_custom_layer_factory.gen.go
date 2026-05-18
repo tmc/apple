@@ -77,14 +77,14 @@ type IMLDefaultCustomLayerFactory interface {
 }
 
 // Init initializes the instance.
-func (d MLDefaultCustomLayerFactory) Init() MLDefaultCustomLayerFactory {
-	rv := objc.Send[MLDefaultCustomLayerFactory](d.ID, objc.Sel("init"))
+func (m MLDefaultCustomLayerFactory) Init() MLDefaultCustomLayerFactory {
+	rv := objc.Send[MLDefaultCustomLayerFactory](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d MLDefaultCustomLayerFactory) Autorelease() MLDefaultCustomLayerFactory {
-	rv := objc.Send[MLDefaultCustomLayerFactory](d.ID, objc.Sel("autorelease"))
+func (m MLDefaultCustomLayerFactory) Autorelease() MLDefaultCustomLayerFactory {
+	rv := objc.Send[MLDefaultCustomLayerFactory](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -96,9 +96,9 @@ func NewMLDefaultCustomLayerFactory() MLDefaultCustomLayerFactory {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDefaultCustomLayerFactory/createCustomLayer:withParameters:error:
-func (d MLDefaultCustomLayerFactory) CreateCustomLayerWithParametersError(layer objectivec.IObject, parameters objectivec.IObject) (objectivec.IObject, error) {
+func (m MLDefaultCustomLayerFactory) CreateCustomLayerWithParametersError(layer objectivec.IObject, parameters objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("createCustomLayer:withParameters:error:"), layer, parameters, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("createCustomLayer:withParameters:error:"), layer, parameters, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)

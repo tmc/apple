@@ -86,14 +86,14 @@ type IMLSVRLoader interface {
 }
 
 // Init initializes the instance.
-func (s MLSVRLoader) Init() MLSVRLoader {
-	rv := objc.Send[MLSVRLoader](s.ID, objc.Sel("init"))
+func (m MLSVRLoader) Init() MLSVRLoader {
+	rv := objc.Send[MLSVRLoader](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSVRLoader) Autorelease() MLSVRLoader {
-	rv := objc.Send[MLSVRLoader](s.ID, objc.Sel("autorelease"))
+func (m MLSVRLoader) Autorelease() MLSVRLoader {
+	rv := objc.Send[MLSVRLoader](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -117,25 +117,25 @@ func (_MLSVRLoaderClass MLSVRLoaderClass) LoadModelFromSpecificationConfiguratio
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVRLoader/debugDescription
-func (s MLSVRLoader) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (m MLSVRLoader) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVRLoader/description
-func (s MLSVRLoader) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (m MLSVRLoader) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVRLoader/hash
-func (s MLSVRLoader) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (m MLSVRLoader) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSVRLoader/superclass
-func (s MLSVRLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (m MLSVRLoader) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

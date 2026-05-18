@@ -84,14 +84,14 @@ type IMLDictionaryConstraint interface {
 }
 
 // Init initializes the instance.
-func (d MLDictionaryConstraint) Init() MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](d.ID, objc.Sel("init"))
+func (m MLDictionaryConstraint) Init() MLDictionaryConstraint {
+	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d MLDictionaryConstraint) Autorelease() MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](d.ID, objc.Sel("autorelease"))
+func (m MLDictionaryConstraint) Autorelease() MLDictionaryConstraint {
+	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -117,9 +117,9 @@ func NewDictionaryConstraintWithKeyType(type_ int64) MLDictionaryConstraint {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/isAllowedValue:error:
-func (d MLDictionaryConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
+func (m MLDictionaryConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -132,14 +132,14 @@ func (d MLDictionaryConstraint) IsAllowedValueError(value objectivec.IObject) (b
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/initWithCoder:
-func (d MLDictionaryConstraint) InitWithCoder(coder foundation.INSCoder) MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](d.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLDictionaryConstraint) InitWithCoder(coder foundation.INSCoder) MLDictionaryConstraint {
+	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDictionaryConstraint/initWithKeyType:
-func (d MLDictionaryConstraint) InitWithKeyType(type_ int64) MLDictionaryConstraint {
-	rv := objc.Send[MLDictionaryConstraint](d.ID, objc.Sel("initWithKeyType:"), type_)
+func (m MLDictionaryConstraint) InitWithKeyType(type_ int64) MLDictionaryConstraint {
+	rv := objc.Send[MLDictionaryConstraint](m.ID, objc.Sel("initWithKeyType:"), type_)
 	return rv
 }
 

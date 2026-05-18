@@ -80,14 +80,14 @@ type IMLNormalizer interface {
 }
 
 // Init initializes the instance.
-func (n MLNormalizer) Init() MLNormalizer {
-	rv := objc.Send[MLNormalizer](n.ID, objc.Sel("init"))
+func (m MLNormalizer) Init() MLNormalizer {
+	rv := objc.Send[MLNormalizer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNormalizer) Autorelease() MLNormalizer {
-	rv := objc.Send[MLNormalizer](n.ID, objc.Sel("autorelease"))
+func (m MLNormalizer) Autorelease() MLNormalizer {
+	rv := objc.Send[MLNormalizer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -120,8 +120,8 @@ func NewNormalizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNa
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNormalizer/initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
-func (n MLNormalizer) InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
-	rv := objc.Send[MLNormalizer](n.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, description, description2, names, names2, configuration)
+func (m MLNormalizer) InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
+	rv := objc.Send[MLNormalizer](m.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, description, description2, names, names2, configuration)
 	return rv
 }
 
@@ -156,7 +156,7 @@ func (_MLNormalizerClass MLNormalizerClass) NormFromInputDescriptionOutputDescri
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNormalizer/norm
-func (n MLNormalizer) Norm() int {
-	rv := objc.Send[int](n.ID, objc.Sel("norm"))
+func (m MLNormalizer) Norm() int {
+	rv := objc.Send[int](m.ID, objc.Sel("norm"))
 	return rv
 }

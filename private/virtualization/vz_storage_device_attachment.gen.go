@@ -88,14 +88,14 @@ type IVZStorageDeviceAttachment interface {
 }
 
 // Init initializes the instance.
-func (s VZStorageDeviceAttachment) Init() VZStorageDeviceAttachment {
-	rv := objc.Send[VZStorageDeviceAttachment](s.ID, objc.Sel("init"))
+func (v VZStorageDeviceAttachment) Init() VZStorageDeviceAttachment {
+	rv := objc.Send[VZStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s VZStorageDeviceAttachment) Autorelease() VZStorageDeviceAttachment {
-	rv := objc.Send[VZStorageDeviceAttachment](s.ID, objc.Sel("autorelease"))
+func (v VZStorageDeviceAttachment) Autorelease() VZStorageDeviceAttachment {
+	rv := objc.Send[VZStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -107,31 +107,31 @@ func NewVZStorageDeviceAttachment() VZStorageDeviceAttachment {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/_init
-func (s VZStorageDeviceAttachment) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_init"))
+func (v VZStorageDeviceAttachment) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/debugDescription
-func (s VZStorageDeviceAttachment) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (v VZStorageDeviceAttachment) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/description
-func (s VZStorageDeviceAttachment) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (v VZStorageDeviceAttachment) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/hash
-func (s VZStorageDeviceAttachment) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (v VZStorageDeviceAttachment) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/superclass
-func (s VZStorageDeviceAttachment) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (v VZStorageDeviceAttachment) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

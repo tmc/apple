@@ -19,6 +19,16 @@ type MTLTensor interface {
 	MTLAllocation
 	MTLResource
 
+	// Copies the data corresponding to a slice of this tensor into a pointer you provide.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTensor/getBytes(_:strides:sliceOrigin:sliceDimensions:)
+	GetBytesStridesFromSliceOriginSliceDimensions(bytes unsafe.Pointer, strides IMTLTensorExtents, sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents)
+
+	// Replaces the contents of a slice of this tensor with data you provide.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTensor/replace(sliceOrigin:sliceDimensions:withBytes:strides:)
+	ReplaceSliceOriginSliceDimensionsWithBytesStrides(sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, bytes unsafe.Pointer, strides IMTLTensorExtents)
+
 	// A buffer instance this tensor shares its storage with or nil if this tensor does not wrap an underlying buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTensor/buffer
@@ -53,16 +63,6 @@ type MTLTensor interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTensor/usage
 	Usage() MTLTensorUsage
-
-	// Copies the data corresponding to a slice of this tensor into a pointer you provide.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTensor/getBytes(_:strides:sliceOrigin:sliceDimensions:)
-	GetBytesStridesFromSliceOriginSliceDimensions(bytes unsafe.Pointer, strides IMTLTensorExtents, sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents)
-
-	// Replaces the contents of a slice of this tensor with data you provide.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTensor/replace(sliceOrigin:sliceDimensions:withBytes:strides:)
-	ReplaceSliceOriginSliceDimensionsWithBytesStrides(sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, bytes unsafe.Pointer, strides IMTLTensorExtents)
 }
 
 // MTLTensorObject wraps an existing Objective-C object that conforms to the MTLTensor protocol.
@@ -80,65 +80,6 @@ func MTLTensorObjectFromID(id objc.ID) MTLTensorObject {
 	return MTLTensorObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A buffer instance this tensor shares its storage with or nil if this tensor
-// does not wrap an underlying buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensor/buffer
-func (o MTLTensorObject) Buffer() MTLBuffer {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))
-	return MTLBufferObjectFromID(rv)
-}
-
-// An offset, in bytes, into the buffer instance this tensor shares its
-// storage with, or zero if this tensor does not wrap an underlying buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensor/bufferOffset
-func (o MTLTensorObject) BufferOffset() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("bufferOffset"))
-	return rv
-}
-
-// An underlying data format of this tensor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensor/dataType
-func (o MTLTensorObject) DataType() MTLTensorDataType {
-	rv := objc.Send[MTLTensorDataType](o.ID, objc.Sel("dataType"))
-	return rv
-}
-
-// An array of sizes, in elements, one for each dimension of this tensor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensor/dimensions
-func (o MTLTensorObject) Dimensions() IMTLTensorExtents {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("dimensions"))
-	return MTLTensorExtentsFromID(rv)
-}
-
-// A handle that represents the GPU resource, which you can store in an
-// argument buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensor/gpuResourceID
-func (o MTLTensorObject) GpuResourceID() MTLResourceID {
-	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
-}
-
-// An array of strides, in elements, one for each dimension of this tensor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensor/strides
-func (o MTLTensorObject) Strides() IMTLTensorExtents {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("strides"))
-	return MTLTensorExtentsFromID(rv)
-}
-
-// A set of contexts in which you can use this tensor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensor/usage
-func (o MTLTensorObject) Usage() MTLTensorUsage {
-	rv := objc.Send[MTLTensorUsage](o.ID, objc.Sel("usage"))
-	return rv
 }
 
 // Copies the data corresponding to a slice of this tensor into a pointer you
@@ -262,9 +203,9 @@ func (o MTLTensorObject) ResourceOptions() MTLResourceOptions {
 // If `state` is [MTLPurgeableStateNonVolatile], the resource is marked to
 // inform the caller that the data should not be discarded.
 //
-// If `state` is [MTLPurgeableState.empty], the resource is marked as data
-// that can be discarded, because the caller no longer needs the contents of
-// the resource.
+// If `state` is [MTLPurgeableStateEmpty], the resource is marked as data that
+// can be discarded, because the caller no longer needs the contents of the
+// resource.
 //
 // If `state` is [MTLPurgeableStateVolatile], the resource is marked as data
 // that can be discarded, even if the caller may need the resource.
@@ -282,8 +223,6 @@ func (o MTLTensorObject) ResourceOptions() MTLResourceOptions {
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-//
-// [MTLPurgeableState.empty]: https://developer.apple.com/documentation/Metal/MTLPurgeableState/empty
 func (o MTLTensorObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
@@ -359,9 +298,73 @@ func (o MTLTensorObject) IsAliasable() bool {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-func (o MTLTensorObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32 {
+func (o MTLTensorObject) SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32 {
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
+}
+
+// A buffer instance this tensor shares its storage with or nil if this tensor
+// does not wrap an underlying buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/buffer
+func (o MTLTensorObject) Buffer() MTLBuffer {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))
+	return MTLBufferObjectFromID(rv)
+}
+
+// An offset, in bytes, into the buffer instance this tensor shares its
+// storage with, or zero if this tensor does not wrap an underlying buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/bufferOffset
+func (o MTLTensorObject) BufferOffset() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("bufferOffset"))
+	return uint(rv)
+}
+
+// An underlying data format of this tensor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/dataType
+func (o MTLTensorObject) DataType() MTLTensorDataType {
+	rv := objc.Send[MTLTensorDataType](o.ID, objc.Sel("dataType"))
+	return MTLTensorDataType(rv)
+}
+
+// An array of sizes, in elements, one for each dimension of this tensor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/dimensions
+func (o MTLTensorObject) Dimensions() IMTLTensorExtents {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("dimensions"))
+	return MTLTensorExtentsFromID(rv)
+}
+
+// A handle that represents the GPU resource, which you can store in an
+// argument buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/gpuResourceID
+func (o MTLTensorObject) GpuResourceID() MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
+	return MTLResourceID(rv)
+}
+
+// An array of strides, in elements, one for each dimension of this tensor.
+//
+// # Discussion
+//
+// This property only applies if this tensor shares its storage with a buffer,
+// otherwise it’s nil.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/strides
+func (o MTLTensorObject) Strides() IMTLTensorExtents {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("strides"))
+	return MTLTensorExtentsFromID(rv)
+}
+
+// A set of contexts in which you can use this tensor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/usage
+func (o MTLTensorObject) Usage() MTLTensorUsage {
+	rv := objc.Send[MTLTensorUsage](o.ID, objc.Sel("usage"))
+	return MTLTensorUsage(rv)
 }
 
 // A string that identifies the resource.

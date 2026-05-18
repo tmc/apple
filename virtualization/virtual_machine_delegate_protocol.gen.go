@@ -52,7 +52,7 @@ func (o VZVirtualMachineDelegateObject) GuestDidStopVirtualMachine(virtualMachin
 // error: The error.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/virtualMachine(_:didStopWithError:)
-func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMachine IVZVirtualMachine, error_ foundation.INSError) {
+func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMachine IVZVirtualMachine, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("virtualMachine:didStopWithError:"), virtualMachine, error_)
 }
 
@@ -76,7 +76,7 @@ func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMa
 // `nil`.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/virtualMachine(_:networkDevice:attachmentWasDisconnectedWithError:)
-func (o VZVirtualMachineDelegateObject) VirtualMachineNetworkDeviceAttachmentWasDisconnectedWithError(virtualMachine IVZVirtualMachine, networkDevice IVZNetworkDevice, error_ foundation.INSError) {
+func (o VZVirtualMachineDelegateObject) VirtualMachineNetworkDeviceAttachmentWasDisconnectedWithError(virtualMachine IVZVirtualMachine, networkDevice IVZNetworkDevice, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("virtualMachine:networkDevice:attachmentWasDisconnectedWithError:"), virtualMachine, networkDevice, error_)
 }
 

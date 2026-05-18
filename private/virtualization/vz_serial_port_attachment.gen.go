@@ -91,14 +91,14 @@ type IVZSerialPortAttachment interface {
 }
 
 // Init initializes the instance.
-func (s VZSerialPortAttachment) Init() VZSerialPortAttachment {
-	rv := objc.Send[VZSerialPortAttachment](s.ID, objc.Sel("init"))
+func (v VZSerialPortAttachment) Init() VZSerialPortAttachment {
+	rv := objc.Send[VZSerialPortAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s VZSerialPortAttachment) Autorelease() VZSerialPortAttachment {
-	rv := objc.Send[VZSerialPortAttachment](s.ID, objc.Sel("autorelease"))
+func (v VZSerialPortAttachment) Autorelease() VZSerialPortAttachment {
+	rv := objc.Send[VZSerialPortAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,50 +110,50 @@ func NewVZSerialPortAttachment() VZSerialPortAttachment {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/_init
-func (s VZSerialPortAttachment) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_init"))
+func (v VZSerialPortAttachment) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/_attachment
-func (s VZSerialPortAttachment) _attachment() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_attachment"))
+func (v VZSerialPortAttachment) _attachment() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
 }
 
 // CanAttachment reports whether the receiver responds to the private selector _attachment.
-func (s VZSerialPortAttachment) CanAttachment() bool {
-	return objc.RespondsToSelector(s.ID, objc.Sel("_attachment"))
+func (v VZSerialPortAttachment) CanAttachment() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_attachment"))
 }
 
 // Attachment is an exported wrapper for the private property _attachment.
-func (s VZSerialPortAttachment) Attachment() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(s.ID, objc.Sel("_attachment")) {
+func (v VZSerialPortAttachment) Attachment() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_attachment")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_attachment"}
 	}
-	return s._attachment(), nil
+	return v._attachment(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/debugDescription
-func (s VZSerialPortAttachment) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (v VZSerialPortAttachment) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/description
-func (s VZSerialPortAttachment) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (v VZSerialPortAttachment) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/hash
-func (s VZSerialPortAttachment) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (v VZSerialPortAttachment) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/superclass
-func (s VZSerialPortAttachment) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (v VZSerialPortAttachment) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

@@ -109,14 +109,14 @@ type IMLFillBrick interface {
 }
 
 // Init initializes the instance.
-func (f MLFillBrick) Init() MLFillBrick {
-	rv := objc.Send[MLFillBrick](f.ID, objc.Sel("init"))
+func (m MLFillBrick) Init() MLFillBrick {
+	rv := objc.Send[MLFillBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (f MLFillBrick) Autorelease() MLFillBrick {
-	rv := objc.Send[MLFillBrick](f.ID, objc.Sel("autorelease"))
+func (m MLFillBrick) Autorelease() MLFillBrick {
+	rv := objc.Send[MLFillBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -135,72 +135,72 @@ func NewFillBrickWithParameters(parameters objectivec.IObject) MLFillBrick {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/computeOnCPUWithInputTensors:outputTensors:
-func (f MLFillBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](f.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLFillBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/hasGPUSupport
-func (f MLFillBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("hasGPUSupport"))
+func (m MLFillBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/setupForInputShapes:withParameters:
-func (f MLFillBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLFillBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/initWithParameters:
-func (f MLFillBrick) InitWithParameters(parameters objectivec.IObject) MLFillBrick {
-	rv := objc.Send[MLFillBrick](f.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLFillBrick) InitWithParameters(parameters objectivec.IObject) MLFillBrick {
+	rv := objc.Send[MLFillBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/debugDescription
-func (f MLFillBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("debugDescription"))
+func (m MLFillBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/description
-func (f MLFillBrick) Description() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("description"))
+func (m MLFillBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/hash
-func (f MLFillBrick) Hash() uint64 {
-	rv := objc.Send[uint64](f.ID, objc.Sel("hash"))
+func (m MLFillBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/inputRanks
-func (f MLFillBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("inputRanks"))
+func (m MLFillBrick) InputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/inputShapes
-func (f MLFillBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("inputShapes"))
+func (m MLFillBrick) InputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/outputRanks
-func (f MLFillBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("outputRanks"))
+func (m MLFillBrick) OutputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/outputShapes
-func (f MLFillBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("outputShapes"))
+func (m MLFillBrick) OutputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/superclass
-func (f MLFillBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](f.ID, objc.Sel("superclass"))
+func (m MLFillBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

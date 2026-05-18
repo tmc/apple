@@ -173,11 +173,9 @@ func NewMTLHeapDescriptor() MTLHeapDescriptor {
 //
 // # Discussion
 //
-// This property’s default value is [MTLHeapType.automatic].
+// This property’s default value is [MTLHeapTypeAutomatic].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/type
-//
-// [MTLHeapType.automatic]: https://developer.apple.com/documentation/Metal/MTLHeapType/automatic
 func (h MTLHeapDescriptor) Type() MTLHeapType {
 	rv := objc.Send[MTLHeapType](h.ID, objc.Sel("type"))
 	return MTLHeapType(rv)
@@ -231,15 +229,13 @@ func (h MTLHeapDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 //
 // # Discussion
 //
-// This property’s default value is [MTLHazardTrackingMode.default], which
-// is equivalent to [MTLHazardTrackingModeUntracked] for a heap.
+// This property’s default value is [MTLHazardTrackingModeDefault], which is
+// equivalent to [MTLHazardTrackingModeUntracked] for a heap.
 //
 // The resources you allocate from a heap inherit that heap’s hazard
 // tracking mode.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/hazardTrackingMode
-//
-// [MTLHazardTrackingMode.default]: https://developer.apple.com/documentation/Metal/MTLHazardTrackingMode/default
 func (h MTLHeapDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 	rv := objc.Send[MTLHazardTrackingMode](h.ID, objc.Sel("hazardTrackingMode"))
 	return MTLHazardTrackingMode(rv)
@@ -274,19 +270,14 @@ func (h MTLHeapDescriptor) SetResourceOptions(value MTLResourceOptions) {
 // You can use various [MTLDevice] methods to help you estimate an appropriate
 // heap size, including the following:
 //
-// - [heapBufferSizeAndAlign(length:options:)] -
-// [heapTextureSizeAndAlign(descriptor:)] -
-// [heapAccelerationStructureSizeAndAlign(size:)] -
-// [heapAccelerationStructureSizeAndAlign(descriptor:)]
+// - [HeapBufferSizeAndAlignWithLengthOptions] -
+// [HeapTextureSizeAndAlignWithDescriptor] -
+// [HeapAccelerationStructureSizeAndAlignWithSize] -
+// [HeapAccelerationStructureSizeAndAlignWithDescriptor]
 //
 // This property’s default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/size
-//
-// [heapAccelerationStructureSizeAndAlign(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(descriptor:)
-// [heapAccelerationStructureSizeAndAlign(size:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(size:)
-// [heapBufferSizeAndAlign(length:options:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapBufferSizeAndAlign(length:options:)
-// [heapTextureSizeAndAlign(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapTextureSizeAndAlign(descriptor:)
 func (h MTLHeapDescriptor) Size() uint {
 	rv := objc.Send[uint](h.ID, objc.Sel("size"))
 	return rv

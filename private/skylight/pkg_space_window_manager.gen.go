@@ -63,14 +63,14 @@ type IPKGSpaceWindowManager interface {
 }
 
 // Init initializes the instance.
-func (g PKGSpaceWindowManager) Init() PKGSpaceWindowManager {
-	rv := objc.Send[PKGSpaceWindowManager](g.ID, objc.Sel("init"))
+func (p PKGSpaceWindowManager) Init() PKGSpaceWindowManager {
+	rv := objc.Send[PKGSpaceWindowManager](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g PKGSpaceWindowManager) Autorelease() PKGSpaceWindowManager {
-	rv := objc.Send[PKGSpaceWindowManager](g.ID, objc.Sel("autorelease"))
+func (p PKGSpaceWindowManager) Autorelease() PKGSpaceWindowManager {
+	rv := objc.Send[PKGSpaceWindowManager](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 

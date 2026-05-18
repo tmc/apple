@@ -91,14 +91,14 @@ type IMLBackgroundPredictionTask interface {
 }
 
 // Init initializes the instance.
-func (b MLBackgroundPredictionTask) Init() MLBackgroundPredictionTask {
-	rv := objc.Send[MLBackgroundPredictionTask](b.ID, objc.Sel("init"))
+func (m MLBackgroundPredictionTask) Init() MLBackgroundPredictionTask {
+	rv := objc.Send[MLBackgroundPredictionTask](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (b MLBackgroundPredictionTask) Autorelease() MLBackgroundPredictionTask {
-	rv := objc.Send[MLBackgroundPredictionTask](b.ID, objc.Sel("autorelease"))
+func (m MLBackgroundPredictionTask) Autorelease() MLBackgroundPredictionTask {
+	rv := objc.Send[MLBackgroundPredictionTask](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -123,28 +123,28 @@ func (_MLBackgroundPredictionTaskClass MLBackgroundPredictionTaskClass) TaskRunn
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/modelConfiguration
-func (b MLBackgroundPredictionTask) ModelConfiguration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("modelConfiguration"))
+func (m MLBackgroundPredictionTask) ModelConfiguration() IMLModelConfiguration {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
-func (b MLBackgroundPredictionTask) SetModelConfiguration(value IMLModelConfiguration) {
-	objc.Send[struct{}](b.ID, objc.Sel("setModelConfiguration:"), value)
+func (m MLBackgroundPredictionTask) SetModelConfiguration(value IMLModelConfiguration) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelConfiguration:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/modelURL
-func (b MLBackgroundPredictionTask) ModelURL() foundation.INSURL {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("modelURL"))
+func (m MLBackgroundPredictionTask) ModelURL() foundation.INSURL {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (b MLBackgroundPredictionTask) SetModelURL(value foundation.INSURL) {
-	objc.Send[struct{}](b.ID, objc.Sel("setModelURL:"), value)
+func (m MLBackgroundPredictionTask) SetModelURL(value foundation.INSURL) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelURL:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/predictionOptions
-func (b MLBackgroundPredictionTask) PredictionOptions() IMLPredictionOptions {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("predictionOptions"))
+func (m MLBackgroundPredictionTask) PredictionOptions() IMLPredictionOptions {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionOptions"))
 	return MLPredictionOptionsFromID(objc.ID(rv))
 }
-func (b MLBackgroundPredictionTask) SetPredictionOptions(value IMLPredictionOptions) {
-	objc.Send[struct{}](b.ID, objc.Sel("setPredictionOptions:"), value)
+func (m MLBackgroundPredictionTask) SetPredictionOptions(value IMLPredictionOptions) {
+	objc.Send[struct{}](m.ID, objc.Sel("setPredictionOptions:"), value)
 }

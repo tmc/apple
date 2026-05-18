@@ -16,6 +16,6 @@ func (m AVMutableMovie) IsCompatibleWithSavedPhotosAlbum() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isCompatibleWithSavedPhotosAlbum"))
 	return rv
 }
-func (m AVMutableMovie) SetIsCompatibleWithSavedPhotosAlbum(value bool) {
+func (m AVMutableMovie) SetCompatibleWithSavedPhotosAlbum(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCompatibleWithSavedPhotosAlbum:"), value)
 }

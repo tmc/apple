@@ -60,16 +60,9 @@ type OpaqueAudioQueue struct {
 type URegularExpression struct {
 }
 
-// VoiceSpec
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/TextToSpeech/VoiceSpec
-type VoiceSpec struct {
-}
-
-// Pcre2_real_code_8
+// Pcre2RealCode8
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/TextToSpeech/pcre2_real_code_8
-type Pcre2_real_code_8 struct {
+type Pcre2RealCode8 struct {
 }

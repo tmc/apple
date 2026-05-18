@@ -26,6 +26,7 @@ type FSVolumeAccessCheckOperations interface {
 	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/AccessCheckOperations/isAccessCheckInhibited
+	AccessCheckInhibited() bool
 	SetAccessCheckInhibited(value bool)
 }
 
@@ -83,6 +84,11 @@ func (o FSVolumeAccessCheckOperationsObject) IsAccessCheckInhibited() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/AccessCheckOperations/isAccessCheckInhibited
+func (o FSVolumeAccessCheckOperationsObject) AccessCheckInhibited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAccessCheckInhibited"))
+	return bool(rv)
+}
+
 func (o FSVolumeAccessCheckOperationsObject) SetAccessCheckInhibited(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessCheckInhibited:"), value)
 }

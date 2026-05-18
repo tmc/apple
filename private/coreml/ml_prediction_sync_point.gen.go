@@ -84,14 +84,14 @@ type IMLPredictionSyncPoint interface {
 }
 
 // Init initializes the instance.
-func (p MLPredictionSyncPoint) Init() MLPredictionSyncPoint {
-	rv := objc.Send[MLPredictionSyncPoint](p.ID, objc.Sel("init"))
+func (m MLPredictionSyncPoint) Init() MLPredictionSyncPoint {
+	rv := objc.Send[MLPredictionSyncPoint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPredictionSyncPoint) Autorelease() MLPredictionSyncPoint {
-	rv := objc.Send[MLPredictionSyncPoint](p.ID, objc.Sel("autorelease"))
+func (m MLPredictionSyncPoint) Autorelease() MLPredictionSyncPoint {
+	rv := objc.Send[MLPredictionSyncPoint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,24 +110,24 @@ func NewPredictionSyncPointWithSharedEventValue(event objectivec.IObject, value 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/notify
-func (p MLPredictionSyncPoint) Notify() {
-	objc.Send[objc.ID](p.ID, objc.Sel("notify"))
+func (m MLPredictionSyncPoint) Notify() {
+	objc.Send[objc.ID](m.ID, objc.Sel("notify"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/initWithSharedEvent:value:
-func (p MLPredictionSyncPoint) InitWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
-	rv := objc.Send[MLPredictionSyncPoint](p.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
+func (m MLPredictionSyncPoint) InitWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
+	rv := objc.Send[MLPredictionSyncPoint](m.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/sharedEvent
-func (p MLPredictionSyncPoint) SharedEvent() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("sharedEvent"))
+func (m MLPredictionSyncPoint) SharedEvent() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("sharedEvent"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/value
-func (p MLPredictionSyncPoint) Value() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("value"))
+func (m MLPredictionSyncPoint) Value() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("value"))
 	return rv
 }

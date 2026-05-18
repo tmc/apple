@@ -132,7 +132,6 @@ func NSPointerFunctionsFromID(id objc.ID) NSPointerFunctions {
 // See: https://developer.apple.com/documentation/Foundation/NSPointerFunctions
 type INSPointerFunctions interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Creating and Initializing an NSPointerFunctions Object
 
@@ -145,8 +144,8 @@ type INSPointerFunctions interface {
 	HashFunction() int
 	SetHashFunction(value int)
 	// The function used to compare pointers.
-	IsEqualFunction() objectivec.IObject
-	SetIsEqualFunction(value objectivec.IObject)
+	IsEqualFunction() unsafe.Pointer
+	SetIsEqualFunction(value unsafe.Pointer)
 	// The function used to determine the size of pointers.
 	SizeFunction() int
 	SetSizeFunction(value int)
@@ -160,8 +159,8 @@ type INSPointerFunctions interface {
 	AcquireFunction() unsafe.Pointer
 	SetAcquireFunction(value unsafe.Pointer)
 	// The function used to relinquish memory.
-	RelinquishFunction() objectivec.IObject
-	SetRelinquishFunction(value objectivec.IObject)
+	RelinquishFunction() unsafe.Pointer
+	SetRelinquishFunction(value unsafe.Pointer)
 
 	// The pointer functions for the hash table.
 	PointerFunctions() INSPointerFunctions
@@ -245,11 +244,11 @@ func (p NSPointerFunctions) SetHashFunction(value int) {
 // The function used to compare pointers.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/isequalfunction
-func (p NSPointerFunctions) IsEqualFunction() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("isEqualFunction"))
-	return objectivec.Object{ID: rv}
+func (p NSPointerFunctions) IsEqualFunction() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("isEqualFunction"))
+	return rv
 }
-func (p NSPointerFunctions) SetIsEqualFunction(value objectivec.IObject) {
+func (p NSPointerFunctions) SetIsEqualFunction(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIsEqualFunction:"), value)
 }
 
@@ -289,11 +288,11 @@ func (p NSPointerFunctions) SetAcquireFunction(value unsafe.Pointer) {
 // The function used to relinquish memory.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/relinquishfunction
-func (p NSPointerFunctions) RelinquishFunction() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("relinquishFunction"))
-	return objectivec.Object{ID: rv}
+func (p NSPointerFunctions) RelinquishFunction() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("relinquishFunction"))
+	return rv
 }
-func (p NSPointerFunctions) SetRelinquishFunction(value objectivec.IObject) {
+func (p NSPointerFunctions) SetRelinquishFunction(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRelinquishFunction:"), value)
 }
 

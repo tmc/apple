@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // C struct types
@@ -926,6 +925,7 @@ type Cssm_certgroup struct {
 	GroupList       unsafe.Pointer
 	NumCerts        uint32
 	Reserved        unsafe.Pointer
+	PairCertList    unsafe.Pointer
 	CertList        unsafe.Pointer
 	EncodedCertList unsafe.Pointer
 	ParsedCertList  unsafe.Pointer
@@ -1316,7 +1316,7 @@ type Cssm_kr_policy_list_item struct {
 	Mode         CSSM_ENCRYPT_MODE
 	PolicyFlags  CSSM_KR_POLICY_FLAGS
 	WorkFactor   uint8
-	Next         objectivec.IObject
+	Next         unsafe.Pointer
 }
 
 // Cssm_kr_profile
@@ -1664,9 +1664,9 @@ type Cssm_spi_csp_funcs struct {
 	GenerateMacInit               func(int, uint64, uintptr) int
 	GenerateMacUpdate             func(int, uint64, uintptr, uint) int
 	GenerateRandom                func(int, uint64, uintptr, uintptr) int
-	GetKeyAcl                     func(int, uintptr, [68]objectivec.IObject, *uint, uintptr) int
+	GetKeyAcl                     func(int, uintptr, [68]unsafe.Pointer, *uint, uintptr) int
 	GetKeyOwner                   func(int, uintptr, uintptr) int
-	GetLoginAcl                   func(int, [68]objectivec.IObject, *uint, uintptr) int
+	GetLoginAcl                   func(int, [68]unsafe.Pointer, *uint, uintptr) int
 	GetLoginOwner                 func(int, uintptr) int
 	GetOperationalStatistics      func(int, uintptr) int
 	GetTimeValue                  func(int, uint, uintptr) int
@@ -1718,7 +1718,7 @@ type Cssm_spi_dl_funcs struct {
 	DestroyRelation           func(Cssm_dl_db_handle, uint) int
 	FreeNameList              func(int, uintptr) int
 	FreeUniqueRecord          func(Cssm_dl_db_handle, uintptr) int
-	GetDbAcl                  func(Cssm_dl_db_handle, [68]objectivec.IObject, *uint, uintptr) int
+	GetDbAcl                  func(Cssm_dl_db_handle, [68]unsafe.Pointer, *uint, uintptr) int
 	GetDbNameFromHandle       func(Cssm_dl_db_handle, *byte) int
 	GetDbNames                func(int, uintptr) int
 	GetDbOwner                func(Cssm_dl_db_handle, uintptr) int

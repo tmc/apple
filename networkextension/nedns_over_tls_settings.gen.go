@@ -95,8 +95,8 @@ type INEDNSOverTLSSettings interface {
 	// Topic: Configuring client properties
 
 	// A persistent keychain reference to a keychain item containing the certificate and private key components of the DNS client credential.
-	IdentityReference() foundation.INSData
-	SetIdentityReference(value foundation.INSData)
+	IdentityReference() foundation.NSData
+	SetIdentityReference(value foundation.NSData)
 }
 
 // Init initializes the instance.
@@ -162,10 +162,10 @@ func (d NEDNSOverTLSSettings) SetServerName(value string) {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSOverTLSSettings/identityReference
 //
 // [kSecClassIdentity]: https://developer.apple.com/documentation/Security/kSecClassIdentity
-func (d NEDNSOverTLSSettings) IdentityReference() foundation.INSData {
+func (d NEDNSOverTLSSettings) IdentityReference() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("identityReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d NEDNSOverTLSSettings) SetIdentityReference(value foundation.INSData) {
+func (d NEDNSOverTLSSettings) SetIdentityReference(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIdentityReference:"), value)
 }

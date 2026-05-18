@@ -152,7 +152,7 @@ type INSColorList interface {
 	// Topic: Writing and Removing Color List Files
 
 	// Saves the color list to the file at the specified URL.
-	WriteToURLError(url foundation.INSURL) (bool, error)
+	WriteToURLError(url foundation.NSURL) (bool, error)
 	// Removes the file from which the list was created, if the file is in a standard search path and owned by the user.
 	RemoveFile()
 
@@ -382,7 +382,7 @@ func (c NSColorList) SetColorForKey(color INSColor, key string) {
 // color list using the name you provided.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/write(to:)
-func (c NSColorList) WriteToURLError(url foundation.INSURL) (bool, error) {
+func (c NSColorList) WriteToURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

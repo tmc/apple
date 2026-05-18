@@ -4,7 +4,6 @@ package coreimage
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -221,7 +220,7 @@ type ICIFilter interface {
 	// Topic: Creating a configuration view for a filter
 
 	// Returns a filter view for the filter.
-	ViewForUIConfigurationExcludedKeys(inUIConfiguration foundation.INSDictionary, inKeys foundation.INSArray) unsafe.Pointer
+	ViewForUIConfigurationExcludedKeys(inUIConfiguration foundation.INSDictionary, inKeys foundation.INSArray) objectivec.IObject
 
 	// Produces a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object by applying a kernel function.
 	Apply(k ICIKernel) ICIImage
@@ -381,9 +380,9 @@ func (f CIFilter) ApplyArgumentsOptions(k ICIKernel, args foundation.INSArray, d
 // [IKFilterUIView]: https://developer.apple.com/documentation/Quartz/IKFilterUIView
 // [Cocoa Bindings Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaBindings/CocoaBindings.html#//apple_ref/doc/uid/10000167i
 // [provideView(forUIConfiguration:excludedKeys:)]: https://developer.apple.com/documentation/Quartz/IKFilterCustomUIProvider/provideView(forUIConfiguration:excludedKeys:)
-func (f CIFilter) ViewForUIConfigurationExcludedKeys(inUIConfiguration foundation.INSDictionary, inKeys foundation.INSArray) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("viewForUIConfiguration:excludedKeys:"), inUIConfiguration, inKeys)
-	return rv
+func (f CIFilter) ViewForUIConfigurationExcludedKeys(inUIConfiguration foundation.INSDictionary, inKeys foundation.INSArray) objectivec.IObject {
+	rv := objc.Send[objc.ID](f.ID, objc.Sel("viewForUIConfiguration:excludedKeys:"), inUIConfiguration, inKeys)
+	return objectivec.Object{ID: rv}
 }
 
 // Produces a [CIImage] object by applying a kernel function.

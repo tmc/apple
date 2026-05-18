@@ -130,8 +130,6 @@ func NSPredicateFromID(id objc.ID) NSPredicate {
 // See: https://developer.apple.com/documentation/Foundation/NSPredicate
 type INSPredicate interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating a Predicate

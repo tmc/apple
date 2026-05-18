@@ -139,8 +139,6 @@ func NSImageViewFromID(id objc.ID) NSImageView {
 // See: https://developer.apple.com/documentation/AppKit/NSImageView
 type INSImageView interface {
 	INSControl
-	NSAccessibilityImage
-	NSMenuItemValidation
 
 	// Topic: Specifying the image
 

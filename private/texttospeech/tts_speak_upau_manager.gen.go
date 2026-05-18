@@ -82,9 +82,10 @@ func NewTTSSpeakUPAUManager() TTSSpeakUPAUManager {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeakUPAUManager/component
-func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) Component() objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("component"))
-	return objectivec.Object{ID: rv}
+func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) Component() AudioComponentDescription {
+	rv := objc.Send[AudioComponentDescription](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("component"))
+	_ = rv
+	return AudioComponentDescription{}
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeakUPAUManager/registerAU

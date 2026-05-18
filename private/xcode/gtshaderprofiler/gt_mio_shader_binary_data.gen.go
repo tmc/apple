@@ -210,9 +210,9 @@ type IGTMioShaderBinaryData interface {
 	CachedISAFileURL() foundation.INSURL
 	Cost() unsafe.Pointer
 	CostCount() uint64
-	CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost unsafe.Pointer, instructions unsafe.Pointer) bool
-	CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost unsafe.Pointer, instructions unsafe.Pointer) bool
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool
+	CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions unsafe.Pointer) bool
+	CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions unsafe.Pointer) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
 	Costs() unsafe.Pointer
 	DebugBinaryRangeCount() uint64
 	DebugBinaryRanges() unsafe.Pointer
@@ -238,7 +238,7 @@ type IGTMioShaderBinaryData interface {
 	FullPathIndexForFilePath(path objectivec.IObject) uint32
 	HasRaytracing() bool
 	Index() uint64
-	InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 unsafe.Pointer) bool
+	InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 GTMioCostInfo) bool
 	InstructionCosts() unsafe.Pointer
 	InstructionCostsForDraw(draw uint32) unsafe.Pointer
 	InstructionCostsForEncoder(encoder uint32) unsafe.Pointer
@@ -258,8 +258,8 @@ type IGTMioShaderBinaryData interface {
 	TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64
 	TraceCount() uint64
 	TraceData() objectivec.IObject
-	Traces() *GTMioBinaryTraceRef
-	TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) *GTMioBinaryTraceRef
+	Traces() unsafe.Pointer
+	TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) unsafe.Pointer
 	UsedInDataMaster(master uint16) bool
 	UsedInDylib() bool
 	UsedInEncoder(encoder uint64) bool
@@ -317,19 +317,19 @@ func (g GTMioShaderBinaryData) CachedISAFileURL() foundation.INSURL {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/costForBinaryRange:scope:scopeIdentifier:cost:numInstructions:
-func (g GTMioShaderBinaryData) CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost unsafe.Pointer, instructions unsafe.Pointer) bool {
+func (g GTMioShaderBinaryData) CostForBinaryRangeScopeScopeIdentifierCostNumInstructions(range_ uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions unsafe.Pointer) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForBinaryRange:scope:scopeIdentifier:cost:numInstructions:"), range_, scope, identifier, cost, instructions)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/costForLine:fullPathIndex:scope:scopeIdentifier:cost:numInstructions:
-func (g GTMioShaderBinaryData) CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost unsafe.Pointer, instructions unsafe.Pointer) bool {
+func (g GTMioShaderBinaryData) CostForLineFullPathIndexScopeScopeIdentifierCostNumInstructions(line uint32, index uint32, scope uint16, identifier uint64, cost GTMioCostInfo, instructions unsafe.Pointer) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForLine:fullPathIndex:scope:scopeIdentifier:cost:numInstructions:"), line, index, scope, identifier, cost, instructions)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/costForScope:scopeIdentifier:cost:
-func (g GTMioShaderBinaryData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool {
+func (g GTMioShaderBinaryData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }
@@ -431,7 +431,7 @@ func (g GTMioShaderBinaryData) FullPathIndexForFilePath(path objectivec.IObject)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/instructionCost:scope:scopeIdentifier:cost:
-func (g GTMioShaderBinaryData) InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 unsafe.Pointer) bool {
+func (g GTMioShaderBinaryData) InstructionCostScopeScopeIdentifierCost(cost uint32, scope uint16, identifier uint64, cost2 GTMioCostInfo) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("instructionCost:scope:scopeIdentifier:cost:"), cost, scope, identifier, cost2)
 	return rv
 }
@@ -497,9 +497,9 @@ func (g GTMioShaderBinaryData) TotalCostForScopeScopeIdentifierDataMaster(scope 
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/tracesForProgramType:count:
-func (g GTMioShaderBinaryData) TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) *GTMioBinaryTraceRef {
+func (g GTMioShaderBinaryData) TracesForProgramTypeCount(type_ uint16, count unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("tracesForProgramType:count:"), type_, count)
-	return (*GTMioBinaryTraceRef)(rv)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInDataMaster:
@@ -683,9 +683,9 @@ func (g GTMioShaderBinaryData) TraceData() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/traces
-func (g GTMioShaderBinaryData) Traces() *GTMioBinaryTraceRef {
+func (g GTMioShaderBinaryData) Traces() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
-	return (*GTMioBinaryTraceRef)(rv)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderBinaryData/usedInDylib

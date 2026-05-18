@@ -108,7 +108,7 @@ type IAVAudioUnit interface {
 	// Topic: Loading an audio preset file
 
 	// Loads an audio unit using a specified preset.
-	LoadAudioUnitPresetAtURLError(url foundation.INSURL) (bool, error)
+	LoadAudioUnitPresetAtURLError(url foundation.NSURL) (bool, error)
 
 	// Topic: Getting audio unit values
 
@@ -146,7 +146,7 @@ func NewAVAudioUnit() AVAudioUnit {
 // url: The URL of an audio unit preset file.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/loadPreset(at:)
-func (a AVAudioUnit) LoadAudioUnitPresetAtURLError(url foundation.INSURL) (bool, error) {
+func (a AVAudioUnit) LoadAudioUnitPresetAtURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadAudioUnitPresetAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

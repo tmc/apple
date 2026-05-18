@@ -92,7 +92,7 @@ type ICPXEventDeferringPolicy interface {
 	AdvicePolicy() int64
 	AppendDescriptionToStream(stream objectivec.IObject)
 	AuditHistory() unsafe.Pointer
-	FrontmostProcess() *CPSProcessRecRef
+	FrontmostProcess() unsafe.Pointer
 	KeyThiefConnectionID() uint32
 	SetKeyThiefConnectionID(value uint32)
 }
@@ -167,9 +167,9 @@ func (c CPXEventDeferringPolicy) AuditHistory() unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicy/frontmostProcess
-func (c CPXEventDeferringPolicy) FrontmostProcess() *CPSProcessRecRef {
+func (c CPXEventDeferringPolicy) FrontmostProcess() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("frontmostProcess"))
-	return (*CPSProcessRecRef)(rv)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringPolicy/keyThiefConnectionID

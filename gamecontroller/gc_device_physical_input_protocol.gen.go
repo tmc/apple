@@ -15,49 +15,31 @@ type GCDevicePhysicalInput interface {
 	objectivec.IObject
 	GCDevicePhysicalInputState
 
-	// The device that the physical input represents.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/device
-	Device() GCDevice
-
 	// Returns the next input state from the queue.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/nextInputState()
 	NextInputState() objectivec.IObject
-
-	// The block that the profile calls when Game Controller adds an input state to the queue.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateAvailableHandler
-	InputStateAvailableHandler() func(objc.ID)
-
-	// The maximum number of input values that the queue stores.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateQueueDepth
-	InputStateQueueDepth() int
 
 	// Returns a snapshot of the physical device inputs.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/capture()
 	Capture() GCDevicePhysicalInputState
 
-	// A block that the profile calls when an element’s value changes.
+	// The device that the physical input represents.
 	//
-	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/elementValueDidChangeHandler
-	ElementValueDidChangeHandler() func(objc.ID)
-
-	// The dispatch queue that the system uses for callbacks.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
-	Queue() dispatch.Queue
+	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/device
+	Device() GCDevice
 
 	// The maximum number of input values that the queue stores.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateQueueDepth
+	InputStateQueueDepth() int
 	SetInputStateQueueDepth(value int)
 
 	// The dispatch queue that the system uses for callbacks.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
+	Queue() dispatch.Queue
 	SetQueue(value dispatch.Queue)
 }
 
@@ -78,14 +60,6 @@ func GCDevicePhysicalInputObjectFromID(id objc.ID) GCDevicePhysicalInputObject {
 	}
 }
 
-// The device that the physical input represents.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/device
-func (o GCDevicePhysicalInputObject) Device() GCDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return GCDeviceObjectFromID(rv)
-}
-
 // Returns the next input state from the queue.
 //
 // # Return Value
@@ -102,25 +76,6 @@ func (o GCDevicePhysicalInputObject) NextInputState() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-// The block that the profile calls when Game Controller adds an input state
-// to the queue.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateAvailableHandler
-func (o GCDevicePhysicalInputObject) InputStateAvailableHandler() func(objc.ID) {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputStateAvailableHandler"))
-	// Block/function return - cannot convert from objc.ID to Go func
-	_ = rv
-	return nil
-}
-
-// The maximum number of input values that the queue stores.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateQueueDepth
-func (o GCDevicePhysicalInputObject) InputStateQueueDepth() int {
-	rv := objc.Send[int](o.ID, objc.Sel("inputStateQueueDepth"))
-	return rv
-}
-
 // Returns a snapshot of the physical device inputs.
 //
 // # Return Value
@@ -131,24 +86,6 @@ func (o GCDevicePhysicalInputObject) InputStateQueueDepth() int {
 func (o GCDevicePhysicalInputObject) Capture() GCDevicePhysicalInputState {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("capture"))
 	return GCDevicePhysicalInputStateObjectFromID(rv)
-}
-
-// A block that the profile calls when an element’s value changes.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/elementValueDidChangeHandler
-func (o GCDevicePhysicalInputObject) ElementValueDidChangeHandler() func(objc.ID) {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("elementValueDidChangeHandler"))
-	// Block/function return - cannot convert from objc.ID to Go func
-	_ = rv
-	return nil
-}
-
-// The dispatch queue that the system uses for callbacks.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
-func (o GCDevicePhysicalInputObject) Queue() dispatch.Queue {
-	rv := objc.Send[uintptr](o.ID, objc.Sel("queue"))
-	return dispatch.QueueFromHandle(rv)
 }
 
 // The time of the most recent event.
@@ -181,6 +118,14 @@ func (o GCDevicePhysicalInputObject) ObjectForKeyedSubscript(key string) GCPhysi
 	return GCPhysicalInputElementObjectFromID(rv)
 }
 
+// The device that the physical input represents.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/device
+func (o GCDevicePhysicalInputObject) Device() GCDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return GCDeviceObjectFromID(rv)
+}
+
 // The maximum number of input values that the queue stores.
 //
 // # Discussion
@@ -190,6 +135,11 @@ func (o GCDevicePhysicalInputObject) ObjectForKeyedSubscript(key string) GCPhysi
 // `1` which indicates no buffering.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateQueueDepth
+func (o GCDevicePhysicalInputObject) InputStateQueueDepth() int {
+	rv := objc.Send[int](o.ID, objc.Sel("inputStateQueueDepth"))
+	return int(rv)
+}
+
 func (o GCDevicePhysicalInputObject) SetInputStateQueueDepth(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputStateQueueDepth:"), value)
 }
@@ -204,6 +154,51 @@ func (o GCDevicePhysicalInputObject) SetInputStateQueueDepth(value int) {
 // before you set callbacks.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
+func (o GCDevicePhysicalInputObject) Queue() dispatch.Queue {
+	rv := objc.Send[uintptr](o.ID, objc.Sel("queue"))
+	return dispatch.QueueFromHandle(rv)
+}
+
 func (o GCDevicePhysicalInputObject) SetQueue(value dispatch.Queue) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQueue:"), value)
+}
+
+// The device’s elements as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/elements-1shp2
+func (o GCDevicePhysicalInputObject) Elements() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("elements"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s axes as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/axes-80rx
+func (o GCDevicePhysicalInputObject) Axes() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("axes"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s buttons as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/buttons-3257g
+func (o GCDevicePhysicalInputObject) Buttons() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("buttons"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s directional pads as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/dpads-5yr9x
+func (o GCDevicePhysicalInputObject) Dpads() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("dpads"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s switches as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/switches-6bws2
+func (o GCDevicePhysicalInputObject) Switches() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("switches"))
+	return GCPhysicalInputElementCollectionFromID(rv)
 }

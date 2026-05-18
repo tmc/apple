@@ -271,29 +271,29 @@ type ICIContext interface {
 	// Topic: Rendering Images for Data or File Export
 
 	// Renders the image and exports the resulting image data in TIFF format.
-	TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.INSData
+	TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
 	// Renders the image and exports the resulting image data in JPEG format.
-	JPEGRepresentationOfImageColorSpaceOptions(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.INSData
+	JPEGRepresentationOfImageColorSpaceOptions(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
 	// Renders the image and exports the resulting image data in PNG format.
-	PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.INSData
+	PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
 	// Renders the image and exports the resulting image data in HEIF format.
-	HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.INSData
+	HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
 	// Renders the image and exports the resulting image data in HEIF10 format.
-	HEIF10RepresentationOfImageColorSpaceOptionsError(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (foundation.INSData, error)
+	HEIF10RepresentationOfImageColorSpaceOptionsError(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (foundation.NSData, error)
 	// Renders the image and exports the resulting image data in open EXR format.
-	OpenEXRRepresentationOfImageOptionsError(image ICIImage, options foundation.INSDictionary) (foundation.INSData, error)
+	OpenEXRRepresentationOfImageOptionsError(image ICIImage, options foundation.INSDictionary) (foundation.NSData, error)
 	// Renders the image and exports the resulting image data as a file in TIFF format.
-	WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.INSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
+	WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in JPEG format.
-	WriteJPEGRepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.INSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
+	WriteJPEGRepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.NSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in PNG format.
-	WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.INSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
+	WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in HEIF format.
-	WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.INSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
+	WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in HEIF10 format.
-	WriteHEIF10RepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.INSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
+	WriteHEIF10RepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.NSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in open EXR format.
-	WriteOpenEXRRepresentationOfImageToURLOptionsError(image ICIImage, url foundation.INSURL, options foundation.INSDictionary) (bool, error)
+	WriteOpenEXRRepresentationOfImageToURLOptionsError(image ICIImage, url foundation.NSURL, options foundation.INSDictionary) (bool, error)
 
 	// Topic: Creating Depth Blur Filters
 
@@ -304,9 +304,9 @@ type ICIContext interface {
 	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
 	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation uint, options foundation.INSDictionary) CIFilter
 	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect.
-	DepthBlurEffectFilterForImageDataOptions(data foundation.INSData, options foundation.INSDictionary) CIFilter
+	DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) CIFilter
 	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image URL that can be used to apply a depth blur effect.
-	DepthBlurEffectFilterForImageURLOptions(url foundation.INSURL, options foundation.INSDictionary) CIFilter
+	DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) CIFilter
 
 	// Topic: Customizing Render Destination
 
@@ -367,7 +367,7 @@ func NewCIContext() CIContext {
 // cgctx: A Quartz graphics context.
 //
 // options: A dictionary that contains color space information. You can pass any of the
-// keys defined in `Context Options` along with the appropriate value.
+// keys defined in [CIContextOption] along with the appropriate value.
 //
 // # Discussion
 //
@@ -378,7 +378,7 @@ func NewCIContext() CIContext {
 // transformations that are already set on the Quartz graphics context affect
 // drawing to that context.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(cgContext:options:)
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(cgContext:options:)-6p78w
 func NewContextWithCGContextOptions(cgctx coregraphics.CGContextRef, options foundation.INSDictionary) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithCGContext:options:"), cgctx, options)
 	return CIContextFromID(rv)
@@ -398,8 +398,8 @@ func NewContextWithCGContextOptions(cgctx coregraphics.CGContextRef, options fou
 // using the methods listed in Drawing Images is rendered directly into the
 // context.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(eaglContext:)
-func NewContextWithEAGLContext(eaglContext unsafe.Pointer) CIContext {
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(eaglContext:)-8ajef
+func NewContextWithEAGLContext(eaglContext objectivec.IObject) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithEAGLContext:"), eaglContext)
 	return CIContextFromID(rv)
 }
@@ -410,7 +410,7 @@ func NewContextWithEAGLContext(eaglContext unsafe.Pointer) CIContext {
 // eaglContext: The EAGL context to render to.
 //
 // options: A dictionary that contains options for creating a [CIContext] object. You
-// can pass any of the keys defined in `Context Options` along with the
+// can pass any of the keys defined in [CIContextOption] along with the
 // appropriate value.
 //
 // # Return Value
@@ -423,19 +423,19 @@ func NewContextWithEAGLContext(eaglContext unsafe.Pointer) CIContext {
 // using the methods listed in Drawing Images is rendered directly into the
 // context.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(eaglContext:options:)
-func NewContextWithEAGLContextOptions(eaglContext unsafe.Pointer, options foundation.INSDictionary) CIContext {
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(eaglContext:options:)-6uyqj
+func NewContextWithEAGLContextOptions(eaglContext objectivec.IObject, options foundation.INSDictionary) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithEAGLContext:options:"), eaglContext, options)
 	return CIContextFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlCommandQueue:)
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlCommandQueue:)-7dtqk
 func NewContextWithMTLCommandQueue(commandQueue metal.MTLCommandQueue) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLCommandQueue:"), commandQueue)
 	return CIContextFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlCommandQueue:options:)
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlCommandQueue:options:)-6i3me
 func NewContextWithMTLCommandQueueOptions(commandQueue metal.MTLCommandQueue, options foundation.INSDictionary) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLCommandQueue:options:"), commandQueue, options)
 	return CIContextFromID(rv)
@@ -456,7 +456,7 @@ func NewContextWithMTLCommandQueueOptions(commandQueue metal.MTLCommandQueue, op
 // using the system’s default Metal device, use the [ContextWithOptions]
 // method.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:)
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:)-swey
 func NewContextWithMTLDevice(device metal.MTLDevice) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLDevice:"), device)
 	return CIContextFromID(rv)
@@ -467,7 +467,7 @@ func NewContextWithMTLDevice(device metal.MTLDevice) CIContext {
 // device: The Metal device object to use for rendering.
 //
 // options: A dictionary that contains options for creating a [CIContext] object. You
-// can pass any of the keys defined in `Context Options` along with the
+// can pass any of the keys defined in [CIContextOption] along with the
 // appropriate value.
 //
 // # Return Value
@@ -481,7 +481,7 @@ func NewContextWithMTLDevice(device metal.MTLDevice) CIContext {
 // using the system’s default Metal device, use the [ContextWithOptions]
 // method.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:options:)
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:options:)-26usb
 func NewContextWithMTLDeviceOptions(device metal.MTLDevice, options foundation.INSDictionary) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLDevice:options:"), device, options)
 	return CIContextFromID(rv)
@@ -793,7 +793,7 @@ func (c CIContext) ReclaimResources() {
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.INSData {
+func (c CIContext) TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("TIFFRepresentationOfImage:format:colorSpace:options:"), image, format, colorSpace, options)
 	return foundation.NSDataFromID(rv)
 }
@@ -831,7 +831,7 @@ func (c CIContext) TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIIma
 // [depthImage]: https://developer.apple.com/documentation/CoreImage/CIImageRepresentationOption/depthImage
 // [disparityImage]: https://developer.apple.com/documentation/CoreImage/CIImageRepresentationOption/disparityImage
 // [kCGImageDestinationLossyCompressionQuality]: https://developer.apple.com/documentation/ImageIO/kCGImageDestinationLossyCompressionQuality
-func (c CIContext) JPEGRepresentationOfImageColorSpaceOptions(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.INSData {
+func (c CIContext) JPEGRepresentationOfImageColorSpaceOptions(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("JPEGRepresentationOfImage:colorSpace:options:"), image, colorSpace, options)
 	return foundation.NSDataFromID(rv)
 }
@@ -864,7 +864,7 @@ func (c CIContext) JPEGRepresentationOfImageColorSpaceOptions(image ICIImage, co
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.INSData {
+func (c CIContext) PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("PNGRepresentationOfImage:format:colorSpace:options:"), image, format, colorSpace, options)
 	return foundation.NSDataFromID(rv)
 }
@@ -903,7 +903,7 @@ func (c CIContext) PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImag
 // [depthImage]: https://developer.apple.com/documentation/CoreImage/CIImageRepresentationOption/depthImage
 // [disparityImage]: https://developer.apple.com/documentation/CoreImage/CIImageRepresentationOption/disparityImage
 // [kCGImageDestinationLossyCompressionQuality]: https://developer.apple.com/documentation/ImageIO/kCGImageDestinationLossyCompressionQuality
-func (c CIContext) HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.INSData {
+func (c CIContext) HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("HEIFRepresentationOfImage:format:colorSpace:options:"), image, format, colorSpace, options)
 	return foundation.NSDataFromID(rv)
 }
@@ -920,7 +920,7 @@ func (c CIContext) HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIIma
 
 // DEBUG_TEMPLATE_STRUCT HEIF10RepresentationOfImageColorSpaceOptionsError Params: image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary
 
-func (c CIContext) HEIF10RepresentationOfImageColorSpaceOptionsError(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (foundation.INSData, error) {
+func (c CIContext) HEIF10RepresentationOfImageColorSpaceOptionsError(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (foundation.NSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("HEIF10RepresentationOfImage:colorSpace:options:error:"), image, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -938,7 +938,7 @@ func (c CIContext) HEIF10RepresentationOfImageColorSpaceOptionsError(image ICIIm
 // options: A dictionary with additional options for export.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/openEXRRepresentation(of:options:)
-func (c CIContext) OpenEXRRepresentationOfImageOptionsError(image ICIImage, options foundation.INSDictionary) (foundation.INSData, error) {
+func (c CIContext) OpenEXRRepresentationOfImageOptionsError(image ICIImage, options foundation.INSDictionary) (foundation.NSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("OpenEXRRepresentationOfImage:options:error:"), image, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -975,7 +975,7 @@ func (c CIContext) OpenEXRRepresentationOfImageOptionsError(image ICIImage, opti
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.INSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeTIFFRepresentationOfImage:toURL:format:colorSpace:options:error:"), image, url, format, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1016,7 +1016,7 @@ func (c CIContext) WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsErr
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
 // [kCGImageDestinationLossyCompressionQuality]: https://developer.apple.com/documentation/ImageIO/kCGImageDestinationLossyCompressionQuality
-func (c CIContext) WriteJPEGRepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.INSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WriteJPEGRepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.NSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeJPEGRepresentationOfImage:toURL:colorSpace:options:error:"), image, url, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1056,7 +1056,7 @@ func (c CIContext) WriteJPEGRepresentationOfImageToURLColorSpaceOptionsError(ima
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.INSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writePNGRepresentationOfImage:toURL:format:colorSpace:options:error:"), image, url, format, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1100,7 +1100,7 @@ func (c CIContext) WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsErro
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.INSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeHEIFRepresentationOfImage:toURL:format:colorSpace:options:error:"), image, url, format, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1126,7 +1126,7 @@ func (c CIContext) WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsErr
 // options: A dictionary with additional options for export.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/writeHEIF10Representation(of:to:colorSpace:options:)
-func (c CIContext) WriteHEIF10RepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.INSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WriteHEIF10RepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.NSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeHEIF10RepresentationOfImage:toURL:colorSpace:options:error:"), image, url, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1150,7 +1150,7 @@ func (c CIContext) WriteHEIF10RepresentationOfImageToURLColorSpaceOptionsError(i
 // options: A dictionary with additional options for export.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/writeOpenEXRRepresentation(of:to:options:)
-func (c CIContext) WriteOpenEXRRepresentationOfImageToURLOptionsError(image ICIImage, url foundation.INSURL, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WriteOpenEXRRepresentationOfImageToURLOptionsError(image ICIImage, url foundation.NSURL, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeOpenEXRRepresentationOfImage:toURL:options:error:"), image, url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1286,7 +1286,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 // landmarks used to create the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(forImageData:options:)
-func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.INSData, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) CIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImageData:options:"), data, options)
 	return CIFilterFromID(rv)
 }
@@ -1304,7 +1304,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.INSD
 // landmarks used to create the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(forImageURL:options:)
-func (c CIContext) DepthBlurEffectFilterForImageURLOptions(url foundation.INSURL, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) CIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImageURL:options:"), url, options)
 	return CIFilterFromID(rv)
 }

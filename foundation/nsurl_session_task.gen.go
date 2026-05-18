@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -51,17 +52,17 @@ func (uc URLSessionTaskClass) Alloc() URLSessionTask {
 // task creation methods on a [NSURLSession] instance. The method you call
 // determines the type of task.
 //
-// - Use [NSURLSession]‘s [DataTaskWithURL] and related methods to create
-// [NSURLSessionDataTask] instances. Data tasks request a resource, returning
-// the server’s response as one or more [NSData] objects in memory. They are
-// supported in default, ephemeral, and shared sessions, but are not supported
-// in background sessions. - Use [NSURLSession]‘s
+// - Use [NSURLSession]‘s [DataTaskWithRequest] and related methods to
+// create [NSURLSessionDataTask] instances. Data tasks request a resource,
+// returning the server’s response as one or more [NSData] objects in
+// memory. They are supported in default, ephemeral, and shared sessions, but
+// are not supported in background sessions. - Use [NSURLSession]‘s
 // [UploadTaskWithRequestFromData] and related methods to create
 // [NSURLSessionUploadTask] instances. Upload tasks are like data tasks,
 // except that they make it easier to provide a request body so you can upload
 // data before retrieving the server’s response. Additionally, upload tasks
 // are supported in background sessions. - Use [NSURLSession]’s
-// [DownloadTaskWithURL] and related methods to create
+// [DownloadTaskWithRequest] and related methods to create
 // [NSURLSessionDownloadTask] instances. Download tasks download a resource
 // directly to a file on disk. Download tasks are supported in any type of
 // session. - Use [NSURLSession]’s [StreamTaskWithHostNamePort] or
@@ -189,7 +190,6 @@ func NSURLSessionTaskFromID(id objc.ID) URLSessionTask { return URLSessionTaskFr
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask
 type IURLSessionTask interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Controlling the task state
 
@@ -216,7 +216,7 @@ type IURLSessionTask interface {
 	// The number of bytes that the task has sent to the server in the request body.
 	CountOfBytesSent() int64
 	// The total size of the transfer cannot be determined.
-	NSURLSessionTransferSizeUnknown() objectivec.IObject
+	NSURLSessionTransferSizeUnknown() unsafe.Pointer
 
 	// Topic: Obtaining general task information
 
@@ -618,9 +618,9 @@ func (u URLSessionTask) SetCountOfBytesClientExpectsToSend(value int64) {
 // The total size of the transfer cannot be determined.
 //
 // See: https://developer.apple.com/documentation/foundation/nsurlsessiontransfersizeunknown
-func (u URLSessionTask) NSURLSessionTransferSizeUnknown() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSURLSessionTransferSizeUnknown"))
-	return objectivec.Object{ID: rv}
+func (u URLSessionTask) NSURLSessionTransferSizeUnknown() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("NSURLSessionTransferSizeUnknown"))
+	return rv
 }
 
 // The earliest date at which the network load should begin.

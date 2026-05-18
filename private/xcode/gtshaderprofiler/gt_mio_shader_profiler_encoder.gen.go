@@ -4,7 +4,6 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -105,7 +104,7 @@ type IGTMioShaderProfilerEncoder interface {
 	PointerId() uint64
 	StoreTime() uint64
 	TimingInfo() IGTShaderProfilerTimingInfo
-	InitWithInfoMetadataTraceData(info objectivec.IObject, metadata unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerEncoder
+	InitWithInfoMetadataTraceData(info objectivec.IObject, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -132,14 +131,14 @@ func NewGTMioShaderProfilerEncoder() GTMioShaderProfilerEncoder {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerEncoder/initWithInfo:metadata:traceData:
-func NewGTMioShaderProfilerEncoderWithInfoMetadataTraceData(info objectivec.IObject, metadata unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerEncoder {
+func NewGTMioShaderProfilerEncoderWithInfoMetadataTraceData(info objectivec.IObject, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
 	instance := getGTMioShaderProfilerEncoderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInfo:metadata:traceData:"), info, metadata, data)
 	return GTMioShaderProfilerEncoderFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderProfilerEncoder/initWithInfo:metadata:traceData:
-func (g GTMioShaderProfilerEncoder) InitWithInfoMetadataTraceData(info objectivec.IObject, metadata unsafe.Pointer, data objectivec.IObject) GTMioShaderProfilerEncoder {
+func (g GTMioShaderProfilerEncoder) InitWithInfoMetadataTraceData(info objectivec.IObject, metadata GTMioEncoderMetadata, data objectivec.IObject) GTMioShaderProfilerEncoder {
 	rv := objc.Send[GTMioShaderProfilerEncoder](g.ID, objc.Sel("initWithInfo:metadata:traceData:"), info, metadata, data)
 	return rv
 }

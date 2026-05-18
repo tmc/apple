@@ -105,8 +105,8 @@ type INEVPNProtocolIPSec interface {
 	UseExtendedAuthentication() bool
 	SetUseExtendedAuthentication(value bool)
 	// A persistent keychain reference to a keychain item containing the IKE shared secret.
-	SharedSecretReference() foundation.INSData
-	SetSharedSecretReference(value foundation.INSData)
+	SharedSecretReference() foundation.NSData
+	SetSharedSecretReference(value foundation.NSData)
 	// A string identifying the iOS or macOS device for authentication purposes
 	LocalIdentifier() string
 	SetLocalIdentifier(value string)
@@ -189,11 +189,11 @@ func (v NEVPNProtocolIPSec) SetUseExtendedAuthentication(value bool) {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocolIPSec/sharedSecretReference
 //
 // [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
-func (v NEVPNProtocolIPSec) SharedSecretReference() foundation.INSData {
+func (v NEVPNProtocolIPSec) SharedSecretReference() foundation.NSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("sharedSecretReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (v NEVPNProtocolIPSec) SetSharedSecretReference(value foundation.INSData) {
+func (v NEVPNProtocolIPSec) SetSharedSecretReference(value foundation.NSData) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSharedSecretReference:"), value)
 }
 

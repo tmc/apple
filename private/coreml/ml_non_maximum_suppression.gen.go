@@ -80,14 +80,14 @@ type IMLNonMaximumSuppression interface {
 }
 
 // Init initializes the instance.
-func (n MLNonMaximumSuppression) Init() MLNonMaximumSuppression {
-	rv := objc.Send[MLNonMaximumSuppression](n.ID, objc.Sel("init"))
+func (m MLNonMaximumSuppression) Init() MLNonMaximumSuppression {
+	rv := objc.Send[MLNonMaximumSuppression](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNonMaximumSuppression) Autorelease() MLNonMaximumSuppression {
-	rv := objc.Send[MLNonMaximumSuppression](n.ID, objc.Sel("autorelease"))
+func (m MLNonMaximumSuppression) Autorelease() MLNonMaximumSuppression {
+	rv := objc.Send[MLNonMaximumSuppression](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -125,9 +125,9 @@ func NewNonMaximumSuppressionWithParametersModelDescriptionConfigurationError(pa
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppression/initWithParameters:modelDescription:configuration:error:
-func (n MLNonMaximumSuppression) InitWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLNonMaximumSuppression, error) {
+func (m MLNonMaximumSuppression) InitWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLNonMaximumSuppression, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithParameters:modelDescription:configuration:error:"), parameters, description, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithParameters:modelDescription:configuration:error:"), parameters, description, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNonMaximumSuppression{}, foundation.NSErrorFrom(errorPtr)
@@ -149,7 +149,7 @@ func (_MLNonMaximumSuppressionClass MLNonMaximumSuppressionClass) LoadModelFromS
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppression/parameters
-func (n MLNonMaximumSuppression) Parameters() IMLNonMaximumSuppressionParameters {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameters"))
+func (m MLNonMaximumSuppression) Parameters() IMLNonMaximumSuppressionParameters {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return MLNonMaximumSuppressionParametersFromID(objc.ID(rv))
 }

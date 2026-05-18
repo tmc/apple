@@ -217,7 +217,7 @@ type INSSharingService interface {
 	// The message body as a string.
 	MessageBody() string
 	// A permanent URL (permalink) that your app can use to access the post.
-	PermanentLink() foundation.INSURL
+	PermanentLink() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -436,7 +436,7 @@ func (s NSSharingService) MessageBody() string {
 // A permanent URL (permalink) that your app can use to access the post.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/permanentLink
-func (s NSSharingService) PermanentLink() foundation.INSURL {
+func (s NSSharingService) PermanentLink() foundation.NSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("permanentLink"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

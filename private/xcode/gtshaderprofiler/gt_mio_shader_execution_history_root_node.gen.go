@@ -5,7 +5,6 @@ package gtshaderprofiler
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -124,8 +123,8 @@ type IGTMioShaderExecutionHistoryRootNode interface {
 	_pushNewFunction(function objectivec.IObject)
 	CacheKey() objectivec.IObject
 	CacheObject() objectivec.IObject
-	CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadataRef, usc objectivec.IObject)
-	CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadataRef, usc objectivec.IObject)
+	CliqueExecutionHistoryBeginUsc(begin GTMioUSCCliqueMetadata, usc objectivec.IObject)
+	CliqueExecutionHistoryEndUsc(end GTMioUSCCliqueMetadata, usc objectivec.IObject)
 	CliqueExecutionHistoryStyle() uint32
 	Delegate() objectivec.IObject
 	SetDelegate(value objectivec.IObject)
@@ -136,11 +135,11 @@ type IGTMioShaderExecutionHistoryRootNode interface {
 	LoopBackInstructionEndLoopCountCurrentLoopCountBinary(back uint32, end uint32, count uint32, count2 uint32, binary objectivec.IObject)
 	NumHitsForInstructionBinaryIndex(instruction uint32, index uint32) uint32
 	Options() uint32
-	PopFunctionBinaryRangeBinary(function unsafe.Pointer, range_ unsafe.Pointer, binary objectivec.IObject)
+	PopFunctionBinaryRangeBinary(function GTMioShaderBinaryDebugLocation, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject)
 	PopLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject)
 	PopStack()
-	ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ unsafe.Pointer, binary objectivec.IObject, hits uint32)
-	PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function unsafe.Pointer, index uint32, inlined bool, binary objectivec.IObject, location unsafe.Pointer, index2 uint32, binary2 objectivec.IObject)
+	ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32)
+	PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject)
 	PushLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject)
 	PushStack(stack objectivec.IObject)
 	Style() uint32
@@ -214,12 +213,12 @@ func (g GTMioShaderExecutionHistoryRootNode) CacheObject() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cliqueExecutionHistoryBegin:usc:
-func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryBeginUsc(begin *GTMioUSCCliqueMetadataRef, usc objectivec.IObject) {
+func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryBeginUsc(begin GTMioUSCCliqueMetadata, usc objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cliqueExecutionHistoryEnd:usc:
-func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryEndUsc(end *GTMioUSCCliqueMetadataRef, usc objectivec.IObject) {
+func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryEndUsc(end GTMioUSCCliqueMetadata, usc objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
 }
 
@@ -264,7 +263,7 @@ func (g GTMioShaderExecutionHistoryRootNode) NumHitsForInstructionBinaryIndex(in
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/popFunction:binaryRange:binary:
-func (g GTMioShaderExecutionHistoryRootNode) PopFunctionBinaryRangeBinary(function unsafe.Pointer, range_ unsafe.Pointer, binary objectivec.IObject) {
+func (g GTMioShaderExecutionHistoryRootNode) PopFunctionBinaryRangeBinary(function GTMioShaderBinaryDebugLocation, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("popFunction:binaryRange:binary:"), function, range_, binary)
 }
 
@@ -279,12 +278,12 @@ func (g GTMioShaderExecutionHistoryRootNode) PopStack() {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/processInstruction:binaryRange:binary:numHits:
-func (g GTMioShaderExecutionHistoryRootNode) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ unsafe.Pointer, binary objectivec.IObject, hits uint32) {
+func (g GTMioShaderExecutionHistoryRootNode) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ GTMioShaderBinaryDebugBinaryRange, binary objectivec.IObject, hits uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("processInstruction:binaryRange:binary:numHits:"), instruction, range_, binary, hits)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:
-func (g GTMioShaderExecutionHistoryRootNode) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function unsafe.Pointer, index uint32, inlined bool, binary objectivec.IObject, location unsafe.Pointer, index2 uint32, binary2 objectivec.IObject) {
+func (g GTMioShaderExecutionHistoryRootNode) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function GTMioShaderBinaryDebugLocation, index uint32, inlined bool, binary objectivec.IObject, location GTMioShaderBinaryDebugLocation, index2 uint32, binary2 objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:"), function, index, inlined, binary, location, index2, binary2)
 }
 

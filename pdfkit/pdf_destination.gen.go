@@ -143,8 +143,8 @@ type IPDFDestination interface {
 	CurrentDestination() IPDFDestination
 	SetCurrentDestination(value IPDFDestination)
 	// Returns the modification date of the annotation.
-	ModificationDate() foundation.INSDate
-	SetModificationDate(value foundation.INSDate)
+	ModificationDate() foundation.NSDate
+	SetModificationDate(value foundation.NSDate)
 	// Returns the type of the annotation.
 	Type() string
 	SetType(value string)
@@ -332,11 +332,11 @@ func (p PDFDestination) SetCurrentDestination(value IPDFDestination) {
 // Returns the modification date of the annotation.
 //
 // See: https://developer.apple.com/documentation/pdfkit/pdfannotation/modificationdate
-func (p PDFDestination) ModificationDate() foundation.INSDate {
+func (p PDFDestination) ModificationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modificationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (p PDFDestination) SetModificationDate(value foundation.INSDate) {
+func (p PDFDestination) SetModificationDate(value foundation.NSDate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModificationDate:"), value)
 }
 

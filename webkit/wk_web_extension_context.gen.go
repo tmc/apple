@@ -250,8 +250,8 @@ type IWKWebExtensionContext interface {
 	// Topic: Instance Properties
 
 	// The base URL the context uses for loading extension resources or injecting content into webpages.
-	BaseURL() foundation.INSURL
-	SetBaseURL(value foundation.INSURL)
+	BaseURL() foundation.NSURL
+	SetBaseURL(value foundation.NSURL)
 	// The commands associated with the extension.
 	Commands() []WKWebExtensionCommand
 	// The currently granted permission match patterns that have not expired.
@@ -301,9 +301,9 @@ type IWKWebExtensionContext interface {
 	// The open windows that are exposed to this extension.
 	OpenWindows() []objectivec.IObject
 	// The URL of the extension’s options page, if the extension has one.
-	OptionsPageURL() foundation.INSURL
+	OptionsPageURL() foundation.NSURL
 	// The URL to use as an alternative to the default new tab page, if the extension has one.
-	OverrideNewTabPageURL() foundation.INSURL
+	OverrideNewTabPageURL() foundation.NSURL
 	// A unique identifier used to distinguish the extension from other extensions and target it for messages.
 	UniqueIdentifier() string
 	SetUniqueIdentifier(value string)
@@ -342,13 +342,13 @@ type IWKWebExtensionContext interface {
 	// Called by the app when tabs are selected to fire appropriate events with only this extension.
 	DidSelectTabs(selectedTabs []objectivec.IObject)
 	// Checks the specified URL against the currently granted permission match patterns.
-	HasAccessToURL(url foundation.INSURL) bool
+	HasAccessToURL(url foundation.NSURL) bool
 	// Checks the specified URL against the currently granted permission match patterns in a specific tab.
-	HasAccessToURLInTab(url foundation.INSURL, tab WKWebExtensionTab) bool
+	HasAccessToURLInTab(url foundation.NSURL, tab WKWebExtensionTab) bool
 	// Indicates if a user gesture is currently active in the specified tab.
 	HasActiveUserGestureInTab(tab WKWebExtensionTab) bool
 	// Checks if the extension has script or stylesheet content that can be injected into the specified URL.
-	HasInjectedContentForURL(url foundation.INSURL) bool
+	HasInjectedContentForURL(url foundation.NSURL) bool
 	// Checks the specified permission against the currently granted permissions.
 	HasPermission(permission WKWebExtensionPermission) bool
 	// Checks the specified permission against the currently granted permissions in a specific tab.
@@ -368,25 +368,25 @@ type IWKWebExtensionContext interface {
 	// Checks the specified match pattern against the currently denied, granted, and requested permission match patterns.
 	PermissionStatusForMatchPattern(pattern IWKWebExtensionMatchPattern) WKWebExtensionContextPermissionStatus
 	// Checks the specified URL against the currently denied, granted, and requested permission match patterns.
-	PermissionStatusForURL(url foundation.INSURL) WKWebExtensionContextPermissionStatus
+	PermissionStatusForURL(url foundation.NSURL) WKWebExtensionContextPermissionStatus
 	// Checks the specified permission against the currently denied, granted, and requested permissions.
 	PermissionStatusForPermissionInTab(permission WKWebExtensionPermission, tab WKWebExtensionTab) WKWebExtensionContextPermissionStatus
 	// Checks the specified URL against the currently denied, granted, and requested permission match patterns.
-	PermissionStatusForURLInTab(url foundation.INSURL, tab WKWebExtensionTab) WKWebExtensionContextPermissionStatus
+	PermissionStatusForURLInTab(url foundation.NSURL, tab WKWebExtensionTab) WKWebExtensionContextPermissionStatus
 	// Checks the specified match pattern against the currently denied, granted, and requested permission match patterns.
 	PermissionStatusForMatchPatternInTab(pattern IWKWebExtensionMatchPattern, tab WKWebExtensionTab) WKWebExtensionContextPermissionStatus
 	// Sets the status of a permission with a distant future expiration date.
 	SetPermissionStatusForPermission(status WKWebExtensionContextPermissionStatus, permission WKWebExtensionPermission)
 	// Sets the permission status of a URL with a distant future expiration date.
-	SetPermissionStatusForURL(status WKWebExtensionContextPermissionStatus, url foundation.INSURL)
+	SetPermissionStatusForURL(status WKWebExtensionContextPermissionStatus, url foundation.NSURL)
 	// Sets the status of a match pattern with a distant future expiration date.
 	SetPermissionStatusForMatchPattern(status WKWebExtensionContextPermissionStatus, pattern IWKWebExtensionMatchPattern)
 	// Sets the permission status of a URL with a distant future expiration date.
-	SetPermissionStatusForURLExpirationDate(status WKWebExtensionContextPermissionStatus, url foundation.INSURL, expirationDate foundation.INSDate)
+	SetPermissionStatusForURLExpirationDate(status WKWebExtensionContextPermissionStatus, url foundation.NSURL, expirationDate foundation.NSDate)
 	// Sets the status of a permission with a specific expiration date.
-	SetPermissionStatusForPermissionExpirationDate(status WKWebExtensionContextPermissionStatus, permission WKWebExtensionPermission, expirationDate foundation.INSDate)
+	SetPermissionStatusForPermissionExpirationDate(status WKWebExtensionContextPermissionStatus, permission WKWebExtensionPermission, expirationDate foundation.NSDate)
 	// Sets the status of a match pattern with a specific expiration date.
-	SetPermissionStatusForMatchPatternExpirationDate(status WKWebExtensionContextPermissionStatus, pattern IWKWebExtensionMatchPattern, expirationDate foundation.INSDate)
+	SetPermissionStatusForMatchPatternExpirationDate(status WKWebExtensionContextPermissionStatus, pattern IWKWebExtensionMatchPattern, expirationDate foundation.NSDate)
 	// Should be called by the app when a user gesture is performed in a specific tab.
 	UserGesturePerformedInTab(tab WKWebExtensionTab)
 
@@ -655,7 +655,7 @@ func (w WKWebExtensionContext) DidSelectTabs(selectedTabs []objectivec.IObject) 
 // url: The URL for which to return the status.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/hasAccess(to:)
-func (w WKWebExtensionContext) HasAccessToURL(url foundation.INSURL) bool {
+func (w WKWebExtensionContext) HasAccessToURL(url foundation.NSURL) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("hasAccessToURL:"), url)
 	return rv
 }
@@ -674,7 +674,7 @@ func (w WKWebExtensionContext) HasAccessToURL(url foundation.INSURL) bool {
 // known, access checks should always use this method.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/hasAccess(to:in:)
-func (w WKWebExtensionContext) HasAccessToURLInTab(url foundation.INSURL, tab WKWebExtensionTab) bool {
+func (w WKWebExtensionContext) HasAccessToURLInTab(url foundation.NSURL, tab WKWebExtensionTab) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("hasAccessToURL:inTab:"), url, tab)
 	return rv
 }
@@ -714,7 +714,7 @@ func (w WKWebExtensionContext) HasActiveUserGestureInTab(tab WKWebExtensionTab) 
 // permissions for its content to actually be injected.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/hasInjectedContent(for:)
-func (w WKWebExtensionContext) HasInjectedContentForURL(url foundation.INSURL) bool {
+func (w WKWebExtensionContext) HasInjectedContentForURL(url foundation.NSURL) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("hasInjectedContentForURL:"), url)
 	return rv
 }
@@ -896,7 +896,7 @@ func (w WKWebExtensionContext) PermissionStatusForMatchPattern(pattern IWKWebExt
 // known, access checks should always use the method that checks in a tab.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionStatus(for:)-7ojrb
-func (w WKWebExtensionContext) PermissionStatusForURL(url foundation.INSURL) WKWebExtensionContextPermissionStatus {
+func (w WKWebExtensionContext) PermissionStatusForURL(url foundation.NSURL) WKWebExtensionContextPermissionStatus {
 	rv := objc.Send[WKWebExtensionContextPermissionStatus](w.ID, objc.Sel("permissionStatusForURL:"), url)
 	return WKWebExtensionContextPermissionStatus(rv)
 }
@@ -934,7 +934,7 @@ func (w WKWebExtensionContext) PermissionStatusForPermissionInTab(permission WKW
 // known, access checks should always use this method.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/permissionStatus(for:in:)-96xaf
-func (w WKWebExtensionContext) PermissionStatusForURLInTab(url foundation.INSURL, tab WKWebExtensionTab) WKWebExtensionContextPermissionStatus {
+func (w WKWebExtensionContext) PermissionStatusForURLInTab(url foundation.NSURL, tab WKWebExtensionTab) WKWebExtensionContextPermissionStatus {
 	rv := objc.Send[WKWebExtensionContextPermissionStatus](w.ID, objc.Sel("permissionStatusForURL:inTab:"), url, tab)
 	return WKWebExtensionContextPermissionStatus(rv)
 }
@@ -996,7 +996,7 @@ func (w WKWebExtensionContext) SetPermissionStatusForPermission(status WKWebExte
 // to be set using this method.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/setPermissionStatus(_:for:)-5xahd
-func (w WKWebExtensionContext) SetPermissionStatusForURL(status WKWebExtensionContextPermissionStatus, url foundation.INSURL) {
+func (w WKWebExtensionContext) SetPermissionStatusForURL(status WKWebExtensionContextPermissionStatus, url foundation.NSURL) {
 	objc.Send[objc.ID](w.ID, objc.Sel("setPermissionStatus:forURL:"), status, url)
 }
 
@@ -1042,7 +1042,7 @@ func (w WKWebExtensionContext) SetPermissionStatusForMatchPattern(status WKWebEx
 // to be set using this method.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/setPermissionStatus(_:for:expirationDate:)-5q9id
-func (w WKWebExtensionContext) SetPermissionStatusForURLExpirationDate(status WKWebExtensionContextPermissionStatus, url foundation.INSURL, expirationDate foundation.INSDate) {
+func (w WKWebExtensionContext) SetPermissionStatusForURLExpirationDate(status WKWebExtensionContextPermissionStatus, url foundation.NSURL, expirationDate foundation.NSDate) {
 	objc.Send[objc.ID](w.ID, objc.Sel("setPermissionStatus:forURL:expirationDate:"), status, url, expirationDate)
 }
 
@@ -1067,7 +1067,7 @@ func (w WKWebExtensionContext) SetPermissionStatusForURLExpirationDate(status WK
 // to be set using this method.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/setPermissionStatus(_:for:expirationDate:)-692ui
-func (w WKWebExtensionContext) SetPermissionStatusForPermissionExpirationDate(status WKWebExtensionContextPermissionStatus, permission WKWebExtensionPermission, expirationDate foundation.INSDate) {
+func (w WKWebExtensionContext) SetPermissionStatusForPermissionExpirationDate(status WKWebExtensionContextPermissionStatus, permission WKWebExtensionPermission, expirationDate foundation.NSDate) {
 	objc.Send[objc.ID](w.ID, objc.Sel("setPermissionStatus:forPermission:expirationDate:"), status, objc.String(string(permission)), expirationDate)
 }
 
@@ -1093,7 +1093,7 @@ func (w WKWebExtensionContext) SetPermissionStatusForPermissionExpirationDate(st
 // to be set using this method.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/setPermissionStatus(_:for:expirationDate:)-7038f
-func (w WKWebExtensionContext) SetPermissionStatusForMatchPatternExpirationDate(status WKWebExtensionContextPermissionStatus, pattern IWKWebExtensionMatchPattern, expirationDate foundation.INSDate) {
+func (w WKWebExtensionContext) SetPermissionStatusForMatchPatternExpirationDate(status WKWebExtensionContextPermissionStatus, pattern IWKWebExtensionMatchPattern, expirationDate foundation.NSDate) {
 	objc.Send[objc.ID](w.ID, objc.Sel("setPermissionStatus:forMatchPattern:expirationDate:"), status, pattern, expirationDate)
 }
 
@@ -1202,11 +1202,11 @@ func (_WKWebExtensionContextClass WKWebExtensionContextClass) ContextForExtensio
 // loaded.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/baseURL
-func (w WKWebExtensionContext) BaseURL() foundation.INSURL {
+func (w WKWebExtensionContext) BaseURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("baseURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (w WKWebExtensionContext) SetBaseURL(value foundation.INSURL) {
+func (w WKWebExtensionContext) SetBaseURL(value foundation.NSURL) {
 	objc.Send[struct{}](w.ID, objc.Sel("setBaseURL:"), value)
 }
 
@@ -1553,7 +1553,7 @@ func (w WKWebExtensionContext) OpenWindows() []objectivec.IObject {
 // element.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/optionsPageURL
-func (w WKWebExtensionContext) OptionsPageURL() foundation.INSURL {
+func (w WKWebExtensionContext) OptionsPageURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("optionsPageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -1570,7 +1570,7 @@ func (w WKWebExtensionContext) OptionsPageURL() foundation.INSURL {
 // tab page as the default.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/overrideNewTabPageURL
-func (w WKWebExtensionContext) OverrideNewTabPageURL() foundation.INSURL {
+func (w WKWebExtensionContext) OverrideNewTabPageURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("overrideNewTabPageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

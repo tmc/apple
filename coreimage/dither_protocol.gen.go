@@ -18,20 +18,12 @@ type CIDither interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDither/inputImage
 	InputImage() ICIImage
-
-	// The intensity of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDither/intensity
-	Intensity() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDither/inputImage
 	SetInputImage(value ICIImage)
 
 	// The intensity of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDither/intensity
+	Intensity() float32
 	SetIntensity(value float32)
 }
 
@@ -52,22 +44,6 @@ func CIDitherObjectFromID(id objc.ID) CIDitherObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDither/inputImage
-func (o CIDitherObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The intensity of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDither/intensity
-func (o CIDitherObject) Intensity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIDitherObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDither/inputImage
+func (o CIDitherObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIDitherObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIDitherObject) SetInputImage(value ICIImage) {
 // The intensity of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDither/intensity
+func (o CIDitherObject) Intensity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
+	return float32(rv)
+}
+
 func (o CIDitherObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }

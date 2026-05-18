@@ -140,7 +140,7 @@ type ICKQuerySubscription interface {
 	// Topic: Accessing the Subscription Search Parameters
 
 	// The matching criteria to apply to records.
-	Predicate() foundation.INSPredicate
+	Predicate() foundation.NSPredicate
 	// Options that define the behavior of the subscription.
 	QuerySubscriptionOptions() CKQuerySubscriptionOptions
 
@@ -201,7 +201,7 @@ func NewCKQuerySubscriptionWithCoder(aDecoder foundation.INSCoder) CKQuerySubscr
 // See: https://developer.apple.com/documentation/CloudKit/CKQuerySubscription/predicate
 //
 // [CKSubscription.SubscriptionType.query]: https://developer.apple.com/documentation/CloudKit/CKSubscription/SubscriptionType-swift.enum/query
-func (c CKQuerySubscription) Predicate() foundation.INSPredicate {
+func (c CKQuerySubscription) Predicate() foundation.NSPredicate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("predicate"))
 	return foundation.NSPredicateFromID(objc.ID(rv))
 }

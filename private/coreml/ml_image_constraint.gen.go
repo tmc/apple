@@ -103,14 +103,14 @@ type IMLImageConstraint interface {
 }
 
 // Init initializes the instance.
-func (i MLImageConstraint) Init() MLImageConstraint {
-	rv := objc.Send[MLImageConstraint](i.ID, objc.Sel("init"))
+func (m MLImageConstraint) Init() MLImageConstraint {
+	rv := objc.Send[MLImageConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (i MLImageConstraint) Autorelease() MLImageConstraint {
-	rv := objc.Send[MLImageConstraint](i.ID, objc.Sel("autorelease"))
+func (m MLImageConstraint) Autorelease() MLImageConstraint {
+	rv := objc.Send[MLImageConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -136,29 +136,29 @@ func NewImageConstraintWithPixelsWidePixelsHighPixelTypeSizeConstraint(wide int6
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/_stringForAllowedOSTypes
-func (i MLImageConstraint) _stringForAllowedOSTypes() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("_stringForAllowedOSTypes"))
+func (m MLImageConstraint) _stringForAllowedOSTypes() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_stringForAllowedOSTypes"))
 	return objectivec.Object{ID: rv}
 }
 
 // StringForAllowedOSTypes is an exported wrapper for the private method _stringForAllowedOSTypes.
-func (i MLImageConstraint) StringForAllowedOSTypes() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(i.ID, objc.Sel("_stringForAllowedOSTypes")) {
+func (m MLImageConstraint) StringForAllowedOSTypes() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_stringForAllowedOSTypes")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_stringForAllowedOSTypes"}
 		return nil, err
 	}
-	return i._stringForAllowedOSTypes(), nil
+	return m._stringForAllowedOSTypes(), nil
 }
 
 // CanStringForAllowedOSTypes reports whether the receiver responds to the private selector _stringForAllowedOSTypes.
-func (i MLImageConstraint) CanStringForAllowedOSTypes() bool {
-	return objc.RespondsToSelector(i.ID, objc.Sel("_stringForAllowedOSTypes"))
+func (m MLImageConstraint) CanStringForAllowedOSTypes() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_stringForAllowedOSTypes"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/allowsPixelBuffer:error:
-func (i MLImageConstraint) AllowsPixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error) {
+func (m MLImageConstraint) AllowsPixelBufferError(buffer corevideo.CVImageBufferRef) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](i.ID, objc.Sel("allowsPixelBuffer:error:"), buffer, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("allowsPixelBuffer:error:"), buffer, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -171,9 +171,9 @@ func (i MLImageConstraint) AllowsPixelBufferError(buffer corevideo.CVImageBuffer
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/isAllowedValue:error:
-func (i MLImageConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
+func (m MLImageConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](i.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -186,14 +186,14 @@ func (i MLImageConstraint) IsAllowedValueError(value objectivec.IObject) (bool, 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/initWithCoder:
-func (i MLImageConstraint) InitWithCoder(coder foundation.INSCoder) MLImageConstraint {
-	rv := objc.Send[MLImageConstraint](i.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLImageConstraint) InitWithCoder(coder foundation.INSCoder) MLImageConstraint {
+	rv := objc.Send[MLImageConstraint](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/initWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:
-func (i MLImageConstraint) InitWithPixelsWidePixelsHighPixelTypeSizeConstraint(wide int64, high int64, type_ uint64, constraint objectivec.IObject) MLImageConstraint {
-	rv := objc.Send[MLImageConstraint](i.ID, objc.Sel("initWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
+func (m MLImageConstraint) InitWithPixelsWidePixelsHighPixelTypeSizeConstraint(wide int64, high int64, type_ uint64, constraint objectivec.IObject) MLImageConstraint {
+	rv := objc.Send[MLImageConstraint](m.ID, objc.Sel("initWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
 	return rv
 }
 
@@ -234,25 +234,25 @@ func (_MLImageConstraintClass MLImageConstraintClass) SupportsSecureCoding() boo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/imageHeight
-func (i MLImageConstraint) ImageHeight() uint64 {
-	rv := objc.Send[uint64](i.ID, objc.Sel("imageHeight"))
+func (m MLImageConstraint) ImageHeight() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("imageHeight"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/imageWidth
-func (i MLImageConstraint) ImageWidth() uint64 {
-	rv := objc.Send[uint64](i.ID, objc.Sel("imageWidth"))
+func (m MLImageConstraint) ImageWidth() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("imageWidth"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/osType
-func (i MLImageConstraint) OsType() uint32 {
-	rv := objc.Send[uint32](i.ID, objc.Sel("osType"))
+func (m MLImageConstraint) OsType() uint32 {
+	rv := objc.Send[uint32](m.ID, objc.Sel("osType"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/pixelType
-func (i MLImageConstraint) PixelType() uint64 {
-	rv := objc.Send[uint64](i.ID, objc.Sel("pixelType"))
+func (m MLImageConstraint) PixelType() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("pixelType"))
 	return rv
 }

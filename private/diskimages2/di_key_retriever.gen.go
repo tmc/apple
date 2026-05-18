@@ -100,7 +100,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) KKMSKeyWithURLDestKeyDestKeySize
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/WKMSKeyWithAuthData:destKey:destKeySize:error:
-func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithAuthDataDestKeyDestKeySizeError(data unsafe.Pointer, key string, size uint64) (bool, error) {
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithAuthDataDestKeyDestKeySizeError(data AuthData, key string, size uint64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSKeyWithAuthData:destKey:destKeySize:error:"), data, unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

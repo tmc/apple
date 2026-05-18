@@ -63,14 +63,14 @@ type IVZKeyboardEventTap interface {
 }
 
 // Init initializes the instance.
-func (k VZKeyboardEventTap) Init() VZKeyboardEventTap {
-	rv := objc.Send[VZKeyboardEventTap](k.ID, objc.Sel("init"))
+func (v VZKeyboardEventTap) Init() VZKeyboardEventTap {
+	rv := objc.Send[VZKeyboardEventTap](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (k VZKeyboardEventTap) Autorelease() VZKeyboardEventTap {
-	rv := objc.Send[VZKeyboardEventTap](k.ID, objc.Sel("autorelease"))
+func (v VZKeyboardEventTap) Autorelease() VZKeyboardEventTap {
+	rv := objc.Send[VZKeyboardEventTap](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

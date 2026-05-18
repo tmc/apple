@@ -156,7 +156,7 @@ type IURLSessionStreamTask interface {
 
 	// A Boolean value that determines whether the session should use HTTP pipelining.
 	HttpShouldUsePipelining() bool
-	SetHttpShouldUsePipelining(value bool)
+	SetHTTPShouldUsePipelining(value bool)
 }
 
 // Init initializes the instance.
@@ -297,7 +297,7 @@ func (u URLSessionStreamTask) HttpShouldUsePipelining() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("HTTPShouldUsePipelining"))
 	return rv
 }
-func (u URLSessionStreamTask) SetHttpShouldUsePipelining(value bool) {
+func (u URLSessionStreamTask) SetHTTPShouldUsePipelining(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPShouldUsePipelining:"), value)
 }
 

@@ -92,7 +92,6 @@ func NSAttributedStringMarkdownParsingOptionsFromID(id objc.ID) NSAttributedStri
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedStringMarkdownParsingOptions
 type INSAttributedStringMarkdownParsingOptions interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Determining Markdown Parsing Options
 

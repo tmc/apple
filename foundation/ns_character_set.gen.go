@@ -137,9 +137,6 @@ func NSCharacterSetFromID(id objc.ID) NSCharacterSet {
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet
 type INSCharacterSet interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSMutableCopying
 	NSSecureCoding
 
 	// Topic: Creating and Managing Character Sets as Bitmap Representations

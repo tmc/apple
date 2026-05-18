@@ -84,14 +84,14 @@ type IMLAppleWordEmbedding interface {
 }
 
 // Init initializes the instance.
-func (a MLAppleWordEmbedding) Init() MLAppleWordEmbedding {
-	rv := objc.Send[MLAppleWordEmbedding](a.ID, objc.Sel("init"))
+func (m MLAppleWordEmbedding) Init() MLAppleWordEmbedding {
+	rv := objc.Send[MLAppleWordEmbedding](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAppleWordEmbedding) Autorelease() MLAppleWordEmbedding {
-	rv := objc.Send[MLAppleWordEmbedding](a.ID, objc.Sel("autorelease"))
+func (m MLAppleWordEmbedding) Autorelease() MLAppleWordEmbedding {
+	rv := objc.Send[MLAppleWordEmbedding](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -167,9 +167,9 @@ func NewAppleWordEmbeddingWithParametersModelDescriptionNlpHandleConfigurationEr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding/predictionFromFeatures:options:error:
-func (a MLAppleWordEmbedding) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLAppleWordEmbedding) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -179,9 +179,9 @@ func (a MLAppleWordEmbedding) PredictionFromFeaturesOptionsError(features object
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding/initWithParameters:modelDescription:nlpHandle:configuration:error:
-func (a MLAppleWordEmbedding) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleWordEmbedding, error) {
+func (m MLAppleWordEmbedding) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleWordEmbedding, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleWordEmbedding{}, foundation.NSErrorFrom(errorPtr)
@@ -218,7 +218,7 @@ func (_MLAppleWordEmbeddingClass MLAppleWordEmbeddingClass) SaveAppleWordEmbeddi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding/parameters
-func (a MLAppleWordEmbedding) Parameters() IMLAppleWordEmbeddingParameters {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
+func (m MLAppleWordEmbedding) Parameters() IMLAppleWordEmbeddingParameters {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return MLAppleWordEmbeddingParametersFromID(objc.ID(rv))
 }

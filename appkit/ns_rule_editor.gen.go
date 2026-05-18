@@ -302,11 +302,11 @@ type INSRuleEditor interface {
 	// Topic: Working with Predicates
 
 	// The rule editor’s predicate.
-	Predicate() foundation.INSPredicate
+	Predicate() foundation.NSPredicate
 	// Instructs the receiver to regenerate its predicate by invoking the corresponding delegate method.
 	ReloadPredicate()
 	// Returns the predicate for a given row.
-	PredicateForRow(row int) foundation.INSPredicate
+	PredicateForRow(row int) foundation.NSPredicate
 
 	// Topic: Supporting Bindings
 
@@ -625,7 +625,7 @@ func (r NSRuleEditor) ReloadPredicate() {
 // certain criteria or display values.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/predicate(forRow:)
-func (r NSRuleEditor) PredicateForRow(row int) foundation.INSPredicate {
+func (r NSRuleEditor) PredicateForRow(row int) foundation.NSPredicate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("predicateForRow:"), row)
 	return foundation.NSPredicateFromID(rv)
 }
@@ -760,7 +760,7 @@ func (r NSRuleEditor) SelectedRowIndexes() foundation.NSIndexSet {
 // this property contains `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/predicate
-func (r NSRuleEditor) Predicate() foundation.INSPredicate {
+func (r NSRuleEditor) Predicate() foundation.NSPredicate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("predicate"))
 	return foundation.NSPredicateFromID(objc.ID(rv))
 }

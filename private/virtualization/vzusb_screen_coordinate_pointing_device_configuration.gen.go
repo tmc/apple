@@ -62,14 +62,14 @@ type IVZUSBScreenCoordinatePointingDeviceConfiguration interface {
 }
 
 // Init initializes the instance.
-func (u VZUSBScreenCoordinatePointingDeviceConfiguration) Init() VZUSBScreenCoordinatePointingDeviceConfiguration {
-	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](u.ID, objc.Sel("init"))
+func (v VZUSBScreenCoordinatePointingDeviceConfiguration) Init() VZUSBScreenCoordinatePointingDeviceConfiguration {
+	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (u VZUSBScreenCoordinatePointingDeviceConfiguration) Autorelease() VZUSBScreenCoordinatePointingDeviceConfiguration {
-	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](u.ID, objc.Sel("autorelease"))
+func (v VZUSBScreenCoordinatePointingDeviceConfiguration) Autorelease() VZUSBScreenCoordinatePointingDeviceConfiguration {
+	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

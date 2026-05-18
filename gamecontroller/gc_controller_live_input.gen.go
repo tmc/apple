@@ -108,6 +108,18 @@ type IGCControllerLiveInput interface {
 
 	// The live input of a controller without any system-level remapping of the controls.
 	UnmappedInput() IGCControllerLiveInput
+
+	// A block that the profile calls when an element’s value changes.
+	ElementValueDidChangeHandler() func(objc.ID)
+	// The block that the profile calls when Game Controller adds an input state to the queue.
+	InputStateAvailableHandler() func(objc.ID)
+	// The dispatch queue that the system uses for callbacks.
+	Queue() dispatch.Queue
+	Elements() IGCPhysicalInputElementCollection
+	Axes() IGCPhysicalInputElementCollection
+	Buttons() IGCPhysicalInputElementCollection
+	Dpads() IGCPhysicalInputElementCollection
+	Switches() IGCPhysicalInputElementCollection
 }
 
 // Init initializes the instance.
@@ -153,6 +165,33 @@ func (g GCControllerLiveInput) Capture() IGCControllerInputState {
 	return GCControllerInputStateFromID(rv)
 }
 
+// A block that the profile calls when an element’s value changes.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/elementValueDidChangeHandler
+func (g GCControllerLiveInput) ElementValueDidChangeHandler() func(objc.ID) {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("elementValueDidChangeHandler"))
+	_ = rv
+	return nil
+}
+
+// The block that the profile calls when Game Controller adds an input state
+// to the queue.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateAvailableHandler
+func (g GCControllerLiveInput) InputStateAvailableHandler() func(objc.ID) {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("inputStateAvailableHandler"))
+	_ = rv
+	return nil
+}
+
+// The dispatch queue that the system uses for callbacks.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
+func (g GCControllerLiveInput) Queue() dispatch.Queue {
+	rv := objc.Send[uintptr](g.ID, objc.Sel("queue"))
+	return dispatch.QueueFromHandle(rv)
+}
+
 // The live input of a controller without any system-level remapping of the
 // controls.
 //
@@ -168,53 +207,6 @@ func (g GCControllerLiveInput) UnmappedInput() IGCControllerLiveInput {
 	return GCControllerLiveInputFromID(objc.ID(rv))
 }
 
-// A block that the profile calls when an element’s value changes.
-//
-// # Discussion
-//
-// Use this property to get the latest state of the element. If multiple
-// elements change, Game Controller invokes this block for each element that
-// changes. The block’s parameters are:
-//
-// element: The element whose value changes.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/elementValueDidChangeHandler
-func (g GCControllerLiveInput) ElementValueDidChangeHandler() VoidHandler {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("elementValueDidChangeHandler"))
-	_ = rv
-	return nil
-}
-func (g GCControllerLiveInput) SetElementValueDidChangeHandler(value VoidHandler) {
-	block, cleanup := NewVoidBlock(value)
-	defer cleanup()
-	objc.Send[struct{}](g.ID, objc.Sel("setElementValueDidChangeHandler:"), block)
-}
-
-// The block that the profile calls when Game Controller adds an input state
-// to the queue.
-//
-// # Discussion
-//
-// Set this property to track every element value change, not just the current
-// value. When Game Controller invokes the handler, invoke the
-// [NextInputState] method repeatedly to get all the buffered changes until
-// the queue is empty.
-//
-// To get just the current element value, use the
-// [ElementValueDidChangeHandler] property instead.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateAvailableHandler
-func (g GCControllerLiveInput) InputStateAvailableHandler() GCDevicePhysicalInputHandler {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("inputStateAvailableHandler"))
-	_ = rv
-	return nil
-}
-func (g GCControllerLiveInput) SetInputStateAvailableHandler(value GCDevicePhysicalInputHandler) {
-	block, cleanup := NewGCDevicePhysicalInputBlock(value)
-	defer cleanup()
-	objc.Send[struct{}](g.ID, objc.Sel("setInputStateAvailableHandler:"), block)
-}
-
 // The maximum number of input values that the queue stores.
 //
 // See: https://developer.apple.com/documentation/gamecontroller/gcdevicephysicalinput/inputstatequeuedepth
@@ -224,22 +216,4 @@ func (g GCControllerLiveInput) InputStateQueueDepth() int {
 }
 func (g GCControllerLiveInput) SetInputStateQueueDepth(value int) {
 	objc.Send[struct{}](g.ID, objc.Sel("setInputStateQueueDepth:"), value)
-}
-
-// The dispatch queue that the system uses for callbacks.
-//
-// # Discussion
-//
-// Objects that conform to the [GCDevicePhysicalInput] protocol dispatch
-// callbacks on the device’s [HandlerQueue] property by default. If you want
-// to use a different dispatch queue, set this property to the preferred queue
-// before you set callbacks.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
-func (g GCControllerLiveInput) Queue() dispatch.Queue {
-	rv := objc.Send[uintptr](g.ID, objc.Sel("queue"))
-	return dispatch.QueueFromHandle(rv)
-}
-func (g GCControllerLiveInput) SetQueue(value dispatch.Queue) {
-	objc.Send[struct{}](g.ID, objc.Sel("setQueue:"), uintptr(value.Handle()))
 }

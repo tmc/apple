@@ -210,6 +210,14 @@ func NewMTLInstanceAccelerationStructureDescriptor() MTLInstanceAccelerationStru
 	return rv
 }
 
+// Creates an instance descriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/descriptor
+func (_MTLInstanceAccelerationStructureDescriptorClass MTLInstanceAccelerationStructureDescriptorClass) Descriptor() MTLInstanceAccelerationStructureDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLInstanceAccelerationStructureDescriptorClass.class), objc.Sel("descriptor"))
+	return MTLInstanceAccelerationStructureDescriptorFromID(rv)
+}
+
 // The format of the instance data in the descriptor buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/instanceDescriptorType

@@ -18,20 +18,12 @@ type CICompositeOperation interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/backgroundImage
 	BackgroundImage() ICIImage
-
-	// The image to use as a foreground image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/inputImage
-	InputImage() ICIImage
-
-	// The image to use as a background image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/backgroundImage
 	SetBackgroundImage(value ICIImage)
 
 	// The image to use as a foreground image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -52,22 +44,6 @@ func CICompositeOperationObjectFromID(id objc.ID) CICompositeOperationObject {
 	}
 }
 
-// The image to use as a background image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/backgroundImage
-func (o CICompositeOperationObject) BackgroundImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("backgroundImage"))
-	return CIImageFromID(rv)
-}
-
-// The image to use as a foreground image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/inputImage
-func (o CICompositeOperationObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CICompositeOperationObject) OutputImage() ICIImage {
 // The image to use as a background image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/backgroundImage
+func (o CICompositeOperationObject) BackgroundImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("backgroundImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CICompositeOperationObject) SetBackgroundImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBackgroundImage:"), value)
 }
@@ -87,6 +68,11 @@ func (o CICompositeOperationObject) SetBackgroundImage(value ICIImage) {
 // The image to use as a foreground image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/inputImage
+func (o CICompositeOperationObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CICompositeOperationObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

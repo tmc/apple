@@ -112,14 +112,14 @@ type IMLSubtractBroadcastableBrick interface {
 }
 
 // Init initializes the instance.
-func (s MLSubtractBroadcastableBrick) Init() MLSubtractBroadcastableBrick {
-	rv := objc.Send[MLSubtractBroadcastableBrick](s.ID, objc.Sel("init"))
+func (m MLSubtractBroadcastableBrick) Init() MLSubtractBroadcastableBrick {
+	rv := objc.Send[MLSubtractBroadcastableBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSubtractBroadcastableBrick) Autorelease() MLSubtractBroadcastableBrick {
-	rv := objc.Send[MLSubtractBroadcastableBrick](s.ID, objc.Sel("autorelease"))
+func (m MLSubtractBroadcastableBrick) Autorelease() MLSubtractBroadcastableBrick {
+	rv := objc.Send[MLSubtractBroadcastableBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -138,78 +138,78 @@ func NewSubtractBroadcastableBrickWithParameters(parameters objectivec.IObject) 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/computeOnCPUWithInputTensors:outputTensors:
-func (s MLSubtractBroadcastableBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLSubtractBroadcastableBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/hasGPUSupport
-func (s MLSubtractBroadcastableBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hasGPUSupport"))
+func (m MLSubtractBroadcastableBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/setupForInputShapes:withParameters:
-func (s MLSubtractBroadcastableBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLSubtractBroadcastableBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/initWithParameters:
-func (s MLSubtractBroadcastableBrick) InitWithParameters(parameters objectivec.IObject) MLSubtractBroadcastableBrick {
-	rv := objc.Send[MLSubtractBroadcastableBrick](s.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLSubtractBroadcastableBrick) InitWithParameters(parameters objectivec.IObject) MLSubtractBroadcastableBrick {
+	rv := objc.Send[MLSubtractBroadcastableBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/debugDescription
-func (s MLSubtractBroadcastableBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (m MLSubtractBroadcastableBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/description
-func (s MLSubtractBroadcastableBrick) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (m MLSubtractBroadcastableBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/hash
-func (s MLSubtractBroadcastableBrick) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (m MLSubtractBroadcastableBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/inputRanks
-func (s MLSubtractBroadcastableBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputRanks"))
+func (m MLSubtractBroadcastableBrick) InputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/inputShapes
-func (s MLSubtractBroadcastableBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputShapes"))
+func (m MLSubtractBroadcastableBrick) InputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/outputRanks
-func (s MLSubtractBroadcastableBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputRanks"))
+func (m MLSubtractBroadcastableBrick) OutputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/outputShapes
-func (s MLSubtractBroadcastableBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputShapes"))
+func (m MLSubtractBroadcastableBrick) OutputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/shapeInfoNeeded
-func (s MLSubtractBroadcastableBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("shapeInfoNeeded"))
+func (m MLSubtractBroadcastableBrick) ShapeInfoNeeded() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSubtractBroadcastableBrick/superclass
-func (s MLSubtractBroadcastableBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (m MLSubtractBroadcastableBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

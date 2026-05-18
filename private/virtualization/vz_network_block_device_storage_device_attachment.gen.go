@@ -74,14 +74,14 @@ type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 }
 
 // Init initializes the instance.
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) Init() VZNetworkBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](n.ID, objc.Sel("init"))
+func (v VZNetworkBlockDeviceStorageDeviceAttachment) Init() VZNetworkBlockDeviceStorageDeviceAttachment {
+	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) Autorelease() VZNetworkBlockDeviceStorageDeviceAttachment {
-	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](n.ID, objc.Sel("autorelease"))
+func (v VZNetworkBlockDeviceStorageDeviceAttachment) Autorelease() VZNetworkBlockDeviceStorageDeviceAttachment {
+	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -153,7 +153,7 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/forcedReadOnly
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) ForcedReadOnly() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("forcedReadOnly"))
+func (v VZNetworkBlockDeviceStorageDeviceAttachment) ForcedReadOnly() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("forcedReadOnly"))
 	return rv
 }

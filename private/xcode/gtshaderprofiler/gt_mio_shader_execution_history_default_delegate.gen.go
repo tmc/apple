@@ -82,7 +82,7 @@ type IGTMioShaderExecutionHistoryDefaultDelegate interface {
 
 	// Topic: Methods
 
-	ExecutionHistoryProcessCliqueTotal(clique *GTMioUSCCliqueMetadataRef, total uint32)
+	ExecutionHistoryProcessCliqueTotal(clique GTMioUSCCliqueMetadata, total uint32)
 	UniqueIdentifierForFileDebugFunctionNameLineColumn(file objectivec.IObject, name objectivec.IObject, line uint32, column uint32) uint64
 	DebugDescription() string
 	Description() string
@@ -110,7 +110,7 @@ func NewGTMioShaderExecutionHistoryDefaultDelegate() GTMioShaderExecutionHistory
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/executionHistoryProcessClique:total:
-func (g GTMioShaderExecutionHistoryDefaultDelegate) ExecutionHistoryProcessCliqueTotal(clique *GTMioUSCCliqueMetadataRef, total uint32) {
+func (g GTMioShaderExecutionHistoryDefaultDelegate) ExecutionHistoryProcessCliqueTotal(clique GTMioUSCCliqueMetadata, total uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryProcessClique:total:"), clique, total)
 }
 

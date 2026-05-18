@@ -101,14 +101,14 @@ type IMLFairPlayKeyLoadingSession interface {
 }
 
 // Init initializes the instance.
-func (f MLFairPlayKeyLoadingSession) Init() MLFairPlayKeyLoadingSession {
-	rv := objc.Send[MLFairPlayKeyLoadingSession](f.ID, objc.Sel("init"))
+func (m MLFairPlayKeyLoadingSession) Init() MLFairPlayKeyLoadingSession {
+	rv := objc.Send[MLFairPlayKeyLoadingSession](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (f MLFairPlayKeyLoadingSession) Autorelease() MLFairPlayKeyLoadingSession {
-	rv := objc.Send[MLFairPlayKeyLoadingSession](f.ID, objc.Sel("autorelease"))
+func (m MLFairPlayKeyLoadingSession) Autorelease() MLFairPlayKeyLoadingSession {
+	rv := objc.Send[MLFairPlayKeyLoadingSession](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -120,9 +120,9 @@ func NewMLFairPlayKeyLoadingSession() MLFairPlayKeyLoadingSession {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/generateKeyRequestForKeyIdentifier:teamIdentifier:error:
-func (f MLFairPlayKeyLoadingSession) GenerateKeyRequestForKeyIdentifierTeamIdentifierError(identifier objectivec.IObject, identifier2 objectivec.IObject) (objectivec.IObject, error) {
+func (m MLFairPlayKeyLoadingSession) GenerateKeyRequestForKeyIdentifierTeamIdentifierError(identifier objectivec.IObject, identifier2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("generateKeyRequestForKeyIdentifier:teamIdentifier:error:"), identifier, identifier2, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("generateKeyRequestForKeyIdentifier:teamIdentifier:error:"), identifier, identifier2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -132,9 +132,9 @@ func (f MLFairPlayKeyLoadingSession) GenerateKeyRequestForKeyIdentifierTeamIdent
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/generatePersistentKeyBlobFromKeyResponse:error:
-func (f MLFairPlayKeyLoadingSession) GeneratePersistentKeyBlobFromKeyResponseError(response objectivec.IObject) (objectivec.IObject, error) {
+func (m MLFairPlayKeyLoadingSession) GeneratePersistentKeyBlobFromKeyResponseError(response objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("generatePersistentKeyBlobFromKeyResponse:error:"), response, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("generatePersistentKeyBlobFromKeyResponse:error:"), response, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -144,9 +144,9 @@ func (f MLFairPlayKeyLoadingSession) GeneratePersistentKeyBlobFromKeyResponseErr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/transformKeyIdentifier:error:
-func (f MLFairPlayKeyLoadingSession) TransformKeyIdentifierError(identifier objectivec.IObject) (objectivec.IObject, error) {
+func (m MLFairPlayKeyLoadingSession) TransformKeyIdentifierError(identifier objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("transformKeyIdentifier:error:"), identifier, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("transformKeyIdentifier:error:"), identifier, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -156,28 +156,28 @@ func (f MLFairPlayKeyLoadingSession) TransformKeyIdentifierError(identifier obje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/keyIdentifier
-func (f MLFairPlayKeyLoadingSession) KeyIdentifier() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("keyIdentifier"))
+func (m MLFairPlayKeyLoadingSession) KeyIdentifier() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (f MLFairPlayKeyLoadingSession) SetKeyIdentifier(value string) {
-	objc.Send[struct{}](f.ID, objc.Sel("setKeyIdentifier:"), objc.String(value))
+func (m MLFairPlayKeyLoadingSession) SetKeyIdentifier(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setKeyIdentifier:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/sessionContext
-func (f MLFairPlayKeyLoadingSession) SessionContext() objectivec.IObject {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("sessionContext"))
+func (m MLFairPlayKeyLoadingSession) SessionContext() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("sessionContext"))
 	return objectivec.Object{ID: rv}
 }
-func (f MLFairPlayKeyLoadingSession) SetSessionContext(value objectivec.IObject) {
-	objc.Send[struct{}](f.ID, objc.Sel("setSessionContext:"), value)
+func (m MLFairPlayKeyLoadingSession) SetSessionContext(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setSessionContext:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/sessionID
-func (f MLFairPlayKeyLoadingSession) SessionID() uint32 {
-	rv := objc.Send[uint32](f.ID, objc.Sel("sessionID"))
+func (m MLFairPlayKeyLoadingSession) SessionID() uint32 {
+	rv := objc.Send[uint32](m.ID, objc.Sel("sessionID"))
 	return rv
 }
-func (f MLFairPlayKeyLoadingSession) SetSessionID(value uint32) {
-	objc.Send[struct{}](f.ID, objc.Sel("setSessionID:"), value)
+func (m MLFairPlayKeyLoadingSession) SetSessionID(value uint32) {
+	objc.Send[struct{}](m.ID, objc.Sel("setSessionID:"), value)
 }

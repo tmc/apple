@@ -5,9 +5,9 @@ package vision
 import (
 	"sync"
 
-	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNCoreMLRequest] class.
@@ -138,8 +138,8 @@ type IVNCoreMLRequest interface {
 	Confidence() VNConfidence
 	SetConfidence(value VNConfidence)
 	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() coreml.MLModelDescription
-	SetModelDescription(value coreml.MLModelDescription)
+	ModelDescription() objectivec.IObject
+	SetModelDescription(value objectivec.IObject)
 	// The name of the primary prediction feature output description.
 	PredictedFeatureName() string
 	SetPredictedFeatureName(value string)
@@ -329,11 +329,11 @@ func (c VNCoreMLRequest) SetConfidence(value VNConfidence) {
 // displays in its Core ML model editor view.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
-func (c VNCoreMLRequest) ModelDescription() coreml.MLModelDescription {
+func (c VNCoreMLRequest) ModelDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelDescription"))
-	return coreml.MLModelDescriptionFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
-func (c VNCoreMLRequest) SetModelDescription(value coreml.MLModelDescription) {
+func (c VNCoreMLRequest) SetModelDescription(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModelDescription:"), value)
 }
 

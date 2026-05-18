@@ -16,6 +16,16 @@ import (
 type NSTextFinderClient interface {
 	objectivec.IObject
 
+	// Returns whether the text is selectable.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
+	IsSelectable() bool
+
+	// Returns whether the text is editable.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
+	IsEditable() bool
+
 	// Allows the client to specify a single string for searching.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/string
@@ -24,7 +34,7 @@ type NSTextFinderClient interface {
 	// Returns whether the text is selectable.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
-	IsSelectable() bool
+	Selectable() bool
 
 	// Returns whether multiple items can be selected.
 	//
@@ -40,21 +50,17 @@ type NSTextFinderClient interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/selectedRanges
 	SelectedRanges() []foundation.NSValue
+	SetSelectedRanges(value []foundation.NSValue)
 
 	// Returns whether the text is editable.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
-	IsEditable() bool
+	Editable() bool
 
 	// An array of visible character ranges.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/visibleCharacterRanges
 	VisibleCharacterRanges() []foundation.NSValue
-
-	// Returns an array of selected ranges.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/selectedRanges
-	SetSelectedRanges(value []foundation.NSValue)
 }
 
 // NSTextFinderClientObject wraps an existing Objective-C object that conforms to the NSTextFinderClient protocol.
@@ -74,14 +80,6 @@ func NSTextFinderClientObjectFromID(id objc.ID) NSTextFinderClientObject {
 	}
 }
 
-// Allows the client to specify a single string for searching.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/string
-func (o NSTextFinderClientObject) String() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("string"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // Returns whether the text is selectable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
@@ -90,48 +88,12 @@ func (o NSTextFinderClientObject) IsSelectable() bool {
 	return rv
 }
 
-// Returns whether multiple items can be selected.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/allowsMultipleSelection
-func (o NSTextFinderClientObject) AllowsMultipleSelection() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("allowsMultipleSelection"))
-	return rv
-}
-
-// Returns the currently selected range.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/firstSelectedRange
-func (o NSTextFinderClientObject) FirstSelectedRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("firstSelectedRange"))
-	return rv
-}
-
-// Returns an array of selected ranges.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/selectedRanges
-func (o NSTextFinderClientObject) SelectedRanges() []foundation.NSValue {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("selectedRanges"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
-		return foundation.NSValueFromID(id)
-	})
-}
-
 // Returns whether the text is editable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
 func (o NSTextFinderClientObject) IsEditable() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isEditable"))
 	return rv
-}
-
-// An array of visible character ranges.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/visibleCharacterRanges
-func (o NSTextFinderClientObject) VisibleCharacterRanges() []foundation.NSValue {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("visibleCharacterRanges"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
-		return foundation.NSValueFromID(id)
-	})
 }
 
 // Returns the found string that is created by conceptually mapping its
@@ -306,6 +268,61 @@ func (o NSTextFinderClientObject) DrawCharactersInRangeForContentView(range_ fou
 	objc.Send[struct{}](o.ID, objc.Sel("drawCharactersInRange:forContentView:"), range_, view)
 }
 
+// Allows the client to specify a single string for searching.
+//
+// # Discussion
+//
+// If the client cannot logically or efficiently flatten itself into a single
+// string, then the [StringAtIndexEffectiveRangeEndsWithSearchBoundary] and
+// [StringLength] methods should be implemented instead.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/string
+func (o NSTextFinderClientObject) String() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("string"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// Returns whether the text is selectable.
+//
+// # Discussion
+//
+// If this properties is not implemented, the text finder will act as if they
+// returned true.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
+func (o NSTextFinderClientObject) Selectable() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isSelectable"))
+	return bool(rv)
+}
+
+// Returns whether multiple items can be selected.
+//
+// # Discussion
+//
+// If this properties is not implemented, the text finder will act as if they
+// returned true.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/allowsMultipleSelection
+func (o NSTextFinderClientObject) AllowsMultipleSelection() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("allowsMultipleSelection"))
+	return bool(rv)
+}
+
+// Returns the currently selected range.
+//
+// # Discussion
+//
+// This property is required for the next match, previous match, replace,
+// replace and find and set search string actions. The client should return
+// its first selected range, or {index, 0} to indicate the location of the
+// insertion point if there is no selection.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/firstSelectedRange
+func (o NSTextFinderClientObject) FirstSelectedRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("firstSelectedRange"))
+	return foundation.NSRange(rv)
+}
+
 // Returns an array of selected ranges.
 //
 // # Discussion
@@ -315,6 +332,51 @@ func (o NSTextFinderClientObject) DrawCharactersInRangeForContentView(range_ fou
 // contain [NSRanges] wrapped by [NSValues].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/selectedRanges
+func (o NSTextFinderClientObject) SelectedRanges() []foundation.NSValue {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("selectedRanges"))
+	result := make([]foundation.NSValue, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSValueFromID(id)
+	}
+	return result
+}
+
 func (o NSTextFinderClientObject) SetSelectedRanges(value []foundation.NSValue) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSelectedRanges:"), objectivec.IObjectSliceToNSArray(value))
+}
+
+// Returns whether the text is editable.
+//
+// # Discussion
+//
+// The text finder uses this property to validate actions. If is it not
+// implemented, the value is assumed to be true .
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
+func (o NSTextFinderClientObject) Editable() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isEditable"))
+	return bool(rv)
+}
+
+// An array of visible character ranges.
+//
+// # Discussion
+//
+// The text finder uses this property’s value to determine which ranges it
+// should search to show all of the incremental matches that are currently
+// visible.
+//
+// If this property is not implemented, then the incremental matches cannot be
+// shown.
+//
+// The array contains [NSValue] objects that wrap [NSRect] structures.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/visibleCharacterRanges
+func (o NSTextFinderClientObject) VisibleCharacterRanges() []foundation.NSValue {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("visibleCharacterRanges"))
+	result := make([]foundation.NSValue, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = foundation.NSValueFromID(id)
+	}
+	return result
 }

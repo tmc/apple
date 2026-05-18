@@ -18,10 +18,6 @@ type CIMedian interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMedian/inputImage
 	InputImage() ICIImage
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMedian/inputImage
 	SetInputImage(value ICIImage)
 }
 
@@ -42,14 +38,6 @@ func CIMedianObjectFromID(id objc.ID) CIMedianObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMedian/inputImage
-func (o CIMedianObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -62,6 +50,11 @@ func (o CIMedianObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMedian/inputImage
+func (o CIMedianObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIMedianObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

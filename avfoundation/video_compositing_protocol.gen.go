@@ -14,6 +14,16 @@ import (
 type AVVideoCompositing interface {
 	objectivec.IObject
 
+	// Tells the compositor that the composition changed render contexts.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/renderContextChanged(_:)
+	RenderContextChanged(newRenderContext IAVVideoCompositionRenderContext)
+
+	// Directs a custom video compositor object to create a new pixel buffer composed asynchronously from a collection of sources.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/startRequest(_:)
+	StartVideoCompositionRequest(asyncVideoCompositionRequest IAVAsynchronousVideoCompositionRequest)
+
 	// The pixel buffer attributes that the compositor accepts for source frames.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/sourcePixelBufferAttributes
@@ -39,20 +49,10 @@ type AVVideoCompositing interface {
 	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/canConformColorOfSourceFrames
 	CanConformColorOfSourceFrames() bool
 
-	// SupportsSourceTaggedBuffers protocol.
+	// supportsSourceTaggedBuffers protocol.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/supportsSourceTaggedBuffers
 	SupportsSourceTaggedBuffers() bool
-
-	// Tells the compositor that the composition changed render contexts.
-	//
-	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/renderContextChanged(_:)
-	RenderContextChanged(newRenderContext IAVVideoCompositionRenderContext)
-
-	// Directs a custom video compositor object to create a new pixel buffer composed asynchronously from a collection of sources.
-	//
-	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/startRequest(_:)
-	StartVideoCompositionRequest(asyncVideoCompositionRequest IAVAsynchronousVideoCompositionRequest)
 }
 
 // AVVideoCompositingObject wraps an existing Objective-C object that conforms to the AVVideoCompositing protocol.
@@ -70,56 +70,6 @@ func AVVideoCompositingObjectFromID(id objc.ID) AVVideoCompositingObject {
 	return AVVideoCompositingObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The pixel buffer attributes that the compositor accepts for source frames.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/sourcePixelBufferAttributes
-func (o AVVideoCompositingObject) SourcePixelBufferAttributes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("sourcePixelBufferAttributes"))
-	return foundation.NSDictionaryFromID(rv)
-}
-
-// The pixel buffer attributes that the compositor requires for pixel buffers
-// that it creates.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/requiredPixelBufferAttributesForRenderContext
-func (o AVVideoCompositingObject) RequiredPixelBufferAttributesForRenderContext() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("requiredPixelBufferAttributesForRenderContext"))
-	return foundation.NSDictionaryFromID(rv)
-}
-
-// A Boolean value that indicates whether the compositor handles source frames
-// that contain high dynamic range (HDR) properties.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/supportsHDRSourceFrames
-func (o AVVideoCompositingObject) SupportsHDRSourceFrames() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportsHDRSourceFrames"))
-	return rv
-}
-
-// A Boolean value that indicates whether the compositor handles source frames
-// that contains wide color properties.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/supportsWideColorSourceFrames
-func (o AVVideoCompositingObject) SupportsWideColorSourceFrames() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportsWideColorSourceFrames"))
-	return rv
-}
-
-// A Boolean value that indicates whether the compositor conforms the color
-// space of source frames to the composition color space.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/canConformColorOfSourceFrames
-func (o AVVideoCompositingObject) CanConformColorOfSourceFrames() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("canConformColorOfSourceFrames"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/supportsSourceTaggedBuffers
-func (o AVVideoCompositingObject) SupportsSourceTaggedBuffers() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportsSourceTaggedBuffers"))
-	return rv
 }
 
 // Tells the compositor that the composition changed render contexts.
@@ -240,4 +190,126 @@ func (o AVVideoCompositingObject) PrerollForRenderingUsingHint(renderHint IAVVid
 // [finish(withComposedVideoFrame:)]: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/finish(withComposedVideoFrame:)
 func (o AVVideoCompositingObject) CancelAllPendingVideoCompositionRequests() {
 	objc.Send[struct{}](o.ID, objc.Sel("cancelAllPendingVideoCompositionRequests"))
+}
+
+// The pixel buffer attributes that the compositor accepts for source frames.
+//
+// # Discussion
+//
+// The property is required to provide a [kCVPixelBufferPixelFormatTypeKey]
+// key in the dictionary, along with attributes for which the compositor needs
+// specific values to work properly. Omitted attributes will be supplied by
+// the composition engine to allow for the best performance. If the attribute
+// [kCVPixelBufferPixelFormatTypeKey] key is not in the dictionary an
+// exception will be raised. The value of the
+// [kCVPixelBufferPixelFormatTypeKey] is an array of `kCVPixelFormatType_*`
+// constants as defined in Pixel_Format_Types.
+//
+// If the custom compositor is meant to be used with an
+// [AVVideoCompositionCoreAnimationTool] created using the
+// [VideoCompositionCoreAnimationToolWithAdditionalLayerAsTrackID] method,
+// [KCVPixelFormatType_32BGRA] should be included as one of the supported
+// pixel format types.
+//
+// Missing attributes will be set by the composition engine to values allowing
+// the best performance.
+//
+// This property is queried once before any composition request is sent to the
+// compositor. Changing source buffer attributes afterwards is not supported.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/sourcePixelBufferAttributes
+//
+// [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
+func (o AVVideoCompositingObject) SourcePixelBufferAttributes() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("sourcePixelBufferAttributes"))
+	return foundation.NSDictionaryFromID(rv)
+}
+
+// The pixel buffer attributes that the compositor requires for pixel buffers
+// that it creates.
+//
+// # Discussion
+//
+// The property is required to provide a [kCVPixelBufferPixelFormatTypeKey]
+// key in the dictionary, along with attributes for which the compositor needs
+// specific values to work properly. Omitted attributes will be supplied by
+// the composition engine to allow for the best performance. If the attribute
+// [kCVPixelBufferPixelFormatTypeKey] key is not in the dictionary an
+// exception will be raised. The value of the
+// [kCVPixelBufferPixelFormatTypeKey] is an array of `kCVPixelFormatType_*`
+// constants as defined in Pixel_Format_Types.
+//
+// The value of `requiredPixelBufferAttributesForRenderContext` is retrieved
+// prior to the creation of a new render context; the combination of the
+// attributes in the returned value and the additional attributes supplied by
+// the composition engine will be used in the creation of subsequent render
+// context’s pixelBuffers.
+//
+// This property is queried once before any composition request is sent to the
+// compositor. Changing required buffer attributes afterwards is not
+// supported.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/requiredPixelBufferAttributesForRenderContext
+//
+// [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
+func (o AVVideoCompositingObject) RequiredPixelBufferAttributesForRenderContext() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("requiredPixelBufferAttributesForRenderContext"))
+	return foundation.NSDictionaryFromID(rv)
+}
+
+// A Boolean value that indicates whether the compositor handles source frames
+// that contain high dynamic range (HDR) properties.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/supportsHDRSourceFrames
+func (o AVVideoCompositingObject) SupportsHDRSourceFrames() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("supportsHDRSourceFrames"))
+	return bool(rv)
+}
+
+// A Boolean value that indicates whether the compositor handles source frames
+// that contains wide color properties.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/supportsWideColorSourceFrames
+func (o AVVideoCompositingObject) SupportsWideColorSourceFrames() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("supportsWideColorSourceFrames"))
+	return bool(rv)
+}
+
+// A Boolean value that indicates whether the compositor conforms the color
+// space of source frames to the composition color space.
+//
+// # Discussion
+//
+// A custom compositor indicates its processing requirements through the
+// [SourcePixelBufferAttributes] and [SupportsWideColorSourceFrames]
+// properties. By default, the composition engine prepares source frames by
+// converting them to meet the compositor’s configuration.
+//
+// When this property value is true, the engine doesn’t convert source pixel
+// buffers that meet the compositor’s processing requirements. However, it
+// does convert buffers that don’t meet the processing requirements, which
+// includes the following cases:
+//
+// - The values of [SupportsWideColorSourceFrames] and
+// [SupportsHDRSourceFrames] are false, but the source buffers contain wide
+// color. In this case, the engine converts the color space of source pixel
+// buffers to BT.709 color space. Note that when [SupportsHDRSourceFrames] is
+// true, the engine also assumes [SupportsWideColorSourceFrames] is true. -
+// The value of [SupportsHDRSourceFrames] is false and source buffers contain
+// HDR color. In this case, the engine converts the color space of source
+// pixel buffers to the composition color space. - The pixel format of the
+// source buffers isn’t specified in [SourcePixelBufferAttributes]. In this
+// case, the engine converts the pixel format to a supported format and
+// converts the color space to the composition color space.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/canConformColorOfSourceFrames
+func (o AVVideoCompositingObject) CanConformColorOfSourceFrames() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("canConformColorOfSourceFrames"))
+	return bool(rv)
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositing/supportsSourceTaggedBuffers
+func (o AVVideoCompositingObject) SupportsSourceTaggedBuffers() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("supportsSourceTaggedBuffers"))
+	return bool(rv)
 }

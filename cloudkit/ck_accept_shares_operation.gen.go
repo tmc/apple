@@ -161,8 +161,8 @@ type ICKAcceptSharesOperation interface {
 	PartialFailure() CKErrorCode
 	SetPartialFailure(value CKErrorCode)
 	// The Uniform Resource Locator (URL) for inviting participants to the share.
-	Url() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	Url() foundation.NSURL
+	SetURL(value foundation.NSURL)
 	// The user info dictionary.
 	UserInfo() string
 	SetUserInfo(value string)
@@ -298,11 +298,11 @@ func (c CKAcceptSharesOperation) SetPartialFailure(value CKErrorCode) {
 // The Uniform Resource Locator (URL) for inviting participants to the share.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckshare/url
-func (c CKAcceptSharesOperation) Url() foundation.INSURL {
+func (c CKAcceptSharesOperation) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (c CKAcceptSharesOperation) SetURL(value foundation.INSURL) {
+func (c CKAcceptSharesOperation) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setURL:"), value)
 }
 

@@ -120,7 +120,7 @@ func NewMLModelStructure() MLModelStructure {
 // NSError object.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure-c.class/loadContentsOfURL:completionHandler:
-func (_MLModelStructureClass MLModelStructureClass) LoadContentsOfURLCompletionHandler(url foundation.INSURL, handler MLModelStructureErrorHandler) {
+func (_MLModelStructureClass MLModelStructureClass) LoadContentsOfURLCompletionHandler(url foundation.NSURL, handler MLModelStructureErrorHandler) {
 	_block1, _ := NewMLModelStructureErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadContentsOfURL:completionHandler:"), url, _block1)
 }
@@ -168,7 +168,7 @@ func (m MLModelStructure) Program() IMLModelStructureProgram {
 
 // LoadContentsOfURL is a synchronous wrapper around [MLModelStructure.LoadContentsOfURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (mc MLModelStructureClass) LoadContentsOfURL(ctx context.Context, url foundation.INSURL) (*MLModelStructure, error) {
+func (mc MLModelStructureClass) LoadContentsOfURL(ctx context.Context, url foundation.NSURL) (*MLModelStructure, error) {
 	type result struct {
 		val *MLModelStructure
 		err error

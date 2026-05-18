@@ -19,30 +19,18 @@ type CIHexagonalPixellate interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/center
 	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/inputImage
-	InputImage() ICIImage
-
-	// The size of the hexagons.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/scale
-	Scale() float32
-
-	// The x and y position to use as the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/center
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The size of the hexagons.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/scale
+	Scale() float32
 	SetScale(value float32)
 }
 
@@ -63,30 +51,6 @@ func CIHexagonalPixellateObjectFromID(id objc.ID) CIHexagonalPixellateObject {
 	}
 }
 
-// The x and y position to use as the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/center
-func (o CIHexagonalPixellateObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/inputImage
-func (o CIHexagonalPixellateObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The size of the hexagons.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/scale
-func (o CIHexagonalPixellateObject) Scale() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -99,6 +63,11 @@ func (o CIHexagonalPixellateObject) OutputImage() ICIImage {
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/center
+func (o CIHexagonalPixellateObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIHexagonalPixellateObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -106,6 +75,11 @@ func (o CIHexagonalPixellateObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/inputImage
+func (o CIHexagonalPixellateObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIHexagonalPixellateObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -113,6 +87,11 @@ func (o CIHexagonalPixellateObject) SetInputImage(value ICIImage) {
 // The size of the hexagons.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/scale
+func (o CIHexagonalPixellateObject) Scale() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
+	return float32(rv)
+}
+
 func (o CIHexagonalPixellateObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }

@@ -11,9 +11,9 @@ package speechobjects
 type AudioStreamBasicDescription struct {
 }
 
-// _CFMessagePort
+// CFMessagePort
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/SpeechObjects/__CFMessagePort
-type _CFMessagePort struct {
+type CFMessagePort struct {
 }

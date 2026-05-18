@@ -4,6 +4,7 @@ package fskit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -84,6 +85,9 @@ type IFSMutableFileDataBuffer interface {
 
 	// The data length of the buffer.
 	Length() uint
+
+	// The byte data.
+	MutableBytes() unsafe.Pointer
 }
 
 // Init initializes the instance.
@@ -102,6 +106,14 @@ func (m FSMutableFileDataBuffer) Autorelease() FSMutableFileDataBuffer {
 func NewFSMutableFileDataBuffer() FSMutableFileDataBuffer {
 	class := getFSMutableFileDataBufferClass()
 	rv := objc.Send[FSMutableFileDataBuffer](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+// The byte data.
+//
+// See: https://developer.apple.com/documentation/FSKit/FSMutableFileDataBuffer/mutableBytes
+func (m FSMutableFileDataBuffer) MutableBytes() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("mutableBytes"))
 	return rv
 }
 

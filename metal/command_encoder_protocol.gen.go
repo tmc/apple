@@ -34,6 +34,11 @@ type MTLCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/popDebugGroup()
 	PopDebugGroup()
 
+	// Encodes a consumer barrier on work you commit to the same command queue.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/barrier(afterQueueStages:beforeStages:)
+	BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages)
+
 	// The Metal device from which the command encoder was created.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
@@ -43,15 +48,6 @@ type MTLCommandEncoder interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
 	Label() string
-
-	// Encodes a consumer barrier on work you commit to the same command queue.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/barrier(afterQueueStages:beforeStages:)
-	BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages)
-
-	// A string that labels the command encoder.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
 	SetLabel(value string)
 }
 
@@ -125,22 +121,6 @@ func (o MTLCommandEncoderObject) PopDebugGroup() {
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 }
 
-// The Metal device from which the command encoder was created.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
-func (o MTLCommandEncoderObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// A string that labels the command encoder.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
-func (o MTLCommandEncoderObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // Encodes a consumer barrier on work you commit to the same command queue.
 //
 // afterQueueStages: [MTLStages] mask that represents the stages of work to wait for. This
@@ -177,6 +157,18 @@ func (o MTLCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueS
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 }
 
+// The Metal device from which the command encoder was created.
+//
+// # Discussion
+//
+// This command encoder can only be used with this [MTLDevice].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
+func (o MTLCommandEncoderObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
 // A string that labels the command encoder.
 //
 // # Discussion
@@ -188,6 +180,11 @@ func (o MTLCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueS
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLCommandEncoderObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

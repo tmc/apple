@@ -53,6 +53,7 @@ func (vc VNContourClass) Alloc() VNContour {
 //   - [VNContour.IndexPath]: The contour object’s index path.
 //   - [VNContour.NormalizedPath]: The contour object as a path in normalized coordinates.
 //   - [VNContour.PointCount]: The contour’s number of points.
+//   - [VNContour.NormalizedPoints]: The contour’s array of points in normalized coordinates.
 //   - [VNContour.PolygonApproximationWithEpsilonError]: Simplifies the contour to a polygon using a Ramer-Douglas-Peucker algorithm.
 //
 // # Accessing Child Contours
@@ -84,6 +85,7 @@ func VNContourFromID(id objc.ID) VNContour {
 //   - [IVNContour.IndexPath]: The contour object’s index path.
 //   - [IVNContour.NormalizedPath]: The contour object as a path in normalized coordinates.
 //   - [IVNContour.PointCount]: The contour’s number of points.
+//   - [IVNContour.NormalizedPoints]: The contour’s array of points in normalized coordinates.
 //   - [IVNContour.PolygonApproximationWithEpsilonError]: Simplifies the contour to a polygon using a Ramer-Douglas-Peucker algorithm.
 //
 // # Accessing Child Contours
@@ -95,7 +97,6 @@ func VNContourFromID(id objc.ID) VNContour {
 // See: https://developer.apple.com/documentation/Vision/VNContour
 type IVNContour interface {
 	objectivec.IObject
-	VNRequestRevisionProviding
 
 	// Topic: Inspecting the Contour
 
@@ -107,6 +108,8 @@ type IVNContour interface {
 	NormalizedPath() coregraphics.CGPathRef
 	// The contour’s number of points.
 	PointCount() int
+	// The contour’s array of points in normalized coordinates.
+	NormalizedPoints() unsafe.Pointer
 	// Simplifies the contour to a polygon using a Ramer-Douglas-Peucker algorithm.
 	PolygonApproximationWithEpsilonError(epsilon float32) (IVNContour, error)
 
@@ -122,8 +125,6 @@ type IVNContour interface {
 	// The total number of detected contours.
 	ContourCount() int
 	SetContourCount(value int)
-	// The contour’s array of points in normalized coordinates.
-	NormalizedPoints() unsafe.Pointer
 	// The total number of detected top-level contours.
 	TopLevelContourCount() int
 	SetTopLevelContourCount(value int)
@@ -194,6 +195,15 @@ func (c VNContour) ChildContourAtIndexError(childContourIndex uint) (IVNContour,
 
 }
 
+// The revision of the [VNRequest] subclass used to generate the implementing
+// object.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
+func (c VNContour) RequestRevision() uint {
+	rv := objc.Send[uint](c.ID, objc.Sel("requestRevision"))
+	return rv
+}
+
 // The aspect ratio of the contour.
 //
 // # Discussion
@@ -230,6 +240,21 @@ func (c VNContour) PointCount() int {
 	return rv
 }
 
+// The contour’s array of points in normalized coordinates.
+//
+// # Discussion
+//
+// This property value provides the address of the buffer that contains the
+// array of [CGPoint] values.
+//
+// See: https://developer.apple.com/documentation/Vision/VNContour/normalizedPoints-2orqj
+//
+// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
+func (c VNContour) NormalizedPoints() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("normalizedPoints"))
+	return rv
+}
+
 // The total number of detected child contours.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/childContourCount
@@ -257,30 +282,6 @@ func (c VNContour) ContourCount() int {
 }
 func (c VNContour) SetContourCount(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContourCount:"), value)
-}
-
-// The contour’s array of points in normalized coordinates.
-//
-// # Discussion
-//
-// This property value provides the address of the buffer that contains the
-// array of [CGPoint] values.
-//
-// See: https://developer.apple.com/documentation/Vision/VNContour/normalizedPoints-2orqj
-//
-// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
-func (c VNContour) NormalizedPoints() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("normalizedPoints"))
-	return rv
-}
-
-// The revision of the [VNRequest] subclass used to generate the implementing
-// object.
-//
-// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
-func (c VNContour) RequestRevision() uint {
-	rv := objc.Send[uint](c.ID, objc.Sel("requestRevision"))
-	return rv
 }
 
 // The total number of detected top-level contours.

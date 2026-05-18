@@ -2544,9 +2544,9 @@ const (
 	// Deprecated.
 	DefaultComponentAnyFlags DefaultComponent = 1
 	// Deprecated.
-	DefaultComponentAnyFlagsAnyManufacturer DefaultComponent = 0
+	DefaultComponentAnyFlagsAnyManufacturer DefaultComponent = 3
 	// Deprecated.
-	DefaultComponentAnyFlagsAnyManufacturerAnySubType DefaultComponent = 0
+	DefaultComponentAnyFlagsAnyManufacturerAnySubType DefaultComponent = 7
 	// Deprecated.
 	DefaultComponentAnyManufacturer DefaultComponent = 2
 	// Deprecated.
@@ -2561,10 +2561,14 @@ func (e DefaultComponent) String() string {
 		return "DefaultComponentAnyFlags"
 	case DefaultComponentAnyFlagsAnyManufacturer:
 		return "DefaultComponentAnyFlagsAnyManufacturer"
+	case DefaultComponentAnyFlagsAnyManufacturerAnySubType:
+		return "DefaultComponentAnyFlagsAnyManufacturerAnySubType"
 	case DefaultComponentAnyManufacturer:
 		return "DefaultComponentAnyManufacturer"
 	case DefaultComponentAnySubType:
 		return "DefaultComponentAnySubType"
+	case DefaultComponentIdentical:
+		return "DefaultComponentIdentical"
 	default:
 		return fmt.Sprintf("DefaultComponent(%d)", e)
 	}
@@ -3339,23 +3343,23 @@ type EWS uint
 
 const (
 	// EWSArrayType: Maps to [CFArrayRef].
-	EWSArrayType EWS = 0
+	EWSArrayType EWS = 8
 	// EWSBooleanType: Maps to [CFBooleanRef].
-	EWSBooleanType EWS = 0
+	EWSBooleanType EWS = 2
 	// EWSDataType: Maps to [CFDataRef].
-	EWSDataType EWS = 0
+	EWSDataType EWS = 7
 	// EWSDateType: Maps to [CFDateRef].
-	EWSDateType EWS = 0
+	EWSDateType EWS = 6
 	// EWSDictionaryType: Maps to [CFDictionaryRef].
-	EWSDictionaryType EWS = 0
+	EWSDictionaryType EWS = 9
 	// EWSDoubleType: Maps to [CFNumberRef] for long, double, or real numbers.
-	EWSDoubleType EWS = 0
+	EWSDoubleType EWS = 4
 	// EWSIntegerType: Maps to [CFNumberRef] for 8, 16, 32 bit integers.
-	EWSIntegerType EWS = 0
+	EWSIntegerType EWS = 3
 	// EWSNullType: Maps to [CFNullRef].
-	EWSNullType EWS = 0
+	EWSNullType EWS = 1
 	// EWSStringType: Maps to [CFStringRef].
-	EWSStringType EWS = 0
+	EWSStringType EWS = 5
 	// EWSUnknownType: No mapping is known for this type.
 	EWSUnknownType EWS = 0
 )
@@ -3364,6 +3368,24 @@ func (e EWS) String() string {
 	switch e {
 	case EWSArrayType:
 		return "EWSArrayType"
+	case EWSBooleanType:
+		return "EWSBooleanType"
+	case EWSDataType:
+		return "EWSDataType"
+	case EWSDateType:
+		return "EWSDateType"
+	case EWSDictionaryType:
+		return "EWSDictionaryType"
+	case EWSDoubleType:
+		return "EWSDoubleType"
+	case EWSIntegerType:
+		return "EWSIntegerType"
+	case EWSNullType:
+		return "EWSNullType"
+	case EWSStringType:
+		return "EWSStringType"
+	case EWSUnknownType:
+		return "EWSUnknownType"
 	default:
 		return fmt.Sprintf("EWS(%d)", e)
 	}
@@ -11938,15 +11960,15 @@ const (
 	// Deprecated.
 	KCallingConventionWidthValue KCallingConventionWidth = 4
 	// Deprecated.
-	KDispatchedParameterPhase KCallingConventionWidth = 0
+	KDispatchedParameterPhase KCallingConventionWidth = 8
 	// Deprecated.
-	KDispatchedSelectorSizePhase KCallingConventionWidth = 0
+	KDispatchedSelectorSizePhase KCallingConventionWidth = 6
 	// Deprecated.
 	KDispatchedSelectorSizeWidth KCallingConventionWidth = 2
 	// Deprecated.
 	KRegisterParameterMask KCallingConventionWidth = 0x7ffff800
 	// Deprecated.
-	KRegisterParameterPhase KCallingConventionWidth = 0
+	KRegisterParameterPhase KCallingConventionWidth = 11
 	// Deprecated.
 	KRegisterParameterSizePhase KCallingConventionWidth = 0
 	// Deprecated.
@@ -11958,7 +11980,7 @@ const (
 	// Deprecated.
 	KRegisterParameterWidth KCallingConventionWidth = 5
 	// Deprecated.
-	KRegisterResultLocationPhase KCallingConventionWidth = 0
+	KRegisterResultLocationPhase KCallingConventionWidth = 6
 	// Deprecated.
 	KRegisterResultLocationWidth KCallingConventionWidth = 5
 	// Deprecated.
@@ -11976,7 +11998,7 @@ const (
 	// Deprecated.
 	KStackParameterMask KCallingConventionWidth = 0xffffffc0
 	// Deprecated.
-	KStackParameterPhase KCallingConventionWidth = 0
+	KStackParameterPhase KCallingConventionWidth = 6
 	// Deprecated.
 	KStackParameterWidth KCallingConventionWidth = 2
 )
@@ -11989,10 +12011,16 @@ func (e KCallingConventionWidth) String() string {
 		return "KCallingConventionPhase"
 	case KCallingConventionWidthValue:
 		return "KCallingConventionWidthValue"
+	case KDispatchedParameterPhase:
+		return "KDispatchedParameterPhase"
+	case KDispatchedSelectorSizePhase:
+		return "KDispatchedSelectorSizePhase"
 	case KDispatchedSelectorSizeWidth:
 		return "KDispatchedSelectorSizeWidth"
 	case KRegisterParameterMask:
 		return "KRegisterParameterMask"
+	case KRegisterParameterPhase:
+		return "KRegisterParameterPhase"
 	case KRegisterParameterWhichWidth:
 		return "KRegisterParameterWhichWidth"
 	case KRegisterParameterWidth:
@@ -12001,8 +12029,6 @@ func (e KCallingConventionWidth) String() string {
 		return "KResultSizeMask"
 	case KSpecialCaseSelectorMask:
 		return "KSpecialCaseSelectorMask"
-	case KSpecialCaseSelectorWidth:
-		return "KSpecialCaseSelectorWidth"
 	case KStackParameterMask:
 		return "KStackParameterMask"
 	default:
@@ -12017,29 +12043,29 @@ const (
 	KCertSearchDecryptAllowed    KCertSearch = 1
 	KCertSearchDecryptDisallowed KCertSearch = 1
 	KCertSearchDecryptIgnored    KCertSearch = 0
-	KCertSearchDecryptMask       KCertSearch = 0
+	KCertSearchDecryptMask       KCertSearch = 1
 	KCertSearchEncryptAllowed    KCertSearch = 1
 	KCertSearchEncryptDisallowed KCertSearch = 1
 	KCertSearchEncryptIgnored    KCertSearch = 0
-	KCertSearchEncryptMask       KCertSearch = 0
+	KCertSearchEncryptMask       KCertSearch = 1
 	KCertSearchPrivKeyRequired   KCertSearch = 1
 	KCertSearchShift             KCertSearch = 0
 	KCertSearchSigningAllowed    KCertSearch = 1
 	KCertSearchSigningDisallowed KCertSearch = 1
 	KCertSearchSigningIgnored    KCertSearch = 0
-	KCertSearchSigningMask       KCertSearch = 0
+	KCertSearchSigningMask       KCertSearch = 1
 	KCertSearchUnwrapAllowed     KCertSearch = 1
 	KCertSearchUnwrapDisallowed  KCertSearch = 1
 	KCertSearchUnwrapIgnored     KCertSearch = 0
-	KCertSearchUnwrapMask        KCertSearch = 0
+	KCertSearchUnwrapMask        KCertSearch = 1
 	KCertSearchVerifyAllowed     KCertSearch = 1
 	KCertSearchVerifyDisallowed  KCertSearch = 1
 	KCertSearchVerifyIgnored     KCertSearch = 0
-	KCertSearchVerifyMask        KCertSearch = 0
+	KCertSearchVerifyMask        KCertSearch = 1
 	KCertSearchWrapAllowed       KCertSearch = 1
 	KCertSearchWrapDisallowed    KCertSearch = 1
 	KCertSearchWrapIgnored       KCertSearch = 0
-	KCertSearchWrapMask          KCertSearch = 0
+	KCertSearchWrapMask          KCertSearch = 1
 )
 
 func (e KCertSearch) String() string {
@@ -14652,7 +14678,7 @@ func (e KFSEventStreamEventFlag) String() string {
 type KFSEventStreamEventIdSince uint
 
 const (
-	KFSEventStreamEventIdSinceNow KFSEventStreamEventIdSince = 0
+	KFSEventStreamEventIdSinceNow KFSEventStreamEventIdSince = 0xffffffffffffffff
 )
 
 func (e KFSEventStreamEventIdSince) String() string {
@@ -15123,28 +15149,52 @@ func (e KFolder) String() string {
 type KForkInfoFlags uint
 
 const (
-	KForkInfoFlagsFileLockedBit   KForkInfoFlags = 0
-	KForkInfoFlagsFileLockedMask  KForkInfoFlags = 0
-	KForkInfoFlagsLargeFileBit    KForkInfoFlags = 0
-	KForkInfoFlagsLargeFileMask   KForkInfoFlags = 0
-	KForkInfoFlagsModifiedBit     KForkInfoFlags = 0
-	KForkInfoFlagsModifiedMask    KForkInfoFlags = 0
-	KForkInfoFlagsOwnClumpBit     KForkInfoFlags = 0
-	KForkInfoFlagsOwnClumpMask    KForkInfoFlags = 0
-	KForkInfoFlagsResourceBit     KForkInfoFlags = 0
-	KForkInfoFlagsResourceMask    KForkInfoFlags = 0
-	KForkInfoFlagsSharedWriteBit  KForkInfoFlags = 0
-	KForkInfoFlagsSharedWriteMask KForkInfoFlags = 0
+	KForkInfoFlagsFileLockedBit   KForkInfoFlags = 5
+	KForkInfoFlagsFileLockedMask  KForkInfoFlags = 32
+	KForkInfoFlagsLargeFileBit    KForkInfoFlags = 3
+	KForkInfoFlagsLargeFileMask   KForkInfoFlags = 8
+	KForkInfoFlagsModifiedBit     KForkInfoFlags = 7
+	KForkInfoFlagsModifiedMask    KForkInfoFlags = 128
+	KForkInfoFlagsOwnClumpBit     KForkInfoFlags = 6
+	KForkInfoFlagsOwnClumpMask    KForkInfoFlags = 64
+	KForkInfoFlagsResourceBit     KForkInfoFlags = 1
+	KForkInfoFlagsResourceMask    KForkInfoFlags = 2
+	KForkInfoFlagsSharedWriteBit  KForkInfoFlags = 4
+	KForkInfoFlagsSharedWriteMask KForkInfoFlags = 16
 	KForkInfoFlagsWriteBit        KForkInfoFlags = 0
-	KForkInfoFlagsWriteLockedBit  KForkInfoFlags = 0
-	KForkInfoFlagsWriteLockedMask KForkInfoFlags = 0
-	KForkInfoFlagsWriteMask       KForkInfoFlags = 0
+	KForkInfoFlagsWriteLockedBit  KForkInfoFlags = 2
+	KForkInfoFlagsWriteLockedMask KForkInfoFlags = 4
+	KForkInfoFlagsWriteMask       KForkInfoFlags = 1
 )
 
 func (e KForkInfoFlags) String() string {
 	switch e {
 	case KForkInfoFlagsFileLockedBit:
 		return "KForkInfoFlagsFileLockedBit"
+	case KForkInfoFlagsFileLockedMask:
+		return "KForkInfoFlagsFileLockedMask"
+	case KForkInfoFlagsLargeFileBit:
+		return "KForkInfoFlagsLargeFileBit"
+	case KForkInfoFlagsLargeFileMask:
+		return "KForkInfoFlagsLargeFileMask"
+	case KForkInfoFlagsModifiedBit:
+		return "KForkInfoFlagsModifiedBit"
+	case KForkInfoFlagsModifiedMask:
+		return "KForkInfoFlagsModifiedMask"
+	case KForkInfoFlagsOwnClumpBit:
+		return "KForkInfoFlagsOwnClumpBit"
+	case KForkInfoFlagsOwnClumpMask:
+		return "KForkInfoFlagsOwnClumpMask"
+	case KForkInfoFlagsResourceBit:
+		return "KForkInfoFlagsResourceBit"
+	case KForkInfoFlagsResourceMask:
+		return "KForkInfoFlagsResourceMask"
+	case KForkInfoFlagsSharedWriteBit:
+		return "KForkInfoFlagsSharedWriteBit"
+	case KForkInfoFlagsSharedWriteMask:
+		return "KForkInfoFlagsSharedWriteMask"
+	case KForkInfoFlagsWriteBit:
+		return "KForkInfoFlagsWriteBit"
 	default:
 		return fmt.Sprintf("KForkInfoFlags(%d)", e)
 	}
@@ -15658,7 +15708,7 @@ func (e KIconServices256PixelDataARGB) String() string {
 type KIconServicesCatalogInfo uint
 
 const (
-	KIconServicesCatalogInfoMask KIconServicesCatalogInfo = 0
+	KIconServicesCatalogInfoMask KIconServicesCatalogInfo = 0x81c5e
 )
 
 func (e KIconServicesCatalogInfo) String() string {
@@ -16519,7 +16569,7 @@ type KMPMaxAlloc uint
 
 const (
 	// Deprecated.
-	KMPMaxAllocSize KMPMaxAlloc = 0
+	KMPMaxAllocSize KMPMaxAlloc = 1073741824
 )
 
 func (e KMPMaxAlloc) String() string {
@@ -18079,7 +18129,7 @@ type KPEFFirstSectionHeader uint
 
 const (
 	// Deprecated.
-	KPEFFirstSectionHeaderOffset KPEFFirstSectionHeader = 0
+	KPEFFirstSectionHeaderOffset KPEFFirstSectionHeader = 40
 )
 
 func (e KPEFFirstSectionHeader) String() string {
@@ -21932,7 +21982,7 @@ type KUCCollateType uint
 
 const (
 	// KUCCollateTypeMask: You can use this mask to directly test bits 24-31 of a [UCCollateOptions] value.
-	KUCCollateTypeMask KUCCollateType = 0
+	KUCCollateTypeMask KUCCollateType = 0xff000000
 	// KUCCollateTypeShiftBits: # Discussion
 	KUCCollateTypeShiftBits KUCCollateType = 24
 	// KUCCollateTypeSourceMask: You can use this mask, in conjunction with the `kUCCollateTypeShiftBits` constant, to obtain a value identifying a fixed ordering scheme.
@@ -25406,7 +25456,7 @@ type Max uint
 
 const (
 	// Deprecated.
-	MaxSize Max = 0
+	MaxSize Max = 2147483632
 )
 
 func (e Max) String() string {

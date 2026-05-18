@@ -110,7 +110,7 @@ type IOSSystemExtensionProperties interface {
 	// Topic: Locating the Extension’s Installed Location
 
 	// The file URL of the extension bundle.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// Topic: Instance Properties
 
@@ -183,7 +183,7 @@ func (o OSSystemExtensionProperties) BundleShortVersion() string {
 // The file URL of the extension bundle.
 //
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionProperties/url
-func (o OSSystemExtensionProperties) URL() foundation.INSURL {
+func (o OSSystemExtensionProperties) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

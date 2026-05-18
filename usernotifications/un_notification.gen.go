@@ -96,7 +96,7 @@ type IUNNotification interface {
 	// The notification request containing the payload and trigger condition for the notification.
 	Request() IUNNotificationRequest
 	// The delivery date of the notification.
-	Date() foundation.INSDate
+	Date() foundation.NSDate
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -147,7 +147,7 @@ func (u UNNotification) Request() IUNNotificationRequest {
 // The system displays this date to the user in Notification Center.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotification/date
-func (u UNNotification) Date() foundation.INSDate {
+func (u UNNotification) Date() foundation.NSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("date"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

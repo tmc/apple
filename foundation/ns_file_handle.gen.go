@@ -210,7 +210,6 @@ func NSFileHandleFromID(id objc.ID) FileHandle { return FileHandleFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/FileHandle
 type IFileHandle interface {
 	objectivec.IObject
-	NSCoding
 	NSSecureCoding
 
 	// Topic: Creating a File Handle
@@ -228,8 +227,8 @@ type IFileHandle interface {
 	// Topic: Reading from a File Handle Asynchronously
 
 	// The file’s contents, as an asynchronous sequence of bytes.
-	Bytes() objectivec.IObject
-	SetBytes(value objectivec.IObject)
+	Bytes() unsafe.Pointer
+	SetBytes(value unsafe.Pointer)
 
 	// Topic: Reading from a File Handle Synchronously
 
@@ -1039,11 +1038,11 @@ func (f FileHandle) FileDescriptor() int {
 // The file’s contents, as an asynchronous sequence of bytes.
 //
 // See: https://developer.apple.com/documentation/foundation/filehandle/bytes
-func (f FileHandle) Bytes() objectivec.IObject {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("bytes"))
-	return objectivec.Object{ID: rv}
+func (f FileHandle) Bytes() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("bytes"))
+	return rv
 }
-func (f FileHandle) SetBytes(value objectivec.IObject) {
+func (f FileHandle) SetBytes(value unsafe.Pointer) {
 	objc.Send[struct{}](f.ID, objc.Sel("setBytes:"), value)
 }
 

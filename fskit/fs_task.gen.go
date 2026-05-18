@@ -106,7 +106,7 @@ type IFSTask interface {
 	// Topic: Sending completion messages
 
 	// Informs the client that the task completed.
-	DidCompleteWithError(error_ foundation.INSError)
+	DidCompleteWithError(error_ foundation.NSError)
 
 	// Topic: Handling task cancellation
 
@@ -149,7 +149,7 @@ func (t FSTask) LogMessage(str string) {
 // the task to fail.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSTask/didComplete(error:)
-func (t FSTask) DidCompleteWithError(error_ foundation.INSError) {
+func (t FSTask) DidCompleteWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](t.ID, objc.Sel("didCompleteWithError:"), error_)
 }
 

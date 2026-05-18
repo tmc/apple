@@ -66,14 +66,14 @@ type IMLLoader interface {
 }
 
 // Init initializes the instance.
-func (l MLLoader) Init() MLLoader {
-	rv := objc.Send[MLLoader](l.ID, objc.Sel("init"))
+func (m MLLoader) Init() MLLoader {
+	rv := objc.Send[MLLoader](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (l MLLoader) Autorelease() MLLoader {
-	rv := objc.Send[MLLoader](l.ID, objc.Sel("autorelease"))
+func (m MLLoader) Autorelease() MLLoader {
+	rv := objc.Send[MLLoader](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

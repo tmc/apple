@@ -92,14 +92,14 @@ type IMLComputePlan interface {
 }
 
 // Init initializes the instance.
-func (c MLComputePlan) Init() MLComputePlan {
-	rv := objc.Send[MLComputePlan](c.ID, objc.Sel("init"))
+func (m MLComputePlan) Init() MLComputePlan {
+	rv := objc.Send[MLComputePlan](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLComputePlan) Autorelease() MLComputePlan {
-	rv := objc.Send[MLComputePlan](c.ID, objc.Sel("autorelease"))
+func (m MLComputePlan) Autorelease() MLComputePlan {
+	rv := objc.Send[MLComputePlan](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -118,8 +118,8 @@ func NewComputePlanWithModelStructureModelDescriptionModelAssetStorageTypeExecut
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:
-func (c MLComputePlan) InitWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
-	rv := objc.Send[MLComputePlan](c.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
+func (m MLComputePlan) InitWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
+	rv := objc.Send[MLComputePlan](m.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
 	return rv
 }
 
@@ -136,31 +136,31 @@ func (_MLComputePlanClass MLComputePlanClass) ComputePlanOfModelStructureModelAs
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/computeDevicesBySupportedComputeUnits
-func (c MLComputePlan) ComputeDevicesBySupportedComputeUnits() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("computeDevicesBySupportedComputeUnits"))
+func (m MLComputePlan) ComputeDevicesBySupportedComputeUnits() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeDevicesBySupportedComputeUnits"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/configuration
-func (c MLComputePlan) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("configuration"))
+func (m MLComputePlan) Configuration() IMLModelConfiguration {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/executionScheduleByModelStructurePath
-func (c MLComputePlan) ExecutionScheduleByModelStructurePath() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("executionScheduleByModelStructurePath"))
+func (m MLComputePlan) ExecutionScheduleByModelStructurePath() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionScheduleByModelStructurePath"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/modelAssetStorageType
-func (c MLComputePlan) ModelAssetStorageType() int64 {
-	rv := objc.Send[int64](c.ID, objc.Sel("modelAssetStorageType"))
+func (m MLComputePlan) ModelAssetStorageType() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("modelAssetStorageType"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/modelDescription
-func (c MLComputePlan) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelDescription"))
+func (m MLComputePlan) ModelDescription() IMLModelDescription {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }

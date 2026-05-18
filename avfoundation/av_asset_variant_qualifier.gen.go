@@ -98,7 +98,7 @@ func NewAVAssetVariantQualifier() AVAssetVariantQualifier {
 // predicate: A predicate to find a particular asset variant.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantQualifier/init(predicate:)
-func NewAssetVariantQualifierWithPredicate(predicate foundation.INSPredicate) AVAssetVariantQualifier {
+func NewAssetVariantQualifierWithPredicate(predicate foundation.NSPredicate) AVAssetVariantQualifier {
 	rv := objc.Send[objc.ID](objc.ID(getAVAssetVariantQualifierClass().class), objc.Sel("assetVariantQualifierWithPredicate:"), predicate)
 	return AVAssetVariantQualifierFromID(rv)
 }

@@ -33,7 +33,7 @@ func (e IOURLError) String() string {
 type KDisplayVendorID uint
 
 const (
-	KDisplayVendorIDUnknown KDisplayVendorID = 0
+	KDisplayVendorIDUnknown KDisplayVendorID = 0x756e6b6e
 )
 
 func (e KDisplayVendorID) String() string {
@@ -127,11 +127,50 @@ func (e KIO) String() string {
 	}
 }
 
-const KIOCFSerializeToBinary uint = 0
+type KIOCFSerializeTo uint
 
-const KIOConnectMethodVarOutputSize int = -3
+const (
+	KIOCFSerializeToBinary KIOCFSerializeTo = 0
+)
 
-const KIODefaultMemoryType uint = 0
+func (e KIOCFSerializeTo) String() string {
+	switch e {
+	case KIOCFSerializeToBinary:
+		return "KIOCFSerializeToBinary"
+	default:
+		return fmt.Sprintf("KIOCFSerializeTo(%d)", e)
+	}
+}
+
+type KIOConnectMethodVarOutput int
+
+const (
+	KIOConnectMethodVarOutputSize KIOConnectMethodVarOutput = -3
+)
+
+func (e KIOConnectMethodVarOutput) String() string {
+	switch e {
+	case KIOConnectMethodVarOutputSize:
+		return "KIOConnectMethodVarOutputSize"
+	default:
+		return fmt.Sprintf("KIOConnectMethodVarOutput(%d)", e)
+	}
+}
+
+type KIODefaultMemory uint
+
+const (
+	KIODefaultMemoryType KIODefaultMemory = 0
+)
+
+func (e KIODefaultMemory) String() string {
+	switch e {
+	case KIODefaultMemoryType:
+		return "KIODefaultMemoryType"
+	default:
+		return fmt.Sprintf("KIODefaultMemory(%d)", e)
+	}
+}
 
 type KIOMap uint
 
@@ -209,7 +248,20 @@ func (e KIORegistryIterate) String() string {
 	}
 }
 
-const KIOServiceInteractionAllowed uint = 0x1
+type KIOServiceInteraction uint
+
+const (
+	KIOServiceInteractionAllowed KIOServiceInteraction = 0x1
+)
+
+func (e KIOServiceInteraction) String() string {
+	switch e {
+	case KIOServiceInteractionAllowed:
+		return "KIOServiceInteractionAllowed"
+	default:
+		return fmt.Sprintf("KIOServiceInteraction(%d)", e)
+	}
+}
 
 type KNanosecondScale uint
 

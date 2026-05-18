@@ -84,14 +84,14 @@ type IMLCompilerNeuralNetworkOutput interface {
 }
 
 // Init initializes the instance.
-func (c MLCompilerNeuralNetworkOutput) Init() MLCompilerNeuralNetworkOutput {
-	rv := objc.Send[MLCompilerNeuralNetworkOutput](c.ID, objc.Sel("init"))
+func (m MLCompilerNeuralNetworkOutput) Init() MLCompilerNeuralNetworkOutput {
+	rv := objc.Send[MLCompilerNeuralNetworkOutput](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCompilerNeuralNetworkOutput) Autorelease() MLCompilerNeuralNetworkOutput {
-	rv := objc.Send[MLCompilerNeuralNetworkOutput](c.ID, objc.Sel("autorelease"))
+func (m MLCompilerNeuralNetworkOutput) Autorelease() MLCompilerNeuralNetworkOutput {
+	rv := objc.Send[MLCompilerNeuralNetworkOutput](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -117,14 +117,14 @@ func NewCompilerNeuralNetworkOutputWithMILProgram(mILProgram objectivec.IObject)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerNeuralNetworkOutput/initWithEspressoNetwork:
-func (c MLCompilerNeuralNetworkOutput) InitWithEspressoNetwork(network objectivec.IObject) MLCompilerNeuralNetworkOutput {
-	rv := objc.Send[MLCompilerNeuralNetworkOutput](c.ID, objc.Sel("initWithEspressoNetwork:"), network)
+func (m MLCompilerNeuralNetworkOutput) InitWithEspressoNetwork(network objectivec.IObject) MLCompilerNeuralNetworkOutput {
+	rv := objc.Send[MLCompilerNeuralNetworkOutput](m.ID, objc.Sel("initWithEspressoNetwork:"), network)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerNeuralNetworkOutput/initWithMILProgram:
-func (c MLCompilerNeuralNetworkOutput) InitWithMILProgram(mILProgram objectivec.IObject) MLCompilerNeuralNetworkOutput {
-	rv := objc.Send[MLCompilerNeuralNetworkOutput](c.ID, objc.Sel("initWithMILProgram:"), mILProgram)
+func (m MLCompilerNeuralNetworkOutput) InitWithMILProgram(mILProgram objectivec.IObject) MLCompilerNeuralNetworkOutput {
+	rv := objc.Send[MLCompilerNeuralNetworkOutput](m.ID, objc.Sel("initWithMILProgram:"), mILProgram)
 	return rv
 }
 
@@ -141,13 +141,13 @@ func (_MLCompilerNeuralNetworkOutputClass MLCompilerNeuralNetworkOutputClass) Ou
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerNeuralNetworkOutput/network
-func (c MLCompilerNeuralNetworkOutput) Network() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("network"))
+func (m MLCompilerNeuralNetworkOutput) Network() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("network"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerNeuralNetworkOutput/program
-func (c MLCompilerNeuralNetworkOutput) Program() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("program"))
+func (m MLCompilerNeuralNetworkOutput) Program() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("program"))
 	return objectivec.Object{ID: rv}
 }

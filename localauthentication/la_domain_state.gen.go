@@ -81,7 +81,7 @@ type ILADomainState interface {
 	// Contains companion domain state.
 	Companion() ILADomainStateCompanion
 	// Contains combined state hash data for biometry and companion state hashes.
-	StateHash() foundation.INSData
+	StateHash() foundation.NSData
 }
 
 // Init initializes the instance.
@@ -124,7 +124,7 @@ func (d LADomainState) Companion() ILADomainStateCompanion {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LADomainState/stateHash
-func (d LADomainState) StateHash() foundation.INSData {
+func (d LADomainState) StateHash() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stateHash"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

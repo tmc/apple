@@ -192,8 +192,6 @@ func NSTextCheckingResultFromID(id objc.ID) NSTextCheckingResult {
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
 type INSTextCheckingResult interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Text Checking Type Range and Type

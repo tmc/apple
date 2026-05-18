@@ -136,7 +136,7 @@ type IGTAGX2StreamDataShaderProfilerProcessor interface {
 	_processDerivedEncoderCounterData(data objectivec.IObject)
 	_processFrameTimeData(data objectivec.IObject)
 	_processHarvestedBinaryData(data objectivec.IObject)
-	_saveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename string)
+	_saveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename string)
 	AnalyzeBinaryGpuGeneration(binary objectivec.IObject, generation uint32) objectivec.IObject
 	AnalyzeBinaryTypeNameDylibDataGpuGeneration(binary objectivec.IObject, name objectivec.IObject, dylib bool, data objectivec.IObject, generation uint32) objectivec.IObject
 	Delegate() objectivec.IObject
@@ -383,12 +383,12 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) CanProcessHarvestedBinaryData()
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_saveAddressList:size:filename:
-func (g GTAGX2StreamDataShaderProfilerProcessor) _saveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename string) {
+func (g GTAGX2StreamDataShaderProfilerProcessor) _saveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename string) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_saveAddressList:size:filename:"), list, size, unsafe.Pointer(unsafe.StringData(filename+"\x00")))
 }
 
 // SaveAddressListSizeFilename is an exported wrapper for the private method _saveAddressListSizeFilename.
-func (g GTAGX2StreamDataShaderProfilerProcessor) SaveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename string) error {
+func (g GTAGX2StreamDataShaderProfilerProcessor) SaveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename string) error {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_saveAddressList:size:filename:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_saveAddressList:size:filename:"}
 		return err

@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -82,7 +81,7 @@ func NewWSSidecar2EventProcessor() WSSidecar2EventProcessor {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
-func NewWSSidecar2EventProcessorWithSession(session unsafe.Pointer) WSSidecar2EventProcessor {
+func NewWSSidecar2EventProcessorWithSession(session CGXSession) WSSidecar2EventProcessor {
 	instance := getWSSidecar2EventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSSidecar2EventProcessorFromID(rv)

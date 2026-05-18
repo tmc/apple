@@ -18,30 +18,18 @@ type CILanczosScaleTransform interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/aspectRatio
 	AspectRatio() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/inputImage
-	InputImage() ICIImage
-
-	// The scaling factor to use on the image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/scale
-	Scale() float32
-
-	// The additional horizontal scaling factor to use on the image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/aspectRatio
 	SetAspectRatio(value float32)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The scaling factor to use on the image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/scale
+	Scale() float32
 	SetScale(value float32)
 }
 
@@ -62,30 +50,6 @@ func CILanczosScaleTransformObjectFromID(id objc.ID) CILanczosScaleTransformObje
 	}
 }
 
-// The additional horizontal scaling factor to use on the image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/aspectRatio
-func (o CILanczosScaleTransformObject) AspectRatio() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("aspectRatio"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/inputImage
-func (o CILanczosScaleTransformObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The scaling factor to use on the image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/scale
-func (o CILanczosScaleTransformObject) Scale() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -98,6 +62,11 @@ func (o CILanczosScaleTransformObject) OutputImage() ICIImage {
 // The additional horizontal scaling factor to use on the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/aspectRatio
+func (o CILanczosScaleTransformObject) AspectRatio() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("aspectRatio"))
+	return float32(rv)
+}
+
 func (o CILanczosScaleTransformObject) SetAspectRatio(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAspectRatio:"), value)
 }
@@ -105,6 +74,11 @@ func (o CILanczosScaleTransformObject) SetAspectRatio(value float32) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/inputImage
+func (o CILanczosScaleTransformObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CILanczosScaleTransformObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -117,6 +91,11 @@ func (o CILanczosScaleTransformObject) SetInputImage(value ICIImage) {
 // up the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/scale
+func (o CILanczosScaleTransformObject) Scale() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
+	return float32(rv)
+}
+
 func (o CILanczosScaleTransformObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }

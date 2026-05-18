@@ -38,6 +38,17 @@ func NSProgressReportingObjectFromID(id objc.ID) NSProgressReportingObject {
 
 // The progress object returned by the class.
 //
+// # Discussion
+//
+// The progress object is usually setup at class initialization time and
+// updated as work is completed. The [Progress] property is set only once. If
+// another progress object is needed the caller should create a new instance
+// of the custom class to represent the work.
+//
+// # Special Considerations
+//
+// The [Progress] property is only set once.
+//
 // See: https://developer.apple.com/documentation/Foundation/ProgressReporting/progress
 func (o NSProgressReportingObject) Progress() INSProgress {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("progress"))

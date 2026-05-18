@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_strength_reduction_loadc_eltwise__eltwisec] class.
+// The class instance for the [EspressoPassStrengthReductionLoadcEltwiseEltwisec] class.
 var (
-	_EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass     EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass
-	_EspressoPass_strength_reduction_loadc_eltwise__eltwisecClassOnce sync.Once
+	_EspressoPassStrengthReductionLoadcEltwiseEltwisecClass     EspressoPassStrengthReductionLoadcEltwiseEltwisecClass
+	_EspressoPassStrengthReductionLoadcEltwiseEltwisecClassOnce sync.Once
 )
 
-func getEspressoPass_strength_reduction_loadc_eltwise__eltwisecClass() EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass {
-	_EspressoPass_strength_reduction_loadc_eltwise__eltwisecClassOnce.Do(func() {
-		_EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass = EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass{class: objc.GetClass("EspressoPass_strength_reduction_loadc_eltwise__eltwisec")}
+func getEspressoPassStrengthReductionLoadcEltwiseEltwisecClass() EspressoPassStrengthReductionLoadcEltwiseEltwisecClass {
+	_EspressoPassStrengthReductionLoadcEltwiseEltwisecClassOnce.Do(func() {
+		_EspressoPassStrengthReductionLoadcEltwiseEltwisecClass = EspressoPassStrengthReductionLoadcEltwiseEltwisecClass{class: objc.GetClass("EspressoPass_strength_reduction_loadc_eltwise__eltwisec")}
 	})
-	return _EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass
+	return _EspressoPassStrengthReductionLoadcEltwiseEltwisecClass
 }
 
-// GetEspressoPass_strength_reduction_loadc_eltwise__eltwisecClass returns the class object for EspressoPass_strength_reduction_loadc_eltwise__eltwisec.
-func GetEspressoPass_strength_reduction_loadc_eltwise__eltwisecClass() EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass {
-	return getEspressoPass_strength_reduction_loadc_eltwise__eltwisecClass()
+// GetEspressoPassStrengthReductionLoadcEltwiseEltwisecClass returns the class object for EspressoPass_strength_reduction_loadc_eltwise__eltwisec.
+func GetEspressoPassStrengthReductionLoadcEltwiseEltwisecClass() EspressoPassStrengthReductionLoadcEltwiseEltwisecClass {
+	return getEspressoPassStrengthReductionLoadcEltwiseEltwisecClass()
 }
 
-type EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass struct {
+type EspressoPassStrengthReductionLoadcEltwiseEltwisecClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass) Class() objc.Class {
+func (ec EspressoPassStrengthReductionLoadcEltwiseEltwisecClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass) Alloc() EspressoPass_strength_reduction_loadc_eltwise__eltwisec {
-	rv := objc.Send[EspressoPass_strength_reduction_loadc_eltwise__eltwisec](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassStrengthReductionLoadcEltwiseEltwisecClass) Alloc() EspressoPassStrengthReductionLoadcEltwiseEltwisec {
+	rv := objc.Send[EspressoPassStrengthReductionLoadcEltwiseEltwisec](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_loadc_eltwise__eltwisec
-type EspressoPass_strength_reduction_loadc_eltwise__eltwisec struct {
+type EspressoPassStrengthReductionLoadcEltwiseEltwisec struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_strength_reduction_loadc_eltwise__eltwisecFromID constructs a [EspressoPass_strength_reduction_loadc_eltwise__eltwisec] from an objc.ID.
-func EspressoPass_strength_reduction_loadc_eltwise__eltwisecFromID(id objc.ID) EspressoPass_strength_reduction_loadc_eltwise__eltwisec {
-	return EspressoPass_strength_reduction_loadc_eltwise__eltwisec{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassStrengthReductionLoadcEltwiseEltwisecFromID constructs a [EspressoPassStrengthReductionLoadcEltwiseEltwisec] from an objc.ID.
+func EspressoPassStrengthReductionLoadcEltwiseEltwisecFromID(id objc.ID) EspressoPassStrengthReductionLoadcEltwiseEltwisec {
+	return EspressoPassStrengthReductionLoadcEltwiseEltwisec{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_strength_reduction_loadc_eltwise__eltwisec implements IEspressoPass_strength_reduction_loadc_eltwise__eltwisec.
-var _ IEspressoPass_strength_reduction_loadc_eltwise__eltwisec = EspressoPass_strength_reduction_loadc_eltwise__eltwisec{}
+// EspressoPass_strength_reduction_loadc_eltwise__eltwisecFromID is an alias for [EspressoPassStrengthReductionLoadcEltwiseEltwisecFromID] for cross-framework compatibility.
+func EspressoPass_strength_reduction_loadc_eltwise__eltwisecFromID(id objc.ID) EspressoPassStrengthReductionLoadcEltwiseEltwisec {
+	return EspressoPassStrengthReductionLoadcEltwiseEltwisecFromID(id)
+}
 
-// An interface definition for the [EspressoPass_strength_reduction_loadc_eltwise__eltwisec] class.
+// Ensure EspressoPassStrengthReductionLoadcEltwiseEltwisec implements IEspressoPassStrengthReductionLoadcEltwiseEltwisec.
+var _ IEspressoPassStrengthReductionLoadcEltwiseEltwisec = EspressoPassStrengthReductionLoadcEltwiseEltwisec{}
+
+// An interface definition for the [EspressoPassStrengthReductionLoadcEltwiseEltwisec] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_loadc_eltwise__eltwisec
-type IEspressoPass_strength_reduction_loadc_eltwise__eltwisec interface {
+type IEspressoPassStrengthReductionLoadcEltwiseEltwisec interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_strength_reduction_loadc_eltwise__eltwisec) Init() EspressoPass_strength_reduction_loadc_eltwise__eltwisec {
-	rv := objc.Send[EspressoPass_strength_reduction_loadc_eltwise__eltwisec](e.ID, objc.Sel("init"))
+func (e EspressoPassStrengthReductionLoadcEltwiseEltwisec) Init() EspressoPassStrengthReductionLoadcEltwiseEltwisec {
+	rv := objc.Send[EspressoPassStrengthReductionLoadcEltwiseEltwisec](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_strength_reduction_loadc_eltwise__eltwisec) Autorelease() EspressoPass_strength_reduction_loadc_eltwise__eltwisec {
-	rv := objc.Send[EspressoPass_strength_reduction_loadc_eltwise__eltwisec](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassStrengthReductionLoadcEltwiseEltwisec) Autorelease() EspressoPassStrengthReductionLoadcEltwiseEltwisec {
+	rv := objc.Send[EspressoPassStrengthReductionLoadcEltwiseEltwisec](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_strength_reduction_loadc_eltwise__eltwisec creates a new EspressoPass_strength_reduction_loadc_eltwise__eltwisec instance.
-func NewEspressoPass_strength_reduction_loadc_eltwise__eltwisec() EspressoPass_strength_reduction_loadc_eltwise__eltwisec {
-	class := getEspressoPass_strength_reduction_loadc_eltwise__eltwisecClass()
-	rv := objc.Send[EspressoPass_strength_reduction_loadc_eltwise__eltwisec](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassStrengthReductionLoadcEltwiseEltwisec creates a new EspressoPassStrengthReductionLoadcEltwiseEltwisec instance.
+func NewEspressoPassStrengthReductionLoadcEltwiseEltwisec() EspressoPassStrengthReductionLoadcEltwiseEltwisec {
+	class := getEspressoPassStrengthReductionLoadcEltwiseEltwisecClass()
+	rv := objc.Send[EspressoPassStrengthReductionLoadcEltwiseEltwisec](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

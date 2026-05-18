@@ -88,14 +88,14 @@ type IMLReporter interface {
 }
 
 // Init initializes the instance.
-func (r MLReporter) Init() MLReporter {
-	rv := objc.Send[MLReporter](r.ID, objc.Sel("init"))
+func (m MLReporter) Init() MLReporter {
+	rv := objc.Send[MLReporter](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (r MLReporter) Autorelease() MLReporter {
-	rv := objc.Send[MLReporter](r.ID, objc.Sel("autorelease"))
+func (m MLReporter) Autorelease() MLReporter {
+	rv := objc.Send[MLReporter](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -107,8 +107,8 @@ func NewMLReporter() MLReporter {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/logMetric:
-func (r MLReporter) LogMetric(metric objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("logMetric:"), metric)
+func (m MLReporter) LogMetric(metric objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("logMetric:"), metric)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/reporter
@@ -118,25 +118,25 @@ func (_MLReporterClass MLReporterClass) Reporter() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/debugDescription
-func (r MLReporter) DebugDescription() string {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("debugDescription"))
+func (m MLReporter) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/description
-func (r MLReporter) Description() string {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("description"))
+func (m MLReporter) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/hash
-func (r MLReporter) Hash() uint64 {
-	rv := objc.Send[uint64](r.ID, objc.Sel("hash"))
+func (m MLReporter) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/superclass
-func (r MLReporter) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](r.ID, objc.Sel("superclass"))
+func (m MLReporter) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

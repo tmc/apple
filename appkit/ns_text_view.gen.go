@@ -345,6 +345,7 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 // # Changing layout orientation
 //
 //   - [NSTextView.ChangeLayoutOrientation]: An action method that sets the layout orientation of the text.
+//   - [NSTextView.SetLayoutOrientation]: Changes the receiver’s layout orientation and invalidates the contents.
 //
 // # Using the Find Bar
 //
@@ -632,6 +633,7 @@ func NSTextViewFromID(id objc.ID) NSTextView {
 // # Changing layout orientation
 //
 //   - [INSTextView.ChangeLayoutOrientation]: An action method that sets the layout orientation of the text.
+//   - [INSTextView.SetLayoutOrientation]: Changes the receiver’s layout orientation and invalidates the contents.
 //
 // # Using the Find Bar
 //
@@ -668,16 +670,9 @@ func NSTextViewFromID(id objc.ID) NSTextView {
 // See: https://developer.apple.com/documentation/AppKit/NSTextView
 type INSTextView interface {
 	INSText
-	NSAccessibilityNavigableStaticText
-	NSAccessibilityStaticText
 	NSCandidateListTouchBarItemDelegate
-	NSDraggingSource
-	NSMenuItemValidation
-	NSTextContent
 	NSTextInput
-	NSTextLayoutOrientationProvider
 	NSTouchBarDelegate
-	NSUserInterfaceValidations
 
 	// Topic: Creating a text view
 
@@ -1048,6 +1043,8 @@ type INSTextView interface {
 
 	// An action method that sets the layout orientation of the text.
 	ChangeLayoutOrientation(sender objectivec.IObject)
+	// Changes the receiver’s layout orientation and invalidates the contents.
+	SetLayoutOrientation(orientation NSTextLayoutOrientation)
 
 	// Topic: Using the Find Bar
 
@@ -2760,6 +2757,24 @@ func (t NSTextView) ChangeLayoutOrientation(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("changeLayoutOrientation:"), sender)
 }
 
+// Changes the receiver’s layout orientation and invalidates the contents.
+//
+// orientation: The text layout orientation.
+//
+// # Discussion
+//
+// Unlike other [NSTextView] properties, this is not shared by sibling views.
+// It also rotates the bounds 90 degrees, swaps horizontal and vertical bits
+// of the [AutoresizingMask] mask, and reconfigures [HorizontallyResizable]
+// and [VerticallyResizable] properties accordingly. Also, if
+// [EnclosingScrollView] returns non-`nil`, it reconfigures the horizontal and
+// vertical ruler views, the horizontal and vertical scrollers, and the frame.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextView/setLayoutOrientation(_:)
+func (t NSTextView) SetLayoutOrientation(orientation NSTextLayoutOrientation) {
+	objc.Send[objc.ID](t.ID, objc.Sel("setLayoutOrientation:"), orientation)
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/updateTextTouchBarItems()
 func (t NSTextView) UpdateTextTouchBarItems() {
 	objc.Send[objc.ID](t.ID, objc.Sel("updateTextTouchBarItems"))
@@ -3026,6 +3041,20 @@ func (t NSTextView) CandidateListTouchBarItemEndSelectingCandidateAtIndex(anItem
 	objc.Send[objc.ID](t.ID, objc.Sel("candidateListTouchBarItem:endSelectingCandidateAtIndex:"), anItem, index)
 }
 
+// The semantic meaning for a text input area.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
+func (t NSTextView) ContentType() NSTextContentType {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("contentType"))
+	return NSTextContentType(foundation.NSStringFromID(rv).String())
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
+func (t NSTextView) DocumentVisibleRect() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("documentVisibleRect"))
+	return corefoundation.CGRect(rv)
+}
+
 // Invoked when the dragging session has completed.
 //
 // session: The dragging session.
@@ -3217,6 +3246,14 @@ func (t NSTextView) InsertTextReplacementRange(string_ objectivec.IObject, repla
 	objc.Send[objc.ID](t.ID, objc.Sel("insertText:replacementRange:"), string_, replacementRange)
 }
 
+// The default layout orientation.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutOrientationProvider/layoutOrientation
+func (t NSTextView) LayoutOrientation() NSTextLayoutOrientation {
+	rv := objc.Send[NSTextLayoutOrientation](t.ID, objc.Sel("layoutOrientation"))
+	return NSTextLayoutOrientation(rv)
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/preferredTextAccessoryPlacement()
 func (t NSTextView) PreferredTextAccessoryPlacement() NSTextCursorAccessoryPlacement {
 	rv := objc.Send[NSTextCursorAccessoryPlacement](t.ID, objc.Sel("preferredTextAccessoryPlacement"))
@@ -3248,6 +3285,15 @@ func (t NSTextView) SetMarkedTextSelectedRangeReplacementRange(string_ objective
 	objc.Send[objc.ID](t.ID, objc.Sel("setMarkedText:selectedRange:replacementRange:"), string_, selectedRange, replacementRange)
 }
 
+// A Boolean value that indicates whether the document supports adaptive
+// images in the input.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/supportsAdaptiveImageGlyph
+func (t NSTextView) SupportsAdaptiveImageGlyph() bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("supportsAdaptiveImageGlyph"))
+	return rv
+}
+
 // Asks the delegate object for the bar item for the specified bar and item
 // identifier.
 //
@@ -3269,6 +3315,12 @@ func (t NSTextView) SetMarkedTextSelectedRangeReplacementRange(string_ objective
 func (t NSTextView) TouchBarMakeItemForIdentifier(touchBar INSTouchBar, identifier NSTouchBarItemIdentifier) INSTouchBarItem {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("touchBar:makeItemForIdentifier:"), touchBar, objc.String(string(identifier)))
 	return NSTouchBarItemFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
+func (t NSTextView) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("unionRectInVisibleSelectedRange"))
+	return corefoundation.CGRect(rv)
 }
 
 // Implemented to override the default action of enabling or disabling a
@@ -4342,81 +4394,12 @@ func (t NSTextView) SetWritingToolsBehavior(value NSWritingToolsBehavior) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWritingToolsBehavior:"), value)
 }
 
-// The semantic meaning for a text input area.
-//
-// # Discussion
-//
-// Use this property to give the system information about the expected
-// semantic meaning for the content that people enter. For example, you might
-// specify [emailAddress] for a text field that people fill in to receive an
-// email confirmation.
-//
-// For possible values you can use, see [NSTextContentType]; by default, the
-// value of this property is `nil`.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
-//
-// [emailAddress]: https://developer.apple.com/documentation/AppKit/NSTextContentType/emailAddress
-func (t NSTextView) ContentType() NSTextContentType {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("contentType"))
-	return NSTextContentType(foundation.NSStringFromID(rv).String())
-}
-func (t NSTextView) SetContentType(value NSTextContentType) {
-	objc.Send[struct{}](t.ID, objc.Sel("setContentType:"), objc.String(string(value)))
-}
-
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
-func (t NSTextView) DocumentVisibleRect() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("documentVisibleRect"))
-	return corefoundation.CGRect(rv)
-}
-
 // Type for the find panel metadata property list.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboardtype/findpanelsearchoptions
 func (t NSTextView) FindPanelSearchOptions() NSPasteboardType {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSFindPanelSearchOptionsPboardType"))
 	return NSPasteboardType(foundation.NSStringFromID(rv).String())
-}
-
-// The default layout orientation.
-//
-// # Discussion
-//
-// This property contains the default layout orientation for text in the
-// object that adopts the protocol. If the text contains an explicit
-// [verticalGlyphForm] attribute, that attribute overrides the value in this
-// property. When rendering, TextKit assumes the coordinate system is
-// appropriately rotated.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutOrientationProvider/layoutOrientation
-//
-// [verticalGlyphForm]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/verticalGlyphForm
-func (t NSTextView) LayoutOrientation() NSTextLayoutOrientation {
-	rv := objc.Send[NSTextLayoutOrientation](t.ID, objc.Sel("layoutOrientation"))
-	return NSTextLayoutOrientation(rv)
-}
-
-// A Boolean value that indicates whether the document supports adaptive
-// images in the input.
-//
-// # Discussion
-//
-// When this property is false, the input system doesn’t allow the text
-// input to contain adaptive images. Set the value of this property to true
-// only if your document supports adaptive images and handles them properly.
-// For more information, see [NSAdaptiveImageGlyph].
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/supportsAdaptiveImageGlyph
-func (t NSTextView) SupportsAdaptiveImageGlyph() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("supportsAdaptiveImageGlyph"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
-func (t NSTextView) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("unionRectInVisibleSelectedRange"))
-	return corefoundation.CGRect(rv)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/stronglyReferencesTextStorage
@@ -4524,6 +4507,25 @@ func (o NSTextView) IsAccessibilityFocused() bool {
 // Protocol methods for NSMenuItemValidation
 
 // Protocol methods for NSTextContent
+
+// The semantic meaning for a text input area.
+//
+// # Discussion
+//
+// Use this property to give the system information about the expected
+// semantic meaning for the content that people enter. For example, you might
+// specify [emailAddress] for a text field that people fill in to receive an
+// email confirmation.
+//
+// For possible values you can use, see [NSTextContentType]; by default, the
+// value of this property is `nil`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
+//
+// [emailAddress]: https://developer.apple.com/documentation/AppKit/NSTextContentType/emailAddress
+func (o NSTextView) SetContentType(value NSTextContentType) {
+	objc.Send[struct{}](o.ID, objc.Sel("setContentType:"), objc.String(string(value)))
+}
 
 // Protocol methods for NSTextInput
 

@@ -112,7 +112,6 @@ func NSStepperFromID(id objc.ID) NSStepper {
 // See: https://developer.apple.com/documentation/AppKit/NSStepper
 type INSStepper interface {
 	INSControl
-	NSAccessibilityStepper
 
 	// Topic: Specifying value range
 

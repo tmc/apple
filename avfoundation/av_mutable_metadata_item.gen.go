@@ -117,11 +117,11 @@ type IAVMutableMetadataItem interface {
 	NumberValue() foundation.NSNumber
 	SetNumberValue(value foundation.NSNumber)
 	// The value of the metadata item as a date.
-	DateValue() foundation.INSDate
-	SetDateValue(value foundation.INSDate)
+	DateValue() foundation.NSDate
+	SetDateValue(value foundation.NSDate)
 	// The value of the metadata item as a data value.
-	DataValue() foundation.INSData
-	SetDataValue(value foundation.INSData)
+	DataValue() foundation.NSData
+	SetDataValue(value foundation.NSData)
 }
 
 // Init initializes the instance.
@@ -214,21 +214,21 @@ func (m AVMutableMetadataItem) SetNumberValue(value foundation.NSNumber) {
 // This value is `nil` if the system can’t represent the value as a date.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem/dateValue
-func (m AVMutableMetadataItem) DateValue() foundation.INSDate {
+func (m AVMutableMetadataItem) DateValue() foundation.NSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dateValue"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (m AVMutableMetadataItem) SetDateValue(value foundation.INSDate) {
+func (m AVMutableMetadataItem) SetDateValue(value foundation.NSDate) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDateValue:"), value)
 }
 
 // The value of the metadata item as a data value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem/dataValue
-func (m AVMutableMetadataItem) DataValue() foundation.INSData {
+func (m AVMutableMetadataItem) DataValue() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataValue"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (m AVMutableMetadataItem) SetDataValue(value foundation.INSData) {
+func (m AVMutableMetadataItem) SetDataValue(value foundation.NSData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDataValue:"), value)
 }

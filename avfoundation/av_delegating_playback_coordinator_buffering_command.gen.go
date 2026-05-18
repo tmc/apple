@@ -87,7 +87,7 @@ type IAVDelegatingPlaybackCoordinatorBufferingCommand interface {
 	// The rate at which the coordinator expects the current item to play.
 	AnticipatedPlaybackRate() float32
 	// The deadline by which the coordinator expects the delegate to complete execution of a command.
-	CompletionDueDate() foundation.INSDate
+	CompletionDueDate() foundation.NSDate
 }
 
 // Init initializes the instance.
@@ -132,7 +132,7 @@ func (d AVDelegatingPlaybackCoordinatorBufferingCommand) AnticipatedPlaybackRate
 // sends a play command that isn’t for the current state.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorBufferingCommand/completionDueDate
-func (d AVDelegatingPlaybackCoordinatorBufferingCommand) CompletionDueDate() foundation.INSDate {
+func (d AVDelegatingPlaybackCoordinatorBufferingCommand) CompletionDueDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("completionDueDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

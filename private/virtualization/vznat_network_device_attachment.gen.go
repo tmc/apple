@@ -80,14 +80,14 @@ type IVZNATNetworkDeviceAttachment interface {
 }
 
 // Init initializes the instance.
-func (n VZNATNetworkDeviceAttachment) Init() VZNATNetworkDeviceAttachment {
-	rv := objc.Send[VZNATNetworkDeviceAttachment](n.ID, objc.Sel("init"))
+func (v VZNATNetworkDeviceAttachment) Init() VZNATNetworkDeviceAttachment {
+	rv := objc.Send[VZNATNetworkDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n VZNATNetworkDeviceAttachment) Autorelease() VZNATNetworkDeviceAttachment {
-	rv := objc.Send[VZNATNetworkDeviceAttachment](n.ID, objc.Sel("autorelease"))
+func (v VZNATNetworkDeviceAttachment) Autorelease() VZNATNetworkDeviceAttachment {
+	rv := objc.Send[VZNATNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -99,43 +99,43 @@ func NewVZNATNetworkDeviceAttachment() VZNATNetworkDeviceAttachment {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment/_setInterfaceIsolationEnabled:
-func (n VZNATNetworkDeviceAttachment) _setInterfaceIsolationEnabled(enabled bool) {
-	objc.Send[objc.ID](n.ID, objc.Sel("_setInterfaceIsolationEnabled:"), enabled)
+func (v VZNATNetworkDeviceAttachment) _setInterfaceIsolationEnabled(enabled bool) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setInterfaceIsolationEnabled:"), enabled)
 }
 
 // SetInterfaceIsolationEnabled is an exported wrapper for the private method _setInterfaceIsolationEnabled.
-func (n VZNATNetworkDeviceAttachment) SetInterfaceIsolationEnabled(enabled bool) error {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_setInterfaceIsolationEnabled:")) {
+func (v VZNATNetworkDeviceAttachment) SetInterfaceIsolationEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setInterfaceIsolationEnabled:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setInterfaceIsolationEnabled:"}
 		return err
 	}
-	n._setInterfaceIsolationEnabled(enabled)
+	v._setInterfaceIsolationEnabled(enabled)
 	return nil
 }
 
 // CanSetInterfaceIsolationEnabled reports whether the receiver responds to the private selector _setInterfaceIsolationEnabled:.
-func (n VZNATNetworkDeviceAttachment) CanSetInterfaceIsolationEnabled() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_setInterfaceIsolationEnabled:"))
+func (v VZNATNetworkDeviceAttachment) CanSetInterfaceIsolationEnabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setInterfaceIsolationEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment/_interfaceIsolationEnabled
-func (n VZNATNetworkDeviceAttachment) _interfaceIsolationEnabled() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("_interfaceIsolationEnabled"))
+func (v VZNATNetworkDeviceAttachment) _interfaceIsolationEnabled() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("_interfaceIsolationEnabled"))
 	return rv
 }
 
 // CanInterfaceIsolationEnabled reports whether the receiver responds to the private selector _interfaceIsolationEnabled.
-func (n VZNATNetworkDeviceAttachment) CanInterfaceIsolationEnabled() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_interfaceIsolationEnabled"))
+func (v VZNATNetworkDeviceAttachment) CanInterfaceIsolationEnabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_interfaceIsolationEnabled"))
 }
 
 // InterfaceIsolationEnabled is an exported wrapper for the private property _interfaceIsolationEnabled.
-func (n VZNATNetworkDeviceAttachment) InterfaceIsolationEnabled() (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_interfaceIsolationEnabled")) {
+func (v VZNATNetworkDeviceAttachment) InterfaceIsolationEnabled() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_interfaceIsolationEnabled")) {
 		return false, &objc.UnrecognizedSelectorError{Selector: "_interfaceIsolationEnabled"}
 	}
-	return n._interfaceIsolationEnabled(), nil
+	return v._interfaceIsolationEnabled(), nil
 }
-func (n VZNATNetworkDeviceAttachment) Set_interfaceIsolationEnabled(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("set_interfaceIsolationEnabled:"), value)
+func (v VZNATNetworkDeviceAttachment) Set_interfaceIsolationEnabled(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_interfaceIsolationEnabled:"), value)
 }

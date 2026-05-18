@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_style_transfer_two_nets] class.
+// The class instance for the [EspressoPassStyleTransferTwoNets] class.
 var (
-	_EspressoPass_style_transfer_two_netsClass     EspressoPass_style_transfer_two_netsClass
-	_EspressoPass_style_transfer_two_netsClassOnce sync.Once
+	_EspressoPassStyleTransferTwoNetsClass     EspressoPassStyleTransferTwoNetsClass
+	_EspressoPassStyleTransferTwoNetsClassOnce sync.Once
 )
 
-func getEspressoPass_style_transfer_two_netsClass() EspressoPass_style_transfer_two_netsClass {
-	_EspressoPass_style_transfer_two_netsClassOnce.Do(func() {
-		_EspressoPass_style_transfer_two_netsClass = EspressoPass_style_transfer_two_netsClass{class: objc.GetClass("EspressoPass_style_transfer_two_nets")}
+func getEspressoPassStyleTransferTwoNetsClass() EspressoPassStyleTransferTwoNetsClass {
+	_EspressoPassStyleTransferTwoNetsClassOnce.Do(func() {
+		_EspressoPassStyleTransferTwoNetsClass = EspressoPassStyleTransferTwoNetsClass{class: objc.GetClass("EspressoPass_style_transfer_two_nets")}
 	})
-	return _EspressoPass_style_transfer_two_netsClass
+	return _EspressoPassStyleTransferTwoNetsClass
 }
 
-// GetEspressoPass_style_transfer_two_netsClass returns the class object for EspressoPass_style_transfer_two_nets.
-func GetEspressoPass_style_transfer_two_netsClass() EspressoPass_style_transfer_two_netsClass {
-	return getEspressoPass_style_transfer_two_netsClass()
+// GetEspressoPassStyleTransferTwoNetsClass returns the class object for EspressoPass_style_transfer_two_nets.
+func GetEspressoPassStyleTransferTwoNetsClass() EspressoPassStyleTransferTwoNetsClass {
+	return getEspressoPassStyleTransferTwoNetsClass()
 }
 
-type EspressoPass_style_transfer_two_netsClass struct {
+type EspressoPassStyleTransferTwoNetsClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_style_transfer_two_netsClass) Class() objc.Class {
+func (ec EspressoPassStyleTransferTwoNetsClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_style_transfer_two_netsClass) Alloc() EspressoPass_style_transfer_two_nets {
-	rv := objc.Send[EspressoPass_style_transfer_two_nets](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassStyleTransferTwoNetsClass) Alloc() EspressoPassStyleTransferTwoNets {
+	rv := objc.Send[EspressoPassStyleTransferTwoNets](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_two_nets
-type EspressoPass_style_transfer_two_nets struct {
+type EspressoPassStyleTransferTwoNets struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_style_transfer_two_netsFromID constructs a [EspressoPass_style_transfer_two_nets] from an objc.ID.
-func EspressoPass_style_transfer_two_netsFromID(id objc.ID) EspressoPass_style_transfer_two_nets {
-	return EspressoPass_style_transfer_two_nets{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassStyleTransferTwoNetsFromID constructs a [EspressoPassStyleTransferTwoNets] from an objc.ID.
+func EspressoPassStyleTransferTwoNetsFromID(id objc.ID) EspressoPassStyleTransferTwoNets {
+	return EspressoPassStyleTransferTwoNets{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_style_transfer_two_nets implements IEspressoPass_style_transfer_two_nets.
-var _ IEspressoPass_style_transfer_two_nets = EspressoPass_style_transfer_two_nets{}
+// EspressoPass_style_transfer_two_netsFromID is an alias for [EspressoPassStyleTransferTwoNetsFromID] for cross-framework compatibility.
+func EspressoPass_style_transfer_two_netsFromID(id objc.ID) EspressoPassStyleTransferTwoNets {
+	return EspressoPassStyleTransferTwoNetsFromID(id)
+}
 
-// An interface definition for the [EspressoPass_style_transfer_two_nets] class.
+// Ensure EspressoPassStyleTransferTwoNets implements IEspressoPassStyleTransferTwoNets.
+var _ IEspressoPassStyleTransferTwoNets = EspressoPassStyleTransferTwoNets{}
+
+// An interface definition for the [EspressoPassStyleTransferTwoNets] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_two_nets
-type IEspressoPass_style_transfer_two_nets interface {
+type IEspressoPassStyleTransferTwoNets interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_style_transfer_two_nets) Init() EspressoPass_style_transfer_two_nets {
-	rv := objc.Send[EspressoPass_style_transfer_two_nets](e.ID, objc.Sel("init"))
+func (e EspressoPassStyleTransferTwoNets) Init() EspressoPassStyleTransferTwoNets {
+	rv := objc.Send[EspressoPassStyleTransferTwoNets](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_style_transfer_two_nets) Autorelease() EspressoPass_style_transfer_two_nets {
-	rv := objc.Send[EspressoPass_style_transfer_two_nets](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassStyleTransferTwoNets) Autorelease() EspressoPassStyleTransferTwoNets {
+	rv := objc.Send[EspressoPassStyleTransferTwoNets](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_style_transfer_two_nets creates a new EspressoPass_style_transfer_two_nets instance.
-func NewEspressoPass_style_transfer_two_nets() EspressoPass_style_transfer_two_nets {
-	class := getEspressoPass_style_transfer_two_netsClass()
-	rv := objc.Send[EspressoPass_style_transfer_two_nets](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassStyleTransferTwoNets creates a new EspressoPassStyleTransferTwoNets instance.
+func NewEspressoPassStyleTransferTwoNets() EspressoPassStyleTransferTwoNets {
+	class := getEspressoPassStyleTransferTwoNetsClass()
+	rv := objc.Send[EspressoPassStyleTransferTwoNets](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -120,7 +120,7 @@ type IWKWebExtensionMessagePort interface {
 	// Disconnects the port, terminating all further messages.
 	Disconnect()
 	// Disconnects the port, terminating all further messages with an optional error.
-	DisconnectWithError(error_ foundation.INSError)
+	DisconnectWithError(error_ foundation.NSError)
 	// Sends a message to the connected web extension.
 	SendMessageCompletionHandler(message objectivec.IObject, completionHandler ErrorHandler)
 }
@@ -157,7 +157,7 @@ func (w WKWebExtensionMessagePort) Disconnect() {
 // error: An optional error indicating the reason for disconnection.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/MessagePort/disconnect(throwing:)
-func (w WKWebExtensionMessagePort) DisconnectWithError(error_ foundation.INSError) {
+func (w WKWebExtensionMessagePort) DisconnectWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](w.ID, objc.Sel("disconnectWithError:"), error_)
 }
 

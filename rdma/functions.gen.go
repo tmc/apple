@@ -76,315 +76,315 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-var _ibv_alloc_pd func(context RDMAContext) RDMAPD
-var _ibv_alloc_pdErr error
+var _ibvAllocPd func(context RDMAContext) RDMAPD
+var _ibvAllocPdErr error
 
-func tryIbv_alloc_pd(context RDMAContext) (RDMAPD, error) {
-	if _ibv_alloc_pd == nil {
-		return *new(RDMAPD), symbolCallError("ibv_alloc_pd", "", _ibv_alloc_pdErr)
+func tryIbvAllocPd(context RDMAContext) (RDMAPD, error) {
+	if _ibvAllocPd == nil {
+		return *new(RDMAPD), symbolCallError("ibv_alloc_pd", "", _ibvAllocPdErr)
 	}
-	return _ibv_alloc_pd(context), nil
+	return _ibvAllocPd(context), nil
 }
 
-// Ibv_alloc_pd.
+// IbvAllocPd.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_alloc_pd
-func Ibv_alloc_pd(context RDMAContext) (RDMAPD, error) {
-	return tryIbv_alloc_pd(context)
+func IbvAllocPd(context RDMAContext) (RDMAPD, error) {
+	return tryIbvAllocPd(context)
 }
 
-var _ibv_close_device func(context RDMAContext) int
-var _ibv_close_deviceErr error
+var _ibvCloseDevice func(context RDMAContext) int
+var _ibvCloseDeviceErr error
 
-func tryIbv_close_device(context RDMAContext) (int, error) {
-	if _ibv_close_device == nil {
-		return 0, symbolCallError("ibv_close_device", "", _ibv_close_deviceErr)
+func tryIbvCloseDevice(context RDMAContext) (int, error) {
+	if _ibvCloseDevice == nil {
+		return 0, symbolCallError("ibv_close_device", "", _ibvCloseDeviceErr)
 	}
-	return _ibv_close_device(context), nil
+	return _ibvCloseDevice(context), nil
 }
 
-// Ibv_close_device.
+// IbvCloseDevice.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_close_device
-func Ibv_close_device(context RDMAContext) (int, error) {
-	return tryIbv_close_device(context)
+func IbvCloseDevice(context RDMAContext) (int, error) {
+	return tryIbvCloseDevice(context)
 }
 
-var _ibv_create_cq func(context RDMAContext, cqe int, cq_context uintptr, channel uintptr, comp_vector int) RDMACQ
-var _ibv_create_cqErr error
+var _ibvCreateCq func(context RDMAContext, cqe int, cq_context uintptr, channel uintptr, comp_vector int) RDMACQ
+var _ibvCreateCqErr error
 
-func tryIbv_create_cq(context RDMAContext, cqe int, cq_context uintptr, channel uintptr, comp_vector int) (RDMACQ, error) {
-	if _ibv_create_cq == nil {
-		return *new(RDMACQ), symbolCallError("ibv_create_cq", "", _ibv_create_cqErr)
+func tryIbvCreateCq(context RDMAContext, cqe int, cq_context uintptr, channel uintptr, comp_vector int) (RDMACQ, error) {
+	if _ibvCreateCq == nil {
+		return *new(RDMACQ), symbolCallError("ibv_create_cq", "", _ibvCreateCqErr)
 	}
-	return _ibv_create_cq(context, cqe, cq_context, channel, comp_vector), nil
+	return _ibvCreateCq(context, cqe, cq_context, channel, comp_vector), nil
 }
 
-// Ibv_create_cq.
+// IbvCreateCq.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_create_cq
-func Ibv_create_cq(context RDMAContext, cqe int, cq_context uintptr, channel uintptr, comp_vector int) (RDMACQ, error) {
-	return tryIbv_create_cq(context, cqe, cq_context, channel, comp_vector)
+func IbvCreateCq(context RDMAContext, cqe int, cq_context uintptr, channel uintptr, comp_vector int) (RDMACQ, error) {
+	return tryIbvCreateCq(context, cqe, cq_context, channel, comp_vector)
 }
 
-var _ibv_create_qp func(pd RDMAPD, qp_init_attr uintptr) RDMAQP
-var _ibv_create_qpErr error
+var _ibvCreateQp func(pd RDMAPD, qp_init_attr uintptr) RDMAQP
+var _ibvCreateQpErr error
 
-func tryIbv_create_qp(pd RDMAPD, qp_init_attr uintptr) (RDMAQP, error) {
-	if _ibv_create_qp == nil {
-		return *new(RDMAQP), symbolCallError("ibv_create_qp", "", _ibv_create_qpErr)
+func tryIbvCreateQp(pd RDMAPD, qp_init_attr uintptr) (RDMAQP, error) {
+	if _ibvCreateQp == nil {
+		return *new(RDMAQP), symbolCallError("ibv_create_qp", "", _ibvCreateQpErr)
 	}
-	return _ibv_create_qp(pd, qp_init_attr), nil
+	return _ibvCreateQp(pd, qp_init_attr), nil
 }
 
-// Ibv_create_qp.
+// IbvCreateQp.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_create_qp
-func Ibv_create_qp(pd RDMAPD, qp_init_attr uintptr) (RDMAQP, error) {
-	return tryIbv_create_qp(pd, qp_init_attr)
+func IbvCreateQp(pd RDMAPD, qp_init_attr uintptr) (RDMAQP, error) {
+	return tryIbvCreateQp(pd, qp_init_attr)
 }
 
-var _ibv_dealloc_pd func(pd RDMAPD) int
-var _ibv_dealloc_pdErr error
+var _ibvDeallocPd func(pd RDMAPD) int
+var _ibvDeallocPdErr error
 
-func tryIbv_dealloc_pd(pd RDMAPD) (int, error) {
-	if _ibv_dealloc_pd == nil {
-		return 0, symbolCallError("ibv_dealloc_pd", "", _ibv_dealloc_pdErr)
+func tryIbvDeallocPd(pd RDMAPD) (int, error) {
+	if _ibvDeallocPd == nil {
+		return 0, symbolCallError("ibv_dealloc_pd", "", _ibvDeallocPdErr)
 	}
-	return _ibv_dealloc_pd(pd), nil
+	return _ibvDeallocPd(pd), nil
 }
 
-// Ibv_dealloc_pd.
+// IbvDeallocPd.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_dealloc_pd
-func Ibv_dealloc_pd(pd RDMAPD) (int, error) {
-	return tryIbv_dealloc_pd(pd)
+func IbvDeallocPd(pd RDMAPD) (int, error) {
+	return tryIbvDeallocPd(pd)
 }
 
-var _ibv_dereg_mr func(mr RDMAMR) int
-var _ibv_dereg_mrErr error
+var _ibvDeregMr func(mr RDMAMR) int
+var _ibvDeregMrErr error
 
-func tryIbv_dereg_mr(mr RDMAMR) (int, error) {
-	if _ibv_dereg_mr == nil {
-		return 0, symbolCallError("ibv_dereg_mr", "", _ibv_dereg_mrErr)
+func tryIbvDeregMr(mr RDMAMR) (int, error) {
+	if _ibvDeregMr == nil {
+		return 0, symbolCallError("ibv_dereg_mr", "", _ibvDeregMrErr)
 	}
-	return _ibv_dereg_mr(mr), nil
+	return _ibvDeregMr(mr), nil
 }
 
-// Ibv_dereg_mr.
+// IbvDeregMr.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_dereg_mr
-func Ibv_dereg_mr(mr RDMAMR) (int, error) {
-	return tryIbv_dereg_mr(mr)
+func IbvDeregMr(mr RDMAMR) (int, error) {
+	return tryIbvDeregMr(mr)
 }
 
-var _ibv_destroy_cq func(cq RDMACQ) int
-var _ibv_destroy_cqErr error
+var _ibvDestroyCq func(cq RDMACQ) int
+var _ibvDestroyCqErr error
 
-func tryIbv_destroy_cq(cq RDMACQ) (int, error) {
-	if _ibv_destroy_cq == nil {
-		return 0, symbolCallError("ibv_destroy_cq", "", _ibv_destroy_cqErr)
+func tryIbvDestroyCq(cq RDMACQ) (int, error) {
+	if _ibvDestroyCq == nil {
+		return 0, symbolCallError("ibv_destroy_cq", "", _ibvDestroyCqErr)
 	}
-	return _ibv_destroy_cq(cq), nil
+	return _ibvDestroyCq(cq), nil
 }
 
-// Ibv_destroy_cq.
+// IbvDestroyCq.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_destroy_cq
-func Ibv_destroy_cq(cq RDMACQ) (int, error) {
-	return tryIbv_destroy_cq(cq)
+func IbvDestroyCq(cq RDMACQ) (int, error) {
+	return tryIbvDestroyCq(cq)
 }
 
-var _ibv_destroy_qp func(qp RDMAQP) int
-var _ibv_destroy_qpErr error
+var _ibvDestroyQp func(qp RDMAQP) int
+var _ibvDestroyQpErr error
 
-func tryIbv_destroy_qp(qp RDMAQP) (int, error) {
-	if _ibv_destroy_qp == nil {
-		return 0, symbolCallError("ibv_destroy_qp", "", _ibv_destroy_qpErr)
+func tryIbvDestroyQp(qp RDMAQP) (int, error) {
+	if _ibvDestroyQp == nil {
+		return 0, symbolCallError("ibv_destroy_qp", "", _ibvDestroyQpErr)
 	}
-	return _ibv_destroy_qp(qp), nil
+	return _ibvDestroyQp(qp), nil
 }
 
-// Ibv_destroy_qp.
+// IbvDestroyQp.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_destroy_qp
-func Ibv_destroy_qp(qp RDMAQP) (int, error) {
-	return tryIbv_destroy_qp(qp)
+func IbvDestroyQp(qp RDMAQP) (int, error) {
+	return tryIbvDestroyQp(qp)
 }
 
-var _ibv_free_device_list func(list RDMADeviceList)
-var _ibv_free_device_listErr error
+var _ibvFreeDeviceList func(list RDMADeviceList)
+var _ibvFreeDeviceListErr error
 
-func tryIbv_free_device_list(list RDMADeviceList) error {
-	if _ibv_free_device_list == nil {
-		return symbolCallError("ibv_free_device_list", "", _ibv_free_device_listErr)
+func tryIbvFreeDeviceList(list RDMADeviceList) error {
+	if _ibvFreeDeviceList == nil {
+		return symbolCallError("ibv_free_device_list", "", _ibvFreeDeviceListErr)
 	}
-	_ibv_free_device_list(list)
+	_ibvFreeDeviceList(list)
 	return nil
 }
 
-// Ibv_free_device_list.
+// IbvFreeDeviceList.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_free_device_list
-func Ibv_free_device_list(list RDMADeviceList) error {
-	return tryIbv_free_device_list(list)
+func IbvFreeDeviceList(list RDMADeviceList) error {
+	return tryIbvFreeDeviceList(list)
 }
 
-var _ibv_get_device_list func(num_devices uintptr) RDMADeviceList
-var _ibv_get_device_listErr error
+var _ibvGetDeviceList func(num_devices uintptr) RDMADeviceList
+var _ibvGetDeviceListErr error
 
-func tryIbv_get_device_list(num_devices uintptr) (RDMADeviceList, error) {
-	if _ibv_get_device_list == nil {
-		return *new(RDMADeviceList), symbolCallError("ibv_get_device_list", "", _ibv_get_device_listErr)
+func tryIbvGetDeviceList(num_devices uintptr) (RDMADeviceList, error) {
+	if _ibvGetDeviceList == nil {
+		return *new(RDMADeviceList), symbolCallError("ibv_get_device_list", "", _ibvGetDeviceListErr)
 	}
-	return _ibv_get_device_list(num_devices), nil
+	return _ibvGetDeviceList(num_devices), nil
 }
 
-// Ibv_get_device_list.
+// IbvGetDeviceList.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_get_device_list
-func Ibv_get_device_list(num_devices uintptr) (RDMADeviceList, error) {
-	return tryIbv_get_device_list(num_devices)
+func IbvGetDeviceList(num_devices uintptr) (RDMADeviceList, error) {
+	return tryIbvGetDeviceList(num_devices)
 }
 
-var _ibv_get_device_name func(device RDMADevice) uintptr
-var _ibv_get_device_nameErr error
+var _ibvGetDeviceName func(device RDMADevice) uintptr
+var _ibvGetDeviceNameErr error
 
-func tryIbv_get_device_name(device RDMADevice) (uintptr, error) {
-	if _ibv_get_device_name == nil {
-		return 0, symbolCallError("ibv_get_device_name", "", _ibv_get_device_nameErr)
+func tryIbvGetDeviceName(device RDMADevice) (uintptr, error) {
+	if _ibvGetDeviceName == nil {
+		return 0, symbolCallError("ibv_get_device_name", "", _ibvGetDeviceNameErr)
 	}
-	return _ibv_get_device_name(device), nil
+	return _ibvGetDeviceName(device), nil
 }
 
-// Ibv_get_device_name.
+// IbvGetDeviceName.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_get_device_name
-func Ibv_get_device_name(device RDMADevice) (uintptr, error) {
-	return tryIbv_get_device_name(device)
+func IbvGetDeviceName(device RDMADevice) (uintptr, error) {
+	return tryIbvGetDeviceName(device)
 }
 
-var _ibv_modify_qp func(qp RDMAQP, attr uintptr, attr_mask int) int
-var _ibv_modify_qpErr error
+var _ibvModifyQp func(qp RDMAQP, attr uintptr, attr_mask int) int
+var _ibvModifyQpErr error
 
-func tryIbv_modify_qp(qp RDMAQP, attr uintptr, attr_mask int) (int, error) {
-	if _ibv_modify_qp == nil {
-		return 0, symbolCallError("ibv_modify_qp", "", _ibv_modify_qpErr)
+func tryIbvModifyQp(qp RDMAQP, attr uintptr, attr_mask int) (int, error) {
+	if _ibvModifyQp == nil {
+		return 0, symbolCallError("ibv_modify_qp", "", _ibvModifyQpErr)
 	}
-	return _ibv_modify_qp(qp, attr, attr_mask), nil
+	return _ibvModifyQp(qp, attr, attr_mask), nil
 }
 
-// Ibv_modify_qp.
+// IbvModifyQp.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_modify_qp
-func Ibv_modify_qp(qp RDMAQP, attr uintptr, attr_mask int) (int, error) {
-	return tryIbv_modify_qp(qp, attr, attr_mask)
+func IbvModifyQp(qp RDMAQP, attr uintptr, attr_mask int) (int, error) {
+	return tryIbvModifyQp(qp, attr, attr_mask)
 }
 
-var _ibv_open_device func(device RDMADevice) RDMAContext
-var _ibv_open_deviceErr error
+var _ibvOpenDevice func(device RDMADevice) RDMAContext
+var _ibvOpenDeviceErr error
 
-func tryIbv_open_device(device RDMADevice) (RDMAContext, error) {
-	if _ibv_open_device == nil {
-		return *new(RDMAContext), symbolCallError("ibv_open_device", "", _ibv_open_deviceErr)
+func tryIbvOpenDevice(device RDMADevice) (RDMAContext, error) {
+	if _ibvOpenDevice == nil {
+		return *new(RDMAContext), symbolCallError("ibv_open_device", "", _ibvOpenDeviceErr)
 	}
-	return _ibv_open_device(device), nil
+	return _ibvOpenDevice(device), nil
 }
 
-// Ibv_open_device.
+// IbvOpenDevice.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_open_device
-func Ibv_open_device(device RDMADevice) (RDMAContext, error) {
-	return tryIbv_open_device(device)
+func IbvOpenDevice(device RDMADevice) (RDMAContext, error) {
+	return tryIbvOpenDevice(device)
 }
 
-var _ibv_query_device func(context RDMAContext, device_attr uintptr) int
-var _ibv_query_deviceErr error
+var _ibvQueryDevice func(context RDMAContext, device_attr uintptr) int
+var _ibvQueryDeviceErr error
 
-func tryIbv_query_device(context RDMAContext, device_attr uintptr) (int, error) {
-	if _ibv_query_device == nil {
-		return 0, symbolCallError("ibv_query_device", "", _ibv_query_deviceErr)
+func tryIbvQueryDevice(context RDMAContext, device_attr uintptr) (int, error) {
+	if _ibvQueryDevice == nil {
+		return 0, symbolCallError("ibv_query_device", "", _ibvQueryDeviceErr)
 	}
-	return _ibv_query_device(context, device_attr), nil
+	return _ibvQueryDevice(context, device_attr), nil
 }
 
-// Ibv_query_device.
+// IbvQueryDevice.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_query_device
-func Ibv_query_device(context RDMAContext, device_attr uintptr) (int, error) {
-	return tryIbv_query_device(context, device_attr)
+func IbvQueryDevice(context RDMAContext, device_attr uintptr) (int, error) {
+	return tryIbvQueryDevice(context, device_attr)
 }
 
-var _ibv_query_gid func(context RDMAContext, port_num uint8, index int, gid uintptr) int
-var _ibv_query_gidErr error
+var _ibvQueryGid func(context RDMAContext, port_num uint8, index int, gid uintptr) int
+var _ibvQueryGidErr error
 
-func tryIbv_query_gid(context RDMAContext, port_num uint8, index int, gid uintptr) (int, error) {
-	if _ibv_query_gid == nil {
-		return 0, symbolCallError("ibv_query_gid", "", _ibv_query_gidErr)
+func tryIbvQueryGid(context RDMAContext, port_num uint8, index int, gid uintptr) (int, error) {
+	if _ibvQueryGid == nil {
+		return 0, symbolCallError("ibv_query_gid", "", _ibvQueryGidErr)
 	}
-	return _ibv_query_gid(context, port_num, index, gid), nil
+	return _ibvQueryGid(context, port_num, index, gid), nil
 }
 
-// Ibv_query_gid.
+// IbvQueryGid.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_query_gid
-func Ibv_query_gid(context RDMAContext, port_num uint8, index int, gid uintptr) (int, error) {
-	return tryIbv_query_gid(context, port_num, index, gid)
+func IbvQueryGid(context RDMAContext, port_num uint8, index int, gid uintptr) (int, error) {
+	return tryIbvQueryGid(context, port_num, index, gid)
 }
 
-var _ibv_query_port func(context RDMAContext, port_num uint8, port_attr uintptr) int
-var _ibv_query_portErr error
+var _ibvQueryPort func(context RDMAContext, port_num uint8, port_attr uintptr) int
+var _ibvQueryPortErr error
 
-func tryIbv_query_port(context RDMAContext, port_num uint8, port_attr uintptr) (int, error) {
-	if _ibv_query_port == nil {
-		return 0, symbolCallError("ibv_query_port", "", _ibv_query_portErr)
+func tryIbvQueryPort(context RDMAContext, port_num uint8, port_attr uintptr) (int, error) {
+	if _ibvQueryPort == nil {
+		return 0, symbolCallError("ibv_query_port", "", _ibvQueryPortErr)
 	}
-	return _ibv_query_port(context, port_num, port_attr), nil
+	return _ibvQueryPort(context, port_num, port_attr), nil
 }
 
-// Ibv_query_port.
+// IbvQueryPort.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_query_port
-func Ibv_query_port(context RDMAContext, port_num uint8, port_attr uintptr) (int, error) {
-	return tryIbv_query_port(context, port_num, port_attr)
+func IbvQueryPort(context RDMAContext, port_num uint8, port_attr uintptr) (int, error) {
+	return tryIbvQueryPort(context, port_num, port_attr)
 }
 
-var _ibv_reg_mr func(pd RDMAPD, addr uintptr, length uintptr, access int) RDMAMR
-var _ibv_reg_mrErr error
+var _ibvRegMr func(pd RDMAPD, addr uintptr, length uintptr, access int) RDMAMR
+var _ibvRegMrErr error
 
-func tryIbv_reg_mr(pd RDMAPD, addr uintptr, length uintptr, access int) (RDMAMR, error) {
-	if _ibv_reg_mr == nil {
-		return *new(RDMAMR), symbolCallError("ibv_reg_mr", "", _ibv_reg_mrErr)
+func tryIbvRegMr(pd RDMAPD, addr uintptr, length uintptr, access int) (RDMAMR, error) {
+	if _ibvRegMr == nil {
+		return *new(RDMAMR), symbolCallError("ibv_reg_mr", "", _ibvRegMrErr)
 	}
-	return _ibv_reg_mr(pd, addr, length, access), nil
+	return _ibvRegMr(pd, addr, length, access), nil
 }
 
-// Ibv_reg_mr.
+// IbvRegMr.
 //
 // See: https://developer.apple.com/documentation/RDMA/ibv_reg_mr
-func Ibv_reg_mr(pd RDMAPD, addr uintptr, length uintptr, access int) (RDMAMR, error) {
-	return tryIbv_reg_mr(pd, addr, length, access)
+func IbvRegMr(pd RDMAPD, addr uintptr, length uintptr, access int) (RDMAMR, error) {
+	return tryIbvRegMr(pd, addr, length, access)
 }
 
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-	registerFunc(&_ibv_alloc_pd, &_ibv_alloc_pdErr, frameworkHandle, "ibv_alloc_pd", "")
-	registerFunc(&_ibv_close_device, &_ibv_close_deviceErr, frameworkHandle, "ibv_close_device", "")
-	registerFunc(&_ibv_create_cq, &_ibv_create_cqErr, frameworkHandle, "ibv_create_cq", "")
-	registerFunc(&_ibv_create_qp, &_ibv_create_qpErr, frameworkHandle, "ibv_create_qp", "")
-	registerFunc(&_ibv_dealloc_pd, &_ibv_dealloc_pdErr, frameworkHandle, "ibv_dealloc_pd", "")
-	registerFunc(&_ibv_dereg_mr, &_ibv_dereg_mrErr, frameworkHandle, "ibv_dereg_mr", "")
-	registerFunc(&_ibv_destroy_cq, &_ibv_destroy_cqErr, frameworkHandle, "ibv_destroy_cq", "")
-	registerFunc(&_ibv_destroy_qp, &_ibv_destroy_qpErr, frameworkHandle, "ibv_destroy_qp", "")
-	registerFunc(&_ibv_free_device_list, &_ibv_free_device_listErr, frameworkHandle, "ibv_free_device_list", "")
-	registerFunc(&_ibv_get_device_list, &_ibv_get_device_listErr, frameworkHandle, "ibv_get_device_list", "")
-	registerFunc(&_ibv_get_device_name, &_ibv_get_device_nameErr, frameworkHandle, "ibv_get_device_name", "")
-	registerFunc(&_ibv_modify_qp, &_ibv_modify_qpErr, frameworkHandle, "ibv_modify_qp", "")
-	registerFunc(&_ibv_open_device, &_ibv_open_deviceErr, frameworkHandle, "ibv_open_device", "")
-	registerFunc(&_ibv_query_device, &_ibv_query_deviceErr, frameworkHandle, "ibv_query_device", "")
-	registerFunc(&_ibv_query_gid, &_ibv_query_gidErr, frameworkHandle, "ibv_query_gid", "")
-	registerFunc(&_ibv_query_port, &_ibv_query_portErr, frameworkHandle, "ibv_query_port", "")
-	registerFunc(&_ibv_reg_mr, &_ibv_reg_mrErr, frameworkHandle, "ibv_reg_mr", "")
+	registerFunc(&_ibvAllocPd, &_ibvAllocPdErr, frameworkHandle, "ibv_alloc_pd", "")
+	registerFunc(&_ibvCloseDevice, &_ibvCloseDeviceErr, frameworkHandle, "ibv_close_device", "")
+	registerFunc(&_ibvCreateCq, &_ibvCreateCqErr, frameworkHandle, "ibv_create_cq", "")
+	registerFunc(&_ibvCreateQp, &_ibvCreateQpErr, frameworkHandle, "ibv_create_qp", "")
+	registerFunc(&_ibvDeallocPd, &_ibvDeallocPdErr, frameworkHandle, "ibv_dealloc_pd", "")
+	registerFunc(&_ibvDeregMr, &_ibvDeregMrErr, frameworkHandle, "ibv_dereg_mr", "")
+	registerFunc(&_ibvDestroyCq, &_ibvDestroyCqErr, frameworkHandle, "ibv_destroy_cq", "")
+	registerFunc(&_ibvDestroyQp, &_ibvDestroyQpErr, frameworkHandle, "ibv_destroy_qp", "")
+	registerFunc(&_ibvFreeDeviceList, &_ibvFreeDeviceListErr, frameworkHandle, "ibv_free_device_list", "")
+	registerFunc(&_ibvGetDeviceList, &_ibvGetDeviceListErr, frameworkHandle, "ibv_get_device_list", "")
+	registerFunc(&_ibvGetDeviceName, &_ibvGetDeviceNameErr, frameworkHandle, "ibv_get_device_name", "")
+	registerFunc(&_ibvModifyQp, &_ibvModifyQpErr, frameworkHandle, "ibv_modify_qp", "")
+	registerFunc(&_ibvOpenDevice, &_ibvOpenDeviceErr, frameworkHandle, "ibv_open_device", "")
+	registerFunc(&_ibvQueryDevice, &_ibvQueryDeviceErr, frameworkHandle, "ibv_query_device", "")
+	registerFunc(&_ibvQueryGid, &_ibvQueryGidErr, frameworkHandle, "ibv_query_gid", "")
+	registerFunc(&_ibvQueryPort, &_ibvQueryPortErr, frameworkHandle, "ibv_query_port", "")
+	registerFunc(&_ibvRegMr, &_ibvRegMrErr, frameworkHandle, "ibv_reg_mr", "")
 }

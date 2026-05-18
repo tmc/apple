@@ -130,8 +130,8 @@ type INEOnDemandRule interface {
 	SSIDMatch() []string
 	SetSSIDMatch(value []string)
 	// A URL to probe when all other network identifiers match to validate that an expected resource is available.
-	ProbeURL() foundation.INSURL
-	SetProbeURL(value foundation.INSURL)
+	ProbeURL() foundation.NSURL
+	SetProbeURL(value foundation.NSURL)
 
 	// Topic: Accessing the rule action
 
@@ -255,11 +255,11 @@ func (o NEOnDemandRule) SetSSIDMatch(value []string) {
 // does not factor into the rule match.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEOnDemandRule/probeURL
-func (o NEOnDemandRule) ProbeURL() foundation.INSURL {
+func (o NEOnDemandRule) ProbeURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("probeURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (o NEOnDemandRule) SetProbeURL(value foundation.INSURL) {
+func (o NEOnDemandRule) SetProbeURL(value foundation.NSURL) {
 	objc.Send[struct{}](o.ID, objc.Sel("setProbeURL:"), value)
 }
 

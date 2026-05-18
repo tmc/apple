@@ -102,14 +102,14 @@ type IAVVCPluginRemoteInputHost interface {
 }
 
 // Init initializes the instance.
-func (v AVVCPluginRemoteInputHost) Init() AVVCPluginRemoteInputHost {
-	rv := objc.Send[AVVCPluginRemoteInputHost](v.ID, objc.Sel("init"))
+func (a AVVCPluginRemoteInputHost) Init() AVVCPluginRemoteInputHost {
+	rv := objc.Send[AVVCPluginRemoteInputHost](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVCPluginRemoteInputHost) Autorelease() AVVCPluginRemoteInputHost {
-	rv := objc.Send[AVVCPluginRemoteInputHost](v.ID, objc.Sel("autorelease"))
+func (a AVVCPluginRemoteInputHost) Autorelease() AVVCPluginRemoteInputHost {
+	rv := objc.Send[AVVCPluginRemoteInputHost](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -121,54 +121,54 @@ func NewAVVCPluginRemoteInputHost() AVVCPluginRemoteInputHost {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/allBundles:
-func (v AVVCPluginRemoteInputHost) AllBundles(bundles []objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("allBundles:"), objectivec.IObjectSliceToNSArray(bundles))
+func (a AVVCPluginRemoteInputHost) AllBundles(bundles []objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("allBundles:"), objectivec.IObjectSliceToNSArray(bundles))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/findDeviceWithIdentifier:
-func (v AVVCPluginRemoteInputHost) FindDeviceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("findDeviceWithIdentifier:"), identifier)
+func (a AVVCPluginRemoteInputHost) FindDeviceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("findDeviceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/findFirstBluetoothDevice
-func (v AVVCPluginRemoteInputHost) FindFirstBluetoothDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("findFirstBluetoothDevice"))
+func (a AVVCPluginRemoteInputHost) FindFirstBluetoothDevice() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("findFirstBluetoothDevice"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/inputPlugin:didPublishDevice:
-func (v AVVCPluginRemoteInputHost) InputPluginDidPublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("inputPlugin:didPublishDevice:"), plugin, device)
+func (a AVVCPluginRemoteInputHost) InputPluginDidPublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("inputPlugin:didPublishDevice:"), plugin, device)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/inputPlugin:didUnpublishDevice:
-func (v AVVCPluginRemoteInputHost) InputPluginDidUnpublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("inputPlugin:didUnpublishDevice:"), plugin, device)
+func (a AVVCPluginRemoteInputHost) InputPluginDidUnpublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("inputPlugin:didUnpublishDevice:"), plugin, device)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/invalidatePlugins
-func (v AVVCPluginRemoteInputHost) InvalidatePlugins() {
-	objc.Send[objc.ID](v.ID, objc.Sel("invalidatePlugins"))
+func (a AVVCPluginRemoteInputHost) InvalidatePlugins() {
+	objc.Send[objc.ID](a.ID, objc.Sel("invalidatePlugins"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/mockPluginEndpoint
-func (v AVVCPluginRemoteInputHost) MockPluginEndpoint() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("mockPluginEndpoint"))
+func (a AVVCPluginRemoteInputHost) MockPluginEndpoint() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("mockPluginEndpoint"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/setParentVoiceController:
-func (v AVVCPluginRemoteInputHost) SetParentVoiceController(controller objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setParentVoiceController:"), controller)
+func (a AVVCPluginRemoteInputHost) SetParentVoiceController(controller objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setParentVoiceController:"), controller)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPluginRemoteInputHost/mMotherController
-func (v AVVCPluginRemoteInputHost) MMotherController() IAVVoiceController {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("mMotherController"))
+func (a AVVCPluginRemoteInputHost) MMotherController() IAVVoiceController {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("mMotherController"))
 	return AVVoiceControllerFromID(objc.ID(rv))
 }
-func (v AVVCPluginRemoteInputHost) SetMMotherController(value IAVVoiceController) {
-	objc.Send[struct{}](v.ID, objc.Sel("setMMotherController:"), value)
+func (a AVVCPluginRemoteInputHost) SetMMotherController(value IAVVoiceController) {
+	objc.Send[struct{}](a.ID, objc.Sel("setMMotherController:"), value)
 }

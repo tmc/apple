@@ -55,6 +55,8 @@ func (ac AVCaptureSliderClass) Alloc() AVCaptureSlider {
 //
 //   - [AVCaptureSlider.Value]: The current value of the slider.
 //   - [AVCaptureSlider.SetValue]
+//   - [AVCaptureSlider.ProminentValues]: Values in this array may receive unique visual representations or behaviors.
+//   - [AVCaptureSlider.SetProminentValues]
 //   - [AVCaptureSlider.LocalizedValueFormat]: A localized string that defines the presentation of the slider’s value.
 //   - [AVCaptureSlider.SetLocalizedValueFormat]
 //
@@ -84,6 +86,8 @@ func AVCaptureSliderFromID(id objc.ID) AVCaptureSlider {
 //
 //   - [IAVCaptureSlider.Value]: The current value of the slider.
 //   - [IAVCaptureSlider.SetValue]
+//   - [IAVCaptureSlider.ProminentValues]: Values in this array may receive unique visual representations or behaviors.
+//   - [IAVCaptureSlider.SetProminentValues]
 //   - [IAVCaptureSlider.LocalizedValueFormat]: A localized string that defines the presentation of the slider’s value.
 //   - [IAVCaptureSlider.SetLocalizedValueFormat]
 //
@@ -101,6 +105,9 @@ type IAVCaptureSlider interface {
 	// The current value of the slider.
 	Value() float32
 	SetValue(value float32)
+	// Values in this array may receive unique visual representations or behaviors.
+	ProminentValues() []foundation.NSNumber
+	SetProminentValues(value []foundation.NSNumber)
 	// A localized string that defines the presentation of the slider’s value.
 	LocalizedValueFormat() string
 	SetLocalizedValueFormat(value string)
@@ -112,9 +119,6 @@ type IAVCaptureSlider interface {
 	// A localized title that describes the control’s action.
 	LocalizedTitle() string
 
-	// Values in this array may receive unique visual representations or behaviors.
-	ProminentValues() []foundation.NSNumber
-	SetProminentValues(value []foundation.NSNumber)
 	// Creates a continuous slider control that selects a value from a bounded range.
 	InitWithLocalizedTitleSymbolNameMinValueMaxValue(localizedTitle string, symbolName string, minValue float32, maxValue float32) AVCaptureSlider
 	// Creates a discrete slider control that selects a stepped value from a bounded range.
@@ -317,6 +321,20 @@ func (c AVCaptureSlider) SetValue(value float32) {
 	objc.Send[struct{}](c.ID, objc.Sel("setValue:"), value)
 }
 
+// Values in this array may receive unique visual representations or
+// behaviors.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSlider/prominentValues-7usgc
+func (c AVCaptureSlider) ProminentValues() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("prominentValues"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+func (c AVCaptureSlider) SetProminentValues(value []foundation.NSNumber) {
+	objc.Send[struct{}](c.ID, objc.Sel("setProminentValues:"), objectivec.IObjectSliceToNSArray(value))
+}
+
 // A localized string that defines the presentation of the slider’s value.
 //
 // # Discussion
@@ -354,20 +372,6 @@ func (c AVCaptureSlider) SymbolName() string {
 func (c AVCaptureSlider) LocalizedTitle() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("localizedTitle"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// Values in this array may receive unique visual representations or
-// behaviors.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSlider/prominentValues-7usgc
-func (c AVCaptureSlider) ProminentValues() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("prominentValues"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
-}
-func (c AVCaptureSlider) SetProminentValues(value []foundation.NSNumber) {
-	objc.Send[struct{}](c.ID, objc.Sel("setProminentValues:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // SetActionQueueActionSync is a synchronous wrapper around [AVCaptureSlider.SetActionQueueAction].

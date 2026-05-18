@@ -18,10 +18,6 @@ type MTLIOFileHandle interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIOFileHandle/label
 	Label() string
-
-	// An optional name for the file that the handle represents.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLIOFileHandle/label
 	SetLabel(value string)
 }
 
@@ -50,9 +46,6 @@ func (o MTLIOFileHandleObject) Label() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-// An optional name for the file that the handle represents.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLIOFileHandle/label
 func (o MTLIOFileHandleObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

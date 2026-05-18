@@ -4,7 +4,6 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -96,7 +95,7 @@ type IGTMioGPUInfo interface {
 	NumGPs() uint64
 	NumMGPUs() uint64
 	NumShaderCores() uint64
-	InitWithGPUInfo(gPUInfo unsafe.Pointer) GTMioGPUInfo
+	InitWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo
 }
 
 // Init initializes the instance.
@@ -119,7 +118,7 @@ func NewGTMioGPUInfo() GTMioGPUInfo {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/initWithGPUInfo:
-func NewGTMioGPUInfoWithGPUInfo(gPUInfo unsafe.Pointer) GTMioGPUInfo {
+func NewGTMioGPUInfoWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo {
 	instance := getGTMioGPUInfoClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGPUInfo:"), gPUInfo)
 	return GTMioGPUInfoFromID(rv)
@@ -138,7 +137,7 @@ func (g GTMioGPUInfo) GpuType() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/initWithGPUInfo:
-func (g GTMioGPUInfo) InitWithGPUInfo(gPUInfo unsafe.Pointer) GTMioGPUInfo {
+func (g GTMioGPUInfo) InitWithGPUInfo(gPUInfo GTMioGPUInfoInternal) GTMioGPUInfo {
 	rv := objc.Send[GTMioGPUInfo](g.ID, objc.Sel("initWithGPUInfo:"), gPUInfo)
 	return rv
 }

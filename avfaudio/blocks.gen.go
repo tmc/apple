@@ -3,10 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // AVAudioApplicationMicrophoneInjectionPermissionHandler handles completion with a primitive value.
@@ -218,7 +217,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [AVAudioPCMBuffer.InitWithPCMFormatBufferListNoCopyDeallocator]
-type constAudioBufferListHandler = func(unsafe.Pointer)
+type constAudioBufferListHandler = func(objectivec.IObject)
 
 // NewconstAudioBufferListBlock wraps a Go [constAudioBufferListHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -229,7 +228,7 @@ func NewconstAudioBufferListBlock(handler constAudioBufferListHandler) (objc.ID,
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal unsafe.Pointer) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject) {
 		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }

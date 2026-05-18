@@ -81,7 +81,7 @@ type INSEPSImageRep interface {
 	// The rectangle that bounds the image representation.
 	BoundingBox() corefoundation.CGRect
 	// The EPS representation of the image representation.
-	EPSRepresentation() foundation.INSData
+	EPSRepresentation() foundation.NSData
 }
 
 // Init initializes the instance.
@@ -129,7 +129,7 @@ func NewEPSImageRepWithCoder(coder foundation.INSCoder) NSEPSImageRep {
 // specified in the EPS header comments.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEPSImageRep/init(data:)
-func NewEPSImageRepWithData(epsData foundation.INSData) NSEPSImageRep {
+func NewEPSImageRepWithData(epsData foundation.NSData) NSEPSImageRep {
 	instance := getNSEPSImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), epsData)
 	return NSEPSImageRepFromID(rv)
@@ -146,7 +146,7 @@ func (e NSEPSImageRep) BoundingBox() corefoundation.CGRect {
 // The EPS representation of the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEPSImageRep/epsRepresentation
-func (e NSEPSImageRep) EPSRepresentation() foundation.INSData {
+func (e NSEPSImageRep) EPSRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("EPSRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

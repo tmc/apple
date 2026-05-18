@@ -18,10 +18,6 @@ type CISaliencyMap interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISaliencyMap/inputImage
 	InputImage() ICIImage
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISaliencyMap/inputImage
 	SetInputImage(value ICIImage)
 }
 
@@ -42,14 +38,6 @@ func CISaliencyMapObjectFromID(id objc.ID) CISaliencyMapObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISaliencyMap/inputImage
-func (o CISaliencyMapObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -62,6 +50,11 @@ func (o CISaliencyMapObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISaliencyMap/inputImage
+func (o CISaliencyMapObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CISaliencyMapObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

@@ -123,7 +123,7 @@ type INEDNSProxyProvider interface {
 	// Stops the DNS proxy.
 	StopProxyWithReasonCompletionHandler(reason NEProviderStopReason, completionHandler VoidHandler)
 	// Cancels the DNS proxy.
-	CancelProxyWithError(error_ foundation.INSError)
+	CancelProxyWithError(error_ foundation.NSError)
 
 	// Topic: Handling proxied DNS flow
 
@@ -217,7 +217,7 @@ func (d NEDNSProxyProvider) StopProxyWithReasonCompletionHandler(reason NEProvid
 // proxy due to a network error that renders the proxy no longer viable.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyProvider/cancelProxyWithError(_:)
-func (d NEDNSProxyProvider) CancelProxyWithError(error_ foundation.INSError) {
+func (d NEDNSProxyProvider) CancelProxyWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](d.ID, objc.Sel("cancelProxyWithError:"), error_)
 }
 

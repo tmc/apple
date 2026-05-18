@@ -54,6 +54,11 @@ func (nc NEFilterSocketFlowClass) Alloc() NEFilterSocketFlow {
 //   - [NEFilterSocketFlow.SocketType]: The type of the socket.
 //   - [NEFilterSocketFlow.SocketProtocol]: The protocol of the socket.
 //
+// # Instance Properties
+//
+//   - [NEFilterSocketFlow.LocalFlowEndpoint]
+//   - [NEFilterSocketFlow.RemoteFlowEndpoint]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow
 type NEFilterSocketFlow struct {
 	NEFilterFlow
@@ -80,6 +85,11 @@ func NEFilterSocketFlowFromID(id objc.ID) NEFilterSocketFlow {
 //   - [INEFilterSocketFlow.SocketType]: The type of the socket.
 //   - [INEFilterSocketFlow.SocketProtocol]: The protocol of the socket.
 //
+// # Instance Properties
+//
+//   - [INEFilterSocketFlow.LocalFlowEndpoint]
+//   - [INEFilterSocketFlow.RemoteFlowEndpoint]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow
 type INEFilterSocketFlow interface {
 	INEFilterFlow
@@ -98,6 +108,8 @@ type INEFilterSocketFlow interface {
 	SocketType() int
 	// The protocol of the socket.
 	SocketProtocol() int
+
+	// Topic: Instance Properties
 
 	LocalFlowEndpoint() network.NWEndpoint
 	RemoteFlowEndpoint() network.NWEndpoint

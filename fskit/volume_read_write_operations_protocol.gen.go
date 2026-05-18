@@ -22,7 +22,7 @@ type FSVolumeReadWriteOperations interface {
 	// Writes contents to the given file item.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/ReadWriteOperations/write(contents:to:at:replyHandler:)
-	WriteContentsToFileAtOffsetReplyHandler(contents foundation.INSData, item IFSItem, offset int64, reply size_tErrorHandler)
+	WriteContentsToFileAtOffsetReplyHandler(contents foundation.NSData, item IFSItem, offset int64, reply size_tErrorHandler)
 }
 
 // FSVolumeReadWriteOperationsObject wraps an existing Objective-C object that conforms to the FSVolumeReadWriteOperations protocol.
@@ -45,7 +45,7 @@ func FSVolumeReadWriteOperationsObjectFromID(id objc.ID) FSVolumeReadWriteOperat
 // Reads the contents of the given file item.
 //
 // item: The item from which to read. FSKit guarantees this item will be of type
-// [FSItem.ItemType.file].
+// [FSItemTypeFile].
 //
 // offset: The offset in the file from which to start reading.
 //
@@ -67,8 +67,6 @@ func FSVolumeReadWriteOperationsObjectFromID(id objc.ID) FSVolumeReadWriteOperat
 // reply with an error but set `actuallyRead` to `0`.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/ReadWriteOperations/read(from:at:length:into:replyHandler:)
-//
-// [FSItem.ItemType.file]: https://developer.apple.com/documentation/FSKit/FSItem/ItemType/file
 func (o FSVolumeReadWriteOperationsObject) ReadFromFileOffsetLengthIntoBufferReplyHandler(item IFSItem, offset int64, length uintptr, buffer IFSMutableFileDataBuffer, reply size_tErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("readFromFile:offset:length:intoBuffer:replyHandler:"), item, offset, length, buffer, reply)
 }
@@ -78,7 +76,7 @@ func (o FSVolumeReadWriteOperationsObject) ReadFromFileOffsetLengthIntoBufferRep
 // contents: A buffer containing the data to write to the file.
 //
 // item: The item to which to write. FSKit guarantees this item will be of type
-// [FSItem.ItemType.file].
+// [FSItemTypeFile].
 //
 // offset: The offset in the file from which to start writing.
 //
@@ -98,8 +96,7 @@ func (o FSVolumeReadWriteOperationsObject) ReadFromFileOffsetLengthIntoBufferRep
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/ReadWriteOperations/write(contents:to:at:replyHandler:)
 //
-// [FSItem.ItemType.file]: https://developer.apple.com/documentation/FSKit/FSItem/ItemType/file
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
-func (o FSVolumeReadWriteOperationsObject) WriteContentsToFileAtOffsetReplyHandler(contents foundation.INSData, item IFSItem, offset int64, reply size_tErrorHandler) {
+func (o FSVolumeReadWriteOperationsObject) WriteContentsToFileAtOffsetReplyHandler(contents foundation.NSData, item IFSItem, offset int64, reply size_tErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("writeContents:toFile:atOffset:replyHandler:"), contents, item, offset, reply)
 }

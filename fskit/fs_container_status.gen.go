@@ -50,15 +50,15 @@ func (fc FSContainerStatusClass) Alloc() FSContainerStatus {
 // This type contains two properties:
 //
 // - The [FSContainerStatus.State] value that indicates the state of the container, such as
-// [FSContainerState.ready] or [FSContainerState.blocked]. - The [FSContainerStatus.Status] is
-// an error (optional in Swift, nullable in Objective-C) that provides further
+// [FSContainerStateReady] or [FSContainerStateBlocked]. - The [FSContainerStatus.Status] is an
+// error (optional in Swift, nullable in Objective-C) that provides further
 // information about the state, such as why the container is blocked.
 //
 // Examples of statuses that require intervention include errors that indicate
 // the container isn’t ready (POSIX [EAGAIN] or [ENOTCONN]), the container
 // needs authentication ([ENEEDAUTH]), or that authentication failed
 // ([EAUTH]). The status can also be an informative error, such as the FSKit
-// error [FSError.Code.statusOperationInProgress].
+// error [FSErrorStatusOperationInProgress].
 //
 // # Inspecting status properties
 //
@@ -66,10 +66,6 @@ func (fc FSContainerStatusClass) Alloc() FSContainerStatus {
 //   - [FSContainerStatus.Status]: An optional error that provides further information about the state.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSContainerStatus
-//
-// [FSContainerState.blocked]: https://developer.apple.com/documentation/FSKit/FSContainerState/blocked
-// [FSContainerState.ready]: https://developer.apple.com/documentation/FSKit/FSContainerState/ready
-// [FSError.Code.statusOperationInProgress]: https://developer.apple.com/documentation/FSKit/FSError/Code/statusOperationInProgress
 type FSContainerStatus struct {
 	objectivec.Object
 }
@@ -100,7 +96,7 @@ type IFSContainerStatus interface {
 	// A value that represents the container state, such as ready, active, or blocked.
 	State() FSContainerState
 	// An optional error that provides further information about the state.
-	Status() foundation.INSError
+	Status() foundation.NSError
 }
 
 // Init initializes the instance.
@@ -127,7 +123,7 @@ func NewFSContainerStatus() FSContainerStatus {
 // errorStatus: The error status, if any, for the new instance.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSContainerStatus/active(status:)
-func (_FSContainerStatusClass FSContainerStatusClass) ActiveWithStatus(errorStatus foundation.INSError) FSContainerStatus {
+func (_FSContainerStatusClass FSContainerStatusClass) ActiveWithStatus(errorStatus foundation.NSError) FSContainerStatus {
 	rv := objc.Send[objc.ID](objc.ID(_FSContainerStatusClass.class), objc.Sel("activeWithStatus:"), errorStatus)
 	return FSContainerStatusFromID(rv)
 }
@@ -137,7 +133,7 @@ func (_FSContainerStatusClass FSContainerStatusClass) ActiveWithStatus(errorStat
 // errorStatus: The error status, if any, for the new instance.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSContainerStatus/blocked(status:)
-func (_FSContainerStatusClass FSContainerStatusClass) BlockedWithStatus(errorStatus foundation.INSError) FSContainerStatus {
+func (_FSContainerStatusClass FSContainerStatusClass) BlockedWithStatus(errorStatus foundation.NSError) FSContainerStatus {
 	rv := objc.Send[objc.ID](objc.ID(_FSContainerStatusClass.class), objc.Sel("blockedWithStatus:"), errorStatus)
 	return FSContainerStatusFromID(rv)
 }
@@ -148,7 +144,7 @@ func (_FSContainerStatusClass FSContainerStatusClass) BlockedWithStatus(errorSta
 // errorStatus: The error status, if any, for the new instance.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSContainerStatus/notReady(status:)
-func (_FSContainerStatusClass FSContainerStatusClass) NotReadyWithStatus(errorStatus foundation.INSError) FSContainerStatus {
+func (_FSContainerStatusClass FSContainerStatusClass) NotReadyWithStatus(errorStatus foundation.NSError) FSContainerStatus {
 	rv := objc.Send[objc.ID](objc.ID(_FSContainerStatusClass.class), objc.Sel("notReadyWithStatus:"), errorStatus)
 	return FSContainerStatusFromID(rv)
 }
@@ -158,7 +154,7 @@ func (_FSContainerStatusClass FSContainerStatusClass) NotReadyWithStatus(errorSt
 // errorStatus: The error status, if any, for the new instance.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSContainerStatus/ready(status:)
-func (_FSContainerStatusClass FSContainerStatusClass) ReadyWithStatus(errorStatus foundation.INSError) FSContainerStatus {
+func (_FSContainerStatusClass FSContainerStatusClass) ReadyWithStatus(errorStatus foundation.NSError) FSContainerStatus {
 	rv := objc.Send[objc.ID](objc.ID(_FSContainerStatusClass.class), objc.Sel("readyWithStatus:"), errorStatus)
 	return FSContainerStatusFromID(rv)
 }
@@ -175,7 +171,7 @@ func (c FSContainerStatus) State() FSContainerState {
 // An optional error that provides further information about the state.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSContainerStatus/status
-func (c FSContainerStatus) Status() foundation.INSError {
+func (c FSContainerStatus) Status() foundation.NSError {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("status"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

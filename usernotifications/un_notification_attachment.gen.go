@@ -154,7 +154,7 @@ type IUNNotificationAttachment interface {
 	// The unique identifier for the attachment.
 	Identifier() string
 	// The URL of the file for this attachment.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	// The UTI type of the attachment.
 	Type() string
 
@@ -211,8 +211,8 @@ func NewUNNotificationAttachment() UNNotificationAttachment {
 // by the appropriate processes. After the move, the only way to access the
 // file is using the methods of the [UNUserNotificationCenter] object.
 //
-// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttachment/init(identifier:url:options:)
-func NewUNNotificationAttachmentWithIdentifierURLOptionsError(identifier string, URL foundation.INSURL, options foundation.INSDictionary) (UNNotificationAttachment, error) {
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttachment/init(identifier:url:options:)-83grx
+func NewUNNotificationAttachmentWithIdentifierURLOptionsError(identifier string, URL foundation.NSURL, options foundation.INSDictionary) (UNNotificationAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationAttachmentClass().class), objc.Sel("attachmentWithIdentifier:URL:options:error:"), objc.String(identifier), URL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -279,7 +279,7 @@ func (u UNNotificationAttachment) Identifier() string {
 //
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 // [startAccessingSecurityScopedResource()]: https://developer.apple.com/documentation/Foundation/URL/startAccessingSecurityScopedResource()
-func (u UNNotificationAttachment) URL() foundation.INSURL {
+func (u UNNotificationAttachment) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

@@ -83,7 +83,7 @@ type IFSModuleIdentity interface {
 	// The module’s bundle identifier.
 	BundleIdentifier() string
 	// The module’s URL.
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	// A Boolean value that indicates if the module is enabled.
 	Enabled() bool
 }
@@ -118,7 +118,7 @@ func (m FSModuleIdentity) BundleIdentifier() string {
 // The module’s URL.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSModuleIdentity/url
-func (m FSModuleIdentity) Url() foundation.INSURL {
+func (m FSModuleIdentity) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

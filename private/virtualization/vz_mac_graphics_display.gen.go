@@ -90,14 +90,14 @@ type IVZMacGraphicsDisplay interface {
 }
 
 // Init initializes the instance.
-func (m VZMacGraphicsDisplay) Init() VZMacGraphicsDisplay {
-	rv := objc.Send[VZMacGraphicsDisplay](m.ID, objc.Sel("init"))
+func (v VZMacGraphicsDisplay) Init() VZMacGraphicsDisplay {
+	rv := objc.Send[VZMacGraphicsDisplay](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacGraphicsDisplay) Autorelease() VZMacGraphicsDisplay {
-	rv := objc.Send[VZMacGraphicsDisplay](m.ID, objc.Sel("autorelease"))
+func (v VZMacGraphicsDisplay) Autorelease() VZMacGraphicsDisplay {
+	rv := objc.Send[VZMacGraphicsDisplay](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -128,69 +128,69 @@ func NewMacGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexU
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_connectionType
-func (m VZMacGraphicsDisplay) _connectionType() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("_connectionType"))
+func (v VZMacGraphicsDisplay) _connectionType() int64 {
+	rv := objc.Send[int64](v.ID, objc.Sel("_connectionType"))
 	return rv
 }
 
 // ConnectionType is an exported wrapper for the private method _connectionType.
-func (m VZMacGraphicsDisplay) ConnectionType() (int64, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_connectionType")) {
+func (v VZMacGraphicsDisplay) ConnectionType() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_connectionType")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_connectionType"}
 		return 0, err
 	}
-	return m._connectionType(), nil
+	return v._connectionType(), nil
 }
 
 // CanConnectionType reports whether the receiver responds to the private selector _connectionType.
-func (m VZMacGraphicsDisplay) CanConnectionType() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_connectionType"))
+func (v VZMacGraphicsDisplay) CanConnectionType() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_connectionType"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_displayIdentifier
-func (m VZMacGraphicsDisplay) _displayIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_displayIdentifier"))
+func (v VZMacGraphicsDisplay) _displayIdentifier() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_displayIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 
 // DisplayIdentifier is an exported wrapper for the private method _displayIdentifier.
-func (m VZMacGraphicsDisplay) DisplayIdentifier() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_displayIdentifier")) {
+func (v VZMacGraphicsDisplay) DisplayIdentifier() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_displayIdentifier")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_displayIdentifier"}
 		return nil, err
 	}
-	return m._displayIdentifier(), nil
+	return v._displayIdentifier(), nil
 }
 
 // CanDisplayIdentifier reports whether the receiver responds to the private selector _displayIdentifier.
-func (m VZMacGraphicsDisplay) CanDisplayIdentifier() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_displayIdentifier"))
+func (v VZMacGraphicsDisplay) CanDisplayIdentifier() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_displayIdentifier"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_displayMode
-func (m VZMacGraphicsDisplay) _displayMode() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("_displayMode"))
+func (v VZMacGraphicsDisplay) _displayMode() int64 {
+	rv := objc.Send[int64](v.ID, objc.Sel("_displayMode"))
 	return rv
 }
 
 // DisplayMode is an exported wrapper for the private method _displayMode.
-func (m VZMacGraphicsDisplay) DisplayMode() (int64, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_displayMode")) {
+func (v VZMacGraphicsDisplay) DisplayMode() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_displayMode")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_displayMode"}
 		return 0, err
 	}
-	return m._displayMode(), nil
+	return v._displayMode(), nil
 }
 
 // CanDisplayMode reports whether the receiver responds to the private selector _displayMode.
-func (m VZMacGraphicsDisplay) CanDisplayMode() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_displayMode"))
+func (v VZMacGraphicsDisplay) CanDisplayMode() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_displayMode"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/reconfigureWithConfiguration:error:
-func (m VZMacGraphicsDisplay) ReconfigureWithConfigurationError(configuration objectivec.IObject) (bool, error) {
+func (v VZMacGraphicsDisplay) ReconfigureWithConfigurationError(configuration objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](m.ID, objc.Sel("reconfigureWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](v.ID, objc.Sel("reconfigureWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -203,9 +203,9 @@ func (m VZMacGraphicsDisplay) ReconfigureWithConfigurationError(configuration ob
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/initWithConfiguration:error:
-func (m VZMacGraphicsDisplay) InitWithConfigurationError(configuration objectivec.IObject) (VZMacGraphicsDisplay, error) {
+func (v VZMacGraphicsDisplay) InitWithConfigurationError(configuration objectivec.IObject) (VZMacGraphicsDisplay, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZMacGraphicsDisplay{}, foundation.NSErrorFrom(errorPtr)

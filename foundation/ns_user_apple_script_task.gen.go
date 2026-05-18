@@ -131,7 +131,7 @@ func NewNSUserAppleScriptTask() NSUserAppleScriptTask {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
 func NewUserAppleScriptTaskWithURLError(url INSURL) (NSUserAppleScriptTask, error) {
 	var errorPtr objc.ID
 	instance := getNSUserAppleScriptTaskClass().Alloc()

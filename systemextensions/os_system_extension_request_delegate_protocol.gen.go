@@ -26,7 +26,7 @@ type OSSystemExtensionRequestDelegate interface {
 	// Tells the delegate the manager failed to complete the request.
 	//
 	// See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequestDelegate/request(_:didFailWithError:)
-	RequestDidFailWithError(request IOSSystemExtensionRequest, error_ foundation.INSError)
+	RequestDidFailWithError(request IOSSystemExtensionRequest, error_ foundation.NSError)
 
 	// Tells the delegate that the user must grant approval before the manager can activate the extension.
 	//
@@ -86,7 +86,7 @@ func (o OSSystemExtensionRequestDelegateObject) RequestDidFinishWithResult(reque
 // error: The reason the request failed.
 //
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequestDelegate/request(_:didFailWithError:)
-func (o OSSystemExtensionRequestDelegateObject) RequestDidFailWithError(request IOSSystemExtensionRequest, error_ foundation.INSError) {
+func (o OSSystemExtensionRequestDelegateObject) RequestDidFailWithError(request IOSSystemExtensionRequest, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("request:didFailWithError:"), request, error_)
 }
 

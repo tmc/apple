@@ -188,13 +188,13 @@ type INSRunningApplication interface {
 	// Indicates the [CFBundleIdentifier] of the application.
 	BundleIdentifier() string
 	// Indicates the URL to the application’s bundle.
-	BundleURL() foundation.INSURL
+	BundleURL() foundation.NSURL
 	// Indicates the executing processor architecture for the application.
 	ExecutableArchitecture() int
 	// Indicates the URL to the application’s executable.
-	ExecutableURL() foundation.INSURL
+	ExecutableURL() foundation.NSURL
 	// Indicates the date when the application was launched.
-	LaunchDate() foundation.INSDate
+	LaunchDate() foundation.NSDate
 	// A Boolean value that determines whether the receiver’s process has finished launching.
 	FinishedLaunching() bool
 	// Indicates the process identifier (pid) of the application.
@@ -495,7 +495,7 @@ func (r NSRunningApplication) BundleIdentifier() string {
 // bundle structure.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/bundleURL
-func (r NSRunningApplication) BundleURL() foundation.INSURL {
+func (r NSRunningApplication) BundleURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("bundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -518,7 +518,7 @@ func (r NSRunningApplication) ExecutableArchitecture() int {
 // Indicates the URL to the application’s executable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/executableURL
-func (r NSRunningApplication) ExecutableURL() foundation.INSURL {
+func (r NSRunningApplication) ExecutableURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("executableURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -531,7 +531,7 @@ func (r NSRunningApplication) ExecutableURL() foundation.INSURL {
 // LaunchServices.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/launchDate
-func (r NSRunningApplication) LaunchDate() foundation.INSDate {
+func (r NSRunningApplication) LaunchDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("launchDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

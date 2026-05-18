@@ -66,14 +66,14 @@ type IMLBatchProviderUtils interface {
 }
 
 // Init initializes the instance.
-func (b MLBatchProviderUtils) Init() MLBatchProviderUtils {
-	rv := objc.Send[MLBatchProviderUtils](b.ID, objc.Sel("init"))
+func (m MLBatchProviderUtils) Init() MLBatchProviderUtils {
+	rv := objc.Send[MLBatchProviderUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (b MLBatchProviderUtils) Autorelease() MLBatchProviderUtils {
-	rv := objc.Send[MLBatchProviderUtils](b.ID, objc.Sel("autorelease"))
+func (m MLBatchProviderUtils) Autorelease() MLBatchProviderUtils {
+	rv := objc.Send[MLBatchProviderUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

@@ -338,9 +338,6 @@ func NSDictionaryFromID(id objc.ID) NSDictionary {
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary
 type INSDictionary interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSMutableCopying
 	NSSecureCoding
 
 	// Topic: Creating a Dictionary from Objects and Keys
@@ -1433,7 +1430,7 @@ func (d NSDictionary) InitWithContentsOfURLError(url INSURL) (NSDictionary, erro
 // is finished.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/countByEnumeratingWithState:objects:count:
-func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
+func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer unsafe.Pointer, len_ uint) uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }

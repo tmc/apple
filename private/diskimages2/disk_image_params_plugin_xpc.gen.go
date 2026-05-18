@@ -9,95 +9,100 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [DiskImageParamsPlugin_XPC] class.
+// The class instance for the [DiskImageParamsPluginXPC] class.
 var (
-	_DiskImageParamsPlugin_XPCClass     DiskImageParamsPlugin_XPCClass
-	_DiskImageParamsPlugin_XPCClassOnce sync.Once
+	_DiskImageParamsPluginXPCClass     DiskImageParamsPluginXPCClass
+	_DiskImageParamsPluginXPCClassOnce sync.Once
 )
 
-func getDiskImageParamsPlugin_XPCClass() DiskImageParamsPlugin_XPCClass {
-	_DiskImageParamsPlugin_XPCClassOnce.Do(func() {
-		_DiskImageParamsPlugin_XPCClass = DiskImageParamsPlugin_XPCClass{class: objc.GetClass("DiskImageParamsPlugin_XPC")}
+func getDiskImageParamsPluginXPCClass() DiskImageParamsPluginXPCClass {
+	_DiskImageParamsPluginXPCClassOnce.Do(func() {
+		_DiskImageParamsPluginXPCClass = DiskImageParamsPluginXPCClass{class: objc.GetClass("DiskImageParamsPlugin_XPC")}
 	})
-	return _DiskImageParamsPlugin_XPCClass
+	return _DiskImageParamsPluginXPCClass
 }
 
-// GetDiskImageParamsPlugin_XPCClass returns the class object for DiskImageParamsPlugin_XPC.
-func GetDiskImageParamsPlugin_XPCClass() DiskImageParamsPlugin_XPCClass {
-	return getDiskImageParamsPlugin_XPCClass()
+// GetDiskImageParamsPluginXPCClass returns the class object for DiskImageParamsPlugin_XPC.
+func GetDiskImageParamsPluginXPCClass() DiskImageParamsPluginXPCClass {
+	return getDiskImageParamsPluginXPCClass()
 }
 
-type DiskImageParamsPlugin_XPCClass struct {
+type DiskImageParamsPluginXPCClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (dc DiskImageParamsPlugin_XPCClass) Class() objc.Class {
+func (dc DiskImageParamsPluginXPCClass) Class() objc.Class {
 	return dc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (dc DiskImageParamsPlugin_XPCClass) Alloc() DiskImageParamsPlugin_XPC {
-	rv := objc.Send[DiskImageParamsPlugin_XPC](objc.ID(dc.class), objc.Sel("alloc"))
+func (dc DiskImageParamsPluginXPCClass) Alloc() DiskImageParamsPluginXPC {
+	rv := objc.Send[DiskImageParamsPluginXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsPlugin_XPC
-type DiskImageParamsPlugin_XPC struct {
+type DiskImageParamsPluginXPC struct {
 	DiskImageParamsXPC
 }
 
-// DiskImageParamsPlugin_XPCFromID constructs a [DiskImageParamsPlugin_XPC] from an objc.ID.
-func DiskImageParamsPlugin_XPCFromID(id objc.ID) DiskImageParamsPlugin_XPC {
-	return DiskImageParamsPlugin_XPC{DiskImageParamsXPC: DiskImageParamsXPCFromID(id)}
+// DiskImageParamsPluginXPCFromID constructs a [DiskImageParamsPluginXPC] from an objc.ID.
+func DiskImageParamsPluginXPCFromID(id objc.ID) DiskImageParamsPluginXPC {
+	return DiskImageParamsPluginXPC{DiskImageParamsXPC: DiskImageParamsXPCFromID(id)}
 }
 
-// Ensure DiskImageParamsPlugin_XPC implements IDiskImageParamsPlugin_XPC.
-var _ IDiskImageParamsPlugin_XPC = DiskImageParamsPlugin_XPC{}
+// DiskImageParamsPlugin_XPCFromID is an alias for [DiskImageParamsPluginXPCFromID] for cross-framework compatibility.
+func DiskImageParamsPlugin_XPCFromID(id objc.ID) DiskImageParamsPluginXPC {
+	return DiskImageParamsPluginXPCFromID(id)
+}
 
-// An interface definition for the [DiskImageParamsPlugin_XPC] class.
+// Ensure DiskImageParamsPluginXPC implements IDiskImageParamsPluginXPC.
+var _ IDiskImageParamsPluginXPC = DiskImageParamsPluginXPC{}
+
+// An interface definition for the [DiskImageParamsPluginXPC] class.
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsPlugin_XPC
-type IDiskImageParamsPlugin_XPC interface {
+type IDiskImageParamsPluginXPC interface {
 	IDiskImageParamsXPC
 }
 
 // Init initializes the instance.
-func (d DiskImageParamsPlugin_XPC) Init() DiskImageParamsPlugin_XPC {
-	rv := objc.Send[DiskImageParamsPlugin_XPC](d.ID, objc.Sel("init"))
+func (d DiskImageParamsPluginXPC) Init() DiskImageParamsPluginXPC {
+	rv := objc.Send[DiskImageParamsPluginXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d DiskImageParamsPlugin_XPC) Autorelease() DiskImageParamsPlugin_XPC {
-	rv := objc.Send[DiskImageParamsPlugin_XPC](d.ID, objc.Sel("autorelease"))
+func (d DiskImageParamsPluginXPC) Autorelease() DiskImageParamsPluginXPC {
+	rv := objc.Send[DiskImageParamsPluginXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewDiskImageParamsPlugin_XPC creates a new DiskImageParamsPlugin_XPC instance.
-func NewDiskImageParamsPlugin_XPC() DiskImageParamsPlugin_XPC {
-	class := getDiskImageParamsPlugin_XPCClass()
-	rv := objc.Send[DiskImageParamsPlugin_XPC](objc.ID(class.class), objc.Sel("new"))
+// NewDiskImageParamsPluginXPC creates a new DiskImageParamsPluginXPC instance.
+func NewDiskImageParamsPluginXPC() DiskImageParamsPluginXPC {
+	class := getDiskImageParamsPluginXPCClass()
+	rv := objc.Send[DiskImageParamsPluginXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
-func NewDiskImageParamsPlugin_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsPlugin_XPC {
-	instance := getDiskImageParamsPlugin_XPCClass().Alloc()
+func NewDiskImageParamsPlugin_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsPluginXPC {
+	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
-	return DiskImageParamsPlugin_XPCFromID(rv)
+	return DiskImageParamsPluginXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
-func NewDiskImageParamsPlugin_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsPlugin_XPC {
-	instance := getDiskImageParamsPlugin_XPCClass().Alloc()
+func NewDiskImageParamsPlugin_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsPluginXPC {
+	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
-	return DiskImageParamsPlugin_XPCFromID(rv)
+	return DiskImageParamsPluginXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
-func NewDiskImageParamsPlugin_XPCWithCoder(coder objectivec.IObject) DiskImageParamsPlugin_XPC {
-	instance := getDiskImageParamsPlugin_XPCClass().Alloc()
+func NewDiskImageParamsPlugin_XPCWithCoder(coder objectivec.IObject) DiskImageParamsPluginXPC {
+	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return DiskImageParamsPlugin_XPCFromID(rv)
+	return DiskImageParamsPluginXPCFromID(rv)
 }

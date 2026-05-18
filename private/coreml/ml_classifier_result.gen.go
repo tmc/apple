@@ -97,14 +97,14 @@ type IMLClassifierResult interface {
 }
 
 // Init initializes the instance.
-func (c MLClassifierResult) Init() MLClassifierResult {
-	rv := objc.Send[MLClassifierResult](c.ID, objc.Sel("init"))
+func (m MLClassifierResult) Init() MLClassifierResult {
+	rv := objc.Send[MLClassifierResult](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLClassifierResult) Autorelease() MLClassifierResult {
-	rv := objc.Send[MLClassifierResult](c.ID, objc.Sel("autorelease"))
+func (m MLClassifierResult) Autorelease() MLClassifierResult {
+	rv := objc.Send[MLClassifierResult](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -137,26 +137,26 @@ func NewClassifierResultWithStringClassProbabilityClassFeatureTypeAdditionalFeat
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/asFeatureDictionaryWithPredictedClassDescription:classProbabilityDescription:
-func (c MLClassifierResult) AsFeatureDictionaryWithPredictedClassDescriptionClassProbabilityDescription(description objectivec.IObject, description2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("asFeatureDictionaryWithPredictedClassDescription:classProbabilityDescription:"), description, description2)
+func (m MLClassifierResult) AsFeatureDictionaryWithPredictedClassDescriptionClassProbabilityDescription(description objectivec.IObject, description2 objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("asFeatureDictionaryWithPredictedClassDescription:classProbabilityDescription:"), description, description2)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithClassProbability:additionalFeatures:classLabelOfMaxProbability:
-func (c MLClassifierResult) InitWithClassProbabilityAdditionalFeaturesClassLabelOfMaxProbability(probability objectivec.IObject, features objectivec.IObject, probability2 objectivec.IObject) MLClassifierResult {
-	rv := objc.Send[MLClassifierResult](c.ID, objc.Sel("initWithClassProbability:additionalFeatures:classLabelOfMaxProbability:"), probability, features, probability2)
+func (m MLClassifierResult) InitWithClassProbabilityAdditionalFeaturesClassLabelOfMaxProbability(probability objectivec.IObject, features objectivec.IObject, probability2 objectivec.IObject) MLClassifierResult {
+	rv := objc.Send[MLClassifierResult](m.ID, objc.Sel("initWithClassProbability:additionalFeatures:classLabelOfMaxProbability:"), probability, features, probability2)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithIntClassProbability:classFeatureType:additionalFeatures:
-func (c MLClassifierResult) InitWithIntClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
-	rv := objc.Send[MLClassifierResult](c.ID, objc.Sel("initWithIntClassProbability:classFeatureType:additionalFeatures:"), probability, type_, features)
+func (m MLClassifierResult) InitWithIntClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
+	rv := objc.Send[MLClassifierResult](m.ID, objc.Sel("initWithIntClassProbability:classFeatureType:additionalFeatures:"), probability, type_, features)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithStringClassProbability:classFeatureType:additionalFeatures:
-func (c MLClassifierResult) InitWithStringClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
-	rv := objc.Send[MLClassifierResult](c.ID, objc.Sel("initWithStringClassProbability:classFeatureType:additionalFeatures:"), probability, type_, features)
+func (m MLClassifierResult) InitWithStringClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
+	rv := objc.Send[MLClassifierResult](m.ID, objc.Sel("initWithStringClassProbability:classFeatureType:additionalFeatures:"), probability, type_, features)
 	return rv
 }
 
@@ -191,25 +191,25 @@ func (_MLClassifierResultClass MLClassifierResultClass) ResultWithStringClassPro
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/additionalFeatures
-func (c MLClassifierResult) AdditionalFeatures() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("additionalFeatures"))
+func (m MLClassifierResult) AdditionalFeatures() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("additionalFeatures"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/classProbability
-func (c MLClassifierResult) ClassProbability() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("classProbability"))
+func (m MLClassifierResult) ClassProbability() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classProbability"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/predictedClass
-func (c MLClassifierResult) PredictedClass() IMLFeatureValue {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("predictedClass"))
+func (m MLClassifierResult) PredictedClass() IMLFeatureValue {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictedClass"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/predictedClassFeatureType
-func (c MLClassifierResult) PredictedClassFeatureType() int64 {
-	rv := objc.Send[int64](c.ID, objc.Sel("predictedClassFeatureType"))
+func (m MLClassifierResult) PredictedClassFeatureType() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("predictedClassFeatureType"))
 	return rv
 }

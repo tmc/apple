@@ -143,8 +143,8 @@ type IDICreateParams interface {
 	CreateWithError() (objectivec.IObject, error)
 	EncryptionMethod() uint64
 	SetEncryptionMethod(value uint64)
-	FolderCopyXPCHandler() IDIClient2Controller_XPCHandler
-	SetFolderCopyXPCHandler(value IDIClient2Controller_XPCHandler)
+	FolderCopyXPCHandler() *DIClient2ControllerXPCHandler
+	SetFolderCopyXPCHandler(value *DIClient2ControllerXPCHandler)
 	NumBlocks() uint64
 	SetNumBlocks(value uint64)
 	OnErrorCleanup() bool
@@ -446,11 +446,19 @@ func (d DICreateParams) SetEncryptionMethod(value uint64) {
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/folderCopyXPCHandler
-func (d DICreateParams) FolderCopyXPCHandler() IDIClient2Controller_XPCHandler {
+func (d DICreateParams) FolderCopyXPCHandler() *DIClient2ControllerXPCHandler {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("folderCopyXPCHandler"))
-	return DIClient2Controller_XPCHandlerFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := DIClient2ControllerXPCHandlerFromID(objc.ID(rv))
+	return &val
 }
-func (d DICreateParams) SetFolderCopyXPCHandler(value IDIClient2Controller_XPCHandler) {
+func (d DICreateParams) SetFolderCopyXPCHandler(value *DIClient2ControllerXPCHandler) {
+	if value == nil {
+		objc.Send[struct{}](d.ID, objc.Sel("setFolderCopyXPCHandler:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](d.ID, objc.Sel("setFolderCopyXPCHandler:"), value)
 }
 

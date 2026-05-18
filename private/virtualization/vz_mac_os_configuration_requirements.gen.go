@@ -75,14 +75,14 @@ type IVZMacOSConfigurationRequirements interface {
 }
 
 // Init initializes the instance.
-func (m VZMacOSConfigurationRequirements) Init() VZMacOSConfigurationRequirements {
-	rv := objc.Send[VZMacOSConfigurationRequirements](m.ID, objc.Sel("init"))
+func (v VZMacOSConfigurationRequirements) Init() VZMacOSConfigurationRequirements {
+	rv := objc.Send[VZMacOSConfigurationRequirements](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacOSConfigurationRequirements) Autorelease() VZMacOSConfigurationRequirements {
-	rv := objc.Send[VZMacOSConfigurationRequirements](m.ID, objc.Sel("autorelease"))
+func (v VZMacOSConfigurationRequirements) Autorelease() VZMacOSConfigurationRequirements {
+	rv := objc.Send[VZMacOSConfigurationRequirements](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -94,21 +94,21 @@ func NewVZMacOSConfigurationRequirements() VZMacOSConfigurationRequirements {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSConfigurationRequirements/_variants
-func (m VZMacOSConfigurationRequirements) _variants() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_variants"))
+func (v VZMacOSConfigurationRequirements) _variants() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_variants"))
 	return objectivec.Object{ID: rv}
 }
 
 // Variants is an exported wrapper for the private method _variants.
-func (m VZMacOSConfigurationRequirements) Variants() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_variants")) {
+func (v VZMacOSConfigurationRequirements) Variants() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_variants")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_variants"}
 		return nil, err
 	}
-	return m._variants(), nil
+	return v._variants(), nil
 }
 
 // CanVariants reports whether the receiver responds to the private selector _variants.
-func (m VZMacOSConfigurationRequirements) CanVariants() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_variants"))
+func (v VZMacOSConfigurationRequirements) CanVariants() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_variants"))
 }

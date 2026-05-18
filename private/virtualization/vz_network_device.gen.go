@@ -75,14 +75,14 @@ type IVZNetworkDevice interface {
 }
 
 // Init initializes the instance.
-func (n VZNetworkDevice) Init() VZNetworkDevice {
-	rv := objc.Send[VZNetworkDevice](n.ID, objc.Sel("init"))
+func (v VZNetworkDevice) Init() VZNetworkDevice {
+	rv := objc.Send[VZNetworkDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n VZNetworkDevice) Autorelease() VZNetworkDevice {
-	rv := objc.Send[VZNetworkDevice](n.ID, objc.Sel("autorelease"))
+func (v VZNetworkDevice) Autorelease() VZNetworkDevice {
+	rv := objc.Send[VZNetworkDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -94,20 +94,20 @@ func NewVZNetworkDevice() VZNetworkDevice {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDevice/_type
-func (n VZNetworkDevice) _type() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("_type"))
+func (v VZNetworkDevice) _type() int64 {
+	rv := objc.Send[int64](v.ID, objc.Sel("_type"))
 	return rv
 }
 
 // CanType reports whether the receiver responds to the private selector _type.
-func (n VZNetworkDevice) CanType() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_type"))
+func (v VZNetworkDevice) CanType() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_type"))
 }
 
 // Type is an exported wrapper for the private property _type.
-func (n VZNetworkDevice) Type() (int64, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_type")) {
+func (v VZNetworkDevice) Type() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_type")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_type"}
 	}
-	return n._type(), nil
+	return v._type(), nil
 }

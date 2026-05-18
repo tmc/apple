@@ -16,12 +16,12 @@ type CPXFocusPolicyProtocol interface {
 	// BringNextApplicationToFrontInternal protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy/bringNextApplicationToFrontInternal:
-	BringNextApplicationToFrontInternal(internal *CPSProcessRecRef)
+	BringNextApplicationToFrontInternal(internal CPSProcessRec)
 
 	// BringNextProcessToFront protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy/bringNextProcessToFront:
-	BringNextProcessToFront(front *CPSProcessRecRef)
+	BringNextProcessToFront(front CPSProcessRec)
 }
 
 // CPXFocusPolicyProtocolObject wraps an existing Objective-C object that conforms to the CPXFocusPolicyProtocol protocol.
@@ -42,11 +42,11 @@ func CPXFocusPolicyProtocolObjectFromID(id objc.ID) CPXFocusPolicyProtocolObject
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy/bringNextApplicationToFrontInternal:
-func (o CPXFocusPolicyProtocolObject) BringNextApplicationToFrontInternal(internal *CPSProcessRecRef) {
+func (o CPXFocusPolicyProtocolObject) BringNextApplicationToFrontInternal(internal CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("bringNextApplicationToFrontInternal:"), internal)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusPolicy/bringNextProcessToFront:
-func (o CPXFocusPolicyProtocolObject) BringNextProcessToFront(front *CPSProcessRecRef) {
+func (o CPXFocusPolicyProtocolObject) BringNextProcessToFront(front CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("bringNextProcessToFront:"), front)
 }

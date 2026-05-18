@@ -514,14 +514,14 @@ type IMLNeuralNetworkEngine interface {
 }
 
 // Init initializes the instance.
-func (n MLNeuralNetworkEngine) Init() MLNeuralNetworkEngine {
-	rv := objc.Send[MLNeuralNetworkEngine](n.ID, objc.Sel("init"))
+func (m MLNeuralNetworkEngine) Init() MLNeuralNetworkEngine {
+	rv := objc.Send[MLNeuralNetworkEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNeuralNetworkEngine) Autorelease() MLNeuralNetworkEngine {
-	rv := objc.Send[MLNeuralNetworkEngine](n.ID, objc.Sel("autorelease"))
+func (m MLNeuralNetworkEngine) Autorelease() MLNeuralNetworkEngine {
+	rv := objc.Send[MLNeuralNetworkEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -571,9 +571,9 @@ func NewNeuralNetworkEngineWithNameInputDescriptionOutputDescriptionOrderedInput
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_addCompiledNetworkOrProgramToPlan:error:
-func (n MLNeuralNetworkEngine) _addCompiledNetworkOrProgramToPlanError(plan unsafe.Pointer) (bool, error) {
+func (m MLNeuralNetworkEngine) _addCompiledNetworkOrProgramToPlanError(plan unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_addCompiledNetworkOrProgramToPlan:error:"), plan, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_addCompiledNetworkOrProgramToPlan:error:"), plan, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -586,23 +586,23 @@ func (n MLNeuralNetworkEngine) _addCompiledNetworkOrProgramToPlanError(plan unsa
 }
 
 // AddCompiledNetworkOrProgramToPlanError is an exported wrapper for the private method _addCompiledNetworkOrProgramToPlanError.
-func (n MLNeuralNetworkEngine) AddCompiledNetworkOrProgramToPlanError(plan unsafe.Pointer) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_addCompiledNetworkOrProgramToPlan:error:")) {
+func (m MLNeuralNetworkEngine) AddCompiledNetworkOrProgramToPlanError(plan unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_addCompiledNetworkOrProgramToPlan:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_addCompiledNetworkOrProgramToPlan:error:"}
 		return false, err
 	}
-	return n._addCompiledNetworkOrProgramToPlanError(plan)
+	return m._addCompiledNetworkOrProgramToPlanError(plan)
 }
 
 // CanAddCompiledNetworkOrProgramToPlanError reports whether the receiver responds to the private selector _addCompiledNetworkOrProgramToPlan:error:.
-func (n MLNeuralNetworkEngine) CanAddCompiledNetworkOrProgramToPlanError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_addCompiledNetworkOrProgramToPlan:error:"))
+func (m MLNeuralNetworkEngine) CanAddCompiledNetworkOrProgramToPlanError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_addCompiledNetworkOrProgramToPlan:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_addNetworkToPlan:error:
-func (n MLNeuralNetworkEngine) _addNetworkToPlanError(plan unsafe.Pointer) (bool, error) {
+func (m MLNeuralNetworkEngine) _addNetworkToPlanError(plan unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_addNetworkToPlan:error:"), plan, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_addNetworkToPlan:error:"), plan, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -615,43 +615,43 @@ func (n MLNeuralNetworkEngine) _addNetworkToPlanError(plan unsafe.Pointer) (bool
 }
 
 // AddNetworkToPlanError is an exported wrapper for the private method _addNetworkToPlanError.
-func (n MLNeuralNetworkEngine) AddNetworkToPlanError(plan unsafe.Pointer) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_addNetworkToPlan:error:")) {
+func (m MLNeuralNetworkEngine) AddNetworkToPlanError(plan unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_addNetworkToPlan:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_addNetworkToPlan:error:"}
 		return false, err
 	}
-	return n._addNetworkToPlanError(plan)
+	return m._addNetworkToPlanError(plan)
 }
 
 // CanAddNetworkToPlanError reports whether the receiver responds to the private selector _addNetworkToPlan:error:.
-func (n MLNeuralNetworkEngine) CanAddNetworkToPlanError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_addNetworkToPlan:error:"))
+func (m MLNeuralNetworkEngine) CanAddNetworkToPlanError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_addNetworkToPlan:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_deallocContextAndPlan
-func (n MLNeuralNetworkEngine) _deallocContextAndPlan() {
-	objc.Send[objc.ID](n.ID, objc.Sel("_deallocContextAndPlan"))
+func (m MLNeuralNetworkEngine) _deallocContextAndPlan() {
+	objc.Send[objc.ID](m.ID, objc.Sel("_deallocContextAndPlan"))
 }
 
 // DeallocContextAndPlan is an exported wrapper for the private method _deallocContextAndPlan.
-func (n MLNeuralNetworkEngine) DeallocContextAndPlan() error {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_deallocContextAndPlan")) {
+func (m MLNeuralNetworkEngine) DeallocContextAndPlan() error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_deallocContextAndPlan")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_deallocContextAndPlan"}
 		return err
 	}
-	n._deallocContextAndPlan()
+	m._deallocContextAndPlan()
 	return nil
 }
 
 // CanDeallocContextAndPlan reports whether the receiver responds to the private selector _deallocContextAndPlan.
-func (n MLNeuralNetworkEngine) CanDeallocContextAndPlan() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_deallocContextAndPlan"))
+func (m MLNeuralNetworkEngine) CanDeallocContextAndPlan() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_deallocContextAndPlan"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_espressoDeviceForConfiguration:error:
-func (n MLNeuralNetworkEngine) _espressoDeviceForConfigurationError(configuration objectivec.IObject) (int, error) {
+func (m MLNeuralNetworkEngine) _espressoDeviceForConfigurationError(configuration objectivec.IObject) (int, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[int](n.ID, objc.Sel("_espressoDeviceForConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[int](m.ID, objc.Sel("_espressoDeviceForConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return 0, foundation.NSErrorFrom(errorPtr)
@@ -661,43 +661,43 @@ func (n MLNeuralNetworkEngine) _espressoDeviceForConfigurationError(configuratio
 }
 
 // EspressoDeviceForConfigurationError is an exported wrapper for the private method _espressoDeviceForConfigurationError.
-func (n MLNeuralNetworkEngine) EspressoDeviceForConfigurationError(configuration objectivec.IObject) (int, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_espressoDeviceForConfiguration:error:")) {
+func (m MLNeuralNetworkEngine) EspressoDeviceForConfigurationError(configuration objectivec.IObject) (int, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_espressoDeviceForConfiguration:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_espressoDeviceForConfiguration:error:"}
 		return 0, err
 	}
-	return n._espressoDeviceForConfigurationError(configuration)
+	return m._espressoDeviceForConfigurationError(configuration)
 }
 
 // CanEspressoDeviceForConfigurationError reports whether the receiver responds to the private selector _espressoDeviceForConfiguration:error:.
-func (n MLNeuralNetworkEngine) CanEspressoDeviceForConfigurationError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_espressoDeviceForConfiguration:error:"))
+func (m MLNeuralNetworkEngine) CanEspressoDeviceForConfigurationError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_espressoDeviceForConfiguration:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:
-func (n MLNeuralNetworkEngine) _espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name objectivec.IObject, array objectivec.IObject) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"), name, array)
+func (m MLNeuralNetworkEngine) _espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name objectivec.IObject, array objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"), name, array)
 	return rv
 }
 
 // EspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray is an exported wrapper for the private method _espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray.
-func (n MLNeuralNetworkEngine) EspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name objectivec.IObject, array objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:")) {
+func (m MLNeuralNetworkEngine) EspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name objectivec.IObject, array objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"}
 		return false, err
 	}
-	return n._espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name, array), nil
+	return m._espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name, array), nil
 }
 
 // CanEspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray reports whether the receiver responds to the private selector _espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:.
-func (n MLNeuralNetworkEngine) CanEspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"))
+func (m MLNeuralNetworkEngine) CanEspressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_espressoOutputShapeForFeatureName:matchesShapeOfMLMultiArray:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_handleAddNetworkToPlanStatus:error:
-func (n MLNeuralNetworkEngine) _handleAddNetworkToPlanStatusError(status int) (bool, error) {
+func (m MLNeuralNetworkEngine) _handleAddNetworkToPlanStatusError(status int) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_handleAddNetworkToPlanStatus:error:"), status, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_handleAddNetworkToPlanStatus:error:"), status, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -710,23 +710,23 @@ func (n MLNeuralNetworkEngine) _handleAddNetworkToPlanStatusError(status int) (b
 }
 
 // HandleAddNetworkToPlanStatusError is an exported wrapper for the private method _handleAddNetworkToPlanStatusError.
-func (n MLNeuralNetworkEngine) HandleAddNetworkToPlanStatusError(status int) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_handleAddNetworkToPlanStatus:error:")) {
+func (m MLNeuralNetworkEngine) HandleAddNetworkToPlanStatusError(status int) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_handleAddNetworkToPlanStatus:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_handleAddNetworkToPlanStatus:error:"}
 		return false, err
 	}
-	return n._handleAddNetworkToPlanStatusError(status)
+	return m._handleAddNetworkToPlanStatusError(status)
 }
 
 // CanHandleAddNetworkToPlanStatusError reports whether the receiver responds to the private selector _handleAddNetworkToPlanStatus:error:.
-func (n MLNeuralNetworkEngine) CanHandleAddNetworkToPlanStatusError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_handleAddNetworkToPlanStatus:error:"))
+func (m MLNeuralNetworkEngine) CanHandleAddNetworkToPlanStatusError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_handleAddNetworkToPlanStatus:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_matchEngineToOptions:error:
-func (n MLNeuralNetworkEngine) _matchEngineToOptionsError(options objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) _matchEngineToOptionsError(options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_matchEngineToOptions:error:"), options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_matchEngineToOptions:error:"), options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -739,49 +739,49 @@ func (n MLNeuralNetworkEngine) _matchEngineToOptionsError(options objectivec.IOb
 }
 
 // MatchEngineToOptionsError is an exported wrapper for the private method _matchEngineToOptionsError.
-func (n MLNeuralNetworkEngine) MatchEngineToOptionsError(options objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_matchEngineToOptions:error:")) {
+func (m MLNeuralNetworkEngine) MatchEngineToOptionsError(options objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_matchEngineToOptions:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_matchEngineToOptions:error:"}
 		return false, err
 	}
-	return n._matchEngineToOptionsError(options)
+	return m._matchEngineToOptionsError(options)
 }
 
 // CanMatchEngineToOptionsError reports whether the receiver responds to the private selector _matchEngineToOptions:error:.
-func (n MLNeuralNetworkEngine) CanMatchEngineToOptionsError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_matchEngineToOptions:error:"))
+func (m MLNeuralNetworkEngine) CanMatchEngineToOptionsError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_matchEngineToOptions:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_pixelBufferFromEbuf:description:error:
-func (n MLNeuralNetworkEngine) _pixelBufferFromEbufDescriptionError(ebuf objectivec.IObject, description objectivec.IObject) (corevideo.CVImageBufferRef, error) {
+func (m MLNeuralNetworkEngine) _pixelBufferFromEbufDescriptionError(ebuf objectivec.IObject, description objectivec.IObject) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[corevideo.CVImageBufferRef](n.ID, objc.Sel("_pixelBufferFromEbuf:description:error:"), ebuf, description, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("_pixelBufferFromEbuf:description:error:"), ebuf, description, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
 }
 
 // PixelBufferFromEbufDescriptionError is an exported wrapper for the private method _pixelBufferFromEbufDescriptionError.
-func (n MLNeuralNetworkEngine) PixelBufferFromEbufDescriptionError(ebuf objectivec.IObject, description objectivec.IObject) (corevideo.CVImageBufferRef, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_pixelBufferFromEbuf:description:error:")) {
+func (m MLNeuralNetworkEngine) PixelBufferFromEbufDescriptionError(ebuf objectivec.IObject, description objectivec.IObject) (corevideo.CVImageBufferRef, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_pixelBufferFromEbuf:description:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_pixelBufferFromEbuf:description:error:"}
-		return 0, err
+		return *new(corevideo.CVImageBufferRef), err
 	}
-	return n._pixelBufferFromEbufDescriptionError(ebuf, description)
+	return m._pixelBufferFromEbufDescriptionError(ebuf, description)
 }
 
 // CanPixelBufferFromEbufDescriptionError reports whether the receiver responds to the private selector _pixelBufferFromEbuf:description:error:.
-func (n MLNeuralNetworkEngine) CanPixelBufferFromEbufDescriptionError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_pixelBufferFromEbuf:description:error:"))
+func (m MLNeuralNetworkEngine) CanPixelBufferFromEbufDescriptionError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_pixelBufferFromEbuf:description:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:
-func (n MLNeuralNetworkEngine) _setMultiArrayOutputBackingForOutputFeatureNameToEbufError(backing objectivec.IObject, name objectivec.IObject, ebuf objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) _setMultiArrayOutputBackingForOutputFeatureNameToEbufError(backing objectivec.IObject, name objectivec.IObject, ebuf objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:"), backing, name, ebuf, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:"), backing, name, ebuf, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -794,23 +794,23 @@ func (n MLNeuralNetworkEngine) _setMultiArrayOutputBackingForOutputFeatureNameTo
 }
 
 // SetMultiArrayOutputBackingForOutputFeatureNameToEbufError is an exported wrapper for the private method _setMultiArrayOutputBackingForOutputFeatureNameToEbufError.
-func (n MLNeuralNetworkEngine) SetMultiArrayOutputBackingForOutputFeatureNameToEbufError(backing objectivec.IObject, name objectivec.IObject, ebuf objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:")) {
+func (m MLNeuralNetworkEngine) SetMultiArrayOutputBackingForOutputFeatureNameToEbufError(backing objectivec.IObject, name objectivec.IObject, ebuf objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:"}
 		return false, err
 	}
-	return n._setMultiArrayOutputBackingForOutputFeatureNameToEbufError(backing, name, ebuf)
+	return m._setMultiArrayOutputBackingForOutputFeatureNameToEbufError(backing, name, ebuf)
 }
 
 // CanSetMultiArrayOutputBackingForOutputFeatureNameToEbufError reports whether the receiver responds to the private selector _setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:.
-func (n MLNeuralNetworkEngine) CanSetMultiArrayOutputBackingForOutputFeatureNameToEbufError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:"))
+func (m MLNeuralNetworkEngine) CanSetMultiArrayOutputBackingForOutputFeatureNameToEbufError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setMultiArrayOutputBacking:forOutputFeatureName:toEbuf:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setMultipleBuffersOnPlan:error:
-func (n MLNeuralNetworkEngine) _setMultipleBuffersOnPlanError(plan unsafe.Pointer) (bool, error) {
+func (m MLNeuralNetworkEngine) _setMultipleBuffersOnPlanError(plan unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_setMultipleBuffersOnPlan:error:"), plan, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_setMultipleBuffersOnPlan:error:"), plan, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -823,23 +823,23 @@ func (n MLNeuralNetworkEngine) _setMultipleBuffersOnPlanError(plan unsafe.Pointe
 }
 
 // SetMultipleBuffersOnPlanError is an exported wrapper for the private method _setMultipleBuffersOnPlanError.
-func (n MLNeuralNetworkEngine) SetMultipleBuffersOnPlanError(plan unsafe.Pointer) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_setMultipleBuffersOnPlan:error:")) {
+func (m MLNeuralNetworkEngine) SetMultipleBuffersOnPlanError(plan unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setMultipleBuffersOnPlan:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setMultipleBuffersOnPlan:error:"}
 		return false, err
 	}
-	return n._setMultipleBuffersOnPlanError(plan)
+	return m._setMultipleBuffersOnPlanError(plan)
 }
 
 // CanSetMultipleBuffersOnPlanError reports whether the receiver responds to the private selector _setMultipleBuffersOnPlan:error:.
-func (n MLNeuralNetworkEngine) CanSetMultipleBuffersOnPlanError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_setMultipleBuffersOnPlan:error:"))
+func (m MLNeuralNetworkEngine) CanSetMultipleBuffersOnPlanError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setMultipleBuffersOnPlan:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setupContextAndPlanWithConfiguration:priority:error:
-func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationPriorityError(configuration objectivec.IObject, priority int) (bool, error) {
+func (m MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationPriorityError(configuration objectivec.IObject, priority int) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:priority:error:"), configuration, priority, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:priority:error:"), configuration, priority, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -852,23 +852,23 @@ func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationPriorityErro
 }
 
 // SetupContextAndPlanWithConfigurationPriorityError is an exported wrapper for the private method _setupContextAndPlanWithConfigurationPriorityError.
-func (n MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationPriorityError(configuration objectivec.IObject, priority int) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:priority:error:")) {
+func (m MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationPriorityError(configuration objectivec.IObject, priority int) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:priority:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setupContextAndPlanWithConfiguration:priority:error:"}
 		return false, err
 	}
-	return n._setupContextAndPlanWithConfigurationPriorityError(configuration, priority)
+	return m._setupContextAndPlanWithConfigurationPriorityError(configuration, priority)
 }
 
 // CanSetupContextAndPlanWithConfigurationPriorityError reports whether the receiver responds to the private selector _setupContextAndPlanWithConfiguration:priority:error:.
-func (n MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationPriorityError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:priority:error:"))
+func (m MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationPriorityError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:priority:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setupContextAndPlanWithConfiguration:usingCPU:priority:error:
-func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationUsingCPUPriorityError(configuration objectivec.IObject, cpu bool, priority int) (bool, error) {
+func (m MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationUsingCPUPriorityError(configuration objectivec.IObject, cpu bool, priority int) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:error:"), configuration, cpu, priority, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:error:"), configuration, cpu, priority, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -881,23 +881,23 @@ func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationUsingCPUPrio
 }
 
 // SetupContextAndPlanWithConfigurationUsingCPUPriorityError is an exported wrapper for the private method _setupContextAndPlanWithConfigurationUsingCPUPriorityError.
-func (n MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationUsingCPUPriorityError(configuration objectivec.IObject, cpu bool, priority int) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:error:")) {
+func (m MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationUsingCPUPriorityError(configuration objectivec.IObject, cpu bool, priority int) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setupContextAndPlanWithConfiguration:usingCPU:priority:error:"}
 		return false, err
 	}
-	return n._setupContextAndPlanWithConfigurationUsingCPUPriorityError(configuration, cpu, priority)
+	return m._setupContextAndPlanWithConfigurationUsingCPUPriorityError(configuration, cpu, priority)
 }
 
 // CanSetupContextAndPlanWithConfigurationUsingCPUPriorityError reports whether the receiver responds to the private selector _setupContextAndPlanWithConfiguration:usingCPU:priority:error:.
-func (n MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationUsingCPUPriorityError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:error:"))
+func (m MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationUsingCPUPriorityError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:
-func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError(configuration objectivec.IObject, cpu bool, priority int, container bool) (bool, error) {
+func (m MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError(configuration objectivec.IObject, cpu bool, priority int, container bool) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:"), configuration, cpu, priority, container, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:"), configuration, cpu, priority, container, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -910,23 +910,23 @@ func (n MLNeuralNetworkEngine) _setupContextAndPlanWithConfigurationUsingCPUPrio
 }
 
 // SetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError is an exported wrapper for the private method _setupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError.
-func (n MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError(configuration objectivec.IObject, cpu bool, priority int, container bool) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:")) {
+func (m MLNeuralNetworkEngine) SetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError(configuration objectivec.IObject, cpu bool, priority int, container bool) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:"}
 		return false, err
 	}
-	return n._setupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError(configuration, cpu, priority, container)
+	return m._setupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError(configuration, cpu, priority, container)
 }
 
 // CanSetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError reports whether the receiver responds to the private selector _setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:.
-func (n MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:"))
+func (m MLNeuralNetworkEngine) CanSetupContextAndPlanWithConfigurationUsingCPUPriorityReshapeWithContainerError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setupContextAndPlanWithConfiguration:usingCPU:priority:reshapeWithContainer:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/_setupContextAndPlanWithForceCPU:priority:error:
-func (n MLNeuralNetworkEngine) _setupContextAndPlanWithForceCPUPriorityError(cpu bool, priority int) (bool, error) {
+func (m MLNeuralNetworkEngine) _setupContextAndPlanWithForceCPUPriorityError(cpu bool, priority int) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("_setupContextAndPlanWithForceCPU:priority:error:"), cpu, priority, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_setupContextAndPlanWithForceCPU:priority:error:"), cpu, priority, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -939,23 +939,23 @@ func (n MLNeuralNetworkEngine) _setupContextAndPlanWithForceCPUPriorityError(cpu
 }
 
 // SetupContextAndPlanWithForceCPUPriorityError is an exported wrapper for the private method _setupContextAndPlanWithForceCPUPriorityError.
-func (n MLNeuralNetworkEngine) SetupContextAndPlanWithForceCPUPriorityError(cpu bool, priority int) (bool, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithForceCPU:priority:error:")) {
+func (m MLNeuralNetworkEngine) SetupContextAndPlanWithForceCPUPriorityError(cpu bool, priority int) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setupContextAndPlanWithForceCPU:priority:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setupContextAndPlanWithForceCPU:priority:error:"}
 		return false, err
 	}
-	return n._setupContextAndPlanWithForceCPUPriorityError(cpu, priority)
+	return m._setupContextAndPlanWithForceCPUPriorityError(cpu, priority)
 }
 
 // CanSetupContextAndPlanWithForceCPUPriorityError reports whether the receiver responds to the private selector _setupContextAndPlanWithForceCPU:priority:error:.
-func (n MLNeuralNetworkEngine) CanSetupContextAndPlanWithForceCPUPriorityError() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_setupContextAndPlanWithForceCPU:priority:error:"))
+func (m MLNeuralNetworkEngine) CanSetupContextAndPlanWithForceCPUPriorityError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setupContextAndPlanWithForceCPU:priority:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/addClassifierInformationToOutput:options:error:
-func (n MLNeuralNetworkEngine) AddClassifierInformationToOutputOptionsError(output objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) AddClassifierInformationToOutputOptionsError(output objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("addClassifierInformationToOutput:options:error:"), output, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("addClassifierInformationToOutput:options:error:"), output, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -965,16 +965,16 @@ func (n MLNeuralNetworkEngine) AddClassifierInformationToOutputOptionsError(outp
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/availableOutputBlobList
-func (n MLNeuralNetworkEngine) AvailableOutputBlobList() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("availableOutputBlobList"))
+func (m MLNeuralNetworkEngine) AvailableOutputBlobList() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableOutputBlobList"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bindDirectlyInputFeatureNamed:pixelBuffer:cleanUpBlocks:boundDirectly:error:
-func (n MLNeuralNetworkEngine) BindDirectlyInputFeatureNamedPixelBufferCleanUpBlocksBoundDirectlyError(named objectivec.IObject, buffer corevideo.CVImageBufferRef, blocks objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) BindDirectlyInputFeatureNamedPixelBufferCleanUpBlocksBoundDirectlyError(named objectivec.IObject, buffer corevideo.CVImageBufferRef, blocks objectivec.IObject) (bool, error) {
 	var directly bool
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("bindDirectlyInputFeatureNamed:pixelBuffer:cleanUpBlocks:boundDirectly:error:"), named, buffer, blocks, unsafe.Pointer(&directly), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindDirectlyInputFeatureNamed:pixelBuffer:cleanUpBlocks:boundDirectly:error:"), named, buffer, blocks, unsafe.Pointer(&directly), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -986,9 +986,9 @@ func (n MLNeuralNetworkEngine) BindDirectlyInputFeatureNamedPixelBufferCleanUpBl
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bindDynamicOutputBuffers:error:
-func (n MLNeuralNetworkEngine) BindDynamicOutputBuffersError(buffers unsafe.Pointer) (bool, error) {
+func (m MLNeuralNetworkEngine) BindDynamicOutputBuffersError(buffers unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("bindDynamicOutputBuffers:error:"), buffers, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindDynamicOutputBuffers:error:"), buffers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1001,9 +1001,9 @@ func (n MLNeuralNetworkEngine) BindDynamicOutputBuffersError(buffers unsafe.Poin
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bindInputFeatureNamed:convertingMultiArray:bufferIndex:error:
-func (n MLNeuralNetworkEngine) BindInputFeatureNamedConvertingMultiArrayBufferIndexError(named objectivec.IObject, array objectivec.IObject, index uint64) (bool, error) {
+func (m MLNeuralNetworkEngine) BindInputFeatureNamedConvertingMultiArrayBufferIndexError(named objectivec.IObject, array objectivec.IObject, index uint64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("bindInputFeatureNamed:convertingMultiArray:bufferIndex:error:"), named, array, index, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindInputFeatureNamed:convertingMultiArray:bufferIndex:error:"), named, array, index, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1016,10 +1016,10 @@ func (n MLNeuralNetworkEngine) BindInputFeatureNamedConvertingMultiArrayBufferIn
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bindInputFeatureNamed:featureValue:bufferIndex:cleanUpBlocks:boundDirectly:error:
-func (n MLNeuralNetworkEngine) BindInputFeatureNamedFeatureValueBufferIndexCleanUpBlocksBoundDirectlyError(named objectivec.IObject, value objectivec.IObject, index uint64, blocks objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) BindInputFeatureNamedFeatureValueBufferIndexCleanUpBlocksBoundDirectlyError(named objectivec.IObject, value objectivec.IObject, index uint64, blocks objectivec.IObject) (bool, error) {
 	var directly bool
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("bindInputFeatureNamed:featureValue:bufferIndex:cleanUpBlocks:boundDirectly:error:"), named, value, index, blocks, unsafe.Pointer(&directly), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindInputFeatureNamed:featureValue:bufferIndex:cleanUpBlocks:boundDirectly:error:"), named, value, index, blocks, unsafe.Pointer(&directly), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1031,9 +1031,9 @@ func (n MLNeuralNetworkEngine) BindInputFeatureNamedFeatureValueBufferIndexClean
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bindInputFeatureNamed:pixelBuffer:cleanUpBlocks:error:
-func (n MLNeuralNetworkEngine) BindInputFeatureNamedPixelBufferCleanUpBlocksError(named objectivec.IObject, buffer corevideo.CVImageBufferRef, blocks objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) BindInputFeatureNamedPixelBufferCleanUpBlocksError(named objectivec.IObject, buffer corevideo.CVImageBufferRef, blocks objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("bindInputFeatureNamed:pixelBuffer:cleanUpBlocks:error:"), named, buffer, blocks, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindInputFeatureNamed:pixelBuffer:cleanUpBlocks:error:"), named, buffer, blocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1046,9 +1046,9 @@ func (n MLNeuralNetworkEngine) BindInputFeatureNamedPixelBufferCleanUpBlocksErro
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bindInputFeatures:bufferIndex:cleanUpBlocks:directlyBoundFeatureNames:error:
-func (n MLNeuralNetworkEngine) BindInputFeaturesBufferIndexCleanUpBlocksDirectlyBoundFeatureNamesError(features objectivec.IObject, index uint64, blocks objectivec.IObject, names []objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) BindInputFeaturesBufferIndexCleanUpBlocksDirectlyBoundFeatureNamesError(features objectivec.IObject, index uint64, blocks objectivec.IObject, names []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("bindInputFeatures:bufferIndex:cleanUpBlocks:directlyBoundFeatureNames:error:"), features, index, blocks, objectivec.IObjectSliceToNSArray(names), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindInputFeatures:bufferIndex:cleanUpBlocks:directlyBoundFeatureNames:error:"), features, index, blocks, objectivec.IObjectSliceToNSArray(names), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1061,9 +1061,9 @@ func (n MLNeuralNetworkEngine) BindInputFeaturesBufferIndexCleanUpBlocksDirectly
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bindInputsAndOutputs:cleanUpBlocks:bufferIndex:options:error:
-func (n MLNeuralNetworkEngine) BindInputsAndOutputsCleanUpBlocksBufferIndexOptionsError(outputs objectivec.IObject, blocks objectivec.IObject, index uint64, options objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) BindInputsAndOutputsCleanUpBlocksBufferIndexOptionsError(outputs objectivec.IObject, blocks objectivec.IObject, index uint64, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("bindInputsAndOutputs:cleanUpBlocks:bufferIndex:options:error:"), outputs, blocks, index, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindInputsAndOutputs:cleanUpBlocks:bufferIndex:options:error:"), outputs, blocks, index, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1076,9 +1076,9 @@ func (n MLNeuralNetworkEngine) BindInputsAndOutputsCleanUpBlocksBufferIndexOptio
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bindOutputBuffers:outputBackings:automaticOutputBackingMode:directlyBoundOutputFeatureNames:error:
-func (n MLNeuralNetworkEngine) BindOutputBuffersOutputBackingsAutomaticOutputBackingModeDirectlyBoundOutputFeatureNamesError(buffers unsafe.Pointer, backings objectivec.IObject, mode objectivec.IObject, names []objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) BindOutputBuffersOutputBackingsAutomaticOutputBackingModeDirectlyBoundOutputFeatureNamesError(buffers unsafe.Pointer, backings objectivec.IObject, mode objectivec.IObject, names []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("bindOutputBuffers:outputBackings:automaticOutputBackingMode:directlyBoundOutputFeatureNames:error:"), buffers, backings, mode, objectivec.IObjectSliceToNSArray(names), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindOutputBuffers:outputBackings:automaticOutputBackingMode:directlyBoundOutputFeatureNames:error:"), buffers, backings, mode, objectivec.IObjectSliceToNSArray(names), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1091,9 +1091,9 @@ func (n MLNeuralNetworkEngine) BindOutputBuffersOutputBackingsAutomaticOutputBac
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/classify:options:error:
-func (n MLNeuralNetworkEngine) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1103,9 +1103,9 @@ func (n MLNeuralNetworkEngine) ClassifyOptionsError(classify objectivec.IObject,
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/collectParametersFromContainer:configuration:error:
-func (n MLNeuralNetworkEngine) CollectParametersFromContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) CollectParametersFromContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("collectParametersFromContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("collectParametersFromContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1118,9 +1118,9 @@ func (n MLNeuralNetworkEngine) CollectParametersFromContainerConfigurationError(
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/completeOutputBackings:automaticOutputBackingMode:error:
-func (n MLNeuralNetworkEngine) CompleteOutputBackingsAutomaticOutputBackingModeError(backings objectivec.IObject, mode objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) CompleteOutputBackingsAutomaticOutputBackingModeError(backings objectivec.IObject, mode objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("completeOutputBackings:automaticOutputBackingMode:error:"), backings, mode, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("completeOutputBackings:automaticOutputBackingMode:error:"), backings, mode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1130,9 +1130,9 @@ func (n MLNeuralNetworkEngine) CompleteOutputBackingsAutomaticOutputBackingModeE
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/convertPredictionToClassifierResult:withOptions:error:
-func (n MLNeuralNetworkEngine) ConvertPredictionToClassifierResultWithOptionsError(result objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) ConvertPredictionToClassifierResultWithOptionsError(result objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("convertPredictionToClassifierResult:withOptions:error:"), result, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("convertPredictionToClassifierResult:withOptions:error:"), result, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1142,9 +1142,9 @@ func (n MLNeuralNetworkEngine) ConvertPredictionToClassifierResultWithOptionsErr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/copyEbuf:ofPixelType:toPixelBuffer:error:
-func (n MLNeuralNetworkEngine) CopyEbufOfPixelTypeToPixelBufferError(ebuf objectivec.IObject, type_ uint64, buffer corevideo.CVImageBufferRef) (bool, error) {
+func (m MLNeuralNetworkEngine) CopyEbufOfPixelTypeToPixelBufferError(ebuf objectivec.IObject, type_ uint64, buffer corevideo.CVImageBufferRef) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("copyEbuf:ofPixelType:toPixelBuffer:error:"), ebuf, type_, buffer, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("copyEbuf:ofPixelType:toPixelBuffer:error:"), ebuf, type_, buffer, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1157,9 +1157,9 @@ func (n MLNeuralNetworkEngine) CopyEbufOfPixelTypeToPixelBufferError(ebuf object
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/copyImagePreprocessingParametersTo:error:
-func (n MLNeuralNetworkEngine) CopyImagePreprocessingParametersToError(to unsafe.Pointer) (bool, error) {
+func (m MLNeuralNetworkEngine) CopyImagePreprocessingParametersToError(to unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("copyImagePreprocessingParametersTo:error:"), to, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("copyImagePreprocessingParametersTo:error:"), to, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1174,32 +1174,32 @@ func (n MLNeuralNetworkEngine) CopyImagePreprocessingParametersToError(to unsafe
 // preprocessing is a [*appleneuralengine.vimage2espresso_param].
 //
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/copyPixelBufferByApplyingImagePreprocessing:toPixelBuffer:
-func (n MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing unsafe.Pointer, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](n.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessing:toPixelBuffer:"), preprocessing, buffer)
+func (m MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingToPixelBuffer(preprocessing unsafe.Pointer, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
+	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessing:toPixelBuffer:"), preprocessing, buffer)
 	return corevideo.CVImageBufferRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/copyPixelBufferByApplyingImagePreprocessingForFeatureNamed:toPixelBuffer:
-func (n MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingForFeatureNamedToPixelBuffer(named objectivec.IObject, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](n.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessingForFeatureNamed:toPixelBuffer:"), named, buffer)
+func (m MLNeuralNetworkEngine) CopyPixelBufferByApplyingImagePreprocessingForFeatureNamedToPixelBuffer(named objectivec.IObject, buffer corevideo.CVImageBufferRef) corevideo.CVImageBufferRef {
+	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferByApplyingImagePreprocessingForFeatureNamed:toPixelBuffer:"), named, buffer)
 	return corevideo.CVImageBufferRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/copyPixelBufferFromPixelBuffer:usingPixelFormat:
-func (n MLNeuralNetworkEngine) CopyPixelBufferFromPixelBufferUsingPixelFormat(buffer corevideo.CVImageBufferRef, format uint32) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](n.ID, objc.Sel("copyPixelBufferFromPixelBuffer:usingPixelFormat:"), buffer, format)
+func (m MLNeuralNetworkEngine) CopyPixelBufferFromPixelBufferUsingPixelFormat(buffer corevideo.CVImageBufferRef, format uint32) corevideo.CVImageBufferRef {
+	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("copyPixelBufferFromPixelBuffer:usingPixelFormat:"), buffer, format)
 	return corevideo.CVImageBufferRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/dumpTestVectorsToPath:
-func (n MLNeuralNetworkEngine) DumpTestVectorsToPath(path objectivec.IObject) {
-	objc.Send[objc.ID](n.ID, objc.Sel("dumpTestVectorsToPath:"), path)
+func (m MLNeuralNetworkEngine) DumpTestVectorsToPath(path objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("dumpTestVectorsToPath:"), path)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/evaluate:error:
-func (n MLNeuralNetworkEngine) EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("evaluate:error:"), evaluate, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluate:error:"), evaluate, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1209,9 +1209,9 @@ func (n MLNeuralNetworkEngine) EvaluateError(evaluate objectivec.IObject) (objec
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/evaluateBatch:options:error:
-func (n MLNeuralNetworkEngine) EvaluateBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) EvaluateBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("evaluateBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluateBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1221,9 +1221,9 @@ func (n MLNeuralNetworkEngine) EvaluateBatchOptionsError(batch objectivec.IObjec
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/evaluateInputs:bufferIndex:options:error:
-func (n MLNeuralNetworkEngine) EvaluateInputsBufferIndexOptionsError(inputs objectivec.IObject, index uint64, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) EvaluateInputsBufferIndexOptionsError(inputs objectivec.IObject, index uint64, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("evaluateInputs:bufferIndex:options:error:"), inputs, index, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluateInputs:bufferIndex:options:error:"), inputs, index, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1233,9 +1233,9 @@ func (n MLNeuralNetworkEngine) EvaluateInputsBufferIndexOptionsError(inputs obje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/evaluateInputs:options:error:
-func (n MLNeuralNetworkEngine) EvaluateInputsOptionsError(inputs objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) EvaluateInputsOptionsError(inputs objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("evaluateInputs:options:error:"), inputs, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluateInputs:options:error:"), inputs, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1245,9 +1245,9 @@ func (n MLNeuralNetworkEngine) EvaluateInputsOptionsError(inputs objectivec.IObj
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/evaluateInputs:options:verifyInputs:error:
-func (n MLNeuralNetworkEngine) EvaluateInputsOptionsVerifyInputsError(inputs objectivec.IObject, options objectivec.IObject, inputs2 bool) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) EvaluateInputsOptionsVerifyInputsError(inputs objectivec.IObject, options objectivec.IObject, inputs2 bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("evaluateInputs:options:verifyInputs:error:"), inputs, options, inputs2, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluateInputs:options:verifyInputs:error:"), inputs, options, inputs2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1257,9 +1257,9 @@ func (n MLNeuralNetworkEngine) EvaluateInputsOptionsVerifyInputsError(inputs obj
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/executePlan:error:
-func (n MLNeuralNetworkEngine) ExecutePlanError(plan unsafe.Pointer) (bool, error) {
+func (m MLNeuralNetworkEngine) ExecutePlanError(plan unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("executePlan:error:"), plan, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("executePlan:error:"), plan, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1272,9 +1272,9 @@ func (n MLNeuralNetworkEngine) ExecutePlanError(plan unsafe.Pointer) (bool, erro
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/imageFeatureValueFromEbuf:backingCVPixelBuffer:description:error:
-func (n MLNeuralNetworkEngine) ImageFeatureValueFromEbufBackingCVPixelBufferDescriptionError(ebuf objectivec.IObject, buffer corevideo.CVImageBufferRef, description objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) ImageFeatureValueFromEbufBackingCVPixelBufferDescriptionError(ebuf objectivec.IObject, buffer corevideo.CVImageBufferRef, description objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("imageFeatureValueFromEbuf:backingCVPixelBuffer:description:error:"), ebuf, buffer, description, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("imageFeatureValueFromEbuf:backingCVPixelBuffer:description:error:"), ebuf, buffer, description, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1284,15 +1284,15 @@ func (n MLNeuralNetworkEngine) ImageFeatureValueFromEbufBackingCVPixelBufferDesc
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/imageFeatureValueFromPixelBuffer:usingPixelFormat:
-func (n MLNeuralNetworkEngine) ImageFeatureValueFromPixelBufferUsingPixelFormat(buffer corevideo.CVImageBufferRef, format uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("imageFeatureValueFromPixelBuffer:usingPixelFormat:"), buffer, format)
+func (m MLNeuralNetworkEngine) ImageFeatureValueFromPixelBufferUsingPixelFormat(buffer corevideo.CVImageBufferRef, format uint32) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("imageFeatureValueFromPixelBuffer:usingPixelFormat:"), buffer, format)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/inputBindStateForFeatureValue:error:
-func (n MLNeuralNetworkEngine) InputBindStateForFeatureValueError(value objectivec.IObject) (int64, error) {
+func (m MLNeuralNetworkEngine) InputBindStateForFeatureValueError(value objectivec.IObject) (int64, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[int64](n.ID, objc.Sel("inputBindStateForFeatureValue:error:"), value, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[int64](m.ID, objc.Sel("inputBindStateForFeatureValue:error:"), value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return 0, foundation.NSErrorFrom(errorPtr)
@@ -1302,9 +1302,9 @@ func (n MLNeuralNetworkEngine) InputBindStateForFeatureValueError(value objectiv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/lockPixelBuffer:cleanUpBlocks:error:
-func (n MLNeuralNetworkEngine) LockPixelBufferCleanUpBlocksError(buffer corevideo.CVImageBufferRef, blocks objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) LockPixelBufferCleanUpBlocksError(buffer corevideo.CVImageBufferRef, blocks objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("lockPixelBuffer:cleanUpBlocks:error:"), buffer, blocks, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("lockPixelBuffer:cleanUpBlocks:error:"), buffer, blocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1317,9 +1317,9 @@ func (n MLNeuralNetworkEngine) LockPixelBufferCleanUpBlocksError(buffer corevide
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/multiArrayFeatureValueFromEbuf:backingMultiArray:description:outputName:error:
-func (n MLNeuralNetworkEngine) MultiArrayFeatureValueFromEbufBackingMultiArrayDescriptionOutputNameError(ebuf objectivec.IObject, array objectivec.IObject, description objectivec.IObject, name objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) MultiArrayFeatureValueFromEbufBackingMultiArrayDescriptionOutputNameError(ebuf objectivec.IObject, array objectivec.IObject, description objectivec.IObject, name objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("multiArrayFeatureValueFromEbuf:backingMultiArray:description:outputName:error:"), ebuf, array, description, name, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("multiArrayFeatureValueFromEbuf:backingMultiArray:description:outputName:error:"), ebuf, array, description, name, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1329,15 +1329,15 @@ func (n MLNeuralNetworkEngine) MultiArrayFeatureValueFromEbufBackingMultiArrayDe
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/obtainBuffer
-func (n MLNeuralNetworkEngine) ObtainBuffer() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("obtainBuffer"))
+func (m MLNeuralNetworkEngine) ObtainBuffer() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("obtainBuffer"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/opacifyAndPermutePixelBuffer:bufferContainsBGRA:error:
-func (n MLNeuralNetworkEngine) OpacifyAndPermutePixelBufferBufferContainsBGRAError(buffer corevideo.CVImageBufferRef, bgra bool) (bool, error) {
+func (m MLNeuralNetworkEngine) OpacifyAndPermutePixelBufferBufferContainsBGRAError(buffer corevideo.CVImageBufferRef, bgra bool) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("opacifyAndPermutePixelBuffer:bufferContainsBGRA:error:"), buffer, bgra, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("opacifyAndPermutePixelBuffer:bufferContainsBGRA:error:"), buffer, bgra, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1350,32 +1350,32 @@ func (n MLNeuralNetworkEngine) OpacifyAndPermutePixelBufferBufferContainsBGRAErr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/outputBackingMultiArrayForFeatureName:
-func (n MLNeuralNetworkEngine) OutputBackingMultiArrayForFeatureName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("outputBackingMultiArrayForFeatureName:"), name)
+func (m MLNeuralNetworkEngine) OutputBackingMultiArrayForFeatureName(name objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputBackingMultiArrayForFeatureName:"), name)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/pixelBufferBackedMultiArrayWithShape:
-func (n MLNeuralNetworkEngine) PixelBufferBackedMultiArrayWithShape(shape objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("pixelBufferBackedMultiArrayWithShape:"), shape)
+func (m MLNeuralNetworkEngine) PixelBufferBackedMultiArrayWithShape(shape objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferBackedMultiArrayWithShape:"), shape)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/pixelBufferFromOutputBacking:forFeature:
-func (n MLNeuralNetworkEngine) PixelBufferFromOutputBackingForFeature(backing objectivec.IObject, feature objectivec.IObject) corevideo.CVImageBufferRef {
-	rv := objc.Send[corevideo.CVImageBufferRef](n.ID, objc.Sel("pixelBufferFromOutputBacking:forFeature:"), backing, feature)
+func (m MLNeuralNetworkEngine) PixelBufferFromOutputBackingForFeature(backing objectivec.IObject, feature objectivec.IObject) corevideo.CVImageBufferRef {
+	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("pixelBufferFromOutputBacking:forFeature:"), backing, feature)
 	return corevideo.CVImageBufferRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/populateMultiArrayShape:strides:forEbuf:featureDescription:ndArrayInterpretation:
-func (n MLNeuralNetworkEngine) PopulateMultiArrayShapeStridesForEbufFeatureDescriptionNdArrayInterpretation(shape []objectivec.IObject, strides []objectivec.IObject, ebuf objectivec.IObject, description objectivec.IObject, interpretation bool) {
-	objc.Send[objc.ID](n.ID, objc.Sel("populateMultiArrayShape:strides:forEbuf:featureDescription:ndArrayInterpretation:"), objectivec.IObjectSliceToNSArray(shape), objectivec.IObjectSliceToNSArray(strides), ebuf, description, interpretation)
+func (m MLNeuralNetworkEngine) PopulateMultiArrayShapeStridesForEbufFeatureDescriptionNdArrayInterpretation(shape []objectivec.IObject, strides []objectivec.IObject, ebuf objectivec.IObject, description objectivec.IObject, interpretation bool) {
+	objc.Send[objc.ID](m.ID, objc.Sel("populateMultiArrayShape:strides:forEbuf:featureDescription:ndArrayInterpretation:"), objectivec.IObjectSliceToNSArray(shape), objectivec.IObjectSliceToNSArray(strides), ebuf, description, interpretation)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/populateOutputs:outputBackings:directlyBoundOutputFeatureNames:error:
-func (n MLNeuralNetworkEngine) PopulateOutputsOutputBackingsDirectlyBoundOutputFeatureNamesError(outputs uint64, backings objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) PopulateOutputsOutputBackingsDirectlyBoundOutputFeatureNamesError(outputs uint64, backings objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("populateOutputs:outputBackings:directlyBoundOutputFeatureNames:error:"), outputs, backings, names, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("populateOutputs:outputBackings:directlyBoundOutputFeatureNames:error:"), outputs, backings, names, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1385,20 +1385,20 @@ func (n MLNeuralNetworkEngine) PopulateOutputsOutputBackingsDirectlyBoundOutputF
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/prepareBlobNamed:forNewBlobBackingMode:bindMode:
-func (n MLNeuralNetworkEngine) PrepareBlobNamedForNewBlobBackingModeBindMode(named objectivec.IObject, mode int64, mode2 int) {
-	objc.Send[objc.ID](n.ID, objc.Sel("prepareBlobNamed:forNewBlobBackingMode:bindMode:"), named, mode, mode2)
+func (m MLNeuralNetworkEngine) PrepareBlobNamedForNewBlobBackingModeBindMode(named objectivec.IObject, mode int64, mode2 int) {
+	objc.Send[objc.ID](m.ID, objc.Sel("prepareBlobNamed:forNewBlobBackingMode:bindMode:"), named, mode, mode2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/rebuildPlan:
-func (n MLNeuralNetworkEngine) RebuildPlan(plan []objectivec.IObject) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("rebuildPlan:"), objectivec.IObjectSliceToNSArray(plan))
+func (m MLNeuralNetworkEngine) RebuildPlan(plan []objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("rebuildPlan:"), objectivec.IObjectSliceToNSArray(plan))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/rebuildPlan:error:
-func (n MLNeuralNetworkEngine) RebuildPlanError(plan bool) (bool, error) {
+func (m MLNeuralNetworkEngine) RebuildPlanError(plan bool) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("rebuildPlan:error:"), plan, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("rebuildPlan:error:"), plan, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1411,9 +1411,9 @@ func (n MLNeuralNetworkEngine) RebuildPlanError(plan bool) (bool, error) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/regress:options:error:
-func (n MLNeuralNetworkEngine) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("regress:options:error:"), regress, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("regress:options:error:"), regress, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1423,14 +1423,14 @@ func (n MLNeuralNetworkEngine) RegressOptionsError(regress objectivec.IObject, o
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/releaseBuffer:
-func (n MLNeuralNetworkEngine) ReleaseBuffer(buffer uint64) {
-	objc.Send[objc.ID](n.ID, objc.Sel("releaseBuffer:"), buffer)
+func (m MLNeuralNetworkEngine) ReleaseBuffer(buffer uint64) {
+	objc.Send[objc.ID](m.ID, objc.Sel("releaseBuffer:"), buffer)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/resetSizes:error:
-func (n MLNeuralNetworkEngine) ResetSizesError(sizes objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) ResetSizesError(sizes objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("resetSizes:error:"), sizes, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("resetSizes:error:"), sizes, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1443,9 +1443,9 @@ func (n MLNeuralNetworkEngine) ResetSizesError(sizes objectivec.IObject) (bool, 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/resetSizesNoAutoRelease:error:
-func (n MLNeuralNetworkEngine) ResetSizesNoAutoReleaseError(release objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) ResetSizesNoAutoReleaseError(release objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("resetSizesNoAutoRelease:error:"), release, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("resetSizesNoAutoRelease:error:"), release, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1458,9 +1458,9 @@ func (n MLNeuralNetworkEngine) ResetSizesNoAutoReleaseError(release objectivec.I
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/resetSizesWithEspressoConfigurations:error:
-func (n MLNeuralNetworkEngine) ResetSizesWithEspressoConfigurationsError(configurations objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkEngine) ResetSizesWithEspressoConfigurationsError(configurations objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("resetSizesWithEspressoConfigurations:error:"), configurations, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("resetSizesWithEspressoConfigurations:error:"), configurations, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1473,21 +1473,21 @@ func (n MLNeuralNetworkEngine) ResetSizesWithEspressoConfigurationsError(configu
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/sequenceConcatConsumesOptionalInputNamed:
-func (n MLNeuralNetworkEngine) SequenceConcatConsumesOptionalInputNamed(named objectivec.IObject) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("sequenceConcatConsumesOptionalInputNamed:"), named)
+func (m MLNeuralNetworkEngine) SequenceConcatConsumesOptionalInputNamed(named objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("sequenceConcatConsumesOptionalInputNamed:"), named)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/sequenceNamed:
-func (n MLNeuralNetworkEngine) SequenceNamed(named objectivec.IObject) int {
-	rv := objc.Send[int](n.ID, objc.Sel("sequenceNamed:"), named)
+func (m MLNeuralNetworkEngine) SequenceNamed(named objectivec.IObject) int {
+	rv := objc.Send[int](m.ID, objc.Sel("sequenceNamed:"), named)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/setEspressoBlobShapes:widths:heights:ks:batches:sequences:ranks:error:
-func (n MLNeuralNetworkEngine) SetEspressoBlobShapesWidthsHeightsKsBatchesSequencesRanksError(shapes unsafe.Pointer, widths unsafe.Pointer, heights unsafe.Pointer, ks unsafe.Pointer, batches unsafe.Pointer, sequences unsafe.Pointer, ranks unsafe.Pointer) (bool, error) {
+func (m MLNeuralNetworkEngine) SetEspressoBlobShapesWidthsHeightsKsBatchesSequencesRanksError(shapes unsafe.Pointer, widths unsafe.Pointer, heights unsafe.Pointer, ks unsafe.Pointer, batches unsafe.Pointer, sequences unsafe.Pointer, ranks unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("setEspressoBlobShapes:widths:heights:ks:batches:sequences:ranks:error:"), shapes, widths, heights, ks, batches, sequences, ranks, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("setEspressoBlobShapes:widths:heights:ks:batches:sequences:ranks:error:"), shapes, widths, heights, ks, batches, sequences, ranks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1500,9 +1500,9 @@ func (n MLNeuralNetworkEngine) SetEspressoBlobShapesWidthsHeightsKsBatchesSequen
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/sortBatchByShape:withMap:error:
-func (n MLNeuralNetworkEngine) SortBatchByShapeWithMapError(shape objectivec.IObject, map_ []objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) SortBatchByShapeWithMapError(shape objectivec.IObject, map_ []objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("sortBatchByShape:withMap:error:"), shape, objectivec.IObjectSliceToNSArray(map_), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("sortBatchByShape:withMap:error:"), shape, objectivec.IObjectSliceToNSArray(map_), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1512,34 +1512,34 @@ func (n MLNeuralNetworkEngine) SortBatchByShapeWithMapError(shape objectivec.IOb
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/supportFromEspressoLayerInfo:
-func (n MLNeuralNetworkEngine) SupportFromEspressoLayerInfo(info objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("supportFromEspressoLayerInfo:"), info)
+func (m MLNeuralNetworkEngine) SupportFromEspressoLayerInfo(info objectivec.IObject) uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("supportFromEspressoLayerInfo:"), info)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/supportFromEspressoPlatform:
-func (n MLNeuralNetworkEngine) SupportFromEspressoPlatform(platform int) uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("supportFromEspressoPlatform:"), platform)
+func (m MLNeuralNetworkEngine) SupportFromEspressoPlatform(platform int) uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("supportFromEspressoPlatform:"), platform)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/transferOneComponent16HalfPixelBuffer:toPixelBuffer:withScale:bias:
-func (n MLNeuralNetworkEngine) TransferOneComponent16HalfPixelBufferToPixelBufferWithScaleBias(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef, scale float32, bias float32) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("transferOneComponent16HalfPixelBuffer:toPixelBuffer:withScale:bias:"), buffer, buffer2, scale, bias)
+func (m MLNeuralNetworkEngine) TransferOneComponent16HalfPixelBufferToPixelBufferWithScaleBias(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef, scale float32, bias float32) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("transferOneComponent16HalfPixelBuffer:toPixelBuffer:withScale:bias:"), buffer, buffer2, scale, bias)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/transferPixelBuffer:toPixelBuffer:
-func (n MLNeuralNetworkEngine) TransferPixelBufferToPixelBuffer(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("transferPixelBuffer:toPixelBuffer:"), buffer, buffer2)
+func (m MLNeuralNetworkEngine) TransferPixelBufferToPixelBuffer(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("transferPixelBuffer:toPixelBuffer:"), buffer, buffer2)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/tryToSetOutputBacking:forFeatureName:toEbuf:reportPointerFlags:error:
-func (n MLNeuralNetworkEngine) TryToSetOutputBackingForFeatureNameToEbufReportPointerFlagsError(backing objectivec.IObject, name objectivec.IObject, ebuf objectivec.IObject) (int, error) {
+func (m MLNeuralNetworkEngine) TryToSetOutputBackingForFeatureNameToEbufReportPointerFlagsError(backing objectivec.IObject, name objectivec.IObject, ebuf objectivec.IObject) (int, error) {
 	var flags int
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("tryToSetOutputBacking:forFeatureName:toEbuf:reportPointerFlags:error:"), backing, name, ebuf, unsafe.Pointer(&flags), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("tryToSetOutputBacking:forFeatureName:toEbuf:reportPointerFlags:error:"), backing, name, ebuf, unsafe.Pointer(&flags), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return 0, foundation.NSErrorFrom(errorPtr)
@@ -1551,9 +1551,9 @@ func (n MLNeuralNetworkEngine) TryToSetOutputBackingForFeatureNameToEbufReportPo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/updateDynamicOutputBlobIndicatorCacheAndReturnError:
-func (n MLNeuralNetworkEngine) UpdateDynamicOutputBlobIndicatorCacheAndReturnError() (bool, error) {
+func (m MLNeuralNetworkEngine) UpdateDynamicOutputBlobIndicatorCacheAndReturnError() (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("updateDynamicOutputBlobIndicatorCacheAndReturnError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("updateDynamicOutputBlobIndicatorCacheAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -1566,15 +1566,15 @@ func (n MLNeuralNetworkEngine) UpdateDynamicOutputBlobIndicatorCacheAndReturnErr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/usingEspressoConfigurations
-func (n MLNeuralNetworkEngine) UsingEspressoConfigurations() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("usingEspressoConfigurations"))
+func (m MLNeuralNetworkEngine) UsingEspressoConfigurations() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("usingEspressoConfigurations"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/verifyInputs:error:
-func (n MLNeuralNetworkEngine) VerifyInputsError(inputs objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkEngine) VerifyInputsError(inputs objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("verifyInputs:error:"), inputs, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("verifyInputs:error:"), inputs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -1584,9 +1584,9 @@ func (n MLNeuralNetworkEngine) VerifyInputsError(inputs objectivec.IObject) (obj
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/initWithContainer:configuration:error:
-func (n MLNeuralNetworkEngine) InitWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkEngine, error) {
+func (m MLNeuralNetworkEngine) InitWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkEngine, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkEngine{}, foundation.NSErrorFrom(errorPtr)
@@ -1596,9 +1596,9 @@ func (n MLNeuralNetworkEngine) InitWithContainerConfigurationError(container obj
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/initWithContainer:error:
-func (n MLNeuralNetworkEngine) InitWithContainerError(container objectivec.IObject) (MLNeuralNetworkEngine, error) {
+func (m MLNeuralNetworkEngine) InitWithContainerError(container objectivec.IObject) (MLNeuralNetworkEngine, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkEngine{}, foundation.NSErrorFrom(errorPtr)
@@ -1674,343 +1674,343 @@ func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) NeuralNetworkFromC
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/activeFunction
-func (n MLNeuralNetworkEngine) ActiveFunction() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("activeFunction"))
+func (m MLNeuralNetworkEngine) ActiveFunction() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("activeFunction"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNeuralNetworkEngine) SetActiveFunction(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setActiveFunction:"), objc.String(value))
+func (m MLNeuralNetworkEngine) SetActiveFunction(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setActiveFunction:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/bufferSemaphore
-func (n MLNeuralNetworkEngine) BufferSemaphore() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("bufferSemaphore"))
+func (m MLNeuralNetworkEngine) BufferSemaphore() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("bufferSemaphore"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetBufferSemaphore(value objectivec.Object) {
-	objc.Send[struct{}](n.ID, objc.Sel("setBufferSemaphore:"), value)
+func (m MLNeuralNetworkEngine) SetBufferSemaphore(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setBufferSemaphore:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/classLabels
-func (n MLNeuralNetworkEngine) ClassLabels() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("classLabels"))
+func (m MLNeuralNetworkEngine) ClassLabels() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetClassLabels(value foundation.INSArray) {
-	objc.Send[struct{}](n.ID, objc.Sel("setClassLabels:"), value)
+func (m MLNeuralNetworkEngine) SetClassLabels(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("setClassLabels:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/classScoreVectorName
-func (n MLNeuralNetworkEngine) ClassScoreVectorName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("classScoreVectorName"))
+func (m MLNeuralNetworkEngine) ClassScoreVectorName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classScoreVectorName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNeuralNetworkEngine) SetClassScoreVectorName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setClassScoreVectorName:"), objc.String(value))
+func (m MLNeuralNetworkEngine) SetClassScoreVectorName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setClassScoreVectorName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/compilerVersionInfo
-func (n MLNeuralNetworkEngine) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("compilerVersionInfo"))
+func (m MLNeuralNetworkEngine) CompilerVersionInfo() IMLVersionInfo {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/context
-func (n MLNeuralNetworkEngine) Context() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](n.ID, objc.Sel("context"))
+func (m MLNeuralNetworkEngine) Context() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("context"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetContext(value unsafe.Pointer) {
-	objc.Send[struct{}](n.ID, objc.Sel("setContext:"), value)
+func (m MLNeuralNetworkEngine) SetContext(value unsafe.Pointer) {
+	objc.Send[struct{}](m.ID, objc.Sel("setContext:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/defaultOptionalValues
-func (n MLNeuralNetworkEngine) DefaultOptionalValues() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("defaultOptionalValues"))
+func (m MLNeuralNetworkEngine) DefaultOptionalValues() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultOptionalValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetDefaultOptionalValues(value foundation.INSDictionary) {
-	objc.Send[struct{}](n.ID, objc.Sel("setDefaultOptionalValues:"), value)
+func (m MLNeuralNetworkEngine) SetDefaultOptionalValues(value foundation.INSDictionary) {
+	objc.Send[struct{}](m.ID, objc.Sel("setDefaultOptionalValues:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/engine
-func (n MLNeuralNetworkEngine) Engine() int {
-	rv := objc.Send[int](n.ID, objc.Sel("engine"))
+func (m MLNeuralNetworkEngine) Engine() int {
+	rv := objc.Send[int](m.ID, objc.Sel("engine"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetEngine(value int) {
-	objc.Send[struct{}](n.ID, objc.Sel("setEngine:"), value)
+func (m MLNeuralNetworkEngine) SetEngine(value int) {
+	objc.Send[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/espressoInputShapes
-func (n MLNeuralNetworkEngine) EspressoInputShapes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("espressoInputShapes"))
+func (m MLNeuralNetworkEngine) EspressoInputShapes() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("espressoInputShapes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetEspressoInputShapes(value foundation.INSDictionary) {
-	objc.Send[struct{}](n.ID, objc.Sel("setEspressoInputShapes:"), value)
+func (m MLNeuralNetworkEngine) SetEspressoInputShapes(value foundation.INSDictionary) {
+	objc.Send[struct{}](m.ID, objc.Sel("setEspressoInputShapes:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/espressoInputStrides
-func (n MLNeuralNetworkEngine) EspressoInputStrides() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("espressoInputStrides"))
+func (m MLNeuralNetworkEngine) EspressoInputStrides() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("espressoInputStrides"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetEspressoInputStrides(value foundation.INSDictionary) {
-	objc.Send[struct{}](n.ID, objc.Sel("setEspressoInputStrides:"), value)
+func (m MLNeuralNetworkEngine) SetEspressoInputStrides(value foundation.INSDictionary) {
+	objc.Send[struct{}](m.ID, objc.Sel("setEspressoInputStrides:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/espressoProfileInfo
-func (n MLNeuralNetworkEngine) EspressoProfileInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("espressoProfileInfo"))
+func (m MLNeuralNetworkEngine) EspressoProfileInfo() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("espressoProfileInfo"))
 	return objectivec.Object{ID: rv}
 }
-func (n MLNeuralNetworkEngine) SetEspressoProfileInfo(value objectivec.IObject) {
-	objc.Send[struct{}](n.ID, objc.Sel("setEspressoProfileInfo:"), value)
+func (m MLNeuralNetworkEngine) SetEspressoProfileInfo(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setEspressoProfileInfo:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/espressoQueue
-func (n MLNeuralNetworkEngine) EspressoQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("espressoQueue"))
+func (m MLNeuralNetworkEngine) EspressoQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("espressoQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetEspressoQueue(value objectivec.Object) {
-	objc.Send[struct{}](n.ID, objc.Sel("setEspressoQueue:"), value)
+func (m MLNeuralNetworkEngine) SetEspressoQueue(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setEspressoQueue:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/hardwareFallbackDetected
-func (n MLNeuralNetworkEngine) HardwareFallbackDetected() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hardwareFallbackDetected"))
+func (m MLNeuralNetworkEngine) HardwareFallbackDetected() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hardwareFallbackDetected"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetHardwareFallbackDetected(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setHardwareFallbackDetected:"), value)
+func (m MLNeuralNetworkEngine) SetHardwareFallbackDetected(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setHardwareFallbackDetected:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/hasBidirectionalLayer
-func (n MLNeuralNetworkEngine) HasBidirectionalLayer() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasBidirectionalLayer"))
+func (m MLNeuralNetworkEngine) HasBidirectionalLayer() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasBidirectionalLayer"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetHasBidirectionalLayer(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setHasBidirectionalLayer:"), value)
+func (m MLNeuralNetworkEngine) SetHasBidirectionalLayer(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setHasBidirectionalLayer:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/hasOptionalInputSequenceConcat
-func (n MLNeuralNetworkEngine) HasOptionalInputSequenceConcat() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("hasOptionalInputSequenceConcat"))
+func (m MLNeuralNetworkEngine) HasOptionalInputSequenceConcat() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasOptionalInputSequenceConcat"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetHasOptionalInputSequenceConcat(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setHasOptionalInputSequenceConcat:"), value)
+func (m MLNeuralNetworkEngine) SetHasOptionalInputSequenceConcat(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setHasOptionalInputSequenceConcat:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/imagePreprocessingParameters
-func (n MLNeuralNetworkEngine) ImagePreprocessingParameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("imagePreprocessingParameters"))
+func (m MLNeuralNetworkEngine) ImagePreprocessingParameters() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("imagePreprocessingParameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetImagePreprocessingParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](n.ID, objc.Sel("setImagePreprocessingParameters:"), value)
+func (m MLNeuralNetworkEngine) SetImagePreprocessingParameters(value foundation.INSDictionary) {
+	objc.Send[struct{}](m.ID, objc.Sel("setImagePreprocessingParameters:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/inputBlobNameToLastBackingMode
-func (n MLNeuralNetworkEngine) InputBlobNameToLastBackingMode() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("inputBlobNameToLastBackingMode"))
+func (m MLNeuralNetworkEngine) InputBlobNameToLastBackingMode() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputBlobNameToLastBackingMode"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/inputFeatureConformer
-func (n MLNeuralNetworkEngine) InputFeatureConformer() IMLFeatureProviderConformer {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("inputFeatureConformer"))
+func (m MLNeuralNetworkEngine) InputFeatureConformer() IMLFeatureProviderConformer {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/inputLayers
-func (n MLNeuralNetworkEngine) InputLayers() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("inputLayers"))
+func (m MLNeuralNetworkEngine) InputLayers() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputLayers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/isANEPathForbidden
-func (n MLNeuralNetworkEngine) IsANEPathForbidden() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isANEPathForbidden"))
+func (m MLNeuralNetworkEngine) IsANEPathForbidden() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("isANEPathForbidden"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetIsANEPathForbidden(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setIsANEPathForbidden:"), value)
+func (m MLNeuralNetworkEngine) SetIsANEPathForbidden(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setIsANEPathForbidden:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/isEspressoBiasPreprocessingShared
-func (n MLNeuralNetworkEngine) IsEspressoBiasPreprocessingShared() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isEspressoBiasPreprocessingShared"))
+func (m MLNeuralNetworkEngine) IsEspressoBiasPreprocessingShared() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("isEspressoBiasPreprocessingShared"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetIsEspressoBiasPreprocessingShared(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setIsEspressoBiasPreprocessingShared:"), value)
+func (m MLNeuralNetworkEngine) SetIsEspressoBiasPreprocessingShared(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setIsEspressoBiasPreprocessingShared:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/isGPUPathForbidden
-func (n MLNeuralNetworkEngine) IsGPUPathForbidden() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isGPUPathForbidden"))
+func (m MLNeuralNetworkEngine) IsGPUPathForbidden() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("isGPUPathForbidden"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetIsGPUPathForbidden(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setIsGPUPathForbidden:"), value)
+func (m MLNeuralNetworkEngine) SetIsGPUPathForbidden(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setIsGPUPathForbidden:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/modelFilePath
-func (n MLNeuralNetworkEngine) ModelFilePath() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("modelFilePath"))
+func (m MLNeuralNetworkEngine) ModelFilePath() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelFilePath"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNeuralNetworkEngine) SetModelFilePath(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setModelFilePath:"), objc.String(value))
+func (m MLNeuralNetworkEngine) SetModelFilePath(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelFilePath:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/modelIsEncrypted
-func (n MLNeuralNetworkEngine) ModelIsEncrypted() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("modelIsEncrypted"))
+func (m MLNeuralNetworkEngine) ModelIsEncrypted() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("modelIsEncrypted"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/modelIsMIL
-func (n MLNeuralNetworkEngine) ModelIsMIL() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("modelIsMIL"))
+func (m MLNeuralNetworkEngine) ModelIsMIL() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("modelIsMIL"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetModelIsMIL(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setModelIsMIL:"), value)
+func (m MLNeuralNetworkEngine) SetModelIsMIL(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelIsMIL:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/modelVersionInfo
-func (n MLNeuralNetworkEngine) ModelVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("modelVersionInfo"))
+func (m MLNeuralNetworkEngine) ModelVersionInfo() IMLVersionInfo {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/ndArrayInterpretation
-func (n MLNeuralNetworkEngine) NdArrayInterpretation() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("ndArrayInterpretation"))
+func (m MLNeuralNetworkEngine) NdArrayInterpretation() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("ndArrayInterpretation"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetNdArrayInterpretation(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setNdArrayInterpretation:"), value)
+func (m MLNeuralNetworkEngine) SetNdArrayInterpretation(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setNdArrayInterpretation:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/network
-func (n MLNeuralNetworkEngine) Network() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("network"))
+func (m MLNeuralNetworkEngine) Network() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("network"))
 	return objectivec.Object{ID: rv}
 }
-func (n MLNeuralNetworkEngine) SetNetwork(value objectivec.IObject) {
-	objc.Send[struct{}](n.ID, objc.Sel("setNetwork:"), value)
+func (m MLNeuralNetworkEngine) SetNetwork(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setNetwork:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/numInputs
-func (n MLNeuralNetworkEngine) NumInputs() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("numInputs"))
+func (m MLNeuralNetworkEngine) NumInputs() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("numInputs"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/numOutputs
-func (n MLNeuralNetworkEngine) NumOutputs() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("numOutputs"))
+func (m MLNeuralNetworkEngine) NumOutputs() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("numOutputs"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/optionalInputTypes
-func (n MLNeuralNetworkEngine) OptionalInputTypes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("optionalInputTypes"))
+func (m MLNeuralNetworkEngine) OptionalInputTypes() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("optionalInputTypes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/outputBlobNameToLastBackingMode
-func (n MLNeuralNetworkEngine) OutputBlobNameToLastBackingMode() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("outputBlobNameToLastBackingMode"))
+func (m MLNeuralNetworkEngine) OutputBlobNameToLastBackingMode() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputBlobNameToLastBackingMode"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/outputLayers
-func (n MLNeuralNetworkEngine) OutputLayers() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("outputLayers"))
+func (m MLNeuralNetworkEngine) OutputLayers() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputLayers"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/pixelBufferPool
-func (n MLNeuralNetworkEngine) PixelBufferPool() IMLPixelBufferPool {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("pixelBufferPool"))
+func (m MLNeuralNetworkEngine) PixelBufferPool() IMLPixelBufferPool {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/plan
-func (n MLNeuralNetworkEngine) Plan() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](n.ID, objc.Sel("plan"))
+func (m MLNeuralNetworkEngine) Plan() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("plan"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetPlan(value unsafe.Pointer) {
-	objc.Send[struct{}](n.ID, objc.Sel("setPlan:"), value)
+func (m MLNeuralNetworkEngine) SetPlan(value unsafe.Pointer) {
+	objc.Send[struct{}](m.ID, objc.Sel("setPlan:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/precision
-func (n MLNeuralNetworkEngine) Precision() int {
-	rv := objc.Send[int](n.ID, objc.Sel("precision"))
+func (m MLNeuralNetworkEngine) Precision() int {
+	rv := objc.Send[int](m.ID, objc.Sel("precision"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetPrecision(value int) {
-	objc.Send[struct{}](n.ID, objc.Sel("setPrecision:"), value)
+func (m MLNeuralNetworkEngine) SetPrecision(value int) {
+	objc.Send[struct{}](m.ID, objc.Sel("setPrecision:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/predictionsQueue
-func (n MLNeuralNetworkEngine) PredictionsQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("predictionsQueue"))
+func (m MLNeuralNetworkEngine) PredictionsQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetPredictionsQueue(value objectivec.Object) {
-	objc.Send[struct{}](n.ID, objc.Sel("setPredictionsQueue:"), value)
+func (m MLNeuralNetworkEngine) SetPredictionsQueue(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setPredictionsQueue:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/priority
-func (n MLNeuralNetworkEngine) Priority() int {
-	rv := objc.Send[int](n.ID, objc.Sel("priority"))
+func (m MLNeuralNetworkEngine) Priority() int {
+	rv := objc.Send[int](m.ID, objc.Sel("priority"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetPriority(value int) {
-	objc.Send[struct{}](n.ID, objc.Sel("setPriority:"), value)
+func (m MLNeuralNetworkEngine) SetPriority(value int) {
+	objc.Send[struct{}](m.ID, objc.Sel("setPriority:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/probabilityDictionarySharedKeySet
-func (n MLNeuralNetworkEngine) ProbabilityDictionarySharedKeySet() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("probabilityDictionarySharedKeySet"))
+func (m MLNeuralNetworkEngine) ProbabilityDictionarySharedKeySet() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("probabilityDictionarySharedKeySet"))
 	return objectivec.Object{ID: rv}
 }
-func (n MLNeuralNetworkEngine) SetProbabilityDictionarySharedKeySet(value objectivec.IObject) {
-	objc.Send[struct{}](n.ID, objc.Sel("setProbabilityDictionarySharedKeySet:"), value)
+func (m MLNeuralNetworkEngine) SetProbabilityDictionarySharedKeySet(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setProbabilityDictionarySharedKeySet:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/qos
-func (n MLNeuralNetworkEngine) Qos() int {
-	rv := objc.Send[int](n.ID, objc.Sel("qos"))
+func (m MLNeuralNetworkEngine) Qos() int {
+	rv := objc.Send[int](m.ID, objc.Sel("qos"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetQos(value int) {
-	objc.Send[struct{}](n.ID, objc.Sel("setQos:"), value)
+func (m MLNeuralNetworkEngine) SetQos(value int) {
+	objc.Send[struct{}](m.ID, objc.Sel("setQos:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/submitSemaphore
-func (n MLNeuralNetworkEngine) SubmitSemaphore() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("submitSemaphore"))
+func (m MLNeuralNetworkEngine) SubmitSemaphore() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("submitSemaphore"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkEngine) SetSubmitSemaphore(value objectivec.Object) {
-	objc.Send[struct{}](n.ID, objc.Sel("setSubmitSemaphore:"), value)
+func (m MLNeuralNetworkEngine) SetSubmitSemaphore(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setSubmitSemaphore:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/usingCPU
-func (n MLNeuralNetworkEngine) UsingCPU() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("usingCPU"))
+func (m MLNeuralNetworkEngine) UsingCPU() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("usingCPU"))
 	return rv
 }
-func (n MLNeuralNetworkEngine) SetUsingCPU(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setUsingCPU:"), value)
+func (m MLNeuralNetworkEngine) SetUsingCPU(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setUsingCPU:"), value)
 }

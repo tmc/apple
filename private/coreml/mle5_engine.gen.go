@@ -196,14 +196,14 @@ type IMLE5Engine interface {
 }
 
 // Init initializes the instance.
-func (e MLE5Engine) Init() MLE5Engine {
-	rv := objc.Send[MLE5Engine](e.ID, objc.Sel("init"))
+func (m MLE5Engine) Init() MLE5Engine {
+	rv := objc.Send[MLE5Engine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e MLE5Engine) Autorelease() MLE5Engine {
-	rv := objc.Send[MLE5Engine](e.ID, objc.Sel("autorelease"))
+func (m MLE5Engine) Autorelease() MLE5Engine {
+	rv := objc.Send[MLE5Engine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -248,9 +248,9 @@ func NewE5EngineWithProgramLibraryModelDescriptionConfigurationFunctionNameClass
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_classProbabilitiesInOutputFeatures:error:
-func (e MLE5Engine) _classProbabilitiesInOutputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) _classProbabilitiesInOutputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:"), features, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:"), features, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -260,23 +260,23 @@ func (e MLE5Engine) _classProbabilitiesInOutputFeaturesError(features objectivec
 }
 
 // ClassProbabilitiesInOutputFeaturesError is an exported wrapper for the private method _classProbabilitiesInOutputFeaturesError.
-func (e MLE5Engine) ClassProbabilitiesInOutputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:")) {
+func (m MLE5Engine) ClassProbabilitiesInOutputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_classProbabilitiesInOutputFeatures:error:"}
 		return nil, err
 	}
-	return e._classProbabilitiesInOutputFeaturesError(features)
+	return m._classProbabilitiesInOutputFeaturesError(features)
 }
 
 // CanClassProbabilitiesInOutputFeaturesError reports whether the receiver responds to the private selector _classProbabilitiesInOutputFeatures:error:.
-func (e MLE5Engine) CanClassProbabilitiesInOutputFeaturesError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:"))
+func (m MLE5Engine) CanClassProbabilitiesInOutputFeaturesError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_classProbabilitiesInOutputFeatures:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_classifierResultFromOutputFeatures:classifyTopK:error:
-func (e MLE5Engine) _classifierResultFromOutputFeaturesClassifyTopKError(features objectivec.IObject, k uint64) (objectivec.IObject, error) {
+func (m MLE5Engine) _classifierResultFromOutputFeaturesClassifyTopKError(features objectivec.IObject, k uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:"), features, k, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:"), features, k, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -286,23 +286,23 @@ func (e MLE5Engine) _classifierResultFromOutputFeaturesClassifyTopKError(feature
 }
 
 // ClassifierResultFromOutputFeaturesClassifyTopKError is an exported wrapper for the private method _classifierResultFromOutputFeaturesClassifyTopKError.
-func (e MLE5Engine) ClassifierResultFromOutputFeaturesClassifyTopKError(features objectivec.IObject, k uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:")) {
+func (m MLE5Engine) ClassifierResultFromOutputFeaturesClassifyTopKError(features objectivec.IObject, k uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_classifierResultFromOutputFeatures:classifyTopK:error:"}
 		return nil, err
 	}
-	return e._classifierResultFromOutputFeaturesClassifyTopKError(features, k)
+	return m._classifierResultFromOutputFeaturesClassifyTopKError(features, k)
 }
 
 // CanClassifierResultFromOutputFeaturesClassifyTopKError reports whether the receiver responds to the private selector _classifierResultFromOutputFeatures:classifyTopK:error:.
-func (e MLE5Engine) CanClassifierResultFromOutputFeaturesClassifyTopKError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:"))
+func (m MLE5Engine) CanClassifierResultFromOutputFeaturesClassifyTopKError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_classifierResultFromOutputFeatures:classifyTopK:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_cleanUpAndReconfigureStream:forInputFeatures:error:
-func (e MLE5Engine) _cleanUpAndReconfigureStreamForInputFeaturesError(stream objectivec.IObject, features objectivec.IObject) (bool, error) {
+func (m MLE5Engine) _cleanUpAndReconfigureStreamForInputFeaturesError(stream objectivec.IObject, features objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:"), stream, features, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:"), stream, features, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -315,43 +315,43 @@ func (e MLE5Engine) _cleanUpAndReconfigureStreamForInputFeaturesError(stream obj
 }
 
 // CleanUpAndReconfigureStreamForInputFeaturesError is an exported wrapper for the private method _cleanUpAndReconfigureStreamForInputFeaturesError.
-func (e MLE5Engine) CleanUpAndReconfigureStreamForInputFeaturesError(stream objectivec.IObject, features objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:")) {
+func (m MLE5Engine) CleanUpAndReconfigureStreamForInputFeaturesError(stream objectivec.IObject, features objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_cleanUpAndReconfigureStream:forInputFeatures:error:"}
 		return false, err
 	}
-	return e._cleanUpAndReconfigureStreamForInputFeaturesError(stream, features)
+	return m._cleanUpAndReconfigureStreamForInputFeaturesError(stream, features)
 }
 
 // CanCleanUpAndReconfigureStreamForInputFeaturesError reports whether the receiver responds to the private selector _cleanUpAndReconfigureStream:forInputFeatures:error:.
-func (e MLE5Engine) CanCleanUpAndReconfigureStreamForInputFeaturesError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:"))
+func (m MLE5Engine) CanCleanUpAndReconfigureStreamForInputFeaturesError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_cleanUpAndReconfigureStream:forInputFeatures:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_cleanUpStream:
-func (e MLE5Engine) _cleanUpStream(stream objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("_cleanUpStream:"), stream)
+func (m MLE5Engine) _cleanUpStream(stream objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_cleanUpStream:"), stream)
 }
 
 // CleanUpStream is an exported wrapper for the private method _cleanUpStream.
-func (e MLE5Engine) CleanUpStream(stream objectivec.IObject) error {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_cleanUpStream:")) {
+func (m MLE5Engine) CleanUpStream(stream objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_cleanUpStream:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_cleanUpStream:"}
 		return err
 	}
-	e._cleanUpStream(stream)
+	m._cleanUpStream(stream)
 	return nil
 }
 
 // CanCleanUpStream reports whether the receiver responds to the private selector _cleanUpStream:.
-func (e MLE5Engine) CanCleanUpStream() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_cleanUpStream:"))
+func (m MLE5Engine) CanCleanUpStream() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_cleanUpStream:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_conformInputFeatures:error:
-func (e MLE5Engine) _conformInputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) _conformInputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_conformInputFeatures:error:"), features, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_conformInputFeatures:error:"), features, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -361,23 +361,23 @@ func (e MLE5Engine) _conformInputFeaturesError(features objectivec.IObject) (obj
 }
 
 // ConformInputFeaturesError is an exported wrapper for the private method _conformInputFeaturesError.
-func (e MLE5Engine) ConformInputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_conformInputFeatures:error:")) {
+func (m MLE5Engine) ConformInputFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_conformInputFeatures:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_conformInputFeatures:error:"}
 		return nil, err
 	}
-	return e._conformInputFeaturesError(features)
+	return m._conformInputFeaturesError(features)
 }
 
 // CanConformInputFeaturesError reports whether the receiver responds to the private selector _conformInputFeatures:error:.
-func (e MLE5Engine) CanConformInputFeaturesError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_conformInputFeatures:error:"))
+func (m MLE5Engine) CanConformInputFeaturesError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_conformInputFeatures:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_conformState:error:
-func (e MLE5Engine) _conformStateError(state objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) _conformStateError(state objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_conformState:error:"), state, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_conformState:error:"), state, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -387,63 +387,63 @@ func (e MLE5Engine) _conformStateError(state objectivec.IObject) (objectivec.IOb
 }
 
 // ConformStateError is an exported wrapper for the private method _conformStateError.
-func (e MLE5Engine) ConformStateError(state objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_conformState:error:")) {
+func (m MLE5Engine) ConformStateError(state objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_conformState:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_conformState:error:"}
 		return nil, err
 	}
-	return e._conformStateError(state)
+	return m._conformStateError(state)
 }
 
 // CanConformStateError reports whether the receiver responds to the private selector _conformState:error:.
-func (e MLE5Engine) CanConformStateError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_conformState:error:"))
+func (m MLE5Engine) CanConformStateError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_conformState:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_extractSupportFromBackendDict:
-func (e MLE5Engine) _extractSupportFromBackendDict(dict objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("_extractSupportFromBackendDict:"), dict)
+func (m MLE5Engine) _extractSupportFromBackendDict(dict objectivec.IObject) uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("_extractSupportFromBackendDict:"), dict)
 	return rv
 }
 
 // ExtractSupportFromBackendDict is an exported wrapper for the private method _extractSupportFromBackendDict.
-func (e MLE5Engine) ExtractSupportFromBackendDict(dict objectivec.IObject) (uint64, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_extractSupportFromBackendDict:")) {
+func (m MLE5Engine) ExtractSupportFromBackendDict(dict objectivec.IObject) (uint64, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_extractSupportFromBackendDict:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_extractSupportFromBackendDict:"}
 		return 0, err
 	}
-	return e._extractSupportFromBackendDict(dict), nil
+	return m._extractSupportFromBackendDict(dict), nil
 }
 
 // CanExtractSupportFromBackendDict reports whether the receiver responds to the private selector _extractSupportFromBackendDict:.
-func (e MLE5Engine) CanExtractSupportFromBackendDict() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_extractSupportFromBackendDict:"))
+func (m MLE5Engine) CanExtractSupportFromBackendDict() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_extractSupportFromBackendDict:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_extractSupportedComputeUnitFromString:
-func (e MLE5Engine) _extractSupportedComputeUnitFromString(string_ objectivec.IObject) uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("_extractSupportedComputeUnitFromString:"), string_)
+func (m MLE5Engine) _extractSupportedComputeUnitFromString(string_ objectivec.IObject) uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("_extractSupportedComputeUnitFromString:"), string_)
 	return rv
 }
 
 // ExtractSupportedComputeUnitFromString is an exported wrapper for the private method _extractSupportedComputeUnitFromString.
-func (e MLE5Engine) ExtractSupportedComputeUnitFromString(string_ objectivec.IObject) (uint64, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_extractSupportedComputeUnitFromString:")) {
+func (m MLE5Engine) ExtractSupportedComputeUnitFromString(string_ objectivec.IObject) (uint64, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_extractSupportedComputeUnitFromString:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_extractSupportedComputeUnitFromString:"}
 		return 0, err
 	}
-	return e._extractSupportedComputeUnitFromString(string_), nil
+	return m._extractSupportedComputeUnitFromString(string_), nil
 }
 
 // CanExtractSupportedComputeUnitFromString reports whether the receiver responds to the private selector _extractSupportedComputeUnitFromString:.
-func (e MLE5Engine) CanExtractSupportedComputeUnitFromString() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_extractSupportedComputeUnitFromString:"))
+func (m MLE5Engine) CanExtractSupportedComputeUnitFromString() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_extractSupportedComputeUnitFromString:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_newRequestForModel:inputFeatures:usingState:options:error:
-func (e MLE5Engine) _newRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) _newRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_newRequestForModel:inputFeatures:usingState:options:error:"), model, features, state, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_newRequestForModel:inputFeatures:usingState:options:error:"), model, features, state, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -453,9 +453,9 @@ func (e MLE5Engine) _newRequestForModelInputFeaturesUsingStateOptionsError(model
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:
-func (e MLE5Engine) _outputFeaturesByAddingClassifierResultToClassifyTopKError(to objectivec.IObject, k uint64) (objectivec.IObject, error) {
+func (m MLE5Engine) _outputFeaturesByAddingClassifierResultToClassifyTopKError(to objectivec.IObject, k uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"), to, k, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"), to, k, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -465,23 +465,23 @@ func (e MLE5Engine) _outputFeaturesByAddingClassifierResultToClassifyTopKError(t
 }
 
 // OutputFeaturesByAddingClassifierResultToClassifyTopKError is an exported wrapper for the private method _outputFeaturesByAddingClassifierResultToClassifyTopKError.
-func (e MLE5Engine) OutputFeaturesByAddingClassifierResultToClassifyTopKError(to objectivec.IObject, k uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:")) {
+func (m MLE5Engine) OutputFeaturesByAddingClassifierResultToClassifyTopKError(to objectivec.IObject, k uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"}
 		return nil, err
 	}
-	return e._outputFeaturesByAddingClassifierResultToClassifyTopKError(to, k)
+	return m._outputFeaturesByAddingClassifierResultToClassifyTopKError(to, k)
 }
 
 // CanOutputFeaturesByAddingClassifierResultToClassifyTopKError reports whether the receiver responds to the private selector _outputFeaturesByAddingClassifierResultTo:classifyTopK:error:.
-func (e MLE5Engine) CanOutputFeaturesByAddingClassifierResultToClassifyTopKError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"))
+func (m MLE5Engine) CanOutputFeaturesByAddingClassifierResultToClassifyTopKError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_outputFeaturesByAddingClassifierResultTo:classifyTopK:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_postProcessingForOutputs:options:error:
-func (e MLE5Engine) _postProcessingForOutputsOptionsError(outputs objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) _postProcessingForOutputsOptionsError(outputs objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_postProcessingForOutputs:options:error:"), outputs, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_postProcessingForOutputs:options:error:"), outputs, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -491,44 +491,44 @@ func (e MLE5Engine) _postProcessingForOutputsOptionsError(outputs objectivec.IOb
 }
 
 // PostProcessingForOutputsOptionsError is an exported wrapper for the private method _postProcessingForOutputsOptionsError.
-func (e MLE5Engine) PostProcessingForOutputsOptionsError(outputs objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_postProcessingForOutputs:options:error:")) {
+func (m MLE5Engine) PostProcessingForOutputsOptionsError(outputs objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_postProcessingForOutputs:options:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_postProcessingForOutputs:options:error:"}
 		return nil, err
 	}
-	return e._postProcessingForOutputsOptionsError(outputs, options)
+	return m._postProcessingForOutputsOptionsError(outputs, options)
 }
 
 // CanPostProcessingForOutputsOptionsError reports whether the receiver responds to the private selector _postProcessingForOutputs:options:error:.
-func (e MLE5Engine) CanPostProcessingForOutputsOptionsError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_postProcessingForOutputs:options:error:"))
+func (m MLE5Engine) CanPostProcessingForOutputsOptionsError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_postProcessingForOutputs:options:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:options:completionHandler:
-func (e MLE5Engine) _predictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
+func (m MLE5Engine) _predictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](e.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"), features, options, _block2)
+	objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"), features, options, _block2)
 }
 
 // PredictionFromFeaturesOptionsCompletionHandler is an exported wrapper for the private method _predictionFromFeaturesOptionsCompletionHandler.
-func (e MLE5Engine) PredictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) error {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:")) {
+func (m MLE5Engine) PredictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_predictionFromFeatures:options:completionHandler:"}
 		return err
 	}
-	e._predictionFromFeaturesOptionsCompletionHandler(features, options, handler)
+	m._predictionFromFeaturesOptionsCompletionHandler(features, options, handler)
 	return nil
 }
 
 // CanPredictionFromFeaturesOptionsCompletionHandler reports whether the receiver responds to the private selector _predictionFromFeatures:options:completionHandler:.
-func (e MLE5Engine) CanPredictionFromFeaturesOptionsCompletionHandler() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"))
+func (m MLE5Engine) CanPredictionFromFeaturesOptionsCompletionHandler() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_predictionFromFeatures:options:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:options:error:
-func (e MLE5Engine) _predictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) _predictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -538,9 +538,9 @@ func (e MLE5Engine) _predictionFromFeaturesOptionsError(features objectivec.IObj
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:stream:options:error:
-func (e MLE5Engine) _predictionFromFeaturesStreamOptionsError(features objectivec.IObject, stream objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) _predictionFromFeaturesStreamOptionsError(features objectivec.IObject, stream objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_predictionFromFeatures:stream:options:error:"), features, stream, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:stream:options:error:"), features, stream, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -550,23 +550,23 @@ func (e MLE5Engine) _predictionFromFeaturesStreamOptionsError(features objective
 }
 
 // PredictionFromFeaturesStreamOptionsError is an exported wrapper for the private method _predictionFromFeaturesStreamOptionsError.
-func (e MLE5Engine) PredictionFromFeaturesStreamOptionsError(features objectivec.IObject, stream objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_predictionFromFeatures:stream:options:error:")) {
+func (m MLE5Engine) PredictionFromFeaturesStreamOptionsError(features objectivec.IObject, stream objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_predictionFromFeatures:stream:options:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_predictionFromFeatures:stream:options:error:"}
 		return nil, err
 	}
-	return e._predictionFromFeaturesStreamOptionsError(features, stream, options)
+	return m._predictionFromFeaturesStreamOptionsError(features, stream, options)
 }
 
 // CanPredictionFromFeaturesStreamOptionsError reports whether the receiver responds to the private selector _predictionFromFeatures:stream:options:error:.
-func (e MLE5Engine) CanPredictionFromFeaturesStreamOptionsError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_predictionFromFeatures:stream:options:error:"))
+func (m MLE5Engine) CanPredictionFromFeaturesStreamOptionsError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_predictionFromFeatures:stream:options:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_predictionFromFeatures:usingState:options:error:
-func (e MLE5Engine) _predictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) _predictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -576,69 +576,69 @@ func (e MLE5Engine) _predictionFromFeaturesUsingStateOptionsError(features objec
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_probabilityDictionaryWithMultiArray:classifyTopK:
-func (e MLE5Engine) _probabilityDictionaryWithMultiArrayClassifyTopK(array objectivec.IObject, k int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"), array, k)
+func (m MLE5Engine) _probabilityDictionaryWithMultiArrayClassifyTopK(array objectivec.IObject, k int64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"), array, k)
 	return objectivec.Object{ID: rv}
 }
 
 // ProbabilityDictionaryWithMultiArrayClassifyTopK is an exported wrapper for the private method _probabilityDictionaryWithMultiArrayClassifyTopK.
-func (e MLE5Engine) ProbabilityDictionaryWithMultiArrayClassifyTopK(array objectivec.IObject, k int64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:")) {
+func (m MLE5Engine) ProbabilityDictionaryWithMultiArrayClassifyTopK(array objectivec.IObject, k int64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_probabilityDictionaryWithMultiArray:classifyTopK:"}
 		return nil, err
 	}
-	return e._probabilityDictionaryWithMultiArrayClassifyTopK(array, k), nil
+	return m._probabilityDictionaryWithMultiArrayClassifyTopK(array, k), nil
 }
 
 // CanProbabilityDictionaryWithMultiArrayClassifyTopK reports whether the receiver responds to the private selector _probabilityDictionaryWithMultiArray:classifyTopK:.
-func (e MLE5Engine) CanProbabilityDictionaryWithMultiArrayClassifyTopK() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"))
+func (m MLE5Engine) CanProbabilityDictionaryWithMultiArrayClassifyTopK() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_probabilityDictionaryWithMultiArray:classifyTopK:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:
-func (e MLE5Engine) _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary objectivec.IObject) float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"), dictionary)
+func (m MLE5Engine) _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary objectivec.IObject) float64 {
+	rv := objc.Send[float64](m.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"), dictionary)
 	return rv
 }
 
 // TotalRuntimeInMilliSecondsFromE5AnalyticsDictionary is an exported wrapper for the private method _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary.
-func (e MLE5Engine) TotalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary objectivec.IObject) (float64, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:")) {
+func (m MLE5Engine) TotalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary objectivec.IObject) (float64, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"}
 		return 0.0, err
 	}
-	return e._totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary), nil
+	return m._totalRuntimeInMilliSecondsFromE5AnalyticsDictionary(dictionary), nil
 }
 
 // CanTotalRuntimeInMilliSecondsFromE5AnalyticsDictionary reports whether the receiver responds to the private selector _totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:.
-func (e MLE5Engine) CanTotalRuntimeInMilliSecondsFromE5AnalyticsDictionary() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"))
+func (m MLE5Engine) CanTotalRuntimeInMilliSecondsFromE5AnalyticsDictionary() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_totalRuntimeInMilliSecondsFromE5AnalyticsDictionary:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_trimQuotesFromBackendName:
-func (e MLE5Engine) _trimQuotesFromBackendName(name objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_trimQuotesFromBackendName:"), name)
+func (m MLE5Engine) _trimQuotesFromBackendName(name objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_trimQuotesFromBackendName:"), name)
 	return objectivec.Object{ID: rv}
 }
 
 // TrimQuotesFromBackendName is an exported wrapper for the private method _trimQuotesFromBackendName.
-func (e MLE5Engine) TrimQuotesFromBackendName(name objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_trimQuotesFromBackendName:")) {
+func (m MLE5Engine) TrimQuotesFromBackendName(name objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_trimQuotesFromBackendName:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_trimQuotesFromBackendName:"}
 		return nil, err
 	}
-	return e._trimQuotesFromBackendName(name), nil
+	return m._trimQuotesFromBackendName(name), nil
 }
 
 // CanTrimQuotesFromBackendName reports whether the receiver responds to the private selector _trimQuotesFromBackendName:.
-func (e MLE5Engine) CanTrimQuotesFromBackendName() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_trimQuotesFromBackendName:"))
+func (m MLE5Engine) CanTrimQuotesFromBackendName() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_trimQuotesFromBackendName:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/_validateStreamReuse:expectation:error:
-func (e MLE5Engine) _validateStreamReuseExpectationError(reuse bool, expectation objectivec.IObject) (bool, error) {
+func (m MLE5Engine) _validateStreamReuseExpectationError(reuse bool, expectation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("_validateStreamReuse:expectation:error:"), reuse, expectation, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_validateStreamReuse:expectation:error:"), reuse, expectation, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -651,29 +651,29 @@ func (e MLE5Engine) _validateStreamReuseExpectationError(reuse bool, expectation
 }
 
 // ValidateStreamReuseExpectationError is an exported wrapper for the private method _validateStreamReuseExpectationError.
-func (e MLE5Engine) ValidateStreamReuseExpectationError(reuse bool, expectation objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_validateStreamReuse:expectation:error:")) {
+func (m MLE5Engine) ValidateStreamReuseExpectationError(reuse bool, expectation objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_validateStreamReuse:expectation:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_validateStreamReuse:expectation:error:"}
 		return false, err
 	}
-	return e._validateStreamReuseExpectationError(reuse, expectation)
+	return m._validateStreamReuseExpectationError(reuse, expectation)
 }
 
 // CanValidateStreamReuseExpectationError reports whether the receiver responds to the private selector _validateStreamReuse:expectation:error:.
-func (e MLE5Engine) CanValidateStreamReuseExpectationError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_validateStreamReuse:expectation:error:"))
+func (m MLE5Engine) CanValidateStreamReuseExpectationError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_validateStreamReuse:expectation:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classLabels
-func (e MLE5Engine) ClassLabels() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("classLabels"))
+func (m MLE5Engine) ClassLabels() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classify:options:error:
-func (e MLE5Engine) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -683,9 +683,9 @@ func (e MLE5Engine) ClassifyOptionsError(classify objectivec.IObject, options ob
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/evaluateFunction:arguments:error:
-func (e MLE5Engine) EvaluateFunctionArgumentsError(function objectivec.IObject, arguments objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) EvaluateFunctionArgumentsError(function objectivec.IObject, arguments objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("evaluateFunction:arguments:error:"), function, arguments, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("evaluateFunction:arguments:error:"), function, arguments, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -695,9 +695,9 @@ func (e MLE5Engine) EvaluateFunctionArgumentsError(function objectivec.IObject, 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/newContextAndReturnError:
-func (e MLE5Engine) NewContextAndReturnError() (objectivec.IObject, error) {
+func (m MLE5Engine) NewContextAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("newContextAndReturnError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("newContextAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -707,9 +707,9 @@ func (e MLE5Engine) NewContextAndReturnError() (objectivec.IObject, error) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/newRequestForModel:inputFeatures:usingState:options:error:
-func (e MLE5Engine) NewRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) NewRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("newRequestForModel:inputFeatures:usingState:options:error:"), model, features, state, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("newRequestForModel:inputFeatures:usingState:options:error:"), model, features, state, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -719,15 +719,15 @@ func (e MLE5Engine) NewRequestForModelInputFeaturesUsingStateOptionsError(model 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/newStateWithClientBuffers:
-func (e MLE5Engine) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
+func (m MLE5Engine) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/predictionFromFeatures:usingState:options:error:
-func (e MLE5Engine) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5Engine) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -737,9 +737,9 @@ func (e MLE5Engine) PredictionFromFeaturesUsingStateOptionsError(features object
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/prepareWithConcurrencyHint:error:
-func (e MLE5Engine) PrepareWithConcurrencyHintError(hint int64) (bool, error) {
+func (m MLE5Engine) PrepareWithConcurrencyHintError(hint int64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("prepareWithConcurrencyHint:error:"), hint, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("prepareWithConcurrencyHint:error:"), hint, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -752,9 +752,9 @@ func (e MLE5Engine) PrepareWithConcurrencyHintError(hint int64) (bool, error) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/initWithContainer:configuration:error:
-func (e MLE5Engine) InitWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5Engine, error) {
+func (m MLE5Engine) InitWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5Engine, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLE5Engine{}, foundation.NSErrorFrom(errorPtr)
@@ -764,8 +764,8 @@ func (e MLE5Engine) InitWithContainerConfigurationError(container objectivec.IOb
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:
-func (e MLE5Engine) InitWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo(library objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, values objectivec.IObject, info objectivec.IObject) MLE5Engine {
-	rv := objc.Send[MLE5Engine](e.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
+func (m MLE5Engine) InitWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo(library objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, values objectivec.IObject, info objectivec.IObject) MLE5Engine {
+	rv := objc.Send[MLE5Engine](m.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
 	return rv
 }
 
@@ -800,76 +800,76 @@ func (_MLE5EngineClass MLE5EngineClass) LoadModelFromCompiledArchiveModelVersion
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/batchMaxInFlightSem
-func (e MLE5Engine) BatchMaxInFlightSem() objectivec.Object {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("batchMaxInFlightSem"))
+func (m MLE5Engine) BatchMaxInFlightSem() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchMaxInFlightSem"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classLabelsSharedKey
-func (e MLE5Engine) ClassLabelsSharedKey() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("classLabelsSharedKey"))
+func (m MLE5Engine) ClassLabelsSharedKey() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabelsSharedKey"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/classProbabilitiesFeatureName
-func (e MLE5Engine) ClassProbabilitiesFeatureName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("classProbabilitiesFeatureName"))
+func (m MLE5Engine) ClassProbabilitiesFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classProbabilitiesFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/compilerVersionInfo
-func (e MLE5Engine) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("compilerVersionInfo"))
+func (m MLE5Engine) CompilerVersionInfo() IMLVersionInfo {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/functionName
-func (e MLE5Engine) FunctionName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("functionName"))
+func (m MLE5Engine) FunctionName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/inputFeatureConformer
-func (e MLE5Engine) InputFeatureConformer() IMLFeatureProviderConformer {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputFeatureConformer"))
+func (m MLE5Engine) InputFeatureConformer() IMLFeatureProviderConformer {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/operationPool
-func (e MLE5Engine) OperationPool() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("operationPool"))
+func (m MLE5Engine) OperationPool() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("operationPool"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/programLibrary
-func (e MLE5Engine) ProgramLibrary() IMLE5ProgramLibrary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("programLibrary"))
+func (m MLE5Engine) ProgramLibrary() IMLE5ProgramLibrary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/serializedMILText
-func (e MLE5Engine) SerializedMILText() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("serializedMILText"))
+func (m MLE5Engine) SerializedMILText() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/stateFeatureConformer
-func (e MLE5Engine) StateFeatureConformer() IMLFeatureProviderConformer {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("stateFeatureConformer"))
+func (m MLE5Engine) StateFeatureConformer() IMLFeatureProviderConformer {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("stateFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5Engine/streamPool
-func (e MLE5Engine) StreamPool() IMLE5ExecutionStreamPool {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("streamPool"))
+func (m MLE5Engine) StreamPool() IMLE5ExecutionStreamPool {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("streamPool"))
 	return MLE5ExecutionStreamPoolFromID(objc.ID(rv))
 }
 
 // _predictionFromFeaturesOptions is a synchronous wrapper around [MLE5Engine._predictionFromFeaturesOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (e MLE5Engine) _predictionFromFeaturesOptions(ctx context.Context, features objectivec.IObject, options objectivec.IObject) error {
+func (m MLE5Engine) _predictionFromFeaturesOptions(ctx context.Context, features objectivec.IObject, options objectivec.IObject) error {
 	done := make(chan error, 1)
-	e._predictionFromFeaturesOptionsCompletionHandler(features, options, func(err error) {
+	m._predictionFromFeaturesOptionsCompletionHandler(features, options, func(err error) {
 		done <- err
 	})
 	select {

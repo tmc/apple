@@ -19,40 +19,24 @@ type CITwelvefoldReflectedTile interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/angle
 	Angle() float32
-
-	// The x and y position to use as the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/center
-	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/inputImage
-	InputImage() ICIImage
-
-	// The width of a tile.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/width
-	Width() float32
-
-	// The angle, in radians, of the tiled pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/angle
 	SetAngle(value float32)
 
 	// The x and y position to use as the center of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/center
+	Center() corefoundation.CGPoint
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The width of a tile.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/width
+	Width() float32
 	SetWidth(value float32)
 }
 
@@ -73,38 +57,6 @@ func CITwelvefoldReflectedTileObjectFromID(id objc.ID) CITwelvefoldReflectedTile
 	}
 }
 
-// The angle, in radians, of the tiled pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/angle
-func (o CITwelvefoldReflectedTileObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The x and y position to use as the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/center
-func (o CITwelvefoldReflectedTileObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/inputImage
-func (o CITwelvefoldReflectedTileObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The width of a tile.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/width
-func (o CITwelvefoldReflectedTileObject) Width() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("width"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -117,6 +69,11 @@ func (o CITwelvefoldReflectedTileObject) OutputImage() ICIImage {
 // The angle, in radians, of the tiled pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/angle
+func (o CITwelvefoldReflectedTileObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CITwelvefoldReflectedTileObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -124,6 +81,11 @@ func (o CITwelvefoldReflectedTileObject) SetAngle(value float32) {
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/center
+func (o CITwelvefoldReflectedTileObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CITwelvefoldReflectedTileObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -131,6 +93,11 @@ func (o CITwelvefoldReflectedTileObject) SetCenter(value corefoundation.CGPoint)
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/inputImage
+func (o CITwelvefoldReflectedTileObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CITwelvefoldReflectedTileObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -138,6 +105,11 @@ func (o CITwelvefoldReflectedTileObject) SetInputImage(value ICIImage) {
 // The width of a tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITwelvefoldReflectedTile/width
+func (o CITwelvefoldReflectedTileObject) Width() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("width"))
+	return float32(rv)
+}
+
 func (o CITwelvefoldReflectedTileObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }

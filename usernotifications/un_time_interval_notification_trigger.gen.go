@@ -91,7 +91,7 @@ type IUNTimeIntervalNotificationTrigger interface {
 	// Topic: Getting the Trigger Information
 
 	// The next date at which the trigger conditions are met.
-	NextTriggerDate() foundation.INSDate
+	NextTriggerDate() foundation.NSDate
 	// The time interval to create the trigger.
 	TimeInterval() float64
 }
@@ -154,7 +154,7 @@ func NewUNTimeIntervalNotificationTriggerWithTimeIntervalRepeats(timeInterval fl
 // trigger will next be delivered.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNTimeIntervalNotificationTrigger/nextTriggerDate()
-func (u UNTimeIntervalNotificationTrigger) NextTriggerDate() foundation.INSDate {
+func (u UNTimeIntervalNotificationTrigger) NextTriggerDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("nextTriggerDate"))
 	return foundation.NSDateFromID(rv)
 }

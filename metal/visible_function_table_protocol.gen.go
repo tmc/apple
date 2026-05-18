@@ -22,15 +22,15 @@ type MTLVisibleFunctionTable interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/setFunction(_:index:)
 	SetFunctionAtIndex(function MTLFunctionHandle, index uint)
 
-	// GpuResourceID protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/gpuResourceID
-	GpuResourceID() MTLResourceID
-
 	// Sets a range of table entries to point to an array of callable functions.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/setFunctions:withRange:
 	SetFunctionsWithRange(functions []MTLFunctionHandle, range_ foundation.NSRange)
+
+	// gpuResourceID protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/gpuResourceID
+	GpuResourceID() MTLResourceID
 }
 
 // MTLVisibleFunctionTableObject wraps an existing Objective-C object that conforms to the MTLVisibleFunctionTable protocol.
@@ -59,12 +59,6 @@ func MTLVisibleFunctionTableObjectFromID(id objc.ID) MTLVisibleFunctionTableObje
 // See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/setFunction(_:index:)
 func (o MTLVisibleFunctionTableObject) SetFunctionAtIndex(function MTLFunctionHandle, index uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFunction:atIndex:"), function, index)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/gpuResourceID
-func (o MTLVisibleFunctionTableObject) GpuResourceID() MTLResourceID {
-	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
 }
 
 // Sets a range of table entries to point to an array of callable functions.
@@ -152,9 +146,9 @@ func (o MTLVisibleFunctionTableObject) ResourceOptions() MTLResourceOptions {
 // If `state` is [MTLPurgeableStateNonVolatile], the resource is marked to
 // inform the caller that the data should not be discarded.
 //
-// If `state` is [MTLPurgeableState.empty], the resource is marked as data
-// that can be discarded, because the caller no longer needs the contents of
-// the resource.
+// If `state` is [MTLPurgeableStateEmpty], the resource is marked as data that
+// can be discarded, because the caller no longer needs the contents of the
+// resource.
 //
 // If `state` is [MTLPurgeableStateVolatile], the resource is marked as data
 // that can be discarded, even if the caller may need the resource.
@@ -172,8 +166,6 @@ func (o MTLVisibleFunctionTableObject) ResourceOptions() MTLResourceOptions {
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-//
-// [MTLPurgeableState.empty]: https://developer.apple.com/documentation/Metal/MTLPurgeableState/empty
 func (o MTLVisibleFunctionTableObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
@@ -249,9 +241,15 @@ func (o MTLVisibleFunctionTableObject) IsAliasable() bool {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-func (o MTLVisibleFunctionTableObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32 {
+func (o MTLVisibleFunctionTableObject) SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32 {
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/gpuResourceID
+func (o MTLVisibleFunctionTableObject) GpuResourceID() MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
+	return MTLResourceID(rv)
 }
 
 // A string that identifies the resource.

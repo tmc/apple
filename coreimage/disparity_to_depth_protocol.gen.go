@@ -18,10 +18,6 @@ type CIDisparityToDepth interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDisparityToDepth/inputImage
 	InputImage() ICIImage
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDisparityToDepth/inputImage
 	SetInputImage(value ICIImage)
 }
 
@@ -42,14 +38,6 @@ func CIDisparityToDepthObjectFromID(id objc.ID) CIDisparityToDepthObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDisparityToDepth/inputImage
-func (o CIDisparityToDepthObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -62,6 +50,11 @@ func (o CIDisparityToDepthObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDisparityToDepth/inputImage
+func (o CIDisparityToDepthObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIDisparityToDepthObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

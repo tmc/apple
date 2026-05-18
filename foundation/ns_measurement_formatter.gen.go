@@ -46,12 +46,11 @@ func (mc MeasurementFormatterClass) Alloc() MeasurementFormatter {
 //
 // # Overview
 //
-// You use the [StringFromMeasurement] method to create a localized
-// representation of an [NSMeasurement] object, and you use the
-// [StringFromUnit] method to create a localized representation of an [NSUnit]
-// object. The formatter takes into account the specified [Locale],
-// [UnitStyle], and [UnitOptions] when producing string representations of
-// units and measurements.
+// You use the [StringFromUnit] method to create a localized representation of
+// an [NSMeasurement] object, and you use the [StringFromUnit] method to
+// create a localized representation of an [NSUnit] object. The formatter
+// takes into account the specified [Locale], [UnitStyle], and [UnitOptions]
+// when producing string representations of units and measurements.
 //
 // # Specifying the Format
 //

@@ -203,7 +203,7 @@ func NewCKRecordZone() CKRecordZone {
 // Use this method when you want to create a new record zone from the
 // information in a zone ID. After creating the zone, save it to the server
 // using a [CKModifyRecordZonesOperation] object or the
-// [SaveRecordZoneCompletionHandler] method of [CKDatabase].
+// [SaveSubscriptionCompletionHandler] method of [CKDatabase].
 //
 // Don’t use this method to create a [CKRecordZone] object that corresponds
 // to a zone that already exists in the database. If the zone exists, fetch it
@@ -236,7 +236,7 @@ func NewCKRecordZoneWithZoneID(zoneID ICKRecordZoneID) CKRecordZone {
 // Use this method to create a new record zone. The new zone has the name you
 // provide and the zone’s owner is the current user. After creating the
 // zone, save it to the server using a [CKModifyRecordZonesOperation] object
-// or the [SaveRecordZoneCompletionHandler] method of [CKDatabase]. You must
+// or the [SaveSubscriptionCompletionHandler] method of [CKDatabase]. You must
 // save the zone to the server before you attempt to save any records to that
 // zone.
 //
@@ -271,7 +271,7 @@ func NewCKRecordZoneWithZoneName(zoneName string) CKRecordZone {
 // Use this method to create a new record zone. The new zone has the name you
 // provide and the zone’s owner is the current user. After creating the
 // zone, save it to the server using a [CKModifyRecordZonesOperation] object
-// or the [SaveRecordZoneCompletionHandler] method of [CKDatabase]. You must
+// or the [SaveSubscriptionCompletionHandler] method of [CKDatabase]. You must
 // save the zone to the server before you attempt to save any records to that
 // zone.
 //
@@ -299,7 +299,7 @@ func (c CKRecordZone) InitWithZoneName(zoneName string) CKRecordZone {
 // Use this method when you want to create a new record zone from the
 // information in a zone ID. After creating the zone, save it to the server
 // using a [CKModifyRecordZonesOperation] object or the
-// [SaveRecordZoneCompletionHandler] method of [CKDatabase].
+// [SaveSubscriptionCompletionHandler] method of [CKDatabase].
 //
 // Don’t use this method to create a [CKRecordZone] object that corresponds
 // to a zone that already exists in the database. If the zone exists, fetch it

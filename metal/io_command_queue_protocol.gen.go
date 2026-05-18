@@ -33,10 +33,6 @@ type MTLIOCommandQueue interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueue/label
 	Label() string
-
-	// An optional name for the input/output command queue.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueue/label
 	SetLabel(value string)
 }
 
@@ -91,9 +87,6 @@ func (o MTLIOCommandQueueObject) Label() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-// An optional name for the input/output command queue.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueue/label
 func (o MTLIOCommandQueueObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

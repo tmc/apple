@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -167,13 +168,13 @@ type IAVAssetReaderTrackOutput interface {
 	// A key to retrieve the video scaling mode from a dictionary.
 	AVVideoScalingModeKey() string
 	// A key that specifies the linear PCM codec, and uses the standard flags.
-	KAudioFormatLinearPCM() string
-	SetKAudioFormatLinearPCM(value string)
-	KCMFormatDescriptionExtension_Depth() corefoundation.CFStringRef
+	KAudioFormatLinearPCM() unsafe.Pointer
+	SetKAudioFormatLinearPCM(value unsafe.Pointer)
+	KCMFormatDescriptionExtension_Depth() corefoundation.CFString
 	// A key to the height of the pixel buffer.
-	KCVPixelBufferHeightKey() corefoundation.CFStringRef
+	KCVPixelBufferHeightKey() corefoundation.CFString
 	// A key to the width of the pixel buffer.
-	KCVPixelBufferWidthKey() corefoundation.CFStringRef
+	KCVPixelBufferWidthKey() corefoundation.CFString
 	// 32-bit ARGB.
 	KCVPixelFormatType_32ARGB() uint32
 	SetKCVPixelFormatType_32ARGB(value uint32)
@@ -375,34 +376,34 @@ func (a AVAssetReaderTrackOutput) AVVideoScalingModeKey() string {
 // A key that specifies the linear PCM codec, and uses the standard flags.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
-func (a AVAssetReaderTrackOutput) KAudioFormatLinearPCM() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioFormatLinearPCM"))
-	return foundation.NSStringFromID(rv).String()
+func (a AVAssetReaderTrackOutput) KAudioFormatLinearPCM() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("kAudioFormatLinearPCM"))
+	return rv
 }
-func (a AVAssetReaderTrackOutput) SetKAudioFormatLinearPCM(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setKAudioFormatLinearPCM:"), objc.String(value))
+func (a AVAssetReaderTrackOutput) SetKAudioFormatLinearPCM(value unsafe.Pointer) {
+	objc.Send[struct{}](a.ID, objc.Sel("setKAudioFormatLinearPCM:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_Depth
-func (a AVAssetReaderTrackOutput) KCMFormatDescriptionExtension_Depth() corefoundation.CFStringRef {
-	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCMFormatDescriptionExtension_Depth"))
-	return corefoundation.CFStringRef(rv)
+func (a AVAssetReaderTrackOutput) KCMFormatDescriptionExtension_Depth() corefoundation.CFString {
+	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCMFormatDescriptionExtension_Depth"))
+	return corefoundation.CFString(rv)
 }
 
 // A key to the height of the pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferHeightKey
-func (a AVAssetReaderTrackOutput) KCVPixelBufferHeightKey() corefoundation.CFStringRef {
-	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCVPixelBufferHeightKey"))
-	return corefoundation.CFStringRef(rv)
+func (a AVAssetReaderTrackOutput) KCVPixelBufferHeightKey() corefoundation.CFString {
+	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCVPixelBufferHeightKey"))
+	return corefoundation.CFString(rv)
 }
 
 // A key to the width of the pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferWidthKey
-func (a AVAssetReaderTrackOutput) KCVPixelBufferWidthKey() corefoundation.CFStringRef {
-	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCVPixelBufferWidthKey"))
-	return corefoundation.CFStringRef(rv)
+func (a AVAssetReaderTrackOutput) KCVPixelBufferWidthKey() corefoundation.CFString {
+	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCVPixelBufferWidthKey"))
+	return corefoundation.CFString(rv)
 }
 
 // 32-bit ARGB.

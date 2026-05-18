@@ -226,8 +226,6 @@ func NSDateComponentsFromID(id objc.ID) NSDateComponents {
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents
 type INSDateComponents interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Setting a Calendar and Time Zone

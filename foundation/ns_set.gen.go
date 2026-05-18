@@ -101,6 +101,7 @@ func (nc NSSetClass) Alloc() NSSet {
 //
 // # Creating a Set
 //
+//   - [NSSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //   - [NSSet.SetByAddingObject]: Returns a new set formed by adding a given object to the receiving set.
 //   - [NSSet.SetByAddingObjectsFromSet]: Returns a new set formed by adding the objects in a given set to the receiving set.
 //   - [NSSet.SetByAddingObjectsFromArray]: Returns a new set formed by adding the objects in a given array to the receiving set.
@@ -108,7 +109,6 @@ func (nc NSSetClass) Alloc() NSSet {
 // # Initializing a Set
 //
 //   - [NSSet.InitWithArray]: Initializes a newly allocated set with the objects that are contained in a given array.
-//   - [NSSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //   - [NSSet.InitWithSet]: Initializes a newly allocated set and adds to it objects from another given set.
 //   - [NSSet.InitWithSetCopyItems]: Initializes a newly allocated set and adds to it members of another given set.
 //
@@ -167,6 +167,7 @@ func NSSetFromID(id objc.ID) NSSet {
 //
 // # Creating a Set
 //
+//   - [INSSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //   - [INSSet.SetByAddingObject]: Returns a new set formed by adding a given object to the receiving set.
 //   - [INSSet.SetByAddingObjectsFromSet]: Returns a new set formed by adding the objects in a given set to the receiving set.
 //   - [INSSet.SetByAddingObjectsFromArray]: Returns a new set formed by adding the objects in a given array to the receiving set.
@@ -174,7 +175,6 @@ func NSSetFromID(id objc.ID) NSSet {
 // # Initializing a Set
 //
 //   - [INSSet.InitWithArray]: Initializes a newly allocated set with the objects that are contained in a given array.
-//   - [INSSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //   - [INSSet.InitWithSet]: Initializes a newly allocated set and adds to it objects from another given set.
 //   - [INSSet.InitWithSetCopyItems]: Initializes a newly allocated set and adds to it members of another given set.
 //
@@ -213,13 +213,12 @@ func NSSetFromID(id objc.ID) NSSet {
 // See: https://developer.apple.com/documentation/Foundation/NSSet
 type INSSet interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSMutableCopying
 	NSSecureCoding
 
 	// Topic: Creating a Set
 
+	// Initializes a newly allocated set with a specified number of objects from a given C array of objects.
+	InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSet
 	// Returns a new set formed by adding a given object to the receiving set.
 	SetByAddingObject(anObject objectivec.IObject) INSSet
 	// Returns a new set formed by adding the objects in a given set to the receiving set.
@@ -231,8 +230,6 @@ type INSSet interface {
 
 	// Initializes a newly allocated set with the objects that are contained in a given array.
 	InitWithArray(array []objectivec.IObject) NSSet
-	// Initializes a newly allocated set with a specified number of objects from a given C array of objects.
-	InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSet
 	// Initializes a newly allocated set and adds to it objects from another given set.
 	InitWithSet(set INSSet) NSSet
 	// Initializes a newly allocated set and adds to it members of another given set.

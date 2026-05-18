@@ -104,16 +104,16 @@ type IAVFrameRateRange interface {
 
 	// A Boolean value that Indicates whether the format supports performing automatic video frame rate adjustments.
 	IsAutoVideoFrameRateSupported() bool
-	SetIsAutoVideoFrameRateSupported(value bool)
+	SetAutoVideoFrameRateSupported(value bool)
 	// A Boolean value that indicates whether a multi-camera capture session supports this format.
 	IsMultiCamSupported() bool
-	SetIsMultiCamSupported(value bool)
+	SetMultiCamSupported(value bool)
 	// A Boolean value that indicates whether the format produces video data in a binned format.
 	IsVideoBinned() bool
-	SetIsVideoBinned(value bool)
+	SetVideoBinned(value bool)
 	// A Boolean value that indicates whether the format supports high dynamic range streaming.
 	IsVideoHDRSupported() bool
-	SetIsVideoHDRSupported(value bool)
+	SetVideoHDRSupported(value bool)
 	// A list of frame rate ranges that a format supports.
 	VideoSupportedFrameRateRanges() IAVFrameRateRange
 	SetVideoSupportedFrameRateRanges(value IAVFrameRateRange)
@@ -196,7 +196,7 @@ func (f AVFrameRateRange) IsAutoVideoFrameRateSupported() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("autoVideoFrameRateSupported"))
 	return rv
 }
-func (f AVFrameRateRange) SetIsAutoVideoFrameRateSupported(value bool) {
+func (f AVFrameRateRange) SetAutoVideoFrameRateSupported(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAutoVideoFrameRateSupported:"), value)
 }
 
@@ -208,7 +208,7 @@ func (f AVFrameRateRange) IsMultiCamSupported() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("multiCamSupported"))
 	return rv
 }
-func (f AVFrameRateRange) SetIsMultiCamSupported(value bool) {
+func (f AVFrameRateRange) SetMultiCamSupported(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMultiCamSupported:"), value)
 }
 
@@ -220,7 +220,7 @@ func (f AVFrameRateRange) IsVideoBinned() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("videoBinned"))
 	return rv
 }
-func (f AVFrameRateRange) SetIsVideoBinned(value bool) {
+func (f AVFrameRateRange) SetVideoBinned(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setVideoBinned:"), value)
 }
 
@@ -232,7 +232,7 @@ func (f AVFrameRateRange) IsVideoHDRSupported() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("videoHDRSupported"))
 	return rv
 }
-func (f AVFrameRateRange) SetIsVideoHDRSupported(value bool) {
+func (f AVFrameRateRange) SetVideoHDRSupported(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setVideoHDRSupported:"), value)
 }
 

@@ -65,14 +65,14 @@ type IMLCloudDeploymentUtils interface {
 }
 
 // Init initializes the instance.
-func (c MLCloudDeploymentUtils) Init() MLCloudDeploymentUtils {
-	rv := objc.Send[MLCloudDeploymentUtils](c.ID, objc.Sel("init"))
+func (m MLCloudDeploymentUtils) Init() MLCloudDeploymentUtils {
+	rv := objc.Send[MLCloudDeploymentUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCloudDeploymentUtils) Autorelease() MLCloudDeploymentUtils {
-	rv := objc.Send[MLCloudDeploymentUtils](c.ID, objc.Sel("autorelease"))
+func (m MLCloudDeploymentUtils) Autorelease() MLCloudDeploymentUtils {
+	rv := objc.Send[MLCloudDeploymentUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

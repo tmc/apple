@@ -124,7 +124,7 @@ type ILARightStore interface {
 	// Saves a right to a persistent right store.
 	SaveRightIdentifierCompletion(right ILARight, identifier string, handler LAPersistedRightErrorHandler)
 	// Saves a right to a persistent store along with secret data you supply.
-	SaveRightIdentifierSecretCompletion(right ILARight, identifier string, secret foundation.INSData, handler LAPersistedRightErrorHandler)
+	SaveRightIdentifierSecretCompletion(right ILARight, identifier string, secret foundation.NSData, handler LAPersistedRightErrorHandler)
 
 	// Topic: Removing stored rights
 
@@ -210,7 +210,7 @@ func (r LARightStore) SaveRightIdentifierCompletion(right ILARight, identifier s
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LARightStore/saveRight(_:identifier:secret:completion:)
-func (r LARightStore) SaveRightIdentifierSecretCompletion(right ILARight, identifier string, secret foundation.INSData, handler LAPersistedRightErrorHandler) {
+func (r LARightStore) SaveRightIdentifierSecretCompletion(right ILARight, identifier string, secret foundation.NSData, handler LAPersistedRightErrorHandler) {
 	_block3, _ := NewLAPersistedRightErrorBlock(handler)
 	objc.Send[objc.ID](r.ID, objc.Sel("saveRight:identifier:secret:completion:"), right, objc.String(identifier), secret, _block3)
 }
@@ -321,7 +321,7 @@ func (r LARightStore) SaveRightIdentifierCompletionSync(ctx context.Context, rig
 
 // SaveRightIdentifierSecretCompletionSync is a synchronous wrapper around [LARightStore.SaveRightIdentifierSecretCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (r LARightStore) SaveRightIdentifierSecretCompletionSync(ctx context.Context, right ILARight, identifier string, secret foundation.INSData) (*LAPersistedRight, error) {
+func (r LARightStore) SaveRightIdentifierSecretCompletionSync(ctx context.Context, right ILARight, identifier string, secret foundation.NSData) (*LAPersistedRight, error) {
 	type result struct {
 		val *LAPersistedRight
 		err error

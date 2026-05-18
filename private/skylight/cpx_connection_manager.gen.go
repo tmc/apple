@@ -86,7 +86,7 @@ type ICPXConnectionManager interface {
 	// Topic: Methods
 
 	ConnectionForID(id uint32) unsafe.Pointer
-	PidForConnection(connection unsafe.Pointer) int
+	PidForConnection(connection CGXConnection) int
 	InitWithSession(session uintptr) CPXConnectionManager
 	DebugDescription() string
 	Description() string
@@ -127,7 +127,7 @@ func (c CPXConnectionManager) ConnectionForID(id uint32) unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManager/pidForConnection:
-func (c CPXConnectionManager) PidForConnection(connection unsafe.Pointer) int {
+func (c CPXConnectionManager) PidForConnection(connection CGXConnection) int {
 	rv := objc.Send[int](c.ID, objc.Sel("pidForConnection:"), connection)
 	return rv
 }

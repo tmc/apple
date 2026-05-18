@@ -128,7 +128,7 @@ type IGTLLVMConnectionManager interface {
 	_releaseAvailableClientAtIndex(index uint64)
 	_releaseHost(host uint32)
 	_tryAcquireHost(host uint32) bool
-	BinaryInfo(info uint32) objectivec.IObject
+	BinaryInfo(info uint32) GTAPSBinaryInfo
 	BinarySize(size uint32) uint32
 	CreateLLMVAnalyzerForBinaryForKey(binary objectivec.IObject, key uint32) uint32
 	CreateLLMVAnalyzerForFilePath(path objectivec.IObject) uint32
@@ -139,7 +139,7 @@ type IGTLLVMConnectionManager interface {
 	IsLLVMValid(lLVMValid uint32) bool
 	NLLVMClients() uint32
 	ProcessInstructionTraceForBinariesWithNoTimestamp(binaries unsafe.Pointer, timestamp bool) objectivec.IObject
-	ShaderProfilerBinaryInfo(info uint32) objectivec.IObject
+	ShaderProfilerBinaryInfo(info uint32) GTShaderProfilerBinaryInfo
 	TargetIndex() int
 	InitWithGPUNameWithTargetIndexBinaryPathWithGenWithSocketNameForNumClients(gPUName objectivec.IObject, index int, path objectivec.IObject, gen byte, name objectivec.IObject, clients uint32) GTLLVMConnectionManager
 	Version() uint32
@@ -352,9 +352,10 @@ func (g GTLLVMConnectionManager) CanTryAcquireHost() bool {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/binaryInfo:
-func (g GTLLVMConnectionManager) BinaryInfo(info uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryInfo:"), info)
-	return objectivec.Object{ID: rv}
+func (g GTLLVMConnectionManager) BinaryInfo(info uint32) GTAPSBinaryInfo {
+	rv := objc.Send[GTAPSBinaryInfo](g.ID, objc.Sel("binaryInfo:"), info)
+	_ = rv
+	return GTAPSBinaryInfo{}
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/binarySize:
@@ -406,9 +407,10 @@ func (g GTLLVMConnectionManager) ProcessInstructionTraceForBinariesWithNoTimesta
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/shaderProfilerBinaryInfo:
-func (g GTLLVMConnectionManager) ShaderProfilerBinaryInfo(info uint32) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderProfilerBinaryInfo:"), info)
-	return objectivec.Object{ID: rv}
+func (g GTLLVMConnectionManager) ShaderProfilerBinaryInfo(info uint32) GTShaderProfilerBinaryInfo {
+	rv := objc.Send[GTShaderProfilerBinaryInfo](g.ID, objc.Sel("shaderProfilerBinaryInfo:"), info)
+	_ = rv
+	return GTShaderProfilerBinaryInfo{}
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/initWithGPUName:withTargetIndex:binaryPath:withGen:withSocketName:forNumClients:

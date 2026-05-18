@@ -18,60 +18,36 @@ type CILineOverlay interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrNoiseLevel
 	NRNoiseLevel() float32
-
-	// The amount of sharpening done when removing noise in the image before tracing the edges of the image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrSharpness
-	NRSharpness() float32
-
-	// The amount of antialiasing to use on the edges produced by this filter.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/contrast
-	Contrast() float32
-
-	// The accentuation factor of the Sobel gradient information when tracing the edges of the image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/edgeIntensity
-	EdgeIntensity() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/inputImage
-	InputImage() ICIImage
-
-	// A value that determines edge visibility.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/threshold
-	Threshold() float32
-
-	// The noise level of the image, used with camera data, that’s removed before tracing the edges of the image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrNoiseLevel
 	SetNRNoiseLevel(value float32)
 
 	// The amount of sharpening done when removing noise in the image before tracing the edges of the image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrSharpness
+	NRSharpness() float32
 	SetNRSharpness(value float32)
 
 	// The amount of antialiasing to use on the edges produced by this filter.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/contrast
+	Contrast() float32
 	SetContrast(value float32)
 
 	// The accentuation factor of the Sobel gradient information when tracing the edges of the image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/edgeIntensity
+	EdgeIntensity() float32
 	SetEdgeIntensity(value float32)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// A value that determines edge visibility.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/threshold
+	Threshold() float32
 	SetThreshold(value float32)
 }
 
@@ -92,57 +68,6 @@ func CILineOverlayObjectFromID(id objc.ID) CILineOverlayObject {
 	}
 }
 
-// The noise level of the image, used with camera data, that’s removed
-// before tracing the edges of the image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrNoiseLevel
-func (o CILineOverlayObject) NRNoiseLevel() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("NRNoiseLevel"))
-	return rv
-}
-
-// The amount of sharpening done when removing noise in the image before
-// tracing the edges of the image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrSharpness
-func (o CILineOverlayObject) NRSharpness() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("NRSharpness"))
-	return rv
-}
-
-// The amount of antialiasing to use on the edges produced by this filter.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/contrast
-func (o CILineOverlayObject) Contrast() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("contrast"))
-	return rv
-}
-
-// The accentuation factor of the Sobel gradient information when tracing the
-// edges of the image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/edgeIntensity
-func (o CILineOverlayObject) EdgeIntensity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("edgeIntensity"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/inputImage
-func (o CILineOverlayObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// A value that determines edge visibility.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/threshold
-func (o CILineOverlayObject) Threshold() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("threshold"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -160,6 +85,11 @@ func (o CILineOverlayObject) OutputImage() ICIImage {
 // Increasing the noise level helps to clean up the traced edges of the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrNoiseLevel
+func (o CILineOverlayObject) NRNoiseLevel() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("NRNoiseLevel"))
+	return float32(rv)
+}
+
 func (o CILineOverlayObject) SetNRNoiseLevel(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNRNoiseLevel:"), value)
 }
@@ -172,6 +102,11 @@ func (o CILineOverlayObject) SetNRNoiseLevel(value float32) {
 // This improves the edge acquisition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrSharpness
+func (o CILineOverlayObject) NRSharpness() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("NRSharpness"))
+	return float32(rv)
+}
+
 func (o CILineOverlayObject) SetNRSharpness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNRSharpness:"), value)
 }
@@ -184,6 +119,11 @@ func (o CILineOverlayObject) SetNRSharpness(value float32) {
 // antialiased.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/contrast
+func (o CILineOverlayObject) Contrast() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("contrast"))
+	return float32(rv)
+}
+
 func (o CILineOverlayObject) SetContrast(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setContrast:"), value)
 }
@@ -197,6 +137,11 @@ func (o CILineOverlayObject) SetContrast(value float32) {
 // (such as 1.0).
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/edgeIntensity
+func (o CILineOverlayObject) EdgeIntensity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("edgeIntensity"))
+	return float32(rv)
+}
+
 func (o CILineOverlayObject) SetEdgeIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEdgeIntensity:"), value)
 }
@@ -204,6 +149,11 @@ func (o CILineOverlayObject) SetEdgeIntensity(value float32) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/inputImage
+func (o CILineOverlayObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CILineOverlayObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -215,6 +165,11 @@ func (o CILineOverlayObject) SetInputImage(value ICIImage) {
 // Larger values thin out the edges.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/threshold
+func (o CILineOverlayObject) Threshold() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("threshold"))
+	return float32(rv)
+}
+
 func (o CILineOverlayObject) SetThreshold(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setThreshold:"), value)
 }

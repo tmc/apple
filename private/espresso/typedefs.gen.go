@@ -6,31 +6,31 @@ package espresso
 type FaceLandmarkDetectorPointRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/abstract_blob_containerRef
-type Abstract_blob_containerRef uintptr
+type AbstractBlobContainerRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/abstract_contextRef
-type Abstract_contextRef uintptr
+type AbstractContextRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/blob_cpuRef
-type Blob_cpuRef uintptr
+type BlobCpuRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/fast_pyramid_resizerRef
-type Fast_pyramid_resizerRef uintptr
+type FastPyramidResizerRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/generic_load_constant_kernelRef
-type Generic_load_constant_kernelRef uintptr
+type GenericLoadConstantKernelRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/gradient_builderRef
-type Gradient_builderRef uintptr
+type GradientBuilderRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/netRef
 type NetRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/shared_weak_countRef
-type Shared_weak_countRef uintptr
+type SharedWeakCountRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/surface_and_bufferRef
-type Surface_and_bufferRef uintptr
+type SurfaceAndBufferRef uintptr
 
 // See: https://developer.apple.com/documentation/Espresso/v9_noise_kernelRef
-type V9_noise_kernelRef uintptr
+type V9NoiseKernelRef uintptr

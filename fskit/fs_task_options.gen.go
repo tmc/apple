@@ -92,7 +92,7 @@ type IFSTaskOptions interface {
 	// Topic: Retrieving task option URLs
 
 	// Retrieves a URL for a given option.
-	UrlForOption(option string) foundation.INSURL
+	UrlForOption(option string) foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -133,7 +133,7 @@ func NewFSTaskOptions() FSTaskOptions {
 // key, and each entry has a value indicating what kind of entry to create.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSTaskOptions/url(forOption:)
-func (t FSTaskOptions) UrlForOption(option string) foundation.INSURL {
+func (t FSTaskOptions) UrlForOption(option string) foundation.NSURL {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("urlForOption:"), objc.String(option))
 	return foundation.NSURLFromID(rv)
 }

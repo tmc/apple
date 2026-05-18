@@ -166,7 +166,6 @@ func NSScannerFromID(id objc.ID) Scanner { return ScannerFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/Scanner
 type IScanner interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Creating a Scanner
 

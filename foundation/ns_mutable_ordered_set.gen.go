@@ -897,7 +897,7 @@ func (m NSMutableOrderedSet) ApplyDifference(difference INSOrderedCollectionDiff
 // If the index is already occupied, the objects at index and beyond are
 // shifted by adding `1` to their indices to make room.
 //
-// This method is identical to [InsertObjectAtIndex].
+// This method is identical to [InsertObjectsAtIndexes].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/setObject:atIndexedSubscript:
 func (m NSMutableOrderedSet) SetObjectAtIndexedSubscript(obj objectivec.IObject, idx uint) {

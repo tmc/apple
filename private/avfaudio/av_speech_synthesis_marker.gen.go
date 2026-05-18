@@ -76,14 +76,14 @@ type IAVSpeechSynthesisMarker interface {
 }
 
 // Init initializes the instance.
-func (s AVSpeechSynthesisMarker) Init() AVSpeechSynthesisMarker {
-	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("init"))
+func (a AVSpeechSynthesisMarker) Init() AVSpeechSynthesisMarker {
+	rv := objc.Send[AVSpeechSynthesisMarker](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s AVSpeechSynthesisMarker) Autorelease() AVSpeechSynthesisMarker {
-	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("autorelease"))
+func (a AVSpeechSynthesisMarker) Autorelease() AVSpeechSynthesisMarker {
+	rv := objc.Send[AVSpeechSynthesisMarker](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -102,8 +102,8 @@ func NewSpeechSynthesisMarkerWithCoder(coder objectivec.IObject) AVSpeechSynthes
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/initWithCoder:
-func (s AVSpeechSynthesisMarker) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisMarker {
-	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithCoder:"), coder)
+func (a AVSpeechSynthesisMarker) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisMarker {
+	rv := objc.Send[AVSpeechSynthesisMarker](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 

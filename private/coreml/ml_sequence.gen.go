@@ -86,14 +86,14 @@ type IMLSequence interface {
 }
 
 // Init initializes the instance.
-func (s MLSequence) Init() MLSequence {
-	rv := objc.Send[MLSequence](s.ID, objc.Sel("init"))
+func (m MLSequence) Init() MLSequence {
+	rv := objc.Send[MLSequence](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSequence) Autorelease() MLSequence {
-	rv := objc.Send[MLSequence](s.ID, objc.Sel("autorelease"))
+func (m MLSequence) Autorelease() MLSequence {
+	rv := objc.Send[MLSequence](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -119,14 +119,14 @@ func NewSequenceWithCoder(coder objectivec.IObject) MLSequence {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSequence/initWithArray:type:
-func (s MLSequence) InitWithArrayType(array objectivec.IObject, type_ int64) MLSequence {
-	rv := objc.Send[MLSequence](s.ID, objc.Sel("initWithArray:type:"), array, type_)
+func (m MLSequence) InitWithArrayType(array objectivec.IObject, type_ int64) MLSequence {
+	rv := objc.Send[MLSequence](m.ID, objc.Sel("initWithArray:type:"), array, type_)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSequence/initWithCoder:
-func (s MLSequence) InitWithCoder(coder foundation.INSCoder) MLSequence {
-	rv := objc.Send[MLSequence](s.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLSequence) InitWithCoder(coder foundation.INSCoder) MLSequence {
+	rv := objc.Send[MLSequence](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -167,13 +167,13 @@ func (_MLSequenceClass MLSequenceClass) SupportsSecureCoding() bool {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSequence/featureValues
-func (s MLSequence) FeatureValues() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("featureValues"))
+func (m MLSequence) FeatureValues() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSequence/values
-func (s MLSequence) Values() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("values"))
+func (m MLSequence) Values() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("values"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

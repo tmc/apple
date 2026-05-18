@@ -151,12 +151,11 @@ func CIFilterGeneratorFromID(id objc.ID) CIFilterGenerator {
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator
 type ICIFilterGenerator interface {
 	objectivec.IObject
-	CIFilterConstructor
 
 	// Topic: Initializing a Filter Generator Object
 
 	// Initializes a filter generator object with the contents of a filter generator file.
-	InitWithContentsOfURL(aURL foundation.INSURL) CIFilterGenerator
+	InitWithContentsOfURL(aURL foundation.NSURL) CIFilterGenerator
 
 	// Topic: Connecting and Disconnecting Objects
 
@@ -185,7 +184,7 @@ type ICIFilterGenerator interface {
 	// Topic: Archiving a Filter Generator Object
 
 	// Archives a filter generator object to a filter generator file.
-	WriteToURLAtomically(aURL foundation.INSURL, flag bool) bool
+	WriteToURLAtomically(aURL foundation.NSURL, flag bool) bool
 
 	// Topic: Registering a Filter Chain
 
@@ -230,7 +229,7 @@ func NewCIFilterGenerator() CIFilterGenerator {
 // can’t be read.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/init(contentsOf:)
-func NewFilterGeneratorWithContentsOfURL(aURL foundation.INSURL) CIFilterGenerator {
+func NewFilterGeneratorWithContentsOfURL(aURL foundation.NSURL) CIFilterGenerator {
 	instance := getCIFilterGeneratorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), aURL)
 	return CIFilterGeneratorFromID(rv)
@@ -247,7 +246,7 @@ func NewFilterGeneratorWithContentsOfURL(aURL foundation.INSURL) CIFilterGenerat
 // can’t be read.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/init(contentsOf:)
-func (f CIFilterGenerator) InitWithContentsOfURL(aURL foundation.INSURL) CIFilterGenerator {
+func (f CIFilterGenerator) InitWithContentsOfURL(aURL foundation.NSURL) CIFilterGenerator {
 	rv := objc.Send[CIFilterGenerator](f.ID, objc.Sel("initWithContentsOfURL:"), aURL)
 	return rv
 }
@@ -367,7 +366,7 @@ func (f CIFilterGenerator) SetAttributesForExportedKey(attributes foundation.INS
 // Use this method to save your filter chain to a file for later use.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/write(to:atomically:)
-func (f CIFilterGenerator) WriteToURLAtomically(aURL foundation.INSURL, flag bool) bool {
+func (f CIFilterGenerator) WriteToURLAtomically(aURL foundation.NSURL, flag bool) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("writeToURL:atomically:"), aURL, flag)
 	return rv
 }
@@ -457,7 +456,7 @@ func (_CIFilterGeneratorClass CIFilterGeneratorClass) FilterGenerator() CIFilter
 // A [CIFilterGenerator] object; returns `nil` if the file can’t be read.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterGenerator/filterGeneratorWithContentsOfURL:
-func (_CIFilterGeneratorClass CIFilterGeneratorClass) FilterGeneratorWithContentsOfURL(aURL foundation.INSURL) CIFilterGenerator {
+func (_CIFilterGeneratorClass CIFilterGeneratorClass) FilterGeneratorWithContentsOfURL(aURL foundation.NSURL) CIFilterGenerator {
 	rv := objc.Send[objc.ID](objc.ID(_CIFilterGeneratorClass.class), objc.Sel("filterGeneratorWithContentsOfURL:"), aURL)
 	return CIFilterGeneratorFromID(rv)
 }

@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -282,10 +283,6 @@ func NSTextFieldFromID(id objc.ID) NSTextField {
 // See: https://developer.apple.com/documentation/AppKit/NSTextField
 type INSTextField interface {
 	INSControl
-	NSAccessibilityNavigableStaticText
-	NSAccessibilityStaticText
-	NSTextContent
-	NSUserInterfaceValidations
 
 	// Topic: Controlling Selection and Editing
 
@@ -409,8 +406,8 @@ type INSTextField interface {
 	ResolvesNaturalAlignmentWithBaseWritingDirection() bool
 	SetResolvesNaturalAlignmentWithBaseWritingDirection(value bool)
 	// The delegate that provides text suggestions for the receiving text field and responds to the user highlighting and selecting items.
-	SuggestionsDelegate() objectivec.IObject
-	SetSuggestionsDelegate(value objectivec.IObject)
+	SuggestionsDelegate() unsafe.Pointer
+	SetSuggestionsDelegate(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -783,6 +780,14 @@ func (t NSTextField) AccessibilityValue() string {
 func (t NSTextField) AccessibilityVisibleCharacterRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("accessibilityVisibleCharacterRange"))
 	return foundation.NSRange(rv)
+}
+
+// The semantic meaning for a text input area.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
+func (t NSTextField) ContentType() NSTextContentType {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("contentType"))
+	return NSTextContentType(foundation.NSStringFromID(rv).String())
 }
 
 // Returns a Boolean value that indicates whether the sender should be
@@ -1169,38 +1174,15 @@ func (t NSTextField) SetResolvesNaturalAlignmentWithBaseWritingDirection(value b
 	objc.Send[struct{}](t.ID, objc.Sel("setResolvesNaturalAlignmentWithBaseWritingDirection:"), value)
 }
 
-// The semantic meaning for a text input area.
-//
-// # Discussion
-//
-// Use this property to give the system information about the expected
-// semantic meaning for the content that people enter. For example, you might
-// specify [emailAddress] for a text field that people fill in to receive an
-// email confirmation.
-//
-// For possible values you can use, see [NSTextContentType]; by default, the
-// value of this property is `nil`.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
-//
-// [emailAddress]: https://developer.apple.com/documentation/AppKit/NSTextContentType/emailAddress
-func (t NSTextField) ContentType() NSTextContentType {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("contentType"))
-	return NSTextContentType(foundation.NSStringFromID(rv).String())
-}
-func (t NSTextField) SetContentType(value NSTextContentType) {
-	objc.Send[struct{}](t.ID, objc.Sel("setContentType:"), objc.String(string(value)))
-}
-
 // The delegate that provides text suggestions for the receiving text field
 // and responds to the user highlighting and selecting items.
 //
 // See: https://developer.apple.com/documentation/appkit/nstextfield/suggestionsdelegate
-func (t NSTextField) SuggestionsDelegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("suggestionsDelegate"))
-	return objectivec.Object{ID: rv}
+func (t NSTextField) SuggestionsDelegate() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("suggestionsDelegate"))
+	return rv
 }
-func (t NSTextField) SetSuggestionsDelegate(value objectivec.IObject) {
+func (t NSTextField) SetSuggestionsDelegate(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSuggestionsDelegate:"), value)
 }
 
@@ -1289,5 +1271,24 @@ func (o NSTextField) IsAccessibilityFocused() bool {
 }
 
 // Protocol methods for NSTextContent
+
+// The semantic meaning for a text input area.
+//
+// # Discussion
+//
+// Use this property to give the system information about the expected
+// semantic meaning for the content that people enter. For example, you might
+// specify [emailAddress] for a text field that people fill in to receive an
+// email confirmation.
+//
+// For possible values you can use, see [NSTextContentType]; by default, the
+// value of this property is `nil`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
+//
+// [emailAddress]: https://developer.apple.com/documentation/AppKit/NSTextContentType/emailAddress
+func (o NSTextField) SetContentType(value NSTextContentType) {
+	objc.Send[struct{}](o.ID, objc.Sel("setContentType:"), objc.String(string(value)))
+}
 
 // Protocol methods for NSUserInterfaceValidations

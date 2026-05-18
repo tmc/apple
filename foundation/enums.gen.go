@@ -1510,8 +1510,11 @@ func (e NSDateComponentsFormatterZeroFormattingBehavior) String() string {
 type NSDateFormatterBehavior uint
 
 const (
-	NSDateFormatterBehavior10_0    NSDateFormatterBehavior = 1000
-	NSDateFormatterBehavior10_4    NSDateFormatterBehavior = 1040
+	// NSDateFormatterBehavior10_0: # Discussion
+	NSDateFormatterBehavior10_0 NSDateFormatterBehavior = 1000
+	// NSDateFormatterBehavior10_4: # Discussion
+	NSDateFormatterBehavior10_4 NSDateFormatterBehavior = 1040
+	// NSDateFormatterBehaviorDefault: # Discussion
 	NSDateFormatterBehaviorDefault NSDateFormatterBehavior = 0
 )
 
@@ -2420,11 +2423,11 @@ const (
 	NSISO8601DateFormatWithDay               NSISO8601DateFormatOptions = 16
 	NSISO8601DateFormatWithFractionalSeconds NSISO8601DateFormatOptions = 2048
 	// NSISO8601DateFormatWithFullDate: # Discussion
-	NSISO8601DateFormatWithFullDate NSISO8601DateFormatOptions = 1
+	NSISO8601DateFormatWithFullDate NSISO8601DateFormatOptions = 275
 	// NSISO8601DateFormatWithFullTime: # Discussion
-	NSISO8601DateFormatWithFullTime NSISO8601DateFormatOptions = 32
+	NSISO8601DateFormatWithFullTime NSISO8601DateFormatOptions = 1632
 	// NSISO8601DateFormatWithInternetDateTime: # Discussion
-	NSISO8601DateFormatWithInternetDateTime NSISO8601DateFormatOptions = 1
+	NSISO8601DateFormatWithInternetDateTime NSISO8601DateFormatOptions = 1907
 	// NSISO8601DateFormatWithMonth: # Discussion
 	NSISO8601DateFormatWithMonth NSISO8601DateFormatOptions = 2
 	// NSISO8601DateFormatWithSpaceBetweenDateAndTime: # Discussion
@@ -2455,14 +2458,20 @@ func (e NSISO8601DateFormatOptions) String() string {
 		return "NSISO8601DateFormatWithFullDate"
 	case NSISO8601DateFormatWithFullTime:
 		return "NSISO8601DateFormatWithFullTime"
+	case NSISO8601DateFormatWithInternetDateTime:
+		return "NSISO8601DateFormatWithInternetDateTime"
 	case NSISO8601DateFormatWithMonth:
 		return "NSISO8601DateFormatWithMonth"
 	case NSISO8601DateFormatWithSpaceBetweenDateAndTime:
 		return "NSISO8601DateFormatWithSpaceBetweenDateAndTime"
+	case NSISO8601DateFormatWithTime:
+		return "NSISO8601DateFormatWithTime"
 	case NSISO8601DateFormatWithTimeZone:
 		return "NSISO8601DateFormatWithTimeZone"
 	case NSISO8601DateFormatWithWeekOfYear:
 		return "NSISO8601DateFormatWithWeekOfYear"
+	case NSISO8601DateFormatWithYear:
+		return "NSISO8601DateFormatWithYear"
 	default:
 		return fmt.Sprintf("NSISO8601DateFormatOptions(%d)", e)
 	}
@@ -3081,7 +3090,8 @@ const (
 	// NSNetServicesCollisionError: The service could not be published because the name is already in use.
 	NSNetServicesCollisionError NSNetServicesError = -72001
 	// NSNetServicesInvalidError: The net service was improperly configured.
-	NSNetServicesInvalidError NSNetServicesError = -72006
+	NSNetServicesInvalidError                      NSNetServicesError = -72006
+	NSNetServicesMissingRequiredConfigurationError NSNetServicesError = -72008
 	// NSNetServicesNotFoundError: The service could not be found on the network.
 	NSNetServicesNotFoundError NSNetServicesError = -72002
 	// NSNetServicesTimeoutError: The net service has timed out.
@@ -3102,6 +3112,8 @@ func (e NSNetServicesError) String() string {
 		return "NSNetServicesCollisionError"
 	case NSNetServicesInvalidError:
 		return "NSNetServicesInvalidError"
+	case NSNetServicesMissingRequiredConfigurationError:
+		return "NSNetServicesMissingRequiredConfigurationError"
 	case NSNetServicesNotFoundError:
 		return "NSNetServicesNotFoundError"
 	case NSNetServicesTimeoutError:
@@ -3143,7 +3155,8 @@ type NSNotificationSuspensionBehavior uint
 
 const (
 	// NSNotificationSuspensionBehaviorCoalesce: The server only queues the last notification of the specified name and object; earlier notifications are dropped.
-	NSNotificationSuspensionBehaviorCoalesce           NSNotificationSuspensionBehavior = 2
+	NSNotificationSuspensionBehaviorCoalesce NSNotificationSuspensionBehavior = 2
+	// NSNotificationSuspensionBehaviorDeliverImmediately: # Discussion
 	NSNotificationSuspensionBehaviorDeliverImmediately NSNotificationSuspensionBehavior = 4
 	// NSNotificationSuspensionBehaviorDrop: The server doesn’t queue any notifications with this name and object until the notification center resumes notification delivery.
 	NSNotificationSuspensionBehaviorDrop NSNotificationSuspensionBehavior = 1
@@ -5280,10 +5293,10 @@ const (
 	NSURLSessionTaskMetricsResourceFetchTypeLocalCache NSURLSessionTaskMetricsResourceFetchType = 3
 	// NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad: The resource was loaded over the network.
 	NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad NSURLSessionTaskMetricsResourceFetchType = 1
-	// NSURLSessionTaskMetricsResourceFetchTypeServerPush: The resource was pushed by the server to the client.
-	NSURLSessionTaskMetricsResourceFetchTypeServerPush NSURLSessionTaskMetricsResourceFetchType = 2
 	// NSURLSessionTaskMetricsResourceFetchTypeUnknown: The manner in which the resource was fetched could not be determined.
 	NSURLSessionTaskMetricsResourceFetchTypeUnknown NSURLSessionTaskMetricsResourceFetchType = 0
+	// Deprecated.
+	NSURLSessionTaskMetricsResourceFetchTypeServerPush NSURLSessionTaskMetricsResourceFetchType = 2
 )
 
 func (e NSURLSessionTaskMetricsResourceFetchType) String() string {
@@ -5292,10 +5305,10 @@ func (e NSURLSessionTaskMetricsResourceFetchType) String() string {
 		return "NSURLSessionTaskMetricsResourceFetchTypeLocalCache"
 	case NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad:
 		return "NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad"
-	case NSURLSessionTaskMetricsResourceFetchTypeServerPush:
-		return "NSURLSessionTaskMetricsResourceFetchTypeServerPush"
 	case NSURLSessionTaskMetricsResourceFetchTypeUnknown:
 		return "NSURLSessionTaskMetricsResourceFetchTypeUnknown"
+	case NSURLSessionTaskMetricsResourceFetchTypeServerPush:
+		return "NSURLSessionTaskMetricsResourceFetchTypeServerPush"
 	default:
 		return fmt.Sprintf("NSURLSessionTaskMetricsResourceFetchType(%d)", e)
 	}
@@ -5305,7 +5318,7 @@ func (e NSURLSessionTaskMetricsResourceFetchType) String() string {
 type NSURLSessionTaskState int
 
 const (
-	// NSURLSessionTaskStateCanceling: The task has received a  message.
+	// NSURLSessionTaskStateCanceling: The task has received a `cancel` message.
 	NSURLSessionTaskStateCanceling NSURLSessionTaskState = 2
 	// NSURLSessionTaskStateCompleted: The task has completed (without being canceled), and the task’s delegate receives no further callbacks.
 	NSURLSessionTaskStateCompleted NSURLSessionTaskState = 3

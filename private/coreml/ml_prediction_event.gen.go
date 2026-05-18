@@ -103,14 +103,14 @@ type IMLPredictionEvent interface {
 }
 
 // Init initializes the instance.
-func (p MLPredictionEvent) Init() MLPredictionEvent {
-	rv := objc.Send[MLPredictionEvent](p.ID, objc.Sel("init"))
+func (m MLPredictionEvent) Init() MLPredictionEvent {
+	rv := objc.Send[MLPredictionEvent](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPredictionEvent) Autorelease() MLPredictionEvent {
-	rv := objc.Send[MLPredictionEvent](p.ID, objc.Sel("autorelease"))
+func (m MLPredictionEvent) Autorelease() MLPredictionEvent {
+	rv := objc.Send[MLPredictionEvent](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -122,48 +122,48 @@ func NewMLPredictionEvent() MLPredictionEvent {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/lastReportedMetric
-func (p MLPredictionEvent) LastReportedMetric() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("lastReportedMetric"))
+func (m MLPredictionEvent) LastReportedMetric() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("lastReportedMetric"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/maybeLogPredictionEvent:
-func (p MLPredictionEvent) MaybeLogPredictionEvent(event uint64) {
-	objc.Send[objc.ID](p.ID, objc.Sel("maybeLogPredictionEvent:"), event)
+func (m MLPredictionEvent) MaybeLogPredictionEvent(event uint64) {
+	objc.Send[objc.ID](m.ID, objc.Sel("maybeLogPredictionEvent:"), event)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/bundleIdentifier
-func (p MLPredictionEvent) BundleIdentifier() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("bundleIdentifier"))
+func (m MLPredictionEvent) BundleIdentifier() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (p MLPredictionEvent) SetBundleIdentifier(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
+func (m MLPredictionEvent) SetBundleIdentifier(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/firstPartyExecutable
-func (p MLPredictionEvent) FirstPartyExecutable() foundation.NSNumber {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("firstPartyExecutable"))
+func (m MLPredictionEvent) FirstPartyExecutable() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (p MLPredictionEvent) SetFirstPartyExecutable(value foundation.NSNumber) {
-	objc.Send[struct{}](p.ID, objc.Sel("setFirstPartyExecutable:"), value)
+func (m MLPredictionEvent) SetFirstPartyExecutable(value foundation.NSNumber) {
+	objc.Send[struct{}](m.ID, objc.Sel("setFirstPartyExecutable:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/modelName
-func (p MLPredictionEvent) ModelName() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelName"))
+func (m MLPredictionEvent) ModelName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (p MLPredictionEvent) SetModelName(value string) {
-	objc.Send[struct{}](p.ID, objc.Sel("setModelName:"), objc.String(value))
+func (m MLPredictionEvent) SetModelName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/modelType
-func (p MLPredictionEvent) ModelType() foundation.NSNumber {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelType"))
+func (m MLPredictionEvent) ModelType() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (p MLPredictionEvent) SetModelType(value foundation.NSNumber) {
-	objc.Send[struct{}](p.ID, objc.Sel("setModelType:"), value)
+func (m MLPredictionEvent) SetModelType(value foundation.NSNumber) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelType:"), value)
 }

@@ -117,11 +117,11 @@ type ILAPrivateKey interface {
 	// Topic: Performing cryptographic operations
 
 	// Decrypts the data you supply with a given algorithm.
-	DecryptDataSecKeyAlgorithmCompletion(data foundation.INSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler)
+	DecryptDataSecKeyAlgorithmCompletion(data foundation.NSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler)
 	// Performs a Diffie-Hellman style key exchange operation.
-	ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCompletion(publicKey foundation.INSData, algorithm corefoundation.CFStringRef, parameters foundation.INSDictionary, handler DataErrorHandler)
+	ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCompletion(publicKey foundation.NSData, algorithm corefoundation.CFStringRef, parameters foundation.INSDictionary, handler DataErrorHandler)
 	// Generates a digital signature for the data you supply.
-	SignDataSecKeyAlgorithmCompletion(data foundation.INSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler)
+	SignDataSecKeyAlgorithmCompletion(data foundation.NSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler)
 }
 
 // Init initializes the instance.
@@ -205,7 +205,7 @@ func (p LAPrivateKey) CanSignUsingSecKeyAlgorithm(algorithm corefoundation.CFStr
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAPrivateKey/decrypt(_:algorithm:completion:)
-func (p LAPrivateKey) DecryptDataSecKeyAlgorithmCompletion(data foundation.INSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler) {
+func (p LAPrivateKey) DecryptDataSecKeyAlgorithmCompletion(data foundation.NSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler) {
 	_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("decryptData:secKeyAlgorithm:completion:"), data, algorithm, _block2)
 }
@@ -233,7 +233,7 @@ func (p LAPrivateKey) DecryptDataSecKeyAlgorithmCompletion(data foundation.INSDa
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAPrivateKey/exchangeKeys(publicKey:algorithm:parameters:completion:)
 //
 // [SecKeyKeyExchangeParameter]: https://developer.apple.com/documentation/Security/SecKeyKeyExchangeParameter
-func (p LAPrivateKey) ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCompletion(publicKey foundation.INSData, algorithm corefoundation.CFStringRef, parameters foundation.INSDictionary, handler DataErrorHandler) {
+func (p LAPrivateKey) ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCompletion(publicKey foundation.NSData, algorithm corefoundation.CFStringRef, parameters foundation.INSDictionary, handler DataErrorHandler) {
 	_block3, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("exchangeKeysWithPublicKey:secKeyAlgorithm:secKeyParameters:completion:"), publicKey, algorithm, parameters, _block3)
 }
@@ -254,7 +254,7 @@ func (p LAPrivateKey) ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCo
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAPrivateKey/sign(_:algorithm:completion:)
-func (p LAPrivateKey) SignDataSecKeyAlgorithmCompletion(data foundation.INSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler) {
+func (p LAPrivateKey) SignDataSecKeyAlgorithmCompletion(data foundation.NSData, algorithm corefoundation.CFStringRef, handler DataErrorHandler) {
 	_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("signData:secKeyAlgorithm:completion:"), data, algorithm, _block2)
 }
@@ -269,7 +269,7 @@ func (p LAPrivateKey) PublicKey() ILAPublicKey {
 
 // DecryptDataSecKeyAlgorithmCompletionSync is a synchronous wrapper around [LAPrivateKey.DecryptDataSecKeyAlgorithmCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p LAPrivateKey) DecryptDataSecKeyAlgorithmCompletionSync(ctx context.Context, data foundation.INSData, algorithm corefoundation.CFStringRef) (*foundation.NSData, error) {
+func (p LAPrivateKey) DecryptDataSecKeyAlgorithmCompletionSync(ctx context.Context, data foundation.NSData, algorithm corefoundation.CFStringRef) (*foundation.NSData, error) {
 	type result struct {
 		val *foundation.NSData
 		err error
@@ -288,7 +288,7 @@ func (p LAPrivateKey) DecryptDataSecKeyAlgorithmCompletionSync(ctx context.Conte
 
 // ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCompletionSync is a synchronous wrapper around [LAPrivateKey.ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p LAPrivateKey) ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCompletionSync(ctx context.Context, publicKey foundation.INSData, algorithm corefoundation.CFStringRef, parameters foundation.INSDictionary) (*foundation.NSData, error) {
+func (p LAPrivateKey) ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCompletionSync(ctx context.Context, publicKey foundation.NSData, algorithm corefoundation.CFStringRef, parameters foundation.INSDictionary) (*foundation.NSData, error) {
 	type result struct {
 		val *foundation.NSData
 		err error
@@ -307,7 +307,7 @@ func (p LAPrivateKey) ExchangeKeysWithPublicKeySecKeyAlgorithmSecKeyParametersCo
 
 // SignDataSecKeyAlgorithmCompletionSync is a synchronous wrapper around [LAPrivateKey.SignDataSecKeyAlgorithmCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p LAPrivateKey) SignDataSecKeyAlgorithmCompletionSync(ctx context.Context, data foundation.INSData, algorithm corefoundation.CFStringRef) (*foundation.NSData, error) {
+func (p LAPrivateKey) SignDataSecKeyAlgorithmCompletionSync(ctx context.Context, data foundation.NSData, algorithm corefoundation.CFStringRef) (*foundation.NSData, error) {
 	type result struct {
 		val *foundation.NSData
 		err error

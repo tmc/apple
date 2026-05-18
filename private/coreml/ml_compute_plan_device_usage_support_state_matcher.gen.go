@@ -79,14 +79,14 @@ type IMLComputePlanDeviceUsageSupportStateMatcher interface {
 }
 
 // Init initializes the instance.
-func (c MLComputePlanDeviceUsageSupportStateMatcher) Init() MLComputePlanDeviceUsageSupportStateMatcher {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStateMatcher](c.ID, objc.Sel("init"))
+func (m MLComputePlanDeviceUsageSupportStateMatcher) Init() MLComputePlanDeviceUsageSupportStateMatcher {
+	rv := objc.Send[MLComputePlanDeviceUsageSupportStateMatcher](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLComputePlanDeviceUsageSupportStateMatcher) Autorelease() MLComputePlanDeviceUsageSupportStateMatcher {
-	rv := objc.Send[MLComputePlanDeviceUsageSupportStateMatcher](c.ID, objc.Sel("autorelease"))
+func (m MLComputePlanDeviceUsageSupportStateMatcher) Autorelease() MLComputePlanDeviceUsageSupportStateMatcher {
+	rv := objc.Send[MLComputePlanDeviceUsageSupportStateMatcher](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -98,8 +98,8 @@ func NewMLComputePlanDeviceUsageSupportStateMatcher() MLComputePlanDeviceUsageSu
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher/matchingSupportStateForValidationMessage:
-func (c MLComputePlanDeviceUsageSupportStateMatcher) MatchingSupportStateForValidationMessage(message objectivec.IObject) int64 {
-	rv := objc.Send[int64](c.ID, objc.Sel("matchingSupportStateForValidationMessage:"), message)
+func (m MLComputePlanDeviceUsageSupportStateMatcher) MatchingSupportStateForValidationMessage(message objectivec.IObject) int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("matchingSupportStateForValidationMessage:"), message)
 	return rv
 }
 
@@ -110,7 +110,7 @@ func (_MLComputePlanDeviceUsageSupportStateMatcherClass MLComputePlanDeviceUsage
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher/supportStatePatterns
-func (c MLComputePlanDeviceUsageSupportStateMatcher) SupportStatePatterns() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("supportStatePatterns"))
+func (m MLComputePlanDeviceUsageSupportStateMatcher) SupportStatePatterns() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("supportStatePatterns"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

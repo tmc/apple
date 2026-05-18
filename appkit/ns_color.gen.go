@@ -9,7 +9,6 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
-	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -277,8 +276,6 @@ func NSColorFromID(id objc.ID) NSColor {
 // See: https://developer.apple.com/documentation/AppKit/NSColor
 type INSColor interface {
 	objectivec.IObject
-	NSAccessibilityColor
-	NSPasteboardWriting
 
 	// Topic: Applying specific appearances to colors
 
@@ -467,7 +464,7 @@ func NewColorNamedBundle(name string, bundle foundation.NSBundle) NSColor {
 //
 // This method may return `nil`.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColor/init(cgColor:)
+// See: https://developer.apple.com/documentation/AppKit/NSColor/init(cgColor:)-1hzl8
 func NewColorWithCGColor(cgColor coregraphics.CGColorRef) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCGColor:"), cgColor)
 	return NSColorFromID(rv)
@@ -487,7 +484,7 @@ func NewColorWithCGColor(cgColor coregraphics.CGColorRef) NSColor {
 // are `nil` or invalid.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(CIColor:)
-func NewColorWithCIColor(color coreimage.CIColor) NSColor {
+func NewColorWithCIColor(color objectivec.IObject) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCIColor:"), color)
 	return NSColorFromID(rv)
 }
@@ -971,7 +968,7 @@ func NewColorWithRedGreenBlueAlphaLinearExposure(red float64, green float64, blu
 // Values below 0.0 are interpreted as 0.0, and values above 1.0 are
 // interpreted as 1.0.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColor/init(srgbRed:green:blue:alpha:)
+// See: https://developer.apple.com/documentation/AppKit/NSColor/init(srgbRed:green:blue:alpha:)-9oz51
 func NewColorWithSRGBRedGreenBlueAlpha(red float64, green float64, blue float64, alpha float64) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithSRGBRed:green:blue:alpha:"), red, green, blue, alpha)
 	return NSColorFromID(rv)
@@ -1352,6 +1349,15 @@ func (c NSColor) SetFill() {
 // See: https://developer.apple.com/documentation/AppKit/NSColor/setStroke()
 func (c NSColor) SetStroke() {
 	objc.Send[objc.ID](c.ID, objc.Sel("setStroke"))
+}
+
+// Returns a localized description of the color for use in accessibility
+// attributes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityColor/accessibilityName
+func (c NSColor) AccessibilityName() string {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("accessibilityName"))
+	return foundation.NSStringFromID(rv).String()
 }
 
 // Creates a color object from data in an unarchiver.
@@ -1914,15 +1920,6 @@ func (c NSColor) CGColor() coregraphics.CGColorRef {
 	return coregraphics.CGColorRef(rv)
 }
 
-// Returns a localized description of the color for use in accessibility
-// attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityColor/accessibilityName
-func (c NSColor) AccessibilityName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("accessibilityName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The pattern image used to paint the target area.
 //
 // # Discussion
@@ -2199,7 +2196,7 @@ func (_NSColorClass NSColorClass) ExtendedGenericGamma22Gray() NSColorSpace {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("extendedGenericGamma22GrayColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-func (_NSColorClass NSColorClass) SetExtendedGenericGamma22Gray(value NSColorSpace) {
+func (_NSColorClass NSColorClass) SetExtendedGenericGamma22GrayColorSpace(value NSColorSpace) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setExtendedGenericGamma22GrayColorSpace:"), value)
 }
 
@@ -2210,7 +2207,7 @@ func (_NSColorClass NSColorClass) ExtendedSRGB() NSColorSpace {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("extendedSRGBColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-func (_NSColorClass NSColorClass) SetExtendedSRGB(value NSColorSpace) {
+func (_NSColorClass NSColorClass) SetExtendedSRGBColorSpace(value NSColorSpace) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setExtendedSRGBColorSpace:"), value)
 }
 

@@ -66,14 +66,14 @@ type IMLFeatureProviderUtils interface {
 }
 
 // Init initializes the instance.
-func (f MLFeatureProviderUtils) Init() MLFeatureProviderUtils {
-	rv := objc.Send[MLFeatureProviderUtils](f.ID, objc.Sel("init"))
+func (m MLFeatureProviderUtils) Init() MLFeatureProviderUtils {
+	rv := objc.Send[MLFeatureProviderUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (f MLFeatureProviderUtils) Autorelease() MLFeatureProviderUtils {
-	rv := objc.Send[MLFeatureProviderUtils](f.ID, objc.Sel("autorelease"))
+func (m MLFeatureProviderUtils) Autorelease() MLFeatureProviderUtils {
+	rv := objc.Send[MLFeatureProviderUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

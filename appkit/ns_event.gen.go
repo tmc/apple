@@ -521,7 +521,7 @@ func NewNSEvent() NSEvent {
 // object. If no Cocoa event corresponds to the [CGEventRef] object, this
 // method returns `nil`.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSEvent/init(cgEvent:)
+// See: https://developer.apple.com/documentation/AppKit/NSEvent/init(cgEvent:)-4igjn
 //
 // [CGEvent]: https://developer.apple.com/documentation/CoreGraphics/CGEvent
 func NewEventWithCGEvent(cgEvent coregraphics.CGEvent) NSEvent {
@@ -1139,7 +1139,7 @@ func (e NSEvent) Subtype() NSEventSubtype {
 // property contains the event location in screen coordinates.
 //
 // In a method of a custom view that handles mouse events, you commonly use
-// this property with the [ConvertPointFromView] method of [NSView] to get the
+// this property with the [ConvertSizeFromView] method of [NSView] to get the
 // mouse location in the view’s coordinate system. The following code shows
 // how to perform this conversion. The y coordinate in the returned point
 // starts from a base of 1, and not 0.

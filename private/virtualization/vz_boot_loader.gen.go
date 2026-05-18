@@ -88,14 +88,14 @@ type IVZBootLoader interface {
 }
 
 // Init initializes the instance.
-func (b VZBootLoader) Init() VZBootLoader {
-	rv := objc.Send[VZBootLoader](b.ID, objc.Sel("init"))
+func (v VZBootLoader) Init() VZBootLoader {
+	rv := objc.Send[VZBootLoader](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (b VZBootLoader) Autorelease() VZBootLoader {
-	rv := objc.Send[VZBootLoader](b.ID, objc.Sel("autorelease"))
+func (v VZBootLoader) Autorelease() VZBootLoader {
+	rv := objc.Send[VZBootLoader](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -107,31 +107,31 @@ func NewVZBootLoader() VZBootLoader {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/_init
-func (b VZBootLoader) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("_init"))
+func (v VZBootLoader) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/debugDescription
-func (b VZBootLoader) DebugDescription() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("debugDescription"))
+func (v VZBootLoader) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/description
-func (b VZBootLoader) Description() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("description"))
+func (v VZBootLoader) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/hash
-func (b VZBootLoader) Hash() uint64 {
-	rv := objc.Send[uint64](b.ID, objc.Sel("hash"))
+func (v VZBootLoader) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/superclass
-func (b VZBootLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](b.ID, objc.Sel("superclass"))
+func (v VZBootLoader) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

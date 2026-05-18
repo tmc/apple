@@ -90,7 +90,7 @@ type IAVPlayerItemAccessLog interface {
 	// A chronologically ordered array of player item access log events.
 	Events() []AVPlayerItemAccessLogEvent
 	// Returns a serialized representation of the access log in the Extended Log File Format.
-	ExtendedLogData() foundation.INSData
+	ExtendedLogData() foundation.NSData
 	// The string encoding of the extended log data.
 	ExtendedLogDataStringEncoding() uint
 }
@@ -133,7 +133,7 @@ func NewAVPlayerItemAccessLog() AVPlayerItemAccessLog {
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLog/extendedLogData()
 //
 // [http://www.w3.org/pub/WWW/TR/WD-logfile.html]: http://www.w3.org/pub/WWW/TR/WD-logfile.html
-func (p AVPlayerItemAccessLog) ExtendedLogData() foundation.INSData {
+func (p AVPlayerItemAccessLog) ExtendedLogData() foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("extendedLogData"))
 	return foundation.NSDataFromID(rv)
 }

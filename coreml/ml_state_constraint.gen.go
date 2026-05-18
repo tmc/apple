@@ -47,6 +47,7 @@ func (mc MLStateConstraintClass) Alloc() MLStateConstraint {
 //
 // # Inspecting a state constraint
 //
+//   - [MLStateConstraint.BufferShape]: The shape of the state buffer.
 //   - [MLStateConstraint.DataType]: The data type of scalars in the state buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint
@@ -68,6 +69,7 @@ func MLStateConstraintFromID(id objc.ID) MLStateConstraint {
 //
 // # Inspecting a state constraint
 //
+//   - [IMLStateConstraint.BufferShape]: The shape of the state buffer.
 //   - [IMLStateConstraint.DataType]: The data type of scalars in the state buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint
@@ -76,11 +78,11 @@ type IMLStateConstraint interface {
 
 	// Topic: Inspecting a state constraint
 
+	// The shape of the state buffer.
+	BufferShape() []foundation.NSNumber
 	// The data type of scalars in the state buffer.
 	DataType() MLMultiArrayDataType
 
-	// The shape of the state buffer.
-	BufferShape() []foundation.NSNumber
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -107,14 +109,6 @@ func (s MLStateConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// The data type of scalars in the state buffer.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/dataType
-func (s MLStateConstraint) DataType() MLMultiArrayDataType {
-	rv := objc.Send[MLMultiArrayDataType](s.ID, objc.Sel("dataType"))
-	return MLMultiArrayDataType(rv)
-}
-
 // The shape of the state buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/bufferShape-6o5vn
@@ -123,4 +117,12 @@ func (s MLStateConstraint) BufferShape() []foundation.NSNumber {
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
+}
+
+// The data type of scalars in the state buffer.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/dataType
+func (s MLStateConstraint) DataType() MLMultiArrayDataType {
+	rv := objc.Send[MLMultiArrayDataType](s.ID, objc.Sel("dataType"))
+	return MLMultiArrayDataType(rv)
 }

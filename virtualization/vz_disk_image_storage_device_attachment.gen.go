@@ -169,14 +169,14 @@ type IVZDiskImageStorageDeviceAttachment interface {
 	// Topic: Creating the attachment point
 
 	// Creates the attachment object from the specified disk image.
-	InitWithURLReadOnlyError(url foundation.INSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error)
+	InitWithURLReadOnlyError(url foundation.NSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error)
 	// Initialize the attachment from a local file URL.
-	InitWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.INSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error)
+	InitWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.NSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error)
 
 	// Topic: Getting the disk image details
 
 	// The URL of the underlying disk image.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	// A Boolean value that indicates whether the underlying disk image is read-only.
 	ReadOnly() bool
 	// The current cacheing mode for the virtual disk image.
@@ -218,11 +218,11 @@ func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment 
 // operating system flushes data, described by one of the available
 // [VZDiskImageSynchronizationMode] modes.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)
+// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)-36gc5
 //
 // [VZDiskImageCachingMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageCachingMode
 // [VZDiskImageSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode
-func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.INSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error) {
+func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.NSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZDiskImageStorageDeviceAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:cachingMode:synchronizationMode:error:"), url, readOnly, cachingMode, synchronizationMode, unsafe.Pointer(&errorPtr))
@@ -247,8 +247,8 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyCachingModeSynchronizatio
 // methods returns an attachment object on success, or `nil` if an error
 // occurred
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)
-func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.INSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error) {
+// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)-9qeco
+func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.NSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZDiskImageStorageDeviceAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:error:"), url, readOnly, unsafe.Pointer(&errorPtr))
@@ -273,8 +273,8 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.INSU
 // methods returns an attachment object on success, or `nil` if an error
 // occurred
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)
-func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundation.INSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error) {
+// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)-9qeco
+func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundation.NSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:readOnly:error:"), url, readOnly, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -299,11 +299,11 @@ func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundat
 // operating system flushes data, described by one of the available
 // [VZDiskImageSynchronizationMode] modes.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)
+// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)-36gc5
 //
 // [VZDiskImageCachingMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageCachingMode
 // [VZDiskImageSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode
-func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.INSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error) {
+func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.NSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:readOnly:cachingMode:synchronizationMode:error:"), url, readOnly, cachingMode, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -317,7 +317,7 @@ func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyCachingModeSynchr
 // The URL of the underlying disk image.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/url
-func (d VZDiskImageStorageDeviceAttachment) URL() foundation.INSURL {
+func (d VZDiskImageStorageDeviceAttachment) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

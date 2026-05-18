@@ -81,14 +81,14 @@ type IMLSequenceConstraint interface {
 }
 
 // Init initializes the instance.
-func (s MLSequenceConstraint) Init() MLSequenceConstraint {
-	rv := objc.Send[MLSequenceConstraint](s.ID, objc.Sel("init"))
+func (m MLSequenceConstraint) Init() MLSequenceConstraint {
+	rv := objc.Send[MLSequenceConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSequenceConstraint) Autorelease() MLSequenceConstraint {
-	rv := objc.Send[MLSequenceConstraint](s.ID, objc.Sel("autorelease"))
+func (m MLSequenceConstraint) Autorelease() MLSequenceConstraint {
+	rv := objc.Send[MLSequenceConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -107,9 +107,9 @@ func NewSequenceConstraintWithCoder(coder objectivec.IObject) MLSequenceConstrai
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSequenceConstraint/isAllowedValue:error:
-func (s MLSequenceConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
+func (m MLSequenceConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](s.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -122,8 +122,8 @@ func (s MLSequenceConstraint) IsAllowedValueError(value objectivec.IObject) (boo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSequenceConstraint/initWithCoder:
-func (s MLSequenceConstraint) InitWithCoder(coder foundation.INSCoder) MLSequenceConstraint {
-	rv := objc.Send[MLSequenceConstraint](s.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLSequenceConstraint) InitWithCoder(coder foundation.INSCoder) MLSequenceConstraint {
+	rv := objc.Send[MLSequenceConstraint](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 

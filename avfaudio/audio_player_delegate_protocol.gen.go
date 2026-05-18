@@ -60,7 +60,7 @@ func (o AVAudioPlayerDelegateObject) AudioPlayerDidFinishPlayingSuccessfully(pla
 // error: The decoding error.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerDelegate/audioPlayerDecodeErrorDidOccur(_:error:)
-func (o AVAudioPlayerDelegateObject) AudioPlayerDecodeErrorDidOccurError(player IAVAudioPlayer, error_ foundation.INSError) {
+func (o AVAudioPlayerDelegateObject) AudioPlayerDecodeErrorDidOccurError(player IAVAudioPlayer, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerDecodeErrorDidOccur:error:"), player, error_)
 }
 

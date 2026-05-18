@@ -22,7 +22,7 @@ import (
 // A data representation of the photo.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/fileDataRepresentation(with:)
-func (c AVCapturePhoto) FileDataRepresentationWithCustomizer(customizer objectivec.IObject) foundation.INSData {
+func (c AVCapturePhoto) FileDataRepresentationWithCustomizer(customizer objectivec.IObject) foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("fileDataRepresentationWithCustomizer:"), customizer)
 	return foundation.NSDataFromID(rv)
 }

@@ -5,7 +5,7 @@ package uniformtypeidentifiers
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -162,14 +162,13 @@ type IUTType interface {
 	// The preferred MIME type for the type.
 	PreferredMIMEType() string
 	// The reference URL for the type.
-	ReferenceURL() foundation.INSURL
+	ReferenceURL() corefoundation.CFURLRef
 	// The set of types the type directly or indirectly conforms to.
-	Supertypes() foundation.INSSet
+	Supertypes() objectivec.IObject
 	// The tag specification dictionary of the type.
-	Tags() foundation.INSDictionary
+	Tags() objectivec.IObject
 	// The type’s version, if available.
-	Version() foundation.NSNumber
-	EncodeWithCoder(coder foundation.INSCoder)
+	Version() objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -303,7 +302,7 @@ func NewTypeWithIdentifier(identifier string) UTType {
 //
 // This initializer returns `nil` if the system doesn’t know the MIME type.
 //
-// See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/init(mimeType:)
+// See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/init(mimeType:)-1txq0
 func NewTypeWithMIMEType(mimeType string) UTType {
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("typeWithMIMEType:"), objc.String(mimeType))
 	return UTTypeFromID(rv)
@@ -407,9 +406,6 @@ func (t UTType) IsSupertypeOfType(type_ IUTType) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSupertypeOfType:"), type_)
 	return rv
 }
-func (t UTType) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
 
 // Returns an array of types from the provided tag and tag class.
 //
@@ -503,7 +499,7 @@ func (t UTType) SetShazamSignature(value IUTType) {
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/identifier
 func (t UTType) Identifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
-	return foundation.NSStringFromID(rv).String()
+	return objc.IDToString(rv)
 }
 
 // A localized description of the type.
@@ -517,7 +513,7 @@ func (t UTType) Identifier() string {
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/localizedDescription
 func (t UTType) LocalizedDescription() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("localizedDescription"))
-	return foundation.NSStringFromID(rv).String()
+	return objc.IDToString(rv)
 }
 
 // The preferred filename extension for the type.
@@ -538,7 +534,7 @@ func (t UTType) LocalizedDescription() string {
 // [filenameExtension]: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTagClass/filenameExtension
 func (t UTType) PreferredFilenameExtension() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("preferredFilenameExtension"))
-	return foundation.NSStringFromID(rv).String()
+	return objc.IDToString(rv)
 }
 
 // The preferred MIME type for the type.
@@ -556,7 +552,7 @@ func (t UTType) PreferredFilenameExtension() string {
 // [mimeType]: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTagClass/mimeType
 func (t UTType) PreferredMIMEType() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("preferredMIMEType"))
-	return foundation.NSStringFromID(rv).String()
+	return objc.IDToString(rv)
 }
 
 // The reference URL for the type.
@@ -567,17 +563,17 @@ func (t UTType) PreferredMIMEType() string {
 // types don’t specify reference URLs.
 //
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/referenceURL
-func (t UTType) ReferenceURL() foundation.INSURL {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("referenceURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+func (t UTType) ReferenceURL() corefoundation.CFURLRef {
+	rv := objc.Send[corefoundation.CFURLRef](t.ID, objc.Sel("referenceURL"))
+	return corefoundation.CFURLRef(rv)
 }
 
 // The set of types the type directly or indirectly conforms to.
 //
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/supertypes
-func (t UTType) Supertypes() foundation.INSSet {
+func (t UTType) Supertypes() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("supertypes"))
-	return foundation.NSSetFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
 
 // The tag specification dictionary of the type.
@@ -608,9 +604,9 @@ func (t UTType) Supertypes() foundation.INSSet {
 // [mpeg]: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTType-swift.struct/mpeg
 // [preferredFilenameExtension]: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTType-swift.struct/preferredFilenameExtension
 // [preferredMIMEType]: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTType-swift.struct/preferredMIMEType
-func (t UTType) Tags() foundation.INSDictionary {
+func (t UTType) Tags() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tags"))
-	return foundation.NSDictionaryFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
 
 // The type’s version, if available.
@@ -620,9 +616,9 @@ func (t UTType) Tags() foundation.INSDictionary {
 // Most types don’t have a version.
 //
 // See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/version
-func (t UTType) Version() foundation.NSNumber {
+func (t UTType) Version() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("version"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
 
 // A type representing the @c SHCustomCatalog file format with the

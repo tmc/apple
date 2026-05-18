@@ -103,14 +103,14 @@ type IWebResource interface {
 	// Topic: Initializing
 
 	// Initializes and returns a web resource instance.
-	InitWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.INSData, URL foundation.INSURL, MIMEType string, textEncodingName string, frameName string) WebResource
+	InitWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.NSData, URL foundation.NSURL, MIMEType string, textEncodingName string, frameName string) WebResource
 
 	// Topic: Getting attributes
 
 	// The receiver’s data.
-	Data() foundation.INSData
+	Data() foundation.NSData
 	// The receiver’s URL.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	// The receiver’s MIME type.
 	MIMEType() string
 	// The receiver’s text encoding name.
@@ -158,8 +158,8 @@ func NewWebResource() WebResource {
 //
 // An initialized web resource.
 //
-// See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)
-func NewWebResourceWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.INSData, URL foundation.INSURL, MIMEType string, textEncodingName string, frameName string) WebResource {
+// See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)-914h4
+func NewWebResourceWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.NSData, URL foundation.NSURL, MIMEType string, textEncodingName string, frameName string) WebResource {
 	instance := getWebResourceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:URL:MIMEType:textEncodingName:frameName:"), data, URL, objc.String(MIMEType), objc.String(textEncodingName), objc.String(frameName))
 	return WebResourceFromID(rv)
@@ -183,8 +183,8 @@ func NewWebResourceWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.
 //
 // An initialized web resource.
 //
-// See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)
-func (w WebResource) InitWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.INSData, URL foundation.INSURL, MIMEType string, textEncodingName string, frameName string) WebResource {
+// See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)-914h4
+func (w WebResource) InitWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.NSData, URL foundation.NSURL, MIMEType string, textEncodingName string, frameName string) WebResource {
 	rv := objc.Send[WebResource](w.ID, objc.Sel("initWithData:URL:MIMEType:textEncodingName:frameName:"), data, URL, objc.String(MIMEType), objc.String(textEncodingName), objc.String(frameName))
 	return rv
 }
@@ -195,7 +195,7 @@ func (w WebResource) EncodeWithCoder(coder foundation.INSCoder) {
 // The receiver’s data.
 //
 // See: https://developer.apple.com/documentation/WebKit/WebResource/data
-func (w WebResource) Data() foundation.INSData {
+func (w WebResource) Data() foundation.NSData {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -203,7 +203,7 @@ func (w WebResource) Data() foundation.INSData {
 // The receiver’s URL.
 //
 // See: https://developer.apple.com/documentation/WebKit/WebResource/url
-func (w WebResource) URL() foundation.INSURL {
+func (w WebResource) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

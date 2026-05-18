@@ -1659,6 +1659,9 @@ type IOAccelSurfaceReadData = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/ioaccelsurfacescaling
 type IOAccelSurfaceScaling = unsafe.Pointer
 
+// See: https://developer.apple.com/documentation/kernel/ioaddressrange
+type IOAddressRange = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/ioalignment
 type IOAlignment = uint
 
@@ -2569,9 +2572,6 @@ type IOUSBHIDReportDesc = unsafe.Pointer
 //
 // See: https://developer.apple.com/documentation/kernel/iousbhidreportdescptr
 type IOUSBHIDReportDescPtr = unsafe.Pointer
-
-// See: https://developer.apple.com/documentation/kernel/iousbhostcidoorbell
-type IOUSBHostCIDoorbell = uint32
 
 // See: https://developer.apple.com/documentation/kernel/iousbhostcimessage
 type IOUSBHostCIMessage = unsafe.Pointer
@@ -6843,9 +6843,6 @@ type TUSBHostPortConnectable = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/tusbhostpowersourcetype
 type TUSBHostPowerSourceType = unsafe.Pointer
 
-// See: https://developer.apple.com/documentation/kernel/tusblpmexitlatency
-type TUSBLPMExitLatency = unsafe.Pointer
-
 // See: https://developer.apple.com/documentation/kernel/tusblinkstate
 type TUSBLinkState = unsafe.Pointer
 
@@ -8000,26 +7997,4091 @@ type Zone_name_array_t = Zone_name_t
 // See: https://developer.apple.com/documentation/kernel/zone_name_t
 type Zone_name_t = unsafe.Pointer
 
-// NXByteOrder is the canonical enum type used by byte-order helpers.
+// BootVideo is a Go-name alias for Boot_Video.
+type BootVideo = Boot_Video
 
+// BootVideoV1 is a Go-name alias for Boot_VideoV1.
+type BootVideoV1 = Boot_VideoV1
+
+// ComplexSplit is a Go-name alias for COMPLEX_SPLIT.
+type ComplexSplit = COMPLEX_SPLIT
+
+// CsBlobIndex is a Go-name alias for CS_BlobIndex.
+type CsBlobIndex = CS_BlobIndex
+
+// CsCodeDirectory is a Go-name alias for CS_CodeDirectory.
+type CsCodeDirectory = CS_CodeDirectory
+
+// CsGenericBlob is a Go-name alias for CS_GenericBlob.
+type CsGenericBlob = CS_GenericBlob
+
+// CsSuperBlob is a Go-name alias for CS_SuperBlob.
+type CsSuperBlob = CS_SuperBlob
+
+// DoubleComplex is a Go-name alias for DOUBLE_COMPLEX.
+type DoubleComplex = DOUBLE_COMPLEX
+
+// DoubleComplexSplit is a Go-name alias for DOUBLE_COMPLEX_SPLIT.
+type DoubleComplexSplit = DOUBLE_COMPLEX_SPLIT
+
+// EfiBoolean is a Go-name alias for EFI_BOOLEAN.
+type EfiBoolean = EFI_BOOLEAN
+
+// EfiChar16 is a Go-name alias for EFI_CHAR16.
+type EfiChar16 = EFI_CHAR16
+
+// EfiChar32 is a Go-name alias for EFI_CHAR32.
+type EfiChar32 = EFI_CHAR32
+
+// EfiChar64 is a Go-name alias for EFI_CHAR64.
+type EfiChar64 = EFI_CHAR64
+
+// EfiChar8 is a Go-name alias for EFI_CHAR8.
+type EfiChar8 = EFI_CHAR8
+
+// EfiConfigurationTable32 is a Go-name alias for EFI_CONFIGURATION_TABLE_32.
+type EfiConfigurationTable32 = EFI_CONFIGURATION_TABLE_32
+
+// EfiConfigurationTable64 is a Go-name alias for EFI_CONFIGURATION_TABLE_64.
+type EfiConfigurationTable64 = EFI_CONFIGURATION_TABLE_64
+
+// EfiGuid is a Go-name alias for EFI_GUID.
+type EfiGuid = EFI_GUID
+
+// EfiHandle32 is a Go-name alias for EFI_HANDLE32.
+type EfiHandle32 = EFI_HANDLE32
+
+// EfiHandle64 is a Go-name alias for EFI_HANDLE64.
+type EfiHandle64 = EFI_HANDLE64
+
+// EfiInt16 is a Go-name alias for EFI_INT16.
+type EfiInt16 = EFI_INT16
+
+// EfiInt32 is a Go-name alias for EFI_INT32.
+type EfiInt32 = EFI_INT32
+
+// EfiInt64 is a Go-name alias for EFI_INT64.
+type EfiInt64 = EFI_INT64
+
+// EfiInt8 is a Go-name alias for EFI_INT8.
+type EfiInt8 = EFI_INT8
+
+// EfiMemoryDescriptor is a Go-name alias for EFI_MEMORY_DESCRIPTOR.
+type EfiMemoryDescriptor = EFI_MEMORY_DESCRIPTOR
+
+// EfiMemoryType is a Go-name alias for EFI_MEMORY_TYPE.
+type EfiMemoryType = EFI_MEMORY_TYPE
+
+// EfiPhysicalAddress is a Go-name alias for EFI_PHYSICAL_ADDRESS.
+type EfiPhysicalAddress = EFI_PHYSICAL_ADDRESS
+
+// EfiPtr32 is a Go-name alias for EFI_PTR32.
+type EfiPtr32 = EFI_PTR32
+
+// EfiPtr64 is a Go-name alias for EFI_PTR64.
+type EfiPtr64 = EFI_PTR64
+
+// EfiResetType is a Go-name alias for EFI_RESET_TYPE.
+type EfiResetType = EFI_RESET_TYPE
+
+// EfiRuntimeServices32 is a Go-name alias for EFI_RUNTIME_SERVICES_32.
+type EfiRuntimeServices32 = EFI_RUNTIME_SERVICES_32
+
+// EfiRuntimeServices64 is a Go-name alias for EFI_RUNTIME_SERVICES_64.
+type EfiRuntimeServices64 = EFI_RUNTIME_SERVICES_64
+
+// EfiStatus is a Go-name alias for EFI_STATUS.
+type EfiStatus = EFI_STATUS
+
+// EfiSystemTable32 is a Go-name alias for EFI_SYSTEM_TABLE_32.
+type EfiSystemTable32 = EFI_SYSTEM_TABLE_32
+
+// EfiSystemTable64 is a Go-name alias for EFI_SYSTEM_TABLE_64.
+type EfiSystemTable64 = EFI_SYSTEM_TABLE_64
+
+// EfiTableHeader is a Go-name alias for EFI_TABLE_HEADER.
+type EfiTableHeader = EFI_TABLE_HEADER
+
+// EfiTime is a Go-name alias for EFI_TIME.
+type EfiTime = EFI_TIME
+
+// EfiTimeCapabilities is a Go-name alias for EFI_TIME_CAPABILITIES.
+type EfiTimeCapabilities = EFI_TIME_CAPABILITIES
+
+// EfiUint16 is a Go-name alias for EFI_UINT16.
+type EfiUint16 = EFI_UINT16
+
+// EfiUint32 is a Go-name alias for EFI_UINT32.
+type EfiUint32 = EFI_UINT32
+
+// EfiUint64 is a Go-name alias for EFI_UINT64.
+type EfiUint64 = EFI_UINT64
+
+// EfiUint8 is a Go-name alias for EFI_UINT8.
+type EfiUint8 = EFI_UINT8
+
+// EfiUintn is a Go-name alias for EFI_UINTN.
+type EfiUintn = EFI_UINTN
+
+// EfiVirtualAddress is a Go-name alias for EFI_VIRTUAL_ADDRESS.
+type EfiVirtualAddress = EFI_VIRTUAL_ADDRESS
+
+// IOPCIDeviceCrashNotification is a Go-name alias for IOPCIDeviceCrashNotification_t.
+type IOPCIDeviceCrashNotification = IOPCIDeviceCrashNotification_t
+
+// Md5Ctx is a Go-name alias for MD5_CTX.
+type Md5Ctx = MD5_CTX
+
+// NdrRecord is a Go-name alias for NDR_record_t.
+type NdrRecord = NDR_record_t
+
+// PeVideo is a Go-name alias for PE_Video.
+type PeVideo = PE_Video
+
+// PeState is a Go-name alias for PE_state_t.
+type PeState = PE_state_t
+
+// RawHeader is a Go-name alias for RAW_header.
+type RawHeader = RAW_header
+
+// ReportLunsLogicalUnitAddressing is a Go-name alias for REPORT_LUNS_LOGICAL_UNIT_ADDRESSING.
+type ReportLunsLogicalUnitAddressing = REPORT_LUNS_LOGICAL_UNIT_ADDRESSING
+
+// ReportLunsPeripheralDeviceAddressing is a Go-name alias for REPORT_LUNS_PERIPHERAL_DEVICE_ADDRESSING.
+type ReportLunsPeripheralDeviceAddressing = REPORT_LUNS_PERIPHERAL_DEVICE_ADDRESSING
+
+// SCSICmdInquiryPAGECxHeader is a Go-name alias for SCSICmd_INQUIRY_PAGECx_Header.
+type SCSICmdInquiryPAGECxHeader = SCSICmd_INQUIRY_PAGECx_Header
+
+// SCSICmdInquiryPage00HeaderSpc16 is a Go-name alias for SCSICmd_INQUIRY_Page00_Header_SPC_16.
+type SCSICmdInquiryPage00HeaderSpc16 = SCSICmd_INQUIRY_Page00_Header_SPC_16
+
+// SCSICmdInquiryPage80HeaderSpc16 is a Go-name alias for SCSICmd_INQUIRY_Page80_Header_SPC_16.
+type SCSICmdInquiryPage80HeaderSpc16 = SCSICmd_INQUIRY_Page80_Header_SPC_16
+
+// SCSICmdInquiryPageB0Data is a Go-name alias for SCSICmd_INQUIRY_PageB0_Data.
+type SCSICmdInquiryPageB0Data = SCSICmd_INQUIRY_PageB0_Data
+
+// SCSICmdInquiryPageB2Data is a Go-name alias for SCSICmd_INQUIRY_PageB2_Data.
+type SCSICmdInquiryPageB2Data = SCSICmd_INQUIRY_PageB2_Data
+
+// SCSICmdInquiryPageB2ProvisioningGroupDescriptor is a Go-name alias for SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor.
+type SCSICmdInquiryPageB2ProvisioningGroupDescriptor = SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor
+
+// SCSICmdInquiryPageC0Data is a Go-name alias for SCSICmd_INQUIRY_PageC0_Data.
+type SCSICmdInquiryPageC0Data = SCSICmd_INQUIRY_PageC0_Data
+
+// SCSICmdInquiryPageC1Data is a Go-name alias for SCSICmd_INQUIRY_PageC1_Data.
+type SCSICmdInquiryPageC1Data = SCSICmd_INQUIRY_PageC1_Data
+
+// SCSICmdInquiryStandardDataPtr is a Go-name alias for SCSICmd_INQUIRY_StandardDataPtr.
+type SCSICmdInquiryStandardDataPtr = SCSICmd_INQUIRY_StandardDataPtr
+
+// SCSICmdReportLunsHeader is a Go-name alias for SCSICmd_REPORT_LUNS_Header.
+type SCSICmdReportLunsHeader = SCSICmd_REPORT_LUNS_Header
+
+// SCSICmdReportLunsLunEntry is a Go-name alias for SCSICmd_REPORT_LUNS_LUN_ENTRY.
+type SCSICmdReportLunsLunEntry = SCSICmd_REPORT_LUNS_LUN_ENTRY
+
+// ScsiSenseData is a Go-name alias for SCSI_Sense_Data.
+type ScsiSenseData = SCSI_Sense_Data
+
+// ScScatter is a Go-name alias for SC_Scatter.
+type ScScatter = SC_Scatter
+
+// Sha1Ctx is a Go-name alias for SHA1_CTX.
+type Sha1Ctx = SHA1_CTX
+
+// StickyKeysModifierInfo is a Go-name alias for StickyKeys_ModifierInfo.
+type StickyKeysModifierInfo = StickyKeys_ModifierInfo
+
+// StickyKeysToggleInfo is a Go-name alias for StickyKeys_ToggleInfo.
+type StickyKeysToggleInfo = StickyKeys_ToggleInfo
+
+// WkWord is a Go-name alias for WK_word.
+type WkWord = WK_word
+
+// Addr64 is a Go-name alias for Addr64_t.
+type Addr64 = Addr64_t
+
+// Aid is a Go-name alias for Aid_t.
+type Aid = Aid_t
+
+// AlarmPort is a Go-name alias for Alarm_port_t.
+type AlarmPort = Alarm_port_t
+
+// Alarm is a Go-name alias for Alarm_t.
+type Alarm = Alarm_t
+
+// AlarmType is a Go-name alias for Alarm_type_t.
+type AlarmType = Alarm_type_t
+
+// ArcadeRegister is a Go-name alias for Arcade_register_t.
+type ArcadeRegister = Arcade_register_t
+
+// ArmDebugInfo is a Go-name alias for Arm_debug_info_t.
+type ArmDebugInfo = Arm_debug_info_t
+
+// ArmExceptionState32 is a Go-name alias for Arm_exception_state32_t.
+type ArmExceptionState32 = Arm_exception_state32_t
+
+// ArmFeatureBits is a Go-name alias for Arm_feature_bits_t.
+type ArmFeatureBits = Arm_feature_bits_t
+
+// ArmNeonState32 is a Go-name alias for Arm_neon_state32_t.
+type ArmNeonState32 = Arm_neon_state32_t
+
+// ArmStateHdr is a Go-name alias for Arm_state_hdr_t.
+type ArmStateHdr = Arm_state_hdr_t
+
+// ArmThreadState32 is a Go-name alias for Arm_thread_state32_t.
+type ArmThreadState32 = Arm_thread_state32_t
+
+// ArmUnifiedThreadState is a Go-name alias for Arm_unified_thread_state_t.
+type ArmUnifiedThreadState = Arm_unified_thread_state_t
+
+// AtmAction is a Go-name alias for Atm_action_t.
+type AtmAction = Atm_action_t
+
+// AtmAid is a Go-name alias for Atm_aid_t.
+type AtmAid = Atm_aid_t
+
+// AtmGuard is a Go-name alias for Atm_guard_t.
+type AtmGuard = Atm_guard_t
+
+// AtmMailboxOffset is a Go-name alias for Atm_mailbox_offset_t.
+type AtmMailboxOffset = Atm_mailbox_offset_t
+
+// AtmMemoryDescriptorArray is a Go-name alias for Atm_memory_descriptor_array_t.
+type AtmMemoryDescriptorArray = Atm_memory_descriptor_array_t
+
+// AtmMemoryDescriptor is a Go-name alias for Atm_memory_descriptor_t.
+type AtmMemoryDescriptor = Atm_memory_descriptor_t
+
+// AtmMemorySizeArray is a Go-name alias for Atm_memory_size_array_t.
+type AtmMemorySizeArray = Atm_memory_size_array_t
+
+// AtmSubaid32 is a Go-name alias for Atm_subaid32_t.
+type AtmSubaid32 = Atm_subaid32_t
+
+// Attrgroup is a Go-name alias for Attrgroup_t.
+type Attrgroup = Attrgroup_t
+
+// AttributeSet is a Go-name alias for Attribute_set_t.
+type AttributeSet = Attribute_set_t
+
+// Attrreference is a Go-name alias for Attrreference_t.
+type Attrreference = Attrreference_t
+
+// AuAsflgs is a Go-name alias for Au_asflgs_t.
+type AuAsflgs = Au_asflgs_t
+
+// AuAsid is a Go-name alias for Au_asid_t.
+type AuAsid = Au_asid_t
+
+// AuClass is a Go-name alias for Au_class_t.
+type AuClass = Au_class_t
+
+// AuCtlmode is a Go-name alias for Au_ctlmode_t.
+type AuCtlmode = Au_ctlmode_t
+
+// AuEmod is a Go-name alias for Au_emod_t.
+type AuEmod = Au_emod_t
+
+// AuEvclassMap is a Go-name alias for Au_evclass_map_t.
+type AuEvclassMap = Au_evclass_map_t
+
+// AuEvent is a Go-name alias for Au_event_t.
+type AuEvent = Au_event_t
+
+// AuExpireAfter is a Go-name alias for Au_expire_after_t.
+type AuExpireAfter = Au_expire_after_t
+
+// AuFstat is a Go-name alias for Au_fstat_t.
+type AuFstat = Au_fstat_t
+
+// AuID is a Go-name alias for Au_id_t.
+type AuID = Au_id_t
+
+// AuMask is a Go-name alias for Au_mask_t.
+type AuMask = Au_mask_t
+
+// AuQctrl is a Go-name alias for Au_qctrl_t.
+type AuQctrl = Au_qctrl_t
+
+// AuSession is a Go-name alias for Au_session_t.
+type AuSession = Au_session_t
+
+// AuStat is a Go-name alias for Au_stat_t.
+type AuStat = Au_stat_t
+
+// AuTidAddr is a Go-name alias for Au_tid_addr_t.
+type AuTidAddr = Au_tid_addr_t
+
+// AuTid is a Go-name alias for Au_tid_t.
+type AuTid = Au_tid_t
+
+// AuditinfoAddr is a Go-name alias for Auditinfo_addr_t.
+type AuditinfoAddr = Auditinfo_addr_t
+
+// Auditinfo is a Go-name alias for Auditinfo_t.
+type Auditinfo = Auditinfo_t
+
+// AuditpinfoAddr is a Go-name alias for Auditpinfo_addr_t.
+type AuditpinfoAddr = Auditpinfo_addr_t
+
+// Auditpinfo is a Go-name alias for Auditpinfo_t.
+type Auditpinfo = Auditpinfo_t
+
+// BacktraceFlags is a Go-name alias for Backtrace_flags_t.
+type BacktraceFlags = Backtrace_flags_t
+
+// BacktraceInfo is a Go-name alias for Backtrace_info_t.
+type BacktraceInfo = Backtrace_info_t
+
+// BacktracePack is a Go-name alias for Backtrace_pack_t.
+type BacktracePack = Backtrace_pack_t
+
+// BankAction is a Go-name alias for Bank_action_t.
+type BankAction = Bank_action_t
+
+// Blkcnt is a Go-name alias for Blkcnt_t.
+type Blkcnt = Blkcnt_t
+
+// Blksize is a Go-name alias for Blksize_t.
+type Blksize = Blksize_t
+
+// BlockHint is a Go-name alias for Block_hint_t.
+type BlockHint = Block_hint_t
+
+// BootArgs is a Go-name alias for Boot_args.
+type BootArgs = Boot_args
+
+// BootIconElement is a Go-name alias for Boot_icon_element.
+type BootIconElement = Boot_icon_element
+
+// Bootstrap is a Go-name alias for Bootstrap_t.
+type Bootstrap = Bootstrap_t
+
+// BpfInt32 is a Go-name alias for Bpf_int32.
+type BpfInt32 = Bpf_int32
+
+// BpfTapMode is a Go-name alias for Bpf_tap_mode.
+type BpfTapMode = Bpf_tap_mode
+
+// BpfUInt32 is a Go-name alias for Bpf_u_int32.
+type BpfUInt32 = Bpf_u_int32
+
+// BufBptr is a Go-name alias for Buf_bptr_t.
+type BufBptr = Buf_bptr_t
+
+// BufPtrRef is a Go-name alias for Buf_ptr_ref_t.
+type BufPtrRef = Buf_ptr_ref_t
+
+// BufPtr is a Go-name alias for Buf_ptr_t.
+type BufPtr = Buf_ptr_t
+
+// BufRefPtr is a Go-name alias for Buf_ref_ptr_t.
+type BufRefPtr = Buf_ref_ptr_t
+
+// BufRefRef is a Go-name alias for Buf_ref_ref_t.
+type BufRefRef = Buf_ref_ref_t
+
+// BufRef is a Go-name alias for Buf_ref_t.
+type BufRef = Buf_ref_t
+
+// Buf is a Go-name alias for Buf_t.
+type Buf = Buf_t
+
+// BufattrBptr is a Go-name alias for Bufattr_bptr_t.
+type BufattrBptr = Bufattr_bptr_t
+
+// BufattrPtrRef is a Go-name alias for Bufattr_ptr_ref_t.
+type BufattrPtrRef = Bufattr_ptr_ref_t
+
+// BufattrPtr is a Go-name alias for Bufattr_ptr_t.
+type BufattrPtr = Bufattr_ptr_t
+
+// BufattrRefPtr is a Go-name alias for Bufattr_ref_ptr_t.
+type BufattrRefPtr = Bufattr_ref_ptr_t
+
+// BufattrRefRef is a Go-name alias for Bufattr_ref_ref_t.
+type BufattrRefRef = Bufattr_ref_ref_t
+
+// BufattrRef is a Go-name alias for Bufattr_ref_t.
+type BufattrRef = Bufattr_ref_t
+
+// Bufattr is a Go-name alias for Bufattr_t.
+type Bufattr = Bufattr_t
+
+// CacheType is a Go-name alias for Cache_type_t.
+type CacheType = Cache_type_t
+
+// Caddr is a Go-name alias for Caddr_t.
+type Caddr = Caddr_t
+
+// CaddrUt is a Go-name alias for Caddr_ut.
+type CaddrUt = Caddr_ut
+
+// CallGate is a Go-name alias for Call_gate_t.
+type CallGate = Call_gate_t
+
+// Cc is a Go-name alias for Cc_t.
+type Cc = Cc_t
+
+// CircleQueueHead is a Go-name alias for Circle_queue_head_t.
+type CircleQueueHead = Circle_queue_head_t
+
+// CircleQueue is a Go-name alias for Circle_queue_t.
+type CircleQueue = Circle_queue_t
+
+// ClDirectReadLock is a Go-name alias for Cl_direct_read_lock_t.
+type ClDirectReadLock = Cl_direct_read_lock_t
+
+// ClockAttr is a Go-name alias for Clock_attr_t.
+type ClockAttr = Clock_attr_t
+
+// ClockCtrlPort is a Go-name alias for Clock_ctrl_port_t.
+type ClockCtrlPort = Clock_ctrl_port_t
+
+// ClockCtrl is a Go-name alias for Clock_ctrl_t.
+type ClockCtrl = Clock_ctrl_t
+
+// ClockFlavor is a Go-name alias for Clock_flavor_t.
+type ClockFlavor = Clock_flavor_t
+
+// ClockFrequencyInfo is a Go-name alias for Clock_frequency_info_t.
+type ClockFrequencyInfo = Clock_frequency_info_t
+
+// ClockID is a Go-name alias for Clock_id_t.
+type ClockID = Clock_id_t
+
+// ClockNsec is a Go-name alias for Clock_nsec_t.
+type ClockNsec = Clock_nsec_t
+
+// ClockReply is a Go-name alias for Clock_reply_t.
+type ClockReply = Clock_reply_t
+
+// ClockRes is a Go-name alias for Clock_res_t.
+type ClockRes = Clock_res_t
+
+// ClockSec is a Go-name alias for Clock_sec_t.
+type ClockSec = Clock_sec_t
+
+// ClockServPort is a Go-name alias for Clock_serv_port_t.
+type ClockServPort = Clock_serv_port_t
+
+// ClockServ is a Go-name alias for Clock_serv_t.
+type ClockServ = Clock_serv_t
+
+// Clock is a Go-name alias for Clock_t.
+type Clock = Clock_t
+
+// ClockUsec is a Go-name alias for Clock_usec_t.
+type ClockUsec = Clock_usec_t
+
+// ClusterType is a Go-name alias for Cluster_type_t.
+type ClusterType = Cluster_type_t
+
+// Coalition is a Go-name alias for Coalition_t.
+type Coalition = Coalition_t
+
+// CodeDesc is a Go-name alias for Code_desc_t.
+type CodeDesc = Code_desc_t
+
+// ConninfoMultipathtcp is a Go-name alias for Conninfo_multipathtcp_t.
+type ConninfoMultipathtcp = Conninfo_multipathtcp_t
+
+// ConninfoTCP is a Go-name alias for Conninfo_tcp_t.
+type ConninfoTCP = Conninfo_tcp_t
+
+// CoprocessorType is a Go-name alias for Coprocessor_type_t.
+type CoprocessorType = Coprocessor_type_t
+
+// CPUID is a Go-name alias for Cpu_id_t.
+type CPUID = Cpu_id_t
+
+// CPUSubtype is a Go-name alias for Cpu_subtype_t.
+type CPUSubtype = Cpu_subtype_t
+
+// CPUThreadtype is a Go-name alias for Cpu_threadtype_t.
+type CPUThreadtype = Cpu_threadtype_t
+
+// CPUType is a Go-name alias for Cpu_type_t.
+type CPUType = Cpu_type_t
+
+// CpuidArchPerfLeaf is a Go-name alias for Cpuid_arch_perf_leaf_t.
+type CpuidArchPerfLeaf = Cpuid_arch_perf_leaf_t
+
+// CpuidCacheDesc is a Go-name alias for Cpuid_cache_desc_t.
+type CpuidCacheDesc = Cpuid_cache_desc_t
+
+// CpuidMwaitLeaf is a Go-name alias for Cpuid_mwait_leaf_t.
+type CpuidMwaitLeaf = Cpuid_mwait_leaf_t
+
+// CpuidRegister is a Go-name alias for Cpuid_register_t.
+type CpuidRegister = Cpuid_register_t
+
+// CpuidThermalLeaf is a Go-name alias for Cpuid_thermal_leaf_t.
+type CpuidThermalLeaf = Cpuid_thermal_leaf_t
+
+// CpuidTscLeaf is a Go-name alias for Cpuid_tsc_leaf_t.
+type CpuidTscLeaf = Cpuid_tsc_leaf_t
+
+// CpuidXsaveLeaf is a Go-name alias for Cpuid_xsave_leaf_t.
+type CpuidXsaveLeaf = Cpuid_xsave_leaf_t
+
+// Cr0 is a Go-name alias for Cr0_t.
+type Cr0 = Cr0_t
+
+// CryptexAuthType is a Go-name alias for Cryptex_auth_type_t.
+type CryptexAuthType = Cryptex_auth_type_t
+
+// CryptoRandomCtx is a Go-name alias for Crypto_random_ctx_t.
+type CryptoRandomCtx = Crypto_random_ctx_t
+
+// CryptoRandomKmemCtxSizeFn is a Go-name alias for Crypto_random_kmem_ctx_size_fn_t.
+type CryptoRandomKmemCtxSizeFn = Crypto_random_kmem_ctx_size_fn_t
+
+// CtRune is a Go-name alias for Ct_rune_t.
+type CtRune = Ct_rune_t
+
+// DDevtotty is a Go-name alias for D_devtotty_t.
+type DDevtotty = D_devtotty_t
+
+// Daddr64 is a Go-name alias for Daddr64_t.
+type Daddr64 = Daddr64_t
+
+// Daddr is a Go-name alias for Daddr_t.
+type Daddr = Daddr_t
+
+// DataDesc is a Go-name alias for Data_desc_t.
+type DataDesc = Data_desc_t
+
+// DebugHeaderEntry is a Go-name alias for Debug_header_entry.
+type DebugHeaderEntry = Debug_header_entry
+
+// DebugHeader is a Go-name alias for Debug_header_t.
+type DebugHeader = Debug_header_t
+
+// DebugTrailer is a Go-name alias for Debug_trailer_t.
+type DebugTrailer = Debug_trailer_t
+
+// DescriptorOptions is a Go-name alias for Descriptor_options.
+type DescriptorOptions = Descriptor_options
+
+// Dev is a Go-name alias for Dev_t.
+type Dev = Dev_t
+
+// DirCloneAuthorizerOp is a Go-name alias for Dir_clone_authorizer_op_t.
+type DirCloneAuthorizerOp = Dir_clone_authorizer_op_t
+
+// DkBdReadDiscInfo is a Go-name alias for Dk_bd_read_disc_info_t.
+type DkBdReadDiscInfo = Dk_bd_read_disc_info_t
+
+// DkBdReadStructure is a Go-name alias for Dk_bd_read_structure_t.
+type DkBdReadStructure = Dk_bd_read_structure_t
+
+// DkBdReadTrackInfo is a Go-name alias for Dk_bd_read_track_info_t.
+type DkBdReadTrackInfo = Dk_bd_read_track_info_t
+
+// DkBdReportKey is a Go-name alias for Dk_bd_report_key_t.
+type DkBdReportKey = Dk_bd_report_key_t
+
+// DkBdSendKey is a Go-name alias for Dk_bd_send_key_t.
+type DkBdSendKey = Dk_bd_send_key_t
+
+// DkCdReadDiscInfo is a Go-name alias for Dk_cd_read_disc_info_t.
+type DkCdReadDiscInfo = Dk_cd_read_disc_info_t
+
+// DkCdReadIsrc is a Go-name alias for Dk_cd_read_isrc_t.
+type DkCdReadIsrc = Dk_cd_read_isrc_t
+
+// DkCdReadMcn is a Go-name alias for Dk_cd_read_mcn_t.
+type DkCdReadMcn = Dk_cd_read_mcn_t
+
+// DkCdRead is a Go-name alias for Dk_cd_read_t.
+type DkCdRead = Dk_cd_read_t
+
+// DkCdReadToc is a Go-name alias for Dk_cd_read_toc_t.
+type DkCdReadToc = Dk_cd_read_toc_t
+
+// DkCdReadTrackInfo is a Go-name alias for Dk_cd_read_track_info_t.
+type DkCdReadTrackInfo = Dk_cd_read_track_info_t
+
+// DkCorestorageInfo is a Go-name alias for Dk_corestorage_info_t.
+type DkCorestorageInfo = Dk_corestorage_info_t
+
+// DkDvdReadDiscInfo is a Go-name alias for Dk_dvd_read_disc_info_t.
+type DkDvdReadDiscInfo = Dk_dvd_read_disc_info_t
+
+// DkDvdReadRzoneInfo is a Go-name alias for Dk_dvd_read_rzone_info_t.
+type DkDvdReadRzoneInfo = Dk_dvd_read_rzone_info_t
+
+// DkDvdReadStructure is a Go-name alias for Dk_dvd_read_structure_t.
+type DkDvdReadStructure = Dk_dvd_read_structure_t
+
+// DkDvdReportKey is a Go-name alias for Dk_dvd_report_key_t.
+type DkDvdReportKey = Dk_dvd_report_key_t
+
+// DkDvdSendKey is a Go-name alias for Dk_dvd_send_key_t.
+type DkDvdSendKey = Dk_dvd_send_key_t
+
+// DkErrorDescription is a Go-name alias for Dk_error_description_t.
+type DkErrorDescription = Dk_error_description_t
+
+// DkExtent is a Go-name alias for Dk_extent_t.
+type DkExtent = Dk_extent_t
+
+// DkFirmwarePath is a Go-name alias for Dk_firmware_path_t.
+type DkFirmwarePath = Dk_firmware_path_t
+
+// DkFormatCapacities is a Go-name alias for Dk_format_capacities_t.
+type DkFormatCapacities = Dk_format_capacities_t
+
+// DkFormatCapacity is a Go-name alias for Dk_format_capacity_t.
+type DkFormatCapacity = Dk_format_capacity_t
+
+// DkPhysicalExtent is a Go-name alias for Dk_physical_extent_t.
+type DkPhysicalExtent = Dk_physical_extent_t
+
+// DkProvisionExtent is a Go-name alias for Dk_provision_extent_t.
+type DkProvisionExtent = Dk_provision_extent_t
+
+// DkProvisionStatus is a Go-name alias for Dk_provision_status_t.
+type DkProvisionStatus = Dk_provision_status_t
+
+// DkSetTier is a Go-name alias for Dk_set_tier_t.
+type DkSetTier = Dk_set_tier_t
+
+// DkSynchronize is a Go-name alias for Dk_synchronize_t.
+type DkSynchronize = Dk_synchronize_t
+
+// DkUnmap is a Go-name alias for Dk_unmap_t.
+type DkUnmap = Dk_unmap_t
+
+// Double is a Go-name alias for Double_t.
+type Double = Double_t
+
+// DumpFcn is a Go-name alias for Dump_fcn_t.
+type DumpFcn = Dump_fcn_t
+
+// DyldKernelImageInfoArray is a Go-name alias for Dyld_kernel_image_info_array_t.
+type DyldKernelImageInfoArray = Dyld_kernel_image_info_array_t
+
+// DyldKernelImageInfo is a Go-name alias for Dyld_kernel_image_info_t.
+type DyldKernelImageInfo = Dyld_kernel_image_info_t
+
+// DyldKernelProcessInfo is a Go-name alias for Dyld_kernel_process_info_t.
+type DyldKernelProcessInfo = Dyld_kernel_process_info_t
+
+// EccEvent is a Go-name alias for Ecc_event_t.
+type EccEvent = Ecc_event_t
+
+// EccFlags is a Go-name alias for Ecc_flags_t.
+type EccFlags = Ecc_flags_t
+
+// EccVersion is a Go-name alias for Ecc_version_t.
+type EccVersion = Ecc_version_t
+
+// EmptyFcn is a Go-name alias for Empty_fcn_t.
+type EmptyFcn = Empty_fcn_t
+
+// EmulationVector is a Go-name alias for Emulation_vector_t.
+type EmulationVector = Emulation_vector_t
+
+// EphPanicFlags is a Go-name alias for Eph_panic_flags_t.
+type EphPanicFlags = Eph_panic_flags_t
+
+// Er is a Go-name alias for Er_t.
+type Er = Er_t
+
+// Errno is a Go-name alias for Errno_t.
+type Errno = Errno_t
+
+// EtherHeader is a Go-name alias for Ether_header_t.
+type EtherHeader = Ether_header_t
+
+// Event64 is a Go-name alias for Event64_t.
+type Event64 = Event64_t
+
+// Event is a Go-name alias for Event_t.
+type Event = Event_t
+
+// EventlinkPortPair is a Go-name alias for Eventlink_port_pair_t.
+type EventlinkPortPair = Eventlink_port_pair_t
+
+// EvioSpecialKeyMsg is a Go-name alias for EvioSpecialKeyMsg_t.
+type EvioSpecialKeyMsg = EvioSpecialKeyMsg_t
+
+// ExCbAction is a Go-name alias for Ex_cb_action_t.
+type ExCbAction = Ex_cb_action_t
+
+// ExCbClass is a Go-name alias for Ex_cb_class_t.
+type ExCbClass = Ex_cb_class_t
+
+// ExCbState is a Go-name alias for Ex_cb_state_t.
+type ExCbState = Ex_cb_state_t
+
+// ExceptionBehaviorArray is a Go-name alias for Exception_behavior_array_t.
+type ExceptionBehaviorArray = Exception_behavior_array_t
+
+// ExceptionBehavior is a Go-name alias for Exception_behavior_t.
+type ExceptionBehavior = Exception_behavior_t
+
+// ExceptionData is a Go-name alias for Exception_data_t.
+type ExceptionData = Exception_data_t
+
+// ExceptionDataType is a Go-name alias for Exception_data_type_t.
+type ExceptionDataType = Exception_data_type_t
+
+// ExceptionFlavorArray is a Go-name alias for Exception_flavor_array_t.
+type ExceptionFlavorArray = Exception_flavor_array_t
+
+// ExceptionHandlerArray is a Go-name alias for Exception_handler_array_t.
+type ExceptionHandlerArray = Exception_handler_array_t
+
+// ExceptionHandlerInfoArray is a Go-name alias for Exception_handler_info_array_t.
+type ExceptionHandlerInfoArray = Exception_handler_info_array_t
+
+// ExceptionHandlerInfo is a Go-name alias for Exception_handler_info_t.
+type ExceptionHandlerInfo = Exception_handler_info_t
+
+// ExceptionHandler is a Go-name alias for Exception_handler_t.
+type ExceptionHandler = Exception_handler_t
+
+// ExceptionMaskArray is a Go-name alias for Exception_mask_array_t.
+type ExceptionMaskArray = Exception_mask_array_t
+
+// ExceptionMask is a Go-name alias for Exception_mask_t.
+type ExceptionMask = Exception_mask_t
+
+// ExceptionPortArrary is a Go-name alias for Exception_port_arrary_t.
+type ExceptionPortArrary = Exception_port_arrary_t
+
+// ExceptionPortArray is a Go-name alias for Exception_port_array_t.
+type ExceptionPortArray = Exception_port_array_t
+
+// ExceptionPortInfoArray is a Go-name alias for Exception_port_info_array_t.
+type ExceptionPortInfoArray = Exception_port_info_array_t
+
+// ExceptionPort is a Go-name alias for Exception_port_t.
+type ExceptionPort = Exception_port_t
+
+// ExceptionType is a Go-name alias for Exception_type_t.
+type ExceptionType = Exception_type_t
+
+// ExclaveEcstackentryAddr is a Go-name alias for Exclave_ecstackentry_addr_t.
+type ExclaveEcstackentryAddr = Exclave_ecstackentry_addr_t
+
+// ExtPaniclogCreateOptions is a Go-name alias for Ext_paniclog_create_options_t.
+type ExtPaniclogCreateOptions = Ext_paniclog_create_options_t
+
+// Fattributiontag is a Go-name alias for Fattributiontag_t.
+type Fattributiontag = Fattributiontag_t
+
+// Fchecklv is a Go-name alias for Fchecklv_t.
+type Fchecklv = Fchecklv_t
+
+// FdMask is a Go-name alias for Fd_mask.
+type FdMask = Fd_mask
+
+// FdSet is a Go-name alias for Fd_set.
+type FdSet = Fd_set
+
+// Fgetsigsinfo is a Go-name alias for Fgetsigsinfo_t.
+type Fgetsigsinfo = Fgetsigsinfo_t
+
+// Fhandle is a Go-name alias for Fhandle_t.
+type Fhandle = Fhandle_t
+
+// FileBptr is a Go-name alias for File_bptr_t.
+type FileBptr = File_bptr_t
+
+// FilePtrRef is a Go-name alias for File_ptr_ref_t.
+type FilePtrRef = File_ptr_ref_t
+
+// FilePtr is a Go-name alias for File_ptr_t.
+type FilePtr = File_ptr_t
+
+// FileRefPtr is a Go-name alias for File_ref_ptr_t.
+type FileRefPtr = File_ref_ptr_t
+
+// FileRefRef is a Go-name alias for File_ref_ref_t.
+type FileRefRef = File_ref_ref_t
+
+// FileRef is a Go-name alias for File_ref_t.
+type FileRef = File_ref_t
+
+// File is a Go-name alias for File_t.
+type File = File_t
+
+// Filesec is a Go-name alias for Filesec_t.
+type Filesec = Filesec_t
+
+// Fixpt is a Go-name alias for Fixpt_t.
+type Fixpt = Fixpt_t
+
+// Float is a Go-name alias for Float_t.
+type Float = Float_t
+
+// FPControl is a Go-name alias for Fp_control_t.
+type FPControl = Fp_control_t
+
+// FPStatus is a Go-name alias for Fp_status_t.
+type FPStatus = Fp_status_t
+
+// Fpunchhole is a Go-name alias for Fpunchhole_t.
+type Fpunchhole = Fpunchhole_t
+
+// FrameTypeBitmask is a Go-name alias for Frame_type_bitmask_t.
+type FrameTypeBitmask = Frame_type_bitmask_t
+
+// FsRoleMountArgs is a Go-name alias for Fs_role_mount_args_t.
+type FsRoleMountArgs = Fs_role_mount_args_t
+
+// Fsblkcnt is a Go-name alias for Fsblkcnt_t.
+type Fsblkcnt = Fsblkcnt_t
+
+// Fsfilcnt is a Go-name alias for Fsfilcnt_t.
+type Fsfilcnt = Fsfilcnt_t
+
+// FsfileType is a Go-name alias for Fsfile_type_t.
+type FsfileType = Fsfile_type_t
+
+// Fsid is a Go-name alias for Fsid_t.
+type Fsid = Fsid_t
+
+// Fsignatures is a Go-name alias for Fsignatures_t.
+type Fsignatures = Fsignatures_t
+
+// FsobjID is a Go-name alias for Fsobj_id_t.
+type FsobjID = Fsobj_id_t
+
+// FsobjTag is a Go-name alias for Fsobj_tag_t.
+type FsobjTag = Fsobj_tag_t
+
+// FsobjType is a Go-name alias for Fsobj_type_t.
+type FsobjType = Fsobj_type_t
+
+// Fspecread is a Go-name alias for Fspecread_t.
+type Fspecread = Fspecread_t
+
+// Fstore is a Go-name alias for Fstore_t.
+type Fstore = Fstore_t
+
+// Fsupplement is a Go-name alias for Fsupplement_t.
+type Fsupplement = Fsupplement_t
+
+// Fsvolid is a Go-name alias for Fsvolid_t.
+type Fsvolid = Fsvolid_t
+
+// Ftrimactivefile is a Go-name alias for Ftrimactivefile_t.
+type Ftrimactivefile = Ftrimactivefile_t
+
+// Gdt is a Go-name alias for Gdt_t.
+type Gdt = Gdt_t
+
+// Gid is a Go-name alias for Gid_t.
+type Gid = Gid_t
+
+// GPUDescriptor is a Go-name alias for Gpu_descriptor.
+type GPUDescriptor = Gpu_descriptor
+
+// GPUEnergyData is a Go-name alias for Gpu_energy_data.
+type GPUEnergyData = Gpu_energy_data
+
+// GraftdmgType is a Go-name alias for Graftdmg_type_t.
+type GraftdmgType = Graftdmg_type_t
+
+// GssdByteBuffer is a Go-name alias for Gssd_byte_buffer.
+type GssdByteBuffer = Gssd_byte_buffer
+
+// GssdCred is a Go-name alias for Gssd_cred.
+type GssdCred = Gssd_cred
+
+// GssdCtx is a Go-name alias for Gssd_ctx.
+type GssdCtx = Gssd_ctx
+
+// GssdDstring is a Go-name alias for Gssd_dstring.
+type GssdDstring = Gssd_dstring
+
+// GssdEtypeList is a Go-name alias for Gssd_etype_list.
+type GssdEtypeList = Gssd_etype_list
+
+// GssdGidList is a Go-name alias for Gssd_gid_list.
+type GssdGidList = Gssd_gid_list
+
+// GssdMechtype is a Go-name alias for Gssd_mechtype.
+type GssdMechtype = Gssd_mechtype
+
+// GssdNametype is a Go-name alias for Gssd_nametype.
+type GssdNametype = Gssd_nametype
+
+// GssdString is a Go-name alias for Gssd_string.
+type GssdString = Gssd_string
+
+// GzHeader is a Go-name alias for Gz_header.
+type GzHeader = Gz_header
+
+// GzHeaderp is a Go-name alias for Gz_headerp.
+type GzHeaderp = Gz_headerp
+
+// HashInfoBucketArray is a Go-name alias for Hash_info_bucket_array_t.
+type HashInfoBucketArray = Hash_info_bucket_array_t
+
+// HashInfoBucket is a Go-name alias for Hash_info_bucket_t.
+type HashInfoBucket = Hash_info_bucket_t
+
+// HostBasicInfoData is a Go-name alias for Host_basic_info_data_t.
+type HostBasicInfoData = Host_basic_info_data_t
+
+// HostBasicInfo is a Go-name alias for Host_basic_info_t.
+type HostBasicInfo = Host_basic_info_t
+
+// HostCanHasDebuggerInfoData is a Go-name alias for Host_can_has_debugger_info_data_t.
+type HostCanHasDebuggerInfoData = Host_can_has_debugger_info_data_t
+
+// HostCanHasDebuggerInfo is a Go-name alias for Host_can_has_debugger_info_t.
+type HostCanHasDebuggerInfo = Host_can_has_debugger_info_t
+
+// HostCPULoadInfoData is a Go-name alias for Host_cpu_load_info_data_t.
+type HostCPULoadInfoData = Host_cpu_load_info_data_t
+
+// HostCPULoadInfo is a Go-name alias for Host_cpu_load_info_t.
+type HostCPULoadInfo = Host_cpu_load_info_t
+
+// HostFlavor is a Go-name alias for Host_flavor_t.
+type HostFlavor = Host_flavor_t
+
+// HostInfo64 is a Go-name alias for Host_info64_t.
+type HostInfo64 = Host_info64_t
+
+// HostInfoData is a Go-name alias for Host_info_data_t.
+type HostInfoData = Host_info_data_t
+
+// HostInfo is a Go-name alias for Host_info_t.
+type HostInfo = Host_info_t
+
+// HostLoadInfoData is a Go-name alias for Host_load_info_data_t.
+type HostLoadInfoData = Host_load_info_data_t
+
+// HostLoadInfo is a Go-name alias for Host_load_info_t.
+type HostLoadInfo = Host_load_info_t
+
+// HostNamePort is a Go-name alias for Host_name_port_t.
+type HostNamePort = Host_name_port_t
+
+// HostName is a Go-name alias for Host_name_t.
+type HostName = Host_name_t
+
+// HostPreferredUserArchData is a Go-name alias for Host_preferred_user_arch_data_t.
+type HostPreferredUserArchData = Host_preferred_user_arch_data_t
+
+// HostPreferredUserArch is a Go-name alias for Host_preferred_user_arch_t.
+type HostPreferredUserArch = Host_preferred_user_arch_t
+
+// HostPriorityInfoData is a Go-name alias for Host_priority_info_data_t.
+type HostPriorityInfoData = Host_priority_info_data_t
+
+// HostPriorityInfo is a Go-name alias for Host_priority_info_t.
+type HostPriorityInfo = Host_priority_info_t
+
+// HostPriv is a Go-name alias for Host_priv_t.
+type HostPriv = Host_priv_t
+
+// HostPurgableInfoData is a Go-name alias for Host_purgable_info_data_t.
+type HostPurgableInfoData = Host_purgable_info_data_t
+
+// HostPurgableInfo is a Go-name alias for Host_purgable_info_t.
+type HostPurgableInfo = Host_purgable_info_t
+
+// HostSchedInfoData is a Go-name alias for Host_sched_info_data_t.
+type HostSchedInfoData = Host_sched_info_data_t
+
+// HostSchedInfo is a Go-name alias for Host_sched_info_t.
+type HostSchedInfo = Host_sched_info_t
+
+// HostSecurity is a Go-name alias for Host_security_t.
+type HostSecurity = Host_security_t
+
+// Host is a Go-name alias for Host_t.
+type Host = Host_t
+
+// HVCallbacks is a Go-name alias for Hv_callbacks_t.
+type HVCallbacks = Hv_callbacks_t
+
+// HVTrapTable is a Go-name alias for Hv_trap_table_t.
+type HVTrapTable = Hv_trap_table_t
+
+// HVTrapType is a Go-name alias for Hv_trap_type_t.
+type HVTrapType = Hv_trap_type_t
+
+// HVVolatileState is a Go-name alias for Hv_volatile_state_t.
+type HVVolatileState = Hv_volatile_state_t
+
+// HvgHcallArgs is a Go-name alias for Hvg_hcall_args_t.
+type HvgHcallArgs = Hvg_hcall_args_t
+
+// HvgHcallCode is a Go-name alias for Hvg_hcall_code_t.
+type HvgHcallCode = Hvg_hcall_code_t
+
+// HvgHcallOutput is a Go-name alias for Hvg_hcall_output_t.
+type HvgHcallOutput = Hvg_hcall_output_t
+
+// HvgHcallReturn is a Go-name alias for Hvg_hcall_return_t.
+type HvgHcallReturn = Hvg_hcall_return_t
+
+// HvgHcallVmcoreFile is a Go-name alias for Hvg_hcall_vmcore_file_t.
+type HvgHcallVmcoreFile = Hvg_hcall_vmcore_file_t
+
+// HwSpinPolicy is a Go-name alias for Hw_spin_policy_t.
+type HwSpinPolicy = Hw_spin_policy_t
+
+// I386CPUInfo is a Go-name alias for I386_cpu_info_t.
+type I386CPUInfo = I386_cpu_info_t
+
+// I386Ioport is a Go-name alias for I386_ioport_t.
+type I386Ioport = I386_ioport_t
+
+// ID is a Go-name alias for Id_t.
+type ID = Id_t
+
+// IdleTickle is a Go-name alias for Idle_tickle_t.
+type IdleTickle = Idle_tickle_t
+
+// Idt is a Go-name alias for Idt_t.
+type Idt = Idt_t
+
+// Idtype is a Go-name alias for Idtype_t.
+type Idtype = Idtype_t
+
+// IfCloneBptr is a Go-name alias for If_clone_bptr_t.
+type IfCloneBptr = If_clone_bptr_t
+
+// IfClonePtrRef is a Go-name alias for If_clone_ptr_ref_t.
+type IfClonePtrRef = If_clone_ptr_ref_t
+
+// IfClonePtr is a Go-name alias for If_clone_ptr_t.
+type IfClonePtr = If_clone_ptr_t
+
+// IfCloneRefPtr is a Go-name alias for If_clone_ref_ptr_t.
+type IfCloneRefPtr = If_clone_ref_ptr_t
+
+// IfCloneRefRef is a Go-name alias for If_clone_ref_ref_t.
+type IfCloneRefRef = If_clone_ref_ref_t
+
+// IfCloneRef is a Go-name alias for If_clone_ref_t.
+type IfCloneRef = If_clone_ref_t
+
+// IfClone is a Go-name alias for If_clone_t.
+type IfClone = If_clone_t
+
+// IfNetemModel is a Go-name alias for If_netem_model_t.
+type IfNetemModel = If_netem_model_t
+
+// IfaddrBptr is a Go-name alias for Ifaddr_bptr_t.
+type IfaddrBptr = Ifaddr_bptr_t
+
+// IfaddrPtrRef is a Go-name alias for Ifaddr_ptr_ref_t.
+type IfaddrPtrRef = Ifaddr_ptr_ref_t
+
+// IfaddrPtr is a Go-name alias for Ifaddr_ptr_t.
+type IfaddrPtr = Ifaddr_ptr_t
+
+// IfaddrRefPtr is a Go-name alias for Ifaddr_ref_ptr_t.
+type IfaddrRefPtr = Ifaddr_ref_ptr_t
+
+// IfaddrRefRef is a Go-name alias for Ifaddr_ref_ref_t.
+type IfaddrRefRef = Ifaddr_ref_ref_t
+
+// IfaddrRef is a Go-name alias for Ifaddr_ref_t.
+type IfaddrRef = Ifaddr_ref_t
+
+// Ifaddr is a Go-name alias for Ifaddr_t.
+type Ifaddr = Ifaddr_t
+
+// IfmultiaddrBptr is a Go-name alias for Ifmultiaddr_bptr_t.
+type IfmultiaddrBptr = Ifmultiaddr_bptr_t
+
+// IfmultiaddrPtrRef is a Go-name alias for Ifmultiaddr_ptr_ref_t.
+type IfmultiaddrPtrRef = Ifmultiaddr_ptr_ref_t
+
+// IfmultiaddrPtr is a Go-name alias for Ifmultiaddr_ptr_t.
+type IfmultiaddrPtr = Ifmultiaddr_ptr_t
+
+// IfmultiaddrRefPtr is a Go-name alias for Ifmultiaddr_ref_ptr_t.
+type IfmultiaddrRefPtr = Ifmultiaddr_ref_ptr_t
+
+// IfmultiaddrRefRef is a Go-name alias for Ifmultiaddr_ref_ref_t.
+type IfmultiaddrRefRef = Ifmultiaddr_ref_ref_t
+
+// IfmultiaddrRef is a Go-name alias for Ifmultiaddr_ref_t.
+type IfmultiaddrRef = Ifmultiaddr_ref_t
+
+// Ifmultiaddr is a Go-name alias for Ifmultiaddr_t.
+type Ifmultiaddr = Ifmultiaddr_t
+
+// IfnetBptr is a Go-name alias for Ifnet_bptr_t.
+type IfnetBptr = Ifnet_bptr_t
+
+// IfnetFilterBptr is a Go-name alias for Ifnet_filter_bptr_t.
+type IfnetFilterBptr = Ifnet_filter_bptr_t
+
+// IfnetFilterPtrRef is a Go-name alias for Ifnet_filter_ptr_ref_t.
+type IfnetFilterPtrRef = Ifnet_filter_ptr_ref_t
+
+// IfnetFilterPtr is a Go-name alias for Ifnet_filter_ptr_t.
+type IfnetFilterPtr = Ifnet_filter_ptr_t
+
+// IfnetFilterRefPtr is a Go-name alias for Ifnet_filter_ref_ptr_t.
+type IfnetFilterRefPtr = Ifnet_filter_ref_ptr_t
+
+// IfnetFilterRefRef is a Go-name alias for Ifnet_filter_ref_ref_t.
+type IfnetFilterRefRef = Ifnet_filter_ref_ref_t
+
+// IfnetFilterRef is a Go-name alias for Ifnet_filter_ref_t.
+type IfnetFilterRef = Ifnet_filter_ref_t
+
+// IfnetOffload is a Go-name alias for Ifnet_offload_t.
+type IfnetOffload = Ifnet_offload_t
+
+// IfnetPtrRef is a Go-name alias for Ifnet_ptr_ref_t.
+type IfnetPtrRef = Ifnet_ptr_ref_t
+
+// IfnetPtr is a Go-name alias for Ifnet_ptr_t.
+type IfnetPtr = Ifnet_ptr_t
+
+// IfnetRefPtr is a Go-name alias for Ifnet_ref_ptr_t.
+type IfnetRefPtr = Ifnet_ref_ptr_t
+
+// IfnetRefRef is a Go-name alias for Ifnet_ref_ref_t.
+type IfnetRefRef = Ifnet_ref_ref_t
+
+// IfnetRef is a Go-name alias for Ifnet_ref_t.
+type IfnetRef = Ifnet_ref_t
+
+// In6Addr is a Go-name alias for In6_addr_t.
+type In6Addr = In6_addr_t
+
+// In6Clat46EvhdlrCode is a Go-name alias for In6_clat46_evhdlr_code_t.
+type In6Clat46EvhdlrCode = In6_clat46_evhdlr_code_t
+
+// InAddr is a Go-name alias for In_addr_t.
+type InAddr = In_addr_t
+
+// InPort is a Go-name alias for In_port_t.
+type InPort = In_port_t
+
+// Ino64 is a Go-name alias for Ino64_t.
+type Ino64 = Ino64_t
+
+// Ino is a Go-name alias for Ino_t.
+type Ino = Ino_t
+
+// InpGen is a Go-name alias for Inp_gen_t.
+type InpGen = Inp_gen_t
+
+// Int16 is a Go-name alias for Int16_t.
+type Int16 = Int16_t
+
+// Int32 is a Go-name alias for Int32_t.
+type Int32 = Int32_t
+
+// Int64 is a Go-name alias for Int64_t.
+type Int64 = Int64_t
+
+// Int8 is a Go-name alias for Int8_t.
+type Int8 = Int8_t
+
+// IntFast16 is a Go-name alias for Int_fast16_t.
+type IntFast16 = Int_fast16_t
+
+// IntFast32 is a Go-name alias for Int_fast32_t.
+type IntFast32 = Int_fast32_t
+
+// IntFast64 is a Go-name alias for Int_fast64_t.
+type IntFast64 = Int_fast64_t
+
+// IntFast8 is a Go-name alias for Int_fast8_t.
+type IntFast8 = Int_fast8_t
+
+// IntLeast16 is a Go-name alias for Int_least16_t.
+type IntLeast16 = Int_least16_t
+
+// IntLeast32 is a Go-name alias for Int_least32_t.
+type IntLeast32 = Int_least32_t
+
+// IntLeast64 is a Go-name alias for Int_least64_t.
+type IntLeast64 = Int_least64_t
+
+// IntLeast8 is a Go-name alias for Int_least8_t.
+type IntLeast8 = Int_least8_t
+
+// Integer is a Go-name alias for Integer_t.
+type Integer = Integer_t
+
+// InterfaceFilter is a Go-name alias for Interface_filter_t.
+type InterfaceFilter = Interface_filter_t
+
+// Intmax is a Go-name alias for Intmax_t.
+type Intmax = Intmax_t
+
+// Intptr is a Go-name alias for Intptr_t.
+type Intptr = Intptr_t
+
+// IntrGate is a Go-name alias for Intr_gate_t.
+type IntrGate = Intr_gate_t
+
+// IOAddr is a Go-name alias for Io_addr_t.
+type IOAddr = Io_addr_t
+
+// IOAsyncRef64 is a Go-name alias for Io_async_ref64_t.
+type IOAsyncRef64 = Io_async_ref64_t
+
+// IOAsyncRef is a Go-name alias for Io_async_ref_t.
+type IOAsyncRef = Io_async_ref_t
+
+// IOBufPtr is a Go-name alias for Io_buf_ptr_t.
+type IOBufPtr = Io_buf_ptr_t
+
+// IOCompressionStats is a Go-name alias for Io_compression_stats_t.
+type IOCompressionStats = Io_compression_stats_t
+
+// IOConnect is a Go-name alias for Io_connect_t.
+type IOConnect = Io_connect_t
+
+// IOEnumerator is a Go-name alias for Io_enumerator_t.
+type IOEnumerator = Io_enumerator_t
+
+// IOIdent is a Go-name alias for Io_ident_t.
+type IOIdent = Io_ident_t
+
+// IOIterator is a Go-name alias for Io_iterator_t.
+type IOIterator = Io_iterator_t
+
+// IOLen is a Go-name alias for Io_len_t.
+type IOLen = Io_len_t
+
+// IOMain is a Go-name alias for Io_main_t.
+type IOMain = Io_main_t
+
+// IOName is a Go-name alias for Io_name_t.
+type IOName = Io_name_t
+
+// IOObject is a Go-name alias for Io_object_t.
+type IOObject = Io_object_t
+
+// IOScalarInband64 is a Go-name alias for Io_scalar_inband64_t.
+type IOScalarInband64 = Io_scalar_inband64_t
+
+// IOScalarInband is a Go-name alias for Io_scalar_inband_t.
+type IOScalarInband = Io_scalar_inband_t
+
+// IOStatInfo is a Go-name alias for Io_stat_info_t.
+type IOStatInfo = Io_stat_info_t
+
+// IOStringInband is a Go-name alias for Io_string_inband_t.
+type IOStringInband = Io_string_inband_t
+
+// IOString is a Go-name alias for Io_string_t.
+type IOString = Io_string_t
+
+// IOStructInband is a Go-name alias for Io_struct_inband_t.
+type IOStructInband = Io_struct_inband_t
+
+// IOUserReference is a Go-name alias for Io_user_reference_t.
+type IOUserReference = Io_user_reference_t
+
+// IOUserScalar is a Go-name alias for Io_user_scalar_t.
+type IOUserScalar = Io_user_scalar_t
+
+// IoctlFcn is a Go-name alias for Ioctl_fcn_t.
+type IoctlFcn = Ioctl_fcn_t
+
+// IpcEventlink is a Go-name alias for Ipc_eventlink_t.
+type IpcEventlink = Ipc_eventlink_t
+
+// IpcInfoNameArray is a Go-name alias for Ipc_info_name_array_t.
+type IpcInfoNameArray = Ipc_info_name_array_t
+
+// IpcInfoName is a Go-name alias for Ipc_info_name_t.
+type IpcInfoName = Ipc_info_name_t
+
+// IpcInfoPort is a Go-name alias for Ipc_info_port_t.
+type IpcInfoPort = Ipc_info_port_t
+
+// IpcInfoSpaceBasic is a Go-name alias for Ipc_info_space_basic_t.
+type IpcInfoSpaceBasic = Ipc_info_space_basic_t
+
+// IpcInfoSpace is a Go-name alias for Ipc_info_space_t.
+type IpcInfoSpace = Ipc_info_space_t
+
+// IpcInfoTreeNameArray is a Go-name alias for Ipc_info_tree_name_array_t.
+type IpcInfoTreeNameArray = Ipc_info_tree_name_array_t
+
+// IpcInfoTreeName is a Go-name alias for Ipc_info_tree_name_t.
+type IpcInfoTreeName = Ipc_info_tree_name_t
+
+// IpcObject is a Go-name alias for Ipc_object_t.
+type IpcObject = Ipc_object_t
+
+// IpcPort is a Go-name alias for Ipc_port_t.
+type IpcPort = Ipc_port_t
+
+// IpcPthreadPriorityValue is a Go-name alias for Ipc_pthread_priority_value_t.
+type IpcPthreadPriorityValue = Ipc_pthread_priority_value_t
+
+// IpcSpaceInspect is a Go-name alias for Ipc_space_inspect_t.
+type IpcSpaceInspect = Ipc_space_inspect_t
+
+// IpcSpacePort is a Go-name alias for Ipc_space_port_t.
+type IpcSpacePort = Ipc_space_port_t
+
+// IpcSpaceRead is a Go-name alias for Ipc_space_read_t.
+type IpcSpaceRead = Ipc_space_read_t
+
+// IpcSpace is a Go-name alias for Ipc_space_t.
+type IpcSpace = Ipc_space_t
+
+// IpcVoucherAttrControl is a Go-name alias for Ipc_voucher_attr_control_t.
+type IpcVoucherAttrControl = Ipc_voucher_attr_control_t
+
+// IpcVoucherAttrManager is a Go-name alias for Ipc_voucher_attr_manager_t.
+type IpcVoucherAttrManager = Ipc_voucher_attr_manager_t
+
+// IpcVoucher is a Go-name alias for Ipc_voucher_t.
+type IpcVoucher = Ipc_voucher_t
+
+// IpiHandler is a Go-name alias for Ipi_handler_t.
+type IpiHandler = Ipi_handler_t
+
+// KauthAceRights is a Go-name alias for Kauth_ace_rights_t.
+type KauthAceRights = Kauth_ace_rights_t
+
+// KauthAclEval is a Go-name alias for Kauth_acl_eval_t.
+type KauthAclEval = Kauth_acl_eval_t
+
+// KauthAction is a Go-name alias for Kauth_action_t.
+type KauthAction = Kauth_action_t
+
+// KauthCred is a Go-name alias for Kauth_cred_t.
+type KauthCred = Kauth_cred_t
+
+// KauthListener is a Go-name alias for Kauth_listener_t.
+type KauthListener = Kauth_listener_t
+
+// KauthScope is a Go-name alias for Kauth_scope_t.
+type KauthScope = Kauth_scope_t
+
+// Kbufinfo is a Go-name alias for Kbufinfo_t.
+type Kbufinfo = Kbufinfo_t
+
+// KcFormat is a Go-name alias for Kc_format_t.
+type KcFormat = Kc_format_t
+
+// KcKind is a Go-name alias for Kc_kind_t.
+type KcKind = Kc_kind_t
+
+// KcdCompressionType is a Go-name alias for Kcd_compression_type_t.
+type KcdCompressionType = Kcd_compression_type_t
+
+// KcdataDescriptor is a Go-name alias for Kcdata_descriptor_t.
+type KcdataDescriptor = Kcdata_descriptor_t
+
+// KcdataItem is a Go-name alias for Kcdata_item_t.
+type KcdataItem = Kcdata_item_t
+
+// KcdataIter is a Go-name alias for Kcdata_iter_t.
+type KcdataIter = Kcdata_iter_t
+
+// KcdataObject is a Go-name alias for Kcdata_object_t.
+type KcdataObject = Kcdata_object_t
+
+// KcdataSubtypeDescriptor is a Go-name alias for Kcdata_subtype_descriptor_t.
+type KcdataSubtypeDescriptor = Kcdata_subtype_descriptor_t
+
+// KctypeSubtype is a Go-name alias for Kctype_subtype_t.
+type KctypeSubtype = Kctype_subtype_t
+
+// KdBuf is a Go-name alias for Kd_buf.
+type KdBuf = Kd_buf
+
+// KdBufArgtype is a Go-name alias for Kd_buf_argtype.
+type KdBufArgtype = Kd_buf_argtype
+
+// KdCallbackType is a Go-name alias for Kd_callback_type.
+type KdCallbackType = Kd_callback_type
+
+// KdCpumap is a Go-name alias for Kd_cpumap.
+type KdCpumap = Kd_cpumap
+
+// KdCpumapExt is a Go-name alias for Kd_cpumap_ext.
+type KdCpumapExt = Kd_cpumap_ext
+
+// KdCpumapHeader is a Go-name alias for Kd_cpumap_header.
+type KdCpumapHeader = Kd_cpumap_header
+
+// KdEventMatcher is a Go-name alias for Kd_event_matcher.
+type KdEventMatcher = Kd_event_matcher
+
+// KdRegtype is a Go-name alias for Kd_regtype.
+type KdRegtype = Kd_regtype
+
+// KdThreadmap is a Go-name alias for Kd_threadmap.
+type KdThreadmap = Kd_threadmap
+
+// KdebugCoprocFlags is a Go-name alias for Kdebug_coproc_flags_t.
+type KdebugCoprocFlags = Kdebug_coproc_flags_t
+
+// KdebugFlags is a Go-name alias for Kdebug_flags_t.
+type KdebugFlags = Kdebug_flags_t
+
+// KdebugLiveFlags is a Go-name alias for Kdebug_live_flags_t.
+type KdebugLiveFlags = Kdebug_live_flags_t
+
+// KdebugTest is a Go-name alias for Kdebug_test_t.
+type KdebugTest = Kdebug_test_t
+
+// KernCtlRef is a Go-name alias for Kern_ctl_ref.
+type KernCtlRef = Kern_ctl_ref
+
+// KernReturn is a Go-name alias for Kern_return_t.
+type KernReturn = Kern_return_t
+
+// KernelBootInfo is a Go-name alias for Kernel_boot_info_t.
+type KernelBootInfo = Kernel_boot_info_t
+
+// KernelResourceSizesData is a Go-name alias for Kernel_resource_sizes_data_t.
+type KernelResourceSizesData = Kernel_resource_sizes_data_t
+
+// KernelResourceSizes is a Go-name alias for Kernel_resource_sizes_t.
+type KernelResourceSizes = Kernel_resource_sizes_t
+
+// KernelVersion is a Go-name alias for Kernel_version_t.
+type KernelVersion = Kernel_version_t
+
+// Key is a Go-name alias for Key_t.
+type Key = Key_t
+
+// KfOverrideFlag is a Go-name alias for Kf_override_flag_t.
+type KfOverrideFlag = Kf_override_flag_t
+
+// KmodArgs is a Go-name alias for Kmod_args_t.
+type KmodArgs = Kmod_args_t
+
+// KmodControlFlavor is a Go-name alias for Kmod_control_flavor_t.
+type KmodControlFlavor = Kmod_control_flavor_t
+
+// KmodInfo32V1 is a Go-name alias for Kmod_info_32_v1_t.
+type KmodInfo32V1 = Kmod_info_32_v1_t
+
+// KmodInfo64V1 is a Go-name alias for Kmod_info_64_v1_t.
+type KmodInfo64V1 = Kmod_info_64_v1_t
+
+// KmodInfoArray is a Go-name alias for Kmod_info_array_t.
+type KmodInfoArray = Kmod_info_array_t
+
+// KmodInfo is a Go-name alias for Kmod_info_t.
+type KmodInfo = Kmod_info_t
+
+// KmodReference is a Go-name alias for Kmod_reference_t.
+type KmodReference = Kmod_reference_t
+
+// KmodStartFunc is a Go-name alias for Kmod_start_func_t.
+type KmodStartFunc = Kmod_start_func_t
+
+// KmodStopFunc is a Go-name alias for Kmod_stop_func_t.
+type KmodStopFunc = Kmod_stop_func_t
+
+// Kmod is a Go-name alias for Kmod_t.
+type Kmod = Kmod_t
+
+// KobjectDescription is a Go-name alias for Kobject_description_t.
+type KobjectDescription = Kobject_description_t
+
+// KpcConfig is a Go-name alias for Kpc_config_t.
+type KpcConfig = Kpc_config_t
+
+// KpcPmHandler is a Go-name alias for Kpc_pm_handler_t.
+type KpcPmHandler = Kpc_pm_handler_t
+
+// KperfKpcFlags is a Go-name alias for Kperf_kpc_flags_t.
+type KperfKpcFlags = Kperf_kpc_flags_t
+
+// Labelstr is a Go-name alias for Labelstr_t.
+type Labelstr = Labelstr_t
+
+// LaunchConstraintData is a Go-name alias for Launch_constraint_data_t.
+type LaunchConstraintData = Launch_constraint_data_t
+
+// LckAttr is a Go-name alias for Lck_attr_t.
+type LckAttr = Lck_attr_t
+
+// LckGrpAttr is a Go-name alias for Lck_grp_attr_t.
+type LckGrpAttr = Lck_grp_attr_t
+
+// LckGrp is a Go-name alias for Lck_grp_t.
+type LckGrp = Lck_grp_t
+
+// LckMtxExt is a Go-name alias for Lck_mtx_ext_t.
+type LckMtxExt = Lck_mtx_ext_t
+
+// LckMtx is a Go-name alias for Lck_mtx_t.
+type LckMtx = Lck_mtx_t
+
+// LckRw is a Go-name alias for Lck_rw_t.
+type LckRw = Lck_rw_t
+
+// LckRwType is a Go-name alias for Lck_rw_type_t.
+type LckRwType = Lck_rw_type_t
+
+// LckSleepAction is a Go-name alias for Lck_sleep_action_t.
+type LckSleepAction = Lck_sleep_action_t
+
+// LckSpin is a Go-name alias for Lck_spin_t.
+type LckSpin = Lck_spin_t
+
+// LckWakeAction is a Go-name alias for Lck_wake_action_t.
+type LckWakeAction = Lck_wake_action_t
+
+// LdtDesc is a Go-name alias for Ldt_desc_t.
+type LdtDesc = Ldt_desc_t
+
+// Ldt is a Go-name alias for Ldt_t.
+type Ldt = Ldt_t
+
+// LedgerAmount is a Go-name alias for Ledger_amount_t.
+type LedgerAmount = Ledger_amount_t
+
+// LedgerArray is a Go-name alias for Ledger_array_t.
+type LedgerArray = Ledger_array_t
+
+// LedgerItem is a Go-name alias for Ledger_item_t.
+type LedgerItem = Ledger_item_t
+
+// LedgerPortArray is a Go-name alias for Ledger_port_array_t.
+type LedgerPortArray = Ledger_port_array_t
+
+// LedgerPort is a Go-name alias for Ledger_port_t.
+type LedgerPort = Ledger_port_t
+
+// Ledger is a Go-name alias for Ledger_t.
+type Ledger = Ledger_t
+
+// LibsptmCPUState is a Go-name alias for Libsptm_cpu_state_t.
+type LibsptmCPUState = Libsptm_cpu_state_t
+
+// LibsptmError is a Go-name alias for Libsptm_error_t.
+type LibsptmError = Libsptm_error_t
+
+// LibsptmRefcntType is a Go-name alias for Libsptm_refcnt_type_t.
+type LibsptmRefcntType = Libsptm_refcnt_type_t
+
+// LibsptmState is a Go-name alias for Libsptm_state_t.
+type LibsptmState = Libsptm_state_t
+
+// ListxattrsResult is a Go-name alias for Listxattrs_result_t.
+type ListxattrsResult = Listxattrs_result_t
+
+// LockSetPort is a Go-name alias for Lock_set_port_t.
+type LockSetPort = Lock_set_port_t
+
+// LockSet is a Go-name alias for Lock_set_t.
+type LockSet = Lock_set_t
+
+// LockgroupInfoArray is a Go-name alias for Lockgroup_info_array_t.
+type LockgroupInfoArray = Lockgroup_info_array_t
+
+// LockgroupInfo is a Go-name alias for Lockgroup_info_t.
+type LockgroupInfo = Lockgroup_info_t
+
+// Lz4HashEntry is a Go-name alias for Lz4_hash_entry_t.
+type Lz4HashEntry = Lz4_hash_entry_t
+
+// MachAssertType is a Go-name alias for Mach_assert_type_t.
+type MachAssertType = Mach_assert_type_t
+
+// MachAtmSubaid is a Go-name alias for Mach_atm_subaid_t.
+type MachAtmSubaid = Mach_atm_subaid_t
+
+// MachBridgeRegwriteTimestampFunc is a Go-name alias for Mach_bridge_regwrite_timestamp_func_t.
+type MachBridgeRegwriteTimestampFunc = Mach_bridge_regwrite_timestamp_func_t
+
+// MachDeadNameNotification is a Go-name alias for Mach_dead_name_notification_t.
+type MachDeadNameNotification = Mach_dead_name_notification_t
+
+// MachErrorFn is a Go-name alias for Mach_error_fn_t.
+type MachErrorFn = Mach_error_fn_t
+
+// MachError is a Go-name alias for Mach_error_t.
+type MachError = Mach_error_t
+
+// MachEventlink is a Go-name alias for Mach_eventlink_t.
+type MachEventlink = Mach_eventlink_t
+
+// MachExceptionCode is a Go-name alias for Mach_exception_code_t.
+type MachExceptionCode = Mach_exception_code_t
+
+// MachExceptionData is a Go-name alias for Mach_exception_data_t.
+type MachExceptionData = Mach_exception_data_t
+
+// MachExceptionDataType is a Go-name alias for Mach_exception_data_type_t.
+type MachExceptionDataType = Mach_exception_data_type_t
+
+// MachExceptionSubcode is a Go-name alias for Mach_exception_subcode_t.
+type MachExceptionSubcode = Mach_exception_subcode_t
+
+// MachMemoryInfoArray is a Go-name alias for Mach_memory_info_array_t.
+type MachMemoryInfoArray = Mach_memory_info_array_t
+
+// MachMemoryInfo is a Go-name alias for Mach_memory_info_t.
+type MachMemoryInfo = Mach_memory_info_t
+
+// MachMsgAuditTrailer is a Go-name alias for Mach_msg_audit_trailer_t.
+type MachMsgAuditTrailer = Mach_msg_audit_trailer_t
+
+// MachMsgBase is a Go-name alias for Mach_msg_base_t.
+type MachMsgBase = Mach_msg_base_t
+
+// MachMsgBits is a Go-name alias for Mach_msg_bits_t.
+type MachMsgBits = Mach_msg_bits_t
+
+// MachMsgBody is a Go-name alias for Mach_msg_body_t.
+type MachMsgBody = Mach_msg_body_t
+
+// MachMsgContextTrailer is a Go-name alias for Mach_msg_context_trailer_t.
+type MachMsgContextTrailer = Mach_msg_context_trailer_t
+
+// MachMsgCopyOptions is a Go-name alias for Mach_msg_copy_options_t.
+type MachMsgCopyOptions = Mach_msg_copy_options_t
+
+// MachMsgDescriptorType is a Go-name alias for Mach_msg_descriptor_type_t.
+type MachMsgDescriptorType = Mach_msg_descriptor_type_t
+
+// MachMsgEmptyRcv is a Go-name alias for Mach_msg_empty_rcv_t.
+type MachMsgEmptyRcv = Mach_msg_empty_rcv_t
+
+// MachMsgEmptySend is a Go-name alias for Mach_msg_empty_send_t.
+type MachMsgEmptySend = Mach_msg_empty_send_t
+
+// MachMsgFilterID is a Go-name alias for Mach_msg_filter_id.
+type MachMsgFilterID = Mach_msg_filter_id
+
+// MachMsgFormat0Trailer is a Go-name alias for Mach_msg_format_0_trailer_t.
+type MachMsgFormat0Trailer = Mach_msg_format_0_trailer_t
+
+// MachMsgGuardFlags is a Go-name alias for Mach_msg_guard_flags_t.
+type MachMsgGuardFlags = Mach_msg_guard_flags_t
+
+// MachMsgGuardedPortDescriptor32 is a Go-name alias for Mach_msg_guarded_port_descriptor32_t.
+type MachMsgGuardedPortDescriptor32 = Mach_msg_guarded_port_descriptor32_t
+
+// MachMsgGuardedPortDescriptor64 is a Go-name alias for Mach_msg_guarded_port_descriptor64_t.
+type MachMsgGuardedPortDescriptor64 = Mach_msg_guarded_port_descriptor64_t
+
+// MachMsgGuardedPortDescriptor is a Go-name alias for Mach_msg_guarded_port_descriptor_t.
+type MachMsgGuardedPortDescriptor = Mach_msg_guarded_port_descriptor_t
+
+// MachMsgHeader is a Go-name alias for Mach_msg_header_t.
+type MachMsgHeader = Mach_msg_header_t
+
+// MachMsgID is a Go-name alias for Mach_msg_id_t.
+type MachMsgID = Mach_msg_id_t
+
+// MachMsgMacTrailer is a Go-name alias for Mach_msg_mac_trailer_t.
+type MachMsgMacTrailer = Mach_msg_mac_trailer_t
+
+// MachMsgMaxTrailer is a Go-name alias for Mach_msg_max_trailer_t.
+type MachMsgMaxTrailer = Mach_msg_max_trailer_t
+
+// MachMsgOolDescriptor32 is a Go-name alias for Mach_msg_ool_descriptor32_t.
+type MachMsgOolDescriptor32 = Mach_msg_ool_descriptor32_t
+
+// MachMsgOolDescriptor64 is a Go-name alias for Mach_msg_ool_descriptor64_t.
+type MachMsgOolDescriptor64 = Mach_msg_ool_descriptor64_t
+
+// MachMsgOolDescriptor is a Go-name alias for Mach_msg_ool_descriptor_t.
+type MachMsgOolDescriptor = Mach_msg_ool_descriptor_t
+
+// MachMsgOolPortsDescriptor32 is a Go-name alias for Mach_msg_ool_ports_descriptor32_t.
+type MachMsgOolPortsDescriptor32 = Mach_msg_ool_ports_descriptor32_t
+
+// MachMsgOolPortsDescriptor64 is a Go-name alias for Mach_msg_ool_ports_descriptor64_t.
+type MachMsgOolPortsDescriptor64 = Mach_msg_ool_ports_descriptor64_t
+
+// MachMsgOolPortsDescriptor is a Go-name alias for Mach_msg_ool_ports_descriptor_t.
+type MachMsgOolPortsDescriptor = Mach_msg_ool_ports_descriptor_t
+
+// MachMsgOption is a Go-name alias for Mach_msg_option_t.
+type MachMsgOption = Mach_msg_option_t
+
+// MachMsgOptions is a Go-name alias for Mach_msg_options_t.
+type MachMsgOptions = Mach_msg_options_t
+
+// MachMsgPortDescriptor is a Go-name alias for Mach_msg_port_descriptor_t.
+type MachMsgPortDescriptor = Mach_msg_port_descriptor_t
+
+// MachMsgPriority is a Go-name alias for Mach_msg_priority_t.
+type MachMsgPriority = Mach_msg_priority_t
+
+// MachMsgReturn is a Go-name alias for Mach_msg_return_t.
+type MachMsgReturn = Mach_msg_return_t
+
+// MachMsgSecurityTrailer is a Go-name alias for Mach_msg_security_trailer_t.
+type MachMsgSecurityTrailer = Mach_msg_security_trailer_t
+
+// MachMsgSeqnoTrailer is a Go-name alias for Mach_msg_seqno_trailer_t.
+type MachMsgSeqnoTrailer = Mach_msg_seqno_trailer_t
+
+// MachMsgSize is a Go-name alias for Mach_msg_size_t.
+type MachMsgSize = Mach_msg_size_t
+
+// MachMsgTimeout is a Go-name alias for Mach_msg_timeout_t.
+type MachMsgTimeout = Mach_msg_timeout_t
+
+// MachMsgTrailerInfo is a Go-name alias for Mach_msg_trailer_info_t.
+type MachMsgTrailerInfo = Mach_msg_trailer_info_t
+
+// MachMsgTrailerSize is a Go-name alias for Mach_msg_trailer_size_t.
+type MachMsgTrailerSize = Mach_msg_trailer_size_t
+
+// MachMsgTrailer is a Go-name alias for Mach_msg_trailer_t.
+type MachMsgTrailer = Mach_msg_trailer_t
+
+// MachMsgTrailerType is a Go-name alias for Mach_msg_trailer_type_t.
+type MachMsgTrailerType = Mach_msg_trailer_type_t
+
+// MachMsgTypeDescriptor is a Go-name alias for Mach_msg_type_descriptor_t.
+type MachMsgTypeDescriptor = Mach_msg_type_descriptor_t
+
+// MachMsgTypeName is a Go-name alias for Mach_msg_type_name_t.
+type MachMsgTypeName = Mach_msg_type_name_t
+
+// MachMsgTypeNumber is a Go-name alias for Mach_msg_type_number_t.
+type MachMsgTypeNumber = Mach_msg_type_number_t
+
+// MachMsgTypeSize is a Go-name alias for Mach_msg_type_size_t.
+type MachMsgTypeSize = Mach_msg_type_size_t
+
+// MachNoSendersNotification is a Go-name alias for Mach_no_senders_notification_t.
+type MachNoSendersNotification = Mach_no_senders_notification_t
+
+// MachPortArray is a Go-name alias for Mach_port_array_t.
+type MachPortArray = Mach_port_array_t
+
+// MachPortContext is a Go-name alias for Mach_port_context_t.
+type MachPortContext = Mach_port_context_t
+
+// MachPortDeletedNotification is a Go-name alias for Mach_port_deleted_notification_t.
+type MachPortDeletedNotification = Mach_port_deleted_notification_t
+
+// MachPortDelta is a Go-name alias for Mach_port_delta_t.
+type MachPortDelta = Mach_port_delta_t
+
+// MachPortDestroyedNotification is a Go-name alias for Mach_port_destroyed_notification_t.
+type MachPortDestroyedNotification = Mach_port_destroyed_notification_t
+
+// MachPortFlavor is a Go-name alias for Mach_port_flavor_t.
+type MachPortFlavor = Mach_port_flavor_t
+
+// MachPortGuardInfo is a Go-name alias for Mach_port_guard_info_t.
+type MachPortGuardInfo = Mach_port_guard_info_t
+
+// MachPortInfoExt is a Go-name alias for Mach_port_info_ext_t.
+type MachPortInfoExt = Mach_port_info_ext_t
+
+// MachPortInfo is a Go-name alias for Mach_port_info_t.
+type MachPortInfo = Mach_port_info_t
+
+// MachPortLimits is a Go-name alias for Mach_port_limits_t.
+type MachPortLimits = Mach_port_limits_t
+
+// MachPortMscount is a Go-name alias for Mach_port_mscount_t.
+type MachPortMscount = Mach_port_mscount_t
+
+// MachPortMsgcount is a Go-name alias for Mach_port_msgcount_t.
+type MachPortMsgcount = Mach_port_msgcount_t
+
+// MachPortNameArray is a Go-name alias for Mach_port_name_array_t.
+type MachPortNameArray = Mach_port_name_array_t
+
+// MachPortName is a Go-name alias for Mach_port_name_t.
+type MachPortName = Mach_port_name_t
+
+// MachPortOptionsPtr is a Go-name alias for Mach_port_options_ptr_t.
+type MachPortOptionsPtr = Mach_port_options_ptr_t
+
+// MachPortOptions is a Go-name alias for Mach_port_options_t.
+type MachPortOptions = Mach_port_options_t
+
+// MachPortQos is a Go-name alias for Mach_port_qos_t.
+type MachPortQos = Mach_port_qos_t
+
+// MachPortRight is a Go-name alias for Mach_port_right_t.
+type MachPortRight = Mach_port_right_t
+
+// MachPortRights is a Go-name alias for Mach_port_rights_t.
+type MachPortRights = Mach_port_rights_t
+
+// MachPortSeqno is a Go-name alias for Mach_port_seqno_t.
+type MachPortSeqno = Mach_port_seqno_t
+
+// MachPortSrights is a Go-name alias for Mach_port_srights_t.
+type MachPortSrights = Mach_port_srights_t
+
+// MachPortStatus is a Go-name alias for Mach_port_status_t.
+type MachPortStatus = Mach_port_status_t
+
+// MachPort is a Go-name alias for Mach_port_t.
+type MachPort = Mach_port_t
+
+// MachPortTypeArray is a Go-name alias for Mach_port_type_array_t.
+type MachPortTypeArray = Mach_port_type_array_t
+
+// MachPortType is a Go-name alias for Mach_port_type_t.
+type MachPortType = Mach_port_type_t
+
+// MachPortUrefs is a Go-name alias for Mach_port_urefs_t.
+type MachPortUrefs = Mach_port_urefs_t
+
+// MachSendOnceNotification is a Go-name alias for Mach_send_once_notification_t.
+type MachSendOnceNotification = Mach_send_once_notification_t
+
+// MachSendPossibleNotification is a Go-name alias for Mach_send_possible_notification_t.
+type MachSendPossibleNotification = Mach_send_possible_notification_t
+
+// MachServicePortInfoData is a Go-name alias for Mach_service_port_info_data_t.
+type MachServicePortInfoData = Mach_service_port_info_data_t
+
+// MachServicePortInfo is a Go-name alias for Mach_service_port_info_t.
+type MachServicePortInfo = Mach_service_port_info_t
+
+// MachTaskBasicInfoData is a Go-name alias for Mach_task_basic_info_data_t.
+type MachTaskBasicInfoData = Mach_task_basic_info_data_t
+
+// MachTaskBasicInfo is a Go-name alias for Mach_task_basic_info_t.
+type MachTaskBasicInfo = Mach_task_basic_info_t
+
+// MachTaskFlavor is a Go-name alias for Mach_task_flavor_t.
+type MachTaskFlavor = Mach_task_flavor_t
+
+// MachThreadFlavor is a Go-name alias for Mach_thread_flavor_t.
+type MachThreadFlavor = Mach_thread_flavor_t
+
+// MachTimebaseInfoData is a Go-name alias for Mach_timebase_info_data_t.
+type MachTimebaseInfoData = Mach_timebase_info_data_t
+
+// MachTimebaseInfo is a Go-name alias for Mach_timebase_info_t.
+type MachTimebaseInfo = Mach_timebase_info_t
+
+// MachTimespec is a Go-name alias for Mach_timespec_t.
+type MachTimespec = Mach_timespec_t
+
+// MachVmAddress is a Go-name alias for Mach_vm_address_t.
+type MachVmAddress = Mach_vm_address_t
+
+// MachVmAddressUt is a Go-name alias for Mach_vm_address_ut.
+type MachVmAddressUt = Mach_vm_address_ut
+
+// MachVmInfoRegion is a Go-name alias for Mach_vm_info_region_t.
+type MachVmInfoRegion = Mach_vm_info_region_t
+
+// MachVmOffset is a Go-name alias for Mach_vm_offset_t.
+type MachVmOffset = Mach_vm_offset_t
+
+// MachVmOffsetUt is a Go-name alias for Mach_vm_offset_ut.
+type MachVmOffsetUt = Mach_vm_offset_ut
+
+// MachVmRangeFlags is a Go-name alias for Mach_vm_range_flags_t.
+type MachVmRangeFlags = Mach_vm_range_flags_t
+
+// MachVmRangeRecipe is a Go-name alias for Mach_vm_range_recipe_t.
+type MachVmRangeRecipe = Mach_vm_range_recipe_t
+
+// MachVmRangeRecipeV1 is a Go-name alias for Mach_vm_range_recipe_v1_t.
+type MachVmRangeRecipeV1 = Mach_vm_range_recipe_v1_t
+
+// MachVmRangeRecipeV1Ut is a Go-name alias for Mach_vm_range_recipe_v1_ut.
+type MachVmRangeRecipeV1Ut = Mach_vm_range_recipe_v1_ut
+
+// MachVmRangeRecipesRaw is a Go-name alias for Mach_vm_range_recipes_raw_t.
+type MachVmRangeRecipesRaw = Mach_vm_range_recipes_raw_t
+
+// MachVmRangeTag is a Go-name alias for Mach_vm_range_tag_t.
+type MachVmRangeTag = Mach_vm_range_tag_t
+
+// MachVmReadEntry is a Go-name alias for Mach_vm_read_entry_t.
+type MachVmReadEntry = Mach_vm_read_entry_t
+
+// MachVmSize is a Go-name alias for Mach_vm_size_t.
+type MachVmSize = Mach_vm_size_t
+
+// MachVmSizeUt is a Go-name alias for Mach_vm_size_ut.
+type MachVmSizeUt = Mach_vm_size_ut
+
+// MachVoucherAttrCommand is a Go-name alias for Mach_voucher_attr_command_t.
+type MachVoucherAttrCommand = Mach_voucher_attr_command_t
+
+// MachVoucherAttrContentSize is a Go-name alias for Mach_voucher_attr_content_size_t.
+type MachVoucherAttrContentSize = Mach_voucher_attr_content_size_t
+
+// MachVoucherAttrContent is a Go-name alias for Mach_voucher_attr_content_t.
+type MachVoucherAttrContent = Mach_voucher_attr_content_t
+
+// MachVoucherAttrControlFlags is a Go-name alias for Mach_voucher_attr_control_flags_t.
+type MachVoucherAttrControlFlags = Mach_voucher_attr_control_flags_t
+
+// MachVoucherAttrControl is a Go-name alias for Mach_voucher_attr_control_t.
+type MachVoucherAttrControl = Mach_voucher_attr_control_t
+
+// MachVoucherAttrImportanceRefs is a Go-name alias for Mach_voucher_attr_importance_refs.
+type MachVoucherAttrImportanceRefs = Mach_voucher_attr_importance_refs
+
+// MachVoucherAttrKeyArray is a Go-name alias for Mach_voucher_attr_key_array_t.
+type MachVoucherAttrKeyArray = Mach_voucher_attr_key_array_t
+
+// MachVoucherAttrKey is a Go-name alias for Mach_voucher_attr_key_t.
+type MachVoucherAttrKey = Mach_voucher_attr_key_t
+
+// MachVoucherAttrManager is a Go-name alias for Mach_voucher_attr_manager_t.
+type MachVoucherAttrManager = Mach_voucher_attr_manager_t
+
+// MachVoucherAttrRawRecipeArraySize is a Go-name alias for Mach_voucher_attr_raw_recipe_array_size_t.
+type MachVoucherAttrRawRecipeArraySize = Mach_voucher_attr_raw_recipe_array_size_t
+
+// MachVoucherAttrRawRecipeArray is a Go-name alias for Mach_voucher_attr_raw_recipe_array_t.
+type MachVoucherAttrRawRecipeArray = Mach_voucher_attr_raw_recipe_array_t
+
+// MachVoucherAttrRawRecipeSize is a Go-name alias for Mach_voucher_attr_raw_recipe_size_t.
+type MachVoucherAttrRawRecipeSize = Mach_voucher_attr_raw_recipe_size_t
+
+// MachVoucherAttrRawRecipe is a Go-name alias for Mach_voucher_attr_raw_recipe_t.
+type MachVoucherAttrRawRecipe = Mach_voucher_attr_raw_recipe_t
+
+// MachVoucherAttrRecipeCommandArray is a Go-name alias for Mach_voucher_attr_recipe_command_array_t.
+type MachVoucherAttrRecipeCommandArray = Mach_voucher_attr_recipe_command_array_t
+
+// MachVoucherAttrRecipeCommand is a Go-name alias for Mach_voucher_attr_recipe_command_t.
+type MachVoucherAttrRecipeCommand = Mach_voucher_attr_recipe_command_t
+
+// MachVoucherAttrRecipeData is a Go-name alias for Mach_voucher_attr_recipe_data_t.
+type MachVoucherAttrRecipeData = Mach_voucher_attr_recipe_data_t
+
+// MachVoucherAttrRecipeSize is a Go-name alias for Mach_voucher_attr_recipe_size_t.
+type MachVoucherAttrRecipeSize = Mach_voucher_attr_recipe_size_t
+
+// MachVoucherAttrRecipe is a Go-name alias for Mach_voucher_attr_recipe_t.
+type MachVoucherAttrRecipe = Mach_voucher_attr_recipe_t
+
+// MachVoucherAttrValueFlags is a Go-name alias for Mach_voucher_attr_value_flags_t.
+type MachVoucherAttrValueFlags = Mach_voucher_attr_value_flags_t
+
+// MachVoucherAttrValueHandleArraySize is a Go-name alias for Mach_voucher_attr_value_handle_array_size_t.
+type MachVoucherAttrValueHandleArraySize = Mach_voucher_attr_value_handle_array_size_t
+
+// MachVoucherAttrValueHandleArray is a Go-name alias for Mach_voucher_attr_value_handle_array_t.
+type MachVoucherAttrValueHandleArray = Mach_voucher_attr_value_handle_array_t
+
+// MachVoucherAttrValueHandle is a Go-name alias for Mach_voucher_attr_value_handle_t.
+type MachVoucherAttrValueHandle = Mach_voucher_attr_value_handle_t
+
+// MachVoucherAttrValueReference is a Go-name alias for Mach_voucher_attr_value_reference_t.
+type MachVoucherAttrValueReference = Mach_voucher_attr_value_reference_t
+
+// MachVoucherNameArray is a Go-name alias for Mach_voucher_name_array_t.
+type MachVoucherNameArray = Mach_voucher_name_array_t
+
+// MachVoucherName is a Go-name alias for Mach_voucher_name_t.
+type MachVoucherName = Mach_voucher_name_t
+
+// MachVoucherSelector is a Go-name alias for Mach_voucher_selector_t.
+type MachVoucherSelector = Mach_voucher_selector_t
+
+// MachVoucher is a Go-name alias for Mach_voucher_t.
+type MachVoucher = Mach_voucher_t
+
+// MachZoneInfoArray is a Go-name alias for Mach_zone_info_array_t.
+type MachZoneInfoArray = Mach_zone_info_array_t
+
+// MachZoneInfo is a Go-name alias for Mach_zone_info_t.
+type MachZoneInfo = Mach_zone_info_t
+
+// MachZoneNameArray is a Go-name alias for Mach_zone_name_array_t.
+type MachZoneNameArray = Mach_zone_name_array_t
+
+// MachZoneName is a Go-name alias for Mach_zone_name_t.
+type MachZoneName = Mach_zone_name_t
+
+// MailboxOffset is a Go-name alias for Mailbox_offset_t.
+type MailboxOffset = Mailbox_offset_t
+
+// MbClassStat is a Go-name alias for Mb_class_stat_t.
+type MbClassStat = Mb_class_stat_t
+
+// MbStat is a Go-name alias for Mb_stat_t.
+type MbStat = Mb_stat_t
+
+// Mbstate is a Go-name alias for Mbstate_t.
+type Mbstate = Mbstate_t
+
+// MbufBptr is a Go-name alias for Mbuf_bptr_t.
+type MbufBptr = Mbuf_bptr_t
+
+// MbufCsumPerformedFlags is a Go-name alias for Mbuf_csum_performed_flags_t.
+type MbufCsumPerformedFlags = Mbuf_csum_performed_flags_t
+
+// MbufCsumRequestFlags is a Go-name alias for Mbuf_csum_request_flags_t.
+type MbufCsumRequestFlags = Mbuf_csum_request_flags_t
+
+// MbufFlags is a Go-name alias for Mbuf_flags_t.
+type MbufFlags = Mbuf_flags_t
+
+// MbufHow is a Go-name alias for Mbuf_how_t.
+type MbufHow = Mbuf_how_t
+
+// MbufPtrRef is a Go-name alias for Mbuf_ptr_ref_t.
+type MbufPtrRef = Mbuf_ptr_ref_t
+
+// MbufPtr is a Go-name alias for Mbuf_ptr_t.
+type MbufPtr = Mbuf_ptr_t
+
+// MbufRefPtr is a Go-name alias for Mbuf_ref_ptr_t.
+type MbufRefPtr = Mbuf_ref_ptr_t
+
+// MbufRefRef is a Go-name alias for Mbuf_ref_ref_t.
+type MbufRefRef = Mbuf_ref_ref_t
+
+// MbufRef is a Go-name alias for Mbuf_ref_t.
+type MbufRef = Mbuf_ref_t
+
+// MbufTagID is a Go-name alias for Mbuf_tag_id_t.
+type MbufTagID = Mbuf_tag_id_t
+
+// MbufTagType is a Go-name alias for Mbuf_tag_type_t.
+type MbufTagType = Mbuf_tag_type_t
+
+// MbufTrafficClass is a Go-name alias for Mbuf_traffic_class_t.
+type MbufTrafficClass = Mbuf_traffic_class_t
+
+// MbufTsoRequestFlags is a Go-name alias for Mbuf_tso_request_flags_t.
+type MbufTsoRequestFlags = Mbuf_tso_request_flags_t
+
+// MccEccEvent is a Go-name alias for Mcc_ecc_event_t.
+type MccEccEvent = Mcc_ecc_event_t
+
+// MccEccVersion is a Go-name alias for Mcc_ecc_version_t.
+type MccEccVersion = Mcc_ecc_version_t
+
+// MccFlags is a Go-name alias for Mcc_flags_t.
+type MccFlags = Mcc_flags_t
+
+// Mcontext is a Go-name alias for Mcontext_t.
+type Mcontext = Mcontext_t
+
+// MemEntryNamePort is a Go-name alias for Mem_entry_name_port_t.
+type MemEntryNamePort = Mem_entry_name_port_t
+
+// MemoryObjectArray is a Go-name alias for Memory_object_array_t.
+type MemoryObjectArray = Memory_object_array_t
+
+// MemoryObjectAttrInfoData is a Go-name alias for Memory_object_attr_info_data_t.
+type MemoryObjectAttrInfoData = Memory_object_attr_info_data_t
+
+// MemoryObjectAttrInfo is a Go-name alias for Memory_object_attr_info_t.
+type MemoryObjectAttrInfo = Memory_object_attr_info_t
+
+// MemoryObjectBehaveInfoData is a Go-name alias for Memory_object_behave_info_data_t.
+type MemoryObjectBehaveInfoData = Memory_object_behave_info_data_t
+
+// MemoryObjectBehaveInfo is a Go-name alias for Memory_object_behave_info_t.
+type MemoryObjectBehaveInfo = Memory_object_behave_info_t
+
+// MemoryObjectClusterSize is a Go-name alias for Memory_object_cluster_size_t.
+type MemoryObjectClusterSize = Memory_object_cluster_size_t
+
+// MemoryObjectControl is a Go-name alias for Memory_object_control_t.
+type MemoryObjectControl = Memory_object_control_t
+
+// MemoryObjectCopyStrategy is a Go-name alias for Memory_object_copy_strategy_t.
+type MemoryObjectCopyStrategy = Memory_object_copy_strategy_t
+
+// MemoryObjectDefault is a Go-name alias for Memory_object_default_t.
+type MemoryObjectDefault = Memory_object_default_t
+
+// MemoryObjectFaultInfo is a Go-name alias for Memory_object_fault_info_t.
+type MemoryObjectFaultInfo = Memory_object_fault_info_t
+
+// MemoryObjectFlavor is a Go-name alias for Memory_object_flavor_t.
+type MemoryObjectFlavor = Memory_object_flavor_t
+
+// MemoryObjectInfoData is a Go-name alias for Memory_object_info_data_t.
+type MemoryObjectInfoData = Memory_object_info_data_t
+
+// MemoryObjectInfo is a Go-name alias for Memory_object_info_t.
+type MemoryObjectInfo = Memory_object_info_t
+
+// MemoryObjectName is a Go-name alias for Memory_object_name_t.
+type MemoryObjectName = Memory_object_name_t
+
+// MemoryObjectOffset is a Go-name alias for Memory_object_offset_t.
+type MemoryObjectOffset = Memory_object_offset_t
+
+// MemoryObjectOffsetUt is a Go-name alias for Memory_object_offset_ut.
+type MemoryObjectOffsetUt = Memory_object_offset_ut
+
+// MemoryObjectPerfInfoData is a Go-name alias for Memory_object_perf_info_data_t.
+type MemoryObjectPerfInfoData = Memory_object_perf_info_data_t
+
+// MemoryObjectPerfInfo is a Go-name alias for Memory_object_perf_info_t.
+type MemoryObjectPerfInfo = Memory_object_perf_info_t
+
+// MemoryObjectReturn is a Go-name alias for Memory_object_return_t.
+type MemoryObjectReturn = Memory_object_return_t
+
+// MemoryObjectSize is a Go-name alias for Memory_object_size_t.
+type MemoryObjectSize = Memory_object_size_t
+
+// MemoryObjectSizeUt is a Go-name alias for Memory_object_size_ut.
+type MemoryObjectSizeUt = Memory_object_size_ut
+
+// MemoryObject is a Go-name alias for Memory_object_t.
+type MemoryObject = Memory_object_t
+
+// MicrostackshotFlags is a Go-name alias for Microstackshot_flags_t.
+type MicrostackshotFlags = Microstackshot_flags_t
+
+// MigImplRoutine is a Go-name alias for Mig_impl_routine_t.
+type MigImplRoutine = Mig_impl_routine_t
+
+// MigReplyError is a Go-name alias for Mig_reply_error_t.
+type MigReplyError = Mig_reply_error_t
+
+// MigRoutineArgDescriptor is a Go-name alias for Mig_routine_arg_descriptor_t.
+type MigRoutineArgDescriptor = Mig_routine_arg_descriptor_t
+
+// MigRoutineDescriptor is a Go-name alias for Mig_routine_descriptor.
+type MigRoutineDescriptor = Mig_routine_descriptor
+
+// MigRoutine is a Go-name alias for Mig_routine_t.
+type MigRoutine = Mig_routine_t
+
+// MigSubsystem is a Go-name alias for Mig_subsystem_t.
+type MigSubsystem = Mig_subsystem_t
+
+// MigSymtab is a Go-name alias for Mig_symtab_t.
+type MigSymtab = Mig_symtab_t
+
+// MlCPUInfo is a Go-name alias for Ml_cpu_info_t.
+type MlCPUInfo = Ml_cpu_info_t
+
+// MlPageProtection is a Go-name alias for Ml_page_protection_t.
+type MlPageProtection = Ml_page_protection_t
+
+// MlProcessorInfo is a Go-name alias for Ml_processor_info_t.
+type MlProcessorInfo = Ml_processor_info_t
+
+// MmapFcn is a Go-name alias for Mmap_fcn_t.
+type MmapFcn = Mmap_fcn_t
+
+// Mode is a Go-name alias for Mode_t.
+type Mode = Mode_t
+
+// MountBptr is a Go-name alias for Mount_bptr_t.
+type MountBptr = Mount_bptr_t
+
+// MountPtrRef is a Go-name alias for Mount_ptr_ref_t.
+type MountPtrRef = Mount_ptr_ref_t
+
+// MountPtr is a Go-name alias for Mount_ptr_t.
+type MountPtr = Mount_ptr_t
+
+// MountRefPtr is a Go-name alias for Mount_ref_ptr_t.
+type MountRefPtr = Mount_ref_ptr_t
+
+// MountRefRef is a Go-name alias for Mount_ref_ref_t.
+type MountRefRef = Mount_ref_ref_t
+
+// MountRef is a Go-name alias for Mount_ref_t.
+type MountRef = Mount_ref_t
+
+// Mount is a Go-name alias for Mount_t.
+type Mount = Mount_t
+
+// MphPanicFlags is a Go-name alias for Mph_panic_flags_t.
+type MphPanicFlags = Mph_panic_flags_t
+
+// MpscQueueChain is a Go-name alias for Mpsc_queue_chain_t.
+type MpscQueueChain = Mpsc_queue_chain_t
+
+// MpscQueueHead is a Go-name alias for Mpsc_queue_head_t.
+type MpscQueueHead = Mpsc_queue_head_t
+
+// MsgLabels is a Go-name alias for Msg_labels_t.
+type MsgLabels = Msg_labels_t
+
+// Msglen is a Go-name alias for Msglen_t.
+type Msglen = Msglen_t
+
+// Msgqnum is a Go-name alias for Msgqnum_t.
+type Msgqnum = Msgqnum_t
+
+// NLong is a Go-name alias for N_long.
+type NLong = N_long
+
+// NShort is a Go-name alias for N_short.
+type NShort = N_short
+
+// NTime is a Go-name alias for N_time.
+type NTime = N_time
+
+// Natural is a Go-name alias for Natural_t.
+type Natural = Natural_t
+
+// NetInitFuncPtr is a Go-name alias for Net_init_func_ptr.
+type NetInitFuncPtr = Net_init_func_ptr
+
+// Netaddr is a Go-name alias for Netaddr_t.
+type Netaddr = Netaddr_t
+
+// NetworkPort is a Go-name alias for Network_port_t.
+type NetworkPort = Network_port_t
+
+// NfsFsid is a Go-name alias for Nfs_fsid.
+type NfsFsid = Nfs_fsid
+
+// NfsHandle is a Go-name alias for Nfs_handle.
+type NfsHandle = Nfs_handle
+
+// NfsSpecdata is a Go-name alias for Nfs_specdata.
+type NfsSpecdata = Nfs_specdata
+
+// NfsStateid is a Go-name alias for Nfs_stateid.
+type NfsStateid = Nfs_stateid
+
+// NfsSupportedKerberosEtypes is a Go-name alias for Nfs_supported_kerberos_etypes.
+type NfsSupportedKerberosEtypes = Nfs_supported_kerberos_etypes
+
+// NfserrInfo is a Go-name alias for Nfserr_info_t.
+type NfserrInfo = Nfserr_info_t
+
+// Nlink is a Go-name alias for Nlink_t.
+type Nlink = Nlink_t
+
+// NotifyPort is a Go-name alias for Notify_port_t.
+type NotifyPort = Notify_port_t
+
+// NpUid is a Go-name alias for Np_uid_t.
+type NpUid = Np_uid_t
+
+// NspaceName is a Go-name alias for Nspace_name_t.
+type NspaceName = Nspace_name_t
+
+// NspacePath is a Go-name alias for Nspace_path_t.
+type NspacePath = Nspace_path_t
+
+// Ntsid is a Go-name alias for Ntsid_t.
+type Ntsid = Ntsid_t
+
+// Off is a Go-name alias for Off_t.
+type Off = Off_t
+
+// OpenCloseFcn is a Go-name alias for Open_close_fcn_t.
+type OpenCloseFcn = Open_close_fcn_t
+
+// OSBlock is a Go-name alias for Os_block_t.
+type OSBlock = Os_block_t
+
+// OSLogCoprocReg is a Go-name alias for Os_log_coproc_reg_t.
+type OSLogCoprocReg = Os_log_coproc_reg_t
+
+// OSLog is a Go-name alias for Os_log_t.
+type OSLog = Os_log_t
+
+// OSLogType is a Go-name alias for Os_log_type_t.
+type OSLogType = Os_log_type_t
+
+// PackedUchar16 is a Go-name alias for Packed_uchar16.
+type PackedUchar16 = Packed_uchar16
+
+// PackedUchar32 is a Go-name alias for Packed_uchar32.
+type PackedUchar32 = Packed_uchar32
+
+// PackedUchar64 is a Go-name alias for Packed_uchar64.
+type PackedUchar64 = Packed_uchar64
+
+// PackedUshort4 is a Go-name alias for Packed_ushort4.
+type PackedUshort4 = Packed_ushort4
+
+// PageAddressArray is a Go-name alias for Page_address_array_t.
+type PageAddressArray = Page_address_array_t
+
+// Pid is a Go-name alias for Pid_t.
+type Pid = Pid_t
+
+// PkthdrBptr is a Go-name alias for Pkthdr_bptr_t.
+type PkthdrBptr = Pkthdr_bptr_t
+
+// PkthdrPtrRef is a Go-name alias for Pkthdr_ptr_ref_t.
+type PkthdrPtrRef = Pkthdr_ptr_ref_t
+
+// PkthdrPtr is a Go-name alias for Pkthdr_ptr_t.
+type PkthdrPtr = Pkthdr_ptr_t
+
+// PkthdrRefPtr is a Go-name alias for Pkthdr_ref_ptr_t.
+type PkthdrRefPtr = Pkthdr_ref_ptr_t
+
+// PkthdrRefRef is a Go-name alias for Pkthdr_ref_ref_t.
+type PkthdrRefRef = Pkthdr_ref_ref_t
+
+// PkthdrRef is a Go-name alias for Pkthdr_ref_t.
+type PkthdrRef = Pkthdr_ref_t
+
+// Pkthdr is a Go-name alias for Pkthdr_t.
+type Pkthdr = Pkthdr_t
+
+// Pointer is a Go-name alias for Pointer_t.
+type Pointer = Pointer_t
+
+// PointerUt is a Go-name alias for Pointer_ut.
+type PointerUt = Pointer_ut
+
+// PolicyBaseData is a Go-name alias for Policy_base_data_t.
+type PolicyBaseData = Policy_base_data_t
+
+// PolicyBase is a Go-name alias for Policy_base_t.
+type PolicyBase = Policy_base_t
+
+// PolicyFifoBaseData is a Go-name alias for Policy_fifo_base_data_t.
+type PolicyFifoBaseData = Policy_fifo_base_data_t
+
+// PolicyFifoBase is a Go-name alias for Policy_fifo_base_t.
+type PolicyFifoBase = Policy_fifo_base_t
+
+// PolicyFifoInfoData is a Go-name alias for Policy_fifo_info_data_t.
+type PolicyFifoInfoData = Policy_fifo_info_data_t
+
+// PolicyFifoInfo is a Go-name alias for Policy_fifo_info_t.
+type PolicyFifoInfo = Policy_fifo_info_t
+
+// PolicyFifoLimitData is a Go-name alias for Policy_fifo_limit_data_t.
+type PolicyFifoLimitData = Policy_fifo_limit_data_t
+
+// PolicyFifoLimit is a Go-name alias for Policy_fifo_limit_t.
+type PolicyFifoLimit = Policy_fifo_limit_t
+
+// PolicyInfoData is a Go-name alias for Policy_info_data_t.
+type PolicyInfoData = Policy_info_data_t
+
+// PolicyInfo is a Go-name alias for Policy_info_t.
+type PolicyInfo = Policy_info_t
+
+// PolicyLimitData is a Go-name alias for Policy_limit_data_t.
+type PolicyLimitData = Policy_limit_data_t
+
+// PolicyLimit is a Go-name alias for Policy_limit_t.
+type PolicyLimit = Policy_limit_t
+
+// PolicyRrBaseData is a Go-name alias for Policy_rr_base_data_t.
+type PolicyRrBaseData = Policy_rr_base_data_t
+
+// PolicyRrBase is a Go-name alias for Policy_rr_base_t.
+type PolicyRrBase = Policy_rr_base_t
+
+// PolicyRrInfoData is a Go-name alias for Policy_rr_info_data_t.
+type PolicyRrInfoData = Policy_rr_info_data_t
+
+// PolicyRrInfo is a Go-name alias for Policy_rr_info_t.
+type PolicyRrInfo = Policy_rr_info_t
+
+// PolicyRrLimitData is a Go-name alias for Policy_rr_limit_data_t.
+type PolicyRrLimitData = Policy_rr_limit_data_t
+
+// PolicyRrLimit is a Go-name alias for Policy_rr_limit_t.
+type PolicyRrLimit = Policy_rr_limit_t
+
+// Policy is a Go-name alias for Policy_t.
+type Policy = Policy_t
+
+// PolicyTimeshareBaseData is a Go-name alias for Policy_timeshare_base_data_t.
+type PolicyTimeshareBaseData = Policy_timeshare_base_data_t
+
+// PolicyTimeshareBase is a Go-name alias for Policy_timeshare_base_t.
+type PolicyTimeshareBase = Policy_timeshare_base_t
+
+// PolicyTimeshareInfoData is a Go-name alias for Policy_timeshare_info_data_t.
+type PolicyTimeshareInfoData = Policy_timeshare_info_data_t
+
+// PolicyTimeshareInfo is a Go-name alias for Policy_timeshare_info_t.
+type PolicyTimeshareInfo = Policy_timeshare_info_t
+
+// PolicyTimeshareLimitData is a Go-name alias for Policy_timeshare_limit_data_t.
+type PolicyTimeshareLimitData = Policy_timeshare_limit_data_t
+
+// PolicyTimeshareLimit is a Go-name alias for Policy_timeshare_limit_t.
+type PolicyTimeshareLimit = Policy_timeshare_limit_t
+
+// PortNameArray is a Go-name alias for Port_name_array_t.
+type PortNameArray = Port_name_array_t
+
+// PortName is a Go-name alias for Port_name_t.
+type PortName = Port_name_t
+
+// Port is a Go-name alias for Port_t.
+type Port = Port_t
+
+// PosixCred is a Go-name alias for Posix_cred_t.
+type PosixCred = Posix_cred_t
+
+// Ppnum is a Go-name alias for Ppnum_t.
+type Ppnum = Ppnum_t
+
+// PriorityQueueCompareFn is a Go-name alias for Priority_queue_compare_fn_t.
+type PriorityQueueCompareFn = Priority_queue_compare_fn_t
+
+// PriorityQueueEntryDeadline is a Go-name alias for Priority_queue_entry_deadline_t.
+type PriorityQueueEntryDeadline = Priority_queue_entry_deadline_t
+
+// PriorityQueueEntrySchedModifier is a Go-name alias for Priority_queue_entry_sched_modifier_t.
+type PriorityQueueEntrySchedModifier = Priority_queue_entry_sched_modifier_t
+
+// PriorityQueueEntrySched is a Go-name alias for Priority_queue_entry_sched_t.
+type PriorityQueueEntrySched = Priority_queue_entry_sched_t
+
+// PriorityQueueEntryStable is a Go-name alias for Priority_queue_entry_stable_t.
+type PriorityQueueEntryStable = Priority_queue_entry_stable_t
+
+// PriorityQueueKey is a Go-name alias for Priority_queue_key_t.
+type PriorityQueueKey = Priority_queue_key_t
+
+// ProcBptr is a Go-name alias for Proc_bptr_t.
+type ProcBptr = Proc_bptr_t
+
+// ProcIdentBptr is a Go-name alias for Proc_ident_bptr_t.
+type ProcIdentBptr = Proc_ident_bptr_t
+
+// ProcIdentPtrRef is a Go-name alias for Proc_ident_ptr_ref_t.
+type ProcIdentPtrRef = Proc_ident_ptr_ref_t
+
+// ProcIdentPtr is a Go-name alias for Proc_ident_ptr_t.
+type ProcIdentPtr = Proc_ident_ptr_t
+
+// ProcIdentRefPtr is a Go-name alias for Proc_ident_ref_ptr_t.
+type ProcIdentRefPtr = Proc_ident_ref_ptr_t
+
+// ProcIdentRefRef is a Go-name alias for Proc_ident_ref_ref_t.
+type ProcIdentRefRef = Proc_ident_ref_ref_t
+
+// ProcIdentRef is a Go-name alias for Proc_ident_ref_t.
+type ProcIdentRef = Proc_ident_ref_t
+
+// ProcIdent is a Go-name alias for Proc_ident_t.
+type ProcIdent = Proc_ident_t
+
+// ProcPtrRef is a Go-name alias for Proc_ptr_ref_t.
+type ProcPtrRef = Proc_ptr_ref_t
+
+// ProcPtr is a Go-name alias for Proc_ptr_t.
+type ProcPtr = Proc_ptr_t
+
+// ProcRefPtr is a Go-name alias for Proc_ref_ptr_t.
+type ProcRefPtr = Proc_ref_ptr_t
+
+// ProcRefRef is a Go-name alias for Proc_ref_ref_t.
+type ProcRefRef = Proc_ref_ref_t
+
+// ProcRef is a Go-name alias for Proc_ref_t.
+type ProcRef = Proc_ref_t
+
+// Proc is a Go-name alias for Proc_t.
+type Proc = Proc_t
+
+// ProcessorArray is a Go-name alias for Processor_array_t.
+type ProcessorArray = Processor_array_t
+
+// ProcessorBasicInfoData is a Go-name alias for Processor_basic_info_data_t.
+type ProcessorBasicInfoData = Processor_basic_info_data_t
+
+// ProcessorBasicInfo is a Go-name alias for Processor_basic_info_t.
+type ProcessorBasicInfo = Processor_basic_info_t
+
+// ProcessorCPULoadInfoData is a Go-name alias for Processor_cpu_load_info_data_t.
+type ProcessorCPULoadInfoData = Processor_cpu_load_info_data_t
+
+// ProcessorCPULoadInfo is a Go-name alias for Processor_cpu_load_info_t.
+type ProcessorCPULoadInfo = Processor_cpu_load_info_t
+
+// ProcessorCPUStat64Data is a Go-name alias for Processor_cpu_stat64_data_t.
+type ProcessorCPUStat64Data = Processor_cpu_stat64_data_t
+
+// ProcessorCPUStat64 is a Go-name alias for Processor_cpu_stat64_t.
+type ProcessorCPUStat64 = Processor_cpu_stat64_t
+
+// ProcessorCPUStatData is a Go-name alias for Processor_cpu_stat_data_t.
+type ProcessorCPUStatData = Processor_cpu_stat_data_t
+
+// ProcessorCPUStat is a Go-name alias for Processor_cpu_stat_t.
+type ProcessorCPUStat = Processor_cpu_stat_t
+
+// ProcessorFlavor is a Go-name alias for Processor_flavor_t.
+type ProcessorFlavor = Processor_flavor_t
+
+// ProcessorInfoArray is a Go-name alias for Processor_info_array_t.
+type ProcessorInfoArray = Processor_info_array_t
+
+// ProcessorInfoData is a Go-name alias for Processor_info_data_t.
+type ProcessorInfoData = Processor_info_data_t
+
+// ProcessorInfo is a Go-name alias for Processor_info_t.
+type ProcessorInfo = Processor_info_t
+
+// ProcessorPortArray is a Go-name alias for Processor_port_array_t.
+type ProcessorPortArray = Processor_port_array_t
+
+// ProcessorPort is a Go-name alias for Processor_port_t.
+type ProcessorPort = Processor_port_t
+
+// ProcessorSetArray is a Go-name alias for Processor_set_array_t.
+type ProcessorSetArray = Processor_set_array_t
+
+// ProcessorSetBasicInfoData is a Go-name alias for Processor_set_basic_info_data_t.
+type ProcessorSetBasicInfoData = Processor_set_basic_info_data_t
+
+// ProcessorSetBasicInfo is a Go-name alias for Processor_set_basic_info_t.
+type ProcessorSetBasicInfo = Processor_set_basic_info_t
+
+// ProcessorSetControlPort is a Go-name alias for Processor_set_control_port_t.
+type ProcessorSetControlPort = Processor_set_control_port_t
+
+// ProcessorSetControl is a Go-name alias for Processor_set_control_t.
+type ProcessorSetControl = Processor_set_control_t
+
+// ProcessorSetFlavor is a Go-name alias for Processor_set_flavor_t.
+type ProcessorSetFlavor = Processor_set_flavor_t
+
+// ProcessorSetInfoData is a Go-name alias for Processor_set_info_data_t.
+type ProcessorSetInfoData = Processor_set_info_data_t
+
+// ProcessorSetInfo is a Go-name alias for Processor_set_info_t.
+type ProcessorSetInfo = Processor_set_info_t
+
+// ProcessorSetLoadInfoData is a Go-name alias for Processor_set_load_info_data_t.
+type ProcessorSetLoadInfoData = Processor_set_load_info_data_t
+
+// ProcessorSetLoadInfo is a Go-name alias for Processor_set_load_info_t.
+type ProcessorSetLoadInfo = Processor_set_load_info_t
+
+// ProcessorSetNameArray is a Go-name alias for Processor_set_name_array_t.
+type ProcessorSetNameArray = Processor_set_name_array_t
+
+// ProcessorSetNamePortArray is a Go-name alias for Processor_set_name_port_array_t.
+type ProcessorSetNamePortArray = Processor_set_name_port_array_t
+
+// ProcessorSetNamePort is a Go-name alias for Processor_set_name_port_t.
+type ProcessorSetNamePort = Processor_set_name_port_t
+
+// ProcessorSetName is a Go-name alias for Processor_set_name_t.
+type ProcessorSetName = Processor_set_name_t
+
+// ProcessorSetPort is a Go-name alias for Processor_set_port_t.
+type ProcessorSetPort = Processor_set_port_t
+
+// ProcessorSet is a Go-name alias for Processor_set_t.
+type ProcessorSet = Processor_set_t
+
+// ProtocolFamily is a Go-name alias for Protocol_family_t.
+type ProtocolFamily = Protocol_family_t
+
+// PsizeFcn is a Go-name alias for Psize_fcn_t.
+type PsizeFcn = Psize_fcn_t
+
+// Ptrdiff is a Go-name alias for Ptrdiff_t.
+type Ptrdiff = Ptrdiff_t
+
+// Qaddr is a Go-name alias for Qaddr_t.
+type Qaddr = Qaddr_t
+
+// Quad is a Go-name alias for Quad_t.
+type Quad = Quad_t
+
+// QueueChain is a Go-name alias for Queue_chain_t.
+type QueueChain = Queue_chain_t
+
+// QueueEntry is a Go-name alias for Queue_entry_t.
+type QueueEntry = Queue_entry_t
+
+// QueueHead is a Go-name alias for Queue_head_t.
+type QueueHead = Queue_head_t
+
+// Queue is a Go-name alias for Queue_t.
+type Queue = Queue_t
+
+// ReadWriteFcn is a Go-name alias for Read_write_fcn_t.
+type ReadWriteFcn = Read_write_fcn_t
+
+// Reg64 is a Go-name alias for Reg64_t.
+type Reg64 = Reg64_t
+
+// Register is a Go-name alias for Register_t.
+type Register = Register_t
+
+// ResetFcn is a Go-name alias for Reset_fcn_t.
+type ResetFcn = Reset_fcn_t
+
+// Rlim is a Go-name alias for Rlim_t.
+type Rlim = Rlim_t
+
+// Route is a Go-name alias for Route_t.
+type Route = Route_t
+
+// RoutineArgDescriptor is a Go-name alias for Routine_arg_descriptor.
+type RoutineArgDescriptor = Routine_arg_descriptor
+
+// RoutineArgOffset is a Go-name alias for Routine_arg_offset.
+type RoutineArgOffset = Routine_arg_offset
+
+// RoutineArgSize is a Go-name alias for Routine_arg_size.
+type RoutineArgSize = Routine_arg_size
+
+// RoutineArgType is a Go-name alias for Routine_arg_type.
+type RoutineArgType = Routine_arg_type
+
+// RoutineDescriptor is a Go-name alias for Routine_descriptor_t.
+type RoutineDescriptor = Routine_descriptor_t
+
+// RpcRoutineArgDescriptor is a Go-name alias for Rpc_routine_arg_descriptor_t.
+type RpcRoutineArgDescriptor = Rpc_routine_arg_descriptor_t
+
+// RpcRoutineDescriptor is a Go-name alias for Rpc_routine_descriptor_t.
+type RpcRoutineDescriptor = Rpc_routine_descriptor_t
+
+// RpcSubsystem is a Go-name alias for Rpc_subsystem_t.
+type RpcSubsystem = Rpc_subsystem_t
+
+// Rsize is a Go-name alias for Rsize_t.
+type Rsize = Rsize_t
+
+// RsvdFcn is a Go-name alias for Rsvd_fcn_t.
+type RsvdFcn = Rsvd_fcn_t
+
+// RtentryBptr is a Go-name alias for Rtentry_bptr_t.
+type RtentryBptr = Rtentry_bptr_t
+
+// RtentryPtrRef is a Go-name alias for Rtentry_ptr_ref_t.
+type RtentryPtrRef = Rtentry_ptr_ref_t
+
+// RtentryPtr is a Go-name alias for Rtentry_ptr_t.
+type RtentryPtr = Rtentry_ptr_t
+
+// RtentryRefPtr is a Go-name alias for Rtentry_ref_ptr_t.
+type RtentryRefPtr = Rtentry_ref_ptr_t
+
+// RtentryRefRef is a Go-name alias for Rtentry_ref_ref_t.
+type RtentryRefRef = Rtentry_ref_ref_t
+
+// RtentryRef is a Go-name alias for Rtentry_ref_t.
+type RtentryRef = Rtentry_ref_t
+
+// Rune is a Go-name alias for Rune_t.
+type Rune = Rune_t
+
+// RusageInfoCurrent is a Go-name alias for Rusage_info_current.
+type RusageInfoCurrent = Rusage_info_current
+
+// RusageInfo is a Go-name alias for Rusage_info_t.
+type RusageInfo = Rusage_info_t
+
+// SaEndpoints is a Go-name alias for Sa_endpoints_t.
+type SaEndpoints = Sa_endpoints_t
+
+// SaFamily is a Go-name alias for Sa_family_t.
+type SaFamily = Sa_family_t
+
+// SaeAssocid is a Go-name alias for Sae_associd_t.
+type SaeAssocid = Sae_associd_t
+
+// SaeConnid is a Go-name alias for Sae_connid_t.
+type SaeConnid = Sae_connid_t
+
+// SecureBootCryptexArgs is a Go-name alias for Secure_boot_cryptex_args_t.
+type SecureBootCryptexArgs = Secure_boot_cryptex_args_t
+
+// SecurityToken is a Go-name alias for Security_token_t.
+type SecurityToken = Security_token_t
+
+// Segsz is a Go-name alias for Segsz_t.
+type Segsz = Segsz_t
+
+// Sel is a Go-name alias for Sel_t.
+type Sel = Sel_t
+
+// SelectFcn is a Go-name alias for Select_fcn_t.
+type SelectFcn = Select_fcn_t
+
+// SemaphorePort is a Go-name alias for Semaphore_port_t.
+type SemaphorePort = Semaphore_port_t
+
+// Semaphore is a Go-name alias for Semaphore_t.
+type Semaphore = Semaphore_t
+
+// SfltDataFlag is a Go-name alias for Sflt_data_flag_t.
+type SfltDataFlag = Sflt_data_flag_t
+
+// SfltEvent is a Go-name alias for Sflt_event_t.
+type SfltEvent = Sflt_event_t
+
+// SfltFlags is a Go-name alias for Sflt_flags.
+type SfltFlags = Sflt_flags
+
+// SfltHandle is a Go-name alias for Sflt_handle.
+type SfltHandle = Sflt_handle
+
+// SharedFileMappingSlideNp is a Go-name alias for Shared_file_mapping_slide_np_t.
+type SharedFileMappingSlideNp = Shared_file_mapping_slide_np_t
+
+// SharedFileMappingSlideNpUt is a Go-name alias for Shared_file_mapping_slide_np_ut.
+type SharedFileMappingSlideNpUt = Shared_file_mapping_slide_np_ut
+
+// Shmatt is a Go-name alias for Shmatt_t.
+type Shmatt = Shmatt_t
+
+// SigAtomic is a Go-name alias for Sig_atomic_t.
+type SigAtomic = Sig_atomic_t
+
+// Sig is a Go-name alias for Sig_t.
+type Sig = Sig_t
+
+// Siginfo is a Go-name alias for Siginfo_t.
+type Siginfo = Siginfo_t
+
+// Sigset is a Go-name alias for Sigset_t.
+type Sigset = Sigset_t
+
+// Size is a Go-name alias for Size_t.
+type Size = Size_t
+
+// SizeUt is a Go-name alias for Size_ut.
+type SizeUt = Size_ut
+
+// SleepType is a Go-name alias for Sleep_type_t.
+type SleepType = Sleep_type_t
+
+// SmrCb is a Go-name alias for Smr_cb_t.
+type SmrCb = Smr_cb_t
+
+// SmrNode is a Go-name alias for Smr_node_t.
+type SmrNode = Smr_node_t
+
+// SmrSeq is a Go-name alias for Smr_seq_t.
+type SmrSeq = Smr_seq_t
+
+// Smr is a Go-name alias for Smr_t.
+type Smr = Smr_t
+
+// SoGen is a Go-name alias for So_gen_t.
+type SoGen = So_gen_t
+
+// SockStorage is a Go-name alias for Sock_storage.
+type SockStorage = Sock_storage
+
+// SockaddrBptr is a Go-name alias for Sockaddr_bptr_t.
+type SockaddrBptr = Sockaddr_bptr_t
+
+// SockaddrPtrRef is a Go-name alias for Sockaddr_ptr_ref_t.
+type SockaddrPtrRef = Sockaddr_ptr_ref_t
+
+// SockaddrPtr is a Go-name alias for Sockaddr_ptr_t.
+type SockaddrPtr = Sockaddr_ptr_t
+
+// SockaddrRefPtr is a Go-name alias for Sockaddr_ref_ptr_t.
+type SockaddrRefPtr = Sockaddr_ref_ptr_t
+
+// SockaddrRefRef is a Go-name alias for Sockaddr_ref_ref_t.
+type SockaddrRefRef = Sockaddr_ref_ref_t
+
+// SockaddrRef is a Go-name alias for Sockaddr_ref_t.
+type SockaddrRef = Sockaddr_ref_t
+
+// SockaddrStorageBptr is a Go-name alias for Sockaddr_storage_bptr_t.
+type SockaddrStorageBptr = Sockaddr_storage_bptr_t
+
+// SockaddrStoragePtrRef is a Go-name alias for Sockaddr_storage_ptr_ref_t.
+type SockaddrStoragePtrRef = Sockaddr_storage_ptr_ref_t
+
+// SockaddrStoragePtr is a Go-name alias for Sockaddr_storage_ptr_t.
+type SockaddrStoragePtr = Sockaddr_storage_ptr_t
+
+// SockaddrStorageRefPtr is a Go-name alias for Sockaddr_storage_ref_ptr_t.
+type SockaddrStorageRefPtr = Sockaddr_storage_ref_ptr_t
+
+// SockaddrStorageRefRef is a Go-name alias for Sockaddr_storage_ref_ref_t.
+type SockaddrStorageRefRef = Sockaddr_storage_ref_ref_t
+
+// SockaddrStorageRef is a Go-name alias for Sockaddr_storage_ref_t.
+type SockaddrStorageRef = Sockaddr_storage_ref_t
+
+// SocketBptr is a Go-name alias for Socket_bptr_t.
+type SocketBptr = Socket_bptr_t
+
+// SocketPtrRef is a Go-name alias for Socket_ptr_ref_t.
+type SocketPtrRef = Socket_ptr_ref_t
+
+// SocketPtr is a Go-name alias for Socket_ptr_t.
+type SocketPtr = Socket_ptr_t
+
+// SocketRefPtr is a Go-name alias for Socket_ref_ptr_t.
+type SocketRefPtr = Socket_ref_ptr_t
+
+// SocketRefRef is a Go-name alias for Socket_ref_ref_t.
+type SocketRefRef = Socket_ref_ref_t
+
+// SocketRef is a Go-name alias for Socket_ref_t.
+type SocketRef = Socket_ref_t
+
+// Socket is a Go-name alias for Socket_t.
+type Socket = Socket_t
+
+// Socklen is a Go-name alias for Socklen_t.
+type Socklen = Socklen_t
+
+// SockoptBptr is a Go-name alias for Sockopt_bptr_t.
+type SockoptBptr = Sockopt_bptr_t
+
+// SockoptDir is a Go-name alias for Sockopt_dir.
+type SockoptDir = Sockopt_dir
+
+// SockoptPtrRef is a Go-name alias for Sockopt_ptr_ref_t.
+type SockoptPtrRef = Sockopt_ptr_ref_t
+
+// SockoptPtr is a Go-name alias for Sockopt_ptr_t.
+type SockoptPtr = Sockopt_ptr_t
+
+// SockoptRefPtr is a Go-name alias for Sockopt_ref_ptr_t.
+type SockoptRefPtr = Sockopt_ref_ptr_t
+
+// SockoptRefRef is a Go-name alias for Sockopt_ref_ref_t.
+type SockoptRefRef = Sockopt_ref_ref_t
+
+// SockoptRef is a Go-name alias for Sockopt_ref_t.
+type SockoptRef = Sockopt_ref_t
+
+// Speed is a Go-name alias for Speed_t.
+type Speed = Speed_t
+
+// SptmAsid is a Go-name alias for Sptm_asid_t.
+type SptmAsid = Sptm_asid_t
+
+// SptmCallRegs is a Go-name alias for Sptm_call_regs_t.
+type SptmCallRegs = Sptm_call_regs_t
+
+// SptmConsistentDebug is a Go-name alias for Sptm_consistent_debug_t.
+type SptmConsistentDebug = Sptm_consistent_debug_t
+
+// SptmDispatchEndpointID is a Go-name alias for Sptm_dispatch_endpoint_id_t.
+type SptmDispatchEndpointID = Sptm_dispatch_endpoint_id_t
+
+// SptmDispatchTableID is a Go-name alias for Sptm_dispatch_table_id_t.
+type SptmDispatchTableID = Sptm_dispatch_table_id_t
+
+// SptmDispatchTarget is a Go-name alias for Sptm_dispatch_target_t.
+type SptmDispatchTarget = Sptm_dispatch_target_t
+
+// SptmDomain is a Go-name alias for Sptm_domain_t.
+type SptmDomain = Sptm_domain_t
+
+// SptmFrameType is a Go-name alias for Sptm_frame_type_t.
+type SptmFrameType = Sptm_frame_type_t
+
+// SptmInstanceID is a Go-name alias for Sptm_instance_id_t.
+type SptmInstanceID = Sptm_instance_id_t
+
+// SptmIommuID is a Go-name alias for Sptm_iommu_id_t.
+type SptmIommuID = Sptm_iommu_id_t
+
+// SptmIommuRetypeParams is a Go-name alias for Sptm_iommu_retype_params_t.
+type SptmIommuRetypeParams = Sptm_iommu_retype_params_t
+
+// SptmPaddr is a Go-name alias for Sptm_paddr_t.
+type SptmPaddr = Sptm_paddr_t
+
+// SptmPapt is a Go-name alias for Sptm_papt_t.
+type SptmPapt = Sptm_papt_t
+
+// SptmPoff is a Go-name alias for Sptm_poff_t.
+type SptmPoff = Sptm_poff_t
+
+// SptmPpnum is a Go-name alias for Sptm_ppnum_t.
+type SptmPpnum = Sptm_ppnum_t
+
+// SptmPtLevel is a Go-name alias for Sptm_pt_level_t.
+type SptmPtLevel = Sptm_pt_level_t
+
+// SptmPte is a Go-name alias for Sptm_pte_t.
+type SptmPte = Sptm_pte_t
+
+// SptmReturn is a Go-name alias for Sptm_return_t.
+type SptmReturn = Sptm_return_t
+
+// SptmRetypeParams is a Go-name alias for Sptm_retype_params_t.
+type SptmRetypeParams = Sptm_retype_params_t
+
+// SptmTraceBuffer is a Go-name alias for Sptm_trace_buffer_t.
+type SptmTraceBuffer = Sptm_trace_buffer_t
+
+// SptmTrace is a Go-name alias for Sptm_trace_t.
+type SptmTrace = Sptm_trace_t
+
+// SptmTte is a Go-name alias for Sptm_tte_t.
+type SptmTte = Sptm_tte_t
+
+// SptmVaddr is a Go-name alias for Sptm_vaddr_t.
+type SptmVaddr = Sptm_vaddr_t
+
+// SptmVectorType is a Go-name alias for Sptm_vector_type_t.
+type SptmVectorType = Sptm_vector_type_t
+
+// SptmVmid is a Go-name alias for Sptm_vmid_t.
+type SptmVmid = Sptm_vmid_t
+
+// SptmVoff is a Go-name alias for Sptm_voff_t.
+type SptmVoff = Sptm_voff_t
+
+// Ssize is a Go-name alias for Ssize_t.
+type Ssize = Ssize_t
+
+// Stack is a Go-name alias for Stack_t.
+type Stack = Stack_t
+
+// StackshotFlags is a Go-name alias for Stackshot_flags_t.
+type StackshotFlags = Stackshot_flags_t
+
+// StopFcn is a Go-name alias for Stop_fcn_t.
+type StopFcn = Stop_fcn_t
+
+// StrategyFcn is a Go-name alias for Strategy_fcn_t.
+type StrategyFcn = Strategy_fcn_t
+
+// String is a Go-name alias for String_t.
+type String = String_t
+
+// Subaid is a Go-name alias for Subaid_t.
+type Subaid = Subaid_t
+
+// Suseconds is a Go-name alias for Suseconds_t.
+type Suseconds = Suseconds_t
+
+// Swblk is a Go-name alias for Swblk_t.
+type Swblk = Swblk_t
+
+// SymtabName is a Go-name alias for Symtab_name_t.
+type SymtabName = Symtab_name_t
+
+// SyncPolicy is a Go-name alias for Sync_policy_t.
+type SyncPolicy = Sync_policy_t
+
+// SyscallArg is a Go-name alias for Syscall_arg_t.
+type SyscallArg = Syscall_arg_t
+
+// SyscpIDInstructionsFeat1Reg is a Go-name alias for Syscp_ID_instructions_feat_1_reg.
+type SyscpIDInstructionsFeat1Reg = Syscp_ID_instructions_feat_1_reg
+
+// TaskAbsolutetimeInfoData is a Go-name alias for Task_absolutetime_info_data_t.
+type TaskAbsolutetimeInfoData = Task_absolutetime_info_data_t
+
+// TaskAbsolutetimeInfo is a Go-name alias for Task_absolutetime_info_t.
+type TaskAbsolutetimeInfo = Task_absolutetime_info_t
+
+// TaskAffinityTagInfoData is a Go-name alias for Task_affinity_tag_info_data_t.
+type TaskAffinityTagInfoData = Task_affinity_tag_info_data_t
+
+// TaskAffinityTagInfo is a Go-name alias for Task_affinity_tag_info_t.
+type TaskAffinityTagInfo = Task_affinity_tag_info_t
+
+// TaskArray is a Go-name alias for Task_array_t.
+type TaskArray = Task_array_t
+
+// TaskBasicInfo32Data is a Go-name alias for Task_basic_info_32_data_t.
+type TaskBasicInfo32Data = Task_basic_info_32_data_t
+
+// TaskBasicInfo32 is a Go-name alias for Task_basic_info_32_t.
+type TaskBasicInfo32 = Task_basic_info_32_t
+
+// TaskBasicInfo642Data is a Go-name alias for Task_basic_info_64_2_data_t.
+type TaskBasicInfo642Data = Task_basic_info_64_2_data_t
+
+// TaskBasicInfo642 is a Go-name alias for Task_basic_info_64_2_t.
+type TaskBasicInfo642 = Task_basic_info_64_2_t
+
+// TaskBasicInfo64Data is a Go-name alias for Task_basic_info_64_data_t.
+type TaskBasicInfo64Data = Task_basic_info_64_data_t
+
+// TaskBasicInfo64 is a Go-name alias for Task_basic_info_64_t.
+type TaskBasicInfo64 = Task_basic_info_64_t
+
+// TaskBasicInfoData is a Go-name alias for Task_basic_info_data_t.
+type TaskBasicInfoData = Task_basic_info_data_t
+
+// TaskBasicInfo is a Go-name alias for Task_basic_info_t.
+type TaskBasicInfo = Task_basic_info_t
+
+// TaskCategoryPolicyData is a Go-name alias for Task_category_policy_data_t.
+type TaskCategoryPolicyData = Task_category_policy_data_t
+
+// TaskCategoryPolicy is a Go-name alias for Task_category_policy_t.
+type TaskCategoryPolicy = Task_category_policy_t
+
+// TaskCorpseForkingBehavior is a Go-name alias for Task_corpse_forking_behavior_t.
+type TaskCorpseForkingBehavior = Task_corpse_forking_behavior_t
+
+// TaskCrashinfoItem is a Go-name alias for Task_crashinfo_item_t.
+type TaskCrashinfoItem = Task_crashinfo_item_t
+
+// TaskDyldInfoData is a Go-name alias for Task_dyld_info_data_t.
+type TaskDyldInfoData = Task_dyld_info_data_t
+
+// TaskDyldInfo is a Go-name alias for Task_dyld_info_t.
+type TaskDyldInfo = Task_dyld_info_t
+
+// TaskEventsInfoData is a Go-name alias for Task_events_info_data_t.
+type TaskEventsInfoData = Task_events_info_data_t
+
+// TaskEventsInfo is a Go-name alias for Task_events_info_t.
+type TaskEventsInfo = Task_events_info_t
+
+// TaskExcGuardBehavior is a Go-name alias for Task_exc_guard_behavior_t.
+type TaskExcGuardBehavior = Task_exc_guard_behavior_t
+
+// TaskExtmodInfoData is a Go-name alias for Task_extmod_info_data_t.
+type TaskExtmodInfoData = Task_extmod_info_data_t
+
+// TaskExtmodInfo is a Go-name alias for Task_extmod_info_t.
+type TaskExtmodInfo = Task_extmod_info_t
+
+// TaskFlagsInfoData is a Go-name alias for Task_flags_info_data_t.
+type TaskFlagsInfoData = Task_flags_info_data_t
+
+// TaskFlagsInfo is a Go-name alias for Task_flags_info_t.
+type TaskFlagsInfo = Task_flags_info_t
+
+// TaskFlavor is a Go-name alias for Task_flavor_t.
+type TaskFlavor = Task_flavor_t
+
+// TaskGate is a Go-name alias for Task_gate_t.
+type TaskGate = Task_gate_t
+
+// TaskIDToken is a Go-name alias for Task_id_token_t.
+type TaskIDToken = Task_id_token_t
+
+// TaskInfoData is a Go-name alias for Task_info_data_t.
+type TaskInfoData = Task_info_data_t
+
+// TaskInfo is a Go-name alias for Task_info_t.
+type TaskInfo = Task_info_t
+
+// TaskInspectBasicCountsData is a Go-name alias for Task_inspect_basic_counts_data_t.
+type TaskInspectBasicCountsData = Task_inspect_basic_counts_data_t
+
+// TaskInspectBasicCounts is a Go-name alias for Task_inspect_basic_counts_t.
+type TaskInspectBasicCounts = Task_inspect_basic_counts_t
+
+// TaskInspectFlavor is a Go-name alias for Task_inspect_flavor_t.
+type TaskInspectFlavor = Task_inspect_flavor_t
+
+// TaskInspectInfo is a Go-name alias for Task_inspect_info_t.
+type TaskInspectInfo = Task_inspect_info_t
+
+// TaskInspect is a Go-name alias for Task_inspect_t.
+type TaskInspect = Task_inspect_t
+
+// TaskKernelmemoryInfoData is a Go-name alias for Task_kernelmemory_info_data_t.
+type TaskKernelmemoryInfoData = Task_kernelmemory_info_data_t
+
+// TaskKernelmemoryInfo is a Go-name alias for Task_kernelmemory_info_t.
+type TaskKernelmemoryInfo = Task_kernelmemory_info_t
+
+// TaskLatencyQos is a Go-name alias for Task_latency_qos_t.
+type TaskLatencyQos = Task_latency_qos_t
+
+// TaskName is a Go-name alias for Task_name_t.
+type TaskName = Task_name_t
+
+// TaskPolicyFlavor is a Go-name alias for Task_policy_flavor_t.
+type TaskPolicyFlavor = Task_policy_flavor_t
+
+// TaskPolicyGet is a Go-name alias for Task_policy_get_t.
+type TaskPolicyGet = Task_policy_get_t
+
+// TaskPolicySet is a Go-name alias for Task_policy_set_t.
+type TaskPolicySet = Task_policy_set_t
+
+// TaskPolicy is a Go-name alias for Task_policy_t.
+type TaskPolicy = Task_policy_t
+
+// TaskPortArray is a Go-name alias for Task_port_array_t.
+type TaskPortArray = Task_port_array_t
+
+// TaskPort is a Go-name alias for Task_port_t.
+type TaskPort = Task_port_t
+
+// TaskPowerInfoData is a Go-name alias for Task_power_info_data_t.
+type TaskPowerInfoData = Task_power_info_data_t
+
+// TaskPowerInfo is a Go-name alias for Task_power_info_t.
+type TaskPowerInfo = Task_power_info_t
+
+// TaskPowerInfoV2Data is a Go-name alias for Task_power_info_v2_data_t.
+type TaskPowerInfoV2Data = Task_power_info_v2_data_t
+
+// TaskPowerInfoV2 is a Go-name alias for Task_power_info_v2_t.
+type TaskPowerInfoV2 = Task_power_info_v2_t
+
+// TaskPurgableInfo is a Go-name alias for Task_purgable_info_t.
+type TaskPurgableInfo = Task_purgable_info_t
+
+// TaskQosPolicy is a Go-name alias for Task_qos_policy_t.
+type TaskQosPolicy = Task_qos_policy_t
+
+// TaskRead is a Go-name alias for Task_read_t.
+type TaskRead = Task_read_t
+
+// TaskRestartableRangeArray is a Go-name alias for Task_restartable_range_array_t.
+type TaskRestartableRangeArray = Task_restartable_range_array_t
+
+// TaskRestartableRange is a Go-name alias for Task_restartable_range_t.
+type TaskRestartableRange = Task_restartable_range_t
+
+// TaskRole is a Go-name alias for Task_role_t.
+type TaskRole = Task_role_t
+
+// TaskSpecialPort is a Go-name alias for Task_special_port_t.
+type TaskSpecialPort = Task_special_port_t
+
+// TaskSuspensionToken is a Go-name alias for Task_suspension_token_t.
+type TaskSuspensionToken = Task_suspension_token_t
+
+// TaskThreadTimesInfoData is a Go-name alias for Task_thread_times_info_data_t.
+type TaskThreadTimesInfoData = Task_thread_times_info_data_t
+
+// TaskThreadTimesInfo is a Go-name alias for Task_thread_times_info_t.
+type TaskThreadTimesInfo = Task_thread_times_info_t
+
+// TaskThroughputQos is a Go-name alias for Task_throughput_qos_t.
+type TaskThroughputQos = Task_throughput_qos_t
+
+// TaskTraceMemoryInfoData is a Go-name alias for Task_trace_memory_info_data_t.
+type TaskTraceMemoryInfoData = Task_trace_memory_info_data_t
+
+// TaskTraceMemoryInfo is a Go-name alias for Task_trace_memory_info_t.
+type TaskTraceMemoryInfo = Task_trace_memory_info_t
+
+// TaskVmInfoData is a Go-name alias for Task_vm_info_data_t.
+type TaskVmInfoData = Task_vm_info_data_t
+
+// TaskVmInfo is a Go-name alias for Task_vm_info_t.
+type TaskVmInfo = Task_vm_info_t
+
+// TaskWaitStateInfoData is a Go-name alias for Task_wait_state_info_data_t.
+type TaskWaitStateInfoData = Task_wait_state_info_data_t
+
+// TaskWaitStateInfo is a Go-name alias for Task_wait_state_info_t.
+type TaskWaitStateInfo = Task_wait_state_info_t
+
+// TaskZoneInfoArray is a Go-name alias for Task_zone_info_array_t.
+type TaskZoneInfoArray = Task_zone_info_array_t
+
+// TaskZoneInfo is a Go-name alias for Task_zone_info_t.
+type TaskZoneInfo = Task_zone_info_t
+
+// Tcflag is a Go-name alias for Tcflag_t.
+type Tcflag = Tcflag_t
+
+// TCPCc is a Go-name alias for Tcp_cc.
+type TCPCc = Tcp_cc
+
+// TCPConnectionClientAccurateEcnState is a Go-name alias for Tcp_connection_client_accurate_ecn_state_t.
+type TCPConnectionClientAccurateEcnState = Tcp_connection_client_accurate_ecn_state_t
+
+// TCPConnectionServerAccurateEcnState is a Go-name alias for Tcp_connection_server_accurate_ecn_state_t.
+type TCPConnectionServerAccurateEcnState = Tcp_connection_server_accurate_ecn_state_t
+
+// TCPNotifyAckID is a Go-name alias for Tcp_notify_ack_id_t.
+type TCPNotifyAckID = Tcp_notify_ack_id_t
+
+// TCPSeq is a Go-name alias for Tcp_seq.
+type TCPSeq = Tcp_seq
+
+// TextEncoding is a Go-name alias for Text_encoding_t.
+type TextEncoding = Text_encoding_t
+
+// ThreadActArray is a Go-name alias for Thread_act_array_t.
+type ThreadActArray = Thread_act_array_t
+
+// ThreadActPortArray is a Go-name alias for Thread_act_port_array_t.
+type ThreadActPortArray = Thread_act_port_array_t
+
+// ThreadActPort is a Go-name alias for Thread_act_port_t.
+type ThreadActPort = Thread_act_port_t
+
+// ThreadAct is a Go-name alias for Thread_act_t.
+type ThreadAct = Thread_act_t
+
+// ThreadAffinityPolicyData is a Go-name alias for Thread_affinity_policy_data_t.
+type ThreadAffinityPolicyData = Thread_affinity_policy_data_t
+
+// ThreadAffinityPolicy is a Go-name alias for Thread_affinity_policy_t.
+type ThreadAffinityPolicy = Thread_affinity_policy_t
+
+// ThreadArray is a Go-name alias for Thread_array_t.
+type ThreadArray = Thread_array_t
+
+// ThreadBackgroundPolicyData is a Go-name alias for Thread_background_policy_data_t.
+type ThreadBackgroundPolicyData = Thread_background_policy_data_t
+
+// ThreadBackgroundPolicy is a Go-name alias for Thread_background_policy_t.
+type ThreadBackgroundPolicy = Thread_background_policy_t
+
+// ThreadBasicInfoData is a Go-name alias for Thread_basic_info_data_t.
+type ThreadBasicInfoData = Thread_basic_info_data_t
+
+// ThreadBasicInfo is a Go-name alias for Thread_basic_info_t.
+type ThreadBasicInfo = Thread_basic_info_t
+
+// ThreadCallParam is a Go-name alias for Thread_call_param_t.
+type ThreadCallParam = Thread_call_param_t
+
+// ThreadCall is a Go-name alias for Thread_call_t.
+type ThreadCall = Thread_call_t
+
+// ThreadExtendedInfoData is a Go-name alias for Thread_extended_info_data_t.
+type ThreadExtendedInfoData = Thread_extended_info_data_t
+
+// ThreadExtendedInfo is a Go-name alias for Thread_extended_info_t.
+type ThreadExtendedInfo = Thread_extended_info_t
+
+// ThreadExtendedPolicyData is a Go-name alias for Thread_extended_policy_data_t.
+type ThreadExtendedPolicyData = Thread_extended_policy_data_t
+
+// ThreadExtendedPolicy is a Go-name alias for Thread_extended_policy_t.
+type ThreadExtendedPolicy = Thread_extended_policy_t
+
+// ThreadFlavor is a Go-name alias for Thread_flavor_t.
+type ThreadFlavor = Thread_flavor_t
+
+// ThreadIdentifierInfoData is a Go-name alias for Thread_identifier_info_data_t.
+type ThreadIdentifierInfoData = Thread_identifier_info_data_t
+
+// ThreadIdentifierInfo is a Go-name alias for Thread_identifier_info_t.
+type ThreadIdentifierInfo = Thread_identifier_info_t
+
+// ThreadInfoData is a Go-name alias for Thread_info_data_t.
+type ThreadInfoData = Thread_info_data_t
+
+// ThreadInfo is a Go-name alias for Thread_info_t.
+type ThreadInfo = Thread_info_t
+
+// ThreadInspect is a Go-name alias for Thread_inspect_t.
+type ThreadInspect = Thread_inspect_t
+
+// ThreadLatencyQosPolicyData is a Go-name alias for Thread_latency_qos_policy_data_t.
+type ThreadLatencyQosPolicyData = Thread_latency_qos_policy_data_t
+
+// ThreadLatencyQosPolicy is a Go-name alias for Thread_latency_qos_policy_t.
+type ThreadLatencyQosPolicy = Thread_latency_qos_policy_t
+
+// ThreadLatencyQos is a Go-name alias for Thread_latency_qos_t.
+type ThreadLatencyQos = Thread_latency_qos_t
+
+// ThreadPolicyFlavor is a Go-name alias for Thread_policy_flavor_t.
+type ThreadPolicyFlavor = Thread_policy_flavor_t
+
+// ThreadPolicy is a Go-name alias for Thread_policy_t.
+type ThreadPolicy = Thread_policy_t
+
+// ThreadPortArray is a Go-name alias for Thread_port_array_t.
+type ThreadPortArray = Thread_port_array_t
+
+// ThreadPort is a Go-name alias for Thread_port_t.
+type ThreadPort = Thread_port_t
+
+// ThreadPrecedencePolicyData is a Go-name alias for Thread_precedence_policy_data_t.
+type ThreadPrecedencePolicyData = Thread_precedence_policy_data_t
+
+// ThreadPrecedencePolicy is a Go-name alias for Thread_precedence_policy_t.
+type ThreadPrecedencePolicy = Thread_precedence_policy_t
+
+// ThreadRead is a Go-name alias for Thread_read_t.
+type ThreadRead = Thread_read_t
+
+// ThreadSelfcountsKind is a Go-name alias for Thread_selfcounts_kind_t.
+type ThreadSelfcountsKind = Thread_selfcounts_kind_t
+
+// ThreadStandardPolicyData is a Go-name alias for Thread_standard_policy_data_t.
+type ThreadStandardPolicyData = Thread_standard_policy_data_t
+
+// ThreadStandardPolicy is a Go-name alias for Thread_standard_policy_t.
+type ThreadStandardPolicy = Thread_standard_policy_t
+
+// ThreadStateData is a Go-name alias for Thread_state_data_t.
+type ThreadStateData = Thread_state_data_t
+
+// ThreadStateFlavorArray is a Go-name alias for Thread_state_flavor_array_t.
+type ThreadStateFlavorArray = Thread_state_flavor_array_t
+
+// ThreadStateFlavor is a Go-name alias for Thread_state_flavor_t.
+type ThreadStateFlavor = Thread_state_flavor_t
+
+// ThreadState is a Go-name alias for Thread_state_t.
+type ThreadState = Thread_state_t
+
+// Thread is a Go-name alias for Thread_t.
+type Thread = Thread_t
+
+// ThreadThroughputQosPolicyData is a Go-name alias for Thread_throughput_qos_policy_data_t.
+type ThreadThroughputQosPolicyData = Thread_throughput_qos_policy_data_t
+
+// ThreadThroughputQosPolicy is a Go-name alias for Thread_throughput_qos_policy_t.
+type ThreadThroughputQosPolicy = Thread_throughput_qos_policy_t
+
+// ThreadThroughputQos is a Go-name alias for Thread_throughput_qos_t.
+type ThreadThroughputQos = Thread_throughput_qos_t
+
+// ThreadTimeConstraintPolicyData is a Go-name alias for Thread_time_constraint_policy_data_t.
+type ThreadTimeConstraintPolicyData = Thread_time_constraint_policy_data_t
+
+// ThreadTimeConstraintPolicy is a Go-name alias for Thread_time_constraint_policy_t.
+type ThreadTimeConstraintPolicy = Thread_time_constraint_policy_t
+
+// ThreadTurnstileinfo is a Go-name alias for Thread_turnstileinfo_t.
+type ThreadTurnstileinfo = Thread_turnstileinfo_t
+
+// ThreadTurnstileinfoV2 is a Go-name alias for Thread_turnstileinfo_v2_t.
+type ThreadTurnstileinfoV2 = Thread_turnstileinfo_v2_t
+
+// ThreadWaitinfo is a Go-name alias for Thread_waitinfo_t.
+type ThreadWaitinfo = Thread_waitinfo_t
+
+// ThreadWaitinfoV2 is a Go-name alias for Thread_waitinfo_v2_t.
+type ThreadWaitinfoV2 = Thread_waitinfo_v2_t
+
+// ThrottleInfoHandle is a Go-name alias for Throttle_info_handle_t.
+type ThrottleInfoHandle = Throttle_info_handle_t
+
+// Time is a Go-name alias for Time_t.
+type Time = Time_t
+
+// TimeValue is a Go-name alias for Time_value_t.
+type TimeValue = Time_value_t
+
+// Token is a Go-name alias for Token_t.
+type Token = Token_t
+
+// TrapGate is a Go-name alias for Trap_gate_t.
+type TrapGate = Trap_gate_t
+
+// TssDesc is a Go-name alias for Tss_desc_t.
+type TssDesc = Tss_desc_t
+
+// Tss is a Go-name alias for Tss_t.
+type Tss = Tss_t
+
+// UChar is a Go-name alias for U_char.
+type UChar = U_char
+
+// UQuad is a Go-name alias for U_quad_t.
+type UQuad = U_quad_t
+
+// UShort is a Go-name alias for U_short.
+type UShort = U_short
+
+// Ucontext64 is a Go-name alias for Ucontext64_t.
+type Ucontext64 = Ucontext64_t
+
+// Ucontext is a Go-name alias for Ucontext_t.
+type Ucontext = Ucontext_t
+
+// UextObject is a Go-name alias for Uext_object_t.
+type UextObject = Uext_object_t
+
+// Uid is a Go-name alias for Uid_t.
+type Uid = Uid_t
+
+// Uint16 is a Go-name alias for Uint16_t.
+type Uint16 = Uint16_t
+
+// Uint32 is a Go-name alias for Uint32_t.
+type Uint32 = Uint32_t
+
+// Uint64 is a Go-name alias for Uint64_t.
+type Uint64 = Uint64_t
+
+// Uint8 is a Go-name alias for Uint8_t.
+type Uint8 = Uint8_t
+
+// UintFast16 is a Go-name alias for Uint_fast16_t.
+type UintFast16 = Uint_fast16_t
+
+// UintFast32 is a Go-name alias for Uint_fast32_t.
+type UintFast32 = Uint_fast32_t
+
+// UintFast64 is a Go-name alias for Uint_fast64_t.
+type UintFast64 = Uint_fast64_t
+
+// UintFast8 is a Go-name alias for Uint_fast8_t.
+type UintFast8 = Uint_fast8_t
+
+// UintLeast16 is a Go-name alias for Uint_least16_t.
+type UintLeast16 = Uint_least16_t
+
+// UintLeast32 is a Go-name alias for Uint_least32_t.
+type UintLeast32 = Uint_least32_t
+
+// UintLeast64 is a Go-name alias for Uint_least64_t.
+type UintLeast64 = Uint_least64_t
+
+// UintLeast8 is a Go-name alias for Uint_least8_t.
+type UintLeast8 = Uint_least8_t
+
+// Uintmax is a Go-name alias for Uintmax_t.
+type Uintmax = Uintmax_t
+
+// Uintptr is a Go-name alias for Uintptr_t.
+type Uintptr = Uintptr_t
+
+// UioBptr is a Go-name alias for Uio_bptr_t.
+type UioBptr = Uio_bptr_t
+
+// UioPtrRef is a Go-name alias for Uio_ptr_ref_t.
+type UioPtrRef = Uio_ptr_ref_t
+
+// UioPtr is a Go-name alias for Uio_ptr_t.
+type UioPtr = Uio_ptr_t
+
+// UioRefPtr is a Go-name alias for Uio_ref_ptr_t.
+type UioRefPtr = Uio_ref_ptr_t
+
+// UioRefRef is a Go-name alias for Uio_ref_ref_t.
+type UioRefRef = Uio_ref_ref_t
+
+// UioRef is a Go-name alias for Uio_ref_t.
+type UioRef = Uio_ref_t
+
+// UnpGen is a Go-name alias for Unp_gen_t.
+type UnpGen = Unp_gen_t
+
+// UplControlFlags is a Go-name alias for Upl_control_flags_t.
+type UplControlFlags = Upl_control_flags_t
+
+// UplOffset is a Go-name alias for Upl_offset_t.
+type UplOffset = Upl_offset_t
+
+// UplPageInfoArray is a Go-name alias for Upl_page_info_array_t.
+type UplPageInfoArray = Upl_page_info_array_t
+
+// UplPageInfo is a Go-name alias for Upl_page_info_t.
+type UplPageInfo = Upl_page_info_t
+
+// UplPageListPtr is a Go-name alias for Upl_page_list_ptr_t.
+type UplPageListPtr = Upl_page_list_ptr_t
+
+// UplSize is a Go-name alias for Upl_size_t.
+type UplSize = Upl_size_t
+
+// Upl is a Go-name alias for Upl_t.
+type Upl = Upl_t
+
+// Useconds is a Go-name alias for Useconds_t.
+type Useconds = Useconds_t
+
+// User32Addr is a Go-name alias for User32_addr_t.
+type User32Addr = User32_addr_t
+
+// User32Fchecklv is a Go-name alias for User32_fchecklv_t.
+type User32Fchecklv = User32_fchecklv_t
+
+// User32Fsignatures is a Go-name alias for User32_fsignatures_t.
+type User32Fsignatures = User32_fsignatures_t
+
+// User32Long is a Go-name alias for User32_long_t.
+type User32Long = User32_long_t
+
+// User32Msglen is a Go-name alias for User32_msglen_t.
+type User32Msglen = User32_msglen_t
+
+// User32Msgqnum is a Go-name alias for User32_msgqnum_t.
+type User32Msgqnum = User32_msgqnum_t
+
+// User32Off is a Go-name alias for User32_off_t.
+type User32Off = User32_off_t
+
+// User32Size is a Go-name alias for User32_size_t.
+type User32Size = User32_size_t
+
+// User32Ssize is a Go-name alias for User32_ssize_t.
+type User32Ssize = User32_ssize_t
+
+// User32Time is a Go-name alias for User32_time_t.
+type User32Time = User32_time_t
+
+// User32Ulong is a Go-name alias for User32_ulong_t.
+type User32Ulong = User32_ulong_t
+
+// User64Addr is a Go-name alias for User64_addr_t.
+type User64Addr = User64_addr_t
+
+// User64Long is a Go-name alias for User64_long_t.
+type User64Long = User64_long_t
+
+// User64Msglen is a Go-name alias for User64_msglen_t.
+type User64Msglen = User64_msglen_t
+
+// User64Msgqnum is a Go-name alias for User64_msgqnum_t.
+type User64Msgqnum = User64_msgqnum_t
+
+// User64Off is a Go-name alias for User64_off_t.
+type User64Off = User64_off_t
+
+// User64Size is a Go-name alias for User64_size_t.
+type User64Size = User64_size_t
+
+// User64Ssize is a Go-name alias for User64_ssize_t.
+type User64Ssize = User64_ssize_t
+
+// User64Time is a Go-name alias for User64_time_t.
+type User64Time = User64_time_t
+
+// User64Ulong is a Go-name alias for User64_ulong_t.
+type User64Ulong = User64_ulong_t
+
+// UserAddr is a Go-name alias for User_addr_t.
+type UserAddr = User_addr_t
+
+// UserAddrUt is a Go-name alias for User_addr_ut.
+type UserAddrUt = User_addr_ut
+
+// UserFchecklv is a Go-name alias for User_fchecklv_t.
+type UserFchecklv = User_fchecklv_t
+
+// UserFsignatures is a Go-name alias for User_fsignatures_t.
+type UserFsignatures = User_fsignatures_t
+
+// UserFsupplement is a Go-name alias for User_fsupplement_t.
+type UserFsupplement = User_fsupplement_t
+
+// UserLong is a Go-name alias for User_long_t.
+type UserLong = User_long_t
+
+// UserMsglen is a Go-name alias for User_msglen_t.
+type UserMsglen = User_msglen_t
+
+// UserMsgqnum is a Go-name alias for User_msgqnum_t.
+type UserMsgqnum = User_msgqnum_t
+
+// UserOff is a Go-name alias for User_off_t.
+type UserOff = User_off_t
+
+// UserSize is a Go-name alias for User_size_t.
+type UserSize = User_size_t
+
+// UserSizeUt is a Go-name alias for User_size_ut.
+type UserSizeUt = User_size_ut
+
+// UserSpeed is a Go-name alias for User_speed_t.
+type UserSpeed = User_speed_t
+
+// UserSsize is a Go-name alias for User_ssize_t.
+type UserSsize = User_ssize_t
+
+// UserSubsystem is a Go-name alias for User_subsystem_t.
+type UserSubsystem = User_subsystem_t
+
+// UserTcflag is a Go-name alias for User_tcflag_t.
+type UserTcflag = User_tcflag_t
+
+// UserTime is a Go-name alias for User_time_t.
+type UserTime = User_time_t
+
+// UserUlong is a Go-name alias for User_ulong_t.
+type UserUlong = User_ulong_t
+
+// UuidString is a Go-name alias for Uuid_string_t.
+type UuidString = Uuid_string_t
+
+// VdspLength is a Go-name alias for VDSP_Length.
+type VdspLength = VDSP_Length
+
+// VdspStride is a Go-name alias for VDSP_Stride.
+type VdspStride = VDSP_Stride
+
+// VdspBiquadSetup is a Go-name alias for VDSP_biquad_Setup.
+type VdspBiquadSetup = VDSP_biquad_Setup
+
+// VdspBiquadSetupD is a Go-name alias for VDSP_biquad_SetupD.
+type VdspBiquadSetupD = VDSP_biquad_SetupD
+
+// VdspBiquadmSetup is a Go-name alias for VDSP_biquadm_Setup.
+type VdspBiquadmSetup = VDSP_biquadm_Setup
+
+// VdspBiquadmSetupD is a Go-name alias for VDSP_biquadm_SetupD.
+type VdspBiquadmSetupD = VDSP_biquadm_SetupD
+
+// VdspInt24 is a Go-name alias for VDSP_int24.
+type VdspInt24 = VDSP_int24
+
+// VdspUint24 is a Go-name alias for VDSP_uint24.
+type VdspUint24 = VDSP_uint24
+
+// VaList is a Go-name alias for Va_list.
+type VaList = Va_list
+
+// VcProgressUserOptions is a Go-name alias for Vc_progress_user_options.
+type VcProgressUserOptions = Vc_progress_user_options
+
+// VectorInt2 is a Go-name alias for Vector_int2.
+type VectorInt2 = Vector_int2
+
+// VectorInt4 is a Go-name alias for Vector_int4.
+type VectorInt4 = Vector_int4
+
+// VectorInt8 is a Go-name alias for Vector_int8.
+type VectorInt8 = Vector_int8
+
+// VectorUchar16 is a Go-name alias for Vector_uchar16.
+type VectorUchar16 = Vector_uchar16
+
+// VectorUchar32 is a Go-name alias for Vector_uchar32.
+type VectorUchar32 = Vector_uchar32
+
+// VectorUchar64 is a Go-name alias for Vector_uchar64.
+type VectorUchar64 = Vector_uchar64
+
+// VectorUchar8 is a Go-name alias for Vector_uchar8.
+type VectorUchar8 = Vector_uchar8
+
+// VectorUint4 is a Go-name alias for Vector_uint4.
+type VectorUint4 = Vector_uint4
+
+// VectorUshort4 is a Go-name alias for Vector_ushort4.
+type VectorUshort4 = Vector_ushort4
+
+// VfsContextBptr is a Go-name alias for Vfs_context_bptr_t.
+type VfsContextBptr = Vfs_context_bptr_t
+
+// VfsContextPtrRef is a Go-name alias for Vfs_context_ptr_ref_t.
+type VfsContextPtrRef = Vfs_context_ptr_ref_t
+
+// VfsContextPtr is a Go-name alias for Vfs_context_ptr_t.
+type VfsContextPtr = Vfs_context_ptr_t
+
+// VfsContextRefPtr is a Go-name alias for Vfs_context_ref_ptr_t.
+type VfsContextRefPtr = Vfs_context_ref_ptr_t
+
+// VfsContextRefRef is a Go-name alias for Vfs_context_ref_ref_t.
+type VfsContextRefRef = Vfs_context_ref_ref_t
+
+// VfsContextRef is a Go-name alias for Vfs_context_ref_t.
+type VfsContextRef = Vfs_context_ref_t
+
+// VfsContext is a Go-name alias for Vfs_context_t.
+type VfsContext = Vfs_context_t
+
+// VfsPath is a Go-name alias for Vfs_path_t.
+type VfsPath = Vfs_path_t
+
+// VfsRenameFlags is a Go-name alias for Vfs_rename_flags_t.
+type VfsRenameFlags = Vfs_rename_flags_t
+
+// VfsRoles is a Go-name alias for Vfs_roles_t.
+type VfsRoles = Vfs_roles_t
+
+// VfstableBptr is a Go-name alias for Vfstable_bptr_t.
+type VfstableBptr = Vfstable_bptr_t
+
+// VfstablePtrRef is a Go-name alias for Vfstable_ptr_ref_t.
+type VfstablePtrRef = Vfstable_ptr_ref_t
+
+// VfstablePtr is a Go-name alias for Vfstable_ptr_t.
+type VfstablePtr = Vfstable_ptr_t
+
+// VfstableRefPtr is a Go-name alias for Vfstable_ref_ptr_t.
+type VfstableRefPtr = Vfstable_ref_ptr_t
+
+// VfstableRefRef is a Go-name alias for Vfstable_ref_ref_t.
+type VfstableRefRef = Vfstable_ref_ref_t
+
+// VfstableRef is a Go-name alias for Vfstable_ref_t.
+type VfstableRef = Vfstable_ref_t
+
+// Vfstable is a Go-name alias for Vfstable_t.
+type Vfstable = Vfstable_t
+
+// VirtualMemoryGuardExceptionCode is a Go-name alias for Virtual_memory_guard_exception_code_t.
+type VirtualMemoryGuardExceptionCode = Virtual_memory_guard_exception_code_t
+
+// Vm32AddrStruct is a Go-name alias for Vm32_addr_struct_t.
+type Vm32AddrStruct = Vm32_addr_struct_t
+
+// Vm32Address is a Go-name alias for Vm32_address_t.
+type Vm32Address = Vm32_address_t
+
+// Vm32ObjectID is a Go-name alias for Vm32_object_id_t.
+type Vm32ObjectID = Vm32_object_id_t
+
+// Vm32Offset is a Go-name alias for Vm32_offset_t.
+type Vm32Offset = Vm32_offset_t
+
+// Vm32SizeStruct is a Go-name alias for Vm32_size_struct_t.
+type Vm32SizeStruct = Vm32_size_struct_t
+
+// Vm32Size is a Go-name alias for Vm32_size_t.
+type Vm32Size = Vm32_size_t
+
+// VmAddrStruct is a Go-name alias for Vm_addr_struct_t.
+type VmAddrStruct = Vm_addr_struct_t
+
+// VmAddress is a Go-name alias for Vm_address_t.
+type VmAddress = Vm_address_t
+
+// VmAddressUt is a Go-name alias for Vm_address_ut.
+type VmAddressUt = Vm_address_ut
+
+// VmBehavior is a Go-name alias for Vm_behavior_t.
+type VmBehavior = Vm_behavior_t
+
+// VmBehaviorUt is a Go-name alias for Vm_behavior_ut.
+type VmBehaviorUt = Vm_behavior_ut
+
+// VmExtmodStatisticsData is a Go-name alias for Vm_extmod_statistics_data_t.
+type VmExtmodStatisticsData = Vm_extmod_statistics_data_t
+
+// VmExtmodStatistics is a Go-name alias for Vm_extmod_statistics_t.
+type VmExtmodStatistics = Vm_extmod_statistics_t
+
+// VmInfoObjectArray is a Go-name alias for Vm_info_object_array_t.
+type VmInfoObjectArray = Vm_info_object_array_t
+
+// VmInfoObject is a Go-name alias for Vm_info_object_t.
+type VmInfoObject = Vm_info_object_t
+
+// VmInfoRegion64 is a Go-name alias for Vm_info_region_64_t.
+type VmInfoRegion64 = Vm_info_region_64_t
+
+// VmInfoRegion is a Go-name alias for Vm_info_region_t.
+type VmInfoRegion = Vm_info_region_t
+
+// VmInherit is a Go-name alias for Vm_inherit_t.
+type VmInherit = Vm_inherit_t
+
+// VmInheritUt is a Go-name alias for Vm_inherit_ut.
+type VmInheritUt = Vm_inherit_ut
+
+// VmMachineAttribute is a Go-name alias for Vm_machine_attribute_t.
+type VmMachineAttribute = Vm_machine_attribute_t
+
+// VmMachineAttributeVal is a Go-name alias for Vm_machine_attribute_val_t.
+type VmMachineAttributeVal = Vm_machine_attribute_val_t
+
+// VmMapAddress is a Go-name alias for Vm_map_address_t.
+type VmMapAddress = Vm_map_address_t
+
+// VmMapAddressUt is a Go-name alias for Vm_map_address_ut.
+type VmMapAddressUt = Vm_map_address_ut
+
+// VmMapInspect is a Go-name alias for Vm_map_inspect_t.
+type VmMapInspect = Vm_map_inspect_t
+
+// VmMapOffset is a Go-name alias for Vm_map_offset_t.
+type VmMapOffset = Vm_map_offset_t
+
+// VmMapOffsetUt is a Go-name alias for Vm_map_offset_ut.
+type VmMapOffsetUt = Vm_map_offset_ut
+
+// VmMapRead is a Go-name alias for Vm_map_read_t.
+type VmMapRead = Vm_map_read_t
+
+// VmMapSize is a Go-name alias for Vm_map_size_t.
+type VmMapSize = Vm_map_size_t
+
+// VmMapSizeUt is a Go-name alias for Vm_map_size_ut.
+type VmMapSizeUt = Vm_map_size_ut
+
+// VmMap is a Go-name alias for Vm_map_t.
+type VmMap = Vm_map_t
+
+// VmNamedEntry is a Go-name alias for Vm_named_entry_t.
+type VmNamedEntry = Vm_named_entry_t
+
+// VmObjectID is a Go-name alias for Vm_object_id_t.
+type VmObjectID = Vm_object_id_t
+
+// VmObjectOffset is a Go-name alias for Vm_object_offset_t.
+type VmObjectOffset = Vm_object_offset_t
+
+// VmObjectOffsetUt is a Go-name alias for Vm_object_offset_ut.
+type VmObjectOffsetUt = Vm_object_offset_ut
+
+// VmObjectSize is a Go-name alias for Vm_object_size_t.
+type VmObjectSize = Vm_object_size_t
+
+// VmObjectSizeUt is a Go-name alias for Vm_object_size_ut.
+type VmObjectSizeUt = Vm_object_size_ut
+
+// VmOffset is a Go-name alias for Vm_offset_t.
+type VmOffset = Vm_offset_t
+
+// VmOffsetUt is a Go-name alias for Vm_offset_ut.
+type VmOffsetUt = Vm_offset_ut
+
+// VmPageInfoBasicData is a Go-name alias for Vm_page_info_basic_data_t.
+type VmPageInfoBasicData = Vm_page_info_basic_data_t
+
+// VmPageInfoBasic is a Go-name alias for Vm_page_info_basic_t.
+type VmPageInfoBasic = Vm_page_info_basic_t
+
+// VmPageInfoData is a Go-name alias for Vm_page_info_data_t.
+type VmPageInfoData = Vm_page_info_data_t
+
+// VmPageInfoFlavor is a Go-name alias for Vm_page_info_flavor_t.
+type VmPageInfoFlavor = Vm_page_info_flavor_t
+
+// VmPageInfo is a Go-name alias for Vm_page_info_t.
+type VmPageInfo = Vm_page_info_t
+
+// VmProt is a Go-name alias for Vm_prot_t.
+type VmProt = Vm_prot_t
+
+// VmProtUt is a Go-name alias for Vm_prot_ut.
+type VmProtUt = Vm_prot_ut
+
+// VmPurgable is a Go-name alias for Vm_purgable_t.
+type VmPurgable = Vm_purgable_t
+
+// VmPurgeableInfo is a Go-name alias for Vm_purgeable_info_t.
+type VmPurgeableInfo = Vm_purgeable_info_t
+
+// VmPurgeableStat is a Go-name alias for Vm_purgeable_stat_t.
+type VmPurgeableStat = Vm_purgeable_stat_t
+
+// VmReadEntry is a Go-name alias for Vm_read_entry_t.
+type VmReadEntry = Vm_read_entry_t
+
+// VmRegionBasicInfo64 is a Go-name alias for Vm_region_basic_info_64_t.
+type VmRegionBasicInfo64 = Vm_region_basic_info_64_t
+
+// VmRegionBasicInfoData64 is a Go-name alias for Vm_region_basic_info_data_64_t.
+type VmRegionBasicInfoData64 = Vm_region_basic_info_data_64_t
+
+// VmRegionBasicInfoData is a Go-name alias for Vm_region_basic_info_data_t.
+type VmRegionBasicInfoData = Vm_region_basic_info_data_t
+
+// VmRegionBasicInfo is a Go-name alias for Vm_region_basic_info_t.
+type VmRegionBasicInfo = Vm_region_basic_info_t
+
+// VmRegionExtendedInfoData is a Go-name alias for Vm_region_extended_info_data_t.
+type VmRegionExtendedInfoData = Vm_region_extended_info_data_t
+
+// VmRegionExtendedInfo is a Go-name alias for Vm_region_extended_info_t.
+type VmRegionExtendedInfo = Vm_region_extended_info_t
+
+// VmRegionFlavor is a Go-name alias for Vm_region_flavor_t.
+type VmRegionFlavor = Vm_region_flavor_t
+
+// VmRegionInfo64 is a Go-name alias for Vm_region_info_64_t.
+type VmRegionInfo64 = Vm_region_info_64_t
+
+// VmRegionInfoData is a Go-name alias for Vm_region_info_data_t.
+type VmRegionInfoData = Vm_region_info_data_t
+
+// VmRegionInfo is a Go-name alias for Vm_region_info_t.
+type VmRegionInfo = Vm_region_info_t
+
+// VmRegionRecurseInfo64 is a Go-name alias for Vm_region_recurse_info_64_t.
+type VmRegionRecurseInfo64 = Vm_region_recurse_info_64_t
+
+// VmRegionRecurseInfo is a Go-name alias for Vm_region_recurse_info_t.
+type VmRegionRecurseInfo = Vm_region_recurse_info_t
+
+// VmRegionSubmapInfo64 is a Go-name alias for Vm_region_submap_info_64_t.
+type VmRegionSubmapInfo64 = Vm_region_submap_info_64_t
+
+// VmRegionSubmapInfoData64 is a Go-name alias for Vm_region_submap_info_data_64_t.
+type VmRegionSubmapInfoData64 = Vm_region_submap_info_data_64_t
+
+// VmRegionSubmapInfoData is a Go-name alias for Vm_region_submap_info_data_t.
+type VmRegionSubmapInfoData = Vm_region_submap_info_data_t
+
+// VmRegionSubmapInfo is a Go-name alias for Vm_region_submap_info_t.
+type VmRegionSubmapInfo = Vm_region_submap_info_t
+
+// VmRegionSubmapShortInfo64 is a Go-name alias for Vm_region_submap_short_info_64_t.
+type VmRegionSubmapShortInfo64 = Vm_region_submap_short_info_64_t
+
+// VmRegionSubmapShortInfoData64 is a Go-name alias for Vm_region_submap_short_info_data_64_t.
+type VmRegionSubmapShortInfoData64 = Vm_region_submap_short_info_data_64_t
+
+// VmRegionTopInfoData is a Go-name alias for Vm_region_top_info_data_t.
+type VmRegionTopInfoData = Vm_region_top_info_data_t
+
+// VmRegionTopInfo is a Go-name alias for Vm_region_top_info_t.
+type VmRegionTopInfo = Vm_region_top_info_t
+
+// VmSizeStruct is a Go-name alias for Vm_size_struct_t.
+type VmSizeStruct = Vm_size_struct_t
+
+// VmSize is a Go-name alias for Vm_size_t.
+type VmSize = Vm_size_t
+
+// VmSizeUt is a Go-name alias for Vm_size_ut.
+type VmSizeUt = Vm_size_ut
+
+// VmStatistics64Data is a Go-name alias for Vm_statistics64_data_t.
+type VmStatistics64Data = Vm_statistics64_data_t
+
+// VmStatistics64 is a Go-name alias for Vm_statistics64_t.
+type VmStatistics64 = Vm_statistics64_t
+
+// VmStatisticsData is a Go-name alias for Vm_statistics_data_t.
+type VmStatisticsData = Vm_statistics_data_t
+
+// VmStatistics is a Go-name alias for Vm_statistics_t.
+type VmStatistics = Vm_statistics_t
+
+// VmSync is a Go-name alias for Vm_sync_t.
+type VmSync = Vm_sync_t
+
+// VmTaskEntry is a Go-name alias for Vm_task_entry_t.
+type VmTaskEntry = Vm_task_entry_t
+
+// VnodeBptr is a Go-name alias for Vnode_bptr_t.
+type VnodeBptr = Vnode_bptr_t
+
+// VnodePtrRef is a Go-name alias for Vnode_ptr_ref_t.
+type VnodePtrRef = Vnode_ptr_ref_t
+
+// VnodePtr is a Go-name alias for Vnode_ptr_t.
+type VnodePtr = Vnode_ptr_t
+
+// VnodeRefPtr is a Go-name alias for Vnode_ref_ptr_t.
+type VnodeRefPtr = Vnode_ref_ptr_t
+
+// VnodeRefRef is a Go-name alias for Vnode_ref_ref_t.
+type VnodeRefRef = Vnode_ref_ref_t
+
+// VnodeRef is a Go-name alias for Vnode_ref_t.
+type VnodeRef = Vnode_ref_t
+
+// Vnode is a Go-name alias for Vnode_t.
+type Vnode = Vnode_t
+
+// VnodeVerifyFlags is a Go-name alias for Vnode_verify_flags_t.
+type VnodeVerifyFlags = Vnode_verify_flags_t
+
+// VolAttributesAttr is a Go-name alias for Vol_attributes_attr_t.
+type VolAttributesAttr = Vol_attributes_attr_t
+
+// VolCapabilitiesAttr is a Go-name alias for Vol_capabilities_attr_t.
+type VolCapabilitiesAttr = Vol_capabilities_attr_t
+
+// VolCapabilitiesSet is a Go-name alias for Vol_capabilities_set_t.
+type VolCapabilitiesSet = Vol_capabilities_set_t
+
+// VsockGen is a Go-name alias for Vsock_gen_t.
+type VsockGen = Vsock_gen_t
+
+// WaitInterrupt is a Go-name alias for Wait_interrupt_t.
+type WaitInterrupt = Wait_interrupt_t
+
+// WaitResult is a Go-name alias for Wait_result_t.
+type WaitResult = Wait_result_t
+
+// WaitTimeoutUrgency is a Go-name alias for Wait_timeout_urgency_t.
+type WaitTimeoutUrgency = Wait_timeout_urgency_t
+
+// Wint is a Go-name alias for Wint_t.
+type Wint = Wint_t
+
+// X86Avx512State is a Go-name alias for X86_avx512_state_t.
+type X86Avx512State = X86_avx512_state_t
+
+// X86AvxState is a Go-name alias for X86_avx_state_t.
+type X86AvxState = X86_avx_state_t
+
+// X86DebugState is a Go-name alias for X86_debug_state_t.
+type X86DebugState = X86_debug_state_t
+
+// X86ExceptionState32 is a Go-name alias for X86_exception_state32_t.
+type X86ExceptionState32 = X86_exception_state32_t
+
+// X86ExceptionState is a Go-name alias for X86_exception_state_t.
+type X86ExceptionState = X86_exception_state_t
+
+// X86FloatState32 is a Go-name alias for X86_float_state32_t.
+type X86FloatState32 = X86_float_state32_t
+
+// X86FloatState is a Go-name alias for X86_float_state_t.
+type X86FloatState = X86_float_state_t
+
+// X86StateHdr is a Go-name alias for X86_state_hdr_t.
+type X86StateHdr = X86_state_hdr_t
+
+// X86ThreadState32 is a Go-name alias for X86_thread_state32_t.
+type X86ThreadState32 = X86_thread_state32_t
+
+// X86ThreadState is a Go-name alias for X86_thread_state_t.
+type X86ThreadState = X86_thread_state_t
+
+// XdrbufType is a Go-name alias for Xdrbuf_type.
+type XdrbufType = Xdrbuf_type
+
+// XmlData is a Go-name alias for XmlData_t.
+type XmlData = XmlData_t
+
+// ZStream is a Go-name alias for Z_stream.
+type ZStream = Z_stream
+
+// ZStreamp is a Go-name alias for Z_streamp.
+type ZStreamp = Z_streamp
+
+// ZoneBtrecordArray is a Go-name alias for Zone_btrecord_array_t.
+type ZoneBtrecordArray = Zone_btrecord_array_t
+
+// ZoneBtrecord is a Go-name alias for Zone_btrecord_t.
+type ZoneBtrecord = Zone_btrecord_t
+
+// ZoneInfoArray is a Go-name alias for Zone_info_array_t.
+type ZoneInfoArray = Zone_info_array_t
+
+// ZoneInfo is a Go-name alias for Zone_info_t.
+type ZoneInfo = Zone_info_t
+
+// ZoneNameArray is a Go-name alias for Zone_name_array_t.
+type ZoneNameArray = Zone_name_array_t
+
+// ZoneName is a Go-name alias for Zone_name_t.
+type ZoneName = Zone_name_t
+
+// NXByteOrder is the canonical enum type used by byte-order helpers.
 type NXByteOrder = Nx
 
 // Uio_rw aliases the generated uio enum family for vnode read/write APIs.
-
 type Uio_rw = Uio
 
 // Uio_seg aliases the generated uio enum family for vnode segment-space APIs.
-
 type Uio_seg = Uio
 
-// Ifnet_interface_advisory_interface_type aliases the generated advisory interface type enum.
+// Ifnet_interface_advisory_direction aliases the generated advisory direction enum.
+type Ifnet_interface_advisory_direction = IfInterfaceAdvisoryDirection
 
+// IfnetInterfaceAdvisoryDirection aliases the generated advisory direction enum.
+type IfnetInterfaceAdvisoryDirection = IfInterfaceAdvisoryDirection
+
+// Ifnet_interface_advisory_wifi_freq_band aliases the generated advisory Wi-Fi frequency-band enum.
+type Ifnet_interface_advisory_wifi_freq_band = IfInterfaceAdvisoryFreqBand
+
+// Ifnet_interface_advisory_interface_type aliases the generated advisory interface type enum.
 type Ifnet_interface_advisory_interface_type = IfInterfaceAdvisoryInterfaceType
 
 // IfnetInterfaceAdvisoryInterfaceType aliases the generated advisory interface type enum.
-
 type IfnetInterfaceAdvisoryInterfaceType = IfInterfaceAdvisoryInterfaceType
 
 // Ifnet_interface_advisory_version is a uint8-backed advisory version enum.
-
 type Ifnet_interface_advisory_version = uint8

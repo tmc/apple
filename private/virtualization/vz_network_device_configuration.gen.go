@@ -94,14 +94,14 @@ type IVZNetworkDeviceConfiguration interface {
 }
 
 // Init initializes the instance.
-func (n VZNetworkDeviceConfiguration) Init() VZNetworkDeviceConfiguration {
-	rv := objc.Send[VZNetworkDeviceConfiguration](n.ID, objc.Sel("init"))
+func (v VZNetworkDeviceConfiguration) Init() VZNetworkDeviceConfiguration {
+	rv := objc.Send[VZNetworkDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n VZNetworkDeviceConfiguration) Autorelease() VZNetworkDeviceConfiguration {
-	rv := objc.Send[VZNetworkDeviceConfiguration](n.ID, objc.Sel("autorelease"))
+func (v VZNetworkDeviceConfiguration) Autorelease() VZNetworkDeviceConfiguration {
+	rv := objc.Send[VZNetworkDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -113,56 +113,56 @@ func NewVZNetworkDeviceConfiguration() VZNetworkDeviceConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/_init
-func (n VZNetworkDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("_init"))
+func (v VZNetworkDeviceConfiguration) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/makeNetworkDeviceForVirtualMachine:networkDeviceIndex:
-func (n VZNetworkDeviceConfiguration) MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("makeNetworkDeviceForVirtualMachine:networkDeviceIndex:"), machine, index)
+func (v VZNetworkDeviceConfiguration) MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeNetworkDeviceForVirtualMachine:networkDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/_networkDevice
-func (n VZNetworkDeviceConfiguration) _networkDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("_networkDevice"))
+func (v VZNetworkDeviceConfiguration) _networkDevice() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_networkDevice"))
 	return objectivec.Object{ID: rv}
 }
 
 // CanNetworkDevice reports whether the receiver responds to the private selector _networkDevice.
-func (n VZNetworkDeviceConfiguration) CanNetworkDevice() bool {
-	return objc.RespondsToSelector(n.ID, objc.Sel("_networkDevice"))
+func (v VZNetworkDeviceConfiguration) CanNetworkDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_networkDevice"))
 }
 
 // NetworkDevice is an exported wrapper for the private property _networkDevice.
-func (n VZNetworkDeviceConfiguration) NetworkDevice() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(n.ID, objc.Sel("_networkDevice")) {
+func (v VZNetworkDeviceConfiguration) NetworkDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_networkDevice")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_networkDevice"}
 	}
-	return n._networkDevice(), nil
+	return v._networkDevice(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/debugDescription
-func (n VZNetworkDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("debugDescription"))
+func (v VZNetworkDeviceConfiguration) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/description
-func (n VZNetworkDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("description"))
+func (v VZNetworkDeviceConfiguration) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/hash
-func (n VZNetworkDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("hash"))
+func (v VZNetworkDeviceConfiguration) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/superclass
-func (n VZNetworkDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](n.ID, objc.Sel("superclass"))
+func (v VZNetworkDeviceConfiguration) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

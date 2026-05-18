@@ -16,17 +16,17 @@ type CPXFocusControlling interface {
 	// AddToPermittedFrontList protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusControlling/addToPermittedFrontList:
-	AddToPermittedFrontList(list objectivec.IObject) int16
+	AddToPermittedFrontList(list CPSProcessSerNum) int16
 
 	// RemoveFromPermittedFrontList protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusControlling/removeFromPermittedFrontList:
-	RemoveFromPermittedFrontList(list objectivec.IObject) int16
+	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
 
 	// SetFrontmostProcess protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusControlling/setFrontmostProcess:
-	SetFrontmostProcess(process *CPSProcessRecRef) int16
+	SetFrontmostProcess(process CPSProcessRec) int16
 
 	// SetKeyThiefConnectionID protocol.
 	//
@@ -36,7 +36,7 @@ type CPXFocusControlling interface {
 	// SetProcessToBringForwardAtNextCheckinPSN protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusControlling/setProcessToBringForwardAtNextCheckinPSN:
-	SetProcessToBringForwardAtNextCheckinPSN(psn objectivec.IObject) int16
+	SetProcessToBringForwardAtNextCheckinPSN(psn CPSProcessSerNum) int16
 }
 
 // CPXFocusControllingObject wraps an existing Objective-C object that conforms to the CPXFocusControlling protocol.
@@ -57,19 +57,19 @@ func CPXFocusControllingObjectFromID(id objc.ID) CPXFocusControllingObject {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusControlling/addToPermittedFrontList:
-func (o CPXFocusControllingObject) AddToPermittedFrontList(list objectivec.IObject) int16 {
+func (o CPXFocusControllingObject) AddToPermittedFrontList(list CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("addToPermittedFrontList:"), list)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusControlling/removeFromPermittedFrontList:
-func (o CPXFocusControllingObject) RemoveFromPermittedFrontList(list objectivec.IObject) int16 {
+func (o CPXFocusControllingObject) RemoveFromPermittedFrontList(list CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("removeFromPermittedFrontList:"), list)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusControlling/setFrontmostProcess:
-func (o CPXFocusControllingObject) SetFrontmostProcess(process *CPSProcessRecRef) int16 {
+func (o CPXFocusControllingObject) SetFrontmostProcess(process CPSProcessRec) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("setFrontmostProcess:"), process)
 	return rv
 }
@@ -80,7 +80,7 @@ func (o CPXFocusControllingObject) SetKeyThiefConnectionID(id uint32) {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusControlling/setProcessToBringForwardAtNextCheckinPSN:
-func (o CPXFocusControllingObject) SetProcessToBringForwardAtNextCheckinPSN(psn objectivec.IObject) int16 {
+func (o CPXFocusControllingObject) SetProcessToBringForwardAtNextCheckinPSN(psn CPSProcessSerNum) int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("setProcessToBringForwardAtNextCheckinPSN:"), psn)
 	return rv
 }

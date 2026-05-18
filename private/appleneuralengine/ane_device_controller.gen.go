@@ -91,7 +91,7 @@ type IANEDeviceController interface {
 	// Topic: Methods
 
 	Device() unsafe.Pointer
-	SetDevice(value unsafe.Pointer)
+	SetDevice(value *ANEDeviceStruct)
 	IsPrivileged() bool
 	ProgramHandle() uint64
 	Start()
@@ -184,7 +184,7 @@ func (a ANEDeviceController) Device() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("device"))
 	return rv
 }
-func (a ANEDeviceController) SetDevice(value unsafe.Pointer) {
+func (a ANEDeviceController) SetDevice(value *ANEDeviceStruct) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDevice:"), value)
 }
 

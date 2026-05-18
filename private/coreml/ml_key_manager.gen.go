@@ -65,14 +65,14 @@ type IMLKeyManager interface {
 }
 
 // Init initializes the instance.
-func (k MLKeyManager) Init() MLKeyManager {
-	rv := objc.Send[MLKeyManager](k.ID, objc.Sel("init"))
+func (m MLKeyManager) Init() MLKeyManager {
+	rv := objc.Send[MLKeyManager](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (k MLKeyManager) Autorelease() MLKeyManager {
-	rv := objc.Send[MLKeyManager](k.ID, objc.Sel("autorelease"))
+func (m MLKeyManager) Autorelease() MLKeyManager {
+	rv := objc.Send[MLKeyManager](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

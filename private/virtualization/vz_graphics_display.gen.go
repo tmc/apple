@@ -100,14 +100,14 @@ type IVZGraphicsDisplay interface {
 }
 
 // Init initializes the instance.
-func (g VZGraphicsDisplay) Init() VZGraphicsDisplay {
-	rv := objc.Send[VZGraphicsDisplay](g.ID, objc.Sel("init"))
+func (v VZGraphicsDisplay) Init() VZGraphicsDisplay {
+	rv := objc.Send[VZGraphicsDisplay](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g VZGraphicsDisplay) Autorelease() VZGraphicsDisplay {
-	rv := objc.Send[VZGraphicsDisplay](g.ID, objc.Sel("autorelease"))
+func (v VZGraphicsDisplay) Autorelease() VZGraphicsDisplay {
+	rv := objc.Send[VZGraphicsDisplay](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -126,177 +126,177 @@ func NewGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_configuration
-func (g VZGraphicsDisplay) _configuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_configuration"))
+func (v VZGraphicsDisplay) _configuration() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configuration"))
 	return objectivec.Object{ID: rv}
 }
 
 // Configuration is an exported wrapper for the private method _configuration.
-func (g VZGraphicsDisplay) Configuration() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_configuration")) {
+func (v VZGraphicsDisplay) Configuration() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_configuration")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_configuration"}
 		return nil, err
 	}
-	return g._configuration(), nil
+	return v._configuration(), nil
 }
 
 // CanConfiguration reports whether the receiver responds to the private selector _configuration.
-func (g VZGraphicsDisplay) CanConfiguration() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_configuration"))
+func (v VZGraphicsDisplay) CanConfiguration() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_configuration"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_graphicsDevice
-func (g VZGraphicsDisplay) _graphicsDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_graphicsDevice"))
+func (v VZGraphicsDisplay) _graphicsDevice() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_graphicsDevice"))
 	return objectivec.Object{ID: rv}
 }
 
 // GraphicsDevice is an exported wrapper for the private method _graphicsDevice.
-func (g VZGraphicsDisplay) GraphicsDevice() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_graphicsDevice")) {
+func (v VZGraphicsDisplay) GraphicsDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDevice")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_graphicsDevice"}
 		return nil, err
 	}
-	return g._graphicsDevice(), nil
+	return v._graphicsDevice(), nil
 }
 
 // CanGraphicsDevice reports whether the receiver responds to the private selector _graphicsDevice.
-func (g VZGraphicsDisplay) CanGraphicsDevice() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_graphicsDevice"))
+func (v VZGraphicsDisplay) CanGraphicsDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDevice"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_graphicsOrientation
-func (g VZGraphicsDisplay) _graphicsOrientation() int64 {
-	rv := objc.Send[int64](g.ID, objc.Sel("_graphicsOrientation"))
+func (v VZGraphicsDisplay) _graphicsOrientation() int64 {
+	rv := objc.Send[int64](v.ID, objc.Sel("_graphicsOrientation"))
 	return rv
 }
 
 // GraphicsOrientation is an exported wrapper for the private method _graphicsOrientation.
-func (g VZGraphicsDisplay) GraphicsOrientation() (int64, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_graphicsOrientation")) {
+func (v VZGraphicsDisplay) GraphicsOrientation() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_graphicsOrientation")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_graphicsOrientation"}
 		return 0, err
 	}
-	return g._graphicsOrientation(), nil
+	return v._graphicsOrientation(), nil
 }
 
 // CanGraphicsOrientation reports whether the receiver responds to the private selector _graphicsOrientation.
-func (g VZGraphicsDisplay) CanGraphicsOrientation() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_graphicsOrientation"))
+func (v VZGraphicsDisplay) CanGraphicsOrientation() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_graphicsOrientation"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_initDetached
-func (g VZGraphicsDisplay) _initDetached() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_initDetached"))
+func (v VZGraphicsDisplay) _initDetached() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initDetached"))
 	return objectivec.Object{ID: rv}
 }
 
 // InitDetached is an exported wrapper for the private method _initDetached.
-func (g VZGraphicsDisplay) InitDetached() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_initDetached")) {
+func (v VZGraphicsDisplay) InitDetached() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initDetached")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initDetached"}
 		return nil, err
 	}
-	return g._initDetached(), nil
+	return v._initDetached(), nil
 }
 
 // CanInitDetached reports whether the receiver responds to the private selector _initDetached.
-func (g VZGraphicsDisplay) CanInitDetached() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_initDetached"))
+func (v VZGraphicsDisplay) CanInitDetached() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initDetached"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_matchesConfiguration:
-func (g VZGraphicsDisplay) _matchesConfiguration(configuration objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("_matchesConfiguration:"), configuration)
+func (v VZGraphicsDisplay) _matchesConfiguration(configuration objectivec.IObject) bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("_matchesConfiguration:"), configuration)
 	return rv
 }
 
 // MatchesConfiguration is an exported wrapper for the private method _matchesConfiguration.
-func (g VZGraphicsDisplay) MatchesConfiguration(configuration objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_matchesConfiguration:")) {
+func (v VZGraphicsDisplay) MatchesConfiguration(configuration objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_matchesConfiguration:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_matchesConfiguration:"}
 		return false, err
 	}
-	return g._matchesConfiguration(configuration), nil
+	return v._matchesConfiguration(configuration), nil
 }
 
 // CanMatchesConfiguration reports whether the receiver responds to the private selector _matchesConfiguration:.
-func (g VZGraphicsDisplay) CanMatchesConfiguration() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_matchesConfiguration:"))
+func (v VZGraphicsDisplay) CanMatchesConfiguration() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_matchesConfiguration:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_setGraphicsDevice:
-func (g VZGraphicsDisplay) _setGraphicsDevice(device objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_setGraphicsDevice:"), device)
+func (v VZGraphicsDisplay) _setGraphicsDevice(device objectivec.IObject) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setGraphicsDevice:"), device)
 }
 
 // SetGraphicsDevice is an exported wrapper for the private method _setGraphicsDevice.
-func (g VZGraphicsDisplay) SetGraphicsDevice(device objectivec.IObject) error {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_setGraphicsDevice:")) {
+func (v VZGraphicsDisplay) SetGraphicsDevice(device objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setGraphicsDevice:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setGraphicsDevice:"}
 		return err
 	}
-	g._setGraphicsDevice(device)
+	v._setGraphicsDevice(device)
 	return nil
 }
 
 // CanSetGraphicsDevice reports whether the receiver responds to the private selector _setGraphicsDevice:.
-func (g VZGraphicsDisplay) CanSetGraphicsDevice() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_setGraphicsDevice:"))
+func (v VZGraphicsDisplay) CanSetGraphicsDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setGraphicsDevice:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_takeScreenshotWithCompletionHandler:
-func (g VZGraphicsDisplay) _takeScreenshotWithCompletionHandler(handler ErrorHandler) {
+func (v VZGraphicsDisplay) _takeScreenshotWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](g.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"), _block0)
 }
 
 // TakeScreenshotWithCompletionHandler is an exported wrapper for the private method _takeScreenshotWithCompletionHandler.
-func (g VZGraphicsDisplay) TakeScreenshotWithCompletionHandler(handler ErrorHandler) error {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_takeScreenshotWithCompletionHandler:")) {
+func (v VZGraphicsDisplay) TakeScreenshotWithCompletionHandler(handler ErrorHandler) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_takeScreenshotWithCompletionHandler:"}
 		return err
 	}
-	g._takeScreenshotWithCompletionHandler(handler)
+	v._takeScreenshotWithCompletionHandler(handler)
 	return nil
 }
 
 // CanTakeScreenshotWithCompletionHandler reports whether the receiver responds to the private selector _takeScreenshotWithCompletionHandler:.
-func (g VZGraphicsDisplay) CanTakeScreenshotWithCompletionHandler() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"))
+func (v VZGraphicsDisplay) CanTakeScreenshotWithCompletionHandler() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/_uuid
-func (g VZGraphicsDisplay) _uuid() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_uuid"))
+func (v VZGraphicsDisplay) _uuid() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_uuid"))
 	return objectivec.Object{ID: rv}
 }
 
 // Uuid is an exported wrapper for the private method _uuid.
-func (g VZGraphicsDisplay) Uuid() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_uuid")) {
+func (v VZGraphicsDisplay) Uuid() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_uuid")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_uuid"}
 		return nil, err
 	}
-	return g._uuid(), nil
+	return v._uuid(), nil
 }
 
 // CanUuid reports whether the receiver responds to the private selector _uuid.
-func (g VZGraphicsDisplay) CanUuid() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_uuid"))
+func (v VZGraphicsDisplay) CanUuid() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_uuid"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:
-func (g VZGraphicsDisplay) InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
-	rv := objc.Send[VZGraphicsDisplay](g.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
+func (v VZGraphicsDisplay) InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
+	rv := objc.Send[VZGraphicsDisplay](v.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return rv
 }
 
 // _takeScreenshot is a synchronous wrapper around [VZGraphicsDisplay._takeScreenshotWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g VZGraphicsDisplay) _takeScreenshot(ctx context.Context) error {
+func (v VZGraphicsDisplay) _takeScreenshot(ctx context.Context) error {
 	done := make(chan error, 1)
-	g._takeScreenshotWithCompletionHandler(func(err error) {
+	v._takeScreenshotWithCompletionHandler(func(err error) {
 		done <- err
 	})
 	select {

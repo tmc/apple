@@ -97,14 +97,14 @@ type IMLObjectBoundingBoxOutputDescription interface {
 }
 
 // Init initializes the instance.
-func (o MLObjectBoundingBoxOutputDescription) Init() MLObjectBoundingBoxOutputDescription {
-	rv := objc.Send[MLObjectBoundingBoxOutputDescription](o.ID, objc.Sel("init"))
+func (m MLObjectBoundingBoxOutputDescription) Init() MLObjectBoundingBoxOutputDescription {
+	rv := objc.Send[MLObjectBoundingBoxOutputDescription](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (o MLObjectBoundingBoxOutputDescription) Autorelease() MLObjectBoundingBoxOutputDescription {
-	rv := objc.Send[MLObjectBoundingBoxOutputDescription](o.ID, objc.Sel("autorelease"))
+func (m MLObjectBoundingBoxOutputDescription) Autorelease() MLObjectBoundingBoxOutputDescription {
+	rv := objc.Send[MLObjectBoundingBoxOutputDescription](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -116,37 +116,37 @@ func NewMLObjectBoundingBoxOutputDescription() MLObjectBoundingBoxOutputDescript
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLObjectBoundingBoxOutputDescription/confidenceFeatureName
-func (o MLObjectBoundingBoxOutputDescription) ConfidenceFeatureName() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("confidenceFeatureName"))
+func (m MLObjectBoundingBoxOutputDescription) ConfidenceFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("confidenceFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (o MLObjectBoundingBoxOutputDescription) SetConfidenceFeatureName(value string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setConfidenceFeatureName:"), objc.String(value))
+func (m MLObjectBoundingBoxOutputDescription) SetConfidenceFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setConfidenceFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLObjectBoundingBoxOutputDescription/coordinatesFeatureName
-func (o MLObjectBoundingBoxOutputDescription) CoordinatesFeatureName() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("coordinatesFeatureName"))
+func (m MLObjectBoundingBoxOutputDescription) CoordinatesFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("coordinatesFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (o MLObjectBoundingBoxOutputDescription) SetCoordinatesFeatureName(value string) {
-	objc.Send[struct{}](o.ID, objc.Sel("setCoordinatesFeatureName:"), objc.String(value))
+func (m MLObjectBoundingBoxOutputDescription) SetCoordinatesFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setCoordinatesFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLObjectBoundingBoxOutputDescription/format
-func (o MLObjectBoundingBoxOutputDescription) Format() int {
-	rv := objc.Send[int](o.ID, objc.Sel("format"))
+func (m MLObjectBoundingBoxOutputDescription) Format() int {
+	rv := objc.Send[int](m.ID, objc.Sel("format"))
 	return rv
 }
-func (o MLObjectBoundingBoxOutputDescription) SetFormat(value int) {
-	objc.Send[struct{}](o.ID, objc.Sel("setFormat:"), value)
+func (m MLObjectBoundingBoxOutputDescription) SetFormat(value int) {
+	objc.Send[struct{}](m.ID, objc.Sel("setFormat:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLObjectBoundingBoxOutputDescription/labelNames
-func (o MLObjectBoundingBoxOutputDescription) LabelNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("labelNames"))
+func (m MLObjectBoundingBoxOutputDescription) LabelNames() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (o MLObjectBoundingBoxOutputDescription) SetLabelNames(value foundation.INSArray) {
-	objc.Send[struct{}](o.ID, objc.Sel("setLabelNames:"), value)
+func (m MLObjectBoundingBoxOutputDescription) SetLabelNames(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("setLabelNames:"), value)
 }

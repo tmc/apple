@@ -66,14 +66,14 @@ type IMLPersistentKeyStorage interface {
 }
 
 // Init initializes the instance.
-func (p MLPersistentKeyStorage) Init() MLPersistentKeyStorage {
-	rv := objc.Send[MLPersistentKeyStorage](p.ID, objc.Sel("init"))
+func (m MLPersistentKeyStorage) Init() MLPersistentKeyStorage {
+	rv := objc.Send[MLPersistentKeyStorage](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPersistentKeyStorage) Autorelease() MLPersistentKeyStorage {
-	rv := objc.Send[MLPersistentKeyStorage](p.ID, objc.Sel("autorelease"))
+func (m MLPersistentKeyStorage) Autorelease() MLPersistentKeyStorage {
+	rv := objc.Send[MLPersistentKeyStorage](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

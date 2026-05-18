@@ -84,7 +84,7 @@ type IMLE5ProgramLibraryE5BundleImpl interface {
 	// Topic: Methods
 
 	Configuration() IMLModelConfiguration
-	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rt_program_libraryRef, error)
+	CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rtProgramLibraryRef, error)
 	E5BundleURL() foundation.INSURL
 	ModelDisplayName() string
 	SerializedMILText() string
@@ -92,14 +92,14 @@ type IMLE5ProgramLibraryE5BundleImpl interface {
 }
 
 // Init initializes the instance.
-func (e MLE5ProgramLibraryE5BundleImpl) Init() MLE5ProgramLibraryE5BundleImpl {
-	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](e.ID, objc.Sel("init"))
+func (m MLE5ProgramLibraryE5BundleImpl) Init() MLE5ProgramLibraryE5BundleImpl {
+	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e MLE5ProgramLibraryE5BundleImpl) Autorelease() MLE5ProgramLibraryE5BundleImpl {
-	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](e.ID, objc.Sel("autorelease"))
+func (m MLE5ProgramLibraryE5BundleImpl) Autorelease() MLE5ProgramLibraryE5BundleImpl {
+	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -118,43 +118,43 @@ func NewE5ProgramLibraryE5BundleImplWithE5BundleAtURLConfiguration(url foundatio
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryE5BundleImpl/createProgramLibraryHandleWithRespecialization:error:
-func (e MLE5ProgramLibraryE5BundleImpl) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
+func (m MLE5ProgramLibraryE5BundleImpl) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (E5rtProgramLibraryRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[E5rt_program_libraryRef](e.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("createProgramLibraryHandleWithRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(E5rtProgramLibraryRef), foundation.NSErrorFrom(errorPtr)
 	}
-	return rv, nil
+	return E5rtProgramLibraryRef(rv), nil
 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryE5BundleImpl/initWithE5BundleAtURL:configuration:
-func (e MLE5ProgramLibraryE5BundleImpl) InitWithE5BundleAtURLConfiguration(url foundation.INSURL, configuration objectivec.IObject) MLE5ProgramLibraryE5BundleImpl {
-	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](e.ID, objc.Sel("initWithE5BundleAtURL:configuration:"), url, configuration)
+func (m MLE5ProgramLibraryE5BundleImpl) InitWithE5BundleAtURLConfiguration(url foundation.INSURL, configuration objectivec.IObject) MLE5ProgramLibraryE5BundleImpl {
+	rv := objc.Send[MLE5ProgramLibraryE5BundleImpl](m.ID, objc.Sel("initWithE5BundleAtURL:configuration:"), url, configuration)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryE5BundleImpl/configuration
-func (e MLE5ProgramLibraryE5BundleImpl) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("configuration"))
+func (m MLE5ProgramLibraryE5BundleImpl) Configuration() IMLModelConfiguration {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryE5BundleImpl/e5BundleURL
-func (e MLE5ProgramLibraryE5BundleImpl) E5BundleURL() foundation.INSURL {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("e5BundleURL"))
+func (m MLE5ProgramLibraryE5BundleImpl) E5BundleURL() foundation.INSURL {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("e5BundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryE5BundleImpl/modelDisplayName
-func (e MLE5ProgramLibraryE5BundleImpl) ModelDisplayName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelDisplayName"))
+func (m MLE5ProgramLibraryE5BundleImpl) ModelDisplayName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDisplayName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryE5BundleImpl/serializedMILText
-func (e MLE5ProgramLibraryE5BundleImpl) SerializedMILText() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("serializedMILText"))
+func (m MLE5ProgramLibraryE5BundleImpl) SerializedMILText() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }

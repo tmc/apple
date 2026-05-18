@@ -15,22 +15,27 @@ type MTLTextureBinding interface {
 	objectivec.IObject
 	MTLBinding
 
-	// ArrayLength protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/arrayLength
-	ArrayLength() uint
-
 	// DepthTexture protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/isDepthTexture
 	IsDepthTexture() bool
 
-	// TextureDataType protocol.
+	// arrayLength protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/arrayLength
+	ArrayLength() uint
+
+	// depthTexture protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/isDepthTexture
+	DepthTexture() bool
+
+	// textureDataType protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/textureDataType
 	TextureDataType() MTLDataType
 
-	// TextureType protocol.
+	// textureType protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/textureType
 	TextureType() MTLTextureType
@@ -53,27 +58,9 @@ func MTLTextureBindingObjectFromID(id objc.ID) MTLTextureBindingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/arrayLength
-func (o MTLTextureBindingObject) ArrayLength() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("arrayLength"))
-	return rv
-}
-
 // See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/isDepthTexture
 func (o MTLTextureBindingObject) IsDepthTexture() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isDepthTexture"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/textureDataType
-func (o MTLTextureBindingObject) TextureDataType() MTLDataType {
-	rv := objc.Send[MTLDataType](o.ID, objc.Sel("textureDataType"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/textureType
-func (o MTLTextureBindingObject) TextureType() MTLTextureType {
-	rv := objc.Send[MTLTextureType](o.ID, objc.Sel("textureType"))
 	return rv
 }
 
@@ -111,4 +98,40 @@ func (o MTLTextureBindingObject) Name() string {
 func (o MTLTextureBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/arrayLength
+func (o MTLTextureBindingObject) ArrayLength() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("arrayLength"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/isDepthTexture
+func (o MTLTextureBindingObject) DepthTexture() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isDepthTexture"))
+	return bool(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/textureDataType
+func (o MTLTextureBindingObject) TextureDataType() MTLDataType {
+	rv := objc.Send[MTLDataType](o.ID, objc.Sel("textureDataType"))
+	return MTLDataType(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/textureType
+func (o MTLTextureBindingObject) TextureType() MTLTextureType {
+	rv := objc.Send[MTLTextureType](o.ID, objc.Sel("textureType"))
+	return MTLTextureType(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
+func (o MTLTextureBindingObject) Argument() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
+	return bool(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
+func (o MTLTextureBindingObject) Used() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
+	return bool(rv)
 }

@@ -26,6 +26,7 @@ type FSVolumeRenameOperations interface {
 	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/RenameOperations/isVolumeRenameInhibited
+	VolumeRenameInhibited() bool
 	SetVolumeRenameInhibited(value bool)
 }
 
@@ -80,6 +81,11 @@ func (o FSVolumeRenameOperationsObject) IsVolumeRenameInhibited() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/RenameOperations/isVolumeRenameInhibited
+func (o FSVolumeRenameOperationsObject) VolumeRenameInhibited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isVolumeRenameInhibited"))
+	return bool(rv)
+}
+
 func (o FSVolumeRenameOperationsObject) SetVolumeRenameInhibited(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setVolumeRenameInhibited:"), value)
 }

@@ -20,40 +20,24 @@ type CIColorCurves interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/colorSpace
 	ColorSpace() coregraphics.CGColorSpaceRef
-
-	// Color values that determine the color curves transform.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesData
-	CurvesData() foundation.INSData
-
-	// A two-element vector that defines the minimum and maximum values of the curve data.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesDomain
-	CurvesDomain() ICIVector
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/inputImage
-	InputImage() ICIImage
-
-	// The working color space.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/colorSpace
 	SetColorSpace(value coregraphics.CGColorSpaceRef)
 
 	// Color values that determine the color curves transform.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesData
-	SetCurvesData(value foundation.INSData)
+	CurvesData() foundation.NSData
+	SetCurvesData(value foundation.NSData)
 
 	// A two-element vector that defines the minimum and maximum values of the curve data.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesDomain
+	CurvesDomain() ICIVector
 	SetCurvesDomain(value ICIVector)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -74,39 +58,6 @@ func CIColorCurvesObjectFromID(id objc.ID) CIColorCurvesObject {
 	}
 }
 
-// The working color space.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/colorSpace
-func (o CIColorCurvesObject) ColorSpace() coregraphics.CGColorSpaceRef {
-	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
-	return rv
-}
-
-// Color values that determine the color curves transform.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesData
-func (o CIColorCurvesObject) CurvesData() foundation.INSData {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("curvesData"))
-	return foundation.NSDataFromID(rv)
-}
-
-// A two-element vector that defines the minimum and maximum values of the
-// curve data.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesDomain
-func (o CIColorCurvesObject) CurvesDomain() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("curvesDomain"))
-	return CIVectorFromID(rv)
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/inputImage
-func (o CIColorCurvesObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -119,6 +70,11 @@ func (o CIColorCurvesObject) OutputImage() ICIImage {
 // The working color space.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/colorSpace
+func (o CIColorCurvesObject) ColorSpace() coregraphics.CGColorSpaceRef {
+	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
+	return coregraphics.CGColorSpaceRef(rv)
+}
+
 func (o CIColorCurvesObject) SetColorSpace(value coregraphics.CGColorSpaceRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColorSpace:"), value)
 }
@@ -137,7 +93,12 @@ func (o CIColorCurvesObject) SetColorSpace(value coregraphics.CGColorSpaceRef) {
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesData
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-func (o CIColorCurvesObject) SetCurvesData(value foundation.INSData) {
+func (o CIColorCurvesObject) CurvesData() foundation.NSData {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("curvesData"))
+	return foundation.NSDataFromID(rv)
+}
+
+func (o CIColorCurvesObject) SetCurvesData(value foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCurvesData:"), value)
 }
 
@@ -145,6 +106,11 @@ func (o CIColorCurvesObject) SetCurvesData(value foundation.INSData) {
 // curve data.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesDomain
+func (o CIColorCurvesObject) CurvesDomain() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("curvesDomain"))
+	return CIVectorFromID(rv)
+}
+
 func (o CIColorCurvesObject) SetCurvesDomain(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCurvesDomain:"), value)
 }
@@ -152,6 +118,11 @@ func (o CIColorCurvesObject) SetCurvesDomain(value ICIVector) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/inputImage
+func (o CIColorCurvesObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIColorCurvesObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

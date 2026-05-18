@@ -81,7 +81,7 @@ type IAVMetricEvent interface {
 
 	// Topic: Inspecting an event
 
-	Date() foundation.INSDate
+	Date() foundation.NSDate
 	MediaTime() coremedia.CMTime
 	SessionID() string
 
@@ -112,7 +112,7 @@ func (m AVMetricEvent) EncodeWithCoder(coder foundation.INSCoder) {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/date
-func (m AVMetricEvent) Date() foundation.INSDate {
+func (m AVMetricEvent) Date() foundation.NSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("date"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

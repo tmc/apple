@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_fuse_affine_scale] class.
+// The class instance for the [EspressoPassFuseAffineScale] class.
 var (
-	_EspressoPass_fuse_affine_scaleClass     EspressoPass_fuse_affine_scaleClass
-	_EspressoPass_fuse_affine_scaleClassOnce sync.Once
+	_EspressoPassFuseAffineScaleClass     EspressoPassFuseAffineScaleClass
+	_EspressoPassFuseAffineScaleClassOnce sync.Once
 )
 
-func getEspressoPass_fuse_affine_scaleClass() EspressoPass_fuse_affine_scaleClass {
-	_EspressoPass_fuse_affine_scaleClassOnce.Do(func() {
-		_EspressoPass_fuse_affine_scaleClass = EspressoPass_fuse_affine_scaleClass{class: objc.GetClass("EspressoPass_fuse_affine_scale")}
+func getEspressoPassFuseAffineScaleClass() EspressoPassFuseAffineScaleClass {
+	_EspressoPassFuseAffineScaleClassOnce.Do(func() {
+		_EspressoPassFuseAffineScaleClass = EspressoPassFuseAffineScaleClass{class: objc.GetClass("EspressoPass_fuse_affine_scale")}
 	})
-	return _EspressoPass_fuse_affine_scaleClass
+	return _EspressoPassFuseAffineScaleClass
 }
 
-// GetEspressoPass_fuse_affine_scaleClass returns the class object for EspressoPass_fuse_affine_scale.
-func GetEspressoPass_fuse_affine_scaleClass() EspressoPass_fuse_affine_scaleClass {
-	return getEspressoPass_fuse_affine_scaleClass()
+// GetEspressoPassFuseAffineScaleClass returns the class object for EspressoPass_fuse_affine_scale.
+func GetEspressoPassFuseAffineScaleClass() EspressoPassFuseAffineScaleClass {
+	return getEspressoPassFuseAffineScaleClass()
 }
 
-type EspressoPass_fuse_affine_scaleClass struct {
+type EspressoPassFuseAffineScaleClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_fuse_affine_scaleClass) Class() objc.Class {
+func (ec EspressoPassFuseAffineScaleClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_fuse_affine_scaleClass) Alloc() EspressoPass_fuse_affine_scale {
-	rv := objc.Send[EspressoPass_fuse_affine_scale](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFuseAffineScaleClass) Alloc() EspressoPassFuseAffineScale {
+	rv := objc.Send[EspressoPassFuseAffineScale](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_affine_scale
-type EspressoPass_fuse_affine_scale struct {
+type EspressoPassFuseAffineScale struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_fuse_affine_scaleFromID constructs a [EspressoPass_fuse_affine_scale] from an objc.ID.
-func EspressoPass_fuse_affine_scaleFromID(id objc.ID) EspressoPass_fuse_affine_scale {
-	return EspressoPass_fuse_affine_scale{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFuseAffineScaleFromID constructs a [EspressoPassFuseAffineScale] from an objc.ID.
+func EspressoPassFuseAffineScaleFromID(id objc.ID) EspressoPassFuseAffineScale {
+	return EspressoPassFuseAffineScale{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_fuse_affine_scale implements IEspressoPass_fuse_affine_scale.
-var _ IEspressoPass_fuse_affine_scale = EspressoPass_fuse_affine_scale{}
+// EspressoPass_fuse_affine_scaleFromID is an alias for [EspressoPassFuseAffineScaleFromID] for cross-framework compatibility.
+func EspressoPass_fuse_affine_scaleFromID(id objc.ID) EspressoPassFuseAffineScale {
+	return EspressoPassFuseAffineScaleFromID(id)
+}
 
-// An interface definition for the [EspressoPass_fuse_affine_scale] class.
+// Ensure EspressoPassFuseAffineScale implements IEspressoPassFuseAffineScale.
+var _ IEspressoPassFuseAffineScale = EspressoPassFuseAffineScale{}
+
+// An interface definition for the [EspressoPassFuseAffineScale] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_affine_scale
-type IEspressoPass_fuse_affine_scale interface {
+type IEspressoPassFuseAffineScale interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_fuse_affine_scale) Init() EspressoPass_fuse_affine_scale {
-	rv := objc.Send[EspressoPass_fuse_affine_scale](e.ID, objc.Sel("init"))
+func (e EspressoPassFuseAffineScale) Init() EspressoPassFuseAffineScale {
+	rv := objc.Send[EspressoPassFuseAffineScale](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_fuse_affine_scale) Autorelease() EspressoPass_fuse_affine_scale {
-	rv := objc.Send[EspressoPass_fuse_affine_scale](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFuseAffineScale) Autorelease() EspressoPassFuseAffineScale {
+	rv := objc.Send[EspressoPassFuseAffineScale](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_fuse_affine_scale creates a new EspressoPass_fuse_affine_scale instance.
-func NewEspressoPass_fuse_affine_scale() EspressoPass_fuse_affine_scale {
-	class := getEspressoPass_fuse_affine_scaleClass()
-	rv := objc.Send[EspressoPass_fuse_affine_scale](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFuseAffineScale creates a new EspressoPassFuseAffineScale instance.
+func NewEspressoPassFuseAffineScale() EspressoPassFuseAffineScale {
+	class := getEspressoPassFuseAffineScaleClass()
+	rv := objc.Send[EspressoPassFuseAffineScale](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -106,7 +106,7 @@ func (c NSCoder) EncodeCGVectorForKey(vector corefoundation.CGVector, key string
 //
 // key: The key identifying the data.
 //
-// insets is a [appkit.NSDirectionalEdgeInsets].
+// insets is a [uikit.NSDirectionalEdgeInsets].
 //
 // # Discussion
 //
@@ -171,7 +171,7 @@ func (c NSCoder) EncodeUIOffsetForKey(offset unsafe.Pointer, key string) {
 // # Discussion
 //
 // Use this method to decode size information that was previously encoded
-// using the [EncodeCGAffineTransformForKey] method.
+// using the [EncodeCMTimeMappingForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCGAffineTransform(forKey:)
 func (c NSCoder) DecodeCGAffineTransformForKey(key string) corefoundation.CGAffineTransform {
@@ -191,7 +191,7 @@ func (c NSCoder) DecodeCGAffineTransformForKey(key string) corefoundation.CGAffi
 // # Discussion
 //
 // Use this method to decode a point that was previously encoded using the
-// [EncodeCGPointForKey] method.
+// [EncodeCMTimeMappingForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCGPoint(forKey:)
 func (c NSCoder) DecodeCGPointForKey(key string) NSPoint {
@@ -211,7 +211,7 @@ func (c NSCoder) DecodeCGPointForKey(key string) NSPoint {
 // # Discussion
 //
 // Use this method to decode a rectangle that was previously encoded using the
-// [EncodeCGRectForKey] method.
+// [EncodeCMTimeMappingForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCGRect(forKey:)
 func (c NSCoder) DecodeCGRectForKey(key string) NSRect {
@@ -231,7 +231,7 @@ func (c NSCoder) DecodeCGRectForKey(key string) NSRect {
 // # Discussion
 //
 // Use this method to decode size information that was previously encoded
-// using the [EncodeCGSizeForKey] method.
+// using the [EncodeCMTimeMappingForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCGSize(forKey:)
 func (c NSCoder) DecodeCGSizeForKey(key string) NSSize {
@@ -251,7 +251,7 @@ func (c NSCoder) DecodeCGSizeForKey(key string) NSSize {
 // # Discussion
 //
 // Use this method to decode vector information that was previously encoded
-// using the [EncodeCGVectorForKey] method.
+// using the [EncodeCMTimeMappingForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCGVector(forKey:)
 func (c NSCoder) DecodeCGVectorForKey(key string) corefoundation.CGVector {
@@ -267,7 +267,7 @@ func (c NSCoder) DecodeCGVectorForKey(key string) corefoundation.CGVector {
 // # Discussion
 //
 // Use this method to decode edge inset information that was previously
-// encoded using the [EncodeDirectionalEdgeInsetsForKey] method.
+// encoded using the [EncodeCMTimeMappingForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeDirectionalEdgeInsets(forKey:)
 func (c NSCoder) DecodeDirectionalEdgeInsetsForKey(key string) unsafe.Pointer {
@@ -287,7 +287,7 @@ func (c NSCoder) DecodeDirectionalEdgeInsetsForKey(key string) unsafe.Pointer {
 // # Discussion
 //
 // Use this method to decode edge inset information that was previously
-// encoded using the [EncodeUIEdgeInsetsForKey] method.
+// encoded using the [EncodeCMTimeMappingForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeUIEdgeInsets(forKey:)
 func (c NSCoder) DecodeUIEdgeInsetsForKey(key string) unsafe.Pointer {
@@ -307,7 +307,7 @@ func (c NSCoder) DecodeUIEdgeInsetsForKey(key string) unsafe.Pointer {
 // # Discussion
 //
 // Use this method to decode offset information that was previously encoded
-// using the [EncodeUIOffsetForKey] method.
+// using the [EncodeCMTimeMappingForKey] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeUIOffset(forKey:)
 func (c NSCoder) DecodeUIOffsetForKey(key string) unsafe.Pointer {

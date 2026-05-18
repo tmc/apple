@@ -117,7 +117,7 @@ type INSSharingCollaborationModeRestriction interface {
 	InitWithDisabledMode(disabledMode NSSharingCollaborationMode) NSSharingCollaborationModeRestriction
 	InitWithDisabledModeAlertTitleAlertMessage(disabledMode NSSharingCollaborationMode, alertTitle string, alertMessage string) NSSharingCollaborationModeRestriction
 	InitWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitle(disabledMode NSSharingCollaborationMode, alertTitle string, alertMessage string, alertDismissButtonTitle string) NSSharingCollaborationModeRestriction
-	InitWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitleAlertRecoverySuggestionButtonTitleAlertRecoverySuggestionButtonLaunchURL(disabledMode NSSharingCollaborationMode, alertTitle string, alertMessage string, alertDismissButtonTitle string, alertRecoverySuggestionButtonTitle string, alertRecoverySuggestionButtonLaunchURL foundation.INSURL) NSSharingCollaborationModeRestriction
+	InitWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitleAlertRecoverySuggestionButtonTitleAlertRecoverySuggestionButtonLaunchURL(disabledMode NSSharingCollaborationMode, alertTitle string, alertMessage string, alertDismissButtonTitle string, alertRecoverySuggestionButtonTitle string, alertRecoverySuggestionButtonLaunchURL foundation.NSURL) NSSharingCollaborationModeRestriction
 
 	// Topic: Instance Properties
 
@@ -126,7 +126,7 @@ type INSSharingCollaborationModeRestriction interface {
 	// The message of the alert if a reason for disabling is provided
 	AlertMessage() string
 	// The URL that is opened when the user selects the recovery suggestion, if any
-	AlertRecoverySuggestionButtonLaunchURL() foundation.INSURL
+	AlertRecoverySuggestionButtonLaunchURL() foundation.NSURL
 	// The label on the recovery suggestion button if it is provided
 	AlertRecoverySuggestionButtonTitle() string
 	// The title of the alert if a reason for disabling is provided
@@ -207,7 +207,7 @@ func NewSharingCollaborationModeRestrictionWithDisabledModeAlertTitleAlertMessag
 // selected
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/init(disabledMode:alertTitle:alertMessage:alertDismissButtonTitle:alertRecoverySuggestionButtonTitle:alertRecoverySuggestionButtonLaunch:)
-func NewSharingCollaborationModeRestrictionWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitleAlertRecoverySuggestionButtonTitleAlertRecoverySuggestionButtonLaunchURL(disabledMode NSSharingCollaborationMode, alertTitle string, alertMessage string, alertDismissButtonTitle string, alertRecoverySuggestionButtonTitle string, alertRecoverySuggestionButtonLaunchURL foundation.INSURL) NSSharingCollaborationModeRestriction {
+func NewSharingCollaborationModeRestrictionWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitleAlertRecoverySuggestionButtonTitleAlertRecoverySuggestionButtonLaunchURL(disabledMode NSSharingCollaborationMode, alertTitle string, alertMessage string, alertDismissButtonTitle string, alertRecoverySuggestionButtonTitle string, alertRecoverySuggestionButtonLaunchURL foundation.NSURL) NSSharingCollaborationModeRestriction {
 	instance := getNSSharingCollaborationModeRestrictionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisabledMode:alertTitle:alertMessage:alertDismissButtonTitle:alertRecoverySuggestionButtonTitle:alertRecoverySuggestionButtonLaunchURL:"), disabledMode, objc.String(alertTitle), objc.String(alertMessage), objc.String(alertDismissButtonTitle), objc.String(alertRecoverySuggestionButtonTitle), alertRecoverySuggestionButtonLaunchURL)
 	return NSSharingCollaborationModeRestrictionFromID(rv)
@@ -261,7 +261,7 @@ func (s NSSharingCollaborationModeRestriction) InitWithDisabledModeAlertTitleAle
 // selected
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/init(disabledMode:alertTitle:alertMessage:alertDismissButtonTitle:alertRecoverySuggestionButtonTitle:alertRecoverySuggestionButtonLaunch:)
-func (s NSSharingCollaborationModeRestriction) InitWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitleAlertRecoverySuggestionButtonTitleAlertRecoverySuggestionButtonLaunchURL(disabledMode NSSharingCollaborationMode, alertTitle string, alertMessage string, alertDismissButtonTitle string, alertRecoverySuggestionButtonTitle string, alertRecoverySuggestionButtonLaunchURL foundation.INSURL) NSSharingCollaborationModeRestriction {
+func (s NSSharingCollaborationModeRestriction) InitWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitleAlertRecoverySuggestionButtonTitleAlertRecoverySuggestionButtonLaunchURL(disabledMode NSSharingCollaborationMode, alertTitle string, alertMessage string, alertDismissButtonTitle string, alertRecoverySuggestionButtonTitle string, alertRecoverySuggestionButtonLaunchURL foundation.NSURL) NSSharingCollaborationModeRestriction {
 	rv := objc.Send[NSSharingCollaborationModeRestriction](s.ID, objc.Sel("initWithDisabledMode:alertTitle:alertMessage:alertDismissButtonTitle:alertRecoverySuggestionButtonTitle:alertRecoverySuggestionButtonLaunchURL:"), disabledMode, objc.String(alertTitle), objc.String(alertMessage), objc.String(alertDismissButtonTitle), objc.String(alertRecoverySuggestionButtonTitle), alertRecoverySuggestionButtonLaunchURL)
 	return rv
 }
@@ -290,7 +290,7 @@ func (s NSSharingCollaborationModeRestriction) AlertMessage() string {
 // any
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/alertRecoverySuggestionButtonLaunchURL
-func (s NSSharingCollaborationModeRestriction) AlertRecoverySuggestionButtonLaunchURL() foundation.INSURL {
+func (s NSSharingCollaborationModeRestriction) AlertRecoverySuggestionButtonLaunchURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("alertRecoverySuggestionButtonLaunchURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

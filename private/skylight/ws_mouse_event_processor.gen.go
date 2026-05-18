@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -82,7 +81,7 @@ func NewWSMouseEventProcessor() WSMouseEventProcessor {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
-func NewWSMouseEventProcessorWithSession(session unsafe.Pointer) WSMouseEventProcessor {
+func NewWSMouseEventProcessorWithSession(session CGXSession) WSMouseEventProcessor {
 	instance := getWSMouseEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSMouseEventProcessorFromID(rv)

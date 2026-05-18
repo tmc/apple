@@ -111,7 +111,6 @@ func NSFilePromiseProviderFromID(id objc.ID) NSFilePromiseProvider {
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProvider
 type INSFilePromiseProvider interface {
 	objectivec.IObject
-	NSPasteboardWriting
 
 	// Topic: Initializers
 

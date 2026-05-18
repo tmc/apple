@@ -308,7 +308,7 @@ func NewImageRepWithContentsOfFile(filename string) NSImageRep {
 // based on the contents of the file, then passing it to the “ method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/init(contentsOf:)
-func NewImageRepWithContentsOfURL(url foundation.INSURL) NSImageRep {
+func NewImageRepWithContentsOfURL(url foundation.NSURL) NSImageRep {
 	rv := objc.Send[objc.ID](objc.ID(getNSImageRepClass().class), objc.Sel("imageRepWithContentsOfURL:"), url)
 	return NSImageRepFromID(rv)
 }
@@ -656,7 +656,7 @@ func (_NSImageRepClass NSImageRepClass) ImageRepsWithPasteboard(pasteboard INSPa
 // based on the contents of the specified URL and passing it to the “ method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/imageReps(withContentsOf:)
-func (_NSImageRepClass NSImageRepClass) ImageRepsWithContentsOfURL(url foundation.INSURL) []NSImageRep {
+func (_NSImageRepClass NSImageRepClass) ImageRepsWithContentsOfURL(url foundation.NSURL) []NSImageRep {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSImageRepClass.class), objc.Sel("imageRepsWithContentsOfURL:"), url)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSImageRep {
 		return NSImageRepFromID(id)
@@ -680,7 +680,7 @@ func (_NSImageRepClass NSImageRepClass) ImageRepsWithContentsOfURL(url foundatio
 // false only if it knows it cannot initialize itself from the data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/canInit(with:)-6zv56
-func (_NSImageRepClass NSImageRepClass) CanInitWithData(data foundation.INSData) bool {
+func (_NSImageRepClass NSImageRepClass) CanInitWithData(data foundation.NSData) bool {
 	rv := objc.Send[bool](objc.ID(_NSImageRepClass.class), objc.Sel("canInitWithData:"), data)
 	return rv
 }
@@ -742,7 +742,7 @@ func (_NSImageRepClass NSImageRepClass) ImageRepClassForType(type_ string) objc.
 // `nil` if no image representation could handle the data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageRep/class(for:)
-func (_NSImageRepClass NSImageRepClass) ImageRepClassForData(data foundation.INSData) objc.Class {
+func (_NSImageRepClass NSImageRepClass) ImageRepClassForData(data foundation.NSData) objc.Class {
 	rv := objc.Send[objc.Class](objc.ID(_NSImageRepClass.class), objc.Sel("imageRepClassForData:"), data)
 	return rv
 }

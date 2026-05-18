@@ -89,7 +89,6 @@ func VNObservationFromID(id objc.ID) VNObservation {
 // See: https://developer.apple.com/documentation/Vision/VNObservation
 type IVNObservation interface {
 	objectivec.IObject
-	VNRequestRevisionProviding
 
 	// Topic: Tracking Observations
 
@@ -125,6 +124,14 @@ func NewVNObservation() VNObservation {
 	return rv
 }
 
+// The revision of the [VNRequest] subclass used to generate the implementing
+// object.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
+func (o VNObservation) RequestRevision() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("requestRevision"))
+	return rv
+}
 func (o VNObservation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -167,15 +174,6 @@ func (o VNObservation) TimeRange() coremedia.CMTimeRange {
 func (o VNObservation) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](o.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
-}
-
-// The revision of the [VNRequest] subclass used to generate the implementing
-// object.
-//
-// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
-func (o VNObservation) RequestRevision() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("requestRevision"))
-	return rv
 }
 
 // Protocol methods for VNRequestRevisionProviding

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -121,19 +122,17 @@ func NSMeasurementFromID(id objc.ID) NSMeasurement {
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement
 type INSMeasurement interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating Measurements
 
 	// Initializes a new measurement with a specified double-precision floating-point value and unit.
-	InitWithDoubleValueUnit(doubleValue float64, unit objectivec.IObject) NSMeasurement
+	InitWithDoubleValueUnit(doubleValue float64, unit unsafe.Pointer) NSMeasurement
 
 	// Topic: Accessing Unit and Value
 
 	// The unit of measure.
-	Unit() objectivec.IObject
+	Unit() unsafe.Pointer
 	// The measurement value, represented as a double-precision floating-point number.
 	DoubleValue() float64
 
@@ -191,7 +190,7 @@ func NewMeasurementWithCoder(coder INSCoder) NSMeasurement {
 // floating-point value and unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/init(doubleValue:unit:)
-func NewMeasurementWithDoubleValueUnit(doubleValue float64, unit objectivec.IObject) NSMeasurement {
+func NewMeasurementWithDoubleValueUnit(doubleValue float64, unit unsafe.Pointer) NSMeasurement {
 	instance := getNSMeasurementClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDoubleValue:unit:"), doubleValue, unit)
 	return NSMeasurementFromID(rv)
@@ -210,7 +209,7 @@ func NewMeasurementWithDoubleValueUnit(doubleValue float64, unit objectivec.IObj
 // floating-point value and unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/init(doubleValue:unit:)
-func (m NSMeasurement) InitWithDoubleValueUnit(doubleValue float64, unit objectivec.IObject) NSMeasurement {
+func (m NSMeasurement) InitWithDoubleValueUnit(doubleValue float64, unit unsafe.Pointer) NSMeasurement {
 	rv := objc.Send[NSMeasurement](m.ID, objc.Sel("initWithDoubleValue:unit:"), doubleValue, unit)
 	return rv
 }
@@ -311,9 +310,9 @@ func (m NSMeasurement) InitWithCoder(coder INSCoder) NSMeasurement {
 // The unit of measure.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/unit
-func (m NSMeasurement) Unit() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("unit"))
-	return objectivec.Object{ID: rv}
+func (m NSMeasurement) Unit() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("unit"))
+	return rv
 }
 
 // The measurement value, represented as a double-precision floating-point

@@ -92,7 +92,7 @@ type ICKSyncEngineFailedZoneSave interface {
 	// Topic: Accessing the error
 
 	// A error that describes the reason for the unsuccessful attempt to modify the associated record zone.
-	Error() foundation.INSError
+	Error() foundation.NSError
 }
 
 // Init initializes the instance.
@@ -126,7 +126,7 @@ func (c CKSyncEngineFailedZoneSave) RecordZone() ICKRecordZone {
 // the associated record zone.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSyncEngineFailedZoneSave/error
-func (c CKSyncEngineFailedZoneSave) Error() foundation.INSError {
+func (c CKSyncEngineFailedZoneSave) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

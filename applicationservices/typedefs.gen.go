@@ -7,7 +7,6 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/kernel"
-	"github.com/tmc/apple/objectivec"
 )
 
 // See: https://developer.apple.com/documentation/applicationservices/atscubicclosepathprocptr
@@ -17,19 +16,19 @@ type ATSCubicClosePathProcPtr = func(unsafe.Pointer) int32
 type ATSCubicClosePathUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atscubiccurvetoprocptr
-type ATSCubicCurveToProcPtr = func(objectivec.IObject, objectivec.IObject, objectivec.IObject, unsafe.Pointer) int32
+type ATSCubicCurveToProcPtr = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/atscubiccurvetoupp
 type ATSCubicCurveToUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atscubiclinetoprocptr
-type ATSCubicLineToProcPtr = func(objectivec.IObject, unsafe.Pointer) int32
+type ATSCubicLineToProcPtr = func(unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/atscubiclinetoupp
 type ATSCubicLineToUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atscubicmovetoprocptr
-type ATSCubicMoveToProcPtr = func(objectivec.IObject, unsafe.Pointer) int32
+type ATSCubicMoveToProcPtr = func(unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/atscubicmovetoupp
 type ATSCubicMoveToUPP = unsafe.Pointer
@@ -74,7 +73,7 @@ type ATSFontNotificationInfoRef uintptr
 type ATSFontNotificationRef uintptr
 
 // See: https://developer.apple.com/documentation/applicationservices/atsfontquerycallback
-type ATSFontQueryCallback = func(ATSFontQueryMessageID, corefoundation.CFPropertyListRef, unsafe.Pointer) objectivec.IObject
+type ATSFontQueryCallback = func(ATSFontQueryMessageID, corefoundation.CFPropertyListRef, unsafe.Pointer) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/CoreText/ATSFontRef
 type ATSFontRef = uint32
@@ -113,13 +112,13 @@ type ATSQuadraticClosePathProcPtr = func(unsafe.Pointer) int32
 type ATSQuadraticClosePathUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsquadraticcurveprocptr
-type ATSQuadraticCurveProcPtr = func(objectivec.IObject, objectivec.IObject, objectivec.IObject, unsafe.Pointer) int32
+type ATSQuadraticCurveProcPtr = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/atsquadraticcurveupp
 type ATSQuadraticCurveUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/atsquadraticlineprocptr
-type ATSQuadraticLineProcPtr = func(objectivec.IObject, objectivec.IObject, unsafe.Pointer) int32
+type ATSQuadraticLineProcPtr = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/atsquadraticlineupp
 type ATSQuadraticLineUPP = unsafe.Pointer
@@ -218,10 +217,10 @@ type ATSUUnFlattenStyleRunOptions = uint32
 type ATSUVerticalCharacterType = uint16
 
 // See: https://developer.apple.com/documentation/applicationservices/axobservercallback
-type AXObserverCallback = func(AXObserverRef, AXUIElementRef, corefoundation.CFStringRef, unsafe.Pointer)
+type AXObserverCallback = func(AXObserverRef, AXUIElementRef, corefoundation.CFString, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/axobservercallbackwithinfo
-type AXObserverCallbackWithInfo = func(AXObserverRef, AXUIElementRef, corefoundation.CFStringRef, corefoundation.CFDictionaryRef, unsafe.Pointer)
+type AXObserverCallbackWithInfo = func(AXObserverRef, AXUIElementRef, corefoundation.CFString, corefoundation.CFDictionaryRef, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/axobserverref
 type AXObserverRef uintptr
@@ -263,7 +262,7 @@ type CMDeviceClass = uint32
 // CMFlattenProcPtr is defines a pointer to a data transfer callback function that transfers profile data from the format for embedded profiles to disk file format or vice versa.
 //
 // See: https://developer.apple.com/documentation/applicationservices/cmflattenprocptr
-type CMFlattenProcPtr = func(int32, objectivec.IObject, unsafe.Pointer, unsafe.Pointer) int16
+type CMFlattenProcPtr = func(int32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int16
 
 // CMFlattenUPP is defines a universal procedure pointer to a data-flattening callback.
 //
@@ -283,13 +282,13 @@ type CQDProcsPtr = *CQDProcs
 type CSpecArray = ColorSpec
 
 // See: https://developer.apple.com/documentation/applicationservices/colorcomplementprocptr
-type ColorComplementProcPtr = func(objectivec.IObject) objectivec.IObject
+type ColorComplementProcPtr = func(unsafe.Pointer) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorcomplementupp
 type ColorComplementUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorsearchprocptr
-type ColorSearchProcPtr = func(objectivec.IObject, objectivec.IObject) objectivec.IObject
+type ColorSearchProcPtr = func(unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/colorsearchupp
 type ColorSearchUPP = unsafe.Pointer
@@ -346,7 +345,7 @@ type GrafVerb = int8
 type HIMutableShapeRef uintptr
 
 // See: https://developer.apple.com/documentation/applicationservices/hishapeenumerateprocptr
-type HIShapeEnumerateProcPtr = func(int32, HIShapeRef, objectivec.IObject, unsafe.Pointer) int32
+type HIShapeEnumerateProcPtr = func(int32, HIShapeRef, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/hishaperef
 type HIShapeRef uintptr
@@ -412,7 +411,7 @@ type ICServicesHandle = *ICServicesPtr
 type ICServicesPtr = *ICServices
 
 // See: https://developer.apple.com/documentation/applicationservices/iconactionprocptr
-type IconActionProcPtr = func(uint32, objectivec.IObject, unsafe.Pointer) int16
+type IconActionProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer) int16
 
 // See: https://developer.apple.com/documentation/applicationservices/iconactionupp
 type IconActionUPP = unsafe.Pointer
@@ -532,7 +531,7 @@ type PMServer = unsafe.Pointer
 type PasteboardItemID = string
 
 // See: https://developer.apple.com/documentation/applicationservices/pasteboardpromisekeeperprocptr
-type PasteboardPromiseKeeperProcPtr = func(PasteboardRef, PasteboardItemID, corefoundation.CFStringRef, unsafe.Pointer) int32
+type PasteboardPromiseKeeperProcPtr = func(PasteboardRef, PasteboardItemID, corefoundation.CFString, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/pathandle
 type PatHandle = *PatPtr
@@ -571,13 +570,13 @@ type ProcessInfoExtendedRecPtr = *ProcessInfoExtendedRec
 type ProcessInfoRecPtr = *ProcessInfoRec
 
 // See: https://developer.apple.com/documentation/applicationservices/qdarcprocptr
-type QDArcProcPtr = func(GrafVerb, objectivec.IObject, int16, int16)
+type QDArcProcPtr = func(GrafVerb, unsafe.Pointer, int16, int16)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdarcupp
 type QDArcUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdbitsprocptr
-type QDBitsProcPtr = func(objectivec.IObject, objectivec.IObject, objectivec.IObject, int16, objectivec.IObject)
+type QDBitsProcPtr = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, int16, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdbitsupp
 type QDBitsUPP = unsafe.Pointer
@@ -607,13 +606,13 @@ type QDLineProcPtr = func(Point)
 type QDLineUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdopcodeprocptr
-type QDOpcodeProcPtr = func(objectivec.IObject, objectivec.IObject, uint16, int16)
+type QDOpcodeProcPtr = func(unsafe.Pointer, unsafe.Pointer, uint16, int16)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdopcodeupp
 type QDOpcodeUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdovalprocptr
-type QDOvalProcPtr = func(GrafVerb, objectivec.IObject)
+type QDOvalProcPtr = func(GrafVerb, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdovalupp
 type QDOvalUPP = unsafe.Pointer
@@ -625,7 +624,7 @@ type QDPolyProcPtr = func(GrafVerb, PolyHandle)
 type QDPolyUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdprinterstatusprocptr
-type QDPrinterStatusProcPtr = func(PrinterStatusOpcode, objectivec.IObject, unsafe.Pointer) int32
+type QDPrinterStatusProcPtr = func(PrinterStatusOpcode, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/qdprinterstatusupp
 type QDPrinterStatusUPP = unsafe.Pointer
@@ -637,13 +636,13 @@ type QDPutPicProcPtr = func(unsafe.Pointer, int16)
 type QDPutPicUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrrectprocptr
-type QDRRectProcPtr = func(GrafVerb, objectivec.IObject, int16, int16)
+type QDRRectProcPtr = func(GrafVerb, unsafe.Pointer, int16, int16)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrrectupp
 type QDRRectUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrectprocptr
-type QDRectProcPtr = func(GrafVerb, objectivec.IObject)
+type QDRectProcPtr = func(GrafVerb, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrectupp
 type QDRectUPP = unsafe.Pointer
@@ -652,7 +651,7 @@ type QDRectUPP = unsafe.Pointer
 type QDRegionParseDirection = int32
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrgnprocptr
-type QDRgnProcPtr = func(GrafVerb, objectivec.IObject)
+type QDRgnProcPtr = func(GrafVerb, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/applicationservices/qdrgnupp
 type QDRgnUPP = unsafe.Pointer
@@ -670,19 +669,19 @@ type QDTextProcPtr = func(int16, unsafe.Pointer, Point, Point)
 type QDTextUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/qdtxmeasprocptr
-type QDTxMeasProcPtr = func(int16, unsafe.Pointer, objectivec.IObject, objectivec.IObject, objectivec.IObject) int16
+type QDTxMeasProcPtr = func(int16, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int16
 
 // See: https://developer.apple.com/documentation/applicationservices/qdtxmeasupp
 type QDTxMeasUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/redrawbackgroundprocptr
-type RedrawBackgroundProcPtr = func(unsafe.Pointer, uint32, int, objectivec.IObject, int) objectivec.IObject
+type RedrawBackgroundProcPtr = func(unsafe.Pointer, uint32, int, unsafe.Pointer, int) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/redrawbackgroundupp
 type RedrawBackgroundUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/applicationservices/regiontorectsprocptr
-type RegionToRectsProcPtr = func(uint16, objectivec.IObject, objectivec.IObject, unsafe.Pointer) int32
+type RegionToRectsProcPtr = func(uint16, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/applicationservices/regiontorectsupp
 type RegionToRectsUPP = unsafe.Pointer
@@ -706,7 +705,7 @@ type SpeechErrorCFProcPtr = func(*SpeechChannelRecord, uintptr, corefoundation.C
 // SpeechWordCFProcPtr is defines a pointer to a Core Foundation-based word callback function that is called by the Speech Synthesis Manager before it pronounces a word.
 //
 // See: https://developer.apple.com/documentation/applicationservices/speechwordcfprocptr
-type SpeechWordCFProcPtr = func(*SpeechChannelRecord, uintptr, corefoundation.CFStringRef, corefoundation.CFRange)
+type SpeechWordCFProcPtr = func(*SpeechChannelRecord, uintptr, corefoundation.CFString, corefoundation.CFRange)
 
 // See: https://developer.apple.com/documentation/applicationservices/translationflags
 type TranslationFlags = uint

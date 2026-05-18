@@ -180,6 +180,12 @@ func NewMTLAccelerationStructureMotionCurveGeometryDescriptor() MTLAccelerationS
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/descriptor
+func (_MTLAccelerationStructureMotionCurveGeometryDescriptorClass MTLAccelerationStructureMotionCurveGeometryDescriptorClass) Descriptor() MTLAccelerationStructureMotionCurveGeometryDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureMotionCurveGeometryDescriptorClass.class), objc.Sel("descriptor"))
+	return MTLAccelerationStructureMotionCurveGeometryDescriptorFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/controlPointBuffers
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) ControlPointBuffers() []MTLMotionKeyframeData {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("controlPointBuffers"))

@@ -352,10 +352,12 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// size_tErrorHandler handles A block or closure to indicate success or failure.
+// size_tErrorHandler handles A block that executes after the read operation completes.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
+//   - [FSBlockDeviceResource.ReadIntoStartingAtLengthCompletionHandler]
+//   - [FSBlockDeviceResource.WriteFromStartingAtLengthCompletionHandler]
 //   - [FSVolumeKernelOffloadedIOOperations.PreallocateSpaceForFileAtOffsetLengthFlagsPackerReplyHandler]
 //   - [FSVolumePreallocateOperations.PreallocateSpaceForItemAtOffsetLengthFlagsReplyHandler]
 //   - [FSVolumeReadWriteOperations.ReadFromFileOffsetLengthIntoBufferReplyHandler]
@@ -366,6 +368,8 @@ type size_tErrorHandler = func(uintptr, error)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
+//   - [FSBlockDeviceResource.ReadIntoStartingAtLengthCompletionHandler]
+//   - [FSBlockDeviceResource.WriteFromStartingAtLengthCompletionHandler]
 //   - [FSVolumeKernelOffloadedIOOperations.PreallocateSpaceForFileAtOffsetLengthFlagsPackerReplyHandler]
 //   - [FSVolumePreallocateOperations.PreallocateSpaceForItemAtOffsetLengthFlagsReplyHandler]
 //   - [FSVolumeReadWriteOperations.ReadFromFileOffsetLengthIntoBufferReplyHandler]

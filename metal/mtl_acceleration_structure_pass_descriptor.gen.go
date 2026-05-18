@@ -93,6 +93,12 @@ func NewMTLAccelerationStructurePassDescriptor() MTLAccelerationStructurePassDes
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassDescriptor/accelerationStructurePassDescriptor
+func (_MTLAccelerationStructurePassDescriptorClass MTLAccelerationStructurePassDescriptorClass) AccelerationStructurePassDescriptor() MTLAccelerationStructurePassDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructurePassDescriptorClass.class), objc.Sel("accelerationStructurePassDescriptor"))
+	return MTLAccelerationStructurePassDescriptorFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassDescriptor/sampleBufferAttachments
 func (a MTLAccelerationStructurePassDescriptor) SampleBufferAttachments() IMTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sampleBufferAttachments"))

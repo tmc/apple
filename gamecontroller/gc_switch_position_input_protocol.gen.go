@@ -14,6 +14,11 @@ import (
 type GCSwitchPositionInput interface {
 	objectivec.IObject
 
+	// A Boolean value that indicates whether the position change is sequential.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/isSequential
+	IsSequential() bool
+
 	// The range of possible values for the switch.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/positionRange
@@ -22,7 +27,7 @@ type GCSwitchPositionInput interface {
 	// A Boolean value that indicates whether the position change is sequential.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/isSequential
-	IsSequential() bool
+	Sequential() bool
 
 	// A Boolean value that indicates whether the position value wraps when it reaches the range’s minimum or maximum value.
 	//
@@ -33,11 +38,6 @@ type GCSwitchPositionInput interface {
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/position
 	Position() int
-
-	// The block that the profile calls when the value of the switch changes.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/positionDidChangeHandler
-	PositionDidChangeHandler() func(objc.ID, int64)
 
 	// A timestamp for when the profile reports the last position.
 	//
@@ -72,14 +72,6 @@ func GCSwitchPositionInputObjectFromID(id objc.ID) GCSwitchPositionInputObject {
 	}
 }
 
-// The range of possible values for the switch.
-//
-// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/positionRange
-func (o GCSwitchPositionInputObject) PositionRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("positionRange"))
-	return rv
-}
-
 // A Boolean value that indicates whether the position change is sequential.
 //
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/isSequential
@@ -88,13 +80,38 @@ func (o GCSwitchPositionInputObject) IsSequential() bool {
 	return rv
 }
 
+// The range of possible values for the switch.
+//
+// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/positionRange
+func (o GCSwitchPositionInputObject) PositionRange() foundation.NSRange {
+	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("positionRange"))
+	return foundation.NSRange(rv)
+}
+
+// A Boolean value that indicates whether the position change is sequential.
+//
+// # Discussion
+//
+// A sequential gear shift requires the user to move through the gears in
+// sequence.
+//
+// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/isSequential
+func (o GCSwitchPositionInputObject) Sequential() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isSequential"))
+	return bool(rv)
+}
+
 // A Boolean value that indicates whether the position value wraps when it
 // reaches the range’s minimum or maximum value.
+//
+// # Discussion
+//
+// For non-sequential switches, this property is always true.
 //
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/canWrap
 func (o GCSwitchPositionInputObject) CanWrap() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("canWrap"))
-	return rv
+	return bool(rv)
 }
 
 // The position of the switch.
@@ -102,33 +119,33 @@ func (o GCSwitchPositionInputObject) CanWrap() bool {
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/position
 func (o GCSwitchPositionInputObject) Position() int {
 	rv := objc.Send[int](o.ID, objc.Sel("position"))
-	return rv
-}
-
-// The block that the profile calls when the value of the switch changes.
-//
-// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/positionDidChangeHandler
-func (o GCSwitchPositionInputObject) PositionDidChangeHandler() func(objc.ID, int64) {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("positionDidChangeHandler"))
-	// Block/function return - cannot convert from objc.ID to Go func
-	_ = rv
-	return nil
+	return int(rv)
 }
 
 // A timestamp for when the profile reports the last position.
 //
+// # Discussion
+//
+// This property isn’t a specific date and time. To determine the time
+// between positions, subtract a previous value from the current value.
+//
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/lastPositionTimestamp
 func (o GCSwitchPositionInputObject) LastPositionTimestamp() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("lastPositionTimestamp"))
-	return rv
+	return float64(rv)
 }
 
 // The time in seconds between the current and previous positions.
 //
+// # Discussion
+//
+// Use this property as a minimum latency value that may not include latency
+// that accrues on the device or when it transmits the event.
+//
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/lastPositionLatency
 func (o GCSwitchPositionInputObject) LastPositionLatency() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("lastPositionLatency"))
-	return rv
+	return float64(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

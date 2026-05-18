@@ -488,10 +488,10 @@ type INSTextFinder interface {
 	SetFirstSelectedRange(value foundation.NSRange)
 	// Returns whether the container should display its find bar.
 	IsFindBarVisible() bool
-	SetIsFindBarVisible(value bool)
+	SetFindBarVisible(value bool)
 	// Returns whether the text is selectable.
 	IsSelectable() bool
-	SetIsSelectable(value bool)
+	SetSelectable(value bool)
 	// Returns an array of selected ranges.
 	SelectedRanges() foundation.NSValue
 	SetSelectedRanges(value foundation.NSValue)
@@ -842,7 +842,7 @@ func (t NSTextFinder) IsFindBarVisible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("findBarVisible"))
 	return rv
 }
-func (t NSTextFinder) SetIsFindBarVisible(value bool) {
+func (t NSTextFinder) SetFindBarVisible(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFindBarVisible:"), value)
 }
 
@@ -853,7 +853,7 @@ func (t NSTextFinder) IsSelectable() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("selectable"))
 	return rv
 }
-func (t NSTextFinder) SetIsSelectable(value bool) {
+func (t NSTextFinder) SetSelectable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectable:"), value)
 }
 

@@ -141,7 +141,7 @@ func NewNSUserAutomatorTask() NSUserAutomatorTask {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
 func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 	var errorPtr objc.ID
 	instance := getNSUserAutomatorTaskClass().Alloc()

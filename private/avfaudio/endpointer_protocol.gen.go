@@ -3,8 +3,6 @@
 package avfaudio
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,7 +16,7 @@ type Endpointer interface {
 	// ConfigureWithASBDAndFrameRate protocol.
 	//
 	// See: https://developer.apple.com/documentation/AVFAudio/Endpointer/configureWithASBD:andFrameRate:
-	ConfigureWithASBDAndFrameRate(asbd unsafe.Pointer, rate uint32) bool
+	ConfigureWithASBDAndFrameRate(asbd AudioStreamBasicDescription, rate uint32) bool
 
 	// ConfigureWithSampleRateAndFrameRate protocol.
 	//
@@ -38,7 +36,7 @@ type Endpointer interface {
 	// GetStatus protocol.
 	//
 	// See: https://developer.apple.com/documentation/AVFAudio/Endpointer/getStatus:
-	GetStatus(status *AudioQueueBufferRef) int
+	GetStatus(status AudioQueueBuffer) int
 
 	// InterspeechWaitTime protocol.
 	//
@@ -94,7 +92,7 @@ func EndpointerObjectFromID(id objc.ID) EndpointerObject {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/Endpointer/configureWithASBD:andFrameRate:
-func (o EndpointerObject) ConfigureWithASBDAndFrameRate(asbd unsafe.Pointer, rate uint32) bool {
+func (o EndpointerObject) ConfigureWithASBDAndFrameRate(asbd AudioStreamBasicDescription, rate uint32) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
 	return rv
 }
@@ -118,7 +116,7 @@ func (o EndpointerObject) EndpointMode() int {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/Endpointer/getStatus:
-func (o EndpointerObject) GetStatus(status *AudioQueueBufferRef) int {
+func (o EndpointerObject) GetStatus(status AudioQueueBuffer) int {
 	rv := objc.Send[int](o.ID, objc.Sel("getStatus:"), status)
 	return rv
 }

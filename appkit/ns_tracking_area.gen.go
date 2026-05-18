@@ -146,34 +146,34 @@ type INSTrackingArea interface {
 
 	// The owner receives messages regardless of first-responder status, window status, or application status. The
 	ActiveAlways() NSTrackingAreaOptions
-	SetActiveAlways(value NSTrackingAreaOptions)
+	SetNSTrackingActiveAlways(value NSTrackingAreaOptions)
 	// The owner receives messages when the application is active. This value specifies when the tracking area defined by an
 	ActiveInActiveApp() NSTrackingAreaOptions
-	SetActiveInActiveApp(value NSTrackingAreaOptions)
+	SetNSTrackingActiveInActiveApp(value NSTrackingAreaOptions)
 	// The owner receives messages when the view is in the key window. This value specifies when the tracking area defined by an
 	ActiveInKeyWindow() NSTrackingAreaOptions
-	SetActiveInKeyWindow(value NSTrackingAreaOptions)
+	SetNSTrackingActiveInKeyWindow(value NSTrackingAreaOptions)
 	// The owner receives messages when the view is the first responder. This value specifies when the tracking area defined by an
 	ActiveWhenFirstResponder() NSTrackingAreaOptions
-	SetActiveWhenFirstResponder(value NSTrackingAreaOptions)
+	SetNSTrackingActiveWhenFirstResponder(value NSTrackingAreaOptions)
 	// The first event is generated when the cursor leaves the tracking area, regardless if the cursor is inside the area when the
 	AssumeInside() NSTrackingAreaOptions
-	SetAssumeInside(value NSTrackingAreaOptions)
+	SetNSTrackingAssumeInside(value NSTrackingAreaOptions)
 	// A tracking option that receives events when the mouse cursor enters and exits the tracking area.
 	CursorUpdate() NSTrackingAreaOptions
-	SetCursorUpdate(value NSTrackingAreaOptions)
+	SetNSTrackingCursorUpdate(value NSTrackingAreaOptions)
 	// The owner receives
 	EnabledDuringMouseDrag() NSTrackingAreaOptions
-	SetEnabledDuringMouseDrag(value NSTrackingAreaOptions)
+	SetNSTrackingEnabledDuringMouseDrag(value NSTrackingAreaOptions)
 	// Mouse tracking occurs only in the visible rectangle of the view—in other words, that region of the tracking rectangle that is unobscured. Otherwise, the entire tracking area is active regardless of overlapping views. The
 	InVisibleRect() NSTrackingAreaOptions
-	SetInVisibleRect(value NSTrackingAreaOptions)
+	SetNSTrackingInVisibleRect(value NSTrackingAreaOptions)
 	// The owner of the tracking area receives
 	MouseEnteredAndExited() NSTrackingAreaOptions
-	SetMouseEnteredAndExited(value NSTrackingAreaOptions)
+	SetNSTrackingMouseEnteredAndExited(value NSTrackingAreaOptions)
 	// The owner of the tracking area receives
 	MouseMoved() NSTrackingAreaOptions
-	SetMouseMoved(value NSTrackingAreaOptions)
+	SetNSTrackingMouseMoved(value NSTrackingAreaOptions)
 	// The portion of the view that isn’t clipped by its superviews.
 	VisibleRect() corefoundation.CGRect
 	SetVisibleRect(value corefoundation.CGRect)
@@ -373,7 +373,7 @@ func (t NSTrackingArea) ActiveAlways() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingActiveAlways"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetActiveAlways(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingActiveAlways(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingActiveAlways:"), value)
 }
 
@@ -385,7 +385,7 @@ func (t NSTrackingArea) ActiveInActiveApp() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingActiveInActiveApp"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetActiveInActiveApp(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingActiveInActiveApp(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingActiveInActiveApp:"), value)
 }
 
@@ -397,7 +397,7 @@ func (t NSTrackingArea) ActiveInKeyWindow() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingActiveInKeyWindow"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetActiveInKeyWindow(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingActiveInKeyWindow(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingActiveInKeyWindow:"), value)
 }
 
@@ -409,7 +409,7 @@ func (t NSTrackingArea) ActiveWhenFirstResponder() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingActiveWhenFirstResponder"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetActiveWhenFirstResponder(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingActiveWhenFirstResponder(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingActiveWhenFirstResponder:"), value)
 }
 
@@ -421,7 +421,7 @@ func (t NSTrackingArea) AssumeInside() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingAssumeInside"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetAssumeInside(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingAssumeInside(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingAssumeInside:"), value)
 }
 
@@ -433,7 +433,7 @@ func (t NSTrackingArea) CursorUpdate() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingCursorUpdate"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetCursorUpdate(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingCursorUpdate(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingCursorUpdate:"), value)
 }
 
@@ -444,7 +444,7 @@ func (t NSTrackingArea) EnabledDuringMouseDrag() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingEnabledDuringMouseDrag"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetEnabledDuringMouseDrag(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingEnabledDuringMouseDrag(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingEnabledDuringMouseDrag:"), value)
 }
 
@@ -457,7 +457,7 @@ func (t NSTrackingArea) InVisibleRect() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingInVisibleRect"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetInVisibleRect(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingInVisibleRect(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingInVisibleRect:"), value)
 }
 
@@ -468,7 +468,7 @@ func (t NSTrackingArea) MouseEnteredAndExited() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingMouseEnteredAndExited"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetMouseEnteredAndExited(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingMouseEnteredAndExited(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingMouseEnteredAndExited:"), value)
 }
 
@@ -479,7 +479,7 @@ func (t NSTrackingArea) MouseMoved() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("NSTrackingMouseMoved"))
 	return NSTrackingAreaOptions(rv)
 }
-func (t NSTrackingArea) SetMouseMoved(value NSTrackingAreaOptions) {
+func (t NSTrackingArea) SetNSTrackingMouseMoved(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingMouseMoved:"), value)
 }
 

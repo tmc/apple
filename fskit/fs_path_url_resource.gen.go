@@ -50,6 +50,10 @@ func (fc FSPathURLResourceClass) Alloc() FSPathURLResource {
 // URL is a security-scoped URL, FSKit transports it intact from a client
 // application to your extension.
 //
+// # Creating a path URL resource
+//
+//   - [FSPathURLResource.InitWithURLWritable]: Creates a path URL resource.
+//
 // # Accessing resource properties
 //
 //   - [FSPathURLResource.Url]: The URL represented by the resource.
@@ -72,6 +76,10 @@ func FSPathURLResourceFromID(id objc.ID) FSPathURLResource {
 
 // An interface definition for the [FSPathURLResource] class.
 //
+// # Creating a path URL resource
+//
+//   - [IFSPathURLResource.InitWithURLWritable]: Creates a path URL resource.
+//
 // # Accessing resource properties
 //
 //   - [IFSPathURLResource.Url]: The URL represented by the resource.
@@ -81,15 +89,17 @@ func FSPathURLResourceFromID(id objc.ID) FSPathURLResource {
 type IFSPathURLResource interface {
 	IFSResource
 
+	// Topic: Creating a path URL resource
+
+	// Creates a path URL resource.
+	InitWithURLWritable(URL foundation.NSURL, writable bool) FSPathURLResource
+
 	// Topic: Accessing resource properties
 
 	// The URL represented by the resource.
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	// A Boolean value that indicates whether the file system supports writing to the contents of the path URL.
 	Writable() bool
-
-	// Creates a path URL resource.
-	InitWithURLWritable(URL foundation.INSURL, writable bool) FSPathURLResource
 }
 
 // Init initializes the instance.
@@ -119,8 +129,8 @@ func NewFSPathURLResource() FSPathURLResource {
 // writable: A Boolean value that indicates whether the file system supports writing to
 // the contents of the URL.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/init(url:writable:)
-func NewPathURLResourceWithURLWritable(URL foundation.INSURL, writable bool) FSPathURLResource {
+// See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/init(url:writable:)-2l10q
+func NewPathURLResourceWithURLWritable(URL foundation.NSURL, writable bool) FSPathURLResource {
 	instance := getFSPathURLResourceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:writable:"), URL, writable)
 	return FSPathURLResourceFromID(rv)
@@ -134,8 +144,8 @@ func NewPathURLResourceWithURLWritable(URL foundation.INSURL, writable bool) FSP
 // writable: A Boolean value that indicates whether the file system supports writing to
 // the contents of the URL.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/init(url:writable:)
-func (p FSPathURLResource) InitWithURLWritable(URL foundation.INSURL, writable bool) FSPathURLResource {
+// See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/init(url:writable:)-2l10q
+func (p FSPathURLResource) InitWithURLWritable(URL foundation.NSURL, writable bool) FSPathURLResource {
 	rv := objc.Send[FSPathURLResource](p.ID, objc.Sel("initWithURL:writable:"), URL, writable)
 	return rv
 }
@@ -143,7 +153,7 @@ func (p FSPathURLResource) InitWithURLWritable(URL foundation.INSURL, writable b
 // The URL represented by the resource.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/url
-func (p FSPathURLResource) Url() foundation.INSURL {
+func (p FSPathURLResource) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

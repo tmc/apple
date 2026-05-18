@@ -89,14 +89,14 @@ type IAVDateRangeMetadataGroup interface {
 	// Topic: Creating a date range group
 
 	// Initializes an instance of [AVDateRangeMetadataGroup] with a collection of metadata items.
-	InitWithItemsStartDateEndDate(items []AVMetadataItem, startDate foundation.INSDate, endDate foundation.INSDate) AVDateRangeMetadataGroup
+	InitWithItemsStartDateEndDate(items []AVMetadataItem, startDate foundation.NSDate, endDate foundation.NSDate) AVDateRangeMetadataGroup
 
 	// Topic: Accessing the date range
 
 	// The start date for the metadata date range group.
-	StartDate() foundation.INSDate
+	StartDate() foundation.NSDate
 	// The end date for the metadata date range group.
-	EndDate() foundation.INSDate
+	EndDate() foundation.NSDate
 }
 
 // Init initializes the instance.
@@ -139,7 +139,7 @@ func NewAVDateRangeMetadataGroup() AVDateRangeMetadataGroup {
 // applies.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDateRangeMetadataGroup/init(items:start:end:)
-func NewDateRangeMetadataGroupWithItemsStartDateEndDate(items []AVMetadataItem, startDate foundation.INSDate, endDate foundation.INSDate) AVDateRangeMetadataGroup {
+func NewDateRangeMetadataGroupWithItemsStartDateEndDate(items []AVMetadataItem, startDate foundation.NSDate, endDate foundation.NSDate) AVDateRangeMetadataGroup {
 	instance := getAVDateRangeMetadataGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:startDate:endDate:"), objectivec.IObjectSliceToNSArray(items), startDate, endDate)
 	return AVDateRangeMetadataGroupFromID(rv)
@@ -166,7 +166,7 @@ func NewDateRangeMetadataGroupWithItemsStartDateEndDate(items []AVMetadataItem, 
 // applies.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDateRangeMetadataGroup/init(items:start:end:)
-func (d AVDateRangeMetadataGroup) InitWithItemsStartDateEndDate(items []AVMetadataItem, startDate foundation.INSDate, endDate foundation.INSDate) AVDateRangeMetadataGroup {
+func (d AVDateRangeMetadataGroup) InitWithItemsStartDateEndDate(items []AVMetadataItem, startDate foundation.NSDate, endDate foundation.NSDate) AVDateRangeMetadataGroup {
 	rv := objc.Send[AVDateRangeMetadataGroup](d.ID, objc.Sel("initWithItems:startDate:endDate:"), objectivec.IObjectSliceToNSArray(items), startDate, endDate)
 	return rv
 }
@@ -179,7 +179,7 @@ func (d AVDateRangeMetadataGroup) InitWithItemsStartDateEndDate(items []AVMetada
 // associated metadata is valid.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDateRangeMetadataGroup/startDate
-func (d AVDateRangeMetadataGroup) StartDate() foundation.INSDate {
+func (d AVDateRangeMetadataGroup) StartDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("startDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
@@ -192,7 +192,7 @@ func (d AVDateRangeMetadataGroup) StartDate() foundation.INSDate {
 // associated metadata is valid.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDateRangeMetadataGroup/endDate
-func (d AVDateRangeMetadataGroup) EndDate() foundation.INSDate {
+func (d AVDateRangeMetadataGroup) EndDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("endDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

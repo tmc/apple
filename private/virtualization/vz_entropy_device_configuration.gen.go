@@ -91,14 +91,14 @@ type IVZEntropyDeviceConfiguration interface {
 }
 
 // Init initializes the instance.
-func (e VZEntropyDeviceConfiguration) Init() VZEntropyDeviceConfiguration {
-	rv := objc.Send[VZEntropyDeviceConfiguration](e.ID, objc.Sel("init"))
+func (v VZEntropyDeviceConfiguration) Init() VZEntropyDeviceConfiguration {
+	rv := objc.Send[VZEntropyDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e VZEntropyDeviceConfiguration) Autorelease() VZEntropyDeviceConfiguration {
-	rv := objc.Send[VZEntropyDeviceConfiguration](e.ID, objc.Sel("autorelease"))
+func (v VZEntropyDeviceConfiguration) Autorelease() VZEntropyDeviceConfiguration {
+	rv := objc.Send[VZEntropyDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,50 +110,50 @@ func NewVZEntropyDeviceConfiguration() VZEntropyDeviceConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/_init
-func (e VZEntropyDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_init"))
+func (v VZEntropyDeviceConfiguration) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/_entropyDevice
-func (e VZEntropyDeviceConfiguration) _entropyDevice() int {
-	rv := objc.Send[int](e.ID, objc.Sel("_entropyDevice"))
+func (v VZEntropyDeviceConfiguration) _entropyDevice() int {
+	rv := objc.Send[int](v.ID, objc.Sel("_entropyDevice"))
 	return rv
 }
 
 // CanEntropyDevice reports whether the receiver responds to the private selector _entropyDevice.
-func (e VZEntropyDeviceConfiguration) CanEntropyDevice() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_entropyDevice"))
+func (v VZEntropyDeviceConfiguration) CanEntropyDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_entropyDevice"))
 }
 
 // EntropyDevice is an exported wrapper for the private property _entropyDevice.
-func (e VZEntropyDeviceConfiguration) EntropyDevice() (int, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_entropyDevice")) {
+func (v VZEntropyDeviceConfiguration) EntropyDevice() (int, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_entropyDevice")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_entropyDevice"}
 	}
-	return e._entropyDevice(), nil
+	return v._entropyDevice(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/debugDescription
-func (e VZEntropyDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
+func (v VZEntropyDeviceConfiguration) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/description
-func (e VZEntropyDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
+func (v VZEntropyDeviceConfiguration) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/hash
-func (e VZEntropyDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
+func (v VZEntropyDeviceConfiguration) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/superclass
-func (e VZEntropyDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
+func (v VZEntropyDeviceConfiguration) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

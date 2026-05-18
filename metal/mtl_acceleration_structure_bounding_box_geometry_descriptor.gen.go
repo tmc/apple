@@ -132,6 +132,14 @@ func NewMTLAccelerationStructureBoundingBoxGeometryDescriptor() MTLAccelerationS
 	return rv
 }
 
+// Creates a new bounding box descriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureBoundingBoxGeometryDescriptor/descriptor
+func (_MTLAccelerationStructureBoundingBoxGeometryDescriptorClass MTLAccelerationStructureBoundingBoxGeometryDescriptorClass) Descriptor() MTLAccelerationStructureBoundingBoxGeometryDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureBoundingBoxGeometryDescriptorClass.class), objc.Sel("descriptor"))
+	return MTLAccelerationStructureBoundingBoxGeometryDescriptorFromID(rv)
+}
+
 // The number of bounding boxes in the bounding box buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureBoundingBoxGeometryDescriptor/boundingBoxCount

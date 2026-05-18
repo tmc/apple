@@ -153,8 +153,6 @@ func NSPortFromID(id objc.ID) Port { return PortFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/Port
 type IPort interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 
 	// Topic: Validation
 

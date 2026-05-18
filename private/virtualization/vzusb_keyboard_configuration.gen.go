@@ -62,14 +62,14 @@ type IVZUSBKeyboardConfiguration interface {
 }
 
 // Init initializes the instance.
-func (u VZUSBKeyboardConfiguration) Init() VZUSBKeyboardConfiguration {
-	rv := objc.Send[VZUSBKeyboardConfiguration](u.ID, objc.Sel("init"))
+func (v VZUSBKeyboardConfiguration) Init() VZUSBKeyboardConfiguration {
+	rv := objc.Send[VZUSBKeyboardConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (u VZUSBKeyboardConfiguration) Autorelease() VZUSBKeyboardConfiguration {
-	rv := objc.Send[VZUSBKeyboardConfiguration](u.ID, objc.Sel("autorelease"))
+func (v VZUSBKeyboardConfiguration) Autorelease() VZUSBKeyboardConfiguration {
+	rv := objc.Send[VZUSBKeyboardConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

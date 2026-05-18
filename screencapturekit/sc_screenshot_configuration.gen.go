@@ -147,8 +147,8 @@ type ISCScreenshotConfiguration interface {
 	DynamicRange() SCScreenshotDynamicRange
 	SetDynamicRange(value SCScreenshotDynamicRange)
 	// Specifies the URL where the screenshot process saves the output.
-	FileURL() foundation.INSURL
-	SetFileURL(value foundation.INSURL)
+	FileURL() foundation.NSURL
+	SetFileURL(value foundation.NSURL)
 	// An integer value that specifies the output height, measured in pixels.
 	Height() int
 	SetHeight(value int)
@@ -258,11 +258,11 @@ func (s SCScreenshotConfiguration) SetDynamicRange(value SCScreenshotDynamicRang
 // If `imageOutputURL` is `nil`, then the file isn’t saved.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/fileURL
-func (s SCScreenshotConfiguration) FileURL() foundation.INSURL {
+func (s SCScreenshotConfiguration) FileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("fileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (s SCScreenshotConfiguration) SetFileURL(value foundation.INSURL) {
+func (s SCScreenshotConfiguration) SetFileURL(value foundation.NSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFileURL:"), value)
 }
 

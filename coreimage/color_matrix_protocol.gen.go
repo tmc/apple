@@ -18,60 +18,36 @@ type CIColorMatrix interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/aVector
 	AVector() ICIVector
-
-	// The amount of blue to multiply the source color values by.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/bVector
-	BVector() ICIVector
-
-	// The amount of green to multiply the source color values by.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/gVector
-	GVector() ICIVector
-
-	// The amount of red to multiply the source color values by.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/rVector
-	RVector() ICIVector
-
-	// A vector that’s added to each color component.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/biasVector
-	BiasVector() ICIVector
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/inputImage
-	InputImage() ICIImage
-
-	// The amount of alpha to multiply the source color values by.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/aVector
 	SetAVector(value ICIVector)
 
 	// The amount of blue to multiply the source color values by.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/bVector
+	BVector() ICIVector
 	SetBVector(value ICIVector)
 
 	// The amount of green to multiply the source color values by.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/gVector
+	GVector() ICIVector
 	SetGVector(value ICIVector)
 
 	// The amount of red to multiply the source color values by.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/rVector
+	RVector() ICIVector
 	SetRVector(value ICIVector)
 
 	// A vector that’s added to each color component.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/biasVector
+	BiasVector() ICIVector
 	SetBiasVector(value ICIVector)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -92,54 +68,6 @@ func CIColorMatrixObjectFromID(id objc.ID) CIColorMatrixObject {
 	}
 }
 
-// The amount of alpha to multiply the source color values by.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/aVector
-func (o CIColorMatrixObject) AVector() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("AVector"))
-	return CIVectorFromID(rv)
-}
-
-// The amount of blue to multiply the source color values by.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/bVector
-func (o CIColorMatrixObject) BVector() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("BVector"))
-	return CIVectorFromID(rv)
-}
-
-// The amount of green to multiply the source color values by.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/gVector
-func (o CIColorMatrixObject) GVector() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("GVector"))
-	return CIVectorFromID(rv)
-}
-
-// The amount of red to multiply the source color values by.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/rVector
-func (o CIColorMatrixObject) RVector() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("RVector"))
-	return CIVectorFromID(rv)
-}
-
-// A vector that’s added to each color component.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/biasVector
-func (o CIColorMatrixObject) BiasVector() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("biasVector"))
-	return CIVectorFromID(rv)
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/inputImage
-func (o CIColorMatrixObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -152,6 +80,11 @@ func (o CIColorMatrixObject) OutputImage() ICIImage {
 // The amount of alpha to multiply the source color values by.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/aVector
+func (o CIColorMatrixObject) AVector() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("AVector"))
+	return CIVectorFromID(rv)
+}
+
 func (o CIColorMatrixObject) SetAVector(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAVector:"), value)
 }
@@ -159,6 +92,11 @@ func (o CIColorMatrixObject) SetAVector(value ICIVector) {
 // The amount of blue to multiply the source color values by.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/bVector
+func (o CIColorMatrixObject) BVector() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("BVector"))
+	return CIVectorFromID(rv)
+}
+
 func (o CIColorMatrixObject) SetBVector(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBVector:"), value)
 }
@@ -166,6 +104,11 @@ func (o CIColorMatrixObject) SetBVector(value ICIVector) {
 // The amount of green to multiply the source color values by.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/gVector
+func (o CIColorMatrixObject) GVector() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("GVector"))
+	return CIVectorFromID(rv)
+}
+
 func (o CIColorMatrixObject) SetGVector(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setGVector:"), value)
 }
@@ -173,6 +116,11 @@ func (o CIColorMatrixObject) SetGVector(value ICIVector) {
 // The amount of red to multiply the source color values by.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/rVector
+func (o CIColorMatrixObject) RVector() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("RVector"))
+	return CIVectorFromID(rv)
+}
+
 func (o CIColorMatrixObject) SetRVector(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRVector:"), value)
 }
@@ -180,6 +128,11 @@ func (o CIColorMatrixObject) SetRVector(value ICIVector) {
 // A vector that’s added to each color component.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/biasVector
+func (o CIColorMatrixObject) BiasVector() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("biasVector"))
+	return CIVectorFromID(rv)
+}
+
 func (o CIColorMatrixObject) SetBiasVector(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBiasVector:"), value)
 }
@@ -187,6 +140,11 @@ func (o CIColorMatrixObject) SetBiasVector(value ICIVector) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/inputImage
+func (o CIColorMatrixObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIColorMatrixObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

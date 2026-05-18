@@ -18,30 +18,18 @@ type CIColorMonochrome interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/color
 	Color() ICIColor
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/inputImage
-	InputImage() ICIImage
-
-	// The intensity of the monochrome effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/intensity
-	Intensity() float32
-
-	// The monochrome color to apply to the image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/color
 	SetColor(value ICIColor)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The intensity of the monochrome effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/intensity
+	Intensity() float32
 	SetIntensity(value float32)
 }
 
@@ -62,30 +50,6 @@ func CIColorMonochromeObjectFromID(id objc.ID) CIColorMonochromeObject {
 	}
 }
 
-// The monochrome color to apply to the image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/color
-func (o CIColorMonochromeObject) Color() ICIColor {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
-	return CIColorFromID(rv)
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/inputImage
-func (o CIColorMonochromeObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The intensity of the monochrome effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/intensity
-func (o CIColorMonochromeObject) Intensity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -98,6 +62,11 @@ func (o CIColorMonochromeObject) OutputImage() ICIImage {
 // The monochrome color to apply to the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/color
+func (o CIColorMonochromeObject) Color() ICIColor {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
+	return CIColorFromID(rv)
+}
+
 func (o CIColorMonochromeObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
@@ -105,6 +74,11 @@ func (o CIColorMonochromeObject) SetColor(value ICIColor) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/inputImage
+func (o CIColorMonochromeObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIColorMonochromeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -117,6 +91,11 @@ func (o CIColorMonochromeObject) SetInputImage(value ICIImage) {
 // of 0.0 has no effect on the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/intensity
+func (o CIColorMonochromeObject) Intensity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
+	return float32(rv)
+}
+
 func (o CIColorMonochromeObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }

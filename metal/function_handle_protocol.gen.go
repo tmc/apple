@@ -29,7 +29,7 @@ type MTLFunctionHandle interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/name
 	Name() string
 
-	// GpuResourceID protocol.
+	// # Discussion  Handle of the GPU resource suitable for storing in an Intersection Function Buffer.  The handle must have been created from an intersection function annotated with the `intersection_function_buffer` tag.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/gpuResourceID
 	GpuResourceID() MTLResourceID
@@ -54,6 +54,10 @@ func MTLFunctionHandleObjectFromID(id objc.ID) MTLFunctionHandleObject {
 
 // The device object that created the shader function.
 //
+// # Discussion
+//
+// You can only use the function handle with this [MTLDevice].
+//
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/device
 func (o MTLFunctionHandleObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
@@ -62,10 +66,15 @@ func (o MTLFunctionHandleObject) Device() MTLDevice {
 
 // The shader function’s type.
 //
+// # Discussion
+//
+// A function’s type determines what kind of pipeline state objects you can
+// create from it.
+//
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/functionType
 func (o MTLFunctionHandleObject) FunctionType() MTLFunctionType {
 	rv := objc.Send[MTLFunctionType](o.ID, objc.Sel("functionType"))
-	return rv
+	return MTLFunctionType(rv)
 }
 
 // The function’s name.
@@ -76,8 +85,16 @@ func (o MTLFunctionHandleObject) Name() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
+// # Discussion
+//
+// Handle of the GPU resource suitable for storing in an Intersection Function
+// Buffer.
+//
+// The handle must have been created from an intersection function annotated
+// with the `intersection_function_buffer` tag.
+//
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/gpuResourceID
 func (o MTLFunctionHandleObject) GpuResourceID() MTLResourceID {
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
+	return MTLResourceID(rv)
 }

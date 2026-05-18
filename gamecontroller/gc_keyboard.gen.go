@@ -94,7 +94,6 @@ func GCKeyboardFromID(id objc.ID) GCKeyboard {
 // See: https://developer.apple.com/documentation/GameController/GCKeyboard
 type IGCKeyboard interface {
 	objectivec.IObject
-	GCDevice
 
 	// Topic: Discovering keyboards
 
@@ -128,6 +127,15 @@ func NewGCKeyboard() GCKeyboard {
 	return rv
 }
 
+// The dispatch queue that the framework uses to call element value change
+// handlers.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
+func (g GCKeyboard) HandlerQueue() dispatch.Queue {
+	rv := objc.Send[uintptr](g.ID, objc.Sel("handlerQueue"))
+	return dispatch.QueueFromHandle(rv)
+}
+
 // The device’s physical input profile, such as a controller’s extended
 // gamepad.
 //
@@ -135,6 +143,23 @@ func NewGCKeyboard() GCKeyboard {
 func (g GCKeyboard) PhysicalInputProfile() IGCPhysicalInputProfile {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("physicalInputProfile"))
 	return GCPhysicalInputProfileFromID(rv)
+}
+
+// The product category that identifies the type of controller.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/productCategory
+func (g GCKeyboard) ProductCategory() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("productCategory"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// The manufacturer-provided name for the device, or the user’s name for the
+// device.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
+func (g GCKeyboard) VendorName() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
+	return foundation.NSStringFromID(rv).String()
 }
 
 // A notification that posts after a keyboard connects to the device.
@@ -166,48 +191,6 @@ func (g GCKeyboard) KeyboardInput() IGCKeyboardInput {
 	return GCKeyboardInputFromID(objc.ID(rv))
 }
 
-// The dispatch queue that the framework uses to call element value change
-// handlers.
-//
-// # Discussion
-//
-// The default queue is the main queue. Set this property to another queue to
-// asynchronously call value change handlers (see [GCControllerAxisInput],
-// [GCControllerButtonInput], [GCControllerDirectionPad], and [GCMotion]). For
-// example, if you handle input on another queue, set this property when you
-// first access the input device.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
-func (g GCKeyboard) HandlerQueue() dispatch.Queue {
-	rv := objc.Send[uintptr](g.ID, objc.Sel("handlerQueue"))
-	return dispatch.QueueFromHandle(rv)
-}
-func (g GCKeyboard) SetHandlerQueue(value dispatch.Queue) {
-	objc.Send[struct{}](g.ID, objc.Sel("setHandlerQueue:"), uintptr(value.Handle()))
-}
-
-// The product category that identifies the type of controller.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/productCategory
-func (g GCKeyboard) ProductCategory() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("productCategory"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The manufacturer-provided name for the device, or the user’s name for the
-// device.
-//
-// # Discussion
-//
-// The value of this property may be `nil` and may not be unique. Use this
-// property to present information about the device to the user.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
-func (g GCKeyboard) VendorName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The keyboard currently connected to the device.
 //
 // # Discussion
@@ -224,3 +207,19 @@ func (_GCKeyboardClass GCKeyboardClass) CoalescedKeyboard() GCKeyboard {
 }
 
 // Protocol methods for GCDevice
+
+// The dispatch queue that the framework uses to call element value change
+// handlers.
+//
+// # Discussion
+//
+// The default queue is the main queue. Set this property to another queue to
+// asynchronously call value change handlers (see [GCControllerAxisInput],
+// [GCControllerButtonInput], [GCControllerDirectionPad], and [GCMotion]). For
+// example, if you handle input on another queue, set this property when you
+// first access the input device.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
+func (o GCKeyboard) SetHandlerQueue(value dispatch.Queue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setHandlerQueue:"), value)
+}

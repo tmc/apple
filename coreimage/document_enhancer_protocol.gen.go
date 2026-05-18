@@ -18,20 +18,12 @@ type CIDocumentEnhancer interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/amount
 	Amount() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/inputImage
-	InputImage() ICIImage
-
-	// The amount of enhancement.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/amount
 	SetAmount(value float32)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -52,22 +44,6 @@ func CIDocumentEnhancerObjectFromID(id objc.ID) CIDocumentEnhancerObject {
 	}
 }
 
-// The amount of enhancement.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/amount
-func (o CIDocumentEnhancerObject) Amount() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/inputImage
-func (o CIDocumentEnhancerObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIDocumentEnhancerObject) OutputImage() ICIImage {
 // The amount of enhancement.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/amount
+func (o CIDocumentEnhancerObject) Amount() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
+	return float32(rv)
+}
+
 func (o CIDocumentEnhancerObject) SetAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAmount:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIDocumentEnhancerObject) SetAmount(value float32) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/inputImage
+func (o CIDocumentEnhancerObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIDocumentEnhancerObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

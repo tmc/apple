@@ -126,7 +126,7 @@ type INSTreeNode interface {
 	// A mutable array that provides read-write access to the receiver’s child nodes.
 	MutableChildNodes() foundation.INSArray
 	// Returns the receiver’s descendant at the specified index path.
-	DescendantNodeAtIndexPath(indexPath foundation.INSIndexPath) INSTreeNode
+	DescendantNodeAtIndexPath(indexPath foundation.NSIndexPath) INSTreeNode
 	// The receiver’s parent node.
 	ParentNode() INSTreeNode
 
@@ -195,7 +195,7 @@ func (t NSTreeNode) InitWithRepresentedObject(modelObject objectivec.IObject) NS
 // A tree node, or `nil` if the node does not exist.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/descendant(at:)
-func (t NSTreeNode) DescendantNodeAtIndexPath(indexPath foundation.INSIndexPath) INSTreeNode {
+func (t NSTreeNode) DescendantNodeAtIndexPath(indexPath foundation.NSIndexPath) INSTreeNode {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("descendantNodeAtIndexPath:"), indexPath)
 	return NSTreeNodeFromID(rv)
 }

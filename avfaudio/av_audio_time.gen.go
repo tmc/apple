@@ -127,7 +127,7 @@ type IAVAudioTime interface {
 	// Topic: Creating an Audio Time Instance
 
 	// Creates an audio time object with the specified timestamp and sample rate.
-	InitWithAudioTimeStampSampleRate(ts unsafe.Pointer, sampleRate float64) AVAudioTime
+	InitWithAudioTimeStampSampleRate(ts objectivec.IObject, sampleRate float64) AVAudioTime
 	// Creates an audio time object with the specified host time.
 	InitWithHostTime(hostTime uint64) AVAudioTime
 	// Creates an audio time object with the specified host time, sample time, and sample rate.
@@ -189,7 +189,7 @@ func NewAVAudioTime() AVAudioTime {
 // A new [AVAudioTime] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/init(audioTimeStamp:sampleRate:)
-func NewAudioTimeWithAudioTimeStampSampleRate(ts unsafe.Pointer, sampleRate float64) AVAudioTime {
+func NewAudioTimeWithAudioTimeStampSampleRate(ts objectivec.IObject, sampleRate float64) AVAudioTime {
 	instance := getAVAudioTimeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioTimeStamp:sampleRate:"), ts, sampleRate)
 	return AVAudioTimeFromID(rv)
@@ -260,7 +260,7 @@ func NewAudioTimeWithSampleTimeAtRate(sampleTime AVAudioFramePosition, sampleRat
 // A new [AVAudioTime] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/init(audioTimeStamp:sampleRate:)
-func (a AVAudioTime) InitWithAudioTimeStampSampleRate(ts unsafe.Pointer, sampleRate float64) AVAudioTime {
+func (a AVAudioTime) InitWithAudioTimeStampSampleRate(ts objectivec.IObject, sampleRate float64) AVAudioTime {
 	rv := objc.Send[AVAudioTime](a.ID, objc.Sel("initWithAudioTimeStamp:sampleRate:"), ts, sampleRate)
 	return rv
 }
@@ -382,7 +382,7 @@ func (_AVAudioTimeClass AVAudioTimeClass) SecondsForHostTime(hostTime uint64) fl
 // A new [AVAudioTime] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/timeWithAudioTimeStamp:sampleRate:
-func (_AVAudioTimeClass AVAudioTimeClass) TimeWithAudioTimeStampSampleRate(ts unsafe.Pointer, sampleRate float64) AVAudioTime {
+func (_AVAudioTimeClass AVAudioTimeClass) TimeWithAudioTimeStampSampleRate(ts objectivec.IObject, sampleRate float64) AVAudioTime {
 	rv := objc.Send[objc.ID](objc.ID(_AVAudioTimeClass.class), objc.Sel("timeWithAudioTimeStamp:sampleRate:"), ts, sampleRate)
 	return AVAudioTimeFromID(rv)
 }

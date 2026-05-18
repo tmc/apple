@@ -275,7 +275,7 @@ func NewSocketPortWithProtocolFamilySocketTypeProtocolSocket(family int, type_ i
 //
 // This method creates an IPv4 port, not an IPv6 port.
 //
-// See: https://developer.apple.com/documentation/Foundation/SocketPort/init(tcpPort:)
+// See: https://developer.apple.com/documentation/Foundation/SocketPort/init(tcpPort:)-6hgbo
 func NewSocketPortWithTCPPort(port uint16) SocketPort {
 	instance := getSocketPortClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTCPPort:"), port)
@@ -297,7 +297,7 @@ func NewSocketPortWithTCPPort(port uint16) SocketPort {
 //
 // This method creates an IPv4 port, not an IPv6 port.
 //
-// See: https://developer.apple.com/documentation/Foundation/SocketPort/init(tcpPort:)
+// See: https://developer.apple.com/documentation/Foundation/SocketPort/init(tcpPort:)-6hgbo
 func (s SocketPort) InitWithTCPPort(port uint16) SocketPort {
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initWithTCPPort:"), port)
 	return rv

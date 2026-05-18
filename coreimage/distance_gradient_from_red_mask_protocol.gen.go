@@ -18,20 +18,12 @@ type CIDistanceGradientFromRedMask interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDistanceGradientFromRedMask/inputImage
 	InputImage() ICIImage
-
-	// Determines the maximum distance to the mask that can be measured. Distances between zero and the maximum will be normalized to zero and one.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDistanceGradientFromRedMask/maximumDistance
-	MaximumDistance() float32
-
-	// The input image whose red channel defines a mask. If the red channel pixel value is greater than 0.5 then the point is considered in the mask and output pixel will be zero. Otherwise the output pixel will be a value between zero and one.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDistanceGradientFromRedMask/inputImage
 	SetInputImage(value ICIImage)
 
 	// Determines the maximum distance to the mask that can be measured. Distances between zero and the maximum will be normalized to zero and one.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDistanceGradientFromRedMask/maximumDistance
+	MaximumDistance() float32
 	SetMaximumDistance(value float32)
 }
 
@@ -52,26 +44,6 @@ func CIDistanceGradientFromRedMaskObjectFromID(id objc.ID) CIDistanceGradientFro
 	}
 }
 
-// The input image whose red channel defines a mask. If the red channel pixel
-// value is greater than 0.5 then the point is considered in the mask and
-// output pixel will be zero. Otherwise the output pixel will be a value
-// between zero and one.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDistanceGradientFromRedMask/inputImage
-func (o CIDistanceGradientFromRedMaskObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// Determines the maximum distance to the mask that can be measured. Distances
-// between zero and the maximum will be normalized to zero and one.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDistanceGradientFromRedMask/maximumDistance
-func (o CIDistanceGradientFromRedMaskObject) MaximumDistance() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("maximumDistance"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -87,6 +59,11 @@ func (o CIDistanceGradientFromRedMaskObject) OutputImage() ICIImage {
 // between zero and one.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDistanceGradientFromRedMask/inputImage
+func (o CIDistanceGradientFromRedMaskObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIDistanceGradientFromRedMaskObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -95,6 +72,11 @@ func (o CIDistanceGradientFromRedMaskObject) SetInputImage(value ICIImage) {
 // between zero and the maximum will be normalized to zero and one.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDistanceGradientFromRedMask/maximumDistance
+func (o CIDistanceGradientFromRedMaskObject) MaximumDistance() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("maximumDistance"))
+	return float32(rv)
+}
+
 func (o CIDistanceGradientFromRedMaskObject) SetMaximumDistance(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaximumDistance:"), value)
 }

@@ -69,12 +69,12 @@ func (ac AVAssetWriterClass) Alloc() AVAssetWriter {
 //   - [AVAssetWriter.AvailableMediaTypes]: The media types the asset writer supports adding as inputs.
 //   - [AVAssetWriter.CanApplyOutputSettingsForMediaType]: Determines whether the output file format supports the output settings for a specific media type.
 //   - [AVAssetWriter.CanAddInput]: Determines whether the asset writer supports adding the input.
+//   - [AVAssetWriter.AddInputGroup]: Adds an input group to an asset writer.
 //
 // # Configuring input groups
 //
 //   - [AVAssetWriter.InputGroups]: The input groups an asset writer contains.
 //   - [AVAssetWriter.CanAddInputGroup]: Determines whether the asset writer supports adding the input group.
-//   - [AVAssetWriter.AddInputGroup]: Adds an input group to an asset writer.
 //
 // # Configuring output
 //
@@ -157,12 +157,12 @@ func AVAssetWriterFromID(id objc.ID) AVAssetWriter {
 //   - [IAVAssetWriter.AvailableMediaTypes]: The media types the asset writer supports adding as inputs.
 //   - [IAVAssetWriter.CanApplyOutputSettingsForMediaType]: Determines whether the output file format supports the output settings for a specific media type.
 //   - [IAVAssetWriter.CanAddInput]: Determines whether the asset writer supports adding the input.
+//   - [IAVAssetWriter.AddInputGroup]: Adds an input group to an asset writer.
 //
 // # Configuring input groups
 //
 //   - [IAVAssetWriter.InputGroups]: The input groups an asset writer contains.
 //   - [IAVAssetWriter.CanAddInputGroup]: Determines whether the asset writer supports adding the input group.
-//   - [IAVAssetWriter.AddInputGroup]: Adds an input group to an asset writer.
 //
 // # Configuring output
 //
@@ -224,7 +224,7 @@ type IAVAssetWriter interface {
 	// Topic: Creating an asset writer
 
 	// Creates an object that writes media data to a container file at the output URL.
-	InitWithURLFileTypeError(outputURL foundation.INSURL, outputFileType AVFileType) (AVAssetWriter, error)
+	InitWithURLFileTypeError(outputURL foundation.NSURL, outputFileType AVFileType) (AVAssetWriter, error)
 	// Creates an object that outputs segment data in a specified container format.
 	InitWithContentType(outputContentType uniformtypeidentifiers.UTType) AVAssetWriter
 
@@ -238,6 +238,8 @@ type IAVAssetWriter interface {
 	CanApplyOutputSettingsForMediaType(outputSettings foundation.INSDictionary, mediaType AVMediaType) bool
 	// Determines whether the asset writer supports adding the input.
 	CanAddInput(input IAVAssetWriterInput) bool
+	// Adds an input group to an asset writer.
+	AddInputGroup(inputGroup IAVAssetWriterInputGroup)
 
 	// Topic: Configuring input groups
 
@@ -245,8 +247,6 @@ type IAVAssetWriter interface {
 	InputGroups() []AVAssetWriterInputGroup
 	// Determines whether the asset writer supports adding the input group.
 	CanAddInputGroup(inputGroup IAVAssetWriterInputGroup) bool
-	// Adds an input group to an asset writer.
-	AddInputGroup(inputGroup IAVAssetWriterInputGroup)
 
 	// Topic: Configuring output
 
@@ -257,8 +257,8 @@ type IAVAssetWriter interface {
 	ShouldOptimizeForNetworkUse() bool
 	SetShouldOptimizeForNetworkUse(value bool)
 	// A directory to contain temporary files that the export process generates.
-	DirectoryForTemporaryFiles() foundation.INSURL
-	SetDirectoryForTemporaryFiles(value foundation.INSURL)
+	DirectoryForTemporaryFiles() foundation.NSURL
+	SetDirectoryForTemporaryFiles(value foundation.NSURL)
 
 	// Topic: Configuring fragment output
 
@@ -297,7 +297,7 @@ type IAVAssetWriter interface {
 	// The status of writing samples to the output file.
 	Status() AVAssetWriterStatus
 	// An error object that describes an asset-writing failure.
-	Error() foundation.INSError
+	Error() foundation.NSError
 
 	// Topic: Configuring segment writing
 
@@ -319,7 +319,7 @@ type IAVAssetWriter interface {
 	// Topic: Accessing output settings
 
 	// The location of the container file that the writer outputs.
-	OutputURL() foundation.INSURL
+	OutputURL() foundation.NSURL
 	// The type of container file that the writer outputs.
 	OutputFileType() AVFileType
 }
@@ -373,7 +373,7 @@ func NewAssetWriterWithContentType(outputContentType uniformtypeidentifiers.UTTy
 // Writing fails if a file already exists at the output URL.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/init(outputURL:fileType:)
-func NewAssetWriterWithURLFileTypeError(outputURL foundation.INSURL, outputFileType AVFileType) (AVAssetWriter, error) {
+func NewAssetWriterWithURLFileTypeError(outputURL foundation.NSURL, outputFileType AVFileType) (AVAssetWriter, error) {
 	var errorPtr objc.ID
 	instance := getAVAssetWriterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:fileType:error:"), outputURL, objc.String(string(outputFileType)), unsafe.Pointer(&errorPtr))
@@ -396,7 +396,7 @@ func NewAssetWriterWithURLFileTypeError(outputURL foundation.INSURL, outputFileT
 // Writing fails if a file already exists at the output URL.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/init(outputURL:fileType:)
-func (a AVAssetWriter) InitWithURLFileTypeError(outputURL foundation.INSURL, outputFileType AVFileType) (AVAssetWriter, error) {
+func (a AVAssetWriter) InitWithURLFileTypeError(outputURL foundation.NSURL, outputFileType AVFileType) (AVAssetWriter, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:fileType:error:"), outputURL, objc.String(string(outputFileType)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -634,8 +634,8 @@ func (a AVAssetWriter) FlushSegment() {
 //
 // Writing fails if a file already exists at the output URL.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/init(url:fileType:)
-func (_AVAssetWriterClass AVAssetWriterClass) AssetWriterWithURLFileTypeError(outputURL foundation.INSURL, outputFileType AVFileType) (AVAssetWriter, error) {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/init(url:fileType:)-xt34
+func (_AVAssetWriterClass AVAssetWriterClass) AssetWriterWithURLFileTypeError(outputURL foundation.NSURL, outputFileType AVFileType) (AVAssetWriter, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetWriterClass.class), objc.Sel("assetWriterWithURL:fileType:error:"), outputURL, objc.String(string(outputFileType)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -731,11 +731,11 @@ func (a AVAssetWriter) SetShouldOptimizeForNetworkUse(value bool) {
 // You can set this value after writing starts.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/directoryForTemporaryFiles
-func (a AVAssetWriter) DirectoryForTemporaryFiles() foundation.INSURL {
+func (a AVAssetWriter) DirectoryForTemporaryFiles() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("directoryForTemporaryFiles"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (a AVAssetWriter) SetDirectoryForTemporaryFiles(value foundation.INSURL) {
+func (a AVAssetWriter) SetDirectoryForTemporaryFiles(value foundation.NSURL) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDirectoryForTemporaryFiles:"), value)
 }
 
@@ -888,7 +888,7 @@ func (a AVAssetWriter) Status() AVAssetWriterStatus {
 // An error object that describes an asset-writing failure.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/error
-func (a AVAssetWriter) Error() foundation.INSError {
+func (a AVAssetWriter) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
@@ -974,7 +974,7 @@ func (a AVAssetWriter) SetOutputFileTypeProfile(value AVFileTypeProfile) {
 // The location of the container file that the writer outputs.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/outputURL
-func (a AVAssetWriter) OutputURL() foundation.INSURL {
+func (a AVAssetWriter) OutputURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

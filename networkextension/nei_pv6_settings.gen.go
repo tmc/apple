@@ -127,13 +127,13 @@ type INEIPv6Settings interface {
 
 	// The tunnel IP version 4 settings.
 	Ipv4Settings() INEIPv4Settings
-	SetIpv4Settings(value INEIPv4Settings)
+	SetIPv4Settings(value INEIPv4Settings)
 	// The tunnel IP version 6 settings.
 	Ipv6Settings() INEIPv6Settings
-	SetIpv6Settings(value INEIPv6Settings)
+	SetIPv6Settings(value INEIPv6Settings)
 	// The size of the maximum trasnmission unit, in bytes.
 	Mtu() foundation.NSNumber
-	SetMtu(value foundation.NSNumber)
+	SetMTU(value foundation.NSNumber)
 	// The number of bytes added to each tunneled packet for storing tunneling protocol headers.
 	TunnelOverheadBytes() foundation.NSNumber
 	SetTunnelOverheadBytes(value foundation.NSNumber)
@@ -295,7 +295,7 @@ func (i NEIPv6Settings) Ipv4Settings() INEIPv4Settings {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("IPv4Settings"))
 	return NEIPv4SettingsFromID(objc.ID(rv))
 }
-func (i NEIPv6Settings) SetIpv4Settings(value INEIPv4Settings) {
+func (i NEIPv6Settings) SetIPv4Settings(value INEIPv4Settings) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIPv4Settings:"), value)
 }
 
@@ -306,7 +306,7 @@ func (i NEIPv6Settings) Ipv6Settings() INEIPv6Settings {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("IPv6Settings"))
 	return NEIPv6SettingsFromID(objc.ID(rv))
 }
-func (i NEIPv6Settings) SetIpv6Settings(value INEIPv6Settings) {
+func (i NEIPv6Settings) SetIPv6Settings(value INEIPv6Settings) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIPv6Settings:"), value)
 }
 
@@ -317,7 +317,7 @@ func (i NEIPv6Settings) Mtu() foundation.NSNumber {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("MTU"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (i NEIPv6Settings) SetMtu(value foundation.NSNumber) {
+func (i NEIPv6Settings) SetMTU(value foundation.NSNumber) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMTU:"), value)
 }
 

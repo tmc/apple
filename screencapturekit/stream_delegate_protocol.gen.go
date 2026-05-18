@@ -63,7 +63,7 @@ func (o SCStreamDelegateObject) OutputVideoEffectDidStopForStream(stream ISCStre
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/stream(_:didStopWithError:)
-func (o SCStreamDelegateObject) StreamDidStopWithError(stream ISCStream, error_ foundation.INSError) {
+func (o SCStreamDelegateObject) StreamDidStopWithError(stream ISCStream, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("stream:didStopWithError:"), stream, error_)
 }
 

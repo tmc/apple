@@ -118,6 +118,14 @@ func NewMTLMotionKeyframeData() MTLMotionKeyframeData {
 	return rv
 }
 
+// Creates a new keyframe object.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLMotionKeyframeData/data
+func (_MTLMotionKeyframeDataClass MTLMotionKeyframeDataClass) Data() MTLMotionKeyframeData {
+	rv := objc.Send[objc.ID](objc.ID(_MTLMotionKeyframeDataClass.class), objc.Sel("data"))
+	return MTLMotionKeyframeDataFromID(rv)
+}
+
 // The buffer that holds the geometry data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLMotionKeyframeData/buffer

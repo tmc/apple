@@ -14,6 +14,16 @@ import (
 type MTL4CounterHeap interface {
 	objectivec.IObject
 
+	// Invalidates a range of entries in this counter heap.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/invalidateCounterRange:
+	InvalidateCounterRange(range_ foundation.NSRange)
+
+	// Resolves heap data on the CPU timeline.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/resolveCounterRange:
+	ResolveCounterRange(range_ foundation.NSRange) foundation.NSData
+
 	// Queries the number of entries in the heap.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/count
@@ -23,26 +33,12 @@ type MTL4CounterHeap interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/label
 	Label() string
+	SetLabel(value string)
 
 	// Queries the type of the heap.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/type
 	Type() MTL4CounterHeapType
-
-	// Invalidates a range of entries in this counter heap.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/invalidateCounterRange:
-	InvalidateCounterRange(range_ foundation.NSRange)
-
-	// Resolves heap data on the CPU timeline.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/resolveCounterRange:
-	ResolveCounterRange(range_ foundation.NSRange) foundation.INSData
-
-	// Assigns a label for later inspection or visualization.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/label
-	SetLabel(value string)
 }
 
 // MTL4CounterHeapObject wraps an existing Objective-C object that conforms to the MTL4CounterHeap protocol.
@@ -60,30 +56,6 @@ func MTL4CounterHeapObjectFromID(id objc.ID) MTL4CounterHeapObject {
 	return MTL4CounterHeapObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Queries the number of entries in the heap.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/count
-func (o MTL4CounterHeapObject) Count() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("count"))
-	return rv
-}
-
-// Assigns a label for later inspection or visualization.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/label
-func (o MTL4CounterHeapObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Queries the type of the heap.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/type
-func (o MTL4CounterHeapObject) Type() MTL4CounterHeapType {
-	rv := objc.Send[MTL4CounterHeapType](o.ID, objc.Sel("type"))
-	return rv
 }
 
 // Invalidates a range of entries in this counter heap.
@@ -116,14 +88,35 @@ func (o MTL4CounterHeapObject) InvalidateCounterRange(range_ foundation.NSRange)
 // resolved heap counter values.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/resolveCounterRange:
-func (o MTL4CounterHeapObject) ResolveCounterRange(range_ foundation.NSRange) foundation.INSData {
+func (o MTL4CounterHeapObject) ResolveCounterRange(range_ foundation.NSRange) foundation.NSData {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resolveCounterRange:"), range_)
 	return foundation.NSDataFromID(rv)
+}
+
+// Queries the number of entries in the heap.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/count
+func (o MTL4CounterHeapObject) Count() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("count"))
+	return uint(rv)
 }
 
 // Assigns a label for later inspection or visualization.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/label
+func (o MTL4CounterHeapObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTL4CounterHeapObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
+}
+
+// Queries the type of the heap.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/type
+func (o MTL4CounterHeapObject) Type() MTL4CounterHeapType {
+	rv := objc.Send[MTL4CounterHeapType](o.ID, objc.Sel("type"))
+	return MTL4CounterHeapType(rv)
 }

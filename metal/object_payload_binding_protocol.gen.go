@@ -15,12 +15,12 @@ type MTLObjectPayloadBinding interface {
 	objectivec.IObject
 	MTLBinding
 
-	// ObjectPayloadAlignment protocol.
+	// objectPayloadAlignment protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLObjectPayloadBinding/objectPayloadAlignment
 	ObjectPayloadAlignment() uint
 
-	// ObjectPayloadDataSize protocol.
+	// objectPayloadDataSize protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLObjectPayloadBinding/objectPayloadDataSize
 	ObjectPayloadDataSize() uint
@@ -41,18 +41,6 @@ func MTLObjectPayloadBindingObjectFromID(id objc.ID) MTLObjectPayloadBindingObje
 	return MTLObjectPayloadBindingObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLObjectPayloadBinding/objectPayloadAlignment
-func (o MTLObjectPayloadBindingObject) ObjectPayloadAlignment() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("objectPayloadAlignment"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLObjectPayloadBinding/objectPayloadDataSize
-func (o MTLObjectPayloadBindingObject) ObjectPayloadDataSize() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("objectPayloadDataSize"))
-	return rv
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/access
@@ -89,4 +77,28 @@ func (o MTLObjectPayloadBindingObject) Name() string {
 func (o MTLObjectPayloadBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLObjectPayloadBinding/objectPayloadAlignment
+func (o MTLObjectPayloadBindingObject) ObjectPayloadAlignment() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("objectPayloadAlignment"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLObjectPayloadBinding/objectPayloadDataSize
+func (o MTLObjectPayloadBindingObject) ObjectPayloadDataSize() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("objectPayloadDataSize"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
+func (o MTLObjectPayloadBindingObject) Argument() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
+	return bool(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
+func (o MTLObjectPayloadBindingObject) Used() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
+	return bool(rv)
 }

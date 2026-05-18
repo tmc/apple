@@ -15,44 +15,28 @@ type CITwirlDistortion interface {
 	objectivec.IObject
 	CIFilterProtocol
 
-	// Angle protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/angle
-	Angle() float32
-
-	// Center protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/center
-	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/inputImage
-	InputImage() ICIImage
-
-	// Radius protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/radius
-	Radius() float32
-
 	// angle protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/angle
+	Angle() float32
 	SetAngle(value float32)
 
 	// center protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/center
+	Center() corefoundation.CGPoint
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// radius protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -73,32 +57,6 @@ func CITwirlDistortionObjectFromID(id objc.ID) CITwirlDistortionObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/angle
-func (o CITwirlDistortionObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/center
-func (o CITwirlDistortionObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/inputImage
-func (o CITwirlDistortionObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/radius
-func (o CITwirlDistortionObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -109,11 +67,21 @@ func (o CITwirlDistortionObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/angle
+func (o CITwirlDistortionObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CITwirlDistortionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/center
+func (o CITwirlDistortionObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CITwirlDistortionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -121,11 +89,21 @@ func (o CITwirlDistortionObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/inputImage
+func (o CITwirlDistortionObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CITwirlDistortionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/radius
+func (o CITwirlDistortionObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CITwirlDistortionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

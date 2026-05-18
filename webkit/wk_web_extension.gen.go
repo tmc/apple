@@ -310,7 +310,7 @@ func (_WKWebExtensionClass WKWebExtensionClass) ExtensionWithAppExtensionBundleC
 // unsupported format or invalid archive, an error will be returned.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/extensionWithResourceBaseURL:completionHandler:
-func (_WKWebExtensionClass WKWebExtensionClass) ExtensionWithResourceBaseURLCompletionHandler(resourceBaseURL foundation.INSURL, completionHandler WKWebExtensionErrorHandler) {
+func (_WKWebExtensionClass WKWebExtensionClass) ExtensionWithResourceBaseURLCompletionHandler(resourceBaseURL foundation.NSURL, completionHandler WKWebExtensionErrorHandler) {
 	_block1, _ := NewWKWebExtensionErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_WKWebExtensionClass.class), objc.Sel("extensionWithResourceBaseURL:completionHandler:"), resourceBaseURL, _block1)
 }
@@ -611,7 +611,7 @@ func (wc WKWebExtensionClass) ExtensionWithAppExtensionBundle(ctx context.Contex
 
 // ExtensionWithResourceBaseURL is a synchronous wrapper around [WKWebExtension.ExtensionWithResourceBaseURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (wc WKWebExtensionClass) ExtensionWithResourceBaseURL(ctx context.Context, resourceBaseURL foundation.INSURL) (*WKWebExtension, error) {
+func (wc WKWebExtensionClass) ExtensionWithResourceBaseURL(ctx context.Context, resourceBaseURL foundation.NSURL) (*WKWebExtension, error) {
 	type result struct {
 		val *WKWebExtension
 		err error

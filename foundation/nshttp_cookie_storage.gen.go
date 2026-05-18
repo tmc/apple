@@ -199,7 +199,7 @@ type IHTTPCookieStorage interface {
 
 	// A Boolean value that indicates whether the cookie should be discarded at the end of the session (regardless of expiration date).
 	IsSessionOnly() bool
-	SetIsSessionOnly(value bool)
+	SetSessionOnly(value bool)
 }
 
 // Init initializes the instance.
@@ -431,7 +431,7 @@ func (h HTTPCookieStorage) IsSessionOnly() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("sessionOnly"))
 	return rv
 }
-func (h HTTPCookieStorage) SetIsSessionOnly(value bool) {
+func (h HTTPCookieStorage) SetSessionOnly(value bool) {
 	objc.Send[struct{}](h.ID, objc.Sel("setSessionOnly:"), value)
 }
 

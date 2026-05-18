@@ -17,11 +17,6 @@ type MTLIndirectCommandBuffer interface {
 	MTLAllocation
 	MTLResource
 
-	// The number of commands contained in the indirect command buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/size
-	Size() uint
-
 	// Gets the render command at the given index.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/indirectRenderCommandAt(_:)
@@ -32,15 +27,20 @@ type MTLIndirectCommandBuffer interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/indirectComputeCommandAt(_:)
 	IndirectComputeCommandAtIndex(commandIndex uint) MTLIndirectComputeCommand
 
-	// GpuResourceID protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/gpuResourceID
-	GpuResourceID() MTLResourceID
-
 	// Resets a range of commands to their default state.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/resetWithRange:
 	ResetWithRange(range_ foundation.NSRange)
+
+	// The number of commands contained in the indirect command buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/size
+	Size() uint
+
+	// gpuResourceID protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/gpuResourceID
+	GpuResourceID() MTLResourceID
 }
 
 // MTLIndirectCommandBufferObject wraps an existing Objective-C object that conforms to the MTLIndirectCommandBuffer protocol.
@@ -58,14 +58,6 @@ func MTLIndirectCommandBufferObjectFromID(id objc.ID) MTLIndirectCommandBufferOb
 	return MTLIndirectCommandBufferObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The number of commands contained in the indirect command buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/size
-func (o MTLIndirectCommandBufferObject) Size() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("size"))
-	return rv
 }
 
 // Gets the render command at the given index.
@@ -96,12 +88,6 @@ func (o MTLIndirectCommandBufferObject) IndirectRenderCommandAtIndex(commandInde
 func (o MTLIndirectCommandBufferObject) IndirectComputeCommandAtIndex(commandIndex uint) MTLIndirectComputeCommand {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indirectComputeCommandAtIndex:"), commandIndex)
 	return MTLIndirectComputeCommandObjectFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/gpuResourceID
-func (o MTLIndirectCommandBufferObject) GpuResourceID() MTLResourceID {
-	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
 }
 
 // Resets a range of commands to their default state.
@@ -188,9 +174,9 @@ func (o MTLIndirectCommandBufferObject) ResourceOptions() MTLResourceOptions {
 // If `state` is [MTLPurgeableStateNonVolatile], the resource is marked to
 // inform the caller that the data should not be discarded.
 //
-// If `state` is [MTLPurgeableState.empty], the resource is marked as data
-// that can be discarded, because the caller no longer needs the contents of
-// the resource.
+// If `state` is [MTLPurgeableStateEmpty], the resource is marked as data that
+// can be discarded, because the caller no longer needs the contents of the
+// resource.
 //
 // If `state` is [MTLPurgeableStateVolatile], the resource is marked as data
 // that can be discarded, even if the caller may need the resource.
@@ -208,8 +194,6 @@ func (o MTLIndirectCommandBufferObject) ResourceOptions() MTLResourceOptions {
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-//
-// [MTLPurgeableState.empty]: https://developer.apple.com/documentation/Metal/MTLPurgeableState/empty
 func (o MTLIndirectCommandBufferObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
@@ -285,9 +269,28 @@ func (o MTLIndirectCommandBufferObject) IsAliasable() bool {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-func (o MTLIndirectCommandBufferObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32 {
+func (o MTLIndirectCommandBufferObject) SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32 {
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
+}
+
+// The number of commands contained in the indirect command buffer.
+//
+// # Discussion
+//
+// You set the value of this property when you create the indirect command
+// buffer, and afterwards it doesn’t change.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/size
+func (o MTLIndirectCommandBufferObject) Size() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("size"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/gpuResourceID
+func (o MTLIndirectCommandBufferObject) GpuResourceID() MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
+	return MTLResourceID(rv)
 }
 
 // A string that identifies the resource.

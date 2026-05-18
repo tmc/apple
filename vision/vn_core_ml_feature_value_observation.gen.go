@@ -5,9 +5,9 @@ package vision
 import (
 	"sync"
 
-	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNCoreMLFeatureValueObservation] class.
@@ -95,16 +95,16 @@ type IVNCoreMLFeatureValueObservation interface {
 	// Topic: Obtaining Feature Values
 
 	// The feature result of a [VNCoreMLRequest](<doc://Vision/documentation/Vision/VNCoreMLRequest>) that outputs neither a classification nor an image.
-	FeatureValue() coreml.MLFeatureValue
+	FeatureValue() objectivec.IObject
 	// The name used in the model description of the CoreML model that produced this observation.
 	FeatureName() string
 
 	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() coreml.MLModelDescription
-	SetModelDescription(value coreml.MLModelDescription)
+	ModelDescription() objectivec.IObject
+	SetModelDescription(value objectivec.IObject)
 	// A dictionary of output feature descriptions, which the model keys by the output’s name.
-	OutputDescriptionsByName() coreml.MLFeatureDescription
-	SetOutputDescriptionsByName(value coreml.MLFeatureDescription)
+	OutputDescriptionsByName() objectivec.IObject
+	SetOutputDescriptionsByName(value objectivec.IObject)
 	// The name of the primary prediction feature output description.
 	PredictedFeatureName() string
 	SetPredictedFeatureName(value string)
@@ -140,9 +140,9 @@ func NewVNCoreMLFeatureValueObservation() VNCoreMLFeatureValueObservation {
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLFeatureValueObservation/featureValue
 //
 // [Core ML]: https://developer.apple.com/documentation/CoreML
-func (c VNCoreMLFeatureValueObservation) FeatureValue() coreml.MLFeatureValue {
+func (c VNCoreMLFeatureValueObservation) FeatureValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureValue"))
-	return coreml.MLFeatureValueFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
 
 // The name used in the model description of the CoreML model that produced
@@ -158,11 +158,11 @@ func (c VNCoreMLFeatureValueObservation) FeatureName() string {
 // displays in its Core ML model editor view.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
-func (c VNCoreMLFeatureValueObservation) ModelDescription() coreml.MLModelDescription {
+func (c VNCoreMLFeatureValueObservation) ModelDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelDescription"))
-	return coreml.MLModelDescriptionFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
-func (c VNCoreMLFeatureValueObservation) SetModelDescription(value coreml.MLModelDescription) {
+func (c VNCoreMLFeatureValueObservation) SetModelDescription(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModelDescription:"), value)
 }
 
@@ -170,11 +170,11 @@ func (c VNCoreMLFeatureValueObservation) SetModelDescription(value coreml.MLMode
 // output’s name.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/outputDescriptionsByName
-func (c VNCoreMLFeatureValueObservation) OutputDescriptionsByName() coreml.MLFeatureDescription {
+func (c VNCoreMLFeatureValueObservation) OutputDescriptionsByName() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputDescriptionsByName"))
-	return coreml.MLFeatureDescriptionFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
-func (c VNCoreMLFeatureValueObservation) SetOutputDescriptionsByName(value coreml.MLFeatureDescription) {
+func (c VNCoreMLFeatureValueObservation) SetOutputDescriptionsByName(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }
 

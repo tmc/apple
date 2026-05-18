@@ -245,9 +245,6 @@ func NSDataFromID(id objc.ID) NSData {
 // See: https://developer.apple.com/documentation/Foundation/NSData
 type INSData interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSMutableCopying
 	NSSecureCoding
 
 	// Topic: Creating Data

@@ -85,14 +85,14 @@ type IMLPixelBufferPool interface {
 }
 
 // Init initializes the instance.
-func (p MLPixelBufferPool) Init() MLPixelBufferPool {
-	rv := objc.Send[MLPixelBufferPool](p.ID, objc.Sel("init"))
+func (m MLPixelBufferPool) Init() MLPixelBufferPool {
+	rv := objc.Send[MLPixelBufferPool](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPixelBufferPool) Autorelease() MLPixelBufferPool {
-	rv := objc.Send[MLPixelBufferPool](p.ID, objc.Sel("autorelease"))
+func (m MLPixelBufferPool) Autorelease() MLPixelBufferPool {
+	rv := objc.Send[MLPixelBufferPool](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -104,45 +104,45 @@ func NewMLPixelBufferPool() MLPixelBufferPool {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/_pixelBufferPoolWithSize:pixelFormatType:error:
-func (p MLPixelBufferPool) _pixelBufferPoolWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
+func (m MLPixelBufferPool) _pixelBufferPoolWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[corevideo.CVImageBufferRef](p.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:"), size, type_, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:"), size, type_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
 }
 
 // PixelBufferPoolWithSizePixelFormatTypeError is an exported wrapper for the private method _pixelBufferPoolWithSizePixelFormatTypeError.
-func (p MLPixelBufferPool) PixelBufferPoolWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
-	if !objc.RespondsToSelector(p.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:")) {
+func (m MLPixelBufferPool) PixelBufferPoolWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_pixelBufferPoolWithSize:pixelFormatType:error:"}
-		return 0, err
+		return *new(corevideo.CVImageBufferRef), err
 	}
-	return p._pixelBufferPoolWithSizePixelFormatTypeError(size, type_)
+	return m._pixelBufferPoolWithSizePixelFormatTypeError(size, type_)
 }
 
 // CanPixelBufferPoolWithSizePixelFormatTypeError reports whether the receiver responds to the private selector _pixelBufferPoolWithSize:pixelFormatType:error:.
-func (p MLPixelBufferPool) CanPixelBufferPoolWithSizePixelFormatTypeError() bool {
-	return objc.RespondsToSelector(p.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:"))
+func (m MLPixelBufferPool) CanPixelBufferPoolWithSizePixelFormatTypeError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_pixelBufferPoolWithSize:pixelFormatType:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/createPixelBufferWithSize:pixelFormatType:error:
-func (p MLPixelBufferPool) CreatePixelBufferWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
+func (m MLPixelBufferPool) CreatePixelBufferWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[corevideo.CVImageBufferRef](p.ID, objc.Sel("createPixelBufferWithSize:pixelFormatType:error:"), size, type_, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("createPixelBufferWithSize:pixelFormatType:error:"), size, type_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(corevideo.CVImageBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/pixelBufferPoolCache
-func (p MLPixelBufferPool) PixelBufferPoolCache() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("pixelBufferPoolCache"))
+func (m MLPixelBufferPool) PixelBufferPoolCache() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPoolCache"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

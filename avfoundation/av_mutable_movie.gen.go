@@ -140,15 +140,15 @@ func (ac AVMutableMovieClass) Alloc() AVMutableMovie {
 // # Determining suitability
 //
 //   - [AVMutableMovie.IsPlayable]: A Boolean value that indicates whether the asset has playable content.
-//   - [AVMutableMovie.SetIsPlayable]
+//   - [AVMutableMovie.SetPlayable]
 //   - [AVMutableMovie.IsReadable]: A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
-//   - [AVMutableMovie.SetIsReadable]
+//   - [AVMutableMovie.SetReadable]
 //   - [AVMutableMovie.IsExportable]: A Boolean value that indicates whether you can export this asset using an export session.
-//   - [AVMutableMovie.SetIsExportable]
+//   - [AVMutableMovie.SetExportable]
 //   - [AVMutableMovie.IsComposable]: A Boolean value that indicates whether you can use the asset as a segment of a composition track.
-//   - [AVMutableMovie.SetIsComposable]
+//   - [AVMutableMovie.SetComposable]
 //   - [AVMutableMovie.IsCompatibleWithAirPlayVideo]: A Boolean value that indicates whether the asset is compatible with AirPlay Video.
-//   - [AVMutableMovie.SetIsCompatibleWithAirPlayVideo]
+//   - [AVMutableMovie.SetCompatibleWithAirPlayVideo]
 //
 // # Inspecting preferences
 //
@@ -275,15 +275,15 @@ func AVMutableMovieFromID(id objc.ID) AVMutableMovie {
 // # Determining suitability
 //
 //   - [IAVMutableMovie.IsPlayable]: A Boolean value that indicates whether the asset has playable content.
-//   - [IAVMutableMovie.SetIsPlayable]
+//   - [IAVMutableMovie.SetPlayable]
 //   - [IAVMutableMovie.IsReadable]: A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
-//   - [IAVMutableMovie.SetIsReadable]
+//   - [IAVMutableMovie.SetReadable]
 //   - [IAVMutableMovie.IsExportable]: A Boolean value that indicates whether you can export this asset using an export session.
-//   - [IAVMutableMovie.SetIsExportable]
+//   - [IAVMutableMovie.SetExportable]
 //   - [IAVMutableMovie.IsComposable]: A Boolean value that indicates whether you can use the asset as a segment of a composition track.
-//   - [IAVMutableMovie.SetIsComposable]
+//   - [IAVMutableMovie.SetComposable]
 //   - [IAVMutableMovie.IsCompatibleWithAirPlayVideo]: A Boolean value that indicates whether the asset is compatible with AirPlay Video.
-//   - [IAVMutableMovie.SetIsCompatibleWithAirPlayVideo]
+//   - [IAVMutableMovie.SetCompatibleWithAirPlayVideo]
 //
 // # Inspecting preferences
 //
@@ -332,9 +332,9 @@ type IAVMutableMovie interface {
 	// Topic: Creating a movie
 
 	// Creates a mutable movie object from a movie header stored in a QuickTime movie file of ISO base media file.
-	InitWithURLOptionsError(URL foundation.INSURL, options foundation.INSDictionary) (AVMutableMovie, error)
+	InitWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error)
 	// Creates a mutable movie object from a movie stored in a data object.
-	InitWithDataOptionsError(data foundation.INSData, options foundation.INSDictionary) (AVMutableMovie, error)
+	InitWithDataOptionsError(data foundation.NSData, options foundation.INSDictionary) (AVMutableMovie, error)
 	// Creates a mutable movie object without tracks.
 	InitWithSettingsFromMovieOptionsError(movie IAVMovie, options foundation.INSDictionary) (AVMutableMovie, error)
 
@@ -425,19 +425,19 @@ type IAVMutableMovie interface {
 
 	// A Boolean value that indicates whether the asset has playable content.
 	IsPlayable() bool
-	SetIsPlayable(value bool)
+	SetPlayable(value bool)
 	// A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
 	IsReadable() bool
-	SetIsReadable(value bool)
+	SetReadable(value bool)
 	// A Boolean value that indicates whether you can export this asset using an export session.
 	IsExportable() bool
-	SetIsExportable(value bool)
+	SetExportable(value bool)
 	// A Boolean value that indicates whether you can use the asset as a segment of a composition track.
 	IsComposable() bool
-	SetIsComposable(value bool)
+	SetComposable(value bool)
 	// A Boolean value that indicates whether the asset is compatible with AirPlay Video.
 	IsCompatibleWithAirPlayVideo() bool
-	SetIsCompatibleWithAirPlayVideo(value bool)
+	SetCompatibleWithAirPlayVideo(value bool)
 
 	// Topic: Inspecting preferences
 
@@ -468,8 +468,8 @@ type IAVMutableMovie interface {
 	// Topic: Accessing chapter metadata
 
 	// The locales of the asset’s chapter metadata.
-	AvailableChapterLocales() objectivec.IObject
-	SetAvailableChapterLocales(value objectivec.IObject)
+	AvailableChapterLocales() unsafe.Pointer
+	SetAvailableChapterLocales(value unsafe.Pointer)
 	// Returns an array of chapters with a locale that best matches the list of preferred languages.
 	ChapterMetadataGroupsBestMatchingPreferredLanguages(preferredLanguages []string) []AVTimedMetadataGroup
 	// Returns an array of chapters that contain the specified title locale and common keys.
@@ -523,8 +523,8 @@ func NewAVMutableMovie() AVMutableMovie {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
-func NewMutableMovieAssetWithURL(URL foundation.INSURL) AVMutableMovie {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+func NewMutableMovieAssetWithURL(URL foundation.NSURL) AVMutableMovie {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableMovieClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVMutableMovieFromID(rv)
 }
@@ -541,7 +541,7 @@ func NewMutableMovieAssetWithURL(URL foundation.INSURL) AVMutableMovie {
 // files, which can include movies that the pasteboard contains.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(data:options:)
-func NewMutableMovieWithDataOptions(data foundation.INSData, options foundation.INSDictionary) AVMutableMovie {
+func NewMutableMovieWithDataOptions(data foundation.NSData, options foundation.INSDictionary) AVMutableMovie {
 	instance := getAVMutableMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:"), data, options)
 	return AVMutableMovieFromID(rv)
@@ -570,7 +570,7 @@ func NewMutableMovieWithDataOptions(data foundation.INSData, options foundation.
 // files, which can include movies on the pasteboard.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(data:options:error:)
-func NewMutableMovieWithDataOptionsError(data foundation.INSData, options foundation.INSDictionary) (AVMutableMovie, error) {
+func NewMutableMovieWithDataOptionsError(data foundation.NSData, options foundation.INSDictionary) (AVMutableMovie, error) {
 	var errorPtr objc.ID
 	instance := getAVMutableMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:error:"), data, options, unsafe.Pointer(&errorPtr))
@@ -624,8 +624,8 @@ func NewMutableMovieWithSettingsFromMovieOptionsError(movie IAVMovie, options fo
 // Upon creation, the values of the [DefaultMediaDataStorage] property and any
 // associated [MediaDataStorage] properties are `nil`.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)
-func NewMutableMovieWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVMutableMovie {
+// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
+func NewMutableMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMutableMovie {
 	instance := getAVMutableMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return AVMutableMovieFromID(rv)
@@ -651,8 +651,8 @@ func NewMutableMovieWithURLOptions(URL foundation.INSURL, options foundation.INS
 // tracks, you must first set one of these properties to indicate where the
 // sample data should be written.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)
-func NewMutableMovieWithURLOptionsError(URL foundation.INSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
+// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)-8rnnj
+func NewMutableMovieWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
 	var errorPtr objc.ID
 	instance := getAVMutableMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
@@ -683,8 +683,8 @@ func NewMutableMovieWithURLOptionsError(URL foundation.INSURL, options foundatio
 // tracks, you must first set one of these properties to indicate where the
 // sample data should be written.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)
-func (m AVMutableMovie) InitWithURLOptionsError(URL foundation.INSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
+// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)-8rnnj
+func (m AVMutableMovie) InitWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -718,7 +718,7 @@ func (m AVMutableMovie) InitWithURLOptionsError(URL foundation.INSURL, options f
 // files, which can include movies on the pasteboard.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(data:options:error:)
-func (m AVMutableMovie) InitWithDataOptionsError(data foundation.INSData, options foundation.INSDictionary) (AVMutableMovie, error) {
+func (m AVMutableMovie) InitWithDataOptionsError(data foundation.NSData, options foundation.INSDictionary) (AVMutableMovie, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithData:options:error:"), data, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1168,7 +1168,7 @@ func (m AVMutableMovie) ChapterMetadataGroupsWithTitleLocaleContainingItemsWithC
 // files, which can include movies on the pasteboard.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/movieWithData:options:error:
-func (_AVMutableMovieClass AVMutableMovieClass) MovieWithDataOptionsError(data foundation.INSData, options foundation.INSDictionary) (AVMutableMovie, error) {
+func (_AVMutableMovieClass AVMutableMovieClass) MovieWithDataOptionsError(data foundation.NSData, options foundation.INSDictionary) (AVMutableMovie, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableMovieClass.class), objc.Sel("movieWithData:options:error:"), data, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1235,7 +1235,7 @@ func (_AVMutableMovieClass AVMutableMovieClass) MovieWithSettingsFromMovieOption
 // sample data should be written.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/movieWithURL:options:error:
-func (_AVMutableMovieClass AVMutableMovieClass) MovieWithURLOptionsError(URL foundation.INSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
+func (_AVMutableMovieClass AVMutableMovieClass) MovieWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableMovieClass.class), objc.Sel("movieWithURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1477,7 +1477,7 @@ func (m AVMutableMovie) IsPlayable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPlayable"))
 	return rv
 }
-func (m AVMutableMovie) SetIsPlayable(value bool) {
+func (m AVMutableMovie) SetPlayable(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPlayable:"), value)
 }
 
@@ -1494,7 +1494,7 @@ func (m AVMutableMovie) IsReadable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isReadable"))
 	return rv
 }
-func (m AVMutableMovie) SetIsReadable(value bool) {
+func (m AVMutableMovie) SetReadable(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setReadable:"), value)
 }
 
@@ -1511,7 +1511,7 @@ func (m AVMutableMovie) IsExportable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isExportable"))
 	return rv
 }
-func (m AVMutableMovie) SetIsExportable(value bool) {
+func (m AVMutableMovie) SetExportable(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setExportable:"), value)
 }
 
@@ -1528,7 +1528,7 @@ func (m AVMutableMovie) IsComposable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isComposable"))
 	return rv
 }
-func (m AVMutableMovie) SetIsComposable(value bool) {
+func (m AVMutableMovie) SetComposable(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setComposable:"), value)
 }
 
@@ -1545,7 +1545,7 @@ func (m AVMutableMovie) IsCompatibleWithAirPlayVideo() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isCompatibleWithAirPlayVideo"))
 	return rv
 }
-func (m AVMutableMovie) SetIsCompatibleWithAirPlayVideo(value bool) {
+func (m AVMutableMovie) SetCompatibleWithAirPlayVideo(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCompatibleWithAirPlayVideo:"), value)
 }
 
@@ -1637,11 +1637,11 @@ func (m AVMutableMovie) SetAvailableMediaCharacteristicsWithMediaSelectionOption
 // The locales of the asset’s chapter metadata.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/availableChapterLocales
-func (m AVMutableMovie) AvailableChapterLocales() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableChapterLocales"))
-	return objectivec.Object{ID: rv}
+func (m AVMutableMovie) AvailableChapterLocales() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("availableChapterLocales"))
+	return rv
 }
-func (m AVMutableMovie) SetAvailableChapterLocales(value objectivec.IObject) {
+func (m AVMutableMovie) SetAvailableChapterLocales(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableChapterLocales:"), value)
 }
 

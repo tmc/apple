@@ -204,24 +204,24 @@ type IANEVirtualClient interface {
 	AneArchitectureTypeStr() objectivec.IObject
 	AneBoardtype() int64
 	BeginRealTimeTask() bool
-	CallIOUserClientInParamsOutParams(client uint32, params unsafe.Pointer, params2 unsafe.Pointer) bool
+	CallIOUserClientInParamsOutParams(client uint32, params VirtANEModel, params2 VirtANEModel) bool
 	CallIOUserClientWithDictionaryInDictionaryError(dictionary uint32, dictionary2 objectivec.IObject) (objectivec.IObject, error)
-	CheckKernReturnValueSelectorOutParams(value int, selector uint32, params unsafe.Pointer)
+	CheckKernReturnValueSelectorOutParams(value int, selector uint32, params VirtANEModel)
 	CompileModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	CompiledModelExistsFor(for_ objectivec.IObject) bool
 	CompiledModelExistsMatchingHash(hash objectivec.IObject) bool
 	Connect() uint32
 	CopyAllModelFilesDictionaryIoSurfaceRefs(files objectivec.IObject, dictionary objectivec.IObject, refs objectivec.IObject) bool
 	CopyDictionaryToIOSurfaceCopiedDataSizeCreatedIOSID(iOSurface objectivec.IObject, size unsafe.Pointer, iosid unsafe.Pointer) coregraphics.IOSurfaceRef
-	CopyErrorValue(value unsafe.Pointer)
-	CopyErrorValueVmData(value objectivec.IObject, data unsafe.Pointer)
+	CopyErrorValue(value VMData)
+	CopyErrorValueVmData(value objectivec.IObject, data VMData)
 	CopyFilesInDirectoryToIOSurfacesIoSurfaceRefsIoSurfaceSizesFileNames(iOSurfaces objectivec.IObject, refs objectivec.IObject, sizes objectivec.IObject, names objectivec.IObject) bool
-	CopyModelOptionsVmData(model objectivec.IObject, options objectivec.IObject, data unsafe.Pointer)
-	CopyModelMetaDataOptionsDictionaryVmData(data objectivec.IObject, options objectivec.IObject, dictionary objectivec.IObject, data2 unsafe.Pointer)
-	CopyModelOptionFilesOptionsDictionaryVmData(files objectivec.IObject, options objectivec.IObject, dictionary objectivec.IObject, data unsafe.Pointer)
-	CopyModelOptionFilesOptionsVmData(files objectivec.IObject, options objectivec.IObject, data unsafe.Pointer)
-	CopyOptionsDictionaryVmData(options objectivec.IObject, dictionary objectivec.IObject, data unsafe.Pointer)
-	CopyOptionsVmData(options objectivec.IObject, data unsafe.Pointer)
+	CopyModelOptionsVmData(model objectivec.IObject, options objectivec.IObject, data VMData)
+	CopyModelMetaDataOptionsDictionaryVmData(data objectivec.IObject, options objectivec.IObject, dictionary objectivec.IObject, data2 VMData)
+	CopyModelOptionFilesOptionsDictionaryVmData(files objectivec.IObject, options objectivec.IObject, dictionary objectivec.IObject, data VMData)
+	CopyModelOptionFilesOptionsVmData(files objectivec.IObject, options objectivec.IObject, data VMData)
+	CopyOptionsDictionaryVmData(options objectivec.IObject, dictionary objectivec.IObject, data VMData)
+	CopyOptionsVmData(options objectivec.IObject, data VMData)
 	CopyToIOSurfaceLengthIoSID(iOSurface objectivec.IObject, length uint64, sid unsafe.Pointer) coregraphics.IOSurfaceRef
 	CopyToIOSurfaceSizeIoSID(iOSurface string, size uint64, sid unsafe.Pointer) coregraphics.IOSurfaceRef
 	DoEvaluateWithModelOptionsRequestQosCompletionEventError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32, event objectivec.IObject) (bool, error)
@@ -231,9 +231,9 @@ type IANEVirtualClient interface {
 	Echo(echo objectivec.IObject) bool
 	EndRealTimeTask() bool
 	EvaluateWithModelOptionsRequestQosError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32) (bool, error)
-	ExchangeBuildVersionInfo() objectivec.IObject
-	GetDeviceInfo() objectivec.IObject
-	GetModelAttribute(attribute unsafe.Pointer) objectivec.IObject
+	ExchangeBuildVersionInfo() BuildVersionInfo
+	GetDeviceInfo() DeviceExtendedInfo
+	GetModelAttribute(attribute VMData) objectivec.IObject
 	GetValidateNetworkVersion() uint64
 	HasANE() bool
 	HostBuildVersionStr() objectivec.IObject
@@ -253,13 +253,13 @@ type IANEVirtualClient interface {
 	PurgeCompiledModelMatchingHash(hash objectivec.IObject)
 	Queue() objectivec.Object
 	ReadWeightFilename(filename objectivec.IObject) objectivec.IObject
-	ReleaseIOSurfaces(iOSurfaces unsafe.Pointer)
+	ReleaseIOSurfaces(iOSurfaces VMData)
 	SendGuestBuildVersion()
 	SessionHintWithModelHintOptionsReportError(model objectivec.IObject, hint objectivec.IObject, options objectivec.IObject, report objectivec.IObject) (bool, error)
 	TransferFileToHostWithPathWithChunkSizeWithUUIDWithModelInputPathOverWriteFileNameWith(path objectivec.IObject, size uint32, uuid objectivec.IObject, path2 objectivec.IObject, with objectivec.IObject) bool
 	UnloadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
-	UpdateErrorError(error_ unsafe.Pointer) (bool, error)
-	UpdatePerformanceStats(stats unsafe.Pointer) objectivec.IObject
+	UpdateErrorError(error_ VMData) (bool, error)
+	UpdatePerformanceStats(stats VMData) objectivec.IObject
 	ValidateEnvironmentForPrecompiledBinarySupport() bool
 	ValidateNetworkCreateUuidFunctionDirectoryPathScratchPadPathMilTextData(create uint64, uuid objectivec.IObject, function objectivec.IObject, path objectivec.IObject, path2 objectivec.IObject, data objectivec.IObject) objectivec.IObject
 	ValidateNetworkCreateMLIRValidation_params(mlir uint64, validation_params objectivec.IObject) objectivec.IObject
@@ -312,7 +312,7 @@ func (a ANEVirtualClient) BeginRealTimeTask() bool {
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/callIOUserClient:inParams:outParams:
-func (a ANEVirtualClient) CallIOUserClientInParamsOutParams(client uint32, params unsafe.Pointer, params2 unsafe.Pointer) bool {
+func (a ANEVirtualClient) CallIOUserClientInParamsOutParams(client uint32, params VirtANEModel, params2 VirtANEModel) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("callIOUserClient:inParams:outParams:"), client, params, params2)
 	return rv
 }
@@ -330,7 +330,7 @@ func (a ANEVirtualClient) CallIOUserClientWithDictionaryInDictionaryError(dictio
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/checkKernReturnValue:selector:outParams:
-func (a ANEVirtualClient) CheckKernReturnValueSelectorOutParams(value int, selector uint32, params unsafe.Pointer) {
+func (a ANEVirtualClient) CheckKernReturnValueSelectorOutParams(value int, selector uint32, params VirtANEModel) {
 	objc.Send[objc.ID](a.ID, objc.Sel("checkKernReturnValue:selector:outParams:"), value, selector, params)
 }
 
@@ -374,12 +374,12 @@ func (a ANEVirtualClient) CopyDictionaryToIOSurfaceCopiedDataSizeCreatedIOSID(iO
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyErrorValue:
-func (a ANEVirtualClient) CopyErrorValue(value unsafe.Pointer) {
+func (a ANEVirtualClient) CopyErrorValue(value VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("copyErrorValue:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyErrorValue:vmData:
-func (a ANEVirtualClient) CopyErrorValueVmData(value objectivec.IObject, data unsafe.Pointer) {
+func (a ANEVirtualClient) CopyErrorValueVmData(value objectivec.IObject, data VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("copyErrorValue:vmData:"), value, data)
 }
 
@@ -390,32 +390,32 @@ func (a ANEVirtualClient) CopyFilesInDirectoryToIOSurfacesIoSurfaceRefsIoSurface
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyModel:options:vmData:
-func (a ANEVirtualClient) CopyModelOptionsVmData(model objectivec.IObject, options objectivec.IObject, data unsafe.Pointer) {
+func (a ANEVirtualClient) CopyModelOptionsVmData(model objectivec.IObject, options objectivec.IObject, data VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("copyModel:options:vmData:"), model, options, data)
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyModelMetaData:options:dictionary:vmData:
-func (a ANEVirtualClient) CopyModelMetaDataOptionsDictionaryVmData(data objectivec.IObject, options objectivec.IObject, dictionary objectivec.IObject, data2 unsafe.Pointer) {
+func (a ANEVirtualClient) CopyModelMetaDataOptionsDictionaryVmData(data objectivec.IObject, options objectivec.IObject, dictionary objectivec.IObject, data2 VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("copyModelMetaData:options:dictionary:vmData:"), data, options, dictionary, data2)
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyModelOptionFiles:options:dictionary:vmData:
-func (a ANEVirtualClient) CopyModelOptionFilesOptionsDictionaryVmData(files objectivec.IObject, options objectivec.IObject, dictionary objectivec.IObject, data unsafe.Pointer) {
+func (a ANEVirtualClient) CopyModelOptionFilesOptionsDictionaryVmData(files objectivec.IObject, options objectivec.IObject, dictionary objectivec.IObject, data VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("copyModelOptionFiles:options:dictionary:vmData:"), files, options, dictionary, data)
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyModelOptionFiles:options:vmData:
-func (a ANEVirtualClient) CopyModelOptionFilesOptionsVmData(files objectivec.IObject, options objectivec.IObject, data unsafe.Pointer) {
+func (a ANEVirtualClient) CopyModelOptionFilesOptionsVmData(files objectivec.IObject, options objectivec.IObject, data VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("copyModelOptionFiles:options:vmData:"), files, options, data)
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyOptions:dictionary:vmData:
-func (a ANEVirtualClient) CopyOptionsDictionaryVmData(options objectivec.IObject, dictionary objectivec.IObject, data unsafe.Pointer) {
+func (a ANEVirtualClient) CopyOptionsDictionaryVmData(options objectivec.IObject, dictionary objectivec.IObject, data VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("copyOptions:dictionary:vmData:"), options, dictionary, data)
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyOptions:vmData:
-func (a ANEVirtualClient) CopyOptionsVmData(options objectivec.IObject, data unsafe.Pointer) {
+func (a ANEVirtualClient) CopyOptionsVmData(options objectivec.IObject, data VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("copyOptions:vmData:"), options, data)
 }
 
@@ -510,19 +510,21 @@ func (a ANEVirtualClient) EvaluateWithModelOptionsRequestQosError(model objectiv
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/exchangeBuildVersionInfo
-func (a ANEVirtualClient) ExchangeBuildVersionInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("exchangeBuildVersionInfo"))
-	return objectivec.Object{ID: rv}
+func (a ANEVirtualClient) ExchangeBuildVersionInfo() BuildVersionInfo {
+	rv := objc.Send[BuildVersionInfo](a.ID, objc.Sel("exchangeBuildVersionInfo"))
+	_ = rv
+	return BuildVersionInfo{}
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/getDeviceInfo
-func (a ANEVirtualClient) GetDeviceInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("getDeviceInfo"))
-	return objectivec.Object{ID: rv}
+func (a ANEVirtualClient) GetDeviceInfo() DeviceExtendedInfo {
+	rv := objc.Send[DeviceExtendedInfo](a.ID, objc.Sel("getDeviceInfo"))
+	_ = rv
+	return DeviceExtendedInfo{}
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/getModelAttribute:
-func (a ANEVirtualClient) GetModelAttribute(attribute unsafe.Pointer) objectivec.IObject {
+func (a ANEVirtualClient) GetModelAttribute(attribute VMData) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("getModelAttribute:"), attribute)
 	return objectivec.Object{ID: rv}
 }
@@ -669,7 +671,7 @@ func (a ANEVirtualClient) ReadWeightFilename(filename objectivec.IObject) object
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/releaseIOSurfaces:
-func (a ANEVirtualClient) ReleaseIOSurfaces(iOSurfaces unsafe.Pointer) {
+func (a ANEVirtualClient) ReleaseIOSurfaces(iOSurfaces VMData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("releaseIOSurfaces:"), iOSurfaces)
 }
 
@@ -715,7 +717,7 @@ func (a ANEVirtualClient) UnloadModelOptionsQosError(model objectivec.IObject, o
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/updateError:error:
-func (a ANEVirtualClient) UpdateErrorError(error_ unsafe.Pointer) (bool, error) {
+func (a ANEVirtualClient) UpdateErrorError(error_ VMData) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("updateError:error:"), error_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -730,7 +732,7 @@ func (a ANEVirtualClient) UpdateErrorError(error_ unsafe.Pointer) (bool, error) 
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/updatePerformanceStats:
-func (a ANEVirtualClient) UpdatePerformanceStats(stats unsafe.Pointer) objectivec.IObject {
+func (a ANEVirtualClient) UpdatePerformanceStats(stats VMData) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("updatePerformanceStats:"), stats)
 	return objectivec.Object{ID: rv}
 }
@@ -766,7 +768,7 @@ func (a ANEVirtualClient) InitWithSingletonAccess() ANEVirtualClient {
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyDictionaryDataToStruct:dictionary:
-func (_ANEVirtualClientClass ANEVirtualClientClass) CopyDictionaryDataToStructDictionary(struct_ unsafe.Pointer, dictionary objectivec.IObject) {
+func (_ANEVirtualClientClass ANEVirtualClientClass) CopyDictionaryDataToStructDictionary(struct_ VirtANEModel, dictionary objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("copyDictionaryDataToStruct:dictionary:"), struct_, dictionary)
 }
 
@@ -847,7 +849,7 @@ func (_ANEVirtualClientClass ANEVirtualClientClass) PrintIOSurfaceDataInBytes(by
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/printStruct:
-func (_ANEVirtualClientClass ANEVirtualClientClass) PrintStruct(struct_ unsafe.Pointer) {
+func (_ANEVirtualClientClass ANEVirtualClientClass) PrintStruct(struct_ VirtANEModel) {
 	objc.Send[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("printStruct:"), struct_)
 }
 

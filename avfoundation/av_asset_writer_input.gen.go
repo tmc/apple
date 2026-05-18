@@ -264,8 +264,8 @@ type IAVAssetWriterInput interface {
 	PreferredMediaChunkDuration() coremedia.CMTime
 	SetPreferredMediaChunkDuration(value coremedia.CMTime)
 	// The base URL sample references are relative to.
-	SampleReferenceBaseURL() foundation.INSURL
-	SetSampleReferenceBaseURL(value foundation.INSURL)
+	SampleReferenceBaseURL() foundation.NSURL
+	SetSampleReferenceBaseURL(value foundation.NSURL)
 	// Specifies how the input lays out and interleaves media data.
 	MediaDataLocation() AVAssetWriterInputMediaDataLocation
 	SetMediaDataLocation(value AVAssetWriterInputMediaDataLocation)
@@ -967,11 +967,11 @@ func (a AVAssetWriterInput) SetPreferredMediaChunkDuration(value coremedia.CMTim
 // of `data/movie1.Mov()` to the movie.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/sampleReferenceBaseURL
-func (a AVAssetWriterInput) SampleReferenceBaseURL() foundation.INSURL {
+func (a AVAssetWriterInput) SampleReferenceBaseURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sampleReferenceBaseURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (a AVAssetWriterInput) SetSampleReferenceBaseURL(value foundation.INSURL) {
+func (a AVAssetWriterInput) SetSampleReferenceBaseURL(value foundation.NSURL) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSampleReferenceBaseURL:"), value)
 }
 

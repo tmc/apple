@@ -75,14 +75,14 @@ type IVZConsoleDevice interface {
 }
 
 // Init initializes the instance.
-func (c VZConsoleDevice) Init() VZConsoleDevice {
-	rv := objc.Send[VZConsoleDevice](c.ID, objc.Sel("init"))
+func (v VZConsoleDevice) Init() VZConsoleDevice {
+	rv := objc.Send[VZConsoleDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c VZConsoleDevice) Autorelease() VZConsoleDevice {
-	rv := objc.Send[VZConsoleDevice](c.ID, objc.Sel("autorelease"))
+func (v VZConsoleDevice) Autorelease() VZConsoleDevice {
+	rv := objc.Send[VZConsoleDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -101,7 +101,7 @@ func NewConsoleDeviceWithVirtualMachineConsoleDeviceIndexConfiguration(machine o
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDevice/initWithVirtualMachine:consoleDeviceIndex:configuration:
-func (c VZConsoleDevice) InitWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZConsoleDevice {
-	rv := objc.Send[VZConsoleDevice](c.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
+func (v VZConsoleDevice) InitWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZConsoleDevice {
+	rv := objc.Send[VZConsoleDevice](v.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
 	return rv
 }

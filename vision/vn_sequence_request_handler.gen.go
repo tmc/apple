@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/coregraphics"
-	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
@@ -118,9 +117,9 @@ type IVNSequenceRequestHandler interface {
 	// Schedules one or more Vision requests to be performed on a Core Graphics image with known orientation.
 	PerformRequestsOnCGImageOrientationError(requests []VNRequest, image coregraphics.CGImageRef, orientation uint) (bool, error)
 	// Schedules one or more Vision requests to be performed on Core Image image data.
-	PerformRequestsOnCIImageError(requests []VNRequest, image coreimage.CIImage) (bool, error)
+	PerformRequestsOnCIImageError(requests []VNRequest, image objectivec.IObject) (bool, error)
 	// Schedules one or more Vision requests to be performed on Core Image image data with known orientation.
-	PerformRequestsOnCIImageOrientationError(requests []VNRequest, image coreimage.CIImage, orientation uint) (bool, error)
+	PerformRequestsOnCIImageOrientationError(requests []VNRequest, image objectivec.IObject, orientation uint) (bool, error)
 	// Schedules one or more Vision requests to be performed on a Core Video pixel buffer.
 	PerformRequestsOnCVPixelBufferError(requests []VNRequest, pixelBuffer corevideo.CVImageBufferRef) (bool, error)
 	// Schedules one or more Vision requests to be performed on a Core Video pixel buffer with known orientation.
@@ -130,13 +129,13 @@ type IVNSequenceRequestHandler interface {
 	// Performs one or more requests on an image of a specified orientation contained within a sample buffer.
 	PerformRequestsOnCMSampleBufferOrientationError(requests []VNRequest, sampleBuffer coremedia.CMSampleBufferRef, orientation uint) (bool, error)
 	// Schedules one or more Vision requests to be performed on raw image data.
-	PerformRequestsOnImageDataError(requests []VNRequest, imageData foundation.INSData) (bool, error)
+	PerformRequestsOnImageDataError(requests []VNRequest, imageData foundation.NSData) (bool, error)
 	// Schedules one or more Vision requests to be performed on raw data containing an image with known orientation.
-	PerformRequestsOnImageDataOrientationError(requests []VNRequest, imageData foundation.INSData, orientation uint) (bool, error)
+	PerformRequestsOnImageDataOrientationError(requests []VNRequest, imageData foundation.NSData, orientation uint) (bool, error)
 	// Schedules one or more Vision requests to be performed on an image.
-	PerformRequestsOnImageURLError(requests []VNRequest, imageURL foundation.INSURL) (bool, error)
+	PerformRequestsOnImageURLError(requests []VNRequest, imageURL foundation.NSURL) (bool, error)
 	// Schedules one or more Vision requests to be performed on an image with known orientation, at a specific URL.
-	PerformRequestsOnImageURLOrientationError(requests []VNRequest, imageURL foundation.INSURL, orientation uint) (bool, error)
+	PerformRequestsOnImageURLOrientationError(requests []VNRequest, imageURL foundation.NSURL, orientation uint) (bool, error)
 }
 
 // Init initializes the instance.
@@ -217,7 +216,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCGImageOrientationError(reque
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:)-9jtgj
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (s VNSequenceRequestHandler) PerformRequestsOnCIImageError(requests []VNRequest, image coreimage.CIImage) (bool, error) {
+func (s VNSequenceRequestHandler) PerformRequestsOnCIImageError(requests []VNRequest, image objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCIImage:error:"), objectivec.IObjectSliceToNSArray(requests), image, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -243,7 +242,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCIImageError(requests []VNReq
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:orientation:)-1bkm1
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (s VNSequenceRequestHandler) PerformRequestsOnCIImageOrientationError(requests []VNRequest, image coreimage.CIImage, orientation uint) (bool, error) {
+func (s VNSequenceRequestHandler) PerformRequestsOnCIImageOrientationError(requests []VNRequest, image objectivec.IObject, orientation uint) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCIImage:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), image, orientation, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -363,7 +362,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferOrientationErro
 // imageData: The input image data on which to perform the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:onImageData:)
-func (s VNSequenceRequestHandler) PerformRequestsOnImageDataError(requests []VNRequest, imageData foundation.INSData) (bool, error) {
+func (s VNSequenceRequestHandler) PerformRequestsOnImageDataError(requests []VNRequest, imageData foundation.NSData) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onImageData:error:"), objectivec.IObjectSliceToNSArray(requests), imageData, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -387,7 +386,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnImageDataError(requests []VNR
 // orientation: The orientation of the input image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:onImageData:orientation:)
-func (s VNSequenceRequestHandler) PerformRequestsOnImageDataOrientationError(requests []VNRequest, imageData foundation.INSData, orientation uint) (bool, error) {
+func (s VNSequenceRequestHandler) PerformRequestsOnImageDataOrientationError(requests []VNRequest, imageData foundation.NSData, orientation uint) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onImageData:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), imageData, orientation, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -408,7 +407,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnImageDataOrientationError(req
 // imageURL: A URL pointing to the image on which to perform the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:onImageURL:)
-func (s VNSequenceRequestHandler) PerformRequestsOnImageURLError(requests []VNRequest, imageURL foundation.INSURL) (bool, error) {
+func (s VNSequenceRequestHandler) PerformRequestsOnImageURLError(requests []VNRequest, imageURL foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onImageURL:error:"), objectivec.IObjectSliceToNSArray(requests), imageURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -432,7 +431,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnImageURLError(requests []VNRe
 // orientation: The orientation of the input image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:onImageURL:orientation:)
-func (s VNSequenceRequestHandler) PerformRequestsOnImageURLOrientationError(requests []VNRequest, imageURL foundation.INSURL, orientation uint) (bool, error) {
+func (s VNSequenceRequestHandler) PerformRequestsOnImageURLOrientationError(requests []VNRequest, imageURL foundation.NSURL, orientation uint) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onImageURL:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), imageURL, orientation, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

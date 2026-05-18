@@ -116,14 +116,14 @@ type IVZMacGraphicsDeviceConfiguration interface {
 }
 
 // Init initializes the instance.
-func (m VZMacGraphicsDeviceConfiguration) Init() VZMacGraphicsDeviceConfiguration {
-	rv := objc.Send[VZMacGraphicsDeviceConfiguration](m.ID, objc.Sel("init"))
+func (v VZMacGraphicsDeviceConfiguration) Init() VZMacGraphicsDeviceConfiguration {
+	rv := objc.Send[VZMacGraphicsDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacGraphicsDeviceConfiguration) Autorelease() VZMacGraphicsDeviceConfiguration {
-	rv := objc.Send[VZMacGraphicsDeviceConfiguration](m.ID, objc.Sel("autorelease"))
+func (v VZMacGraphicsDeviceConfiguration) Autorelease() VZMacGraphicsDeviceConfiguration {
+	rv := objc.Send[VZMacGraphicsDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -135,103 +135,103 @@ func NewVZMacGraphicsDeviceConfiguration() VZMacGraphicsDeviceConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setDeviceFeatureLevel:
-func (m VZMacGraphicsDeviceConfiguration) _setDeviceFeatureLevel(level int64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_setDeviceFeatureLevel:"), level)
+func (v VZMacGraphicsDeviceConfiguration) _setDeviceFeatureLevel(level int64) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setDeviceFeatureLevel:"), level)
 }
 
 // SetDeviceFeatureLevel is an exported wrapper for the private method _setDeviceFeatureLevel.
-func (m VZMacGraphicsDeviceConfiguration) SetDeviceFeatureLevel(level int64) error {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_setDeviceFeatureLevel:")) {
+func (v VZMacGraphicsDeviceConfiguration) SetDeviceFeatureLevel(level int64) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setDeviceFeatureLevel:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setDeviceFeatureLevel:"}
 		return err
 	}
-	m._setDeviceFeatureLevel(level)
+	v._setDeviceFeatureLevel(level)
 	return nil
 }
 
 // CanSetDeviceFeatureLevel reports whether the receiver responds to the private selector _setDeviceFeatureLevel:.
-func (m VZMacGraphicsDeviceConfiguration) CanSetDeviceFeatureLevel() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_setDeviceFeatureLevel:"))
+func (v VZMacGraphicsDeviceConfiguration) CanSetDeviceFeatureLevel() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setDeviceFeatureLevel:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setDisplayPortCount:
-func (m VZMacGraphicsDeviceConfiguration) _setDisplayPortCount(count uint64) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_setDisplayPortCount:"), count)
+func (v VZMacGraphicsDeviceConfiguration) _setDisplayPortCount(count uint64) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setDisplayPortCount:"), count)
 }
 
 // SetDisplayPortCount is an exported wrapper for the private method _setDisplayPortCount.
-func (m VZMacGraphicsDeviceConfiguration) SetDisplayPortCount(count uint64) error {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_setDisplayPortCount:")) {
+func (v VZMacGraphicsDeviceConfiguration) SetDisplayPortCount(count uint64) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setDisplayPortCount:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setDisplayPortCount:"}
 		return err
 	}
-	m._setDisplayPortCount(count)
+	v._setDisplayPortCount(count)
 	return nil
 }
 
 // CanSetDisplayPortCount reports whether the receiver responds to the private selector _setDisplayPortCount:.
-func (m VZMacGraphicsDeviceConfiguration) CanSetDisplayPortCount() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_setDisplayPortCount:"))
+func (v VZMacGraphicsDeviceConfiguration) CanSetDisplayPortCount() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setDisplayPortCount:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setEnableProcessIsolation:
-func (m VZMacGraphicsDeviceConfiguration) _setEnableProcessIsolation(isolation bool) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_setEnableProcessIsolation:"), isolation)
+func (v VZMacGraphicsDeviceConfiguration) _setEnableProcessIsolation(isolation bool) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setEnableProcessIsolation:"), isolation)
 }
 
 // SetEnableProcessIsolation is an exported wrapper for the private method _setEnableProcessIsolation.
-func (m VZMacGraphicsDeviceConfiguration) SetEnableProcessIsolation(isolation bool) error {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_setEnableProcessIsolation:")) {
+func (v VZMacGraphicsDeviceConfiguration) SetEnableProcessIsolation(isolation bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setEnableProcessIsolation:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setEnableProcessIsolation:"}
 		return err
 	}
-	m._setEnableProcessIsolation(isolation)
+	v._setEnableProcessIsolation(isolation)
 	return nil
 }
 
 // CanSetEnableProcessIsolation reports whether the receiver responds to the private selector _setEnableProcessIsolation:.
-func (m VZMacGraphicsDeviceConfiguration) CanSetEnableProcessIsolation() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_setEnableProcessIsolation:"))
+func (v VZMacGraphicsDeviceConfiguration) CanSetEnableProcessIsolation() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setEnableProcessIsolation:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setImplicitlyAddsVideoToolboxDevice:
-func (m VZMacGraphicsDeviceConfiguration) _setImplicitlyAddsVideoToolboxDevice(device bool) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"), device)
+func (v VZMacGraphicsDeviceConfiguration) _setImplicitlyAddsVideoToolboxDevice(device bool) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"), device)
 }
 
 // SetImplicitlyAddsVideoToolboxDevice is an exported wrapper for the private method _setImplicitlyAddsVideoToolboxDevice.
-func (m VZMacGraphicsDeviceConfiguration) SetImplicitlyAddsVideoToolboxDevice(device bool) error {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:")) {
+func (v VZMacGraphicsDeviceConfiguration) SetImplicitlyAddsVideoToolboxDevice(device bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setImplicitlyAddsVideoToolboxDevice:"}
 		return err
 	}
-	m._setImplicitlyAddsVideoToolboxDevice(device)
+	v._setImplicitlyAddsVideoToolboxDevice(device)
 	return nil
 }
 
 // CanSetImplicitlyAddsVideoToolboxDevice reports whether the receiver responds to the private selector _setImplicitlyAddsVideoToolboxDevice:.
-func (m VZMacGraphicsDeviceConfiguration) CanSetImplicitlyAddsVideoToolboxDevice() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"))
+func (v VZMacGraphicsDeviceConfiguration) CanSetImplicitlyAddsVideoToolboxDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setImplicitlyAddsVideoToolboxDevice:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_setPrefersLowPower:
-func (m VZMacGraphicsDeviceConfiguration) _setPrefersLowPower(power bool) {
-	objc.Send[objc.ID](m.ID, objc.Sel("_setPrefersLowPower:"), power)
+func (v VZMacGraphicsDeviceConfiguration) _setPrefersLowPower(power bool) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setPrefersLowPower:"), power)
 }
 
 // SetPrefersLowPower is an exported wrapper for the private method _setPrefersLowPower.
-func (m VZMacGraphicsDeviceConfiguration) SetPrefersLowPower(power bool) error {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_setPrefersLowPower:")) {
+func (v VZMacGraphicsDeviceConfiguration) SetPrefersLowPower(power bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setPrefersLowPower:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setPrefersLowPower:"}
 		return err
 	}
-	m._setPrefersLowPower(power)
+	v._setPrefersLowPower(power)
 	return nil
 }
 
 // CanSetPrefersLowPower reports whether the receiver responds to the private selector _setPrefersLowPower:.
-func (m VZMacGraphicsDeviceConfiguration) CanSetPrefersLowPower() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_setPrefersLowPower:"))
+func (v VZMacGraphicsDeviceConfiguration) CanSetPrefersLowPower() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setPrefersLowPower:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_maximumAllowedDisplayCount
@@ -255,111 +255,111 @@ func (_VZMacGraphicsDeviceConfigurationClass VZMacGraphicsDeviceConfigurationCla
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_deviceFeatureLevel
-func (m VZMacGraphicsDeviceConfiguration) _deviceFeatureLevel() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("_deviceFeatureLevel"))
+func (v VZMacGraphicsDeviceConfiguration) _deviceFeatureLevel() int64 {
+	rv := objc.Send[int64](v.ID, objc.Sel("_deviceFeatureLevel"))
 	return rv
 }
 
 // CanDeviceFeatureLevel reports whether the receiver responds to the private selector _deviceFeatureLevel.
-func (m VZMacGraphicsDeviceConfiguration) CanDeviceFeatureLevel() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_deviceFeatureLevel"))
+func (v VZMacGraphicsDeviceConfiguration) CanDeviceFeatureLevel() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_deviceFeatureLevel"))
 }
 
 // DeviceFeatureLevel is an exported wrapper for the private property _deviceFeatureLevel.
-func (m VZMacGraphicsDeviceConfiguration) DeviceFeatureLevel() (int64, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_deviceFeatureLevel")) {
+func (v VZMacGraphicsDeviceConfiguration) DeviceFeatureLevel() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_deviceFeatureLevel")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_deviceFeatureLevel"}
 	}
-	return m._deviceFeatureLevel(), nil
+	return v._deviceFeatureLevel(), nil
 }
-func (m VZMacGraphicsDeviceConfiguration) Set_deviceFeatureLevel(value int64) {
-	objc.Send[struct{}](m.ID, objc.Sel("set_deviceFeatureLevel:"), value)
+func (v VZMacGraphicsDeviceConfiguration) Set_deviceFeatureLevel(value int64) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_deviceFeatureLevel:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_displayPortCount
-func (m VZMacGraphicsDeviceConfiguration) _displayPortCount() uint64 {
-	rv := objc.Send[uint64](m.ID, objc.Sel("_displayPortCount"))
+func (v VZMacGraphicsDeviceConfiguration) _displayPortCount() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("_displayPortCount"))
 	return rv
 }
 
 // CanDisplayPortCount reports whether the receiver responds to the private selector _displayPortCount.
-func (m VZMacGraphicsDeviceConfiguration) CanDisplayPortCount() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_displayPortCount"))
+func (v VZMacGraphicsDeviceConfiguration) CanDisplayPortCount() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_displayPortCount"))
 }
 
 // DisplayPortCount is an exported wrapper for the private property _displayPortCount.
-func (m VZMacGraphicsDeviceConfiguration) DisplayPortCount() (uint64, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_displayPortCount")) {
+func (v VZMacGraphicsDeviceConfiguration) DisplayPortCount() (uint64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_displayPortCount")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_displayPortCount"}
 	}
-	return m._displayPortCount(), nil
+	return v._displayPortCount(), nil
 }
-func (m VZMacGraphicsDeviceConfiguration) Set_displayPortCount(value uint64) {
-	objc.Send[struct{}](m.ID, objc.Sel("set_displayPortCount:"), value)
+func (v VZMacGraphicsDeviceConfiguration) Set_displayPortCount(value uint64) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_displayPortCount:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_enableProcessIsolation
-func (m VZMacGraphicsDeviceConfiguration) _enableProcessIsolation() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_enableProcessIsolation"))
+func (v VZMacGraphicsDeviceConfiguration) _enableProcessIsolation() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("_enableProcessIsolation"))
 	return rv
 }
 
 // CanEnableProcessIsolation reports whether the receiver responds to the private selector _enableProcessIsolation.
-func (m VZMacGraphicsDeviceConfiguration) CanEnableProcessIsolation() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_enableProcessIsolation"))
+func (v VZMacGraphicsDeviceConfiguration) CanEnableProcessIsolation() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_enableProcessIsolation"))
 }
 
 // EnableProcessIsolation is an exported wrapper for the private property _enableProcessIsolation.
-func (m VZMacGraphicsDeviceConfiguration) EnableProcessIsolation() (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_enableProcessIsolation")) {
+func (v VZMacGraphicsDeviceConfiguration) EnableProcessIsolation() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_enableProcessIsolation")) {
 		return false, &objc.UnrecognizedSelectorError{Selector: "_enableProcessIsolation"}
 	}
-	return m._enableProcessIsolation(), nil
+	return v._enableProcessIsolation(), nil
 }
-func (m VZMacGraphicsDeviceConfiguration) Set_enableProcessIsolation(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("set_enableProcessIsolation:"), value)
+func (v VZMacGraphicsDeviceConfiguration) Set_enableProcessIsolation(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_enableProcessIsolation:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_implicitlyAddsVideoToolboxDevice
-func (m VZMacGraphicsDeviceConfiguration) _implicitlyAddsVideoToolboxDevice() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice"))
+func (v VZMacGraphicsDeviceConfiguration) _implicitlyAddsVideoToolboxDevice() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice"))
 	return rv
 }
 
 // CanImplicitlyAddsVideoToolboxDevice reports whether the receiver responds to the private selector _implicitlyAddsVideoToolboxDevice.
-func (m VZMacGraphicsDeviceConfiguration) CanImplicitlyAddsVideoToolboxDevice() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice"))
+func (v VZMacGraphicsDeviceConfiguration) CanImplicitlyAddsVideoToolboxDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice"))
 }
 
 // ImplicitlyAddsVideoToolboxDevice is an exported wrapper for the private property _implicitlyAddsVideoToolboxDevice.
-func (m VZMacGraphicsDeviceConfiguration) ImplicitlyAddsVideoToolboxDevice() (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice")) {
+func (v VZMacGraphicsDeviceConfiguration) ImplicitlyAddsVideoToolboxDevice() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_implicitlyAddsVideoToolboxDevice")) {
 		return false, &objc.UnrecognizedSelectorError{Selector: "_implicitlyAddsVideoToolboxDevice"}
 	}
-	return m._implicitlyAddsVideoToolboxDevice(), nil
+	return v._implicitlyAddsVideoToolboxDevice(), nil
 }
-func (m VZMacGraphicsDeviceConfiguration) Set_implicitlyAddsVideoToolboxDevice(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("set_implicitlyAddsVideoToolboxDevice:"), value)
+func (v VZMacGraphicsDeviceConfiguration) Set_implicitlyAddsVideoToolboxDevice(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_implicitlyAddsVideoToolboxDevice:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/_prefersLowPower
-func (m VZMacGraphicsDeviceConfiguration) _prefersLowPower() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_prefersLowPower"))
+func (v VZMacGraphicsDeviceConfiguration) _prefersLowPower() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("_prefersLowPower"))
 	return rv
 }
 
 // CanPrefersLowPower reports whether the receiver responds to the private selector _prefersLowPower.
-func (m VZMacGraphicsDeviceConfiguration) CanPrefersLowPower() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_prefersLowPower"))
+func (v VZMacGraphicsDeviceConfiguration) CanPrefersLowPower() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_prefersLowPower"))
 }
 
 // PrefersLowPower is an exported wrapper for the private property _prefersLowPower.
-func (m VZMacGraphicsDeviceConfiguration) PrefersLowPower() (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_prefersLowPower")) {
+func (v VZMacGraphicsDeviceConfiguration) PrefersLowPower() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_prefersLowPower")) {
 		return false, &objc.UnrecognizedSelectorError{Selector: "_prefersLowPower"}
 	}
-	return m._prefersLowPower(), nil
+	return v._prefersLowPower(), nil
 }
-func (m VZMacGraphicsDeviceConfiguration) Set_prefersLowPower(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("set_prefersLowPower:"), value)
+func (v VZMacGraphicsDeviceConfiguration) Set_prefersLowPower(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_prefersLowPower:"), value)
 }

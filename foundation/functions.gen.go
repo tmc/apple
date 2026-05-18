@@ -1988,12 +1988,12 @@ func NSSearchPathForDirectoriesInDomains(directory NSSearchPathDirectory, domain
 	return result
 }
 
-var _nSSelectorFromString func(aSelectorName NSString) objectivec.SEL
+var _nSSelectorFromString func(aSelectorName NSString) objc.SEL
 var _nSSelectorFromStringErr error
 
-func tryNSSelectorFromString(aSelectorName NSString) (objectivec.SEL, error) {
+func tryNSSelectorFromString(aSelectorName NSString) (objc.SEL, error) {
 	if _nSSelectorFromString == nil {
-		return *new(objectivec.SEL), symbolCallError("NSSelectorFromString", "10.0", _nSSelectorFromStringErr)
+		return 0, symbolCallError("NSSelectorFromString", "10.0", _nSSelectorFromStringErr)
 	}
 	return _nSSelectorFromString(aSelectorName), nil
 }
@@ -2001,7 +2001,7 @@ func tryNSSelectorFromString(aSelectorName NSString) (objectivec.SEL, error) {
 // NSSelectorFromString returns the selector with a given name.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSelectorFromString(_:)
-func NSSelectorFromString(aSelectorName NSString) objectivec.SEL {
+func NSSelectorFromString(aSelectorName NSString) objc.SEL {
 	result, callErr := tryNSSelectorFromString(aSelectorName)
 	if callErr != nil {
 		panic(callErr)
@@ -2240,10 +2240,10 @@ func NSStringFromRect(aRect corefoundation.CGRect) NSString {
 	return result
 }
 
-var _nSStringFromSelector func(aSelector objectivec.SEL) NSString
+var _nSStringFromSelector func(aSelector objc.SEL) NSString
 var _nSStringFromSelectorErr error
 
-func tryNSStringFromSelector(aSelector objectivec.SEL) (NSString, error) {
+func tryNSStringFromSelector(aSelector objc.SEL) (NSString, error) {
 	if _nSStringFromSelector == nil {
 		return NSString{}, symbolCallError("NSStringFromSelector", "10.0", _nSStringFromSelectorErr)
 	}
@@ -2253,7 +2253,7 @@ func tryNSStringFromSelector(aSelector objectivec.SEL) (NSString, error) {
 // NSStringFromSelector returns a string representation of a given selector.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSStringFromSelector(_:)
-func NSStringFromSelector(aSelector objectivec.SEL) NSString {
+func NSStringFromSelector(aSelector objc.SEL) NSString {
 	result, callErr := tryNSStringFromSelector(aSelector)
 	if callErr != nil {
 		panic(callErr)

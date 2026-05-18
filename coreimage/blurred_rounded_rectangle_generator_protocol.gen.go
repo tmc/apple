@@ -19,50 +19,30 @@ type CIBlurredRoundedRectangleGenerator interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/color
 	Color() ICIColor
-
-	// A rectangle that defines the extent of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/extent
-	Extent() corefoundation.CGRect
-
-	// The distance from the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/radius
-	Radius() float32
-
-	// The sigma for a gaussian blur.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/sigma
-	Sigma() float32
-
-	// A value to control the smoothness of the transition between the curved and linear edges of the shape.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/smoothness
-	Smoothness() float32
-
-	// A color.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/color
 	SetColor(value ICIColor)
 
 	// A rectangle that defines the extent of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/extent
+	Extent() corefoundation.CGRect
 	SetExtent(value corefoundation.CGRect)
 
 	// The distance from the center of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/radius
+	Radius() float32
 	SetRadius(value float32)
 
 	// The sigma for a gaussian blur.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/sigma
+	Sigma() float32
 	SetSigma(value float32)
 
 	// A value to control the smoothness of the transition between the curved and linear edges of the shape.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/smoothness
+	Smoothness() float32
 	SetSmoothness(value float32)
 }
 
@@ -83,47 +63,6 @@ func CIBlurredRoundedRectangleGeneratorObjectFromID(id objc.ID) CIBlurredRounded
 	}
 }
 
-// A color.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/color
-func (o CIBlurredRoundedRectangleGeneratorObject) Color() ICIColor {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
-	return CIColorFromID(rv)
-}
-
-// A rectangle that defines the extent of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/extent
-func (o CIBlurredRoundedRectangleGeneratorObject) Extent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
-	return rv
-}
-
-// The distance from the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/radius
-func (o CIBlurredRoundedRectangleGeneratorObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
-// The sigma for a gaussian blur.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/sigma
-func (o CIBlurredRoundedRectangleGeneratorObject) Sigma() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("sigma"))
-	return rv
-}
-
-// A value to control the smoothness of the transition between the curved and
-// linear edges of the shape.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/smoothness
-func (o CIBlurredRoundedRectangleGeneratorObject) Smoothness() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("smoothness"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -136,6 +75,11 @@ func (o CIBlurredRoundedRectangleGeneratorObject) OutputImage() ICIImage {
 // A color.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/color
+func (o CIBlurredRoundedRectangleGeneratorObject) Color() ICIColor {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
+	return CIColorFromID(rv)
+}
+
 func (o CIBlurredRoundedRectangleGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
@@ -143,6 +87,11 @@ func (o CIBlurredRoundedRectangleGeneratorObject) SetColor(value ICIColor) {
 // A rectangle that defines the extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/extent
+func (o CIBlurredRoundedRectangleGeneratorObject) Extent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CIBlurredRoundedRectangleGeneratorObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
@@ -150,6 +99,11 @@ func (o CIBlurredRoundedRectangleGeneratorObject) SetExtent(value corefoundation
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/radius
+func (o CIBlurredRoundedRectangleGeneratorObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIBlurredRoundedRectangleGeneratorObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
@@ -157,6 +111,11 @@ func (o CIBlurredRoundedRectangleGeneratorObject) SetRadius(value float32) {
 // The sigma for a gaussian blur.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/sigma
+func (o CIBlurredRoundedRectangleGeneratorObject) Sigma() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("sigma"))
+	return float32(rv)
+}
+
 func (o CIBlurredRoundedRectangleGeneratorObject) SetSigma(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSigma:"), value)
 }
@@ -165,6 +124,11 @@ func (o CIBlurredRoundedRectangleGeneratorObject) SetSigma(value float32) {
 // linear edges of the shape.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/smoothness
+func (o CIBlurredRoundedRectangleGeneratorObject) Smoothness() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("smoothness"))
+	return float32(rv)
+}
+
 func (o CIBlurredRoundedRectangleGeneratorObject) SetSmoothness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmoothness:"), value)
 }

@@ -23,7 +23,7 @@ type CPXConnectionManaging interface {
 	// PidForConnection protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManaging/pidForConnection:
-	PidForConnection(connection unsafe.Pointer) int
+	PidForConnection(connection CGXConnection) int
 }
 
 // CPXConnectionManagingObject wraps an existing Objective-C object that conforms to the CPXConnectionManaging protocol.
@@ -50,7 +50,7 @@ func (o CPXConnectionManagingObject) ConnectionForID(id uint32) unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXConnectionManaging/pidForConnection:
-func (o CPXConnectionManagingObject) PidForConnection(connection unsafe.Pointer) int {
+func (o CPXConnectionManagingObject) PidForConnection(connection CGXConnection) int {
 	rv := objc.Send[int](o.ID, objc.Sel("pidForConnection:"), connection)
 	return rv
 }

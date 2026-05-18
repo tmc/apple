@@ -325,8 +325,6 @@ func NSTextFromID(id objc.ID) NSText {
 // See: https://developer.apple.com/documentation/AppKit/NSText
 type INSText interface {
 	INSView
-	NSChangeSpelling
-	NSIgnoreMisspelledWords
 
 	// Topic: Setting graphics attributes
 
@@ -377,9 +375,9 @@ type INSText interface {
 	// Topic: Replacing text
 
 	// Replaces the characters in the given range with RTF text interpreted from the given RTF data.
-	ReplaceCharactersInRangeWithRTF(range_ foundation.NSRange, rtfData foundation.INSData)
+	ReplaceCharactersInRangeWithRTF(range_ foundation.NSRange, rtfData foundation.NSData)
 	// Replaces the characters in the given range with RTFD text interpreted from the given RTFD data.
-	ReplaceCharactersInRangeWithRTFD(range_ foundation.NSRange, rtfdData foundation.INSData)
+	ReplaceCharactersInRangeWithRTFD(range_ foundation.NSRange, rtfdData foundation.NSData)
 	// Replaces the characters in the given range with those in the given string.
 	ReplaceCharactersInRangeWithString(range_ foundation.NSRange, string_ string)
 
@@ -459,9 +457,9 @@ type INSText interface {
 	// Writes the receiver’s text as RTF with attachments to a file or directory at `path`.
 	WriteRTFDToFileAtomically(path string, flag bool) bool
 	// Returns an NSData object that contains an RTFD stream corresponding to the characters and attributes within `aRange`.
-	RTFDFromRange(range_ foundation.NSRange) foundation.INSData
+	RTFDFromRange(range_ foundation.NSRange) foundation.NSData
 	// Returns an NSData object that contains an RTF stream corresponding to the characters and attributes within `aRange`, omitting any attachment characters and attributes.
-	RTFFromRange(range_ foundation.NSRange) foundation.INSData
+	RTFFromRange(range_ foundation.NSRange) foundation.NSData
 
 	// Topic: Checking spelling
 
@@ -564,7 +562,7 @@ func (t NSText) ToggleRuler(sender objectivec.IObject) {
 // See: https://developer.apple.com/documentation/AppKit/NSText/replaceCharacters(in:withRTF:)
 //
 // [NSMutableAttributedString]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString
-func (t NSText) ReplaceCharactersInRangeWithRTF(range_ foundation.NSRange, rtfData foundation.INSData) {
+func (t NSText) ReplaceCharactersInRangeWithRTF(range_ foundation.NSRange, rtfData foundation.NSData) {
 	objc.Send[objc.ID](t.ID, objc.Sel("replaceCharactersInRange:withRTF:"), range_, rtfData)
 }
 
@@ -592,7 +590,7 @@ func (t NSText) ReplaceCharactersInRangeWithRTF(range_ foundation.NSRange, rtfDa
 // See: https://developer.apple.com/documentation/AppKit/NSText/replaceCharacters(in:withRTFD:)
 //
 // [NSMutableAttributedString]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString
-func (t NSText) ReplaceCharactersInRangeWithRTFD(range_ foundation.NSRange, rtfdData foundation.INSData) {
+func (t NSText) ReplaceCharactersInRangeWithRTFD(range_ foundation.NSRange, rtfdData foundation.NSData) {
 	objc.Send[objc.ID](t.ID, objc.Sel("replaceCharactersInRange:withRTFD:"), range_, rtfdData)
 }
 
@@ -872,7 +870,7 @@ func (t NSText) WriteRTFDToFileAtomically(path string, flag bool) bool {
 // argument of [NSRTFDPboardType].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/rtfd(from:)
-func (t NSText) RTFDFromRange(range_ foundation.NSRange) foundation.INSData {
+func (t NSText) RTFDFromRange(range_ foundation.NSRange) foundation.NSData {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("RTFDFromRange:"), range_)
 	return foundation.NSDataFromID(rv)
 }
@@ -891,7 +889,7 @@ func (t NSText) RTFDFromRange(range_ foundation.NSRange) foundation.INSData {
 // argument of [NSRTFPboardType].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/rtf(from:)
-func (t NSText) RTFFromRange(range_ foundation.NSRange) foundation.INSData {
+func (t NSText) RTFFromRange(range_ foundation.NSRange) foundation.NSData {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("RTFFromRange:"), range_)
 	return foundation.NSDataFromID(rv)
 }

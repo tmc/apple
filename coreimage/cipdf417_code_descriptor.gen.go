@@ -100,12 +100,12 @@ type ICIPDF417CodeDescriptor interface {
 	// Topic: Creating a Descriptor
 
 	// Initializes an PDF417 code descriptor for the given payload and parameters.
-	InitWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload foundation.INSData, isCompact bool, rowCount int, columnCount int) CIPDF417CodeDescriptor
+	InitWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload foundation.NSData, isCompact bool, rowCount int, columnCount int) CIPDF417CodeDescriptor
 
 	// Topic: Examining a Descriptor
 
 	// The error-corrected payload containing the data encoded in the PDF417 code symbol.
-	ErrorCorrectedPayload() foundation.INSData
+	ErrorCorrectedPayload() foundation.NSData
 	// A boolean value telling if the PDF417 code is compact.
 	IsCompact() bool
 	// The number of rows in the PDF417 code symbol.
@@ -149,7 +149,7 @@ func NewCIPDF417CodeDescriptor() CIPDF417CodeDescriptor {
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417CodeDescriptor/init(payload:isCompact:rowCount:columnCount:)
-func NewPDF417CodeDescriptorWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload foundation.INSData, isCompact bool, rowCount int, columnCount int) CIPDF417CodeDescriptor {
+func NewPDF417CodeDescriptorWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload foundation.NSData, isCompact bool, rowCount int, columnCount int) CIPDF417CodeDescriptor {
 	instance := getCIPDF417CodeDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPayload:isCompact:rowCount:columnCount:"), errorCorrectedPayload, isCompact, rowCount, columnCount)
 	return CIPDF417CodeDescriptorFromID(rv)
@@ -171,7 +171,7 @@ func NewPDF417CodeDescriptorWithPayloadIsCompactRowCountColumnCount(errorCorrect
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417CodeDescriptor/init(payload:isCompact:rowCount:columnCount:)
-func (p CIPDF417CodeDescriptor) InitWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload foundation.INSData, isCompact bool, rowCount int, columnCount int) CIPDF417CodeDescriptor {
+func (p CIPDF417CodeDescriptor) InitWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload foundation.NSData, isCompact bool, rowCount int, columnCount int) CIPDF417CodeDescriptor {
 	rv := objc.Send[CIPDF417CodeDescriptor](p.ID, objc.Sel("initWithPayload:isCompact:rowCount:columnCount:"), errorCorrectedPayload, isCompact, rowCount, columnCount)
 	return rv
 }
@@ -192,7 +192,7 @@ func (p CIPDF417CodeDescriptor) InitWithPayloadIsCompactRowCountColumnCount(erro
 // parameters are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417CodeDescriptor/descriptorWithPayload:isCompact:rowCount:columnCount:
-func (_CIPDF417CodeDescriptorClass CIPDF417CodeDescriptorClass) DescriptorWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload foundation.INSData, isCompact bool, rowCount int, columnCount int) CIPDF417CodeDescriptor {
+func (_CIPDF417CodeDescriptorClass CIPDF417CodeDescriptorClass) DescriptorWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload foundation.NSData, isCompact bool, rowCount int, columnCount int) CIPDF417CodeDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_CIPDF417CodeDescriptorClass.class), objc.Sel("descriptorWithPayload:isCompact:rowCount:columnCount:"), errorCorrectedPayload, isCompact, rowCount, columnCount)
 	return CIPDF417CodeDescriptorFromID(rv)
 }
@@ -217,7 +217,7 @@ func (_CIPDF417CodeDescriptorClass CIPDF417CodeDescriptorClass) DescriptorWithPa
 // code symbology specification – ISO/IEC 15438:2006(E).
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417CodeDescriptor/errorCorrectedPayload-swift.property
-func (p CIPDF417CodeDescriptor) ErrorCorrectedPayload() foundation.INSData {
+func (p CIPDF417CodeDescriptor) ErrorCorrectedPayload() foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("errorCorrectedPayload"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

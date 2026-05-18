@@ -542,11 +542,8 @@ func NSTableViewFromID(id objc.ID) NSTableView {
 type INSTableView interface {
 	INSControl
 	NSAccessibilityGroup
-	NSAccessibilityTable
-	NSDraggingSource
 	NSTextDelegate
 	NSTextViewDelegate
-	NSUserInterfaceValidations
 
 	// Topic: Managing the Table’s Data
 
@@ -866,7 +863,6 @@ type INSTableView interface {
 
 	// A Boolean value that indicates whether the receiver reacts to mouse events.
 	IsEnabled() bool
-	SetIsEnabled(value bool)
 }
 
 // Init initializes the instance.
@@ -2734,7 +2730,7 @@ func (t NSTableView) TextViewShouldUpdateTouchBarItemIdentifiers(textView INSTex
 // implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:urlForContentsOf:at:)
-func (t NSTableView) TextViewURLForContentsOfTextAttachmentAtIndex(textView INSTextView, textAttachment INSTextAttachment, charIndex uint) foundation.INSURL {
+func (t NSTableView) TextViewURLForContentsOfTextAttachmentAtIndex(textView INSTextView, textAttachment INSTextAttachment, charIndex uint) foundation.NSURL {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:URLForContentsOfTextAttachment:atIndex:"), textView, textAttachment, charIndex)
 	return foundation.NSURLFromID(rv)
 }
@@ -4008,7 +4004,7 @@ func (t NSTableView) IsEnabled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("enabled"))
 	return rv
 }
-func (t NSTableView) SetIsEnabled(value bool) {
+func (t NSTableView) SetEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEnabled:"), value)
 }
 

@@ -189,6 +189,14 @@ func NewMTLAccelerationStructureMotionTriangleGeometryDescriptor() MTLAccelerati
 	return rv
 }
 
+// Creates a new triangle descriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionTriangleGeometryDescriptor/descriptor
+func (_MTLAccelerationStructureMotionTriangleGeometryDescriptorClass MTLAccelerationStructureMotionTriangleGeometryDescriptorClass) Descriptor() MTLAccelerationStructureMotionTriangleGeometryDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureMotionTriangleGeometryDescriptorClass.class), objc.Sel("descriptor"))
+	return MTLAccelerationStructureMotionTriangleGeometryDescriptorFromID(rv)
+}
+
 // The number of triangles in the buffers.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionTriangleGeometryDescriptor/triangleCount

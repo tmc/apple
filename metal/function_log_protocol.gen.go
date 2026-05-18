@@ -57,7 +57,7 @@ func MTLFunctionLogObjectFromID(id objc.ID) MTLFunctionLogObject {
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLog/type
 func (o MTLFunctionLogObject) Type() MTLFunctionLogType {
 	rv := objc.Send[MTLFunctionLogType](o.ID, objc.Sel("type"))
-	return rv
+	return MTLFunctionLogType(rv)
 }
 
 // If known, the location of the logging command within a shader source file.

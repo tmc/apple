@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_fuse_gelu_with_erf] class.
+// The class instance for the [EspressoPassFuseGeluWithErf] class.
 var (
-	_EspressoPass_fuse_gelu_with_erfClass     EspressoPass_fuse_gelu_with_erfClass
-	_EspressoPass_fuse_gelu_with_erfClassOnce sync.Once
+	_EspressoPassFuseGeluWithErfClass     EspressoPassFuseGeluWithErfClass
+	_EspressoPassFuseGeluWithErfClassOnce sync.Once
 )
 
-func getEspressoPass_fuse_gelu_with_erfClass() EspressoPass_fuse_gelu_with_erfClass {
-	_EspressoPass_fuse_gelu_with_erfClassOnce.Do(func() {
-		_EspressoPass_fuse_gelu_with_erfClass = EspressoPass_fuse_gelu_with_erfClass{class: objc.GetClass("EspressoPass_fuse_gelu_with_erf")}
+func getEspressoPassFuseGeluWithErfClass() EspressoPassFuseGeluWithErfClass {
+	_EspressoPassFuseGeluWithErfClassOnce.Do(func() {
+		_EspressoPassFuseGeluWithErfClass = EspressoPassFuseGeluWithErfClass{class: objc.GetClass("EspressoPass_fuse_gelu_with_erf")}
 	})
-	return _EspressoPass_fuse_gelu_with_erfClass
+	return _EspressoPassFuseGeluWithErfClass
 }
 
-// GetEspressoPass_fuse_gelu_with_erfClass returns the class object for EspressoPass_fuse_gelu_with_erf.
-func GetEspressoPass_fuse_gelu_with_erfClass() EspressoPass_fuse_gelu_with_erfClass {
-	return getEspressoPass_fuse_gelu_with_erfClass()
+// GetEspressoPassFuseGeluWithErfClass returns the class object for EspressoPass_fuse_gelu_with_erf.
+func GetEspressoPassFuseGeluWithErfClass() EspressoPassFuseGeluWithErfClass {
+	return getEspressoPassFuseGeluWithErfClass()
 }
 
-type EspressoPass_fuse_gelu_with_erfClass struct {
+type EspressoPassFuseGeluWithErfClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_fuse_gelu_with_erfClass) Class() objc.Class {
+func (ec EspressoPassFuseGeluWithErfClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_fuse_gelu_with_erfClass) Alloc() EspressoPass_fuse_gelu_with_erf {
-	rv := objc.Send[EspressoPass_fuse_gelu_with_erf](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFuseGeluWithErfClass) Alloc() EspressoPassFuseGeluWithErf {
+	rv := objc.Send[EspressoPassFuseGeluWithErf](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gelu_with_erf
-type EspressoPass_fuse_gelu_with_erf struct {
+type EspressoPassFuseGeluWithErf struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_fuse_gelu_with_erfFromID constructs a [EspressoPass_fuse_gelu_with_erf] from an objc.ID.
-func EspressoPass_fuse_gelu_with_erfFromID(id objc.ID) EspressoPass_fuse_gelu_with_erf {
-	return EspressoPass_fuse_gelu_with_erf{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFuseGeluWithErfFromID constructs a [EspressoPassFuseGeluWithErf] from an objc.ID.
+func EspressoPassFuseGeluWithErfFromID(id objc.ID) EspressoPassFuseGeluWithErf {
+	return EspressoPassFuseGeluWithErf{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_fuse_gelu_with_erf implements IEspressoPass_fuse_gelu_with_erf.
-var _ IEspressoPass_fuse_gelu_with_erf = EspressoPass_fuse_gelu_with_erf{}
+// EspressoPass_fuse_gelu_with_erfFromID is an alias for [EspressoPassFuseGeluWithErfFromID] for cross-framework compatibility.
+func EspressoPass_fuse_gelu_with_erfFromID(id objc.ID) EspressoPassFuseGeluWithErf {
+	return EspressoPassFuseGeluWithErfFromID(id)
+}
 
-// An interface definition for the [EspressoPass_fuse_gelu_with_erf] class.
+// Ensure EspressoPassFuseGeluWithErf implements IEspressoPassFuseGeluWithErf.
+var _ IEspressoPassFuseGeluWithErf = EspressoPassFuseGeluWithErf{}
+
+// An interface definition for the [EspressoPassFuseGeluWithErf] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gelu_with_erf
-type IEspressoPass_fuse_gelu_with_erf interface {
+type IEspressoPassFuseGeluWithErf interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_fuse_gelu_with_erf) Init() EspressoPass_fuse_gelu_with_erf {
-	rv := objc.Send[EspressoPass_fuse_gelu_with_erf](e.ID, objc.Sel("init"))
+func (e EspressoPassFuseGeluWithErf) Init() EspressoPassFuseGeluWithErf {
+	rv := objc.Send[EspressoPassFuseGeluWithErf](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_fuse_gelu_with_erf) Autorelease() EspressoPass_fuse_gelu_with_erf {
-	rv := objc.Send[EspressoPass_fuse_gelu_with_erf](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFuseGeluWithErf) Autorelease() EspressoPassFuseGeluWithErf {
+	rv := objc.Send[EspressoPassFuseGeluWithErf](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_fuse_gelu_with_erf creates a new EspressoPass_fuse_gelu_with_erf instance.
-func NewEspressoPass_fuse_gelu_with_erf() EspressoPass_fuse_gelu_with_erf {
-	class := getEspressoPass_fuse_gelu_with_erfClass()
-	rv := objc.Send[EspressoPass_fuse_gelu_with_erf](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFuseGeluWithErf creates a new EspressoPassFuseGeluWithErf instance.
+func NewEspressoPassFuseGeluWithErf() EspressoPassFuseGeluWithErf {
+	class := getEspressoPassFuseGeluWithErfClass()
+	rv := objc.Send[EspressoPassFuseGeluWithErf](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -90,18 +90,18 @@ type INSItemBadge interface {
 
 	// A Boolean value that indicates whether the toolbar item has a bordered style.
 	IsBordered() bool
-	SetIsBordered(value bool)
+	SetBordered(value bool)
 	// A Boolean value that indicates whether the item is enabled.
 	IsEnabled() bool
-	SetIsEnabled(value bool)
+	SetEnabled(value bool)
 	IsHidden() bool
-	SetIsHidden(value bool)
+	SetHidden(value bool)
 	// A Boolean value that indicates whether the item behaves as a navigation item in the toolbar.
 	IsNavigational() bool
-	SetIsNavigational(value bool)
+	SetNavigational(value bool)
 	// A Boolean value that indicates whether the item is currently visible in the toolbar, and not in the overflow menu.
 	IsVisible() bool
-	SetIsVisible(value bool)
+	SetVisible(value bool)
 	// Defines the toolbar item’s appearance. The default style is plain.
 	Style() NSToolbarItemStyle
 	SetStyle(value NSToolbarItemStyle)
@@ -189,7 +189,7 @@ func (i NSItemBadge) IsBordered() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("bordered"))
 	return rv
 }
-func (i NSItemBadge) SetIsBordered(value bool) {
+func (i NSItemBadge) SetBordered(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setBordered:"), value)
 }
 
@@ -200,7 +200,7 @@ func (i NSItemBadge) IsEnabled() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("enabled"))
 	return rv
 }
-func (i NSItemBadge) SetIsEnabled(value bool) {
+func (i NSItemBadge) SetEnabled(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setEnabled:"), value)
 }
 
@@ -209,7 +209,7 @@ func (i NSItemBadge) IsHidden() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("hidden"))
 	return rv
 }
-func (i NSItemBadge) SetIsHidden(value bool) {
+func (i NSItemBadge) SetHidden(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setHidden:"), value)
 }
 
@@ -221,7 +221,7 @@ func (i NSItemBadge) IsNavigational() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("navigational"))
 	return rv
 }
-func (i NSItemBadge) SetIsNavigational(value bool) {
+func (i NSItemBadge) SetNavigational(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setNavigational:"), value)
 }
 
@@ -233,7 +233,7 @@ func (i NSItemBadge) IsVisible() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("visible"))
 	return rv
 }
-func (i NSItemBadge) SetIsVisible(value bool) {
+func (i NSItemBadge) SetVisible(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setVisible:"), value)
 }
 

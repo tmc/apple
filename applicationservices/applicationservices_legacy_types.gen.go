@@ -4,8 +4,6 @@ package applicationservices
 
 import (
 	"unsafe"
-
-	"github.com/tmc/apple/objectivec"
 )
 
 // Point is the QuickDraw point type used by legacy Carbon APIs.
@@ -45,7 +43,7 @@ type SpeechTextDoneUPP = unsafe.Pointer
 type SpeechDoneProcPtr = func(*SpeechChannelRecord, uintptr)
 type SpeechPhonemeProcPtr = func(*SpeechChannelRecord, uintptr, int16)
 type SpeechErrorProcPtr = func(*SpeechChannelRecord, uintptr, int16, int)
-type SpeechTextDoneProcPtr = func(*SpeechChannelRecord, uintptr, objectivec.IObject, objectivec.IObject, objectivec.IObject)
+type SpeechTextDoneProcPtr = func(*SpeechChannelRecord, uintptr, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)
 type SpeechSyncProcPtr = func(*SpeechChannelRecord, uintptr, uint32)
 
 type LaunchPBPtr = unsafe.Pointer

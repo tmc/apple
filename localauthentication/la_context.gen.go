@@ -181,7 +181,7 @@ type ILAContext interface {
 	// Evaluates the specified policy.
 	EvaluatePolicyLocalizedReasonReply(policy LAPolicy, localizedReason string, reply BoolErrorHandler)
 	// The current state of the evaluated policy domain.
-	EvaluatedPolicyDomainState() foundation.INSData
+	EvaluatedPolicyDomainState() foundation.NSData
 
 	// Topic: Evaluating access controls
 
@@ -214,7 +214,7 @@ type ILAContext interface {
 	// Topic: Managing credentials
 
 	// Sets an application-provided credential to be used when evaluating authentication.
-	SetCredentialType(credential foundation.INSData, type_ LACredentialType) bool
+	SetCredentialType(credential foundation.NSData, type_ LACredentialType) bool
 	// Returns a Boolean value indicating whether the specified credential type is set.
 	IsCredentialSet(type_ LACredentialType) bool
 
@@ -401,7 +401,7 @@ func (c LAContext) EvaluateAccessControlOperationLocalizedReasonReply(accessCont
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAContext/setCredential(_:type:)
 //
 // [LACredentialType]: https://developer.apple.com/documentation/LocalAuthentication/LACredentialType
-func (c LAContext) SetCredentialType(credential foundation.INSData, type_ LACredentialType) bool {
+func (c LAContext) SetCredentialType(credential foundation.NSData, type_ LACredentialType) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("setCredential:type:"), credential, type_)
 	return rv
 }
@@ -471,7 +471,7 @@ func (c LAContext) BiometryType() LABiometryType {
 // change happens.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAContext/evaluatedPolicyDomainState
-func (c LAContext) EvaluatedPolicyDomainState() foundation.INSData {
+func (c LAContext) EvaluatedPolicyDomainState() foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("evaluatedPolicyDomainState"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

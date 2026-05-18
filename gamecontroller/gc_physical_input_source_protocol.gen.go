@@ -81,8 +81,13 @@ func (o GCPhysicalInputSourceObject) ElementAliases() foundation.INSSet {
 
 // The directional input, if any, that a physical input source involves.
 //
+// # Discussion
+//
+// If this property is `nil`, the physical input source doesn’t involve
+// directional input.
+//
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputSource/direction
 func (o GCPhysicalInputSourceObject) Direction() GCPhysicalInputSourceDirection {
 	rv := objc.Send[GCPhysicalInputSourceDirection](o.ID, objc.Sel("direction"))
-	return rv
+	return GCPhysicalInputSourceDirection(rv)
 }

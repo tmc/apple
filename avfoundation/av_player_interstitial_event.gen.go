@@ -209,7 +209,7 @@ type IAVPlayerInterstitialEvent interface {
 	// A time within the timeline of the primary content that playback of interstitial content begins.
 	Time() coremedia.CMTime
 	// A date within the date range of the primary content that playback of interstitial content begins.
-	Date() foundation.INSDate
+	Date() foundation.NSDate
 	// A Boolean value that indicates whether to schedule this event one time only and suppress subsequent replay.
 	WillPlayOnce() bool
 	// A time offset at which playback of primary content resumes after interstitial content finishes.
@@ -291,7 +291,7 @@ func NewAVPlayerInterstitialEvent() AVPlayerInterstitialEvent {
 // suspend playback of primary content, and play interstitial content instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/init(primaryItem:date:)
-func NewPlayerInterstitialEventWithPrimaryItemDate(primaryItem IAVPlayerItem, date foundation.INSDate) AVPlayerInterstitialEvent {
+func NewPlayerInterstitialEventWithPrimaryItemDate(primaryItem IAVPlayerItem, date foundation.NSDate) AVPlayerInterstitialEvent {
 	rv := objc.Send[objc.ID](objc.ID(getAVPlayerInterstitialEventClass().class), objc.Sel("interstitialEventWithPrimaryItem:date:"), primaryItem, date)
 	return AVPlayerInterstitialEventFromID(rv)
 }
@@ -394,7 +394,7 @@ func (p AVPlayerInterstitialEvent) Time() coremedia.CMTime {
 // instead of a date.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/date
-func (p AVPlayerInterstitialEvent) Date() foundation.INSDate {
+func (p AVPlayerInterstitialEvent) Date() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("date"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

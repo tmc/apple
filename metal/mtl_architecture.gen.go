@@ -84,13 +84,13 @@ type IMTLArchitecture interface {
 	SetArchitecture(value IMTLArchitecture)
 	// A Boolean value that indicates whether a GPU device doesn’t have a connection to a display.
 	IsHeadless() bool
-	SetIsHeadless(value bool)
+	SetHeadless(value bool)
 	// A Boolean value that indicates whether the GPU lowers its performance to conserve energy.
 	IsLowPower() bool
-	SetIsLowPower(value bool)
+	SetLowPower(value bool)
 	// A Boolean value that indicates whether the GPU is removable.
 	IsRemovable() bool
-	SetIsRemovable(value bool)
+	SetRemovable(value bool)
 	// The physical location of the GPU relative to the system.
 	Location() MTLDeviceLocation
 	SetLocation(value MTLDeviceLocation)
@@ -171,7 +171,7 @@ func (a MTLArchitecture) IsHeadless() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("headless"))
 	return rv
 }
-func (a MTLArchitecture) SetIsHeadless(value bool) {
+func (a MTLArchitecture) SetHeadless(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHeadless:"), value)
 }
 
@@ -183,7 +183,7 @@ func (a MTLArchitecture) IsLowPower() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("lowPower"))
 	return rv
 }
-func (a MTLArchitecture) SetIsLowPower(value bool) {
+func (a MTLArchitecture) SetLowPower(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLowPower:"), value)
 }
 
@@ -194,7 +194,7 @@ func (a MTLArchitecture) IsRemovable() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("removable"))
 	return rv
 }
-func (a MTLArchitecture) SetIsRemovable(value bool) {
+func (a MTLArchitecture) SetRemovable(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRemovable:"), value)
 }
 

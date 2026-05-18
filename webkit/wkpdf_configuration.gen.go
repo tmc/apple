@@ -54,6 +54,11 @@ func (wc WKPDFConfigurationClass) Alloc() WKPDFConfiguration {
 // configuration object to the [createPDF(configuration:completionHandler:)]
 // method of [WKWebView], which returns the PDF data for you to use.
 //
+// # Specifying the snapshot dimensions
+//
+//   - [WKPDFConfiguration.Rect]: The portion of your web view to capture, specified as a rectangle in the view’s coordinate system.
+//   - [WKPDFConfiguration.SetRect]
+//
 // # Specifying snapshot properties
 //
 //   - [WKPDFConfiguration.AllowTransparentBackground]: A Boolean value that indicates whether the PDF may have a transparent background.
@@ -79,6 +84,11 @@ func WKPDFConfigurationFromID(id objc.ID) WKPDFConfiguration {
 
 // An interface definition for the [WKPDFConfiguration] class.
 //
+// # Specifying the snapshot dimensions
+//
+//   - [IWKPDFConfiguration.Rect]: The portion of your web view to capture, specified as a rectangle in the view’s coordinate system.
+//   - [IWKPDFConfiguration.SetRect]
+//
 // # Specifying snapshot properties
 //
 //   - [IWKPDFConfiguration.AllowTransparentBackground]: A Boolean value that indicates whether the PDF may have a transparent background.
@@ -88,15 +98,17 @@ func WKPDFConfigurationFromID(id objc.ID) WKPDFConfiguration {
 type IWKPDFConfiguration interface {
 	objectivec.IObject
 
+	// Topic: Specifying the snapshot dimensions
+
+	// The portion of your web view to capture, specified as a rectangle in the view’s coordinate system.
+	Rect() corefoundation.CGRect
+	SetRect(value corefoundation.CGRect)
+
 	// Topic: Specifying snapshot properties
 
 	// A Boolean value that indicates whether the PDF may have a transparent background.
 	AllowTransparentBackground() bool
 	SetAllowTransparentBackground(value bool)
-
-	// The portion of your web view to capture, specified as a rectangle in the view’s coordinate system.
-	Rect() corefoundation.CGRect
-	SetRect(value corefoundation.CGRect)
 }
 
 // Init initializes the instance.
@@ -118,18 +130,6 @@ func NewWKPDFConfiguration() WKPDFConfiguration {
 	return rv
 }
 
-// A Boolean value that indicates whether the PDF may have a transparent
-// background.
-//
-// See: https://developer.apple.com/documentation/WebKit/WKPDFConfiguration/allowTransparentBackground
-func (p WKPDFConfiguration) AllowTransparentBackground() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("allowTransparentBackground"))
-	return rv
-}
-func (p WKPDFConfiguration) SetAllowTransparentBackground(value bool) {
-	objc.Send[struct{}](p.ID, objc.Sel("setAllowTransparentBackground:"), value)
-}
-
 // The portion of your web view to capture, specified as a rectangle in the
 // view’s coordinate system.
 //
@@ -149,4 +149,16 @@ func (p WKPDFConfiguration) Rect() corefoundation.CGRect {
 }
 func (p WKPDFConfiguration) SetRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRect:"), value)
+}
+
+// A Boolean value that indicates whether the PDF may have a transparent
+// background.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKPDFConfiguration/allowTransparentBackground
+func (p WKPDFConfiguration) AllowTransparentBackground() bool {
+	rv := objc.Send[bool](p.ID, objc.Sel("allowTransparentBackground"))
+	return rv
+}
+func (p WKPDFConfiguration) SetAllowTransparentBackground(value bool) {
+	objc.Send[struct{}](p.ID, objc.Sel("setAllowTransparentBackground:"), value)
 }

@@ -92,7 +92,6 @@ func NSPurgeableDataFromID(id objc.ID) NSPurgeableData {
 // See: https://developer.apple.com/documentation/Foundation/NSPurgeableData
 type INSPurgeableData interface {
 	INSMutableData
-	NSDiscardableContent
 }
 
 // Init initializes the instance.

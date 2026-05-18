@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -84,7 +83,7 @@ type ICPXModernEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64
+	ProcessEventContextDispatcher(event SLSEventRecordRef, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -116,7 +115,7 @@ func (c CPXModernEventProcessor) ClearEventState() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXModernEventProcessor/processEvent:context:dispatcher:
-func (c CPXModernEventProcessor) ProcessEventContextDispatcher(event SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (c CPXModernEventProcessor) ProcessEventContextDispatcher(event SLSEventRecordRef, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }

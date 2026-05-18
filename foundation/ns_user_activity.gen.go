@@ -372,8 +372,6 @@ func NSUserActivityFromID(id objc.ID) NSUserActivity {
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity
 type INSUserActivity interface {
 	objectivec.IObject
-	NSItemProviderReading
-	NSItemProviderWriting
 
 	// Topic: Creating a user activity object
 
@@ -402,8 +400,8 @@ type INSUserActivity interface {
 	NeedsSave() bool
 	SetNeedsSave(value bool)
 	// A set of properties that describe the activity.
-	ContentAttributeSet() unsafe.Pointer
-	SetContentAttributeSet(value unsafe.Pointer)
+	ContentAttributeSet() objectivec.IObject
+	SetContentAttributeSet(value objectivec.IObject)
 	// A set of localized keywords that can help users find the activity in search results.
 	Keywords() INSSet
 	SetKeywords(value INSSet)
@@ -467,7 +465,7 @@ type INSUserActivity interface {
 	// Topic: Continuing Siri interactions
 
 	// The SiriKit interaction object to use when configuring your app.
-	Interaction() unsafe.Pointer
+	Interaction() objectivec.IObject
 
 	// Topic: Processing barcodes
 
@@ -522,11 +520,11 @@ type INSUserActivity interface {
 	SetAppEntityIdentifier(value string)
 
 	// An object or value that specifies items to share.
-	ActivityItemsConfiguration() objectivec.IObject
-	SetActivityItemsConfiguration(value objectivec.IObject)
+	ActivityItemsConfiguration() unsafe.Pointer
+	SetActivityItemsConfiguration(value unsafe.Pointer)
 	// An object that can provide shareable items for a scene.
-	ActivityItemsConfigurationSource() objectivec.IObject
-	SetActivityItemsConfigurationSource(value objectivec.IObject)
+	ActivityItemsConfigurationSource() unsafe.Pointer
+	SetActivityItemsConfigurationSource(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -725,6 +723,15 @@ func (u NSUserActivity) LoadDataWithTypeIdentifierForItemProviderCompletionHandl
 	return NSProgressFromID(rv)
 }
 
+// An array of UTI strings representing the types of data that can be loaded
+// for an item provider.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
+func (u NSUserActivity) WritableTypeIdentifiersForItemProvider() []string {
+	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
+	return objc.ConvertSliceToStrings(rv)
+}
+
 // Deletes all user activities created by your app.
 //
 // handler: The block that the system invokes after deleting the user activities. Wait
@@ -911,11 +918,11 @@ func (u NSUserActivity) SetNeedsSave(value bool) {
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/contentAttributeSet
 //
 // [CSSearchableItemAttributeSet]: https://developer.apple.com/documentation/CoreSpotlight/CSSearchableItemAttributeSet
-func (u NSUserActivity) ContentAttributeSet() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("contentAttributeSet"))
-	return rv
+func (u NSUserActivity) ContentAttributeSet() objectivec.IObject {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("contentAttributeSet"))
+	return objectivec.Object{ID: rv}
 }
-func (u NSUserActivity) SetContentAttributeSet(value unsafe.Pointer) {
+func (u NSUserActivity) SetContentAttributeSet(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setContentAttributeSet:"), value)
 }
 
@@ -1147,9 +1154,9 @@ func (u NSUserActivity) SetSuggestedInvocationPhrase(value string) {
 // a Siri interaction, the value in this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/interaction
-func (u NSUserActivity) Interaction() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("interaction"))
-	return rv
+func (u NSUserActivity) Interaction() objectivec.IObject {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("interaction"))
+	return objectivec.Object{ID: rv}
 }
 
 // The barcode that the system scanner passes in.
@@ -1328,45 +1335,23 @@ func (u NSUserActivity) SetAppEntityIdentifier(value string) {
 // An object or value that specifies items to share.
 //
 // See: https://developer.apple.com/documentation/UIKit/UIActivityItemsConfigurationProviding/activityItemsConfiguration
-func (u NSUserActivity) ActivityItemsConfiguration() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("activityItemsConfiguration"))
-	return objectivec.Object{ID: rv}
+func (u NSUserActivity) ActivityItemsConfiguration() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("activityItemsConfiguration"))
+	return rv
 }
-func (u NSUserActivity) SetActivityItemsConfiguration(value objectivec.IObject) {
+func (u NSUserActivity) SetActivityItemsConfiguration(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setActivityItemsConfiguration:"), value)
 }
 
 // An object that can provide shareable items for a scene.
 //
 // See: https://developer.apple.com/documentation/UIKit/UIWindowScene/activityItemsConfigurationSource
-func (u NSUserActivity) ActivityItemsConfigurationSource() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("activityItemsConfigurationSource"))
-	return objectivec.Object{ID: rv}
+func (u NSUserActivity) ActivityItemsConfigurationSource() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("activityItemsConfigurationSource"))
+	return rv
 }
-func (u NSUserActivity) SetActivityItemsConfigurationSource(value objectivec.IObject) {
+func (u NSUserActivity) SetActivityItemsConfigurationSource(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setActivityItemsConfigurationSource:"), value)
-}
-
-// An array of UTI strings representing the types of data that can be loaded
-// for an item provider.
-//
-// # Discussion
-//
-// Provide uniform type identifiers (UTIs) in order from highest fidelity to
-// lowest. If your app employs a native data representation, place that first
-// in the array.
-//
-// Use the instance version of this property when you initialize an item
-// provider with an object. As possible, implement this property to provide an
-// extended array of UTIs based on the object. For example, for an [NSURL]
-// object, your implementation could offer the `public.File()-url` UTI, in
-// addition to the `public.Url()` UTI, if your implementation detects that the
-// stored URL uses the `//` scheme.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
-func (u NSUserActivity) WritableTypeIdentifiersForItemProvider() []string {
-	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
-	return objc.ConvertSliceToStrings(rv)
 }
 
 // Protocol methods for NSItemProviderReading

@@ -107,8 +107,8 @@ type INSPDFInfo interface {
 	// Topic: Specifying PDF Information
 
 	// The URL identifying the location at which the PDF file will be created.
-	URL() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	URL() foundation.NSURL
+	SetURL(value foundation.NSURL)
 	// A Boolean value that indicates whether the file extension should appear after the filename.
 	FileExtensionHidden() bool
 	SetFileExtensionHidden(value bool)
@@ -153,11 +153,11 @@ func (p NSPDFInfo) EncodeWithCoder(coder foundation.INSCoder) {
 // The URL identifying the location at which the PDF file will be created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/url
-func (p NSPDFInfo) URL() foundation.INSURL {
+func (p NSPDFInfo) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (p NSPDFInfo) SetURL(value foundation.INSURL) {
+func (p NSPDFInfo) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
 

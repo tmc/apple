@@ -22,11 +22,6 @@ type MTLComputeCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setComputePipelineState(_:)
 	SetComputePipelineState(state MTLComputePipelineState)
 
-	// The dispatch type to use when submitting compute work to the GPU.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchType
-	DispatchType() MTLDispatchType
-
 	// Binds a buffer to the buffer argument table, allowing compute kernels to access its data on the GPU.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBuffer(_:offset:index:)
@@ -152,6 +147,16 @@ type MTLComputeCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/sampleCounters(sampleBuffer:sampleIndex:barrier:)
 	SampleCountersInBufferAtSampleIndexWithBarrier(sampleBuffer MTLCounterSampleBuffer, sampleIndex uint, barrier bool)
 
+	// Encodes an instruction to run commands from an indirect buffer, using another buffer to provide the command range.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:
+	ExecuteCommandsInBufferIndirectBufferIndirectBufferOffset(indirectCommandbuffer MTLIndirectCommandBuffer, indirectRangeBuffer MTLBuffer, indirectBufferOffset uint)
+
+	// Encodes an instruction to run commands from an indirect buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/executeCommandsInBuffer:withRange:
+	ExecuteCommandsInBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, executionRange foundation.NSRange)
+
 	// Creates a memory barrier that enforces the order of write and read operations for specific resources.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/memoryBarrierWithResources:count:
@@ -201,6 +206,11 @@ type MTLComputeCommandEncoder interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResources:count:usage:
 	UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage)
+
+	// The dispatch type to use when submitting compute work to the GPU.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchType
+	DispatchType() MTLDispatchType
 }
 
 // MTLComputeCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLComputeCommandEncoder protocol.
@@ -238,14 +248,6 @@ func MTLComputeCommandEncoderObjectFromID(id objc.ID) MTLComputeCommandEncoderOb
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setComputePipelineState(_:)
 func (o MTLComputeCommandEncoderObject) SetComputePipelineState(state MTLComputePipelineState) {
 	objc.Send[struct{}](o.ID, objc.Sel("setComputePipelineState:"), state)
-}
-
-// The dispatch type to use when submitting compute work to the GPU.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchType
-func (o MTLComputeCommandEncoderObject) DispatchType() MTLDispatchType {
-	rv := objc.Send[MTLDispatchType](o.ID, objc.Sel("dispatchType"))
-	return rv
 }
 
 // Binds a buffer to the buffer argument table, allowing compute kernels to
@@ -893,6 +895,37 @@ func (o MTLComputeCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithB
 	objc.Send[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), sampleBuffer, sampleIndex, barrier)
 }
 
+// Encodes an instruction to run commands from an indirect buffer, using
+// another buffer to provide the command range.
+//
+// indirectCommandbuffer: The [MTLIndirectCommandBuffer] instance containing the commands to execute.
+//
+// indirectRangeBuffer: An indirect buffer containing the execution range, laid out in an
+// [MTLIndirectCommandBufferExecutionRange] instance. The maximum length of
+// the range is `16384` commands.
+//
+// indirectBufferOffset: The number of bytes from the start of `indirectRangeBuffer` containing the
+// execution range to use. Align the offset on a multiple of `4`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:
+//
+// [MTLIndirectCommandBufferExecutionRange]: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferExecutionRange
+func (o MTLComputeCommandEncoderObject) ExecuteCommandsInBufferIndirectBufferIndirectBufferOffset(indirectCommandbuffer MTLIndirectCommandBuffer, indirectRangeBuffer MTLBuffer, indirectBufferOffset uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:"), indirectCommandbuffer, indirectRangeBuffer, indirectBufferOffset)
+}
+
+// Encodes an instruction to run commands from an indirect buffer.
+//
+// indirectCommandBuffer: The [MTLIndirectCommandBuffer] instance containing the commands to execute.
+//
+// executionRange: The range of commands to execute. The maximum length of the range is
+// `16384` commands.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/executeCommandsInBuffer:withRange:
+func (o MTLComputeCommandEncoderObject) ExecuteCommandsInBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, executionRange foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:withRange:"), indirectCommandBuffer, executionRange)
+}
+
 // Creates a memory barrier that enforces the order of write and read
 // operations for specific resources.
 //
@@ -1265,6 +1298,21 @@ func (o MTLComputeCommandEncoderObject) Label() string {
 // [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
 func (o MTLComputeCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages) {
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
+}
+
+// The dispatch type to use when submitting compute work to the GPU.
+//
+// # Discussion
+//
+// You set this property when you create the command encoder, and it doesn’t
+// change for the remainder of the encoding.
+//
+// See [ComputeCommandEncoderWithDispatchType] for more information.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchType
+func (o MTLComputeCommandEncoderObject) DispatchType() MTLDispatchType {
+	rv := objc.Send[MTLDispatchType](o.ID, objc.Sel("dispatchType"))
+	return MTLDispatchType(rv)
 }
 
 // A string that labels the command encoder.

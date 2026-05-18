@@ -115,14 +115,14 @@ type IMLSoftmaxNDBrick interface {
 }
 
 // Init initializes the instance.
-func (s MLSoftmaxNDBrick) Init() MLSoftmaxNDBrick {
-	rv := objc.Send[MLSoftmaxNDBrick](s.ID, objc.Sel("init"))
+func (m MLSoftmaxNDBrick) Init() MLSoftmaxNDBrick {
+	rv := objc.Send[MLSoftmaxNDBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSoftmaxNDBrick) Autorelease() MLSoftmaxNDBrick {
-	rv := objc.Send[MLSoftmaxNDBrick](s.ID, objc.Sel("autorelease"))
+func (m MLSoftmaxNDBrick) Autorelease() MLSoftmaxNDBrick {
+	rv := objc.Send[MLSoftmaxNDBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -141,84 +141,84 @@ func NewSoftmaxNDBrickWithParameters(parameters objectivec.IObject) MLSoftmaxNDB
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/computeOnCPUWithInputTensors:outputTensors:
-func (s MLSoftmaxNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLSoftmaxNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/hasGPUSupport
-func (s MLSoftmaxNDBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hasGPUSupport"))
+func (m MLSoftmaxNDBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/setupForInputShapes:withParameters:
-func (s MLSoftmaxNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLSoftmaxNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/initWithParameters:
-func (s MLSoftmaxNDBrick) InitWithParameters(parameters objectivec.IObject) MLSoftmaxNDBrick {
-	rv := objc.Send[MLSoftmaxNDBrick](s.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLSoftmaxNDBrick) InitWithParameters(parameters objectivec.IObject) MLSoftmaxNDBrick {
+	rv := objc.Send[MLSoftmaxNDBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/axis
-func (s MLSoftmaxNDBrick) Axis() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("axis"))
+func (m MLSoftmaxNDBrick) Axis() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/debugDescription
-func (s MLSoftmaxNDBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (m MLSoftmaxNDBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/description
-func (s MLSoftmaxNDBrick) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (m MLSoftmaxNDBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/hash
-func (s MLSoftmaxNDBrick) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (m MLSoftmaxNDBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/inputRanks
-func (s MLSoftmaxNDBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputRanks"))
+func (m MLSoftmaxNDBrick) InputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/inputShapes
-func (s MLSoftmaxNDBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputShapes"))
+func (m MLSoftmaxNDBrick) InputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/outputRanks
-func (s MLSoftmaxNDBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputRanks"))
+func (m MLSoftmaxNDBrick) OutputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/outputShapes
-func (s MLSoftmaxNDBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputShapes"))
+func (m MLSoftmaxNDBrick) OutputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/shapeInfoNeeded
-func (s MLSoftmaxNDBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("shapeInfoNeeded"))
+func (m MLSoftmaxNDBrick) ShapeInfoNeeded() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSoftmaxNDBrick/superclass
-func (s MLSoftmaxNDBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (m MLSoftmaxNDBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

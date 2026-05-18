@@ -172,6 +172,22 @@ func (m FSMetadataRange) InitWithOffsetSegmentLengthSegmentCount(startOffset int
 	return rv
 }
 
+// Creates a metadata range with the given properties.
+//
+// startOffset: The start offset of the range in bytes. Ensure this value is a multiple of
+// the corresponding resource’s [BlockSize].
+//
+// segmentLength: The segment length in bytes. Ensure this value is a multiple of the
+// corresponding resource’s [BlockSize].
+//
+// segmentCount: The number of segments in the range.
+//
+// See: https://developer.apple.com/documentation/FSKit/FSMetadataRange/rangeWithOffset:segmentLength:segmentCount:
+func (_FSMetadataRangeClass FSMetadataRangeClass) RangeWithOffsetSegmentLengthSegmentCount(startOffset int64, segmentLength uint64, segmentCount uint64) FSMetadataRange {
+	rv := objc.Send[objc.ID](objc.ID(_FSMetadataRangeClass.class), objc.Sel("rangeWithOffset:segmentLength:segmentCount:"), startOffset, segmentLength, segmentCount)
+	return FSMetadataRangeFromID(rv)
+}
+
 // The start offset of the range in bytes.
 //
 // # Discussion

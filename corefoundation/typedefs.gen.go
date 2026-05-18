@@ -590,33 +590,25 @@ type REFIID = CFUUIDBytes
 type ULONG = uint32
 
 // CFAttributedString is a bare alias for CFAttributedStringRef.
-
 type CFAttributedString = CFAttributedStringRef
 
 // CFBundle is a bare alias for CFBundleRef.
-
 type CFBundle = CFBundleRef
 
 // CFCharacterSet is a bare alias for CFCharacterSetRef.
-
 type CFCharacterSet = CFCharacterSetRef
 
 // CFLocale is a bare alias for CFLocaleRef.
-
 type CFLocale = CFLocaleRef
 
 // CFMachPort is a bare alias for CFMachPortRef.
-
 type CFMachPort = CFMachPortRef
 
 // CFMutableDictionary is a bare alias for CFMutableDictionaryRef.
-
 type CFMutableDictionary = CFMutableDictionaryRef
 
 // CFSet is a bare alias for CFSetRef.
-
 type CFSet = CFSetRef
 
 // CFUUID is a bare alias for CFUUIDRef.
-
 type CFUUID = CFUUIDRef

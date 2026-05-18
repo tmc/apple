@@ -91,14 +91,14 @@ type IVZSpiceAgent interface {
 }
 
 // Init initializes the instance.
-func (s VZSpiceAgent) Init() VZSpiceAgent {
-	rv := objc.Send[VZSpiceAgent](s.ID, objc.Sel("init"))
+func (v VZSpiceAgent) Init() VZSpiceAgent {
+	rv := objc.Send[VZSpiceAgent](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s VZSpiceAgent) Autorelease() VZSpiceAgent {
-	rv := objc.Send[VZSpiceAgent](s.ID, objc.Sel("autorelease"))
+func (v VZSpiceAgent) Autorelease() VZSpiceAgent {
+	rv := objc.Send[VZSpiceAgent](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,35 +110,35 @@ func NewVZSpiceAgent() VZSpiceAgent {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/consoleDevice:didClosePort:
-func (s VZSpiceAgent) ConsoleDeviceDidClosePort(device objectivec.IObject, port objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("consoleDevice:didClosePort:"), device, port)
+func (v VZSpiceAgent) ConsoleDeviceDidClosePort(device objectivec.IObject, port objectivec.IObject) {
+	objc.Send[objc.ID](v.ID, objc.Sel("consoleDevice:didClosePort:"), device, port)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/consoleDevice:didOpenPort:
-func (s VZSpiceAgent) ConsoleDeviceDidOpenPort(device objectivec.IObject, port objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("consoleDevice:didOpenPort:"), device, port)
+func (v VZSpiceAgent) ConsoleDeviceDidOpenPort(device objectivec.IObject, port objectivec.IObject) {
+	objc.Send[objc.ID](v.ID, objc.Sel("consoleDevice:didOpenPort:"), device, port)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/debugDescription
-func (s VZSpiceAgent) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (v VZSpiceAgent) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/description
-func (s VZSpiceAgent) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (v VZSpiceAgent) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/hash
-func (s VZSpiceAgent) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (v VZSpiceAgent) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgent/superclass
-func (s VZSpiceAgent) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (v VZSpiceAgent) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

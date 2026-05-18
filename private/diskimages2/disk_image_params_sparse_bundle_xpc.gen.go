@@ -9,95 +9,100 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [DiskImageParamsSparseBundle_XPC] class.
+// The class instance for the [DiskImageParamsSparseBundleXPC] class.
 var (
-	_DiskImageParamsSparseBundle_XPCClass     DiskImageParamsSparseBundle_XPCClass
-	_DiskImageParamsSparseBundle_XPCClassOnce sync.Once
+	_DiskImageParamsSparseBundleXPCClass     DiskImageParamsSparseBundleXPCClass
+	_DiskImageParamsSparseBundleXPCClassOnce sync.Once
 )
 
-func getDiskImageParamsSparseBundle_XPCClass() DiskImageParamsSparseBundle_XPCClass {
-	_DiskImageParamsSparseBundle_XPCClassOnce.Do(func() {
-		_DiskImageParamsSparseBundle_XPCClass = DiskImageParamsSparseBundle_XPCClass{class: objc.GetClass("DiskImageParamsSparseBundle_XPC")}
+func getDiskImageParamsSparseBundleXPCClass() DiskImageParamsSparseBundleXPCClass {
+	_DiskImageParamsSparseBundleXPCClassOnce.Do(func() {
+		_DiskImageParamsSparseBundleXPCClass = DiskImageParamsSparseBundleXPCClass{class: objc.GetClass("DiskImageParamsSparseBundle_XPC")}
 	})
-	return _DiskImageParamsSparseBundle_XPCClass
+	return _DiskImageParamsSparseBundleXPCClass
 }
 
-// GetDiskImageParamsSparseBundle_XPCClass returns the class object for DiskImageParamsSparseBundle_XPC.
-func GetDiskImageParamsSparseBundle_XPCClass() DiskImageParamsSparseBundle_XPCClass {
-	return getDiskImageParamsSparseBundle_XPCClass()
+// GetDiskImageParamsSparseBundleXPCClass returns the class object for DiskImageParamsSparseBundle_XPC.
+func GetDiskImageParamsSparseBundleXPCClass() DiskImageParamsSparseBundleXPCClass {
+	return getDiskImageParamsSparseBundleXPCClass()
 }
 
-type DiskImageParamsSparseBundle_XPCClass struct {
+type DiskImageParamsSparseBundleXPCClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (dc DiskImageParamsSparseBundle_XPCClass) Class() objc.Class {
+func (dc DiskImageParamsSparseBundleXPCClass) Class() objc.Class {
 	return dc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (dc DiskImageParamsSparseBundle_XPCClass) Alloc() DiskImageParamsSparseBundle_XPC {
-	rv := objc.Send[DiskImageParamsSparseBundle_XPC](objc.ID(dc.class), objc.Sel("alloc"))
+func (dc DiskImageParamsSparseBundleXPCClass) Alloc() DiskImageParamsSparseBundleXPC {
+	rv := objc.Send[DiskImageParamsSparseBundleXPC](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsSparseBundle_XPC
-type DiskImageParamsSparseBundle_XPC struct {
+type DiskImageParamsSparseBundleXPC struct {
 	DiskImageParamsXPC
 }
 
-// DiskImageParamsSparseBundle_XPCFromID constructs a [DiskImageParamsSparseBundle_XPC] from an objc.ID.
-func DiskImageParamsSparseBundle_XPCFromID(id objc.ID) DiskImageParamsSparseBundle_XPC {
-	return DiskImageParamsSparseBundle_XPC{DiskImageParamsXPC: DiskImageParamsXPCFromID(id)}
+// DiskImageParamsSparseBundleXPCFromID constructs a [DiskImageParamsSparseBundleXPC] from an objc.ID.
+func DiskImageParamsSparseBundleXPCFromID(id objc.ID) DiskImageParamsSparseBundleXPC {
+	return DiskImageParamsSparseBundleXPC{DiskImageParamsXPC: DiskImageParamsXPCFromID(id)}
 }
 
-// Ensure DiskImageParamsSparseBundle_XPC implements IDiskImageParamsSparseBundle_XPC.
-var _ IDiskImageParamsSparseBundle_XPC = DiskImageParamsSparseBundle_XPC{}
+// DiskImageParamsSparseBundle_XPCFromID is an alias for [DiskImageParamsSparseBundleXPCFromID] for cross-framework compatibility.
+func DiskImageParamsSparseBundle_XPCFromID(id objc.ID) DiskImageParamsSparseBundleXPC {
+	return DiskImageParamsSparseBundleXPCFromID(id)
+}
 
-// An interface definition for the [DiskImageParamsSparseBundle_XPC] class.
+// Ensure DiskImageParamsSparseBundleXPC implements IDiskImageParamsSparseBundleXPC.
+var _ IDiskImageParamsSparseBundleXPC = DiskImageParamsSparseBundleXPC{}
+
+// An interface definition for the [DiskImageParamsSparseBundleXPC] class.
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsSparseBundle_XPC
-type IDiskImageParamsSparseBundle_XPC interface {
+type IDiskImageParamsSparseBundleXPC interface {
 	IDiskImageParamsXPC
 }
 
 // Init initializes the instance.
-func (d DiskImageParamsSparseBundle_XPC) Init() DiskImageParamsSparseBundle_XPC {
-	rv := objc.Send[DiskImageParamsSparseBundle_XPC](d.ID, objc.Sel("init"))
+func (d DiskImageParamsSparseBundleXPC) Init() DiskImageParamsSparseBundleXPC {
+	rv := objc.Send[DiskImageParamsSparseBundleXPC](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d DiskImageParamsSparseBundle_XPC) Autorelease() DiskImageParamsSparseBundle_XPC {
-	rv := objc.Send[DiskImageParamsSparseBundle_XPC](d.ID, objc.Sel("autorelease"))
+func (d DiskImageParamsSparseBundleXPC) Autorelease() DiskImageParamsSparseBundleXPC {
+	rv := objc.Send[DiskImageParamsSparseBundleXPC](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewDiskImageParamsSparseBundle_XPC creates a new DiskImageParamsSparseBundle_XPC instance.
-func NewDiskImageParamsSparseBundle_XPC() DiskImageParamsSparseBundle_XPC {
-	class := getDiskImageParamsSparseBundle_XPCClass()
-	rv := objc.Send[DiskImageParamsSparseBundle_XPC](objc.ID(class.class), objc.Sel("new"))
+// NewDiskImageParamsSparseBundleXPC creates a new DiskImageParamsSparseBundleXPC instance.
+func NewDiskImageParamsSparseBundleXPC() DiskImageParamsSparseBundleXPC {
+	class := getDiskImageParamsSparseBundleXPCClass()
+	rv := objc.Send[DiskImageParamsSparseBundleXPC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
-func NewDiskImageParamsSparseBundle_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsSparseBundle_XPC {
-	instance := getDiskImageParamsSparseBundle_XPCClass().Alloc()
+func NewDiskImageParamsSparseBundle_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsSparseBundleXPC {
+	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
-	return DiskImageParamsSparseBundle_XPCFromID(rv)
+	return DiskImageParamsSparseBundleXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
-func NewDiskImageParamsSparseBundle_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsSparseBundle_XPC {
-	instance := getDiskImageParamsSparseBundle_XPCClass().Alloc()
+func NewDiskImageParamsSparseBundle_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsSparseBundleXPC {
+	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
-	return DiskImageParamsSparseBundle_XPCFromID(rv)
+	return DiskImageParamsSparseBundleXPCFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
-func NewDiskImageParamsSparseBundle_XPCWithCoder(coder objectivec.IObject) DiskImageParamsSparseBundle_XPC {
-	instance := getDiskImageParamsSparseBundle_XPCClass().Alloc()
+func NewDiskImageParamsSparseBundle_XPCWithCoder(coder objectivec.IObject) DiskImageParamsSparseBundleXPC {
+	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
-	return DiskImageParamsSparseBundle_XPCFromID(rv)
+	return DiskImageParamsSparseBundleXPCFromID(rv)
 }

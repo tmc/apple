@@ -139,7 +139,6 @@ func AVSampleBufferAudioRendererFromID(id objc.ID) AVSampleBufferAudioRenderer {
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer
 type IAVSampleBufferAudioRenderer interface {
 	objectivec.IObject
-	AVQueuedSampleBufferRendering
 
 	// Topic: Determining rendering status
 
@@ -180,7 +179,7 @@ type IAVSampleBufferAudioRenderer interface {
 	// Topic: Responding to errors
 
 	// The error that caused the renderer to no longer render sample buffers.
-	Error() foundation.INSError
+	Error() foundation.NSError
 }
 
 // Init initializes the instance.
@@ -279,6 +278,15 @@ func (s AVSampleBufferAudioRenderer) Flush() {
 	objc.Send[objc.ID](s.ID, objc.Sel("flush"))
 }
 
+// A Boolean value that indicates whether the enqued media meets the required
+// preroll level for reliable playback.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/hasSufficientMediaDataForReliablePlaybackStart
+func (s AVSampleBufferAudioRenderer) HasSufficientMediaDataForReliablePlaybackStart() bool {
+	rv := objc.Send[bool](s.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
+	return rv
+}
+
 // A Boolean value that indicates whether the receiver is able to accept more
 // sample buffers.
 //
@@ -321,6 +329,14 @@ func (s AVSampleBufferAudioRenderer) RequestMediaDataWhenReadyOnQueueUsingBlock(
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/stopRequestingMediaData()
 func (s AVSampleBufferAudioRenderer) StopRequestingMediaData() {
 	objc.Send[objc.ID](s.ID, objc.Sel("stopRequestingMediaData"))
+}
+
+// The timebase for a renderer.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
+func (s AVSampleBufferAudioRenderer) Timebase() coremedia.CMTimebaseRef {
+	rv := objc.Send[coremedia.CMTimebaseRef](s.ID, objc.Sel("timebase"))
+	return coremedia.CMTimebaseRef(rv)
 }
 
 // The status of the audio renderer.
@@ -476,38 +492,44 @@ func (s AVSampleBufferAudioRenderer) SetAudioOutputDeviceUniqueID(value string) 
 // [AVQueuedSampleBufferRenderingStatusFailed].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/error
-func (s AVSampleBufferAudioRenderer) Error() foundation.INSError {
+func (s AVSampleBufferAudioRenderer) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
 
-// A Boolean value that indicates whether the enqued media meets the required
-// preroll level for reliable playback.
-//
-// # Discussion
-//
-// Starting playback when this property is false may prevent smooth playback
-// following an immediate start.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/hasSufficientMediaDataForReliablePlaybackStart
-func (s AVSampleBufferAudioRenderer) HasSufficientMediaDataForReliablePlaybackStart() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
-	return rv
-}
-
-// The timebase for a renderer.
-//
-// # Discussion
-//
-// The timebase governs how time stamps are interpreted by the renderer.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-func (s AVSampleBufferAudioRenderer) Timebase() coremedia.CMTimebaseRef {
-	rv := objc.Send[coremedia.CMTimebaseRef](s.ID, objc.Sel("timebase"))
-	return coremedia.CMTimebaseRef(rv)
-}
-
 // Protocol methods for AVQueuedSampleBufferRendering
+
+// A Boolean value that indicates whether the receiver is able to accept more
+// sample buffers.
+//
+// # Discussion
+//
+// An object conforming to [AVQueuedSampleBufferRendering] keeps track of the
+// occupancy levels of its internal queues for the benefit of clients that
+// enqueue sample buffers from non-real-time sources, for example, clients
+// that can supply sample buffers faster than they are consumed, and so need
+// to decide when to hold back. Clients enqueueing sample buffers from
+// non-real-time sources may hold off from generating or obtaining more sample
+// buffers to enqueue when the value of `readyForMoreMediaData` is [NO]. It is
+// safe to call [EnqueueSampleBuffer] when `readyForMoreMediaData` is [NO],
+// but don’t enqueue sample buffers without bound.
+//
+// To help with control of the non-real-time supply of sample buffers, clients
+// can call [RequestMediaDataWhenReadyOnQueueUsingBlock] in order to specify a
+// block that the receiver should invoke whenever it’s ready for sample
+// buffers to be appended.
+//
+// The value of `readyForMoreMediaData` often changes` from [NO] to [YES]
+// asynchronously, as previously supplied sample buffers are decoded and
+// rendered.
+//
+// This property is not key-value observable.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
+func (o AVSampleBufferAudioRenderer) ReadyForMoreMediaData() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isReadyForMoreMediaData"))
+	return bool(rv)
+}
 
 // FlushFromSourceTime is a synchronous wrapper around [AVSampleBufferAudioRenderer.FlushFromSourceTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.

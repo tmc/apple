@@ -211,7 +211,7 @@ func (o NWError) DomainString() string {
 // CopyCFError returns a retained Core Foundation copy of the network error.
 func (o NWError) CopyCFError() corefoundation.CFErrorRef {
 	if o.ID == 0 {
-		return 0
+		return *new(corefoundation.CFErrorRef)
 	}
 	return NWErrorCopyCfError(o)
 }

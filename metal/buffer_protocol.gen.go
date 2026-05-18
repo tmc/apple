@@ -34,35 +34,45 @@ type MTLBuffer interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/removeAllDebugMarkers()
 	RemoveAllDebugMarkers()
 
-	// The logical size of the buffer, in bytes.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/length
-	Length() uint
-
 	// Creates a remote view of the buffer for another GPU in the same peer group.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeRemoteBufferView(_:)
 	NewRemoteBufferViewForDevice(device MTLDevice) MTLBuffer
+
+	// Creates a tensor that shares storage with this buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeTensor(descriptor:offset:)
+	NewTensorWithDescriptorOffsetError(descriptor IMTLTensorDescriptor, offset uint) (MTLTensor, error)
+
+	// Adds a debug marker string to a specific buffer range.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/addDebugMarker:range:
+	AddDebugMarkerRange(marker string, range_ foundation.NSRange)
+
+	// Informs the GPU that the CPU has modified a section of the buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/didModifyRange:
+	DidModifyRange(range_ foundation.NSRange)
+
+	// The logical size of the buffer, in bytes.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/length
+	Length() uint
 
 	// The buffer on another GPU that the buffer was created from, if any.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/remoteStorageBuffer
 	RemoteStorageBuffer() MTLBuffer
 
-	// GpuAddress protocol.
+	// gpuAddress protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/gpuAddress
 	GpuAddress() MTLGPUAddress
 
-	// SparseBufferTier protocol.
+	// # Discussion  Query support tier for sparse buffers.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/sparseBufferTier
 	SparseBufferTier() MTLBufferSparseTier
-
-	// Creates a tensor that shares storage with this buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeTensor(descriptor:offset:)
-	NewTensorWithDescriptorOffsetError(descriptor IMTLTensorDescriptor, offset uint) (MTLTensor, error)
 }
 
 // MTLBufferObject wraps an existing Objective-C object that conforms to the MTLBuffer protocol.
@@ -131,12 +141,11 @@ func MTLBufferObjectFromID(id objc.ID) MTLBufferObject {
 // [Table data omitted]
 //
 // Samplers can use any [MTLSamplerAddressMode] to sample linear textures from
-// this method on any device that supports the [MTLGPUFamily.apple2] feature
+// this method on any device that supports the [MTLGPUFamilyApple2] feature
 // family or later.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeTexture(descriptor:offset:bytesPerRow:)
 //
-// [MTLGPUFamily.apple2]: https://developer.apple.com/documentation/Metal/MTLGPUFamily/apple2
 // [MTLSamplerAddressMode]: https://developer.apple.com/documentation/Metal/MTLSamplerAddressMode
 func (o MTLBufferObject) NewTextureWithDescriptorOffsetBytesPerRow(descriptor IMTLTextureDescriptor, offset uint, bytesPerRow uint) MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureWithDescriptor:offset:bytesPerRow:"), descriptor, offset, bytesPerRow)
@@ -167,14 +176,6 @@ func (o MTLBufferObject) RemoveAllDebugMarkers() {
 	objc.Send[struct{}](o.ID, objc.Sel("removeAllDebugMarkers"))
 }
 
-// The logical size of the buffer, in bytes.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLBuffer/length
-func (o MTLBufferObject) Length() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("length"))
-	return rv
-}
-
 // Creates a remote view of the buffer for another GPU in the same peer group.
 //
 // # Discussion
@@ -198,49 +199,63 @@ func (o MTLBufferObject) NewRemoteBufferViewForDevice(device MTLDevice) MTLBuffe
 	return MTLBufferObjectFromID(rv)
 }
 
-// The buffer on another GPU that the buffer was created from, if any.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLBuffer/remoteStorageBuffer
-func (o MTLBufferObject) RemoteStorageBuffer() MTLBuffer {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteStorageBuffer"))
-	return MTLBufferObjectFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBuffer/gpuAddress
-func (o MTLBufferObject) GpuAddress() MTLGPUAddress {
-	rv := objc.Send[MTLGPUAddress](o.ID, objc.Sel("gpuAddress"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBuffer/sparseBufferTier
-func (o MTLBufferObject) SparseBufferTier() MTLBufferSparseTier {
-	rv := objc.Send[MTLBufferSparseTier](o.ID, objc.Sel("sparseBufferTier"))
-	return rv
-}
-
 // Creates a tensor that shares storage with this buffer.
 //
 // descriptor: A description of the properties for the new tensor.
 //
 // offset: Offset into the buffer at which the data of the tensor begins.
 //
+// # Return Value
+//
+// The created [MTLTensor] instance, or `nil` if the function failed.
+//
 // # Discussion
 //
-// If the descriptor specifies [MTLTensorUsageMachineLearning] usage, you need
-// to observe the following restrictions:
+// `offset` must be 0 when [Usage] contains [MTLTensorUsageMachineLearning].
 //
-// - pass in `0` for the `offset` parameter - set the element stride the
-// descriptor to `1` - ensure that number of bytes per row is a multiple of
-// `64` - for dimensions greater than `2`, make sure `strides[dim] =
-// strides[dim -1] * dimensions[dim - 1]`
+// When [DataType] is a sub-byte [MTLTensorDataType], `offset` must be aligned
+// to 128 bytes. Although only required for sub-byte types, applying 128-byte
+// alignment for all [MTLTensorDataType] values improves performance.
+//
+// See [MTLTensorDescriptor] for more information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeTensor(descriptor:offset:)
+//
+// [MTLTensorDataType]: https://developer.apple.com/documentation/Metal/MTLTensorDataType
 func (o MTLBufferObject) NewTensorWithDescriptorOffsetError(descriptor IMTLTensorDescriptor, offset uint) (MTLTensor, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newTensorWithDescriptor:offset:error:"), descriptor, offset)
 	if err != nil {
 		return nil, err
 	}
 	return MTLTensorObjectFromID(rv), nil
+}
+
+// Adds a debug marker string to a specific buffer range.
+//
+// marker: A string that identifies the marked buffer range.
+//
+// range: The range of bytes that you want to identify.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBuffer/addDebugMarker:range:
+func (o MTLBufferObject) AddDebugMarkerRange(marker string, range_ foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("addDebugMarker:range:"), objc.String(marker), range_)
+}
+
+// Informs the GPU that the CPU has modified a section of the buffer.
+//
+// range: The range of bytes that were modified.
+//
+// # Discussion
+//
+// If you write information to a buffer created with the
+// [MTLStorageModeManaged] storage mode, you need to call this method to
+// inform the GPU that the information has changed. If you execute GPU
+// commands that read from the modified sections without calling this method
+// first, the behavior is undefined.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBuffer/didModifyRange:
+func (o MTLBufferObject) DidModifyRange(range_ foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("didModifyRange:"), range_)
 }
 
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
@@ -317,9 +332,9 @@ func (o MTLBufferObject) ResourceOptions() MTLResourceOptions {
 // If `state` is [MTLPurgeableStateNonVolatile], the resource is marked to
 // inform the caller that the data should not be discarded.
 //
-// If `state` is [MTLPurgeableState.empty], the resource is marked as data
-// that can be discarded, because the caller no longer needs the contents of
-// the resource.
+// If `state` is [MTLPurgeableStateEmpty], the resource is marked as data that
+// can be discarded, because the caller no longer needs the contents of the
+// resource.
 //
 // If `state` is [MTLPurgeableStateVolatile], the resource is marked as data
 // that can be discarded, even if the caller may need the resource.
@@ -337,8 +352,6 @@ func (o MTLBufferObject) ResourceOptions() MTLResourceOptions {
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-//
-// [MTLPurgeableState.empty]: https://developer.apple.com/documentation/Metal/MTLPurgeableState/empty
 func (o MTLBufferObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
@@ -414,9 +427,50 @@ func (o MTLBufferObject) IsAliasable() bool {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-func (o MTLBufferObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32 {
+func (o MTLBufferObject) SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32 {
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
+}
+
+// The logical size of the buffer, in bytes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBuffer/length
+func (o MTLBufferObject) Length() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("length"))
+	return uint(rv)
+}
+
+// The buffer on another GPU that the buffer was created from, if any.
+//
+// # Discussion
+//
+// If the value of this property is non-`nil`, it contains a reference to the
+// [MTLBuffer] instance that created this buffer. If the buffer isn’t a
+// remote view, the value of this property is `nil`.
+//
+// You can use remote views only as a source for copy commands encoded by an
+// [MTLBlitCommandEncoder].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBuffer/remoteStorageBuffer
+func (o MTLBufferObject) RemoteStorageBuffer() MTLBuffer {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteStorageBuffer"))
+	return MTLBufferObjectFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBuffer/gpuAddress
+func (o MTLBufferObject) GpuAddress() MTLGPUAddress {
+	rv := objc.Send[MTLGPUAddress](o.ID, objc.Sel("gpuAddress"))
+	return MTLGPUAddress(rv)
+}
+
+// # Discussion
+//
+// Query support tier for sparse buffers.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBuffer/sparseBufferTier
+func (o MTLBufferObject) SparseBufferTier() MTLBufferSparseTier {
+	rv := objc.Send[MTLBufferSparseTier](o.ID, objc.Sel("sparseBufferTier"))
+	return MTLBufferSparseTier(rv)
 }
 
 // A string that identifies the resource.

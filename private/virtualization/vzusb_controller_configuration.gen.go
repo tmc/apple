@@ -94,14 +94,14 @@ type IVZUSBControllerConfiguration interface {
 }
 
 // Init initializes the instance.
-func (u VZUSBControllerConfiguration) Init() VZUSBControllerConfiguration {
-	rv := objc.Send[VZUSBControllerConfiguration](u.ID, objc.Sel("init"))
+func (v VZUSBControllerConfiguration) Init() VZUSBControllerConfiguration {
+	rv := objc.Send[VZUSBControllerConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (u VZUSBControllerConfiguration) Autorelease() VZUSBControllerConfiguration {
-	rv := objc.Send[VZUSBControllerConfiguration](u.ID, objc.Sel("autorelease"))
+func (v VZUSBControllerConfiguration) Autorelease() VZUSBControllerConfiguration {
+	rv := objc.Send[VZUSBControllerConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -113,56 +113,56 @@ func NewVZUSBControllerConfiguration() VZUSBControllerConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/_init
-func (u VZUSBControllerConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("_init"))
+func (v VZUSBControllerConfiguration) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/makeUSBControllerForVirtualMachine:usbControllerIndex:usbDevices:
-func (u VZUSBControllerConfiguration) MakeUSBControllerForVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("makeUSBControllerForVirtualMachine:usbControllerIndex:usbDevices:"), machine, index, devices)
+func (v VZUSBControllerConfiguration) MakeUSBControllerForVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeUSBControllerForVirtualMachine:usbControllerIndex:usbDevices:"), machine, index, devices)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/_usbDevices
-func (u VZUSBControllerConfiguration) _usbDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("_usbDevices"))
+func (v VZUSBControllerConfiguration) _usbDevices() foundation.INSArray {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_usbDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // CanUsbDevices reports whether the receiver responds to the private selector _usbDevices.
-func (u VZUSBControllerConfiguration) CanUsbDevices() bool {
-	return objc.RespondsToSelector(u.ID, objc.Sel("_usbDevices"))
+func (v VZUSBControllerConfiguration) CanUsbDevices() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_usbDevices"))
 }
 
 // UsbDevices is an exported wrapper for the private property _usbDevices.
-func (u VZUSBControllerConfiguration) UsbDevices() (foundation.INSArray, error) {
-	if !objc.RespondsToSelector(u.ID, objc.Sel("_usbDevices")) {
+func (v VZUSBControllerConfiguration) UsbDevices() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_usbDevices")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_usbDevices"}
 	}
-	return u._usbDevices(), nil
+	return v._usbDevices(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/debugDescription
-func (u VZUSBControllerConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("debugDescription"))
+func (v VZUSBControllerConfiguration) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/description
-func (u VZUSBControllerConfiguration) Description() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("description"))
+func (v VZUSBControllerConfiguration) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/hash
-func (u VZUSBControllerConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](u.ID, objc.Sel("hash"))
+func (v VZUSBControllerConfiguration) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/superclass
-func (u VZUSBControllerConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](u.ID, objc.Sel("superclass"))
+func (v VZUSBControllerConfiguration) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

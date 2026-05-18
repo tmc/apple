@@ -130,7 +130,7 @@ type IGTMioHeatmapImpl interface {
 
 	Depth() uint64
 	EncoderInfo() unsafe.Pointer
-	SetEncoderInfo(value unsafe.Pointer)
+	SetEncoderInfo(value *GTMioEncoderMetadata)
 	GenerateImage(image uint64) coregraphics.CGImageRef
 	GenerateTexture(texture uint64) objectivec.IObject
 	GenerationOptions() unsafe.Pointer
@@ -155,7 +155,7 @@ type IGTMioHeatmapImpl interface {
 	ValueForPixelXPixelYSlice(x uint64, y uint64, slice uint64) uint64
 	Values() unsafe.Pointer
 	Width() uint64
-	InitWithEncoderInfoWitdhHeightDepthQuadDataType(info unsafe.Pointer, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl
+	InitWithEncoderInfoWitdhHeightDepthQuadDataType(info GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl
 }
 
 // Init initializes the instance.
@@ -178,7 +178,7 @@ func NewGTMioHeatmapImpl() GTMioHeatmapImpl {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapImpl/initWithEncoderInfo:witdh:height:depth:quadData:type:
-func NewGTMioHeatmapImplWithEncoderInfoWitdhHeightDepthQuadDataType(info unsafe.Pointer, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl {
+func NewGTMioHeatmapImplWithEncoderInfoWitdhHeightDepthQuadDataType(info GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl {
 	instance := getGTMioHeatmapImplClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEncoderInfo:witdh:height:depth:quadData:type:"), info, witdh, height, depth, data, type_)
 	return GTMioHeatmapImplFromID(rv)
@@ -238,7 +238,7 @@ func (g GTMioHeatmapImpl) ValueForPixelXPixelYSlice(x uint64, y uint64, slice ui
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioHeatmapImpl/initWithEncoderInfo:witdh:height:depth:quadData:type:
-func (g GTMioHeatmapImpl) InitWithEncoderInfoWitdhHeightDepthQuadDataType(info unsafe.Pointer, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl {
+func (g GTMioHeatmapImpl) InitWithEncoderInfoWitdhHeightDepthQuadDataType(info GTMioEncoderMetadata, witdh uint64, height uint64, depth uint64, data objectivec.IObject, type_ uint64) GTMioHeatmapImpl {
 	rv := objc.Send[GTMioHeatmapImpl](g.ID, objc.Sel("initWithEncoderInfo:witdh:height:depth:quadData:type:"), info, witdh, height, depth, data, type_)
 	return rv
 }
@@ -254,7 +254,7 @@ func (g GTMioHeatmapImpl) EncoderInfo() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoderInfo"))
 	return rv
 }
-func (g GTMioHeatmapImpl) SetEncoderInfo(value unsafe.Pointer) {
+func (g GTMioHeatmapImpl) SetEncoderInfo(value *GTMioEncoderMetadata) {
 	objc.Send[struct{}](g.ID, objc.Sel("setEncoderInfo:"), value)
 }
 

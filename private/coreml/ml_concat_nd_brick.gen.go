@@ -115,14 +115,14 @@ type IMLConcatNDBrick interface {
 }
 
 // Init initializes the instance.
-func (c MLConcatNDBrick) Init() MLConcatNDBrick {
-	rv := objc.Send[MLConcatNDBrick](c.ID, objc.Sel("init"))
+func (m MLConcatNDBrick) Init() MLConcatNDBrick {
+	rv := objc.Send[MLConcatNDBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLConcatNDBrick) Autorelease() MLConcatNDBrick {
-	rv := objc.Send[MLConcatNDBrick](c.ID, objc.Sel("autorelease"))
+func (m MLConcatNDBrick) Autorelease() MLConcatNDBrick {
+	rv := objc.Send[MLConcatNDBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -141,84 +141,84 @@ func NewConcatNDBrickWithParameters(parameters objectivec.IObject) MLConcatNDBri
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/computeOnCPUWithInputTensors:outputTensors:
-func (c MLConcatNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](c.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLConcatNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/hasGPUSupport
-func (c MLConcatNDBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("hasGPUSupport"))
+func (m MLConcatNDBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/setupForInputShapes:withParameters:
-func (c MLConcatNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLConcatNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/initWithParameters:
-func (c MLConcatNDBrick) InitWithParameters(parameters objectivec.IObject) MLConcatNDBrick {
-	rv := objc.Send[MLConcatNDBrick](c.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLConcatNDBrick) InitWithParameters(parameters objectivec.IObject) MLConcatNDBrick {
+	rv := objc.Send[MLConcatNDBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/axis
-func (c MLConcatNDBrick) Axis() foundation.NSNumber {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("axis"))
+func (m MLConcatNDBrick) Axis() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/debugDescription
-func (c MLConcatNDBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+func (m MLConcatNDBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/description
-func (c MLConcatNDBrick) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+func (m MLConcatNDBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/hash
-func (c MLConcatNDBrick) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+func (m MLConcatNDBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/inputRanks
-func (c MLConcatNDBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("inputRanks"))
+func (m MLConcatNDBrick) InputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/inputShapes
-func (c MLConcatNDBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("inputShapes"))
+func (m MLConcatNDBrick) InputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/outputRanks
-func (c MLConcatNDBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputRanks"))
+func (m MLConcatNDBrick) OutputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/outputShapes
-func (c MLConcatNDBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputShapes"))
+func (m MLConcatNDBrick) OutputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/shapeInfoNeeded
-func (c MLConcatNDBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("shapeInfoNeeded"))
+func (m MLConcatNDBrick) ShapeInfoNeeded() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLConcatNDBrick/superclass
-func (c MLConcatNDBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
+func (m MLConcatNDBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

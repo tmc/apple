@@ -115,14 +115,14 @@ type IAVPlayerItemIntegratedTimeline interface {
 	// The current time on the integrated timeline.
 	CurrentTime() coremedia.CMTime
 	// The current date of playback.
-	CurrentDate() foundation.INSDate
+	CurrentDate() foundation.NSDate
 
 	// Topic: Seeking
 
 	// Seeks to a particular time in the integrated time domain.
 	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time coremedia.CMTime, toleranceBefore coremedia.CMTime, toleranceAfter coremedia.CMTime, completionHandler BoolHandler)
 	// Seeks to a particular date in the integrated time domain.
-	SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler)
+	SeekToDateCompletionHandler(date foundation.NSDate, completionHandler BoolHandler)
 
 	// Requests invocation of a block when traversing an offset in a segment during playback.
 	AddBoundaryTimeObserverForSegmentOffsetsIntoSegmentQueueUsingBlock(segment IAVPlayerItemSegment, offsetsIntoSegment foundation.INSArray, queue dispatch.Queue, block BoolHandler) AVPlayerItemIntegratedTimelineObserver
@@ -176,7 +176,7 @@ func (p AVPlayerItemIntegratedTimeline) SeekToTimeToleranceBeforeToleranceAfterC
 // value of `true` if the playhead moved to the new date.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/seek(to:completionHandler:)
-func (p AVPlayerItemIntegratedTimeline) SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) {
+func (p AVPlayerItemIntegratedTimeline) SeekToDateCompletionHandler(date foundation.NSDate, completionHandler BoolHandler) {
 	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToDate:completionHandler:"), date, _block1)
 }
@@ -241,7 +241,7 @@ func (p AVPlayerItemIntegratedTimeline) CurrentTime() coremedia.CMTime {
 // This value is `nil` if playback doesn’t map to a date.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/currentDate
-func (p AVPlayerItemIntegratedTimeline) CurrentDate() foundation.INSDate {
+func (p AVPlayerItemIntegratedTimeline) CurrentDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
@@ -272,7 +272,7 @@ func (p AVPlayerItemIntegratedTimeline) SeekToTimeToleranceBeforeToleranceAfter(
 
 // SeekToDate is a synchronous wrapper around [AVPlayerItemIntegratedTimeline.SeekToDateCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayerItemIntegratedTimeline) SeekToDate(ctx context.Context, date foundation.INSDate) (bool, error) {
+func (p AVPlayerItemIntegratedTimeline) SeekToDate(ctx context.Context, date foundation.NSDate) (bool, error) {
 	done := make(chan bool, 1)
 	p.SeekToDateCompletionHandler(date, func(val bool) {
 		done <- val

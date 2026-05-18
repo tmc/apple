@@ -4,9 +4,9 @@ package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [MLParameterKey] class.
@@ -112,8 +112,8 @@ type IMLParameterKey interface {
 	ScopedTo(scope string) IMLParameterKey
 
 	// The list of available compute devices that the model’s prediction methods use.
-	AvailableComputeDevices() objectivec.IObject
-	SetAvailableComputeDevices(value objectivec.IObject)
+	AvailableComputeDevices() unsafe.Pointer
+	SetAvailableComputeDevices(value unsafe.Pointer)
 	// The configuration of the model set during initialization.
 	Configuration() IMLModelConfiguration
 	SetConfiguration(value IMLModelConfiguration)
@@ -182,11 +182,11 @@ func (p MLParameterKey) ScopedTo(scope string) IMLParameterKey {
 // use.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodel/availablecomputedevices-6klyt
-func (p MLParameterKey) AvailableComputeDevices() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("availableComputeDevices"))
-	return objectivec.Object{ID: rv}
+func (p MLParameterKey) AvailableComputeDevices() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("availableComputeDevices"))
+	return rv
 }
-func (p MLParameterKey) SetAvailableComputeDevices(value objectivec.IObject) {
+func (p MLParameterKey) SetAvailableComputeDevices(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAvailableComputeDevices:"), value)
 }
 

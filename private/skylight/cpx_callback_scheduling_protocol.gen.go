@@ -26,7 +26,7 @@ type CPXCallbackScheduling interface {
 	// ScheduleFixBadForegroundCallbackForProcess protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/scheduleFixBadForegroundCallbackForProcess:
-	ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRecRef)
+	ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec)
 
 	// ScheduleForceLogoutCallbackForTime protocol.
 	//
@@ -67,7 +67,7 @@ func (o CPXCallbackSchedulingObject) DescheduleKillProcessCallback() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXCallbackScheduling/scheduleFixBadForegroundCallbackForProcess:
-func (o CPXCallbackSchedulingObject) ScheduleFixBadForegroundCallbackForProcess(process *CPSProcessRecRef) {
+func (o CPXCallbackSchedulingObject) ScheduleFixBadForegroundCallbackForProcess(process CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("scheduleFixBadForegroundCallbackForProcess:"), process)
 }
 

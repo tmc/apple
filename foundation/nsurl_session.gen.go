@@ -659,8 +659,8 @@ func (u URLSession) DownloadTaskWithURL(url INSURL) INSURLSessionDownloadTask {
 // handler is executed on the delegate queue.
 //
 // If you pass `nil`, only the session delegate methods are called when the
-// task completes, making this method equivalent to the [DownloadTaskWithURL]
-// method.
+// task completes, making this method equivalent to the
+// [DownloadTaskWithRequest] method.
 //
 // This completion handler takes the following parameters:
 //

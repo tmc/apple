@@ -55,6 +55,11 @@ func (nc NENetworkRuleClass) Alloc() NENetworkRule {
 //   - [NENetworkRule.MatchProtocol]: The protocol that the rule matches.
 //   - [NENetworkRule.MatchDirection]: The direction of network traffic that the rule matches.
 //
+// # Instance Properties
+//
+//   - [NENetworkRule.MatchLocalNetworkEndpoint]
+//   - [NENetworkRule.MatchRemoteHostOrNetworkEndpoint]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule
 type NENetworkRule struct {
 	objectivec.Object
@@ -81,6 +86,11 @@ func NENetworkRuleFromID(id objc.ID) NENetworkRule {
 //   - [INENetworkRule.MatchProtocol]: The protocol that the rule matches.
 //   - [INENetworkRule.MatchDirection]: The direction of network traffic that the rule matches.
 //
+// # Instance Properties
+//
+//   - [INENetworkRule.MatchLocalNetworkEndpoint]
+//   - [INENetworkRule.MatchRemoteHostOrNetworkEndpoint]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule
 type INENetworkRule interface {
 	objectivec.IObject
@@ -100,8 +110,11 @@ type INENetworkRule interface {
 	// The direction of network traffic that the rule matches.
 	MatchDirection() NETrafficDirection
 
+	// Topic: Instance Properties
+
 	MatchLocalNetworkEndpoint() network.NWEndpoint
 	MatchRemoteHostOrNetworkEndpoint() network.NWEndpoint
+
 	InitWithDestinationHostEndpointProtocol(hostEndpoint network.NWEndpoint, protocol_ NENetworkRuleProtocol) NENetworkRule
 	InitWithDestinationNetworkEndpointPrefixProtocol(networkEndpoint network.NWEndpoint, destinationPrefix uint, protocol_ NENetworkRuleProtocol) NENetworkRule
 	InitWithRemoteNetworkEndpointRemotePrefixLocalNetworkEndpointLocalPrefixProtocolDirection(remoteNetwork network.NWEndpoint, remotePrefix uint, localNetwork network.NWEndpoint, localPrefix uint, protocol_ NENetworkRuleProtocol, direction NETrafficDirection) NENetworkRule

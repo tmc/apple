@@ -142,8 +142,8 @@ func NewAVMutableComposition() AVMutableComposition {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
-func NewMutableCompositionAssetWithURL(URL foundation.INSURL) AVMutableComposition {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+func NewMutableCompositionAssetWithURL(URL foundation.NSURL) AVMutableComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableCompositionClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVMutableCompositionFromID(rv)
 }
@@ -153,7 +153,7 @@ func NewMutableCompositionAssetWithURL(URL foundation.INSURL) AVMutableCompositi
 //
 // URLAssetInitializationOptions: The initialization options to use to create the composition.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/init(urlAssetInitializationOptions:)
+// See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/init(urlAssetInitializationOptions:)-rh4y
 func NewMutableCompositionWithURLAssetInitializationOptions(URLAssetInitializationOptions foundation.INSDictionary) AVMutableComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableCompositionClass().class), objc.Sel("compositionWithURLAssetInitializationOptions:"), URLAssetInitializationOptions)
 	return AVMutableCompositionFromID(rv)

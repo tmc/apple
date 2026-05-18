@@ -19,30 +19,18 @@ type CIPointillize interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/center
 	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/inputImage
-	InputImage() ICIImage
-
-	// The radius of the circles in the resulting pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/radius
-	Radius() float32
-
-	// The x and y position to use as the center of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/center
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The radius of the circles in the resulting pattern.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -63,30 +51,6 @@ func CIPointillizeObjectFromID(id objc.ID) CIPointillizeObject {
 	}
 }
 
-// The x and y position to use as the center of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/center
-func (o CIPointillizeObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/inputImage
-func (o CIPointillizeObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The radius of the circles in the resulting pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/radius
-func (o CIPointillizeObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -99,6 +63,11 @@ func (o CIPointillizeObject) OutputImage() ICIImage {
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPointillize/center
+func (o CIPointillizeObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIPointillizeObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -106,6 +75,11 @@ func (o CIPointillizeObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPointillize/inputImage
+func (o CIPointillizeObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPointillizeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -113,6 +87,11 @@ func (o CIPointillizeObject) SetInputImage(value ICIImage) {
 // The radius of the circles in the resulting pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPointillize/radius
+func (o CIPointillizeObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIPointillizeObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

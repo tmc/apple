@@ -42,5 +42,5 @@ func MTLAllocationObjectFromID(id objc.ID) MTLAllocationObject {
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTLAllocationObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
-	return rv
+	return uint(rv)
 }

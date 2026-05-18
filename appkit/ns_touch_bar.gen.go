@@ -722,7 +722,7 @@ type INSTouchBar interface {
 	SetCustomizationLabel(value string)
 	// A direct touch from a user’s finger on a screen.
 	Direct() NSTouchTypeMask
-	SetDirect(value NSTouchTypeMask)
+	SetNSTouchTypeMaskDirect(value NSTouchTypeMask)
 	// A bar that holds this group’s items.
 	GroupTouchBar() INSTouchBar
 	SetGroupTouchBar(value INSTouchBar)
@@ -1095,7 +1095,7 @@ func (t NSTouchBar) Direct() NSTouchTypeMask {
 	rv := objc.Send[NSTouchTypeMask](t.ID, objc.Sel("NSTouchTypeMaskDirect"))
 	return NSTouchTypeMask(rv)
 }
-func (t NSTouchBar) SetDirect(value NSTouchTypeMask) {
+func (t NSTouchBar) SetNSTouchTypeMaskDirect(value NSTouchTypeMask) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTouchTypeMaskDirect:"), value)
 }
 

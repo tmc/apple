@@ -180,15 +180,15 @@ type INSPredicateEditorRowTemplate interface {
 	// Topic: Primitive Methods
 
 	// Returns a positive number if the receiver can represent a given predicate, and `0` if it cannot.
-	MatchForPredicate(predicate foundation.INSPredicate) float64
+	MatchForPredicate(predicate foundation.NSPredicate) float64
 	// Returns the views that display this template’s predicate.
 	TemplateViews() []NSView
 	// Sets the value of the views according to the given predicate.
-	SetPredicate(predicate foundation.INSPredicate)
+	SetPredicate(predicate foundation.NSPredicate)
 	// Returns the subpredicates that should be made sub-rows of a given predicate.
-	DisplayableSubpredicatesOfPredicate(predicate foundation.INSPredicate) []foundation.NSPredicate
+	DisplayableSubpredicatesOfPredicate(predicate foundation.NSPredicate) []foundation.NSPredicate
 	// Returns the predicate represented by the receiver’s views’ values and the given sub-predicates.
-	PredicateWithSubpredicates(subpredicates []foundation.NSPredicate) foundation.INSPredicate
+	PredicateWithSubpredicates(subpredicates []foundation.NSPredicate) foundation.NSPredicate
 
 	// Topic: Information About a Row Template
 
@@ -208,8 +208,8 @@ type INSPredicateEditorRowTemplate interface {
 	RightExpressionAttributeType() uint
 
 	// The value of the receiver’s cell as an Objective-C object.
-	ObjectValue() objectivec.IObject
-	SetObjectValue(value objectivec.IObject)
+	ObjectValue() unsafe.Pointer
+	SetObjectValue(value unsafe.Pointer)
 	// The row templates for the receiver.
 	RowTemplates() INSPredicateEditorRowTemplate
 	SetRowTemplates(value INSPredicateEditorRowTemplate)
@@ -479,7 +479,7 @@ func (p NSPredicateEditorRowTemplate) InitWithCompoundTypes(compoundTypes []foun
 // determine which predicates your custom template handles.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/match(for:)
-func (p NSPredicateEditorRowTemplate) MatchForPredicate(predicate foundation.INSPredicate) float64 {
+func (p NSPredicateEditorRowTemplate) MatchForPredicate(predicate foundation.NSPredicate) float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("matchForPredicate:"), predicate)
 	return rv
 }
@@ -496,7 +496,7 @@ func (p NSPredicateEditorRowTemplate) MatchForPredicate(predicate foundation.INS
 // You can override this to set the values of custom views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/setPredicate(_:)
-func (p NSPredicateEditorRowTemplate) SetPredicate(predicate foundation.INSPredicate) {
+func (p NSPredicateEditorRowTemplate) SetPredicate(predicate foundation.NSPredicate) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setPredicate:"), predicate)
 }
 
@@ -521,7 +521,7 @@ func (p NSPredicateEditorRowTemplate) SetPredicate(predicate foundation.INSPredi
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/displayableSubpredicates(of:)
 //
 // [NSCompoundPredicate]: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate
-func (p NSPredicateEditorRowTemplate) DisplayableSubpredicatesOfPredicate(predicate foundation.INSPredicate) []foundation.NSPredicate {
+func (p NSPredicateEditorRowTemplate) DisplayableSubpredicatesOfPredicate(predicate foundation.NSPredicate) []foundation.NSPredicate {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("displayableSubpredicatesOfPredicate:"), predicate)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSPredicate {
 		return foundation.NSPredicateFromID(id)
@@ -548,7 +548,7 @@ func (p NSPredicateEditorRowTemplate) DisplayableSubpredicatesOfPredicate(predic
 // custom view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/predicate(withSubpredicates:)
-func (p NSPredicateEditorRowTemplate) PredicateWithSubpredicates(subpredicates []foundation.NSPredicate) foundation.INSPredicate {
+func (p NSPredicateEditorRowTemplate) PredicateWithSubpredicates(subpredicates []foundation.NSPredicate) foundation.NSPredicate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("predicateWithSubpredicates:"), objectivec.IObjectSliceToNSArray(subpredicates))
 	return foundation.NSPredicateFromID(rv)
 }
@@ -716,11 +716,11 @@ func (p NSPredicateEditorRowTemplate) RightExpressionAttributeType() uint {
 // The value of the receiver’s cell as an Objective-C object.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrol/objectvalue
-func (p NSPredicateEditorRowTemplate) ObjectValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("objectValue"))
-	return objectivec.Object{ID: rv}
+func (p NSPredicateEditorRowTemplate) ObjectValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("objectValue"))
+	return rv
 }
-func (p NSPredicateEditorRowTemplate) SetObjectValue(value objectivec.IObject) {
+func (p NSPredicateEditorRowTemplate) SetObjectValue(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObjectValue:"), value)
 }
 

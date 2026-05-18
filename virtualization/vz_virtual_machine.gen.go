@@ -240,9 +240,9 @@ type IVZVirtualMachine interface {
 	// Topic: Saving and restoring the VM state
 
 	// Saves the state of a VM.
-	SaveMachineStateToURLCompletionHandler(saveFileURL foundation.INSURL, completionHandler ErrorHandler)
+	SaveMachineStateToURLCompletionHandler(saveFileURL foundation.NSURL, completionHandler ErrorHandler)
 	// Restores a VM from a previously saved state.
-	RestoreMachineStateFromURLCompletionHandler(saveFileURL foundation.INSURL, completionHandler ErrorHandler)
+	RestoreMachineStateFromURLCompletionHandler(saveFileURL foundation.NSURL, completionHandler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -479,7 +479,7 @@ func (v VZVirtualMachine) ResumeWithCompletionHandler(completionHandler ErrorHan
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/saveMachineStateTo(url:completionHandler:)
 //
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-func (v VZVirtualMachine) SaveMachineStateToURLCompletionHandler(saveFileURL foundation.INSURL, completionHandler ErrorHandler) {
+func (v VZVirtualMachine) SaveMachineStateToURLCompletionHandler(saveFileURL foundation.NSURL, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("saveMachineStateToURL:completionHandler:"), saveFileURL, _block1)
 }
@@ -512,7 +512,7 @@ func (v VZVirtualMachine) SaveMachineStateToURLCompletionHandler(saveFileURL fou
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/restoreMachineStateFrom(url:completionHandler:)
 //
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-func (v VZVirtualMachine) RestoreMachineStateFromURLCompletionHandler(saveFileURL foundation.INSURL, completionHandler ErrorHandler) {
+func (v VZVirtualMachine) RestoreMachineStateFromURLCompletionHandler(saveFileURL foundation.NSURL, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("restoreMachineStateFromURL:completionHandler:"), saveFileURL, _block1)
 }
@@ -841,7 +841,7 @@ func (v VZVirtualMachine) Resume(ctx context.Context) error {
 
 // SaveMachineStateToURL is a synchronous wrapper around [VZVirtualMachine.SaveMachineStateToURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZVirtualMachine) SaveMachineStateToURL(ctx context.Context, saveFileURL foundation.INSURL) error {
+func (v VZVirtualMachine) SaveMachineStateToURL(ctx context.Context, saveFileURL foundation.NSURL) error {
 	done := make(chan error, 1)
 	v.SaveMachineStateToURLCompletionHandler(saveFileURL, func(err error) {
 		done <- err
@@ -856,7 +856,7 @@ func (v VZVirtualMachine) SaveMachineStateToURL(ctx context.Context, saveFileURL
 
 // RestoreMachineStateFromURL is a synchronous wrapper around [VZVirtualMachine.RestoreMachineStateFromURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v VZVirtualMachine) RestoreMachineStateFromURL(ctx context.Context, saveFileURL foundation.INSURL) error {
+func (v VZVirtualMachine) RestoreMachineStateFromURL(ctx context.Context, saveFileURL foundation.NSURL) error {
 	done := make(chan error, 1)
 	v.RestoreMachineStateFromURLCompletionHandler(saveFileURL, func(err error) {
 		done <- err

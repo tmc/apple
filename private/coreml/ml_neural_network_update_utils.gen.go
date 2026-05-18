@@ -66,14 +66,14 @@ type IMLNeuralNetworkUpdateUtils interface {
 }
 
 // Init initializes the instance.
-func (n MLNeuralNetworkUpdateUtils) Init() MLNeuralNetworkUpdateUtils {
-	rv := objc.Send[MLNeuralNetworkUpdateUtils](n.ID, objc.Sel("init"))
+func (m MLNeuralNetworkUpdateUtils) Init() MLNeuralNetworkUpdateUtils {
+	rv := objc.Send[MLNeuralNetworkUpdateUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNeuralNetworkUpdateUtils) Autorelease() MLNeuralNetworkUpdateUtils {
-	rv := objc.Send[MLNeuralNetworkUpdateUtils](n.ID, objc.Sel("autorelease"))
+func (m MLNeuralNetworkUpdateUtils) Autorelease() MLNeuralNetworkUpdateUtils {
+	rv := objc.Send[MLNeuralNetworkUpdateUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

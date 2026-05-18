@@ -12,70 +12,75 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The class instance for the [DIClient2Controller_XPCHandler] class.
+// The class instance for the [DIClient2ControllerXPCHandler] class.
 var (
-	_DIClient2Controller_XPCHandlerClass     DIClient2Controller_XPCHandlerClass
-	_DIClient2Controller_XPCHandlerClassOnce sync.Once
+	_DIClient2ControllerXPCHandlerClass     DIClient2ControllerXPCHandlerClass
+	_DIClient2ControllerXPCHandlerClassOnce sync.Once
 )
 
-func getDIClient2Controller_XPCHandlerClass() DIClient2Controller_XPCHandlerClass {
-	_DIClient2Controller_XPCHandlerClassOnce.Do(func() {
-		_DIClient2Controller_XPCHandlerClass = DIClient2Controller_XPCHandlerClass{class: objc.GetClass("DIClient2Controller_XPCHandler")}
+func getDIClient2ControllerXPCHandlerClass() DIClient2ControllerXPCHandlerClass {
+	_DIClient2ControllerXPCHandlerClassOnce.Do(func() {
+		_DIClient2ControllerXPCHandlerClass = DIClient2ControllerXPCHandlerClass{class: objc.GetClass("DIClient2Controller_XPCHandler")}
 	})
-	return _DIClient2Controller_XPCHandlerClass
+	return _DIClient2ControllerXPCHandlerClass
 }
 
-// GetDIClient2Controller_XPCHandlerClass returns the class object for DIClient2Controller_XPCHandler.
-func GetDIClient2Controller_XPCHandlerClass() DIClient2Controller_XPCHandlerClass {
-	return getDIClient2Controller_XPCHandlerClass()
+// GetDIClient2ControllerXPCHandlerClass returns the class object for DIClient2Controller_XPCHandler.
+func GetDIClient2ControllerXPCHandlerClass() DIClient2ControllerXPCHandlerClass {
+	return getDIClient2ControllerXPCHandlerClass()
 }
 
-type DIClient2Controller_XPCHandlerClass struct {
+type DIClient2ControllerXPCHandlerClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (dc DIClient2Controller_XPCHandlerClass) Class() objc.Class {
+func (dc DIClient2ControllerXPCHandlerClass) Class() objc.Class {
 	return dc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (dc DIClient2Controller_XPCHandlerClass) Alloc() DIClient2Controller_XPCHandler {
-	rv := objc.Send[DIClient2Controller_XPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
+func (dc DIClient2ControllerXPCHandlerClass) Alloc() DIClient2ControllerXPCHandler {
+	rv := objc.Send[DIClient2ControllerXPCHandler](objc.ID(dc.class), objc.Sel("alloc"))
 	return rv
 }
 
 // # Methods
 //
-//   - [DIClient2Controller_XPCHandler.GUIAskForPassphraseWithEncryptionFrontendUsageError]
-//   - [DIClient2Controller_XPCHandler.CreateAndStoreInSystemKeychainWithCreatorAccountError]
-//   - [DIClient2Controller_XPCHandler.KeychainUnlockWithEncryptionUnlockerError]
-//   - [DIClient2Controller_XPCHandler.NewAttachWithParamsError]
+//   - [DIClient2ControllerXPCHandler.GUIAskForPassphraseWithEncryptionFrontendUsageError]
+//   - [DIClient2ControllerXPCHandler.CreateAndStoreInSystemKeychainWithCreatorAccountError]
+//   - [DIClient2ControllerXPCHandler.KeychainUnlockWithEncryptionUnlockerError]
+//   - [DIClient2ControllerXPCHandler.NewAttachWithParamsError]
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler
-type DIClient2Controller_XPCHandler struct {
+type DIClient2ControllerXPCHandler struct {
 	DIBaseXPCHandler
 }
 
-// DIClient2Controller_XPCHandlerFromID constructs a [DIClient2Controller_XPCHandler] from an objc.ID.
-func DIClient2Controller_XPCHandlerFromID(id objc.ID) DIClient2Controller_XPCHandler {
-	return DIClient2Controller_XPCHandler{DIBaseXPCHandler: DIBaseXPCHandlerFromID(id)}
+// DIClient2ControllerXPCHandlerFromID constructs a [DIClient2ControllerXPCHandler] from an objc.ID.
+func DIClient2ControllerXPCHandlerFromID(id objc.ID) DIClient2ControllerXPCHandler {
+	return DIClient2ControllerXPCHandler{DIBaseXPCHandler: DIBaseXPCHandlerFromID(id)}
 }
 
-// Ensure DIClient2Controller_XPCHandler implements IDIClient2Controller_XPCHandler.
-var _ IDIClient2Controller_XPCHandler = DIClient2Controller_XPCHandler{}
+// DIClient2Controller_XPCHandlerFromID is an alias for [DIClient2ControllerXPCHandlerFromID] for cross-framework compatibility.
+func DIClient2Controller_XPCHandlerFromID(id objc.ID) DIClient2ControllerXPCHandler {
+	return DIClient2ControllerXPCHandlerFromID(id)
+}
 
-// An interface definition for the [DIClient2Controller_XPCHandler] class.
+// Ensure DIClient2ControllerXPCHandler implements IDIClient2ControllerXPCHandler.
+var _ IDIClient2ControllerXPCHandler = DIClient2ControllerXPCHandler{}
+
+// An interface definition for the [DIClient2ControllerXPCHandler] class.
 //
 // # Methods
 //
-//   - [IDIClient2Controller_XPCHandler.GUIAskForPassphraseWithEncryptionFrontendUsageError]
-//   - [IDIClient2Controller_XPCHandler.CreateAndStoreInSystemKeychainWithCreatorAccountError]
-//   - [IDIClient2Controller_XPCHandler.KeychainUnlockWithEncryptionUnlockerError]
-//   - [IDIClient2Controller_XPCHandler.NewAttachWithParamsError]
+//   - [IDIClient2ControllerXPCHandler.GUIAskForPassphraseWithEncryptionFrontendUsageError]
+//   - [IDIClient2ControllerXPCHandler.CreateAndStoreInSystemKeychainWithCreatorAccountError]
+//   - [IDIClient2ControllerXPCHandler.KeychainUnlockWithEncryptionUnlockerError]
+//   - [IDIClient2ControllerXPCHandler.NewAttachWithParamsError]
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler
-type IDIClient2Controller_XPCHandler interface {
+type IDIClient2ControllerXPCHandler interface {
 	IDIBaseXPCHandler
 
 	// Topic: Methods
@@ -87,26 +92,26 @@ type IDIClient2Controller_XPCHandler interface {
 }
 
 // Init initializes the instance.
-func (d DIClient2Controller_XPCHandler) Init() DIClient2Controller_XPCHandler {
-	rv := objc.Send[DIClient2Controller_XPCHandler](d.ID, objc.Sel("init"))
+func (d DIClient2ControllerXPCHandler) Init() DIClient2ControllerXPCHandler {
+	rv := objc.Send[DIClient2ControllerXPCHandler](d.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d DIClient2Controller_XPCHandler) Autorelease() DIClient2Controller_XPCHandler {
-	rv := objc.Send[DIClient2Controller_XPCHandler](d.ID, objc.Sel("autorelease"))
+func (d DIClient2ControllerXPCHandler) Autorelease() DIClient2ControllerXPCHandler {
+	rv := objc.Send[DIClient2ControllerXPCHandler](d.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewDIClient2Controller_XPCHandler creates a new DIClient2Controller_XPCHandler instance.
-func NewDIClient2Controller_XPCHandler() DIClient2Controller_XPCHandler {
-	class := getDIClient2Controller_XPCHandlerClass()
-	rv := objc.Send[DIClient2Controller_XPCHandler](objc.ID(class.class), objc.Sel("new"))
+// NewDIClient2ControllerXPCHandler creates a new DIClient2ControllerXPCHandler instance.
+func NewDIClient2ControllerXPCHandler() DIClient2ControllerXPCHandler {
+	class := getDIClient2ControllerXPCHandlerClass()
+	rv := objc.Send[DIClient2ControllerXPCHandler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler/GUIAskForPassphraseWithEncryptionFrontend:usage:error:
-func (d DIClient2Controller_XPCHandler) GUIAskForPassphraseWithEncryptionFrontendUsageError(frontend objectivec.IObject, usage int64) (bool, error) {
+func (d DIClient2ControllerXPCHandler) GUIAskForPassphraseWithEncryptionFrontendUsageError(frontend objectivec.IObject, usage int64) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("GUIAskForPassphraseWithEncryptionFrontend:usage:error:"), frontend, usage, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -121,7 +126,7 @@ func (d DIClient2Controller_XPCHandler) GUIAskForPassphraseWithEncryptionFronten
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler/createAndStoreInSystemKeychainWithCreator:account:error:
-func (d DIClient2Controller_XPCHandler) CreateAndStoreInSystemKeychainWithCreatorAccountError(creator objectivec.IObject, account objectivec.IObject) (bool, error) {
+func (d DIClient2ControllerXPCHandler) CreateAndStoreInSystemKeychainWithCreatorAccountError(creator objectivec.IObject, account objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("createAndStoreInSystemKeychainWithCreator:account:error:"), creator, account, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -136,7 +141,7 @@ func (d DIClient2Controller_XPCHandler) CreateAndStoreInSystemKeychainWithCreato
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler/keychainUnlockWithEncryptionUnlocker:error:
-func (d DIClient2Controller_XPCHandler) KeychainUnlockWithEncryptionUnlockerError(unlocker objectivec.IObject) (bool, error) {
+func (d DIClient2ControllerXPCHandler) KeychainUnlockWithEncryptionUnlockerError(unlocker objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("keychainUnlockWithEncryptionUnlocker:error:"), unlocker, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -151,7 +156,7 @@ func (d DIClient2Controller_XPCHandler) KeychainUnlockWithEncryptionUnlockerErro
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIClient2Controller_XPCHandler/newAttachWithParams:error:
-func (d DIClient2Controller_XPCHandler) NewAttachWithParamsError(params objectivec.IObject) (objectivec.IObject, error) {
+func (d DIClient2ControllerXPCHandler) NewAttachWithParamsError(params objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("newAttachWithParams:error:"), params, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

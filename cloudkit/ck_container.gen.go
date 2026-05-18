@@ -265,7 +265,7 @@ type ICKContainer interface {
 	// Topic: Accessing Container Metadata
 
 	// Fetches the share metadata for the specified share URL.
-	FetchShareMetadataWithURLCompletionHandler(url foundation.INSURL, completionHandler CKShareMetadataErrorHandler)
+	FetchShareMetadataWithURLCompletionHandler(url foundation.NSURL, completionHandler CKShareMetadataErrorHandler)
 	// Accepts the specified share metadata.
 	AcceptShareMetadataCompletionHandler(metadata ICKShareMetadata, completionHandler CKShareErrorHandler)
 	// A notification that a container posts when the status of an iCloud account changes.
@@ -499,7 +499,7 @@ func (c CKContainer) FetchUserRecordIDWithCompletionHandler(completionHandler CK
 // metadata.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKContainer/fetchShareMetadata(with:completionHandler:)
-func (c CKContainer) FetchShareMetadataWithURLCompletionHandler(url foundation.INSURL, completionHandler CKShareMetadataErrorHandler) {
+func (c CKContainer) FetchShareMetadataWithURLCompletionHandler(url foundation.NSURL, completionHandler CKShareMetadataErrorHandler) {
 	_block1, _ := NewCKShareMetadataErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("fetchShareMetadataWithURL:completionHandler:"), url, _block1)
 }
@@ -766,7 +766,7 @@ func (c CKContainer) FetchUserRecordID(ctx context.Context) (*CKRecordID, error)
 
 // FetchShareMetadataWithURL is a synchronous wrapper around [CKContainer.FetchShareMetadataWithURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c CKContainer) FetchShareMetadataWithURL(ctx context.Context, url foundation.INSURL) (*CKShareMetadata, error) {
+func (c CKContainer) FetchShareMetadataWithURL(ctx context.Context, url foundation.NSURL) (*CKShareMetadata, error) {
 	type result struct {
 		val *CKShareMetadata
 		err error

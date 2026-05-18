@@ -19,6 +19,11 @@ type GCPressedStateInput interface {
 	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
 	IsPressed() bool
 
+	// A Boolean value that indicates whether the user presses the button.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
+	Pressed() bool
+
 	// The time of the most recent press state change.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateTimestamp
@@ -28,11 +33,6 @@ type GCPressedStateInput interface {
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateLatency
 	LastPressedStateLatency() float64
-
-	// The block that the profile calls when an element’s press state changes.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/pressedDidChangeHandler
-	PressedDidChangeHandler() func(objc.ID, bool)
 
 	// One or more physical actions the user performs to manipulate the input.
 	//
@@ -65,31 +65,39 @@ func (o GCPressedStateInputObject) IsPressed() bool {
 	return rv
 }
 
+// A Boolean value that indicates whether the user presses the button.
+//
+// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
+func (o GCPressedStateInputObject) Pressed() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isPressed"))
+	return bool(rv)
+}
+
 // The time of the most recent press state change.
+//
+// # Discussion
+//
+// This property isn’t a specific date and time. To determine the time
+// between changes, subtract a previous value from the current value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateTimestamp
 func (o GCPressedStateInputObject) LastPressedStateTimestamp() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("lastPressedStateTimestamp"))
-	return rv
+	return float64(rv)
 }
 
 // The time in seconds between the last press state change and the current
 // time.
 //
+// # Discussion
+//
+// Use this property as a minimum latency value that may not include latency
+// that accrues on the device or when it transmits the event.
+//
 // See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateLatency
 func (o GCPressedStateInputObject) LastPressedStateLatency() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("lastPressedStateLatency"))
-	return rv
-}
-
-// The block that the profile calls when an element’s press state changes.
-//
-// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/pressedDidChangeHandler
-func (o GCPressedStateInputObject) PressedDidChangeHandler() func(objc.ID, bool) {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("pressedDidChangeHandler"))
-	// Block/function return - cannot convert from objc.ID to Go func
-	_ = rv
-	return nil
+	return float64(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

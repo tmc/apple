@@ -444,15 +444,15 @@ type IWKWebView interface {
 	// Loads the web content that the specified URL request object references and navigates to that content.
 	LoadRequest(request foundation.NSURLRequest) IWKNavigation
 	// Loads the content of the specified data object and navigates to it.
-	LoadDataMIMETypeCharacterEncodingNameBaseURL(data foundation.INSData, MIMEType string, characterEncodingName string, baseURL foundation.INSURL) IWKNavigation
+	LoadDataMIMETypeCharacterEncodingNameBaseURL(data foundation.NSData, MIMEType string, characterEncodingName string, baseURL foundation.NSURL) IWKNavigation
 	// Loads the contents of the specified HTML string and navigates to it.
-	LoadHTMLStringBaseURL(string_ string, baseURL foundation.INSURL) IWKNavigation
+	LoadHTMLStringBaseURL(string_ string, baseURL foundation.NSURL) IWKNavigation
 	// Loads the web content from the file the URL request object specifies and navigates to that content.
-	LoadFileRequestAllowingReadAccessToURL(request foundation.NSURLRequest, readAccessURL foundation.INSURL) IWKNavigation
+	LoadFileRequestAllowingReadAccessToURL(request foundation.NSURLRequest, readAccessURL foundation.NSURL) IWKNavigation
 	// Loads the web content from the specified file and navigates to it.
-	LoadFileURLAllowingReadAccessToURL(URL foundation.INSURL, readAccessURL foundation.INSURL) IWKNavigation
+	LoadFileURLAllowingReadAccessToURL(URL foundation.NSURL, readAccessURL foundation.NSURL) IWKNavigation
 	// Loads the web content from the data you provide as if the data were the response to the request.
-	LoadSimulatedRequestResponseResponseData(request foundation.NSURLRequest, response foundation.NSURLResponse, data foundation.INSData) IWKNavigation
+	LoadSimulatedRequestResponseResponseData(request foundation.NSURLRequest, response foundation.NSURLResponse, data foundation.NSData) IWKNavigation
 	// Loads the web content from the HTML you provide as if the HTML were the response to the request.
 	LoadSimulatedRequestResponseHTMLString(request foundation.NSURLRequest, string_ string) IWKNavigation
 	// A Boolean value that indicates whether the view is currently loading content.
@@ -480,7 +480,7 @@ type IWKWebView interface {
 	// Starts to download the resource at the URL in the request.
 	StartDownloadUsingRequestCompletionHandler(request foundation.NSURLRequest, completionHandler WKDownloadHandler)
 	// Resumes a failed or canceled download.
-	ResumeDownloadFromResumeDataCompletionHandler(resumeData foundation.INSData, completionHandler WKDownloadHandler)
+	ResumeDownloadFromResumeDataCompletionHandler(resumeData foundation.NSData, completionHandler WKDownloadHandler)
 
 	// Topic: Making web content inspectable
 
@@ -493,7 +493,7 @@ type IWKWebView interface {
 	// The page title.
 	Title() string
 	// The URL for the current webpage.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	// The media type for the contents of the web view.
 	MediaType() string
 	SetMediaType(value string)
@@ -501,7 +501,7 @@ type IWKWebView interface {
 	CustomUserAgent() string
 	SetCustomUserAgent(value string)
 	// The trust management object you use to evaluate trust for the current webpage.
-	ServerTrust() security.SecTrustRef
+	ServerTrust() security.SecTrust
 	// A Boolean value that indicates whether the web view loaded all resources on the page through securely encrypted connections.
 	HasOnlySecureContent() bool
 	// The theme color that the system gets from the first valid meta tag in the webpage.
@@ -606,7 +606,7 @@ type IWKWebView interface {
 	// Topic: Instance Methods
 
 	FetchDataOfTypesCompletionHandler(dataTypes WKWebViewDataType, completionHandler DataErrorHandler)
-	RestoreDataCompletionHandler(data foundation.INSData, completionHandler ErrorHandler)
+	RestoreDataCompletionHandler(data foundation.NSData, completionHandler ErrorHandler)
 
 	// Generates PDF data from the web view’s contents asynchronously.
 	CreatePDFWithConfigurationCompletionHandler(pdfConfiguration IWKPDFConfiguration, completionHandler DataErrorHandler)
@@ -761,7 +761,7 @@ func (w WKWebView) LoadRequest(request foundation.NSURLRequest) IWKNavigation {
 // data object, use this method to navigate to that content.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/load(_:mimeType:characterEncodingName:baseURL:)
-func (w WKWebView) LoadDataMIMETypeCharacterEncodingNameBaseURL(data foundation.INSData, MIMEType string, characterEncodingName string, baseURL foundation.INSURL) IWKNavigation {
+func (w WKWebView) LoadDataMIMETypeCharacterEncodingNameBaseURL(data foundation.NSData, MIMEType string, characterEncodingName string, baseURL foundation.NSURL) IWKNavigation {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("loadData:MIMEType:characterEncodingName:baseURL:"), data, objc.String(MIMEType), objc.String(characterEncodingName), baseURL)
 	return WKNavigationFromID(rv)
 }
@@ -790,7 +790,7 @@ func (w WKWebView) LoadDataMIMETypeCharacterEncodingNameBaseURL(data foundation.
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/loadHTMLString(_:baseURL:)
 //
 // [NSURLRequest.Attribution.developer]: https://developer.apple.com/documentation/Foundation/NSURLRequest/Attribution-swift.enum/developer
-func (w WKWebView) LoadHTMLStringBaseURL(string_ string, baseURL foundation.INSURL) IWKNavigation {
+func (w WKWebView) LoadHTMLStringBaseURL(string_ string, baseURL foundation.NSURL) IWKNavigation {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("loadHTMLString:baseURL:"), objc.String(string_), baseURL)
 	return WKNavigationFromID(rv)
 }
@@ -820,7 +820,7 @@ func (w WKWebView) LoadHTMLStringBaseURL(string_ string, baseURL foundation.INSU
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/loadFileRequest(_:allowingReadAccessTo:)
 //
 // [attribution]: https://developer.apple.com/documentation/Foundation/URLRequest/attribution-swift.property
-func (w WKWebView) LoadFileRequestAllowingReadAccessToURL(request foundation.NSURLRequest, readAccessURL foundation.INSURL) IWKNavigation {
+func (w WKWebView) LoadFileRequestAllowingReadAccessToURL(request foundation.NSURLRequest, readAccessURL foundation.NSURL) IWKNavigation {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("loadFileRequest:allowingReadAccessToURL:"), request, readAccessURL)
 	return WKNavigationFromID(rv)
 }
@@ -850,7 +850,7 @@ func (w WKWebView) LoadFileRequestAllowingReadAccessToURL(request foundation.NSU
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/loadFileURL(_:allowingReadAccessTo:)
 //
 // [NSURLRequest.Attribution.developer]: https://developer.apple.com/documentation/Foundation/NSURLRequest/Attribution-swift.enum/developer
-func (w WKWebView) LoadFileURLAllowingReadAccessToURL(URL foundation.INSURL, readAccessURL foundation.INSURL) IWKNavigation {
+func (w WKWebView) LoadFileURLAllowingReadAccessToURL(URL foundation.NSURL, readAccessURL foundation.NSURL) IWKNavigation {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("loadFileURL:allowingReadAccessToURL:"), URL, readAccessURL)
 	return WKNavigationFromID(rv)
 }
@@ -871,7 +871,7 @@ func (w WKWebView) LoadFileURLAllowingReadAccessToURL(URL foundation.INSURL, rea
 // request.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/loadSimulatedRequest(_:response:responseData:)
-func (w WKWebView) LoadSimulatedRequestResponseResponseData(request foundation.NSURLRequest, response foundation.NSURLResponse, data foundation.INSData) IWKNavigation {
+func (w WKWebView) LoadSimulatedRequestResponseResponseData(request foundation.NSURLRequest, response foundation.NSURLResponse, data foundation.NSData) IWKNavigation {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("loadSimulatedRequest:response:responseData:"), request, response, data)
 	return WKNavigationFromID(rv)
 }
@@ -1004,7 +1004,7 @@ func (w WKWebView) StartDownloadUsingRequestCompletionHandler(request foundation
 // completion handler.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/resumeDownload(fromResumeData:completionHandler:)
-func (w WKWebView) ResumeDownloadFromResumeDataCompletionHandler(resumeData foundation.INSData, completionHandler WKDownloadHandler) {
+func (w WKWebView) ResumeDownloadFromResumeDataCompletionHandler(resumeData foundation.NSData, completionHandler WKDownloadHandler) {
 	_block1, _ := NewWKDownloadBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("resumeDownloadFromResumeData:completionHandler:"), resumeData, _block1)
 }
@@ -1234,7 +1234,7 @@ func (w WKWebView) FetchDataOfTypesCompletionHandler(dataTypes WKWebViewDataType
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/restoreData(_:completionHandler:)
-func (w WKWebView) RestoreDataCompletionHandler(data foundation.INSData, completionHandler ErrorHandler) {
+func (w WKWebView) RestoreDataCompletionHandler(data foundation.NSData, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("restoreData:completionHandler:"), data, _block1)
 }
@@ -1438,7 +1438,7 @@ func (w WKWebView) Title() string {
 // [WKWebView] is key-value observing (KVO) compliant for this property.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/url
-func (w WKWebView) URL() foundation.INSURL {
+func (w WKWebView) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -1487,9 +1487,9 @@ func (w WKWebView) SetCustomUserAgent(value string) {
 // for this property.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/serverTrust
-func (w WKWebView) ServerTrust() security.SecTrustRef {
-	rv := objc.Send[security.SecTrustRef](w.ID, objc.Sel("serverTrust"))
-	return security.SecTrustRef(rv)
+func (w WKWebView) ServerTrust() security.SecTrust {
+	rv := objc.Send[security.SecTrust](w.ID, objc.Sel("serverTrust"))
+	return security.SecTrust(rv)
 }
 
 // A Boolean value that indicates whether the web view loaded all resources on
@@ -1759,7 +1759,7 @@ func (w WKWebView) StartDownloadUsingRequest(ctx context.Context, request founda
 
 // ResumeDownloadFromResumeData is a synchronous wrapper around [WKWebView.ResumeDownloadFromResumeDataCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w WKWebView) ResumeDownloadFromResumeData(ctx context.Context, resumeData foundation.INSData) (*WKDownload, error) {
+func (w WKWebView) ResumeDownloadFromResumeData(ctx context.Context, resumeData foundation.NSData) (*WKDownload, error) {
 	done := make(chan *WKDownload, 1)
 	w.ResumeDownloadFromResumeDataCompletionHandler(resumeData, func(val *WKDownload) {
 		done <- val
@@ -1921,7 +1921,7 @@ func (w WKWebView) FetchDataOfTypes(ctx context.Context, dataTypes WKWebViewData
 
 // RestoreData is a synchronous wrapper around [WKWebView.RestoreDataCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w WKWebView) RestoreData(ctx context.Context, data foundation.INSData) error {
+func (w WKWebView) RestoreData(ctx context.Context, data foundation.NSData) error {
 	done := make(chan error, 1)
 	w.RestoreDataCompletionHandler(data, func(err error) {
 		done <- err

@@ -118,13 +118,13 @@ func (c CPXEventDeferringManager) InitWithDeliveryManagerProcessManagerConnectio
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDeferringManager/_symbolicLinkTokenForProcess:
-func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) _symbolicLinkTokenForProcess(process *CPSProcessRecRef) objectivec.IObject {
+func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) _symbolicLinkTokenForProcess(process CPSProcessRec) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_CPXEventDeferringManagerClass.class), objc.Sel("_symbolicLinkTokenForProcess:"), process)
 	return objectivec.Object{ID: rv}
 }
 
 // SymbolicLinkTokenForProcess is an exported wrapper for the private method _symbolicLinkTokenForProcess.
-func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) SymbolicLinkTokenForProcess(process *CPSProcessRecRef) (objectivec.IObject, error) {
+func (_CPXEventDeferringManagerClass CPXEventDeferringManagerClass) SymbolicLinkTokenForProcess(process CPSProcessRec) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(objc.ID(_CPXEventDeferringManagerClass.class), objc.Sel("_symbolicLinkTokenForProcess:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_symbolicLinkTokenForProcess:"}
 		return nil, err

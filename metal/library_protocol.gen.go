@@ -14,21 +14,6 @@ import (
 type MTLLibrary interface {
 	objectivec.IObject
 
-	// The installation name for a dynamic library.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/installName
-	InstallName() string
-
-	// The library’s basic type.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/type
-	Type() MTLLibraryType
-
-	// The names of all public functions in the library.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/functionNames
-	FunctionNames() []string
-
 	// Creates an instance that represents a shader function in the library.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(name:)
@@ -64,6 +49,26 @@ type MTLLibrary interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeIntersectionFunction(descriptor:)
 	NewIntersectionFunctionWithDescriptorError(descriptor IMTLIntersectionFunctionDescriptor) (MTLFunction, error)
 
+	// Retrieves reflection information for a function in the library.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/reflection(functionName:)
+	ReflectionForFunctionWithName(functionName string) IMTLFunctionReflection
+
+	// The installation name for a dynamic library.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/installName
+	InstallName() string
+
+	// The library’s basic type.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/type
+	Type() MTLLibraryType
+
+	// The names of all public functions in the library.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/functionNames
+	FunctionNames() []string
+
 	// The Metal device object that created the library.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/device
@@ -73,15 +78,6 @@ type MTLLibrary interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/label
 	Label() string
-
-	// Retrieves reflection information for a function in the library.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/reflection(functionName:)
-	ReflectionForFunctionWithName(functionName string) IMTLFunctionReflection
-
-	// A string that identifies the library.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLLibrary/label
 	SetLabel(value string)
 }
 
@@ -100,30 +96,6 @@ func MTLLibraryObjectFromID(id objc.ID) MTLLibraryObject {
 	return MTLLibraryObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The installation name for a dynamic library.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLLibrary/installName
-func (o MTLLibraryObject) InstallName() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("installName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The library’s basic type.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLLibrary/type
-func (o MTLLibraryObject) Type() MTLLibraryType {
-	rv := objc.Send[MTLLibraryType](o.ID, objc.Sel("type"))
-	return rv
-}
-
-// The names of all public functions in the library.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLLibrary/functionNames
-func (o MTLLibraryObject) FunctionNames() []string {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("functionNames"))
-	return objc.ConvertSliceToStrings(rv)
 }
 
 // Creates an instance that represents a shader function in the library.
@@ -264,22 +236,6 @@ func (o MTLLibraryObject) NewIntersectionFunctionWithDescriptorError(descriptor 
 	return MTLFunctionObjectFromID(rv), nil
 }
 
-// The Metal device object that created the library.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLLibrary/device
-func (o MTLLibraryObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// A string that identifies the library.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLLibrary/label
-func (o MTLLibraryObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // Retrieves reflection information for a function in the library.
 //
 // functionName: The name of a GPU function in the library. The name needs to match one of
@@ -311,6 +267,73 @@ func (o MTLLibraryObject) ReflectionForFunctionWithName(functionName string) IMT
 	return MTLFunctionReflectionFromID(rv)
 }
 
+// The installation name for a dynamic library.
+//
+// # Discussion
+//
+// Metal ignores this property if the library’s [Type] isn’t
+// [MTLLibraryTypeDynamic]. Otherwise this property is a non-`nil` value
+// specifying a file system path to the dynamic library.
+//
+// Metal uses the installation name whenever you create a pipeline state
+// object that directly or indirectly relies on a dynamic library. Metal
+// embeds the installation name into any Metal library that links against the
+// dynamic library.
+//
+// Specify one of the following:
+//
+// - An absolute path to a file containing the dynamic library. This option is
+// appropriate when you serialize the dynamic library to the file system on
+// the current device or Mac computer. - A path relative to
+// `@executable_path`, where the system substitutes the directory containing
+// the library that is creating the new pipeline state object. - A path
+// relative to `@loader_path`, where the system substitutes the directory
+// containing the Metal library that contains the reference to this dynamic
+// library.
+//
+// Use a relative path when you include the dynamic library as part of a
+// bundle or app.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLLibrary/installName
+func (o MTLLibraryObject) InstallName() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("installName"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// The library’s basic type.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLLibrary/type
+func (o MTLLibraryObject) Type() MTLLibraryType {
+	rv := objc.Send[MTLLibraryType](o.ID, objc.Sel("type"))
+	return MTLLibraryType(rv)
+}
+
+// The names of all public functions in the library.
+//
+// # Discussion
+//
+// Inside a Metal library, functions with the `vertex`, `fragment`, or
+// `kernel` function attributes are entry points into the library. Functions
+// without these attributes are private.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLLibrary/functionNames
+func (o MTLLibraryObject) FunctionNames() []string {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("functionNames"))
+	return objc.ConvertSliceToStrings(rvIDs)
+}
+
+// The Metal device object that created the library.
+//
+// # Discussion
+//
+// You can only use the library with this [MTLDevice].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLLibrary/device
+func (o MTLLibraryObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
 // A string that identifies the library.
 //
 // # Discussion
@@ -322,6 +345,11 @@ func (o MTLLibraryObject) ReflectionForFunctionWithName(functionName string) IMT
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLLibraryObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLLibraryObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

@@ -19,30 +19,18 @@ type CIZoomBlur interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/amount
 	Amount() float32
-
-	// The center of the effect, as x and y coordinates.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/center
-	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/inputImage
-	InputImage() ICIImage
-
-	// The zoom-in amount.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/amount
 	SetAmount(value float32)
 
 	// The center of the effect, as x and y coordinates.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/center
+	Center() corefoundation.CGPoint
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -63,30 +51,6 @@ func CIZoomBlurObjectFromID(id objc.ID) CIZoomBlurObject {
 	}
 }
 
-// The zoom-in amount.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/amount
-func (o CIZoomBlurObject) Amount() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
-	return rv
-}
-
-// The center of the effect, as x and y coordinates.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/center
-func (o CIZoomBlurObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/inputImage
-func (o CIZoomBlurObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -99,6 +63,11 @@ func (o CIZoomBlurObject) OutputImage() ICIImage {
 // The zoom-in amount.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/amount
+func (o CIZoomBlurObject) Amount() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
+	return float32(rv)
+}
+
 func (o CIZoomBlurObject) SetAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAmount:"), value)
 }
@@ -106,6 +75,11 @@ func (o CIZoomBlurObject) SetAmount(value float32) {
 // The center of the effect, as x and y coordinates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/center
+func (o CIZoomBlurObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIZoomBlurObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -113,6 +87,11 @@ func (o CIZoomBlurObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/inputImage
+func (o CIZoomBlurObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIZoomBlurObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

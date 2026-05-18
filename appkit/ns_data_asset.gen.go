@@ -142,7 +142,7 @@ type INSDataAsset interface {
 	// Topic: Accessing data
 
 	// The raw data values in the data asset.
-	Data() foundation.INSData
+	Data() foundation.NSData
 
 	// Topic: Getting data asset information
 
@@ -286,7 +286,7 @@ func (d NSDataAsset) InitWithNameBundle(name NSDataAssetName, bundle foundation.
 // For more information on accessing structured data, see [NSDataAsset].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDataAsset/data
-func (d NSDataAsset) Data() foundation.INSData {
+func (d NSDataAsset) Data() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

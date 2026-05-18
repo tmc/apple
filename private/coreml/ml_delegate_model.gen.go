@@ -126,14 +126,14 @@ type IMLDelegateModel interface {
 }
 
 // Init initializes the instance.
-func (d MLDelegateModel) Init() MLDelegateModel {
-	rv := objc.Send[MLDelegateModel](d.ID, objc.Sel("init"))
+func (m MLDelegateModel) Init() MLDelegateModel {
+	rv := objc.Send[MLDelegateModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d MLDelegateModel) Autorelease() MLDelegateModel {
-	rv := objc.Send[MLDelegateModel](d.ID, objc.Sel("autorelease"))
+func (m MLDelegateModel) Autorelease() MLDelegateModel {
+	rv := objc.Send[MLDelegateModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -209,35 +209,35 @@ func NewDelegateModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatur
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_finishPredictionAndDispatchPendingPredictions
-func (d MLDelegateModel) _finishPredictionAndDispatchPendingPredictions() {
-	objc.Send[objc.ID](d.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
+func (m MLDelegateModel) _finishPredictionAndDispatchPendingPredictions() {
+	objc.Send[objc.ID](m.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
 }
 
 // FinishPredictionAndDispatchPendingPredictions is an exported wrapper for the private method _finishPredictionAndDispatchPendingPredictions.
-func (d MLDelegateModel) FinishPredictionAndDispatchPendingPredictions() error {
-	if !objc.RespondsToSelector(d.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions")) {
+func (m MLDelegateModel) FinishPredictionAndDispatchPendingPredictions() error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_finishPredictionAndDispatchPendingPredictions"}
 		return err
 	}
-	d._finishPredictionAndDispatchPendingPredictions()
+	m._finishPredictionAndDispatchPendingPredictions()
 	return nil
 }
 
 // CanFinishPredictionAndDispatchPendingPredictions reports whether the receiver responds to the private selector _finishPredictionAndDispatchPendingPredictions.
-func (d MLDelegateModel) CanFinishPredictionAndDispatchPendingPredictions() bool {
-	return objc.RespondsToSelector(d.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
+func (m MLDelegateModel) CanFinishPredictionAndDispatchPendingPredictions() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_finishPredictionAndDispatchPendingPredictions"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_predictionFromFeatures:usingState:options:completionHandler:
-func (d MLDelegateModel) _predictionFromFeaturesUsingStateOptionsCompletionHandler(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
+func (m MLDelegateModel) _predictionFromFeaturesUsingStateOptionsCompletionHandler(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](d.ID, objc.Sel("_predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
+	objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_predictionFromFeatures:usingState:options:error:
-func (d MLDelegateModel) _predictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLDelegateModel) _predictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("_predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -247,9 +247,9 @@ func (d MLDelegateModel) _predictionFromFeaturesUsingStateOptionsError(features 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_predictionsFromBatch:options:error:
-func (d MLDelegateModel) _predictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLDelegateModel) _predictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("_predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -259,56 +259,56 @@ func (d MLDelegateModel) _predictionsFromBatchOptionsError(batch objectivec.IObj
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_schedulePredictionRequest:completionHandler:
-func (d MLDelegateModel) _schedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
+func (m MLDelegateModel) _schedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](d.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"), request, _block1)
+	objc.Send[objc.ID](m.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"), request, _block1)
 }
 
 // SchedulePredictionRequestCompletionHandler is an exported wrapper for the private method _schedulePredictionRequestCompletionHandler.
-func (d MLDelegateModel) SchedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) error {
-	if !objc.RespondsToSelector(d.ID, objc.Sel("_schedulePredictionRequest:completionHandler:")) {
+func (m MLDelegateModel) SchedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_schedulePredictionRequest:completionHandler:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_schedulePredictionRequest:completionHandler:"}
 		return err
 	}
-	d._schedulePredictionRequestCompletionHandler(request, handler)
+	m._schedulePredictionRequestCompletionHandler(request, handler)
 	return nil
 }
 
 // CanSchedulePredictionRequestCompletionHandler reports whether the receiver responds to the private selector _schedulePredictionRequest:completionHandler:.
-func (d MLDelegateModel) CanSchedulePredictionRequestCompletionHandler() bool {
-	return objc.RespondsToSelector(d.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"))
+func (m MLDelegateModel) CanSchedulePredictionRequestCompletionHandler() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_schedulePredictionRequest:completionHandler:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_submitPredictionRequest:completionHandler:
-func (d MLDelegateModel) _submitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
+func (m MLDelegateModel) _submitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](d.ID, objc.Sel("_submitPredictionRequest:completionHandler:"), request, _block1)
+	objc.Send[objc.ID](m.ID, objc.Sel("_submitPredictionRequest:completionHandler:"), request, _block1)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/_validateStateFeatureNamed:backingMultiArray:
-func (d MLDelegateModel) _validateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject) {
-	objc.Send[objc.ID](d.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"), named, array)
+func (m MLDelegateModel) _validateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"), named, array)
 }
 
 // ValidateStateFeatureNamedBackingMultiArray is an exported wrapper for the private method _validateStateFeatureNamedBackingMultiArray.
-func (d MLDelegateModel) ValidateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject) error {
-	if !objc.RespondsToSelector(d.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:")) {
+func (m MLDelegateModel) ValidateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_validateStateFeatureNamed:backingMultiArray:"}
 		return err
 	}
-	d._validateStateFeatureNamedBackingMultiArray(named, array)
+	m._validateStateFeatureNamedBackingMultiArray(named, array)
 	return nil
 }
 
 // CanValidateStateFeatureNamedBackingMultiArray reports whether the receiver responds to the private selector _validateStateFeatureNamed:backingMultiArray:.
-func (d MLDelegateModel) CanValidateStateFeatureNamedBackingMultiArray() bool {
-	return objc.RespondsToSelector(d.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"))
+func (m MLDelegateModel) CanValidateStateFeatureNamedBackingMultiArray() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_validateStateFeatureNamed:backingMultiArray:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/parameterValueForKey:error:
-func (d MLDelegateModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
+func (m MLDelegateModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -318,15 +318,15 @@ func (d MLDelegateModel) ParameterValueForKeyError(key objectivec.IObject) (obje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionFromFeatures:options:completionHandler:
-func (d MLDelegateModel) PredictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
+func (m MLDelegateModel) PredictionFromFeaturesOptionsCompletionHandler(features objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block2, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](d.ID, objc.Sel("predictionFromFeatures:options:completionHandler:"), features, options, _block2)
+	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:completionHandler:"), features, options, _block2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionFromFeatures:options:error:
-func (d MLDelegateModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLDelegateModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -336,15 +336,15 @@ func (d MLDelegateModel) PredictionFromFeaturesOptionsError(features objectivec.
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionFromFeatures:usingState:options:completionHandler:
-func (d MLDelegateModel) PredictionFromFeaturesUsingStateOptionsCompletionHandler(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
+func (m MLDelegateModel) PredictionFromFeaturesUsingStateOptionsCompletionHandler(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](d.ID, objc.Sel("predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
+	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:completionHandler:"), features, state, options, _block3)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionFromFeatures:usingState:options:error:
-func (d MLDelegateModel) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLDelegateModel) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), features, state, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -354,9 +354,9 @@ func (d MLDelegateModel) PredictionFromFeaturesUsingStateOptionsError(features o
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/predictionsFromBatch:options:error:
-func (d MLDelegateModel) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLDelegateModel) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -366,9 +366,9 @@ func (d MLDelegateModel) PredictionsFromBatchOptionsError(batch objectivec.IObje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/initWithEngine:error:
-func (d MLDelegateModel) InitWithEngineError(engine objectivec.IObject) (MLDelegateModel, error) {
+func (m MLDelegateModel) InitWithEngineError(engine objectivec.IObject) (MLDelegateModel, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDelegateModel{}, foundation.NSErrorFrom(errorPtr)
@@ -378,28 +378,28 @@ func (d MLDelegateModel) InitWithEngineError(engine objectivec.IObject) (MLDeleg
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/engine
-func (d MLDelegateModel) Engine() int {
-	rv := objc.Send[int](d.ID, objc.Sel("engine"))
+func (m MLDelegateModel) Engine() int {
+	rv := objc.Send[int](m.ID, objc.Sel("engine"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/maxAsyncPredictionsInFlight
-func (d MLDelegateModel) MaxAsyncPredictionsInFlight() uint64 {
-	rv := objc.Send[uint64](d.ID, objc.Sel("maxAsyncPredictionsInFlight"))
+func (m MLDelegateModel) MaxAsyncPredictionsInFlight() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("maxAsyncPredictionsInFlight"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateModel/pendingPredictionQueue
-func (d MLDelegateModel) PendingPredictionQueue() foundation.INSArray {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("pendingPredictionQueue"))
+func (m MLDelegateModel) PendingPredictionQueue() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pendingPredictionQueue"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // _predictionFromFeaturesUsingStateOptions is a synchronous wrapper around [MLDelegateModel._predictionFromFeaturesUsingStateOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (d MLDelegateModel) _predictionFromFeaturesUsingStateOptions(ctx context.Context, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) error {
+func (m MLDelegateModel) _predictionFromFeaturesUsingStateOptions(ctx context.Context, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) error {
 	done := make(chan error, 1)
-	d._predictionFromFeaturesUsingStateOptionsCompletionHandler(features, state, options, func(err error) {
+	m._predictionFromFeaturesUsingStateOptionsCompletionHandler(features, state, options, func(err error) {
 		done <- err
 	})
 	select {
@@ -412,9 +412,9 @@ func (d MLDelegateModel) _predictionFromFeaturesUsingStateOptions(ctx context.Co
 
 // _schedulePredictionRequest is a synchronous wrapper around [MLDelegateModel._schedulePredictionRequestCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (d MLDelegateModel) _schedulePredictionRequest(ctx context.Context, request objectivec.IObject) error {
+func (m MLDelegateModel) _schedulePredictionRequest(ctx context.Context, request objectivec.IObject) error {
 	done := make(chan error, 1)
-	d._schedulePredictionRequestCompletionHandler(request, func(err error) {
+	m._schedulePredictionRequestCompletionHandler(request, func(err error) {
 		done <- err
 	})
 	select {
@@ -427,9 +427,9 @@ func (d MLDelegateModel) _schedulePredictionRequest(ctx context.Context, request
 
 // _submitPredictionRequest is a synchronous wrapper around [MLDelegateModel._submitPredictionRequestCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (d MLDelegateModel) _submitPredictionRequest(ctx context.Context, request objectivec.IObject) error {
+func (m MLDelegateModel) _submitPredictionRequest(ctx context.Context, request objectivec.IObject) error {
 	done := make(chan error, 1)
-	d._submitPredictionRequestCompletionHandler(request, func(err error) {
+	m._submitPredictionRequestCompletionHandler(request, func(err error) {
 		done <- err
 	})
 	select {
@@ -442,9 +442,9 @@ func (d MLDelegateModel) _submitPredictionRequest(ctx context.Context, request o
 
 // PredictionFromFeaturesOptions is a synchronous wrapper around [MLDelegateModel.PredictionFromFeaturesOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (d MLDelegateModel) PredictionFromFeaturesOptions(ctx context.Context, features objectivec.IObject, options objectivec.IObject) error {
+func (m MLDelegateModel) PredictionFromFeaturesOptions(ctx context.Context, features objectivec.IObject, options objectivec.IObject) error {
 	done := make(chan error, 1)
-	d.PredictionFromFeaturesOptionsCompletionHandler(features, options, func(err error) {
+	m.PredictionFromFeaturesOptionsCompletionHandler(features, options, func(err error) {
 		done <- err
 	})
 	select {
@@ -457,9 +457,9 @@ func (d MLDelegateModel) PredictionFromFeaturesOptions(ctx context.Context, feat
 
 // PredictionFromFeaturesUsingStateOptions is a synchronous wrapper around [MLDelegateModel.PredictionFromFeaturesUsingStateOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (d MLDelegateModel) PredictionFromFeaturesUsingStateOptions(ctx context.Context, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) error {
+func (m MLDelegateModel) PredictionFromFeaturesUsingStateOptions(ctx context.Context, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) error {
 	done := make(chan error, 1)
-	d.PredictionFromFeaturesUsingStateOptionsCompletionHandler(features, state, options, func(err error) {
+	m.PredictionFromFeaturesUsingStateOptionsCompletionHandler(features, state, options, func(err error) {
 		done <- err
 	})
 	select {

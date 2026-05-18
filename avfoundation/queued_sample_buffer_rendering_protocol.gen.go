@@ -35,15 +35,20 @@ type AVQueuedSampleBufferRendering interface {
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/stopRequestingMediaData()
 	StopRequestingMediaData()
 
-	// A Boolean value that indicates whether the enqued media meets the required preroll level for reliable playback.
-	//
-	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/hasSufficientMediaDataForReliablePlaybackStart
-	HasSufficientMediaDataForReliablePlaybackStart() bool
-
 	// Discards all pending enqueued sample buffers.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/flush()
 	Flush()
+
+	// A Boolean value that indicates whether the receiver is able to accept more sample buffers.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
+	ReadyForMoreMediaData() bool
+
+	// A Boolean value that indicates whether the enqued media meets the required preroll level for reliable playback.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/hasSufficientMediaDataForReliablePlaybackStart
+	HasSufficientMediaDataForReliablePlaybackStart() bool
 
 	// The timebase for a renderer.
 	//
@@ -141,15 +146,6 @@ func (o AVQueuedSampleBufferRenderingObject) StopRequestingMediaData() {
 	objc.Send[struct{}](o.ID, objc.Sel("stopRequestingMediaData"))
 }
 
-// A Boolean value that indicates whether the enqued media meets the required
-// preroll level for reliable playback.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/hasSufficientMediaDataForReliablePlaybackStart
-func (o AVQueuedSampleBufferRenderingObject) HasSufficientMediaDataForReliablePlaybackStart() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
-	return rv
-}
-
 // Discards all pending enqueued sample buffers.
 //
 // # Discussion
@@ -163,10 +159,60 @@ func (o AVQueuedSampleBufferRenderingObject) Flush() {
 	objc.Send[struct{}](o.ID, objc.Sel("flush"))
 }
 
+// A Boolean value that indicates whether the receiver is able to accept more
+// sample buffers.
+//
+// # Discussion
+//
+// An object conforming to [AVQueuedSampleBufferRendering] keeps track of the
+// occupancy levels of its internal queues for the benefit of clients that
+// enqueue sample buffers from non-real-time sources, for example, clients
+// that can supply sample buffers faster than they are consumed, and so need
+// to decide when to hold back. Clients enqueueing sample buffers from
+// non-real-time sources may hold off from generating or obtaining more sample
+// buffers to enqueue when the value of `readyForMoreMediaData` is [NO]. It is
+// safe to call [EnqueueSampleBuffer] when `readyForMoreMediaData` is [NO],
+// but don’t enqueue sample buffers without bound.
+//
+// To help with control of the non-real-time supply of sample buffers, clients
+// can call [RequestMediaDataWhenReadyOnQueueUsingBlock] in order to specify a
+// block that the receiver should invoke whenever it’s ready for sample
+// buffers to be appended.
+//
+// The value of `readyForMoreMediaData` often changes` from [NO] to [YES]
+// asynchronously, as previously supplied sample buffers are decoded and
+// rendered.
+//
+// This property is not key-value observable.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
+func (o AVQueuedSampleBufferRenderingObject) ReadyForMoreMediaData() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isReadyForMoreMediaData"))
+	return bool(rv)
+}
+
+// A Boolean value that indicates whether the enqued media meets the required
+// preroll level for reliable playback.
+//
+// # Discussion
+//
+// Starting playback when this property is false may prevent smooth playback
+// following an immediate start.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/hasSufficientMediaDataForReliablePlaybackStart
+func (o AVQueuedSampleBufferRenderingObject) HasSufficientMediaDataForReliablePlaybackStart() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
+	return bool(rv)
+}
+
 // The timebase for a renderer.
+//
+// # Discussion
+//
+// The timebase governs how time stamps are interpreted by the renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
 func (o AVQueuedSampleBufferRenderingObject) Timebase() coremedia.CMTimebaseRef {
 	rv := objc.Send[coremedia.CMTimebaseRef](o.ID, objc.Sel("timebase"))
-	return rv
+	return coremedia.CMTimebaseRef(rv)
 }

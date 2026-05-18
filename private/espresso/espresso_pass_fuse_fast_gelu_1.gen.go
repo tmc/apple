@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_fuse_fast_gelu_1] class.
+// The class instance for the [EspressoPassFuseFastGelu1] class.
 var (
-	_EspressoPass_fuse_fast_gelu_1Class     EspressoPass_fuse_fast_gelu_1Class
-	_EspressoPass_fuse_fast_gelu_1ClassOnce sync.Once
+	_EspressoPassFuseFastGelu1Class     EspressoPassFuseFastGelu1Class
+	_EspressoPassFuseFastGelu1ClassOnce sync.Once
 )
 
-func getEspressoPass_fuse_fast_gelu_1Class() EspressoPass_fuse_fast_gelu_1Class {
-	_EspressoPass_fuse_fast_gelu_1ClassOnce.Do(func() {
-		_EspressoPass_fuse_fast_gelu_1Class = EspressoPass_fuse_fast_gelu_1Class{class: objc.GetClass("EspressoPass_fuse_fast_gelu_1")}
+func getEspressoPassFuseFastGelu1Class() EspressoPassFuseFastGelu1Class {
+	_EspressoPassFuseFastGelu1ClassOnce.Do(func() {
+		_EspressoPassFuseFastGelu1Class = EspressoPassFuseFastGelu1Class{class: objc.GetClass("EspressoPass_fuse_fast_gelu_1")}
 	})
-	return _EspressoPass_fuse_fast_gelu_1Class
+	return _EspressoPassFuseFastGelu1Class
 }
 
-// GetEspressoPass_fuse_fast_gelu_1Class returns the class object for EspressoPass_fuse_fast_gelu_1.
-func GetEspressoPass_fuse_fast_gelu_1Class() EspressoPass_fuse_fast_gelu_1Class {
-	return getEspressoPass_fuse_fast_gelu_1Class()
+// GetEspressoPassFuseFastGelu1Class returns the class object for EspressoPass_fuse_fast_gelu_1.
+func GetEspressoPassFuseFastGelu1Class() EspressoPassFuseFastGelu1Class {
+	return getEspressoPassFuseFastGelu1Class()
 }
 
-type EspressoPass_fuse_fast_gelu_1Class struct {
+type EspressoPassFuseFastGelu1Class struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_fuse_fast_gelu_1Class) Class() objc.Class {
+func (ec EspressoPassFuseFastGelu1Class) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_fuse_fast_gelu_1Class) Alloc() EspressoPass_fuse_fast_gelu_1 {
-	rv := objc.Send[EspressoPass_fuse_fast_gelu_1](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFuseFastGelu1Class) Alloc() EspressoPassFuseFastGelu1 {
+	rv := objc.Send[EspressoPassFuseFastGelu1](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_fast_gelu_1
-type EspressoPass_fuse_fast_gelu_1 struct {
+type EspressoPassFuseFastGelu1 struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_fuse_fast_gelu_1FromID constructs a [EspressoPass_fuse_fast_gelu_1] from an objc.ID.
-func EspressoPass_fuse_fast_gelu_1FromID(id objc.ID) EspressoPass_fuse_fast_gelu_1 {
-	return EspressoPass_fuse_fast_gelu_1{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFuseFastGelu1FromID constructs a [EspressoPassFuseFastGelu1] from an objc.ID.
+func EspressoPassFuseFastGelu1FromID(id objc.ID) EspressoPassFuseFastGelu1 {
+	return EspressoPassFuseFastGelu1{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_fuse_fast_gelu_1 implements IEspressoPass_fuse_fast_gelu_1.
-var _ IEspressoPass_fuse_fast_gelu_1 = EspressoPass_fuse_fast_gelu_1{}
+// EspressoPass_fuse_fast_gelu_1FromID is an alias for [EspressoPassFuseFastGelu1FromID] for cross-framework compatibility.
+func EspressoPass_fuse_fast_gelu_1FromID(id objc.ID) EspressoPassFuseFastGelu1 {
+	return EspressoPassFuseFastGelu1FromID(id)
+}
 
-// An interface definition for the [EspressoPass_fuse_fast_gelu_1] class.
+// Ensure EspressoPassFuseFastGelu1 implements IEspressoPassFuseFastGelu1.
+var _ IEspressoPassFuseFastGelu1 = EspressoPassFuseFastGelu1{}
+
+// An interface definition for the [EspressoPassFuseFastGelu1] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_fast_gelu_1
-type IEspressoPass_fuse_fast_gelu_1 interface {
+type IEspressoPassFuseFastGelu1 interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_fuse_fast_gelu_1) Init() EspressoPass_fuse_fast_gelu_1 {
-	rv := objc.Send[EspressoPass_fuse_fast_gelu_1](e.ID, objc.Sel("init"))
+func (e EspressoPassFuseFastGelu1) Init() EspressoPassFuseFastGelu1 {
+	rv := objc.Send[EspressoPassFuseFastGelu1](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_fuse_fast_gelu_1) Autorelease() EspressoPass_fuse_fast_gelu_1 {
-	rv := objc.Send[EspressoPass_fuse_fast_gelu_1](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFuseFastGelu1) Autorelease() EspressoPassFuseFastGelu1 {
+	rv := objc.Send[EspressoPassFuseFastGelu1](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_fuse_fast_gelu_1 creates a new EspressoPass_fuse_fast_gelu_1 instance.
-func NewEspressoPass_fuse_fast_gelu_1() EspressoPass_fuse_fast_gelu_1 {
-	class := getEspressoPass_fuse_fast_gelu_1Class()
-	rv := objc.Send[EspressoPass_fuse_fast_gelu_1](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFuseFastGelu1 creates a new EspressoPassFuseFastGelu1 instance.
+func NewEspressoPassFuseFastGelu1() EspressoPassFuseFastGelu1 {
+	class := getEspressoPassFuseFastGelu1Class()
+	rv := objc.Send[EspressoPassFuseFastGelu1](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

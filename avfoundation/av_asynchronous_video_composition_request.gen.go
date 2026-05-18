@@ -60,6 +60,7 @@ func (ac AVAsynchronousVideoCompositionRequestClass) Alloc() AVAsynchronousVideo
 //
 // # Accessing source data
 //
+//   - [AVAsynchronousVideoCompositionRequest.SourceSampleDataTrackIDs]: The identifiers of tracks that contain source metadata.
 //   - [AVAsynchronousVideoCompositionRequest.SourceTimedMetadataByTrackID]: Returns a source timed metadata group for the track that contains the specified identifier.
 //   - [AVAsynchronousVideoCompositionRequest.SourceTrackIDs]: The identifiers of tracks that contain source video.
 //
@@ -94,6 +95,7 @@ func AVAsynchronousVideoCompositionRequestFromID(id objc.ID) AVAsynchronousVideo
 //
 // # Accessing source data
 //
+//   - [IAVAsynchronousVideoCompositionRequest.SourceSampleDataTrackIDs]: The identifiers of tracks that contain source metadata.
 //   - [IAVAsynchronousVideoCompositionRequest.SourceTimedMetadataByTrackID]: Returns a source timed metadata group for the track that contains the specified identifier.
 //   - [IAVAsynchronousVideoCompositionRequest.SourceTrackIDs]: The identifiers of tracks that contain source video.
 //
@@ -117,6 +119,8 @@ type IAVAsynchronousVideoCompositionRequest interface {
 
 	// Topic: Accessing source data
 
+	// The identifiers of tracks that contain source metadata.
+	SourceSampleDataTrackIDs() []foundation.NSNumber
 	// Returns a source timed metadata group for the track that contains the specified identifier.
 	SourceTimedMetadataByTrackID(trackID int32) IAVTimedMetadataGroup
 	// The identifiers of tracks that contain source video.
@@ -125,12 +129,10 @@ type IAVAsynchronousVideoCompositionRequest interface {
 	// Topic: Finishing the request
 
 	// Finishes the request with an error.
-	FinishWithError(error_ foundation.INSError)
+	FinishWithError(error_ foundation.NSError)
 	// Cancels the request to compose a video frame.
 	FinishCancelledRequest()
 
-	// The identifiers of tracks that contain source metadata.
-	SourceSampleDataTrackIDs() []foundation.NSNumber
 	// Associates the pixel buffer with the specified spatial configuration.
 	AttachSpatialVideoConfigurationToPixelBuffer(spatialVideoConfiguration IAVSpatialVideoConfiguration, pixelBuffer corevideo.CVImageBufferRef)
 	// The method that the custom compositor calls when composition succeeds.
@@ -183,7 +185,7 @@ func (a AVAsynchronousVideoCompositionRequest) SourceTimedMetadataByTrackID(trac
 // compose a frame failed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/finish(with:)
-func (a AVAsynchronousVideoCompositionRequest) FinishWithError(error_ foundation.INSError) {
+func (a AVAsynchronousVideoCompositionRequest) FinishWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishWithError:"), error_)
 }
 
@@ -271,16 +273,6 @@ func (a AVAsynchronousVideoCompositionRequest) VideoCompositionInstruction() AVV
 	return AVVideoCompositionInstructionFromID(objc.ID(rv))
 }
 
-// The identifiers of tracks that contain source video.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/sourceTrackIDs
-func (a AVAsynchronousVideoCompositionRequest) SourceTrackIDs() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("sourceTrackIDs"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
-}
-
 // The identifiers of tracks that contain source metadata.
 //
 // # Discussion
@@ -292,6 +284,16 @@ func (a AVAsynchronousVideoCompositionRequest) SourceTrackIDs() []foundation.NSN
 // [kCMMediaType_Metadata]: https://developer.apple.com/documentation/CoreMedia/kCMMediaType_Metadata
 func (a AVAsynchronousVideoCompositionRequest) SourceSampleDataTrackIDs() []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("sourceSampleDataTrackIDs"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+
+// The identifiers of tracks that contain source video.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/sourceTrackIDs
+func (a AVAsynchronousVideoCompositionRequest) SourceTrackIDs() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("sourceTrackIDs"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})

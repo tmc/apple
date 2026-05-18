@@ -243,13 +243,11 @@ func NewMTLRenderPassAttachmentDescriptor() MTLRenderPassAttachmentDescriptor {
 //
 // - To store color values in an attachment, use a texture with a
 // color-renderable pixel format. - To store depth values, use a texture with
-// a depth-renderable pixel format, such as [MTLPixelFormat.depth32Float]. -
-// To store stencil values, use a texture with a stencil-renderable pixel
-// format, such as [MTLPixelFormatStencil8].
+// a depth-renderable pixel format, such as [MTLPixelFormatDepth32Float]. - To
+// store stencil values, use a texture with a stencil-renderable pixel format,
+// such as [MTLPixelFormatStencil8].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/texture
-//
-// [MTLPixelFormat.depth32Float]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/depth32Float
 func (r MTLRenderPassAttachmentDescriptor) Texture() MTLTexture {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("texture"))
 	return MTLTextureObjectFromID(rv)
@@ -311,7 +309,7 @@ func (r MTLRenderPassAttachmentDescriptor) SetDepthPlane(value uint) {
 // # Discussion
 //
 // If your app renders all pixels of the render target for a given frame, use
-// the [MTLLoadAction.dontCare] action, which allows the GPU to avoid loading
+// the [MTLLoadActionDontCare] action, which allows the GPU to avoid loading
 // the existing contents of the texture. Otherwise, use the
 // [MTLLoadActionClear] action to clear the previous contents of the render
 // target or the [MTLLoadActionLoad] action to preserve them. The
@@ -319,13 +317,10 @@ func (r MTLRenderPassAttachmentDescriptor) SetDepthPlane(value uint) {
 // texture contents, but it still incurs the cost of filling the destination
 // with a clear color.
 //
-// For color render targets, the default value is [MTLLoadAction.dontCare].
-// For depth or stencil render targets, the default value is
-// [MTLLoadActionClear].
+// For color render targets, the default value is [MTLLoadActionDontCare]. For
+// depth or stencil render targets, the default value is [MTLLoadActionClear].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/loadAction
-//
-// [MTLLoadAction.dontCare]: https://developer.apple.com/documentation/Metal/MTLLoadAction/dontCare
 func (r MTLRenderPassAttachmentDescriptor) LoadAction() MTLLoadAction {
 	rv := objc.Send[MTLLoadAction](r.ID, objc.Sel("loadAction"))
 	return MTLLoadAction(rv)

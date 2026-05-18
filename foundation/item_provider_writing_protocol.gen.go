@@ -62,15 +62,6 @@ func (o NSItemProviderWritingObject) LoadDataWithTypeIdentifierForItemProviderCo
 	return NSProgressFromID(rv)
 }
 
-// An array of UTI strings representing the types of data that can be loaded
-// for an item provider.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
-func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []string {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
-	return objc.ConvertSliceToStrings(rv)
-}
-
 // Asks the item provider for the representation visibility specification for
 // the given UTI.
 //
@@ -84,4 +75,26 @@ func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []
 func (o NSItemProviderWritingObject) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
 	rv := objc.Send[NSItemProviderRepresentationVisibility](o.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
 	return rv
+}
+
+// An array of UTI strings representing the types of data that can be loaded
+// for an item provider.
+//
+// # Discussion
+//
+// Provide uniform type identifiers (UTIs) in order from highest fidelity to
+// lowest. If your app employs a native data representation, place that first
+// in the array.
+//
+// Use the instance version of this property when you initialize an item
+// provider with an object. As possible, implement this property to provide an
+// extended array of UTIs based on the object. For example, for an [NSURL]
+// object, your implementation could offer the `public.File()-url` UTI, in
+// addition to the `public.Url()` UTI, if your implementation detects that the
+// stored URL uses the `//` scheme.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
+func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []string {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
+	return objc.ConvertSliceToStrings(rvIDs)
 }

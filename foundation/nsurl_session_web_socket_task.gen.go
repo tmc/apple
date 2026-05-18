@@ -153,7 +153,7 @@ type IURLSessionWebSocketTask interface {
 
 	// The cookie store for storing cookies within this session.
 	HttpCookieStorage() INSHTTPCookieStorage
-	SetHttpCookieStorage(value INSHTTPCookieStorage)
+	SetHTTPCookieStorage(value INSHTTPCookieStorage)
 	// Reads a WebSocket message once all the frames of the message are available.
 	ReceiveMessageWithCompletionHandler(completionHandler URLSessionWebSocketMessageErrorHandler)
 	// Sends a WebSocket message, receiving the result in a completion handler.
@@ -309,7 +309,7 @@ func (u URLSessionWebSocketTask) HttpCookieStorage() INSHTTPCookieStorage {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("HTTPCookieStorage"))
 	return NSHTTPCookieStorageFromID(objc.ID(rv))
 }
-func (u URLSessionWebSocketTask) SetHttpCookieStorage(value INSHTTPCookieStorage) {
+func (u URLSessionWebSocketTask) SetHTTPCookieStorage(value INSHTTPCookieStorage) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPCookieStorage:"), value)
 }
 

@@ -105,7 +105,6 @@ func NSTableHeaderViewFromID(id objc.ID) NSTableHeaderView {
 // See: https://developer.apple.com/documentation/AppKit/NSTableHeaderView
 type INSTableHeaderView interface {
 	INSView
-	NSViewToolTipOwner
 
 	// Topic: Setting the table view
 

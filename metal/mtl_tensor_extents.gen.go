@@ -93,8 +93,10 @@ type IMTLTensorExtents interface {
 
 	// An error domain for errors that pertain to creating a tensor.
 	MTLTensorDomain() string
-	MTL_TENSOR_MAX_RANK() objectivec.IObject
-	SetMTL_TENSOR_MAX_RANK(value objectivec.IObject)
+	MTL_TENSOR_MAX_RANK() unsafe.Pointer
+	SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer)
+	// Returns the extent at an index.
+	ExtentAtDimensionIndex(dimensionIndex uint) int
 	// Creates a new tensor extents with the rank and extent values you provide.
 	InitWithRankValues(rank uint, values unsafe.Pointer) MTLTensorExtents
 }
@@ -141,6 +143,21 @@ func NewTensorExtentsWithRankValues(rank uint, values unsafe.Pointer) MTLTensorE
 	instance := getMTLTensorExtentsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRank:values:"), rank, values)
 	return MTLTensorExtentsFromID(rv)
+}
+
+// Returns the extent at an index.
+//
+// dimensionIndex: The index of the dimension. The first dimension is the innermost dimension.
+//
+// # Return Value
+//
+// The extent at `dimensionIndex`. This method returns -1 if `dimensionIndex`
+// is greater than or equal to `rank`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensorExtents/extentAtDimensionIndex:
+func (t MTLTensorExtents) ExtentAtDimensionIndex(dimensionIndex uint) int {
+	rv := objc.Send[int](t.ID, objc.Sel("extentAtDimensionIndex:"), dimensionIndex)
+	return rv
 }
 
 // Creates a new tensor extents with the rank and extent values you provide.
@@ -199,10 +216,10 @@ func (t MTLTensorExtents) MTLTensorDomain() string {
 }
 
 // See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
-func (t MTLTensorExtents) MTL_TENSOR_MAX_RANK() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
-	return objectivec.Object{ID: rv}
+func (t MTLTensorExtents) MTL_TENSOR_MAX_RANK() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
+	return rv
 }
-func (t MTLTensorExtents) SetMTL_TENSOR_MAX_RANK(value objectivec.IObject) {
+func (t MTLTensorExtents) SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }

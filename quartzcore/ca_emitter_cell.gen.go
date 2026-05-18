@@ -246,7 +246,6 @@ func CAEmitterCellFromID(id objc.ID) CAEmitterCell {
 // See: https://developer.apple.com/documentation/QuartzCore/CAEmitterCell
 type ICAEmitterCell interface {
 	objectivec.IObject
-	CAMediaTiming
 
 	// Topic: Providing Emitter Cell Content
 
@@ -409,6 +408,73 @@ func NewCAEmitterCell() CAEmitterCell {
 // See: https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/shouldArchiveValue(forKey:)
 func (e CAEmitterCell) ShouldArchiveValueForKey(key string) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("shouldArchiveValueForKey:"), objc.String(key))
+	return rv
+}
+
+// Determines if the receiver plays in the reverse upon completion.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/autoreverses
+func (e CAEmitterCell) Autoreverses() bool {
+	rv := objc.Send[bool](e.ID, objc.Sel("autoreverses"))
+	return rv
+}
+
+// Specifies the begin time of the receiver in relation to its parent object,
+// if applicable.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
+func (e CAEmitterCell) BeginTime() float64 {
+	rv := objc.Send[float64](e.ID, objc.Sel("beginTime"))
+	return rv
+}
+
+// Specifies the basic duration of the animation, in seconds.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
+func (e CAEmitterCell) Duration() float64 {
+	rv := objc.Send[float64](e.ID, objc.Sel("duration"))
+	return rv
+}
+
+// Determines if the receiver’s presentation is frozen or removed once its
+// active duration has completed.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/fillMode
+func (e CAEmitterCell) FillMode() CAMediaTimingFillMode {
+	rv := objc.Send[objc.ID](e.ID, objc.Sel("fillMode"))
+	return CAMediaTimingFillMode(foundation.NSStringFromID(rv).String())
+}
+
+// Determines the number of times the animation will repeat.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatCount
+func (e CAEmitterCell) RepeatCount() float32 {
+	rv := objc.Send[float32](e.ID, objc.Sel("repeatCount"))
+	return rv
+}
+
+// Determines how many seconds the animation will repeat for.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
+func (e CAEmitterCell) RepeatDuration() float64 {
+	rv := objc.Send[float64](e.ID, objc.Sel("repeatDuration"))
+	return rv
+}
+
+// Specifies how time is mapped to receiver’s time space from the parent
+// time space.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/speed
+func (e CAEmitterCell) Speed() float32 {
+	rv := objc.Send[float32](e.ID, objc.Sel("speed"))
+	return rv
+}
+
+// Specifies an additional time offset in active local time.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
+func (e CAEmitterCell) TimeOffset() float64 {
+	rv := objc.Send[float64](e.ID, objc.Sel("timeOffset"))
 	return rv
 }
 func (e CAEmitterCell) EncodeWithCoder(coder foundation.INSCoder) {
@@ -1106,21 +1172,7 @@ func (e CAEmitterCell) SetZAcceleration(value float64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setZAcceleration:"), value)
 }
 
-// Determines if the receiver plays in the reverse upon completion.
-//
-// # Discussion
-//
-// When true, the receiver plays backwards after playing forwards. Defaults to
-// false.
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/autoreverses
-func (e CAEmitterCell) Autoreverses() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("autoreverses"))
-	return rv
-}
-func (e CAEmitterCell) SetAutoreverses(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setAutoreverses:"), value)
-}
+// Protocol methods for CAMediaTiming
 
 // Specifies the begin time of the receiver in relation to its parent object,
 // if applicable.
@@ -1130,47 +1182,19 @@ func (e CAEmitterCell) SetAutoreverses(value bool) {
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
-func (e CAEmitterCell) BeginTime() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("beginTime"))
-	return rv
-}
-func (e CAEmitterCell) SetBeginTime(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBeginTime:"), value)
+func (o CAEmitterCell) SetBeginTime(value float64) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBeginTime:"), value)
 }
 
-// Specifies the basic duration of the animation, in seconds.
+// Specifies an additional time offset in active local time.
 //
 // # Discussion
 //
-// Defaults to 0.
+// Defaults to 0. .
 //
-// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
-func (e CAEmitterCell) Duration() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("duration"))
-	return rv
-}
-func (e CAEmitterCell) SetDuration(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setDuration:"), value)
-}
-
-// Determines if the receiver’s presentation is frozen or removed once its
-// active duration has completed.
-//
-// # Discussion
-//
-// The possible values are described in [Fill Modes]. The default is
-// [removed].
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/fillMode
-//
-// [Fill Modes]: https://developer.apple.com/documentation/QuartzCore/fill-modes
-// [removed]: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFillMode/removed
-func (e CAEmitterCell) FillMode() CAMediaTimingFillMode {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("fillMode"))
-	return CAMediaTimingFillMode(foundation.NSStringFromID(rv).String())
-}
-func (e CAEmitterCell) SetFillMode(value CAMediaTimingFillMode) {
-	objc.Send[struct{}](e.ID, objc.Sel("setFillMode:"), objc.String(string(value)))
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
+func (o CAEmitterCell) SetTimeOffset(value float64) {
+	objc.Send[struct{}](o.ID, objc.Sel("setTimeOffset:"), value)
 }
 
 // Determines the number of times the animation will repeat.
@@ -1187,12 +1211,8 @@ func (e CAEmitterCell) SetFillMode(value CAMediaTimingFillMode) {
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatCount
 //
 // [greatestFiniteMagnitude]: https://developer.apple.com/documentation/Swift/Float/greatestFiniteMagnitude
-func (e CAEmitterCell) RepeatCount() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("repeatCount"))
-	return rv
-}
-func (e CAEmitterCell) SetRepeatCount(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRepeatCount:"), value)
+func (o CAEmitterCell) SetRepeatCount(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setRepeatCount:"), value)
 }
 
 // Determines how many seconds the animation will repeat for.
@@ -1203,12 +1223,19 @@ func (e CAEmitterCell) SetRepeatCount(value float32) {
 // [RepeatDuration] and [RepeatCount] are specified the behavior is undefined.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
-func (e CAEmitterCell) RepeatDuration() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("repeatDuration"))
-	return rv
+func (o CAEmitterCell) SetRepeatDuration(value float64) {
+	objc.Send[struct{}](o.ID, objc.Sel("setRepeatDuration:"), value)
 }
-func (e CAEmitterCell) SetRepeatDuration(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setRepeatDuration:"), value)
+
+// Specifies the basic duration of the animation, in seconds.
+//
+// # Discussion
+//
+// Defaults to 0.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
+func (o CAEmitterCell) SetDuration(value float64) {
+	objc.Send[struct{}](o.ID, objc.Sel("setDuration:"), value)
 }
 
 // Specifies how time is mapped to receiver’s time space from the parent
@@ -1220,27 +1247,34 @@ func (e CAEmitterCell) SetRepeatDuration(value float64) {
 // parent time. Defaults to 1.0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/speed
-func (e CAEmitterCell) Speed() float32 {
-	rv := objc.Send[float32](e.ID, objc.Sel("speed"))
-	return rv
-}
-func (e CAEmitterCell) SetSpeed(value float32) {
-	objc.Send[struct{}](e.ID, objc.Sel("setSpeed:"), value)
+func (o CAEmitterCell) SetSpeed(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setSpeed:"), value)
 }
 
-// Specifies an additional time offset in active local time.
+// Determines if the receiver plays in the reverse upon completion.
 //
 // # Discussion
 //
-// Defaults to 0. .
+// When true, the receiver plays backwards after playing forwards. Defaults to
+// false.
 //
-// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
-func (e CAEmitterCell) TimeOffset() float64 {
-	rv := objc.Send[float64](e.ID, objc.Sel("timeOffset"))
-	return rv
-}
-func (e CAEmitterCell) SetTimeOffset(value float64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setTimeOffset:"), value)
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/autoreverses
+func (o CAEmitterCell) SetAutoreverses(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAutoreverses:"), value)
 }
 
-// Protocol methods for CAMediaTiming
+// Determines if the receiver’s presentation is frozen or removed once its
+// active duration has completed.
+//
+// # Discussion
+//
+// The possible values are described in [Fill Modes]. The default is
+// [removed].
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/fillMode
+//
+// [Fill Modes]: https://developer.apple.com/documentation/QuartzCore/fill-modes
+// [removed]: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFillMode/removed
+func (o CAEmitterCell) SetFillMode(value CAMediaTimingFillMode) {
+	objc.Send[struct{}](o.ID, objc.Sel("setFillMode:"), objc.String(string(value)))
+}

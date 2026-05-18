@@ -86,14 +86,14 @@ type IMLCategoricalMapping interface {
 }
 
 // Init initializes the instance.
-func (c MLCategoricalMapping) Init() MLCategoricalMapping {
-	rv := objc.Send[MLCategoricalMapping](c.ID, objc.Sel("init"))
+func (m MLCategoricalMapping) Init() MLCategoricalMapping {
+	rv := objc.Send[MLCategoricalMapping](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCategoricalMapping) Autorelease() MLCategoricalMapping {
-	rv := objc.Send[MLCategoricalMapping](c.ID, objc.Sel("autorelease"))
+func (m MLCategoricalMapping) Autorelease() MLCategoricalMapping {
+	rv := objc.Send[MLCategoricalMapping](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -126,9 +126,9 @@ func NewCategoricalMappingWithNameInputDescriptionOutputDescriptionOrderedInputF
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/mapFeature:error:
-func (c MLCategoricalMapping) MapFeatureError(feature objectivec.IObject) (objectivec.IObject, error) {
+func (m MLCategoricalMapping) MapFeatureError(feature objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("mapFeature:error:"), feature, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("mapFeature:error:"), feature, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -138,8 +138,8 @@ func (c MLCategoricalMapping) MapFeatureError(feature objectivec.IObject) (objec
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/initWithMapping:valueOnUnknown:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
-func (c MLCategoricalMapping) InitWithMappingValueOnUnknownDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(mapping objectivec.IObject, unknown objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
-	rv := objc.Send[MLCategoricalMapping](c.ID, objc.Sel("initWithMapping:valueOnUnknown:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), mapping, unknown, name, description, description2, names, names2, configuration)
+func (m MLCategoricalMapping) InitWithMappingValueOnUnknownDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(mapping objectivec.IObject, unknown objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
+	rv := objc.Send[MLCategoricalMapping](m.ID, objc.Sel("initWithMapping:valueOnUnknown:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), mapping, unknown, name, description, description2, names, names2, configuration)
 	return rv
 }
 
@@ -156,13 +156,13 @@ func (_MLCategoricalMappingClass MLCategoricalMappingClass) LoadModelFromSpecifi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/mapping
-func (c MLCategoricalMapping) Mapping() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("mapping"))
+func (m MLCategoricalMapping) Mapping() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("mapping"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/valueOnUnknown
-func (c MLCategoricalMapping) ValueOnUnknown() IMLFeatureValue {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("valueOnUnknown"))
+func (m MLCategoricalMapping) ValueOnUnknown() IMLFeatureValue {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("valueOnUnknown"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }

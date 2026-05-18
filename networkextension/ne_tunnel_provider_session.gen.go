@@ -105,7 +105,7 @@ type INETunnelProviderSession interface {
 	// Topic: Communicating with the tunnel provider
 
 	// Send a message to the Tunnel Provider extension. If the extension is not running, it should be launched to handle the message. If this method can’t start sending the message it reports an error in the `returnError` parameter. If an error occurs while sending the message or returning the result, `nil` should be sent to the response handler as notification.
-	SendProviderMessageReturnErrorResponseHandler(messageData foundation.INSData, error_ foundation.INSError, responseHandler DataHandler) bool
+	SendProviderMessageReturnErrorResponseHandler(messageData foundation.NSData, error_ foundation.NSError, responseHandler DataHandler) bool
 }
 
 // Init initializes the instance.
@@ -190,7 +190,7 @@ func (t NETunnelProviderSession) StopTunnel() {
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderSession/sendProviderMessage(_:responseHandler:)
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-func (t NETunnelProviderSession) SendProviderMessageReturnErrorResponseHandler(messageData foundation.INSData, error_ foundation.INSError, responseHandler DataHandler) bool {
+func (t NETunnelProviderSession) SendProviderMessageReturnErrorResponseHandler(messageData foundation.NSData, error_ foundation.NSError, responseHandler DataHandler) bool {
 	_block2, _ := NewDataBlock(responseHandler)
 	rv := objc.Send[bool](t.ID, objc.Sel("sendProviderMessage:returnError:responseHandler:"), messageData, error_, _block2)
 	return rv
@@ -198,7 +198,7 @@ func (t NETunnelProviderSession) SendProviderMessageReturnErrorResponseHandler(m
 
 // SendProviderMessageReturnErrorResponseHandlerSync is a synchronous wrapper around [NETunnelProviderSession.SendProviderMessageReturnErrorResponseHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t NETunnelProviderSession) SendProviderMessageReturnErrorResponseHandlerSync(ctx context.Context, messageData foundation.INSData, error_ foundation.INSError) (*foundation.NSData, error) {
+func (t NETunnelProviderSession) SendProviderMessageReturnErrorResponseHandlerSync(ctx context.Context, messageData foundation.NSData, error_ foundation.NSError) (*foundation.NSData, error) {
 	done := make(chan *foundation.NSData, 1)
 	t.SendProviderMessageReturnErrorResponseHandler(messageData, error_, func(val *foundation.NSData) {
 		done <- val

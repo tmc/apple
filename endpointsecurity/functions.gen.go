@@ -417,7 +417,7 @@ func Es_muting_inverted(client *Es_client_t, mute_type EsMuteInversionType) EsMu
 var _es_new_client func(client **Es_client_t, handler unsafe.Pointer) EsNewClientResult
 var _es_new_clientErr error
 
-func tryEs_new_client(client **Es_client_t, handler Es_handler_block_t) (EsNewClientResult, error) {
+func tryEs_new_client(client **Es_client_t, handler func(*Es_client_t, *Es_message_t)) (EsNewClientResult, error) {
 	if _es_new_client == nil {
 		return *new(EsNewClientResult), symbolCallError("es_new_client", "10.15", _es_new_clientErr)
 	}
@@ -430,7 +430,7 @@ func tryEs_new_client(client **Es_client_t, handler Es_handler_block_t) (EsNewCl
 // Es_new_client creates a new client instance and connects it to the Endpoint Security system.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_new_client(_:_:)
-func Es_new_client(client **Es_client_t, handler Es_handler_block_t) EsNewClientResult {
+func Es_new_client(client **Es_client_t, handler func(*Es_client_t, *Es_message_t)) EsNewClientResult {
 	result, callErr := tryEs_new_client(client, handler)
 	if callErr != nil {
 		panic(callErr)

@@ -295,10 +295,10 @@ func AuthorizationRightRemove(authRef AuthorizationRef, rightName string) int32 
 	return result
 }
 
-var _authorizationRightSet func(authRef AuthorizationRef, rightName string, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundle, localeTableName corefoundation.CFStringRef) int32
+var _authorizationRightSet func(authRef AuthorizationRef, rightName string, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundleRef, localeTableName corefoundation.CFStringRef) int32
 var _authorizationRightSetErr error
 
-func tryAuthorizationRightSet(authRef AuthorizationRef, rightName string, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundle, localeTableName corefoundation.CFStringRef) (int32, error) {
+func tryAuthorizationRightSet(authRef AuthorizationRef, rightName string, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundleRef, localeTableName corefoundation.CFStringRef) (int32, error) {
 	if _authorizationRightSet == nil {
 		return 0, symbolCallError("AuthorizationRightSet", "10.0", _authorizationRightSetErr)
 	}
@@ -308,7 +308,7 @@ func tryAuthorizationRightSet(authRef AuthorizationRef, rightName string, rightD
 // AuthorizationRightSet creates or updates a right entry in the policy database.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationRightSet(_:_:_:_:_:_:)
-func AuthorizationRightSet(authRef AuthorizationRef, rightName string, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundle, localeTableName corefoundation.CFStringRef) int32 {
+func AuthorizationRightSet(authRef AuthorizationRef, rightName string, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundleRef, localeTableName corefoundation.CFStringRef) int32 {
 	result, callErr := tryAuthorizationRightSet(authRef, rightName, rightDefinition, descriptionKey, bundle, localeTableName)
 	if callErr != nil {
 		panic(callErr)
@@ -5464,7 +5464,7 @@ var _secAccessControlCreateWithFlagsErr error
 
 func trySecAccessControlCreateWithFlags(allocator corefoundation.CFAllocatorRef, protection corefoundation.CFTypeRef, flags SecAccessControlCreateFlags, err *corefoundation.CFErrorRef) (SecAccessControlRef, error) {
 	if _secAccessControlCreateWithFlags == nil {
-		return 0, symbolCallError("SecAccessControlCreateWithFlags", "10.10", _secAccessControlCreateWithFlagsErr)
+		return *new(SecAccessControlRef), symbolCallError("SecAccessControlCreateWithFlags", "10.10", _secAccessControlCreateWithFlagsErr)
 	}
 	return _secAccessControlCreateWithFlags(allocator, protection, flags, err), nil
 }
@@ -5800,7 +5800,7 @@ var _secCertificateCopyDataErr error
 
 func trySecCertificateCopyData(certificate SecCertificateRef) (corefoundation.CFDataRef, error) {
 	if _secCertificateCopyData == nil {
-		return 0, symbolCallError("SecCertificateCopyData", "10.6", _secCertificateCopyDataErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecCertificateCopyData", "10.6", _secCertificateCopyDataErr)
 	}
 	return _secCertificateCopyData(certificate), nil
 }
@@ -5842,7 +5842,7 @@ var _secCertificateCopyKeyErr error
 
 func trySecCertificateCopyKey(certificate SecCertificateRef) (SecKeyRef, error) {
 	if _secCertificateCopyKey == nil {
-		return 0, symbolCallError("SecCertificateCopyKey", "10.14", _secCertificateCopyKeyErr)
+		return *new(SecKeyRef), symbolCallError("SecCertificateCopyKey", "10.14", _secCertificateCopyKeyErr)
 	}
 	return _secCertificateCopyKey(certificate), nil
 }
@@ -5863,7 +5863,7 @@ var _secCertificateCopyLongDescriptionErr error
 
 func trySecCertificateCopyLongDescription(alloc corefoundation.CFAllocatorRef, certificate SecCertificateRef, err *corefoundation.CFErrorRef) (corefoundation.CFStringRef, error) {
 	if _secCertificateCopyLongDescription == nil {
-		return 0, symbolCallError("SecCertificateCopyLongDescription", "10.7", _secCertificateCopyLongDescriptionErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("SecCertificateCopyLongDescription", "10.7", _secCertificateCopyLongDescriptionErr)
 	}
 	return _secCertificateCopyLongDescription(alloc, certificate, err), nil
 }
@@ -5884,7 +5884,7 @@ var _secCertificateCopyNormalizedIssuerSequenceErr error
 
 func trySecCertificateCopyNormalizedIssuerSequence(certificate SecCertificateRef) (corefoundation.CFDataRef, error) {
 	if _secCertificateCopyNormalizedIssuerSequence == nil {
-		return 0, symbolCallError("SecCertificateCopyNormalizedIssuerSequence", "10.12.4", _secCertificateCopyNormalizedIssuerSequenceErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecCertificateCopyNormalizedIssuerSequence", "10.12.4", _secCertificateCopyNormalizedIssuerSequenceErr)
 	}
 	return _secCertificateCopyNormalizedIssuerSequence(certificate), nil
 }
@@ -5905,7 +5905,7 @@ var _secCertificateCopyNormalizedSubjectSequenceErr error
 
 func trySecCertificateCopyNormalizedSubjectSequence(certificate SecCertificateRef) (corefoundation.CFDataRef, error) {
 	if _secCertificateCopyNormalizedSubjectSequence == nil {
-		return 0, symbolCallError("SecCertificateCopyNormalizedSubjectSequence", "10.12.4", _secCertificateCopyNormalizedSubjectSequenceErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecCertificateCopyNormalizedSubjectSequence", "10.12.4", _secCertificateCopyNormalizedSubjectSequenceErr)
 	}
 	return _secCertificateCopyNormalizedSubjectSequence(certificate), nil
 }
@@ -5926,7 +5926,7 @@ var _secCertificateCopyNotValidAfterDateErr error
 
 func trySecCertificateCopyNotValidAfterDate(certificate SecCertificateRef) (corefoundation.CFDateRef, error) {
 	if _secCertificateCopyNotValidAfterDate == nil {
-		return 0, symbolCallError("SecCertificateCopyNotValidAfterDate", "15.0", _secCertificateCopyNotValidAfterDateErr)
+		return *new(corefoundation.CFDateRef), symbolCallError("SecCertificateCopyNotValidAfterDate", "15.0", _secCertificateCopyNotValidAfterDateErr)
 	}
 	return _secCertificateCopyNotValidAfterDate(certificate), nil
 }
@@ -5947,7 +5947,7 @@ var _secCertificateCopyNotValidBeforeDateErr error
 
 func trySecCertificateCopyNotValidBeforeDate(certificate SecCertificateRef) (corefoundation.CFDateRef, error) {
 	if _secCertificateCopyNotValidBeforeDate == nil {
-		return 0, symbolCallError("SecCertificateCopyNotValidBeforeDate", "15.0", _secCertificateCopyNotValidBeforeDateErr)
+		return *new(corefoundation.CFDateRef), symbolCallError("SecCertificateCopyNotValidBeforeDate", "15.0", _secCertificateCopyNotValidBeforeDateErr)
 	}
 	return _secCertificateCopyNotValidBeforeDate(certificate), nil
 }
@@ -5991,7 +5991,7 @@ var _secCertificateCopyPreferredErr error
 
 func trySecCertificateCopyPreferred(name corefoundation.CFStringRef, keyUsage corefoundation.CFArrayRef) (SecCertificateRef, error) {
 	if _secCertificateCopyPreferred == nil {
-		return 0, symbolCallError("SecCertificateCopyPreferred", "10.7", _secCertificateCopyPreferredErr)
+		return *new(SecCertificateRef), symbolCallError("SecCertificateCopyPreferred", "10.7", _secCertificateCopyPreferredErr)
 	}
 	return _secCertificateCopyPreferred(name, keyUsage), nil
 }
@@ -6012,7 +6012,7 @@ var _secCertificateCopySerialNumberDataErr error
 
 func trySecCertificateCopySerialNumberData(certificate SecCertificateRef, err *corefoundation.CFErrorRef) (corefoundation.CFDataRef, error) {
 	if _secCertificateCopySerialNumberData == nil {
-		return 0, symbolCallError("SecCertificateCopySerialNumberData", "10.13", _secCertificateCopySerialNumberDataErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecCertificateCopySerialNumberData", "10.13", _secCertificateCopySerialNumberDataErr)
 	}
 	return _secCertificateCopySerialNumberData(certificate, err), nil
 }
@@ -6033,7 +6033,7 @@ var _secCertificateCopyShortDescriptionErr error
 
 func trySecCertificateCopyShortDescription(alloc corefoundation.CFAllocatorRef, certificate SecCertificateRef, err *corefoundation.CFErrorRef) (corefoundation.CFStringRef, error) {
 	if _secCertificateCopyShortDescription == nil {
-		return 0, symbolCallError("SecCertificateCopyShortDescription", "10.7", _secCertificateCopyShortDescriptionErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("SecCertificateCopyShortDescription", "10.7", _secCertificateCopyShortDescriptionErr)
 	}
 	return _secCertificateCopyShortDescription(alloc, certificate, err), nil
 }
@@ -6054,7 +6054,7 @@ var _secCertificateCopySubjectSummaryErr error
 
 func trySecCertificateCopySubjectSummary(certificate SecCertificateRef) (corefoundation.CFStringRef, error) {
 	if _secCertificateCopySubjectSummary == nil {
-		return 0, symbolCallError("SecCertificateCopySubjectSummary", "10.6", _secCertificateCopySubjectSummaryErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("SecCertificateCopySubjectSummary", "10.6", _secCertificateCopySubjectSummaryErr)
 	}
 	return _secCertificateCopySubjectSummary(certificate), nil
 }
@@ -6075,7 +6075,7 @@ var _secCertificateCopyValuesErr error
 
 func trySecCertificateCopyValues(certificate SecCertificateRef, keys corefoundation.CFArrayRef, err *corefoundation.CFErrorRef) (corefoundation.CFDictionaryRef, error) {
 	if _secCertificateCopyValues == nil {
-		return 0, symbolCallError("SecCertificateCopyValues", "10.7", _secCertificateCopyValuesErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("SecCertificateCopyValues", "10.7", _secCertificateCopyValuesErr)
 	}
 	return _secCertificateCopyValues(certificate, keys, err), nil
 }
@@ -6096,7 +6096,7 @@ var _secCertificateCreateWithDataErr error
 
 func trySecCertificateCreateWithData(allocator corefoundation.CFAllocatorRef, data corefoundation.CFDataRef) (SecCertificateRef, error) {
 	if _secCertificateCreateWithData == nil {
-		return 0, symbolCallError("SecCertificateCreateWithData", "10.6", _secCertificateCreateWithDataErr)
+		return *new(SecCertificateRef), symbolCallError("SecCertificateCreateWithData", "10.6", _secCertificateCreateWithDataErr)
 	}
 	return _secCertificateCreateWithData(allocator, data), nil
 }
@@ -6593,7 +6593,7 @@ var _secCopyErrorMessageStringErr error
 
 func trySecCopyErrorMessageString(status int32, reserved unsafe.Pointer) (corefoundation.CFStringRef, error) {
 	if _secCopyErrorMessageString == nil {
-		return 0, symbolCallError("SecCopyErrorMessageString", "10.3", _secCopyErrorMessageStringErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("SecCopyErrorMessageString", "10.3", _secCopyErrorMessageStringErr)
 	}
 	return _secCopyErrorMessageString(status, reserved), nil
 }
@@ -6614,7 +6614,7 @@ var _secCreateSharedWebCredentialPasswordErr error
 
 func trySecCreateSharedWebCredentialPassword() (corefoundation.CFStringRef, error) {
 	if _secCreateSharedWebCredentialPassword == nil {
-		return 0, symbolCallError("SecCreateSharedWebCredentialPassword", "11.0", _secCreateSharedWebCredentialPasswordErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("SecCreateSharedWebCredentialPassword", "11.0", _secCreateSharedWebCredentialPasswordErr)
 	}
 	return _secCreateSharedWebCredentialPassword(), nil
 }
@@ -6817,7 +6817,7 @@ var _secIdentityCopyPreferredErr error
 
 func trySecIdentityCopyPreferred(name corefoundation.CFStringRef, keyUsage corefoundation.CFArrayRef, validIssuers corefoundation.CFArrayRef) (SecIdentityRef, error) {
 	if _secIdentityCopyPreferred == nil {
-		return 0, symbolCallError("SecIdentityCopyPreferred", "10.7", _secIdentityCopyPreferredErr)
+		return *new(SecIdentityRef), symbolCallError("SecIdentityCopyPreferred", "10.7", _secIdentityCopyPreferredErr)
 	}
 	return _secIdentityCopyPreferred(name, keyUsage, validIssuers), nil
 }
@@ -6880,7 +6880,7 @@ var _secIdentityCreateErr error
 
 func trySecIdentityCreate(allocator corefoundation.CFAllocatorRef, certificate SecCertificateRef, privateKey SecKeyRef) (SecIdentityRef, error) {
 	if _secIdentityCreate == nil {
-		return 0, symbolCallError("SecIdentityCreate", "10.12", _secIdentityCreateErr)
+		return *new(SecIdentityRef), symbolCallError("SecIdentityCreate", "10.12", _secIdentityCreateErr)
 	}
 	return _secIdentityCreate(allocator, certificate, privateKey), nil
 }
@@ -7203,7 +7203,7 @@ var _secKeyCopyAttributesErr error
 
 func trySecKeyCopyAttributes(key SecKeyRef) (corefoundation.CFDictionaryRef, error) {
 	if _secKeyCopyAttributes == nil {
-		return 0, symbolCallError("SecKeyCopyAttributes", "10.12", _secKeyCopyAttributesErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("SecKeyCopyAttributes", "10.12", _secKeyCopyAttributesErr)
 	}
 	return _secKeyCopyAttributes(key), nil
 }
@@ -7224,7 +7224,7 @@ var _secKeyCopyExternalRepresentationErr error
 
 func trySecKeyCopyExternalRepresentation(key SecKeyRef, err *corefoundation.CFErrorRef) (corefoundation.CFDataRef, error) {
 	if _secKeyCopyExternalRepresentation == nil {
-		return 0, symbolCallError("SecKeyCopyExternalRepresentation", "10.12", _secKeyCopyExternalRepresentationErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecKeyCopyExternalRepresentation", "10.12", _secKeyCopyExternalRepresentationErr)
 	}
 	return _secKeyCopyExternalRepresentation(key, err), nil
 }
@@ -7245,7 +7245,7 @@ var _secKeyCopyKeyExchangeResultErr error
 
 func trySecKeyCopyKeyExchangeResult(privateKey SecKeyRef, algorithm SecKeyAlgorithm, publicKey SecKeyRef, parameters corefoundation.CFDictionaryRef, err *corefoundation.CFErrorRef) (corefoundation.CFDataRef, error) {
 	if _secKeyCopyKeyExchangeResult == nil {
-		return 0, symbolCallError("SecKeyCopyKeyExchangeResult", "10.12", _secKeyCopyKeyExchangeResultErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecKeyCopyKeyExchangeResult", "10.12", _secKeyCopyKeyExchangeResultErr)
 	}
 	return _secKeyCopyKeyExchangeResult(privateKey, algorithm, publicKey, parameters, err), nil
 }
@@ -7266,7 +7266,7 @@ var _secKeyCopyPublicKeyErr error
 
 func trySecKeyCopyPublicKey(key SecKeyRef) (SecKeyRef, error) {
 	if _secKeyCopyPublicKey == nil {
-		return 0, symbolCallError("SecKeyCopyPublicKey", "10.12", _secKeyCopyPublicKeyErr)
+		return *new(SecKeyRef), symbolCallError("SecKeyCopyPublicKey", "10.12", _secKeyCopyPublicKeyErr)
 	}
 	return _secKeyCopyPublicKey(key), nil
 }
@@ -7287,7 +7287,7 @@ var _secKeyCreateDecryptedDataErr error
 
 func trySecKeyCreateDecryptedData(key SecKeyRef, algorithm SecKeyAlgorithm, ciphertext corefoundation.CFDataRef, err *corefoundation.CFErrorRef) (corefoundation.CFDataRef, error) {
 	if _secKeyCreateDecryptedData == nil {
-		return 0, symbolCallError("SecKeyCreateDecryptedData", "10.12", _secKeyCreateDecryptedDataErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecKeyCreateDecryptedData", "10.12", _secKeyCreateDecryptedDataErr)
 	}
 	return _secKeyCreateDecryptedData(key, algorithm, ciphertext, err), nil
 }
@@ -7308,7 +7308,7 @@ var _secKeyCreateEncryptedDataErr error
 
 func trySecKeyCreateEncryptedData(key SecKeyRef, algorithm SecKeyAlgorithm, plaintext corefoundation.CFDataRef, err *corefoundation.CFErrorRef) (corefoundation.CFDataRef, error) {
 	if _secKeyCreateEncryptedData == nil {
-		return 0, symbolCallError("SecKeyCreateEncryptedData", "10.12", _secKeyCreateEncryptedDataErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecKeyCreateEncryptedData", "10.12", _secKeyCreateEncryptedDataErr)
 	}
 	return _secKeyCreateEncryptedData(key, algorithm, plaintext, err), nil
 }
@@ -7352,7 +7352,7 @@ var _secKeyCreateRandomKeyErr error
 
 func trySecKeyCreateRandomKey(parameters corefoundation.CFDictionaryRef, err *corefoundation.CFErrorRef) (SecKeyRef, error) {
 	if _secKeyCreateRandomKey == nil {
-		return 0, symbolCallError("SecKeyCreateRandomKey", "10.12", _secKeyCreateRandomKeyErr)
+		return *new(SecKeyRef), symbolCallError("SecKeyCreateRandomKey", "10.12", _secKeyCreateRandomKeyErr)
 	}
 	return _secKeyCreateRandomKey(parameters, err), nil
 }
@@ -7373,7 +7373,7 @@ var _secKeyCreateSignatureErr error
 
 func trySecKeyCreateSignature(key SecKeyRef, algorithm SecKeyAlgorithm, dataToSign corefoundation.CFDataRef, err *corefoundation.CFErrorRef) (corefoundation.CFDataRef, error) {
 	if _secKeyCreateSignature == nil {
-		return 0, symbolCallError("SecKeyCreateSignature", "10.12", _secKeyCreateSignatureErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecKeyCreateSignature", "10.12", _secKeyCreateSignatureErr)
 	}
 	return _secKeyCreateSignature(key, algorithm, dataToSign, err), nil
 }
@@ -7394,7 +7394,7 @@ var _secKeyCreateWithDataErr error
 
 func trySecKeyCreateWithData(keyData corefoundation.CFDataRef, attributes corefoundation.CFDictionaryRef, err *corefoundation.CFErrorRef) (SecKeyRef, error) {
 	if _secKeyCreateWithData == nil {
-		return 0, symbolCallError("SecKeyCreateWithData", "10.12", _secKeyCreateWithDataErr)
+		return *new(SecKeyRef), symbolCallError("SecKeyCreateWithData", "10.12", _secKeyCreateWithDataErr)
 	}
 	return _secKeyCreateWithData(keyData, attributes, err), nil
 }
@@ -7635,7 +7635,7 @@ var _secPolicyCopyPropertiesErr error
 
 func trySecPolicyCopyProperties(policyRef SecPolicyRef) (corefoundation.CFDictionaryRef, error) {
 	if _secPolicyCopyProperties == nil {
-		return 0, symbolCallError("SecPolicyCopyProperties", "10.7", _secPolicyCopyPropertiesErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("SecPolicyCopyProperties", "10.7", _secPolicyCopyPropertiesErr)
 	}
 	return _secPolicyCopyProperties(policyRef), nil
 }
@@ -7656,7 +7656,7 @@ var _secPolicyCreateBasicX509Err error
 
 func trySecPolicyCreateBasicX509() (SecPolicyRef, error) {
 	if _secPolicyCreateBasicX509 == nil {
-		return 0, symbolCallError("SecPolicyCreateBasicX509", "10.6", _secPolicyCreateBasicX509Err)
+		return *new(SecPolicyRef), symbolCallError("SecPolicyCreateBasicX509", "10.6", _secPolicyCreateBasicX509Err)
 	}
 	return _secPolicyCreateBasicX509(), nil
 }
@@ -7677,7 +7677,7 @@ var _secPolicyCreateRevocationErr error
 
 func trySecPolicyCreateRevocation(revocationFlags uint64) (SecPolicyRef, error) {
 	if _secPolicyCreateRevocation == nil {
-		return 0, symbolCallError("SecPolicyCreateRevocation", "10.9", _secPolicyCreateRevocationErr)
+		return *new(SecPolicyRef), symbolCallError("SecPolicyCreateRevocation", "10.9", _secPolicyCreateRevocationErr)
 	}
 	return _secPolicyCreateRevocation(revocationFlags), nil
 }
@@ -7698,7 +7698,7 @@ var _secPolicyCreateSSLErr error
 
 func trySecPolicyCreateSSL(server bool, hostname corefoundation.CFStringRef) (SecPolicyRef, error) {
 	if _secPolicyCreateSSL == nil {
-		return 0, symbolCallError("SecPolicyCreateSSL", "10.6", _secPolicyCreateSSLErr)
+		return *new(SecPolicyRef), symbolCallError("SecPolicyCreateSSL", "10.6", _secPolicyCreateSSLErr)
 	}
 	return _secPolicyCreateSSL(server, hostname), nil
 }
@@ -7719,7 +7719,7 @@ var _secPolicyCreateWithOIDErr error
 
 func trySecPolicyCreateWithOID(policyOID corefoundation.CFTypeRef) (SecPolicyRef, error) {
 	if _secPolicyCreateWithOID == nil {
-		return 0, symbolCallError("SecPolicyCreateWithOID", "10.7", _secPolicyCreateWithOIDErr)
+		return *new(SecPolicyRef), symbolCallError("SecPolicyCreateWithOID", "10.7", _secPolicyCreateWithOIDErr)
 	}
 	return _secPolicyCreateWithOID(policyOID), nil
 }
@@ -7742,7 +7742,7 @@ var _secPolicyCreateWithPropertiesErr error
 
 func trySecPolicyCreateWithProperties(policyIdentifier corefoundation.CFTypeRef, properties corefoundation.CFDictionaryRef) (SecPolicyRef, error) {
 	if _secPolicyCreateWithProperties == nil {
-		return 0, symbolCallError("SecPolicyCreateWithProperties", "10.9", _secPolicyCreateWithPropertiesErr)
+		return *new(SecPolicyRef), symbolCallError("SecPolicyCreateWithProperties", "10.9", _secPolicyCreateWithPropertiesErr)
 	}
 	return _secPolicyCreateWithProperties(policyIdentifier, properties), nil
 }
@@ -8220,7 +8220,7 @@ var _secTaskCopySigningIdentifierErr error
 
 func trySecTaskCopySigningIdentifier(task SecTaskRef, err *corefoundation.CFErrorRef) (corefoundation.CFStringRef, error) {
 	if _secTaskCopySigningIdentifier == nil {
-		return 0, symbolCallError("SecTaskCopySigningIdentifier", "10.0", _secTaskCopySigningIdentifierErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("SecTaskCopySigningIdentifier", "10.0", _secTaskCopySigningIdentifierErr)
 	}
 	return _secTaskCopySigningIdentifier(task, err), nil
 }
@@ -8241,7 +8241,7 @@ var _secTaskCopyValueForEntitlementErr error
 
 func trySecTaskCopyValueForEntitlement(task SecTaskRef, entitlement corefoundation.CFStringRef, err *corefoundation.CFErrorRef) (corefoundation.CFTypeRef, error) {
 	if _secTaskCopyValueForEntitlement == nil {
-		return nil, symbolCallError("SecTaskCopyValueForEntitlement", "10.0", _secTaskCopyValueForEntitlementErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("SecTaskCopyValueForEntitlement", "10.0", _secTaskCopyValueForEntitlementErr)
 	}
 	return _secTaskCopyValueForEntitlement(task, entitlement, err), nil
 }
@@ -8262,7 +8262,7 @@ var _secTaskCopyValuesForEntitlementsErr error
 
 func trySecTaskCopyValuesForEntitlements(task SecTaskRef, entitlements corefoundation.CFArrayRef, err *corefoundation.CFErrorRef) (corefoundation.CFDictionaryRef, error) {
 	if _secTaskCopyValuesForEntitlements == nil {
-		return 0, symbolCallError("SecTaskCopyValuesForEntitlements", "10.0", _secTaskCopyValuesForEntitlementsErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("SecTaskCopyValuesForEntitlements", "10.0", _secTaskCopyValuesForEntitlementsErr)
 	}
 	return _secTaskCopyValuesForEntitlements(task, entitlements, err), nil
 }
@@ -8283,7 +8283,7 @@ var _secTaskCreateFromSelfErr error
 
 func trySecTaskCreateFromSelf(allocator corefoundation.CFAllocatorRef) (SecTaskRef, error) {
 	if _secTaskCreateFromSelf == nil {
-		return 0, symbolCallError("SecTaskCreateFromSelf", "10.0", _secTaskCreateFromSelfErr)
+		return *new(SecTaskRef), symbolCallError("SecTaskCreateFromSelf", "10.0", _secTaskCreateFromSelfErr)
 	}
 	return _secTaskCreateFromSelf(allocator), nil
 }
@@ -8304,7 +8304,7 @@ var _secTaskCreateWithAuditTokenErr error
 
 func trySecTaskCreateWithAuditToken(allocator corefoundation.CFAllocatorRef, token [32]byte) (SecTaskRef, error) {
 	if _secTaskCreateWithAuditToken == nil {
-		return 0, symbolCallError("SecTaskCreateWithAuditToken", "10.0", _secTaskCreateWithAuditTokenErr)
+		return *new(SecTaskRef), symbolCallError("SecTaskCreateWithAuditToken", "10.0", _secTaskCreateWithAuditTokenErr)
 	}
 	return _secTaskCreateWithAuditToken(allocator, &token), nil
 }
@@ -8367,7 +8367,7 @@ var _secTrustCopyCertificateChainErr error
 
 func trySecTrustCopyCertificateChain(trust SecTrustRef) (corefoundation.CFArrayRef, error) {
 	if _secTrustCopyCertificateChain == nil {
-		return 0, symbolCallError("SecTrustCopyCertificateChain", "12.0", _secTrustCopyCertificateChainErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("SecTrustCopyCertificateChain", "12.0", _secTrustCopyCertificateChainErr)
 	}
 	return _secTrustCopyCertificateChain(trust), nil
 }
@@ -8409,7 +8409,7 @@ var _secTrustCopyExceptionsErr error
 
 func trySecTrustCopyExceptions(trust SecTrustRef) (corefoundation.CFDataRef, error) {
 	if _secTrustCopyExceptions == nil {
-		return 0, symbolCallError("SecTrustCopyExceptions", "10.9", _secTrustCopyExceptionsErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("SecTrustCopyExceptions", "10.9", _secTrustCopyExceptionsErr)
 	}
 	return _secTrustCopyExceptions(trust), nil
 }
@@ -8430,7 +8430,7 @@ var _secTrustCopyKeyErr error
 
 func trySecTrustCopyKey(trust SecTrustRef) (SecKeyRef, error) {
 	if _secTrustCopyKey == nil {
-		return 0, symbolCallError("SecTrustCopyKey", "11.0", _secTrustCopyKeyErr)
+		return *new(SecKeyRef), symbolCallError("SecTrustCopyKey", "11.0", _secTrustCopyKeyErr)
 	}
 	return _secTrustCopyKey(trust), nil
 }
@@ -8472,7 +8472,7 @@ var _secTrustCopyPropertiesErr error
 
 func trySecTrustCopyProperties(trust SecTrustRef) (corefoundation.CFArrayRef, error) {
 	if _secTrustCopyProperties == nil {
-		return 0, symbolCallError("SecTrustCopyProperties", "10.7", _secTrustCopyPropertiesErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("SecTrustCopyProperties", "10.7", _secTrustCopyPropertiesErr)
 	}
 	return _secTrustCopyProperties(trust), nil
 }
@@ -8495,7 +8495,7 @@ var _secTrustCopyPublicKeyErr error
 
 func trySecTrustCopyPublicKey(trust SecTrustRef) (SecKeyRef, error) {
 	if _secTrustCopyPublicKey == nil {
-		return 0, symbolCallError("SecTrustCopyPublicKey", "10.7", _secTrustCopyPublicKeyErr)
+		return *new(SecKeyRef), symbolCallError("SecTrustCopyPublicKey", "10.7", _secTrustCopyPublicKeyErr)
 	}
 	return _secTrustCopyPublicKey(trust), nil
 }
@@ -8518,7 +8518,7 @@ var _secTrustCopyResultErr error
 
 func trySecTrustCopyResult(trust SecTrustRef) (corefoundation.CFDictionaryRef, error) {
 	if _secTrustCopyResult == nil {
-		return 0, symbolCallError("SecTrustCopyResult", "10.9", _secTrustCopyResultErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("SecTrustCopyResult", "10.9", _secTrustCopyResultErr)
 	}
 	return _secTrustCopyResult(trust), nil
 }
@@ -8562,8 +8562,8 @@ func trySecTrustEvaluateAsyncWithError(trust SecTrustRef, queue dispatch.Queue, 
 	if _secTrustEvaluateAsyncWithError == nil {
 		return 0, symbolCallError("SecTrustEvaluateAsyncWithError", "10.15", _secTrustEvaluateAsyncWithErrorErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 bool, blockArg2 objc.ID) {
-		result(objectivec.ObjectFromID(blockArg0), blockArg1, objectivec.ObjectFromID(blockArg2))
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer, blockArg1 bool, blockArg2 unsafe.Pointer) {
+		result(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -8607,7 +8607,7 @@ var _secTrustGetCertificateAtIndexErr error
 
 func trySecTrustGetCertificateAtIndex(trust SecTrustRef, ix int) (SecCertificateRef, error) {
 	if _secTrustGetCertificateAtIndex == nil {
-		return 0, symbolCallError("SecTrustGetCertificateAtIndex", "10.7", _secTrustGetCertificateAtIndexErr)
+		return *new(SecCertificateRef), symbolCallError("SecTrustGetCertificateAtIndex", "10.7", _secTrustGetCertificateAtIndexErr)
 	}
 	return _secTrustGetCertificateAtIndex(trust, ix), nil
 }
@@ -9520,7 +9520,7 @@ var _sec_certificate_copy_refErr error
 
 func trySec_certificate_copy_ref(certificate Sec_certificate_t) (SecCertificateRef, error) {
 	if _sec_certificate_copy_ref == nil {
-		return 0, symbolCallError("sec_certificate_copy_ref", "10.14", _sec_certificate_copy_refErr)
+		return *new(SecCertificateRef), symbolCallError("sec_certificate_copy_ref", "10.14", _sec_certificate_copy_refErr)
 	}
 	return _sec_certificate_copy_ref(certificate), nil
 }
@@ -9583,7 +9583,7 @@ var _sec_identity_copy_certificates_refErr error
 
 func trySec_identity_copy_certificates_ref(identity Sec_identity_t) (corefoundation.CFArrayRef, error) {
 	if _sec_identity_copy_certificates_ref == nil {
-		return 0, symbolCallError("sec_identity_copy_certificates_ref", "10.14", _sec_identity_copy_certificates_refErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("sec_identity_copy_certificates_ref", "10.14", _sec_identity_copy_certificates_refErr)
 	}
 	return _sec_identity_copy_certificates_ref(identity), nil
 }
@@ -9604,7 +9604,7 @@ var _sec_identity_copy_refErr error
 
 func trySec_identity_copy_ref(identity Sec_identity_t) (SecIdentityRef, error) {
 	if _sec_identity_copy_ref == nil {
-		return 0, symbolCallError("sec_identity_copy_ref", "10.14", _sec_identity_copy_refErr)
+		return *new(SecIdentityRef), symbolCallError("sec_identity_copy_ref", "10.14", _sec_identity_copy_refErr)
 	}
 	return _sec_identity_copy_ref(identity), nil
 }
@@ -10806,7 +10806,7 @@ var _sec_trust_copy_refErr error
 
 func trySec_trust_copy_ref(trust Sec_trust_t) (SecTrustRef, error) {
 	if _sec_trust_copy_ref == nil {
-		return 0, symbolCallError("sec_trust_copy_ref", "10.14", _sec_trust_copy_refErr)
+		return *new(SecTrustRef), symbolCallError("sec_trust_copy_ref", "10.14", _sec_trust_copy_refErr)
 	}
 	return _sec_trust_copy_ref(trust), nil
 }

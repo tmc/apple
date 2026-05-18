@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_multi_head_program_gen] class.
+// The class instance for the [EspressoPassMultiHeadProgramGen] class.
 var (
-	_EspressoPass_multi_head_program_genClass     EspressoPass_multi_head_program_genClass
-	_EspressoPass_multi_head_program_genClassOnce sync.Once
+	_EspressoPassMultiHeadProgramGenClass     EspressoPassMultiHeadProgramGenClass
+	_EspressoPassMultiHeadProgramGenClassOnce sync.Once
 )
 
-func getEspressoPass_multi_head_program_genClass() EspressoPass_multi_head_program_genClass {
-	_EspressoPass_multi_head_program_genClassOnce.Do(func() {
-		_EspressoPass_multi_head_program_genClass = EspressoPass_multi_head_program_genClass{class: objc.GetClass("EspressoPass_multi_head_program_gen")}
+func getEspressoPassMultiHeadProgramGenClass() EspressoPassMultiHeadProgramGenClass {
+	_EspressoPassMultiHeadProgramGenClassOnce.Do(func() {
+		_EspressoPassMultiHeadProgramGenClass = EspressoPassMultiHeadProgramGenClass{class: objc.GetClass("EspressoPass_multi_head_program_gen")}
 	})
-	return _EspressoPass_multi_head_program_genClass
+	return _EspressoPassMultiHeadProgramGenClass
 }
 
-// GetEspressoPass_multi_head_program_genClass returns the class object for EspressoPass_multi_head_program_gen.
-func GetEspressoPass_multi_head_program_genClass() EspressoPass_multi_head_program_genClass {
-	return getEspressoPass_multi_head_program_genClass()
+// GetEspressoPassMultiHeadProgramGenClass returns the class object for EspressoPass_multi_head_program_gen.
+func GetEspressoPassMultiHeadProgramGenClass() EspressoPassMultiHeadProgramGenClass {
+	return getEspressoPassMultiHeadProgramGenClass()
 }
 
-type EspressoPass_multi_head_program_genClass struct {
+type EspressoPassMultiHeadProgramGenClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_multi_head_program_genClass) Class() objc.Class {
+func (ec EspressoPassMultiHeadProgramGenClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_multi_head_program_genClass) Alloc() EspressoPass_multi_head_program_gen {
-	rv := objc.Send[EspressoPass_multi_head_program_gen](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassMultiHeadProgramGenClass) Alloc() EspressoPassMultiHeadProgramGen {
+	rv := objc.Send[EspressoPassMultiHeadProgramGen](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_program_gen
-type EspressoPass_multi_head_program_gen struct {
+type EspressoPassMultiHeadProgramGen struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_multi_head_program_genFromID constructs a [EspressoPass_multi_head_program_gen] from an objc.ID.
-func EspressoPass_multi_head_program_genFromID(id objc.ID) EspressoPass_multi_head_program_gen {
-	return EspressoPass_multi_head_program_gen{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassMultiHeadProgramGenFromID constructs a [EspressoPassMultiHeadProgramGen] from an objc.ID.
+func EspressoPassMultiHeadProgramGenFromID(id objc.ID) EspressoPassMultiHeadProgramGen {
+	return EspressoPassMultiHeadProgramGen{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_multi_head_program_gen implements IEspressoPass_multi_head_program_gen.
-var _ IEspressoPass_multi_head_program_gen = EspressoPass_multi_head_program_gen{}
+// EspressoPass_multi_head_program_genFromID is an alias for [EspressoPassMultiHeadProgramGenFromID] for cross-framework compatibility.
+func EspressoPass_multi_head_program_genFromID(id objc.ID) EspressoPassMultiHeadProgramGen {
+	return EspressoPassMultiHeadProgramGenFromID(id)
+}
 
-// An interface definition for the [EspressoPass_multi_head_program_gen] class.
+// Ensure EspressoPassMultiHeadProgramGen implements IEspressoPassMultiHeadProgramGen.
+var _ IEspressoPassMultiHeadProgramGen = EspressoPassMultiHeadProgramGen{}
+
+// An interface definition for the [EspressoPassMultiHeadProgramGen] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_program_gen
-type IEspressoPass_multi_head_program_gen interface {
+type IEspressoPassMultiHeadProgramGen interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_multi_head_program_gen) Init() EspressoPass_multi_head_program_gen {
-	rv := objc.Send[EspressoPass_multi_head_program_gen](e.ID, objc.Sel("init"))
+func (e EspressoPassMultiHeadProgramGen) Init() EspressoPassMultiHeadProgramGen {
+	rv := objc.Send[EspressoPassMultiHeadProgramGen](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_multi_head_program_gen) Autorelease() EspressoPass_multi_head_program_gen {
-	rv := objc.Send[EspressoPass_multi_head_program_gen](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassMultiHeadProgramGen) Autorelease() EspressoPassMultiHeadProgramGen {
+	rv := objc.Send[EspressoPassMultiHeadProgramGen](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_multi_head_program_gen creates a new EspressoPass_multi_head_program_gen instance.
-func NewEspressoPass_multi_head_program_gen() EspressoPass_multi_head_program_gen {
-	class := getEspressoPass_multi_head_program_genClass()
-	rv := objc.Send[EspressoPass_multi_head_program_gen](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassMultiHeadProgramGen creates a new EspressoPassMultiHeadProgramGen instance.
+func NewEspressoPassMultiHeadProgramGen() EspressoPassMultiHeadProgramGen {
+	class := getEspressoPassMultiHeadProgramGenClass()
+	rv := objc.Send[EspressoPassMultiHeadProgramGen](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

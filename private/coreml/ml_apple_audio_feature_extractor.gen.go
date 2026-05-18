@@ -83,14 +83,14 @@ type IMLAppleAudioFeatureExtractor interface {
 }
 
 // Init initializes the instance.
-func (a MLAppleAudioFeatureExtractor) Init() MLAppleAudioFeatureExtractor {
-	rv := objc.Send[MLAppleAudioFeatureExtractor](a.ID, objc.Sel("init"))
+func (m MLAppleAudioFeatureExtractor) Init() MLAppleAudioFeatureExtractor {
+	rv := objc.Send[MLAppleAudioFeatureExtractor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAppleAudioFeatureExtractor) Autorelease() MLAppleAudioFeatureExtractor {
-	rv := objc.Send[MLAppleAudioFeatureExtractor](a.ID, objc.Sel("autorelease"))
+func (m MLAppleAudioFeatureExtractor) Autorelease() MLAppleAudioFeatureExtractor {
+	rv := objc.Send[MLAppleAudioFeatureExtractor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -166,9 +166,9 @@ func NewAppleAudioFeatureExtractorWithParametersModelDescriptionConfigurationErr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor/predictionFromFeatures:options:error:
-func (a MLAppleAudioFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLAppleAudioFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -178,9 +178,9 @@ func (a MLAppleAudioFeatureExtractor) PredictionFromFeaturesOptionsError(feature
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor/initWithParameters:modelDescription:configuration:error:
-func (a MLAppleAudioFeatureExtractor) InitWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
+func (m MLAppleAudioFeatureExtractor) InitWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithParameters:modelDescription:configuration:error:"), parameters, description, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithParameters:modelDescription:configuration:error:"), parameters, description, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleAudioFeatureExtractor{}, foundation.NSErrorFrom(errorPtr)
@@ -202,7 +202,7 @@ func (_MLAppleAudioFeatureExtractorClass MLAppleAudioFeatureExtractorClass) Load
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractor/parameters
-func (a MLAppleAudioFeatureExtractor) Parameters() IMLAppleAudioFeatureExtractorParameters {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
+func (m MLAppleAudioFeatureExtractor) Parameters() IMLAppleAudioFeatureExtractorParameters {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return MLAppleAudioFeatureExtractorParametersFromID(objc.ID(rv))
 }

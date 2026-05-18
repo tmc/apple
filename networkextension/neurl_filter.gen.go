@@ -117,14 +117,14 @@ func NewNEURLFilter() NEURLFilter {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEURLFilter/verdictForURL:completionHandler:
 //
 // [NEURLFilter.Verdict]: https://developer.apple.com/documentation/NetworkExtension/NEURLFilter/Verdict
-func (_NEURLFilterClass NEURLFilterClass) VerdictForURLCompletionHandler(url foundation.INSURL, completionHandler NEURLFilterVerdictHandler) {
+func (_NEURLFilterClass NEURLFilterClass) VerdictForURLCompletionHandler(url foundation.NSURL, completionHandler NEURLFilterVerdictHandler) {
 	_block1, _ := NewNEURLFilterVerdictBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NEURLFilterClass.class), objc.Sel("verdictForURL:completionHandler:"), url, _block1)
 }
 
 // VerdictForURL is a synchronous wrapper around [NEURLFilter.VerdictForURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (uc NEURLFilterClass) VerdictForURL(ctx context.Context, url foundation.INSURL) (NEURLFilterVerdict, error) {
+func (uc NEURLFilterClass) VerdictForURL(ctx context.Context, url foundation.NSURL) (NEURLFilterVerdict, error) {
 	done := make(chan NEURLFilterVerdict, 1)
 	uc.VerdictForURLCompletionHandler(url, func(val NEURLFilterVerdict) {
 		done <- val

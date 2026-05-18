@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -88,9 +87,9 @@ type ICPXKeyboardEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64
+	ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	InitWithDeliveryManagerSpecialKeyEventProcessorProcessManagerDestinationGeneratorNotificationCenterKeyEventTracker(manager objectivec.IObject, processor objectivec.IObject, manager2 objectivec.IObject, generator objectivec.IObject, center objectivec.IObject, tracker objectivec.IObject) CPXKeyboardEventProcessor
-	InitWithSessionSpecialKeyEventProcessor(session unsafe.Pointer, processor objectivec.IObject) CPXKeyboardEventProcessor
+	InitWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -124,7 +123,7 @@ func NewCPXKeyboardEventProcessorWithDeliveryManagerSpecialKeyEventProcessorProc
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessor/initWithSession:specialKeyEventProcessor:
-func NewCPXKeyboardEventProcessorWithSessionSpecialKeyEventProcessor(session unsafe.Pointer, processor objectivec.IObject) CPXKeyboardEventProcessor {
+func NewCPXKeyboardEventProcessorWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
 	instance := getCPXKeyboardEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:specialKeyEventProcessor:"), session, processor)
 	return CPXKeyboardEventProcessorFromID(rv)
@@ -136,7 +135,7 @@ func (c CPXKeyboardEventProcessor) ClearEventState() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessor/processEvent:context:dispatcher:
-func (c CPXKeyboardEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (c CPXKeyboardEventProcessor) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }
@@ -148,7 +147,7 @@ func (c CPXKeyboardEventProcessor) InitWithDeliveryManagerSpecialKeyEventProcess
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXKeyboardEventProcessor/initWithSession:specialKeyEventProcessor:
-func (c CPXKeyboardEventProcessor) InitWithSessionSpecialKeyEventProcessor(session unsafe.Pointer, processor objectivec.IObject) CPXKeyboardEventProcessor {
+func (c CPXKeyboardEventProcessor) InitWithSessionSpecialKeyEventProcessor(session CGXSession, processor objectivec.IObject) CPXKeyboardEventProcessor {
 	rv := objc.Send[CPXKeyboardEventProcessor](c.ID, objc.Sel("initWithSession:specialKeyEventProcessor:"), session, processor)
 	return rv
 }

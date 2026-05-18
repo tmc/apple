@@ -133,8 +133,8 @@ type IAVAssetResourceLoadingContentInformationRequest interface {
 	ByteRangeAccessSupported() bool
 	SetByteRangeAccessSupported(value bool)
 	// The date at which a new resource loading request will be issued for resources that expire, if the media system still requires it.
-	RenewalDate() foundation.INSDate
-	SetRenewalDate(value foundation.INSDate)
+	RenewalDate() foundation.NSDate
+	SetRenewalDate(value foundation.NSDate)
 	// A Boolean value that indicates whether asset data loading can expect data immediately.
 	EntireLengthAvailableOnDemand() bool
 	SetEntireLengthAvailableOnDemand(value bool)
@@ -264,11 +264,11 @@ func (a AVAssetResourceLoadingContentInformationRequest) SetByteRangeAccessSuppo
 // to finish before the actual expiry time, otherwise media playback may fail.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingContentInformationRequest/renewalDate
-func (a AVAssetResourceLoadingContentInformationRequest) RenewalDate() foundation.INSDate {
+func (a AVAssetResourceLoadingContentInformationRequest) RenewalDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("renewalDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (a AVAssetResourceLoadingContentInformationRequest) SetRenewalDate(value foundation.INSDate) {
+func (a AVAssetResourceLoadingContentInformationRequest) SetRenewalDate(value foundation.NSDate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRenewalDate:"), value)
 }
 

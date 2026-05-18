@@ -103,9 +103,9 @@ type IMLE5ProgramLibrary interface {
 	// Topic: Methods
 
 	_allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named objectivec.IObject, name objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error)
-	_programLibraryHandleWithForceRespecializationError(respecialization bool) (E5rt_program_libraryRef, error)
+	_programLibraryHandleWithForceRespecializationError(respecialization bool) (E5rtProgramLibraryRef, error)
 	Container() IMLProgramE5Container
-	CreateOperationForFunctionNameForceRespecializationHasRangeShapeInputsError(name objectivec.IObject, respecialization bool, inputs bool) (E5rt_execution_stream_operationRef, error)
+	CreateOperationForFunctionNameForceRespecializationHasRangeShapeInputsError(name objectivec.IObject, respecialization bool, inputs bool) (E5rtExecutionStreamOperationRef, error)
 	FunctionNames() foundation.INSArray
 	Impl() objectivec.IObject
 	LazyInitQueue() objectivec.Object
@@ -120,14 +120,14 @@ type IMLE5ProgramLibrary interface {
 }
 
 // Init initializes the instance.
-func (e MLE5ProgramLibrary) Init() MLE5ProgramLibrary {
-	rv := objc.Send[MLE5ProgramLibrary](e.ID, objc.Sel("init"))
+func (m MLE5ProgramLibrary) Init() MLE5ProgramLibrary {
+	rv := objc.Send[MLE5ProgramLibrary](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e MLE5ProgramLibrary) Autorelease() MLE5ProgramLibrary {
-	rv := objc.Send[MLE5ProgramLibrary](e.ID, objc.Sel("autorelease"))
+func (m MLE5ProgramLibrary) Autorelease() MLE5ProgramLibrary {
+	rv := objc.Send[MLE5ProgramLibrary](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -158,9 +158,9 @@ func NewE5ProgramLibraryWithImplContainerConfiguration(impl objectivec.IObject, 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:
-func (e MLE5ProgramLibrary) _allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named objectivec.IObject, name objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5ProgramLibrary) _allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named objectivec.IObject, name objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:"), named, name, names, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:"), named, name, names, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -170,61 +170,61 @@ func (e MLE5ProgramLibrary) _allocateStateBufferForFeatureNamedEntryFunctionName
 }
 
 // AllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError is an exported wrapper for the private method _allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError.
-func (e MLE5ProgramLibrary) AllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named objectivec.IObject, name objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:")) {
+func (m MLE5ProgramLibrary) AllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named objectivec.IObject, name objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:"}
 		return nil, err
 	}
-	return e._allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named, name, names)
+	return m._allocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError(named, name, names)
 }
 
 // CanAllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError reports whether the receiver responds to the private selector _allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:.
-func (e MLE5ProgramLibrary) CanAllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:"))
+func (m MLE5ProgramLibrary) CanAllocateStateBufferForFeatureNamedEntryFunctionNameProgramFunctionNamesError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_allocateStateBufferForFeatureNamed:entryFunctionName:programFunctionNames:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/_programLibraryHandleWithForceRespecialization:error:
-func (e MLE5ProgramLibrary) _programLibraryHandleWithForceRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
+func (m MLE5ProgramLibrary) _programLibraryHandleWithForceRespecializationError(respecialization bool) (E5rtProgramLibraryRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[E5rt_program_libraryRef](e.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:"), respecialization, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(E5rtProgramLibraryRef), foundation.NSErrorFrom(errorPtr)
 	}
-	return rv, nil
+	return E5rtProgramLibraryRef(rv), nil
 
 }
 
 // ProgramLibraryHandleWithForceRespecializationError is an exported wrapper for the private method _programLibraryHandleWithForceRespecializationError.
-func (e MLE5ProgramLibrary) ProgramLibraryHandleWithForceRespecializationError(respecialization bool) (E5rt_program_libraryRef, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:")) {
+func (m MLE5ProgramLibrary) ProgramLibraryHandleWithForceRespecializationError(respecialization bool) (E5rtProgramLibraryRef, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_programLibraryHandleWithForceRespecialization:error:"}
-		return 0, err
+		return *new(E5rtProgramLibraryRef), err
 	}
-	return e._programLibraryHandleWithForceRespecializationError(respecialization)
+	return m._programLibraryHandleWithForceRespecializationError(respecialization)
 }
 
 // CanProgramLibraryHandleWithForceRespecializationError reports whether the receiver responds to the private selector _programLibraryHandleWithForceRespecialization:error:.
-func (e MLE5ProgramLibrary) CanProgramLibraryHandleWithForceRespecializationError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:"))
+func (m MLE5ProgramLibrary) CanProgramLibraryHandleWithForceRespecializationError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_programLibraryHandleWithForceRespecialization:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/createOperationForFunctionName:forceRespecialization:hasRangeShapeInputs:error:
-func (e MLE5ProgramLibrary) CreateOperationForFunctionNameForceRespecializationHasRangeShapeInputsError(name objectivec.IObject, respecialization bool, inputs bool) (E5rt_execution_stream_operationRef, error) {
+func (m MLE5ProgramLibrary) CreateOperationForFunctionNameForceRespecializationHasRangeShapeInputsError(name objectivec.IObject, respecialization bool, inputs bool) (E5rtExecutionStreamOperationRef, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[E5rt_execution_stream_operationRef](e.ID, objc.Sel("createOperationForFunctionName:forceRespecialization:hasRangeShapeInputs:error:"), name, respecialization, inputs, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("createOperationForFunctionName:forceRespecialization:hasRangeShapeInputs:error:"), name, respecialization, inputs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(E5rtExecutionStreamOperationRef), foundation.NSErrorFrom(errorPtr)
 	}
-	return rv, nil
+	return E5rtExecutionStreamOperationRef(rv), nil
 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/newStateForFunctionNamed:stateNames:clientBuffers:error:
-func (e MLE5ProgramLibrary) NewStateForFunctionNamedStateNamesClientBuffersError(named objectivec.IObject, names objectivec.IObject, buffers objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5ProgramLibrary) NewStateForFunctionNamedStateNamesClientBuffersError(named objectivec.IObject, names objectivec.IObject, buffers objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("newStateForFunctionNamed:stateNames:clientBuffers:error:"), named, names, buffers, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("newStateForFunctionNamed:stateNames:clientBuffers:error:"), named, names, buffers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -234,9 +234,9 @@ func (e MLE5ProgramLibrary) NewStateForFunctionNamedStateNamesClientBuffersError
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/prepareAndReturnError:
-func (e MLE5ProgramLibrary) PrepareAndReturnError() (bool, error) {
+func (m MLE5ProgramLibrary) PrepareAndReturnError() (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("prepareAndReturnError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("prepareAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -249,9 +249,9 @@ func (e MLE5ProgramLibrary) PrepareAndReturnError() (bool, error) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/segmentationAnalyticsAndReturnError:
-func (e MLE5ProgramLibrary) SegmentationAnalyticsAndReturnError() (objectivec.IObject, error) {
+func (m MLE5ProgramLibrary) SegmentationAnalyticsAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("segmentationAnalyticsAndReturnError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("segmentationAnalyticsAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -261,9 +261,9 @@ func (e MLE5ProgramLibrary) SegmentationAnalyticsAndReturnError() (objectivec.IO
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/initWithContainer:configuration:error:
-func (e MLE5ProgramLibrary) InitWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5ProgramLibrary, error) {
+func (m MLE5ProgramLibrary) InitWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5ProgramLibrary, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLE5ProgramLibrary{}, foundation.NSErrorFrom(errorPtr)
@@ -273,49 +273,49 @@ func (e MLE5ProgramLibrary) InitWithContainerConfigurationError(container object
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/initWithImpl:container:configuration:
-func (e MLE5ProgramLibrary) InitWithImplContainerConfiguration(impl objectivec.IObject, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibrary {
-	rv := objc.Send[MLE5ProgramLibrary](e.ID, objc.Sel("initWithImpl:container:configuration:"), impl, container, configuration)
+func (m MLE5ProgramLibrary) InitWithImplContainerConfiguration(impl objectivec.IObject, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibrary {
+	rv := objc.Send[MLE5ProgramLibrary](m.ID, objc.Sel("initWithImpl:container:configuration:"), impl, container, configuration)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/container
-func (e MLE5ProgramLibrary) Container() IMLProgramE5Container {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("container"))
+func (m MLE5ProgramLibrary) Container() IMLProgramE5Container {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("container"))
 	return MLProgramE5ContainerFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/functionNames
-func (e MLE5ProgramLibrary) FunctionNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("functionNames"))
+func (m MLE5ProgramLibrary) FunctionNames() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/impl
-func (e MLE5ProgramLibrary) Impl() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("impl"))
+func (m MLE5ProgramLibrary) Impl() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("impl"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/lazyInitQueue
-func (e MLE5ProgramLibrary) LazyInitQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("lazyInitQueue"))
+func (m MLE5ProgramLibrary) LazyInitQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("lazyInitQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/modelConfiguration
-func (e MLE5ProgramLibrary) ModelConfiguration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelConfiguration"))
+func (m MLE5ProgramLibrary) ModelConfiguration() IMLModelConfiguration {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/modelDisplayName
-func (e MLE5ProgramLibrary) ModelDisplayName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelDisplayName"))
+func (m MLE5ProgramLibrary) ModelDisplayName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDisplayName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibrary/serializedMILText
-func (e MLE5ProgramLibrary) SerializedMILText() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("serializedMILText"))
+func (m MLE5ProgramLibrary) SerializedMILText() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("serializedMILText"))
 	return foundation.NSStringFromID(rv).String()
 }

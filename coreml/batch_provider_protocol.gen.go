@@ -60,5 +60,5 @@ func (o MLBatchProviderObject) FeaturesAtIndex(index int) MLFeatureProvider {
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
 func (o MLBatchProviderObject) Count() int {
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
-	return rv
+	return int(rv)
 }

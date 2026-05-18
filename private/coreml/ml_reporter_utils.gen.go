@@ -66,14 +66,14 @@ type IMLReporterUtils interface {
 }
 
 // Init initializes the instance.
-func (r MLReporterUtils) Init() MLReporterUtils {
-	rv := objc.Send[MLReporterUtils](r.ID, objc.Sel("init"))
+func (m MLReporterUtils) Init() MLReporterUtils {
+	rv := objc.Send[MLReporterUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (r MLReporterUtils) Autorelease() MLReporterUtils {
-	rv := objc.Send[MLReporterUtils](r.ID, objc.Sel("autorelease"))
+func (m MLReporterUtils) Autorelease() MLReporterUtils {
+	rv := objc.Send[MLReporterUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

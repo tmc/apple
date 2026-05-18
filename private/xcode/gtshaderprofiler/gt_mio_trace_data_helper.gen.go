@@ -5,7 +5,6 @@ package gtshaderprofiler
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -187,7 +186,7 @@ type IGTMioTraceDataHelper interface {
 	GenerateTopDrawTracks() objectivec.IObject
 	GenerateTopKickTracks() objectivec.IObject
 	GenerateTopRIATracks() objectivec.IObject
-	GenerateTrackForCliqueIndexesCountGroup(indexes unsafe.Pointer, count uint64, group VoidHandler) objectivec.IObject
+	GenerateTrackForCliqueIndexesCountGroup(indexes GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject
 	ShowDriverInternalShaders() bool
 	SetShowDriverInternalShaders(value bool)
 	ShowDriverIntersectionShaders() bool
@@ -420,7 +419,7 @@ func (g GTMioTraceDataHelper) GenerateTopRIATracks() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateTrackForCliqueIndexes:count:group:
-func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroup(indexes unsafe.Pointer, count uint64, group VoidHandler) objectivec.IObject {
+func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroup(indexes GTMioUSCCliqueIndex, count uint64, group VoidHandler) objectivec.IObject {
 	_block2, _ := NewVoidBlock(group)
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTrackForCliqueIndexes:count:group:"), indexes, count, _block2)
 	return objectivec.Object{ID: rv}
@@ -482,7 +481,7 @@ func (g GTMioTraceDataHelper) TraceData() objectivec.IObject {
 
 // GenerateTrackForCliqueIndexesCountGroupSync is a synchronous wrapper around [GTMioTraceDataHelper.GenerateTrackForCliqueIndexesCountGroup].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroupSync(ctx context.Context, indexes unsafe.Pointer, count uint64) error {
+func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroupSync(ctx context.Context, indexes GTMioUSCCliqueIndex, count uint64) error {
 	done := make(chan struct{}, 1)
 	g.GenerateTrackForCliqueIndexesCountGroup(indexes, count, func() {
 		done <- struct{}{}

@@ -63,14 +63,14 @@ type IMLClassifier interface {
 }
 
 // Init initializes the instance.
-func (c MLClassifier) Init() MLClassifier {
-	rv := objc.Send[MLClassifier](c.ID, objc.Sel("init"))
+func (m MLClassifier) Init() MLClassifier {
+	rv := objc.Send[MLClassifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLClassifier) Autorelease() MLClassifier {
-	rv := objc.Send[MLClassifier](c.ID, objc.Sel("autorelease"))
+func (m MLClassifier) Autorelease() MLClassifier {
+	rv := objc.Send[MLClassifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

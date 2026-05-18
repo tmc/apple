@@ -160,7 +160,7 @@ type INEAppProxyProvider interface {
 	// Stop the network proxy.
 	StopProxyWithReasonCompletionHandler(reason NEProviderStopReason, completionHandler VoidHandler)
 	// Stop the network proxy from the App Proxy Provider.
-	CancelProxyWithError(error_ foundation.INSError)
+	CancelProxyWithError(error_ foundation.NSError)
 
 	// Topic: Handling proxied flows
 
@@ -259,7 +259,7 @@ func (a NEAppProxyProvider) StopProxyWithReasonCompletionHandler(reason NEProvid
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyProvider/cancelProxyWithError(_:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (a NEAppProxyProvider) CancelProxyWithError(error_ foundation.INSError) {
+func (a NEAppProxyProvider) CancelProxyWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](a.ID, objc.Sel("cancelProxyWithError:"), error_)
 }
 

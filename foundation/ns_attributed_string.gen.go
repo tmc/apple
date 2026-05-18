@@ -298,11 +298,6 @@ func NSAttributedStringFromID(id objc.ID) NSAttributedString {
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString
 type INSAttributedString interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSItemProviderReading
-	NSItemProviderWriting
-	NSMutableCopying
 	NSSecureCoding
 
 	// Topic: Exporting the string as data
@@ -1769,7 +1764,7 @@ func (a NSAttributedString) AttributedStringByInflectingString() INSAttributedSt
 //
 // location: The location of the item.
 //
-// list is a [*appkit.NSTextList].
+// list is a [*uikit.NSTextList].
 //
 // # Return Value
 //
@@ -1807,7 +1802,7 @@ func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, lo
 //
 // location: The location in the text list.
 //
-// list is a [*appkit.NSTextList].
+// list is a [*uikit.NSTextList].
 //
 // # Return Value
 //
@@ -1911,7 +1906,7 @@ func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 // about the actual values used to render the string. This parameter may be
 // `nil`.
 //
-// context is a [*appkit.NSStringDrawingContext].
+// context is a [*uikit.NSStringDrawingContext].
 //
 // # Discussion
 //
@@ -1984,7 +1979,7 @@ func (a NSAttributedString) Size() NSSize {
 // about the actual values used to render the string. This parameter may be
 // `nil`.
 //
-// context is a [*appkit.NSStringDrawingContext].
+// context is a [*uikit.NSStringDrawingContext].
 //
 // # Return Value
 //
@@ -2694,6 +2689,15 @@ func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProviderCompletionH
 	return NSProgressFromID(rv)
 }
 
+// An array of UTI strings representing the types of data that can be loaded
+// for an item provider.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
+func (a NSAttributedString) WritableTypeIdentifiersForItemProvider() []string {
+	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
+	return objc.ConvertSliceToStrings(rv)
+}
+
 // Creates an attributed string from the specified HTML data.
 //
 // data: A data object with text in HTML format. The method uses this data to create
@@ -2978,28 +2982,6 @@ func (a NSAttributedString) PrefixSpaces() INSString {
 func (a NSAttributedString) TextEncodingName() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("textEncodingName"))
 	return NSStringFromID(objc.ID(rv))
-}
-
-// An array of UTI strings representing the types of data that can be loaded
-// for an item provider.
-//
-// # Discussion
-//
-// Provide uniform type identifiers (UTIs) in order from highest fidelity to
-// lowest. If your app employs a native data representation, place that first
-// in the array.
-//
-// Use the instance version of this property when you initialize an item
-// provider with an object. As possible, implement this property to provide an
-// extended array of UTIs based on the object. For example, for an [NSURL]
-// object, your implementation could offer the `public.File()-url` UTI, in
-// addition to the `public.Url()` UTI, if your implementation detects that the
-// stored URL uses the `//` scheme.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
-func (a NSAttributedString) WritableTypeIdentifiersForItemProvider() []string {
-	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
-	return objc.ConvertSliceToStrings(rv)
 }
 
 // An array of UTI strings that identify the file types that attributed

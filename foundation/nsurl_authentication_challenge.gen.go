@@ -128,7 +128,6 @@ func NSURLAuthenticationChallengeFromID(id objc.ID) URLAuthenticationChallenge {
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallenge
 type IURLAuthenticationChallenge interface {
 	objectivec.IObject
-	NSCoding
 	NSSecureCoding
 
 	// Topic: Creating an authentication challenge instance

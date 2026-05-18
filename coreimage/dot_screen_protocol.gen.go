@@ -19,50 +19,30 @@ type CIDotScreen interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/angle
 	Angle() float32
-
-	// The x and y position to use as the center of the dot screen pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/center
-	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/inputImage
-	InputImage() ICIImage
-
-	// The sharpness of the pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/sharpness
-	Sharpness() float32
-
-	// The distance between dots in the pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/width
-	Width() float32
-
-	// The angle of the pattern.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/angle
 	SetAngle(value float32)
 
 	// The x and y position to use as the center of the dot screen pattern.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/center
+	Center() corefoundation.CGPoint
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The sharpness of the pattern.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/sharpness
+	Sharpness() float32
 	SetSharpness(value float32)
 
 	// The distance between dots in the pattern.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/width
+	Width() float32
 	SetWidth(value float32)
 }
 
@@ -83,46 +63,6 @@ func CIDotScreenObjectFromID(id objc.ID) CIDotScreenObject {
 	}
 }
 
-// The angle of the pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/angle
-func (o CIDotScreenObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The x and y position to use as the center of the dot screen pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/center
-func (o CIDotScreenObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/inputImage
-func (o CIDotScreenObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The sharpness of the pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/sharpness
-func (o CIDotScreenObject) Sharpness() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
-	return rv
-}
-
-// The distance between dots in the pattern.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/width
-func (o CIDotScreenObject) Width() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("width"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -135,6 +75,11 @@ func (o CIDotScreenObject) OutputImage() ICIImage {
 // The angle of the pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/angle
+func (o CIDotScreenObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CIDotScreenObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -142,6 +87,11 @@ func (o CIDotScreenObject) SetAngle(value float32) {
 // The x and y position to use as the center of the dot screen pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/center
+func (o CIDotScreenObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIDotScreenObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -149,6 +99,11 @@ func (o CIDotScreenObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/inputImage
+func (o CIDotScreenObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIDotScreenObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -156,6 +111,11 @@ func (o CIDotScreenObject) SetInputImage(value ICIImage) {
 // The sharpness of the pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/sharpness
+func (o CIDotScreenObject) Sharpness() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
+	return float32(rv)
+}
+
 func (o CIDotScreenObject) SetSharpness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSharpness:"), value)
 }
@@ -163,6 +123,11 @@ func (o CIDotScreenObject) SetSharpness(value float32) {
 // The distance between dots in the pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/width
+func (o CIDotScreenObject) Width() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("width"))
+	return float32(rv)
+}
+
 func (o CIDotScreenObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }

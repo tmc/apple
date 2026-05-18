@@ -114,11 +114,11 @@ type IAVAudioUnitSampler interface {
 	// Topic: Configuring the Sampler Audio Unit
 
 	// Configures the sampler with the specified instrument file.
-	LoadInstrumentAtURLError(instrumentURL foundation.INSURL) (bool, error)
+	LoadInstrumentAtURLError(instrumentURL foundation.NSURL) (bool, error)
 	// Configures the sampler by loading the specified audio files.
 	LoadAudioFilesAtURLsError(audioFiles []foundation.NSURL) (bool, error)
 	// Loads a specific instrument from the specified soundbank.
-	LoadSoundBankInstrumentAtURLProgramBankMSBBankLSBError(bankURL foundation.INSURL, program uint8, bankMSB uint8, bankLSB uint8) (bool, error)
+	LoadSoundBankInstrumentAtURLProgramBankMSBBankLSBError(bankURL foundation.NSURL, program uint8, bankMSB uint8, bankLSB uint8) (bool, error)
 
 	// Topic: Getting and Setting Sampler Values
 
@@ -188,7 +188,7 @@ func NewAudioUnitSamplerWithAudioComponentDescription(description unsafe.Pointer
 // and key range, for its placement in the instrument.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSampler/loadInstrument(at:)
-func (a AVAudioUnitSampler) LoadInstrumentAtURLError(instrumentURL foundation.INSURL) (bool, error) {
+func (a AVAudioUnitSampler) LoadInstrumentAtURLError(instrumentURL foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadInstrumentAtURL:error:"), instrumentURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -245,7 +245,7 @@ func (a AVAudioUnitSampler) LoadAudioFilesAtURLsError(audioFiles []foundation.NS
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSampler/loadSoundBankInstrument(at:program:bankMSB:bankLSB:)
-func (a AVAudioUnitSampler) LoadSoundBankInstrumentAtURLProgramBankMSBBankLSBError(bankURL foundation.INSURL, program uint8, bankMSB uint8, bankLSB uint8) (bool, error) {
+func (a AVAudioUnitSampler) LoadSoundBankInstrumentAtURLProgramBankMSBBankLSBError(bankURL foundation.NSURL, program uint8, bankMSB uint8, bankLSB uint8) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadSoundBankInstrumentAtURL:program:bankMSB:bankLSB:error:"), bankURL, program, bankMSB, bankLSB, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

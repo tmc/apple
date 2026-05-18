@@ -19,6 +19,11 @@ type GCTouchedStateInput interface {
 	// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/isTouched
 	IsTouched() bool
 
+	// A Boolean value that indicates whether the user touches the button.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/isTouched
+	Touched() bool
+
 	// The time of the most recent touch state change.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/lastTouchedStateTimestamp
@@ -28,11 +33,6 @@ type GCTouchedStateInput interface {
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/lastTouchedStateLatency
 	LastTouchedStateLatency() float64
-
-	// A block that the element calls when its touch value changes.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/touchedDidChangeHandler
-	TouchedDidChangeHandler() func(objc.ID, bool)
 
 	// One or more physical actions the user performs to manipulate the input.
 	//
@@ -65,31 +65,46 @@ func (o GCTouchedStateInputObject) IsTouched() bool {
 	return rv
 }
 
+// A Boolean value that indicates whether the user touches the button.
+//
+// # Discussion
+//
+// For controllers that support capacitive touch, the user can start touching
+// the button without pressure when the value property is `0`. For controllers
+// that don’t support capacitive touch, the user starts touching the button
+// when the value property is greater than `0`.
+//
+// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/isTouched
+func (o GCTouchedStateInputObject) Touched() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isTouched"))
+	return bool(rv)
+}
+
 // The time of the most recent touch state change.
+//
+// # Discussion
+//
+// This property isn’t a specific date and time. To determine the time
+// between changes, subtract a previous value from the current value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/lastTouchedStateTimestamp
 func (o GCTouchedStateInputObject) LastTouchedStateTimestamp() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("lastTouchedStateTimestamp"))
-	return rv
+	return float64(rv)
 }
 
 // The time in seconds between the last touch state change and the current
 // time.
 //
+// # Discussion
+//
+// Use this property as a minimum latency value that may not include latency
+// that accrues on the device or when it transmits the event.
+//
 // See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/lastTouchedStateLatency
 func (o GCTouchedStateInputObject) LastTouchedStateLatency() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("lastTouchedStateLatency"))
-	return rv
-}
-
-// A block that the element calls when its touch value changes.
-//
-// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/touchedDidChangeHandler
-func (o GCTouchedStateInputObject) TouchedDidChangeHandler() func(objc.ID, bool) {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchedDidChangeHandler"))
-	// Block/function return - cannot convert from objc.ID to Go func
-	_ = rv
-	return nil
+	return float64(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

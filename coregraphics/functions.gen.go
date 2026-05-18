@@ -11,7 +11,6 @@ import (
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 type unavailableSymbolError struct {
@@ -423,7 +422,7 @@ var _cGBitmapContextCreateErr error
 
 func tryCGBitmapContextCreate(data unsafe.Pointer, width uintptr, height uintptr, bitsPerComponent uintptr, bytesPerRow uintptr, space CGColorSpaceRef, bitmapInfo CGBitmapInfo) (CGContextRef, error) {
 	if _cGBitmapContextCreate == nil {
-		return 0, symbolCallError("CGBitmapContextCreate", "10.0", _cGBitmapContextCreateErr)
+		return *new(CGContextRef), symbolCallError("CGBitmapContextCreate", "10.0", _cGBitmapContextCreateErr)
 	}
 	return _cGBitmapContextCreate(data, width, height, bitsPerComponent, bytesPerRow, space, bitmapInfo), nil
 }
@@ -444,7 +443,7 @@ var _cGBitmapContextCreateAdaptiveErr error
 
 func tryCGBitmapContextCreateAdaptive(width uintptr, height uintptr, auxiliaryInfo corefoundation.CFDictionaryRef, onResolve bool) (CGContextRef, error) {
 	if _cGBitmapContextCreateAdaptive == nil {
-		return 0, symbolCallError("CGBitmapContextCreateAdaptive", "26.0", _cGBitmapContextCreateAdaptiveErr)
+		return *new(CGContextRef), symbolCallError("CGBitmapContextCreateAdaptive", "26.0", _cGBitmapContextCreateAdaptiveErr)
 	}
 	return _cGBitmapContextCreateAdaptive(width, height, auxiliaryInfo, onResolve), nil
 }
@@ -465,7 +464,7 @@ var _cGBitmapContextCreateImageErr error
 
 func tryCGBitmapContextCreateImage(context CGContextRef) (CGImageRef, error) {
 	if _cGBitmapContextCreateImage == nil {
-		return 0, symbolCallError("CGBitmapContextCreateImage", "10.4", _cGBitmapContextCreateImageErr)
+		return *new(CGImageRef), symbolCallError("CGBitmapContextCreateImage", "10.4", _cGBitmapContextCreateImageErr)
 	}
 	return _cGBitmapContextCreateImage(context), nil
 }
@@ -486,7 +485,7 @@ var _cGBitmapContextCreateWithDataErr error
 
 func tryCGBitmapContextCreateWithData(data unsafe.Pointer, width uintptr, height uintptr, bitsPerComponent uintptr, bytesPerRow uintptr, space CGColorSpaceRef, bitmapInfo CGBitmapInfo, releaseCallback CGBitmapContextReleaseDataCallback, releaseInfo unsafe.Pointer) (CGContextRef, error) {
 	if _cGBitmapContextCreateWithData == nil {
-		return 0, symbolCallError("CGBitmapContextCreateWithData", "10.6", _cGBitmapContextCreateWithDataErr)
+		return *new(CGContextRef), symbolCallError("CGBitmapContextCreateWithData", "10.6", _cGBitmapContextCreateWithDataErr)
 	}
 	return _cGBitmapContextCreateWithData(data, width, height, bitsPerComponent, bytesPerRow, space, bitmapInfo, releaseCallback, releaseInfo), nil
 }
@@ -612,7 +611,7 @@ var _cGBitmapContextGetColorSpaceErr error
 
 func tryCGBitmapContextGetColorSpace(context CGContextRef) (CGColorSpaceRef, error) {
 	if _cGBitmapContextGetColorSpace == nil {
-		return 0, symbolCallError("CGBitmapContextGetColorSpace", "10.2", _cGBitmapContextGetColorSpaceErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGBitmapContextGetColorSpace", "10.2", _cGBitmapContextGetColorSpaceErr)
 	}
 	return _cGBitmapContextGetColorSpace(context), nil
 }
@@ -780,7 +779,7 @@ var _cGColorConversionInfoCreateErr error
 
 func tryCGColorConversionInfoCreate(src CGColorSpaceRef, dst CGColorSpaceRef) (CGColorConversionInfoRef, error) {
 	if _cGColorConversionInfoCreate == nil {
-		return 0, symbolCallError("CGColorConversionInfoCreate", "10.12", _cGColorConversionInfoCreateErr)
+		return *new(CGColorConversionInfoRef), symbolCallError("CGColorConversionInfoCreate", "10.12", _cGColorConversionInfoCreateErr)
 	}
 	return _cGColorConversionInfoCreate(src, dst), nil
 }
@@ -801,7 +800,7 @@ var _cGColorConversionInfoCreateForToneMappingErr error
 
 func tryCGColorConversionInfoCreateForToneMapping(from CGColorSpaceRef, source_headroom float32, to CGColorSpaceRef, target_headroom float32, method CGToneMapping, options corefoundation.CFDictionaryRef, err *corefoundation.CFErrorRef) (CGColorConversionInfoRef, error) {
 	if _cGColorConversionInfoCreateForToneMapping == nil {
-		return 0, symbolCallError("CGColorConversionInfoCreateForToneMapping", "15.0", _cGColorConversionInfoCreateForToneMappingErr)
+		return *new(CGColorConversionInfoRef), symbolCallError("CGColorConversionInfoCreateForToneMapping", "15.0", _cGColorConversionInfoCreateForToneMappingErr)
 	}
 	return _cGColorConversionInfoCreateForToneMapping(from, source_headroom, to, target_headroom, method, options, err), nil
 }
@@ -824,7 +823,7 @@ var _cGColorConversionInfoCreateFromListErr error
 
 func tryCGColorConversionInfoCreateFromList(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent) (CGColorConversionInfoRef, error) {
 	if _cGColorConversionInfoCreateFromList == nil {
-		return 0, symbolCallError("CGColorConversionInfoCreateFromList", "10.12", _cGColorConversionInfoCreateFromListErr)
+		return *new(CGColorConversionInfoRef), symbolCallError("CGColorConversionInfoCreateFromList", "10.12", _cGColorConversionInfoCreateFromListErr)
 	}
 	return _cGColorConversionInfoCreateFromList(options, arg1, arg2, arg3), nil
 }
@@ -845,7 +844,7 @@ var _cGColorConversionInfoCreateFromListWithArgumentsErr error
 
 func tryCGColorConversionInfoCreateFromListWithArguments(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent, arg4 kernel.Va_list) (CGColorConversionInfoRef, error) {
 	if _cGColorConversionInfoCreateFromListWithArguments == nil {
-		return 0, symbolCallError("CGColorConversionInfoCreateFromListWithArguments", "10.13", _cGColorConversionInfoCreateFromListWithArgumentsErr)
+		return *new(CGColorConversionInfoRef), symbolCallError("CGColorConversionInfoCreateFromListWithArguments", "10.13", _cGColorConversionInfoCreateFromListWithArgumentsErr)
 	}
 	return _cGColorConversionInfoCreateFromListWithArguments(options, arg1, arg2, arg3, arg4), nil
 }
@@ -866,7 +865,7 @@ var _cGColorConversionInfoCreateWithOptionsErr error
 
 func tryCGColorConversionInfoCreateWithOptions(src CGColorSpaceRef, dst CGColorSpaceRef, options corefoundation.CFDictionaryRef) (CGColorConversionInfoRef, error) {
 	if _cGColorConversionInfoCreateWithOptions == nil {
-		return 0, symbolCallError("CGColorConversionInfoCreateWithOptions", "10.14.6", _cGColorConversionInfoCreateWithOptionsErr)
+		return *new(CGColorConversionInfoRef), symbolCallError("CGColorConversionInfoCreateWithOptions", "10.14.6", _cGColorConversionInfoCreateWithOptionsErr)
 	}
 	return _cGColorConversionInfoCreateWithOptions(src, dst, options), nil
 }
@@ -908,7 +907,7 @@ var _cGColorCreateErr error
 
 func tryCGColorCreate(space CGColorSpaceRef, components *float64) (CGColorRef, error) {
 	if _cGColorCreate == nil {
-		return 0, symbolCallError("CGColorCreate", "10.3", _cGColorCreateErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreate", "10.3", _cGColorCreateErr)
 	}
 	return _cGColorCreate(space, components), nil
 }
@@ -929,7 +928,7 @@ var _cGColorCreateCopyErr error
 
 func tryCGColorCreateCopy(color CGColorRef) (CGColorRef, error) {
 	if _cGColorCreateCopy == nil {
-		return 0, symbolCallError("CGColorCreateCopy", "10.3", _cGColorCreateCopyErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateCopy", "10.3", _cGColorCreateCopyErr)
 	}
 	return _cGColorCreateCopy(color), nil
 }
@@ -950,7 +949,7 @@ var _cGColorCreateCopyByMatchingToColorSpaceErr error
 
 func tryCGColorCreateCopyByMatchingToColorSpace(arg0 CGColorSpaceRef, intent CGColorRenderingIntent, color CGColorRef, options corefoundation.CFDictionaryRef) (CGColorRef, error) {
 	if _cGColorCreateCopyByMatchingToColorSpace == nil {
-		return 0, symbolCallError("CGColorCreateCopyByMatchingToColorSpace", "10.11", _cGColorCreateCopyByMatchingToColorSpaceErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateCopyByMatchingToColorSpace", "10.11", _cGColorCreateCopyByMatchingToColorSpaceErr)
 	}
 	return _cGColorCreateCopyByMatchingToColorSpace(arg0, intent, color, options), nil
 }
@@ -971,7 +970,7 @@ var _cGColorCreateCopyWithAlphaErr error
 
 func tryCGColorCreateCopyWithAlpha(color CGColorRef, alpha float64) (CGColorRef, error) {
 	if _cGColorCreateCopyWithAlpha == nil {
-		return 0, symbolCallError("CGColorCreateCopyWithAlpha", "10.3", _cGColorCreateCopyWithAlphaErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateCopyWithAlpha", "10.3", _cGColorCreateCopyWithAlphaErr)
 	}
 	return _cGColorCreateCopyWithAlpha(color, alpha), nil
 }
@@ -992,7 +991,7 @@ var _cGColorCreateGenericCMYKErr error
 
 func tryCGColorCreateGenericCMYK(cyan float64, magenta float64, yellow float64, black float64, alpha float64) (CGColorRef, error) {
 	if _cGColorCreateGenericCMYK == nil {
-		return 0, symbolCallError("CGColorCreateGenericCMYK", "10.5", _cGColorCreateGenericCMYKErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateGenericCMYK", "10.5", _cGColorCreateGenericCMYKErr)
 	}
 	return _cGColorCreateGenericCMYK(cyan, magenta, yellow, black, alpha), nil
 }
@@ -1013,7 +1012,7 @@ var _cGColorCreateGenericGrayErr error
 
 func tryCGColorCreateGenericGray(gray float64, alpha float64) (CGColorRef, error) {
 	if _cGColorCreateGenericGray == nil {
-		return 0, symbolCallError("CGColorCreateGenericGray", "10.5", _cGColorCreateGenericGrayErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateGenericGray", "10.5", _cGColorCreateGenericGrayErr)
 	}
 	return _cGColorCreateGenericGray(gray, alpha), nil
 }
@@ -1034,7 +1033,7 @@ var _cGColorCreateGenericGrayGamma2_2Err error
 
 func tryCGColorCreateGenericGrayGamma2_2(gray float64, alpha float64) (CGColorRef, error) {
 	if _cGColorCreateGenericGrayGamma2_2 == nil {
-		return 0, symbolCallError("CGColorCreateGenericGrayGamma2_2", "10.15", _cGColorCreateGenericGrayGamma2_2Err)
+		return *new(CGColorRef), symbolCallError("CGColorCreateGenericGrayGamma2_2", "10.15", _cGColorCreateGenericGrayGamma2_2Err)
 	}
 	return _cGColorCreateGenericGrayGamma2_2(gray, alpha), nil
 }
@@ -1055,7 +1054,7 @@ var _cGColorCreateGenericRGBErr error
 
 func tryCGColorCreateGenericRGB(red float64, green float64, blue float64, alpha float64) (CGColorRef, error) {
 	if _cGColorCreateGenericRGB == nil {
-		return 0, symbolCallError("CGColorCreateGenericRGB", "10.5", _cGColorCreateGenericRGBErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateGenericRGB", "10.5", _cGColorCreateGenericRGBErr)
 	}
 	return _cGColorCreateGenericRGB(red, green, blue, alpha), nil
 }
@@ -1076,7 +1075,7 @@ var _cGColorCreateSRGBErr error
 
 func tryCGColorCreateSRGB(red float64, green float64, blue float64, alpha float64) (CGColorRef, error) {
 	if _cGColorCreateSRGB == nil {
-		return 0, symbolCallError("CGColorCreateSRGB", "10.15", _cGColorCreateSRGBErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateSRGB", "10.15", _cGColorCreateSRGBErr)
 	}
 	return _cGColorCreateSRGB(red, green, blue, alpha), nil
 }
@@ -1097,7 +1096,7 @@ var _cGColorCreateWithContentHeadroomErr error
 
 func tryCGColorCreateWithContentHeadroom(headroom float32, space CGColorSpaceRef, red float64, green float64, blue float64, alpha float64) (CGColorRef, error) {
 	if _cGColorCreateWithContentHeadroom == nil {
-		return 0, symbolCallError("CGColorCreateWithContentHeadroom", "26.0", _cGColorCreateWithContentHeadroomErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateWithContentHeadroom", "26.0", _cGColorCreateWithContentHeadroomErr)
 	}
 	return _cGColorCreateWithContentHeadroom(headroom, space, red, green, blue, alpha), nil
 }
@@ -1118,7 +1117,7 @@ var _cGColorCreateWithPatternErr error
 
 func tryCGColorCreateWithPattern(space CGColorSpaceRef, pattern CGPatternRef, components *float64) (CGColorRef, error) {
 	if _cGColorCreateWithPattern == nil {
-		return 0, symbolCallError("CGColorCreateWithPattern", "10.3", _cGColorCreateWithPatternErr)
+		return *new(CGColorRef), symbolCallError("CGColorCreateWithPattern", "10.3", _cGColorCreateWithPatternErr)
 	}
 	return _cGColorCreateWithPattern(space, pattern, components), nil
 }
@@ -1181,7 +1180,7 @@ var _cGColorGetColorSpaceErr error
 
 func tryCGColorGetColorSpace(color CGColorRef) (CGColorSpaceRef, error) {
 	if _cGColorGetColorSpace == nil {
-		return 0, symbolCallError("CGColorGetColorSpace", "10.3", _cGColorGetColorSpaceErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorGetColorSpace", "10.3", _cGColorGetColorSpaceErr)
 	}
 	return _cGColorGetColorSpace(color), nil
 }
@@ -1223,7 +1222,7 @@ var _cGColorGetConstantColorErr error
 
 func tryCGColorGetConstantColor(colorName corefoundation.CFStringRef) (CGColorRef, error) {
 	if _cGColorGetConstantColor == nil {
-		return 0, symbolCallError("CGColorGetConstantColor", "10.5", _cGColorGetConstantColorErr)
+		return *new(CGColorRef), symbolCallError("CGColorGetConstantColor", "10.5", _cGColorGetConstantColorErr)
 	}
 	return _cGColorGetConstantColor(colorName), nil
 }
@@ -1286,7 +1285,7 @@ var _cGColorGetPatternErr error
 
 func tryCGColorGetPattern(color CGColorRef) (CGPatternRef, error) {
 	if _cGColorGetPattern == nil {
-		return 0, symbolCallError("CGColorGetPattern", "10.3", _cGColorGetPatternErr)
+		return *new(CGPatternRef), symbolCallError("CGColorGetPattern", "10.3", _cGColorGetPatternErr)
 	}
 	return _cGColorGetPattern(color), nil
 }
@@ -1348,7 +1347,7 @@ var _cGColorRetainErr error
 
 func tryCGColorRetain(color CGColorRef) (CGColorRef, error) {
 	if _cGColorRetain == nil {
-		return 0, symbolCallError("CGColorRetain", "10.3", _cGColorRetainErr)
+		return *new(CGColorRef), symbolCallError("CGColorRetain", "10.3", _cGColorRetainErr)
 	}
 	return _cGColorRetain(color), nil
 }
@@ -1369,7 +1368,7 @@ var _cGColorSpaceCopyBaseColorSpaceErr error
 
 func tryCGColorSpaceCopyBaseColorSpace(space CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCopyBaseColorSpace == nil {
-		return 0, symbolCallError("CGColorSpaceCopyBaseColorSpace", "15.0", _cGColorSpaceCopyBaseColorSpaceErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCopyBaseColorSpace", "15.0", _cGColorSpaceCopyBaseColorSpaceErr)
 	}
 	return _cGColorSpaceCopyBaseColorSpace(space), nil
 }
@@ -1390,7 +1389,7 @@ var _cGColorSpaceCopyICCDataErr error
 
 func tryCGColorSpaceCopyICCData(space CGColorSpaceRef) (corefoundation.CFDataRef, error) {
 	if _cGColorSpaceCopyICCData == nil {
-		return 0, symbolCallError("CGColorSpaceCopyICCData", "10.12", _cGColorSpaceCopyICCDataErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("CGColorSpaceCopyICCData", "10.12", _cGColorSpaceCopyICCDataErr)
 	}
 	return _cGColorSpaceCopyICCData(space), nil
 }
@@ -1411,7 +1410,7 @@ var _cGColorSpaceCopyNameErr error
 
 func tryCGColorSpaceCopyName(space CGColorSpaceRef) (corefoundation.CFStringRef, error) {
 	if _cGColorSpaceCopyName == nil {
-		return 0, symbolCallError("CGColorSpaceCopyName", "10.6", _cGColorSpaceCopyNameErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CGColorSpaceCopyName", "10.6", _cGColorSpaceCopyNameErr)
 	}
 	return _cGColorSpaceCopyName(space), nil
 }
@@ -1432,7 +1431,7 @@ var _cGColorSpaceCopyPropertyListErr error
 
 func tryCGColorSpaceCopyPropertyList(space CGColorSpaceRef) (corefoundation.CFPropertyListRef, error) {
 	if _cGColorSpaceCopyPropertyList == nil {
-		return 0, symbolCallError("CGColorSpaceCopyPropertyList", "10.12", _cGColorSpaceCopyPropertyListErr)
+		return *new(corefoundation.CFPropertyListRef), symbolCallError("CGColorSpaceCopyPropertyList", "10.12", _cGColorSpaceCopyPropertyListErr)
 	}
 	return _cGColorSpaceCopyPropertyList(space), nil
 }
@@ -1453,7 +1452,7 @@ var _cGColorSpaceCreateCalibratedGrayErr error
 
 func tryCGColorSpaceCreateCalibratedGray(whitePoint float64, blackPoint float64, gamma float64) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateCalibratedGray == nil {
-		return 0, symbolCallError("CGColorSpaceCreateCalibratedGray", "10.0", _cGColorSpaceCreateCalibratedGrayErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateCalibratedGray", "10.0", _cGColorSpaceCreateCalibratedGrayErr)
 	}
 	return _cGColorSpaceCreateCalibratedGray(whitePoint, blackPoint, gamma), nil
 }
@@ -1474,7 +1473,7 @@ var _cGColorSpaceCreateCalibratedRGBErr error
 
 func tryCGColorSpaceCreateCalibratedRGB(whitePoint float64, blackPoint float64, gamma float64, matrix float64) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateCalibratedRGB == nil {
-		return 0, symbolCallError("CGColorSpaceCreateCalibratedRGB", "10.0", _cGColorSpaceCreateCalibratedRGBErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateCalibratedRGB", "10.0", _cGColorSpaceCreateCalibratedRGBErr)
 	}
 	return _cGColorSpaceCreateCalibratedRGB(whitePoint, blackPoint, gamma, matrix), nil
 }
@@ -1495,7 +1494,7 @@ var _cGColorSpaceCreateCopyWithStandardRangeErr error
 
 func tryCGColorSpaceCreateCopyWithStandardRange(space CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateCopyWithStandardRange == nil {
-		return 0, symbolCallError("CGColorSpaceCreateCopyWithStandardRange", "13.0", _cGColorSpaceCreateCopyWithStandardRangeErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateCopyWithStandardRange", "13.0", _cGColorSpaceCreateCopyWithStandardRangeErr)
 	}
 	return _cGColorSpaceCreateCopyWithStandardRange(space), nil
 }
@@ -1516,7 +1515,7 @@ var _cGColorSpaceCreateDeviceCMYKErr error
 
 func tryCGColorSpaceCreateDeviceCMYK() (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateDeviceCMYK == nil {
-		return 0, symbolCallError("CGColorSpaceCreateDeviceCMYK", "10.0", _cGColorSpaceCreateDeviceCMYKErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateDeviceCMYK", "10.0", _cGColorSpaceCreateDeviceCMYKErr)
 	}
 	return _cGColorSpaceCreateDeviceCMYK(), nil
 }
@@ -1537,7 +1536,7 @@ var _cGColorSpaceCreateDeviceGrayErr error
 
 func tryCGColorSpaceCreateDeviceGray() (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateDeviceGray == nil {
-		return 0, symbolCallError("CGColorSpaceCreateDeviceGray", "10.0", _cGColorSpaceCreateDeviceGrayErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateDeviceGray", "10.0", _cGColorSpaceCreateDeviceGrayErr)
 	}
 	return _cGColorSpaceCreateDeviceGray(), nil
 }
@@ -1558,7 +1557,7 @@ var _cGColorSpaceCreateDeviceRGBErr error
 
 func tryCGColorSpaceCreateDeviceRGB() (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateDeviceRGB == nil {
-		return 0, symbolCallError("CGColorSpaceCreateDeviceRGB", "10.0", _cGColorSpaceCreateDeviceRGBErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateDeviceRGB", "10.0", _cGColorSpaceCreateDeviceRGBErr)
 	}
 	return _cGColorSpaceCreateDeviceRGB(), nil
 }
@@ -1579,7 +1578,7 @@ var _cGColorSpaceCreateExtendedErr error
 
 func tryCGColorSpaceCreateExtended(space CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateExtended == nil {
-		return 0, symbolCallError("CGColorSpaceCreateExtended", "11.0", _cGColorSpaceCreateExtendedErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateExtended", "11.0", _cGColorSpaceCreateExtendedErr)
 	}
 	return _cGColorSpaceCreateExtended(space), nil
 }
@@ -1600,7 +1599,7 @@ var _cGColorSpaceCreateExtendedLinearizedErr error
 
 func tryCGColorSpaceCreateExtendedLinearized(space CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateExtendedLinearized == nil {
-		return 0, symbolCallError("CGColorSpaceCreateExtendedLinearized", "11.0", _cGColorSpaceCreateExtendedLinearizedErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateExtendedLinearized", "11.0", _cGColorSpaceCreateExtendedLinearizedErr)
 	}
 	return _cGColorSpaceCreateExtendedLinearized(space), nil
 }
@@ -1621,7 +1620,7 @@ var _cGColorSpaceCreateICCBasedErr error
 
 func tryCGColorSpaceCreateICCBased(nComponents uintptr, range_ *float64, profile CGDataProviderRef, alternate CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateICCBased == nil {
-		return 0, symbolCallError("CGColorSpaceCreateICCBased", "10.0", _cGColorSpaceCreateICCBasedErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateICCBased", "10.0", _cGColorSpaceCreateICCBasedErr)
 	}
 	return _cGColorSpaceCreateICCBased(nComponents, range_, profile, alternate), nil
 }
@@ -1642,7 +1641,7 @@ var _cGColorSpaceCreateIndexedErr error
 
 func tryCGColorSpaceCreateIndexed(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable string) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateIndexed == nil {
-		return 0, symbolCallError("CGColorSpaceCreateIndexed", "10.0", _cGColorSpaceCreateIndexedErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateIndexed", "10.0", _cGColorSpaceCreateIndexedErr)
 	}
 	return _cGColorSpaceCreateIndexed(baseSpace, lastIndex, colorTable), nil
 }
@@ -1663,7 +1662,7 @@ var _cGColorSpaceCreateLabErr error
 
 func tryCGColorSpaceCreateLab(whitePoint float64, blackPoint float64, range_ float64) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateLab == nil {
-		return 0, symbolCallError("CGColorSpaceCreateLab", "10.0", _cGColorSpaceCreateLabErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateLab", "10.0", _cGColorSpaceCreateLabErr)
 	}
 	return _cGColorSpaceCreateLab(whitePoint, blackPoint, range_), nil
 }
@@ -1684,7 +1683,7 @@ var _cGColorSpaceCreateLinearizedErr error
 
 func tryCGColorSpaceCreateLinearized(space CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateLinearized == nil {
-		return 0, symbolCallError("CGColorSpaceCreateLinearized", "11.0", _cGColorSpaceCreateLinearizedErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateLinearized", "11.0", _cGColorSpaceCreateLinearizedErr)
 	}
 	return _cGColorSpaceCreateLinearized(space), nil
 }
@@ -1705,7 +1704,7 @@ var _cGColorSpaceCreatePatternErr error
 
 func tryCGColorSpaceCreatePattern(baseSpace CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreatePattern == nil {
-		return 0, symbolCallError("CGColorSpaceCreatePattern", "10.0", _cGColorSpaceCreatePatternErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreatePattern", "10.0", _cGColorSpaceCreatePatternErr)
 	}
 	return _cGColorSpaceCreatePattern(baseSpace), nil
 }
@@ -1726,7 +1725,7 @@ var _cGColorSpaceCreateWithColorSyncProfileErr error
 
 func tryCGColorSpaceCreateWithColorSyncProfile(arg0 ColorSyncProfileRef, options corefoundation.CFDictionaryRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateWithColorSyncProfile == nil {
-		return 0, symbolCallError("CGColorSpaceCreateWithColorSyncProfile", "12.0", _cGColorSpaceCreateWithColorSyncProfileErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateWithColorSyncProfile", "12.0", _cGColorSpaceCreateWithColorSyncProfileErr)
 	}
 	return _cGColorSpaceCreateWithColorSyncProfile(arg0, options), nil
 }
@@ -1747,7 +1746,7 @@ var _cGColorSpaceCreateWithICCDataErr error
 
 func tryCGColorSpaceCreateWithICCData(data corefoundation.CFTypeRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateWithICCData == nil {
-		return 0, symbolCallError("CGColorSpaceCreateWithICCData", "10.12", _cGColorSpaceCreateWithICCDataErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateWithICCData", "10.12", _cGColorSpaceCreateWithICCDataErr)
 	}
 	return _cGColorSpaceCreateWithICCData(data), nil
 }
@@ -1768,7 +1767,7 @@ var _cGColorSpaceCreateWithNameErr error
 
 func tryCGColorSpaceCreateWithName(name corefoundation.CFStringRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateWithName == nil {
-		return 0, symbolCallError("CGColorSpaceCreateWithName", "10.2", _cGColorSpaceCreateWithNameErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateWithName", "10.2", _cGColorSpaceCreateWithNameErr)
 	}
 	return _cGColorSpaceCreateWithName(name), nil
 }
@@ -1789,7 +1788,7 @@ var _cGColorSpaceCreateWithPropertyListErr error
 
 func tryCGColorSpaceCreateWithPropertyList(plist corefoundation.CFPropertyListRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateWithPropertyList == nil {
-		return 0, symbolCallError("CGColorSpaceCreateWithPropertyList", "10.12", _cGColorSpaceCreateWithPropertyListErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateWithPropertyList", "10.12", _cGColorSpaceCreateWithPropertyListErr)
 	}
 	return _cGColorSpaceCreateWithPropertyList(plist), nil
 }
@@ -1810,7 +1809,7 @@ var _cGColorSpaceGetBaseColorSpaceErr error
 
 func tryCGColorSpaceGetBaseColorSpace(space CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceGetBaseColorSpace == nil {
-		return 0, symbolCallError("CGColorSpaceGetBaseColorSpace", "10.5", _cGColorSpaceGetBaseColorSpaceErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceGetBaseColorSpace", "10.5", _cGColorSpaceGetBaseColorSpaceErr)
 	}
 	return _cGColorSpaceGetBaseColorSpace(space), nil
 }
@@ -1893,7 +1892,7 @@ var _cGColorSpaceGetNameErr error
 
 func tryCGColorSpaceGetName(space CGColorSpaceRef) (corefoundation.CFStringRef, error) {
 	if _cGColorSpaceGetName == nil {
-		return 0, symbolCallError("CGColorSpaceGetName", "10.13", _cGColorSpaceGetNameErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CGColorSpaceGetName", "10.13", _cGColorSpaceGetNameErr)
 	}
 	return _cGColorSpaceGetName(space), nil
 }
@@ -2060,7 +2059,7 @@ var _cGColorSpaceRetainErr error
 
 func tryCGColorSpaceRetain(space CGColorSpaceRef) (CGColorSpaceRef, error) {
 	if _cGColorSpaceRetain == nil {
-		return 0, symbolCallError("CGColorSpaceRetain", "10.0", _cGColorSpaceRetainErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceRetain", "10.0", _cGColorSpaceRetainErr)
 	}
 	return _cGColorSpaceRetain(space), nil
 }
@@ -2816,7 +2815,7 @@ var _cGContextCopyPathErr error
 
 func tryCGContextCopyPath(c CGContextRef) (CGPathRef, error) {
 	if _cGContextCopyPath == nil {
-		return 0, symbolCallError("CGContextCopyPath", "10.2", _cGContextCopyPathErr)
+		return *new(CGPathRef), symbolCallError("CGContextCopyPath", "10.2", _cGContextCopyPathErr)
 	}
 	return _cGContextCopyPath(c), nil
 }
@@ -3633,7 +3632,7 @@ var _cGContextRetainErr error
 
 func tryCGContextRetain(c CGContextRef) (CGContextRef, error) {
 	if _cGContextRetain == nil {
-		return 0, symbolCallError("CGContextRetain", "10.0", _cGContextRetainErr)
+		return *new(CGContextRef), symbolCallError("CGContextRetain", "10.0", _cGContextRetainErr)
 	}
 	return _cGContextRetain(c), nil
 }
@@ -4776,7 +4775,7 @@ var _cGDataConsumerCreateErr error
 
 func tryCGDataConsumerCreate(info unsafe.Pointer, cbks *CGDataConsumerCallbacks) (CGDataConsumerRef, error) {
 	if _cGDataConsumerCreate == nil {
-		return 0, symbolCallError("CGDataConsumerCreate", "10.0", _cGDataConsumerCreateErr)
+		return *new(CGDataConsumerRef), symbolCallError("CGDataConsumerCreate", "10.0", _cGDataConsumerCreateErr)
 	}
 	return _cGDataConsumerCreate(info, cbks), nil
 }
@@ -4797,7 +4796,7 @@ var _cGDataConsumerCreateWithCFDataErr error
 
 func tryCGDataConsumerCreateWithCFData(data corefoundation.CFMutableDataRef) (CGDataConsumerRef, error) {
 	if _cGDataConsumerCreateWithCFData == nil {
-		return 0, symbolCallError("CGDataConsumerCreateWithCFData", "10.4", _cGDataConsumerCreateWithCFDataErr)
+		return *new(CGDataConsumerRef), symbolCallError("CGDataConsumerCreateWithCFData", "10.4", _cGDataConsumerCreateWithCFDataErr)
 	}
 	return _cGDataConsumerCreateWithCFData(data), nil
 }
@@ -4818,7 +4817,7 @@ var _cGDataConsumerCreateWithURLErr error
 
 func tryCGDataConsumerCreateWithURL(url corefoundation.CFURLRef) (CGDataConsumerRef, error) {
 	if _cGDataConsumerCreateWithURL == nil {
-		return 0, symbolCallError("CGDataConsumerCreateWithURL", "10.0", _cGDataConsumerCreateWithURLErr)
+		return *new(CGDataConsumerRef), symbolCallError("CGDataConsumerCreateWithURL", "10.0", _cGDataConsumerCreateWithURLErr)
 	}
 	return _cGDataConsumerCreateWithURL(url), nil
 }
@@ -4880,7 +4879,7 @@ var _cGDataConsumerRetainErr error
 
 func tryCGDataConsumerRetain(consumer CGDataConsumerRef) (CGDataConsumerRef, error) {
 	if _cGDataConsumerRetain == nil {
-		return 0, symbolCallError("CGDataConsumerRetain", "10.0", _cGDataConsumerRetainErr)
+		return *new(CGDataConsumerRef), symbolCallError("CGDataConsumerRetain", "10.0", _cGDataConsumerRetainErr)
 	}
 	return _cGDataConsumerRetain(consumer), nil
 }
@@ -4901,7 +4900,7 @@ var _cGDataProviderCopyDataErr error
 
 func tryCGDataProviderCopyData(provider CGDataProviderRef) (corefoundation.CFDataRef, error) {
 	if _cGDataProviderCopyData == nil {
-		return 0, symbolCallError("CGDataProviderCopyData", "10.3", _cGDataProviderCopyDataErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("CGDataProviderCopyData", "10.3", _cGDataProviderCopyDataErr)
 	}
 	return _cGDataProviderCopyData(provider), nil
 }
@@ -4922,7 +4921,7 @@ var _cGDataProviderCreateDirectErr error
 
 func tryCGDataProviderCreateDirect(info unsafe.Pointer, size int64, callbacks *CGDataProviderDirectCallbacks) (CGDataProviderRef, error) {
 	if _cGDataProviderCreateDirect == nil {
-		return 0, symbolCallError("CGDataProviderCreateDirect", "10.5", _cGDataProviderCreateDirectErr)
+		return *new(CGDataProviderRef), symbolCallError("CGDataProviderCreateDirect", "10.5", _cGDataProviderCreateDirectErr)
 	}
 	return _cGDataProviderCreateDirect(info, size, callbacks), nil
 }
@@ -4943,7 +4942,7 @@ var _cGDataProviderCreateSequentialErr error
 
 func tryCGDataProviderCreateSequential(info unsafe.Pointer, callbacks *CGDataProviderSequentialCallbacks) (CGDataProviderRef, error) {
 	if _cGDataProviderCreateSequential == nil {
-		return 0, symbolCallError("CGDataProviderCreateSequential", "10.5", _cGDataProviderCreateSequentialErr)
+		return *new(CGDataProviderRef), symbolCallError("CGDataProviderCreateSequential", "10.5", _cGDataProviderCreateSequentialErr)
 	}
 	return _cGDataProviderCreateSequential(info, callbacks), nil
 }
@@ -4964,7 +4963,7 @@ var _cGDataProviderCreateWithCFDataErr error
 
 func tryCGDataProviderCreateWithCFData(data corefoundation.CFDataRef) (CGDataProviderRef, error) {
 	if _cGDataProviderCreateWithCFData == nil {
-		return 0, symbolCallError("CGDataProviderCreateWithCFData", "10.4", _cGDataProviderCreateWithCFDataErr)
+		return *new(CGDataProviderRef), symbolCallError("CGDataProviderCreateWithCFData", "10.4", _cGDataProviderCreateWithCFDataErr)
 	}
 	return _cGDataProviderCreateWithCFData(data), nil
 }
@@ -4985,7 +4984,7 @@ var _cGDataProviderCreateWithDataErr error
 
 func tryCGDataProviderCreateWithData(info unsafe.Pointer, data unsafe.Pointer, size uintptr, releaseData CGDataProviderReleaseDataCallback) (CGDataProviderRef, error) {
 	if _cGDataProviderCreateWithData == nil {
-		return 0, symbolCallError("CGDataProviderCreateWithData", "10.0", _cGDataProviderCreateWithDataErr)
+		return *new(CGDataProviderRef), symbolCallError("CGDataProviderCreateWithData", "10.0", _cGDataProviderCreateWithDataErr)
 	}
 	return _cGDataProviderCreateWithData(info, data, size, releaseData), nil
 }
@@ -5006,7 +5005,7 @@ var _cGDataProviderCreateWithFilenameErr error
 
 func tryCGDataProviderCreateWithFilename(filename string) (CGDataProviderRef, error) {
 	if _cGDataProviderCreateWithFilename == nil {
-		return 0, symbolCallError("CGDataProviderCreateWithFilename", "10.0", _cGDataProviderCreateWithFilenameErr)
+		return *new(CGDataProviderRef), symbolCallError("CGDataProviderCreateWithFilename", "10.0", _cGDataProviderCreateWithFilenameErr)
 	}
 	return _cGDataProviderCreateWithFilename(filename), nil
 }
@@ -5027,7 +5026,7 @@ var _cGDataProviderCreateWithURLErr error
 
 func tryCGDataProviderCreateWithURL(url corefoundation.CFURLRef) (CGDataProviderRef, error) {
 	if _cGDataProviderCreateWithURL == nil {
-		return 0, symbolCallError("CGDataProviderCreateWithURL", "10.0", _cGDataProviderCreateWithURLErr)
+		return *new(CGDataProviderRef), symbolCallError("CGDataProviderCreateWithURL", "10.0", _cGDataProviderCreateWithURLErr)
 	}
 	return _cGDataProviderCreateWithURL(url), nil
 }
@@ -5110,7 +5109,7 @@ var _cGDataProviderRetainErr error
 
 func tryCGDataProviderRetain(provider CGDataProviderRef) (CGDataProviderRef, error) {
 	if _cGDataProviderRetain == nil {
-		return 0, symbolCallError("CGDataProviderRetain", "10.0", _cGDataProviderRetainErr)
+		return *new(CGDataProviderRef), symbolCallError("CGDataProviderRetain", "10.0", _cGDataProviderRetainErr)
 	}
 	return _cGDataProviderRetain(provider), nil
 }
@@ -5120,28 +5119,6 @@ func tryCGDataProviderRetain(provider CGDataProviderRef) (CGDataProviderRef, err
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderRetain
 func CGDataProviderRetain(provider CGDataProviderRef) CGDataProviderRef {
 	result, callErr := tryCGDataProviderRetain(provider)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _cGDirectDisplayCopyCurrentMetalDevice func(display uint32) unsafe.Pointer
-var _cGDirectDisplayCopyCurrentMetalDeviceErr error
-
-func tryCGDirectDisplayCopyCurrentMetalDevice(display uint32) (objectivec.IObject, error) {
-	if _cGDirectDisplayCopyCurrentMetalDevice == nil {
-		return nil, symbolCallError("CGDirectDisplayCopyCurrentMetalDevice", "10.11", _cGDirectDisplayCopyCurrentMetalDeviceErr)
-	}
-	rv := _cGDirectDisplayCopyCurrentMetalDevice(display)
-	return objectivec.ObjectFromID(objc.IDFrom(rv)), nil
-}
-
-// CGDirectDisplayCopyCurrentMetalDevice returns the GPU device instance that’s currently driving a display.
-//
-// See: https://developer.apple.com/documentation/CoreGraphics/CGDirectDisplayCopyCurrentMetalDevice(_:)
-func CGDirectDisplayCopyCurrentMetalDevice(display uint32) objectivec.IObject {
-	result, callErr := tryCGDirectDisplayCopyCurrentMetalDevice(display)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -5216,7 +5193,7 @@ var _cGDisplayCopyAllDisplayModesErr error
 
 func tryCGDisplayCopyAllDisplayModes(display uint32, options corefoundation.CFDictionaryRef) (corefoundation.CFArrayRef, error) {
 	if _cGDisplayCopyAllDisplayModes == nil {
-		return 0, symbolCallError("CGDisplayCopyAllDisplayModes", "10.6", _cGDisplayCopyAllDisplayModesErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CGDisplayCopyAllDisplayModes", "10.6", _cGDisplayCopyAllDisplayModesErr)
 	}
 	return _cGDisplayCopyAllDisplayModes(display, options), nil
 }
@@ -5237,7 +5214,7 @@ var _cGDisplayCopyColorSpaceErr error
 
 func tryCGDisplayCopyColorSpace(display uint32) (CGColorSpaceRef, error) {
 	if _cGDisplayCopyColorSpace == nil {
-		return 0, symbolCallError("CGDisplayCopyColorSpace", "10.5", _cGDisplayCopyColorSpaceErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGDisplayCopyColorSpace", "10.5", _cGDisplayCopyColorSpaceErr)
 	}
 	return _cGDisplayCopyColorSpace(display), nil
 }
@@ -5258,7 +5235,7 @@ var _cGDisplayCopyDisplayModeErr error
 
 func tryCGDisplayCopyDisplayMode(display uint32) (CGDisplayModeRef, error) {
 	if _cGDisplayCopyDisplayMode == nil {
-		return 0, symbolCallError("CGDisplayCopyDisplayMode", "10.6", _cGDisplayCopyDisplayModeErr)
+		return *new(CGDisplayModeRef), symbolCallError("CGDisplayCopyDisplayMode", "10.6", _cGDisplayCopyDisplayModeErr)
 	}
 	return _cGDisplayCopyDisplayMode(display), nil
 }
@@ -5279,7 +5256,7 @@ var _cGDisplayCreateImageErr error
 
 func tryCGDisplayCreateImage(displayID uint32) (CGImageRef, error) {
 	if _cGDisplayCreateImage == nil {
-		return 0, symbolCallError("CGDisplayCreateImage", "", _cGDisplayCreateImageErr)
+		return *new(CGImageRef), symbolCallError("CGDisplayCreateImage", "", _cGDisplayCreateImageErr)
 	}
 	return _cGDisplayCreateImage(displayID), nil
 }
@@ -5302,7 +5279,7 @@ var _cGDisplayCreateImageForRectErr error
 
 func tryCGDisplayCreateImageForRect(display uint32, rect corefoundation.CGRect) (CGImageRef, error) {
 	if _cGDisplayCreateImageForRect == nil {
-		return 0, symbolCallError("CGDisplayCreateImageForRect", "", _cGDisplayCreateImageForRectErr)
+		return *new(CGImageRef), symbolCallError("CGDisplayCreateImageForRect", "", _cGDisplayCreateImageForRectErr)
 	}
 	return _cGDisplayCreateImageForRect(display, rect), nil
 }
@@ -5367,7 +5344,7 @@ var _cGDisplayGetDrawingContextErr error
 
 func tryCGDisplayGetDrawingContext(display uint32) (CGContextRef, error) {
 	if _cGDisplayGetDrawingContext == nil {
-		return 0, symbolCallError("CGDisplayGetDrawingContext", "10.3", _cGDisplayGetDrawingContextErr)
+		return *new(CGContextRef), symbolCallError("CGDisplayGetDrawingContext", "10.3", _cGDisplayGetDrawingContextErr)
 	}
 	return _cGDisplayGetDrawingContext(display), nil
 }
@@ -5849,7 +5826,7 @@ var _cGDisplayModeRetainErr error
 
 func tryCGDisplayModeRetain(mode CGDisplayModeRef) (CGDisplayModeRef, error) {
 	if _cGDisplayModeRetain == nil {
-		return 0, symbolCallError("CGDisplayModeRetain", "10.6", _cGDisplayModeRetainErr)
+		return *new(CGDisplayModeRef), symbolCallError("CGDisplayModeRetain", "10.6", _cGDisplayModeRetainErr)
 	}
 	return _cGDisplayModeRetain(mode), nil
 }
@@ -6184,7 +6161,7 @@ var _cGDisplayStreamCreateErr error
 
 func tryCGDisplayStreamCreate(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler CGDisplayStreamFrameAvailableHandler) (CGDisplayStreamRef, error) {
 	if _cGDisplayStreamCreate == nil {
-		return 0, symbolCallError("CGDisplayStreamCreate", "", _cGDisplayStreamCreateErr)
+		return *new(CGDisplayStreamRef), symbolCallError("CGDisplayStreamCreate", "", _cGDisplayStreamCreateErr)
 	}
 	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 CGDisplayStreamFrameStatus, blockArg1 uint64, blockArg2 IOSurfaceRef, blockArg3 *CGDisplayStreamUpdateRef) {
 		handler(blockArg0, blockArg1, blockArg2, blockArg3)
@@ -6212,7 +6189,7 @@ var _cGDisplayStreamCreateWithDispatchQueueErr error
 
 func tryCGDisplayStreamCreateWithDispatchQueue(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue dispatch.Queue, handler CGDisplayStreamFrameAvailableHandler) (CGDisplayStreamRef, error) {
 	if _cGDisplayStreamCreateWithDispatchQueue == nil {
-		return 0, symbolCallError("CGDisplayStreamCreateWithDispatchQueue", "", _cGDisplayStreamCreateWithDispatchQueueErr)
+		return *new(CGDisplayStreamRef), symbolCallError("CGDisplayStreamCreateWithDispatchQueue", "", _cGDisplayStreamCreateWithDispatchQueueErr)
 	}
 	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 CGDisplayStreamFrameStatus, blockArg1 uint64, blockArg2 IOSurfaceRef, blockArg3 *CGDisplayStreamUpdateRef) {
 		handler(blockArg0, blockArg1, blockArg2, blockArg3)
@@ -6240,7 +6217,7 @@ var _cGDisplayStreamGetRunLoopSourceErr error
 
 func tryCGDisplayStreamGetRunLoopSource(displayStream CGDisplayStreamRef) (corefoundation.CFRunLoopSourceRef, error) {
 	if _cGDisplayStreamGetRunLoopSource == nil {
-		return 0, symbolCallError("CGDisplayStreamGetRunLoopSource", "", _cGDisplayStreamGetRunLoopSourceErr)
+		return *new(corefoundation.CFRunLoopSourceRef), symbolCallError("CGDisplayStreamGetRunLoopSource", "", _cGDisplayStreamGetRunLoopSourceErr)
 	}
 	return _cGDisplayStreamGetRunLoopSource(displayStream), nil
 }
@@ -6332,7 +6309,7 @@ var _cGDisplayStreamUpdateCreateMergedUpdateErr error
 
 func tryCGDisplayStreamUpdateCreateMergedUpdate(firstUpdate CGDisplayStreamUpdateRef, secondUpdate CGDisplayStreamUpdateRef) (CGDisplayStreamUpdateRef, error) {
 	if _cGDisplayStreamUpdateCreateMergedUpdate == nil {
-		return 0, symbolCallError("CGDisplayStreamUpdateCreateMergedUpdate", "", _cGDisplayStreamUpdateCreateMergedUpdateErr)
+		return *new(CGDisplayStreamUpdateRef), symbolCallError("CGDisplayStreamUpdateCreateMergedUpdate", "", _cGDisplayStreamUpdateCreateMergedUpdateErr)
 	}
 	return _cGDisplayStreamUpdateCreateMergedUpdate(firstUpdate, secondUpdate), nil
 }
@@ -6509,7 +6486,7 @@ var _cGEXRToneMappingGammaGetDefaultOptionsErr error
 
 func tryCGEXRToneMappingGammaGetDefaultOptions() (corefoundation.CFDictionaryRef, error) {
 	if _cGEXRToneMappingGammaGetDefaultOptions == nil {
-		return 0, symbolCallError("CGEXRToneMappingGammaGetDefaultOptions", "26.0", _cGEXRToneMappingGammaGetDefaultOptionsErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CGEXRToneMappingGammaGetDefaultOptions", "26.0", _cGEXRToneMappingGammaGetDefaultOptionsErr)
 	}
 	return _cGEXRToneMappingGammaGetDefaultOptions(), nil
 }
@@ -6550,7 +6527,7 @@ var _cGEventCreateErr error
 
 func tryCGEventCreate(source CGEventSourceRef) (CGEventRef, error) {
 	if _cGEventCreate == nil {
-		return 0, symbolCallError("CGEventCreate", "10.4", _cGEventCreateErr)
+		return *new(CGEventRef), symbolCallError("CGEventCreate", "10.4", _cGEventCreateErr)
 	}
 	return _cGEventCreate(source), nil
 }
@@ -6571,7 +6548,7 @@ var _cGEventCreateCopyErr error
 
 func tryCGEventCreateCopy(event CGEventRef) (CGEventRef, error) {
 	if _cGEventCreateCopy == nil {
-		return 0, symbolCallError("CGEventCreateCopy", "10.4", _cGEventCreateCopyErr)
+		return *new(CGEventRef), symbolCallError("CGEventCreateCopy", "10.4", _cGEventCreateCopyErr)
 	}
 	return _cGEventCreateCopy(event), nil
 }
@@ -6592,7 +6569,7 @@ var _cGEventCreateDataErr error
 
 func tryCGEventCreateData(allocator corefoundation.CFAllocatorRef, event CGEventRef) (corefoundation.CFDataRef, error) {
 	if _cGEventCreateData == nil {
-		return 0, symbolCallError("CGEventCreateData", "10.4", _cGEventCreateDataErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("CGEventCreateData", "10.4", _cGEventCreateDataErr)
 	}
 	return _cGEventCreateData(allocator, event), nil
 }
@@ -6613,7 +6590,7 @@ var _cGEventCreateFromDataErr error
 
 func tryCGEventCreateFromData(allocator corefoundation.CFAllocatorRef, data corefoundation.CFDataRef) (CGEventRef, error) {
 	if _cGEventCreateFromData == nil {
-		return 0, symbolCallError("CGEventCreateFromData", "10.4", _cGEventCreateFromDataErr)
+		return *new(CGEventRef), symbolCallError("CGEventCreateFromData", "10.4", _cGEventCreateFromDataErr)
 	}
 	return _cGEventCreateFromData(allocator, data), nil
 }
@@ -6634,7 +6611,7 @@ var _cGEventCreateKeyboardEventErr error
 
 func tryCGEventCreateKeyboardEvent(source CGEventSourceRef, virtualKey uint16, keyDown bool) (CGEventRef, error) {
 	if _cGEventCreateKeyboardEvent == nil {
-		return 0, symbolCallError("CGEventCreateKeyboardEvent", "10.4", _cGEventCreateKeyboardEventErr)
+		return *new(CGEventRef), symbolCallError("CGEventCreateKeyboardEvent", "10.4", _cGEventCreateKeyboardEventErr)
 	}
 	return _cGEventCreateKeyboardEvent(source, virtualKey, keyDown), nil
 }
@@ -6655,7 +6632,7 @@ var _cGEventCreateMouseEventErr error
 
 func tryCGEventCreateMouseEvent(source CGEventSourceRef, mouseType CGEventType, mouseCursorPosition corefoundation.CGPoint, mouseButton CGMouseButton) (CGEventRef, error) {
 	if _cGEventCreateMouseEvent == nil {
-		return 0, symbolCallError("CGEventCreateMouseEvent", "10.4", _cGEventCreateMouseEventErr)
+		return *new(CGEventRef), symbolCallError("CGEventCreateMouseEvent", "10.4", _cGEventCreateMouseEventErr)
 	}
 	return _cGEventCreateMouseEvent(source, mouseType, mouseCursorPosition, mouseButton), nil
 }
@@ -6676,7 +6653,7 @@ var _cGEventCreateScrollWheelEventErr error
 
 func tryCGEventCreateScrollWheelEvent(source CGEventSourceRef, units CGScrollEventUnit, wheelCount uint32, wheel1 int32) (CGEventRef, error) {
 	if _cGEventCreateScrollWheelEvent == nil {
-		return 0, symbolCallError("CGEventCreateScrollWheelEvent", "10.5", _cGEventCreateScrollWheelEventErr)
+		return *new(CGEventRef), symbolCallError("CGEventCreateScrollWheelEvent", "10.5", _cGEventCreateScrollWheelEventErr)
 	}
 	return _cGEventCreateScrollWheelEvent(source, units, wheelCount, wheel1), nil
 }
@@ -6697,7 +6674,7 @@ var _cGEventCreateScrollWheelEvent2Err error
 
 func tryCGEventCreateScrollWheelEvent2(source CGEventSourceRef, units CGScrollEventUnit, wheelCount uint32, wheel1 int32, wheel2 int32, wheel3 int32) (CGEventRef, error) {
 	if _cGEventCreateScrollWheelEvent2 == nil {
-		return 0, symbolCallError("CGEventCreateScrollWheelEvent2", "10.13", _cGEventCreateScrollWheelEvent2Err)
+		return *new(CGEventRef), symbolCallError("CGEventCreateScrollWheelEvent2", "10.13", _cGEventCreateScrollWheelEvent2Err)
 	}
 	return _cGEventCreateScrollWheelEvent2(source, units, wheelCount, wheel1, wheel2, wheel3), nil
 }
@@ -6718,7 +6695,7 @@ var _cGEventCreateSourceFromEventErr error
 
 func tryCGEventCreateSourceFromEvent(event CGEventRef) (CGEventSourceRef, error) {
 	if _cGEventCreateSourceFromEvent == nil {
-		return 0, symbolCallError("CGEventCreateSourceFromEvent", "10.4", _cGEventCreateSourceFromEventErr)
+		return *new(CGEventSourceRef), symbolCallError("CGEventCreateSourceFromEvent", "10.4", _cGEventCreateSourceFromEventErr)
 	}
 	return _cGEventCreateSourceFromEvent(event), nil
 }
@@ -7189,7 +7166,7 @@ var _cGEventSourceCreateErr error
 
 func tryCGEventSourceCreate(stateID CGEventSourceStateID) (CGEventSourceRef, error) {
 	if _cGEventSourceCreate == nil {
-		return 0, symbolCallError("CGEventSourceCreate", "10.4", _cGEventSourceCreateErr)
+		return *new(CGEventSourceRef), symbolCallError("CGEventSourceCreate", "10.4", _cGEventSourceCreateErr)
 	}
 	return _cGEventSourceCreate(stateID), nil
 }
@@ -7578,10 +7555,10 @@ func CGEventTapCreateForPid(pid int32, place CGEventTapPlacement, options CGEven
 	return result
 }
 
-var _cGEventTapEnable func(tap corefoundation.CFMachPort, enable bool)
+var _cGEventTapEnable func(tap corefoundation.CFMachPortRef, enable bool)
 var _cGEventTapEnableErr error
 
-func tryCGEventTapEnable(tap corefoundation.CFMachPort, enable bool) error {
+func tryCGEventTapEnable(tap corefoundation.CFMachPortRef, enable bool) error {
 	if _cGEventTapEnable == nil {
 		return symbolCallError("CGEventTapEnable", "10.4", _cGEventTapEnableErr)
 	}
@@ -7592,16 +7569,16 @@ func tryCGEventTapEnable(tap corefoundation.CFMachPort, enable bool) error {
 // CGEventTapEnable enables or disables an event tap.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/tapEnable(tap:enable:)
-func CGEventTapEnable(tap corefoundation.CFMachPort, enable bool) {
+func CGEventTapEnable(tap corefoundation.CFMachPortRef, enable bool) {
 	if callErr := tryCGEventTapEnable(tap, enable); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cGEventTapIsEnabled func(tap corefoundation.CFMachPort) bool
+var _cGEventTapIsEnabled func(tap corefoundation.CFMachPortRef) bool
 var _cGEventTapIsEnabledErr error
 
-func tryCGEventTapIsEnabled(tap corefoundation.CFMachPort) (bool, error) {
+func tryCGEventTapIsEnabled(tap corefoundation.CFMachPortRef) (bool, error) {
 	if _cGEventTapIsEnabled == nil {
 		return false, symbolCallError("CGEventTapIsEnabled", "10.4", _cGEventTapIsEnabledErr)
 	}
@@ -7611,7 +7588,7 @@ func tryCGEventTapIsEnabled(tap corefoundation.CFMachPort) (bool, error) {
 // CGEventTapIsEnabled returns a Boolean value indicating whether an event tap is enabled.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/tapIsEnabled(tap:)
-func CGEventTapIsEnabled(tap corefoundation.CFMachPort) bool {
+func CGEventTapIsEnabled(tap corefoundation.CFMachPortRef) bool {
 	result, callErr := tryCGEventTapIsEnabled(tap)
 	if callErr != nil {
 		panic(callErr)
@@ -7665,7 +7642,7 @@ var _cGFontCopyFullNameErr error
 
 func tryCGFontCopyFullName(font CGFontRef) (corefoundation.CFStringRef, error) {
 	if _cGFontCopyFullName == nil {
-		return 0, symbolCallError("CGFontCopyFullName", "10.5", _cGFontCopyFullNameErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CGFontCopyFullName", "10.5", _cGFontCopyFullNameErr)
 	}
 	return _cGFontCopyFullName(font), nil
 }
@@ -7686,7 +7663,7 @@ var _cGFontCopyGlyphNameForGlyphErr error
 
 func tryCGFontCopyGlyphNameForGlyph(font CGFontRef, glyph CGGlyph) (corefoundation.CFStringRef, error) {
 	if _cGFontCopyGlyphNameForGlyph == nil {
-		return 0, symbolCallError("CGFontCopyGlyphNameForGlyph", "10.5", _cGFontCopyGlyphNameForGlyphErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CGFontCopyGlyphNameForGlyph", "10.5", _cGFontCopyGlyphNameForGlyphErr)
 	}
 	return _cGFontCopyGlyphNameForGlyph(font, glyph), nil
 }
@@ -7707,7 +7684,7 @@ var _cGFontCopyPostScriptNameErr error
 
 func tryCGFontCopyPostScriptName(font CGFontRef) (corefoundation.CFStringRef, error) {
 	if _cGFontCopyPostScriptName == nil {
-		return 0, symbolCallError("CGFontCopyPostScriptName", "10.4", _cGFontCopyPostScriptNameErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CGFontCopyPostScriptName", "10.4", _cGFontCopyPostScriptNameErr)
 	}
 	return _cGFontCopyPostScriptName(font), nil
 }
@@ -7728,7 +7705,7 @@ var _cGFontCopyTableForTagErr error
 
 func tryCGFontCopyTableForTag(font CGFontRef, tag uint32) (corefoundation.CFDataRef, error) {
 	if _cGFontCopyTableForTag == nil {
-		return 0, symbolCallError("CGFontCopyTableForTag", "10.5", _cGFontCopyTableForTagErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("CGFontCopyTableForTag", "10.5", _cGFontCopyTableForTagErr)
 	}
 	return _cGFontCopyTableForTag(font, tag), nil
 }
@@ -7749,7 +7726,7 @@ var _cGFontCopyTableTagsErr error
 
 func tryCGFontCopyTableTags(font CGFontRef) (corefoundation.CFArrayRef, error) {
 	if _cGFontCopyTableTags == nil {
-		return 0, symbolCallError("CGFontCopyTableTags", "10.5", _cGFontCopyTableTagsErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CGFontCopyTableTags", "10.5", _cGFontCopyTableTagsErr)
 	}
 	return _cGFontCopyTableTags(font), nil
 }
@@ -7770,7 +7747,7 @@ var _cGFontCopyVariationAxesErr error
 
 func tryCGFontCopyVariationAxes(font CGFontRef) (corefoundation.CFArrayRef, error) {
 	if _cGFontCopyVariationAxes == nil {
-		return 0, symbolCallError("CGFontCopyVariationAxes", "10.4", _cGFontCopyVariationAxesErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CGFontCopyVariationAxes", "10.4", _cGFontCopyVariationAxesErr)
 	}
 	return _cGFontCopyVariationAxes(font), nil
 }
@@ -7791,7 +7768,7 @@ var _cGFontCopyVariationsErr error
 
 func tryCGFontCopyVariations(font CGFontRef) (corefoundation.CFDictionaryRef, error) {
 	if _cGFontCopyVariations == nil {
-		return 0, symbolCallError("CGFontCopyVariations", "10.4", _cGFontCopyVariationsErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CGFontCopyVariations", "10.4", _cGFontCopyVariationsErr)
 	}
 	return _cGFontCopyVariations(font), nil
 }
@@ -7812,7 +7789,7 @@ var _cGFontCreateCopyWithVariationsErr error
 
 func tryCGFontCreateCopyWithVariations(font CGFontRef, variations corefoundation.CFDictionaryRef) (CGFontRef, error) {
 	if _cGFontCreateCopyWithVariations == nil {
-		return 0, symbolCallError("CGFontCreateCopyWithVariations", "10.4", _cGFontCreateCopyWithVariationsErr)
+		return *new(CGFontRef), symbolCallError("CGFontCreateCopyWithVariations", "10.4", _cGFontCreateCopyWithVariationsErr)
 	}
 	return _cGFontCreateCopyWithVariations(font, variations), nil
 }
@@ -7833,7 +7810,7 @@ var _cGFontCreatePostScriptEncodingErr error
 
 func tryCGFontCreatePostScriptEncoding(font CGFontRef, encoding CGGlyph) (corefoundation.CFDataRef, error) {
 	if _cGFontCreatePostScriptEncoding == nil {
-		return 0, symbolCallError("CGFontCreatePostScriptEncoding", "10.4", _cGFontCreatePostScriptEncodingErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("CGFontCreatePostScriptEncoding", "10.4", _cGFontCreatePostScriptEncodingErr)
 	}
 	return _cGFontCreatePostScriptEncoding(font, encoding), nil
 }
@@ -7854,7 +7831,7 @@ var _cGFontCreatePostScriptSubsetErr error
 
 func tryCGFontCreatePostScriptSubset(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs *CGGlyph, count uintptr, encoding CGGlyph) (corefoundation.CFDataRef, error) {
 	if _cGFontCreatePostScriptSubset == nil {
-		return 0, symbolCallError("CGFontCreatePostScriptSubset", "10.4", _cGFontCreatePostScriptSubsetErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("CGFontCreatePostScriptSubset", "10.4", _cGFontCreatePostScriptSubsetErr)
 	}
 	return _cGFontCreatePostScriptSubset(font, subsetName, format, glyphs, count, encoding), nil
 }
@@ -7875,7 +7852,7 @@ var _cGFontCreateWithDataProviderErr error
 
 func tryCGFontCreateWithDataProvider(provider CGDataProviderRef) (CGFontRef, error) {
 	if _cGFontCreateWithDataProvider == nil {
-		return 0, symbolCallError("CGFontCreateWithDataProvider", "10.5", _cGFontCreateWithDataProviderErr)
+		return *new(CGFontRef), symbolCallError("CGFontCreateWithDataProvider", "10.5", _cGFontCreateWithDataProviderErr)
 	}
 	return _cGFontCreateWithDataProvider(provider), nil
 }
@@ -7896,7 +7873,7 @@ var _cGFontCreateWithFontNameErr error
 
 func tryCGFontCreateWithFontName(name corefoundation.CFStringRef) (CGFontRef, error) {
 	if _cGFontCreateWithFontName == nil {
-		return 0, symbolCallError("CGFontCreateWithFontName", "10.5", _cGFontCreateWithFontNameErr)
+		return *new(CGFontRef), symbolCallError("CGFontCreateWithFontName", "10.5", _cGFontCreateWithFontNameErr)
 	}
 	return _cGFontCreateWithFontName(name), nil
 }
@@ -8231,7 +8208,7 @@ var _cGFontRetainErr error
 
 func tryCGFontRetain(font CGFontRef) (CGFontRef, error) {
 	if _cGFontRetain == nil {
-		return 0, symbolCallError("CGFontRetain", "10.0", _cGFontRetainErr)
+		return *new(CGFontRef), symbolCallError("CGFontRetain", "10.0", _cGFontRetainErr)
 	}
 	return _cGFontRetain(font), nil
 }
@@ -8252,7 +8229,7 @@ var _cGFunctionCreateErr error
 
 func tryCGFunctionCreate(info unsafe.Pointer, domainDimension uintptr, domain *float64, rangeDimension uintptr, range_ *float64, callbacks *CGFunctionCallbacks) (CGFunctionRef, error) {
 	if _cGFunctionCreate == nil {
-		return 0, symbolCallError("CGFunctionCreate", "10.2", _cGFunctionCreateErr)
+		return *new(CGFunctionRef), symbolCallError("CGFunctionCreate", "10.2", _cGFunctionCreateErr)
 	}
 	return _cGFunctionCreate(info, domainDimension, domain, rangeDimension, range_, callbacks), nil
 }
@@ -8314,7 +8291,7 @@ var _cGFunctionRetainErr error
 
 func tryCGFunctionRetain(function CGFunctionRef) (CGFunctionRef, error) {
 	if _cGFunctionRetain == nil {
-		return 0, symbolCallError("CGFunctionRetain", "10.2", _cGFunctionRetainErr)
+		return *new(CGFunctionRef), symbolCallError("CGFunctionRetain", "10.2", _cGFunctionRetainErr)
 	}
 	return _cGFunctionRetain(function), nil
 }
@@ -8523,7 +8500,7 @@ var _cGGradientCreateWithColorComponentsErr error
 
 func tryCGGradientCreateWithColorComponents(space CGColorSpaceRef, components *float64, locations *float64, count uintptr) (CGGradientRef, error) {
 	if _cGGradientCreateWithColorComponents == nil {
-		return 0, symbolCallError("CGGradientCreateWithColorComponents", "10.5", _cGGradientCreateWithColorComponentsErr)
+		return *new(CGGradientRef), symbolCallError("CGGradientCreateWithColorComponents", "10.5", _cGGradientCreateWithColorComponentsErr)
 	}
 	return _cGGradientCreateWithColorComponents(space, components, locations, count), nil
 }
@@ -8544,7 +8521,7 @@ var _cGGradientCreateWithColorsErr error
 
 func tryCGGradientCreateWithColors(space CGColorSpaceRef, colors corefoundation.CFArrayRef, locations *float64) (CGGradientRef, error) {
 	if _cGGradientCreateWithColors == nil {
-		return 0, symbolCallError("CGGradientCreateWithColors", "10.5", _cGGradientCreateWithColorsErr)
+		return *new(CGGradientRef), symbolCallError("CGGradientCreateWithColors", "10.5", _cGGradientCreateWithColorsErr)
 	}
 	return _cGGradientCreateWithColors(space, colors, locations), nil
 }
@@ -8565,7 +8542,7 @@ var _cGGradientCreateWithContentHeadroomErr error
 
 func tryCGGradientCreateWithContentHeadroom(headroom float32, space CGColorSpaceRef, components *float64, locations *float64, count uintptr) (CGGradientRef, error) {
 	if _cGGradientCreateWithContentHeadroom == nil {
-		return 0, symbolCallError("CGGradientCreateWithContentHeadroom", "26.0", _cGGradientCreateWithContentHeadroomErr)
+		return *new(CGGradientRef), symbolCallError("CGGradientCreateWithContentHeadroom", "26.0", _cGGradientCreateWithContentHeadroomErr)
 	}
 	return _cGGradientCreateWithContentHeadroom(headroom, space, components, locations, count), nil
 }
@@ -8648,7 +8625,7 @@ var _cGGradientRetainErr error
 
 func tryCGGradientRetain(gradient CGGradientRef) (CGGradientRef, error) {
 	if _cGGradientRetain == nil {
-		return 0, symbolCallError("CGGradientRetain", "10.5", _cGGradientRetainErr)
+		return *new(CGGradientRef), symbolCallError("CGGradientRetain", "10.5", _cGGradientRetainErr)
 	}
 	return _cGGradientRetain(gradient), nil
 }
@@ -8732,7 +8709,7 @@ var _cGImageCreateErr error
 
 func tryCGImageCreate(width uintptr, height uintptr, bitsPerComponent uintptr, bitsPerPixel uintptr, bytesPerRow uintptr, space CGColorSpaceRef, bitmapInfo CGBitmapInfo, provider CGDataProviderRef, decode *float64, shouldInterpolate bool, intent CGColorRenderingIntent) (CGImageRef, error) {
 	if _cGImageCreate == nil {
-		return 0, symbolCallError("CGImageCreate", "10.0", _cGImageCreateErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreate", "10.0", _cGImageCreateErr)
 	}
 	return _cGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, space, bitmapInfo, provider, decode, shouldInterpolate, intent), nil
 }
@@ -8753,7 +8730,7 @@ var _cGImageCreateCopyErr error
 
 func tryCGImageCreateCopy(image CGImageRef) (CGImageRef, error) {
 	if _cGImageCreateCopy == nil {
-		return 0, symbolCallError("CGImageCreateCopy", "10.4", _cGImageCreateCopyErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateCopy", "10.4", _cGImageCreateCopyErr)
 	}
 	return _cGImageCreateCopy(image), nil
 }
@@ -8774,7 +8751,7 @@ var _cGImageCreateCopyWithCalculatedHDRStatsErr error
 
 func tryCGImageCreateCopyWithCalculatedHDRStats(image CGImageRef) (CGImageRef, error) {
 	if _cGImageCreateCopyWithCalculatedHDRStats == nil {
-		return 0, symbolCallError("CGImageCreateCopyWithCalculatedHDRStats", "26.0", _cGImageCreateCopyWithCalculatedHDRStatsErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateCopyWithCalculatedHDRStats", "26.0", _cGImageCreateCopyWithCalculatedHDRStatsErr)
 	}
 	return _cGImageCreateCopyWithCalculatedHDRStats(image), nil
 }
@@ -8795,7 +8772,7 @@ var _cGImageCreateCopyWithColorSpaceErr error
 
 func tryCGImageCreateCopyWithColorSpace(image CGImageRef, space CGColorSpaceRef) (CGImageRef, error) {
 	if _cGImageCreateCopyWithColorSpace == nil {
-		return 0, symbolCallError("CGImageCreateCopyWithColorSpace", "10.3", _cGImageCreateCopyWithColorSpaceErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateCopyWithColorSpace", "10.3", _cGImageCreateCopyWithColorSpaceErr)
 	}
 	return _cGImageCreateCopyWithColorSpace(image, space), nil
 }
@@ -8816,7 +8793,7 @@ var _cGImageCreateCopyWithContentAverageLightLevelErr error
 
 func tryCGImageCreateCopyWithContentAverageLightLevel(image CGImageRef, avll float32) (CGImageRef, error) {
 	if _cGImageCreateCopyWithContentAverageLightLevel == nil {
-		return 0, symbolCallError("CGImageCreateCopyWithContentAverageLightLevel", "26.0", _cGImageCreateCopyWithContentAverageLightLevelErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateCopyWithContentAverageLightLevel", "26.0", _cGImageCreateCopyWithContentAverageLightLevelErr)
 	}
 	return _cGImageCreateCopyWithContentAverageLightLevel(image, avll), nil
 }
@@ -8837,7 +8814,7 @@ var _cGImageCreateCopyWithContentHeadroomErr error
 
 func tryCGImageCreateCopyWithContentHeadroom(headroom float32, image CGImageRef) (CGImageRef, error) {
 	if _cGImageCreateCopyWithContentHeadroom == nil {
-		return 0, symbolCallError("CGImageCreateCopyWithContentHeadroom", "15.0", _cGImageCreateCopyWithContentHeadroomErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateCopyWithContentHeadroom", "15.0", _cGImageCreateCopyWithContentHeadroomErr)
 	}
 	return _cGImageCreateCopyWithContentHeadroom(headroom, image), nil
 }
@@ -8858,7 +8835,7 @@ var _cGImageCreateWithContentHeadroomErr error
 
 func tryCGImageCreateWithContentHeadroom(headroom float32, width uintptr, height uintptr, bitsPerComponent uintptr, bitsPerPixel uintptr, bytesPerRow uintptr, space CGColorSpaceRef, bitmapInfo CGBitmapInfo, provider CGDataProviderRef, decode *float64, shouldInterpolate bool, intent CGColorRenderingIntent) (CGImageRef, error) {
 	if _cGImageCreateWithContentHeadroom == nil {
-		return 0, symbolCallError("CGImageCreateWithContentHeadroom", "15.0", _cGImageCreateWithContentHeadroomErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateWithContentHeadroom", "15.0", _cGImageCreateWithContentHeadroomErr)
 	}
 	return _cGImageCreateWithContentHeadroom(headroom, width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, space, bitmapInfo, provider, decode, shouldInterpolate, intent), nil
 }
@@ -8879,7 +8856,7 @@ var _cGImageCreateWithImageInRectErr error
 
 func tryCGImageCreateWithImageInRect(image CGImageRef, rect corefoundation.CGRect) (CGImageRef, error) {
 	if _cGImageCreateWithImageInRect == nil {
-		return 0, symbolCallError("CGImageCreateWithImageInRect", "10.4", _cGImageCreateWithImageInRectErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateWithImageInRect", "10.4", _cGImageCreateWithImageInRectErr)
 	}
 	return _cGImageCreateWithImageInRect(image, rect), nil
 }
@@ -8900,7 +8877,7 @@ var _cGImageCreateWithJPEGDataProviderErr error
 
 func tryCGImageCreateWithJPEGDataProvider(source CGDataProviderRef, decode *float64, shouldInterpolate bool, intent CGColorRenderingIntent) (CGImageRef, error) {
 	if _cGImageCreateWithJPEGDataProvider == nil {
-		return 0, symbolCallError("CGImageCreateWithJPEGDataProvider", "10.1", _cGImageCreateWithJPEGDataProviderErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateWithJPEGDataProvider", "10.1", _cGImageCreateWithJPEGDataProviderErr)
 	}
 	return _cGImageCreateWithJPEGDataProvider(source, decode, shouldInterpolate, intent), nil
 }
@@ -8921,7 +8898,7 @@ var _cGImageCreateWithMaskErr error
 
 func tryCGImageCreateWithMask(image CGImageRef, mask CGImageRef) (CGImageRef, error) {
 	if _cGImageCreateWithMask == nil {
-		return 0, symbolCallError("CGImageCreateWithMask", "10.4", _cGImageCreateWithMaskErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateWithMask", "10.4", _cGImageCreateWithMaskErr)
 	}
 	return _cGImageCreateWithMask(image, mask), nil
 }
@@ -8942,7 +8919,7 @@ var _cGImageCreateWithMaskingColorsErr error
 
 func tryCGImageCreateWithMaskingColors(image CGImageRef, components *float64) (CGImageRef, error) {
 	if _cGImageCreateWithMaskingColors == nil {
-		return 0, symbolCallError("CGImageCreateWithMaskingColors", "10.4", _cGImageCreateWithMaskingColorsErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateWithMaskingColors", "10.4", _cGImageCreateWithMaskingColorsErr)
 	}
 	return _cGImageCreateWithMaskingColors(image, components), nil
 }
@@ -8963,7 +8940,7 @@ var _cGImageCreateWithPNGDataProviderErr error
 
 func tryCGImageCreateWithPNGDataProvider(source CGDataProviderRef, decode *float64, shouldInterpolate bool, intent CGColorRenderingIntent) (CGImageRef, error) {
 	if _cGImageCreateWithPNGDataProvider == nil {
-		return 0, symbolCallError("CGImageCreateWithPNGDataProvider", "10.2", _cGImageCreateWithPNGDataProviderErr)
+		return *new(CGImageRef), symbolCallError("CGImageCreateWithPNGDataProvider", "10.2", _cGImageCreateWithPNGDataProviderErr)
 	}
 	return _cGImageCreateWithPNGDataProvider(source, decode, shouldInterpolate, intent), nil
 }
@@ -9110,7 +9087,7 @@ var _cGImageGetColorSpaceErr error
 
 func tryCGImageGetColorSpace(image CGImageRef) (CGColorSpaceRef, error) {
 	if _cGImageGetColorSpace == nil {
-		return 0, symbolCallError("CGImageGetColorSpace", "10.0", _cGImageGetColorSpaceErr)
+		return *new(CGColorSpaceRef), symbolCallError("CGImageGetColorSpace", "10.0", _cGImageGetColorSpaceErr)
 	}
 	return _cGImageGetColorSpace(image), nil
 }
@@ -9173,7 +9150,7 @@ var _cGImageGetDataProviderErr error
 
 func tryCGImageGetDataProvider(image CGImageRef) (CGDataProviderRef, error) {
 	if _cGImageGetDataProvider == nil {
-		return 0, symbolCallError("CGImageGetDataProvider", "10.0", _cGImageGetDataProviderErr)
+		return *new(CGDataProviderRef), symbolCallError("CGImageGetDataProvider", "10.0", _cGImageGetDataProviderErr)
 	}
 	return _cGImageGetDataProvider(image), nil
 }
@@ -9320,7 +9297,7 @@ var _cGImageGetUTTypeErr error
 
 func tryCGImageGetUTType(image CGImageRef) (corefoundation.CFStringRef, error) {
 	if _cGImageGetUTType == nil {
-		return 0, symbolCallError("CGImageGetUTType", "10.11", _cGImageGetUTTypeErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CGImageGetUTType", "10.11", _cGImageGetUTTypeErr)
 	}
 	return _cGImageGetUTType(image), nil
 }
@@ -9383,7 +9360,7 @@ var _cGImageMaskCreateErr error
 
 func tryCGImageMaskCreate(width uintptr, height uintptr, bitsPerComponent uintptr, bitsPerPixel uintptr, bytesPerRow uintptr, provider CGDataProviderRef, decode *float64, shouldInterpolate bool) (CGImageRef, error) {
 	if _cGImageMaskCreate == nil {
-		return 0, symbolCallError("CGImageMaskCreate", "10.0", _cGImageMaskCreateErr)
+		return *new(CGImageRef), symbolCallError("CGImageMaskCreate", "10.0", _cGImageMaskCreateErr)
 	}
 	return _cGImageMaskCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, provider, decode, shouldInterpolate), nil
 }
@@ -9424,7 +9401,7 @@ var _cGImageRetainErr error
 
 func tryCGImageRetain(image CGImageRef) (CGImageRef, error) {
 	if _cGImageRetain == nil {
-		return 0, symbolCallError("CGImageRetain", "10.0", _cGImageRetainErr)
+		return *new(CGImageRef), symbolCallError("CGImageRetain", "10.0", _cGImageRetainErr)
 	}
 	return _cGImageRetain(image), nil
 }
@@ -9466,7 +9443,7 @@ var _cGLayerCreateWithContextErr error
 
 func tryCGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) (CGLayerRef, error) {
 	if _cGLayerCreateWithContext == nil {
-		return 0, symbolCallError("CGLayerCreateWithContext", "10.4", _cGLayerCreateWithContextErr)
+		return *new(CGLayerRef), symbolCallError("CGLayerCreateWithContext", "10.4", _cGLayerCreateWithContextErr)
 	}
 	return _cGLayerCreateWithContext(context, size, auxiliaryInfo), nil
 }
@@ -9487,7 +9464,7 @@ var _cGLayerGetContextErr error
 
 func tryCGLayerGetContext(layer CGLayerRef) (CGContextRef, error) {
 	if _cGLayerGetContext == nil {
-		return 0, symbolCallError("CGLayerGetContext", "10.4", _cGLayerGetContextErr)
+		return *new(CGContextRef), symbolCallError("CGLayerGetContext", "10.4", _cGLayerGetContextErr)
 	}
 	return _cGLayerGetContext(layer), nil
 }
@@ -9570,7 +9547,7 @@ var _cGLayerRetainErr error
 
 func tryCGLayerRetain(layer CGLayerRef) (CGLayerRef, error) {
 	if _cGLayerRetain == nil {
-		return 0, symbolCallError("CGLayerRetain", "10.4", _cGLayerRetainErr)
+		return *new(CGLayerRef), symbolCallError("CGLayerRetain", "10.4", _cGLayerRetainErr)
 	}
 	return _cGLayerRetain(layer), nil
 }
@@ -9889,7 +9866,7 @@ var _cGPDFContentStreamCreateWithPageErr error
 
 func tryCGPDFContentStreamCreateWithPage(page CGPDFPageRef) (CGPDFContentStreamRef, error) {
 	if _cGPDFContentStreamCreateWithPage == nil {
-		return 0, symbolCallError("CGPDFContentStreamCreateWithPage", "10.4", _cGPDFContentStreamCreateWithPageErr)
+		return *new(CGPDFContentStreamRef), symbolCallError("CGPDFContentStreamCreateWithPage", "10.4", _cGPDFContentStreamCreateWithPageErr)
 	}
 	return _cGPDFContentStreamCreateWithPage(page), nil
 }
@@ -9910,7 +9887,7 @@ var _cGPDFContentStreamCreateWithStreamErr error
 
 func tryCGPDFContentStreamCreateWithStream(stream CGPDFStreamRef, streamResources CGPDFDictionaryRef, parent CGPDFContentStreamRef) (CGPDFContentStreamRef, error) {
 	if _cGPDFContentStreamCreateWithStream == nil {
-		return 0, symbolCallError("CGPDFContentStreamCreateWithStream", "10.4", _cGPDFContentStreamCreateWithStreamErr)
+		return *new(CGPDFContentStreamRef), symbolCallError("CGPDFContentStreamCreateWithStream", "10.4", _cGPDFContentStreamCreateWithStreamErr)
 	}
 	return _cGPDFContentStreamCreateWithStream(stream, streamResources, parent), nil
 }
@@ -9931,7 +9908,7 @@ var _cGPDFContentStreamGetResourceErr error
 
 func tryCGPDFContentStreamGetResource(cs CGPDFContentStreamRef, category string, name string) (CGPDFObjectRef, error) {
 	if _cGPDFContentStreamGetResource == nil {
-		return 0, symbolCallError("CGPDFContentStreamGetResource", "10.4", _cGPDFContentStreamGetResourceErr)
+		return *new(CGPDFObjectRef), symbolCallError("CGPDFContentStreamGetResource", "10.4", _cGPDFContentStreamGetResourceErr)
 	}
 	return _cGPDFContentStreamGetResource(cs, category, name), nil
 }
@@ -9952,7 +9929,7 @@ var _cGPDFContentStreamGetStreamsErr error
 
 func tryCGPDFContentStreamGetStreams(cs CGPDFContentStreamRef) (corefoundation.CFArrayRef, error) {
 	if _cGPDFContentStreamGetStreams == nil {
-		return 0, symbolCallError("CGPDFContentStreamGetStreams", "10.4", _cGPDFContentStreamGetStreamsErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CGPDFContentStreamGetStreams", "10.4", _cGPDFContentStreamGetStreamsErr)
 	}
 	return _cGPDFContentStreamGetStreams(cs), nil
 }
@@ -9993,7 +9970,7 @@ var _cGPDFContentStreamRetainErr error
 
 func tryCGPDFContentStreamRetain(cs CGPDFContentStreamRef) (CGPDFContentStreamRef, error) {
 	if _cGPDFContentStreamRetain == nil {
-		return 0, symbolCallError("CGPDFContentStreamRetain", "10.4", _cGPDFContentStreamRetainErr)
+		return *new(CGPDFContentStreamRef), symbolCallError("CGPDFContentStreamRetain", "10.4", _cGPDFContentStreamRetainErr)
 	}
 	return _cGPDFContentStreamRetain(cs), nil
 }
@@ -10114,7 +10091,7 @@ var _cGPDFContextCreateErr error
 
 func tryCGPDFContextCreate(consumer CGDataConsumerRef, mediaBox *corefoundation.CGRect, auxiliaryInfo corefoundation.CFDictionaryRef) (CGContextRef, error) {
 	if _cGPDFContextCreate == nil {
-		return 0, symbolCallError("CGPDFContextCreate", "10.0", _cGPDFContextCreateErr)
+		return *new(CGContextRef), symbolCallError("CGPDFContextCreate", "10.0", _cGPDFContextCreateErr)
 	}
 	return _cGPDFContextCreate(consumer, mediaBox, auxiliaryInfo), nil
 }
@@ -10135,7 +10112,7 @@ var _cGPDFContextCreateWithURLErr error
 
 func tryCGPDFContextCreateWithURL(url corefoundation.CFURLRef, mediaBox *corefoundation.CGRect, auxiliaryInfo corefoundation.CFDictionaryRef) (CGContextRef, error) {
 	if _cGPDFContextCreateWithURL == nil {
-		return 0, symbolCallError("CGPDFContextCreateWithURL", "10.0", _cGPDFContextCreateWithURLErr)
+		return *new(CGContextRef), symbolCallError("CGPDFContextCreateWithURL", "10.0", _cGPDFContextCreateWithURLErr)
 	}
 	return _cGPDFContextCreateWithURL(url, mediaBox, auxiliaryInfo), nil
 }
@@ -10613,7 +10590,7 @@ var _cGPDFDocumentCreateWithProviderErr error
 
 func tryCGPDFDocumentCreateWithProvider(provider CGDataProviderRef) (CGPDFDocumentRef, error) {
 	if _cGPDFDocumentCreateWithProvider == nil {
-		return 0, symbolCallError("CGPDFDocumentCreateWithProvider", "10.0", _cGPDFDocumentCreateWithProviderErr)
+		return *new(CGPDFDocumentRef), symbolCallError("CGPDFDocumentCreateWithProvider", "10.0", _cGPDFDocumentCreateWithProviderErr)
 	}
 	return _cGPDFDocumentCreateWithProvider(provider), nil
 }
@@ -10634,7 +10611,7 @@ var _cGPDFDocumentCreateWithURLErr error
 
 func tryCGPDFDocumentCreateWithURL(url corefoundation.CFURLRef) (CGPDFDocumentRef, error) {
 	if _cGPDFDocumentCreateWithURL == nil {
-		return 0, symbolCallError("CGPDFDocumentCreateWithURL", "10.0", _cGPDFDocumentCreateWithURLErr)
+		return *new(CGPDFDocumentRef), symbolCallError("CGPDFDocumentCreateWithURL", "10.0", _cGPDFDocumentCreateWithURLErr)
 	}
 	return _cGPDFDocumentCreateWithURL(url), nil
 }
@@ -10722,7 +10699,7 @@ var _cGPDFDocumentGetCatalogErr error
 
 func tryCGPDFDocumentGetCatalog(document CGPDFDocumentRef) (CGPDFDictionaryRef, error) {
 	if _cGPDFDocumentGetCatalog == nil {
-		return 0, symbolCallError("CGPDFDocumentGetCatalog", "10.3", _cGPDFDocumentGetCatalogErr)
+		return *new(CGPDFDictionaryRef), symbolCallError("CGPDFDocumentGetCatalog", "10.3", _cGPDFDocumentGetCatalogErr)
 	}
 	return _cGPDFDocumentGetCatalog(document), nil
 }
@@ -10766,7 +10743,7 @@ var _cGPDFDocumentGetIDErr error
 
 func tryCGPDFDocumentGetID(document CGPDFDocumentRef) (CGPDFArrayRef, error) {
 	if _cGPDFDocumentGetID == nil {
-		return 0, symbolCallError("CGPDFDocumentGetID", "10.4", _cGPDFDocumentGetIDErr)
+		return *new(CGPDFArrayRef), symbolCallError("CGPDFDocumentGetID", "10.4", _cGPDFDocumentGetIDErr)
 	}
 	return _cGPDFDocumentGetID(document), nil
 }
@@ -10787,7 +10764,7 @@ var _cGPDFDocumentGetInfoErr error
 
 func tryCGPDFDocumentGetInfo(document CGPDFDocumentRef) (CGPDFDictionaryRef, error) {
 	if _cGPDFDocumentGetInfo == nil {
-		return 0, symbolCallError("CGPDFDocumentGetInfo", "10.4", _cGPDFDocumentGetInfoErr)
+		return *new(CGPDFDictionaryRef), symbolCallError("CGPDFDocumentGetInfo", "10.4", _cGPDFDocumentGetInfoErr)
 	}
 	return _cGPDFDocumentGetInfo(document), nil
 }
@@ -10852,7 +10829,7 @@ var _cGPDFDocumentGetOutlineErr error
 
 func tryCGPDFDocumentGetOutline(document CGPDFDocumentRef) (corefoundation.CFDictionaryRef, error) {
 	if _cGPDFDocumentGetOutline == nil {
-		return 0, symbolCallError("CGPDFDocumentGetOutline", "10.13", _cGPDFDocumentGetOutlineErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CGPDFDocumentGetOutline", "10.13", _cGPDFDocumentGetOutlineErr)
 	}
 	return _cGPDFDocumentGetOutline(document), nil
 }
@@ -10873,7 +10850,7 @@ var _cGPDFDocumentGetPageErr error
 
 func tryCGPDFDocumentGetPage(document CGPDFDocumentRef, pageNumber uintptr) (CGPDFPageRef, error) {
 	if _cGPDFDocumentGetPage == nil {
-		return 0, symbolCallError("CGPDFDocumentGetPage", "10.3", _cGPDFDocumentGetPageErr)
+		return *new(CGPDFPageRef), symbolCallError("CGPDFDocumentGetPage", "10.3", _cGPDFDocumentGetPageErr)
 	}
 	return _cGPDFDocumentGetPage(document, pageNumber), nil
 }
@@ -11043,7 +11020,7 @@ var _cGPDFDocumentRetainErr error
 
 func tryCGPDFDocumentRetain(document CGPDFDocumentRef) (CGPDFDocumentRef, error) {
 	if _cGPDFDocumentRetain == nil {
-		return 0, symbolCallError("CGPDFDocumentRetain", "10.0", _cGPDFDocumentRetainErr)
+		return *new(CGPDFDocumentRef), symbolCallError("CGPDFDocumentRetain", "10.0", _cGPDFDocumentRetainErr)
 	}
 	return _cGPDFDocumentRetain(document), nil
 }
@@ -11127,7 +11104,7 @@ var _cGPDFOperatorTableCreateErr error
 
 func tryCGPDFOperatorTableCreate() (CGPDFOperatorTableRef, error) {
 	if _cGPDFOperatorTableCreate == nil {
-		return 0, symbolCallError("CGPDFOperatorTableCreate", "10.4", _cGPDFOperatorTableCreateErr)
+		return *new(CGPDFOperatorTableRef), symbolCallError("CGPDFOperatorTableCreate", "10.4", _cGPDFOperatorTableCreateErr)
 	}
 	return _cGPDFOperatorTableCreate(), nil
 }
@@ -11168,7 +11145,7 @@ var _cGPDFOperatorTableRetainErr error
 
 func tryCGPDFOperatorTableRetain(table CGPDFOperatorTableRef) (CGPDFOperatorTableRef, error) {
 	if _cGPDFOperatorTableRetain == nil {
-		return 0, symbolCallError("CGPDFOperatorTableRetain", "10.4", _cGPDFOperatorTableRetainErr)
+		return *new(CGPDFOperatorTableRef), symbolCallError("CGPDFOperatorTableRetain", "10.4", _cGPDFOperatorTableRetainErr)
 	}
 	return _cGPDFOperatorTableRetain(table), nil
 }
@@ -11230,7 +11207,7 @@ var _cGPDFPageGetDictionaryErr error
 
 func tryCGPDFPageGetDictionary(page CGPDFPageRef) (CGPDFDictionaryRef, error) {
 	if _cGPDFPageGetDictionary == nil {
-		return 0, symbolCallError("CGPDFPageGetDictionary", "10.3", _cGPDFPageGetDictionaryErr)
+		return *new(CGPDFDictionaryRef), symbolCallError("CGPDFPageGetDictionary", "10.3", _cGPDFPageGetDictionaryErr)
 	}
 	return _cGPDFPageGetDictionary(page), nil
 }
@@ -11251,7 +11228,7 @@ var _cGPDFPageGetDocumentErr error
 
 func tryCGPDFPageGetDocument(page CGPDFPageRef) (CGPDFDocumentRef, error) {
 	if _cGPDFPageGetDocument == nil {
-		return 0, symbolCallError("CGPDFPageGetDocument", "10.3", _cGPDFPageGetDocumentErr)
+		return *new(CGPDFDocumentRef), symbolCallError("CGPDFPageGetDocument", "10.3", _cGPDFPageGetDocumentErr)
 	}
 	return _cGPDFPageGetDocument(page), nil
 }
@@ -11376,7 +11353,7 @@ var _cGPDFPageRetainErr error
 
 func tryCGPDFPageRetain(page CGPDFPageRef) (CGPDFPageRef, error) {
 	if _cGPDFPageRetain == nil {
-		return 0, symbolCallError("CGPDFPageRetain", "10.3", _cGPDFPageRetainErr)
+		return *new(CGPDFPageRef), symbolCallError("CGPDFPageRetain", "10.3", _cGPDFPageRetainErr)
 	}
 	return _cGPDFPageRetain(page), nil
 }
@@ -11397,7 +11374,7 @@ var _cGPDFScannerCreateErr error
 
 func tryCGPDFScannerCreate(cs CGPDFContentStreamRef, table CGPDFOperatorTableRef, info unsafe.Pointer) (CGPDFScannerRef, error) {
 	if _cGPDFScannerCreate == nil {
-		return 0, symbolCallError("CGPDFScannerCreate", "10.4", _cGPDFScannerCreateErr)
+		return *new(CGPDFScannerRef), symbolCallError("CGPDFScannerCreate", "10.4", _cGPDFScannerCreateErr)
 	}
 	return _cGPDFScannerCreate(cs, table, info), nil
 }
@@ -11418,7 +11395,7 @@ var _cGPDFScannerGetContentStreamErr error
 
 func tryCGPDFScannerGetContentStream(scanner CGPDFScannerRef) (CGPDFContentStreamRef, error) {
 	if _cGPDFScannerGetContentStream == nil {
-		return 0, symbolCallError("CGPDFScannerGetContentStream", "10.4", _cGPDFScannerGetContentStreamErr)
+		return *new(CGPDFContentStreamRef), symbolCallError("CGPDFScannerGetContentStream", "10.4", _cGPDFScannerGetContentStreamErr)
 	}
 	return _cGPDFScannerGetContentStream(scanner), nil
 }
@@ -11648,7 +11625,7 @@ var _cGPDFScannerRetainErr error
 
 func tryCGPDFScannerRetain(scanner CGPDFScannerRef) (CGPDFScannerRef, error) {
 	if _cGPDFScannerRetain == nil {
-		return 0, symbolCallError("CGPDFScannerRetain", "10.4", _cGPDFScannerRetainErr)
+		return *new(CGPDFScannerRef), symbolCallError("CGPDFScannerRetain", "10.4", _cGPDFScannerRetainErr)
 	}
 	return _cGPDFScannerRetain(scanner), nil
 }
@@ -11710,7 +11687,7 @@ var _cGPDFStreamCopyDataErr error
 
 func tryCGPDFStreamCopyData(stream CGPDFStreamRef, format *CGPDFDataFormat) (corefoundation.CFDataRef, error) {
 	if _cGPDFStreamCopyData == nil {
-		return 0, symbolCallError("CGPDFStreamCopyData", "10.3", _cGPDFStreamCopyDataErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("CGPDFStreamCopyData", "10.3", _cGPDFStreamCopyDataErr)
 	}
 	return _cGPDFStreamCopyData(stream, format), nil
 }
@@ -11731,7 +11708,7 @@ var _cGPDFStreamGetDictionaryErr error
 
 func tryCGPDFStreamGetDictionary(stream CGPDFStreamRef) (CGPDFDictionaryRef, error) {
 	if _cGPDFStreamGetDictionary == nil {
-		return 0, symbolCallError("CGPDFStreamGetDictionary", "10.3", _cGPDFStreamGetDictionaryErr)
+		return *new(CGPDFDictionaryRef), symbolCallError("CGPDFStreamGetDictionary", "10.3", _cGPDFStreamGetDictionaryErr)
 	}
 	return _cGPDFStreamGetDictionary(stream), nil
 }
@@ -11752,7 +11729,7 @@ var _cGPDFStringCopyDateErr error
 
 func tryCGPDFStringCopyDate(string_ CGPDFStringRef) (corefoundation.CFDateRef, error) {
 	if _cGPDFStringCopyDate == nil {
-		return 0, symbolCallError("CGPDFStringCopyDate", "10.4", _cGPDFStringCopyDateErr)
+		return *new(corefoundation.CFDateRef), symbolCallError("CGPDFStringCopyDate", "10.4", _cGPDFStringCopyDateErr)
 	}
 	return _cGPDFStringCopyDate(string_), nil
 }
@@ -11773,7 +11750,7 @@ var _cGPDFStringCopyTextStringErr error
 
 func tryCGPDFStringCopyTextString(string_ CGPDFStringRef) (corefoundation.CFStringRef, error) {
 	if _cGPDFStringCopyTextString == nil {
-		return 0, symbolCallError("CGPDFStringCopyTextString", "10.3", _cGPDFStringCopyTextStringErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CGPDFStringCopyTextString", "10.3", _cGPDFStringCopyTextStringErr)
 	}
 	return _cGPDFStringCopyTextString(string_), nil
 }
@@ -11899,7 +11876,7 @@ var _cGPSConverterCreateErr error
 
 func tryCGPSConverterCreate(info unsafe.Pointer, callbacks *CGPSConverterCallbacks, options corefoundation.CFDictionaryRef) (CGPSConverterRef, error) {
 	if _cGPSConverterCreate == nil {
-		return 0, symbolCallError("CGPSConverterCreate", "10.3", _cGPSConverterCreateErr)
+		return *new(CGPSConverterRef), symbolCallError("CGPSConverterCreate", "10.3", _cGPSConverterCreateErr)
 	}
 	return _cGPSConverterCreate(info, callbacks, options), nil
 }
@@ -12286,7 +12263,7 @@ var _cGPathCreateCopyErr error
 
 func tryCGPathCreateCopy(path CGPathRef) (CGPathRef, error) {
 	if _cGPathCreateCopy == nil {
-		return 0, symbolCallError("CGPathCreateCopy", "10.2", _cGPathCreateCopyErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopy", "10.2", _cGPathCreateCopyErr)
 	}
 	return _cGPathCreateCopy(path), nil
 }
@@ -12307,7 +12284,7 @@ var _cGPathCreateCopyByDashingPathErr error
 
 func tryCGPathCreateCopyByDashingPath(path CGPathRef, transform *corefoundation.CGAffineTransform, phase float64, lengths *float64, count uintptr) (CGPathRef, error) {
 	if _cGPathCreateCopyByDashingPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyByDashingPath", "10.7", _cGPathCreateCopyByDashingPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyByDashingPath", "10.7", _cGPathCreateCopyByDashingPathErr)
 	}
 	return _cGPathCreateCopyByDashingPath(path, transform, phase, lengths, count), nil
 }
@@ -12328,7 +12305,7 @@ var _cGPathCreateCopyByFlatteningErr error
 
 func tryCGPathCreateCopyByFlattening(path CGPathRef, flatteningThreshold float64) (CGPathRef, error) {
 	if _cGPathCreateCopyByFlattening == nil {
-		return 0, symbolCallError("CGPathCreateCopyByFlattening", "13.0", _cGPathCreateCopyByFlatteningErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyByFlattening", "13.0", _cGPathCreateCopyByFlatteningErr)
 	}
 	return _cGPathCreateCopyByFlattening(path, flatteningThreshold), nil
 }
@@ -12349,7 +12326,7 @@ var _cGPathCreateCopyByIntersectingPathErr error
 
 func tryCGPathCreateCopyByIntersectingPath(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) (CGPathRef, error) {
 	if _cGPathCreateCopyByIntersectingPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyByIntersectingPath", "13.0", _cGPathCreateCopyByIntersectingPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyByIntersectingPath", "13.0", _cGPathCreateCopyByIntersectingPathErr)
 	}
 	return _cGPathCreateCopyByIntersectingPath(path, maskPath, evenOddFillRule), nil
 }
@@ -12370,7 +12347,7 @@ var _cGPathCreateCopyByNormalizingErr error
 
 func tryCGPathCreateCopyByNormalizing(path CGPathRef, evenOddFillRule bool) (CGPathRef, error) {
 	if _cGPathCreateCopyByNormalizing == nil {
-		return 0, symbolCallError("CGPathCreateCopyByNormalizing", "13.0", _cGPathCreateCopyByNormalizingErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyByNormalizing", "13.0", _cGPathCreateCopyByNormalizingErr)
 	}
 	return _cGPathCreateCopyByNormalizing(path, evenOddFillRule), nil
 }
@@ -12391,7 +12368,7 @@ var _cGPathCreateCopyByStrokingPathErr error
 
 func tryCGPathCreateCopyByStrokingPath(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap CGLineCap, lineJoin CGLineJoin, miterLimit float64) (CGPathRef, error) {
 	if _cGPathCreateCopyByStrokingPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyByStrokingPath", "10.7", _cGPathCreateCopyByStrokingPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyByStrokingPath", "10.7", _cGPathCreateCopyByStrokingPathErr)
 	}
 	return _cGPathCreateCopyByStrokingPath(path, transform, lineWidth, lineCap, lineJoin, miterLimit), nil
 }
@@ -12412,7 +12389,7 @@ var _cGPathCreateCopyBySubtractingPathErr error
 
 func tryCGPathCreateCopyBySubtractingPath(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) (CGPathRef, error) {
 	if _cGPathCreateCopyBySubtractingPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyBySubtractingPath", "13.0", _cGPathCreateCopyBySubtractingPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyBySubtractingPath", "13.0", _cGPathCreateCopyBySubtractingPathErr)
 	}
 	return _cGPathCreateCopyBySubtractingPath(path, maskPath, evenOddFillRule), nil
 }
@@ -12433,7 +12410,7 @@ var _cGPathCreateCopyBySymmetricDifferenceOfPathErr error
 
 func tryCGPathCreateCopyBySymmetricDifferenceOfPath(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) (CGPathRef, error) {
 	if _cGPathCreateCopyBySymmetricDifferenceOfPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyBySymmetricDifferenceOfPath", "13.0", _cGPathCreateCopyBySymmetricDifferenceOfPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyBySymmetricDifferenceOfPath", "13.0", _cGPathCreateCopyBySymmetricDifferenceOfPathErr)
 	}
 	return _cGPathCreateCopyBySymmetricDifferenceOfPath(path, maskPath, evenOddFillRule), nil
 }
@@ -12454,7 +12431,7 @@ var _cGPathCreateCopyByTransformingPathErr error
 
 func tryCGPathCreateCopyByTransformingPath(path CGPathRef, transform *corefoundation.CGAffineTransform) (CGPathRef, error) {
 	if _cGPathCreateCopyByTransformingPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyByTransformingPath", "10.7", _cGPathCreateCopyByTransformingPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyByTransformingPath", "10.7", _cGPathCreateCopyByTransformingPathErr)
 	}
 	return _cGPathCreateCopyByTransformingPath(path, transform), nil
 }
@@ -12475,7 +12452,7 @@ var _cGPathCreateCopyByUnioningPathErr error
 
 func tryCGPathCreateCopyByUnioningPath(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) (CGPathRef, error) {
 	if _cGPathCreateCopyByUnioningPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyByUnioningPath", "13.0", _cGPathCreateCopyByUnioningPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyByUnioningPath", "13.0", _cGPathCreateCopyByUnioningPathErr)
 	}
 	return _cGPathCreateCopyByUnioningPath(path, maskPath, evenOddFillRule), nil
 }
@@ -12496,7 +12473,7 @@ var _cGPathCreateCopyOfLineByIntersectingPathErr error
 
 func tryCGPathCreateCopyOfLineByIntersectingPath(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) (CGPathRef, error) {
 	if _cGPathCreateCopyOfLineByIntersectingPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyOfLineByIntersectingPath", "13.0", _cGPathCreateCopyOfLineByIntersectingPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyOfLineByIntersectingPath", "13.0", _cGPathCreateCopyOfLineByIntersectingPathErr)
 	}
 	return _cGPathCreateCopyOfLineByIntersectingPath(path, maskPath, evenOddFillRule), nil
 }
@@ -12517,7 +12494,7 @@ var _cGPathCreateCopyOfLineBySubtractingPathErr error
 
 func tryCGPathCreateCopyOfLineBySubtractingPath(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) (CGPathRef, error) {
 	if _cGPathCreateCopyOfLineBySubtractingPath == nil {
-		return 0, symbolCallError("CGPathCreateCopyOfLineBySubtractingPath", "13.0", _cGPathCreateCopyOfLineBySubtractingPathErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateCopyOfLineBySubtractingPath", "13.0", _cGPathCreateCopyOfLineBySubtractingPathErr)
 	}
 	return _cGPathCreateCopyOfLineBySubtractingPath(path, maskPath, evenOddFillRule), nil
 }
@@ -12538,7 +12515,7 @@ var _cGPathCreateMutableErr error
 
 func tryCGPathCreateMutable() (CGMutablePathRef, error) {
 	if _cGPathCreateMutable == nil {
-		return 0, symbolCallError("CGPathCreateMutable", "10.2", _cGPathCreateMutableErr)
+		return *new(CGMutablePathRef), symbolCallError("CGPathCreateMutable", "10.2", _cGPathCreateMutableErr)
 	}
 	return _cGPathCreateMutable(), nil
 }
@@ -12559,7 +12536,7 @@ var _cGPathCreateMutableCopyErr error
 
 func tryCGPathCreateMutableCopy(path CGPathRef) (CGMutablePathRef, error) {
 	if _cGPathCreateMutableCopy == nil {
-		return 0, symbolCallError("CGPathCreateMutableCopy", "10.2", _cGPathCreateMutableCopyErr)
+		return *new(CGMutablePathRef), symbolCallError("CGPathCreateMutableCopy", "10.2", _cGPathCreateMutableCopyErr)
 	}
 	return _cGPathCreateMutableCopy(path), nil
 }
@@ -12580,7 +12557,7 @@ var _cGPathCreateMutableCopyByTransformingPathErr error
 
 func tryCGPathCreateMutableCopyByTransformingPath(path CGPathRef, transform *corefoundation.CGAffineTransform) (CGMutablePathRef, error) {
 	if _cGPathCreateMutableCopyByTransformingPath == nil {
-		return 0, symbolCallError("CGPathCreateMutableCopyByTransformingPath", "10.7", _cGPathCreateMutableCopyByTransformingPathErr)
+		return *new(CGMutablePathRef), symbolCallError("CGPathCreateMutableCopyByTransformingPath", "10.7", _cGPathCreateMutableCopyByTransformingPathErr)
 	}
 	return _cGPathCreateMutableCopyByTransformingPath(path, transform), nil
 }
@@ -12601,7 +12578,7 @@ var _cGPathCreateSeparateComponentsErr error
 
 func tryCGPathCreateSeparateComponents(path CGPathRef, evenOddFillRule bool) (corefoundation.CFArrayRef, error) {
 	if _cGPathCreateSeparateComponents == nil {
-		return 0, symbolCallError("CGPathCreateSeparateComponents", "13.0", _cGPathCreateSeparateComponentsErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CGPathCreateSeparateComponents", "13.0", _cGPathCreateSeparateComponentsErr)
 	}
 	return _cGPathCreateSeparateComponents(path, evenOddFillRule), nil
 }
@@ -12622,7 +12599,7 @@ var _cGPathCreateWithEllipseInRectErr error
 
 func tryCGPathCreateWithEllipseInRect(rect corefoundation.CGRect, transform *corefoundation.CGAffineTransform) (CGPathRef, error) {
 	if _cGPathCreateWithEllipseInRect == nil {
-		return 0, symbolCallError("CGPathCreateWithEllipseInRect", "10.7", _cGPathCreateWithEllipseInRectErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateWithEllipseInRect", "10.7", _cGPathCreateWithEllipseInRectErr)
 	}
 	return _cGPathCreateWithEllipseInRect(rect, transform), nil
 }
@@ -12643,7 +12620,7 @@ var _cGPathCreateWithRectErr error
 
 func tryCGPathCreateWithRect(rect corefoundation.CGRect, transform *corefoundation.CGAffineTransform) (CGPathRef, error) {
 	if _cGPathCreateWithRect == nil {
-		return 0, symbolCallError("CGPathCreateWithRect", "10.5", _cGPathCreateWithRectErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateWithRect", "10.5", _cGPathCreateWithRectErr)
 	}
 	return _cGPathCreateWithRect(rect, transform), nil
 }
@@ -12664,7 +12641,7 @@ var _cGPathCreateWithRoundedRectErr error
 
 func tryCGPathCreateWithRoundedRect(rect corefoundation.CGRect, cornerWidth float64, cornerHeight float64, transform *corefoundation.CGAffineTransform) (CGPathRef, error) {
 	if _cGPathCreateWithRoundedRect == nil {
-		return 0, symbolCallError("CGPathCreateWithRoundedRect", "10.9", _cGPathCreateWithRoundedRectErr)
+		return *new(CGPathRef), symbolCallError("CGPathCreateWithRoundedRect", "10.9", _cGPathCreateWithRoundedRectErr)
 	}
 	return _cGPathCreateWithRoundedRect(rect, cornerWidth, cornerHeight, transform), nil
 }
@@ -12893,7 +12870,7 @@ var _cGPathRetainErr error
 
 func tryCGPathRetain(path CGPathRef) (CGPathRef, error) {
 	if _cGPathRetain == nil {
-		return 0, symbolCallError("CGPathRetain", "10.2", _cGPathRetainErr)
+		return *new(CGPathRef), symbolCallError("CGPathRetain", "10.2", _cGPathRetainErr)
 	}
 	return _cGPathRetain(path), nil
 }
@@ -12914,7 +12891,7 @@ var _cGPatternCreateErr error
 
 func tryCGPatternCreate(info unsafe.Pointer, bounds corefoundation.CGRect, matrix corefoundation.CGAffineTransform, xStep float64, yStep float64, tiling CGPatternTiling, isColored bool, callbacks *CGPatternCallbacks) (CGPatternRef, error) {
 	if _cGPatternCreate == nil {
-		return 0, symbolCallError("CGPatternCreate", "10.0", _cGPatternCreateErr)
+		return *new(CGPatternRef), symbolCallError("CGPatternCreate", "10.0", _cGPatternCreateErr)
 	}
 	return _cGPatternCreate(info, bounds, matrix, xStep, yStep, tiling, isColored, callbacks), nil
 }
@@ -12976,7 +12953,7 @@ var _cGPatternRetainErr error
 
 func tryCGPatternRetain(pattern CGPatternRef) (CGPatternRef, error) {
 	if _cGPatternRetain == nil {
-		return 0, symbolCallError("CGPatternRetain", "10.0", _cGPatternRetainErr)
+		return *new(CGPatternRef), symbolCallError("CGPatternRetain", "10.0", _cGPatternRetainErr)
 	}
 	return _cGPatternRetain(pattern), nil
 }
@@ -13018,7 +12995,7 @@ var _cGPointCreateDictionaryRepresentationErr error
 
 func tryCGPointCreateDictionaryRepresentation(point corefoundation.CGPoint) (corefoundation.CFDictionaryRef, error) {
 	if _cGPointCreateDictionaryRepresentation == nil {
-		return 0, symbolCallError("CGPointCreateDictionaryRepresentation", "10.5", _cGPointCreateDictionaryRepresentationErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CGPointCreateDictionaryRepresentation", "10.5", _cGPointCreateDictionaryRepresentationErr)
 	}
 	return _cGPointCreateDictionaryRepresentation(point), nil
 }
@@ -13255,7 +13232,7 @@ var _cGRectCreateDictionaryRepresentationErr error
 
 func tryCGRectCreateDictionaryRepresentation(arg0 corefoundation.CGRect) (corefoundation.CFDictionaryRef, error) {
 	if _cGRectCreateDictionaryRepresentation == nil {
-		return 0, symbolCallError("CGRectCreateDictionaryRepresentation", "10.5", _cGRectCreateDictionaryRepresentationErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CGRectCreateDictionaryRepresentation", "10.5", _cGRectCreateDictionaryRepresentationErr)
 	}
 	return _cGRectCreateDictionaryRepresentation(arg0), nil
 }
@@ -13781,7 +13758,7 @@ var _cGRenderingBufferProviderCreateErr error
 
 func tryCGRenderingBufferProviderCreate(info unsafe.Pointer, size uintptr) (CGRenderingBufferProviderRef, error) {
 	if _cGRenderingBufferProviderCreate == nil {
-		return 0, symbolCallError("CGRenderingBufferProviderCreate", "26.0", _cGRenderingBufferProviderCreateErr)
+		return *new(CGRenderingBufferProviderRef), symbolCallError("CGRenderingBufferProviderCreate", "26.0", _cGRenderingBufferProviderCreateErr)
 	}
 	return _cGRenderingBufferProviderCreate(info, size), nil
 }
@@ -13802,7 +13779,7 @@ var _cGRenderingBufferProviderCreateWithCFDataErr error
 
 func tryCGRenderingBufferProviderCreateWithCFData(data corefoundation.CFMutableDataRef) (CGRenderingBufferProviderRef, error) {
 	if _cGRenderingBufferProviderCreateWithCFData == nil {
-		return 0, symbolCallError("CGRenderingBufferProviderCreateWithCFData", "26.0", _cGRenderingBufferProviderCreateWithCFDataErr)
+		return *new(CGRenderingBufferProviderRef), symbolCallError("CGRenderingBufferProviderCreateWithCFData", "26.0", _cGRenderingBufferProviderCreateWithCFDataErr)
 	}
 	return _cGRenderingBufferProviderCreateWithCFData(data), nil
 }
@@ -13968,7 +13945,7 @@ var _cGSessionCopyCurrentDictionaryErr error
 
 func tryCGSessionCopyCurrentDictionary() (corefoundation.CFDictionaryRef, error) {
 	if _cGSessionCopyCurrentDictionary == nil {
-		return 0, symbolCallError("CGSessionCopyCurrentDictionary", "10.3", _cGSessionCopyCurrentDictionaryErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CGSessionCopyCurrentDictionary", "10.3", _cGSessionCopyCurrentDictionaryErr)
 	}
 	return _cGSessionCopyCurrentDictionary(), nil
 }
@@ -14052,7 +14029,7 @@ var _cGShadingCreateAxialErr error
 
 func tryCGShadingCreateAxial(space CGColorSpaceRef, start corefoundation.CGPoint, end corefoundation.CGPoint, function CGFunctionRef, extendStart bool, extendEnd bool) (CGShadingRef, error) {
 	if _cGShadingCreateAxial == nil {
-		return 0, symbolCallError("CGShadingCreateAxial", "10.2", _cGShadingCreateAxialErr)
+		return *new(CGShadingRef), symbolCallError("CGShadingCreateAxial", "10.2", _cGShadingCreateAxialErr)
 	}
 	return _cGShadingCreateAxial(space, start, end, function, extendStart, extendEnd), nil
 }
@@ -14073,7 +14050,7 @@ var _cGShadingCreateAxialWithContentHeadroomErr error
 
 func tryCGShadingCreateAxialWithContentHeadroom(headroom float32, space CGColorSpaceRef, start corefoundation.CGPoint, end corefoundation.CGPoint, function CGFunctionRef, extendStart bool, extendEnd bool) (CGShadingRef, error) {
 	if _cGShadingCreateAxialWithContentHeadroom == nil {
-		return 0, symbolCallError("CGShadingCreateAxialWithContentHeadroom", "26.0", _cGShadingCreateAxialWithContentHeadroomErr)
+		return *new(CGShadingRef), symbolCallError("CGShadingCreateAxialWithContentHeadroom", "26.0", _cGShadingCreateAxialWithContentHeadroomErr)
 	}
 	return _cGShadingCreateAxialWithContentHeadroom(headroom, space, start, end, function, extendStart, extendEnd), nil
 }
@@ -14094,7 +14071,7 @@ var _cGShadingCreateRadialErr error
 
 func tryCGShadingCreateRadial(space CGColorSpaceRef, start corefoundation.CGPoint, startRadius float64, end corefoundation.CGPoint, endRadius float64, function CGFunctionRef, extendStart bool, extendEnd bool) (CGShadingRef, error) {
 	if _cGShadingCreateRadial == nil {
-		return 0, symbolCallError("CGShadingCreateRadial", "10.2", _cGShadingCreateRadialErr)
+		return *new(CGShadingRef), symbolCallError("CGShadingCreateRadial", "10.2", _cGShadingCreateRadialErr)
 	}
 	return _cGShadingCreateRadial(space, start, startRadius, end, endRadius, function, extendStart, extendEnd), nil
 }
@@ -14115,7 +14092,7 @@ var _cGShadingCreateRadialWithContentHeadroomErr error
 
 func tryCGShadingCreateRadialWithContentHeadroom(headroom float32, space CGColorSpaceRef, start corefoundation.CGPoint, startRadius float64, end corefoundation.CGPoint, endRadius float64, function CGFunctionRef, extendStart bool, extendEnd bool) (CGShadingRef, error) {
 	if _cGShadingCreateRadialWithContentHeadroom == nil {
-		return 0, symbolCallError("CGShadingCreateRadialWithContentHeadroom", "26.0", _cGShadingCreateRadialWithContentHeadroomErr)
+		return *new(CGShadingRef), symbolCallError("CGShadingCreateRadialWithContentHeadroom", "26.0", _cGShadingCreateRadialWithContentHeadroomErr)
 	}
 	return _cGShadingCreateRadialWithContentHeadroom(headroom, space, start, startRadius, end, endRadius, function, extendStart, extendEnd), nil
 }
@@ -14198,7 +14175,7 @@ var _cGShadingRetainErr error
 
 func tryCGShadingRetain(shading CGShadingRef) (CGShadingRef, error) {
 	if _cGShadingRetain == nil {
-		return 0, symbolCallError("CGShadingRetain", "10.2", _cGShadingRetainErr)
+		return *new(CGShadingRef), symbolCallError("CGShadingRetain", "10.2", _cGShadingRetainErr)
 	}
 	return _cGShadingRetain(shading), nil
 }
@@ -14282,7 +14259,7 @@ var _cGSizeCreateDictionaryRepresentationErr error
 
 func tryCGSizeCreateDictionaryRepresentation(size corefoundation.CGSize) (corefoundation.CFDictionaryRef, error) {
 	if _cGSizeCreateDictionaryRepresentation == nil {
-		return 0, symbolCallError("CGSizeCreateDictionaryRepresentation", "10.5", _cGSizeCreateDictionaryRepresentationErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CGSizeCreateDictionaryRepresentation", "10.5", _cGSizeCreateDictionaryRepresentationErr)
 	}
 	return _cGSizeCreateDictionaryRepresentation(size), nil
 }
@@ -14389,7 +14366,7 @@ var _cGWindowListCopyWindowInfoErr error
 
 func tryCGWindowListCopyWindowInfo(option CGWindowListOption, relativeToWindow CGWindowID) (corefoundation.CFArrayRef, error) {
 	if _cGWindowListCopyWindowInfo == nil {
-		return 0, symbolCallError("CGWindowListCopyWindowInfo", "10.5", _cGWindowListCopyWindowInfoErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CGWindowListCopyWindowInfo", "10.5", _cGWindowListCopyWindowInfoErr)
 	}
 	return _cGWindowListCopyWindowInfo(option, relativeToWindow), nil
 }
@@ -14410,7 +14387,7 @@ var _cGWindowListCreateErr error
 
 func tryCGWindowListCreate(option CGWindowListOption, relativeToWindow CGWindowID) (corefoundation.CFArrayRef, error) {
 	if _cGWindowListCreate == nil {
-		return 0, symbolCallError("CGWindowListCreate", "10.5", _cGWindowListCreateErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CGWindowListCreate", "10.5", _cGWindowListCreateErr)
 	}
 	return _cGWindowListCreate(option, relativeToWindow), nil
 }
@@ -14431,7 +14408,7 @@ var _cGWindowListCreateDescriptionFromArrayErr error
 
 func tryCGWindowListCreateDescriptionFromArray(windowArray corefoundation.CFArrayRef) (corefoundation.CFArrayRef, error) {
 	if _cGWindowListCreateDescriptionFromArray == nil {
-		return 0, symbolCallError("CGWindowListCreateDescriptionFromArray", "10.5", _cGWindowListCreateDescriptionFromArrayErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CGWindowListCreateDescriptionFromArray", "10.5", _cGWindowListCreateDescriptionFromArrayErr)
 	}
 	return _cGWindowListCreateDescriptionFromArray(windowArray), nil
 }
@@ -14452,7 +14429,7 @@ var _cGWindowListCreateImageErr error
 
 func tryCGWindowListCreateImage(screenBounds corefoundation.CGRect, listOption CGWindowListOption, windowID CGWindowID, imageOption CGWindowImageOption) (CGImageRef, error) {
 	if _cGWindowListCreateImage == nil {
-		return 0, symbolCallError("CGWindowListCreateImage", "", _cGWindowListCreateImageErr)
+		return *new(CGImageRef), symbolCallError("CGWindowListCreateImage", "", _cGWindowListCreateImageErr)
 	}
 	return _cGWindowListCreateImage(screenBounds, listOption, windowID, imageOption), nil
 }
@@ -14475,7 +14452,7 @@ var _cGWindowListCreateImageFromArrayErr error
 
 func tryCGWindowListCreateImageFromArray(screenBounds corefoundation.CGRect, windowArray corefoundation.CFArrayRef, imageOption CGWindowImageOption) (CGImageRef, error) {
 	if _cGWindowListCreateImageFromArray == nil {
-		return 0, symbolCallError("CGWindowListCreateImageFromArray", "", _cGWindowListCreateImageFromArrayErr)
+		return *new(CGImageRef), symbolCallError("CGWindowListCreateImageFromArray", "", _cGWindowListCreateImageFromArrayErr)
 	}
 	return _cGWindowListCreateImageFromArray(screenBounds, windowArray, imageOption), nil
 }
@@ -14763,7 +14740,6 @@ func init() {
 	registerFunc(&_cGDataProviderGetTypeID, &_cGDataProviderGetTypeIDErr, frameworkHandle, "CGDataProviderGetTypeID", "10.2")
 	registerFunc(&_cGDataProviderRelease, &_cGDataProviderReleaseErr, frameworkHandle, "CGDataProviderRelease", "10.0")
 	registerFunc(&_cGDataProviderRetain, &_cGDataProviderRetainErr, frameworkHandle, "CGDataProviderRetain", "10.0")
-	registerFunc(&_cGDirectDisplayCopyCurrentMetalDevice, &_cGDirectDisplayCopyCurrentMetalDeviceErr, frameworkHandle, "CGDirectDisplayCopyCurrentMetalDevice", "10.11")
 	registerFunc(&_cGDisplayBounds, &_cGDisplayBoundsErr, frameworkHandle, "CGDisplayBounds", "10.0")
 	registerFunc(&_cGDisplayCapture, &_cGDisplayCaptureErr, frameworkHandle, "CGDisplayCapture", "10.0")
 	registerFunc(&_cGDisplayCaptureWithOptions, &_cGDisplayCaptureWithOptionsErr, frameworkHandle, "CGDisplayCaptureWithOptions", "10.3")

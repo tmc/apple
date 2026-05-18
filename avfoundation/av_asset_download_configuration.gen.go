@@ -95,8 +95,8 @@ type IAVAssetDownloadConfiguration interface {
 	// Topic: Accessing configuration details
 
 	// A data value that represents the asset’s artwork.
-	ArtworkData() foundation.INSData
-	SetArtworkData(value foundation.INSData)
+	ArtworkData() foundation.NSData
+	SetArtworkData(value foundation.NSData)
 	// The configuration for the primary content that the task downloads.
 	PrimaryContentConfiguration() IAVAssetDownloadContentConfiguration
 	// The configuration for the auxiliary content that the task downloads.
@@ -171,11 +171,11 @@ func (a AVAssetDownloadConfiguration) SetInterstitialMediaSelectionCriteriaForMe
 // The system displays this image in the usage pane of the Settings app.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadConfiguration/artworkData
-func (a AVAssetDownloadConfiguration) ArtworkData() foundation.INSData {
+func (a AVAssetDownloadConfiguration) ArtworkData() foundation.NSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("artworkData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (a AVAssetDownloadConfiguration) SetArtworkData(value foundation.INSData) {
+func (a AVAssetDownloadConfiguration) SetArtworkData(value foundation.NSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setArtworkData:"), value)
 }
 

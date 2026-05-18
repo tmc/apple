@@ -15,6 +15,51 @@ type MTLRenderPipelineState interface {
 	objectivec.IObject
 	MTLAllocation
 
+	// Returns the length of an imageblock’s memory for the specified imageblock dimensions.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/imageblockMemoryLength(forDimensions:)
+	ImageblockMemoryLengthForDimensions(imageblockDimensions MTLSize) uint
+
+	// Creates a function handle for a shader.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(function:stage:)-7uvul
+	FunctionHandleWithFunctionStage(function MTLFunction, stage MTLRenderStages) MTLFunctionHandle
+
+	// Creates a new visible function table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeVisibleFunctionTable(descriptor:stage:)
+	NewVisibleFunctionTableWithDescriptorStage(descriptor IMTLVisibleFunctionTableDescriptor, stage MTLRenderStages) MTLVisibleFunctionTable
+
+	// Creates a new intersection function table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeIntersectionFunctionTable(descriptor:stage:)
+	NewIntersectionFunctionTableWithDescriptorStage(descriptor IMTLIntersectionFunctionTableDescriptor, stage MTLRenderStages) MTLIntersectionFunctionTable
+
+	// Creates a new pipeline state that’s a copy of the current pipeline state with additional shaders.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineState(additionalBinaryFunctions:)-84te1
+	NewRenderPipelineStateWithAdditionalBinaryFunctionsError(additionalBinaryFunctions IMTLRenderPipelineFunctionsDescriptor) (MTLRenderPipelineState, error)
+
+	// Obtains the function handle for a specific function this pipeline state links at the binary level.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(function:stage:)-1pgxo
+	FunctionHandleWithBinaryFunctionStage(function MTL4BinaryFunction, stage MTLRenderStages) MTLFunctionHandle
+
+	// Obtains a function handle for the a specific function this pipeline links at the Metal IR level.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(withName:stage:)
+	FunctionHandleWithNameStage(name string, stage MTLRenderStages) MTLFunctionHandle
+
+	// Creates a render pipeline descriptor from this pipeline that you can use for pipeline specialization.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineDescriptorForSpecialization()
+	NewRenderPipelineDescriptorForSpecialization() IMTL4PipelineDescriptor
+
+	// Creates a new render pipeline state by adding binary functions to each stage of this pipeline state.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineState(additionalBinaryFunctions:)-49r1w
+	NewRenderPipelineStateWithBinaryFunctionsError(binaryFunctionsDescriptor IMTL4RenderPipelineBinaryFunctionsDescriptor) (MTLRenderPipelineState, error)
+
 	// The device instance that creates the pipeline state.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/device
@@ -70,11 +115,6 @@ type MTLRenderPipelineState interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/imageblockSampleLength
 	ImageblockSampleLength() uint
 
-	// Returns the length of an imageblock’s memory for the specified imageblock dimensions.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/imageblockMemoryLength(forDimensions:)
-	ImageblockMemoryLengthForDimensions(imageblockDimensions MTLSize) uint
-
 	// A Boolean value that indicates whether the render pipeline supports encoding commands into an indirect command buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/supportIndirectCommandBuffers
@@ -85,65 +125,25 @@ type MTLRenderPipelineState interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/shaderValidation
 	ShaderValidation() MTLShaderValidation
 
-	// Creates a function handle for a shader.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(function:stage:)-7uvul
-	FunctionHandleWithFunctionStage(function MTLFunction, stage MTLRenderStages) MTLFunctionHandle
-
-	// Creates a new visible function table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeVisibleFunctionTable(descriptor:stage:)
-	NewVisibleFunctionTableWithDescriptorStage(descriptor IMTLVisibleFunctionTableDescriptor, stage MTLRenderStages) MTLVisibleFunctionTable
-
-	// Creates a new intersection function table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeIntersectionFunctionTable(descriptor:stage:)
-	NewIntersectionFunctionTableWithDescriptorStage(descriptor IMTLIntersectionFunctionTableDescriptor, stage MTLRenderStages) MTLIntersectionFunctionTable
-
-	// Creates a new pipeline state that’s a copy of the current pipeline state with additional shaders.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineState(additionalBinaryFunctions:)-84te1
-	NewRenderPipelineStateWithAdditionalBinaryFunctionsError(additionalBinaryFunctions IMTLRenderPipelineFunctionsDescriptor) (MTLRenderPipelineState, error)
-
 	// Obtains a reflection object for this render pipeline.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/reflection
 	Reflection() IMTLRenderPipelineReflection
 
-	// RequiredThreadsPerMeshThreadgroup protocol.
+	// # Discussion  The required size of every mesh shader threadgroup.  This value is set in MTLMeshRenderPipelineDescriptor.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerMeshThreadgroup
 	RequiredThreadsPerMeshThreadgroup() MTLSize
 
-	// RequiredThreadsPerObjectThreadgroup protocol.
+	// # Discussion  The required size of every object shader threadgroup.  This value is set in MTLMeshRenderPipelineDescriptor.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerObjectThreadgroup
 	RequiredThreadsPerObjectThreadgroup() MTLSize
 
-	// RequiredThreadsPerTileThreadgroup protocol.
+	// # Discussion  The required size of every tile shader threadgroup.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerTileThreadgroup
 	RequiredThreadsPerTileThreadgroup() MTLSize
-
-	// Obtains the function handle for a specific function this pipeline state links at the binary level.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(function:stage:)-1pgxo
-	FunctionHandleWithBinaryFunctionStage(function MTL4BinaryFunction, stage MTLRenderStages) MTLFunctionHandle
-
-	// Obtains a function handle for the a specific function this pipeline links at the Metal IR level.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(withName:stage:)
-	FunctionHandleWithNameStage(name string, stage MTLRenderStages) MTLFunctionHandle
-
-	// Creates a render pipeline descriptor from this pipeline that you can use for pipeline specialization.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineDescriptorForSpecialization()
-	NewRenderPipelineDescriptorForSpecialization() IMTL4PipelineDescriptor
-
-	// Creates a new render pipeline state by adding binary functions to each stage of this pipeline state.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineState(additionalBinaryFunctions:)-49r1w
-	NewRenderPipelineStateWithBinaryFunctionsError(binaryFunctionsDescriptor IMTL4RenderPipelineBinaryFunctionsDescriptor) (MTLRenderPipelineState, error)
 }
 
 // MTLRenderPipelineStateObject wraps an existing Objective-C object that conforms to the MTLRenderPipelineState protocol.
@@ -161,104 +161,6 @@ func MTLRenderPipelineStateObjectFromID(id objc.ID) MTLRenderPipelineStateObject
 	return MTLRenderPipelineStateObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The device instance that creates the pipeline state.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/device
-func (o MTLRenderPipelineStateObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// A string that helps you identify the render pipeline state during
-// debugging.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/label
-func (o MTLRenderPipelineStateObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// An unique identifier that represents the pipeline state, which you can add
-// to an argument buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/gpuResourceID
-func (o MTLRenderPipelineStateObject) GpuResourceID() MTLResourceID {
-	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
-}
-
-// The largest number of threads the pipeline state can have in a single
-// object shader threadgroup.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerObjectThreadgroup
-func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerObjectThreadgroup() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerObjectThreadgroup"))
-	return rv
-}
-
-// The number of threads the render pass applies to a SIMD group for an object
-// shader.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/objectThreadExecutionWidth
-func (o MTLRenderPipelineStateObject) ObjectThreadExecutionWidth() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("objectThreadExecutionWidth"))
-	return rv
-}
-
-// The largest number of threads the pipeline state can have in a single mesh
-// shader threadgroup.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerMeshThreadgroup
-func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerMeshThreadgroup() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerMeshThreadgroup"))
-	return rv
-}
-
-// The largest number of threadgroups the pipeline state can have in a single
-// mesh shader grid.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadgroupsPerMeshGrid
-func (o MTLRenderPipelineStateObject) MaxTotalThreadgroupsPerMeshGrid() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadgroupsPerMeshGrid"))
-	return rv
-}
-
-// The number of threads the render pass applies to a SIMD group for a mesh
-// shader.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/meshThreadExecutionWidth
-func (o MTLRenderPipelineStateObject) MeshThreadExecutionWidth() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("meshThreadExecutionWidth"))
-	return rv
-}
-
-// The largest number of threads the pipeline state can have in a single tile
-// shader threadgroup.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerThreadgroup
-func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerThreadgroup() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerThreadgroup"))
-	return rv
-}
-
-// A Boolean value that indicates whether the pipeline state needs a
-// threadgroup’s size to equal a tile’s size.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/threadgroupSizeMatchesTileSize
-func (o MTLRenderPipelineStateObject) ThreadgroupSizeMatchesTileSize() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("threadgroupSizeMatchesTileSize"))
-	return rv
-}
-
-// The memory size, in byes, of the render pipeline’s imageblock for a
-// single sample.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/imageblockSampleLength
-func (o MTLRenderPipelineStateObject) ImageblockSampleLength() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("imageblockSampleLength"))
-	return rv
 }
 
 // Returns the length of an imageblock’s memory for the specified imageblock
@@ -290,23 +192,6 @@ func (o MTLRenderPipelineStateObject) ImageblockSampleLength() uint {
 // [Metal Feature Set Tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
 func (o MTLRenderPipelineStateObject) ImageblockMemoryLengthForDimensions(imageblockDimensions MTLSize) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("imageblockMemoryLengthForDimensions:"), imageblockDimensions)
-	return rv
-}
-
-// A Boolean value that indicates whether the render pipeline supports
-// encoding commands into an indirect command buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/supportIndirectCommandBuffers
-func (o MTLRenderPipelineStateObject) SupportIndirectCommandBuffers() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportIndirectCommandBuffers"))
-	return rv
-}
-
-// The current state of shader validation for the pipeline.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/shaderValidation
-func (o MTLRenderPipelineStateObject) ShaderValidation() MTLShaderValidation {
-	rv := objc.Send[MTLShaderValidation](o.ID, objc.Sel("shaderValidation"))
 	return rv
 }
 
@@ -371,32 +256,6 @@ func (o MTLRenderPipelineStateObject) NewRenderPipelineStateWithAdditionalBinary
 		return nil, err
 	}
 	return MTLRenderPipelineStateObjectFromID(rv), nil
-}
-
-// Obtains a reflection object for this render pipeline.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/reflection
-func (o MTLRenderPipelineStateObject) Reflection() IMTLRenderPipelineReflection {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
-	return MTLRenderPipelineReflectionFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerMeshThreadgroup
-func (o MTLRenderPipelineStateObject) RequiredThreadsPerMeshThreadgroup() MTLSize {
-	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerMeshThreadgroup"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerObjectThreadgroup
-func (o MTLRenderPipelineStateObject) RequiredThreadsPerObjectThreadgroup() MTLSize {
-	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerObjectThreadgroup"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerTileThreadgroup
-func (o MTLRenderPipelineStateObject) RequiredThreadsPerTileThreadgroup() MTLSize {
-	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerTileThreadgroup"))
-	return rv
 }
 
 // Obtains the function handle for a specific function this pipeline state
@@ -492,4 +351,195 @@ func (o MTLRenderPipelineStateObject) NewRenderPipelineStateWithBinaryFunctionsE
 func (o MTLRenderPipelineStateObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
+}
+
+// The device instance that creates the pipeline state.
+//
+// # Discussion
+//
+// You can only use the pipeline state object with this device object.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/device
+func (o MTLRenderPipelineStateObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
+// A string that helps you identify the render pipeline state during
+// debugging.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/label
+func (o MTLRenderPipelineStateObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// An unique identifier that represents the pipeline state, which you can add
+// to an argument buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/gpuResourceID
+func (o MTLRenderPipelineStateObject) GpuResourceID() MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
+	return MTLResourceID(rv)
+}
+
+// The largest number of threads the pipeline state can have in a single
+// object shader threadgroup.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerObjectThreadgroup
+func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerObjectThreadgroup() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerObjectThreadgroup"))
+	return uint(rv)
+}
+
+// The number of threads the render pass applies to a SIMD group for an object
+// shader.
+//
+// # Discussion
+//
+// You can access the value of this property in your shader code by adding an
+// integer parameter with the `[[threads_per_simdgroup]]` attribute. For more
+// information about this attribute, see the [Metal Shading Language
+// Specification (PDF)].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/objectThreadExecutionWidth
+//
+// [Metal Shading Language Specification (PDF)]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
+func (o MTLRenderPipelineStateObject) ObjectThreadExecutionWidth() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("objectThreadExecutionWidth"))
+	return uint(rv)
+}
+
+// The largest number of threads the pipeline state can have in a single mesh
+// shader threadgroup.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerMeshThreadgroup
+func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerMeshThreadgroup() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerMeshThreadgroup"))
+	return uint(rv)
+}
+
+// The largest number of threadgroups the pipeline state can have in a single
+// mesh shader grid.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadgroupsPerMeshGrid
+func (o MTLRenderPipelineStateObject) MaxTotalThreadgroupsPerMeshGrid() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadgroupsPerMeshGrid"))
+	return uint(rv)
+}
+
+// The number of threads the render pass applies to a SIMD group for a mesh
+// shader.
+//
+// # Discussion
+//
+// You can access the value of this property in your shader code by adding an
+// integer parameter with the `[[threads_per_simdgroup]]` attribute. For more
+// information about this attribute, see the [Metal Shading Language
+// Specification (PDF)].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/meshThreadExecutionWidth
+//
+// [Metal Shading Language Specification (PDF)]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
+func (o MTLRenderPipelineStateObject) MeshThreadExecutionWidth() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("meshThreadExecutionWidth"))
+	return uint(rv)
+}
+
+// The largest number of threads the pipeline state can have in a single tile
+// shader threadgroup.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerThreadgroup
+func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerThreadgroup() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerThreadgroup"))
+	return uint(rv)
+}
+
+// A Boolean value that indicates whether the pipeline state needs a
+// threadgroup’s size to equal a tile’s size.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/threadgroupSizeMatchesTileSize
+func (o MTLRenderPipelineStateObject) ThreadgroupSizeMatchesTileSize() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("threadgroupSizeMatchesTileSize"))
+	return bool(rv)
+}
+
+// The memory size, in byes, of the render pipeline’s imageblock for a
+// single sample.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/imageblockSampleLength
+func (o MTLRenderPipelineStateObject) ImageblockSampleLength() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("imageblockSampleLength"))
+	return uint(rv)
+}
+
+// A Boolean value that indicates whether the render pipeline supports
+// encoding commands into an indirect command buffer.
+//
+// # Discussion
+//
+// This property gets its value by copying from the
+// [SupportIndirectCommandBuffers] property of the
+// [MTLRenderPipelineDescriptor] instance as the GPU device creates the
+// pipeline state.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/supportIndirectCommandBuffers
+func (o MTLRenderPipelineStateObject) SupportIndirectCommandBuffers() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("supportIndirectCommandBuffers"))
+	return bool(rv)
+}
+
+// The current state of shader validation for the pipeline.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/shaderValidation
+func (o MTLRenderPipelineStateObject) ShaderValidation() MTLShaderValidation {
+	rv := objc.Send[MTLShaderValidation](o.ID, objc.Sel("shaderValidation"))
+	return MTLShaderValidation(rv)
+}
+
+// Obtains a reflection object for this render pipeline.
+//
+// # Discussion
+//
+// When you create the pipeline through an [MTLDevice] instance, reflection is
+// `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/reflection
+func (o MTLRenderPipelineStateObject) Reflection() IMTLRenderPipelineReflection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
+	return MTLRenderPipelineReflectionFromID(rv)
+}
+
+// # Discussion
+//
+// The required size of every mesh shader threadgroup.
+//
+// This value is set in MTLMeshRenderPipelineDescriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerMeshThreadgroup
+func (o MTLRenderPipelineStateObject) RequiredThreadsPerMeshThreadgroup() MTLSize {
+	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerMeshThreadgroup"))
+	return MTLSize(rv)
+}
+
+// # Discussion
+//
+// The required size of every object shader threadgroup.
+//
+// This value is set in MTLMeshRenderPipelineDescriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerObjectThreadgroup
+func (o MTLRenderPipelineStateObject) RequiredThreadsPerObjectThreadgroup() MTLSize {
+	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerObjectThreadgroup"))
+	return MTLSize(rv)
+}
+
+// # Discussion
+//
+// The required size of every tile shader threadgroup.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerTileThreadgroup
+func (o MTLRenderPipelineStateObject) RequiredThreadsPerTileThreadgroup() MTLSize {
+	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerTileThreadgroup"))
+	return MTLSize(rv)
 }

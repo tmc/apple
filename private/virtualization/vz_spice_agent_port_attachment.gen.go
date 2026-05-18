@@ -62,14 +62,14 @@ type IVZSpiceAgentPortAttachment interface {
 }
 
 // Init initializes the instance.
-func (s VZSpiceAgentPortAttachment) Init() VZSpiceAgentPortAttachment {
-	rv := objc.Send[VZSpiceAgentPortAttachment](s.ID, objc.Sel("init"))
+func (v VZSpiceAgentPortAttachment) Init() VZSpiceAgentPortAttachment {
+	rv := objc.Send[VZSpiceAgentPortAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s VZSpiceAgentPortAttachment) Autorelease() VZSpiceAgentPortAttachment {
-	rv := objc.Send[VZSpiceAgentPortAttachment](s.ID, objc.Sel("autorelease"))
+func (v VZSpiceAgentPortAttachment) Autorelease() VZSpiceAgentPortAttachment {
+	rv := objc.Send[VZSpiceAgentPortAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

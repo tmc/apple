@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -103,8 +104,8 @@ type ICAValueFunction interface {
 	Name() CAValueFunctionName
 
 	// Defines the value the receiver uses to start interpolation.
-	FromValue() objectivec.IObject
-	SetFromValue(value objectivec.IObject)
+	FromValue() unsafe.Pointer
+	SetFromValue(value unsafe.Pointer)
 	// The mathematical constant pi (π), approximately equal to 3.14159.
 	Pi() float32
 	SetPi(value float32)
@@ -113,8 +114,8 @@ type ICAValueFunction interface {
 	// A value function scales by the input value along all three axis. Animations using this value transform function must provide animation values in an
 	Scale() CAValueFunctionName
 	// Defines the value the receiver uses to end interpolation.
-	ToValue() objectivec.IObject
-	SetToValue(value objectivec.IObject)
+	ToValue() unsafe.Pointer
+	SetToValue(value unsafe.Pointer)
 	// A value function that translates by the input values along all three axis. Animations using this value transform function must provide animation values in an
 	Translate() CAValueFunctionName
 	// An optional value function that is applied to interpolated values.
@@ -181,11 +182,11 @@ func (v CAValueFunction) Name() CAValueFunctionName {
 // Defines the value the receiver uses to start interpolation.
 //
 // See: https://developer.apple.com/documentation/quartzcore/cabasicanimation/fromvalue
-func (v CAValueFunction) FromValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("fromValue"))
-	return objectivec.Object{ID: rv}
+func (v CAValueFunction) FromValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("fromValue"))
+	return rv
 }
-func (v CAValueFunction) SetFromValue(value objectivec.IObject) {
+func (v CAValueFunction) SetFromValue(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFromValue:"), value)
 }
 
@@ -221,11 +222,11 @@ func (v CAValueFunction) Scale() CAValueFunctionName {
 // Defines the value the receiver uses to end interpolation.
 //
 // See: https://developer.apple.com/documentation/quartzcore/cabasicanimation/tovalue
-func (v CAValueFunction) ToValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("toValue"))
-	return objectivec.Object{ID: rv}
+func (v CAValueFunction) ToValue() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("toValue"))
+	return rv
 }
-func (v CAValueFunction) SetToValue(value objectivec.IObject) {
+func (v CAValueFunction) SetToValue(value unsafe.Pointer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setToValue:"), value)
 }
 

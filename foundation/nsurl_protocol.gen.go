@@ -75,13 +75,13 @@ func (uc URLProtocolClass) Alloc() URLProtocol {
 // - Initialization — Override [InitWithTaskCachedResponseClient] instead of
 // or in addition to [InitWithRequestCachedResponseClient]. Also override the
 // task-based [CanInitWithTask] instead of or in addition to the request-based
-// [CanInitWithRequest].
+// [CanInitWithTask].
 //
 // Objective-C:
 //
 // - Initialization — Override [CanInitWithTask] and
 // [InitWithTaskCachedResponseClient] instead of or in addition to
-// [CanInitWithRequest] and [InitWithRequestCachedResponseClient].
+// [CanInitWithTask] and [InitWithRequestCachedResponseClient].
 //
 // # Creating protocol objects
 //
@@ -357,9 +357,9 @@ func (u URLProtocol) StopLoading() {
 // Register any custom [NSURLProtocol] subclasses prior to making URL
 // requests. When the URL loading system begins to load a request, it tries to
 // initialize each registered protocol class with the specified request. The
-// first [NSURLProtocol] subclass to return true when sent a
-// [CanInitWithRequest] message is used to load the request. There is no
-// guarantee that all registered protocol classes will be consulted.
+// first [NSURLProtocol] subclass to return true when sent a [CanInitWithTask]
+// message is used to load the request. There is no guarantee that all
+// registered protocol classes will be consulted.
 //
 // Classes are consulted in the reverse order of their registration. A similar
 // design governs the process to create the canonical form of a request with

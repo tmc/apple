@@ -100,12 +100,12 @@ type IVZMacMachineIdentifier interface {
 	// Topic: Creating a machine identifier
 
 	// Create a machine identifier described by the specified data representation.
-	InitWithDataRepresentation(dataRepresentation foundation.INSData) VZMacMachineIdentifier
+	InitWithDataRepresentation(dataRepresentation foundation.NSData) VZMacMachineIdentifier
 
 	// Topic: Machine data representation
 
 	// Returns the opaque data representation of the machine identifier.
-	DataRepresentation() foundation.INSData
+	DataRepresentation() foundation.NSData
 }
 
 // Init initializes the instance.
@@ -132,7 +132,7 @@ func NewVZMacMachineIdentifier() VZMacMachineIdentifier {
 // dataRepresentation: The opaque data representation of the machine identifier.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/init(dataRepresentation:)
-func NewMacMachineIdentifierWithDataRepresentation(dataRepresentation foundation.INSData) VZMacMachineIdentifier {
+func NewMacMachineIdentifierWithDataRepresentation(dataRepresentation foundation.NSData) VZMacMachineIdentifier {
 	instance := getVZMacMachineIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataRepresentation:"), dataRepresentation)
 	return VZMacMachineIdentifierFromID(rv)
@@ -143,7 +143,7 @@ func NewMacMachineIdentifierWithDataRepresentation(dataRepresentation foundation
 // dataRepresentation: The opaque data representation of the machine identifier.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/init(dataRepresentation:)
-func (m VZMacMachineIdentifier) InitWithDataRepresentation(dataRepresentation foundation.INSData) VZMacMachineIdentifier {
+func (m VZMacMachineIdentifier) InitWithDataRepresentation(dataRepresentation foundation.NSData) VZMacMachineIdentifier {
 	rv := objc.Send[VZMacMachineIdentifier](m.ID, objc.Sel("initWithDataRepresentation:"), dataRepresentation)
 	return rv
 }
@@ -156,7 +156,7 @@ func (m VZMacMachineIdentifier) InitWithDataRepresentation(dataRepresentation fo
 // [InitWithDataRepresentation].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/dataRepresentation
-func (m VZMacMachineIdentifier) DataRepresentation() foundation.INSData {
+func (m VZMacMachineIdentifier) DataRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

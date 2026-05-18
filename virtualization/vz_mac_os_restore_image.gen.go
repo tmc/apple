@@ -105,7 +105,7 @@ type IVZMacOSRestoreImage interface {
 	// The operating system version this restore image contains.
 	OperatingSystemVersion() foundation.NSOperatingSystemVersion
 	// The URL of this restore image.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// The Mac hardware model.
 	HardwareModel() IVZMacHardwareModel
@@ -163,7 +163,7 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchLatestSupportedWi
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/image(from:)
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadFileURLCompletionHandler(fileURL foundation.INSURL, completionHandler MacOSRestoreImageErrorHandler) {
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadFileURLCompletionHandler(fileURL foundation.NSURL, completionHandler MacOSRestoreImageErrorHandler) {
 	_block1, _ := NewMacOSRestoreImageErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("loadFileURL:completionHandler:"), fileURL, _block1)
 }
@@ -214,7 +214,7 @@ func (m VZMacOSRestoreImage) OperatingSystemVersion() foundation.NSOperatingSyst
 // property to a network URL for the installation media file.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/url
-func (m VZMacOSRestoreImage) URL() foundation.INSURL {
+func (m VZMacOSRestoreImage) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -237,7 +237,7 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LatestSupported() VZMa
 	rv := objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("fetchLatestSupportedWithCompletionHandler:"))
 	return VZMacOSRestoreImageFromID(objc.ID(rv))
 }
-func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) SetLatestSupported(value VZMacOSRestoreImage) {
+func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) SetFetchLatestSupportedWithCompletionHandler(value VZMacOSRestoreImage) {
 	objc.Send[struct{}](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("setFetchLatestSupportedWithCompletionHandler::"), value)
 }
 
@@ -262,7 +262,7 @@ func (mc VZMacOSRestoreImageClass) FetchLatestSupported(ctx context.Context) (*V
 
 // LoadFileURL is a synchronous wrapper around [VZMacOSRestoreImage.LoadFileURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (mc VZMacOSRestoreImageClass) LoadFileURL(ctx context.Context, fileURL foundation.INSURL) (*VZMacOSRestoreImage, error) {
+func (mc VZMacOSRestoreImageClass) LoadFileURL(ctx context.Context, fileURL foundation.NSURL) (*VZMacOSRestoreImage, error) {
 	type result struct {
 		val *VZMacOSRestoreImage
 		err error

@@ -63,14 +63,14 @@ type IMLNeuralNetworkMLComputeLayer interface {
 }
 
 // Init initializes the instance.
-func (n MLNeuralNetworkMLComputeLayer) Init() MLNeuralNetworkMLComputeLayer {
-	rv := objc.Send[MLNeuralNetworkMLComputeLayer](n.ID, objc.Sel("init"))
+func (m MLNeuralNetworkMLComputeLayer) Init() MLNeuralNetworkMLComputeLayer {
+	rv := objc.Send[MLNeuralNetworkMLComputeLayer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNeuralNetworkMLComputeLayer) Autorelease() MLNeuralNetworkMLComputeLayer {
-	rv := objc.Send[MLNeuralNetworkMLComputeLayer](n.ID, objc.Sel("autorelease"))
+func (m MLNeuralNetworkMLComputeLayer) Autorelease() MLNeuralNetworkMLComputeLayer {
+	rv := objc.Send[MLNeuralNetworkMLComputeLayer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

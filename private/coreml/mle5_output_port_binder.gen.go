@@ -130,12 +130,12 @@ type IMLE5OutputPortBinder interface {
 
 	// Topic: Methods
 
-	_copyOutputFromPortToOutputBackingFeatureDescriptionError(port E5rt_io_portRef, backing objectivec.IObject, description objectivec.IObject) (bool, error)
+	_copyOutputFromPortToOutputBackingFeatureDescriptionError(port E5rtIOPortRef, backing objectivec.IObject, description objectivec.IObject) (bool, error)
 	_directModeForOutputBackingError(backing objectivec.IObject) (byte, error)
 	_directlyBindOutputBackingError(backing objectivec.IObject) (bool, error)
 	_makeFeatureValueAndReturnError() (objectivec.IObject, error)
 	_makeFeatureValueFromOutputBackingError(backing objectivec.IObject) (objectivec.IObject, error)
-	_makeFeatureValueFromPortFeatureDescriptionError(port E5rt_io_portRef, description objectivec.IObject) (objectivec.IObject, error)
+	_makeFeatureValueFromPortFeatureDescriptionError(port E5rtIOPortRef, description objectivec.IObject) (objectivec.IObject, error)
 	_outputModeForOutputBackingError(backing objectivec.IObject) (int64, error)
 	_reusableForCopyBoundOutputBacking() bool
 	_reusableForDirectlyBoundOutputBacking(backing objectivec.IObject) bool
@@ -150,11 +150,11 @@ type IMLE5OutputPortBinder interface {
 	SetOutputBackingWasDirectlyBound(value bool)
 	PixelBufferPool() IMLPixelBufferPool
 	SetPixelBufferPool(value IMLPixelBufferPool)
-	PortHandle() E5rt_io_portRef
+	PortHandle() E5rtIOPortRef
 	Reset()
 	ReusableForOutputBackingWillBindDirectly(backing objectivec.IObject) (bool, bool)
 	SerialQueue() objectivec.Object
-	InitWithPortFeatureDescription(port E5rt_io_portRef, description objectivec.IObject) MLE5OutputPortBinder
+	InitWithPortFeatureDescription(port E5rtIOPortRef, description objectivec.IObject) MLE5OutputPortBinder
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -162,14 +162,14 @@ type IMLE5OutputPortBinder interface {
 }
 
 // Init initializes the instance.
-func (e MLE5OutputPortBinder) Init() MLE5OutputPortBinder {
-	rv := objc.Send[MLE5OutputPortBinder](e.ID, objc.Sel("init"))
+func (m MLE5OutputPortBinder) Init() MLE5OutputPortBinder {
+	rv := objc.Send[MLE5OutputPortBinder](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e MLE5OutputPortBinder) Autorelease() MLE5OutputPortBinder {
-	rv := objc.Send[MLE5OutputPortBinder](e.ID, objc.Sel("autorelease"))
+func (m MLE5OutputPortBinder) Autorelease() MLE5OutputPortBinder {
+	rv := objc.Send[MLE5OutputPortBinder](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -181,16 +181,16 @@ func NewMLE5OutputPortBinder() MLE5OutputPortBinder {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/initWithPort:featureDescription:
-func NewE5OutputPortBinderWithPortFeatureDescription(port E5rt_io_portRef, description objectivec.IObject) MLE5OutputPortBinder {
+func NewE5OutputPortBinderWithPortFeatureDescription(port E5rtIOPortRef, description objectivec.IObject) MLE5OutputPortBinder {
 	instance := getMLE5OutputPortBinderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
 	return MLE5OutputPortBinderFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_copyOutputFromPort:toOutputBacking:featureDescription:error:
-func (e MLE5OutputPortBinder) _copyOutputFromPortToOutputBackingFeatureDescriptionError(port E5rt_io_portRef, backing objectivec.IObject, description objectivec.IObject) (bool, error) {
+func (m MLE5OutputPortBinder) _copyOutputFromPortToOutputBackingFeatureDescriptionError(port E5rtIOPortRef, backing objectivec.IObject, description objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("_copyOutputFromPort:toOutputBacking:featureDescription:error:"), port, backing, description, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_copyOutputFromPort:toOutputBacking:featureDescription:error:"), port, backing, description, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -203,23 +203,23 @@ func (e MLE5OutputPortBinder) _copyOutputFromPortToOutputBackingFeatureDescripti
 }
 
 // CopyOutputFromPortToOutputBackingFeatureDescriptionError is an exported wrapper for the private method _copyOutputFromPortToOutputBackingFeatureDescriptionError.
-func (e MLE5OutputPortBinder) CopyOutputFromPortToOutputBackingFeatureDescriptionError(port E5rt_io_portRef, backing objectivec.IObject, description objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_copyOutputFromPort:toOutputBacking:featureDescription:error:")) {
+func (m MLE5OutputPortBinder) CopyOutputFromPortToOutputBackingFeatureDescriptionError(port E5rtIOPortRef, backing objectivec.IObject, description objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_copyOutputFromPort:toOutputBacking:featureDescription:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_copyOutputFromPort:toOutputBacking:featureDescription:error:"}
 		return false, err
 	}
-	return e._copyOutputFromPortToOutputBackingFeatureDescriptionError(port, backing, description)
+	return m._copyOutputFromPortToOutputBackingFeatureDescriptionError(port, backing, description)
 }
 
 // CanCopyOutputFromPortToOutputBackingFeatureDescriptionError reports whether the receiver responds to the private selector _copyOutputFromPort:toOutputBacking:featureDescription:error:.
-func (e MLE5OutputPortBinder) CanCopyOutputFromPortToOutputBackingFeatureDescriptionError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_copyOutputFromPort:toOutputBacking:featureDescription:error:"))
+func (m MLE5OutputPortBinder) CanCopyOutputFromPortToOutputBackingFeatureDescriptionError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_copyOutputFromPort:toOutputBacking:featureDescription:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_directModeForOutputBacking:error:
-func (e MLE5OutputPortBinder) _directModeForOutputBackingError(backing objectivec.IObject) (byte, error) {
+func (m MLE5OutputPortBinder) _directModeForOutputBackingError(backing objectivec.IObject) (byte, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[byte](e.ID, objc.Sel("_directModeForOutputBacking:error:"), backing, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[byte](m.ID, objc.Sel("_directModeForOutputBacking:error:"), backing, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return 0, foundation.NSErrorFrom(errorPtr)
@@ -229,23 +229,23 @@ func (e MLE5OutputPortBinder) _directModeForOutputBackingError(backing objective
 }
 
 // DirectModeForOutputBackingError is an exported wrapper for the private method _directModeForOutputBackingError.
-func (e MLE5OutputPortBinder) DirectModeForOutputBackingError(backing objectivec.IObject) (byte, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_directModeForOutputBacking:error:")) {
+func (m MLE5OutputPortBinder) DirectModeForOutputBackingError(backing objectivec.IObject) (byte, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_directModeForOutputBacking:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_directModeForOutputBacking:error:"}
 		return 0, err
 	}
-	return e._directModeForOutputBackingError(backing)
+	return m._directModeForOutputBackingError(backing)
 }
 
 // CanDirectModeForOutputBackingError reports whether the receiver responds to the private selector _directModeForOutputBacking:error:.
-func (e MLE5OutputPortBinder) CanDirectModeForOutputBackingError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_directModeForOutputBacking:error:"))
+func (m MLE5OutputPortBinder) CanDirectModeForOutputBackingError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_directModeForOutputBacking:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_directlyBindOutputBacking:error:
-func (e MLE5OutputPortBinder) _directlyBindOutputBackingError(backing objectivec.IObject) (bool, error) {
+func (m MLE5OutputPortBinder) _directlyBindOutputBackingError(backing objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("_directlyBindOutputBacking:error:"), backing, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_directlyBindOutputBacking:error:"), backing, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -258,23 +258,23 @@ func (e MLE5OutputPortBinder) _directlyBindOutputBackingError(backing objectivec
 }
 
 // DirectlyBindOutputBackingError is an exported wrapper for the private method _directlyBindOutputBackingError.
-func (e MLE5OutputPortBinder) DirectlyBindOutputBackingError(backing objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_directlyBindOutputBacking:error:")) {
+func (m MLE5OutputPortBinder) DirectlyBindOutputBackingError(backing objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_directlyBindOutputBacking:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_directlyBindOutputBacking:error:"}
 		return false, err
 	}
-	return e._directlyBindOutputBackingError(backing)
+	return m._directlyBindOutputBackingError(backing)
 }
 
 // CanDirectlyBindOutputBackingError reports whether the receiver responds to the private selector _directlyBindOutputBacking:error:.
-func (e MLE5OutputPortBinder) CanDirectlyBindOutputBackingError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_directlyBindOutputBacking:error:"))
+func (m MLE5OutputPortBinder) CanDirectlyBindOutputBackingError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_directlyBindOutputBacking:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_makeFeatureValueAndReturnError:
-func (e MLE5OutputPortBinder) _makeFeatureValueAndReturnError() (objectivec.IObject, error) {
+func (m MLE5OutputPortBinder) _makeFeatureValueAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_makeFeatureValueAndReturnError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_makeFeatureValueAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -284,23 +284,23 @@ func (e MLE5OutputPortBinder) _makeFeatureValueAndReturnError() (objectivec.IObj
 }
 
 // MakeFeatureValueAndReturnError is an exported wrapper for the private method _makeFeatureValueAndReturnError.
-func (e MLE5OutputPortBinder) MakeFeatureValueAndReturnError() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_makeFeatureValueAndReturnError:")) {
+func (m MLE5OutputPortBinder) MakeFeatureValueAndReturnError() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_makeFeatureValueAndReturnError:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_makeFeatureValueAndReturnError:"}
 		return nil, err
 	}
-	return e._makeFeatureValueAndReturnError()
+	return m._makeFeatureValueAndReturnError()
 }
 
 // CanMakeFeatureValueAndReturnError reports whether the receiver responds to the private selector _makeFeatureValueAndReturnError:.
-func (e MLE5OutputPortBinder) CanMakeFeatureValueAndReturnError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_makeFeatureValueAndReturnError:"))
+func (m MLE5OutputPortBinder) CanMakeFeatureValueAndReturnError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_makeFeatureValueAndReturnError:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_makeFeatureValueFromOutputBacking:error:
-func (e MLE5OutputPortBinder) _makeFeatureValueFromOutputBackingError(backing objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5OutputPortBinder) _makeFeatureValueFromOutputBackingError(backing objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_makeFeatureValueFromOutputBacking:error:"), backing, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_makeFeatureValueFromOutputBacking:error:"), backing, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -310,23 +310,23 @@ func (e MLE5OutputPortBinder) _makeFeatureValueFromOutputBackingError(backing ob
 }
 
 // MakeFeatureValueFromOutputBackingError is an exported wrapper for the private method _makeFeatureValueFromOutputBackingError.
-func (e MLE5OutputPortBinder) MakeFeatureValueFromOutputBackingError(backing objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_makeFeatureValueFromOutputBacking:error:")) {
+func (m MLE5OutputPortBinder) MakeFeatureValueFromOutputBackingError(backing objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_makeFeatureValueFromOutputBacking:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_makeFeatureValueFromOutputBacking:error:"}
 		return nil, err
 	}
-	return e._makeFeatureValueFromOutputBackingError(backing)
+	return m._makeFeatureValueFromOutputBackingError(backing)
 }
 
 // CanMakeFeatureValueFromOutputBackingError reports whether the receiver responds to the private selector _makeFeatureValueFromOutputBacking:error:.
-func (e MLE5OutputPortBinder) CanMakeFeatureValueFromOutputBackingError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_makeFeatureValueFromOutputBacking:error:"))
+func (m MLE5OutputPortBinder) CanMakeFeatureValueFromOutputBackingError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_makeFeatureValueFromOutputBacking:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_makeFeatureValueFromPort:featureDescription:error:
-func (e MLE5OutputPortBinder) _makeFeatureValueFromPortFeatureDescriptionError(port E5rt_io_portRef, description objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5OutputPortBinder) _makeFeatureValueFromPortFeatureDescriptionError(port E5rtIOPortRef, description objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_makeFeatureValueFromPort:featureDescription:error:"), port, description, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_makeFeatureValueFromPort:featureDescription:error:"), port, description, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -336,23 +336,23 @@ func (e MLE5OutputPortBinder) _makeFeatureValueFromPortFeatureDescriptionError(p
 }
 
 // MakeFeatureValueFromPortFeatureDescriptionError is an exported wrapper for the private method _makeFeatureValueFromPortFeatureDescriptionError.
-func (e MLE5OutputPortBinder) MakeFeatureValueFromPortFeatureDescriptionError(port E5rt_io_portRef, description objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_makeFeatureValueFromPort:featureDescription:error:")) {
+func (m MLE5OutputPortBinder) MakeFeatureValueFromPortFeatureDescriptionError(port E5rtIOPortRef, description objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_makeFeatureValueFromPort:featureDescription:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_makeFeatureValueFromPort:featureDescription:error:"}
 		return nil, err
 	}
-	return e._makeFeatureValueFromPortFeatureDescriptionError(port, description)
+	return m._makeFeatureValueFromPortFeatureDescriptionError(port, description)
 }
 
 // CanMakeFeatureValueFromPortFeatureDescriptionError reports whether the receiver responds to the private selector _makeFeatureValueFromPort:featureDescription:error:.
-func (e MLE5OutputPortBinder) CanMakeFeatureValueFromPortFeatureDescriptionError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_makeFeatureValueFromPort:featureDescription:error:"))
+func (m MLE5OutputPortBinder) CanMakeFeatureValueFromPortFeatureDescriptionError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_makeFeatureValueFromPort:featureDescription:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_outputModeForOutputBacking:error:
-func (e MLE5OutputPortBinder) _outputModeForOutputBackingError(backing objectivec.IObject) (int64, error) {
+func (m MLE5OutputPortBinder) _outputModeForOutputBackingError(backing objectivec.IObject) (int64, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[int64](e.ID, objc.Sel("_outputModeForOutputBacking:error:"), backing, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[int64](m.ID, objc.Sel("_outputModeForOutputBacking:error:"), backing, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return 0, foundation.NSErrorFrom(errorPtr)
@@ -362,63 +362,63 @@ func (e MLE5OutputPortBinder) _outputModeForOutputBackingError(backing objective
 }
 
 // OutputModeForOutputBackingError is an exported wrapper for the private method _outputModeForOutputBackingError.
-func (e MLE5OutputPortBinder) OutputModeForOutputBackingError(backing objectivec.IObject) (int64, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_outputModeForOutputBacking:error:")) {
+func (m MLE5OutputPortBinder) OutputModeForOutputBackingError(backing objectivec.IObject) (int64, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_outputModeForOutputBacking:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_outputModeForOutputBacking:error:"}
 		return 0, err
 	}
-	return e._outputModeForOutputBackingError(backing)
+	return m._outputModeForOutputBackingError(backing)
 }
 
 // CanOutputModeForOutputBackingError reports whether the receiver responds to the private selector _outputModeForOutputBacking:error:.
-func (e MLE5OutputPortBinder) CanOutputModeForOutputBackingError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_outputModeForOutputBacking:error:"))
+func (m MLE5OutputPortBinder) CanOutputModeForOutputBackingError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_outputModeForOutputBacking:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_reusableForCopyBoundOutputBacking
-func (e MLE5OutputPortBinder) _reusableForCopyBoundOutputBacking() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("_reusableForCopyBoundOutputBacking"))
+func (m MLE5OutputPortBinder) _reusableForCopyBoundOutputBacking() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForCopyBoundOutputBacking"))
 	return rv
 }
 
 // ReusableForCopyBoundOutputBacking is an exported wrapper for the private method _reusableForCopyBoundOutputBacking.
-func (e MLE5OutputPortBinder) ReusableForCopyBoundOutputBacking() (bool, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_reusableForCopyBoundOutputBacking")) {
+func (m MLE5OutputPortBinder) ReusableForCopyBoundOutputBacking() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_reusableForCopyBoundOutputBacking")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_reusableForCopyBoundOutputBacking"}
 		return false, err
 	}
-	return e._reusableForCopyBoundOutputBacking(), nil
+	return m._reusableForCopyBoundOutputBacking(), nil
 }
 
 // CanReusableForCopyBoundOutputBacking reports whether the receiver responds to the private selector _reusableForCopyBoundOutputBacking.
-func (e MLE5OutputPortBinder) CanReusableForCopyBoundOutputBacking() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_reusableForCopyBoundOutputBacking"))
+func (m MLE5OutputPortBinder) CanReusableForCopyBoundOutputBacking() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_reusableForCopyBoundOutputBacking"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/_reusableForDirectlyBoundOutputBacking:
-func (e MLE5OutputPortBinder) _reusableForDirectlyBoundOutputBacking(backing objectivec.IObject) bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("_reusableForDirectlyBoundOutputBacking:"), backing)
+func (m MLE5OutputPortBinder) _reusableForDirectlyBoundOutputBacking(backing objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_reusableForDirectlyBoundOutputBacking:"), backing)
 	return rv
 }
 
 // ReusableForDirectlyBoundOutputBacking is an exported wrapper for the private method _reusableForDirectlyBoundOutputBacking.
-func (e MLE5OutputPortBinder) ReusableForDirectlyBoundOutputBacking(backing objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_reusableForDirectlyBoundOutputBacking:")) {
+func (m MLE5OutputPortBinder) ReusableForDirectlyBoundOutputBacking(backing objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_reusableForDirectlyBoundOutputBacking:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_reusableForDirectlyBoundOutputBacking:"}
 		return false, err
 	}
-	return e._reusableForDirectlyBoundOutputBacking(backing), nil
+	return m._reusableForDirectlyBoundOutputBacking(backing), nil
 }
 
 // CanReusableForDirectlyBoundOutputBacking reports whether the receiver responds to the private selector _reusableForDirectlyBoundOutputBacking:.
-func (e MLE5OutputPortBinder) CanReusableForDirectlyBoundOutputBacking() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_reusableForDirectlyBoundOutputBacking:"))
+func (m MLE5OutputPortBinder) CanReusableForDirectlyBoundOutputBacking() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_reusableForDirectlyBoundOutputBacking:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/bindAndReturnError:
-func (e MLE5OutputPortBinder) BindAndReturnError() (bool, error) {
+func (m MLE5OutputPortBinder) BindAndReturnError() (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("bindAndReturnError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("bindAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -431,103 +431,103 @@ func (e MLE5OutputPortBinder) BindAndReturnError() (bool, error) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/reset
-func (e MLE5OutputPortBinder) Reset() {
-	objc.Send[objc.ID](e.ID, objc.Sel("reset"))
+func (m MLE5OutputPortBinder) Reset() {
+	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/reusableForOutputBacking:willBindDirectly:
-func (e MLE5OutputPortBinder) ReusableForOutputBackingWillBindDirectly(backing objectivec.IObject) (bool, bool) {
+func (m MLE5OutputPortBinder) ReusableForOutputBackingWillBindDirectly(backing objectivec.IObject) (bool, bool) {
 	var directly bool
-	rv := objc.Send[bool](e.ID, objc.Sel("reusableForOutputBacking:willBindDirectly:"), backing, unsafe.Pointer(&directly))
+	rv := objc.Send[bool](m.ID, objc.Sel("reusableForOutputBacking:willBindDirectly:"), backing, unsafe.Pointer(&directly))
 	return directly, rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/initWithPort:featureDescription:
-func (e MLE5OutputPortBinder) InitWithPortFeatureDescription(port E5rt_io_portRef, description objectivec.IObject) MLE5OutputPortBinder {
-	rv := objc.Send[MLE5OutputPortBinder](e.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
+func (m MLE5OutputPortBinder) InitWithPortFeatureDescription(port E5rtIOPortRef, description objectivec.IObject) MLE5OutputPortBinder {
+	rv := objc.Send[MLE5OutputPortBinder](m.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/boundFeatureDirectly
-func (e MLE5OutputPortBinder) BoundFeatureDirectly() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("boundFeatureDirectly"))
+func (m MLE5OutputPortBinder) BoundFeatureDirectly() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("boundFeatureDirectly"))
 	return rv
 }
-func (e MLE5OutputPortBinder) SetBoundFeatureDirectly(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setBoundFeatureDirectly:"), value)
+func (m MLE5OutputPortBinder) SetBoundFeatureDirectly(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setBoundFeatureDirectly:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/debugDescription
-func (e MLE5OutputPortBinder) DebugDescription() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
+func (m MLE5OutputPortBinder) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/description
-func (e MLE5OutputPortBinder) Description() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
+func (m MLE5OutputPortBinder) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/featureDescription
-func (e MLE5OutputPortBinder) FeatureDescription() IMLFeatureDescription {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("featureDescription"))
+func (m MLE5OutputPortBinder) FeatureDescription() IMLFeatureDescription {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureDescription"))
 	return MLFeatureDescriptionFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/featureValue
-func (e MLE5OutputPortBinder) FeatureValue() IMLFeatureValue {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("featureValue"))
+func (m MLE5OutputPortBinder) FeatureValue() IMLFeatureValue {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/hash
-func (e MLE5OutputPortBinder) Hash() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
+func (m MLE5OutputPortBinder) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/outputBacking
-func (e MLE5OutputPortBinder) OutputBacking() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputBacking"))
+func (m MLE5OutputPortBinder) OutputBacking() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputBacking"))
 	return objectivec.Object{ID: rv}
 }
-func (e MLE5OutputPortBinder) SetOutputBacking(value objectivec.IObject) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOutputBacking:"), value)
+func (m MLE5OutputPortBinder) SetOutputBacking(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setOutputBacking:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/outputBackingWasDirectlyBound
-func (e MLE5OutputPortBinder) OutputBackingWasDirectlyBound() bool {
-	rv := objc.Send[bool](e.ID, objc.Sel("outputBackingWasDirectlyBound"))
+func (m MLE5OutputPortBinder) OutputBackingWasDirectlyBound() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("outputBackingWasDirectlyBound"))
 	return rv
 }
-func (e MLE5OutputPortBinder) SetOutputBackingWasDirectlyBound(value bool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setOutputBackingWasDirectlyBound:"), value)
+func (m MLE5OutputPortBinder) SetOutputBackingWasDirectlyBound(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setOutputBackingWasDirectlyBound:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/pixelBufferPool
-func (e MLE5OutputPortBinder) PixelBufferPool() IMLPixelBufferPool {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("pixelBufferPool"))
+func (m MLE5OutputPortBinder) PixelBufferPool() IMLPixelBufferPool {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
 }
-func (e MLE5OutputPortBinder) SetPixelBufferPool(value IMLPixelBufferPool) {
-	objc.Send[struct{}](e.ID, objc.Sel("setPixelBufferPool:"), value)
+func (m MLE5OutputPortBinder) SetPixelBufferPool(value IMLPixelBufferPool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setPixelBufferPool:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/portHandle
-func (e MLE5OutputPortBinder) PortHandle() E5rt_io_portRef {
-	rv := objc.Send[E5rt_io_portRef](e.ID, objc.Sel("portHandle"))
-	return E5rt_io_portRef(rv)
+func (m MLE5OutputPortBinder) PortHandle() E5rtIOPortRef {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("portHandle"))
+	return E5rtIOPortRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/serialQueue
-func (e MLE5OutputPortBinder) SerialQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("serialQueue"))
+func (m MLE5OutputPortBinder) SerialQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("serialQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5OutputPortBinder/superclass
-func (e MLE5OutputPortBinder) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
+func (m MLE5OutputPortBinder) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

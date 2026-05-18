@@ -112,11 +112,11 @@ func (tc TimerClass) Alloc() Timer {
 // [TimerWithTimeIntervalTargetSelectorUserInfoRepeats] class method to create
 // the timer object without scheduling it on a run loop. (After creating it,
 // you must add the timer to a run loop manually by calling the
-// [AddTimerForMode] method of the corresponding [NSRunLoop] object.) -
+// [AddPortForMode] method of the corresponding [NSRunLoop] object.) -
 // Allocate the timer and initialize it using the
 // [InitWithFireDateIntervalTargetSelectorUserInfoRepeats] method. (After
 // creating it, you must add the timer to a run loop manually by calling the
-// [AddTimerForMode] method of the corresponding [NSRunLoop] object.)
+// [AddPortForMode] method of the corresponding [NSRunLoop] object.)
 //
 // Once scheduled on a run loop, the timer fires at the specified interval
 // until it is invalidated. A nonrepeating timer invalidates itself
@@ -310,7 +310,7 @@ func NewTimer() Timer {
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddTimerForMode]. Upon
+// You must add the new timer to a run loop, using [AddPortForMode]. Upon
 // firing, the timer sends the message `aSelector` to `target`. (If the timer
 // is configured to repeat, there is no need to subsequently re-add the timer
 // to the run loop.)
@@ -340,7 +340,7 @@ func NewTimerWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDate, ti 
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddTimerForMode]. Then,
+// You must add the new timer to a run loop, using [AddPortForMode]. Then,
 // after `ti` have elapsed, the timer fires, invoking `invocation`. (If the
 // timer is configured to repeat, there is no need to subsequently re-add the
 // timer to the run loop.)
@@ -381,7 +381,7 @@ func NewTimerWithTimeIntervalInvocationRepeats(ti float64, invocation INSInvocat
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddTimerForMode]. Then,
+// You must add the new timer to a run loop, using [AddPortForMode]. Then,
 // after `ti` seconds have elapsed, the timer fires, sending the message
 // `aSelector` to `target`. (If the timer is configured to repeat, there is no
 // need to subsequently re-add the timer to the run loop.)
@@ -413,7 +413,7 @@ func NewTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget o
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddTimerForMode]. Upon
+// You must add the new timer to a run loop, using [AddPortForMode]. Upon
 // firing, after `interval` seconds have elapsed, the timer fires, executing
 // `block`. (If the timer is configured to repeat, you don’t need to add the
 // timer to the run loop again.)
@@ -457,7 +457,7 @@ func (t Timer) InitWithFireDateIntervalRepeatsBlock(date INSDate, interval float
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddTimerForMode]. Upon
+// You must add the new timer to a run loop, using [AddPortForMode]. Upon
 // firing, the timer sends the message `aSelector` to `target`. (If the timer
 // is configured to repeat, there is no need to subsequently re-add the timer
 // to the run loop.)
@@ -617,7 +617,7 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalInvocationRepeats(ti
 //
 // # Discussion
 //
-// You must add the new timer to a run loop, using [AddTimerForMode]. Then,
+// You must add the new timer to a run loop, using [AddPortForMode]. Then,
 // after `interval` seconds have elapsed, the timer fires, executing `block`.
 // (If the timer is configured to repeat, you don’t need to add the timer to
 // the run loop again.)

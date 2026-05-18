@@ -4,7 +4,6 @@ package speechobjects
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -83,13 +82,13 @@ func NewSOAudioFileUtilities() SOAudioFileUtilities {
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOAudioFileUtilities/sampleDataFromContentsOfFile:streamDescription:
-func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) SampleDataFromContentsOfFileStreamDescription(file objectivec.IObject, description unsafe.Pointer) objectivec.IObject {
+func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) SampleDataFromContentsOfFileStreamDescription(file objectivec.IObject, description AudioStreamBasicDescription) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOAudioFileUtilitiesClass.class), objc.Sel("sampleDataFromContentsOfFile:streamDescription:"), file, description)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/SpeechObjects/SOAudioFileUtilities/writeSampleData:toFile:dataStreamDescription:fileStreamDescription:
-func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) WriteSampleDataToFileDataStreamDescriptionFileStreamDescription(data objectivec.IObject, file objectivec.IObject, description unsafe.Pointer, description2 unsafe.Pointer) bool {
+func (_SOAudioFileUtilitiesClass SOAudioFileUtilitiesClass) WriteSampleDataToFileDataStreamDescriptionFileStreamDescription(data objectivec.IObject, file objectivec.IObject, description AudioStreamBasicDescription, description2 AudioStreamBasicDescription) bool {
 	rv := objc.Send[bool](objc.ID(_SOAudioFileUtilitiesClass.class), objc.Sel("writeSampleData:toFile:dataStreamDescription:fileStreamDescription:"), data, file, description, description2)
 	return rv
 }

@@ -282,8 +282,8 @@ type INSArrayController interface {
 	ClearsFilterPredicateOnInsertion() bool
 	SetClearsFilterPredicateOnInsertion(value bool)
 	// A predicate used by the receiver to filter the array controller contents
-	FilterPredicate() foundation.INSPredicate
-	SetFilterPredicate(value foundation.INSPredicate)
+	FilterPredicate() foundation.NSPredicate
+	SetFilterPredicate(value foundation.NSPredicate)
 
 	// Topic: Automatic Content Rearranging
 
@@ -804,11 +804,11 @@ func (a NSArrayController) SetClearsFilterPredicateOnInsertion(value bool) {
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/filterPredicate
-func (a NSArrayController) FilterPredicate() foundation.INSPredicate {
+func (a NSArrayController) FilterPredicate() foundation.NSPredicate {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("filterPredicate"))
 	return foundation.NSPredicateFromID(objc.ID(rv))
 }
-func (a NSArrayController) SetFilterPredicate(value foundation.INSPredicate) {
+func (a NSArrayController) SetFilterPredicate(value foundation.NSPredicate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFilterPredicate:"), value)
 }
 

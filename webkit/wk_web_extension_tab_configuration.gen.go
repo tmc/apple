@@ -120,7 +120,7 @@ type IWKWebExtensionTabConfiguration interface {
 	// Indicates whether reader mode in the tab should be active.
 	ShouldReaderModeBeActive() bool
 	// Indicates the initial URL for the tab.
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	// Indicates the window where the tab should be opened.
 	Window() WKWebExtensionWindow
 }
@@ -229,7 +229,7 @@ func (w WKWebExtensionTabConfiguration) ShouldReaderModeBeActive() bool {
 // the tab.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtension/TabConfiguration/url
-func (w WKWebExtensionTabConfiguration) Url() foundation.INSURL {
+func (w WKWebExtensionTabConfiguration) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

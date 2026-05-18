@@ -45,6 +45,46 @@ type MTLTexture interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/makeTextureView(pixelFormat:)
 	NewTextureViewWithPixelFormat(pixelFormat MTLPixelFormat) MTLTexture
 
+	// A Boolean value that indicates whether the texture can only be used as a render target.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/isFramebufferOnly
+	IsFramebufferOnly() bool
+
+	// A Boolean indicating whether this texture can be shared with other processes.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
+	IsShareable() bool
+
+	// The resource that owns the storage for this texture.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/rootResource
+	RootResource() MTLResource
+
+	// Creates a new texture handle from a shareable texture.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/makeSharedTextureHandle()
+	NewSharedTextureHandle() IMTLSharedTextureHandle
+
+	// Creates a remote texture view for another GPU in the same peer group.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/makeRemoteTextureView(_:)
+	NewRemoteTextureViewForDevice(device MTLDevice) MTLTexture
+
+	// NewTextureViewWithDescriptor protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureView(with:)
+	NewTextureViewWithDescriptor(descriptor IMTLTextureViewDescriptor) MTLTexture
+
+	// Creates a new view of the texture, reinterpreting a subset of its data using a different type and pixel format.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:
+	NewTextureViewWithPixelFormatTextureTypeLevelsSlices(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange) MTLTexture
+
+	// Creates a new view of the texture, reinterpreting a subset of its data using a different type, pixel format, and swizzle pattern.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:
+	NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSwizzle(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange, swizzle MTLTextureSwizzleChannels) MTLTexture
+
 	// The dimension and arrangement of the texture image data.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/textureType
@@ -88,7 +128,7 @@ type MTLTexture interface {
 	// A Boolean value that indicates whether the texture can only be used as a render target.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/isFramebufferOnly
-	IsFramebufferOnly() bool
+	FramebufferOnly() bool
 
 	// Options that determine how you can use the texture.
 	//
@@ -103,7 +143,7 @@ type MTLTexture interface {
 	// A Boolean indicating whether this texture can be shared with other processes.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
-	IsShareable() bool
+	Shareable() bool
 
 	// The pattern that the GPU applies to pixels when you read or sample pixels from the texture.
 	//
@@ -150,21 +190,6 @@ type MTLTexture interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/bufferBytesPerRow
 	BufferBytesPerRow() uint
 
-	// The resource that owns the storage for this texture.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/rootResource
-	RootResource() MTLResource
-
-	// Creates a new texture handle from a shareable texture.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/makeSharedTextureHandle()
-	NewSharedTextureHandle() IMTLSharedTextureHandle
-
-	// Creates a remote texture view for another GPU in the same peer group.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/makeRemoteTextureView(_:)
-	NewRemoteTextureViewForDevice(device MTLDevice) MTLTexture
-
 	// The texture on another GPU that the texture was created from, if any.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/remoteStorageTexture
@@ -185,35 +210,20 @@ type MTLTexture interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/tailSizeInBytes
 	TailSizeInBytes() uint
 
-	// CompressionType protocol.
+	// compressionType protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/compressionType
 	CompressionType() MTLTextureCompressionType
 
-	// GpuResourceID protocol.
+	// gpuResourceID protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/gpuResourceID
 	GpuResourceID() MTLResourceID
 
-	// SparseTextureTier protocol.
+	// # Discussion  Query support tier for sparse textures.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/sparseTextureTier
 	SparseTextureTier() MTLTextureSparseTier
-
-	// NewTextureViewWithDescriptor protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureView(with:)
-	NewTextureViewWithDescriptor(descriptor IMTLTextureViewDescriptor) MTLTexture
-
-	// Creates a new view of the texture, reinterpreting a subset of its data using a different type and pixel format.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:
-	NewTextureViewWithPixelFormatTextureTypeLevelsSlices(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange) MTLTexture
-
-	// Creates a new view of the texture, reinterpreting a subset of its data using a different type, pixel format, and swizzle pattern.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:
-	NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSwizzle(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange, swizzle MTLTextureSwizzleChannels) MTLTexture
 }
 
 // MTLTextureObject wraps an existing Objective-C object that conforms to the MTLTexture protocol.
@@ -500,11 +510,10 @@ func (o MTLTextureObject) GetBytesBytesPerRowFromRegionMipmapLevel(pixelBytes un
 //
 // - All 8-, 16-, 32-, 64-, and 128-bit color formats are compatible with
 // other formats with the same bit length. - sRGB and non-sRGB forms of the
-// same compressed format (for example, [MTLPixelFormat.bc1_rgba] and
-// [MTLPixelFormat.bc1_rgba_srgb]) - Combined depth-stencil texture formats
-// and the related format used to access the stencil from a shader (for
-// example, [MTLPixelFormat.depth24Unorm_stencil8] and
-// [MTLPixelFormatX24_Stencil8])
+// same compressed format (for example, [MTLPixelFormatBC1_RGBA] and
+// [MTLPixelFormatBC1_RGBA_sRGB]) - Combined depth-stencil texture formats and
+// the related format used to access the stencil from a shader (for example,
+// [MTLPixelFormatDepth24Unorm_Stencil8] and [MTLPixelFormatX24_Stencil8])
 //
 // This method doesn’t change the original texture image data in any way,
 // but it may drastically change how the data is interpreted. For example,
@@ -524,77 +533,9 @@ func (o MTLTextureObject) GetBytesBytesPerRowFromRegionMipmapLevel(pixelBytes un
 // performance. For more details, see [MTLTextureUsagePixelFormatView].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/makeTextureView(pixelFormat:)
-//
-// [MTLPixelFormat.bc1_rgba]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/bc1_rgba
-// [MTLPixelFormat.bc1_rgba_srgb]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/bc1_rgba_srgb
-// [MTLPixelFormat.depth24Unorm_stencil8]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/depth24Unorm_stencil8
 func (o MTLTextureObject) NewTextureViewWithPixelFormat(pixelFormat MTLPixelFormat) MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithPixelFormat:"), pixelFormat)
 	return MTLTextureObjectFromID(rv)
-}
-
-// The dimension and arrangement of the texture image data.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/textureType
-func (o MTLTextureObject) TextureType() MTLTextureType {
-	rv := objc.Send[MTLTextureType](o.ID, objc.Sel("textureType"))
-	return rv
-}
-
-// The format of pixels in the texture.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/pixelFormat
-func (o MTLTextureObject) PixelFormat() MTLPixelFormat {
-	rv := objc.Send[MTLPixelFormat](o.ID, objc.Sel("pixelFormat"))
-	return rv
-}
-
-// The width of the texture image for the base level mipmap, in pixels.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/width
-func (o MTLTextureObject) Width() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("width"))
-	return rv
-}
-
-// The height of the texture image for the base level mipmap, in pixels.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/height
-func (o MTLTextureObject) Height() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("height"))
-	return rv
-}
-
-// The depth of the texture image for the base level mipmap, in pixels.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/depth
-func (o MTLTextureObject) Depth() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("depth"))
-	return rv
-}
-
-// The number of mipmap levels in the texture.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/mipmapLevelCount
-func (o MTLTextureObject) MipmapLevelCount() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("mipmapLevelCount"))
-	return rv
-}
-
-// The number of slices in the texture array.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/arrayLength
-func (o MTLTextureObject) ArrayLength() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("arrayLength"))
-	return rv
-}
-
-// The number of samples in each pixel.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/sampleCount
-func (o MTLTextureObject) SampleCount() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("sampleCount"))
-	return rv
 }
 
 // A Boolean value that indicates whether the texture can only be used as a
@@ -606,104 +547,12 @@ func (o MTLTextureObject) IsFramebufferOnly() bool {
 	return rv
 }
 
-// Options that determine how you can use the texture.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/usage
-func (o MTLTextureObject) Usage() MTLTextureUsage {
-	rv := objc.Send[MTLTextureUsage](o.ID, objc.Sel("usage"))
-	return rv
-}
-
-// A Boolean value indicating whether the GPU is allowed to adjust the
-// contents of the texture to improve GPU performance.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/allowGPUOptimizedContents
-func (o MTLTextureObject) AllowGPUOptimizedContents() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("allowGPUOptimizedContents"))
-	return rv
-}
-
 // A Boolean indicating whether this texture can be shared with other
 // processes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
 func (o MTLTextureObject) IsShareable() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isShareable"))
-	return rv
-}
-
-// The pattern that the GPU applies to pixels when you read or sample pixels
-// from the texture.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/swizzle
-func (o MTLTextureObject) Swizzle() MTLTextureSwizzleChannels {
-	rv := objc.Send[MTLTextureSwizzleChannels](o.ID, objc.Sel("swizzle"))
-	return rv
-}
-
-// A reference to the underlying surface instance for the texture, if
-// applicable.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/iosurface
-func (o MTLTextureObject) Iosurface() iosurface.IOSurfaceRef {
-	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("iosurface"))
-	return rv
-}
-
-// The number of a plane within the underlying surface instance for the
-// texture, if applicable.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/iosurfacePlane
-func (o MTLTextureObject) IosurfacePlane() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("iosurfacePlane"))
-	return rv
-}
-
-// The parent texture used to create this texture, if any.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/parent
-func (o MTLTextureObject) ParentTexture() MTLTexture {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("parentTexture"))
-	return MTLTextureObjectFromID(rv)
-}
-
-// The base level of the parent texture used to create this texture.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/parentRelativeLevel
-func (o MTLTextureObject) ParentRelativeLevel() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("parentRelativeLevel"))
-	return rv
-}
-
-// The base slice of the parent texture used to create this texture.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/parentRelativeSlice
-func (o MTLTextureObject) ParentRelativeSlice() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("parentRelativeSlice"))
-	return rv
-}
-
-// The source buffer used to create this texture, if any.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/buffer
-func (o MTLTextureObject) Buffer() MTLBuffer {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))
-	return MTLBufferObjectFromID(rv)
-}
-
-// The offset in the source buffer where the texture’s data comes from.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/bufferOffset
-func (o MTLTextureObject) BufferOffset() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("bufferOffset"))
-	return rv
-}
-
-// The number of bytes in each row of the texture’s source buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/bufferBytesPerRow
-func (o MTLTextureObject) BufferBytesPerRow() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("bufferBytesPerRow"))
 	return rv
 }
 
@@ -749,56 +598,6 @@ func (o MTLTextureObject) NewSharedTextureHandle() IMTLSharedTextureHandle {
 func (o MTLTextureObject) NewRemoteTextureViewForDevice(device MTLDevice) MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRemoteTextureViewForDevice:"), device)
 	return MTLTextureObjectFromID(rv)
-}
-
-// The texture on another GPU that the texture was created from, if any.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/remoteStorageTexture
-func (o MTLTextureObject) RemoteStorageTexture() MTLTexture {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteStorageTexture"))
-	return MTLTextureObjectFromID(rv)
-}
-
-// A Boolean value that indicates whether this is a sparse texture.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/isSparse
-func (o MTLTextureObject) IsSparse() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isSparse"))
-	return rv
-}
-
-// The index of the first mipmap in the tail.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/firstMipmapInTail
-func (o MTLTextureObject) FirstMipmapInTail() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("firstMipmapInTail"))
-	return rv
-}
-
-// The size of the sparse texture tail, in bytes.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/tailSizeInBytes
-func (o MTLTextureObject) TailSizeInBytes() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("tailSizeInBytes"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/compressionType
-func (o MTLTextureObject) CompressionType() MTLTextureCompressionType {
-	rv := objc.Send[MTLTextureCompressionType](o.ID, objc.Sel("compressionType"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/gpuResourceID
-func (o MTLTextureObject) GpuResourceID() MTLResourceID {
-	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/sparseTextureTier
-func (o MTLTextureObject) SparseTextureTier() MTLTextureSparseTier {
-	rv := objc.Send[MTLTextureSparseTier](o.ID, objc.Sel("sparseTextureTier"))
-	return rv
 }
 
 // # Discussion
@@ -962,9 +761,9 @@ func (o MTLTextureObject) ResourceOptions() MTLResourceOptions {
 // If `state` is [MTLPurgeableStateNonVolatile], the resource is marked to
 // inform the caller that the data should not be discarded.
 //
-// If `state` is [MTLPurgeableState.empty], the resource is marked as data
-// that can be discarded, because the caller no longer needs the contents of
-// the resource.
+// If `state` is [MTLPurgeableStateEmpty], the resource is marked as data that
+// can be discarded, because the caller no longer needs the contents of the
+// resource.
 //
 // If `state` is [MTLPurgeableStateVolatile], the resource is marked as data
 // that can be discarded, even if the caller may need the resource.
@@ -982,8 +781,6 @@ func (o MTLTextureObject) ResourceOptions() MTLResourceOptions {
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-//
-// [MTLPurgeableState.empty]: https://developer.apple.com/documentation/Metal/MTLPurgeableState/empty
 func (o MTLTextureObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
@@ -1059,9 +856,360 @@ func (o MTLTextureObject) IsAliasable() bool {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-func (o MTLTextureObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32 {
+func (o MTLTextureObject) SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32 {
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
+}
+
+// The dimension and arrangement of the texture image data.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/textureType
+func (o MTLTextureObject) TextureType() MTLTextureType {
+	rv := objc.Send[MTLTextureType](o.ID, objc.Sel("textureType"))
+	return MTLTextureType(rv)
+}
+
+// The format of pixels in the texture.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/pixelFormat
+func (o MTLTextureObject) PixelFormat() MTLPixelFormat {
+	rv := objc.Send[MTLPixelFormat](o.ID, objc.Sel("pixelFormat"))
+	return MTLPixelFormat(rv)
+}
+
+// The width of the texture image for the base level mipmap, in pixels.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/width
+func (o MTLTextureObject) Width() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("width"))
+	return uint(rv)
+}
+
+// The height of the texture image for the base level mipmap, in pixels.
+//
+// # Discussion
+//
+// For a 1D texture, the value is `1`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/height
+func (o MTLTextureObject) Height() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("height"))
+	return uint(rv)
+}
+
+// The depth of the texture image for the base level mipmap, in pixels.
+//
+// # Discussion
+//
+// For 1D, 2D, and cube textures, the value is `1`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/depth
+func (o MTLTextureObject) Depth() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("depth"))
+	return uint(rv)
+}
+
+// The number of mipmap levels in the texture.
+//
+// # Discussion
+//
+// For a buffer-backed or multisample texture, the value is `1`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/mipmapLevelCount
+func (o MTLTextureObject) MipmapLevelCount() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("mipmapLevelCount"))
+	return uint(rv)
+}
+
+// The number of slices in the texture array.
+//
+// # Discussion
+//
+// The value of this property ranges from 1 to 2048, inclusive. If the texture
+// type is not an array, this value is 1.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/arrayLength
+func (o MTLTextureObject) ArrayLength() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("arrayLength"))
+	return uint(rv)
+}
+
+// The number of samples in each pixel.
+//
+// # Discussion
+//
+// If [TextureType] is not [MTLTextureType2DMultisample], this value is `1`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/sampleCount
+func (o MTLTextureObject) SampleCount() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("sampleCount"))
+	return uint(rv)
+}
+
+// A Boolean value that indicates whether the texture can only be used as a
+// render target.
+//
+// # Discussion
+//
+// The default is false, which indicates the use of the texture is not
+// restricted.
+//
+// If true, neither
+// [ReplaceRegionMipmapLevelSliceWithBytesBytesPerRowBytesPerImage] nor
+// [GetBytesBytesPerRowBytesPerImageFromRegionMipmapLevelSlice] can be used
+// with this texture. Also, this texture can only be used as an attachment for
+// [MTLRenderPassDescriptor] and cannot be a texture argument for
+// [MTLRenderCommandEncoder], [MTLBlitCommandEncoder], or
+// [MTLComputeCommandEncoder].
+//
+// Textures you obtain from a [CAMetalDrawable] instance are only usable as
+// attachments, depending on the value of [framebufferOnly] passed to their
+// parent [CAMetalLayer] instance. These restrictions don’t apply to
+// textures that your app creates directly.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/isFramebufferOnly
+//
+// [CAMetalDrawable]: https://developer.apple.com/documentation/QuartzCore/CAMetalDrawable
+// [CAMetalLayer]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer
+// [framebufferOnly]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/framebufferOnly
+func (o MTLTextureObject) FramebufferOnly() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isFramebufferOnly"))
+	return bool(rv)
+}
+
+// Options that determine how you can use the texture.
+//
+// # Discussion
+//
+// You set this value in an [MTLTextureDescriptor] that you then use to create
+// the given texture. After you create the texture, its usage options don’t
+// change.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/usage
+func (o MTLTextureObject) Usage() MTLTextureUsage {
+	rv := objc.Send[MTLTextureUsage](o.ID, objc.Sel("usage"))
+	return MTLTextureUsage(rv)
+}
+
+// A Boolean value indicating whether the GPU is allowed to adjust the
+// contents of the texture to improve GPU performance.
+//
+// # Discussion
+//
+// The value is set when the texture is created and never changes.
+//
+// If the value is `true`, Metal is allowed to adjust the texture’s contents
+// to improve GPU performance. For a shared or managed texture, this
+// optimization can cause slower performance when accessing the texture from
+// the CPU. If the value is `false`, CPU reads and writes may be improved at
+// the cost of some GPU performance.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/allowGPUOptimizedContents
+func (o MTLTextureObject) AllowGPUOptimizedContents() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("allowGPUOptimizedContents"))
+	return bool(rv)
+}
+
+// A Boolean indicating whether this texture can be shared with other
+// processes.
+//
+// # Discussion
+//
+// The value is set when the texture is created and never changes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
+func (o MTLTextureObject) Shareable() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isShareable"))
+	return bool(rv)
+}
+
+// The pattern that the GPU applies to pixels when you read or sample pixels
+// from the texture.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/swizzle
+func (o MTLTextureObject) Swizzle() MTLTextureSwizzleChannels {
+	rv := objc.Send[MTLTextureSwizzleChannels](o.ID, objc.Sel("swizzle"))
+	return MTLTextureSwizzleChannels(rv)
+}
+
+// A reference to the underlying surface instance for the texture, if
+// applicable.
+//
+// # Discussion
+//
+// The property’s value is `nil` for textures that don’t come from an
+// [IOSurface] instance.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/iosurface
+//
+// [IOSurface]: https://developer.apple.com/documentation/IOSurface/IOSurface
+func (o MTLTextureObject) Iosurface() iosurface.IOSurfaceRef {
+	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("iosurface"))
+	return iosurface.IOSurfaceRef(rv)
+}
+
+// The number of a plane within the underlying surface instance for the
+// texture, if applicable.
+//
+// # Discussion
+//
+// The plane number applies to the [IosurfacePlane] property when it isn’t
+// `nil`. The property’s value defaults to `0` for textures that don’t
+// come from an [IOSurface] instance.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/iosurfacePlane
+//
+// [IOSurface]: https://developer.apple.com/documentation/IOSurface/IOSurface
+func (o MTLTextureObject) IosurfacePlane() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("iosurfacePlane"))
+	return uint(rv)
+}
+
+// The parent texture used to create this texture, if any.
+//
+// # Discussion
+//
+// When this value is `nil`, an [MTLBuffer] instance provides texture data.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/parent
+func (o MTLTextureObject) ParentTexture() MTLTexture {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("parentTexture"))
+	return MTLTextureObjectFromID(rv)
+}
+
+// The base level of the parent texture used to create this texture.
+//
+// # Discussion
+//
+// This property is only valid for textures created from a [ParentTexture]
+// texture. The default value is `0`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/parentRelativeLevel
+func (o MTLTextureObject) ParentRelativeLevel() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("parentRelativeLevel"))
+	return uint(rv)
+}
+
+// The base slice of the parent texture used to create this texture.
+//
+// # Discussion
+//
+// This property is only valid for textures created from a [ParentTexture]
+// texture. The default value is `0`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/parentRelativeSlice
+func (o MTLTextureObject) ParentRelativeSlice() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("parentRelativeSlice"))
+	return uint(rv)
+}
+
+// The source buffer used to create this texture, if any.
+//
+// # Discussion
+//
+// When this value is `nil`, another [MTLTexture] instance provides texture
+// data.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/buffer
+func (o MTLTextureObject) Buffer() MTLBuffer {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))
+	return MTLBufferObjectFromID(rv)
+}
+
+// The offset in the source buffer where the texture’s data comes from.
+//
+// # Discussion
+//
+// This property is only valid for textures created from a [Buffer]. The
+// default value is `0`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/bufferOffset
+func (o MTLTextureObject) BufferOffset() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("bufferOffset"))
+	return uint(rv)
+}
+
+// The number of bytes in each row of the texture’s source buffer.
+//
+// # Discussion
+//
+// This property is only valid for textures created from a [Buffer]. The
+// default value is `0`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/bufferBytesPerRow
+func (o MTLTextureObject) BufferBytesPerRow() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("bufferBytesPerRow"))
+	return uint(rv)
+}
+
+// The texture on another GPU that the texture was created from, if any.
+//
+// # Discussion
+//
+// If the value of this property is non-`nil`, it contains a reference to the
+// [MTLTexture] instance that created this texture. If the texture isn’t a
+// remote view, the value of this property is `nil`.
+//
+// You can use remote views only as the source for copy commands encoded by an
+// [MTLBlitCommandEncoder].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/remoteStorageTexture
+func (o MTLTextureObject) RemoteStorageTexture() MTLTexture {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteStorageTexture"))
+	return MTLTextureObjectFromID(rv)
+}
+
+// A Boolean value that indicates whether this is a sparse texture.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/isSparse
+func (o MTLTextureObject) IsSparse() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isSparse"))
+	return bool(rv)
+}
+
+// The index of the first mipmap in the tail.
+//
+// # Discussion
+//
+// In a sparse texture, the is a collection of mipmaps at higher index values
+// that are mapped as a single block of memory. When you map this mipmap into
+// your sparse texture, Metal also maps mipmap levels with larger index
+// values.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/firstMipmapInTail
+func (o MTLTextureObject) FirstMipmapInTail() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("firstMipmapInTail"))
+	return uint(rv)
+}
+
+// The size of the sparse texture tail, in bytes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/tailSizeInBytes
+func (o MTLTextureObject) TailSizeInBytes() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("tailSizeInBytes"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/compressionType
+func (o MTLTextureObject) CompressionType() MTLTextureCompressionType {
+	rv := objc.Send[MTLTextureCompressionType](o.ID, objc.Sel("compressionType"))
+	return MTLTextureCompressionType(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/gpuResourceID
+func (o MTLTextureObject) GpuResourceID() MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
+	return MTLResourceID(rv)
+}
+
+// # Discussion
+//
+// Query support tier for sparse textures.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/sparseTextureTier
+func (o MTLTextureObject) SparseTextureTier() MTLTextureSparseTier {
+	rv := objc.Send[MTLTextureSparseTier](o.ID, objc.Sel("sparseTextureTier"))
+	return MTLTextureSparseTier(rv)
 }
 
 // A string that identifies the resource.

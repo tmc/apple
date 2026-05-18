@@ -84,7 +84,7 @@ type IAVMetricHLSPlaylistRequestEvent interface {
 	IsMultivariantPlaylist() bool
 	MediaResourceRequestEvent() IAVMetricMediaResourceRequestEvent
 	MediaType() AVMediaType
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -125,7 +125,7 @@ func (m AVMetricHLSPlaylistRequestEvent) MediaType() AVMediaType {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSPlaylistRequestEvent/url
-func (m AVMetricHLSPlaylistRequestEvent) Url() foundation.INSURL {
+func (m AVMetricHLSPlaylistRequestEvent) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

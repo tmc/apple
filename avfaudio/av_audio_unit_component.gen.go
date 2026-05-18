@@ -206,7 +206,7 @@ type IAVAudioUnitComponent interface {
 	// Topic: Getting audio unit component tags
 
 	// The URL of an icon that represents the audio unit component.
-	IconURL() foundation.INSURL
+	IconURL() foundation.NSURL
 	// An icon that represents the component.
 	Icon() objectivec.IObject
 	// The localized type name of the component.
@@ -444,7 +444,7 @@ func (a AVAudioUnitComponent) VersionString() string {
 // The URL of an icon that represents the audio unit component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/iconURL
-func (a AVAudioUnitComponent) IconURL() foundation.INSURL {
+func (a AVAudioUnitComponent) IconURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("iconURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

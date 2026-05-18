@@ -101,3 +101,33 @@ type Es_tcc_identity_type_t = EsTccIdentityType
 type Es_touchid_mode_t = EsTouchidMode
 
 type Es_xpc_domain_type_t = EsXPCDomainType
+
+// EsAutoUnlockType is a Go-name alias for Es_auto_unlock_type_t.
+type EsAutoUnlockType = Es_auto_unlock_type_t
+
+// EsCdhash is a Go-name alias for Es_cdhash_t.
+type EsCdhash = Es_cdhash_t
+
+// EsClient is a Go-name alias for Es_client_t.
+type EsClient = Es_client_t
+
+// EsGraphicalSessionID is a Go-name alias for Es_graphical_session_id_t.
+type EsGraphicalSessionID = Es_graphical_session_id_t
+
+// EsHandlerBlock is a Go-name alias for Es_handler_block_t.
+type EsHandlerBlock = Es_handler_block_t
+
+// EsMuteInvertedReturn is a Go-name alias for Es_mute_inverted_return_t.
+type EsMuteInvertedReturn = Es_mute_inverted_return_t
+
+// EsOpensshLoginResultType is a Go-name alias for Es_openssh_login_result_type_t.
+type EsOpensshLoginResultType = Es_openssh_login_result_type_t
+
+// EsSetOrClear is a Go-name alias for Es_set_or_clear_t.
+type EsSetOrClear = Es_set_or_clear_t
+
+// EsSha256 is a Go-name alias for Es_sha256_t.
+type EsSha256 = Es_sha256_t
+
+// EsStatfs is a Go-name alias for Es_statfs_t.
+type EsStatfs = Es_statfs_t

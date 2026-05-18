@@ -19,80 +19,48 @@ type CILenticularHaloGenerator interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/center
 	Center() corefoundation.CGPoint
-
-	// The color of the halo.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/color
-	Color() ICIColor
-
-	// The separation of colors in the halo.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloOverlap
-	HaloOverlap() float32
-
-	// The radius of the halo.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloRadius
-	HaloRadius() float32
-
-	// The width of the halo, from its inner radius to its outer radius.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloWidth
-	HaloWidth() float32
-
-	// The contrast of the halo colors.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationContrast
-	StriationContrast() float32
-
-	// The intensity of the halo colors.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationStrength
-	StriationStrength() float32
-
-	// The current time of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/time
-	Time() float32
-
-	// The x and y position to use as the center of the halo.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/center
 	SetCenter(value corefoundation.CGPoint)
 
 	// The color of the halo.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/color
+	Color() ICIColor
 	SetColor(value ICIColor)
 
 	// The separation of colors in the halo.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloOverlap
+	HaloOverlap() float32
 	SetHaloOverlap(value float32)
 
 	// The radius of the halo.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloRadius
+	HaloRadius() float32
 	SetHaloRadius(value float32)
 
 	// The width of the halo, from its inner radius to its outer radius.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloWidth
+	HaloWidth() float32
 	SetHaloWidth(value float32)
 
 	// The contrast of the halo colors.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationContrast
+	StriationContrast() float32
 	SetStriationContrast(value float32)
 
 	// The intensity of the halo colors.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationStrength
+	StriationStrength() float32
 	SetStriationStrength(value float32)
 
 	// The current time of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/time
+	Time() float32
 	SetTime(value float32)
 }
 
@@ -113,70 +81,6 @@ func CILenticularHaloGeneratorObjectFromID(id objc.ID) CILenticularHaloGenerator
 	}
 }
 
-// The x and y position to use as the center of the halo.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/center
-func (o CILenticularHaloGeneratorObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The color of the halo.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/color
-func (o CILenticularHaloGeneratorObject) Color() ICIColor {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
-	return CIColorFromID(rv)
-}
-
-// The separation of colors in the halo.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloOverlap
-func (o CILenticularHaloGeneratorObject) HaloOverlap() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("haloOverlap"))
-	return rv
-}
-
-// The radius of the halo.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloRadius
-func (o CILenticularHaloGeneratorObject) HaloRadius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("haloRadius"))
-	return rv
-}
-
-// The width of the halo, from its inner radius to its outer radius.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloWidth
-func (o CILenticularHaloGeneratorObject) HaloWidth() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("haloWidth"))
-	return rv
-}
-
-// The contrast of the halo colors.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationContrast
-func (o CILenticularHaloGeneratorObject) StriationContrast() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
-	return rv
-}
-
-// The intensity of the halo colors.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationStrength
-func (o CILenticularHaloGeneratorObject) StriationStrength() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
-	return rv
-}
-
-// The current time of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/time
-func (o CILenticularHaloGeneratorObject) Time() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("time"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -189,6 +93,11 @@ func (o CILenticularHaloGeneratorObject) OutputImage() ICIImage {
 // The x and y position to use as the center of the halo.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/center
+func (o CILenticularHaloGeneratorObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CILenticularHaloGeneratorObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -196,6 +105,11 @@ func (o CILenticularHaloGeneratorObject) SetCenter(value corefoundation.CGPoint)
 // The color of the halo.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/color
+func (o CILenticularHaloGeneratorObject) Color() ICIColor {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
+	return CIColorFromID(rv)
+}
+
 func (o CILenticularHaloGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
@@ -208,6 +122,11 @@ func (o CILenticularHaloGeneratorObject) SetColor(value ICIColor) {
 // the halo colors fully overlap, creating a white halo.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloOverlap
+func (o CILenticularHaloGeneratorObject) HaloOverlap() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("haloOverlap"))
+	return float32(rv)
+}
+
 func (o CILenticularHaloGeneratorObject) SetHaloOverlap(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHaloOverlap:"), value)
 }
@@ -215,6 +134,11 @@ func (o CILenticularHaloGeneratorObject) SetHaloOverlap(value float32) {
 // The radius of the halo.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloRadius
+func (o CILenticularHaloGeneratorObject) HaloRadius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("haloRadius"))
+	return float32(rv)
+}
+
 func (o CILenticularHaloGeneratorObject) SetHaloRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHaloRadius:"), value)
 }
@@ -222,6 +146,11 @@ func (o CILenticularHaloGeneratorObject) SetHaloRadius(value float32) {
 // The width of the halo, from its inner radius to its outer radius.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloWidth
+func (o CILenticularHaloGeneratorObject) HaloWidth() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("haloWidth"))
+	return float32(rv)
+}
+
 func (o CILenticularHaloGeneratorObject) SetHaloWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHaloWidth:"), value)
 }
@@ -229,6 +158,11 @@ func (o CILenticularHaloGeneratorObject) SetHaloWidth(value float32) {
 // The contrast of the halo colors.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationContrast
+func (o CILenticularHaloGeneratorObject) StriationContrast() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
+	return float32(rv)
+}
+
 func (o CILenticularHaloGeneratorObject) SetStriationContrast(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStriationContrast:"), value)
 }
@@ -236,6 +170,11 @@ func (o CILenticularHaloGeneratorObject) SetStriationContrast(value float32) {
 // The intensity of the halo colors.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationStrength
+func (o CILenticularHaloGeneratorObject) StriationStrength() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
+	return float32(rv)
+}
+
 func (o CILenticularHaloGeneratorObject) SetStriationStrength(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStriationStrength:"), value)
 }
@@ -243,6 +182,11 @@ func (o CILenticularHaloGeneratorObject) SetStriationStrength(value float32) {
 // The current time of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/time
+func (o CILenticularHaloGeneratorObject) Time() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("time"))
+	return float32(rv)
+}
+
 func (o CILenticularHaloGeneratorObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }

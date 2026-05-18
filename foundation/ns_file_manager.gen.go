@@ -556,8 +556,8 @@ type IFileManager interface {
 	// Topic: Determining resource fork support
 
 	// The version of the Foundation framework in which
-	NSFoundationVersionWithFileManagerResourceForkSupport() objectivec.IObject
-	SetNSFoundationVersionWithFileManagerResourceForkSupport(value objectivec.IObject)
+	NSFoundationVersionWithFileManagerResourceForkSupport() unsafe.Pointer
+	SetNSFoundationVersionWithFileManagerResourceForkSupport(value unsafe.Pointer)
 
 	// Topic: Notifications
 
@@ -2880,11 +2880,11 @@ func (f FileManager) NSFileManagerUnmountDissentingProcessIdentifierErrorKey() s
 // The version of the Foundation framework in which
 //
 // See: https://developer.apple.com/documentation/foundation/nsfoundationversionwithfilemanagerresourceforksupport
-func (f FileManager) NSFoundationVersionWithFileManagerResourceForkSupport() objectivec.IObject {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFoundationVersionWithFileManagerResourceForkSupport"))
-	return objectivec.Object{ID: rv}
+func (f FileManager) NSFoundationVersionWithFileManagerResourceForkSupport() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("NSFoundationVersionWithFileManagerResourceForkSupport"))
+	return rv
 }
-func (f FileManager) SetNSFoundationVersionWithFileManagerResourceForkSupport(value objectivec.IObject) {
+func (f FileManager) SetNSFoundationVersionWithFileManagerResourceForkSupport(value unsafe.Pointer) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNSFoundationVersionWithFileManagerResourceForkSupport:"), value)
 }
 

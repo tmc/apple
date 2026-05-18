@@ -38,8 +38,18 @@ func NSTextLayoutOrientationProviderObjectFromID(id objc.ID) NSTextLayoutOrienta
 
 // The default layout orientation.
 //
+// # Discussion
+//
+// This property contains the default layout orientation for text in the
+// object that adopts the protocol. If the text contains an explicit
+// [verticalGlyphForm] attribute, that attribute overrides the value in this
+// property. When rendering, TextKit assumes the coordinate system is
+// appropriately rotated.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutOrientationProvider/layoutOrientation
+//
+// [verticalGlyphForm]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/verticalGlyphForm
 func (o NSTextLayoutOrientationProviderObject) LayoutOrientation() NSTextLayoutOrientation {
 	rv := objc.Send[NSTextLayoutOrientation](o.ID, objc.Sel("layoutOrientation"))
-	return rv
+	return NSTextLayoutOrientation(rv)
 }

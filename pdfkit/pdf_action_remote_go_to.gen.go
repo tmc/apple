@@ -111,7 +111,7 @@ type IPDFActionRemoteGoTo interface {
 	// Topic: Initializing the Remote Go-to Action
 
 	// Initializes the remote go-to action with the specified page index, point, and document URL.
-	InitWithPageIndexAtPointFileURL(pageIndex uint, point corefoundation.CGPoint, url foundation.INSURL) PDFActionRemoteGoTo
+	InitWithPageIndexAtPointFileURL(pageIndex uint, point corefoundation.CGPoint, url foundation.NSURL) PDFActionRemoteGoTo
 
 	// Topic: Accessing the Page Index of the Referenced Document
 
@@ -128,8 +128,8 @@ type IPDFActionRemoteGoTo interface {
 	// Topic: Accessing the URL of the Referenced Document
 
 	// Returns the URL of the document referenced by the remote go-to action.
-	URL() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	URL() foundation.NSURL
+	SetURL(value foundation.NSURL)
 }
 
 // Init initializes the instance.
@@ -172,7 +172,7 @@ func NewPDFActionRemoteGoTo() PDFActionRemoteGoTo {
 // documents that may not be instantiated yet.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFActionRemoteGoTo/init(pageIndex:at:fileURL:)
-func NewPDFActionRemoteGoToWithPageIndexAtPointFileURL(pageIndex uint, point corefoundation.CGPoint, url foundation.INSURL) PDFActionRemoteGoTo {
+func NewPDFActionRemoteGoToWithPageIndexAtPointFileURL(pageIndex uint, point corefoundation.CGPoint, url foundation.NSURL) PDFActionRemoteGoTo {
 	instance := getPDFActionRemoteGoToClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPageIndex:atPoint:fileURL:"), pageIndex, point, url)
 	return PDFActionRemoteGoToFromID(rv)
@@ -199,7 +199,7 @@ func NewPDFActionRemoteGoToWithPageIndexAtPointFileURL(pageIndex uint, point cor
 // documents that may not be instantiated yet.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFActionRemoteGoTo/init(pageIndex:at:fileURL:)
-func (p PDFActionRemoteGoTo) InitWithPageIndexAtPointFileURL(pageIndex uint, point corefoundation.CGPoint, url foundation.INSURL) PDFActionRemoteGoTo {
+func (p PDFActionRemoteGoTo) InitWithPageIndexAtPointFileURL(pageIndex uint, point corefoundation.CGPoint, url foundation.NSURL) PDFActionRemoteGoTo {
 	rv := objc.Send[PDFActionRemoteGoTo](p.ID, objc.Sel("initWithPageIndex:atPoint:fileURL:"), pageIndex, point, url)
 	return rv
 }
@@ -243,10 +243,10 @@ func (p PDFActionRemoteGoTo) SetPoint(value corefoundation.CGPoint) {
 // The URL of the remote document referenced by the action.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFActionRemoteGoTo/url
-func (p PDFActionRemoteGoTo) URL() foundation.INSURL {
+func (p PDFActionRemoteGoTo) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (p PDFActionRemoteGoTo) SetURL(value foundation.INSURL) {
+func (p PDFActionRemoteGoTo) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }

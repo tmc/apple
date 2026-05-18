@@ -148,15 +148,13 @@ func NSTextAttachmentFromID(id objc.ID) NSTextAttachment {
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment
 type INSTextAttachment interface {
 	objectivec.IObject
-	NSTextAttachmentContainer
-	NSTextAttachmentLayout
 
 	// Topic: Initializing a text attachment
 
 	// Creates a text attachment object to contain the specified file wrapper.
 	InitWithFileWrapper(fileWrapper foundation.NSFileWrapper) NSTextAttachment
 	// Creates a text attachment object with the specified data.
-	InitWithDataOfType(contentData foundation.INSData, uti string) NSTextAttachment
+	InitWithDataOfType(contentData foundation.NSData, uti string) NSTextAttachment
 
 	// Topic: Defining the attachment’s contents
 
@@ -164,8 +162,8 @@ type INSTextAttachment interface {
 	Bounds() corefoundation.CGRect
 	SetBounds(value corefoundation.CGRect)
 	// The contents for the text attachment.
-	Contents() foundation.INSData
-	SetContents(value foundation.INSData)
+	Contents() foundation.NSData
+	SetContents(value foundation.NSData)
 	// The file type of the contents for the text attachment.
 	FileType() string
 	SetFileType(value string)
@@ -236,7 +234,7 @@ func NewNSTextAttachment() NSTextAttachment {
 // the [Image] property instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/init(data:ofType:)
-func NewTextAttachmentWithDataOfType(contentData foundation.INSData, uti string) NSTextAttachment {
+func NewTextAttachmentWithDataOfType(contentData foundation.NSData, uti string) NSTextAttachment {
 	instance := getNSTextAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:ofType:"), contentData, objc.String(uti))
 	return NSTextAttachmentFromID(rv)
@@ -311,7 +309,7 @@ func (t NSTextAttachment) InitWithFileWrapper(fileWrapper foundation.NSFileWrapp
 // the [Image] property instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/init(data:ofType:)
-func (t NSTextAttachment) InitWithDataOfType(contentData foundation.INSData, uti string) NSTextAttachment {
+func (t NSTextAttachment) InitWithDataOfType(contentData foundation.NSData, uti string) NSTextAttachment {
 	rv := objc.Send[NSTextAttachment](t.ID, objc.Sel("initWithData:ofType:"), contentData, objc.String(uti))
 	return rv
 }
@@ -534,11 +532,11 @@ func (t NSTextAttachment) SetBounds(value corefoundation.CGRect) {
 // property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachment/contents
-func (t NSTextAttachment) Contents() foundation.INSData {
+func (t NSTextAttachment) Contents() foundation.NSData {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("contents"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (t NSTextAttachment) SetContents(value foundation.INSData) {
+func (t NSTextAttachment) SetContents(value foundation.NSData) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContents:"), value)
 }
 

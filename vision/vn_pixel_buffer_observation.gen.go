@@ -5,10 +5,10 @@ package vision
 import (
 	"sync"
 
-	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNPixelBufferObservation] class.
@@ -99,11 +99,11 @@ type IVNPixelBufferObservation interface {
 	FeatureName() string
 
 	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() coreml.MLModelDescription
-	SetModelDescription(value coreml.MLModelDescription)
+	ModelDescription() objectivec.IObject
+	SetModelDescription(value objectivec.IObject)
 	// A dictionary of output feature descriptions, which the model keys by the output’s name.
-	OutputDescriptionsByName() coreml.MLFeatureDescription
-	SetOutputDescriptionsByName(value coreml.MLFeatureDescription)
+	OutputDescriptionsByName() objectivec.IObject
+	SetOutputDescriptionsByName(value objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -155,11 +155,11 @@ func (p VNPixelBufferObservation) FeatureName() string {
 // displays in its Core ML model editor view.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/modelDescription
-func (p VNPixelBufferObservation) ModelDescription() coreml.MLModelDescription {
+func (p VNPixelBufferObservation) ModelDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelDescription"))
-	return coreml.MLModelDescriptionFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
-func (p VNPixelBufferObservation) SetModelDescription(value coreml.MLModelDescription) {
+func (p VNPixelBufferObservation) SetModelDescription(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModelDescription:"), value)
 }
 
@@ -167,10 +167,10 @@ func (p VNPixelBufferObservation) SetModelDescription(value coreml.MLModelDescri
 // output’s name.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/outputDescriptionsByName
-func (p VNPixelBufferObservation) OutputDescriptionsByName() coreml.MLFeatureDescription {
+func (p VNPixelBufferObservation) OutputDescriptionsByName() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("outputDescriptionsByName"))
-	return coreml.MLFeatureDescriptionFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
-func (p VNPixelBufferObservation) SetOutputDescriptionsByName(value coreml.MLFeatureDescription) {
+func (p VNPixelBufferObservation) SetOutputDescriptionsByName(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }

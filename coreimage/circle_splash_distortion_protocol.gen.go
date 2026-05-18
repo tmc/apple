@@ -15,34 +15,22 @@ type CICircleSplashDistortion interface {
 	objectivec.IObject
 	CIFilterProtocol
 
-	// Center protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/center
-	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/inputImage
-	InputImage() ICIImage
-
-	// Radius protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/radius
-	Radius() float32
-
 	// center protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/center
+	Center() corefoundation.CGPoint
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// radius protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -63,26 +51,6 @@ func CICircleSplashDistortionObjectFromID(id objc.ID) CICircleSplashDistortionOb
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/center
-func (o CICircleSplashDistortionObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/inputImage
-func (o CICircleSplashDistortionObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/radius
-func (o CICircleSplashDistortionObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -93,6 +61,11 @@ func (o CICircleSplashDistortionObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/center
+func (o CICircleSplashDistortionObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CICircleSplashDistortionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -100,11 +73,21 @@ func (o CICircleSplashDistortionObject) SetCenter(value corefoundation.CGPoint) 
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/inputImage
+func (o CICircleSplashDistortionObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CICircleSplashDistortionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/radius
+func (o CICircleSplashDistortionObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CICircleSplashDistortionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

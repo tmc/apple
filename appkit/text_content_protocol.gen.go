@@ -18,10 +18,6 @@ type NSTextContent interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
 	ContentType() NSTextContentType
-
-	// The semantic meaning for a text input area.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
 	SetContentType(value NSTextContentType)
 }
 
@@ -44,14 +40,6 @@ func NSTextContentObjectFromID(id objc.ID) NSTextContentObject {
 
 // The semantic meaning for a text input area.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
-func (o NSTextContentObject) ContentType() NSTextContentType {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("contentType"))
-	return NSTextContentType(foundation.NSStringFromID(rv).String())
-}
-
-// The semantic meaning for a text input area.
-//
 // # Discussion
 //
 // Use this property to give the system information about the expected
@@ -65,6 +53,11 @@ func (o NSTextContentObject) ContentType() NSTextContentType {
 // See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
 //
 // [emailAddress]: https://developer.apple.com/documentation/AppKit/NSTextContentType/emailAddress
+func (o NSTextContentObject) ContentType() NSTextContentType {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("contentType"))
+	return NSTextContentType(foundation.NSStringFromID(rv).String())
+}
+
 func (o NSTextContentObject) SetContentType(value NSTextContentType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setContentType:"), objc.String(string(value)))
 }

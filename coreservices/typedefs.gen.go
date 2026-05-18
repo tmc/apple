@@ -5,9 +5,8 @@ package coreservices
 import (
 	"unsafe"
 
+	"github.com/tmc/apple/applicationservices"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/kernel"
-	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/security"
 )
 
@@ -39,7 +38,7 @@ type AEBuildErrorCode = uint32
 // AECoerceDescProcPtr is defines a pointer to a function that coerces data stored in a descriptor. Your descriptor coercion callback function coerces the data from the passed descriptor to the specified type, returning the coerced data in a second descriptor.
 //
 // See: https://developer.apple.com/documentation/coreservices/aecoercedescprocptr
-type AECoerceDescProcPtr = func(objectivec.IObject, uint32, uintptr, objectivec.IObject) int16
+type AECoerceDescProcPtr = func(unsafe.Pointer, uint32, uintptr, unsafe.Pointer) int16
 
 // AECoerceDescUPP is defines a data type for the universal procedure pointer for the [AECoerceDescProcPtr] callback function pointer.
 //
@@ -49,7 +48,7 @@ type AECoerceDescUPP = unsafe.Pointer
 // AECoercePtrProcPtr is defines a pointer to a function that coerces data stored in a buffer. Your pointer coercion callback routine coerces the data from the passed buffer to the specified type, returning the coerced data in a descriptor.
 //
 // See: https://developer.apple.com/documentation/coreservices/aecoerceptrprocptr
-type AECoercePtrProcPtr = func(uint32, unsafe.Pointer, corefoundation.CGSize, uint32, uintptr, objectivec.IObject) int16
+type AECoercePtrProcPtr = func(uint32, unsafe.Pointer, corefoundation.CGSize, uint32, uintptr, unsafe.Pointer) int16
 
 // AECoercePtrUPP is defines a data type for the universal procedure pointer for the [AECoercePtrProcPtr] callback function pointer.
 //
@@ -97,7 +96,7 @@ type AEEventClass = uint32
 // AEEventHandlerProcPtr is defines a pointer to a function that handles one or more Apple events. Your Apple event handler function performs any action requested by the Apple event, adds parameters to the reply Apple event if appropriate (possibly including error information), and returns a result code.
 //
 // See: https://developer.apple.com/documentation/coreservices/aeeventhandlerprocptr
-type AEEventHandlerProcPtr = func(objectivec.IObject, objectivec.IObject, uintptr) int16
+type AEEventHandlerProcPtr = func(unsafe.Pointer, unsafe.Pointer, uintptr) int16
 
 // AEEventHandlerUPP is defines a data type for the universal procedure pointer for the [AEEventHandlerUPP] callback function pointer.
 //
@@ -403,7 +402,7 @@ type ComponentRoutineUPP = unsafe.Pointer
 type ConstFSEventStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/constfsspecptr
-type ConstFSSpecPtr = FSSpec
+type ConstFSSpecPtr = unsafe.Pointer
 
 // ConstScriptCodeRunPtr is defines a constant script code run pointer.
 //
@@ -617,7 +616,7 @@ type FSCatalogInfoPtr = unsafe.Pointer
 type FSEjectStatus = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fseventstreamcallback
-type FSEventStreamCallback = func(ConstFSEventStreamRef, unsafe.Pointer, int, unsafe.Pointer, objectivec.IObject, objectivec.IObject)
+type FSEventStreamCallback = func(ConstFSEventStreamRef, unsafe.Pointer, int, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/coreservices/fseventstreamcreateflags
 type FSEventStreamCreateFlags = uint32
@@ -671,7 +670,7 @@ type FSIORefNum = int
 type FSIterator = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fsiteratorflags
-type FSIteratorFlags = uint
+type FSIteratorFlags = applicationservices.OptionBits
 
 // See: https://developer.apple.com/documentation/coreservices/fsmountstatus
 type FSMountStatus = uint32
@@ -844,7 +843,7 @@ type IconRef uintptr
 type IconServicesUsageFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/indextoucstringprocptr
-type IndexToUCStringProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, objectivec.IObject, objectivec.IObject) objectivec.IObject
+type IndexToUCStringProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/indextoucstringupp
 type IndexToUCStringUPP = unsafe.Pointer
@@ -898,7 +897,7 @@ type ItlbRecord = unsafe.Pointer
 type ItlcRecord = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kcattrtype
-type KCAttrType = security.SecKeychainAttrType
+type KCAttrType = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kcattribute
 type KCAttribute = security.SecKeychainAttribute
@@ -949,7 +948,7 @@ type KCRef = security.SecKeychainRef
 type KCSearchRef = security.SecKeychainSearchRef
 
 // See: https://developer.apple.com/documentation/coreservices/kcstatus
-type KCStatus = security.SecKeychainStatus
+type KCStatus = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kcverifystopon
 type KCVerifyStopOn = uint16
@@ -1019,7 +1018,7 @@ type MDQueryCreateResultFunction = func(MDQueryRef, MDItemRef, unsafe.Pointer) u
 // MDQueryCreateValueFunction is callback function usedto create the value objects stored and returned by a query.
 //
 // See: https://developer.apple.com/documentation/coreservices/mdquerycreatevaluefunction
-type MDQueryCreateValueFunction = func(MDQueryRef, corefoundation.CFStringRef, unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
+type MDQueryCreateValueFunction = func(MDQueryRef, corefoundation.CFString, unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
 
 // MDQueryRef is a reference to a MDQuery object.
 //
@@ -1029,7 +1028,7 @@ type MDQueryRef uintptr
 // MDQuerySortComparatorFunction is callback function used to sort the results of a query.
 //
 // See: https://developer.apple.com/documentation/coreservices/mdquerysortcomparatorfunction
-type MDQuerySortComparatorFunction = func(objectivec.IObject, objectivec.IObject, unsafe.Pointer) corefoundation.CFComparisonResult
+type MDQuerySortComparatorFunction = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) corefoundation.CFComparisonResult
 
 // See: https://developer.apple.com/documentation/coreservices/mididatachunk
 type MIDIDataChunk = unsafe.Pointer
@@ -1125,7 +1124,7 @@ type MPRemoteContext = uint8
 // MPSemaphoreCount is represents a semaphore count.
 //
 // See: https://developer.apple.com/documentation/coreservices/mpsemaphorecount
-type MPSemaphoreCount = unsafe.Pointer
+type MPSemaphoreCount = uint
 
 // MPSemaphoreID is represents a semaphore ID, which Multiprocessing Services uses to manipulate semaphores.
 //
@@ -1151,7 +1150,7 @@ type MPTaskInfoVersion2 = unsafe.Pointer
 // MPTaskOptions is specify optional actions when calling the [MPCreateTask] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/mptaskoptions
-type MPTaskOptions = uint
+type MPTaskOptions = applicationservices.OptionBits
 
 // See: https://developer.apple.com/documentation/coreservices/mptaskstatekind
 type MPTaskStateKind = uint32
@@ -1226,7 +1225,7 @@ type NumberPartsPtr = unsafe.Pointer
 // OSLAccessorProcPtr is your object accessor function either finds elements or properties of an Apple event object.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslaccessorprocptr
-type OSLAccessorProcPtr = func(uint32, objectivec.IObject, uint32, uint32, objectivec.IObject, objectivec.IObject, uintptr) int16
+type OSLAccessorProcPtr = func(uint32, unsafe.Pointer, uint32, uint32, unsafe.Pointer, unsafe.Pointer, uintptr) int16
 
 // OSLAccessorUPP is defines a data type for the universal procedure pointer for the [OSLAccessorProcPtr] callback function pointer.
 //
@@ -1236,7 +1235,7 @@ type OSLAccessorUPP = unsafe.Pointer
 // OSLAdjustMarksProcPtr is defines a pointer to an adjust marks callback function. Your adjust marks function unmarks objects previously marked by a call to your marking function.
 //
 // See: https://developer.apple.com/documentation/coreservices/osladjustmarksprocptr
-type OSLAdjustMarksProcPtr = func(int, int, objectivec.IObject) int16
+type OSLAdjustMarksProcPtr = func(int, int, unsafe.Pointer) int16
 
 // OSLAdjustMarksUPP is defines a data type for the universal procedure pointer for the [OSLAdjustMarksProcPtr] callback function pointer.
 //
@@ -1246,7 +1245,7 @@ type OSLAdjustMarksUPP = unsafe.Pointer
 // OSLCompareProcPtr is defines a pointer to an object comparison callback function. Your object comparison function compares one Apple event object to another or to the data for a descriptor.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslcompareprocptr
-type OSLCompareProcPtr = func(uint32, objectivec.IObject, objectivec.IObject, objectivec.IObject) int16
+type OSLCompareProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int16
 
 // OSLCompareUPP is defines a data type for the universal procedure pointer for the [OSLCompareProcPtr] callback function pointer.
 //
@@ -1256,7 +1255,7 @@ type OSLCompareUPP = unsafe.Pointer
 // OSLCountProcPtr is defines a pointer to an object counting callback function. Your object counting function counts the number of Apple event objects of a specified class in a specified container object.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslcountprocptr
-type OSLCountProcPtr = func(uint32, uint32, objectivec.IObject, objectivec.IObject) int16
+type OSLCountProcPtr = func(uint32, uint32, unsafe.Pointer, unsafe.Pointer) int16
 
 // OSLCountUPP is defines a data type for the universal procedure pointer for the [OSLCountProcPtr] callback function pointer.
 //
@@ -1266,7 +1265,7 @@ type OSLCountUPP = unsafe.Pointer
 // OSLDisposeTokenProcPtr is defines a pointer to a dispose token callback function. Your dispose token function, required only if you use a complex token format, disposes of the specified token.
 //
 // See: https://developer.apple.com/documentation/coreservices/osldisposetokenprocptr
-type OSLDisposeTokenProcPtr = func(objectivec.IObject) int16
+type OSLDisposeTokenProcPtr = func(unsafe.Pointer) int16
 
 // OSLDisposeTokenUPP is defines a data type for the universal procedure pointer for the [OSLDisposeTokenProcPtr] callback function pointer.
 //
@@ -1276,7 +1275,7 @@ type OSLDisposeTokenUPP = unsafe.Pointer
 // OSLGetErrDescProcPtr is defines a pointer to an error descriptor callback function. Your error descriptor callback function supplies a pointer to an address where the Apple Event Manager can store the current descriptor if an error occurs during a call to the [AEResolve] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslgeterrdescprocptr
-type OSLGetErrDescProcPtr = func(objectivec.IObject) int16
+type OSLGetErrDescProcPtr = func(unsafe.Pointer) int16
 
 // OSLGetErrDescUPP is defines a data type for the universal procedure pointer for the [OSLGetErrDescProcPtr] callback function pointer.
 //
@@ -1286,7 +1285,7 @@ type OSLGetErrDescUPP = unsafe.Pointer
 // OSLGetMarkTokenProcPtr is defines a pointer to a mark token callback function. Your mark token function returns a mark token.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslgetmarktokenprocptr
-type OSLGetMarkTokenProcPtr = func(objectivec.IObject, uint32, objectivec.IObject) int16
+type OSLGetMarkTokenProcPtr = func(unsafe.Pointer, uint32, unsafe.Pointer) int16
 
 // OSLGetMarkTokenUPP is defines a data type for the universal procedure pointer for the [OSLGetMarkTokenProcPtr] callback function pointer.
 //
@@ -1296,7 +1295,7 @@ type OSLGetMarkTokenUPP = unsafe.Pointer
 // OSLMarkProcPtr is defines a pointer to an object marking callback function. Your object-marking function marks a specific Apple event object.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslmarkprocptr
-type OSLMarkProcPtr = func(objectivec.IObject, objectivec.IObject, int) int16
+type OSLMarkProcPtr = func(unsafe.Pointer, unsafe.Pointer, int) int16
 
 // OSLMarkUPP is defines a data type for the universal procedure pointer for the [OSLMarkProcPtr] callback function pointer.
 //
@@ -1351,7 +1350,7 @@ type PEFSectionHeader = unsafe.Pointer
 type PEFSplitHashWord = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/paramblockrec
-type ParamBlockRec = objectivec.IObject
+type ParamBlockRec = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/parmblkptr
 type ParmBlkPtr = unsafe.Pointer
@@ -1374,7 +1373,7 @@ type QHdr = unsafe.Pointer
 type QHdrPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/qtypes
-type QTypes = kernel.SignedByte
+type QTypes = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/rdflagstype
 type RDFlagsType = uint8
@@ -1509,7 +1508,7 @@ type SKSearchRef uintptr
 // SKSearchResultsFilterCallBack is deprecated. Use [SKSearchCreate] and [SKSearchFindMatches] instead, which do not use a callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/sksearchresultsfiltercallback
-type SKSearchResultsFilterCallBack = func(SKIndexRef, SKDocumentRef, unsafe.Pointer) objectivec.IObject
+type SKSearchResultsFilterCallBack = func(SKIndexRef, SKDocumentRef, unsafe.Pointer) unsafe.Pointer
 
 // SKSearchResultsRef is deprecated. Use asynchronous searching with SKSearchCreate instead, which does not employ search groups.
 //
@@ -1713,7 +1712,7 @@ type TableDirectoryRecord = unsafe.Pointer
 // TaskStorageIndex is represents a task storage index value used by functions described in “Accessing Per-Task Storage Variables.”.
 //
 // See: https://developer.apple.com/documentation/coreservices/taskstorageindex
-type TaskStorageIndex = unsafe.Pointer
+type TaskStorageIndex = uint
 
 // TaskStorageValue is represents a task storage value used by functions described in “Accessing Per-Task Storage Variables.”.
 //

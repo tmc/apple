@@ -123,8 +123,6 @@ func NSOrthographyFromID(id objc.ID) NSOrthography {
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography
 type INSOrthography interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating Orthography Objects

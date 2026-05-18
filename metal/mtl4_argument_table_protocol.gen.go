@@ -14,16 +14,6 @@ import (
 type MTL4ArgumentTable interface {
 	objectivec.IObject
 
-	// The device from which you created this argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/device
-	Device() MTLDevice
-
-	// Assigns an optional label with this argument table for debugging purposes.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/label
-	Label() string
-
 	// Binds a GPU address to a buffer binding slot, providing a dynamic vertex stride.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setAddress(_:attributeStride:index:)
@@ -48,6 +38,16 @@ type MTL4ArgumentTable interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setTexture(_:index:)
 	SetTextureAtIndex(resourceID MTLResourceID, bindingIndex uint)
+
+	// The device from which you created this argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/device
+	Device() MTLDevice
+
+	// Assigns an optional label with this argument table for debugging purposes.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/label
+	Label() string
 }
 
 // MTL4ArgumentTableObject wraps an existing Objective-C object that conforms to the MTL4ArgumentTable protocol.
@@ -65,22 +65,6 @@ func MTL4ArgumentTableObjectFromID(id objc.ID) MTL4ArgumentTableObject {
 	return MTL4ArgumentTableObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The device from which you created this argument table.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/device
-func (o MTL4ArgumentTableObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// Assigns an optional label with this argument table for debugging purposes.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/label
-func (o MTL4ArgumentTableObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Binds a GPU address to a buffer binding slot, providing a dynamic vertex
@@ -160,4 +144,25 @@ func (o MTL4ArgumentTableObject) SetSamplerStateAtIndex(resourceID MTLResourceID
 // [MTLResourceID]: https://developer.apple.com/documentation/Metal/MTLResourceID
 func (o MTL4ArgumentTableObject) SetTextureAtIndex(resourceID MTLResourceID, bindingIndex uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTexture:atIndex:"), resourceID, bindingIndex)
+}
+
+// The device from which you created this argument table.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/device
+func (o MTL4ArgumentTableObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
+// Assigns an optional label with this argument table for debugging purposes.
+//
+// # Discussion
+//
+// You set this label by setting property [Label] on the descriptor object,
+// prior to creating this table instance.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/label
+func (o MTL4ArgumentTableObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
 }

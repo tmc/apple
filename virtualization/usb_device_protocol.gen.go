@@ -44,6 +44,12 @@ func VZUSBDeviceObjectFromID(id objc.ID) VZUSBDeviceObject {
 
 // The USB controller that has an attachment to the device.
 //
+// # Discussion
+//
+// If a USB device object that conforms to this protocol has a current
+// attachment to a USB controller, this property includes a pointer to the
+// device’s USB controller object. Otherwise, it’s `nil`.
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDevice/usbController
 func (o VZUSBDeviceObject) UsbController() IVZUSBController {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("usbController"))
@@ -51,6 +57,11 @@ func (o VZUSBDeviceObject) UsbController() IVZUSBController {
 }
 
 // The device’s unique identifier.
+//
+// # Discussion
+//
+// This is the identifier the system creates from device configuration objects
+// that conform to [VZUSBDeviceConfiguration].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDevice/uuid
 func (o VZUSBDeviceObject) Uuid() foundation.NSUUID {

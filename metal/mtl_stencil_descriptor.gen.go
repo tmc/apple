@@ -236,7 +236,7 @@ func (s MTLStencilDescriptor) SetDepthStencilPassOperation(value MTLStencilOpera
 // For example, if `stencilCompareFunction` is [MTLCompareFunctionLess], then
 // the stencil test passes if the masked reference value is less than the
 // masked stored stencil value. The default value is
-// [MTLCompareFunction.always], which indicates that the stencil test always
+// [MTLCompareFunctionAlways], which indicates that the stencil test always
 // passes.
 //
 // The stored stencil value and the reference value are both by performing a
@@ -245,7 +245,6 @@ func (s MTLStencilDescriptor) SetDepthStencilPassOperation(value MTLStencilOpera
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/stencilCompareFunction
 //
-// [MTLCompareFunction.always]: https://developer.apple.com/documentation/Metal/MTLCompareFunction/always
 // [MTLCompareFunction]: https://developer.apple.com/documentation/Metal/MTLCompareFunction
 func (s MTLStencilDescriptor) StencilCompareFunction() MTLCompareFunction {
 	rv := objc.Send[MTLCompareFunction](s.ID, objc.Sel("stencilCompareFunction"))

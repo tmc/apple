@@ -24,7 +24,7 @@ type MTLSamplerState interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLSamplerState/label
 	Label() string
 
-	// GpuResourceID protocol.
+	// gpuResourceID protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLSamplerState/gpuResourceID
 	GpuResourceID() MTLResourceID
@@ -49,6 +49,11 @@ func MTLSamplerStateObjectFromID(id objc.ID) MTLSamplerStateObject {
 
 // The device object that created the sampler.
 //
+// # Discussion
+//
+// A sampler is always associated with the [MTLDevice] that created it and can
+// be used only with that device.
+//
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerState/device
 func (o MTLSamplerStateObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
@@ -57,7 +62,15 @@ func (o MTLSamplerStateObject) Device() MTLDevice {
 
 // A string that identifies the sampler.
 //
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerState/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLSamplerStateObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
@@ -66,5 +79,5 @@ func (o MTLSamplerStateObject) Label() string {
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerState/gpuResourceID
 func (o MTLSamplerStateObject) GpuResourceID() MTLResourceID {
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
+	return MTLResourceID(rv)
 }

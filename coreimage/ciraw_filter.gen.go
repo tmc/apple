@@ -384,7 +384,7 @@ func NewCIRAWFilter() CIRAWFilter {
 //
 // properties: A dictionary that defines the properties of the pixel buffer.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/init(cvPixelBuffer:properties:)
+// See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/init(cvPixelBuffer:properties:)-6209q
 func NewRAWFilterWithCVPixelBufferProperties(buffer corevideo.CVImageBufferRef, properties foundation.INSDictionary) CIRAWFilter {
 	rv := objc.Send[objc.ID](objc.ID(getCIRAWFilterClass().class), objc.Sel("filterWithCVPixelBuffer:properties:"), buffer, properties)
 	return CIRAWFilterFromID(rv)
@@ -397,7 +397,7 @@ func NewRAWFilterWithCVPixelBufferProperties(buffer corevideo.CVImageBufferRef, 
 // identifierHint: A string that identifies the image type.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/init(imageData:identifierHint:)
-func NewRAWFilterWithImageDataIdentifierHint(data foundation.INSData, identifierHint string) CIRAWFilter {
+func NewRAWFilterWithImageDataIdentifierHint(data foundation.NSData, identifierHint string) CIRAWFilter {
 	rv := objc.Send[objc.ID](objc.ID(getCIRAWFilterClass().class), objc.Sel("filterWithImageData:identifierHint:"), data, objc.String(identifierHint))
 	return CIRAWFilterFromID(rv)
 }
@@ -407,7 +407,7 @@ func NewRAWFilterWithImageDataIdentifierHint(data foundation.INSData, identifier
 // url: The URL location of the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/init(imageURL:)
-func NewRAWFilterWithImageURL(url foundation.INSURL) CIRAWFilter {
+func NewRAWFilterWithImageURL(url foundation.NSURL) CIRAWFilter {
 	rv := objc.Send[objc.ID](objc.ID(getCIRAWFilterClass().class), objc.Sel("filterWithImageURL:"), url)
 	return CIRAWFilterFromID(rv)
 }

@@ -84,14 +84,14 @@ type IMLAppleTextClassifier interface {
 }
 
 // Init initializes the instance.
-func (a MLAppleTextClassifier) Init() MLAppleTextClassifier {
-	rv := objc.Send[MLAppleTextClassifier](a.ID, objc.Sel("init"))
+func (m MLAppleTextClassifier) Init() MLAppleTextClassifier {
+	rv := objc.Send[MLAppleTextClassifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAppleTextClassifier) Autorelease() MLAppleTextClassifier {
-	rv := objc.Send[MLAppleTextClassifier](a.ID, objc.Sel("autorelease"))
+func (m MLAppleTextClassifier) Autorelease() MLAppleTextClassifier {
+	rv := objc.Send[MLAppleTextClassifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -167,9 +167,9 @@ func NewAppleTextClassifierWithParametersModelDescriptionNlpHandleConfigurationE
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier/predictionFromFeatures:options:error:
-func (a MLAppleTextClassifier) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLAppleTextClassifier) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -179,9 +179,9 @@ func (a MLAppleTextClassifier) PredictionFromFeaturesOptionsError(features objec
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier/initWithParameters:modelDescription:nlpHandle:configuration:error:
-func (a MLAppleTextClassifier) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleTextClassifier, error) {
+func (m MLAppleTextClassifier) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleTextClassifier, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleTextClassifier{}, foundation.NSErrorFrom(errorPtr)
@@ -218,7 +218,7 @@ func (_MLAppleTextClassifierClass MLAppleTextClassifierClass) SaveAppleTextClass
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier/parameters
-func (a MLAppleTextClassifier) Parameters() IMLAppleTextClassifierParameters {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
+func (m MLAppleTextClassifier) Parameters() IMLAppleTextClassifierParameters {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return MLAppleTextClassifierParametersFromID(objc.ID(rv))
 }

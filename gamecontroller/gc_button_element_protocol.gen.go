@@ -48,30 +48,6 @@ func GCButtonElementObjectFromID(id objc.ID) GCButtonElementObject {
 	}
 }
 
-// The input object that provides the touch state of the element.
-//
-// See: https://developer.apple.com/documentation/GameController/GCButtonElement/touchedInput
-func (o GCButtonElementObject) TouchedInput() GCTouchedStateInput {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchedInput"))
-	return GCTouchedStateInputObjectFromID(rv)
-}
-
-// The input object that provides the linear and press state of the element.
-//
-// See: https://developer.apple.com/documentation/GameController/GCButtonElement/pressedInput
-func (o GCButtonElementObject) PressedInput() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("pressedInput"))
-	return objectivec.Object{ID: rv}
-}
-
-// Get the input containing the measured force applied to the button.
-//
-// See: https://developer.apple.com/documentation/GameController/GCButtonElement/forceInput
-func (o GCButtonElementObject) ForceInput() GCLinearInput {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("forceInput"))
-	return GCLinearInputObjectFromID(rv)
-}
-
 // The localized name for the element.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/localizedName
@@ -95,4 +71,33 @@ func (o GCButtonElementObject) SfSymbolsName() string {
 func (o GCButtonElementObject) Aliases() foundation.INSSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("aliases"))
 	return foundation.NSSetFromID(rv)
+}
+
+// The input object that provides the touch state of the element.
+//
+// See: https://developer.apple.com/documentation/GameController/GCButtonElement/touchedInput
+func (o GCButtonElementObject) TouchedInput() GCTouchedStateInput {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchedInput"))
+	return GCTouchedStateInputObjectFromID(rv)
+}
+
+// The input object that provides the linear and press state of the element.
+//
+// See: https://developer.apple.com/documentation/GameController/GCButtonElement/pressedInput
+func (o GCButtonElementObject) PressedInput() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("pressedInput"))
+	return objectivec.Object{ID: rv}
+}
+
+// Get the input containing the measured force applied to the button.
+//
+// # Discussion
+//
+// Some buttons feature load cells (also known as button force transducers)
+// capable of measuring applied mechanical force.
+//
+// See: https://developer.apple.com/documentation/GameController/GCButtonElement/forceInput
+func (o GCButtonElementObject) ForceInput() GCLinearInput {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("forceInput"))
+	return GCLinearInputObjectFromID(rv)
 }

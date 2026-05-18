@@ -234,11 +234,11 @@ type ICKRecord interface {
 	RecordType() unsafe.Pointer
 	SetRecordType(value unsafe.Pointer)
 	// The time when CloudKit first saves the record to the server.
-	CreationDate() foundation.INSDate
+	CreationDate() foundation.NSDate
 	// The ID of the user who creates the record.
 	CreatorUserRecordID() ICKRecordID
 	// The most recent time that CloudKit saved the record to the server.
-	ModificationDate() foundation.INSDate
+	ModificationDate() foundation.NSDate
 	// The ID of the user who most recently modified the record.
 	LastModifiedUserRecordID() ICKRecordID
 	// The server change token for the record.
@@ -506,7 +506,7 @@ func (c CKRecord) SetRecordType(value unsafe.Pointer) {
 // server, the value updates with the creation date for the record.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecord/creationDate
-func (c CKRecord) CreationDate() foundation.INSDate {
+func (c CKRecord) CreationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("creationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
@@ -537,7 +537,7 @@ func (c CKRecord) CreatorUserRecordID() ICKRecordID {
 // the record.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKRecord/modificationDate
-func (c CKRecord) ModificationDate() foundation.INSDate {
+func (c CKRecord) ModificationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("modificationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

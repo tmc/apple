@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_remove_reshape_around_rank3_inner_product] class.
+// The class instance for the [EspressoPassRemoveReshapeAroundRank3InnerProduct] class.
 var (
-	_EspressoPass_remove_reshape_around_rank3_inner_productClass     EspressoPass_remove_reshape_around_rank3_inner_productClass
-	_EspressoPass_remove_reshape_around_rank3_inner_productClassOnce sync.Once
+	_EspressoPassRemoveReshapeAroundRank3InnerProductClass     EspressoPassRemoveReshapeAroundRank3InnerProductClass
+	_EspressoPassRemoveReshapeAroundRank3InnerProductClassOnce sync.Once
 )
 
-func getEspressoPass_remove_reshape_around_rank3_inner_productClass() EspressoPass_remove_reshape_around_rank3_inner_productClass {
-	_EspressoPass_remove_reshape_around_rank3_inner_productClassOnce.Do(func() {
-		_EspressoPass_remove_reshape_around_rank3_inner_productClass = EspressoPass_remove_reshape_around_rank3_inner_productClass{class: objc.GetClass("EspressoPass_remove_reshape_around_rank3_inner_product")}
+func getEspressoPassRemoveReshapeAroundRank3InnerProductClass() EspressoPassRemoveReshapeAroundRank3InnerProductClass {
+	_EspressoPassRemoveReshapeAroundRank3InnerProductClassOnce.Do(func() {
+		_EspressoPassRemoveReshapeAroundRank3InnerProductClass = EspressoPassRemoveReshapeAroundRank3InnerProductClass{class: objc.GetClass("EspressoPass_remove_reshape_around_rank3_inner_product")}
 	})
-	return _EspressoPass_remove_reshape_around_rank3_inner_productClass
+	return _EspressoPassRemoveReshapeAroundRank3InnerProductClass
 }
 
-// GetEspressoPass_remove_reshape_around_rank3_inner_productClass returns the class object for EspressoPass_remove_reshape_around_rank3_inner_product.
-func GetEspressoPass_remove_reshape_around_rank3_inner_productClass() EspressoPass_remove_reshape_around_rank3_inner_productClass {
-	return getEspressoPass_remove_reshape_around_rank3_inner_productClass()
+// GetEspressoPassRemoveReshapeAroundRank3InnerProductClass returns the class object for EspressoPass_remove_reshape_around_rank3_inner_product.
+func GetEspressoPassRemoveReshapeAroundRank3InnerProductClass() EspressoPassRemoveReshapeAroundRank3InnerProductClass {
+	return getEspressoPassRemoveReshapeAroundRank3InnerProductClass()
 }
 
-type EspressoPass_remove_reshape_around_rank3_inner_productClass struct {
+type EspressoPassRemoveReshapeAroundRank3InnerProductClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_remove_reshape_around_rank3_inner_productClass) Class() objc.Class {
+func (ec EspressoPassRemoveReshapeAroundRank3InnerProductClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_remove_reshape_around_rank3_inner_productClass) Alloc() EspressoPass_remove_reshape_around_rank3_inner_product {
-	rv := objc.Send[EspressoPass_remove_reshape_around_rank3_inner_product](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassRemoveReshapeAroundRank3InnerProductClass) Alloc() EspressoPassRemoveReshapeAroundRank3InnerProduct {
+	rv := objc.Send[EspressoPassRemoveReshapeAroundRank3InnerProduct](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank3_inner_product
-type EspressoPass_remove_reshape_around_rank3_inner_product struct {
+type EspressoPassRemoveReshapeAroundRank3InnerProduct struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_remove_reshape_around_rank3_inner_productFromID constructs a [EspressoPass_remove_reshape_around_rank3_inner_product] from an objc.ID.
-func EspressoPass_remove_reshape_around_rank3_inner_productFromID(id objc.ID) EspressoPass_remove_reshape_around_rank3_inner_product {
-	return EspressoPass_remove_reshape_around_rank3_inner_product{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassRemoveReshapeAroundRank3InnerProductFromID constructs a [EspressoPassRemoveReshapeAroundRank3InnerProduct] from an objc.ID.
+func EspressoPassRemoveReshapeAroundRank3InnerProductFromID(id objc.ID) EspressoPassRemoveReshapeAroundRank3InnerProduct {
+	return EspressoPassRemoveReshapeAroundRank3InnerProduct{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_remove_reshape_around_rank3_inner_product implements IEspressoPass_remove_reshape_around_rank3_inner_product.
-var _ IEspressoPass_remove_reshape_around_rank3_inner_product = EspressoPass_remove_reshape_around_rank3_inner_product{}
+// EspressoPass_remove_reshape_around_rank3_inner_productFromID is an alias for [EspressoPassRemoveReshapeAroundRank3InnerProductFromID] for cross-framework compatibility.
+func EspressoPass_remove_reshape_around_rank3_inner_productFromID(id objc.ID) EspressoPassRemoveReshapeAroundRank3InnerProduct {
+	return EspressoPassRemoveReshapeAroundRank3InnerProductFromID(id)
+}
 
-// An interface definition for the [EspressoPass_remove_reshape_around_rank3_inner_product] class.
+// Ensure EspressoPassRemoveReshapeAroundRank3InnerProduct implements IEspressoPassRemoveReshapeAroundRank3InnerProduct.
+var _ IEspressoPassRemoveReshapeAroundRank3InnerProduct = EspressoPassRemoveReshapeAroundRank3InnerProduct{}
+
+// An interface definition for the [EspressoPassRemoveReshapeAroundRank3InnerProduct] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank3_inner_product
-type IEspressoPass_remove_reshape_around_rank3_inner_product interface {
+type IEspressoPassRemoveReshapeAroundRank3InnerProduct interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_remove_reshape_around_rank3_inner_product) Init() EspressoPass_remove_reshape_around_rank3_inner_product {
-	rv := objc.Send[EspressoPass_remove_reshape_around_rank3_inner_product](e.ID, objc.Sel("init"))
+func (e EspressoPassRemoveReshapeAroundRank3InnerProduct) Init() EspressoPassRemoveReshapeAroundRank3InnerProduct {
+	rv := objc.Send[EspressoPassRemoveReshapeAroundRank3InnerProduct](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_remove_reshape_around_rank3_inner_product) Autorelease() EspressoPass_remove_reshape_around_rank3_inner_product {
-	rv := objc.Send[EspressoPass_remove_reshape_around_rank3_inner_product](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassRemoveReshapeAroundRank3InnerProduct) Autorelease() EspressoPassRemoveReshapeAroundRank3InnerProduct {
+	rv := objc.Send[EspressoPassRemoveReshapeAroundRank3InnerProduct](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_remove_reshape_around_rank3_inner_product creates a new EspressoPass_remove_reshape_around_rank3_inner_product instance.
-func NewEspressoPass_remove_reshape_around_rank3_inner_product() EspressoPass_remove_reshape_around_rank3_inner_product {
-	class := getEspressoPass_remove_reshape_around_rank3_inner_productClass()
-	rv := objc.Send[EspressoPass_remove_reshape_around_rank3_inner_product](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassRemoveReshapeAroundRank3InnerProduct creates a new EspressoPassRemoveReshapeAroundRank3InnerProduct instance.
+func NewEspressoPassRemoveReshapeAroundRank3InnerProduct() EspressoPassRemoveReshapeAroundRank3InnerProduct {
+	class := getEspressoPassRemoveReshapeAroundRank3InnerProductClass()
+	rv := objc.Send[EspressoPassRemoveReshapeAroundRank3InnerProduct](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

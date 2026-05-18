@@ -366,8 +366,6 @@ func NSMatrixFromID(id objc.ID) NSMatrix {
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix
 type INSMatrix interface {
 	INSControl
-	NSUserInterfaceValidations
-	NSViewToolTipOwner
 
 	// Topic: Initializing an NSMatrix Object
 

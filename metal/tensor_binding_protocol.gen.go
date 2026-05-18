@@ -48,30 +48,6 @@ func MTLTensorBindingObjectFromID(id objc.ID) MTLTensorBindingObject {
 	}
 }
 
-// The array of sizes, in elements, one for each dimension of this tensor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/dimensions
-func (o MTLTensorBindingObject) Dimensions() IMTLTensorExtents {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("dimensions"))
-	return MTLTensorExtentsFromID(rv)
-}
-
-// The data format you use for indexing into the tensor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/indexType
-func (o MTLTensorBindingObject) IndexType() MTLDataType {
-	rv := objc.Send[MTLDataType](o.ID, objc.Sel("indexType"))
-	return rv
-}
-
-// The underlying data format of this tensor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/tensorDataType
-func (o MTLTensorBindingObject) TensorDataType() MTLTensorDataType {
-	rv := objc.Send[MTLTensorDataType](o.ID, objc.Sel("tensorDataType"))
-	return rv
-}
-
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/access
 func (o MTLTensorBindingObject) Access() MTLBindingAccess {
 	rv := objc.Send[MTLBindingAccess](o.ID, objc.Sel("access"))
@@ -106,4 +82,49 @@ func (o MTLTensorBindingObject) Name() string {
 func (o MTLTensorBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
+}
+
+// The array of sizes, in elements, one for each dimension of this tensor.
+//
+// # Discussion
+//
+// Because shader-bound tensors have dynamic extents, if this tensor is shader
+// bound, the [Rank] of `dimensions` corresponds to the rank the shader
+// function specifies, and `MTLTensorExtents/` always returns a value of -1.
+// In the case of functions used with machine learning pipelines, `dimensions`
+// corresponds to the default shape, if you provide one. Otherwise, it’s
+// `nil` in the case of an undefined shape.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/dimensions
+func (o MTLTensorBindingObject) Dimensions() IMTLTensorExtents {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("dimensions"))
+	return MTLTensorExtentsFromID(rv)
+}
+
+// The data format you use for indexing into the tensor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/indexType
+func (o MTLTensorBindingObject) IndexType() MTLDataType {
+	rv := objc.Send[MTLDataType](o.ID, objc.Sel("indexType"))
+	return MTLDataType(rv)
+}
+
+// The underlying data format of this tensor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/tensorDataType
+func (o MTLTensorBindingObject) TensorDataType() MTLTensorDataType {
+	rv := objc.Send[MTLTensorDataType](o.ID, objc.Sel("tensorDataType"))
+	return MTLTensorDataType(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
+func (o MTLTensorBindingObject) Argument() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
+	return bool(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
+func (o MTLTensorBindingObject) Used() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
+	return bool(rv)
 }

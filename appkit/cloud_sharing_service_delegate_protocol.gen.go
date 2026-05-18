@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -57,7 +56,7 @@ func NSCloudSharingServiceDelegateObjectFromID(id objc.ID) NSCloudSharingService
 // methods.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/sharingService(_:didCompleteForItems:error:)
-func (o NSCloudSharingServiceDelegateObject) SharingServiceDidCompleteForItemsError(sharingService INSSharingService, items foundation.INSArray, error_ foundation.INSError) {
+func (o NSCloudSharingServiceDelegateObject) SharingServiceDidCompleteForItemsError(sharingService INSSharingService, items foundation.INSArray, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didCompleteForItems:error:"), sharingService, items, error_)
 }
 
@@ -74,7 +73,7 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidCompleteForItemsEr
 // server.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/sharingService(_:didSave:)
-func (o NSCloudSharingServiceDelegateObject) SharingServiceDidSaveShare(sharingService INSSharingService, share unsafe.Pointer) {
+func (o NSCloudSharingServiceDelegateObject) SharingServiceDidSaveShare(sharingService INSSharingService, share objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didSaveShare:"), sharingService, share)
 }
 
@@ -91,7 +90,7 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidSaveShare(sharingS
 // before the service deletes it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/sharingService(_:didStopSharing:)
-func (o NSCloudSharingServiceDelegateObject) SharingServiceDidStopSharing(sharingService INSSharingService, share unsafe.Pointer) {
+func (o NSCloudSharingServiceDelegateObject) SharingServiceDidStopSharing(sharingService INSSharingService, share objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didStopSharing:"), sharingService, share)
 }
 
@@ -149,7 +148,7 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidShareItems(sharing
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:didFailToShareItems:error:)
 //
 // [NSUserCancelledError]: https://developer.apple.com/documentation/Foundation/NSUserCancelledError-swift.var
-func (o NSCloudSharingServiceDelegateObject) SharingServiceDidFailToShareItemsError(sharingService INSSharingService, items foundation.INSArray, error_ foundation.INSError) {
+func (o NSCloudSharingServiceDelegateObject) SharingServiceDidFailToShareItemsError(sharingService INSSharingService, items foundation.INSArray, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didFailToShareItems:error:"), sharingService, items, error_)
 }
 

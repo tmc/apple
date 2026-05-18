@@ -137,8 +137,8 @@ type INEProxySettings interface {
 	AutoProxyConfigurationEnabled() bool
 	SetAutoProxyConfigurationEnabled(value bool)
 	// A URL specifying the location from where the Proxy Auto Configuration (PAC) script should be downloaded.
-	ProxyAutoConfigurationURL() foundation.INSURL
-	SetProxyAutoConfigurationURL(value foundation.INSURL)
+	ProxyAutoConfigurationURL() foundation.NSURL
+	SetProxyAutoConfigurationURL(value foundation.NSURL)
 	// A string containing the Proxy Auto Configuration (PAC) JavaScript source code.
 	ProxyAutoConfigurationJavaScript() string
 	SetProxyAutoConfigurationJavaScript(value string)
@@ -172,7 +172,7 @@ type INEProxySettings interface {
 
 	// The tunnel DNS settings.
 	DnsSettings() INEDNSSettings
-	SetDnsSettings(value INEDNSSettings)
+	SetDNSSettings(value INEDNSSettings)
 	// The tunnel HTTP proxy settings.
 	ProxySettings() INEProxySettings
 	SetProxySettings(value INEProxySettings)
@@ -227,11 +227,11 @@ func (p NEProxySettings) SetAutoProxyConfigurationEnabled(value bool) {
 // determine what proxies to use (if any) for HTTP and HTTPS connections.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxySettings/proxyAutoConfigurationURL
-func (p NEProxySettings) ProxyAutoConfigurationURL() foundation.INSURL {
+func (p NEProxySettings) ProxyAutoConfigurationURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("proxyAutoConfigurationURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (p NEProxySettings) SetProxyAutoConfigurationURL(value foundation.INSURL) {
+func (p NEProxySettings) SetProxyAutoConfigurationURL(value foundation.NSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProxyAutoConfigurationURL:"), value)
 }
 
@@ -367,7 +367,7 @@ func (p NEProxySettings) DnsSettings() INEDNSSettings {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("DNSSettings"))
 	return NEDNSSettingsFromID(objc.ID(rv))
 }
-func (p NEProxySettings) SetDnsSettings(value INEDNSSettings) {
+func (p NEProxySettings) SetDNSSettings(value INEDNSSettings) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDNSSettings:"), value)
 }
 

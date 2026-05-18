@@ -265,17 +265,17 @@ type INSTreeController interface {
 	// Creates a new object of the class specified by `objectClass` and inserts it into the tree controller’s content as a child of the current selection.
 	InsertChild(sender objectivec.IObject)
 	// Inserts `object` into the tree controller’s arranged objects array at the location specified by `indexPath`, and adds it to the tree controller’s content.
-	InsertObjectAtArrangedObjectIndexPath(object objectivec.IObject, indexPath foundation.INSIndexPath)
+	InsertObjectAtArrangedObjectIndexPath(object objectivec.IObject, indexPath foundation.NSIndexPath)
 	// Inserts `objects` into the tree controller’s arranged objects array at the locations specified in `indexPaths`, and adds them to the tree controller’s content.
 	InsertObjectsAtArrangedObjectIndexPaths(objects foundation.INSArray, indexPaths []objc.ID)
 	// Removes the object at the specified `indexPath` in the tree controller’s arranged objects from the tree controller’s content.
-	RemoveObjectAtArrangedObjectIndexPath(indexPath foundation.INSIndexPath)
+	RemoveObjectAtArrangedObjectIndexPath(indexPath foundation.NSIndexPath)
 	// Removes the objects at the specified `indexPaths` in the tree controller’s arranged objects from the tree controller’s content.
 	RemoveObjectsAtArrangedObjectIndexPaths(indexPaths []objc.ID)
 	// Moves the specified tree node to the new index path.
-	MoveNodeToIndexPath(node INSTreeNode, indexPath foundation.INSIndexPath)
+	MoveNodeToIndexPath(node INSTreeNode, indexPath foundation.NSIndexPath)
 	// Moves the specified tree nodes to the new index path.
-	MoveNodesToIndexPath(nodes []NSTreeNode, startingIndexPath foundation.INSIndexPath)
+	MoveNodesToIndexPath(nodes []NSTreeNode, startingIndexPath foundation.NSIndexPath)
 
 	// Topic: Specifying model attributes
 
@@ -456,7 +456,7 @@ func (t NSTreeController) InsertChild(sender objectivec.IObject) {
 // content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/insert(_:atArrangedObjectIndexPath:)
-func (t NSTreeController) InsertObjectAtArrangedObjectIndexPath(object objectivec.IObject, indexPath foundation.INSIndexPath) {
+func (t NSTreeController) InsertObjectAtArrangedObjectIndexPath(object objectivec.IObject, indexPath foundation.NSIndexPath) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertObject:atArrangedObjectIndexPath:"), object, indexPath)
 }
 
@@ -473,7 +473,7 @@ func (t NSTreeController) InsertObjectsAtArrangedObjectIndexPaths(objects founda
 // arranged objects from the tree controller’s content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/removeObject(atArrangedObjectIndexPath:)
-func (t NSTreeController) RemoveObjectAtArrangedObjectIndexPath(indexPath foundation.INSIndexPath) {
+func (t NSTreeController) RemoveObjectAtArrangedObjectIndexPath(indexPath foundation.NSIndexPath) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeObjectAtArrangedObjectIndexPath:"), indexPath)
 }
 
@@ -493,7 +493,7 @@ func (t NSTreeController) RemoveObjectsAtArrangedObjectIndexPaths(indexPaths []o
 // content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/move(_:to:)-s5xp
-func (t NSTreeController) MoveNodeToIndexPath(node INSTreeNode, indexPath foundation.INSIndexPath) {
+func (t NSTreeController) MoveNodeToIndexPath(node INSTreeNode, indexPath foundation.NSIndexPath) {
 	objc.Send[objc.ID](t.ID, objc.Sel("moveNode:toIndexPath:"), node, indexPath)
 }
 
@@ -505,7 +505,7 @@ func (t NSTreeController) MoveNodeToIndexPath(node INSTreeNode, indexPath founda
 // the tree controller’s content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/move(_:to:)-moi9
-func (t NSTreeController) MoveNodesToIndexPath(nodes []NSTreeNode, startingIndexPath foundation.INSIndexPath) {
+func (t NSTreeController) MoveNodesToIndexPath(nodes []NSTreeNode, startingIndexPath foundation.NSIndexPath) {
 	objc.Send[objc.ID](t.ID, objc.Sel("moveNodes:toIndexPath:"), objectivec.IObjectSliceToNSArray(nodes), startingIndexPath)
 }
 

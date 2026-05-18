@@ -87,8 +87,8 @@ type ICPXSymbolicHotKeyRegistrar interface {
 	// Topic: Methods
 
 	GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger unsafe.Pointer, char unsafe.Pointer, key unsafe.Pointer, modifiers unsafe.Pointer) int
-	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection unsafe.Pointer, id uint64, key uint32, option uint32, func_ VoidHandler) int
-	UnregisterHotKeyConnectionHotKeyID(connection unsafe.Pointer, id uint64) int
+	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int
+	UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -121,14 +121,14 @@ func (c CPXSymbolicHotKeyRegistrar) GetSymbolicHotKeyValueOutTriggerOutKeyCharOu
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:
-func (c CPXSymbolicHotKeyRegistrar) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection unsafe.Pointer, id uint64, key uint32, option uint32, func_ VoidHandler) int {
+func (c CPXSymbolicHotKeyRegistrar) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int {
 	_block4, _ := NewVoidBlock(func_)
 	rv := objc.Send[int](c.ID, objc.Sel("registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:"), connection, id, key, option, _block4)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/_CPXSymbolicHotKeyRegistrar/unregisterHotKeyConnection:hotKeyID:
-func (c CPXSymbolicHotKeyRegistrar) UnregisterHotKeyConnectionHotKeyID(connection unsafe.Pointer, id uint64) int {
+func (c CPXSymbolicHotKeyRegistrar) UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int {
 	rv := objc.Send[int](c.ID, objc.Sel("unregisterHotKeyConnection:hotKeyID:"), connection, id)
 	return rv
 }
@@ -159,7 +159,7 @@ func (c CPXSymbolicHotKeyRegistrar) Superclass() objc.Class {
 
 // RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFuncSync is a synchronous wrapper around [CPXSymbolicHotKeyRegistrar.RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c CPXSymbolicHotKeyRegistrar) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFuncSync(ctx context.Context, connection unsafe.Pointer, id uint64, key uint32, option uint32) error {
+func (c CPXSymbolicHotKeyRegistrar) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFuncSync(ctx context.Context, connection CGXConnection, id uint64, key uint32, option uint32) error {
 	done := make(chan struct{}, 1)
 	c.RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection, id, key, option, func() {
 		done <- struct{}{}

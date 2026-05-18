@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_fuse_blizzard_final_1x1_convolutions] class.
+// The class instance for the [EspressoPassFuseBlizzardFinal1x1Convolutions] class.
 var (
-	_EspressoPass_fuse_blizzard_final_1x1_convolutionsClass     EspressoPass_fuse_blizzard_final_1x1_convolutionsClass
-	_EspressoPass_fuse_blizzard_final_1x1_convolutionsClassOnce sync.Once
+	_EspressoPassFuseBlizzardFinal1x1ConvolutionsClass     EspressoPassFuseBlizzardFinal1x1ConvolutionsClass
+	_EspressoPassFuseBlizzardFinal1x1ConvolutionsClassOnce sync.Once
 )
 
-func getEspressoPass_fuse_blizzard_final_1x1_convolutionsClass() EspressoPass_fuse_blizzard_final_1x1_convolutionsClass {
-	_EspressoPass_fuse_blizzard_final_1x1_convolutionsClassOnce.Do(func() {
-		_EspressoPass_fuse_blizzard_final_1x1_convolutionsClass = EspressoPass_fuse_blizzard_final_1x1_convolutionsClass{class: objc.GetClass("EspressoPass_fuse_blizzard_final_1x1_convolutions")}
+func getEspressoPassFuseBlizzardFinal1x1ConvolutionsClass() EspressoPassFuseBlizzardFinal1x1ConvolutionsClass {
+	_EspressoPassFuseBlizzardFinal1x1ConvolutionsClassOnce.Do(func() {
+		_EspressoPassFuseBlizzardFinal1x1ConvolutionsClass = EspressoPassFuseBlizzardFinal1x1ConvolutionsClass{class: objc.GetClass("EspressoPass_fuse_blizzard_final_1x1_convolutions")}
 	})
-	return _EspressoPass_fuse_blizzard_final_1x1_convolutionsClass
+	return _EspressoPassFuseBlizzardFinal1x1ConvolutionsClass
 }
 
-// GetEspressoPass_fuse_blizzard_final_1x1_convolutionsClass returns the class object for EspressoPass_fuse_blizzard_final_1x1_convolutions.
-func GetEspressoPass_fuse_blizzard_final_1x1_convolutionsClass() EspressoPass_fuse_blizzard_final_1x1_convolutionsClass {
-	return getEspressoPass_fuse_blizzard_final_1x1_convolutionsClass()
+// GetEspressoPassFuseBlizzardFinal1x1ConvolutionsClass returns the class object for EspressoPass_fuse_blizzard_final_1x1_convolutions.
+func GetEspressoPassFuseBlizzardFinal1x1ConvolutionsClass() EspressoPassFuseBlizzardFinal1x1ConvolutionsClass {
+	return getEspressoPassFuseBlizzardFinal1x1ConvolutionsClass()
 }
 
-type EspressoPass_fuse_blizzard_final_1x1_convolutionsClass struct {
+type EspressoPassFuseBlizzardFinal1x1ConvolutionsClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_fuse_blizzard_final_1x1_convolutionsClass) Class() objc.Class {
+func (ec EspressoPassFuseBlizzardFinal1x1ConvolutionsClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_fuse_blizzard_final_1x1_convolutionsClass) Alloc() EspressoPass_fuse_blizzard_final_1x1_convolutions {
-	rv := objc.Send[EspressoPass_fuse_blizzard_final_1x1_convolutions](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFuseBlizzardFinal1x1ConvolutionsClass) Alloc() EspressoPassFuseBlizzardFinal1x1Convolutions {
+	rv := objc.Send[EspressoPassFuseBlizzardFinal1x1Convolutions](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_blizzard_final_1x1_convolutions
-type EspressoPass_fuse_blizzard_final_1x1_convolutions struct {
+type EspressoPassFuseBlizzardFinal1x1Convolutions struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_fuse_blizzard_final_1x1_convolutionsFromID constructs a [EspressoPass_fuse_blizzard_final_1x1_convolutions] from an objc.ID.
-func EspressoPass_fuse_blizzard_final_1x1_convolutionsFromID(id objc.ID) EspressoPass_fuse_blizzard_final_1x1_convolutions {
-	return EspressoPass_fuse_blizzard_final_1x1_convolutions{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFuseBlizzardFinal1x1ConvolutionsFromID constructs a [EspressoPassFuseBlizzardFinal1x1Convolutions] from an objc.ID.
+func EspressoPassFuseBlizzardFinal1x1ConvolutionsFromID(id objc.ID) EspressoPassFuseBlizzardFinal1x1Convolutions {
+	return EspressoPassFuseBlizzardFinal1x1Convolutions{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_fuse_blizzard_final_1x1_convolutions implements IEspressoPass_fuse_blizzard_final_1x1_convolutions.
-var _ IEspressoPass_fuse_blizzard_final_1x1_convolutions = EspressoPass_fuse_blizzard_final_1x1_convolutions{}
+// EspressoPass_fuse_blizzard_final_1x1_convolutionsFromID is an alias for [EspressoPassFuseBlizzardFinal1x1ConvolutionsFromID] for cross-framework compatibility.
+func EspressoPass_fuse_blizzard_final_1x1_convolutionsFromID(id objc.ID) EspressoPassFuseBlizzardFinal1x1Convolutions {
+	return EspressoPassFuseBlizzardFinal1x1ConvolutionsFromID(id)
+}
 
-// An interface definition for the [EspressoPass_fuse_blizzard_final_1x1_convolutions] class.
+// Ensure EspressoPassFuseBlizzardFinal1x1Convolutions implements IEspressoPassFuseBlizzardFinal1x1Convolutions.
+var _ IEspressoPassFuseBlizzardFinal1x1Convolutions = EspressoPassFuseBlizzardFinal1x1Convolutions{}
+
+// An interface definition for the [EspressoPassFuseBlizzardFinal1x1Convolutions] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_blizzard_final_1x1_convolutions
-type IEspressoPass_fuse_blizzard_final_1x1_convolutions interface {
+type IEspressoPassFuseBlizzardFinal1x1Convolutions interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_fuse_blizzard_final_1x1_convolutions) Init() EspressoPass_fuse_blizzard_final_1x1_convolutions {
-	rv := objc.Send[EspressoPass_fuse_blizzard_final_1x1_convolutions](e.ID, objc.Sel("init"))
+func (e EspressoPassFuseBlizzardFinal1x1Convolutions) Init() EspressoPassFuseBlizzardFinal1x1Convolutions {
+	rv := objc.Send[EspressoPassFuseBlizzardFinal1x1Convolutions](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_fuse_blizzard_final_1x1_convolutions) Autorelease() EspressoPass_fuse_blizzard_final_1x1_convolutions {
-	rv := objc.Send[EspressoPass_fuse_blizzard_final_1x1_convolutions](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFuseBlizzardFinal1x1Convolutions) Autorelease() EspressoPassFuseBlizzardFinal1x1Convolutions {
+	rv := objc.Send[EspressoPassFuseBlizzardFinal1x1Convolutions](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_fuse_blizzard_final_1x1_convolutions creates a new EspressoPass_fuse_blizzard_final_1x1_convolutions instance.
-func NewEspressoPass_fuse_blizzard_final_1x1_convolutions() EspressoPass_fuse_blizzard_final_1x1_convolutions {
-	class := getEspressoPass_fuse_blizzard_final_1x1_convolutionsClass()
-	rv := objc.Send[EspressoPass_fuse_blizzard_final_1x1_convolutions](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFuseBlizzardFinal1x1Convolutions creates a new EspressoPassFuseBlizzardFinal1x1Convolutions instance.
+func NewEspressoPassFuseBlizzardFinal1x1Convolutions() EspressoPassFuseBlizzardFinal1x1Convolutions {
+	class := getEspressoPassFuseBlizzardFinal1x1ConvolutionsClass()
+	rv := objc.Send[EspressoPassFuseBlizzardFinal1x1Convolutions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

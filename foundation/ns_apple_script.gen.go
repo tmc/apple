@@ -128,7 +128,6 @@ func NSAppleScriptFromID(id objc.ID) NSAppleScript {
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript
 type INSAppleScript interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Initializing a Script
 

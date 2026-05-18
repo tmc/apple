@@ -16,6 +16,26 @@ type MTLResource interface {
 	objectivec.IObject
 	MTLAllocation
 
+	// Specifies or queries the resource’s purgeable state.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
+	SetPurgeableState(state MTLPurgeableState) MTLPurgeableState
+
+	// Allows future heap resource allocations to alias against the resource’s memory, reusing it.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLResource/makeAliasable()
+	MakeAliasable()
+
+	// A Boolean value that indicates whether future heap resource allocations may alias against the resource’s memory.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLResource/isAliasable()
+	IsAliasable() bool
+
+	// SetOwnerWithIdentity protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
+	SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32
+
 	// The device object that created the resource.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLResource/device
@@ -25,6 +45,7 @@ type MTLResource interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLResource/label
 	Label() string
+	SetLabel(value string)
 
 	// The CPU cache mode that defines the CPU mapping of the resource.
 	//
@@ -46,11 +67,6 @@ type MTLResource interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
 	ResourceOptions() MTLResourceOptions
 
-	// Specifies or queries the resource’s purgeable state.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-	SetPurgeableState(state MTLPurgeableState) MTLPurgeableState
-
 	// The distance, in bytes, from the beginning of the heap to the first byte of the resource, if you allocated the resource on a heap.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
@@ -61,30 +77,10 @@ type MTLResource interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLResource/heap
 	Heap() MTLHeap
 
-	// Allows future heap resource allocations to alias against the resource’s memory, reusing it.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLResource/makeAliasable()
-	MakeAliasable()
-
-	// A Boolean value that indicates whether future heap resource allocations may alias against the resource’s memory.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLResource/isAliasable()
-	IsAliasable() bool
-
 	// The size of the resource, in bytes.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLResource/allocatedSize
 	AllocatedSize() uint
-
-	// SetOwnerWithIdentity protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-	SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32
-
-	// A string that identifies the resource.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLResource/label
-	SetLabel(value string)
 }
 
 // MTLResourceObject wraps an existing Objective-C object that conforms to the MTLResource protocol.
@@ -104,55 +100,6 @@ func MTLResourceObjectFromID(id objc.ID) MTLResourceObject {
 	}
 }
 
-// The device object that created the resource.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/device
-func (o MTLResourceObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// A string that identifies the resource.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/label
-func (o MTLResourceObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The CPU cache mode that defines the CPU mapping of the resource.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/cpuCacheMode
-func (o MTLResourceObject) CpuCacheMode() MTLCPUCacheMode {
-	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
-	return rv
-}
-
-// The location and access permissions of the resource.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/storageMode
-func (o MTLResourceObject) StorageMode() MTLStorageMode {
-	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
-	return rv
-}
-
-// A mode that determines whether Metal tracks and synchronizes resource
-// access.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/hazardTrackingMode
-func (o MTLResourceObject) HazardTrackingMode() MTLHazardTrackingMode {
-	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
-	return rv
-}
-
-// The storage mode, CPU cache mode, and hazard tracking mode of the resource.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
-func (o MTLResourceObject) ResourceOptions() MTLResourceOptions {
-	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
-	return rv
-}
-
 // Specifies or queries the resource’s purgeable state.
 //
 // state: The desired purgeable state of a resource.
@@ -169,9 +116,9 @@ func (o MTLResourceObject) ResourceOptions() MTLResourceOptions {
 // If `state` is [MTLPurgeableStateNonVolatile], the resource is marked to
 // inform the caller that the data should not be discarded.
 //
-// If `state` is [MTLPurgeableState.empty], the resource is marked as data
-// that can be discarded, because the caller no longer needs the contents of
-// the resource.
+// If `state` is [MTLPurgeableStateEmpty], the resource is marked as data that
+// can be discarded, because the caller no longer needs the contents of the
+// resource.
 //
 // If `state` is [MTLPurgeableStateVolatile], the resource is marked as data
 // that can be discarded, even if the caller may need the resource.
@@ -189,28 +136,9 @@ func (o MTLResourceObject) ResourceOptions() MTLResourceOptions {
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-//
-// [MTLPurgeableState.empty]: https://developer.apple.com/documentation/Metal/MTLPurgeableState/empty
 func (o MTLResourceObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
-}
-
-// The distance, in bytes, from the beginning of the heap to the first byte of
-// the resource, if you allocated the resource on a heap.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
-func (o MTLResourceObject) HeapOffset() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("heapOffset"))
-	return rv
-}
-
-// The heap on which the resource is allocated, if any.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/heap
-func (o MTLResourceObject) Heap() MTLHeap {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("heap"))
-	return MTLHeapObjectFromID(rv)
 }
 
 // Allows future heap resource allocations to alias against the resource’s
@@ -265,18 +193,22 @@ func (o MTLResourceObject) IsAliasable() bool {
 	return rv
 }
 
-// The size of the resource, in bytes.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResource/allocatedSize
-func (o MTLResourceObject) AllocatedSize() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
+// See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
+func (o MTLResourceObject) SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32 {
+	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-func (o MTLResourceObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32 {
-	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
-	return rv
+// The device object that created the resource.
+//
+// # Discussion
+//
+// A resource can only be used with the [MTLDevice] that created it.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResource/device
+func (o MTLResourceObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
 }
 
 // A string that identifies the resource.
@@ -290,6 +222,96 @@ func (o MTLResourceObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_tok
 // See: https://developer.apple.com/documentation/Metal/MTLResource/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLResourceObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLResourceObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
+}
+
+// The CPU cache mode that defines the CPU mapping of the resource.
+//
+// # Discussion
+//
+// The cache mode is set when you create the resource and cannot be changed.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResource/cpuCacheMode
+func (o MTLResourceObject) CpuCacheMode() MTLCPUCacheMode {
+	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
+	return MTLCPUCacheMode(rv)
+}
+
+// The location and access permissions of the resource.
+//
+// # Discussion
+//
+// The storage mode is set when you create the resource and cannot be changed.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResource/storageMode
+func (o MTLResourceObject) StorageMode() MTLStorageMode {
+	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
+	return MTLStorageMode(rv)
+}
+
+// A mode that determines whether Metal tracks and synchronizes resource
+// access.
+//
+// # Discussion
+//
+// This value can be either [MTLHazardTrackingModeUntracked] or
+// [MTLHazardTrackingModeTracked].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResource/hazardTrackingMode
+func (o MTLResourceObject) HazardTrackingMode() MTLHazardTrackingMode {
+	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
+	return MTLHazardTrackingMode(rv)
+}
+
+// The storage mode, CPU cache mode, and hazard tracking mode of the resource.
+//
+// # Discussion
+//
+// The value of this property aggregates the values of [StorageMode],
+// [CpuCacheMode], and [HazardTrackingMode].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
+func (o MTLResourceObject) ResourceOptions() MTLResourceOptions {
+	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
+	return MTLResourceOptions(rv)
+}
+
+// The distance, in bytes, from the beginning of the heap to the first byte of
+// the resource, if you allocated the resource on a heap.
+//
+// # Discussion
+//
+// If the heap is not a placement heap ([MTLHeapTypePlacement]), the value is
+// always `0` and should be ignored.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
+func (o MTLResourceObject) HeapOffset() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("heapOffset"))
+	return uint(rv)
+}
+
+// The heap on which the resource is allocated, if any.
+//
+// # Discussion
+//
+// This value is `nil` if the resource isn’t allocated on a heap.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResource/heap
+func (o MTLResourceObject) Heap() MTLHeap {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("heap"))
+	return MTLHeapObjectFromID(rv)
+}
+
+// The size of the resource, in bytes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResource/allocatedSize
+func (o MTLResourceObject) AllocatedSize() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
+	return uint(rv)
 }

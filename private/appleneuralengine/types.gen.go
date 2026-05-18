@@ -365,180 +365,180 @@ type ValueImpl struct {
 type VirtANEModel struct {
 }
 
-// _CFArray
+// CFArray
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__CFArray
-type _CFArray struct {
+type CFArray struct {
 }
 
-// _CFDictionary
+// CFDictionary
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__CFDictionary
-type _CFDictionary struct {
+type CFDictionary struct {
 }
 
-// _CFString
+// CFString
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__CFString
-type _CFString struct {
+type CFString struct {
 }
 
-// _CVBuffer
+// CVBuffer
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__CVBuffer
-type _CVBuffer struct {
+type CVBuffer struct {
 }
 
-// _IOSurface
+// IOSurface
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__IOSurface
-type _IOSurface struct {
+type IOSurface struct {
 }
 
-// _long
+// Long
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__long
-type _long struct {
+type Long struct {
 	__data_    *byte
 	__size_    uint64
 	__cap_     objectivec.Object
 	__is_long_ objectivec.Object
 }
 
-// _sFILE
+// SFILE
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__sFILE
-type _sFILE struct {
+type SFILE struct {
 }
 
-// _sFILEX
+// SFILEX
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__sFILEX
-type _sFILEX struct {
+type SFILEX struct {
 }
 
-// _sbuf
+// Sbuf
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__sbuf
-type _sbuf struct {
+type Sbuf struct {
 }
 
-// _shared_weak_count
+// SharedWeakCount
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__shared_weak_count
-type _shared_weak_count struct {
+type SharedWeakCount struct {
 }
 
-// _short
+// Short
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/__short
-type _short struct {
+type Short struct {
 	__data_    unsafe.Pointer
 	__size_    objectivec.Object
 	__is_long_ objectivec.Object
 }
 
-// Abstract_blob_container
+// AbstractBlobContainer
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/abstract_blob_container
-type Abstract_blob_container struct {
+type AbstractBlobContainer struct {
 }
 
-// Abstract_context
+// AbstractContext
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/abstract_context
-type Abstract_context struct {
+type AbstractContext struct {
 }
 
-// Blob_cpu
+// BlobCPU
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/blob_cpu
-type Blob_cpu struct {
+type BlobCPU struct {
 }
 
-// Condition_variable
+// ConditionVariable
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/condition_variable
-type Condition_variable struct {
-	__cv_ Opaque_pthread_cond_t
+type ConditionVariable struct {
+	__cv_ OpaquePthreadCond
 }
 
-// Convolution_uniforms
+// ConvolutionUniforms
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/convolution_uniforms
-type Convolution_uniforms struct {
+type ConvolutionUniforms struct {
 }
 
-// Fast_pyramid_resizer
+// FastPyramidResizer
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/fast_pyramid_resizer
-type Fast_pyramid_resizer struct {
+type FastPyramidResizer struct {
 }
 
-// Float_buffer_t
+// FloatBuffer
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/float_buffer_t
-type Float_buffer_t struct {
+type FloatBuffer struct {
 }
 
-// Generic_load_constant_kernel
+// GenericLoadConstantKernel
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/generic_load_constant_kernel
-type Generic_load_constant_kernel struct {
+type GenericLoadConstantKernel struct {
 }
 
-// Gradient_builder
+// GradientBuilder
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/gradient_builder
-type Gradient_builder struct {
+type GradientBuilder struct {
 }
 
-// Inner_product_uniforms
+// InnerProductUniforms
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/inner_product_uniforms
-type Inner_product_uniforms struct {
+type InnerProductUniforms struct {
 }
 
-// MxnetTools_imageHeader_t_
+// MxnetToolsImageHeaderT
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/_mxnetTools_imageHeader_t_
-type MxnetTools_imageHeader_t_ struct {
+type MxnetToolsImageHeaderT struct {
 }
 
-// MxnetTools_imageID_t_
+// MxnetToolsImageIDT
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/_mxnetTools_imageID_t_
-type MxnetTools_imageID_t_ struct {
+type MxnetToolsImageIDT struct {
 }
 
-// MxnetTools_recordHeader_t_
+// MxnetToolsRecordHeaderT
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/_mxnetTools_recordHeader_t_
-type MxnetTools_recordHeader_t_ struct {
+type MxnetToolsRecordHeaderT struct {
 }
 
 // Net
@@ -548,43 +548,43 @@ type MxnetTools_recordHeader_t_ struct {
 type Net struct {
 }
 
-// Net_strides_configuration
+// NetStridesConfiguration
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/net_strides_configuration
-type Net_strides_configuration struct {
+type NetStridesConfiguration struct {
 }
 
-// Opaque_pthread_cond_t
+// OpaquePthreadCond
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/_opaque_pthread_cond_t
-type Opaque_pthread_cond_t struct {
+type OpaquePthreadCond struct {
 	__sig    int64
 	__opaque unsafe.Pointer
 }
 
-// Opaque_pthread_mutex_t
+// OpaquePthreadMutex
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/_opaque_pthread_mutex_t
-type Opaque_pthread_mutex_t struct {
+type OpaquePthreadMutex struct {
 	__sig    int64
 	__opaque unsafe.Pointer
 }
 
-// Padding_params_t
+// PaddingParams
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/padding_params_t
-type Padding_params_t struct {
+type PaddingParams struct {
 }
 
-// Postprocessing_settings_t
+// PostprocessingSettings
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/postprocessing_settings_t
-type Postprocessing_settings_t struct {
+type PostprocessingSettings struct {
 	Name                               unsafe.Pointer
 	Network                            unsafe.Pointer
 	Do_blend                           int
@@ -621,25 +621,25 @@ type Postprocessing_settings_t struct {
 	High_quality_scaling               bool
 }
 
-// Surface_and_buffer
+// SurfaceAndBuffer
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/surface_and_buffer
-type Surface_and_buffer struct {
+type SurfaceAndBuffer struct {
 }
 
-// V9_noise_kernel
+// V9NoiseKernel
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/v9_noise_kernel
-type V9_noise_kernel struct {
+type V9NoiseKernel struct {
 }
 
-// Vimage2espresso_param
+// Vimage2espressoParam
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AppleNeuralEngine/vimage2espresso_param
-type Vimage2espresso_param struct {
+type Vimage2espressoParam struct {
 	Scale                    float32
 	Center_mean              int
 	Is_image_bgr             int

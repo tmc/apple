@@ -86,10 +86,10 @@ type IMLModelStructurePath interface {
 	// Topic: Methods
 
 	Components() foundation.INSArray
-	CppPath() objectivec.IObject
+	CppPath() Path
 	IsMLProgramOperationPath() bool
 	IsNeuralNetworkLayerPath() bool
-	InitWithCppPath(path objectivec.IObject) MLModelStructurePath
+	InitWithCppPath(path Path) MLModelStructurePath
 	InitWithMLProgramOperationPathComponentsScopedModelNamesError(components objectivec.IObject, names objectivec.IObject) (MLModelStructurePath, error)
 	InitWithNeuralNetworkLayerNameScopedModelNames(name objectivec.IObject, names objectivec.IObject) MLModelStructurePath
 }
@@ -114,7 +114,7 @@ func NewMLModelStructurePath() MLModelStructurePath {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/initWithCppPath:
-func NewModelStructurePathWithCppPath(path objectivec.IObject) MLModelStructurePath {
+func NewModelStructurePathWithCppPath(path Path) MLModelStructurePath {
 	instance := getMLModelStructurePathClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCppPath:"), path)
 	return MLModelStructurePathFromID(rv)
@@ -140,7 +140,7 @@ func NewModelStructurePathWithNeuralNetworkLayerNameScopedModelNames(name object
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/initWithCppPath:
-func (m MLModelStructurePath) InitWithCppPath(path objectivec.IObject) MLModelStructurePath {
+func (m MLModelStructurePath) InitWithCppPath(path Path) MLModelStructurePath {
 	rv := objc.Send[MLModelStructurePath](m.ID, objc.Sel("initWithCppPath:"), path)
 	return rv
 }
@@ -170,9 +170,10 @@ func (m MLModelStructurePath) Components() foundation.INSArray {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/cppPath
-func (m MLModelStructurePath) CppPath() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("cppPath"))
-	return objectivec.Object{ID: rv}
+func (m MLModelStructurePath) CppPath() Path {
+	rv := objc.Send[Path](m.ID, objc.Sel("cppPath"))
+	_ = rv
+	return Path{}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/isMLProgramOperationPath

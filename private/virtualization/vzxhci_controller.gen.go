@@ -79,14 +79,14 @@ type IVZXHCIController interface {
 }
 
 // Init initializes the instance.
-func (x VZXHCIController) Init() VZXHCIController {
-	rv := objc.Send[VZXHCIController](x.ID, objc.Sel("init"))
+func (v VZXHCIController) Init() VZXHCIController {
+	rv := objc.Send[VZXHCIController](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (x VZXHCIController) Autorelease() VZXHCIController {
-	rv := objc.Send[VZXHCIController](x.ID, objc.Sel("autorelease"))
+func (v VZXHCIController) Autorelease() VZXHCIController {
+	rv := objc.Send[VZXHCIController](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -98,22 +98,22 @@ func NewVZXHCIController() VZXHCIController {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZXHCIController/attachDevice:completionHandler:
-func (x VZXHCIController) AttachDeviceCompletionHandler(device objectivec.IObject, handler ErrorHandler) {
+func (v VZXHCIController) AttachDeviceCompletionHandler(device objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](x.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
+	objc.Send[objc.ID](v.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZXHCIController/detachDevice:completionHandler:
-func (x VZXHCIController) DetachDeviceCompletionHandler(device objectivec.IObject, handler ErrorHandler) {
+func (v VZXHCIController) DetachDeviceCompletionHandler(device objectivec.IObject, handler ErrorHandler) {
 	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](x.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
+	objc.Send[objc.ID](v.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
 }
 
 // AttachDevice is a synchronous wrapper around [VZXHCIController.AttachDeviceCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (x VZXHCIController) AttachDevice(ctx context.Context, device objectivec.IObject) error {
+func (v VZXHCIController) AttachDevice(ctx context.Context, device objectivec.IObject) error {
 	done := make(chan error, 1)
-	x.AttachDeviceCompletionHandler(device, func(err error) {
+	v.AttachDeviceCompletionHandler(device, func(err error) {
 		done <- err
 	})
 	select {
@@ -126,9 +126,9 @@ func (x VZXHCIController) AttachDevice(ctx context.Context, device objectivec.IO
 
 // DetachDevice is a synchronous wrapper around [VZXHCIController.DetachDeviceCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (x VZXHCIController) DetachDevice(ctx context.Context, device objectivec.IObject) error {
+func (v VZXHCIController) DetachDevice(ctx context.Context, device objectivec.IObject) error {
 	done := make(chan error, 1)
-	x.DetachDeviceCompletionHandler(device, func(err error) {
+	v.DetachDeviceCompletionHandler(device, func(err error) {
 		done <- err
 	})
 	select {

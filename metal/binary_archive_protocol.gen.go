@@ -14,16 +14,6 @@ import (
 type MTLBinaryArchive interface {
 	objectivec.IObject
 
-	// The Metal device object that created the binary archive.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/device
-	Device() MTLDevice
-
-	// A string that identifies the library.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/label
-	Label() string
-
 	// Adds a description of a compute pipeline to the archive.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addComputePipelineFunctions(descriptor:)
@@ -47,7 +37,7 @@ type MTLBinaryArchive interface {
 	// Writes the contents of the archive to a file.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/serialize(to:)
-	SerializeToURLError(url foundation.INSURL) (bool, error)
+	SerializeToURLError(url foundation.NSURL) (bool, error)
 
 	// AddLibraryWithDescriptorError protocol.
 	//
@@ -59,9 +49,15 @@ type MTLBinaryArchive interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addMeshRenderPipelineFunctions(descriptor:)
 	AddMeshRenderPipelineFunctionsWithDescriptorError(descriptor IMTLMeshRenderPipelineDescriptor) (bool, error)
 
+	// The Metal device object that created the binary archive.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/device
+	Device() MTLDevice
+
 	// A string that identifies the library.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/label
+	Label() string
 	SetLabel(value string)
 }
 
@@ -80,22 +76,6 @@ func MTLBinaryArchiveObjectFromID(id objc.ID) MTLBinaryArchiveObject {
 	return MTLBinaryArchiveObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The Metal device object that created the binary archive.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/device
-func (o MTLBinaryArchiveObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// A string that identifies the library.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/label
-func (o MTLBinaryArchiveObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Adds a description of a compute pipeline to the archive.
@@ -157,7 +137,7 @@ func (o MTLBinaryArchiveObject) AddFunctionWithDescriptorLibraryError(descriptor
 // The destination folder needs to exist when you call this method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/serialize(to:)
-func (o MTLBinaryArchiveObject) SerializeToURLError(url foundation.INSURL) (bool, error) {
+func (o MTLBinaryArchiveObject) SerializeToURLError(url foundation.NSURL) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("serializeToURL:error:"), url)
 	if err != nil {
 		return false, err
@@ -183,6 +163,14 @@ func (o MTLBinaryArchiveObject) AddMeshRenderPipelineFunctionsWithDescriptorErro
 	return rv, nil
 }
 
+// The Metal device object that created the binary archive.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/device
+func (o MTLBinaryArchiveObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
 // A string that identifies the library.
 //
 // # Discussion
@@ -194,6 +182,11 @@ func (o MTLBinaryArchiveObject) AddMeshRenderPipelineFunctionsWithDescriptorErro
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLBinaryArchiveObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLBinaryArchiveObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

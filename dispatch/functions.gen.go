@@ -4,7 +4,6 @@ package dispatch
 
 import (
 	"fmt"
-	"syscall"
 	"unsafe"
 
 	"github.com/ebitengine/purego"
@@ -369,9 +368,6 @@ var _dispatch_sync_fErr error
 var _dispatch_time func(when uint64, delta int64) uint64
 var _dispatch_timeErr error
 
-var _dispatch_walltime func(when *syscall.Timespec, delta int64) uint64
-var _dispatch_walltimeErr error
-
 var _dispatch_workloop_create func(label string) uintptr
 var _dispatch_workloop_createErr error
 
@@ -488,7 +484,6 @@ func init() {
 	registerFunc(&_dispatch_sync, &_dispatch_syncErr, frameworkHandle, "dispatch_sync", "10.6")
 	registerFunc(&_dispatch_sync_f, &_dispatch_sync_fErr, frameworkHandle, "dispatch_sync_f", "10.6")
 	registerFunc(&_dispatch_time, &_dispatch_timeErr, frameworkHandle, "dispatch_time", "10.6")
-	registerFunc(&_dispatch_walltime, &_dispatch_walltimeErr, frameworkHandle, "dispatch_walltime", "10.6")
 	registerFunc(&_dispatch_workloop_create, &_dispatch_workloop_createErr, frameworkHandle, "dispatch_workloop_create", "10.14")
 	registerFunc(&_dispatch_workloop_create_inactive, &_dispatch_workloop_create_inactiveErr, frameworkHandle, "dispatch_workloop_create_inactive", "10.14")
 	registerFunc(&_dispatch_workloop_set_autorelease_frequency, &_dispatch_workloop_set_autorelease_frequencyErr, frameworkHandle, "dispatch_workloop_set_autorelease_frequency", "10.14")

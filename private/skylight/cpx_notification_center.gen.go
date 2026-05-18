@@ -78,7 +78,7 @@ type ICPXNotificationCenter interface {
 
 	NotifyLaunchServicesOfLastestEventTypeFlags(type_ uint32, flags uint32)
 	PostLocalNotificationDataLength(notification uint32, data unsafe.Pointer, length uint64)
-	InitWithSession(session unsafe.Pointer) CPXNotificationCenter
+	InitWithSession(session CGXSession) CPXNotificationCenter
 }
 
 // Init initializes the instance.
@@ -101,7 +101,7 @@ func NewCPXNotificationCenter() CPXNotificationCenter {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXNotificationCenter/initWithSession:
-func NewCPXNotificationCenterWithSession(session unsafe.Pointer) CPXNotificationCenter {
+func NewCPXNotificationCenterWithSession(session CGXSession) CPXNotificationCenter {
 	instance := getCPXNotificationCenterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return CPXNotificationCenterFromID(rv)
@@ -118,7 +118,7 @@ func (c CPXNotificationCenter) PostLocalNotificationDataLength(notification uint
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXNotificationCenter/initWithSession:
-func (c CPXNotificationCenter) InitWithSession(session unsafe.Pointer) CPXNotificationCenter {
+func (c CPXNotificationCenter) InitWithSession(session CGXSession) CPXNotificationCenter {
 	rv := objc.Send[CPXNotificationCenter](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }

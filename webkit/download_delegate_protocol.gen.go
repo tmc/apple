@@ -94,7 +94,7 @@ func (o WKDownloadDelegateObject) DownloadDidFinish(download IWKDownload) {
 // [ResumeDownloadFromResumeDataCompletionHandler] with `resumeData`.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:didFailWithError:resumeData:)
-func (o WKDownloadDelegateObject) DownloadDidFailWithErrorResumeData(download IWKDownload, error_ foundation.INSError, resumeData foundation.INSData) {
+func (o WKDownloadDelegateObject) DownloadDidFailWithErrorResumeData(download IWKDownload, error_ foundation.NSError, resumeData foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didFailWithError:resumeData:"), download, error_, resumeData)
 }
 
@@ -155,12 +155,12 @@ func (o WKDownloadDelegateObject) DownloadDecidePlaceholderPolicy(download IWKDo
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:didReceiveFinalURL:)
-func (o WKDownloadDelegateObject) DownloadDidReceiveFinalURL(download IWKDownload, url foundation.INSURL) {
+func (o WKDownloadDelegateObject) DownloadDidReceiveFinalURL(download IWKDownload, url foundation.NSURL) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveFinalURL:"), download, url)
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:didReceivePlaceholderURL:completionHandler:)
-func (o WKDownloadDelegateObject) DownloadDidReceivePlaceholderURLCompletionHandler(download IWKDownload, url foundation.INSURL, completionHandler VoidHandler) {
+func (o WKDownloadDelegateObject) DownloadDidReceivePlaceholderURLCompletionHandler(download IWKDownload, url foundation.NSURL, completionHandler VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceivePlaceholderURL:completionHandler:"), download, url, completionHandler)
 }
 

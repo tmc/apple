@@ -117,14 +117,14 @@ type IAVVCStartRecordSettings interface {
 }
 
 // Init initializes the instance.
-func (v AVVCStartRecordSettings) Init() AVVCStartRecordSettings {
-	rv := objc.Send[AVVCStartRecordSettings](v.ID, objc.Sel("init"))
+func (a AVVCStartRecordSettings) Init() AVVCStartRecordSettings {
+	rv := objc.Send[AVVCStartRecordSettings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVCStartRecordSettings) Autorelease() AVVCStartRecordSettings {
-	rv := objc.Send[AVVCStartRecordSettings](v.ID, objc.Sel("autorelease"))
+func (a AVVCStartRecordSettings) Autorelease() AVVCStartRecordSettings {
+	rv := objc.Send[AVVCStartRecordSettings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -143,70 +143,70 @@ func NewVCStartRecordSettingsWithStreamIDAtStartHostTime(id uint64, time uint64)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/initWithStreamID:atStartHostTime:
-func (v AVVCStartRecordSettings) InitWithStreamIDAtStartHostTime(id uint64, time uint64) AVVCStartRecordSettings {
-	rv := objc.Send[AVVCStartRecordSettings](v.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
+func (a AVVCStartRecordSettings) InitWithStreamIDAtStartHostTime(id uint64, time uint64) AVVCStartRecordSettings {
+	rv := objc.Send[AVVCStartRecordSettings](a.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/skipAlert
-func (v AVVCStartRecordSettings) SkipAlert() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("skipAlert"))
+func (a AVVCStartRecordSettings) SkipAlert() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("skipAlert"))
 	return rv
 }
-func (v AVVCStartRecordSettings) SetSkipAlert(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSkipAlert:"), value)
+func (a AVVCStartRecordSettings) SetSkipAlert(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setSkipAlert:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/startAlert
-func (v AVVCStartRecordSettings) StartAlert() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("startAlert"))
+func (a AVVCStartRecordSettings) StartAlert() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("startAlert"))
 	return rv
 }
-func (v AVVCStartRecordSettings) SetStartAlert(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStartAlert:"), value)
+func (a AVVCStartRecordSettings) SetStartAlert(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStartAlert:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/startAnchorPoint
-func (v AVVCStartRecordSettings) StartAnchorPoint() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("startAnchorPoint"))
+func (a AVVCStartRecordSettings) StartAnchorPoint() uint32 {
+	rv := objc.Send[uint32](a.ID, objc.Sel("startAnchorPoint"))
 	return rv
 }
-func (v AVVCStartRecordSettings) SetStartAnchorPoint(value uint32) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStartAnchorPoint:"), value)
+func (a AVVCStartRecordSettings) SetStartAnchorPoint(value uint32) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStartAnchorPoint:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/startHostTime
-func (v AVVCStartRecordSettings) StartHostTime() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("startHostTime"))
+func (a AVVCStartRecordSettings) StartHostTime() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("startHostTime"))
 	return rv
 }
-func (v AVVCStartRecordSettings) SetStartHostTime(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStartHostTime:"), value)
+func (a AVVCStartRecordSettings) SetStartHostTime(value uint64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStartHostTime:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/stopAlert
-func (v AVVCStartRecordSettings) StopAlert() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("stopAlert"))
+func (a AVVCStartRecordSettings) StopAlert() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("stopAlert"))
 	return rv
 }
-func (v AVVCStartRecordSettings) SetStopAlert(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStopAlert:"), value)
+func (a AVVCStartRecordSettings) SetStopAlert(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStopAlert:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/stopOnErrorAlert
-func (v AVVCStartRecordSettings) StopOnErrorAlert() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("stopOnErrorAlert"))
+func (a AVVCStartRecordSettings) StopOnErrorAlert() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("stopOnErrorAlert"))
 	return rv
 }
-func (v AVVCStartRecordSettings) SetStopOnErrorAlert(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStopOnErrorAlert:"), value)
+func (a AVVCStartRecordSettings) SetStopOnErrorAlert(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStopOnErrorAlert:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCStartRecordSettings/streamID
-func (v AVVCStartRecordSettings) StreamID() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("streamID"))
+func (a AVVCStartRecordSettings) StreamID() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("streamID"))
 	return rv
 }
-func (v AVVCStartRecordSettings) SetStreamID(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStreamID:"), value)
+func (a AVVCStartRecordSettings) SetStreamID(value uint64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStreamID:"), value)
 }

@@ -77,11 +77,11 @@
 //
 //   - [GCController] - A representation of a real game controller, a virtual controller, or a snapshot of a controller.
 //   - [GCPhysicalInputProfile] - The base class for controller profiles that support physical buttons, thumbsticks, and directional pads.
-//   - [GCExtendedGamepad] - A controller profile that supports the extended set of gamepad controls.
 //   - [GCControllerLiveInput] - The input profile for a controller.
-//   - [GCMotion] - A controller profile that supports orientation and motion.
+//   - [GCExtendedGamepad] - A controller profile that supports the extended set of gamepad controls.
 //   - [GCRacingWheelInput] - A controller profile that supports a racing wheel.
 //   - [GCRacingWheelInputState] - The input for the wheel of a racing wheel controller.
+//   - [GCMotion] - A controller profile that supports orientation and motion.
 //   - [GCRacingWheel] - An object that represents a physical racing wheel controller connected to a device.
 //   - [GCMicroGamepad] - A controller profile that supports the Siri Remote.
 //   - [GCMouse] - An object that represents a physical mouse connected to a device.

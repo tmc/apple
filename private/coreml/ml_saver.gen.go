@@ -66,14 +66,14 @@ type IMLSaver interface {
 }
 
 // Init initializes the instance.
-func (s MLSaver) Init() MLSaver {
-	rv := objc.Send[MLSaver](s.ID, objc.Sel("init"))
+func (m MLSaver) Init() MLSaver {
+	rv := objc.Send[MLSaver](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSaver) Autorelease() MLSaver {
-	rv := objc.Send[MLSaver](s.ID, objc.Sel("autorelease"))
+func (m MLSaver) Autorelease() MLSaver {
+	rv := objc.Send[MLSaver](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

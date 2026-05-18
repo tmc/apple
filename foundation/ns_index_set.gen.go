@@ -189,9 +189,6 @@ func NSIndexSetFromID(id objc.ID) NSIndexSet {
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet
 type INSIndexSet interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSMutableCopying
 	NSSecureCoding
 
 	// Topic: Creating Index Sets

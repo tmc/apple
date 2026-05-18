@@ -98,12 +98,12 @@ type ICIQRCodeDescriptor interface {
 	// Topic: Creating a Descriptor
 
 	// Initializes a QR code descriptor for the given payload and parameters.
-	InitWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(errorCorrectedPayload foundation.INSData, symbolVersion int, maskPattern uint8, errorCorrectionLevel CIQRCodeErrorCorrectionLevel) CIQRCodeDescriptor
+	InitWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(errorCorrectedPayload foundation.NSData, symbolVersion int, maskPattern uint8, errorCorrectionLevel CIQRCodeErrorCorrectionLevel) CIQRCodeDescriptor
 
 	// Topic: Examining a Descriptor
 
 	// The error-corrected codeword payload that comprises the QR code symbol.
-	ErrorCorrectedPayload() foundation.INSData
+	ErrorCorrectedPayload() foundation.NSData
 	// The version of the QR code which corresponds to the size of the QR code symbol.
 	SymbolVersion() int
 	// The data mask pattern for the QR code symbol.
@@ -147,7 +147,7 @@ func NewCIQRCodeDescriptor() CIQRCodeDescriptor {
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeDescriptor/init(payload:symbolVersion:maskPattern:errorCorrectionLevel:)
-func NewQRCodeDescriptorWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(errorCorrectedPayload foundation.INSData, symbolVersion int, maskPattern uint8, errorCorrectionLevel CIQRCodeErrorCorrectionLevel) CIQRCodeDescriptor {
+func NewQRCodeDescriptorWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(errorCorrectedPayload foundation.NSData, symbolVersion int, maskPattern uint8, errorCorrectionLevel CIQRCodeErrorCorrectionLevel) CIQRCodeDescriptor {
 	instance := getCIQRCodeDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPayload:symbolVersion:maskPattern:errorCorrectionLevel:"), errorCorrectedPayload, symbolVersion, maskPattern, errorCorrectionLevel)
 	return CIQRCodeDescriptorFromID(rv)
@@ -169,7 +169,7 @@ func NewQRCodeDescriptorWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeDescriptor/init(payload:symbolVersion:maskPattern:errorCorrectionLevel:)
-func (q CIQRCodeDescriptor) InitWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(errorCorrectedPayload foundation.INSData, symbolVersion int, maskPattern uint8, errorCorrectionLevel CIQRCodeErrorCorrectionLevel) CIQRCodeDescriptor {
+func (q CIQRCodeDescriptor) InitWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(errorCorrectedPayload foundation.NSData, symbolVersion int, maskPattern uint8, errorCorrectionLevel CIQRCodeErrorCorrectionLevel) CIQRCodeDescriptor {
 	rv := objc.Send[CIQRCodeDescriptor](q.ID, objc.Sel("initWithPayload:symbolVersion:maskPattern:errorCorrectionLevel:"), errorCorrectedPayload, symbolVersion, maskPattern, errorCorrectionLevel)
 	return rv
 }
@@ -190,7 +190,7 @@ func (q CIQRCodeDescriptor) InitWithPayloadSymbolVersionMaskPatternErrorCorrecti
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeDescriptor/descriptorWithPayload:symbolVersion:maskPattern:errorCorrectionLevel:
-func (_CIQRCodeDescriptorClass CIQRCodeDescriptorClass) DescriptorWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(errorCorrectedPayload foundation.INSData, symbolVersion int, maskPattern uint8, errorCorrectionLevel CIQRCodeErrorCorrectionLevel) CIQRCodeDescriptor {
+func (_CIQRCodeDescriptorClass CIQRCodeDescriptorClass) DescriptorWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(errorCorrectedPayload foundation.NSData, symbolVersion int, maskPattern uint8, errorCorrectionLevel CIQRCodeErrorCorrectionLevel) CIQRCodeDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_CIQRCodeDescriptorClass.class), objc.Sel("descriptorWithPayload:symbolVersion:maskPattern:errorCorrectionLevel:"), errorCorrectedPayload, symbolVersion, maskPattern, errorCorrectionLevel)
 	return CIQRCodeDescriptorFromID(rv)
 }
@@ -212,7 +212,7 @@ func (_CIQRCodeDescriptorClass CIQRCodeDescriptorClass) DescriptorWithPayloadSym
 // codewords.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeDescriptor/errorCorrectedPayload-swift.property
-func (q CIQRCodeDescriptor) ErrorCorrectedPayload() foundation.INSData {
+func (q CIQRCodeDescriptor) ErrorCorrectedPayload() foundation.NSData {
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("errorCorrectedPayload"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

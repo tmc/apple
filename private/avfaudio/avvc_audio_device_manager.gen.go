@@ -90,14 +90,14 @@ type IAVVCAudioDeviceManager interface {
 }
 
 // Init initializes the instance.
-func (v AVVCAudioDeviceManager) Init() AVVCAudioDeviceManager {
-	rv := objc.Send[AVVCAudioDeviceManager](v.ID, objc.Sel("init"))
+func (a AVVCAudioDeviceManager) Init() AVVCAudioDeviceManager {
+	rv := objc.Send[AVVCAudioDeviceManager](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVCAudioDeviceManager) Autorelease() AVVCAudioDeviceManager {
-	rv := objc.Send[AVVCAudioDeviceManager](v.ID, objc.Sel("autorelease"))
+func (a AVVCAudioDeviceManager) Autorelease() AVVCAudioDeviceManager {
+	rv := objc.Send[AVVCAudioDeviceManager](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -133,14 +133,14 @@ func NewVCAudioDeviceManagerWithError() (AVVCAudioDeviceManager, error) {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioDeviceManager/selectDeviceForActivationMode:
-func (v AVVCAudioDeviceManager) SelectDeviceForActivationMode(mode objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("selectDeviceForActivationMode:"), mode)
+func (a AVVCAudioDeviceManager) SelectDeviceForActivationMode(mode objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("selectDeviceForActivationMode:"), mode)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioDeviceManager/initWithActivationContext:withError:
-func (v AVVCAudioDeviceManager) InitWithActivationContextWithError(context objectivec.IObject) (AVVCAudioDeviceManager, error) {
+func (a AVVCAudioDeviceManager) InitWithActivationContextWithError(context objectivec.IObject) (AVVCAudioDeviceManager, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithActivationContext:withError:"), context, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithActivationContext:withError:"), context, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVVCAudioDeviceManager{}, foundation.NSErrorFrom(errorPtr)
@@ -150,9 +150,9 @@ func (v AVVCAudioDeviceManager) InitWithActivationContextWithError(context objec
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioDeviceManager/initWithError:
-func (v AVVCAudioDeviceManager) InitWithError() (AVVCAudioDeviceManager, error) {
+func (a AVVCAudioDeviceManager) InitWithError() (AVVCAudioDeviceManager, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVVCAudioDeviceManager{}, foundation.NSErrorFrom(errorPtr)
@@ -432,22 +432,22 @@ func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SuppressRecordin
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioDeviceManager/inputDeviceID
-func (v AVVCAudioDeviceManager) InputDeviceID() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("inputDeviceID"))
+func (a AVVCAudioDeviceManager) InputDeviceID() uint32 {
+	rv := objc.Send[uint32](a.ID, objc.Sel("inputDeviceID"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioDeviceManager/outputDeviceID
-func (v AVVCAudioDeviceManager) OutputDeviceID() uint32 {
-	rv := objc.Send[uint32](v.ID, objc.Sel("outputDeviceID"))
+func (a AVVCAudioDeviceManager) OutputDeviceID() uint32 {
+	rv := objc.Send[uint32](a.ID, objc.Sel("outputDeviceID"))
 	return rv
 }
 
 // IterateOverProcessObjectListSync is a synchronous wrapper around [AVVCAudioDeviceManager.IterateOverProcessObjectList].
 // It blocks until the completion handler fires or the context is cancelled.
-func (vc AVVCAudioDeviceManagerClass) IterateOverProcessObjectListSync(ctx context.Context) error {
+func (ac AVVCAudioDeviceManagerClass) IterateOverProcessObjectListSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	vc.IterateOverProcessObjectList(func() {
+	ac.IterateOverProcessObjectList(func() {
 		done <- struct{}{}
 	})
 	select {

@@ -4,11 +4,11 @@ package diskimages2
 
 // C struct types
 
-// AAAsyncByteStream_impl
+// AAAsyncByteStreamImpl
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/DiskImages2/AAAsyncByteStream_impl
-type AAAsyncByteStream_impl struct {
+type AAAsyncByteStreamImpl struct {
 }
 
 // AuthData
@@ -25,53 +25,53 @@ type AuthData struct {
 type AuthorizationOpaqueRef struct {
 }
 
-// _DADisk
+// DADisk
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/DiskImages2/__DADisk
-type _DADisk struct {
+type DADisk struct {
 }
 
-// _DASession
+// DASession
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/DiskImages2/__DASession
-type _DASession struct {
+type DASession struct {
 }
 
-// _MKMedia
+// MKMedia
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/DiskImages2/__MKMedia
-type _MKMedia struct {
+type MKMedia struct {
 }
 
-// _SecCertificate
+// SecCertificate
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/DiskImages2/__SecCertificate
-type _SecCertificate struct {
+type SecCertificate struct {
 }
 
-// _SecKeychainItem
+// SecKeychainItem
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/DiskImages2/__SecKeychainItem
-type _SecKeychainItem struct {
+type SecKeychainItem struct {
 }
 
-// Diskimage_open_params
+// DiskimageOpenParams
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/DiskImages2/diskimage_open_params
-type Diskimage_open_params struct {
+type DiskimageOpenParams struct {
 }
 
-// Qtn_file
+// QtnFile
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/DiskImages2/_qtn_file
-type Qtn_file struct {
+type QtnFile struct {
 }
 
 // Statfs

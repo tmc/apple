@@ -92,14 +92,14 @@ type IMLFairPlayDecryptSession interface {
 }
 
 // Init initializes the instance.
-func (f MLFairPlayDecryptSession) Init() MLFairPlayDecryptSession {
-	rv := objc.Send[MLFairPlayDecryptSession](f.ID, objc.Sel("init"))
+func (m MLFairPlayDecryptSession) Init() MLFairPlayDecryptSession {
+	rv := objc.Send[MLFairPlayDecryptSession](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (f MLFairPlayDecryptSession) Autorelease() MLFairPlayDecryptSession {
-	rv := objc.Send[MLFairPlayDecryptSession](f.ID, objc.Sel("autorelease"))
+func (m MLFairPlayDecryptSession) Autorelease() MLFairPlayDecryptSession {
+	rv := objc.Send[MLFairPlayDecryptSession](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -123,28 +123,28 @@ func (_MLFairPlayDecryptSessionClass MLFairPlayDecryptSessionClass) DecryptSessi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSession/modelPath
-func (f MLFairPlayDecryptSession) ModelPath() string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("modelPath"))
+func (m MLFairPlayDecryptSession) ModelPath() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelPath"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (f MLFairPlayDecryptSession) SetModelPath(value string) {
-	objc.Send[struct{}](f.ID, objc.Sel("setModelPath:"), objc.String(value))
+func (m MLFairPlayDecryptSession) SetModelPath(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelPath:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSession/xpcConnection
-func (f MLFairPlayDecryptSession) XpcConnection() foundation.NSXPCConnection {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("xpcConnection"))
+func (m MLFairPlayDecryptSession) XpcConnection() foundation.NSXPCConnection {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("xpcConnection"))
 	return foundation.NSXPCConnectionFromID(objc.ID(rv))
 }
-func (f MLFairPlayDecryptSession) SetXpcConnection(value foundation.NSXPCConnection) {
-	objc.Send[struct{}](f.ID, objc.Sel("setXpcConnection:"), value)
+func (m MLFairPlayDecryptSession) SetXpcConnection(value foundation.NSXPCConnection) {
+	objc.Send[struct{}](m.ID, objc.Sel("setXpcConnection:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSession/xpcProxy
-func (f MLFairPlayDecryptSession) XpcProxy() objectivec.Object {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("xpcProxy"))
+func (m MLFairPlayDecryptSession) XpcProxy() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("xpcProxy"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (f MLFairPlayDecryptSession) SetXpcProxy(value objectivec.Object) {
-	objc.Send[struct{}](f.ID, objc.Sel("setXpcProxy:"), value)
+func (m MLFairPlayDecryptSession) SetXpcProxy(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setXpcProxy:"), value)
 }

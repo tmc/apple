@@ -17,7 +17,7 @@ type MTL4CommitFeedback interface {
 	// A description of an error when the GPU encounters an issue as it runs the committed command buffers.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/error
-	Error() foundation.INSError
+	Error() foundation.NSError
 
 	// The host time, in seconds, when the GPU finishes execution of the committed command buffers.
 	//
@@ -51,7 +51,7 @@ func MTL4CommitFeedbackObjectFromID(id objc.ID) MTL4CommitFeedbackObject {
 // committed command buffers.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/error
-func (o MTL4CommitFeedbackObject) Error() foundation.INSError {
+func (o MTL4CommitFeedbackObject) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(rv)
 }
@@ -62,7 +62,7 @@ func (o MTL4CommitFeedbackObject) Error() foundation.INSError {
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/gpuEndTime
 func (o MTL4CommitFeedbackObject) GPUEndTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("GPUEndTime"))
-	return rv
+	return float64(rv)
 }
 
 // The host time, in seconds, when the GPU starts execution of the committed
@@ -71,5 +71,5 @@ func (o MTL4CommitFeedbackObject) GPUEndTime() float64 {
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/gpuStartTime
 func (o MTL4CommitFeedbackObject) GPUStartTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("GPUStartTime"))
-	return rv
+	return float64(rv)
 }

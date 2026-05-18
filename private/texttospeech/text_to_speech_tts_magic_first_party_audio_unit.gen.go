@@ -8,7 +8,6 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [TextToSpeechTTSMagicFirstPartyAudioUnit] class.
@@ -73,7 +72,7 @@ type ITextToSpeechTTSMagicFirstPartyAudioUnit interface {
 
 	// Topic: Methods
 
-	InitWithComponentDescriptionOptionsError(description objectivec.IObject, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error)
+	InitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error)
 }
 
 // Init initializes the instance.
@@ -96,7 +95,7 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnit() TextToSpeechTTSMagicFirstParty
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit/initWithComponentDescription:options:error:
-func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description objectivec.IObject, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
+func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	instance := getTextToSpeechTTSMagicFirstPartyAudioUnitClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
@@ -108,7 +107,7 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsEr
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit/initWithComponentDescription:options:error:
-func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description objectivec.IObject, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
+func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

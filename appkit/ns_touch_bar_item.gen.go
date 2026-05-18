@@ -380,7 +380,7 @@ type INSTouchBarItem interface {
 	SetGroupTouchBar(value INSTouchBar)
 	// A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
 	IsContinuous() bool
-	SetIsContinuous(value bool)
+	SetContinuous(value bool)
 	// The bar displayed when this item is “popped.”
 	PopoverTouchBar() INSTouchBar
 	SetPopoverTouchBar(value INSTouchBar)
@@ -562,7 +562,7 @@ func (t NSTouchBarItem) IsContinuous() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("continuous"))
 	return rv
 }
-func (t NSTouchBarItem) SetIsContinuous(value bool) {
+func (t NSTouchBarItem) SetContinuous(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContinuous:"), value)
 }
 

@@ -63,14 +63,14 @@ type IMLParameterKey interface {
 }
 
 // Init initializes the instance.
-func (p MLParameterKey) Init() MLParameterKey {
-	rv := objc.Send[MLParameterKey](p.ID, objc.Sel("init"))
+func (m MLParameterKey) Init() MLParameterKey {
+	rv := objc.Send[MLParameterKey](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLParameterKey) Autorelease() MLParameterKey {
-	rv := objc.Send[MLParameterKey](p.ID, objc.Sel("autorelease"))
+func (m MLParameterKey) Autorelease() MLParameterKey {
+	rv := objc.Send[MLParameterKey](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

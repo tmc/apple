@@ -272,8 +272,8 @@ type INSTask interface {
 
 	// Topic: Instance Properties
 
-	LaunchRequirement() objectivec.IObject
-	SetLaunchRequirement(value objectivec.IObject)
+	LaunchRequirement() unsafe.Pointer
+	SetLaunchRequirement(value unsafe.Pointer)
 	LaunchRequirementData() INSData
 	SetLaunchRequirementData(value INSData)
 }
@@ -673,11 +673,11 @@ func (t NSTask) SetLaunchPath(value string) {
 }
 
 // See: https://developer.apple.com/documentation/foundation/process/launchrequirement
-func (t NSTask) LaunchRequirement() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("launchRequirement"))
-	return objectivec.Object{ID: rv}
+func (t NSTask) LaunchRequirement() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("launchRequirement"))
+	return rv
 }
-func (t NSTask) SetLaunchRequirement(value objectivec.IObject) {
+func (t NSTask) SetLaunchRequirement(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLaunchRequirement:"), value)
 }
 

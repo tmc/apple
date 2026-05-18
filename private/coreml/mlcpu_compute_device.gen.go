@@ -85,14 +85,14 @@ type IMLCPUComputeDevice interface {
 }
 
 // Init initializes the instance.
-func (c MLCPUComputeDevice) Init() MLCPUComputeDevice {
-	rv := objc.Send[MLCPUComputeDevice](c.ID, objc.Sel("init"))
+func (m MLCPUComputeDevice) Init() MLCPUComputeDevice {
+	rv := objc.Send[MLCPUComputeDevice](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCPUComputeDevice) Autorelease() MLCPUComputeDevice {
-	rv := objc.Send[MLCPUComputeDevice](c.ID, objc.Sel("autorelease"))
+func (m MLCPUComputeDevice) Autorelease() MLCPUComputeDevice {
+	rv := objc.Send[MLCPUComputeDevice](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,25 +110,25 @@ func (_MLCPUComputeDeviceClass MLCPUComputeDeviceClass) PhysicalDevice() objecti
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice/debugDescription
-func (c MLCPUComputeDevice) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+func (m MLCPUComputeDevice) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice/description
-func (c MLCPUComputeDevice) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+func (m MLCPUComputeDevice) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice/hash
-func (c MLCPUComputeDevice) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+func (m MLCPUComputeDevice) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice/superclass
-func (c MLCPUComputeDevice) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
+func (m MLCPUComputeDevice) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

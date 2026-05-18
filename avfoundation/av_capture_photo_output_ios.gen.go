@@ -171,6 +171,27 @@ func (c AVCapturePhotoOutput) AutoDeferredPhotoDeliverySupported() bool {
 	return rv
 }
 
+// The pixel formats the capture output supports for RAW photo capture.
+//
+// # Discussion
+//
+// To capture a photo in RAW format, use the
+// [PhotoSettingsWithRawPixelFormatType] or
+// [PhotoSettingsWithRawPixelFormatTypeProcessedFormat] initializer to create
+// your photo settings object. The value for that initializer’s
+// `rawPixelFormatType` parameter must be one of the Bayer RAW format
+// identifiers listed in this array.
+//
+// This property supports key-value observing.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/availableRawPhotoPixelFormatTypes-5fatm
+func (c AVCapturePhotoOutput) AvailableRawPhotoPixelFormatTypes() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availableRawPhotoPixelFormatTypes"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+
 // The list of file types currently supported for RAW format capture and
 // output.
 //
@@ -795,27 +816,6 @@ func (c AVCapturePhotoOutput) CameraCalibrationDataDeliverySupported() bool {
 func (c AVCapturePhotoOutput) AvailableRawPhotoCodecTypes() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availableRawPhotoCodecTypes"))
 	return objc.ConvertSliceToStrings(rv)
-}
-
-// The pixel formats the capture output supports for RAW photo capture.
-//
-// # Discussion
-//
-// To capture a photo in RAW format, use the
-// [PhotoSettingsWithRawPixelFormatType] or
-// [PhotoSettingsWithRawPixelFormatTypeProcessedFormat] initializer to create
-// your photo settings object. The value for that initializer’s
-// `rawPixelFormatType` parameter must be one of the Bayer RAW format
-// identifiers listed in this array.
-//
-// This property supports key-value observing.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/availableRawPhotoPixelFormatTypes-5fatm
-func (c AVCapturePhotoOutput) AvailableRawPhotoPixelFormatTypes() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availableRawPhotoPixelFormatTypes"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
 }
 
 // A Boolean value that specifies whether to configure the capture pipeline

@@ -66,11 +66,11 @@ func (gc GCControllerElementClass) Alloc() GCControllerElement {
 //
 // To change this default behavior, you can set the
 // [GCControllerElement.PreferredSystemGestureState] property to
-// [GCControllerElement.SystemGestureState.alwaysReceive] to receive the input
-// simultaneously without delay. Alternatively, set it to
-// [GCControllerElement.SystemGestureState.disabled] to disable the system
-// gesture and receive the input exclusively. Use the [GCControllerElement.BoundToSystemGesture]
-// property to check whether the user included an element in a system gesture.
+// [GCSystemGestureStateAlwaysReceive] to receive the input simultaneously
+// without delay. Alternatively, set it to [GCSystemGestureStateDisabled] to
+// disable the system gesture and receive the input exclusively. Use the
+// [GCControllerElement.BoundToSystemGesture] property to check whether the user included an
+// element in a system gesture.
 //
 // Use the [GCControllerElement.Analog] property to determine whether an element’s input value
 // is a range of values or a discrete digital value.
@@ -108,9 +108,6 @@ func (gc GCControllerElementClass) Alloc() GCControllerElement {
 //   - [GCControllerElement.SetPreferredSystemGestureState]
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerElement
-//
-// [GCControllerElement.SystemGestureState.alwaysReceive]: https://developer.apple.com/documentation/GameController/GCControllerElement/SystemGestureState/alwaysReceive
-// [GCControllerElement.SystemGestureState.disabled]: https://developer.apple.com/documentation/GameController/GCControllerElement/SystemGestureState/disabled
 type GCControllerElement struct {
 	objectivec.Object
 }
@@ -349,12 +346,9 @@ func (g GCControllerElement) BoundToSystemGesture() bool {
 //
 // In rare situations, you may use this property to disable system gestures.
 // However, the system isn’t guaranteed to respect this property. The
-// default value for this property is
-// [GCControllerElement.SystemGestureState.enabled].
+// default value for this property is [GCSystemGestureStateEnabled].
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerElement/preferredSystemGestureState
-//
-// [GCControllerElement.SystemGestureState.enabled]: https://developer.apple.com/documentation/GameController/GCControllerElement/SystemGestureState/enabled
 func (g GCControllerElement) PreferredSystemGestureState() GCSystemGestureState {
 	rv := objc.Send[GCSystemGestureState](g.ID, objc.Sel("preferredSystemGestureState"))
 	return GCSystemGestureState(rv)

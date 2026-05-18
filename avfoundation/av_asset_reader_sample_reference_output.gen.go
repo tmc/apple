@@ -113,9 +113,9 @@ type IAVAssetReaderSampleReferenceOutput interface {
 	AlwaysCopiesSampleData() bool
 	SetAlwaysCopiesSampleData(value bool)
 	// Indicates the byte offset at which the sample data begins (type `CFNumber`).
-	KCMSampleBufferAttachmentKey_SampleReferenceByteOffset() corefoundation.CFStringRef
+	KCMSampleBufferAttachmentKey_SampleReferenceByteOffset() corefoundation.CFString
 	// Indicates the URL where the sample data is (type `CFURL`).
-	KCMSampleBufferAttachmentKey_SampleReferenceURL() corefoundation.CFStringRef
+	KCMSampleBufferAttachmentKey_SampleReferenceURL() corefoundation.CFString
 	// The UTI for the QuickTime movie file format.
 	Mov() AVFileType
 }
@@ -197,17 +197,17 @@ func (a AVAssetReaderSampleReferenceOutput) SetAlwaysCopiesSampleData(value bool
 // `CFNumber`).
 //
 // See: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_SampleReferenceByteOffset
-func (a AVAssetReaderSampleReferenceOutput) KCMSampleBufferAttachmentKey_SampleReferenceByteOffset() corefoundation.CFStringRef {
-	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCMSampleBufferAttachmentKey_SampleReferenceByteOffset"))
-	return corefoundation.CFStringRef(rv)
+func (a AVAssetReaderSampleReferenceOutput) KCMSampleBufferAttachmentKey_SampleReferenceByteOffset() corefoundation.CFString {
+	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCMSampleBufferAttachmentKey_SampleReferenceByteOffset"))
+	return corefoundation.CFString(rv)
 }
 
 // Indicates the URL where the sample data is (type `CFURL`).
 //
 // See: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_SampleReferenceURL
-func (a AVAssetReaderSampleReferenceOutput) KCMSampleBufferAttachmentKey_SampleReferenceURL() corefoundation.CFStringRef {
-	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCMSampleBufferAttachmentKey_SampleReferenceURL"))
-	return corefoundation.CFStringRef(rv)
+func (a AVAssetReaderSampleReferenceOutput) KCMSampleBufferAttachmentKey_SampleReferenceURL() corefoundation.CFString {
+	rv := objc.Send[corefoundation.CFString](a.ID, objc.Sel("kCMSampleBufferAttachmentKey_SampleReferenceURL"))
+	return corefoundation.CFString(rv)
 }
 
 // The UTI for the QuickTime movie file format.

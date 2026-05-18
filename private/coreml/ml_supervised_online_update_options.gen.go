@@ -63,14 +63,14 @@ type IMLSupervisedOnlineUpdateOptions interface {
 }
 
 // Init initializes the instance.
-func (s MLSupervisedOnlineUpdateOptions) Init() MLSupervisedOnlineUpdateOptions {
-	rv := objc.Send[MLSupervisedOnlineUpdateOptions](s.ID, objc.Sel("init"))
+func (m MLSupervisedOnlineUpdateOptions) Init() MLSupervisedOnlineUpdateOptions {
+	rv := objc.Send[MLSupervisedOnlineUpdateOptions](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSupervisedOnlineUpdateOptions) Autorelease() MLSupervisedOnlineUpdateOptions {
-	rv := objc.Send[MLSupervisedOnlineUpdateOptions](s.ID, objc.Sel("autorelease"))
+func (m MLSupervisedOnlineUpdateOptions) Autorelease() MLSupervisedOnlineUpdateOptions {
+	rv := objc.Send[MLSupervisedOnlineUpdateOptions](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

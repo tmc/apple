@@ -253,7 +253,7 @@ type IOperationQueue interface {
 
 	// A Boolean value indicating whether the operation can be performed now.
 	IsReady() bool
-	SetIsReady(value bool)
+	SetReady(value bool)
 	// The execution priority of the operation in an operation queue.
 	QueuePriority() NSOperationQueuePriority
 	SetQueuePriority(value NSOperationQueuePriority)
@@ -618,7 +618,7 @@ func (o OperationQueue) IsReady() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("ready"))
 	return rv
 }
-func (o OperationQueue) SetIsReady(value bool) {
+func (o OperationQueue) SetReady(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setReady:"), value)
 }
 

@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_fold_constants] class.
+// The class instance for the [EspressoPassFoldConstants] class.
 var (
-	_EspressoPass_fold_constantsClass     EspressoPass_fold_constantsClass
-	_EspressoPass_fold_constantsClassOnce sync.Once
+	_EspressoPassFoldConstantsClass     EspressoPassFoldConstantsClass
+	_EspressoPassFoldConstantsClassOnce sync.Once
 )
 
-func getEspressoPass_fold_constantsClass() EspressoPass_fold_constantsClass {
-	_EspressoPass_fold_constantsClassOnce.Do(func() {
-		_EspressoPass_fold_constantsClass = EspressoPass_fold_constantsClass{class: objc.GetClass("EspressoPass_fold_constants")}
+func getEspressoPassFoldConstantsClass() EspressoPassFoldConstantsClass {
+	_EspressoPassFoldConstantsClassOnce.Do(func() {
+		_EspressoPassFoldConstantsClass = EspressoPassFoldConstantsClass{class: objc.GetClass("EspressoPass_fold_constants")}
 	})
-	return _EspressoPass_fold_constantsClass
+	return _EspressoPassFoldConstantsClass
 }
 
-// GetEspressoPass_fold_constantsClass returns the class object for EspressoPass_fold_constants.
-func GetEspressoPass_fold_constantsClass() EspressoPass_fold_constantsClass {
-	return getEspressoPass_fold_constantsClass()
+// GetEspressoPassFoldConstantsClass returns the class object for EspressoPass_fold_constants.
+func GetEspressoPassFoldConstantsClass() EspressoPassFoldConstantsClass {
+	return getEspressoPassFoldConstantsClass()
 }
 
-type EspressoPass_fold_constantsClass struct {
+type EspressoPassFoldConstantsClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_fold_constantsClass) Class() objc.Class {
+func (ec EspressoPassFoldConstantsClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_fold_constantsClass) Alloc() EspressoPass_fold_constants {
-	rv := objc.Send[EspressoPass_fold_constants](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFoldConstantsClass) Alloc() EspressoPassFoldConstants {
+	rv := objc.Send[EspressoPassFoldConstants](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fold_constants
-type EspressoPass_fold_constants struct {
+type EspressoPassFoldConstants struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_fold_constantsFromID constructs a [EspressoPass_fold_constants] from an objc.ID.
-func EspressoPass_fold_constantsFromID(id objc.ID) EspressoPass_fold_constants {
-	return EspressoPass_fold_constants{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFoldConstantsFromID constructs a [EspressoPassFoldConstants] from an objc.ID.
+func EspressoPassFoldConstantsFromID(id objc.ID) EspressoPassFoldConstants {
+	return EspressoPassFoldConstants{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_fold_constants implements IEspressoPass_fold_constants.
-var _ IEspressoPass_fold_constants = EspressoPass_fold_constants{}
+// EspressoPass_fold_constantsFromID is an alias for [EspressoPassFoldConstantsFromID] for cross-framework compatibility.
+func EspressoPass_fold_constantsFromID(id objc.ID) EspressoPassFoldConstants {
+	return EspressoPassFoldConstantsFromID(id)
+}
 
-// An interface definition for the [EspressoPass_fold_constants] class.
+// Ensure EspressoPassFoldConstants implements IEspressoPassFoldConstants.
+var _ IEspressoPassFoldConstants = EspressoPassFoldConstants{}
+
+// An interface definition for the [EspressoPassFoldConstants] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fold_constants
-type IEspressoPass_fold_constants interface {
+type IEspressoPassFoldConstants interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_fold_constants) Init() EspressoPass_fold_constants {
-	rv := objc.Send[EspressoPass_fold_constants](e.ID, objc.Sel("init"))
+func (e EspressoPassFoldConstants) Init() EspressoPassFoldConstants {
+	rv := objc.Send[EspressoPassFoldConstants](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_fold_constants) Autorelease() EspressoPass_fold_constants {
-	rv := objc.Send[EspressoPass_fold_constants](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFoldConstants) Autorelease() EspressoPassFoldConstants {
+	rv := objc.Send[EspressoPassFoldConstants](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_fold_constants creates a new EspressoPass_fold_constants instance.
-func NewEspressoPass_fold_constants() EspressoPass_fold_constants {
-	class := getEspressoPass_fold_constantsClass()
-	rv := objc.Send[EspressoPass_fold_constants](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFoldConstants creates a new EspressoPassFoldConstants instance.
+func NewEspressoPassFoldConstants() EspressoPassFoldConstants {
+	class := getEspressoPassFoldConstantsClass()
+	rv := objc.Send[EspressoPassFoldConstants](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

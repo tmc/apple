@@ -18,30 +18,18 @@ type CIUnsharpMask interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/inputImage
 	InputImage() ICIImage
-
-	// The intensity of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/intensity
-	Intensity() float32
-
-	// The radius of the unsharp mask effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/radius
-	Radius() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/inputImage
 	SetInputImage(value ICIImage)
 
 	// The intensity of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/intensity
+	Intensity() float32
 	SetIntensity(value float32)
 
 	// The radius of the unsharp mask effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -62,30 +50,6 @@ func CIUnsharpMaskObjectFromID(id objc.ID) CIUnsharpMaskObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/inputImage
-func (o CIUnsharpMaskObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The intensity of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/intensity
-func (o CIUnsharpMaskObject) Intensity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
-	return rv
-}
-
-// The radius of the unsharp mask effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/radius
-func (o CIUnsharpMaskObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -98,6 +62,11 @@ func (o CIUnsharpMaskObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/inputImage
+func (o CIUnsharpMaskObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIUnsharpMaskObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -105,6 +74,11 @@ func (o CIUnsharpMaskObject) SetInputImage(value ICIImage) {
 // The intensity of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/intensity
+func (o CIUnsharpMaskObject) Intensity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
+	return float32(rv)
+}
+
 func (o CIUnsharpMaskObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }
@@ -112,6 +86,11 @@ func (o CIUnsharpMaskObject) SetIntensity(value float32) {
 // The radius of the unsharp mask effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/radius
+func (o CIUnsharpMaskObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIUnsharpMaskObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

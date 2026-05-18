@@ -18,30 +18,18 @@ type CIPalettize interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/inputImage
 	InputImage() ICIImage
-
-	// The input color palette, obtained by using a k-means clustering filter.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/paletteImage
-	PaletteImage() ICIImage
-
-	// A Boolean value that specifies whether the filter applies the color palette in a perceptual color space.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/perceptual
-	Perceptual() bool
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/inputImage
 	SetInputImage(value ICIImage)
 
 	// The input color palette, obtained by using a k-means clustering filter.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/paletteImage
+	PaletteImage() ICIImage
 	SetPaletteImage(value ICIImage)
 
 	// A Boolean value that specifies whether the filter applies the color palette in a perceptual color space.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/perceptual
+	Perceptual() bool
 	SetPerceptual(value bool)
 }
 
@@ -62,31 +50,6 @@ func CIPalettizeObjectFromID(id objc.ID) CIPalettizeObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/inputImage
-func (o CIPalettizeObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The input color palette, obtained by using a k-means clustering filter.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/paletteImage
-func (o CIPalettizeObject) PaletteImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("paletteImage"))
-	return CIImageFromID(rv)
-}
-
-// A Boolean value that specifies whether the filter applies the color palette
-// in a perceptual color space.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPalettize/perceptual
-func (o CIPalettizeObject) Perceptual() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("perceptual"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -99,6 +62,11 @@ func (o CIPalettizeObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPalettize/inputImage
+func (o CIPalettizeObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPalettizeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -106,6 +74,11 @@ func (o CIPalettizeObject) SetInputImage(value ICIImage) {
 // The input color palette, obtained by using a k-means clustering filter.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPalettize/paletteImage
+func (o CIPalettizeObject) PaletteImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("paletteImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPalettizeObject) SetPaletteImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPaletteImage:"), value)
 }
@@ -114,6 +87,11 @@ func (o CIPalettizeObject) SetPaletteImage(value ICIImage) {
 // in a perceptual color space.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPalettize/perceptual
+func (o CIPalettizeObject) Perceptual() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("perceptual"))
+	return bool(rv)
+}
+
 func (o CIPalettizeObject) SetPerceptual(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPerceptual:"), value)
 }

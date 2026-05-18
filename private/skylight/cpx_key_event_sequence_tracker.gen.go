@@ -78,8 +78,8 @@ type ICPXKeyEventSequenceTracker interface {
 	// Topic: Methods
 
 	Count() uint64
-	DestinationForEventExtras(event *SLSEventRecordRef, extras []objectivec.IObject) objectivec.IObject
-	NoteKeyEventProcessedDestination(processed *SLSEventRecordRef, destination objectivec.IObject) bool
+	DestinationForEventExtras(event SLSEventRecord, extras []objectivec.IObject) objectivec.IObject
+	NoteKeyEventProcessedDestination(processed SLSEventRecord, destination objectivec.IObject) bool
 	InitWithProvider(provider objectivec.IObject) CPXKeyEventSequenceTracker
 }
 
@@ -116,13 +116,13 @@ func (c CPXKeyEventSequenceTracker) Count() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker/destinationForEvent:extras:
-func (c CPXKeyEventSequenceTracker) DestinationForEventExtras(event *SLSEventRecordRef, extras []objectivec.IObject) objectivec.IObject {
+func (c CPXKeyEventSequenceTracker) DestinationForEventExtras(event SLSEventRecord, extras []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("destinationForEvent:extras:"), event, objectivec.IObjectSliceToNSArray(extras))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXKeyEventSequenceTracker/noteKeyEventProcessed:destination:
-func (c CPXKeyEventSequenceTracker) NoteKeyEventProcessedDestination(processed *SLSEventRecordRef, destination objectivec.IObject) bool {
+func (c CPXKeyEventSequenceTracker) NoteKeyEventProcessedDestination(processed SLSEventRecord, destination objectivec.IObject) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("noteKeyEventProcessed:destination:"), processed, destination)
 	return rv
 }

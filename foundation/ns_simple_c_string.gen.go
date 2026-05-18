@@ -148,7 +148,7 @@ func NewSimpleCStringWithCString(bytes string) NSSimpleCString {
 	return NSSimpleCStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)-20f9h
 func NewSimpleCStringWithCStringEncoding(nullTerminatedCString string, encoding uint) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")), encoding)
@@ -522,7 +522,7 @@ func NewSimpleCStringWithString(aString string) NSSimpleCString {
 	return NSSimpleCStringFromID(rv)
 }
 
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
+// See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)-vg2b
 func NewSimpleCStringWithUTF8String(nullTerminatedCString string) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")))

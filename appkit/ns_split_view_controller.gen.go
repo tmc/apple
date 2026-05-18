@@ -187,7 +187,7 @@ type INSSplitViewController interface {
 
 	// A Boolean value that determines the geometric orientation of the split view’s dividers.
 	IsVertical() bool
-	SetIsVertical(value bool)
+	SetVertical(value bool)
 }
 
 // Init initializes the instance.
@@ -676,7 +676,7 @@ func (s NSSplitViewController) IsVertical() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("vertical"))
 	return rv
 }
-func (s NSSplitViewController) SetIsVertical(value bool) {
+func (s NSSplitViewController) SetVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
 

@@ -148,12 +148,10 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetSampleBuffer(va
 // at the start of the resource state pass. Otherwise, specify an index within
 // the sample buffer where you want the GPU to write the sample data.
 //
-// On devices that don’t support [MTLCounterSamplingPoint.atStageBoundary]
+// On devices that don’t support [MTLCounterSamplingPointAtStageBoundary]
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassSampleBufferAttachmentDescriptor/startOfEncoderSampleIndex
-//
-// [MTLCounterSamplingPoint.atStageBoundary]: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint/atStageBoundary
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) StartOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("startOfEncoderSampleIndex"))
 	return rv
@@ -171,12 +169,10 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetStartOfEncoderS
 // at the end of the resource state pass. Otherwise, specify an index within
 // the sample buffer where you want the GPU to write the sample data.
 //
-// On devices that don’t support [MTLCounterSamplingPoint.atStageBoundary]
+// On devices that don’t support [MTLCounterSamplingPointAtStageBoundary]
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassSampleBufferAttachmentDescriptor/endOfEncoderSampleIndex
-//
-// [MTLCounterSamplingPoint.atStageBoundary]: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint/atStageBoundary
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("endOfEncoderSampleIndex"))
 	return rv

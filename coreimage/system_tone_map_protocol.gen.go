@@ -19,30 +19,18 @@ type CISystemToneMap interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/displayHeadroom
 	DisplayHeadroom() float32
-
-	// Specifies input image with content headroom and average light level properties.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/inputImage
-	InputImage() ICIImage
-
-	// Specifies the preferred dynamic range behavior of the tone mapping. The value should be kCIDynamicRangeStandard, kCIDynamicRangeConstrainedHigh, kCIDynamicRangeHigh or nil.  If nil then it will behave as kCIDynamicRangeHigh.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/preferredDynamicRange
-	PreferredDynamicRange() CIDynamicRangeOption
-
-	// Specifies the current headroom of the intended display.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/displayHeadroom
 	SetDisplayHeadroom(value float32)
 
 	// Specifies input image with content headroom and average light level properties.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// Specifies the preferred dynamic range behavior of the tone mapping. The value should be kCIDynamicRangeStandard, kCIDynamicRangeConstrainedHigh, kCIDynamicRangeHigh or nil.  If nil then it will behave as kCIDynamicRangeHigh.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/preferredDynamicRange
+	PreferredDynamicRange() CIDynamicRangeOption
 	SetPreferredDynamicRange(value CIDynamicRangeOption)
 }
 
@@ -63,12 +51,25 @@ func CISystemToneMapObjectFromID(id objc.ID) CISystemToneMapObject {
 	}
 }
 
+// A [CIImage] object that encapsulates the operations configured in the
+// filter.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
+func (o CISystemToneMapObject) OutputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
+	return CIImageFromID(rv)
+}
+
 // Specifies the current headroom of the intended display.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/displayHeadroom
 func (o CISystemToneMapObject) DisplayHeadroom() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("displayHeadroom"))
-	return rv
+	return float32(rv)
+}
+
+func (o CISystemToneMapObject) SetDisplayHeadroom(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setDisplayHeadroom:"), value)
 }
 
 // Specifies input image with content headroom and average light level
@@ -78,6 +79,10 @@ func (o CISystemToneMapObject) DisplayHeadroom() float32 {
 func (o CISystemToneMapObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
+}
+
+func (o CISystemToneMapObject) SetInputImage(value ICIImage) {
+	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
 // Specifies the preferred dynamic range behavior of the tone mapping. The
@@ -91,36 +96,6 @@ func (o CISystemToneMapObject) PreferredDynamicRange() CIDynamicRangeOption {
 	return CIDynamicRangeOption(foundation.NSStringFromID(rv).String())
 }
 
-// A [CIImage] object that encapsulates the operations configured in the
-// filter.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
-func (o CISystemToneMapObject) OutputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
-	return CIImageFromID(rv)
-}
-
-// Specifies the current headroom of the intended display.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/displayHeadroom
-func (o CISystemToneMapObject) SetDisplayHeadroom(value float32) {
-	objc.Send[struct{}](o.ID, objc.Sel("setDisplayHeadroom:"), value)
-}
-
-// Specifies input image with content headroom and average light level
-// properties.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/inputImage
-func (o CISystemToneMapObject) SetInputImage(value ICIImage) {
-	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
-}
-
-// Specifies the preferred dynamic range behavior of the tone mapping. The
-// value should be kCIDynamicRangeStandard, kCIDynamicRangeConstrainedHigh,
-// kCIDynamicRangeHigh or nil. If nil then it will behave as
-// kCIDynamicRangeHigh.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/preferredDynamicRange
 func (o CISystemToneMapObject) SetPreferredDynamicRange(value CIDynamicRangeOption) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPreferredDynamicRange:"), objc.String(string(value)))
 }

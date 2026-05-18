@@ -152,7 +152,7 @@ type IGTAGX2ShaderProfiler interface {
 	_calculateEffectiveGPUEncoderCostForFrameIndex(index uint32)
 	_calculatePerDrawCostsResult(costs objectivec.IObject, result objectivec.IObject)
 	_cleanup()
-	_computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample unsafe.Pointer, address uint64, address2 uint64) uint32
+	_computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample ShaderProfilerUSCSampleInfo, address uint64, address2 uint64) uint32
 	_conservativeLatencyAdjustmentWithLimiter(adjustment float64, limiter float64) float64
 	_dumpAggregatedGPUTimePerBatchForFrame(frame uint32)
 	_dumpLimiterBatchInfoCostsForRingBufferForFrame(costs unsafe.Pointer, buffer uint32, frame uint32)
@@ -351,13 +351,13 @@ func (g GTAGX2ShaderProfiler) CanCleanup() bool {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfiler/_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:
-func (g GTAGX2ShaderProfiler) _computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample unsafe.Pointer, address uint64, address2 uint64) uint32 {
+func (g GTAGX2ShaderProfiler) _computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample ShaderProfilerUSCSampleInfo, address uint64, address2 uint64) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:"), sample, address, address2)
 	return rv
 }
 
 // ComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress is an exported wrapper for the private method _computeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress.
-func (g GTAGX2ShaderProfiler) ComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample unsafe.Pointer, address uint64, address2 uint64) (uint32, error) {
+func (g GTAGX2ShaderProfiler) ComputeSampleNormFactorForSampleForProgramStartAddressForProgramEndAddress(sample ShaderProfilerUSCSampleInfo, address uint64, address2 uint64) (uint32, error) {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_computeSampleNormFactorForSample:forProgramStartAddress:forProgramEndAddress:"}
 		return 0, err

@@ -253,9 +253,7 @@ func NSButtonFromID(id objc.ID) NSButton {
 // See: https://developer.apple.com/documentation/AppKit/NSButton
 type INSButton interface {
 	INSControl
-	NSAccessibilityButton
 	NSUserInterfaceCompression
-	NSUserInterfaceValidations
 
 	// Topic: Configuring buttons
 

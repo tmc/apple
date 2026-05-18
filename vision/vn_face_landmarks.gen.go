@@ -78,7 +78,6 @@ func VNFaceLandmarksFromID(id objc.ID) VNFaceLandmarks {
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks
 type IVNFaceLandmarks interface {
 	objectivec.IObject
-	VNRequestRevisionProviding
 
 	// Topic: Determining Accuracy
 
@@ -110,6 +109,14 @@ func NewVNFaceLandmarks() VNFaceLandmarks {
 	return rv
 }
 
+// The revision of the [VNRequest] subclass used to generate the implementing
+// object.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
+func (f VNFaceLandmarks) RequestRevision() uint {
+	rv := objc.Send[uint](f.ID, objc.Sel("requestRevision"))
+	return rv
+}
 func (f VNFaceLandmarks) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -136,15 +143,6 @@ func (f VNFaceLandmarks) Landmarks() IVNFaceLandmarks2D {
 }
 func (f VNFaceLandmarks) SetLandmarks(value IVNFaceLandmarks2D) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
-}
-
-// The revision of the [VNRequest] subclass used to generate the implementing
-// object.
-//
-// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
-func (f VNFaceLandmarks) RequestRevision() uint {
-	rv := objc.Send[uint](f.ID, objc.Sel("requestRevision"))
-	return rv
 }
 
 // Protocol methods for VNRequestRevisionProviding

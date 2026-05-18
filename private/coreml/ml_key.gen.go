@@ -94,14 +94,14 @@ type IMLKey interface {
 }
 
 // Init initializes the instance.
-func (k MLKey) Init() MLKey {
-	rv := objc.Send[MLKey](k.ID, objc.Sel("init"))
+func (m MLKey) Init() MLKey {
+	rv := objc.Send[MLKey](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (k MLKey) Autorelease() MLKey {
-	rv := objc.Send[MLKey](k.ID, objc.Sel("autorelease"))
+func (m MLKey) Autorelease() MLKey {
+	rv := objc.Send[MLKey](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -134,44 +134,44 @@ func NewKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) M
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLKey/deletingPrefixingScope:
-func (k MLKey) DeletingPrefixingScope(scope objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("deletingPrefixingScope:"), scope)
+func (m MLKey) DeletingPrefixingScope(scope objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("deletingPrefixingScope:"), scope)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLKey/hasGlobalScope
-func (k MLKey) HasGlobalScope() bool {
-	rv := objc.Send[bool](k.ID, objc.Sel("hasGlobalScope"))
+func (m MLKey) HasGlobalScope() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGlobalScope"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLKey/hasSameNameAsKey:
-func (k MLKey) HasSameNameAsKey(key objectivec.IObject) bool {
-	rv := objc.Send[bool](k.ID, objc.Sel("hasSameNameAsKey:"), key)
+func (m MLKey) HasSameNameAsKey(key objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasSameNameAsKey:"), key)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLKey/scopedTo:
-func (k MLKey) ScopedTo(to objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("scopedTo:"), to)
+func (m MLKey) ScopedTo(to objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("scopedTo:"), to)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLKey/initWithCoder:
-func (k MLKey) InitWithCoder(coder foundation.INSCoder) MLKey {
-	rv := objc.Send[MLKey](k.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLKey) InitWithCoder(coder foundation.INSCoder) MLKey {
+	rv := objc.Send[MLKey](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:
-func (k MLKey) InitWithKeyName(name objectivec.IObject) MLKey {
-	rv := objc.Send[MLKey](k.ID, objc.Sel("initWithKeyName:"), name)
+func (m MLKey) InitWithKeyName(name objectivec.IObject) MLKey {
+	rv := objc.Send[MLKey](m.ID, objc.Sel("initWithKeyName:"), name)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:scope:
-func (k MLKey) InitWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey {
-	rv := objc.Send[MLKey](k.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
+func (m MLKey) InitWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey {
+	rv := objc.Send[MLKey](m.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return rv
 }
 

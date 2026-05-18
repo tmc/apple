@@ -293,7 +293,6 @@ func NSURLSessionConfigurationFromID(id objc.ID) URLSessionConfiguration {
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration
 type IURLSessionConfiguration interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Setting general properties
 
@@ -980,8 +979,8 @@ func (u URLSessionConfiguration) SetShouldUseExtendedBackgroundIdleMode(value bo
 // Prior to handling a request, the [NSURLSession] object searches the default
 // protocols first and then checks your custom protocols until it finds one
 // capable of handling the specified request. It uses the protocol whose
-// [CanInitWithRequest] class method returns true, indicating that the class
-// is capable of handling the specified request.
+// [CanInitWithTask] class method returns true, indicating that the class is
+// capable of handling the specified request.
 //
 // The default value is an empty array.
 //

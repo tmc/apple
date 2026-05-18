@@ -43,22 +43,6 @@ func GCAxisElementObjectFromID(id objc.ID) GCAxisElementObject {
 	}
 }
 
-// An input object that provides absolute axis values.
-//
-// See: https://developer.apple.com/documentation/GameController/GCAxisElement/absoluteInput
-func (o GCAxisElementObject) AbsoluteInput() GCAxisInput {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("absoluteInput"))
-	return GCAxisInputObjectFromID(rv)
-}
-
-// An input object that provides relative axis values.
-//
-// See: https://developer.apple.com/documentation/GameController/GCAxisElement/relativeInput
-func (o GCAxisElementObject) RelativeInput() GCRelativeInput {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("relativeInput"))
-	return GCRelativeInputObjectFromID(rv)
-}
-
 // The localized name for the element.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/localizedName
@@ -82,4 +66,20 @@ func (o GCAxisElementObject) SfSymbolsName() string {
 func (o GCAxisElementObject) Aliases() foundation.INSSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("aliases"))
 	return foundation.NSSetFromID(rv)
+}
+
+// An input object that provides absolute axis values.
+//
+// See: https://developer.apple.com/documentation/GameController/GCAxisElement/absoluteInput
+func (o GCAxisElementObject) AbsoluteInput() GCAxisInput {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("absoluteInput"))
+	return GCAxisInputObjectFromID(rv)
+}
+
+// An input object that provides relative axis values.
+//
+// See: https://developer.apple.com/documentation/GameController/GCAxisElement/relativeInput
+func (o GCAxisElementObject) RelativeInput() GCRelativeInput {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("relativeInput"))
+	return GCRelativeInputObjectFromID(rv)
 }

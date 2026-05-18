@@ -84,8 +84,8 @@ type INSPathComponentCell interface {
 	// Topic: Setting the Path
 
 	// The portion of the path from the root through the component represented by the receiver.
-	URL() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	URL() foundation.NSURL
+	SetURL(value foundation.NSURL)
 }
 
 // Init initializes the instance.
@@ -163,10 +163,10 @@ func NewPathComponentCellWithCoder(coder foundation.INSCoder) NSPathComponentCel
 // the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathComponentCell/url
-func (p NSPathComponentCell) URL() foundation.INSURL {
+func (p NSPathComponentCell) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (p NSPathComponentCell) SetURL(value foundation.INSURL) {
+func (p NSPathComponentCell) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }

@@ -54,10 +54,10 @@ type OpaqueMusicTrackRef uintptr
 type OpaqueCMFormatDescriptionRef uintptr
 
 // See: https://developer.apple.com/documentation/AVFAudio/shared_weak_countRef
-type Shared_weak_countRef uintptr
+type SharedWeakCountRef uintptr
 
 // See: https://developer.apple.com/documentation/AVFAudio/unfair_lockRef
-type Unfair_lockRef uintptr
+type UnfairLockRef uintptr
 
 // See: https://developer.apple.com/documentation/AVFAudio/xpc_type_sRef
-type Xpc_type_sRef uintptr
+type XPCTypeSRef uintptr

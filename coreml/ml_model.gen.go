@@ -73,8 +73,12 @@ func (mc MLModelClass) Alloc() MLModel {
 //
 // # Making predictions
 //
+//   - [MLModel.PredictionFromFeaturesError]: Generates a prediction from the feature values within the input feature provider.
+//   - [MLModel.PredictionFromFeaturesOptionsError]: Generates a prediction from the feature values within the input feature provider using the prediction options.
 //   - [MLModel.PredictionsFromBatchError]: Generates predictions for each input feature provider within the batch provider.
 //   - [MLModel.PredictionsFromBatchOptionsError]: Generates a prediction for each input feature provider within the batch provider using the prediction options.
+//   - [MLModel.PredictionFromFeaturesUsingStateError]: Run a stateful prediction synchronously.
+//   - [MLModel.PredictionFromFeaturesUsingStateOptionsError]: Run a stateful prediction synchronously with options.
 //
 // # Inspecting a model
 //
@@ -104,8 +108,12 @@ func MLModelFromID(id objc.ID) MLModel {
 //
 // # Making predictions
 //
+//   - [IMLModel.PredictionFromFeaturesError]: Generates a prediction from the feature values within the input feature provider.
+//   - [IMLModel.PredictionFromFeaturesOptionsError]: Generates a prediction from the feature values within the input feature provider using the prediction options.
 //   - [IMLModel.PredictionsFromBatchError]: Generates predictions for each input feature provider within the batch provider.
 //   - [IMLModel.PredictionsFromBatchOptionsError]: Generates a prediction for each input feature provider within the batch provider using the prediction options.
+//   - [IMLModel.PredictionFromFeaturesUsingStateError]: Run a stateful prediction synchronously.
+//   - [IMLModel.PredictionFromFeaturesUsingStateOptionsError]: Run a stateful prediction synchronously with options.
 //
 // # Inspecting a model
 //
@@ -119,10 +127,18 @@ type IMLModel interface {
 
 	// Topic: Making predictions
 
+	// Generates a prediction from the feature values within the input feature provider.
+	PredictionFromFeaturesError(input MLFeatureProvider) (MLFeatureProvider, error)
+	// Generates a prediction from the feature values within the input feature provider using the prediction options.
+	PredictionFromFeaturesOptionsError(input MLFeatureProvider, options IMLPredictionOptions) (MLFeatureProvider, error)
 	// Generates predictions for each input feature provider within the batch provider.
 	PredictionsFromBatchError(inputBatch MLBatchProvider) (MLBatchProvider, error)
 	// Generates a prediction for each input feature provider within the batch provider using the prediction options.
 	PredictionsFromBatchOptionsError(inputBatch MLBatchProvider, options IMLPredictionOptions) (MLBatchProvider, error)
+	// Run a stateful prediction synchronously.
+	PredictionFromFeaturesUsingStateError(inputFeatures MLFeatureProvider, state IMLState) (MLFeatureProvider, error)
+	// Run a stateful prediction synchronously with options.
+	PredictionFromFeaturesUsingStateOptionsError(inputFeatures MLFeatureProvider, state IMLState, options IMLPredictionOptions) (MLFeatureProvider, error)
 
 	// Topic: Inspecting a model
 
@@ -140,18 +156,10 @@ type IMLModel interface {
 	NewState() IMLState
 	// Generates a prediction asynchronously from the feature values within the input feature provider.
 	PredictionFromFeaturesCompletionHandler(input MLFeatureProvider, completionHandler MLFeatureProviderErrorHandler)
-	// Generates a prediction from the feature values within the input feature provider.
-	PredictionFromFeaturesError(input MLFeatureProvider) (MLFeatureProvider, error)
 	// Generates a prediction asynchronously from the feature values within the input feature provider using the prediction options.
 	PredictionFromFeaturesOptionsCompletionHandler(input MLFeatureProvider, options IMLPredictionOptions, completionHandler MLFeatureProviderErrorHandler)
-	// Generates a prediction from the feature values within the input feature provider using the prediction options.
-	PredictionFromFeaturesOptionsError(input MLFeatureProvider, options IMLPredictionOptions) (MLFeatureProvider, error)
-	// Run a stateful prediction synchronously.
-	PredictionFromFeaturesUsingStateError(inputFeatures MLFeatureProvider, state IMLState) (MLFeatureProvider, error)
 	// Run a stateful prediction asynchronously.
 	PredictionFromFeaturesUsingStateOptionsCompletionHandler(inputFeatures MLFeatureProvider, state IMLState, options IMLPredictionOptions, completionHandler MLFeatureProviderErrorHandler)
-	// Run a stateful prediction synchronously with options.
-	PredictionFromFeaturesUsingStateOptionsError(inputFeatures MLFeatureProvider, state IMLState, options IMLPredictionOptions) (MLFeatureProvider, error)
 }
 
 // Init initializes the instance.
@@ -177,7 +185,7 @@ func NewMLModel() MLModel {
 // configuration.
 //
 // url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [compileModel(at:)] returns.
+// with the [URL] that [CompileModelAtURLError] returns.
 //
 // configuration: The runtime settings for the new model instance.
 //
@@ -197,10 +205,9 @@ func NewMLModel() MLModel {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/init(contentsOf:configuration:)
 //
-// [compileModel(at:)]: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)-6442s
 // [Downloading and Compiling a Model on the User’s Device]: https://developer.apple.com/documentation/CoreML/downloading-and-compiling-a-model-on-the-user-s-device
 // [Integrating a Core ML Model into Your App]: https://developer.apple.com/documentation/CoreML/integrating-a-core-ml-model-into-your-app
-func NewModelWithContentsOfURLConfigurationError(url foundation.INSURL, configuration IMLModelConfiguration) (MLModel, error) {
+func NewModelWithContentsOfURLConfigurationError(url foundation.NSURL, configuration IMLModelConfiguration) (MLModel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLModelClass().class), objc.Sel("modelWithContentsOfURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -213,7 +220,7 @@ func NewModelWithContentsOfURLConfigurationError(url foundation.INSURL, configur
 // Creates a Core ML model instance from a compiled model file.
 //
 // url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [compileModel(at:)] returns.
+// with the [URL] that [CompileModelAtURLError] returns.
 //
 // # Discussion
 //
@@ -231,10 +238,9 @@ func NewModelWithContentsOfURLConfigurationError(url foundation.INSURL, configur
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/init(contentsOf:)
 //
-// [compileModel(at:)]: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)-6442s
 // [Downloading and Compiling a Model on the User’s Device]: https://developer.apple.com/documentation/CoreML/downloading-and-compiling-a-model-on-the-user-s-device
 // [Integrating a Core ML Model into Your App]: https://developer.apple.com/documentation/CoreML/integrating-a-core-ml-model-into-your-app
-func NewModelWithContentsOfURLError(url foundation.INSURL) (MLModel, error) {
+func NewModelWithContentsOfURLError(url foundation.NSURL) (MLModel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLModelClass().class), objc.Sel("modelWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -242,6 +248,60 @@ func NewModelWithContentsOfURLError(url foundation.INSURL) (MLModel, error) {
 		return MLModel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLModelFromID(rv), nil
+}
+
+// Generates a prediction from the feature values within the input feature
+// provider.
+//
+// input: A feature provider that stores all the input feature values the model needs
+// for a prediction.
+//
+// # Return Value
+//
+// A feature provider that contains the outputs of the prediction.
+//
+// # Discussion
+//
+// Use this method to make a single prediction.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:)-9y2aa
+func (m MLModel) PredictionFromFeaturesError(input MLFeatureProvider) (MLFeatureProvider, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:error:"), input, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return MLFeatureProviderObjectFromID(rv), nil
+
+}
+
+// Generates a prediction from the feature values within the input feature
+// provider using the prediction options.
+//
+// input: A feature provider that stores all the input feature values the model needs
+// for a prediction.
+//
+// options: The runtime settings the model uses as it makes a prediction.
+//
+// # Return Value
+//
+// A feature provider that contains the outputs of the prediction.
+//
+// # Discussion
+//
+// Use this method to make a single prediction.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:options:)-81mr6
+func (m MLModel) PredictionFromFeaturesOptionsError(input MLFeatureProvider, options IMLPredictionOptions) (MLFeatureProvider, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), input, options, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return MLFeatureProviderObjectFromID(rv), nil
+
 }
 
 // Generates predictions for each input feature provider within the batch
@@ -300,6 +360,51 @@ func (m MLModel) PredictionsFromBatchOptionsError(inputBatch MLBatchProvider, op
 
 }
 
+// Run a stateful prediction synchronously.
+//
+// # Discussion
+//
+// Use this method to run predictions on a stateful model.
+//
+// - inputFeatures: The input features as declared in the model description. -
+// state: The state object created by `newState()` method. - error: The output
+// parameter to receive an error information on failure.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:)-97bu1
+func (m MLModel) PredictionFromFeaturesUsingStateError(inputFeatures MLFeatureProvider, state IMLState) (MLFeatureProvider, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:error:"), inputFeatures, state, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return MLFeatureProviderObjectFromID(rv), nil
+
+}
+
+// Run a stateful prediction synchronously with options.
+//
+// # Discussion
+//
+// Use this method to run predictions on a stateful model.
+//
+// - inputFeatures: The input features as declared in the model description. -
+// state: The state object created by `newState()` method. - options: The
+// prediction options. - error: The output parameter to receive an error
+// information on failure.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:options:)-v4wp
+func (m MLModel) PredictionFromFeaturesUsingStateOptionsError(inputFeatures MLFeatureProvider, state IMLState, options IMLPredictionOptions) (MLFeatureProvider, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), inputFeatures, state, options, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return MLFeatureProviderObjectFromID(rv), nil
+
+}
+
 // Returns a model parameter value for a key.
 //
 // key: The key to a model parameter value.
@@ -355,32 +460,6 @@ func (m MLModel) PredictionFromFeaturesCompletionHandler(input MLFeatureProvider
 	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:completionHandler:"), input, _block1)
 }
 
-// Generates a prediction from the feature values within the input feature
-// provider.
-//
-// input: A feature provider that stores all the input feature values the model needs
-// for a prediction.
-//
-// # Return Value
-//
-// A feature provider that contains the outputs of the prediction.
-//
-// # Discussion
-//
-// Use this method to make a single prediction.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:)-9y2aa
-func (m MLModel) PredictionFromFeaturesError(input MLFeatureProvider) (MLFeatureProvider, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:error:"), input, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return MLFeatureProviderObjectFromID(rv), nil
-
-}
-
 // Generates a prediction asynchronously from the feature values within the
 // input feature provider using the prediction options.
 //
@@ -399,56 +478,6 @@ func (m MLModel) PredictionFromFeaturesError(input MLFeatureProvider) (MLFeature
 func (m MLModel) PredictionFromFeaturesOptionsCompletionHandler(input MLFeatureProvider, options IMLPredictionOptions, completionHandler MLFeatureProviderErrorHandler) {
 	_block2, _ := NewMLFeatureProviderErrorBlock(completionHandler)
 	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:completionHandler:"), input, options, _block2)
-}
-
-// Generates a prediction from the feature values within the input feature
-// provider using the prediction options.
-//
-// input: A feature provider that stores all the input feature values the model needs
-// for a prediction.
-//
-// options: The runtime settings the model uses as it makes a prediction.
-//
-// # Return Value
-//
-// A feature provider that contains the outputs of the prediction.
-//
-// # Discussion
-//
-// Use this method to make a single prediction.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:options:)-81mr6
-func (m MLModel) PredictionFromFeaturesOptionsError(input MLFeatureProvider, options IMLPredictionOptions) (MLFeatureProvider, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), input, options, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return MLFeatureProviderObjectFromID(rv), nil
-
-}
-
-// Run a stateful prediction synchronously.
-//
-// # Discussion
-//
-// Use this method to run predictions on a stateful model.
-//
-// - inputFeatures: The input features as declared in the model description. -
-// state: The state object created by `newState()` method. - error: The output
-// parameter to receive an error information on failure.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:)-97bu1
-func (m MLModel) PredictionFromFeaturesUsingStateError(inputFeatures MLFeatureProvider, state IMLState) (MLFeatureProvider, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:error:"), inputFeatures, state, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return MLFeatureProviderObjectFromID(rv), nil
-
 }
 
 // Run a stateful prediction asynchronously.
@@ -473,29 +502,6 @@ func (m MLModel) PredictionFromFeaturesUsingStateOptionsCompletionHandler(inputF
 	objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:completionHandler:"), inputFeatures, state, options, _block3)
 }
 
-// Run a stateful prediction synchronously with options.
-//
-// # Discussion
-//
-// Use this method to run predictions on a stateful model.
-//
-// - inputFeatures: The input features as declared in the model description. -
-// state: The state object created by `newState()` method. - options: The
-// prediction options. - error: The output parameter to receive an error
-// information on failure.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:options:)-v4wp
-func (m MLModel) PredictionFromFeaturesUsingStateOptionsError(inputFeatures MLFeatureProvider, state IMLState, options IMLPredictionOptions) (MLFeatureProvider, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), inputFeatures, state, options, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return MLFeatureProviderObjectFromID(rv), nil
-
-}
-
 // Construct a model asynchronously from a compiled model asset.
 //
 // asset: The compiled model asset derived from in-memory or on-disk Core ML model.
@@ -511,8 +517,18 @@ func (_MLModelClass MLModelClass) LoadModelAssetConfigurationCompletionHandler(a
 	objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
 }
 
+// Compile a model for a device.
+//
+// modelURL: The URL to the model file.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)-3nea
+func (_MLModelClass MLModelClass) CompileModelAtURLCompletionHandler(modelURL foundation.NSURL, handler URLErrorHandler) {
+	_block1, _ := NewURLErrorBlock(handler)
+	objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("compileModelAtURL:completionHandler:"), modelURL, _block1)
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)
-func (_MLModelClass MLModelClass) CompileModelAtURLError(modelURL foundation.INSURL) (foundation.NSURL, error) {
+func (_MLModelClass MLModelClass) CompileModelAtURLError(modelURL foundation.NSURL) (foundation.NSURL, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("compileModelAtURL:error:"), modelURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -523,21 +539,11 @@ func (_MLModelClass MLModelClass) CompileModelAtURLError(modelURL foundation.INS
 
 }
 
-// Compile a model for a device.
-//
-// modelURL: The URL to the model file.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)-3nea
-func (_MLModelClass MLModelClass) CompileModelAtURLCompletionHandler(modelURL foundation.INSURL, handler URLErrorHandler) {
-	_block1, _ := NewURLErrorBlock(handler)
-	objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("compileModelAtURL:completionHandler:"), modelURL, _block1)
-}
-
 // Creates a Core ML model instance asynchronously from a compiled model file,
 // a custom configuration, and a completion handler.
 //
 // url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [compileModel(at:)] returns.
+// with the [URL] that [CompileModelAtURLError] returns.
 //
 // configuration: The runtime settings for the new model instance.
 //
@@ -558,12 +564,11 @@ func (_MLModelClass MLModelClass) CompileModelAtURLCompletionHandler(modelURL fo
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/loadContentsOfURL:configuration:completionHandler:
 //
-// [compileModel(at:)]: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)-6442s
 // [MLModelError.Code]: https://developer.apple.com/documentation/CoreML/MLModelError-swift.struct/Code
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 // [Result.failure(_:)]: https://developer.apple.com/documentation/Swift/Result/failure(_:)
 // [Result.success(_:)]: https://developer.apple.com/documentation/Swift/Result/success(_:)
-func (_MLModelClass MLModelClass) LoadContentsOfURLConfigurationCompletionHandler(url foundation.INSURL, configuration IMLModelConfiguration, handler MLModelErrorHandler) {
+func (_MLModelClass MLModelClass) LoadContentsOfURLConfigurationCompletionHandler(url foundation.NSURL, configuration IMLModelConfiguration, handler MLModelErrorHandler) {
 	_block2, _ := NewMLModelErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("loadContentsOfURL:configuration:completionHandler:"), url, configuration, _block2)
 }
@@ -629,7 +634,7 @@ func (mc MLModelClass) LoadModelAssetConfiguration(ctx context.Context, asset IM
 
 // CompileModelAtURL is a synchronous wrapper around [MLModel.CompileModelAtURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (mc MLModelClass) CompileModelAtURL(ctx context.Context, modelURL foundation.INSURL) (*foundation.NSURL, error) {
+func (mc MLModelClass) CompileModelAtURL(ctx context.Context, modelURL foundation.NSURL) (*foundation.NSURL, error) {
 	type result struct {
 		val *foundation.NSURL
 		err error
@@ -648,7 +653,7 @@ func (mc MLModelClass) CompileModelAtURL(ctx context.Context, modelURL foundatio
 
 // LoadContentsOfURLConfiguration is a synchronous wrapper around [MLModel.LoadContentsOfURLConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (mc MLModelClass) LoadContentsOfURLConfiguration(ctx context.Context, url foundation.INSURL, configuration IMLModelConfiguration) (*MLModel, error) {
+func (mc MLModelClass) LoadContentsOfURLConfiguration(ctx context.Context, url foundation.NSURL, configuration IMLModelConfiguration) (*MLModel, error) {
 	type result struct {
 		val *MLModel
 		err error

@@ -300,7 +300,7 @@ func NewNSAlert() NSAlert {
 // respectively.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/init(error:)
-func NewAlertWithError(error_ foundation.INSError) NSAlert {
+func NewAlertWithError(error_ foundation.NSError) NSAlert {
 	rv := objc.Send[objc.ID](objc.ID(getNSAlertClass().class), objc.Sel("alertWithError:"), error_)
 	return NSAlertFromID(rv)
 }

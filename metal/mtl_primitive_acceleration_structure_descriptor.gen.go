@@ -153,6 +153,14 @@ func NewMTLPrimitiveAccelerationStructureDescriptor() MTLPrimitiveAccelerationSt
 	return rv
 }
 
+// Creates a new primitive descriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLPrimitiveAccelerationStructureDescriptor/descriptor
+func (_MTLPrimitiveAccelerationStructureDescriptorClass MTLPrimitiveAccelerationStructureDescriptorClass) Descriptor() MTLPrimitiveAccelerationStructureDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLPrimitiveAccelerationStructureDescriptorClass.class), objc.Sel("descriptor"))
+	return MTLPrimitiveAccelerationStructureDescriptorFromID(rv)
+}
+
 // An array that contains the individual pieces of geometry that compose the
 // acceleration structure.
 //
@@ -234,11 +242,9 @@ func (p MTLPrimitiveAccelerationStructureDescriptor) SetMotionEndTime(value floa
 //
 // # Discussion
 //
-// The default value is [MTLMotionBorderMode.clamp].
+// The default value is [MTLMotionBorderModeClamp].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPrimitiveAccelerationStructureDescriptor/motionStartBorderMode
-//
-// [MTLMotionBorderMode.clamp]: https://developer.apple.com/documentation/Metal/MTLMotionBorderMode/clamp
 func (p MTLPrimitiveAccelerationStructureDescriptor) MotionStartBorderMode() MTLMotionBorderMode {
 	rv := objc.Send[MTLMotionBorderMode](p.ID, objc.Sel("motionStartBorderMode"))
 	return MTLMotionBorderMode(rv)
@@ -251,11 +257,9 @@ func (p MTLPrimitiveAccelerationStructureDescriptor) SetMotionStartBorderMode(va
 //
 // # Discussion
 //
-// The default value is [MTLMotionBorderMode.clamp].
+// The default value is [MTLMotionBorderModeClamp].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPrimitiveAccelerationStructureDescriptor/motionEndBorderMode
-//
-// [MTLMotionBorderMode.clamp]: https://developer.apple.com/documentation/Metal/MTLMotionBorderMode/clamp
 func (p MTLPrimitiveAccelerationStructureDescriptor) MotionEndBorderMode() MTLMotionBorderMode {
 	rv := objc.Send[MTLMotionBorderMode](p.ID, objc.Sel("motionEndBorderMode"))
 	return MTLMotionBorderMode(rv)

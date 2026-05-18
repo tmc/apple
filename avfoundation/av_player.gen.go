@@ -185,7 +185,7 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 //   - [AVPlayer.AllowedAudioSpatializationFormats]: The source audio channel layouts the player item supports for spatialization.
 //   - [AVPlayer.SetAllowedAudioSpatializationFormats]
 //   - [AVPlayer.IsAudioSpatializationAllowed]: A Boolean value that indicates whether the player item allows spatialized audio playback.
-//   - [AVPlayer.SetIsAudioSpatializationAllowed]
+//   - [AVPlayer.SetAudioSpatializationAllowed]
 //
 // # Configuring background playback
 //
@@ -333,7 +333,7 @@ func AVPlayerFromID(id objc.ID) AVPlayer {
 //   - [IAVPlayer.AllowedAudioSpatializationFormats]: The source audio channel layouts the player item supports for spatialization.
 //   - [IAVPlayer.SetAllowedAudioSpatializationFormats]
 //   - [IAVPlayer.IsAudioSpatializationAllowed]: A Boolean value that indicates whether the player item allows spatialized audio playback.
-//   - [IAVPlayer.SetIsAudioSpatializationAllowed]
+//   - [IAVPlayer.SetAudioSpatializationAllowed]
 //
 // # Configuring background playback
 //
@@ -393,7 +393,7 @@ type IAVPlayer interface {
 	// Topic: Creating a player
 
 	// Creates a new player to play a single audiovisual resource referenced by a given URL.
-	InitWithURL(URL foundation.INSURL) AVPlayer
+	InitWithURL(URL foundation.NSURL) AVPlayer
 	// Creates a new player to play the specified player item.
 	InitWithPlayerItem(item IAVPlayerItem) AVPlayer
 
@@ -409,7 +409,7 @@ type IAVPlayer interface {
 	// A value that indicates the readiness of a player object for playback.
 	Status() AVPlayerStatus
 	// An error that caused a failure.
-	Error() foundation.INSError
+	Error() foundation.NSError
 
 	// Topic: Controlling playback
 
@@ -446,9 +446,9 @@ type IAVPlayer interface {
 	// Requests that the player seek to a specified time with the amount of accuracy specified by the time tolerance values, and to notify you when the seek is complete.
 	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time coremedia.CMTime, toleranceBefore coremedia.CMTime, toleranceAfter coremedia.CMTime, completionHandler BoolHandler)
 	// Requests that the player seek to a specified date.
-	SeekToDate(date foundation.INSDate)
+	SeekToDate(date foundation.NSDate)
 	// Requests that the player seek to a specified date, and to notify you when the seek is complete.
-	SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler)
+	SeekToDateCompletionHandler(date foundation.NSDate, completionHandler BoolHandler)
 
 	// Topic: Configuring waiting behavior
 
@@ -497,7 +497,7 @@ type IAVPlayer interface {
 	SetAllowedAudioSpatializationFormats(value AVAudioSpatializationFormats)
 	// A Boolean value that indicates whether the player item allows spatialized audio playback.
 	IsAudioSpatializationAllowed() bool
-	SetIsAudioSpatializationAllowed(value bool)
+	SetAudioSpatializationAllowed(value bool)
 
 	// Topic: Configuring background playback
 
@@ -615,8 +615,8 @@ func NewPlayerWithPlayerItem(item IAVPlayerItem) AVPlayer {
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [CurrentItem].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)
-func NewPlayerWithURL(URL foundation.INSURL) AVPlayer {
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)-87cxx
+func NewPlayerWithURL(URL foundation.NSURL) AVPlayer {
 	instance := getAVPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
 	return AVPlayerFromID(rv)
@@ -637,8 +637,8 @@ func NewPlayerWithURL(URL foundation.INSURL) AVPlayer {
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [CurrentItem].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)
-func (p AVPlayer) InitWithURL(URL foundation.INSURL) AVPlayer {
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)-87cxx
+func (p AVPlayer) InitWithURL(URL foundation.NSURL) AVPlayer {
 	rv := objc.Send[AVPlayer](p.ID, objc.Sel("initWithURL:"), URL)
 	return rv
 }
@@ -900,7 +900,7 @@ func (p AVPlayer) SeekToTimeCompletionHandler(time coremedia.CMTime, completionH
 // seeking performance.
 //
 // Passing `kCMTimePositiveInfinity` for both `toleranceBefore` and
-// `toleranceAfter` is the same as messaging [SeekToTime] directly.
+// `toleranceAfter` is the same as messaging [SeekToDate] directly.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:toleranceBefore:toleranceAfter:)
 func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfter(time coremedia.CMTime, toleranceBefore coremedia.CMTime, toleranceAfter coremedia.CMTime) {
@@ -938,7 +938,7 @@ func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfter(time coremedia.CMTime,
 //
 // Invoking this method with `toleranceBefore` set to [positiveInfinity] and
 // `toleranceAfter` set to [positiveInfinity] is the same as invoking
-// [SeekToTime].
+// [SeekToDate].
 //
 // The completion handler for any prior seek request that is still in process
 // will be invoked immediately with the `finished` parameter set to false. If
@@ -965,7 +965,7 @@ func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time 
 // [SeekToTimeToleranceBeforeToleranceAfter].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:)-9h9qr
-func (p AVPlayer) SeekToDate(date foundation.INSDate) {
+func (p AVPlayer) SeekToDate(date foundation.NSDate) {
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToDate:"), date)
 }
 
@@ -992,7 +992,7 @@ func (p AVPlayer) SeekToDate(date foundation.INSDate) {
 // immediately with the `finished` parameter set to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:completionHandler:)-wr1l
-func (p AVPlayer) SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) {
+func (p AVPlayer) SeekToDateCompletionHandler(date foundation.NSDate, completionHandler BoolHandler) {
 	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToDate:completionHandler:"), date, _block1)
 }
@@ -1179,7 +1179,7 @@ func (_AVPlayerClass AVPlayerClass) PlayerWithPlayerItem(item IAVPlayerItem) AVP
 // player item using [CurrentItem].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/playerWithURL:
-func (_AVPlayerClass AVPlayerClass) PlayerWithURL(URL foundation.INSURL) AVPlayer {
+func (_AVPlayerClass AVPlayerClass) PlayerWithURL(URL foundation.NSURL) AVPlayer {
 	rv := objc.Send[objc.ID](objc.ID(_AVPlayerClass.class), objc.Sel("playerWithURL:"), URL)
 	return AVPlayerFromID(rv)
 }
@@ -1218,7 +1218,7 @@ func (p AVPlayer) Status() AVPlayerStatus {
 // describes the failure.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/error
-func (p AVPlayer) Error() foundation.INSError {
+func (p AVPlayer) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
@@ -1454,7 +1454,7 @@ func (p AVPlayer) IsAudioSpatializationAllowed() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("audioSpatializationAllowed"))
 	return rv
 }
-func (p AVPlayer) SetIsAudioSpatializationAllowed(value bool) {
+func (p AVPlayer) SetAudioSpatializationAllowed(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAudioSpatializationAllowed:"), value)
 }
 
@@ -1755,7 +1755,7 @@ func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfterSync(ctx context.Contex
 
 // SeekToDateSync is a synchronous wrapper around [AVPlayer.SeekToDateCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayer) SeekToDateSync(ctx context.Context, date foundation.INSDate) (bool, error) {
+func (p AVPlayer) SeekToDateSync(ctx context.Context, date foundation.NSDate) (bool, error) {
 	done := make(chan bool, 1)
 	p.SeekToDateCompletionHandler(date, func(val bool) {
 		done <- val

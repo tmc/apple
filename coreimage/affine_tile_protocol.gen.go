@@ -19,20 +19,12 @@ type CIAffineTile interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/inputImage
 	InputImage() ICIImage
-
-	// The transform to apply to the image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/transform
-	Transform() corefoundation.CGAffineTransform
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/inputImage
 	SetInputImage(value ICIImage)
 
 	// The transform to apply to the image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/transform
+	Transform() corefoundation.CGAffineTransform
 	SetTransform(value corefoundation.CGAffineTransform)
 }
 
@@ -53,22 +45,6 @@ func CIAffineTileObjectFromID(id objc.ID) CIAffineTileObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/inputImage
-func (o CIAffineTileObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The transform to apply to the image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/transform
-func (o CIAffineTileObject) Transform() corefoundation.CGAffineTransform {
-	rv := objc.Send[corefoundation.CGAffineTransform](o.ID, objc.Sel("transform"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -81,6 +57,11 @@ func (o CIAffineTileObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/inputImage
+func (o CIAffineTileObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIAffineTileObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -88,6 +69,11 @@ func (o CIAffineTileObject) SetInputImage(value ICIImage) {
 // The transform to apply to the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/transform
+func (o CIAffineTileObject) Transform() corefoundation.CGAffineTransform {
+	rv := objc.Send[corefoundation.CGAffineTransform](o.ID, objc.Sel("transform"))
+	return corefoundation.CGAffineTransform(rv)
+}
+
 func (o CIAffineTileObject) SetTransform(value corefoundation.CGAffineTransform) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTransform:"), value)
 }

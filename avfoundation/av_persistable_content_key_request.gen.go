@@ -83,7 +83,7 @@ type IAVPersistableContentKeyRequest interface {
 	// Topic: Requesting persistable content key data
 
 	// Creates a persistable content key from the content key context data.
-	PersistableContentKeyFromKeyVendorResponseOptionsError(keyVendorResponse foundation.INSData, options foundation.INSDictionary) (foundation.INSData, error)
+	PersistableContentKeyFromKeyVendorResponseOptionsError(keyVendorResponse foundation.NSData, options foundation.INSDictionary) (foundation.NSData, error)
 }
 
 // Init initializes the instance.
@@ -118,7 +118,7 @@ func NewAVPersistableContentKeyRequest() AVPersistableContentKeyRequest {
 // Returns a data object that contains the persistable content key.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPersistableContentKeyRequest/persistableContentKey(fromKeyVendorResponse:options:)
-func (p AVPersistableContentKeyRequest) PersistableContentKeyFromKeyVendorResponseOptionsError(keyVendorResponse foundation.INSData, options foundation.INSDictionary) (foundation.INSData, error) {
+func (p AVPersistableContentKeyRequest) PersistableContentKeyFromKeyVendorResponseOptionsError(keyVendorResponse foundation.NSData, options foundation.INSDictionary) (foundation.NSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("persistableContentKeyFromKeyVendorResponse:options:error:"), keyVendorResponse, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

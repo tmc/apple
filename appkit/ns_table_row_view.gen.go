@@ -172,7 +172,6 @@ func NSTableRowViewFromID(id objc.ID) NSTableRowView {
 type INSTableRowView interface {
 	INSView
 	NSAccessibilityGroup
-	NSAccessibilityRow
 
 	// Topic: Display Style
 

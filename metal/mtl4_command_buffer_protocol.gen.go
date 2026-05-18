@@ -14,16 +14,6 @@ import (
 type MTL4CommandBuffer interface {
 	objectivec.IObject
 
-	// Returns the GPU device that this command buffer belongs to.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/device
-	Device() MTLDevice
-
-	// Assigns an optional label with this command buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/label
-	Label() string
-
 	// Prepares a command buffer for encoding.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/beginCommandBuffer(allocator:)
@@ -89,9 +79,15 @@ type MTL4CommandBuffer interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/useResidencySets:count:
 	UseResidencySetsCount(residencySets []MTLResidencySet, count uint)
 
+	// Returns the GPU device that this command buffer belongs to.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/device
+	Device() MTLDevice
+
 	// Assigns an optional label with this command buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/label
+	Label() string
 	SetLabel(value string)
 }
 
@@ -110,22 +106,6 @@ func MTL4CommandBufferObjectFromID(id objc.ID) MTL4CommandBufferObject {
 	return MTL4CommandBufferObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Returns the GPU device that this command buffer belongs to.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/device
-func (o MTL4CommandBufferObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// Assigns an optional label with this command buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/label
-func (o MTL4CommandBufferObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Prepares a command buffer for encoding.
@@ -390,9 +370,22 @@ func (o MTL4CommandBufferObject) UseResidencySetsCount(residencySets []MTLReside
 	objc.Send[struct{}](o.ID, objc.Sel("useResidencySets:count:"), objc.CArray(residencySets), count)
 }
 
+// Returns the GPU device that this command buffer belongs to.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/device
+func (o MTL4CommandBufferObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
 // Assigns an optional label with this command buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/label
+func (o MTL4CommandBufferObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTL4CommandBufferObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

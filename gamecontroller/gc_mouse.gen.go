@@ -109,7 +109,6 @@ func GCMouseFromID(id objc.ID) GCMouse {
 // See: https://developer.apple.com/documentation/GameController/GCMouse
 type IGCMouse interface {
 	objectivec.IObject
-	GCDevice
 
 	// Topic: Discovering mouse devices
 
@@ -150,6 +149,15 @@ func NewGCMouse() GCMouse {
 	return rv
 }
 
+// The dispatch queue that the framework uses to call element value change
+// handlers.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
+func (g GCMouse) HandlerQueue() dispatch.Queue {
+	rv := objc.Send[uintptr](g.ID, objc.Sel("handlerQueue"))
+	return dispatch.QueueFromHandle(rv)
+}
+
 // The device’s physical input profile, such as a controller’s extended
 // gamepad.
 //
@@ -157,6 +165,23 @@ func NewGCMouse() GCMouse {
 func (g GCMouse) PhysicalInputProfile() IGCPhysicalInputProfile {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("physicalInputProfile"))
 	return GCPhysicalInputProfileFromID(rv)
+}
+
+// The product category that identifies the type of controller.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/productCategory
+func (g GCMouse) ProductCategory() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("productCategory"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// The manufacturer-provided name for the device, or the user’s name for the
+// device.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
+func (g GCMouse) VendorName() string {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
+	return foundation.NSStringFromID(rv).String()
 }
 
 // Returns any mice that the user connects to the device.
@@ -220,6 +245,16 @@ func (g GCMouse) MouseInput() IGCMouseInput {
 	return GCMouseInputFromID(objc.ID(rv))
 }
 
+// The most recent mouse that the user connects.
+//
+// See: https://developer.apple.com/documentation/GameController/GCMouse/current
+func (_GCMouseClass GCMouseClass) Current() GCMouse {
+	rv := objc.Send[objc.ID](objc.ID(_GCMouseClass.class), objc.Sel("current"))
+	return GCMouseFromID(objc.ID(rv))
+}
+
+// Protocol methods for GCDevice
+
 // The dispatch queue that the framework uses to call element value change
 // handlers.
 //
@@ -232,42 +267,6 @@ func (g GCMouse) MouseInput() IGCMouseInput {
 // first access the input device.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevice/handlerQueue
-func (g GCMouse) HandlerQueue() dispatch.Queue {
-	rv := objc.Send[uintptr](g.ID, objc.Sel("handlerQueue"))
-	return dispatch.QueueFromHandle(rv)
+func (o GCMouse) SetHandlerQueue(value dispatch.Queue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setHandlerQueue:"), value)
 }
-func (g GCMouse) SetHandlerQueue(value dispatch.Queue) {
-	objc.Send[struct{}](g.ID, objc.Sel("setHandlerQueue:"), uintptr(value.Handle()))
-}
-
-// The product category that identifies the type of controller.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/productCategory
-func (g GCMouse) ProductCategory() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("productCategory"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The manufacturer-provided name for the device, or the user’s name for the
-// device.
-//
-// # Discussion
-//
-// The value of this property may be `nil` and may not be unique. Use this
-// property to present information about the device to the user.
-//
-// See: https://developer.apple.com/documentation/GameController/GCDevice/vendorName
-func (g GCMouse) VendorName() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("vendorName"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The most recent mouse that the user connects.
-//
-// See: https://developer.apple.com/documentation/GameController/GCMouse/current
-func (_GCMouseClass GCMouseClass) Current() GCMouse {
-	rv := objc.Send[objc.ID](objc.ID(_GCMouseClass.class), objc.Sel("current"))
-	return GCMouseFromID(objc.ID(rv))
-}
-
-// Protocol methods for GCDevice

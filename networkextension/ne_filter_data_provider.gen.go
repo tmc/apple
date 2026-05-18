@@ -186,9 +186,9 @@ type INEFilterDataProvider interface {
 	// Make a filtering decision for a newly-created flow of network content.
 	HandleNewFlow(flow INEFilterFlow) INEFilterNewFlowVerdict
 	// Make a filtering decision about a chunk of inbound data.
-	HandleInboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.INSData) INEFilterDataVerdict
+	HandleInboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.NSData) INEFilterDataVerdict
 	// Make a filtering decision about a chunk of outbound data.
-	HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.INSData) INEFilterDataVerdict
+	HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.NSData) INEFilterDataVerdict
 	// Make a filtering decision after seeing all of the inbound data for a flow.
 	HandleInboundDataCompleteForFlow(flow INEFilterFlow) INEFilterDataVerdict
 	// Make a filtering decision after seeing all of the outbound data for a flow.
@@ -278,7 +278,7 @@ func (f NEFilterDataProvider) HandleNewFlow(flow INEFilterFlow) INEFilterNewFlow
 //
 // [NEFilterDataAttribute]: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataAttribute
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-func (f NEFilterDataProvider) HandleInboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.INSData) INEFilterDataVerdict {
+func (f NEFilterDataProvider) HandleInboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.NSData) INEFilterDataVerdict {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("handleInboundDataFromFlow:readBytesStartOffset:readBytes:"), flow, offset, readBytes)
 	return NEFilterDataVerdictFromID(rv)
 }
@@ -305,7 +305,7 @@ func (f NEFilterDataProvider) HandleInboundDataFromFlowReadBytesStartOffsetReadB
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/handleOutboundData(from:readBytesStartOffset:readBytes:)
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-func (f NEFilterDataProvider) HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.INSData) INEFilterDataVerdict {
+func (f NEFilterDataProvider) HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.NSData) INEFilterDataVerdict {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("handleOutboundDataFromFlow:readBytesStartOffset:readBytes:"), flow, offset, readBytes)
 	return NEFilterDataVerdictFromID(rv)
 }

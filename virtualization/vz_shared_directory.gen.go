@@ -91,12 +91,12 @@ type IVZSharedDirectory interface {
 	// Topic: Creating a Shared Directory
 
 	// Initialize with a host directory.
-	InitWithURLReadOnly(url foundation.INSURL, readOnly bool) VZSharedDirectory
+	InitWithURLReadOnly(url foundation.NSURL, readOnly bool) VZSharedDirectory
 
 	// Topic: Accessing Directory Properties
 
 	// A file URL to a directory on the host system to expose to the guest.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	// A Boolean value that indicates whether the directory is read-only to the guest.
 	ReadOnly() bool
 }
@@ -129,8 +129,8 @@ func NewVZSharedDirectory() VZSharedDirectory {
 //
 // # Discussion
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/init(url:readOnly:)
-func NewSharedDirectoryWithURLReadOnly(url foundation.INSURL, readOnly bool) VZSharedDirectory {
+// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/init(url:readOnly:)-8j5z
+func NewSharedDirectoryWithURLReadOnly(url foundation.NSURL, readOnly bool) VZSharedDirectory {
 	instance := getVZSharedDirectoryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:"), url, readOnly)
 	return VZSharedDirectoryFromID(rv)
@@ -145,8 +145,8 @@ func NewSharedDirectoryWithURLReadOnly(url foundation.INSURL, readOnly bool) VZS
 //
 // # Discussion
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/init(url:readOnly:)
-func (s VZSharedDirectory) InitWithURLReadOnly(url foundation.INSURL, readOnly bool) VZSharedDirectory {
+// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/init(url:readOnly:)-8j5z
+func (s VZSharedDirectory) InitWithURLReadOnly(url foundation.NSURL, readOnly bool) VZSharedDirectory {
 	rv := objc.Send[VZSharedDirectory](s.ID, objc.Sel("initWithURL:readOnly:"), url, readOnly)
 	return rv
 }
@@ -158,7 +158,7 @@ func (s VZSharedDirectory) InitWithURLReadOnly(url foundation.INSURL, readOnly b
 // The URL must point to an existing directory path in the host file system.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/url
-func (s VZSharedDirectory) URL() foundation.INSURL {
+func (s VZSharedDirectory) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

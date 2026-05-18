@@ -161,9 +161,9 @@ type IAVAudioRecorder interface {
 	// Topic: Creating an audio recorder
 
 	// Creates an audio recorder with settings.
-	InitWithURLSettingsError(url foundation.INSURL, settings foundation.INSDictionary) (AVAudioRecorder, error)
+	InitWithURLSettingsError(url foundation.NSURL, settings foundation.INSDictionary) (AVAudioRecorder, error)
 	// Creates an audio recorder with an audio format.
-	InitWithURLFormatError(url foundation.INSURL, format IAVAudioFormat) (AVAudioRecorder, error)
+	InitWithURLFormatError(url foundation.NSURL, format IAVAudioFormat) (AVAudioRecorder, error)
 
 	// Topic: Controlling recording
 
@@ -212,7 +212,7 @@ type IAVAudioRecorder interface {
 	// Topic: Inspecting the audio data
 
 	// The URL to which the recorder writes its data.
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	// The format of the recorded audio.
 	Format() IAVAudioFormat
 	// The settings that describe the format of the recorded audio.
@@ -253,8 +253,8 @@ func NewAVAudioRecorder() AVAudioRecorder {
 //
 // A new audio recorder, or nil if an error occurred.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:format:)
-func NewAudioRecorderWithURLFormatError(url foundation.INSURL, format IAVAudioFormat) (AVAudioRecorder, error) {
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:format:)-7herw
+func NewAudioRecorderWithURLFormatError(url foundation.NSURL, format IAVAudioFormat) (AVAudioRecorder, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioRecorderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:format:error:"), url, format, unsafe.Pointer(&errorPtr))
@@ -286,11 +286,11 @@ func NewAudioRecorderWithURLFormatError(url foundation.INSURL, format IAVAudioFo
 // customizing Linear PCM formats and [Encoder settings] for compressed
 // formats.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:settings:)
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:settings:)-5whyq
 //
 // [Encoder settings]: https://developer.apple.com/documentation/AVFoundation/encoder-settings
 // [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
-func NewAudioRecorderWithURLSettingsError(url foundation.INSURL, settings foundation.INSDictionary) (AVAudioRecorder, error) {
+func NewAudioRecorderWithURLSettingsError(url foundation.NSURL, settings foundation.INSDictionary) (AVAudioRecorder, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioRecorderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:settings:error:"), url, settings, unsafe.Pointer(&errorPtr))
@@ -322,11 +322,11 @@ func NewAudioRecorderWithURLSettingsError(url foundation.INSURL, settings founda
 // customizing Linear PCM formats and [Encoder settings] for compressed
 // formats.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:settings:)
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:settings:)-5whyq
 //
 // [Encoder settings]: https://developer.apple.com/documentation/AVFoundation/encoder-settings
 // [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
-func (a AVAudioRecorder) InitWithURLSettingsError(url foundation.INSURL, settings foundation.INSDictionary) (AVAudioRecorder, error) {
+func (a AVAudioRecorder) InitWithURLSettingsError(url foundation.NSURL, settings foundation.INSDictionary) (AVAudioRecorder, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:settings:error:"), url, settings, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -347,8 +347,8 @@ func (a AVAudioRecorder) InitWithURLSettingsError(url foundation.INSURL, setting
 //
 // A new audio recorder, or nil if an error occurred.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:format:)
-func (a AVAudioRecorder) InitWithURLFormatError(url foundation.INSURL, format IAVAudioFormat) (AVAudioRecorder, error) {
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:format:)-7herw
+func (a AVAudioRecorder) InitWithURLFormatError(url foundation.NSURL, format IAVAudioFormat) (AVAudioRecorder, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:format:error:"), url, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -605,7 +605,7 @@ func (a AVAudioRecorder) SetDelegate(value AVAudioRecorderDelegate) {
 // The URL to which the recorder writes its data.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/url
-func (a AVAudioRecorder) Url() foundation.INSURL {
+func (a AVAudioRecorder) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

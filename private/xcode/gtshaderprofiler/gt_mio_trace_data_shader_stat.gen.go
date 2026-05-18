@@ -80,7 +80,7 @@ type IGTMioTraceDataShaderStat interface {
 	NumberOfCliques() uint64
 	TotalGPUCycles() uint64
 	TotalLatency() uint64
-	InitWithStat(stat objectivec.IObject) GTMioTraceDataShaderStat
+	InitWithStat(stat GTMioTraceDataShaderStatInternal) GTMioTraceDataShaderStat
 }
 
 // Init initializes the instance.
@@ -103,14 +103,14 @@ func NewGTMioTraceDataShaderStat() GTMioTraceDataShaderStat {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataShaderStat/initWithStat:
-func NewGTMioTraceDataShaderStatWithStat(stat objectivec.IObject) GTMioTraceDataShaderStat {
+func NewGTMioTraceDataShaderStatWithStat(stat GTMioTraceDataShaderStatInternal) GTMioTraceDataShaderStat {
 	instance := getGTMioTraceDataShaderStatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStat:"), stat)
 	return GTMioTraceDataShaderStatFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataShaderStat/initWithStat:
-func (g GTMioTraceDataShaderStat) InitWithStat(stat objectivec.IObject) GTMioTraceDataShaderStat {
+func (g GTMioTraceDataShaderStat) InitWithStat(stat GTMioTraceDataShaderStatInternal) GTMioTraceDataShaderStat {
 	rv := objc.Send[GTMioTraceDataShaderStat](g.ID, objc.Sel("initWithStat:"), stat)
 	return rv
 }

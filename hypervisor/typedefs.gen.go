@@ -94,11 +94,6 @@ type HVVmConfig = unsafe.Pointer
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_options_t
 type HVVmOptions = uint64
 
-// HVVmSpace is the type of a guest-address space.
-//
-// See: https://developer.apple.com/documentation/Hypervisor/hv_vm_space_t
-type HVVmSpace = uint32
-
 // HVVmxMsrInfo is the type that describes Move to Status Register (MSR) information fields.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vmx_msr_info_t

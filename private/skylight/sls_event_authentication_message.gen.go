@@ -5,7 +5,6 @@ package skylight
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -141,8 +140,8 @@ type ISLSEventAuthenticationMessage interface {
 	ValidateWithOptionsAndResultBlock(options objectivec.IObject, block VoidHandler)
 	InitWithBasisSignature(basis objectivec.IObject, signature objectivec.IObject) SLSEventAuthenticationMessage
 	InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessage
-	InitWithEventRecordPidVersion(record *SLSEventRecordRef, pid int, version uint32) SLSEventAuthenticationMessage
-	InitWithMessageInitData(data unsafe.Pointer) SLSEventAuthenticationMessage
+	InitWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage
+	InitWithMessageInitData(data MessageInitData) SLSEventAuthenticationMessage
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -183,14 +182,14 @@ func NewSLSEventAuthenticationMessageWithCoder(coder objectivec.IObject) SLSEven
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithEventRecord:pid:version:
-func NewSLSEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecordRef, pid int, version uint32) SLSEventAuthenticationMessage {
+func NewSLSEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage {
 	instance := getSLSEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return SLSEventAuthenticationMessageFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithMessageInitData:
-func NewSLSEventAuthenticationMessageWithMessageInitData(data unsafe.Pointer) SLSEventAuthenticationMessage {
+func NewSLSEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSEventAuthenticationMessage {
 	instance := getSLSEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
 	return SLSEventAuthenticationMessageFromID(rv)
@@ -261,13 +260,13 @@ func (s SLSEventAuthenticationMessage) InitWithCoder(coder foundation.INSCoder) 
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithEventRecord:pid:version:
-func (s SLSEventAuthenticationMessage) InitWithEventRecordPidVersion(record *SLSEventRecordRef, pid int, version uint32) SLSEventAuthenticationMessage {
+func (s SLSEventAuthenticationMessage) InitWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSEventAuthenticationMessage {
 	rv := objc.Send[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithMessageInitData:
-func (s SLSEventAuthenticationMessage) InitWithMessageInitData(data unsafe.Pointer) SLSEventAuthenticationMessage {
+func (s SLSEventAuthenticationMessage) InitWithMessageInitData(data MessageInitData) SLSEventAuthenticationMessage {
 	rv := objc.Send[SLSEventAuthenticationMessage](s.ID, objc.Sel("initWithMessageInitData:"), data)
 	return rv
 }
@@ -285,7 +284,7 @@ func (_SLSEventAuthenticationMessageClass SLSEventAuthenticationMessageClass) Cl
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/messageWithEventRecord:pid:version:
-func (_SLSEventAuthenticationMessageClass SLSEventAuthenticationMessageClass) MessageWithEventRecordPidVersion(record *SLSEventRecordRef, pid int, version uint32) objectivec.IObject {
+func (_SLSEventAuthenticationMessageClass SLSEventAuthenticationMessageClass) MessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SLSEventAuthenticationMessageClass.class), objc.Sel("messageWithEventRecord:pid:version:"), record, pid, version)
 	return objectivec.Object{ID: rv}
 }

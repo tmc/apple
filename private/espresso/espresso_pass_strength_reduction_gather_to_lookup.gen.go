@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_strength_reduction_gather_to_lookup] class.
+// The class instance for the [EspressoPassStrengthReductionGatherToLookup] class.
 var (
-	_EspressoPass_strength_reduction_gather_to_lookupClass     EspressoPass_strength_reduction_gather_to_lookupClass
-	_EspressoPass_strength_reduction_gather_to_lookupClassOnce sync.Once
+	_EspressoPassStrengthReductionGatherToLookupClass     EspressoPassStrengthReductionGatherToLookupClass
+	_EspressoPassStrengthReductionGatherToLookupClassOnce sync.Once
 )
 
-func getEspressoPass_strength_reduction_gather_to_lookupClass() EspressoPass_strength_reduction_gather_to_lookupClass {
-	_EspressoPass_strength_reduction_gather_to_lookupClassOnce.Do(func() {
-		_EspressoPass_strength_reduction_gather_to_lookupClass = EspressoPass_strength_reduction_gather_to_lookupClass{class: objc.GetClass("EspressoPass_strength_reduction_gather_to_lookup")}
+func getEspressoPassStrengthReductionGatherToLookupClass() EspressoPassStrengthReductionGatherToLookupClass {
+	_EspressoPassStrengthReductionGatherToLookupClassOnce.Do(func() {
+		_EspressoPassStrengthReductionGatherToLookupClass = EspressoPassStrengthReductionGatherToLookupClass{class: objc.GetClass("EspressoPass_strength_reduction_gather_to_lookup")}
 	})
-	return _EspressoPass_strength_reduction_gather_to_lookupClass
+	return _EspressoPassStrengthReductionGatherToLookupClass
 }
 
-// GetEspressoPass_strength_reduction_gather_to_lookupClass returns the class object for EspressoPass_strength_reduction_gather_to_lookup.
-func GetEspressoPass_strength_reduction_gather_to_lookupClass() EspressoPass_strength_reduction_gather_to_lookupClass {
-	return getEspressoPass_strength_reduction_gather_to_lookupClass()
+// GetEspressoPassStrengthReductionGatherToLookupClass returns the class object for EspressoPass_strength_reduction_gather_to_lookup.
+func GetEspressoPassStrengthReductionGatherToLookupClass() EspressoPassStrengthReductionGatherToLookupClass {
+	return getEspressoPassStrengthReductionGatherToLookupClass()
 }
 
-type EspressoPass_strength_reduction_gather_to_lookupClass struct {
+type EspressoPassStrengthReductionGatherToLookupClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_strength_reduction_gather_to_lookupClass) Class() objc.Class {
+func (ec EspressoPassStrengthReductionGatherToLookupClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_strength_reduction_gather_to_lookupClass) Alloc() EspressoPass_strength_reduction_gather_to_lookup {
-	rv := objc.Send[EspressoPass_strength_reduction_gather_to_lookup](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassStrengthReductionGatherToLookupClass) Alloc() EspressoPassStrengthReductionGatherToLookup {
+	rv := objc.Send[EspressoPassStrengthReductionGatherToLookup](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_gather_to_lookup
-type EspressoPass_strength_reduction_gather_to_lookup struct {
+type EspressoPassStrengthReductionGatherToLookup struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_strength_reduction_gather_to_lookupFromID constructs a [EspressoPass_strength_reduction_gather_to_lookup] from an objc.ID.
-func EspressoPass_strength_reduction_gather_to_lookupFromID(id objc.ID) EspressoPass_strength_reduction_gather_to_lookup {
-	return EspressoPass_strength_reduction_gather_to_lookup{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassStrengthReductionGatherToLookupFromID constructs a [EspressoPassStrengthReductionGatherToLookup] from an objc.ID.
+func EspressoPassStrengthReductionGatherToLookupFromID(id objc.ID) EspressoPassStrengthReductionGatherToLookup {
+	return EspressoPassStrengthReductionGatherToLookup{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_strength_reduction_gather_to_lookup implements IEspressoPass_strength_reduction_gather_to_lookup.
-var _ IEspressoPass_strength_reduction_gather_to_lookup = EspressoPass_strength_reduction_gather_to_lookup{}
+// EspressoPass_strength_reduction_gather_to_lookupFromID is an alias for [EspressoPassStrengthReductionGatherToLookupFromID] for cross-framework compatibility.
+func EspressoPass_strength_reduction_gather_to_lookupFromID(id objc.ID) EspressoPassStrengthReductionGatherToLookup {
+	return EspressoPassStrengthReductionGatherToLookupFromID(id)
+}
 
-// An interface definition for the [EspressoPass_strength_reduction_gather_to_lookup] class.
+// Ensure EspressoPassStrengthReductionGatherToLookup implements IEspressoPassStrengthReductionGatherToLookup.
+var _ IEspressoPassStrengthReductionGatherToLookup = EspressoPassStrengthReductionGatherToLookup{}
+
+// An interface definition for the [EspressoPassStrengthReductionGatherToLookup] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_gather_to_lookup
-type IEspressoPass_strength_reduction_gather_to_lookup interface {
+type IEspressoPassStrengthReductionGatherToLookup interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_strength_reduction_gather_to_lookup) Init() EspressoPass_strength_reduction_gather_to_lookup {
-	rv := objc.Send[EspressoPass_strength_reduction_gather_to_lookup](e.ID, objc.Sel("init"))
+func (e EspressoPassStrengthReductionGatherToLookup) Init() EspressoPassStrengthReductionGatherToLookup {
+	rv := objc.Send[EspressoPassStrengthReductionGatherToLookup](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_strength_reduction_gather_to_lookup) Autorelease() EspressoPass_strength_reduction_gather_to_lookup {
-	rv := objc.Send[EspressoPass_strength_reduction_gather_to_lookup](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassStrengthReductionGatherToLookup) Autorelease() EspressoPassStrengthReductionGatherToLookup {
+	rv := objc.Send[EspressoPassStrengthReductionGatherToLookup](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_strength_reduction_gather_to_lookup creates a new EspressoPass_strength_reduction_gather_to_lookup instance.
-func NewEspressoPass_strength_reduction_gather_to_lookup() EspressoPass_strength_reduction_gather_to_lookup {
-	class := getEspressoPass_strength_reduction_gather_to_lookupClass()
-	rv := objc.Send[EspressoPass_strength_reduction_gather_to_lookup](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassStrengthReductionGatherToLookup creates a new EspressoPassStrengthReductionGatherToLookup instance.
+func NewEspressoPassStrengthReductionGatherToLookup() EspressoPassStrengthReductionGatherToLookup {
+	class := getEspressoPassStrengthReductionGatherToLookupClass()
+	rv := objc.Send[EspressoPassStrengthReductionGatherToLookup](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

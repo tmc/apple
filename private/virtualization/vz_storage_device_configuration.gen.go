@@ -94,14 +94,14 @@ type IVZStorageDeviceConfiguration interface {
 }
 
 // Init initializes the instance.
-func (s VZStorageDeviceConfiguration) Init() VZStorageDeviceConfiguration {
-	rv := objc.Send[VZStorageDeviceConfiguration](s.ID, objc.Sel("init"))
+func (v VZStorageDeviceConfiguration) Init() VZStorageDeviceConfiguration {
+	rv := objc.Send[VZStorageDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s VZStorageDeviceConfiguration) Autorelease() VZStorageDeviceConfiguration {
-	rv := objc.Send[VZStorageDeviceConfiguration](s.ID, objc.Sel("autorelease"))
+func (v VZStorageDeviceConfiguration) Autorelease() VZStorageDeviceConfiguration {
+	rv := objc.Send[VZStorageDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -113,71 +113,71 @@ func NewVZStorageDeviceConfiguration() VZStorageDeviceConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/_initWithAttachment:
-func (s VZStorageDeviceConfiguration) _initWithAttachment(attachment objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithAttachment:"), attachment)
+func (v VZStorageDeviceConfiguration) _initWithAttachment(attachment objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithAttachment is an exported wrapper for the private method _initWithAttachment.
-func (s VZStorageDeviceConfiguration) InitWithAttachment(attachment objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(s.ID, objc.Sel("_initWithAttachment:")) {
+func (v VZStorageDeviceConfiguration) InitWithAttachment(attachment objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithAttachment:"}
 		return nil, err
 	}
-	return s._initWithAttachment(attachment), nil
+	return v._initWithAttachment(attachment), nil
 }
 
 // CanInitWithAttachment reports whether the receiver responds to the private selector _initWithAttachment:.
-func (s VZStorageDeviceConfiguration) CanInitWithAttachment() bool {
-	return objc.RespondsToSelector(s.ID, objc.Sel("_initWithAttachment:"))
+func (v VZStorageDeviceConfiguration) CanInitWithAttachment() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithAttachment:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/_setAttachment:
-func (s VZStorageDeviceConfiguration) _setAttachment(attachment objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("_setAttachment:"), attachment)
+func (v VZStorageDeviceConfiguration) _setAttachment(attachment objectivec.IObject) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setAttachment:"), attachment)
 }
 
 // SetAttachment is an exported wrapper for the private method _setAttachment.
-func (s VZStorageDeviceConfiguration) SetAttachment(attachment objectivec.IObject) error {
-	if !objc.RespondsToSelector(s.ID, objc.Sel("_setAttachment:")) {
+func (v VZStorageDeviceConfiguration) SetAttachment(attachment objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setAttachment:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setAttachment:"}
 		return err
 	}
-	s._setAttachment(attachment)
+	v._setAttachment(attachment)
 	return nil
 }
 
 // CanSetAttachment reports whether the receiver responds to the private selector _setAttachment:.
-func (s VZStorageDeviceConfiguration) CanSetAttachment() bool {
-	return objc.RespondsToSelector(s.ID, objc.Sel("_setAttachment:"))
+func (v VZStorageDeviceConfiguration) CanSetAttachment() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setAttachment:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/makeStorageDeviceForVirtualMachine:storageDeviceIndex:
-func (s VZStorageDeviceConfiguration) MakeStorageDeviceForVirtualMachineStorageDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeStorageDeviceForVirtualMachine:storageDeviceIndex:"), machine, index)
+func (v VZStorageDeviceConfiguration) MakeStorageDeviceForVirtualMachineStorageDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeStorageDeviceForVirtualMachine:storageDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/debugDescription
-func (s VZStorageDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (v VZStorageDeviceConfiguration) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/description
-func (s VZStorageDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (v VZStorageDeviceConfiguration) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/hash
-func (s VZStorageDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (v VZStorageDeviceConfiguration) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/superclass
-func (s VZStorageDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (v VZStorageDeviceConfiguration) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

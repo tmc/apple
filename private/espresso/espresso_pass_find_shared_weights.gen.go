@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_find_shared_weights] class.
+// The class instance for the [EspressoPassFindSharedWeights] class.
 var (
-	_EspressoPass_find_shared_weightsClass     EspressoPass_find_shared_weightsClass
-	_EspressoPass_find_shared_weightsClassOnce sync.Once
+	_EspressoPassFindSharedWeightsClass     EspressoPassFindSharedWeightsClass
+	_EspressoPassFindSharedWeightsClassOnce sync.Once
 )
 
-func getEspressoPass_find_shared_weightsClass() EspressoPass_find_shared_weightsClass {
-	_EspressoPass_find_shared_weightsClassOnce.Do(func() {
-		_EspressoPass_find_shared_weightsClass = EspressoPass_find_shared_weightsClass{class: objc.GetClass("EspressoPass_find_shared_weights")}
+func getEspressoPassFindSharedWeightsClass() EspressoPassFindSharedWeightsClass {
+	_EspressoPassFindSharedWeightsClassOnce.Do(func() {
+		_EspressoPassFindSharedWeightsClass = EspressoPassFindSharedWeightsClass{class: objc.GetClass("EspressoPass_find_shared_weights")}
 	})
-	return _EspressoPass_find_shared_weightsClass
+	return _EspressoPassFindSharedWeightsClass
 }
 
-// GetEspressoPass_find_shared_weightsClass returns the class object for EspressoPass_find_shared_weights.
-func GetEspressoPass_find_shared_weightsClass() EspressoPass_find_shared_weightsClass {
-	return getEspressoPass_find_shared_weightsClass()
+// GetEspressoPassFindSharedWeightsClass returns the class object for EspressoPass_find_shared_weights.
+func GetEspressoPassFindSharedWeightsClass() EspressoPassFindSharedWeightsClass {
+	return getEspressoPassFindSharedWeightsClass()
 }
 
-type EspressoPass_find_shared_weightsClass struct {
+type EspressoPassFindSharedWeightsClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_find_shared_weightsClass) Class() objc.Class {
+func (ec EspressoPassFindSharedWeightsClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_find_shared_weightsClass) Alloc() EspressoPass_find_shared_weights {
-	rv := objc.Send[EspressoPass_find_shared_weights](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFindSharedWeightsClass) Alloc() EspressoPassFindSharedWeights {
+	rv := objc.Send[EspressoPassFindSharedWeights](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_find_shared_weights
-type EspressoPass_find_shared_weights struct {
+type EspressoPassFindSharedWeights struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_find_shared_weightsFromID constructs a [EspressoPass_find_shared_weights] from an objc.ID.
-func EspressoPass_find_shared_weightsFromID(id objc.ID) EspressoPass_find_shared_weights {
-	return EspressoPass_find_shared_weights{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFindSharedWeightsFromID constructs a [EspressoPassFindSharedWeights] from an objc.ID.
+func EspressoPassFindSharedWeightsFromID(id objc.ID) EspressoPassFindSharedWeights {
+	return EspressoPassFindSharedWeights{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_find_shared_weights implements IEspressoPass_find_shared_weights.
-var _ IEspressoPass_find_shared_weights = EspressoPass_find_shared_weights{}
+// EspressoPass_find_shared_weightsFromID is an alias for [EspressoPassFindSharedWeightsFromID] for cross-framework compatibility.
+func EspressoPass_find_shared_weightsFromID(id objc.ID) EspressoPassFindSharedWeights {
+	return EspressoPassFindSharedWeightsFromID(id)
+}
 
-// An interface definition for the [EspressoPass_find_shared_weights] class.
+// Ensure EspressoPassFindSharedWeights implements IEspressoPassFindSharedWeights.
+var _ IEspressoPassFindSharedWeights = EspressoPassFindSharedWeights{}
+
+// An interface definition for the [EspressoPassFindSharedWeights] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_find_shared_weights
-type IEspressoPass_find_shared_weights interface {
+type IEspressoPassFindSharedWeights interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_find_shared_weights) Init() EspressoPass_find_shared_weights {
-	rv := objc.Send[EspressoPass_find_shared_weights](e.ID, objc.Sel("init"))
+func (e EspressoPassFindSharedWeights) Init() EspressoPassFindSharedWeights {
+	rv := objc.Send[EspressoPassFindSharedWeights](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_find_shared_weights) Autorelease() EspressoPass_find_shared_weights {
-	rv := objc.Send[EspressoPass_find_shared_weights](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFindSharedWeights) Autorelease() EspressoPassFindSharedWeights {
+	rv := objc.Send[EspressoPassFindSharedWeights](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_find_shared_weights creates a new EspressoPass_find_shared_weights instance.
-func NewEspressoPass_find_shared_weights() EspressoPass_find_shared_weights {
-	class := getEspressoPass_find_shared_weightsClass()
-	rv := objc.Send[EspressoPass_find_shared_weights](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFindSharedWeights creates a new EspressoPassFindSharedWeights instance.
+func NewEspressoPassFindSharedWeights() EspressoPassFindSharedWeights {
+	class := getEspressoPassFindSharedWeightsClass()
+	rv := objc.Send[EspressoPassFindSharedWeights](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

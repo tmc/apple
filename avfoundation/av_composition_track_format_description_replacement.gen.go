@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
@@ -88,8 +89,8 @@ type IAVCompositionTrackFormatDescriptionReplacement interface {
 	FormatDescriptionReplacements() IAVCompositionTrackFormatDescriptionReplacement
 	SetFormatDescriptionReplacements(value IAVCompositionTrackFormatDescriptionReplacement)
 	// The format descriptions of the media samples that a track references.
-	FormatDescriptions() objectivec.IObject
-	SetFormatDescriptions(value objectivec.IObject)
+	FormatDescriptions() unsafe.Pointer
+	SetFormatDescriptions(value unsafe.Pointer)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -146,10 +147,10 @@ func (c AVCompositionTrackFormatDescriptionReplacement) SetFormatDescriptionRepl
 // The format descriptions of the media samples that a track references.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcompositiontrack/formatdescriptions
-func (c AVCompositionTrackFormatDescriptionReplacement) FormatDescriptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("formatDescriptions"))
-	return objectivec.Object{ID: rv}
+func (c AVCompositionTrackFormatDescriptionReplacement) FormatDescriptions() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("formatDescriptions"))
+	return rv
 }
-func (c AVCompositionTrackFormatDescriptionReplacement) SetFormatDescriptions(value objectivec.IObject) {
+func (c AVCompositionTrackFormatDescriptionReplacement) SetFormatDescriptions(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFormatDescriptions:"), value)
 }

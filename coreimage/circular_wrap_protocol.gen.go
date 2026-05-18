@@ -15,44 +15,28 @@ type CICircularWrap interface {
 	objectivec.IObject
 	CIFilterProtocol
 
-	// Angle protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/angle
-	Angle() float32
-
-	// Center protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/center
-	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/inputImage
-	InputImage() ICIImage
-
-	// Radius protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/radius
-	Radius() float32
-
 	// angle protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/angle
+	Angle() float32
 	SetAngle(value float32)
 
 	// center protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/center
+	Center() corefoundation.CGPoint
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// radius protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -73,32 +57,6 @@ func CICircularWrapObjectFromID(id objc.ID) CICircularWrapObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/angle
-func (o CICircularWrapObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/center
-func (o CICircularWrapObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/inputImage
-func (o CICircularWrapObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/radius
-func (o CICircularWrapObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -109,11 +67,21 @@ func (o CICircularWrapObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/angle
+func (o CICircularWrapObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CICircularWrapObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/center
+func (o CICircularWrapObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CICircularWrapObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -121,11 +89,21 @@ func (o CICircularWrapObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/inputImage
+func (o CICircularWrapObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CICircularWrapObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/radius
+func (o CICircularWrapObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CICircularWrapObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

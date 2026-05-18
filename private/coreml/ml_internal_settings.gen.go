@@ -94,14 +94,14 @@ type IMLInternalSettings interface {
 }
 
 // Init initializes the instance.
-func (i MLInternalSettings) Init() MLInternalSettings {
-	rv := objc.Send[MLInternalSettings](i.ID, objc.Sel("init"))
+func (m MLInternalSettings) Init() MLInternalSettings {
+	rv := objc.Send[MLInternalSettings](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (i MLInternalSettings) Autorelease() MLInternalSettings {
-	rv := objc.Send[MLInternalSettings](i.ID, objc.Sel("autorelease"))
+func (m MLInternalSettings) Autorelease() MLInternalSettings {
+	rv := objc.Send[MLInternalSettings](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -120,13 +120,13 @@ func NewInternalSettingsWithCoder(coder objectivec.IObject) MLInternalSettings {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/encodeWithCoder:
-func (i MLInternalSettings) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
+func (m MLInternalSettings) EncodeWithCoder(coder foundation.INSCoder) {
+	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/initWithCoder:
-func (i MLInternalSettings) InitWithCoder(coder foundation.INSCoder) MLInternalSettings {
-	rv := objc.Send[MLInternalSettings](i.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLInternalSettings) InitWithCoder(coder foundation.INSCoder) MLInternalSettings {
+	rv := objc.Send[MLInternalSettings](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -155,25 +155,25 @@ func (_MLInternalSettingsClass MLInternalSettingsClass) SupportsSecureCoding() b
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/isNeuralNetworkGPUPathForbidden
-func (i MLInternalSettings) IsNeuralNetworkGPUPathForbidden() bool {
-	rv := objc.Send[bool](i.ID, objc.Sel("isNeuralNetworkGPUPathForbidden"))
+func (m MLInternalSettings) IsNeuralNetworkGPUPathForbidden() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("isNeuralNetworkGPUPathForbidden"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/restrictNeuralNetworksFromUsingANE
-func (i MLInternalSettings) RestrictNeuralNetworksFromUsingANE() bool {
-	rv := objc.Send[bool](i.ID, objc.Sel("restrictNeuralNetworksFromUsingANE"))
+func (m MLInternalSettings) RestrictNeuralNetworksFromUsingANE() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("restrictNeuralNetworksFromUsingANE"))
 	return rv
 }
-func (i MLInternalSettings) SetRestrictNeuralNetworksFromUsingANE(value bool) {
-	objc.Send[struct{}](i.ID, objc.Sel("setRestrictNeuralNetworksFromUsingANE:"), value)
+func (m MLInternalSettings) SetRestrictNeuralNetworksFromUsingANE(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setRestrictNeuralNetworksFromUsingANE:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/restrictNeuralNetworksToUseCPUOnly
-func (i MLInternalSettings) RestrictNeuralNetworksToUseCPUOnly() bool {
-	rv := objc.Send[bool](i.ID, objc.Sel("restrictNeuralNetworksToUseCPUOnly"))
+func (m MLInternalSettings) RestrictNeuralNetworksToUseCPUOnly() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("restrictNeuralNetworksToUseCPUOnly"))
 	return rv
 }
-func (i MLInternalSettings) SetRestrictNeuralNetworksToUseCPUOnly(value bool) {
-	objc.Send[struct{}](i.ID, objc.Sel("setRestrictNeuralNetworksToUseCPUOnly:"), value)
+func (m MLInternalSettings) SetRestrictNeuralNetworksToUseCPUOnly(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setRestrictNeuralNetworksToUseCPUOnly:"), value)
 }

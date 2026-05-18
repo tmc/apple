@@ -112,14 +112,14 @@ type IMLPowBroadcastableBrick interface {
 }
 
 // Init initializes the instance.
-func (p MLPowBroadcastableBrick) Init() MLPowBroadcastableBrick {
-	rv := objc.Send[MLPowBroadcastableBrick](p.ID, objc.Sel("init"))
+func (m MLPowBroadcastableBrick) Init() MLPowBroadcastableBrick {
+	rv := objc.Send[MLPowBroadcastableBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPowBroadcastableBrick) Autorelease() MLPowBroadcastableBrick {
-	rv := objc.Send[MLPowBroadcastableBrick](p.ID, objc.Sel("autorelease"))
+func (m MLPowBroadcastableBrick) Autorelease() MLPowBroadcastableBrick {
+	rv := objc.Send[MLPowBroadcastableBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -138,78 +138,78 @@ func NewPowBroadcastableBrickWithParameters(parameters objectivec.IObject) MLPow
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/computeOnCPUWithInputTensors:outputTensors:
-func (p MLPowBroadcastableBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](p.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLPowBroadcastableBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/hasGPUSupport
-func (p MLPowBroadcastableBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("hasGPUSupport"))
+func (m MLPowBroadcastableBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/setupForInputShapes:withParameters:
-func (p MLPowBroadcastableBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLPowBroadcastableBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/initWithParameters:
-func (p MLPowBroadcastableBrick) InitWithParameters(parameters objectivec.IObject) MLPowBroadcastableBrick {
-	rv := objc.Send[MLPowBroadcastableBrick](p.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLPowBroadcastableBrick) InitWithParameters(parameters objectivec.IObject) MLPowBroadcastableBrick {
+	rv := objc.Send[MLPowBroadcastableBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/debugDescription
-func (p MLPowBroadcastableBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
+func (m MLPowBroadcastableBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/description
-func (p MLPowBroadcastableBrick) Description() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
+func (m MLPowBroadcastableBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/hash
-func (p MLPowBroadcastableBrick) Hash() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
+func (m MLPowBroadcastableBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/inputRanks
-func (p MLPowBroadcastableBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("inputRanks"))
+func (m MLPowBroadcastableBrick) InputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/inputShapes
-func (p MLPowBroadcastableBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("inputShapes"))
+func (m MLPowBroadcastableBrick) InputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/outputRanks
-func (p MLPowBroadcastableBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("outputRanks"))
+func (m MLPowBroadcastableBrick) OutputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/outputShapes
-func (p MLPowBroadcastableBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("outputShapes"))
+func (m MLPowBroadcastableBrick) OutputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/shapeInfoNeeded
-func (p MLPowBroadcastableBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("shapeInfoNeeded"))
+func (m MLPowBroadcastableBrick) ShapeInfoNeeded() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPowBroadcastableBrick/superclass
-func (p MLPowBroadcastableBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
+func (m MLPowBroadcastableBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

@@ -16,44 +16,28 @@ type CIAreaLogarithmicHistogram interface {
 	CIAreaReductionFilter
 	CIFilterProtocol
 
-	// Count protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/count
-	Count() int
-
-	// MaximumStop protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/maximumStop
-	MaximumStop() float32
-
-	// MinimumStop protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/minimumStop
-	MinimumStop() float32
-
-	// Scale protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/scale
-	Scale() float32
-
 	// count protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/count
+	Count() int
 	SetCount(value int)
 
 	// maximumStop protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/maximumStop
+	MaximumStop() float32
 	SetMaximumStop(value float32)
 
 	// minimumStop protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/minimumStop
+	MinimumStop() float32
 	SetMinimumStop(value float32)
 
 	// scale protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/scale
+	Scale() float32
 	SetScale(value float32)
 }
 
@@ -72,30 +56,6 @@ func CIAreaLogarithmicHistogramObjectFromID(id objc.ID) CIAreaLogarithmicHistogr
 	return CIAreaLogarithmicHistogramObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/count
-func (o CIAreaLogarithmicHistogramObject) Count() int {
-	rv := objc.Send[int](o.ID, objc.Sel("count"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/maximumStop
-func (o CIAreaLogarithmicHistogramObject) MaximumStop() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("maximumStop"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/minimumStop
-func (o CIAreaLogarithmicHistogramObject) MinimumStop() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("minimumStop"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/scale
-func (o CIAreaLogarithmicHistogramObject) Scale() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
-	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
@@ -122,21 +82,41 @@ func (o CIAreaLogarithmicHistogramObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/count
+func (o CIAreaLogarithmicHistogramObject) Count() int {
+	rv := objc.Send[int](o.ID, objc.Sel("count"))
+	return int(rv)
+}
+
 func (o CIAreaLogarithmicHistogramObject) SetCount(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCount:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/maximumStop
+func (o CIAreaLogarithmicHistogramObject) MaximumStop() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("maximumStop"))
+	return float32(rv)
+}
+
 func (o CIAreaLogarithmicHistogramObject) SetMaximumStop(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaximumStop:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/minimumStop
+func (o CIAreaLogarithmicHistogramObject) MinimumStop() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("minimumStop"))
+	return float32(rv)
+}
+
 func (o CIAreaLogarithmicHistogramObject) SetMinimumStop(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMinimumStop:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/scale
+func (o CIAreaLogarithmicHistogramObject) Scale() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
+	return float32(rv)
+}
+
 func (o CIAreaLogarithmicHistogramObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }

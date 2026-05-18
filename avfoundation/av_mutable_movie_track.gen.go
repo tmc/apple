@@ -86,13 +86,13 @@ func (ac AVMutableMovieTrackClass) Alloc() AVMutableMovieTrack {
 // # Accessing track information
 //
 //   - [AVMutableMovieTrack.IsPlayable]: A Boolean value that indicates whether the track is playable in the current environment.
-//   - [AVMutableMovieTrack.SetIsPlayable]
+//   - [AVMutableMovieTrack.SetPlayable]
 //   - [AVMutableMovieTrack.IsDecodable]: A Boolean value that indicates whether the track is decodable in the current environment.
-//   - [AVMutableMovieTrack.SetIsDecodable]
+//   - [AVMutableMovieTrack.SetDecodable]
 //   - [AVMutableMovieTrack.Enabled]: A Boolean value that indicates whether the track’s container enables it.
 //   - [AVMutableMovieTrack.SetEnabled]
 //   - [AVMutableMovieTrack.IsSelfContained]: A Boolean value that indicates whether this track references sample data only within its container file.
-//   - [AVMutableMovieTrack.SetIsSelfContained]
+//   - [AVMutableMovieTrack.SetSelfContained]
 //   - [AVMutableMovieTrack.HasProtectedContent]: A Boolean value that indicates whether a track contains protected content.
 //   - [AVMutableMovieTrack.TotalSampleDataLength]: The total number of bytes of sample data the track requires.
 //   - [AVMutableMovieTrack.SetTotalSampleDataLength]
@@ -231,13 +231,13 @@ func AVMutableMovieTrackFromID(id objc.ID) AVMutableMovieTrack {
 // # Accessing track information
 //
 //   - [IAVMutableMovieTrack.IsPlayable]: A Boolean value that indicates whether the track is playable in the current environment.
-//   - [IAVMutableMovieTrack.SetIsPlayable]
+//   - [IAVMutableMovieTrack.SetPlayable]
 //   - [IAVMutableMovieTrack.IsDecodable]: A Boolean value that indicates whether the track is decodable in the current environment.
-//   - [IAVMutableMovieTrack.SetIsDecodable]
+//   - [IAVMutableMovieTrack.SetDecodable]
 //   - [IAVMutableMovieTrack.Enabled]: A Boolean value that indicates whether the track’s container enables it.
 //   - [IAVMutableMovieTrack.SetEnabled]
 //   - [IAVMutableMovieTrack.IsSelfContained]: A Boolean value that indicates whether this track references sample data only within its container file.
-//   - [IAVMutableMovieTrack.SetIsSelfContained]
+//   - [IAVMutableMovieTrack.SetSelfContained]
 //   - [IAVMutableMovieTrack.HasProtectedContent]: A Boolean value that indicates whether a track contains protected content.
 //   - [IAVMutableMovieTrack.TotalSampleDataLength]: The total number of bytes of sample data the track requires.
 //   - [IAVMutableMovieTrack.SetTotalSampleDataLength]
@@ -368,28 +368,28 @@ type IAVMutableMovieTrack interface {
 	Modified() bool
 	SetModified(value bool)
 	// The base URL for sample references.
-	SampleReferenceBaseURL() foundation.INSURL
-	SetSampleReferenceBaseURL(value foundation.INSURL)
+	SampleReferenceBaseURL() foundation.NSURL
+	SetSampleReferenceBaseURL(value foundation.NSURL)
 
 	// Topic: Accessing track information
 
 	// A Boolean value that indicates whether the track is playable in the current environment.
 	IsPlayable() bool
-	SetIsPlayable(value bool)
+	SetPlayable(value bool)
 	// A Boolean value that indicates whether the track is decodable in the current environment.
 	IsDecodable() bool
-	SetIsDecodable(value bool)
+	SetDecodable(value bool)
 	// A Boolean value that indicates whether the track’s container enables it.
 	Enabled() bool
 	SetEnabled(value bool)
 	// A Boolean value that indicates whether this track references sample data only within its container file.
 	IsSelfContained() bool
-	SetIsSelfContained(value bool)
+	SetSelfContained(value bool)
 	// A Boolean value that indicates whether a track contains protected content.
 	HasProtectedContent() bool
 	// The total number of bytes of sample data the track requires.
-	TotalSampleDataLength() objectivec.IObject
-	SetTotalSampleDataLength(value objectivec.IObject)
+	TotalSampleDataLength() unsafe.Pointer
+	SetTotalSampleDataLength(value unsafe.Pointer)
 	// Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 	HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool
 
@@ -887,11 +887,11 @@ func (m AVMutableMovieTrack) SetModified(value bool) {
 // is `nil`, indicating that the unmodified location will be written.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/sampleReferenceBaseURL
-func (m AVMutableMovieTrack) SampleReferenceBaseURL() foundation.INSURL {
+func (m AVMutableMovieTrack) SampleReferenceBaseURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("sampleReferenceBaseURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (m AVMutableMovieTrack) SetSampleReferenceBaseURL(value foundation.INSURL) {
+func (m AVMutableMovieTrack) SetSampleReferenceBaseURL(value foundation.NSURL) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSampleReferenceBaseURL:"), value)
 }
 
@@ -903,7 +903,7 @@ func (m AVMutableMovieTrack) IsPlayable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPlayable"))
 	return rv
 }
-func (m AVMutableMovieTrack) SetIsPlayable(value bool) {
+func (m AVMutableMovieTrack) SetPlayable(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPlayable:"), value)
 }
 
@@ -920,7 +920,7 @@ func (m AVMutableMovieTrack) IsDecodable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isDecodable"))
 	return rv
 }
-func (m AVMutableMovieTrack) SetIsDecodable(value bool) {
+func (m AVMutableMovieTrack) SetDecodable(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDecodable:"), value)
 }
 
@@ -948,7 +948,7 @@ func (m AVMutableMovieTrack) IsSelfContained() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSelfContained"))
 	return rv
 }
-func (m AVMutableMovieTrack) SetIsSelfContained(value bool) {
+func (m AVMutableMovieTrack) SetSelfContained(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSelfContained:"), value)
 }
 
@@ -968,11 +968,11 @@ func (m AVMutableMovieTrack) HasProtectedContent() bool {
 // data length.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/totalSampleDataLength
-func (m AVMutableMovieTrack) TotalSampleDataLength() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("totalSampleDataLength"))
-	return objectivec.Object{ID: rv}
+func (m AVMutableMovieTrack) TotalSampleDataLength() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("totalSampleDataLength"))
+	return rv
 }
-func (m AVMutableMovieTrack) SetTotalSampleDataLength(value objectivec.IObject) {
+func (m AVMutableMovieTrack) SetTotalSampleDataLength(value unsafe.Pointer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTotalSampleDataLength:"), value)
 }
 

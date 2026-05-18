@@ -39,6 +39,16 @@ type MTLCommandQueue interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/removeResidencySet(_:)
 	RemoveResidencySet(residencySet MTLResidencySet)
 
+	// Applies multiple residency sets to a queue, which Metal applies to the queue’s command buffers as you commit them.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/addResidencySets:count:
+	AddResidencySetsCount(residencySets []MTLResidencySet, count uint)
+
+	// Removes multiple residency sets from a command queue’s list, which means Metal doesn’t apply them to the queue’s command buffers as you commit them.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/removeResidencySets:count:
+	RemoveResidencySetsCount(residencySets []MTLResidencySet, count uint)
+
 	// The GPU device that creates the command queue.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/device
@@ -48,15 +58,6 @@ type MTLCommandQueue interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/label
 	Label() string
-
-	// Removes multiple residency sets from a command queue’s list, which means Metal doesn’t apply them to the queue’s command buffers as you commit them.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/removeResidencySets:count:
-	RemoveResidencySetsCount(residencySets []MTLResidencySet, count uint)
-
-	// An optional name that can help you identify the command queue.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/label
 	SetLabel(value string)
 }
 
@@ -190,33 +191,37 @@ func (o MTLCommandQueueObject) AddResidencySet(residencySet MTLResidencySet) {
 //
 // The method doesn’t remove the residency set from command buffers the
 // queue owns with a [Status] property that’s equal to
-// [MTLCommandBufferStatus.committed] or [MTLCommandBufferStatusScheduled].
+// [MTLCommandBufferStatusCommitted] or [MTLCommandBufferStatusScheduled].
 //
 // See [Simplifying GPU resource management with residency sets] and
 // [MTLResidencySet] for more information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/removeResidencySet(_:)
 //
-// [MTLCommandBufferStatus.committed]: https://developer.apple.com/documentation/Metal/MTLCommandBufferStatus/committed
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 func (o MTLCommandQueueObject) RemoveResidencySet(residencySet MTLResidencySet) {
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySet:"), residencySet)
 }
 
-// The GPU device that creates the command queue.
+// Applies multiple residency sets to a queue, which Metal applies to the
+// queue’s command buffers as you commit them.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/device
-func (o MTLCommandQueueObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// An optional name that can help you identify the command queue.
+// residencySets: A C array of residency sets, each of which contains resource allocations,
+// such as [MTLBuffer], [MTLTexture], and [MTLHeap] instances.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/label
-func (o MTLCommandQueueObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
+// count: The number of elements in `residencySets`.
+//
+// # Discussion
+//
+// Each command queue can maintain a list of up to 32 different residency
+// sets. See [Simplifying GPU resource management with residency sets] and
+// [MTLResidencySet] for more information.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/addResidencySets:count:
+//
+// [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
+func (o MTLCommandQueueObject) AddResidencySetsCount(residencySets []MTLResidencySet, count uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("addResidencySets:count:"), objc.CArray(residencySets), count)
 }
 
 // Removes multiple residency sets from a command queue’s list, which means
@@ -232,17 +237,29 @@ func (o MTLCommandQueueObject) Label() string {
 //
 // The method doesn’t remove the residency sets from command buffers the
 // queue owns with a [Status] property that’s equal to
-// [MTLCommandBufferStatus.committed] or [MTLCommandBufferStatusScheduled].
+// [MTLCommandBufferStatusCommitted] or [MTLCommandBufferStatusScheduled].
 //
 // See [Simplifying GPU resource management with residency sets] and
 // [MTLResidencySet] for more information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/removeResidencySets:count:
 //
-// [MTLCommandBufferStatus.committed]: https://developer.apple.com/documentation/Metal/MTLCommandBufferStatus/committed
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 func (o MTLCommandQueueObject) RemoveResidencySetsCount(residencySets []MTLResidencySet, count uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySets:count:"), objc.CArray(residencySets), count)
+}
+
+// The GPU device that creates the command queue.
+//
+// # Discussion
+//
+// The command queue can submit work only to the GPU the [MTLDevice] instance
+// represents.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/device
+func (o MTLCommandQueueObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
 }
 
 // An optional name that can help you identify the command queue.
@@ -255,6 +272,11 @@ func (o MTLCommandQueueObject) RemoveResidencySetsCount(residencySets []MTLResid
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLCommandQueueObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLCommandQueueObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

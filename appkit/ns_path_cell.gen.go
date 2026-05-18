@@ -225,7 +225,6 @@ func NSPathCellFromID(id objc.ID) NSPathCell {
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell
 type INSPathCell interface {
 	INSActionCell
-	NSMenuItemValidation
 
 	// Topic: Displaying Hidden Components
 
@@ -279,8 +278,8 @@ type INSPathCell interface {
 	// Topic: Setting the Path
 
 	// Returns the path displayed by the receiver.
-	URL() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	URL() foundation.NSURL
+	SetURL(value foundation.NSURL)
 
 	// Topic: Setting the Delegate
 
@@ -290,12 +289,10 @@ type INSPathCell interface {
 
 	// A Boolean value indicating whether the cell is editable.
 	IsEditable() bool
-	SetIsEditable(value bool)
 	// A Boolean value indicating whether the cell’s text can be selected.
 	IsSelectable() bool
-	SetIsSelectable(value bool)
 	// Tells the delegate that the user changed the selected directory to the directory located at the specified URL.
-	PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL)
+	PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.NSURL)
 	// [NSSavePanel]: Optional — Sent when the user changes the current type. [NSOpenPanel]: Not sent.
 	PanelDidSelectType(sender objectivec.IObject, type_ uniformtypeidentifiers.UTType)
 	// [NSSavePanel]: Optional — Sent when the content type popup is displayed and the save panel needs the display name for a type. If `nil` is returned, the save panel will display type’s `localizedDescription`. [NSOpenPanel]: Not sent.
@@ -303,11 +300,11 @@ type INSPathCell interface {
 	// Tells the delegate that the user changed the selection in the specified Save panel.
 	PanelSelectionDidChange(sender objectivec.IObject)
 	// Asks the delegate whether the specified URL should be enabled in the Open panel.
-	PanelShouldEnableURL(sender objectivec.IObject, url foundation.INSURL) bool
+	PanelShouldEnableURL(sender objectivec.IObject, url foundation.NSURL) bool
 	// Tells the delegate that the user confirmed a filename choice by clicking Save in a Save panel.
 	PanelUserEnteredFilenameConfirmed(sender objectivec.IObject, filename string, okFlag bool) string
 	// Asks the delegate to validate the URL for a file that the user selected.
-	PanelValidateURLError(sender objectivec.IObject, url foundation.INSURL) (bool, error)
+	PanelValidateURLError(sender objectivec.IObject, url foundation.NSURL) (bool, error)
 	// Tells the delegate that the Save panel is about to expand or collapse because the user clicked the disclosure triangle that displays or hides the file browser.
 	PanelWillExpand(sender objectivec.IObject, expanding bool)
 }
@@ -470,7 +467,7 @@ func (p NSPathCell) PathComponentCellAtPointWithFrameInView(point corefoundation
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:didChangeToDirectoryURL:)
 //
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-func (p NSPathCell) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL) {
+func (p NSPathCell) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.NSURL) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panel:didChangeToDirectoryURL:"), sender, url)
 }
 
@@ -523,7 +520,7 @@ func (p NSPathCell) PanelSelectionDidChange(sender objectivec.IObject) {
 // long time.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:shouldEnable:)
-func (p NSPathCell) PanelShouldEnableURL(sender objectivec.IObject, url foundation.INSURL) bool {
+func (p NSPathCell) PanelShouldEnableURL(sender objectivec.IObject, url foundation.NSURL) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("panel:shouldEnableURL:"), sender, url)
 	return rv
 }
@@ -578,7 +575,7 @@ func (p NSPathCell) PanelUserEnteredFilenameConfirmed(sender objectivec.IObject,
 // this method once for each selected filename or directory.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:validate:)
-func (p NSPathCell) PanelValidateURLError(sender objectivec.IObject, url foundation.INSURL) (bool, error) {
+func (p NSPathCell) PanelValidateURLError(sender objectivec.IObject, url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](p.ID, objc.Sel("panel:validateURL:error:"), sender, url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -762,11 +759,11 @@ func (p NSPathCell) SetDoubleAction(value objc.SEL) {
 // The path value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/url
-func (p NSPathCell) URL() foundation.INSURL {
+func (p NSPathCell) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (p NSPathCell) SetURL(value foundation.INSURL) {
+func (p NSPathCell) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
 
@@ -809,7 +806,7 @@ func (p NSPathCell) IsEditable() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("editable"))
 	return rv
 }
-func (p NSPathCell) SetIsEditable(value bool) {
+func (p NSPathCell) SetEditable(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEditable:"), value)
 }
 
@@ -820,7 +817,7 @@ func (p NSPathCell) IsSelectable() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("selectable"))
 	return rv
 }
-func (p NSPathCell) SetIsSelectable(value bool) {
+func (p NSPathCell) SetSelectable(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectable:"), value)
 }
 

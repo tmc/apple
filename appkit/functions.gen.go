@@ -9,6 +9,7 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -163,10 +164,10 @@ func NSAccessibilityPostNotification(element objectivec.Object, notification NSA
 	}
 }
 
-var _nSAccessibilityPostNotificationWithUserInfo func(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr)
+var _nSAccessibilityPostNotificationWithUserInfo func(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo unsafe.Pointer)
 var _nSAccessibilityPostNotificationWithUserInfoErr error
 
-func tryNSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr) error {
+func tryNSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo unsafe.Pointer) error {
 	if _nSAccessibilityPostNotificationWithUserInfo == nil {
 		return symbolCallError("NSAccessibilityPostNotificationWithUserInfo", "10.7", _nSAccessibilityPostNotificationWithUserInfoErr)
 	}
@@ -177,7 +178,7 @@ func tryNSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, n
 // NSAccessibilityPostNotificationWithUserInfo sends a notification and an optional user info dictionary to any observing assistive apps.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/post(element:notification:userInfo:)
-func NSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr) {
+func NSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo unsafe.Pointer) {
 	if callErr := tryNSAccessibilityPostNotificationWithUserInfo(element, notification, userInfo); callErr != nil {
 		panic(callErr)
 	}
@@ -497,10 +498,10 @@ func NSColorSpaceFromDepth(depth NSWindowDepth) NSColorSpaceName {
 	return result
 }
 
-var _nSConvertGlyphsToPackedGlyphs func(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int
+var _nSConvertGlyphsToPackedGlyphs func(glBuf *uint32, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int
 var _nSConvertGlyphsToPackedGlyphsErr error
 
-func tryNSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) (int, error) {
+func tryNSConvertGlyphsToPackedGlyphs(glBuf *uint32, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) (int, error) {
 	if _nSConvertGlyphsToPackedGlyphs == nil {
 		return 0, symbolCallError("NSConvertGlyphsToPackedGlyphs", "10.0", _nSConvertGlyphsToPackedGlyphsErr)
 	}
@@ -512,7 +513,7 @@ func tryNSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMulti
 // Deprecated: Deprecated since macOS 10.13.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSConvertGlyphsToPackedGlyphs(_:_:_:_:)
-func NSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int {
+func NSConvertGlyphsToPackedGlyphs(glBuf *uint32, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int {
 	result, callErr := tryNSConvertGlyphsToPackedGlyphs(glBuf, count, packing, packedGlyphs)
 	if callErr != nil {
 		panic(callErr)
@@ -1042,12 +1043,12 @@ func NSHighlightRect(rect corefoundation.CGRect) {
 	}
 }
 
-var _nSInterfaceStyleForKey func(key foundation.NSString, responder *NSResponder) unsafe.Pointer
+var _nSInterfaceStyleForKey func(key foundation.NSString, responder *NSResponder) uint
 var _nSInterfaceStyleForKeyErr error
 
-func tryNSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) (unsafe.Pointer, error) {
+func tryNSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) (uint, error) {
 	if _nSInterfaceStyleForKey == nil {
-		return nil, symbolCallError("NSInterfaceStyleForKey", "10.0", _nSInterfaceStyleForKeyErr)
+		return 0, symbolCallError("NSInterfaceStyleForKey", "10.0", _nSInterfaceStyleForKeyErr)
 	}
 	return _nSInterfaceStyleForKey(key, responder), nil
 }
@@ -1057,7 +1058,7 @@ func tryNSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSInterfaceStyleForKey
-func NSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) unsafe.Pointer {
+func NSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) uint {
 	result, callErr := tryNSInterfaceStyleForKey(key, responder)
 	if callErr != nil {
 		panic(callErr)
@@ -1459,10 +1460,10 @@ func NSSetShowsServicesMenuItem(itemName foundation.NSString, enabled bool) int 
 	return result
 }
 
-var _nSShowAnimationEffect func(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objectivec.SEL, contextInfo uintptr)
+var _nSShowAnimationEffect func(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objc.SEL, contextInfo uintptr)
 var _nSShowAnimationEffectErr error
 
-func tryNSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objectivec.SEL, contextInfo uintptr) error {
+func tryNSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objc.SEL, contextInfo uintptr) error {
 	if _nSShowAnimationEffect == nil {
 		return symbolCallError("NSShowAnimationEffect", "10.3", _nSShowAnimationEffectErr)
 	}
@@ -1475,7 +1476,7 @@ func tryNSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation 
 // Deprecated: Deprecated since macOS 14.0. Use [disappearingItem](<doc://com.apple.appkit/documentation/AppKit/NSCursor/disappearingItem>) instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSShowAnimationEffect
-func NSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objectivec.SEL, contextInfo uintptr) {
+func NSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objc.SEL, contextInfo uintptr) {
 	if callErr := tryNSShowAnimationEffect(animationEffect, centerLocation, size, animationDelegate, didEndSelector, contextInfo); callErr != nil {
 		panic(callErr)
 	}

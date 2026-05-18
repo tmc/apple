@@ -91,6 +91,10 @@ type ApplePlatformExpert struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/asyncpendingtrans
 type AsyncPendingTrans struct {
+	FAltHandler *IOFWCommand
+	FTCode      unsafe.Pointer
+	FInUse      unsafe.Pointer
+	FHandler    *IOFWAsyncCommand
 }
 
 // BigSInt16
@@ -146,9 +150,10 @@ type BigUInt64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/debugkeyaction
 type DebugKeyAction struct {
-	Action    unsafe.Pointer
-	Parameter unsafe.Pointer
-	Mask      unsafe.Pointer
+	Action           unsafe.Pointer
+	Parameter        unsafe.Pointer
+	Mask             unsafe.Pointer
+	DebugArgRequired unsafe.Pointer
 }
 
 // FWSegment
@@ -165,11 +170,11 @@ type FWSegment struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/fndrextendeddirinfo
 type FndrExtendedDirInfo struct {
-	Date_added        unsafe.Pointer
-	Document_id       unsafe.Pointer
-	Extended_flags    unsafe.Pointer
-	Reserved3         unsafe.Pointer
-	Write_gen_counter unsafe.Pointer
+	Document_id       U_int32_t
+	Date_added        U_int32_t
+	Extended_flags    U_int16_t
+	Reserved3         U_int16_t
+	Write_gen_counter U_int32_t
 }
 
 // FndrExtendedFileInfo
@@ -177,8 +182,11 @@ type FndrExtendedDirInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/fndrextendedfileinfo
 type FndrExtendedFileInfo struct {
-	Extended_flags U_int16_t
-	Reserved2      U_int16_t
+	Document_id       U_int32_t
+	Date_added        U_int32_t
+	Extended_flags    U_int16_t
+	Reserved2         U_int16_t
+	Write_gen_counter U_int32_t
 }
 
 // IOACPIAddressSpaceDescriptor
@@ -610,6 +618,7 @@ type IOBlockStorageDriver struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ioblockstorageprovisiondeviceextent
 type IOBlockStorageProvisionDeviceExtent struct {
 	ProvisionType unsafe.Pointer
+	BlockStart    uint64
 	BlockCount    uint64
 	Reserved      unsafe.Pointer
 }
@@ -819,7 +828,8 @@ type IODMACommand struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iodmacommandspecification
 type IODMACommandSpecification struct {
-	Options unsafe.Pointer
+	MaxAddressBits unsafe.Pointer
+	Options        unsafe.Pointer
 }
 
 // IODMAController
@@ -844,7 +854,9 @@ type IODMAEventSource struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iodmamappagelist
 type IODMAMapPageList struct {
-	PageList *Upl_page_info_t
+	PageList      *Upl_page_info_t
+	PageOffset    unsafe.Pointer
+	PageListCount unsafe.Pointer
 }
 
 // IODMAMapSpecification
@@ -852,7 +864,12 @@ type IODMAMapPageList struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iodmamapspecification
 type IODMAMapSpecification struct {
-	Alignment unsafe.Pointer
+	Device         *IOService
+	Options        unsafe.Pointer
+	Alignment      unsafe.Pointer
+	NumAddressBits uint8
+	ResvA          uint8
+	ResvB          unsafe.Pointer
 }
 
 // IODTNVRAM
@@ -1085,6 +1102,7 @@ type IOExtendedLBA struct {
 type IOExternalAsyncMethod struct {
 	Flags  uint32
 	Object *IOService
+	Count1 uint
 	Count0 uint
 	Func   IOAsyncMethod
 }
@@ -1094,7 +1112,11 @@ type IOExternalAsyncMethod struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ioexternalmethod
 type IOExternalMethod struct {
-	Flags uint32
+	Object *IOService
+	Count0 uint
+	Flags  uint32
+	Count1 uint
+	Func   IOMethod
 }
 
 // IOExternalMethodArguments
@@ -1102,8 +1124,23 @@ type IOExternalMethod struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ioexternalmethodarguments
 type IOExternalMethodArguments struct {
-	StructureInputSize  unsafe.Pointer
-	AsyncReferenceCount unsafe.Pointer
+	ScalarInput                   unsafe.Pointer
+	Version                       unsafe.Pointer
+	ScalarOutput                  unsafe.Pointer
+	StructureInput                unsafe.Pointer
+	StructureOutputDescriptorSize unsafe.Pointer
+	StructureInputSize            unsafe.Pointer
+	AsyncReference                *Io_user_reference_t
+	Selector                      unsafe.Pointer
+	StructureInputDescriptor      *IOMemoryDescriptor
+	StructureOutput               unsafe.Pointer
+	StructureOutputDescriptor     *IOMemoryDescriptor
+	ScalarInputCount              unsafe.Pointer
+	AsyncWakePort                 uint32
+	StructureVariableOutputData   *OSObject
+	StructureOutputSize           unsafe.Pointer
+	AsyncReferenceCount           unsafe.Pointer
+	ScalarOutputCount             unsafe.Pointer
 }
 
 // IOExternalMethodDispatch
@@ -1111,7 +1148,11 @@ type IOExternalMethodArguments struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ioexternalmethoddispatch
 type IOExternalMethodDispatch struct {
-	CheckStructureInputSize unsafe.Pointer
+	CheckScalarInputCount    unsafe.Pointer
+	Function                 unsafe.Pointer
+	CheckStructureOutputSize unsafe.Pointer
+	CheckStructureInputSize  unsafe.Pointer
+	CheckScalarOutputCount   unsafe.Pointer
 }
 
 // IOExternalMethodDispatch2022
@@ -1119,9 +1160,13 @@ type IOExternalMethodDispatch struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ioexternalmethoddispatch2022
 type IOExternalMethodDispatch2022 struct {
-	AllowAsync            uint8
-	CheckScalarInputCount unsafe.Pointer
-	CheckEntitlement      unsafe.Pointer
+	AllowAsync               uint8
+	CheckScalarInputCount    unsafe.Pointer
+	CheckScalarOutputCount   unsafe.Pointer
+	CheckStructureInputSize  unsafe.Pointer
+	CheckStructureOutputSize unsafe.Pointer
+	Function                 unsafe.Pointer
+	CheckEntitlement         unsafe.Pointer
 }
 
 // IOExternalTrap
@@ -1129,7 +1174,8 @@ type IOExternalMethodDispatch2022 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ioexternaltrap
 type IOExternalTrap struct {
-	Func IOTrap
+	Object *IOService
+	Func   IOTrap
 }
 
 // IOFDiskPartitionScheme
@@ -2494,6 +2540,7 @@ type IOPwrController struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iorpcmessageerrorreturn
 type IORPCMessageErrorReturn struct {
 	Content IORPCMessageErrorReturnContent
+	Mach    IORPCMessageMach
 }
 
 // IORTC
@@ -2903,9 +2950,9 @@ type IOTrackingCallSiteInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iousb30hubportstatusext
 type IOUSB30HubPortStatusExt struct {
-	DwExtPortStatus unsafe.Pointer // The extended port status bits.
-	WPortChange     uint16         // The port status change bits.
 	WPortStatus     uint16         // The port status field bits.
+	WPortChange     uint16         // The port status change bits.
+	DwExtPortStatus unsafe.Pointer // The extended port status bits.
 
 }
 
@@ -3072,6 +3119,7 @@ type IOUserClient struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iouserclientmethodarguments
 type IOUserClientMethodArguments struct {
 	Completion                 *OSAction
+	ScalarInput                unsafe.Pointer
 	ScalarInputCount           unsafe.Pointer
 	ScalarOutput               unsafe.Pointer
 	ScalarOutputCount          unsafe.Pointer
@@ -3079,7 +3127,9 @@ type IOUserClientMethodArguments struct {
 	StructureInput             *OSData
 	StructureInputDescriptor   *IOMemoryDescriptor
 	StructureOutput            *OSData
+	StructureOutputDescriptor  *IOMemoryDescriptor
 	StructureOutputMaximumSize unsafe.Pointer
+	Version                    unsafe.Pointer
 }
 
 // IOUserClientMethodDispatch
@@ -3087,7 +3137,12 @@ type IOUserClientMethodArguments struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iouserclientmethoddispatch
 type IOUserClientMethodDispatch struct {
+	CheckCompletionExists    unsafe.Pointer
+	CheckScalarInputCount    unsafe.Pointer
+	CheckScalarOutputCount   unsafe.Pointer
+	CheckStructureInputSize  unsafe.Pointer
 	CheckStructureOutputSize unsafe.Pointer
+	Function                 unsafe.Pointer
 }
 
 // IOVideoControlDictionary
@@ -3195,7 +3250,7 @@ type KeyAttribute struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/keyvaluemask
 type KeyValueMask struct {
-	Key  uint
+	Key  unsafe.Pointer
 	Mask unsafe.Pointer
 }
 
@@ -3346,9 +3401,26 @@ type OSBoolean struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/osclassdescription
 type OSClassDescription struct {
-	Flags unsafe.Pointer
-	Name  unsafe.Pointer
-	Resv1 unsafe.Pointer
+	DescriptionSize         unsafe.Pointer
+	DispatchNames           unsafe.Pointer
+	Flags                   unsafe.Pointer
+	MetaMethodNames         unsafe.Pointer
+	MetaMethodNamesOffset   unsafe.Pointer
+	MetaMethodNamesSize     unsafe.Pointer
+	MetaMethodOptions       unsafe.Pointer
+	MetaMethodOptionsOffset unsafe.Pointer
+	MetaMethodOptionsSize   unsafe.Pointer
+	MethodNames             unsafe.Pointer
+	MethodNamesOffset       unsafe.Pointer
+	MethodNamesSize         unsafe.Pointer
+	MethodOptions           unsafe.Pointer
+	MethodOptionsOffset     unsafe.Pointer
+	MethodOptionsSize       unsafe.Pointer
+	Name                    unsafe.Pointer
+	QueueNamesOffset        unsafe.Pointer
+	QueueNamesSize          unsafe.Pointer
+	Resv1                   unsafe.Pointer
+	SuperName               unsafe.Pointer
 }
 
 // OSCollection - The abstract superclass for Libkern collections.
@@ -3428,10 +3500,10 @@ type OSMetaClassBase struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/osnotificationheader64
 type OSNotificationHeader64 struct {
-	Content   unsafe.Pointer
+	Size      uint32
+	Type      Natural_t
 	Reference unsafe.Pointer
-	Size      unsafe.Pointer
-	Type      unsafe.Pointer
+	Content   unsafe.Pointer
 }
 
 // OSNumber - OSNumber wraps an integer value in a C++ object for use in Libkern collections.
@@ -3533,10 +3605,8 @@ type PassthruInterruptController struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stdfbshmem_t
 type StdFBShmem_t struct {
-	Cursor   unsafe.Pointer
-	Frame    unsafe.Pointer
-	Shielded unsafe.Pointer
-	Version  unsafe.Pointer
+	CursorSize IOGSize
+	Frame      unsafe.Pointer
 }
 
 // U128
@@ -3558,8 +3628,8 @@ type UCInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/accessx_descriptor
 type Accessx_descriptor struct {
-	Ad_flags       unsafe.Pointer
-	Ad_name_offset unsafe.Pointer
+	Ad_name_offset uint
+	Ad_flags       int
 	Ad_pad         unsafe.Pointer
 }
 
@@ -3579,11 +3649,14 @@ type Ah struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/applelabel
 type Applelabel struct {
-	Al_boot0  uint8
-	Al_type   uint16
-	Al_offset unsafe.Pointer
-	Al_magic  uint16
-	Al_flags  unsafe.Pointer
+	Al_boot0    uint8
+	Al_boot1    uint8
+	Al_type     uint16
+	Al_size     unsafe.Pointer
+	Al_checksum unsafe.Pointer
+	Al_offset   unsafe.Pointer
+	Al_magic    uint16
+	Al_flags    unsafe.Pointer
 }
 
 // Arcade_upcall_subsystem
@@ -3591,7 +3664,12 @@ type Applelabel struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/arcade_upcall_subsystem-4t8
 type Arcade_upcall_subsystem struct {
-	End int32
+	End      int32
+	Maxsize  unsafe.Pointer
+	Reserved Vm_address_t
+	Routine  unsafe.Pointer
+	Server   unsafe.Pointer
+	Start    int32
 }
 
 // Arm_cpmu_state64
@@ -3599,7 +3677,7 @@ type Arcade_upcall_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/arm_cpmu_state64
 type Arm_cpmu_state64 struct {
-	Ctrs unsafe.Pointer
+	Ctrs uint64
 }
 
 // Arphdr
@@ -3607,11 +3685,10 @@ type Arm_cpmu_state64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/arphdr
 type Arphdr struct {
-	Ar_hln unsafe.Pointer
-	Ar_hrd unsafe.Pointer
-	Ar_op  unsafe.Pointer
-	Ar_pln unsafe.Pointer
-	Ar_pro unsafe.Pointer
+	Ar_hrd U_short
+	Ar_pln U_char
+	Ar_op  U_short
+	Ar_pro U_short
 }
 
 // Arpreq
@@ -3620,8 +3697,8 @@ type Arphdr struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/arpreq
 type Arpreq struct {
 	Arp_flags unsafe.Pointer
-	Arp_ha    unsafe.Pointer
 	Arp_pa    unsafe.Pointer
+	Arp_ha    unsafe.Pointer
 }
 
 // Arpstat
@@ -3629,22 +3706,22 @@ type Arpreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/arpstat
 type Arpstat struct {
-	Dropped     unsafe.Pointer
-	Dupips      unsafe.Pointer
-	Held        unsafe.Pointer
-	Inuse       unsafe.Pointer
-	Invalidreqs unsafe.Pointer
-	Purged      unsafe.Pointer
-	Received    unsafe.Pointer
-	Reqnobufs   unsafe.Pointer
+	Txrequests  unsafe.Pointer
+	Txannounces unsafe.Pointer
 	Rxreplies   unsafe.Pointer
 	Rxrequests  unsafe.Pointer
+	Dropped     unsafe.Pointer
+	Inuse       unsafe.Pointer
+	Invalidreqs unsafe.Pointer
 	Timeouts    unsafe.Pointer
-	Txannounces unsafe.Pointer
-	Txconflicts unsafe.Pointer
+	Reqnobufs   unsafe.Pointer
 	Txreplies   unsafe.Pointer
-	Txrequests  unsafe.Pointer
+	Received    unsafe.Pointer
 	Txurequests unsafe.Pointer
+	Dupips      unsafe.Pointer
+	Purged      unsafe.Pointer
+	Txconflicts unsafe.Pointer
+	Held        unsafe.Pointer
 }
 
 // Audit_triggers_subsystem
@@ -3652,8 +3729,12 @@ type Arpstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/audit_triggers_subsystem-162
 type Audit_triggers_subsystem struct {
-	Maxsize unsafe.Pointer
-	End     int32
+	Reserved Vm_address_t
+	Routine  unsafe.Pointer
+	Server   unsafe.Pointer
+	Maxsize  unsafe.Pointer
+	End      int32
+	Start    int32
 }
 
 // Backtrace_control
@@ -3661,9 +3742,12 @@ type Audit_triggers_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/backtrace_control
 type Backtrace_control struct {
-	Btc_flags       Backtrace_flags_t
-	Btc_frame_addr  uintptr
-	Btc_addr_offset unsafe.Pointer
+	Btc_flags             Backtrace_flags_t
+	Btc_frame_addr        uintptr
+	Btc_user_thread       unsafe.Pointer
+	Btc_user_copy         unsafe.Pointer
+	Btc_user_copy_context unsafe.Pointer
+	Btc_addr_offset       unsafe.Pointer
 }
 
 // Backtrace_user_info
@@ -3671,11 +3755,8 @@ type Backtrace_control struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/backtrace_user_info
 type Backtrace_user_info struct {
-	Btui_async_frame_addr  unsafe.Pointer
+	Btui_async_frame_addr  uintptr
 	Btui_async_start_index unsafe.Pointer
-	Btui_error             unsafe.Pointer
-	Btui_info              unsafe.Pointer
-	Btui_next_frame_addr   unsafe.Pointer
 }
 
 // Bdevsw
@@ -3683,13 +3764,13 @@ type Backtrace_user_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/bdevsw
 type Bdevsw struct {
-	D_close    unsafe.Pointer
-	D_dump     unsafe.Pointer
-	D_ioctl    unsafe.Pointer
-	D_open     unsafe.Pointer
-	D_psize    unsafe.Pointer
-	D_strategy unsafe.Pointer
+	D_open     *Open_close_fcn_t
+	D_psize    *Psize_fcn_t
+	D_strategy *Strategy_fcn_t
 	D_type     unsafe.Pointer
+	D_close    *Open_close_fcn_t
+	D_ioctl    *Ioctl_fcn_t
+	D_dump     *Dump_fcn_t
 }
 
 // Bootp
@@ -3697,6 +3778,20 @@ type Bdevsw struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/bootp
 type Bootp struct {
+	Bp_chaddr U_char
+	Bp_ciaddr In_addr
+	Bp_file   U_char
+	Bp_giaddr In_addr
+	Bp_hlen   U_char
+	Bp_hops   U_char
+	Bp_htype  U_char
+	Bp_op     U_char
+	Bp_secs   U_short
+	Bp_siaddr In_addr
+	Bp_sname  U_char
+	Bp_unused U_short
+	Bp_vend   U_char
+	Bp_xid    U_int32_t
 	Bp_yiaddr In_addr
 }
 
@@ -3705,9 +3800,9 @@ type Bootp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/bootp_packet
 type Bootp_packet struct {
-	Bp_bootp unsafe.Pointer
-	Bp_ip    unsafe.Pointer
-	Bp_udp   unsafe.Pointer
+	Bp_bootp Bootp
+	Bp_ip    Ip
+	Bp_udp   Udphdr
 }
 
 // Bpf_dltlist
@@ -3724,10 +3819,10 @@ type Bpf_dltlist struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/bpf_hdr
 type Bpf_hdr struct {
-	Bh_caplen  unsafe.Pointer
-	Bh_datalen unsafe.Pointer
-	Bh_hdrlen  unsafe.Pointer
-	Bh_tstamp  unsafe.Pointer
+	Bh_caplen  Bpf_u_int32
+	Bh_tstamp  Timeval32
+	Bh_datalen Bpf_u_int32
+	Bh_hdrlen  U_short
 }
 
 // Bpf_insn
@@ -3735,10 +3830,10 @@ type Bpf_hdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/bpf_insn
 type Bpf_insn struct {
-	Code unsafe.Pointer
-	Jf   unsafe.Pointer
-	Jt   unsafe.Pointer
-	K    unsafe.Pointer
+	Jt   U_char
+	Jf   U_char
+	K    Bpf_u_int32
+	Code U_short
 }
 
 // Bpf_program
@@ -3755,8 +3850,8 @@ type Bpf_program struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/bpf_stat
 type Bpf_stat struct {
-	Bs_drop unsafe.Pointer
-	Bs_recv unsafe.Pointer
+	Bs_drop U_int
+	Bs_recv U_int
 }
 
 // Bpf_version
@@ -3773,7 +3868,6 @@ type Bpf_version struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/bt_params
 type Bt_params struct {
-	Base_local_ts  unsafe.Pointer
 	Base_remote_ts unsafe.Pointer
 	Rate           unsafe.Pointer
 }
@@ -3793,6 +3887,9 @@ type Btinfo_sc_load_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/btinfo_sc_load_info64
 type Btinfo_sc_load_info64 struct {
+	SharedCacheBaseAddress unsafe.Pointer
+	SharedCacheSlide       unsafe.Pointer
+	SharedCacheUUID        [16]byte
 }
 
 // Btinfo_thread_state_data_t
@@ -3832,8 +3929,12 @@ type Build_version_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/catch_exc_subsystem-t6n
 type Catch_exc_subsystem struct {
+	Server   unsafe.Pointer
 	Reserved Vm_address_t
 	Routine  unsafe.Pointer
+	End      int32
+	Start    int32
+	Maxsize  unsafe.Pointer
 }
 
 // Catch_mach_exc_subsystem
@@ -3841,6 +3942,7 @@ type Catch_exc_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/catch_mach_exc_subsystem-j9m
 type Catch_mach_exc_subsystem struct {
+	Maxsize  unsafe.Pointer
 	Server   unsafe.Pointer
 	Routine  unsafe.Pointer
 	Start    int32
@@ -3853,9 +3955,20 @@ type Catch_mach_exc_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/cdevsw
 type Cdevsw struct {
-	D_ioctl *Ioctl_fcn_t
-	D_open  *Open_close_fcn_t
-	D_read  *Read_write_fcn_t
+	D_reserved_2 *Rsvd_fcn_t
+	D_reset      *Reset_fcn_t
+	D_mmap       *Mmap_fcn_t
+	D_close      *Open_close_fcn_t
+	D_stop       *Stop_fcn_t
+	D_type       unsafe.Pointer
+	D_ioctl      *Ioctl_fcn_t
+	D_open       *Open_close_fcn_t
+	D_read       *Read_write_fcn_t
+	D_select     *Select_fcn_t
+	D_write      *Read_write_fcn_t
+	D_reserved_1 *Rsvd_fcn_t
+	D_ttys       unsafe.Pointer
+	D_strategy   *Strategy_fcn_t
 }
 
 // Chain_len_stats
@@ -3864,6 +3977,7 @@ type Cdevsw struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/chain_len_stats
 type Chain_len_stats struct {
 	Cls_five_or_more unsafe.Pointer
+	Cls_four         unsafe.Pointer
 }
 
 // Clock_reply_subsystem
@@ -3896,7 +4010,9 @@ type Clockinfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/cmsghdr
 type Cmsghdr struct {
-	Cmsg_len uint32
+	Cmsg_len   uint32
+	Cmsg_type  unsafe.Pointer
+	Cmsg_level unsafe.Pointer
 }
 
 // Coalition_notification_subsystem
@@ -3904,10 +4020,12 @@ type Cmsghdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/coalition_notification_subsystem-36b
 type Coalition_notification_subsystem struct {
+	Start    int32
 	Reserved Vm_address_t
 	Maxsize  unsafe.Pointer
 	End      int32
 	Server   unsafe.Pointer
+	Routine  unsafe.Pointer
 }
 
 // Codesigning_exit_reason_info
@@ -3915,23 +4033,7 @@ type Coalition_notification_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/codesigning_exit_reason_info
 type Codesigning_exit_reason_info struct {
-	Ceri_codesig_modtime_nsecs  unsafe.Pointer
-	Ceri_codesig_modtime_secs   unsafe.Pointer
-	Ceri_file_offset            unsafe.Pointer
-	Ceri_filename               unsafe.Pointer
-	Ceri_object_codesigned      unsafe.Pointer
-	Ceri_page_codesig_nx        unsafe.Pointer
-	Ceri_page_codesig_tainted   unsafe.Pointer
-	Ceri_page_codesig_validated unsafe.Pointer
-	Ceri_page_dirty             unsafe.Pointer
-	Ceri_page_modtime_nsecs     unsafe.Pointer
-	Ceri_page_modtime_secs      unsafe.Pointer
-	Ceri_page_shadow_depth      unsafe.Pointer
-	Ceri_page_slid              unsafe.Pointer
-	Ceri_page_wpmapped          unsafe.Pointer
-	Ceri_path_truncated         unsafe.Pointer
-	Ceri_pathname               unsafe.Pointer
-	Ceri_virt_addr              unsafe.Pointer
+	Ceri_codesig_modtime_nsecs unsafe.Pointer
 }
 
 // Componentname
@@ -3939,16 +4041,16 @@ type Codesigning_exit_reason_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/componentname
 type Componentname struct {
-	Cn_consume   unsafe.Pointer
+	Cn_pnbuf     unsafe.Pointer
 	Cn_flags     unsafe.Pointer
+	Cn_nameptr   unsafe.Pointer
+	Cn_pnlen     unsafe.Pointer
+	Cn_namelen   unsafe.Pointer
 	Cn_hash      unsafe.Pointer
 	Cn_nameiop   unsafe.Pointer
-	Cn_namelen   unsafe.Pointer
-	Cn_nameptr   unsafe.Pointer
-	Cn_pnbuf     unsafe.Pointer
-	Cn_pnlen     unsafe.Pointer
-	Cn_reserved1 unsafe.Pointer
+	Cn_consume   unsafe.Pointer
 	Cn_reserved2 unsafe.Pointer
+	Cn_reserved1 unsafe.Pointer
 }
 
 // Console_ops
@@ -3974,7 +4076,8 @@ type Crashinfo_jit_address_range struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/crashinfo_mb
 type Crashinfo_mb struct {
-	Data unsafe.Pointer
+	Data          unsafe.Pointer
+	Start_address unsafe.Pointer
 }
 
 // Crashinfo_proc_uniqidentifierinfo
@@ -3993,7 +4096,8 @@ type Crashinfo_proc_uniqidentifierinfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ctl_event_data
 type Ctl_event_data struct {
-	Ctl_id U_int32_t // The kernel control id.
+	Ctl_id   U_int32_t // The kernel control id.
+	Ctl_unit U_int32_t // The kernel control unit.
 
 }
 
@@ -4002,7 +4106,7 @@ type Ctl_event_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ctl_info
 type Ctl_info struct {
-	Ctl_id   unsafe.Pointer // The kernel control id, filled out upon return.
+	Ctl_id   U_int32_t      // The kernel control id, filled out upon return.
 	Ctl_name unsafe.Pointer // The kernel control name to find.
 
 }
@@ -4032,6 +4136,10 @@ type Data_in_code_entry struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dirent
 type Dirent struct {
 	D_reclen uint16
+	D_name   unsafe.Pointer
+	D_namlen uint8
+	D_type   uint8
+	D_ino    uint64
 }
 
 // Direntry
@@ -4039,12 +4147,12 @@ type Dirent struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/direntry
 type Direntry struct {
-	D_ino     unsafe.Pointer
+	D_ino     uint64
+	D_seekoff uint64
+	D_reclen  uint16
+	D_namlen  uint16
 	D_name    unsafe.Pointer
-	D_namlen  unsafe.Pointer
-	D_reclen  unsafe.Pointer
-	D_seekoff unsafe.Pointer
-	D_type    unsafe.Pointer
+	D_type    uint8
 }
 
 // Disk_blk0
@@ -4052,7 +4160,9 @@ type Direntry struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/disk_blk0
 type Disk_blk0 struct {
-	Bootcode unsafe.Pointer
+	Parts     Fdisk_part
+	Signature unsafe.Pointer
+	Bootcode  unsafe.Pointer
 }
 
 // Do_notify_subsystem
@@ -4086,7 +4196,10 @@ type Doubleagent_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_aot_cache_uuid_info
 type Dyld_aot_cache_uuid_info struct {
-	X86UUID [16]byte
+	AotSlidBaseAddress unsafe.Pointer
+	AotUUID            [16]byte
+	X86SlidBaseAddress unsafe.Pointer
+	X86UUID            [16]byte
 }
 
 // Dyld_chained_fixups_header
@@ -4094,7 +4207,6 @@ type Dyld_aot_cache_uuid_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_fixups_header
 type Dyld_chained_fixups_header struct {
-	Fixups_version unsafe.Pointer
 	Imports_count  unsafe.Pointer
 	Imports_format unsafe.Pointer
 	Imports_offset unsafe.Pointer
@@ -4169,8 +4281,9 @@ type Dyld_chained_ptr_32_firmware_rebase struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_32_rebase
 type Dyld_chained_ptr_32_rebase struct {
-	Bind unsafe.Pointer
-	Next unsafe.Pointer
+	Bind   unsafe.Pointer
+	Next   unsafe.Pointer
+	Target unsafe.Pointer
 }
 
 // Dyld_chained_ptr_64_bind
@@ -4190,7 +4303,13 @@ type Dyld_chained_ptr_64_bind struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_64_kernel_cache_rebase
 type Dyld_chained_ptr_64_kernel_cache_rebase struct {
-	Next unsafe.Pointer
+	AddrDiv    unsafe.Pointer
+	CacheLevel unsafe.Pointer
+	Diversity  unsafe.Pointer
+	IsAuth     unsafe.Pointer
+	Key        unsafe.Pointer
+	Next       unsafe.Pointer
+	Target     unsafe.Pointer
 }
 
 // Dyld_chained_ptr_64_rebase
@@ -4202,6 +4321,7 @@ type Dyld_chained_ptr_64_rebase struct {
 	High8    unsafe.Pointer
 	Next     unsafe.Pointer
 	Reserved unsafe.Pointer
+	Target   unsafe.Pointer
 }
 
 // Dyld_chained_ptr_arm64e_auth_bind
@@ -4209,6 +4329,7 @@ type Dyld_chained_ptr_64_rebase struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_arm64e_auth_bind
 type Dyld_chained_ptr_arm64e_auth_bind struct {
+	AddrDiv   unsafe.Pointer
 	Auth      unsafe.Pointer
 	Bind      unsafe.Pointer
 	Diversity unsafe.Pointer
@@ -4223,12 +4344,9 @@ type Dyld_chained_ptr_arm64e_auth_bind struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_arm64e_auth_bind24
 type Dyld_chained_ptr_arm64e_auth_bind24 struct {
+	AddrDiv   unsafe.Pointer
 	Auth      unsafe.Pointer
-	Bind      unsafe.Pointer
 	Diversity unsafe.Pointer
-	Key       unsafe.Pointer
-	Next      unsafe.Pointer
-	Ordinal   unsafe.Pointer
 	Zero      unsafe.Pointer
 }
 
@@ -4237,12 +4355,7 @@ type Dyld_chained_ptr_arm64e_auth_bind24 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_arm64e_auth_rebase
 type Dyld_chained_ptr_arm64e_auth_rebase struct {
-	Auth      unsafe.Pointer
-	Bind      unsafe.Pointer
-	Diversity unsafe.Pointer
-	Key       unsafe.Pointer
-	Next      unsafe.Pointer
-	Target    unsafe.Pointer
+	Key unsafe.Pointer
 }
 
 // Dyld_chained_ptr_arm64e_bind
@@ -4250,9 +4363,11 @@ type Dyld_chained_ptr_arm64e_auth_rebase struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_arm64e_bind
 type Dyld_chained_ptr_arm64e_bind struct {
-	Addend unsafe.Pointer
-	Auth   unsafe.Pointer
-	Bind   unsafe.Pointer
+	Addend  unsafe.Pointer
+	Auth    unsafe.Pointer
+	Bind    unsafe.Pointer
+	Ordinal unsafe.Pointer
+	Zero    unsafe.Pointer
 }
 
 // Dyld_chained_ptr_arm64e_bind24
@@ -4260,8 +4375,12 @@ type Dyld_chained_ptr_arm64e_bind struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_arm64e_bind24
 type Dyld_chained_ptr_arm64e_bind24 struct {
-	Addend unsafe.Pointer
-	Auth   unsafe.Pointer
+	Addend  unsafe.Pointer
+	Auth    unsafe.Pointer
+	Bind    unsafe.Pointer
+	Next    unsafe.Pointer
+	Ordinal unsafe.Pointer
+	Zero    unsafe.Pointer
 }
 
 // Dyld_chained_ptr_arm64e_rebase
@@ -4269,7 +4388,9 @@ type Dyld_chained_ptr_arm64e_bind24 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_arm64e_rebase
 type Dyld_chained_ptr_arm64e_rebase struct {
-	Bind unsafe.Pointer
+	Auth   unsafe.Pointer
+	Bind   unsafe.Pointer
+	Target unsafe.Pointer
 }
 
 // Dyld_chained_ptr_arm64e_shared_cache_auth_rebase
@@ -4281,6 +4402,7 @@ type Dyld_chained_ptr_arm64e_shared_cache_auth_rebase struct {
 	Auth          unsafe.Pointer
 	Diversity     unsafe.Pointer
 	KeyIsData     unsafe.Pointer
+	Next          unsafe.Pointer
 	RuntimeOffset unsafe.Pointer
 }
 
@@ -4289,10 +4411,8 @@ type Dyld_chained_ptr_arm64e_shared_cache_auth_rebase struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_chained_ptr_arm64e_shared_cache_rebase
 type Dyld_chained_ptr_arm64e_shared_cache_rebase struct {
-	Auth   unsafe.Pointer
-	High8  unsafe.Pointer
-	Next   unsafe.Pointer
-	Unused unsafe.Pointer
+	Next          unsafe.Pointer
+	RuntimeOffset unsafe.Pointer
 }
 
 // Dyld_chained_starts_in_image
@@ -4315,6 +4435,7 @@ type Dyld_chained_starts_in_segment struct {
 	Page_start        uint16
 	Pointer_format    uint16
 	Segment_offset    unsafe.Pointer
+	Size              unsafe.Pointer
 }
 
 // Dyld_chained_starts_offsets
@@ -4351,6 +4472,10 @@ type Dyld_info_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_shared_cache_loadinfo
 type Dyld_shared_cache_loadinfo struct {
+	SharedCacheSlidFirstMapping          unsafe.Pointer
+	SharedCacheSlide                     unsafe.Pointer
+	SharedCacheUUID                      [16]byte
+	SharedCacheUnreliableSlidBaseAddress unsafe.Pointer
 }
 
 // Dyld_shared_cache_loadinfo_v2
@@ -4358,7 +4483,12 @@ type Dyld_shared_cache_loadinfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/dyld_shared_cache_loadinfo_v2
 type Dyld_shared_cache_loadinfo_v2 struct {
-	SharedCacheFlags unsafe.Pointer
+	SharedCacheFlags                     unsafe.Pointer
+	SharedCacheID                        unsafe.Pointer
+	SharedCacheSlidFirstMapping          unsafe.Pointer
+	SharedCacheSlide                     unsafe.Pointer
+	SharedCacheUUID                      [16]byte
+	SharedCacheUnreliableSlidBaseAddress unsafe.Pointer
 }
 
 // Dyld_uuid_info_32
@@ -4508,6 +4638,8 @@ type Dysymtab_command struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ecc_event
 type Ecc_event struct {
 	Count uint8
+	Id    uint8
+	Data  unsafe.Pointer
 }
 
 // Efi_aurr_extended_panic_log
@@ -4525,6 +4657,7 @@ type Efi_aurr_extended_panic_log struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/efi_aurr_panic_header
 type Efi_aurr_panic_header struct {
+	Efi_aurr_crc         unsafe.Pointer
 	Efi_aurr_reset_cause unsafe.Pointer
 }
 
@@ -4556,10 +4689,10 @@ type Embedded_panic_header struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/encryption_info_command
 type Encryption_info_command struct {
 	Cmd       unsafe.Pointer
-	Cmdsize   unsafe.Pointer
-	Cryptid   unsafe.Pointer
-	Cryptoff  unsafe.Pointer
 	Cryptsize unsafe.Pointer
+	Cmdsize   unsafe.Pointer
+	Cryptoff  unsafe.Pointer
+	Cryptid   unsafe.Pointer
 }
 
 // Encryption_info_command_64
@@ -4567,8 +4700,12 @@ type Encryption_info_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/encryption_info_command_64
 type Encryption_info_command_64 struct {
-	Cmdsize unsafe.Pointer
-	Cmd     unsafe.Pointer
+	Cryptsize unsafe.Pointer
+	Pad       unsafe.Pointer
+	Cmdsize   unsafe.Pointer
+	Cryptoff  unsafe.Pointer
+	Cryptid   unsafe.Pointer
+	Cmd       unsafe.Pointer
 }
 
 // Entry_point_command
@@ -4576,10 +4713,10 @@ type Encryption_info_command_64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/entry_point_command
 type Entry_point_command struct {
+	Stacksize unsafe.Pointer
 	Cmd       unsafe.Pointer
 	Cmdsize   unsafe.Pointer
 	Entryoff  unsafe.Pointer
-	Stacksize unsafe.Pointer
 }
 
 // Esp
@@ -4587,7 +4724,7 @@ type Entry_point_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/esp
 type Esp struct {
-	Esp_spi unsafe.Pointer
+	Esp_spi U_int32_t
 }
 
 // Esptail
@@ -4595,8 +4732,8 @@ type Esp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/esptail
 type Esptail struct {
-	Esp_nxt    unsafe.Pointer
-	Esp_padlen unsafe.Pointer
+	Esp_padlen U_int8_t
+	Esp_nxt    U_int8_t
 }
 
 // Ether_arp
@@ -4604,11 +4741,8 @@ type Esptail struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ether_arp
 type Ether_arp struct {
-	Arp_sha unsafe.Pointer
-	Arp_spa unsafe.Pointer
-	Arp_tha unsafe.Pointer
-	Arp_tpa unsafe.Pointer
-	Ea_hdr  unsafe.Pointer
+	Arp_spa U_char
+	Arp_sha U_char
 }
 
 // Ether_vlan_header
@@ -4616,7 +4750,11 @@ type Ether_arp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ether_vlan_header
 type Ether_vlan_header struct {
-	Evl_proto U_int16_t
+	Evl_dhost       U_char
+	Evl_encap_proto U_int16_t
+	Evl_proto       U_int16_t
+	Evl_shost       U_char
+	Evl_tag         U_int16_t
 }
 
 // Exclave_addressspace_info
@@ -4624,8 +4762,11 @@ type Ether_vlan_header struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/exclave_addressspace_info
 type Exclave_addressspace_info struct {
-	Eas_flags  unsafe.Pointer
-	Eas_asroot unsafe.Pointer
+	Eas_flags    unsafe.Pointer
+	Eas_id       unsafe.Pointer
+	Eas_layoutid unsafe.Pointer
+	Eas_slide    unsafe.Pointer
+	Eas_asroot   unsafe.Pointer
 }
 
 // Exclave_ipcstackentry_info
@@ -4645,6 +4786,7 @@ type Exclave_ipcstackentry_info struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/exclave_scresult_info
 type Exclave_scresult_info struct {
 	Esc_flags unsafe.Pointer
+	Esc_id    unsafe.Pointer
 }
 
 // Exclave_textlayout_info
@@ -4677,6 +4819,9 @@ type Exclave_textlayout_segment struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/exclave_textlayout_segment_v2
 type Exclave_textlayout_segment_v2 struct {
+	LayoutSegment_loadAddress    unsafe.Pointer
+	LayoutSegment_rawLoadAddress unsafe.Pointer
+	LayoutSegment_uuid           [16]byte
 }
 
 // Exit_reason_snapshot
@@ -4684,7 +4829,9 @@ type Exclave_textlayout_segment_v2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/exit_reason_snapshot
 type Exit_reason_snapshot struct {
-	Ers_flags unsafe.Pointer
+	Ers_namespace unsafe.Pointer
+	Ers_flags     unsafe.Pointer
+	Ers_code      unsafe.Pointer
 }
 
 // Experiment_spec
@@ -4692,7 +4839,11 @@ type Exit_reason_snapshot struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/experiment_spec
 type Experiment_spec struct {
-	Max_value unsafe.Pointer
+	Max_value      unsafe.Pointer
+	Min_value      unsafe.Pointer
+	Modified       unsafe.Pointer
+	Original_value unsafe.Pointer
+	Ptr            unsafe.Pointer
 }
 
 // Fairplay_subsystem
@@ -4713,9 +4864,9 @@ type Fairplay_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/fat_arch
 type Fat_arch struct {
-	Align      unsafe.Pointer // The power of 2 alignment for the offset of the object file for the architecture specified in
-	Cpusubtype unsafe.Pointer // An enumeration value of type
-	Cputype    unsafe.Pointer
+	Cpusubtype int32          // An enumeration value of type `cpu_subtype_t`. Specifies the specific member of the CPU family on which this entry may be used or a constant specifying all members.
+	Align      unsafe.Pointer // The power of 2 alignment for the offset of the object file for the architecture specified in `cputype` within the binary. This is required to ensure that, if this binary is changed, the contents it retains are correctly aligned for virtual memory paging and other uses.
+	Cputype    int32
 	Offset     unsafe.Pointer // Offset to the beginning of the data for this CPU.
 	Size       unsafe.Pointer // Size of the data for this CPU.
 
@@ -4736,16 +4887,16 @@ type Fat_header struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/fdisk_part
 type Fdisk_part struct {
-	Begcyl  unsafe.Pointer
+	Endcyl  unsafe.Pointer
+	Numsect unsafe.Pointer
+	Systid  unsafe.Pointer
 	Beghead unsafe.Pointer
 	Begsect unsafe.Pointer
-	Bootid  unsafe.Pointer
-	Endcyl  unsafe.Pointer
 	Endhead unsafe.Pointer
+	Bootid  unsafe.Pointer
 	Endsect unsafe.Pointer
-	Numsect unsafe.Pointer
 	Relsect unsafe.Pointer
-	Systid  unsafe.Pointer
+	Begcyl  unsafe.Pointer
 }
 
 // Fileset_entry_command
@@ -4766,10 +4917,11 @@ type Fileset_entry_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/flock
 type Flock struct {
-	L_len   int64
-	L_start int64
-	L_pid   int32
-	L_type  unsafe.Pointer
+	L_start  int64
+	L_len    int64
+	L_pid    int32
+	L_type   int16
+	L_whence int16
 }
 
 // Flocktimeout
@@ -4777,8 +4929,8 @@ type Flock struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/flocktimeout
 type Flocktimeout struct {
-	Timeout Timespec
 	Fl      Flock
+	Timeout Timespec
 }
 
 // Frmrinfo
@@ -4786,7 +4938,11 @@ type Flocktimeout struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/frmrinfo
 type Frmrinfo struct {
-	Frmr_cause U_int8_t
+	Frmr_cause       U_int8_t
+	Frmr_control     U_int8_t
+	Frmr_rej_pdu1    U_int8_t
+	Frmr_rej_pdu0    U_int8_t
+	Frmr_control_ext U_int8_t
 }
 
 // Fs_snapshot_mount_args
@@ -4811,7 +4967,7 @@ type Fs_snapshot_revert_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/fs_snapshot_root_args
 type Fs_snapshot_root_args struct {
-	Sr_cnp unsafe.Pointer
+	Sr_cnp *Componentname
 }
 
 // Fssearchblock
@@ -4819,10 +4975,16 @@ type Fs_snapshot_root_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/fssearchblock
 type Fssearchblock struct {
-	Returnattrs      *Attrlist
-	Returnbuffer     unsafe.Pointer
-	Returnbuffersize uintptr
-	Maxmatches       U_long
+	Searchparams2       unsafe.Pointer
+	Returnattrs         *Attrlist
+	Returnbuffer        unsafe.Pointer
+	Searchparams1       unsafe.Pointer
+	Sizeofsearchparams1 uintptr
+	Timelimit           Timeval
+	Searchattrs         Attrlist
+	Sizeofsearchparams2 uintptr
+	Returnbuffersize    uintptr
+	Maxmatches          U_long
 }
 
 // Fvmfile_command
@@ -4838,9 +5000,8 @@ type Fvmfile_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/fvmlib
 type Fvmlib struct {
-	Header_addr   unsafe.Pointer
-	Minor_version unsafe.Pointer
-	Name          unsafe.Pointer
+	Header_addr unsafe.Pointer
+	Name        unsafe.Pointer
 }
 
 // Fvmlib_command
@@ -4848,9 +5009,7 @@ type Fvmlib struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/fvmlib_command
 type Fvmlib_command struct {
-	Cmd     unsafe.Pointer
-	Cmdsize unsafe.Pointer
-	Fvmlib  unsafe.Pointer
+	Cmd unsafe.Pointer
 }
 
 // Gpt_ent
@@ -4858,12 +5017,12 @@ type Fvmlib_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/gpt_ent
 type Gpt_ent struct {
-	Ent_attr      unsafe.Pointer
 	Ent_lba_end   unsafe.Pointer
+	Ent_uuid      [16]byte
+	Ent_type      [16]byte
 	Ent_lba_start unsafe.Pointer
-	Ent_name      unsafe.Pointer
-	Ent_type      unsafe.Pointer
-	Ent_uuid      unsafe.Pointer
+	Ent_name      uint16
+	Ent_attr      unsafe.Pointer
 }
 
 // Gpt_hdr
@@ -4871,9 +5030,20 @@ type Gpt_ent struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/gpt_hdr
 type Gpt_hdr struct {
+	Padding       unsafe.Pointer
 	Hdr_entries   unsafe.Pointer
 	Hdr_crc_table unsafe.Pointer
 	Hdr_crc_self  unsafe.Pointer
+	Hdr_size      unsafe.Pointer
+	Hdr_lba_table unsafe.Pointer
+	Hdr_lba_self  unsafe.Pointer
+	Hdr_lba_alt   unsafe.Pointer
+	Hdr_uuid      [16]byte
+	Hdr_lba_start unsafe.Pointer
+	Hdr_entsz     unsafe.Pointer
+	Hdr_sig       uint8
+	Hdr_lba_end   unsafe.Pointer
+	Hdr_revision  unsafe.Pointer
 }
 
 // Group_req
@@ -4881,8 +5051,8 @@ type Gpt_hdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/group_req
 type Group_req struct {
-	Gr_group     unsafe.Pointer
 	Gr_interface unsafe.Pointer
+	Gr_group     unsafe.Pointer
 }
 
 // Group_source_req
@@ -4900,10 +5070,15 @@ type Group_source_req struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/hfs_mount_args
 type Hfs_mount_args struct {
+	Hfs_mask             uint16
+	Hfs_gid              uint32
+	Flags                unsafe.Pointer
 	Journal_tbuffer_size unsafe.Pointer
+	Hfs_encoding         U_int32_t
 	Journal_disable      unsafe.Pointer
 	Journal_flags        unsafe.Pointer
 	Hfs_uid              uint32
+	Hfs_timezone         Timezone
 }
 
 // Icmp
@@ -4923,7 +5098,7 @@ type Icmp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/icmp6_filter
 type Icmp6_filter struct {
-	Icmp6_filt unsafe.Pointer
+	Icmp6_filt U_int32_t
 }
 
 // Icmp6_hdr
@@ -4931,7 +5106,10 @@ type Icmp6_filter struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/icmp6_hdr
 type Icmp6_hdr struct {
-	Icmp6_code U_int8_t
+	Icmp6_cksum  U_int16_t
+	Icmp6_code   U_int8_t
+	Icmp6_dataun unsafe.Pointer
+	Icmp6_type   U_int8_t
 }
 
 // Icmp6_ifstat
@@ -4939,7 +5117,9 @@ type Icmp6_hdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/icmp6_ifstat
 type Icmp6_ifstat struct {
-	Ifs6_in_msg U_quad_t
+	Ifs6_in_adminprohib U_quad_t
+	Ifs6_in_dstunreach  U_quad_t
+	Ifs6_in_msg         U_quad_t
 }
 
 // Icmp6_namelookup
@@ -4947,7 +5127,9 @@ type Icmp6_ifstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/icmp6_namelookup
 type Icmp6_namelookup struct {
-	Icmp6_nl_hdr Icmp6_hdr
+	Icmp6_nl_hdr   Icmp6_hdr
+	Icmp6_nl_nonce U_int8_t
+	Icmp6_nl_ttl   unsafe.Pointer
 }
 
 // Icmp6_nodeinfo
@@ -4955,8 +5137,8 @@ type Icmp6_namelookup struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/icmp6_nodeinfo
 type Icmp6_nodeinfo struct {
-	Icmp6_ni_hdr   unsafe.Pointer
-	Icmp6_ni_nonce unsafe.Pointer
+	Icmp6_ni_hdr   Icmp6_hdr
+	Icmp6_ni_nonce U_int8_t
 }
 
 // Icmp6_router_renum
@@ -4964,6 +5146,7 @@ type Icmp6_nodeinfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/icmp6_router_renum
 type Icmp6_router_renum struct {
+	Rr_flags    U_int8_t
 	Rr_hdr      Icmp6_hdr
 	Rr_maxdelay U_int16_t
 	Rr_reserved U_int32_t
@@ -4975,19 +5158,19 @@ type Icmp6_router_renum struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/icmp6errstat
 type Icmp6errstat struct {
-	Icp6errs_dst_unreach_addr        unsafe.Pointer
-	Icp6errs_dst_unreach_admin       unsafe.Pointer
-	Icp6errs_dst_unreach_beyondscope unsafe.Pointer
-	Icp6errs_dst_unreach_noport      unsafe.Pointer
-	Icp6errs_dst_unreach_noroute     unsafe.Pointer
-	Icp6errs_packet_too_big          unsafe.Pointer
-	Icp6errs_paramprob_header        unsafe.Pointer
-	Icp6errs_paramprob_nextheader    unsafe.Pointer
-	Icp6errs_paramprob_option        unsafe.Pointer
-	Icp6errs_redirect                unsafe.Pointer
-	Icp6errs_time_exceed_reassembly  unsafe.Pointer
-	Icp6errs_time_exceed_transit     unsafe.Pointer
-	Icp6errs_unknown                 unsafe.Pointer
+	Icp6errs_dst_unreach_addr        U_quad_t
+	Icp6errs_dst_unreach_admin       U_quad_t
+	Icp6errs_dst_unreach_beyondscope U_quad_t
+	Icp6errs_dst_unreach_noport      U_quad_t
+	Icp6errs_dst_unreach_noroute     U_quad_t
+	Icp6errs_packet_too_big          U_quad_t
+	Icp6errs_paramprob_header        U_quad_t
+	Icp6errs_paramprob_nextheader    U_quad_t
+	Icp6errs_paramprob_option        U_quad_t
+	Icp6errs_redirect                U_quad_t
+	Icp6errs_time_exceed_reassembly  U_quad_t
+	Icp6errs_time_exceed_transit     U_quad_t
+	Icp6errs_unknown                 U_quad_t
 }
 
 // Icmp6stat
@@ -4995,7 +5178,27 @@ type Icmp6errstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/icmp6stat
 type Icmp6stat struct {
-	Icp6s_badra U_quad_t
+	Icp6s_badcode       U_quad_t
+	Icp6s_badlen        U_quad_t
+	Icp6s_badna         U_quad_t
+	Icp6s_badns         U_quad_t
+	Icp6s_badpkttoobig  U_quad_t
+	Icp6s_badra         U_quad_t
+	Icp6s_badredirect   U_quad_t
+	Icp6s_badrs         U_quad_t
+	Icp6s_canterror     U_quad_t
+	Icp6s_checksum      U_quad_t
+	Icp6s_error         U_quad_t
+	Icp6s_inhist        U_quad_t
+	Icp6s_nd_badopt     U_quad_t
+	Icp6s_nd_toomanyopt U_quad_t
+	Icp6s_outerrhist    Icmp6errstat
+	Icp6s_outhist       U_quad_t
+	Icp6s_pmtuchg       U_quad_t
+	Icp6s_reflect       U_quad_t
+	Icp6s_rfc6980_drop  U_quad_t
+	Icp6s_toofreq       U_quad_t
+	Icp6s_tooshort      U_quad_t
 }
 
 // Icmp_ra_addr
@@ -5021,6 +5224,9 @@ type Icmpstat struct {
 	Icps_inhist       U_int32_t
 	Icps_oldicmp      U_int32_t
 	Icps_oldshort     U_int32_t
+	Icps_outhist      U_int32_t
+	Icps_reflect      U_int32_t
+	Icps_tooshort     U_int32_t
 }
 
 // Ident_command
@@ -5028,8 +5234,8 @@ type Icmpstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ident_command
 type Ident_command struct {
-	Cmd     unsafe.Pointer
 	Cmdsize unsafe.Pointer
+	Cmd     unsafe.Pointer
 }
 
 // If_agentidreq
@@ -5038,6 +5244,7 @@ type Ident_command struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_agentidreq
 type If_agentidreq struct {
 	Ifar_name unsafe.Pointer
+	Ifar_uuid [16]byte
 }
 
 // If_agentidsreq
@@ -5072,7 +5279,29 @@ type If_cellular_status struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_cellular_status_v1
 type If_cellular_status_v1 struct {
-	Valid_bitmask U_int32_t
+	Config_backoff_time    U_int32_t
+	Config_inactivity_time U_int32_t
+	Dl_effective_bandwidth U_int32_t
+	Dl_max_bandwidth       U_int32_t
+	Link_quality_metric    U_int32_t
+	Mss_recommended        U_int16_t
+	Reserved_1             U_int16_t
+	Reserved_2             U_int32_t
+	Reserved_3             U_int64_t
+	Reserved_4             U_int64_t
+	Reserved_5             U_int64_t
+	Reserved_6             U_int64_t
+	Ul_avg_queue_size      U_int32_t
+	Ul_bytes_lost          U_int32_t
+	Ul_effective_bandwidth U_int32_t
+	Ul_effective_latency   U_int32_t
+	Ul_max_bandwidth       U_int32_t
+	Ul_max_latency         U_int32_t
+	Ul_max_queue_size      U_int32_t
+	Ul_min_latency         U_int32_t
+	Ul_min_queue_size      U_int32_t
+	Ul_retxt_level         U_int32_t
+	Valid_bitmask          U_int32_t
 }
 
 // If_clat46req
@@ -5081,6 +5310,7 @@ type If_cellular_status_v1 struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_clat46req
 type If_clat46req struct {
 	Ifclat46_addr If_ipv6_address
+	Ifclat46_name unsafe.Pointer
 }
 
 // If_clonereq
@@ -5088,6 +5318,8 @@ type If_clat46req struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_clonereq
 type If_clonereq struct {
+	Ifcr_count  unsafe.Pointer
+	Ifcr_total  unsafe.Pointer
 	Ifcr_buffer unsafe.Pointer
 }
 
@@ -5096,35 +5328,35 @@ type If_clonereq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_data
 type If_data struct {
-	Ifi_addrlen    unsafe.Pointer
-	Ifi_baudrate   unsafe.Pointer
-	Ifi_collisions unsafe.Pointer
-	Ifi_hdrlen     unsafe.Pointer
-	Ifi_hwassist   unsafe.Pointer
-	Ifi_ibytes     unsafe.Pointer
-	Ifi_ierrors    unsafe.Pointer
-	Ifi_imcasts    unsafe.Pointer
-	Ifi_ipackets   unsafe.Pointer
-	Ifi_iqdrops    unsafe.Pointer
-	Ifi_lastchange unsafe.Pointer
-	Ifi_metric     unsafe.Pointer
-	Ifi_mtu        unsafe.Pointer
-	Ifi_noproto    unsafe.Pointer
-	Ifi_obytes     unsafe.Pointer
-	Ifi_oerrors    unsafe.Pointer
-	Ifi_omcasts    unsafe.Pointer
-	Ifi_opackets   unsafe.Pointer
-	Ifi_physical   unsafe.Pointer
-	Ifi_recvquota  unsafe.Pointer
-	Ifi_recvtiming unsafe.Pointer
-	Ifi_reserved1  unsafe.Pointer
-	Ifi_reserved2  unsafe.Pointer
-	Ifi_type       unsafe.Pointer
-	Ifi_typelen    unsafe.Pointer
-	Ifi_unused1    unsafe.Pointer
-	Ifi_unused2    unsafe.Pointer
-	Ifi_xmitquota  unsafe.Pointer
-	Ifi_xmittiming unsafe.Pointer
+	Ifi_unused1    U_char
+	Ifi_noproto    U_int32_t
+	Ifi_xmitquota  U_char
+	Ifi_obytes     U_int32_t
+	Ifi_imcasts    U_int32_t
+	Ifi_physical   U_char
+	Ifi_metric     U_int32_t
+	Ifi_iqdrops    U_int32_t
+	Ifi_reserved2  U_int32_t
+	Ifi_ipackets   U_int32_t
+	Ifi_mtu        U_int32_t
+	Ifi_reserved1  U_int32_t
+	Ifi_recvquota  U_char
+	Ifi_typelen    U_char
+	Ifi_hdrlen     U_char
+	Ifi_recvtiming U_int32_t
+	Ifi_addrlen    U_char
+	Ifi_omcasts    U_int32_t
+	Ifi_hwassist   U_int32_t
+	Ifi_ierrors    U_int32_t
+	Ifi_collisions U_int32_t
+	Ifi_xmittiming U_int32_t
+	Ifi_lastchange Timeval32
+	Ifi_oerrors    U_int32_t
+	Ifi_ibytes     U_int32_t
+	Ifi_opackets   U_int32_t
+	Ifi_baudrate   U_int32_t
+	Ifi_unused2    U_int32_t
+	Ifi_type       U_char
 }
 
 // If_data64
@@ -5132,31 +5364,31 @@ type If_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_data64
 type If_data64 struct {
-	Ifi_addrlen    unsafe.Pointer
-	Ifi_baudrate   unsafe.Pointer
-	Ifi_collisions unsafe.Pointer
-	Ifi_hdrlen     unsafe.Pointer
-	Ifi_ibytes     unsafe.Pointer
-	Ifi_ierrors    unsafe.Pointer
-	Ifi_imcasts    unsafe.Pointer
-	Ifi_ipackets   unsafe.Pointer
-	Ifi_iqdrops    unsafe.Pointer
-	Ifi_lastchange unsafe.Pointer
-	Ifi_metric     unsafe.Pointer
-	Ifi_mtu        unsafe.Pointer
-	Ifi_noproto    unsafe.Pointer
-	Ifi_obytes     unsafe.Pointer
-	Ifi_oerrors    unsafe.Pointer
-	Ifi_omcasts    unsafe.Pointer
-	Ifi_opackets   unsafe.Pointer
-	Ifi_physical   unsafe.Pointer
-	Ifi_recvquota  unsafe.Pointer
-	Ifi_recvtiming unsafe.Pointer
-	Ifi_type       unsafe.Pointer
-	Ifi_typelen    unsafe.Pointer
-	Ifi_unused1    unsafe.Pointer
-	Ifi_xmitquota  unsafe.Pointer
-	Ifi_xmittiming unsafe.Pointer
+	Ifi_noproto    U_int64_t
+	Ifi_addrlen    U_char
+	Ifi_baudrate   U_int64_t
+	Ifi_type       U_char
+	Ifi_ibytes     U_int64_t
+	Ifi_unused1    U_char
+	Ifi_typelen    U_char
+	Ifi_recvtiming U_int32_t
+	Ifi_mtu        U_int32_t
+	Ifi_opackets   U_int64_t
+	Ifi_iqdrops    U_int64_t
+	Ifi_imcasts    U_int64_t
+	Ifi_ierrors    U_int64_t
+	Ifi_oerrors    U_int64_t
+	Ifi_hdrlen     U_char
+	Ifi_xmitquota  U_char
+	Ifi_lastchange Timeval32
+	Ifi_obytes     U_int64_t
+	Ifi_physical   U_char
+	Ifi_metric     U_int32_t
+	Ifi_recvquota  U_char
+	Ifi_omcasts    U_int64_t
+	Ifi_xmittiming U_int32_t
+	Ifi_ipackets   U_int64_t
+	Ifi_collisions U_int64_t
 }
 
 // If_data_extended
@@ -5165,6 +5397,10 @@ type If_data64 struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_data_extended
 type If_data_extended struct {
 	Ifi_alignerrs U_int64_t
+	Ifi_dt_bytes  U_int64_t
+	Ifi_fbytes    U_int64_t
+	Ifi_fpackets  U_int64_t
+	Reserved      U_int64_t
 }
 
 // If_descreq
@@ -5172,8 +5408,8 @@ type If_data_extended struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_descreq
 type If_descreq struct {
-	Ifdr_desc unsafe.Pointer
-	Ifdr_len  unsafe.Pointer
+	Ifdr_desc U_int8_t
+	Ifdr_len  U_int32_t
 	Ifdr_name unsafe.Pointer
 }
 
@@ -5182,9 +5418,9 @@ type If_descreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_description
 type If_description struct {
-	Ifd_desc   unsafe.Pointer
-	Ifd_len    unsafe.Pointer
-	Ifd_maxlen unsafe.Pointer
+	Ifd_desc   *U_int8_t
+	Ifd_len    U_int32_t
+	Ifd_maxlen U_int32_t
 }
 
 // If_interface_state
@@ -5193,6 +5429,9 @@ type If_description struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_interface_state
 type If_interface_state struct {
 	Interface_availability U_int8_t
+	Lqm_state              int8
+	Rrc_state              U_int8_t
+	Valid_bitmask          U_int8_t
 }
 
 // If_ipv6_address
@@ -5218,23 +5457,23 @@ type If_latencies struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_lim_perf_stat
 type If_lim_perf_stat struct {
-	Lim_bk_txpkts            unsafe.Pointer
-	Lim_conn_attempts        unsafe.Pointer
-	Lim_conn_timeout_percent unsafe.Pointer
-	Lim_conn_timeouts        unsafe.Pointer
-	Lim_dl_detected          unsafe.Pointer
-	Lim_dl_max_bandwidth     unsafe.Pointer
-	Lim_packet_loss_percent  unsafe.Pointer
-	Lim_packet_ooo_percent   unsafe.Pointer
-	Lim_rtt_average          unsafe.Pointer
-	Lim_rtt_min              unsafe.Pointer
-	Lim_rtt_variance         unsafe.Pointer
-	Lim_total_oopkts         unsafe.Pointer
-	Lim_total_retxpkts       unsafe.Pointer
-	Lim_total_rxpkts         unsafe.Pointer
-	Lim_total_txpkts         unsafe.Pointer
-	Lim_ul_detected          unsafe.Pointer
-	Lim_ul_max_bandwidth     unsafe.Pointer
+	Lim_bk_txpkts            U_int64_t
+	Lim_conn_attempts        U_int64_t
+	Lim_conn_timeout_percent U_int64_t
+	Lim_conn_timeouts        U_int64_t
+	Lim_dl_detected          U_int64_t
+	Lim_dl_max_bandwidth     U_int64_t
+	Lim_packet_loss_percent  U_int64_t
+	Lim_packet_ooo_percent   U_int64_t
+	Lim_rtt_average          U_int64_t
+	Lim_rtt_min              U_int64_t
+	Lim_rtt_variance         U_int64_t
+	Lim_total_oopkts         U_int64_t
+	Lim_total_retxpkts       U_int64_t
+	Lim_total_rxpkts         U_int64_t
+	Lim_total_txpkts         U_int64_t
+	Lim_ul_detected          U_int64_t
+	Lim_ul_max_bandwidth     U_int64_t
 }
 
 // If_link_status
@@ -5242,9 +5481,8 @@ type If_lim_perf_stat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_link_status
 type If_link_status struct {
-	Ifsr_len     unsafe.Pointer
-	Ifsr_u       unsafe.Pointer
-	Ifsr_version unsafe.Pointer
+	Ifsr_len U_int32_t
+	Ifsr_u   unsafe.Pointer
 }
 
 // If_linkheuristics
@@ -5252,24 +5490,24 @@ type If_link_status struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_linkheuristics
 type If_linkheuristics struct {
-	Iflh_congested_link_cnt       unsafe.Pointer
-	Iflh_congested_link_time      unsafe.Pointer
-	Iflh_link_heuristics_cnt      unsafe.Pointer
-	Iflh_link_heuristics_time     unsafe.Pointer
-	Iflh_lqm_bad_cnt              unsafe.Pointer
-	Iflh_lqm_bad_time             unsafe.Pointer
-	Iflh_lqm_good_cnt             unsafe.Pointer
-	Iflh_lqm_good_time            unsafe.Pointer
-	Iflh_lqm_min_viable_cnt       unsafe.Pointer
-	Iflh_lqm_min_viable_time      unsafe.Pointer
-	Iflh_lqm_poor_cnt             unsafe.Pointer
-	Iflh_lqm_poor_time            unsafe.Pointer
-	Iflh_tcp_linkheur_comprxmt    unsafe.Pointer
-	Iflh_tcp_linkheur_noackpri    unsafe.Pointer
-	Iflh_tcp_linkheur_rxmtfloor   unsafe.Pointer
-	Iflh_tcp_linkheur_stealthdrop unsafe.Pointer
-	Iflh_tcp_linkheur_synrxmt     unsafe.Pointer
-	Iflh_udp_linkheur_stealthdrop unsafe.Pointer
+	Iflh_congested_link_cnt       U_int64_t
+	Iflh_congested_link_time      U_int64_t
+	Iflh_link_heuristics_cnt      U_int64_t
+	Iflh_link_heuristics_time     U_int64_t
+	Iflh_lqm_bad_cnt              U_int64_t
+	Iflh_lqm_bad_time             U_int64_t
+	Iflh_lqm_good_cnt             U_int64_t
+	Iflh_lqm_good_time            U_int64_t
+	Iflh_lqm_min_viable_cnt       U_int64_t
+	Iflh_lqm_min_viable_time      U_int64_t
+	Iflh_lqm_poor_cnt             U_int64_t
+	Iflh_lqm_poor_time            U_int64_t
+	Iflh_tcp_linkheur_comprxmt    U_int64_t
+	Iflh_tcp_linkheur_noackpri    U_int64_t
+	Iflh_tcp_linkheur_rxmtfloor   U_int64_t
+	Iflh_tcp_linkheur_stealthdrop U_int64_t
+	Iflh_tcp_linkheur_synrxmt     U_int64_t
+	Iflh_udp_linkheur_stealthdrop U_int64_t
 }
 
 // If_linkparamsreq
@@ -5277,8 +5515,13 @@ type If_linkheuristics struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_linkparamsreq
 type If_linkparamsreq struct {
-	Iflpr_output_lt    If_latencies
-	Iflpr_output_sched U_int32_t
+	Iflpr_flags          U_int32_t
+	Iflpr_input_bw       If_bandwidths
+	Iflpr_input_lt       If_latencies
+	Iflpr_input_netem    If_netem_params
+	Iflpr_input_tbr_rate U_int64_t
+	Iflpr_output_lt      If_latencies
+	Iflpr_output_sched   U_int32_t
 }
 
 // If_msghdr
@@ -5286,8 +5529,12 @@ type If_linkparamsreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_msghdr
 type If_msghdr struct {
-	Ifm_flags unsafe.Pointer
-	Ifm_type  unsafe.Pointer
+	Ifm_msglen unsafe.Pointer
+	Ifm_data   If_data
+	Ifm_index  unsafe.Pointer
+	Ifm_addrs  unsafe.Pointer
+	Ifm_flags  unsafe.Pointer
+	Ifm_type   unsafe.Pointer
 }
 
 // If_msghdr2
@@ -5295,17 +5542,12 @@ type If_msghdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_msghdr2
 type If_msghdr2 struct {
-	Ifm_addrs      unsafe.Pointer
-	Ifm_data       unsafe.Pointer
-	Ifm_flags      unsafe.Pointer
-	Ifm_index      unsafe.Pointer
-	Ifm_msglen     unsafe.Pointer
-	Ifm_snd_drops  unsafe.Pointer
 	Ifm_snd_len    unsafe.Pointer
-	Ifm_snd_maxlen unsafe.Pointer
+	Ifm_type       U_char
 	Ifm_timer      unsafe.Pointer
-	Ifm_type       unsafe.Pointer
-	Ifm_version    unsafe.Pointer
+	Ifm_snd_maxlen unsafe.Pointer
+	Ifm_msglen     U_short
+	Ifm_index      U_short
 }
 
 // If_nat64req
@@ -5314,7 +5556,7 @@ type If_msghdr2 struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_nat64req
 type If_nat64req struct {
 	Ifnat64_name     unsafe.Pointer
-	Ifnat64_prefixes unsafe.Pointer
+	Ifnat64_prefixes Ipv6_prefix
 }
 
 // If_netem_params
@@ -5322,7 +5564,20 @@ type If_nat64req struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_netem_params
 type If_netem_params struct {
-	Ifnetem_latency_ms unsafe.Pointer
+	Ifnetem_bandwidth_bps    unsafe.Pointer
+	Ifnetem_corruption_p     unsafe.Pointer
+	Ifnetem_duplication_p    unsafe.Pointer
+	Ifnetem_jitter_ms        unsafe.Pointer
+	Ifnetem_latency_ms       unsafe.Pointer
+	Ifnetem_loss_p_bl_br     unsafe.Pointer
+	Ifnetem_loss_p_bl_gr     unsafe.Pointer
+	Ifnetem_loss_p_br_bl     unsafe.Pointer
+	Ifnetem_loss_p_gr_bl     unsafe.Pointer
+	Ifnetem_loss_p_gr_gl     unsafe.Pointer
+	Ifnetem_loss_recovery_ms unsafe.Pointer
+	Ifnetem_model            If_netem_model_t
+	Ifnetem_output_ival_ms   unsafe.Pointer
+	Ifnetem_reordering_p     unsafe.Pointer
 }
 
 // If_netidreq
@@ -5340,7 +5595,20 @@ type If_netidreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_netif_stats
 type If_netif_stats struct {
-	Ifn_rx_mit_bytes_avg U_int32_t
+	Ifn_rx_mit_bytes_avg         U_int32_t
+	Ifn_rx_mit_bytes_max         U_int32_t
+	Ifn_rx_mit_bytes_min         U_int32_t
+	Ifn_rx_mit_cfg_bytes_hiwat   U_int32_t
+	Ifn_rx_mit_cfg_bytes_lowat   U_int32_t
+	Ifn_rx_mit_cfg_idx           U_int32_t
+	Ifn_rx_mit_cfg_interval      U_int32_t
+	Ifn_rx_mit_cfg_packets_hiwat U_int32_t
+	Ifn_rx_mit_cfg_packets_lowat U_int32_t
+	Ifn_rx_mit_interval          U_int64_t
+	Ifn_rx_mit_mode              U_int32_t
+	Ifn_rx_mit_packets_avg       U_int32_t
+	Ifn_rx_mit_packets_max       U_int32_t
+	Ifn_rx_mit_packets_min       U_int32_t
 }
 
 // If_nexusreq
@@ -5360,10 +5628,10 @@ type If_nexusreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_nsreq
 type If_nsreq struct {
-	Ifnsr_data   unsafe.Pointer
-	Ifnsr_family unsafe.Pointer
-	Ifnsr_flags  unsafe.Pointer
-	Ifnsr_len    unsafe.Pointer
+	Ifnsr_data   U_int8_t
+	Ifnsr_family U_int8_t
+	Ifnsr_flags  U_int16_t
+	Ifnsr_len    U_int8_t
 	Ifnsr_name   unsafe.Pointer
 }
 
@@ -5372,9 +5640,9 @@ type If_nsreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_order
 type If_order struct {
-	Ifo_count           unsafe.Pointer
-	Ifo_ordered_indices unsafe.Pointer
-	Ifo_reserved        unsafe.Pointer
+	Ifo_count           U_int32_t
+	Ifo_ordered_indices Mach_vm_address_t
+	Ifo_reserved        U_int32_t
 }
 
 // If_packet_stats
@@ -5382,29 +5650,7 @@ type If_order struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_packet_stats
 type If_packet_stats struct {
-	Ifi_tcp_badformat      unsafe.Pointer
-	Ifi_tcp_badformatipsec unsafe.Pointer
-	Ifi_tcp_cleanup        unsafe.Pointer
-	Ifi_tcp_deprecate6     unsafe.Pointer
-	Ifi_tcp_dospacket      unsafe.Pointer
-	Ifi_tcp_icmp6unreach   unsafe.Pointer
-	Ifi_tcp_listbadsyn     unsafe.Pointer
-	Ifi_tcp_noconnlist     unsafe.Pointer
-	Ifi_tcp_noconnnolist   unsafe.Pointer
-	Ifi_tcp_ooopacket      unsafe.Pointer
-	Ifi_tcp_rstinsynrcv    unsafe.Pointer
-	Ifi_tcp_synfin         unsafe.Pointer
-	Ifi_tcp_synwindow      unsafe.Pointer
-	Ifi_tcp_unspecv6       unsafe.Pointer
-	Ifi_udp_badchksum      unsafe.Pointer
-	Ifi_udp_badipsec       unsafe.Pointer
-	Ifi_udp_badlength      unsafe.Pointer
-	Ifi_udp_badmcast       unsafe.Pointer
-	Ifi_udp_cleanup        unsafe.Pointer
-	Ifi_udp_faithprefix    unsafe.Pointer
-	Ifi_udp_port0          unsafe.Pointer
-	Ifi_udp_port_unreach   unsafe.Pointer
-	Reserved               unsafe.Pointer
+	Ifi_udp_port_unreach U_int64_t
 }
 
 // If_protolistreq
@@ -5424,10 +5670,10 @@ type If_protolistreq struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_qstatsreq
 type If_qstatsreq struct {
 	Ifqr_buf     unsafe.Pointer
-	Ifqr_grp_idx unsafe.Pointer
+	Ifqr_grp_idx U_int32_t
 	Ifqr_len     unsafe.Pointer
 	Ifqr_name    unsafe.Pointer
-	Ifqr_slot    unsafe.Pointer
+	Ifqr_slot    U_int32_t
 }
 
 // If_rxpoll_stats
@@ -5435,7 +5681,27 @@ type If_qstatsreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_rxpoll_stats
 type If_rxpoll_stats struct {
-	Ifi_poll_bytes U_int64_t
+	Ifi_poll_bytes         U_int64_t
+	Ifi_poll_bytes_avg     U_int32_t
+	Ifi_poll_bytes_hiwat   U_int32_t
+	Ifi_poll_bytes_lowat   U_int32_t
+	Ifi_poll_bytes_max     U_int32_t
+	Ifi_poll_bytes_min     U_int32_t
+	Ifi_poll_interval_time U_int64_t
+	Ifi_poll_off_err       U_int32_t
+	Ifi_poll_off_req       U_int32_t
+	Ifi_poll_on_err        U_int32_t
+	Ifi_poll_on_req        U_int32_t
+	Ifi_poll_packets       U_int64_t
+	Ifi_poll_packets_avg   U_int32_t
+	Ifi_poll_packets_hiwat U_int32_t
+	Ifi_poll_packets_limit U_int32_t
+	Ifi_poll_packets_lowat U_int32_t
+	Ifi_poll_packets_max   U_int32_t
+	Ifi_poll_packets_min   U_int32_t
+	Ifi_poll_wakeups_avg   U_int32_t
+	Ifi_poll_wakeups_hiwat U_int32_t
+	Ifi_poll_wakeups_lowat U_int32_t
 }
 
 // If_tcp_ecn_perf_stat
@@ -5443,19 +5709,19 @@ type If_rxpoll_stats struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_tcp_ecn_perf_stat
 type If_tcp_ecn_perf_stat struct {
-	Oo_percent        unsafe.Pointer
-	Reorder_percent   unsafe.Pointer
-	Rst_drop          unsafe.Pointer
-	Rtt_avg           unsafe.Pointer
-	Rtt_var           unsafe.Pointer
-	Rxmit_drop        unsafe.Pointer
-	Rxmit_percent     unsafe.Pointer
-	Sack_episodes     unsafe.Pointer
-	Total_oopkts      unsafe.Pointer
-	Total_reorderpkts unsafe.Pointer
-	Total_rxmitpkts   unsafe.Pointer
-	Total_rxpkts      unsafe.Pointer
-	Total_txpkts      unsafe.Pointer
+	Oo_percent        U_int64_t
+	Reorder_percent   U_int64_t
+	Rst_drop          U_int64_t
+	Rtt_avg           U_int64_t
+	Rtt_var           U_int64_t
+	Rxmit_drop        U_int64_t
+	Rxmit_percent     U_int64_t
+	Sack_episodes     U_int64_t
+	Total_oopkts      U_int64_t
+	Total_reorderpkts U_int64_t
+	Total_rxmitpkts   U_int64_t
+	Total_rxpkts      U_int64_t
+	Total_txpkts      U_int64_t
 }
 
 // If_tcp_ecn_stat
@@ -5463,31 +5729,31 @@ type If_tcp_ecn_perf_stat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_tcp_ecn_stat
 type If_tcp_ecn_stat struct {
-	Ecn_client_setup      unsafe.Pointer
-	Ecn_client_success    unsafe.Pointer
-	Ecn_conn_noplce       unsafe.Pointer
-	Ecn_conn_plce         unsafe.Pointer
-	Ecn_conn_plnoce       unsafe.Pointer
-	Ecn_conn_recv_ce      unsafe.Pointer
-	Ecn_conn_recv_ece     unsafe.Pointer
-	Ecn_fallback_ce       unsafe.Pointer
-	Ecn_fallback_droprst  unsafe.Pointer
-	Ecn_fallback_droprxmt unsafe.Pointer
-	Ecn_fallback_reorder  unsafe.Pointer
-	Ecn_fallback_synloss  unsafe.Pointer
-	Ecn_fallback_synrst   unsafe.Pointer
-	Ecn_off               unsafe.Pointer
-	Ecn_off_conn          unsafe.Pointer
-	Ecn_on                unsafe.Pointer
-	Ecn_peer_nosupport    unsafe.Pointer
-	Ecn_recv_ce           unsafe.Pointer
-	Ecn_recv_ece          unsafe.Pointer
-	Ecn_server_setup      unsafe.Pointer
-	Ecn_server_success    unsafe.Pointer
-	Ecn_syn_lost          unsafe.Pointer
-	Ecn_synack_lost       unsafe.Pointer
-	Ecn_total_conn        unsafe.Pointer
-	Timestamp             unsafe.Pointer
+	Ecn_client_setup      U_int64_t
+	Ecn_client_success    U_int64_t
+	Ecn_conn_noplce       U_int64_t
+	Ecn_conn_plce         U_int64_t
+	Ecn_conn_plnoce       U_int64_t
+	Ecn_conn_recv_ce      U_int64_t
+	Ecn_conn_recv_ece     U_int64_t
+	Ecn_fallback_ce       U_int64_t
+	Ecn_fallback_droprst  U_int64_t
+	Ecn_fallback_droprxmt U_int64_t
+	Ecn_fallback_reorder  U_int64_t
+	Ecn_fallback_synloss  U_int64_t
+	Ecn_fallback_synrst   U_int64_t
+	Ecn_off               If_tcp_ecn_perf_stat
+	Ecn_off_conn          U_int64_t
+	Ecn_on                If_tcp_ecn_perf_stat
+	Ecn_peer_nosupport    U_int64_t
+	Ecn_recv_ce           U_int64_t
+	Ecn_recv_ece          U_int64_t
+	Ecn_server_setup      U_int64_t
+	Ecn_server_success    U_int64_t
+	Ecn_syn_lost          U_int64_t
+	Ecn_synack_lost       U_int64_t
+	Ecn_total_conn        U_int64_t
+	Timestamp             U_int64_t
 }
 
 // If_tdmreq
@@ -5495,7 +5761,7 @@ type If_tcp_ecn_stat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_tdmreq
 type If_tdmreq struct {
-	Iftdm_len   unsafe.Pointer
+	Iftdm_len   U_int32_t
 	Iftdm_name  unsafe.Pointer
 	Iftdm_table unsafe.Pointer
 }
@@ -5514,8 +5780,26 @@ type If_throttlereq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_traffic_class
 type If_traffic_class struct {
-	Ifi_ivibytes U_int64_t
-	Ifi_ivobytes U_int64_t
+	Ifi_ibebytes   U_int64_t
+	Ifi_ibepackets U_int64_t
+	Ifi_ibkbytes   U_int64_t
+	Ifi_ibkpackets U_int64_t
+	Ifi_ipvbytes   U_int64_t
+	Ifi_ipvpackets U_int64_t
+	Ifi_ivibytes   U_int64_t
+	Ifi_ivipackets U_int64_t
+	Ifi_ivobytes   U_int64_t
+	Ifi_ivopackets U_int64_t
+	Ifi_obebytes   U_int64_t
+	Ifi_obepackets U_int64_t
+	Ifi_obkbytes   U_int64_t
+	Ifi_obkpackets U_int64_t
+	Ifi_opvbytes   U_int64_t
+	Ifi_opvpackets U_int64_t
+	Ifi_ovibytes   U_int64_t
+	Ifi_ovipackets U_int64_t
+	Ifi_ovobytes   U_int64_t
+	Ifi_ovopackets U_int64_t
 }
 
 // If_wifi_status
@@ -5531,7 +5815,30 @@ type If_wifi_status struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/if_wifi_status_v1
 type If_wifi_status_v1 struct {
-	Valid_bitmask U_int32_t
+	Config_frequency       U_int32_t
+	Config_multicast_rate  U_int32_t
+	Dl_effective_bandwidth U_int32_t
+	Dl_effective_latency   U_int32_t
+	Dl_error_rate          U_int32_t
+	Dl_max_bandwidth       U_int32_t
+	Dl_max_latency         U_int32_t
+	Dl_min_latency         U_int32_t
+	Link_quality_metric    U_int32_t
+	Reserved_1             U_int64_t
+	Reserved_2             U_int64_t
+	Reserved_3             U_int64_t
+	Reserved_4             U_int64_t
+	Scan_count             U_int32_t
+	Scan_duration          U_int32_t
+	Ul_bytes_lost          U_int32_t
+	Ul_effective_bandwidth U_int32_t
+	Ul_effective_latency   U_int32_t
+	Ul_error_rate          U_int32_t
+	Ul_max_bandwidth       U_int32_t
+	Ul_max_latency         U_int32_t
+	Ul_min_latency         U_int32_t
+	Ul_retxt_level         U_int32_t
+	Valid_bitmask          U_int32_t
 }
 
 // Ifa_msghdr
@@ -5539,8 +5846,11 @@ type If_wifi_status_v1 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifa_msghdr
 type Ifa_msghdr struct {
+	Ifam_addrs  unsafe.Pointer
 	Ifam_index  unsafe.Pointer
 	Ifam_metric unsafe.Pointer
+	Ifam_msglen unsafe.Pointer
+	Ifam_type   unsafe.Pointer
 	Ifam_flags  unsafe.Pointer
 }
 
@@ -5550,9 +5860,9 @@ type Ifa_msghdr struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifaliasreq
 type Ifaliasreq struct {
 	Ifra_addr      unsafe.Pointer
-	Ifra_broadaddr unsafe.Pointer
 	Ifra_mask      unsafe.Pointer
 	Ifra_name      unsafe.Pointer
+	Ifra_broadaddr unsafe.Pointer
 }
 
 // Ifdevmtu
@@ -5573,6 +5883,7 @@ type Ifdrv struct {
 	Ifd_data unsafe.Pointer
 	Ifd_cmd  unsafe.Pointer
 	Ifd_name unsafe.Pointer
+	Ifd_len  uintptr
 }
 
 // Iff_filter
@@ -5596,9 +5907,8 @@ type Iff_filter struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifkpi
 type Ifkpi struct {
-	Ifk_data      unsafe.Pointer
 	Ifk_module_id unsafe.Pointer
-	Ifk_type      unsafe.Pointer
+	Ifk_data      unsafe.Pointer
 }
 
 // Ifma_msghdr
@@ -5606,7 +5916,9 @@ type Ifkpi struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifma_msghdr
 type Ifma_msghdr struct {
+	Ifmam_type   unsafe.Pointer
 	Ifmam_msglen unsafe.Pointer
+	Ifmam_addrs  unsafe.Pointer
 	Ifmam_index  unsafe.Pointer
 	Ifmam_flags  unsafe.Pointer
 }
@@ -5617,12 +5929,11 @@ type Ifma_msghdr struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifma_msghdr2
 type Ifma_msghdr2 struct {
 	Ifmam_addrs    unsafe.Pointer
+	Ifmam_index    U_short
 	Ifmam_flags    unsafe.Pointer
-	Ifmam_index    unsafe.Pointer
-	Ifmam_msglen   unsafe.Pointer
+	Ifmam_type     U_char
+	Ifmam_msglen   U_short
 	Ifmam_refcount unsafe.Pointer
-	Ifmam_type     unsafe.Pointer
-	Ifmam_version  unsafe.Pointer
 }
 
 // Ifmedia_description
@@ -5630,7 +5941,8 @@ type Ifma_msghdr2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifmedia_description
 type Ifmedia_description struct {
-	Ifmt_string unsafe.Pointer
+	Ifmt_word   int
+	Ifmt_string *byte
 }
 
 // Ifmibdata
@@ -5638,7 +5950,7 @@ type Ifmedia_description struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifmibdata
 type Ifmibdata struct {
-	Ifmd_data       unsafe.Pointer
+	Ifmd_data       If_data64
 	Ifmd_filler     unsafe.Pointer
 	Ifmd_flags      unsafe.Pointer
 	Ifmd_name       unsafe.Pointer
@@ -5654,6 +5966,10 @@ type Ifmibdata struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifmibdata_supplemental
 type Ifmibdata_supplemental struct {
 	Ifmd_data_extended If_data_extended
+	Ifmd_netif_stats   If_netif_stats
+	Ifmd_packet_stats  If_packet_stats
+	Ifmd_rxpoll_stats  If_rxpoll_stats
+	Ifmd_traffic_class If_traffic_class
 }
 
 // Ifnet_attach_proto_param
@@ -5738,6 +6054,7 @@ type Ifnet_interface_advisory struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_interface_advisory_capacity
 type Ifnet_interface_advisory_capacity struct {
+	Average_delay      unsafe.Pointer
 	Average_throughput unsafe.Pointer
 }
 
@@ -5746,8 +6063,17 @@ type Ifnet_interface_advisory_capacity struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_interface_advisory_cell_context
 type Ifnet_interface_advisory_cell_context struct {
-	Cdrx_cycle uint16
-	Cdrx_state uint8
+	Bandwidth_limitation_indication uint8
+	Cdrx_cycle                      uint16
+	Cdrx_state                      uint8
+	Downlink_bler                   uint8
+	Estimated_outage_period         uint16
+	Outage_state                    uint8
+	Radio_access_technology         uint8
+	Reference_signal_level          int16
+	Signal_level                    int16
+	Signal_quality                  int8
+	Uplink_bler                     uint8
 }
 
 // Ifnet_interface_advisory_header
@@ -5755,7 +6081,8 @@ type Ifnet_interface_advisory_cell_context struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_interface_advisory_header
 type Ifnet_interface_advisory_header struct {
-	Interface_type    IfnetInterfaceAdvisoryInterfaceType
+	Direction         IfInterfaceAdvisoryDirection
+	Interface_type    IfInterfaceAdvisoryInterfaceType
 	Version           Ifnet_interface_advisory_version
 	Notification_type unsafe.Pointer
 }
@@ -5765,17 +6092,17 @@ type Ifnet_interface_advisory_header struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_interface_advisory_wifi_context
 type Ifnet_interface_advisory_wifi_context struct {
-	Bt_coex                       unsafe.Pointer
-	Estimated_intermittent_period unsafe.Pointer
-	Frequency_band                unsafe.Pointer
-	Intermittent_state            unsafe.Pointer
-	Quality_score_channel         unsafe.Pointer
-	Quality_score_delay           unsafe.Pointer
-	Quality_score_loss            unsafe.Pointer
-	Radio_coex                    unsafe.Pointer
-	Single_outage_period          unsafe.Pointer
+	Bt_coex                       uint8
+	Estimated_intermittent_period uint16
+	Frequency_band                IfInterfaceAdvisoryFreqBand
+	Intermittent_state            uint8
+	Quality_score_channel         uint8
+	Quality_score_delay           uint8
+	Quality_score_loss            uint8
+	Radio_coex                    uint8
+	Single_outage_period          uint16
 	Wifi_observed_tx_bitrate      unsafe.Pointer
-	Wlan_duty_cycle               unsafe.Pointer
+	Wlan_duty_cycle               uint16
 }
 
 // Ifnet_ip_addr
@@ -5830,6 +6157,7 @@ type Ifnet_stats_per_flow struct {
 	Bw_sndbw_max U_int32_t
 	Connreset    U_int16_t
 	Conntimeout  U_int16_t
+	Srtt         U_int32_t
 }
 
 // Ifnet_traffic_descriptor_common
@@ -5838,6 +6166,7 @@ type Ifnet_stats_per_flow struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_traffic_descriptor_common
 type Ifnet_traffic_descriptor_common struct {
 	Itd_flags unsafe.Pointer
+	Itd_len   uint16
 }
 
 // Ifnet_traffic_descriptor_inet
@@ -5845,14 +6174,14 @@ type Ifnet_traffic_descriptor_common struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_traffic_descriptor_inet
 type Ifnet_traffic_descriptor_inet struct {
-	Inet_common unsafe.Pointer
-	Inet_ipver  unsafe.Pointer
-	Inet_laddr  unsafe.Pointer
-	Inet_lport  unsafe.Pointer
-	Inet_mask   unsafe.Pointer
-	Inet_proto  unsafe.Pointer
-	Inet_raddr  unsafe.Pointer
-	Inet_rport  unsafe.Pointer
+	Inet_common Ifnet_traffic_descriptor_common
+	Inet_ipver  uint8
+	Inet_laddr  Ifnet_ip_addr
+	Inet_lport  uint16
+	Inet_mask   uint8
+	Inet_proto  uint8
+	Inet_raddr  Ifnet_ip_addr
+	Inet_rport  uint16
 }
 
 // Ifnet_traffic_rule_action
@@ -5860,8 +6189,7 @@ type Ifnet_traffic_descriptor_inet struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_traffic_rule_action
 type Ifnet_traffic_rule_action struct {
-	Ra_len  unsafe.Pointer
-	Ra_type unsafe.Pointer
+	Ra_type uint8
 }
 
 // Ifnet_traffic_rule_action_steer
@@ -5869,6 +6197,7 @@ type Ifnet_traffic_rule_action struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifnet_traffic_rule_action_steer
 type Ifnet_traffic_rule_action_steer struct {
+	Ras_common  Ifnet_traffic_rule_action
 	Ras_qset_id unsafe.Pointer
 }
 
@@ -5877,11 +6206,11 @@ type Ifnet_traffic_rule_action_steer struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifqueue
 type Ifqueue struct {
+	Ifq_tail   unsafe.Pointer
 	Ifq_drops  unsafe.Pointer
+	Ifq_maxlen unsafe.Pointer
 	Ifq_head   unsafe.Pointer
 	Ifq_len    unsafe.Pointer
-	Ifq_maxlen unsafe.Pointer
-	Ifq_tail   unsafe.Pointer
 }
 
 // Ifreq
@@ -5898,7 +6227,8 @@ type Ifreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifs_iso_8802_3
 type Ifs_iso_8802_3 struct {
-	Dot3Compliance U_int32_t
+	Dot3Compliance           U_int32_t
+	Dot3StatsAlignmentErrors U_int32_t
 }
 
 // Ifstat
@@ -5906,8 +6236,8 @@ type Ifs_iso_8802_3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ifstat
 type Ifstat struct {
-	Ascii    unsafe.Pointer
 	Ifs_name unsafe.Pointer
+	Ascii    unsafe.Pointer
 }
 
 // Igmp
@@ -5915,10 +6245,10 @@ type Ifstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/igmp
 type Igmp struct {
-	Igmp_cksum unsafe.Pointer
-	Igmp_code  unsafe.Pointer
-	Igmp_group unsafe.Pointer
-	Igmp_type  unsafe.Pointer
+	Igmp_cksum U_short
+	Igmp_code  U_char
+	Igmp_group In_addr
+	Igmp_type  U_char
 }
 
 // Igmp_grouprec
@@ -5926,10 +6256,7 @@ type Igmp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/igmp_grouprec
 type Igmp_grouprec struct {
-	Ig_datalen unsafe.Pointer
-	Ig_group   unsafe.Pointer
-	Ig_numsrc  unsafe.Pointer
-	Ig_type    unsafe.Pointer
+	Ig_datalen U_char
 }
 
 // Igmp_report
@@ -5949,15 +6276,10 @@ type Igmp_report struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/igmpstat
 type Igmpstat struct {
-	Igps_rcv_badqueries unsafe.Pointer
-	Igps_rcv_badreports unsafe.Pointer
-	Igps_rcv_badsum     unsafe.Pointer
-	Igps_rcv_ourreports unsafe.Pointer
-	Igps_rcv_queries    unsafe.Pointer
-	Igps_rcv_reports    unsafe.Pointer
-	Igps_rcv_tooshort   unsafe.Pointer
-	Igps_rcv_total      unsafe.Pointer
-	Igps_snd_reports    unsafe.Pointer
+	Igps_rcv_badqueries U_int
+	Igps_rcv_badreports U_int
+	Igps_rcv_badsum     U_int
+	Igps_rcv_ourreports U_int
 }
 
 // Igmpstat_v3
@@ -5982,7 +6304,6 @@ type Igmpstat_v3 struct {
 	Igps_rcv_v1v2_queries  unsafe.Pointer
 	Igps_rcv_v3_queries    unsafe.Pointer
 	Igps_snd_reports       unsafe.Pointer
-	Igps_version           unsafe.Pointer
 }
 
 // Igmpv3
@@ -5990,13 +6311,13 @@ type Igmpstat_v3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/igmpv3
 type Igmpv3 struct {
-	Igmp_cksum  unsafe.Pointer
-	Igmp_code   unsafe.Pointer
-	Igmp_group  unsafe.Pointer
-	Igmp_misc   unsafe.Pointer
-	Igmp_numsrc unsafe.Pointer
-	Igmp_qqi    unsafe.Pointer
-	Igmp_type   unsafe.Pointer
+	Igmp_cksum  U_short
+	Igmp_code   U_char
+	Igmp_group  In_addr
+	Igmp_misc   U_char
+	Igmp_numsrc U_short
+	Igmp_qqi    U_char
+	Igmp_type   U_char
 }
 
 // Image_params
@@ -6004,7 +6325,53 @@ type Igmpv3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/image_params
 type Image_params struct {
-	Ip_endargv unsafe.Pointer
+	Ip_endargv                    unsafe.Pointer
+	Ip_startargv                  unsafe.Pointer
+	Ip_user_envv                  User_addr_t
+	Ip_arch_offset                User_size_t
+	Ip_csflags                    unsafe.Pointer
+	Ip_interp_buffer              unsafe.Pointer
+	Ip_applec                     unsafe.Pointer
+	Ip_origcputype                int32
+	Ip_user_argv                  User_addr_t
+	Ip_interp_sugid_fd            unsafe.Pointer
+	Ip_origcpusubtype             int32
+	Ip_envc                       unsafe.Pointer
+	Ip_scriptlabelp               unsafe.Pointer
+	Ip_vp                         unsafe.Pointer
+	Ip_vdata                      unsafe.Pointer
+	Ip_px_sa                      unsafe.Pointer
+	Ip_ndp                        unsafe.Pointer
+	Ip_execlabelp                 unsafe.Pointer
+	Ip_origvattr                  *Vnode_attr
+	Ip_user_fname                 User_addr_t
+	Ip_new_thread                 Thread_t
+	Ip_strings                    unsafe.Pointer
+	Ip_px_sfa                     unsafe.Pointer
+	Ip_flags                      unsafe.Pointer
+	Ip_mac_return                 unsafe.Pointer
+	Ip_vfs_context                unsafe.Pointer
+	Ip_argc                       unsafe.Pointer
+	Ip_strspace                   unsafe.Pointer
+	Ip_strendp                    unsafe.Pointer
+	Ip_scriptvp                   unsafe.Pointer
+	Ip_px_persona                 unsafe.Pointer
+	Ip_argspace                   unsafe.Pointer
+	Ip_endenvv                    unsafe.Pointer
+	Ip_px_spa                     unsafe.Pointer
+	Ip_px_smpx                    unsafe.Pointer
+	Ip_arch_size                  User_size_t
+	Ip_vattr                      *Vnode_attr
+	Ip_seg                        unsafe.Pointer
+	Ip_cs_error                   unsafe.Pointer
+	Ip_dyld_fsobjid               unsafe.Pointer
+	Ip_dyld_fsid                  unsafe.Pointer
+	Ip_px_pcred_info              unsafe.Pointer
+	Ip_simulator_binary           unsafe.Pointer
+	Ip_inherited_jop_pid          unsafe.Pointer
+	Ip_inherited_shared_region_id unsafe.Pointer
+	Ip_subsystem_root_path        unsafe.Pointer
+	Ip_free_map                   Vm_map_t
 }
 
 // In6_addrlifetime
@@ -6012,10 +6379,10 @@ type Image_params struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_addrlifetime
 type In6_addrlifetime struct {
-	Ia6t_expire    unsafe.Pointer
-	Ia6t_pltime    unsafe.Pointer
-	Ia6t_preferred unsafe.Pointer
-	Ia6t_vltime    unsafe.Pointer
+	Ia6t_expire    int64
+	Ia6t_pltime    U_int32_t
+	Ia6t_preferred int64
+	Ia6t_vltime    U_int32_t
 }
 
 // In6_addrpolicy
@@ -6023,11 +6390,7 @@ type In6_addrlifetime struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_addrpolicy
 type In6_addrpolicy struct {
-	Addr     unsafe.Pointer
-	Addrmask unsafe.Pointer
-	Label    unsafe.Pointer
-	Preced   unsafe.Pointer
-	Use      unsafe.Pointer
+	Addr Sockaddr_in6
 }
 
 // In6_aliasreq
@@ -6035,8 +6398,12 @@ type In6_addrpolicy struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_aliasreq
 type In6_aliasreq struct {
-	Ifra_addr      Sockaddr_in6
-	Ifra_broadaddr Sockaddr_in6
+	Ifra_addr       Sockaddr_in6
+	Ifra_broadaddr  Sockaddr_in6
+	Ifra_flags      unsafe.Pointer
+	Ifra_lifetime   In6_addrlifetime
+	Ifra_name       unsafe.Pointer
+	Ifra_prefixmask Sockaddr_in6
 }
 
 // In6_ifreq
@@ -6045,6 +6412,7 @@ type In6_aliasreq struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_ifreq
 type In6_ifreq struct {
 	Ifr_ifru unsafe.Pointer
+	Ifr_name unsafe.Pointer
 }
 
 // In6_ifstat
@@ -6052,31 +6420,31 @@ type In6_ifreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_ifstat
 type In6_ifstat struct {
-	Ifs6_addr_expiry_cnt   unsafe.Pointer
-	Ifs6_atmfrag_rcvd      unsafe.Pointer
-	Ifs6_cantfoward_icmp6  unsafe.Pointer
-	Ifs6_defrtr_expiry_cnt unsafe.Pointer
-	Ifs6_in_addrerr        unsafe.Pointer
-	Ifs6_in_deliver        unsafe.Pointer
-	Ifs6_in_discard        unsafe.Pointer
-	Ifs6_in_hdrerr         unsafe.Pointer
-	Ifs6_in_mcast          unsafe.Pointer
-	Ifs6_in_noroute        unsafe.Pointer
-	Ifs6_in_protounknown   unsafe.Pointer
-	Ifs6_in_receive        unsafe.Pointer
-	Ifs6_in_toobig         unsafe.Pointer
-	Ifs6_in_truncated      unsafe.Pointer
-	Ifs6_out_discard       unsafe.Pointer
-	Ifs6_out_forward       unsafe.Pointer
-	Ifs6_out_fragcreat     unsafe.Pointer
-	Ifs6_out_fragfail      unsafe.Pointer
-	Ifs6_out_fragok        unsafe.Pointer
-	Ifs6_out_mcast         unsafe.Pointer
-	Ifs6_out_request       unsafe.Pointer
-	Ifs6_pfx_expiry_cnt    unsafe.Pointer
-	Ifs6_reass_fail        unsafe.Pointer
-	Ifs6_reass_ok          unsafe.Pointer
-	Ifs6_reass_reqd        unsafe.Pointer
+	Ifs6_addr_expiry_cnt   U_quad_t
+	Ifs6_atmfrag_rcvd      U_quad_t
+	Ifs6_cantfoward_icmp6  U_quad_t
+	Ifs6_defrtr_expiry_cnt U_quad_t
+	Ifs6_in_addrerr        U_quad_t
+	Ifs6_in_deliver        U_quad_t
+	Ifs6_in_discard        U_quad_t
+	Ifs6_in_hdrerr         U_quad_t
+	Ifs6_in_mcast          U_quad_t
+	Ifs6_in_noroute        U_quad_t
+	Ifs6_in_protounknown   U_quad_t
+	Ifs6_in_receive        U_quad_t
+	Ifs6_in_toobig         U_quad_t
+	Ifs6_in_truncated      U_quad_t
+	Ifs6_out_discard       U_quad_t
+	Ifs6_out_forward       U_quad_t
+	Ifs6_out_fragcreat     U_quad_t
+	Ifs6_out_fragfail      U_quad_t
+	Ifs6_out_fragok        U_quad_t
+	Ifs6_out_mcast         U_quad_t
+	Ifs6_out_request       U_quad_t
+	Ifs6_pfx_expiry_cnt    U_quad_t
+	Ifs6_reass_fail        U_quad_t
+	Ifs6_reass_ok          U_quad_t
+	Ifs6_reass_reqd        U_quad_t
 }
 
 // In6_pktinfo
@@ -6084,8 +6452,8 @@ type In6_ifstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_pktinfo
 type In6_pktinfo struct {
-	Ipi6_addr    unsafe.Pointer
 	Ipi6_ifindex unsafe.Pointer
+	Ipi6_addr    unsafe.Pointer
 }
 
 // In6_prefixreq
@@ -6093,13 +6461,8 @@ type In6_pktinfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_prefixreq
 type In6_prefixreq struct {
-	Ipr_flags  unsafe.Pointer
 	Ipr_name   unsafe.Pointer
-	Ipr_origin unsafe.Pointer
-	Ipr_plen   unsafe.Pointer
-	Ipr_pltime unsafe.Pointer
-	Ipr_prefix unsafe.Pointer
-	Ipr_vltime unsafe.Pointer
+	Ipr_origin U_char
 }
 
 // In6_prflags
@@ -6107,8 +6470,10 @@ type In6_prefixreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_prflags
 type In6_prflags struct {
+	Prf_ra        unsafe.Pointer
 	Prf_reserved1 U_char
 	Prf_reserved2 U_short
+	Prf_reserved3 U_char
 }
 
 // In6_rrenumreq
@@ -6117,6 +6482,7 @@ type In6_prflags struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in6_rrenumreq
 type In6_rrenumreq struct {
 	Irr_m_len    U_char
+	Irr_pltime   U_int32_t
 	Irr_u_uselen U_char
 }
 
@@ -6125,7 +6491,7 @@ type In6_rrenumreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in_addr
 type In_addr struct {
-	S_addr unsafe.Pointer
+	S_addr uint32
 }
 
 // In_addr_4in6
@@ -6133,8 +6499,8 @@ type In_addr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in_addr_4in6
 type In_addr_4in6 struct {
-	Ia46_addr4 unsafe.Pointer
-	Ia46_pad32 unsafe.Pointer
+	Ia46_addr4 In_addr
+	Ia46_pad32 U_int32_t
 }
 
 // In_aliasreq
@@ -6153,7 +6519,9 @@ type In_aliasreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/in_pktinfo
 type In_pktinfo struct {
-	Ipi_addr In_addr
+	Ipi_ifindex  unsafe.Pointer
+	Ipi_addr     In_addr
+	Ipi_spec_dst In_addr
 }
 
 // Info_tuple
@@ -6161,8 +6529,7 @@ type In_pktinfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/info_tuple
 type Info_tuple struct {
-	Itpl_localaddr  unsafe.Pointer
-	Itpl_proto      unsafe.Pointer
+	Itpl_proto      U_int8_t
 	Itpl_remoteaddr unsafe.Pointer
 }
 
@@ -6171,7 +6538,34 @@ type Info_tuple struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/inpcb
 type Inpcb struct {
-	Hash_element unsafe.Pointer
+	Hash_element    unsafe.Pointer
+	Inp_depend4     unsafe.Pointer
+	Inp_depend6     unsafe.Pointer
+	Inp_dependfaddr unsafe.Pointer
+	Inp_dependladdr unsafe.Pointer
+	Inp_dependroute unsafe.Pointer
+	Inp_flags       unsafe.Pointer
+	Inp_flow        U_int32_t
+	Inp_fport       U_short
+	Inp_gencnt      Inp_gen_t
+	Inp_hash        unsafe.Pointer
+	Inp_ip_p        U_char
+	Inp_ip_ttl      U_char
+	Inp_list        unsafe.Pointer
+	Inp_lport       U_short
+	Inp_pcbinfo     U_int32_t
+	Inp_phd         U_int32_t
+	Inp_portlist    unsafe.Pointer
+	Inp_ppcb        U_int32_t
+	Inp_saved_ppcb  U_int32_t
+	Inp_socket      U_int32_t
+	Inp_sp          U_int32_t
+	Inp_vflag       U_char
+	Nat_cookie      U_int32_t
+	Nat_owner       U_char
+	Reserved        U_int32_t
+	Reserved1       In_addr
+	Reserved2       In_addr
 }
 
 // Inpcb64_list_entry
@@ -6179,8 +6573,8 @@ type Inpcb struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/inpcb64_list_entry
 type Inpcb64_list_entry struct {
-	Le_next unsafe.Pointer
-	Le_prev unsafe.Pointer
+	Le_next U_int64_t
+	Le_prev U_int64_t
 }
 
 // Instrs_cycles_snapshot
@@ -6188,7 +6582,8 @@ type Inpcb64_list_entry struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/instrs_cycles_snapshot
 type Instrs_cycles_snapshot struct {
-	Ics_cycles unsafe.Pointer
+	Ics_cycles       unsafe.Pointer
+	Ics_instructions unsafe.Pointer
 }
 
 // Instrs_cycles_snapshot_v2
@@ -6215,8 +6610,8 @@ type Internal_state struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/io_stat_entry
 type Io_stat_entry struct {
-	Count unsafe.Pointer
-	Size  unsafe.Pointer
+	Count uint64
+	Size  uint64
 }
 
 // Io_stats_snapshot
@@ -6224,20 +6619,20 @@ type Io_stat_entry struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/io_stats_snapshot
 type Io_stats_snapshot struct {
+	Ss_non_paging_count  unsafe.Pointer
+	Ss_metadata_count    unsafe.Pointer
+	Ss_disk_reads_size   unsafe.Pointer
+	Ss_io_priority_size  unsafe.Pointer
+	Ss_paging_count      unsafe.Pointer
+	Ss_disk_writes_size  unsafe.Pointer
+	Ss_disk_reads_count  unsafe.Pointer
 	Ss_data_count        unsafe.Pointer
 	Ss_data_size         unsafe.Pointer
-	Ss_disk_reads_count  unsafe.Pointer
-	Ss_disk_reads_size   unsafe.Pointer
-	Ss_disk_writes_count unsafe.Pointer
-	Ss_disk_writes_size  unsafe.Pointer
-	Ss_io_priority_count unsafe.Pointer
-	Ss_io_priority_size  unsafe.Pointer
-	Ss_metadata_count    unsafe.Pointer
 	Ss_metadata_size     unsafe.Pointer
-	Ss_non_paging_count  unsafe.Pointer
-	Ss_non_paging_size   unsafe.Pointer
-	Ss_paging_count      unsafe.Pointer
+	Ss_disk_writes_count unsafe.Pointer
 	Ss_paging_size       unsafe.Pointer
+	Ss_io_priority_count unsafe.Pointer
+	Ss_non_paging_size   unsafe.Pointer
 }
 
 // Iocompressionstats_notification_subsystem
@@ -6245,8 +6640,12 @@ type Io_stats_snapshot struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iocompressionstats_notification_subsystem-oj5
 type Iocompressionstats_notification_subsystem struct {
-	End     int32
-	Maxsize unsafe.Pointer
+	End      int32
+	Maxsize  unsafe.Pointer
+	Reserved Vm_address_t
+	Routine  unsafe.Pointer
+	Server   unsafe.Pointer
+	Start    int32
 }
 
 // Iocs_store_buffer_entry
@@ -6263,8 +6662,8 @@ type Iocs_store_buffer_entry struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/iovec
 type Iovec struct {
+	Iov_len  uintptr
 	Iov_base unsafe.Pointer
-	Iov_len  unsafe.Pointer
 }
 
 // Ip
@@ -6272,8 +6671,16 @@ type Iovec struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip
 type Ip struct {
+	Ip_tos U_char
+	Ip_off U_short
 	Ip_p   U_char
+	Ip_hl  U_int
+	Ip_dst In_addr
 	Ip_ttl U_char
+	Ip_src In_addr
+	Ip_len U_short
+	Ip_id  U_short
+	Ip_v   U_int
 	Ip_sum U_short
 }
 
@@ -6282,8 +6689,8 @@ type Ip struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip6_dest
 type Ip6_dest struct {
-	Ip6d_len unsafe.Pointer
-	Ip6d_nxt unsafe.Pointer
+	Ip6d_len U_int8_t
+	Ip6d_nxt U_int8_t
 }
 
 // Ip6_ext
@@ -6300,10 +6707,10 @@ type Ip6_ext struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip6_frag
 type Ip6_frag struct {
-	Ip6f_ident    unsafe.Pointer
-	Ip6f_nxt      unsafe.Pointer
-	Ip6f_offlg    unsafe.Pointer
-	Ip6f_reserved unsafe.Pointer
+	Ip6f_ident    U_int32_t
+	Ip6f_nxt      U_int8_t
+	Ip6f_offlg    U_int16_t
+	Ip6f_reserved U_int8_t
 }
 
 // Ip6_hbh
@@ -6311,8 +6718,8 @@ type Ip6_frag struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip6_hbh
 type Ip6_hbh struct {
-	Ip6h_len unsafe.Pointer
-	Ip6h_nxt unsafe.Pointer
+	Ip6h_len U_int8_t
+	Ip6h_nxt U_int8_t
 }
 
 // Ip6_hdr
@@ -6330,7 +6737,7 @@ type Ip6_hdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip6_mtuinfo
 type Ip6_mtuinfo struct {
-	Ip6m_addr unsafe.Pointer
+	Ip6m_addr Sockaddr_in6
 	Ip6m_mtu  unsafe.Pointer
 }
 
@@ -6339,7 +6746,8 @@ type Ip6_mtuinfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip6_opt
 type Ip6_opt struct {
-	Ip6o_len U_int8_t
+	Ip6o_len  U_int8_t
+	Ip6o_type U_int8_t
 }
 
 // Ip6_opt_jumbo
@@ -6366,9 +6774,9 @@ type Ip6_opt_nsap struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip6_opt_router
 type Ip6_opt_router struct {
-	Ip6or_len   unsafe.Pointer
-	Ip6or_type  unsafe.Pointer
-	Ip6or_value unsafe.Pointer
+	Ip6or_len   U_int8_t
+	Ip6or_type  U_int8_t
+	Ip6or_value U_int8_t
 }
 
 // Ip6_opt_tunnel
@@ -6376,7 +6784,8 @@ type Ip6_opt_router struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip6_opt_tunnel
 type Ip6_opt_tunnel struct {
-	Ip6ot_len U_int8_t
+	Ip6ot_encap_limit U_int8_t
+	Ip6ot_len         U_int8_t
 }
 
 // Ip6_rthdr
@@ -6384,10 +6793,10 @@ type Ip6_opt_tunnel struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip6_rthdr
 type Ip6_rthdr struct {
-	Ip6r_len     unsafe.Pointer
-	Ip6r_nxt     unsafe.Pointer
-	Ip6r_segleft unsafe.Pointer
-	Ip6r_type    unsafe.Pointer
+	Ip6r_len     U_int8_t
+	Ip6r_nxt     U_int8_t
+	Ip6r_segleft U_int8_t
+	Ip6r_type    U_int8_t
 }
 
 // Ip6_rthdr0
@@ -6427,9 +6836,9 @@ type Ip_mreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip_mreq_source
 type Ip_mreq_source struct {
-	Imr_interface  unsafe.Pointer
-	Imr_multiaddr  unsafe.Pointer
-	Imr_sourceaddr unsafe.Pointer
+	Imr_interface  In_addr
+	Imr_multiaddr  In_addr
+	Imr_sourceaddr In_addr
 }
 
 // Ip_mreqn
@@ -6438,6 +6847,8 @@ type Ip_mreq_source struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip_mreqn
 type Ip_mreqn struct {
 	Imr_multiaddr In_addr
+	Imr_address   In_addr
+	Imr_ifindex   unsafe.Pointer
 }
 
 // Ip_opts
@@ -6445,7 +6856,8 @@ type Ip_mreqn struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip_opts
 type Ip_opts struct {
-	Ip_dst In_addr
+	Ip_opts unsafe.Pointer
+	Ip_dst  In_addr
 }
 
 // Ip_timestamp
@@ -6453,7 +6865,12 @@ type Ip_opts struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ip_timestamp
 type Ip_timestamp struct {
-	Ipt_len U_char
+	Ipt_oflw      U_int
+	Ipt_len       U_char
+	Ipt_timestamp unsafe.Pointer
+	Ipt_flg       U_int
+	Ipt_ptr       U_char
+	Ipt_code      U_char
 }
 
 // Ipc_perm
@@ -6473,9 +6890,9 @@ type Ipc_perm struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ipcomp
 type Ipcomp struct {
-	Comp_cpi   unsafe.Pointer
-	Comp_flags unsafe.Pointer
-	Comp_nxt   unsafe.Pointer
+	Comp_nxt   U_int8_t
+	Comp_flags U_int8_t
+	Comp_cpi   U_int16_t
 }
 
 // Ipovly
@@ -6483,11 +6900,11 @@ type Ipcomp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ipovly
 type Ipovly struct {
-	Ih_dst unsafe.Pointer
-	Ih_len unsafe.Pointer
-	Ih_pr  unsafe.Pointer
-	Ih_src unsafe.Pointer
-	Ih_x1  unsafe.Pointer
+	Ih_dst In_addr
+	Ih_len U_short
+	Ih_pr  U_char
+	Ih_src In_addr
+	Ih_x1  U_char
 }
 
 // Ipsec_stats_param
@@ -6513,7 +6930,11 @@ type Ipsec_wake_pkt_event_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ipsec_wake_pkt_info
 type Ipsec_wake_pkt_info struct {
-	Wake_pkt U_int8_t
+	Wake_pkt     U_int8_t
+	Wake_pkt_len U_int16_t
+	Wake_pkt_seq U_int32_t
+	Wake_pkt_spi U_int32_t
+	Wake_uuid    Uuid_string_t
 }
 
 // Ipsecstat
@@ -6521,7 +6942,30 @@ type Ipsec_wake_pkt_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ipsecstat
 type Ipsecstat struct {
-	In_ahauthfail U_quad_t
+	In_ahauthfail  U_quad_t
+	In_success     U_quad_t
+	In_ahauthsucc  U_quad_t
+	In_espreplay   U_quad_t
+	In_esphist     U_quad_t
+	In_espauthsucc U_quad_t
+	In_nosa        U_quad_t
+	In_inval       U_quad_t
+	In_ahhist      U_quad_t
+	In_ahreplay    U_quad_t
+	In_comphist    U_quad_t
+	Out_inval      U_quad_t
+	Out_comphist   U_quad_t
+	In_nomem       U_quad_t
+	Out_ahhist     U_quad_t
+	Out_nosa       U_quad_t
+	Out_esphist    U_quad_t
+	Out_nomem      U_quad_t
+	In_polvio      U_quad_t
+	Out_success    U_quad_t
+	In_espauthfail U_quad_t
+	In_badspi      U_quad_t
+	Out_noroute    U_quad_t
+	Out_polvio     U_quad_t
 }
 
 // Ipstat
@@ -6529,55 +6973,10 @@ type Ipsecstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ipstat
 type Ipstat struct {
-	Ips_adj                unsafe.Pointer
-	Ips_adj_hwcsum_clr     unsafe.Pointer
-	Ips_badaddr            unsafe.Pointer
-	Ips_badhlen            unsafe.Pointer
-	Ips_badlen             unsafe.Pointer
-	Ips_badoptions         unsafe.Pointer
-	Ips_badsum             unsafe.Pointer
-	Ips_badvers            unsafe.Pointer
-	Ips_cantforward        unsafe.Pointer
-	Ips_cantfrag           unsafe.Pointer
-	Ips_delivered          unsafe.Pointer
-	Ips_fastforward        unsafe.Pointer
-	Ips_forward            unsafe.Pointer
-	Ips_fragdropped        unsafe.Pointer
-	Ips_fragmented         unsafe.Pointer
-	Ips_fragments          unsafe.Pointer
-	Ips_fragtimeout        unsafe.Pointer
-	Ips_input_ipf_drop     unsafe.Pointer
-	Ips_input_no_proto     unsafe.Pointer
-	Ips_localout           unsafe.Pointer
-	Ips_necp_policy_drop   unsafe.Pointer
-	Ips_nogif              unsafe.Pointer
-	Ips_noproto            unsafe.Pointer
-	Ips_noroute            unsafe.Pointer
-	Ips_notmember          unsafe.Pointer
-	Ips_odropped           unsafe.Pointer
-	Ips_ofragments         unsafe.Pointer
-	Ips_pktdropcntrl       unsafe.Pointer
-	Ips_raw_sappend_fail   unsafe.Pointer
-	Ips_rawout             unsafe.Pointer
-	Ips_rcv_if_no_match    unsafe.Pointer
-	Ips_rcv_if_weak_match  unsafe.Pointer
-	Ips_rcv_swcsum         unsafe.Pointer
-	Ips_rcv_swcsum_bytes   unsafe.Pointer
-	Ips_reassembled        unsafe.Pointer
-	Ips_redirectsent       unsafe.Pointer
-	Ips_rxc_chained        unsafe.Pointer
-	Ips_rxc_chainsz_gt2    unsafe.Pointer
-	Ips_rxc_chainsz_gt4    unsafe.Pointer
-	Ips_rxc_collisions     unsafe.Pointer
-	Ips_rxc_notchain       unsafe.Pointer
-	Ips_rxc_notlist        unsafe.Pointer
-	Ips_snd_swcsum         unsafe.Pointer
-	Ips_snd_swcsum_bytes   unsafe.Pointer
-	Ips_src_addr_not_avail unsafe.Pointer
-	Ips_toolong            unsafe.Pointer
-	Ips_tooshort           unsafe.Pointer
-	Ips_toosmall           unsafe.Pointer
-	Ips_total              unsafe.Pointer
+	Ips_odropped     U_int32_t
+	Ips_rawout       U_int32_t
+	Ips_redirectsent U_int32_t
+	Ips_toosmall     U_int32_t
 }
 
 // Ipv6_mreq
@@ -6603,8 +7002,8 @@ type Ipv6_prefix struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/itimerval
 type Itimerval struct {
-	It_interval unsafe.Pointer
-	It_value    unsafe.Pointer
+	It_interval Timeval
+	It_value    Timeval
 }
 
 // Jetsam_coalition_snapshot
@@ -6613,9 +7012,9 @@ type Itimerval struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/jetsam_coalition_snapshot
 type Jetsam_coalition_snapshot struct {
 	Jcs_flags                unsafe.Pointer
-	Jcs_id                   unsafe.Pointer
-	Jcs_leader_task_uniqueid unsafe.Pointer
 	Jcs_thread_group         unsafe.Pointer
+	Jcs_leader_task_uniqueid unsafe.Pointer
+	Jcs_id                   unsafe.Pointer
 }
 
 // Kauth_cache_sizes
@@ -6632,25 +7031,25 @@ type Kauth_cache_sizes struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kauth_identity_extlookup
 type Kauth_identity_extlookup struct {
-	El_extend          unsafe.Pointer
-	El_flags           unsafe.Pointer
-	El_gguid           unsafe.Pointer
-	El_gguid_valid     unsafe.Pointer
-	El_gid             unsafe.Pointer
-	El_gsid            unsafe.Pointer
-	El_gsid_valid      unsafe.Pointer
-	El_info_pid        unsafe.Pointer
-	El_info_reserved_1 unsafe.Pointer
-	El_member_valid    unsafe.Pointer
-	El_result          unsafe.Pointer
-	El_seqno           unsafe.Pointer
-	El_sup_groups      unsafe.Pointer
-	El_sup_grp_cnt     unsafe.Pointer
 	El_uguid           unsafe.Pointer
-	El_uguid_valid     unsafe.Pointer
-	El_uid             unsafe.Pointer
-	El_usid            unsafe.Pointer
-	El_usid_valid      unsafe.Pointer
+	El_seqno           U_int32_t
+	El_usid            Ntsid_t
+	El_info_reserved_1 U_int32_t
+	El_sup_grp_cnt     U_int32_t
+	El_gguid_valid     U_int32_t
+	El_result          U_int32_t
+	El_member_valid    U_int32_t
+	El_extend          U_int64_t
+	El_gsid            Ntsid_t
+	El_gguid           unsafe.Pointer
+	El_info_pid        unsafe.Pointer
+	El_usid_valid      U_int32_t
+	El_gid             uint32
+	El_uid             uint32
+	El_uguid_valid     U_int32_t
+	El_flags           U_int32_t
+	El_gsid_valid      U_int32_t
+	El_sup_groups      uint32
 }
 
 // Kcdata_type_definition
@@ -6659,6 +7058,7 @@ type Kauth_identity_extlookup struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kcdata_type_definition
 type Kcdata_type_definition struct {
 	Kct_type_identifier unsafe.Pointer
+	Kct_num_elements    unsafe.Pointer
 	Kct_name            unsafe.Pointer
 	Kct_elements        unsafe.Pointer
 }
@@ -6668,7 +7068,17 @@ type Kcdata_type_definition struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kern_ctl_reg
 type Kern_ctl_reg struct {
-	Ctl_name unsafe.Pointer // A Bundle ID string of up to MAX_KCTL_NAME bytes (including the ending zero). This string should not be empty.
+	Ctl_name       unsafe.Pointer // A Bundle ID string of up to MAX_KCTL_NAME bytes (including the ending zero). This string should not be empty.
+	Ctl_id         U_int32_t      // The control ID may be dynamically assigned or it can be a 32-bit creator code assigned by DTS. For a DTS assigned creator code the CTL_FLAG_REG_ID_UNIT flag must be set. For a dynamically assigned control ID, do not set the CTL_FLAG_REG_ID_UNIT flag. The value of the dynamically assigned control ID is set to this field when the registration succeeds.
+	Ctl_unit       U_int32_t      // A separate unit number to register multiple units that share the same control ID with DTS assigned creator code when the CTL_FLAG_REG_ID_UNIT flag is set. This field is ignored for a dynamically assigned control ID.
+	Ctl_flags      U_int32_t      // CTL_FLAG_PRIVILEGED and/or CTL_FLAG_REG_ID_UNIT.
+	Ctl_sendsize   U_int32_t      // Override the default send size. If set to zero, the default send size will be used, and this default value is set to this field to be retrieved by the caller.
+	Ctl_recvsize   U_int32_t      // Override the default receive size. If set to zero, the default receive size will be used, and this default value is set to this field to be retrieved by the caller.
+	Ctl_connect    unsafe.Pointer // Specify the function to be called whenever a client connects to the kernel control. This field must be specified.
+	Ctl_disconnect unsafe.Pointer // Specify a function to be called whenever a client disconnects from the kernel control.
+	Ctl_send       unsafe.Pointer // Specify a function to handle data send from the client to the kernel control.
+	Ctl_setopt     unsafe.Pointer // Specify a function to handle set socket option operations for the kernel control.
+	Ctl_getopt     unsafe.Pointer // Specify a function to handle get socket option operations for the kernel control.
 
 }
 
@@ -6677,13 +7087,13 @@ type Kern_ctl_reg struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kern_event_msg
 type Kern_event_msg struct {
-	Event_code   unsafe.Pointer // The event code.
-	Event_data   unsafe.Pointer // Any additional data about this event. Format will depend on the vendor_code, kev_class, kev_subclass, and event_code. The length of the event_data can be determined using total_size - KEV_MSG_HEADER_SIZE.
-	Id           unsafe.Pointer // Monotonically increasing value.
-	Kev_class    unsafe.Pointer // The class of the kernel event.
-	Kev_subclass unsafe.Pointer // The subclass of the kernel event.
-	Total_size   unsafe.Pointer // Total size of the kernel event message including the header.
-	Vendor_code  unsafe.Pointer // The vendor code indicates which vendor generated the kernel event. This gives every vendor a unique set of classes and subclasses to use. Use the SIOCGKEVVENDOR ioctl to look up vendor codes for vendors other than Apple. Apple uses KEV_VENDOR_APPLE.
+	Total_size   U_int32_t // Total size of the kernel event message including the header.
+	Event_code   U_int32_t // The event code.
+	Vendor_code  U_int32_t // The vendor code indicates which vendor generated the kernel event. This gives every vendor a unique set of classes and subclasses to use. Use the SIOCGKEVVENDOR ioctl to look up vendor codes for vendors other than Apple. Apple uses KEV_VENDOR_APPLE.
+	Kev_subclass U_int32_t // The subclass of the kernel event.
+	Kev_class    U_int32_t // The class of the kernel event.
+	Id           U_int32_t // Monotonically increasing value.
+	Event_data   U_int32_t // Any additional data about this event. Format will depend on the vendor_code, kev_class, kev_subclass, and event_code. The length of the event_data can be determined using total_size - KEV_MSG_HEADER_SIZE.
 
 }
 
@@ -6694,6 +7104,9 @@ type Kern_event_msg struct {
 type Kernel_triage_info_v1 struct {
 	Triage_string1 unsafe.Pointer
 	Triage_string2 unsafe.Pointer
+	Triage_string3 unsafe.Pointer
+	Triage_string4 unsafe.Pointer
+	Triage_string5 unsafe.Pointer
 }
 
 // Kev_d_vectors
@@ -6701,8 +7114,7 @@ type Kernel_triage_info_v1 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_d_vectors
 type Kev_d_vectors struct {
-	Data_length unsafe.Pointer // The length of data.
-	Data_ptr    unsafe.Pointer // A pointer to data.
+	Data_length U_int32_t // The length of data.
 
 }
 
@@ -6711,10 +7123,10 @@ type Kev_d_vectors struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_dl_issues
 type Kev_dl_issues struct {
-	Info      unsafe.Pointer
-	Link_data unsafe.Pointer
-	Modid     unsafe.Pointer
-	Timestamp unsafe.Pointer
+	Info      U_int8_t
+	Link_data Net_event_data
+	Modid     U_int8_t
+	Timestamp U_int64_t
 }
 
 // Kev_dl_link_quality_metric_data
@@ -6722,7 +7134,7 @@ type Kev_dl_issues struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_dl_link_quality_metric_data
 type Kev_dl_link_quality_metric_data struct {
-	Link_data           unsafe.Pointer
+	Link_data           Net_event_data
 	Link_quality_metric unsafe.Pointer
 }
 
@@ -6731,7 +7143,8 @@ type Kev_dl_link_quality_metric_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_dl_low_power_mode
 type Kev_dl_low_power_mode struct {
-	Link_data Net_event_data
+	Link_data       Net_event_data
+	Low_power_event unsafe.Pointer
 }
 
 // Kev_dl_node_absence
@@ -6739,7 +7152,9 @@ type Kev_dl_low_power_mode struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_dl_node_absence
 type Kev_dl_node_absence struct {
-	Sdl_node_address Sockaddr_dl
+	Link_data         Net_event_data
+	Sdl_node_address  Sockaddr_dl
+	Sin6_node_address Sockaddr_in6
 }
 
 // Kev_dl_node_presence
@@ -6747,13 +7162,13 @@ type Kev_dl_node_absence struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_dl_node_presence
 type Kev_dl_node_presence struct {
-	Link_data             unsafe.Pointer
+	Link_data             Net_event_data
 	Link_quality_metric   unsafe.Pointer
 	Node_proximity_metric unsafe.Pointer
-	Node_service_info     unsafe.Pointer
+	Node_service_info     U_int8_t
 	Rssi                  unsafe.Pointer
-	Sdl_node_address      unsafe.Pointer
-	Sin6_node_address     unsafe.Pointer
+	Sdl_node_address      Sockaddr_dl
+	Sin6_node_address     Sockaddr_in6
 }
 
 // Kev_dl_proto_data
@@ -6761,9 +7176,9 @@ type Kev_dl_node_presence struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_dl_proto_data
 type Kev_dl_proto_data struct {
-	Link_data             unsafe.Pointer
-	Proto_family          unsafe.Pointer
-	Proto_remaining_count unsafe.Pointer
+	Proto_family          U_int32_t
+	Proto_remaining_count U_int32_t
+	Link_data             Net_event_data
 }
 
 // Kev_dl_rrc_state
@@ -6771,8 +7186,8 @@ type Kev_dl_proto_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_dl_rrc_state
 type Kev_dl_rrc_state struct {
-	Link_data unsafe.Pointer
-	Rrc_state unsafe.Pointer
+	Link_data Net_event_data
+	Rrc_state U_int32_t
 }
 
 // Kev_in6_addrlifetime
@@ -6780,7 +7195,10 @@ type Kev_dl_rrc_state struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_in6_addrlifetime
 type Kev_in6_addrlifetime struct {
+	Ia6t_expire    U_int32_t
+	Ia6t_pltime    U_int32_t
 	Ia6t_preferred U_int32_t
+	Ia6t_vltime    U_int32_t
 }
 
 // Kev_in6_data
@@ -6788,7 +7206,15 @@ type Kev_in6_addrlifetime struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_in6_data
 type Kev_in6_data struct {
-	Ia6_flags U_int32_t
+	Ia6_flags     U_int32_t
+	Ia_addr       Sockaddr_in6
+	Ia_dstaddr    Sockaddr_in6
+	Ia_lifetime   Kev_in6_addrlifetime
+	Ia_mac        uint8
+	Ia_net        Sockaddr_in6
+	Ia_plen       U_int32_t
+	Ia_prefixmask Sockaddr_in6
+	Link_data     Net_event_data
 }
 
 // Kev_in_arpalive
@@ -6812,7 +7238,10 @@ type Kev_in_arpfailure struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_in_collision
 type Kev_in_collision struct {
-	Hw_addr U_char
+	Hw_addr   U_char
+	Hw_len    U_char
+	Ia_ipaddr In_addr
+	Link_data Net_event_data
 }
 
 // Kev_in_data
@@ -6820,7 +7249,14 @@ type Kev_in_collision struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_in_data
 type Kev_in_data struct {
-	Ia_addr In_addr
+	Ia_addr         In_addr
+	Ia_dstaddr      In_addr
+	Ia_net          U_int32_t
+	Ia_netbroadcast In_addr
+	Ia_netmask      U_int32_t
+	Ia_subnet       U_int32_t
+	Ia_subnetmask   U_int32_t
+	Link_data       Net_event_data
 }
 
 // Kev_in_portinuse
@@ -6828,9 +7264,9 @@ type Kev_in_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_in_portinuse
 type Kev_in_portinuse struct {
-	Port     unsafe.Pointer
-	Req_pid  unsafe.Pointer
-	Reserved unsafe.Pointer
+	Port     U_int16_t
+	Req_pid  U_int32_t
+	Reserved U_int32_t
 }
 
 // Kev_msg
@@ -6838,11 +7274,11 @@ type Kev_in_portinuse struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_msg
 type Kev_msg struct {
-	Dv           unsafe.Pointer // An array of vectors describing additional data to be appended to the kernel event.
-	Event_code   unsafe.Pointer // The event's code.
-	Kev_class    unsafe.Pointer // The event's class.
-	Kev_subclass unsafe.Pointer // The event's subclass.
-	Vendor_code  unsafe.Pointer // The vendor code assigned by kev_vendor_code_find.
+	Kev_class    U_int32_t     // The event's class.
+	Vendor_code  U_int32_t     // The vendor code assigned by kev_vendor_code_find.
+	Kev_subclass U_int32_t     // The event's subclass.
+	Event_code   U_int32_t     // The event's code.
+	Dv           Kev_d_vectors // An array of vectors describing additional data to be appended to the kernel event.
 
 }
 
@@ -6851,8 +7287,8 @@ type Kev_msg struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_netevent_apnfallbk_data
 type Kev_netevent_apnfallbk_data struct {
-	Epid  unsafe.Pointer
-	Euuid unsafe.Pointer
+	Epid  int32
+	Euuid [16]byte
 }
 
 // Kev_netevent_clat46_data
@@ -6860,9 +7296,9 @@ type Kev_netevent_apnfallbk_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_netevent_clat46_data
 type Kev_netevent_clat46_data struct {
-	Clat46_event_code unsafe.Pointer
-	Epid              unsafe.Pointer
-	Euuid             unsafe.Pointer
+	Clat46_event_code In6_clat46_evhdlr_code_t
+	Epid              int32
+	Euuid             [16]byte
 }
 
 // Kev_request
@@ -6870,8 +7306,9 @@ type Kev_netevent_clat46_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_request
 type Kev_request struct {
-	Vendor_code U_int32_t // All kernel events that don't match this vendor code will be ignored. KEV_ANY_VENDOR can be used to receive kernel events with any vendor code.
-	Kev_class   U_int32_t // All kernel events that don't match this class will be ignored. KEV_ANY_CLASS can be used to receive kernel events with any class.
+	Vendor_code  U_int32_t // All kernel events that don't match this vendor code will be ignored. KEV_ANY_VENDOR can be used to receive kernel events with any vendor code.
+	Kev_class    U_int32_t // All kernel events that don't match this class will be ignored. KEV_ANY_CLASS can be used to receive kernel events with any class.
+	Kev_subclass U_int32_t // All kernel events that don't match this subclass will be ignored. KEV_ANY_SUBCLASS can be used to receive kernel events with any subclass.
 
 }
 
@@ -6880,7 +7317,8 @@ type Kev_request struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kev_vendor_code
 type Kev_vendor_code struct {
-	Vendor_code U_int32_t // After making the SIOCGKEVVENDOR ioctl call, this will be filled in with the vendor code if there is one.
+	Vendor_string unsafe.Pointer // A bundle style identifier.
+	Vendor_code   U_int32_t      // After making the SIOCGKEVVENDOR ioctl call, this will be filled in with the vendor code if there is one.
 
 }
 
@@ -6889,12 +7327,7 @@ type Kev_vendor_code struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kevent
 type Kevent struct {
-	Data   unsafe.Pointer
-	Fflags unsafe.Pointer
-	Filter unsafe.Pointer
-	Flags  unsafe.Pointer
-	Ident  unsafe.Pointer
-	Udata  unsafe.Pointer
+	Data int
 }
 
 // Kevent64_s
@@ -6902,6 +7335,12 @@ type Kevent struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kevent64_s
 type Kevent64_s struct {
+	Filter int16
+	Ext    unsafe.Pointer
+	Data   unsafe.Pointer
+	Flags  uint16
+	Ident  unsafe.Pointer
+	Udata  unsafe.Pointer
 	Fflags unsafe.Pointer
 }
 
@@ -6921,8 +7360,10 @@ type Kpc_config_remote struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/kpc_get_counters_remote
 type Kpc_get_counters_remote struct {
-	Buf        unsafe.Pointer
-	Buf_stride unsafe.Pointer
+	Buf         unsafe.Pointer
+	Nb_counters unsafe.Pointer
+	Buf_stride  unsafe.Pointer
+	Classes     unsafe.Pointer
 }
 
 // Kpc_running_remote
@@ -6932,7 +7373,6 @@ type Kpc_get_counters_remote struct {
 type Kpc_running_remote struct {
 	Cfg_state_mask  unsafe.Pointer
 	Cfg_target_mask unsafe.Pointer
-	Classes         unsafe.Pointer
 }
 
 // Ledger_entry_info
@@ -6940,7 +7380,12 @@ type Kpc_running_remote struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ledger_entry_info
 type Ledger_entry_info struct {
-	Lei_debit unsafe.Pointer
+	Lei_balance       unsafe.Pointer
+	Lei_credit        unsafe.Pointer
+	Lei_refill_period unsafe.Pointer
+	Lei_limit         unsafe.Pointer
+	Lei_last_refill   unsafe.Pointer
+	Lei_debit         unsafe.Pointer
 }
 
 // Ledger_info
@@ -6948,9 +7393,7 @@ type Ledger_entry_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ledger_info
 type Ledger_info struct {
-	Li_entries unsafe.Pointer
-	Li_id      unsafe.Pointer
-	Li_name    unsafe.Pointer
+	Li_id unsafe.Pointer
 }
 
 // Ledger_limit_args
@@ -6959,8 +7402,8 @@ type Ledger_info struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ledger_limit_args
 type Ledger_limit_args struct {
 	Lla_limit         unsafe.Pointer
-	Lla_name          unsafe.Pointer
 	Lla_refill_period unsafe.Pointer
+	Lla_name          unsafe.Pointer
 }
 
 // Ledger_template_info
@@ -6987,8 +7430,9 @@ type Linger struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/linkedit_data_command
 type Linkedit_data_command struct {
-	Cmd     unsafe.Pointer
-	Cmdsize unsafe.Pointer
+	Cmd      unsafe.Pointer
+	Datasize unsafe.Pointer
+	Cmdsize  unsafe.Pointer
 }
 
 // Linker_option_command
@@ -6996,9 +7440,9 @@ type Linkedit_data_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/linker_option_command
 type Linker_option_command struct {
-	Cmd     unsafe.Pointer
 	Cmdsize unsafe.Pointer
 	Count   unsafe.Pointer
+	Cmd     unsafe.Pointer
 }
 
 // Llc
@@ -7006,6 +7450,7 @@ type Linker_option_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/llc
 type Llc struct {
+	Llc_un   unsafe.Pointer
 	Llc_ssap U_int8_t
 	Llc_dsap U_int8_t
 }
@@ -7024,15 +7469,14 @@ type Load_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/lockd_ans
 type Lockd_ans struct {
-	La_errno   unsafe.Pointer
-	La_fh      unsafe.Pointer
-	La_fh_len  unsafe.Pointer
-	La_flags   unsafe.Pointer
-	La_len     unsafe.Pointer
-	La_pid     unsafe.Pointer
-	La_start   unsafe.Pointer
-	La_version unsafe.Pointer
-	La_xid     unsafe.Pointer
+	La_errno  unsafe.Pointer
+	La_fh     U_int8_t
+	La_fh_len unsafe.Pointer
+	La_flags  unsafe.Pointer
+	La_len    int64
+	La_pid    int32
+	La_start  int64
+	La_xid    U_int64_t
 }
 
 // Lockd_notify
@@ -7043,6 +7487,7 @@ type Lockd_notify struct {
 	Ln_addr      unsafe.Pointer
 	Ln_addrcount unsafe.Pointer
 	Ln_flags     unsafe.Pointer
+	Ln_pad       unsafe.Pointer
 }
 
 // Lockf
@@ -7050,6 +7495,7 @@ type Lockd_notify struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/lockf
 type Lockf struct {
+	Lf_blkhd Locklist
 	Lf_id    Caddr_t
 	Lf_owner unsafe.Pointer
 	Lf_type  unsafe.Pointer
@@ -7069,7 +7515,9 @@ type Locklist struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/log2phys
 type Log2phys struct {
+	L2p_flags       uint
 	L2p_contigbytes int64
+	L2p_devoffset   int64
 }
 
 // Ltchars
@@ -7090,7 +7538,9 @@ type Ltchars struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mach_assert_3x
 type Mach_assert_3x struct {
-	A unsafe.Pointer
+	A   unsafe.Pointer
+	B   unsafe.Pointer
+	Hdr Mach_assert_hdr
 }
 
 // Mach_assert_default
@@ -7099,6 +7549,7 @@ type Mach_assert_3x struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mach_assert_default
 type Mach_assert_default struct {
 	Expr unsafe.Pointer
+	Hdr  Mach_assert_hdr
 }
 
 // Mach_assert_hdr
@@ -7108,6 +7559,7 @@ type Mach_assert_default struct {
 type Mach_assert_hdr struct {
 	Filename unsafe.Pointer
 	Lineno   unsafe.Pointer
+	Type     Mach_assert_type_t
 }
 
 // Mach_core_details
@@ -7126,9 +7578,6 @@ type Mach_core_details struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mach_core_details_v2
 type Mach_core_details_v2 struct {
 	Core_name unsafe.Pointer
-	Flags     unsafe.Pointer
-	Length    unsafe.Pointer
-	Offset    unsafe.Pointer
 }
 
 // Mach_core_fileheader
@@ -7157,8 +7606,15 @@ type Mach_core_fileheader_base struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mach_core_fileheader_v2
 type Mach_core_fileheader_v2 struct {
-	Files      Mach_core_details_v2
-	Log_offset unsafe.Pointer
+	Files          Mach_core_details_v2
+	Flags          unsafe.Pointer
+	Log_length     unsafe.Pointer
+	Log_offset     unsafe.Pointer
+	Num_files      unsafe.Pointer
+	Pub_key_length uint16
+	Pub_key_offset unsafe.Pointer
+	Signature      unsafe.Pointer
+	Version        unsafe.Pointer
 }
 
 // Mach_header
@@ -7196,19 +7652,18 @@ type Mach_header_64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/macos_panic_header
 type Macos_panic_header struct {
+	Mph_padding          unsafe.Pointer
 	Mph_crc              unsafe.Pointer
 	Mph_data             unsafe.Pointer
+	Mph_panic_flags      Mph_panic_flags_t
 	Mph_magic            unsafe.Pointer
-	Mph_other_log_len    unsafe.Pointer
-	Mph_other_log_offset unsafe.Pointer
-	Mph_padding          unsafe.Pointer
-	Mph_panic_flags      unsafe.Pointer
 	Mph_panic_log_len    unsafe.Pointer
 	Mph_panic_log_offset unsafe.Pointer
-	Mph_roots_installed  unsafe.Pointer
 	Mph_stackshot_len    unsafe.Pointer
+	Mph_other_log_offset unsafe.Pointer
 	Mph_stackshot_offset unsafe.Pointer
-	Mph_version          unsafe.Pointer
+	Mph_other_log_len    unsafe.Pointer
+	Mph_roots_installed  unsafe.Pointer
 }
 
 // Mbstat
@@ -7217,6 +7672,8 @@ type Macos_panic_header struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mbstat
 type Mbstat struct {
 	M_drops        U_int32_t
+	M_clusters     U_int32_t
+	M_bigclusters  U_int32_t
 	M_forcedefunct U_int32_t
 }
 
@@ -7225,13 +7682,23 @@ type Mbstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mbuf_stat
 type Mbuf_stat struct {
-	Mtypes   U_short   // An array of counts of each type of mbuf allocated.
-	Drain    U_int32_t // Number of times protocol drain functions were called.
-	Mbufs    U_int32_t // Number of mbufs (free or otherwise).
-	Clusters U_int32_t // Number of clusters (free or otherwise).
-	Clfree   U_int32_t // Number of free clusters.
-	Drops    U_int32_t // Number of times allocation failed.
-	Wait     U_int32_t // Number of times allocation blocked.
+	Bigmclbytes U_int32_t // Length of a big mbuf cluster.
+	Mtypes      U_short   // An array of counts of each type of mbuf allocated.
+	Drain       U_int32_t // Number of times protocol drain functions were called.
+	Mpfail      U_int32_t // Number of times m_pullup failed.
+	Msize       U_int32_t // Length of an mbuf.
+	Mlen        U_int32_t // Length of data in an mbuf.
+	Mhlen       U_int32_t // Length of data in an mbuf with a packet header.
+	Mbufs       U_int32_t // Number of mbufs (free or otherwise).
+	Clusters    U_int32_t // Number of clusters (free or otherwise).
+	Mcfail      U_int32_t // Number of times m_copym failed.
+	Clfree      U_int32_t // Number of free clusters.
+	Mclbytes    U_int32_t // Length of an mbuf cluster.
+	Bigclfree   U_int32_t // Number of unused big clusters.
+	Drops       U_int32_t // Number of times allocation failed.
+	Bigclusters U_int32_t // Number of big clusters.
+	Wait        U_int32_t // Number of times allocation blocked.
+	Minclsize   U_int32_t // Minimum length of data to allocate a cluster. Anything smaller than this should be placed in chained mbufs.
 
 }
 
@@ -7260,9 +7727,9 @@ type Mcontext64_full struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mcontext_avx32
 type Mcontext_avx32 struct {
-	Es unsafe.Pointer
 	Fs unsafe.Pointer
 	Ss unsafe.Pointer
+	Es unsafe.Pointer
 }
 
 // Mcontext_avx512_32
@@ -7271,6 +7738,8 @@ type Mcontext_avx32 struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mcontext_avx512_32
 type Mcontext_avx512_32 struct {
 	Es unsafe.Pointer
+	Ss unsafe.Pointer
+	Fs unsafe.Pointer
 }
 
 // Mcontext_avx512_64
@@ -7278,8 +7747,8 @@ type Mcontext_avx512_32 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mcontext_avx512_64
 type Mcontext_avx512_64 struct {
-	Es unsafe.Pointer
 	Fs unsafe.Pointer
+	Es unsafe.Pointer
 	Ss unsafe.Pointer
 }
 
@@ -7288,7 +7757,9 @@ type Mcontext_avx512_64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mcontext_avx512_64_full
 type Mcontext_avx512_64_full struct {
+	Es unsafe.Pointer
 	Fs unsafe.Pointer
+	Ss unsafe.Pointer
 }
 
 // Mcontext_avx64
@@ -7296,6 +7767,7 @@ type Mcontext_avx512_64_full struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mcontext_avx64
 type Mcontext_avx64 struct {
+	Ss unsafe.Pointer
 	Es unsafe.Pointer
 	Fs unsafe.Pointer
 }
@@ -7313,22 +7785,22 @@ type Mcontext_avx64_full struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mem_and_io_snapshot
 type Mem_and_io_snapshot struct {
-	Active_pages                 unsafe.Pointer
-	Busy_buffer_count            unsafe.Pointer
-	Compressions                 unsafe.Pointer
-	Compressor_size              unsafe.Pointer
-	Decompressions               unsafe.Pointer
-	Filebacked_pages             unsafe.Pointer
-	Free_pages                   unsafe.Pointer
-	Inactive_pages               unsafe.Pointer
-	Pages_reclaimed              unsafe.Pointer
-	Pages_wanted                 unsafe.Pointer
-	Pages_wanted_reclaimed_valid unsafe.Pointer
-	Purgeable_pages              unsafe.Pointer
 	Snapshot_magic               unsafe.Pointer
+	Compressor_size              unsafe.Pointer
 	Speculative_pages            unsafe.Pointer
-	Throttled_pages              unsafe.Pointer
+	Purgeable_pages              unsafe.Pointer
 	Wired_pages                  unsafe.Pointer
+	Pages_reclaimed              unsafe.Pointer
+	Throttled_pages              unsafe.Pointer
+	Pages_wanted                 unsafe.Pointer
+	Active_pages                 unsafe.Pointer
+	Decompressions               unsafe.Pointer
+	Pages_wanted_reclaimed_valid uint8
+	Free_pages                   unsafe.Pointer
+	Compressions                 unsafe.Pointer
+	Filebacked_pages             unsafe.Pointer
+	Inactive_pages               unsafe.Pointer
+	Busy_buffer_count            unsafe.Pointer
 }
 
 // Memory_error_notification_subsystem
@@ -7339,6 +7811,7 @@ type Memory_error_notification_subsystem struct {
 	End      int32
 	Maxsize  unsafe.Pointer
 	Reserved Vm_address_t
+	Routine  unsafe.Pointer
 	Server   unsafe.Pointer
 	Start    int32
 }
@@ -7348,12 +7821,8 @@ type Memory_error_notification_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/micro_snapshot
 type Micro_snapshot struct {
-	Ms_cpu            unsafe.Pointer
-	Ms_flags          unsafe.Pointer
-	Ms_opaque_flags   unsafe.Pointer
-	Ms_time           unsafe.Pointer
-	Ms_time_microsecs unsafe.Pointer
-	Snapshot_magic    unsafe.Pointer
+	Ms_flags uint8
+	Ms_cpu   unsafe.Pointer
 }
 
 // Mld_hdr
@@ -7361,7 +7830,8 @@ type Micro_snapshot struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mld_hdr
 type Mld_hdr struct {
-	Mld_addr unsafe.Pointer
+	Mld_addr      unsafe.Pointer
+	Mld_icmp6_hdr Icmp6_hdr
 }
 
 // Mmst_reg
@@ -7378,8 +7848,17 @@ type Mmst_reg struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mptcp_itf_stats
 type Mptcp_itf_stats struct {
-	Ifindex      U_short
-	Is_expensive unsafe.Pointer
+	Ifindex            U_short
+	Is_expensive       unsafe.Pointer
+	Mpis_cell_rxbytes  unsafe.Pointer
+	Mpis_cell_txbytes  unsafe.Pointer
+	Mpis_rxbytes       unsafe.Pointer
+	Mpis_txbytes       unsafe.Pointer
+	Mpis_wifi_rxbytes  unsafe.Pointer
+	Mpis_wifi_txbytes  unsafe.Pointer
+	Mpis_wired_rxbytes unsafe.Pointer
+	Mpis_wired_txbytes unsafe.Pointer
+	Switches           uint16
 }
 
 // Msg
@@ -7413,7 +7892,12 @@ type Msghdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/msginfo-lp5
 type Msginfo struct {
+	Msgseg unsafe.Pointer
+	Msgmni unsafe.Pointer
+	Msgmnb unsafe.Pointer
 	Msgmax unsafe.Pointer
+	Msgtql unsafe.Pointer
+	Msgssz unsafe.Pointer
 }
 
 // Msgmap
@@ -7429,8 +7913,8 @@ type Msgmap struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/msqid_kernel
 type Msqid_kernel struct {
+	U     User_msqid_ds
 	Label unsafe.Pointer
-	U     unsafe.Pointer
 }
 
 // Mwl_info_hdr
@@ -7438,7 +7922,12 @@ type Msqid_kernel struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mwl_info_hdr
 type Mwl_info_hdr struct {
-	Mwli_binds_count unsafe.Pointer
+	Mwli_binds_count    unsafe.Pointer
+	Mwli_chains_offset  unsafe.Pointer
+	Mwli_chains_size    unsafe.Pointer
+	Mwli_image_address  unsafe.Pointer
+	Mwli_page_size      uint16
+	Mwli_pointer_format uint16
 }
 
 // Mwl_region
@@ -7446,8 +7935,11 @@ type Mwl_info_hdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/mwl_region
 type Mwl_region struct {
-	Mwlr_address Mach_vm_address_t
-	Mwlr_fd      unsafe.Pointer
+	Mwlr_address     Mach_vm_address_t
+	Mwlr_fd          unsafe.Pointer
+	Mwlr_file_offset unsafe.Pointer
+	Mwlr_protections Vm_prot_t
+	Mwlr_size        Mach_vm_size_t
 }
 
 // Mymsg
@@ -7473,7 +7965,7 @@ type Nd_neighbor_advert struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_neighbor_solicit
 type Nd_neighbor_solicit struct {
-	Nd_ns_hdr    unsafe.Pointer
+	Nd_ns_hdr    Icmp6_hdr
 	Nd_ns_target unsafe.Pointer
 }
 
@@ -7482,11 +7974,11 @@ type Nd_neighbor_solicit struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_opt_dnssl
 type Nd_opt_dnssl struct {
-	Nd_opt_dnssl_domains  unsafe.Pointer
-	Nd_opt_dnssl_len      unsafe.Pointer
-	Nd_opt_dnssl_lifetime unsafe.Pointer
-	Nd_opt_dnssl_reserved unsafe.Pointer
-	Nd_opt_dnssl_type     unsafe.Pointer
+	Nd_opt_dnssl_domains  U_int8_t
+	Nd_opt_dnssl_len      U_int8_t
+	Nd_opt_dnssl_lifetime U_int32_t
+	Nd_opt_dnssl_reserved U_int16_t
+	Nd_opt_dnssl_type     U_int8_t
 }
 
 // Nd_opt_hdr
@@ -7494,8 +7986,8 @@ type Nd_opt_dnssl struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_opt_hdr
 type Nd_opt_hdr struct {
-	Nd_opt_len  unsafe.Pointer
-	Nd_opt_type unsafe.Pointer
+	Nd_opt_len  U_int8_t
+	Nd_opt_type U_int8_t
 }
 
 // Nd_opt_mtu
@@ -7514,9 +8006,9 @@ type Nd_opt_mtu struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_opt_nonce
 type Nd_opt_nonce struct {
-	Nd_opt_nonce      unsafe.Pointer
-	Nd_opt_nonce_len  unsafe.Pointer
-	Nd_opt_nonce_type unsafe.Pointer
+	Nd_opt_nonce      U_int8_t
+	Nd_opt_nonce_len  U_int8_t
+	Nd_opt_nonce_type U_int8_t
 }
 
 // Nd_opt_pref64
@@ -7524,7 +8016,10 @@ type Nd_opt_nonce struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_opt_pref64
 type Nd_opt_pref64 struct {
-	Nd_opt_pref64_len U_int8_t
+	Nd_opt_pref64_len                 U_int8_t
+	Nd_opt_pref64_prefix              U_int32_t
+	Nd_opt_pref64_scaled_lifetime_plc U_int16_t
+	Nd_opt_pref64_type                U_int8_t
 }
 
 // Nd_opt_prefix_info
@@ -7534,6 +8029,12 @@ type Nd_opt_pref64 struct {
 type Nd_opt_prefix_info struct {
 	Nd_opt_pi_flags_reserved U_int8_t
 	Nd_opt_pi_len            U_int8_t
+	Nd_opt_pi_preferred_time U_int32_t
+	Nd_opt_pi_prefix         unsafe.Pointer
+	Nd_opt_pi_prefix_len     U_int8_t
+	Nd_opt_pi_reserved2      U_int32_t
+	Nd_opt_pi_type           U_int8_t
+	Nd_opt_pi_valid_time     U_int32_t
 }
 
 // Nd_opt_pvd
@@ -7555,6 +8056,8 @@ type Nd_opt_pvd struct {
 type Nd_opt_rd_hdr struct {
 	Nd_opt_rh_len       U_int8_t
 	Nd_opt_rh_reserved1 U_int16_t
+	Nd_opt_rh_reserved2 U_int32_t
+	Nd_opt_rh_type      U_int8_t
 }
 
 // Nd_opt_rdnss
@@ -7563,10 +8066,10 @@ type Nd_opt_rd_hdr struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_opt_rdnss
 type Nd_opt_rdnss struct {
 	Nd_opt_rdnss_addr     unsafe.Pointer
-	Nd_opt_rdnss_len      unsafe.Pointer
-	Nd_opt_rdnss_lifetime unsafe.Pointer
-	Nd_opt_rdnss_reserved unsafe.Pointer
-	Nd_opt_rdnss_type     unsafe.Pointer
+	Nd_opt_rdnss_len      U_int8_t
+	Nd_opt_rdnss_lifetime U_int32_t
+	Nd_opt_rdnss_reserved U_int16_t
+	Nd_opt_rdnss_type     U_int8_t
 }
 
 // Nd_opt_route_info
@@ -7574,11 +8077,11 @@ type Nd_opt_rdnss struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_opt_route_info
 type Nd_opt_route_info struct {
-	Nd_opt_rti_flags     unsafe.Pointer
-	Nd_opt_rti_len       unsafe.Pointer
-	Nd_opt_rti_lifetime  unsafe.Pointer
-	Nd_opt_rti_prefixlen unsafe.Pointer
-	Nd_opt_rti_type      unsafe.Pointer
+	Nd_opt_rti_flags     U_int8_t
+	Nd_opt_rti_len       U_int8_t
+	Nd_opt_rti_lifetime  U_int32_t
+	Nd_opt_rti_prefixlen U_int8_t
+	Nd_opt_rti_type      U_int8_t
 }
 
 // Nd_redirect
@@ -7587,7 +8090,7 @@ type Nd_opt_route_info struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_redirect
 type Nd_redirect struct {
 	Nd_rd_dst    unsafe.Pointer
-	Nd_rd_hdr    unsafe.Pointer
+	Nd_rd_hdr    Icmp6_hdr
 	Nd_rd_target unsafe.Pointer
 }
 
@@ -7596,9 +8099,9 @@ type Nd_redirect struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nd_router_advert
 type Nd_router_advert struct {
-	Nd_ra_hdr        unsafe.Pointer
-	Nd_ra_reachable  unsafe.Pointer
-	Nd_ra_retransmit unsafe.Pointer
+	Nd_ra_hdr        Icmp6_hdr
+	Nd_ra_reachable  U_int32_t
+	Nd_ra_retransmit U_int32_t
 }
 
 // Nd_router_solicit
@@ -7616,6 +8119,7 @@ type Nd_router_solicit struct {
 type Ndrv_demux_desc struct {
 	Data   unsafe.Pointer
 	Length U_int16_t
+	Type   U_int16_t
 }
 
 // Ndrv_protocol_desc
@@ -7623,7 +8127,10 @@ type Ndrv_demux_desc struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ndrv_protocol_desc
 type Ndrv_protocol_desc struct {
-	Demux_count U_int32_t
+	Demux_count     U_int32_t
+	Demux_list      *Ndrv_demux_desc
+	Protocol_family U_int32_t
+	Version         U_int32_t
 }
 
 // Net_event_data
@@ -7632,6 +8139,7 @@ type Ndrv_protocol_desc struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/net_event_data
 type Net_event_data struct {
 	If_name   unsafe.Pointer
+	If_unit   U_int32_t
 	If_family U_int32_t
 }
 
@@ -7640,11 +8148,7 @@ type Net_event_data struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/netfs_status
 type Netfs_status struct {
-	Ns_mountopts   unsafe.Pointer
-	Ns_status      unsafe.Pointer
-	Ns_threadcount unsafe.Pointer
-	Ns_threadids   unsafe.Pointer
-	Ns_waittime    unsafe.Pointer
+	Ns_mountopts unsafe.Pointer
 }
 
 // Newah
@@ -7652,7 +8156,11 @@ type Netfs_status struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/newah
 type Newah struct {
-	Ah_len U_int8_t
+	Ah_reserve U_int16_t
+	Ah_spi     U_int32_t
+	Ah_seq     U_int32_t
+	Ah_nxt     U_int8_t
+	Ah_len     U_int8_t
 }
 
 // Newesp
@@ -7669,8 +8177,8 @@ type Newesp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nextvend
 type Nextvend struct {
-	Nv_magic   unsafe.Pointer
-	Nv_version unsafe.Pointer
+	Nv_U     unsafe.Pointer
+	Nv_magic U_char
 }
 
 // Nfs_args
@@ -7682,15 +8190,15 @@ type Nfs_args struct {
 	Acdirmin     unsafe.Pointer
 	Acregmax     unsafe.Pointer
 	Acregmin     unsafe.Pointer
-	Addr         unsafe.Pointer
-	Addrlen      unsafe.Pointer
+	Addr         User32_addr_t
+	Addrlen      uint8
 	Auth         unsafe.Pointer
 	Deadthresh   unsafe.Pointer
 	Deadtimeout  unsafe.Pointer
-	Fh           unsafe.Pointer
+	Fh           User32_addr_t
 	Fhsize       unsafe.Pointer
 	Flags        unsafe.Pointer
-	Hostname     unsafe.Pointer
+	Hostname     User32_addr_t
 	Leaseterm    unsafe.Pointer
 	Maxgrouplist unsafe.Pointer
 	Proto        unsafe.Pointer
@@ -7710,7 +8218,7 @@ type Nfs_args struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfs_etype
 type Nfs_etype struct {
 	Count    unsafe.Pointer
-	Etypes   unsafe.Pointer
+	Etypes   Nfs_supported_kerberos_etypes
 	Selected unsafe.Pointer
 }
 
@@ -7721,10 +8229,9 @@ type Nfs_etype struct {
 type Nfs_exphandle struct {
 	Nxh_expid    unsafe.Pointer
 	Nxh_fidlen   unsafe.Pointer
-	Nxh_flags    unsafe.Pointer
+	Nxh_flags    uint16
 	Nxh_fsid     unsafe.Pointer
-	Nxh_reserved unsafe.Pointer
-	Nxh_version  unsafe.Pointer
+	Nxh_reserved uint8
 }
 
 // Nfs_export_args
@@ -7732,8 +8239,13 @@ type Nfs_exphandle struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfs_export_args
 type Nfs_export_args struct {
-	Nxa_expid   unsafe.Pointer
-	Nxa_exppath User32_addr_t
+	Nxa_expid    unsafe.Pointer
+	Nxa_exppath  User32_addr_t
+	Nxa_flags    unsafe.Pointer
+	Nxa_fsid     unsafe.Pointer
+	Nxa_fspath   User32_addr_t
+	Nxa_netcount unsafe.Pointer
+	Nxa_nets     User32_addr_t
 }
 
 // Nfs_export_net_args
@@ -7742,10 +8254,9 @@ type Nfs_export_args struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfs_export_net_args
 type Nfs_export_net_args struct {
 	Nxna_addr  unsafe.Pointer
-	Nxna_cred  unsafe.Pointer
+	Nxna_cred  Xucred
 	Nxna_flags unsafe.Pointer
 	Nxna_mask  unsafe.Pointer
-	Nxna_sec   unsafe.Pointer
 }
 
 // Nfs_export_stat_desc
@@ -7753,7 +8264,8 @@ type Nfs_export_net_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfs_export_stat_desc
 type Nfs_export_stat_desc struct {
-	Rec_vers unsafe.Pointer
+	Rec_count unsafe.Pointer
+	Rec_vers  unsafe.Pointer
 }
 
 // Nfs_export_stat_rec
@@ -7775,7 +8287,7 @@ type Nfs_filehandle struct {
 	Nfh_fhp unsafe.Pointer
 	Nfh_fid unsafe.Pointer
 	Nfh_len unsafe.Pointer
-	Nfh_xh  unsafe.Pointer
+	Nfh_xh  Nfs_exphandle
 }
 
 // Nfs_sec
@@ -7783,7 +8295,8 @@ type Nfs_filehandle struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfs_sec
 type Nfs_sec struct {
-	Count unsafe.Pointer
+	Count   unsafe.Pointer
+	Flavors unsafe.Pointer
 }
 
 // Nfs_testmapid
@@ -7794,6 +8307,8 @@ type Nfs_testmapid struct {
 	Ntm_grpflag unsafe.Pointer
 	Ntm_guid    unsafe.Pointer
 	Ntm_id      unsafe.Pointer
+	Ntm_lookup  unsafe.Pointer
+	Ntm_name    unsafe.Pointer
 	Pad         unsafe.Pointer
 }
 
@@ -7811,7 +8326,8 @@ type Nfs_user_stat_desc struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfs_user_stat_path_rec
 type Nfs_user_stat_path_rec struct {
-	Path unsafe.Pointer
+	Path     unsafe.Pointer
+	Rec_type U_char
 }
 
 // Nfs_user_stat_user_rec
@@ -7834,21 +8350,16 @@ type Nfs_user_stat_user_rec struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfsclntstats
 type Nfsclntstats struct {
-	Accesscache_hits   unsafe.Pointer
-	Accesscache_misses unsafe.Pointer
 	Attrcache_hits     unsafe.Pointer
 	Attrcache_misses   unsafe.Pointer
 	Biocache_readdirs  unsafe.Pointer
 	Biocache_readlinks unsafe.Pointer
 	Biocache_reads     unsafe.Pointer
 	Biocache_writes    unsafe.Pointer
-	Cbopcntv4          unsafe.Pointer
 	Direofcache_hits   unsafe.Pointer
 	Direofcache_misses unsafe.Pointer
 	Lookupcache_hits   unsafe.Pointer
 	Lookupcache_misses unsafe.Pointer
-	Nfs_errs           unsafe.Pointer
-	Nlmcnt             unsafe.Pointer
 	Opcntv4            unsafe.Pointer
 	Pageins            unsafe.Pointer
 	Pageouts           unsafe.Pointer
@@ -7864,6 +8375,11 @@ type Nfsclntstats struct {
 	Rpcunexpected      unsafe.Pointer
 	Write_bios         unsafe.Pointer
 	Write_physios      unsafe.Pointer
+	Accesscache_hits   unsafe.Pointer
+	Accesscache_misses unsafe.Pointer
+	Nfs_errs           unsafe.Pointer
+	Nlmcnt             unsafe.Pointer
+	Cbopcntv4          unsafe.Pointer
 }
 
 // Nfsd_args
@@ -7871,7 +8387,9 @@ type Nfsclntstats struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfsd_args
 type Nfsd_args struct {
-	Name User32_addr_t
+	Name    User32_addr_t
+	Namelen unsafe.Pointer
+	Sock    unsafe.Pointer
 }
 
 // Nfsrvstats
@@ -7879,7 +8397,6 @@ type Nfsd_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nfsrvstats
 type Nfsrvstats struct {
-	Nfs_errs                 unsafe.Pointer
 	Srv_errs                 unsafe.Pointer
 	Srvcache_idemdonehits    unsafe.Pointer
 	Srvcache_inproghits      unsafe.Pointer
@@ -7888,6 +8405,7 @@ type Nfsrvstats struct {
 	Srvrpc_errs              unsafe.Pointer
 	Srvrpccntv3              unsafe.Pointer
 	Srvvop_writes            unsafe.Pointer
+	Nfs_errs                 unsafe.Pointer
 }
 
 // Ni_reply_fqdn
@@ -7905,11 +8423,11 @@ type Ni_reply_fqdn struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nlist
 type Nlist struct {
-	N_desc  unsafe.Pointer // A 16-bit value providing additional information about the nature of this symbol for non-stab symbols. The reference flags can be accessed using the
-	N_sect  unsafe.Pointer // An integer specifying the number of the section that this symbol can be found in, or
-	N_type  unsafe.Pointer // A byte value consisting of data accessed using four bit masks:
-	N_un    unsafe.Pointer // A union that holds an index into the string table,
-	N_value unsafe.Pointer // An integer that contains the value of the symbol. The format of this value is different for each type of symbol table entry (as specified by the
+	N_un    unsafe.Pointer // A union that holds an index into the string table, `n_strx`. To specify an empty string (`""`), set this value to 0. The `n_name` field is not used in Mach-O files.
+	N_sect  uint8          // An integer specifying the number of the section that this symbol can be found in, or `NO_SECT` if the symbol is not to be found in any section of this image. The sections are contiguously numbered across segments, starting from 1, according to the order they appear in the `LC_SEGMENT` load commands.
+	N_value unsafe.Pointer // An integer that contains the value of the symbol. The format of this value is different for each type of symbol table entry (as specified by the `n_type` field). For the `N_SECT` symbol type, `n_value` is the address of the symbol. See the description of the `n_type` field for information on other possible values.
+	N_desc  int16          // A 16-bit value providing additional information about the nature of this symbol for non-stab symbols. The reference flags can be accessed using the `REFERENCE_TYPE` mask (0xF) and are defined as follows:
+	N_type  uint8          // A byte value consisting of data accessed using four bit masks:
 
 }
 
@@ -7918,8 +8436,11 @@ type Nlist struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/nlist_64
 type Nlist_64 struct {
+	N_un    unsafe.Pointer // A union that holds an index into the string table, `n_strx`. To specify an empty string (`""`), set this value to 0.
 	N_value unsafe.Pointer
-	N_sect  uint8 // An integer specifying the number of the section that this symbol can be found in, or `NO_SECT` if the symbol is not to be found in any section of this image. The sections are contiguously numbered across segments, starting from 1, according to the order they appear in the `LC_SEGMENT` load commands.
+	N_type  uint8  // A byte value consisting of data accessed using four bit masks:
+	N_desc  uint16 // A 16-bit value providing additional information about the nature of this symbol. The reference flags can be accessed using the `REFERENCE_TYPE` mask (0xF) and are defined as follows:
+	N_sect  uint8  // An integer specifying the number of the section that this symbol can be found in, or `NO_SECT` if the symbol is not to be found in any section of this image. The sections are contiguously numbered across segments, starting from 1, according to the order they appear in the `LC_SEGMENT` load commands.
 
 }
 
@@ -7928,7 +8449,11 @@ type Nlist_64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/note_command
 type Note_command struct {
-	Cmd unsafe.Pointer
+	Data_owner unsafe.Pointer
+	Cmdsize    unsafe.Pointer
+	Offset     unsafe.Pointer
+	Size       unsafe.Pointer
+	Cmd        unsafe.Pointer
 }
 
 // Ntptimeval
@@ -7937,6 +8462,8 @@ type Note_command struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ntptimeval
 type Ntptimeval struct {
 	Time_state unsafe.Pointer
+	Maxerror   unsafe.Pointer
+	Esterror   unsafe.Pointer
 }
 
 // Ombstat
@@ -7944,8 +8471,21 @@ type Ntptimeval struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ombstat
 type Ombstat struct {
-	M_drops U_int32_t
-	M_mbufs U_int32_t
+	M_mhlen     U_int32_t
+	M_wait      U_int32_t
+	M_mlen      U_int32_t
+	M_minclsize U_int32_t
+	M_spare     U_int32_t
+	M_clfree    U_int32_t
+	M_msize     U_int32_t
+	M_clusters  U_int32_t
+	M_drops     U_int32_t
+	M_mtypes    U_short
+	M_mclbytes  U_int32_t
+	M_mpfail    U_int32_t
+	M_mcfail    U_int32_t
+	M_drain     U_int32_t
+	M_mbufs     U_int32_t
 }
 
 // Opmask_reg
@@ -7961,21 +8501,21 @@ type Opmask_reg struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ostat
 type Ostat struct {
-	St_atimespec unsafe.Pointer
-	St_blksize   unsafe.Pointer
-	St_blocks    unsafe.Pointer
-	St_ctimespec unsafe.Pointer
-	St_dev       unsafe.Pointer
-	St_flags     unsafe.Pointer
-	St_gen       unsafe.Pointer
-	St_gid       unsafe.Pointer
-	St_ino       unsafe.Pointer
-	St_mode      unsafe.Pointer
-	St_mtimespec unsafe.Pointer
-	St_nlink     unsafe.Pointer
-	St_rdev      unsafe.Pointer
-	St_size      unsafe.Pointer
-	St_uid       unsafe.Pointer
+	St_size      int32
+	St_ctimespec Timespec
+	St_dev       uint16
+	St_mode      uint16
+	St_blocks    int32
+	St_flags     uint32
+	St_rdev      uint16
+	St_gen       uint32
+	St_mtimespec Timespec
+	St_ino       uint64
+	St_uid       uint16
+	St_blksize   int32
+	St_nlink     uint16
+	St_atimespec Timespec
+	St_gid       uint16
 }
 
 // Persona_modify_info
@@ -7992,8 +8532,8 @@ type Persona_modify_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/persona_token
 type Persona_token struct {
-	Originator unsafe.Pointer
-	Proximate  unsafe.Pointer
+	Proximate  Proc_persona_info
+	Originator Proc_persona_info
 }
 
 // Portlabel_info
@@ -8001,9 +8541,9 @@ type Persona_token struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/portlabel_info
 type Portlabel_info struct {
-	Portlabel_domain unsafe.Pointer
-	Portlabel_flags  unsafe.Pointer
-	Portlabel_id     unsafe.Pointer
+	Portlabel_domain uint8
+	Portlabel_flags  uint16
+	Portlabel_id     int16
 }
 
 // Prebind_cksum_command
@@ -8021,11 +8561,8 @@ type Prebind_cksum_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/prebound_dylib_command
 type Prebound_dylib_command struct {
-	Cmd            unsafe.Pointer // Common to all load command structures. For this structure, set to
-	Cmdsize        unsafe.Pointer
-	Linked_modules unsafe.Pointer
-	Name           unsafe.Pointer
-	Nmodules       unsafe.Pointer
+	Cmd unsafe.Pointer // Common to all load command structures. For this structure, set to `LC_PREBOUND_DYLIB`.
+
 }
 
 // Priority_queue_deadline_max
@@ -8049,7 +8586,7 @@ type Priority_queue_deadline_min struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/priority_queue_max
 type Priority_queue_max struct {
-	Pq_cmp_fn unsafe.Pointer
+	Pq_cmp_fn Priority_queue_compare_fn_t
 	Pq_root   unsafe.Pointer
 }
 
@@ -8058,7 +8595,7 @@ type Priority_queue_max struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/priority_queue_min
 type Priority_queue_min struct {
-	Pq_cmp_fn unsafe.Pointer
+	Pq_cmp_fn Priority_queue_compare_fn_t
 	Pq_root   unsafe.Pointer
 }
 
@@ -8099,8 +8636,14 @@ type Priority_queue_sched_stable_min struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/proc_persona_info
 type Proc_persona_info struct {
+	Macho_uuid uint8
+	Unique_pid unsafe.Pointer
+	Flags      unsafe.Pointer
 	Uid        unsafe.Pointer
+	Persona_id unsafe.Pointer
 	Pidversion unsafe.Pointer
+	Gid        unsafe.Pointer
+	Pid        unsafe.Pointer
 }
 
 // Proc_rlimit_control_wakeupmon
@@ -8108,7 +8651,8 @@ type Proc_persona_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/proc_rlimit_control_wakeupmon
 type Proc_rlimit_control_wakeupmon struct {
-	Wm_flags unsafe.Pointer
+	Wm_flags uint32
+	Wm_rate  int32
 }
 
 // Pseminfo
@@ -8116,15 +8660,15 @@ type Proc_rlimit_control_wakeupmon struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/pseminfo
 type Pseminfo struct {
-	Psem_creator_pid      unsafe.Pointer
-	Psem_creator_uniqueid unsafe.Pointer
-	Psem_flags            unsafe.Pointer
-	Psem_gid              unsafe.Pointer
-	Psem_label            unsafe.Pointer
-	Psem_mode             unsafe.Pointer
 	Psem_name             unsafe.Pointer
+	Psem_gid              uint32
+	Psem_creator_uniqueid unsafe.Pointer
+	Psem_mode             uint16
+	Psem_uid              uint32
+	Psem_creator_pid      int32
+	Psem_label            unsafe.Pointer
+	Psem_flags            unsafe.Pointer
 	Psem_semobject        unsafe.Pointer
-	Psem_uid              unsafe.Pointer
 	Psem_usecount         unsafe.Pointer
 }
 
@@ -8138,7 +8682,10 @@ type Pshminfo struct {
 	Pshm_usecount  unsafe.Pointer
 	Pshm_label     unsafe.Pointer
 	Pshm_memobject unsafe.Pointer
+	Pshm_mode      uint16
+	Pshm_uid       uint32
 	Pshm_name      unsafe.Pointer
+	Pshm_flags     unsafe.Pointer
 }
 
 // Radvisory
@@ -8146,8 +8693,8 @@ type Pshminfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/radvisory
 type Radvisory struct {
-	Ra_count  unsafe.Pointer
 	Ra_offset int64
+	Ra_count  int
 }
 
 // Receive_sysdiagnose_notification_subsystem
@@ -8155,7 +8702,11 @@ type Radvisory struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/receive_sysdiagnose_notification_subsystem
 type Receive_sysdiagnose_notification_subsystem struct {
+	End      int32
+	Server   unsafe.Pointer
+	Maxsize  unsafe.Pointer
 	Reserved Vm_address_t
+	Start    int32
 	Routine  unsafe.Pointer
 }
 
@@ -8164,9 +8715,12 @@ type Receive_sysdiagnose_notification_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/receive_vfs_nspace_subsystem-rhm
 type Receive_vfs_nspace_subsystem struct {
-	End     int32
-	Maxsize unsafe.Pointer
-	Routine unsafe.Pointer
+	End      int32
+	Maxsize  unsafe.Pointer
+	Reserved Vm_address_t
+	Routine  unsafe.Pointer
+	Server   unsafe.Pointer
+	Start    int32
 }
 
 // Reg_desc
@@ -8174,11 +8728,11 @@ type Receive_vfs_nspace_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/reg_desc
 type Reg_desc struct {
-	Rd_format unsafe.Pointer
 	Rd_mask   unsafe.Pointer
-	Rd_name   unsafe.Pointer
+	Rd_values *Reg_values
+	Rd_format unsafe.Pointer
 	Rd_shift  unsafe.Pointer
-	Rd_values unsafe.Pointer
+	Rd_name   unsafe.Pointer
 }
 
 // Reg_values
@@ -8186,6 +8740,7 @@ type Reg_desc struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/reg_values
 type Reg_values struct {
+	Rv_name  unsafe.Pointer
 	Rv_value unsafe.Pointer
 }
 
@@ -8194,9 +8749,11 @@ type Reg_values struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/relocation_info
 type Relocation_info struct {
-	R_pcrel   unsafe.Pointer // Indicates whether the item containing the address to be relocated is part of a CPU instruction that uses PC-relative addressing.
-	R_length  unsafe.Pointer // Indicates the length of the item containing the address to be relocated.
-	R_address unsafe.Pointer // In `MH_OBJECT` files, an offset from the start of the section to the item containing the address requiring relocation.
+	R_pcrel     unsafe.Pointer // Indicates whether the item containing the address to be relocated is part of a CPU instruction that uses PC-relative addressing.
+	R_type      unsafe.Pointer
+	R_length    unsafe.Pointer // Indicates the length of the item containing the address to be relocated.
+	R_address   unsafe.Pointer // In `MH_OBJECT` files, an offset from the start of the section to the item containing the address requiring relocation.
+	R_symbolnum unsafe.Pointer // Indicates either an index into the symbol table (when the `r_extern` field is set to 1) or a section number (when the `r_extern` field is set to 0). As previously mentioned, sections are ordered from 1 to 255 in the order in which they appear in the `LC_SEGMENT` load commands. This field is set to `R_ABS` for relocation entries for absolute symbols, which need no relocation.
 
 }
 
@@ -8205,8 +8762,10 @@ type Relocation_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rip6stat
 type Rip6stat struct {
+	Rip6s_fullsock U_quad_t
 	Rip6s_ipackets U_quad_t
 	Rip6s_isum     U_quad_t
+	Rip6s_nosock   U_quad_t
 }
 
 // Rlimit
@@ -8214,8 +8773,8 @@ type Rip6stat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rlimit
 type Rlimit struct {
-	Rlim_max Rlim_t
 	Rlim_cur Rlim_t
+	Rlim_max Rlim_t
 }
 
 // Route_in6_old
@@ -8243,13 +8802,16 @@ type Route_old struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/routines_command
 type Routines_command struct {
-	Cmdsize     unsafe.Pointer
-	Reserved2   unsafe.Pointer // Reserved for future use. Set this field to `0`.
-	Reserved6   unsafe.Pointer
-	Reserved4   unsafe.Pointer
-	Reserved5   unsafe.Pointer
-	Init_module unsafe.Pointer
-	Cmd         unsafe.Pointer
+	Cmdsize      unsafe.Pointer
+	Reserved2    unsafe.Pointer // Reserved for future use. Set this field to `0`.
+	Reserved6    unsafe.Pointer
+	Reserved4    unsafe.Pointer
+	Reserved5    unsafe.Pointer
+	Reserved3    unsafe.Pointer // Reserved for future use. Set this field to `0`.
+	Reserved1    unsafe.Pointer
+	Init_address unsafe.Pointer // An integer specifying the virtual memory address of the initialization function.
+	Init_module  unsafe.Pointer
+	Cmd          unsafe.Pointer
 }
 
 // Routines_command_64
@@ -8257,16 +8819,17 @@ type Routines_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/routines_command_64
 type Routines_command_64 struct {
-	Cmd          unsafe.Pointer // Common to all load command structures. For this structure, set to
-	Cmdsize      unsafe.Pointer
-	Init_address unsafe.Pointer
 	Init_module  unsafe.Pointer
-	Reserved1    unsafe.Pointer
-	Reserved2    unsafe.Pointer // Reserved for future use. Set this field to
-	Reserved3    unsafe.Pointer
 	Reserved4    unsafe.Pointer
-	Reserved5    unsafe.Pointer // Reserved for future use. Set this field to
+	Init_address unsafe.Pointer
+	Reserved3    unsafe.Pointer
+	Reserved1    unsafe.Pointer
+	Reserved5    unsafe.Pointer // Reserved for future use. Set this field to `0`.
+	Cmdsize      unsafe.Pointer
+	Cmd          unsafe.Pointer // Common to all load command structures. For this structure, set to `LC_ROUTINES_64`.
 	Reserved6    unsafe.Pointer
+	Reserved2    unsafe.Pointer // Reserved for future use. Set this field to `0`.
+
 }
 
 // Rpath_command
@@ -8274,9 +8837,9 @@ type Routines_command_64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rpath_command
 type Rpath_command struct {
-	Cmd     unsafe.Pointer
 	Cmdsize unsafe.Pointer
 	Path    unsafe.Pointer
+	Cmd     unsafe.Pointer
 }
 
 // Rpc_signature
@@ -8293,14 +8856,14 @@ type Rpc_signature struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rr_pco_match
 type Rr_pco_match struct {
-	Rpm_code     unsafe.Pointer
-	Rpm_len      unsafe.Pointer
-	Rpm_matchlen unsafe.Pointer
-	Rpm_maxlen   unsafe.Pointer
-	Rpm_minlen   unsafe.Pointer
-	Rpm_ordinal  unsafe.Pointer
+	Rpm_code     U_int8_t
+	Rpm_len      U_int8_t
+	Rpm_matchlen U_int8_t
+	Rpm_maxlen   U_int8_t
+	Rpm_minlen   U_int8_t
+	Rpm_ordinal  U_int8_t
 	Rpm_prefix   unsafe.Pointer
-	Rpm_reserved unsafe.Pointer
+	Rpm_reserved U_int16_t
 }
 
 // Rr_pco_use
@@ -8308,7 +8871,9 @@ type Rr_pco_match struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rr_pco_use
 type Rr_pco_use struct {
-	Rpu_flags U_int32_t
+	Rpu_flags   U_int32_t
+	Rpu_keeplen U_int8_t
+	Rpu_pltime  U_int32_t
 }
 
 // Rr_result
@@ -8316,8 +8881,11 @@ type Rr_pco_use struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rr_result
 type Rr_result struct {
-	Rrr_flags U_int16_t
-	Rrr_ifid  U_int32_t
+	Rrr_flags      U_int16_t
+	Rrr_ifid       U_int32_t
+	Rrr_matchedlen U_int8_t
+	Rrr_ordinal    U_int8_t
+	Rrr_prefix     unsafe.Pointer
 }
 
 // Rslvmulti_req
@@ -8334,6 +8902,7 @@ type Rslvmulti_req struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rt_addrinfo
 type Rt_addrinfo struct {
+	Rti_info  unsafe.Pointer
 	Rti_addrs unsafe.Pointer
 }
 
@@ -8342,8 +8911,8 @@ type Rt_addrinfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rt_addrinfo_ext
 type Rt_addrinfo_ext struct {
-	Rtix_info      unsafe.Pointer
-	Rtix_next_tiny unsafe.Pointer
+	Rtix_info      Rt_addrinfo
+	Rtix_next_tiny uint8
 	Rtix_tiny_addr unsafe.Pointer
 }
 
@@ -8352,17 +8921,7 @@ type Rt_addrinfo_ext struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rt_metrics
 type Rt_metrics struct {
-	Rmx_expire   unsafe.Pointer
-	Rmx_filler   unsafe.Pointer
-	Rmx_hopcount unsafe.Pointer
-	Rmx_locks    unsafe.Pointer
-	Rmx_mtu      unsafe.Pointer
-	Rmx_pksent   unsafe.Pointer
-	Rmx_recvpipe unsafe.Pointer
-	Rmx_rtt      unsafe.Pointer
-	Rmx_rttvar   unsafe.Pointer
-	Rmx_sendpipe unsafe.Pointer
-	Rmx_ssthresh unsafe.Pointer
+	Rmx_rttvar U_int32_t
 }
 
 // Rt_msghdr
@@ -8370,18 +8929,8 @@ type Rt_metrics struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rt_msghdr
 type Rt_msghdr struct {
-	Rtm_addrs   unsafe.Pointer
-	Rtm_errno   unsafe.Pointer
-	Rtm_flags   unsafe.Pointer
-	Rtm_index   unsafe.Pointer
-	Rtm_inits   unsafe.Pointer
-	Rtm_msglen  unsafe.Pointer
-	Rtm_pid     unsafe.Pointer
-	Rtm_rmx     unsafe.Pointer
-	Rtm_seq     unsafe.Pointer
-	Rtm_type    unsafe.Pointer
-	Rtm_use     unsafe.Pointer
-	Rtm_version unsafe.Pointer
+	Rtm_errno unsafe.Pointer
+	Rtm_addrs unsafe.Pointer
 }
 
 // Rt_msghdr2
@@ -8389,18 +8938,17 @@ type Rt_msghdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rt_msghdr2
 type Rt_msghdr2 struct {
-	Rtm_addrs       unsafe.Pointer
+	Rtm_index       U_short
+	Rtm_type        U_char
+	Rtm_msglen      U_short
 	Rtm_flags       unsafe.Pointer
-	Rtm_index       unsafe.Pointer
-	Rtm_inits       unsafe.Pointer
-	Rtm_msglen      unsafe.Pointer
+	Rtm_rmx         Rt_metrics
+	Rtm_inits       U_int32_t
 	Rtm_parentflags unsafe.Pointer
 	Rtm_refcnt      unsafe.Pointer
-	Rtm_reserved    unsafe.Pointer
-	Rtm_rmx         unsafe.Pointer
-	Rtm_type        unsafe.Pointer
 	Rtm_use         unsafe.Pointer
-	Rtm_version     unsafe.Pointer
+	Rtm_addrs       unsafe.Pointer
+	Rtm_reserved    unsafe.Pointer
 }
 
 // Rt_msghdr_common
@@ -8408,7 +8956,11 @@ type Rt_msghdr2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rt_msghdr_common
 type Rt_msghdr_common struct {
-	Rtm_flags unsafe.Pointer
+	Rtm_errno  unsafe.Pointer
+	Rtm_flags  unsafe.Pointer
+	Rtm_index  U_short
+	Rtm_msglen U_short
+	Rtm_type   U_char
 }
 
 // Rt_msghdr_ext
@@ -8416,20 +8968,19 @@ type Rt_msghdr_common struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rt_msghdr_ext
 type Rt_msghdr_ext struct {
-	Rtm_addrs    unsafe.Pointer
+	Rtm_addrs    U_int32_t
 	Rtm_errno    unsafe.Pointer
-	Rtm_flags    unsafe.Pointer
-	Rtm_index    unsafe.Pointer
-	Rtm_inits    unsafe.Pointer
-	Rtm_msglen   unsafe.Pointer
-	Rtm_pid      unsafe.Pointer
-	Rtm_reserved unsafe.Pointer
-	Rtm_ri       unsafe.Pointer
-	Rtm_rmx      unsafe.Pointer
+	Rtm_flags    U_int32_t
+	Rtm_index    U_int32_t
+	Rtm_inits    U_int32_t
+	Rtm_msglen   U_short
+	Rtm_pid      int32
+	Rtm_reserved U_int32_t
+	Rtm_ri       Rt_reach_info
+	Rtm_rmx      Rt_metrics
 	Rtm_seq      unsafe.Pointer
-	Rtm_type     unsafe.Pointer
-	Rtm_use      unsafe.Pointer
-	Rtm_version  unsafe.Pointer
+	Rtm_type     U_char
+	Rtm_use      U_int32_t
 }
 
 // Rt_msghdr_prelude
@@ -8447,11 +8998,11 @@ type Rt_msghdr_prelude struct {
 type Rt_reach_info struct {
 	Ri_lqm        unsafe.Pointer
 	Ri_npm        unsafe.Pointer
-	Ri_probes     unsafe.Pointer
-	Ri_rcv_expire unsafe.Pointer
-	Ri_refcnt     unsafe.Pointer
+	Ri_probes     U_int32_t
+	Ri_rcv_expire U_int64_t
+	Ri_refcnt     U_int32_t
 	Ri_rssi       unsafe.Pointer
-	Ri_snd_expire unsafe.Pointer
+	Ri_snd_expire U_int64_t
 }
 
 // Rtstat
@@ -8459,12 +9010,7 @@ type Rt_reach_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rtstat
 type Rtstat struct {
-	Rts_badredirect  unsafe.Pointer
-	Rts_badrtgwroute unsafe.Pointer
-	Rts_dynamic      unsafe.Pointer
-	Rts_newgateway   unsafe.Pointer
-	Rts_unreach      unsafe.Pointer
-	Rts_wildcard     unsafe.Pointer
+	Rts_dynamic unsafe.Pointer
 }
 
 // Rtstat_64
@@ -8485,22 +9031,22 @@ type Rtstat_64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage
 type Rusage struct {
-	Ru_idrss    unsafe.Pointer
-	Ru_inblock  unsafe.Pointer
-	Ru_isrss    unsafe.Pointer
-	Ru_ixrss    unsafe.Pointer
-	Ru_majflt   unsafe.Pointer
-	Ru_maxrss   unsafe.Pointer
-	Ru_minflt   unsafe.Pointer
-	Ru_msgrcv   unsafe.Pointer
-	Ru_msgsnd   unsafe.Pointer
-	Ru_nivcsw   unsafe.Pointer
-	Ru_nsignals unsafe.Pointer
-	Ru_nswap    unsafe.Pointer
-	Ru_nvcsw    unsafe.Pointer
-	Ru_oublock  unsafe.Pointer
-	Ru_stime    unsafe.Pointer
-	Ru_utime    unsafe.Pointer
+	Ru_utime    Timeval
+	Ru_stime    Timeval
+	Ru_maxrss   int
+	Ru_ixrss    int
+	Ru_idrss    int
+	Ru_isrss    int
+	Ru_minflt   int
+	Ru_majflt   int
+	Ru_nswap    int
+	Ru_inblock  int
+	Ru_oublock  int
+	Ru_msgsnd   int
+	Ru_msgrcv   int
+	Ru_nsignals int
+	Ru_nvcsw    int
+	Ru_nivcsw   int
 }
 
 // Rusage_info_child
@@ -8508,8 +9054,12 @@ type Rusage struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage_info_child
 type Rusage_info_child struct {
-	Ri_child_system_time    unsafe.Pointer
-	Ri_child_pkg_idle_wkups unsafe.Pointer
+	Ri_child_interrupt_wkups unsafe.Pointer
+	Ri_child_user_time       unsafe.Pointer
+	Ri_child_system_time     unsafe.Pointer
+	Ri_child_elapsed_abstime unsafe.Pointer
+	Ri_child_pageins         unsafe.Pointer
+	Ri_child_pkg_idle_wkups  unsafe.Pointer
 }
 
 // Rusage_info_v0
@@ -8517,8 +9067,17 @@ type Rusage_info_child struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage_info_v0
 type Rusage_info_v0 struct {
-	Ri_pageins         unsafe.Pointer
-	Ri_interrupt_wkups unsafe.Pointer
+	Ri_user_time          uint64
+	Ri_system_time        uint64
+	Ri_pkg_idle_wkups     uint64
+	Ri_interrupt_wkups    uint64
+	Ri_pageins            uint64
+	Ri_wired_size         uint64
+	Ri_resident_size      uint64
+	Ri_phys_footprint     uint64
+	Ri_proc_start_abstime uint64
+	Ri_proc_exit_abstime  uint64
+	Ri_uuid               uint8
 }
 
 // Rusage_info_v1
@@ -8526,10 +9085,23 @@ type Rusage_info_v0 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage_info_v1
 type Rusage_info_v1 struct {
-	Ri_resident_size        unsafe.Pointer
-	Ri_child_pageins        unsafe.Pointer
-	Ri_child_user_time      unsafe.Pointer
-	Ri_child_pkg_idle_wkups unsafe.Pointer
+	Ri_user_time             uint64
+	Ri_system_time           uint64
+	Ri_pkg_idle_wkups        uint64
+	Ri_interrupt_wkups       uint64
+	Ri_pageins               uint64
+	Ri_wired_size            uint64
+	Ri_resident_size         uint64
+	Ri_phys_footprint        uint64
+	Ri_proc_start_abstime    uint64
+	Ri_proc_exit_abstime     uint64
+	Ri_child_user_time       uint64
+	Ri_child_system_time     uint64
+	Ri_child_pkg_idle_wkups  uint64
+	Ri_child_interrupt_wkups uint64
+	Ri_child_pageins         uint64
+	Ri_child_elapsed_abstime uint64
+	Ri_uuid                  unsafe.Pointer
 }
 
 // Rusage_info_v2
@@ -8537,25 +9109,25 @@ type Rusage_info_v1 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage_info_v2
 type Rusage_info_v2 struct {
-	Ri_child_elapsed_abstime unsafe.Pointer
-	Ri_child_interrupt_wkups unsafe.Pointer
-	Ri_child_pageins         unsafe.Pointer
-	Ri_child_pkg_idle_wkups  unsafe.Pointer
-	Ri_child_system_time     unsafe.Pointer
-	Ri_child_user_time       unsafe.Pointer
-	Ri_diskio_bytesread      unsafe.Pointer
-	Ri_diskio_byteswritten   unsafe.Pointer
-	Ri_interrupt_wkups       unsafe.Pointer
-	Ri_pageins               unsafe.Pointer
-	Ri_phys_footprint        unsafe.Pointer
-	Ri_pkg_idle_wkups        unsafe.Pointer
-	Ri_proc_exit_abstime     unsafe.Pointer
-	Ri_proc_start_abstime    unsafe.Pointer
-	Ri_resident_size         unsafe.Pointer
-	Ri_system_time           unsafe.Pointer
-	Ri_user_time             unsafe.Pointer
-	Ri_uuid                  unsafe.Pointer
-	Ri_wired_size            unsafe.Pointer
+	Ri_user_time             uint64
+	Ri_system_time           uint64
+	Ri_pkg_idle_wkups        uint64
+	Ri_interrupt_wkups       uint64
+	Ri_pageins               uint64
+	Ri_wired_size            uint64
+	Ri_resident_size         uint64
+	Ri_phys_footprint        uint64
+	Ri_proc_start_abstime    uint64
+	Ri_proc_exit_abstime     uint64
+	Ri_child_user_time       uint64
+	Ri_child_system_time     uint64
+	Ri_child_pkg_idle_wkups  uint64
+	Ri_child_interrupt_wkups uint64
+	Ri_child_pageins         uint64
+	Ri_child_elapsed_abstime uint64
+	Ri_diskio_bytesread      uint64
+	Ri_diskio_byteswritten   uint64
+	Ri_uuid                  uint8
 }
 
 // Rusage_info_v3
@@ -8563,34 +9135,34 @@ type Rusage_info_v2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage_info_v3
 type Rusage_info_v3 struct {
-	Ri_billed_system_time            unsafe.Pointer
-	Ri_child_elapsed_abstime         unsafe.Pointer
-	Ri_child_interrupt_wkups         unsafe.Pointer
-	Ri_child_pageins                 unsafe.Pointer
-	Ri_child_pkg_idle_wkups          unsafe.Pointer
-	Ri_child_system_time             unsafe.Pointer
-	Ri_child_user_time               unsafe.Pointer
-	Ri_cpu_time_qos_background       unsafe.Pointer
-	Ri_cpu_time_qos_default          unsafe.Pointer
-	Ri_cpu_time_qos_legacy           unsafe.Pointer
-	Ri_cpu_time_qos_maintenance      unsafe.Pointer
-	Ri_cpu_time_qos_user_initiated   unsafe.Pointer
-	Ri_cpu_time_qos_user_interactive unsafe.Pointer
-	Ri_cpu_time_qos_utility          unsafe.Pointer
-	Ri_diskio_bytesread              unsafe.Pointer
-	Ri_diskio_byteswritten           unsafe.Pointer
-	Ri_interrupt_wkups               unsafe.Pointer
-	Ri_pageins                       unsafe.Pointer
-	Ri_phys_footprint                unsafe.Pointer
-	Ri_pkg_idle_wkups                unsafe.Pointer
-	Ri_proc_exit_abstime             unsafe.Pointer
-	Ri_proc_start_abstime            unsafe.Pointer
-	Ri_resident_size                 unsafe.Pointer
-	Ri_serviced_system_time          unsafe.Pointer
-	Ri_system_time                   unsafe.Pointer
-	Ri_user_time                     unsafe.Pointer
+	Ri_user_time                     uint64
+	Ri_system_time                   uint64
+	Ri_pkg_idle_wkups                uint64
+	Ri_interrupt_wkups               uint64
+	Ri_pageins                       uint64
+	Ri_wired_size                    uint64
+	Ri_resident_size                 uint64
+	Ri_phys_footprint                uint64
+	Ri_proc_start_abstime            uint64
+	Ri_proc_exit_abstime             uint64
+	Ri_child_user_time               uint64
+	Ri_child_system_time             uint64
+	Ri_child_pkg_idle_wkups          uint64
+	Ri_child_interrupt_wkups         uint64
+	Ri_child_pageins                 uint64
+	Ri_child_elapsed_abstime         uint64
+	Ri_diskio_bytesread              uint64
+	Ri_diskio_byteswritten           uint64
+	Ri_cpu_time_qos_default          uint64
+	Ri_cpu_time_qos_maintenance      uint64
+	Ri_cpu_time_qos_background       uint64
+	Ri_cpu_time_qos_utility          uint64
+	Ri_cpu_time_qos_legacy           uint64
+	Ri_cpu_time_qos_user_initiated   uint64
+	Ri_cpu_time_qos_user_interactive uint64
+	Ri_billed_system_time            uint64
+	Ri_serviced_system_time          uint64
 	Ri_uuid                          unsafe.Pointer
-	Ri_wired_size                    unsafe.Pointer
 }
 
 // Rusage_info_v4
@@ -8598,14 +9170,42 @@ type Rusage_info_v3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage_info_v4
 type Rusage_info_v4 struct {
-	Ri_billed_energy               unsafe.Pointer
-	Ri_cycles                      unsafe.Pointer
-	Ri_instructions                unsafe.Pointer
-	Ri_interval_max_phys_footprint unsafe.Pointer
-	Ri_lifetime_max_phys_footprint unsafe.Pointer
-	Ri_logical_writes              unsafe.Pointer
-	Ri_runnable_time               unsafe.Pointer
-	Ri_serviced_energy             unsafe.Pointer
+	Ri_user_time                     uint64
+	Ri_system_time                   uint64
+	Ri_pkg_idle_wkups                uint64
+	Ri_interrupt_wkups               uint64
+	Ri_pageins                       uint64
+	Ri_wired_size                    uint64
+	Ri_resident_size                 uint64
+	Ri_phys_footprint                uint64
+	Ri_proc_start_abstime            uint64
+	Ri_proc_exit_abstime             uint64
+	Ri_child_user_time               uint64
+	Ri_child_system_time             uint64
+	Ri_child_pkg_idle_wkups          uint64
+	Ri_child_interrupt_wkups         uint64
+	Ri_child_pageins                 uint64
+	Ri_child_elapsed_abstime         uint64
+	Ri_diskio_bytesread              uint64
+	Ri_diskio_byteswritten           uint64
+	Ri_cpu_time_qos_default          uint64
+	Ri_cpu_time_qos_maintenance      uint64
+	Ri_cpu_time_qos_background       uint64
+	Ri_cpu_time_qos_utility          uint64
+	Ri_cpu_time_qos_legacy           uint64
+	Ri_cpu_time_qos_user_initiated   uint64
+	Ri_cpu_time_qos_user_interactive uint64
+	Ri_billed_system_time            uint64
+	Ri_serviced_system_time          uint64
+	Ri_logical_writes                uint64
+	Ri_lifetime_max_phys_footprint   uint64
+	Ri_instructions                  uint64
+	Ri_cycles                        uint64
+	Ri_billed_energy                 uint64
+	Ri_serviced_energy               uint64
+	Ri_interval_max_phys_footprint   uint64
+	Ri_runnable_time                 uint64
+	Ri_uuid                          unsafe.Pointer
 }
 
 // Rusage_info_v5
@@ -8613,7 +9213,43 @@ type Rusage_info_v4 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage_info_v5
 type Rusage_info_v5 struct {
-	Ri_flags unsafe.Pointer
+	Ri_user_time                     uint64
+	Ri_system_time                   uint64
+	Ri_pkg_idle_wkups                uint64
+	Ri_interrupt_wkups               uint64
+	Ri_pageins                       uint64
+	Ri_wired_size                    uint64
+	Ri_resident_size                 uint64
+	Ri_phys_footprint                uint64
+	Ri_proc_start_abstime            uint64
+	Ri_proc_exit_abstime             uint64
+	Ri_child_user_time               uint64
+	Ri_child_system_time             uint64
+	Ri_child_pkg_idle_wkups          uint64
+	Ri_child_interrupt_wkups         uint64
+	Ri_child_pageins                 uint64
+	Ri_child_elapsed_abstime         uint64
+	Ri_diskio_bytesread              uint64
+	Ri_diskio_byteswritten           uint64
+	Ri_cpu_time_qos_default          uint64
+	Ri_cpu_time_qos_maintenance      uint64
+	Ri_cpu_time_qos_background       uint64
+	Ri_cpu_time_qos_utility          uint64
+	Ri_cpu_time_qos_legacy           uint64
+	Ri_cpu_time_qos_user_initiated   uint64
+	Ri_cpu_time_qos_user_interactive uint64
+	Ri_billed_system_time            uint64
+	Ri_serviced_system_time          uint64
+	Ri_logical_writes                uint64
+	Ri_lifetime_max_phys_footprint   uint64
+	Ri_instructions                  uint64
+	Ri_cycles                        uint64
+	Ri_billed_energy                 uint64
+	Ri_serviced_energy               uint64
+	Ri_interval_max_phys_footprint   uint64
+	Ri_runnable_time                 uint64
+	Ri_flags                         uint64
+	Ri_uuid                          unsafe.Pointer
 }
 
 // Rusage_superset
@@ -8621,8 +9257,8 @@ type Rusage_info_v5 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/rusage_superset
 type Rusage_superset struct {
-	Ri unsafe.Pointer
-	Ru unsafe.Pointer
+	Ri Rusage_info_current
+	Ru Rusage
 }
 
 // Sadb_address
@@ -8631,6 +9267,10 @@ type Rusage_superset struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_address
 type Sadb_address struct {
 	Sadb_address_prefixlen U_int8_t
+	Sadb_address_reserved  U_int16_t
+	Sadb_address_exttype   U_int16_t
+	Sadb_address_proto     U_int8_t
+	Sadb_address_len       U_int16_t
 }
 
 // Sadb_alg
@@ -8638,7 +9278,11 @@ type Sadb_address struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_alg
 type Sadb_alg struct {
-	Sadb_alg_maxbits U_int16_t
+	Sadb_alg_ivlen    U_int8_t
+	Sadb_alg_id       U_int8_t
+	Sadb_alg_reserved U_int16_t
+	Sadb_alg_minbits  U_int16_t
+	Sadb_alg_maxbits  U_int16_t
 }
 
 // Sadb_comb
@@ -8646,22 +9290,22 @@ type Sadb_alg struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_comb
 type Sadb_comb struct {
-	Sadb_comb_auth             unsafe.Pointer
-	Sadb_comb_auth_maxbits     unsafe.Pointer
-	Sadb_comb_auth_minbits     unsafe.Pointer
-	Sadb_comb_encrypt          unsafe.Pointer
-	Sadb_comb_encrypt_maxbits  unsafe.Pointer
-	Sadb_comb_encrypt_minbits  unsafe.Pointer
-	Sadb_comb_flags            unsafe.Pointer
-	Sadb_comb_hard_addtime     unsafe.Pointer
-	Sadb_comb_hard_allocations unsafe.Pointer
-	Sadb_comb_hard_bytes       unsafe.Pointer
-	Sadb_comb_hard_usetime     unsafe.Pointer
-	Sadb_comb_reserved         unsafe.Pointer
-	Sadb_comb_soft_addtime     unsafe.Pointer
-	Sadb_comb_soft_allocations unsafe.Pointer
-	Sadb_comb_soft_bytes       unsafe.Pointer
-	Sadb_comb_soft_usetime     unsafe.Pointer
+	Sadb_comb_encrypt_minbits  U_int16_t
+	Sadb_comb_soft_addtime     U_int64_t
+	Sadb_comb_reserved         U_int32_t
+	Sadb_comb_auth             U_int8_t
+	Sadb_comb_auth_maxbits     U_int16_t
+	Sadb_comb_encrypt          U_int8_t
+	Sadb_comb_hard_allocations U_int32_t
+	Sadb_comb_hard_usetime     U_int64_t
+	Sadb_comb_soft_bytes       U_int64_t
+	Sadb_comb_soft_allocations U_int32_t
+	Sadb_comb_hard_bytes       U_int64_t
+	Sadb_comb_auth_minbits     U_int16_t
+	Sadb_comb_flags            U_int16_t
+	Sadb_comb_hard_addtime     U_int64_t
+	Sadb_comb_encrypt_maxbits  U_int16_t
+	Sadb_comb_soft_usetime     U_int64_t
 }
 
 // Sadb_ext
@@ -8669,8 +9313,8 @@ type Sadb_comb struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_ext
 type Sadb_ext struct {
-	Sadb_ext_len  unsafe.Pointer
-	Sadb_ext_type unsafe.Pointer
+	Sadb_ext_type U_int16_t
+	Sadb_ext_len  U_int16_t
 }
 
 // Sadb_ident
@@ -8678,7 +9322,9 @@ type Sadb_ext struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_ident
 type Sadb_ident struct {
+	Sadb_ident_len      U_int16_t
 	Sadb_ident_type     U_int16_t
+	Sadb_ident_id       U_int64_t
 	Sadb_ident_exttype  U_int16_t
 	Sadb_ident_reserved U_int16_t
 }
@@ -8688,10 +9334,10 @@ type Sadb_ident struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_key
 type Sadb_key struct {
-	Sadb_key_bits     unsafe.Pointer
-	Sadb_key_exttype  unsafe.Pointer
-	Sadb_key_len      unsafe.Pointer
-	Sadb_key_reserved unsafe.Pointer
+	Sadb_key_bits     U_int16_t
+	Sadb_key_exttype  U_int16_t
+	Sadb_key_len      U_int16_t
+	Sadb_key_reserved U_int16_t
 }
 
 // Sadb_lifetime
@@ -8710,14 +9356,8 @@ type Sadb_lifetime struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_msg
 type Sadb_msg struct {
-	Sadb_msg_errno    unsafe.Pointer
-	Sadb_msg_len      unsafe.Pointer
-	Sadb_msg_pid      unsafe.Pointer
-	Sadb_msg_reserved unsafe.Pointer
-	Sadb_msg_satype   unsafe.Pointer
-	Sadb_msg_seq      unsafe.Pointer
-	Sadb_msg_type     unsafe.Pointer
-	Sadb_msg_version  unsafe.Pointer
+	Sadb_msg_satype   U_int8_t
+	Sadb_msg_reserved U_int16_t
 }
 
 // Sadb_prop
@@ -8725,10 +9365,10 @@ type Sadb_msg struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_prop
 type Sadb_prop struct {
-	Sadb_prop_exttype  unsafe.Pointer
-	Sadb_prop_len      unsafe.Pointer
-	Sadb_prop_replay   unsafe.Pointer
-	Sadb_prop_reserved unsafe.Pointer
+	Sadb_prop_replay   U_int8_t
+	Sadb_prop_exttype  U_int16_t
+	Sadb_prop_len      U_int16_t
+	Sadb_prop_reserved U_int8_t
 }
 
 // Sadb_sa
@@ -8736,14 +9376,14 @@ type Sadb_prop struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_sa
 type Sadb_sa struct {
-	Sadb_sa_auth    unsafe.Pointer
-	Sadb_sa_encrypt unsafe.Pointer
-	Sadb_sa_exttype unsafe.Pointer
-	Sadb_sa_flags   unsafe.Pointer
-	Sadb_sa_len     unsafe.Pointer
-	Sadb_sa_replay  unsafe.Pointer
-	Sadb_sa_spi     unsafe.Pointer
-	Sadb_sa_state   unsafe.Pointer
+	Sadb_sa_auth    U_int8_t
+	Sadb_sa_exttype U_int16_t
+	Sadb_sa_flags   U_int32_t
+	Sadb_sa_replay  U_int8_t
+	Sadb_sa_encrypt U_int8_t
+	Sadb_sa_state   U_int8_t
+	Sadb_sa_spi     U_int32_t
+	Sadb_sa_len     U_int16_t
 }
 
 // Sadb_sastat
@@ -8751,8 +9391,11 @@ type Sadb_sa struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_sastat
 type Sadb_sastat struct {
-	Sadb_sastat_exttype U_int16_t
-	Sadb_sastat_dir     U_int32_t
+	Sadb_sastat_exttype  U_int16_t
+	Sadb_sastat_dir      U_int32_t
+	Sadb_sastat_list_len U_int32_t
+	Sadb_sastat_reserved U_int32_t
+	Sadb_sastat_len      U_int16_t
 }
 
 // Sadb_sens
@@ -8760,7 +9403,14 @@ type Sadb_sastat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_sens
 type Sadb_sens struct {
-	Sadb_sens_len U_int16_t
+	Sadb_sens_sens_len    U_int8_t
+	Sadb_sens_sens_level  U_int8_t
+	Sadb_sens_exttype     U_int16_t
+	Sadb_sens_reserved    U_int32_t
+	Sadb_sens_integ_len   U_int8_t
+	Sadb_sens_integ_level U_int8_t
+	Sadb_sens_len         U_int16_t
+	Sadb_sens_dpd         U_int32_t
 }
 
 // Sadb_session_id
@@ -8768,9 +9418,9 @@ type Sadb_sens struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_session_id
 type Sadb_session_id struct {
-	Sadb_session_id_exttype unsafe.Pointer
-	Sadb_session_id_len     unsafe.Pointer
-	Sadb_session_id_v       unsafe.Pointer
+	Sadb_session_id_v       U_int64_t
+	Sadb_session_id_len     U_int16_t
+	Sadb_session_id_exttype U_int16_t
 }
 
 // Sadb_spirange
@@ -8778,7 +9428,11 @@ type Sadb_session_id struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_spirange
 type Sadb_spirange struct {
-	Sadb_spirange_exttype U_int16_t
+	Sadb_spirange_min      U_int32_t
+	Sadb_spirange_reserved U_int32_t
+	Sadb_spirange_len      U_int16_t
+	Sadb_spirange_max      U_int32_t
+	Sadb_spirange_exttype  U_int16_t
 }
 
 // Sadb_supported
@@ -8786,7 +9440,9 @@ type Sadb_spirange struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_supported
 type Sadb_supported struct {
-	Sadb_supported_exttype U_int16_t
+	Sadb_supported_exttype  U_int16_t
+	Sadb_supported_len      U_int16_t
+	Sadb_supported_reserved U_int32_t
 }
 
 // Sadb_x_ipsecrequest
@@ -8794,11 +9450,10 @@ type Sadb_supported struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_x_ipsecrequest
 type Sadb_x_ipsecrequest struct {
-	Sadb_x_ipsecrequest_len   unsafe.Pointer
-	Sadb_x_ipsecrequest_level unsafe.Pointer
-	Sadb_x_ipsecrequest_mode  unsafe.Pointer
-	Sadb_x_ipsecrequest_proto unsafe.Pointer
-	Sadb_x_ipsecrequest_reqid unsafe.Pointer
+	Sadb_x_ipsecrequest_level U_int8_t
+	Sadb_x_ipsecrequest_mode  U_int8_t
+	Sadb_x_ipsecrequest_len   U_int16_t
+	Sadb_x_ipsecrequest_proto U_int16_t
 }
 
 // Sadb_x_kmprivate
@@ -8806,7 +9461,9 @@ type Sadb_x_ipsecrequest struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_x_kmprivate
 type Sadb_x_kmprivate struct {
-	Sadb_x_kmprivate_exttype U_int16_t
+	Sadb_x_kmprivate_len      U_int16_t
+	Sadb_x_kmprivate_exttype  U_int16_t
+	Sadb_x_kmprivate_reserved U_int32_t
 }
 
 // Sadb_x_policy
@@ -8814,13 +9471,13 @@ type Sadb_x_kmprivate struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_x_policy
 type Sadb_x_policy struct {
-	Sadb_x_policy_dir       unsafe.Pointer
-	Sadb_x_policy_exttype   unsafe.Pointer
-	Sadb_x_policy_id        unsafe.Pointer
-	Sadb_x_policy_len       unsafe.Pointer
-	Sadb_x_policy_reserved  unsafe.Pointer
-	Sadb_x_policy_reserved2 unsafe.Pointer
-	Sadb_x_policy_type      unsafe.Pointer
+	Sadb_x_policy_dir       U_int8_t
+	Sadb_x_policy_reserved  U_int8_t
+	Sadb_x_policy_len       U_int16_t
+	Sadb_x_policy_id        U_int32_t
+	Sadb_x_policy_exttype   U_int16_t
+	Sadb_x_policy_reserved2 U_int32_t
+	Sadb_x_policy_type      U_int16_t
 }
 
 // Sadb_x_sa2
@@ -8828,11 +9485,10 @@ type Sadb_x_policy struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sadb_x_sa2
 type Sadb_x_sa2 struct {
-	Sadb_x_sa2_exttype  unsafe.Pointer
-	Sadb_x_sa2_len      unsafe.Pointer
-	Sadb_x_sa2_mode     unsafe.Pointer
-	Sadb_x_sa2_reqid    unsafe.Pointer
-	Sadb_x_sa2_sequence unsafe.Pointer
+	Sadb_x_sa2_len     U_int16_t
+	Sadb_x_sa2_mode    U_int8_t
+	Sadb_x_sa2_exttype U_int16_t
+	Sadb_x_sa2_reqid   U_int32_t
 }
 
 // Sastat
@@ -8840,7 +9496,9 @@ type Sadb_x_sa2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sastat
 type Sastat struct {
-	Spi U_int32_t
+	Spi     U_int32_t
+	Lft_c   Sadb_lifetime
+	Created U_int32_t
 }
 
 // Sbuf
@@ -8848,8 +9506,11 @@ type Sastat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sbuf
 type Sbuf struct {
-	S_len   unsafe.Pointer
-	S_flags unsafe.Pointer
+	S_len    unsafe.Pointer
+	S_unused unsafe.Pointer
+	S_buf    unsafe.Pointer
+	S_flags  unsafe.Pointer
+	S_size   unsafe.Pointer
 }
 
 // Scattered_relocation_info
@@ -8857,11 +9518,11 @@ type Sbuf struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/scattered_relocation_info
 type Scattered_relocation_info struct {
+	R_pcrel     unsafe.Pointer // Indicates whether the item containing the address to be relocated is part of a CPU instruction that uses PC-relative addressing.
 	R_address   unsafe.Pointer
 	R_length    unsafe.Pointer
-	R_pcrel     unsafe.Pointer // Indicates whether the item containing the address to be relocated is part of a CPU instruction that uses PC-relative addressing.
-	R_scattered unsafe.Pointer // If this bit is 0, this structure is actually a
-	R_type      unsafe.Pointer // Indicates the type of relocation to be performed. Possible values for this field are shared between this structure and the
+	R_scattered unsafe.Pointer // If this bit is 0, this structure is actually a [relocation_info](<doc://com.apple.documentation/documentation/kernel/relocation_info>) structure.
+	R_type      unsafe.Pointer // Indicates the type of relocation to be performed. Possible values for this field are shared between this structure and the `relocation_info` data structure; see the description of the `r_type` field in the [relocation_info](<doc://com.apple.documentation/documentation/kernel/relocation_info>) data structure for more details.
 	R_value     unsafe.Pointer // The address of the relocatable expression for the item in the file that needs to be updated if the address is changed. For relocatable expressions with the difference of two section addresses, the address from which to subtract (in mathematical terms, the minuend) is contained in the first relocation entry and the address to subtract (the subtrahend) is contained in the second relocation entry.
 
 }
@@ -8871,9 +9532,7 @@ type Scattered_relocation_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/searchstate
 type Searchstate struct {
-	Ss_fsstate     unsafe.Pointer
 	Ss_union_flags unsafe.Pointer
-	Ss_union_layer unsafe.Pointer
 }
 
 // Section
@@ -8899,8 +9558,18 @@ type Section struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/section_64
 type Section_64 struct {
-	Align unsafe.Pointer
-	Addr  unsafe.Pointer
+	Nreloc    unsafe.Pointer
+	Segname   unsafe.Pointer // A string specifying the name of the segment that should eventually contain this section. For compactness, intermediate object files—files of type `MH_OBJECT`—contain only one segment, in which all sections are placed. The static linker places each section in the named segment when building the final product (any file that is not of type `MH_OBJECT`).
+	Flags     unsafe.Pointer
+	Reserved1 unsafe.Pointer
+	Reserved2 unsafe.Pointer
+	Align     unsafe.Pointer
+	Offset    unsafe.Pointer
+	Size      unsafe.Pointer
+	Addr      unsafe.Pointer
+	Reloff    unsafe.Pointer
+	Sectname  unsafe.Pointer
+	Reserved3 unsafe.Pointer
 }
 
 // Segment_command
@@ -8908,18 +9577,17 @@ type Section_64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/segment_command
 type Segment_command struct {
-	Cmd      unsafe.Pointer // Common to all load command structures. Set to
-	Cmdsize  unsafe.Pointer
-	Fileoff  unsafe.Pointer // Indicates the offset in this file of the data to be mapped at
-	Filesize unsafe.Pointer
+	Initprot Vm_prot_t
 	Flags    unsafe.Pointer
-	Initprot unsafe.Pointer
-	Maxprot  unsafe.Pointer
-	Nsects   unsafe.Pointer
+	Cmd      unsafe.Pointer // Common to all load command structures. Set to `LC_SEGMENT` for this structure.
+	Vmsize   unsafe.Pointer // Indicates the number of bytes of virtual memory occupied by this segment. See also the description of `filesize`, below.
+	Fileoff  unsafe.Pointer // Indicates the offset in this file of the data to be mapped at `vmaddr`.
+	Cmdsize  unsafe.Pointer
 	Segname  unsafe.Pointer
+	Filesize unsafe.Pointer
 	Vmaddr   unsafe.Pointer
-	Vmsize   unsafe.Pointer // Indicates the number of bytes of virtual memory occupied by this segment. See also the description of
-
+	Nsects   unsafe.Pointer
+	Maxprot  Vm_prot_t
 }
 
 // Segment_command_64
@@ -8929,8 +9597,15 @@ type Segment_command struct {
 type Segment_command_64 struct {
 	Cmd      unsafe.Pointer
 	Maxprot  Vm_prot_t
+	Nsects   unsafe.Pointer // Indicates the number of section data structures following this load command.
 	Filesize unsafe.Pointer // Indicates the number of bytes occupied by this segment on disk. For segments that require more memory at runtime than they do at build time, `vmsize` can be larger than `filesize`. For example, the `__PAGEZERO` segment generated by the linker for `MH_EXECUTABLE` files has a `vmsize` of 0x1000 but a `filesize` of 0. Because `__PAGEZERO` contains no data, there is no need for it to occupy any space until runtime. Also, the static linker often allocates uninitialized data at the end of the `__DATA` segment; in this case, the `vmsize` is larger than the `filesize`. The loader guarantees that any memory of this sort is initialized with zeros.
 	Fileoff  unsafe.Pointer
+	Vmsize   unsafe.Pointer // Indicates the number of bytes of virtual memory occupied by this segment. See also the description of `filesize`, below.
+	Segname  unsafe.Pointer
+	Flags    unsafe.Pointer
+	Cmdsize  unsafe.Pointer
+	Initprot Vm_prot_t
+	Vmaddr   unsafe.Pointer
 }
 
 // Sem
@@ -8939,9 +9614,9 @@ type Segment_command_64 struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sem
 type Sem struct {
 	Semncnt unsafe.Pointer
-	Sempid  unsafe.Pointer
 	Semval  unsafe.Pointer
 	Semzcnt unsafe.Pointer
+	Sempid  int32
 }
 
 // Sembuf
@@ -8950,8 +9625,8 @@ type Sem struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sembuf
 type Sembuf struct {
 	Sem_flg unsafe.Pointer
-	Sem_num unsafe.Pointer
 	Sem_op  unsafe.Pointer
+	Sem_num unsafe.Pointer
 }
 
 // Sf_hdtr
@@ -8961,6 +9636,8 @@ type Sembuf struct {
 type Sf_hdtr struct {
 	Headers  *Iovec
 	Trailers *Iovec
+	Hdr_cnt  unsafe.Pointer
+	Trl_cnt  unsafe.Pointer
 }
 
 // Sflt_filter
@@ -8968,7 +9645,25 @@ type Sf_hdtr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sflt_filter
 type Sflt_filter struct {
+	Sf_data_out     unsafe.Pointer // Your function for handling outgoing data. May be null.
+	Sf_attach       unsafe.Pointer // Your function for handling attaches to sockets.
+	Sf_data_in      unsafe.Pointer // Your function for handling incoming data. May be null.
+	Sf_ext          unsafe.Pointer
+	Sf_getsockname  unsafe.Pointer
+	Sf_handle       Sflt_handle    // A value used to find socket filters by applications. An application can use this value to specify that this filter should be attached when using the SO_NKE socket option.
+	Sf_getoption    unsafe.Pointer // Your function for handling getsockopt. May be null.
 	Sf_unregistered unsafe.Pointer // Your function for being notified when your filter has been unregistered.
+	Sf_flags        unsafe.Pointer // Indicate whether this filter should be attached to all new sockets or just those that request the filter be attached using the SO_NKE socket option. If this filter utilizes the socket filter extension fields, it must also set SFLT_EXTENDED.
+	Sf_listen       unsafe.Pointer // Your function for handling listen. May be null.
+	Sf_notify       unsafe.Pointer // Your function for handling events. May be null.
+	Sf_setoption    unsafe.Pointer // Your function for handling setsockopt. May be null.
+	Sf_bind         unsafe.Pointer // Your function for handling binds. May be null.
+	Sf_name         unsafe.Pointer // A name used for debug purposes.
+	Sf_getpeername  unsafe.Pointer
+	Sf_detach       unsafe.Pointer // Your function for handling detaches from sockets.
+	Sf_connect_out  unsafe.Pointer // Your function for handling outbound connections. May be null.
+	Sf_connect_in   unsafe.Pointer // Your function for handling inbound connections. May be null.
+	Sf_ioctl        unsafe.Pointer // Your function for handling ioctls. May be null.
 
 }
 
@@ -8977,11 +9672,11 @@ type Sflt_filter struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sgttyb
 type Sgttyb struct {
+	Sg_kill   unsafe.Pointer
 	Sg_erase  unsafe.Pointer
 	Sg_flags  unsafe.Pointer
-	Sg_ispeed unsafe.Pointer
-	Sg_kill   unsafe.Pointer
 	Sg_ospeed unsafe.Pointer
+	Sg_ispeed unsafe.Pointer
 }
 
 // Shared_file_mapping_np
@@ -8989,11 +9684,11 @@ type Sgttyb struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/shared_file_mapping_np
 type Shared_file_mapping_np struct {
-	Sfm_address     unsafe.Pointer
-	Sfm_file_offset unsafe.Pointer
-	Sfm_init_prot   unsafe.Pointer
-	Sfm_max_prot    unsafe.Pointer
-	Sfm_size        unsafe.Pointer
+	Sfm_max_prot    Vm_prot_t
+	Sfm_init_prot   Vm_prot_t
+	Sfm_size        Mach_vm_size_t
+	Sfm_file_offset Mach_vm_offset_t
+	Sfm_address     Mach_vm_address_t
 }
 
 // Shared_file_np
@@ -9012,6 +9707,7 @@ type Shared_file_np struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/shared_region_range_np
 type Shared_region_range_np struct {
 	Srr_address Mach_vm_address_t
+	Srr_size    Mach_vm_size_t
 }
 
 // Sigaction
@@ -9019,7 +9715,9 @@ type Shared_region_range_np struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sigaction
 type Sigaction struct {
-	Sa_flags unsafe.Pointer
+	__sigaction_u unsafe.Pointer
+	Sa_mask       Sigset_t
+	Sa_flags      int
 }
 
 // Sigstack
@@ -9027,8 +9725,8 @@ type Sigaction struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sigstack
 type Sigstack struct {
-	Ss_onstack unsafe.Pointer
-	Ss_sp      unsafe.Pointer
+	Ss_onstack int
+	Ss_sp      *byte
 }
 
 // Sigvec
@@ -9036,7 +9734,9 @@ type Sigstack struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sigvec
 type Sigvec struct {
-	Sv_flags unsafe.Pointer
+	Sv_mask    int
+	Sv_flags   int
+	Sv_handler unsafe.Pointer
 }
 
 // Smrq_link
@@ -9045,6 +9745,7 @@ type Sigvec struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/smrq_link
 type Smrq_link struct {
 	Next unsafe.Pointer
+	Prev unsafe.Pointer
 }
 
 // Smrq_list_head
@@ -9077,6 +9778,7 @@ type Smrq_slist_head struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/smrq_stailq_head
 type Smrq_stailq_head struct {
 	First unsafe.Pointer
+	Last  unsafe.Pointer
 }
 
 // Smrq_tailq_head
@@ -9094,6 +9796,7 @@ type Smrq_tailq_head struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/so_nke
 type So_nke struct {
 	Reserved   U_int32_t
+	Nke_flags  unsafe.Pointer
 	Nke_handle unsafe.Pointer
 	Nke_where  unsafe.Pointer
 }
@@ -9103,6 +9806,7 @@ type So_nke struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/so_np_extensions
 type So_np_extensions struct {
+	Npx_mask  U_int32_t
 	Npx_flags U_int32_t
 }
 
@@ -9121,14 +9825,14 @@ type Sockaddr_ctl struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockaddr_dl
 type Sockaddr_dl struct {
-	Sdl_alen   unsafe.Pointer
+	Sdl_slen   U_char
+	Sdl_family U_char
 	Sdl_data   unsafe.Pointer
-	Sdl_family unsafe.Pointer
-	Sdl_index  unsafe.Pointer
-	Sdl_len    unsafe.Pointer
-	Sdl_nlen   unsafe.Pointer
-	Sdl_slen   unsafe.Pointer
-	Sdl_type   unsafe.Pointer
+	Sdl_nlen   U_char
+	Sdl_index  U_short
+	Sdl_type   U_char
+	Sdl_len    U_char
+	Sdl_alen   U_char
 }
 
 // Sockaddr_in
@@ -9136,7 +9840,11 @@ type Sockaddr_dl struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockaddr_in
 type Sockaddr_in struct {
-	Sin_port uint16
+	Sin_addr   In_addr
+	Sin_len    uint8
+	Sin_family uint8
+	Sin_zero   unsafe.Pointer
+	Sin_port   uint16
 }
 
 // Sockaddr_in6
@@ -9144,12 +9852,12 @@ type Sockaddr_in struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockaddr_in6
 type Sockaddr_in6 struct {
+	Sin6_scope_id uint32
+	Sin6_flowinfo uint32
+	Sin6_len      uint8
 	Sin6_addr     unsafe.Pointer
-	Sin6_family   unsafe.Pointer
-	Sin6_flowinfo unsafe.Pointer
-	Sin6_len      unsafe.Pointer
-	Sin6_port     unsafe.Pointer
-	Sin6_scope_id unsafe.Pointer
+	Sin6_port     uint16
+	Sin6_family   uint8
 }
 
 // Sockaddr_inarp
@@ -9157,7 +9865,13 @@ type Sockaddr_in6 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockaddr_inarp
 type Sockaddr_inarp struct {
-	Sin_addr In_addr
+	Sin_len     U_char
+	Sin_srcaddr In_addr
+	Sin_family  U_char
+	Sin_addr    In_addr
+	Sin_port    U_short
+	Sin_tos     U_short
+	Sin_other   U_short
 }
 
 // Sockaddr_inifscope
@@ -9165,8 +9879,11 @@ type Sockaddr_inarp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockaddr_inifscope
 type Sockaddr_inifscope struct {
+	Sin_addr   In_addr
 	Sin_family uint8
 	Sin_len    uint8
+	Sin_port   uint16
+	Un         unsafe.Pointer
 }
 
 // Sockaddr_ndrv
@@ -9184,10 +9901,10 @@ type Sockaddr_ndrv struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockaddr_sys
 type Sockaddr_sys struct {
-	Ss_family   unsafe.Pointer
-	Ss_len      unsafe.Pointer
-	Ss_reserved unsafe.Pointer
-	Ss_sysaddr  unsafe.Pointer
+	Ss_reserved U_int32_t
+	Ss_len      U_char
+	Ss_family   U_char
+	Ss_sysaddr  U_int16_t
 }
 
 // Sockaddr_un
@@ -9195,6 +9912,8 @@ type Sockaddr_sys struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockaddr_un
 type Sockaddr_un struct {
+	Sun_len    unsafe.Pointer
+	Sun_path   unsafe.Pointer
 	Sun_family uint8
 }
 
@@ -9203,8 +9922,11 @@ type Sockaddr_un struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockaddr_vm
 type Sockaddr_vm struct {
-	Svm_cid    uint32
-	Svm_family uint8
+	Svm_cid       uint32
+	Svm_family    uint8
+	Svm_len       uint8
+	Svm_port      uint32
+	Svm_reserved1 uint16
 }
 
 // Sockproto
@@ -9212,8 +9934,7 @@ type Sockaddr_vm struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sockproto
 type Sockproto struct {
-	Sp_family   unsafe.Pointer
-	Sp_protocol unsafe.Pointer
+	Sp_family uint16
 }
 
 // Source_version_command
@@ -9231,7 +9952,20 @@ type Source_version_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/specinfo
 type Specinfo struct {
-	Si_flags unsafe.Pointer
+	Si_isssd         U_int16_t
+	Si_hashchain     unsafe.Pointer
+	Si_specnext      unsafe.Pointer
+	Si_rdev          int32
+	Si_size          Daddr_t
+	Si_lastr         Daddr64_t
+	Si_flags         unsafe.Pointer
+	Si_throttle_mask U_int64_t
+	Si_opencount     unsafe.Pointer
+	Si_devsize       U_int64_t
+	Si_throttleable  U_int8_t
+	Si_initted       U_int8_t
+	Si_devbsdunit    U_int32_t
+	Si_mountingowner Thread_t
 }
 
 // Stack_snapshot_frame32
@@ -9248,8 +9982,8 @@ type Stack_snapshot_frame32 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stack_snapshot_frame64
 type Stack_snapshot_frame64 struct {
-	Lr unsafe.Pointer
 	Sp unsafe.Pointer
+	Lr unsafe.Pointer
 }
 
 // Stack_snapshot_stacktop
@@ -9258,7 +9992,7 @@ type Stack_snapshot_frame64 struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stack_snapshot_stacktop
 type Stack_snapshot_stacktop struct {
 	Sp             unsafe.Pointer
-	Stack_contents unsafe.Pointer
+	Stack_contents uint8
 }
 
 // Stackshot_cpu_architecture
@@ -9267,7 +10001,6 @@ type Stack_snapshot_stacktop struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stackshot_cpu_architecture
 type Stackshot_cpu_architecture struct {
 	Cpusubtype unsafe.Pointer
-	Cputype    unsafe.Pointer
 }
 
 // Stackshot_cpu_times
@@ -9275,8 +10008,8 @@ type Stackshot_cpu_architecture struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stackshot_cpu_times
 type Stackshot_cpu_times struct {
-	System_usec unsafe.Pointer
 	User_usec   unsafe.Pointer
+	System_usec unsafe.Pointer
 }
 
 // Stackshot_cpu_times_v2
@@ -9313,10 +10046,10 @@ type Stackshot_duration_v2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stackshot_fault_stats
 type Stackshot_fault_stats struct {
-	Sfs_pages_faulted_in      unsafe.Pointer
-	Sfs_stopped_faulting      unsafe.Pointer
 	Sfs_system_max_fault_time unsafe.Pointer
+	Sfs_stopped_faulting      uint8
 	Sfs_time_spent_faulting   unsafe.Pointer
+	Sfs_pages_faulted_in      unsafe.Pointer
 }
 
 // Stackshot_latency_collection
@@ -9324,9 +10057,9 @@ type Stackshot_fault_stats struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stackshot_latency_collection
 type Stackshot_latency_collection struct {
-	Latency_version              unsafe.Pointer
-	Setup_latency                unsafe.Pointer
-	Total_task_iteration_latency unsafe.Pointer
+	Setup_latency                           unsafe.Pointer
+	Total_task_iteration_latency            unsafe.Pointer
+	Total_terminated_task_iteration_latency unsafe.Pointer
 }
 
 // Stackshot_latency_collection_v2
@@ -9334,17 +10067,18 @@ type Stackshot_latency_collection struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stackshot_latency_collection_v2
 type Stackshot_latency_collection_v2 struct {
-	Buffer_count                    unsafe.Pointer
-	Buffer_overhead                 unsafe.Pointer
-	Buffer_size                     unsafe.Pointer
-	Buffer_used                     unsafe.Pointer
-	Calling_cpu_number              unsafe.Pointer
-	Cpu_wait_latency_mt             unsafe.Pointer
-	Latency_version                 unsafe.Pointer
-	Main_cpu_number                 unsafe.Pointer
-	Setup_latency_mt                unsafe.Pointer
-	Task_queue_building_latency_mt  unsafe.Pointer
-	Total_task_iteration_latency_mt unsafe.Pointer
+	Buffer_count                               unsafe.Pointer
+	Buffer_overhead                            unsafe.Pointer
+	Buffer_size                                unsafe.Pointer
+	Buffer_used                                unsafe.Pointer
+	Calling_cpu_number                         unsafe.Pointer
+	Cpu_wait_latency_mt                        unsafe.Pointer
+	Main_cpu_number                            unsafe.Pointer
+	Setup_latency_mt                           unsafe.Pointer
+	Task_queue_building_latency_mt             unsafe.Pointer
+	Terminated_task_queue_building_latency_mt  unsafe.Pointer
+	Total_task_iteration_latency_mt            unsafe.Pointer
+	Total_terminated_task_iteration_latency_mt unsafe.Pointer
 }
 
 // Stackshot_latency_cpu
@@ -9352,7 +10086,18 @@ type Stackshot_latency_collection_v2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stackshot_latency_cpu
 type Stackshot_latency_cpu struct {
-	Faulting_time_mt unsafe.Pointer
+	Cluster_type          unsafe.Pointer
+	Cpu_number            unsafe.Pointer
+	Faulting_time_mt      unsafe.Pointer
+	Init_latency_mt       unsafe.Pointer
+	Intercluster_buf_used unsafe.Pointer
+	Tasks_processed       unsafe.Pointer
+	Threads_processed     unsafe.Pointer
+	Total_buf             unsafe.Pointer
+	Total_cycles          unsafe.Pointer
+	Total_instrs          unsafe.Pointer
+	Total_latency_mt      unsafe.Pointer
+	Workqueue_latency_mt  unsafe.Pointer
 }
 
 // Stackshot_latency_task
@@ -9394,8 +10139,10 @@ type Stackshot_latency_thread struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stackshot_suspension_info
 type Stackshot_suspension_info struct {
-	Tss_count    unsafe.Pointer
-	Tss_duration unsafe.Pointer
+	Tss_count      unsafe.Pointer
+	Tss_duration   unsafe.Pointer
+	Tss_last_end   unsafe.Pointer
+	Tss_last_start unsafe.Pointer
 }
 
 // Stackshot_suspension_source
@@ -9415,6 +10162,7 @@ type Stackshot_suspension_source struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/stackshot_task_codesigning_info
 type Stackshot_task_codesigning_info struct {
 	Cs_trust_level unsafe.Pointer
+	Csflags        unsafe.Pointer
 }
 
 // Stat
@@ -9446,23 +10194,23 @@ type Stat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/statfs64
 type Statfs64 struct {
-	F_bavail      unsafe.Pointer
 	F_bfree       unsafe.Pointer
-	F_blocks      unsafe.Pointer
-	F_bsize       unsafe.Pointer
-	F_ffree       unsafe.Pointer
-	F_files       unsafe.Pointer
-	F_flags       unsafe.Pointer
-	F_flags_ext   unsafe.Pointer
-	F_fsid        unsafe.Pointer
-	F_fssubtype   unsafe.Pointer
-	F_fstypename  unsafe.Pointer
+	F_fsid        Fsid_t
 	F_iosize      unsafe.Pointer
-	F_mntfromname unsafe.Pointer
-	F_mntonname   unsafe.Pointer
-	F_owner       unsafe.Pointer
-	F_reserved    unsafe.Pointer
+	F_flags       unsafe.Pointer
 	F_type        unsafe.Pointer
+	F_mntonname   unsafe.Pointer
+	F_owner       uint32
+	F_bsize       unsafe.Pointer
+	F_blocks      unsafe.Pointer
+	F_mntfromname unsafe.Pointer
+	F_reserved    unsafe.Pointer
+	F_ffree       unsafe.Pointer
+	F_fstypename  unsafe.Pointer
+	F_fssubtype   unsafe.Pointer
+	F_files       unsafe.Pointer
+	F_bavail      unsafe.Pointer
+	F_flags_ext   unsafe.Pointer
 }
 
 // Sub_client_command
@@ -9470,8 +10218,8 @@ type Statfs64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sub_client_command
 type Sub_client_command struct {
-	Client  unsafe.Pointer
 	Cmd     unsafe.Pointer
+	Client  unsafe.Pointer
 	Cmdsize unsafe.Pointer
 }
 
@@ -9501,9 +10249,8 @@ type Sub_library_command struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sub_umbrella_command
 type Sub_umbrella_command struct {
 	Cmd          unsafe.Pointer
+	Sub_umbrella unsafe.Pointer // A data structure of type `lc_str`. Specifies the name of the umbrella framework of which this file is a member.
 	Cmdsize      unsafe.Pointer
-	Sub_umbrella unsafe.Pointer // A data structure of type
-
 }
 
 // Symseg_command
@@ -9511,10 +10258,10 @@ type Sub_umbrella_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/symseg_command
 type Symseg_command struct {
-	Cmd     unsafe.Pointer
 	Cmdsize unsafe.Pointer
 	Offset  unsafe.Pointer
 	Size    unsafe.Pointer
+	Cmd     unsafe.Pointer
 }
 
 // Symtab_command
@@ -9525,6 +10272,9 @@ type Symtab_command struct {
 	Nsyms   unsafe.Pointer
 	Cmd     unsafe.Pointer
 	Cmdsize unsafe.Pointer
+	Strsize unsafe.Pointer
+	Symoff  unsafe.Pointer
+	Stroff  unsafe.Pointer
 }
 
 // Sysctl_oid
@@ -9532,18 +10282,17 @@ type Symtab_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sysctl_oid
 type Sysctl_oid struct {
-	Oid_arg1    unsafe.Pointer
-	Oid_arg2    unsafe.Pointer
-	Oid_descr   unsafe.Pointer
-	Oid_fmt     unsafe.Pointer
-	Oid_handler unsafe.Pointer
-	Oid_kind    unsafe.Pointer
-	Oid_link    unsafe.Pointer
 	Oid_name    unsafe.Pointer
-	Oid_number  unsafe.Pointer
-	Oid_parent  unsafe.Pointer
 	Oid_refcnt  unsafe.Pointer
-	Oid_version unsafe.Pointer
+	Oid_handler *Sysctl_req
+	Oid_link    unsafe.Pointer
+	Oid_arg2    unsafe.Pointer
+	Oid_fmt     unsafe.Pointer
+	Oid_descr   unsafe.Pointer
+	Oid_parent  unsafe.Pointer
+	Oid_number  unsafe.Pointer
+	Oid_arg1    unsafe.Pointer
+	Oid_kind    unsafe.Pointer
 }
 
 // Sysctl_oid_list
@@ -9551,7 +10300,7 @@ type Sysctl_oid struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sysctl_oid_list
 type Sysctl_oid_list struct {
-	Slh_first unsafe.Pointer
+	Slh_first *Sysctl_oid
 }
 
 // Sysctl_req
@@ -9559,7 +10308,16 @@ type Sysctl_oid_list struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/sysctl_req
 type Sysctl_req struct {
+	Oldfunc uintptr
+	Oldlen  uintptr
+	Lock    unsafe.Pointer
+	Newidx  uintptr
+	Newlen  uintptr
 	Newfunc uintptr
+	P       unsafe.Pointer
+	Oldidx  uintptr
+	Oldptr  User_addr_t
+	Newptr  User_addr_t
 }
 
 // TPacketFilterMetadata
@@ -9567,7 +10325,17 @@ type Sysctl_req struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tpacketfiltermetadata
 type TPacketFilterMetadata struct {
-	EndpointType uint8
+	DeviceAddress       uint8
+	EndpointAddress     uint8
+	EndpointType        uint8
+	InterfaceAltSetting uint8
+	InterfaceClass      uint8
+	InterfaceProtocol   uint8
+	InterfaceSubclass   uint8
+	LocationID          unsafe.Pointer
+	Pid                 uint16
+	Speed               uint8
+	Vid                 uint16
 }
 
 // Task_access_subsystem
@@ -9673,12 +10441,7 @@ type Task_snapshot_v2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tchars
 type Tchars struct {
-	T_brkc   unsafe.Pointer
-	T_eofc   unsafe.Pointer
-	T_intrc  unsafe.Pointer
-	T_quitc  unsafe.Pointer
-	T_startc unsafe.Pointer
-	T_stopc  unsafe.Pointer
+	T_stopc unsafe.Pointer
 }
 
 // Tcp_conn_status
@@ -9693,7 +10456,43 @@ type Tcp_conn_status struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tcp_connection_info
 type Tcp_connection_info struct {
-	Tcpi_tfo_cookie_sent U_int32_t
+	Tcpi_tfo_cookie_req_rcv     U_int32_t
+	Tcpi_maxseg                 U_int32_t
+	Tcpi_rto                    U_int32_t
+	Tcpi_rttcur                 U_int32_t
+	Tcpi_tfo_cookie_sent        U_int32_t
+	Tcpi_txbytes                U_int64_t
+	Tcpi_tfo_syn_data_acked     U_int32_t
+	Tcpi_tfo_cookie_rcv         U_int32_t
+	Tcpi_tfo_syn_loss           U_int32_t
+	Tcpi_tfo_cookie_req         U_int32_t
+	Tcpi_options                U_int32_t
+	Tcpi_rcv_wscale             U_int8_t
+	Tcpi_srtt                   U_int32_t
+	Tcpi_rxpackets              U_int64_t
+	Tcpi_txretransmitbytes      U_int64_t
+	Tcpi_snd_wscale             U_int8_t
+	Tcpi_rxbytes                U_int64_t
+	Tcpi_tfo_syn_data_rcv       U_int32_t
+	Tcpi_snd_ssthresh           U_int32_t
+	Tcpi_tfo_cookie_invalid     U_int32_t
+	Tcpi_rttvar                 U_int32_t
+	Tcpi_flags                  U_int32_t
+	Tcpi_state                  U_int8_t
+	Tcpi_txpackets              U_int64_t
+	Tcpi_snd_sbbytes            U_int32_t
+	Tcpi_tfo_syn_data_sent      U_int32_t
+	Tcpi_snd_wnd                U_int32_t
+	Tcpi_snd_cwnd               U_int32_t
+	Tcpi_rxoutoforderbytes      U_int64_t
+	Tcpi_rcv_wnd                U_int32_t
+	Tcpi_tfo_cookie_wrong       U_int32_t
+	Tcpi_tfo_heuristics_disable U_int32_t
+	Tcpi_tfo_send_blackhole     U_int32_t
+	Tcpi_tfo_no_cookie_rcv      U_int32_t
+	Tcpi_tfo_recv_blackhole     U_int32_t
+	Tcpi_txretransmitpackets    U_int64_t
+	Tcpi_tfo_onebyte_proxy      U_int32_t
 }
 
 // Tcp_info
@@ -9701,7 +10500,105 @@ type Tcp_connection_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tcp_info
 type Tcp_info struct {
-	Tcpi_ecn_success U_int16_t
+	Tcpi_cell_rxbytes               U_int64_t
+	Tcpi_cell_rxpackets             U_int64_t
+	Tcpi_cell_txbytes               U_int64_t
+	Tcpi_cell_txpackets             U_int64_t
+	Tcpi_connstatus                 Tcp_conn_status
+	Tcpi_dsack_recvd                U_int32_t
+	Tcpi_dsack_sent                 U_int32_t
+	Tcpi_ecn_client_setup           U_int16_t
+	Tcpi_ecn_lost_syn               U_int16_t
+	Tcpi_ecn_lost_synack            U_int16_t
+	Tcpi_ecn_recv_ce                U_int32_t
+	Tcpi_ecn_recv_cwr               U_int32_t
+	Tcpi_ecn_server_setup           U_int16_t
+	Tcpi_ecn_success                U_int16_t
+	Tcpi_flags                      U_int32_t
+	Tcpi_flowhash                   U_int32_t
+	Tcpi_if_cell                    U_int16_t
+	Tcpi_if_wifi                    U_int16_t
+	Tcpi_if_wifi_awdl               U_int16_t
+	Tcpi_if_wifi_infra              U_int16_t
+	Tcpi_if_wired                   U_int16_t
+	Tcpi_last_outif                 unsafe.Pointer
+	Tcpi_options                    U_int8_t
+	Tcpi_pawsdrop                   U_int32_t
+	Tcpi_rcv_background             U_int16_t
+	Tcpi_rcv_mss                    U_int32_t
+	Tcpi_rcv_nxt                    U_int32_t
+	Tcpi_rcv_space                  U_int32_t
+	Tcpi_rcv_srtt                   unsafe.Pointer
+	Tcpi_rcv_wscale                 U_int8_t
+	Tcpi_rcvoopack                  U_int32_t
+	Tcpi_reordered_pkts             U_int32_t
+	Tcpi_rto                        U_int32_t
+	Tcpi_rttbest                    U_int32_t
+	Tcpi_rttcur                     U_int32_t
+	Tcpi_rttvar                     U_int32_t
+	Tcpi_rxbytes                    U_int64_t
+	Tcpi_rxduplicatebytes           U_int64_t
+	Tcpi_rxoutoforderbytes          U_int64_t
+	Tcpi_rxpackets                  U_int64_t
+	Tcpi_sack_recovery_episode      U_int32_t
+	Tcpi_snd_background             U_int16_t
+	Tcpi_snd_bw                     U_int64_t
+	Tcpi_snd_cwnd                   U_int32_t
+	Tcpi_snd_mss                    U_int32_t
+	Tcpi_snd_nxt                    U_int32_t
+	Tcpi_snd_sbbytes                U_int32_t
+	Tcpi_snd_ssthresh               U_int32_t
+	Tcpi_snd_wnd                    U_int32_t
+	Tcpi_snd_wscale                 U_int8_t
+	Tcpi_srtt                       U_int32_t
+	Tcpi_state                      U_int8_t
+	Tcpi_synrexmits                 U_int8_t
+	Tcpi_tfo_cookie_invalid         U_int16_t
+	Tcpi_tfo_cookie_rcv             U_int16_t
+	Tcpi_tfo_cookie_req             U_int16_t
+	Tcpi_tfo_cookie_req_rcv         U_int16_t
+	Tcpi_tfo_cookie_sent            U_int16_t
+	Tcpi_tfo_cookie_wrong           U_int16_t
+	Tcpi_tfo_heuristics_disable     U_int16_t
+	Tcpi_tfo_no_cookie_rcv          U_int16_t
+	Tcpi_tfo_onebyte_proxy          U_int16_t
+	Tcpi_tfo_recv_blackhole         U_int16_t
+	Tcpi_tfo_send_blackhole         U_int16_t
+	Tcpi_tfo_syn_data_acked         U_int16_t
+	Tcpi_tfo_syn_data_rcv           U_int16_t
+	Tcpi_tfo_syn_data_sent          U_int16_t
+	Tcpi_tfo_syn_loss               U_int16_t
+	Tcpi_txbytes                    U_int64_t
+	Tcpi_txpackets                  U_int64_t
+	Tcpi_txretransmitbytes          U_int64_t
+	Tcpi_txretransmitpackets        U_int64_t
+	Tcpi_txunacked                  U_int64_t
+	Tcpi_unused1                    U_int8_t
+	Tcpi_unused2                    U_int16_t
+	Tcpi_wifi_rxbytes               U_int64_t
+	Tcpi_wifi_rxpackets             U_int64_t
+	Tcpi_wifi_txbytes               U_int64_t
+	Tcpi_wifi_txpackets             U_int64_t
+	Tcpi_wired_rxbytes              U_int64_t
+	Tcpi_wired_rxpackets            U_int64_t
+	Tcpi_wired_txbytes              U_int64_t
+	Tcpi_wired_txpackets            U_int64_t
+	Tcpi_ecn_capable_packets_acked  unsafe.Pointer
+	Tcpi_ecn_capable_packets_lost   unsafe.Pointer
+	Tcpi_ecn_capable_packets_marked unsafe.Pointer
+	Tcpi_client_accecn_state        unsafe.Pointer
+	Tcpi_ecn_capable_packets_sent   unsafe.Pointer
+	Tcpi_server_accecn_state        unsafe.Pointer
+	Tcpi_flow_control_total_time    unsafe.Pointer
+	Tcpi_rcvwnd_limited_total_time  unsafe.Pointer
+	Tcpi_delivered_ce_bytes         unsafe.Pointer
+	Tcpi_delivered_ect0_bytes       unsafe.Pointer
+	Tcpi_delivered_ect1_bytes       unsafe.Pointer
+	Tcpi_received_ce_bytes          unsafe.Pointer
+	Tcpi_received_ce_packets        unsafe.Pointer
+	Tcpi_received_ect0_bytes        unsafe.Pointer
+	Tcpi_received_ect1_bytes        unsafe.Pointer
+	Tcpi_l4s_enabled                U_int16_t
 }
 
 // Tcp_measure_bw_burst
@@ -9709,8 +10606,8 @@ type Tcp_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tcp_measure_bw_burst
 type Tcp_measure_bw_burst struct {
-	Max_burst_size unsafe.Pointer
-	Min_burst_size unsafe.Pointer
+	Max_burst_size U_int32_t
+	Min_burst_size U_int32_t
 }
 
 // Tcp_notify_ack_complete
@@ -9728,6 +10625,9 @@ type Tcp_notify_ack_complete struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tcpcb
 type Tcpcb struct {
+	Cc_recv Tcp_cc
+	Cc_send Tcp_cc
+	Irs     Tcp_seq
 	Rcv_nxt Tcp_seq
 }
 
@@ -9736,9 +10636,16 @@ type Tcpcb struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tcphdr
 type Tcphdr struct {
+	Th_urp   unsafe.Pointer
+	Th_seq   Tcp_seq
+	Th_x2    unsafe.Pointer
+	Th_sport unsafe.Pointer
+	Th_win   unsafe.Pointer
 	Th_dport unsafe.Pointer
 	Th_flags unsafe.Pointer
 	Th_ack   Tcp_seq
+	Th_sum   unsafe.Pointer
+	Th_off   unsafe.Pointer
 }
 
 // Tcpiphdr
@@ -9746,8 +10653,8 @@ type Tcphdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tcpiphdr
 type Tcpiphdr struct {
-	Ti_i unsafe.Pointer
-	Ti_t unsafe.Pointer
+	Ti_i Ipovly
+	Ti_t Tcphdr
 }
 
 // Tcpstat
@@ -9755,7 +10662,247 @@ type Tcpiphdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tcpstat
 type Tcpstat struct {
-	Tcps_timer_drift_le_100_ms U_int32_t
+	Tcps_accepts                                  U_int32_t
+	Tcps_avoid_rxmt                               U_int32_t
+	Tcps_badrst                                   U_int32_t
+	Tcps_badsyn                                   U_int32_t
+	Tcps_bg_rcvtotal                              U_int32_t
+	Tcps_cachedrtt                                U_int32_t
+	Tcps_cachedrttvar                             U_int32_t
+	Tcps_cachedssthresh                           U_int32_t
+	Tcps_closed                                   U_int32_t
+	Tcps_connattempt                              U_int32_t
+	Tcps_conndrops                                U_int32_t
+	Tcps_connects                                 U_int32_t
+	Tcps_delack                                   U_int32_t
+	Tcps_delay_recovery                           U_int32_t
+	Tcps_detect_reordering                        U_int32_t
+	Tcps_drop_after_sleep                         U_int32_t
+	Tcps_drops                                    U_int32_t
+	Tcps_dsack_ackloss                            U_int32_t
+	Tcps_dsack_badrexmt                           U_int32_t
+	Tcps_dsack_disable                            U_int32_t
+	Tcps_dsack_recvd                              U_int32_t
+	Tcps_dsack_recvd_old                          U_int32_t
+	Tcps_dsack_sent                               U_int32_t
+	Tcps_early_rexmt                              U_int32_t
+	Tcps_ecn_client_setup                         U_int32_t
+	Tcps_ecn_client_success                       U_int32_t
+	Tcps_ecn_conn_nopl_ce                         U_int32_t
+	Tcps_ecn_conn_pl_ce                           U_int32_t
+	Tcps_ecn_conn_plnoce                          U_int32_t
+	Tcps_ecn_conn_recv_ce                         U_int32_t
+	Tcps_ecn_conn_recv_ece                        U_int32_t
+	Tcps_ecn_fallback_ce                          U_int32_t
+	Tcps_ecn_fallback_droprst                     U_int32_t
+	Tcps_ecn_fallback_droprxmt                    U_int32_t
+	Tcps_ecn_fallback_reorder                     U_int32_t
+	Tcps_ecn_fallback_synloss                     U_int32_t
+	Tcps_ecn_fallback_synrst                      U_int32_t
+	Tcps_ecn_lost_syn                             U_int32_t
+	Tcps_ecn_lost_synack                          U_int32_t
+	Tcps_ecn_not_supported                        U_int32_t
+	Tcps_ecn_recv_ce                              U_int32_t
+	Tcps_ecn_recv_ece                             U_int32_t
+	Tcps_ecn_sent_ece                             U_int32_t
+	Tcps_ecn_server_setup                         U_int32_t
+	Tcps_ecn_server_success                       U_int32_t
+	Tcps_estab_fallback                           U_int32_t
+	Tcps_fcholdpacket                             U_int32_t
+	Tcps_hc_added                                 U_int32_t
+	Tcps_hc_bucketoverflow                        U_int32_t
+	Tcps_invalid_joins                            U_int32_t
+	Tcps_invalid_mpcap                            U_int32_t
+	Tcps_invalid_opt                              U_int32_t
+	Tcps_join_fallback                            U_int32_t
+	Tcps_join_rxmts                               U_int32_t
+	Tcps_ka_offload_drops                         U_int32_t
+	Tcps_keepdrops                                U_int32_t
+	Tcps_keepprobe                                U_int32_t
+	Tcps_keeptimeo                                U_int32_t
+	Tcps_limited_txt                              U_int32_t
+	Tcps_listendrop                               U_int32_t
+	Tcps_minmssdrops                              U_int32_t
+	Tcps_mp_badcsum                               U_int32_t
+	Tcps_mp_num_probes                            U_int32_t
+	Tcps_mp_oodata                                U_int32_t
+	Tcps_mp_outofwin                              U_int32_t
+	Tcps_mp_rcvbytes                              U_int32_t
+	Tcps_mp_rcvtotal                              U_int32_t
+	Tcps_mp_reducedwin                            U_int32_t
+	Tcps_mp_sel_peer                              U_int32_t
+	Tcps_mp_sel_rto                               U_int32_t
+	Tcps_mp_sel_rtt                               U_int32_t
+	Tcps_mp_sel_symtomsd                          U_int32_t
+	Tcps_mp_sndbytes                              U_int32_t
+	Tcps_mp_sndpacks                              U_int32_t
+	Tcps_mp_switches                              U_int32_t
+	Tcps_mp_verdowngrade                          U_int32_t
+	Tcps_mpcap_fallback                           U_int32_t
+	Tcps_mptcp_aggregate_all_bytes                U_int64_t
+	Tcps_mptcp_aggregate_attempt                  U_int32_t
+	Tcps_mptcp_aggregate_cell_bytes               U_int64_t
+	Tcps_mptcp_aggregate_success                  U_int32_t
+	Tcps_mptcp_back_to_wifi                       U_int32_t
+	Tcps_mptcp_cell_proxy                         U_int32_t
+	Tcps_mptcp_fp_aggregate_attempt               U_int32_t
+	Tcps_mptcp_fp_aggregate_success               U_int32_t
+	Tcps_mptcp_fp_handover_attempt                U_int32_t
+	Tcps_mptcp_fp_handover_success_cell           U_int32_t
+	Tcps_mptcp_fp_handover_success_wifi           U_int32_t
+	Tcps_mptcp_fp_heuristic_fallback              U_int32_t
+	Tcps_mptcp_fp_interactive_attempt             U_int32_t
+	Tcps_mptcp_fp_interactive_success             U_int32_t
+	Tcps_mptcp_handover_all_bytes                 U_int64_t
+	Tcps_mptcp_handover_attempt                   U_int32_t
+	Tcps_mptcp_handover_cell_bytes                U_int64_t
+	Tcps_mptcp_handover_cell_from_wifi            U_int32_t
+	Tcps_mptcp_handover_success_cell              U_int32_t
+	Tcps_mptcp_handover_success_wifi              U_int32_t
+	Tcps_mptcp_handover_wifi_from_cell            U_int32_t
+	Tcps_mptcp_heuristic_fallback                 U_int32_t
+	Tcps_mptcp_interactive_all_bytes              U_int64_t
+	Tcps_mptcp_interactive_attempt                U_int32_t
+	Tcps_mptcp_interactive_cell_bytes             U_int64_t
+	Tcps_mptcp_interactive_cell_from_wifi         U_int32_t
+	Tcps_mptcp_interactive_success                U_int32_t
+	Tcps_mptcp_rcvduppack                         U_int32_t
+	Tcps_mptcp_rcvmemdrop                         U_int32_t
+	Tcps_mptcp_rcvpackafterwin                    U_int32_t
+	Tcps_mptcp_triggered_cell                     U_int32_t
+	Tcps_mptcp_wifi_proxy                         U_int32_t
+	Tcps_mss_to_default                           U_int32_t
+	Tcps_mss_to_low                               U_int32_t
+	Tcps_mss_to_medium                            U_int32_t
+	Tcps_mturesent                                U_int32_t
+	Tcps_nostretchack                             U_int32_t
+	Tcps_pawsdrop                                 U_int32_t
+	Tcps_pcbcachemiss                             U_int32_t
+	Tcps_persistdrop                              U_int32_t
+	Tcps_persisttimeo                             U_int32_t
+	Tcps_pmtudbh_reverted                         U_int32_t
+	Tcps_predack                                  U_int32_t
+	Tcps_preddat                                  U_int32_t
+	Tcps_probe_if                                 U_int32_t
+	Tcps_probe_if_conflict                        U_int32_t
+	Tcps_pto                                      U_int32_t
+	Tcps_pto_in_recovery                          U_int32_t
+	Tcps_rcv6_swcsum                              U_int32_t
+	Tcps_rcv6_swcsum_bytes                        U_int32_t
+	Tcps_rcv_swcsum                               U_int32_t
+	Tcps_rcv_swcsum_bytes                         U_int32_t
+	Tcps_rcvackbyte                               U_int32_t
+	Tcps_rcvackpack                               U_int32_t
+	Tcps_rcvacktoomuch                            U_int32_t
+	Tcps_rcvafterclose                            U_int32_t
+	Tcps_rcvbadoff                                U_int32_t
+	Tcps_rcvbadsum                                U_int32_t
+	Tcps_rcvbyte                                  U_int32_t
+	Tcps_rcvbyteafterwin                          U_int32_t
+	Tcps_rcvdupack                                U_int32_t
+	Tcps_rcvdupbyte                               U_int32_t
+	Tcps_rcvduppack                               U_int32_t
+	Tcps_rcvmemdrop                               U_int32_t
+	Tcps_rcvoobyte                                U_int32_t
+	Tcps_rcvoopack                                U_int32_t
+	Tcps_rcvpack                                  U_int32_t
+	Tcps_rcvpackafterwin                          U_int32_t
+	Tcps_rcvpartdupbyte                           U_int32_t
+	Tcps_rcvpartduppack                           U_int32_t
+	Tcps_rcvshort                                 U_int32_t
+	Tcps_rcvtotal                                 U_int32_t
+	Tcps_rcvwinprobe                              U_int32_t
+	Tcps_rcvwinupd                                U_int32_t
+	Tcps_recovered_pkts                           U_int32_t
+	Tcps_reordered_pkts                           U_int32_t
+	Tcps_rescue_rxmt                              U_int32_t
+	Tcps_rexmttimeo                               U_int32_t
+	Tcps_rstchallenge                             U_int32_t
+	Tcps_rto_after_pto                            U_int32_t
+	Tcps_rttupdated                               U_int32_t
+	Tcps_rxtfindrop                               U_int32_t
+	Tcps_sack_ackadv                              U_int32_t
+	Tcps_sack_rcv_blocks                          U_int32_t
+	Tcps_sack_recovery_episode                    U_int32_t
+	Tcps_sack_rexmit_bytes                        U_int32_t
+	Tcps_sack_rexmits                             U_int32_t
+	Tcps_sack_sboverflow                          U_int32_t
+	Tcps_sack_send_blocks                         U_int32_t
+	Tcps_sc_aborted                               U_int32_t
+	Tcps_sc_added                                 U_int32_t
+	Tcps_sc_badack                                U_int32_t
+	Tcps_sc_bucketoverflow                        U_int32_t
+	Tcps_sc_cacheoverflow                         U_int32_t
+	Tcps_sc_completed                             U_int32_t
+	Tcps_sc_dropped                               U_int32_t
+	Tcps_sc_dupsyn                                U_int32_t
+	Tcps_sc_recvcookie                            U_int32_t
+	Tcps_sc_reset                                 U_int32_t
+	Tcps_sc_retransmitted                         U_int32_t
+	Tcps_sc_sendcookie                            U_int32_t
+	Tcps_sc_stale                                 U_int32_t
+	Tcps_sc_unreach                               U_int32_t
+	Tcps_sc_zonefail                              U_int32_t
+	Tcps_segstimed                                U_int32_t
+	Tcps_snd6_swcsum                              U_int32_t
+	Tcps_snd6_swcsum_bytes                        U_int32_t
+	Tcps_snd_swcsum                               U_int32_t
+	Tcps_snd_swcsum_bytes                         U_int32_t
+	Tcps_sndacks                                  U_int32_t
+	Tcps_sndbyte                                  U_int32_t
+	Tcps_sndctrl                                  U_int32_t
+	Tcps_sndpack                                  U_int32_t
+	Tcps_sndprobe                                 U_int32_t
+	Tcps_sndrexmitbad                             U_int32_t
+	Tcps_sndrexmitbyte                            U_int32_t
+	Tcps_sndrexmitpack                            U_int32_t
+	Tcps_sndtotal                                 U_int32_t
+	Tcps_sndurg                                   U_int32_t
+	Tcps_sndwinup                                 U_int32_t
+	Tcps_synchallenge                             U_int32_t
+	Tcps_tailloss_rto                             U_int32_t
+	Tcps_tfo_blackhole                            U_int32_t
+	Tcps_tfo_cookie_invalid                       U_int32_t
+	Tcps_tfo_cookie_rcv                           U_int32_t
+	Tcps_tfo_cookie_req                           U_int32_t
+	Tcps_tfo_cookie_req_rcv                       U_int32_t
+	Tcps_tfo_cookie_sent                          U_int32_t
+	Tcps_tfo_cookie_wrong                         U_int32_t
+	Tcps_tfo_heuristics_disable                   U_int32_t
+	Tcps_tfo_no_cookie_rcv                        U_int32_t
+	Tcps_tfo_sndblackhole                         U_int32_t
+	Tcps_tfo_syn_data_acked                       U_int32_t
+	Tcps_tfo_syn_data_rcv                         U_int32_t
+	Tcps_tfo_syn_data_sent                        U_int32_t
+	Tcps_tfo_syn_loss                             U_int32_t
+	Tcps_timeoutdrop                              U_int32_t
+	Tcps_timer_drift_gt_1000_ms                   U_int32_t
+	Tcps_timer_drift_le_1000_ms                   U_int32_t
+	Tcps_timer_drift_le_100_ms                    U_int32_t
+	Tcps_timer_drift_le_10_ms                     U_int32_t
+	Tcps_timer_drift_le_1_ms                      U_int32_t
+	Tcps_timer_drift_le_200_ms                    U_int32_t
+	Tcps_timer_drift_le_20_ms                     U_int32_t
+	Tcps_timer_drift_le_500_ms                    U_int32_t
+	Tcps_timer_drift_le_50_ms                     U_int32_t
+	Tcps_tlp_recoverlastpkt                       U_int32_t
+	Tcps_tlp_recovery                             U_int32_t
+	Tcps_unnecessary_rxmt                         U_int32_t
+	Tcps_unused_1                                 U_int32_t
+	Tcps_unused_2                                 U_int32_t
+	Tcps_unused_3                                 U_int32_t
+	Tcps_usedrtt                                  U_int32_t
+	Tcps_usedrttvar                               U_int32_t
+	Tcps_usedssthresh                             U_int32_t
+	Tcps_fin_timeout_drops                        U_int32_t
+	Tcps_ecn_ace_recv_ce                          U_int32_t
+	Tcps_ecn_ace_syn_ce                           U_int32_t
+	Tcps_ecn_ace_syn_ect0                         U_int32_t
+	Tcps_ecn_ace_syn_ect1                         U_int32_t
+	Tcps_ecn_ace_syn_not_ect                      U_int32_t
+	Tcps_rack_recovery_episode                    U_int32_t
+	Tcps_rack_reordering_timeout_recovery_episode U_int32_t
+	Tcps_rack_rexmits                             U_int32_t
 }
 
 // Tcpstat_local
@@ -9789,12 +10936,12 @@ type Tcpstat_local struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/telemetry_notification_subsystem
 type Telemetry_notification_subsystem struct {
-	End      unsafe.Pointer
+	End      int32
+	Start    int32
 	Maxsize  unsafe.Pointer
-	Reserved unsafe.Pointer
 	Routine  unsafe.Pointer
 	Server   unsafe.Pointer
-	Start    unsafe.Pointer
+	Reserved Vm_address_t
 }
 
 // Termios
@@ -9802,13 +10949,12 @@ type Telemetry_notification_subsystem struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/termios
 type Termios struct {
-	C_cc     unsafe.Pointer
-	C_cflag  unsafe.Pointer
-	C_iflag  unsafe.Pointer
-	C_ispeed unsafe.Pointer
-	C_lflag  unsafe.Pointer
-	C_oflag  unsafe.Pointer
-	C_ospeed unsafe.Pointer
+	C_ispeed Speed_t
+	C_iflag  Tcflag_t
+	C_oflag  Tcflag_t
+	C_lflag  Tcflag_t
+	C_cc     Cc_t
+	C_cflag  Tcflag_t
 }
 
 // Termios32
@@ -9816,7 +10962,13 @@ type Termios struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/termios32
 type Termios32 struct {
+	C_cflag  uint32
+	C_lflag  uint32
+	C_ispeed uint32
 	C_ospeed uint32
+	C_oflag  uint32
+	C_iflag  uint32
+	C_cc     Cc_t
 }
 
 // Thread_command
@@ -10056,6 +11208,7 @@ type Thsc_cpi struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/thsc_time_cpi
 type Thsc_time_cpi struct {
+	Ttci_cycles       unsafe.Pointer
 	Ttci_instructions unsafe.Pointer
 }
 
@@ -10076,8 +11229,8 @@ type Thsc_time_energy_cpi struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/timebase_freq_t
 type Timebase_freq_t struct {
-	Timebase_den unsafe.Pointer
 	Timebase_num unsafe.Pointer
+	Timebase_den unsafe.Pointer
 }
 
 // Timespec
@@ -10085,8 +11238,8 @@ type Timebase_freq_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/timespec
 type Timespec struct {
-	Tv_nsec unsafe.Pointer
 	Tv_sec  unsafe.Pointer
+	Tv_nsec unsafe.Pointer
 }
 
 // Timeval
@@ -10103,8 +11256,8 @@ type Timeval struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/timeval32
 type Timeval32 struct {
-	Tv_sec  unsafe.Pointer
-	Tv_usec unsafe.Pointer
+	Tv_sec  int32
+	Tv_usec int32
 }
 
 // Timeval64
@@ -10121,6 +11274,7 @@ type Timeval64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/timex
 type Timex struct {
+	Esterror unsafe.Pointer
 	Constant unsafe.Pointer
 }
 
@@ -10129,8 +11283,8 @@ type Timex struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/timezone
 type Timezone struct {
-	Tz_dsttime     unsafe.Pointer
 	Tz_minuteswest unsafe.Pointer
+	Tz_dsttime     unsafe.Pointer
 }
 
 // Tlv_descriptor
@@ -10138,9 +11292,9 @@ type Timezone struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/tlv_descriptor
 type Tlv_descriptor struct {
-	Key    unsafe.Pointer
 	Offset unsafe.Pointer
-	Thunk  unsafe.Pointer
+	Thunk  *Tlv_descriptor
+	Key    unsafe.Pointer
 }
 
 // Transitioning_task_snapshot
@@ -10148,7 +11302,11 @@ type Tlv_descriptor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/transitioning_task_snapshot
 type Transitioning_task_snapshot struct {
-	Tts_p_comm unsafe.Pointer
+	Tts_p_comm          unsafe.Pointer
+	Tts_pid             unsafe.Pointer
+	Tts_ss_flags        unsafe.Pointer
+	Tts_transition_type unsafe.Pointer
+	Tts_unique_pid      unsafe.Pointer
 }
 
 // Trust_cache_entry1
@@ -10157,6 +11315,7 @@ type Transitioning_task_snapshot struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/trust_cache_entry1
 type Trust_cache_entry1 struct {
 	Cdhash uint8
+	Flags  uint8
 }
 
 // Trust_cache_module1
@@ -10164,9 +11323,9 @@ type Trust_cache_entry1 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/trust_cache_module1
 type Trust_cache_module1 struct {
-	Entries     unsafe.Pointer
+	Entries     Trust_cache_entry1
 	Num_entries unsafe.Pointer
-	Uuid        unsafe.Pointer
+	Uuid        [16]byte
 	Version     unsafe.Pointer
 }
 
@@ -10183,6 +11342,7 @@ type Tsegqe_head struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/ttysize
 type Ttysize struct {
+	Ts_yyy  unsafe.Pointer
 	Ts_cols unsafe.Pointer
 }
 
@@ -10202,6 +11362,7 @@ type Twolevel_hint struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/twolevel_hints_command
 type Twolevel_hints_command struct {
 	Cmd     unsafe.Pointer // Common to all load command structures. Set to `LC_TWOLEVEL_HINTS` for this structure.
+	Offset  unsafe.Pointer
 	Cmdsize unsafe.Pointer
 	Nhints  unsafe.Pointer
 }
@@ -10211,10 +11372,10 @@ type Twolevel_hints_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/udphdr
 type Udphdr struct {
-	Uh_dport unsafe.Pointer
-	Uh_sport unsafe.Pointer
-	Uh_sum   unsafe.Pointer
-	Uh_ulen  unsafe.Pointer
+	Uh_sum   U_short
+	Uh_sport U_short
+	Uh_ulen  U_short
+	Uh_dport U_short
 }
 
 // Udpiphdr
@@ -10231,28 +11392,28 @@ type Udpiphdr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/udpstat
 type Udpstat struct {
-	Udpps_pcbcachemiss     unsafe.Pointer
-	Udpps_pcbhashmiss      unsafe.Pointer
-	Udps_badlen            unsafe.Pointer
-	Udps_badsum            unsafe.Pointer
-	Udps_fastout           unsafe.Pointer
-	Udps_filtermcast       unsafe.Pointer
-	Udps_fullsock          unsafe.Pointer
-	Udps_hdrops            unsafe.Pointer
-	Udps_ipackets          unsafe.Pointer
-	Udps_noport            unsafe.Pointer
-	Udps_noportbcast       unsafe.Pointer
-	Udps_noportmcast       unsafe.Pointer
-	Udps_nosum             unsafe.Pointer
-	Udps_opackets          unsafe.Pointer
-	Udps_rcv6_swcsum       unsafe.Pointer
-	Udps_rcv6_swcsum_bytes unsafe.Pointer
-	Udps_rcv_swcsum        unsafe.Pointer
-	Udps_rcv_swcsum_bytes  unsafe.Pointer
-	Udps_snd6_swcsum       unsafe.Pointer
-	Udps_snd6_swcsum_bytes unsafe.Pointer
-	Udps_snd_swcsum        unsafe.Pointer
-	Udps_snd_swcsum_bytes  unsafe.Pointer
+	Udpps_pcbcachemiss     U_int32_t
+	Udpps_pcbhashmiss      U_int32_t
+	Udps_badlen            U_int32_t
+	Udps_badsum            U_int32_t
+	Udps_fastout           U_int32_t
+	Udps_filtermcast       U_int32_t
+	Udps_fullsock          U_int32_t
+	Udps_hdrops            U_int32_t
+	Udps_ipackets          U_int32_t
+	Udps_noport            U_int32_t
+	Udps_noportbcast       U_int32_t
+	Udps_noportmcast       U_int32_t
+	Udps_nosum             U_int32_t
+	Udps_opackets          U_int32_t
+	Udps_rcv6_swcsum       U_int32_t
+	Udps_rcv6_swcsum_bytes U_int32_t
+	Udps_rcv_swcsum        U_int32_t
+	Udps_rcv_swcsum_bytes  U_int32_t
+	Udps_snd6_swcsum       U_int32_t
+	Udps_snd6_swcsum_bytes U_int32_t
+	Udps_snd_swcsum        U_int32_t
+	Udps_snd_swcsum_bytes  U_int32_t
 }
 
 // User32_dyld_uuid_info
@@ -10260,6 +11421,7 @@ type Udpstat struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_dyld_uuid_info
 type User32_dyld_uuid_info struct {
+	ImageUUID        [16]byte
 	ImageLoadAddress unsafe.Pointer
 }
 
@@ -10268,7 +11430,16 @@ type User32_dyld_uuid_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_fssearchblock
 type User32_fssearchblock struct {
-	Maxmatches User32_ulong_t
+	Returnbuffer        User32_addr_t
+	Searchparams2       User32_addr_t
+	Returnbuffersize    User32_size_t
+	Timelimit           User32_timeval
+	Searchparams1       User32_addr_t
+	Maxmatches          User32_ulong_t
+	Sizeofsearchparams2 User32_size_t
+	Sizeofsearchparams1 User32_size_t
+	Returnattrs         User32_addr_t
+	Searchattrs         Attrlist
 }
 
 // User32_itimerval
@@ -10276,8 +11447,8 @@ type User32_fssearchblock struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_itimerval
 type User32_itimerval struct {
-	It_interval unsafe.Pointer
-	It_value    unsafe.Pointer
+	It_value    User32_timeval
+	It_interval User32_timeval
 }
 
 // User32_msqid_ds
@@ -10285,9 +11456,21 @@ type User32_itimerval struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_msqid_ds
 type User32_msqid_ds struct {
+	Msg_last   int32
+	Msg_rtime  User32_time_t
+	Msg_perm   Ipc_perm
+	Msg_pad2   int32
+	Msg_lspid  int32
+	Msg_lrpid  int32
+	Msg_qnum   User32_msgqnum_t
+	Msg_pad4   int32
+	Msg_qbytes User32_msglen_t
 	Msg_first  int32
 	Msg_cbytes User32_msglen_t
+	Msg_pad1   int32
 	Msg_ctime  User32_time_t
+	Msg_stime  User32_time_t
+	Msg_pad3   int32
 }
 
 // User32_rusage
@@ -10295,11 +11478,22 @@ type User32_msqid_ds struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_rusage
 type User32_rusage struct {
-	Ru_nivcsw User32_long_t
-	Ru_maxrss User32_long_t
-	Ru_idrss  User32_long_t
-	Ru_nswap  User32_long_t
-	Ru_msgrcv User32_long_t
+	Ru_isrss    User32_long_t
+	Ru_ixrss    User32_long_t
+	Ru_oublock  User32_long_t
+	Ru_nivcsw   User32_long_t
+	Ru_majflt   User32_long_t
+	Ru_utime    User32_timeval
+	Ru_maxrss   User32_long_t
+	Ru_stime    User32_timeval
+	Ru_inblock  User32_long_t
+	Ru_idrss    User32_long_t
+	Ru_nvcsw    User32_long_t
+	Ru_nswap    User32_long_t
+	Ru_msgrcv   User32_long_t
+	Ru_minflt   User32_long_t
+	Ru_msgsnd   User32_long_t
+	Ru_nsignals User32_long_t
 }
 
 // User32_sf_hdtr
@@ -10307,7 +11501,10 @@ type User32_rusage struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_sf_hdtr
 type User32_sf_hdtr struct {
-	Hdr_cnt unsafe.Pointer
+	Trailers User32_addr_t
+	Headers  User32_addr_t
+	Trl_cnt  unsafe.Pointer
+	Hdr_cnt  unsafe.Pointer
 }
 
 // User32_timespec
@@ -10315,8 +11512,8 @@ type User32_sf_hdtr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_timespec
 type User32_timespec struct {
-	Tv_nsec unsafe.Pointer
-	Tv_sec  unsafe.Pointer
+	Tv_nsec User32_long_t
+	Tv_sec  User32_time_t
 }
 
 // User32_timeval
@@ -10324,7 +11521,8 @@ type User32_timespec struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_timeval
 type User32_timeval struct {
-	Tv_sec User32_time_t
+	Tv_usec int32
+	Tv_sec  User32_time_t
 }
 
 // User32_timex
@@ -10332,23 +11530,23 @@ type User32_timeval struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_timex
 type User32_timex struct {
-	Calcnt    unsafe.Pointer
-	Constant  unsafe.Pointer
-	Errcnt    unsafe.Pointer
-	Esterror  unsafe.Pointer
-	Freq      unsafe.Pointer
-	Jitcnt    unsafe.Pointer
-	Jitter    unsafe.Pointer
-	Maxerror  unsafe.Pointer
-	Modes     unsafe.Pointer
-	Offset    unsafe.Pointer
-	Ppsfreq   unsafe.Pointer
-	Precision unsafe.Pointer
-	Shift     unsafe.Pointer
-	Stabil    unsafe.Pointer
-	Status    unsafe.Pointer
-	Stbcnt    unsafe.Pointer
-	Tolerance unsafe.Pointer
+	Shift     int32
+	Tolerance User32_long_t
+	Constant  User32_long_t
+	Status    int32
+	Jitcnt    User32_long_t
+	Offset    User32_long_t
+	Freq      User32_long_t
+	Jitter    User32_long_t
+	Maxerror  User32_long_t
+	Stabil    User32_long_t
+	Stbcnt    User32_long_t
+	Errcnt    User32_long_t
+	Ppsfreq   User32_long_t
+	Esterror  User32_long_t
+	Modes     U_int32_t
+	Calcnt    User32_long_t
+	Precision User32_long_t
 }
 
 // User32_vfsidctl
@@ -10356,10 +11554,11 @@ type User32_timex struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user32_vfsidctl
 type User32_vfsidctl struct {
-	Vc_ptr  User32_addr_t
-	Vc_vers unsafe.Pointer
-	Vc_len  User32_size_t
-	Vc_fsid Fsid_t
+	Vc_ptr   User32_addr_t
+	Vc_spare U_int32_t
+	Vc_vers  unsafe.Pointer
+	Vc_len   User32_size_t
+	Vc_fsid  Fsid_t
 }
 
 // User64_dyld_aot_info
@@ -10367,6 +11566,8 @@ type User32_vfsidctl struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_dyld_aot_info
 type User64_dyld_aot_info struct {
+	AotImageKey  uint8
+	AotImageSize unsafe.Pointer
 }
 
 // User64_dyld_uuid_info
@@ -10374,6 +11575,8 @@ type User64_dyld_aot_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_dyld_uuid_info
 type User64_dyld_uuid_info struct {
+	ImageUUID        [16]byte
+	ImageLoadAddress unsafe.Pointer
 }
 
 // User64_fssearchblock
@@ -10381,16 +11584,16 @@ type User64_dyld_uuid_info struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_fssearchblock
 type User64_fssearchblock struct {
-	Maxmatches          unsafe.Pointer
-	Returnattrs         unsafe.Pointer
-	Returnbuffer        unsafe.Pointer
-	Returnbuffersize    unsafe.Pointer
-	Searchattrs         unsafe.Pointer
-	Searchparams1       unsafe.Pointer
-	Searchparams2       unsafe.Pointer
-	Sizeofsearchparams1 unsafe.Pointer
-	Sizeofsearchparams2 unsafe.Pointer
-	Timelimit           unsafe.Pointer
+	Returnbuffersize    User64_size_t
+	Searchparams1       User64_addr_t
+	Sizeofsearchparams2 User64_size_t
+	Returnbuffer        User64_addr_t
+	Searchparams2       User64_addr_t
+	Searchattrs         Attrlist
+	Sizeofsearchparams1 User64_size_t
+	Returnattrs         User64_addr_t
+	Timelimit           User64_timeval
+	Maxmatches          User64_ulong_t
 }
 
 // User64_itimerval
@@ -10398,8 +11601,7 @@ type User64_fssearchblock struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_itimerval
 type User64_itimerval struct {
-	It_interval unsafe.Pointer
-	It_value    unsafe.Pointer
+	It_interval User64_timeval
 }
 
 // User64_msqid_ds
@@ -10407,21 +11609,8 @@ type User64_itimerval struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_msqid_ds
 type User64_msqid_ds struct {
-	Msg_cbytes unsafe.Pointer
-	Msg_ctime  unsafe.Pointer
-	Msg_first  unsafe.Pointer
-	Msg_last   unsafe.Pointer
-	Msg_lrpid  unsafe.Pointer
-	Msg_lspid  unsafe.Pointer
-	Msg_pad1   unsafe.Pointer
-	Msg_pad2   unsafe.Pointer
-	Msg_pad3   unsafe.Pointer
-	Msg_pad4   unsafe.Pointer
-	Msg_perm   unsafe.Pointer
-	Msg_qbytes unsafe.Pointer
-	Msg_qnum   unsafe.Pointer
-	Msg_rtime  unsafe.Pointer
-	Msg_stime  unsafe.Pointer
+	Msg_qbytes User64_msglen_t
+	Msg_last   int32
 }
 
 // User64_rusage
@@ -10429,22 +11618,22 @@ type User64_msqid_ds struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_rusage
 type User64_rusage struct {
-	Ru_idrss    unsafe.Pointer
-	Ru_inblock  unsafe.Pointer
-	Ru_isrss    unsafe.Pointer
-	Ru_ixrss    unsafe.Pointer
-	Ru_majflt   unsafe.Pointer
-	Ru_maxrss   unsafe.Pointer
-	Ru_minflt   unsafe.Pointer
-	Ru_msgrcv   unsafe.Pointer
-	Ru_msgsnd   unsafe.Pointer
-	Ru_nivcsw   unsafe.Pointer
-	Ru_nsignals unsafe.Pointer
-	Ru_nswap    unsafe.Pointer
-	Ru_nvcsw    unsafe.Pointer
-	Ru_oublock  unsafe.Pointer
-	Ru_stime    unsafe.Pointer
-	Ru_utime    unsafe.Pointer
+	Ru_nvcsw    User64_long_t
+	Ru_majflt   User64_long_t
+	Ru_oublock  User64_long_t
+	Ru_nswap    User64_long_t
+	Ru_nsignals User64_long_t
+	Ru_nivcsw   User64_long_t
+	Ru_inblock  User64_long_t
+	Ru_maxrss   User64_long_t
+	Ru_stime    User64_timeval
+	Ru_isrss    User64_long_t
+	Ru_msgrcv   User64_long_t
+	Ru_ixrss    User64_long_t
+	Ru_msgsnd   User64_long_t
+	Ru_utime    User64_timeval
+	Ru_idrss    User64_long_t
+	Ru_minflt   User64_long_t
 }
 
 // User64_sf_hdtr
@@ -10452,10 +11641,10 @@ type User64_rusage struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_sf_hdtr
 type User64_sf_hdtr struct {
+	Trailers User64_addr_t
 	Hdr_cnt  unsafe.Pointer
-	Headers  unsafe.Pointer
-	Trailers unsafe.Pointer
 	Trl_cnt  unsafe.Pointer
+	Headers  User64_addr_t
 }
 
 // User64_timespec
@@ -10463,8 +11652,8 @@ type User64_sf_hdtr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_timespec
 type User64_timespec struct {
-	Tv_nsec unsafe.Pointer
-	Tv_sec  unsafe.Pointer
+	Tv_sec  User64_time_t
+	Tv_nsec User64_long_t
 }
 
 // User64_timeval
@@ -10481,23 +11670,23 @@ type User64_timeval struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user64_timex
 type User64_timex struct {
-	Calcnt    unsafe.Pointer
-	Constant  unsafe.Pointer
-	Errcnt    unsafe.Pointer
-	Esterror  unsafe.Pointer
-	Freq      unsafe.Pointer
-	Jitcnt    unsafe.Pointer
-	Jitter    unsafe.Pointer
-	Maxerror  unsafe.Pointer
-	Modes     unsafe.Pointer
-	Offset    unsafe.Pointer
-	Ppsfreq   unsafe.Pointer
-	Precision unsafe.Pointer
-	Shift     unsafe.Pointer
-	Stabil    unsafe.Pointer
-	Status    unsafe.Pointer
-	Stbcnt    unsafe.Pointer
-	Tolerance unsafe.Pointer
+	Shift     int32
+	Ppsfreq   User64_long_t
+	Offset    User64_long_t
+	Maxerror  User64_long_t
+	Freq      User64_long_t
+	Precision User64_long_t
+	Status    int32
+	Jitter    User64_long_t
+	Esterror  User64_long_t
+	Jitcnt    User64_long_t
+	Constant  User64_long_t
+	Stbcnt    User64_long_t
+	Modes     U_int32_t
+	Stabil    User64_long_t
+	Calcnt    User64_long_t
+	Errcnt    User64_long_t
+	Tolerance User64_long_t
 }
 
 // User_msqid_ds
@@ -10506,7 +11695,20 @@ type User64_timex struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user_msqid_ds
 type User_msqid_ds struct {
 	Msg_cbytes User_msglen_t
+	Msg_stime  User_time_t
+	Msg_perm   Ipc_perm
+	Msg_qnum   User_msgqnum_t
+	Msg_last   *Msg
+	Msg_pad1   int32
+	Msg_first  *Msg
+	Msg_rtime  User_time_t
+	Msg_pad4   int32
+	Msg_pad3   int32
+	Msg_lrpid  int32
 	Msg_ctime  User_time_t
+	Msg_lspid  int32
+	Msg_qbytes User_msglen_t
+	Msg_pad2   int32
 }
 
 // User_nfs_args
@@ -10514,30 +11716,9 @@ type User_msqid_ds struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user_nfs_args
 type User_nfs_args struct {
-	Acdirmax     unsafe.Pointer
-	Acdirmin     unsafe.Pointer
-	Acregmax     unsafe.Pointer
-	Acregmin     unsafe.Pointer
-	Addr         unsafe.Pointer
-	Addrlen      unsafe.Pointer
-	Auth         unsafe.Pointer
-	Deadthresh   unsafe.Pointer
-	Deadtimeout  unsafe.Pointer
-	Fh           unsafe.Pointer
-	Fhsize       unsafe.Pointer
-	Flags        unsafe.Pointer
-	Hostname     unsafe.Pointer
-	Leaseterm    unsafe.Pointer
-	Maxgrouplist unsafe.Pointer
-	Proto        unsafe.Pointer
-	Readahead    unsafe.Pointer
-	Readdirsize  unsafe.Pointer
-	Retrans      unsafe.Pointer
-	Rsize        unsafe.Pointer
-	Sotype       unsafe.Pointer
-	Timeo        unsafe.Pointer
-	Version      unsafe.Pointer
-	Wsize        unsafe.Pointer
+	Auth       unsafe.Pointer
+	Deadthresh unsafe.Pointer
+	Sotype     unsafe.Pointer
 }
 
 // User_nfs_export_args
@@ -10546,12 +11727,12 @@ type User_nfs_args struct {
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user_nfs_export_args
 type User_nfs_export_args struct {
 	Nxa_expid    unsafe.Pointer
-	Nxa_exppath  unsafe.Pointer
+	Nxa_exppath  User_addr_t
 	Nxa_flags    unsafe.Pointer
 	Nxa_fsid     unsafe.Pointer
-	Nxa_fspath   unsafe.Pointer
+	Nxa_fspath   User_addr_t
 	Nxa_netcount unsafe.Pointer
-	Nxa_nets     unsafe.Pointer
+	Nxa_nets     User_addr_t
 }
 
 // User_nfsd_args
@@ -10559,7 +11740,7 @@ type User_nfs_export_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user_nfsd_args
 type User_nfsd_args struct {
-	Name    unsafe.Pointer
+	Name    User_addr_t
 	Namelen unsafe.Pointer
 	Sock    unsafe.Pointer
 }
@@ -10569,10 +11750,10 @@ type User_nfsd_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user_sf_hdtr
 type User_sf_hdtr struct {
+	Headers  User_addr_t
 	Hdr_cnt  unsafe.Pointer
-	Headers  unsafe.Pointer
-	Trailers unsafe.Pointer
 	Trl_cnt  unsafe.Pointer
+	Trailers User_addr_t
 }
 
 // User_termios
@@ -10580,13 +11761,13 @@ type User_sf_hdtr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user_termios
 type User_termios struct {
-	C_cc     unsafe.Pointer
-	C_cflag  unsafe.Pointer
-	C_iflag  unsafe.Pointer
-	C_ispeed unsafe.Pointer
-	C_lflag  unsafe.Pointer
-	C_oflag  unsafe.Pointer
-	C_ospeed unsafe.Pointer
+	C_iflag  User_tcflag_t
+	C_ospeed UserSpeed
+	C_oflag  User_tcflag_t
+	C_ispeed UserSpeed
+	C_cflag  User_tcflag_t
+	C_cc     Cc_t
+	C_lflag  User_tcflag_t
 }
 
 // User_timespec
@@ -10612,8 +11793,11 @@ type User_timeval struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/user_vfsidctl
 type User_vfsidctl struct {
-	Vc_fsid Fsid_t
-	Vc_vers unsafe.Pointer
+	Vc_fsid  Fsid_t
+	Vc_spare U_int32_t
+	Vc_vers  unsafe.Pointer
+	Vc_len   User_size_t
+	Vc_ptr   User_addr_t
 }
 
 // Utun_stats_param
@@ -10621,9 +11805,9 @@ type User_vfsidctl struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/utun_stats_param
 type Utun_stats_param struct {
-	Utsp_bytes   unsafe.Pointer
-	Utsp_errors  unsafe.Pointer
-	Utsp_packets unsafe.Pointer
+	Utsp_packets U_int64_t
+	Utsp_bytes   U_int64_t
+	Utsp_errors  U_int64_t
 }
 
 // Uuid_command
@@ -10650,9 +11834,6 @@ type Vend struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/version_min_command
 type Version_min_command struct {
-	Cmd     unsafe.Pointer
-	Cmdsize unsafe.Pointer
-	Sdk     unsafe.Pointer
 	Version unsafe.Pointer
 }
 
@@ -10661,35 +11842,11 @@ type Version_min_command struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vfs_attr
 type Vfs_attr struct {
-	F_access_time  unsafe.Pointer
-	F_active       unsafe.Pointer
-	F_attributes   unsafe.Pointer
-	F_backup_time  unsafe.Pointer
-	F_bavail       unsafe.Pointer
-	F_bfree        unsafe.Pointer
-	F_blocks       unsafe.Pointer
-	F_bsize        unsafe.Pointer
-	F_bused        unsafe.Pointer
-	F_capabilities unsafe.Pointer
-	F_carbon_fsid  unsafe.Pointer
-	F_create_time  unsafe.Pointer
-	F_dircount     unsafe.Pointer
-	F_ffree        unsafe.Pointer
-	F_filecount    unsafe.Pointer
-	F_files        unsafe.Pointer
-	F_fsid         unsafe.Pointer
-	F_fssubtype    unsafe.Pointer
-	F_iosize       unsafe.Pointer
-	F_maxobjcount  unsafe.Pointer
-	F_modify_time  unsafe.Pointer
-	F_objcount     unsafe.Pointer
-	F_owner        unsafe.Pointer
-	F_quota        unsafe.Pointer
-	F_reserved     unsafe.Pointer
-	F_signature    unsafe.Pointer
-	F_supported    unsafe.Pointer
-	F_uuid         unsafe.Pointer
-	F_vol_name     unsafe.Pointer
+	F_files       unsafe.Pointer
+	F_bsize       unsafe.Pointer
+	F_create_time Timespec
+	F_fssubtype   unsafe.Pointer
+	F_reserved    unsafe.Pointer
 }
 
 // Vfs_fsentry
@@ -10699,11 +11856,11 @@ type Vfs_attr struct {
 type Vfs_fsentry struct {
 	Vfe_flags     unsafe.Pointer
 	Vfe_fsname    unsafe.Pointer
+	Vfe_opvdescs  *Vnodeopv_desc
 	Vfe_fstypenum unsafe.Pointer
-	Vfe_opvdescs  unsafe.Pointer
-	Vfe_reserv    unsafe.Pointer
-	Vfe_vfsops    unsafe.Pointer
 	Vfe_vopcnt    unsafe.Pointer
+	Vfe_reserv    unsafe.Pointer
+	Vfe_vfsops    *Vfsops
 }
 
 // Vfs_server
@@ -10720,13 +11877,8 @@ type Vfs_server struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vfsconf
 type Vfsconf struct {
-	Vfc_flags     unsafe.Pointer
-	Vfc_name      unsafe.Pointer
-	Vfc_refcount  unsafe.Pointer
-	Vfc_reserved1 unsafe.Pointer
-	Vfc_reserved2 unsafe.Pointer
-	Vfc_reserved3 unsafe.Pointer
-	Vfc_typenum   unsafe.Pointer
+	Vfc_name  unsafe.Pointer
+	Vfc_flags unsafe.Pointer
 }
 
 // Vfsidctl
@@ -10734,11 +11886,11 @@ type Vfsconf struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vfsidctl
 type Vfsidctl struct {
-	Vc_fsid  unsafe.Pointer
-	Vc_len   unsafe.Pointer
-	Vc_ptr   unsafe.Pointer
-	Vc_spare unsafe.Pointer
+	Vc_spare U_int32_t
+	Vc_len   uintptr
+	Vc_fsid  Fsid_t
 	Vc_vers  unsafe.Pointer
+	Vc_ptr   unsafe.Pointer
 }
 
 // Vfsioattr
@@ -10746,14 +11898,14 @@ type Vfsidctl struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vfsioattr
 type Vfsioattr struct {
-	Io_devblocksize    unsafe.Pointer
-	Io_flags           unsafe.Pointer
-	Io_maxreadcnt      unsafe.Pointer
-	Io_maxsegreadsize  unsafe.Pointer
-	Io_maxsegwritesize unsafe.Pointer
-	Io_maxwritecnt     unsafe.Pointer
-	Io_segreadcnt      unsafe.Pointer
-	Io_segwritecnt     unsafe.Pointer
+	Io_maxwritecnt     U_int32_t
+	Io_flags           U_int32_t
+	Io_maxsegreadsize  U_int32_t
+	Io_segwritecnt     U_int32_t
+	Io_segreadcnt      U_int32_t
+	Io_maxsegwritesize U_int32_t
+	Io_devblocksize    U_int32_t
+	Io_maxreadcnt      U_int32_t
 }
 
 // Vfsops
@@ -10761,12 +11913,26 @@ type Vfsioattr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vfsops
 type Vfsops struct {
-	Vfs_root     Vfs_context_t
-	Vfs_quotactl Vfs_context_t
-	Vfs_init     *Vfsconf
-	Vfs_getattr  Vfs_context_t
-	Vfs_mount    Vfs_context_t
-	Vfs_fhtovp   Vfs_context_t
+	Vfs_setattr      Vfs_context_t
+	Vfs_root         Vfs_context_t
+	Vfs_quotactl     Vfs_context_t
+	Vfs_start        Vfs_context_t
+	Vfs_unmount      Vfs_context_t
+	Vfs_vptofh       Vfs_context_t
+	Vfs_sync         Vfs_context_t
+	Vfs_vget         Vfs_context_t
+	Vfs_init         *Vfsconf
+	Vfs_getattr      Vfs_context_t
+	Vfs_mount        Vfs_context_t
+	Vfs_sysctl       Vfs_context_t
+	Vfs_fhtovp       Vfs_context_t
+	Vfs_reserved4    unsafe.Pointer
+	Vfs_reserved2    unsafe.Pointer
+	Vfs_reserved1    unsafe.Pointer
+	Vfs_vget_snapdir Vfs_context_t
+	Vfs_reserved3    unsafe.Pointer
+	Vfs_reserved5    unsafe.Pointer
+	Vfs_ioctl        Vfs_context_t
 }
 
 // Vfsquery
@@ -10783,10 +11949,11 @@ type Vfsquery struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vfsstatfs
 type Vfsstatfs struct {
-	F_ffree  unsafe.Pointer
-	F_bused  unsafe.Pointer
-	F_files  unsafe.Pointer
-	F_blocks unsafe.Pointer
+	F_ffree       unsafe.Pointer
+	F_mntfromname unsafe.Pointer
+	F_bused       unsafe.Pointer
+	F_files       unsafe.Pointer
+	F_blocks      unsafe.Pointer
 }
 
 // Vlanreq
@@ -10803,10 +11970,10 @@ type Vlanreq struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vmspace
 type Vmspace struct {
+	Dummy4 Caddr_t
 	Dummy  unsafe.Pointer
-	Dummy2 unsafe.Pointer
+	Dummy2 Caddr_t
 	Dummy3 unsafe.Pointer
-	Dummy4 unsafe.Pointer
 }
 
 // Vnode_attr
@@ -11256,12 +12423,12 @@ type Vnop_mnomap_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_monitor_args
 type Vnop_monitor_args struct {
-	A_context unsafe.Pointer
+	A_context Vfs_context_t
 	A_desc    unsafe.Pointer
 	A_events  unsafe.Pointer
 	A_flags   unsafe.Pointer
 	A_handle  unsafe.Pointer
-	A_vp      unsafe.Pointer
+	A_vp      Vnode_t
 }
 
 // Vnop_offtoblk_args - Call down to a filesystem to convert a logical block number to a file offset.
@@ -11569,15 +12736,15 @@ type Vnop_symlink_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/vnop_verify_args
 type Vnop_verify_args struct {
-	A_buf           unsafe.Pointer
-	A_bufsize       unsafe.Pointer
-	A_context       unsafe.Pointer
+	A_buf           *uint8
+	A_bufsize       uintptr
+	A_context       Vfs_context_t
 	A_desc          unsafe.Pointer
-	A_flags         unsafe.Pointer
-	A_foffset       unsafe.Pointer
+	A_flags         Vnode_verify_flags_t
+	A_foffset       int64
+	A_verifyblksize *uintptr
+	A_vp            Vnode_t
 	A_verify_ctxp   unsafe.Pointer
-	A_verifyblksize unsafe.Pointer
-	A_vp            unsafe.Pointer
 }
 
 // Vnop_whiteout_args - Call down to a filesystem to create a regular file (VREG).
@@ -11609,8 +12776,10 @@ type Vnop_write_args struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/winsize
 type Winsize struct {
-	Ws_row unsafe.Pointer
-	Ws_col unsafe.Pointer
+	Ws_row    unsafe.Pointer
+	Ws_col    unsafe.Pointer
+	Ws_ypixel unsafe.Pointer
+	Ws_xpixel unsafe.Pointer
 }
 
 // X86_cpmu_state64
@@ -11626,7 +12795,12 @@ type X86_cpmu_state64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xdrbuf
 type Xdrbuf struct {
+	Xb_flags    unsafe.Pointer
 	Xb_growsize uintptr
+	Xb_left     uintptr
+	Xb_ptr      unsafe.Pointer
+	Xb_type     Xdrbuf_type
+	Xb_u        unsafe.Pointer
 }
 
 // Xinpcb
@@ -11634,10 +12808,10 @@ type Xdrbuf struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xinpcb
 type Xinpcb struct {
-	Xi_alignment_hack unsafe.Pointer
-	Xi_inp            unsafe.Pointer
-	Xi_len            unsafe.Pointer
-	Xi_socket         unsafe.Pointer
+	Xi_alignment_hack U_quad_t
+	Xi_inp            Inpcb
+	Xi_len            U_int32_t
+	Xi_socket         Xsocket
 }
 
 // Xinpcb64
@@ -11645,27 +12819,12 @@ type Xinpcb struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xinpcb64
 type Xinpcb64 struct {
-	Inp_depend4       unsafe.Pointer
-	Inp_depend6       unsafe.Pointer
-	Inp_dependfaddr   unsafe.Pointer
-	Inp_dependladdr   unsafe.Pointer
-	Inp_flags         unsafe.Pointer
-	Inp_flow          unsafe.Pointer
-	Inp_fport         unsafe.Pointer
-	Inp_gencnt        unsafe.Pointer
-	Inp_ip_p          unsafe.Pointer
-	Inp_ip_ttl        unsafe.Pointer
-	Inp_list          unsafe.Pointer
-	Inp_lport         unsafe.Pointer
-	Inp_pcbinfo       unsafe.Pointer
-	Inp_phd           unsafe.Pointer
-	Inp_portlist      unsafe.Pointer
-	Inp_ppcb          unsafe.Pointer
-	Inp_vflag         unsafe.Pointer
-	Xi_alignment_hack unsafe.Pointer
-	Xi_inpp           unsafe.Pointer
-	Xi_len            unsafe.Pointer
-	Xi_socket         unsafe.Pointer
+	Inp_flags  unsafe.Pointer
+	Inp_ip_p   U_char
+	Inp_ip_ttl U_char
+	Inp_phd    U_int64_t
+	Inp_ppcb   U_int64_t
+	Inp_vflag  U_char
 }
 
 // Xinpgen
@@ -11673,10 +12832,10 @@ type Xinpcb64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xinpgen
 type Xinpgen struct {
-	Xig_count unsafe.Pointer
-	Xig_gen   unsafe.Pointer
-	Xig_len   unsafe.Pointer
-	Xig_sogen unsafe.Pointer
+	Xig_count U_int
+	Xig_gen   Inp_gen_t
+	Xig_len   U_int32_t
+	Xig_sogen So_gen_t
 }
 
 // Xmm_reg
@@ -11692,13 +12851,13 @@ type Xmm_reg struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xsockbuf
 type Xsockbuf struct {
-	Sb_cc    unsafe.Pointer
-	Sb_flags unsafe.Pointer
-	Sb_hiwat unsafe.Pointer
+	Sb_mbcnt U_int32_t
+	Sb_hiwat U_int32_t
 	Sb_lowat unsafe.Pointer
-	Sb_mbcnt unsafe.Pointer
-	Sb_mbmax unsafe.Pointer
+	Sb_mbmax U_int32_t
+	Sb_cc    U_int32_t
 	Sb_timeo unsafe.Pointer
+	Sb_flags unsafe.Pointer
 }
 
 // Xsocket
@@ -11706,7 +12865,25 @@ type Xsockbuf struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xsocket
 type Xsocket struct {
-	So_oobmark U_int32_t
+	So_incqlen   unsafe.Pointer
+	Xso_family   unsafe.Pointer
+	Xso_len      U_int32_t
+	So_oobmark   U_int32_t
+	So_qlen      unsafe.Pointer
+	Xso_protocol unsafe.Pointer
+	Xso_so       U_int32_t
+	So_options   unsafe.Pointer
+	So_snd       Xsockbuf
+	So_pcb       U_int32_t
+	So_qlimit    unsafe.Pointer
+	So_linger    unsafe.Pointer
+	So_pgid      int32
+	So_type      unsafe.Pointer
+	So_rcv       Xsockbuf
+	So_timeo     unsafe.Pointer
+	So_error     U_short
+	So_state     unsafe.Pointer
+	So_uid       uint32
 }
 
 // Xsocket64
@@ -11714,25 +12891,25 @@ type Xsocket struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xsocket64
 type Xsocket64 struct {
-	So_error     unsafe.Pointer
-	So_incqlen   unsafe.Pointer
+	So_oobmark   U_int32_t
+	So_rcv       Xsockbuf
+	Xso_family   unsafe.Pointer
+	So_pgid      int32
 	So_linger    unsafe.Pointer
-	So_oobmark   unsafe.Pointer
+	So_state     unsafe.Pointer
+	So_incqlen   unsafe.Pointer
 	So_options   unsafe.Pointer
-	So_pcb       unsafe.Pointer
-	So_pgid      unsafe.Pointer
+	So_snd       Xsockbuf
+	So_error     U_short
+	Xso_protocol unsafe.Pointer
+	So_timeo     unsafe.Pointer
+	So_uid       uint32
 	So_qlen      unsafe.Pointer
 	So_qlimit    unsafe.Pointer
-	So_rcv       unsafe.Pointer
-	So_snd       unsafe.Pointer
-	So_state     unsafe.Pointer
-	So_timeo     unsafe.Pointer
 	So_type      unsafe.Pointer
-	So_uid       unsafe.Pointer
-	Xso_family   unsafe.Pointer
-	Xso_len      unsafe.Pointer
-	Xso_protocol unsafe.Pointer
-	Xso_so       unsafe.Pointer
+	Xso_so       U_int64_t
+	Xso_len      U_int32_t
+	So_pcb       U_int64_t
 }
 
 // Xtcpcb
@@ -11740,11 +12917,7 @@ type Xsocket64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xtcpcb
 type Xtcpcb struct {
-	Xt_alignment_hack unsafe.Pointer
-	Xt_inp            unsafe.Pointer
-	Xt_len            unsafe.Pointer
-	Xt_socket         unsafe.Pointer
-	Xt_tp             unsafe.Pointer
+	Xt_alignment_hack U_quad_t
 }
 
 // Xtcpcb64
@@ -11752,8 +12925,9 @@ type Xtcpcb struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xtcpcb64
 type Xtcpcb64 struct {
-	Cc_recv Tcp_cc
-	Cc_send Tcp_cc
+	Cc_recv    Tcp_cc
+	Cc_send    Tcp_cc
+	Max_sndwnd U_int32_t
 }
 
 // Xucred
@@ -11761,10 +12935,9 @@ type Xtcpcb64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xucred
 type Xucred struct {
-	Cr_groups  unsafe.Pointer
 	Cr_ngroups unsafe.Pointer
-	Cr_uid     unsafe.Pointer
-	Cr_version unsafe.Pointer
+	Cr_uid     uint32
+	Cr_groups  uint32
 }
 
 // Xunpgen
@@ -11772,10 +12945,9 @@ type Xucred struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xunpgen
 type Xunpgen struct {
-	Xug_count unsafe.Pointer
-	Xug_gen   unsafe.Pointer
-	Xug_len   unsafe.Pointer
-	Xug_sogen unsafe.Pointer
+	Xug_len   U_int32_t
+	Xug_gen   Unp_gen_t
+	Xug_count U_int
 }
 
 // Xvsockpcb
@@ -11783,8 +12955,10 @@ type Xunpgen struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/kernel/xvsockpcb
 type Xvsockpcb struct {
-	Xv_len    U_int32_t
-	Xv_socket Xsocket
+	Xv_len         U_int32_t
+	Xv_socket      Xsocket
+	Xvp_gencnt     Vsock_gen_t
+	Xvp_remote_cid U_int32_t
 }
 
 // Xvsockpgen

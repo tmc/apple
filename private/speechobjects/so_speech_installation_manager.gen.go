@@ -263,7 +263,7 @@ func (s SOSpeechInstallationManager) _createLocalPort() corefoundation.CFMessage
 func (s SOSpeechInstallationManager) CreateLocalPort() (corefoundation.CFMessagePortRef, error) {
 	if !objc.RespondsToSelector(s.ID, objc.Sel("_createLocalPort")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_createLocalPort"}
-		return 0, err
+		return *new(corefoundation.CFMessagePortRef), err
 	}
 	return s._createLocalPort(), nil
 }

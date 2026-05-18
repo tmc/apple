@@ -9,7 +9,6 @@ import (
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSWrappedAudioQueueBuffer] class.
@@ -84,11 +83,11 @@ type ITTSWrappedAudioQueueBuffer interface {
 
 	// Topic: Methods
 
-	AqBuffer() *avfaudio.AudioQueueBufferRef
-	SetAqBuffer(value *avfaudio.AudioQueueBufferRef)
+	AqBuffer() unsafe.Pointer
+	SetAqBuffer(value *AudioQueueBuffer)
 	ByteSize() uint64
-	QueuedTimeStamp() objectivec.IObject
-	SetQueuedTimeStamp(value objectivec.IObject)
+	QueuedTimeStamp() AudioTimeStamp
+	SetQueuedTimeStamp(value AudioTimeStamp)
 	SetCompletionHandler(handler ErrorHandler)
 }
 
@@ -118,11 +117,11 @@ func (t TTSWrappedAudioQueueBuffer) SetCompletionHandler(handler ErrorHandler) {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer/aqBuffer
-func (t TTSWrappedAudioQueueBuffer) AqBuffer() *avfaudio.AudioQueueBufferRef {
+func (t TTSWrappedAudioQueueBuffer) AqBuffer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("aqBuffer"))
-	return (*avfaudio.AudioQueueBufferRef)(rv)
+	return rv
 }
-func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value *avfaudio.AudioQueueBufferRef) {
+func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value *AudioQueueBuffer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAqBuffer:"), value)
 }
 
@@ -133,11 +132,12 @@ func (t TTSWrappedAudioQueueBuffer) ByteSize() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer/queuedTimeStamp
-func (t TTSWrappedAudioQueueBuffer) QueuedTimeStamp() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("queuedTimeStamp"))
-	return objectivec.Object{ID: rv}
+func (t TTSWrappedAudioQueueBuffer) QueuedTimeStamp() AudioTimeStamp {
+	rv := objc.Send[AudioTimeStamp](t.ID, objc.Sel("queuedTimeStamp"))
+	_ = rv
+	return AudioTimeStamp{}
 }
-func (t TTSWrappedAudioQueueBuffer) SetQueuedTimeStamp(value objectivec.IObject) {
+func (t TTSWrappedAudioQueueBuffer) SetQueuedTimeStamp(value AudioTimeStamp) {
 	objc.Send[struct{}](t.ID, objc.Sel("setQueuedTimeStamp:"), value)
 }
 

@@ -18,20 +18,12 @@ type CIHeightFieldFromMask interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/inputImage
 	InputImage() ICIImage
-
-	// The length of the height-field transition.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/radius
-	Radius() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/inputImage
 	SetInputImage(value ICIImage)
 
 	// The length of the height-field transition.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -50,22 +42,6 @@ func CIHeightFieldFromMaskObjectFromID(id objc.ID) CIHeightFieldFromMaskObject {
 	return CIHeightFieldFromMaskObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/inputImage
-func (o CIHeightFieldFromMaskObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The length of the height-field transition.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/radius
-func (o CIHeightFieldFromMaskObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -87,6 +63,11 @@ func (o CIHeightFieldFromMaskObject) OutputImage() ICIImage {
 // value 0 at the edge of the mask.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/inputImage
+func (o CIHeightFieldFromMaskObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIHeightFieldFromMaskObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -99,6 +80,11 @@ func (o CIHeightFieldFromMaskObject) SetInputImage(value ICIImage) {
 // values make the transition approximate a fillet radius.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/radius
+func (o CIHeightFieldFromMaskObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIHeightFieldFromMaskObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

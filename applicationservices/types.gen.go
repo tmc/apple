@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/coreservices"
 	"github.com/tmc/apple/kernel"
 )
 
@@ -242,7 +241,7 @@ type ATSJustWidthDeltaEntryOverride struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/applicationservices/atslayoutrecord
 type ATSLayoutRecord struct {
-	GlyphID        uint16
+	GlyphID        ATSGlyphRef
 	Flags          uint32
 	OriginalOffset int
 	RealPos        int32
@@ -735,7 +734,7 @@ type ICCharTable struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/applicationservices/icfilespec
 type ICFileSpec struct {
-	VolName         kernel.Str31
+	VolName         unsafe.Pointer
 	VolCreationDate unsafe.Pointer
 	Fss             unsafe.Pointer
 	Alias           unsafe.Pointer
@@ -828,7 +827,7 @@ type LaunchParamBlockRec struct {
 	LaunchEPBLength     uint32
 	LaunchFileFlags     uint16
 	LaunchControlFlags  uint16
-	LaunchAppRef        coreservices.FSRefPtr
+	LaunchAppRef        unsafe.Pointer
 	LaunchProcessSN     *ProcessSerialNumber
 	LaunchPreferredSize uint32
 	LaunchMinimumSize   uint32
@@ -927,7 +926,7 @@ type PhonemeDescriptor struct {
 type PhonemeInfo struct {
 	Opcode      unsafe.Pointer // The opcode for the phoneme.
 	PhStr       unsafe.Pointer // The string used to represent the phoneme. The string does not necessarily have a phonetic connection to the phoneme, but might simply be an abstract textual representation of it.
-	ExampleStr  kernel.Str31   // An example word that illustrates use of the phoneme.
+	ExampleStr  unsafe.Pointer // An example word that illustrates use of the phoneme.
 	HiliteStart unsafe.Pointer // The number of characters in the example word that precede the portion of that word representing the phoneme.
 	HiliteEnd   unsafe.Pointer // The number of characters between the beginning of the example word and the end of the portion of that word representing the phoneme.
 
@@ -996,7 +995,7 @@ type ProcessInfoExtendedRec struct {
 	ProcessLauncher              *ProcessSerialNumber
 	ProcessLaunchDate            uint32
 	ProcessActiveTime            uint32
-	ProcessAppRef                coreservices.FSRefPtr
+	ProcessAppRef                unsafe.Pointer
 	ProcessTempMemTotal          uint32
 	ProcessPurgeableTempMemTotal uint32
 }
@@ -1018,7 +1017,7 @@ type ProcessInfoRec struct {
 	ProcessLauncher   *ProcessSerialNumber
 	ProcessLaunchDate uint32
 	ProcessActiveTime uint32
-	ProcessAppRef     coreservices.FSRefPtr
+	ProcessAppRef     unsafe.Pointer
 }
 
 // RGBColor

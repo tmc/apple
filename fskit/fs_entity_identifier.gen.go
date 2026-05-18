@@ -54,6 +54,12 @@ func (fc FSEntityIdentifierClass) Alloc() FSEntityIdentifier {
 // case, the identifier for each client is the server’s base UUID, and a
 // unique qualifier that differs by client.
 //
+// # Creating an entity identifier
+//
+//   - [FSEntityIdentifier.InitWithUUID]: Creates an entity identifier with the given UUID.
+//   - [FSEntityIdentifier.InitWithUUIDData]: Creates an entity identifier with the given UUID and qualifier data.
+//   - [FSEntityIdentifier.InitWithUUIDQualifier]: Creates an entity identifier with the given UUID and qualifier data as a 64-bit unsigned integer.
+//
 // # Inspecting identifier properties
 //
 //   - [FSEntityIdentifier.Uuid]: A UUID to uniquely identify this entity.
@@ -78,6 +84,12 @@ func FSEntityIdentifierFromID(id objc.ID) FSEntityIdentifier {
 
 // An interface definition for the [FSEntityIdentifier] class.
 //
+// # Creating an entity identifier
+//
+//   - [IFSEntityIdentifier.InitWithUUID]: Creates an entity identifier with the given UUID.
+//   - [IFSEntityIdentifier.InitWithUUIDData]: Creates an entity identifier with the given UUID and qualifier data.
+//   - [IFSEntityIdentifier.InitWithUUIDQualifier]: Creates an entity identifier with the given UUID and qualifier data as a 64-bit unsigned integer.
+//
 // # Inspecting identifier properties
 //
 //   - [IFSEntityIdentifier.Uuid]: A UUID to uniquely identify this entity.
@@ -89,21 +101,24 @@ func FSEntityIdentifierFromID(id objc.ID) FSEntityIdentifier {
 type IFSEntityIdentifier interface {
 	objectivec.IObject
 
+	// Topic: Creating an entity identifier
+
+	// Creates an entity identifier with the given UUID.
+	InitWithUUID(uuid foundation.NSUUID) FSEntityIdentifier
+	// Creates an entity identifier with the given UUID and qualifier data.
+	InitWithUUIDData(uuid foundation.NSUUID, qualifierData foundation.NSData) FSEntityIdentifier
+	// Creates an entity identifier with the given UUID and qualifier data as a 64-bit unsigned integer.
+	InitWithUUIDQualifier(uuid foundation.NSUUID, qualifier uint64) FSEntityIdentifier
+
 	// Topic: Inspecting identifier properties
 
 	// A UUID to uniquely identify this entity.
 	Uuid() foundation.NSUUID
 	SetUuid(value foundation.NSUUID)
 	// An optional piece of data to distinguish entities that otherwise share the same UUID.
-	Qualifier() foundation.INSData
-	SetQualifier(value foundation.INSData)
+	Qualifier() foundation.NSData
+	SetQualifier(value foundation.NSData)
 
-	// Creates an entity identifier with the given UUID.
-	InitWithUUID(uuid foundation.NSUUID) FSEntityIdentifier
-	// Creates an entity identifier with the given UUID and qualifier data.
-	InitWithUUIDData(uuid foundation.NSUUID, qualifierData foundation.INSData) FSEntityIdentifier
-	// Creates an entity identifier with the given UUID and qualifier data as a 64-bit unsigned integer.
-	InitWithUUIDQualifier(uuid foundation.NSUUID, qualifier uint64) FSEntityIdentifier
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -130,7 +145,7 @@ func NewFSEntityIdentifier() FSEntityIdentifier {
 //
 // uuid: The UUID to use for this identifier.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:)
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:)-9e20k
 func NewEntityIdentifierWithUUID(uuid foundation.NSUUID) FSEntityIdentifier {
 	instance := getFSEntityIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:"), uuid)
@@ -143,8 +158,8 @@ func NewEntityIdentifierWithUUID(uuid foundation.NSUUID) FSEntityIdentifier {
 //
 // qualifierData: The data to distinguish entities that otherwise share the same UUID.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:data:)
-func NewEntityIdentifierWithUUIDData(uuid foundation.NSUUID, qualifierData foundation.INSData) FSEntityIdentifier {
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:data:)-8dixs
+func NewEntityIdentifierWithUUIDData(uuid foundation.NSUUID, qualifierData foundation.NSData) FSEntityIdentifier {
 	instance := getFSEntityIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:data:"), uuid, qualifierData)
 	return FSEntityIdentifierFromID(rv)
@@ -157,7 +172,7 @@ func NewEntityIdentifierWithUUIDData(uuid foundation.NSUUID, qualifierData found
 //
 // qualifier: The data to distinguish entities that otherwise share the same UUID.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)-9ty70
 func NewEntityIdentifierWithUUIDQualifier(uuid foundation.NSUUID, qualifier uint64) FSEntityIdentifier {
 	instance := getFSEntityIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:qualifier:"), uuid, qualifier)
@@ -168,7 +183,7 @@ func NewEntityIdentifierWithUUIDQualifier(uuid foundation.NSUUID, qualifier uint
 //
 // uuid: The UUID to use for this identifier.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:)
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:)-9e20k
 func (e FSEntityIdentifier) InitWithUUID(uuid foundation.NSUUID) FSEntityIdentifier {
 	rv := objc.Send[FSEntityIdentifier](e.ID, objc.Sel("initWithUUID:"), uuid)
 	return rv
@@ -180,8 +195,8 @@ func (e FSEntityIdentifier) InitWithUUID(uuid foundation.NSUUID) FSEntityIdentif
 //
 // qualifierData: The data to distinguish entities that otherwise share the same UUID.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:data:)
-func (e FSEntityIdentifier) InitWithUUIDData(uuid foundation.NSUUID, qualifierData foundation.INSData) FSEntityIdentifier {
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:data:)-8dixs
+func (e FSEntityIdentifier) InitWithUUIDData(uuid foundation.NSUUID, qualifierData foundation.NSData) FSEntityIdentifier {
 	rv := objc.Send[FSEntityIdentifier](e.ID, objc.Sel("initWithUUID:data:"), uuid, qualifierData)
 	return rv
 }
@@ -193,7 +208,7 @@ func (e FSEntityIdentifier) InitWithUUIDData(uuid foundation.NSUUID, qualifierDa
 //
 // qualifier: The data to distinguish entities that otherwise share the same UUID.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)-9ty70
 func (e FSEntityIdentifier) InitWithUUIDQualifier(uuid foundation.NSUUID, qualifier uint64) FSEntityIdentifier {
 	rv := objc.Send[FSEntityIdentifier](e.ID, objc.Sel("initWithUUID:qualifier:"), uuid, qualifier)
 	return rv
@@ -217,10 +232,10 @@ func (e FSEntityIdentifier) SetUuid(value foundation.NSUUID) {
 // same UUID.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/qualifier
-func (e FSEntityIdentifier) Qualifier() foundation.INSData {
+func (e FSEntityIdentifier) Qualifier() foundation.NSData {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("qualifier"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (e FSEntityIdentifier) SetQualifier(value foundation.INSData) {
+func (e FSEntityIdentifier) SetQualifier(value foundation.NSData) {
 	objc.Send[struct{}](e.ID, objc.Sel("setQualifier:"), value)
 }

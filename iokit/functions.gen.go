@@ -81,111 +81,6 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-var _cDConvertLBAToMSF func(arg0 uint32) CDMSF
-var _cDConvertLBAToMSFErr error
-
-func tryCDConvertLBAToMSF(arg0 uint32) (CDMSF, error) {
-	if _cDConvertLBAToMSF == nil {
-		return *new(CDMSF), symbolCallError("CDConvertLBAToMSF", "10.0", _cDConvertLBAToMSFErr)
-	}
-	return _cDConvertLBAToMSF(arg0), nil
-}
-
-// CDConvertLBAToMSF.
-//
-// See: https://developer.apple.com/documentation/iokit/1584342-cdconvertlbatomsf
-func CDConvertLBAToMSF(arg0 uint32) CDMSF {
-	result, callErr := tryCDConvertLBAToMSF(arg0)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _cDConvertMSFToClippedLBA func(arg0 CDMSF) uint32
-var _cDConvertMSFToClippedLBAErr error
-
-func tryCDConvertMSFToClippedLBA(arg0 CDMSF) (uint32, error) {
-	if _cDConvertMSFToClippedLBA == nil {
-		return 0, symbolCallError("CDConvertMSFToClippedLBA", "10.2", _cDConvertMSFToClippedLBAErr)
-	}
-	return _cDConvertMSFToClippedLBA(arg0), nil
-}
-
-// CDConvertMSFToClippedLBA.
-//
-// See: https://developer.apple.com/documentation/iokit/1584220-cdconvertmsftoclippedlba
-func CDConvertMSFToClippedLBA(arg0 CDMSF) uint32 {
-	result, callErr := tryCDConvertMSFToClippedLBA(arg0)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _cDConvertMSFToLBA func(arg0 CDMSF) uint32
-var _cDConvertMSFToLBAErr error
-
-func tryCDConvertMSFToLBA(arg0 CDMSF) (uint32, error) {
-	if _cDConvertMSFToLBA == nil {
-		return 0, symbolCallError("CDConvertMSFToLBA", "10.0", _cDConvertMSFToLBAErr)
-	}
-	return _cDConvertMSFToLBA(arg0), nil
-}
-
-// CDConvertMSFToLBA.
-//
-// See: https://developer.apple.com/documentation/iokit/1584286-cdconvertmsftolba
-func CDConvertMSFToLBA(arg0 CDMSF) uint32 {
-	result, callErr := tryCDConvertMSFToLBA(arg0)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _cDConvertTrackNumberToMSF func(arg0 uint8, arg1 CDTOC) CDMSF
-var _cDConvertTrackNumberToMSFErr error
-
-func tryCDConvertTrackNumberToMSF(arg0 uint8, arg1 CDTOC) (CDMSF, error) {
-	if _cDConvertTrackNumberToMSF == nil {
-		return *new(CDMSF), symbolCallError("CDConvertTrackNumberToMSF", "10.0", _cDConvertTrackNumberToMSFErr)
-	}
-	return _cDConvertTrackNumberToMSF(arg0, arg1), nil
-}
-
-// CDConvertTrackNumberToMSF.
-//
-// See: https://developer.apple.com/documentation/iokit/1584298-cdconverttracknumbertomsf
-func CDConvertTrackNumberToMSF(arg0 uint8, arg1 CDTOC) CDMSF {
-	result, callErr := tryCDConvertTrackNumberToMSF(arg0, arg1)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _cDTOCGetDescriptorCount func(arg0 CDTOC) uint32
-var _cDTOCGetDescriptorCountErr error
-
-func tryCDTOCGetDescriptorCount(arg0 CDTOC) (uint32, error) {
-	if _cDTOCGetDescriptorCount == nil {
-		return 0, symbolCallError("CDTOCGetDescriptorCount", "10.1", _cDTOCGetDescriptorCountErr)
-	}
-	return _cDTOCGetDescriptorCount(arg0), nil
-}
-
-// CDTOCGetDescriptorCount.
-//
-// See: https://developer.apple.com/documentation/iokit/1584327-cdtocgetdescriptorcount
-func CDTOCGetDescriptorCount(arg0 CDTOC) uint32 {
-	result, callErr := tryCDTOCGetDescriptorCount(arg0)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _iOAccelFindAccelerator func(arg0 uintptr, arg1 uintptr, arg2 uint32) int
 var _iOAccelFindAcceleratorErr error
 
@@ -254,7 +149,7 @@ var _iOCFSerializeErr error
 
 func tryIOCFSerialize(object corefoundation.CFTypeRef, options uint64) (corefoundation.CFDataRef, error) {
 	if _iOCFSerialize == nil {
-		return 0, symbolCallError("IOCFSerialize", "10.0", _iOCFSerializeErr)
+		return *new(corefoundation.CFDataRef), symbolCallError("IOCFSerialize", "10.0", _iOCFSerializeErr)
 	}
 	return _iOCFSerialize(object, options), nil
 }
@@ -275,7 +170,7 @@ var _iOCFUnserializeErr error
 
 func tryIOCFUnserialize(buffer string, allocator corefoundation.CFAllocatorRef, options uint64, errorString *corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOCFUnserialize == nil {
-		return nil, symbolCallError("IOCFUnserialize", "10.0", _iOCFUnserializeErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOCFUnserialize", "10.0", _iOCFUnserializeErr)
 	}
 	return _iOCFUnserialize(buffer, allocator, options, errorString), nil
 }
@@ -296,7 +191,7 @@ var _iOCFUnserializeBinaryErr error
 
 func tryIOCFUnserializeBinary(buffer string, bufferSize unsafe.Pointer, allocator corefoundation.CFAllocatorRef, options uint64, errorString *corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOCFUnserializeBinary == nil {
-		return nil, symbolCallError("IOCFUnserializeBinary", "10.10", _iOCFUnserializeBinaryErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOCFUnserializeBinary", "10.10", _iOCFUnserializeBinaryErr)
 	}
 	return _iOCFUnserializeBinary(buffer, bufferSize, allocator, options, errorString), nil
 }
@@ -317,7 +212,7 @@ var _iOCFUnserializeWithSizeErr error
 
 func tryIOCFUnserializeWithSize(buffer string, bufferSize unsafe.Pointer, allocator corefoundation.CFAllocatorRef, options uint64, errorString *corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOCFUnserializeWithSize == nil {
-		return nil, symbolCallError("IOCFUnserializeWithSize", "10.10", _iOCFUnserializeWithSizeErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOCFUnserializeWithSize", "10.10", _iOCFUnserializeWithSizeErr)
 	}
 	return _iOCFUnserializeWithSize(buffer, bufferSize, allocator, options, errorString), nil
 }
@@ -968,7 +863,7 @@ var _iOCopySystemLoadAdvisoryDetailedErr error
 
 func tryIOCopySystemLoadAdvisoryDetailed() (corefoundation.CFDictionaryRef, error) {
 	if _iOCopySystemLoadAdvisoryDetailed == nil {
-		return 0, symbolCallError("IOCopySystemLoadAdvisoryDetailed", "10.6", _iOCopySystemLoadAdvisoryDetailedErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("IOCopySystemLoadAdvisoryDetailed", "10.6", _iOCopySystemLoadAdvisoryDetailedErr)
 	}
 	return _iOCopySystemLoadAdvisoryDetailed(), nil
 }
@@ -978,27 +873,6 @@ func tryIOCopySystemLoadAdvisoryDetailed() (corefoundation.CFDictionaryRef, erro
 // See: https://developer.apple.com/documentation/iokit/1557099-iocopysystemloadadvisorydetailed
 func IOCopySystemLoadAdvisoryDetailed() corefoundation.CFDictionaryRef {
 	result, callErr := tryIOCopySystemLoadAdvisoryDetailed()
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _iOCreatePlugInInterfaceForService func(service uintptr, pluginType corefoundation.CFUUID, interfaceType corefoundation.CFUUID, theInterface *IOCFPlugInInterface, theScore *uintptr) int32
-var _iOCreatePlugInInterfaceForServiceErr error
-
-func tryIOCreatePlugInInterfaceForService(service uintptr, pluginType corefoundation.CFUUID, interfaceType corefoundation.CFUUID, theInterface *IOCFPlugInInterface, theScore *uintptr) (int32, error) {
-	if _iOCreatePlugInInterfaceForService == nil {
-		return 0, symbolCallError("IOCreatePlugInInterfaceForService", "10.0", _iOCreatePlugInInterfaceForServiceErr)
-	}
-	return _iOCreatePlugInInterfaceForService(service, pluginType, interfaceType, theInterface, theScore), nil
-}
-
-// IOCreatePlugInInterfaceForService.
-//
-// See: https://developer.apple.com/documentation/iokit/1412429-iocreateplugininterfaceforservic
-func IOCreatePlugInInterfaceForService(service uintptr, pluginType corefoundation.CFUUID, interfaceType corefoundation.CFUUID, theInterface *IOCFPlugInInterface, theScore *uintptr) int32 {
-	result, callErr := tryIOCreatePlugInInterfaceForService(service, pluginType, interfaceType, theInterface, theScore)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -1324,7 +1198,7 @@ var _iODisplayCreateInfoDictionaryErr error
 
 func tryIODisplayCreateInfoDictionary(arg0 uintptr, arg1 uint32) (corefoundation.CFDictionaryRef, error) {
 	if _iODisplayCreateInfoDictionary == nil {
-		return 0, symbolCallError("IODisplayCreateInfoDictionary", "10.0", _iODisplayCreateInfoDictionaryErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("IODisplayCreateInfoDictionary", "10.0", _iODisplayCreateInfoDictionaryErr)
 	}
 	return _iODisplayCreateInfoDictionary(arg0, arg1), nil
 }
@@ -1742,7 +1616,7 @@ var _iOHIDDeviceCopyMatchingElementsErr error
 
 func tryIOHIDDeviceCopyMatchingElements(arg0 IOHIDDeviceRef, arg1 corefoundation.CFDictionaryRef, arg2 uint32) (corefoundation.CFArrayRef, error) {
 	if _iOHIDDeviceCopyMatchingElements == nil {
-		return 0, symbolCallError("IOHIDDeviceCopyMatchingElements", "10.5", _iOHIDDeviceCopyMatchingElementsErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("IOHIDDeviceCopyMatchingElements", "10.5", _iOHIDDeviceCopyMatchingElementsErr)
 	}
 	return _iOHIDDeviceCopyMatchingElements(arg0, arg1, arg2), nil
 }
@@ -1805,7 +1679,7 @@ var _iOHIDDeviceCreateErr error
 
 func tryIOHIDDeviceCreate(arg0 corefoundation.CFAllocatorRef, arg1 uintptr) (IOHIDDeviceRef, error) {
 	if _iOHIDDeviceCreate == nil {
-		return 0, symbolCallError("IOHIDDeviceCreate", "10.5", _iOHIDDeviceCreateErr)
+		return *new(IOHIDDeviceRef), symbolCallError("IOHIDDeviceCreate", "10.5", _iOHIDDeviceCreateErr)
 	}
 	return _iOHIDDeviceCreate(arg0, arg1), nil
 }
@@ -1826,7 +1700,7 @@ var _iOHIDDeviceGetPropertyErr error
 
 func tryIOHIDDeviceGetProperty(arg0 IOHIDDeviceRef, arg1 corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOHIDDeviceGetProperty == nil {
-		return nil, symbolCallError("IOHIDDeviceGetProperty", "10.5", _iOHIDDeviceGetPropertyErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOHIDDeviceGetProperty", "10.5", _iOHIDDeviceGetPropertyErr)
 	}
 	return _iOHIDDeviceGetProperty(arg0, arg1), nil
 }
@@ -2382,7 +2256,7 @@ var _iOHIDElementCopyAttachedErr error
 
 func tryIOHIDElementCopyAttached(arg0 IOHIDElementRef) (corefoundation.CFArrayRef, error) {
 	if _iOHIDElementCopyAttached == nil {
-		return 0, symbolCallError("IOHIDElementCopyAttached", "10.5", _iOHIDElementCopyAttachedErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("IOHIDElementCopyAttached", "10.5", _iOHIDElementCopyAttachedErr)
 	}
 	return _iOHIDElementCopyAttached(arg0), nil
 }
@@ -2403,7 +2277,7 @@ var _iOHIDElementCreateWithDictionaryErr error
 
 func tryIOHIDElementCreateWithDictionary(arg0 corefoundation.CFAllocatorRef, arg1 corefoundation.CFDictionaryRef) (IOHIDElementRef, error) {
 	if _iOHIDElementCreateWithDictionary == nil {
-		return 0, symbolCallError("IOHIDElementCreateWithDictionary", "10.5", _iOHIDElementCreateWithDictionaryErr)
+		return *new(IOHIDElementRef), symbolCallError("IOHIDElementCreateWithDictionary", "10.5", _iOHIDElementCreateWithDictionaryErr)
 	}
 	return _iOHIDElementCreateWithDictionary(arg0, arg1), nil
 }
@@ -2444,7 +2318,7 @@ var _iOHIDElementGetChildrenErr error
 
 func tryIOHIDElementGetChildren(arg0 IOHIDElementRef) (corefoundation.CFArrayRef, error) {
 	if _iOHIDElementGetChildren == nil {
-		return 0, symbolCallError("IOHIDElementGetChildren", "10.5", _iOHIDElementGetChildrenErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("IOHIDElementGetChildren", "10.5", _iOHIDElementGetChildrenErr)
 	}
 	return _iOHIDElementGetChildren(arg0), nil
 }
@@ -2507,7 +2381,7 @@ var _iOHIDElementGetDeviceErr error
 
 func tryIOHIDElementGetDevice(arg0 IOHIDElementRef) (IOHIDDeviceRef, error) {
 	if _iOHIDElementGetDevice == nil {
-		return 0, symbolCallError("IOHIDElementGetDevice", "10.5", _iOHIDElementGetDeviceErr)
+		return *new(IOHIDDeviceRef), symbolCallError("IOHIDElementGetDevice", "10.5", _iOHIDElementGetDeviceErr)
 	}
 	return _iOHIDElementGetDevice(arg0), nil
 }
@@ -2570,7 +2444,7 @@ var _iOHIDElementGetNameErr error
 
 func tryIOHIDElementGetName(arg0 IOHIDElementRef) (corefoundation.CFStringRef, error) {
 	if _iOHIDElementGetName == nil {
-		return 0, symbolCallError("IOHIDElementGetName", "10.5", _iOHIDElementGetNameErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("IOHIDElementGetName", "10.5", _iOHIDElementGetNameErr)
 	}
 	return _iOHIDElementGetName(arg0), nil
 }
@@ -2591,7 +2465,7 @@ var _iOHIDElementGetParentErr error
 
 func tryIOHIDElementGetParent(arg0 IOHIDElementRef) (IOHIDElementRef, error) {
 	if _iOHIDElementGetParent == nil {
-		return 0, symbolCallError("IOHIDElementGetParent", "10.5", _iOHIDElementGetParentErr)
+		return *new(IOHIDElementRef), symbolCallError("IOHIDElementGetParent", "10.5", _iOHIDElementGetParentErr)
 	}
 	return _iOHIDElementGetParent(arg0), nil
 }
@@ -2654,7 +2528,7 @@ var _iOHIDElementGetPropertyErr error
 
 func tryIOHIDElementGetProperty(arg0 IOHIDElementRef, arg1 corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOHIDElementGetProperty == nil {
-		return nil, symbolCallError("IOHIDElementGetProperty", "10.5", _iOHIDElementGetPropertyErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOHIDElementGetProperty", "10.5", _iOHIDElementGetPropertyErr)
 	}
 	return _iOHIDElementGetProperty(arg0, arg1), nil
 }
@@ -3032,7 +2906,7 @@ var _iOHIDEventSystemClientCopyPropertyErr error
 
 func tryIOHIDEventSystemClientCopyProperty(arg0 IOHIDEventSystemClientRef, arg1 corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOHIDEventSystemClientCopyProperty == nil {
-		return nil, symbolCallError("IOHIDEventSystemClientCopyProperty", "10.12", _iOHIDEventSystemClientCopyPropertyErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOHIDEventSystemClientCopyProperty", "10.12", _iOHIDEventSystemClientCopyPropertyErr)
 	}
 	return _iOHIDEventSystemClientCopyProperty(arg0, arg1), nil
 }
@@ -3053,7 +2927,7 @@ var _iOHIDEventSystemClientCopyServicesErr error
 
 func tryIOHIDEventSystemClientCopyServices(arg0 IOHIDEventSystemClientRef) (corefoundation.CFArrayRef, error) {
 	if _iOHIDEventSystemClientCopyServices == nil {
-		return 0, symbolCallError("IOHIDEventSystemClientCopyServices", "10.12", _iOHIDEventSystemClientCopyServicesErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("IOHIDEventSystemClientCopyServices", "10.12", _iOHIDEventSystemClientCopyServicesErr)
 	}
 	return _iOHIDEventSystemClientCopyServices(arg0), nil
 }
@@ -3074,7 +2948,7 @@ var _iOHIDEventSystemClientCreateSimpleClientErr error
 
 func tryIOHIDEventSystemClientCreateSimpleClient(arg0 corefoundation.CFAllocatorRef) (IOHIDEventSystemClientRef, error) {
 	if _iOHIDEventSystemClientCreateSimpleClient == nil {
-		return 0, symbolCallError("IOHIDEventSystemClientCreateSimpleClient", "10.12", _iOHIDEventSystemClientCreateSimpleClientErr)
+		return *new(IOHIDEventSystemClientRef), symbolCallError("IOHIDEventSystemClientCreateSimpleClient", "10.12", _iOHIDEventSystemClientCreateSimpleClientErr)
 	}
 	return _iOHIDEventSystemClientCreateSimpleClient(arg0), nil
 }
@@ -3422,7 +3296,7 @@ var _iOHIDManagerCreateErr error
 
 func tryIOHIDManagerCreate(arg0 corefoundation.CFAllocatorRef, arg1 uint32) (IOHIDManagerRef, error) {
 	if _iOHIDManagerCreate == nil {
-		return 0, symbolCallError("IOHIDManagerCreate", "10.5", _iOHIDManagerCreateErr)
+		return *new(IOHIDManagerRef), symbolCallError("IOHIDManagerCreate", "10.5", _iOHIDManagerCreateErr)
 	}
 	return _iOHIDManagerCreate(arg0, arg1), nil
 }
@@ -3443,7 +3317,7 @@ var _iOHIDManagerGetPropertyErr error
 
 func tryIOHIDManagerGetProperty(arg0 IOHIDManagerRef, arg1 corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOHIDManagerGetProperty == nil {
-		return nil, symbolCallError("IOHIDManagerGetProperty", "10.5", _iOHIDManagerGetPropertyErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOHIDManagerGetProperty", "10.5", _iOHIDManagerGetPropertyErr)
 	}
 	return _iOHIDManagerGetProperty(arg0, arg1), nil
 }
@@ -3802,10 +3676,10 @@ func IOHIDManagerUnscheduleFromRunLoop(arg0 IOHIDManagerRef, arg1 corefoundation
 	}
 }
 
-var _iOHIDPostEvent func(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 kernel.NXEventData, arg4 uint32, arg5 uint32, arg6 uint32) int32
+var _iOHIDPostEvent func(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 unsafe.Pointer, arg4 uint32, arg5 uint32, arg6 uint32) int32
 var _iOHIDPostEventErr error
 
-func tryIOHIDPostEvent(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 kernel.NXEventData, arg4 uint32, arg5 uint32, arg6 uint32) (int32, error) {
+func tryIOHIDPostEvent(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 unsafe.Pointer, arg4 uint32, arg5 uint32, arg6 uint32) (int32, error) {
 	if _iOHIDPostEvent == nil {
 		return 0, symbolCallError("IOHIDPostEvent", "10.0", _iOHIDPostEventErr)
 	}
@@ -3817,7 +3691,7 @@ func tryIOHIDPostEvent(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 kernel.NXE
 // Deprecated: Deprecated since macOS 11.0.
 //
 // See: https://developer.apple.com/documentation/iokit/1555406-iohidpostevent
-func IOHIDPostEvent(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 kernel.NXEventData, arg4 uint32, arg5 uint32, arg6 uint32) int32 {
+func IOHIDPostEvent(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 unsafe.Pointer, arg4 uint32, arg5 uint32, arg6 uint32) int32 {
 	result, callErr := tryIOHIDPostEvent(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 	if callErr != nil {
 		panic(callErr)
@@ -3911,7 +3785,7 @@ var _iOHIDQueueCopyNextValueErr error
 
 func tryIOHIDQueueCopyNextValue(arg0 IOHIDQueueRef) (IOHIDValueRef, error) {
 	if _iOHIDQueueCopyNextValue == nil {
-		return 0, symbolCallError("IOHIDQueueCopyNextValue", "10.5", _iOHIDQueueCopyNextValueErr)
+		return *new(IOHIDValueRef), symbolCallError("IOHIDQueueCopyNextValue", "10.5", _iOHIDQueueCopyNextValueErr)
 	}
 	return _iOHIDQueueCopyNextValue(arg0), nil
 }
@@ -3932,7 +3806,7 @@ var _iOHIDQueueCopyNextValueWithTimeoutErr error
 
 func tryIOHIDQueueCopyNextValueWithTimeout(arg0 IOHIDQueueRef, arg1 float64) (IOHIDValueRef, error) {
 	if _iOHIDQueueCopyNextValueWithTimeout == nil {
-		return 0, symbolCallError("IOHIDQueueCopyNextValueWithTimeout", "10.5", _iOHIDQueueCopyNextValueWithTimeoutErr)
+		return *new(IOHIDValueRef), symbolCallError("IOHIDQueueCopyNextValueWithTimeout", "10.5", _iOHIDQueueCopyNextValueWithTimeoutErr)
 	}
 	return _iOHIDQueueCopyNextValueWithTimeout(arg0, arg1), nil
 }
@@ -3953,7 +3827,7 @@ var _iOHIDQueueCreateErr error
 
 func tryIOHIDQueueCreate(arg0 corefoundation.CFAllocatorRef, arg1 IOHIDDeviceRef, arg2 int, arg3 uint32) (IOHIDQueueRef, error) {
 	if _iOHIDQueueCreate == nil {
-		return 0, symbolCallError("IOHIDQueueCreate", "10.5", _iOHIDQueueCreateErr)
+		return *new(IOHIDQueueRef), symbolCallError("IOHIDQueueCreate", "10.5", _iOHIDQueueCreateErr)
 	}
 	return _iOHIDQueueCreate(arg0, arg1, arg2, arg3), nil
 }
@@ -3995,7 +3869,7 @@ var _iOHIDQueueGetDeviceErr error
 
 func tryIOHIDQueueGetDevice(arg0 IOHIDQueueRef) (IOHIDDeviceRef, error) {
 	if _iOHIDQueueGetDevice == nil {
-		return 0, symbolCallError("IOHIDQueueGetDevice", "10.5", _iOHIDQueueGetDeviceErr)
+		return *new(IOHIDDeviceRef), symbolCallError("IOHIDQueueGetDevice", "10.5", _iOHIDQueueGetDeviceErr)
 	}
 	return _iOHIDQueueGetDevice(arg0), nil
 }
@@ -4282,7 +4156,7 @@ var _iOHIDServiceClientCopyPropertyErr error
 
 func tryIOHIDServiceClientCopyProperty(arg0 IOHIDServiceClientRef, arg1 corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOHIDServiceClientCopyProperty == nil {
-		return nil, symbolCallError("IOHIDServiceClientCopyProperty", "10.12", _iOHIDServiceClientCopyPropertyErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOHIDServiceClientCopyProperty", "10.12", _iOHIDServiceClientCopyPropertyErr)
 	}
 	return _iOHIDServiceClientCopyProperty(arg0, arg1), nil
 }
@@ -4303,7 +4177,7 @@ var _iOHIDServiceClientGetRegistryIDErr error
 
 func tryIOHIDServiceClientGetRegistryID(arg0 IOHIDServiceClientRef) (corefoundation.CFTypeRef, error) {
 	if _iOHIDServiceClientGetRegistryID == nil {
-		return nil, symbolCallError("IOHIDServiceClientGetRegistryID", "10.12", _iOHIDServiceClientGetRegistryIDErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOHIDServiceClientGetRegistryID", "10.12", _iOHIDServiceClientGetRegistryIDErr)
 	}
 	return _iOHIDServiceClientGetRegistryID(arg0), nil
 }
@@ -4737,7 +4611,7 @@ var _iOHIDTransactionCreateErr error
 
 func tryIOHIDTransactionCreate(arg0 corefoundation.CFAllocatorRef, arg1 IOHIDDeviceRef, arg2 IOHIDTransactionDirectionType, arg3 uint32) (IOHIDTransactionRef, error) {
 	if _iOHIDTransactionCreate == nil {
-		return 0, symbolCallError("IOHIDTransactionCreate", "10.5", _iOHIDTransactionCreateErr)
+		return *new(IOHIDTransactionRef), symbolCallError("IOHIDTransactionCreate", "10.5", _iOHIDTransactionCreateErr)
 	}
 	return _iOHIDTransactionCreate(arg0, arg1, arg2, arg3), nil
 }
@@ -4758,7 +4632,7 @@ var _iOHIDTransactionGetDeviceErr error
 
 func tryIOHIDTransactionGetDevice(arg0 IOHIDTransactionRef) (IOHIDDeviceRef, error) {
 	if _iOHIDTransactionGetDevice == nil {
-		return 0, symbolCallError("IOHIDTransactionGetDevice", "10.5", _iOHIDTransactionGetDeviceErr)
+		return *new(IOHIDDeviceRef), symbolCallError("IOHIDTransactionGetDevice", "10.5", _iOHIDTransactionGetDeviceErr)
 	}
 	return _iOHIDTransactionGetDevice(arg0), nil
 }
@@ -4821,7 +4695,7 @@ var _iOHIDTransactionGetValueErr error
 
 func tryIOHIDTransactionGetValue(arg0 IOHIDTransactionRef, arg1 IOHIDElementRef, arg2 uint32) (IOHIDValueRef, error) {
 	if _iOHIDTransactionGetValue == nil {
-		return 0, symbolCallError("IOHIDTransactionGetValue", "10.5", _iOHIDTransactionGetValueErr)
+		return *new(IOHIDValueRef), symbolCallError("IOHIDTransactionGetValue", "10.5", _iOHIDTransactionGetValueErr)
 	}
 	return _iOHIDTransactionGetValue(arg0, arg1, arg2), nil
 }
@@ -5005,7 +4879,7 @@ var _iOHIDUserDeviceCopyPropertyErr error
 
 func tryIOHIDUserDeviceCopyProperty(arg0 IOHIDUserDeviceRef, arg1 corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOHIDUserDeviceCopyProperty == nil {
-		return nil, symbolCallError("IOHIDUserDeviceCopyProperty", "10.15", _iOHIDUserDeviceCopyPropertyErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOHIDUserDeviceCopyProperty", "10.15", _iOHIDUserDeviceCopyPropertyErr)
 	}
 	return _iOHIDUserDeviceCopyProperty(arg0, arg1), nil
 }
@@ -5026,7 +4900,7 @@ var _iOHIDUserDeviceCreateWithPropertiesErr error
 
 func tryIOHIDUserDeviceCreateWithProperties(arg0 corefoundation.CFAllocatorRef, arg1 corefoundation.CFDictionaryRef, arg2 uint32) (IOHIDUserDeviceRef, error) {
 	if _iOHIDUserDeviceCreateWithProperties == nil {
-		return 0, symbolCallError("IOHIDUserDeviceCreateWithProperties", "10.15", _iOHIDUserDeviceCreateWithPropertiesErr)
+		return *new(IOHIDUserDeviceRef), symbolCallError("IOHIDUserDeviceCreateWithProperties", "10.15", _iOHIDUserDeviceCreateWithPropertiesErr)
 	}
 	return _iOHIDUserDeviceCreateWithProperties(arg0, arg1, arg2), nil
 }
@@ -5200,7 +5074,7 @@ var _iOHIDValueCreateWithBytesErr error
 
 func tryIOHIDValueCreateWithBytes(arg0 corefoundation.CFAllocatorRef, arg1 IOHIDElementRef, arg2 uint64, arg3 uint8, arg4 int) (IOHIDValueRef, error) {
 	if _iOHIDValueCreateWithBytes == nil {
-		return 0, symbolCallError("IOHIDValueCreateWithBytes", "10.5", _iOHIDValueCreateWithBytesErr)
+		return *new(IOHIDValueRef), symbolCallError("IOHIDValueCreateWithBytes", "10.5", _iOHIDValueCreateWithBytesErr)
 	}
 	return _iOHIDValueCreateWithBytes(arg0, arg1, arg2, arg3, arg4), nil
 }
@@ -5221,7 +5095,7 @@ var _iOHIDValueCreateWithBytesNoCopyErr error
 
 func tryIOHIDValueCreateWithBytesNoCopy(arg0 corefoundation.CFAllocatorRef, arg1 IOHIDElementRef, arg2 uint64, arg3 uint8, arg4 int) (IOHIDValueRef, error) {
 	if _iOHIDValueCreateWithBytesNoCopy == nil {
-		return 0, symbolCallError("IOHIDValueCreateWithBytesNoCopy", "10.5", _iOHIDValueCreateWithBytesNoCopyErr)
+		return *new(IOHIDValueRef), symbolCallError("IOHIDValueCreateWithBytesNoCopy", "10.5", _iOHIDValueCreateWithBytesNoCopyErr)
 	}
 	return _iOHIDValueCreateWithBytesNoCopy(arg0, arg1, arg2, arg3, arg4), nil
 }
@@ -5242,7 +5116,7 @@ var _iOHIDValueCreateWithIntegerValueErr error
 
 func tryIOHIDValueCreateWithIntegerValue(arg0 corefoundation.CFAllocatorRef, arg1 IOHIDElementRef, arg2 uint64, arg3 int) (IOHIDValueRef, error) {
 	if _iOHIDValueCreateWithIntegerValue == nil {
-		return 0, symbolCallError("IOHIDValueCreateWithIntegerValue", "10.5", _iOHIDValueCreateWithIntegerValueErr)
+		return *new(IOHIDValueRef), symbolCallError("IOHIDValueCreateWithIntegerValue", "10.5", _iOHIDValueCreateWithIntegerValueErr)
 	}
 	return _iOHIDValueCreateWithIntegerValue(arg0, arg1, arg2, arg3), nil
 }
@@ -5284,7 +5158,7 @@ var _iOHIDValueGetElementErr error
 
 func tryIOHIDValueGetElement(arg0 IOHIDValueRef) (IOHIDElementRef, error) {
 	if _iOHIDValueGetElement == nil {
-		return 0, symbolCallError("IOHIDValueGetElement", "10.5", _iOHIDValueGetElementErr)
+		return *new(IOHIDElementRef), symbolCallError("IOHIDValueGetElement", "10.5", _iOHIDValueGetElementErr)
 	}
 	return _iOHIDValueGetElement(arg0), nil
 }
@@ -5831,7 +5705,7 @@ var _iONotificationPortCreateErr error
 
 func tryIONotificationPortCreate(mainPort uint32) (IONotificationPortRef, error) {
 	if _iONotificationPortCreate == nil {
-		return 0, symbolCallError("IONotificationPortCreate", "10.0", _iONotificationPortCreateErr)
+		return *new(IONotificationPortRef), symbolCallError("IONotificationPortCreate", "10.0", _iONotificationPortCreateErr)
 	}
 	return _iONotificationPortCreate(mainPort), nil
 }
@@ -5893,7 +5767,7 @@ var _iONotificationPortGetRunLoopSourceErr error
 
 func tryIONotificationPortGetRunLoopSource(notify IONotificationPortRef) (corefoundation.CFRunLoopSourceRef, error) {
 	if _iONotificationPortGetRunLoopSource == nil {
-		return 0, symbolCallError("IONotificationPortGetRunLoopSource", "10.0", _iONotificationPortGetRunLoopSourceErr)
+		return *new(corefoundation.CFRunLoopSourceRef), symbolCallError("IONotificationPortGetRunLoopSource", "10.0", _iONotificationPortGetRunLoopSourceErr)
 	}
 	return _iONotificationPortGetRunLoopSource(notify), nil
 }
@@ -5976,7 +5850,7 @@ var _iOObjectCopyBundleIdentifierForClassErr error
 
 func tryIOObjectCopyBundleIdentifierForClass(classname corefoundation.CFStringRef) (corefoundation.CFStringRef, error) {
 	if _iOObjectCopyBundleIdentifierForClass == nil {
-		return 0, symbolCallError("IOObjectCopyBundleIdentifierForClass", "10.4", _iOObjectCopyBundleIdentifierForClassErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("IOObjectCopyBundleIdentifierForClass", "10.4", _iOObjectCopyBundleIdentifierForClassErr)
 	}
 	return _iOObjectCopyBundleIdentifierForClass(classname), nil
 }
@@ -5997,7 +5871,7 @@ var _iOObjectCopyClassErr error
 
 func tryIOObjectCopyClass(object uintptr) (corefoundation.CFStringRef, error) {
 	if _iOObjectCopyClass == nil {
-		return 0, symbolCallError("IOObjectCopyClass", "10.4", _iOObjectCopyClassErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("IOObjectCopyClass", "10.4", _iOObjectCopyClassErr)
 	}
 	return _iOObjectCopyClass(object), nil
 }
@@ -6018,7 +5892,7 @@ var _iOObjectCopySuperclassForClassErr error
 
 func tryIOObjectCopySuperclassForClass(classname corefoundation.CFStringRef) (corefoundation.CFStringRef, error) {
 	if _iOObjectCopySuperclassForClass == nil {
-		return 0, symbolCallError("IOObjectCopySuperclassForClass", "10.4", _iOObjectCopySuperclassForClassErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("IOObjectCopySuperclassForClass", "10.4", _iOObjectCopySuperclassForClassErr)
 	}
 	return _iOObjectCopySuperclassForClass(classname), nil
 }
@@ -6209,7 +6083,7 @@ var _iOPMAssertionCopyPropertiesErr error
 
 func tryIOPMAssertionCopyProperties(arg0 IOPMAssertionID) (corefoundation.CFDictionaryRef, error) {
 	if _iOPMAssertionCopyProperties == nil {
-		return 0, symbolCallError("IOPMAssertionCopyProperties", "10.7", _iOPMAssertionCopyPropertiesErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("IOPMAssertionCopyProperties", "10.7", _iOPMAssertionCopyPropertiesErr)
 	}
 	return _iOPMAssertionCopyProperties(arg0), nil
 }
@@ -6504,7 +6378,7 @@ var _iOPMCopyScheduledPowerEventsErr error
 
 func tryIOPMCopyScheduledPowerEvents() (corefoundation.CFArrayRef, error) {
 	if _iOPMCopyScheduledPowerEvents == nil {
-		return 0, symbolCallError("IOPMCopyScheduledPowerEvents", "10.3", _iOPMCopyScheduledPowerEventsErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("IOPMCopyScheduledPowerEvents", "10.3", _iOPMCopyScheduledPowerEventsErr)
 	}
 	return _iOPMCopyScheduledPowerEvents(), nil
 }
@@ -6693,7 +6567,7 @@ var _iOPSCopyExternalPowerAdapterDetailsErr error
 
 func tryIOPSCopyExternalPowerAdapterDetails() (corefoundation.CFDictionaryRef, error) {
 	if _iOPSCopyExternalPowerAdapterDetails == nil {
-		return 0, symbolCallError("IOPSCopyExternalPowerAdapterDetails", "10.6", _iOPSCopyExternalPowerAdapterDetailsErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("IOPSCopyExternalPowerAdapterDetails", "10.6", _iOPSCopyExternalPowerAdapterDetailsErr)
 	}
 	return _iOPSCopyExternalPowerAdapterDetails(), nil
 }
@@ -6714,7 +6588,7 @@ var _iOPSCopyPowerSourcesInfoErr error
 
 func tryIOPSCopyPowerSourcesInfo() (corefoundation.CFTypeRef, error) {
 	if _iOPSCopyPowerSourcesInfo == nil {
-		return nil, symbolCallError("IOPSCopyPowerSourcesInfo", "10.2", _iOPSCopyPowerSourcesInfoErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOPSCopyPowerSourcesInfo", "10.2", _iOPSCopyPowerSourcesInfoErr)
 	}
 	return _iOPSCopyPowerSourcesInfo(), nil
 }
@@ -6735,7 +6609,7 @@ var _iOPSCopyPowerSourcesListErr error
 
 func tryIOPSCopyPowerSourcesList(arg0 corefoundation.CFTypeRef) (corefoundation.CFArrayRef, error) {
 	if _iOPSCopyPowerSourcesList == nil {
-		return 0, symbolCallError("IOPSCopyPowerSourcesList", "10.2", _iOPSCopyPowerSourcesListErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("IOPSCopyPowerSourcesList", "10.2", _iOPSCopyPowerSourcesListErr)
 	}
 	return _iOPSCopyPowerSourcesList(arg0), nil
 }
@@ -6756,7 +6630,7 @@ var _iOPSCreateLimitedPowerNotificationErr error
 
 func tryIOPSCreateLimitedPowerNotification(arg0 unsafe.Pointer) (corefoundation.CFRunLoopSourceRef, error) {
 	if _iOPSCreateLimitedPowerNotification == nil {
-		return 0, symbolCallError("IOPSCreateLimitedPowerNotification", "10.9", _iOPSCreateLimitedPowerNotificationErr)
+		return *new(corefoundation.CFRunLoopSourceRef), symbolCallError("IOPSCreateLimitedPowerNotification", "10.9", _iOPSCreateLimitedPowerNotificationErr)
 	}
 	return _iOPSCreateLimitedPowerNotification(arg0), nil
 }
@@ -6798,7 +6672,7 @@ var _iOPSGetPowerSourceDescriptionErr error
 
 func tryIOPSGetPowerSourceDescription(arg0 corefoundation.CFTypeRef, arg1 corefoundation.CFTypeRef) (corefoundation.CFDictionaryRef, error) {
 	if _iOPSGetPowerSourceDescription == nil {
-		return 0, symbolCallError("IOPSGetPowerSourceDescription", "10.2", _iOPSGetPowerSourceDescriptionErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("IOPSGetPowerSourceDescription", "10.2", _iOPSGetPowerSourceDescriptionErr)
 	}
 	return _iOPSGetPowerSourceDescription(arg0, arg1), nil
 }
@@ -6819,7 +6693,7 @@ var _iOPSGetProvidingPowerSourceTypeErr error
 
 func tryIOPSGetProvidingPowerSourceType(arg0 corefoundation.CFTypeRef) (corefoundation.CFStringRef, error) {
 	if _iOPSGetProvidingPowerSourceType == nil {
-		return 0, symbolCallError("IOPSGetProvidingPowerSourceType", "10.7", _iOPSGetProvidingPowerSourceTypeErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("IOPSGetProvidingPowerSourceType", "10.7", _iOPSGetProvidingPowerSourceTypeErr)
 	}
 	return _iOPSGetProvidingPowerSourceType(arg0), nil
 }
@@ -6861,7 +6735,7 @@ var _iOPSNotificationCreateRunLoopSourceErr error
 
 func tryIOPSNotificationCreateRunLoopSource(arg0 unsafe.Pointer) (corefoundation.CFRunLoopSourceRef, error) {
 	if _iOPSNotificationCreateRunLoopSource == nil {
-		return 0, symbolCallError("IOPSNotificationCreateRunLoopSource", "10.2", _iOPSNotificationCreateRunLoopSourceErr)
+		return *new(corefoundation.CFRunLoopSourceRef), symbolCallError("IOPSNotificationCreateRunLoopSource", "10.2", _iOPSNotificationCreateRunLoopSourceErr)
 	}
 	return _iOPSNotificationCreateRunLoopSource(arg0), nil
 }
@@ -6871,27 +6745,6 @@ func tryIOPSNotificationCreateRunLoopSource(arg0 unsafe.Pointer) (corefoundation
 // See: https://developer.apple.com/documentation/iokit/1523868-iopsnotificationcreaterunloopsou
 func IOPSNotificationCreateRunLoopSource(arg0 unsafe.Pointer) corefoundation.CFRunLoopSourceRef {
 	result, callErr := tryIOPSNotificationCreateRunLoopSource(arg0)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _iORPCMessageFromMach func(msg unsafe.Pointer, reply unsafe.Pointer) *IORPCMessage
-var _iORPCMessageFromMachErr error
-
-func tryIORPCMessageFromMach(msg unsafe.Pointer, reply unsafe.Pointer) (*IORPCMessage, error) {
-	if _iORPCMessageFromMach == nil {
-		return nil, symbolCallError("IORPCMessageFromMach", "10.15", _iORPCMessageFromMachErr)
-	}
-	return _iORPCMessageFromMach(msg, reply), nil
-}
-
-// IORPCMessageFromMach.
-//
-// See: https://developer.apple.com/documentation/iokit/3325691-iorpcmessagefrommach
-func IORPCMessageFromMach(msg unsafe.Pointer, reply unsafe.Pointer) *IORPCMessage {
-	result, callErr := tryIORPCMessageFromMach(msg, reply)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -6999,7 +6852,7 @@ var _iORegistryEntryCopyPathErr error
 
 func tryIORegistryEntryCopyPath(entry uintptr, plane string) (corefoundation.CFStringRef, error) {
 	if _iORegistryEntryCopyPath == nil {
-		return 0, symbolCallError("IORegistryEntryCopyPath", "10.11", _iORegistryEntryCopyPathErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("IORegistryEntryCopyPath", "10.11", _iORegistryEntryCopyPathErr)
 	}
 	return _iORegistryEntryCopyPath(entry, plane), nil
 }
@@ -7015,10 +6868,10 @@ func IORegistryEntryCopyPath(entry uintptr, plane string) corefoundation.CFStrin
 	return result
 }
 
-var _iORegistryEntryCreateCFProperties func(entry uintptr, properties *corefoundation.CFMutableDictionary, allocator corefoundation.CFAllocatorRef, options uint32) int32
+var _iORegistryEntryCreateCFProperties func(entry uintptr, properties *corefoundation.CFMutableDictionaryRef, allocator corefoundation.CFAllocatorRef, options uint32) int32
 var _iORegistryEntryCreateCFPropertiesErr error
 
-func tryIORegistryEntryCreateCFProperties(entry uintptr, properties *corefoundation.CFMutableDictionary, allocator corefoundation.CFAllocatorRef, options uint32) (int32, error) {
+func tryIORegistryEntryCreateCFProperties(entry uintptr, properties *corefoundation.CFMutableDictionaryRef, allocator corefoundation.CFAllocatorRef, options uint32) (int32, error) {
 	if _iORegistryEntryCreateCFProperties == nil {
 		return 0, symbolCallError("IORegistryEntryCreateCFProperties", "10.0", _iORegistryEntryCreateCFPropertiesErr)
 	}
@@ -7028,7 +6881,7 @@ func tryIORegistryEntryCreateCFProperties(entry uintptr, properties *corefoundat
 // IORegistryEntryCreateCFProperties create a CF dictionary representation of a registry entry's property table.
 //
 // See: https://developer.apple.com/documentation/iokit/1514310-ioregistryentrycreatecfpropertie
-func IORegistryEntryCreateCFProperties(entry uintptr, properties *corefoundation.CFMutableDictionary, allocator corefoundation.CFAllocatorRef, options uint32) int32 {
+func IORegistryEntryCreateCFProperties(entry uintptr, properties *corefoundation.CFMutableDictionaryRef, allocator corefoundation.CFAllocatorRef, options uint32) int32 {
 	result, callErr := tryIORegistryEntryCreateCFProperties(entry, properties, allocator, options)
 	if callErr != nil {
 		panic(callErr)
@@ -7041,7 +6894,7 @@ var _iORegistryEntryCreateCFPropertyErr error
 
 func tryIORegistryEntryCreateCFProperty(entry uintptr, key corefoundation.CFStringRef, allocator corefoundation.CFAllocatorRef, options uint32) (corefoundation.CFTypeRef, error) {
 	if _iORegistryEntryCreateCFProperty == nil {
-		return nil, symbolCallError("IORegistryEntryCreateCFProperty", "10.0", _iORegistryEntryCreateCFPropertyErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IORegistryEntryCreateCFProperty", "10.0", _iORegistryEntryCreateCFPropertyErr)
 	}
 	return _iORegistryEntryCreateCFProperty(entry, key, allocator, options), nil
 }
@@ -7356,7 +7209,7 @@ var _iORegistryEntrySearchCFPropertyErr error
 
 func tryIORegistryEntrySearchCFProperty(entry uintptr, plane string, key corefoundation.CFStringRef, allocator corefoundation.CFAllocatorRef, options uint32) (corefoundation.CFTypeRef, error) {
 	if _iORegistryEntrySearchCFProperty == nil {
-		return nil, symbolCallError("IORegistryEntrySearchCFProperty", "10.1", _iORegistryEntrySearchCFPropertyErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IORegistryEntrySearchCFProperty", "10.1", _iORegistryEntrySearchCFPropertyErr)
 	}
 	return _iORegistryEntrySearchCFProperty(entry, plane, key, allocator, options), nil
 }
@@ -7851,7 +7704,7 @@ var _iOURLCreatePropertyFromResourceErr error
 
 func tryIOURLCreatePropertyFromResource(arg0 corefoundation.CFAllocatorRef, arg1 corefoundation.CFURLRef, arg2 corefoundation.CFStringRef, arg3 int32) (corefoundation.CFTypeRef, error) {
 	if _iOURLCreatePropertyFromResource == nil {
-		return nil, symbolCallError("IOURLCreatePropertyFromResource", "10.0", _iOURLCreatePropertyFromResourceErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOURLCreatePropertyFromResource", "10.0", _iOURLCreatePropertyFromResourceErr)
 	}
 	return _iOURLCreatePropertyFromResource(arg0, arg1, arg2, arg3), nil
 }
@@ -7867,54 +7720,12 @@ func IOURLCreatePropertyFromResource(arg0 corefoundation.CFAllocatorRef, arg1 co
 	return result
 }
 
-var _iOURLWriteDataAndPropertiesToResource func(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFDataRef, arg2 corefoundation.CFDictionaryRef, arg3 int32) bool
-var _iOURLWriteDataAndPropertiesToResourceErr error
-
-func tryIOURLWriteDataAndPropertiesToResource(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFDataRef, arg2 corefoundation.CFDictionaryRef, arg3 int32) (bool, error) {
-	if _iOURLWriteDataAndPropertiesToResource == nil {
-		return false, symbolCallError("IOURLWriteDataAndPropertiesToResource", "10.0", _iOURLWriteDataAndPropertiesToResourceErr)
-	}
-	return _iOURLWriteDataAndPropertiesToResource(arg0, arg1, arg2, arg3), nil
-}
-
-// IOURLWriteDataAndPropertiesToResource.
-//
-// See: https://developer.apple.com/documentation/iokit/1390337-iourlwritedataandpropertiestores
-func IOURLWriteDataAndPropertiesToResource(arg0 corefoundation.CFURLRef, arg1 corefoundation.CFDataRef, arg2 corefoundation.CFDictionaryRef, arg3 int32) bool {
-	result, callErr := tryIOURLWriteDataAndPropertiesToResource(arg0, arg1, arg2, arg3)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _iOVirtualRangeMake func(arg0 IOVirtualAddress, arg1 uint) IOVirtualRange
-var _iOVirtualRangeMakeErr error
-
-func tryIOVirtualRangeMake(arg0 IOVirtualAddress, arg1 uint) (IOVirtualRange, error) {
-	if _iOVirtualRangeMake == nil {
-		return IOVirtualRange{}, symbolCallError("IOVirtualRangeMake", "10.3", _iOVirtualRangeMakeErr)
-	}
-	return _iOVirtualRangeMake(arg0, arg1), nil
-}
-
-// IOVirtualRangeMake.
-//
-// See: https://developer.apple.com/documentation/iokit/1555660-iovirtualrangemake
-func IOVirtualRangeMake(arg0 IOVirtualAddress, arg1 uint) IOVirtualRange {
-	result, callErr := tryIOVirtualRangeMake(arg0, arg1)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _kextManagerCopyLoadedKextInfo func(arg0 corefoundation.CFArrayRef, arg1 corefoundation.CFArrayRef) corefoundation.CFDictionaryRef
 var _kextManagerCopyLoadedKextInfoErr error
 
 func tryKextManagerCopyLoadedKextInfo(arg0 corefoundation.CFArrayRef, arg1 corefoundation.CFArrayRef) (corefoundation.CFDictionaryRef, error) {
 	if _kextManagerCopyLoadedKextInfo == nil {
-		return 0, symbolCallError("KextManagerCopyLoadedKextInfo", "10.7", _kextManagerCopyLoadedKextInfoErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("KextManagerCopyLoadedKextInfo", "10.7", _kextManagerCopyLoadedKextInfoErr)
 	}
 	return _kextManagerCopyLoadedKextInfo(arg0, arg1), nil
 }
@@ -7935,7 +7746,7 @@ var _kextManagerCreateURLForBundleIdentifierErr error
 
 func tryKextManagerCreateURLForBundleIdentifier(arg0 corefoundation.CFAllocatorRef, arg1 corefoundation.CFStringRef) (corefoundation.CFURLRef, error) {
 	if _kextManagerCreateURLForBundleIdentifier == nil {
-		return 0, symbolCallError("KextManagerCreateURLForBundleIdentifier", "10.2", _kextManagerCreateURLForBundleIdentifierErr)
+		return *new(corefoundation.CFURLRef), symbolCallError("KextManagerCreateURLForBundleIdentifier", "10.2", _kextManagerCreateURLForBundleIdentifierErr)
 	}
 	return _kextManagerCreateURLForBundleIdentifier(arg0, arg1), nil
 }
@@ -8330,11 +8141,6 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-	registerFunc(&_cDConvertLBAToMSF, &_cDConvertLBAToMSFErr, frameworkHandle, "CDConvertLBAToMSF", "10.0")
-	registerFunc(&_cDConvertMSFToClippedLBA, &_cDConvertMSFToClippedLBAErr, frameworkHandle, "CDConvertMSFToClippedLBA", "10.2")
-	registerFunc(&_cDConvertMSFToLBA, &_cDConvertMSFToLBAErr, frameworkHandle, "CDConvertMSFToLBA", "10.0")
-	registerFunc(&_cDConvertTrackNumberToMSF, &_cDConvertTrackNumberToMSFErr, frameworkHandle, "CDConvertTrackNumberToMSF", "10.0")
-	registerFunc(&_cDTOCGetDescriptorCount, &_cDTOCGetDescriptorCountErr, frameworkHandle, "CDTOCGetDescriptorCount", "10.1")
 	registerFunc(&_iOAccelFindAccelerator, &_iOAccelFindAcceleratorErr, frameworkHandle, "IOAccelFindAccelerator", "10.0")
 	registerFunc(&_iOAllowPowerChange, &_iOAllowPowerChangeErr, frameworkHandle, "IOAllowPowerChange", "10.0")
 	registerFunc(&_iOBSDNameMatching, &_iOBSDNameMatchingErr, frameworkHandle, "IOBSDNameMatching", "10.0")
@@ -8373,7 +8179,6 @@ func init() {
 	registerFunc(&_iOConnectUnmapMemory, &_iOConnectUnmapMemoryErr, frameworkHandle, "IOConnectUnmapMemory", "10.0")
 	registerFunc(&_iOConnectUnmapMemory64, &_iOConnectUnmapMemory64Err, frameworkHandle, "IOConnectUnmapMemory64", "10.5")
 	registerFunc(&_iOCopySystemLoadAdvisoryDetailed, &_iOCopySystemLoadAdvisoryDetailedErr, frameworkHandle, "IOCopySystemLoadAdvisoryDetailed", "10.6")
-	registerFunc(&_iOCreatePlugInInterfaceForService, &_iOCreatePlugInInterfaceForServiceErr, frameworkHandle, "IOCreatePlugInInterfaceForService", "10.0")
 	registerFunc(&_iOCreateReceivePort, &_iOCreateReceivePortErr, frameworkHandle, "IOCreateReceivePort", "10.0")
 	registerFunc(&_iODataQueueAllocateNotificationPort, &_iODataQueueAllocateNotificationPortErr, frameworkHandle, "IODataQueueAllocateNotificationPort", "10.0")
 	registerFunc(&_iODataQueueDataAvailable, &_iODataQueueDataAvailableErr, frameworkHandle, "IODataQueueDataAvailable", "10.0")
@@ -8654,7 +8459,6 @@ func init() {
 	registerFunc(&_iOPSGetProvidingPowerSourceType, &_iOPSGetProvidingPowerSourceTypeErr, frameworkHandle, "IOPSGetProvidingPowerSourceType", "10.7")
 	registerFunc(&_iOPSGetTimeRemainingEstimate, &_iOPSGetTimeRemainingEstimateErr, frameworkHandle, "IOPSGetTimeRemainingEstimate", "10.7")
 	registerFunc(&_iOPSNotificationCreateRunLoopSource, &_iOPSNotificationCreateRunLoopSourceErr, frameworkHandle, "IOPSNotificationCreateRunLoopSource", "10.2")
-	registerFunc(&_iORPCMessageFromMach, &_iORPCMessageFromMachErr, frameworkHandle, "IORPCMessageFromMach", "10.15")
 	registerFunc(&_iORegisterApp, &_iORegisterAppErr, frameworkHandle, "IORegisterApp", "10.0")
 	registerFunc(&_iORegisterForSystemPower, &_iORegisterForSystemPowerErr, frameworkHandle, "IORegisterForSystemPower", "10.0")
 	registerFunc(&_iORegistryCreateIterator, &_iORegistryCreateIteratorErr, frameworkHandle, "IORegistryCreateIterator", "10.0")
@@ -8700,8 +8504,6 @@ func init() {
 	registerFunc(&_iOServiceWaitQuiet, &_iOServiceWaitQuietErr, frameworkHandle, "IOServiceWaitQuiet", "10.0")
 	registerFunc(&_iOURLCreateDataAndPropertiesFromResource, &_iOURLCreateDataAndPropertiesFromResourceErr, frameworkHandle, "IOURLCreateDataAndPropertiesFromResource", "10.0")
 	registerFunc(&_iOURLCreatePropertyFromResource, &_iOURLCreatePropertyFromResourceErr, frameworkHandle, "IOURLCreatePropertyFromResource", "10.0")
-	registerFunc(&_iOURLWriteDataAndPropertiesToResource, &_iOURLWriteDataAndPropertiesToResourceErr, frameworkHandle, "IOURLWriteDataAndPropertiesToResource", "10.0")
-	registerFunc(&_iOVirtualRangeMake, &_iOVirtualRangeMakeErr, frameworkHandle, "IOVirtualRangeMake", "10.3")
 	registerFunc(&_kextManagerCopyLoadedKextInfo, &_kextManagerCopyLoadedKextInfoErr, frameworkHandle, "KextManagerCopyLoadedKextInfo", "10.7")
 	registerFunc(&_kextManagerCreateURLForBundleIdentifier, &_kextManagerCreateURLForBundleIdentifierErr, frameworkHandle, "KextManagerCreateURLForBundleIdentifier", "10.2")
 	registerFunc(&_kextManagerLoadKextWithIdentifier, &_kextManagerLoadKextWithIdentifierErr, frameworkHandle, "KextManagerLoadKextWithIdentifier", "10.6")

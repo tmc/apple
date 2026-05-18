@@ -117,7 +117,7 @@ func (_NSValueClass NSValueClass) ValueWithUIOffset(insets unsafe.Pointer) NSVal
 	return NSValueFromID(rv)
 }
 
-// insets is a [appkit.NSDirectionalEdgeInsets].
+// insets is a [uikit.NSDirectionalEdgeInsets].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(directionalEdgeInsets:)
 func (_NSValueClass NSValueClass) ValueWithDirectionalEdgeInsets(insets unsafe.Pointer) NSValue {

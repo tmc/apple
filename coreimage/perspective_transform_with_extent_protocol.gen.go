@@ -20,10 +20,6 @@ type CIPerspectiveTransformWithExtent interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTransformWithExtent/extent
 	Extent() corefoundation.CGRect
-
-	// A rectangle that defines the extent of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTransformWithExtent/extent
 	SetExtent(value corefoundation.CGRect)
 }
 
@@ -42,14 +38,6 @@ func CIPerspectiveTransformWithExtentObjectFromID(id objc.ID) CIPerspectiveTrans
 	return CIPerspectiveTransformWithExtentObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A rectangle that defines the extent of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTransformWithExtent/extent
-func (o CIPerspectiveTransformWithExtentObject) Extent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -96,6 +84,11 @@ func (o CIPerspectiveTransformWithExtentObject) TopRight() corefoundation.CGPoin
 // A rectangle that defines the extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTransformWithExtent/extent
+func (o CIPerspectiveTransformWithExtentObject) Extent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CIPerspectiveTransformWithExtentObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }

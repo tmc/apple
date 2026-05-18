@@ -67,7 +67,7 @@ func (nc NSArrayClass) Alloc() NSArray {
 // can create an [NSArray] object using an .
 //
 // In Objective-C, the compiler generates code that makes an underlying call
-// to the [NSArray.ArrayWithObjectsCount] method.
+// to the [NSArray.InitWithObjectsCount] method.
 //
 // You should not terminate the list of objects with `nil` when using this
 // literal syntax, and in fact `nil` is an invalid value. For more information
@@ -138,11 +138,14 @@ func (nc NSArrayClass) Alloc() NSArray {
 // this might have unintended consequences. Alternatively, you could use
 // composition to achieve the desired behavior.
 //
+// # Creating an Array
+//
+//   - [NSArray.InitWithObjectsCount]: Initializes a newly allocated array to include a given number of objects from a given C array.
+//
 // # Initializing an Array
 //
 //   - [NSArray.InitWithArray]: Initializes a newly allocated array by placing in it the objects contained in a given array.
 //   - [NSArray.InitWithArrayCopyItems]: Initializes a newly allocated array using `anArray` as the source of data objects for the array.
-//   - [NSArray.InitWithObjectsCount]: Initializes a newly allocated array to include a given number of objects from a given C array.
 //
 // # Querying an Array
 //
@@ -256,11 +259,14 @@ func NSArrayFromID(id objc.ID) NSArray {
 
 // An interface definition for the [NSArray] class.
 //
+// # Creating an Array
+//
+//   - [INSArray.InitWithObjectsCount]: Initializes a newly allocated array to include a given number of objects from a given C array.
+//
 // # Initializing an Array
 //
 //   - [INSArray.InitWithArray]: Initializes a newly allocated array by placing in it the objects contained in a given array.
 //   - [INSArray.InitWithArrayCopyItems]: Initializes a newly allocated array using `anArray` as the source of data objects for the array.
-//   - [INSArray.InitWithObjectsCount]: Initializes a newly allocated array to include a given number of objects from a given C array.
 //
 // # Querying an Array
 //
@@ -352,10 +358,12 @@ func NSArrayFromID(id objc.ID) NSArray {
 // See: https://developer.apple.com/documentation/Foundation/NSArray
 type INSArray interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSMutableCopying
 	NSSecureCoding
+
+	// Topic: Creating an Array
+
+	// Initializes a newly allocated array to include a given number of objects from a given C array.
+	InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSArray
 
 	// Topic: Initializing an Array
 
@@ -363,8 +371,6 @@ type INSArray interface {
 	InitWithArray(array []objectivec.IObject) NSArray
 	// Initializes a newly allocated array using `anArray` as the source of data objects for the array.
 	InitWithArrayCopyItems(array []objectivec.IObject, flag bool) NSArray
-	// Initializes a newly allocated array to include a given number of objects from a given C array.
-	InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSArray
 
 	// Topic: Querying an Array
 
@@ -489,7 +495,7 @@ type INSArray interface {
 	// Returns a new array that lists this array’s elements in a random order.
 	ShuffledArray() []objectivec.IObject
 	// Returns a new array that lists this array’s elements in a random order, using the specified random source.
-	ShuffledArrayWithRandomSource(randomSource unsafe.Pointer) []objectivec.IObject
+	ShuffledArrayWithRandomSource(randomSource objectivec.IObject) []objectivec.IObject
 
 	// Topic: Initializers
 
@@ -1944,7 +1950,7 @@ func (a NSArray) ShuffledArray() []objectivec.IObject {
 // [GKRandomSource]: https://developer.apple.com/documentation/GameplayKit/GKRandomSource
 // [arrayByShufflingObjects(in:)]: https://developer.apple.com/documentation/GameplayKit/GKRandomSource/arrayByShufflingObjects(in:)
 // [seed]: https://developer.apple.com/documentation/GameplayKit/GKARC4RandomSource/seed
-func (a NSArray) ShuffledArrayWithRandomSource(randomSource unsafe.Pointer) []objectivec.IObject {
+func (a NSArray) ShuffledArrayWithRandomSource(randomSource objectivec.IObject) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("shuffledArrayWithRandomSource:"), randomSource)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}

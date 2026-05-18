@@ -106,6 +106,14 @@ func NewMTLBlitPassDescriptor() MTLBlitPassDescriptor {
 	return rv
 }
 
+// Creates a new blit pass descriptor with a default configuration.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBlitPassDescriptor/blitPassDescriptor
+func (_MTLBlitPassDescriptorClass MTLBlitPassDescriptorClass) BlitPassDescriptor() MTLBlitPassDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLBlitPassDescriptorClass.class), objc.Sel("blitPassDescriptor"))
+	return MTLBlitPassDescriptorFromID(rv)
+}
+
 // An array of counter sample buffer attachments that you configure for a blit
 // pass.
 //

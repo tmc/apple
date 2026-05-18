@@ -55,6 +55,8 @@ func (nc NEVPNIKEv2SecurityAssociationParametersClass) Alloc() NEVPNIKEv2Securit
 //   - [NEVPNIKEv2SecurityAssociationParameters.SetDiffieHellmanGroup]
 //   - [NEVPNIKEv2SecurityAssociationParameters.LifetimeMinutes]: The duration of the lifetime of the Security Association, in minutes.
 //   - [NEVPNIKEv2SecurityAssociationParameters.SetLifetimeMinutes]
+//   - [NEVPNIKEv2SecurityAssociationParameters.PostQuantumKeyExchangeMethods]: A list of the quantum-secure key exchange methods the Security Association uses.
+//   - [NEVPNIKEv2SecurityAssociationParameters.SetPostQuantumKeyExchangeMethods]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters
 type NEVPNIKEv2SecurityAssociationParameters struct {
@@ -83,6 +85,8 @@ func NEVPNIKEv2SecurityAssociationParametersFromID(id objc.ID) NEVPNIKEv2Securit
 //   - [INEVPNIKEv2SecurityAssociationParameters.SetDiffieHellmanGroup]
 //   - [INEVPNIKEv2SecurityAssociationParameters.LifetimeMinutes]: The duration of the lifetime of the Security Association, in minutes.
 //   - [INEVPNIKEv2SecurityAssociationParameters.SetLifetimeMinutes]
+//   - [INEVPNIKEv2SecurityAssociationParameters.PostQuantumKeyExchangeMethods]: A list of the quantum-secure key exchange methods the Security Association uses.
+//   - [INEVPNIKEv2SecurityAssociationParameters.SetPostQuantumKeyExchangeMethods]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters
 type INEVPNIKEv2SecurityAssociationParameters interface {
@@ -102,16 +106,16 @@ type INEVPNIKEv2SecurityAssociationParameters interface {
 	// The duration of the lifetime of the Security Association, in minutes.
 	LifetimeMinutes() int32
 	SetLifetimeMinutes(value int32)
+	// A list of the quantum-secure key exchange methods the Security Association uses.
+	PostQuantumKeyExchangeMethods() []foundation.NSNumber
+	SetPostQuantumKeyExchangeMethods(value []foundation.NSNumber)
 
 	// An
 	ChildSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters
 	SetChildSecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters)
 	// An
 	IkeSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters
-	SetIkeSecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters)
-	// A list of the quantum-secure key exchange methods the Security Association uses.
-	PostQuantumKeyExchangeMethods() []foundation.NSNumber
-	SetPostQuantumKeyExchangeMethods(value []foundation.NSNumber)
+	SetIKESecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -211,6 +215,25 @@ func (v NEVPNIKEv2SecurityAssociationParameters) SetLifetimeMinutes(value int32)
 	objc.Send[struct{}](v.ID, objc.Sel("setLifetimeMinutes:"), value)
 }
 
+// A list of the quantum-secure key exchange methods the Security Association
+// uses.
+//
+// # Discussion
+//
+// You can specify up to seven key-exchange methods, which correspond to the
+// Additional Key Exchange transform types [ADDKE1]–[ADDKE7] in RFC 9370.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters/postQuantumKeyExchangeMethods-56672
+func (v NEVPNIKEv2SecurityAssociationParameters) PostQuantumKeyExchangeMethods() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](v.ID, objc.Sel("postQuantumKeyExchangeMethods"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+func (v NEVPNIKEv2SecurityAssociationParameters) SetPostQuantumKeyExchangeMethods(value []foundation.NSNumber) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPostQuantumKeyExchangeMethods:"), objectivec.IObjectSliceToNSArray(value))
+}
+
 // An
 //
 // See: https://developer.apple.com/documentation/networkextension/nevpnprotocolikev2/childsecurityassociationparameters
@@ -229,25 +252,6 @@ func (v NEVPNIKEv2SecurityAssociationParameters) IkeSecurityAssociationParameter
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("IKESecurityAssociationParameters"))
 	return NEVPNIKEv2SecurityAssociationParametersFromID(objc.ID(rv))
 }
-func (v NEVPNIKEv2SecurityAssociationParameters) SetIkeSecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters) {
+func (v NEVPNIKEv2SecurityAssociationParameters) SetIKESecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIKESecurityAssociationParameters:"), value)
-}
-
-// A list of the quantum-secure key exchange methods the Security Association
-// uses.
-//
-// # Discussion
-//
-// You can specify up to seven key-exchange methods, which correspond to the
-// Additional Key Exchange transform types [ADDKE1]–[ADDKE7] in RFC 9370.
-//
-// See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters/postQuantumKeyExchangeMethods-56672
-func (v NEVPNIKEv2SecurityAssociationParameters) PostQuantumKeyExchangeMethods() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](v.ID, objc.Sel("postQuantumKeyExchangeMethods"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
-}
-func (v NEVPNIKEv2SecurityAssociationParameters) SetPostQuantumKeyExchangeMethods(value []foundation.NSNumber) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPostQuantumKeyExchangeMethods:"), objectivec.IObjectSliceToNSArray(value))
 }

@@ -96,8 +96,8 @@ type IPDFAction interface {
 	Action() IPDFAction
 	SetAction(value IPDFAction)
 	// Returns the modification date of the annotation.
-	ModificationDate() foundation.INSDate
-	SetModificationDate(value foundation.INSDate)
+	ModificationDate() foundation.NSDate
+	SetModificationDate(value foundation.NSDate)
 	// Returns the page that the annotation is associated with.
 	Page() IPDFPage
 	SetPage(value IPDFPage)
@@ -161,11 +161,11 @@ func (p PDFAction) SetAction(value IPDFAction) {
 // Returns the modification date of the annotation.
 //
 // See: https://developer.apple.com/documentation/pdfkit/pdfannotation/modificationdate
-func (p PDFAction) ModificationDate() foundation.INSDate {
+func (p PDFAction) ModificationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modificationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (p PDFAction) SetModificationDate(value foundation.INSDate) {
+func (p PDFAction) SetModificationDate(value foundation.NSDate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModificationDate:"), value)
 }
 

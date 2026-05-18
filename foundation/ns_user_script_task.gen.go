@@ -144,7 +144,7 @@ func NewNSUserScriptTask() NSUserScriptTask {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
 func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 	var errorPtr objc.ID
 	instance := getNSUserScriptTaskClass().Alloc()
@@ -173,7 +173,7 @@ func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
 func (u NSUserScriptTask) InitWithURLError(url INSURL) (NSUserScriptTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))

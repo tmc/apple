@@ -15,6 +15,46 @@ type MTLComputePipelineState interface {
 	objectivec.IObject
 	MTLAllocation
 
+	// Returns the length of reserved memory for an imageblock of a given size.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/imageblockMemoryLength(forDimensions:)
+	ImageblockMemoryLengthForDimensions(imageblockDimensions MTLSize) uint
+
+	// Creates a function handle for a visible function.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(function:)-7d523
+	FunctionHandleWithFunction(function MTLFunction) MTLFunctionHandle
+
+	// Creates a new pipeline state object with additional callable functions.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeComputePipelineStateWithAdditionalBinaryFunctions(functions:)
+	NewComputePipelineStateWithAdditionalBinaryFunctionsError(functions []objectivec.IObject) (MTLComputePipelineState, error)
+
+	// Creates a new visible function table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeVisibleFunctionTable(descriptor:)
+	NewVisibleFunctionTableWithDescriptor(descriptor IMTLVisibleFunctionTableDescriptor) MTLVisibleFunctionTable
+
+	// Creates a new intersection function table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeIntersectionFunctionTable(descriptor:)
+	NewIntersectionFunctionTableWithDescriptor(descriptor IMTLIntersectionFunctionTableDescriptor) MTLIntersectionFunctionTable
+
+	// Gets the function handle for a function this pipeline links at the binary level.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(function:)-8spaa
+	FunctionHandleWithBinaryFunction(function MTL4BinaryFunction) MTLFunctionHandle
+
+	// Gets the function handle for a function this pipeline links at the Metal IR level by name.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(withName:)
+	FunctionHandleWithName(name string) MTLFunctionHandle
+
+	// Allocates a new compute pipeline state by adding binary functions to this pipeline state.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeComputePipelineState(additionalBinaryFunctions:)
+	NewComputePipelineStateWithBinaryFunctionsError(additionalBinaryFunctions []objectivec.IObject) (MTLComputePipelineState, error)
+
 	// The device instance that created the pipeline state.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/device
@@ -45,11 +85,6 @@ type MTLComputePipelineState interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/staticThreadgroupMemoryLength
 	StaticThreadgroupMemoryLength() uint
 
-	// Returns the length of reserved memory for an imageblock of a given size.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/imageblockMemoryLength(forDimensions:)
-	ImageblockMemoryLengthForDimensions(imageblockDimensions MTLSize) uint
-
 	// A Boolean value that indicates whether the compute pipeline supports indirect command buffers.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/supportIndirectCommandBuffers
@@ -60,50 +95,15 @@ type MTLComputePipelineState interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/shaderValidation
 	ShaderValidation() MTLShaderValidation
 
-	// Creates a function handle for a visible function.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(function:)-7d523
-	FunctionHandleWithFunction(function MTLFunction) MTLFunctionHandle
-
-	// Creates a new pipeline state object with additional callable functions.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeComputePipelineStateWithAdditionalBinaryFunctions(functions:)
-	NewComputePipelineStateWithAdditionalBinaryFunctionsError(functions []objectivec.IObject) (MTLComputePipelineState, error)
-
-	// Creates a new visible function table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeVisibleFunctionTable(descriptor:)
-	NewVisibleFunctionTableWithDescriptor(descriptor IMTLVisibleFunctionTableDescriptor) MTLVisibleFunctionTable
-
-	// Creates a new intersection function table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeIntersectionFunctionTable(descriptor:)
-	NewIntersectionFunctionTableWithDescriptor(descriptor IMTLIntersectionFunctionTableDescriptor) MTLIntersectionFunctionTable
-
 	// Provides access to this compute pipeline’s reflection.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/reflection
 	Reflection() IMTLComputePipelineReflection
 
-	// RequiredThreadsPerThreadgroup protocol.
+	// # Discussion  The required size of every compute threadgroup.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/requiredThreadsPerThreadgroup
 	RequiredThreadsPerThreadgroup() MTLSize
-
-	// Gets the function handle for a function this pipeline links at the binary level.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(function:)-8spaa
-	FunctionHandleWithBinaryFunction(function MTL4BinaryFunction) MTLFunctionHandle
-
-	// Gets the function handle for a function this pipeline links at the Metal IR level by name.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(withName:)
-	FunctionHandleWithName(name string) MTLFunctionHandle
-
-	// Allocates a new compute pipeline state by adding binary functions to this pipeline state.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeComputePipelineState(additionalBinaryFunctions:)
-	NewComputePipelineStateWithBinaryFunctionsError(additionalBinaryFunctions []objectivec.IObject) (MTLComputePipelineState, error)
 }
 
 // MTLComputePipelineStateObject wraps an existing Objective-C object that conforms to the MTLComputePipelineState protocol.
@@ -123,57 +123,6 @@ func MTLComputePipelineStateObjectFromID(id objc.ID) MTLComputePipelineStateObje
 	}
 }
 
-// The device instance that created the pipeline state.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/device
-func (o MTLComputePipelineStateObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// An unique identifier that represents the pipeline state, which you can add
-// to an argument buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/gpuResourceID
-func (o MTLComputePipelineStateObject) GpuResourceID() MTLResourceID {
-	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
-}
-
-// A string that helps you identify the compute pipeline state during
-// debugging.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/label
-func (o MTLComputePipelineStateObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The maximum number of threads in a threadgroup that you can dispatch to the
-// pipeline.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/maxTotalThreadsPerThreadgroup
-func (o MTLComputePipelineStateObject) MaxTotalThreadsPerThreadgroup() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerThreadgroup"))
-	return rv
-}
-
-// The number of threads that the GPU executes simultaneously.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/threadExecutionWidth
-func (o MTLComputePipelineStateObject) ThreadExecutionWidth() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("threadExecutionWidth"))
-	return rv
-}
-
-// The length, in bytes, of statically allocated threadgroup memory.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/staticThreadgroupMemoryLength
-func (o MTLComputePipelineStateObject) StaticThreadgroupMemoryLength() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("staticThreadgroupMemoryLength"))
-	return rv
-}
-
 // Returns the length of reserved memory for an imageblock of a given size.
 //
 // imageblockDimensions: An [MTLSize] instance that represents the dimensions of an imageblock.
@@ -187,23 +136,6 @@ func (o MTLComputePipelineStateObject) StaticThreadgroupMemoryLength() uint {
 // [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
 func (o MTLComputePipelineStateObject) ImageblockMemoryLengthForDimensions(imageblockDimensions MTLSize) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("imageblockMemoryLengthForDimensions:"), imageblockDimensions)
-	return rv
-}
-
-// A Boolean value that indicates whether the compute pipeline supports
-// indirect command buffers.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/supportIndirectCommandBuffers
-func (o MTLComputePipelineStateObject) SupportIndirectCommandBuffers() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportIndirectCommandBuffers"))
-	return rv
-}
-
-// The current state of shader validation for the pipeline.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/shaderValidation
-func (o MTLComputePipelineStateObject) ShaderValidation() MTLShaderValidation {
-	rv := objc.Send[MTLShaderValidation](o.ID, objc.Sel("shaderValidation"))
 	return rv
 }
 
@@ -272,20 +204,6 @@ func (o MTLComputePipelineStateObject) NewIntersectionFunctionTableWithDescripto
 	return MTLIntersectionFunctionTableObjectFromID(rv)
 }
 
-// Provides access to this compute pipeline’s reflection.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/reflection
-func (o MTLComputePipelineStateObject) Reflection() IMTLComputePipelineReflection {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
-	return MTLComputePipelineReflectionFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/requiredThreadsPerThreadgroup
-func (o MTLComputePipelineStateObject) RequiredThreadsPerThreadgroup() MTLSize {
-	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerThreadgroup"))
-	return rv
-}
-
 // Gets the function handle for a function this pipeline links at the binary
 // level.
 //
@@ -343,4 +261,132 @@ func (o MTLComputePipelineStateObject) NewComputePipelineStateWithBinaryFunction
 func (o MTLComputePipelineStateObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
+}
+
+// The device instance that created the pipeline state.
+//
+// # Discussion
+//
+// This compute state instance is only usable on the device set in this
+// property.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/device
+func (o MTLComputePipelineStateObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
+// An unique identifier that represents the pipeline state, which you can add
+// to an argument buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/gpuResourceID
+func (o MTLComputePipelineStateObject) GpuResourceID() MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
+	return MTLResourceID(rv)
+}
+
+// A string that helps you identify the compute pipeline state during
+// debugging.
+//
+// # Discussion
+//
+// Labels are useful identifiers at runtime or when profiling and debugging
+// your app using any Metal tool. See [Naming resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLComputePipelineStateObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// The maximum number of threads in a threadgroup that you can dispatch to the
+// pipeline.
+//
+// # Discussion
+//
+// When you create a compute pipeline state, it calculates the maximum number
+// of threads available on the device. This value never changes, but may be
+// different for different pipeline objects.
+//
+// See [Creating threads and threadgroups] and [Calculating threadgroup and
+// grid sizes] for more information on aligning data, thread width, and
+// threadgroup size.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/maxTotalThreadsPerThreadgroup
+//
+// [Calculating threadgroup and grid sizes]: https://developer.apple.com/documentation/Metal/calculating-threadgroup-and-grid-sizes
+// [Creating threads and threadgroups]: https://developer.apple.com/documentation/Metal/creating-threads-and-threadgroups
+func (o MTLComputePipelineStateObject) MaxTotalThreadsPerThreadgroup() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerThreadgroup"))
+	return uint(rv)
+}
+
+// The number of threads that the GPU executes simultaneously.
+//
+// # Discussion
+//
+// For better performance, when dispatching a compute command, make the number
+// of threads in the threadgroup a multiple of `threadExecutionWidth`.
+//
+// See [Creating threads and threadgroups] and [Calculating threadgroup and
+// grid sizes] for more information on aligning data, thread width, and
+// threadgroup size.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/threadExecutionWidth
+//
+// [Calculating threadgroup and grid sizes]: https://developer.apple.com/documentation/Metal/calculating-threadgroup-and-grid-sizes
+// [Creating threads and threadgroups]: https://developer.apple.com/documentation/Metal/creating-threads-and-threadgroups
+func (o MTLComputePipelineStateObject) ThreadExecutionWidth() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("threadExecutionWidth"))
+	return uint(rv)
+}
+
+// The length, in bytes, of statically allocated threadgroup memory.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/staticThreadgroupMemoryLength
+func (o MTLComputePipelineStateObject) StaticThreadgroupMemoryLength() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("staticThreadgroupMemoryLength"))
+	return uint(rv)
+}
+
+// A Boolean value that indicates whether the compute pipeline supports
+// indirect command buffers.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/supportIndirectCommandBuffers
+func (o MTLComputePipelineStateObject) SupportIndirectCommandBuffers() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("supportIndirectCommandBuffers"))
+	return bool(rv)
+}
+
+// The current state of shader validation for the pipeline.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/shaderValidation
+func (o MTLComputePipelineStateObject) ShaderValidation() MTLShaderValidation {
+	rv := objc.Send[MTLShaderValidation](o.ID, objc.Sel("shaderValidation"))
+	return MTLShaderValidation(rv)
+}
+
+// Provides access to this compute pipeline’s reflection.
+//
+// # Discussion
+//
+// Reflection is `nil` if you create the pipeline state object directly from
+// the [MTLDevice] protocol.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/reflection
+func (o MTLComputePipelineStateObject) Reflection() IMTLComputePipelineReflection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
+	return MTLComputePipelineReflectionFromID(rv)
+}
+
+// # Discussion
+//
+// The required size of every compute threadgroup.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/requiredThreadsPerThreadgroup
+func (o MTLComputePipelineStateObject) RequiredThreadsPerThreadgroup() MTLSize {
+	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerThreadgroup"))
+	return MTLSize(rv)
 }

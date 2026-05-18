@@ -111,27 +111,27 @@ type IAVVCAudioBuffer interface {
 	Data() unsafe.Pointer
 	PacketDescriptionCapacity() int
 	PacketDescriptionCount() int
-	PacketDescriptions() *AudioStreamPacketDescriptionRef
+	PacketDescriptions() unsafe.Pointer
 	RemoteVoiceActivityAvailable() bool
 	RemoteVoiceActivityRMS() byte
 	RemoteVoiceActivityVAD() byte
-	SetPacketDescriptionsCount(descriptions []AudioStreamPacketDescriptionRef, count int)
+	SetPacketDescriptionsCount(descriptions []AudioStreamPacketDescription, count int)
 	StreamDescription() unsafe.Pointer
 	TimeStamp() uint64
 	SetTimeStamp(value uint64)
 	UpsamplingSourceAudio() bool
-	InitWithAudioQueueBufferChannelsTimeStamp(buffer unsafe.Pointer, channels int, stamp uint64) AVVCAudioBuffer
+	InitWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer
 }
 
 // Init initializes the instance.
-func (v AVVCAudioBuffer) Init() AVVCAudioBuffer {
-	rv := objc.Send[AVVCAudioBuffer](v.ID, objc.Sel("init"))
+func (a AVVCAudioBuffer) Init() AVVCAudioBuffer {
+	rv := objc.Send[AVVCAudioBuffer](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVCAudioBuffer) Autorelease() AVVCAudioBuffer {
-	rv := objc.Send[AVVCAudioBuffer](v.ID, objc.Sel("autorelease"))
+func (a AVVCAudioBuffer) Autorelease() AVVCAudioBuffer {
+	rv := objc.Send[AVVCAudioBuffer](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -143,103 +143,103 @@ func NewAVVCAudioBuffer() AVVCAudioBuffer {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/initWithAudioQueueBuffer:channels:timeStamp:
-func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer unsafe.Pointer, channels int, stamp uint64) AVVCAudioBuffer {
+func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
 	instance := getAVVCAudioBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
 	return AVVCAudioBufferFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/setPacketDescriptions:count:
-func (v AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []AudioStreamPacketDescriptionRef, count int) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setPacketDescriptions:count:"), objc.CArray(descriptions), count)
+func (a AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []AudioStreamPacketDescription, count int) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setPacketDescriptions:count:"), objc.CArray(descriptions), count)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/initWithAudioQueueBuffer:channels:timeStamp:
-func (v AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer unsafe.Pointer, channels int, stamp uint64) AVVCAudioBuffer {
-	rv := objc.Send[AVVCAudioBuffer](v.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
+func (a AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
+	rv := objc.Send[AVVCAudioBuffer](a.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), buffer, channels, stamp)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/bytesCapacity
-func (v AVVCAudioBuffer) BytesCapacity() int {
-	rv := objc.Send[int](v.ID, objc.Sel("bytesCapacity"))
+func (a AVVCAudioBuffer) BytesCapacity() int {
+	rv := objc.Send[int](a.ID, objc.Sel("bytesCapacity"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/bytesDataSize
-func (v AVVCAudioBuffer) BytesDataSize() int {
-	rv := objc.Send[int](v.ID, objc.Sel("bytesDataSize"))
+func (a AVVCAudioBuffer) BytesDataSize() int {
+	rv := objc.Send[int](a.ID, objc.Sel("bytesDataSize"))
 	return rv
 }
-func (v AVVCAudioBuffer) SetBytesDataSize(value int) {
-	objc.Send[struct{}](v.ID, objc.Sel("setBytesDataSize:"), value)
+func (a AVVCAudioBuffer) SetBytesDataSize(value int) {
+	objc.Send[struct{}](a.ID, objc.Sel("setBytesDataSize:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/channels
-func (v AVVCAudioBuffer) Channels() int {
-	rv := objc.Send[int](v.ID, objc.Sel("channels"))
+func (a AVVCAudioBuffer) Channels() int {
+	rv := objc.Send[int](a.ID, objc.Sel("channels"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/data
-func (v AVVCAudioBuffer) Data() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("data"))
+func (a AVVCAudioBuffer) Data() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("data"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/packetDescriptionCapacity
-func (v AVVCAudioBuffer) PacketDescriptionCapacity() int {
-	rv := objc.Send[int](v.ID, objc.Sel("packetDescriptionCapacity"))
+func (a AVVCAudioBuffer) PacketDescriptionCapacity() int {
+	rv := objc.Send[int](a.ID, objc.Sel("packetDescriptionCapacity"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/packetDescriptionCount
-func (v AVVCAudioBuffer) PacketDescriptionCount() int {
-	rv := objc.Send[int](v.ID, objc.Sel("packetDescriptionCount"))
+func (a AVVCAudioBuffer) PacketDescriptionCount() int {
+	rv := objc.Send[int](a.ID, objc.Sel("packetDescriptionCount"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/packetDescriptions
-func (v AVVCAudioBuffer) PacketDescriptions() *AudioStreamPacketDescriptionRef {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("packetDescriptions"))
-	return (*AudioStreamPacketDescriptionRef)(rv)
+func (a AVVCAudioBuffer) PacketDescriptions() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("packetDescriptions"))
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/remoteVoiceActivityAvailable
-func (v AVVCAudioBuffer) RemoteVoiceActivityAvailable() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("remoteVoiceActivityAvailable"))
+func (a AVVCAudioBuffer) RemoteVoiceActivityAvailable() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("remoteVoiceActivityAvailable"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/remoteVoiceActivityRMS
-func (v AVVCAudioBuffer) RemoteVoiceActivityRMS() byte {
-	rv := objc.Send[byte](v.ID, objc.Sel("remoteVoiceActivityRMS"))
+func (a AVVCAudioBuffer) RemoteVoiceActivityRMS() byte {
+	rv := objc.Send[byte](a.ID, objc.Sel("remoteVoiceActivityRMS"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/remoteVoiceActivityVAD
-func (v AVVCAudioBuffer) RemoteVoiceActivityVAD() byte {
-	rv := objc.Send[byte](v.ID, objc.Sel("remoteVoiceActivityVAD"))
+func (a AVVCAudioBuffer) RemoteVoiceActivityVAD() byte {
+	rv := objc.Send[byte](a.ID, objc.Sel("remoteVoiceActivityVAD"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/streamDescription
-func (v AVVCAudioBuffer) StreamDescription() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("streamDescription"))
+func (a AVVCAudioBuffer) StreamDescription() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("streamDescription"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/timeStamp
-func (v AVVCAudioBuffer) TimeStamp() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("timeStamp"))
+func (a AVVCAudioBuffer) TimeStamp() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("timeStamp"))
 	return rv
 }
-func (v AVVCAudioBuffer) SetTimeStamp(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setTimeStamp:"), value)
+func (a AVVCAudioBuffer) SetTimeStamp(value uint64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setTimeStamp:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAudioBuffer/upsamplingSourceAudio
-func (v AVVCAudioBuffer) UpsamplingSourceAudio() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("upsamplingSourceAudio"))
+func (a AVVCAudioBuffer) UpsamplingSourceAudio() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("upsamplingSourceAudio"))
 	return rv
 }

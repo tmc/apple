@@ -6,9 +6,9 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNBarcodeObservation] class.
@@ -122,10 +122,10 @@ type IVNBarcodeObservation interface {
 	// A string value that represents the barcode payload.
 	PayloadStringValue() string
 	// The raw data representation of the barcode’s payload.
-	PayloadData() foundation.INSData
+	PayloadData() foundation.NSData
 	// The supplemental code decoded as a string value.
 	SupplementalPayloadString() string
-	SupplementalPayloadData() foundation.INSData
+	SupplementalPayloadData() foundation.NSData
 	// The supplemental composite type.
 	SupplementalCompositeType() VNBarcodeCompositeType
 	// A Boolean value that indicates whether the barcode carries any global standards data.
@@ -134,7 +134,7 @@ type IVNBarcodeObservation interface {
 	// Topic: Reading Barcode Descriptors
 
 	// An object that describes the low-level details about the barcode and its data.
-	BarcodeDescriptor() coreimage.CIBarcodeDescriptor
+	BarcodeDescriptor() objectivec.IObject
 
 	// Topic: Identifying Barcode Types
 
@@ -246,7 +246,7 @@ func (b VNBarcodeObservation) PayloadStringValue() string {
 // The raw data representation of the barcode’s payload.
 //
 // See: https://developer.apple.com/documentation/Vision/VNBarcodeObservation/payloadData
-func (b VNBarcodeObservation) PayloadData() foundation.INSData {
+func (b VNBarcodeObservation) PayloadData() foundation.NSData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("payloadData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -260,7 +260,7 @@ func (b VNBarcodeObservation) SupplementalPayloadString() string {
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNBarcodeObservation/supplementalPayloadData
-func (b VNBarcodeObservation) SupplementalPayloadData() foundation.INSData {
+func (b VNBarcodeObservation) SupplementalPayloadData() foundation.NSData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("supplementalPayloadData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -290,9 +290,9 @@ func (b VNBarcodeObservation) IsGS1DataCarrier() bool {
 // Use this object to have Core Image regenerate the observed barcode.
 //
 // See: https://developer.apple.com/documentation/Vision/VNBarcodeObservation/barcodeDescriptor
-func (b VNBarcodeObservation) BarcodeDescriptor() coreimage.CIBarcodeDescriptor {
+func (b VNBarcodeObservation) BarcodeDescriptor() objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("barcodeDescriptor"))
-	return coreimage.CIBarcodeDescriptorFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }
 
 // The symbology of the observed barcode.

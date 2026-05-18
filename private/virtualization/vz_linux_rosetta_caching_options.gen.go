@@ -91,14 +91,14 @@ type IVZLinuxRosettaCachingOptions interface {
 }
 
 // Init initializes the instance.
-func (l VZLinuxRosettaCachingOptions) Init() VZLinuxRosettaCachingOptions {
-	rv := objc.Send[VZLinuxRosettaCachingOptions](l.ID, objc.Sel("init"))
+func (v VZLinuxRosettaCachingOptions) Init() VZLinuxRosettaCachingOptions {
+	rv := objc.Send[VZLinuxRosettaCachingOptions](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (l VZLinuxRosettaCachingOptions) Autorelease() VZLinuxRosettaCachingOptions {
-	rv := objc.Send[VZLinuxRosettaCachingOptions](l.ID, objc.Sel("autorelease"))
+func (v VZLinuxRosettaCachingOptions) Autorelease() VZLinuxRosettaCachingOptions {
+	rv := objc.Send[VZLinuxRosettaCachingOptions](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,50 +110,50 @@ func NewVZLinuxRosettaCachingOptions() VZLinuxRosettaCachingOptions {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/_init
-func (l VZLinuxRosettaCachingOptions) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("_init"))
+func (v VZLinuxRosettaCachingOptions) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/_options
-func (l VZLinuxRosettaCachingOptions) _options() objectivec.IObject {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("_options"))
+func (v VZLinuxRosettaCachingOptions) _options() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_options"))
 	return objectivec.Object{ID: rv}
 }
 
 // CanOptions reports whether the receiver responds to the private selector _options.
-func (l VZLinuxRosettaCachingOptions) CanOptions() bool {
-	return objc.RespondsToSelector(l.ID, objc.Sel("_options"))
+func (v VZLinuxRosettaCachingOptions) CanOptions() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_options"))
 }
 
 // Options is an exported wrapper for the private property _options.
-func (l VZLinuxRosettaCachingOptions) Options() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(l.ID, objc.Sel("_options")) {
+func (v VZLinuxRosettaCachingOptions) Options() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_options")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_options"}
 	}
-	return l._options(), nil
+	return v._options(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/debugDescription
-func (l VZLinuxRosettaCachingOptions) DebugDescription() string {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("debugDescription"))
+func (v VZLinuxRosettaCachingOptions) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/description
-func (l VZLinuxRosettaCachingOptions) Description() string {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("description"))
+func (v VZLinuxRosettaCachingOptions) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/hash
-func (l VZLinuxRosettaCachingOptions) Hash() uint64 {
-	rv := objc.Send[uint64](l.ID, objc.Sel("hash"))
+func (v VZLinuxRosettaCachingOptions) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/superclass
-func (l VZLinuxRosettaCachingOptions) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](l.ID, objc.Sel("superclass"))
+func (v VZLinuxRosettaCachingOptions) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

@@ -216,13 +216,13 @@ type IAVAudioPlayer interface {
 	// Topic: Creating an audio player
 
 	// Creates a player to play audio from a file.
-	InitWithContentsOfURLError(url foundation.INSURL) (AVAudioPlayer, error)
+	InitWithContentsOfURLError(url foundation.NSURL) (AVAudioPlayer, error)
 	// Creates a player to play audio from a file of a particular type.
-	InitWithContentsOfURLFileTypeHintError(url foundation.INSURL, utiString string) (AVAudioPlayer, error)
+	InitWithContentsOfURLFileTypeHintError(url foundation.NSURL, utiString string) (AVAudioPlayer, error)
 	// Creates a player to play in-memory audio data.
-	InitWithDataError(data foundation.INSData) (AVAudioPlayer, error)
+	InitWithDataError(data foundation.NSData) (AVAudioPlayer, error)
 	// Creates a player to play in-memory audio data of a particular type.
-	InitWithDataFileTypeHintError(data foundation.INSData, utiString string) (AVAudioPlayer, error)
+	InitWithDataFileTypeHintError(data foundation.NSData, utiString string) (AVAudioPlayer, error)
 
 	// Topic: Controlling playback
 
@@ -293,9 +293,9 @@ type IAVAudioPlayer interface {
 	// Topic: Inspecting the audio data
 
 	// The URL of the audio file.
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	// The audio data associated with the player.
-	Data() foundation.INSData
+	Data() foundation.NSData
 	// The format of the player’s audio data.
 	Format() IAVAudioFormat
 	// A dictionary that provides information about the player’s audio data.
@@ -342,7 +342,7 @@ func NewAVAudioPlayer() AVAudioPlayer {
 // The audio data must be in a format that Core Audio supports.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/init(contentsOf:)
-func NewAudioPlayerWithContentsOfURLError(url foundation.INSURL) (AVAudioPlayer, error) {
+func NewAudioPlayerWithContentsOfURLError(url foundation.NSURL) (AVAudioPlayer, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -372,7 +372,7 @@ func NewAudioPlayerWithContentsOfURLError(url foundation.INSURL) (AVAudioPlayer,
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/init(contentsOf:fileTypeHint:)
 //
 // [AVFileType]: https://developer.apple.com/documentation/AVFoundation/AVFileType
-func NewAudioPlayerWithContentsOfURLFileTypeHintError(url foundation.INSURL, utiString string) (AVAudioPlayer, error) {
+func NewAudioPlayerWithContentsOfURLFileTypeHintError(url foundation.NSURL, utiString string) (AVAudioPlayer, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:fileTypeHint:error:"), url, objc.String(utiString), unsafe.Pointer(&errorPtr))
@@ -396,7 +396,7 @@ func NewAudioPlayerWithContentsOfURLFileTypeHintError(url foundation.INSURL, uti
 // The audio data must be in a format that Core Audio supports.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/init(data:)
-func NewAudioPlayerWithDataError(data foundation.INSData) (AVAudioPlayer, error) {
+func NewAudioPlayerWithDataError(data foundation.NSData) (AVAudioPlayer, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:error:"), data, unsafe.Pointer(&errorPtr))
@@ -426,7 +426,7 @@ func NewAudioPlayerWithDataError(data foundation.INSData) (AVAudioPlayer, error)
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/init(data:fileTypeHint:)
 //
 // [AVFileType]: https://developer.apple.com/documentation/AVFoundation/AVFileType
-func NewAudioPlayerWithDataFileTypeHintError(data foundation.INSData, utiString string) (AVAudioPlayer, error) {
+func NewAudioPlayerWithDataFileTypeHintError(data foundation.NSData, utiString string) (AVAudioPlayer, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:fileTypeHint:error:"), data, objc.String(utiString), unsafe.Pointer(&errorPtr))
@@ -450,7 +450,7 @@ func NewAudioPlayerWithDataFileTypeHintError(data foundation.INSData, utiString 
 // The audio data must be in a format that Core Audio supports.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/init(contentsOf:)
-func (a AVAudioPlayer) InitWithContentsOfURLError(url foundation.INSURL) (AVAudioPlayer, error) {
+func (a AVAudioPlayer) InitWithContentsOfURLError(url foundation.NSURL) (AVAudioPlayer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -480,7 +480,7 @@ func (a AVAudioPlayer) InitWithContentsOfURLError(url foundation.INSURL) (AVAudi
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/init(contentsOf:fileTypeHint:)
 //
 // [AVFileType]: https://developer.apple.com/documentation/AVFoundation/AVFileType
-func (a AVAudioPlayer) InitWithContentsOfURLFileTypeHintError(url foundation.INSURL, utiString string) (AVAudioPlayer, error) {
+func (a AVAudioPlayer) InitWithContentsOfURLFileTypeHintError(url foundation.NSURL, utiString string) (AVAudioPlayer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithContentsOfURL:fileTypeHint:error:"), url, objc.String(utiString), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -504,7 +504,7 @@ func (a AVAudioPlayer) InitWithContentsOfURLFileTypeHintError(url foundation.INS
 // The audio data must be in a format that Core Audio supports.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/init(data:)
-func (a AVAudioPlayer) InitWithDataError(data foundation.INSData) (AVAudioPlayer, error) {
+func (a AVAudioPlayer) InitWithDataError(data foundation.NSData) (AVAudioPlayer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -534,7 +534,7 @@ func (a AVAudioPlayer) InitWithDataError(data foundation.INSData) (AVAudioPlayer
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/init(data:fileTypeHint:)
 //
 // [AVFileType]: https://developer.apple.com/documentation/AVFoundation/AVFileType
-func (a AVAudioPlayer) InitWithDataFileTypeHintError(data foundation.INSData, utiString string) (AVAudioPlayer, error) {
+func (a AVAudioPlayer) InitWithDataFileTypeHintError(data foundation.NSData, utiString string) (AVAudioPlayer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithData:fileTypeHint:error:"), data, objc.String(utiString), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -881,7 +881,7 @@ func (a AVAudioPlayer) SetDelegate(value AVAudioPlayerDelegate) {
 // This property is nil if you don’t create the player with a URL.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/url
-func (a AVAudioPlayer) Url() foundation.INSURL {
+func (a AVAudioPlayer) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -893,7 +893,7 @@ func (a AVAudioPlayer) Url() foundation.INSURL {
 // This property is nil if you don’t create the player with a data buffer.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/data
-func (a AVAudioPlayer) Data() foundation.INSData {
+func (a AVAudioPlayer) Data() foundation.NSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

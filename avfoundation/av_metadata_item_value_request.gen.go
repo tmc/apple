@@ -83,7 +83,7 @@ type IAVMetadataItemValueRequest interface {
 	// Returns the metadata item’s value.
 	RespondWithValue(value objectivec.IObject)
 	// Returns an error when the system fails to load the value.
-	RespondWithError(error_ foundation.INSError)
+	RespondWithError(error_ foundation.NSError)
 	// The metadata item to request a value for.
 	MetadataItem() IAVMetadataItem
 }
@@ -125,7 +125,7 @@ func (m AVMetadataItemValueRequest) RespondWithValue(value objectivec.IObject) {
 // error: The error to return for the request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItemValueRequest/respond(error:)
-func (m AVMetadataItemValueRequest) RespondWithError(error_ foundation.INSError) {
+func (m AVMetadataItemValueRequest) RespondWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](m.ID, objc.Sel("respondWithError:"), error_)
 }
 

@@ -63,14 +63,14 @@ type IVZObserverProxy interface {
 }
 
 // Init initializes the instance.
-func (o VZObserverProxy) Init() VZObserverProxy {
-	rv := objc.Send[VZObserverProxy](o.ID, objc.Sel("init"))
+func (v VZObserverProxy) Init() VZObserverProxy {
+	rv := objc.Send[VZObserverProxy](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (o VZObserverProxy) Autorelease() VZObserverProxy {
-	rv := objc.Send[VZObserverProxy](o.ID, objc.Sel("autorelease"))
+func (v VZObserverProxy) Autorelease() VZObserverProxy {
+	rv := objc.Send[VZObserverProxy](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

@@ -5,6 +5,7 @@
 package avfoundation
 
 import (
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -100,8 +101,8 @@ func (p AVPlayerItem) SetTranslatesPlayerInterstitialEvents(value bool) {
 // [AVPlayerViewController]: https://developer.apple.com/documentation/AVKit/AVPlayerViewController
 func (p AVPlayerItem) InterstitialTimeRanges() []objc.ID {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("interstitialTimeRanges"))
-	return objc.ConvertSlice(rv, func(id objc.ID) AVInterstitialTimeRange {
-		return AVInterstitialTimeRangeFromID(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) avfaudio.AVInterstitialTimeRange {
+		return avfaudio.AVInterstitialTimeRangeFromID(id)
 	})
 }
 
@@ -145,8 +146,8 @@ func (p AVPlayerItem) SetNowPlayingInfo(value foundation.INSDictionary) {
 // [AVPlayerViewController]: https://developer.apple.com/documentation/AVKit/AVPlayerViewController
 func (p AVPlayerItem) NavigationMarkerGroups() []objc.ID {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("navigationMarkerGroups"))
-	return objc.ConvertSlice(rv, func(id objc.ID) AVNavigationMarkersGroup {
-		return AVNavigationMarkersGroupFromID(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) avfaudio.AVNavigationMarkersGroup {
+		return avfaudio.AVNavigationMarkersGroupFromID(id)
 	})
 }
 func (p AVPlayerItem) SetNavigationMarkerGroups(value []objc.ID) {

@@ -60,13 +60,16 @@ func (nc NSOrderedSetClass) Alloc() NSOrderedSet {
 // contained in the set is a consideration—testing for membership of an
 // array is slower than testing for membership of a set.
 //
+// # Creating an Ordered Set
+//
+//   - [NSOrderedSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
+//
 // # Initializing an Ordered Set
 //
 //   - [NSOrderedSet.InitWithArray]: Initializes a newly allocated set with the objects that are contained in a given array.
 //   - [NSOrderedSet.InitWithArrayCopyItems]: Initializes a newly allocated set with the objects that are contained in a given array, optionally copying the items.
 //   - [NSOrderedSet.InitWithArrayRangeCopyItems]: Initializes a newly allocated set with the objects that are contained in the specified range of an array, optionally copying the items.
 //   - [NSOrderedSet.InitWithObject]: Initializes a new ordered set with the object.
-//   - [NSOrderedSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //   - [NSOrderedSet.InitWithOrderedSet]: Initializes a new ordered set with the contents of a set.
 //   - [NSOrderedSet.InitWithOrderedSetCopyItems]: Initializes a new ordered set with the contents of a set, optionally copying the items.
 //   - [NSOrderedSet.InitWithOrderedSetRangeCopyItems]: Initializes a new ordered set with the contents of an ordered set, optionally copying the items.
@@ -146,13 +149,16 @@ func NSOrderedSetFromID(id objc.ID) NSOrderedSet {
 
 // An interface definition for the [NSOrderedSet] class.
 //
+// # Creating an Ordered Set
+//
+//   - [INSOrderedSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
+//
 // # Initializing an Ordered Set
 //
 //   - [INSOrderedSet.InitWithArray]: Initializes a newly allocated set with the objects that are contained in a given array.
 //   - [INSOrderedSet.InitWithArrayCopyItems]: Initializes a newly allocated set with the objects that are contained in a given array, optionally copying the items.
 //   - [INSOrderedSet.InitWithArrayRangeCopyItems]: Initializes a newly allocated set with the objects that are contained in the specified range of an array, optionally copying the items.
 //   - [INSOrderedSet.InitWithObject]: Initializes a new ordered set with the object.
-//   - [INSOrderedSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //   - [INSOrderedSet.InitWithOrderedSet]: Initializes a new ordered set with the contents of a set.
 //   - [INSOrderedSet.InitWithOrderedSetCopyItems]: Initializes a new ordered set with the contents of a set, optionally copying the items.
 //   - [INSOrderedSet.InitWithOrderedSetRangeCopyItems]: Initializes a new ordered set with the contents of an ordered set, optionally copying the items.
@@ -218,10 +224,12 @@ func NSOrderedSetFromID(id objc.ID) NSOrderedSet {
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet
 type INSOrderedSet interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSMutableCopying
 	NSSecureCoding
+
+	// Topic: Creating an Ordered Set
+
+	// Initializes a newly allocated set with a specified number of objects from a given C array of objects.
+	InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSOrderedSet
 
 	// Topic: Initializing an Ordered Set
 
@@ -233,8 +241,6 @@ type INSOrderedSet interface {
 	InitWithArrayRangeCopyItems(set []objectivec.IObject, range_ NSRange, flag bool) NSOrderedSet
 	// Initializes a new ordered set with the object.
 	InitWithObject(object objectivec.IObject) NSOrderedSet
-	// Initializes a newly allocated set with a specified number of objects from a given C array of objects.
-	InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSOrderedSet
 	// Initializes a new ordered set with the contents of a set.
 	InitWithOrderedSet(set INSOrderedSet) NSOrderedSet
 	// Initializes a new ordered set with the contents of a set, optionally copying the items.

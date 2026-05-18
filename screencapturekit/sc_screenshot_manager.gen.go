@@ -193,7 +193,7 @@ func (sc SCScreenshotManagerClass) CaptureImageWithFilterConfiguration(ctx conte
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(coregraphics.CGImageRef), ctx.Err()
 	}
 }
 
@@ -212,7 +212,7 @@ func (sc SCScreenshotManagerClass) CaptureSampleBufferWithFilterConfiguration(ct
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(coremedia.CMSampleBufferRef), ctx.Err()
 	}
 }
 
@@ -231,7 +231,7 @@ func (sc SCScreenshotManagerClass) CaptureImageInRect(ctx context.Context, rect 
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(coregraphics.CGImageRef), ctx.Err()
 	}
 }
 

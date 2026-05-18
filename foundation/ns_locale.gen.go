@@ -203,8 +203,6 @@ func NSLocaleFromID(id objc.ID) NSLocale {
 // See: https://developer.apple.com/documentation/Foundation/NSLocale
 type INSLocale interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Initializing a Locale

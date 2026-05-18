@@ -4,11 +4,11 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVCapturePhotoOutput] class.
@@ -128,6 +128,10 @@ func (ac AVCapturePhotoOutputClass) Alloc() AVCapturePhotoOutput {
 //   - [AVCapturePhotoOutput.ZeroShutterLagEnabled]: A Boolean value that indicates whether the photo output configuration enables zero shutter lag.
 //   - [AVCapturePhotoOutput.SetZeroShutterLagEnabled]
 //
+// # Determining supported pixel formats
+//
+//   - [AVCapturePhotoOutput.AvailablePhotoPixelFormatTypes]: The pixel formats the capture output supports for photo capture.
+//
 // # Determining supported codec types
 //
 //   - [AVCapturePhotoOutput.AvailablePhotoCodecTypes]: The compression codecs this capture output currently supports for photo capture.
@@ -140,6 +144,10 @@ func (ac AVCapturePhotoOutputClass) Alloc() AVCapturePhotoOutput {
 // # Suppressing the shutter sound
 //
 //   - [AVCapturePhotoOutput.ShutterSoundSuppressionSupported]: A Boolean value that indicates whether the photo output supports suppressing the system shutter sound.
+//
+// # Determining available settings
+//
+//   - [AVCapturePhotoOutput.SupportedFlashModes]: The flash settings this capture output currently supports.
 //
 // # Configuring high-resolution still capture
 //
@@ -206,6 +214,10 @@ func AVCapturePhotoOutputFromID(id objc.ID) AVCapturePhotoOutput {
 //   - [IAVCapturePhotoOutput.ZeroShutterLagEnabled]: A Boolean value that indicates whether the photo output configuration enables zero shutter lag.
 //   - [IAVCapturePhotoOutput.SetZeroShutterLagEnabled]
 //
+// # Determining supported pixel formats
+//
+//   - [IAVCapturePhotoOutput.AvailablePhotoPixelFormatTypes]: The pixel formats the capture output supports for photo capture.
+//
 // # Determining supported codec types
 //
 //   - [IAVCapturePhotoOutput.AvailablePhotoCodecTypes]: The compression codecs this capture output currently supports for photo capture.
@@ -218,6 +230,10 @@ func AVCapturePhotoOutputFromID(id objc.ID) AVCapturePhotoOutput {
 // # Suppressing the shutter sound
 //
 //   - [IAVCapturePhotoOutput.ShutterSoundSuppressionSupported]: A Boolean value that indicates whether the photo output supports suppressing the system shutter sound.
+//
+// # Determining available settings
+//
+//   - [IAVCapturePhotoOutput.SupportedFlashModes]: The flash settings this capture output currently supports.
 //
 // # Configuring high-resolution still capture
 //
@@ -275,6 +291,11 @@ type IAVCapturePhotoOutput interface {
 	ZeroShutterLagEnabled() bool
 	SetZeroShutterLagEnabled(value bool)
 
+	// Topic: Determining supported pixel formats
+
+	// The pixel formats the capture output supports for photo capture.
+	AvailablePhotoPixelFormatTypes() []foundation.NSNumber
+
 	// Topic: Determining supported codec types
 
 	// The compression codecs this capture output currently supports for photo capture.
@@ -291,6 +312,11 @@ type IAVCapturePhotoOutput interface {
 
 	// A Boolean value that indicates whether the photo output supports suppressing the system shutter sound.
 	ShutterSoundSuppressionSupported() bool
+
+	// Topic: Determining available settings
+
+	// The flash settings this capture output currently supports.
+	SupportedFlashModes() []foundation.NSNumber
 
 	// Topic: Configuring high-resolution still capture
 
@@ -327,16 +353,12 @@ type IAVCapturePhotoOutput interface {
 	// The currently active color space for capture.
 	ActiveColorSpace() AVCaptureColorSpace
 	SetActiveColorSpace(value AVCaptureColorSpace)
-	// The pixel formats the capture output supports for photo capture.
-	AvailablePhotoPixelFormatTypes() []foundation.NSNumber
 	// A setting for whether to fire the flash when capturing photos.
 	FlashMode() AVCaptureFlashMode
 	SetFlashMode(value AVCaptureFlashMode)
-	// The flash settings this capture output currently supports.
-	SupportedFlashModes() []foundation.NSNumber
 	// A unique identifier for this photo settings instance.
-	UniqueID() objectivec.IObject
-	SetUniqueID(value objectivec.IObject)
+	UniqueID() unsafe.Pointer
+	SetUniqueID(value unsafe.Pointer)
 	// Returns the list of uncompressed pixel formats supported for photo data in the specified file type.
 	SupportedPhotoPixelFormatTypesForFileType(fileType AVFileType) []foundation.NSNumber
 }
@@ -520,6 +542,28 @@ func (c AVCapturePhotoOutput) SetZeroShutterLagEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZeroShutterLagEnabled:"), value)
 }
 
+// The pixel formats the capture output supports for photo capture.
+//
+// # Discussion
+//
+// To capture a photo in an uncompressed format, such as 420f, 420v, or BGRA,
+// use the [PhotoSettingsWithFormat] initializer to create your photo settings
+// object. In that initializer’s `format` dictionary, pass the key
+// [kCVPixelBufferPixelFormatTypeKey], whose value must be one of the pixel
+// format identifiers listed in this array.
+//
+// This property supports key-value observing.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/availablePhotoPixelFormatTypes-6eyb
+//
+// [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
+func (c AVCapturePhotoOutput) AvailablePhotoPixelFormatTypes() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availablePhotoPixelFormatTypes"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+
 // The compression codecs this capture output currently supports for photo
 // capture.
 //
@@ -579,6 +623,26 @@ func (c AVCapturePhotoOutput) AvailablePhotoFileTypes() []string {
 func (c AVCapturePhotoOutput) ShutterSoundSuppressionSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isShutterSoundSuppressionSupported"))
 	return rv
+}
+
+// The flash settings this capture output currently supports.
+//
+// # Discussion
+//
+// To set the flash mode for a capture, set the [FlashMode] property of your
+// photo settings object to one of the [AVCaptureDevice.FlashMode] values
+// listed in this array.
+//
+// This property supports key-value observing.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/supportedFlashModes-4u69s
+//
+// [AVCaptureDevice.FlashMode]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/FlashMode-swift.enum
+func (c AVCapturePhotoOutput) SupportedFlashModes() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("supportedFlashModes"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
 }
 
 // The maximum resolution of the requested photo.
@@ -739,28 +803,6 @@ func (c AVCapturePhotoOutput) SetActiveColorSpace(value AVCaptureColorSpace) {
 	objc.Send[struct{}](c.ID, objc.Sel("setActiveColorSpace:"), value)
 }
 
-// The pixel formats the capture output supports for photo capture.
-//
-// # Discussion
-//
-// To capture a photo in an uncompressed format, such as 420f, 420v, or BGRA,
-// use the [PhotoSettingsWithFormat] initializer to create your photo settings
-// object. In that initializer’s `format` dictionary, pass the key
-// [kCVPixelBufferPixelFormatTypeKey], whose value must be one of the pixel
-// format identifiers listed in this array.
-//
-// This property supports key-value observing.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/availablePhotoPixelFormatTypes-6eyb
-//
-// [kCVPixelBufferPixelFormatTypeKey]: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
-func (c AVCapturePhotoOutput) AvailablePhotoPixelFormatTypes() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availablePhotoPixelFormatTypes"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
-}
-
 // A setting for whether to fire the flash when capturing photos.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturephotosettings/flashmode
@@ -772,33 +814,13 @@ func (c AVCapturePhotoOutput) SetFlashMode(value AVCaptureFlashMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFlashMode:"), value)
 }
 
-// The flash settings this capture output currently supports.
-//
-// # Discussion
-//
-// To set the flash mode for a capture, set the [FlashMode] property of your
-// photo settings object to one of the [AVCaptureDevice.FlashMode] values
-// listed in this array.
-//
-// This property supports key-value observing.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/supportedFlashModes-4u69s
-//
-// [AVCaptureDevice.FlashMode]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/FlashMode-swift.enum
-func (c AVCapturePhotoOutput) SupportedFlashModes() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("supportedFlashModes"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
-}
-
 // A unique identifier for this photo settings instance.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturephotosettings/uniqueid
-func (c AVCapturePhotoOutput) UniqueID() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("uniqueID"))
-	return objectivec.Object{ID: rv}
+func (c AVCapturePhotoOutput) UniqueID() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("uniqueID"))
+	return rv
 }
-func (c AVCapturePhotoOutput) SetUniqueID(value objectivec.IObject) {
+func (c AVCapturePhotoOutput) SetUniqueID(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUniqueID:"), value)
 }

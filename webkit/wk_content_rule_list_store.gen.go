@@ -158,8 +158,8 @@ func NewWKContentRuleListStore() WKContentRuleListStore {
 // change any rules after creating this object, the store saves those changes
 // to the same directory.
 //
-// See: https://developer.apple.com/documentation/WebKit/WKContentRuleListStore/init(url:)
-func NewContentRuleListStoreWithURL(url foundation.INSURL) WKContentRuleListStore {
+// See: https://developer.apple.com/documentation/WebKit/WKContentRuleListStore/init(url:)-dile
+func NewContentRuleListStoreWithURL(url foundation.NSURL) WKContentRuleListStore {
 	rv := objc.Send[objc.ID](objc.ID(getWKContentRuleListStoreClass().class), objc.Sel("storeWithURL:"), url)
 	return WKContentRuleListStoreFromID(rv)
 }

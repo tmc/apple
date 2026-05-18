@@ -5,10 +5,10 @@ package foundation
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/uniformtypeidentifiers"
 )
 
 // The class instance for the [NSItemProvider] class.
@@ -234,7 +234,6 @@ func NSItemProviderFromID(id objc.ID) NSItemProvider {
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider
 type INSItemProvider interface {
 	objectivec.IObject
-	NSCopying
 
 	// Topic: Creating an item provider
 
@@ -290,18 +289,18 @@ type INSItemProvider interface {
 	// Topic: Registering CloudKit shares
 
 	// Registers a CloudKit share for the user to modify.
-	RegisterCloudKitShareContainer(share unsafe.Pointer, container unsafe.Pointer)
+	RegisterCloudKitShareContainer(share objectivec.IObject, container objectivec.IObject)
 	// Registers a handler that prepares a new CloudKit share.
 	RegisterCloudKitShareWithPreparationHandler(preparationHandler ErrorHandler)
 
 	// Topic: Registering content types
 
 	// Registered content types in the order the app registers each type.
-	RegisteredContentTypes() []objc.ID
+	RegisteredContentTypes() []uniformtypeidentifiers.UTType
 	// Registered content types that the system can load as open-in-place files.
-	RegisteredContentTypesForOpenInPlace() []objc.ID
+	RegisteredContentTypesForOpenInPlace() []uniformtypeidentifiers.UTType
 	// Returns an array of registered content types that conform to a specified content type.
-	RegisteredContentTypesConformingToContentType(contentType objectivec.IObject) []objc.ID
+	RegisteredContentTypesConformingToContentType(contentType objectivec.IObject) []uniformtypeidentifiers.UTType
 
 	// Topic: Registering data
 
@@ -339,9 +338,9 @@ type INSItemProvider interface {
 	// Asynchronously copies the content type data into a generic data object with the specified parameters.
 	LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress
 	// Registers an existing collaboration object on a server.
-	RegisterCKShareContainerAllowedSharingOptions(share unsafe.Pointer, container unsafe.Pointer, allowedOptions unsafe.Pointer)
+	RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject)
 	// Creates and registers a new collaboration object using a collection of records to share.
-	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container unsafe.Pointer, allowedOptions unsafe.Pointer, preparationHandler ErrorHandler)
+	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler)
 	// Lazily registers an item, according to the item provider type coercion policy.
 	RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 	// Registers a file-backed representation for an item with item visibility, an open-in-place option, and a load handler.
@@ -758,7 +757,7 @@ func (i NSItemProvider) LoadPreviewImageWithOptionsCompletionHandler(options INS
 // [CKFetchShareMetadataOperation]: https://developer.apple.com/documentation/CloudKit/CKFetchShareMetadataOperation
 // [NSCloudSharingServiceDelegate]: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate
 // [containerIdentifier]: https://developer.apple.com/documentation/CloudKit/CKShare/Metadata/containerIdentifier
-func (i NSItemProvider) RegisterCloudKitShareContainer(share unsafe.Pointer, container unsafe.Pointer) {
+func (i NSItemProvider) RegisterCloudKitShareContainer(share objectivec.IObject, container objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShare:container:"), share, container)
 }
 
@@ -805,9 +804,11 @@ func (i NSItemProvider) RegisterCloudKitShareWithPreparationHandler(preparationH
 // An array of registered content types.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registeredContentTypes(conformingTo:)
-func (i NSItemProvider) RegisteredContentTypesConformingToContentType(contentType objectivec.IObject) []objc.ID {
+func (i NSItemProvider) RegisteredContentTypesConformingToContentType(contentType objectivec.IObject) []uniformtypeidentifiers.UTType {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypesConformingToContentType:"), contentType)
-	return rv
+	return objc.ConvertSlice(rv, func(id objc.ID) uniformtypeidentifiers.UTType {
+		return uniformtypeidentifiers.UTTypeFromID(id)
+	})
 }
 
 // Registers a data-backed representation for an item, specifiying item
@@ -976,7 +977,7 @@ func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletio
 // [CKAllowedSharingOptions]: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
 //
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
-func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share unsafe.Pointer, container unsafe.Pointer, allowedOptions unsafe.Pointer) {
+func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShare:container:allowedSharingOptions:"), share, container, allowedOptions)
 }
 
@@ -1018,7 +1019,7 @@ func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share unsa
 // [CKSharePreparationCompletionHandler]: https://developer.apple.com/documentation/CloudKit/CKSharePreparationCompletionHandler
 //
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
-func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container unsafe.Pointer, allowedOptions unsafe.Pointer, preparationHandler ErrorHandler) {
+func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(preparationHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, _block2)
 }
@@ -1120,17 +1121,21 @@ func (i NSItemProvider) SetPreviewImageHandler(value NSItemProviderLoadHandler) 
 // content types that appear earlier in the array.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registeredContentTypes
-func (i NSItemProvider) RegisteredContentTypes() []objc.ID {
+func (i NSItemProvider) RegisteredContentTypes() []uniformtypeidentifiers.UTType {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypes"))
-	return rv
+	return objc.ConvertSlice(rv, func(id objc.ID) uniformtypeidentifiers.UTType {
+		return uniformtypeidentifiers.UTTypeFromID(id)
+	})
 }
 
 // Registered content types that the system can load as open-in-place files.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registeredContentTypesForOpenInPlace
-func (i NSItemProvider) RegisteredContentTypesForOpenInPlace() []objc.ID {
+func (i NSItemProvider) RegisteredContentTypesForOpenInPlace() []uniformtypeidentifiers.UTType {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypesForOpenInPlace"))
-	return rv
+	return objc.ConvertSlice(rv, func(id objc.ID) uniformtypeidentifiers.UTType {
+		return uniformtypeidentifiers.UTTypeFromID(id)
+	})
 }
 
 // The rectangle that the item occupies in the host app’s source window.

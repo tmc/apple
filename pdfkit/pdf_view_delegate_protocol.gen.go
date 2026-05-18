@@ -75,7 +75,7 @@ func (o PDFViewDelegateObject) PDFViewWillChangeScaleFactorToScale(sender IPDFVi
 // Handle clicks on URL links in a view.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFViewDelegate/pdfViewWillClick(onLink:with:)
-func (o PDFViewDelegateObject) PDFViewWillClickOnLinkWithURL(sender IPDFView, url foundation.INSURL) {
+func (o PDFViewDelegateObject) PDFViewWillClickOnLinkWithURL(sender IPDFView, url foundation.NSURL) {
 	objc.Send[struct{}](o.ID, objc.Sel("PDFViewWillClickOnLink:withURL:"), sender, url)
 }
 

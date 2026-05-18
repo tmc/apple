@@ -18,30 +18,18 @@ type CIMix interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMix/amount
 	Amount() float32
-
-	// The image to use as a background image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMix/backgroundImage
-	BackgroundImage() ICIImage
-
-	// The image to use as a foreground image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMix/inputImage
-	InputImage() ICIImage
-
-	// The amount of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMix/amount
 	SetAmount(value float32)
 
 	// The image to use as a background image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMix/backgroundImage
+	BackgroundImage() ICIImage
 	SetBackgroundImage(value ICIImage)
 
 	// The image to use as a foreground image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMix/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -62,30 +50,6 @@ func CIMixObjectFromID(id objc.ID) CIMixObject {
 	}
 }
 
-// The amount of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMix/amount
-func (o CIMixObject) Amount() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
-	return rv
-}
-
-// The image to use as a background image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMix/backgroundImage
-func (o CIMixObject) BackgroundImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("backgroundImage"))
-	return CIImageFromID(rv)
-}
-
-// The image to use as a foreground image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMix/inputImage
-func (o CIMixObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -98,6 +62,11 @@ func (o CIMixObject) OutputImage() ICIImage {
 // The amount of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMix/amount
+func (o CIMixObject) Amount() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
+	return float32(rv)
+}
+
 func (o CIMixObject) SetAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAmount:"), value)
 }
@@ -105,6 +74,11 @@ func (o CIMixObject) SetAmount(value float32) {
 // The image to use as a background image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMix/backgroundImage
+func (o CIMixObject) BackgroundImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("backgroundImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIMixObject) SetBackgroundImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBackgroundImage:"), value)
 }
@@ -112,6 +86,11 @@ func (o CIMixObject) SetBackgroundImage(value ICIImage) {
 // The image to use as a foreground image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMix/inputImage
+func (o CIMixObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIMixObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

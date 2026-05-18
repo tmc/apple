@@ -69,8 +69,14 @@ func (o FSVolumeItemDeactivationObject) DeactivateItemReplyHandler(item IFSItem,
 // A property that tells FSKit to which types of items the deactivation
 // applies, if any.
 //
+// # Discussion
+//
+// FSKit reads this value after the file system replies to the `loadResource`
+// message. Changing the returned value during the runtime of the volume has
+// no effect.
+//
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/ItemDeactivation/itemDeactivationPolicy
 func (o FSVolumeItemDeactivationObject) ItemDeactivationPolicy() FSItemDeactivationOptions {
 	rv := objc.Send[FSItemDeactivationOptions](o.ID, objc.Sel("itemDeactivationPolicy"))
-	return rv
+	return FSItemDeactivationOptions(rv)
 }

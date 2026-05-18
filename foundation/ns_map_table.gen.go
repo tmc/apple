@@ -149,8 +149,6 @@ func NSMapTableFromID(id objc.ID) NSMapTable {
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable
 type INSMapTable interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating and Initializing a Map Table

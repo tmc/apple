@@ -144,18 +144,18 @@ type IGTMioEncoderQuadData interface {
 	_buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
 	_buildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
 	_buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool
-	_handleClique(clique *GTMioUSCCliqueMetadataRef)
+	_handleClique(clique GTMioUSCCliqueMetadata)
 	BuildEncoderFunctionIndexCliqueFilter(build objectivec.IObject, index uint32, filter VoidHandler) bool
-	CliqueIndexesForQuadCount(quad []GTMioQuadLocationRef, count unsafe.Pointer) unsafe.Pointer
+	CliqueIndexesForQuadCount(quad []GTMioQuadLocation, count unsafe.Pointer) unsafe.Pointer
 	CliqueIndexesForQuadLocationCount(location uint64, count unsafe.Pointer) unsafe.Pointer
 	ContainsDraw(draw uint32) bool
 	Depth() uint32
 	DrawCount() uint64
 	DrawIndexes() unsafe.Pointer
-	DrawIndexesForQuad(quad *GTMioQuadLocationRef) objectivec.IObject
+	DrawIndexesForQuad(quad GTMioQuadLocation) objectivec.IObject
 	DrawIndexesForQuadLocation(location uint64) objectivec.IObject
 	EncoderInfo() unsafe.Pointer
-	EnumerateCliquesForQuadEnumerator(quad *GTMioQuadLocationRef, enumerator VoidHandler)
+	EnumerateCliquesForQuadEnumerator(quad GTMioQuadLocation, enumerator VoidHandler)
 	EnumerateCliquesForQuadLocationEnumerator(location uint64, enumerator VoidHandler)
 	EnumerateOrderedQuads(quads VoidHandler)
 	HeatmapType() uint64
@@ -168,8 +168,8 @@ type IGTMioEncoderQuadData interface {
 	Options() uint64
 	ProgramType() uint16
 	QuadCount() uint64
-	QuadIndexForQuad(quad *GTMioQuadLocationRef) uint32
-	Quads() *GTMioQuadLocationRef
+	QuadIndexForQuad(quad GTMioQuadLocation) uint32
+	Quads() unsafe.Pointer
 	ReferenceComputePosition() unsafe.Pointer
 	TraceData() objectivec.IObject
 	Width() uint32
@@ -282,12 +282,12 @@ func (g GTMioEncoderQuadData) CanBuildFragmentEncoderFunctionIndexProgramTypeCli
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/_handleClique:
-func (g GTMioEncoderQuadData) _handleClique(clique *GTMioUSCCliqueMetadataRef) {
+func (g GTMioEncoderQuadData) _handleClique(clique GTMioUSCCliqueMetadata) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_handleClique:"), clique)
 }
 
 // HandleClique is an exported wrapper for the private method _handleClique.
-func (g GTMioEncoderQuadData) HandleClique(clique *GTMioUSCCliqueMetadataRef) error {
+func (g GTMioEncoderQuadData) HandleClique(clique GTMioUSCCliqueMetadata) error {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_handleClique:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_handleClique:"}
 		return err
@@ -309,7 +309,7 @@ func (g GTMioEncoderQuadData) BuildEncoderFunctionIndexCliqueFilter(build object
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/cliqueIndexesForQuad:count:
-func (g GTMioEncoderQuadData) CliqueIndexesForQuadCount(quad []GTMioQuadLocationRef, count unsafe.Pointer) unsafe.Pointer {
+func (g GTMioEncoderQuadData) CliqueIndexesForQuadCount(quad []GTMioQuadLocation, count unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueIndexesForQuad:count:"), objc.CArray(quad), count)
 	return rv
 }
@@ -327,7 +327,7 @@ func (g GTMioEncoderQuadData) ContainsDraw(draw uint32) bool {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/drawIndexesForQuad:
-func (g GTMioEncoderQuadData) DrawIndexesForQuad(quad *GTMioQuadLocationRef) objectivec.IObject {
+func (g GTMioEncoderQuadData) DrawIndexesForQuad(quad GTMioQuadLocation) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("drawIndexesForQuad:"), quad)
 	return objectivec.Object{ID: rv}
 }
@@ -339,7 +339,7 @@ func (g GTMioEncoderQuadData) DrawIndexesForQuadLocation(location uint64) object
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/enumerateCliquesForQuad:enumerator:
-func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumerator(quad *GTMioQuadLocationRef, enumerator VoidHandler) {
+func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumerator(quad GTMioQuadLocation, enumerator VoidHandler) {
 	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateCliquesForQuad:enumerator:"), quad, _block1)
 }
@@ -362,7 +362,7 @@ func (g GTMioEncoderQuadData) InstructionsExecutedForQuadLocationThreadInstructi
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/quadIndexForQuad:
-func (g GTMioEncoderQuadData) QuadIndexForQuad(quad *GTMioQuadLocationRef) uint32 {
+func (g GTMioEncoderQuadData) QuadIndexForQuad(quad GTMioQuadLocation) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("quadIndexForQuad:"), quad)
 	return rv
 }
@@ -464,9 +464,9 @@ func (g GTMioEncoderQuadData) QuadCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/quads
-func (g GTMioEncoderQuadData) Quads() *GTMioQuadLocationRef {
+func (g GTMioEncoderQuadData) Quads() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("quads"))
-	return (*GTMioQuadLocationRef)(rv)
+	return rv
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/referenceComputePosition
@@ -549,7 +549,7 @@ func (g GTMioEncoderQuadData) BuildEncoderFunctionIndexCliqueFilterSync(ctx cont
 
 // EnumerateCliquesForQuadEnumeratorSync is a synchronous wrapper around [GTMioEncoderQuadData.EnumerateCliquesForQuadEnumerator].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumeratorSync(ctx context.Context, quad *GTMioQuadLocationRef) error {
+func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumeratorSync(ctx context.Context, quad GTMioQuadLocation) error {
 	done := make(chan struct{}, 1)
 	g.EnumerateCliquesForQuadEnumerator(quad, func() {
 		done <- struct{}{}

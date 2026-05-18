@@ -51,7 +51,7 @@ func VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObjectFromID(id objc.ID)
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachmentDelegate/attachment(_:didEncounterError:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentDidEncounterError(attachment IVZNetworkBlockDeviceStorageDeviceAttachment, error_ foundation.INSError) {
+func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentDidEncounterError(attachment IVZNetworkBlockDeviceStorageDeviceAttachment, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("attachment:didEncounterError:"), attachment, error_)
 }
 

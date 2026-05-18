@@ -48,6 +48,7 @@ func (ac AVMetricPlayerItemVariantSwitchEventClass) Alloc() AVMetricPlayerItemVa
 //
 //   - [AVMetricPlayerItemVariantSwitchEvent.DidSucceed]
 //   - [AVMetricPlayerItemVariantSwitchEvent.FromVariant]
+//   - [AVMetricPlayerItemVariantSwitchEvent.LoadedTimeRanges]
 //   - [AVMetricPlayerItemVariantSwitchEvent.ToVariant]
 //   - [AVMetricPlayerItemVariantSwitchEvent.AudioRendition]: Represents the currently selected video rendition’s identifiers.
 //   - [AVMetricPlayerItemVariantSwitchEvent.VideoRendition]: Represents the currently selected video rendition’s identifiers.
@@ -74,6 +75,7 @@ func AVMetricPlayerItemVariantSwitchEventFromID(id objc.ID) AVMetricPlayerItemVa
 //
 //   - [IAVMetricPlayerItemVariantSwitchEvent.DidSucceed]
 //   - [IAVMetricPlayerItemVariantSwitchEvent.FromVariant]
+//   - [IAVMetricPlayerItemVariantSwitchEvent.LoadedTimeRanges]
 //   - [IAVMetricPlayerItemVariantSwitchEvent.ToVariant]
 //   - [IAVMetricPlayerItemVariantSwitchEvent.AudioRendition]: Represents the currently selected video rendition’s identifiers.
 //   - [IAVMetricPlayerItemVariantSwitchEvent.VideoRendition]: Represents the currently selected video rendition’s identifiers.
@@ -87,6 +89,7 @@ type IAVMetricPlayerItemVariantSwitchEvent interface {
 
 	DidSucceed() bool
 	FromVariant() IAVAssetVariant
+	LoadedTimeRanges() []foundation.NSValue
 	ToVariant() IAVAssetVariant
 	// Represents the currently selected video rendition’s identifiers.
 	AudioRendition() IAVMetricMediaRendition
@@ -94,8 +97,6 @@ type IAVMetricPlayerItemVariantSwitchEvent interface {
 	VideoRendition() IAVMetricMediaRendition
 	// Represents the currently selected audio rendition’s identifiers.
 	SubtitleRendition() IAVMetricMediaRendition
-
-	LoadedTimeRanges() []foundation.NSValue
 }
 
 // Init initializes the instance.
@@ -127,6 +128,14 @@ func (m AVMetricPlayerItemVariantSwitchEvent) DidSucceed() bool {
 func (m AVMetricPlayerItemVariantSwitchEvent) FromVariant() IAVAssetVariant {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("fromVariant"))
 	return AVAssetVariantFromID(objc.ID(rv))
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchEvent/loadedTimeRanges-4rhjw
+func (m AVMetricPlayerItemVariantSwitchEvent) LoadedTimeRanges() []foundation.NSValue {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("loadedTimeRanges"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
+		return foundation.NSValueFromID(id)
+	})
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchEvent/toVariant
@@ -172,12 +181,4 @@ func (m AVMetricPlayerItemVariantSwitchEvent) VideoRendition() IAVMetricMediaRen
 func (m AVMetricPlayerItemVariantSwitchEvent) SubtitleRendition() IAVMetricMediaRendition {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("subtitleRendition"))
 	return AVMetricMediaRenditionFromID(objc.ID(rv))
-}
-
-// See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchEvent/loadedTimeRanges-4rhjw
-func (m AVMetricPlayerItemVariantSwitchEvent) LoadedTimeRanges() []foundation.NSValue {
-	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("loadedTimeRanges"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
-		return foundation.NSValueFromID(id)
-	})
 }

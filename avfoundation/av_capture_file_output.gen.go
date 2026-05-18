@@ -129,7 +129,7 @@ type IAVCaptureFileOutput interface {
 	MinFreeDiskSpaceLimit() int64
 	SetMinFreeDiskSpaceLimit(value int64)
 	// The URL to which output is directed.
-	OutputFileURL() foundation.INSURL
+	OutputFileURL() foundation.NSURL
 	// Indicates the duration of the media recorded to the current output file.
 	RecordedDuration() coremedia.CMTime
 	// Indicates the size, in bytes, of the data recorded to the current output file.
@@ -142,7 +142,7 @@ type IAVCaptureFileOutput interface {
 	// Topic: Managing recording
 
 	// Starts recording media to the specified output URL.
-	StartRecordingToOutputFileURLRecordingDelegate(outputFileURL foundation.INSURL, delegate AVCaptureFileOutputRecordingDelegate)
+	StartRecordingToOutputFileURLRecordingDelegate(outputFileURL foundation.NSURL, delegate AVCaptureFileOutputRecordingDelegate)
 	// Tells the receiver to stop recording to the current file.
 	StopRecording()
 	// Pauses recording to the current output file.
@@ -205,7 +205,7 @@ func NewAVCaptureFileOutput() AVCaptureFileOutput {
 // must call [StopRecording] before calling this method again.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/startRecording(to:recordingDelegate:)
-func (c AVCaptureFileOutput) StartRecordingToOutputFileURLRecordingDelegate(outputFileURL foundation.INSURL, delegate AVCaptureFileOutputRecordingDelegate) {
+func (c AVCaptureFileOutput) StartRecordingToOutputFileURLRecordingDelegate(outputFileURL foundation.NSURL, delegate AVCaptureFileOutputRecordingDelegate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("startRecordingToOutputFileURL:recordingDelegate:"), outputFileURL, delegate)
 }
 
@@ -362,7 +362,7 @@ func (c AVCaptureFileOutput) SetMinFreeDiskSpaceLimit(value int64) {
 // The URL to which output is directed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/outputFileURL
-func (c AVCaptureFileOutput) OutputFileURL() foundation.INSURL {
+func (c AVCaptureFileOutput) OutputFileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputFileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

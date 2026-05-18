@@ -95,14 +95,14 @@ type INEVPNIKEv2PPKConfiguration interface {
 	// Topic: Creating a PPK configuration
 
 	// Initializes a quantum-secure pre-shared key (PPK) configuration.
-	InitWithIdentifierKeychainReference(identifier string, keychainReference foundation.INSData) NEVPNIKEv2PPKConfiguration
+	InitWithIdentifierKeychainReference(identifier string, keychainReference foundation.NSData) NEVPNIKEv2PPKConfiguration
 
 	// Topic: Accessing the configuration parameters
 
 	// The identifier for the PPK.
 	Identifier() string
 	// A persistent reference to the key in the keychain.
-	KeychainReference() foundation.INSData
+	KeychainReference() foundation.NSData
 	// A Boolean value that indicates whether it’s mandatory for the VPN server to use this PPK.
 	IsMandatory() bool
 	SetIsMandatory(value bool)
@@ -144,7 +144,7 @@ func NewNEVPNIKEv2PPKConfiguration() NEVPNIKEv2PPKConfiguration {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2PPKConfiguration/init(identifier:keychainReference:)
 //
 // [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
-func NewVPNIKEv2PPKConfigurationWithIdentifierKeychainReference(identifier string, keychainReference foundation.INSData) NEVPNIKEv2PPKConfiguration {
+func NewVPNIKEv2PPKConfigurationWithIdentifierKeychainReference(identifier string, keychainReference foundation.NSData) NEVPNIKEv2PPKConfiguration {
 	instance := getNEVPNIKEv2PPKConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:keychainReference:"), objc.String(identifier), keychainReference)
 	return NEVPNIKEv2PPKConfigurationFromID(rv)
@@ -160,7 +160,7 @@ func NewVPNIKEv2PPKConfigurationWithIdentifierKeychainReference(identifier strin
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2PPKConfiguration/init(identifier:keychainReference:)
 //
 // [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
-func (v NEVPNIKEv2PPKConfiguration) InitWithIdentifierKeychainReference(identifier string, keychainReference foundation.INSData) NEVPNIKEv2PPKConfiguration {
+func (v NEVPNIKEv2PPKConfiguration) InitWithIdentifierKeychainReference(identifier string, keychainReference foundation.NSData) NEVPNIKEv2PPKConfiguration {
 	rv := objc.Send[NEVPNIKEv2PPKConfiguration](v.ID, objc.Sel("initWithIdentifier:keychainReference:"), objc.String(identifier), keychainReference)
 	return rv
 }
@@ -182,7 +182,7 @@ func (v NEVPNIKEv2PPKConfiguration) Identifier() string {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2PPKConfiguration/keychainReference
 //
 // [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
-func (v NEVPNIKEv2PPKConfiguration) KeychainReference() foundation.INSData {
+func (v NEVPNIKEv2PPKConfiguration) KeychainReference() foundation.NSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("keychainReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

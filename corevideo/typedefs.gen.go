@@ -4,8 +4,6 @@ package corevideo
 
 import (
 	"unsafe"
-
-	"github.com/tmc/apple/objectivec"
 )
 
 // CVBufferRef is a reference to a Core Video buffer.
@@ -19,7 +17,7 @@ type CVBufferRef uintptr
 type CVDisplayLinkOutputCallback = func(uintptr, *CVTimeStamp, *CVTimeStamp, uint64, *uint64, unsafe.Pointer) int
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVDisplayLinkOutputHandler
-type CVDisplayLinkOutputHandler = func(objectivec.IObject, *CVTimeStamp, *CVTimeStamp, uint64, *uint64) int
+type CVDisplayLinkOutputHandler = func(unsafe.Pointer, *CVTimeStamp, *CVTimeStamp, uint64, *uint64) int
 
 // CVDisplayLinkRef is a reference to a display link object.
 //

@@ -77,14 +77,14 @@ type IMLIdentity interface {
 }
 
 // Init initializes the instance.
-func (i MLIdentity) Init() MLIdentity {
-	rv := objc.Send[MLIdentity](i.ID, objc.Sel("init"))
+func (m MLIdentity) Init() MLIdentity {
+	rv := objc.Send[MLIdentity](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (i MLIdentity) Autorelease() MLIdentity {
-	rv := objc.Send[MLIdentity](i.ID, objc.Sel("autorelease"))
+func (m MLIdentity) Autorelease() MLIdentity {
+	rv := objc.Send[MLIdentity](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -148,9 +148,9 @@ func NewIdentityWithNameInputDescriptionOutputDescriptionOrderedInputFeatureName
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLIdentity/predictionFromFeatures:options:error:
-func (i MLIdentity) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLIdentity) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)

@@ -168,8 +168,8 @@ type ICKRecordID interface {
 	ZoneID() ICKRecordZoneID
 
 	// The time when CloudKit first saves the record to the server.
-	CreationDate() foundation.INSDate
-	SetCreationDate(value foundation.INSDate)
+	CreationDate() foundation.NSDate
+	SetCreationDate(value foundation.NSDate)
 	// The ID of the user who creates the record.
 	CreatorUserRecordID() ICKRecordID
 	SetCreatorUserRecordID(value ICKRecordID)
@@ -177,8 +177,8 @@ type ICKRecordID interface {
 	LastModifiedUserRecordID() ICKRecordID
 	SetLastModifiedUserRecordID(value ICKRecordID)
 	// The most recent time that CloudKit saved the record to the server.
-	ModificationDate() foundation.INSDate
-	SetModificationDate(value foundation.INSDate)
+	ModificationDate() foundation.NSDate
+	SetModificationDate(value foundation.NSDate)
 	// The server change token for the record.
 	RecordChangeTag() string
 	SetRecordChangeTag(value string)
@@ -290,11 +290,11 @@ func (c CKRecordID) ZoneID() ICKRecordZoneID {
 // The time when CloudKit first saves the record to the server.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckrecord/creationdate
-func (c CKRecordID) CreationDate() foundation.INSDate {
+func (c CKRecordID) CreationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("creationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (c CKRecordID) SetCreationDate(value foundation.INSDate) {
+func (c CKRecordID) SetCreationDate(value foundation.NSDate) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCreationDate:"), value)
 }
 
@@ -323,11 +323,11 @@ func (c CKRecordID) SetLastModifiedUserRecordID(value ICKRecordID) {
 // The most recent time that CloudKit saved the record to the server.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckrecord/modificationdate
-func (c CKRecordID) ModificationDate() foundation.INSDate {
+func (c CKRecordID) ModificationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("modificationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (c CKRecordID) SetModificationDate(value foundation.INSDate) {
+func (c CKRecordID) SetModificationDate(value foundation.NSDate) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModificationDate:"), value)
 }
 

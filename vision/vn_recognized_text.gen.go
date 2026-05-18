@@ -81,7 +81,6 @@ func VNRecognizedTextFromID(id objc.ID) VNRecognizedText {
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedText
 type IVNRecognizedText interface {
 	objectivec.IObject
-	VNRequestRevisionProviding
 
 	// Topic: Determining Recognized Text
 
@@ -144,6 +143,15 @@ func (r VNRecognizedText) BoundingBoxForRangeError(range_ foundation.NSRange) (I
 	return VNRectangleObservationFromID(rv), nil
 
 }
+
+// The revision of the [VNRequest] subclass used to generate the implementing
+// object.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
+func (r VNRecognizedText) RequestRevision() uint {
+	rv := objc.Send[uint](r.ID, objc.Sel("requestRevision"))
+	return rv
+}
 func (r VNRecognizedText) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -167,15 +175,6 @@ func (r VNRecognizedText) String() string {
 func (r VNRecognizedText) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](r.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
-}
-
-// The revision of the [VNRequest] subclass used to generate the implementing
-// object.
-//
-// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
-func (r VNRecognizedText) RequestRevision() uint {
-	rv := objc.Send[uint](r.ID, objc.Sel("requestRevision"))
-	return rv
 }
 
 // Protocol methods for VNRequestRevisionProviding

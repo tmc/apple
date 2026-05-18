@@ -221,7 +221,7 @@ func NewCIKernel() CIKernel {
 // See: https://developer.apple.com/documentation/CoreImage/CIKernel/init(functionName:fromMetalLibraryData:)
 //
 // [Bundle]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Bundle.html#//apple_ref/doc/uid/TP40008195-CH4
-func NewKernelWithFunctionNameFromMetalLibraryDataError(name string, data foundation.INSData) (CIKernel, error) {
+func NewKernelWithFunctionNameFromMetalLibraryDataError(name string, data foundation.NSData) (CIKernel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getCIKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:error:"), objc.String(name), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -253,7 +253,7 @@ func NewKernelWithFunctionNameFromMetalLibraryDataError(name string, data founda
 // the same filter graph as traditional CIKL kernels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKernel/init(functionName:fromMetalLibraryData:outputPixelFormat:)
-func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.INSData, format int) (CIKernel, error) {
+func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format int) (CIKernel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getCIKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -371,7 +371,7 @@ func (k CIKernel) ApplyWithExtentRoiCallbackArguments(extent corefoundation.CGRe
 // An Array of strings containing the names of the kernels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKernel/kernelNames(fromMetalLibraryData:)
-func (_CIKernelClass CIKernelClass) KernelNamesFromMetalLibraryData(data foundation.INSData) []string {
+func (_CIKernelClass CIKernelClass) KernelNamesFromMetalLibraryData(data foundation.NSData) []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_CIKernelClass.class), objc.Sel("kernelNamesFromMetalLibraryData:"), data)
 	return objc.ConvertSliceToStrings(rv)
 }

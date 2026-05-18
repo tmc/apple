@@ -121,14 +121,14 @@ type IMLRangeBrick interface {
 }
 
 // Init initializes the instance.
-func (r MLRangeBrick) Init() MLRangeBrick {
-	rv := objc.Send[MLRangeBrick](r.ID, objc.Sel("init"))
+func (m MLRangeBrick) Init() MLRangeBrick {
+	rv := objc.Send[MLRangeBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (r MLRangeBrick) Autorelease() MLRangeBrick {
-	rv := objc.Send[MLRangeBrick](r.ID, objc.Sel("autorelease"))
+func (m MLRangeBrick) Autorelease() MLRangeBrick {
+	rv := objc.Send[MLRangeBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -147,96 +147,96 @@ func NewRangeBrickWithParameters(parameters objectivec.IObject) MLRangeBrick {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/computeDynamicOutputShape:
-func (r MLRangeBrick) ComputeDynamicOutputShape(shape objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("computeDynamicOutputShape:"), shape)
+func (m MLRangeBrick) ComputeDynamicOutputShape(shape objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeDynamicOutputShape:"), shape)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/computeOnCPUWithInputTensors:outputTensors:
-func (r MLRangeBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLRangeBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/hasDynamicOutputShape:
-func (r MLRangeBrick) HasDynamicOutputShape(shape uint64) bool {
-	rv := objc.Send[bool](r.ID, objc.Sel("hasDynamicOutputShape:"), shape)
+func (m MLRangeBrick) HasDynamicOutputShape(shape uint64) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasDynamicOutputShape:"), shape)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/hasGPUSupport
-func (r MLRangeBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](r.ID, objc.Sel("hasGPUSupport"))
+func (m MLRangeBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/setupForInputShapes:withParameters:
-func (r MLRangeBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLRangeBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/initWithParameters:
-func (r MLRangeBrick) InitWithParameters(parameters objectivec.IObject) MLRangeBrick {
-	rv := objc.Send[MLRangeBrick](r.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLRangeBrick) InitWithParameters(parameters objectivec.IObject) MLRangeBrick {
+	rv := objc.Send[MLRangeBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/debugDescription
-func (r MLRangeBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("debugDescription"))
+func (m MLRangeBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/description
-func (r MLRangeBrick) Description() string {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("description"))
+func (m MLRangeBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/endValueParameter
-func (r MLRangeBrick) EndValueParameter() float32 {
-	rv := objc.Send[float32](r.ID, objc.Sel("endValueParameter"))
+func (m MLRangeBrick) EndValueParameter() float32 {
+	rv := objc.Send[float32](m.ID, objc.Sel("endValueParameter"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/hash
-func (r MLRangeBrick) Hash() uint64 {
-	rv := objc.Send[uint64](r.ID, objc.Sel("hash"))
+func (m MLRangeBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/size
-func (r MLRangeBrick) Size() int {
-	rv := objc.Send[int](r.ID, objc.Sel("size"))
+func (m MLRangeBrick) Size() int {
+	rv := objc.Send[int](m.ID, objc.Sel("size"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/start
-func (r MLRangeBrick) Start() float32 {
-	rv := objc.Send[float32](r.ID, objc.Sel("start"))
+func (m MLRangeBrick) Start() float32 {
+	rv := objc.Send[float32](m.ID, objc.Sel("start"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/startValueParameter
-func (r MLRangeBrick) StartValueParameter() float32 {
-	rv := objc.Send[float32](r.ID, objc.Sel("startValueParameter"))
+func (m MLRangeBrick) StartValueParameter() float32 {
+	rv := objc.Send[float32](m.ID, objc.Sel("startValueParameter"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/stepSize
-func (r MLRangeBrick) StepSize() float32 {
-	rv := objc.Send[float32](r.ID, objc.Sel("stepSize"))
+func (m MLRangeBrick) StepSize() float32 {
+	rv := objc.Send[float32](m.ID, objc.Sel("stepSize"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/stepSizeValueParameter
-func (r MLRangeBrick) StepSizeValueParameter() float32 {
-	rv := objc.Send[float32](r.ID, objc.Sel("stepSizeValueParameter"))
+func (m MLRangeBrick) StepSizeValueParameter() float32 {
+	rv := objc.Send[float32](m.ID, objc.Sel("stepSizeValueParameter"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRangeBrick/superclass
-func (r MLRangeBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](r.ID, objc.Sel("superclass"))
+func (m MLRangeBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

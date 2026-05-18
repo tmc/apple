@@ -13,7 +13,7 @@ import (
 // that is the source of the flow.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterFlow/sourceAppUniqueIdentifier
-func (f NEFilterFlow) SourceAppUniqueIdentifier() foundation.INSData {
+func (f NEFilterFlow) SourceAppUniqueIdentifier() foundation.NSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sourceAppUniqueIdentifier"))
 	return foundation.NSDataFromID(rv)
 }

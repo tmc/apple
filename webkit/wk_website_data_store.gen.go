@@ -83,6 +83,11 @@ func (wc WKWebsiteDataStoreClass) Alloc() WKWebsiteDataStore {
 //   - [WKWebsiteDataStore.RemoveDataOfTypesForDataRecordsCompletionHandler]: Removes the specified types of website data from one or more data records.
 //   - [WKWebsiteDataStore.RemoveDataOfTypesModifiedSinceCompletionHandler]: Removes website data that changed after the specified date.
 //
+// # Instance Properties
+//
+//   - [WKWebsiteDataStore.ProxyConfigurations]
+//   - [WKWebsiteDataStore.SetProxyConfigurations]
+//
 // # Instance Methods
 //
 //   - [WKWebsiteDataStore.FetchDataOfTypesCompletionHandler]
@@ -120,6 +125,11 @@ func WKWebsiteDataStoreFromID(id objc.ID) WKWebsiteDataStore {
 //   - [IWKWebsiteDataStore.RemoveDataOfTypesForDataRecordsCompletionHandler]: Removes the specified types of website data from one or more data records.
 //   - [IWKWebsiteDataStore.RemoveDataOfTypesModifiedSinceCompletionHandler]: Removes website data that changed after the specified date.
 //
+// # Instance Properties
+//
+//   - [IWKWebsiteDataStore.ProxyConfigurations]
+//   - [IWKWebsiteDataStore.SetProxyConfigurations]
+//
 // # Instance Methods
 //
 //   - [IWKWebsiteDataStore.FetchDataOfTypesCompletionHandler]
@@ -146,15 +156,18 @@ type IWKWebsiteDataStore interface {
 	// Removes the specified types of website data from one or more data records.
 	RemoveDataOfTypesForDataRecordsCompletionHandler(dataTypes foundation.INSSet, dataRecords []WKWebsiteDataRecord, completionHandler VoidHandler)
 	// Removes website data that changed after the specified date.
-	RemoveDataOfTypesModifiedSinceCompletionHandler(dataTypes foundation.INSSet, date foundation.INSDate, completionHandler VoidHandler)
+	RemoveDataOfTypesModifiedSinceCompletionHandler(dataTypes foundation.INSSet, date foundation.NSDate, completionHandler VoidHandler)
+
+	// Topic: Instance Properties
+
+	ProxyConfigurations() []objectivec.Object
+	SetProxyConfigurations(value []objectivec.Object)
 
 	// Topic: Instance Methods
 
 	FetchDataOfTypesCompletionHandler(dataTypes foundation.INSSet, completionHandler DataErrorHandler)
-	RestoreDataCompletionHandler(data foundation.INSData, completionHandler ErrorHandler)
+	RestoreDataCompletionHandler(data foundation.NSData, completionHandler ErrorHandler)
 
-	ProxyConfigurations() []objectivec.Object
-	SetProxyConfigurations(value []objectivec.Object)
 	// The local files WebKit can access when loading content.
 	ReadAccessURL() foundation.NSString
 	// The object you use to get and set the site’s cookies and to track the cached data objects.
@@ -233,7 +246,7 @@ func (w WKWebsiteDataStore) RemoveDataOfTypesForDataRecordsCompletionHandler(dat
 // website modified the record’s data after the specified `date`.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebsiteDataStore/removeData(ofTypes:modifiedSince:completionHandler:)
-func (w WKWebsiteDataStore) RemoveDataOfTypesModifiedSinceCompletionHandler(dataTypes foundation.INSSet, date foundation.INSDate, completionHandler VoidHandler) {
+func (w WKWebsiteDataStore) RemoveDataOfTypesModifiedSinceCompletionHandler(dataTypes foundation.INSSet, date foundation.NSDate, completionHandler VoidHandler) {
 	_block2, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("removeDataOfTypes:modifiedSince:completionHandler:"), dataTypes, date, _block2)
 }
@@ -245,7 +258,7 @@ func (w WKWebsiteDataStore) FetchDataOfTypesCompletionHandler(dataTypes foundati
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKWebsiteDataStore/restoreData(_:completionHandler:)
-func (w WKWebsiteDataStore) RestoreDataCompletionHandler(data foundation.INSData, completionHandler ErrorHandler) {
+func (w WKWebsiteDataStore) RestoreDataCompletionHandler(data foundation.NSData, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("restoreData:completionHandler:"), data, _block1)
 }
@@ -395,7 +408,7 @@ func (w WKWebsiteDataStore) SetWebsiteDataStore(value IWKWebsiteDataStore) {
 
 // RemoveDataOfTypesModifiedSince is a synchronous wrapper around [WKWebsiteDataStore.RemoveDataOfTypesModifiedSinceCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w WKWebsiteDataStore) RemoveDataOfTypesModifiedSince(ctx context.Context, dataTypes foundation.INSSet, date foundation.INSDate) error {
+func (w WKWebsiteDataStore) RemoveDataOfTypesModifiedSince(ctx context.Context, dataTypes foundation.INSSet, date foundation.NSDate) error {
 	done := make(chan struct{}, 1)
 	w.RemoveDataOfTypesModifiedSinceCompletionHandler(dataTypes, date, func() {
 		done <- struct{}{}
@@ -444,7 +457,7 @@ func (w WKWebsiteDataStore) FetchDataOfTypes(ctx context.Context, dataTypes foun
 
 // RestoreData is a synchronous wrapper around [WKWebsiteDataStore.RestoreDataCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w WKWebsiteDataStore) RestoreData(ctx context.Context, data foundation.INSData) error {
+func (w WKWebsiteDataStore) RestoreData(ctx context.Context, data foundation.NSData) error {
 	done := make(chan error, 1)
 	w.RestoreDataCompletionHandler(data, func(err error) {
 		done <- err

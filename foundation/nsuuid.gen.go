@@ -121,8 +121,6 @@ func NSUUIDFromID(id objc.ID) NSUUID {
 // See: https://developer.apple.com/documentation/Foundation/NSUUID
 type INSUUID interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating UUIDs
@@ -178,7 +176,7 @@ func NewUUIDWithCoder(coder INSCoder) NSUUID {
 //
 // A new UUID object.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)-2p4d5
 func NewUUIDWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 	instance := getNSUUIDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUIDBytes:"), bytes)
@@ -195,7 +193,7 @@ func NewUUIDWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 //
 // A new UUID object. Returns `nil` for invalid strings.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)-8t9n3
 func NewUUIDWithUUIDString(string_ string) NSUUID {
 	instance := getNSUUIDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUIDString:"), objc.String(string_))
@@ -212,7 +210,7 @@ func NewUUIDWithUUIDString(string_ string) NSUUID {
 //
 // A new UUID object. Returns `nil` for invalid strings.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)-8t9n3
 func (u NSUUID) InitWithUUIDString(string_ string) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDString:"), objc.String(string_))
 	return rv
@@ -226,7 +224,7 @@ func (u NSUUID) InitWithUUIDString(string_ string) NSUUID {
 //
 // A new UUID object.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)-2p4d5
 func (u NSUUID) InitWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDBytes:"), bytes)
 	return rv

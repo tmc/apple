@@ -112,8 +112,6 @@ func NSURLProtectionSpaceFromID(id objc.ID) URLProtectionSpace { return URLProte
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace
 type IURLProtectionSpace interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating a protection space

@@ -104,14 +104,14 @@ type IMLComputeBatchDataSource interface {
 }
 
 // Init initializes the instance.
-func (c MLComputeBatchDataSource) Init() MLComputeBatchDataSource {
-	rv := objc.Send[MLComputeBatchDataSource](c.ID, objc.Sel("init"))
+func (m MLComputeBatchDataSource) Init() MLComputeBatchDataSource {
+	rv := objc.Send[MLComputeBatchDataSource](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLComputeBatchDataSource) Autorelease() MLComputeBatchDataSource {
-	rv := objc.Send[MLComputeBatchDataSource](c.ID, objc.Sel("autorelease"))
+func (m MLComputeBatchDataSource) Autorelease() MLComputeBatchDataSource {
+	rv := objc.Send[MLComputeBatchDataSource](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -135,9 +135,9 @@ func NewComputeBatchDataSourceWithBatchProviderBatchSizeForPredictionNeuralNetwo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/batchAtIndex:error:
-func (c MLComputeBatchDataSource) BatchAtIndexError(index uint64) (objectivec.IObject, error) {
+func (m MLComputeBatchDataSource) BatchAtIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("batchAtIndex:error:"), index, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchAtIndex:error:"), index, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -147,9 +147,9 @@ func (c MLComputeBatchDataSource) BatchAtIndexError(index uint64) (objectivec.IO
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/mlcDataSourceAtIndex:error:
-func (c MLComputeBatchDataSource) MlcDataSourceAtIndexError(index int64) (objectivec.IObject, error) {
+func (m MLComputeBatchDataSource) MlcDataSourceAtIndexError(index int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("mlcDataSourceAtIndex:error:"), index, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("mlcDataSourceAtIndex:error:"), index, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -159,21 +159,21 @@ func (c MLComputeBatchDataSource) MlcDataSourceAtIndexError(index int64) (object
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/numberOfBatches
-func (c MLComputeBatchDataSource) NumberOfBatches() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("numberOfBatches"))
+func (m MLComputeBatchDataSource) NumberOfBatches() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfBatches"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/sizeOfBatchAtIndex:
-func (c MLComputeBatchDataSource) SizeOfBatchAtIndex(index uint64) uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
+func (m MLComputeBatchDataSource) SizeOfBatchAtIndex(index uint64) uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/initWithBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:
-func (c MLComputeBatchDataSource) InitWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (MLComputeBatchDataSource, error) {
+func (m MLComputeBatchDataSource) InitWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (MLComputeBatchDataSource, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:"), provider, size, prediction, engine, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:"), provider, size, prediction, engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLComputeBatchDataSource{}, foundation.NSErrorFrom(errorPtr)
@@ -183,28 +183,28 @@ func (c MLComputeBatchDataSource) InitWithBatchProviderBatchSizeForPredictionNeu
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/batchProvider
-func (c MLComputeBatchDataSource) BatchProvider() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("batchProvider"))
+func (m MLComputeBatchDataSource) BatchProvider() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchProvider"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/batchSize
-func (c MLComputeBatchDataSource) BatchSize() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("batchSize"))
+func (m MLComputeBatchDataSource) BatchSize() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("batchSize"))
 	return rv
 }
-func (c MLComputeBatchDataSource) SetBatchSize(value uint64) {
-	objc.Send[struct{}](c.ID, objc.Sel("setBatchSize:"), value)
+func (m MLComputeBatchDataSource) SetBatchSize(value uint64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setBatchSize:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/nnEngine
-func (c MLComputeBatchDataSource) NnEngine() IMLNeuralNetworkEngine {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("nnEngine"))
+func (m MLComputeBatchDataSource) NnEngine() IMLNeuralNetworkEngine {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("nnEngine"))
 	return MLNeuralNetworkEngineFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/useForPrediction
-func (c MLComputeBatchDataSource) UseForPrediction() bool {
-	rv := objc.Send[bool](c.ID, objc.Sel("useForPrediction"))
+func (m MLComputeBatchDataSource) UseForPrediction() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("useForPrediction"))
 	return rv
 }

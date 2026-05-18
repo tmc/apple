@@ -88,7 +88,7 @@ type IGTShaderProfilerAnalyzer interface {
 	// Topic: Methods
 
 	_executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError(task objectivec.IObject, arguments objectivec.IObject, environment objectivec.IObject, output []objectivec.IObject, directory objectivec.IObject, description objectivec.IObject) (bool, error)
-	_generateMCAOutputSync(sync bool) objectivec.IObject
+	_generateMCAOutputSync(sync bool) MCAOutput
 	Binary() objectivec.IObject
 	GenerateFullMCAReport(mCAReport VoidHandler)
 	GenerateMCAOutputCallback(mCAOutput bool, callback VoidHandler)
@@ -152,16 +152,17 @@ func (g GTShaderProfilerAnalyzer) CanExecuteTaskArgumentsEnvironmentStandardOutp
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/_generateMCAOutputSync:
-func (g GTShaderProfilerAnalyzer) _generateMCAOutputSync(sync bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_generateMCAOutputSync:"), sync)
-	return objectivec.Object{ID: rv}
+func (g GTShaderProfilerAnalyzer) _generateMCAOutputSync(sync bool) MCAOutput {
+	rv := objc.Send[MCAOutput](g.ID, objc.Sel("_generateMCAOutputSync:"), sync)
+	_ = rv
+	return MCAOutput{}
 }
 
 // GenerateMCAOutputSync is an exported wrapper for the private method _generateMCAOutputSync.
-func (g GTShaderProfilerAnalyzer) GenerateMCAOutputSync(sync bool) (objectivec.IObject, error) {
+func (g GTShaderProfilerAnalyzer) GenerateMCAOutputSync(sync bool) (MCAOutput, error) {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_generateMCAOutputSync:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_generateMCAOutputSync:"}
-		return nil, err
+		return MCAOutput{}, err
 	}
 	return g._generateMCAOutputSync(sync), nil
 }

@@ -339,7 +339,7 @@ const (
 	KCFISO8601DateFormatWithFractionalSeconds        CFISO8601DateFormatOptions = 2048
 	KCFISO8601DateFormatWithFullDate                 CFISO8601DateFormatOptions = 1
 	KCFISO8601DateFormatWithFullTime                 CFISO8601DateFormatOptions = 32
-	KCFISO8601DateFormatWithInternetDateTime         CFISO8601DateFormatOptions = 1
+	KCFISO8601DateFormatWithInternetDateTime         CFISO8601DateFormatOptions = 275
 	KCFISO8601DateFormatWithMonth                    CFISO8601DateFormatOptions = 2
 	KCFISO8601DateFormatWithSpaceBetweenDateAndTime  CFISO8601DateFormatOptions = 128
 	KCFISO8601DateFormatWithTime                     CFISO8601DateFormatOptions = 32
@@ -364,6 +364,8 @@ func (e CFISO8601DateFormatOptions) String() string {
 		return "KCFISO8601DateFormatWithFullDate"
 	case KCFISO8601DateFormatWithFullTime:
 		return "KCFISO8601DateFormatWithFullTime"
+	case KCFISO8601DateFormatWithInternetDateTime:
+		return "KCFISO8601DateFormatWithInternetDateTime"
 	case KCFISO8601DateFormatWithMonth:
 		return "KCFISO8601DateFormatWithMonth"
 	case KCFISO8601DateFormatWithSpaceBetweenDateAndTime:

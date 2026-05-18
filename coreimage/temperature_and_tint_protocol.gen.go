@@ -18,30 +18,18 @@ type CITemperatureAndTint interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/inputImage
 	InputImage() ICIImage
-
-	// A vector containing the source white point defined by color temperature and tint.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/neutral
-	Neutral() ICIVector
-
-	// A vector containing the desired white point defined by color temperature and tint.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/targetNeutral
-	TargetNeutral() ICIVector
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/inputImage
 	SetInputImage(value ICIImage)
 
 	// A vector containing the source white point defined by color temperature and tint.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/neutral
+	Neutral() ICIVector
 	SetNeutral(value ICIVector)
 
 	// A vector containing the desired white point defined by color temperature and tint.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/targetNeutral
+	TargetNeutral() ICIVector
 	SetTargetNeutral(value ICIVector)
 }
 
@@ -62,32 +50,6 @@ func CITemperatureAndTintObjectFromID(id objc.ID) CITemperatureAndTintObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/inputImage
-func (o CITemperatureAndTintObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// A vector containing the source white point defined by color temperature and
-// tint.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/neutral
-func (o CITemperatureAndTintObject) Neutral() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("neutral"))
-	return CIVectorFromID(rv)
-}
-
-// A vector containing the desired white point defined by color temperature
-// and tint.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/targetNeutral
-func (o CITemperatureAndTintObject) TargetNeutral() ICIVector {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetNeutral"))
-	return CIVectorFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -100,6 +62,11 @@ func (o CITemperatureAndTintObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/inputImage
+func (o CITemperatureAndTintObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CITemperatureAndTintObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -108,6 +75,11 @@ func (o CITemperatureAndTintObject) SetInputImage(value ICIImage) {
 // tint.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/neutral
+func (o CITemperatureAndTintObject) Neutral() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("neutral"))
+	return CIVectorFromID(rv)
+}
+
 func (o CITemperatureAndTintObject) SetNeutral(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNeutral:"), value)
 }
@@ -116,6 +88,11 @@ func (o CITemperatureAndTintObject) SetNeutral(value ICIVector) {
 // and tint.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/targetNeutral
+func (o CITemperatureAndTintObject) TargetNeutral() ICIVector {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetNeutral"))
+	return CIVectorFromID(rv)
+}
+
 func (o CITemperatureAndTintObject) SetTargetNeutral(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTargetNeutral:"), value)
 }

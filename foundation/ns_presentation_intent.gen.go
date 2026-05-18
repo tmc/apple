@@ -133,7 +133,6 @@ func NSPresentationIntentFromID(id objc.ID) NSPresentationIntent {
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent
 type INSPresentationIntent interface {
 	objectivec.IObject
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Getting the intent identity

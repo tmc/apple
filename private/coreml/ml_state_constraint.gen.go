@@ -93,14 +93,14 @@ type IMLStateConstraint interface {
 }
 
 // Init initializes the instance.
-func (s MLStateConstraint) Init() MLStateConstraint {
-	rv := objc.Send[MLStateConstraint](s.ID, objc.Sel("init"))
+func (m MLStateConstraint) Init() MLStateConstraint {
+	rv := objc.Send[MLStateConstraint](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLStateConstraint) Autorelease() MLStateConstraint {
-	rv := objc.Send[MLStateConstraint](s.ID, objc.Sel("autorelease"))
+func (m MLStateConstraint) Autorelease() MLStateConstraint {
+	rv := objc.Send[MLStateConstraint](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -126,9 +126,9 @@ func NewStateConstraintWithShapeDataTypeShapeConstraintDefaultOptionalValue(shap
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/isAllowedDataType:error:
-func (s MLStateConstraint) IsAllowedDataTypeError(type_ int64) (bool, error) {
+func (m MLStateConstraint) IsAllowedDataTypeError(type_ int64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](s.ID, objc.Sel("isAllowedDataType:error:"), type_, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("isAllowedDataType:error:"), type_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -141,9 +141,9 @@ func (s MLStateConstraint) IsAllowedDataTypeError(type_ int64) (bool, error) {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/isAllowedShape:error:
-func (s MLStateConstraint) IsAllowedShapeError(shape objectivec.IObject) (bool, error) {
+func (m MLStateConstraint) IsAllowedShapeError(shape objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](s.ID, objc.Sel("isAllowedShape:error:"), shape, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("isAllowedShape:error:"), shape, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -156,9 +156,9 @@ func (s MLStateConstraint) IsAllowedShapeError(shape objectivec.IObject) (bool, 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/isAllowedValue:error:
-func (s MLStateConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
+func (m MLStateConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](s.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("isAllowedValue:error:"), value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -171,20 +171,20 @@ func (s MLStateConstraint) IsAllowedValueError(value objectivec.IObject) (bool, 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/shape
-func (s MLStateConstraint) Shape() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("shape"))
+func (m MLStateConstraint) Shape() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("shape"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/initWithCoder:
-func (s MLStateConstraint) InitWithCoder(coder foundation.INSCoder) MLStateConstraint {
-	rv := objc.Send[MLStateConstraint](s.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLStateConstraint) InitWithCoder(coder foundation.INSCoder) MLStateConstraint {
+	rv := objc.Send[MLStateConstraint](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/initWithShape:dataType:shapeConstraint:defaultOptionalValue:
-func (s MLStateConstraint) InitWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLStateConstraint {
-	rv := objc.Send[MLStateConstraint](s.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
+func (m MLStateConstraint) InitWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLStateConstraint {
+	rv := objc.Send[MLStateConstraint](m.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
 	return rv
 }
 

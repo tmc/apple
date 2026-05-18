@@ -138,7 +138,7 @@ type IUNNotificationCategory interface {
 	SetCategoryIdentifier(value string)
 	// The action performs a destructive task.
 	Destructive() UNNotificationActionOptions
-	SetDestructive(value UNNotificationActionOptions)
+	SetUNNotificationActionOptionDestructive(value UNNotificationActionOptions)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -393,6 +393,6 @@ func (u UNNotificationCategory) Destructive() UNNotificationActionOptions {
 	rv := objc.Send[UNNotificationActionOptions](u.ID, objc.Sel("UNNotificationActionOptionDestructive"))
 	return UNNotificationActionOptions(rv)
 }
-func (u UNNotificationCategory) SetDestructive(value UNNotificationActionOptions) {
+func (u UNNotificationCategory) SetUNNotificationActionOptionDestructive(value UNNotificationActionOptions) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUNNotificationActionOptionDestructive:"), value)
 }

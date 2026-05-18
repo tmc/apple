@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitSplitter] class.
@@ -72,7 +71,7 @@ type IAVAudioUnitSplitter interface {
 
 	// Topic: Methods
 
-	InitWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitSplitter
+	InitWithAudioComponentDescription(description AudioComponentDescription) AVAudioUnitSplitter
 }
 
 // Init initializes the instance.
@@ -95,7 +94,7 @@ func NewAVAudioUnitSplitter() AVAudioUnitSplitter {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter/initWithAudioComponentDescription:
-func NewAudioUnitSplitterWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitSplitter {
+func NewAudioUnitSplitterWithAudioComponentDescription(description AudioComponentDescription) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return AVAudioUnitSplitterFromID(rv)
@@ -109,7 +108,7 @@ func NewAudioUnitSplitterWithImpl(impl unsafe.Pointer) AVAudioUnitSplitter {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter/initWithAudioComponentDescription:
-func (a AVAudioUnitSplitter) InitWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitSplitter {
+func (a AVAudioUnitSplitter) InitWithAudioComponentDescription(description AudioComponentDescription) AVAudioUnitSplitter {
 	rv := objc.Send[AVAudioUnitSplitter](a.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return rv
 }

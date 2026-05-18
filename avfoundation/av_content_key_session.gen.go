@@ -139,7 +139,7 @@ type IAVContentKeySession interface {
 	// The type of key system used to retrieve keys.
 	KeySystem() AVContentKeySystem
 	// A URL that points to a writable storage directory.
-	StorageURL() foundation.INSURL
+	StorageURL() foundation.NSURL
 
 	// Topic: Managing the delegate object
 
@@ -162,25 +162,25 @@ type IAVContentKeySession interface {
 	// Topic: Processing requests
 
 	// Tells the delegate to start loading the content decryption key with the specified identifier and initialization data.
-	ProcessContentKeyRequestWithIdentifierInitializationDataOptions(identifier objectivec.IObject, initializationData foundation.INSData, options foundation.INSDictionary)
+	ProcessContentKeyRequestWithIdentifierInitializationDataOptions(identifier objectivec.IObject, initializationData foundation.NSData, options foundation.INSDictionary)
 
 	// Topic: Managing expiration
 
 	// Tells the delegate that the session expired as the result of normal, intentional processes.
 	Expire()
 	// Creates a secure server playback context that the client sends to the key server to get an expiration date for the given persistable content key data.
-	MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler(persistableContentKeyData foundation.INSData, handler DataErrorHandler)
+	MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler(persistableContentKeyData foundation.NSData, handler DataErrorHandler)
 	// Tells the delegate that previously provided response data for a content key request is about to expire.
 	RenewExpiringResponseDataForContentKeyRequest(contentKeyRequest IAVContentKeyRequest)
 	// The identifier for the current content protection session.
-	ContentProtectionSessionIdentifier() foundation.INSData
+	ContentProtectionSessionIdentifier() foundation.NSData
 
 	// Topic: Invalidating content keys
 
 	// Invalidates the persistable content key and creates a secure server playback context (SPC) to verify the outcome of an invalidation request.
-	InvalidatePersistableContentKeyOptionsCompletionHandler(persistableContentKeyData foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler)
+	InvalidatePersistableContentKeyOptionsCompletionHandler(persistableContentKeyData foundation.NSData, options foundation.INSDictionary, handler DataErrorHandler)
 	// Invalidates all of an app’s persistable content keys and creates a secure server playback context (SPC) to verify the outcome of an invalidation request.
-	InvalidateAllPersistableContentKeysForAppOptionsCompletionHandler(appIdentifier foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler)
+	InvalidateAllPersistableContentKeysForAppOptionsCompletionHandler(appIdentifier foundation.NSData, options foundation.INSDictionary, handler DataErrorHandler)
 
 	// Boolean indicating whether advisory keys are enabled on the client.
 	SupportsAdvisoryKeys() bool
@@ -250,7 +250,7 @@ func NewContentKeySessionWithKeySystem(keySystem AVContentKeySystem) AVContentKe
 // `keySystem` is unsupported.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/init(keySystem:storageDirectoryAt:)
-func NewContentKeySessionWithKeySystemStorageDirectoryAtURL(keySystem AVContentKeySystem, storageURL foundation.INSURL) AVContentKeySession {
+func NewContentKeySessionWithKeySystemStorageDirectoryAtURL(keySystem AVContentKeySystem, storageURL foundation.NSURL) AVContentKeySession {
 	rv := objc.Send[objc.ID](objc.ID(getAVContentKeySessionClass().class), objc.Sel("contentKeySessionWithKeySystem:storageDirectoryAtURL:"), objc.String(string(keySystem)), storageURL)
 	return AVContentKeySessionFromID(rv)
 }
@@ -307,7 +307,7 @@ func (c AVContentKeySession) RemoveContentKeyRecipient(recipient AVContentKeyRec
 // non-`nil`. If required by the protocol, both parameters can be non-`nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/processContentKeyRequest(withIdentifier:initializationData:options:)
-func (c AVContentKeySession) ProcessContentKeyRequestWithIdentifierInitializationDataOptions(identifier objectivec.IObject, initializationData foundation.INSData, options foundation.INSDictionary) {
+func (c AVContentKeySession) ProcessContentKeyRequestWithIdentifierInitializationDataOptions(identifier objectivec.IObject, initializationData foundation.NSData, options foundation.INSDictionary) {
 	objc.Send[objc.ID](c.ID, objc.Sel("processContentKeyRequestWithIdentifier:initializationData:options:"), identifier, initializationData, options)
 }
 
@@ -332,7 +332,7 @@ func (c AVContentKeySession) Expire() {
 // this parameter is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/makeSecureTokenForExpirationDate(ofPersistableContentKey:completionHandler:)
-func (c AVContentKeySession) MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler(persistableContentKeyData foundation.INSData, handler DataErrorHandler) {
+func (c AVContentKeySession) MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler(persistableContentKeyData foundation.NSData, handler DataErrorHandler) {
 	_block1, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("makeSecureTokenForExpirationDateOfPersistableContentKey:completionHandler:"), persistableContentKeyData, _block1)
 }
@@ -358,7 +358,7 @@ func (c AVContentKeySession) RenewExpiringResponseDataForContentKeyRequest(conte
 // handler: The completion handler callback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/invalidatePersistableContentKey(_:options:completionHandler:)
-func (c AVContentKeySession) InvalidatePersistableContentKeyOptionsCompletionHandler(persistableContentKeyData foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler) {
+func (c AVContentKeySession) InvalidatePersistableContentKeyOptionsCompletionHandler(persistableContentKeyData foundation.NSData, options foundation.INSDictionary, handler DataErrorHandler) {
 	_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidatePersistableContentKey:options:completionHandler:"), persistableContentKeyData, options, _block2)
 }
@@ -377,7 +377,7 @@ func (c AVContentKeySession) InvalidatePersistableContentKeyOptionsCompletionHan
 // handler: The completion handler callback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/invalidateAllPersistableContentKeys(forApp:options:completionHandler:)
-func (c AVContentKeySession) InvalidateAllPersistableContentKeysForAppOptionsCompletionHandler(appIdentifier foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler) {
+func (c AVContentKeySession) InvalidateAllPersistableContentKeysForAppOptionsCompletionHandler(appIdentifier foundation.NSData, options foundation.INSDictionary, handler DataErrorHandler) {
 	_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateAllPersistableContentKeysForApp:options:completionHandler:"), appIdentifier, options, _block2)
 }
@@ -399,7 +399,7 @@ func (c AVContentKeySession) InvalidateAllPersistableContentKeysForAppOptionsCom
 // reports for active sessions.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/pendingExpiredSessionReports(withAppIdentifier:storageDirectoryAt:)
-func (_AVContentKeySessionClass AVContentKeySessionClass) PendingExpiredSessionReportsWithAppIdentifierStorageDirectoryAtURL(appIdentifier foundation.INSData, storageURL foundation.INSURL) []foundation.NSData {
+func (_AVContentKeySessionClass AVContentKeySessionClass) PendingExpiredSessionReportsWithAppIdentifierStorageDirectoryAtURL(appIdentifier foundation.NSData, storageURL foundation.NSURL) []foundation.NSData {
 	rv := objc.Send[[]objc.ID](objc.ID(_AVContentKeySessionClass.class), objc.Sel("pendingExpiredSessionReportsWithAppIdentifier:storageDirectoryAtURL:"), appIdentifier, storageURL)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSData {
 		return foundation.NSDataFromID(id)
@@ -415,7 +415,7 @@ func (_AVContentKeySessionClass AVContentKeySessionClass) PendingExpiredSessionR
 // storageURL: The URL that points to the directory containing expired session reports.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/removePendingExpiredSessionReports(_:withAppIdentifier:storageDirectoryAt:)
-func (_AVContentKeySessionClass AVContentKeySessionClass) RemovePendingExpiredSessionReportsWithAppIdentifierStorageDirectoryAtURL(expiredSessionReports []foundation.NSData, appIdentifier foundation.INSData, storageURL foundation.INSURL) {
+func (_AVContentKeySessionClass AVContentKeySessionClass) RemovePendingExpiredSessionReportsWithAppIdentifierStorageDirectoryAtURL(expiredSessionReports []foundation.NSData, appIdentifier foundation.NSData, storageURL foundation.NSURL) {
 	objc.Send[objc.ID](objc.ID(_AVContentKeySessionClass.class), objc.Sel("removePendingExpiredSessionReports:withAppIdentifier:storageDirectoryAtURL:"), objectivec.IObjectSliceToNSArray(expiredSessionReports), appIdentifier, storageURL)
 }
 
@@ -441,7 +441,7 @@ func (c AVContentKeySession) KeySystem() AVContentKeySystem {
 // The writable directory stores expired session reports.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/storageURL
-func (c AVContentKeySession) StorageURL() foundation.INSURL {
+func (c AVContentKeySession) StorageURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("storageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -484,7 +484,7 @@ func (c AVContentKeySession) ContentKeyRecipients() []objectivec.IObject {
 // generates.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/contentProtectionSessionIdentifier
-func (c AVContentKeySession) ContentProtectionSessionIdentifier() foundation.INSData {
+func (c AVContentKeySession) ContentProtectionSessionIdentifier() foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("contentProtectionSessionIdentifier"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -521,7 +521,7 @@ func (c AVContentKeySession) SetSupportsAdvisoryKeys(value bool) {
 
 // MakeSecureTokenForExpirationDateOfPersistableContentKey is a synchronous wrapper around [AVContentKeySession.MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c AVContentKeySession) MakeSecureTokenForExpirationDateOfPersistableContentKey(ctx context.Context, persistableContentKeyData foundation.INSData) (*foundation.NSData, error) {
+func (c AVContentKeySession) MakeSecureTokenForExpirationDateOfPersistableContentKey(ctx context.Context, persistableContentKeyData foundation.NSData) (*foundation.NSData, error) {
 	type result struct {
 		val *foundation.NSData
 		err error
@@ -540,7 +540,7 @@ func (c AVContentKeySession) MakeSecureTokenForExpirationDateOfPersistableConten
 
 // InvalidatePersistableContentKeyOptions is a synchronous wrapper around [AVContentKeySession.InvalidatePersistableContentKeyOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c AVContentKeySession) InvalidatePersistableContentKeyOptions(ctx context.Context, persistableContentKeyData foundation.INSData, options foundation.INSDictionary) (*foundation.NSData, error) {
+func (c AVContentKeySession) InvalidatePersistableContentKeyOptions(ctx context.Context, persistableContentKeyData foundation.NSData, options foundation.INSDictionary) (*foundation.NSData, error) {
 	type result struct {
 		val *foundation.NSData
 		err error
@@ -559,7 +559,7 @@ func (c AVContentKeySession) InvalidatePersistableContentKeyOptions(ctx context.
 
 // InvalidateAllPersistableContentKeysForAppOptions is a synchronous wrapper around [AVContentKeySession.InvalidateAllPersistableContentKeysForAppOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c AVContentKeySession) InvalidateAllPersistableContentKeysForAppOptions(ctx context.Context, appIdentifier foundation.INSData, options foundation.INSDictionary) (*foundation.NSData, error) {
+func (c AVContentKeySession) InvalidateAllPersistableContentKeysForAppOptions(ctx context.Context, appIdentifier foundation.NSData, options foundation.INSDictionary) (*foundation.NSData, error) {
 	type result struct {
 		val *foundation.NSData
 		err error

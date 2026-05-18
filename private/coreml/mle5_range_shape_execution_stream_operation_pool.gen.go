@@ -138,14 +138,14 @@ type IMLE5RangeShapeExecutionStreamOperationPool interface {
 }
 
 // Init initializes the instance.
-func (e MLE5RangeShapeExecutionStreamOperationPool) Init() MLE5RangeShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](e.ID, objc.Sel("init"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) Init() MLE5RangeShapeExecutionStreamOperationPool {
+	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e MLE5RangeShapeExecutionStreamOperationPool) Autorelease() MLE5RangeShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](e.ID, objc.Sel("autorelease"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) Autorelease() MLE5RangeShapeExecutionStreamOperationPool {
+	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -164,9 +164,9 @@ func NewE5RangeShapeExecutionStreamOperationPoolWithProgramLibraryFunctionNameMo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/_makeAndPreloadOperationForFunction:error:
-func (e MLE5RangeShapeExecutionStreamOperationPool) _makeAndPreloadOperationForFunctionError(function objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5RangeShapeExecutionStreamOperationPool) _makeAndPreloadOperationForFunctionError(function objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:"), function, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:"), function, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -176,48 +176,48 @@ func (e MLE5RangeShapeExecutionStreamOperationPool) _makeAndPreloadOperationForF
 }
 
 // MakeAndPreloadOperationForFunctionError is an exported wrapper for the private method _makeAndPreloadOperationForFunctionError.
-func (e MLE5RangeShapeExecutionStreamOperationPool) MakeAndPreloadOperationForFunctionError(function objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:")) {
+func (m MLE5RangeShapeExecutionStreamOperationPool) MakeAndPreloadOperationForFunctionError(function objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_makeAndPreloadOperationForFunction:error:"}
 		return nil, err
 	}
-	return e._makeAndPreloadOperationForFunctionError(function)
+	return m._makeAndPreloadOperationForFunctionError(function)
 }
 
 // CanMakeAndPreloadOperationForFunctionError reports whether the receiver responds to the private selector _makeAndPreloadOperationForFunction:error:.
-func (e MLE5RangeShapeExecutionStreamOperationPool) CanMakeAndPreloadOperationForFunctionError() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) CanMakeAndPreloadOperationForFunctionError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_makeAndPreloadOperationForFunction:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/_putBack:
-func (e MLE5RangeShapeExecutionStreamOperationPool) _putBack(back objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("_putBack:"), back)
+func (m MLE5RangeShapeExecutionStreamOperationPool) _putBack(back objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_putBack:"), back)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/_takeOutAnyOperation
-func (e MLE5RangeShapeExecutionStreamOperationPool) _takeOutAnyOperation() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_takeOutAnyOperation"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) _takeOutAnyOperation() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_takeOutAnyOperation"))
 	return objectivec.Object{ID: rv}
 }
 
 // TakeOutAnyOperation is an exported wrapper for the private method _takeOutAnyOperation.
-func (e MLE5RangeShapeExecutionStreamOperationPool) TakeOutAnyOperation() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_takeOutAnyOperation")) {
+func (m MLE5RangeShapeExecutionStreamOperationPool) TakeOutAnyOperation() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_takeOutAnyOperation")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_takeOutAnyOperation"}
 		return nil, err
 	}
-	return e._takeOutAnyOperation(), nil
+	return m._takeOutAnyOperation(), nil
 }
 
 // CanTakeOutAnyOperation reports whether the receiver responds to the private selector _takeOutAnyOperation.
-func (e MLE5RangeShapeExecutionStreamOperationPool) CanTakeOutAnyOperation() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_takeOutAnyOperation"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) CanTakeOutAnyOperation() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_takeOutAnyOperation"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/prepareWithInitialPoolSize:error:
-func (e MLE5RangeShapeExecutionStreamOperationPool) PrepareWithInitialPoolSizeError(size int64) (bool, error) {
+func (m MLE5RangeShapeExecutionStreamOperationPool) PrepareWithInitialPoolSizeError(size int64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("prepareWithInitialPoolSize:error:"), size, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("prepareWithInitialPoolSize:error:"), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -230,14 +230,14 @@ func (e MLE5RangeShapeExecutionStreamOperationPool) PrepareWithInitialPoolSizeEr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/putBack:
-func (e MLE5RangeShapeExecutionStreamOperationPool) PutBack(back objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("putBack:"), back)
+func (m MLE5RangeShapeExecutionStreamOperationPool) PutBack(back objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("putBack:"), back)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/takeOutOperationForFeatures:error:
-func (e MLE5RangeShapeExecutionStreamOperationPool) TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5RangeShapeExecutionStreamOperationPool) TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("takeOutOperationForFeatures:error:"), features, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("takeOutOperationForFeatures:error:"), features, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -247,91 +247,91 @@ func (e MLE5RangeShapeExecutionStreamOperationPool) TakeOutOperationForFeaturesE
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:
-func (e MLE5RangeShapeExecutionStreamOperationPool) InitWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5RangeShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](e.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
+func (m MLE5RangeShapeExecutionStreamOperationPool) InitWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5RangeShapeExecutionStreamOperationPool {
+	rv := objc.Send[MLE5RangeShapeExecutionStreamOperationPool](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/compilerVersionInfo
-func (e MLE5RangeShapeExecutionStreamOperationPool) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("compilerVersionInfo"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) CompilerVersionInfo() IMLVersionInfo {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/configuration
-func (e MLE5RangeShapeExecutionStreamOperationPool) Configuration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("configuration"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) Configuration() IMLModelConfiguration {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/debugDescription
-func (e MLE5RangeShapeExecutionStreamOperationPool) DebugDescription() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/defaultShapePool
-func (e MLE5RangeShapeExecutionStreamOperationPool) DefaultShapePool() foundation.INSSet {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("defaultShapePool"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) DefaultShapePool() foundation.INSSet {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultShapePool"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/description
-func (e MLE5RangeShapeExecutionStreamOperationPool) Description() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/hash
-func (e MLE5RangeShapeExecutionStreamOperationPool) Hash() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/milDefaultShapeFunctionName
-func (e MLE5RangeShapeExecutionStreamOperationPool) MilDefaultShapeFunctionName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("milDefaultShapeFunctionName"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) MilDefaultShapeFunctionName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("milDefaultShapeFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/milFunctionName
-func (e MLE5RangeShapeExecutionStreamOperationPool) MilFunctionName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("milFunctionName"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) MilFunctionName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("milFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/modelDescription
-func (e MLE5RangeShapeExecutionStreamOperationPool) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelDescription"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) ModelDescription() IMLModelDescription {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/modelSignpostId
-func (e MLE5RangeShapeExecutionStreamOperationPool) ModelSignpostId() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("modelSignpostId"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) ModelSignpostId() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/programLibrary
-func (e MLE5RangeShapeExecutionStreamOperationPool) ProgramLibrary() IMLE5ProgramLibrary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("programLibrary"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) ProgramLibrary() IMLE5ProgramLibrary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/serialQueue
-func (e MLE5RangeShapeExecutionStreamOperationPool) SerialQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("serialQueue"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) SerialQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("serialQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/shapeHashToPoolMap
-func (e MLE5RangeShapeExecutionStreamOperationPool) ShapeHashToPoolMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("shapeHashToPoolMap"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) ShapeHashToPoolMap() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeHashToPoolMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5RangeShapeExecutionStreamOperationPool/superclass
-func (e MLE5RangeShapeExecutionStreamOperationPool) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
+func (m MLE5RangeShapeExecutionStreamOperationPool) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

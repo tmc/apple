@@ -180,7 +180,7 @@ type IAVSampleCursor interface {
 	// The sample range in the storage container to load together with the current sample as a chunk.
 	CurrentChunkStorageRange() AVSampleCursorStorageRange
 	// The URL of the storage container of the current sample and other samples to load in the same operation as a chunk.
-	CurrentChunkStorageURL() foundation.INSURL
+	CurrentChunkStorageURL() foundation.NSURL
 	// The dependency information that describes relationships between a media sample and other media samples in the same sample sequence.
 	CurrentSampleDependencyInfo() AVSampleCursorDependencyInfo
 	// The decode duration of the sample at the cursor’s current position.
@@ -451,7 +451,7 @@ func (s AVSampleCursor) CurrentChunkStorageRange() AVSampleCursorStorageRange {
 // of the sample cursor’s track’s asset, if it has one.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/currentChunkStorageURL
-func (s AVSampleCursor) CurrentChunkStorageURL() foundation.INSURL {
+func (s AVSampleCursor) CurrentChunkStorageURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("currentChunkStorageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

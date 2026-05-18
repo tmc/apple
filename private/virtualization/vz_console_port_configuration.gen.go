@@ -88,14 +88,14 @@ type IVZConsolePortConfiguration interface {
 }
 
 // Init initializes the instance.
-func (c VZConsolePortConfiguration) Init() VZConsolePortConfiguration {
-	rv := objc.Send[VZConsolePortConfiguration](c.ID, objc.Sel("init"))
+func (v VZConsolePortConfiguration) Init() VZConsolePortConfiguration {
+	rv := objc.Send[VZConsolePortConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c VZConsolePortConfiguration) Autorelease() VZConsolePortConfiguration {
-	rv := objc.Send[VZConsolePortConfiguration](c.ID, objc.Sel("autorelease"))
+func (v VZConsolePortConfiguration) Autorelease() VZConsolePortConfiguration {
+	rv := objc.Send[VZConsolePortConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -107,31 +107,31 @@ func NewVZConsolePortConfiguration() VZConsolePortConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/_init
-func (c VZConsolePortConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("_init"))
+func (v VZConsolePortConfiguration) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/debugDescription
-func (c VZConsolePortConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+func (v VZConsolePortConfiguration) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/description
-func (c VZConsolePortConfiguration) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+func (v VZConsolePortConfiguration) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/hash
-func (c VZConsolePortConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+func (v VZConsolePortConfiguration) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/superclass
-func (c VZConsolePortConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
+func (v VZConsolePortConfiguration) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -129,8 +130,8 @@ type ICAGradientLayer interface {
 	SetType(value CAGradientLayerType)
 
 	// The mathematical constant pi (π), approximately equal to 3.14159.
-	Pi() objectivec.IObject
-	SetPi(value objectivec.IObject)
+	Pi() unsafe.Pointer
+	SetPi(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -280,10 +281,10 @@ func (g CAGradientLayer) SetType(value CAGradientLayerType) {
 // The mathematical constant pi (π), approximately equal to 3.14159.
 //
 // See: https://developer.apple.com/documentation/Swift/FloatingPoint/pi
-func (g CAGradientLayer) Pi() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("pi"))
-	return objectivec.Object{ID: rv}
+func (g CAGradientLayer) Pi() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("pi"))
+	return rv
 }
-func (g CAGradientLayer) SetPi(value objectivec.IObject) {
+func (g CAGradientLayer) SetPi(value unsafe.Pointer) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPi:"), value)
 }

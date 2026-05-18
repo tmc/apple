@@ -99,14 +99,14 @@ type IAVVCConfigureAlertBehaviorSettings interface {
 }
 
 // Init initializes the instance.
-func (v AVVCConfigureAlertBehaviorSettings) Init() AVVCConfigureAlertBehaviorSettings {
-	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](v.ID, objc.Sel("init"))
+func (a AVVCConfigureAlertBehaviorSettings) Init() AVVCConfigureAlertBehaviorSettings {
+	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVCConfigureAlertBehaviorSettings) Autorelease() AVVCConfigureAlertBehaviorSettings {
-	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](v.ID, objc.Sel("autorelease"))
+func (a AVVCConfigureAlertBehaviorSettings) Autorelease() AVVCConfigureAlertBehaviorSettings {
+	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -125,43 +125,43 @@ func NewVCConfigureAlertBehaviorSettingsWithStreamID(id uint64) AVVCConfigureAle
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/initWithStreamID:
-func (v AVVCConfigureAlertBehaviorSettings) InitWithStreamID(id uint64) AVVCConfigureAlertBehaviorSettings {
-	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](v.ID, objc.Sel("initWithStreamID:"), id)
+func (a AVVCConfigureAlertBehaviorSettings) InitWithStreamID(id uint64) AVVCConfigureAlertBehaviorSettings {
+	rv := objc.Send[AVVCConfigureAlertBehaviorSettings](a.ID, objc.Sel("initWithStreamID:"), id)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/startAlert
-func (v AVVCConfigureAlertBehaviorSettings) StartAlert() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("startAlert"))
+func (a AVVCConfigureAlertBehaviorSettings) StartAlert() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("startAlert"))
 	return rv
 }
-func (v AVVCConfigureAlertBehaviorSettings) SetStartAlert(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStartAlert:"), value)
+func (a AVVCConfigureAlertBehaviorSettings) SetStartAlert(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStartAlert:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/stopAlert
-func (v AVVCConfigureAlertBehaviorSettings) StopAlert() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("stopAlert"))
+func (a AVVCConfigureAlertBehaviorSettings) StopAlert() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("stopAlert"))
 	return rv
 }
-func (v AVVCConfigureAlertBehaviorSettings) SetStopAlert(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStopAlert:"), value)
+func (a AVVCConfigureAlertBehaviorSettings) SetStopAlert(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStopAlert:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/stopOnErrorAlert
-func (v AVVCConfigureAlertBehaviorSettings) StopOnErrorAlert() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("stopOnErrorAlert"))
+func (a AVVCConfigureAlertBehaviorSettings) StopOnErrorAlert() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("stopOnErrorAlert"))
 	return rv
 }
-func (v AVVCConfigureAlertBehaviorSettings) SetStopOnErrorAlert(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStopOnErrorAlert:"), value)
+func (a AVVCConfigureAlertBehaviorSettings) SetStopOnErrorAlert(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStopOnErrorAlert:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCConfigureAlertBehaviorSettings/streamID
-func (v AVVCConfigureAlertBehaviorSettings) StreamID() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("streamID"))
+func (a AVVCConfigureAlertBehaviorSettings) StreamID() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("streamID"))
 	return rv
 }
-func (v AVVCConfigureAlertBehaviorSettings) SetStreamID(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setStreamID:"), value)
+func (a AVVCConfigureAlertBehaviorSettings) SetStreamID(value uint64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setStreamID:"), value)
 }

@@ -75,14 +75,14 @@ type IVZMacOSInstaller interface {
 }
 
 // Init initializes the instance.
-func (m VZMacOSInstaller) Init() VZMacOSInstaller {
-	rv := objc.Send[VZMacOSInstaller](m.ID, objc.Sel("init"))
+func (v VZMacOSInstaller) Init() VZMacOSInstaller {
+	rv := objc.Send[VZMacOSInstaller](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacOSInstaller) Autorelease() VZMacOSInstaller {
-	rv := objc.Send[VZMacOSInstaller](m.ID, objc.Sel("autorelease"))
+func (v VZMacOSInstaller) Autorelease() VZMacOSInstaller {
+	rv := objc.Send[VZMacOSInstaller](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -94,21 +94,21 @@ func NewVZMacOSInstaller() VZMacOSInstaller {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/_disableMobileDeviceUpdate
-func (m VZMacOSInstaller) _disableMobileDeviceUpdate() {
-	objc.Send[objc.ID](m.ID, objc.Sel("_disableMobileDeviceUpdate"))
+func (v VZMacOSInstaller) _disableMobileDeviceUpdate() {
+	objc.Send[objc.ID](v.ID, objc.Sel("_disableMobileDeviceUpdate"))
 }
 
 // DisableMobileDeviceUpdate is an exported wrapper for the private method _disableMobileDeviceUpdate.
-func (m VZMacOSInstaller) DisableMobileDeviceUpdate() error {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_disableMobileDeviceUpdate")) {
+func (v VZMacOSInstaller) DisableMobileDeviceUpdate() error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_disableMobileDeviceUpdate")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_disableMobileDeviceUpdate"}
 		return err
 	}
-	m._disableMobileDeviceUpdate()
+	v._disableMobileDeviceUpdate()
 	return nil
 }
 
 // CanDisableMobileDeviceUpdate reports whether the receiver responds to the private selector _disableMobileDeviceUpdate.
-func (m VZMacOSInstaller) CanDisableMobileDeviceUpdate() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_disableMobileDeviceUpdate"))
+func (v VZMacOSInstaller) CanDisableMobileDeviceUpdate() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_disableMobileDeviceUpdate"))
 }

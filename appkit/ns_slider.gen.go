@@ -157,7 +157,6 @@ func NSSliderFromID(id objc.ID) NSSlider {
 // See: https://developer.apple.com/documentation/AppKit/NSSlider
 type INSSlider interface {
 	INSControl
-	NSAccessibilitySlider
 
 	// Topic: Managing the slider’s appearance
 

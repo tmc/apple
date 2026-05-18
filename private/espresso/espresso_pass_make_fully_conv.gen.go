@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_make_fully_conv] class.
+// The class instance for the [EspressoPassMakeFullyConv] class.
 var (
-	_EspressoPass_make_fully_convClass     EspressoPass_make_fully_convClass
-	_EspressoPass_make_fully_convClassOnce sync.Once
+	_EspressoPassMakeFullyConvClass     EspressoPassMakeFullyConvClass
+	_EspressoPassMakeFullyConvClassOnce sync.Once
 )
 
-func getEspressoPass_make_fully_convClass() EspressoPass_make_fully_convClass {
-	_EspressoPass_make_fully_convClassOnce.Do(func() {
-		_EspressoPass_make_fully_convClass = EspressoPass_make_fully_convClass{class: objc.GetClass("EspressoPass_make_fully_conv")}
+func getEspressoPassMakeFullyConvClass() EspressoPassMakeFullyConvClass {
+	_EspressoPassMakeFullyConvClassOnce.Do(func() {
+		_EspressoPassMakeFullyConvClass = EspressoPassMakeFullyConvClass{class: objc.GetClass("EspressoPass_make_fully_conv")}
 	})
-	return _EspressoPass_make_fully_convClass
+	return _EspressoPassMakeFullyConvClass
 }
 
-// GetEspressoPass_make_fully_convClass returns the class object for EspressoPass_make_fully_conv.
-func GetEspressoPass_make_fully_convClass() EspressoPass_make_fully_convClass {
-	return getEspressoPass_make_fully_convClass()
+// GetEspressoPassMakeFullyConvClass returns the class object for EspressoPass_make_fully_conv.
+func GetEspressoPassMakeFullyConvClass() EspressoPassMakeFullyConvClass {
+	return getEspressoPassMakeFullyConvClass()
 }
 
-type EspressoPass_make_fully_convClass struct {
+type EspressoPassMakeFullyConvClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_make_fully_convClass) Class() objc.Class {
+func (ec EspressoPassMakeFullyConvClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_make_fully_convClass) Alloc() EspressoPass_make_fully_conv {
-	rv := objc.Send[EspressoPass_make_fully_conv](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassMakeFullyConvClass) Alloc() EspressoPassMakeFullyConv {
+	rv := objc.Send[EspressoPassMakeFullyConv](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_make_fully_conv
-type EspressoPass_make_fully_conv struct {
+type EspressoPassMakeFullyConv struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_make_fully_convFromID constructs a [EspressoPass_make_fully_conv] from an objc.ID.
-func EspressoPass_make_fully_convFromID(id objc.ID) EspressoPass_make_fully_conv {
-	return EspressoPass_make_fully_conv{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassMakeFullyConvFromID constructs a [EspressoPassMakeFullyConv] from an objc.ID.
+func EspressoPassMakeFullyConvFromID(id objc.ID) EspressoPassMakeFullyConv {
+	return EspressoPassMakeFullyConv{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_make_fully_conv implements IEspressoPass_make_fully_conv.
-var _ IEspressoPass_make_fully_conv = EspressoPass_make_fully_conv{}
+// EspressoPass_make_fully_convFromID is an alias for [EspressoPassMakeFullyConvFromID] for cross-framework compatibility.
+func EspressoPass_make_fully_convFromID(id objc.ID) EspressoPassMakeFullyConv {
+	return EspressoPassMakeFullyConvFromID(id)
+}
 
-// An interface definition for the [EspressoPass_make_fully_conv] class.
+// Ensure EspressoPassMakeFullyConv implements IEspressoPassMakeFullyConv.
+var _ IEspressoPassMakeFullyConv = EspressoPassMakeFullyConv{}
+
+// An interface definition for the [EspressoPassMakeFullyConv] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_make_fully_conv
-type IEspressoPass_make_fully_conv interface {
+type IEspressoPassMakeFullyConv interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_make_fully_conv) Init() EspressoPass_make_fully_conv {
-	rv := objc.Send[EspressoPass_make_fully_conv](e.ID, objc.Sel("init"))
+func (e EspressoPassMakeFullyConv) Init() EspressoPassMakeFullyConv {
+	rv := objc.Send[EspressoPassMakeFullyConv](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_make_fully_conv) Autorelease() EspressoPass_make_fully_conv {
-	rv := objc.Send[EspressoPass_make_fully_conv](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassMakeFullyConv) Autorelease() EspressoPassMakeFullyConv {
+	rv := objc.Send[EspressoPassMakeFullyConv](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_make_fully_conv creates a new EspressoPass_make_fully_conv instance.
-func NewEspressoPass_make_fully_conv() EspressoPass_make_fully_conv {
-	class := getEspressoPass_make_fully_convClass()
-	rv := objc.Send[EspressoPass_make_fully_conv](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassMakeFullyConv creates a new EspressoPassMakeFullyConv instance.
+func NewEspressoPassMakeFullyConv() EspressoPassMakeFullyConv {
+	class := getEspressoPassMakeFullyConvClass()
+	rv := objc.Send[EspressoPassMakeFullyConv](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

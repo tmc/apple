@@ -75,14 +75,14 @@ type IVZSocketDevice interface {
 }
 
 // Init initializes the instance.
-func (s VZSocketDevice) Init() VZSocketDevice {
-	rv := objc.Send[VZSocketDevice](s.ID, objc.Sel("init"))
+func (v VZSocketDevice) Init() VZSocketDevice {
+	rv := objc.Send[VZSocketDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s VZSocketDevice) Autorelease() VZSocketDevice {
-	rv := objc.Send[VZSocketDevice](s.ID, objc.Sel("autorelease"))
+func (v VZSocketDevice) Autorelease() VZSocketDevice {
+	rv := objc.Send[VZSocketDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -94,7 +94,7 @@ func NewVZSocketDevice() VZSocketDevice {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSocketDevice/_init
-func (s VZSocketDevice) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("_init"))
+func (v VZSocketDevice) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }

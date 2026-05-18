@@ -82,8 +82,8 @@ type ICPXFocusPolicy interface {
 
 	// Topic: Methods
 
-	BringNextApplicationToFrontInternal(internal *CPSProcessRecRef)
-	BringNextProcessToFront(front *CPSProcessRecRef)
+	BringNextApplicationToFrontInternal(internal CPSProcessRec)
+	BringNextProcessToFront(front CPSProcessRec)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -110,12 +110,12 @@ func NewCPXFocusPolicy() CPXFocusPolicy {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy/bringNextApplicationToFrontInternal:
-func (c CPXFocusPolicy) BringNextApplicationToFrontInternal(internal *CPSProcessRecRef) {
+func (c CPXFocusPolicy) BringNextApplicationToFrontInternal(internal CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("bringNextApplicationToFrontInternal:"), internal)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/_CPXFocusPolicy/bringNextProcessToFront:
-func (c CPXFocusPolicy) BringNextProcessToFront(front *CPSProcessRecRef) {
+func (c CPXFocusPolicy) BringNextProcessToFront(front CPSProcessRec) {
 	objc.Send[objc.ID](c.ID, objc.Sel("bringNextProcessToFront:"), front)
 }
 

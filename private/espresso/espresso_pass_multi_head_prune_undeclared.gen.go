@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_multi_head_prune_undeclared] class.
+// The class instance for the [EspressoPassMultiHeadPruneUndeclared] class.
 var (
-	_EspressoPass_multi_head_prune_undeclaredClass     EspressoPass_multi_head_prune_undeclaredClass
-	_EspressoPass_multi_head_prune_undeclaredClassOnce sync.Once
+	_EspressoPassMultiHeadPruneUndeclaredClass     EspressoPassMultiHeadPruneUndeclaredClass
+	_EspressoPassMultiHeadPruneUndeclaredClassOnce sync.Once
 )
 
-func getEspressoPass_multi_head_prune_undeclaredClass() EspressoPass_multi_head_prune_undeclaredClass {
-	_EspressoPass_multi_head_prune_undeclaredClassOnce.Do(func() {
-		_EspressoPass_multi_head_prune_undeclaredClass = EspressoPass_multi_head_prune_undeclaredClass{class: objc.GetClass("EspressoPass_multi_head_prune_undeclared")}
+func getEspressoPassMultiHeadPruneUndeclaredClass() EspressoPassMultiHeadPruneUndeclaredClass {
+	_EspressoPassMultiHeadPruneUndeclaredClassOnce.Do(func() {
+		_EspressoPassMultiHeadPruneUndeclaredClass = EspressoPassMultiHeadPruneUndeclaredClass{class: objc.GetClass("EspressoPass_multi_head_prune_undeclared")}
 	})
-	return _EspressoPass_multi_head_prune_undeclaredClass
+	return _EspressoPassMultiHeadPruneUndeclaredClass
 }
 
-// GetEspressoPass_multi_head_prune_undeclaredClass returns the class object for EspressoPass_multi_head_prune_undeclared.
-func GetEspressoPass_multi_head_prune_undeclaredClass() EspressoPass_multi_head_prune_undeclaredClass {
-	return getEspressoPass_multi_head_prune_undeclaredClass()
+// GetEspressoPassMultiHeadPruneUndeclaredClass returns the class object for EspressoPass_multi_head_prune_undeclared.
+func GetEspressoPassMultiHeadPruneUndeclaredClass() EspressoPassMultiHeadPruneUndeclaredClass {
+	return getEspressoPassMultiHeadPruneUndeclaredClass()
 }
 
-type EspressoPass_multi_head_prune_undeclaredClass struct {
+type EspressoPassMultiHeadPruneUndeclaredClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_multi_head_prune_undeclaredClass) Class() objc.Class {
+func (ec EspressoPassMultiHeadPruneUndeclaredClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_multi_head_prune_undeclaredClass) Alloc() EspressoPass_multi_head_prune_undeclared {
-	rv := objc.Send[EspressoPass_multi_head_prune_undeclared](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassMultiHeadPruneUndeclaredClass) Alloc() EspressoPassMultiHeadPruneUndeclared {
+	rv := objc.Send[EspressoPassMultiHeadPruneUndeclared](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_prune_undeclared
-type EspressoPass_multi_head_prune_undeclared struct {
+type EspressoPassMultiHeadPruneUndeclared struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_multi_head_prune_undeclaredFromID constructs a [EspressoPass_multi_head_prune_undeclared] from an objc.ID.
-func EspressoPass_multi_head_prune_undeclaredFromID(id objc.ID) EspressoPass_multi_head_prune_undeclared {
-	return EspressoPass_multi_head_prune_undeclared{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassMultiHeadPruneUndeclaredFromID constructs a [EspressoPassMultiHeadPruneUndeclared] from an objc.ID.
+func EspressoPassMultiHeadPruneUndeclaredFromID(id objc.ID) EspressoPassMultiHeadPruneUndeclared {
+	return EspressoPassMultiHeadPruneUndeclared{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_multi_head_prune_undeclared implements IEspressoPass_multi_head_prune_undeclared.
-var _ IEspressoPass_multi_head_prune_undeclared = EspressoPass_multi_head_prune_undeclared{}
+// EspressoPass_multi_head_prune_undeclaredFromID is an alias for [EspressoPassMultiHeadPruneUndeclaredFromID] for cross-framework compatibility.
+func EspressoPass_multi_head_prune_undeclaredFromID(id objc.ID) EspressoPassMultiHeadPruneUndeclared {
+	return EspressoPassMultiHeadPruneUndeclaredFromID(id)
+}
 
-// An interface definition for the [EspressoPass_multi_head_prune_undeclared] class.
+// Ensure EspressoPassMultiHeadPruneUndeclared implements IEspressoPassMultiHeadPruneUndeclared.
+var _ IEspressoPassMultiHeadPruneUndeclared = EspressoPassMultiHeadPruneUndeclared{}
+
+// An interface definition for the [EspressoPassMultiHeadPruneUndeclared] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_prune_undeclared
-type IEspressoPass_multi_head_prune_undeclared interface {
+type IEspressoPassMultiHeadPruneUndeclared interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_multi_head_prune_undeclared) Init() EspressoPass_multi_head_prune_undeclared {
-	rv := objc.Send[EspressoPass_multi_head_prune_undeclared](e.ID, objc.Sel("init"))
+func (e EspressoPassMultiHeadPruneUndeclared) Init() EspressoPassMultiHeadPruneUndeclared {
+	rv := objc.Send[EspressoPassMultiHeadPruneUndeclared](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_multi_head_prune_undeclared) Autorelease() EspressoPass_multi_head_prune_undeclared {
-	rv := objc.Send[EspressoPass_multi_head_prune_undeclared](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassMultiHeadPruneUndeclared) Autorelease() EspressoPassMultiHeadPruneUndeclared {
+	rv := objc.Send[EspressoPassMultiHeadPruneUndeclared](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_multi_head_prune_undeclared creates a new EspressoPass_multi_head_prune_undeclared instance.
-func NewEspressoPass_multi_head_prune_undeclared() EspressoPass_multi_head_prune_undeclared {
-	class := getEspressoPass_multi_head_prune_undeclaredClass()
-	rv := objc.Send[EspressoPass_multi_head_prune_undeclared](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassMultiHeadPruneUndeclared creates a new EspressoPassMultiHeadPruneUndeclared instance.
+func NewEspressoPassMultiHeadPruneUndeclared() EspressoPassMultiHeadPruneUndeclared {
+	class := getEspressoPassMultiHeadPruneUndeclaredClass()
+	rv := objc.Send[EspressoPassMultiHeadPruneUndeclared](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

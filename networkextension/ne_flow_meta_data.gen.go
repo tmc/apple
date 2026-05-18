@@ -95,11 +95,11 @@ type INEFlowMetaData interface {
 	// Topic: Getting source app information
 
 	// A data instance that contains a unique hash value for the source application.
-	SourceAppUniqueIdentifier() foundation.INSData
+	SourceAppUniqueIdentifier() foundation.NSData
 	// A string that contains the signing identifier of the source application.
 	SourceAppSigningIdentifier() string
 	// The audit token of the source application of the flow.
-	SourceAppAuditToken() foundation.INSData
+	SourceAppAuditToken() foundation.NSData
 
 	// Topic: Getting flow information
 
@@ -143,7 +143,7 @@ func (f NEFlowMetaData) EncodeWithCoder(coder foundation.INSCoder) {
 // The property contains the Code Directory Hash for the application.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFlowMetaData/sourceAppUniqueIdentifier
-func (f NEFlowMetaData) SourceAppUniqueIdentifier() foundation.INSData {
+func (f NEFlowMetaData) SourceAppUniqueIdentifier() foundation.NSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sourceAppUniqueIdentifier"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -164,7 +164,7 @@ func (f NEFlowMetaData) SourceAppSigningIdentifier() string {
 // The audit token of the source application of the flow.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFlowMetaData/sourceAppAuditToken
-func (f NEFlowMetaData) SourceAppAuditToken() foundation.INSData {
+func (f NEFlowMetaData) SourceAppAuditToken() foundation.NSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sourceAppAuditToken"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

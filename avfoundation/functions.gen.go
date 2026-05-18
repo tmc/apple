@@ -184,48 +184,6 @@ func AVCaptureTimecodeAdvancedByFrames(timecode AVCaptureTimecode, framesToAdd i
 	return result
 }
 
-var _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp func(timecode AVCaptureTimecode, presentationTimeStamp coremedia.CMTime) uintptr
-var _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStampErr error
-
-func tryAVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode AVCaptureTimecode, presentationTimeStamp coremedia.CMTime) (uintptr, error) {
-	if _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp == nil {
-		return 0, symbolCallError("AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp", "26.0", _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStampErr)
-	}
-	return _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode, presentationTimeStamp), nil
-}
-
-// AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp creates a sample buffer containing Timecode Media Description metadata for integration with a video track.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode/createMetadataSampleBuffer(from:associatedWithPresentationTimeStamp:)
-func AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode AVCaptureTimecode, presentationTimeStamp coremedia.CMTime) uintptr {
-	result, callErr := tryAVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode, presentationTimeStamp)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _aVCaptureTimecodeCreateMetadataSampleBufferForDuration func(timecode AVCaptureTimecode, duration coremedia.CMTime) uintptr
-var _aVCaptureTimecodeCreateMetadataSampleBufferForDurationErr error
-
-func tryAVCaptureTimecodeCreateMetadataSampleBufferForDuration(timecode AVCaptureTimecode, duration coremedia.CMTime) (uintptr, error) {
-	if _aVCaptureTimecodeCreateMetadataSampleBufferForDuration == nil {
-		return 0, symbolCallError("AVCaptureTimecodeCreateMetadataSampleBufferForDuration", "26.0", _aVCaptureTimecodeCreateMetadataSampleBufferForDurationErr)
-	}
-	return _aVCaptureTimecodeCreateMetadataSampleBufferForDuration(timecode, duration), nil
-}
-
-// AVCaptureTimecodeCreateMetadataSampleBufferForDuration creates a sample buffer containing Timecode Media Description metadata for a specified duration.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode/createMetadataSampleBuffer(from:forDuration:)
-func AVCaptureTimecodeCreateMetadataSampleBufferForDuration(timecode AVCaptureTimecode, duration coremedia.CMTime) uintptr {
-	result, callErr := tryAVCaptureTimecodeCreateMetadataSampleBufferForDuration(timecode, duration)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _aVMakeRectWithAspectRatioInsideRect func(aspectRatio corefoundation.CGSize, boundingRect corefoundation.CGRect) corefoundation.CGRect
 var _aVMakeRectWithAspectRatioInsideRectErr error
 
@@ -300,8 +258,6 @@ func init() {
 	registerFunc(&_aVCaptionSizeMake, &_aVCaptionSizeMakeErr, frameworkHandle, "AVCaptionSizeMake", "12.0")
 	registerFunc(&_aVCaptureReactionSystemImageNameForType, &_aVCaptureReactionSystemImageNameForTypeErr, frameworkHandle, "AVCaptureReactionSystemImageNameForType", "14.0")
 	registerFunc(&_aVCaptureTimecodeAdvancedByFrames, &_aVCaptureTimecodeAdvancedByFramesErr, frameworkHandle, "AVCaptureTimecodeAdvancedByFrames", "26.0")
-	registerFunc(&_aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp, &_aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStampErr, frameworkHandle, "AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp", "26.0")
-	registerFunc(&_aVCaptureTimecodeCreateMetadataSampleBufferForDuration, &_aVCaptureTimecodeCreateMetadataSampleBufferForDurationErr, frameworkHandle, "AVCaptureTimecodeCreateMetadataSampleBufferForDuration", "26.0")
 	registerFunc(&_aVMakeRectWithAspectRatioInsideRect, &_aVMakeRectWithAspectRatioInsideRectErr, frameworkHandle, "AVMakeRectWithAspectRatioInsideRect", "10.7")
 	registerFunc(&_aVSampleBufferAttachContentKey, &_aVSampleBufferAttachContentKeyErr, frameworkHandle, "AVSampleBufferAttachContentKey", "10.10")
 	registerFunc(&_cMTagCollectionCreateWithVideoOutputPreset, &_cMTagCollectionCreateWithVideoOutputPresetErr, frameworkHandle, "CMTagCollectionCreateWithVideoOutputPreset", "14.2")

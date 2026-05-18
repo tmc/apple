@@ -18,20 +18,12 @@ type CIMorphologyMaximum interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/inputImage
 	InputImage() ICIImage
-
-	// The radius of the circular morphological structuring element.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/radius
-	Radius() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/inputImage
 	SetInputImage(value ICIImage)
 
 	// The radius of the circular morphological structuring element.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -52,22 +44,6 @@ func CIMorphologyMaximumObjectFromID(id objc.ID) CIMorphologyMaximumObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/inputImage
-func (o CIMorphologyMaximumObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The radius of the circular morphological structuring element.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/radius
-func (o CIMorphologyMaximumObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIMorphologyMaximumObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/inputImage
+func (o CIMorphologyMaximumObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIMorphologyMaximumObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIMorphologyMaximumObject) SetInputImage(value ICIImage) {
 // The radius of the circular morphological structuring element.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/radius
+func (o CIMorphologyMaximumObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIMorphologyMaximumObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

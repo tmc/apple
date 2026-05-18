@@ -83,7 +83,7 @@ var _sMCopyAllJobDictionariesErr error
 
 func trySMCopyAllJobDictionaries(domain corefoundation.CFStringRef) (corefoundation.CFArrayRef, error) {
 	if _sMCopyAllJobDictionaries == nil {
-		return 0, symbolCallError("SMCopyAllJobDictionaries", "10.6", _sMCopyAllJobDictionariesErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("SMCopyAllJobDictionaries", "10.6", _sMCopyAllJobDictionariesErr)
 	}
 	return _sMCopyAllJobDictionaries(domain), nil
 }
@@ -106,7 +106,7 @@ var _sMJobCopyDictionaryErr error
 
 func trySMJobCopyDictionary(domain corefoundation.CFStringRef, jobLabel corefoundation.CFStringRef) (corefoundation.CFDictionaryRef, error) {
 	if _sMJobCopyDictionary == nil {
-		return 0, symbolCallError("SMJobCopyDictionary", "10.6", _sMJobCopyDictionaryErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("SMJobCopyDictionary", "10.6", _sMJobCopyDictionaryErr)
 	}
 	return _sMJobCopyDictionary(domain, jobLabel), nil
 }

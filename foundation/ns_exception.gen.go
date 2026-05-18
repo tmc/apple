@@ -110,8 +110,6 @@ func NSExceptionFromID(id objc.ID) NSException {
 // See: https://developer.apple.com/documentation/Foundation/NSException
 type INSException interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating and Raising an NSException Object

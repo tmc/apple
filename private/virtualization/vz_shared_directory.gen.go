@@ -75,14 +75,14 @@ type IVZSharedDirectory interface {
 }
 
 // Init initializes the instance.
-func (s VZSharedDirectory) Init() VZSharedDirectory {
-	rv := objc.Send[VZSharedDirectory](s.ID, objc.Sel("init"))
+func (v VZSharedDirectory) Init() VZSharedDirectory {
+	rv := objc.Send[VZSharedDirectory](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s VZSharedDirectory) Autorelease() VZSharedDirectory {
-	rv := objc.Send[VZSharedDirectory](s.ID, objc.Sel("autorelease"))
+func (v VZSharedDirectory) Autorelease() VZSharedDirectory {
+	rv := objc.Send[VZSharedDirectory](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -94,7 +94,7 @@ func NewVZSharedDirectory() VZSharedDirectory {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/readOnly
-func (s VZSharedDirectory) ReadOnly() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("readOnly"))
+func (v VZSharedDirectory) ReadOnly() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }

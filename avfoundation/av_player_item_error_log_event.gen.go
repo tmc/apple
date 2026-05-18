@@ -102,7 +102,7 @@ type IAVPlayerItemErrorLogEvent interface {
 	// Topic: Getting information about the event
 
 	// The date and time when the error occurred.
-	Date() foundation.INSDate
+	Date() foundation.NSDate
 	// The URI of the playback item that had an error.
 	URI() string
 	// The IP address of the server that was the source of the error.
@@ -147,7 +147,7 @@ func NewAVPlayerItemErrorLogEvent() AVPlayerItemErrorLogEvent {
 // The value of this property may be `nil` if the date is unknown.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLogEvent/date
-func (p AVPlayerItemErrorLogEvent) Date() foundation.INSDate {
+func (p AVPlayerItemErrorLogEvent) Date() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("date"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

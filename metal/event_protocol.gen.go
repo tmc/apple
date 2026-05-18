@@ -23,10 +23,6 @@ type MTLEvent interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLEvent/label
 	Label() string
-
-	// A string that identifies the event.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLEvent/label
 	SetLabel(value string)
 }
 
@@ -57,14 +53,6 @@ func (o MTLEventObject) Device() MTLDevice {
 
 // A string that identifies the event.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLEvent/label
-func (o MTLEventObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// A string that identifies the event.
-//
 // # Discussion
 //
 // Object and command labels are useful identifiers at runtime or when
@@ -74,6 +62,11 @@ func (o MTLEventObject) Label() string {
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLEventObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLEventObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

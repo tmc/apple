@@ -19,70 +19,42 @@ type CIToneCurve interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/inputImage
 	InputImage() ICIImage
-
-	// A vector containing the position of the first point of the tone curve.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point0
-	Point0() corefoundation.CGPoint
-
-	// A vector containing the position of the second point of the tone curve.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point1
-	Point1() corefoundation.CGPoint
-
-	// A vector containing the position of the third point of the tone curve.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point2
-	Point2() corefoundation.CGPoint
-
-	// A vector containing the position of the fourth point of the tone curve.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point3
-	Point3() corefoundation.CGPoint
-
-	// A vector containing the position of the fifth point of the tone curve.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point4
-	Point4() corefoundation.CGPoint
-
-	// If true, then the color effect will be extrapolated if the input image contains RGB component values outside the range 0.0 to 1.0.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/extrapolate
-	Extrapolate() bool
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/inputImage
 	SetInputImage(value ICIImage)
 
 	// A vector containing the position of the first point of the tone curve.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point0
+	Point0() corefoundation.CGPoint
 	SetPoint0(value corefoundation.CGPoint)
 
 	// A vector containing the position of the second point of the tone curve.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point1
+	Point1() corefoundation.CGPoint
 	SetPoint1(value corefoundation.CGPoint)
 
 	// A vector containing the position of the third point of the tone curve.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point2
+	Point2() corefoundation.CGPoint
 	SetPoint2(value corefoundation.CGPoint)
 
 	// A vector containing the position of the fourth point of the tone curve.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point3
+	Point3() corefoundation.CGPoint
 	SetPoint3(value corefoundation.CGPoint)
 
 	// A vector containing the position of the fifth point of the tone curve.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point4
+	Point4() corefoundation.CGPoint
 	SetPoint4(value corefoundation.CGPoint)
 
 	// If true, then the color effect will be extrapolated if the input image contains RGB component values outside the range 0.0 to 1.0.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/extrapolate
+	Extrapolate() bool
 	SetExtrapolate(value bool)
 }
 
@@ -103,63 +75,6 @@ func CIToneCurveObjectFromID(id objc.ID) CIToneCurveObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/inputImage
-func (o CIToneCurveObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// A vector containing the position of the first point of the tone curve.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point0
-func (o CIToneCurveObject) Point0() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
-	return rv
-}
-
-// A vector containing the position of the second point of the tone curve.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point1
-func (o CIToneCurveObject) Point1() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
-	return rv
-}
-
-// A vector containing the position of the third point of the tone curve.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point2
-func (o CIToneCurveObject) Point2() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point2"))
-	return rv
-}
-
-// A vector containing the position of the fourth point of the tone curve.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point3
-func (o CIToneCurveObject) Point3() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point3"))
-	return rv
-}
-
-// A vector containing the position of the fifth point of the tone curve.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point4
-func (o CIToneCurveObject) Point4() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point4"))
-	return rv
-}
-
-// If true, then the color effect will be extrapolated if the input image
-// contains RGB component values outside the range 0.0 to 1.0.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/extrapolate
-func (o CIToneCurveObject) Extrapolate() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -172,6 +87,11 @@ func (o CIToneCurveObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/inputImage
+func (o CIToneCurveObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIToneCurveObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -179,6 +99,11 @@ func (o CIToneCurveObject) SetInputImage(value ICIImage) {
 // A vector containing the position of the first point of the tone curve.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point0
+func (o CIToneCurveObject) Point0() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIToneCurveObject) SetPoint0(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint0:"), value)
 }
@@ -186,6 +111,11 @@ func (o CIToneCurveObject) SetPoint0(value corefoundation.CGPoint) {
 // A vector containing the position of the second point of the tone curve.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point1
+func (o CIToneCurveObject) Point1() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIToneCurveObject) SetPoint1(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint1:"), value)
 }
@@ -193,6 +123,11 @@ func (o CIToneCurveObject) SetPoint1(value corefoundation.CGPoint) {
 // A vector containing the position of the third point of the tone curve.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point2
+func (o CIToneCurveObject) Point2() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point2"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIToneCurveObject) SetPoint2(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint2:"), value)
 }
@@ -200,6 +135,11 @@ func (o CIToneCurveObject) SetPoint2(value corefoundation.CGPoint) {
 // A vector containing the position of the fourth point of the tone curve.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point3
+func (o CIToneCurveObject) Point3() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point3"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIToneCurveObject) SetPoint3(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint3:"), value)
 }
@@ -207,6 +147,11 @@ func (o CIToneCurveObject) SetPoint3(value corefoundation.CGPoint) {
 // A vector containing the position of the fifth point of the tone curve.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point4
+func (o CIToneCurveObject) Point4() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point4"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CIToneCurveObject) SetPoint4(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint4:"), value)
 }
@@ -215,6 +160,11 @@ func (o CIToneCurveObject) SetPoint4(value corefoundation.CGPoint) {
 // contains RGB component values outside the range 0.0 to 1.0.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/extrapolate
+func (o CIToneCurveObject) Extrapolate() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
+	return bool(rv)
+}
+
 func (o CIToneCurveObject) SetExtrapolate(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtrapolate:"), value)
 }

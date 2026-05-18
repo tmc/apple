@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -151,7 +150,7 @@ func NewNLModel() NLModel {
 // model.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModel/init(contentsOf:)
-func NewModelWithContentsOfURLError(url foundation.INSURL) (NLModel, error) {
+func NewModelWithContentsOfURLError(url foundation.NSURL) (NLModel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getNLModelClass().class), objc.Sel("modelWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -167,8 +166,8 @@ func NewModelWithContentsOfURLError(url foundation.INSURL) (NLModel, error) {
 // mlModel: A Core ML model instance that’s the basis for this natural language
 // model.
 //
-// See: https://developer.apple.com/documentation/NaturalLanguage/NLModel/init(mlModel:)
-func NewModelWithMLModelError(mlModel coreml.MLModel) (NLModel, error) {
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLModel/init(mlModel:)-9tpjr
+func NewModelWithMLModelError(mlModel objectivec.IObject) (NLModel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getNLModelClass().class), objc.Sel("modelWithMLModel:error:"), mlModel, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

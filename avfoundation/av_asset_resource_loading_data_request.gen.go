@@ -113,7 +113,7 @@ type IAVAssetResourceLoadingDataRequest interface {
 	// Topic: Providing data to a request
 
 	// Provides data to the loading request.
-	RespondWithData(data foundation.INSData)
+	RespondWithData(data foundation.NSData)
 	// The length, in bytes, of the data requested.
 	RequestedLength() int
 	// The position within the resource of the first byte requested.
@@ -159,7 +159,7 @@ func NewAVAssetResourceLoadingDataRequest() AVAssetResourceLoadingDataRequest {
 // property is updated to match the amount of data provided.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoadingDataRequest/respond(with:)
-func (a AVAssetResourceLoadingDataRequest) RespondWithData(data foundation.INSData) {
+func (a AVAssetResourceLoadingDataRequest) RespondWithData(data foundation.NSData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("respondWithData:"), data)
 }
 

@@ -211,14 +211,14 @@ type IAVVoiceTriggerClient interface {
 }
 
 // Init initializes the instance.
-func (v AVVoiceTriggerClient) Init() AVVoiceTriggerClient {
-	rv := objc.Send[AVVoiceTriggerClient](v.ID, objc.Sel("init"))
+func (a AVVoiceTriggerClient) Init() AVVoiceTriggerClient {
+	rv := objc.Send[AVVoiceTriggerClient](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVoiceTriggerClient) Autorelease() AVVoiceTriggerClient {
-	rv := objc.Send[AVVoiceTriggerClient](v.ID, objc.Sel("autorelease"))
+func (a AVVoiceTriggerClient) Autorelease() AVVoiceTriggerClient {
+	rv := objc.Send[AVVoiceTriggerClient](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -237,248 +237,248 @@ func NewVoiceTriggerClientWithValue(init_ int64) AVVoiceTriggerClient {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/activateSecureSession:
-func (v AVVoiceTriggerClient) ActivateSecureSession(session bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("activateSecureSession:"), session)
+func (a AVVoiceTriggerClient) ActivateSecureSession(session bool) objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("activateSecureSession:"), session)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/callServerCrashedBlock
-func (v AVVoiceTriggerClient) CallServerCrashedBlock() {
-	objc.Send[objc.ID](v.ID, objc.Sel("callServerCrashedBlock"))
+func (a AVVoiceTriggerClient) CallServerCrashedBlock() {
+	objc.Send[objc.ID](a.ID, objc.Sel("callServerCrashedBlock"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/callServerResetBlock
-func (v AVVoiceTriggerClient) CallServerResetBlock() {
-	objc.Send[objc.ID](v.ID, objc.Sel("callServerResetBlock"))
+func (a AVVoiceTriggerClient) CallServerResetBlock() {
+	objc.Send[objc.ID](a.ID, objc.Sel("callServerResetBlock"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableBargeInMode:completionBlock:
-func (v AVVoiceTriggerClient) EnableBargeInModeCompletionBlock(mode bool, block VoidHandler) {
+func (a AVVoiceTriggerClient) EnableBargeInModeCompletionBlock(mode bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("enableBargeInMode:completionBlock:"), mode, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("enableBargeInMode:completionBlock:"), mode, _block1)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableListeningOnPorts:completionBlock:
-func (v AVVoiceTriggerClient) EnableListeningOnPortsCompletionBlock(ports objectivec.IObject, block VoidHandler) {
+func (a AVVoiceTriggerClient) EnableListeningOnPortsCompletionBlock(ports objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("enableListeningOnPorts:completionBlock:"), ports, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("enableListeningOnPorts:completionBlock:"), ports, _block1)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableSpeakerStateListening:
-func (v AVVoiceTriggerClient) EnableSpeakerStateListening(listening bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("enableSpeakerStateListening:"), listening)
+func (a AVVoiceTriggerClient) EnableSpeakerStateListening(listening bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("enableSpeakerStateListening:"), listening)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableSpeakerStateListening:completionBlock:
-func (v AVVoiceTriggerClient) EnableSpeakerStateListeningCompletionBlock(listening bool, block VoidHandler) {
+func (a AVVoiceTriggerClient) EnableSpeakerStateListeningCompletionBlock(listening bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("enableSpeakerStateListening:completionBlock:"), listening, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("enableSpeakerStateListening:completionBlock:"), listening, _block1)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableVoiceTriggerListening:
-func (v AVVoiceTriggerClient) EnableVoiceTriggerListening(listening bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("enableVoiceTriggerListening:"), listening)
+func (a AVVoiceTriggerClient) EnableVoiceTriggerListening(listening bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("enableVoiceTriggerListening:"), listening)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableVoiceTriggerListening:completionBlock:
-func (v AVVoiceTriggerClient) EnableVoiceTriggerListeningCompletionBlock(listening bool, block VoidHandler) {
+func (a AVVoiceTriggerClient) EnableVoiceTriggerListeningCompletionBlock(listening bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("enableVoiceTriggerListening:completionBlock:"), listening, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("enableVoiceTriggerListening:completionBlock:"), listening, _block1)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/getInputChannelInfoCompletion:
-func (v AVVoiceTriggerClient) GetInputChannelInfoCompletion(completion VoidHandler) {
+func (a AVVoiceTriggerClient) GetInputChannelInfoCompletion(completion VoidHandler) {
 	_block0, _ := NewVoidBlock(completion)
-	objc.Send[objc.ID](v.ID, objc.Sel("getInputChannelInfoCompletion:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("getInputChannelInfoCompletion:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/isSiriClient
-func (v AVVoiceTriggerClient) IsSiriClient() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isSiriClient"))
+func (a AVVoiceTriggerClient) IsSiriClient() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isSiriClient"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/listeningEnabledCompletionBlock:
-func (v AVVoiceTriggerClient) ListeningEnabledCompletionBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) ListeningEnabledCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("listeningEnabledCompletionBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("listeningEnabledCompletionBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/portStateActiveCompletionBlock:
-func (v AVVoiceTriggerClient) PortStateActiveCompletionBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) PortStateActiveCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("portStateActiveCompletionBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("portStateActiveCompletionBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/portStateChangedNotification:
-func (v AVVoiceTriggerClient) PortStateChangedNotification(notification objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("portStateChangedNotification:"), notification)
+func (a AVVoiceTriggerClient) PortStateChangedNotification(notification objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("portStateChangedNotification:"), notification)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/recordingAuditTokenList
-func (v AVVoiceTriggerClient) RecordingAuditTokenList() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("recordingAuditTokenList"))
+func (a AVVoiceTriggerClient) RecordingAuditTokenList() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("recordingAuditTokenList"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/recordingPIDList
-func (v AVVoiceTriggerClient) RecordingPIDList() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("recordingPIDList"))
+func (a AVVoiceTriggerClient) RecordingPIDList() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("recordingPIDList"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/secureSessionServerCrash
-func (v AVVoiceTriggerClient) SecureSessionServerCrash() {
-	objc.Send[objc.ID](v.ID, objc.Sel("secureSessionServerCrash"))
+func (a AVVoiceTriggerClient) SecureSessionServerCrash() {
+	objc.Send[objc.ID](a.ID, objc.Sel("secureSessionServerCrash"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/secureSessionServerReset
-func (v AVVoiceTriggerClient) SecureSessionServerReset() {
-	objc.Send[objc.ID](v.ID, objc.Sel("secureSessionServerReset"))
+func (a AVVoiceTriggerClient) SecureSessionServerReset() {
+	objc.Send[objc.ID](a.ID, objc.Sel("secureSessionServerReset"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setAggressiveECMode:completionBlock:
-func (v AVVoiceTriggerClient) SetAggressiveECModeCompletionBlock(eCMode bool, block VoidHandler) {
+func (a AVVoiceTriggerClient) SetAggressiveECModeCompletionBlock(eCMode bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setAggressiveECMode:completionBlock:"), eCMode, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("setAggressiveECMode:completionBlock:"), eCMode, _block1)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setAvvcServerCrashedBlock:
-func (v AVVoiceTriggerClient) SetAvvcServerCrashedBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetAvvcServerCrashedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setAvvcServerCrashedBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setAvvcServerCrashedBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setAvvcServerResetBlock:
-func (v AVVoiceTriggerClient) SetAvvcServerResetBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetAvvcServerResetBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setAvvcServerResetBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setAvvcServerResetBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setListeningProperty:completionBlock:
-func (v AVVoiceTriggerClient) SetListeningPropertyCompletionBlock(property bool, block VoidHandler) {
+func (a AVVoiceTriggerClient) SetListeningPropertyCompletionBlock(property bool, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setListeningProperty:completionBlock:"), property, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("setListeningProperty:completionBlock:"), property, _block1)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setPortStateChangedBlock:
-func (v AVVoiceTriggerClient) SetPortStateChangedBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetPortStateChangedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setPortStateChangedBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setPortStateChangedBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setServerCrashedBlock:
-func (v AVVoiceTriggerClient) SetServerCrashedBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetServerCrashedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setServerCrashedBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setServerCrashedBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setServerResetBlock:
-func (v AVVoiceTriggerClient) SetServerResetBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetServerResetBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setServerResetBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setServerResetBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setSiriClientRecordStateChangedBlock:
-func (v AVVoiceTriggerClient) SetSiriClientRecordStateChangedBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetSiriClientRecordStateChangedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setSiriClientRecordStateChangedBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setSiriClientRecordStateChangedBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setSpeakerMuteStateChangedBlock:
-func (v AVVoiceTriggerClient) SetSpeakerMuteStateChangedBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetSpeakerMuteStateChangedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setSpeakerMuteStateChangedBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setSpeakerMuteStateChangedBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setSpeakerStateChangedBlock:
-func (v AVVoiceTriggerClient) SetSpeakerStateChangedBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetSpeakerStateChangedBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setSpeakerStateChangedBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setSpeakerStateChangedBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setVoiceTriggerBlock:
-func (v AVVoiceTriggerClient) SetVoiceTriggerBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SetVoiceTriggerBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("setVoiceTriggerBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("setVoiceTriggerBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/siriClientRecordStateChangedNotification:recordingCount:
-func (v AVVoiceTriggerClient) SiriClientRecordStateChangedNotificationRecordingCount(notification bool, count uint64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("siriClientRecordStateChangedNotification:recordingCount:"), notification, count)
+func (a AVVoiceTriggerClient) SiriClientRecordStateChangedNotificationRecordingCount(notification bool, count uint64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("siriClientRecordStateChangedNotification:recordingCount:"), notification, count)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/siriClientsRecordingCompletionBlock:
-func (v AVVoiceTriggerClient) SiriClientsRecordingCompletionBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SiriClientsRecordingCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("siriClientsRecordingCompletionBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("siriClientsRecordingCompletionBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerMuteStateChangedNotification:
-func (v AVVoiceTriggerClient) SpeakerMuteStateChangedNotification(notification bool) {
-	objc.Send[objc.ID](v.ID, objc.Sel("speakerMuteStateChangedNotification:"), notification)
+func (a AVVoiceTriggerClient) SpeakerMuteStateChangedNotification(notification bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("speakerMuteStateChangedNotification:"), notification)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateActive
-func (v AVVoiceTriggerClient) SpeakerStateActive() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("speakerStateActive"))
+func (a AVVoiceTriggerClient) SpeakerStateActive() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("speakerStateActive"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateActiveCompletionBlock:
-func (v AVVoiceTriggerClient) SpeakerStateActiveCompletionBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SpeakerStateActiveCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("speakerStateActiveCompletionBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("speakerStateActiveCompletionBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateChangedNotification:
-func (v AVVoiceTriggerClient) SpeakerStateChangedNotification(notification objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("speakerStateChangedNotification:"), notification)
+func (a AVVoiceTriggerClient) SpeakerStateChangedNotification(notification objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("speakerStateChangedNotification:"), notification)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateMuted
-func (v AVVoiceTriggerClient) SpeakerStateMuted() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("speakerStateMuted"))
+func (a AVVoiceTriggerClient) SpeakerStateMuted() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("speakerStateMuted"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateMutedCompletionBlock:
-func (v AVVoiceTriggerClient) SpeakerStateMutedCompletionBlock(block VoidHandler) {
+func (a AVVoiceTriggerClient) SpeakerStateMutedCompletionBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("speakerStateMutedCompletionBlock:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("speakerStateMutedCompletionBlock:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/updateVoiceTriggerConfiguration:
-func (v AVVoiceTriggerClient) UpdateVoiceTriggerConfiguration(configuration objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("updateVoiceTriggerConfiguration:"), configuration)
+func (a AVVoiceTriggerClient) UpdateVoiceTriggerConfiguration(configuration objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("updateVoiceTriggerConfiguration:"), configuration)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/updateVoiceTriggerConfiguration:completionBlock:
-func (v AVVoiceTriggerClient) UpdateVoiceTriggerConfigurationCompletionBlock(configuration objectivec.IObject, block VoidHandler) {
+func (a AVVoiceTriggerClient) UpdateVoiceTriggerConfigurationCompletionBlock(configuration objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
-	objc.Send[objc.ID](v.ID, objc.Sel("updateVoiceTriggerConfiguration:completionBlock:"), configuration, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("updateVoiceTriggerConfiguration:completionBlock:"), configuration, _block1)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/voiceTriggerNotification:
-func (v AVVoiceTriggerClient) VoiceTriggerNotification(notification objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("voiceTriggerNotification:"), notification)
+func (a AVVoiceTriggerClient) VoiceTriggerNotification(notification objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("voiceTriggerNotification:"), notification)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/voiceTriggerPastDataFramesAvailableCompletion:
-func (v AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailableCompletion(completion VoidHandler) {
+func (a AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailableCompletion(completion VoidHandler) {
 	_block0, _ := NewVoidBlock(completion)
-	objc.Send[objc.ID](v.ID, objc.Sel("voiceTriggerPastDataFramesAvailableCompletion:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("voiceTriggerPastDataFramesAvailableCompletion:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/voiceTriggerServerConnection
-func (v AVVoiceTriggerClient) VoiceTriggerServerConnection() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("voiceTriggerServerConnection"))
+func (a AVVoiceTriggerClient) VoiceTriggerServerConnection() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("voiceTriggerServerConnection"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/init:
-func (v AVVoiceTriggerClient) InitWithValue(init_ int64) AVVoiceTriggerClient {
-	rv := objc.Send[AVVoiceTriggerClient](v.ID, objc.Sel("init:"), init_)
+func (a AVVoiceTriggerClient) InitWithValue(init_ int64) AVVoiceTriggerClient {
+	rv := objc.Send[AVVoiceTriggerClient](a.ID, objc.Sel("init:"), init_)
 	return rv
 }
 
@@ -507,25 +507,25 @@ func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) SupportsDuckingOnSpe
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/clientType
-func (v AVVoiceTriggerClient) ClientType() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("clientType"))
+func (a AVVoiceTriggerClient) ClientType() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("clientType"))
 	return rv
 }
-func (v AVVoiceTriggerClient) SetClientType(value int64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setClientType:"), value)
+func (a AVVoiceTriggerClient) SetClientType(value int64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setClientType:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/voiceTriggerPastDataFramesAvailable
-func (v AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailable() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("voiceTriggerPastDataFramesAvailable"))
+func (a AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailable() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("voiceTriggerPastDataFramesAvailable"))
 	return rv
 }
 
 // EnableBargeInModeCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.EnableBargeInModeCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) EnableBargeInModeCompletionBlockSync(ctx context.Context, mode bool) error {
+func (a AVVoiceTriggerClient) EnableBargeInModeCompletionBlockSync(ctx context.Context, mode bool) error {
 	done := make(chan struct{}, 1)
-	v.EnableBargeInModeCompletionBlock(mode, func() {
+	a.EnableBargeInModeCompletionBlock(mode, func() {
 		done <- struct{}{}
 	})
 	select {
@@ -538,9 +538,9 @@ func (v AVVoiceTriggerClient) EnableBargeInModeCompletionBlockSync(ctx context.C
 
 // EnableListeningOnPortsCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.EnableListeningOnPortsCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) EnableListeningOnPortsCompletionBlockSync(ctx context.Context, ports objectivec.IObject) error {
+func (a AVVoiceTriggerClient) EnableListeningOnPortsCompletionBlockSync(ctx context.Context, ports objectivec.IObject) error {
 	done := make(chan struct{}, 1)
-	v.EnableListeningOnPortsCompletionBlock(ports, func() {
+	a.EnableListeningOnPortsCompletionBlock(ports, func() {
 		done <- struct{}{}
 	})
 	select {
@@ -553,9 +553,9 @@ func (v AVVoiceTriggerClient) EnableListeningOnPortsCompletionBlockSync(ctx cont
 
 // EnableSpeakerStateListeningCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.EnableSpeakerStateListeningCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) EnableSpeakerStateListeningCompletionBlockSync(ctx context.Context, listening bool) error {
+func (a AVVoiceTriggerClient) EnableSpeakerStateListeningCompletionBlockSync(ctx context.Context, listening bool) error {
 	done := make(chan struct{}, 1)
-	v.EnableSpeakerStateListeningCompletionBlock(listening, func() {
+	a.EnableSpeakerStateListeningCompletionBlock(listening, func() {
 		done <- struct{}{}
 	})
 	select {
@@ -568,9 +568,9 @@ func (v AVVoiceTriggerClient) EnableSpeakerStateListeningCompletionBlockSync(ctx
 
 // EnableVoiceTriggerListeningCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.EnableVoiceTriggerListeningCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) EnableVoiceTriggerListeningCompletionBlockSync(ctx context.Context, listening bool) error {
+func (a AVVoiceTriggerClient) EnableVoiceTriggerListeningCompletionBlockSync(ctx context.Context, listening bool) error {
 	done := make(chan struct{}, 1)
-	v.EnableVoiceTriggerListeningCompletionBlock(listening, func() {
+	a.EnableVoiceTriggerListeningCompletionBlock(listening, func() {
 		done <- struct{}{}
 	})
 	select {
@@ -583,9 +583,9 @@ func (v AVVoiceTriggerClient) EnableVoiceTriggerListeningCompletionBlockSync(ctx
 
 // GetInputChannelInfoCompletionSync is a synchronous wrapper around [AVVoiceTriggerClient.GetInputChannelInfoCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) GetInputChannelInfoCompletionSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) GetInputChannelInfoCompletionSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.GetInputChannelInfoCompletion(func() {
+	a.GetInputChannelInfoCompletion(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -598,9 +598,9 @@ func (v AVVoiceTriggerClient) GetInputChannelInfoCompletionSync(ctx context.Cont
 
 // ListeningEnabledCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.ListeningEnabledCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) ListeningEnabledCompletionBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) ListeningEnabledCompletionBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.ListeningEnabledCompletionBlock(func() {
+	a.ListeningEnabledCompletionBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -613,9 +613,9 @@ func (v AVVoiceTriggerClient) ListeningEnabledCompletionBlockSync(ctx context.Co
 
 // PortStateActiveCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.PortStateActiveCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) PortStateActiveCompletionBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) PortStateActiveCompletionBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.PortStateActiveCompletionBlock(func() {
+	a.PortStateActiveCompletionBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -628,9 +628,9 @@ func (v AVVoiceTriggerClient) PortStateActiveCompletionBlockSync(ctx context.Con
 
 // SetAggressiveECModeCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetAggressiveECModeCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetAggressiveECModeCompletionBlockSync(ctx context.Context, eCMode bool) error {
+func (a AVVoiceTriggerClient) SetAggressiveECModeCompletionBlockSync(ctx context.Context, eCMode bool) error {
 	done := make(chan struct{}, 1)
-	v.SetAggressiveECModeCompletionBlock(eCMode, func() {
+	a.SetAggressiveECModeCompletionBlock(eCMode, func() {
 		done <- struct{}{}
 	})
 	select {
@@ -643,9 +643,9 @@ func (v AVVoiceTriggerClient) SetAggressiveECModeCompletionBlockSync(ctx context
 
 // SetAvvcServerCrashedBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetAvvcServerCrashedBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetAvvcServerCrashedBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetAvvcServerCrashedBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetAvvcServerCrashedBlock(func() {
+	a.SetAvvcServerCrashedBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -658,9 +658,9 @@ func (v AVVoiceTriggerClient) SetAvvcServerCrashedBlockSync(ctx context.Context)
 
 // SetAvvcServerResetBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetAvvcServerResetBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetAvvcServerResetBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetAvvcServerResetBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetAvvcServerResetBlock(func() {
+	a.SetAvvcServerResetBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -673,9 +673,9 @@ func (v AVVoiceTriggerClient) SetAvvcServerResetBlockSync(ctx context.Context) e
 
 // SetListeningPropertyCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetListeningPropertyCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetListeningPropertyCompletionBlockSync(ctx context.Context, property bool) error {
+func (a AVVoiceTriggerClient) SetListeningPropertyCompletionBlockSync(ctx context.Context, property bool) error {
 	done := make(chan struct{}, 1)
-	v.SetListeningPropertyCompletionBlock(property, func() {
+	a.SetListeningPropertyCompletionBlock(property, func() {
 		done <- struct{}{}
 	})
 	select {
@@ -688,9 +688,9 @@ func (v AVVoiceTriggerClient) SetListeningPropertyCompletionBlockSync(ctx contex
 
 // SetPortStateChangedBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetPortStateChangedBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetPortStateChangedBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetPortStateChangedBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetPortStateChangedBlock(func() {
+	a.SetPortStateChangedBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -703,9 +703,9 @@ func (v AVVoiceTriggerClient) SetPortStateChangedBlockSync(ctx context.Context) 
 
 // SetServerCrashedBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetServerCrashedBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetServerCrashedBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetServerCrashedBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetServerCrashedBlock(func() {
+	a.SetServerCrashedBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -718,9 +718,9 @@ func (v AVVoiceTriggerClient) SetServerCrashedBlockSync(ctx context.Context) err
 
 // SetServerResetBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetServerResetBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetServerResetBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetServerResetBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetServerResetBlock(func() {
+	a.SetServerResetBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -733,9 +733,9 @@ func (v AVVoiceTriggerClient) SetServerResetBlockSync(ctx context.Context) error
 
 // SetSiriClientRecordStateChangedBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetSiriClientRecordStateChangedBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetSiriClientRecordStateChangedBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetSiriClientRecordStateChangedBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetSiriClientRecordStateChangedBlock(func() {
+	a.SetSiriClientRecordStateChangedBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -748,9 +748,9 @@ func (v AVVoiceTriggerClient) SetSiriClientRecordStateChangedBlockSync(ctx conte
 
 // SetSpeakerMuteStateChangedBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetSpeakerMuteStateChangedBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetSpeakerMuteStateChangedBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetSpeakerMuteStateChangedBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetSpeakerMuteStateChangedBlock(func() {
+	a.SetSpeakerMuteStateChangedBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -763,9 +763,9 @@ func (v AVVoiceTriggerClient) SetSpeakerMuteStateChangedBlockSync(ctx context.Co
 
 // SetSpeakerStateChangedBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetSpeakerStateChangedBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetSpeakerStateChangedBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetSpeakerStateChangedBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetSpeakerStateChangedBlock(func() {
+	a.SetSpeakerStateChangedBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -778,9 +778,9 @@ func (v AVVoiceTriggerClient) SetSpeakerStateChangedBlockSync(ctx context.Contex
 
 // SetVoiceTriggerBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SetVoiceTriggerBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SetVoiceTriggerBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SetVoiceTriggerBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SetVoiceTriggerBlock(func() {
+	a.SetVoiceTriggerBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -793,9 +793,9 @@ func (v AVVoiceTriggerClient) SetVoiceTriggerBlockSync(ctx context.Context) erro
 
 // SiriClientsRecordingCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SiriClientsRecordingCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SiriClientsRecordingCompletionBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SiriClientsRecordingCompletionBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SiriClientsRecordingCompletionBlock(func() {
+	a.SiriClientsRecordingCompletionBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -808,9 +808,9 @@ func (v AVVoiceTriggerClient) SiriClientsRecordingCompletionBlockSync(ctx contex
 
 // SpeakerStateActiveCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SpeakerStateActiveCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SpeakerStateActiveCompletionBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SpeakerStateActiveCompletionBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SpeakerStateActiveCompletionBlock(func() {
+	a.SpeakerStateActiveCompletionBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -823,9 +823,9 @@ func (v AVVoiceTriggerClient) SpeakerStateActiveCompletionBlockSync(ctx context.
 
 // SpeakerStateMutedCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.SpeakerStateMutedCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) SpeakerStateMutedCompletionBlockSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) SpeakerStateMutedCompletionBlockSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.SpeakerStateMutedCompletionBlock(func() {
+	a.SpeakerStateMutedCompletionBlock(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -838,9 +838,9 @@ func (v AVVoiceTriggerClient) SpeakerStateMutedCompletionBlockSync(ctx context.C
 
 // UpdateVoiceTriggerConfigurationCompletionBlockSync is a synchronous wrapper around [AVVoiceTriggerClient.UpdateVoiceTriggerConfigurationCompletionBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) UpdateVoiceTriggerConfigurationCompletionBlockSync(ctx context.Context, configuration objectivec.IObject) error {
+func (a AVVoiceTriggerClient) UpdateVoiceTriggerConfigurationCompletionBlockSync(ctx context.Context, configuration objectivec.IObject) error {
 	done := make(chan struct{}, 1)
-	v.UpdateVoiceTriggerConfigurationCompletionBlock(configuration, func() {
+	a.UpdateVoiceTriggerConfigurationCompletionBlock(configuration, func() {
 		done <- struct{}{}
 	})
 	select {
@@ -853,9 +853,9 @@ func (v AVVoiceTriggerClient) UpdateVoiceTriggerConfigurationCompletionBlockSync
 
 // VoiceTriggerPastDataFramesAvailableCompletionSync is a synchronous wrapper around [AVVoiceTriggerClient.VoiceTriggerPastDataFramesAvailableCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailableCompletionSync(ctx context.Context) error {
+func (a AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailableCompletionSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	v.VoiceTriggerPastDataFramesAvailableCompletion(func() {
+	a.VoiceTriggerPastDataFramesAvailableCompletion(func() {
 		done <- struct{}{}
 	})
 	select {

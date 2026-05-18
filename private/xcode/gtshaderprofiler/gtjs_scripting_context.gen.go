@@ -169,7 +169,7 @@ func (g GTJSScriptingContext) _cachedStringFromString(string_ string) OpaqueJSSt
 func (g GTJSScriptingContext) CachedStringFromString(string_ string) (OpaqueJSStringRef, error) {
 	if !objc.RespondsToSelector(g.ID, objc.Sel("_cachedStringFromString:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_cachedStringFromString:"}
-		return 0, err
+		return *new(OpaqueJSStringRef), err
 	}
 	return g._cachedStringFromString(string_), nil
 }

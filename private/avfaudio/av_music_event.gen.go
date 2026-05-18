@@ -63,14 +63,14 @@ type IAVMusicEvent interface {
 }
 
 // Init initializes the instance.
-func (m AVMusicEvent) Init() AVMusicEvent {
-	rv := objc.Send[AVMusicEvent](m.ID, objc.Sel("init"))
+func (a AVMusicEvent) Init() AVMusicEvent {
+	rv := objc.Send[AVMusicEvent](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m AVMusicEvent) Autorelease() AVMusicEvent {
-	rv := objc.Send[AVMusicEvent](m.ID, objc.Sel("autorelease"))
+func (a AVMusicEvent) Autorelease() AVMusicEvent {
+	rv := objc.Send[AVMusicEvent](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 

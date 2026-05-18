@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_strength_reduction_reshape_to_flatten] class.
+// The class instance for the [EspressoPassStrengthReductionReshapeToFlatten] class.
 var (
-	_EspressoPass_strength_reduction_reshape_to_flattenClass     EspressoPass_strength_reduction_reshape_to_flattenClass
-	_EspressoPass_strength_reduction_reshape_to_flattenClassOnce sync.Once
+	_EspressoPassStrengthReductionReshapeToFlattenClass     EspressoPassStrengthReductionReshapeToFlattenClass
+	_EspressoPassStrengthReductionReshapeToFlattenClassOnce sync.Once
 )
 
-func getEspressoPass_strength_reduction_reshape_to_flattenClass() EspressoPass_strength_reduction_reshape_to_flattenClass {
-	_EspressoPass_strength_reduction_reshape_to_flattenClassOnce.Do(func() {
-		_EspressoPass_strength_reduction_reshape_to_flattenClass = EspressoPass_strength_reduction_reshape_to_flattenClass{class: objc.GetClass("EspressoPass_strength_reduction_reshape_to_flatten")}
+func getEspressoPassStrengthReductionReshapeToFlattenClass() EspressoPassStrengthReductionReshapeToFlattenClass {
+	_EspressoPassStrengthReductionReshapeToFlattenClassOnce.Do(func() {
+		_EspressoPassStrengthReductionReshapeToFlattenClass = EspressoPassStrengthReductionReshapeToFlattenClass{class: objc.GetClass("EspressoPass_strength_reduction_reshape_to_flatten")}
 	})
-	return _EspressoPass_strength_reduction_reshape_to_flattenClass
+	return _EspressoPassStrengthReductionReshapeToFlattenClass
 }
 
-// GetEspressoPass_strength_reduction_reshape_to_flattenClass returns the class object for EspressoPass_strength_reduction_reshape_to_flatten.
-func GetEspressoPass_strength_reduction_reshape_to_flattenClass() EspressoPass_strength_reduction_reshape_to_flattenClass {
-	return getEspressoPass_strength_reduction_reshape_to_flattenClass()
+// GetEspressoPassStrengthReductionReshapeToFlattenClass returns the class object for EspressoPass_strength_reduction_reshape_to_flatten.
+func GetEspressoPassStrengthReductionReshapeToFlattenClass() EspressoPassStrengthReductionReshapeToFlattenClass {
+	return getEspressoPassStrengthReductionReshapeToFlattenClass()
 }
 
-type EspressoPass_strength_reduction_reshape_to_flattenClass struct {
+type EspressoPassStrengthReductionReshapeToFlattenClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_strength_reduction_reshape_to_flattenClass) Class() objc.Class {
+func (ec EspressoPassStrengthReductionReshapeToFlattenClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_strength_reduction_reshape_to_flattenClass) Alloc() EspressoPass_strength_reduction_reshape_to_flatten {
-	rv := objc.Send[EspressoPass_strength_reduction_reshape_to_flatten](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassStrengthReductionReshapeToFlattenClass) Alloc() EspressoPassStrengthReductionReshapeToFlatten {
+	rv := objc.Send[EspressoPassStrengthReductionReshapeToFlatten](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_reshape_to_flatten
-type EspressoPass_strength_reduction_reshape_to_flatten struct {
+type EspressoPassStrengthReductionReshapeToFlatten struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_strength_reduction_reshape_to_flattenFromID constructs a [EspressoPass_strength_reduction_reshape_to_flatten] from an objc.ID.
-func EspressoPass_strength_reduction_reshape_to_flattenFromID(id objc.ID) EspressoPass_strength_reduction_reshape_to_flatten {
-	return EspressoPass_strength_reduction_reshape_to_flatten{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassStrengthReductionReshapeToFlattenFromID constructs a [EspressoPassStrengthReductionReshapeToFlatten] from an objc.ID.
+func EspressoPassStrengthReductionReshapeToFlattenFromID(id objc.ID) EspressoPassStrengthReductionReshapeToFlatten {
+	return EspressoPassStrengthReductionReshapeToFlatten{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_strength_reduction_reshape_to_flatten implements IEspressoPass_strength_reduction_reshape_to_flatten.
-var _ IEspressoPass_strength_reduction_reshape_to_flatten = EspressoPass_strength_reduction_reshape_to_flatten{}
+// EspressoPass_strength_reduction_reshape_to_flattenFromID is an alias for [EspressoPassStrengthReductionReshapeToFlattenFromID] for cross-framework compatibility.
+func EspressoPass_strength_reduction_reshape_to_flattenFromID(id objc.ID) EspressoPassStrengthReductionReshapeToFlatten {
+	return EspressoPassStrengthReductionReshapeToFlattenFromID(id)
+}
 
-// An interface definition for the [EspressoPass_strength_reduction_reshape_to_flatten] class.
+// Ensure EspressoPassStrengthReductionReshapeToFlatten implements IEspressoPassStrengthReductionReshapeToFlatten.
+var _ IEspressoPassStrengthReductionReshapeToFlatten = EspressoPassStrengthReductionReshapeToFlatten{}
+
+// An interface definition for the [EspressoPassStrengthReductionReshapeToFlatten] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_reshape_to_flatten
-type IEspressoPass_strength_reduction_reshape_to_flatten interface {
+type IEspressoPassStrengthReductionReshapeToFlatten interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_strength_reduction_reshape_to_flatten) Init() EspressoPass_strength_reduction_reshape_to_flatten {
-	rv := objc.Send[EspressoPass_strength_reduction_reshape_to_flatten](e.ID, objc.Sel("init"))
+func (e EspressoPassStrengthReductionReshapeToFlatten) Init() EspressoPassStrengthReductionReshapeToFlatten {
+	rv := objc.Send[EspressoPassStrengthReductionReshapeToFlatten](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_strength_reduction_reshape_to_flatten) Autorelease() EspressoPass_strength_reduction_reshape_to_flatten {
-	rv := objc.Send[EspressoPass_strength_reduction_reshape_to_flatten](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassStrengthReductionReshapeToFlatten) Autorelease() EspressoPassStrengthReductionReshapeToFlatten {
+	rv := objc.Send[EspressoPassStrengthReductionReshapeToFlatten](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_strength_reduction_reshape_to_flatten creates a new EspressoPass_strength_reduction_reshape_to_flatten instance.
-func NewEspressoPass_strength_reduction_reshape_to_flatten() EspressoPass_strength_reduction_reshape_to_flatten {
-	class := getEspressoPass_strength_reduction_reshape_to_flattenClass()
-	rv := objc.Send[EspressoPass_strength_reduction_reshape_to_flatten](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassStrengthReductionReshapeToFlatten creates a new EspressoPassStrengthReductionReshapeToFlatten instance.
+func NewEspressoPassStrengthReductionReshapeToFlatten() EspressoPassStrengthReductionReshapeToFlatten {
+	class := getEspressoPassStrengthReductionReshapeToFlattenClass()
+	rv := objc.Send[EspressoPassStrengthReductionReshapeToFlatten](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

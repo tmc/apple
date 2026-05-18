@@ -113,8 +113,8 @@ type INEEvaluateConnectionRule interface {
 	UseDNSServers() []string
 	SetUseDNSServers(value []string)
 	// An HTTP or HTTPS URL. If the rule matches the connection being established and the action is [NEEvaluateConnectionRuleActionConnectIfNeeded] and a request sent to this URL results in a response with an HTTP response code other than 200, then the VPN is started.
-	ProbeURL() foundation.INSURL
-	SetProbeURL(value foundation.INSURL)
+	ProbeURL() foundation.NSURL
+	SetProbeURL(value foundation.NSURL)
 
 	// Topic: Accessing the Rule Action
 
@@ -226,11 +226,11 @@ func (e NEEvaluateConnectionRule) SetUseDNSServers(value []string) {
 // other than 200, then the VPN is started.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEEvaluateConnectionRule/probeURL
-func (e NEEvaluateConnectionRule) ProbeURL() foundation.INSURL {
+func (e NEEvaluateConnectionRule) ProbeURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("probeURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (e NEEvaluateConnectionRule) SetProbeURL(value foundation.INSURL) {
+func (e NEEvaluateConnectionRule) SetProbeURL(value foundation.NSURL) {
 	objc.Send[struct{}](e.ID, objc.Sel("setProbeURL:"), value)
 }
 

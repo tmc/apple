@@ -17,9 +17,9 @@ type Device struct {
 // Available reports whether librdma and the generated probe symbols are available.
 func Available() bool {
 	return frameworkHandle != 0 &&
-		_ibv_get_device_list != nil &&
-		_ibv_free_device_list != nil &&
-		_ibv_get_device_name != nil
+		_ibvGetDeviceList != nil &&
+		_ibvFreeDeviceList != nil &&
+		_ibvGetDeviceName != nil
 }
 
 // Devices returns the RDMA devices currently reported by librdma.
@@ -28,14 +28,14 @@ func Available() bool {
 // may return an empty slice on systems where RDMA over Thunderbolt is disabled.
 func Devices() ([]Device, error) {
 	var n int32
-	list, err := Ibv_get_device_list(uintptr(unsafe.Pointer(&n)))
+	list, err := IbvGetDeviceList(uintptr(unsafe.Pointer(&n)))
 	if err != nil {
 		return nil, err
 	}
 	if list == 0 {
 		return nil, nil
 	}
-	defer Ibv_free_device_list(list)
+	defer IbvFreeDeviceList(list)
 
 	raw := unsafe.Slice((*RDMADevice)(unsafe.Pointer(list)), int(n))
 	out := make([]Device, 0, len(raw))
@@ -43,7 +43,7 @@ func Devices() ([]Device, error) {
 		if dev == 0 {
 			continue
 		}
-		namePtr, err := Ibv_get_device_name(dev)
+		namePtr, err := IbvGetDeviceName(dev)
 		if err != nil {
 			return nil, err
 		}

@@ -4,7 +4,6 @@ package virtualization
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -102,7 +101,7 @@ type IVZSpiceAgentCore interface {
 	Pause()
 	Resume()
 	Stop()
-	InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input unsafe.Pointer, output unsafe.Pointer) VZSpiceAgentCore
+	InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -129,7 +128,7 @@ func NewVZSpiceAgentCore() VZSpiceAgentCore {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/initWithPasteboard:queue:capabilities:input:output:
-func NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input unsafe.Pointer, output unsafe.Pointer) VZSpiceAgentCore {
+func NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
 	instance := getVZSpiceAgentCoreClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, queue, capabilities, input, output)
 	return VZSpiceAgentCoreFromID(rv)
@@ -172,7 +171,7 @@ func (v VZSpiceAgentCore) Stop() {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCore/initWithPasteboard:queue:capabilities:input:output:
-func (v VZSpiceAgentCore) InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input unsafe.Pointer, output unsafe.Pointer) VZSpiceAgentCore {
+func (v VZSpiceAgentCore) InitWithPasteboardQueueCapabilitiesInputOutput(pasteboard objectivec.IObject, queue DispatchQueue, capabilities objectivec.IObject, input FileDescriptor, output FileDescriptor) VZSpiceAgentCore {
 	rv := objc.Send[VZSpiceAgentCore](v.ID, objc.Sel("initWithPasteboard:queue:capabilities:input:output:"), pasteboard, queue, capabilities, input, output)
 	return rv
 }

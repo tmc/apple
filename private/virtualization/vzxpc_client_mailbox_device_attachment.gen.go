@@ -71,7 +71,7 @@ type IVZXPCClientMailboxDeviceAttachment interface {
 
 	// Topic: Methods
 
-	_initWithMailboxHandle(handle objectivec.IObject) objectivec.IObject
+	_initWithMailboxHandle(handle MailboxHandle) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -94,13 +94,13 @@ func NewVZXPCClientMailboxDeviceAttachment() VZXPCClientMailboxDeviceAttachment 
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/_VZXPCClientMailboxDeviceAttachment/_initWithMailboxHandle:
-func (v VZXPCClientMailboxDeviceAttachment) _initWithMailboxHandle(handle objectivec.IObject) objectivec.IObject {
+func (v VZXPCClientMailboxDeviceAttachment) _initWithMailboxHandle(handle MailboxHandle) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithMailboxHandle:"), handle)
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithMailboxHandle is an exported wrapper for the private method _initWithMailboxHandle.
-func (v VZXPCClientMailboxDeviceAttachment) InitWithMailboxHandle(handle objectivec.IObject) (objectivec.IObject, error) {
+func (v VZXPCClientMailboxDeviceAttachment) InitWithMailboxHandle(handle MailboxHandle) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithMailboxHandle:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithMailboxHandle:"}
 		return nil, err

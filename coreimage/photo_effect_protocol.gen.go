@@ -18,20 +18,12 @@ type CIPhotoEffect interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/inputImage
 	InputImage() ICIImage
-
-	// Extrapolate for RGB values outside of the range 0.0 to 1.0.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/extrapolate
-	Extrapolate() bool
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/inputImage
 	SetInputImage(value ICIImage)
 
 	// Extrapolate for RGB values outside of the range 0.0 to 1.0.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/extrapolate
+	Extrapolate() bool
 	SetExtrapolate(value bool)
 }
 
@@ -52,22 +44,6 @@ func CIPhotoEffectObjectFromID(id objc.ID) CIPhotoEffectObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/inputImage
-func (o CIPhotoEffectObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// Extrapolate for RGB values outside of the range 0.0 to 1.0.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/extrapolate
-func (o CIPhotoEffectObject) Extrapolate() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIPhotoEffectObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/inputImage
+func (o CIPhotoEffectObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPhotoEffectObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIPhotoEffectObject) SetInputImage(value ICIImage) {
 // Extrapolate for RGB values outside of the range 0.0 to 1.0.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/extrapolate
+func (o CIPhotoEffectObject) Extrapolate() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
+	return bool(rv)
+}
+
 func (o CIPhotoEffectObject) SetExtrapolate(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtrapolate:"), value)
 }

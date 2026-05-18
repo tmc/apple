@@ -94,8 +94,6 @@ func NSURLQueryItemFromID(id objc.ID) NSURLQueryItem {
 // See: https://developer.apple.com/documentation/Foundation/NSURLQueryItem
 type INSURLQueryItem interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating a Query Item

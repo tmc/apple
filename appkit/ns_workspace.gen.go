@@ -273,16 +273,16 @@ type INSWorkspace interface {
 	// Topic: Opening URLs
 
 	// Opens a URL asynchronously using the provided options.
-	OpenURLConfigurationCompletionHandler(url foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler)
+	OpenURLConfigurationCompletionHandler(url foundation.NSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler)
 	// Opens one or more URLs asynchronously in the specified app using the provided options.
-	OpenURLsWithApplicationAtURLConfigurationCompletionHandler(urls []foundation.NSURL, applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler)
+	OpenURLsWithApplicationAtURLConfigurationCompletionHandler(urls []foundation.NSURL, applicationURL foundation.NSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler)
 	// Opens the location at the specified URL.
-	OpenURL(url foundation.INSURL) bool
+	OpenURL(url foundation.NSURL) bool
 
 	// Topic: Launching and Hiding Apps
 
 	// Launches the app at the specified URL and asynchronously reports back on the app’s status.
-	OpenApplicationAtURLConfigurationCompletionHandler(applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler)
+	OpenApplicationAtURLConfigurationCompletionHandler(applicationURL foundation.NSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler)
 	// Hides all applications other than the sender.
 	HideOtherApplications()
 
@@ -296,13 +296,13 @@ type INSWorkspace interface {
 	// Topic: Requesting Information
 
 	// Returns the URL to the default app to open the specified URL.
-	URLForApplicationToOpenURL(url foundation.INSURL) foundation.INSURL
+	URLForApplicationToOpenURL(url foundation.NSURL) foundation.NSURL
 	// Returns the URL to the default app to open the specified content type.
-	URLForApplicationToOpenContentType(contentType uniformtypeidentifiers.UTType) foundation.INSURL
+	URLForApplicationToOpenContentType(contentType uniformtypeidentifiers.UTType) foundation.NSURL
 	// Returns the URL to the default app with the specified bundle identifier.
-	URLForApplicationWithBundleIdentifier(bundleIdentifier string) foundation.INSURL
+	URLForApplicationWithBundleIdentifier(bundleIdentifier string) foundation.NSURL
 	// Returns an array of URLs to all available applications that can open the URL.
-	URLsForApplicationsToOpenURL(url foundation.INSURL) []foundation.NSURL
+	URLsForApplicationsToOpenURL(url foundation.NSURL) []foundation.NSURL
 	// Returns an array of URLs to all available applications that can open the specified content type.
 	URLsForApplicationsToOpenContentType(contentType uniformtypeidentifiers.UTType) []foundation.NSURL
 	// Returns an array of URLs to all available applications that can open the specified bundle identifier.
@@ -321,13 +321,13 @@ type INSWorkspace interface {
 	// Topic: Setting Default Application Information
 
 	// Sets the default app to use when opening a specific file.
-	SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler(applicationURL foundation.INSURL, url foundation.INSURL, completionHandler ErrorHandler)
+	SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler(applicationURL foundation.NSURL, url foundation.NSURL, completionHandler ErrorHandler)
 	// Sets the default app to use when opening files of a specific content type.
-	SetDefaultApplicationAtURLToOpenContentTypeCompletionHandler(applicationURL foundation.INSURL, contentType uniformtypeidentifiers.UTType, completionHandler ErrorHandler)
+	SetDefaultApplicationAtURLToOpenContentTypeCompletionHandler(applicationURL foundation.NSURL, contentType uniformtypeidentifiers.UTType, completionHandler ErrorHandler)
 	// Sets the default app to use when opening files of a specific content type defined by a file URL.
-	SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompletionHandler(applicationURL foundation.INSURL, url foundation.INSURL, completionHandler ErrorHandler)
+	SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompletionHandler(applicationURL foundation.NSURL, url foundation.NSURL, completionHandler ErrorHandler)
 	// Sets the default app to use when opening files of a specific scheme.
-	SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler(applicationURL foundation.INSURL, urlScheme string, completionHandler ErrorHandler)
+	SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler(applicationURL foundation.NSURL, urlScheme string, completionHandler ErrorHandler)
 
 	// Topic: Managing Icons
 
@@ -345,14 +345,14 @@ type INSWorkspace interface {
 	// Unmounts and ejects the device at the specified path.
 	UnmountAndEjectDeviceAtPath(path string) bool
 	// Attempts to eject the volume mounted at the given path.
-	UnmountAndEjectDeviceAtURLError(url foundation.INSURL) (bool, error)
+	UnmountAndEjectDeviceAtURLError(url foundation.NSURL) (bool, error)
 
 	// Topic: Managing the Desktop Image
 
 	// Returns the URL for the desktop image for the given screen.
-	DesktopImageURLForScreen(screen INSScreen) foundation.INSURL
+	DesktopImageURLForScreen(screen INSScreen) foundation.NSURL
 	// Sets the desktop image for the given screen to the image at the specified URL.
-	SetDesktopImageURLForScreenOptionsError(url foundation.INSURL, screen INSScreen, options foundation.INSDictionary) (bool, error)
+	SetDesktopImageURLForScreenOptionsError(url foundation.NSURL, screen INSScreen, options foundation.INSDictionary) (bool, error)
 	// Returns the desktop image options for the given screen.
 	DesktopImageOptionsForScreen(screen INSScreen) foundation.INSDictionary
 
@@ -443,7 +443,7 @@ func NewNSWorkspace() NSWorkspace {
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/open(_:configuration:completionHandler:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (w NSWorkspace) OpenURLConfigurationCompletionHandler(url foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
+func (w NSWorkspace) OpenURLConfigurationCompletionHandler(url foundation.NSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
 	_block2, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openURL:configuration:completionHandler:"), url, configuration, _block2)
 }
@@ -474,7 +474,7 @@ func (w NSWorkspace) OpenURLConfigurationCompletionHandler(url foundation.INSURL
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/open(_:withApplicationAt:configuration:completionHandler:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (w NSWorkspace) OpenURLsWithApplicationAtURLConfigurationCompletionHandler(urls []foundation.NSURL, applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
+func (w NSWorkspace) OpenURLsWithApplicationAtURLConfigurationCompletionHandler(urls []foundation.NSURL, applicationURL foundation.NSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
 	_block3, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openURLs:withApplicationAtURL:configuration:completionHandler:"), urls, applicationURL, configuration, _block3)
 }
@@ -492,7 +492,7 @@ func (w NSWorkspace) OpenURLsWithApplicationAtURLConfigurationCompletionHandler(
 // You can call this method safely from any thread in macOS 10.6 and later.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/open(_:)
-func (w NSWorkspace) OpenURL(url foundation.INSURL) bool {
+func (w NSWorkspace) OpenURL(url foundation.NSURL) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("openURL:"), url)
 	return rv
 }
@@ -518,7 +518,7 @@ func (w NSWorkspace) OpenURL(url foundation.INSURL) bool {
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/openApplication(at:configuration:completionHandler:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (w NSWorkspace) OpenApplicationAtURLConfigurationCompletionHandler(applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
+func (w NSWorkspace) OpenApplicationAtURLConfigurationCompletionHandler(applicationURL foundation.NSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
 	_block2, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openApplicationAtURL:configuration:completionHandler:"), applicationURL, configuration, _block2)
 }
@@ -598,7 +598,7 @@ func (w NSWorkspace) SelectFileInFileViewerRootedAtPath(fullPath string, rootFul
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/urlForApplication(toOpen:)-7qkzf
-func (w NSWorkspace) URLForApplicationToOpenURL(url foundation.INSURL) foundation.INSURL {
+func (w NSWorkspace) URLForApplicationToOpenURL(url foundation.NSURL) foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationToOpenURL:"), url)
 	return foundation.NSURLFromID(rv)
 }
@@ -613,7 +613,7 @@ func (w NSWorkspace) URLForApplicationToOpenURL(url foundation.INSURL) foundatio
 // `nil` if no app can open the content type.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/urlForApplication(toOpen:)-95cvp
-func (w NSWorkspace) URLForApplicationToOpenContentType(contentType uniformtypeidentifiers.UTType) foundation.INSURL {
+func (w NSWorkspace) URLForApplicationToOpenContentType(contentType uniformtypeidentifiers.UTType) foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationToOpenContentType:"), contentType)
 	return foundation.NSURLFromID(rv)
 }
@@ -634,7 +634,7 @@ func (w NSWorkspace) URLForApplicationToOpenContentType(contentType uniformtypei
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/urlForApplication(withBundleIdentifier:)
-func (w NSWorkspace) URLForApplicationWithBundleIdentifier(bundleIdentifier string) foundation.INSURL {
+func (w NSWorkspace) URLForApplicationWithBundleIdentifier(bundleIdentifier string) foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationWithBundleIdentifier:"), objc.String(bundleIdentifier))
 	return foundation.NSURLFromID(rv)
 }
@@ -656,7 +656,7 @@ func (w NSWorkspace) URLForApplicationWithBundleIdentifier(bundleIdentifier stri
 // to open the URL. The returned array lists the best match first.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/urlsForApplications(toOpen:)-ualk
-func (w NSWorkspace) URLsForApplicationsToOpenURL(url foundation.INSURL) []foundation.NSURL {
+func (w NSWorkspace) URLsForApplicationsToOpenURL(url foundation.NSURL) []foundation.NSURL {
 	rv := objc.Send[[]objc.ID](w.ID, objc.Sel("URLsForApplicationsToOpenURL:"), url)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSURL {
 		return foundation.NSURLFromID(id)
@@ -789,7 +789,7 @@ func (w NSWorkspace) IsFilePackageAtPath(fullPath string) bool {
 // This function doesn’t apply to non-file URLs.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDefaultApplication(at:toOpenFileAt:completion:)
-func (w NSWorkspace) SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler(applicationURL foundation.INSURL, url foundation.INSURL, completionHandler ErrorHandler) {
+func (w NSWorkspace) SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler(applicationURL foundation.NSURL, url foundation.NSURL, completionHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenFileAtURL:completionHandler:"), applicationURL, url, _block2)
 }
@@ -809,7 +809,7 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler(
 // for consent asynchronously before invoking the completion handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDefaultApplication(at:toOpen:completion:)
-func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeCompletionHandler(applicationURL foundation.INSURL, contentType uniformtypeidentifiers.UTType, completionHandler ErrorHandler) {
+func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeCompletionHandler(applicationURL foundation.NSURL, contentType uniformtypeidentifiers.UTType, completionHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenContentType:completionHandler:"), applicationURL, contentType, _block2)
 }
@@ -830,7 +830,7 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeCompletionHandle
 // consent asynchronously before invoking the completion handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDefaultApplication(at:toOpenContentTypeOfFileAt:completion:)
-func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompletionHandler(applicationURL foundation.INSURL, url foundation.INSURL, completionHandler ErrorHandler) {
+func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompletionHandler(applicationURL foundation.NSURL, url foundation.NSURL, completionHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenContentTypeOfFileAtURL:completionHandler:"), applicationURL, url, _block2)
 }
@@ -850,7 +850,7 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompl
 // consent asynchronously before invoking the completion handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDefaultApplication(at:toOpenURLsWithScheme:completion:)
-func (w NSWorkspace) SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler(applicationURL foundation.INSURL, urlScheme string, completionHandler ErrorHandler) {
+func (w NSWorkspace) SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler(applicationURL foundation.NSURL, urlScheme string, completionHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenURLsWithScheme:completionHandler:"), applicationURL, objc.String(urlScheme), _block2)
 }
@@ -990,7 +990,7 @@ func (w NSWorkspace) UnmountAndEjectDeviceAtPath(path string) bool {
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/unmountAndEjectDevice(at:)
-func (w NSWorkspace) UnmountAndEjectDeviceAtURLError(url foundation.INSURL) (bool, error) {
+func (w NSWorkspace) UnmountAndEjectDeviceAtURLError(url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](w.ID, objc.Sel("unmountAndEjectDeviceAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1017,7 +1017,7 @@ func (w NSWorkspace) UnmountAndEjectDeviceAtURLError(url foundation.INSURL) (boo
 // You must call this method from your app’s main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/desktopImageURL(for:)
-func (w NSWorkspace) DesktopImageURLForScreen(screen INSScreen) foundation.INSURL {
+func (w NSWorkspace) DesktopImageURLForScreen(screen INSScreen) foundation.NSURL {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("desktopImageURLForScreen:"), screen)
 	return foundation.NSURLFromID(rv)
 }
@@ -1042,7 +1042,7 @@ func (w NSWorkspace) DesktopImageURLForScreen(screen INSScreen) foundation.INSUR
 // You must call this method from your app’s main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDesktopImageURL(_:for:options:)
-func (w NSWorkspace) SetDesktopImageURLForScreenOptionsError(url foundation.INSURL, screen INSScreen, options foundation.INSDictionary) (bool, error) {
+func (w NSWorkspace) SetDesktopImageURLForScreenOptionsError(url foundation.NSURL, screen INSScreen, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](w.ID, objc.Sel("setDesktopImageURL:forScreen:options:error:"), url, screen, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1433,7 +1433,7 @@ func (_NSWorkspaceClass NSWorkspaceClass) SharedWorkspace() NSWorkspace {
 
 // OpenURLConfiguration is a synchronous wrapper around [NSWorkspace.OpenURLConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w NSWorkspace) OpenURLConfiguration(ctx context.Context, url foundation.INSURL, configuration INSWorkspaceOpenConfiguration) (*NSRunningApplication, error) {
+func (w NSWorkspace) OpenURLConfiguration(ctx context.Context, url foundation.NSURL, configuration INSWorkspaceOpenConfiguration) (*NSRunningApplication, error) {
 	type result struct {
 		val *NSRunningApplication
 		err error
@@ -1452,7 +1452,7 @@ func (w NSWorkspace) OpenURLConfiguration(ctx context.Context, url foundation.IN
 
 // OpenApplicationAtURLConfiguration is a synchronous wrapper around [NSWorkspace.OpenApplicationAtURLConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w NSWorkspace) OpenApplicationAtURLConfiguration(ctx context.Context, applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration) (*NSRunningApplication, error) {
+func (w NSWorkspace) OpenApplicationAtURLConfiguration(ctx context.Context, applicationURL foundation.NSURL, configuration INSWorkspaceOpenConfiguration) (*NSRunningApplication, error) {
 	type result struct {
 		val *NSRunningApplication
 		err error
@@ -1471,7 +1471,7 @@ func (w NSWorkspace) OpenApplicationAtURLConfiguration(ctx context.Context, appl
 
 // SetDefaultApplicationAtURLToOpenFileAtURL is a synchronous wrapper around [NSWorkspace.SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w NSWorkspace) SetDefaultApplicationAtURLToOpenFileAtURL(ctx context.Context, applicationURL foundation.INSURL, url foundation.INSURL) error {
+func (w NSWorkspace) SetDefaultApplicationAtURLToOpenFileAtURL(ctx context.Context, applicationURL foundation.NSURL, url foundation.NSURL) error {
 	done := make(chan error, 1)
 	w.SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler(applicationURL, url, func(err error) {
 		done <- err
@@ -1486,7 +1486,7 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenFileAtURL(ctx context.Conte
 
 // SetDefaultApplicationAtURLToOpenContentType is a synchronous wrapper around [NSWorkspace.SetDefaultApplicationAtURLToOpenContentTypeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentType(ctx context.Context, applicationURL foundation.INSURL, contentType uniformtypeidentifiers.UTType) error {
+func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentType(ctx context.Context, applicationURL foundation.NSURL, contentType uniformtypeidentifiers.UTType) error {
 	done := make(chan error, 1)
 	w.SetDefaultApplicationAtURLToOpenContentTypeCompletionHandler(applicationURL, contentType, func(err error) {
 		done <- err
@@ -1501,7 +1501,7 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentType(ctx context.Con
 
 // SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURL is a synchronous wrapper around [NSWorkspace.SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURL(ctx context.Context, applicationURL foundation.INSURL, url foundation.INSURL) error {
+func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURL(ctx context.Context, applicationURL foundation.NSURL, url foundation.NSURL) error {
 	done := make(chan error, 1)
 	w.SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompletionHandler(applicationURL, url, func(err error) {
 		done <- err
@@ -1516,7 +1516,7 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURL(ctx 
 
 // SetDefaultApplicationAtURLToOpenURLsWithScheme is a synchronous wrapper around [NSWorkspace.SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (w NSWorkspace) SetDefaultApplicationAtURLToOpenURLsWithScheme(ctx context.Context, applicationURL foundation.INSURL, urlScheme string) error {
+func (w NSWorkspace) SetDefaultApplicationAtURLToOpenURLsWithScheme(ctx context.Context, applicationURL foundation.NSURL, urlScheme string) error {
 	done := make(chan error, 1)
 	w.SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler(applicationURL, urlScheme, func(err error) {
 		done <- err

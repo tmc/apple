@@ -160,14 +160,14 @@ type IMLNonMaximumSuppressionParameters interface {
 }
 
 // Init initializes the instance.
-func (n MLNonMaximumSuppressionParameters) Init() MLNonMaximumSuppressionParameters {
-	rv := objc.Send[MLNonMaximumSuppressionParameters](n.ID, objc.Sel("init"))
+func (m MLNonMaximumSuppressionParameters) Init() MLNonMaximumSuppressionParameters {
+	rv := objc.Send[MLNonMaximumSuppressionParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNonMaximumSuppressionParameters) Autorelease() MLNonMaximumSuppressionParameters {
-	rv := objc.Send[MLNonMaximumSuppressionParameters](n.ID, objc.Sel("autorelease"))
+func (m MLNonMaximumSuppressionParameters) Autorelease() MLNonMaximumSuppressionParameters {
+	rv := objc.Send[MLNonMaximumSuppressionParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -179,133 +179,133 @@ func NewMLNonMaximumSuppressionParameters() MLNonMaximumSuppressionParameters {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/objectBoundingBoxOutputDescription
-func (n MLNonMaximumSuppressionParameters) ObjectBoundingBoxOutputDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("objectBoundingBoxOutputDescription"))
+func (m MLNonMaximumSuppressionParameters) ObjectBoundingBoxOutputDescription() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectBoundingBoxOutputDescription"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/confidenceInputFeatureName
-func (n MLNonMaximumSuppressionParameters) ConfidenceInputFeatureName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("confidenceInputFeatureName"))
+func (m MLNonMaximumSuppressionParameters) ConfidenceInputFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("confidenceInputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNonMaximumSuppressionParameters) SetConfidenceInputFeatureName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setConfidenceInputFeatureName:"), objc.String(value))
+func (m MLNonMaximumSuppressionParameters) SetConfidenceInputFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setConfidenceInputFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/confidenceOutputFeatureName
-func (n MLNonMaximumSuppressionParameters) ConfidenceOutputFeatureName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("confidenceOutputFeatureName"))
+func (m MLNonMaximumSuppressionParameters) ConfidenceOutputFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("confidenceOutputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNonMaximumSuppressionParameters) SetConfidenceOutputFeatureName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setConfidenceOutputFeatureName:"), objc.String(value))
+func (m MLNonMaximumSuppressionParameters) SetConfidenceOutputFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setConfidenceOutputFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/confidenceThreshold
-func (n MLNonMaximumSuppressionParameters) ConfidenceThreshold() float64 {
-	rv := objc.Send[float64](n.ID, objc.Sel("confidenceThreshold"))
+func (m MLNonMaximumSuppressionParameters) ConfidenceThreshold() float64 {
+	rv := objc.Send[float64](m.ID, objc.Sel("confidenceThreshold"))
 	return rv
 }
-func (n MLNonMaximumSuppressionParameters) SetConfidenceThreshold(value float64) {
-	objc.Send[struct{}](n.ID, objc.Sel("setConfidenceThreshold:"), value)
+func (m MLNonMaximumSuppressionParameters) SetConfidenceThreshold(value float64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setConfidenceThreshold:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/confidenceThresholdInputFeatureName
-func (n MLNonMaximumSuppressionParameters) ConfidenceThresholdInputFeatureName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("confidenceThresholdInputFeatureName"))
+func (m MLNonMaximumSuppressionParameters) ConfidenceThresholdInputFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("confidenceThresholdInputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNonMaximumSuppressionParameters) SetConfidenceThresholdInputFeatureName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setConfidenceThresholdInputFeatureName:"), objc.String(value))
+func (m MLNonMaximumSuppressionParameters) SetConfidenceThresholdInputFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setConfidenceThresholdInputFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/coordinatesInputFeatureName
-func (n MLNonMaximumSuppressionParameters) CoordinatesInputFeatureName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("coordinatesInputFeatureName"))
+func (m MLNonMaximumSuppressionParameters) CoordinatesInputFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("coordinatesInputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNonMaximumSuppressionParameters) SetCoordinatesInputFeatureName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setCoordinatesInputFeatureName:"), objc.String(value))
+func (m MLNonMaximumSuppressionParameters) SetCoordinatesInputFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setCoordinatesInputFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/coordinatesOutputFeatureName
-func (n MLNonMaximumSuppressionParameters) CoordinatesOutputFeatureName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("coordinatesOutputFeatureName"))
+func (m MLNonMaximumSuppressionParameters) CoordinatesOutputFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("coordinatesOutputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNonMaximumSuppressionParameters) SetCoordinatesOutputFeatureName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setCoordinatesOutputFeatureName:"), objc.String(value))
+func (m MLNonMaximumSuppressionParameters) SetCoordinatesOutputFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setCoordinatesOutputFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/iouThreshold
-func (n MLNonMaximumSuppressionParameters) IouThreshold() float64 {
-	rv := objc.Send[float64](n.ID, objc.Sel("iouThreshold"))
+func (m MLNonMaximumSuppressionParameters) IouThreshold() float64 {
+	rv := objc.Send[float64](m.ID, objc.Sel("iouThreshold"))
 	return rv
 }
-func (n MLNonMaximumSuppressionParameters) SetIouThreshold(value float64) {
-	objc.Send[struct{}](n.ID, objc.Sel("setIouThreshold:"), value)
+func (m MLNonMaximumSuppressionParameters) SetIouThreshold(value float64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setIouThreshold:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/iouThresholdInputFeatureName
-func (n MLNonMaximumSuppressionParameters) IouThresholdInputFeatureName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("iouThresholdInputFeatureName"))
+func (m MLNonMaximumSuppressionParameters) IouThresholdInputFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("iouThresholdInputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNonMaximumSuppressionParameters) SetIouThresholdInputFeatureName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setIouThresholdInputFeatureName:"), objc.String(value))
+func (m MLNonMaximumSuppressionParameters) SetIouThresholdInputFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setIouThresholdInputFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/labelNames
-func (n MLNonMaximumSuppressionParameters) LabelNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("labelNames"))
+func (m MLNonMaximumSuppressionParameters) LabelNames() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (n MLNonMaximumSuppressionParameters) SetLabelNames(value foundation.INSArray) {
-	objc.Send[struct{}](n.ID, objc.Sel("setLabelNames:"), value)
+func (m MLNonMaximumSuppressionParameters) SetLabelNames(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("setLabelNames:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/maxBoxes
-func (n MLNonMaximumSuppressionParameters) MaxBoxes() int64 {
-	rv := objc.Send[int64](n.ID, objc.Sel("maxBoxes"))
+func (m MLNonMaximumSuppressionParameters) MaxBoxes() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("maxBoxes"))
 	return rv
 }
-func (n MLNonMaximumSuppressionParameters) SetMaxBoxes(value int64) {
-	objc.Send[struct{}](n.ID, objc.Sel("setMaxBoxes:"), value)
+func (m MLNonMaximumSuppressionParameters) SetMaxBoxes(value int64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMaxBoxes:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/minBoxes
-func (n MLNonMaximumSuppressionParameters) MinBoxes() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("minBoxes"))
+func (m MLNonMaximumSuppressionParameters) MinBoxes() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("minBoxes"))
 	return rv
 }
-func (n MLNonMaximumSuppressionParameters) SetMinBoxes(value uint64) {
-	objc.Send[struct{}](n.ID, objc.Sel("setMinBoxes:"), value)
+func (m MLNonMaximumSuppressionParameters) SetMinBoxes(value uint64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMinBoxes:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/numClasses
-func (n MLNonMaximumSuppressionParameters) NumClasses() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("numClasses"))
+func (m MLNonMaximumSuppressionParameters) NumClasses() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("numClasses"))
 	return rv
 }
-func (n MLNonMaximumSuppressionParameters) SetNumClasses(value uint64) {
-	objc.Send[struct{}](n.ID, objc.Sel("setNumClasses:"), value)
+func (m MLNonMaximumSuppressionParameters) SetNumClasses(value uint64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setNumClasses:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/perClass
-func (n MLNonMaximumSuppressionParameters) PerClass() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("perClass"))
+func (m MLNonMaximumSuppressionParameters) PerClass() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("perClass"))
 	return rv
 }
-func (n MLNonMaximumSuppressionParameters) SetPerClass(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setPerClass:"), value)
+func (m MLNonMaximumSuppressionParameters) SetPerClass(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setPerClass:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNonMaximumSuppressionParameters/suppressionMethod
-func (n MLNonMaximumSuppressionParameters) SuppressionMethod() int {
-	rv := objc.Send[int](n.ID, objc.Sel("suppressionMethod"))
+func (m MLNonMaximumSuppressionParameters) SuppressionMethod() int {
+	rv := objc.Send[int](m.ID, objc.Sel("suppressionMethod"))
 	return rv
 }
-func (n MLNonMaximumSuppressionParameters) SetSuppressionMethod(value int) {
-	objc.Send[struct{}](n.ID, objc.Sel("setSuppressionMethod:"), value)
+func (m MLNonMaximumSuppressionParameters) SetSuppressionMethod(value int) {
+	objc.Send[struct{}](m.ID, objc.Sel("setSuppressionMethod:"), value)
 }

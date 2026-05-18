@@ -15,6 +15,11 @@ import (
 type NSCollectionLayoutVisibleItem interface {
 	objectivec.IObject
 
+	// A Boolean value that determines whether the item is hidden.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
+	IsHidden() bool
+
 	// The name of the item.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/name
@@ -39,11 +44,13 @@ type NSCollectionLayoutVisibleItem interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/alpha
 	Alpha() float64
+	SetAlpha(value float64)
 
 	// A Boolean value that determines whether the item is hidden.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-	IsHidden() bool
+	Hidden() bool
+	SetHidden(value bool)
 
 	// The frame rectangle, which describes the item’s location and size in its section’s coordinate system.
 	//
@@ -59,30 +66,12 @@ type NSCollectionLayoutVisibleItem interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/center
 	Center() corefoundation.CGPoint
-
-	// The vertical stacking order of the item in relation to other items in the section.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/zIndex
-	ZIndex() int
-
-	// The transparency of the item.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/alpha
-	SetAlpha(value float64)
-
-	// A Boolean value that determines whether the item is hidden.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-	SetHidden(value bool)
-
-	// The center point of the item’s frame rectangle.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/center
 	SetCenter(value corefoundation.CGPoint)
 
 	// The vertical stacking order of the item in relation to other items in the section.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/zIndex
+	ZIndex() int
 	SetZIndex(value int)
 }
 
@@ -101,6 +90,14 @@ func NSCollectionLayoutVisibleItemObjectFromID(id objc.ID) NSCollectionLayoutVis
 	return NSCollectionLayoutVisibleItemObject{
 		Object: objectivec.ObjectFromID(id),
 	}
+}
+
+// A Boolean value that determines whether the item is hidden.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
+func (o NSCollectionLayoutVisibleItemObject) IsHidden() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isHidden"))
+	return rv
 }
 
 // The name of the item.
@@ -125,7 +122,7 @@ func (o NSCollectionLayoutVisibleItemObject) RepresentedElementKind() string {
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/representedElementCategory
 func (o NSCollectionLayoutVisibleItemObject) RepresentedElementCategory() NSCollectionElementCategory {
 	rv := objc.Send[NSCollectionElementCategory](o.ID, objc.Sel("representedElementCategory"))
-	return rv
+	return NSCollectionElementCategory(rv)
 }
 
 // The index path of the item.
@@ -133,7 +130,7 @@ func (o NSCollectionLayoutVisibleItemObject) RepresentedElementCategory() NSColl
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/indexPath
 func (o NSCollectionLayoutVisibleItemObject) IndexPath() objc.ID {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexPath"))
-	return rv
+	return objc.ID(rv)
 }
 
 // The transparency of the item.
@@ -141,15 +138,23 @@ func (o NSCollectionLayoutVisibleItemObject) IndexPath() objc.ID {
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/alpha
 func (o NSCollectionLayoutVisibleItemObject) Alpha() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("alpha"))
-	return rv
+	return float64(rv)
+}
+
+func (o NSCollectionLayoutVisibleItemObject) SetAlpha(value float64) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAlpha:"), value)
 }
 
 // A Boolean value that determines whether the item is hidden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-func (o NSCollectionLayoutVisibleItemObject) IsHidden() bool {
+func (o NSCollectionLayoutVisibleItemObject) Hidden() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isHidden"))
-	return rv
+	return bool(rv)
+}
+
+func (o NSCollectionLayoutVisibleItemObject) SetHidden(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setHidden:"), value)
 }
 
 // The frame rectangle, which describes the item’s location and size in its
@@ -158,7 +163,7 @@ func (o NSCollectionLayoutVisibleItemObject) IsHidden() bool {
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/frame
 func (o NSCollectionLayoutVisibleItemObject) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("frame"))
-	return rv
+	return corefoundation.CGRect(rv)
 }
 
 // The bounds rectangle, which describes the item’s location and size in its
@@ -167,7 +172,7 @@ func (o NSCollectionLayoutVisibleItemObject) Frame() corefoundation.CGRect {
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/bounds
 func (o NSCollectionLayoutVisibleItemObject) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("bounds"))
-	return rv
+	return corefoundation.CGRect(rv)
 }
 
 // The center point of the item’s frame rectangle.
@@ -175,35 +180,9 @@ func (o NSCollectionLayoutVisibleItemObject) Bounds() corefoundation.CGRect {
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/center
 func (o NSCollectionLayoutVisibleItemObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
+	return corefoundation.CGPoint(rv)
 }
 
-// The vertical stacking order of the item in relation to other items in the
-// section.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/zIndex
-func (o NSCollectionLayoutVisibleItemObject) ZIndex() int {
-	rv := objc.Send[int](o.ID, objc.Sel("zIndex"))
-	return rv
-}
-
-// The transparency of the item.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/alpha
-func (o NSCollectionLayoutVisibleItemObject) SetAlpha(value float64) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAlpha:"), value)
-}
-
-// A Boolean value that determines whether the item is hidden.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-func (o NSCollectionLayoutVisibleItemObject) SetHidden(value bool) {
-	objc.Send[struct{}](o.ID, objc.Sel("setHidden:"), value)
-}
-
-// The center point of the item’s frame rectangle.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/center
 func (o NSCollectionLayoutVisibleItemObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -212,6 +191,11 @@ func (o NSCollectionLayoutVisibleItemObject) SetCenter(value corefoundation.CGPo
 // section.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/zIndex
+func (o NSCollectionLayoutVisibleItemObject) ZIndex() int {
+	rv := objc.Send[int](o.ID, objc.Sel("zIndex"))
+	return int(rv)
+}
+
 func (o NSCollectionLayoutVisibleItemObject) SetZIndex(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setZIndex:"), value)
 }

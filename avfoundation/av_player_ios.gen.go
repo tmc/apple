@@ -34,6 +34,24 @@ func (p AVPlayer) AudioOutputSuppressedDueToNonMixableAudioRoute() bool {
 	return rv
 }
 
+// The AVPlayer’s intended spatial audio experience.
+//
+// # Discussion
+//
+// The default value of CAAutomaticSpatialAudio means the player uses its
+// AVAudioSession’s intended spatial experience. If the anchoring strategy
+// is impossible (e.g. it uses a destroyed UIScene’s identifier), the player
+// follows a “front” anchoring strategy instead.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/intendedSpatialAudioExperience-3uy8g
+func (p AVPlayer) IntendedSpatialAudioExperience() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("intendedSpatialAudioExperience"))
+	return rv
+}
+func (p AVPlayer) SetIntendedSpatialAudioExperience(value unsafe.Pointer) {
+	objc.Send[struct{}](p.ID, objc.Sel("setIntendedSpatialAudioExperience:"), value)
+}
+
 // A Boolean value that indicates whether the player should automatically
 // switch to external playback mode while the external screen mode is active.
 //
@@ -126,24 +144,6 @@ func (p AVPlayer) UsesAirPlayVideoWhileAirPlayScreenIsActive() bool {
 }
 func (p AVPlayer) SetUsesAirPlayVideoWhileAirPlayScreenIsActive(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsesAirPlayVideoWhileAirPlayScreenIsActive:"), value)
-}
-
-// The AVPlayer’s intended spatial audio experience.
-//
-// # Discussion
-//
-// The default value of CAAutomaticSpatialAudio means the player uses its
-// AVAudioSession’s intended spatial experience. If the anchoring strategy
-// is impossible (e.g. it uses a destroyed UIScene’s identifier), the player
-// follows a “front” anchoring strategy instead.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/intendedSpatialAudioExperience-3uy8g
-func (p AVPlayer) IntendedSpatialAudioExperience() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("intendedSpatialAudioExperience"))
-	return rv
-}
-func (p AVPlayer) SetIntendedSpatialAudioExperience(value unsafe.Pointer) {
-	objc.Send[struct{}](p.ID, objc.Sel("setIntendedSpatialAudioExperience:"), value)
 }
 
 // The HDR modes that are available for playback.

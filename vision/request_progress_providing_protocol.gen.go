@@ -17,16 +17,12 @@ type VNRequestProgressProviding interface {
 	//
 	// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
 	ProgressHandler() VNRequestProgressHandler
+	SetProgressHandler(value VNRequestProgressHandler)
 
 	// A Boolean set to true when a request can’t determine its progress in fractions completed.
 	//
 	// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/indeterminate
 	Indeterminate() bool
-
-	// A block of code executed periodically during a Vision request to report progress on long-running tasks.
-	//
-	// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
-	SetProgressHandler(value VNRequestProgressHandler)
 }
 
 // VNRequestProgressProvidingObject wraps an existing Objective-C object that conforms to the VNRequestProgressProviding protocol.
@@ -49,24 +45,6 @@ func VNRequestProgressProvidingObjectFromID(id objc.ID) VNRequestProgressProvidi
 // A block of code executed periodically during a Vision request to report
 // progress on long-running tasks.
 //
-// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
-func (o VNRequestProgressProvidingObject) ProgressHandler() VNRequestProgressHandler {
-	rv := objc.Send[VNRequestProgressHandler](o.ID, objc.Sel("progressHandler"))
-	return rv
-}
-
-// A Boolean set to true when a request can’t determine its progress in
-// fractions completed.
-//
-// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/indeterminate
-func (o VNRequestProgressProvidingObject) Indeterminate() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("indeterminate"))
-	return rv
-}
-
-// A block of code executed periodically during a Vision request to report
-// progress on long-running tasks.
-//
 // # Discussion
 //
 // The progress handler is an optional method that allows clients of the
@@ -77,6 +55,27 @@ func (o VNRequestProgressProvidingObject) Indeterminate() bool {
 // in a thread-safe manner.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
+func (o VNRequestProgressProvidingObject) ProgressHandler() VNRequestProgressHandler {
+	rv := objc.Send[VNRequestProgressHandler](o.ID, objc.Sel("progressHandler"))
+	return VNRequestProgressHandler(rv)
+}
+
 func (o VNRequestProgressProvidingObject) SetProgressHandler(value VNRequestProgressHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("setProgressHandler:"), value)
+}
+
+// A Boolean set to true when a request can’t determine its progress in
+// fractions completed.
+//
+// # Discussion
+//
+// A value of true doesn’t mean that the request will run forever. Rather,
+// it means that the nature of the request can’t be broken down into
+// identifiable fractions to report. The [ProgressHandler] will still be
+// called at suitable intervals.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/indeterminate
+func (o VNRequestProgressProvidingObject) Indeterminate() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("indeterminate"))
+	return bool(rv)
 }

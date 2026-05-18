@@ -181,7 +181,7 @@ type IAVMetadataItem interface {
 	// The timestamp of the metadata item.
 	Time() coremedia.CMTime
 	// The start date of the timed metadata.
-	StartDate() foundation.INSDate
+	StartDate() foundation.NSDate
 	// The duration of the metadata item.
 	Duration() coremedia.CMTime
 
@@ -547,7 +547,7 @@ func (m AVMetadataItem) Time() coremedia.CMTime {
 // The value is `nil` if the metadata item doesn’t provide a start date.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem/startDate
-func (m AVMetadataItem) StartDate() foundation.INSDate {
+func (m AVMetadataItem) StartDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("startDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

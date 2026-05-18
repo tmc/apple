@@ -252,10 +252,12 @@ type IMTLRenderPassDescriptor interface {
 
 	// An option for rendering to the texture in a render pass.
 	RenderTarget() MTLTextureUsage
-	SetRenderTarget(value MTLTextureUsage)
+	SetMTLTextureUsageRenderTarget(value MTLTextureUsage)
 	// Options that determine how you can use the texture.
 	Usage() MTLTextureUsage
 	SetUsage(value MTLTextureUsage)
+	// Retrieves the programmable sample positions set for a render pass.
+	GetSamplePositionsCount(positions []MTLSamplePosition, count uint) uint
 	// Sets the programmable sample positions for a render pass.
 	SetSamplePositionsCount(positions []MTLSamplePosition, count uint)
 }
@@ -276,6 +278,35 @@ func (r MTLRenderPassDescriptor) Autorelease() MTLRenderPassDescriptor {
 func NewMTLRenderPassDescriptor() MTLRenderPassDescriptor {
 	class := getMTLRenderPassDescriptorClass()
 	rv := objc.Send[MTLRenderPassDescriptor](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+// Retrieves the programmable sample positions set for a render pass.
+//
+// positions: A pointer to a destination array of sample positions where Metal writes the
+// programmable sample positions.
+//
+// count: The number of programmable sample positions to retrieve.
+//
+// # Return Value
+//
+// The total number of programmable sample positions set for the render pass.
+//
+// # Discussion
+//
+// The value of `count` needs to be equal to the number of programmable sample
+// positions set by a previous call to the [SetSamplePositionsCount] method
+// (the `count` parameter). Also, the `positions` array needs to contain at
+// least as many elements as the value of `count`.
+//
+// If you don’t know the correct value for `count`, you may query this
+// method by passing a `nil` array for `positions` and a `0` value for
+// `count`. This method returns the number of programmable sample positions
+// that are currently set.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPassDescriptor/getSamplePositions:count:
+func (r MTLRenderPassDescriptor) GetSamplePositionsCount(positions []MTLSamplePosition, count uint) uint {
+	rv := objc.Send[uint](r.ID, objc.Sel("getSamplePositions:count:"), objc.CArray(positions), count)
 	return rv
 }
 
@@ -554,7 +585,7 @@ func (r MTLRenderPassDescriptor) RenderTarget() MTLTextureUsage {
 	rv := objc.Send[MTLTextureUsage](r.ID, objc.Sel("MTLTextureUsageRenderTarget"))
 	return MTLTextureUsage(rv)
 }
-func (r MTLRenderPassDescriptor) SetRenderTarget(value MTLTextureUsage) {
+func (r MTLRenderPassDescriptor) SetMTLTextureUsageRenderTarget(value MTLTextureUsage) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMTLTextureUsageRenderTarget:"), value)
 }
 

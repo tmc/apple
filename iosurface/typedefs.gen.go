@@ -16,5 +16,4 @@ type IOSurfacePropertyKey = string
 type IOSurfaceRef uintptr
 
 // SurfaceRef is a bare alias for IOSurfaceRef used by dependent frameworks.
-
 type SurfaceRef = IOSurfaceRef

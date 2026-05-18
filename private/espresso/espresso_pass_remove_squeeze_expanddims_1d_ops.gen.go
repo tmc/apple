@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_remove_squeeze_expanddims_1d_ops] class.
+// The class instance for the [EspressoPassRemoveSqueezeExpanddims1dOps] class.
 var (
-	_EspressoPass_remove_squeeze_expanddims_1d_opsClass     EspressoPass_remove_squeeze_expanddims_1d_opsClass
-	_EspressoPass_remove_squeeze_expanddims_1d_opsClassOnce sync.Once
+	_EspressoPassRemoveSqueezeExpanddims1dOpsClass     EspressoPassRemoveSqueezeExpanddims1dOpsClass
+	_EspressoPassRemoveSqueezeExpanddims1dOpsClassOnce sync.Once
 )
 
-func getEspressoPass_remove_squeeze_expanddims_1d_opsClass() EspressoPass_remove_squeeze_expanddims_1d_opsClass {
-	_EspressoPass_remove_squeeze_expanddims_1d_opsClassOnce.Do(func() {
-		_EspressoPass_remove_squeeze_expanddims_1d_opsClass = EspressoPass_remove_squeeze_expanddims_1d_opsClass{class: objc.GetClass("EspressoPass_remove_squeeze_expanddims_1d_ops")}
+func getEspressoPassRemoveSqueezeExpanddims1dOpsClass() EspressoPassRemoveSqueezeExpanddims1dOpsClass {
+	_EspressoPassRemoveSqueezeExpanddims1dOpsClassOnce.Do(func() {
+		_EspressoPassRemoveSqueezeExpanddims1dOpsClass = EspressoPassRemoveSqueezeExpanddims1dOpsClass{class: objc.GetClass("EspressoPass_remove_squeeze_expanddims_1d_ops")}
 	})
-	return _EspressoPass_remove_squeeze_expanddims_1d_opsClass
+	return _EspressoPassRemoveSqueezeExpanddims1dOpsClass
 }
 
-// GetEspressoPass_remove_squeeze_expanddims_1d_opsClass returns the class object for EspressoPass_remove_squeeze_expanddims_1d_ops.
-func GetEspressoPass_remove_squeeze_expanddims_1d_opsClass() EspressoPass_remove_squeeze_expanddims_1d_opsClass {
-	return getEspressoPass_remove_squeeze_expanddims_1d_opsClass()
+// GetEspressoPassRemoveSqueezeExpanddims1dOpsClass returns the class object for EspressoPass_remove_squeeze_expanddims_1d_ops.
+func GetEspressoPassRemoveSqueezeExpanddims1dOpsClass() EspressoPassRemoveSqueezeExpanddims1dOpsClass {
+	return getEspressoPassRemoveSqueezeExpanddims1dOpsClass()
 }
 
-type EspressoPass_remove_squeeze_expanddims_1d_opsClass struct {
+type EspressoPassRemoveSqueezeExpanddims1dOpsClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_remove_squeeze_expanddims_1d_opsClass) Class() objc.Class {
+func (ec EspressoPassRemoveSqueezeExpanddims1dOpsClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_remove_squeeze_expanddims_1d_opsClass) Alloc() EspressoPass_remove_squeeze_expanddims_1d_ops {
-	rv := objc.Send[EspressoPass_remove_squeeze_expanddims_1d_ops](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassRemoveSqueezeExpanddims1dOpsClass) Alloc() EspressoPassRemoveSqueezeExpanddims1dOps {
+	rv := objc.Send[EspressoPassRemoveSqueezeExpanddims1dOps](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze_expanddims_1d_ops
-type EspressoPass_remove_squeeze_expanddims_1d_ops struct {
+type EspressoPassRemoveSqueezeExpanddims1dOps struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_remove_squeeze_expanddims_1d_opsFromID constructs a [EspressoPass_remove_squeeze_expanddims_1d_ops] from an objc.ID.
-func EspressoPass_remove_squeeze_expanddims_1d_opsFromID(id objc.ID) EspressoPass_remove_squeeze_expanddims_1d_ops {
-	return EspressoPass_remove_squeeze_expanddims_1d_ops{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassRemoveSqueezeExpanddims1dOpsFromID constructs a [EspressoPassRemoveSqueezeExpanddims1dOps] from an objc.ID.
+func EspressoPassRemoveSqueezeExpanddims1dOpsFromID(id objc.ID) EspressoPassRemoveSqueezeExpanddims1dOps {
+	return EspressoPassRemoveSqueezeExpanddims1dOps{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_remove_squeeze_expanddims_1d_ops implements IEspressoPass_remove_squeeze_expanddims_1d_ops.
-var _ IEspressoPass_remove_squeeze_expanddims_1d_ops = EspressoPass_remove_squeeze_expanddims_1d_ops{}
+// EspressoPass_remove_squeeze_expanddims_1d_opsFromID is an alias for [EspressoPassRemoveSqueezeExpanddims1dOpsFromID] for cross-framework compatibility.
+func EspressoPass_remove_squeeze_expanddims_1d_opsFromID(id objc.ID) EspressoPassRemoveSqueezeExpanddims1dOps {
+	return EspressoPassRemoveSqueezeExpanddims1dOpsFromID(id)
+}
 
-// An interface definition for the [EspressoPass_remove_squeeze_expanddims_1d_ops] class.
+// Ensure EspressoPassRemoveSqueezeExpanddims1dOps implements IEspressoPassRemoveSqueezeExpanddims1dOps.
+var _ IEspressoPassRemoveSqueezeExpanddims1dOps = EspressoPassRemoveSqueezeExpanddims1dOps{}
+
+// An interface definition for the [EspressoPassRemoveSqueezeExpanddims1dOps] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze_expanddims_1d_ops
-type IEspressoPass_remove_squeeze_expanddims_1d_ops interface {
+type IEspressoPassRemoveSqueezeExpanddims1dOps interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_remove_squeeze_expanddims_1d_ops) Init() EspressoPass_remove_squeeze_expanddims_1d_ops {
-	rv := objc.Send[EspressoPass_remove_squeeze_expanddims_1d_ops](e.ID, objc.Sel("init"))
+func (e EspressoPassRemoveSqueezeExpanddims1dOps) Init() EspressoPassRemoveSqueezeExpanddims1dOps {
+	rv := objc.Send[EspressoPassRemoveSqueezeExpanddims1dOps](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_remove_squeeze_expanddims_1d_ops) Autorelease() EspressoPass_remove_squeeze_expanddims_1d_ops {
-	rv := objc.Send[EspressoPass_remove_squeeze_expanddims_1d_ops](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassRemoveSqueezeExpanddims1dOps) Autorelease() EspressoPassRemoveSqueezeExpanddims1dOps {
+	rv := objc.Send[EspressoPassRemoveSqueezeExpanddims1dOps](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_remove_squeeze_expanddims_1d_ops creates a new EspressoPass_remove_squeeze_expanddims_1d_ops instance.
-func NewEspressoPass_remove_squeeze_expanddims_1d_ops() EspressoPass_remove_squeeze_expanddims_1d_ops {
-	class := getEspressoPass_remove_squeeze_expanddims_1d_opsClass()
-	rv := objc.Send[EspressoPass_remove_squeeze_expanddims_1d_ops](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassRemoveSqueezeExpanddims1dOps creates a new EspressoPassRemoveSqueezeExpanddims1dOps instance.
+func NewEspressoPassRemoveSqueezeExpanddims1dOps() EspressoPassRemoveSqueezeExpanddims1dOps {
+	class := getEspressoPassRemoveSqueezeExpanddims1dOpsClass()
+	rv := objc.Send[EspressoPassRemoveSqueezeExpanddims1dOps](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

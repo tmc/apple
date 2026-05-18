@@ -168,8 +168,8 @@ func NewAVAsset() AVAsset {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
-func NewAssetWithURL(URL foundation.INSURL) AVAsset {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+func NewAssetWithURL(URL foundation.NSURL) AVAsset {
 	rv := objc.Send[objc.ID](objc.ID(getAVAssetClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVAssetFromID(rv)
 }

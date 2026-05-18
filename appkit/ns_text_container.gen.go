@@ -166,7 +166,6 @@ func NSTextContainerFromID(id objc.ID) NSTextContainer {
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer
 type INSTextContainer interface {
 	objectivec.IObject
-	NSTextLayoutOrientationProvider
 
 	// Topic: Creating a text container
 
@@ -446,6 +445,14 @@ func (t NSTextContainer) LineFragmentRectForProposedRectSweepDirectionMovementDi
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("lineFragmentRectForProposedRect:sweepDirection:movementDirection:remainingRect:"), proposedRect, sweepDirection, movementDirection, remainingRect)
 	return corefoundation.CGRect(rv)
 }
+
+// The default layout orientation.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutOrientationProvider/layoutOrientation
+func (t NSTextContainer) LayoutOrientation() NSTextLayoutOrientation {
+	rv := objc.Send[NSTextLayoutOrientation](t.ID, objc.Sel("layoutOrientation"))
+	return NSTextLayoutOrientation(rv)
+}
 func (t NSTextContainer) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -676,24 +683,6 @@ func (t NSTextContainer) ContainerSize() corefoundation.CGSize {
 }
 func (t NSTextContainer) SetContainerSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContainerSize:"), value)
-}
-
-// The default layout orientation.
-//
-// # Discussion
-//
-// This property contains the default layout orientation for text in the
-// object that adopts the protocol. If the text contains an explicit
-// [verticalGlyphForm] attribute, that attribute overrides the value in this
-// property. When rendering, TextKit assumes the coordinate system is
-// appropriately rotated.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutOrientationProvider/layoutOrientation
-//
-// [verticalGlyphForm]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/verticalGlyphForm
-func (t NSTextContainer) LayoutOrientation() NSTextLayoutOrientation {
-	rv := objc.Send[NSTextLayoutOrientation](t.ID, objc.Sel("layoutOrientation"))
-	return NSTextLayoutOrientation(rv)
 }
 
 // Protocol methods for NSTextLayoutOrientationProvider

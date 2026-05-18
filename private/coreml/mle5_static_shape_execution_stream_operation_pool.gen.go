@@ -135,14 +135,14 @@ type IMLE5StaticShapeExecutionStreamOperationPool interface {
 }
 
 // Init initializes the instance.
-func (e MLE5StaticShapeExecutionStreamOperationPool) Init() MLE5StaticShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](e.ID, objc.Sel("init"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) Init() MLE5StaticShapeExecutionStreamOperationPool {
+	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e MLE5StaticShapeExecutionStreamOperationPool) Autorelease() MLE5StaticShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](e.ID, objc.Sel("autorelease"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) Autorelease() MLE5StaticShapeExecutionStreamOperationPool {
+	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -161,34 +161,34 @@ func NewE5StaticShapeExecutionStreamOperationPoolWithProgramLibraryFunctionNameM
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/_putBack:
-func (e MLE5StaticShapeExecutionStreamOperationPool) _putBack(back objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("_putBack:"), back)
+func (m MLE5StaticShapeExecutionStreamOperationPool) _putBack(back objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_putBack:"), back)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/_takeOut
-func (e MLE5StaticShapeExecutionStreamOperationPool) _takeOut() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("_takeOut"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) _takeOut() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_takeOut"))
 	return objectivec.Object{ID: rv}
 }
 
 // TakeOut is an exported wrapper for the private method _takeOut.
-func (e MLE5StaticShapeExecutionStreamOperationPool) TakeOut() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(e.ID, objc.Sel("_takeOut")) {
+func (m MLE5StaticShapeExecutionStreamOperationPool) TakeOut() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_takeOut")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_takeOut"}
 		return nil, err
 	}
-	return e._takeOut(), nil
+	return m._takeOut(), nil
 }
 
 // CanTakeOut reports whether the receiver responds to the private selector _takeOut.
-func (e MLE5StaticShapeExecutionStreamOperationPool) CanTakeOut() bool {
-	return objc.RespondsToSelector(e.ID, objc.Sel("_takeOut"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) CanTakeOut() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_takeOut"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/prepareWithInitialPoolSize:error:
-func (e MLE5StaticShapeExecutionStreamOperationPool) PrepareWithInitialPoolSizeError(size int64) (bool, error) {
+func (m MLE5StaticShapeExecutionStreamOperationPool) PrepareWithInitialPoolSizeError(size int64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](e.ID, objc.Sel("prepareWithInitialPoolSize:error:"), size, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("prepareWithInitialPoolSize:error:"), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -201,14 +201,14 @@ func (e MLE5StaticShapeExecutionStreamOperationPool) PrepareWithInitialPoolSizeE
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/putBack:
-func (e MLE5StaticShapeExecutionStreamOperationPool) PutBack(back objectivec.IObject) {
-	objc.Send[objc.ID](e.ID, objc.Sel("putBack:"), back)
+func (m MLE5StaticShapeExecutionStreamOperationPool) PutBack(back objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("putBack:"), back)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/takeOutOperationForFeatures:error:
-func (e MLE5StaticShapeExecutionStreamOperationPool) TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+func (m MLE5StaticShapeExecutionStreamOperationPool) TakeOutOperationForFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("takeOutOperationForFeatures:error:"), features, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("takeOutOperationForFeatures:error:"), features, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -218,88 +218,88 @@ func (e MLE5StaticShapeExecutionStreamOperationPool) TakeOutOperationForFeatures
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:
-func (e MLE5StaticShapeExecutionStreamOperationPool) InitWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5StaticShapeExecutionStreamOperationPool {
-	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](e.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
+func (m MLE5StaticShapeExecutionStreamOperationPool) InitWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5StaticShapeExecutionStreamOperationPool {
+	rv := objc.Send[MLE5StaticShapeExecutionStreamOperationPool](m.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/debugDescription
-func (e MLE5StaticShapeExecutionStreamOperationPool) DebugDescription() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/description
-func (e MLE5StaticShapeExecutionStreamOperationPool) Description() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/functionName
-func (e MLE5StaticShapeExecutionStreamOperationPool) FunctionName() string {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("functionName"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) FunctionName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/hash
-func (e MLE5StaticShapeExecutionStreamOperationPool) Hash() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/modelConfiguration
-func (e MLE5StaticShapeExecutionStreamOperationPool) ModelConfiguration() IMLModelConfiguration {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelConfiguration"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) ModelConfiguration() IMLModelConfiguration {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/modelDescription
-func (e MLE5StaticShapeExecutionStreamOperationPool) ModelDescription() IMLModelDescription {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelDescription"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) ModelDescription() IMLModelDescription {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/modelSignpostId
-func (e MLE5StaticShapeExecutionStreamOperationPool) ModelSignpostId() uint64 {
-	rv := objc.Send[uint64](e.ID, objc.Sel("modelSignpostId"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) ModelSignpostId() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/numberOfOperationsInUse
-func (e MLE5StaticShapeExecutionStreamOperationPool) NumberOfOperationsInUse() int64 {
-	rv := objc.Send[int64](e.ID, objc.Sel("numberOfOperationsInUse"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) NumberOfOperationsInUse() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("numberOfOperationsInUse"))
 	return rv
 }
-func (e MLE5StaticShapeExecutionStreamOperationPool) SetNumberOfOperationsInUse(value int64) {
-	objc.Send[struct{}](e.ID, objc.Sel("setNumberOfOperationsInUse:"), value)
+func (m MLE5StaticShapeExecutionStreamOperationPool) SetNumberOfOperationsInUse(value int64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setNumberOfOperationsInUse:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/pixelBufferPool
-func (e MLE5StaticShapeExecutionStreamOperationPool) PixelBufferPool() IMLPixelBufferPool {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("pixelBufferPool"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) PixelBufferPool() IMLPixelBufferPool {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelBufferPool"))
 	return MLPixelBufferPoolFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/pool
-func (e MLE5StaticShapeExecutionStreamOperationPool) Pool() foundation.INSSet {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("pool"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) Pool() foundation.INSSet {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("pool"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/programLibrary
-func (e MLE5StaticShapeExecutionStreamOperationPool) ProgramLibrary() IMLE5ProgramLibrary {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("programLibrary"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) ProgramLibrary() IMLE5ProgramLibrary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("programLibrary"))
 	return MLE5ProgramLibraryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/serialQueue
-func (e MLE5StaticShapeExecutionStreamOperationPool) SerialQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("serialQueue"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) SerialQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("serialQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLE5StaticShapeExecutionStreamOperationPool/superclass
-func (e MLE5StaticShapeExecutionStreamOperationPool) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
+func (m MLE5StaticShapeExecutionStreamOperationPool) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

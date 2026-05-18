@@ -25,8 +25,7 @@ import (
 // This method checks for a command corresponding to the provided
 // [UIKeyCommand] and performs it, if available. The app should use this
 // method to perform any extension commands at an appropriate time in the
-// app’s responder object that handles the [PerformCommandForKeyCommand]
-// action.
+// app’s responder object that handles the [PerformCommandForEvent] action.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionContext/performCommand(for:)-25rd1
 //

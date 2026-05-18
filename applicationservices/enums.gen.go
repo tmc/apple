@@ -149,21 +149,21 @@ const ()
 type At uint
 
 const (
-	AtAbsoluteCenter   At = 1
+	AtAbsoluteCenter   At = 5
 	AtBottom           At = 3
-	AtBottomLeft       At = 3
-	AtBottomRight      At = 3
-	AtCenterBottom     At = 3
-	AtCenterLeft       At = 1
-	AtCenterRight      At = 1
-	AtCenterTop        At = 2
+	AtBottomLeft       At = 11
+	AtBottomRight      At = 15
+	AtCenterBottom     At = 7
+	AtCenterLeft       At = 9
+	AtCenterRight      At = 13
+	AtCenterTop        At = 6
 	AtHorizontalCenter At = 4
 	AtLeft             At = 8
 	AtNone             At = 0
 	AtRight            At = 12
 	AtTop              At = 2
-	AtTopLeft          At = 2
-	AtTopRight         At = 2
+	AtTopLeft          At = 10
+	AtTopRight         At = 14
 	AtVerticalCenter   At = 1
 )
 
@@ -173,6 +173,16 @@ func (e At) String() string {
 		return "AtAbsoluteCenter"
 	case AtBottom:
 		return "AtBottom"
+	case AtBottomLeft:
+		return "AtBottomLeft"
+	case AtBottomRight:
+		return "AtBottomRight"
+	case AtCenterBottom:
+		return "AtCenterBottom"
+	case AtCenterLeft:
+		return "AtCenterLeft"
+	case AtCenterRight:
+		return "AtCenterRight"
 	case AtCenterTop:
 		return "AtCenterTop"
 	case AtHorizontalCenter:
@@ -183,6 +193,14 @@ func (e At) String() string {
 		return "AtNone"
 	case AtRight:
 		return "AtRight"
+	case AtTop:
+		return "AtTop"
+	case AtTopLeft:
+		return "AtTopLeft"
+	case AtTopRight:
+		return "AtTopRight"
+	case AtVerticalCenter:
+		return "AtVerticalCenter"
 	default:
 		return fmt.Sprintf("At(%d)", e)
 	}
@@ -323,13 +341,13 @@ const (
 	Cm8CLRData         Cm = '8'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '8CLR'
 	Cm8_8ColorPacking  Cm = 0x2800
 	Cm9CLRData         Cm = '9'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '9CLR'
-	CmARGB32PmulSpace  Cm = 1
+	CmARGB32PmulSpace  Cm = 193
 	// CmARGB32Space: # Discussion
-	CmARGB32Space      Cm = 1
-	CmARGB64LPmulSpace Cm = 1
-	CmARGB64LSpace     Cm = 1
-	CmARGB64PmulSpace  Cm = 1
-	CmARGB64Space      Cm = 1
+	CmARGB32Space      Cm = 129
+	CmARGB64LPmulSpace Cm = 193
+	CmARGB64LSpace     Cm = 129
+	CmARGB64PmulSpace  Cm = 193
+	CmARGB64Space      Cm = 129
 	CmAToB0Tag         Cm = 'A'<<24 | '2'<<16 | 'B'<<8 | '0' // 'A2B0'
 	CmAToB1Tag         Cm = 'A'<<24 | '2'<<16 | 'B'<<8 | '1' // 'A2B1'
 	CmAToB2Tag         Cm = 'A'<<24 | '2'<<16 | 'B'<<8 | '2' // 'A2B2'
@@ -434,14 +452,14 @@ const (
 	// CmGray16Space: A luminance color space with a single 16-bit component, gray.
 	CmGray16Space       Cm = 10
 	CmGray8Space        Cm = 10
-	CmGrayA16PmulSpace  Cm = 10
-	CmGrayA16Space      Cm = 10
-	CmGrayA32LPmulSpace Cm = 10
-	CmGrayA32LSpace     Cm = 10
-	CmGrayA32PmulSpace  Cm = 10
+	CmGrayA16PmulSpace  Cm = 202
+	CmGrayA16Space      Cm = 138
+	CmGrayA32LPmulSpace Cm = 202
+	CmGrayA32LSpace     Cm = 138
+	CmGrayA32PmulSpace  Cm = 202
 	// CmGrayA32Space: A luminance color space with two components, a gray component followed by an alpha channel component.
-	CmGrayA32Space   Cm = 10
-	CmGrayAPmulSpace Cm = 10
+	CmGrayA32Space   Cm = 138
+	CmGrayAPmulSpace Cm = 138
 	// CmGrayASpace: A luminance color space with two components, a gray component followed by an alpha channel component.
 	CmGrayASpace Cm = 10
 	// CmGrayData: The Gray data color space.
@@ -602,14 +620,14 @@ const (
 	CmRGB48Space      Cm = 1
 	CmRGB565LSpace    Cm = 1
 	CmRGB565Space     Cm = 1
-	CmRGBA32PmulSpace Cm = 1
+	CmRGBA32PmulSpace Cm = 193
 	// CmRGBA32Space: An RGB color space composed of red, green, and blue color value components, followed by an alpha channel component.
-	CmRGBA32Space      Cm = 1
-	CmRGBA64LPmulSpace Cm = 1
-	CmRGBA64LSpace     Cm = 1
-	CmRGBA64PmulSpace  Cm = 1
-	CmRGBA64Space      Cm = 1
-	CmRGBAPmulSpace    Cm = 1
+	CmRGBA32Space      Cm = 129
+	CmRGBA64LPmulSpace Cm = 193
+	CmRGBA64LSpace     Cm = 129
+	CmRGBA64PmulSpace  Cm = 193
+	CmRGBA64Space      Cm = 129
+	CmRGBAPmulSpace    Cm = 129
 	// CmRGBASpace: # Discussion
 	CmRGBASpace Cm = 1
 	// CmRGBData: The RGB data color space.
@@ -732,6 +750,8 @@ func (e Cm) String() string {
 		return "Cm9CLRData"
 	case CmARGB32PmulSpace:
 		return "CmARGB32PmulSpace"
+	case CmARGB32Space:
+		return "CmARGB32Space"
 	case CmAToB0Tag:
 		return "CmAToB0Tag"
 	case CmAToB1Tag:
@@ -762,6 +782,8 @@ func (e Cm) String() string {
 		return "CmBeginAccess"
 	case CmBestMode:
 		return "CmBestMode"
+	case CmBinaryData:
+		return "CmBinaryData"
 	case CmBlackPointCompensationMask:
 		return "CmBlackPointCompensationMask"
 	case CmBlueColorantTag:
@@ -822,6 +844,10 @@ func (e Cm) String() string {
 		return "CmGamutTag"
 	case CmGray16LSpace:
 		return "CmGray16LSpace"
+	case CmGrayA16PmulSpace:
+		return "CmGrayA16PmulSpace"
+	case CmGrayA16Space:
+		return "CmGrayA16Space"
 	case CmGrayData:
 		return "CmGrayData"
 	case CmGrayTRCTag:
@@ -4807,9 +4833,9 @@ func (e SoVoice) String() string {
 type Sv uint
 
 const (
-	SvAll1BitData      Sv = 1
-	SvAll4BitData      Sv = 2
-	SvAll8BitData      Sv = 4
+	SvAll1BitData      Sv = 16843009
+	SvAll4BitData      Sv = 33686018
+	SvAll8BitData      Sv = 67372036
 	SvAllAvailableData Sv = 4294967295
 	SvAllLargeData     Sv = 255
 	SvAllMiniData      Sv = 16711680
@@ -4841,6 +4867,12 @@ func (e Sv) String() string {
 		return "SvAllMiniData"
 	case SvAllSmallData:
 		return "SvAllSmallData"
+	case SvLarge1Bit:
+		return "SvLarge1Bit"
+	case SvLarge4Bit:
+		return "SvLarge4Bit"
+	case SvLarge8Bit:
+		return "SvLarge8Bit"
 	case SvMini1Bit:
 		return "SvMini1Bit"
 	case SvMini4Bit:
@@ -4873,9 +4905,9 @@ const (
 	TtOffline          Tt = 2
 	TtOpen             Tt = 3
 	TtSelected         Tt = 16384
-	TtSelectedDisabled Tt = 16384
-	TtSelectedOffline  Tt = 16384
-	TtSelectedOpen     Tt = 16384
+	TtSelectedDisabled Tt = 16385
+	TtSelectedOffline  Tt = 16386
+	TtSelectedOpen     Tt = 16387
 )
 
 func (e Tt) String() string {
@@ -4904,6 +4936,12 @@ func (e Tt) String() string {
 		return "TtOpen"
 	case TtSelected:
 		return "TtSelected"
+	case TtSelectedDisabled:
+		return "TtSelectedDisabled"
+	case TtSelectedOffline:
+		return "TtSelectedOffline"
+	case TtSelectedOpen:
+		return "TtSelectedOpen"
 	default:
 		return fmt.Sprintf("Tt(%d)", e)
 	}

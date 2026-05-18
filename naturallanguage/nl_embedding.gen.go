@@ -171,7 +171,7 @@ func NewNLEmbedding() NLEmbedding {
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/init(contentsOf:)
 //
 // [MLWordEmbedding]: https://developer.apple.com/documentation/CreateML/MLWordEmbedding
-func NewEmbeddingWithContentsOfURLError(url foundation.INSURL) (NLEmbedding, error) {
+func NewEmbeddingWithContentsOfURLError(url foundation.NSURL) (NLEmbedding, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getNLEmbeddingClass().class), objc.Sel("embeddingWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -483,7 +483,7 @@ func (_NLEmbeddingClass NLEmbeddingClass) SupportedSentenceEmbeddingRevisionsFor
 // url: The location in the file system to write the file to.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/writeEmbeddingForDictionary:language:revision:toURL:error:
-func (_NLEmbeddingClass NLEmbeddingClass) WriteEmbeddingForDictionaryLanguageRevisionToURLError(dictionary foundation.INSDictionary, language NLLanguage, revision uint, url foundation.INSURL) (bool, error) {
+func (_NLEmbeddingClass NLEmbeddingClass) WriteEmbeddingForDictionaryLanguageRevisionToURLError(dictionary foundation.INSDictionary, language NLLanguage, revision uint, url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_NLEmbeddingClass.class), objc.Sel("writeEmbeddingForDictionary:language:revision:toURL:error:"), dictionary, objc.String(string(language)), revision, url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

@@ -118,8 +118,8 @@ func MTLAccelerationStructureCommandEncoderObjectFromID(id objc.ID) MTLAccelerat
 //
 // The destination acceleration structure and the scratch buffer needs enough
 // space in memory to hold the acceleration structure data. Call the
-// [accelerationStructureSizes(descriptor:)] method on the Metal device object
-// to get the required space.
+// [AccelerationStructureSizesWithDescriptor] method on the Metal device
+// object to get the required space.
 //
 // The resulting acceleration structure contains references to any other
 // acceleration structures referenced by the descriptor, but not any other
@@ -140,8 +140,6 @@ func MTLAccelerationStructureCommandEncoderObjectFromID(id objc.ID) MTLAccelerat
 // and builds the instance acceleration structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/build(accelerationStructure:descriptor:scratchBuffer:scratchBufferOffset:)
-//
-// [accelerationStructureSizes(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
 func (o MTLAccelerationStructureCommandEncoderObject) BuildAccelerationStructureDescriptorScratchBufferScratchBufferOffset(accelerationStructure MTLAccelerationStructure, descriptor IMTLAccelerationStructureDescriptor, scratchBuffer MTLBuffer, scratchBufferOffset uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("buildAccelerationStructure:descriptor:scratchBuffer:scratchBufferOffset:"), accelerationStructure, descriptor, scratchBuffer, scratchBufferOffset)
 }
@@ -279,7 +277,7 @@ func (o MTLAccelerationStructureCommandEncoderObject) CopyAndCompactAcceleration
 // they can’t overlap in memory. The destination acceleration structure and
 // the scratch buffer need to have enough space in memory to hold the
 // acceleration structure data. Get the minimum amount of space it needs by
-// calling the [accelerationStructureSizes(descriptor:)] method of the Metal
+// calling the [AccelerationStructureSizesWithDescriptor] method of the Metal
 // device instance. If you’re compacting the source structure, the
 // destination needs to be at least as large as the compact size of the source
 // acceleration structure.
@@ -287,7 +285,6 @@ func (o MTLAccelerationStructureCommandEncoderObject) CopyAndCompactAcceleration
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/refit(sourceAccelerationStructure:descriptor:destinationAccelerationStructure:scratchBuffer:scratchBufferOffset:)
 //
 // [refitScratchBufferSize]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureSizes/refitScratchBufferSize
-// [accelerationStructureSizes(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
 func (o MTLAccelerationStructureCommandEncoderObject) RefitAccelerationStructureDescriptorDestinationScratchBufferScratchBufferOffset(sourceAccelerationStructure MTLAccelerationStructure, descriptor IMTLAccelerationStructureDescriptor, destinationAccelerationStructure MTLAccelerationStructure, scratchBuffer MTLBuffer, scratchBufferOffset uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:"), sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, scratchBufferOffset)
 }
@@ -324,15 +321,14 @@ func (o MTLAccelerationStructureCommandEncoderObject) RefitAccelerationStructure
 // they need to avoid overlapping in memory. The destination acceleration
 // structure and the scratch buffer need to have enough space in memory to
 // hold the acceleration structure data. Call the
-// [accelerationStructureSizes(descriptor:)] method on the Metal device object
-// to get the required space. If you compact the source structure, the
+// [AccelerationStructureSizesWithDescriptor] method on the Metal device
+// object to get the required space. If you compact the source structure, the
 // destination needs to be at least as large as the compacted size of the
 // source acceleration structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/refit(sourceAccelerationStructure:descriptor:destinationAccelerationStructure:scratchBuffer:scratchBufferOffset:options:)
 //
 // [refitScratchBufferSize]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureSizes/refitScratchBufferSize
-// [accelerationStructureSizes(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
 func (o MTLAccelerationStructureCommandEncoderObject) RefitAccelerationStructureDescriptorDestinationScratchBufferScratchBufferOffsetOptions(sourceAccelerationStructure MTLAccelerationStructure, descriptor IMTLAccelerationStructureDescriptor, destinationAccelerationStructure MTLAccelerationStructure, scratchBuffer MTLBuffer, scratchBufferOffset uint, options MTLAccelerationStructureRefitOptions) {
 	objc.Send[struct{}](o.ID, objc.Sel("refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:options:"), sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, scratchBufferOffset, options)
 }

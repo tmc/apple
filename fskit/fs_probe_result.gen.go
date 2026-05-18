@@ -47,7 +47,7 @@ func (fc FSProbeResultClass) Alloc() FSProbeResult {
 //
 // # Overview
 //
-// For any [FSProbeResult.Result] value other than [FSMatchResult.notRecognized], ensure the
+// For any [FSProbeResult.Result] value other than [FSMatchResultNotRecognized], ensure the
 // [FSProbeResult.Name] and [FSProbeResult.ContainerID] values are non-`nil`. When a container or volume
 // format doesn’t use a name, return an empty string. Also use an empty
 // string in the case in which the format supports a name, but the value
@@ -69,8 +69,6 @@ func (fc FSProbeResultClass) Alloc() FSProbeResult {
 //   - [FSProbeResult.Result]: The match result, representing the recognition and usability of a probed resource.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSProbeResult
-//
-// [FSMatchResult.notRecognized]: https://developer.apple.com/documentation/FSKit/FSMatchResult/notRecognized
 type FSProbeResult struct {
 	objectivec.Object
 }
@@ -179,14 +177,12 @@ func (_FSProbeResultClass FSProbeResultClass) UsableButLimitedProbeResultWithNam
 //
 // # Discussion
 //
-// This value is non-`nil` unless the result is [FSMatchResult.notRecognized].
+// This value is non-`nil` unless the result is [FSMatchResultNotRecognized].
 // For formats that lack a durable UUID on which to base a container
 // identifier — which is only legal for a [FSUnaryFileSystem] — this value
 // may be a random UUID.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSProbeResult/containerID
-//
-// [FSMatchResult.notRecognized]: https://developer.apple.com/documentation/FSKit/FSMatchResult/notRecognized
 func (p FSProbeResult) ContainerID() IFSContainerIdentifier {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("containerID"))
 	return FSContainerIdentifierFromID(objc.ID(rv))

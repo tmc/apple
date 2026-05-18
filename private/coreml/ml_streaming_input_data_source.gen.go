@@ -101,14 +101,14 @@ type IMLStreamingInputDataSource interface {
 }
 
 // Init initializes the instance.
-func (s MLStreamingInputDataSource) Init() MLStreamingInputDataSource {
-	rv := objc.Send[MLStreamingInputDataSource](s.ID, objc.Sel("init"))
+func (m MLStreamingInputDataSource) Init() MLStreamingInputDataSource {
+	rv := objc.Send[MLStreamingInputDataSource](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLStreamingInputDataSource) Autorelease() MLStreamingInputDataSource {
-	rv := objc.Send[MLStreamingInputDataSource](s.ID, objc.Sel("autorelease"))
+func (m MLStreamingInputDataSource) Autorelease() MLStreamingInputDataSource {
+	rv := objc.Send[MLStreamingInputDataSource](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -127,14 +127,14 @@ func NewStreamingInputDataSourceWithBatchSize(size uint64) MLStreamingInputDataS
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStreamingInputDataSource/appendBatchedTensors:numberOfTensors:
-func (s MLStreamingInputDataSource) AppendBatchedTensorsNumberOfTensors(tensors objectivec.IObject, tensors2 uint64) {
-	objc.Send[objc.ID](s.ID, objc.Sel("appendBatchedTensors:numberOfTensors:"), tensors, tensors2)
+func (m MLStreamingInputDataSource) AppendBatchedTensorsNumberOfTensors(tensors objectivec.IObject, tensors2 uint64) {
+	objc.Send[objc.ID](m.ID, objc.Sel("appendBatchedTensors:numberOfTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStreamingInputDataSource/batchAtIndex:error:
-func (s MLStreamingInputDataSource) BatchAtIndexError(index uint64) (objectivec.IObject, error) {
+func (m MLStreamingInputDataSource) BatchAtIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("batchAtIndex:error:"), index, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchAtIndex:error:"), index, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -144,37 +144,37 @@ func (s MLStreamingInputDataSource) BatchAtIndexError(index uint64) (objectivec.
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStreamingInputDataSource/numberOfBatches
-func (s MLStreamingInputDataSource) NumberOfBatches() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("numberOfBatches"))
+func (m MLStreamingInputDataSource) NumberOfBatches() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("numberOfBatches"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStreamingInputDataSource/sizeOfBatchAtIndex:
-func (s MLStreamingInputDataSource) SizeOfBatchAtIndex(index uint64) uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
+func (m MLStreamingInputDataSource) SizeOfBatchAtIndex(index uint64) uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStreamingInputDataSource/initWithBatchSize:
-func (s MLStreamingInputDataSource) InitWithBatchSize(size uint64) MLStreamingInputDataSource {
-	rv := objc.Send[MLStreamingInputDataSource](s.ID, objc.Sel("initWithBatchSize:"), size)
+func (m MLStreamingInputDataSource) InitWithBatchSize(size uint64) MLStreamingInputDataSource {
+	rv := objc.Send[MLStreamingInputDataSource](m.ID, objc.Sel("initWithBatchSize:"), size)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStreamingInputDataSource/batchSize
-func (s MLStreamingInputDataSource) BatchSize() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("batchSize"))
+func (m MLStreamingInputDataSource) BatchSize() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("batchSize"))
 	return rv
 }
-func (s MLStreamingInputDataSource) SetBatchSize(value uint64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setBatchSize:"), value)
+func (m MLStreamingInputDataSource) SetBatchSize(value uint64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setBatchSize:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStreamingInputDataSource/dataSources
-func (s MLStreamingInputDataSource) DataSources() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("dataSources"))
+func (m MLStreamingInputDataSource) DataSources() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataSources"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (s MLStreamingInputDataSource) SetDataSources(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setDataSources:"), value)
+func (m MLStreamingInputDataSource) SetDataSources(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("setDataSources:"), value)
 }

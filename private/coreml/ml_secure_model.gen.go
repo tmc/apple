@@ -104,14 +104,14 @@ type IMLSecureModel interface {
 }
 
 // Init initializes the instance.
-func (s MLSecureModel) Init() MLSecureModel {
-	rv := objc.Send[MLSecureModel](s.ID, objc.Sel("init"))
+func (m MLSecureModel) Init() MLSecureModel {
+	rv := objc.Send[MLSecureModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSecureModel) Autorelease() MLSecureModel {
-	rv := objc.Send[MLSecureModel](s.ID, objc.Sel("autorelease"))
+func (m MLSecureModel) Autorelease() MLSecureModel {
+	rv := objc.Send[MLSecureModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -182,9 +182,9 @@ func NewSecureModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureN
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModel/parameterValueForKey:error:
-func (s MLSecureModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
+func (m MLSecureModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -194,9 +194,9 @@ func (s MLSecureModel) ParameterValueForKeyError(key objectivec.IObject) (object
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModel/predictionFromFeatures:error:
-func (s MLSecureModel) PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+func (m MLSecureModel) PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("predictionFromFeatures:error:"), features, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:error:"), features, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -206,9 +206,9 @@ func (s MLSecureModel) PredictionFromFeaturesError(features objectivec.IObject) 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModel/predictionFromFeatures:options:error:
-func (s MLSecureModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLSecureModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -218,9 +218,9 @@ func (s MLSecureModel) PredictionFromFeaturesOptionsError(features objectivec.IO
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModel/predictionsFromBatch:error:
-func (s MLSecureModel) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
+func (m MLSecureModel) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("predictionsFromBatch:error:"), batch, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:error:"), batch, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -230,9 +230,9 @@ func (s MLSecureModel) PredictionsFromBatchError(batch objectivec.IObject) (obje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModel/predictionsFromBatch:options:error:
-func (s MLSecureModel) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLSecureModel) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -284,25 +284,25 @@ func (_MLSecureModelClass MLSecureModelClass) SupportsSecureCoding() bool {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModel/connectionToModelSecurityService
-func (s MLSecureModel) ConnectionToModelSecurityService() foundation.NSXPCConnection {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("connectionToModelSecurityService"))
+func (m MLSecureModel) ConnectionToModelSecurityService() foundation.NSXPCConnection {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("connectionToModelSecurityService"))
 	return foundation.NSXPCConnectionFromID(objc.ID(rv))
 }
-func (s MLSecureModel) SetConnectionToModelSecurityService(value foundation.NSXPCConnection) {
-	objc.Send[struct{}](s.ID, objc.Sel("setConnectionToModelSecurityService:"), value)
+func (m MLSecureModel) SetConnectionToModelSecurityService(value foundation.NSXPCConnection) {
+	objc.Send[struct{}](m.ID, objc.Sel("setConnectionToModelSecurityService:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModel/metadata
-func (s MLSecureModel) Metadata() IMLModelMetadata {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("metadata"))
+func (m MLSecureModel) Metadata() IMLModelMetadata {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModel/secureModelProxy
-func (s MLSecureModel) SecureModelProxy() objectivec.Object {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("secureModelProxy"))
+func (m MLSecureModel) SecureModelProxy() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("secureModelProxy"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (s MLSecureModel) SetSecureModelProxy(value objectivec.Object) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSecureModelProxy:"), value)
+func (m MLSecureModel) SetSecureModelProxy(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setSecureModelProxy:"), value)
 }

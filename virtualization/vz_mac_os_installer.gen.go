@@ -105,14 +105,14 @@ type IVZMacOSInstaller interface {
 	// Topic: Creating a macOS Installer
 
 	// Creates a macOS installer object.
-	InitWithVirtualMachineRestoreImageURL(virtualMachine IVZVirtualMachine, restoreImageFileURL foundation.INSURL) VZMacOSInstaller
+	InitWithVirtualMachineRestoreImageURL(virtualMachine IVZVirtualMachine, restoreImageFileURL foundation.NSURL) VZMacOSInstaller
 
 	// Topic: Getting Information About an Installation
 
 	// A progress object that you can use to observe or cancel an installation.
 	Progress() foundation.NSProgress
 	// The restore image URL used to initialize this installer.
-	RestoreImageURL() foundation.INSURL
+	RestoreImageURL() foundation.NSURL
 	// The virtual machine used to initialize this installer.
 	VirtualMachine() IVZVirtualMachine
 
@@ -148,7 +148,7 @@ func NewVZMacOSInstaller() VZMacOSInstaller {
 // restoreImageFileURL: A file URL that indicates the macOS restore image to install.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/init(virtualMachine:restoringFromImageAt:)
-func NewMacOSInstallerWithVirtualMachineRestoreImageURL(virtualMachine IVZVirtualMachine, restoreImageFileURL foundation.INSURL) VZMacOSInstaller {
+func NewMacOSInstallerWithVirtualMachineRestoreImageURL(virtualMachine IVZVirtualMachine, restoreImageFileURL foundation.NSURL) VZMacOSInstaller {
 	instance := getVZMacOSInstallerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:restoreImageURL:"), virtualMachine, restoreImageFileURL)
 	return VZMacOSInstallerFromID(rv)
@@ -161,7 +161,7 @@ func NewMacOSInstallerWithVirtualMachineRestoreImageURL(virtualMachine IVZVirtua
 // restoreImageFileURL: A file URL that indicates the macOS restore image to install.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/init(virtualMachine:restoringFromImageAt:)
-func (m VZMacOSInstaller) InitWithVirtualMachineRestoreImageURL(virtualMachine IVZVirtualMachine, restoreImageFileURL foundation.INSURL) VZMacOSInstaller {
+func (m VZMacOSInstaller) InitWithVirtualMachineRestoreImageURL(virtualMachine IVZVirtualMachine, restoreImageFileURL foundation.NSURL) VZMacOSInstaller {
 	rv := objc.Send[VZMacOSInstaller](m.ID, objc.Sel("initWithVirtualMachine:restoreImageURL:"), virtualMachine, restoreImageFileURL)
 	return rv
 }
@@ -201,7 +201,7 @@ func (m VZMacOSInstaller) Progress() foundation.NSProgress {
 // The restore image URL used to initialize this installer.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/restoreImageURL
-func (m VZMacOSInstaller) RestoreImageURL() foundation.INSURL {
+func (m VZMacOSInstaller) RestoreImageURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("restoreImageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

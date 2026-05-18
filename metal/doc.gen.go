@@ -83,8 +83,8 @@
 //   - [MTLTextureDescriptor] - An instance that you use to configure new Metal texture instances.
 //   - [MTLIndirectCommandBufferDescriptor] - A configuration you create to customize an indirect command buffer.
 //   - [MTL4RenderPassDescriptor] - Describes a render pass.
-//   - [MTL4RenderPipelineDescriptor] - Groups together properties to create a render pipeline state object.
 //   - [MTLAccelerationStructureCurveGeometryDescriptor] - A descriptor you configure with curve geometry for building acceleration structures.
+//   - [MTL4RenderPipelineDescriptor] - Groups together properties to create a render pipeline state object.
 //   - [MTLSamplerDescriptor] - An object that you use to configure a texture sampler.
 //
 // [Metal Documentation]: https://developer.apple.com/documentation/Metal

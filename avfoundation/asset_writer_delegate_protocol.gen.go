@@ -45,7 +45,7 @@ func AVAssetWriterDelegateObjectFromID(id objc.ID) AVAssetWriterDelegateObject {
 // segmentType: The type of segment data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterDelegate/assetWriter(_:didOutputSegmentData:segmentType:)
-func (o AVAssetWriterDelegateObject) AssetWriterDidOutputSegmentDataSegmentType(writer IAVAssetWriter, segmentData foundation.INSData, segmentType AVAssetSegmentType) {
+func (o AVAssetWriterDelegateObject) AssetWriterDidOutputSegmentDataSegmentType(writer IAVAssetWriter, segmentData foundation.NSData, segmentType AVAssetSegmentType) {
 	objc.Send[struct{}](o.ID, objc.Sel("assetWriter:didOutputSegmentData:segmentType:"), writer, segmentData, segmentType)
 }
 
@@ -64,7 +64,7 @@ func (o AVAssetWriterDelegateObject) AssetWriterDidOutputSegmentDataSegmentType(
 // The asset writer stops normal file writing when you implement this method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterDelegate/assetWriter(_:didOutputSegmentData:segmentType:segmentReport:)
-func (o AVAssetWriterDelegateObject) AssetWriterDidOutputSegmentDataSegmentTypeSegmentReport(writer IAVAssetWriter, segmentData foundation.INSData, segmentType AVAssetSegmentType, segmentReport IAVAssetSegmentReport) {
+func (o AVAssetWriterDelegateObject) AssetWriterDidOutputSegmentDataSegmentTypeSegmentReport(writer IAVAssetWriter, segmentData foundation.NSData, segmentType AVAssetSegmentType, segmentReport IAVAssetSegmentReport) {
 	objc.Send[struct{}](o.ID, objc.Sel("assetWriter:didOutputSegmentData:segmentType:segmentReport:"), writer, segmentData, segmentType, segmentReport)
 }
 

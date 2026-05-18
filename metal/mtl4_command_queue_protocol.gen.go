@@ -14,16 +14,6 @@ import (
 type MTL4CommandQueue interface {
 	objectivec.IObject
 
-	// Returns the GPU device that the command queue belongs to.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/device
-	Device() MTLDevice
-
-	// Obtains this queue’s optional label for debugging purposes.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/label
-	Label() string
-
 	// Applies a residency set to a queue, which Metal applies to the queue’s command buffers as you commit them.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/addResidencySet(_:)
@@ -54,6 +44,31 @@ type MTL4CommandQueue interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/waitForEvent(_:value:)
 	WaitForEventValue(event MTLEvent, value uint64)
 
+	// Applies multiple residency sets to a queue, which Metal applies to the queue’s command buffers as you commit them.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/addResidencySets:count:
+	AddResidencySetsCount(residencySets []MTLResidencySet, count uint)
+
+	// Enqueues an array of command buffers for execution.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:
+	CommitCount(commandBuffers []MTL4CommandBuffer, count uint)
+
+	// Enqueues an array of command buffer instances for execution with a set of options.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:options:
+	CommitCountOptions(commandBuffers []MTL4CommandBuffer, count uint, options IMTL4CommitOptions)
+
+	// Copies multiple offsets within a source placement sparse buffer to a destination placement sparse buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyBufferMappingsFromBuffer:toBuffer:operations:count:
+	CopyBufferMappingsFromBufferToBufferOperationsCount(sourceBuffer MTLBuffer, destinationBuffer MTLBuffer, operations []MTL4CopySparseBufferMappingOperation, count uint)
+
+	// Copies multiple regions within a source placement sparse texture to a destination placement sparse texture.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyTextureMappingsFromTexture:toTexture:operations:count:
+	CopyTextureMappingsFromTextureToTextureOperationsCount(sourceTexture MTLTexture, destinationTexture MTLTexture, operations []MTL4CopySparseTextureMappingOperation, count uint)
+
 	// Removes multiple residency sets from a command queue’s list, which means Metal doesn’t apply them to the queue’s command buffers as you commit them.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/removeResidencySets:count:
@@ -68,6 +83,16 @@ type MTL4CommandQueue interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/updateTextureMappings:heap:operations:count:
 	UpdateTextureMappingsHeapOperationsCount(texture MTLTexture, heap MTLHeap, operations []MTL4UpdateSparseTextureMappingOperation, count uint)
+
+	// Returns the GPU device that the command queue belongs to.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/device
+	Device() MTLDevice
+
+	// Obtains this queue’s optional label for debugging purposes.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/label
+	Label() string
 }
 
 // MTL4CommandQueueObject wraps an existing Objective-C object that conforms to the MTL4CommandQueue protocol.
@@ -85,22 +110,6 @@ func MTL4CommandQueueObjectFromID(id objc.ID) MTL4CommandQueueObject {
 	return MTL4CommandQueueObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Returns the GPU device that the command queue belongs to.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/device
-func (o MTL4CommandQueueObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// Obtains this queue’s optional label for debugging purposes.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/label
-func (o MTL4CommandQueueObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Applies a residency set to a queue, which Metal applies to the queue’s
@@ -132,14 +141,13 @@ func (o MTL4CommandQueueObject) AddResidencySet(residencySet MTLResidencySet) {
 //
 // The method doesn’t remove the residency set from command buffers the
 // queue owns with an [Status] property that’s equal to
-// [MTLCommandBufferStatus.committed] or [MTLCommandBufferStatusScheduled].
+// [MTLCommandBufferStatusCommitted] or [MTLCommandBufferStatusScheduled].
 //
 // See [Simplifying GPU resource management with residency sets] and
 // [MTLResidencySet] for more information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/removeResidencySet(_:)
 //
-// [MTLCommandBufferStatus.committed]: https://developer.apple.com/documentation/Metal/MTLCommandBufferStatus/committed
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 func (o MTL4CommandQueueObject) RemoveResidencySet(residencySet MTLResidencySet) {
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySet:"), residencySet)
@@ -214,6 +222,140 @@ func (o MTL4CommandQueueObject) WaitForEventValue(event MTLEvent, value uint64) 
 	objc.Send[struct{}](o.ID, objc.Sel("waitForEvent:value:"), event, value)
 }
 
+// Applies multiple residency sets to a queue, which Metal applies to the
+// queue’s command buffers as you commit them.
+//
+// residencySets: A C array of residency sets, each of which contains resource allocations,
+// such as [MTLBuffer], [MTLTexture], and [MTLHeap] instances.
+//
+// count: The number of elements in `residencySets`.
+//
+// # Discussion
+//
+// Each command queue can maintain a list of up to 32 different residency
+// sets. See [Simplifying GPU resource management with residency sets] and
+// [MTLResidencySet] for more information.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/addResidencySets:count:
+//
+// [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
+func (o MTL4CommandQueueObject) AddResidencySetsCount(residencySets []MTLResidencySet, count uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("addResidencySets:count:"), objc.CArray(residencySets), count)
+}
+
+// Enqueues an array of command buffers for execution.
+//
+// commandBuffers: An array of [MTL4CommandBuffer].
+//
+// count: The number of [MTL4CommandBuffer] instances in the `commandBuffers` array.
+//
+// # Discussion
+//
+// The order in which you sort the command buffers in the array is meaningful,
+// especially when it contains suspending/resuming render passes. A
+// suspending/resuming render pass is a render pass you create by calling
+// [RenderCommandEncoderWithDescriptorOptions], and provide
+// [MTL4RenderEncoderOptionSuspending] or [MTL4RenderEncoderOptionResuming]
+// for the `options` parameter.
+//
+// If your command buffers contain suspend/resume render passes, ensure that
+// the first command buffer only suspends, and the last one only resumes.
+// Additionally, make sure that all intermediate command buffers are both
+// suspending and resuming.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:
+func (o MTL4CommandQueueObject) CommitCount(commandBuffers []MTL4CommandBuffer, count uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("commit:count:"), objc.CArray(commandBuffers), count)
+}
+
+// Enqueues an array of command buffer instances for execution with a set of
+// options.
+//
+// commandBuffers: An array of [MTL4CommandBuffer].
+//
+// count: The number of [MTL4CommandBuffer] instances in the `commandBuffers` array.
+//
+// options: An instance of [MTL4CommitOptions] that configures the commit operation.
+//
+// # Discussion
+//
+// Provide an [MTL4CommitOptions] instance to configure the commit operation.
+//
+// The order in which you sort the command buffers in the array is meaningful,
+// especially when it contains suspending/resuming render passes. A
+// suspending/resuming render pass is a render pass you create by calling
+// [RenderCommandEncoderWithDescriptorOptions], and provide
+// [MTL4RenderEncoderOptionSuspending] or [MTL4RenderEncoderOptionResuming]
+// for the `options` parameter.
+//
+// If your command buffers contain suspend/resume render passes, ensure that
+// the first command buffer only suspends, and the last one only resumes.
+// Additionally, make sure that all intermediate command buffers are both
+// suspending and resuming.
+//
+// When you commit work from multiple threads, modifying and reusing the same
+// options instance, you are responsible for externally synchronizing access
+// to it.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:options:
+func (o MTL4CommandQueueObject) CommitCountOptions(commandBuffers []MTL4CommandBuffer, count uint, options IMTL4CommitOptions) {
+	objc.Send[struct{}](o.ID, objc.Sel("commit:count:options:"), objc.CArray(commandBuffers), count, options)
+}
+
+// Copies multiple offsets within a source placement sparse buffer to a
+// destination placement sparse buffer.
+//
+// sourceBuffer: The source placement sparse [MTLBuffer].
+//
+// destinationBuffer: The destination placement sparse [MTLBuffer].
+//
+// operations: An array of [MTL4CopySparseBufferMappingOperation] instances to perform.
+//
+// count: Number of operations to perform.
+//
+// # Discussion
+//
+// You are responsible for ensuring the source destination sparse buffers have
+// the same `placementSparsePageSize` when you create them via
+// [NewBufferWithLengthOptionsPlacementSparsePageSize].
+//
+// Additionally, you are responsible for ensuring both the source and
+// destination sparse buffers don’t use the same aliased tiles at the same
+// time.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyBufferMappingsFromBuffer:toBuffer:operations:count:
+//
+// [MTL4CopySparseBufferMappingOperation]: https://developer.apple.com/documentation/Metal/MTL4CopySparseBufferMappingOperation
+func (o MTL4CommandQueueObject) CopyBufferMappingsFromBufferToBufferOperationsCount(sourceBuffer MTLBuffer, destinationBuffer MTLBuffer, operations []MTL4CopySparseBufferMappingOperation, count uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyBufferMappingsFromBuffer:toBuffer:operations:count:"), sourceBuffer, destinationBuffer, objc.CArray(operations), count)
+}
+
+// Copies multiple regions within a source placement sparse texture to a
+// destination placement sparse texture.
+//
+// sourceTexture: The source placement sparse [MTLTexture].
+//
+// destinationTexture: The destination placement sparse [MTLTexture].
+//
+// operations: An array of [MTL4CopySparseTextureMappingOperation] instances to perform.
+//
+// count: Number of operations to perform.
+//
+// # Discussion
+//
+// You are responsible for ensuring the source and destination textures have
+// the same [PlacementSparsePageSize].
+//
+// Additionally, you are responsible for ensuring that the source and
+// destination textures don’t use the same aliased tiles at the same time.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyTextureMappingsFromTexture:toTexture:operations:count:
+//
+// [MTL4CopySparseTextureMappingOperation]: https://developer.apple.com/documentation/Metal/MTL4CopySparseTextureMappingOperation
+func (o MTL4CommandQueueObject) CopyTextureMappingsFromTextureToTextureOperationsCount(sourceTexture MTLTexture, destinationTexture MTLTexture, operations []MTL4CopySparseTextureMappingOperation, count uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyTextureMappingsFromTexture:toTexture:operations:count:"), sourceTexture, destinationTexture, objc.CArray(operations), count)
+}
+
 // Removes multiple residency sets from a command queue’s list, which means
 // Metal doesn’t apply them to the queue’s command buffers as you commit
 // them.
@@ -227,14 +369,13 @@ func (o MTL4CommandQueueObject) WaitForEventValue(event MTLEvent, value uint64) 
 //
 // The method doesn’t remove the residency sets from command buffers the
 // queue owns with an [Status] property that’s equal to
-// [MTLCommandBufferStatus.committed] or [MTLCommandBufferStatusScheduled].
+// [MTLCommandBufferStatusCommitted] or [MTLCommandBufferStatusScheduled].
 //
 // See [Simplifying GPU resource management with residency sets] and
 // [MTLResidencySet] for more information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/removeResidencySets:count:
 //
-// [MTLCommandBufferStatus.committed]: https://developer.apple.com/documentation/Metal/MTLCommandBufferStatus/committed
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 func (o MTL4CommandQueueObject) RemoveResidencySetsCount(residencySets []MTLResidencySet, count uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySets:count:"), objc.CArray(residencySets), count)
@@ -296,4 +437,20 @@ func (o MTL4CommandQueueObject) UpdateBufferMappingsHeapOperationsCount(buffer M
 // [MTL4UpdateSparseTextureMappingOperation]: https://developer.apple.com/documentation/Metal/MTL4UpdateSparseTextureMappingOperation
 func (o MTL4CommandQueueObject) UpdateTextureMappingsHeapOperationsCount(texture MTLTexture, heap MTLHeap, operations []MTL4UpdateSparseTextureMappingOperation, count uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("updateTextureMappings:heap:operations:count:"), texture, heap, objc.CArray(operations), count)
+}
+
+// Returns the GPU device that the command queue belongs to.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/device
+func (o MTL4CommandQueueObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
+// Obtains this queue’s optional label for debugging purposes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/label
+func (o MTL4CommandQueueObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
 }

@@ -66,14 +66,14 @@ type IMLArchivingUtils interface {
 }
 
 // Init initializes the instance.
-func (a MLArchivingUtils) Init() MLArchivingUtils {
-	rv := objc.Send[MLArchivingUtils](a.ID, objc.Sel("init"))
+func (m MLArchivingUtils) Init() MLArchivingUtils {
+	rv := objc.Send[MLArchivingUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLArchivingUtils) Autorelease() MLArchivingUtils {
-	rv := objc.Send[MLArchivingUtils](a.ID, objc.Sel("autorelease"))
+func (m MLArchivingUtils) Autorelease() MLArchivingUtils {
+	rv := objc.Send[MLArchivingUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

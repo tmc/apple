@@ -103,8 +103,6 @@ func NSUnitFromID(id objc.ID) Unit { return UnitFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/Unit
 type IUnit interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Accessing Properties

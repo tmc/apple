@@ -221,8 +221,6 @@ func NSValueFromID(id objc.ID) NSValue {
 // See: https://developer.apple.com/documentation/Foundation/NSValue
 type INSValue interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Working with Raw Values

@@ -18,10 +18,6 @@ type VZUSBDeviceConfiguration interface {
 	//
 	// See: https://developer.apple.com/documentation/Virtualization/VZUSBDeviceConfiguration/uuid
 	Uuid() foundation.NSUUID
-
-	// The device’s unique identifier.
-	//
-	// See: https://developer.apple.com/documentation/Virtualization/VZUSBDeviceConfiguration/uuid
 	SetUuid(value foundation.NSUUID)
 }
 
@@ -44,14 +40,6 @@ func VZUSBDeviceConfigurationObjectFromID(id objc.ID) VZUSBDeviceConfigurationOb
 
 // The device’s unique identifier.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZUSBDeviceConfiguration/uuid
-func (o VZUSBDeviceConfigurationObject) Uuid() foundation.NSUUID {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
-	return foundation.NSUUIDFromID(rv)
-}
-
-// The device’s unique identifier.
-//
 // # Discussion
 //
 // The framework autogenerates the device UUID.
@@ -60,6 +48,11 @@ func (o VZUSBDeviceConfigurationObject) Uuid() foundation.NSUUID {
 // the device with the attachment at the time of saving the VM’s state.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDeviceConfiguration/uuid
+func (o VZUSBDeviceConfigurationObject) Uuid() foundation.NSUUID {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
+	return foundation.NSUUIDFromID(rv)
+}
+
 func (o VZUSBDeviceConfigurationObject) SetUuid(value foundation.NSUUID) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUuid:"), value)
 }

@@ -89,14 +89,14 @@ type IMLArrayFeatureExtractor interface {
 }
 
 // Init initializes the instance.
-func (a MLArrayFeatureExtractor) Init() MLArrayFeatureExtractor {
-	rv := objc.Send[MLArrayFeatureExtractor](a.ID, objc.Sel("init"))
+func (m MLArrayFeatureExtractor) Init() MLArrayFeatureExtractor {
+	rv := objc.Send[MLArrayFeatureExtractor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLArrayFeatureExtractor) Autorelease() MLArrayFeatureExtractor {
-	rv := objc.Send[MLArrayFeatureExtractor](a.ID, objc.Sel("autorelease"))
+func (m MLArrayFeatureExtractor) Autorelease() MLArrayFeatureExtractor {
+	rv := objc.Send[MLArrayFeatureExtractor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -167,9 +167,9 @@ func NewArrayFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInp
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/predictionFromFeatures:options:error:
-func (a MLArrayFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLArrayFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -179,8 +179,8 @@ func (a MLArrayFeatureExtractor) PredictionFromFeaturesOptionsError(features obj
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
-func (a MLArrayFeatureExtractor) InitWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
-	rv := objc.Send[MLArrayFeatureExtractor](a.ID, objc.Sel("initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, indices, name, description, description2, names, names2, configuration)
+func (m MLArrayFeatureExtractor) InitWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
+	rv := objc.Send[MLArrayFeatureExtractor](m.ID, objc.Sel("initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, indices, name, description, description2, names, names2, configuration)
 	return rv
 }
 
@@ -209,19 +209,19 @@ func (_MLArrayFeatureExtractorClass MLArrayFeatureExtractorClass) LoadModelFromS
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/arrayColumnName
-func (a MLArrayFeatureExtractor) ArrayColumnName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("arrayColumnName"))
+func (m MLArrayFeatureExtractor) ArrayColumnName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("arrayColumnName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/extractIndices
-func (a MLArrayFeatureExtractor) ExtractIndices() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("extractIndices"))
+func (m MLArrayFeatureExtractor) ExtractIndices() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("extractIndices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/outputType
-func (a MLArrayFeatureExtractor) OutputType() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("outputType"))
+func (m MLArrayFeatureExtractor) OutputType() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("outputType"))
 	return rv
 }

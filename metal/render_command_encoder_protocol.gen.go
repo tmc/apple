@@ -97,16 +97,6 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/dispatchThreadsPerTile(_:)
 	DispatchThreadsPerTile(threadsPerTile MTLSize)
 
-	// The width of the tiles, in pixels, for the render command encoder.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileWidth
-	TileWidth() uint
-
-	// The height of the tiles, in pixels, for the render command encoder.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileHeight
-	TileHeight() uint
-
 	// Encodes a command that instructs the GPU to pause before starting one or more stages of the render pass until a pass updates a fence.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/waitForFence(_:before:)
@@ -126,6 +116,16 @@ type MTLRenderCommandEncoder interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/sampleCounters(sampleBuffer:sampleIndex:barrier:)
 	SampleCountersInBufferAtSampleIndexWithBarrier(sampleBuffer MTLCounterSampleBuffer, sampleIndex uint, barrier bool)
+
+	// Encodes a command that runs an indirect range of commands from an indirect command buffer (ICB).
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:
+	ExecuteCommandsInBufferIndirectBufferIndirectBufferOffset(indirectCommandbuffer MTLIndirectCommandBuffer, indirectRangeBuffer MTLBuffer, indirectBufferOffset uint)
+
+	// Encodes a command that runs a range of commands from an indirect command buffer (ICB).
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/executeCommandsInBuffer:withRange:
+	ExecuteCommandsInBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, executionRange foundation.NSRange)
 
 	// Creates a memory barrier that enforces the order of write and read operations for specific resources.
 	//
@@ -636,6 +636,16 @@ type MTLRenderCommandEncoder interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/useResources:count:usage:stages:
 	UseResourcesCountUsageStages(resources []MTLResource, count uint, usage MTLResourceUsage, stages MTLRenderStages)
+
+	// The width of the tiles, in pixels, for the render command encoder.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileWidth
+	TileWidth() uint
+
+	// The height of the tiles, in pixels, for the render command encoder.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileHeight
+	TileHeight() uint
 }
 
 // MTLRenderCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLRenderCommandEncoder protocol.
@@ -1357,22 +1367,6 @@ func (o MTLRenderCommandEncoderObject) DispatchThreadsPerTile(threadsPerTile MTL
 	objc.Send[struct{}](o.ID, objc.Sel("dispatchThreadsPerTile:"), threadsPerTile)
 }
 
-// The width of the tiles, in pixels, for the render command encoder.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileWidth
-func (o MTLRenderCommandEncoderObject) TileWidth() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("tileWidth"))
-	return rv
-}
-
-// The height of the tiles, in pixels, for the render command encoder.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileHeight
-func (o MTLRenderCommandEncoderObject) TileHeight() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("tileHeight"))
-	return rv
-}
-
 // Encodes a command that instructs the GPU to pause before starting one or
 // more stages of the render pass until a pass updates a fence.
 //
@@ -1523,6 +1517,48 @@ func (o MTLRenderCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithBa
 	objc.Send[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), sampleBuffer, sampleIndex, barrier)
 }
 
+// Encodes a command that runs an indirect range of commands from an indirect
+// command buffer (ICB).
+//
+// indirectCommandbuffer: An [MTLIndirectCommandBuffer] instance that contains other commands the
+// current command runs.
+//
+// indirectRangeBuffer: An [MTLBuffer] instance with data that matches the layout of the
+// [MTLIndirectCommandBufferExecutionRange] structure.
+//
+// The [length] property of that structure needs to be less than or equal to
+// `0x4000` (`16,384`).
+//
+// indirectBufferOffset: An integer that represents the location, in bytes, from the start of
+// `indirectRangeBuffer` where the execution range structure begins.
+//
+// See the [Metal feature set tables (PDF)] to check for offset alignment
+// requirements for buffers in `device` and `constant` address space.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:
+//
+// [MTLIndirectCommandBufferExecutionRange]: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferExecutionRange
+// [length]: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferExecutionRange/length
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
+func (o MTLRenderCommandEncoderObject) ExecuteCommandsInBufferIndirectBufferIndirectBufferOffset(indirectCommandbuffer MTLIndirectCommandBuffer, indirectRangeBuffer MTLBuffer, indirectBufferOffset uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:"), indirectCommandbuffer, indirectRangeBuffer, indirectBufferOffset)
+}
+
+// Encodes a command that runs a range of commands from an indirect command
+// buffer (ICB).
+//
+// indirectCommandBuffer: An [MTLIndirectCommandBuffer] instance that contains other commands the
+// current command runs.
+//
+// executionRange: A span of integers that represent the command entries in `buffer` the
+// current command runs. The number of commands needs to be less than or equal
+// to `0x4000` (`16,384`).
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/executeCommandsInBuffer:withRange:
+func (o MTLRenderCommandEncoderObject) ExecuteCommandsInBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, executionRange foundation.NSRange) {
+	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:withRange:"), indirectCommandBuffer, executionRange)
+}
+
 // Creates a memory barrier that enforces the order of write and read
 // operations for specific resources.
 //
@@ -1566,10 +1602,10 @@ func (o MTLRenderCommandEncoderObject) MemoryBarrierWithResourcesCountAfterStage
 //
 // The alpha and color values apply to all the render pass’s attachments.
 // The `red`, `green`, and `blue` color parameters apply to the
-// [MTLBlendFactor.blendColor] and [MTLBlendFactorOneMinusBlendColor] blend
+// [MTLBlendFactorBlendColor] and [MTLBlendFactorOneMinusBlendColor] blend
 // factors.
 //
-// The `alpha` parameter applies to the [MTLBlendFactor.blendAlpha] and
+// The `alpha` parameter applies to the [MTLBlendFactorBlendAlpha] and
 // [MTLBlendFactorOneMinusBlendAlpha] blend factors.
 //
 // The render pipeline’s default blend color value is `0.0` for each
@@ -1578,8 +1614,6 @@ func (o MTLRenderCommandEncoderObject) MemoryBarrierWithResourcesCountAfterStage
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setBlendColor(red:green:blue:alpha:)
 //
-// [MTLBlendFactor.blendAlpha]: https://developer.apple.com/documentation/Metal/MTLBlendFactor/blendAlpha
-// [MTLBlendFactor.blendColor]: https://developer.apple.com/documentation/Metal/MTLBlendFactor/blendColor
 // [MTLBlendFactor]: https://developer.apple.com/documentation/Metal/MTLBlendFactor
 func (o MTLRenderCommandEncoderObject) SetBlendColorRedGreenBlueAlpha(red float32, green float32, blue float32, alpha float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBlendColorRed:green:blue:alpha:"), red, green, blue, alpha)
@@ -1648,8 +1682,8 @@ func (o MTLRenderCommandEncoderObject) SetColorStoreActionOptionsAtIndex(storeAc
 // some geometric models, such as a sphere made of filled triangles, if it
 // uses orientable surfaces. A surface is if its primitives consistently use
 // the same ordering for its vertices. Metal defines vertex ordering with the
-// [MTLWinding] type, which includes [MTLWinding.clockwise] and
-// [MTLWinding.counterClockwise]. You can tell the render pipeline which
+// [MTLWinding] type, which includes [MTLWindingClockwise] and
+// [MTLWindingCounterClockwise]. You can tell the render pipeline which
 // direction your primitives face by calling the [SetFrontFacingWinding]
 // method, which affects the primitives the culling mode removes.
 //
@@ -1658,8 +1692,6 @@ func (o MTLRenderCommandEncoderObject) SetColorStoreActionOptionsAtIndex(storeAc
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setCullMode(_:)
 //
 // [MTLCullMode]: https://developer.apple.com/documentation/Metal/MTLCullMode
-// [MTLWinding.clockwise]: https://developer.apple.com/documentation/Metal/MTLWinding/clockwise
-// [MTLWinding.counterClockwise]: https://developer.apple.com/documentation/Metal/MTLWinding/counterClockwise
 // [MTLWinding]: https://developer.apple.com/documentation/Metal/MTLWinding
 func (o MTLRenderCommandEncoderObject) SetCullMode(cullMode MTLCullMode) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCullMode:"), cullMode)
@@ -1706,11 +1738,9 @@ func (o MTLRenderCommandEncoderObject) SetDepthBiasSlopeScaleClamp(depthBias flo
 // You can use depth clipping to ignore fragments outside the z-axis
 // boundaries of a viewing volume.
 //
-// The render pass’s default clip mode is [MTLDepthClipMode.clip].
+// The render pass’s default clip mode is [MTLDepthClipModeClip].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthClipMode(_:)
-//
-// [MTLDepthClipMode.clip]: https://developer.apple.com/documentation/Metal/MTLDepthClipMode/clip
 func (o MTLRenderCommandEncoderObject) SetDepthClipMode(depthClipMode MTLDepthClipMode) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthClipMode:"), depthClipMode)
 }
@@ -2144,7 +2174,7 @@ func (o MTLRenderCommandEncoderObject) SetFragmentVisibleFunctionTablesWithBuffe
 //
 // # Discussion
 //
-// The render pass’s default front-facing mode is [MTLWinding.clockwise].
+// The render pass’s default front-facing mode is [MTLWindingClockwise].
 //
 // The winding direction of a primitive determines whether the render pass
 // culls it (see [SetCullMode]).
@@ -2152,7 +2182,6 @@ func (o MTLRenderCommandEncoderObject) SetFragmentVisibleFunctionTablesWithBuffe
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFrontFacing(_:)
 //
 // [MTLWinding]: https://developer.apple.com/documentation/Metal/MTLWinding
-// [MTLWinding.clockwise]: https://developer.apple.com/documentation/Metal/MTLWinding/clockwise
 func (o MTLRenderCommandEncoderObject) SetFrontFacingWinding(frontFacingWinding MTLWinding) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFrontFacingWinding:"), frontFacingWinding)
 }
@@ -3242,11 +3271,9 @@ func (o MTLRenderCommandEncoderObject) SetTileVisibleFunctionTablesWithBufferRan
 //
 // # Discussion
 //
-// The render pass’s default mode is [MTLTriangleFillMode.fill].
+// The render pass’s default mode is [MTLTriangleFillModeFill].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTriangleFillMode(_:)
-//
-// [MTLTriangleFillMode.fill]: https://developer.apple.com/documentation/Metal/MTLTriangleFillMode/fill
 func (o MTLRenderCommandEncoderObject) SetTriangleFillMode(fillMode MTLTriangleFillMode) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTriangleFillMode:"), fillMode)
 }
@@ -3761,14 +3788,13 @@ func (o MTLRenderCommandEncoderObject) SetViewportsCount(viewports []MTLViewport
 // visibility mode and offset for subsequent drawing commands until you change
 // the configuration by calling the method again. For example, you can change
 // the offset or entirely disable visibility tests for subsequent commands by
-// passing [MTLVisibilityResultMode.disabled].
+// passing [MTLVisibilityResultModeDisabled].
 //
-// The default mode for a render pass is [MTLVisibilityResultMode.disabled].
+// The default mode for a render pass is [MTLVisibilityResultModeDisabled].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVisibilityResultMode(_:offset:)
 //
 // [MTLVisibilityResultMode]: https://developer.apple.com/documentation/Metal/MTLVisibilityResultMode
-// [MTLVisibilityResultMode.disabled]: https://developer.apple.com/documentation/Metal/MTLVisibilityResultMode/disabled
 func (o MTLRenderCommandEncoderObject) SetVisibilityResultModeOffset(mode MTLVisibilityResultMode, offset uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibilityResultMode:offset:"), mode, offset)
 }
@@ -4094,6 +4120,34 @@ func (o MTLRenderCommandEncoderObject) Label() string {
 // [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
 func (o MTLRenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages) {
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
+}
+
+// The width of the tiles, in pixels, for the render command encoder.
+//
+// # Discussion
+//
+// The value comes from the [TileWidth] property of the
+// [MTLRenderPassDescriptor] at the time you create the render command
+// encoder.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileWidth
+func (o MTLRenderCommandEncoderObject) TileWidth() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("tileWidth"))
+	return uint(rv)
+}
+
+// The height of the tiles, in pixels, for the render command encoder.
+//
+// # Discussion
+//
+// The value comes from the [TileHeight] property of the
+// [MTLRenderPassDescriptor] at the time you create the render command
+// encoder.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/tileHeight
+func (o MTLRenderCommandEncoderObject) TileHeight() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("tileHeight"))
+	return uint(rv)
 }
 
 // A string that labels the command encoder.

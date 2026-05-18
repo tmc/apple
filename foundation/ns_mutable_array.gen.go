@@ -81,7 +81,7 @@ func (nc NSMutableArrayClass) Alloc() NSMutableArray {
 //
 // [NSMutableArray] defines five primitive methods:
 //
-// - [NSMutableArray.InsertObjectAtIndex] - [NSMutableArray.RemoveObjectAtIndex] - [NSMutableArray.AddObject] -
+// - [NSMutableArray.InsertObjectsAtIndexes] - [NSMutableArray.RemoveObjectAtIndex] - [NSMutableArray.AddObject] -
 // [NSMutableArray.RemoveLastObject] - [NSMutableArray.ReplaceObjectAtIndexWithObject]
 //
 // In a subclass, you must override all these methods. You must also override

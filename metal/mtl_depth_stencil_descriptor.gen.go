@@ -176,14 +176,13 @@ func NewMTLDepthStencilDescriptor() MTLDepthStencilDescriptor {
 //
 // # Discussion
 //
-// The default value is [MTLCompareFunction.always], which indicates that the
+// The default value is [MTLCompareFunctionAlways], which indicates that the
 // depth test always passes and the fragment remains a candidate to replace
 // the data at the specified location. For more information on possible
 // values, see [MTLCompareFunction].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilDescriptor/depthCompareFunction
 //
-// [MTLCompareFunction.always]: https://developer.apple.com/documentation/Metal/MTLCompareFunction/always
 // [MTLCompareFunction]: https://developer.apple.com/documentation/Metal/MTLCompareFunction
 func (d MTLDepthStencilDescriptor) DepthCompareFunction() MTLCompareFunction {
 	rv := objc.Send[MTLCompareFunction](d.ID, objc.Sel("depthCompareFunction"))

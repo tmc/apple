@@ -218,9 +218,6 @@ func NSURLRequestFromID(id objc.ID) NSURLRequest {
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest
 type INSURLRequest interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
-	NSMutableCopying
 	NSSecureCoding
 
 	// Topic: Creating requests
@@ -332,7 +329,7 @@ func NewURLRequestWithCoder(coder INSCoder) NSURLRequest {
 // ([NSURLRequestUseProtocolCachePolicy]), and the default timeout interval
 // (60 seconds).
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:)-7dmpd
 func NewURLRequestWithURL(URL INSURL) NSURLRequest {
 	instance := getNSURLRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
@@ -356,7 +353,7 @@ func NewURLRequestWithURL(URL INSURL) NSURLRequest {
 //
 // This is the designated initializer for [NSURLRequest].
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:cachePolicy:timeoutInterval:)
+// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:cachePolicy:timeoutInterval:)-2giyj
 func NewURLRequestWithURLCachePolicyTimeoutInterval(URL INSURL, cachePolicy NSURLRequestCachePolicy, timeoutInterval float64) NSURLRequest {
 	instance := getNSURLRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:cachePolicy:timeoutInterval:"), URL, cachePolicy, timeoutInterval)
@@ -377,7 +374,7 @@ func NewURLRequestWithURLCachePolicyTimeoutInterval(URL INSURL, cachePolicy NSUR
 // ([NSURLRequestUseProtocolCachePolicy]), and the default timeout interval
 // (60 seconds).
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:)-7dmpd
 func (u NSURLRequest) InitWithURL(URL INSURL) NSURLRequest {
 	rv := objc.Send[NSURLRequest](u.ID, objc.Sel("initWithURL:"), URL)
 	return rv
@@ -400,7 +397,7 @@ func (u NSURLRequest) InitWithURL(URL INSURL) NSURLRequest {
 //
 // This is the designated initializer for [NSURLRequest].
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:cachePolicy:timeoutInterval:)
+// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:cachePolicy:timeoutInterval:)-2giyj
 func (u NSURLRequest) InitWithURLCachePolicyTimeoutInterval(URL INSURL, cachePolicy NSURLRequestCachePolicy, timeoutInterval float64) NSURLRequest {
 	rv := objc.Send[NSURLRequest](u.ID, objc.Sel("initWithURL:cachePolicy:timeoutInterval:"), URL, cachePolicy, timeoutInterval)
 	return rv
@@ -690,14 +687,12 @@ func (u NSURLRequest) NetworkServiceType() NSURLRequestNetworkServiceType {
 // any way — including by adding HTTP headers — before loading the
 // content.
 //
-// Set this value to [NSURLRequest.Attribution.user] only for requests that
-// the user explicitly makes, like when the user enters a URL or taps or
-// clicks a URL that they can read, and only if your app loads and displays
-// the data without altering the request.
+// Set this value to [NSURLRequestAttributionUser] only for requests that the
+// user explicitly makes, like when the user enters a URL or taps or clicks a
+// URL that they can read, and only if your app loads and displays the data
+// without altering the request.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/attribution-swift.property
-//
-// [NSURLRequest.Attribution.user]: https://developer.apple.com/documentation/Foundation/NSURLRequest/Attribution-swift.enum/user
 func (u NSURLRequest) Attribution() NSURLRequestAttribution {
 	rv := objc.Send[NSURLRequestAttribution](u.ID, objc.Sel("attribution"))
 	return NSURLRequestAttribution(rv)

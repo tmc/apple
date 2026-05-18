@@ -93,14 +93,14 @@ type IMLAppleImageFeatureExtractor interface {
 }
 
 // Init initializes the instance.
-func (a MLAppleImageFeatureExtractor) Init() MLAppleImageFeatureExtractor {
-	rv := objc.Send[MLAppleImageFeatureExtractor](a.ID, objc.Sel("init"))
+func (m MLAppleImageFeatureExtractor) Init() MLAppleImageFeatureExtractor {
+	rv := objc.Send[MLAppleImageFeatureExtractor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAppleImageFeatureExtractor) Autorelease() MLAppleImageFeatureExtractor {
-	rv := objc.Send[MLAppleImageFeatureExtractor](a.ID, objc.Sel("autorelease"))
+func (m MLAppleImageFeatureExtractor) Autorelease() MLAppleImageFeatureExtractor {
+	rv := objc.Send[MLAppleImageFeatureExtractor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -176,9 +176,9 @@ func NewAppleImageFeatureExtractorWithParametersModelDescriptionFeatureExtractor
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/computeScenePrintFeatures:handle:useCPUOnly:error:
-func (a MLAppleImageFeatureExtractor) ComputeScenePrintFeaturesHandleUseCPUOnlyError(features corevideo.CVImageBufferRef, handle objectivec.IObject, cPUOnly bool) (objectivec.IObject, error) {
+func (m MLAppleImageFeatureExtractor) ComputeScenePrintFeaturesHandleUseCPUOnlyError(features corevideo.CVImageBufferRef, handle objectivec.IObject, cPUOnly bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("computeScenePrintFeatures:handle:useCPUOnly:error:"), features, handle, cPUOnly, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("computeScenePrintFeatures:handle:useCPUOnly:error:"), features, handle, cPUOnly, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -188,21 +188,21 @@ func (a MLAppleImageFeatureExtractor) ComputeScenePrintFeaturesHandleUseCPUOnlyE
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/featureValueFromObjectPrint:key:shape:
-func (a MLAppleImageFeatureExtractor) FeatureValueFromObjectPrintKeyShape(print_ objectivec.IObject, key objectivec.IObject, shape objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("featureValueFromObjectPrint:key:shape:"), print_, key, shape)
+func (m MLAppleImageFeatureExtractor) FeatureValueFromObjectPrintKeyShape(print_ objectivec.IObject, key objectivec.IObject, shape objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValueFromObjectPrint:key:shape:"), print_, key, shape)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/featureValueFromScenePrint:elementSize:
-func (a MLAppleImageFeatureExtractor) FeatureValueFromScenePrintElementSize(print_ objectivec.IObject, size uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("featureValueFromScenePrint:elementSize:"), print_, size)
+func (m MLAppleImageFeatureExtractor) FeatureValueFromScenePrintElementSize(print_ objectivec.IObject, size uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValueFromScenePrint:elementSize:"), print_, size)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/predictionFromFeatures:options:error:
-func (a MLAppleImageFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLAppleImageFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -212,9 +212,9 @@ func (a MLAppleImageFeatureExtractor) PredictionFromFeaturesOptionsError(feature
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/initWithParameters:modelDescription:featureExtractorType:configuration:error:
-func (a MLAppleImageFeatureExtractor) InitWithParametersModelDescriptionFeatureExtractorTypeConfigurationError(parameters objectivec.IObject, description objectivec.IObject, type_ int, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
+func (m MLAppleImageFeatureExtractor) InitWithParametersModelDescriptionFeatureExtractorTypeConfigurationError(parameters objectivec.IObject, description objectivec.IObject, type_ int, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithParameters:modelDescription:featureExtractorType:configuration:error:"), parameters, description, type_, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithParameters:modelDescription:featureExtractorType:configuration:error:"), parameters, description, type_, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleImageFeatureExtractor{}, foundation.NSErrorFrom(errorPtr)
@@ -236,7 +236,7 @@ func (_MLAppleImageFeatureExtractorClass MLAppleImageFeatureExtractorClass) Load
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/parameters
-func (a MLAppleImageFeatureExtractor) Parameters() IMLAppleImageFeatureExtractorParameters {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
+func (m MLAppleImageFeatureExtractor) Parameters() IMLAppleImageFeatureExtractorParameters {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return MLAppleImageFeatureExtractorParametersFromID(objc.ID(rv))
 }

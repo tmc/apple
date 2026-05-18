@@ -100,14 +100,14 @@ type IMLGKDecisionTree interface {
 }
 
 // Init initializes the instance.
-func (g MLGKDecisionTree) Init() MLGKDecisionTree {
-	rv := objc.Send[MLGKDecisionTree](g.ID, objc.Sel("init"))
+func (m MLGKDecisionTree) Init() MLGKDecisionTree {
+	rv := objc.Send[MLGKDecisionTree](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g MLGKDecisionTree) Autorelease() MLGKDecisionTree {
-	rv := objc.Send[MLGKDecisionTree](g.ID, objc.Sel("autorelease"))
+func (m MLGKDecisionTree) Autorelease() MLGKDecisionTree {
+	rv := objc.Send[MLGKDecisionTree](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -119,131 +119,131 @@ func NewMLGKDecisionTree() MLGKDecisionTree {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_init
-func (g MLGKDecisionTree) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_init"))
+func (m MLGKDecisionTree) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_initWithFlattenedTree:
-func (g MLGKDecisionTree) _initWithFlattenedTree(tree objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_initWithFlattenedTree:"), tree)
+func (m MLGKDecisionTree) _initWithFlattenedTree(tree objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_initWithFlattenedTree:"), tree)
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithFlattenedTree is an exported wrapper for the private method _initWithFlattenedTree.
-func (g MLGKDecisionTree) InitWithFlattenedTree(tree objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_initWithFlattenedTree:")) {
+func (m MLGKDecisionTree) InitWithFlattenedTree(tree objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_initWithFlattenedTree:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithFlattenedTree:"}
 		return nil, err
 	}
-	return g._initWithFlattenedTree(tree), nil
+	return m._initWithFlattenedTree(tree), nil
 }
 
 // CanInitWithFlattenedTree reports whether the receiver responds to the private selector _initWithFlattenedTree:.
-func (g MLGKDecisionTree) CanInitWithFlattenedTree() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_initWithFlattenedTree:"))
+func (m MLGKDecisionTree) CanInitWithFlattenedTree() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_initWithFlattenedTree:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_loadModelAssetWithModelAtPath:withError:
-func (g MLGKDecisionTree) _loadModelAssetWithModelAtPathWithError(path objectivec.IObject, error_ objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"), path, error_)
+func (m MLGKDecisionTree) _loadModelAssetWithModelAtPathWithError(path objectivec.IObject, error_ objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"), path, error_)
 }
 
 // LoadModelAssetWithModelAtPathWithError is an exported wrapper for the private method _loadModelAssetWithModelAtPathWithError.
-func (g MLGKDecisionTree) LoadModelAssetWithModelAtPathWithError(path objectivec.IObject, error_ objectivec.IObject) error {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:")) {
+func (m MLGKDecisionTree) LoadModelAssetWithModelAtPathWithError(path objectivec.IObject, error_ objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_loadModelAssetWithModelAtPath:withError:"}
 		return err
 	}
-	g._loadModelAssetWithModelAtPathWithError(path, error_)
+	m._loadModelAssetWithModelAtPathWithError(path, error_)
 	return nil
 }
 
 // CanLoadModelAssetWithModelAtPathWithError reports whether the receiver responds to the private selector _loadModelAssetWithModelAtPath:withError:.
-func (g MLGKDecisionTree) CanLoadModelAssetWithModelAtPathWithError() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"))
+func (m MLGKDecisionTree) CanLoadModelAssetWithModelAtPathWithError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_makeInferenceFromAnswers:withError:
-func (g MLGKDecisionTree) _makeInferenceFromAnswersWithError(answers objectivec.IObject, error_ objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_makeInferenceFromAnswers:withError:"), answers, error_)
+func (m MLGKDecisionTree) _makeInferenceFromAnswersWithError(answers objectivec.IObject, error_ objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_makeInferenceFromAnswers:withError:"), answers, error_)
 	return objectivec.Object{ID: rv}
 }
 
 // MakeInferenceFromAnswersWithError is an exported wrapper for the private method _makeInferenceFromAnswersWithError.
-func (g MLGKDecisionTree) MakeInferenceFromAnswersWithError(answers objectivec.IObject, error_ objectivec.IObject) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_makeInferenceFromAnswers:withError:")) {
+func (m MLGKDecisionTree) MakeInferenceFromAnswersWithError(answers objectivec.IObject, error_ objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_makeInferenceFromAnswers:withError:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_makeInferenceFromAnswers:withError:"}
 		return nil, err
 	}
-	return g._makeInferenceFromAnswersWithError(answers, error_), nil
+	return m._makeInferenceFromAnswersWithError(answers, error_), nil
 }
 
 // CanMakeInferenceFromAnswersWithError reports whether the receiver responds to the private selector _makeInferenceFromAnswers:withError:.
-func (g MLGKDecisionTree) CanMakeInferenceFromAnswersWithError() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_makeInferenceFromAnswers:withError:"))
+func (m MLGKDecisionTree) CanMakeInferenceFromAnswersWithError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_makeInferenceFromAnswers:withError:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_saveModelAssetWithModelToPath:withError:
-func (g MLGKDecisionTree) _saveModelAssetWithModelToPathWithError(path objectivec.IObject, error_ objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"), path, error_)
+func (m MLGKDecisionTree) _saveModelAssetWithModelToPathWithError(path objectivec.IObject, error_ objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"), path, error_)
 	return rv
 }
 
 // SaveModelAssetWithModelToPathWithError is an exported wrapper for the private method _saveModelAssetWithModelToPathWithError.
-func (g MLGKDecisionTree) SaveModelAssetWithModelToPathWithError(path objectivec.IObject, error_ objectivec.IObject) (bool, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:")) {
+func (m MLGKDecisionTree) SaveModelAssetWithModelToPathWithError(path objectivec.IObject, error_ objectivec.IObject) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_saveModelAssetWithModelToPath:withError:"}
 		return false, err
 	}
-	return g._saveModelAssetWithModelToPathWithError(path, error_), nil
+	return m._saveModelAssetWithModelToPathWithError(path, error_), nil
 }
 
 // CanSaveModelAssetWithModelToPathWithError reports whether the receiver responds to the private selector _saveModelAssetWithModelToPath:withError:.
-func (g MLGKDecisionTree) CanSaveModelAssetWithModelToPathWithError() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"))
+func (m MLGKDecisionTree) CanSaveModelAssetWithModelToPathWithError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_attributes
-func (g MLGKDecisionTree) _attributes() foundation.INSArray {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_attributes"))
+func (m MLGKDecisionTree) _attributes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_attributes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // CanAttributes reports whether the receiver responds to the private selector _attributes.
-func (g MLGKDecisionTree) CanAttributes() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_attributes"))
+func (m MLGKDecisionTree) CanAttributes() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_attributes"))
 }
 
 // Attributes is an exported wrapper for the private property _attributes.
-func (g MLGKDecisionTree) Attributes() (foundation.INSArray, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_attributes")) {
+func (m MLGKDecisionTree) Attributes() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_attributes")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_attributes"}
 	}
-	return g._attributes(), nil
+	return m._attributes(), nil
 }
-func (g MLGKDecisionTree) Set_attributes(value foundation.INSArray) {
-	objc.Send[struct{}](g.ID, objc.Sel("set_attributes:"), value)
+func (m MLGKDecisionTree) Set_attributes(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("set_attributes:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_objectStore
-func (g MLGKDecisionTree) _objectStore() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_objectStore"))
+func (m MLGKDecisionTree) _objectStore() foundation.INSOrderedSet {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_objectStore"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }
 
 // CanObjectStore reports whether the receiver responds to the private selector _objectStore.
-func (g MLGKDecisionTree) CanObjectStore() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_objectStore"))
+func (m MLGKDecisionTree) CanObjectStore() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_objectStore"))
 }
 
 // ObjectStore is an exported wrapper for the private property _objectStore.
-func (g MLGKDecisionTree) ObjectStore() (foundation.INSOrderedSet, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_objectStore")) {
+func (m MLGKDecisionTree) ObjectStore() (foundation.INSOrderedSet, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_objectStore")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_objectStore"}
 	}
-	return g._objectStore(), nil
+	return m._objectStore(), nil
 }
-func (g MLGKDecisionTree) Set_objectStore(value foundation.INSOrderedSet) {
-	objc.Send[struct{}](g.ID, objc.Sel("set_objectStore:"), value)
+func (m MLGKDecisionTree) Set_objectStore(value foundation.INSOrderedSet) {
+	objc.Send[struct{}](m.ID, objc.Sel("set_objectStore:"), value)
 }

@@ -196,7 +196,6 @@ func NSScriptObjectSpecifierFromID(id objc.ID) NSScriptObjectSpecifier {
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier
 type INSScriptObjectSpecifier interface {
 	objectivec.IObject
-	NSCoding
 
 	// Topic: Initializing an object specifier
 

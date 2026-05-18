@@ -304,7 +304,6 @@ func NSViewControllerFromID(id objc.ID) NSViewController {
 type INSViewController interface {
 	INSResponder
 	NSSeguePerforming
-	NSUserInterfaceItemIdentification
 
 	// Topic: Creating A View Controller
 
@@ -1102,6 +1101,14 @@ func (v NSViewController) CommitEditingAndReturnError() (bool, error) {
 
 }
 
+// A string that identifies the user interface item.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
+func (v NSViewController) Identifier() NSUserInterfaceItemIdentifier {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
+	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
+}
+
 // Performs the specified segue.
 //
 // identifier: The string that uniquely identifies the segue in the storyboard file.
@@ -1444,6 +1451,10 @@ func (v NSViewController) SetSourceItemView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSourceItemView:"), value)
 }
 
+// Protocol methods for NSSeguePerforming
+
+// Protocol methods for NSUserInterfaceItemIdentification
+
 // A string that identifies the user interface item.
 //
 // # Discussion
@@ -1474,17 +1485,9 @@ func (v NSViewController) SetSourceItemView(value INSView) {
 //
 // [Mac Technology Overview]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067
 // [OS X Frameworks]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/SystemFrameworks/SystemFrameworks.html#//apple_ref/doc/uid/TP40001067-CH210
-func (v NSViewController) Identifier() NSUserInterfaceItemIdentifier {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
-	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
+func (o NSViewController) SetIdentifier(value NSUserInterfaceItemIdentifier) {
+	objc.Send[struct{}](o.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-func (v NSViewController) SetIdentifier(value NSUserInterfaceItemIdentifier) {
-	objc.Send[struct{}](v.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
-}
-
-// Protocol methods for NSSeguePerforming
-
-// Protocol methods for NSUserInterfaceItemIdentification
 
 // TransitionFromViewControllerToViewControllerOptions is a synchronous wrapper around [NSViewController.TransitionFromViewControllerToViewControllerOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.

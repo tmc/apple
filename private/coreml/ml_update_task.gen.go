@@ -135,14 +135,14 @@ type IMLUpdateTask interface {
 }
 
 // Init initializes the instance.
-func (u MLUpdateTask) Init() MLUpdateTask {
-	rv := objc.Send[MLUpdateTask](u.ID, objc.Sel("init"))
+func (m MLUpdateTask) Init() MLUpdateTask {
+	rv := objc.Send[MLUpdateTask](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (u MLUpdateTask) Autorelease() MLUpdateTask {
-	rv := objc.Send[MLUpdateTask](u.ID, objc.Sel("autorelease"))
+func (m MLUpdateTask) Autorelease() MLUpdateTask {
+	rv := objc.Send[MLUpdateTask](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -173,94 +173,94 @@ func NewUpdateTaskWithState(state int64) MLUpdateTask {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/_completionHandlerBlock
-func (u MLUpdateTask) _completionHandlerBlock() {
-	objc.Send[objc.ID](u.ID, objc.Sel("_completionHandlerBlock"))
+func (m MLUpdateTask) _completionHandlerBlock() {
+	objc.Send[objc.ID](m.ID, objc.Sel("_completionHandlerBlock"))
 }
 
 // CompletionHandlerBlock is an exported wrapper for the private method _completionHandlerBlock.
-func (u MLUpdateTask) CompletionHandlerBlock() error {
-	if !objc.RespondsToSelector(u.ID, objc.Sel("_completionHandlerBlock")) {
+func (m MLUpdateTask) CompletionHandlerBlock() error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_completionHandlerBlock")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_completionHandlerBlock"}
 		return err
 	}
-	u._completionHandlerBlock()
+	m._completionHandlerBlock()
 	return nil
 }
 
 // CanCompletionHandlerBlock reports whether the receiver responds to the private selector _completionHandlerBlock.
-func (u MLUpdateTask) CanCompletionHandlerBlock() bool {
-	return objc.RespondsToSelector(u.ID, objc.Sel("_completionHandlerBlock"))
+func (m MLUpdateTask) CanCompletionHandlerBlock() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_completionHandlerBlock"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/_invokeProgressHandlerForContext:
-func (u MLUpdateTask) _invokeProgressHandlerForContext(context objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("_invokeProgressHandlerForContext:"), context)
+func (m MLUpdateTask) _invokeProgressHandlerForContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_invokeProgressHandlerForContext:"), context)
 }
 
 // InvokeProgressHandlerForContext is an exported wrapper for the private method _invokeProgressHandlerForContext.
-func (u MLUpdateTask) InvokeProgressHandlerForContext(context objectivec.IObject) error {
-	if !objc.RespondsToSelector(u.ID, objc.Sel("_invokeProgressHandlerForContext:")) {
+func (m MLUpdateTask) InvokeProgressHandlerForContext(context objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_invokeProgressHandlerForContext:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_invokeProgressHandlerForContext:"}
 		return err
 	}
-	u._invokeProgressHandlerForContext(context)
+	m._invokeProgressHandlerForContext(context)
 	return nil
 }
 
 // CanInvokeProgressHandlerForContext reports whether the receiver responds to the private selector _invokeProgressHandlerForContext:.
-func (u MLUpdateTask) CanInvokeProgressHandlerForContext() bool {
-	return objc.RespondsToSelector(u.ID, objc.Sel("_invokeProgressHandlerForContext:"))
+func (m MLUpdateTask) CanInvokeProgressHandlerForContext() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_invokeProgressHandlerForContext:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/_progressHandlerBlock
-func (u MLUpdateTask) _progressHandlerBlock() {
-	objc.Send[objc.ID](u.ID, objc.Sel("_progressHandlerBlock"))
+func (m MLUpdateTask) _progressHandlerBlock() {
+	objc.Send[objc.ID](m.ID, objc.Sel("_progressHandlerBlock"))
 }
 
 // ProgressHandlerBlock is an exported wrapper for the private method _progressHandlerBlock.
-func (u MLUpdateTask) ProgressHandlerBlock() error {
-	if !objc.RespondsToSelector(u.ID, objc.Sel("_progressHandlerBlock")) {
+func (m MLUpdateTask) ProgressHandlerBlock() error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_progressHandlerBlock")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_progressHandlerBlock"}
 		return err
 	}
-	u._progressHandlerBlock()
+	m._progressHandlerBlock()
 	return nil
 }
 
 // CanProgressHandlerBlock reports whether the receiver responds to the private selector _progressHandlerBlock.
-func (u MLUpdateTask) CanProgressHandlerBlock() bool {
-	return objc.RespondsToSelector(u.ID, objc.Sel("_progressHandlerBlock"))
+func (m MLUpdateTask) CanProgressHandlerBlock() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_progressHandlerBlock"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onCancellation
-func (u MLUpdateTask) OnCancellation() {
-	objc.Send[objc.ID](u.ID, objc.Sel("onCancellation"))
+func (m MLUpdateTask) OnCancellation() {
+	objc.Send[objc.ID](m.ID, objc.Sel("onCancellation"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onCompletionWithTaskContext:
-func (u MLUpdateTask) OnCompletionWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("onCompletionWithTaskContext:"), context)
+func (m MLUpdateTask) OnCompletionWithTaskContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("onCompletionWithTaskContext:"), context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onFailureWithTaskContext:
-func (u MLUpdateTask) OnFailureWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("onFailureWithTaskContext:"), context)
+func (m MLUpdateTask) OnFailureWithTaskContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("onFailureWithTaskContext:"), context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onResumptionWithTaskContext:
-func (u MLUpdateTask) OnResumptionWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("onResumptionWithTaskContext:"), context)
+func (m MLUpdateTask) OnResumptionWithTaskContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("onResumptionWithTaskContext:"), context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/onSuspensionWithTaskContext:
-func (u MLUpdateTask) OnSuspensionWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("onSuspensionWithTaskContext:"), context)
+func (m MLUpdateTask) OnSuspensionWithTaskContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("onSuspensionWithTaskContext:"), context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/initWithModelAtURL:trainingData:configuration:progressHandlers:error:
-func (u MLUpdateTask) InitWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.INSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
+func (m MLUpdateTask) InitWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.INSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("initWithModelAtURL:trainingData:configuration:progressHandlers:error:"), url, data, configuration, handlers, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithModelAtURL:trainingData:configuration:progressHandlers:error:"), url, data, configuration, handlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLUpdateTask{}, foundation.NSErrorFrom(errorPtr)
@@ -309,64 +309,64 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataP
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/debugDescription
-func (u MLUpdateTask) DebugDescription() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("debugDescription"))
+func (m MLUpdateTask) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/description
-func (u MLUpdateTask) Description() string {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("description"))
+func (m MLUpdateTask) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/hash
-func (u MLUpdateTask) Hash() uint64 {
-	rv := objc.Send[uint64](u.ID, objc.Sel("hash"))
+func (m MLUpdateTask) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/progressHandlers
-func (u MLUpdateTask) ProgressHandlers() IMLUpdateProgressHandlers {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("progressHandlers"))
+func (m MLUpdateTask) ProgressHandlers() IMLUpdateProgressHandlers {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlers"))
 	return MLUpdateProgressHandlersFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/superclass
-func (u MLUpdateTask) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](u.ID, objc.Sel("superclass"))
+func (m MLUpdateTask) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/trainingData
-func (u MLUpdateTask) TrainingData() objectivec.IObject {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("trainingData"))
+func (m MLUpdateTask) TrainingData() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("trainingData"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updatableModel
-func (u MLUpdateTask) UpdatableModel() IMLModel {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("updatableModel"))
+func (m MLUpdateTask) UpdatableModel() IMLModel {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatableModel"))
 	return MLModelFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updatableModelURL
-func (u MLUpdateTask) UpdatableModelURL() foundation.INSURL {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("updatableModelURL"))
+func (m MLUpdateTask) UpdatableModelURL() foundation.INSURL {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("updatableModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updateHasStarted
-func (u MLUpdateTask) UpdateHasStarted() bool {
-	rv := objc.Send[bool](u.ID, objc.Sel("updateHasStarted"))
+func (m MLUpdateTask) UpdateHasStarted() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("updateHasStarted"))
 	return rv
 }
-func (u MLUpdateTask) SetUpdateHasStarted(value bool) {
-	objc.Send[struct{}](u.ID, objc.Sel("setUpdateHasStarted:"), value)
+func (m MLUpdateTask) SetUpdateHasStarted(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setUpdateHasStarted:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/updateQueue
-func (u MLUpdateTask) UpdateQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("updateQueue"))
+func (m MLUpdateTask) UpdateQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("updateQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

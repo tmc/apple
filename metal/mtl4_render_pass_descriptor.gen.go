@@ -195,6 +195,8 @@ type IMTL4RenderPassDescriptor interface {
 	VisibilityResultType() MTLVisibilityResultType
 	SetVisibilityResultType(value MTLVisibilityResultType)
 
+	// Retrieves the previously-configured custom sample positions.
+	GetSamplePositionsCount(positions []MTLSamplePosition, count uint) uint
 	// Configures the custom sample positions to use in MSAA rendering.
 	SetSamplePositionsCount(positions []MTLSamplePosition, count uint)
 }
@@ -215,6 +217,33 @@ func (m MTL4RenderPassDescriptor) Autorelease() MTL4RenderPassDescriptor {
 func NewMTL4RenderPassDescriptor() MTL4RenderPassDescriptor {
 	class := getMTL4RenderPassDescriptorClass()
 	rv := objc.Send[MTL4RenderPassDescriptor](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+// Retrieves the previously-configured custom sample positions.
+//
+// positions: The destination array where Metal stores [MTLSamplePosition] instances.
+//
+// count: Number of [MTLSamplePosition] instances in the array. This array needs to
+// be large enough to store all sample positions.
+//
+// # Return Value
+//
+// The number of previously-configured custom sample positions.
+//
+// # Discussion
+//
+// This method stores the app’s last set custom sample positions into an
+// output array. Metal only modifies the array when the `count` parameter
+// consists of a length sufficient to store the number of sample positions.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/getSamplePositions:count:
+//
+// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
+//
+// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
+func (m MTL4RenderPassDescriptor) GetSamplePositionsCount(positions []MTLSamplePosition, count uint) uint {
+	rv := objc.Send[uint](m.ID, objc.Sel("getSamplePositions:count:"), objc.CArray(positions), count)
 	return rv
 }
 

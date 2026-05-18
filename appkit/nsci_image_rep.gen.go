@@ -5,9 +5,9 @@ package appkit
 import (
 	"sync"
 
-	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSCIImageRep] class.
@@ -85,12 +85,12 @@ type INSCIImageRep interface {
 	// Topic: Creating Representations of Core Image Objects
 
 	// Returns a representation of an image initialized to the specified Core Image instance.
-	InitWithCIImage(image coreimage.CIImage) NSCIImageRep
+	InitWithCIImage(image objectivec.IObject) NSCIImageRep
 
 	// Topic: Getting Data
 
 	// The Core Image instance.
-	CIImage() coreimage.CIImage
+	CIImage() objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -122,10 +122,10 @@ func NewNSCIImageRep() NSCIImageRep {
 // An initialized [NSCIImageRep] object, or `nil` if the object could not be
 // initialized.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSCIImageRep/init(ciImage:)
+// See: https://developer.apple.com/documentation/AppKit/NSCIImageRep/init(ciImage:)-60ghw
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func NewCIImageRepWithCIImage(image coreimage.CIImage) NSCIImageRep {
+func NewCIImageRepWithCIImage(image objectivec.IObject) NSCIImageRep {
 	instance := getNSCIImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:"), image)
 	return NSCIImageRepFromID(rv)
@@ -151,10 +151,10 @@ func NewCIImageRepWithCoder(coder foundation.INSCoder) NSCIImageRep {
 // An initialized [NSCIImageRep] object, or `nil` if the object could not be
 // initialized.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSCIImageRep/init(ciImage:)
+// See: https://developer.apple.com/documentation/AppKit/NSCIImageRep/init(ciImage:)-60ghw
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (c NSCIImageRep) InitWithCIImage(image coreimage.CIImage) NSCIImageRep {
+func (c NSCIImageRep) InitWithCIImage(image objectivec.IObject) NSCIImageRep {
 	rv := objc.Send[NSCIImageRep](c.ID, objc.Sel("initWithCIImage:"), image)
 	return rv
 }
@@ -172,7 +172,7 @@ func (c NSCIImageRep) InitWithCIImage(image coreimage.CIImage) NSCIImageRep {
 // See: https://developer.apple.com/documentation/AppKit/NSCIImageRep/imageRepWithCIImage:
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (_NSCIImageRepClass NSCIImageRepClass) ImageRepWithCIImage(image coreimage.CIImage) NSCIImageRep {
+func (_NSCIImageRepClass NSCIImageRepClass) ImageRepWithCIImage(image objectivec.IObject) NSCIImageRep {
 	rv := objc.Send[objc.ID](objc.ID(_NSCIImageRepClass.class), objc.Sel("imageRepWithCIImage:"), image)
 	return NSCIImageRepFromID(rv)
 }
@@ -180,7 +180,7 @@ func (_NSCIImageRepClass NSCIImageRepClass) ImageRepWithCIImage(image coreimage.
 // The Core Image instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCIImageRep/ciImage
-func (c NSCIImageRep) CIImage() coreimage.CIImage {
+func (c NSCIImageRep) CIImage() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("CIImage"))
-	return coreimage.CIImageFromID(objc.ID(rv))
+	return objectivec.Object{ID: rv}
 }

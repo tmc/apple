@@ -89,14 +89,14 @@ type IMLState interface {
 }
 
 // Init initializes the instance.
-func (s MLState) Init() MLState {
-	rv := objc.Send[MLState](s.ID, objc.Sel("init"))
+func (m MLState) Init() MLState {
+	rv := objc.Send[MLState](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLState) Autorelease() MLState {
-	rv := objc.Send[MLState](s.ID, objc.Sel("autorelease"))
+func (m MLState) Autorelease() MLState {
+	rv := objc.Send[MLState](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -115,20 +115,20 @@ func NewStateWithBackings(backings objectivec.IObject) MLState {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLState/getMultiArrayWithHandler:
-func (s MLState) GetMultiArrayWithHandler(handler VoidHandler) {
+func (m MLState) GetMultiArrayWithHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](s.ID, objc.Sel("getMultiArrayWithHandler:"), _block0)
+	objc.Send[objc.ID](m.ID, objc.Sel("getMultiArrayWithHandler:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLState/internalGetMultiArrayWithHandler:
-func (s MLState) InternalGetMultiArrayWithHandler(handler VoidHandler) {
+func (m MLState) InternalGetMultiArrayWithHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](s.ID, objc.Sel("internalGetMultiArrayWithHandler:"), _block0)
+	objc.Send[objc.ID](m.ID, objc.Sel("internalGetMultiArrayWithHandler:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLState/initWithBackings:
-func (s MLState) InitWithBackings(backings objectivec.IObject) MLState {
-	rv := objc.Send[MLState](s.ID, objc.Sel("initWithBackings:"), backings)
+func (m MLState) InitWithBackings(backings objectivec.IObject) MLState {
+	rv := objc.Send[MLState](m.ID, objc.Sel("initWithBackings:"), backings)
 	return rv
 }
 
@@ -139,22 +139,22 @@ func (_MLStateClass MLStateClass) EmptyState() objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLState/backings
-func (s MLState) Backings() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("backings"))
+func (m MLState) Backings() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("backings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLState/featureProviderRepresentation
-func (s MLState) FeatureProviderRepresentation() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("featureProviderRepresentation"))
+func (m MLState) FeatureProviderRepresentation() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureProviderRepresentation"))
 	return objectivec.Object{ID: rv}
 }
 
 // GetMultiArrayWithHandlerSync is a synchronous wrapper around [MLState.GetMultiArrayWithHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s MLState) GetMultiArrayWithHandlerSync(ctx context.Context) error {
+func (m MLState) GetMultiArrayWithHandlerSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	s.GetMultiArrayWithHandler(func() {
+	m.GetMultiArrayWithHandler(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -167,9 +167,9 @@ func (s MLState) GetMultiArrayWithHandlerSync(ctx context.Context) error {
 
 // InternalGetMultiArrayWithHandlerSync is a synchronous wrapper around [MLState.InternalGetMultiArrayWithHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s MLState) InternalGetMultiArrayWithHandlerSync(ctx context.Context) error {
+func (m MLState) InternalGetMultiArrayWithHandlerSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	s.InternalGetMultiArrayWithHandler(func() {
+	m.InternalGetMultiArrayWithHandler(func() {
 		done <- struct{}{}
 	})
 	select {

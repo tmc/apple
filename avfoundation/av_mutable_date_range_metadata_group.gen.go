@@ -109,7 +109,7 @@ func NewAVMutableDateRangeMetadataGroup() AVMutableDateRangeMetadataGroup {
 // applies.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDateRangeMetadataGroup/init(items:start:end:)
-func NewMutableDateRangeMetadataGroupWithItemsStartDateEndDate(items []AVMetadataItem, startDate foundation.INSDate, endDate foundation.INSDate) AVMutableDateRangeMetadataGroup {
+func NewMutableDateRangeMetadataGroupWithItemsStartDateEndDate(items []AVMetadataItem, startDate foundation.NSDate, endDate foundation.NSDate) AVMutableDateRangeMetadataGroup {
 	instance := getAVMutableDateRangeMetadataGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:startDate:endDate:"), objectivec.IObjectSliceToNSArray(items), startDate, endDate)
 	return AVMutableDateRangeMetadataGroupFromID(rv)

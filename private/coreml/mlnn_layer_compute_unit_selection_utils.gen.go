@@ -66,14 +66,14 @@ type IMLNNLayerComputeUnitSelectionUtils interface {
 }
 
 // Init initializes the instance.
-func (n MLNNLayerComputeUnitSelectionUtils) Init() MLNNLayerComputeUnitSelectionUtils {
-	rv := objc.Send[MLNNLayerComputeUnitSelectionUtils](n.ID, objc.Sel("init"))
+func (m MLNNLayerComputeUnitSelectionUtils) Init() MLNNLayerComputeUnitSelectionUtils {
+	rv := objc.Send[MLNNLayerComputeUnitSelectionUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNNLayerComputeUnitSelectionUtils) Autorelease() MLNNLayerComputeUnitSelectionUtils {
-	rv := objc.Send[MLNNLayerComputeUnitSelectionUtils](n.ID, objc.Sel("autorelease"))
+func (m MLNNLayerComputeUnitSelectionUtils) Autorelease() MLNNLayerComputeUnitSelectionUtils {
+	rv := objc.Send[MLNNLayerComputeUnitSelectionUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

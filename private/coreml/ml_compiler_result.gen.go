@@ -80,14 +80,14 @@ type IMLCompilerResult interface {
 }
 
 // Init initializes the instance.
-func (c MLCompilerResult) Init() MLCompilerResult {
-	rv := objc.Send[MLCompilerResult](c.ID, objc.Sel("init"))
+func (m MLCompilerResult) Init() MLCompilerResult {
+	rv := objc.Send[MLCompilerResult](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCompilerResult) Autorelease() MLCompilerResult {
-	rv := objc.Send[MLCompilerResult](c.ID, objc.Sel("autorelease"))
+func (m MLCompilerResult) Autorelease() MLCompilerResult {
+	rv := objc.Send[MLCompilerResult](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -111,10 +111,10 @@ func (_MLCompilerResultClass MLCompilerResultClass) ResultWithOutputFiles(files 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerResult/outputFiles
-func (c MLCompilerResult) OutputFiles() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputFiles"))
+func (m MLCompilerResult) OutputFiles() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputFiles"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (c MLCompilerResult) SetOutputFiles(value foundation.INSArray) {
-	objc.Send[struct{}](c.ID, objc.Sel("setOutputFiles:"), value)
+func (m MLCompilerResult) SetOutputFiles(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("setOutputFiles:"), value)
 }

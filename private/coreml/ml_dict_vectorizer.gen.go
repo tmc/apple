@@ -83,14 +83,14 @@ type IMLDictVectorizer interface {
 }
 
 // Init initializes the instance.
-func (d MLDictVectorizer) Init() MLDictVectorizer {
-	rv := objc.Send[MLDictVectorizer](d.ID, objc.Sel("init"))
+func (m MLDictVectorizer) Init() MLDictVectorizer {
+	rv := objc.Send[MLDictVectorizer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d MLDictVectorizer) Autorelease() MLDictVectorizer {
-	rv := objc.Send[MLDictVectorizer](d.ID, objc.Sel("autorelease"))
+func (m MLDictVectorizer) Autorelease() MLDictVectorizer {
+	rv := objc.Send[MLDictVectorizer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -128,9 +128,9 @@ func NewDictVectorizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatu
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDictVectorizer/constructDictionary:error:
-func (d MLDictVectorizer) ConstructDictionaryError(dictionary objectivec.IObject) (objectivec.IObject, error) {
+func (m MLDictVectorizer) ConstructDictionaryError(dictionary objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("constructDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("constructDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -140,9 +140,9 @@ func (d MLDictVectorizer) ConstructDictionaryError(dictionary objectivec.IObject
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDictVectorizer/initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:
-func (d MLDictVectorizer) InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLDictVectorizer, error) {
+func (m MLDictVectorizer) InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLDictVectorizer, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:"), with, name, description, description2, names, names2, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:"), with, name, description, description2, names, names2, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDictVectorizer{}, foundation.NSErrorFrom(errorPtr)
@@ -188,7 +188,7 @@ func (_MLDictVectorizerClass MLDictVectorizerClass) LoadModelFromSpecificationCo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLDictVectorizer/categoryName
-func (d MLDictVectorizer) CategoryName() foundation.INSOrderedSet {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("categoryName"))
+func (m MLDictVectorizer) CategoryName() foundation.INSOrderedSet {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("categoryName"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }

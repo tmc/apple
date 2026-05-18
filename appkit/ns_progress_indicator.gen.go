@@ -152,7 +152,6 @@ func NSProgressIndicatorFromID(id objc.ID) NSProgressIndicator {
 type INSProgressIndicator interface {
 	INSView
 	NSAccessibilityGroup
-	NSAccessibilityProgressIndicator
 
 	// Topic: Animating the progress indicator
 

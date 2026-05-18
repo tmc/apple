@@ -124,14 +124,14 @@ type IMLTask interface {
 }
 
 // Init initializes the instance.
-func (t MLTask) Init() MLTask {
-	rv := objc.Send[MLTask](t.ID, objc.Sel("init"))
+func (m MLTask) Init() MLTask {
+	rv := objc.Send[MLTask](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t MLTask) Autorelease() MLTask {
-	rv := objc.Send[MLTask](t.ID, objc.Sel("autorelease"))
+func (m MLTask) Autorelease() MLTask {
+	rv := objc.Send[MLTask](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -150,162 +150,162 @@ func NewTaskWithState(state int64) MLTask {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canCancel
-func (t MLTask) _canCancel() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_canCancel"))
+func (m MLTask) _canCancel() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_canCancel"))
 	return rv
 }
 
 // CanCancel is an exported wrapper for the private method _canCancel.
-func (t MLTask) CanCancel() (bool, error) {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_canCancel")) {
+func (m MLTask) CanCancel() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_canCancel")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_canCancel"}
 		return false, err
 	}
-	return t._canCancel(), nil
+	return m._canCancel(), nil
 }
 
 // CanCanCancel reports whether the receiver responds to the private selector _canCancel.
-func (t MLTask) CanCanCancel() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_canCancel"))
+func (m MLTask) CanCanCancel() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_canCancel"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canComplete
-func (t MLTask) _canComplete() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_canComplete"))
+func (m MLTask) _canComplete() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_canComplete"))
 	return rv
 }
 
 // CanComplete is an exported wrapper for the private method _canComplete.
-func (t MLTask) CanComplete() (bool, error) {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_canComplete")) {
+func (m MLTask) CanComplete() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_canComplete")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_canComplete"}
 		return false, err
 	}
-	return t._canComplete(), nil
+	return m._canComplete(), nil
 }
 
 // CanCanComplete reports whether the receiver responds to the private selector _canComplete.
-func (t MLTask) CanCanComplete() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_canComplete"))
+func (m MLTask) CanCanComplete() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_canComplete"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canFail
-func (t MLTask) _canFail() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_canFail"))
+func (m MLTask) _canFail() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_canFail"))
 	return rv
 }
 
 // CanFail is an exported wrapper for the private method _canFail.
-func (t MLTask) CanFail() (bool, error) {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_canFail")) {
+func (m MLTask) CanFail() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_canFail")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_canFail"}
 		return false, err
 	}
-	return t._canFail(), nil
+	return m._canFail(), nil
 }
 
 // CanCanFail reports whether the receiver responds to the private selector _canFail.
-func (t MLTask) CanCanFail() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_canFail"))
+func (m MLTask) CanCanFail() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_canFail"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canResume
-func (t MLTask) _canResume() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_canResume"))
+func (m MLTask) _canResume() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_canResume"))
 	return rv
 }
 
 // CanResume is an exported wrapper for the private method _canResume.
-func (t MLTask) CanResume() (bool, error) {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_canResume")) {
+func (m MLTask) CanResume() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_canResume")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_canResume"}
 		return false, err
 	}
-	return t._canResume(), nil
+	return m._canResume(), nil
 }
 
 // CanCanResume reports whether the receiver responds to the private selector _canResume.
-func (t MLTask) CanCanResume() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_canResume"))
+func (m MLTask) CanCanResume() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_canResume"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canSuspend
-func (t MLTask) _canSuspend() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("_canSuspend"))
+func (m MLTask) _canSuspend() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("_canSuspend"))
 	return rv
 }
 
 // CanSuspend is an exported wrapper for the private method _canSuspend.
-func (t MLTask) CanSuspend() (bool, error) {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_canSuspend")) {
+func (m MLTask) CanSuspend() (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_canSuspend")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_canSuspend"}
 		return false, err
 	}
-	return t._canSuspend(), nil
+	return m._canSuspend(), nil
 }
 
 // CanCanSuspend reports whether the receiver responds to the private selector _canSuspend.
-func (t MLTask) CanCanSuspend() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_canSuspend"))
+func (m MLTask) CanCanSuspend() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_canSuspend"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_resumeWithTaskContext:
-func (t MLTask) _resumeWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("_resumeWithTaskContext:"), context)
+func (m MLTask) _resumeWithTaskContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_resumeWithTaskContext:"), context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/completeWithTaskContext:
-func (t MLTask) CompleteWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("completeWithTaskContext:"), context)
+func (m MLTask) CompleteWithTaskContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("completeWithTaskContext:"), context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/failWithError:taskContext:
-func (t MLTask) FailWithErrorTaskContext(error_ objectivec.IObject, context objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("failWithError:taskContext:"), error_, context)
+func (m MLTask) FailWithErrorTaskContext(error_ objectivec.IObject, context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("failWithError:taskContext:"), error_, context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/resumeWithTaskContext:
-func (t MLTask) ResumeWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("resumeWithTaskContext:"), context)
+func (m MLTask) ResumeWithTaskContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("resumeWithTaskContext:"), context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/suspendWithTaskContext:
-func (t MLTask) SuspendWithTaskContext(context objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("suspendWithTaskContext:"), context)
+func (m MLTask) SuspendWithTaskContext(context objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("suspendWithTaskContext:"), context)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/taskStatesToString:
-func (t MLTask) TaskStatesToString(string_ int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("taskStatesToString:"), string_)
+func (m MLTask) TaskStatesToString(string_ int64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("taskStatesToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/initWithState:
-func (t MLTask) InitWithState(state int64) MLTask {
-	rv := objc.Send[MLTask](t.ID, objc.Sel("initWithState:"), state)
+func (m MLTask) InitWithState(state int64) MLTask {
+	rv := objc.Send[MLTask](m.ID, objc.Sel("initWithState:"), state)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/error
-func (t MLTask) Error() foundation.INSError {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("error"))
+func (m MLTask) Error() foundation.INSError {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
-func (t MLTask) SetError(value foundation.INSError) {
-	objc.Send[struct{}](t.ID, objc.Sel("setError:"), value)
+func (m MLTask) SetError(value foundation.INSError) {
+	objc.Send[struct{}](m.ID, objc.Sel("setError:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/state
-func (t MLTask) State() int64 {
-	rv := objc.Send[int64](t.ID, objc.Sel("state"))
+func (m MLTask) State() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("state"))
 	return rv
 }
-func (t MLTask) SetState(value int64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setState:"), value)
+func (m MLTask) SetState(value int64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setState:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTask/syncQueue
-func (t MLTask) SyncQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("syncQueue"))
+func (m MLTask) SyncQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("syncQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }

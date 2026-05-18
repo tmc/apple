@@ -80,14 +80,14 @@ type IVZBridgedNetworkDeviceAttachment interface {
 }
 
 // Init initializes the instance.
-func (b VZBridgedNetworkDeviceAttachment) Init() VZBridgedNetworkDeviceAttachment {
-	rv := objc.Send[VZBridgedNetworkDeviceAttachment](b.ID, objc.Sel("init"))
+func (v VZBridgedNetworkDeviceAttachment) Init() VZBridgedNetworkDeviceAttachment {
+	rv := objc.Send[VZBridgedNetworkDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (b VZBridgedNetworkDeviceAttachment) Autorelease() VZBridgedNetworkDeviceAttachment {
-	rv := objc.Send[VZBridgedNetworkDeviceAttachment](b.ID, objc.Sel("autorelease"))
+func (v VZBridgedNetworkDeviceAttachment) Autorelease() VZBridgedNetworkDeviceAttachment {
+	rv := objc.Send[VZBridgedNetworkDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -99,43 +99,43 @@ func NewVZBridgedNetworkDeviceAttachment() VZBridgedNetworkDeviceAttachment {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkDeviceAttachment/_setMacNatEnabled:
-func (b VZBridgedNetworkDeviceAttachment) _setMacNatEnabled(enabled bool) {
-	objc.Send[objc.ID](b.ID, objc.Sel("_setMacNatEnabled:"), enabled)
+func (v VZBridgedNetworkDeviceAttachment) _setMacNatEnabled(enabled bool) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setMacNatEnabled:"), enabled)
 }
 
 // SetMacNatEnabled is an exported wrapper for the private method _setMacNatEnabled.
-func (b VZBridgedNetworkDeviceAttachment) SetMacNatEnabled(enabled bool) error {
-	if !objc.RespondsToSelector(b.ID, objc.Sel("_setMacNatEnabled:")) {
+func (v VZBridgedNetworkDeviceAttachment) SetMacNatEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setMacNatEnabled:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setMacNatEnabled:"}
 		return err
 	}
-	b._setMacNatEnabled(enabled)
+	v._setMacNatEnabled(enabled)
 	return nil
 }
 
 // CanSetMacNatEnabled reports whether the receiver responds to the private selector _setMacNatEnabled:.
-func (b VZBridgedNetworkDeviceAttachment) CanSetMacNatEnabled() bool {
-	return objc.RespondsToSelector(b.ID, objc.Sel("_setMacNatEnabled:"))
+func (v VZBridgedNetworkDeviceAttachment) CanSetMacNatEnabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setMacNatEnabled:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkDeviceAttachment/_macNatEnabled
-func (b VZBridgedNetworkDeviceAttachment) _macNatEnabled() bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("_macNatEnabled"))
+func (v VZBridgedNetworkDeviceAttachment) _macNatEnabled() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("_macNatEnabled"))
 	return rv
 }
 
 // CanMacNatEnabled reports whether the receiver responds to the private selector _macNatEnabled.
-func (b VZBridgedNetworkDeviceAttachment) CanMacNatEnabled() bool {
-	return objc.RespondsToSelector(b.ID, objc.Sel("_macNatEnabled"))
+func (v VZBridgedNetworkDeviceAttachment) CanMacNatEnabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_macNatEnabled"))
 }
 
 // MacNatEnabled is an exported wrapper for the private property _macNatEnabled.
-func (b VZBridgedNetworkDeviceAttachment) MacNatEnabled() (bool, error) {
-	if !objc.RespondsToSelector(b.ID, objc.Sel("_macNatEnabled")) {
+func (v VZBridgedNetworkDeviceAttachment) MacNatEnabled() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_macNatEnabled")) {
 		return false, &objc.UnrecognizedSelectorError{Selector: "_macNatEnabled"}
 	}
-	return b._macNatEnabled(), nil
+	return v._macNatEnabled(), nil
 }
-func (b VZBridgedNetworkDeviceAttachment) Set_macNatEnabled(value bool) {
-	objc.Send[struct{}](b.ID, objc.Sel("set_macNatEnabled:"), value)
+func (v VZBridgedNetworkDeviceAttachment) Set_macNatEnabled(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_macNatEnabled:"), value)
 }

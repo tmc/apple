@@ -136,8 +136,6 @@ func NSIndexPathFromID(id objc.ID) NSIndexPath {
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath
 type INSIndexPath interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating and Initializing Index Paths

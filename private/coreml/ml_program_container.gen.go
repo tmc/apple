@@ -66,14 +66,14 @@ type IMLProgramContainer interface {
 }
 
 // Init initializes the instance.
-func (p MLProgramContainer) Init() MLProgramContainer {
-	rv := objc.Send[MLProgramContainer](p.ID, objc.Sel("init"))
+func (m MLProgramContainer) Init() MLProgramContainer {
+	rv := objc.Send[MLProgramContainer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLProgramContainer) Autorelease() MLProgramContainer {
-	rv := objc.Send[MLProgramContainer](p.ID, objc.Sel("autorelease"))
+func (m MLProgramContainer) Autorelease() MLProgramContainer {
+	rv := objc.Send[MLProgramContainer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

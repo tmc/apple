@@ -87,14 +87,14 @@ type IAVMIDIChannelEvent interface {
 }
 
 // Init initializes the instance.
-func (m AVMIDIChannelEvent) Init() AVMIDIChannelEvent {
-	rv := objc.Send[AVMIDIChannelEvent](m.ID, objc.Sel("init"))
+func (a AVMIDIChannelEvent) Init() AVMIDIChannelEvent {
+	rv := objc.Send[AVMIDIChannelEvent](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m AVMIDIChannelEvent) Autorelease() AVMIDIChannelEvent {
-	rv := objc.Send[AVMIDIChannelEvent](m.ID, objc.Sel("autorelease"))
+func (a AVMIDIChannelEvent) Autorelease() AVMIDIChannelEvent {
+	rv := objc.Send[AVMIDIChannelEvent](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -113,29 +113,29 @@ func NewMIDIChannelEventWithChannelStatusData1Data2(channel byte, status byte, d
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIChannelEvent/data1
-func (m AVMIDIChannelEvent) Data1() byte {
-	rv := objc.Send[byte](m.ID, objc.Sel("data1"))
+func (a AVMIDIChannelEvent) Data1() byte {
+	rv := objc.Send[byte](a.ID, objc.Sel("data1"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIChannelEvent/data2
-func (m AVMIDIChannelEvent) Data2() byte {
-	rv := objc.Send[byte](m.ID, objc.Sel("data2"))
+func (a AVMIDIChannelEvent) Data2() byte {
+	rv := objc.Send[byte](a.ID, objc.Sel("data2"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIChannelEvent/setData1:
-func (m AVMIDIChannelEvent) SetData1(data1 byte) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setData1:"), data1)
+func (a AVMIDIChannelEvent) SetData1(data1 byte) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setData1:"), data1)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIChannelEvent/setData2:
-func (m AVMIDIChannelEvent) SetData2(data2 byte) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setData2:"), data2)
+func (a AVMIDIChannelEvent) SetData2(data2 byte) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setData2:"), data2)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIChannelEvent/initWithChannel:status:data1:data2:
-func (m AVMIDIChannelEvent) InitWithChannelStatusData1Data2(channel byte, status byte, data1 byte, data2 byte) AVMIDIChannelEvent {
-	rv := objc.Send[AVMIDIChannelEvent](m.ID, objc.Sel("initWithChannel:status:data1:data2:"), channel, status, data1, data2)
+func (a AVMIDIChannelEvent) InitWithChannelStatusData1Data2(channel byte, status byte, data1 byte, data2 byte) AVMIDIChannelEvent {
+	rv := objc.Send[AVMIDIChannelEvent](a.ID, objc.Sel("initWithChannel:status:data1:data2:"), channel, status, data1, data2)
 	return rv
 }

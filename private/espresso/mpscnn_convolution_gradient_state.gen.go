@@ -63,14 +63,14 @@ type IMPSCNNConvolutionGradientState interface {
 }
 
 // Init initializes the instance.
-func (c MPSCNNConvolutionGradientState) Init() MPSCNNConvolutionGradientState {
-	rv := objc.Send[MPSCNNConvolutionGradientState](c.ID, objc.Sel("init"))
+func (m MPSCNNConvolutionGradientState) Init() MPSCNNConvolutionGradientState {
+	rv := objc.Send[MPSCNNConvolutionGradientState](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MPSCNNConvolutionGradientState) Autorelease() MPSCNNConvolutionGradientState {
-	rv := objc.Send[MPSCNNConvolutionGradientState](c.ID, objc.Sel("autorelease"))
+func (m MPSCNNConvolutionGradientState) Autorelease() MPSCNNConvolutionGradientState {
+	rv := objc.Send[MPSCNNConvolutionGradientState](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

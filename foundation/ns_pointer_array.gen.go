@@ -135,8 +135,6 @@ func NSPointerArrayFromID(id objc.ID) NSPointerArray {
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray
 type INSPointerArray interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating and Initializing a New Pointer Array

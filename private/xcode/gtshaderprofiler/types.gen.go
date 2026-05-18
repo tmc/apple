@@ -394,9 +394,9 @@ type XRGPUAPSCounterContainer struct {
 type XRGPUInterval struct {
 }
 
-// _sFILE
+// SFILE
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/GTShaderProfiler/__sFILE
-type _sFILE struct {
+type SFILE struct {
 }

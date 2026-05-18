@@ -105,14 +105,14 @@ type IMLProgramE5Container interface {
 }
 
 // Init initializes the instance.
-func (p MLProgramE5Container) Init() MLProgramE5Container {
-	rv := objc.Send[MLProgramE5Container](p.ID, objc.Sel("init"))
+func (m MLProgramE5Container) Init() MLProgramE5Container {
+	rv := objc.Send[MLProgramE5Container](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLProgramE5Container) Autorelease() MLProgramE5Container {
-	rv := objc.Send[MLProgramE5Container](p.ID, objc.Sel("autorelease"))
+func (m MLProgramE5Container) Autorelease() MLProgramE5Container {
+	rv := objc.Send[MLProgramE5Container](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -136,15 +136,15 @@ func NewProgramE5ContainerWithCompiledArchiveModelVersionInfoCompilerVersionInfo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/classScoreVectorNameOfFunctionNamed:
-func (p MLProgramE5Container) ClassScoreVectorNameOfFunctionNamed(named objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("classScoreVectorNameOfFunctionNamed:"), named)
+func (m MLProgramE5Container) ClassScoreVectorNameOfFunctionNamed(named objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classScoreVectorNameOfFunctionNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/findPrecompiledE5BundleAndReturnError:
-func (p MLProgramE5Container) FindPrecompiledE5BundleAndReturnError() (objectivec.IObject, error) {
+func (m MLProgramE5Container) FindPrecompiledE5BundleAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("findPrecompiledE5BundleAndReturnError:"), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("findPrecompiledE5BundleAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -154,15 +154,15 @@ func (p MLProgramE5Container) FindPrecompiledE5BundleAndReturnError() (objective
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/optionalInputDefaultValuesForFunctionNamed:
-func (p MLProgramE5Container) OptionalInputDefaultValuesForFunctionNamed(named objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("optionalInputDefaultValuesForFunctionNamed:"), named)
+func (m MLProgramE5Container) OptionalInputDefaultValuesForFunctionNamed(named objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("optionalInputDefaultValuesForFunctionNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/initWithCompiledArchive:modelVersionInfo:compilerVersionInfo:error:
-func (p MLProgramE5Container) InitWithCompiledArchiveModelVersionInfoCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject) (MLProgramE5Container, error) {
+func (m MLProgramE5Container) InitWithCompiledArchiveModelVersionInfoCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject) (MLProgramE5Container, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("initWithCompiledArchive:modelVersionInfo:compilerVersionInfo:error:"), archive, info, info2, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithCompiledArchive:modelVersionInfo:compilerVersionInfo:error:"), archive, info, info2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLProgramE5Container{}, foundation.NSErrorFrom(errorPtr)
@@ -207,37 +207,37 @@ func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) DeduceFunctionNameTo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/URLOfMILText
-func (p MLProgramE5Container) URLOfMILText() foundation.INSURL {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("URLOfMILText"))
+func (m MLProgramE5Container) URLOfMILText() foundation.INSURL {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("URLOfMILText"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/compilerOutput
-func (p MLProgramE5Container) CompilerOutput() IMLCompilerNeuralNetworkOutput {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("compilerOutput"))
+func (m MLProgramE5Container) CompilerOutput() IMLCompilerNeuralNetworkOutput {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerOutput"))
 	return MLCompilerNeuralNetworkOutputFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/compilerVersionInfo
-func (p MLProgramE5Container) CompilerVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("compilerVersionInfo"))
+func (m MLProgramE5Container) CompilerVersionInfo() IMLVersionInfo {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/functionInfoArray
-func (p MLProgramE5Container) FunctionInfoArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("functionInfoArray"))
+func (m MLProgramE5Container) FunctionInfoArray() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionInfoArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/modelAssetDescription
-func (p MLProgramE5Container) ModelAssetDescription() IMLModelAssetDescription {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelAssetDescription"))
+func (m MLProgramE5Container) ModelAssetDescription() IMLModelAssetDescription {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelAssetDescription"))
 	return MLModelAssetDescriptionFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/modelVersionInfo
-func (p MLProgramE5Container) ModelVersionInfo() IMLVersionInfo {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelVersionInfo"))
+func (m MLProgramE5Container) ModelVersionInfo() IMLVersionInfo {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }

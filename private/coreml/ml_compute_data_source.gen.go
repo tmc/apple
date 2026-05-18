@@ -93,14 +93,14 @@ type IMLComputeDataSource interface {
 }
 
 // Init initializes the instance.
-func (c MLComputeDataSource) Init() MLComputeDataSource {
-	rv := objc.Send[MLComputeDataSource](c.ID, objc.Sel("init"))
+func (m MLComputeDataSource) Init() MLComputeDataSource {
+	rv := objc.Send[MLComputeDataSource](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLComputeDataSource) Autorelease() MLComputeDataSource {
-	rv := objc.Send[MLComputeDataSource](c.ID, objc.Sel("autorelease"))
+func (m MLComputeDataSource) Autorelease() MLComputeDataSource {
+	rv := objc.Send[MLComputeDataSource](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -124,9 +124,9 @@ func NewComputeDataSourceWithFeatureProviderForPredictionNeuralNetworkEngineErro
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromChanneledPixelType:channelOrderIsBGR:error:
-func (c MLComputeDataSource) DataCHWFromChanneledPixelTypeChannelOrderIsBGRError(type_ corevideo.CVImageBufferRef, bgr bool) (objectivec.IObject, error) {
+func (m MLComputeDataSource) DataCHWFromChanneledPixelTypeChannelOrderIsBGRError(type_ corevideo.CVImageBufferRef, bgr bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("dataCHWFromChanneledPixelType:channelOrderIsBGR:error:"), type_, bgr, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataCHWFromChanneledPixelType:channelOrderIsBGR:error:"), type_, bgr, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -136,9 +136,9 @@ func (c MLComputeDataSource) DataCHWFromChanneledPixelTypeChannelOrderIsBGRError
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromPixelBuffer:channelOrderIsBGR:error:
-func (c MLComputeDataSource) DataCHWFromPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (objectivec.IObject, error) {
+func (m MLComputeDataSource) DataCHWFromPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("dataCHWFromPixelBuffer:channelOrderIsBGR:error:"), buffer, bgr, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataCHWFromPixelBuffer:channelOrderIsBGR:error:"), buffer, bgr, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -148,9 +148,9 @@ func (c MLComputeDataSource) DataCHWFromPixelBufferChannelOrderIsBGRError(buffer
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromPixelTypeGray8:error:
-func (c MLComputeDataSource) DataCHWFromPixelTypeGray8Error(gray8 corevideo.CVImageBufferRef) (objectivec.IObject, error) {
+func (m MLComputeDataSource) DataCHWFromPixelTypeGray8Error(gray8 corevideo.CVImageBufferRef) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("dataCHWFromPixelTypeGray8:error:"), gray8, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataCHWFromPixelTypeGray8:error:"), gray8, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -160,9 +160,9 @@ func (c MLComputeDataSource) DataCHWFromPixelTypeGray8Error(gray8 corevideo.CVIm
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/oneHotEncodedDataFromFeatureValue:withNNEngine:error:
-func (c MLComputeDataSource) OneHotEncodedDataFromFeatureValueWithNNEngineError(value objectivec.IObject, nNEngine objectivec.IObject) (objectivec.IObject, error) {
+func (m MLComputeDataSource) OneHotEncodedDataFromFeatureValueWithNNEngineError(value objectivec.IObject, nNEngine objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("oneHotEncodedDataFromFeatureValue:withNNEngine:error:"), value, nNEngine, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("oneHotEncodedDataFromFeatureValue:withNNEngine:error:"), value, nNEngine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -172,9 +172,9 @@ func (c MLComputeDataSource) OneHotEncodedDataFromFeatureValueWithNNEngineError(
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:
-func (c MLComputeDataSource) InitWithFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLComputeDataSource, error) {
+func (m MLComputeDataSource) InitWithFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLComputeDataSource, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:"), provider, prediction, engine, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLComputeDataSource{}, foundation.NSErrorFrom(errorPtr)
@@ -184,7 +184,7 @@ func (c MLComputeDataSource) InitWithFeatureProviderForPredictionNeuralNetworkEn
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataDictionary
-func (c MLComputeDataSource) DataDictionary() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("dataDictionary"))
+func (m MLComputeDataSource) DataDictionary() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

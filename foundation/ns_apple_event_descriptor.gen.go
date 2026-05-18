@@ -247,8 +247,6 @@ func NSAppleEventDescriptorFromID(id objc.ID) NSAppleEventDescriptor {
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor
 type INSAppleEventDescriptor interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating and Initializing Descriptors
@@ -258,7 +256,7 @@ type INSAppleEventDescriptor interface {
 	// Initializes a newly allocated instance as a descriptor that is an Apple event record.
 	InitRecordDescriptor() NSAppleEventDescriptor
 	// Initializes a newly allocated instance as a descriptor for the specified Carbon [AEDesc] structure.
-	InitWithAEDescNoCopy(aeDesc unsafe.Pointer) NSAppleEventDescriptor
+	InitWithAEDescNoCopy(aeDesc objectivec.IObject) NSAppleEventDescriptor
 	// Initializes a newly allocated instance as a descriptor with the specified descriptor type and data (from an arbitrary sequence of bytes and a length count).
 	InitWithDescriptorTypeBytesLength(descriptorType uint32, bytes unsafe.Pointer, byteCount uint) NSAppleEventDescriptor
 	// Initializes a newly allocated instance as a descriptor with the specified descriptor type and data (from an instance of [NSData]).
@@ -269,7 +267,7 @@ type INSAppleEventDescriptor interface {
 	// Topic: Getting Information About a Descriptor
 
 	// The [AEDesc] structure encapsulated by the receiver, if it has one.
-	AeDesc() unsafe.Pointer
+	AeDesc() objectivec.IObject
 	// The contents of the receiver as a Boolean value, coercing (to `typeBoolean`) if necessary.
 	BooleanValue() bool
 	// Returns a descriptor obtained by coercing the receiver to the specified type.
@@ -416,8 +414,8 @@ func NewAppleEventDescriptorRecordDescriptor() NSAppleEventDescriptor {
 // function on the [AEDesc] at object deallocation time. This is the
 // designated initializer for this class.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(aeDescNoCopy:)
-func NewAppleEventDescriptorWithAEDescNoCopy(aeDesc unsafe.Pointer) NSAppleEventDescriptor {
+// See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(aeDescNoCopy:)-5cioa
+func NewAppleEventDescriptorWithAEDescNoCopy(aeDesc objectivec.IObject) NSAppleEventDescriptor {
 	instance := getNSAppleEventDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAEDescNoCopy:"), aeDesc)
 	return NSAppleEventDescriptorFromID(rv)
@@ -677,8 +675,8 @@ func (a NSAppleEventDescriptor) InitRecordDescriptor() NSAppleEventDescriptor {
 // function on the [AEDesc] at object deallocation time. This is the
 // designated initializer for this class.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(aeDescNoCopy:)
-func (a NSAppleEventDescriptor) InitWithAEDescNoCopy(aeDesc unsafe.Pointer) NSAppleEventDescriptor {
+// See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(aeDescNoCopy:)-5cioa
+func (a NSAppleEventDescriptor) InitWithAEDescNoCopy(aeDesc objectivec.IObject) NSAppleEventDescriptor {
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithAEDescNoCopy:"), aeDesc)
 	return rv
 }
@@ -1170,9 +1168,9 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) DescriptorWithDe
 // otherwise returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/aeDesc
-func (a NSAppleEventDescriptor) AeDesc() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("aeDesc"))
-	return rv
+func (a NSAppleEventDescriptor) AeDesc() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("aeDesc"))
+	return objectivec.Object{ID: rv}
 }
 
 // The contents of the receiver as a Boolean value, coercing (to

@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_remove_reshape_around_rank2_softmax] class.
+// The class instance for the [EspressoPassRemoveReshapeAroundRank2Softmax] class.
 var (
-	_EspressoPass_remove_reshape_around_rank2_softmaxClass     EspressoPass_remove_reshape_around_rank2_softmaxClass
-	_EspressoPass_remove_reshape_around_rank2_softmaxClassOnce sync.Once
+	_EspressoPassRemoveReshapeAroundRank2SoftmaxClass     EspressoPassRemoveReshapeAroundRank2SoftmaxClass
+	_EspressoPassRemoveReshapeAroundRank2SoftmaxClassOnce sync.Once
 )
 
-func getEspressoPass_remove_reshape_around_rank2_softmaxClass() EspressoPass_remove_reshape_around_rank2_softmaxClass {
-	_EspressoPass_remove_reshape_around_rank2_softmaxClassOnce.Do(func() {
-		_EspressoPass_remove_reshape_around_rank2_softmaxClass = EspressoPass_remove_reshape_around_rank2_softmaxClass{class: objc.GetClass("EspressoPass_remove_reshape_around_rank2_softmax")}
+func getEspressoPassRemoveReshapeAroundRank2SoftmaxClass() EspressoPassRemoveReshapeAroundRank2SoftmaxClass {
+	_EspressoPassRemoveReshapeAroundRank2SoftmaxClassOnce.Do(func() {
+		_EspressoPassRemoveReshapeAroundRank2SoftmaxClass = EspressoPassRemoveReshapeAroundRank2SoftmaxClass{class: objc.GetClass("EspressoPass_remove_reshape_around_rank2_softmax")}
 	})
-	return _EspressoPass_remove_reshape_around_rank2_softmaxClass
+	return _EspressoPassRemoveReshapeAroundRank2SoftmaxClass
 }
 
-// GetEspressoPass_remove_reshape_around_rank2_softmaxClass returns the class object for EspressoPass_remove_reshape_around_rank2_softmax.
-func GetEspressoPass_remove_reshape_around_rank2_softmaxClass() EspressoPass_remove_reshape_around_rank2_softmaxClass {
-	return getEspressoPass_remove_reshape_around_rank2_softmaxClass()
+// GetEspressoPassRemoveReshapeAroundRank2SoftmaxClass returns the class object for EspressoPass_remove_reshape_around_rank2_softmax.
+func GetEspressoPassRemoveReshapeAroundRank2SoftmaxClass() EspressoPassRemoveReshapeAroundRank2SoftmaxClass {
+	return getEspressoPassRemoveReshapeAroundRank2SoftmaxClass()
 }
 
-type EspressoPass_remove_reshape_around_rank2_softmaxClass struct {
+type EspressoPassRemoveReshapeAroundRank2SoftmaxClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_remove_reshape_around_rank2_softmaxClass) Class() objc.Class {
+func (ec EspressoPassRemoveReshapeAroundRank2SoftmaxClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_remove_reshape_around_rank2_softmaxClass) Alloc() EspressoPass_remove_reshape_around_rank2_softmax {
-	rv := objc.Send[EspressoPass_remove_reshape_around_rank2_softmax](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassRemoveReshapeAroundRank2SoftmaxClass) Alloc() EspressoPassRemoveReshapeAroundRank2Softmax {
+	rv := objc.Send[EspressoPassRemoveReshapeAroundRank2Softmax](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank2_softmax
-type EspressoPass_remove_reshape_around_rank2_softmax struct {
+type EspressoPassRemoveReshapeAroundRank2Softmax struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_remove_reshape_around_rank2_softmaxFromID constructs a [EspressoPass_remove_reshape_around_rank2_softmax] from an objc.ID.
-func EspressoPass_remove_reshape_around_rank2_softmaxFromID(id objc.ID) EspressoPass_remove_reshape_around_rank2_softmax {
-	return EspressoPass_remove_reshape_around_rank2_softmax{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassRemoveReshapeAroundRank2SoftmaxFromID constructs a [EspressoPassRemoveReshapeAroundRank2Softmax] from an objc.ID.
+func EspressoPassRemoveReshapeAroundRank2SoftmaxFromID(id objc.ID) EspressoPassRemoveReshapeAroundRank2Softmax {
+	return EspressoPassRemoveReshapeAroundRank2Softmax{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_remove_reshape_around_rank2_softmax implements IEspressoPass_remove_reshape_around_rank2_softmax.
-var _ IEspressoPass_remove_reshape_around_rank2_softmax = EspressoPass_remove_reshape_around_rank2_softmax{}
+// EspressoPass_remove_reshape_around_rank2_softmaxFromID is an alias for [EspressoPassRemoveReshapeAroundRank2SoftmaxFromID] for cross-framework compatibility.
+func EspressoPass_remove_reshape_around_rank2_softmaxFromID(id objc.ID) EspressoPassRemoveReshapeAroundRank2Softmax {
+	return EspressoPassRemoveReshapeAroundRank2SoftmaxFromID(id)
+}
 
-// An interface definition for the [EspressoPass_remove_reshape_around_rank2_softmax] class.
+// Ensure EspressoPassRemoveReshapeAroundRank2Softmax implements IEspressoPassRemoveReshapeAroundRank2Softmax.
+var _ IEspressoPassRemoveReshapeAroundRank2Softmax = EspressoPassRemoveReshapeAroundRank2Softmax{}
+
+// An interface definition for the [EspressoPassRemoveReshapeAroundRank2Softmax] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank2_softmax
-type IEspressoPass_remove_reshape_around_rank2_softmax interface {
+type IEspressoPassRemoveReshapeAroundRank2Softmax interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_remove_reshape_around_rank2_softmax) Init() EspressoPass_remove_reshape_around_rank2_softmax {
-	rv := objc.Send[EspressoPass_remove_reshape_around_rank2_softmax](e.ID, objc.Sel("init"))
+func (e EspressoPassRemoveReshapeAroundRank2Softmax) Init() EspressoPassRemoveReshapeAroundRank2Softmax {
+	rv := objc.Send[EspressoPassRemoveReshapeAroundRank2Softmax](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_remove_reshape_around_rank2_softmax) Autorelease() EspressoPass_remove_reshape_around_rank2_softmax {
-	rv := objc.Send[EspressoPass_remove_reshape_around_rank2_softmax](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassRemoveReshapeAroundRank2Softmax) Autorelease() EspressoPassRemoveReshapeAroundRank2Softmax {
+	rv := objc.Send[EspressoPassRemoveReshapeAroundRank2Softmax](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_remove_reshape_around_rank2_softmax creates a new EspressoPass_remove_reshape_around_rank2_softmax instance.
-func NewEspressoPass_remove_reshape_around_rank2_softmax() EspressoPass_remove_reshape_around_rank2_softmax {
-	class := getEspressoPass_remove_reshape_around_rank2_softmaxClass()
-	rv := objc.Send[EspressoPass_remove_reshape_around_rank2_softmax](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassRemoveReshapeAroundRank2Softmax creates a new EspressoPassRemoveReshapeAroundRank2Softmax instance.
+func NewEspressoPassRemoveReshapeAroundRank2Softmax() EspressoPassRemoveReshapeAroundRank2Softmax {
+	class := getEspressoPassRemoveReshapeAroundRank2SoftmaxClass()
+	rv := objc.Send[EspressoPassRemoveReshapeAroundRank2Softmax](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

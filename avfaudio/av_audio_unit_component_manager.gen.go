@@ -112,7 +112,7 @@ type IAVAudioUnitComponentManager interface {
 	// Gets an array of audio component objects that match the description.
 	ComponentsMatchingDescription(desc unsafe.Pointer) []AVAudioUnitComponent
 	// Gets an array of audio component objects that match the search predicate.
-	ComponentsMatchingPredicate(predicate foundation.INSPredicate) []AVAudioUnitComponent
+	ComponentsMatchingPredicate(predicate foundation.NSPredicate) []AVAudioUnitComponent
 	// Gets an array of audio components that pass the block method.
 	ComponentsPassingTest(testHandler AVAudioUnitComponentHandler) []AVAudioUnitComponent
 
@@ -183,7 +183,7 @@ func (a AVAudioUnitComponentManager) ComponentsMatchingDescription(desc unsafe.P
 // {'Sampler', 'MIDI'}"`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/components(matching:)-96l2c
-func (a AVAudioUnitComponentManager) ComponentsMatchingPredicate(predicate foundation.INSPredicate) []AVAudioUnitComponent {
+func (a AVAudioUnitComponentManager) ComponentsMatchingPredicate(predicate foundation.NSPredicate) []AVAudioUnitComponent {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("componentsMatchingPredicate:"), predicate)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVAudioUnitComponent {
 		return AVAudioUnitComponentFromID(id)

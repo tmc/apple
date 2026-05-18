@@ -83,6 +83,11 @@ func (mc MLModelConfigurationClass) Alloc() MLModelConfiguration {
 //   - [MLModelConfiguration.ComputeUnits]: The processing unit or units the model uses to make predictions.
 //   - [MLModelConfiguration.SetComputeUnits]
 //
+// # Getting optimization hints
+//
+//   - [MLModelConfiguration.OptimizationHints]: A group of hints for CoreML to optimize
+//   - [MLModelConfiguration.SetOptimizationHints]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration
 //
 // [Personalizing a Model with On-Device Updates]: https://developer.apple.com/documentation/CoreML/personalizing-a-model-with-on-device-updates
@@ -123,6 +128,11 @@ func MLModelConfigurationFromID(id objc.ID) MLModelConfiguration {
 //   - [IMLModelConfiguration.ComputeUnits]: The processing unit or units the model uses to make predictions.
 //   - [IMLModelConfiguration.SetComputeUnits]
 //
+// # Getting optimization hints
+//
+//   - [IMLModelConfiguration.OptimizationHints]: A group of hints for CoreML to optimize
+//   - [IMLModelConfiguration.SetOptimizationHints]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration
 type IMLModelConfiguration interface {
 	objectivec.IObject
@@ -154,9 +164,12 @@ type IMLModelConfiguration interface {
 	ComputeUnits() MLComputeUnits
 	SetComputeUnits(value MLComputeUnits)
 
+	// Topic: Getting optimization hints
+
 	// A group of hints for CoreML to optimize
 	OptimizationHints() IMLOptimizationHints
 	SetOptimizationHints(value IMLOptimizationHints)
+
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 

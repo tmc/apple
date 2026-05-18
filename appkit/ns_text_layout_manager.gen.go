@@ -199,7 +199,6 @@ func NSTextLayoutManagerFromID(id objc.ID) NSTextLayoutManager {
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager
 type INSTextLayoutManager interface {
 	objectivec.IObject
-	NSTextSelectionDataSource
 
 	// Topic: Creating a layout manager
 
@@ -620,6 +619,14 @@ func (t NSTextLayoutManager) BaseWritingDirectionAtLocation(location NSTextLocat
 	return NSTextSelectionNavigationWritingDirection(rv)
 }
 
+// Returns the starting and ending locations for the document.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/documentRange
+func (t NSTextLayoutManager) DocumentRange() INSTextRange {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("documentRange"))
+	return NSTextRangeFromID(rv)
+}
+
 // Enumerates all the insertion point caret offsets from left to right in
 // visual order.
 //
@@ -950,14 +957,6 @@ func (t NSTextLayoutManager) ResolvesNaturalAlignmentWithBaseWritingDirection() 
 }
 func (t NSTextLayoutManager) SetResolvesNaturalAlignmentWithBaseWritingDirection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResolvesNaturalAlignmentWithBaseWritingDirection:"), value)
-}
-
-// Returns the starting and ending locations for the document.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/documentRange
-func (t NSTextLayoutManager) DocumentRange() INSTextRange {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("documentRange"))
-	return NSTextRangeFromID(objc.ID(rv))
 }
 
 // Returns the default set of attributes for rendering a link.

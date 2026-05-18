@@ -90,13 +90,17 @@ func CIImageProcessorInputObjectFromID(id objc.ID) CIImageProcessorInputObject {
 // The base address of CPU memory that your Core Image Processor Kernel can
 // read pixels from.
 //
+// # Discussion
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/baseAddress
 func (o CIImageProcessorInputObject) BaseAddress() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
-	return rv
+	return unsafe.Pointer(rv)
 }
 
 // A MTLTexture object that can be bound for input using Metal.
+//
+// # Discussion
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/metalTexture
 func (o CIImageProcessorInputObject) MetalTexture() metal.MTLTexture {
@@ -107,28 +111,34 @@ func (o CIImageProcessorInputObject) MetalTexture() metal.MTLTexture {
 // An input pixel buffer object that your Core Image Processor Kernel can read
 // from.
 //
+// # Discussion
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/pixelBuffer
 func (o CIImageProcessorInputObject) PixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](o.ID, objc.Sel("pixelBuffer"))
-	return rv
+	return corevideo.CVImageBufferRef(rv)
 }
 
 // An input surface object that your Core Image Processor Kernel can read
 // from.
 //
+// # Discussion
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/surface
 func (o CIImageProcessorInputObject) Surface() iosurface.IOSurfaceRef {
 	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("surface"))
-	return rv
+	return iosurface.IOSurfaceRef(rv)
 }
 
 // The rectangular region of the input image that your Core Image Processor
 // Kernel can use to provide the output.
 //
+// # Discussion
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/region
 func (o CIImageProcessorInputObject) Region() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("region"))
-	return rv
+	return corefoundation.CGRect(rv)
 }
 
 // The bytes per row of the CPU memory that your Core Image Processor Kernel
@@ -137,7 +147,7 @@ func (o CIImageProcessorInputObject) Region() corefoundation.CGRect {
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/bytesPerRow
 func (o CIImageProcessorInputObject) BytesPerRow() uintptr {
 	rv := objc.Send[uintptr](o.ID, objc.Sel("bytesPerRow"))
-	return rv
+	return uintptr(rv)
 }
 
 // The pixel format of the CPU memory that your Core Image Processor Kernel
@@ -146,32 +156,52 @@ func (o CIImageProcessorInputObject) BytesPerRow() uintptr {
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/format
 func (o CIImageProcessorInputObject) Format() CIFormat {
 	rv := objc.Send[CIFormat](o.ID, objc.Sel("format"))
-	return rv
+	return CIFormat(rv)
 }
 
 // A 64-bit digest that uniquely describes the contents of the input to a
 // processor.
 //
+// # Discussion
+//
+// This digest will change if the graph of the input changes in any way.
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/digest
 func (o CIImageProcessorInputObject) Digest() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("digest"))
-	return rv
+	return uint64(rv)
 }
 
 // This property tells a tiled-input processor how many input tiles will be
 // processed.
 //
+// # Discussion
+//
+// This property is only relevant if your processor implements
+// `/CIImageProcessorKernel/`
+//
+// This can be useful if the processor needs to do work
+// [CIImageProcessorOutput] after the last tile is processed.
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/roiTileCount
 func (o CIImageProcessorInputObject) RoiTileCount() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("roiTileCount"))
-	return rv
+	return uint(rv)
 }
 
 // This property tells a tiled-input processor which input tile index is being
 // processed.
 //
+// # Discussion
+//
+// This property is only relevant if your processor implements
+// `/CIImageProcessorKernel/`
+//
+// This can be useful if the processor needs to clear the
+// [CIImageProcessorOutput] before the first tile is processed.
+//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/roiTileIndex
 func (o CIImageProcessorInputObject) RoiTileIndex() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("roiTileIndex"))
-	return rv
+	return uint(rv)
 }

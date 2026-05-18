@@ -87,7 +87,6 @@ func NSScriptWhoseTestFromID(id objc.ID) NSScriptWhoseTest {
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest
 type INSScriptWhoseTest interface {
 	objectivec.IObject
-	NSCoding
 
 	// Topic: Evaluating a test
 

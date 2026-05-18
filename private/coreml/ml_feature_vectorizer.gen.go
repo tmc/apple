@@ -86,14 +86,14 @@ type IMLFeatureVectorizer interface {
 }
 
 // Init initializes the instance.
-func (f MLFeatureVectorizer) Init() MLFeatureVectorizer {
-	rv := objc.Send[MLFeatureVectorizer](f.ID, objc.Sel("init"))
+func (m MLFeatureVectorizer) Init() MLFeatureVectorizer {
+	rv := objc.Send[MLFeatureVectorizer](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (f MLFeatureVectorizer) Autorelease() MLFeatureVectorizer {
-	rv := objc.Send[MLFeatureVectorizer](f.ID, objc.Sel("autorelease"))
+func (m MLFeatureVectorizer) Autorelease() MLFeatureVectorizer {
+	rv := objc.Send[MLFeatureVectorizer](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -126,9 +126,9 @@ func NewFeatureVectorizerWithNameInputDescriptionOutputDescriptionOrderedInputFe
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/vectorizeOneHotEncoderDict:index:error:
-func (f MLFeatureVectorizer) VectorizeOneHotEncoderDictIndexError(dict objectivec.IObject, index uint64) (objectivec.IObject, error) {
+func (m MLFeatureVectorizer) VectorizeOneHotEncoderDictIndexError(dict objectivec.IObject, index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("vectorizeOneHotEncoderDict:index:error:"), dict, index, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("vectorizeOneHotEncoderDict:index:error:"), dict, index, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -138,8 +138,8 @@ func (f MLFeatureVectorizer) VectorizeOneHotEncoderDictIndexError(dict objective
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
-func (f MLFeatureVectorizer) InitWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, encoding objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
-	rv := objc.Send[MLFeatureVectorizer](f.ID, objc.Sel("initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, encoding, name, description, description2, names, names2, configuration)
+func (m MLFeatureVectorizer) InitWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, encoding objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
+	rv := objc.Send[MLFeatureVectorizer](m.ID, objc.Sel("initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, encoding, name, description, description2, names, names2, configuration)
 	return rv
 }
 
@@ -156,13 +156,13 @@ func (_MLFeatureVectorizerClass MLFeatureVectorizerClass) LoadModelFromSpecifica
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/columnNameEncoding
-func (f MLFeatureVectorizer) ColumnNameEncoding() foundation.INSArray {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("columnNameEncoding"))
+func (m MLFeatureVectorizer) ColumnNameEncoding() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("columnNameEncoding"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/dimensionEncoding
-func (f MLFeatureVectorizer) DimensionEncoding() foundation.INSArray {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("dimensionEncoding"))
+func (m MLFeatureVectorizer) DimensionEncoding() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dimensionEncoding"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

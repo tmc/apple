@@ -124,16 +124,16 @@ type INEProxyServer interface {
 
 	// A Boolean indicating if a static HTTP proxy will be used.
 	HttpEnabled() bool
-	SetHttpEnabled(value bool)
+	SetHTTPEnabled(value bool)
 	// An
 	HttpServer() INEProxyServer
-	SetHttpServer(value INEProxyServer)
+	SetHTTPServer(value INEProxyServer)
 	// A Boolean indicating if a static HTTPS proxy will be used.
 	HttpsEnabled() bool
-	SetHttpsEnabled(value bool)
+	SetHTTPSEnabled(value bool)
 	// An
 	HttpsServer() INEProxyServer
-	SetHttpsServer(value INEProxyServer)
+	SetHTTPSServer(value INEProxyServer)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -242,7 +242,7 @@ func (p NEProxyServer) HttpEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("HTTPEnabled"))
 	return rv
 }
-func (p NEProxyServer) SetHttpEnabled(value bool) {
+func (p NEProxyServer) SetHTTPEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPEnabled:"), value)
 }
 
@@ -253,7 +253,7 @@ func (p NEProxyServer) HttpServer() INEProxyServer {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("HTTPServer"))
 	return NEProxyServerFromID(objc.ID(rv))
 }
-func (p NEProxyServer) SetHttpServer(value INEProxyServer) {
+func (p NEProxyServer) SetHTTPServer(value INEProxyServer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPServer:"), value)
 }
 
@@ -264,7 +264,7 @@ func (p NEProxyServer) HttpsEnabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("HTTPSEnabled"))
 	return rv
 }
-func (p NEProxyServer) SetHttpsEnabled(value bool) {
+func (p NEProxyServer) SetHTTPSEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPSEnabled:"), value)
 }
 
@@ -275,6 +275,6 @@ func (p NEProxyServer) HttpsServer() INEProxyServer {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("HTTPSServer"))
 	return NEProxyServerFromID(objc.ID(rv))
 }
-func (p NEProxyServer) SetHttpsServer(value INEProxyServer) {
+func (p NEProxyServer) SetHTTPSServer(value INEProxyServer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPSServer:"), value)
 }

@@ -130,14 +130,6 @@ type IoService struct {
 type MailboxHandle struct {
 }
 
-// Mutex
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/Virtualization/Mutex
-type Mutex struct {
-	_unfair_lock [4]byte
-}
-
 // PciDeviceLocation
 //
 // [Full Topic]
@@ -185,18 +177,18 @@ type VZVirtualMachineProperties struct {
 	Graphics_devices                      unsafe.Pointer
 }
 
-// _IOHIDEvent
+// IOHIDEvent
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Virtualization/__IOHIDEvent
-type _IOHIDEvent struct {
+type IOHIDEvent struct {
 }
 
-// _SecKey
+// SecKey
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Virtualization/__SecKey
-type _SecKey struct {
+type SecKey struct {
 }
 
 // Sockaddr
@@ -206,11 +198,11 @@ type _SecKey struct {
 type Sockaddr struct {
 }
 
-// Sockaddr_storage
+// SockaddrStorage
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Virtualization/sockaddr_storage
-type Sockaddr_storage struct {
+type SockaddrStorage struct {
 	Ss_len     uint8
 	Ss_family  uint8
 	__ss_pad1  unsafe.Pointer

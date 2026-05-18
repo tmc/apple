@@ -89,7 +89,7 @@ type IAVDelegatingPlaybackCoordinatorSeekCommand interface {
 	// The time to seek to in the item timeline.
 	ItemTime() coremedia.CMTime
 	// The deadline by which the coordinator expects the delegate to handle the command.
-	CompletionDueDate() foundation.INSDate
+	CompletionDueDate() foundation.NSDate
 }
 
 // Init initializes the instance.
@@ -142,7 +142,7 @@ func (d AVDelegatingPlaybackCoordinatorSeekCommand) ItemTime() coremedia.CMTime 
 // command.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorSeekCommand/completionDueDate
-func (d AVDelegatingPlaybackCoordinatorSeekCommand) CompletionDueDate() foundation.INSDate {
+func (d AVDelegatingPlaybackCoordinatorSeekCommand) CompletionDueDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("completionDueDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

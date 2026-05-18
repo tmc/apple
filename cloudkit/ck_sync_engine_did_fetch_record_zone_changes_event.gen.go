@@ -89,7 +89,7 @@ type ICKSyncEngineDidFetchRecordZoneChangesEvent interface {
 	// Topic: Handling errors
 
 	// An error that describes the cause of a failed fetch operation.
-	Error() foundation.INSError
+	Error() foundation.NSError
 }
 
 // Init initializes the instance.
@@ -126,7 +126,7 @@ func (c CKSyncEngineDidFetchRecordZoneChangesEvent) ZoneID() ICKRecordZoneID {
 // A `nil` value indicates a successful fetch.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSyncEngineDidFetchRecordZoneChangesEvent/error
-func (c CKSyncEngineDidFetchRecordZoneChangesEvent) Error() foundation.INSError {
+func (c CKSyncEngineDidFetchRecordZoneChangesEvent) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

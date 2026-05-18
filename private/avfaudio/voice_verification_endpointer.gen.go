@@ -4,7 +4,6 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -103,13 +102,13 @@ type IVoiceVerificationEndpointer interface {
 
 	// Topic: Methods
 
-	ConfigureWithASBDAndFrameRate(asbd unsafe.Pointer, rate uint32) bool
+	ConfigureWithASBDAndFrameRate(asbd AudioStreamBasicDescription, rate uint32) bool
 	ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool
 	EndWaitTime() float64
 	SetEndWaitTime(value float64)
 	EndpointMode() int
 	SetEndpointMode(value int)
-	GetStatus(status *AudioQueueBufferRef) int
+	GetStatus(status AudioQueueBuffer) int
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
 	Reset()
@@ -141,7 +140,7 @@ func NewVoiceVerificationEndpointer() VoiceVerificationEndpointer {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/configureWithASBD:andFrameRate:
-func (v VoiceVerificationEndpointer) ConfigureWithASBDAndFrameRate(asbd unsafe.Pointer, rate uint32) bool {
+func (v VoiceVerificationEndpointer) ConfigureWithASBDAndFrameRate(asbd AudioStreamBasicDescription, rate uint32) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
 	return rv
 }
@@ -153,7 +152,7 @@ func (v VoiceVerificationEndpointer) ConfigureWithSampleRateAndFrameRate(rate fl
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/VoiceVerificationEndpointer/getStatus:
-func (v VoiceVerificationEndpointer) GetStatus(status *AudioQueueBufferRef) int {
+func (v VoiceVerificationEndpointer) GetStatus(status AudioQueueBuffer) int {
 	rv := objc.Send[int](v.ID, objc.Sel("getStatus:"), status)
 	return rv
 }

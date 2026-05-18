@@ -111,8 +111,6 @@ func NSURLCredentialFromID(id objc.ID) URLCredential { return URLCredentialFromI
 // See: https://developer.apple.com/documentation/Foundation/URLCredential
 type IURLCredential interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating a credential

@@ -14,11 +14,6 @@ import (
 type NSTextStorageObserving interface {
 	objectivec.IObject
 
-	// TextStorage protocol.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
-	TextStorage() NSTextStorage
-
 	// PerformEditingTransactionForTextStorageUsingBlock protocol.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/performEditingTransaction(for:using:)
@@ -32,6 +27,7 @@ type NSTextStorageObserving interface {
 	// textStorage protocol.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
+	TextStorage() NSTextStorage
 	SetTextStorage(value NSTextStorage)
 }
 
@@ -52,12 +48,6 @@ func NSTextStorageObservingObjectFromID(id objc.ID) NSTextStorageObservingObject
 	}
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
-func (o NSTextStorageObservingObject) TextStorage() NSTextStorage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("textStorage"))
-	return NSTextStorageFromID(rv)
-}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/performEditingTransaction(for:using:)
 func (o NSTextStorageObservingObject) PerformEditingTransactionForTextStorageUsingBlock(textStorage NSTextStorage, transaction VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, transaction)
@@ -69,6 +59,11 @@ func (o NSTextStorageObservingObject) ProcessEditingForTextStorageEditedRangeCha
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
+func (o NSTextStorageObservingObject) TextStorage() NSTextStorage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("textStorage"))
+	return NSTextStorageFromID(rv)
+}
+
 func (o NSTextStorageObservingObject) SetTextStorage(value NSTextStorage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTextStorage:"), value)
 }

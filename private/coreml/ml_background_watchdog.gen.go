@@ -81,14 +81,14 @@ type IMLBackgroundWatchdog interface {
 }
 
 // Init initializes the instance.
-func (b MLBackgroundWatchdog) Init() MLBackgroundWatchdog {
-	rv := objc.Send[MLBackgroundWatchdog](b.ID, objc.Sel("init"))
+func (m MLBackgroundWatchdog) Init() MLBackgroundWatchdog {
+	rv := objc.Send[MLBackgroundWatchdog](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (b MLBackgroundWatchdog) Autorelease() MLBackgroundWatchdog {
-	rv := objc.Send[MLBackgroundWatchdog](b.ID, objc.Sel("autorelease"))
+func (m MLBackgroundWatchdog) Autorelease() MLBackgroundWatchdog {
+	rv := objc.Send[MLBackgroundWatchdog](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -100,8 +100,8 @@ func NewMLBackgroundWatchdog() MLBackgroundWatchdog {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundWatchdog/invalidate
-func (b MLBackgroundWatchdog) Invalidate() {
-	objc.Send[objc.ID](b.ID, objc.Sel("invalidate"))
+func (m MLBackgroundWatchdog) Invalidate() {
+	objc.Send[objc.ID](m.ID, objc.Sel("invalidate"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundWatchdog/watchdogWithTimeout:label:queue:
@@ -117,10 +117,10 @@ func (_MLBackgroundWatchdogClass MLBackgroundWatchdogClass) WatchdogWithTimeoutQ
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundWatchdog/timer
-func (b MLBackgroundWatchdog) Timer() objectivec.Object {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("timer"))
+func (m MLBackgroundWatchdog) Timer() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("timer"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (b MLBackgroundWatchdog) SetTimer(value objectivec.Object) {
-	objc.Send[struct{}](b.ID, objc.Sel("setTimer:"), value)
+func (m MLBackgroundWatchdog) SetTimer(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setTimer:"), value)
 }

@@ -15,12 +15,12 @@ type MTLThreadgroupBinding interface {
 	objectivec.IObject
 	MTLBinding
 
-	// ThreadgroupMemoryAlignment protocol.
+	// threadgroupMemoryAlignment protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLThreadgroupBinding/threadgroupMemoryAlignment
 	ThreadgroupMemoryAlignment() uint
 
-	// ThreadgroupMemoryDataSize protocol.
+	// threadgroupMemoryDataSize protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLThreadgroupBinding/threadgroupMemoryDataSize
 	ThreadgroupMemoryDataSize() uint
@@ -41,18 +41,6 @@ func MTLThreadgroupBindingObjectFromID(id objc.ID) MTLThreadgroupBindingObject {
 	return MTLThreadgroupBindingObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLThreadgroupBinding/threadgroupMemoryAlignment
-func (o MTLThreadgroupBindingObject) ThreadgroupMemoryAlignment() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("threadgroupMemoryAlignment"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLThreadgroupBinding/threadgroupMemoryDataSize
-func (o MTLThreadgroupBindingObject) ThreadgroupMemoryDataSize() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("threadgroupMemoryDataSize"))
-	return rv
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/access
@@ -89,4 +77,28 @@ func (o MTLThreadgroupBindingObject) Name() string {
 func (o MTLThreadgroupBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLThreadgroupBinding/threadgroupMemoryAlignment
+func (o MTLThreadgroupBindingObject) ThreadgroupMemoryAlignment() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("threadgroupMemoryAlignment"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLThreadgroupBinding/threadgroupMemoryDataSize
+func (o MTLThreadgroupBindingObject) ThreadgroupMemoryDataSize() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("threadgroupMemoryDataSize"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
+func (o MTLThreadgroupBindingObject) Argument() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
+	return bool(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
+func (o MTLThreadgroupBindingObject) Used() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
+	return bool(rv)
 }

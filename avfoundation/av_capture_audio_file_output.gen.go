@@ -101,7 +101,7 @@ type IAVCaptureAudioFileOutput interface {
 	// Topic: Starting a recording
 
 	// Tells the receiver to start recording to a new file of the specified format, and specifies a delegate that will be notified when recording is finished.
-	StartRecordingToOutputFileURLOutputFileTypeRecordingDelegate(outputFileURL foundation.INSURL, fileType AVFileType, delegate AVCaptureFileOutputRecordingDelegate)
+	StartRecordingToOutputFileURLOutputFileTypeRecordingDelegate(outputFileURL foundation.NSURL, fileType AVFileType, delegate AVCaptureFileOutputRecordingDelegate)
 
 	// Topic: Configuring output
 
@@ -176,7 +176,7 @@ func NewAVCaptureAudioFileOutput() AVCaptureAudioFileOutput {
 // in the sample buffer passed to that method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioFileOutput/startRecording(to:outputFileType:recordingDelegate:)
-func (c AVCaptureAudioFileOutput) StartRecordingToOutputFileURLOutputFileTypeRecordingDelegate(outputFileURL foundation.INSURL, fileType AVFileType, delegate AVCaptureFileOutputRecordingDelegate) {
+func (c AVCaptureAudioFileOutput) StartRecordingToOutputFileURLOutputFileTypeRecordingDelegate(outputFileURL foundation.NSURL, fileType AVFileType, delegate AVCaptureFileOutputRecordingDelegate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("startRecordingToOutputFileURL:outputFileType:recordingDelegate:"), outputFileURL, objc.String(string(fileType)), delegate)
 }
 

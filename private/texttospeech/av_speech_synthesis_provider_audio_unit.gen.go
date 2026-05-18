@@ -63,14 +63,14 @@ type IAVSpeechSynthesisProviderAudioUnit interface {
 }
 
 // Init initializes the instance.
-func (s AVSpeechSynthesisProviderAudioUnit) Init() AVSpeechSynthesisProviderAudioUnit {
-	rv := objc.Send[AVSpeechSynthesisProviderAudioUnit](s.ID, objc.Sel("init"))
+func (a AVSpeechSynthesisProviderAudioUnit) Init() AVSpeechSynthesisProviderAudioUnit {
+	rv := objc.Send[AVSpeechSynthesisProviderAudioUnit](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s AVSpeechSynthesisProviderAudioUnit) Autorelease() AVSpeechSynthesisProviderAudioUnit {
-	rv := objc.Send[AVSpeechSynthesisProviderAudioUnit](s.ID, objc.Sel("autorelease"))
+func (a AVSpeechSynthesisProviderAudioUnit) Autorelease() AVSpeechSynthesisProviderAudioUnit {
+	rv := objc.Send[AVSpeechSynthesisProviderAudioUnit](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 

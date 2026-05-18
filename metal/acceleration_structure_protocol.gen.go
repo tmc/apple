@@ -22,7 +22,7 @@ type MTLAccelerationStructure interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructure/size
 	Size() uint
 
-	// GpuResourceID protocol.
+	// gpuResourceID protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructure/gpuResourceID
 	GpuResourceID() MTLResourceID
@@ -43,20 +43,6 @@ func MTLAccelerationStructureObjectFromID(id objc.ID) MTLAccelerationStructureOb
 	return MTLAccelerationStructureObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The size of the acceleration structure’s memory allocation, in bytes.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructure/size
-func (o MTLAccelerationStructureObject) Size() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("size"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructure/gpuResourceID
-func (o MTLAccelerationStructureObject) GpuResourceID() MTLResourceID {
-	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
 }
 
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
@@ -133,9 +119,9 @@ func (o MTLAccelerationStructureObject) ResourceOptions() MTLResourceOptions {
 // If `state` is [MTLPurgeableStateNonVolatile], the resource is marked to
 // inform the caller that the data should not be discarded.
 //
-// If `state` is [MTLPurgeableState.empty], the resource is marked as data
-// that can be discarded, because the caller no longer needs the contents of
-// the resource.
+// If `state` is [MTLPurgeableStateEmpty], the resource is marked as data that
+// can be discarded, because the caller no longer needs the contents of the
+// resource.
 //
 // If `state` is [MTLPurgeableStateVolatile], the resource is marked as data
 // that can be discarded, even if the caller may need the resource.
@@ -153,8 +139,6 @@ func (o MTLAccelerationStructureObject) ResourceOptions() MTLResourceOptions {
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-//
-// [MTLPurgeableState.empty]: https://developer.apple.com/documentation/Metal/MTLPurgeableState/empty
 func (o MTLAccelerationStructureObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
@@ -230,9 +214,23 @@ func (o MTLAccelerationStructureObject) IsAliasable() bool {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-func (o MTLAccelerationStructureObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32 {
+func (o MTLAccelerationStructureObject) SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32 {
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
+}
+
+// The size of the acceleration structure’s memory allocation, in bytes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructure/size
+func (o MTLAccelerationStructureObject) Size() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("size"))
+	return uint(rv)
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructure/gpuResourceID
+func (o MTLAccelerationStructureObject) GpuResourceID() MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
+	return MTLResourceID(rv)
 }
 
 // A string that identifies the resource.

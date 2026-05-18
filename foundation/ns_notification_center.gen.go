@@ -240,7 +240,7 @@ func NewNotificationCenter() NotificationCenter {
 func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlock(name NSNotificationName, obj objectivec.IObject, queue INSOperationQueue, block NotificationHandler) objectivec.Object {
 	_block3, _ := NewNotificationBlock(block)
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("addObserverForName:object:queue:usingBlock:"), objc.String(string(name)), obj, queue, _block3)
-	return objectivec.ObjectFromID(rv)
+	return objectivec.Object{ID: rv}
 }
 
 // Adds an entry to the notification center to call the provided selector with

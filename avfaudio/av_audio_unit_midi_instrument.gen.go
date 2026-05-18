@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitMIDIInstrument] class.
@@ -115,9 +116,6 @@ func AVAudioUnitMIDIInstrumentFromID(id objc.ID) AVAudioUnitMIDIInstrument {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument
 type IAVAudioUnitMIDIInstrument interface {
 	IAVAudioUnit
-	AVAudio3DMixing
-	AVAudioMixing
-	AVAudioStereoMixing
 
 	// Topic: Creating a MIDI instrument
 
@@ -133,7 +131,7 @@ type IAVAudioUnitMIDIInstrument interface {
 	// Sends a MIDI event which contains two data bytes to the instrument.
 	SendMIDIEventData1Data2(midiStatus uint8, data1 uint8, data2 uint8)
 	// Sends a MIDI System Exclusive event to the instrument.
-	SendMIDISysExEvent(midiData foundation.INSData)
+	SendMIDISysExEvent(midiData foundation.NSData)
 	// Sends a MIDI Pitch Bend event to the instrument.
 	SendPitchBendOnChannel(pitchbend uint16, channel uint8)
 	// Sends a MIDI channel pressure event to the instrument.
@@ -145,7 +143,7 @@ type IAVAudioUnitMIDIInstrument interface {
 	// Sends MIDI Program Change and Bank Select events to the instrument.
 	SendProgramChangeBankMSBBankLSBOnChannel(program uint8, bankMSB uint8, bankLSB uint8, channel uint8)
 	// Sends a MIDI event list to the instrument.
-	SendMIDIEventList(eventList unsafe.Pointer)
+	SendMIDIEventList(eventList objectivec.IObject)
 
 	// Topic: Starting and stopping play
 
@@ -265,7 +263,7 @@ func (a AVAudioUnitMIDIInstrument) SendMIDIEventData1Data2(midiStatus uint8, dat
 // including start (F0) and termination (F7) bytes.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/sendMIDISysExEvent(_:)
-func (a AVAudioUnitMIDIInstrument) SendMIDISysExEvent(midiData foundation.INSData) {
+func (a AVAudioUnitMIDIInstrument) SendMIDISysExEvent(midiData foundation.NSData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDISysExEvent:"), midiData)
 }
 
@@ -352,7 +350,7 @@ func (a AVAudioUnitMIDIInstrument) SendProgramChangeBankMSBBankLSBOnChannel(prog
 // eventList: The MIDI event list.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/send(_:)
-func (a AVAudioUnitMIDIInstrument) SendMIDIEventList(eventList unsafe.Pointer) {
+func (a AVAudioUnitMIDIInstrument) SendMIDIEventList(eventList objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDIEventList:"), eventList)
 }
 
@@ -415,6 +413,103 @@ func (a AVAudioUnitMIDIInstrument) DestinationForMixerBus(mixer IAVAudioNode, bu
 // A value that simulates filtering of the direct path of sound due to an
 // obstacle.
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/obstruction
+func (a AVAudioUnitMIDIInstrument) Obstruction() float32 {
+	rv := objc.Send[float32](a.ID, objc.Sel("obstruction"))
+	return rv
+}
+
+// A value that simulates filtering of the direct and reverb paths of sound
+// due to an obstacle.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/occlusion
+func (a AVAudioUnitMIDIInstrument) Occlusion() float32 {
+	rv := objc.Send[float32](a.ID, objc.Sel("occlusion"))
+	return rv
+}
+
+// The bus’s stereo pan.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
+func (a AVAudioUnitMIDIInstrument) Pan() float32 {
+	rv := objc.Send[float32](a.ID, objc.Sel("pan"))
+	return rv
+}
+
+// The in-head mode for a point source.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/pointSourceInHeadMode
+func (a AVAudioUnitMIDIInstrument) PointSourceInHeadMode() AVAudio3DMixingPointSourceInHeadMode {
+	rv := objc.Send[AVAudio3DMixingPointSourceInHeadMode](a.ID, objc.Sel("pointSourceInHeadMode"))
+	return AVAudio3DMixingPointSourceInHeadMode(rv)
+}
+
+// The location of the source in the 3D environment.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/position
+func (a AVAudioUnitMIDIInstrument) Position() AVAudio3DPoint {
+	rv := objc.Send[AVAudio3DPoint](a.ID, objc.Sel("position"))
+	return AVAudio3DPoint(rv)
+}
+
+// A value that changes the playback rate of the input signal.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/rate
+func (a AVAudioUnitMIDIInstrument) Rate() float32 {
+	rv := objc.Send[float32](a.ID, objc.Sel("rate"))
+	return rv
+}
+
+// The type of rendering algorithm the mixer uses.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/renderingAlgorithm
+func (a AVAudioUnitMIDIInstrument) RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm {
+	rv := objc.Send[AVAudio3DMixingRenderingAlgorithm](a.ID, objc.Sel("renderingAlgorithm"))
+	return AVAudio3DMixingRenderingAlgorithm(rv)
+}
+
+// A value that controls the blend of dry and reverb processed audio.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/reverbBlend
+func (a AVAudioUnitMIDIInstrument) ReverbBlend() float32 {
+	rv := objc.Send[float32](a.ID, objc.Sel("reverbBlend"))
+	return rv
+}
+
+// The source mode for the input bus of the audio environment node.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/sourceMode
+func (a AVAudioUnitMIDIInstrument) SourceMode() AVAudio3DMixingSourceMode {
+	rv := objc.Send[AVAudio3DMixingSourceMode](a.ID, objc.Sel("sourceMode"))
+	return AVAudio3DMixingSourceMode(rv)
+}
+
+// The bus’s input volume.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
+func (a AVAudioUnitMIDIInstrument) Volume() float32 {
+	rv := objc.Send[float32](a.ID, objc.Sel("volume"))
+	return rv
+}
+
+// Protocol methods for AVAudioMixing
+
+// The bus’s input volume.
+//
+// # Discussion
+//
+// The default value is `1.0`, and the range of valid values is `0.0` to
+// `1.0`. Only the [AVAudioEnvironmentNode] and the [AVAudioMixerNode]
+// implement this property.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
+func (o AVAudioUnitMIDIInstrument) SetVolume(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setVolume:"), value)
+}
+
+// A value that simulates filtering of the direct path of sound due to an
+// obstacle.
+//
 // # Discussion
 //
 // The value of `obstruction` is in decibels. The system blocks only the
@@ -424,12 +519,8 @@ func (a AVAudioUnitMIDIInstrument) DestinationForMixerBus(mixer IAVAudioNode, bu
 // Only the [AVAudioEnvironmentNode] class implements this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/obstruction
-func (a AVAudioUnitMIDIInstrument) Obstruction() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("obstruction"))
-	return rv
-}
-func (a AVAudioUnitMIDIInstrument) SetObstruction(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setObstruction:"), value)
+func (o AVAudioUnitMIDIInstrument) SetObstruction(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setObstruction:"), value)
 }
 
 // A value that simulates filtering of the direct and reverb paths of sound
@@ -444,39 +535,8 @@ func (a AVAudioUnitMIDIInstrument) SetObstruction(value float32) {
 // Only the [AVAudioEnvironmentNode] class implements this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/occlusion
-func (a AVAudioUnitMIDIInstrument) Occlusion() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("occlusion"))
-	return rv
-}
-func (a AVAudioUnitMIDIInstrument) SetOcclusion(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setOcclusion:"), value)
-}
-
-// The bus’s stereo pan.
-//
-// # Discussion
-//
-// The default value is `0.0`, and the range of valid values is `-1.0` to
-// `1.0`. Only the [AVAudioEnvironmentNode] class implements this property.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
-func (a AVAudioUnitMIDIInstrument) Pan() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("pan"))
-	return rv
-}
-func (a AVAudioUnitMIDIInstrument) SetPan(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPan:"), value)
-}
-
-// The in-head mode for a point source.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/pointSourceInHeadMode
-func (a AVAudioUnitMIDIInstrument) PointSourceInHeadMode() AVAudio3DMixingPointSourceInHeadMode {
-	rv := objc.Send[AVAudio3DMixingPointSourceInHeadMode](a.ID, objc.Sel("pointSourceInHeadMode"))
-	return AVAudio3DMixingPointSourceInHeadMode(rv)
-}
-func (a AVAudioUnitMIDIInstrument) SetPointSourceInHeadMode(value AVAudio3DMixingPointSourceInHeadMode) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPointSourceInHeadMode:"), value)
+func (o AVAudioUnitMIDIInstrument) SetOcclusion(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setOcclusion:"), value)
 }
 
 // The location of the source in the 3D environment.
@@ -487,12 +547,8 @@ func (a AVAudioUnitMIDIInstrument) SetPointSourceInHeadMode(value AVAudio3DMixin
 // [AVAudioEnvironmentNode] class implements this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/position
-func (a AVAudioUnitMIDIInstrument) Position() AVAudio3DPoint {
-	rv := objc.Send[AVAudio3DPoint](a.ID, objc.Sel("position"))
-	return AVAudio3DPoint(rv)
-}
-func (a AVAudioUnitMIDIInstrument) SetPosition(value AVAudio3DPoint) {
-	objc.Send[struct{}](a.ID, objc.Sel("setPosition:"), value)
+func (o AVAudioUnitMIDIInstrument) SetPosition(value AVAudio3DPoint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setPosition:"), value)
 }
 
 // A value that changes the playback rate of the input signal.
@@ -506,12 +562,39 @@ func (a AVAudioUnitMIDIInstrument) SetPosition(value AVAudio3DPoint) {
 // `2.0`. Only the [AVAudioEnvironmentNode] class implements this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/rate
-func (a AVAudioUnitMIDIInstrument) Rate() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("rate"))
-	return rv
+func (o AVAudioUnitMIDIInstrument) SetRate(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setRate:"), value)
 }
-func (a AVAudioUnitMIDIInstrument) SetRate(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRate:"), value)
+
+// The in-head mode for a point source.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/pointSourceInHeadMode
+func (o AVAudioUnitMIDIInstrument) SetPointSourceInHeadMode(value AVAudio3DMixingPointSourceInHeadMode) {
+	objc.Send[struct{}](o.ID, objc.Sel("setPointSourceInHeadMode:"), value)
+}
+
+// A value that controls the blend of dry and reverb processed audio.
+//
+// # Discussion
+//
+// This property controls the amount of the source’s audio that the
+// [AVAudioEnvironmentNode] instance processes. A value of `0.5` results in an
+// equal blend of dry and processed (wet) audio.
+//
+// The default is `0.0`, and the range of valid values is `0.0` (completely
+// dry) to `1.0` (completely wet). Only the [AVAudioEnvironmentNode] class
+// implements this property.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/reverbBlend
+func (o AVAudioUnitMIDIInstrument) SetReverbBlend(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setReverbBlend:"), value)
+}
+
+// The source mode for the input bus of the audio environment node.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/sourceMode
+func (o AVAudioUnitMIDIInstrument) SetSourceMode(value AVAudio3DMixingSourceMode) {
+	objc.Send[struct{}](o.ID, objc.Sel("setSourceMode:"), value)
 }
 
 // The type of rendering algorithm the mixer uses.
@@ -529,61 +612,18 @@ func (a AVAudioUnitMIDIInstrument) SetRate(value float32) {
 // [AVAudioEnvironmentNode] class implements this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/renderingAlgorithm
-func (a AVAudioUnitMIDIInstrument) RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm {
-	rv := objc.Send[AVAudio3DMixingRenderingAlgorithm](a.ID, objc.Sel("renderingAlgorithm"))
-	return AVAudio3DMixingRenderingAlgorithm(rv)
-}
-func (a AVAudioUnitMIDIInstrument) SetRenderingAlgorithm(value AVAudio3DMixingRenderingAlgorithm) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRenderingAlgorithm:"), value)
+func (o AVAudioUnitMIDIInstrument) SetRenderingAlgorithm(value AVAudio3DMixingRenderingAlgorithm) {
+	objc.Send[struct{}](o.ID, objc.Sel("setRenderingAlgorithm:"), value)
 }
 
-// A value that controls the blend of dry and reverb processed audio.
+// The bus’s stereo pan.
 //
 // # Discussion
 //
-// This property controls the amount of the source’s audio that the
-// [AVAudioEnvironmentNode] instance processes. A value of `0.5` results in an
-// equal blend of dry and processed (wet) audio.
+// The default value is `0.0`, and the range of valid values is `-1.0` to
+// `1.0`. Only the [AVAudioEnvironmentNode] class implements this property.
 //
-// The default is `0.0`, and the range of valid values is `0.0` (completely
-// dry) to `1.0` (completely wet). Only the [AVAudioEnvironmentNode] class
-// implements this property.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/reverbBlend
-func (a AVAudioUnitMIDIInstrument) ReverbBlend() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("reverbBlend"))
-	return rv
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
+func (o AVAudioUnitMIDIInstrument) SetPan(value float32) {
+	objc.Send[struct{}](o.ID, objc.Sel("setPan:"), value)
 }
-func (a AVAudioUnitMIDIInstrument) SetReverbBlend(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setReverbBlend:"), value)
-}
-
-// The source mode for the input bus of the audio environment node.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/sourceMode
-func (a AVAudioUnitMIDIInstrument) SourceMode() AVAudio3DMixingSourceMode {
-	rv := objc.Send[AVAudio3DMixingSourceMode](a.ID, objc.Sel("sourceMode"))
-	return AVAudio3DMixingSourceMode(rv)
-}
-func (a AVAudioUnitMIDIInstrument) SetSourceMode(value AVAudio3DMixingSourceMode) {
-	objc.Send[struct{}](a.ID, objc.Sel("setSourceMode:"), value)
-}
-
-// The bus’s input volume.
-//
-// # Discussion
-//
-// The default value is `1.0`, and the range of valid values is `0.0` to
-// `1.0`. Only the [AVAudioEnvironmentNode] and the [AVAudioMixerNode]
-// implement this property.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
-func (a AVAudioUnitMIDIInstrument) Volume() float32 {
-	rv := objc.Send[float32](a.ID, objc.Sel("volume"))
-	return rv
-}
-func (a AVAudioUnitMIDIInstrument) SetVolume(value float32) {
-	objc.Send[struct{}](a.ID, objc.Sel("setVolume:"), value)
-}
-
-// Protocol methods for AVAudioMixing

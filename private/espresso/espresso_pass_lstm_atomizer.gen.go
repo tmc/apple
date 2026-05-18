@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_lstm_atomizer] class.
+// The class instance for the [EspressoPassLstmAtomizer] class.
 var (
-	_EspressoPass_lstm_atomizerClass     EspressoPass_lstm_atomizerClass
-	_EspressoPass_lstm_atomizerClassOnce sync.Once
+	_EspressoPassLstmAtomizerClass     EspressoPassLstmAtomizerClass
+	_EspressoPassLstmAtomizerClassOnce sync.Once
 )
 
-func getEspressoPass_lstm_atomizerClass() EspressoPass_lstm_atomizerClass {
-	_EspressoPass_lstm_atomizerClassOnce.Do(func() {
-		_EspressoPass_lstm_atomizerClass = EspressoPass_lstm_atomizerClass{class: objc.GetClass("EspressoPass_lstm_atomizer")}
+func getEspressoPassLstmAtomizerClass() EspressoPassLstmAtomizerClass {
+	_EspressoPassLstmAtomizerClassOnce.Do(func() {
+		_EspressoPassLstmAtomizerClass = EspressoPassLstmAtomizerClass{class: objc.GetClass("EspressoPass_lstm_atomizer")}
 	})
-	return _EspressoPass_lstm_atomizerClass
+	return _EspressoPassLstmAtomizerClass
 }
 
-// GetEspressoPass_lstm_atomizerClass returns the class object for EspressoPass_lstm_atomizer.
-func GetEspressoPass_lstm_atomizerClass() EspressoPass_lstm_atomizerClass {
-	return getEspressoPass_lstm_atomizerClass()
+// GetEspressoPassLstmAtomizerClass returns the class object for EspressoPass_lstm_atomizer.
+func GetEspressoPassLstmAtomizerClass() EspressoPassLstmAtomizerClass {
+	return getEspressoPassLstmAtomizerClass()
 }
 
-type EspressoPass_lstm_atomizerClass struct {
+type EspressoPassLstmAtomizerClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_lstm_atomizerClass) Class() objc.Class {
+func (ec EspressoPassLstmAtomizerClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_lstm_atomizerClass) Alloc() EspressoPass_lstm_atomizer {
-	rv := objc.Send[EspressoPass_lstm_atomizer](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassLstmAtomizerClass) Alloc() EspressoPassLstmAtomizer {
+	rv := objc.Send[EspressoPassLstmAtomizer](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_lstm_atomizer
-type EspressoPass_lstm_atomizer struct {
+type EspressoPassLstmAtomizer struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_lstm_atomizerFromID constructs a [EspressoPass_lstm_atomizer] from an objc.ID.
-func EspressoPass_lstm_atomizerFromID(id objc.ID) EspressoPass_lstm_atomizer {
-	return EspressoPass_lstm_atomizer{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassLstmAtomizerFromID constructs a [EspressoPassLstmAtomizer] from an objc.ID.
+func EspressoPassLstmAtomizerFromID(id objc.ID) EspressoPassLstmAtomizer {
+	return EspressoPassLstmAtomizer{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_lstm_atomizer implements IEspressoPass_lstm_atomizer.
-var _ IEspressoPass_lstm_atomizer = EspressoPass_lstm_atomizer{}
+// EspressoPass_lstm_atomizerFromID is an alias for [EspressoPassLstmAtomizerFromID] for cross-framework compatibility.
+func EspressoPass_lstm_atomizerFromID(id objc.ID) EspressoPassLstmAtomizer {
+	return EspressoPassLstmAtomizerFromID(id)
+}
 
-// An interface definition for the [EspressoPass_lstm_atomizer] class.
+// Ensure EspressoPassLstmAtomizer implements IEspressoPassLstmAtomizer.
+var _ IEspressoPassLstmAtomizer = EspressoPassLstmAtomizer{}
+
+// An interface definition for the [EspressoPassLstmAtomizer] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_lstm_atomizer
-type IEspressoPass_lstm_atomizer interface {
+type IEspressoPassLstmAtomizer interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_lstm_atomizer) Init() EspressoPass_lstm_atomizer {
-	rv := objc.Send[EspressoPass_lstm_atomizer](e.ID, objc.Sel("init"))
+func (e EspressoPassLstmAtomizer) Init() EspressoPassLstmAtomizer {
+	rv := objc.Send[EspressoPassLstmAtomizer](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_lstm_atomizer) Autorelease() EspressoPass_lstm_atomizer {
-	rv := objc.Send[EspressoPass_lstm_atomizer](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassLstmAtomizer) Autorelease() EspressoPassLstmAtomizer {
+	rv := objc.Send[EspressoPassLstmAtomizer](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_lstm_atomizer creates a new EspressoPass_lstm_atomizer instance.
-func NewEspressoPass_lstm_atomizer() EspressoPass_lstm_atomizer {
-	class := getEspressoPass_lstm_atomizerClass()
-	rv := objc.Send[EspressoPass_lstm_atomizer](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassLstmAtomizer creates a new EspressoPassLstmAtomizer instance.
+func NewEspressoPassLstmAtomizer() EspressoPassLstmAtomizer {
+	class := getEspressoPassLstmAtomizerClass()
+	rv := objc.Send[EspressoPassLstmAtomizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

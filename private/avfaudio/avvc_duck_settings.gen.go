@@ -90,14 +90,14 @@ type IAVVCDuckSettings interface {
 }
 
 // Init initializes the instance.
-func (v AVVCDuckSettings) Init() AVVCDuckSettings {
-	rv := objc.Send[AVVCDuckSettings](v.ID, objc.Sel("init"))
+func (a AVVCDuckSettings) Init() AVVCDuckSettings {
+	rv := objc.Send[AVVCDuckSettings](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVCDuckSettings) Autorelease() AVVCDuckSettings {
-	rv := objc.Send[AVVCDuckSettings](v.ID, objc.Sel("autorelease"))
+func (a AVVCDuckSettings) Autorelease() AVVCDuckSettings {
+	rv := objc.Send[AVVCDuckSettings](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -109,28 +109,28 @@ func NewAVVCDuckSettings() AVVCDuckSettings {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckSettings/duckLevel
-func (v AVVCDuckSettings) DuckLevel() IAVVCDuckLevel {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("duckLevel"))
+func (a AVVCDuckSettings) DuckLevel() IAVVCDuckLevel {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("duckLevel"))
 	return AVVCDuckLevelFromID(objc.ID(rv))
 }
-func (v AVVCDuckSettings) SetDuckLevel(value IAVVCDuckLevel) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDuckLevel:"), value)
+func (a AVVCDuckSettings) SetDuckLevel(value IAVVCDuckLevel) {
+	objc.Send[struct{}](a.ID, objc.Sel("setDuckLevel:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckSettings/duckOverride
-func (v AVVCDuckSettings) DuckOverride() IAVVCDuckOverride {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("duckOverride"))
+func (a AVVCDuckSettings) DuckOverride() IAVVCDuckOverride {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("duckOverride"))
 	return AVVCDuckOverrideFromID(objc.ID(rv))
 }
-func (v AVVCDuckSettings) SetDuckOverride(value IAVVCDuckOverride) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDuckOverride:"), value)
+func (a AVVCDuckSettings) SetDuckOverride(value IAVVCDuckOverride) {
+	objc.Send[struct{}](a.ID, objc.Sel("setDuckOverride:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckSettings/fadeDuration
-func (v AVVCDuckSettings) FadeDuration() IAVVCDuckFadeDuration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("fadeDuration"))
+func (a AVVCDuckSettings) FadeDuration() IAVVCDuckFadeDuration {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("fadeDuration"))
 	return AVVCDuckFadeDurationFromID(objc.ID(rv))
 }
-func (v AVVCDuckSettings) SetFadeDuration(value IAVVCDuckFadeDuration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFadeDuration:"), value)
+func (a AVVCDuckSettings) SetFadeDuration(value IAVVCDuckFadeDuration) {
+	objc.Send[struct{}](a.ID, objc.Sel("setFadeDuration:"), value)
 }

@@ -407,8 +407,8 @@ type IPDFAnnotation interface {
 	Page() IPDFPage
 	SetPage(value IPDFPage)
 	// Returns the modification date of the annotation.
-	ModificationDate() foundation.INSDate
-	SetModificationDate(value foundation.INSDate)
+	ModificationDate() foundation.NSDate
+	SetModificationDate(value foundation.NSDate)
 	// Returns the name of the user who created the annotation.
 	UserName() string
 	SetUserName(value string)
@@ -448,8 +448,8 @@ type IPDFAnnotation interface {
 	// Topic: Managing Annotation Display Characteristics
 
 	// The alignment of the free text and text widget annotation’s text content.
-	Alignment() appkit.NSTextAlignment
-	SetAlignment(value appkit.NSTextAlignment)
+	Alignment() uint
+	SetAlignment(value uint)
 	// Returns the bounding box for the annotation in page space.
 	Bounds() corefoundation.CGRect
 	SetBounds(value corefoundation.CGRect)
@@ -501,8 +501,8 @@ type IPDFAnnotation interface {
 	Destination() IPDFDestination
 	SetDestination(value IPDFDestination)
 	// A URL for a link annotation.
-	URL() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	URL() foundation.NSURL
+	SetURL(value foundation.NSURL)
 
 	// Topic: Configuring Text Annotations
 
@@ -843,11 +843,11 @@ func (p PDFAnnotation) SetPage(value IPDFPage) {
 // modification date.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/modificationDate
-func (p PDFAnnotation) ModificationDate() foundation.INSDate {
+func (p PDFAnnotation) ModificationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modificationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (p PDFAnnotation) SetModificationDate(value foundation.INSDate) {
+func (p PDFAnnotation) SetModificationDate(value foundation.NSDate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModificationDate:"), value)
 }
 
@@ -949,11 +949,11 @@ func (p PDFAnnotation) AnnotationKeyValues() foundation.INSDictionary {
 // The alignment of the free text and text widget annotation’s text content.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/alignment
-func (p PDFAnnotation) Alignment() appkit.NSTextAlignment {
-	rv := objc.Send[appkit.NSTextAlignment](p.ID, objc.Sel("alignment"))
-	return appkit.NSTextAlignment(rv)
+func (p PDFAnnotation) Alignment() uint {
+	rv := objc.Send[uint](p.ID, objc.Sel("alignment"))
+	return rv
 }
-func (p PDFAnnotation) SetAlignment(value appkit.NSTextAlignment) {
+func (p PDFAnnotation) SetAlignment(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAlignment:"), value)
 }
 
@@ -1148,11 +1148,11 @@ func (p PDFAnnotation) SetDestination(value IPDFDestination) {
 // A URL for a link annotation.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/url
-func (p PDFAnnotation) URL() foundation.INSURL {
+func (p PDFAnnotation) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (p PDFAnnotation) SetURL(value foundation.INSURL) {
+func (p PDFAnnotation) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
 

@@ -45,6 +45,7 @@ func (lc LADomainStateCompanionClass) Alloc() LADomainStateCompanion {
 
 // # Instance Properties
 //
+//   - [LADomainStateCompanion.AvailableCompanionTypes]: Indicates types of companions paired with the device. The elements are NSNumber-wrapped instances of @c [LACompanionType].
 //   - [LADomainStateCompanion.StateHash]: Contains combined state hash data for all available companion types. . Returns `nil` if no companion devices are paired.
 //
 // # Instance Methods
@@ -68,6 +69,7 @@ func LADomainStateCompanionFromID(id objc.ID) LADomainStateCompanion {
 //
 // # Instance Properties
 //
+//   - [ILADomainStateCompanion.AvailableCompanionTypes]: Indicates types of companions paired with the device. The elements are NSNumber-wrapped instances of @c [LACompanionType].
 //   - [ILADomainStateCompanion.StateHash]: Contains combined state hash data for all available companion types. . Returns `nil` if no companion devices are paired.
 //
 // # Instance Methods
@@ -80,16 +82,15 @@ type ILADomainStateCompanion interface {
 
 	// Topic: Instance Properties
 
+	// Indicates types of companions paired with the device. The elements are NSNumber-wrapped instances of @c [LACompanionType].
+	AvailableCompanionTypes() foundation.INSSet
 	// Contains combined state hash data for all available companion types. . Returns `nil` if no companion devices are paired.
-	StateHash() foundation.INSData
+	StateHash() foundation.NSData
 
 	// Topic: Instance Methods
 
 	// Returns state hash data for the given companion type.
-	StateHashForCompanionType(companionType LACompanionType) foundation.INSData
-
-	// Indicates types of companions paired with the device. The elements are NSNumber-wrapped instances of @c [LACompanionType].
-	AvailableCompanionTypes() foundation.INSSet
+	StateHashForCompanionType(companionType LACompanionType) foundation.NSData
 }
 
 // Init initializes the instance.
@@ -123,9 +124,18 @@ func NewLADomainStateCompanion() LADomainStateCompanion {
 // the fact database was changed between calls.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LADomainStateCompanion/stateHash(for:)
-func (d LADomainStateCompanion) StateHashForCompanionType(companionType LACompanionType) foundation.INSData {
+func (d LADomainStateCompanion) StateHashForCompanionType(companionType LACompanionType) foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stateHashForCompanionType:"), companionType)
 	return foundation.NSDataFromID(rv)
+}
+
+// Indicates types of companions paired with the device. The elements are
+// NSNumber-wrapped instances of @c [LACompanionType].
+//
+// See: https://developer.apple.com/documentation/LocalAuthentication/LADomainStateCompanion/availableCompanionTypes-1ggnh
+func (d LADomainStateCompanion) AvailableCompanionTypes() foundation.INSSet {
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("availableCompanionTypes"))
+	return foundation.NSSetFromID(objc.ID(rv))
 }
 
 // Contains combined state hash data for all available companion types. .
@@ -137,16 +147,7 @@ func (d LADomainStateCompanion) StateHashForCompanionType(companionType LACompan
 // `stateHash` stays the same for the same set of `availableCompanions`.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LADomainStateCompanion/stateHash
-func (d LADomainStateCompanion) StateHash() foundation.INSData {
+func (d LADomainStateCompanion) StateHash() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stateHash"))
 	return foundation.NSDataFromID(objc.ID(rv))
-}
-
-// Indicates types of companions paired with the device. The elements are
-// NSNumber-wrapped instances of @c [LACompanionType].
-//
-// See: https://developer.apple.com/documentation/LocalAuthentication/LADomainStateCompanion/availableCompanionTypes-1ggnh
-func (d LADomainStateCompanion) AvailableCompanionTypes() foundation.INSSet {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("availableCompanionTypes"))
-	return foundation.NSSetFromID(objc.ID(rv))
 }

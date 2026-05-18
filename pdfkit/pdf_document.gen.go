@@ -120,9 +120,9 @@ type IPDFDocument interface {
 	// Topic: Initializing Documents
 
 	// Initializes a [PDFDocument] object with the contents at the specified URL (if the URL is invalid, this method returns [NULL]).
-	InitWithURL(url foundation.INSURL) PDFDocument
+	InitWithURL(url foundation.NSURL) PDFDocument
 	// Initializes a [PDFDocument] object with the passed-in data.
-	InitWithData(data foundation.INSData) PDFDocument
+	InitWithData(data foundation.NSData) PDFDocument
 
 	// Topic: Setting the Delegate
 
@@ -158,7 +158,7 @@ type IPDFDocument interface {
 	// The [CGPDFDocument] associated with the [PDFDocument] object.
 	DocumentRef() coregraphics.CGPDFDocumentRef
 	// The URL for the document.
-	DocumentURL() foundation.INSURL
+	DocumentURL() foundation.NSURL
 	// A Boolean value specifying whether the document is encrypted.
 	IsEncrypted() bool
 	// Returns a Boolean value indicating whether an asynchronous find operation is in progress.
@@ -189,9 +189,9 @@ type IPDFDocument interface {
 	// Cancels a search initiated with [beginFindString(_:withOptions:)](<doc://com.apple.pdfkit/documentation/PDFKit/PDFDocument/beginFindString(_:withOptions:)>).
 	CancelFindString()
 	// Returns a representation of the document as an [NSData] object.
-	DataRepresentation() foundation.INSData
+	DataRepresentation() foundation.NSData
 	// Returns a representation of the document as an [NSData] object with additional options applied, such as filters.
-	DataRepresentationWithOptions(options foundation.INSDictionary) foundation.INSData
+	DataRepresentationWithOptions(options foundation.INSDictionary) foundation.NSData
 	// Swaps one page with another.
 	ExchangePageAtIndexWithPageAtIndex(indexA uint, indexB uint)
 	// Synchronously finds the next occurance of a string after the specified selection (or before the selection if you specified [NSBackwardsSearch] as a search option.
@@ -221,9 +221,9 @@ type IPDFDocument interface {
 	// Writes the document to a file at the specified path with the specified options.
 	WriteToFileWithOptions(path string, options foundation.INSDictionary) bool
 	// Writes the document to a location specified by the passed-in URL.
-	WriteToURL(url foundation.INSURL) bool
+	WriteToURL(url foundation.NSURL) bool
 	// Writes the document to the specified URL with the specified options.
-	WriteToURLWithOptions(url foundation.INSURL, options foundation.INSDictionary) bool
+	WriteToURLWithOptions(url foundation.NSURL, options foundation.INSDictionary) bool
 }
 
 // Init initializes the instance.
@@ -258,7 +258,7 @@ func NewPDFDocument() PDFDocument {
 // this method returns [NULL].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(data:)
-func NewPDFDocumentWithData(data foundation.INSData) PDFDocument {
+func NewPDFDocumentWithData(data foundation.NSData) PDFDocument {
 	instance := getPDFDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return PDFDocumentFromID(rv)
@@ -272,8 +272,8 @@ func NewPDFDocumentWithData(data foundation.INSData) PDFDocument {
 // A [PDFDocument] instance initialized with the data at the passed-in URL or
 // [NULL] if the object could not be initialized or if the URL is invalid.
 //
-// See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(url:)
-func NewPDFDocumentWithURL(url foundation.INSURL) PDFDocument {
+// See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(url:)-98jte
+func NewPDFDocumentWithURL(url foundation.NSURL) PDFDocument {
 	instance := getPDFDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return PDFDocumentFromID(rv)
@@ -287,8 +287,8 @@ func NewPDFDocumentWithURL(url foundation.INSURL) PDFDocument {
 // A [PDFDocument] instance initialized with the data at the passed-in URL or
 // [NULL] if the object could not be initialized or if the URL is invalid.
 //
-// See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(url:)
-func (p PDFDocument) InitWithURL(url foundation.INSURL) PDFDocument {
+// See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(url:)-98jte
+func (p PDFDocument) InitWithURL(url foundation.NSURL) PDFDocument {
 	rv := objc.Send[PDFDocument](p.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
@@ -306,7 +306,7 @@ func (p PDFDocument) InitWithURL(url foundation.INSURL) PDFDocument {
 // this method returns [NULL].
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(data:)
-func (p PDFDocument) InitWithData(data foundation.INSData) PDFDocument {
+func (p PDFDocument) InitWithData(data foundation.NSData) PDFDocument {
 	rv := objc.Send[PDFDocument](p.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
@@ -360,7 +360,7 @@ func (p PDFDocument) CancelFindString() {
 // Returns a representation of the document as an [NSData] object.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/dataRepresentation()
-func (p PDFDocument) DataRepresentation() foundation.INSData {
+func (p PDFDocument) DataRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(rv)
 }
@@ -369,7 +369,7 @@ func (p PDFDocument) DataRepresentation() foundation.INSData {
 // additional options applied, such as filters.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/dataRepresentation(options:)
-func (p PDFDocument) DataRepresentationWithOptions(options foundation.INSDictionary) foundation.INSData {
+func (p PDFDocument) DataRepresentationWithOptions(options foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("dataRepresentationWithOptions:"), options)
 	return foundation.NSDataFromID(rv)
 }
@@ -615,7 +615,7 @@ func (p PDFDocument) WriteToFileWithOptions(path string, options foundation.INSD
 // Writes the document to a location specified by the passed-in URL.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/write(to:)
-func (p PDFDocument) WriteToURL(url foundation.INSURL) bool {
+func (p PDFDocument) WriteToURL(url foundation.NSURL) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("writeToURL:"), url)
 	return rv
 }
@@ -623,7 +623,7 @@ func (p PDFDocument) WriteToURL(url foundation.INSURL) bool {
 // Writes the document to the specified URL with the specified options.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/write(to:withOptions:)
-func (p PDFDocument) WriteToURLWithOptions(url foundation.INSURL, options foundation.INSDictionary) bool {
+func (p PDFDocument) WriteToURLWithOptions(url foundation.NSURL, options foundation.INSDictionary) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("writeToURL:withOptions:"), url, options)
 	return rv
 }
@@ -773,7 +773,7 @@ func (p PDFDocument) DocumentRef() coregraphics.CGPDFDocumentRef {
 // from an [NSData] object.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDocument/documentURL
-func (p PDFDocument) DocumentURL() foundation.INSURL {
+func (p PDFDocument) DocumentURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("documentURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

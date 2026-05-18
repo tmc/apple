@@ -168,7 +168,7 @@ type ICKShareParticipant interface {
 	// Topic: Instance Properties
 
 	// The date and time when the participant was added to the share.
-	DateAddedToShare() foundation.INSDate
+	DateAddedToShare() foundation.NSDate
 	// Indicates whether the participant was originally a requester who was approved to join the share.
 	IsApprovedRequester() bool
 	ParticipantID() string
@@ -296,7 +296,7 @@ func (c CKShareParticipant) SetRole(value CKShareParticipantRole) {
 // This timestamp is set when the share is successfully saved to the server.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/Participant/dateAddedToShare
-func (c CKShareParticipant) DateAddedToShare() foundation.INSDate {
+func (c CKShareParticipant) DateAddedToShare() foundation.NSDate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("dateAddedToShare"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

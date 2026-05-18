@@ -90,7 +90,7 @@ type IAVMusicUserEvent interface {
 	// Topic: Creating a User Event
 
 	// Creates a user event with the data you specify.
-	InitWithData(data foundation.INSData) AVMusicUserEvent
+	InitWithData(data foundation.NSData) AVMusicUserEvent
 
 	// Topic: Inspecting a User Event
 
@@ -122,7 +122,7 @@ func NewAVMusicUserEvent() AVMusicUserEvent {
 // data: The contents a music track returns on callback.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicUserEvent/init(data:)
-func NewMusicUserEventWithData(data foundation.INSData) AVMusicUserEvent {
+func NewMusicUserEventWithData(data foundation.NSData) AVMusicUserEvent {
 	instance := getAVMusicUserEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return AVMusicUserEventFromID(rv)
@@ -133,7 +133,7 @@ func NewMusicUserEventWithData(data foundation.INSData) AVMusicUserEvent {
 // data: The contents a music track returns on callback.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicUserEvent/init(data:)
-func (m AVMusicUserEvent) InitWithData(data foundation.INSData) AVMusicUserEvent {
+func (m AVMusicUserEvent) InitWithData(data foundation.NSData) AVMusicUserEvent {
 	rv := objc.Send[AVMusicUserEvent](m.ID, objc.Sel("initWithData:"), data)
 	return rv
 }

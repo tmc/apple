@@ -89,14 +89,14 @@ type IMLNeuralNetworkFunctionInfo interface {
 }
 
 // Init initializes the instance.
-func (n MLNeuralNetworkFunctionInfo) Init() MLNeuralNetworkFunctionInfo {
-	rv := objc.Send[MLNeuralNetworkFunctionInfo](n.ID, objc.Sel("init"))
+func (m MLNeuralNetworkFunctionInfo) Init() MLNeuralNetworkFunctionInfo {
+	rv := objc.Send[MLNeuralNetworkFunctionInfo](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNeuralNetworkFunctionInfo) Autorelease() MLNeuralNetworkFunctionInfo {
-	rv := objc.Send[MLNeuralNetworkFunctionInfo](n.ID, objc.Sel("autorelease"))
+func (m MLNeuralNetworkFunctionInfo) Autorelease() MLNeuralNetworkFunctionInfo {
+	rv := objc.Send[MLNeuralNetworkFunctionInfo](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -120,9 +120,9 @@ func NewNeuralNetworkFunctionInfoWithCompiledModelArchiveCompilerVersionInfoErro
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/initWithCompiledModelArchive:compilerVersionInfo:error:
-func (n MLNeuralNetworkFunctionInfo) InitWithCompiledModelArchiveCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject) (MLNeuralNetworkFunctionInfo, error) {
+func (m MLNeuralNetworkFunctionInfo) InitWithCompiledModelArchiveCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject) (MLNeuralNetworkFunctionInfo, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithCompiledModelArchive:compilerVersionInfo:error:"), archive, info, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithCompiledModelArchive:compilerVersionInfo:error:"), archive, info, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkFunctionInfo{}, foundation.NSErrorFrom(errorPtr)
@@ -132,25 +132,25 @@ func (n MLNeuralNetworkFunctionInfo) InitWithCompiledModelArchiveCompilerVersion
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/classLabels
-func (n MLNeuralNetworkFunctionInfo) ClassLabels() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("classLabels"))
+func (m MLNeuralNetworkFunctionInfo) ClassLabels() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/classScoreVectorName
-func (n MLNeuralNetworkFunctionInfo) ClassScoreVectorName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("classScoreVectorName"))
+func (m MLNeuralNetworkFunctionInfo) ClassScoreVectorName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classScoreVectorName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/isClassifier
-func (n MLNeuralNetworkFunctionInfo) IsClassifier() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("isClassifier"))
+func (m MLNeuralNetworkFunctionInfo) IsClassifier() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("isClassifier"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/outputNames
-func (n MLNeuralNetworkFunctionInfo) OutputNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("outputNames"))
+func (m MLNeuralNetworkFunctionInfo) OutputNames() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

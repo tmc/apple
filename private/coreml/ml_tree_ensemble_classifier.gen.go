@@ -102,14 +102,14 @@ type IMLTreeEnsembleClassifier interface {
 }
 
 // Init initializes the instance.
-func (t MLTreeEnsembleClassifier) Init() MLTreeEnsembleClassifier {
-	rv := objc.Send[MLTreeEnsembleClassifier](t.ID, objc.Sel("init"))
+func (m MLTreeEnsembleClassifier) Init() MLTreeEnsembleClassifier {
+	rv := objc.Send[MLTreeEnsembleClassifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t MLTreeEnsembleClassifier) Autorelease() MLTreeEnsembleClassifier {
-	rv := objc.Send[MLTreeEnsembleClassifier](t.ID, objc.Sel("autorelease"))
+func (m MLTreeEnsembleClassifier) Autorelease() MLTreeEnsembleClassifier {
+	rv := objc.Send[MLTreeEnsembleClassifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -121,9 +121,9 @@ func NewMLTreeEnsembleClassifier() MLTreeEnsembleClassifier {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/_buildClassificationClasses:topk:error:
-func (t MLTreeEnsembleClassifier) _buildClassificationClassesTopkError(classes []float64, topk uint64) (objectivec.IObject, error) {
+func (m MLTreeEnsembleClassifier) _buildClassificationClassesTopkError(classes []float64, topk uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_buildClassificationClasses:topk:error:"), classes, topk, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_buildClassificationClasses:topk:error:"), classes, topk, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -133,43 +133,43 @@ func (t MLTreeEnsembleClassifier) _buildClassificationClassesTopkError(classes [
 }
 
 // BuildClassificationClassesTopkError is an exported wrapper for the private method _buildClassificationClassesTopkError.
-func (t MLTreeEnsembleClassifier) BuildClassificationClassesTopkError(classes []float64, topk uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_buildClassificationClasses:topk:error:")) {
+func (m MLTreeEnsembleClassifier) BuildClassificationClassesTopkError(classes []float64, topk uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_buildClassificationClasses:topk:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_buildClassificationClasses:topk:error:"}
 		return nil, err
 	}
-	return t._buildClassificationClassesTopkError(classes, topk)
+	return m._buildClassificationClassesTopkError(classes, topk)
 }
 
 // CanBuildClassificationClassesTopkError reports whether the receiver responds to the private selector _buildClassificationClasses:topk:error:.
-func (t MLTreeEnsembleClassifier) CanBuildClassificationClassesTopkError() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_buildClassificationClasses:topk:error:"))
+func (m MLTreeEnsembleClassifier) CanBuildClassificationClassesTopkError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_buildClassificationClasses:topk:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/_setSingleArrayLookupField
-func (t MLTreeEnsembleClassifier) _setSingleArrayLookupField() {
-	objc.Send[objc.ID](t.ID, objc.Sel("_setSingleArrayLookupField"))
+func (m MLTreeEnsembleClassifier) _setSingleArrayLookupField() {
+	objc.Send[objc.ID](m.ID, objc.Sel("_setSingleArrayLookupField"))
 }
 
 // SetSingleArrayLookupField is an exported wrapper for the private method _setSingleArrayLookupField.
-func (t MLTreeEnsembleClassifier) SetSingleArrayLookupField() error {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_setSingleArrayLookupField")) {
+func (m MLTreeEnsembleClassifier) SetSingleArrayLookupField() error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_setSingleArrayLookupField")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setSingleArrayLookupField"}
 		return err
 	}
-	t._setSingleArrayLookupField()
+	m._setSingleArrayLookupField()
 	return nil
 }
 
 // CanSetSingleArrayLookupField reports whether the receiver responds to the private selector _setSingleArrayLookupField.
-func (t MLTreeEnsembleClassifier) CanSetSingleArrayLookupField() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_setSingleArrayLookupField"))
+func (m MLTreeEnsembleClassifier) CanSetSingleArrayLookupField() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_setSingleArrayLookupField"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/classify:options:error:
-func (t MLTreeEnsembleClassifier) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLTreeEnsembleClassifier) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -179,15 +179,15 @@ func (t MLTreeEnsembleClassifier) ClassifyOptionsError(classify objectivec.IObje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/modelData
-func (t MLTreeEnsembleClassifier) ModelData() string {
-	rv := objc.Send[*byte](t.ID, objc.Sel("modelData"))
+func (m MLTreeEnsembleClassifier) ModelData() string {
+	rv := objc.Send[*byte](m.ID, objc.Sel("modelData"))
 	return objc.GoString(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/prepareInput:error:
-func (t MLTreeEnsembleClassifier) PrepareInputError(input objectivec.IObject) (objectivec.IObject, error) {
+func (m MLTreeEnsembleClassifier) PrepareInputError(input objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("prepareInput:error:"), input, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("prepareInput:error:"), input, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -286,25 +286,25 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) LoadModelFro
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/debugDescription
-func (t MLTreeEnsembleClassifier) DebugDescription() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
+func (m MLTreeEnsembleClassifier) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/description
-func (t MLTreeEnsembleClassifier) Description() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
+func (m MLTreeEnsembleClassifier) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/hash
-func (t MLTreeEnsembleClassifier) Hash() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
+func (m MLTreeEnsembleClassifier) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/superclass
-func (t MLTreeEnsembleClassifier) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](t.ID, objc.Sel("superclass"))
+func (m MLTreeEnsembleClassifier) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

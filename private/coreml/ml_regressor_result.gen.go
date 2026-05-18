@@ -84,14 +84,14 @@ type IMLRegressorResult interface {
 }
 
 // Init initializes the instance.
-func (r MLRegressorResult) Init() MLRegressorResult {
-	rv := objc.Send[MLRegressorResult](r.ID, objc.Sel("init"))
+func (m MLRegressorResult) Init() MLRegressorResult {
+	rv := objc.Send[MLRegressorResult](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (r MLRegressorResult) Autorelease() MLRegressorResult {
-	rv := objc.Send[MLRegressorResult](r.ID, objc.Sel("autorelease"))
+func (m MLRegressorResult) Autorelease() MLRegressorResult {
+	rv := objc.Send[MLRegressorResult](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,14 +110,14 @@ func NewRegressorResultWithValueAdditionalFeatures(value objectivec.IObject, fea
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRegressorResult/asFeatureDictionaryWithPredictedValueDescription:
-func (r MLRegressorResult) AsFeatureDictionaryWithPredictedValueDescription(description objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("asFeatureDictionaryWithPredictedValueDescription:"), description)
+func (m MLRegressorResult) AsFeatureDictionaryWithPredictedValueDescription(description objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("asFeatureDictionaryWithPredictedValueDescription:"), description)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRegressorResult/initWithValue:additionalFeatures:
-func (r MLRegressorResult) InitWithValueAdditionalFeatures(value objectivec.IObject, features objectivec.IObject) MLRegressorResult {
-	rv := objc.Send[MLRegressorResult](r.ID, objc.Sel("initWithValue:additionalFeatures:"), value, features)
+func (m MLRegressorResult) InitWithValueAdditionalFeatures(value objectivec.IObject, features objectivec.IObject) MLRegressorResult {
+	rv := objc.Send[MLRegressorResult](m.ID, objc.Sel("initWithValue:additionalFeatures:"), value, features)
 	return rv
 }
 
@@ -134,13 +134,13 @@ func (_MLRegressorResultClass MLRegressorResultClass) ResultWithValueAdditionalF
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRegressorResult/additionalFeatures
-func (r MLRegressorResult) AdditionalFeatures() objectivec.IObject {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("additionalFeatures"))
+func (m MLRegressorResult) AdditionalFeatures() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("additionalFeatures"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLRegressorResult/predictedValue
-func (r MLRegressorResult) PredictedValue() IMLMultiArray {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("predictedValue"))
+func (m MLRegressorResult) PredictedValue() IMLMultiArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictedValue"))
 	return MLMultiArrayFromID(objc.ID(rv))
 }

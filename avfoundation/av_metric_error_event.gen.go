@@ -78,7 +78,7 @@ type IAVMetricErrorEvent interface {
 	// Topic: Getting the error
 
 	// Returns the error event.
-	Error() foundation.INSError
+	Error() foundation.NSError
 	// A Boolean value that indicates whether the error was recoverable.
 	DidRecover() bool
 }
@@ -105,7 +105,7 @@ func NewAVMetricErrorEvent() AVMetricErrorEvent {
 // Returns the error event.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricErrorEvent/error
-func (m AVMetricErrorEvent) Error() foundation.INSError {
+func (m AVMetricErrorEvent) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

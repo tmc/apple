@@ -85,14 +85,14 @@ type IAVVCDuckLevel interface {
 }
 
 // Init initializes the instance.
-func (v AVVCDuckLevel) Init() AVVCDuckLevel {
-	rv := objc.Send[AVVCDuckLevel](v.ID, objc.Sel("init"))
+func (a AVVCDuckLevel) Init() AVVCDuckLevel {
+	rv := objc.Send[AVVCDuckLevel](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVCDuckLevel) Autorelease() AVVCDuckLevel {
-	rv := objc.Send[AVVCDuckLevel](v.ID, objc.Sel("autorelease"))
+func (a AVVCDuckLevel) Autorelease() AVVCDuckLevel {
+	rv := objc.Send[AVVCDuckLevel](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -104,19 +104,19 @@ func NewAVVCDuckLevel() AVVCDuckLevel {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckLevel/isBlur
-func (v AVVCDuckLevel) IsBlur() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isBlur"))
+func (a AVVCDuckLevel) IsBlur() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isBlur"))
 	return rv
 }
-func (v AVVCDuckLevel) SetIsBlur(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setIsBlur:"), value)
+func (a AVVCDuckLevel) SetIsBlur(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setIsBlur:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckLevel/value
-func (v AVVCDuckLevel) Value() foundation.NSNumber {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("value"))
+func (a AVVCDuckLevel) Value() foundation.NSNumber {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("value"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (v AVVCDuckLevel) SetValue(value foundation.NSNumber) {
-	objc.Send[struct{}](v.ID, objc.Sel("setValue:"), value)
+func (a AVVCDuckLevel) SetValue(value foundation.NSNumber) {
+	objc.Send[struct{}](a.ID, objc.Sel("setValue:"), value)
 }

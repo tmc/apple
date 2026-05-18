@@ -555,6 +555,8 @@ const (
 	ES_EVENT_TYPE_RESERVED_4                   EsEventType = 152
 	ES_EVENT_TYPE_RESERVED_5                   EsEventType = 153
 	ES_EVENT_TYPE_RESERVED_6                   EsEventType = 154
+	ES_EVENT_TYPE_RESERVED_7                   EsEventType = 155
+	ES_EVENT_TYPE_RESERVED_8                   EsEventType = 156
 )
 
 func (e EsEventType) String() string {
@@ -871,6 +873,10 @@ func (e EsEventType) String() string {
 		return "ES_EVENT_TYPE_RESERVED_5"
 	case ES_EVENT_TYPE_RESERVED_6:
 		return "ES_EVENT_TYPE_RESERVED_6"
+	case ES_EVENT_TYPE_RESERVED_7:
+		return "ES_EVENT_TYPE_RESERVED_7"
+	case ES_EVENT_TYPE_RESERVED_8:
+		return "ES_EVENT_TYPE_RESERVED_8"
 	default:
 		return fmt.Sprintf("EsEventType(%d)", e)
 	}

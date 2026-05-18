@@ -5,6 +5,7 @@ package appkit
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -161,13 +162,13 @@ type INSTableViewDiffableDataSource interface {
 	// Topic: Identifying Items and Sections
 
 	// Returns an identifier for the item at the specified row in the table view.
-	ItemIdentifierForRow(row int) objectivec.IObject
+	ItemIdentifierForRow(row int) unsafe.Pointer
 	// Returns a row for the item with the specified identifier in the table view.
-	RowForItemIdentifier(identifier objectivec.IObject) int
+	RowForItemIdentifier(identifier unsafe.Pointer) int
 	// Returns the identifier of the section containing the specified row in the snapshot.
-	SectionIdentifierForRow(row int) objectivec.IObject
+	SectionIdentifierForRow(row int) unsafe.Pointer
 	// Returns a row for the section with the specified identifier in the table view.
-	RowForSectionIdentifier(identifier objectivec.IObject) int
+	RowForSectionIdentifier(identifier unsafe.Pointer) int
 
 	// Topic: Updating Data
 
@@ -248,9 +249,9 @@ func (t NSTableViewDiffableDataSource) InitWithTableViewCellProvider(tableView I
 // the provided row.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/itemIdentifier(forRow:)
-func (t NSTableViewDiffableDataSource) ItemIdentifierForRow(row int) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("itemIdentifierForRow:"), row)
-	return objectivec.Object{ID: rv}
+func (t NSTableViewDiffableDataSource) ItemIdentifierForRow(row int) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("itemIdentifierForRow:"), row)
+	return rv
 }
 
 // Returns a row for the item with the specified identifier in the table view.
@@ -263,7 +264,7 @@ func (t NSTableViewDiffableDataSource) ItemIdentifierForRow(row int) objectivec.
 // provided item identifier.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/row(forItemIdentifier:)
-func (t NSTableViewDiffableDataSource) RowForItemIdentifier(identifier objectivec.IObject) int {
+func (t NSTableViewDiffableDataSource) RowForItemIdentifier(identifier unsafe.Pointer) int {
 	rv := objc.Send[int](t.ID, objc.Sel("rowForItemIdentifier:"), identifier)
 	return rv
 }
@@ -279,9 +280,9 @@ func (t NSTableViewDiffableDataSource) RowForItemIdentifier(identifier objective
 // with the provided item identifier.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/sectionIdentifier(forRow:)
-func (t NSTableViewDiffableDataSource) SectionIdentifierForRow(row int) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("sectionIdentifierForRow:"), row)
-	return objectivec.Object{ID: rv}
+func (t NSTableViewDiffableDataSource) SectionIdentifierForRow(row int) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("sectionIdentifierForRow:"), row)
+	return rv
 }
 
 // Returns a row for the section with the specified identifier in the table
@@ -295,7 +296,7 @@ func (t NSTableViewDiffableDataSource) SectionIdentifierForRow(row int) objectiv
 // the provided item identifier.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/row(forSectionIdentifier:)
-func (t NSTableViewDiffableDataSource) RowForSectionIdentifier(identifier objectivec.IObject) int {
+func (t NSTableViewDiffableDataSource) RowForSectionIdentifier(identifier unsafe.Pointer) int {
 	rv := objc.Send[int](t.ID, objc.Sel("rowForSectionIdentifier:"), identifier)
 	return rv
 }

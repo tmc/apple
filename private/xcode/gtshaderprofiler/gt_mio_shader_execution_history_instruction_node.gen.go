@@ -94,7 +94,7 @@ type IGTMioShaderExecutionHistoryInstructionNode interface {
 	InstructionInfo() unsafe.Pointer
 	Isa() string
 	Location() unsafe.Pointer
-	InitWithInstructionIndexLocationBinaryParent(index uint32, location unsafe.Pointer, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode
+	InitWithInstructionIndexLocationBinaryParent(index uint32, location GTMioShaderBinaryDebugLocation, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode
 }
 
 // Init initializes the instance.
@@ -117,7 +117,7 @@ func NewGTMioShaderExecutionHistoryInstructionNode() GTMioShaderExecutionHistory
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryInstructionNode/initWithInstructionIndex:location:binary:parent:
-func NewGTMioShaderExecutionHistoryInstructionNodeWithInstructionIndexLocationBinaryParent(index uint32, location unsafe.Pointer, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode {
+func NewGTMioShaderExecutionHistoryInstructionNodeWithInstructionIndexLocationBinaryParent(index uint32, location GTMioShaderBinaryDebugLocation, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode {
 	instance := getGTMioShaderExecutionHistoryInstructionNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInstructionIndex:location:binary:parent:"), index, location, binary, parent)
 	return GTMioShaderExecutionHistoryInstructionNodeFromID(rv)
@@ -131,7 +131,7 @@ func NewGTMioShaderExecutionHistoryInstructionNodeWithTypeParent(type_ uint32, p
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryInstructionNode/initWithInstructionIndex:location:binary:parent:
-func (g GTMioShaderExecutionHistoryInstructionNode) InitWithInstructionIndexLocationBinaryParent(index uint32, location unsafe.Pointer, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode {
+func (g GTMioShaderExecutionHistoryInstructionNode) InitWithInstructionIndexLocationBinaryParent(index uint32, location GTMioShaderBinaryDebugLocation, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryInstructionNode](g.ID, objc.Sel("initWithInstructionIndex:location:binary:parent:"), index, location, binary, parent)
 	return rv
 }

@@ -78,14 +78,14 @@ type IMLWritableWrappedModel interface {
 }
 
 // Init initializes the instance.
-func (w MLWritableWrappedModel) Init() MLWritableWrappedModel {
-	rv := objc.Send[MLWritableWrappedModel](w.ID, objc.Sel("init"))
+func (m MLWritableWrappedModel) Init() MLWritableWrappedModel {
+	rv := objc.Send[MLWritableWrappedModel](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (w MLWritableWrappedModel) Autorelease() MLWritableWrappedModel {
-	rv := objc.Send[MLWritableWrappedModel](w.ID, objc.Sel("autorelease"))
+func (m MLWritableWrappedModel) Autorelease() MLWritableWrappedModel {
+	rv := objc.Send[MLWritableWrappedModel](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -156,9 +156,9 @@ func NewWritableWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInpu
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLWritableWrappedModel/writeToURL:error:
-func (w MLWritableWrappedModel) WriteToURLError(url foundation.INSURL) (bool, error) {
+func (m MLWritableWrappedModel) WriteToURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](w.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)

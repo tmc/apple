@@ -12,7 +12,7 @@ import (
 // The local file URL to where the task downloads the asset.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadTask/destinationURL
-func (a AVAssetDownloadTask) DestinationURL() foundation.INSURL {
+func (a AVAssetDownloadTask) DestinationURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("destinationURL"))
 	return foundation.NSURLFromID(rv)
 }

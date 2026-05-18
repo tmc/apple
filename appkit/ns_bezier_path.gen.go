@@ -404,7 +404,7 @@ func NewNSBezierPath() NSBezierPath {
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSBezierPath/init(cgPath:)
+// See: https://developer.apple.com/documentation/AppKit/NSBezierPath/init(cgPath:)-96cxk
 func NewBezierPathWithCGPath(cgPath coregraphics.CGPathRef) NSBezierPath {
 	rv := objc.Send[objc.ID](objc.ID(getNSBezierPathClass().class), objc.Sel("bezierPathWithCGPath:"), cgPath)
 	return NSBezierPathFromID(rv)

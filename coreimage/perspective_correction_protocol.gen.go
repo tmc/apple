@@ -20,10 +20,6 @@ type CIPerspectiveCorrection interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveCorrection/crop
 	Crop() bool
-
-	// A rectangle that specifies the extent of the corrected image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveCorrection/crop
 	SetCrop(value bool)
 }
 
@@ -42,14 +38,6 @@ func CIPerspectiveCorrectionObjectFromID(id objc.ID) CIPerspectiveCorrectionObje
 	return CIPerspectiveCorrectionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A rectangle that specifies the extent of the corrected image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveCorrection/crop
-func (o CIPerspectiveCorrectionObject) Crop() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("crop"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -96,6 +84,11 @@ func (o CIPerspectiveCorrectionObject) TopRight() corefoundation.CGPoint {
 // A rectangle that specifies the extent of the corrected image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveCorrection/crop
+func (o CIPerspectiveCorrectionObject) Crop() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("crop"))
+	return bool(rv)
+}
+
 func (o CIPerspectiveCorrectionObject) SetCrop(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCrop:"), value)
 }

@@ -15,4 +15,4 @@ type OpaqueAudioQueueRef uintptr
 type URegularExpressionRef uintptr
 
 // See: https://developer.apple.com/documentation/TextToSpeech/pcre2_real_code_8Ref
-type Pcre2_real_code_8Ref uintptr
+type Pcre2RealCode8Ref uintptr

@@ -84,9 +84,9 @@ type ICPXEventDispatcher interface {
 
 	// Topic: Methods
 
-	PostBackgroundEvent(event *SLSEventRecordRef)
-	PostEventToConnectionID(event *SLSEventRecordRef, id uint32)
-	PostEventToDestination(event *SLSEventRecordRef, destination objectivec.IObject)
+	PostBackgroundEvent(event SLSEventRecord)
+	PostEventToConnectionID(event SLSEventRecord, id uint32)
+	PostEventToDestination(event SLSEventRecord, destination objectivec.IObject)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -113,17 +113,17 @@ func NewCPXEventDispatcher() CPXEventDispatcher {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/postBackgroundEvent:
-func (c CPXEventDispatcher) PostBackgroundEvent(event *SLSEventRecordRef) {
+func (c CPXEventDispatcher) PostBackgroundEvent(event SLSEventRecord) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postBackgroundEvent:"), event)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/postEvent:toConnectionID:
-func (c CPXEventDispatcher) PostEventToConnectionID(event *SLSEventRecordRef, id uint32) {
+func (c CPXEventDispatcher) PostEventToConnectionID(event SLSEventRecord, id uint32) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postEvent:toConnectionID:"), event, id)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventDispatcher/postEvent:toDestination:
-func (c CPXEventDispatcher) PostEventToDestination(event *SLSEventRecordRef, destination objectivec.IObject) {
+func (c CPXEventDispatcher) PostEventToDestination(event SLSEventRecord, destination objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("postEvent:toDestination:"), event, destination)
 }
 

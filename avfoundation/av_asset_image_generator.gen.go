@@ -481,6 +481,6 @@ func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTime(ctx context.
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return *new(coregraphics.CGImageRef), ctx.Err()
 	}
 }

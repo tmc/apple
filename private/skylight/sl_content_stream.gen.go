@@ -185,7 +185,7 @@ func (s SLContentStream) CreateStreamWithFilterError(filter objectivec.IObject) 
 	rv := objc.Send[coregraphics.CGDisplayStreamRef](s.ID, objc.Sel("createStreamWithFilter:error:"), filter, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(coregraphics.CGDisplayStreamRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -197,7 +197,7 @@ func (s SLContentStream) CreateStreamWithSessionError(session objectivec.IObject
 	rv := objc.Send[coregraphics.CGDisplayStreamRef](s.ID, objc.Sel("createStreamWithSession:error:"), session, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(coregraphics.CGDisplayStreamRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 

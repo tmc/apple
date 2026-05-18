@@ -38,6 +38,12 @@ func NSTouchBarProviderObjectFromID(id objc.ID) NSTouchBarProviderObject {
 
 // The property you implement to provide a Touch Bar object.
 //
+// # Discussion
+//
+// This property supports key-value observing, which is used by the system,
+// for example, if you replace a running bar. Many subclasses of [NSResponder]
+// implement this property and conform to the [NSTouchBarProvider] protocol.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarProvider/touchBar
 func (o NSTouchBarProviderObject) TouchBar() INSTouchBar {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchBar"))

@@ -188,7 +188,7 @@ type IAVAudioSequencer interface {
 	// Topic: Writing to a MIDI File
 
 	// Creates and writes a MIDI file from the events in the sequence.
-	WriteToURLSMPTEResolutionReplaceExistingError(fileURL foundation.INSURL, resolution int, replace bool) (bool, error)
+	WriteToURLSMPTEResolutionReplaceExistingError(fileURL foundation.NSURL, resolution int, replace bool) (bool, error)
 
 	// Topic: Handling Music Tracks
 
@@ -202,9 +202,9 @@ type IAVAudioSequencer interface {
 	// Topic: Managing Sequence Load Options
 
 	// Parses the data and adds its events to the sequence.
-	LoadFromDataOptionsError(data foundation.INSData, options AVMusicSequenceLoadOptions) (bool, error)
+	LoadFromDataOptionsError(data foundation.NSData, options AVMusicSequenceLoadOptions) (bool, error)
 	// Loads the file the URL references and adds the events to the sequence.
-	LoadFromURLOptionsError(fileURL foundation.INSURL, options AVMusicSequenceLoadOptions) (bool, error)
+	LoadFromURLOptionsError(fileURL foundation.NSURL, options AVMusicSequenceLoadOptions) (bool, error)
 
 	// Topic: Operating an Audio Sequencer
 
@@ -257,7 +257,7 @@ type IAVAudioSequencer interface {
 	// A dictionary that contains metadata from a sequence.
 	UserInfo() foundation.INSDictionary
 	// Gets a data object that contains the events from the sequence.
-	DataWithSMPTEResolutionError(SMPTEResolution int) (foundation.INSData, error)
+	DataWithSMPTEResolutionError(SMPTEResolution int) (foundation.NSData, error)
 }
 
 // Init initializes the instance.
@@ -322,7 +322,7 @@ func (a AVAudioSequencer) InitWithAudioEngine(engine IAVAudioEngine) AVAudioSequ
 // the tempo track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/write(to:smpteResolution:replaceExisting:)
-func (a AVAudioSequencer) WriteToURLSMPTEResolutionReplaceExistingError(fileURL foundation.INSURL, resolution int, replace bool) (bool, error) {
+func (a AVAudioSequencer) WriteToURLSMPTEResolutionReplaceExistingError(fileURL foundation.NSURL, resolution int, replace bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("writeToURL:SMPTEResolution:replaceExisting:error:"), fileURL, resolution, replace, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -381,7 +381,7 @@ func (a AVAudioSequencer) RemoveTrack(track IAVMusicTrack) bool {
 // options: Determines how the contents map to the tracks inside the sequence.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/load(from:options:)-8o58w
-func (a AVAudioSequencer) LoadFromDataOptionsError(data foundation.INSData, options AVMusicSequenceLoadOptions) (bool, error) {
+func (a AVAudioSequencer) LoadFromDataOptionsError(data foundation.NSData, options AVMusicSequenceLoadOptions) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadFromData:options:error:"), data, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -402,7 +402,7 @@ func (a AVAudioSequencer) LoadFromDataOptionsError(data foundation.INSData, opti
 // options: Determines how the contents map to the tracks inside the sequence.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/load(from:options:)-9kb6m
-func (a AVAudioSequencer) LoadFromURLOptionsError(fileURL foundation.INSURL, options AVMusicSequenceLoadOptions) (bool, error) {
+func (a AVAudioSequencer) LoadFromURLOptionsError(fileURL foundation.NSURL, options AVMusicSequenceLoadOptions) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadFromURL:options:error:"), fileURL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -568,7 +568,7 @@ func (a AVAudioSequencer) SetUserCallback(userCallback AVAudioSequencerUserCallb
 // The client controls the lifetime of the data value this method returns.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/data(withSMPTEResolution:error:)
-func (a AVAudioSequencer) DataWithSMPTEResolutionError(SMPTEResolution int) (foundation.INSData, error) {
+func (a AVAudioSequencer) DataWithSMPTEResolutionError(SMPTEResolution int) (foundation.NSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dataWithSMPTEResolution:error:"), SMPTEResolution, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

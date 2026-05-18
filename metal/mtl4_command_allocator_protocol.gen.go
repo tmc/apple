@@ -14,16 +14,6 @@ import (
 type MTL4CommandAllocator interface {
 	objectivec.IObject
 
-	// Returns the GPU device that this command allocator belongs to.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/device
-	Device() MTLDevice
-
-	// Provides the optional label you specify at creation time for debug purposes.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/label
-	Label() string
-
 	// Queries the size of the internal memory heaps of this command allocator that support encoding commands into command buffers.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/allocatedSize()
@@ -33,6 +23,16 @@ type MTL4CommandAllocator interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/reset()
 	Reset()
+
+	// Returns the GPU device that this command allocator belongs to.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/device
+	Device() MTLDevice
+
+	// Provides the optional label you specify at creation time for debug purposes.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/label
+	Label() string
 }
 
 // MTL4CommandAllocatorObject wraps an existing Objective-C object that conforms to the MTL4CommandAllocator protocol.
@@ -50,23 +50,6 @@ func MTL4CommandAllocatorObjectFromID(id objc.ID) MTL4CommandAllocatorObject {
 	return MTL4CommandAllocatorObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Returns the GPU device that this command allocator belongs to.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/device
-func (o MTL4CommandAllocatorObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// Provides the optional label you specify at creation time for debug
-// purposes.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/label
-func (o MTL4CommandAllocatorObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Queries the size of the internal memory heaps of this command allocator
@@ -96,4 +79,21 @@ func (o MTL4CommandAllocatorObject) AllocatedSize() uint64 {
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/reset()
 func (o MTL4CommandAllocatorObject) Reset() {
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
+}
+
+// Returns the GPU device that this command allocator belongs to.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/device
+func (o MTL4CommandAllocatorObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
+// Provides the optional label you specify at creation time for debug
+// purposes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/label
+func (o MTL4CommandAllocatorObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
 }

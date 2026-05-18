@@ -95,14 +95,14 @@ type IMLLazyUnionBatchProvider interface {
 }
 
 // Init initializes the instance.
-func (l MLLazyUnionBatchProvider) Init() MLLazyUnionBatchProvider {
-	rv := objc.Send[MLLazyUnionBatchProvider](l.ID, objc.Sel("init"))
+func (m MLLazyUnionBatchProvider) Init() MLLazyUnionBatchProvider {
+	rv := objc.Send[MLLazyUnionBatchProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (l MLLazyUnionBatchProvider) Autorelease() MLLazyUnionBatchProvider {
-	rv := objc.Send[MLLazyUnionBatchProvider](l.ID, objc.Sel("autorelease"))
+func (m MLLazyUnionBatchProvider) Autorelease() MLLazyUnionBatchProvider {
+	rv := objc.Send[MLLazyUnionBatchProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -126,15 +126,15 @@ func NewLazyUnionBatchProviderWithFeaturesFromAddedToFeaturesFromError(from obje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/featuresAtIndex:
-func (l MLLazyUnionBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("featuresAtIndex:"), index)
+func (m MLLazyUnionBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/initWithFeaturesFrom:addedToFeaturesFrom:error:
-func (l MLLazyUnionBatchProvider) InitWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
+func (m MLLazyUnionBatchProvider) InitWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:error:"), from, from2, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:error:"), from, from2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLLazyUnionBatchProvider{}, foundation.NSErrorFrom(errorPtr)
@@ -144,25 +144,25 @@ func (l MLLazyUnionBatchProvider) InitWithFeaturesFromAddedToFeaturesFromError(f
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/count
-func (l MLLazyUnionBatchProvider) Count() int64 {
-	rv := objc.Send[int64](l.ID, objc.Sel("count"))
+func (m MLLazyUnionBatchProvider) Count() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("count"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/first
-func (l MLLazyUnionBatchProvider) First() objectivec.IObject {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("first"))
+func (m MLLazyUnionBatchProvider) First() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("first"))
 	return objectivec.Object{ID: rv}
 }
-func (l MLLazyUnionBatchProvider) SetFirst(value objectivec.IObject) {
-	objc.Send[struct{}](l.ID, objc.Sel("setFirst:"), value)
+func (m MLLazyUnionBatchProvider) SetFirst(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setFirst:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/second
-func (l MLLazyUnionBatchProvider) Second() objectivec.IObject {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("second"))
+func (m MLLazyUnionBatchProvider) Second() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("second"))
 	return objectivec.Object{ID: rv}
 }
-func (l MLLazyUnionBatchProvider) SetSecond(value objectivec.IObject) {
-	objc.Send[struct{}](l.ID, objc.Sel("setSecond:"), value)
+func (m MLLazyUnionBatchProvider) SetSecond(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setSecond:"), value)
 }

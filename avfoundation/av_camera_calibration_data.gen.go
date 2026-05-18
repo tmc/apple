@@ -119,9 +119,9 @@ type IAVCameraCalibrationData interface {
 	// Topic: Correcting for lens distortion
 
 	// A map of floating-point values describing radial distortions imparted by the camera lens, for use in rectifying camera images.
-	LensDistortionLookupTable() foundation.INSData
+	LensDistortionLookupTable() foundation.NSData
 	// A map of floating-point values describing radial distortions for use in reapplying camera geometry to a rectified image.
-	InverseLensDistortionLookupTable() foundation.INSData
+	InverseLensDistortionLookupTable() foundation.NSData
 	// The offset of the distortion center of the camera lens from the top-left corner of the image.
 	LensDistortionCenter() corefoundation.CGPoint
 }
@@ -231,7 +231,7 @@ func (c AVCameraCalibrationData) PixelSize() float32 {
 // by the camera.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/lensDistortionLookupTable
-func (c AVCameraCalibrationData) LensDistortionLookupTable() foundation.INSData {
+func (c AVCameraCalibrationData) LensDistortionLookupTable() foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("lensDistortionLookupTable"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -248,7 +248,7 @@ func (c AVCameraCalibrationData) LensDistortionLookupTable() foundation.INSData 
 // reconstruction), use this inverse lookup table.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/inverseLensDistortionLookupTable
-func (c AVCameraCalibrationData) InverseLensDistortionLookupTable() foundation.INSData {
+func (c AVCameraCalibrationData) InverseLensDistortionLookupTable() foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("inverseLensDistortionLookupTable"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

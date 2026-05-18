@@ -59,7 +59,7 @@ func (uc URLCacheClass) Alloc() URLCache {
 //
 // Although [NSURLCache] instance methods can safely be called from multiple
 // execution contexts at the same time, be aware that methods like
-// [CachedResponseForRequest] and [StoreCachedResponseForRequest] have an
+// [CachedResponseForRequest] and [StoreCachedResponseForDataTask] have an
 // unavoidable race condition when attempting to read or write responses for
 // the same request.
 //
@@ -80,12 +80,12 @@ func (uc URLCacheClass) Alloc() URLCache {
 //
 // - Storing responses in the cache — Override the task-based
 // [StoreCachedResponseForDataTask], instead of or in addition to the
-// request-based [StoreCachedResponseForRequest]. - Getting responses from the
-// cache — Override [GetCachedResponseForDataTaskCompletionHandler], instead
-// of or in addition to [CachedResponseForRequest]. - Removing cached
+// request-based [StoreCachedResponseForDataTask]. - Getting responses from
+// the cache — Override [GetCachedResponseForDataTaskCompletionHandler],
+// instead of or in addition to [CachedResponseForRequest]. - Removing cached
 // responses — Override the task-based [RemoveCachedResponseForDataTask],
 // instead of or in addition to the request-based
-// [RemoveCachedResponseForRequest].
+// [RemoveCachedResponseForDataTask].
 //
 // # Getting and storing cached objects
 //

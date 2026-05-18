@@ -155,6 +155,8 @@ type INSTitlebarAccessoryViewController interface {
 	SetFullScreenAccessoryView(value INSView)
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Sets the option dictionary that maps event trigger keys to animation objects.
+	Animations() foundation.INSDictionary
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
 	Animator() INSTitlebarAccessoryViewController
 }
@@ -353,6 +355,15 @@ func (t NSTitlebarAccessoryViewController) AnimationValueForProgress(animation I
 	return rv
 }
 
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (t NSTitlebarAccessoryViewController) Animations() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("animations"))
+	return foundation.NSDictionaryFromID(rv)
+}
+
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
@@ -510,18 +521,6 @@ func (t NSTitlebarAccessoryViewController) Hidden() bool {
 }
 func (t NSTitlebarAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
-}
-
-// Sets the option dictionary that maps event trigger keys to animation
-// objects.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
-func (t NSTitlebarAccessoryViewController) Animations() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("animations"))
-	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-func (t NSTitlebarAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAnimations:"), value)
 }
 
 // The toolbar’s full screen accessory view.

@@ -428,10 +428,10 @@ type IProcessInfo interface {
 
 	// A flag to indicate the activity requires the highest amount of timer and I/O precision available.
 	LatencyCritical() NSActivityOptions
-	SetLatencyCritical(value NSActivityOptions)
+	SetNSActivityLatencyCritical(value NSActivityOptions)
 	// A flag to indicate the app is performing a user-requested action.
 	UserInitiated() NSActivityOptions
-	SetUserInitiated(value NSActivityOptions)
+	SetNSActivityUserInitiated(value NSActivityOptions)
 }
 
 // Init initializes the instance.
@@ -958,7 +958,7 @@ func (p ProcessInfo) LatencyCritical() NSActivityOptions {
 	rv := objc.Send[NSActivityOptions](p.ID, objc.Sel("NSActivityLatencyCritical"))
 	return NSActivityOptions(rv)
 }
-func (p ProcessInfo) SetLatencyCritical(value NSActivityOptions) {
+func (p ProcessInfo) SetNSActivityLatencyCritical(value NSActivityOptions) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNSActivityLatencyCritical:"), value)
 }
 
@@ -969,7 +969,7 @@ func (p ProcessInfo) UserInitiated() NSActivityOptions {
 	rv := objc.Send[NSActivityOptions](p.ID, objc.Sel("NSActivityUserInitiated"))
 	return NSActivityOptions(rv)
 }
-func (p ProcessInfo) SetUserInitiated(value NSActivityOptions) {
+func (p ProcessInfo) SetNSActivityUserInitiated(value NSActivityOptions) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNSActivityUserInitiated:"), value)
 }
 

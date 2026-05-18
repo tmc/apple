@@ -86,7 +86,6 @@ func AVFragmentedAssetFromID(id objc.ID) AVFragmentedAsset {
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAsset
 type IAVFragmentedAsset interface {
 	IAVURLAsset
-	AVFragmentMinding
 
 	// A Boolean value that indicates whether you can extend the asset by fragments.
 	CanContainFragments() bool
@@ -116,8 +115,8 @@ func NewAVFragmentedAsset() AVFragmentedAsset {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
-func NewFragmentedAssetWithURL(URL foundation.INSURL) AVFragmentedAsset {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+func NewFragmentedAssetWithURL(URL foundation.NSURL) AVFragmentedAsset {
 	rv := objc.Send[objc.ID](objc.ID(getAVFragmentedAssetClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVFragmentedAssetFromID(rv)
 }
@@ -135,10 +134,10 @@ func NewFragmentedAssetWithURL(URL foundation.INSURL) AVFragmentedAsset {
 //
 // An asset that models the media resource found at [URL].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
+// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)-2x8uu
 //
 // [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
-func NewFragmentedAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVFragmentedAsset {
+func NewFragmentedAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVFragmentedAsset {
 	instance := getAVFragmentedAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return AVFragmentedAssetFromID(rv)
@@ -169,7 +168,7 @@ func (f AVFragmentedAsset) IsAssociatedWithFragmentMinder() bool {
 //
 // [AVURLAssetPreferPreciseDurationAndTimingKey]: https://developer.apple.com/documentation/AVFoundation/AVURLAssetPreferPreciseDurationAndTimingKey
 // [AVURLAssetReferenceRestrictionsKey]: https://developer.apple.com/documentation/AVFoundation/AVURLAssetReferenceRestrictionsKey
-func (_AVFragmentedAssetClass AVFragmentedAssetClass) FragmentedAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVFragmentedAsset {
+func (_AVFragmentedAssetClass AVFragmentedAssetClass) FragmentedAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVFragmentedAsset {
 	rv := objc.Send[objc.ID](objc.ID(_AVFragmentedAssetClass.class), objc.Sel("fragmentedAssetWithURL:options:"), URL, options)
 	return AVFragmentedAssetFromID(rv)
 }
@@ -187,3 +186,17 @@ func (f AVFragmentedAsset) SetCanContainFragments(value bool) {
 }
 
 // Protocol methods for AVFragmentMinding
+
+// A Boolean value that indicates whether an asset that supports fragment
+// minding is currently associated with a fragment minder.
+//
+// # Discussion
+//
+// Only asset objects associated with a fragment minder post change
+// notifications.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
+func (o AVFragmentedAsset) AssociatedWithFragmentMinder() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAssociatedWithFragmentMinder"))
+	return bool(rv)
+}

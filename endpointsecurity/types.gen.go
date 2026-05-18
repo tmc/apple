@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/kernel"
-	"github.com/tmc/apple/objectivec"
 )
 
 // C struct types
@@ -575,7 +574,7 @@ type Es_event_mmap_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_mount_t
 type Es_event_mount_t struct {
-	Statfs      objectivec.IObject // The statistics of the mounted file system.
+	Statfs      unsafe.Pointer // The statistics of the mounted file system.
 	Disposition EsMountDisposition
 	Reserved    uint8 // An unused field reserved for future use.
 
@@ -912,7 +911,7 @@ type Es_event_remote_thread_create_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_remount_t
 type Es_event_remount_t struct {
-	Statfs        objectivec.IObject // The statistics of the remounted file system.
+	Statfs        unsafe.Pointer // The statistics of the remounted file system.
 	Remount_flags uint64
 	Disposition   EsMountDisposition
 	Reserved      uint8 // An unused field reserved for future use.
@@ -1244,8 +1243,8 @@ type Es_event_unlink_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_unmount_t
 type Es_event_unmount_t struct {
-	Statfs   objectivec.IObject // The statistics of the unmounted file system.
-	Reserved uint8              // An unused field reserved for future use.
+	Statfs   unsafe.Pointer // The statistics of the unmounted file system.
+	Reserved uint8          // An unused field reserved for future use.
 
 }
 

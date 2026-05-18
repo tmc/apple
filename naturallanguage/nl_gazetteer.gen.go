@@ -119,9 +119,9 @@ type INLGazetteer interface {
 	// Topic: Creating a Gazetteer
 
 	// Creates a Natural Language gazetteer from a model created with the Create ML framework.
-	InitWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, error)
+	InitWithContentsOfURLError(url foundation.NSURL) (NLGazetteer, error)
 	// Creates a gazetteer from a data instance.
-	InitWithDataError(data foundation.INSData) (NLGazetteer, error)
+	InitWithDataError(data foundation.NSData) (NLGazetteer, error)
 	// Creates a gazetteer from a set of labels for terms represented by a dictionary.
 	InitWithDictionaryLanguageError(dictionary foundation.INSDictionary, language NLLanguage) (NLGazetteer, error)
 
@@ -133,7 +133,7 @@ type INLGazetteer interface {
 	// Topic: Inspecting a Gazetteer
 
 	// The gazetteer represented as a data instance.
-	Data() foundation.INSData
+	Data() foundation.NSData
 	// The language of the gazetteer.
 	Language() NLLanguage
 }
@@ -171,7 +171,7 @@ func NewNLGazetteer() NLGazetteer {
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/init(contentsOf:)
 //
 // [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
-func NewGazetteerWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, error) {
+func NewGazetteerWithContentsOfURLError(url foundation.NSURL) (NLGazetteer, error) {
 	var errorPtr objc.ID
 	instance := getNLGazetteerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -187,7 +187,7 @@ func NewGazetteerWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, err
 // data: A gazetteer contained in a data instance.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/init(data:)
-func NewGazetteerWithDataError(data foundation.INSData) (NLGazetteer, error) {
+func NewGazetteerWithDataError(data foundation.NSData) (NLGazetteer, error) {
 	var errorPtr objc.ID
 	instance := getNLGazetteerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:error:"), data, unsafe.Pointer(&errorPtr))
@@ -231,7 +231,7 @@ func NewGazetteerWithDictionaryLanguageError(dictionary foundation.INSDictionary
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/init(contentsOf:)
 //
 // [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
-func (g NLGazetteer) InitWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, error) {
+func (g NLGazetteer) InitWithContentsOfURLError(url foundation.NSURL) (NLGazetteer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -247,7 +247,7 @@ func (g NLGazetteer) InitWithContentsOfURLError(url foundation.INSURL) (NLGazett
 // data: A gazetteer contained in a data instance.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/init(data:)
-func (g NLGazetteer) InitWithDataError(data foundation.INSData) (NLGazetteer, error) {
+func (g NLGazetteer) InitWithDataError(data foundation.NSData) (NLGazetteer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("initWithData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -301,7 +301,7 @@ func (g NLGazetteer) LabelForString(string_ string) string {
 // url: The location in the file system to which the file should be written.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/write(_:language:to:)
-func (_NLGazetteerClass NLGazetteerClass) WriteGazetteerForDictionaryLanguageToURLError(dictionary foundation.INSDictionary, language NLLanguage, url foundation.INSURL) (bool, error) {
+func (_NLGazetteerClass NLGazetteerClass) WriteGazetteerForDictionaryLanguageToURLError(dictionary foundation.INSDictionary, language NLLanguage, url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_NLGazetteerClass.class), objc.Sel("writeGazetteerForDictionary:language:toURL:error:"), dictionary, objc.String(string(language)), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -329,7 +329,7 @@ func (_NLGazetteerClass NLGazetteerClass) WriteGazetteerForDictionaryLanguageToU
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/gazetteerWithContentsOfURL:error:
 //
 // [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
-func (_NLGazetteerClass NLGazetteerClass) GazetteerWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, error) {
+func (_NLGazetteerClass NLGazetteerClass) GazetteerWithContentsOfURLError(url foundation.NSURL) (NLGazetteer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NLGazetteerClass.class), objc.Sel("gazetteerWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -343,7 +343,7 @@ func (_NLGazetteerClass NLGazetteerClass) GazetteerWithContentsOfURLError(url fo
 // The gazetteer represented as a data instance.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/data
-func (g NLGazetteer) Data() foundation.INSData {
+func (g NLGazetteer) Data() foundation.NSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

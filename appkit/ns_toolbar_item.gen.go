@@ -116,6 +116,8 @@ func (nc NSToolbarItemClass) Alloc() NSToolbarItem {
 //   - [NSToolbarItem.SetNavigational]
 //   - [NSToolbarItem.Enabled]: A Boolean value that indicates whether the item is enabled.
 //   - [NSToolbarItem.SetEnabled]
+//   - [NSToolbarItem.Badge]: A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
+//   - [NSToolbarItem.SetBadge]
 //   - [NSToolbarItem.Style]: Defines the toolbar item’s appearance. The default style is plain. Prominent style tints the background. If a background tint color is set, it uses it; otherwise, it uses the app’s or system’s accent color. If grouped with other items, it moves to its own to avoid tinting other items’ background.
 //   - [NSToolbarItem.SetStyle]
 //   - [NSToolbarItem.VisibilityPriority]: The display priority associated with the toolbar item.
@@ -203,6 +205,8 @@ func NSToolbarItemFromID(id objc.ID) NSToolbarItem {
 //   - [INSToolbarItem.SetNavigational]
 //   - [INSToolbarItem.Enabled]: A Boolean value that indicates whether the item is enabled.
 //   - [INSToolbarItem.SetEnabled]
+//   - [INSToolbarItem.Badge]: A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
+//   - [INSToolbarItem.SetBadge]
 //   - [INSToolbarItem.Style]: Defines the toolbar item’s appearance. The default style is plain. Prominent style tints the background. If a background tint color is set, it uses it; otherwise, it uses the app’s or system’s accent color. If grouped with other items, it moves to its own to avoid tinting other items’ background.
 //   - [INSToolbarItem.SetStyle]
 //   - [INSToolbarItem.VisibilityPriority]: The display priority associated with the toolbar item.
@@ -225,7 +229,6 @@ func NSToolbarItemFromID(id objc.ID) NSToolbarItem {
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem
 type INSToolbarItem interface {
 	objectivec.IObject
-	NSMenuItemValidation
 	NSValidatedUserInterfaceItem
 
 	// Topic: Creating a toolbar item
@@ -294,6 +297,9 @@ type INSToolbarItem interface {
 	// A Boolean value that indicates whether the item is enabled.
 	Enabled() bool
 	SetEnabled(value bool)
+	// A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
+	Badge() INSItemBadge
+	SetBadge(value INSItemBadge)
 	// Defines the toolbar item’s appearance. The default style is plain. Prominent style tints the background. If a background tint color is set, it uses it; otherwise, it uses the app’s or system’s accent color. If grouped with other items, it moves to its own to avoid tinting other items’ background.
 	Style() NSToolbarItemStyle
 	SetStyle(value NSToolbarItemStyle)
@@ -318,10 +324,6 @@ type INSToolbarItem interface {
 
 	// A Boolean value that indicates whether the toolbar item can appear more than once in a toolbar.
 	AllowsDuplicatesInToolbar() bool
-
-	// A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
-	Badge() INSItemBadge
-	SetBadge(value INSItemBadge)
 }
 
 // Init initializes the instance.
@@ -726,6 +728,19 @@ func (t NSToolbarItem) SetEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEnabled:"), value)
 }
 
+// A badge that can be attached to an NSToolbarItem. This provides a way to
+// display small visual indicators that can be used to highlight important
+// information, such as unread notifications or status indicators.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/badge-2b38p
+func (t NSToolbarItem) Badge() INSItemBadge {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("badge"))
+	return NSItemBadgeFromID(objc.ID(rv))
+}
+func (t NSToolbarItem) SetBadge(value INSItemBadge) {
+	objc.Send[struct{}](t.ID, objc.Sel("setBadge:"), value)
+}
+
 // Defines the toolbar item’s appearance. The default style is plain.
 // Prominent style tints the background. If a background tint color is set, it
 // uses it; otherwise, it uses the app’s or system’s accent color. If
@@ -823,19 +838,6 @@ func (t NSToolbarItem) SetAutovalidates(value bool) {
 func (t NSToolbarItem) AllowsDuplicatesInToolbar() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("allowsDuplicatesInToolbar"))
 	return rv
-}
-
-// A badge that can be attached to an NSToolbarItem. This provides a way to
-// display small visual indicators that can be used to highlight important
-// information, such as unread notifications or status indicators.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/badge-2b38p
-func (t NSToolbarItem) Badge() INSItemBadge {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("badge"))
-	return NSItemBadgeFromID(objc.ID(rv))
-}
-func (t NSToolbarItem) SetBadge(value INSItemBadge) {
-	objc.Send[struct{}](t.ID, objc.Sel("setBadge:"), value)
 }
 
 // Protocol methods for NSMenuItemValidation

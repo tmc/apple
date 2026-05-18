@@ -192,8 +192,8 @@ type ICKShareMetadata interface {
 	ShouldFetchRootRecord() bool
 	SetShouldFetchRootRecord(value bool)
 	// The Uniform Resource Locator (URL) for inviting participants to the share.
-	Url() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	Url() foundation.NSURL
+	SetURL(value foundation.NSURL)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -347,10 +347,10 @@ func (c CKShareMetadata) SetShouldFetchRootRecord(value bool) {
 // The Uniform Resource Locator (URL) for inviting participants to the share.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckshare/url
-func (c CKShareMetadata) Url() foundation.INSURL {
+func (c CKShareMetadata) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (c CKShareMetadata) SetURL(value foundation.INSURL) {
+func (c CKShareMetadata) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setURL:"), value)
 }

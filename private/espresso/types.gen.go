@@ -53,65 +53,65 @@ type CGColorSpace struct {
 type CGImage struct {
 }
 
-// _CVBuffer
+// CVBuffer
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/__CVBuffer
-type _CVBuffer struct {
+type CVBuffer struct {
 }
 
-// _IOSurface
+// IOSurface
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/__IOSurface
-type _IOSurface struct {
+type IOSurface struct {
 }
 
-// Convolution_uniforms
+// ConvolutionUniforms
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/convolution_uniforms
-type Convolution_uniforms struct {
+type ConvolutionUniforms struct {
 }
 
-// Float_buffer_t
+// FloatBuffer
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/float_buffer_t
-type Float_buffer_t struct {
+type FloatBuffer struct {
 }
 
-// Inner_product_uniforms
+// InnerProductUniforms
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/inner_product_uniforms
-type Inner_product_uniforms struct {
+type InnerProductUniforms struct {
 }
 
-// MxnetTools_imageHeader_t_
+// MxnetToolsImageHeaderT
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/_mxnetTools_imageHeader_t_
-type MxnetTools_imageHeader_t_ struct {
+type MxnetToolsImageHeaderT struct {
 }
 
-// MxnetTools_imageID_t_
+// MxnetToolsImageIDT
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/_mxnetTools_imageID_t_
-type MxnetTools_imageID_t_ struct {
+type MxnetToolsImageIDT struct {
 }
 
-// MxnetTools_recordHeader_t_
+// MxnetToolsRecordHeaderT
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/_mxnetTools_recordHeader_t_
-type MxnetTools_recordHeader_t_ struct {
+type MxnetToolsRecordHeaderT struct {
 }
 
-// Net_strides_configuration
+// NetStridesConfiguration
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Espresso/net_strides_configuration
-type Net_strides_configuration struct {
+type NetStridesConfiguration struct {
 }

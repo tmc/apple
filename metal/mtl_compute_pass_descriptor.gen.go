@@ -116,6 +116,18 @@ func NewMTLComputePassDescriptor() MTLComputePassDescriptor {
 	return rv
 }
 
+// Creates a default compute pass descriptor.
+//
+// # Return Value
+//
+// A new compute pass descriptor populated with default values.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputePassDescriptor/computePassDescriptor
+func (_MTLComputePassDescriptorClass MTLComputePassDescriptorClass) ComputePassDescriptor() MTLComputePassDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLComputePassDescriptorClass.class), objc.Sel("computePassDescriptor"))
+	return MTLComputePassDescriptorFromID(rv)
+}
+
 // The strategy for dispatching any compute commands encoded in the compute
 // pass.
 //

@@ -100,12 +100,12 @@ type IVZFileSerialPortAttachment interface {
 	// Topic: Creating the attachment point
 
 	// Creates a file-based serial port attachment object.
-	InitWithURLAppendError(url foundation.INSURL, shouldAppend bool) (VZFileSerialPortAttachment, error)
+	InitWithURLAppendError(url foundation.NSURL, shouldAppend bool) (VZFileSerialPortAttachment, error)
 
 	// Topic: Getting the file details
 
 	// The URL of a file on the local file system.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	// A Boolean that indicates whether the virtual machine appends data to the file.
 	Append() bool
 }
@@ -143,8 +143,8 @@ func NewVZFileSerialPortAttachment() VZFileSerialPortAttachment {
 // A file-based serial port attachment on success, or `nil` if initialization
 // failed.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZFileSerialPortAttachment/init(url:append:)
-func NewFileSerialPortAttachmentWithURLAppendError(url foundation.INSURL, shouldAppend bool) (VZFileSerialPortAttachment, error) {
+// See: https://developer.apple.com/documentation/Virtualization/VZFileSerialPortAttachment/init(url:append:)-37g72
+func NewFileSerialPortAttachmentWithURLAppendError(url foundation.NSURL, shouldAppend bool) (VZFileSerialPortAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZFileSerialPortAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:append:error:"), url, shouldAppend, unsafe.Pointer(&errorPtr))
@@ -169,8 +169,8 @@ func NewFileSerialPortAttachmentWithURLAppendError(url foundation.INSURL, should
 // A file-based serial port attachment on success, or `nil` if initialization
 // failed.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZFileSerialPortAttachment/init(url:append:)
-func (f VZFileSerialPortAttachment) InitWithURLAppendError(url foundation.INSURL, shouldAppend bool) (VZFileSerialPortAttachment, error) {
+// See: https://developer.apple.com/documentation/Virtualization/VZFileSerialPortAttachment/init(url:append:)-37g72
+func (f VZFileSerialPortAttachment) InitWithURLAppendError(url foundation.NSURL, shouldAppend bool) (VZFileSerialPortAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("initWithURL:append:error:"), url, shouldAppend, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -184,7 +184,7 @@ func (f VZFileSerialPortAttachment) InitWithURLAppendError(url foundation.INSURL
 // The URL of a file on the local file system.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileSerialPortAttachment/url
-func (f VZFileSerialPortAttachment) URL() foundation.INSURL {
+func (f VZFileSerialPortAttachment) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

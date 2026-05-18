@@ -148,14 +148,14 @@ type IAVSpeechSynthesisProviderVoice interface {
 }
 
 // Init initializes the instance.
-func (s AVSpeechSynthesisProviderVoice) Init() AVSpeechSynthesisProviderVoice {
-	rv := objc.Send[AVSpeechSynthesisProviderVoice](s.ID, objc.Sel("init"))
+func (a AVSpeechSynthesisProviderVoice) Init() AVSpeechSynthesisProviderVoice {
+	rv := objc.Send[AVSpeechSynthesisProviderVoice](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s AVSpeechSynthesisProviderVoice) Autorelease() AVSpeechSynthesisProviderVoice {
-	rv := objc.Send[AVSpeechSynthesisProviderVoice](s.ID, objc.Sel("autorelease"))
+func (a AVSpeechSynthesisProviderVoice) Autorelease() AVSpeechSynthesisProviderVoice {
+	rv := objc.Send[AVSpeechSynthesisProviderVoice](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -174,38 +174,38 @@ func NewSpeechSynthesisProviderVoiceWithCoder(coder objectivec.IObject) AVSpeech
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/fullBundleIdentifier
-func (s AVSpeechSynthesisProviderVoice) FullBundleIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("fullBundleIdentifier"))
+func (a AVSpeechSynthesisProviderVoice) FullBundleIdentifier() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("fullBundleIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/rawTTSIdentifier
-func (s AVSpeechSynthesisProviderVoice) RawTTSIdentifier() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("rawTTSIdentifier"))
+func (a AVSpeechSynthesisProviderVoice) RawTTSIdentifier() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("rawTTSIdentifier"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/supportedCharacterSet
-func (s AVSpeechSynthesisProviderVoice) SupportedCharacterSet() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("supportedCharacterSet"))
+func (a AVSpeechSynthesisProviderVoice) SupportedCharacterSet() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("supportedCharacterSet"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/uniqueAudioDescSpeechSynthTuple
-func (s AVSpeechSynthesisProviderVoice) UniqueAudioDescSpeechSynthTuple() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("uniqueAudioDescSpeechSynthTuple"))
+func (a AVSpeechSynthesisProviderVoice) UniqueAudioDescSpeechSynthTuple() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("uniqueAudioDescSpeechSynthTuple"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/uniqueAudioDescTriple
-func (s AVSpeechSynthesisProviderVoice) UniqueAudioDescTriple() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("uniqueAudioDescTriple"))
+func (a AVSpeechSynthesisProviderVoice) UniqueAudioDescTriple() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("uniqueAudioDescTriple"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/initWithCoder:
-func (s AVSpeechSynthesisProviderVoice) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisProviderVoice {
-	rv := objc.Send[AVSpeechSynthesisProviderVoice](s.ID, objc.Sel("initWithCoder:"), coder)
+func (a AVSpeechSynthesisProviderVoice) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisProviderVoice {
+	rv := objc.Send[AVSpeechSynthesisProviderVoice](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -221,88 +221,88 @@ func (_AVSpeechSynthesisProviderVoiceClass AVSpeechSynthesisProviderVoiceClass) 
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/extraAttributes
-func (s AVSpeechSynthesisProviderVoice) ExtraAttributes() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("extraAttributes"))
+func (a AVSpeechSynthesisProviderVoice) ExtraAttributes() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("extraAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (s AVSpeechSynthesisProviderVoice) SetExtraAttributes(value foundation.INSDictionary) {
-	objc.Send[struct{}](s.ID, objc.Sel("setExtraAttributes:"), value)
+func (a AVSpeechSynthesisProviderVoice) SetExtraAttributes(value foundation.INSDictionary) {
+	objc.Send[struct{}](a.ID, objc.Sel("setExtraAttributes:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/groupName
-func (s AVSpeechSynthesisProviderVoice) GroupName() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("groupName"))
+func (a AVSpeechSynthesisProviderVoice) GroupName() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/identifier
-func (s AVSpeechSynthesisProviderVoice) Identifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("identifier"))
+func (a AVSpeechSynthesisProviderVoice) Identifier() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s AVSpeechSynthesisProviderVoice) SetIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIdentifier:"), objc.String(value))
+func (a AVSpeechSynthesisProviderVoice) SetIdentifier(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/isFirstParty
-func (s AVSpeechSynthesisProviderVoice) IsFirstParty() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isFirstParty"))
+func (a AVSpeechSynthesisProviderVoice) IsFirstParty() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isFirstParty"))
 	return rv
 }
-func (s AVSpeechSynthesisProviderVoice) SetIsFirstParty(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIsFirstParty:"), value)
+func (a AVSpeechSynthesisProviderVoice) SetIsFirstParty(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setIsFirstParty:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/isPersonalVoice
-func (s AVSpeechSynthesisProviderVoice) IsPersonalVoice() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isPersonalVoice"))
+func (a AVSpeechSynthesisProviderVoice) IsPersonalVoice() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("isPersonalVoice"))
 	return rv
 }
-func (s AVSpeechSynthesisProviderVoice) SetIsPersonalVoice(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setIsPersonalVoice:"), value)
+func (a AVSpeechSynthesisProviderVoice) SetIsPersonalVoice(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setIsPersonalVoice:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/manufacturerName
-func (s AVSpeechSynthesisProviderVoice) ManufacturerName() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("manufacturerName"))
+func (a AVSpeechSynthesisProviderVoice) ManufacturerName() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("manufacturerName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s AVSpeechSynthesisProviderVoice) SetManufacturerName(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setManufacturerName:"), objc.String(value))
+func (a AVSpeechSynthesisProviderVoice) SetManufacturerName(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setManufacturerName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/name
-func (s AVSpeechSynthesisProviderVoice) Name() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
+func (a AVSpeechSynthesisProviderVoice) Name() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s AVSpeechSynthesisProviderVoice) SetName(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setName:"), objc.String(value))
+func (a AVSpeechSynthesisProviderVoice) SetName(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/primaryLanguages
-func (s AVSpeechSynthesisProviderVoice) PrimaryLanguages() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("primaryLanguages"))
+func (a AVSpeechSynthesisProviderVoice) PrimaryLanguages() foundation.INSArray {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("primaryLanguages"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (s AVSpeechSynthesisProviderVoice) SetPrimaryLanguages(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setPrimaryLanguages:"), value)
+func (a AVSpeechSynthesisProviderVoice) SetPrimaryLanguages(value foundation.INSArray) {
+	objc.Send[struct{}](a.ID, objc.Sel("setPrimaryLanguages:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/supportedLanguages
-func (s AVSpeechSynthesisProviderVoice) SupportedLanguages() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("supportedLanguages"))
+func (a AVSpeechSynthesisProviderVoice) SupportedLanguages() foundation.INSArray {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("supportedLanguages"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (s AVSpeechSynthesisProviderVoice) SetSupportedLanguages(value foundation.INSArray) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSupportedLanguages:"), value)
+func (a AVSpeechSynthesisProviderVoice) SetSupportedLanguages(value foundation.INSArray) {
+	objc.Send[struct{}](a.ID, objc.Sel("setSupportedLanguages:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/synthesizerBundleIdentifier
-func (s AVSpeechSynthesisProviderVoice) SynthesizerBundleIdentifier() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("synthesizerBundleIdentifier"))
+func (a AVSpeechSynthesisProviderVoice) SynthesizerBundleIdentifier() string {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("synthesizerBundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s AVSpeechSynthesisProviderVoice) SetSynthesizerBundleIdentifier(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSynthesizerBundleIdentifier:"), objc.String(value))
+func (a AVSpeechSynthesisProviderVoice) SetSynthesizerBundleIdentifier(value string) {
+	objc.Send[struct{}](a.ID, objc.Sel("setSynthesizerBundleIdentifier:"), objc.String(value))
 }

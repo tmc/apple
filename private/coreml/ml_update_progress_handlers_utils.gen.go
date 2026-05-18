@@ -63,14 +63,14 @@ type IMLUpdateProgressHandlersUtils interface {
 }
 
 // Init initializes the instance.
-func (u MLUpdateProgressHandlersUtils) Init() MLUpdateProgressHandlersUtils {
-	rv := objc.Send[MLUpdateProgressHandlersUtils](u.ID, objc.Sel("init"))
+func (m MLUpdateProgressHandlersUtils) Init() MLUpdateProgressHandlersUtils {
+	rv := objc.Send[MLUpdateProgressHandlersUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (u MLUpdateProgressHandlersUtils) Autorelease() MLUpdateProgressHandlersUtils {
-	rv := objc.Send[MLUpdateProgressHandlersUtils](u.ID, objc.Sel("autorelease"))
+func (m MLUpdateProgressHandlersUtils) Autorelease() MLUpdateProgressHandlersUtils {
+	rv := objc.Send[MLUpdateProgressHandlersUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

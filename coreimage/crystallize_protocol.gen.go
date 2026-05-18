@@ -19,30 +19,18 @@ type CICrystallize interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/center
 	Center() corefoundation.CGPoint
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/inputImage
-	InputImage() ICIImage
-
-	// The radius, in pixels, of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/radius
-	Radius() float32
-
-	// The center of the effect as x and y coordinates.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/center
 	SetCenter(value corefoundation.CGPoint)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// The radius, in pixels, of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -63,30 +51,6 @@ func CICrystallizeObjectFromID(id objc.ID) CICrystallizeObject {
 	}
 }
 
-// The center of the effect as x and y coordinates.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/center
-func (o CICrystallizeObject) Center() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/inputImage
-func (o CICrystallizeObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The radius, in pixels, of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICrystallize/radius
-func (o CICrystallizeObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -99,6 +63,11 @@ func (o CICrystallizeObject) OutputImage() ICIImage {
 // The center of the effect as x and y coordinates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICrystallize/center
+func (o CICrystallizeObject) Center() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
+	return corefoundation.CGPoint(rv)
+}
+
 func (o CICrystallizeObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
@@ -106,6 +75,11 @@ func (o CICrystallizeObject) SetCenter(value corefoundation.CGPoint) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICrystallize/inputImage
+func (o CICrystallizeObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CICrystallizeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -113,6 +87,11 @@ func (o CICrystallizeObject) SetInputImage(value ICIImage) {
 // The radius, in pixels, of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICrystallize/radius
+func (o CICrystallizeObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CICrystallizeObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

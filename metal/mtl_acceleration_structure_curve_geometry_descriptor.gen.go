@@ -214,6 +214,14 @@ func NewMTLAccelerationStructureCurveGeometryDescriptor() MTLAccelerationStructu
 	return rv
 }
 
+// Creates a curve geometry descriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/descriptor
+func (_MTLAccelerationStructureCurveGeometryDescriptorClass MTLAccelerationStructureCurveGeometryDescriptorClass) Descriptor() MTLAccelerationStructureCurveGeometryDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureCurveGeometryDescriptorClass.class), objc.Sel("descriptor"))
+	return MTLAccelerationStructureCurveGeometryDescriptorFromID(rv)
+}
+
 // A buffer that contains curve control points.
 //
 // # Discussion
@@ -263,11 +271,9 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointCount(va
 //
 // # Discussion
 //
-// The default value is [MTLAttributeFormat.float3].
+// The default value is [MTLAttributeFormatFloat3].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/controlPointFormat
-//
-// [MTLAttributeFormat.float3]: https://developer.apple.com/documentation/Metal/MTLAttributeFormat/float3
 func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointFormat() MTLAttributeFormat {
 	rv := objc.Send[MTLAttributeFormat](a.ID, objc.Sel("controlPointFormat"))
 	return MTLAttributeFormat(rv)
@@ -298,11 +304,9 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointStride(v
 //
 // # Discussion
 //
-// The default value is [MTLCurveBasis.bSpline].
+// The default value is [MTLCurveBasisBSpline].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/curveBasis
-//
-// [MTLCurveBasis.bSpline]: https://developer.apple.com/documentation/Metal/MTLCurveBasis/bSpline
 func (a MTLAccelerationStructureCurveGeometryDescriptor) CurveBasis() MTLCurveBasis {
 	rv := objc.Send[MTLCurveBasis](a.ID, objc.Sel("curveBasis"))
 	return MTLCurveBasis(rv)
@@ -430,11 +434,9 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SetRadiusBufferOffset(v
 //
 // # Discussion
 //
-// The property’s default value is [MTLAttributeFormat.float].
+// The property’s default value is [MTLAttributeFormatFloat].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/radiusFormat
-//
-// [MTLAttributeFormat.float]: https://developer.apple.com/documentation/Metal/MTLAttributeFormat/float
 func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusFormat() MTLAttributeFormat {
 	rv := objc.Send[MTLAttributeFormat](a.ID, objc.Sel("radiusFormat"))
 	return MTLAttributeFormat(rv)

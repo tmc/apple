@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioCompressedBuffer] class.
@@ -61,6 +62,7 @@ func (ac AVAudioCompressedBufferClass) Alloc() AVAudioCompressedBuffer {
 //   - [AVAudioCompressedBuffer.PacketCount]: The number of packets currently in the buffer.
 //   - [AVAudioCompressedBuffer.SetPacketCount]
 //   - [AVAudioCompressedBuffer.PacketDescriptions]: The buffer’s array of packet descriptions.
+//   - [AVAudioCompressedBuffer.PacketDependencies]: The buffer’s array of packet dependencies.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer
 type AVAudioCompressedBuffer struct {
@@ -96,6 +98,7 @@ func AVAudioCompressedBufferFromID(id objc.ID) AVAudioCompressedBuffer {
 //   - [IAVAudioCompressedBuffer.PacketCount]: The number of packets currently in the buffer.
 //   - [IAVAudioCompressedBuffer.SetPacketCount]
 //   - [IAVAudioCompressedBuffer.PacketDescriptions]: The buffer’s array of packet descriptions.
+//   - [IAVAudioCompressedBuffer.PacketDependencies]: The buffer’s array of packet dependencies.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer
 type IAVAudioCompressedBuffer interface {
@@ -125,10 +128,9 @@ type IAVAudioCompressedBuffer interface {
 	PacketCount() AVAudioPacketCount
 	SetPacketCount(value AVAudioPacketCount)
 	// The buffer’s array of packet descriptions.
-	PacketDescriptions() unsafe.Pointer
-
+	PacketDescriptions() objectivec.IObject
 	// The buffer’s array of packet dependencies.
-	PacketDependencies() unsafe.Pointer
+	PacketDependencies() objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -308,9 +310,9 @@ func (a AVAudioCompressedBuffer) SetPacketCount(value AVAudioPacketCount) {
 // The buffer’s array of packet descriptions.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/packetDescriptions
-func (a AVAudioCompressedBuffer) PacketDescriptions() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("packetDescriptions"))
-	return rv
+func (a AVAudioCompressedBuffer) PacketDescriptions() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("packetDescriptions"))
+	return objectivec.Object{ID: rv}
 }
 
 // The buffer’s array of packet dependencies.
@@ -320,7 +322,7 @@ func (a AVAudioCompressedBuffer) PacketDescriptions() unsafe.Pointer {
 // If the audio format doesn’t use packet dependencies, this value is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/packetDependencies-5oae6
-func (a AVAudioCompressedBuffer) PacketDependencies() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("packetDependencies"))
-	return rv
+func (a AVAudioCompressedBuffer) PacketDependencies() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("packetDependencies"))
+	return objectivec.Object{ID: rv}
 }

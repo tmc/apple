@@ -198,14 +198,14 @@ type IMLNeuralNetworkUpdateEngine interface {
 }
 
 // Init initializes the instance.
-func (n MLNeuralNetworkUpdateEngine) Init() MLNeuralNetworkUpdateEngine {
-	rv := objc.Send[MLNeuralNetworkUpdateEngine](n.ID, objc.Sel("init"))
+func (m MLNeuralNetworkUpdateEngine) Init() MLNeuralNetworkUpdateEngine {
+	rv := objc.Send[MLNeuralNetworkUpdateEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNeuralNetworkUpdateEngine) Autorelease() MLNeuralNetworkUpdateEngine {
-	rv := objc.Send[MLNeuralNetworkUpdateEngine](n.ID, objc.Sel("autorelease"))
+func (m MLNeuralNetworkUpdateEngine) Autorelease() MLNeuralNetworkUpdateEngine {
+	rv := objc.Send[MLNeuralNetworkUpdateEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -274,9 +274,9 @@ func NewNeuralNetworkUpdateEngineWithNameInputDescriptionOutputDescriptionOrdere
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/biasForLayer:error:
-func (n MLNeuralNetworkUpdateEngine) BiasForLayerError(layer objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkUpdateEngine) BiasForLayerError(layer objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("biasForLayer:error:"), layer, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("biasForLayer:error:"), layer, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -286,20 +286,20 @@ func (n MLNeuralNetworkUpdateEngine) BiasForLayerError(layer objectivec.IObject)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/cancelUpdate
-func (n MLNeuralNetworkUpdateEngine) CancelUpdate() {
-	objc.Send[objc.ID](n.ID, objc.Sel("cancelUpdate"))
+func (m MLNeuralNetworkUpdateEngine) CancelUpdate() {
+	objc.Send[objc.ID](m.ID, objc.Sel("cancelUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/collectMetricsFromTaskContext:isInCallBack:
-func (n MLNeuralNetworkUpdateEngine) CollectMetricsFromTaskContextIsInCallBack(context objectivec.IObject, back bool) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("collectMetricsFromTaskContext:isInCallBack:"), context, back)
+func (m MLNeuralNetworkUpdateEngine) CollectMetricsFromTaskContextIsInCallBack(context objectivec.IObject, back bool) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("collectMetricsFromTaskContext:isInCallBack:"), context, back)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/createEspressoTaskFrom:updateParameters:lossInputName:lossTargetName:lossOutputName:updatableLayerNames:configuration:error:
-func (n MLNeuralNetworkUpdateEngine) CreateEspressoTaskFromUpdateParametersLossInputNameLossTargetNameLossOutputNameUpdatableLayerNamesConfigurationError(from objectivec.IObject, parameters unsafe.Pointer, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, names objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkUpdateEngine) CreateEspressoTaskFromUpdateParametersLossInputNameLossTargetNameLossOutputNameUpdatableLayerNamesConfigurationError(from objectivec.IObject, parameters unsafe.Pointer, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, names objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("createEspressoTaskFrom:updateParameters:lossInputName:lossTargetName:lossOutputName:updatableLayerNames:configuration:error:"), from, parameters, name, name2, name3, names, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("createEspressoTaskFrom:updateParameters:lossInputName:lossTargetName:lossOutputName:updatableLayerNames:configuration:error:"), from, parameters, name, name2, name3, names, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -309,25 +309,25 @@ func (n MLNeuralNetworkUpdateEngine) CreateEspressoTaskFromUpdateParametersLossI
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/loadLossInputName:updatableLayerNames:fromCompiledArchive:
-func (n MLNeuralNetworkUpdateEngine) LoadLossInputNameUpdatableLayerNamesFromCompiledArchive(name []objectivec.IObject, names []objectivec.IObject, archive unsafe.Pointer) {
-	objc.Send[objc.ID](n.ID, objc.Sel("loadLossInputName:updatableLayerNames:fromCompiledArchive:"), objectivec.IObjectSliceToNSArray(name), objectivec.IObjectSliceToNSArray(names), archive)
+func (m MLNeuralNetworkUpdateEngine) LoadLossInputNameUpdatableLayerNamesFromCompiledArchive(name []objectivec.IObject, names []objectivec.IObject, archive unsafe.Pointer) {
+	objc.Send[objc.ID](m.ID, objc.Sel("loadLossInputName:updatableLayerNames:fromCompiledArchive:"), objectivec.IObjectSliceToNSArray(name), objectivec.IObjectSliceToNSArray(names), archive)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/loadLossTargetName:lossOutputName:fromUpdateParameters:
-func (n MLNeuralNetworkUpdateEngine) LoadLossTargetNameLossOutputNameFromUpdateParameters(name []objectivec.IObject, name2 []objectivec.IObject, parameters unsafe.Pointer) {
-	objc.Send[objc.ID](n.ID, objc.Sel("loadLossTargetName:lossOutputName:fromUpdateParameters:"), objectivec.IObjectSliceToNSArray(name), objectivec.IObjectSliceToNSArray(name2), parameters)
+func (m MLNeuralNetworkUpdateEngine) LoadLossTargetNameLossOutputNameFromUpdateParameters(name []objectivec.IObject, name2 []objectivec.IObject, parameters unsafe.Pointer) {
+	objc.Send[objc.ID](m.ID, objc.Sel("loadLossTargetName:lossOutputName:fromUpdateParameters:"), objectivec.IObjectSliceToNSArray(name), objectivec.IObjectSliceToNSArray(name2), parameters)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/parameterValueForKey:
-func (n MLNeuralNetworkUpdateEngine) ParameterValueForKey(key objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameterValueForKey:"), key)
+func (m MLNeuralNetworkUpdateEngine) ParameterValueForKey(key objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:"), key)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/paramsForLayer:parameterType:error:
-func (n MLNeuralNetworkUpdateEngine) ParamsForLayerParameterTypeError(layer objectivec.IObject, type_ uint64) (objectivec.IObject, error) {
+func (m MLNeuralNetworkUpdateEngine) ParamsForLayerParameterTypeError(layer objectivec.IObject, type_ uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("paramsForLayer:parameterType:error:"), layer, type_, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("paramsForLayer:parameterType:error:"), layer, type_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -337,25 +337,25 @@ func (n MLNeuralNetworkUpdateEngine) ParamsForLayerParameterTypeError(layer obje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/resumeUpdate
-func (n MLNeuralNetworkUpdateEngine) ResumeUpdate() {
-	objc.Send[objc.ID](n.ID, objc.Sel("resumeUpdate"))
+func (m MLNeuralNetworkUpdateEngine) ResumeUpdate() {
+	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdate"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/resumeUpdateWithParameters:
-func (n MLNeuralNetworkUpdateEngine) ResumeUpdateWithParameters(parameters objectivec.IObject) {
-	objc.Send[objc.ID](n.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
+func (m MLNeuralNetworkUpdateEngine) ResumeUpdateWithParameters(parameters objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/setUpdateProgressHandlers:dispatchQueue:
-func (n MLNeuralNetworkUpdateEngine) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
+func (m MLNeuralNetworkUpdateEngine) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
 	_block0, _ := NewErrorBlock(handlers)
-	objc.Send[objc.ID](n.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
+	objc.Send[objc.ID](m.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/setWeightsOrBiasesForLayer:layerType:value:error:
-func (n MLNeuralNetworkUpdateEngine) SetWeightsOrBiasesForLayerLayerTypeValueError(layer objectivec.IObject, type_ uint64, value objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkUpdateEngine) SetWeightsOrBiasesForLayerLayerTypeValueError(layer objectivec.IObject, type_ uint64, value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("setWeightsOrBiasesForLayer:layerType:value:error:"), layer, type_, value, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("setWeightsOrBiasesForLayer:layerType:value:error:"), layer, type_, value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -368,15 +368,15 @@ func (n MLNeuralNetworkUpdateEngine) SetWeightsOrBiasesForLayerLayerTypeValueErr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/stringForDataType:
-func (n MLNeuralNetworkUpdateEngine) StringForDataType(type_ uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("stringForDataType:"), type_)
+func (m MLNeuralNetworkUpdateEngine) StringForDataType(type_ uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringForDataType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/updateLearningRateWithTaskContext:isInCallBack:error:
-func (n MLNeuralNetworkUpdateEngine) UpdateLearningRateWithTaskContextIsInCallBackError(context objectivec.IObject, back bool) (bool, error) {
+func (m MLNeuralNetworkUpdateEngine) UpdateLearningRateWithTaskContextIsInCallBackError(context objectivec.IObject, back bool) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("updateLearningRateWithTaskContext:isInCallBack:error:"), context, back, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("updateLearningRateWithTaskContext:isInCallBack:error:"), context, back, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -389,20 +389,20 @@ func (n MLNeuralNetworkUpdateEngine) UpdateLearningRateWithTaskContextIsInCallBa
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/updateModelWithData:
-func (n MLNeuralNetworkUpdateEngine) UpdateModelWithData(data objectivec.IObject) {
-	objc.Send[objc.ID](n.ID, objc.Sel("updateModelWithData:"), data)
+func (m MLNeuralNetworkUpdateEngine) UpdateModelWithData(data objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("updateModelWithData:"), data)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/updateParameters
-func (n MLNeuralNetworkUpdateEngine) UpdateParameters() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("updateParameters"))
+func (m MLNeuralNetworkUpdateEngine) UpdateParameters() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("updateParameters"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/updateWeightsAndBiasesFromConfigParams:error:
-func (n MLNeuralNetworkUpdateEngine) UpdateWeightsAndBiasesFromConfigParamsError(params objectivec.IObject) (bool, error) {
+func (m MLNeuralNetworkUpdateEngine) UpdateWeightsAndBiasesFromConfigParamsError(params objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("updateWeightsAndBiasesFromConfigParams:error:"), params, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("updateWeightsAndBiasesFromConfigParams:error:"), params, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -415,9 +415,9 @@ func (n MLNeuralNetworkUpdateEngine) UpdateWeightsAndBiasesFromConfigParamsError
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/weightsForLayer:error:
-func (n MLNeuralNetworkUpdateEngine) WeightsForLayerError(layer objectivec.IObject) (objectivec.IObject, error) {
+func (m MLNeuralNetworkUpdateEngine) WeightsForLayerError(layer objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("weightsForLayer:error:"), layer, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("weightsForLayer:error:"), layer, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -427,9 +427,9 @@ func (n MLNeuralNetworkUpdateEngine) WeightsForLayerError(layer objectivec.IObje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/writeToURL:error:
-func (n MLNeuralNetworkUpdateEngine) WriteToURLError(url foundation.INSURL) (bool, error) {
+func (m MLNeuralNetworkUpdateEngine) WriteToURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -442,9 +442,9 @@ func (n MLNeuralNetworkUpdateEngine) WriteToURLError(url foundation.INSURL) (boo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/initWithCompiledArchive:nnContainer:configuration:error:
-func (n MLNeuralNetworkUpdateEngine) InitWithCompiledArchiveNnContainerConfigurationError(archive unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkUpdateEngine, error) {
+func (m MLNeuralNetworkUpdateEngine) InitWithCompiledArchiveNnContainerConfigurationError(archive unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkUpdateEngine, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithCompiledArchive:nnContainer:configuration:error:"), archive, container, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithCompiledArchive:nnContainer:configuration:error:"), archive, container, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLNeuralNetworkUpdateEngine{}, foundation.NSErrorFrom(errorPtr)
@@ -466,97 +466,97 @@ func (_MLNeuralNetworkUpdateEngineClass MLNeuralNetworkUpdateEngineClass) Suppor
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/classLabelToIndexMap
-func (n MLNeuralNetworkUpdateEngine) ClassLabelToIndexMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("classLabelToIndexMap"))
+func (m MLNeuralNetworkUpdateEngine) ClassLabelToIndexMap() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classLabelToIndexMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/continueWithUpdate
-func (n MLNeuralNetworkUpdateEngine) ContinueWithUpdate() bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("continueWithUpdate"))
+func (m MLNeuralNetworkUpdateEngine) ContinueWithUpdate() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("continueWithUpdate"))
 	return rv
 }
-func (n MLNeuralNetworkUpdateEngine) SetContinueWithUpdate(value bool) {
-	objc.Send[struct{}](n.ID, objc.Sel("setContinueWithUpdate:"), value)
+func (m MLNeuralNetworkUpdateEngine) SetContinueWithUpdate(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setContinueWithUpdate:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/coreMLToEspressoParamsMap
-func (n MLNeuralNetworkUpdateEngine) CoreMLToEspressoParamsMap() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("coreMLToEspressoParamsMap"))
+func (m MLNeuralNetworkUpdateEngine) CoreMLToEspressoParamsMap() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("coreMLToEspressoParamsMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkUpdateEngine) SetCoreMLToEspressoParamsMap(value foundation.INSDictionary) {
-	objc.Send[struct{}](n.ID, objc.Sel("setCoreMLToEspressoParamsMap:"), value)
+func (m MLNeuralNetworkUpdateEngine) SetCoreMLToEspressoParamsMap(value foundation.INSDictionary) {
+	objc.Send[struct{}](m.ID, objc.Sel("setCoreMLToEspressoParamsMap:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/lossOutputName
-func (n MLNeuralNetworkUpdateEngine) LossOutputName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("lossOutputName"))
+func (m MLNeuralNetworkUpdateEngine) LossOutputName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("lossOutputName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNeuralNetworkUpdateEngine) SetLossOutputName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setLossOutputName:"), objc.String(value))
+func (m MLNeuralNetworkUpdateEngine) SetLossOutputName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setLossOutputName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/lossTargetName
-func (n MLNeuralNetworkUpdateEngine) LossTargetName() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("lossTargetName"))
+func (m MLNeuralNetworkUpdateEngine) LossTargetName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("lossTargetName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (n MLNeuralNetworkUpdateEngine) SetLossTargetName(value string) {
-	objc.Send[struct{}](n.ID, objc.Sel("setLossTargetName:"), objc.String(value))
+func (m MLNeuralNetworkUpdateEngine) SetLossTargetName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setLossTargetName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/parameterContainer
-func (n MLNeuralNetworkUpdateEngine) ParameterContainer() IMLParameterContainer {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameterContainer"))
+func (m MLNeuralNetworkUpdateEngine) ParameterContainer() IMLParameterContainer {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterContainer"))
 	return MLParameterContainerFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkUpdateEngine) SetParameterContainer(value IMLParameterContainer) {
-	objc.Send[struct{}](n.ID, objc.Sel("setParameterContainer:"), value)
+func (m MLNeuralNetworkUpdateEngine) SetParameterContainer(value IMLParameterContainer) {
+	objc.Send[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/progressHandlers
-func (n MLNeuralNetworkUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("progressHandlers"))
+func (m MLNeuralNetworkUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlers"))
 	return MLUpdateProgressHandlersFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkUpdateEngine) SetProgressHandlers(value IMLUpdateProgressHandlers) {
-	objc.Send[struct{}](n.ID, objc.Sel("setProgressHandlers:"), value)
+func (m MLNeuralNetworkUpdateEngine) SetProgressHandlers(value IMLUpdateProgressHandlers) {
+	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlers:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/progressHandlersDispatchQueue
-func (n MLNeuralNetworkUpdateEngine) ProgressHandlersDispatchQueue() objectivec.Object {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("progressHandlersDispatchQueue"))
+func (m MLNeuralNetworkUpdateEngine) ProgressHandlersDispatchQueue() objectivec.Object {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("progressHandlersDispatchQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkUpdateEngine) SetProgressHandlersDispatchQueue(value objectivec.Object) {
-	objc.Send[struct{}](n.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
+func (m MLNeuralNetworkUpdateEngine) SetProgressHandlersDispatchQueue(value objectivec.Object) {
+	objc.Send[struct{}](m.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/shuffableTrainingData
-func (n MLNeuralNetworkUpdateEngine) ShuffableTrainingData() IMLShufflingBatchProvider {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("shuffableTrainingData"))
+func (m MLNeuralNetworkUpdateEngine) ShuffableTrainingData() IMLShufflingBatchProvider {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("shuffableTrainingData"))
 	return MLShufflingBatchProviderFromID(objc.ID(rv))
 }
-func (n MLNeuralNetworkUpdateEngine) SetShuffableTrainingData(value IMLShufflingBatchProvider) {
-	objc.Send[struct{}](n.ID, objc.Sel("setShuffableTrainingData:"), value)
+func (m MLNeuralNetworkUpdateEngine) SetShuffableTrainingData(value IMLShufflingBatchProvider) {
+	objc.Send[struct{}](m.ID, objc.Sel("setShuffableTrainingData:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/snapshot
-func (n MLNeuralNetworkUpdateEngine) Snapshot() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("snapshot"))
+func (m MLNeuralNetworkUpdateEngine) Snapshot() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("snapshot"))
 	return objectivec.Object{ID: rv}
 }
-func (n MLNeuralNetworkUpdateEngine) SetSnapshot(value objectivec.IObject) {
-	objc.Send[struct{}](n.ID, objc.Sel("setSnapshot:"), value)
+func (m MLNeuralNetworkUpdateEngine) SetSnapshot(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setSnapshot:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateEngine/task
-func (n MLNeuralNetworkUpdateEngine) Task() objectivec.IObject {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("task"))
+func (m MLNeuralNetworkUpdateEngine) Task() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("task"))
 	return objectivec.Object{ID: rv}
 }
-func (n MLNeuralNetworkUpdateEngine) SetTask(value objectivec.IObject) {
-	objc.Send[struct{}](n.ID, objc.Sel("setTask:"), value)
+func (m MLNeuralNetworkUpdateEngine) SetTask(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setTask:"), value)
 }

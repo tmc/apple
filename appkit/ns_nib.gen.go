@@ -141,7 +141,7 @@ type INSNib interface {
 	// Returns an [NSNib] object initialized to the nib file in the specified bundle.
 	InitWithNibNamedBundle(nibName NSNibName, bundle foundation.NSBundle) NSNib
 	// Initializes an instance with nib data and specified bundle for locating resources.
-	InitWithNibDataBundle(nibData foundation.INSData, bundle foundation.NSBundle) NSNib
+	InitWithNibDataBundle(nibData foundation.NSData, bundle foundation.NSBundle) NSNib
 
 	// Topic: Instantiating a Nib
 
@@ -184,7 +184,7 @@ func NewNSNib() NSNib {
 // initialization.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNib/init(nibData:bundle:)
-func NewNibWithNibDataBundle(nibData foundation.INSData, bundle foundation.NSBundle) NSNib {
+func NewNibWithNibDataBundle(nibData foundation.NSData, bundle foundation.NSBundle) NSNib {
 	instance := getNSNibClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibData:bundle:"), nibData, bundle)
 	return NSNibFromID(rv)
@@ -271,7 +271,7 @@ func (n NSNib) InitWithNibNamedBundle(nibName NSNibName, bundle foundation.NSBun
 // initialization.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNib/init(nibData:bundle:)
-func (n NSNib) InitWithNibDataBundle(nibData foundation.INSData, bundle foundation.NSBundle) NSNib {
+func (n NSNib) InitWithNibDataBundle(nibData foundation.NSData, bundle foundation.NSBundle) NSNib {
 	rv := objc.Send[NSNib](n.ID, objc.Sel("initWithNibData:bundle:"), nibData, bundle)
 	return rv
 }

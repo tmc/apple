@@ -4,7 +4,6 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -92,9 +91,9 @@ type IAVAudioBuffer interface {
 	// Topic: Getting the Audio Buffers
 
 	// The buffer’s underlying audio buffer list.
-	AudioBufferList() unsafe.Pointer
+	AudioBufferList() objectivec.IObject
 	// A mutable version of the buffer’s underlying audio buffer list.
-	MutableAudioBufferList() unsafe.Pointer
+	MutableAudioBufferList() objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -139,9 +138,9 @@ func (a AVAudioBuffer) Format() IAVAudioFormat {
 // current [FrameLength].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/audioBufferList
-func (a AVAudioBuffer) AudioBufferList() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("audioBufferList"))
-	return rv
+func (a AVAudioBuffer) AudioBufferList() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioBufferList"))
+	return objectivec.Object{ID: rv}
 }
 
 // A mutable version of the buffer’s underlying audio buffer list.
@@ -160,7 +159,7 @@ func (a AVAudioBuffer) AudioBufferList() unsafe.Pointer {
 //
 // [AudioBufferList]: https://developer.apple.com/documentation/CoreAudioTypes/AudioBufferList
 // [AudioConverterConvertComplexBuffer(_:_:_:_:)]: https://developer.apple.com/documentation/AudioToolbox/AudioConverterConvertComplexBuffer(_:_:_:_:)
-func (a AVAudioBuffer) MutableAudioBufferList() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("mutableAudioBufferList"))
-	return rv
+func (a AVAudioBuffer) MutableAudioBufferList() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("mutableAudioBufferList"))
+	return objectivec.Object{ID: rv}
 }

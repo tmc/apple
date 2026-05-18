@@ -95,12 +95,7 @@ var (
 	DeviceCertificationiPhonePerformanceGaming NSDeviceCertification
 )
 
-var (
-	// ProcessPerformanceProfileSustained is the performance profile for a device representing sustained performance.
-	//
-	// See: https://developer.apple.com/documentation/Metal/NSProcessPerformanceProfile/sustained
-	ProcessPerformanceProfileSustained NSProcessPerformanceProfile
-)
+var ()
 
 func init() {
 	if frameworkHandle == 0 {
@@ -343,8 +338,12 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessPerformanceProfileDefault"); err == nil && ptr != 0 {
+		NSProcessPerformanceProfiles.Default = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessPerformanceProfileSustained"); err == nil && ptr != 0 {
-		ProcessPerformanceProfileSustained = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
+		NSProcessPerformanceProfiles.Sustained = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
 	}
 
 }
@@ -391,4 +390,12 @@ var MTLCommonCounters struct {
 	VertexCycles MTLCommonCounter
 	// VertexInvocations: The common name for the counter that tracks the number of times a render pass calls any vertex shader.
 	VertexInvocations MTLCommonCounter
+}
+
+// NSProcessPerformanceProfiles provides typed accessors for [NSProcessPerformanceProfile] constants.
+var NSProcessPerformanceProfiles struct {
+	// Default: The default performance profile for a device.
+	Default NSProcessPerformanceProfile
+	// Sustained: The performance profile for a device representing sustained performance.
+	Sustained NSProcessPerformanceProfile
 }

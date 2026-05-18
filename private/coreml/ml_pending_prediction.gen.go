@@ -82,14 +82,14 @@ type IMLPendingPrediction interface {
 }
 
 // Init initializes the instance.
-func (p MLPendingPrediction) Init() MLPendingPrediction {
-	rv := objc.Send[MLPendingPrediction](p.ID, objc.Sel("init"))
+func (m MLPendingPrediction) Init() MLPendingPrediction {
+	rv := objc.Send[MLPendingPrediction](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPendingPrediction) Autorelease() MLPendingPrediction {
-	rv := objc.Send[MLPendingPrediction](p.ID, objc.Sel("autorelease"))
+func (m MLPendingPrediction) Autorelease() MLPendingPrediction {
+	rv := objc.Send[MLPendingPrediction](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -101,30 +101,30 @@ func NewMLPendingPrediction() MLPendingPrediction {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPendingPrediction/initWithPredictionRequest:completionHandler:
-func (p MLPendingPrediction) InitWithPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) MLPendingPrediction {
+func (m MLPendingPrediction) InitWithPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) MLPendingPrediction {
 	_block1, _ := NewErrorBlock(handler)
-	rv := objc.Send[MLPendingPrediction](p.ID, objc.Sel("initWithPredictionRequest:completionHandler:"), request, _block1)
+	rv := objc.Send[MLPendingPrediction](m.ID, objc.Sel("initWithPredictionRequest:completionHandler:"), request, _block1)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPendingPrediction/completionHandler
-func (p MLPendingPrediction) CompletionHandler() VoidHandler {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("completionHandler"))
+func (m MLPendingPrediction) CompletionHandler() VoidHandler {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("completionHandler"))
 	_ = rv
 	return nil
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPendingPrediction/predictionRequest
-func (p MLPendingPrediction) PredictionRequest() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("predictionRequest"))
+func (m MLPendingPrediction) PredictionRequest() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionRequest"))
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithPredictionRequest is a synchronous wrapper around [MLPendingPrediction.InitWithPredictionRequestCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p MLPendingPrediction) InitWithPredictionRequest(ctx context.Context, request objectivec.IObject) error {
+func (m MLPendingPrediction) InitWithPredictionRequest(ctx context.Context, request objectivec.IObject) error {
 	done := make(chan error, 1)
-	p.InitWithPredictionRequestCompletionHandler(request, func(err error) {
+	m.InitWithPredictionRequestCompletionHandler(request, func(err error) {
 		done <- err
 	})
 	select {

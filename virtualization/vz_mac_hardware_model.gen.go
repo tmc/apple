@@ -121,12 +121,12 @@ type IVZMacHardwareModel interface {
 	// Topic: Creating the hardware model
 
 	// Creates an instance of the hardware model described by the specified data representation.
-	InitWithDataRepresentation(dataRepresentation foundation.INSData) VZMacHardwareModel
+	InitWithDataRepresentation(dataRepresentation foundation.NSData) VZMacHardwareModel
 
 	// Topic: Configuring the hardware model
 
 	// Returns the opaque data representation of the hardware model.
-	DataRepresentation() foundation.INSData
+	DataRepresentation() foundation.NSData
 	// A Boolean value that indicates whether the host supports this hardware model.
 	Supported() bool
 
@@ -163,7 +163,7 @@ func NewVZMacHardwareModel() VZMacHardwareModel {
 // dataRepresentation: The opaque data representation of the hardware model.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/init(dataRepresentation:)
-func NewMacHardwareModelWithDataRepresentation(dataRepresentation foundation.INSData) VZMacHardwareModel {
+func NewMacHardwareModelWithDataRepresentation(dataRepresentation foundation.NSData) VZMacHardwareModel {
 	instance := getVZMacHardwareModelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataRepresentation:"), dataRepresentation)
 	return VZMacHardwareModelFromID(rv)
@@ -175,7 +175,7 @@ func NewMacHardwareModelWithDataRepresentation(dataRepresentation foundation.INS
 // dataRepresentation: The opaque data representation of the hardware model.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/init(dataRepresentation:)
-func (m VZMacHardwareModel) InitWithDataRepresentation(dataRepresentation foundation.INSData) VZMacHardwareModel {
+func (m VZMacHardwareModel) InitWithDataRepresentation(dataRepresentation foundation.NSData) VZMacHardwareModel {
 	rv := objc.Send[VZMacHardwareModel](m.ID, objc.Sel("initWithDataRepresentation:"), dataRepresentation)
 	return rv
 }
@@ -188,7 +188,7 @@ func (m VZMacHardwareModel) InitWithDataRepresentation(dataRepresentation founda
 // [InitWithDataRepresentation].
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/dataRepresentation
-func (m VZMacHardwareModel) DataRepresentation() foundation.INSData {
+func (m VZMacHardwareModel) DataRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

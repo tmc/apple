@@ -88,6 +88,11 @@ func (o NSUserInterfaceCompressionObject) MinimumSizeWithPrioritizedCompressionO
 
 // The compression options that are currently applied to the view.
 //
+// # Discussion
+//
+// This property includes only those compression options applied to the view
+// that are actively being respected.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompression/activeCompressionOptions
 func (o NSUserInterfaceCompressionObject) ActiveCompressionOptions() INSUserInterfaceCompressionOptions {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("activeCompressionOptions"))

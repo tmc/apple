@@ -10,7 +10,6 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -163,7 +162,7 @@ type ICIRenderDestination interface {
 	// Creates a render destination based on a Core Video pixel buffer.
 	InitWithPixelBuffer(pixelBuffer corevideo.CVImageBufferRef) CIRenderDestination
 	// Creates a render destination based on an [IOSurface] object.
-	InitWithIOSurface(surface iosurface.IOSurface) CIRenderDestination
+	InitWithIOSurface(surface objectivec.IObject) CIRenderDestination
 	// Creates a render destination based on a Metal texture.
 	InitWithMTLTextureCommandBuffer(texture metal.MTLTexture, commandBuffer metal.MTLCommandBuffer) CIRenderDestination
 	// Creates a render destination based on a Metal texture with specified pixel format.
@@ -204,8 +203,8 @@ type ICIRenderDestination interface {
 	// Topic: Instance Properties
 
 	// Tell the next render using this destination to capture a Metal trace.
-	CaptureTraceURL() foundation.INSURL
-	SetCaptureTraceURL(value foundation.INSURL)
+	CaptureTraceURL() foundation.NSURL
+	SetCaptureTraceURL(value foundation.NSURL)
 }
 
 // Init initializes the instance.
@@ -288,7 +287,7 @@ func NewRenderDestinationWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.
 // The destination’s [ColorSpace] property will default to a [CGColorSpace]
 // created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)-9ci8e
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 // [extendedSRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedSRGB
@@ -313,10 +312,10 @@ func NewRenderDestinationWithGLTextureTargetWidthHeight(texture uint32, target u
 // The destination’s [ColorSpace] property will default to a [CGColorSpace]
 // created by querying the [IOSurface] object’s attributes.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)-1hfcq
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
-func NewRenderDestinationWithIOSurface(surface iosurface.IOSurface) CIRenderDestination {
+func NewRenderDestinationWithIOSurface(surface objectivec.IObject) CIRenderDestination {
 	instance := getCIRenderDestinationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurface:"), surface)
 	return CIRenderDestinationFromID(rv)
@@ -343,7 +342,7 @@ func NewRenderDestinationWithIOSurface(surface iosurface.IOSurface) CIRenderDest
 // The destination’s [ColorSpace] property will default to a [CGColorSpace]
 // created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)-2iu5i
 //
 // [MTLTextureType.type2D]: https://developer.apple.com/documentation/Metal/MTLTextureType/type2D
 // [MTLTextureType]: https://developer.apple.com/documentation/Metal/MTLTextureType
@@ -428,10 +427,10 @@ func (r CIRenderDestination) InitWithPixelBuffer(pixelBuffer corevideo.CVImageBu
 // The destination’s [ColorSpace] property will default to a [CGColorSpace]
 // created by querying the [IOSurface] object’s attributes.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)-1hfcq
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
-func (r CIRenderDestination) InitWithIOSurface(surface iosurface.IOSurface) CIRenderDestination {
+func (r CIRenderDestination) InitWithIOSurface(surface objectivec.IObject) CIRenderDestination {
 	rv := objc.Send[CIRenderDestination](r.ID, objc.Sel("initWithIOSurface:"), surface)
 	return rv
 }
@@ -457,7 +456,7 @@ func (r CIRenderDestination) InitWithIOSurface(surface iosurface.IOSurface) CIRe
 // The destination’s [ColorSpace] property will default to a [CGColorSpace]
 // created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)-2iu5i
 //
 // [MTLTextureType.type2D]: https://developer.apple.com/documentation/Metal/MTLTextureType/type2D
 // [MTLTextureType]: https://developer.apple.com/documentation/Metal/MTLTextureType
@@ -547,7 +546,7 @@ func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextu
 // The destination’s [ColorSpace] property will default to a [CGColorSpace]
 // created with [sRGB], [extendedSRGB], or [genericGrayGamma2_2].
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)-9ci8e
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 // [extendedSRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedSRGB
@@ -700,11 +699,11 @@ func (r CIRenderDestination) SetFlipped(value bool) {
 // present. This property is nil by default.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/captureTraceURL
-func (r CIRenderDestination) CaptureTraceURL() foundation.INSURL {
+func (r CIRenderDestination) CaptureTraceURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("captureTraceURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (r CIRenderDestination) SetCaptureTraceURL(value foundation.INSURL) {
+func (r CIRenderDestination) SetCaptureTraceURL(value foundation.NSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCaptureTraceURL:"), value)
 }
 

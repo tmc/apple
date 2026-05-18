@@ -89,7 +89,6 @@ func MLArrayBatchProviderFromID(id objc.ID) MLArrayBatchProvider {
 // See: https://developer.apple.com/documentation/CoreML/MLArrayBatchProvider
 type IMLArrayBatchProvider interface {
 	objectivec.IObject
-	MLBatchProvider
 
 	// Topic: Creating a batch provider
 
@@ -192,6 +191,14 @@ func (a MLArrayBatchProvider) InitWithDictionaryError(dictionary foundation.INSD
 
 }
 
+// The number of feature providers in this batch.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
+func (a MLArrayBatchProvider) Count() int {
+	rv := objc.Send[int](a.ID, objc.Sel("count"))
+	return rv
+}
+
 // Returns the feature provider at the given index.
 //
 // index: The index of the desired feature provider.
@@ -214,14 +221,6 @@ func (a MLArrayBatchProvider) Array() []objectivec.IObject {
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
-}
-
-// The number of feature providers in this batch.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
-func (a MLArrayBatchProvider) Count() int {
-	rv := objc.Send[int](a.ID, objc.Sel("count"))
-	return rv
 }
 
 // Protocol methods for MLBatchProvider

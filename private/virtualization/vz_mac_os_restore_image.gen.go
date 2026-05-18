@@ -80,14 +80,14 @@ type IVZMacOSRestoreImage interface {
 }
 
 // Init initializes the instance.
-func (m VZMacOSRestoreImage) Init() VZMacOSRestoreImage {
-	rv := objc.Send[VZMacOSRestoreImage](m.ID, objc.Sel("init"))
+func (v VZMacOSRestoreImage) Init() VZMacOSRestoreImage {
+	rv := objc.Send[VZMacOSRestoreImage](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacOSRestoreImage) Autorelease() VZMacOSRestoreImage {
-	rv := objc.Send[VZMacOSRestoreImage](m.ID, objc.Sel("autorelease"))
+func (v VZMacOSRestoreImage) Autorelease() VZMacOSRestoreImage {
+	rv := objc.Send[VZMacOSRestoreImage](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -183,35 +183,35 @@ func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) CanLoadFileURLDeviceCl
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_configurations
-func (m VZMacOSRestoreImage) _configurations() foundation.INSArray {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_configurations"))
+func (v VZMacOSRestoreImage) _configurations() foundation.INSArray {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // CanConfigurations reports whether the receiver responds to the private selector _configurations.
-func (m VZMacOSRestoreImage) CanConfigurations() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_configurations"))
+func (v VZMacOSRestoreImage) CanConfigurations() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_configurations"))
 }
 
 // Configurations is an exported wrapper for the private property _configurations.
-func (m VZMacOSRestoreImage) Configurations() (foundation.INSArray, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_configurations")) {
+func (v VZMacOSRestoreImage) Configurations() (foundation.INSArray, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_configurations")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_configurations"}
 	}
-	return m._configurations(), nil
+	return v._configurations(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/supported
-func (m VZMacOSRestoreImage) Supported() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("supported"))
+func (v VZMacOSRestoreImage) Supported() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("supported"))
 	return rv
 }
 
 // _fetchAvailableImages is a synchronous wrapper around [VZMacOSRestoreImage._fetchAvailableImagesWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (mc VZMacOSRestoreImageClass) _fetchAvailableImages(ctx context.Context) error {
+func (vc VZMacOSRestoreImageClass) _fetchAvailableImages(ctx context.Context) error {
 	done := make(chan error, 1)
-	mc._fetchAvailableImagesWithCompletionHandler(func(err error) {
+	vc._fetchAvailableImagesWithCompletionHandler(func(err error) {
 		done <- err
 	})
 	select {
@@ -224,9 +224,9 @@ func (mc VZMacOSRestoreImageClass) _fetchAvailableImages(ctx context.Context) er
 
 // _fetchLatestSupportedWithOptions is a synchronous wrapper around [VZMacOSRestoreImage._fetchLatestSupportedWithOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (mc VZMacOSRestoreImageClass) _fetchLatestSupportedWithOptions(ctx context.Context, options objectivec.IObject) error {
+func (vc VZMacOSRestoreImageClass) _fetchLatestSupportedWithOptions(ctx context.Context, options objectivec.IObject) error {
 	done := make(chan error, 1)
-	mc._fetchLatestSupportedWithOptionsCompletionHandler(options, func(err error) {
+	vc._fetchLatestSupportedWithOptionsCompletionHandler(options, func(err error) {
 		done <- err
 	})
 	select {
@@ -239,9 +239,9 @@ func (mc VZMacOSRestoreImageClass) _fetchLatestSupportedWithOptions(ctx context.
 
 // _loadCatalogWithOptions is a synchronous wrapper around [VZMacOSRestoreImage._loadCatalogWithOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (mc VZMacOSRestoreImageClass) _loadCatalogWithOptions(ctx context.Context, options objectivec.IObject) error {
+func (vc VZMacOSRestoreImageClass) _loadCatalogWithOptions(ctx context.Context, options objectivec.IObject) error {
 	done := make(chan error, 1)
-	mc._loadCatalogWithOptionsCompletionHandler(options, func(err error) {
+	vc._loadCatalogWithOptionsCompletionHandler(options, func(err error) {
 		done <- err
 	})
 	select {
@@ -254,9 +254,9 @@ func (mc VZMacOSRestoreImageClass) _loadCatalogWithOptions(ctx context.Context, 
 
 // _loadFileURLDeviceClassParser is a synchronous wrapper around [VZMacOSRestoreImage._loadFileURLDeviceClassParserCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (mc VZMacOSRestoreImageClass) _loadFileURLDeviceClassParser(ctx context.Context, url foundation.INSURL, parser objectivec.IObject) error {
+func (vc VZMacOSRestoreImageClass) _loadFileURLDeviceClassParser(ctx context.Context, url foundation.INSURL, parser objectivec.IObject) error {
 	done := make(chan error, 1)
-	mc._loadFileURLDeviceClassParserCompletionHandler(url, parser, func(err error) {
+	vc._loadFileURLDeviceClassParserCompletionHandler(url, parser, func(err error) {
 		done <- err
 	})
 	select {

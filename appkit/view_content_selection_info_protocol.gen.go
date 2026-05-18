@@ -14,7 +14,7 @@ import (
 type NSViewContentSelectionInfo interface {
 	objectivec.IObject
 
-	// SelectionAnchorRect protocol.
+	// selectionAnchorRect protocol.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSViewContentSelectionInfo/selectionAnchorRect
 	SelectionAnchorRect() corefoundation.CGRect
@@ -40,5 +40,5 @@ func NSViewContentSelectionInfoObjectFromID(id objc.ID) NSViewContentSelectionIn
 // See: https://developer.apple.com/documentation/AppKit/NSViewContentSelectionInfo/selectionAnchorRect
 func (o NSViewContentSelectionInfoObject) SelectionAnchorRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("selectionAnchorRect"))
-	return rv
+	return corefoundation.CGRect(rv)
 }

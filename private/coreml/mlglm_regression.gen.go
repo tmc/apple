@@ -95,14 +95,14 @@ type IMLGLMRegression interface {
 }
 
 // Init initializes the instance.
-func (g MLGLMRegression) Init() MLGLMRegression {
-	rv := objc.Send[MLGLMRegression](g.ID, objc.Sel("init"))
+func (m MLGLMRegression) Init() MLGLMRegression {
+	rv := objc.Send[MLGLMRegression](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g MLGLMRegression) Autorelease() MLGLMRegression {
-	rv := objc.Send[MLGLMRegression](g.ID, objc.Sel("autorelease"))
+func (m MLGLMRegression) Autorelease() MLGLMRegression {
+	rv := objc.Send[MLGLMRegression](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -138,9 +138,9 @@ func NewGLMRegressionWithSpecificationConfigurationError(specification unsafe.Po
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/regress:options:error:
-func (g MLGLMRegression) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLGLMRegression) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("regress:options:error:"), regress, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("regress:options:error:"), regress, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -150,9 +150,9 @@ func (g MLGLMRegression) RegressOptionsError(regress objectivec.IObject, options
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/initWithLRSpec:configuration:error:
-func (g MLGLMRegression) InitWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
+func (m MLGLMRegression) InitWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("initWithLRSpec:configuration:error:"), lRSpec, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithLRSpec:configuration:error:"), lRSpec, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLGLMRegression{}, foundation.NSErrorFrom(errorPtr)
@@ -162,9 +162,9 @@ func (g MLGLMRegression) InitWithLRSpecConfigurationError(lRSpec unsafe.Pointer,
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/initWithSpecification:configuration:error:
-func (g MLGLMRegression) InitWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
+func (m MLGLMRegression) InitWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLGLMRegression{}, foundation.NSErrorFrom(errorPtr)
@@ -186,25 +186,25 @@ func (_MLGLMRegressionClass MLGLMRegressionClass) LoadModelFromSpecificationConf
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/debugDescription
-func (g MLGLMRegression) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+func (m MLGLMRegression) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/description
-func (g MLGLMRegression) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+func (m MLGLMRegression) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/hash
-func (g MLGLMRegression) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+func (m MLGLMRegression) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/superclass
-func (g MLGLMRegression) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
+func (m MLGLMRegression) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

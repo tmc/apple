@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_remove_reshape_chain] class.
+// The class instance for the [EspressoPassRemoveReshapeChain] class.
 var (
-	_EspressoPass_remove_reshape_chainClass     EspressoPass_remove_reshape_chainClass
-	_EspressoPass_remove_reshape_chainClassOnce sync.Once
+	_EspressoPassRemoveReshapeChainClass     EspressoPassRemoveReshapeChainClass
+	_EspressoPassRemoveReshapeChainClassOnce sync.Once
 )
 
-func getEspressoPass_remove_reshape_chainClass() EspressoPass_remove_reshape_chainClass {
-	_EspressoPass_remove_reshape_chainClassOnce.Do(func() {
-		_EspressoPass_remove_reshape_chainClass = EspressoPass_remove_reshape_chainClass{class: objc.GetClass("EspressoPass_remove_reshape_chain")}
+func getEspressoPassRemoveReshapeChainClass() EspressoPassRemoveReshapeChainClass {
+	_EspressoPassRemoveReshapeChainClassOnce.Do(func() {
+		_EspressoPassRemoveReshapeChainClass = EspressoPassRemoveReshapeChainClass{class: objc.GetClass("EspressoPass_remove_reshape_chain")}
 	})
-	return _EspressoPass_remove_reshape_chainClass
+	return _EspressoPassRemoveReshapeChainClass
 }
 
-// GetEspressoPass_remove_reshape_chainClass returns the class object for EspressoPass_remove_reshape_chain.
-func GetEspressoPass_remove_reshape_chainClass() EspressoPass_remove_reshape_chainClass {
-	return getEspressoPass_remove_reshape_chainClass()
+// GetEspressoPassRemoveReshapeChainClass returns the class object for EspressoPass_remove_reshape_chain.
+func GetEspressoPassRemoveReshapeChainClass() EspressoPassRemoveReshapeChainClass {
+	return getEspressoPassRemoveReshapeChainClass()
 }
 
-type EspressoPass_remove_reshape_chainClass struct {
+type EspressoPassRemoveReshapeChainClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_remove_reshape_chainClass) Class() objc.Class {
+func (ec EspressoPassRemoveReshapeChainClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_remove_reshape_chainClass) Alloc() EspressoPass_remove_reshape_chain {
-	rv := objc.Send[EspressoPass_remove_reshape_chain](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassRemoveReshapeChainClass) Alloc() EspressoPassRemoveReshapeChain {
+	rv := objc.Send[EspressoPassRemoveReshapeChain](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_chain
-type EspressoPass_remove_reshape_chain struct {
+type EspressoPassRemoveReshapeChain struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_remove_reshape_chainFromID constructs a [EspressoPass_remove_reshape_chain] from an objc.ID.
-func EspressoPass_remove_reshape_chainFromID(id objc.ID) EspressoPass_remove_reshape_chain {
-	return EspressoPass_remove_reshape_chain{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassRemoveReshapeChainFromID constructs a [EspressoPassRemoveReshapeChain] from an objc.ID.
+func EspressoPassRemoveReshapeChainFromID(id objc.ID) EspressoPassRemoveReshapeChain {
+	return EspressoPassRemoveReshapeChain{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_remove_reshape_chain implements IEspressoPass_remove_reshape_chain.
-var _ IEspressoPass_remove_reshape_chain = EspressoPass_remove_reshape_chain{}
+// EspressoPass_remove_reshape_chainFromID is an alias for [EspressoPassRemoveReshapeChainFromID] for cross-framework compatibility.
+func EspressoPass_remove_reshape_chainFromID(id objc.ID) EspressoPassRemoveReshapeChain {
+	return EspressoPassRemoveReshapeChainFromID(id)
+}
 
-// An interface definition for the [EspressoPass_remove_reshape_chain] class.
+// Ensure EspressoPassRemoveReshapeChain implements IEspressoPassRemoveReshapeChain.
+var _ IEspressoPassRemoveReshapeChain = EspressoPassRemoveReshapeChain{}
+
+// An interface definition for the [EspressoPassRemoveReshapeChain] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_chain
-type IEspressoPass_remove_reshape_chain interface {
+type IEspressoPassRemoveReshapeChain interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_remove_reshape_chain) Init() EspressoPass_remove_reshape_chain {
-	rv := objc.Send[EspressoPass_remove_reshape_chain](e.ID, objc.Sel("init"))
+func (e EspressoPassRemoveReshapeChain) Init() EspressoPassRemoveReshapeChain {
+	rv := objc.Send[EspressoPassRemoveReshapeChain](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_remove_reshape_chain) Autorelease() EspressoPass_remove_reshape_chain {
-	rv := objc.Send[EspressoPass_remove_reshape_chain](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassRemoveReshapeChain) Autorelease() EspressoPassRemoveReshapeChain {
+	rv := objc.Send[EspressoPassRemoveReshapeChain](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_remove_reshape_chain creates a new EspressoPass_remove_reshape_chain instance.
-func NewEspressoPass_remove_reshape_chain() EspressoPass_remove_reshape_chain {
-	class := getEspressoPass_remove_reshape_chainClass()
-	rv := objc.Send[EspressoPass_remove_reshape_chain](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassRemoveReshapeChain creates a new EspressoPassRemoveReshapeChain instance.
+func NewEspressoPassRemoveReshapeChain() EspressoPassRemoveReshapeChain {
+	class := getEspressoPassRemoveReshapeChainClass()
+	rv := objc.Send[EspressoPassRemoveReshapeChain](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

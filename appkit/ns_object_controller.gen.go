@@ -279,8 +279,8 @@ type INSObjectController interface {
 	// Returns the default fetch request used by the receiver.
 	DefaultFetchRequest() unsafe.Pointer
 	// The receiver’s fetch predicate.
-	FetchPredicate() foundation.INSPredicate
-	SetFetchPredicate(value foundation.INSPredicate)
+	FetchPredicate() foundation.NSPredicate
+	SetFetchPredicate(value foundation.NSPredicate)
 	// The receiver’s managed object context.
 	ManagedObjectContext() unsafe.Pointer
 	SetManagedObjectContext(value unsafe.Pointer)
@@ -689,11 +689,11 @@ func (o NSObjectController) SetUsesLazyFetching(value bool) {
 // override [FetchWithRequestMergeError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/fetchPredicate
-func (o NSObjectController) FetchPredicate() foundation.INSPredicate {
+func (o NSObjectController) FetchPredicate() foundation.NSPredicate {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("fetchPredicate"))
 	return foundation.NSPredicateFromID(objc.ID(rv))
 }
-func (o NSObjectController) SetFetchPredicate(value foundation.INSPredicate) {
+func (o NSObjectController) SetFetchPredicate(value foundation.NSPredicate) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFetchPredicate:"), value)
 }
 

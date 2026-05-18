@@ -4,7 +4,6 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -105,13 +104,13 @@ type ISpeexEndpointer interface {
 
 	// Topic: Methods
 
-	ConfigureWithASBDAndFrameRate(asbd unsafe.Pointer, rate uint32) bool
+	ConfigureWithASBDAndFrameRate(asbd AudioStreamBasicDescription, rate uint32) bool
 	ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool
 	EndWaitTime() float64
 	SetEndWaitTime(value float64)
 	EndpointMode() int
 	SetEndpointMode(value int)
-	GetStatus(status *AudioQueueBufferRef) int
+	GetStatus(status AudioQueueBuffer) int
 	GetStatusCount(status []float32, count uint32) int
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
@@ -144,7 +143,7 @@ func NewSpeexEndpointer() SpeexEndpointer {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/configureWithASBD:andFrameRate:
-func (s SpeexEndpointer) ConfigureWithASBDAndFrameRate(asbd unsafe.Pointer, rate uint32) bool {
+func (s SpeexEndpointer) ConfigureWithASBDAndFrameRate(asbd AudioStreamBasicDescription, rate uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
 	return rv
 }
@@ -156,7 +155,7 @@ func (s SpeexEndpointer) ConfigureWithSampleRateAndFrameRate(rate float64, rate2
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/getStatus:
-func (s SpeexEndpointer) GetStatus(status *AudioQueueBufferRef) int {
+func (s SpeexEndpointer) GetStatus(status AudioQueueBuffer) int {
 	rv := objc.Send[int](s.ID, objc.Sel("getStatus:"), status)
 	return rv
 }

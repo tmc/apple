@@ -162,12 +162,9 @@ func (g GCXboxGamepad) PaddleButton4() IGCControllerButtonInput {
 //
 // The system reserves the Share button for screenshot and video recording
 // gestures. If you want to disable these gestures in your app, set the
-// button’s [PreferredSystemGestureState] to
-// [GCControllerElement.SystemGestureState.disabled].
+// button’s [PreferredSystemGestureState] to [GCSystemGestureStateDisabled].
 //
 // See: https://developer.apple.com/documentation/GameController/GCXboxGamepad/buttonShare
-//
-// [GCControllerElement.SystemGestureState.disabled]: https://developer.apple.com/documentation/GameController/GCControllerElement/SystemGestureState/disabled
 func (g GCXboxGamepad) ButtonShare() IGCControllerButtonInput {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("buttonShare"))
 	return GCControllerButtonInputFromID(objc.ID(rv))

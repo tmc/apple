@@ -88,14 +88,14 @@ type IVZMacHardwareModel interface {
 }
 
 // Init initializes the instance.
-func (m VZMacHardwareModel) Init() VZMacHardwareModel {
-	rv := objc.Send[VZMacHardwareModel](m.ID, objc.Sel("init"))
+func (v VZMacHardwareModel) Init() VZMacHardwareModel {
+	rv := objc.Send[VZMacHardwareModel](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacHardwareModel) Autorelease() VZMacHardwareModel {
-	rv := objc.Send[VZMacHardwareModel](m.ID, objc.Sel("autorelease"))
+func (v VZMacHardwareModel) Autorelease() VZMacHardwareModel {
+	rv := objc.Send[VZMacHardwareModel](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -167,83 +167,83 @@ func (_VZMacHardwareModelClass VZMacHardwareModelClass) CanHardwareModelWithDesc
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_boardID
-func (m VZMacHardwareModel) _boardID() uint32 {
-	rv := objc.Send[uint32](m.ID, objc.Sel("_boardID"))
+func (v VZMacHardwareModel) _boardID() uint32 {
+	rv := objc.Send[uint32](v.ID, objc.Sel("_boardID"))
 	return rv
 }
 
 // CanBoardID reports whether the receiver responds to the private selector _boardID.
-func (m VZMacHardwareModel) CanBoardID() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_boardID"))
+func (v VZMacHardwareModel) CanBoardID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_boardID"))
 }
 
 // BoardID is an exported wrapper for the private property _boardID.
-func (m VZMacHardwareModel) BoardID() (uint32, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_boardID")) {
+func (v VZMacHardwareModel) BoardID() (uint32, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_boardID")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_boardID"}
 	}
-	return m._boardID(), nil
+	return v._boardID(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_isa
-func (m VZMacHardwareModel) _isa() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("_isa"))
+func (v VZMacHardwareModel) _isa() int64 {
+	rv := objc.Send[int64](v.ID, objc.Sel("_isa"))
 	return rv
 }
 
 // CanIsa reports whether the receiver responds to the private selector _isa.
-func (m VZMacHardwareModel) CanIsa() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_isa"))
+func (v VZMacHardwareModel) CanIsa() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_isa"))
 }
 
 // Isa is an exported wrapper for the private property _isa.
-func (m VZMacHardwareModel) Isa() (int64, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_isa")) {
+func (v VZMacHardwareModel) Isa() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_isa")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_isa"}
 	}
-	return m._isa(), nil
+	return v._isa(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_variantID
-func (m VZMacHardwareModel) _variantID() uint32 {
-	rv := objc.Send[uint32](m.ID, objc.Sel("_variantID"))
+func (v VZMacHardwareModel) _variantID() uint32 {
+	rv := objc.Send[uint32](v.ID, objc.Sel("_variantID"))
 	return rv
 }
 
 // CanVariantID reports whether the receiver responds to the private selector _variantID.
-func (m VZMacHardwareModel) CanVariantID() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_variantID"))
+func (v VZMacHardwareModel) CanVariantID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_variantID"))
 }
 
 // VariantID is an exported wrapper for the private property _variantID.
-func (m VZMacHardwareModel) VariantID() (uint32, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_variantID")) {
+func (v VZMacHardwareModel) VariantID() (uint32, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_variantID")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_variantID"}
 	}
-	return m._variantID(), nil
+	return v._variantID(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_variantName
-func (m VZMacHardwareModel) _variantName() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("_variantName"))
+func (v VZMacHardwareModel) _variantName() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_variantName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // CanVariantName reports whether the receiver responds to the private selector _variantName.
-func (m VZMacHardwareModel) CanVariantName() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_variantName"))
+func (v VZMacHardwareModel) CanVariantName() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_variantName"))
 }
 
 // VariantName is an exported wrapper for the private property _variantName.
-func (m VZMacHardwareModel) VariantName() (string, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_variantName")) {
+func (v VZMacHardwareModel) VariantName() (string, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_variantName")) {
 		return "", &objc.UnrecognizedSelectorError{Selector: "_variantName"}
 	}
-	return m._variantName(), nil
+	return v._variantName(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/supported
-func (m VZMacHardwareModel) Supported() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("supported"))
+func (v VZMacHardwareModel) Supported() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("supported"))
 	return rv
 }

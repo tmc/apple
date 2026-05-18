@@ -55,6 +55,11 @@ func (vc VNFaceLandmarkRegion2DClass) Alloc() VNFaceLandmarkRegion2D {
 //
 //   - [VNFaceLandmarkRegion2D.PointsClassification]: An enumeration that describes how to interpret the points the region provides.
 //
+// # Specifying Region Properties
+//
+//   - [VNFaceLandmarkRegion2D.NormalizedPoints]: A buffer in memory containing normalized landmark points.
+//   - [VNFaceLandmarkRegion2D.PrecisionEstimatesPerPoint]: An array of precision estimates for each landmark point.
+//
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion2D
 type VNFaceLandmarkRegion2D struct {
 	VNFaceLandmarkRegion
@@ -76,6 +81,11 @@ func VNFaceLandmarkRegion2DFromID(id objc.ID) VNFaceLandmarkRegion2D {
 //
 //   - [IVNFaceLandmarkRegion2D.PointsClassification]: An enumeration that describes how to interpret the points the region provides.
 //
+// # Specifying Region Properties
+//
+//   - [IVNFaceLandmarkRegion2D.NormalizedPoints]: A buffer in memory containing normalized landmark points.
+//   - [IVNFaceLandmarkRegion2D.PrecisionEstimatesPerPoint]: An array of precision estimates for each landmark point.
+//
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion2D
 type IVNFaceLandmarkRegion2D interface {
 	IVNFaceLandmarkRegion
@@ -85,10 +95,13 @@ type IVNFaceLandmarkRegion2D interface {
 	// An enumeration that describes how to interpret the points the region provides.
 	PointsClassification() VNPointsClassification
 
+	// Topic: Specifying Region Properties
+
 	// A buffer in memory containing normalized landmark points.
 	NormalizedPoints() *corefoundation.CGPoint
 	// An array of precision estimates for each landmark point.
 	PrecisionEstimatesPerPoint() []foundation.NSNumber
+
 	// A buffer in memory containing landmark points in the coordinate space of the specified image size.
 	PointsInImageOfSize(imageSize corefoundation.CGSize) *corefoundation.CGPoint
 }

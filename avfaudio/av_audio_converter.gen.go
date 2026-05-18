@@ -214,7 +214,7 @@ type IAVAudioConverter interface {
 	// Topic: Converting Audio Formats
 
 	// Performs a conversion between audio formats, if the system supports it.
-	ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.INSError, inputBlock AVAudioConverterInputBlock) AVAudioConverterOutputStatus
+	ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.NSError, inputBlock AVAudioConverterInputBlock) AVAudioConverterOutputStatus
 	// Performs a basic conversion between audio formats that doesn’t involve converting codecs or sample rates.
 	ConvertToBufferFromBufferError(outputBuffer IAVAudioPCMBuffer, inputBuffer IAVAudioPCMBuffer) (bool, error)
 
@@ -239,8 +239,8 @@ type IAVAudioConverter interface {
 	// The format of the output audio stream.
 	OutputFormat() IAVAudioFormat
 	// An object that contains metadata for encoders and decoders.
-	MagicCookie() foundation.INSData
-	SetMagicCookie(value foundation.INSData)
+	MagicCookie() foundation.NSData
+	SetMagicCookie(value foundation.NSData)
 	// The maximum size of an output packet, in bytes.
 	MaximumOutputPacketSize() int
 
@@ -369,7 +369,7 @@ func (a AVAudioConverter) InitFromFormatToFormat(fromFormat IAVAudioFormat, toFo
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/convert(to:error:withInputFrom:)
 //
 // [AVAudioConverterOutputStatus]: https://developer.apple.com/documentation/AVFAudio/AVAudioConverterOutputStatus
-func (a AVAudioConverter) ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.INSError, inputBlock AVAudioConverterInputBlock) AVAudioConverterOutputStatus {
+func (a AVAudioConverter) ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.NSError, inputBlock AVAudioConverterInputBlock) AVAudioConverterOutputStatus {
 	_block2 := objc.NewBlock(func(_ objc.Block, arg0 uint32, arg1 *AVAudioConverterInputStatus) objc.ID {
 		return inputBlock(arg0, arg1).ID
 	})
@@ -490,11 +490,11 @@ func (a AVAudioConverter) OutputFormat() IAVAudioFormat {
 // An object that contains metadata for encoders and decoders.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/magicCookie
-func (a AVAudioConverter) MagicCookie() foundation.INSData {
+func (a AVAudioConverter) MagicCookie() foundation.NSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("magicCookie"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (a AVAudioConverter) SetMagicCookie(value foundation.INSData) {
+func (a AVAudioConverter) SetMagicCookie(value foundation.NSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMagicCookie:"), value)
 }
 

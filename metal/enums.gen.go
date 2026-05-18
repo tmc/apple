@@ -94,10 +94,13 @@ func (e MTL4BlendState) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueueError-swift.struct/Code
 type MTL4CommandQueueError int
 
 const (
+	// MTL4CommandQueueErrorAccessRevoked: Indicates that the system revokes GPU access because it’s responsible for too many timeouts or hangs.
 	MTL4CommandQueueErrorAccessRevoked MTL4CommandQueueError = 5
+	// MTL4CommandQueueErrorDeviceRemoved: Indicates the physical removal of the GPU before the command buffer completed.
 	MTL4CommandQueueErrorDeviceRemoved MTL4CommandQueueError = 4
 	// MTL4CommandQueueErrorInternal: Indicates an internal problem in the Metal framework.
 	MTL4CommandQueueErrorInternal MTL4CommandQueueError = 6
@@ -488,11 +491,11 @@ func (e MTLArgumentBuffersTier) String() string {
 type MTLArgumentType uint
 
 const (
-	// MTLArgumentTypeBuffer: The argument is a buffer.
+	// Deprecated.
 	MTLArgumentTypeBuffer MTLArgumentType = 0
-	// MTLArgumentTypeImageblock: The argument is an imageblock.
+	// Deprecated.
 	MTLArgumentTypeImageblock MTLArgumentType = 17
-	// MTLArgumentTypeImageblockData: The argument is imageblock data.
+	// Deprecated.
 	MTLArgumentTypeImageblockData MTLArgumentType = 16
 	// Deprecated.
 	MTLArgumentTypeInstanceAccelerationStructure MTLArgumentType = 26
@@ -541,41 +544,41 @@ func (e MTLArgumentType) String() string {
 type MTLAttributeFormat uint
 
 const (
-	// MTLAttributeFormatChar: One signed 8-bit two’s complement value.
+	// MTLAttributeFormatChar: An 8-bit, signed integer value.
 	MTLAttributeFormatChar MTLAttributeFormat = 46
-	// MTLAttributeFormatChar2: Two signed 8-bit two’s complement values.
+	// MTLAttributeFormatChar2: A two-component vector with 8-bit, signed integer values.
 	MTLAttributeFormatChar2 MTLAttributeFormat = 4
-	// MTLAttributeFormatChar2Normalized: Two signed normalized 8-bit two’s complement values.
+	// MTLAttributeFormatChar2Normalized: A two-component vector with 8-bit, normalized, signed integer values.
 	MTLAttributeFormatChar2Normalized MTLAttributeFormat = 10
-	// MTLAttributeFormatChar3: Three signed 8-bit two’s complement values.
+	// MTLAttributeFormatChar3: A three-component vector with 8-bit, signed integer values.
 	MTLAttributeFormatChar3 MTLAttributeFormat = 5
-	// MTLAttributeFormatChar3Normalized: Three signed normalized 8-bit two’s complement values.
+	// MTLAttributeFormatChar3Normalized: A three-component vector with 8-bit, normalized, signed integer values.
 	MTLAttributeFormatChar3Normalized MTLAttributeFormat = 11
-	// MTLAttributeFormatChar4: Four signed 8-bit two’s complement values.
+	// MTLAttributeFormatChar4: A four-component vector with 8-bit, signed integer values.
 	MTLAttributeFormatChar4 MTLAttributeFormat = 6
-	// MTLAttributeFormatChar4Normalized: Four signed normalized 8-bit two’s complement values.
+	// MTLAttributeFormatChar4Normalized: A four-component vector with 8-bit, normalized, signed integer values.
 	MTLAttributeFormatChar4Normalized MTLAttributeFormat = 12
-	// MTLAttributeFormatCharNormalized: One signed normalized 8-bit two’s complement value.
+	// MTLAttributeFormatCharNormalized: An 8-bit, normalized, signed integer value.
 	MTLAttributeFormatCharNormalized MTLAttributeFormat = 48
-	// MTLAttributeFormatFloat: One single-precision floating-point value.
+	// MTLAttributeFormatFloat: A 32-bit floating-point value.
 	MTLAttributeFormatFloat MTLAttributeFormat = 28
-	// MTLAttributeFormatFloat2: Two single-precision floating-point values.
+	// MTLAttributeFormatFloat2: A two-component vector with 32-bit floating-point values.
 	MTLAttributeFormatFloat2 MTLAttributeFormat = 29
-	// MTLAttributeFormatFloat3: Three single-precision floating-point values.
+	// MTLAttributeFormatFloat3: A three-component vector with 32-bit floating-point values.
 	MTLAttributeFormatFloat3 MTLAttributeFormat = 30
-	// MTLAttributeFormatFloat4: Four single-precision floating-point values.
+	// MTLAttributeFormatFloat4: A four-component vector with 32-bit floating-point values.
 	MTLAttributeFormatFloat4 MTLAttributeFormat = 31
 	// MTLAttributeFormatFloatRG11B10: One packed 32-bit value representing pixel data containing 11-bit float red and green channels, and a 10-bit float blue channel.
 	MTLAttributeFormatFloatRG11B10 MTLAttributeFormat = 54
 	// MTLAttributeFormatFloatRGB9E5: One packed 32-bit value representing pixel data containing 9-bit float red, green, and blue channels, and a 5-bit float shared exponent channel.
 	MTLAttributeFormatFloatRGB9E5 MTLAttributeFormat = 55
-	// MTLAttributeFormatHalf: One half-precision floating-point value.
+	// MTLAttributeFormatHalf: A 16-bit floating-point value.
 	MTLAttributeFormatHalf MTLAttributeFormat = 53
-	// MTLAttributeFormatHalf2: Two half-precision floating-point values.
+	// MTLAttributeFormatHalf2: A two-component vector with 16-bit floating-point values.
 	MTLAttributeFormatHalf2 MTLAttributeFormat = 25
-	// MTLAttributeFormatHalf3: Three half-precision floating-point values.
+	// MTLAttributeFormatHalf3: A three-component vector with 16-bit floating-point values.
 	MTLAttributeFormatHalf3 MTLAttributeFormat = 26
-	// MTLAttributeFormatHalf4: Four half-precision floating-point values.
+	// MTLAttributeFormatHalf4: A four-component vector with 16-bit floating-point values.
 	MTLAttributeFormatHalf4 MTLAttributeFormat = 27
 	// MTLAttributeFormatInt: A 32-bit, signed integer value.
 	MTLAttributeFormatInt MTLAttributeFormat = 32
@@ -828,25 +831,25 @@ func (e MTLBinaryArchiveError) String() string {
 type MTLBindingAccess uint
 
 const (
-	// MTLArgumentAccessReadOnly: The function can only read its argument data.
+	MTLBindingAccessReadOnly  MTLBindingAccess = 0
+	MTLBindingAccessReadWrite MTLBindingAccess = 1
+	MTLBindingAccessWriteOnly MTLBindingAccess = 2
+	// Deprecated.
 	MTLArgumentAccessReadOnly MTLBindingAccess = 0
-	// MTLArgumentAccessReadWrite: The function can either read or write its argument data.
+	// Deprecated.
 	MTLArgumentAccessReadWrite MTLBindingAccess = 1
-	// MTLArgumentAccessWriteOnly: The function can only write its argument data.
+	// Deprecated.
 	MTLArgumentAccessWriteOnly MTLBindingAccess = 2
-	MTLBindingAccessReadOnly   MTLBindingAccess = 0
-	MTLBindingAccessReadWrite  MTLBindingAccess = 1
-	MTLBindingAccessWriteOnly  MTLBindingAccess = 2
 )
 
 func (e MTLBindingAccess) String() string {
 	switch e {
-	case MTLArgumentAccessReadOnly:
-		return "MTLArgumentAccessReadOnly"
-	case MTLArgumentAccessReadWrite:
-		return "MTLArgumentAccessReadWrite"
-	case MTLArgumentAccessWriteOnly:
-		return "MTLArgumentAccessWriteOnly"
+	case MTLBindingAccessReadOnly:
+		return "MTLBindingAccessReadOnly"
+	case MTLBindingAccessReadWrite:
+		return "MTLBindingAccessReadWrite"
+	case MTLBindingAccessWriteOnly:
+		return "MTLBindingAccessWriteOnly"
 	default:
 		return fmt.Sprintf("MTLBindingAccess(%d)", e)
 	}
@@ -1189,8 +1192,6 @@ type MTLCommandBufferError int
 const (
 	// MTLCommandBufferErrorAccessRevoked: An error code that indicates the system has revoked the Metal device’s access because it’s responsible for too many timeouts or hangs.
 	MTLCommandBufferErrorAccessRevoked MTLCommandBufferError = 4
-	// MTLCommandBufferErrorBlacklisted: A former error code that indicates the system has revoked the Metal device’s access because it’s responsible for too many timeouts or hangs.
-	MTLCommandBufferErrorBlacklisted MTLCommandBufferError = 4
 	// MTLCommandBufferErrorDeviceRemoved: An error code that indicates a person physically removed the GPU device before the command buffer finished running.
 	MTLCommandBufferErrorDeviceRemoved MTLCommandBufferError = 11
 	// MTLCommandBufferErrorInternal: An error code that indicates the Metal framework has an internal problem.
@@ -1211,6 +1212,8 @@ const (
 	MTLCommandBufferErrorStackOverflow MTLCommandBufferError = 12
 	// MTLCommandBufferErrorTimeout: An error code that indicates the system interrupted and terminated the command buffer before it finished running.
 	MTLCommandBufferErrorTimeout MTLCommandBufferError = 2
+	// Deprecated.
+	MTLCommandBufferErrorBlacklisted MTLCommandBufferError = 4
 )
 
 func (e MTLCommandBufferError) String() string {
@@ -1968,6 +1971,27 @@ func (e MTLDepthClipMode) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTLDeviceError-swift.struct/Code
+type MTLDeviceError int
+
+const (
+	// MTLDeviceErrorNone: Indicates the absence of any problems.
+	MTLDeviceErrorNone MTLDeviceError = 0
+	// MTLDeviceErrorNotSupported: Indicates the requested feature is not supported by the current device.
+	MTLDeviceErrorNotSupported MTLDeviceError = 1
+)
+
+func (e MTLDeviceError) String() string {
+	switch e {
+	case MTLDeviceErrorNone:
+		return "MTLDeviceErrorNone"
+	case MTLDeviceErrorNotSupported:
+		return "MTLDeviceErrorNotSupported"
+	default:
+		return fmt.Sprintf("MTLDeviceError(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLDeviceLocation
 type MTLDeviceLocation int
 
@@ -2059,40 +2083,6 @@ func (e MTLDynamicLibraryError) String() string {
 type MTLFeatureSet uint
 
 const (
-	// MTLFeatureSet_iOS_GPUFamily1_v1: The GPU family 1, version 1 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily1_v1 MTLFeatureSet = 0
-	// MTLFeatureSet_iOS_GPUFamily1_v2: The GPU family 1, version 2 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily1_v2 MTLFeatureSet = 2
-	// MTLFeatureSet_iOS_GPUFamily1_v3: The GPU family 1, version 3 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily1_v3 MTLFeatureSet = 5
-	// MTLFeatureSet_iOS_GPUFamily1_v4: The GPU family 1, version 4 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily1_v4 MTLFeatureSet = 8
-	// MTLFeatureSet_iOS_GPUFamily1_v5: The GPU family 1, version 5 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily1_v5 MTLFeatureSet = 12
-	// MTLFeatureSet_iOS_GPUFamily2_v1: The GPU family 2, version 1 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily2_v1 MTLFeatureSet = 1
-	// MTLFeatureSet_iOS_GPUFamily2_v2: The GPU family 2, version 2 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily2_v2 MTLFeatureSet = 3
-	// MTLFeatureSet_iOS_GPUFamily2_v3: The GPU family 2, version 3 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily2_v3 MTLFeatureSet = 6
-	// MTLFeatureSet_iOS_GPUFamily2_v4: The GPU family 2, version 4 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily2_v4 MTLFeatureSet = 9
-	// MTLFeatureSet_iOS_GPUFamily2_v5: The GPU family 2, version 5 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily2_v5 MTLFeatureSet = 13
-	// MTLFeatureSet_iOS_GPUFamily3_v1: The GPU family 3, version 1 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily3_v1 MTLFeatureSet = 4
-	// MTLFeatureSet_iOS_GPUFamily3_v2: The GPU family 3, version 2 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily3_v2 MTLFeatureSet = 7
-	// MTLFeatureSet_iOS_GPUFamily3_v3: The GPU family 3, version 3 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily3_v3 MTLFeatureSet = 10
-	// MTLFeatureSet_iOS_GPUFamily3_v4: The GPU family 3, version 4 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily3_v4 MTLFeatureSet = 14
-	// MTLFeatureSet_iOS_GPUFamily4_v1: The GPU family 4, version 1 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily4_v1 MTLFeatureSet = 11
-	// MTLFeatureSet_iOS_GPUFamily4_v2: The GPU family 4, version 2 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily4_v2 MTLFeatureSet = 15
-	// MTLFeatureSet_iOS_GPUFamily5_v1: The GPU family 5, version 1 feature set for iOS.
-	MTLFeatureSet_iOS_GPUFamily5_v1 MTLFeatureSet = 16
 	// Deprecated.
 	MTLFeatureSet_OSX_GPUFamily1_v1 MTLFeatureSet = 10000
 	// Deprecated.
@@ -2101,6 +2091,40 @@ const (
 	MTLFeatureSet_OSX_ReadWriteTextureTier2 MTLFeatureSet = 10002
 	// Deprecated.
 	MTLFeatureSet_TVOS_GPUFamily1_v1 MTLFeatureSet = 30000
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily1_v1 MTLFeatureSet = 0
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily1_v2 MTLFeatureSet = 2
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily1_v3 MTLFeatureSet = 5
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily1_v4 MTLFeatureSet = 8
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily1_v5 MTLFeatureSet = 12
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily2_v1 MTLFeatureSet = 1
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily2_v2 MTLFeatureSet = 3
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily2_v3 MTLFeatureSet = 6
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily2_v4 MTLFeatureSet = 9
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily2_v5 MTLFeatureSet = 13
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily3_v1 MTLFeatureSet = 4
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily3_v2 MTLFeatureSet = 7
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily3_v3 MTLFeatureSet = 10
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily3_v4 MTLFeatureSet = 14
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily4_v1 MTLFeatureSet = 11
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily4_v2 MTLFeatureSet = 15
+	// Deprecated.
+	MTLFeatureSet_iOS_GPUFamily5_v1 MTLFeatureSet = 16
 	// Deprecated.
 	MTLFeatureSet_macOS_GPUFamily1_v1 MTLFeatureSet = 10000
 	// Deprecated.
@@ -2129,6 +2153,14 @@ const (
 
 func (e MTLFeatureSet) String() string {
 	switch e {
+	case MTLFeatureSet_OSX_GPUFamily1_v1:
+		return "MTLFeatureSet_OSX_GPUFamily1_v1"
+	case MTLFeatureSet_OSX_GPUFamily1_v2:
+		return "MTLFeatureSet_OSX_GPUFamily1_v2"
+	case MTLFeatureSet_OSX_ReadWriteTextureTier2:
+		return "MTLFeatureSet_OSX_ReadWriteTextureTier2"
+	case MTLFeatureSet_TVOS_GPUFamily1_v1:
+		return "MTLFeatureSet_TVOS_GPUFamily1_v1"
 	case MTLFeatureSet_iOS_GPUFamily1_v1:
 		return "MTLFeatureSet_iOS_GPUFamily1_v1"
 	case MTLFeatureSet_iOS_GPUFamily1_v2:
@@ -2163,14 +2195,6 @@ func (e MTLFeatureSet) String() string {
 		return "MTLFeatureSet_iOS_GPUFamily4_v2"
 	case MTLFeatureSet_iOS_GPUFamily5_v1:
 		return "MTLFeatureSet_iOS_GPUFamily5_v1"
-	case MTLFeatureSet_OSX_GPUFamily1_v1:
-		return "MTLFeatureSet_OSX_GPUFamily1_v1"
-	case MTLFeatureSet_OSX_GPUFamily1_v2:
-		return "MTLFeatureSet_OSX_GPUFamily1_v2"
-	case MTLFeatureSet_OSX_ReadWriteTextureTier2:
-		return "MTLFeatureSet_OSX_ReadWriteTextureTier2"
-	case MTLFeatureSet_TVOS_GPUFamily1_v1:
-		return "MTLFeatureSet_TVOS_GPUFamily1_v1"
 	case MTLFeatureSet_macOS_GPUFamily1_v3:
 		return "MTLFeatureSet_macOS_GPUFamily1_v3"
 	case MTLFeatureSet_macOS_GPUFamily1_v4:
@@ -2734,12 +2758,17 @@ func (e MTLLanguageVersion) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTLLibraryError-swift.struct/Code
 type MTLLibraryError int
 
 const (
-	MTLLibraryErrorCompileFailure   MTLLibraryError = 3
-	MTLLibraryErrorCompileWarning   MTLLibraryError = 4
-	MTLLibraryErrorFileNotFound     MTLLibraryError = 6
+	// MTLLibraryErrorCompileFailure: The library or function failed to compile.
+	MTLLibraryErrorCompileFailure MTLLibraryError = 3
+	// MTLLibraryErrorCompileWarning: The library or function compiled successfully but generated warnings.
+	MTLLibraryErrorCompileWarning MTLLibraryError = 4
+	// MTLLibraryErrorFileNotFound: Metal couldn’t find the Metal source file.
+	MTLLibraryErrorFileNotFound MTLLibraryError = 6
+	// MTLLibraryErrorFunctionNotFound: Metal couldn’t find the specified Metal function.
 	MTLLibraryErrorFunctionNotFound MTLLibraryError = 5
 	// MTLLibraryErrorInternal: The action caused an internal error.
 	MTLLibraryErrorInternal MTLLibraryError = 2
@@ -3838,8 +3867,6 @@ const (
 	MTLResourceHazardTrackingModeTracked MTLResourceOptions = 2
 	// MTLResourceHazardTrackingModeUntracked: A resource option that instructs Metal to ignore memory hazards for a resource at runtime.
 	MTLResourceHazardTrackingModeUntracked MTLResourceOptions = 1
-	// MTLResourceOptionCPUCacheModeDefault: This constant was deprecated in iOS 9.0 and macOS 10.11.
-	MTLResourceOptionCPUCacheModeDefault MTLResourceOptions = 0
 	// MTLResourceStorageModeManaged: The CPU and GPU may maintain separate copies of the resource, and any changes need to be explicitly synchronized.
 	MTLResourceStorageModeManaged MTLResourceOptions = 1
 	// MTLResourceStorageModeMemoryless: The resource’s contents are only available to the GPU, and only exist temporarily during a render pass.
@@ -3848,6 +3875,8 @@ const (
 	MTLResourceStorageModePrivate MTLResourceOptions = 2
 	// MTLResourceStorageModeShared: The CPU and GPU share access to the resource, allocated in system memory.
 	MTLResourceStorageModeShared MTLResourceOptions = 0
+	// Deprecated.
+	MTLResourceOptionCPUCacheModeDefault MTLResourceOptions = 0
 	// Deprecated.
 	MTLResourceOptionCPUCacheModeWriteCombined MTLResourceOptions = 1
 )
@@ -3896,11 +3925,11 @@ func (e MTLResourceUsage) String() string {
 type MTLSamplerAddressMode uint
 
 const (
-	// MTLSamplerAddressModeClampToBorderColor: Out-of-range texture coordinates return the value specified by the  property.
+	// MTLSamplerAddressModeClampToBorderColor: Out-of-range texture coordinates return the value specified by the borderColor property.
 	MTLSamplerAddressModeClampToBorderColor MTLSamplerAddressMode = 5
-	// MTLSamplerAddressModeClampToEdge: Texture coordinates are clamped between  and , inclusive.
+	// MTLSamplerAddressModeClampToEdge: Texture coordinates are clamped between `0.0` and `1.0`, inclusive.
 	MTLSamplerAddressModeClampToEdge MTLSamplerAddressMode = 0
-	// MTLSamplerAddressModeClampToZero: Out-of-range texture coordinates return transparent zero  for images with an alpha channel and return opaque zero  for images without an alpha channel.
+	// MTLSamplerAddressModeClampToZero: Out-of-range texture coordinates return transparent zero `(0,0,0,0)` for images with an alpha channel and return opaque zero `(0,0,0,1)` for images without an alpha channel.
 	MTLSamplerAddressModeClampToZero MTLSamplerAddressMode = 4
 	// MTLSamplerAddressModeMirrorClampToEdge: Between `-1.0` and `1.0`, the texture coordinates are mirrored across the axis; outside `-1.0` and `1.0`, texture coordinates are clamped.
 	MTLSamplerAddressModeMirrorClampToEdge MTLSamplerAddressMode = 1
@@ -4427,6 +4456,7 @@ func (e MTLTensorDataType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTLTensorError-swift.struct/Code
 type MTLTensorError int
 
 const (
@@ -4788,39 +4818,41 @@ func (e MTLTriangleFillMode) String() string {
 type MTLVertexFormat uint
 
 const (
-	// MTLVertexFormatChar: One signed 8-bit two’s complement value.
+	// MTLVertexFormatChar: An 8-bit, signed integer value.
 	MTLVertexFormatChar MTLVertexFormat = 46
-	// MTLVertexFormatChar2: Two signed 8-bit two’s complement values.
+	// MTLVertexFormatChar2: A two-component vector with 8-bit, signed integer values.
 	MTLVertexFormatChar2 MTLVertexFormat = 4
-	// MTLVertexFormatChar2Normalized: Two signed normalized 8-bit two’s complement values.
+	// MTLVertexFormatChar2Normalized: A two-component vector with 8-bit, normalized, signed integer values.
 	MTLVertexFormatChar2Normalized MTLVertexFormat = 10
-	// MTLVertexFormatChar3: Three signed 8-bit two’s complement values.
+	// MTLVertexFormatChar3: A three-component vector with 8-bit, signed integer values.
 	MTLVertexFormatChar3 MTLVertexFormat = 5
-	// MTLVertexFormatChar3Normalized: Three signed normalized 8-bit two’s complement values.
+	// MTLVertexFormatChar3Normalized: A three-component vector with 8-bit, normalized, signed integer values.
 	MTLVertexFormatChar3Normalized MTLVertexFormat = 11
-	// MTLVertexFormatChar4: Four signed 8-bit two’s complement values.
+	// MTLVertexFormatChar4: A four-component vector with 8-bit, signed integer values.
 	MTLVertexFormatChar4 MTLVertexFormat = 6
-	// MTLVertexFormatChar4Normalized: Four signed normalized 8-bit two’s complement values.
+	// MTLVertexFormatChar4Normalized: A four-component vector with 8-bit, normalized, signed integer values.
 	MTLVertexFormatChar4Normalized MTLVertexFormat = 12
-	// MTLVertexFormatCharNormalized: One signed normalized 8-bit two’s complement value.
+	// MTLVertexFormatCharNormalized: An 8-bit, normalized, signed integer value.
 	MTLVertexFormatCharNormalized MTLVertexFormat = 48
-	// MTLVertexFormatFloat: One single-precision floating-point value.
+	// MTLVertexFormatFloat: A 32-bit floating-point value.
 	MTLVertexFormatFloat MTLVertexFormat = 28
-	// MTLVertexFormatFloat2: Two single-precision floating-point values.
+	// MTLVertexFormatFloat2: A two-component vector with 32-bit floating-point values.
 	MTLVertexFormatFloat2 MTLVertexFormat = 29
-	// MTLVertexFormatFloat3: Three single-precision floating-point values.
+	// MTLVertexFormatFloat3: A three-component vector with 32-bit floating-point values.
 	MTLVertexFormatFloat3 MTLVertexFormat = 30
-	// MTLVertexFormatFloat4: Four single-precision floating-point values.
-	MTLVertexFormatFloat4       MTLVertexFormat = 31
+	// MTLVertexFormatFloat4: A four-component vector with 32-bit floating-point values.
+	MTLVertexFormatFloat4 MTLVertexFormat = 31
+	// MTLVertexFormatFloatRG11B10: A three-component vector with 11-bit floating-point values for red and green, and a 10-bit value for blue.
 	MTLVertexFormatFloatRG11B10 MTLVertexFormat = 54
-	MTLVertexFormatFloatRGB9E5  MTLVertexFormat = 55
-	// MTLVertexFormatHalf: One half-precision floating-point value.
+	// MTLVertexFormatFloatRGB9E5: A three-component vector with 9-bit floating-point values for red, green, and blue, and a 5-bit shared exponent.
+	MTLVertexFormatFloatRGB9E5 MTLVertexFormat = 55
+	// MTLVertexFormatHalf: A 16-bit floating-point value.
 	MTLVertexFormatHalf MTLVertexFormat = 53
-	// MTLVertexFormatHalf2: Two half-precision floating-point values.
+	// MTLVertexFormatHalf2: A two-component vector with 16-bit floating-point values.
 	MTLVertexFormatHalf2 MTLVertexFormat = 25
-	// MTLVertexFormatHalf3: Three half-precision floating-point values.
+	// MTLVertexFormatHalf3: A three-component vector with 16-bit floating-point values.
 	MTLVertexFormatHalf3 MTLVertexFormat = 26
-	// MTLVertexFormatHalf4: Four half-precision floating-point values.
+	// MTLVertexFormatHalf4: A four-component vector with 16-bit floating-point values.
 	MTLVertexFormatHalf4 MTLVertexFormat = 27
 	// MTLVertexFormatInt: A 32-bit, signed integer value.
 	MTLVertexFormatInt MTLVertexFormat = 32

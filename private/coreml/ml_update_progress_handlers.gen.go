@@ -103,14 +103,14 @@ type IMLUpdateProgressHandlers interface {
 }
 
 // Init initializes the instance.
-func (u MLUpdateProgressHandlers) Init() MLUpdateProgressHandlers {
-	rv := objc.Send[MLUpdateProgressHandlers](u.ID, objc.Sel("init"))
+func (m MLUpdateProgressHandlers) Init() MLUpdateProgressHandlers {
+	rv := objc.Send[MLUpdateProgressHandlers](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (u MLUpdateProgressHandlers) Autorelease() MLUpdateProgressHandlers {
-	rv := objc.Send[MLUpdateProgressHandlers](u.ID, objc.Sel("autorelease"))
+func (m MLUpdateProgressHandlers) Autorelease() MLUpdateProgressHandlers {
+	rv := objc.Send[MLUpdateProgressHandlers](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -122,76 +122,76 @@ func NewMLUpdateProgressHandlers() MLUpdateProgressHandlers {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:
-func (u MLUpdateProgressHandlers) _dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event int64, metrics objectivec.IObject, parameters objectivec.IObject, error_ objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"), event, metrics, parameters, error_, queue)
+func (m MLUpdateProgressHandlers) _dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event int64, metrics objectivec.IObject, parameters objectivec.IObject, error_ objectivec.IObject, queue objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"), event, metrics, parameters, error_, queue)
 }
 
 // DispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue is an exported wrapper for the private method _dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue.
-func (u MLUpdateProgressHandlers) DispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event int64, metrics objectivec.IObject, parameters objectivec.IObject, error_ objectivec.IObject, queue objectivec.IObject) error {
-	if !objc.RespondsToSelector(u.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:")) {
+func (m MLUpdateProgressHandlers) DispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event int64, metrics objectivec.IObject, parameters objectivec.IObject, error_ objectivec.IObject, queue objectivec.IObject) error {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"}
 		return err
 	}
-	u._dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event, metrics, parameters, error_, queue)
+	m._dispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue(event, metrics, parameters, error_, queue)
 	return nil
 }
 
 // CanDispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue reports whether the receiver responds to the private selector _dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:.
-func (u MLUpdateProgressHandlers) CanDispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue() bool {
-	return objc.RespondsToSelector(u.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"))
+func (m MLUpdateProgressHandlers) CanDispatchUpdateProgressHandlerForEventMetricsParametersErrorOnQueue() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_dispatchUpdateProgressHandlerForEvent:metrics:parameters:error:onQueue:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/dispatchEpochEndProgressHandlerWithMetrics:parameters:onQueue:
-func (u MLUpdateProgressHandlers) DispatchEpochEndProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("dispatchEpochEndProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
+func (m MLUpdateProgressHandlers) DispatchEpochEndProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("dispatchEpochEndProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/dispatchMiniBatchEndProgressHandlerWithMetrics:parameters:onQueue:
-func (u MLUpdateProgressHandlers) DispatchMiniBatchEndProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("dispatchMiniBatchEndProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
+func (m MLUpdateProgressHandlers) DispatchMiniBatchEndProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("dispatchMiniBatchEndProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/dispatchTrainingBeginProgressHandlerWithMetrics:parameters:onQueue:
-func (u MLUpdateProgressHandlers) DispatchTrainingBeginProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("dispatchTrainingBeginProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
+func (m MLUpdateProgressHandlers) DispatchTrainingBeginProgressHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("dispatchTrainingBeginProgressHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/dispatchTrainingCompletionHandlerWithError:onQueue:
-func (u MLUpdateProgressHandlers) DispatchTrainingCompletionHandlerWithErrorOnQueue(error_ objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("dispatchTrainingCompletionHandlerWithError:onQueue:"), error_, queue)
+func (m MLUpdateProgressHandlers) DispatchTrainingCompletionHandlerWithErrorOnQueue(error_ objectivec.IObject, queue objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("dispatchTrainingCompletionHandlerWithError:onQueue:"), error_, queue)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/dispatchTrainingCompletionHandlerWithMetrics:parameters:onQueue:
-func (u MLUpdateProgressHandlers) DispatchTrainingCompletionHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
-	objc.Send[objc.ID](u.ID, objc.Sel("dispatchTrainingCompletionHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
+func (m MLUpdateProgressHandlers) DispatchTrainingCompletionHandlerWithMetricsParametersOnQueue(metrics objectivec.IObject, parameters objectivec.IObject, queue objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("dispatchTrainingCompletionHandlerWithMetrics:parameters:onQueue:"), metrics, parameters, queue)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/setCompletionHandler:
-func (u MLUpdateProgressHandlers) SetCompletionHandler(handler ErrorHandler) {
+func (m MLUpdateProgressHandlers) SetCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](u.ID, objc.Sel("setCompletionHandler:"), _block0)
+	objc.Send[objc.ID](m.ID, objc.Sel("setCompletionHandler:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/setProgressHandler:
-func (u MLUpdateProgressHandlers) SetProgressHandler(handler VoidHandler) {
+func (m MLUpdateProgressHandlers) SetProgressHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
-	objc.Send[objc.ID](u.ID, objc.Sel("setProgressHandler:"), _block0)
+	objc.Send[objc.ID](m.ID, objc.Sel("setProgressHandler:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/interestedEvents
-func (u MLUpdateProgressHandlers) InterestedEvents() int64 {
-	rv := objc.Send[int64](u.ID, objc.Sel("interestedEvents"))
+func (m MLUpdateProgressHandlers) InterestedEvents() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("interestedEvents"))
 	return rv
 }
-func (u MLUpdateProgressHandlers) SetInterestedEvents(value int64) {
-	objc.Send[struct{}](u.ID, objc.Sel("setInterestedEvents:"), value)
+func (m MLUpdateProgressHandlers) SetInterestedEvents(value int64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setInterestedEvents:"), value)
 }
 
 // Set is a synchronous wrapper around [MLUpdateProgressHandlers.SetCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (u MLUpdateProgressHandlers) Set(ctx context.Context) error {
+func (m MLUpdateProgressHandlers) Set(ctx context.Context) error {
 	done := make(chan error, 1)
-	u.SetCompletionHandler(func(err error) {
+	m.SetCompletionHandler(func(err error) {
 		done <- err
 	})
 	select {
@@ -204,9 +204,9 @@ func (u MLUpdateProgressHandlers) Set(ctx context.Context) error {
 
 // SetProgressHandlerSync is a synchronous wrapper around [MLUpdateProgressHandlers.SetProgressHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (u MLUpdateProgressHandlers) SetProgressHandlerSync(ctx context.Context) error {
+func (m MLUpdateProgressHandlers) SetProgressHandlerSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	u.SetProgressHandler(func() {
+	m.SetProgressHandler(func() {
 		done <- struct{}{}
 	})
 	select {

@@ -446,6 +446,23 @@ func (e FSMatchResult) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/FSKit/FSVolume/MountOptions
+type FSMountOptions uint
+
+const (
+	// FSMountOptionsReadOnly: An option to request a read-only mount.
+	FSMountOptionsReadOnly FSMountOptions = 1
+)
+
+func (e FSMountOptions) String() string {
+	switch e {
+	case FSMountOptionsReadOnly:
+		return "FSMountOptionsReadOnly"
+	default:
+		return fmt.Sprintf("FSMountOptions(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PreallocateFlags
 type FSPreallocateFlags uint
 

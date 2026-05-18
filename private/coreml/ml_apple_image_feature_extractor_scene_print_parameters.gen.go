@@ -83,14 +83,14 @@ type IMLAppleImageFeatureExtractorScenePrintParameters interface {
 }
 
 // Init initializes the instance.
-func (a MLAppleImageFeatureExtractorScenePrintParameters) Init() MLAppleImageFeatureExtractorScenePrintParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorScenePrintParameters](a.ID, objc.Sel("init"))
+func (m MLAppleImageFeatureExtractorScenePrintParameters) Init() MLAppleImageFeatureExtractorScenePrintParameters {
+	rv := objc.Send[MLAppleImageFeatureExtractorScenePrintParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAppleImageFeatureExtractorScenePrintParameters) Autorelease() MLAppleImageFeatureExtractorScenePrintParameters {
-	rv := objc.Send[MLAppleImageFeatureExtractorScenePrintParameters](a.ID, objc.Sel("autorelease"))
+func (m MLAppleImageFeatureExtractorScenePrintParameters) Autorelease() MLAppleImageFeatureExtractorScenePrintParameters {
+	rv := objc.Send[MLAppleImageFeatureExtractorScenePrintParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -114,9 +114,9 @@ func NewAppleImageFeatureExtractorScenePrintParametersScenePrintParametersReques
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters/initScenePrintParameters:requestClass:error:
-func (a MLAppleImageFeatureExtractorScenePrintParameters) InitScenePrintParametersRequestClassError(parameters uint64, class objectivec.IObject) (MLAppleImageFeatureExtractorScenePrintParameters, error) {
+func (m MLAppleImageFeatureExtractorScenePrintParameters) InitScenePrintParametersRequestClassError(parameters uint64, class objectivec.IObject) (MLAppleImageFeatureExtractorScenePrintParameters, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initScenePrintParameters:requestClass:error:"), parameters, class, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initScenePrintParameters:requestClass:error:"), parameters, class, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleImageFeatureExtractorScenePrintParameters{}, foundation.NSErrorFrom(errorPtr)
@@ -126,13 +126,13 @@ func (a MLAppleImageFeatureExtractorScenePrintParameters) InitScenePrintParamete
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters/requestClassName
-func (a MLAppleImageFeatureExtractorScenePrintParameters) RequestClassName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("requestClassName"))
+func (m MLAppleImageFeatureExtractorScenePrintParameters) RequestClassName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("requestClassName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractorScenePrintParameters/scenePrintVersion
-func (a MLAppleImageFeatureExtractorScenePrintParameters) ScenePrintVersion() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("scenePrintVersion"))
+func (m MLAppleImageFeatureExtractorScenePrintParameters) ScenePrintVersion() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("scenePrintVersion"))
 	return rv
 }

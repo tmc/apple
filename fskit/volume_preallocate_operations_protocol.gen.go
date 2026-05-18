@@ -26,6 +26,7 @@ type FSVolumePreallocateOperations interface {
 	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/PreallocateOperations/isPreallocateInhibited
+	PreallocateInhibited() bool
 	SetPreallocateInhibited(value bool)
 }
 
@@ -87,6 +88,11 @@ func (o FSVolumePreallocateOperationsObject) IsPreallocateInhibited() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PreallocateOperations/isPreallocateInhibited
+func (o FSVolumePreallocateOperationsObject) PreallocateInhibited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isPreallocateInhibited"))
+	return bool(rv)
+}
+
 func (o FSVolumePreallocateOperationsObject) SetPreallocateInhibited(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPreallocateInhibited:"), value)
 }

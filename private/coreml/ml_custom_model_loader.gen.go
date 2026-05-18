@@ -86,14 +86,14 @@ type IMLCustomModelLoader interface {
 }
 
 // Init initializes the instance.
-func (c MLCustomModelLoader) Init() MLCustomModelLoader {
-	rv := objc.Send[MLCustomModelLoader](c.ID, objc.Sel("init"))
+func (m MLCustomModelLoader) Init() MLCustomModelLoader {
+	rv := objc.Send[MLCustomModelLoader](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCustomModelLoader) Autorelease() MLCustomModelLoader {
-	rv := objc.Send[MLCustomModelLoader](c.ID, objc.Sel("autorelease"))
+func (m MLCustomModelLoader) Autorelease() MLCustomModelLoader {
+	rv := objc.Send[MLCustomModelLoader](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -141,25 +141,25 @@ func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) ParametersFromCustomMo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/debugDescription
-func (c MLCustomModelLoader) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+func (m MLCustomModelLoader) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/description
-func (c MLCustomModelLoader) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+func (m MLCustomModelLoader) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/hash
-func (c MLCustomModelLoader) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+func (m MLCustomModelLoader) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/superclass
-func (c MLCustomModelLoader) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
+func (m MLCustomModelLoader) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

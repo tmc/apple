@@ -103,14 +103,16 @@ type FSVolumeOperations interface {
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/volumeStatistics
 	VolumeStatistics() IFSStatFSResult
 
-	// A property that allows the file system to use open-unlink emulation.
+	// A property that allows the file system to request for specific mount options from FSKit.
 	//
-	// See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/enableOpenUnlinkEmulation
-	EnableOpenUnlinkEmulation() bool
+	// See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/requestedMountOptions
+	RequestedMountOptions() FSMountOptions
+	SetRequestedMountOptions(value FSMountOptions)
 
 	// A property that allows the file system to use open-unlink emulation.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/enableOpenUnlinkEmulation
+	EnableOpenUnlinkEmulation() bool
 	SetEnableOpenUnlinkEmulation(value bool)
 }
 
@@ -226,8 +228,8 @@ func (o FSVolumeOperationsObject) UnmountWithReplyHandler(reply VoidHandler) {
 //
 // name: The new item’s name.
 //
-// type: The new item’s type. Valid values are [FSItem.ItemType.file] or
-// [FSItem.ItemType.directory].
+// type: The new item’s type. Valid values are [FSItemTypeFile] or
+// [FSItemTypeDirectory].
 //
 // directory: The directory in which to create the item.
 //
@@ -248,8 +250,6 @@ func (o FSVolumeOperationsObject) UnmountWithReplyHandler(reply VoidHandler) {
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/createItem(named:type:inDirectory:attributes:replyHandler:)
 //
-// [FSItem.ItemType.directory]: https://developer.apple.com/documentation/FSKit/FSItem/ItemType/directory
-// [FSItem.ItemType.file]: https://developer.apple.com/documentation/FSKit/FSItem/ItemType/file
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 func (o FSVolumeOperationsObject) CreateItemNamedTypeInDirectoryAttributesReplyHandler(name IFSFileName, type_ FSItemType, directory IFSItem, newAttributes IFSItemSetAttributesRequest, reply FSItemFSFileNameErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("createItemNamed:type:inDirectory:attributes:replyHandler:"), name, type_, directory, newAttributes, reply)
@@ -441,7 +441,7 @@ func (o FSVolumeOperationsObject) CreateSymbolicLinkNamedInDirectoryAttributesLi
 // Reads a symbolic link.
 //
 // item: The symbolic link to read from. FSKit guarantees this item is of type
-// [FSItem.ItemType.symlink].
+// [FSItemTypeSymlink].
 //
 // reply: A block or closure to indicate success or failure. If reading succeeds,
 // pass the link’s contents as an [FSFileName] and a `nil` error. If reading
@@ -450,8 +450,6 @@ func (o FSVolumeOperationsObject) CreateSymbolicLinkNamedInDirectoryAttributesLi
 // no reply handler; simply return the [FSFileName] or throw an error.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/readSymbolicLink(_:replyHandler:)
-//
-// [FSItem.ItemType.symlink]: https://developer.apple.com/documentation/FSKit/FSItem/ItemType/symlink
 func (o FSVolumeOperationsObject) ReadSymbolicLinkReplyHandler(item IFSItem, reply FSFileNameErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("readSymbolicLink:replyHandler:"), item, reply)
 }
@@ -524,7 +522,7 @@ func (o FSVolumeOperationsObject) SetAttributesOnItemReplyHandler(newAttributes 
 // Enumerates the contents of the given directory.
 //
 // directory: The item to enumerate. FSKit guarantees this item is of type
-// [FSItem.ItemType.directory].
+// [FSItemTypeDirectory].
 //
 // cookie: A value that indicates the location within the directory from which to
 // enumerate. Your implementation defines the semantics of the cookie values;
@@ -567,7 +565,7 @@ func (o FSVolumeOperationsObject) SetAttributesOnItemReplyHandler(newAttributes 
 // implementation packs the next set of entries, starting with the item
 // indicated by `cookie`. If `cookie` doesn’t resolve to a valid directory
 // entry, complete the request with an error of domain [NSPOSIXErrorDomain]
-// and code [FSError.Code.invalidDirectoryCookie].
+// and code [FSErrorInvalidDirectoryCookie].
 //
 // When packing, make sure to use acceptable directory entry names and
 // unambiguous input to all file operations that take names without additional
@@ -575,9 +573,7 @@ func (o FSVolumeOperationsObject) SetAttributesOnItemReplyHandler(newAttributes 
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/enumerateDirectory(_:startingAt:verifier:attributes:packer:replyHandler:)
 //
-// [FSItem.ItemType.directory]: https://developer.apple.com/documentation/FSKit/FSItem/ItemType/directory
 // [initial]: https://developer.apple.com/documentation/FSKit/FSDirectoryCookie/initial
-// [FSError.Code.invalidDirectoryCookie]: https://developer.apple.com/documentation/FSKit/FSError/Code/invalidDirectoryCookie
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 //
 // [initial]: https://developer.apple.com/documentation/FSKit/FSDirectoryVerifier/initial
@@ -622,12 +618,23 @@ func (o FSVolumeOperationsObject) VolumeStatistics() IFSStatFSResult {
 	return FSStatFSResultFromID(rv)
 }
 
-// A property that allows the file system to use open-unlink emulation.
+// A property that allows the file system to request for specific mount
+// options from FSKit.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/enableOpenUnlinkEmulation
-func (o FSVolumeOperationsObject) EnableOpenUnlinkEmulation() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("enableOpenUnlinkEmulation"))
-	return rv
+// # Discussion
+//
+// FSKit reads this value after the volume replies to the
+// [MountWithOptionsReplyHandler] call. Changing the returned value during the
+// runtime of the volume has no effect.
+//
+// See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/requestedMountOptions
+func (o FSVolumeOperationsObject) RequestedMountOptions() FSMountOptions {
+	rv := objc.Send[FSMountOptions](o.ID, objc.Sel("requestedMountOptions"))
+	return FSMountOptions(rv)
+}
+
+func (o FSVolumeOperationsObject) SetRequestedMountOptions(value FSMountOptions) {
+	objc.Send[struct{}](o.ID, objc.Sel("setRequestedMountOptions:"), value)
 }
 
 // A property that allows the file system to use open-unlink emulation.
@@ -649,6 +656,11 @@ func (o FSVolumeOperationsObject) EnableOpenUnlinkEmulation() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/enableOpenUnlinkEmulation
+func (o FSVolumeOperationsObject) EnableOpenUnlinkEmulation() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("enableOpenUnlinkEmulation"))
+	return bool(rv)
+}
+
 func (o FSVolumeOperationsObject) SetEnableOpenUnlinkEmulation(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEnableOpenUnlinkEmulation:"), value)
 }

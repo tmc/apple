@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_optimize_coreml_conv1d_lrelu] class.
+// The class instance for the [EspressoPassOptimizeCoremlConv1dLrelu] class.
 var (
-	_EspressoPass_optimize_coreml_conv1d_lreluClass     EspressoPass_optimize_coreml_conv1d_lreluClass
-	_EspressoPass_optimize_coreml_conv1d_lreluClassOnce sync.Once
+	_EspressoPassOptimizeCoremlConv1dLreluClass     EspressoPassOptimizeCoremlConv1dLreluClass
+	_EspressoPassOptimizeCoremlConv1dLreluClassOnce sync.Once
 )
 
-func getEspressoPass_optimize_coreml_conv1d_lreluClass() EspressoPass_optimize_coreml_conv1d_lreluClass {
-	_EspressoPass_optimize_coreml_conv1d_lreluClassOnce.Do(func() {
-		_EspressoPass_optimize_coreml_conv1d_lreluClass = EspressoPass_optimize_coreml_conv1d_lreluClass{class: objc.GetClass("EspressoPass_optimize_coreml_conv1d_lrelu")}
+func getEspressoPassOptimizeCoremlConv1dLreluClass() EspressoPassOptimizeCoremlConv1dLreluClass {
+	_EspressoPassOptimizeCoremlConv1dLreluClassOnce.Do(func() {
+		_EspressoPassOptimizeCoremlConv1dLreluClass = EspressoPassOptimizeCoremlConv1dLreluClass{class: objc.GetClass("EspressoPass_optimize_coreml_conv1d_lrelu")}
 	})
-	return _EspressoPass_optimize_coreml_conv1d_lreluClass
+	return _EspressoPassOptimizeCoremlConv1dLreluClass
 }
 
-// GetEspressoPass_optimize_coreml_conv1d_lreluClass returns the class object for EspressoPass_optimize_coreml_conv1d_lrelu.
-func GetEspressoPass_optimize_coreml_conv1d_lreluClass() EspressoPass_optimize_coreml_conv1d_lreluClass {
-	return getEspressoPass_optimize_coreml_conv1d_lreluClass()
+// GetEspressoPassOptimizeCoremlConv1dLreluClass returns the class object for EspressoPass_optimize_coreml_conv1d_lrelu.
+func GetEspressoPassOptimizeCoremlConv1dLreluClass() EspressoPassOptimizeCoremlConv1dLreluClass {
+	return getEspressoPassOptimizeCoremlConv1dLreluClass()
 }
 
-type EspressoPass_optimize_coreml_conv1d_lreluClass struct {
+type EspressoPassOptimizeCoremlConv1dLreluClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_optimize_coreml_conv1d_lreluClass) Class() objc.Class {
+func (ec EspressoPassOptimizeCoremlConv1dLreluClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_optimize_coreml_conv1d_lreluClass) Alloc() EspressoPass_optimize_coreml_conv1d_lrelu {
-	rv := objc.Send[EspressoPass_optimize_coreml_conv1d_lrelu](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassOptimizeCoremlConv1dLreluClass) Alloc() EspressoPassOptimizeCoremlConv1dLrelu {
+	rv := objc.Send[EspressoPassOptimizeCoremlConv1dLrelu](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_optimize_coreml_conv1d_lrelu
-type EspressoPass_optimize_coreml_conv1d_lrelu struct {
+type EspressoPassOptimizeCoremlConv1dLrelu struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_optimize_coreml_conv1d_lreluFromID constructs a [EspressoPass_optimize_coreml_conv1d_lrelu] from an objc.ID.
-func EspressoPass_optimize_coreml_conv1d_lreluFromID(id objc.ID) EspressoPass_optimize_coreml_conv1d_lrelu {
-	return EspressoPass_optimize_coreml_conv1d_lrelu{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassOptimizeCoremlConv1dLreluFromID constructs a [EspressoPassOptimizeCoremlConv1dLrelu] from an objc.ID.
+func EspressoPassOptimizeCoremlConv1dLreluFromID(id objc.ID) EspressoPassOptimizeCoremlConv1dLrelu {
+	return EspressoPassOptimizeCoremlConv1dLrelu{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_optimize_coreml_conv1d_lrelu implements IEspressoPass_optimize_coreml_conv1d_lrelu.
-var _ IEspressoPass_optimize_coreml_conv1d_lrelu = EspressoPass_optimize_coreml_conv1d_lrelu{}
+// EspressoPass_optimize_coreml_conv1d_lreluFromID is an alias for [EspressoPassOptimizeCoremlConv1dLreluFromID] for cross-framework compatibility.
+func EspressoPass_optimize_coreml_conv1d_lreluFromID(id objc.ID) EspressoPassOptimizeCoremlConv1dLrelu {
+	return EspressoPassOptimizeCoremlConv1dLreluFromID(id)
+}
 
-// An interface definition for the [EspressoPass_optimize_coreml_conv1d_lrelu] class.
+// Ensure EspressoPassOptimizeCoremlConv1dLrelu implements IEspressoPassOptimizeCoremlConv1dLrelu.
+var _ IEspressoPassOptimizeCoremlConv1dLrelu = EspressoPassOptimizeCoremlConv1dLrelu{}
+
+// An interface definition for the [EspressoPassOptimizeCoremlConv1dLrelu] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_optimize_coreml_conv1d_lrelu
-type IEspressoPass_optimize_coreml_conv1d_lrelu interface {
+type IEspressoPassOptimizeCoremlConv1dLrelu interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_optimize_coreml_conv1d_lrelu) Init() EspressoPass_optimize_coreml_conv1d_lrelu {
-	rv := objc.Send[EspressoPass_optimize_coreml_conv1d_lrelu](e.ID, objc.Sel("init"))
+func (e EspressoPassOptimizeCoremlConv1dLrelu) Init() EspressoPassOptimizeCoremlConv1dLrelu {
+	rv := objc.Send[EspressoPassOptimizeCoremlConv1dLrelu](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_optimize_coreml_conv1d_lrelu) Autorelease() EspressoPass_optimize_coreml_conv1d_lrelu {
-	rv := objc.Send[EspressoPass_optimize_coreml_conv1d_lrelu](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassOptimizeCoremlConv1dLrelu) Autorelease() EspressoPassOptimizeCoremlConv1dLrelu {
+	rv := objc.Send[EspressoPassOptimizeCoremlConv1dLrelu](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_optimize_coreml_conv1d_lrelu creates a new EspressoPass_optimize_coreml_conv1d_lrelu instance.
-func NewEspressoPass_optimize_coreml_conv1d_lrelu() EspressoPass_optimize_coreml_conv1d_lrelu {
-	class := getEspressoPass_optimize_coreml_conv1d_lreluClass()
-	rv := objc.Send[EspressoPass_optimize_coreml_conv1d_lrelu](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassOptimizeCoremlConv1dLrelu creates a new EspressoPassOptimizeCoremlConv1dLrelu instance.
+func NewEspressoPassOptimizeCoremlConv1dLrelu() EspressoPassOptimizeCoremlConv1dLrelu {
+	class := getEspressoPassOptimizeCoremlConv1dLreluClass()
+	rv := objc.Send[EspressoPassOptimizeCoremlConv1dLrelu](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

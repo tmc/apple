@@ -90,14 +90,14 @@ type IMLShufflingBatchProvider interface {
 }
 
 // Init initializes the instance.
-func (s MLShufflingBatchProvider) Init() MLShufflingBatchProvider {
-	rv := objc.Send[MLShufflingBatchProvider](s.ID, objc.Sel("init"))
+func (m MLShufflingBatchProvider) Init() MLShufflingBatchProvider {
+	rv := objc.Send[MLShufflingBatchProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLShufflingBatchProvider) Autorelease() MLShufflingBatchProvider {
-	rv := objc.Send[MLShufflingBatchProvider](s.ID, objc.Sel("autorelease"))
+func (m MLShufflingBatchProvider) Autorelease() MLShufflingBatchProvider {
+	rv := objc.Send[MLShufflingBatchProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -116,33 +116,33 @@ func NewShufflingBatchProviderWithBatchProviderSeed(provider objectivec.IObject,
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLShufflingBatchProvider/featuresAtIndex:
-func (s MLShufflingBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("featuresAtIndex:"), index)
+func (m MLShufflingBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLShufflingBatchProvider/shuffle
-func (s MLShufflingBatchProvider) Shuffle() {
-	objc.Send[objc.ID](s.ID, objc.Sel("shuffle"))
+func (m MLShufflingBatchProvider) Shuffle() {
+	objc.Send[objc.ID](m.ID, objc.Sel("shuffle"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLShufflingBatchProvider/initWithBatchProvider:seed:
-func (s MLShufflingBatchProvider) InitWithBatchProviderSeed(provider objectivec.IObject, seed objectivec.IObject) MLShufflingBatchProvider {
-	rv := objc.Send[MLShufflingBatchProvider](s.ID, objc.Sel("initWithBatchProvider:seed:"), provider, seed)
+func (m MLShufflingBatchProvider) InitWithBatchProviderSeed(provider objectivec.IObject, seed objectivec.IObject) MLShufflingBatchProvider {
+	rv := objc.Send[MLShufflingBatchProvider](m.ID, objc.Sel("initWithBatchProvider:seed:"), provider, seed)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLShufflingBatchProvider/batchProvider
-func (s MLShufflingBatchProvider) BatchProvider() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("batchProvider"))
+func (m MLShufflingBatchProvider) BatchProvider() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchProvider"))
 	return objectivec.Object{ID: rv}
 }
-func (s MLShufflingBatchProvider) SetBatchProvider(value objectivec.IObject) {
-	objc.Send[struct{}](s.ID, objc.Sel("setBatchProvider:"), value)
+func (m MLShufflingBatchProvider) SetBatchProvider(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setBatchProvider:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLShufflingBatchProvider/count
-func (s MLShufflingBatchProvider) Count() int64 {
-	rv := objc.Send[int64](s.ID, objc.Sel("count"))
+func (m MLShufflingBatchProvider) Count() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("count"))
 	return rv
 }

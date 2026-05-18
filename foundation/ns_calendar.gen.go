@@ -131,9 +131,10 @@ func (nc NSCalendarClass) Alloc() NSCalendar {
 // a calendar, but this is a calendar-specific choice. If you provide
 // inconsistent information, calendar-specific disambiguation is performed
 // (which may involve ignoring one or more of the parameters). Related methods
-// ([NSCalendar.ComponentsFromDate] and [NSCalendar.ComponentsFromDateToDateOptions]) take a bit
-// mask parameter that specifies which components to calculate when returning
-// an [NSDateComponents] object. The bit mask is composed of [NSCalendar.Unit]
+// ([NSCalendar.ComponentsFromDate] and
+// [NSCalendar.ComponentsFromDateComponentsToDateComponentsOptions]) take a bit mask
+// parameter that specifies which components to calculate when returning an
+// [NSDateComponents] object. The bit mask is composed of [NSCalendar.Unit]
 // constants (see [Constants]).
 //
 // In a calendar, day, week, weekday, month, and year numbers are generally
@@ -387,8 +388,6 @@ func NSCalendarFromID(id objc.ID) NSCalendar {
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar
 type INSCalendar interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating and Initializing Calendars

@@ -483,9 +483,9 @@ type INSBrowser interface {
 	// Loads, if necessary, and returns the cell at the specified row and column location.
 	LoadedCellAtRowColumn(row int, col int) objectivec.IObject
 	// Begins editing the item at the specified path.
-	EditItemAtIndexPathWithEventSelect(indexPath foundation.INSIndexPath, event INSEvent, select_ bool)
+	EditItemAtIndexPathWithEventSelect(indexPath foundation.NSIndexPath, event INSEvent, select_ bool)
 	// Returns the item at the specified index path.
-	ItemAtIndexPath(indexPath foundation.INSIndexPath) objectivec.IObject
+	ItemAtIndexPath(indexPath foundation.NSIndexPath) objectivec.IObject
 	// Returns the item located at the specified row and column.
 	ItemAtRowInColumn(row int, column int) objectivec.IObject
 	// Returns the index path of the item whose children are displayed in the given column.
@@ -642,7 +642,6 @@ type INSBrowser interface {
 
 	// A Boolean value indicating whether the view fills its frame rectangle with opaque content.
 	IsOpaque() bool
-	SetIsOpaque(value bool)
 }
 
 // Init initializes the instance.
@@ -801,7 +800,7 @@ func (b NSBrowser) LoadedCellAtRowColumn(row int, col int) objectivec.IObject {
 // selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/editItem(at:with:select:)
-func (b NSBrowser) EditItemAtIndexPathWithEventSelect(indexPath foundation.INSIndexPath, event INSEvent, select_ bool) {
+func (b NSBrowser) EditItemAtIndexPathWithEventSelect(indexPath foundation.NSIndexPath, event INSEvent, select_ bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("editItemAtIndexPath:withEvent:select:"), indexPath, event, select_)
 }
 
@@ -820,7 +819,7 @@ func (b NSBrowser) EditItemAtIndexPathWithEventSelect(indexPath foundation.INSIn
 // browser.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/item(at:)
-func (b NSBrowser) ItemAtIndexPath(indexPath foundation.INSIndexPath) objectivec.IObject {
+func (b NSBrowser) ItemAtIndexPath(indexPath foundation.NSIndexPath) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("itemAtIndexPath:"), indexPath)
 	return objectivec.Object{ID: rv}
 }
@@ -1891,6 +1890,6 @@ func (b NSBrowser) IsOpaque() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("opaque"))
 	return rv
 }
-func (b NSBrowser) SetIsOpaque(value bool) {
+func (b NSBrowser) SetOpaque(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setOpaque:"), value)
 }

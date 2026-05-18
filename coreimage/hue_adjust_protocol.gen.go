@@ -18,20 +18,12 @@ type CIHueAdjust interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/angle
 	Angle() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/inputImage
-	InputImage() ICIImage
-
-	// An angle, in radians, to use to correct the hue of an image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/angle
 	SetAngle(value float32)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 }
 
@@ -52,22 +44,6 @@ func CIHueAdjustObjectFromID(id objc.ID) CIHueAdjustObject {
 	}
 }
 
-// An angle, in radians, to use to correct the hue of an image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/angle
-func (o CIHueAdjustObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/inputImage
-func (o CIHueAdjustObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIHueAdjustObject) OutputImage() ICIImage {
 // An angle, in radians, to use to correct the hue of an image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/angle
+func (o CIHueAdjustObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CIHueAdjustObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIHueAdjustObject) SetAngle(value float32) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/inputImage
+func (o CIHueAdjustObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIHueAdjustObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }

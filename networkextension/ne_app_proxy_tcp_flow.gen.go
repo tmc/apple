@@ -61,6 +61,10 @@ func (nc NEAppProxyTCPFlowClass) Alloc() NEAppProxyTCPFlow {
 //
 //   - [NEAppProxyTCPFlow.RemoteEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 //
+// # Instance Properties
+//
+//   - [NEAppProxyTCPFlow.RemoteFlowEndpoint]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow
 type NEAppProxyTCPFlow struct {
 	NEAppProxyFlow
@@ -88,6 +92,10 @@ func NEAppProxyTCPFlowFromID(id objc.ID) NEAppProxyTCPFlow {
 //
 //   - [INEAppProxyTCPFlow.RemoteEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 //
+// # Instance Properties
+//
+//   - [INEAppProxyTCPFlow.RemoteFlowEndpoint]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow
 type INEAppProxyTCPFlow interface {
 	INEAppProxyFlow
@@ -95,7 +103,7 @@ type INEAppProxyTCPFlow interface {
 	// Topic: Handling flow data
 
 	// Write data to the flow.
-	WriteDataWithCompletionHandler(data foundation.INSData, completionHandler ErrorHandler)
+	WriteDataWithCompletionHandler(data foundation.NSData, completionHandler ErrorHandler)
 	// Read data from the flow.
 	ReadDataWithCompletionHandler(completionHandler DataErrorHandler)
 
@@ -103,6 +111,8 @@ type INEAppProxyTCPFlow interface {
 
 	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 	RemoteEndpoint() INWEndpoint
+
+	// Topic: Instance Properties
 
 	RemoteFlowEndpoint() network.NWEndpoint
 }
@@ -142,7 +152,7 @@ func NewNEAppProxyTCPFlow() NEAppProxyTCPFlow {
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (a NEAppProxyTCPFlow) WriteDataWithCompletionHandler(data foundation.INSData, completionHandler ErrorHandler) {
+func (a NEAppProxyTCPFlow) WriteDataWithCompletionHandler(data foundation.NSData, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("writeData:withCompletionHandler:"), data, _block1)
 }
@@ -191,7 +201,7 @@ func (a NEAppProxyTCPFlow) RemoteFlowEndpoint() network.NWEndpoint {
 
 // WriteData is a synchronous wrapper around [NEAppProxyTCPFlow.WriteDataWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a NEAppProxyTCPFlow) WriteData(ctx context.Context, data foundation.INSData) error {
+func (a NEAppProxyTCPFlow) WriteData(ctx context.Context, data foundation.NSData) error {
 	done := make(chan error, 1)
 	a.WriteDataWithCompletionHandler(data, func(err error) {
 		done <- err

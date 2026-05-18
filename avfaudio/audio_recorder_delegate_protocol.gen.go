@@ -61,7 +61,7 @@ func (o AVAudioRecorderDelegateObject) AudioRecorderDidFinishRecordingSuccessful
 // error: An object that provides the details of the encoding error.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorderDelegate/audioRecorderEncodeErrorDidOccur(_:error:)
-func (o AVAudioRecorderDelegateObject) AudioRecorderEncodeErrorDidOccurError(recorder IAVAudioRecorder, error_ foundation.INSError) {
+func (o AVAudioRecorderDelegateObject) AudioRecorderEncodeErrorDidOccurError(recorder IAVAudioRecorder, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("audioRecorderEncodeErrorDidOccur:error:"), recorder, error_)
 }
 

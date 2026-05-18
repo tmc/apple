@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
@@ -81,8 +82,8 @@ type IAVRenderedCaptionImage interface {
 	// Topic: Inspecting the image
 
 	// A CVReadOnlyPixelBuffer that contains pixel data for the rendered caption
-	ReadOnlyPixelBuffer() objectivec.IObject
-	SetReadOnlyPixelBuffer(value objectivec.IObject)
+	ReadOnlyPixelBuffer() unsafe.Pointer
+	SetReadOnlyPixelBuffer(value unsafe.Pointer)
 	// A point that defines the position, in pixels, of the rendered caption image relative to the video frame.
 	Position() corefoundation.CGPoint
 }
@@ -109,11 +110,11 @@ func NewAVRenderedCaptionImage() AVRenderedCaptionImage {
 // A CVReadOnlyPixelBuffer that contains pixel data for the rendered caption
 //
 // See: https://developer.apple.com/documentation/avfoundation/avrenderedcaptionimage/readonlypixelbuffer
-func (r AVRenderedCaptionImage) ReadOnlyPixelBuffer() objectivec.IObject {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("readOnlyPixelBuffer"))
-	return objectivec.Object{ID: rv}
+func (r AVRenderedCaptionImage) ReadOnlyPixelBuffer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("readOnlyPixelBuffer"))
+	return rv
 }
-func (r AVRenderedCaptionImage) SetReadOnlyPixelBuffer(value objectivec.IObject) {
+func (r AVRenderedCaptionImage) SetReadOnlyPixelBuffer(value unsafe.Pointer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setReadOnlyPixelBuffer:"), value)
 }
 

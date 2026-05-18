@@ -338,7 +338,7 @@ func NewFeatureValueWithDouble(value float64) MLFeatureValue {
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 // [URL]: https://developer.apple.com/documentation/Foundation/URL
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.INSURL, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.NSURL, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:constraint:options:error:"), url, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -366,7 +366,7 @@ func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.INSURL, 
 // [URL]: https://developer.apple.com/documentation/Foundation/URL
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundation.INSURL, orientation uint, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundation.NSURL, orientation uint, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:constraint:options:error:"), url, orientation, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -399,7 +399,7 @@ func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundati
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.INSURL, orientation uint, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.NSURL, orientation uint, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), url, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -429,7 +429,7 @@ func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatType
 // [URL]: https://developer.apple.com/documentation/Foundation/URL
 // [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithImageAtURLPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.INSURL, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithImageAtURLPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.NSURL, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), url, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

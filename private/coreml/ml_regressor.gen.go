@@ -63,14 +63,14 @@ type IMLRegressor interface {
 }
 
 // Init initializes the instance.
-func (r MLRegressor) Init() MLRegressor {
-	rv := objc.Send[MLRegressor](r.ID, objc.Sel("init"))
+func (m MLRegressor) Init() MLRegressor {
+	rv := objc.Send[MLRegressor](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (r MLRegressor) Autorelease() MLRegressor {
-	rv := objc.Send[MLRegressor](r.ID, objc.Sel("autorelease"))
+func (m MLRegressor) Autorelease() MLRegressor {
+	rv := objc.Send[MLRegressor](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

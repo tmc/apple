@@ -309,7 +309,7 @@ func (_SMAppServiceClass SMAppServiceClass) OpenSystemSettingsLoginItems() {
 // See: https://developer.apple.com/documentation/ServiceManagement/SMAppService/statusForLegacyPlist(at:)
 //
 // [SMAppService.Status]: https://developer.apple.com/documentation/ServiceManagement/SMAppService/Status-swift.enum
-func (_SMAppServiceClass SMAppServiceClass) StatusForLegacyURL(url foundation.INSURL) SMAppServiceStatus {
+func (_SMAppServiceClass SMAppServiceClass) StatusForLegacyURL(url foundation.NSURL) SMAppServiceStatus {
 	rv := objc.Send[SMAppServiceStatus](objc.ID(_SMAppServiceClass.class), objc.Sel("statusForLegacyURL:"), url)
 	return SMAppServiceStatus(rv)
 }

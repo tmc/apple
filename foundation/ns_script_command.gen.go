@@ -201,7 +201,6 @@ func NSScriptCommandFromID(id objc.ID) NSScriptCommand {
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand
 type INSScriptCommand interface {
 	objectivec.IObject
-	NSCoding
 
 	// Topic: Initializing a script command
 

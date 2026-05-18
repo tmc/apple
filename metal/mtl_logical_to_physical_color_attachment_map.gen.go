@@ -79,6 +79,8 @@ type IMTLLogicalToPhysicalColorAttachmentMap interface {
 
 	Reset()
 
+	// Queries the physical color attachment index corresponding to a logical index.
+	GetPhysicalIndexForLogicalIndex(logicalIndex uint) uint
 	// Maps a physical color attachment index to a logical index.
 	SetPhysicalIndexForLogicalIndex(physicalIndex uint, logicalIndex uint)
 }
@@ -105,6 +107,15 @@ func NewMTLLogicalToPhysicalColorAttachmentMap() MTLLogicalToPhysicalColorAttach
 // See: https://developer.apple.com/documentation/Metal/MTLLogicalToPhysicalColorAttachmentMap/reset()
 func (l MTLLogicalToPhysicalColorAttachmentMap) Reset() {
 	objc.Send[objc.ID](l.ID, objc.Sel("reset"))
+}
+
+// Queries the physical color attachment index corresponding to a logical
+// index.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLLogicalToPhysicalColorAttachmentMap/getPhysicalIndexForLogicalIndex:
+func (l MTLLogicalToPhysicalColorAttachmentMap) GetPhysicalIndexForLogicalIndex(logicalIndex uint) uint {
+	rv := objc.Send[uint](l.ID, objc.Sel("getPhysicalIndexForLogicalIndex:"), logicalIndex)
+	return rv
 }
 
 // Maps a physical color attachment index to a logical index.

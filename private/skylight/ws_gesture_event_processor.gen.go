@@ -83,14 +83,14 @@ func NewWSGestureEventProcessor() WSGestureEventProcessor {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
-func NewWSGestureEventProcessorWithSession(session unsafe.Pointer) WSGestureEventProcessor {
+func NewWSGestureEventProcessorWithSession(session CGXSession) WSGestureEventProcessor {
 	instance := getWSGestureEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSGestureEventProcessorFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSGestureEventProcessor/annotate_scroll_zoom_event:windowConn:eventRegionID:isCaptured:annotationParams:
-func (_WSGestureEventProcessorClass WSGestureEventProcessorClass) Annotate_scroll_zoom_eventWindowConnEventRegionIDIsCapturedAnnotationParams(annotate_scroll_zoom_event *SLSEventRecordRef, conn uint32, id unsafe.Pointer, captured bool, params objectivec.IObject) int {
+func (_WSGestureEventProcessorClass WSGestureEventProcessorClass) Annotate_scroll_zoom_eventWindowConnEventRegionIDIsCapturedAnnotationParams(annotate_scroll_zoom_event SLSEventRecord, conn uint32, id unsafe.Pointer, captured bool, params objectivec.IObject) int {
 	rv := objc.Send[int](objc.ID(_WSGestureEventProcessorClass.class), objc.Sel("annotate_scroll_zoom_event:windowConn:eventRegionID:isCaptured:annotationParams:"), annotate_scroll_zoom_event, conn, id, captured, params)
 	return rv
 }

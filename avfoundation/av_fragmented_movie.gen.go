@@ -64,7 +64,6 @@ func AVFragmentedMovieFromID(id objc.ID) AVFragmentedMovie {
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedMovie
 type IAVFragmentedMovie interface {
 	IAVMovie
-	AVFragmentMinding
 }
 
 // Init initializes the instance.
@@ -90,8 +89,8 @@ func NewAVFragmentedMovie() AVFragmentedMovie {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
-func NewFragmentedMovieAssetWithURL(URL foundation.INSURL) AVFragmentedMovie {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+func NewFragmentedMovieAssetWithURL(URL foundation.NSURL) AVFragmentedMovie {
 	rv := objc.Send[objc.ID](objc.ID(getAVFragmentedMovieClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVFragmentedMovieFromID(rv)
 }
@@ -108,7 +107,7 @@ func NewFragmentedMovieAssetWithURL(URL foundation.INSURL) AVFragmentedMovie {
 // files, which can include movies that the pasteboard contains.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(data:options:)
-func NewFragmentedMovieWithDataOptions(data foundation.INSData, options foundation.INSDictionary) AVFragmentedMovie {
+func NewFragmentedMovieWithDataOptions(data foundation.NSData, options foundation.INSDictionary) AVFragmentedMovie {
 	instance := getAVFragmentedMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:"), data, options)
 	return AVFragmentedMovieFromID(rv)
@@ -126,8 +125,8 @@ func NewFragmentedMovieWithDataOptions(data foundation.INSData, options foundati
 // Upon creation, the values of the [DefaultMediaDataStorage] property and any
 // associated [MediaDataStorage] properties are `nil`.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)
-func NewFragmentedMovieWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVFragmentedMovie {
+// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
+func NewFragmentedMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVFragmentedMovie {
 	instance := getAVFragmentedMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return AVFragmentedMovieFromID(rv)
@@ -143,3 +142,17 @@ func (f AVFragmentedMovie) IsAssociatedWithFragmentMinder() bool {
 }
 
 // Protocol methods for AVFragmentMinding
+
+// A Boolean value that indicates whether an asset that supports fragment
+// minding is currently associated with a fragment minder.
+//
+// # Discussion
+//
+// Only asset objects associated with a fragment minder post change
+// notifications.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
+func (o AVFragmentedMovie) AssociatedWithFragmentMinder() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAssociatedWithFragmentMinder"))
+	return bool(rv)
+}

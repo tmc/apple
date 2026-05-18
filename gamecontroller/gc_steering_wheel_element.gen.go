@@ -73,8 +73,6 @@ func GCSteeringWheelElementFromID(id objc.ID) GCSteeringWheelElement {
 // See: https://developer.apple.com/documentation/GameController/GCSteeringWheelElement
 type IGCSteeringWheelElement interface {
 	objectivec.IObject
-	GCAxisElement
-	GCPhysicalInputElement
 
 	// Topic: Getting the characteristics
 
@@ -101,14 +99,6 @@ func NewGCSteeringWheelElement() GCSteeringWheelElement {
 	return rv
 }
 
-// The maximum number of degrees that the user can rotate the wheel.
-//
-// See: https://developer.apple.com/documentation/GameController/GCSteeringWheelElement/maximumDegreesOfRotation
-func (g GCSteeringWheelElement) MaximumDegreesOfRotation() float32 {
-	rv := objc.Send[float32](g.ID, objc.Sel("maximumDegreesOfRotation"))
-	return rv
-}
-
 // An input object that provides absolute axis values.
 //
 // See: https://developer.apple.com/documentation/GameController/GCAxisElement/absoluteInput
@@ -123,7 +113,7 @@ func (g GCSteeringWheelElement) AbsoluteInput() GCAxisInput {
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/aliases
 func (g GCSteeringWheelElement) Aliases() foundation.INSSet {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("aliases"))
-	return foundation.NSSetFromID(objc.ID(rv))
+	return foundation.NSSetFromID(rv)
 }
 
 // The localized name for the element.
@@ -148,6 +138,14 @@ func (g GCSteeringWheelElement) RelativeInput() GCRelativeInput {
 func (g GCSteeringWheelElement) SfSymbolsName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("sfSymbolsName"))
 	return foundation.NSStringFromID(rv).String()
+}
+
+// The maximum number of degrees that the user can rotate the wheel.
+//
+// See: https://developer.apple.com/documentation/GameController/GCSteeringWheelElement/maximumDegreesOfRotation
+func (g GCSteeringWheelElement) MaximumDegreesOfRotation() float32 {
+	rv := objc.Send[float32](g.ID, objc.Sel("maximumDegreesOfRotation"))
+	return rv
 }
 
 // Protocol methods for GCAxisElement

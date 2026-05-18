@@ -127,14 +127,14 @@ type INERelay interface {
 	// Topic: Configuring server properties
 
 	// A URL identifying the relay server accessible using HTTP/3.
-	HTTP3RelayURL() foundation.INSURL
-	SetHTTP3RelayURL(value foundation.INSURL)
+	HTTP3RelayURL() foundation.NSURL
+	SetHTTP3RelayURL(value foundation.NSURL)
 	// A URL identifying the relay server accessible using HTTP/2.
-	HTTP2RelayURL() foundation.INSURL
-	SetHTTP2RelayURL(value foundation.INSURL)
+	HTTP2RelayURL() foundation.NSURL
+	SetHTTP2RelayURL(value foundation.NSURL)
 	// The URL of a DNS-over-HTTPS (DoH) resolver accessible from the relay.
-	DnsOverHTTPSURL() foundation.INSURL
-	SetDnsOverHTTPSURL(value foundation.INSURL)
+	DnsOverHTTPSURL() foundation.NSURL
+	SetDnsOverHTTPSURL(value foundation.NSURL)
 	// An array of TLS raw public keys that the relay server can present during the TLS handshake.
 	RawPublicKeys() []foundation.NSData
 	SetRawPublicKeys(value []foundation.NSData)
@@ -145,8 +145,8 @@ type INERelay interface {
 	AdditionalHTTPHeaderFields() foundation.INSDictionary
 	SetAdditionalHTTPHeaderFields(value foundation.INSDictionary)
 	// The PKCS12 data for the relay client authentication.
-	IdentityData() foundation.INSData
-	SetIdentityData(value foundation.INSData)
+	IdentityData() foundation.NSData
+	SetIdentityData(value foundation.NSData)
 	// The password the relay uses to decrypt the PKCS12 identity data.
 	IdentityDataPassword() string
 	SetIdentityDataPassword(value string)
@@ -186,33 +186,33 @@ func (r NERelay) EncodeWithCoder(coder foundation.INSCoder) {
 // A URL identifying the relay server accessible using HTTP/3.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/http3RelayURL
-func (r NERelay) HTTP3RelayURL() foundation.INSURL {
+func (r NERelay) HTTP3RelayURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("HTTP3RelayURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (r NERelay) SetHTTP3RelayURL(value foundation.INSURL) {
+func (r NERelay) SetHTTP3RelayURL(value foundation.NSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHTTP3RelayURL:"), value)
 }
 
 // A URL identifying the relay server accessible using HTTP/2.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/http2RelayURL
-func (r NERelay) HTTP2RelayURL() foundation.INSURL {
+func (r NERelay) HTTP2RelayURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("HTTP2RelayURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (r NERelay) SetHTTP2RelayURL(value foundation.INSURL) {
+func (r NERelay) SetHTTP2RelayURL(value foundation.NSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHTTP2RelayURL:"), value)
 }
 
 // The URL of a DNS-over-HTTPS (DoH) resolver accessible from the relay.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/dnsOverHTTPSURL
-func (r NERelay) DnsOverHTTPSURL() foundation.INSURL {
+func (r NERelay) DnsOverHTTPSURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("dnsOverHTTPSURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (r NERelay) SetDnsOverHTTPSURL(value foundation.INSURL) {
+func (r NERelay) SetDnsOverHTTPSURL(value foundation.NSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDnsOverHTTPSURL:"), value)
 }
 
@@ -257,11 +257,11 @@ func (r NERelay) SetAdditionalHTTPHeaderFields(value foundation.INSDictionary) {
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/identityData
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-func (r NERelay) IdentityData() foundation.INSData {
+func (r NERelay) IdentityData() foundation.NSData {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("identityData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (r NERelay) SetIdentityData(value foundation.INSData) {
+func (r NERelay) SetIdentityData(value foundation.NSData) {
 	objc.Send[struct{}](r.ID, objc.Sel("setIdentityData:"), value)
 }
 

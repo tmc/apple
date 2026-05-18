@@ -19,20 +19,12 @@ type CIAffineClamp interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/inputImage
 	InputImage() ICIImage
-
-	// The transform to apply to the image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/transform
-	Transform() corefoundation.CGAffineTransform
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/inputImage
 	SetInputImage(value ICIImage)
 
 	// The transform to apply to the image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/transform
+	Transform() corefoundation.CGAffineTransform
 	SetTransform(value corefoundation.CGAffineTransform)
 }
 
@@ -53,22 +45,6 @@ func CIAffineClampObjectFromID(id objc.ID) CIAffineClampObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/inputImage
-func (o CIAffineClampObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The transform to apply to the image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/transform
-func (o CIAffineClampObject) Transform() corefoundation.CGAffineTransform {
-	rv := objc.Send[corefoundation.CGAffineTransform](o.ID, objc.Sel("transform"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -81,6 +57,11 @@ func (o CIAffineClampObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/inputImage
+func (o CIAffineClampObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIAffineClampObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -88,6 +69,11 @@ func (o CIAffineClampObject) SetInputImage(value ICIImage) {
 // The transform to apply to the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/transform
+func (o CIAffineClampObject) Transform() corefoundation.CGAffineTransform {
+	rv := objc.Send[corefoundation.CGAffineTransform](o.ID, objc.Sel("transform"))
+	return corefoundation.CGAffineTransform(rv)
+}
+
 func (o CIAffineClampObject) SetTransform(value corefoundation.CGAffineTransform) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTransform:"), value)
 }

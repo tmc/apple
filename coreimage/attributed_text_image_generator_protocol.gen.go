@@ -19,30 +19,18 @@ type CIAttributedTextImageGenerator interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/scaleFactor
 	ScaleFactor() float32
-
-	// The text to render.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/text
-	Text() foundation.NSAttributedString
-
-	// Padding protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/padding
-	Padding() float32
-
-	// The scale at which to render the text.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/scaleFactor
 	SetScaleFactor(value float32)
 
 	// The text to render.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/text
+	Text() foundation.NSAttributedString
 	SetText(value foundation.NSAttributedString)
 
 	// padding protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/padding
+	Padding() float32
 	SetPadding(value float32)
 }
 
@@ -63,28 +51,6 @@ func CIAttributedTextImageGeneratorObjectFromID(id objc.ID) CIAttributedTextImag
 	}
 }
 
-// The scale at which to render the text.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/scaleFactor
-func (o CIAttributedTextImageGeneratorObject) ScaleFactor() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("scaleFactor"))
-	return rv
-}
-
-// The text to render.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/text
-func (o CIAttributedTextImageGeneratorObject) Text() foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("text"))
-	return foundation.NSAttributedStringFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/padding
-func (o CIAttributedTextImageGeneratorObject) Padding() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("padding"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -97,6 +63,11 @@ func (o CIAttributedTextImageGeneratorObject) OutputImage() ICIImage {
 // The scale at which to render the text.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/scaleFactor
+func (o CIAttributedTextImageGeneratorObject) ScaleFactor() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("scaleFactor"))
+	return float32(rv)
+}
+
 func (o CIAttributedTextImageGeneratorObject) SetScaleFactor(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScaleFactor:"), value)
 }
@@ -104,11 +75,21 @@ func (o CIAttributedTextImageGeneratorObject) SetScaleFactor(value float32) {
 // The text to render.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/text
+func (o CIAttributedTextImageGeneratorObject) Text() foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("text"))
+	return foundation.NSAttributedStringFromID(rv)
+}
+
 func (o CIAttributedTextImageGeneratorObject) SetText(value foundation.NSAttributedString) {
 	objc.Send[struct{}](o.ID, objc.Sel("setText:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/padding
+func (o CIAttributedTextImageGeneratorObject) Padding() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("padding"))
+	return float32(rv)
+}
+
 func (o CIAttributedTextImageGeneratorObject) SetPadding(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPadding:"), value)
 }

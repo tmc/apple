@@ -130,6 +130,14 @@ func NewMTLFunctionDescriptor() MTLFunctionDescriptor {
 	return rv
 }
 
+// Creates a default function descriptor.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLFunctionDescriptor/functionDescriptor
+func (_MTLFunctionDescriptorClass MTLFunctionDescriptorClass) FunctionDescriptor() MTLFunctionDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLFunctionDescriptorClass.class), objc.Sel("functionDescriptor"))
+	return MTLFunctionDescriptorFromID(rv)
+}
+
 // The name of the function to fetch from the library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionDescriptor/name

@@ -440,22 +440,22 @@ const (
 	CSSMERR_TP_UNSUPPORTED_SERVICE                     Cssm = -2147409616
 	CSSMERR_TP_VERIFY_ACTION_FAILED                    Cssm = -2147409644
 	CSSM_AC_BASE_AC_ERROR                              Cssm = 0
-	CSSM_AC_BASE_ERROR                                 Cssm = -2147418112
-	CSSM_AC_PRIVATE_ERROR                              Cssm = -2147418112
+	CSSM_AC_BASE_ERROR                                 Cssm = -2147407872
+	CSSM_AC_PRIVATE_ERROR                              Cssm = -2147405824
 	CSSM_BASE_ERROR                                    Cssm = -0x7fff0000
 	CSSM_CL_BASE_CL_ERROR                              Cssm = 0
-	CSSM_CL_BASE_ERROR                                 Cssm = -2147418112
-	CSSM_CL_PRIVATE_ERROR                              Cssm = -2147418112
+	CSSM_CL_BASE_ERROR                                 Cssm = -2147414016
+	CSSM_CL_PRIVATE_ERROR                              Cssm = -2147411968
 	CSSM_CSP_BASE_CSP_ERROR                            Cssm = 0
 	CSSM_CSP_BASE_ERROR                                Cssm = -2147418112
-	CSSM_CSP_PRIVATE_ERROR                             Cssm = -2147418112
+	CSSM_CSP_PRIVATE_ERROR                             Cssm = -2147416064
 	CSSM_CSSM_BASE_CSSM_ERROR                          Cssm = 0
 	CSSM_CSSM_BASE_ERROR                               Cssm = -2147418112
 	CSSM_CSSM_PRIVATE_ERROR                            Cssm = -2147418112
 	CSSM_CUSTOM_COMMON_ERROR_EXTENT                    Cssm = 224
 	CSSM_DL_BASE_DL_ERROR                              Cssm = 0
-	CSSM_DL_BASE_ERROR                                 Cssm = -2147418112
-	CSSM_DL_PRIVATE_ERROR                              Cssm = -2147418112
+	CSSM_DL_BASE_ERROR                                 Cssm = -2147416064
+	CSSM_DL_PRIVATE_ERROR                              Cssm = -2147414016
 	CSSM_ERRCODE_DEVICE_FAILED                         Cssm = 229
 	CSSM_ERRCODE_DEVICE_RESET                          Cssm = 228
 	CSSM_ERRCODE_INSUFFICIENT_CLIENT_IDENTIFICATION    Cssm = 227
@@ -467,12 +467,12 @@ const (
 	CSSM_ERRORCODE_CUSTOM_OFFSET                       Cssm = 0x400
 	CSSM_ERRORCODE_MODULE_EXTENT                       Cssm = 0x800
 	CSSM_FALSE                                         Cssm = 0
-	CSSM_KR_BASE_ERROR                                 Cssm = -2147418112
-	CSSM_KR_PRIVATE_ERROR                              Cssm = -2147418112
+	CSSM_KR_BASE_ERROR                                 Cssm = -2147409920
+	CSSM_KR_PRIVATE_ERROR                              Cssm = -2147407872
 	CSSM_OK                                            Cssm = 0
-	CSSM_TP_BASE_ERROR                                 Cssm = -2147418112
+	CSSM_TP_BASE_ERROR                                 Cssm = -2147411968
 	CSSM_TP_BASE_TP_ERROR                              Cssm = 0
-	CSSM_TP_PRIVATE_ERROR                              Cssm = -2147418112
+	CSSM_TP_PRIVATE_ERROR                              Cssm = -2147409920
 	CSSM_TRUE                                          Cssm = 0
 )
 
@@ -938,6 +938,16 @@ func (e Cssm) String() string {
 		return "CSSM_AC_BASE_AC_ERROR"
 	case CSSM_AC_BASE_ERROR:
 		return "CSSM_AC_BASE_ERROR"
+	case CSSM_AC_PRIVATE_ERROR:
+		return "CSSM_AC_PRIVATE_ERROR"
+	case CSSM_BASE_ERROR:
+		return "CSSM_BASE_ERROR"
+	case CSSM_CL_BASE_ERROR:
+		return "CSSM_CL_BASE_ERROR"
+	case CSSM_CL_PRIVATE_ERROR:
+		return "CSSM_CL_PRIVATE_ERROR"
+	case CSSM_CSP_PRIVATE_ERROR:
+		return "CSSM_CSP_PRIVATE_ERROR"
 	case CSSM_CUSTOM_COMMON_ERROR_EXTENT:
 		return "CSSM_CUSTOM_COMMON_ERROR_EXTENT"
 	case CSSM_ERRCODE_DEVICE_FAILED:
@@ -958,6 +968,8 @@ func (e Cssm) String() string {
 		return "CSSM_ERRORCODE_CUSTOM_OFFSET"
 	case CSSM_ERRORCODE_MODULE_EXTENT:
 		return "CSSM_ERRORCODE_MODULE_EXTENT"
+	case CSSM_KR_BASE_ERROR:
+		return "CSSM_KR_BASE_ERROR"
 	default:
 		return fmt.Sprintf("Cssm(%d)", e)
 	}
@@ -1322,12 +1334,12 @@ type CssmAlgid uint
 
 const (
 	CSSM_ALGID_3DES                CssmAlgid = 0
-	CSSM_ALGID_3DES_1KEY           CssmAlgid = 0
+	CSSM_ALGID_3DES_1KEY           CssmAlgid = 20
 	CSSM_ALGID_3DES_1KEY_EEE       CssmAlgid = 0
-	CSSM_ALGID_3DES_2KEY           CssmAlgid = 0
+	CSSM_ALGID_3DES_2KEY           CssmAlgid = 18
 	CSSM_ALGID_3DES_2KEY_EDE       CssmAlgid = 0
 	CSSM_ALGID_3DES_2KEY_EEE       CssmAlgid = 0
-	CSSM_ALGID_3DES_3KEY           CssmAlgid = 0
+	CSSM_ALGID_3DES_3KEY           CssmAlgid = 17
 	CSSM_ALGID_3DES_3KEY_EDE       CssmAlgid = 0
 	CSSM_ALGID_3DES_3KEY_EEE       CssmAlgid = 0
 	CSSM_ALGID_AES                 CssmAlgid = 1
@@ -1463,15 +1475,21 @@ const (
 	CSSM_ALGID_XORBaseAndData      CssmAlgid = 0
 	CSSM_ALGID__FIRST_UNUSED       CssmAlgid = 30
 	// Deprecated.
-	CSSM_ALGID_SSL3MasterDerive CssmAlgid = 0
+	CSSM_ALGID_SSL3MasterDerive CssmAlgid = 63
 	// Deprecated.
-	CSSM_ALGID_SSL3PreMasterGen CssmAlgid = 0
+	CSSM_ALGID_SSL3PreMasterGen CssmAlgid = 62
 )
 
 func (e CssmAlgid) String() string {
 	switch e {
 	case CSSM_ALGID_3DES:
 		return "CSSM_ALGID_3DES"
+	case CSSM_ALGID_3DES_1KEY:
+		return "CSSM_ALGID_3DES_1KEY"
+	case CSSM_ALGID_3DES_2KEY:
+		return "CSSM_ALGID_3DES_2KEY"
+	case CSSM_ALGID_3DES_3KEY:
+		return "CSSM_ALGID_3DES_3KEY"
 	case CSSM_ALGID_AES:
 		return "CSSM_ALGID_AES"
 	case CSSM_ALGID_ASC:
@@ -1480,8 +1498,6 @@ func (e CssmAlgid) String() string {
 		return "CSSM_ALGID_ECDH_X963_KDF"
 	case CSSM_ALGID_ECDSA_SPECIFIED:
 		return "CSSM_ALGID_ECDSA_SPECIFIED"
-	case CSSM_ALGID_ENTROPY_DEFAULT:
-		return "CSSM_ALGID_ENTROPY_DEFAULT"
 	case CSSM_ALGID_FEE:
 		return "CSSM_ALGID_FEE"
 	case CSSM_ALGID_FEED:
@@ -1506,8 +1522,6 @@ func (e CssmAlgid) String() string {
 		return "CSSM_ALGID_SECURE_PASSPHRASE"
 	case CSSM_ALGID_SHA1HMAC_LEGACY:
 		return "CSSM_ALGID_SHA1HMAC_LEGACY"
-	case CSSM_ALGID_SHA224:
-		return "CSSM_ALGID_SHA224"
 	case CSSM_ALGID_SHA224WithECDSA:
 		return "CSSM_ALGID_SHA224WithECDSA"
 	case CSSM_ALGID_SHA224WithRSA:
@@ -1516,8 +1530,6 @@ func (e CssmAlgid) String() string {
 		return "CSSM_ALGID_SHA256"
 	case CSSM_ALGID_SHA256WithECDSA:
 		return "CSSM_ALGID_SHA256WithECDSA"
-	case CSSM_ALGID_SHA256WithRSA:
-		return "CSSM_ALGID_SHA256WithRSA"
 	case CSSM_ALGID_SHA384:
 		return "CSSM_ALGID_SHA384"
 	case CSSM_ALGID_SHA384WithECDSA:
@@ -1532,6 +1544,10 @@ func (e CssmAlgid) String() string {
 		return "CSSM_ALGID_SHA512WithRSA"
 	case CSSM_ALGID__FIRST_UNUSED:
 		return "CSSM_ALGID__FIRST_UNUSED"
+	case CSSM_ALGID_SSL3MasterDerive:
+		return "CSSM_ALGID_SSL3MasterDerive"
+	case CSSM_ALGID_SSL3PreMasterGen:
+		return "CSSM_ALGID_SSL3PreMasterGen"
 	default:
 		return fmt.Sprintf("CssmAlgid(%d)", e)
 	}
@@ -3447,14 +3463,16 @@ func (e CssmListType) String() string {
 type CssmMds int
 
 const (
-	CSSM_MDS_BASE_ERROR    CssmMds = -2147418112
-	CSSM_MDS_PRIVATE_ERROR CssmMds = -2147418112
+	CSSM_MDS_BASE_ERROR    CssmMds = -2147416064
+	CSSM_MDS_PRIVATE_ERROR CssmMds = -2147414016
 )
 
 func (e CssmMds) String() string {
 	switch e {
 	case CSSM_MDS_BASE_ERROR:
 		return "CSSM_MDS_BASE_ERROR"
+	case CSSM_MDS_PRIVATE_ERROR:
+		return "CSSM_MDS_PRIVATE_ERROR"
 	default:
 		return fmt.Sprintf("CssmMds(%d)", e)
 	}
@@ -7764,6 +7782,7 @@ type SSLCiphersuiteGroup int32
 const (
 	KSSLCiphersuiteGroupATS              SSLCiphersuiteGroup = 3
 	KSSLCiphersuiteGroupATSCompatibility SSLCiphersuiteGroup = 4
+	KSSLCiphersuiteGroupATSFCP_v2_1      SSLCiphersuiteGroup = 5
 	KSSLCiphersuiteGroupCompatibility    SSLCiphersuiteGroup = 1
 	KSSLCiphersuiteGroupDefault          SSLCiphersuiteGroup = 0
 	KSSLCiphersuiteGroupLegacy           SSLCiphersuiteGroup = 2
@@ -7775,6 +7794,8 @@ func (e SSLCiphersuiteGroup) String() string {
 		return "KSSLCiphersuiteGroupATS"
 	case KSSLCiphersuiteGroupATSCompatibility:
 		return "KSSLCiphersuiteGroupATSCompatibility"
+	case KSSLCiphersuiteGroupATSFCP_v2_1:
+		return "KSSLCiphersuiteGroupATSFCP_v2_1"
 	case KSSLCiphersuiteGroupCompatibility:
 		return "KSSLCiphersuiteGroupCompatibility"
 	case KSSLCiphersuiteGroupDefault:
@@ -8415,18 +8436,18 @@ func (e SSLProtocol) String() string {
 type SSLProtocolSide int32
 
 const (
-	// KSSLServerSide: Server side.
-	KSSLServerSide SSLProtocolSide = 0
 	// Deprecated.
 	KSSLClientSide SSLProtocolSide = 1
+	// Deprecated.
+	KSSLServerSide SSLProtocolSide = 0
 )
 
 func (e SSLProtocolSide) String() string {
 	switch e {
-	case KSSLServerSide:
-		return "KSSLServerSide"
 	case KSSLClientSide:
 		return "KSSLClientSide"
+	case KSSLServerSide:
+		return "KSSLServerSide"
 	default:
 		return fmt.Sprintf("SSLProtocolSide(%d)", e)
 	}
@@ -8436,8 +8457,6 @@ func (e SSLProtocolSide) String() string {
 type SSLSessionOption int32
 
 const (
-	// KSSLSessionOptionSendOneByteRecord: Enables  record splitting for BEAST attack mitigation.
-	KSSLSessionOptionSendOneByteRecord SSLSessionOption = 4
 	// Deprecated.
 	KSSLSessionOptionAllowRenegotiation SSLSessionOption = 8
 	// Deprecated.
@@ -8456,12 +8475,12 @@ const (
 	KSSLSessionOptionFallback SSLSessionOption = 6
 	// Deprecated.
 	KSSLSessionOptionFalseStart SSLSessionOption = 3
+	// Deprecated.
+	KSSLSessionOptionSendOneByteRecord SSLSessionOption = 4
 )
 
 func (e SSLSessionOption) String() string {
 	switch e {
-	case KSSLSessionOptionSendOneByteRecord:
-		return "KSSLSessionOptionSendOneByteRecord"
 	case KSSLSessionOptionAllowRenegotiation:
 		return "KSSLSessionOptionAllowRenegotiation"
 	case KSSLSessionOptionAllowServerIdentityChange:
@@ -8480,6 +8499,8 @@ func (e SSLSessionOption) String() string {
 		return "KSSLSessionOptionFallback"
 	case KSSLSessionOptionFalseStart:
 		return "KSSLSessionOptionFalseStart"
+	case KSSLSessionOptionSendOneByteRecord:
+		return "KSSLSessionOptionSendOneByteRecord"
 	default:
 		return fmt.Sprintf("SSLSessionOption(%d)", e)
 	}
@@ -10159,6 +10180,7 @@ type Tls_ciphersuite_group_t uint16
 const (
 	Tls_ciphersuite_group_ats               Tls_ciphersuite_group_t = 3
 	Tls_ciphersuite_group_ats_compatibility Tls_ciphersuite_group_t = 4
+	Tls_ciphersuite_group_ats_fcp_v2_1      Tls_ciphersuite_group_t = 5
 	Tls_ciphersuite_group_compatibility     Tls_ciphersuite_group_t = 1
 	Tls_ciphersuite_group_default           Tls_ciphersuite_group_t = 0
 	Tls_ciphersuite_group_legacy            Tls_ciphersuite_group_t = 2
@@ -10170,6 +10192,8 @@ func (e Tls_ciphersuite_group_t) String() string {
 		return "Tls_ciphersuite_group_ats"
 	case Tls_ciphersuite_group_ats_compatibility:
 		return "Tls_ciphersuite_group_ats_compatibility"
+	case Tls_ciphersuite_group_ats_fcp_v2_1:
+		return "Tls_ciphersuite_group_ats_fcp_v2_1"
 	case Tls_ciphersuite_group_compatibility:
 		return "Tls_ciphersuite_group_compatibility"
 	case Tls_ciphersuite_group_default:
@@ -10311,3 +10335,27 @@ func (e Tls_protocol_version_t) String() string {
 		return fmt.Sprintf("Tls_protocol_version_t(%d)", e)
 	}
 }
+
+// CeCrlDistributionPointNameType is a Go-name alias for CE_CrlDistributionPointNameType.
+type CeCrlDistributionPointNameType = CE_CrlDistributionPointNameType
+
+// CeDataType is a Go-name alias for CE_DataType.
+type CeDataType = CE_DataType
+
+// CeGeneralNameType is a Go-name alias for CE_GeneralNameType.
+type CeGeneralNameType = CE_GeneralNameType
+
+// CssmAppledlOpenParametersMask is a Go-name alias for Cssm_appledl_open_parameters_mask.
+type CssmAppledlOpenParametersMask = Cssm_appledl_open_parameters_mask
+
+// ExtensionDataFormat is a Go-name alias for Extension_data_format.
+type ExtensionDataFormat = Extension_data_format
+
+// TLSCiphersuiteGroup is a Go-name alias for Tls_ciphersuite_group_t.
+type TLSCiphersuiteGroup = Tls_ciphersuite_group_t
+
+// TLSCiphersuite is a Go-name alias for Tls_ciphersuite_t.
+type TLSCiphersuite = Tls_ciphersuite_t
+
+// TLSProtocolVersion is a Go-name alias for Tls_protocol_version_t.
+type TLSProtocolVersion = Tls_protocol_version_t

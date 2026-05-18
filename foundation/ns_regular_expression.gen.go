@@ -313,8 +313,6 @@ func NSRegularExpressionFromID(id objc.ID) NSRegularExpression {
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression
 type INSRegularExpression interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating Regular Expressions
@@ -364,13 +362,13 @@ type INSRegularExpression interface {
 	SetRange(value NSRange)
 	// Matches a regular expression.
 	RegularExpression() NSTextCheckingType
-	SetRegularExpression(value NSTextCheckingType)
+	SetNSTextCheckingTypeRegularExpression(value NSTextCheckingType)
 	// Call the Block once after the completion of any matching. This option has no effect for methods other than
 	ReportCompletion() NSMatchingOptions
-	SetReportCompletion(value NSMatchingOptions)
+	SetNSMatchingReportCompletion(value NSMatchingOptions)
 	// Call the Block periodically during long-running match operations. This option has no effect for methods other than
 	ReportProgress() NSMatchingOptions
-	SetReportProgress(value NSMatchingOptions)
+	SetNSMatchingReportProgress(value NSMatchingOptions)
 }
 
 // Init initializes the instance.
@@ -942,7 +940,7 @@ func (r NSRegularExpression) RegularExpression() NSTextCheckingType {
 	rv := objc.Send[NSTextCheckingType](r.ID, objc.Sel("NSTextCheckingTypeRegularExpression"))
 	return NSTextCheckingType(rv)
 }
-func (r NSRegularExpression) SetRegularExpression(value NSTextCheckingType) {
+func (r NSRegularExpression) SetNSTextCheckingTypeRegularExpression(value NSTextCheckingType) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSTextCheckingTypeRegularExpression:"), value)
 }
 
@@ -954,7 +952,7 @@ func (r NSRegularExpression) ReportCompletion() NSMatchingOptions {
 	rv := objc.Send[NSMatchingOptions](r.ID, objc.Sel("NSMatchingReportCompletion"))
 	return NSMatchingOptions(rv)
 }
-func (r NSRegularExpression) SetReportCompletion(value NSMatchingOptions) {
+func (r NSRegularExpression) SetNSMatchingReportCompletion(value NSMatchingOptions) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSMatchingReportCompletion:"), value)
 }
 
@@ -966,7 +964,7 @@ func (r NSRegularExpression) ReportProgress() NSMatchingOptions {
 	rv := objc.Send[NSMatchingOptions](r.ID, objc.Sel("NSMatchingReportProgress"))
 	return NSMatchingOptions(rv)
 }
-func (r NSRegularExpression) SetReportProgress(value NSMatchingOptions) {
+func (r NSRegularExpression) SetNSMatchingReportProgress(value NSMatchingOptions) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSMatchingReportProgress:"), value)
 }
 

@@ -20,10 +20,6 @@ type NSCollectionViewSectionHeaderView interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewSectionHeaderView/sectionCollapseButton
 	SectionCollapseButton() INSButton
-
-	// A control that lets users collapse and open a collection view section.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewSectionHeaderView/sectionCollapseButton
 	SetSectionCollapseButton(value INSButton)
 }
 
@@ -42,14 +38,6 @@ func NSCollectionViewSectionHeaderViewObjectFromID(id objc.ID) NSCollectionViewS
 	return NSCollectionViewSectionHeaderViewObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A control that lets users collapse and open a collection view section.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewSectionHeaderView/sectionCollapseButton
-func (o NSCollectionViewSectionHeaderViewObject) SectionCollapseButton() INSButton {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("sectionCollapseButton"))
-	return NSButtonFromID(rv)
 }
 
 // Performs any necessary cleanup to prepare the element for use again.
@@ -187,6 +175,11 @@ func (o NSCollectionViewSectionHeaderViewObject) Identifier() NSUserInterfaceIte
 // [ToggleSectionCollapse] property to access this button.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewSectionHeaderView/sectionCollapseButton
+func (o NSCollectionViewSectionHeaderViewObject) SectionCollapseButton() INSButton {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("sectionCollapseButton"))
+	return NSButtonFromID(rv)
+}
+
 func (o NSCollectionViewSectionHeaderViewObject) SetSectionCollapseButton(value INSButton) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSectionCollapseButton:"), value)
 }

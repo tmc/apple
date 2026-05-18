@@ -6,6 +6,7 @@ package foundation
 
 import (
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // An object containing the payload information that launches an App Clip.
@@ -18,9 +19,9 @@ import (
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/appClipActivationPayload
 //
 // [Responding to invocations]: https://developer.apple.com/documentation/AppClip/responding-to-invocations
-func (u NSUserActivity) AppClipActivationPayload() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("appClipActivationPayload"))
-	return rv
+func (u NSUserActivity) AppClipActivationPayload() objectivec.IObject {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("appClipActivationPayload"))
+	return objectivec.Object{ID: rv}
 }
 
 // A Boolean value that determines whether Siri can suggest the user activity
@@ -63,11 +64,11 @@ func (u NSUserActivity) SetEligibleForPrediction(value bool) {
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/shortcutAvailability
 //
 // [INShortcutAvailabilityOptions]: https://developer.apple.com/documentation/Intents/INShortcutAvailabilityOptions
-func (u NSUserActivity) ShortcutAvailability() uint {
-	rv := objc.Send[uint](u.ID, objc.Sel("shortcutAvailability"))
+func (u NSUserActivity) ShortcutAvailability() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("shortcutAvailability"))
 	return rv
 }
-func (u NSUserActivity) SetShortcutAvailability(value uint) {
+func (u NSUserActivity) SetShortcutAvailability(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setShortcutAvailability:"), value)
 }
 
@@ -87,9 +88,9 @@ func (u NSUserActivity) SetShortcutAvailability(value uint) {
 // [NFCNDEFPayload]: https://developer.apple.com/documentation/CoreNFC/NFCNDEFPayload
 // [NFCTypeNameFormat.empty]: https://developer.apple.com/documentation/CoreNFC/NFCTypeNameFormat/empty
 // [typeNameFormat]: https://developer.apple.com/documentation/CoreNFC/NFCNDEFPayload/typeNameFormat
-func (u NSUserActivity) NdefMessagePayload() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("ndefMessagePayload"))
-	return rv
+func (u NSUserActivity) NdefMessagePayload() objectivec.IObject {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("ndefMessagePayload"))
+	return objectivec.Object{ID: rv}
 }
 
 // A unique identifier from the app’s media content catalog for the

@@ -44,7 +44,15 @@ func MTLCounterSetObjectFromID(id objc.ID) MTLCounterSetObject {
 
 // The name of the GPU’s counter set instance.
 //
+// # Discussion
+//
+// The property typically matches one of the common counter set names that
+// [MTLCommonCounterSet] defines (see [Confirming which counters and counter
+// sets a GPU supports]).
+//
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSet/name
+//
+// [Confirming which counters and counter sets a GPU supports]: https://developer.apple.com/documentation/Metal/confirming-which-counters-and-counter-sets-a-gpu-supports
 func (o MTLCounterSetObject) Name() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
@@ -52,10 +60,23 @@ func (o MTLCounterSetObject) Name() string {
 
 // An array of the counter instances a GPU device supports.
 //
+// # Discussion
+//
+// Check whether a GPU device supports a specific counter by comparing its
+// common name (see [MTLCommonCounter]) with each element in the property’s
+// array.
+//
+// For more information, see [Confirming which counters and counter sets a GPU
+// supports].
+//
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSet/counters
+//
+// [Confirming which counters and counter sets a GPU supports]: https://developer.apple.com/documentation/Metal/confirming-which-counters-and-counter-sets-a-gpu-supports
 func (o MTLCounterSetObject) Counters() []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("counters"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	})
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("counters"))
+	result := make([]objectivec.IObject, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = objectivec.Object{ID: id}
+	}
+	return result
 }

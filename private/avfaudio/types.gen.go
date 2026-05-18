@@ -85,38 +85,38 @@ type MusicTrackEventIteratorImpl struct {
 type MyAudioQueueBuffer struct {
 }
 
-// _CFDictionary
+// CFDictionary
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/__CFDictionary
-type _CFDictionary struct {
+type CFDictionary struct {
 }
 
-// _IOSurface
+// IOSurface
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/__IOSurface
-type _IOSurface struct {
+type IOSurface struct {
 }
 
-// Mach_port
+// MachPort
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/mach_port
-type Mach_port struct {
+type MachPort struct {
 }
 
-// Recursive_mutex
+// RecursiveMutex
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/recursive_mutex
-type Recursive_mutex struct {
+type RecursiveMutex struct {
 	__m_ unsafe.Pointer
 }
 
-// Xpc_type_s
+// XPCTypeS
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/_xpc_type_s
-type Xpc_type_s struct {
+type XPCTypeS struct {
 }

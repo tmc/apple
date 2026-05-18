@@ -145,14 +145,14 @@ type IMLCompilerEvent interface {
 }
 
 // Init initializes the instance.
-func (c MLCompilerEvent) Init() MLCompilerEvent {
-	rv := objc.Send[MLCompilerEvent](c.ID, objc.Sel("init"))
+func (m MLCompilerEvent) Init() MLCompilerEvent {
+	rv := objc.Send[MLCompilerEvent](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCompilerEvent) Autorelease() MLCompilerEvent {
-	rv := objc.Send[MLCompilerEvent](c.ID, objc.Sel("autorelease"))
+func (m MLCompilerEvent) Autorelease() MLCompilerEvent {
+	rv := objc.Send[MLCompilerEvent](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -164,118 +164,118 @@ func NewMLCompilerEvent() MLCompilerEvent {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/compilerVersion
-func (c MLCompilerEvent) CompilerVersion() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("compilerVersion"))
+func (m MLCompilerEvent) CompilerVersion() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("compilerVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (c MLCompilerEvent) SetCompilerVersion(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCompilerVersion:"), objc.String(value))
+func (m MLCompilerEvent) SetCompilerVersion(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setCompilerVersion:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/debugDescription
-func (c MLCompilerEvent) DebugDescription() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
+func (m MLCompilerEvent) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/description
-func (c MLCompilerEvent) Description() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
+func (m MLCompilerEvent) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/dictionaryRepresentation
-func (c MLCompilerEvent) DictionaryRepresentation() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("dictionaryRepresentation"))
+func (m MLCompilerEvent) DictionaryRepresentation() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/hash
-func (c MLCompilerEvent) Hash() uint64 {
-	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
+func (m MLCompilerEvent) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/milUpgradeFailureReason
-func (c MLCompilerEvent) MilUpgradeFailureReason() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("milUpgradeFailureReason"))
+func (m MLCompilerEvent) MilUpgradeFailureReason() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("milUpgradeFailureReason"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (c MLCompilerEvent) SetMilUpgradeFailureReason(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setMilUpgradeFailureReason:"), objc.String(value))
+func (m MLCompilerEvent) SetMilUpgradeFailureReason(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMilUpgradeFailureReason:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/milUpgradeStatus
-func (c MLCompilerEvent) MilUpgradeStatus() foundation.NSNumber {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("milUpgradeStatus"))
+func (m MLCompilerEvent) MilUpgradeStatus() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("milUpgradeStatus"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (c MLCompilerEvent) SetMilUpgradeStatus(value foundation.NSNumber) {
-	objc.Send[struct{}](c.ID, objc.Sel("setMilUpgradeStatus:"), value)
+func (m MLCompilerEvent) SetMilUpgradeStatus(value foundation.NSNumber) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMilUpgradeStatus:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/modelCompiledWithVersion
-func (c MLCompilerEvent) ModelCompiledWithVersion() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelCompiledWithVersion"))
+func (m MLCompilerEvent) ModelCompiledWithVersion() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelCompiledWithVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (c MLCompilerEvent) SetModelCompiledWithVersion(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModelCompiledWithVersion:"), objc.String(value))
+func (m MLCompilerEvent) SetModelCompiledWithVersion(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelCompiledWithVersion:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/modelHash
-func (c MLCompilerEvent) ModelHash() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelHash"))
+func (m MLCompilerEvent) ModelHash() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelHash"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (c MLCompilerEvent) SetModelHash(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModelHash:"), objc.String(value))
+func (m MLCompilerEvent) SetModelHash(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelHash:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/modelName
-func (c MLCompilerEvent) ModelName() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelName"))
+func (m MLCompilerEvent) ModelName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (c MLCompilerEvent) SetModelName(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModelName:"), objc.String(value))
+func (m MLCompilerEvent) SetModelName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/modelOrigin
-func (c MLCompilerEvent) ModelOrigin() foundation.NSNumber {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelOrigin"))
+func (m MLCompilerEvent) ModelOrigin() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelOrigin"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (c MLCompilerEvent) SetModelOrigin(value foundation.NSNumber) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModelOrigin:"), value)
+func (m MLCompilerEvent) SetModelOrigin(value foundation.NSNumber) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelOrigin:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/modelType
-func (c MLCompilerEvent) ModelType() foundation.NSNumber {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelType"))
+func (m MLCompilerEvent) ModelType() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-func (c MLCompilerEvent) SetModelType(value foundation.NSNumber) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModelType:"), value)
+func (m MLCompilerEvent) SetModelType(value foundation.NSNumber) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelType:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/modelVersion
-func (c MLCompilerEvent) ModelVersion() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelVersion"))
+func (m MLCompilerEvent) ModelVersion() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (c MLCompilerEvent) SetModelVersion(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setModelVersion:"), objc.String(value))
+func (m MLCompilerEvent) SetModelVersion(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelVersion:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/name
-func (c MLCompilerEvent) Name() string {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("name"))
+func (m MLCompilerEvent) Name() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerEvent/superclass
-func (c MLCompilerEvent) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
+func (m MLCompilerEvent) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

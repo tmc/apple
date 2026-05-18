@@ -138,7 +138,6 @@ func NSTextContentManagerFromID(id objc.ID) NSTextContentManager {
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager
 type INSTextContentManager interface {
 	objectivec.IObject
-	NSTextElementProvider
 
 	// Topic: Creating a content manager
 
@@ -342,6 +341,14 @@ func (t NSTextContentManager) TextElementsForRange(range_ INSTextRange) []NSText
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/adjustedRange(from:forEditingTextSelection:)
 func (t NSTextContentManager) AdjustedRangeFromRangeForEditingTextSelection(textRange INSTextRange, forEditingTextSelection bool) INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("adjustedRangeFromRange:forEditingTextSelection:"), textRange, forEditingTextSelection)
+	return NSTextRangeFromID(rv)
+}
+
+// Describes the starting and ending locations for the document.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/documentRange
+func (t NSTextContentManager) DocumentRange() INSTextRange {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("documentRange"))
 	return NSTextRangeFromID(rv)
 }
 
@@ -549,19 +556,6 @@ func (t NSTextContentManager) Delegate() NSTextContentManagerDelegate {
 }
 func (t NSTextContentManager) SetDelegate(value NSTextContentManagerDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
-}
-
-// Describes the starting and ending locations for the document.
-//
-// # Discussion
-//
-// The subclass could use its own implementation of a location object
-// conforming to [NSTextRange].
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/documentRange
-func (t NSTextContentManager) DocumentRange() INSTextRange {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("documentRange"))
-	return NSTextRangeFromID(objc.ID(rv))
 }
 
 // Protocol methods for NSTextElementProvider

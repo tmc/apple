@@ -96,12 +96,12 @@ type IAVMetricMediaResourceRequestEvent interface {
 	ByteRange() foundation.NSRange
 	ErrorEvent() IAVMetricErrorEvent
 	NetworkTransactionMetrics() foundation.NSURLSessionTaskMetrics
-	RequestEndTime() foundation.INSDate
-	RequestStartTime() foundation.INSDate
-	ResponseEndTime() foundation.INSDate
-	ResponseStartTime() foundation.INSDate
+	RequestEndTime() foundation.NSDate
+	RequestStartTime() foundation.NSDate
+	ResponseEndTime() foundation.NSDate
+	ResponseStartTime() foundation.NSDate
 	ServerAddress() string
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	ReadFromCache() bool
 }
 
@@ -143,25 +143,25 @@ func (m AVMetricMediaResourceRequestEvent) NetworkTransactionMetrics() foundatio
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaResourceRequestEvent/requestEndTime
-func (m AVMetricMediaResourceRequestEvent) RequestEndTime() foundation.INSDate {
+func (m AVMetricMediaResourceRequestEvent) RequestEndTime() foundation.NSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("requestEndTime"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaResourceRequestEvent/requestStartTime
-func (m AVMetricMediaResourceRequestEvent) RequestStartTime() foundation.INSDate {
+func (m AVMetricMediaResourceRequestEvent) RequestStartTime() foundation.NSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("requestStartTime"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaResourceRequestEvent/responseEndTime
-func (m AVMetricMediaResourceRequestEvent) ResponseEndTime() foundation.INSDate {
+func (m AVMetricMediaResourceRequestEvent) ResponseEndTime() foundation.NSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("responseEndTime"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaResourceRequestEvent/responseStartTime
-func (m AVMetricMediaResourceRequestEvent) ResponseStartTime() foundation.INSDate {
+func (m AVMetricMediaResourceRequestEvent) ResponseStartTime() foundation.NSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("responseStartTime"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
@@ -173,7 +173,7 @@ func (m AVMetricMediaResourceRequestEvent) ServerAddress() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricMediaResourceRequestEvent/url
-func (m AVMetricMediaResourceRequestEvent) Url() foundation.INSURL {
+func (m AVMetricMediaResourceRequestEvent) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

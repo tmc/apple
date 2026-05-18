@@ -141,7 +141,6 @@ func NSScriptCommandDescriptionFromID(id objc.ID) NSScriptCommandDescription {
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription
 type INSScriptCommandDescription interface {
 	objectivec.IObject
-	NSCoding
 
 	// Topic: Initializing a Script Command Description
 

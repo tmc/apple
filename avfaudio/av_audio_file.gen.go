@@ -135,13 +135,13 @@ type IAVAudioFile interface {
 	// Topic: Creating an Audio File
 
 	// Opens a file for reading using the standard, deinterleaved floating point format.
-	InitForReadingError(fileURL foundation.INSURL) (AVAudioFile, error)
+	InitForReadingError(fileURL foundation.NSURL) (AVAudioFile, error)
 	// Opens a file for reading using the specified processing format.
-	InitForReadingCommonFormatInterleavedError(fileURL foundation.INSURL, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error)
+	InitForReadingCommonFormatInterleavedError(fileURL foundation.NSURL, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error)
 	// Opens a file for writing using the specified settings.
-	InitForWritingSettingsError(fileURL foundation.INSURL, settings foundation.INSDictionary) (AVAudioFile, error)
+	InitForWritingSettingsError(fileURL foundation.NSURL, settings foundation.INSDictionary) (AVAudioFile, error)
 	// Opens a file for writing using a specified processing format and settings.
-	InitForWritingSettingsCommonFormatInterleavedError(fileURL foundation.INSURL, settings foundation.INSDictionary, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error)
+	InitForWritingSettingsCommonFormatInterleavedError(fileURL foundation.NSURL, settings foundation.INSDictionary, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error)
 
 	// Topic: Reading and Writing the Audio Buffer
 
@@ -157,7 +157,7 @@ type IAVAudioFile interface {
 	// Topic: Getting Audio File Properties
 
 	// The location of the audio file.
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 	// The on-disk format of the file.
 	FileFormat() IAVAudioFormat
 	// The processing format of the file.
@@ -214,7 +214,7 @@ func NewAVAudioFile() AVAudioFile {
 // determines whether the processing buffer is in an interleaved float format.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forReading:commonFormat:interleaved:)
-func NewAudioFileForReadingCommonFormatInterleavedError(fileURL foundation.INSURL, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error) {
+func NewAudioFileForReadingCommonFormatInterleavedError(fileURL foundation.NSURL, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForReading:commonFormat:interleaved:error:"), fileURL, format, interleaved, unsafe.Pointer(&errorPtr))
@@ -235,7 +235,7 @@ func NewAudioFileForReadingCommonFormatInterleavedError(fileURL foundation.INSUR
 // A new [AVAudioFile] instance you use for reading.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forReading:)
-func NewAudioFileForReadingError(fileURL foundation.INSURL) (AVAudioFile, error) {
+func NewAudioFileForReadingError(fileURL foundation.NSURL) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForReading:error:"), fileURL, unsafe.Pointer(&errorPtr))
@@ -270,7 +270,7 @@ func NewAudioFileForReadingError(fileURL foundation.INSURL) (AVAudioFile, error)
 // property in the [AVAudioRecorder] class.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forWriting:settings:commonFormat:interleaved:)
-func NewAudioFileForWritingSettingsCommonFormatInterleavedError(fileURL foundation.INSURL, settings foundation.INSDictionary, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error) {
+func NewAudioFileForWritingSettingsCommonFormatInterleavedError(fileURL foundation.NSURL, settings foundation.INSDictionary, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForWriting:settings:commonFormat:interleaved:error:"), fileURL, settings, format, interleaved, unsafe.Pointer(&errorPtr))
@@ -301,7 +301,7 @@ func NewAudioFileForWritingSettingsCommonFormatInterleavedError(fileURL foundati
 // parameter, see the [Settings] property in the [AVAudioRecorder] class.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forWriting:settings:)
-func NewAudioFileForWritingSettingsError(fileURL foundation.INSURL, settings foundation.INSDictionary) (AVAudioFile, error) {
+func NewAudioFileForWritingSettingsError(fileURL foundation.NSURL, settings foundation.INSDictionary) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForWriting:settings:error:"), fileURL, settings, unsafe.Pointer(&errorPtr))
@@ -322,7 +322,7 @@ func NewAudioFileForWritingSettingsError(fileURL foundation.INSURL, settings fou
 // A new [AVAudioFile] instance you use for reading.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forReading:)
-func (a AVAudioFile) InitForReadingError(fileURL foundation.INSURL) (AVAudioFile, error) {
+func (a AVAudioFile) InitForReadingError(fileURL foundation.NSURL) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initForReading:error:"), fileURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -355,7 +355,7 @@ func (a AVAudioFile) InitForReadingError(fileURL foundation.INSURL) (AVAudioFile
 // determines whether the processing buffer is in an interleaved float format.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forReading:commonFormat:interleaved:)
-func (a AVAudioFile) InitForReadingCommonFormatInterleavedError(fileURL foundation.INSURL, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error) {
+func (a AVAudioFile) InitForReadingCommonFormatInterleavedError(fileURL foundation.NSURL, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initForReading:commonFormat:interleaved:error:"), fileURL, format, interleaved, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -386,7 +386,7 @@ func (a AVAudioFile) InitForReadingCommonFormatInterleavedError(fileURL foundati
 // parameter, see the [Settings] property in the [AVAudioRecorder] class.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forWriting:settings:)
-func (a AVAudioFile) InitForWritingSettingsError(fileURL foundation.INSURL, settings foundation.INSDictionary) (AVAudioFile, error) {
+func (a AVAudioFile) InitForWritingSettingsError(fileURL foundation.NSURL, settings foundation.INSDictionary) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initForWriting:settings:error:"), fileURL, settings, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -421,7 +421,7 @@ func (a AVAudioFile) InitForWritingSettingsError(fileURL foundation.INSURL, sett
 // property in the [AVAudioRecorder] class.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forWriting:settings:commonFormat:interleaved:)
-func (a AVAudioFile) InitForWritingSettingsCommonFormatInterleavedError(fileURL foundation.INSURL, settings foundation.INSDictionary, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error) {
+func (a AVAudioFile) InitForWritingSettingsCommonFormatInterleavedError(fileURL foundation.NSURL, settings foundation.INSDictionary, format AVAudioCommonFormat, interleaved bool) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initForWriting:settings:commonFormat:interleaved:error:"), fileURL, settings, format, interleaved, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -529,7 +529,7 @@ func (a AVAudioFile) Close() {
 // The location of the audio file.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/url
-func (a AVAudioFile) Url() foundation.INSURL {
+func (a AVAudioFile) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

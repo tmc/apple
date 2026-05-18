@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_rpn_tracker_merge_convs] class.
+// The class instance for the [EspressoPassRpnTrackerMergeConvs] class.
 var (
-	_EspressoPass_rpn_tracker_merge_convsClass     EspressoPass_rpn_tracker_merge_convsClass
-	_EspressoPass_rpn_tracker_merge_convsClassOnce sync.Once
+	_EspressoPassRpnTrackerMergeConvsClass     EspressoPassRpnTrackerMergeConvsClass
+	_EspressoPassRpnTrackerMergeConvsClassOnce sync.Once
 )
 
-func getEspressoPass_rpn_tracker_merge_convsClass() EspressoPass_rpn_tracker_merge_convsClass {
-	_EspressoPass_rpn_tracker_merge_convsClassOnce.Do(func() {
-		_EspressoPass_rpn_tracker_merge_convsClass = EspressoPass_rpn_tracker_merge_convsClass{class: objc.GetClass("EspressoPass_rpn_tracker_merge_convs")}
+func getEspressoPassRpnTrackerMergeConvsClass() EspressoPassRpnTrackerMergeConvsClass {
+	_EspressoPassRpnTrackerMergeConvsClassOnce.Do(func() {
+		_EspressoPassRpnTrackerMergeConvsClass = EspressoPassRpnTrackerMergeConvsClass{class: objc.GetClass("EspressoPass_rpn_tracker_merge_convs")}
 	})
-	return _EspressoPass_rpn_tracker_merge_convsClass
+	return _EspressoPassRpnTrackerMergeConvsClass
 }
 
-// GetEspressoPass_rpn_tracker_merge_convsClass returns the class object for EspressoPass_rpn_tracker_merge_convs.
-func GetEspressoPass_rpn_tracker_merge_convsClass() EspressoPass_rpn_tracker_merge_convsClass {
-	return getEspressoPass_rpn_tracker_merge_convsClass()
+// GetEspressoPassRpnTrackerMergeConvsClass returns the class object for EspressoPass_rpn_tracker_merge_convs.
+func GetEspressoPassRpnTrackerMergeConvsClass() EspressoPassRpnTrackerMergeConvsClass {
+	return getEspressoPassRpnTrackerMergeConvsClass()
 }
 
-type EspressoPass_rpn_tracker_merge_convsClass struct {
+type EspressoPassRpnTrackerMergeConvsClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_rpn_tracker_merge_convsClass) Class() objc.Class {
+func (ec EspressoPassRpnTrackerMergeConvsClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_rpn_tracker_merge_convsClass) Alloc() EspressoPass_rpn_tracker_merge_convs {
-	rv := objc.Send[EspressoPass_rpn_tracker_merge_convs](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassRpnTrackerMergeConvsClass) Alloc() EspressoPassRpnTrackerMergeConvs {
+	rv := objc.Send[EspressoPassRpnTrackerMergeConvs](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_rpn_tracker_merge_convs
-type EspressoPass_rpn_tracker_merge_convs struct {
+type EspressoPassRpnTrackerMergeConvs struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_rpn_tracker_merge_convsFromID constructs a [EspressoPass_rpn_tracker_merge_convs] from an objc.ID.
-func EspressoPass_rpn_tracker_merge_convsFromID(id objc.ID) EspressoPass_rpn_tracker_merge_convs {
-	return EspressoPass_rpn_tracker_merge_convs{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassRpnTrackerMergeConvsFromID constructs a [EspressoPassRpnTrackerMergeConvs] from an objc.ID.
+func EspressoPassRpnTrackerMergeConvsFromID(id objc.ID) EspressoPassRpnTrackerMergeConvs {
+	return EspressoPassRpnTrackerMergeConvs{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_rpn_tracker_merge_convs implements IEspressoPass_rpn_tracker_merge_convs.
-var _ IEspressoPass_rpn_tracker_merge_convs = EspressoPass_rpn_tracker_merge_convs{}
+// EspressoPass_rpn_tracker_merge_convsFromID is an alias for [EspressoPassRpnTrackerMergeConvsFromID] for cross-framework compatibility.
+func EspressoPass_rpn_tracker_merge_convsFromID(id objc.ID) EspressoPassRpnTrackerMergeConvs {
+	return EspressoPassRpnTrackerMergeConvsFromID(id)
+}
 
-// An interface definition for the [EspressoPass_rpn_tracker_merge_convs] class.
+// Ensure EspressoPassRpnTrackerMergeConvs implements IEspressoPassRpnTrackerMergeConvs.
+var _ IEspressoPassRpnTrackerMergeConvs = EspressoPassRpnTrackerMergeConvs{}
+
+// An interface definition for the [EspressoPassRpnTrackerMergeConvs] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_rpn_tracker_merge_convs
-type IEspressoPass_rpn_tracker_merge_convs interface {
+type IEspressoPassRpnTrackerMergeConvs interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_rpn_tracker_merge_convs) Init() EspressoPass_rpn_tracker_merge_convs {
-	rv := objc.Send[EspressoPass_rpn_tracker_merge_convs](e.ID, objc.Sel("init"))
+func (e EspressoPassRpnTrackerMergeConvs) Init() EspressoPassRpnTrackerMergeConvs {
+	rv := objc.Send[EspressoPassRpnTrackerMergeConvs](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_rpn_tracker_merge_convs) Autorelease() EspressoPass_rpn_tracker_merge_convs {
-	rv := objc.Send[EspressoPass_rpn_tracker_merge_convs](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassRpnTrackerMergeConvs) Autorelease() EspressoPassRpnTrackerMergeConvs {
+	rv := objc.Send[EspressoPassRpnTrackerMergeConvs](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_rpn_tracker_merge_convs creates a new EspressoPass_rpn_tracker_merge_convs instance.
-func NewEspressoPass_rpn_tracker_merge_convs() EspressoPass_rpn_tracker_merge_convs {
-	class := getEspressoPass_rpn_tracker_merge_convsClass()
-	rv := objc.Send[EspressoPass_rpn_tracker_merge_convs](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassRpnTrackerMergeConvs creates a new EspressoPassRpnTrackerMergeConvs instance.
+func NewEspressoPassRpnTrackerMergeConvs() EspressoPassRpnTrackerMergeConvs {
+	class := getEspressoPassRpnTrackerMergeConvsClass()
+	rv := objc.Send[EspressoPassRpnTrackerMergeConvs](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

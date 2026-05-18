@@ -115,14 +115,14 @@ type IMLStackNDBrick interface {
 }
 
 // Init initializes the instance.
-func (s MLStackNDBrick) Init() MLStackNDBrick {
-	rv := objc.Send[MLStackNDBrick](s.ID, objc.Sel("init"))
+func (m MLStackNDBrick) Init() MLStackNDBrick {
+	rv := objc.Send[MLStackNDBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLStackNDBrick) Autorelease() MLStackNDBrick {
-	rv := objc.Send[MLStackNDBrick](s.ID, objc.Sel("autorelease"))
+func (m MLStackNDBrick) Autorelease() MLStackNDBrick {
+	rv := objc.Send[MLStackNDBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -141,84 +141,84 @@ func NewStackNDBrickWithParameters(parameters objectivec.IObject) MLStackNDBrick
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/computeOnCPUWithInputTensors:outputTensors:
-func (s MLStackNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLStackNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/hasGPUSupport
-func (s MLStackNDBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hasGPUSupport"))
+func (m MLStackNDBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/setupForInputShapes:withParameters:
-func (s MLStackNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLStackNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/initWithParameters:
-func (s MLStackNDBrick) InitWithParameters(parameters objectivec.IObject) MLStackNDBrick {
-	rv := objc.Send[MLStackNDBrick](s.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLStackNDBrick) InitWithParameters(parameters objectivec.IObject) MLStackNDBrick {
+	rv := objc.Send[MLStackNDBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/axis
-func (s MLStackNDBrick) Axis() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("axis"))
+func (m MLStackNDBrick) Axis() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/debugDescription
-func (s MLStackNDBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (m MLStackNDBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/description
-func (s MLStackNDBrick) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (m MLStackNDBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/hash
-func (s MLStackNDBrick) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (m MLStackNDBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/inputRanks
-func (s MLStackNDBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputRanks"))
+func (m MLStackNDBrick) InputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/inputShapes
-func (s MLStackNDBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputShapes"))
+func (m MLStackNDBrick) InputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/outputRanks
-func (s MLStackNDBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputRanks"))
+func (m MLStackNDBrick) OutputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/outputShapes
-func (s MLStackNDBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputShapes"))
+func (m MLStackNDBrick) OutputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/shapeInfoNeeded
-func (s MLStackNDBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("shapeInfoNeeded"))
+func (m MLStackNDBrick) ShapeInfoNeeded() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/superclass
-func (s MLStackNDBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (m MLStackNDBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

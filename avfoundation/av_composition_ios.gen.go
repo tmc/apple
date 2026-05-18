@@ -16,6 +16,6 @@ func (c AVComposition) IsCompatibleWithSavedPhotosAlbum() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCompatibleWithSavedPhotosAlbum"))
 	return rv
 }
-func (c AVComposition) SetIsCompatibleWithSavedPhotosAlbum(value bool) {
+func (c AVComposition) SetCompatibleWithSavedPhotosAlbum(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCompatibleWithSavedPhotosAlbum:"), value)
 }

@@ -126,7 +126,7 @@ var _iOSurfaceCopyAllValuesErr error
 
 func tryIOSurfaceCopyAllValues(buffer IOSurfaceRef) (corefoundation.CFDictionaryRef, error) {
 	if _iOSurfaceCopyAllValues == nil {
-		return 0, symbolCallError("IOSurfaceCopyAllValues", "10.6", _iOSurfaceCopyAllValuesErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("IOSurfaceCopyAllValues", "10.6", _iOSurfaceCopyAllValuesErr)
 	}
 	return _iOSurfaceCopyAllValues(buffer), nil
 }
@@ -147,7 +147,7 @@ var _iOSurfaceCopyValueErr error
 
 func tryIOSurfaceCopyValue(buffer IOSurfaceRef, key corefoundation.CFStringRef) (corefoundation.CFTypeRef, error) {
 	if _iOSurfaceCopyValue == nil {
-		return nil, symbolCallError("IOSurfaceCopyValue", "10.6", _iOSurfaceCopyValueErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("IOSurfaceCopyValue", "10.6", _iOSurfaceCopyValueErr)
 	}
 	return _iOSurfaceCopyValue(buffer, key), nil
 }
@@ -168,7 +168,7 @@ var _iOSurfaceCreateErr error
 
 func tryIOSurfaceCreate(properties corefoundation.CFDictionaryRef) (IOSurfaceRef, error) {
 	if _iOSurfaceCreate == nil {
-		return 0, symbolCallError("IOSurfaceCreate", "10.6", _iOSurfaceCreateErr)
+		return *new(IOSurfaceRef), symbolCallError("IOSurfaceCreate", "10.6", _iOSurfaceCreateErr)
 	}
 	return _iOSurfaceCreate(properties), nil
 }
@@ -943,7 +943,7 @@ var _iOSurfaceLookupErr error
 
 func tryIOSurfaceLookup(csid uint32) (IOSurfaceRef, error) {
 	if _iOSurfaceLookup == nil {
-		return 0, symbolCallError("IOSurfaceLookup", "10.6", _iOSurfaceLookupErr)
+		return *new(IOSurfaceRef), symbolCallError("IOSurfaceLookup", "10.6", _iOSurfaceLookupErr)
 	}
 	return _iOSurfaceLookup(csid), nil
 }
@@ -964,7 +964,7 @@ var _iOSurfaceLookupFromMachPortErr error
 
 func tryIOSurfaceLookupFromMachPort(port uint32) (IOSurfaceRef, error) {
 	if _iOSurfaceLookupFromMachPort == nil {
-		return 0, symbolCallError("IOSurfaceLookupFromMachPort", "10.6", _iOSurfaceLookupFromMachPortErr)
+		return *new(IOSurfaceRef), symbolCallError("IOSurfaceLookupFromMachPort", "10.6", _iOSurfaceLookupFromMachPortErr)
 	}
 	return _iOSurfaceLookupFromMachPort(port), nil
 }
@@ -985,7 +985,7 @@ var _iOSurfaceLookupFromXPCObjectErr error
 
 func tryIOSurfaceLookupFromXPCObject(xobj unsafe.Pointer) (IOSurfaceRef, error) {
 	if _iOSurfaceLookupFromXPCObject == nil {
-		return 0, symbolCallError("IOSurfaceLookupFromXPCObject", "10.7", _iOSurfaceLookupFromXPCObjectErr)
+		return *new(IOSurfaceRef), symbolCallError("IOSurfaceLookupFromXPCObject", "10.7", _iOSurfaceLookupFromXPCObjectErr)
 	}
 	return _iOSurfaceLookupFromXPCObject(xobj), nil
 }

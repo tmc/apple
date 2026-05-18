@@ -79,8 +79,8 @@ type IMTLBinaryArchiveDescriptor interface {
 	// Topic: Choosing an archive file
 
 	// A URL to a Metal binary archive file.
-	Url() foundation.INSURL
-	SetUrl(value foundation.INSURL)
+	Url() foundation.NSURL
+	SetUrl(value foundation.NSURL)
 
 	// The domain for Metal binary archive errors.
 	MTLBinaryArchiveDomain() string
@@ -113,11 +113,11 @@ func NewMTLBinaryArchiveDescriptor() MTLBinaryArchiveDescriptor {
 // [MTLBinaryArchive] instance’s [SerializeToURLError] method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchiveDescriptor/url
-func (b MTLBinaryArchiveDescriptor) Url() foundation.INSURL {
+func (b MTLBinaryArchiveDescriptor) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (b MTLBinaryArchiveDescriptor) SetUrl(value foundation.INSURL) {
+func (b MTLBinaryArchiveDescriptor) SetUrl(value foundation.NSURL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setUrl:"), value)
 }
 

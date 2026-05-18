@@ -63,14 +63,14 @@ type IMLLogging interface {
 }
 
 // Init initializes the instance.
-func (l MLLogging) Init() MLLogging {
-	rv := objc.Send[MLLogging](l.ID, objc.Sel("init"))
+func (m MLLogging) Init() MLLogging {
+	rv := objc.Send[MLLogging](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (l MLLogging) Autorelease() MLLogging {
-	rv := objc.Send[MLLogging](l.ID, objc.Sel("autorelease"))
+func (m MLLogging) Autorelease() MLLogging {
+	rv := objc.Send[MLLogging](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

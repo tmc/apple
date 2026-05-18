@@ -15,6 +15,26 @@ import (
 type NSDraggingInfo interface {
 	objectivec.IObject
 
+	// The image that represents the dragging item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImage
+	DraggedImage() INSImage
+
+	// Slides the image to a specified location.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/slideDraggedImage(to:)
+	SlideDraggedImageTo(screenPoint corefoundation.CGPoint)
+
+	// Enumerates through each dragging item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
+	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler)
+
+	// Resets a spring-loading operation to its initial state.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/resetSpringLoading()
+	ResetSpringLoading()
+
 	// The pasteboard object that holds the dragged data.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingPasteboard
@@ -24,6 +44,11 @@ type NSDraggingInfo interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSequenceNumber
 	DraggingSequenceNumber() int
+
+	// The source, or owner, of the dragged data.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSource
+	DraggingSource() objectivec.IObject
 
 	// Information about the dragging operation and the data it contains.
 	//
@@ -44,61 +69,29 @@ type NSDraggingInfo interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/numberOfValidItemsForDrop
 	NumberOfValidItemsForDrop() int
+	SetNumberOfValidItemsForDrop(value int)
 
 	// The current location of the dragged image’s origin, in the base coordinate system of the destination object’s window.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImageLocation
 	DraggedImageLocation() corefoundation.CGPoint
 
-	// The image that represents the dragging item.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImage
-	DraggedImage() INSImage
-
-	// Slides the image to a specified location.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/slideDraggedImage(to:)
-	SlideDraggedImageTo(screenPoint corefoundation.CGPoint)
-
 	// A Boolean value that indicates whether the dragging formation animates while the drag is over the destination.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/animatesToDestination
 	AnimatesToDestination() bool
-
-	// The formation of the dragging items while the drag is over the destination.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingFormation
-	DraggingFormation() NSDraggingFormation
-
-	// Enumerates through each dragging item.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
-	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler)
-
-	// A highlighting style for your app’s user interface to display during a spring-loading operation.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/springLoadingHighlight
-	SpringLoadingHighlight() NSSpringLoadingHighlight
-
-	// Resets a spring-loading operation to its initial state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/resetSpringLoading()
-	ResetSpringLoading()
-
-	// The number of valid items for a drop operation.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/numberOfValidItemsForDrop
-	SetNumberOfValidItemsForDrop(value int)
-
-	// A Boolean value that indicates whether the dragging formation animates while the drag is over the destination.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/animatesToDestination
 	SetAnimatesToDestination(value bool)
 
 	// The formation of the dragging items while the drag is over the destination.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingFormation
+	DraggingFormation() NSDraggingFormation
 	SetDraggingFormation(value NSDraggingFormation)
+
+	// A highlighting style for your app’s user interface to display during a spring-loading operation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/springLoadingHighlight
+	SpringLoadingHighlight() NSSpringLoadingHighlight
 }
 
 // NSDraggingInfoObject wraps an existing Objective-C object that conforms to the NSDraggingInfo protocol.
@@ -116,72 +109,6 @@ func NSDraggingInfoObjectFromID(id objc.ID) NSDraggingInfoObject {
 	return NSDraggingInfoObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The pasteboard object that holds the dragged data.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingPasteboard
-func (o NSDraggingInfoObject) DraggingPasteboard() INSPasteboard {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingPasteboard"))
-	return NSPasteboardFromID(rv)
-}
-
-// A number that uniquely identifies the dragging session.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSequenceNumber
-func (o NSDraggingInfoObject) DraggingSequenceNumber() int {
-	rv := objc.Send[int](o.ID, objc.Sel("draggingSequenceNumber"))
-	return rv
-}
-
-// The source, or owner, of the dragged data.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSource
-func (o NSDraggingInfoObject) DraggingSource() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingSource"))
-	return objectivec.Object{ID: rv}
-}
-
-// Information about the dragging operation and the data it contains.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSourceOperationMask
-func (o NSDraggingInfoObject) DraggingSourceOperationMask() NSDragOperation {
-	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("draggingSourceOperationMask"))
-	return rv
-}
-
-// The current location of the mouse pointer in the base coordinate system of
-// the destination object’s window.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingLocation
-func (o NSDraggingInfoObject) DraggingLocation() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("draggingLocation"))
-	return rv
-}
-
-// The destination window for the dragging operation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingDestinationWindow
-func (o NSDraggingInfoObject) DraggingDestinationWindow() INSWindow {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingDestinationWindow"))
-	return NSWindowFromID(rv)
-}
-
-// The number of valid items for a drop operation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/numberOfValidItemsForDrop
-func (o NSDraggingInfoObject) NumberOfValidItemsForDrop() int {
-	rv := objc.Send[int](o.ID, objc.Sel("numberOfValidItemsForDrop"))
-	return rv
-}
-
-// The current location of the dragged image’s origin, in the base
-// coordinate system of the destination object’s window.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImageLocation
-func (o NSDraggingInfoObject) DraggedImageLocation() corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("draggedImageLocation"))
-	return rv
 }
 
 // The image that represents the dragging item.
@@ -216,23 +143,6 @@ func (o NSDraggingInfoObject) DraggedImage() INSImage {
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/slideDraggedImage(to:)
 func (o NSDraggingInfoObject) SlideDraggedImageTo(screenPoint corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("slideDraggedImageTo:"), screenPoint)
-}
-
-// A Boolean value that indicates whether the dragging formation animates
-// while the drag is over the destination.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/animatesToDestination
-func (o NSDraggingInfoObject) AnimatesToDestination() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("animatesToDestination"))
-	return rv
-}
-
-// The formation of the dragging items while the drag is over the destination.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingFormation
-func (o NSDraggingInfoObject) DraggingFormation() NSDraggingFormation {
-	rv := objc.Send[NSDraggingFormation](o.ID, objc.Sel("draggingFormation"))
-	return rv
 }
 
 // Enumerates through each dragging item.
@@ -302,15 +212,6 @@ func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSea
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, objectivec.ClassSliceToNSArray(classArray), searchOptions, block)
 }
 
-// A highlighting style for your app’s user interface to display during a
-// spring-loading operation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/springLoadingHighlight
-func (o NSDraggingInfoObject) SpringLoadingHighlight() NSSpringLoadingHighlight {
-	rv := objc.Send[NSSpringLoadingHighlight](o.ID, objc.Sel("springLoadingHighlight"))
-	return rv
-}
-
 // Resets a spring-loading operation to its initial state.
 //
 // # Discussion
@@ -337,6 +238,95 @@ func (o NSDraggingInfoObject) ResetSpringLoading() {
 	objc.Send[struct{}](o.ID, objc.Sel("resetSpringLoading"))
 }
 
+// The pasteboard object that holds the dragged data.
+//
+// # Discussion
+//
+// The dragging operation that is ultimately performed utilizes this
+// pasteboard data and not the image returned by the [DraggedImage] method.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingPasteboard
+func (o NSDraggingInfoObject) DraggingPasteboard() INSPasteboard {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingPasteboard"))
+	return NSPasteboardFromID(rv)
+}
+
+// A number that uniquely identifies the dragging session.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSequenceNumber
+func (o NSDraggingInfoObject) DraggingSequenceNumber() int {
+	rv := objc.Send[int](o.ID, objc.Sel("draggingSequenceNumber"))
+	return int(rv)
+}
+
+// The source, or owner, of the dragged data.
+//
+// # Discussion
+//
+// This method returns `nil` if the source is not in the same application as
+// the destination. The dragging source implements methods from the
+// NSDraggingSource protocol.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSource
+func (o NSDraggingInfoObject) DraggingSource() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingSource"))
+	return objectivec.Object{ID: rv}
+}
+
+// Information about the dragging operation and the data it contains.
+//
+// # Discussion
+//
+// The dragging source ([NSDraggingSource]) declares the dragging operation
+// mask through [DraggingSessionSourceOperationMaskForDraggingContext].
+//
+// If the source doesn’t permit dragging operations, the value of the
+// dragging source operation mask is [NSDragOperationNone], or the empty
+// option set in Swift (`[]`). If the source permits dragging operations, the
+// value of the dragging source operation mask is the result of a bitwise OR
+// operation on one or more of the [NSDragOperation] constants in Objective-C,
+// or an option set containing one or more of the [NSDragOperation] constants
+// in Swift.
+//
+// If the user holds down a modifier key during the dragging session and the
+// dragging source allows modifier keys to affect the drag operation, the
+// system combines the dragging source operation mask with the value that
+// corresponds to the modifier key. You control whether the modifier keys can
+// affect the drag operation using the dragging source’s
+// [IgnoreModifierKeysForDraggingSession] method.
+//
+// [Table data omitted]
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSourceOperationMask
+//
+// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
+func (o NSDraggingInfoObject) DraggingSourceOperationMask() NSDragOperation {
+	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("draggingSourceOperationMask"))
+	return NSDragOperation(rv)
+}
+
+// The current location of the mouse pointer in the base coordinate system of
+// the destination object’s window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingLocation
+func (o NSDraggingInfoObject) DraggingLocation() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("draggingLocation"))
+	return corefoundation.CGPoint(rv)
+}
+
+// The destination window for the dragging operation.
+//
+// # Discussion
+//
+// Either this window is the destination itself, or it contains the view
+// object that is the destination.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingDestinationWindow
+func (o NSDraggingInfoObject) DraggingDestinationWindow() INSWindow {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingDestinationWindow"))
+	return NSWindowFromID(rv)
+}
+
 // The number of valid items for a drop operation.
 //
 // # Discussion
@@ -356,8 +346,27 @@ func (o NSDraggingInfoObject) ResetSpringLoading() {
 // modify any drag item properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/numberOfValidItemsForDrop
+func (o NSDraggingInfoObject) NumberOfValidItemsForDrop() int {
+	rv := objc.Send[int](o.ID, objc.Sel("numberOfValidItemsForDrop"))
+	return int(rv)
+}
+
 func (o NSDraggingInfoObject) SetNumberOfValidItemsForDrop(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNumberOfValidItemsForDrop:"), value)
+}
+
+// The current location of the dragged image’s origin, in the base
+// coordinate system of the destination object’s window.
+//
+// # Discussion
+//
+// The image moves along with the mouse pointer (the position of which is
+// given by [DraggingLocation]) but may be positioned at some offset.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImageLocation
+func (o NSDraggingInfoObject) DraggedImageLocation() corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("draggedImageLocation"))
+	return corefoundation.CGPoint(rv)
 }
 
 // A Boolean value that indicates whether the dragging formation animates
@@ -376,6 +385,11 @@ func (o NSDraggingInfoObject) SetNumberOfValidItemsForDrop(value int) {
 // correct destinations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/animatesToDestination
+func (o NSDraggingInfoObject) AnimatesToDestination() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("animatesToDestination"))
+	return bool(rv)
+}
+
 func (o NSDraggingInfoObject) SetAnimatesToDestination(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAnimatesToDestination:"), value)
 }
@@ -391,6 +405,33 @@ func (o NSDraggingInfoObject) SetAnimatesToDestination(value bool) {
 // The default value is the current drag formation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingFormation
+func (o NSDraggingInfoObject) DraggingFormation() NSDraggingFormation {
+	rv := objc.Send[NSDraggingFormation](o.ID, objc.Sel("draggingFormation"))
+	return NSDraggingFormation(rv)
+}
+
 func (o NSDraggingInfoObject) SetDraggingFormation(value NSDraggingFormation) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDraggingFormation:"), value)
+}
+
+// A highlighting style for your app’s user interface to display during a
+// spring-loading operation.
+//
+// # Discussion
+//
+// During a spring-loaded operation, a destination may initiate animated
+// highlighting to visually cue the user that spring-loading has been engaged
+// or disengaged.
+//
+// This property contains a highlight style of class
+// [NSSpringLoadingHighlight]—no highlight, standard highlight, or
+// emphasized highlight. Use this value to update your destination’s user
+// interface accordingly to reflect the appropriate highlight style.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/springLoadingHighlight
+//
+// [NSSpringLoadingHighlight]: https://developer.apple.com/documentation/AppKit/NSSpringLoadingHighlight
+func (o NSDraggingInfoObject) SpringLoadingHighlight() NSSpringLoadingHighlight {
+	rv := objc.Send[NSSpringLoadingHighlight](o.ID, objc.Sel("springLoadingHighlight"))
+	return NSSpringLoadingHighlight(rv)
 }

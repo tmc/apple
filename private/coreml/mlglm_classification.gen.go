@@ -102,14 +102,14 @@ type IMLGLMClassification interface {
 }
 
 // Init initializes the instance.
-func (g MLGLMClassification) Init() MLGLMClassification {
-	rv := objc.Send[MLGLMClassification](g.ID, objc.Sel("init"))
+func (m MLGLMClassification) Init() MLGLMClassification {
+	rv := objc.Send[MLGLMClassification](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g MLGLMClassification) Autorelease() MLGLMClassification {
-	rv := objc.Send[MLGLMClassification](g.ID, objc.Sel("autorelease"))
+func (m MLGLMClassification) Autorelease() MLGLMClassification {
+	rv := objc.Send[MLGLMClassification](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -133,10 +133,10 @@ func NewGLMClassificationWithSpecificationConfigurationError(specification unsaf
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/calculateClassProbability:input:error:
-func (g MLGLMClassification) CalculateClassProbabilityInputError(input objectivec.IObject) (float64, error) {
+func (m MLGLMClassification) CalculateClassProbabilityInputError(input objectivec.IObject) (float64, error) {
 	var probability float64
 	var errorPtr objc.ID
-	rv := objc.Send[bool](g.ID, objc.Sel("calculateClassProbability:input:error:"), unsafe.Pointer(&probability), input, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("calculateClassProbability:input:error:"), unsafe.Pointer(&probability), input, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return 0.0, foundation.NSErrorFrom(errorPtr)
@@ -148,9 +148,9 @@ func (g MLGLMClassification) CalculateClassProbabilityInputError(input objective
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/classify:error:
-func (g MLGLMClassification) ClassifyError(classify objectivec.IObject) (objectivec.IObject, error) {
+func (m MLGLMClassification) ClassifyError(classify objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("classify:error:"), classify, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:error:"), classify, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -160,9 +160,9 @@ func (g MLGLMClassification) ClassifyError(classify objectivec.IObject) (objecti
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/classify:options:error:
-func (g MLGLMClassification) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLGLMClassification) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:options:error:"), classify, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -172,9 +172,9 @@ func (g MLGLMClassification) ClassifyOptionsError(classify objectivec.IObject, o
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/classify:topK:error:
-func (g MLGLMClassification) ClassifyTopKError(classify objectivec.IObject, k uint64) (objectivec.IObject, error) {
+func (m MLGLMClassification) ClassifyTopKError(classify objectivec.IObject, k uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("classify:topK:error:"), classify, k, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("classify:topK:error:"), classify, k, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -184,9 +184,9 @@ func (g MLGLMClassification) ClassifyTopKError(classify objectivec.IObject, k ui
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/initWithSpecification:configuration:error:
-func (g MLGLMClassification) InitWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMClassification, error) {
+func (m MLGLMClassification) InitWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMClassification, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLGLMClassification{}, foundation.NSErrorFrom(errorPtr)
@@ -208,25 +208,25 @@ func (_MLGLMClassificationClass MLGLMClassificationClass) LoadModelFromSpecifica
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/debugDescription
-func (g MLGLMClassification) DebugDescription() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
+func (m MLGLMClassification) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/description
-func (g MLGLMClassification) Description() string {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
+func (m MLGLMClassification) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/hash
-func (g MLGLMClassification) Hash() uint64 {
-	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
+func (m MLGLMClassification) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLGLMClassification/superclass
-func (g MLGLMClassification) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
+func (m MLGLMClassification) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

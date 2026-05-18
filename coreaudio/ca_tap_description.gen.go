@@ -61,13 +61,17 @@ func (cc CATapDescriptionClass) Alloc() CATapDescription {
 //   - [CATapDescription.Mono]
 //   - [CATapDescription.SetMono]
 //   - [CATapDescription.PrivateTap]
-//   - [CATapDescription.SetPrivateTap]
+//   - [CATapDescription.SetPrivate]
 //   - [CATapDescription.ProcessRestoreEnabled]
 //   - [CATapDescription.SetProcessRestoreEnabled]
 //   - [CATapDescription.MuteBehavior]
 //   - [CATapDescription.SetMuteBehavior]
 //   - [CATapDescription.Name]
 //   - [CATapDescription.SetName]
+//   - [CATapDescription.Processes]
+//   - [CATapDescription.SetProcesses]
+//   - [CATapDescription.Stream]
+//   - [CATapDescription.SetStream]
 //   - [CATapDescription.UUID]
 //   - [CATapDescription.SetUUID]
 //
@@ -99,13 +103,17 @@ func CATapDescriptionFromID(id objc.ID) CATapDescription {
 //   - [ICATapDescription.Mono]
 //   - [ICATapDescription.SetMono]
 //   - [ICATapDescription.PrivateTap]
-//   - [ICATapDescription.SetPrivateTap]
+//   - [ICATapDescription.SetPrivate]
 //   - [ICATapDescription.ProcessRestoreEnabled]
 //   - [ICATapDescription.SetProcessRestoreEnabled]
 //   - [ICATapDescription.MuteBehavior]
 //   - [ICATapDescription.SetMuteBehavior]
 //   - [ICATapDescription.Name]
 //   - [ICATapDescription.SetName]
+//   - [ICATapDescription.Processes]
+//   - [ICATapDescription.SetProcesses]
+//   - [ICATapDescription.Stream]
+//   - [ICATapDescription.SetStream]
 //   - [ICATapDescription.UUID]
 //   - [ICATapDescription.SetUUID]
 //
@@ -126,20 +134,20 @@ type ICATapDescription interface {
 	Mono() bool
 	SetMono(value bool)
 	PrivateTap() bool
-	SetPrivateTap(value bool)
+	SetPrivate(value bool)
 	ProcessRestoreEnabled() bool
 	SetProcessRestoreEnabled(value bool)
 	MuteBehavior() CATapMuteBehavior
 	SetMuteBehavior(value CATapMuteBehavior)
 	Name() string
 	SetName(value string)
-	UUID() foundation.NSUUID
-	SetUUID(value foundation.NSUUID)
-
 	Processes() []foundation.NSNumber
 	SetProcesses(value []foundation.NSNumber)
 	Stream() foundation.NSNumber
 	SetStream(value foundation.NSNumber)
+	UUID() foundation.NSUUID
+	SetUUID(value foundation.NSUUID)
+
 	InitExcludingProcessesAndDeviceUIDWithStream(processesObjectIDsToExcludeFromTap []foundation.NSNumber, deviceUID string, stream int) CATapDescription
 	InitMonoGlobalTapButExcludeProcesses(processesObjectIDsToExcludeFromTap []foundation.NSNumber) CATapDescription
 	InitMonoMixdownOfProcesses(processesObjectIDsToIncludeInTap []foundation.NSNumber) CATapDescription
@@ -446,7 +454,7 @@ func (t CATapDescription) PrivateTap() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPrivate"))
 	return rv
 }
-func (t CATapDescription) SetPrivateTap(value bool) {
+func (t CATapDescription) SetPrivate(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPrivate:"), value)
 }
 
@@ -492,19 +500,6 @@ func (t CATapDescription) SetName(value string) {
 
 // # Discussion
 //
-// UID of this tap.
-//
-// See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/uuid
-func (t CATapDescription) UUID() foundation.NSUUID {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("UUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
-}
-func (t CATapDescription) SetUUID(value foundation.NSUUID) {
-	objc.Send[struct{}](t.ID, objc.Sel("setUUID:"), value)
-}
-
-// # Discussion
-//
 // An NSArray of NSNumbers where each NSNumber holds the AudioObjectID of a
 // process object to tap or exclude.
 //
@@ -531,4 +526,17 @@ func (t CATapDescription) Stream() foundation.NSNumber {
 }
 func (t CATapDescription) SetStream(value foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStream:"), value)
+}
+
+// # Discussion
+//
+// UID of this tap.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/uuid
+func (t CATapDescription) UUID() foundation.NSUUID {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("UUID"))
+	return foundation.NSUUIDFromID(objc.ID(rv))
+}
+func (t CATapDescription) SetUUID(value foundation.NSUUID) {
+	objc.Send[struct{}](t.ID, objc.Sel("setUUID:"), value)
 }

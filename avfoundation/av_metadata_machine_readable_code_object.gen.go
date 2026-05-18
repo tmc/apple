@@ -5,9 +5,9 @@ package avfoundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVMetadataMachineReadableCodeObject] class.
@@ -60,6 +60,7 @@ func (ac AVMetadataMachineReadableCodeObjectClass) Alloc() AVMetadataMachineRead
 //
 // # Getting machine-readable code values
 //
+//   - [AVMetadataMachineReadableCodeObject.Corners]: The points defining the (x, 	y) locations of the corners.
 //   - [AVMetadataMachineReadableCodeObject.Descriptor]: A barcode description for use in Core Image.
 //   - [AVMetadataMachineReadableCodeObject.StringValue]: Returns the error-corrected data decoded into a human-readable string.
 //
@@ -82,6 +83,7 @@ func AVMetadataMachineReadableCodeObjectFromID(id objc.ID) AVMetadataMachineRead
 //
 // # Getting machine-readable code values
 //
+//   - [IAVMetadataMachineReadableCodeObject.Corners]: The points defining the (x, 	y) locations of the corners.
 //   - [IAVMetadataMachineReadableCodeObject.Descriptor]: A barcode description for use in Core Image.
 //   - [IAVMetadataMachineReadableCodeObject.StringValue]: Returns the error-corrected data decoded into a human-readable string.
 //
@@ -91,13 +93,12 @@ type IAVMetadataMachineReadableCodeObject interface {
 
 	// Topic: Getting machine-readable code values
 
-	// A barcode description for use in Core Image.
-	Descriptor() coreimage.CIBarcodeDescriptor
-	// Returns the error-corrected data decoded into a human-readable string.
-	StringValue() string
-
 	// The points defining the (x, 	y) locations of the corners.
 	Corners() foundation.INSDictionary
+	// A barcode description for use in Core Image.
+	Descriptor() objectivec.IObject
+	// Returns the error-corrected data decoded into a human-readable string.
+	StringValue() string
 }
 
 // Init initializes the instance.
@@ -117,28 +118,6 @@ func NewAVMetadataMachineReadableCodeObject() AVMetadataMachineReadableCodeObjec
 	class := getAVMetadataMachineReadableCodeObjectClass()
 	rv := objc.Send[AVMetadataMachineReadableCodeObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-// A barcode description for use in Core Image.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVMetadataMachineReadableCodeObject/descriptor
-func (m AVMetadataMachineReadableCodeObject) Descriptor() coreimage.CIBarcodeDescriptor {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("descriptor"))
-	return coreimage.CIBarcodeDescriptorFromID(objc.ID(rv))
-}
-
-// Returns the error-corrected data decoded into a human-readable string.
-//
-// # Discussion
-//
-// The value of this property is an [NSString] created by decoding the binary
-// payload according to the format of the machine-readable code, or `nil` if a
-// string representation cannot be created.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVMetadataMachineReadableCodeObject/stringValue
-func (m AVMetadataMachineReadableCodeObject) StringValue() string {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringValue"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // The points defining the (x, y) locations of the corners.
@@ -167,4 +146,26 @@ func (m AVMetadataMachineReadableCodeObject) StringValue() string {
 func (m AVMetadataMachineReadableCodeObject) Corners() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("corners"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
+}
+
+// A barcode description for use in Core Image.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetadataMachineReadableCodeObject/descriptor
+func (m AVMetadataMachineReadableCodeObject) Descriptor() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("descriptor"))
+	return objectivec.Object{ID: rv}
+}
+
+// Returns the error-corrected data decoded into a human-readable string.
+//
+// # Discussion
+//
+// The value of this property is an [NSString] created by decoding the binary
+// payload according to the format of the machine-readable code, or `nil` if a
+// string representation cannot be created.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetadataMachineReadableCodeObject/stringValue
+func (m AVMetadataMachineReadableCodeObject) StringValue() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringValue"))
+	return foundation.NSStringFromID(rv).String()
 }

@@ -88,14 +88,14 @@ type IMLNeuralEngineComputeDevice interface {
 }
 
 // Init initializes the instance.
-func (n MLNeuralEngineComputeDevice) Init() MLNeuralEngineComputeDevice {
-	rv := objc.Send[MLNeuralEngineComputeDevice](n.ID, objc.Sel("init"))
+func (m MLNeuralEngineComputeDevice) Init() MLNeuralEngineComputeDevice {
+	rv := objc.Send[MLNeuralEngineComputeDevice](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNeuralEngineComputeDevice) Autorelease() MLNeuralEngineComputeDevice {
-	rv := objc.Send[MLNeuralEngineComputeDevice](n.ID, objc.Sel("autorelease"))
+func (m MLNeuralEngineComputeDevice) Autorelease() MLNeuralEngineComputeDevice {
+	rv := objc.Send[MLNeuralEngineComputeDevice](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -114,8 +114,8 @@ func NewNeuralEngineComputeDeviceWithTotalCoreCount(count int64) MLNeuralEngineC
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/initWithTotalCoreCount:
-func (n MLNeuralEngineComputeDevice) InitWithTotalCoreCount(count int64) MLNeuralEngineComputeDevice {
-	rv := objc.Send[MLNeuralEngineComputeDevice](n.ID, objc.Sel("initWithTotalCoreCount:"), count)
+func (m MLNeuralEngineComputeDevice) InitWithTotalCoreCount(count int64) MLNeuralEngineComputeDevice {
+	rv := objc.Send[MLNeuralEngineComputeDevice](m.ID, objc.Sel("initWithTotalCoreCount:"), count)
 	return rv
 }
 
@@ -126,25 +126,25 @@ func (_MLNeuralEngineComputeDeviceClass MLNeuralEngineComputeDeviceClass) Physic
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/debugDescription
-func (n MLNeuralEngineComputeDevice) DebugDescription() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("debugDescription"))
+func (m MLNeuralEngineComputeDevice) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/description
-func (n MLNeuralEngineComputeDevice) Description() string {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("description"))
+func (m MLNeuralEngineComputeDevice) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/hash
-func (n MLNeuralEngineComputeDevice) Hash() uint64 {
-	rv := objc.Send[uint64](n.ID, objc.Sel("hash"))
+func (m MLNeuralEngineComputeDevice) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/superclass
-func (n MLNeuralEngineComputeDevice) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](n.ID, objc.Sel("superclass"))
+func (m MLNeuralEngineComputeDevice) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

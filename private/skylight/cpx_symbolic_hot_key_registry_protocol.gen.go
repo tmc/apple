@@ -23,12 +23,12 @@ type CPXSymbolicHotKeyRegistry interface {
 	// RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:
-	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection unsafe.Pointer, id uint64, key uint32, option uint32, func_ VoidHandler) int
+	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int
 
 	// UnregisterHotKeyConnectionHotKeyID protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/unregisterHotKeyConnection:hotKeyID:
-	UnregisterHotKeyConnectionHotKeyID(connection unsafe.Pointer, id uint64) int
+	UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int
 }
 
 // CPXSymbolicHotKeyRegistryObject wraps an existing Objective-C object that conforms to the CPXSymbolicHotKeyRegistry protocol.
@@ -55,13 +55,13 @@ func (o CPXSymbolicHotKeyRegistryObject) GetSymbolicHotKeyValueOutTriggerOutKeyC
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:
-func (o CPXSymbolicHotKeyRegistryObject) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection unsafe.Pointer, id uint64, key uint32, option uint32, func_ VoidHandler) int {
+func (o CPXSymbolicHotKeyRegistryObject) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int {
 	rv := objc.Send[int](o.ID, objc.Sel("registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:"), connection, id, key, option, func_)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXSymbolicHotKeyRegistry/unregisterHotKeyConnection:hotKeyID:
-func (o CPXSymbolicHotKeyRegistryObject) UnregisterHotKeyConnectionHotKeyID(connection unsafe.Pointer, id uint64) int {
+func (o CPXSymbolicHotKeyRegistryObject) UnregisterHotKeyConnectionHotKeyID(connection CGXConnection, id uint64) int {
 	rv := objc.Send[int](o.ID, objc.Sel("unregisterHotKeyConnection:hotKeyID:"), connection, id)
 	return rv
 }

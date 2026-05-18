@@ -81,7 +81,7 @@ func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskWillDownloadVa
 // Save the returned URL to instantiate the asset in the future.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadDelegate/urlSession(_:assetDownloadTask:willDownloadTo:)
-func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskWillDownloadToURL(session foundation.NSURLSession, assetDownloadTask IAVAssetDownloadTask, location foundation.INSURL) {
+func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskWillDownloadToURL(session foundation.NSURLSession, assetDownloadTask IAVAssetDownloadTask, location foundation.NSURL) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:assetDownloadTask:willDownloadToURL:"), session, assetDownloadTask, location)
 }
 

@@ -66,14 +66,14 @@ type IMLDataConversionUtils interface {
 }
 
 // Init initializes the instance.
-func (d MLDataConversionUtils) Init() MLDataConversionUtils {
-	rv := objc.Send[MLDataConversionUtils](d.ID, objc.Sel("init"))
+func (m MLDataConversionUtils) Init() MLDataConversionUtils {
+	rv := objc.Send[MLDataConversionUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d MLDataConversionUtils) Autorelease() MLDataConversionUtils {
-	rv := objc.Send[MLDataConversionUtils](d.ID, objc.Sel("autorelease"))
+func (m MLDataConversionUtils) Autorelease() MLDataConversionUtils {
+	rv := objc.Send[MLDataConversionUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

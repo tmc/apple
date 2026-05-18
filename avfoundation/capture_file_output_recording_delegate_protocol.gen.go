@@ -18,7 +18,7 @@ type AVCaptureFileOutputRecordingDelegate interface {
 	// Informs the delegate when all pending data has been written to an output file.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputRecordingDelegate/fileOutput(_:didFinishRecordingTo:from:error:)
-	CaptureOutputDidFinishRecordingToOutputFileAtURLFromConnectionsError(output IAVCaptureFileOutput, outputFileURL foundation.INSURL, connections []AVCaptureConnection, error_ foundation.INSError)
+	CaptureOutputDidFinishRecordingToOutputFileAtURLFromConnectionsError(output IAVCaptureFileOutput, outputFileURL foundation.NSURL, connections []AVCaptureConnection, error_ foundation.NSError)
 }
 
 // AVCaptureFileOutputRecordingDelegateObject wraps an existing Objective-C object that conforms to the AVCaptureFileOutputRecordingDelegate protocol.
@@ -69,7 +69,7 @@ func AVCaptureFileOutputRecordingDelegateObjectFromID(id objc.ID) AVCaptureFileO
 // You should not assume that this method will be called on a specific thread.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputRecordingDelegate/fileOutput(_:didFinishRecordingTo:from:error:)
-func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidFinishRecordingToOutputFileAtURLFromConnectionsError(output IAVCaptureFileOutput, outputFileURL foundation.INSURL, connections []AVCaptureConnection, error_ foundation.INSError) {
+func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidFinishRecordingToOutputFileAtURLFromConnectionsError(output IAVCaptureFileOutput, outputFileURL foundation.NSURL, connections []AVCaptureConnection, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:"), output, outputFileURL, objectivec.IObjectSliceToNSArray(connections), error_)
 }
 
@@ -94,7 +94,7 @@ func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidFinishRecord
 // and should make this method as efficient as possible.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputRecordingDelegate/fileOutput(_:didStartRecordingTo:from:)
-func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordingToOutputFileAtURLFromConnections(output IAVCaptureFileOutput, fileURL foundation.INSURL, connections []AVCaptureConnection) {
+func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordingToOutputFileAtURLFromConnections(output IAVCaptureFileOutput, fileURL foundation.NSURL, connections []AVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didStartRecordingToOutputFileAtURL:fromConnections:"), output, fileURL, objectivec.IObjectSliceToNSArray(connections))
 }
 
@@ -128,7 +128,7 @@ func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordi
 // thread, and should also try to make this method as efficient as possible.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputRecordingDelegate/fileOutput(_:didStartRecordingTo:startPTS:from:)
-func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordingToOutputFileAtURLStartPTSFromConnections(output IAVCaptureFileOutput, fileURL foundation.INSURL, startPTS coremedia.CMTime, connections []AVCaptureConnection) {
+func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordingToOutputFileAtURLStartPTSFromConnections(output IAVCaptureFileOutput, fileURL foundation.NSURL, startPTS coremedia.CMTime, connections []AVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didStartRecordingToOutputFileAtURL:startPTS:fromConnections:"), output, fileURL, startPTS, objectivec.IObjectSliceToNSArray(connections))
 }
 
@@ -160,7 +160,7 @@ func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordi
 // and should make this method as efficient as possible.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputRecordingDelegate/fileOutput(_:willFinishRecordingTo:from:error:)
-func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputWillFinishRecordingToOutputFileAtURLFromConnectionsError(output IAVCaptureFileOutput, fileURL foundation.INSURL, connections []AVCaptureConnection, error_ foundation.INSError) {
+func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputWillFinishRecordingToOutputFileAtURLFromConnectionsError(output IAVCaptureFileOutput, fileURL foundation.NSURL, connections []AVCaptureConnection, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:willFinishRecordingToOutputFileAtURL:fromConnections:error:"), output, fileURL, objectivec.IObjectSliceToNSArray(connections), error_)
 }
 
@@ -189,7 +189,7 @@ func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputWillFinishRecor
 // and should make this method as efficient as possible.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputRecordingDelegate/fileOutput(_:didPauseRecordingTo:from:)
-func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidPauseRecordingToOutputFileAtURLFromConnections(output IAVCaptureFileOutput, fileURL foundation.INSURL, connections []AVCaptureConnection) {
+func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidPauseRecordingToOutputFileAtURLFromConnections(output IAVCaptureFileOutput, fileURL foundation.NSURL, connections []AVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didPauseRecordingToOutputFileAtURL:fromConnections:"), output, fileURL, objectivec.IObjectSliceToNSArray(connections))
 }
 
@@ -218,6 +218,6 @@ func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidPauseRecordi
 // and should make this method as efficient as possible.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputRecordingDelegate/fileOutput(_:didResumeRecordingTo:from:)
-func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidResumeRecordingToOutputFileAtURLFromConnections(output IAVCaptureFileOutput, fileURL foundation.INSURL, connections []AVCaptureConnection) {
+func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidResumeRecordingToOutputFileAtURLFromConnections(output IAVCaptureFileOutput, fileURL foundation.NSURL, connections []AVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didResumeRecordingToOutputFileAtURL:fromConnections:"), output, fileURL, objectivec.IObjectSliceToNSArray(connections))
 }

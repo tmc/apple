@@ -23,7 +23,7 @@ type GTMioCostProvider interface {
 	// CostForScopeScopeIdentifierCost protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCostProvider/costForScope:scopeIdentifier:cost:
-	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool
+	CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool
 
 	// Costs protocol.
 	//
@@ -65,7 +65,7 @@ func (o GTMioCostProviderObject) CostCount() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCostProvider/costForScope:scopeIdentifier:cost:
-func (o GTMioCostProviderObject) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool {
+func (o GTMioCostProviderObject) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost GTMioCostInfo) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }

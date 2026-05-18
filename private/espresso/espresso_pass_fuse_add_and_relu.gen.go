@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_fuse_add_and_relu] class.
+// The class instance for the [EspressoPassFuseAddAndRelu] class.
 var (
-	_EspressoPass_fuse_add_and_reluClass     EspressoPass_fuse_add_and_reluClass
-	_EspressoPass_fuse_add_and_reluClassOnce sync.Once
+	_EspressoPassFuseAddAndReluClass     EspressoPassFuseAddAndReluClass
+	_EspressoPassFuseAddAndReluClassOnce sync.Once
 )
 
-func getEspressoPass_fuse_add_and_reluClass() EspressoPass_fuse_add_and_reluClass {
-	_EspressoPass_fuse_add_and_reluClassOnce.Do(func() {
-		_EspressoPass_fuse_add_and_reluClass = EspressoPass_fuse_add_and_reluClass{class: objc.GetClass("EspressoPass_fuse_add_and_relu")}
+func getEspressoPassFuseAddAndReluClass() EspressoPassFuseAddAndReluClass {
+	_EspressoPassFuseAddAndReluClassOnce.Do(func() {
+		_EspressoPassFuseAddAndReluClass = EspressoPassFuseAddAndReluClass{class: objc.GetClass("EspressoPass_fuse_add_and_relu")}
 	})
-	return _EspressoPass_fuse_add_and_reluClass
+	return _EspressoPassFuseAddAndReluClass
 }
 
-// GetEspressoPass_fuse_add_and_reluClass returns the class object for EspressoPass_fuse_add_and_relu.
-func GetEspressoPass_fuse_add_and_reluClass() EspressoPass_fuse_add_and_reluClass {
-	return getEspressoPass_fuse_add_and_reluClass()
+// GetEspressoPassFuseAddAndReluClass returns the class object for EspressoPass_fuse_add_and_relu.
+func GetEspressoPassFuseAddAndReluClass() EspressoPassFuseAddAndReluClass {
+	return getEspressoPassFuseAddAndReluClass()
 }
 
-type EspressoPass_fuse_add_and_reluClass struct {
+type EspressoPassFuseAddAndReluClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_fuse_add_and_reluClass) Class() objc.Class {
+func (ec EspressoPassFuseAddAndReluClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_fuse_add_and_reluClass) Alloc() EspressoPass_fuse_add_and_relu {
-	rv := objc.Send[EspressoPass_fuse_add_and_relu](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFuseAddAndReluClass) Alloc() EspressoPassFuseAddAndRelu {
+	rv := objc.Send[EspressoPassFuseAddAndRelu](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_add_and_relu
-type EspressoPass_fuse_add_and_relu struct {
+type EspressoPassFuseAddAndRelu struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_fuse_add_and_reluFromID constructs a [EspressoPass_fuse_add_and_relu] from an objc.ID.
-func EspressoPass_fuse_add_and_reluFromID(id objc.ID) EspressoPass_fuse_add_and_relu {
-	return EspressoPass_fuse_add_and_relu{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFuseAddAndReluFromID constructs a [EspressoPassFuseAddAndRelu] from an objc.ID.
+func EspressoPassFuseAddAndReluFromID(id objc.ID) EspressoPassFuseAddAndRelu {
+	return EspressoPassFuseAddAndRelu{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_fuse_add_and_relu implements IEspressoPass_fuse_add_and_relu.
-var _ IEspressoPass_fuse_add_and_relu = EspressoPass_fuse_add_and_relu{}
+// EspressoPass_fuse_add_and_reluFromID is an alias for [EspressoPassFuseAddAndReluFromID] for cross-framework compatibility.
+func EspressoPass_fuse_add_and_reluFromID(id objc.ID) EspressoPassFuseAddAndRelu {
+	return EspressoPassFuseAddAndReluFromID(id)
+}
 
-// An interface definition for the [EspressoPass_fuse_add_and_relu] class.
+// Ensure EspressoPassFuseAddAndRelu implements IEspressoPassFuseAddAndRelu.
+var _ IEspressoPassFuseAddAndRelu = EspressoPassFuseAddAndRelu{}
+
+// An interface definition for the [EspressoPassFuseAddAndRelu] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_add_and_relu
-type IEspressoPass_fuse_add_and_relu interface {
+type IEspressoPassFuseAddAndRelu interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_fuse_add_and_relu) Init() EspressoPass_fuse_add_and_relu {
-	rv := objc.Send[EspressoPass_fuse_add_and_relu](e.ID, objc.Sel("init"))
+func (e EspressoPassFuseAddAndRelu) Init() EspressoPassFuseAddAndRelu {
+	rv := objc.Send[EspressoPassFuseAddAndRelu](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_fuse_add_and_relu) Autorelease() EspressoPass_fuse_add_and_relu {
-	rv := objc.Send[EspressoPass_fuse_add_and_relu](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFuseAddAndRelu) Autorelease() EspressoPassFuseAddAndRelu {
+	rv := objc.Send[EspressoPassFuseAddAndRelu](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_fuse_add_and_relu creates a new EspressoPass_fuse_add_and_relu instance.
-func NewEspressoPass_fuse_add_and_relu() EspressoPass_fuse_add_and_relu {
-	class := getEspressoPass_fuse_add_and_reluClass()
-	rv := objc.Send[EspressoPass_fuse_add_and_relu](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFuseAddAndRelu creates a new EspressoPassFuseAddAndRelu instance.
+func NewEspressoPassFuseAddAndRelu() EspressoPassFuseAddAndRelu {
+	class := getEspressoPassFuseAddAndReluClass()
+	rv := objc.Send[EspressoPassFuseAddAndRelu](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

@@ -71,7 +71,7 @@ type IGTAGX2InstructionPCStatInfoClass interface {
 
 	// Topic: Methods
 
-	InstructionPCStatInfo() objectivec.IObject
+	InstructionPCStatInfo() InstructionPCStatInfo
 }
 
 // Init initializes the instance.
@@ -94,7 +94,8 @@ func NewGTAGX2InstructionPCStatInfoClass() GTAGX2InstructionPCStatInfoClass {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2InstructionPCStatInfoClass/instructionPCStatInfo
-func (g GTAGX2InstructionPCStatInfoClass) InstructionPCStatInfo() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("instructionPCStatInfo"))
-	return objectivec.Object{ID: rv}
+func (g GTAGX2InstructionPCStatInfoClass) InstructionPCStatInfo() InstructionPCStatInfo {
+	rv := objc.Send[InstructionPCStatInfo](g.ID, objc.Sel("instructionPCStatInfo"))
+	_ = rv
+	return InstructionPCStatInfo{}
 }

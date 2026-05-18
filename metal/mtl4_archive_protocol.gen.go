@@ -14,11 +14,6 @@ import (
 type MTL4Archive interface {
 	objectivec.IObject
 
-	// A label that you can associate with this archive.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/label
-	Label() string
-
 	// Synchronously creates a binary version of a GPU visible function or GPU intersection function.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/makeBinaryFunction(descriptor:)
@@ -47,6 +42,7 @@ type MTL4Archive interface {
 	// A label that you can associate with this archive.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/label
+	Label() string
 	SetLabel(value string)
 }
 
@@ -65,14 +61,6 @@ func MTL4ArchiveObjectFromID(id objc.ID) MTL4ArchiveObject {
 	return MTL4ArchiveObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A label that you can associate with this archive.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Archive/label
-func (o MTL4ArchiveObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Synchronously creates a binary version of a GPU visible function or GPU
@@ -199,6 +187,11 @@ func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorError(descriptor 
 // A label that you can associate with this archive.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4Archive/label
+func (o MTL4ArchiveObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTL4ArchiveObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }

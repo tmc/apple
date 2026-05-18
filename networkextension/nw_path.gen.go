@@ -5,7 +5,6 @@ package networkextension
 import (
 	"sync"
 
-	"github.com/tmc/apple/network"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -101,7 +100,7 @@ type INWPath interface {
 	// Topic: Getting network path properties
 
 	// The evaluated status of the network path.
-	Status() network.NWPathStatus
+	Status() NWPathStatus
 	// A Boolean that indicates whether or not the path uses an expensive interface.
 	Expensive() bool
 	// A Boolean that indicates whether or not the path uses a constrained interface, such as when using low-data mode.
@@ -137,9 +136,9 @@ func NewNWPath() NWPath {
 // ensure that there is some interface over which an attempt can be made.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWPath/status
-func (n NWPath) Status() network.NWPathStatus {
-	rv := objc.Send[network.NWPathStatus](n.ID, objc.Sel("status"))
-	return network.NWPathStatus(rv)
+func (n NWPath) Status() NWPathStatus {
+	rv := objc.Send[NWPathStatus](n.ID, objc.Sel("status"))
+	return NWPathStatus(rv)
 }
 
 // A Boolean that indicates whether or not the path uses an expensive

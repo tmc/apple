@@ -3,6 +3,7 @@
 package gamecontroller
 
 import (
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -17,6 +18,11 @@ type GCDevicePhysicalInputStateDiff interface {
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputStateDiff/change(for:)
 	ChangeForElement(element GCPhysicalInputElement) GCDevicePhysicalInputElementChange
+
+	// Returns the elements that changed since the previous input state.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputStateDiff/changedElements
+	ChangedElements() foundation.NSEnumerator
 }
 
 // GCDevicePhysicalInputStateDiffObject wraps an existing Objective-C object that conforms to the GCDevicePhysicalInputStateDiff protocol.
@@ -48,4 +54,22 @@ func GCDevicePhysicalInputStateDiffObjectFromID(id objc.ID) GCDevicePhysicalInpu
 func (o GCDevicePhysicalInputStateDiffObject) ChangeForElement(element GCPhysicalInputElement) GCDevicePhysicalInputElementChange {
 	rv := objc.Send[GCDevicePhysicalInputElementChange](o.ID, objc.Sel("changeForElement:"), element)
 	return rv
+}
+
+// Returns the elements that changed since the previous input state.
+//
+// # Return Value
+//
+// An enumerator that contains the changed elements in no particular order.
+//
+// # Discussion
+//
+// Returns `nil` if there’s no previous input state, either because this is
+// the first input state or Game Controller discards the prior input state
+// because the queue is full.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputStateDiff/changedElements
+func (o GCDevicePhysicalInputStateDiffObject) ChangedElements() foundation.NSEnumerator {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("changedElements"))
+	return foundation.NSEnumeratorFromID(rv)
 }

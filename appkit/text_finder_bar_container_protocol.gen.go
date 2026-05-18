@@ -13,11 +13,6 @@ import (
 type NSTextFinderBarContainer interface {
 	objectivec.IObject
 
-	// The view assigned by the text bar as the find bar view for the container.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
-	FindBarView() INSView
-
 	// Returns whether the container should display its find bar.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
@@ -31,11 +26,13 @@ type NSTextFinderBarContainer interface {
 	// The view assigned by the text bar as the find bar view for the container.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
+	FindBarView() INSView
 	SetFindBarView(value INSView)
 
 	// Returns whether the container should display its find bar.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
+	FindBarVisible() bool
 	SetFindBarVisible(value bool)
 }
 
@@ -54,14 +51,6 @@ func NSTextFinderBarContainerObjectFromID(id objc.ID) NSTextFinderBarContainerOb
 	return NSTextFinderBarContainerObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The view assigned by the text bar as the find bar view for the container.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
-func (o NSTextFinderBarContainerObject) FindBarView() INSView {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("findBarView"))
-	return NSViewFromID(rv)
 }
 
 // Returns whether the container should display its find bar.
@@ -116,6 +105,11 @@ func (o NSTextFinderBarContainerObject) ContentView() INSView {
 // its height.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
+func (o NSTextFinderBarContainerObject) FindBarView() INSView {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("findBarView"))
+	return NSViewFromID(rv)
+}
+
 func (o NSTextFinderBarContainerObject) SetFindBarView(value INSView) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFindBarView:"), value)
 }
@@ -131,6 +125,11 @@ func (o NSTextFinderBarContainerObject) SetFindBarView(value INSView) {
 // The default value should be false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
+func (o NSTextFinderBarContainerObject) FindBarVisible() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isFindBarVisible"))
+	return bool(rv)
+}
+
 func (o NSTextFinderBarContainerObject) SetFindBarVisible(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFindBarVisible:"), value)
 }

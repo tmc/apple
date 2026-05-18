@@ -54,8 +54,9 @@ func (mc MTLRenderPipelineReflectionClass) Alloc() MTLRenderPipelineReflection {
 // You create a reflection instance at the same time as the pipeline state
 // that it represents by calling the appropriate [MTLDevice] method. For
 // example, the [NewRenderPipelineStateWithDescriptorOptionsReflectionError]
-// and [NewRenderPipelineStateWithDescriptorOptionsCompletionHandler] methods
-// create the pipeline state and the reflection instances at the same time.
+// and [NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler]
+// methods create the pipeline state and the reflection instances at the same
+// time.
 //
 // For more information, see [Pipeline state creation].
 //

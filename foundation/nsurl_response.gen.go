@@ -102,8 +102,6 @@ func NSURLResponseFromID(id objc.ID) URLResponse { return URLResponseFromID(id) 
 // See: https://developer.apple.com/documentation/Foundation/URLResponse
 type IURLResponse interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating a response
@@ -171,7 +169,7 @@ func NewURLResponseWithCoder(coder INSCoder) URLResponse {
 //
 // This is the designated initializer for [NSURLResponse].
 //
-// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)
+// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)-4s2s1
 func NewURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSURL, MIMEType string, length int, name string) URLResponse {
 	instance := getURLResponseClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:MIMEType:expectedContentLength:textEncodingName:"), URL, objc.String(MIMEType), length, objc.String(name))
@@ -198,7 +196,7 @@ func NewURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSU
 //
 // This is the designated initializer for [NSURLResponse].
 //
-// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)
+// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)-4s2s1
 func (u URLResponse) InitWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSURL, MIMEType string, length int, name string) URLResponse {
 	rv := objc.Send[URLResponse](u.ID, objc.Sel("initWithURL:MIMEType:expectedContentLength:textEncodingName:"), URL, objc.String(MIMEType), length, objc.String(name))
 	return rv

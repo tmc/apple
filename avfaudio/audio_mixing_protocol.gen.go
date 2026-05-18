@@ -24,10 +24,6 @@ type AVAudioMixing interface {
 	//
 	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
 	Volume() float32
-
-	// The bus’s input volume.
-	//
-	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
 	SetVolume(value float32)
 }
 
@@ -78,14 +74,6 @@ func AVAudioMixingObjectFromID(id objc.ID) AVAudioMixingObject {
 func (o AVAudioMixingObject) DestinationForMixerBus(mixer IAVAudioNode, bus AVAudioNodeBus) IAVAudioMixingDestination {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("destinationForMixer:bus:"), mixer, bus)
 	return AVAudioMixingDestinationFromID(rv)
-}
-
-// The bus’s input volume.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
-func (o AVAudioMixingObject) Volume() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("volume"))
-	return rv
 }
 
 // A value that simulates filtering of the direct path of sound due to an
@@ -171,6 +159,11 @@ func (o AVAudioMixingObject) Pan() float32 {
 // implement this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixing/volume
+func (o AVAudioMixingObject) Volume() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("volume"))
+	return float32(rv)
+}
+
 func (o AVAudioMixingObject) SetVolume(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setVolume:"), value)
 }

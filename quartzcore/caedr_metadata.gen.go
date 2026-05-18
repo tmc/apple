@@ -75,7 +75,7 @@ type ICAEDRMetadata interface {
 
 	// Metadata describing the tone mapping to apply to the extended dynamic range (EDR) values in the layer.
 	EdrMetadata() ICAEDRMetadata
-	SetEdrMetadata(value ICAEDRMetadata)
+	SetEDRMetadata(value ICAEDRMetadata)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -124,7 +124,7 @@ func (e CAEDRMetadata) EncodeWithCoder(coder foundation.INSCoder) {
 // nits.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata/hdr10(displayInfo:contentInfo:opticalOutputScale:)
-func (_CAEDRMetadataClass CAEDRMetadataClass) HDR10MetadataWithDisplayInfoContentInfoOpticalOutputScale(displayData foundation.INSData, contentData foundation.INSData, scale float32) CAEDRMetadata {
+func (_CAEDRMetadataClass CAEDRMetadataClass) HDR10MetadataWithDisplayInfoContentInfoOpticalOutputScale(displayData foundation.NSData, contentData foundation.NSData, scale float32) CAEDRMetadata {
 	rv := objc.Send[objc.ID](objc.ID(_CAEDRMetadataClass.class), objc.Sel("HDR10MetadataWithDisplayInfo:contentInfo:opticalOutputScale:"), displayData, contentData, scale)
 	return CAEDRMetadataFromID(rv)
 }
@@ -163,7 +163,7 @@ func (_CAEDRMetadataClass CAEDRMetadataClass) HDR10MetadataWithMinLuminanceMaxLu
 }
 
 // See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata/hlg(ambientViewingEnvironment:)
-func (_CAEDRMetadataClass CAEDRMetadataClass) HLGMetadataWithAmbientViewingEnvironment(data foundation.INSData) CAEDRMetadata {
+func (_CAEDRMetadataClass CAEDRMetadataClass) HLGMetadataWithAmbientViewingEnvironment(data foundation.NSData) CAEDRMetadata {
 	rv := objc.Send[objc.ID](objc.ID(_CAEDRMetadataClass.class), objc.Sel("HLGMetadataWithAmbientViewingEnvironment:"), data)
 	return CAEDRMetadataFromID(rv)
 }
@@ -176,7 +176,7 @@ func (e CAEDRMetadata) EdrMetadata() ICAEDRMetadata {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("EDRMetadata"))
 	return CAEDRMetadataFromID(objc.ID(rv))
 }
-func (e CAEDRMetadata) SetEdrMetadata(value ICAEDRMetadata) {
+func (e CAEDRMetadata) SetEDRMetadata(value ICAEDRMetadata) {
 	objc.Send[struct{}](e.ID, objc.Sel("setEDRMetadata:"), value)
 }
 

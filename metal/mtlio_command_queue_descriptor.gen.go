@@ -58,7 +58,7 @@ func (mc MTLIOCommandQueueDescriptorClass) Alloc() MTLIOCommandQueueDescriptor {
 // - Select a queue’s relative level of importance with the [MTLIOCommandQueueDescriptor.Priority]
 // property. - Create a queue that runs multiple input/output command buffers
 // in parallel by setting the [Type] property to
-// [MTLIOCommandQueueType.concurrent]. - Decide how many individual commands a
+// [MTLIOCommandQueueTypeConcurrent]. - Decide how many individual commands a
 // queue can run simultaneously with the [MTLIOCommandQueueDescriptor.MaxCommandsInFlight] property. -
 // Choose how many command buffers a queue can have waiting to run with
 // [MTLIOCommandQueueDescriptor.MaxCommandBufferCount] property. - Take control of the queue’s scratch
@@ -82,8 +82,6 @@ func (mc MTLIOCommandQueueDescriptorClass) Alloc() MTLIOCommandQueueDescriptor {
 //   - [MTLIOCommandQueueDescriptor.SetScratchBufferAllocator]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueueDescriptor
-//
-// [MTLIOCommandQueueType.concurrent]: https://developer.apple.com/documentation/Metal/MTLIOCommandQueueType/concurrent
 type MTLIOCommandQueueDescriptor struct {
 	objectivec.Object
 }

@@ -55,20 +55,20 @@ type NSTextInputClient interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
 	FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect
 
-	// DocumentVisibleRect protocol.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
-	DocumentVisibleRect() corefoundation.CGRect
-
-	// UnionRectInVisibleSelectedRange protocol.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
-	UnionRectInVisibleSelectedRange() corefoundation.CGRect
-
 	// Invokes the action specified by the given selector.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/doCommand(by:)
 	DoCommandBySelector(selector objc.SEL)
+
+	// documentVisibleRect protocol.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
+	DocumentVisibleRect() corefoundation.CGRect
+
+	// unionRectInVisibleSelectedRange protocol.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
+	UnionRectInVisibleSelectedRange() corefoundation.CGRect
 
 	// A Boolean value that indicates whether the document supports adaptive images in the input.
 	//
@@ -300,18 +300,6 @@ func (o NSTextInputClientObject) FirstRectForCharacterRangeActualRange(range_ fo
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
-func (o NSTextInputClientObject) DocumentVisibleRect() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("documentVisibleRect"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
-func (o NSTextInputClientObject) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("unionRectInVisibleSelectedRange"))
-	return rv
-}
-
 // Invokes the action specified by the given selector.
 //
 // selector: The selector to invoke.
@@ -329,15 +317,6 @@ func (o NSTextInputClientObject) UnionRectInVisibleSelectedRange() corefoundatio
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/doCommand(by:)
 func (o NSTextInputClientObject) DoCommandBySelector(selector objc.SEL) {
 	objc.Send[struct{}](o.ID, objc.Sel("doCommandBySelector:"), selector)
-}
-
-// A Boolean value that indicates whether the document supports adaptive
-// images in the input.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/supportsAdaptiveImageGlyph
-func (o NSTextInputClientObject) SupportsAdaptiveImageGlyph() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("supportsAdaptiveImageGlyph"))
-	return rv
 }
 
 // Returns an attributed string representing the receiver’s text storage.
@@ -467,4 +446,32 @@ func (o NSTextInputClientObject) WindowLevel() int {
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/insert(_:replacementRange:)
 func (o NSTextInputClientObject) InsertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph INSAdaptiveImageGlyph, replacementRange foundation.NSRange) {
 	objc.Send[struct{}](o.ID, objc.Sel("insertAdaptiveImageGlyph:replacementRange:"), adaptiveImageGlyph, replacementRange)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
+func (o NSTextInputClientObject) DocumentVisibleRect() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("documentVisibleRect"))
+	return corefoundation.CGRect(rv)
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
+func (o NSTextInputClientObject) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("unionRectInVisibleSelectedRange"))
+	return corefoundation.CGRect(rv)
+}
+
+// A Boolean value that indicates whether the document supports adaptive
+// images in the input.
+//
+// # Discussion
+//
+// When this property is false, the input system doesn’t allow the text
+// input to contain adaptive images. Set the value of this property to true
+// only if your document supports adaptive images and handles them properly.
+// For more information, see [NSAdaptiveImageGlyph].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/supportsAdaptiveImageGlyph
+func (o NSTextInputClientObject) SupportsAdaptiveImageGlyph() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("supportsAdaptiveImageGlyph"))
+	return bool(rv)
 }

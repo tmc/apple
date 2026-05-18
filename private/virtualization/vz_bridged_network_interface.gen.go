@@ -65,14 +65,14 @@ type IVZBridgedNetworkInterface interface {
 }
 
 // Init initializes the instance.
-func (b VZBridgedNetworkInterface) Init() VZBridgedNetworkInterface {
-	rv := objc.Send[VZBridgedNetworkInterface](b.ID, objc.Sel("init"))
+func (v VZBridgedNetworkInterface) Init() VZBridgedNetworkInterface {
+	rv := objc.Send[VZBridgedNetworkInterface](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (b VZBridgedNetworkInterface) Autorelease() VZBridgedNetworkInterface {
-	rv := objc.Send[VZBridgedNetworkInterface](b.ID, objc.Sel("autorelease"))
+func (v VZBridgedNetworkInterface) Autorelease() VZBridgedNetworkInterface {
+	rv := objc.Send[VZBridgedNetworkInterface](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 

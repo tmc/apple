@@ -771,14 +771,11 @@ func (r MTLRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 // - For the [MTLTessellationPartitionModePow2] partitioning mode, the value
 // needs to be a power of two. - For the [MTLTessellationPartitionModeInteger]
 // partitioning mode, the value can be an even or odd number. - For the
-// [MTLTessellationPartitionMode.fractionalOdd] or
-// [MTLTessellationPartitionMode.fractionalEven] partitioning mode, the value
+// [MTLTessellationPartitionModeFractionalOdd] or
+// [MTLTessellationPartitionModeFractionalEven] partitioning mode, the value
 // needs to be an even number.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/maxTessellationFactor
-//
-// [MTLTessellationPartitionMode.fractionalEven]: https://developer.apple.com/documentation/Metal/MTLTessellationPartitionMode/fractionalEven
-// [MTLTessellationPartitionMode.fractionalOdd]: https://developer.apple.com/documentation/Metal/MTLTessellationPartitionMode/fractionalOdd
 func (r MTLRenderPipelineDescriptor) MaxTessellationFactor() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("maxTessellationFactor"))
 	return rv
@@ -812,11 +809,9 @@ func (r MTLRenderPipelineDescriptor) SetTessellationFactorScaleEnabled(value boo
 //
 // # Discussion
 //
-// The default value is [MTLTessellationFactorFormat.half].
+// The default value is [MTLTessellationFactorFormatHalf].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/tessellationFactorFormat
-//
-// [MTLTessellationFactorFormat.half]: https://developer.apple.com/documentation/Metal/MTLTessellationFactorFormat/half
 func (r MTLRenderPipelineDescriptor) TessellationFactorFormat() MTLTessellationFactorFormat {
 	rv := objc.Send[MTLTessellationFactorFormat](r.ID, objc.Sel("tessellationFactorFormat"))
 	return MTLTessellationFactorFormat(rv)
@@ -849,11 +844,9 @@ func (r MTLRenderPipelineDescriptor) SetTessellationControlPointIndexType(value 
 //
 // # Discussion
 //
-// The default value is [MTLTessellationFactorStepFunction.constant].
+// The default value is [MTLTessellationFactorStepFunctionConstant].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/tessellationFactorStepFunction
-//
-// [MTLTessellationFactorStepFunction.constant]: https://developer.apple.com/documentation/Metal/MTLTessellationFactorStepFunction/constant
 func (r MTLRenderPipelineDescriptor) TessellationFactorStepFunction() MTLTessellationFactorStepFunction {
 	rv := objc.Send[MTLTessellationFactorStepFunction](r.ID, objc.Sel("tessellationFactorStepFunction"))
 	return MTLTessellationFactorStepFunction(rv)
@@ -866,11 +859,9 @@ func (r MTLRenderPipelineDescriptor) SetTessellationFactorStepFunction(value MTL
 //
 // # Discussion
 //
-// The default value is [MTLWinding.clockwise].
+// The default value is [MTLWindingClockwise].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/tessellationOutputWindingOrder
-//
-// [MTLWinding.clockwise]: https://developer.apple.com/documentation/Metal/MTLWinding/clockwise
 func (r MTLRenderPipelineDescriptor) TessellationOutputWindingOrder() MTLWinding {
 	rv := objc.Send[MTLWinding](r.ID, objc.Sel("tessellationOutputWindingOrder"))
 	return MTLWinding(rv)

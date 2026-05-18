@@ -162,12 +162,10 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTL
 // at the start of the vertex stage. Otherwise, specify an index within the
 // sample buffer where you want the GPU to write the sample data.
 //
-// On devices that don’t support [MTLCounterSamplingPoint.atStageBoundary]
+// On devices that don’t support [MTLCounterSamplingPointAtStageBoundary]
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptor/startOfVertexSampleIndex
-//
-// [MTLCounterSamplingPoint.atStageBoundary]: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint/atStageBoundary
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) StartOfVertexSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("startOfVertexSampleIndex"))
 	return rv
@@ -185,12 +183,10 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetStartOfVertexSampleInd
 // at the end of the vertex stage. Otherwise, specify an index within the
 // sample buffer where you want the GPU to write the sample data.
 //
-// On devices that don’t support [MTLCounterSamplingPoint.atStageBoundary]
+// On devices that don’t support [MTLCounterSamplingPointAtStageBoundary]
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptor/endOfVertexSampleIndex
-//
-// [MTLCounterSamplingPoint.atStageBoundary]: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint/atStageBoundary
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) EndOfVertexSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("endOfVertexSampleIndex"))
 	return rv
@@ -208,12 +204,10 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetEndOfVertexSampleIndex
 // at the start of the fragment stage. Otherwise, specify an index within the
 // sample buffer where you want the GPU to write the sample data.
 //
-// On devices that don’t support [MTLCounterSamplingPoint.atStageBoundary]
+// On devices that don’t support [MTLCounterSamplingPointAtStageBoundary]
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptor/startOfFragmentSampleIndex
-//
-// [MTLCounterSamplingPoint.atStageBoundary]: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint/atStageBoundary
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) StartOfFragmentSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("startOfFragmentSampleIndex"))
 	return rv
@@ -231,12 +225,10 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetStartOfFragmentSampleI
 // at the end of the fragment stage. Otherwise, specify an index within the
 // sample buffer where you want the GPU to write the sample data.
 //
-// On devices that don’t support [MTLCounterSamplingPoint.atStageBoundary]
+// On devices that don’t support [MTLCounterSamplingPointAtStageBoundary]
 // you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptor/endOfFragmentSampleIndex
-//
-// [MTLCounterSamplingPoint.atStageBoundary]: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint/atStageBoundary
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) EndOfFragmentSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("endOfFragmentSampleIndex"))
 	return rv

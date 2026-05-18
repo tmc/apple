@@ -112,14 +112,14 @@ type IMLPredictionEventMetric interface {
 }
 
 // Init initializes the instance.
-func (p MLPredictionEventMetric) Init() MLPredictionEventMetric {
-	rv := objc.Send[MLPredictionEventMetric](p.ID, objc.Sel("init"))
+func (m MLPredictionEventMetric) Init() MLPredictionEventMetric {
+	rv := objc.Send[MLPredictionEventMetric](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPredictionEventMetric) Autorelease() MLPredictionEventMetric {
-	rv := objc.Send[MLPredictionEventMetric](p.ID, objc.Sel("autorelease"))
+func (m MLPredictionEventMetric) Autorelease() MLPredictionEventMetric {
+	rv := objc.Send[MLPredictionEventMetric](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -138,79 +138,79 @@ func NewPredictionEventMetricWithBundleIdentifierModelNameFirstPartyExecutableMo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/initWithBundleIdentifier:modelName:firstPartyExecutable:modelType:featuresPredictionDuration:featuresPredictionCountSoFar:
-func (p MLPredictionEventMetric) InitWithBundleIdentifierModelNameFirstPartyExecutableModelTypeFeaturesPredictionDurationFeaturesPredictionCountSoFar(identifier objectivec.IObject, name objectivec.IObject, executable objectivec.IObject, type_ objectivec.IObject, duration float64, far int64) MLPredictionEventMetric {
-	rv := objc.Send[MLPredictionEventMetric](p.ID, objc.Sel("initWithBundleIdentifier:modelName:firstPartyExecutable:modelType:featuresPredictionDuration:featuresPredictionCountSoFar:"), identifier, name, executable, type_, duration, far)
+func (m MLPredictionEventMetric) InitWithBundleIdentifierModelNameFirstPartyExecutableModelTypeFeaturesPredictionDurationFeaturesPredictionCountSoFar(identifier objectivec.IObject, name objectivec.IObject, executable objectivec.IObject, type_ objectivec.IObject, duration float64, far int64) MLPredictionEventMetric {
+	rv := objc.Send[MLPredictionEventMetric](m.ID, objc.Sel("initWithBundleIdentifier:modelName:firstPartyExecutable:modelType:featuresPredictionDuration:featuresPredictionCountSoFar:"), identifier, name, executable, type_, duration, far)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/bundleIdentifier
-func (p MLPredictionEventMetric) BundleIdentifier() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("bundleIdentifier"))
+func (m MLPredictionEventMetric) BundleIdentifier() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/debugDescription
-func (p MLPredictionEventMetric) DebugDescription() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
+func (m MLPredictionEventMetric) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/description
-func (p MLPredictionEventMetric) Description() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
+func (m MLPredictionEventMetric) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/dictionaryRepresentation
-func (p MLPredictionEventMetric) DictionaryRepresentation() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("dictionaryRepresentation"))
+func (m MLPredictionEventMetric) DictionaryRepresentation() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/featuresPredictionCountSoFar
-func (p MLPredictionEventMetric) FeaturesPredictionCountSoFar() int64 {
-	rv := objc.Send[int64](p.ID, objc.Sel("featuresPredictionCountSoFar"))
+func (m MLPredictionEventMetric) FeaturesPredictionCountSoFar() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("featuresPredictionCountSoFar"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/featuresPredictionDuration
-func (p MLPredictionEventMetric) FeaturesPredictionDuration() float64 {
-	rv := objc.Send[float64](p.ID, objc.Sel("featuresPredictionDuration"))
+func (m MLPredictionEventMetric) FeaturesPredictionDuration() float64 {
+	rv := objc.Send[float64](m.ID, objc.Sel("featuresPredictionDuration"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/firstPartyExecutable
-func (p MLPredictionEventMetric) FirstPartyExecutable() foundation.NSNumber {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("firstPartyExecutable"))
+func (m MLPredictionEventMetric) FirstPartyExecutable() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/hash
-func (p MLPredictionEventMetric) Hash() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
+func (m MLPredictionEventMetric) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/modelName
-func (p MLPredictionEventMetric) ModelName() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelName"))
+func (m MLPredictionEventMetric) ModelName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelName"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/modelType
-func (p MLPredictionEventMetric) ModelType() foundation.NSNumber {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelType"))
+func (m MLPredictionEventMetric) ModelType() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelType"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/name
-func (p MLPredictionEventMetric) Name() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("name"))
+func (m MLPredictionEventMetric) Name() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEventMetric/superclass
-func (p MLPredictionEventMetric) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
+func (m MLPredictionEventMetric) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

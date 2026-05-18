@@ -13,11 +13,6 @@ import (
 type MTLDrawable interface {
 	objectivec.IObject
 
-	// A positive integer that identifies the drawable.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLDrawable/drawableID
-	DrawableID() uint
-
 	// Presents the drawable onscreen as soon as possible.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
@@ -37,6 +32,11 @@ type MTLDrawable interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDrawable/addPresentedHandler(_:)
 	AddPresentedHandler(block MTLDrawablePresentedHandler)
+
+	// A positive integer that identifies the drawable.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDrawable/drawableID
+	DrawableID() uint
 
 	// The host time, in seconds, when the drawable was displayed onscreen.
 	//
@@ -59,14 +59,6 @@ func MTLDrawableObjectFromID(id objc.ID) MTLDrawableObject {
 	return MTLDrawableObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A positive integer that identifies the drawable.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLDrawable/drawableID
-func (o MTLDrawableObject) DrawableID() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("drawableID"))
-	return rv
 }
 
 // Presents the drawable onscreen as soon as possible.
@@ -145,10 +137,35 @@ func (o MTLDrawableObject) AddPresentedHandler(block MTLDrawablePresentedHandler
 	objc.Send[struct{}](o.ID, objc.Sel("addPresentedHandler:"), objc.ID(_block0))
 }
 
+// A positive integer that identifies the drawable.
+//
+// # Discussion
+//
+// Drawable objects are usually owned by some other object, such as a
+// [CAMetalLayer]. The owning object gives the first drawable it creates an ID
+// of `0`, and it increments the ID by `1` for each additional drawable it
+// creates.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDrawable/drawableID
+//
+// [CAMetalLayer]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer
+func (o MTLDrawableObject) DrawableID() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("drawableID"))
+	return uint(rv)
+}
+
 // The host time, in seconds, when the drawable was displayed onscreen.
+//
+// # Discussion
+//
+// Typically, you query this property in a callback method. See
+// [AddPresentedHandler].
+//
+// The property value is `0.0` if the drawable hasn’t been presented or if
+// its associated frame was dropped.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDrawable/presentedTime
 func (o MTLDrawableObject) PresentedTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("presentedTime"))
-	return rv
+	return float64(rv)
 }

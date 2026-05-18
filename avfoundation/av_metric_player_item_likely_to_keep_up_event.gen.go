@@ -47,6 +47,7 @@ func (ac AVMetricPlayerItemLikelyToKeepUpEventClass) Alloc() AVMetricPlayerItemL
 //
 // # Inspecting the event
 //
+//   - [AVMetricPlayerItemLikelyToKeepUpEvent.LoadedTimeRanges]
 //   - [AVMetricPlayerItemLikelyToKeepUpEvent.TimeTaken]
 //   - [AVMetricPlayerItemLikelyToKeepUpEvent.Variant]
 //
@@ -70,6 +71,7 @@ func AVMetricPlayerItemLikelyToKeepUpEventFromID(id objc.ID) AVMetricPlayerItemL
 //
 // # Inspecting the event
 //
+//   - [IAVMetricPlayerItemLikelyToKeepUpEvent.LoadedTimeRanges]
 //   - [IAVMetricPlayerItemLikelyToKeepUpEvent.TimeTaken]
 //   - [IAVMetricPlayerItemLikelyToKeepUpEvent.Variant]
 //
@@ -79,10 +81,9 @@ type IAVMetricPlayerItemLikelyToKeepUpEvent interface {
 
 	// Topic: Inspecting the event
 
+	LoadedTimeRanges() []foundation.NSValue
 	TimeTaken() float64
 	Variant() IAVAssetVariant
-
-	LoadedTimeRanges() []foundation.NSValue
 }
 
 // Init initializes the instance.
@@ -104,6 +105,14 @@ func NewAVMetricPlayerItemLikelyToKeepUpEvent() AVMetricPlayerItemLikelyToKeepUp
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemLikelyToKeepUpEvent/loadedTimeRanges-960vi
+func (m AVMetricPlayerItemLikelyToKeepUpEvent) LoadedTimeRanges() []foundation.NSValue {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("loadedTimeRanges"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
+		return foundation.NSValueFromID(id)
+	})
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemLikelyToKeepUpEvent/timeTaken
 func (m AVMetricPlayerItemLikelyToKeepUpEvent) TimeTaken() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("timeTaken"))
@@ -114,12 +123,4 @@ func (m AVMetricPlayerItemLikelyToKeepUpEvent) TimeTaken() float64 {
 func (m AVMetricPlayerItemLikelyToKeepUpEvent) Variant() IAVAssetVariant {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("variant"))
 	return AVAssetVariantFromID(objc.ID(rv))
-}
-
-// See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemLikelyToKeepUpEvent/loadedTimeRanges-960vi
-func (m AVMetricPlayerItemLikelyToKeepUpEvent) LoadedTimeRanges() []foundation.NSValue {
-	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("loadedTimeRanges"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
-		return foundation.NSValueFromID(id)
-	})
 }

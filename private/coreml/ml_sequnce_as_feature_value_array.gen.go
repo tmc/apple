@@ -79,14 +79,14 @@ type IMLSequnceAsFeatureValueArray interface {
 }
 
 // Init initializes the instance.
-func (s MLSequnceAsFeatureValueArray) Init() MLSequnceAsFeatureValueArray {
-	rv := objc.Send[MLSequnceAsFeatureValueArray](s.ID, objc.Sel("init"))
+func (m MLSequnceAsFeatureValueArray) Init() MLSequnceAsFeatureValueArray {
+	rv := objc.Send[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSequnceAsFeatureValueArray) Autorelease() MLSequnceAsFeatureValueArray {
-	rv := objc.Send[MLSequnceAsFeatureValueArray](s.ID, objc.Sel("autorelease"))
+func (m MLSequnceAsFeatureValueArray) Autorelease() MLSequnceAsFeatureValueArray {
+	rv := objc.Send[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -105,13 +105,13 @@ func NewSequnceAsFeatureValueArrayWrappingSequence(sequence objectivec.IObject) 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray/initWrappingSequence:
-func (s MLSequnceAsFeatureValueArray) InitWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
-	rv := objc.Send[MLSequnceAsFeatureValueArray](s.ID, objc.Sel("initWrappingSequence:"), sequence)
+func (m MLSequnceAsFeatureValueArray) InitWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
+	rv := objc.Send[MLSequnceAsFeatureValueArray](m.ID, objc.Sel("initWrappingSequence:"), sequence)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray/sequence
-func (s MLSequnceAsFeatureValueArray) Sequence() IMLSequence {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("sequence"))
+func (m MLSequnceAsFeatureValueArray) Sequence() IMLSequence {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("sequence"))
 	return MLSequenceFromID(objc.ID(rv))
 }

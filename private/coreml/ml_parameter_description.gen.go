@@ -95,14 +95,14 @@ type IMLParameterDescription interface {
 }
 
 // Init initializes the instance.
-func (p MLParameterDescription) Init() MLParameterDescription {
-	rv := objc.Send[MLParameterDescription](p.ID, objc.Sel("init"))
+func (m MLParameterDescription) Init() MLParameterDescription {
+	rv := objc.Send[MLParameterDescription](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLParameterDescription) Autorelease() MLParameterDescription {
-	rv := objc.Send[MLParameterDescription](p.ID, objc.Sel("autorelease"))
+func (m MLParameterDescription) Autorelease() MLParameterDescription {
+	rv := objc.Send[MLParameterDescription](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -121,8 +121,8 @@ func NewParameterDescriptionWithCoder(coder objectivec.IObject) MLParameterDescr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/initWithCoder:
-func (p MLParameterDescription) InitWithCoder(coder foundation.INSCoder) MLParameterDescription {
-	rv := objc.Send[MLParameterDescription](p.ID, objc.Sel("initWithCoder:"), coder)
+func (m MLParameterDescription) InitWithCoder(coder foundation.INSCoder) MLParameterDescription {
+	rv := objc.Send[MLParameterDescription](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -163,28 +163,28 @@ func (_MLParameterDescriptionClass MLParameterDescriptionClass) SupportsSecureCo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/defaultValue
-func (p MLParameterDescription) DefaultValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("defaultValue"))
+func (m MLParameterDescription) DefaultValue() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultValue"))
 	return objectivec.Object{ID: rv}
 }
-func (p MLParameterDescription) SetDefaultValue(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setDefaultValue:"), value)
+func (m MLParameterDescription) SetDefaultValue(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setDefaultValue:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/key
-func (p MLParameterDescription) Key() IMLParameterKey {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("key"))
+func (m MLParameterDescription) Key() IMLParameterKey {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("key"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-func (p MLParameterDescription) SetKey(value IMLParameterKey) {
-	objc.Send[struct{}](p.ID, objc.Sel("setKey:"), value)
+func (m MLParameterDescription) SetKey(value IMLParameterKey) {
+	objc.Send[struct{}](m.ID, objc.Sel("setKey:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/numericConstraint
-func (p MLParameterDescription) NumericConstraint() IMLNumericConstraint {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("numericConstraint"))
+func (m MLParameterDescription) NumericConstraint() IMLNumericConstraint {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("numericConstraint"))
 	return MLNumericConstraintFromID(objc.ID(rv))
 }
-func (p MLParameterDescription) SetNumericConstraint(value IMLNumericConstraint) {
-	objc.Send[struct{}](p.ID, objc.Sel("setNumericConstraint:"), value)
+func (m MLParameterDescription) SetNumericConstraint(value IMLNumericConstraint) {
+	objc.Send[struct{}](m.ID, objc.Sel("setNumericConstraint:"), value)
 }

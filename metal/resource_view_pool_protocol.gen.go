@@ -14,6 +14,11 @@ import (
 type MTLResourceViewPool interface {
 	objectivec.IObject
 
+	// Copies a range of resource views from a source view pool to a destination location in this view pool.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/copyResourceViewsFromPool:sourceRange:destinationIndex:
+	CopyResourceViewsFromPoolSourceRangeDestinationIndex(sourcePool MTLResourceViewPool, sourceRange foundation.NSRange, destinationIndex uint) MTLResourceID
+
 	// Obtains the resource ID corresponding to the resource view at index 0 in this resource view pool.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/baseResourceID
@@ -52,13 +57,36 @@ func MTLResourceViewPoolObjectFromID(id objc.ID) MTLResourceViewPoolObject {
 	}
 }
 
+// Copies a range of resource views from a source view pool to a destination
+// location in this view pool.
+//
+// sourcePool: Resource view pool from which to copy resource views.
+//
+// sourceRange: The range in the source resource view pool to copy.
+//
+// destinationIndex: The starting index in this destination view pool into which to copy the
+// source range of resource views.
+//
+// # Return Value
+//
+// The [MTLResourceID] of the resource view corresponding to
+// `destinationIndex` of the copy in this resource view pool.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/copyResourceViewsFromPool:sourceRange:destinationIndex:
+//
+// [MTLResourceID]: https://developer.apple.com/documentation/Metal/MTLResourceID
+func (o MTLResourceViewPoolObject) CopyResourceViewsFromPoolSourceRangeDestinationIndex(sourcePool MTLResourceViewPool, sourceRange foundation.NSRange, destinationIndex uint) MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("copyResourceViewsFromPool:sourceRange:destinationIndex:"), sourcePool, sourceRange, destinationIndex)
+	return rv
+}
+
 // Obtains the resource ID corresponding to the resource view at index 0 in
 // this resource view pool.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/baseResourceID
 func (o MTLResourceViewPoolObject) BaseResourceID() MTLResourceID {
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("baseResourceID"))
-	return rv
+	return MTLResourceID(rv)
 }
 
 // Obtains a reference to the GPU device this pool belongs to.
@@ -82,5 +110,5 @@ func (o MTLResourceViewPoolObject) Label() string {
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/resourceViewCount
 func (o MTLResourceViewPoolObject) ResourceViewCount() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("resourceViewCount"))
-	return rv
+	return uint(rv)
 }

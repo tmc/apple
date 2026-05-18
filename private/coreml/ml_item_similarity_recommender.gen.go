@@ -90,14 +90,14 @@ type IMLItemSimilarityRecommender interface {
 }
 
 // Init initializes the instance.
-func (i MLItemSimilarityRecommender) Init() MLItemSimilarityRecommender {
-	rv := objc.Send[MLItemSimilarityRecommender](i.ID, objc.Sel("init"))
+func (m MLItemSimilarityRecommender) Init() MLItemSimilarityRecommender {
+	rv := objc.Send[MLItemSimilarityRecommender](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (i MLItemSimilarityRecommender) Autorelease() MLItemSimilarityRecommender {
-	rv := objc.Send[MLItemSimilarityRecommender](i.ID, objc.Sel("autorelease"))
+func (m MLItemSimilarityRecommender) Autorelease() MLItemSimilarityRecommender {
+	rv := objc.Send[MLItemSimilarityRecommender](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -161,9 +161,9 @@ func NewItemSimilarityRecommenderWithNameInputDescriptionOutputDescriptionOrdere
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/_itemForIndex:error:
-func (i MLItemSimilarityRecommender) _itemForIndexError(index uint64) (objectivec.IObject, error) {
+func (m MLItemSimilarityRecommender) _itemForIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("_itemForIndex:error:"), index, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_itemForIndex:error:"), index, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -173,23 +173,23 @@ func (i MLItemSimilarityRecommender) _itemForIndexError(index uint64) (objective
 }
 
 // ItemForIndexError is an exported wrapper for the private method _itemForIndexError.
-func (i MLItemSimilarityRecommender) ItemForIndexError(index uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(i.ID, objc.Sel("_itemForIndex:error:")) {
+func (m MLItemSimilarityRecommender) ItemForIndexError(index uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_itemForIndex:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_itemForIndex:error:"}
 		return nil, err
 	}
-	return i._itemForIndexError(index)
+	return m._itemForIndexError(index)
 }
 
 // CanItemForIndexError reports whether the receiver responds to the private selector _itemForIndex:error:.
-func (i MLItemSimilarityRecommender) CanItemForIndexError() bool {
-	return objc.RespondsToSelector(i.ID, objc.Sel("_itemForIndex:error:"))
+func (m MLItemSimilarityRecommender) CanItemForIndexError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_itemForIndex:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/_mapItemSequence:dest:error:
-func (i MLItemSimilarityRecommender) _mapItemSequenceDestError(sequence objectivec.IObject, dest unsafe.Pointer) (bool, error) {
+func (m MLItemSimilarityRecommender) _mapItemSequenceDestError(sequence objectivec.IObject, dest unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](i.ID, objc.Sel("_mapItemSequence:dest:error:"), sequence, dest, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("_mapItemSequence:dest:error:"), sequence, dest, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -202,29 +202,29 @@ func (i MLItemSimilarityRecommender) _mapItemSequenceDestError(sequence objectiv
 }
 
 // MapItemSequenceDestError is an exported wrapper for the private method _mapItemSequenceDestError.
-func (i MLItemSimilarityRecommender) MapItemSequenceDestError(sequence objectivec.IObject, dest unsafe.Pointer) (bool, error) {
-	if !objc.RespondsToSelector(i.ID, objc.Sel("_mapItemSequence:dest:error:")) {
+func (m MLItemSimilarityRecommender) MapItemSequenceDestError(sequence objectivec.IObject, dest unsafe.Pointer) (bool, error) {
+	if !objc.RespondsToSelector(m.ID, objc.Sel("_mapItemSequence:dest:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_mapItemSequence:dest:error:"}
 		return false, err
 	}
-	return i._mapItemSequenceDestError(sequence, dest)
+	return m._mapItemSequenceDestError(sequence, dest)
 }
 
 // CanMapItemSequenceDestError reports whether the receiver responds to the private selector _mapItemSequence:dest:error:.
-func (i MLItemSimilarityRecommender) CanMapItemSequenceDestError() bool {
-	return objc.RespondsToSelector(i.ID, objc.Sel("_mapItemSequence:dest:error:"))
+func (m MLItemSimilarityRecommender) CanMapItemSequenceDestError() bool {
+	return objc.RespondsToSelector(m.ID, objc.Sel("_mapItemSequence:dest:error:"))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/modelData
-func (i MLItemSimilarityRecommender) ModelData() string {
-	rv := objc.Send[*byte](i.ID, objc.Sel("modelData"))
+func (m MLItemSimilarityRecommender) ModelData() string {
+	rv := objc.Send[*byte](m.ID, objc.Sel("modelData"))
 	return objc.GoString(rv)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/predictionFromFeatures:options:error:
-func (i MLItemSimilarityRecommender) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLItemSimilarityRecommender) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -294,7 +294,7 @@ func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) LoadMo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/metadata
-func (i MLItemSimilarityRecommender) Metadata() IMLModelMetadata {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("metadata"))
+func (m MLItemSimilarityRecommender) Metadata() IMLModelMetadata {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }

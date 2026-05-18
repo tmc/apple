@@ -89,7 +89,7 @@ type IJSONSerialization interface {
 
 	// Specifies that the parser should allow top-level objects that aren’t arrays or dictionaries.
 	FragmentsAllowed() NSJSONWritingOptions
-	SetFragmentsAllowed(value NSJSONWritingOptions)
+	SetNSJSONWritingFragmentsAllowed(value NSJSONWritingOptions)
 }
 
 // Init initializes the instance.
@@ -277,6 +277,6 @@ func (j JSONSerialization) FragmentsAllowed() NSJSONWritingOptions {
 	rv := objc.Send[NSJSONWritingOptions](j.ID, objc.Sel("NSJSONWritingFragmentsAllowed"))
 	return NSJSONWritingOptions(rv)
 }
-func (j JSONSerialization) SetFragmentsAllowed(value NSJSONWritingOptions) {
+func (j JSONSerialization) SetNSJSONWritingFragmentsAllowed(value NSJSONWritingOptions) {
 	objc.Send[struct{}](j.ID, objc.Sel("setNSJSONWritingFragmentsAllowed:"), value)
 }

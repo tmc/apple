@@ -236,7 +236,7 @@ func NewXMLDTDNodeWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) 
 // create [NSXMLDTDNode] instances. However, you cannot use the latter method
 // to create [NSXMLDTDNode] instances for attribute-list declarations.
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/init(xmlString:)
+// See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/init(xmlString:)-1dyhd
 func NewXMLDTDNodeWithXMLString(string_ string) XMLDTDNode {
 	instance := getXMLDTDNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXMLString:"), objc.String(string_))
@@ -264,7 +264,7 @@ func NewXMLDTDNodeWithXMLString(string_ string) XMLDTDNode {
 // create [NSXMLDTDNode] instances. However, you cannot use the latter method
 // to create [NSXMLDTDNode] instances for attribute-list declarations.
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/init(xmlString:)
+// See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/init(xmlString:)-1dyhd
 func (x XMLDTDNode) InitWithXMLString(string_ string) XMLDTDNode {
 	rv := objc.Send[XMLDTDNode](x.ID, objc.Sel("initWithXMLString:"), objc.String(string_))
 	return rv

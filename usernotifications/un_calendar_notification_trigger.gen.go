@@ -95,7 +95,7 @@ type IUNCalendarNotificationTrigger interface {
 	// Topic: Getting the Trigger Information
 
 	// The next date at which the trigger conditions are met.
-	NextTriggerDate() foundation.INSDate
+	NextTriggerDate() foundation.NSDate
 	// The date components to construct this object.
 	DateComponents() foundation.NSDateComponents
 }
@@ -157,7 +157,7 @@ func NewUNCalendarNotificationTriggerWithDateMatchingComponentsRepeats(dateCompo
 // associated with this trigger.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNCalendarNotificationTrigger/nextTriggerDate()
-func (u UNCalendarNotificationTrigger) NextTriggerDate() foundation.INSDate {
+func (u UNCalendarNotificationTrigger) NextTriggerDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("nextTriggerDate"))
 	return foundation.NSDateFromID(rv)
 }

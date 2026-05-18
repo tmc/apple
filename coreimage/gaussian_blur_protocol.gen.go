@@ -18,20 +18,12 @@ type CIGaussianBlur interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIGaussianBlur/inputImage
 	InputImage() ICIImage
-
-	// The radius of the blur, in pixels.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIGaussianBlur/radius
-	Radius() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIGaussianBlur/inputImage
 	SetInputImage(value ICIImage)
 
 	// The radius of the blur, in pixels.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIGaussianBlur/radius
+	Radius() float32
 	SetRadius(value float32)
 }
 
@@ -52,22 +44,6 @@ func CIGaussianBlurObjectFromID(id objc.ID) CIGaussianBlurObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIGaussianBlur/inputImage
-func (o CIGaussianBlurObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The radius of the blur, in pixels.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIGaussianBlur/radius
-func (o CIGaussianBlurObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CIGaussianBlurObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGaussianBlur/inputImage
+func (o CIGaussianBlurObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIGaussianBlurObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -87,6 +68,11 @@ func (o CIGaussianBlurObject) SetInputImage(value ICIImage) {
 // The radius of the blur, in pixels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGaussianBlur/radius
+func (o CIGaussianBlurObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIGaussianBlurObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }

@@ -185,6 +185,12 @@ func NewMTLIndirectInstanceAccelerationStructureDescriptor() MTLIndirectInstance
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/Metal/MTLIndirectInstanceAccelerationStructureDescriptor/descriptor
+func (_MTLIndirectInstanceAccelerationStructureDescriptorClass MTLIndirectInstanceAccelerationStructureDescriptorClass) Descriptor() MTLIndirectInstanceAccelerationStructureDescriptor {
+	rv := objc.Send[objc.ID](objc.ID(_MTLIndirectInstanceAccelerationStructureDescriptorClass.class), objc.Sel("descriptor"))
+	return MTLIndirectInstanceAccelerationStructureDescriptorFromID(rv)
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectInstanceAccelerationStructureDescriptor/instanceCountBuffer
 func (i MTLIndirectInstanceAccelerationStructureDescriptor) InstanceCountBuffer() MTLBuffer {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("instanceCountBuffer"))

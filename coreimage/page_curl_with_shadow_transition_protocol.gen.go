@@ -20,70 +20,42 @@ type CIPageCurlWithShadowTransition interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/angle
 	Angle() float32
-
-	// The image that appears on the back of the source image as the page curls to reveal the target image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/backsideImage
-	BacksideImage() ICIImage
-
-	// The extent of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/extent
-	Extent() corefoundation.CGRect
-
-	// The radius of the curl.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/radius
-	Radius() float32
-
-	// The strength of the shadow.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowAmount
-	ShadowAmount() float32
-
-	// The rectagular portion of input image that casts a shadow.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowExtent
-	ShadowExtent() corefoundation.CGRect
-
-	// The maximum size, in pixels, of the shadow.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowSize
-	ShadowSize() float32
-
-	// The angle of the curling page.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/angle
 	SetAngle(value float32)
 
 	// The image that appears on the back of the source image as the page curls to reveal the target image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/backsideImage
+	BacksideImage() ICIImage
 	SetBacksideImage(value ICIImage)
 
 	// The extent of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/extent
+	Extent() corefoundation.CGRect
 	SetExtent(value corefoundation.CGRect)
 
 	// The radius of the curl.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/radius
+	Radius() float32
 	SetRadius(value float32)
 
 	// The strength of the shadow.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowAmount
+	ShadowAmount() float32
 	SetShadowAmount(value float32)
 
 	// The rectagular portion of input image that casts a shadow.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowExtent
+	ShadowExtent() corefoundation.CGRect
 	SetShadowExtent(value corefoundation.CGRect)
 
 	// The maximum size, in pixels, of the shadow.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowSize
+	ShadowSize() float32
 	SetShadowSize(value float32)
 }
 
@@ -102,63 +74,6 @@ func CIPageCurlWithShadowTransitionObjectFromID(id objc.ID) CIPageCurlWithShadow
 	return CIPageCurlWithShadowTransitionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The angle of the curling page.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/angle
-func (o CIPageCurlWithShadowTransitionObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The image that appears on the back of the source image as the page curls to
-// reveal the target image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/backsideImage
-func (o CIPageCurlWithShadowTransitionObject) BacksideImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("backsideImage"))
-	return CIImageFromID(rv)
-}
-
-// The extent of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/extent
-func (o CIPageCurlWithShadowTransitionObject) Extent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
-	return rv
-}
-
-// The radius of the curl.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/radius
-func (o CIPageCurlWithShadowTransitionObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
-// The strength of the shadow.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowAmount
-func (o CIPageCurlWithShadowTransitionObject) ShadowAmount() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("shadowAmount"))
-	return rv
-}
-
-// The rectagular portion of input image that casts a shadow.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowExtent
-func (o CIPageCurlWithShadowTransitionObject) ShadowExtent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("shadowExtent"))
-	return rv
-}
-
-// The maximum size, in pixels, of the shadow.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowSize
-func (o CIPageCurlWithShadowTransitionObject) ShadowSize() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("shadowSize"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -197,6 +112,11 @@ func (o CIPageCurlWithShadowTransitionObject) Time() float32 {
 // The angle of the curling page.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/angle
+func (o CIPageCurlWithShadowTransitionObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CIPageCurlWithShadowTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -205,6 +125,11 @@ func (o CIPageCurlWithShadowTransitionObject) SetAngle(value float32) {
 // reveal the target image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/backsideImage
+func (o CIPageCurlWithShadowTransitionObject) BacksideImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("backsideImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPageCurlWithShadowTransitionObject) SetBacksideImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBacksideImage:"), value)
 }
@@ -212,6 +137,11 @@ func (o CIPageCurlWithShadowTransitionObject) SetBacksideImage(value ICIImage) {
 // The extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/extent
+func (o CIPageCurlWithShadowTransitionObject) Extent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CIPageCurlWithShadowTransitionObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
@@ -219,6 +149,11 @@ func (o CIPageCurlWithShadowTransitionObject) SetExtent(value corefoundation.CGR
 // The radius of the curl.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/radius
+func (o CIPageCurlWithShadowTransitionObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIPageCurlWithShadowTransitionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
@@ -226,6 +161,11 @@ func (o CIPageCurlWithShadowTransitionObject) SetRadius(value float32) {
 // The strength of the shadow.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowAmount
+func (o CIPageCurlWithShadowTransitionObject) ShadowAmount() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("shadowAmount"))
+	return float32(rv)
+}
+
 func (o CIPageCurlWithShadowTransitionObject) SetShadowAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowAmount:"), value)
 }
@@ -233,6 +173,11 @@ func (o CIPageCurlWithShadowTransitionObject) SetShadowAmount(value float32) {
 // The rectagular portion of input image that casts a shadow.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowExtent
+func (o CIPageCurlWithShadowTransitionObject) ShadowExtent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("shadowExtent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CIPageCurlWithShadowTransitionObject) SetShadowExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowExtent:"), value)
 }
@@ -240,6 +185,11 @@ func (o CIPageCurlWithShadowTransitionObject) SetShadowExtent(value corefoundati
 // The maximum size, in pixels, of the shadow.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowSize
+func (o CIPageCurlWithShadowTransitionObject) ShadowSize() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("shadowSize"))
+	return float32(rv)
+}
+
 func (o CIPageCurlWithShadowTransitionObject) SetShadowSize(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowSize:"), value)
 }

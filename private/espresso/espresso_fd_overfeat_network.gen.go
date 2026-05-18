@@ -221,7 +221,7 @@ type IEspressoFDOverfeatNetwork interface {
 	SetContextMetal(metal objectivec.IObject)
 	Setup_retile()
 	StoreDataForPruningProb(pruning objectivec.IObject, prob float32)
-	StrideConfiguration() Net_strides_configuration
+	StrideConfiguration() NetStridesConfiguration
 	UseGPUScaler() bool
 	SetUseGPUScaler(value bool)
 	Weights() string
@@ -400,10 +400,10 @@ func (e EspressoFDOverfeatNetwork) StoreDataForPruningProb(pruning objectivec.IO
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/strideConfiguration
-func (e EspressoFDOverfeatNetwork) StrideConfiguration() Net_strides_configuration {
+func (e EspressoFDOverfeatNetwork) StrideConfiguration() NetStridesConfiguration {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("strideConfiguration"))
 	_ = rv
-	return Net_strides_configuration{}
+	return NetStridesConfiguration{}
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/wipeLayersMemory

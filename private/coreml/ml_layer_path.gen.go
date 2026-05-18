@@ -94,14 +94,14 @@ type IMLLayerPath interface {
 }
 
 // Init initializes the instance.
-func (l MLLayerPath) Init() MLLayerPath {
-	rv := objc.Send[MLLayerPath](l.ID, objc.Sel("init"))
+func (m MLLayerPath) Init() MLLayerPath {
+	rv := objc.Send[MLLayerPath](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (l MLLayerPath) Autorelease() MLLayerPath {
-	rv := objc.Send[MLLayerPath](l.ID, objc.Sel("autorelease"))
+func (m MLLayerPath) Autorelease() MLLayerPath {
+	rv := objc.Send[MLLayerPath](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -120,36 +120,36 @@ func NewLayerPathWithScopedModelAndLayerNameLayerName(name objectivec.IObject, n
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/appendPathComponent:
-func (l MLLayerPath) AppendPathComponent(component objectivec.IObject) {
-	objc.Send[objc.ID](l.ID, objc.Sel("appendPathComponent:"), component)
+func (m MLLayerPath) AppendPathComponent(component objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("appendPathComponent:"), component)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/isEqualToMLLayerPath:
-func (l MLLayerPath) IsEqualToMLLayerPath(path objectivec.IObject) bool {
-	rv := objc.Send[bool](l.ID, objc.Sel("isEqualToMLLayerPath:"), path)
+func (m MLLayerPath) IsEqualToMLLayerPath(path objectivec.IObject) bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToMLLayerPath:"), path)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/initWithScopedModelAndLayerName:layerName:
-func (l MLLayerPath) InitWithScopedModelAndLayerNameLayerName(name objectivec.IObject, name2 objectivec.IObject) MLLayerPath {
-	rv := objc.Send[MLLayerPath](l.ID, objc.Sel("initWithScopedModelAndLayerName:layerName:"), name, name2)
+func (m MLLayerPath) InitWithScopedModelAndLayerNameLayerName(name objectivec.IObject, name2 objectivec.IObject) MLLayerPath {
+	rv := objc.Send[MLLayerPath](m.ID, objc.Sel("initWithScopedModelAndLayerName:layerName:"), name, name2)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/layerName
-func (l MLLayerPath) LayerName() string {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("layerName"))
+func (m MLLayerPath) LayerName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("layerName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (l MLLayerPath) SetLayerName(value string) {
-	objc.Send[struct{}](l.ID, objc.Sel("setLayerName:"), objc.String(value))
+func (m MLLayerPath) SetLayerName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setLayerName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/scopedModelNames
-func (l MLLayerPath) ScopedModelNames() foundation.INSArray {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("scopedModelNames"))
+func (m MLLayerPath) ScopedModelNames() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("scopedModelNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (l MLLayerPath) SetScopedModelNames(value foundation.INSArray) {
-	objc.Send[struct{}](l.ID, objc.Sel("setScopedModelNames:"), value)
+func (m MLLayerPath) SetScopedModelNames(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("setScopedModelNames:"), value)
 }

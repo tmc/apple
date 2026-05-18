@@ -92,14 +92,14 @@ type IMLClassConfidenceThresholding interface {
 }
 
 // Init initializes the instance.
-func (c MLClassConfidenceThresholding) Init() MLClassConfidenceThresholding {
-	rv := objc.Send[MLClassConfidenceThresholding](c.ID, objc.Sel("init"))
+func (m MLClassConfidenceThresholding) Init() MLClassConfidenceThresholding {
+	rv := objc.Send[MLClassConfidenceThresholding](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLClassConfidenceThresholding) Autorelease() MLClassConfidenceThresholding {
-	rv := objc.Send[MLClassConfidenceThresholding](c.ID, objc.Sel("autorelease"))
+func (m MLClassConfidenceThresholding) Autorelease() MLClassConfidenceThresholding {
+	rv := objc.Send[MLClassConfidenceThresholding](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -175,9 +175,9 @@ func NewClassConfidenceThresholdingWithNameInputDescriptionOutputDescriptionOrde
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/parameterValueForKey:error:
-func (c MLClassConfidenceThresholding) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
+func (m MLClassConfidenceThresholding) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -187,9 +187,9 @@ func (c MLClassConfidenceThresholding) ParameterValueForKeyError(key objectivec.
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/predictionFromFeatures:options:error:
-func (c MLClassConfidenceThresholding) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLClassConfidenceThresholding) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -199,9 +199,9 @@ func (c MLClassConfidenceThresholding) PredictionFromFeaturesOptionsError(featur
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/initWithDescription:configuration:precisionRecallCurves:error:
-func (c MLClassConfidenceThresholding) InitWithDescriptionConfigurationPrecisionRecallCurvesError(description objectivec.IObject, configuration objectivec.IObject, curves objectivec.IObject) (MLClassConfidenceThresholding, error) {
+func (m MLClassConfidenceThresholding) InitWithDescriptionConfigurationPrecisionRecallCurvesError(description objectivec.IObject, configuration objectivec.IObject, curves objectivec.IObject) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithDescription:configuration:precisionRecallCurves:error:"), description, configuration, curves, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithDescription:configuration:precisionRecallCurves:error:"), description, configuration, curves, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLClassConfidenceThresholding{}, foundation.NSErrorFrom(errorPtr)
@@ -223,16 +223,16 @@ func (_MLClassConfidenceThresholdingClass MLClassConfidenceThresholdingClass) Lo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/inputFeatureConformer
-func (c MLClassConfidenceThresholding) InputFeatureConformer() IMLFeatureProviderConformer {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("inputFeatureConformer"))
+func (m MLClassConfidenceThresholding) InputFeatureConformer() IMLFeatureProviderConformer {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/parameterContainer
-func (c MLClassConfidenceThresholding) ParameterContainer() IMLParameterContainer {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("parameterContainer"))
+func (m MLClassConfidenceThresholding) ParameterContainer() IMLParameterContainer {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterContainer"))
 	return MLParameterContainerFromID(objc.ID(rv))
 }
-func (c MLClassConfidenceThresholding) SetParameterContainer(value IMLParameterContainer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setParameterContainer:"), value)
+func (m MLClassConfidenceThresholding) SetParameterContainer(value IMLParameterContainer) {
+	objc.Send[struct{}](m.ID, objc.Sel("setParameterContainer:"), value)
 }

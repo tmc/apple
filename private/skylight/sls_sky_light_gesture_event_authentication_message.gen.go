@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -112,14 +111,14 @@ func NewSLSSkyLightGestureEventAuthenticationMessageWithCoder(coder objectivec.I
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSEventAuthenticationMessage/initWithEventRecord:pid:version:
-func NewSLSSkyLightGestureEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecordRef, pid int, version uint32) SLSSkyLightGestureEventAuthenticationMessage {
+func NewSLSSkyLightGestureEventAuthenticationMessageWithEventRecordPidVersion(record SLSEventRecord, pid int, version uint32) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), record, pid, version)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/SLSSkyLightGestureEventAuthenticationMessage/initWithMessageInitData:
-func NewSLSSkyLightGestureEventAuthenticationMessageWithMessageInitData(data unsafe.Pointer) SLSSkyLightGestureEventAuthenticationMessage {
+func NewSLSSkyLightGestureEventAuthenticationMessageWithMessageInitData(data MessageInitData) SLSSkyLightGestureEventAuthenticationMessage {
 	instance := getSLSSkyLightGestureEventAuthenticationMessageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMessageInitData:"), data)
 	return SLSSkyLightGestureEventAuthenticationMessageFromID(rv)

@@ -20,50 +20,30 @@ type CICopyMachineTransition interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/angle
 	Angle() float32
-
-	// The color of the copier light.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/color
-	Color() ICIColor
-
-	// A rectangle that defines the extent of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/extent
-	Extent() corefoundation.CGRect
-
-	// The opacity of the copier light.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/opacity
-	Opacity() float32
-
-	// The width of the copier light.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/width
-	Width() float32
-
-	// The angle of the copier light.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/angle
 	SetAngle(value float32)
 
 	// The color of the copier light.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/color
+	Color() ICIColor
 	SetColor(value ICIColor)
 
 	// A rectangle that defines the extent of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/extent
+	Extent() corefoundation.CGRect
 	SetExtent(value corefoundation.CGRect)
 
 	// The opacity of the copier light.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/opacity
+	Opacity() float32
 	SetOpacity(value float32)
 
 	// The width of the copier light.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/width
+	Width() float32
 	SetWidth(value float32)
 }
 
@@ -82,46 +62,6 @@ func CICopyMachineTransitionObjectFromID(id objc.ID) CICopyMachineTransitionObje
 	return CICopyMachineTransitionObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The angle of the copier light.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/angle
-func (o CICopyMachineTransitionObject) Angle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
-	return rv
-}
-
-// The color of the copier light.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/color
-func (o CICopyMachineTransitionObject) Color() ICIColor {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
-	return CIColorFromID(rv)
-}
-
-// A rectangle that defines the extent of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/extent
-func (o CICopyMachineTransitionObject) Extent() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
-	return rv
-}
-
-// The opacity of the copier light.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/opacity
-func (o CICopyMachineTransitionObject) Opacity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("opacity"))
-	return rv
-}
-
-// The width of the copier light.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/width
-func (o CICopyMachineTransitionObject) Width() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("width"))
-	return rv
 }
 
 // A [CIImage] object that encapsulates the operations configured in the
@@ -160,6 +100,11 @@ func (o CICopyMachineTransitionObject) Time() float32 {
 // The angle of the copier light.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/angle
+func (o CICopyMachineTransitionObject) Angle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
+	return float32(rv)
+}
+
 func (o CICopyMachineTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
@@ -167,6 +112,11 @@ func (o CICopyMachineTransitionObject) SetAngle(value float32) {
 // The color of the copier light.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/color
+func (o CICopyMachineTransitionObject) Color() ICIColor {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
+	return CIColorFromID(rv)
+}
+
 func (o CICopyMachineTransitionObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
@@ -174,6 +124,11 @@ func (o CICopyMachineTransitionObject) SetColor(value ICIColor) {
 // A rectangle that defines the extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/extent
+func (o CICopyMachineTransitionObject) Extent() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
+	return corefoundation.CGRect(rv)
+}
+
 func (o CICopyMachineTransitionObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
@@ -185,6 +140,11 @@ func (o CICopyMachineTransitionObject) SetExtent(value corefoundation.CGRect) {
 // A value of 0.0 is transparent. A value of 1.0 is opaque.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/opacity
+func (o CICopyMachineTransitionObject) Opacity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("opacity"))
+	return float32(rv)
+}
+
 func (o CICopyMachineTransitionObject) SetOpacity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setOpacity:"), value)
 }
@@ -192,6 +152,11 @@ func (o CICopyMachineTransitionObject) SetOpacity(value float32) {
 // The width of the copier light.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/width
+func (o CICopyMachineTransitionObject) Width() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("width"))
+	return float32(rv)
+}
+
 func (o CICopyMachineTransitionObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }

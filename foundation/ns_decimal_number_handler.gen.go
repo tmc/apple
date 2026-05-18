@@ -85,7 +85,6 @@ func NSDecimalNumberHandlerFromID(id objc.ID) NSDecimalNumberHandler {
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberHandler
 type INSDecimalNumberHandler interface {
 	objectivec.IObject
-	NSCoding
 
 	// Topic: Initializing a decimal number handler
 

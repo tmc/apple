@@ -94,14 +94,14 @@ type IMLAllComputeDeviceRegistry interface {
 }
 
 // Init initializes the instance.
-func (a MLAllComputeDeviceRegistry) Init() MLAllComputeDeviceRegistry {
-	rv := objc.Send[MLAllComputeDeviceRegistry](a.ID, objc.Sel("init"))
+func (m MLAllComputeDeviceRegistry) Init() MLAllComputeDeviceRegistry {
+	rv := objc.Send[MLAllComputeDeviceRegistry](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAllComputeDeviceRegistry) Autorelease() MLAllComputeDeviceRegistry {
-	rv := objc.Send[MLAllComputeDeviceRegistry](a.ID, objc.Sel("autorelease"))
+func (m MLAllComputeDeviceRegistry) Autorelease() MLAllComputeDeviceRegistry {
+	rv := objc.Send[MLAllComputeDeviceRegistry](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -120,8 +120,8 @@ func NewAllComputeDeviceRegistryWithDeviceRegistries(registries objectivec.IObje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAllComputeDeviceRegistry/initWithDeviceRegistries:
-func (a MLAllComputeDeviceRegistry) InitWithDeviceRegistries(registries objectivec.IObject) MLAllComputeDeviceRegistry {
-	rv := objc.Send[MLAllComputeDeviceRegistry](a.ID, objc.Sel("initWithDeviceRegistries:"), registries)
+func (m MLAllComputeDeviceRegistry) InitWithDeviceRegistries(registries objectivec.IObject) MLAllComputeDeviceRegistry {
+	rv := objc.Send[MLAllComputeDeviceRegistry](m.ID, objc.Sel("initWithDeviceRegistries:"), registries)
 	return rv
 }
 
@@ -138,37 +138,37 @@ func (_MLAllComputeDeviceRegistryClass MLAllComputeDeviceRegistryClass) SharedRe
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAllComputeDeviceRegistry/debugDescription
-func (a MLAllComputeDeviceRegistry) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+func (m MLAllComputeDeviceRegistry) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAllComputeDeviceRegistry/description
-func (a MLAllComputeDeviceRegistry) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+func (m MLAllComputeDeviceRegistry) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAllComputeDeviceRegistry/deviceRegistries
-func (a MLAllComputeDeviceRegistry) DeviceRegistries() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("deviceRegistries"))
+func (m MLAllComputeDeviceRegistry) DeviceRegistries() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("deviceRegistries"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAllComputeDeviceRegistry/hash
-func (a MLAllComputeDeviceRegistry) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+func (m MLAllComputeDeviceRegistry) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAllComputeDeviceRegistry/registeredComputeDevices
-func (a MLAllComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("registeredComputeDevices"))
+func (m MLAllComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("registeredComputeDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAllComputeDeviceRegistry/superclass
-func (a MLAllComputeDeviceRegistry) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
+func (m MLAllComputeDeviceRegistry) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

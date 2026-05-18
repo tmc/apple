@@ -79,14 +79,14 @@ type IMLProgramTrainingDelta interface {
 }
 
 // Init initializes the instance.
-func (p MLProgramTrainingDelta) Init() MLProgramTrainingDelta {
-	rv := objc.Send[MLProgramTrainingDelta](p.ID, objc.Sel("init"))
+func (m MLProgramTrainingDelta) Init() MLProgramTrainingDelta {
+	rv := objc.Send[MLProgramTrainingDelta](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLProgramTrainingDelta) Autorelease() MLProgramTrainingDelta {
-	rv := objc.Send[MLProgramTrainingDelta](p.ID, objc.Sel("autorelease"))
+func (m MLProgramTrainingDelta) Autorelease() MLProgramTrainingDelta {
+	rv := objc.Send[MLProgramTrainingDelta](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -105,13 +105,13 @@ func NewProgramTrainingDeltaWithFlattenedModelUpdate(update objectivec.IObject) 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta/initWithFlattenedModelUpdate:
-func (p MLProgramTrainingDelta) InitWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
-	rv := objc.Send[MLProgramTrainingDelta](p.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
+func (m MLProgramTrainingDelta) InitWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
+	rv := objc.Send[MLProgramTrainingDelta](m.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta/flattenedModelUpdate
-func (p MLProgramTrainingDelta) FlattenedModelUpdate() foundation.INSData {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("flattenedModelUpdate"))
+func (m MLProgramTrainingDelta) FlattenedModelUpdate() foundation.INSData {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("flattenedModelUpdate"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

@@ -18,30 +18,18 @@ type CIShadedMaterial interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/inputImage
 	InputImage() ICIImage
-
-	// The scale of the effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/scale
-	Scale() float32
-
-	// The image to use as the height field.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/shadingImage
-	ShadingImage() ICIImage
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/inputImage
 	SetInputImage(value ICIImage)
 
 	// The scale of the effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/scale
+	Scale() float32
 	SetScale(value float32)
 
 	// The image to use as the height field.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/shadingImage
+	ShadingImage() ICIImage
 	SetShadingImage(value ICIImage)
 }
 
@@ -62,30 +50,6 @@ func CIShadedMaterialObjectFromID(id objc.ID) CIShadedMaterialObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/inputImage
-func (o CIShadedMaterialObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The scale of the effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/scale
-func (o CIShadedMaterialObject) Scale() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
-	return rv
-}
-
-// The image to use as the height field.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/shadingImage
-func (o CIShadedMaterialObject) ShadingImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
-	return CIImageFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -98,6 +62,11 @@ func (o CIShadedMaterialObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/inputImage
+func (o CIShadedMaterialObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIShadedMaterialObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -105,6 +74,11 @@ func (o CIShadedMaterialObject) SetInputImage(value ICIImage) {
 // The scale of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/scale
+func (o CIShadedMaterialObject) Scale() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
+	return float32(rv)
+}
+
 func (o CIShadedMaterialObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
@@ -117,6 +91,11 @@ func (o CIShadedMaterialObject) SetScale(value float32) {
 // heights (lower areas) with darker shades.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/shadingImage
+func (o CIShadedMaterialObject) ShadingImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIShadedMaterialObject) SetShadingImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadingImage:"), value)
 }

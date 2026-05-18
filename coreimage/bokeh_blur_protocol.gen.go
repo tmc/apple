@@ -18,50 +18,30 @@ type CIBokehBlur interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/inputImage
 	InputImage() ICIImage
-
-	// The radius of the blur, in pixels.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/radius
-	Radius() float32
-
-	// The amount of extra emphasis at the ring of the bokeh.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringAmount
-	RingAmount() float32
-
-	// The radius of the extra emphasis at the ring of the bokeh.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringSize
-	RingSize() float32
-
-	// The softness of the bokeh effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/softness
-	Softness() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/inputImage
 	SetInputImage(value ICIImage)
 
 	// The radius of the blur, in pixels.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/radius
+	Radius() float32
 	SetRadius(value float32)
 
 	// The amount of extra emphasis at the ring of the bokeh.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringAmount
+	RingAmount() float32
 	SetRingAmount(value float32)
 
 	// The radius of the extra emphasis at the ring of the bokeh.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringSize
+	RingSize() float32
 	SetRingSize(value float32)
 
 	// The softness of the bokeh effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/softness
+	Softness() float32
 	SetSoftness(value float32)
 }
 
@@ -82,46 +62,6 @@ func CIBokehBlurObjectFromID(id objc.ID) CIBokehBlurObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/inputImage
-func (o CIBokehBlurObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The radius of the blur, in pixels.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/radius
-func (o CIBokehBlurObject) Radius() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
-	return rv
-}
-
-// The amount of extra emphasis at the ring of the bokeh.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringAmount
-func (o CIBokehBlurObject) RingAmount() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("ringAmount"))
-	return rv
-}
-
-// The radius of the extra emphasis at the ring of the bokeh.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringSize
-func (o CIBokehBlurObject) RingSize() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("ringSize"))
-	return rv
-}
-
-// The softness of the bokeh effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/softness
-func (o CIBokehBlurObject) Softness() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("softness"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -134,6 +74,11 @@ func (o CIBokehBlurObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/inputImage
+func (o CIBokehBlurObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIBokehBlurObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -141,6 +86,11 @@ func (o CIBokehBlurObject) SetInputImage(value ICIImage) {
 // The radius of the blur, in pixels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/radius
+func (o CIBokehBlurObject) Radius() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
+	return float32(rv)
+}
+
 func (o CIBokehBlurObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
@@ -148,6 +98,11 @@ func (o CIBokehBlurObject) SetRadius(value float32) {
 // The amount of extra emphasis at the ring of the bokeh.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringAmount
+func (o CIBokehBlurObject) RingAmount() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("ringAmount"))
+	return float32(rv)
+}
+
 func (o CIBokehBlurObject) SetRingAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRingAmount:"), value)
 }
@@ -155,6 +110,11 @@ func (o CIBokehBlurObject) SetRingAmount(value float32) {
 // The radius of the extra emphasis at the ring of the bokeh.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringSize
+func (o CIBokehBlurObject) RingSize() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("ringSize"))
+	return float32(rv)
+}
+
 func (o CIBokehBlurObject) SetRingSize(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRingSize:"), value)
 }
@@ -162,6 +122,11 @@ func (o CIBokehBlurObject) SetRingSize(value float32) {
 // The softness of the bokeh effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/softness
+func (o CIBokehBlurObject) Softness() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("softness"))
+	return float32(rv)
+}
+
 func (o CIBokehBlurObject) SetSoftness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSoftness:"), value)
 }

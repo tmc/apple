@@ -24,7 +24,7 @@ type MTLDepthStencilState interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLDepthStencilState/label
 	Label() string
 
-	// GpuResourceID protocol.
+	// # Discussion  Handle of the GPU resource suitable for storing in an Argument Buffer
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDepthStencilState/gpuResourceID
 	GpuResourceID() MTLResourceID
@@ -49,6 +49,10 @@ func MTLDepthStencilStateObjectFromID(id objc.ID) MTLDepthStencilStateObject {
 
 // The device from which this state object was created.
 //
+// # Discussion
+//
+// This state object can only be used with this device.
+//
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilState/device
 func (o MTLDepthStencilStateObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
@@ -63,8 +67,12 @@ func (o MTLDepthStencilStateObject) Label() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
+// # Discussion
+//
+// # Handle of the GPU resource suitable for storing in an Argument Buffer
+//
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilState/gpuResourceID
 func (o MTLDepthStencilStateObject) GpuResourceID() MTLResourceID {
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
+	return MTLResourceID(rv)
 }

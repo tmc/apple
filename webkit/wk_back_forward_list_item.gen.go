@@ -99,12 +99,12 @@ type IWKBackForwardListItem interface {
 	// The title of the webpage this item represents.
 	Title() string
 	// The URL of the webpage this item represents.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// Topic: Getting the Requesting Page
 
 	// The source URL that originally asked the web view to load this page.
-	InitialURL() foundation.INSURL
+	InitialURL() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -137,7 +137,7 @@ func (b WKBackForwardListItem) Title() string {
 // The URL of the webpage this item represents.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKBackForwardListItem/url
-func (b WKBackForwardListItem) URL() foundation.INSURL {
+func (b WKBackForwardListItem) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -145,7 +145,7 @@ func (b WKBackForwardListItem) URL() foundation.INSURL {
 // The source URL that originally asked the web view to load this page.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKBackForwardListItem/initialURL
-func (b WKBackForwardListItem) InitialURL() foundation.INSURL {
+func (b WKBackForwardListItem) InitialURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("initialURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

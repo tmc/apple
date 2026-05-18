@@ -91,7 +91,7 @@ func (o NSOpenSavePanelDelegateObject) PanelSelectionDidChange(sender objectivec
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:didChangeToDirectoryURL:)
 //
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-func (o NSOpenSavePanelDelegateObject) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL) {
+func (o NSOpenSavePanelDelegateObject) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.NSURL) {
 	objc.Send[struct{}](o.ID, objc.Sel("panel:didChangeToDirectoryURL:"), sender, url)
 }
 
@@ -129,7 +129,7 @@ func (o NSOpenSavePanelDelegateObject) PanelWillExpand(sender objectivec.IObject
 // long time.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:shouldEnable:)
-func (o NSOpenSavePanelDelegateObject) PanelShouldEnableURL(sender objectivec.IObject, url foundation.INSURL) bool {
+func (o NSOpenSavePanelDelegateObject) PanelShouldEnableURL(sender objectivec.IObject, url foundation.NSURL) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("panel:shouldEnableURL:"), sender, url)
 	return rv
 }
@@ -147,7 +147,7 @@ func (o NSOpenSavePanelDelegateObject) PanelShouldEnableURL(sender objectivec.IO
 // this method once for each selected filename or directory.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:validate:)
-func (o NSOpenSavePanelDelegateObject) PanelValidateURLError(sender objectivec.IObject, url foundation.INSURL) (bool, error) {
+func (o NSOpenSavePanelDelegateObject) PanelValidateURLError(sender objectivec.IObject, url foundation.NSURL) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("panel:validateURL:error:"), sender, url)
 	if err != nil {
 		return false, err

@@ -88,13 +88,13 @@ type IPDFActionURL interface {
 	// Topic: Initializing a URL Action
 
 	// Initializes a URL action with the specified URL.
-	InitWithURL(url foundation.INSURL) PDFActionURL
+	InitWithURL(url foundation.NSURL) PDFActionURL
 
 	// Topic: Accessing and Changing the URL
 
 	// Returns the URL associated with the URL action.
-	URL() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	URL() foundation.NSURL
+	SetURL(value foundation.NSURL)
 }
 
 // Init initializes the instance.
@@ -125,8 +125,8 @@ func NewPDFActionURL() PDFActionURL {
 // An initialized [PDFActionURL] instance, or [NULL] if the object could not
 // be initialized.
 //
-// See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/init(url:)
-func NewPDFActionURLWithURL(url foundation.INSURL) PDFActionURL {
+// See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/init(url:)-5wtb3
+func NewPDFActionURLWithURL(url foundation.NSURL) PDFActionURL {
 	instance := getPDFActionURLClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return PDFActionURLFromID(rv)
@@ -141,8 +141,8 @@ func NewPDFActionURLWithURL(url foundation.INSURL) PDFActionURL {
 // An initialized [PDFActionURL] instance, or [NULL] if the object could not
 // be initialized.
 //
-// See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/init(url:)
-func (p PDFActionURL) InitWithURL(url foundation.INSURL) PDFActionURL {
+// See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/init(url:)-5wtb3
+func (p PDFActionURL) InitWithURL(url foundation.NSURL) PDFActionURL {
 	rv := objc.Send[PDFActionURL](p.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
@@ -154,10 +154,10 @@ func (p PDFActionURL) InitWithURL(url foundation.INSURL) PDFActionURL {
 // The URL associated with the action, or [NULL] if no URL is specified.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/url
-func (p PDFActionURL) URL() foundation.INSURL {
+func (p PDFActionURL) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (p PDFActionURL) SetURL(value foundation.INSURL) {
+func (p PDFActionURL) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }

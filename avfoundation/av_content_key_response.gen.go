@@ -93,7 +93,7 @@ func NewAVContentKeyResponse() AVContentKeyResponse {
 // authorizationTokenData: A data value that contains the authorization token.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyResponse/init(authorizationTokenData:)
-func NewContentKeyResponseWithAuthorizationTokenData(authorizationTokenData foundation.INSData) AVContentKeyResponse {
+func NewContentKeyResponseWithAuthorizationTokenData(authorizationTokenData foundation.NSData) AVContentKeyResponse {
 	rv := objc.Send[objc.ID](objc.ID(getAVContentKeyResponseClass().class), objc.Sel("contentKeyResponseWithAuthorizationTokenData:"), authorizationTokenData)
 	return AVContentKeyResponseFromID(rv)
 }
@@ -120,7 +120,7 @@ func NewContentKeyResponseWithAuthorizationTokenData(authorizationTokenData foun
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyResponse/init(clearKeyData:initializationVector:)
 //
 // [clearKey]: https://developer.apple.com/documentation/AVFoundation/AVContentKeySystem/clearKey
-func NewContentKeyResponseWithClearKeyDataInitializationVector(keyData foundation.INSData, initializationVector foundation.INSData) AVContentKeyResponse {
+func NewContentKeyResponseWithClearKeyDataInitializationVector(keyData foundation.NSData, initializationVector foundation.NSData) AVContentKeyResponse {
 	rv := objc.Send[objc.ID](objc.ID(getAVContentKeyResponseClass().class), objc.Sel("contentKeyResponseWithClearKeyData:initializationVector:"), keyData, initializationVector)
 	return AVContentKeyResponseFromID(rv)
 }
@@ -144,7 +144,7 @@ func NewContentKeyResponseWithClearKeyDataInitializationVector(keyData foundatio
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyResponse/init(fairPlayStreamingKeyResponseData:)
 //
 // [fairPlayStreaming]: https://developer.apple.com/documentation/AVFoundation/AVContentKeySystem/fairPlayStreaming
-func NewContentKeyResponseWithFairPlayStreamingKeyResponseData(keyResponseData foundation.INSData) AVContentKeyResponse {
+func NewContentKeyResponseWithFairPlayStreamingKeyResponseData(keyResponseData foundation.NSData) AVContentKeyResponse {
 	rv := objc.Send[objc.ID](objc.ID(getAVContentKeyResponseClass().class), objc.Sel("contentKeyResponseWithFairPlayStreamingKeyResponseData:"), keyResponseData)
 	return AVContentKeyResponseFromID(rv)
 }

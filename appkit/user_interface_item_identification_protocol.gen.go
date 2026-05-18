@@ -18,10 +18,6 @@ type NSUserInterfaceItemIdentification interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
 	Identifier() NSUserInterfaceItemIdentifier
-
-	// A string that identifies the user interface item.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
 	SetIdentifier(value NSUserInterfaceItemIdentifier)
 }
 
@@ -40,14 +36,6 @@ func NSUserInterfaceItemIdentificationObjectFromID(id objc.ID) NSUserInterfaceIt
 	return NSUserInterfaceItemIdentificationObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A string that identifies the user interface item.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
-func (o NSUserInterfaceItemIdentificationObject) Identifier() NSUserInterfaceItemIdentifier {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("identifier"))
-	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
 }
 
 // A string that identifies the user interface item.
@@ -80,6 +68,11 @@ func (o NSUserInterfaceItemIdentificationObject) Identifier() NSUserInterfaceIte
 //
 // [Mac Technology Overview]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067
 // [OS X Frameworks]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/SystemFrameworks/SystemFrameworks.html#//apple_ref/doc/uid/TP40001067-CH210
+func (o NSUserInterfaceItemIdentificationObject) Identifier() NSUserInterfaceItemIdentifier {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("identifier"))
+	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
+}
+
 func (o NSUserInterfaceItemIdentificationObject) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }

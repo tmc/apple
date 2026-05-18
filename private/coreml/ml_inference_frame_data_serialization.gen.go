@@ -109,14 +109,14 @@ type IMLInferenceFrameDataSerialization interface {
 }
 
 // Init initializes the instance.
-func (i MLInferenceFrameDataSerialization) Init() MLInferenceFrameDataSerialization {
-	rv := objc.Send[MLInferenceFrameDataSerialization](i.ID, objc.Sel("init"))
+func (m MLInferenceFrameDataSerialization) Init() MLInferenceFrameDataSerialization {
+	rv := objc.Send[MLInferenceFrameDataSerialization](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (i MLInferenceFrameDataSerialization) Autorelease() MLInferenceFrameDataSerialization {
-	rv := objc.Send[MLInferenceFrameDataSerialization](i.ID, objc.Sel("autorelease"))
+func (m MLInferenceFrameDataSerialization) Autorelease() MLInferenceFrameDataSerialization {
+	rv := objc.Send[MLInferenceFrameDataSerialization](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -142,58 +142,58 @@ func NewInferenceFrameDataSerializationWithOutputDirectoryPrefixShouldOverwriteM
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInferenceFrameDataSerialization/initWithOutputDirectory:prefix:
-func (i MLInferenceFrameDataSerialization) InitWithOutputDirectoryPrefix(directory objectivec.IObject, prefix objectivec.IObject) MLInferenceFrameDataSerialization {
-	rv := objc.Send[MLInferenceFrameDataSerialization](i.ID, objc.Sel("initWithOutputDirectory:prefix:"), directory, prefix)
+func (m MLInferenceFrameDataSerialization) InitWithOutputDirectoryPrefix(directory objectivec.IObject, prefix objectivec.IObject) MLInferenceFrameDataSerialization {
+	rv := objc.Send[MLInferenceFrameDataSerialization](m.ID, objc.Sel("initWithOutputDirectory:prefix:"), directory, prefix)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInferenceFrameDataSerialization/initWithOutputDirectory:prefix:shouldOverwrite:modelIOFrameData:segmentIOFrameData:
-func (i MLInferenceFrameDataSerialization) InitWithOutputDirectoryPrefixShouldOverwriteModelIOFrameDataSegmentIOFrameData(directory objectivec.IObject, prefix objectivec.IObject, overwrite bool, data bool, data2 bool) MLInferenceFrameDataSerialization {
-	rv := objc.Send[MLInferenceFrameDataSerialization](i.ID, objc.Sel("initWithOutputDirectory:prefix:shouldOverwrite:modelIOFrameData:segmentIOFrameData:"), directory, prefix, overwrite, data, data2)
+func (m MLInferenceFrameDataSerialization) InitWithOutputDirectoryPrefixShouldOverwriteModelIOFrameDataSegmentIOFrameData(directory objectivec.IObject, prefix objectivec.IObject, overwrite bool, data bool, data2 bool) MLInferenceFrameDataSerialization {
+	rv := objc.Send[MLInferenceFrameDataSerialization](m.ID, objc.Sel("initWithOutputDirectory:prefix:shouldOverwrite:modelIOFrameData:segmentIOFrameData:"), directory, prefix, overwrite, data, data2)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInferenceFrameDataSerialization/modelIOFrameData
-func (i MLInferenceFrameDataSerialization) ModelIOFrameData() bool {
-	rv := objc.Send[bool](i.ID, objc.Sel("modelIOFrameData"))
+func (m MLInferenceFrameDataSerialization) ModelIOFrameData() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("modelIOFrameData"))
 	return rv
 }
-func (i MLInferenceFrameDataSerialization) SetModelIOFrameData(value bool) {
-	objc.Send[struct{}](i.ID, objc.Sel("setModelIOFrameData:"), value)
+func (m MLInferenceFrameDataSerialization) SetModelIOFrameData(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelIOFrameData:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInferenceFrameDataSerialization/outputDirectoryURL
-func (i MLInferenceFrameDataSerialization) OutputDirectoryURL() foundation.INSURL {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("outputDirectoryURL"))
+func (m MLInferenceFrameDataSerialization) OutputDirectoryURL() foundation.INSURL {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputDirectoryURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (i MLInferenceFrameDataSerialization) SetOutputDirectoryURL(value foundation.INSURL) {
-	objc.Send[struct{}](i.ID, objc.Sel("setOutputDirectoryURL:"), value)
+func (m MLInferenceFrameDataSerialization) SetOutputDirectoryURL(value foundation.INSURL) {
+	objc.Send[struct{}](m.ID, objc.Sel("setOutputDirectoryURL:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInferenceFrameDataSerialization/prefix
-func (i MLInferenceFrameDataSerialization) Prefix() string {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("prefix"))
+func (m MLInferenceFrameDataSerialization) Prefix() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("prefix"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (i MLInferenceFrameDataSerialization) SetPrefix(value string) {
-	objc.Send[struct{}](i.ID, objc.Sel("setPrefix:"), objc.String(value))
+func (m MLInferenceFrameDataSerialization) SetPrefix(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setPrefix:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInferenceFrameDataSerialization/segmentIOFrameData
-func (i MLInferenceFrameDataSerialization) SegmentIOFrameData() bool {
-	rv := objc.Send[bool](i.ID, objc.Sel("segmentIOFrameData"))
+func (m MLInferenceFrameDataSerialization) SegmentIOFrameData() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("segmentIOFrameData"))
 	return rv
 }
-func (i MLInferenceFrameDataSerialization) SetSegmentIOFrameData(value bool) {
-	objc.Send[struct{}](i.ID, objc.Sel("setSegmentIOFrameData:"), value)
+func (m MLInferenceFrameDataSerialization) SetSegmentIOFrameData(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setSegmentIOFrameData:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLInferenceFrameDataSerialization/shouldOverwrite
-func (i MLInferenceFrameDataSerialization) ShouldOverwrite() bool {
-	rv := objc.Send[bool](i.ID, objc.Sel("shouldOverwrite"))
+func (m MLInferenceFrameDataSerialization) ShouldOverwrite() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shouldOverwrite"))
 	return rv
 }
-func (i MLInferenceFrameDataSerialization) SetShouldOverwrite(value bool) {
-	objc.Send[struct{}](i.ID, objc.Sel("setShouldOverwrite:"), value)
+func (m MLInferenceFrameDataSerialization) SetShouldOverwrite(value bool) {
+	objc.Send[struct{}](m.ID, objc.Sel("setShouldOverwrite:"), value)
 }

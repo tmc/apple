@@ -91,14 +91,14 @@ type INSPICTImageRep interface {
 	// Topic: Creating Representations of Images from PICT Data
 
 	// Returns a representation of an image from the specified data in the PICT file format.
-	InitWithData(pictData foundation.INSData) NSPICTImageRep
+	InitWithData(pictData foundation.NSData) NSPICTImageRep
 
 	// Topic: Getting Data
 
 	// The rectangle that bounds the image representation.
 	BoundingBox() corefoundation.CGRect
 	// The image representation’s PICT data.
-	PICTRepresentation() foundation.INSData
+	PICTRepresentation() foundation.NSData
 }
 
 // Init initializes the instance.
@@ -149,7 +149,7 @@ func NewPICTImageRepWithCoder(coder foundation.INSCoder) NSPICTImageRep {
 // from the header.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPICTImageRep/init(data:)
-func NewPICTImageRepWithData(pictData foundation.INSData) NSPICTImageRep {
+func NewPICTImageRepWithData(pictData foundation.NSData) NSPICTImageRep {
 	instance := getNSPICTImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), pictData)
 	return NSPICTImageRepFromID(rv)
@@ -174,7 +174,7 @@ func NewPICTImageRepWithData(pictData foundation.INSData) NSPICTImageRep {
 // from the header.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPICTImageRep/init(data:)
-func (p NSPICTImageRep) InitWithData(pictData foundation.INSData) NSPICTImageRep {
+func (p NSPICTImageRep) InitWithData(pictData foundation.NSData) NSPICTImageRep {
 	rv := objc.Send[NSPICTImageRep](p.ID, objc.Sel("initWithData:"), pictData)
 	return rv
 }
@@ -191,7 +191,7 @@ func (p NSPICTImageRep) InitWithData(pictData foundation.INSData) NSPICTImageRep
 // PICT file format.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPICTImageRep/imageRepWithData:
-func (_NSPICTImageRepClass NSPICTImageRepClass) ImageRepWithData(pictData foundation.INSData) NSPICTImageRep {
+func (_NSPICTImageRepClass NSPICTImageRepClass) ImageRepWithData(pictData foundation.NSData) NSPICTImageRep {
 	rv := objc.Send[objc.ID](objc.ID(_NSPICTImageRepClass.class), objc.Sel("imageRepWithData:"), pictData)
 	return NSPICTImageRepFromID(rv)
 }
@@ -220,7 +220,7 @@ func (p NSPICTImageRep) BoundingBox() corefoundation.CGRect {
 // PICT document format.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPICTImageRep/pictRepresentation
-func (p NSPICTImageRep) PICTRepresentation() foundation.INSData {
+func (p NSPICTImageRep) PICTRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("PICTRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

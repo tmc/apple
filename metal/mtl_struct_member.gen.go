@@ -253,14 +253,13 @@ func (s MTLStructMember) Name() string {
 // # Discussion
 //
 // For information on possible values, see [MTLDataType]. If the value is
-// [MTLDataType.array], then the [ArrayType] method returns an object that
+// [MTLDataTypeArray], then the [ArrayType] method returns an object that
 // describes the underlying array. If the value is [MTLDataTypeStruct], then
 // the [StructType] method returns an object that describes the underlying
 // struct.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/dataType
 //
-// [MTLDataType.array]: https://developer.apple.com/documentation/Metal/MTLDataType/array
 // [MTLDataType]: https://developer.apple.com/documentation/Metal/MTLDataType
 func (s MTLStructMember) DataType() MTLDataType {
 	rv := objc.Send[MTLDataType](s.ID, objc.Sel("dataType"))

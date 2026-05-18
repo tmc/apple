@@ -61,6 +61,10 @@ func (vc VNFaceObservationClass) Alloc() VNFaceObservation {
 //   - [VNFaceObservation.Yaw]: The yaw angle of a face in radians.
 //   - [VNFaceObservation.Pitch]: The pitch angle of a face in radians.
 //
+// # Determining Capture Quality
+//
+//   - [VNFaceObservation.FaceCaptureQuality]: A value that indicates the quality of the face capture.
+//
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservation
 type VNFaceObservation struct {
 	VNDetectedObjectObservation
@@ -88,6 +92,10 @@ func VNFaceObservationFromID(id objc.ID) VNFaceObservation {
 //   - [IVNFaceObservation.Yaw]: The yaw angle of a face in radians.
 //   - [IVNFaceObservation.Pitch]: The pitch angle of a face in radians.
 //
+// # Determining Capture Quality
+//
+//   - [IVNFaceObservation.FaceCaptureQuality]: A value that indicates the quality of the face capture.
+//
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservation
 type IVNFaceObservation interface {
 	IVNDetectedObjectObservation
@@ -106,8 +114,11 @@ type IVNFaceObservation interface {
 	// The pitch angle of a face in radians.
 	Pitch() foundation.NSNumber
 
+	// Topic: Determining Capture Quality
+
 	// A value that indicates the quality of the face capture.
 	FaceCaptureQuality() foundation.NSNumber
+
 	// The results of the face-capture quality request.
 	Results() IVNFaceObservation
 	SetResults(value IVNFaceObservation)

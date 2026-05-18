@@ -299,7 +299,7 @@ type ICKQuery interface {
 	RecordType() unsafe.Pointer
 	SetRecordType(value unsafe.Pointer)
 	// The predicate to use for matching records.
-	Predicate() foundation.INSPredicate
+	Predicate() foundation.NSPredicate
 	// The sort descriptors for organizing the query’s results.
 	SortDescriptors() []foundation.NSSortDescriptor
 	SetSortDescriptors(value []foundation.NSSortDescriptor)
@@ -372,7 +372,7 @@ func (c CKQuery) SetRecordType(value unsafe.Pointer) {
 // your queries, see [CKQuery].
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKQuery/predicate
-func (c CKQuery) Predicate() foundation.INSPredicate {
+func (c CKQuery) Predicate() foundation.NSPredicate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("predicate"))
 	return foundation.NSPredicateFromID(objc.ID(rv))
 }

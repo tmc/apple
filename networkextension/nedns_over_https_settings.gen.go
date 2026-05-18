@@ -89,14 +89,14 @@ type INEDNSOverHTTPSSettings interface {
 	// Topic: Configuring server properties
 
 	// The URL of a DNS-over-HTTPS server.
-	ServerURL() foundation.INSURL
-	SetServerURL(value foundation.INSURL)
+	ServerURL() foundation.NSURL
+	SetServerURL(value foundation.NSURL)
 
 	// Topic: Configuring client properties
 
 	// A persistent keychain reference to a keychain item containing the certificate and private key components of the DNS client credential.
-	IdentityReference() foundation.INSData
-	SetIdentityReference(value foundation.INSData)
+	IdentityReference() foundation.NSData
+	SetIdentityReference(value foundation.NSData)
 }
 
 // Init initializes the instance.
@@ -144,11 +144,11 @@ func NewDNSOverHTTPSSettingsWithServers(servers []string) NEDNSOverHTTPSSettings
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSOverHTTPSSettings/serverURL
 //
 // [RFC 8484]: https://tools.ietf.org/html/rfc8484
-func (d NEDNSOverHTTPSSettings) ServerURL() foundation.INSURL {
+func (d NEDNSOverHTTPSSettings) ServerURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("serverURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (d NEDNSOverHTTPSSettings) SetServerURL(value foundation.INSURL) {
+func (d NEDNSOverHTTPSSettings) SetServerURL(value foundation.NSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setServerURL:"), value)
 }
 
@@ -162,10 +162,10 @@ func (d NEDNSOverHTTPSSettings) SetServerURL(value foundation.INSURL) {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSOverHTTPSSettings/identityReference
 //
 // [kSecClassIdentity]: https://developer.apple.com/documentation/Security/kSecClassIdentity
-func (d NEDNSOverHTTPSSettings) IdentityReference() foundation.INSData {
+func (d NEDNSOverHTTPSSettings) IdentityReference() foundation.NSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("identityReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (d NEDNSOverHTTPSSettings) SetIdentityReference(value foundation.INSData) {
+func (d NEDNSOverHTTPSSettings) SetIdentityReference(value foundation.NSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIdentityReference:"), value)
 }

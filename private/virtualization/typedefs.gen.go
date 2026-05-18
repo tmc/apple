@@ -39,7 +39,7 @@ type SharedRamEntryRef uintptr
 type SharedRamManagerRef uintptr
 
 // See: https://developer.apple.com/documentation/Virtualization/shared_weak_countRef
-type Shared_weak_countRef uintptr
+type SharedWeakCountRef uintptr
 
 // See: https://developer.apple.com/documentation/Virtualization/vmnet_networkRef
-type Vmnet_networkRef uintptr
+type VmnetNetworkRef uintptr

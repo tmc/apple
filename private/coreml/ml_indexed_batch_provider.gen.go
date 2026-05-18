@@ -95,14 +95,14 @@ type IMLIndexedBatchProvider interface {
 }
 
 // Init initializes the instance.
-func (i MLIndexedBatchProvider) Init() MLIndexedBatchProvider {
-	rv := objc.Send[MLIndexedBatchProvider](i.ID, objc.Sel("init"))
+func (m MLIndexedBatchProvider) Init() MLIndexedBatchProvider {
+	rv := objc.Send[MLIndexedBatchProvider](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (i MLIndexedBatchProvider) Autorelease() MLIndexedBatchProvider {
-	rv := objc.Send[MLIndexedBatchProvider](i.ID, objc.Sel("autorelease"))
+func (m MLIndexedBatchProvider) Autorelease() MLIndexedBatchProvider {
+	rv := objc.Send[MLIndexedBatchProvider](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -126,15 +126,15 @@ func NewIndexedBatchProviderWithBatchIndicesError(batch objectivec.IObject, indi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLIndexedBatchProvider/featuresAtIndex:
-func (i MLIndexedBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("featuresAtIndex:"), index)
+func (m MLIndexedBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLIndexedBatchProvider/initWithBatch:indices:error:
-func (i MLIndexedBatchProvider) InitWithBatchIndicesError(batch objectivec.IObject, indices objectivec.IObject) (MLIndexedBatchProvider, error) {
+func (m MLIndexedBatchProvider) InitWithBatchIndicesError(batch objectivec.IObject, indices objectivec.IObject) (MLIndexedBatchProvider, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("initWithBatch:indices:error:"), batch, indices, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithBatch:indices:error:"), batch, indices, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLIndexedBatchProvider{}, foundation.NSErrorFrom(errorPtr)
@@ -144,25 +144,25 @@ func (i MLIndexedBatchProvider) InitWithBatchIndicesError(batch objectivec.IObje
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLIndexedBatchProvider/count
-func (i MLIndexedBatchProvider) Count() int64 {
-	rv := objc.Send[int64](i.ID, objc.Sel("count"))
+func (m MLIndexedBatchProvider) Count() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("count"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLIndexedBatchProvider/fullBatch
-func (i MLIndexedBatchProvider) FullBatch() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("fullBatch"))
+func (m MLIndexedBatchProvider) FullBatch() objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("fullBatch"))
 	return objectivec.Object{ID: rv}
 }
-func (i MLIndexedBatchProvider) SetFullBatch(value objectivec.IObject) {
-	objc.Send[struct{}](i.ID, objc.Sel("setFullBatch:"), value)
+func (m MLIndexedBatchProvider) SetFullBatch(value objectivec.IObject) {
+	objc.Send[struct{}](m.ID, objc.Sel("setFullBatch:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLIndexedBatchProvider/indices
-func (i MLIndexedBatchProvider) Indices() foundation.INSArray {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("indices"))
+func (m MLIndexedBatchProvider) Indices() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("indices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (i MLIndexedBatchProvider) SetIndices(value foundation.INSArray) {
-	objc.Send[struct{}](i.ID, objc.Sel("setIndices:"), value)
+func (m MLIndexedBatchProvider) SetIndices(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("setIndices:"), value)
 }

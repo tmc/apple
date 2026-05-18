@@ -26,11 +26,6 @@ type MTLArgumentEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setArgumentBuffer(_:startOffset:arrayElement:)
 	SetArgumentBufferStartOffsetArrayElement(argumentBuffer MTLBuffer, startOffset uint, arrayElement uint)
 
-	// The number of bytes required to store the encoded resources of an argument buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/encodedLength
-	EncodedLength() uint
-
 	// Encodes a reference to a buffer into the argument buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setBuffer(_:offset:index:)
@@ -86,21 +81,6 @@ type MTLArgumentEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/makeArgumentEncoderForBuffer(atIndex:)
 	NewArgumentEncoderForBufferAtIndex(index uint) MTLArgumentEncoder
 
-	// The alignment, in bytes, required for storing the encoded resources of an argument buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/alignment
-	Alignment() uint
-
-	// A string that identifies the argument buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/label
-	Label() string
-
-	// The device object that created the argument encoder.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/device
-	Device() MTLDevice
-
 	// SetDepthStencilStateAtIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setDepthStencilState(_:index:)
@@ -151,10 +131,26 @@ type MTLArgumentEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setVisibleFunctionTables:withRange:
 	SetVisibleFunctionTablesWithRange(visibleFunctionTables []MTLVisibleFunctionTable, range_ foundation.NSRange)
 
+	// The number of bytes required to store the encoded resources of an argument buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/encodedLength
+	EncodedLength() uint
+
+	// The alignment, in bytes, required for storing the encoded resources of an argument buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/alignment
+	Alignment() uint
+
 	// A string that identifies the argument buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/label
+	Label() string
 	SetLabel(value string)
+
+	// The device object that created the argument encoder.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/device
+	Device() MTLDevice
 }
 
 // MTLArgumentEncoderObject wraps an existing Objective-C object that conforms to the MTLArgumentEncoder protocol.
@@ -197,15 +193,6 @@ func (o MTLArgumentEncoderObject) SetArgumentBufferOffset(argumentBuffer MTLBuff
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setArgumentBuffer(_:startOffset:arrayElement:)
 func (o MTLArgumentEncoderObject) SetArgumentBufferStartOffsetArrayElement(argumentBuffer MTLBuffer, startOffset uint, arrayElement uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setArgumentBuffer:startOffset:arrayElement:"), argumentBuffer, startOffset, arrayElement)
-}
-
-// The number of bytes required to store the encoded resources of an argument
-// buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/encodedLength
-func (o MTLArgumentEncoderObject) EncodedLength() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("encodedLength"))
-	return rv
 }
 
 // Encodes a reference to a buffer into the argument buffer.
@@ -386,31 +373,6 @@ func (o MTLArgumentEncoderObject) NewArgumentEncoderForBufferAtIndex(index uint)
 	return MTLArgumentEncoderObjectFromID(rv)
 }
 
-// The alignment, in bytes, required for storing the encoded resources of an
-// argument buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/alignment
-func (o MTLArgumentEncoderObject) Alignment() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("alignment"))
-	return rv
-}
-
-// A string that identifies the argument buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/label
-func (o MTLArgumentEncoderObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The device object that created the argument encoder.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/device
-func (o MTLArgumentEncoderObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
 // # Discussion
 //
 // # Sets a depth stencil state at a given bind point index
@@ -547,6 +509,29 @@ func (o MTLArgumentEncoderObject) SetVisibleFunctionTablesWithRange(visibleFunct
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTables:withRange:"), visibleFunctionTables, range_)
 }
 
+// The number of bytes required to store the encoded resources of an argument
+// buffer.
+//
+// # Discussion
+//
+// After creating an [MTLArgumentEncoder] instance, use this value to create
+// the [MTLBuffer] instance that represents an argument buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/encodedLength
+func (o MTLArgumentEncoderObject) EncodedLength() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("encodedLength"))
+	return uint(rv)
+}
+
+// The alignment, in bytes, required for storing the encoded resources of an
+// argument buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/alignment
+func (o MTLArgumentEncoderObject) Alignment() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("alignment"))
+	return uint(rv)
+}
+
 // A string that identifies the argument buffer.
 //
 // # Discussion
@@ -558,6 +543,24 @@ func (o MTLArgumentEncoderObject) SetVisibleFunctionTablesWithRange(visibleFunct
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/label
 //
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLArgumentEncoderObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 func (o MTLArgumentEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
+}
+
+// The device object that created the argument encoder.
+//
+// # Discussion
+//
+// You can only use the encoder to encode data into buffers created by the
+// same Metal device object.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/device
+func (o MTLArgumentEncoderObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
 }

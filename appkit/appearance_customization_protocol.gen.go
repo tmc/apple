@@ -17,16 +17,12 @@ type NSAppearanceCustomization interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
 	Appearance() INSAppearance
+	SetAppearance(value INSAppearance)
 
 	// The appearance that will be used when the receiver is drawn onscreen, in an [NSAppearance] object. (read-only)
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
 	EffectiveAppearance() INSAppearance
-
-	// The appearance of the receiver, in an [NSAppearance] object.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
-	SetAppearance(value INSAppearance)
 }
 
 // NSAppearanceCustomizationObject wraps an existing Objective-C object that conforms to the NSAppearanceCustomization protocol.
@@ -48,23 +44,6 @@ func NSAppearanceCustomizationObjectFromID(id objc.ID) NSAppearanceCustomization
 
 // The appearance of the receiver, in an [NSAppearance] object.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
-func (o NSAppearanceCustomizationObject) Appearance() INSAppearance {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("appearance"))
-	return NSAppearanceFromID(rv)
-}
-
-// The appearance that will be used when the receiver is drawn onscreen, in an
-// [NSAppearance] object. (read-only)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
-func (o NSAppearanceCustomizationObject) EffectiveAppearance() INSAppearance {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("effectiveAppearance"))
-	return NSAppearanceFromID(rv)
-}
-
-// The appearance of the receiver, in an [NSAppearance] object.
-//
 // # Discussion
 //
 // The default value for this property is `nil`, which means that the receiver
@@ -73,6 +52,28 @@ func (o NSAppearanceCustomizationObject) EffectiveAppearance() INSAppearance {
 // and the views it contains use the specified appearance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
+func (o NSAppearanceCustomizationObject) Appearance() INSAppearance {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("appearance"))
+	return NSAppearanceFromID(rv)
+}
+
 func (o NSAppearanceCustomizationObject) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAppearance:"), value)
+}
+
+// The appearance that will be used when the receiver is drawn onscreen, in an
+// [NSAppearance] object. (read-only)
+//
+// # Discussion
+//
+// The default value for this property is provided by the nearest ancestor of
+// the receiver that has set an appearance.
+//
+// You can use this property to ensure that an offscreen view sets the
+// appropriate current appearance when it draws onscreen.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
+func (o NSAppearanceCustomizationObject) EffectiveAppearance() INSAppearance {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("effectiveAppearance"))
+	return NSAppearanceFromID(rv)
 }

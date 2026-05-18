@@ -144,9 +144,9 @@ type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 	// Topic: Creating network block device attachments
 
 	// Creates a new network block device (NBD) storage attachment from an NDB Uniform Resource Indicator (URI) represented as a URL that you provide.
-	InitWithURLError(URL foundation.INSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error)
+	InitWithURLError(URL foundation.NSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error)
 	// Creates a new network block device storage attachment from an NBD Uniform Resource Indicator (URI) represented as a URL, timeout value, and read-only and synchronization modes that you provide.
-	InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.INSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error)
+	InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error)
 
 	// Topic: Getting information about the attachment point
 
@@ -157,7 +157,7 @@ type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 	// The timeout value in seconds for the connection between the client and server.
 	Timeout() float64
 	// The URL that refers to the NBD server to which the NBD client will connect.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// Topic: Observing changes to the network block device
 
@@ -190,8 +190,8 @@ func NewVZNetworkBlockDeviceStorageDeviceAttachment() VZNetworkBlockDeviceStorag
 //
 // URL: The NBD’s URI represented as a URL.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)
-func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.INSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
+// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)-6q4m7
+func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.NSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZNetworkBlockDeviceStorageDeviceAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), URL, unsafe.Pointer(&errorPtr))
@@ -229,7 +229,7 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.INS
 // read-only.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:timeout:isForcedReadOnly:synchronizationMode:)
-func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.INSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
+func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZNetworkBlockDeviceStorageDeviceAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:timeout:forcedReadOnly:synchronizationMode:error:"), URL, timeout, forcedReadOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
@@ -245,8 +245,8 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySyn
 //
 // URL: The NBD’s URI represented as a URL.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL foundation.INSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
+// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)-6q4m7
+func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL foundation.NSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithURL:error:"), URL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -284,7 +284,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL founda
 // read-only.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:timeout:isForcedReadOnly:synchronizationMode:)
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.INSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
+func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.NSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithURL:timeout:forcedReadOnly:synchronizationMode:error:"), URL, timeout, forcedReadOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -308,7 +308,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedRea
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/validate(_:)
 //
 // [NBD URL specification]: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md
-func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) ValidateURLError(URL foundation.INSURL) (bool, error) {
+func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) ValidateURLError(URL foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("validateURL:error:"), URL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -377,7 +377,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) Timeout() float64 {
 // The URL that refers to the NBD server to which the NBD client will connect.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/url
-func (n VZNetworkBlockDeviceStorageDeviceAttachment) URL() foundation.INSURL {
+func (n VZNetworkBlockDeviceStorageDeviceAttachment) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

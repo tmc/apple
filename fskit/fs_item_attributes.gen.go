@@ -4,6 +4,7 @@ package fskit
 
 import (
 	"sync"
+	"syscall"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -220,23 +221,23 @@ type IFSItemAttributes interface {
 	// Topic: Working with time attributes
 
 	// The item’s last-accessed time.
-	AccessTime() objectivec.IObject
-	SetAccessTime(value objectivec.IObject)
+	AccessTime() syscall.Timespec
+	SetAccessTime(value syscall.Timespec)
 	// The item’s last-modified time.
-	ModifyTime() objectivec.IObject
-	SetModifyTime(value objectivec.IObject)
+	ModifyTime() syscall.Timespec
+	SetModifyTime(value syscall.Timespec)
 	// The item’s last-changed time.
-	ChangeTime() objectivec.IObject
-	SetChangeTime(value objectivec.IObject)
+	ChangeTime() syscall.Timespec
+	SetChangeTime(value syscall.Timespec)
 	// The item’s creation time.
-	BirthTime() objectivec.IObject
-	SetBirthTime(value objectivec.IObject)
+	BirthTime() syscall.Timespec
+	SetBirthTime(value syscall.Timespec)
 	// The item’s last-backup time.
-	BackupTime() objectivec.IObject
-	SetBackupTime(value objectivec.IObject)
+	BackupTime() syscall.Timespec
+	SetBackupTime(value syscall.Timespec)
 	// The item’s added time.
-	AddedTime() objectivec.IObject
-	SetAddedTime(value objectivec.IObject)
+	AddedTime() syscall.Timespec
+	SetAddedTime(value syscall.Timespec)
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -433,11 +434,11 @@ func (i FSItemAttributes) SetInhibitKernelOffloadedIO(value bool) {
 // The item’s last-accessed time.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSItem/Attributes/accessTime
-func (i FSItemAttributes) AccessTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("accessTime"))
-	return objectivec.Object{ID: rv}
+func (i FSItemAttributes) AccessTime() syscall.Timespec {
+	rv := objc.Send[syscall.Timespec](i.ID, objc.Sel("accessTime"))
+	return syscall.Timespec(rv)
 }
-func (i FSItemAttributes) SetAccessTime(value objectivec.IObject) {
+func (i FSItemAttributes) SetAccessTime(value syscall.Timespec) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAccessTime:"), value)
 }
 
@@ -449,11 +450,11 @@ func (i FSItemAttributes) SetAccessTime(value objectivec.IObject) {
 // changed.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSItem/Attributes/modifyTime
-func (i FSItemAttributes) ModifyTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("modifyTime"))
-	return objectivec.Object{ID: rv}
+func (i FSItemAttributes) ModifyTime() syscall.Timespec {
+	rv := objc.Send[syscall.Timespec](i.ID, objc.Sel("modifyTime"))
+	return syscall.Timespec(rv)
 }
-func (i FSItemAttributes) SetModifyTime(value objectivec.IObject) {
+func (i FSItemAttributes) SetModifyTime(value syscall.Timespec) {
 	objc.Send[struct{}](i.ID, objc.Sel("setModifyTime:"), value)
 }
 
@@ -465,33 +466,33 @@ func (i FSItemAttributes) SetModifyTime(value objectivec.IObject) {
 // changed.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSItem/Attributes/changeTime
-func (i FSItemAttributes) ChangeTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("changeTime"))
-	return objectivec.Object{ID: rv}
+func (i FSItemAttributes) ChangeTime() syscall.Timespec {
+	rv := objc.Send[syscall.Timespec](i.ID, objc.Sel("changeTime"))
+	return syscall.Timespec(rv)
 }
-func (i FSItemAttributes) SetChangeTime(value objectivec.IObject) {
+func (i FSItemAttributes) SetChangeTime(value syscall.Timespec) {
 	objc.Send[struct{}](i.ID, objc.Sel("setChangeTime:"), value)
 }
 
 // The item’s creation time.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSItem/Attributes/birthTime
-func (i FSItemAttributes) BirthTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("birthTime"))
-	return objectivec.Object{ID: rv}
+func (i FSItemAttributes) BirthTime() syscall.Timespec {
+	rv := objc.Send[syscall.Timespec](i.ID, objc.Sel("birthTime"))
+	return syscall.Timespec(rv)
 }
-func (i FSItemAttributes) SetBirthTime(value objectivec.IObject) {
+func (i FSItemAttributes) SetBirthTime(value syscall.Timespec) {
 	objc.Send[struct{}](i.ID, objc.Sel("setBirthTime:"), value)
 }
 
 // The item’s last-backup time.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSItem/Attributes/backupTime
-func (i FSItemAttributes) BackupTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("backupTime"))
-	return objectivec.Object{ID: rv}
+func (i FSItemAttributes) BackupTime() syscall.Timespec {
+	rv := objc.Send[syscall.Timespec](i.ID, objc.Sel("backupTime"))
+	return syscall.Timespec(rv)
 }
-func (i FSItemAttributes) SetBackupTime(value objectivec.IObject) {
+func (i FSItemAttributes) SetBackupTime(value syscall.Timespec) {
 	objc.Send[struct{}](i.ID, objc.Sel("setBackupTime:"), value)
 }
 
@@ -503,10 +504,10 @@ func (i FSItemAttributes) SetBackupTime(value objectivec.IObject) {
 // parent directory.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSItem/Attributes/addedTime
-func (i FSItemAttributes) AddedTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("addedTime"))
-	return objectivec.Object{ID: rv}
+func (i FSItemAttributes) AddedTime() syscall.Timespec {
+	rv := objc.Send[syscall.Timespec](i.ID, objc.Sel("addedTime"))
+	return syscall.Timespec(rv)
 }
-func (i FSItemAttributes) SetAddedTime(value objectivec.IObject) {
+func (i FSItemAttributes) SetAddedTime(value syscall.Timespec) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAddedTime:"), value)
 }

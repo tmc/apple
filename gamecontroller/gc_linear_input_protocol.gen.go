@@ -14,6 +14,11 @@ import (
 type GCLinearInput interface {
 	objectivec.IObject
 
+	// A Boolean value that indicates whether the input provides analog values.
+	//
+	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/isAnalog
+	IsAnalog() bool
+
 	// A Boolean value that indicates whether the input value wraps when it reaches the range’s minimum or maximum value.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/canWrap
@@ -22,17 +27,12 @@ type GCLinearInput interface {
 	// A Boolean value that indicates whether the input provides analog values.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/isAnalog
-	IsAnalog() bool
+	Analog() bool
 
 	// The value in unit coordinates.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/value
 	Value() float32
-
-	// The block that the profile calls when an element’s value changes.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/valueDidChangeHandler
-	ValueDidChangeHandler() func(objc.ID, float32)
 
 	// The time of the most recent value change.
 	//
@@ -72,15 +72,6 @@ func GCLinearInputObjectFromID(id objc.ID) GCLinearInputObject {
 	}
 }
 
-// A Boolean value that indicates whether the input value wraps when it
-// reaches the range’s minimum or maximum value.
-//
-// See: https://developer.apple.com/documentation/GameController/GCLinearInput/canWrap
-func (o GCLinearInputObject) CanWrap() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("canWrap"))
-	return rv
-}
-
 // A Boolean value that indicates whether the input provides analog values.
 //
 // See: https://developer.apple.com/documentation/GameController/GCLinearInput/isAnalog
@@ -89,38 +80,55 @@ func (o GCLinearInputObject) IsAnalog() bool {
 	return rv
 }
 
+// A Boolean value that indicates whether the input value wraps when it
+// reaches the range’s minimum or maximum value.
+//
+// See: https://developer.apple.com/documentation/GameController/GCLinearInput/canWrap
+func (o GCLinearInputObject) CanWrap() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("canWrap"))
+	return bool(rv)
+}
+
+// A Boolean value that indicates whether the input provides analog values.
+//
+// See: https://developer.apple.com/documentation/GameController/GCLinearInput/isAnalog
+func (o GCLinearInputObject) Analog() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
+	return bool(rv)
+}
+
 // The value in unit coordinates.
 //
 // See: https://developer.apple.com/documentation/GameController/GCLinearInput/value
 func (o GCLinearInputObject) Value() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("value"))
-	return rv
-}
-
-// The block that the profile calls when an element’s value changes.
-//
-// See: https://developer.apple.com/documentation/GameController/GCLinearInput/valueDidChangeHandler
-func (o GCLinearInputObject) ValueDidChangeHandler() func(objc.ID, float32) {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("valueDidChangeHandler"))
-	// Block/function return - cannot convert from objc.ID to Go func
-	_ = rv
-	return nil
+	return float32(rv)
 }
 
 // The time of the most recent value change.
 //
+// # Discussion
+//
+// This property isn’t a specific date and time. To determine the time
+// between value changes, subtract a previous time from the current time.
+//
 // See: https://developer.apple.com/documentation/GameController/GCLinearInput/lastValueTimestamp
 func (o GCLinearInputObject) LastValueTimestamp() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("lastValueTimestamp"))
-	return rv
+	return float64(rv)
 }
 
 // The time in seconds between the last value change and the current time.
 //
+// # Discussion
+//
+// Use this property as a minimum latency value that may not include latency
+// that accrues on the device or when it transmits the event.
+//
 // See: https://developer.apple.com/documentation/GameController/GCLinearInput/lastValueLatency
 func (o GCLinearInputObject) LastValueLatency() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("lastValueLatency"))
-	return rv
+	return float64(rv)
 }
 
 // One or more physical actions the user performs to manipulate the input.

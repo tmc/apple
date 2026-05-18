@@ -180,8 +180,8 @@ type INSDatePickerCell interface {
 	// Topic: Object Values
 
 	// The date currently specified in the picker.
-	DateValue() foundation.INSDate
-	SetDateValue(value foundation.INSDate)
+	DateValue() foundation.NSDate
+	SetDateValue(value foundation.NSDate)
 	// The time interval that represents the date range.
 	TimeInterval() float64
 	SetTimeInterval(value float64)
@@ -198,11 +198,11 @@ type INSDatePickerCell interface {
 	// Topic: Date Range Constraints
 
 	// The minimum date that the picker allows as input.
-	MinDate() foundation.INSDate
-	SetMinDate(value foundation.INSDate)
+	MinDate() foundation.NSDate
+	SetMinDate(value foundation.NSDate)
 	// The maximum date that the picker allows as input.
-	MaxDate() foundation.INSDate
-	SetMaxDate(value foundation.INSDate)
+	MaxDate() foundation.NSDate
+	SetMaxDate(value foundation.NSDate)
 
 	// Topic: Getting and Setting the Delegate
 
@@ -365,11 +365,11 @@ func (d NSDatePickerCell) SetDatePickerMode(value NSDatePickerMode) {
 // the time range.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/dateValue
-func (d NSDatePickerCell) DateValue() foundation.INSDate {
+func (d NSDatePickerCell) DateValue() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dateValue"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (d NSDatePickerCell) SetDateValue(value foundation.INSDate) {
+func (d NSDatePickerCell) SetDateValue(value foundation.NSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateValue:"), value)
 }
 
@@ -433,11 +433,11 @@ func (d NSDatePickerCell) SetTimeZone(value foundation.NSTimeZone) {
 // date.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/minDate
-func (d NSDatePickerCell) MinDate() foundation.INSDate {
+func (d NSDatePickerCell) MinDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("minDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (d NSDatePickerCell) SetMinDate(value foundation.INSDate) {
+func (d NSDatePickerCell) SetMinDate(value foundation.NSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinDate:"), value)
 }
 
@@ -449,11 +449,11 @@ func (d NSDatePickerCell) SetMinDate(value foundation.INSDate) {
 // date.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/maxDate
-func (d NSDatePickerCell) MaxDate() foundation.INSDate {
+func (d NSDatePickerCell) MaxDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("maxDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (d NSDatePickerCell) SetMaxDate(value foundation.INSDate) {
+func (d NSDatePickerCell) SetMaxDate(value foundation.NSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaxDate:"), value)
 }
 

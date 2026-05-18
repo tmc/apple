@@ -84,14 +84,14 @@ type IMLProbabilityDictionaryFloat64Storage interface {
 }
 
 // Init initializes the instance.
-func (p MLProbabilityDictionaryFloat64Storage) Init() MLProbabilityDictionaryFloat64Storage {
-	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](p.ID, objc.Sel("init"))
+func (m MLProbabilityDictionaryFloat64Storage) Init() MLProbabilityDictionaryFloat64Storage {
+	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLProbabilityDictionaryFloat64Storage) Autorelease() MLProbabilityDictionaryFloat64Storage {
-	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](p.ID, objc.Sel("autorelease"))
+func (m MLProbabilityDictionaryFloat64Storage) Autorelease() MLProbabilityDictionaryFloat64Storage {
+	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -103,25 +103,25 @@ func NewMLProbabilityDictionaryFloat64Storage() MLProbabilityDictionaryFloat64St
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryFloat64Storage/count
-func (p MLProbabilityDictionaryFloat64Storage) Count() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("count"))
+func (m MLProbabilityDictionaryFloat64Storage) Count() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("count"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryFloat64Storage/maxElementIndex
-func (p MLProbabilityDictionaryFloat64Storage) MaxElementIndex() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("maxElementIndex"))
+func (m MLProbabilityDictionaryFloat64Storage) MaxElementIndex() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("maxElementIndex"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryFloat64Storage/probabilityAtIndex:
-func (p MLProbabilityDictionaryFloat64Storage) ProbabilityAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("probabilityAtIndex:"), index)
+func (m MLProbabilityDictionaryFloat64Storage) ProbabilityAtIndex(index uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("probabilityAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryFloat64Storage/initWithFloat64CArray:count:
-func (p MLProbabilityDictionaryFloat64Storage) InitWithFloat64CArrayCount(float64CArray []float64, count uint64) MLProbabilityDictionaryFloat64Storage {
-	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](p.ID, objc.Sel("initWithFloat64CArray:count:"), objc.CArray(float64CArray), count)
+func (m MLProbabilityDictionaryFloat64Storage) InitWithFloat64CArrayCount(float64CArray []float64, count uint64) MLProbabilityDictionaryFloat64Storage {
+	rv := objc.Send[MLProbabilityDictionaryFloat64Storage](m.ID, objc.Sel("initWithFloat64CArray:count:"), objc.CArray(float64CArray), count)
 	return rv
 }

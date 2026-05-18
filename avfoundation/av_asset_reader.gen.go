@@ -143,7 +143,7 @@ type IAVAssetReader interface {
 	// The status of reading sample buffers from the asset.
 	Status() AVAssetReaderStatus
 	// An error that describes the reason for a failure.
-	Error() foundation.INSError
+	Error() foundation.NSError
 
 	// Topic: Controlling reading
 
@@ -326,7 +326,7 @@ func (a AVAssetReader) Status() AVAssetReaderStatus {
 // This property is thread safe.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/error
-func (a AVAssetReader) Error() foundation.INSError {
+func (a AVAssetReader) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }

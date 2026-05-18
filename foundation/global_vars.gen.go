@@ -302,18 +302,26 @@ var (
 )
 
 var (
-	// See: https://developer.apple.com/documentation/foundation/nsapplescript/errorappname
-	NSAppleScriptErrorAppName NSString
-	// See: https://developer.apple.com/documentation/foundation/nsapplescript/errorbriefmessage
-	NSAppleScriptErrorBriefMessage NSString
+	// AppleScriptErrorAppName is an [NSString] that specifies the name of the application that generated the error.
+	//
+	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorAppName
+	AppleScriptErrorAppName string
+	// AppleScriptErrorBriefMessage is an [NSString] that provides a brief description of the error.
+	//
+	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorBriefMessage
+	AppleScriptErrorBriefMessage string
 	// AppleScriptErrorMessage is an [NSString] that supplies a detailed description of the error condition.
 	//
 	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorMessage
 	AppleScriptErrorMessage string
-	// See: https://developer.apple.com/documentation/foundation/nsapplescript/errornumber
-	NSAppleScriptErrorNumber NSString
-	// See: https://developer.apple.com/documentation/foundation/nsapplescript/errorrange
-	NSAppleScriptErrorRange NSString
+	// AppleScriptErrorNumber is an [NSNumber] that specifies the error number.
+	//
+	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorNumber
+	AppleScriptErrorNumber string
+	// AppleScriptErrorRange is an [NSValue] that specifies a range.
+	//
+	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorRange
+	AppleScriptErrorRange string
 	// ArgumentDomain is the identifier for the domain that contains command-line settings.
 	//
 	// See: https://developer.apple.com/documentation/Foundation/UserDefaults/argumentDomain
@@ -2423,11 +2431,23 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorAppName"); err == nil && ptr != 0 {
-		NSAppleScriptErrorAppName = *(*NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorAppName = objc.GoString(cstr)
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorBriefMessage"); err == nil && ptr != 0 {
-		NSAppleScriptErrorBriefMessage = *(*NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorBriefMessage = objc.GoString(cstr)
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorMessage"); err == nil && ptr != 0 {
@@ -2441,11 +2461,23 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorNumber"); err == nil && ptr != 0 {
-		NSAppleScriptErrorNumber = *(*NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorNumber = objc.GoString(cstr)
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorRange"); err == nil && ptr != 0 {
-		NSAppleScriptErrorRange = *(*NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorRange = objc.GoString(cstr)
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSArgumentDomain"); err == nil && ptr != 0 {

@@ -93,19 +93,19 @@ func (e GCDevicePhysicalInputElementChange) String() string {
 	}
 }
 
-type GCDualSenseAdaptiveTriggerDiscretePositionCountConstants uint
+type GCDualSenseAdaptiveTriggerDiscretePosition uint
 
 const (
 	// GCDualSenseAdaptiveTriggerDiscretePositionCount: The number of discrete control positions that the DualSense adaptive triggers support.
-	GCDualSenseAdaptiveTriggerDiscretePositionCount GCDualSenseAdaptiveTriggerDiscretePositionCountConstants = 10
+	GCDualSenseAdaptiveTriggerDiscretePositionCount GCDualSenseAdaptiveTriggerDiscretePosition = 10
 )
 
-func (e GCDualSenseAdaptiveTriggerDiscretePositionCountConstants) String() string {
+func (e GCDualSenseAdaptiveTriggerDiscretePosition) String() string {
 	switch e {
 	case GCDualSenseAdaptiveTriggerDiscretePositionCount:
 		return "GCDualSenseAdaptiveTriggerDiscretePositionCount"
 	default:
-		return fmt.Sprintf("GCDualSenseAdaptiveTriggerDiscretePositionCountConstants(%d)", e)
+		return fmt.Sprintf("GCDualSenseAdaptiveTriggerDiscretePosition(%d)", e)
 	}
 }
 
@@ -203,7 +203,9 @@ func (e GCDualSenseAdaptiveTriggerStatus) String() string {
 type GCExtendedGamepadSnapshotDataVersion int
 
 const (
+	// Deprecated.
 	GCExtendedGamepadSnapshotDataVersion1 GCExtendedGamepadSnapshotDataVersion = 0x100
+	// Deprecated.
 	GCExtendedGamepadSnapshotDataVersion2 GCExtendedGamepadSnapshotDataVersion = 0x101
 )
 
@@ -222,6 +224,7 @@ func (e GCExtendedGamepadSnapshotDataVersion) String() string {
 type GCMicroGamepadSnapshotDataVersion int
 
 const (
+	// Deprecated.
 	GCMicroGamepadSnapshotDataVersion1 GCMicroGamepadSnapshotDataVersion = 0x100
 )
 
@@ -322,6 +325,7 @@ type GCUIEventTypes uint
 
 const (
 	GCUIEventTypeGamepad GCUIEventTypes = 0
+	GCUIEventTypeNone    GCUIEventTypes = 0
 	// GCUIEventTypeStylus: A constant that represents events from a stylus.
 	GCUIEventTypeStylus GCUIEventTypes = 0
 )

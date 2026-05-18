@@ -53,8 +53,8 @@ func (mc MTLRenderPipelineFunctionsDescriptorClass) Alloc() MTLRenderPipelineFun
 // functions. To create the new pipeline state, configure an
 // [MTLRenderPipelineFunctionsDescriptor] instance with the additional
 // callable functions to add, and then call the pipeline state’s
-// [NewRenderPipelineStateWithAdditionalBinaryFunctionsError] method, passing
-// the descriptor.
+// [NewRenderPipelineStateWithBinaryFunctionsError] method, passing the
+// descriptor.
 //
 // # Configuring the descriptor’s functions
 //

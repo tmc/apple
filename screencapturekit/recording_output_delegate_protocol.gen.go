@@ -37,7 +37,7 @@ func SCRecordingOutputDelegateObjectFromID(id objc.ID) SCRecordingOutputDelegate
 }
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputDelegate/recordingOutput(_:didFailWithError:)
-func (o SCRecordingOutputDelegateObject) RecordingOutputDidFailWithError(recordingOutput ISCRecordingOutput, error_ foundation.INSError) {
+func (o SCRecordingOutputDelegateObject) RecordingOutputDidFailWithError(recordingOutput ISCRecordingOutput, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("recordingOutput:didFailWithError:"), recordingOutput, error_)
 }
 

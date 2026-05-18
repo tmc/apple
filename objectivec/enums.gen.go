@@ -99,3 +99,6 @@ func (e Objc_AssociationPolicy) String() string {
 		return fmt.Sprintf("Objc_AssociationPolicy(%d)", e)
 	}
 }
+
+// ObjcAssociationPolicy is a Go-name alias for Objc_AssociationPolicy.
+type ObjcAssociationPolicy = Objc_AssociationPolicy

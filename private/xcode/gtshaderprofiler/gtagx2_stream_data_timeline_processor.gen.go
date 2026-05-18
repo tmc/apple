@@ -103,7 +103,7 @@ type IGTAGX2StreamDataTimelineProcessor interface {
 	Process(process objectivec.IObject)
 	ProcessStreamData()
 	ProcessTimelineStreamedResult(result objectivec.IObject) objectivec.IObject
-	SaveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename objectivec.IObject)
+	SaveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename objectivec.IObject)
 	SaveAddressMappingsFilename(mappings objectivec.IObject, filename objectivec.IObject)
 	SaveSampleDataFromGPURawCountersSizeFilenameWithTimeStamps(counters unsafe.Pointer, size uint32, filename objectivec.IObject, stamps unsafe.Pointer)
 	TimelineInfo() IDYWorkloadGPUTimelineInfo
@@ -234,7 +234,7 @@ func (g GTAGX2StreamDataTimelineProcessor) ProcessTimelineStreamedResult(result 
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/saveAddressList:size:filename:
-func (g GTAGX2StreamDataTimelineProcessor) SaveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename objectivec.IObject) {
+func (g GTAGX2StreamDataTimelineProcessor) SaveAddressListSizeFilename(list GTAGX2ShaderProfilerProgramAddress, size uint32, filename objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("saveAddressList:size:filename:"), list, size, filename)
 }
 

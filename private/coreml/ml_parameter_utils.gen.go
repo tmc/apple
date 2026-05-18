@@ -63,14 +63,14 @@ type IMLParameterUtils interface {
 }
 
 // Init initializes the instance.
-func (p MLParameterUtils) Init() MLParameterUtils {
-	rv := objc.Send[MLParameterUtils](p.ID, objc.Sel("init"))
+func (m MLParameterUtils) Init() MLParameterUtils {
+	rv := objc.Send[MLParameterUtils](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLParameterUtils) Autorelease() MLParameterUtils {
-	rv := objc.Send[MLParameterUtils](p.ID, objc.Sel("autorelease"))
+func (m MLParameterUtils) Autorelease() MLParameterUtils {
+	rv := objc.Send[MLParameterUtils](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

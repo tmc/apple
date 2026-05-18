@@ -66,14 +66,14 @@ type IMLPipelineCompiler interface {
 }
 
 // Init initializes the instance.
-func (p MLPipelineCompiler) Init() MLPipelineCompiler {
-	rv := objc.Send[MLPipelineCompiler](p.ID, objc.Sel("init"))
+func (m MLPipelineCompiler) Init() MLPipelineCompiler {
+	rv := objc.Send[MLPipelineCompiler](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLPipelineCompiler) Autorelease() MLPipelineCompiler {
-	rv := objc.Send[MLPipelineCompiler](p.ID, objc.Sel("autorelease"))
+func (m MLPipelineCompiler) Autorelease() MLPipelineCompiler {
+	rv := objc.Send[MLPipelineCompiler](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

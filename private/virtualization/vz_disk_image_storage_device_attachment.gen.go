@@ -78,14 +78,14 @@ type IVZDiskImageStorageDeviceAttachment interface {
 }
 
 // Init initializes the instance.
-func (d VZDiskImageStorageDeviceAttachment) Init() VZDiskImageStorageDeviceAttachment {
-	rv := objc.Send[VZDiskImageStorageDeviceAttachment](d.ID, objc.Sel("init"))
+func (v VZDiskImageStorageDeviceAttachment) Init() VZDiskImageStorageDeviceAttachment {
+	rv := objc.Send[VZDiskImageStorageDeviceAttachment](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (d VZDiskImageStorageDeviceAttachment) Autorelease() VZDiskImageStorageDeviceAttachment {
-	rv := objc.Send[VZDiskImageStorageDeviceAttachment](d.ID, objc.Sel("autorelease"))
+func (v VZDiskImageStorageDeviceAttachment) Autorelease() VZDiskImageStorageDeviceAttachment {
+	rv := objc.Send[VZDiskImageStorageDeviceAttachment](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -97,23 +97,23 @@ func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment 
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/_updateDiskSize:
-func (d VZDiskImageStorageDeviceAttachment) _updateDiskSize(size uint64) {
-	objc.Send[objc.ID](d.ID, objc.Sel("_updateDiskSize:"), size)
+func (v VZDiskImageStorageDeviceAttachment) _updateDiskSize(size uint64) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_updateDiskSize:"), size)
 }
 
 // UpdateDiskSize is an exported wrapper for the private method _updateDiskSize.
-func (d VZDiskImageStorageDeviceAttachment) UpdateDiskSize(size uint64) error {
-	if !objc.RespondsToSelector(d.ID, objc.Sel("_updateDiskSize:")) {
+func (v VZDiskImageStorageDeviceAttachment) UpdateDiskSize(size uint64) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_updateDiskSize:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_updateDiskSize:"}
 		return err
 	}
-	d._updateDiskSize(size)
+	v._updateDiskSize(size)
 	return nil
 }
 
 // CanUpdateDiskSize reports whether the receiver responds to the private selector _updateDiskSize:.
-func (d VZDiskImageStorageDeviceAttachment) CanUpdateDiskSize() bool {
-	return objc.RespondsToSelector(d.ID, objc.Sel("_updateDiskSize:"))
+func (v VZDiskImageStorageDeviceAttachment) CanUpdateDiskSize() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_updateDiskSize:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/_diskImageStorageDeviceAttachmentWithDiskImage:
@@ -137,7 +137,7 @@ func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmen
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/readOnly
-func (d VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
-	rv := objc.Send[bool](d.ID, objc.Sel("readOnly"))
+func (v VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }

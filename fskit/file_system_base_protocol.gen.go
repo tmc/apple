@@ -13,11 +13,6 @@ import (
 type FSFileSystemBase interface {
 	objectivec.IObject
 
-	// The status of the file system container, indicating its readiness and activity.
-	//
-	// See: https://developer.apple.com/documentation/FSKit/FSFileSystemBase/containerStatus
-	ContainerStatus() IFSContainerStatus
-
 	// Wipes existing file systems on the specified resource.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSFileSystemBase/wipe(_:completionHandler:)
@@ -26,6 +21,7 @@ type FSFileSystemBase interface {
 	// The status of the file system container, indicating its readiness and activity.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSFileSystemBase/containerStatus
+	ContainerStatus() IFSContainerStatus
 	SetContainerStatus(value IFSContainerStatus)
 }
 
@@ -44,15 +40,6 @@ func FSFileSystemBaseObjectFromID(id objc.ID) FSFileSystemBaseObject {
 	return FSFileSystemBaseObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// The status of the file system container, indicating its readiness and
-// activity.
-//
-// See: https://developer.apple.com/documentation/FSKit/FSFileSystemBase/containerStatus
-func (o FSFileSystemBaseObject) ContainerStatus() IFSContainerStatus {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("containerStatus"))
-	return FSContainerStatusFromID(rv)
 }
 
 // Wipes existing file systems on the specified resource.
@@ -79,10 +66,9 @@ func (o FSFileSystemBaseObject) WipeResourceCompletionHandler(resource IFSBlockD
 //
 // # Discussion
 //
-// A file system container starts in the [FSContainerState.notReady] state,
-// and then transitions to the other values of the [FSContainerState]
-// enumeration. The following diagram illustrates the possible state
-// transitions.
+// A file system container starts in the [FSContainerStateNotReady] state, and
+// then transitions to the other values of the [FSContainerState] enumeration.
+// The following diagram illustrates the possible state transitions.
 //
 // [fs-file-system-base]
 //
@@ -94,26 +80,27 @@ func (o FSFileSystemBaseObject) WipeResourceCompletionHandler(resource IFSBlockD
 // transitions:
 //
 // - Calling `loadResource` transitions the state out of
-// [FSContainerState.notReady]. For all block device file systems, this
-// operation changes the state to either [FSContainerState.ready] or
-// [FSContainerState.blocked]. - Calling `unloadResource` transitions to the
-// [FSContainerState.notReady] state, as does device termination. -
-// Transitioning from [FSContainerState.blocked] to [FSContainerState.ready]
+// [FSContainerStateNotReady]. For all block device file systems, this
+// operation changes the state to either [FSContainerStateReady] or
+// [FSContainerStateBlocked]. - Calling `unloadResource` transitions to the
+// [FSContainerStateNotReady] state, as does device termination. -
+// Transitioning from [FSContainerStateBlocked] to [FSContainerStateReady]
 // occurs as a result of resolving the underlying block favorably. -
-// Transitioning from [FSContainerState.ready] to [FSContainerState.blocked]
-// is unusal, but valid. - Transitioning between [FSContainerState.ready] and
-// [FSContainerState.active] can result from maintenance operations such as
+// Transitioning from [FSContainerStateReady] to [FSContainerStateBlocked] is
+// unusal, but valid. - Transitioning between [FSContainerStateReady] and
+// [FSContainerStateActive] can result from maintenance operations such as
 // [StartCheckWithTaskOptionsError]. For a [FSUnaryFileSystem], this
 // transition can also occur when activating or deactivating the container’s
 // single volume.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSFileSystemBase/containerStatus
 //
-// [FSContainerState.active]: https://developer.apple.com/documentation/FSKit/FSContainerState/active
-// [FSContainerState.blocked]: https://developer.apple.com/documentation/FSKit/FSContainerState/blocked
-// [FSContainerState.notReady]: https://developer.apple.com/documentation/FSKit/FSContainerState/notReady
-// [FSContainerState.ready]: https://developer.apple.com/documentation/FSKit/FSContainerState/ready
 // [FSContainerState]: https://developer.apple.com/documentation/FSKit/FSContainerState
+func (o FSFileSystemBaseObject) ContainerStatus() IFSContainerStatus {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("containerStatus"))
+	return FSContainerStatusFromID(rv)
+}
+
 func (o FSFileSystemBaseObject) SetContainerStatus(value IFSContainerStatus) {
 	objc.Send[struct{}](o.ID, objc.Sel("setContainerStatus:"), value)
 }

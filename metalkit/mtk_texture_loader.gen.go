@@ -179,9 +179,9 @@ type IMTKTextureLoader interface {
 	// Topic: Loading Textures from URLs
 
 	// Synchronously loads image data and creates a new Metal texture from a given URL.
-	NewTextureWithContentsOfURLOptionsError(URL foundation.INSURL, options foundation.INSDictionary) (metal.MTLTexture, error)
+	NewTextureWithContentsOfURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (metal.MTLTexture, error)
 	// Asynchronously loads image data and creates a new Metal texture from a given URL.
-	NewTextureWithContentsOfURLOptionsCompletionHandler(URL foundation.INSURL, options foundation.INSDictionary, completionHandler ErrorHandler)
+	NewTextureWithContentsOfURLOptionsCompletionHandler(URL foundation.NSURL, options foundation.INSDictionary, completionHandler ErrorHandler)
 	// Synchronously loads image data and creates new Metal textures from the specified list of URLs.
 	NewTexturesWithContentsOfURLsOptionsError(URLs []foundation.NSURL, options foundation.INSDictionary) ([]objectivec.IObject, error)
 	// Asynchronously loads image data and creates new Metal textures from the specified list of URLs.
@@ -212,9 +212,9 @@ type IMTKTextureLoader interface {
 	// Topic: Loading Textures from In-Memory Data Representations
 
 	// Synchronously creates a new Metal texture from an in-memory representation of the texture’s data.
-	NewTextureWithDataOptionsError(data foundation.INSData, options foundation.INSDictionary) (metal.MTLTexture, error)
+	NewTextureWithDataOptionsError(data foundation.NSData, options foundation.INSDictionary) (metal.MTLTexture, error)
 	// Asynchronously creates a new Metal texture from an in-memory representation of the texture’s data.
-	NewTextureWithDataOptionsCompletionHandler(data foundation.INSData, options foundation.INSDictionary, completionHandler ErrorHandler)
+	NewTextureWithDataOptionsCompletionHandler(data foundation.NSData, options foundation.INSDictionary, completionHandler ErrorHandler)
 
 	// Topic: Loading Textures from Model I/O Representations
 
@@ -286,7 +286,7 @@ func (t MTKTextureLoader) InitWithDevice(device metal.MTLDevice) MTKTextureLoade
 // occurred.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(URL:options:)
-func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsError(URL foundation.INSURL, options foundation.INSDictionary) (metal.MTLTexture, error) {
+func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (metal.MTLTexture, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithContentsOfURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -310,7 +310,7 @@ func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsError(URL foundation
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(URL:options:completionHandler:)
-func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsCompletionHandler(URL foundation.INSURL, options foundation.INSDictionary, completionHandler ErrorHandler) {
+func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsCompletionHandler(URL foundation.NSURL, options foundation.INSDictionary, completionHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithContentsOfURL:options:completionHandler:"), URL, options, _block2)
 }
@@ -699,7 +699,7 @@ func (t MTKTextureLoader) NewTextureWithCGImageOptionsCompletionHandler(cgImage 
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(data:options:)
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-func (t MTKTextureLoader) NewTextureWithDataOptionsError(data foundation.INSData, options foundation.INSDictionary) (metal.MTLTexture, error) {
+func (t MTKTextureLoader) NewTextureWithDataOptionsError(data foundation.NSData, options foundation.INSDictionary) (metal.MTLTexture, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithData:options:error:"), data, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -725,7 +725,7 @@ func (t MTKTextureLoader) NewTextureWithDataOptionsError(data foundation.INSData
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(data:options:completionHandler:)
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-func (t MTKTextureLoader) NewTextureWithDataOptionsCompletionHandler(data foundation.INSData, options foundation.INSDictionary, completionHandler ErrorHandler) {
+func (t MTKTextureLoader) NewTextureWithDataOptionsCompletionHandler(data foundation.NSData, options foundation.INSDictionary, completionHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithData:options:completionHandler:"), data, options, _block2)
 }

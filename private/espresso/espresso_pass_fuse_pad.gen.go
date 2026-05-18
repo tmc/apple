@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_fuse_pad] class.
+// The class instance for the [EspressoPassFusePad] class.
 var (
-	_EspressoPass_fuse_padClass     EspressoPass_fuse_padClass
-	_EspressoPass_fuse_padClassOnce sync.Once
+	_EspressoPassFusePadClass     EspressoPassFusePadClass
+	_EspressoPassFusePadClassOnce sync.Once
 )
 
-func getEspressoPass_fuse_padClass() EspressoPass_fuse_padClass {
-	_EspressoPass_fuse_padClassOnce.Do(func() {
-		_EspressoPass_fuse_padClass = EspressoPass_fuse_padClass{class: objc.GetClass("EspressoPass_fuse_pad")}
+func getEspressoPassFusePadClass() EspressoPassFusePadClass {
+	_EspressoPassFusePadClassOnce.Do(func() {
+		_EspressoPassFusePadClass = EspressoPassFusePadClass{class: objc.GetClass("EspressoPass_fuse_pad")}
 	})
-	return _EspressoPass_fuse_padClass
+	return _EspressoPassFusePadClass
 }
 
-// GetEspressoPass_fuse_padClass returns the class object for EspressoPass_fuse_pad.
-func GetEspressoPass_fuse_padClass() EspressoPass_fuse_padClass {
-	return getEspressoPass_fuse_padClass()
+// GetEspressoPassFusePadClass returns the class object for EspressoPass_fuse_pad.
+func GetEspressoPassFusePadClass() EspressoPassFusePadClass {
+	return getEspressoPassFusePadClass()
 }
 
-type EspressoPass_fuse_padClass struct {
+type EspressoPassFusePadClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_fuse_padClass) Class() objc.Class {
+func (ec EspressoPassFusePadClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_fuse_padClass) Alloc() EspressoPass_fuse_pad {
-	rv := objc.Send[EspressoPass_fuse_pad](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassFusePadClass) Alloc() EspressoPassFusePad {
+	rv := objc.Send[EspressoPassFusePad](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_pad
-type EspressoPass_fuse_pad struct {
+type EspressoPassFusePad struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_fuse_padFromID constructs a [EspressoPass_fuse_pad] from an objc.ID.
-func EspressoPass_fuse_padFromID(id objc.ID) EspressoPass_fuse_pad {
-	return EspressoPass_fuse_pad{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassFusePadFromID constructs a [EspressoPassFusePad] from an objc.ID.
+func EspressoPassFusePadFromID(id objc.ID) EspressoPassFusePad {
+	return EspressoPassFusePad{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_fuse_pad implements IEspressoPass_fuse_pad.
-var _ IEspressoPass_fuse_pad = EspressoPass_fuse_pad{}
+// EspressoPass_fuse_padFromID is an alias for [EspressoPassFusePadFromID] for cross-framework compatibility.
+func EspressoPass_fuse_padFromID(id objc.ID) EspressoPassFusePad {
+	return EspressoPassFusePadFromID(id)
+}
 
-// An interface definition for the [EspressoPass_fuse_pad] class.
+// Ensure EspressoPassFusePad implements IEspressoPassFusePad.
+var _ IEspressoPassFusePad = EspressoPassFusePad{}
+
+// An interface definition for the [EspressoPassFusePad] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_pad
-type IEspressoPass_fuse_pad interface {
+type IEspressoPassFusePad interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_fuse_pad) Init() EspressoPass_fuse_pad {
-	rv := objc.Send[EspressoPass_fuse_pad](e.ID, objc.Sel("init"))
+func (e EspressoPassFusePad) Init() EspressoPassFusePad {
+	rv := objc.Send[EspressoPassFusePad](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_fuse_pad) Autorelease() EspressoPass_fuse_pad {
-	rv := objc.Send[EspressoPass_fuse_pad](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassFusePad) Autorelease() EspressoPassFusePad {
+	rv := objc.Send[EspressoPassFusePad](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_fuse_pad creates a new EspressoPass_fuse_pad instance.
-func NewEspressoPass_fuse_pad() EspressoPass_fuse_pad {
-	class := getEspressoPass_fuse_padClass()
-	rv := objc.Send[EspressoPass_fuse_pad](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassFusePad creates a new EspressoPassFusePad instance.
+func NewEspressoPassFusePad() EspressoPassFusePad {
+	class := getEspressoPassFusePadClass()
+	rv := objc.Send[EspressoPassFusePad](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

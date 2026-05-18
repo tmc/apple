@@ -66,14 +66,14 @@ type IMLCompiler interface {
 }
 
 // Init initializes the instance.
-func (c MLCompiler) Init() MLCompiler {
-	rv := objc.Send[MLCompiler](c.ID, objc.Sel("init"))
+func (m MLCompiler) Init() MLCompiler {
+	rv := objc.Send[MLCompiler](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLCompiler) Autorelease() MLCompiler {
-	rv := objc.Send[MLCompiler](c.ID, objc.Sel("autorelease"))
+func (m MLCompiler) Autorelease() MLCompiler {
+	rv := objc.Send[MLCompiler](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

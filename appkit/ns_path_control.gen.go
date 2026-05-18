@@ -203,8 +203,8 @@ type INSPathControl interface {
 	// Topic: Setting the Path
 
 	// The path value displayed by the receiver.
-	URL() foundation.INSURL
-	SetURL(value foundation.INSURL)
+	URL() foundation.NSURL
+	SetURL(value foundation.NSURL)
 
 	// Topic: Setting the Delegate
 
@@ -360,11 +360,11 @@ func (p NSPathControl) SetDoubleAction(value objc.SEL) {
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/url
 //
 // [isFileURL]: https://developer.apple.com/documentation/Foundation/NSURL/isFileURL
-func (p NSPathControl) URL() foundation.INSURL {
+func (p NSPathControl) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (p NSPathControl) SetURL(value foundation.INSURL) {
+func (p NSPathControl) SetURL(value foundation.NSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
 

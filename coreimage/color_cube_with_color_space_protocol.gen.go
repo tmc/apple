@@ -20,50 +20,30 @@ type CIColorCubeWithColorSpace interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/colorSpace
 	ColorSpace() coregraphics.CGColorSpaceRef
-
-	// The cube texture data to use as a color lookup table.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeData
-	CubeData() foundation.INSData
-
-	// The length, in texels, of each side of the cube texture.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeDimension
-	CubeDimension() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/inputImage
-	InputImage() ICIImage
-
-	// If true, then the filter extrapolates the color cube for any RGB component values outside the range 0.0 to 1.0.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/extrapolate
-	Extrapolate() bool
-
-	// The working color space.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/colorSpace
 	SetColorSpace(value coregraphics.CGColorSpaceRef)
 
 	// The cube texture data to use as a color lookup table.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeData
-	SetCubeData(value foundation.INSData)
+	CubeData() foundation.NSData
+	SetCubeData(value foundation.NSData)
 
 	// The length, in texels, of each side of the cube texture.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeDimension
+	CubeDimension() float32
 	SetCubeDimension(value float32)
 
 	// The image to use as an input image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// If true, then the filter extrapolates the color cube for any RGB component values outside the range 0.0 to 1.0.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/extrapolate
+	Extrapolate() bool
 	SetExtrapolate(value bool)
 }
 
@@ -84,47 +64,6 @@ func CIColorCubeWithColorSpaceObjectFromID(id objc.ID) CIColorCubeWithColorSpace
 	}
 }
 
-// The working color space.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/colorSpace
-func (o CIColorCubeWithColorSpaceObject) ColorSpace() coregraphics.CGColorSpaceRef {
-	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
-	return rv
-}
-
-// The cube texture data to use as a color lookup table.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeData
-func (o CIColorCubeWithColorSpaceObject) CubeData() foundation.INSData {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("cubeData"))
-	return foundation.NSDataFromID(rv)
-}
-
-// The length, in texels, of each side of the cube texture.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeDimension
-func (o CIColorCubeWithColorSpaceObject) CubeDimension() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("cubeDimension"))
-	return rv
-}
-
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/inputImage
-func (o CIColorCubeWithColorSpaceObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// If true, then the filter extrapolates the color cube for any RGB component
-// values outside the range 0.0 to 1.0.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/extrapolate
-func (o CIColorCubeWithColorSpaceObject) Extrapolate() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -137,6 +76,11 @@ func (o CIColorCubeWithColorSpaceObject) OutputImage() ICIImage {
 // The working color space.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/colorSpace
+func (o CIColorCubeWithColorSpaceObject) ColorSpace() coregraphics.CGColorSpaceRef {
+	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
+	return coregraphics.CGColorSpaceRef(rv)
+}
+
 func (o CIColorCubeWithColorSpaceObject) SetColorSpace(value coregraphics.CGColorSpaceRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColorSpace:"), value)
 }
@@ -161,13 +105,23 @@ func (o CIColorCubeWithColorSpaceObject) SetColorSpace(value coregraphics.CGColo
 // fastest, followed by G, then B.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeData
-func (o CIColorCubeWithColorSpaceObject) SetCubeData(value foundation.INSData) {
+func (o CIColorCubeWithColorSpaceObject) CubeData() foundation.NSData {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("cubeData"))
+	return foundation.NSDataFromID(rv)
+}
+
+func (o CIColorCubeWithColorSpaceObject) SetCubeData(value foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCubeData:"), value)
 }
 
 // The length, in texels, of each side of the cube texture.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeDimension
+func (o CIColorCubeWithColorSpaceObject) CubeDimension() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("cubeDimension"))
+	return float32(rv)
+}
+
 func (o CIColorCubeWithColorSpaceObject) SetCubeDimension(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCubeDimension:"), value)
 }
@@ -175,6 +129,11 @@ func (o CIColorCubeWithColorSpaceObject) SetCubeDimension(value float32) {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/inputImage
+func (o CIColorCubeWithColorSpaceObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIColorCubeWithColorSpaceObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -183,6 +142,11 @@ func (o CIColorCubeWithColorSpaceObject) SetInputImage(value ICIImage) {
 // values outside the range 0.0 to 1.0.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/extrapolate
+func (o CIColorCubeWithColorSpaceObject) Extrapolate() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
+	return bool(rv)
+}
+
 func (o CIColorCubeWithColorSpaceObject) SetExtrapolate(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtrapolate:"), value)
 }

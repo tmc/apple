@@ -77,14 +77,14 @@ type IVZMacGraphicsDevice interface {
 }
 
 // Init initializes the instance.
-func (m VZMacGraphicsDevice) Init() VZMacGraphicsDevice {
-	rv := objc.Send[VZMacGraphicsDevice](m.ID, objc.Sel("init"))
+func (v VZMacGraphicsDevice) Init() VZMacGraphicsDevice {
+	rv := objc.Send[VZMacGraphicsDevice](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (m VZMacGraphicsDevice) Autorelease() VZMacGraphicsDevice {
-	rv := objc.Send[VZMacGraphicsDevice](m.ID, objc.Sel("autorelease"))
+func (v VZMacGraphicsDevice) Autorelease() VZMacGraphicsDevice {
+	rv := objc.Send[VZMacGraphicsDevice](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -96,41 +96,41 @@ func NewVZMacGraphicsDevice() VZMacGraphicsDevice {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice/_deviceFeatureLevel
-func (m VZMacGraphicsDevice) _deviceFeatureLevel() int64 {
-	rv := objc.Send[int64](m.ID, objc.Sel("_deviceFeatureLevel"))
+func (v VZMacGraphicsDevice) _deviceFeatureLevel() int64 {
+	rv := objc.Send[int64](v.ID, objc.Sel("_deviceFeatureLevel"))
 	return rv
 }
 
 // DeviceFeatureLevel is an exported wrapper for the private method _deviceFeatureLevel.
-func (m VZMacGraphicsDevice) DeviceFeatureLevel() (int64, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_deviceFeatureLevel")) {
+func (v VZMacGraphicsDevice) DeviceFeatureLevel() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_deviceFeatureLevel")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_deviceFeatureLevel"}
 		return 0, err
 	}
-	return m._deviceFeatureLevel(), nil
+	return v._deviceFeatureLevel(), nil
 }
 
 // CanDeviceFeatureLevel reports whether the receiver responds to the private selector _deviceFeatureLevel.
-func (m VZMacGraphicsDevice) CanDeviceFeatureLevel() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_deviceFeatureLevel"))
+func (v VZMacGraphicsDevice) CanDeviceFeatureLevel() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_deviceFeatureLevel"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice/_prefersLowPower
-func (m VZMacGraphicsDevice) _prefersLowPower() bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("_prefersLowPower"))
+func (v VZMacGraphicsDevice) _prefersLowPower() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("_prefersLowPower"))
 	return rv
 }
 
 // PrefersLowPower is an exported wrapper for the private method _prefersLowPower.
-func (m VZMacGraphicsDevice) PrefersLowPower() (bool, error) {
-	if !objc.RespondsToSelector(m.ID, objc.Sel("_prefersLowPower")) {
+func (v VZMacGraphicsDevice) PrefersLowPower() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_prefersLowPower")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_prefersLowPower"}
 		return false, err
 	}
-	return m._prefersLowPower(), nil
+	return v._prefersLowPower(), nil
 }
 
 // CanPrefersLowPower reports whether the receiver responds to the private selector _prefersLowPower.
-func (m VZMacGraphicsDevice) CanPrefersLowPower() bool {
-	return objc.RespondsToSelector(m.ID, objc.Sel("_prefersLowPower"))
+func (v VZMacGraphicsDevice) CanPrefersLowPower() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_prefersLowPower"))
 }

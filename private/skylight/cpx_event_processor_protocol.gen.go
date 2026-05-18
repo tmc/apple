@@ -3,8 +3,6 @@
 package skylight
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +42,7 @@ func (o CPXEventProcessorObject) ClearEventState() {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXEventProcessor/processEvent:context:dispatcher:
-func (o CPXEventProcessorObject) ProcessEventContextDispatcher(event *SLSEventRecordRef, context unsafe.Pointer, dispatcher objectivec.IObject) int64 {
+func (o CPXEventProcessorObject) ProcessEventContextDispatcher(event SLSEventRecord, context CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("processEvent:context:dispatcher:"), event, context, dispatcher)
 	return rv
 }

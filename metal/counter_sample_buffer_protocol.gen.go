@@ -14,6 +14,11 @@ import (
 type MTLCounterSampleBuffer interface {
 	objectivec.IObject
 
+	// Transforms samples of a GPU’s counter set from the driver’s internal format to a standard Metal data structure.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/resolveCounterRange:
+	ResolveCounterRange(range_ foundation.NSRange) foundation.NSData
+
 	// A string that identifies the counter sample buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/label
@@ -28,11 +33,6 @@ type MTLCounterSampleBuffer interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/sampleCount
 	SampleCount() uint
-
-	// Transforms samples of a GPU’s counter set from the driver’s internal format to a standard Metal data structure.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/resolveCounterRange:
-	ResolveCounterRange(range_ foundation.NSRange) foundation.INSData
 }
 
 // MTLCounterSampleBufferObject wraps an existing Objective-C object that conforms to the MTLCounterSampleBuffer protocol.
@@ -50,30 +50,6 @@ func MTLCounterSampleBufferObjectFromID(id objc.ID) MTLCounterSampleBufferObject
 	return MTLCounterSampleBufferObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A string that identifies the counter sample buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/label
-func (o MTLCounterSampleBufferObject) Label() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// The GPU device instance that owns the counter sample buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/device
-func (o MTLCounterSampleBufferObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// The number of samples in the buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/sampleCount
-func (o MTLCounterSampleBufferObject) SampleCount() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("sampleCount"))
-	return rv
 }
 
 // Transforms samples of a GPU’s counter set from the driver’s internal
@@ -98,7 +74,44 @@ func (o MTLCounterSampleBufferObject) SampleCount() uint {
 //
 // [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 // [Converting a GPU’s counter data into a readable format]: https://developer.apple.com/documentation/Metal/converting-a-gpus-counter-data-into-a-readable-format
-func (o MTLCounterSampleBufferObject) ResolveCounterRange(range_ foundation.NSRange) foundation.INSData {
+func (o MTLCounterSampleBufferObject) ResolveCounterRange(range_ foundation.NSRange) foundation.NSData {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resolveCounterRange:"), range_)
 	return foundation.NSDataFromID(rv)
+}
+
+// A string that identifies the counter sample buffer.
+//
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
+func (o MTLCounterSampleBufferObject) Label() string {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
+}
+
+// The GPU device instance that owns the counter sample buffer.
+//
+// # Discussion
+//
+// You can store a GPU device’s counter set data only with a counter sample
+// buffer that you create from the same device.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/device
+func (o MTLCounterSampleBufferObject) Device() MTLDevice {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
+	return MTLDeviceObjectFromID(rv)
+}
+
+// The number of samples in the buffer.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/sampleCount
+func (o MTLCounterSampleBufferObject) SampleCount() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("sampleCount"))
+	return uint(rv)
 }

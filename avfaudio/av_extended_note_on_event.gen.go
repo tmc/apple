@@ -166,7 +166,7 @@ func NewAVExtendedNoteOnEvent() AVExtendedNoteOnEvent {
 //
 // duration: The duration of the event, in beats.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:groupID:duration:)
+// See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:groupID:duration:)-60hve
 func NewExtendedNoteOnEventWithMIDINoteVelocityGroupIDDuration(midiNote float32, velocity float32, groupID uint32, duration AVMusicTimeStamp) AVExtendedNoteOnEvent {
 	instance := getAVExtendedNoteOnEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMIDINote:velocity:groupID:duration:"), midiNote, velocity, groupID, duration)
@@ -190,7 +190,7 @@ func NewExtendedNoteOnEventWithMIDINoteVelocityGroupIDDuration(midiNote float32,
 //
 // Use [defaultInstrument] when you set `instrumentID`.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:instrumentID:groupID:duration:)
+// See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:instrumentID:groupID:duration:)-rqr5
 //
 // [defaultInstrument]: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/defaultInstrument
 func NewExtendedNoteOnEventWithMIDINoteVelocityInstrumentIDGroupIDDuration(midiNote float32, velocity float32, instrumentID uint32, groupID uint32, duration AVMusicTimeStamp) AVExtendedNoteOnEvent {
@@ -211,7 +211,7 @@ func NewExtendedNoteOnEventWithMIDINoteVelocityInstrumentIDGroupIDDuration(midiN
 //
 // duration: The duration of the event, in beats.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:groupID:duration:)
+// See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:groupID:duration:)-60hve
 func (e AVExtendedNoteOnEvent) InitWithMIDINoteVelocityGroupIDDuration(midiNote float32, velocity float32, groupID uint32, duration AVMusicTimeStamp) AVExtendedNoteOnEvent {
 	rv := objc.Send[AVExtendedNoteOnEvent](e.ID, objc.Sel("initWithMIDINote:velocity:groupID:duration:"), midiNote, velocity, groupID, duration)
 	return rv
@@ -234,7 +234,7 @@ func (e AVExtendedNoteOnEvent) InitWithMIDINoteVelocityGroupIDDuration(midiNote 
 //
 // Use [defaultInstrument] when you set `instrumentID`.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:instrumentID:groupID:duration:)
+// See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:instrumentID:groupID:duration:)-rqr5
 //
 // [defaultInstrument]: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/defaultInstrument
 func (e AVExtendedNoteOnEvent) InitWithMIDINoteVelocityInstrumentIDGroupIDDuration(midiNote float32, velocity float32, instrumentID uint32, groupID uint32, duration AVMusicTimeStamp) AVExtendedNoteOnEvent {

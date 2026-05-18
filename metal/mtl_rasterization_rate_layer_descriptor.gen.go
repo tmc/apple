@@ -127,6 +127,8 @@ type IMTLRasterizationRateLayerDescriptor interface {
 	// The vertical rasterization rates for the layer map’s rows.
 	Vertical() IMTLRasterizationRateSampleArray
 
+	// A pointer to the storage for the layer map’s horizontal rasterization rates.
+	HorizontalSampleStorage() unsafe.Pointer
 	// A pointer to the storage for the layer map’s vertical rasterization rates.
 	VerticalSampleStorage() unsafe.Pointer
 	// Initializes the layer map with the provided grid size and rasterization rates.
@@ -281,6 +283,22 @@ func (r MTLRasterizationRateLayerDescriptor) Horizontal() IMTLRasterizationRateS
 func (r MTLRasterizationRateLayerDescriptor) Vertical() IMTLRasterizationRateSampleArray {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("vertical"))
 	return MTLRasterizationRateSampleArrayFromID(objc.ID(rv))
+}
+
+// A pointer to the storage for the layer map’s horizontal rasterization
+// rates.
+//
+// # Discussion
+//
+// Points to the first element in the array of horizontal rasterization rates.
+// The number of elements is equal to the [width] value of [SampleCount].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/horizontalSampleStorage
+//
+// [width]: https://developer.apple.com/documentation/Metal/MTLSize/width
+func (r MTLRasterizationRateLayerDescriptor) HorizontalSampleStorage() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("horizontalSampleStorage"))
+	return rv
 }
 
 // A pointer to the storage for the layer map’s vertical rasterization

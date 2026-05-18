@@ -133,8 +133,8 @@ type IAVVCMetricsManager interface {
 	// Topic: Methods
 
 	_disposeADAM() int
-	AdamAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer objectivec.IObject, frames uint32, stamp unsafe.Pointer, analyze bool) int
-	AudioIssueDetectorAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer objectivec.IObject, frames uint32, stamp unsafe.Pointer, analyze bool) int
+	AdamAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer AudioBufferList, frames uint32, stamp AudioTimeStamp, analyze bool) int
+	AudioIssueDetectorAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer AudioBufferList, frames uint32, stamp AudioTimeStamp, analyze bool) int
 	AvvcProfilingInfoDictionary() foundation.INSDictionary
 	SetAvvcProfilingInfoDictionary(value foundation.INSDictionary)
 	CallToStartRecordHostTime() uint64
@@ -144,7 +144,7 @@ type IAVVCMetricsManager interface {
 	GetStringDate(date objectivec.IObject) objectivec.IObject
 	LogABCMetricCategoryTypeReporterID(aBCMetric objectivec.IObject, category uint32, type_ uint16, id int64)
 	LogProfileMetrics(metrics objectivec.IObject)
-	LogRecordAudioFormatReporterID(format objectivec.IObject, id int64)
+	LogRecordAudioFormatReporterID(format CAStreamBasicDescription, id int64)
 	LogRecordRouteAndPlaybackRouteReporterID(route objectivec.IObject, route2 objectivec.IObject, id int64)
 	LogSessionMetricValueCategoryTypeContextReporterID(metric objectivec.IObject, value objectivec.IObject, category uint32, type_ uint16, context objectivec.IObject, id int64)
 	LogSessionMetricValueCategoryTypeReporterID(metric objectivec.IObject, value objectivec.IObject, category uint32, type_ uint16, id int64)
@@ -157,22 +157,22 @@ type IAVVCMetricsManager interface {
 	ResetProfileMetrics()
 	RetrieveMetrics() objectivec.IObject
 	RetrieveProfileMetrics() objectivec.IObject
-	SetADAMFormatNumFrames(aDAMFormat objectivec.IObject, frames uint32) int
-	SetAudioIssueDetectorFormatNumFrames(format objectivec.IObject, frames uint32) int
+	SetADAMFormatNumFrames(aDAMFormat CAStreamBasicDescription, frames uint32) int
+	SetAudioIssueDetectorFormatNumFrames(format CAStreamBasicDescription, frames uint32) int
 	UpdateWithReporterID(id int64)
 	VoiceTriggerStartHostTime() uint64
 	SetVoiceTriggerStartHostTime(value uint64)
 }
 
 // Init initializes the instance.
-func (v AVVCMetricsManager) Init() AVVCMetricsManager {
-	rv := objc.Send[AVVCMetricsManager](v.ID, objc.Sel("init"))
+func (a AVVCMetricsManager) Init() AVVCMetricsManager {
+	rv := objc.Send[AVVCMetricsManager](a.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (v AVVCMetricsManager) Autorelease() AVVCMetricsManager {
-	rv := objc.Send[AVVCMetricsManager](v.ID, objc.Sel("autorelease"))
+func (a AVVCMetricsManager) Autorelease() AVVCMetricsManager {
+	rv := objc.Send[AVVCMetricsManager](a.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -184,126 +184,126 @@ func NewAVVCMetricsManager() AVVCMetricsManager {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/_disposeADAM
-func (v AVVCMetricsManager) _disposeADAM() int {
-	rv := objc.Send[int](v.ID, objc.Sel("_disposeADAM"))
+func (a AVVCMetricsManager) _disposeADAM() int {
+	rv := objc.Send[int](a.ID, objc.Sel("_disposeADAM"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/adamAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:
-func (v AVVCMetricsManager) AdamAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer objectivec.IObject, frames uint32, stamp unsafe.Pointer, analyze bool) int {
-	rv := objc.Send[int](v.ID, objc.Sel("adamAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:"), buffer, frames, stamp, analyze)
+func (a AVVCMetricsManager) AdamAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer AudioBufferList, frames uint32, stamp AudioTimeStamp, analyze bool) int {
+	rv := objc.Send[int](a.ID, objc.Sel("adamAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:"), buffer, frames, stamp, analyze)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/audioIssueDetectorAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:
-func (v AVVCMetricsManager) AudioIssueDetectorAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer objectivec.IObject, frames uint32, stamp unsafe.Pointer, analyze bool) int {
-	rv := objc.Send[int](v.ID, objc.Sel("audioIssueDetectorAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:"), buffer, frames, stamp, analyze)
+func (a AVVCMetricsManager) AudioIssueDetectorAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer AudioBufferList, frames uint32, stamp AudioTimeStamp, analyze bool) int {
+	rv := objc.Send[int](a.ID, objc.Sel("audioIssueDetectorAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:"), buffer, frames, stamp, analyze)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/checkAndUpdateReporterID:
-func (v AVVCMetricsManager) CheckAndUpdateReporterID(id int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("checkAndUpdateReporterID:"), id)
+func (a AVVCMetricsManager) CheckAndUpdateReporterID(id int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("checkAndUpdateReporterID:"), id)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/disposeADAM
-func (v AVVCMetricsManager) DisposeADAM() int {
-	rv := objc.Send[int](v.ID, objc.Sel("disposeADAM"))
+func (a AVVCMetricsManager) DisposeADAM() int {
+	rv := objc.Send[int](a.ID, objc.Sel("disposeADAM"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/getStringDate:
-func (v AVVCMetricsManager) GetStringDate(date objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("getStringDate:"), date)
+func (a AVVCMetricsManager) GetStringDate(date objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("getStringDate:"), date)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/logABCMetric:category:type:reporterID:
-func (v AVVCMetricsManager) LogABCMetricCategoryTypeReporterID(aBCMetric objectivec.IObject, category uint32, type_ uint16, id int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("logABCMetric:category:type:reporterID:"), aBCMetric, category, type_, id)
+func (a AVVCMetricsManager) LogABCMetricCategoryTypeReporterID(aBCMetric objectivec.IObject, category uint32, type_ uint16, id int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("logABCMetric:category:type:reporterID:"), aBCMetric, category, type_, id)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/logProfileMetrics:
-func (v AVVCMetricsManager) LogProfileMetrics(metrics objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("logProfileMetrics:"), metrics)
+func (a AVVCMetricsManager) LogProfileMetrics(metrics objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("logProfileMetrics:"), metrics)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/logRecordAudioFormat:reporterID:
-func (v AVVCMetricsManager) LogRecordAudioFormatReporterID(format objectivec.IObject, id int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("logRecordAudioFormat:reporterID:"), format, id)
+func (a AVVCMetricsManager) LogRecordAudioFormatReporterID(format CAStreamBasicDescription, id int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("logRecordAudioFormat:reporterID:"), format, id)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/logRecordRoute:andPlaybackRoute:reporterID:
-func (v AVVCMetricsManager) LogRecordRouteAndPlaybackRouteReporterID(route objectivec.IObject, route2 objectivec.IObject, id int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("logRecordRoute:andPlaybackRoute:reporterID:"), route, route2, id)
+func (a AVVCMetricsManager) LogRecordRouteAndPlaybackRouteReporterID(route objectivec.IObject, route2 objectivec.IObject, id int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("logRecordRoute:andPlaybackRoute:reporterID:"), route, route2, id)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/logSessionMetric:value:category:type:context:reporterID:
-func (v AVVCMetricsManager) LogSessionMetricValueCategoryTypeContextReporterID(metric objectivec.IObject, value objectivec.IObject, category uint32, type_ uint16, context objectivec.IObject, id int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("logSessionMetric:value:category:type:context:reporterID:"), metric, value, category, type_, context, id)
+func (a AVVCMetricsManager) LogSessionMetricValueCategoryTypeContextReporterID(metric objectivec.IObject, value objectivec.IObject, category uint32, type_ uint16, context objectivec.IObject, id int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("logSessionMetric:value:category:type:context:reporterID:"), metric, value, category, type_, context, id)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/logSessionMetric:value:category:type:reporterID:
-func (v AVVCMetricsManager) LogSessionMetricValueCategoryTypeReporterID(metric objectivec.IObject, value objectivec.IObject, category uint32, type_ uint16, id int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("logSessionMetric:value:category:type:reporterID:"), metric, value, category, type_, id)
+func (a AVVCMetricsManager) LogSessionMetricValueCategoryTypeReporterID(metric objectivec.IObject, value objectivec.IObject, category uint32, type_ uint16, id int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("logSessionMetric:value:category:type:reporterID:"), metric, value, category, type_, id)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/logSingleMetric:value:category:type:reporterID:
-func (v AVVCMetricsManager) LogSingleMetricValueCategoryTypeReporterID(metric objectivec.IObject, value objectivec.IObject, category uint32, type_ uint16, id int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("logSingleMetric:value:category:type:reporterID:"), metric, value, category, type_, id)
+func (a AVVCMetricsManager) LogSingleMetricValueCategoryTypeReporterID(metric objectivec.IObject, value objectivec.IObject, category uint32, type_ uint16, id int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("logSingleMetric:value:category:type:reporterID:"), metric, value, category, type_, id)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/measureElapseTimeForMetric:block:
-func (v AVVCMetricsManager) MeasureElapseTimeForMetricBlock(metric objectivec.IObject, block VoidHandler) bool {
+func (a AVVCMetricsManager) MeasureElapseTimeForMetricBlock(metric objectivec.IObject, block VoidHandler) bool {
 	_block1, _ := NewVoidBlock(block)
-	rv := objc.Send[bool](v.ID, objc.Sel("measureElapseTimeForMetric:block:"), metric, _block1)
+	rv := objc.Send[bool](a.ID, objc.Sel("measureElapseTimeForMetric:block:"), metric, _block1)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/reporterID
-func (v AVVCMetricsManager) ReporterID() int64 {
-	rv := objc.Send[int64](v.ID, objc.Sel("reporterID"))
+func (a AVVCMetricsManager) ReporterID() int64 {
+	rv := objc.Send[int64](a.ID, objc.Sel("reporterID"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/resetAudioIssueDetector
-func (v AVVCMetricsManager) ResetAudioIssueDetector() int {
-	rv := objc.Send[int](v.ID, objc.Sel("resetAudioIssueDetector"))
+func (a AVVCMetricsManager) ResetAudioIssueDetector() int {
+	rv := objc.Send[int](a.ID, objc.Sel("resetAudioIssueDetector"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/resetProfileMetrics
-func (v AVVCMetricsManager) ResetProfileMetrics() {
-	objc.Send[objc.ID](v.ID, objc.Sel("resetProfileMetrics"))
+func (a AVVCMetricsManager) ResetProfileMetrics() {
+	objc.Send[objc.ID](a.ID, objc.Sel("resetProfileMetrics"))
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/retrieveMetrics
-func (v AVVCMetricsManager) RetrieveMetrics() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("retrieveMetrics"))
+func (a AVVCMetricsManager) RetrieveMetrics() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("retrieveMetrics"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/retrieveProfileMetrics
-func (v AVVCMetricsManager) RetrieveProfileMetrics() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("retrieveProfileMetrics"))
+func (a AVVCMetricsManager) RetrieveProfileMetrics() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("retrieveProfileMetrics"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/setADAMFormat:numFrames:
-func (v AVVCMetricsManager) SetADAMFormatNumFrames(aDAMFormat objectivec.IObject, frames uint32) int {
-	rv := objc.Send[int](v.ID, objc.Sel("setADAMFormat:numFrames:"), aDAMFormat, frames)
+func (a AVVCMetricsManager) SetADAMFormatNumFrames(aDAMFormat CAStreamBasicDescription, frames uint32) int {
+	rv := objc.Send[int](a.ID, objc.Sel("setADAMFormat:numFrames:"), aDAMFormat, frames)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/setAudioIssueDetectorFormat:numFrames:
-func (v AVVCMetricsManager) SetAudioIssueDetectorFormatNumFrames(format objectivec.IObject, frames uint32) int {
-	rv := objc.Send[int](v.ID, objc.Sel("setAudioIssueDetectorFormat:numFrames:"), format, frames)
+func (a AVVCMetricsManager) SetAudioIssueDetectorFormatNumFrames(format CAStreamBasicDescription, frames uint32) int {
+	rv := objc.Send[int](a.ID, objc.Sel("setAudioIssueDetectorFormat:numFrames:"), format, frames)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/updateWithReporterID:
-func (v AVVCMetricsManager) UpdateWithReporterID(id int64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("updateWithReporterID:"), id)
+func (a AVVCMetricsManager) UpdateWithReporterID(id int64) {
+	objc.Send[objc.ID](a.ID, objc.Sel("updateWithReporterID:"), id)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/createSharedManager
@@ -329,46 +329,46 @@ func (_AVVCMetricsManagerClass AVVCMetricsManagerClass) SharedManager() AVVCMetr
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/avvcProfilingInfoDictionary
-func (v AVVCMetricsManager) AvvcProfilingInfoDictionary() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("avvcProfilingInfoDictionary"))
+func (a AVVCMetricsManager) AvvcProfilingInfoDictionary() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("avvcProfilingInfoDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (v AVVCMetricsManager) SetAvvcProfilingInfoDictionary(value foundation.INSDictionary) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAvvcProfilingInfoDictionary:"), value)
+func (a AVVCMetricsManager) SetAvvcProfilingInfoDictionary(value foundation.INSDictionary) {
+	objc.Send[struct{}](a.ID, objc.Sel("setAvvcProfilingInfoDictionary:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/callToStartRecordHostTime
-func (v AVVCMetricsManager) CallToStartRecordHostTime() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("callToStartRecordHostTime"))
+func (a AVVCMetricsManager) CallToStartRecordHostTime() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("callToStartRecordHostTime"))
 	return rv
 }
-func (v AVVCMetricsManager) SetCallToStartRecordHostTime(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCallToStartRecordHostTime:"), value)
+func (a AVVCMetricsManager) SetCallToStartRecordHostTime(value uint64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setCallToStartRecordHostTime:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/publicMetrics
-func (v AVVCMetricsManager) PublicMetrics() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("publicMetrics"))
+func (a AVVCMetricsManager) PublicMetrics() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("publicMetrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (v AVVCMetricsManager) SetPublicMetrics(value foundation.INSDictionary) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPublicMetrics:"), value)
+func (a AVVCMetricsManager) SetPublicMetrics(value foundation.INSDictionary) {
+	objc.Send[struct{}](a.ID, objc.Sel("setPublicMetrics:"), value)
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCMetricsManager/voiceTriggerStartHostTime
-func (v AVVCMetricsManager) VoiceTriggerStartHostTime() uint64 {
-	rv := objc.Send[uint64](v.ID, objc.Sel("voiceTriggerStartHostTime"))
+func (a AVVCMetricsManager) VoiceTriggerStartHostTime() uint64 {
+	rv := objc.Send[uint64](a.ID, objc.Sel("voiceTriggerStartHostTime"))
 	return rv
 }
-func (v AVVCMetricsManager) SetVoiceTriggerStartHostTime(value uint64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setVoiceTriggerStartHostTime:"), value)
+func (a AVVCMetricsManager) SetVoiceTriggerStartHostTime(value uint64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setVoiceTriggerStartHostTime:"), value)
 }
 
 // MeasureElapseTimeForMetricBlockSync is a synchronous wrapper around [AVVCMetricsManager.MeasureElapseTimeForMetricBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (v AVVCMetricsManager) MeasureElapseTimeForMetricBlockSync(ctx context.Context, metric objectivec.IObject) error {
+func (a AVVCMetricsManager) MeasureElapseTimeForMetricBlockSync(ctx context.Context, metric objectivec.IObject) error {
 	done := make(chan struct{}, 1)
-	v.MeasureElapseTimeForMetricBlock(metric, func() {
+	a.MeasureElapseTimeForMetricBlock(metric, func() {
 		done <- struct{}{}
 	})
 	select {

@@ -65,14 +65,14 @@ type IMLNeuralNetworkV1Container interface {
 }
 
 // Init initializes the instance.
-func (n MLNeuralNetworkV1Container) Init() MLNeuralNetworkV1Container {
-	rv := objc.Send[MLNeuralNetworkV1Container](n.ID, objc.Sel("init"))
+func (m MLNeuralNetworkV1Container) Init() MLNeuralNetworkV1Container {
+	rv := objc.Send[MLNeuralNetworkV1Container](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (n MLNeuralNetworkV1Container) Autorelease() MLNeuralNetworkV1Container {
-	rv := objc.Send[MLNeuralNetworkV1Container](n.ID, objc.Sel("autorelease"))
+func (m MLNeuralNetworkV1Container) Autorelease() MLNeuralNetworkV1Container {
+	rv := objc.Send[MLNeuralNetworkV1Container](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 

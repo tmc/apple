@@ -239,9 +239,7 @@ func NSDocumentControllerFromID(id objc.ID) NSDocumentController {
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController
 type INSDocumentController interface {
 	objectivec.IObject
-	NSMenuItemValidation
 	NSUserInterfaceValidations
-	NSWindowRestoration
 
 	// Topic: Initializing a New NSDocumentController
 
@@ -251,21 +249,21 @@ type INSDocumentController interface {
 	// Topic: Creating and Opening Documents
 
 	// Returns, for a given URL, the open document whose file or file package is located by the URL, or `nil` if there is no such open document.
-	DocumentForURL(url foundation.INSURL) INSDocument
+	DocumentForURL(url foundation.NSURL) INSDocument
 	// Creates a new document by reading the contents for the document from another URL, presents its user interface, and returns the document if successful.
-	DuplicateDocumentWithContentsOfURLCopyingDisplayNameError(url foundation.INSURL, duplicateByCopying bool, displayNameOrNil string) (INSDocument, error)
+	DuplicateDocumentWithContentsOfURLCopyingDisplayNameError(url foundation.NSURL, duplicateByCopying bool, displayNameOrNil string) (INSDocument, error)
 	// Opens a document located by a URL, optionally presents its user interface, and calls the passed-in completion handler.
-	OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.INSURL, displayDocument bool, completionHandler DocumentErrorHandler)
+	OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.NSURL, displayDocument bool, completionHandler DocumentErrorHandler)
 	// Creates a new untitled document, presents its user interface if `displayDocument` is `true`, and returns the document if successful.
 	OpenUntitledDocumentAndDisplayError(displayDocument bool) (INSDocument, error)
 	// Instantiates a document located by a URL, of a specified type, but by reading the contents for the document from another URL, and returns it if successful.
-	MakeDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, typeName string) (INSDocument, error)
+	MakeDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, typeName string) (INSDocument, error)
 	// Instantiates a document located by a URL, of a specified type, and returns it if successful.
-	MakeDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (INSDocument, error)
+	MakeDocumentWithContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (INSDocument, error)
 	// Instantiates a new untitled document of the specified type and returns it if successful.
 	MakeUntitledDocumentOfTypeError(typeName string) (INSDocument, error)
 	// Reopens a document, optionally located by a URL, by reading the contents for the document from another URL, optionally presents its user interface, and calls the passed-in completion handler.
-	ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, displayDocument bool, completionHandler DocumentErrorHandler)
+	ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, displayDocument bool, completionHandler DocumentErrorHandler)
 
 	// Topic: Managing Documents
 
@@ -293,7 +291,7 @@ type INSDocumentController interface {
 	// Returns the descriptive name for the specified document type, which is used in the File Format pop-up menu of the Save As dialog.
 	DisplayNameForType(typeName string) string
 	// Returns, for a specified URL, the document type identifier to use when opening the document at that location, if successful.
-	TypeForContentsOfURLError(url foundation.INSURL) (string, error)
+	TypeForContentsOfURLError(url foundation.NSURL) (string, error)
 
 	// Topic: Autosaving
 
@@ -335,7 +333,7 @@ type INSDocumentController interface {
 	// Empties the recent documents list for the application.
 	ClearRecentDocuments(sender objectivec.IObject)
 	// Adds or replaces an Open Recent menu item corresponding to the data located by the URL.
-	NoteNewRecentDocumentURL(url foundation.INSURL)
+	NoteNewRecentDocumentURL(url foundation.NSURL)
 	// Adds or replaces an Open Recent menu item corresponding to the document.
 	NoteNewRecentDocument(document INSDocument)
 	// The list of recent-document URLs.
@@ -351,11 +349,11 @@ type INSDocumentController interface {
 	// Topic: Handling Errors
 
 	// Presents an error alert to the user as a modal panel.
-	PresentError(error_ foundation.INSError) bool
+	PresentError(error_ foundation.NSError) bool
 	// Presents an error alert to the user as a modal panel.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
 	// Indicates an error condition and provides the opportunity to return the same or a different error.
-	WillPresentError(error_ foundation.INSError) foundation.INSError
+	WillPresentError(error_ foundation.NSError) foundation.NSError
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -412,7 +410,7 @@ func (d NSDocumentController) InitWithCoder(coder foundation.INSCoder) NSDocumen
 // find one whose URL matches, and returns the first one whose URL does match.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/document(for:)-i5zi
-func (d NSDocumentController) DocumentForURL(url foundation.INSURL) INSDocument {
+func (d NSDocumentController) DocumentForURL(url foundation.NSURL) INSDocument {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("documentForURL:"), url)
 	return NSDocumentFromID(rv)
 }
@@ -464,7 +462,7 @@ func (d NSDocumentController) DocumentForURL(url foundation.INSURL) INSDocument 
 // [NSFileCoordinator]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator
 // [addFilePresenter(_:)]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/addFilePresenter(_:)
 // [removeFilePresenter(_:)]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/removeFilePresenter(_:)
-func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNameError(url foundation.INSURL, duplicateByCopying bool, displayNameOrNil string) (INSDocument, error) {
+func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNameError(url foundation.NSURL, duplicateByCopying bool, displayNameOrNil string) (INSDocument, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("duplicateDocumentWithContentsOfURL:copying:displayName:error:"), url, duplicateByCopying, objc.String(displayNameOrNil), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -543,7 +541,7 @@ func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNa
 // [addFilePresenter(_:)]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/addFilePresenter(_:)
 // [openDocumentWithContentsOfFile:display:]: https://developer.apple.com/documentation/AppKit/NSDocumentController/openDocumentWithContentsOfFile:display:
 // [removeFilePresenter(_:)]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/removeFilePresenter(_:)
-func (d NSDocumentController) OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.INSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
+func (d NSDocumentController) OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.NSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
 	_block2, _ := NewDocumentErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("openDocumentWithContentsOfURL:display:completionHandler:"), url, displayDocument, _block2)
 }
@@ -611,7 +609,7 @@ func (d NSDocumentController) OpenUntitledDocumentAndDisplayError(displayDocumen
 // [InitForURLWithContentsOfURLOfTypeError] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/makeDocument(for:withContentsOf:ofType:)
-func (d NSDocumentController) MakeDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, typeName string) (INSDocument, error) {
+func (d NSDocumentController) MakeDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, typeName string) (INSDocument, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("makeDocumentForURL:withContentsOfURL:ofType:error:"), urlOrNil, contentsURL, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -645,7 +643,7 @@ func (d NSDocumentController) MakeDocumentForURLWithContentsOfURLOfTypeError(url
 // [InitWithContentsOfURLOfTypeError] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/makeDocument(withContentsOf:ofType:)
-func (d NSDocumentController) MakeDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (INSDocument, error) {
+func (d NSDocumentController) MakeDocumentWithContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (INSDocument, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("makeDocumentWithContentsOfURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -732,7 +730,7 @@ func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (
 // [DocumentForURLWithContentsOfURLOfTypeError] and all the rest.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/reopenDocument(for:withContentsOf:display:completionHandler:)
-func (d NSDocumentController) ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
+func (d NSDocumentController) ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
 	_block3, _ := NewDocumentErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("reopenDocumentForURL:withContentsOfURL:display:completionHandler:"), urlOrNil, contentsURL, displayDocument, _block3)
 }
@@ -847,7 +845,7 @@ func (d NSDocumentController) DisplayNameForType(typeName string) string {
 // being opened.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/typeForContents(of:)
-func (d NSDocumentController) TypeForContentsOfURLError(url foundation.INSURL) (string, error) {
+func (d NSDocumentController) TypeForContentsOfURLError(url foundation.NSURL) (string, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("typeForContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1056,7 +1054,7 @@ func (d NSDocumentController) ClearRecentDocuments(sender objectivec.IObject) {
 // identify them by URL).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/noteNewRecentDocumentURL(_:)
-func (d NSDocumentController) NoteNewRecentDocumentURL(url foundation.INSURL) {
+func (d NSDocumentController) NoteNewRecentDocumentURL(url foundation.NSURL) {
 	objc.Send[objc.ID](d.ID, objc.Sel("noteNewRecentDocumentURL:"), url)
 }
 
@@ -1141,7 +1139,7 @@ func (d NSDocumentController) StandardShareMenuItem() INSMenuItem {
 // override this method but should instead override [WillPresentError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/presentError(_:)
-func (d NSDocumentController) PresentError(error_ foundation.INSError) bool {
+func (d NSDocumentController) PresentError(error_ foundation.NSError) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("presentError:"), error_)
 	return rv
 }
@@ -1177,7 +1175,7 @@ func (d NSDocumentController) PresentError(error_ foundation.INSError) bool {
 // override this method but should instead override [WillPresentError].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/presentError(_:modalFor:delegate:didPresent:contextInfo:)
-func (d NSDocumentController) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
+func (d NSDocumentController) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 
@@ -1201,7 +1199,7 @@ func (d NSDocumentController) PresentErrorModalForWindowDelegateDidPresentSelect
 // original error.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/willPresentError(_:)
-func (d NSDocumentController) WillPresentError(error_ foundation.INSError) foundation.INSError {
+func (d NSDocumentController) WillPresentError(error_ foundation.NSError) foundation.NSError {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("willPresentError:"), error_)
 	return foundation.NSErrorFromID(rv)
 }

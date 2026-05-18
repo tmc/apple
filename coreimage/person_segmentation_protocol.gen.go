@@ -14,24 +14,16 @@ type CIPersonSegmentation interface {
 	objectivec.IObject
 	CIFilterProtocol
 
-	// InputImage protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/inputImage
-	InputImage() ICIImage
-
-	// QualityLevel protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/qualityLevel
-	QualityLevel() uint
-
 	// inputImage protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/inputImage
+	InputImage() ICIImage
 	SetInputImage(value ICIImage)
 
 	// qualityLevel protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/qualityLevel
+	QualityLevel() uint
 	SetQualityLevel(value uint)
 }
 
@@ -52,18 +44,6 @@ func CIPersonSegmentationObjectFromID(id objc.ID) CIPersonSegmentationObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/inputImage
-func (o CIPersonSegmentationObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/qualityLevel
-func (o CIPersonSegmentationObject) QualityLevel() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("qualityLevel"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -74,11 +54,21 @@ func (o CIPersonSegmentationObject) OutputImage() ICIImage {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/inputImage
+func (o CIPersonSegmentationObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIPersonSegmentationObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/qualityLevel
+func (o CIPersonSegmentationObject) QualityLevel() uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("qualityLevel"))
+	return uint(rv)
+}
+
 func (o CIPersonSegmentationObject) SetQualityLevel(value uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQualityLevel:"), value)
 }

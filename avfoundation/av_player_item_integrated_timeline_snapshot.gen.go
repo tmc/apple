@@ -102,12 +102,12 @@ type IAVPlayerItemIntegratedTimelineSnapshot interface {
 	// The current time on the integrated timeline when the system created the snapshot.
 	CurrentTime() coremedia.CMTime
 	// The current date on the integrated timeline when the system created the snapshot.
-	CurrentDate() foundation.INSDate
+	CurrentDate() foundation.NSDate
 
 	// An immutable representation of the timeline state at time of request.
 	CurrentSnapshot() IAVPlayerItemIntegratedTimelineSnapshot
 	SetCurrentSnapshot(value IAVPlayerItemIntegratedTimelineSnapshot)
-	MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut *coremedia.CMTime)
+	MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -130,7 +130,7 @@ func NewAVPlayerItemIntegratedTimelineSnapshot() AVPlayerItemIntegratedTimelineS
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/mapTime:toSegment:atSegmentOffset:
-func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut *coremedia.CMTime) {
+func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("mapTime:toSegment:atSegmentOffset:"), time, timeSegmentOut, segmentOffsetOut)
 }
 
@@ -197,7 +197,7 @@ func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentTime() coremedia.CMTime {
 // This value is `nil` if playback doesn’t map to a date.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/currentDate
-func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentDate() foundation.INSDate {
+func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

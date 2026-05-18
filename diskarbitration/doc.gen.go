@@ -8,8 +8,10 @@
 //
 // # Variables
 //
+//   - kDADiskClaimOptionDefault
 //   - kDADiskDescriptionFSKitPrefix
 //   - kDADiskDescriptionRepairRunningKey
+//   - kDADiskEjectOptionDefault
 //   - kDADiskMountOptionNoFollow
 //
 // [DiskArbitration Documentation]: https://developer.apple.com/documentation/DiskArbitration

@@ -50,6 +50,11 @@ func (ac AVAssetVariantClass) Alloc() AVAssetVariant {
 //   - [AVAssetVariant.AudioAttributes]: The audio rendition attributes for the variant.
 //   - [AVAssetVariant.VideoAttributes]: The video rendition attributes for the variant.
 //
+// # Configuring bit rate
+//
+//   - [AVAssetVariant.AverageBitRate]: The average bit rate for the variant.
+//   - [AVAssetVariant.PeakBitRate]: The peak bit rate for the variant.
+//
 // # Accessing the URL
 //
 //   - [AVAssetVariant.URL]: Provides URL to media playlist corresponding to variant
@@ -76,6 +81,11 @@ func AVAssetVariantFromID(id objc.ID) AVAssetVariant {
 //   - [IAVAssetVariant.AudioAttributes]: The audio rendition attributes for the variant.
 //   - [IAVAssetVariant.VideoAttributes]: The video rendition attributes for the variant.
 //
+// # Configuring bit rate
+//
+//   - [IAVAssetVariant.AverageBitRate]: The average bit rate for the variant.
+//   - [IAVAssetVariant.PeakBitRate]: The peak bit rate for the variant.
+//
 // # Accessing the URL
 //
 //   - [IAVAssetVariant.URL]: Provides URL to media playlist corresponding to variant
@@ -91,15 +101,17 @@ type IAVAssetVariant interface {
 	// The video rendition attributes for the variant.
 	VideoAttributes() IAVAssetVariantVideoAttributes
 
-	// Topic: Accessing the URL
-
-	// Provides URL to media playlist corresponding to variant
-	URL() foundation.INSURL
+	// Topic: Configuring bit rate
 
 	// The average bit rate for the variant.
 	AverageBitRate() float64
 	// The peak bit rate for the variant.
 	PeakBitRate() float64
+
+	// Topic: Accessing the URL
+
+	// Provides URL to media playlist corresponding to variant
+	URL() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -145,14 +157,6 @@ func (a AVAssetVariant) VideoAttributes() IAVAssetVariantVideoAttributes {
 	return AVAssetVariantVideoAttributesFromID(objc.ID(rv))
 }
 
-// Provides URL to media playlist corresponding to variant
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/url
-func (a AVAssetVariant) URL() foundation.INSURL {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
-}
-
 // The average bit rate for the variant.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/averageBitRate-7bnsq
@@ -171,4 +175,12 @@ func (a AVAssetVariant) AverageBitRate() float64 {
 func (a AVAssetVariant) PeakBitRate() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("peakBitRate"))
 	return rv
+}
+
+// Provides URL to media playlist corresponding to variant
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/url
+func (a AVAssetVariant) URL() foundation.NSURL {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
+	return foundation.NSURLFromID(objc.ID(rv))
 }

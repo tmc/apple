@@ -118,6 +118,6 @@ func (_CIPlugInClass CIPlugInClass) LoadNonExecutablePlugIns() {
 // If the filters contain executable code the plugin isn’t loaded.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPlugIn/loadNonExecutablePlugIn(_:)
-func (_CIPlugInClass CIPlugInClass) LoadNonExecutablePlugIn(url foundation.INSURL) {
+func (_CIPlugInClass CIPlugInClass) LoadNonExecutablePlugIn(url foundation.NSURL) {
 	objc.Send[objc.ID](objc.ID(_CIPlugInClass.class), objc.Sel("loadNonExecutablePlugIn:"), url)
 }

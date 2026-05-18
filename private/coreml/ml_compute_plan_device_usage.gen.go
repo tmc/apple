@@ -82,14 +82,14 @@ type IMLComputePlanDeviceUsage interface {
 }
 
 // Init initializes the instance.
-func (c MLComputePlanDeviceUsage) Init() MLComputePlanDeviceUsage {
-	rv := objc.Send[MLComputePlanDeviceUsage](c.ID, objc.Sel("init"))
+func (m MLComputePlanDeviceUsage) Init() MLComputePlanDeviceUsage {
+	rv := objc.Send[MLComputePlanDeviceUsage](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLComputePlanDeviceUsage) Autorelease() MLComputePlanDeviceUsage {
-	rv := objc.Send[MLComputePlanDeviceUsage](c.ID, objc.Sel("autorelease"))
+func (m MLComputePlanDeviceUsage) Autorelease() MLComputePlanDeviceUsage {
+	rv := objc.Send[MLComputePlanDeviceUsage](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -108,19 +108,19 @@ func NewComputePlanDeviceUsageWithSupportedComputeDevicesPreferredComputeDeviceD
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsage/supportInfoForComputeDevice:
-func (c MLComputePlanDeviceUsage) SupportInfoForComputeDevice(device objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("supportInfoForComputeDevice:"), device)
+func (m MLComputePlanDeviceUsage) SupportInfoForComputeDevice(device objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("supportInfoForComputeDevice:"), device)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsage/initWithSupportedComputeDevices:preferredComputeDevice:deviceSupportInfoArray:
-func (c MLComputePlanDeviceUsage) InitWithSupportedComputeDevicesPreferredComputeDeviceDeviceSupportInfoArray(devices objectivec.IObject, device objectivec.IObject, array objectivec.IObject) MLComputePlanDeviceUsage {
-	rv := objc.Send[MLComputePlanDeviceUsage](c.ID, objc.Sel("initWithSupportedComputeDevices:preferredComputeDevice:deviceSupportInfoArray:"), devices, device, array)
+func (m MLComputePlanDeviceUsage) InitWithSupportedComputeDevicesPreferredComputeDeviceDeviceSupportInfoArray(devices objectivec.IObject, device objectivec.IObject, array objectivec.IObject) MLComputePlanDeviceUsage {
+	rv := objc.Send[MLComputePlanDeviceUsage](m.ID, objc.Sel("initWithSupportedComputeDevices:preferredComputeDevice:deviceSupportInfoArray:"), devices, device, array)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsage/deviceSupportInfoArray
-func (c MLComputePlanDeviceUsage) DeviceSupportInfoArray() foundation.INSArray {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("deviceSupportInfoArray"))
+func (m MLComputePlanDeviceUsage) DeviceSupportInfoArray() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("deviceSupportInfoArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }

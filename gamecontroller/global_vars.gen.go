@@ -748,6 +748,8 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCInputLeftShoulder-3i8m0
 	GCInputLeftShoulder GCInputButtonName
+	// See: https://developer.apple.com/documentation/GameController/GCInputLeftSideButton
+	GCInputLeftSideButton GCInputButtonName
 	// GCInputLeftThumbstickButton is the name of the left thumbstick button element.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCInputLeftThumbstickButton-4oxvn
@@ -780,6 +782,8 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCInputRightShoulder-513b5
 	GCInputRightShoulder GCInputButtonName
+	// See: https://developer.apple.com/documentation/GameController/GCInputRightSideButton
+	GCInputRightSideButton GCInputButtonName
 	// GCInputRightThumbstickButton is the name of the right thumbstick button element.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCInputRightThumbstickButton-3k0ld
@@ -1101,6 +1105,10 @@ func init() {
 		GCInputLeftShoulder = *(*GCInputButtonName)(unsafe.Pointer(ptr))
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftSideButton"); err == nil && ptr != 0 {
+		GCInputLeftSideButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftThumbstick"); err == nil && ptr != 0 {
 		GCInputLeftThumbstick = *(*GCInputDirectionPadName)(unsafe.Pointer(ptr))
 	}
@@ -1175,6 +1183,10 @@ func init() {
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightShoulder"); err == nil && ptr != 0 {
 		GCInputRightShoulder = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightSideButton"); err == nil && ptr != 0 {
+		GCInputRightSideButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightThumbstick"); err == nil && ptr != 0 {

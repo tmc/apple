@@ -67,7 +67,7 @@ func WKNavigationDelegateObjectFromID(id objc.ID) WKNavigationDelegateObject {
 // execute it asynchronously after your method returns.
 //
 // If your delegate object implements this method, the web view doesn’t call
-// the [WebViewDecidePolicyForNavigationActionDecisionHandler] method.
+// the [WebViewDecidePolicyForNavigationResponseDecisionHandler] method.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationDelegate/webView(_:decidePolicyFor:preferences:decisionHandler:)
 //
@@ -267,7 +267,7 @@ func (o WKNavigationDelegateObject) WebViewAuthenticationChallengeShouldAllowDep
 // error: The error that occurred.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationDelegate/webView(_:didFail:withError:)
-func (o WKNavigationDelegateObject) WebViewDidFailNavigationWithError(webView IWKWebView, navigation IWKNavigation, error_ foundation.INSError) {
+func (o WKNavigationDelegateObject) WebViewDidFailNavigationWithError(webView IWKWebView, navigation IWKNavigation, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("webView:didFailNavigation:withError:"), webView, navigation, error_)
 }
 
@@ -283,7 +283,7 @@ func (o WKNavigationDelegateObject) WebViewDidFailNavigationWithError(webView IW
 // error: The error that occurred.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationDelegate/webView(_:didFailProvisionalNavigation:withError:)
-func (o WKNavigationDelegateObject) WebViewDidFailProvisionalNavigationWithError(webView IWKWebView, navigation IWKNavigation, error_ foundation.INSError) {
+func (o WKNavigationDelegateObject) WebViewDidFailProvisionalNavigationWithError(webView IWKWebView, navigation IWKNavigation, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("webView:didFailProvisionalNavigation:withError:"), webView, navigation, error_)
 }
 

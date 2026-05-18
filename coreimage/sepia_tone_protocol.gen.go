@@ -18,20 +18,12 @@ type CISepiaTone interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/inputImage
 	InputImage() ICIImage
-
-	// The intensity of the sepia effect.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/intensity
-	Intensity() float32
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/inputImage
 	SetInputImage(value ICIImage)
 
 	// The intensity of the sepia effect.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/intensity
+	Intensity() float32
 	SetIntensity(value float32)
 }
 
@@ -52,22 +44,6 @@ func CISepiaToneObjectFromID(id objc.ID) CISepiaToneObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/inputImage
-func (o CISepiaToneObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// The intensity of the sepia effect.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/intensity
-func (o CISepiaToneObject) Intensity() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -80,6 +56,11 @@ func (o CISepiaToneObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/inputImage
+func (o CISepiaToneObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CISepiaToneObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
@@ -92,6 +73,11 @@ func (o CISepiaToneObject) SetInputImage(value ICIImage) {
 // effect on the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/intensity
+func (o CISepiaToneObject) Intensity() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
+	return float32(rv)
+}
+
 func (o CISepiaToneObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }

@@ -12,7 +12,7 @@ const (
 	HVAPICCtrlDefault   HVAPICCtrl = 0
 	HVAPICCtrlEoiIcrTpr HVAPICCtrl = 1
 	HVAPICCtrlGuestIdle HVAPICCtrl = 2
-	HVAPICCtrlIoapicEoi HVAPICCtrl = 8
+	HVAPICCtrlIOAPICEoi HVAPICCtrl = 8
 	HVAPICCtrlNoTimer   HVAPICCtrl = 4
 )
 
@@ -24,8 +24,8 @@ func (e HVAPICCtrl) String() string {
 		return "HVAPICCtrlEoiIcrTpr"
 	case HVAPICCtrlGuestIdle:
 		return "HVAPICCtrlGuestIdle"
-	case HVAPICCtrlIoapicEoi:
-		return "HVAPICCtrlIoapicEoi"
+	case HVAPICCtrlIOAPICEoi:
+		return "HVAPICCtrlIOAPICEoi"
 	case HVAPICCtrlNoTimer:
 		return "HVAPICCtrlNoTimer"
 	default:
@@ -5640,7 +5640,7 @@ func (e HVSMEZReg) String() string {
 type HVSysReg uint
 
 const (
-	HVSysRegActlrEl1 HVSysReg = 49281
+	HVSysRegActlrEl1 HVSysReg = 0xc081
 	// HVSysRegAfsr0El1: The value that represents the system register AFSR0_EL1.
 	HVSysRegAfsr0El1 HVSysReg = 0xc288
 	// HVSysRegAfsr1El1: The value that represents the system register AFSR1_EL1.
@@ -5667,25 +5667,25 @@ const (
 	HVSysRegApibkeyhiEl1 HVSysReg = 0xc10b
 	// HVSysRegApibkeyloEl1: The value that represents the system register APIBKEYLO_EL1.
 	HVSysRegApibkeyloEl1 HVSysReg = 0xc10a
-	HVSysRegCnthctlEl2   HVSysReg = 57868
-	HVSysRegCnthpCtlEl2  HVSysReg = 57869
-	HVSysRegCnthpCvalEl2 HVSysReg = 57870
-	HVSysRegCnthpTvalEl2 HVSysReg = 57871
+	HVSysRegCnthctlEl2   HVSysReg = 0xe708
+	HVSysRegCnthpCtlEl2  HVSysReg = 0xe711
+	HVSysRegCnthpCvalEl2 HVSysReg = 0xe712
+	HVSysRegCnthpTvalEl2 HVSysReg = 0xe710
 	// HVSysRegCntkctlEl1: The value that represents the system register CNTKCTL_EL1.
 	HVSysRegCntkctlEl1  HVSysReg = 0xc708
-	HVSysRegCntpCtlEl0  HVSysReg = 57865
-	HVSysRegCntpCvalEl0 HVSysReg = 57866
-	HVSysRegCntpTvalEl0 HVSysReg = 57867
+	HVSysRegCntpCtlEl0  HVSysReg = 0xdf11
+	HVSysRegCntpCvalEl0 HVSysReg = 0xdf12
+	HVSysRegCntpTvalEl0 HVSysReg = 0xdf10
 	// HVSysRegCntvCtlEl0: The value that represents the system register CNTV_CRTL_EL0.
 	HVSysRegCntvCtlEl0 HVSysReg = 0xdf19
 	// HVSysRegCntvCvalEl0: The value that represents the system register CNTV_CVAL_EL0.
 	HVSysRegCntvCvalEl0 HVSysReg = 0xdf1a
-	HVSysRegCntvoffEl2  HVSysReg = 57872
+	HVSysRegCntvoffEl2  HVSysReg = 0xe703
 	// HVSysRegContextidrEl1: The value that represents the system register CONTEXTIDR_EL1.
 	HVSysRegContextidrEl1 HVSysReg = 0xc681
 	// HVSysRegCpacrEl1: The value that represents the system register CPACR_EL1.
 	HVSysRegCpacrEl1 HVSysReg = 0xc082
-	HVSysRegCptrEl2  HVSysReg = 57873
+	HVSysRegCptrEl2  HVSysReg = 0xe08a
 	// HVSysRegCsselrEl1: The value that represents the system register CSSELR_EL1.
 	HVSysRegCsselrEl1 HVSysReg = 0xd000
 	// HVSysRegDbgbcr0El1: The value that represents the system register DBGBCR0_EL1.
@@ -5818,15 +5818,15 @@ const (
 	HVSysRegDbgwvr9El1 HVSysReg = 0x804e
 	// HVSysRegElrEl1: The value that represents the system register ELR_EL1.
 	HVSysRegElrEl1 HVSysReg = 0xc201
-	HVSysRegElrEl2 HVSysReg = 57874
+	HVSysRegElrEl2 HVSysReg = 0xe201
 	// HVSysRegEsrEl1: The value that represents the system register ESR_EL1.
 	HVSysRegEsrEl1 HVSysReg = 0xc290
-	HVSysRegEsrEl2 HVSysReg = 57875
+	HVSysRegEsrEl2 HVSysReg = 0xe290
 	// HVSysRegFarEl1: The value that represents the system register FAR_EL1.
 	HVSysRegFarEl1   HVSysReg = 0xc300
-	HVSysRegFarEl2   HVSysReg = 57876
-	HVSysRegHcrEl2   HVSysReg = 57877
-	HVSysRegHpfarEl2 HVSysReg = 57878
+	HVSysRegFarEl2   HVSysReg = 0xe300
+	HVSysRegHcrEl2   HVSysReg = 0xe088
+	HVSysRegHpfarEl2 HVSysReg = 0xe304
 	// HVSysRegIDAa64dfr0El1: The value that describes the AArch64 Debug Feature Register 0.
 	HVSysRegIDAa64dfr0El1 HVSysReg = 0xc028
 	// HVSysRegIDAa64dfr1El1: The value that describes the AArch64 Debug Feature Register 1.
@@ -5845,14 +5845,14 @@ const (
 	HVSysRegIDAa64pfr0El1 HVSysReg = 0xc020
 	// HVSysRegIDAa64pfr1El1: The value that describes the AArch64 Processor Feature Register 1.
 	HVSysRegIDAa64pfr1El1  HVSysReg = 0xc021
-	HVSysRegIDAa64smfr0El1 HVSysReg = 49187
-	HVSysRegIDAa64zfr0El1  HVSysReg = 49186
+	HVSysRegIDAa64smfr0El1 HVSysReg = 0xc025
+	HVSysRegIDAa64zfr0El1  HVSysReg = 0xc024
 	// HVSysRegMairEl1: The value that represents the system register MAIR_EL1.
 	HVSysRegMairEl1 HVSysReg = 0xc510
-	HVSysRegMairEl2 HVSysReg = 57879
+	HVSysRegMairEl2 HVSysReg = 0xe510
 	// HVSysRegMdccintEl1: The value that represents the system register MDCCINT_EL1.
 	HVSysRegMdccintEl1 HVSysReg = 0x8010
-	HVSysRegMdcrEl2    HVSysReg = 57880
+	HVSysRegMdcrEl2    HVSysReg = 0xe089
 	// HVSysRegMdscrEl1: The value that represents the system register MDSCR_EL0.
 	HVSysRegMdscrEl1 HVSysReg = 0x8012
 	// HVSysRegMidrEl1: The value that represents the system register MIDR_EL1.
@@ -5863,43 +5863,43 @@ const (
 	HVSysRegParEl1 HVSysReg = 0xc3a0
 	// HVSysRegSctlrEl1: The value that represents the system register SCTLR_EL1.
 	HVSysRegSctlrEl1   HVSysReg = 0xc080
-	HVSysRegSctlrEl2   HVSysReg = 57881
-	HVSysRegScxtnumEl0 HVSysReg = 56965
-	HVSysRegScxtnumEl1 HVSysReg = 50821
-	HVSysRegSmcrEl1    HVSysReg = 49284
-	HVSysRegSmpriEl1   HVSysReg = 49283
+	HVSysRegSctlrEl2   HVSysReg = 0xe080
+	HVSysRegScxtnumEl0 HVSysReg = 0xde87
+	HVSysRegScxtnumEl1 HVSysReg = 0xc687
+	HVSysRegSmcrEl1    HVSysReg = 0xc096
+	HVSysRegSmpriEl1   HVSysReg = 0xc094
 	// HVSysRegSpEl0: The value that represents the system register SP_EL0.
 	HVSysRegSpEl0 HVSysReg = 0xc208
 	// HVSysRegSpEl1: The value that represents the system register SP_EL1.
 	HVSysRegSpEl1 HVSysReg = 0xe208
-	HVSysRegSpEl2 HVSysReg = 57883
+	HVSysRegSpEl2 HVSysReg = 0xf208
 	// HVSysRegSpsrEl1: The value that represents the system register SPSR_EL1.
 	HVSysRegSpsrEl1 HVSysReg = 0xc200
-	HVSysRegSpsrEl2 HVSysReg = 57882
+	HVSysRegSpsrEl2 HVSysReg = 0xe200
 	// HVSysRegTcrEl1: The value that represents the system register TCR_EL1.
 	HVSysRegTcrEl1    HVSysReg = 0xc102
-	HVSysRegTcrEl2    HVSysReg = 57884
-	HVSysRegTpidr2El0 HVSysReg = 56964
+	HVSysRegTcrEl2    HVSysReg = 0xe102
+	HVSysRegTpidr2El0 HVSysReg = 0xde85
 	// HVSysRegTpidrEl0: The value that represents the system register TPIDR_EL0.
 	HVSysRegTpidrEl0 HVSysReg = 0xde82
 	// HVSysRegTpidrEl1: The value that represents the system register TPIDR_EL1.
 	HVSysRegTpidrEl1 HVSysReg = 0xc684
-	HVSysRegTpidrEl2 HVSysReg = 57885
+	HVSysRegTpidrEl2 HVSysReg = 0xe682
 	// HVSysRegTpidrroEl0: The value that represents the system register TPIDRRO_EL0.
 	HVSysRegTpidrroEl0 HVSysReg = 0xde83
 	// HVSysRegTtbr0El1: The value that represents the system register TTBR0_EL1.
 	HVSysRegTtbr0El1 HVSysReg = 0xc100
-	HVSysRegTtbr0El2 HVSysReg = 57886
+	HVSysRegTtbr0El2 HVSysReg = 0xe100
 	// HVSysRegTtbr1El1: The value that represents the system register TTBR1_EL1.
 	HVSysRegTtbr1El1 HVSysReg = 0xc101
-	HVSysRegTtbr1El2 HVSysReg = 57887
+	HVSysRegTtbr1El2 HVSysReg = 0xe101
 	// HVSysRegVbarEl1: The value that represents the system register VBAR_EL1.
 	HVSysRegVbarEl1   HVSysReg = 0xc600
-	HVSysRegVbarEl2   HVSysReg = 57888
-	HVSysRegVmpidrEl2 HVSysReg = 57889
-	HVSysRegVpidrEl2  HVSysReg = 57890
-	HVSysRegVtcrEl2   HVSysReg = 57891
-	HVSysRegVttbrEl2  HVSysReg = 57892
+	HVSysRegVbarEl2   HVSysReg = 0xe600
+	HVSysRegVmpidrEl2 HVSysReg = 0xe005
+	HVSysRegVpidrEl2  HVSysReg = 0xe000
+	HVSysRegVtcrEl2   HVSysReg = 0xe10a
+	HVSysRegVttbrEl2  HVSysReg = 0xe108
 )
 
 func (e HVSysReg) String() string {
@@ -6209,9 +6209,9 @@ type HVVmExitinfo uint
 
 const (
 	HVVmExitinfoAPICAccessRead HVVmExitinfo = 7
+	HVVmExitinfoIOAPICEoi      HVVmExitinfo = 4
 	HVVmExitinfoInitAp         HVVmExitinfo = 2
 	HVVmExitinfoInjectExcp     HVVmExitinfo = 5
-	HVVmExitinfoIoapicEoi      HVVmExitinfo = 4
 	HVVmExitinfoSmi            HVVmExitinfo = 6
 	HVVmExitinfoStartupAp      HVVmExitinfo = 3
 	HVVmExitinfoVmx            HVVmExitinfo = 1
@@ -6221,12 +6221,12 @@ func (e HVVmExitinfo) String() string {
 	switch e {
 	case HVVmExitinfoAPICAccessRead:
 		return "HVVmExitinfoAPICAccessRead"
+	case HVVmExitinfoIOAPICEoi:
+		return "HVVmExitinfoIOAPICEoi"
 	case HVVmExitinfoInitAp:
 		return "HVVmExitinfoInitAp"
 	case HVVmExitinfoInjectExcp:
 		return "HVVmExitinfoInjectExcp"
-	case HVVmExitinfoIoapicEoi:
-		return "HVVmExitinfoIoapicEoi"
 	case HVVmExitinfoSmi:
 		return "HVVmExitinfoSmi"
 	case HVVmExitinfoStartupAp:
@@ -6542,7 +6542,20 @@ func (e HVX86Reg) String() string {
 	}
 }
 
-const HVAllocateDefault uint = 0
+type HVAllocate uint
+
+const (
+	HVAllocateDefault HVAllocate = 0
+)
+
+func (e HVAllocate) String() string {
+	switch e {
+	case HVAllocateDefault:
+		return "HVAllocateDefault"
+	default:
+		return fmt.Sprintf("HVAllocate(%d)", e)
+	}
+}
 
 type HVCap uint
 
@@ -6564,7 +6577,21 @@ func (e HVCap) String() string {
 	}
 }
 
-const HVDeadlineForever uint = 0
+type HVDeadline uint
+
+const (
+	// HVDeadlineForever: The value that indicates a vCPU deadline that never expires.
+	HVDeadlineForever HVDeadline = 0
+)
+
+func (e HVDeadline) String() string {
+	switch e {
+	case HVDeadlineForever:
+		return "HVDeadlineForever"
+	default:
+		return fmt.Sprintf("HVDeadline(%d)", e)
+	}
+}
 
 type HVIon uint
 
@@ -6917,7 +6944,21 @@ func (e HVVm) String() string {
 	}
 }
 
-const HVVmSpaceDefault uint = 0
+type HVVmSpace uint
+
+const (
+	// HVVmSpaceDefault: The value that represents the default VM address space.
+	HVVmSpaceDefault HVVmSpace = 0
+)
+
+func (e HVVmSpace) String() string {
+	switch e {
+	case HVVmSpaceDefault:
+		return "HVVmSpaceDefault"
+	default:
+		return fmt.Sprintf("HVVmSpace(%d)", e)
+	}
+}
 
 type HVVmx uint
 
@@ -7794,7 +7835,21 @@ func (e Vmcs) String() string {
 	}
 }
 
-const VmxBasicTrueCtls uint = 36028797018963968
+type VmxBasicTrue uint
+
+const (
+	// VmxBasicTrueCtls: This bit field, in the value returned by the IA32_VMX_BASIC model specific register, determines if it’s possible to disable any VMX controls.
+	VmxBasicTrueCtls VmxBasicTrue = 36028797018963968
+)
+
+func (e VmxBasicTrue) String() string {
+	switch e {
+	case VmxBasicTrueCtls:
+		return "VmxBasicTrueCtls"
+	default:
+		return fmt.Sprintf("VmxBasicTrue(%d)", e)
+	}
+}
 
 type VmxReason uint
 

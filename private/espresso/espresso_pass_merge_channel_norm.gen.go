@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_merge_channel_norm] class.
+// The class instance for the [EspressoPassMergeChannelNorm] class.
 var (
-	_EspressoPass_merge_channel_normClass     EspressoPass_merge_channel_normClass
-	_EspressoPass_merge_channel_normClassOnce sync.Once
+	_EspressoPassMergeChannelNormClass     EspressoPassMergeChannelNormClass
+	_EspressoPassMergeChannelNormClassOnce sync.Once
 )
 
-func getEspressoPass_merge_channel_normClass() EspressoPass_merge_channel_normClass {
-	_EspressoPass_merge_channel_normClassOnce.Do(func() {
-		_EspressoPass_merge_channel_normClass = EspressoPass_merge_channel_normClass{class: objc.GetClass("EspressoPass_merge_channel_norm")}
+func getEspressoPassMergeChannelNormClass() EspressoPassMergeChannelNormClass {
+	_EspressoPassMergeChannelNormClassOnce.Do(func() {
+		_EspressoPassMergeChannelNormClass = EspressoPassMergeChannelNormClass{class: objc.GetClass("EspressoPass_merge_channel_norm")}
 	})
-	return _EspressoPass_merge_channel_normClass
+	return _EspressoPassMergeChannelNormClass
 }
 
-// GetEspressoPass_merge_channel_normClass returns the class object for EspressoPass_merge_channel_norm.
-func GetEspressoPass_merge_channel_normClass() EspressoPass_merge_channel_normClass {
-	return getEspressoPass_merge_channel_normClass()
+// GetEspressoPassMergeChannelNormClass returns the class object for EspressoPass_merge_channel_norm.
+func GetEspressoPassMergeChannelNormClass() EspressoPassMergeChannelNormClass {
+	return getEspressoPassMergeChannelNormClass()
 }
 
-type EspressoPass_merge_channel_normClass struct {
+type EspressoPassMergeChannelNormClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_merge_channel_normClass) Class() objc.Class {
+func (ec EspressoPassMergeChannelNormClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_merge_channel_normClass) Alloc() EspressoPass_merge_channel_norm {
-	rv := objc.Send[EspressoPass_merge_channel_norm](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassMergeChannelNormClass) Alloc() EspressoPassMergeChannelNorm {
+	rv := objc.Send[EspressoPassMergeChannelNorm](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_channel_norm
-type EspressoPass_merge_channel_norm struct {
+type EspressoPassMergeChannelNorm struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_merge_channel_normFromID constructs a [EspressoPass_merge_channel_norm] from an objc.ID.
-func EspressoPass_merge_channel_normFromID(id objc.ID) EspressoPass_merge_channel_norm {
-	return EspressoPass_merge_channel_norm{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassMergeChannelNormFromID constructs a [EspressoPassMergeChannelNorm] from an objc.ID.
+func EspressoPassMergeChannelNormFromID(id objc.ID) EspressoPassMergeChannelNorm {
+	return EspressoPassMergeChannelNorm{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_merge_channel_norm implements IEspressoPass_merge_channel_norm.
-var _ IEspressoPass_merge_channel_norm = EspressoPass_merge_channel_norm{}
+// EspressoPass_merge_channel_normFromID is an alias for [EspressoPassMergeChannelNormFromID] for cross-framework compatibility.
+func EspressoPass_merge_channel_normFromID(id objc.ID) EspressoPassMergeChannelNorm {
+	return EspressoPassMergeChannelNormFromID(id)
+}
 
-// An interface definition for the [EspressoPass_merge_channel_norm] class.
+// Ensure EspressoPassMergeChannelNorm implements IEspressoPassMergeChannelNorm.
+var _ IEspressoPassMergeChannelNorm = EspressoPassMergeChannelNorm{}
+
+// An interface definition for the [EspressoPassMergeChannelNorm] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_channel_norm
-type IEspressoPass_merge_channel_norm interface {
+type IEspressoPassMergeChannelNorm interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_merge_channel_norm) Init() EspressoPass_merge_channel_norm {
-	rv := objc.Send[EspressoPass_merge_channel_norm](e.ID, objc.Sel("init"))
+func (e EspressoPassMergeChannelNorm) Init() EspressoPassMergeChannelNorm {
+	rv := objc.Send[EspressoPassMergeChannelNorm](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_merge_channel_norm) Autorelease() EspressoPass_merge_channel_norm {
-	rv := objc.Send[EspressoPass_merge_channel_norm](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassMergeChannelNorm) Autorelease() EspressoPassMergeChannelNorm {
+	rv := objc.Send[EspressoPassMergeChannelNorm](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_merge_channel_norm creates a new EspressoPass_merge_channel_norm instance.
-func NewEspressoPass_merge_channel_norm() EspressoPass_merge_channel_norm {
-	class := getEspressoPass_merge_channel_normClass()
-	rv := objc.Send[EspressoPass_merge_channel_norm](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassMergeChannelNorm creates a new EspressoPassMergeChannelNorm instance.
+func NewEspressoPassMergeChannelNorm() EspressoPassMergeChannelNorm {
+	class := getEspressoPassMergeChannelNormClass()
+	rv := objc.Send[EspressoPassMergeChannelNorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

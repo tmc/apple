@@ -73,7 +73,7 @@ type ILAEnvironmentMechanismCompanion interface {
 
 	// Topic: Instance Properties
 
-	StateHash() foundation.INSData
+	StateHash() foundation.NSData
 	// Type of the companion.
 	Type() LACompanionType
 }
@@ -108,7 +108,7 @@ func NewLAEnvironmentMechanismCompanion() LAEnvironmentMechanismCompanion {
 // companions of this type is changed.
 //
 // See: https://developer.apple.com/documentation/LocalAuthentication/LAEnvironment/MechanismCompanion/stateHash
-func (e LAEnvironmentMechanismCompanion) StateHash() foundation.INSData {
+func (e LAEnvironmentMechanismCompanion) StateHash() foundation.NSData {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("stateHash"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

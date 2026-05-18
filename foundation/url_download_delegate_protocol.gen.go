@@ -44,13 +44,12 @@ func NSURLDownloadDelegateObjectFromID(id objc.ID) NSURLDownloadDelegateObject {
 //
 // # Discussion
 //
-// This method is called before [DownloadDidReceiveAuthenticationChallenge],
-// allowing the delegate to inspect a protection space before attempting to
-// authenticate against it. By returning true, the delegate indicates that it
-// can handle the form of authentication, which it does in the subsequent call
-// to [DownloadDidReceiveAuthenticationChallenge]. Not implementing this
-// method is the same as returning false, in which case default authentication
-// handling is used.
+// This method is called before [DownloadDidReceiveResponse], allowing the
+// delegate to inspect a protection space before attempting to authenticate
+// against it. By returning true, the delegate indicates that it can handle
+// the form of authentication, which it does in the subsequent call to
+// [DownloadDidReceiveResponse]. Not implementing this method is the same as
+// returning false, in which case default authentication handling is used.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:canAuthenticateAgainstProtectionSpace:)
 func (o NSURLDownloadDelegateObject) DownloadCanAuthenticateAgainstProtectionSpace(connection INSURLDownload, protectionSpace INSURLProtectionSpace) bool {
@@ -141,8 +140,7 @@ func (o NSURLDownloadDelegateObject) DownloadDidReceiveAuthenticationChallenge(d
 // credential storage and makes itself responsible for providing credentials
 // for any authentication challenges. Not implementing this method is the same
 // as returing true. The delegate is free to consult the credential storage
-// itself when it receives a [DownloadDidReceiveAuthenticationChallenge]
-// message.
+// itself when it receives a [DownloadDidReceiveResponse] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/downloadShouldUseCredentialStorage(_:)
 func (o NSURLDownloadDelegateObject) DownloadShouldUseCredentialStorage(download INSURLDownload) bool {

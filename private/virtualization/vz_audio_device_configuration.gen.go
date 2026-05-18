@@ -103,14 +103,14 @@ type IVZAudioDeviceConfiguration interface {
 }
 
 // Init initializes the instance.
-func (a VZAudioDeviceConfiguration) Init() VZAudioDeviceConfiguration {
-	rv := objc.Send[VZAudioDeviceConfiguration](a.ID, objc.Sel("init"))
+func (v VZAudioDeviceConfiguration) Init() VZAudioDeviceConfiguration {
+	rv := objc.Send[VZAudioDeviceConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a VZAudioDeviceConfiguration) Autorelease() VZAudioDeviceConfiguration {
-	rv := objc.Send[VZAudioDeviceConfiguration](a.ID, objc.Sel("autorelease"))
+func (v VZAudioDeviceConfiguration) Autorelease() VZAudioDeviceConfiguration {
+	rv := objc.Send[VZAudioDeviceConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -122,112 +122,112 @@ func NewVZAudioDeviceConfiguration() VZAudioDeviceConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_init
-func (a VZAudioDeviceConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("_init"))
+func (v VZAudioDeviceConfiguration) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_makeAudioDeviceForVirtualMachine:audioDeviceIndex:
-func (a VZAudioDeviceConfiguration) _makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"), machine, index)
+func (v VZAudioDeviceConfiguration) _makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
 
 // MakeAudioDeviceForVirtualMachineAudioDeviceIndex is an exported wrapper for the private method _makeAudioDeviceForVirtualMachineAudioDeviceIndex.
-func (a VZAudioDeviceConfiguration) MakeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(a.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:")) {
+func (v VZAudioDeviceConfiguration) MakeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"}
 		return nil, err
 	}
-	return a._makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine, index), nil
+	return v._makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine, index), nil
 }
 
 // CanMakeAudioDeviceForVirtualMachineAudioDeviceIndex reports whether the receiver responds to the private selector _makeAudioDeviceForVirtualMachine:audioDeviceIndex:.
-func (a VZAudioDeviceConfiguration) CanMakeAudioDeviceForVirtualMachineAudioDeviceIndex() bool {
-	return objc.RespondsToSelector(a.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"))
+func (v VZAudioDeviceConfiguration) CanMakeAudioDeviceForVirtualMachineAudioDeviceIndex() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_setRole:
-func (a VZAudioDeviceConfiguration) _setRole(role int64) {
-	objc.Send[objc.ID](a.ID, objc.Sel("_setRole:"), role)
+func (v VZAudioDeviceConfiguration) _setRole(role int64) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setRole:"), role)
 }
 
 // SetRole is an exported wrapper for the private method _setRole.
-func (a VZAudioDeviceConfiguration) SetRole(role int64) error {
-	if !objc.RespondsToSelector(a.ID, objc.Sel("_setRole:")) {
+func (v VZAudioDeviceConfiguration) SetRole(role int64) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setRole:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setRole:"}
 		return err
 	}
-	a._setRole(role)
+	v._setRole(role)
 	return nil
 }
 
 // CanSetRole reports whether the receiver responds to the private selector _setRole:.
-func (a VZAudioDeviceConfiguration) CanSetRole() bool {
-	return objc.RespondsToSelector(a.ID, objc.Sel("_setRole:"))
+func (v VZAudioDeviceConfiguration) CanSetRole() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setRole:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_audioDevice
-func (a VZAudioDeviceConfiguration) _audioDevice() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("_audioDevice"))
+func (v VZAudioDeviceConfiguration) _audioDevice() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_audioDevice"))
 	return objectivec.Object{ID: rv}
 }
 
 // CanAudioDevice reports whether the receiver responds to the private selector _audioDevice.
-func (a VZAudioDeviceConfiguration) CanAudioDevice() bool {
-	return objc.RespondsToSelector(a.ID, objc.Sel("_audioDevice"))
+func (v VZAudioDeviceConfiguration) CanAudioDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_audioDevice"))
 }
 
 // AudioDevice is an exported wrapper for the private property _audioDevice.
-func (a VZAudioDeviceConfiguration) AudioDevice() (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(a.ID, objc.Sel("_audioDevice")) {
+func (v VZAudioDeviceConfiguration) AudioDevice() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_audioDevice")) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_audioDevice"}
 	}
-	return a._audioDevice(), nil
+	return v._audioDevice(), nil
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_role
-func (a VZAudioDeviceConfiguration) _role() int64 {
-	rv := objc.Send[int64](a.ID, objc.Sel("_role"))
+func (v VZAudioDeviceConfiguration) _role() int64 {
+	rv := objc.Send[int64](v.ID, objc.Sel("_role"))
 	return rv
 }
 
 // CanRole reports whether the receiver responds to the private selector _role.
-func (a VZAudioDeviceConfiguration) CanRole() bool {
-	return objc.RespondsToSelector(a.ID, objc.Sel("_role"))
+func (v VZAudioDeviceConfiguration) CanRole() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_role"))
 }
 
 // Role is an exported wrapper for the private property _role.
-func (a VZAudioDeviceConfiguration) Role() (int64, error) {
-	if !objc.RespondsToSelector(a.ID, objc.Sel("_role")) {
+func (v VZAudioDeviceConfiguration) Role() (int64, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_role")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_role"}
 	}
-	return a._role(), nil
+	return v._role(), nil
 }
-func (a VZAudioDeviceConfiguration) Set_role(value int64) {
-	objc.Send[struct{}](a.ID, objc.Sel("set_role:"), value)
+func (v VZAudioDeviceConfiguration) Set_role(value int64) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_role:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/debugDescription
-func (a VZAudioDeviceConfiguration) DebugDescription() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
+func (v VZAudioDeviceConfiguration) DebugDescription() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/description
-func (a VZAudioDeviceConfiguration) Description() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
+func (v VZAudioDeviceConfiguration) Description() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/hash
-func (a VZAudioDeviceConfiguration) Hash() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
+func (v VZAudioDeviceConfiguration) Hash() uint64 {
+	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/superclass
-func (a VZAudioDeviceConfiguration) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
+func (v VZAudioDeviceConfiguration) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }

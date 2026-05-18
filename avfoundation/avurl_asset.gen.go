@@ -145,7 +145,7 @@ type IAVURLAsset interface {
 	// Topic: Creating an asset
 
 	// Creates an asset that models the media resource at the specified URL.
-	InitWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVURLAsset
+	InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVURLAsset
 
 	// Topic: Loading tracks
 
@@ -168,7 +168,7 @@ type IAVURLAsset interface {
 	// Topic: Accessing the media URL
 
 	// A URL to the asset’s media.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 
 	// Topic: Accessing the session identifier
 
@@ -181,7 +181,7 @@ type IAVURLAsset interface {
 	MediaExtensionProperties() IAVMediaExtensionProperties
 
 	// The sidecar URL used by the MediaExtension.
-	SidecarURL() foundation.INSURL
+	SidecarURL() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -207,8 +207,8 @@ func NewAVURLAsset() AVURLAsset {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
-func NewURLAssetWithURL(URL foundation.INSURL) AVURLAsset {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+func NewURLAssetWithURL(URL foundation.NSURL) AVURLAsset {
 	rv := objc.Send[objc.ID](objc.ID(getAVURLAssetClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVURLAssetFromID(rv)
 }
@@ -226,10 +226,10 @@ func NewURLAssetWithURL(URL foundation.INSURL) AVURLAsset {
 //
 // An asset that models the media resource found at [URL].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
+// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)-2x8uu
 //
 // [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
-func NewURLAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVURLAsset {
+func NewURLAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVURLAsset {
 	instance := getAVURLAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return AVURLAssetFromID(rv)
@@ -248,10 +248,10 @@ func NewURLAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDict
 //
 // An asset that models the media resource found at [URL].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
+// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)-2x8uu
 //
 // [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
-func (u AVURLAsset) InitWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVURLAsset {
+func (u AVURLAsset) InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVURLAsset {
 	rv := objc.Send[AVURLAsset](u.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return rv
 }
@@ -337,7 +337,7 @@ func (_AVURLAssetClass AVURLAssetClass) IsPlayableExtendedMIMEType(extendedMIMET
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/URLAssetWithURL:options:
 //
 // [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
-func (_AVURLAssetClass AVURLAssetClass) URLAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVURLAsset {
+func (_AVURLAssetClass AVURLAssetClass) URLAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVURLAsset {
 	rv := objc.Send[objc.ID](objc.ID(_AVURLAssetClass.class), objc.Sel("URLAssetWithURL:options:"), URL, options)
 	return AVURLAssetFromID(rv)
 }
@@ -396,7 +396,7 @@ func (u AVURLAsset) AssetCache() IAVAssetCache {
 // A URL to the asset’s media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/url
-func (u AVURLAsset) URL() foundation.INSURL {
+func (u AVURLAsset) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -437,7 +437,7 @@ func (u AVURLAsset) MediaExtensionProperties() IAVMediaExtensionProperties {
 // setSidecarFilename:]. Will return nil otherwise.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/sidecarURL
-func (u AVURLAsset) SidecarURL() foundation.INSURL {
+func (u AVURLAsset) SidecarURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("sidecarURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

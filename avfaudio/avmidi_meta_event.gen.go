@@ -93,7 +93,7 @@ type IAVMIDIMetaEvent interface {
 	// Topic: Creating a Meta Event
 
 	// Creates an event with a MIDI meta event type and data.
-	InitWithTypeData(type_ AVMIDIMetaEventType, data foundation.INSData) AVMIDIMetaEvent
+	InitWithTypeData(type_ AVMIDIMetaEventType, data foundation.NSData) AVMIDIMetaEvent
 
 	// Topic: Getting the Meta Event Type
 
@@ -127,7 +127,7 @@ func NewAVMIDIMetaEvent() AVMIDIMetaEvent {
 // data: The data that contains the contents of the meta event.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIMetaEvent/init(type:data:)
-func NewMIDIMetaEventWithTypeData(type_ AVMIDIMetaEventType, data foundation.INSData) AVMIDIMetaEvent {
+func NewMIDIMetaEventWithTypeData(type_ AVMIDIMetaEventType, data foundation.NSData) AVMIDIMetaEvent {
 	instance := getAVMIDIMetaEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:data:"), type_, data)
 	return AVMIDIMetaEventFromID(rv)
@@ -140,7 +140,7 @@ func NewMIDIMetaEventWithTypeData(type_ AVMIDIMetaEventType, data foundation.INS
 // data: The data that contains the contents of the meta event.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIMetaEvent/init(type:data:)
-func (m AVMIDIMetaEvent) InitWithTypeData(type_ AVMIDIMetaEventType, data foundation.INSData) AVMIDIMetaEvent {
+func (m AVMIDIMetaEvent) InitWithTypeData(type_ AVMIDIMetaEventType, data foundation.NSData) AVMIDIMetaEvent {
 	rv := objc.Send[AVMIDIMetaEvent](m.ID, objc.Sel("initWithType:data:"), type_, data)
 	return rv
 }

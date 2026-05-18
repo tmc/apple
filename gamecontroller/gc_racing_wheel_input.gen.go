@@ -90,6 +90,20 @@ type IGCRacingWheelInput interface {
 
 	// Returns the next input state of the racing wheel from the queue.
 	NextInputState() IGCRacingWheelInputState
+
+	// A block that the profile calls when an element’s value changes.
+	ElementValueDidChangeHandler() func(objc.ID)
+	// The block that the profile calls when Game Controller adds an input state to the queue.
+	InputStateAvailableHandler() func(objc.ID)
+	// The maximum number of input values that the queue stores.
+	InputStateQueueDepth() int
+	// The dispatch queue that the system uses for callbacks.
+	Queue() dispatch.Queue
+	Elements() IGCPhysicalInputElementCollection
+	Axes() IGCPhysicalInputElementCollection
+	Buttons() IGCPhysicalInputElementCollection
+	Dpads() IGCPhysicalInputElementCollection
+	Switches() IGCPhysicalInputElementCollection
 }
 
 // Init initializes the instance.
@@ -142,82 +156,35 @@ func (g GCRacingWheelInput) NextInputState() IGCRacingWheelInputState {
 
 // A block that the profile calls when an element’s value changes.
 //
-// # Discussion
-//
-// Use this property to get the latest state of the element. If multiple
-// elements change, Game Controller invokes this block for each element that
-// changes. The block’s parameters are:
-//
-// element: The element whose value changes.
-//
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/elementValueDidChangeHandler
-func (g GCRacingWheelInput) ElementValueDidChangeHandler() VoidHandler {
+func (g GCRacingWheelInput) ElementValueDidChangeHandler() func(objc.ID) {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("elementValueDidChangeHandler"))
 	_ = rv
 	return nil
-}
-func (g GCRacingWheelInput) SetElementValueDidChangeHandler(value VoidHandler) {
-	block, cleanup := NewVoidBlock(value)
-	defer cleanup()
-	objc.Send[struct{}](g.ID, objc.Sel("setElementValueDidChangeHandler:"), block)
 }
 
 // The block that the profile calls when Game Controller adds an input state
 // to the queue.
 //
-// # Discussion
-//
-// Set this property to track every element value change, not just the current
-// value. When Game Controller invokes the handler, invoke the
-// [NextInputState] method repeatedly to get all the buffered changes until
-// the queue is empty.
-//
-// To get just the current element value, use the
-// [ElementValueDidChangeHandler] property instead.
-//
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateAvailableHandler
-func (g GCRacingWheelInput) InputStateAvailableHandler() GCDevicePhysicalInputHandler {
+func (g GCRacingWheelInput) InputStateAvailableHandler() func(objc.ID) {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("inputStateAvailableHandler"))
 	_ = rv
 	return nil
 }
-func (g GCRacingWheelInput) SetInputStateAvailableHandler(value GCDevicePhysicalInputHandler) {
-	block, cleanup := NewGCDevicePhysicalInputBlock(value)
-	defer cleanup()
-	objc.Send[struct{}](g.ID, objc.Sel("setInputStateAvailableHandler:"), block)
-}
 
 // The maximum number of input values that the queue stores.
-//
-// # Discussion
-//
-// When the queue reaches this limit, Game Controller starts removing the
-// oldest input states from the queue. The default value for this property is
-// `1` which indicates no buffering.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateQueueDepth
 func (g GCRacingWheelInput) InputStateQueueDepth() int {
 	rv := objc.Send[int](g.ID, objc.Sel("inputStateQueueDepth"))
 	return rv
 }
-func (g GCRacingWheelInput) SetInputStateQueueDepth(value int) {
-	objc.Send[struct{}](g.ID, objc.Sel("setInputStateQueueDepth:"), value)
-}
 
 // The dispatch queue that the system uses for callbacks.
-//
-// # Discussion
-//
-// Objects that conform to the [GCDevicePhysicalInput] protocol dispatch
-// callbacks on the device’s [HandlerQueue] property by default. If you want
-// to use a different dispatch queue, set this property to the preferred queue
-// before you set callbacks.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
 func (g GCRacingWheelInput) Queue() dispatch.Queue {
 	rv := objc.Send[uintptr](g.ID, objc.Sel("queue"))
 	return dispatch.QueueFromHandle(rv)
-}
-func (g GCRacingWheelInput) SetQueue(value dispatch.Queue) {
-	objc.Send[struct{}](g.ID, objc.Sel("setQueue:"), uintptr(value.Handle()))
 }

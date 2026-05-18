@@ -95,7 +95,7 @@ type IAVCoordinatedPlaybackSuspension interface {
 	// Topic: Inspecting a suspension
 
 	// The time the suspension begins.
-	BeginDate() foundation.INSDate
+	BeginDate() foundation.NSDate
 	// The reason for the suspension.
 	Reason() AVCoordinatedPlaybackSuspensionReason
 
@@ -164,7 +164,7 @@ func (c AVCoordinatedPlaybackSuspension) EndProposingNewTime(time coremedia.CMTi
 // The time the suspension begins.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCoordinatedPlaybackSuspension/beginDate
-func (c AVCoordinatedPlaybackSuspension) BeginDate() foundation.INSDate {
+func (c AVCoordinatedPlaybackSuspension) BeginDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("beginDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }

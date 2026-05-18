@@ -76,7 +76,6 @@ func FSFileSystemFromID(id objc.ID) FSFileSystem {
 // See: https://developer.apple.com/documentation/FSKit/FSFileSystem
 type IFSFileSystem interface {
 	objectivec.IObject
-	FSFileSystemBase
 }
 
 // Init initializes the instance.
@@ -96,6 +95,15 @@ func NewFSFileSystem() FSFileSystem {
 	class := getFSFileSystemClass()
 	rv := objc.Send[FSFileSystem](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// The status of the file system container, indicating its readiness and
+// activity.
+//
+// See: https://developer.apple.com/documentation/FSKit/FSFileSystemBase/containerStatus
+func (f FSFileSystem) ContainerStatus() IFSContainerStatus {
+	rv := objc.Send[objc.ID](f.ID, objc.Sel("containerStatus"))
+	return FSContainerStatusFromID(rv)
 }
 
 // Wipes existing file systems on the specified resource.
@@ -118,15 +126,16 @@ func (f FSFileSystem) WipeResourceCompletionHandler(resource IFSBlockDeviceResou
 	objc.Send[objc.ID](f.ID, objc.Sel("wipeResource:completionHandler:"), resource, _block1)
 }
 
+// Protocol methods for FSFileSystemBase
+
 // The status of the file system container, indicating its readiness and
 // activity.
 //
 // # Discussion
 //
-// A file system container starts in the [FSContainerState.notReady] state,
-// and then transitions to the other values of the [FSContainerState]
-// enumeration. The following diagram illustrates the possible state
-// transitions.
+// A file system container starts in the [FSContainerStateNotReady] state, and
+// then transitions to the other values of the [FSContainerState] enumeration.
+// The following diagram illustrates the possible state transitions.
 //
 // [fs-file-system-base]
 //
@@ -138,35 +147,25 @@ func (f FSFileSystem) WipeResourceCompletionHandler(resource IFSBlockDeviceResou
 // transitions:
 //
 // - Calling `loadResource` transitions the state out of
-// [FSContainerState.notReady]. For all block device file systems, this
-// operation changes the state to either [FSContainerState.ready] or
-// [FSContainerState.blocked]. - Calling `unloadResource` transitions to the
-// [FSContainerState.notReady] state, as does device termination. -
-// Transitioning from [FSContainerState.blocked] to [FSContainerState.ready]
+// [FSContainerStateNotReady]. For all block device file systems, this
+// operation changes the state to either [FSContainerStateReady] or
+// [FSContainerStateBlocked]. - Calling `unloadResource` transitions to the
+// [FSContainerStateNotReady] state, as does device termination. -
+// Transitioning from [FSContainerStateBlocked] to [FSContainerStateReady]
 // occurs as a result of resolving the underlying block favorably. -
-// Transitioning from [FSContainerState.ready] to [FSContainerState.blocked]
-// is unusal, but valid. - Transitioning between [FSContainerState.ready] and
-// [FSContainerState.active] can result from maintenance operations such as
+// Transitioning from [FSContainerStateReady] to [FSContainerStateBlocked] is
+// unusal, but valid. - Transitioning between [FSContainerStateReady] and
+// [FSContainerStateActive] can result from maintenance operations such as
 // [StartCheckWithTaskOptionsError]. For a [FSUnaryFileSystem], this
 // transition can also occur when activating or deactivating the container’s
 // single volume.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSFileSystemBase/containerStatus
 //
-// [FSContainerState.active]: https://developer.apple.com/documentation/FSKit/FSContainerState/active
-// [FSContainerState.blocked]: https://developer.apple.com/documentation/FSKit/FSContainerState/blocked
-// [FSContainerState.notReady]: https://developer.apple.com/documentation/FSKit/FSContainerState/notReady
-// [FSContainerState.ready]: https://developer.apple.com/documentation/FSKit/FSContainerState/ready
 // [FSContainerState]: https://developer.apple.com/documentation/FSKit/FSContainerState
-func (f FSFileSystem) ContainerStatus() IFSContainerStatus {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("containerStatus"))
-	return FSContainerStatusFromID(objc.ID(rv))
+func (o FSFileSystem) SetContainerStatus(value IFSContainerStatus) {
+	objc.Send[struct{}](o.ID, objc.Sel("setContainerStatus:"), value)
 }
-func (f FSFileSystem) SetContainerStatus(value IFSContainerStatus) {
-	objc.Send[struct{}](f.ID, objc.Sel("setContainerStatus:"), value)
-}
-
-// Protocol methods for FSFileSystemBase
 
 // WipeResource is a synchronous wrapper around [FSFileSystem.WipeResourceCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.

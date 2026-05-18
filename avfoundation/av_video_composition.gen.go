@@ -72,6 +72,8 @@ func (ac AVVideoCompositionClass) Alloc() AVVideoComposition {
 //   - [AVVideoComposition.ColorTransferFunction]: The transfer function used for video composition.
 //   - [AVVideoComposition.ColorYCbCrMatrix]: The YCbCr matrix used for video composition.
 //   - [AVVideoComposition.CustomVideoCompositorClass]: A custom compositor class to use.
+//   - [AVVideoComposition.OutputBufferDescription]: The output buffers of the video composition can be specified with the outputBufferDescription. The value is an array of CMTagCollectionRef objects that describes the output buffers.
+//   - [AVVideoComposition.SpatialVideoConfigurations]: Indicates the spatial configurations that are available to associate with the output of the video composition.
 //
 // # Validating the time range
 //
@@ -84,6 +86,7 @@ func (ac AVVideoCompositionClass) Alloc() AVVideoComposition {
 // # Identifying source tracks
 //
 //   - [AVVideoComposition.SourceTrackIDForFrameTiming]: An identifier of the source track from which the video composition derives frame timing.
+//   - [AVVideoComposition.SourceSampleDataTrackIDs]: The identifiers of source sample data tracks in the composition that the compositor requires to compose frames.
 //
 // # Configuring HDR metadata
 //
@@ -117,6 +120,8 @@ func AVVideoCompositionFromID(id objc.ID) AVVideoComposition {
 //   - [IAVVideoComposition.ColorTransferFunction]: The transfer function used for video composition.
 //   - [IAVVideoComposition.ColorYCbCrMatrix]: The YCbCr matrix used for video composition.
 //   - [IAVVideoComposition.CustomVideoCompositorClass]: A custom compositor class to use.
+//   - [IAVVideoComposition.OutputBufferDescription]: The output buffers of the video composition can be specified with the outputBufferDescription. The value is an array of CMTagCollectionRef objects that describes the output buffers.
+//   - [IAVVideoComposition.SpatialVideoConfigurations]: Indicates the spatial configurations that are available to associate with the output of the video composition.
 //
 // # Validating the time range
 //
@@ -129,6 +134,7 @@ func AVVideoCompositionFromID(id objc.ID) AVVideoComposition {
 // # Identifying source tracks
 //
 //   - [IAVVideoComposition.SourceTrackIDForFrameTiming]: An identifier of the source track from which the video composition derives frame timing.
+//   - [IAVVideoComposition.SourceSampleDataTrackIDs]: The identifiers of source sample data tracks in the composition that the compositor requires to compose frames.
 //
 // # Configuring HDR metadata
 //
@@ -156,6 +162,10 @@ type IAVVideoComposition interface {
 	ColorYCbCrMatrix() string
 	// A custom compositor class to use.
 	CustomVideoCompositorClass() objc.Class
+	// The output buffers of the video composition can be specified with the outputBufferDescription. The value is an array of CMTagCollectionRef objects that describes the output buffers.
+	OutputBufferDescription() foundation.INSArray
+	// Indicates the spatial configurations that are available to associate with the output of the video composition.
+	SpatialVideoConfigurations() []AVSpatialVideoConfiguration
 
 	// Topic: Validating the time range
 
@@ -171,18 +181,13 @@ type IAVVideoComposition interface {
 
 	// An identifier of the source track from which the video composition derives frame timing.
 	SourceTrackIDForFrameTiming() int32
+	// The identifiers of source sample data tracks in the composition that the compositor requires to compose frames.
+	SourceSampleDataTrackIDs() []foundation.NSNumber
 
 	// Topic: Configuring HDR metadata
 
 	// The policy for display of HDR display metadata on the rendered frame.
 	PerFrameHDRDisplayMetadataPolicy() AVVideoCompositionPerFrameHDRDisplayMetadataPolicy
-
-	// The output buffers of the video composition can be specified with the outputBufferDescription. The value is an array of CMTagCollectionRef objects that describes the output buffers.
-	OutputBufferDescription() foundation.INSArray
-	// The identifiers of source sample data tracks in the composition that the compositor requires to compose frames.
-	SourceSampleDataTrackIDs() []foundation.NSNumber
-	// Indicates the spatial configurations that are available to associate with the output of the video composition.
-	SpatialVideoConfigurations() []AVSpatialVideoConfiguration
 }
 
 // Init initializes the instance.
@@ -425,6 +430,48 @@ func (v AVVideoComposition) CustomVideoCompositorClass() objc.Class {
 	return rv
 }
 
+// The output buffers of the video composition can be specified with the
+// outputBufferDescription. The value is an array of CMTagCollectionRef
+// objects that describes the output buffers.
+//
+// # Discussion
+//
+// If the video composition will output tagged buffers, the details of those
+// buffers should be specified with CMTags. Specifically, the StereoView
+// (eyes) and ProjectionKind must be specified. The behavior is undefined if
+// the output tagged buffers do not match the outputBufferDescription. The
+// default is nil, which means monoscopic output. Note that an empty array is
+// not valid. An exception will be thrown if the objects in the array are not
+// of type CMTagCollectionRef. Note that tagged buffers are only supported for
+// custom compositors.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/outputBufferDescription-3wsar
+func (v AVVideoComposition) OutputBufferDescription() foundation.INSArray {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("outputBufferDescription"))
+	return foundation.NSArrayFromID(objc.ID(rv))
+}
+
+// Indicates the spatial configurations that are available to associate with
+// the output of the video composition.
+//
+// # Discussion
+//
+// A custom compositor can output spatial video by specifying one of these
+// spatial configurations. A spatial configuration with all nil values
+// indicates the video is not spatial. A nil spatial configuration also
+// indicates the video is not spatial. The value can be nil, which indicates
+// the output will not be spatial. NOTE: If this property is not empty, then
+// the client must attach one of the spatial configurations in this array to
+// all of the pixel buffers, otherwise an exception will be thrown.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/spatialVideoConfigurations-2ipps
+func (v AVVideoComposition) SpatialVideoConfigurations() []AVSpatialVideoConfiguration {
+	rv := objc.Send[[]objc.ID](v.ID, objc.Sel("spatialVideoConfigurations"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVSpatialVideoConfiguration {
+		return AVSpatialVideoConfigurationFromID(id)
+	})
+}
+
 // The video composition instructions.
 //
 // # Discussion
@@ -464,6 +511,17 @@ func (v AVVideoComposition) SourceTrackIDForFrameTiming() int32 {
 	return rv
 }
 
+// The identifiers of source sample data tracks in the composition that the
+// compositor requires to compose frames.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/sourceSampleDataTrackIDs-3nrgi
+func (v AVVideoComposition) SourceSampleDataTrackIDs() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](v.ID, objc.Sel("sourceSampleDataTrackIDs"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+
 // The policy for display of HDR display metadata on the rendered frame.
 //
 // # Discussion
@@ -480,59 +538,6 @@ func (v AVVideoComposition) SourceTrackIDForFrameTiming() int32 {
 func (v AVVideoComposition) PerFrameHDRDisplayMetadataPolicy() AVVideoCompositionPerFrameHDRDisplayMetadataPolicy {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("perFrameHDRDisplayMetadataPolicy"))
 	return AVVideoCompositionPerFrameHDRDisplayMetadataPolicy(foundation.NSStringFromID(rv).String())
-}
-
-// The output buffers of the video composition can be specified with the
-// outputBufferDescription. The value is an array of CMTagCollectionRef
-// objects that describes the output buffers.
-//
-// # Discussion
-//
-// If the video composition will output tagged buffers, the details of those
-// buffers should be specified with CMTags. Specifically, the StereoView
-// (eyes) and ProjectionKind must be specified. The behavior is undefined if
-// the output tagged buffers do not match the outputBufferDescription. The
-// default is nil, which means monoscopic output. Note that an empty array is
-// not valid. An exception will be thrown if the objects in the array are not
-// of type CMTagCollectionRef. Note that tagged buffers are only supported for
-// custom compositors.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/outputBufferDescription-3wsar
-func (v AVVideoComposition) OutputBufferDescription() foundation.INSArray {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("outputBufferDescription"))
-	return foundation.NSArrayFromID(objc.ID(rv))
-}
-
-// The identifiers of source sample data tracks in the composition that the
-// compositor requires to compose frames.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/sourceSampleDataTrackIDs-3nrgi
-func (v AVVideoComposition) SourceSampleDataTrackIDs() []foundation.NSNumber {
-	rv := objc.Send[[]objc.ID](v.ID, objc.Sel("sourceSampleDataTrackIDs"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
-		return foundation.NSNumberFromID(id)
-	})
-}
-
-// Indicates the spatial configurations that are available to associate with
-// the output of the video composition.
-//
-// # Discussion
-//
-// A custom compositor can output spatial video by specifying one of these
-// spatial configurations. A spatial configuration with all nil values
-// indicates the video is not spatial. A nil spatial configuration also
-// indicates the video is not spatial. The value can be nil, which indicates
-// the output will not be spatial. NOTE: If this property is not empty, then
-// the client must attach one of the spatial configurations in this array to
-// all of the pixel buffers, otherwise an exception will be thrown.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/spatialVideoConfigurations-2ipps
-func (v AVVideoComposition) SpatialVideoConfigurations() []AVSpatialVideoConfiguration {
-	rv := objc.Send[[]objc.ID](v.ID, objc.Sel("spatialVideoConfigurations"))
-	return objc.ConvertSlice(rv, func(id objc.ID) AVSpatialVideoConfiguration {
-		return AVSpatialVideoConfigurationFromID(id)
-	})
 }
 
 // VideoCompositionWithPropertiesOfAssetSync is a synchronous wrapper around [AVVideoComposition.VideoCompositionWithPropertiesOfAssetCompletionHandler].

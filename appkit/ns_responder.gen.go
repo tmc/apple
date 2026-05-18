@@ -369,7 +369,6 @@ type INSResponder interface {
 	objectivec.IObject
 	NSStandardKeyBindingResponding
 	NSTouchBarProvider
-	NSUserActivityRestoring
 
 	// Topic: Changing the First Responder
 
@@ -479,11 +478,11 @@ type INSResponder interface {
 	// Topic: Presenting and Customizing Error Information
 
 	// Presents an error alert to the user as an application-modal dialog.
-	PresentError(error_ foundation.INSError) bool
+	PresentError(error_ foundation.NSError) bool
 	// Presents an error alert to the user as a document-modal sheet attached to document window.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
 	// Returns a custom version of the supplied error object that’s more suitable for presentation in alert sheets and dialogs.
-	WillPresentError(error_ foundation.INSError) foundation.INSError
+	WillPresentError(error_ foundation.NSError) foundation.NSError
 
 	// Topic: Dispatching Messages
 
@@ -1266,7 +1265,7 @@ func (r NSResponder) UpdateUserActivityState(userActivity foundation.NSUserActiv
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/presentError(_:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (r NSResponder) PresentError(error_ foundation.INSError) bool {
+func (r NSResponder) PresentError(error_ foundation.NSError) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("presentError:"), error_)
 	return rv
 }
@@ -1317,7 +1316,7 @@ func (r NSResponder) PresentError(error_ foundation.INSError) bool {
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/presentError(_:modalFor:delegate:didPresent:contextInfo:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
+func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](r.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 
@@ -1347,7 +1346,7 @@ func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContext
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/willPresentError(_:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (r NSResponder) WillPresentError(error_ foundation.INSError) foundation.INSError {
+func (r NSResponder) WillPresentError(error_ foundation.NSError) foundation.NSError {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("willPresentError:"), error_)
 	return foundation.NSErrorFromID(rv)
 }

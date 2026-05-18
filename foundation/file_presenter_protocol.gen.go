@@ -51,39 +51,6 @@ func NSFilePresenterObjectFromID(id objc.ID) NSFilePresenterObject {
 	}
 }
 
-// The URL of the presented file or directory.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemURL
-func (o NSFilePresenterObject) PresentedItemURL() INSURL {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("presentedItemURL"))
-	return NSURLFromID(rv)
-}
-
-// The operation queue in which to execute presenter-related messages.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemOperationQueue
-func (o NSFilePresenterObject) PresentedItemOperationQueue() INSOperationQueue {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("presentedItemOperationQueue"))
-	return NSOperationQueueFromID(rv)
-}
-
-// The URL of a secondary item’s primary presented file or directory.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/primaryPresentedItemURL
-func (o NSFilePresenterObject) PrimaryPresentedItemURL() INSURL {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("primaryPresentedItemURL"))
-	return NSURLFromID(rv)
-}
-
-// A list of ubiquity attributes used to generate and send notifications
-// whenever an attribute in the list changes.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/observedPresentedItemUbiquityAttributes
-func (o NSFilePresenterObject) ObservedPresentedItemUbiquityAttributes() INSSet {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("observedPresentedItemUbiquityAttributes"))
-	return NSSetFromID(rv)
-}
-
 // Notifies your object that another object or process wants to read the
 // presented file or directory.
 //
@@ -486,4 +453,97 @@ func (o NSFilePresenterObject) PresentedItemDidChangeUbiquityAttributes(attribut
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/accommodatePresentedItemEviction(completionHandler:)
 func (o NSFilePresenterObject) AccommodatePresentedItemEvictionWithCompletionHandler(completionHandler ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedItemEvictionWithCompletionHandler:"), completionHandler)
+}
+
+// The URL of the presented file or directory.
+//
+// # Discussion
+//
+// File presenters must implement this property and use it to return the file
+// or directory of interest. If this object presents a group of related files
+// that all reside in the same directory, specify the URL of the directory
+// instead of creating separate presenter objects for each file. For example,
+// a single-window application that manages multiple files inside a project
+// directory should monitor the project directory.
+//
+// The URL associated with your item may be requested by objects not
+// associated with your presenter. Therefore, your implementation of the
+// accessor method for this property must be thread safe and capable of
+// running in multiple dispatch or operation queues simultaneously.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemURL
+func (o NSFilePresenterObject) PresentedItemURL() INSURL {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("presentedItemURL"))
+	return NSURLFromID(rv)
+}
+
+// The operation queue in which to execute presenter-related messages.
+//
+// # Discussion
+//
+// As other objects and processes interact with the presented item, the system
+// queues relevant messages for this presenter object on the operation queue
+// in this property. For example, when another process attempts to read a file
+// presented by this object, the system places an invocation of this
+// object’s [RelinquishPresentedItemToReader] method on the queue for
+// execution. The other process must wait to read the file until that method
+// is dequeued and executed. Requests for an object’s presented URL are not
+// processed on this queue.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemOperationQueue
+func (o NSFilePresenterObject) PresentedItemOperationQueue() INSOperationQueue {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("presentedItemOperationQueue"))
+	return NSOperationQueueFromID(rv)
+}
+
+// The URL of a secondary item’s primary presented file or directory.
+//
+// # Discussion
+//
+// This property supports App Sandbox in macOS.
+//
+// Some apps require access to secondary files or directories with names that
+// are related to the primary, user-selected file. For example, a subtitle
+// file, by convention, has the same name as its corresponding movie file, but
+// with a different filename extension. If a movie player is sandboxed, an
+// [NSOpenPanel] object will grant access only to the user-selected movie file
+// (the primary item) and not its associated subtitle file (the secondary
+// item).
+//
+// To gain access to a secondary item, first register an [NSFilePresenter]
+// object for it. At any point in its existence, a secondary item must be able
+// to return an [NSURL] object to its primary item. This is done by using this
+// property. When done accessing the secondary item, unregister the file
+// presenter object.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/primaryPresentedItemURL
+//
+// [NSOpenPanel]: https://developer.apple.com/documentation/AppKit/NSOpenPanel
+func (o NSFilePresenterObject) PrimaryPresentedItemURL() INSURL {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("primaryPresentedItemURL"))
+	return NSURLFromID(rv)
+}
+
+// A list of ubiquity attributes used to generate and send notifications
+// whenever an attribute in the list changes.
+//
+// # Discussion
+//
+// Valid attributes include the [isUbiquitousItemKey] attribute and any
+// attribute whose name starts with `ubiquitousItem` or `ubiquitousSharedItem`
+// (or [NSURLUbiquitousItem] or [NSURLUbiquitousSharedItem] in Objective-C).
+//
+// If the property is not implemented, the system generates notifications for
+// all the ubiquity attributes.
+//
+// The system checks this property only when the file coordinator’s
+// [AddFilePresenter] method is called. Make all changes to this property
+// before calling [AddFilePresenter].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/observedPresentedItemUbiquityAttributes
+//
+// [isUbiquitousItemKey]: https://developer.apple.com/documentation/Foundation/URLResourceKey/isUbiquitousItemKey
+func (o NSFilePresenterObject) ObservedPresentedItemUbiquityAttributes() INSSet {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("observedPresentedItemUbiquityAttributes"))
+	return NSSetFromID(rv)
 }

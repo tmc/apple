@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -82,7 +81,7 @@ func NewWSKeyEventProcessor() WSKeyEventProcessor {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/WSEventProcessor/initWithSession:
-func NewWSKeyEventProcessorWithSession(session unsafe.Pointer) WSKeyEventProcessor {
+func NewWSKeyEventProcessorWithSession(session CGXSession) WSKeyEventProcessor {
 	instance := getWSKeyEventProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return WSKeyEventProcessorFromID(rv)

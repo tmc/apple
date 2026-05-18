@@ -89,14 +89,14 @@ type IVZGraphicsDisplayConfiguration interface {
 }
 
 // Init initializes the instance.
-func (g VZGraphicsDisplayConfiguration) Init() VZGraphicsDisplayConfiguration {
-	rv := objc.Send[VZGraphicsDisplayConfiguration](g.ID, objc.Sel("init"))
+func (v VZGraphicsDisplayConfiguration) Init() VZGraphicsDisplayConfiguration {
+	rv := objc.Send[VZGraphicsDisplayConfiguration](v.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g VZGraphicsDisplayConfiguration) Autorelease() VZGraphicsDisplayConfiguration {
-	rv := objc.Send[VZGraphicsDisplayConfiguration](g.ID, objc.Sel("autorelease"))
+func (v VZGraphicsDisplayConfiguration) Autorelease() VZGraphicsDisplayConfiguration {
+	rv := objc.Send[VZGraphicsDisplayConfiguration](v.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -108,69 +108,69 @@ func NewVZGraphicsDisplayConfiguration() VZGraphicsDisplayConfiguration {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_init
-func (g VZGraphicsDisplayConfiguration) _init() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_init"))
+func (v VZGraphicsDisplayConfiguration) _init() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_initWithConfiguration:
-func (g VZGraphicsDisplayConfiguration) _initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_initWithConfiguration:"), configuration)
+func (v VZGraphicsDisplayConfiguration) _initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithConfiguration:"), configuration)
 	return objectivec.Object{ID: rv}
 }
 
 // InitWithConfiguration is an exported wrapper for the private method _initWithConfiguration.
-func (g VZGraphicsDisplayConfiguration) InitWithConfiguration(configuration unsafe.Pointer) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_initWithConfiguration:")) {
+func (v VZGraphicsDisplayConfiguration) InitWithConfiguration(configuration unsafe.Pointer) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithConfiguration:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_initWithConfiguration:"}
 		return nil, err
 	}
-	return g._initWithConfiguration(configuration), nil
+	return v._initWithConfiguration(configuration), nil
 }
 
 // CanInitWithConfiguration reports whether the receiver responds to the private selector _initWithConfiguration:.
-func (g VZGraphicsDisplayConfiguration) CanInitWithConfiguration() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_initWithConfiguration:"))
+func (v VZGraphicsDisplayConfiguration) CanInitWithConfiguration() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithConfiguration:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_setUUID:
-func (g VZGraphicsDisplayConfiguration) _setUUID(uuid objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_setUUID:"), uuid)
+func (v VZGraphicsDisplayConfiguration) _setUUID(uuid objectivec.IObject) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setUUID:"), uuid)
 }
 
 // SetUUID is an exported wrapper for the private method _setUUID.
-func (g VZGraphicsDisplayConfiguration) SetUUID(uuid objectivec.IObject) error {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_setUUID:")) {
+func (v VZGraphicsDisplayConfiguration) SetUUID(uuid objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setUUID:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_setUUID:"}
 		return err
 	}
-	g._setUUID(uuid)
+	v._setUUID(uuid)
 	return nil
 }
 
 // CanSetUUID reports whether the receiver responds to the private selector _setUUID:.
-func (g VZGraphicsDisplayConfiguration) CanSetUUID() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_setUUID:"))
+func (v VZGraphicsDisplayConfiguration) CanSetUUID() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setUUID:"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_uuid
-func (g VZGraphicsDisplayConfiguration) _uuid() foundation.NSUUID {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("_uuid"))
+func (v VZGraphicsDisplayConfiguration) _uuid() foundation.NSUUID {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 
 // CanUuid reports whether the receiver responds to the private selector _uuid.
-func (g VZGraphicsDisplayConfiguration) CanUuid() bool {
-	return objc.RespondsToSelector(g.ID, objc.Sel("_uuid"))
+func (v VZGraphicsDisplayConfiguration) CanUuid() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_uuid"))
 }
 
 // Uuid is an exported wrapper for the private property _uuid.
-func (g VZGraphicsDisplayConfiguration) Uuid() (foundation.NSUUID, error) {
-	if !objc.RespondsToSelector(g.ID, objc.Sel("_uuid")) {
+func (v VZGraphicsDisplayConfiguration) Uuid() (foundation.NSUUID, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_uuid")) {
 		return *new(foundation.NSUUID), &objc.UnrecognizedSelectorError{Selector: "_uuid"}
 	}
-	return g._uuid(), nil
+	return v._uuid(), nil
 }
-func (g VZGraphicsDisplayConfiguration) Set_uuid(value foundation.NSUUID) {
-	objc.Send[struct{}](g.ID, objc.Sel("set_uuid:"), value)
+func (v VZGraphicsDisplayConfiguration) Set_uuid(value foundation.NSUUID) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_uuid:"), value)
 }

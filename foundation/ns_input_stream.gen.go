@@ -234,7 +234,7 @@ func NewInputStreamWithFileAtPath(path string) InputStream {
 //
 // The stream must be opened before it can be used.
 //
-// See: https://developer.apple.com/documentation/Foundation/InputStream/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/InputStream/init(url:)-1lfmj
 func NewInputStreamWithURL(url INSURL) InputStream {
 	instance := getInputStreamClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
@@ -294,7 +294,7 @@ func (i InputStream) InitWithFileAtPath(path string) InputStream {
 //
 // The stream must be opened before it can be used.
 //
-// See: https://developer.apple.com/documentation/Foundation/InputStream/init(url:)
+// See: https://developer.apple.com/documentation/Foundation/InputStream/init(url:)-1lfmj
 func (i InputStream) InitWithURL(url INSURL) InputStream {
 	rv := objc.Send[InputStream](i.ID, objc.Sel("initWithURL:"), url)
 	return rv

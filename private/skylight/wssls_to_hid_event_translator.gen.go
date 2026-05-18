@@ -71,7 +71,7 @@ type IWSSLSToHIDEventTranslator interface {
 
 	// Topic: Methods
 
-	HidEventForSLSEventOutSenderDescriptor(sLSEvent *SLSEventRecordRef, descriptor []objectivec.IObject) uintptr
+	HidEventForSLSEventOutSenderDescriptor(sLSEvent SLSEventRecord, descriptor []objectivec.IObject) uintptr
 }
 
 // Init initializes the instance.
@@ -94,7 +94,7 @@ func NewWSSLSToHIDEventTranslator() WSSLSToHIDEventTranslator {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/_WSSLSToHIDEventTranslator/hidEventForSLSEvent:outSenderDescriptor:
-func (w WSSLSToHIDEventTranslator) HidEventForSLSEventOutSenderDescriptor(sLSEvent *SLSEventRecordRef, descriptor []objectivec.IObject) uintptr {
+func (w WSSLSToHIDEventTranslator) HidEventForSLSEventOutSenderDescriptor(sLSEvent SLSEventRecord, descriptor []objectivec.IObject) uintptr {
 	rv := objc.Send[uintptr](w.ID, objc.Sel("hidEventForSLSEvent:outSenderDescriptor:"), sLSEvent, objectivec.IObjectSliceToNSArray(descriptor))
 	return rv
 }

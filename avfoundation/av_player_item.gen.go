@@ -456,7 +456,7 @@ type IAVPlayerItem interface {
 	// Topic: Creating a player item
 
 	// Creates a player item with a specified URL.
-	InitWithURL(URL foundation.INSURL) AVPlayerItem
+	InitWithURL(URL foundation.NSURL) AVPlayerItem
 	// Creates a player item for a specified asset.
 	InitWithAsset(asset IAVAsset) AVPlayerItem
 	// Creates a player item with the specified asset and the asset keys to automatically load.
@@ -472,7 +472,7 @@ type IAVPlayerItem interface {
 	// The status of the player item.
 	Status() AVPlayerItemStatus
 	// The error that caused the player item to fail.
-	Error() foundation.INSError
+	Error() foundation.NSError
 
 	// Topic: Determining playback capabilities
 
@@ -512,7 +512,7 @@ type IAVPlayerItem interface {
 	// Sets the current playback time within a specified time bound and invokes the specified block when the seek operation completes or is interrupted.
 	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time coremedia.CMTime, toleranceBefore coremedia.CMTime, toleranceAfter coremedia.CMTime, completionHandler BoolHandler)
 	// Sets the current playback time to the time specified by the date object.
-	SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) bool
+	SeekToDateCompletionHandler(date foundation.NSDate, completionHandler BoolHandler) bool
 	// Cancels any pending seek requests and invokes the corresponding completion handlers if present.
 	CancelPendingSeeks()
 
@@ -562,7 +562,7 @@ type IAVPlayerItem interface {
 	// Returns the current time of the item.
 	CurrentTime() coremedia.CMTime
 	// Returns the current time of the item as a date.
-	CurrentDate() foundation.INSDate
+	CurrentDate() foundation.NSDate
 	// The duration of the item.
 	Duration() coremedia.CMTime
 	// The timebase information for the item.
@@ -803,8 +803,8 @@ func NewPlayerItemWithAssetAutomaticallyLoadedAssetKeys(asset IAVAsset, automati
 // [AVPlayerItemStatusFailed]. You can determine the nature of the failure by
 // querying the player item’s [Error] property.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/init(url:)
-func NewPlayerItemWithURL(URL foundation.INSURL) AVPlayerItem {
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/init(url:)-1xrtk
+func NewPlayerItemWithURL(URL foundation.NSURL) AVPlayerItem {
 	instance := getAVPlayerItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
 	return AVPlayerItemFromID(rv)
@@ -831,8 +831,8 @@ func NewPlayerItemWithURL(URL foundation.INSURL) AVPlayerItem {
 // [AVPlayerItemStatusFailed]. You can determine the nature of the failure by
 // querying the player item’s [Error] property.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/init(url:)
-func (p AVPlayerItem) InitWithURL(URL foundation.INSURL) AVPlayerItem {
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/init(url:)-1xrtk
+func (p AVPlayerItem) InitWithURL(URL foundation.NSURL) AVPlayerItem {
 	rv := objc.Send[AVPlayerItem](p.ID, objc.Sel("initWithURL:"), URL)
 	return rv
 }
@@ -949,7 +949,7 @@ func (p AVPlayerItem) SeekToTimeCompletionHandler(time coremedia.CMTime, complet
 // time+toleranceAfter]` and may differ from `time` for efficiency.
 //
 // Invoking this method with [positiveInfinity] for `toleranceBefore` and
-// `toleranceAfter` is the same as invoking [SeekToTimeCompletionHandler]
+// `toleranceAfter` is the same as invoking [SeekToDateCompletionHandler]
 // directly.
 //
 // Seeking is constrained by the collection of seekable time ranges. If you
@@ -993,7 +993,7 @@ func (p AVPlayerItem) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(t
 // immediately with the `finished` parameter set to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/seek(to:completionHandler:)-1dibq
-func (p AVPlayerItem) SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) bool {
+func (p AVPlayerItem) SeekToDateCompletionHandler(date foundation.NSDate, completionHandler BoolHandler) bool {
 	_block1, _ := NewBoolBlock(completionHandler)
 	rv := objc.Send[bool](p.ID, objc.Sel("seekToDate:completionHandler:"), date, _block1)
 	return rv
@@ -1208,7 +1208,7 @@ func (p AVPlayerItem) CurrentTime() coremedia.CMTime {
 // The system calculates this value from the `EXT-X-PROGRAM-DATE-TIME` tag.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/currentDate()
-func (p AVPlayerItem) CurrentDate() foundation.INSDate {
+func (p AVPlayerItem) CurrentDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentDate"))
 	return foundation.NSDateFromID(rv)
 }
@@ -1419,7 +1419,7 @@ func (_AVPlayerItemClass AVPlayerItemClass) PlayerItemWithAssetAutomaticallyLoad
 // querying the player item’s [Error] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/playerItemWithURL:
-func (_AVPlayerItemClass AVPlayerItemClass) PlayerItemWithURL(URL foundation.INSURL) AVPlayerItem {
+func (_AVPlayerItemClass AVPlayerItemClass) PlayerItemWithURL(URL foundation.NSURL) AVPlayerItem {
 	rv := objc.Send[objc.ID](objc.ID(_AVPlayerItemClass.class), objc.Sel("playerItemWithURL:"), URL)
 	return AVPlayerItemFromID(rv)
 }
@@ -1473,7 +1473,7 @@ func (p AVPlayerItem) Status() AVPlayerItemStatus {
 // this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/error
-func (p AVPlayerItem) Error() foundation.INSError {
+func (p AVPlayerItem) Error() foundation.NSError {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
@@ -2381,7 +2381,7 @@ func (p AVPlayerItem) SeekToTimeToleranceBeforeToleranceAfter(ctx context.Contex
 
 // SeekToDate is a synchronous wrapper around [AVPlayerItem.SeekToDateCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayerItem) SeekToDate(ctx context.Context, date foundation.INSDate) (bool, error) {
+func (p AVPlayerItem) SeekToDate(ctx context.Context, date foundation.NSDate) (bool, error) {
 	done := make(chan bool, 1)
 	p.SeekToDateCompletionHandler(date, func(val bool) {
 		done <- val

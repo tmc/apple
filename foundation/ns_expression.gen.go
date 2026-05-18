@@ -183,8 +183,6 @@ func NSExpressionFromID(id objc.ID) NSExpression {
 // See: https://developer.apple.com/documentation/Foundation/NSExpression
 type INSExpression interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating an Expression

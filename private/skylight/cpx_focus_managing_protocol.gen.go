@@ -18,7 +18,7 @@ type CPXFocusManaging interface {
 	// CleanupForProcessDeath protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/cleanupForProcessDeath:
-	CleanupForProcessDeath(death *CPSProcessRecRef)
+	CleanupForProcessDeath(death CPSProcessRec)
 
 	// FrontVisibleProcess protocol.
 	//
@@ -33,17 +33,17 @@ type CPXFocusManaging interface {
 	// GetProcessToBringForwardAtNextCheckin protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/getProcessToBringForwardAtNextCheckin:
-	GetProcessToBringForwardAtNextCheckin(checkin unsafe.Pointer) bool
+	GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
 
 	// IsProcessPermittedToBeFrontmost protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/isProcessPermittedToBeFrontmost:
-	IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRecRef) bool
+	IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool
 
 	// IsProcessToBringForwardAtNextCheckin protocol.
 	//
 	// See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/isProcessToBringForwardAtNextCheckin:
-	IsProcessToBringForwardAtNextCheckin(checkin objectivec.IObject) bool
+	IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool
 
 	// KeyThiefConnectionID protocol.
 	//
@@ -74,7 +74,7 @@ func CPXFocusManagingObjectFromID(id objc.ID) CPXFocusManagingObject {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/cleanupForProcessDeath:
-func (o CPXFocusManagingObject) CleanupForProcessDeath(death *CPSProcessRecRef) {
+func (o CPXFocusManagingObject) CleanupForProcessDeath(death CPSProcessRec) {
 	objc.Send[struct{}](o.ID, objc.Sel("cleanupForProcessDeath:"), death)
 }
 
@@ -97,19 +97,19 @@ func (o CPXFocusManagingObject) FrontmostProcess() unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/getProcessToBringForwardAtNextCheckin:
-func (o CPXFocusManagingObject) GetProcessToBringForwardAtNextCheckin(checkin unsafe.Pointer) bool {
+func (o CPXFocusManagingObject) GetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("getProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/isProcessPermittedToBeFrontmost:
-func (o CPXFocusManagingObject) IsProcessPermittedToBeFrontmost(frontmost *CPSProcessRecRef) bool {
+func (o CPXFocusManagingObject) IsProcessPermittedToBeFrontmost(frontmost CPSProcessRec) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isProcessPermittedToBeFrontmost:"), frontmost)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CPXFocusManaging/isProcessToBringForwardAtNextCheckin:
-func (o CPXFocusManagingObject) IsProcessToBringForwardAtNextCheckin(checkin objectivec.IObject) bool {
+func (o CPXFocusManagingObject) IsProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }

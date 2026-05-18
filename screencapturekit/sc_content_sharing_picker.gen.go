@@ -57,6 +57,10 @@ func (sc SCContentSharingPickerClass) Alloc() SCContentSharingPicker {
 //
 //   - [SCContentSharingPicker.Configuration]: Sets the configuration for the content capture picker for all streams, providing allowed selection modes and content excluded from selection.
 //   - [SCContentSharingPicker.SetConfiguration]
+//   - [SCContentSharingPicker.DefaultConfiguration]: The default configuration to use for the content capture picker.
+//   - [SCContentSharingPicker.SetDefaultConfiguration]
+//   - [SCContentSharingPicker.MaximumStreamCount]: The maximum number of streams the content capture picker allows.
+//   - [SCContentSharingPicker.SetMaximumStreamCount]
 //
 // # Manage observers
 //
@@ -97,6 +101,10 @@ func SCContentSharingPickerFromID(id objc.ID) SCContentSharingPicker {
 //
 //   - [ISCContentSharingPicker.Configuration]: Sets the configuration for the content capture picker for all streams, providing allowed selection modes and content excluded from selection.
 //   - [ISCContentSharingPicker.SetConfiguration]
+//   - [ISCContentSharingPicker.DefaultConfiguration]: The default configuration to use for the content capture picker.
+//   - [ISCContentSharingPicker.SetDefaultConfiguration]
+//   - [ISCContentSharingPicker.MaximumStreamCount]: The maximum number of streams the content capture picker allows.
+//   - [ISCContentSharingPicker.SetMaximumStreamCount]
 //
 // # Manage observers
 //
@@ -125,6 +133,12 @@ type ISCContentSharingPicker interface {
 	// Sets the configuration for the content capture picker for all streams, providing allowed selection modes and content excluded from selection.
 	Configuration() ISCContentSharingPickerConfiguration
 	SetConfiguration(value ISCContentSharingPickerConfiguration)
+	// The default configuration to use for the content capture picker.
+	DefaultConfiguration() ISCContentSharingPickerConfiguration
+	SetDefaultConfiguration(value ISCContentSharingPickerConfiguration)
+	// The maximum number of streams the content capture picker allows.
+	MaximumStreamCount() foundation.NSNumber
+	SetMaximumStreamCount(value foundation.NSNumber)
 
 	// Topic: Manage observers
 
@@ -144,12 +158,6 @@ type ISCContentSharingPicker interface {
 	// Displays the picker with an existing capture stream, allowing for a single type of capture selection.
 	PresentPickerForStreamUsingContentStyle(stream ISCStream, contentStyle SCShareableContentStyle)
 
-	// The default configuration to use for the content capture picker.
-	DefaultConfiguration() ISCContentSharingPickerConfiguration
-	SetDefaultConfiguration(value ISCContentSharingPickerConfiguration)
-	// The maximum number of streams the content capture picker allows.
-	MaximumStreamCount() foundation.NSNumber
-	SetMaximumStreamCount(value foundation.NSNumber)
 	// Sets the configuration for the content capture picker for a capture stream, providing allowed selection modes and content excluded from selection.
 	SetConfigurationForStream(pickerConfig ISCContentSharingPickerConfiguration, stream ISCStream)
 }

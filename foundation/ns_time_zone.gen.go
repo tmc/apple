@@ -172,8 +172,6 @@ func NSTimeZoneFromID(id objc.ID) NSTimeZone {
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone
 type INSTimeZone interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Creating Time Zones

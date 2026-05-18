@@ -90,7 +90,7 @@ type IGCDirectionalGamepad interface {
 
 	// A Boolean value that indicates whether the element provides analog data.
 	IsAnalog() bool
-	SetIsAnalog(value bool)
+	SetAnalog(value bool)
 }
 
 // Init initializes the instance.
@@ -119,6 +119,6 @@ func (g GCDirectionalGamepad) IsAnalog() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("analog"))
 	return rv
 }
-func (g GCDirectionalGamepad) SetIsAnalog(value bool) {
+func (g GCDirectionalGamepad) SetAnalog(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAnalog:"), value)
 }

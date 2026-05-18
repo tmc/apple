@@ -199,7 +199,7 @@ var _nWAdvertiseDescriptorCreateApplicationServiceErr error
 
 func tryNWAdvertiseDescriptorCreateApplicationService(application_service_name string) (NWAdvertiseDescriptor, error) {
 	if _nWAdvertiseDescriptorCreateApplicationService == nil {
-		return *new(NWAdvertiseDescriptor), symbolCallError("nw_advertise_descriptor_create_application_service", "13.0", _nWAdvertiseDescriptorCreateApplicationServiceErr)
+		return NWAdvertiseDescriptor{}, symbolCallError("nw_advertise_descriptor_create_application_service", "13.0", _nWAdvertiseDescriptorCreateApplicationServiceErr)
 	}
 	return _nWAdvertiseDescriptorCreateApplicationService(application_service_name), nil
 }
@@ -220,7 +220,7 @@ var _nWAdvertiseDescriptorCreateBonjourServiceErr error
 
 func tryNWAdvertiseDescriptorCreateBonjourService(name string, type_ string, domain string) (NWAdvertiseDescriptor, error) {
 	if _nWAdvertiseDescriptorCreateBonjourService == nil {
-		return *new(NWAdvertiseDescriptor), symbolCallError("nw_advertise_descriptor_create_bonjour_service", "10.14", _nWAdvertiseDescriptorCreateBonjourServiceErr)
+		return NWAdvertiseDescriptor{}, symbolCallError("nw_advertise_descriptor_create_bonjour_service", "10.14", _nWAdvertiseDescriptorCreateBonjourServiceErr)
 	}
 	return _nWAdvertiseDescriptorCreateBonjourService(name, type_, domain), nil
 }
@@ -343,7 +343,7 @@ var _nWBrowseDescriptorCreateApplicationServiceErr error
 
 func tryNWBrowseDescriptorCreateApplicationService(application_service_name string) (NWBrowseDescriptor, error) {
 	if _nWBrowseDescriptorCreateApplicationService == nil {
-		return *new(NWBrowseDescriptor), symbolCallError("nw_browse_descriptor_create_application_service", "13.0", _nWBrowseDescriptorCreateApplicationServiceErr)
+		return NWBrowseDescriptor{}, symbolCallError("nw_browse_descriptor_create_application_service", "13.0", _nWBrowseDescriptorCreateApplicationServiceErr)
 	}
 	return _nWBrowseDescriptorCreateApplicationService(application_service_name), nil
 }
@@ -364,7 +364,7 @@ var _nWBrowseDescriptorCreateBonjourServiceErr error
 
 func tryNWBrowseDescriptorCreateBonjourService(type_ string, domain string) (NWBrowseDescriptor, error) {
 	if _nWBrowseDescriptorCreateBonjourService == nil {
-		return *new(NWBrowseDescriptor), symbolCallError("nw_browse_descriptor_create_bonjour_service", "10.15", _nWBrowseDescriptorCreateBonjourServiceErr)
+		return NWBrowseDescriptor{}, symbolCallError("nw_browse_descriptor_create_bonjour_service", "10.15", _nWBrowseDescriptorCreateBonjourServiceErr)
 	}
 	return _nWBrowseDescriptorCreateBonjourService(type_, domain), nil
 }
@@ -616,7 +616,7 @@ var _nWBrowserCopyBrowseDescriptorErr error
 
 func tryNWBrowserCopyBrowseDescriptor(browser NWBrowser) (NWBrowseDescriptor, error) {
 	if _nWBrowserCopyBrowseDescriptor == nil {
-		return *new(NWBrowseDescriptor), symbolCallError("nw_browser_copy_browse_descriptor", "10.15", _nWBrowserCopyBrowseDescriptorErr)
+		return NWBrowseDescriptor{}, symbolCallError("nw_browser_copy_browse_descriptor", "10.15", _nWBrowserCopyBrowseDescriptorErr)
 	}
 	return _nWBrowserCopyBrowseDescriptor(browser), nil
 }
@@ -637,7 +637,7 @@ var _nWBrowserCopyParametersErr error
 
 func tryNWBrowserCopyParameters(browser NWBrowser) (NWParameters, error) {
 	if _nWBrowserCopyParameters == nil {
-		return *new(NWParameters), symbolCallError("nw_browser_copy_parameters", "10.15", _nWBrowserCopyParametersErr)
+		return NWParameters{}, symbolCallError("nw_browser_copy_parameters", "10.15", _nWBrowserCopyParametersErr)
 	}
 	return _nWBrowserCopyParameters(browser), nil
 }
@@ -658,7 +658,7 @@ var _nWBrowserCreateErr error
 
 func tryNWBrowserCreate(descriptor NWBrowseDescriptor, parameters NWParameters) (NWBrowser, error) {
 	if _nWBrowserCreate == nil {
-		return *new(NWBrowser), symbolCallError("nw_browser_create", "10.15", _nWBrowserCreateErr)
+		return NWBrowser{}, symbolCallError("nw_browser_create", "10.15", _nWBrowserCreateErr)
 	}
 	return _nWBrowserCreate(descriptor, parameters), nil
 }
@@ -915,7 +915,7 @@ var _nWConnectionCopyParametersErr error
 
 func tryNWConnectionCopyParameters(connection NWConnection) (NWParameters, error) {
 	if _nWConnectionCopyParameters == nil {
-		return *new(NWParameters), symbolCallError("nw_connection_copy_parameters", "10.14", _nWConnectionCopyParametersErr)
+		return NWParameters{}, symbolCallError("nw_connection_copy_parameters", "10.14", _nWConnectionCopyParametersErr)
 	}
 	return _nWConnectionCopyParameters(connection), nil
 }
@@ -957,7 +957,7 @@ var _nWConnectionCreateErr error
 
 func tryNWConnectionCreate(endpoint NWEndpoint, parameters NWParameters) (NWConnection, error) {
 	if _nWConnectionCreate == nil {
-		return *new(NWConnection), symbolCallError("nw_connection_create", "10.14", _nWConnectionCreateErr)
+		return NWConnection{}, symbolCallError("nw_connection_create", "10.14", _nWConnectionCreateErr)
 	}
 	return _nWConnectionCreate(endpoint, parameters), nil
 }
@@ -1102,7 +1102,7 @@ var _nWConnectionGroupCopyParametersErr error
 
 func tryNWConnectionGroupCopyParameters(group NWConnectionGroup) (NWParameters, error) {
 	if _nWConnectionGroupCopyParameters == nil {
-		return *new(NWParameters), symbolCallError("nw_connection_group_copy_parameters", "11.0", _nWConnectionGroupCopyParametersErr)
+		return NWParameters{}, symbolCallError("nw_connection_group_copy_parameters", "11.0", _nWConnectionGroupCopyParametersErr)
 	}
 	return _nWConnectionGroupCopyParameters(group), nil
 }
@@ -1228,7 +1228,7 @@ var _nWConnectionGroupExtractConnectionErr error
 
 func tryNWConnectionGroupExtractConnection(group NWConnectionGroup, endpoint NWEndpoint, protocol_options NWProtocolOptions) (NWConnection, error) {
 	if _nWConnectionGroupExtractConnection == nil {
-		return *new(NWConnection), symbolCallError("nw_connection_group_extract_connection", "12.0", _nWConnectionGroupExtractConnectionErr)
+		return NWConnection{}, symbolCallError("nw_connection_group_extract_connection", "12.0", _nWConnectionGroupExtractConnectionErr)
 	}
 	return _nWConnectionGroupExtractConnection(group, endpoint, protocol_options), nil
 }
@@ -1249,7 +1249,7 @@ var _nWConnectionGroupExtractConnectionForMessageErr error
 
 func tryNWConnectionGroupExtractConnectionForMessage(group NWConnectionGroup, context NWContentContext) (NWConnection, error) {
 	if _nWConnectionGroupExtractConnectionForMessage == nil {
-		return *new(NWConnection), symbolCallError("nw_connection_group_extract_connection_for_message", "11.0", _nWConnectionGroupExtractConnectionForMessageErr)
+		return NWConnection{}, symbolCallError("nw_connection_group_extract_connection_for_message", "11.0", _nWConnectionGroupExtractConnectionForMessageErr)
 	}
 	return _nWConnectionGroupExtractConnectionForMessage(group, context), nil
 }
@@ -1964,7 +1964,7 @@ var _nWDataTransferReportCopyPathInterfaceErr error
 
 func tryNWDataTransferReportCopyPathInterface(report NWDataTransferReport, path_index uint32) (NWInterface, error) {
 	if _nWDataTransferReportCopyPathInterface == nil {
-		return *new(NWInterface), symbolCallError("nw_data_transfer_report_copy_path_interface", "10.15", _nWDataTransferReportCopyPathInterfaceErr)
+		return NWInterface{}, symbolCallError("nw_data_transfer_report_copy_path_interface", "10.15", _nWDataTransferReportCopyPathInterfaceErr)
 	}
 	return _nWDataTransferReportCopyPathInterface(report, path_index), nil
 }
@@ -2657,7 +2657,7 @@ var _nWErrorCopyCfErrorErr error
 
 func tryNWErrorCopyCfError(err NWError) (corefoundation.CFErrorRef, error) {
 	if _nWErrorCopyCfError == nil {
-		return 0, symbolCallError("nw_error_copy_cf_error", "10.14", _nWErrorCopyCfErrorErr)
+		return *new(corefoundation.CFErrorRef), symbolCallError("nw_error_copy_cf_error", "10.14", _nWErrorCopyCfErrorErr)
 	}
 	return _nWErrorCopyCfError(err), nil
 }
@@ -3180,7 +3180,7 @@ var _nWFramerCopyParametersErr error
 
 func tryNWFramerCopyParameters(framer NWFramer) (NWParameters, error) {
 	if _nWFramerCopyParameters == nil {
-		return *new(NWParameters), symbolCallError("nw_framer_copy_parameters", "10.15", _nWFramerCopyParametersErr)
+		return NWParameters{}, symbolCallError("nw_framer_copy_parameters", "10.15", _nWFramerCopyParametersErr)
 	}
 	return _nWFramerCopyParameters(framer), nil
 }
@@ -4665,7 +4665,7 @@ var _nWParametersCopyErr error
 
 func tryNWParametersCopy(parameters NWParameters) (NWParameters, error) {
 	if _nWParametersCopy == nil {
-		return *new(NWParameters), symbolCallError("nw_parameters_copy", "10.14", _nWParametersCopyErr)
+		return NWParameters{}, symbolCallError("nw_parameters_copy", "10.14", _nWParametersCopyErr)
 	}
 	return _nWParametersCopy(parameters), nil
 }
@@ -4728,7 +4728,7 @@ var _nWParametersCopyRequiredInterfaceErr error
 
 func tryNWParametersCopyRequiredInterface(parameters NWParameters) (NWInterface, error) {
 	if _nWParametersCopyRequiredInterface == nil {
-		return *new(NWInterface), symbolCallError("nw_parameters_copy_required_interface", "10.14", _nWParametersCopyRequiredInterfaceErr)
+		return NWInterface{}, symbolCallError("nw_parameters_copy_required_interface", "10.14", _nWParametersCopyRequiredInterfaceErr)
 	}
 	return _nWParametersCopyRequiredInterface(parameters), nil
 }
@@ -4749,7 +4749,7 @@ var _nWParametersCreateErr error
 
 func tryNWParametersCreate() (NWParameters, error) {
 	if _nWParametersCreate == nil {
-		return *new(NWParameters), symbolCallError("nw_parameters_create", "10.14", _nWParametersCreateErr)
+		return NWParameters{}, symbolCallError("nw_parameters_create", "10.14", _nWParametersCreateErr)
 	}
 	return _nWParametersCreate(), nil
 }
@@ -4770,7 +4770,7 @@ var _nWParametersCreateApplicationServiceErr error
 
 func tryNWParametersCreateApplicationService() (NWParameters, error) {
 	if _nWParametersCreateApplicationService == nil {
-		return *new(NWParameters), symbolCallError("nw_parameters_create_application_service", "13.0", _nWParametersCreateApplicationServiceErr)
+		return NWParameters{}, symbolCallError("nw_parameters_create_application_service", "13.0", _nWParametersCreateApplicationServiceErr)
 	}
 	return _nWParametersCreateApplicationService(), nil
 }
@@ -4791,12 +4791,12 @@ var _nWParametersCreateCustomIPErr error
 
 func tryNWParametersCreateCustomIP(custom_ip_protocol_number uint8, configure_ip NWParametersConfigureProtocolBlock) (NWParameters, error) {
 	if _nWParametersCreateCustomIP == nil {
-		return *new(NWParameters), symbolCallError("nw_parameters_create_custom_ip", "10.15", _nWParametersCreateCustomIPErr)
+		return NWParameters{}, symbolCallError("nw_parameters_create_custom_ip", "10.15", _nWParametersCreateCustomIPErr)
 	}
 	var _block0 unsafe.Pointer
 	if configure_ip == nil {
 		if _nw_parameters_configure_protocol_default_configurationSymbol == 0 {
-			return *new(NWParameters), symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
+			return NWParameters{}, symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
 		}
 		_block0 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
@@ -4823,7 +4823,7 @@ var _nWParametersCreateQuicErr error
 
 func tryNWParametersCreateQuic(configure_quic NWParametersConfigureProtocolBlock) (NWParameters, error) {
 	if _nWParametersCreateQuic == nil {
-		return *new(NWParameters), symbolCallError("nw_parameters_create_quic", "12.0", _nWParametersCreateQuicErr)
+		return NWParameters{}, symbolCallError("nw_parameters_create_quic", "12.0", _nWParametersCreateQuicErr)
 	}
 	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID) { configure_quic(objectivec.ObjectFromID(blockArg0)) })
 	defer _block0Value.Release()
@@ -4847,12 +4847,12 @@ var _nWParametersCreateSecureTCPErr error
 
 func tryNWParametersCreateSecureTCP(configure_tls NWParametersConfigureProtocolBlock, configure_tcp NWParametersConfigureProtocolBlock) (NWParameters, error) {
 	if _nWParametersCreateSecureTCP == nil {
-		return *new(NWParameters), symbolCallError("nw_parameters_create_secure_tcp", "10.14", _nWParametersCreateSecureTCPErr)
+		return NWParameters{}, symbolCallError("nw_parameters_create_secure_tcp", "10.14", _nWParametersCreateSecureTCPErr)
 	}
 	var _block0 unsafe.Pointer
 	if configure_tls == nil {
 		if _nw_parameters_configure_protocol_default_configurationSymbol == 0 {
-			return *new(NWParameters), symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
+			return NWParameters{}, symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
 		}
 		_block0 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
@@ -4863,7 +4863,7 @@ func tryNWParametersCreateSecureTCP(configure_tls NWParametersConfigureProtocolB
 	var _block1 unsafe.Pointer
 	if configure_tcp == nil {
 		if _nw_parameters_configure_protocol_default_configurationSymbol == 0 {
-			return *new(NWParameters), symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
+			return NWParameters{}, symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
 		}
 		_block1 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
@@ -4890,12 +4890,12 @@ var _nWParametersCreateSecureUDPErr error
 
 func tryNWParametersCreateSecureUDP(configure_dtls NWParametersConfigureProtocolBlock, configure_udp NWParametersConfigureProtocolBlock) (NWParameters, error) {
 	if _nWParametersCreateSecureUDP == nil {
-		return *new(NWParameters), symbolCallError("nw_parameters_create_secure_udp", "10.14", _nWParametersCreateSecureUDPErr)
+		return NWParameters{}, symbolCallError("nw_parameters_create_secure_udp", "10.14", _nWParametersCreateSecureUDPErr)
 	}
 	var _block0 unsafe.Pointer
 	if configure_dtls == nil {
 		if _nw_parameters_configure_protocol_default_configurationSymbol == 0 {
-			return *new(NWParameters), symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
+			return NWParameters{}, symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
 		}
 		_block0 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {
@@ -4906,7 +4906,7 @@ func tryNWParametersCreateSecureUDP(configure_dtls NWParametersConfigureProtocol
 	var _block1 unsafe.Pointer
 	if configure_udp == nil {
 		if _nw_parameters_configure_protocol_default_configurationSymbol == 0 {
-			return *new(NWParameters), symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
+			return NWParameters{}, symbolCallError("_nw_parameters_configure_protocol_default_configuration", "10.14", _nw_parameters_configure_protocol_default_configurationErr)
 		}
 		_block1 = networkProtocolBlockValue(_nw_parameters_configure_protocol_default_configurationSymbol)
 	} else {

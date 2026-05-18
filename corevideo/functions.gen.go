@@ -11,7 +11,6 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 type unavailableSymbolError struct {
@@ -87,7 +86,7 @@ var _cVBufferCopyAttachmentErr error
 
 func tryCVBufferCopyAttachment(buffer CVBufferRef, key corefoundation.CFStringRef, attachmentMode *CVAttachmentMode) (corefoundation.CFTypeRef, error) {
 	if _cVBufferCopyAttachment == nil {
-		return nil, symbolCallError("CVBufferCopyAttachment", "12.0", _cVBufferCopyAttachmentErr)
+		return *new(corefoundation.CFTypeRef), symbolCallError("CVBufferCopyAttachment", "12.0", _cVBufferCopyAttachmentErr)
 	}
 	return _cVBufferCopyAttachment(buffer, key, attachmentMode), nil
 }
@@ -108,7 +107,7 @@ var _cVBufferCopyAttachmentsErr error
 
 func tryCVBufferCopyAttachments(buffer CVBufferRef, attachmentMode CVAttachmentMode) (corefoundation.CFDictionaryRef, error) {
 	if _cVBufferCopyAttachments == nil {
-		return 0, symbolCallError("CVBufferCopyAttachments", "12.0", _cVBufferCopyAttachmentsErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CVBufferCopyAttachments", "12.0", _cVBufferCopyAttachmentsErr)
 	}
 	return _cVBufferCopyAttachments(buffer, attachmentMode), nil
 }
@@ -230,7 +229,7 @@ var _cVBufferRetainErr error
 
 func tryCVBufferRetain(buffer CVBufferRef) (CVBufferRef, error) {
 	if _cVBufferRetain == nil {
-		return 0, symbolCallError("CVBufferRetain", "10.4", _cVBufferRetainErr)
+		return *new(CVBufferRef), symbolCallError("CVBufferRetain", "10.4", _cVBufferRetainErr)
 	}
 	return _cVBufferRetain(buffer), nil
 }
@@ -312,7 +311,7 @@ var _cVColorPrimariesGetStringForIntegerCodePointErr error
 
 func tryCVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint int) (corefoundation.CFStringRef, error) {
 	if _cVColorPrimariesGetStringForIntegerCodePoint == nil {
-		return 0, symbolCallError("CVColorPrimariesGetStringForIntegerCodePoint", "10.13", _cVColorPrimariesGetStringForIntegerCodePointErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CVColorPrimariesGetStringForIntegerCodePoint", "10.13", _cVColorPrimariesGetStringForIntegerCodePointErr)
 	}
 	return _cVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint), nil
 }
@@ -608,7 +607,7 @@ var _cVDisplayLinkRetainErr error
 
 func tryCVDisplayLinkRetain(displayLink CVDisplayLinkRef) (CVDisplayLinkRef, error) {
 	if _cVDisplayLinkRetain == nil {
-		return 0, symbolCallError("CVDisplayLinkRetain", "10.4", _cVDisplayLinkRetainErr)
+		return *new(CVDisplayLinkRef), symbolCallError("CVDisplayLinkRetain", "10.4", _cVDisplayLinkRetainErr)
 	}
 	return _cVDisplayLinkRetain(displayLink), nil
 }
@@ -702,8 +701,8 @@ func tryCVDisplayLinkSetOutputHandler(displayLink CVDisplayLinkRef, handler CVDi
 	if _cVDisplayLinkSetOutputHandler == nil {
 		return *new(CVReturn), symbolCallError("CVDisplayLinkSetOutputHandler", "10.4", _cVDisplayLinkSetOutputHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int {
-		return handler(objectivec.ObjectFromID(blockArg0), blockArg1, blockArg2, blockArg3, blockArg4)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int {
+		return handler(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -860,7 +859,7 @@ var _cVImageBufferCreateColorSpaceFromAttachmentsErr error
 
 func tryCVImageBufferCreateColorSpaceFromAttachments(attachments corefoundation.CFDictionaryRef) (coregraphics.CGColorSpaceRef, error) {
 	if _cVImageBufferCreateColorSpaceFromAttachments == nil {
-		return 0, symbolCallError("CVImageBufferCreateColorSpaceFromAttachments", "10.8", _cVImageBufferCreateColorSpaceFromAttachmentsErr)
+		return *new(coregraphics.CGColorSpaceRef), symbolCallError("CVImageBufferCreateColorSpaceFromAttachments", "10.8", _cVImageBufferCreateColorSpaceFromAttachmentsErr)
 	}
 	return _cVImageBufferCreateColorSpaceFromAttachments(attachments), nil
 }
@@ -902,7 +901,7 @@ var _cVImageBufferGetColorSpaceErr error
 
 func tryCVImageBufferGetColorSpace(imageBuffer CVImageBufferRef) (coregraphics.CGColorSpaceRef, error) {
 	if _cVImageBufferGetColorSpace == nil {
-		return 0, symbolCallError("CVImageBufferGetColorSpace", "10.4", _cVImageBufferGetColorSpaceErr)
+		return *new(coregraphics.CGColorSpaceRef), symbolCallError("CVImageBufferGetColorSpace", "10.4", _cVImageBufferGetColorSpaceErr)
 	}
 	return _cVImageBufferGetColorSpace(imageBuffer), nil
 }
@@ -1322,7 +1321,7 @@ var _cVOpenGLBufferPoolRetainErr error
 
 func tryCVOpenGLBufferPoolRetain(openGLBufferPool CVOpenGLBufferPoolRef) (CVOpenGLBufferPoolRef, error) {
 	if _cVOpenGLBufferPoolRetain == nil {
-		return 0, symbolCallError("CVOpenGLBufferPoolRetain", "10.4", _cVOpenGLBufferPoolRetainErr)
+		return *new(CVOpenGLBufferPoolRef), symbolCallError("CVOpenGLBufferPoolRetain", "10.4", _cVOpenGLBufferPoolRetainErr)
 	}
 	return _cVOpenGLBufferPoolRetain(openGLBufferPool), nil
 }
@@ -1367,7 +1366,7 @@ var _cVOpenGLBufferRetainErr error
 
 func tryCVOpenGLBufferRetain(buffer CVOpenGLBufferRef) (CVOpenGLBufferRef, error) {
 	if _cVOpenGLBufferRetain == nil {
-		return 0, symbolCallError("CVOpenGLBufferRetain", "10.4", _cVOpenGLBufferRetainErr)
+		return *new(CVOpenGLBufferRef), symbolCallError("CVOpenGLBufferRetain", "10.4", _cVOpenGLBufferRetainErr)
 	}
 	return _cVOpenGLBufferRetain(buffer), nil
 }
@@ -1412,7 +1411,7 @@ var _cVOpenGLTextureCacheRetainErr error
 
 func tryCVOpenGLTextureCacheRetain(textureCache CVOpenGLTextureCacheRef) (CVOpenGLTextureCacheRef, error) {
 	if _cVOpenGLTextureCacheRetain == nil {
-		return 0, symbolCallError("CVOpenGLTextureCacheRetain", "10.4", _cVOpenGLTextureCacheRetainErr)
+		return *new(CVOpenGLTextureCacheRef), symbolCallError("CVOpenGLTextureCacheRetain", "10.4", _cVOpenGLTextureCacheRetainErr)
 	}
 	return _cVOpenGLTextureCacheRetain(textureCache), nil
 }
@@ -1457,7 +1456,7 @@ var _cVOpenGLTextureRetainErr error
 
 func tryCVOpenGLTextureRetain(texture CVOpenGLTextureRef) (CVOpenGLTextureRef, error) {
 	if _cVOpenGLTextureRetain == nil {
-		return 0, symbolCallError("CVOpenGLTextureRetain", "10.4", _cVOpenGLTextureRetainErr)
+		return *new(CVOpenGLTextureRef), symbolCallError("CVOpenGLTextureRetain", "10.4", _cVOpenGLTextureRetainErr)
 	}
 	return _cVOpenGLTextureRetain(texture), nil
 }
@@ -1480,7 +1479,7 @@ var _cVPixelBufferCopyCreationAttributesErr error
 
 func tryCVPixelBufferCopyCreationAttributes(pixelBuffer CVPixelBufferRef) (corefoundation.CFDictionaryRef, error) {
 	if _cVPixelBufferCopyCreationAttributes == nil {
-		return 0, symbolCallError("CVPixelBufferCopyCreationAttributes", "12.0", _cVPixelBufferCopyCreationAttributesErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CVPixelBufferCopyCreationAttributes", "12.0", _cVPixelBufferCopyCreationAttributesErr)
 	}
 	return _cVPixelBufferCopyCreationAttributes(pixelBuffer), nil
 }
@@ -2066,7 +2065,7 @@ var _cVPixelBufferPoolGetAttributesErr error
 
 func tryCVPixelBufferPoolGetAttributes(pool CVPixelBufferPoolRef) (corefoundation.CFDictionaryRef, error) {
 	if _cVPixelBufferPoolGetAttributes == nil {
-		return 0, symbolCallError("CVPixelBufferPoolGetAttributes", "10.4", _cVPixelBufferPoolGetAttributesErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CVPixelBufferPoolGetAttributes", "10.4", _cVPixelBufferPoolGetAttributesErr)
 	}
 	return _cVPixelBufferPoolGetAttributes(pool), nil
 }
@@ -2087,7 +2086,7 @@ var _cVPixelBufferPoolGetPixelBufferAttributesErr error
 
 func tryCVPixelBufferPoolGetPixelBufferAttributes(pool CVPixelBufferPoolRef) (corefoundation.CFDictionaryRef, error) {
 	if _cVPixelBufferPoolGetPixelBufferAttributes == nil {
-		return 0, symbolCallError("CVPixelBufferPoolGetPixelBufferAttributes", "10.4", _cVPixelBufferPoolGetPixelBufferAttributesErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CVPixelBufferPoolGetPixelBufferAttributes", "10.4", _cVPixelBufferPoolGetPixelBufferAttributesErr)
 	}
 	return _cVPixelBufferPoolGetPixelBufferAttributes(pool), nil
 }
@@ -2149,7 +2148,7 @@ var _cVPixelBufferPoolRetainErr error
 
 func tryCVPixelBufferPoolRetain(pixelBufferPool CVPixelBufferPoolRef) (CVPixelBufferPoolRef, error) {
 	if _cVPixelBufferPoolRetain == nil {
-		return 0, symbolCallError("CVPixelBufferPoolRetain", "10.4", _cVPixelBufferPoolRetainErr)
+		return *new(CVPixelBufferPoolRef), symbolCallError("CVPixelBufferPoolRetain", "10.4", _cVPixelBufferPoolRetainErr)
 	}
 	return _cVPixelBufferPoolRetain(pixelBufferPool), nil
 }
@@ -2190,7 +2189,7 @@ var _cVPixelBufferRetainErr error
 
 func tryCVPixelBufferRetain(texture CVPixelBufferRef) (CVPixelBufferRef, error) {
 	if _cVPixelBufferRetain == nil {
-		return 0, symbolCallError("CVPixelBufferRetain", "10.4", _cVPixelBufferRetainErr)
+		return *new(CVPixelBufferRef), symbolCallError("CVPixelBufferRetain", "10.4", _cVPixelBufferRetainErr)
 	}
 	return _cVPixelBufferRetain(texture), nil
 }
@@ -2232,7 +2231,7 @@ var _cVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypesErr error
 
 func tryCVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(allocator corefoundation.CFAllocatorRef) (corefoundation.CFArrayRef, error) {
 	if _cVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes == nil {
-		return 0, symbolCallError("CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes", "10.4", _cVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypesErr)
+		return *new(corefoundation.CFArrayRef), symbolCallError("CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes", "10.4", _cVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypesErr)
 	}
 	return _cVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(allocator), nil
 }
@@ -2253,7 +2252,7 @@ var _cVPixelFormatDescriptionCreateWithPixelFormatTypeErr error
 
 func tryCVPixelFormatDescriptionCreateWithPixelFormatType(allocator corefoundation.CFAllocatorRef, pixelFormat uint32) (corefoundation.CFDictionaryRef, error) {
 	if _cVPixelFormatDescriptionCreateWithPixelFormatType == nil {
-		return 0, symbolCallError("CVPixelFormatDescriptionCreateWithPixelFormatType", "10.4", _cVPixelFormatDescriptionCreateWithPixelFormatTypeErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("CVPixelFormatDescriptionCreateWithPixelFormatType", "10.4", _cVPixelFormatDescriptionCreateWithPixelFormatTypeErr)
 	}
 	return _cVPixelFormatDescriptionCreateWithPixelFormatType(allocator, pixelFormat), nil
 }
@@ -2294,7 +2293,7 @@ var _cVPixelFormatTypeCopyFourCharCodeStringErr error
 
 func tryCVPixelFormatTypeCopyFourCharCodeString(pixelFormat uint32) (corefoundation.CFStringRef, error) {
 	if _cVPixelFormatTypeCopyFourCharCodeString == nil {
-		return 0, symbolCallError("CVPixelFormatTypeCopyFourCharCodeString", "26.0", _cVPixelFormatTypeCopyFourCharCodeStringErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CVPixelFormatTypeCopyFourCharCodeString", "26.0", _cVPixelFormatTypeCopyFourCharCodeStringErr)
 	}
 	return _cVPixelFormatTypeCopyFourCharCodeString(pixelFormat), nil
 }
@@ -2336,7 +2335,7 @@ var _cVTransferFunctionGetStringForIntegerCodePointErr error
 
 func tryCVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint int) (corefoundation.CFStringRef, error) {
 	if _cVTransferFunctionGetStringForIntegerCodePoint == nil {
-		return 0, symbolCallError("CVTransferFunctionGetStringForIntegerCodePoint", "10.13", _cVTransferFunctionGetStringForIntegerCodePointErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CVTransferFunctionGetStringForIntegerCodePoint", "10.13", _cVTransferFunctionGetStringForIntegerCodePointErr)
 	}
 	return _cVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint), nil
 }
@@ -2378,7 +2377,7 @@ var _cVYCbCrMatrixGetStringForIntegerCodePointErr error
 
 func tryCVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint int) (corefoundation.CFStringRef, error) {
 	if _cVYCbCrMatrixGetStringForIntegerCodePoint == nil {
-		return 0, symbolCallError("CVYCbCrMatrixGetStringForIntegerCodePoint", "10.13", _cVYCbCrMatrixGetStringForIntegerCodePointErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("CVYCbCrMatrixGetStringForIntegerCodePoint", "10.13", _cVYCbCrMatrixGetStringForIntegerCodePointErr)
 	}
 	return _cVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint), nil
 }

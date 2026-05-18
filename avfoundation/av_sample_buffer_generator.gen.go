@@ -191,7 +191,7 @@ func (s AVSampleBufferGenerator) CreateSampleBufferForRequestError(request IAVSa
 	rv := objc.Send[coremedia.CMSampleBufferRef](s.ID, objc.Sel("createSampleBufferForRequest:error:"), request, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(coremedia.CMSampleBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 
@@ -246,7 +246,7 @@ func (s AVSampleBufferGenerator) CreateSampleBufferForRequestAddingToBatchError(
 	rv := objc.Send[coremedia.CMSampleBufferRef](s.ID, objc.Sel("createSampleBufferForRequest:addingToBatch:error:"), request, batch, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
+		return *new(coremedia.CMSampleBufferRef), foundation.NSErrorFrom(errorPtr)
 	}
 	return rv, nil
 

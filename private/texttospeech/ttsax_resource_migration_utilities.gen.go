@@ -5,6 +5,7 @@ package texttospeech
 import (
 	"sync"
 
+	"github.com/tmc/apple/applicationservices"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -79,9 +80,9 @@ type ITTSAXResourceMigrationUtilities interface {
 
 	// Topic: Methods
 
-	_ttsAssetForSpec(spec objectivec.IObject) objectivec.IObject
-	AttributesForLegacyVoiceSpec(spec objectivec.IObject) objectivec.IObject
-	GetIdentifierForLegacyVoiceSpec(spec objectivec.IObject) objectivec.IObject
+	_ttsAssetForSpec(spec applicationservices.VoiceSpec) objectivec.IObject
+	AttributesForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject
+	GetIdentifierForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject
 	TtsIdentifierForLegacyMacIdentifier(identifier objectivec.IObject) objectivec.IObject
 	UpdatedIdentifierForLegacyIdentifierWithLanguageCode(identifier objectivec.IObject, code objectivec.IObject) objectivec.IObject
 }
@@ -106,13 +107,13 @@ func NewTTSAXResourceMigrationUtilities() TTSAXResourceMigrationUtilities {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/_ttsAssetForSpec:
-func (t TTSAXResourceMigrationUtilities) _ttsAssetForSpec(spec objectivec.IObject) objectivec.IObject {
+func (t TTSAXResourceMigrationUtilities) _ttsAssetForSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_ttsAssetForSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }
 
 // TtsAssetForSpec is an exported wrapper for the private method _ttsAssetForSpec.
-func (t TTSAXResourceMigrationUtilities) TtsAssetForSpec(spec objectivec.IObject) (objectivec.IObject, error) {
+func (t TTSAXResourceMigrationUtilities) TtsAssetForSpec(spec applicationservices.VoiceSpec) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(t.ID, objc.Sel("_ttsAssetForSpec:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_ttsAssetForSpec:"}
 		return nil, err
@@ -126,13 +127,13 @@ func (t TTSAXResourceMigrationUtilities) CanTtsAssetForSpec() bool {
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/attributesForLegacyVoiceSpec:
-func (t TTSAXResourceMigrationUtilities) AttributesForLegacyVoiceSpec(spec objectivec.IObject) objectivec.IObject {
+func (t TTSAXResourceMigrationUtilities) AttributesForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributesForLegacyVoiceSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/getIdentifierForLegacyVoiceSpec:
-func (t TTSAXResourceMigrationUtilities) GetIdentifierForLegacyVoiceSpec(spec objectivec.IObject) objectivec.IObject {
+func (t TTSAXResourceMigrationUtilities) GetIdentifierForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("getIdentifierForLegacyVoiceSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }

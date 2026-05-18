@@ -9,10 +9,8 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
-	"github.com/tmc/apple/coreservices"
 	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 type unavailableSymbolError struct {
@@ -199,7 +197,7 @@ func tryAXObserverCreate(application int32, callback AXObserverCallback, outObse
 	if _aXObserverCreate == nil {
 		return *new(AXError), symbolCallError("AXObserverCreate", "10.2", _aXObserverCreateErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 AXObserverRef, blockArg1 AXUIElementRef, blockArg2 corefoundation.CFStringRef, blockArg3 unsafe.Pointer) {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 AXObserverRef, blockArg1 AXUIElementRef, blockArg2 corefoundation.CFString, blockArg3 unsafe.Pointer) {
 		callback(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
@@ -225,7 +223,7 @@ func tryAXObserverCreateWithInfoCallback(application int32, callback AXObserverC
 	if _aXObserverCreateWithInfoCallback == nil {
 		return *new(AXError), symbolCallError("AXObserverCreateWithInfoCallback", "10.9", _aXObserverCreateWithInfoCallbackErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 AXObserverRef, blockArg1 AXUIElementRef, blockArg2 corefoundation.CFStringRef, blockArg3 corefoundation.CFDictionaryRef, blockArg4 unsafe.Pointer) {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 AXObserverRef, blockArg1 AXUIElementRef, blockArg2 corefoundation.CFString, blockArg3 corefoundation.CFDictionaryRef, blockArg4 unsafe.Pointer) {
 		callback(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
@@ -249,7 +247,7 @@ var _aXObserverGetRunLoopSourceErr error
 
 func tryAXObserverGetRunLoopSource(observer AXObserverRef) (corefoundation.CFRunLoopSourceRef, error) {
 	if _aXObserverGetRunLoopSource == nil {
-		return 0, symbolCallError("AXObserverGetRunLoopSource", "10.2", _aXObserverGetRunLoopSourceErr)
+		return *new(corefoundation.CFRunLoopSourceRef), symbolCallError("AXObserverGetRunLoopSource", "10.2", _aXObserverGetRunLoopSourceErr)
 	}
 	return _aXObserverGetRunLoopSource(observer), nil
 }
@@ -312,7 +310,7 @@ var _aXTextMarkerCreateErr error
 
 func tryAXTextMarkerCreate(allocator corefoundation.CFAllocatorRef, bytes []byte, length int) (AXTextMarkerRef, error) {
 	if _aXTextMarkerCreate == nil {
-		return 0, symbolCallError("AXTextMarkerCreate", "12.0", _aXTextMarkerCreateErr)
+		return *new(AXTextMarkerRef), symbolCallError("AXTextMarkerCreate", "12.0", _aXTextMarkerCreateErr)
 	}
 	return _aXTextMarkerCreate(allocator, unsafe.SliceData(bytes), length), nil
 }
@@ -396,7 +394,7 @@ var _aXTextMarkerRangeCopyEndMarkerErr error
 
 func tryAXTextMarkerRangeCopyEndMarker(textMarkerRange AXTextMarkerRangeRef) (AXTextMarkerRef, error) {
 	if _aXTextMarkerRangeCopyEndMarker == nil {
-		return 0, symbolCallError("AXTextMarkerRangeCopyEndMarker", "12.0", _aXTextMarkerRangeCopyEndMarkerErr)
+		return *new(AXTextMarkerRef), symbolCallError("AXTextMarkerRangeCopyEndMarker", "12.0", _aXTextMarkerRangeCopyEndMarkerErr)
 	}
 	return _aXTextMarkerRangeCopyEndMarker(textMarkerRange), nil
 }
@@ -417,7 +415,7 @@ var _aXTextMarkerRangeCopyStartMarkerErr error
 
 func tryAXTextMarkerRangeCopyStartMarker(textMarkerRange AXTextMarkerRangeRef) (AXTextMarkerRef, error) {
 	if _aXTextMarkerRangeCopyStartMarker == nil {
-		return 0, symbolCallError("AXTextMarkerRangeCopyStartMarker", "12.0", _aXTextMarkerRangeCopyStartMarkerErr)
+		return *new(AXTextMarkerRef), symbolCallError("AXTextMarkerRangeCopyStartMarker", "12.0", _aXTextMarkerRangeCopyStartMarkerErr)
 	}
 	return _aXTextMarkerRangeCopyStartMarker(textMarkerRange), nil
 }
@@ -438,7 +436,7 @@ var _aXTextMarkerRangeCreateErr error
 
 func tryAXTextMarkerRangeCreate(allocator corefoundation.CFAllocatorRef, startMarker AXTextMarkerRef, endMarker AXTextMarkerRef) (AXTextMarkerRangeRef, error) {
 	if _aXTextMarkerRangeCreate == nil {
-		return 0, symbolCallError("AXTextMarkerRangeCreate", "12.0", _aXTextMarkerRangeCreateErr)
+		return *new(AXTextMarkerRangeRef), symbolCallError("AXTextMarkerRangeCreate", "12.0", _aXTextMarkerRangeCreateErr)
 	}
 	return _aXTextMarkerRangeCreate(allocator, startMarker, endMarker), nil
 }
@@ -459,7 +457,7 @@ var _aXTextMarkerRangeCreateWithBytesErr error
 
 func tryAXTextMarkerRangeCreateWithBytes(allocator corefoundation.CFAllocatorRef, startMarkerBytes []byte, startMarkerLength int, endMarkerBytes []byte, endMarkerLength int) (AXTextMarkerRangeRef, error) {
 	if _aXTextMarkerRangeCreateWithBytes == nil {
-		return 0, symbolCallError("AXTextMarkerRangeCreateWithBytes", "12.0", _aXTextMarkerRangeCreateWithBytesErr)
+		return *new(AXTextMarkerRangeRef), symbolCallError("AXTextMarkerRangeCreateWithBytes", "12.0", _aXTextMarkerRangeCreateWithBytesErr)
 	}
 	return _aXTextMarkerRangeCreateWithBytes(allocator, unsafe.SliceData(startMarkerBytes), startMarkerLength, unsafe.SliceData(endMarkerBytes), endMarkerLength), nil
 }
@@ -690,7 +688,7 @@ var _aXUIElementCreateApplicationErr error
 
 func tryAXUIElementCreateApplication(pid int32) (AXUIElementRef, error) {
 	if _aXUIElementCreateApplication == nil {
-		return 0, symbolCallError("AXUIElementCreateApplication", "10.2", _aXUIElementCreateApplicationErr)
+		return *new(AXUIElementRef), symbolCallError("AXUIElementCreateApplication", "10.2", _aXUIElementCreateApplicationErr)
 	}
 	return _aXUIElementCreateApplication(pid), nil
 }
@@ -711,7 +709,7 @@ var _aXUIElementCreateSystemWideErr error
 
 func tryAXUIElementCreateSystemWide() (AXUIElementRef, error) {
 	if _aXUIElementCreateSystemWide == nil {
-		return 0, symbolCallError("AXUIElementCreateSystemWide", "10.2", _aXUIElementCreateSystemWideErr)
+		return *new(AXUIElementRef), symbolCallError("AXUIElementCreateSystemWide", "10.2", _aXUIElementCreateSystemWideErr)
 	}
 	return _aXUIElementCreateSystemWide(), nil
 }
@@ -902,7 +900,7 @@ var _aXValueCreateErr error
 
 func tryAXValueCreate(theType AXValueType, valuePtr unsafe.Pointer) (AXValueRef, error) {
 	if _aXValueCreate == nil {
-		return 0, symbolCallError("AXValueCreate", "10.2", _aXValueCreateErr)
+		return *new(AXValueRef), symbolCallError("AXValueCreate", "10.2", _aXValueCreateErr)
 	}
 	return _aXValueCreate(theType, valuePtr), nil
 }
@@ -1067,29 +1065,6 @@ func tryCopySpeechProperty(chan_ *SpeechChannelRecord, property corefoundation.C
 // See: https://developer.apple.com/documentation/applicationservices/1459075-copyspeechproperty
 func CopySpeechProperty(chan_ *SpeechChannelRecord, property corefoundation.CFStringRef, object *corefoundation.CFTypeRef) int16 {
 	result, callErr := tryCopySpeechProperty(chan_, property, object)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _countVoices func(numVoices *uintptr) int16
-var _countVoicesErr error
-
-func tryCountVoices(numVoices *uintptr) (int16, error) {
-	if _countVoices == nil {
-		return 0, symbolCallError("CountVoices", "10.0", _countVoicesErr)
-	}
-	return _countVoices(numVoices), nil
-}
-
-// CountVoices determines how many voices are available.
-//
-// Deprecated: Deprecated since macOS 13.0.
-//
-// See: https://developer.apple.com/documentation/applicationservices/1459947-countvoices
-func CountVoices(numVoices *uintptr) int16 {
-	result, callErr := tryCountVoices(numVoices)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -1359,10 +1334,10 @@ func GetFrontProcess(arg0 *ProcessSerialNumber) int16 {
 	return result
 }
 
-var _getIconFamilyData func(iconFamily uintptr, iconType uint32, h unsafe.Pointer) int16
+var _getIconFamilyData func(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) int16
 var _getIconFamilyDataErr error
 
-func tryGetIconFamilyData(iconFamily uintptr, iconType uint32, h unsafe.Pointer) (int16, error) {
+func tryGetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) (int16, error) {
 	if _getIconFamilyData == nil {
 		return 0, symbolCallError("GetIconFamilyData", "10.0", _getIconFamilyDataErr)
 	}
@@ -1372,7 +1347,7 @@ func tryGetIconFamilyData(iconFamily uintptr, iconType uint32, h unsafe.Pointer)
 // GetIconFamilyData.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1462743-geticonfamilydata
-func GetIconFamilyData(iconFamily uintptr, iconType uint32, h unsafe.Pointer) int16 {
+func GetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) int16 {
 	result, callErr := tryGetIconFamilyData(iconFamily, iconType, h)
 	if callErr != nil {
 		panic(callErr)
@@ -1680,7 +1655,7 @@ var _hIShapeCreateCopyErr error
 
 func tryHIShapeCreateCopy(inShape HIShapeRef) (HIShapeRef, error) {
 	if _hIShapeCreateCopy == nil {
-		return 0, symbolCallError("HIShapeCreateCopy", "10.2", _hIShapeCreateCopyErr)
+		return *new(HIShapeRef), symbolCallError("HIShapeCreateCopy", "10.2", _hIShapeCreateCopyErr)
 	}
 	return _hIShapeCreateCopy(inShape), nil
 }
@@ -1701,7 +1676,7 @@ var _hIShapeCreateDifferenceErr error
 
 func tryHIShapeCreateDifference(inShape1 HIShapeRef, inShape2 HIShapeRef) (HIShapeRef, error) {
 	if _hIShapeCreateDifference == nil {
-		return 0, symbolCallError("HIShapeCreateDifference", "10.2", _hIShapeCreateDifferenceErr)
+		return *new(HIShapeRef), symbolCallError("HIShapeCreateDifference", "10.2", _hIShapeCreateDifferenceErr)
 	}
 	return _hIShapeCreateDifference(inShape1, inShape2), nil
 }
@@ -1722,7 +1697,7 @@ var _hIShapeCreateEmptyErr error
 
 func tryHIShapeCreateEmpty() (HIShapeRef, error) {
 	if _hIShapeCreateEmpty == nil {
-		return 0, symbolCallError("HIShapeCreateEmpty", "10.4", _hIShapeCreateEmptyErr)
+		return *new(HIShapeRef), symbolCallError("HIShapeCreateEmpty", "10.4", _hIShapeCreateEmptyErr)
 	}
 	return _hIShapeCreateEmpty(), nil
 }
@@ -1743,7 +1718,7 @@ var _hIShapeCreateIntersectionErr error
 
 func tryHIShapeCreateIntersection(inShape1 HIShapeRef, inShape2 HIShapeRef) (HIShapeRef, error) {
 	if _hIShapeCreateIntersection == nil {
-		return 0, symbolCallError("HIShapeCreateIntersection", "10.2", _hIShapeCreateIntersectionErr)
+		return *new(HIShapeRef), symbolCallError("HIShapeCreateIntersection", "10.2", _hIShapeCreateIntersectionErr)
 	}
 	return _hIShapeCreateIntersection(inShape1, inShape2), nil
 }
@@ -1764,7 +1739,7 @@ var _hIShapeCreateMutableErr error
 
 func tryHIShapeCreateMutable() (HIMutableShapeRef, error) {
 	if _hIShapeCreateMutable == nil {
-		return 0, symbolCallError("HIShapeCreateMutable", "10.2", _hIShapeCreateMutableErr)
+		return *new(HIMutableShapeRef), symbolCallError("HIShapeCreateMutable", "10.2", _hIShapeCreateMutableErr)
 	}
 	return _hIShapeCreateMutable(), nil
 }
@@ -1785,7 +1760,7 @@ var _hIShapeCreateMutableCopyErr error
 
 func tryHIShapeCreateMutableCopy(inOrig HIShapeRef) (HIMutableShapeRef, error) {
 	if _hIShapeCreateMutableCopy == nil {
-		return 0, symbolCallError("HIShapeCreateMutableCopy", "10.2", _hIShapeCreateMutableCopyErr)
+		return *new(HIMutableShapeRef), symbolCallError("HIShapeCreateMutableCopy", "10.2", _hIShapeCreateMutableCopyErr)
 	}
 	return _hIShapeCreateMutableCopy(inOrig), nil
 }
@@ -1806,7 +1781,7 @@ var _hIShapeCreateMutableWithRectErr error
 
 func tryHIShapeCreateMutableWithRect(inRect unsafe.Pointer) (HIMutableShapeRef, error) {
 	if _hIShapeCreateMutableWithRect == nil {
-		return 0, symbolCallError("HIShapeCreateMutableWithRect", "10.5", _hIShapeCreateMutableWithRectErr)
+		return *new(HIMutableShapeRef), symbolCallError("HIShapeCreateMutableWithRect", "10.5", _hIShapeCreateMutableWithRectErr)
 	}
 	return _hIShapeCreateMutableWithRect(inRect), nil
 }
@@ -1827,7 +1802,7 @@ var _hIShapeCreateUnionErr error
 
 func tryHIShapeCreateUnion(inShape1 HIShapeRef, inShape2 HIShapeRef) (HIShapeRef, error) {
 	if _hIShapeCreateUnion == nil {
-		return 0, symbolCallError("HIShapeCreateUnion", "10.2", _hIShapeCreateUnionErr)
+		return *new(HIShapeRef), symbolCallError("HIShapeCreateUnion", "10.2", _hIShapeCreateUnionErr)
 	}
 	return _hIShapeCreateUnion(inShape1, inShape2), nil
 }
@@ -1848,7 +1823,7 @@ var _hIShapeCreateWithQDRgnErr error
 
 func tryHIShapeCreateWithQDRgn(inRgn unsafe.Pointer) (HIShapeRef, error) {
 	if _hIShapeCreateWithQDRgn == nil {
-		return 0, symbolCallError("HIShapeCreateWithQDRgn", "10.2", _hIShapeCreateWithQDRgnErr)
+		return *new(HIShapeRef), symbolCallError("HIShapeCreateWithQDRgn", "10.2", _hIShapeCreateWithQDRgnErr)
 	}
 	return _hIShapeCreateWithQDRgn(inRgn), nil
 }
@@ -1869,7 +1844,7 @@ var _hIShapeCreateWithRectErr error
 
 func tryHIShapeCreateWithRect(inRect unsafe.Pointer) (HIShapeRef, error) {
 	if _hIShapeCreateWithRect == nil {
-		return 0, symbolCallError("HIShapeCreateWithRect", "10.2", _hIShapeCreateWithRectErr)
+		return *new(HIShapeRef), symbolCallError("HIShapeCreateWithRect", "10.2", _hIShapeCreateWithRectErr)
 	}
 	return _hIShapeCreateWithRect(inRect), nil
 }
@@ -1890,7 +1865,7 @@ var _hIShapeCreateXorErr error
 
 func tryHIShapeCreateXor(inShape1 HIShapeRef, inShape2 HIShapeRef) (HIShapeRef, error) {
 	if _hIShapeCreateXor == nil {
-		return 0, symbolCallError("HIShapeCreateXor", "10.5", _hIShapeCreateXorErr)
+		return *new(HIShapeRef), symbolCallError("HIShapeCreateXor", "10.5", _hIShapeCreateXorErr)
 	}
 	return _hIShapeCreateXor(inShape1, inShape2), nil
 }
@@ -1934,8 +1909,8 @@ func tryHIShapeEnumerate(inShape HIShapeRef, inOptions OptionBits, inProc HIShap
 	if _hIShapeEnumerate == nil {
 		return 0, symbolCallError("HIShapeEnumerate", "10.5", _hIShapeEnumerateErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 int32, blockArg1 HIShapeRef, blockArg2 objc.ID, blockArg3 unsafe.Pointer) int32 {
-		return inProc(blockArg0, blockArg1, objectivec.ObjectFromID(blockArg2), blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 int32, blockArg1 HIShapeRef, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer) int32 {
+		return inProc(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -2400,29 +2375,6 @@ func tryICCountProfiles(arg0 ICInstance, arg1 int) (int32, error) {
 // See: https://developer.apple.com/documentation/applicationservices/1578494-iccountprofiles
 func ICCountProfiles(arg0 ICInstance, arg1 int) int32 {
 	result, callErr := tryICCountProfiles(arg0, arg1)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _iCCreateGURLEvent func(arg0 ICInstance, arg1 uint32, arg2 unsafe.Pointer, arg3 coreservices.AEDesc) int32
-var _iCCreateGURLEventErr error
-
-func tryICCreateGURLEvent(arg0 ICInstance, arg1 uint32, arg2 unsafe.Pointer, arg3 coreservices.AEDesc) (int32, error) {
-	if _iCCreateGURLEvent == nil {
-		return 0, symbolCallError("ICCreateGURLEvent", "10.0", _iCCreateGURLEventErr)
-	}
-	return _iCCreateGURLEvent(arg0, arg1, arg2, arg3), nil
-}
-
-// ICCreateGURLEvent.
-//
-// Deprecated: Deprecated since macOS 10.7.
-//
-// See: https://developer.apple.com/documentation/applicationservices/1578532-iccreategurlevent
-func ICCreateGURLEvent(arg0 ICInstance, arg1 uint32, arg2 unsafe.Pointer, arg3 coreservices.AEDesc) int32 {
-	result, callErr := tryICCreateGURLEvent(arg0, arg1, arg2, arg3)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -3004,29 +2956,6 @@ func ICParseURL(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 i
 	return result
 }
 
-var _iCSendGURLEvent func(arg0 ICInstance, arg1 coreservices.AEDesc) int32
-var _iCSendGURLEventErr error
-
-func tryICSendGURLEvent(arg0 ICInstance, arg1 coreservices.AEDesc) (int32, error) {
-	if _iCSendGURLEvent == nil {
-		return 0, symbolCallError("ICSendGURLEvent", "10.0", _iCSendGURLEventErr)
-	}
-	return _iCSendGURLEvent(arg0, arg1), nil
-}
-
-// ICSendGURLEvent.
-//
-// Deprecated: Deprecated since macOS 10.7.
-//
-// See: https://developer.apple.com/documentation/applicationservices/1578487-icsendgurlevent
-func ICSendGURLEvent(arg0 ICInstance, arg1 coreservices.AEDesc) int32 {
-	result, callErr := tryICSendGURLEvent(arg0, arg1)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
 var _iCSetCurrentProfile func(arg0 ICInstance, arg1 ICProfileID) int32
 var _iCSetCurrentProfileErr error
 
@@ -3188,10 +3117,10 @@ func ICStop(arg0 ICInstance) int32 {
 	return result
 }
 
-var _iconRefContainsCGPoint func(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) bool
+var _iconRefContainsCGPoint func(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) bool
 var _iconRefContainsCGPointErr error
 
-func tryIconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) (bool, error) {
+func tryIconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) (bool, error) {
 	if _iconRefContainsCGPoint == nil {
 		return false, symbolCallError("IconRefContainsCGPoint", "10.5", _iconRefContainsCGPointErr)
 	}
@@ -3201,7 +3130,7 @@ func tryIconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, a
 // IconRefContainsCGPoint.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1461049-iconrefcontainscgpoint
-func IconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) bool {
+func IconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) bool {
 	result, callErr := tryIconRefContainsCGPoint(testPt, iconRect, align, iconServicesUsageFlags, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -3209,10 +3138,10 @@ func IconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, alig
 	return result
 }
 
-var _iconRefIntersectsCGRect func(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) bool
+var _iconRefIntersectsCGRect func(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) bool
 var _iconRefIntersectsCGRectErr error
 
-func tryIconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) (bool, error) {
+func tryIconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) (bool, error) {
 	if _iconRefIntersectsCGRect == nil {
 		return false, symbolCallError("IconRefIntersectsCGRect", "10.5", _iconRefIntersectsCGRectErr)
 	}
@@ -3222,7 +3151,7 @@ func tryIconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer
 // IconRefIntersectsCGRect.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1462553-iconrefintersectscgrect
-func IconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) bool {
+func IconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) bool {
 	result, callErr := tryIconRefIntersectsCGRect(testRect, iconRect, align, iconServicesUsageFlags, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -3230,12 +3159,12 @@ func IconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, a
 	return result
 }
 
-var _iconRefToHIShape func(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) HIShapeRef
+var _iconRefToHIShape func(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) HIShapeRef
 var _iconRefToHIShapeErr error
 
-func tryIconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) (HIShapeRef, error) {
+func tryIconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) (HIShapeRef, error) {
 	if _iconRefToHIShape == nil {
-		return 0, symbolCallError("IconRefToHIShape", "10.5", _iconRefToHIShapeErr)
+		return *new(HIShapeRef), symbolCallError("IconRefToHIShape", "10.5", _iconRefToHIShapeErr)
 	}
 	return _iconRefToHIShape(iconRect, align, iconServicesUsageFlags, theIconRef), nil
 }
@@ -3243,29 +3172,8 @@ func tryIconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconS
 // IconRefToHIShape.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1464005-iconreftohishape
-func IconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uintptr, theIconRef unsafe.Pointer) HIShapeRef {
+func IconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) HIShapeRef {
 	result, callErr := tryIconRefToHIShape(iconRect, align, iconServicesUsageFlags, theIconRef)
-	if callErr != nil {
-		panic(callErr)
-	}
-	return result
-}
-
-var _iconRefToIconFamily func(theIconRef unsafe.Pointer, whichIcons IconSelectorValue, iconFamily uintptr) int16
-var _iconRefToIconFamilyErr error
-
-func tryIconRefToIconFamily(theIconRef unsafe.Pointer, whichIcons IconSelectorValue, iconFamily uintptr) (int16, error) {
-	if _iconRefToIconFamily == nil {
-		return 0, symbolCallError("IconRefToIconFamily", "10.0", _iconRefToIconFamilyErr)
-	}
-	return _iconRefToIconFamily(theIconRef, whichIcons, iconFamily), nil
-}
-
-// IconRefToIconFamily.
-//
-// See: https://developer.apple.com/documentation/applicationservices/1459977-iconreftoiconfamily
-func IconRefToIconFamily(theIconRef unsafe.Pointer, whichIcons IconSelectorValue, iconFamily uintptr) int16 {
-	result, callErr := tryIconRefToIconFamily(theIconRef, whichIcons, iconFamily)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -3566,8 +3474,8 @@ func tryNewIconActionUPP(userRoutine IconActionProcPtr) (IconActionUPP, error) {
 	if _newIconActionUPP == nil {
 		return *new(IconActionUPP), symbolCallError("NewIconActionUPP", "10.0", _newIconActionUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 objc.ID, blockArg2 unsafe.Pointer) int16 {
-		return userRoutine(blockArg0, objectivec.ObjectFromID(blockArg1), blockArg2)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer) int16 {
+		return userRoutine(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3751,8 +3659,8 @@ func tryNewSpeechTextDoneUPP(arg0 SpeechTextDoneProcPtr) (SpeechTextDoneUPP, err
 	if _newSpeechTextDoneUPP == nil {
 		return *new(SpeechTextDoneUPP), symbolCallError("NewSpeechTextDoneUPP", "10.0", _newSpeechTextDoneUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr, blockArg2 objc.ID, blockArg3 objc.ID, blockArg4 objc.ID) {
-		arg0(blockArg0, blockArg1, objectivec.ObjectFromID(blockArg2), objectivec.ObjectFromID(blockArg3), objectivec.ObjectFromID(blockArg4))
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer, blockArg4 unsafe.Pointer) {
+		arg0(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3805,7 +3713,7 @@ var _pMCGImageCreateWithEPSDataProviderErr error
 
 func tryPMCGImageCreateWithEPSDataProvider(epsDataProvider coregraphics.CGDataProviderRef, epsPreview coregraphics.CGImageRef) (coregraphics.CGImageRef, error) {
 	if _pMCGImageCreateWithEPSDataProvider == nil {
-		return 0, symbolCallError("PMCGImageCreateWithEPSDataProvider", "10.1", _pMCGImageCreateWithEPSDataProviderErr)
+		return *new(coregraphics.CGImageRef), symbolCallError("PMCGImageCreateWithEPSDataProvider", "10.1", _pMCGImageCreateWithEPSDataProviderErr)
 	}
 	return _pMCGImageCreateWithEPSDataProvider(epsDataProvider, epsPreview), nil
 }
@@ -5039,12 +4947,12 @@ func PMPrinterGetDriverReleaseInfo(arg0 uintptr, arg1 unsafe.Pointer) int32 {
 	return result
 }
 
-var _pMPrinterGetID func(printer uintptr) corefoundation.CFStringRef
+var _pMPrinterGetID func(printer uintptr) corefoundation.CFString
 var _pMPrinterGetIDErr error
 
-func tryPMPrinterGetID(printer uintptr) (corefoundation.CFStringRef, error) {
+func tryPMPrinterGetID(printer uintptr) (corefoundation.CFString, error) {
 	if _pMPrinterGetID == nil {
-		return 0, symbolCallError("PMPrinterGetID", "10.2", _pMPrinterGetIDErr)
+		return *new(corefoundation.CFString), symbolCallError("PMPrinterGetID", "10.2", _pMPrinterGetIDErr)
 	}
 	return _pMPrinterGetID(printer), nil
 }
@@ -5052,7 +4960,7 @@ func tryPMPrinterGetID(printer uintptr) (corefoundation.CFStringRef, error) {
 // PMPrinterGetID returns the unique identifier of a printer.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1459606-pmprintergetid
-func PMPrinterGetID(printer uintptr) corefoundation.CFStringRef {
+func PMPrinterGetID(printer uintptr) corefoundation.CFString {
 	result, callErr := tryPMPrinterGetID(printer)
 	if callErr != nil {
 		panic(callErr)
@@ -5102,12 +5010,12 @@ func PMPrinterGetLanguageInfo(arg0 uintptr, arg1 PMLanguageInfo) int32 {
 	return result
 }
 
-var _pMPrinterGetLocation func(printer uintptr) corefoundation.CFStringRef
+var _pMPrinterGetLocation func(printer uintptr) corefoundation.CFString
 var _pMPrinterGetLocationErr error
 
-func tryPMPrinterGetLocation(printer uintptr) (corefoundation.CFStringRef, error) {
+func tryPMPrinterGetLocation(printer uintptr) (corefoundation.CFString, error) {
 	if _pMPrinterGetLocation == nil {
-		return 0, symbolCallError("PMPrinterGetLocation", "10.2", _pMPrinterGetLocationErr)
+		return *new(corefoundation.CFString), symbolCallError("PMPrinterGetLocation", "10.2", _pMPrinterGetLocationErr)
 	}
 	return _pMPrinterGetLocation(printer), nil
 }
@@ -5115,7 +5023,7 @@ func tryPMPrinterGetLocation(printer uintptr) (corefoundation.CFStringRef, error
 // PMPrinterGetLocation returns the location of a printer.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1461467-pmprintergetlocation
-func PMPrinterGetLocation(printer uintptr) corefoundation.CFStringRef {
+func PMPrinterGetLocation(printer uintptr) corefoundation.CFString {
 	result, callErr := tryPMPrinterGetLocation(printer)
 	if callErr != nil {
 		panic(callErr)
@@ -5165,12 +5073,12 @@ func PMPrinterGetMimeTypes(printer uintptr, settings uintptr, mimeTypes *corefou
 	return result
 }
 
-var _pMPrinterGetName func(printer uintptr) corefoundation.CFStringRef
+var _pMPrinterGetName func(printer uintptr) corefoundation.CFString
 var _pMPrinterGetNameErr error
 
-func tryPMPrinterGetName(printer uintptr) (corefoundation.CFStringRef, error) {
+func tryPMPrinterGetName(printer uintptr) (corefoundation.CFString, error) {
 	if _pMPrinterGetName == nil {
-		return 0, symbolCallError("PMPrinterGetName", "10.2", _pMPrinterGetNameErr)
+		return *new(corefoundation.CFString), symbolCallError("PMPrinterGetName", "10.2", _pMPrinterGetNameErr)
 	}
 	return _pMPrinterGetName(printer), nil
 }
@@ -5178,7 +5086,7 @@ func tryPMPrinterGetName(printer uintptr) (corefoundation.CFStringRef, error) {
 // PMPrinterGetName returns the human-readable name of a printer.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1459018-pmprintergetname
-func PMPrinterGetName(printer uintptr) corefoundation.CFStringRef {
+func PMPrinterGetName(printer uintptr) corefoundation.CFString {
 	result, callErr := tryPMPrinterGetName(printer)
 	if callErr != nil {
 		panic(callErr)
@@ -6579,7 +6487,7 @@ func tryPasteboardSetPromiseKeeper(inPasteboard PasteboardRef, inPromiseKeeper P
 	if _pasteboardSetPromiseKeeper == nil {
 		return 0, symbolCallError("PasteboardSetPromiseKeeper", "10.3", _pasteboardSetPromiseKeeperErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 PasteboardRef, blockArg1 PasteboardItemID, blockArg2 corefoundation.CFStringRef, blockArg3 unsafe.Pointer) int32 {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 PasteboardRef, blockArg1 PasteboardItemID, blockArg2 corefoundation.CFString, blockArg3 unsafe.Pointer) int32 {
 		return inPromiseKeeper(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
@@ -6668,7 +6576,7 @@ var _processInformationCopyDictionaryErr error
 
 func tryProcessInformationCopyDictionary(arg0 *ProcessSerialNumber, arg1 uint32) (corefoundation.CFDictionaryRef, error) {
 	if _processInformationCopyDictionary == nil {
-		return 0, symbolCallError("ProcessInformationCopyDictionary", "10.2", _processInformationCopyDictionaryErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("ProcessInformationCopyDictionary", "10.2", _processInformationCopyDictionaryErr)
 	}
 	return _processInformationCopyDictionary(arg0, arg1), nil
 }
@@ -6755,10 +6663,10 @@ func SetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 OptionBits) int3
 	return result
 }
 
-var _setIconFamilyData func(iconFamily uintptr, iconType uint32, h unsafe.Pointer) int16
+var _setIconFamilyData func(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) int16
 var _setIconFamilyDataErr error
 
-func trySetIconFamilyData(iconFamily uintptr, iconType uint32, h unsafe.Pointer) (int16, error) {
+func trySetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) (int16, error) {
 	if _setIconFamilyData == nil {
 		return 0, symbolCallError("SetIconFamilyData", "10.0", _setIconFamilyDataErr)
 	}
@@ -6768,7 +6676,7 @@ func trySetIconFamilyData(iconFamily uintptr, iconType uint32, h unsafe.Pointer)
 // SetIconFamilyData.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1462050-seticonfamilydata
-func SetIconFamilyData(iconFamily uintptr, iconType uint32, h unsafe.Pointer) int16 {
+func SetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) int16 {
 	result, callErr := trySetIconFamilyData(iconFamily, iconType, h)
 	if callErr != nil {
 		panic(callErr)
@@ -7538,7 +7446,6 @@ func init() {
 	registerFunc(&_copyPhonemesFromText, &_copyPhonemesFromTextErr, frameworkHandle, "CopyPhonemesFromText", "10.5")
 	registerFunc(&_copyProcessName, &_copyProcessNameErr, frameworkHandle, "CopyProcessName", "10.0")
 	registerFunc(&_copySpeechProperty, &_copySpeechPropertyErr, frameworkHandle, "CopySpeechProperty", "10.5")
-	registerFunc(&_countVoices, &_countVoicesErr, frameworkHandle, "CountVoices", "10.0")
 	registerFunc(&_disposeIconActionUPP, &_disposeIconActionUPPErr, frameworkHandle, "DisposeIconActionUPP", "10.0")
 	registerFunc(&_disposeIconGetterUPP, &_disposeIconGetterUPPErr, frameworkHandle, "DisposeIconGetterUPP", "10.0")
 	registerFunc(&_disposeSpeechChannel, &_disposeSpeechChannelErr, frameworkHandle, "DisposeSpeechChannel", "10.0")
@@ -7599,7 +7506,6 @@ func init() {
 	registerFunc(&_iCCountMapEntries, &_iCCountMapEntriesErr, frameworkHandle, "ICCountMapEntries", "10.0")
 	registerFunc(&_iCCountPref, &_iCCountPrefErr, frameworkHandle, "ICCountPref", "10.0")
 	registerFunc(&_iCCountProfiles, &_iCCountProfilesErr, frameworkHandle, "ICCountProfiles", "10.0")
-	registerFunc(&_iCCreateGURLEvent, &_iCCreateGURLEventErr, frameworkHandle, "ICCreateGURLEvent", "10.0")
 	registerFunc(&_iCDeleteMapEntry, &_iCDeleteMapEntryErr, frameworkHandle, "ICDeleteMapEntry", "10.0")
 	registerFunc(&_iCDeletePref, &_iCDeletePrefErr, frameworkHandle, "ICDeletePref", "10.0")
 	registerFunc(&_iCDeleteProfile, &_iCDeleteProfileErr, frameworkHandle, "ICDeleteProfile", "10.0")
@@ -7625,7 +7531,6 @@ func init() {
 	registerFunc(&_iCMapFilename, &_iCMapFilenameErr, frameworkHandle, "ICMapFilename", "10.0")
 	registerFunc(&_iCMapTypeCreator, &_iCMapTypeCreatorErr, frameworkHandle, "ICMapTypeCreator", "10.0")
 	registerFunc(&_iCParseURL, &_iCParseURLErr, frameworkHandle, "ICParseURL", "10.0")
-	registerFunc(&_iCSendGURLEvent, &_iCSendGURLEventErr, frameworkHandle, "ICSendGURLEvent", "10.0")
 	registerFunc(&_iCSetCurrentProfile, &_iCSetCurrentProfileErr, frameworkHandle, "ICSetCurrentProfile", "10.0")
 	registerFunc(&_iCSetMapEntry, &_iCSetMapEntryErr, frameworkHandle, "ICSetMapEntry", "10.0")
 	registerFunc(&_iCSetPref, &_iCSetPrefErr, frameworkHandle, "ICSetPref", "10.0")
@@ -7636,7 +7541,6 @@ func init() {
 	registerFunc(&_iconRefContainsCGPoint, &_iconRefContainsCGPointErr, frameworkHandle, "IconRefContainsCGPoint", "10.5")
 	registerFunc(&_iconRefIntersectsCGRect, &_iconRefIntersectsCGRectErr, frameworkHandle, "IconRefIntersectsCGRect", "10.5")
 	registerFunc(&_iconRefToHIShape, &_iconRefToHIShapeErr, frameworkHandle, "IconRefToHIShape", "10.5")
-	registerFunc(&_iconRefToIconFamily, &_iconRefToIconFamilyErr, frameworkHandle, "IconRefToIconFamily", "10.0")
 	registerFunc(&_invokeIconActionUPP, &_invokeIconActionUPPErr, frameworkHandle, "InvokeIconActionUPP", "10.0")
 	registerFunc(&_invokeIconGetterUPP, &_invokeIconGetterUPPErr, frameworkHandle, "InvokeIconGetterUPP", "10.0")
 	registerFunc(&_invokeSpeechDoneUPP, &_invokeSpeechDoneUPPErr, frameworkHandle, "InvokeSpeechDoneUPP", "10.0")

@@ -79,14 +79,14 @@ type IPKGCoreUIWork interface {
 }
 
 // Init initializes the instance.
-func (g PKGCoreUIWork) Init() PKGCoreUIWork {
-	rv := objc.Send[PKGCoreUIWork](g.ID, objc.Sel("init"))
+func (p PKGCoreUIWork) Init() PKGCoreUIWork {
+	rv := objc.Send[PKGCoreUIWork](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g PKGCoreUIWork) Autorelease() PKGCoreUIWork {
-	rv := objc.Send[PKGCoreUIWork](g.ID, objc.Sel("autorelease"))
+func (p PKGCoreUIWork) Autorelease() PKGCoreUIWork {
+	rv := objc.Send[PKGCoreUIWork](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -98,22 +98,22 @@ func NewPKGCoreUIWork() PKGCoreUIWork {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIWork/setMainThreadWork:
-func (g PKGCoreUIWork) SetMainThreadWork(work VoidHandler) {
+func (p PKGCoreUIWork) SetMainThreadWork(work VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
-	objc.Send[objc.ID](g.ID, objc.Sel("setMainThreadWork:"), _block0)
+	objc.Send[objc.ID](p.ID, objc.Sel("setMainThreadWork:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIWork/setRendererWork:
-func (g PKGCoreUIWork) SetRendererWork(work VoidHandler) {
+func (p PKGCoreUIWork) SetRendererWork(work VoidHandler) {
 	_block0, _ := NewVoidBlock(work)
-	objc.Send[objc.ID](g.ID, objc.Sel("setRendererWork:"), _block0)
+	objc.Send[objc.ID](p.ID, objc.Sel("setRendererWork:"), _block0)
 }
 
 // SetMainThreadWorkSync is a synchronous wrapper around [PKGCoreUIWork.SetMainThreadWork].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g PKGCoreUIWork) SetMainThreadWorkSync(ctx context.Context) error {
+func (p PKGCoreUIWork) SetMainThreadWorkSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	g.SetMainThreadWork(func() {
+	p.SetMainThreadWork(func() {
 		done <- struct{}{}
 	})
 	select {
@@ -126,9 +126,9 @@ func (g PKGCoreUIWork) SetMainThreadWorkSync(ctx context.Context) error {
 
 // SetRendererWorkSync is a synchronous wrapper around [PKGCoreUIWork.SetRendererWork].
 // It blocks until the completion handler fires or the context is cancelled.
-func (g PKGCoreUIWork) SetRendererWorkSync(ctx context.Context) error {
+func (p PKGCoreUIWork) SetRendererWorkSync(ctx context.Context) error {
 	done := make(chan struct{}, 1)
-	g.SetRendererWork(func() {
+	p.SetRendererWork(func() {
 		done <- struct{}{}
 	})
 	select {

@@ -58,6 +58,10 @@ func (fc FSGenericURLResourceClass) Alloc() FSGenericURLResource {
 // following example shows how a hypothetical [FSGenericURLResource]
 // implementation declares support for the `rsh` and `ssh` URL schemes:
 //
+// # Creating a generic URL resource
+//
+//   - [FSGenericURLResource.InitWithURL]: Creates a generic URL resource with the given URL.
+//
 // # Accessing resource properties
 //
 //   - [FSGenericURLResource.Url]: The URL represented by the resource.
@@ -79,6 +83,10 @@ func FSGenericURLResourceFromID(id objc.ID) FSGenericURLResource {
 
 // An interface definition for the [FSGenericURLResource] class.
 //
+// # Creating a generic URL resource
+//
+//   - [IFSGenericURLResource.InitWithURL]: Creates a generic URL resource with the given URL.
+//
 // # Accessing resource properties
 //
 //   - [IFSGenericURLResource.Url]: The URL represented by the resource.
@@ -87,13 +95,15 @@ func FSGenericURLResourceFromID(id objc.ID) FSGenericURLResource {
 type IFSGenericURLResource interface {
 	IFSResource
 
+	// Topic: Creating a generic URL resource
+
+	// Creates a generic URL resource with the given URL.
+	InitWithURL(url foundation.NSURL) FSGenericURLResource
+
 	// Topic: Accessing resource properties
 
 	// The URL represented by the resource.
-	Url() foundation.INSURL
-
-	// Creates a generic URL resource with the given URL.
-	InitWithURL(url foundation.INSURL) FSGenericURLResource
+	Url() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -122,8 +132,8 @@ func NewFSGenericURLResource() FSGenericURLResource {
 // represented by the URL and make them available as an [FSVolume] that FSKit
 // can load.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/init(url:)
-func NewGenericURLResourceWithURL(url foundation.INSURL) FSGenericURLResource {
+// See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/init(url:)-2cmhi
+func NewGenericURLResourceWithURL(url foundation.NSURL) FSGenericURLResource {
 	instance := getFSGenericURLResourceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return FSGenericURLResourceFromID(rv)
@@ -136,8 +146,8 @@ func NewGenericURLResourceWithURL(url foundation.INSURL) FSGenericURLResource {
 // represented by the URL and make them available as an [FSVolume] that FSKit
 // can load.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/init(url:)
-func (g FSGenericURLResource) InitWithURL(url foundation.INSURL) FSGenericURLResource {
+// See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/init(url:)-2cmhi
+func (g FSGenericURLResource) InitWithURL(url foundation.NSURL) FSGenericURLResource {
 	rv := objc.Send[FSGenericURLResource](g.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
@@ -145,7 +155,7 @@ func (g FSGenericURLResource) InitWithURL(url foundation.INSURL) FSGenericURLRes
 // The URL represented by the resource.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/url
-func (g FSGenericURLResource) Url() foundation.INSURL {
+func (g FSGenericURLResource) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

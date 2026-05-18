@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_concat_fuse_fix] class.
+// The class instance for the [EspressoPassConcatFuseFix] class.
 var (
-	_EspressoPass_concat_fuse_fixClass     EspressoPass_concat_fuse_fixClass
-	_EspressoPass_concat_fuse_fixClassOnce sync.Once
+	_EspressoPassConcatFuseFixClass     EspressoPassConcatFuseFixClass
+	_EspressoPassConcatFuseFixClassOnce sync.Once
 )
 
-func getEspressoPass_concat_fuse_fixClass() EspressoPass_concat_fuse_fixClass {
-	_EspressoPass_concat_fuse_fixClassOnce.Do(func() {
-		_EspressoPass_concat_fuse_fixClass = EspressoPass_concat_fuse_fixClass{class: objc.GetClass("EspressoPass_concat_fuse_fix")}
+func getEspressoPassConcatFuseFixClass() EspressoPassConcatFuseFixClass {
+	_EspressoPassConcatFuseFixClassOnce.Do(func() {
+		_EspressoPassConcatFuseFixClass = EspressoPassConcatFuseFixClass{class: objc.GetClass("EspressoPass_concat_fuse_fix")}
 	})
-	return _EspressoPass_concat_fuse_fixClass
+	return _EspressoPassConcatFuseFixClass
 }
 
-// GetEspressoPass_concat_fuse_fixClass returns the class object for EspressoPass_concat_fuse_fix.
-func GetEspressoPass_concat_fuse_fixClass() EspressoPass_concat_fuse_fixClass {
-	return getEspressoPass_concat_fuse_fixClass()
+// GetEspressoPassConcatFuseFixClass returns the class object for EspressoPass_concat_fuse_fix.
+func GetEspressoPassConcatFuseFixClass() EspressoPassConcatFuseFixClass {
+	return getEspressoPassConcatFuseFixClass()
 }
 
-type EspressoPass_concat_fuse_fixClass struct {
+type EspressoPassConcatFuseFixClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_concat_fuse_fixClass) Class() objc.Class {
+func (ec EspressoPassConcatFuseFixClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_concat_fuse_fixClass) Alloc() EspressoPass_concat_fuse_fix {
-	rv := objc.Send[EspressoPass_concat_fuse_fix](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassConcatFuseFixClass) Alloc() EspressoPassConcatFuseFix {
+	rv := objc.Send[EspressoPassConcatFuseFix](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_concat_fuse_fix
-type EspressoPass_concat_fuse_fix struct {
+type EspressoPassConcatFuseFix struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_concat_fuse_fixFromID constructs a [EspressoPass_concat_fuse_fix] from an objc.ID.
-func EspressoPass_concat_fuse_fixFromID(id objc.ID) EspressoPass_concat_fuse_fix {
-	return EspressoPass_concat_fuse_fix{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassConcatFuseFixFromID constructs a [EspressoPassConcatFuseFix] from an objc.ID.
+func EspressoPassConcatFuseFixFromID(id objc.ID) EspressoPassConcatFuseFix {
+	return EspressoPassConcatFuseFix{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_concat_fuse_fix implements IEspressoPass_concat_fuse_fix.
-var _ IEspressoPass_concat_fuse_fix = EspressoPass_concat_fuse_fix{}
+// EspressoPass_concat_fuse_fixFromID is an alias for [EspressoPassConcatFuseFixFromID] for cross-framework compatibility.
+func EspressoPass_concat_fuse_fixFromID(id objc.ID) EspressoPassConcatFuseFix {
+	return EspressoPassConcatFuseFixFromID(id)
+}
 
-// An interface definition for the [EspressoPass_concat_fuse_fix] class.
+// Ensure EspressoPassConcatFuseFix implements IEspressoPassConcatFuseFix.
+var _ IEspressoPassConcatFuseFix = EspressoPassConcatFuseFix{}
+
+// An interface definition for the [EspressoPassConcatFuseFix] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_concat_fuse_fix
-type IEspressoPass_concat_fuse_fix interface {
+type IEspressoPassConcatFuseFix interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_concat_fuse_fix) Init() EspressoPass_concat_fuse_fix {
-	rv := objc.Send[EspressoPass_concat_fuse_fix](e.ID, objc.Sel("init"))
+func (e EspressoPassConcatFuseFix) Init() EspressoPassConcatFuseFix {
+	rv := objc.Send[EspressoPassConcatFuseFix](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_concat_fuse_fix) Autorelease() EspressoPass_concat_fuse_fix {
-	rv := objc.Send[EspressoPass_concat_fuse_fix](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassConcatFuseFix) Autorelease() EspressoPassConcatFuseFix {
+	rv := objc.Send[EspressoPassConcatFuseFix](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_concat_fuse_fix creates a new EspressoPass_concat_fuse_fix instance.
-func NewEspressoPass_concat_fuse_fix() EspressoPass_concat_fuse_fix {
-	class := getEspressoPass_concat_fuse_fixClass()
-	rv := objc.Send[EspressoPass_concat_fuse_fix](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassConcatFuseFix creates a new EspressoPassConcatFuseFix instance.
+func NewEspressoPassConcatFuseFix() EspressoPassConcatFuseFix {
+	class := getEspressoPassConcatFuseFixClass()
+	rv := objc.Send[EspressoPassConcatFuseFix](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

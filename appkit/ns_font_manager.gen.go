@@ -223,7 +223,6 @@ func NSFontManagerFromID(id objc.ID) NSFontManager {
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager
 type INSFontManager interface {
 	objectivec.IObject
-	NSMenuItemValidation
 
 	// Topic: Getting Available Fonts
 

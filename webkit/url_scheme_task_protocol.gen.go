@@ -14,11 +14,6 @@ import (
 type WKURLSchemeTask interface {
 	objectivec.IObject
 
-	// Information about the resource to load.
-	//
-	// See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/request
-	Request() foundation.NSURLRequest
-
 	// Returns a URL response to WebKit with information about the requested resource.
 	//
 	// See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/didReceive(_:)-2u23r
@@ -27,7 +22,7 @@ type WKURLSchemeTask interface {
 	// Sends some or all of the resource data to WebKit.
 	//
 	// See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/didReceive(_:)-8t5f8
-	DidReceiveData(data foundation.INSData)
+	DidReceiveData(data foundation.NSData)
 
 	// Signals the successful completion of the task.
 	//
@@ -37,7 +32,12 @@ type WKURLSchemeTask interface {
 	// Completes the task and reports the specified error back to WebKit.
 	//
 	// See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/didFailWithError(_:)
-	DidFailWithError(error_ foundation.INSError)
+	DidFailWithError(error_ foundation.NSError)
+
+	// Information about the resource to load.
+	//
+	// See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/request
+	Request() foundation.NSURLRequest
 }
 
 // WKURLSchemeTaskObject wraps an existing Objective-C object that conforms to the WKURLSchemeTask protocol.
@@ -55,14 +55,6 @@ func WKURLSchemeTaskObjectFromID(id objc.ID) WKURLSchemeTaskObject {
 	return WKURLSchemeTaskObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Information about the resource to load.
-//
-// See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/request
-func (o WKURLSchemeTaskObject) Request() foundation.NSURLRequest {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("request"))
-	return foundation.NSURLRequestFromID(rv)
 }
 
 // Returns a URL response to WebKit with information about the requested
@@ -101,13 +93,13 @@ func (o WKURLSchemeTaskObject) DidReceiveResponse(response foundation.NSURLRespo
 // each new portion of the data. Each time you call this method, WebKit
 // appends the new data to any previously received data.
 //
-// This method raises an exception if you call it before the
-// [DidReceiveResponse] method, or after the [DidFinish] method. It also
-// raises an exception if you call it after WebKit calls the
-// [WebViewStopURLSchemeTask] method of the corresponding handler object.
+// This method raises an exception if you call it before the [DidReceiveData]
+// method, or after the [DidFinish] method. It also raises an exception if you
+// call it after WebKit calls the [WebViewStopURLSchemeTask] method of the
+// corresponding handler object.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/didReceive(_:)-8t5f8
-func (o WKURLSchemeTaskObject) DidReceiveData(data foundation.INSData) {
+func (o WKURLSchemeTaskObject) DidReceiveData(data foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("didReceiveData:"), data)
 }
 
@@ -117,13 +109,13 @@ func (o WKURLSchemeTaskObject) DidReceiveData(data foundation.INSData) {
 //
 // This method signals to WebKit that it has all of the resource’s data and
 // the task is now complete. Call this method after sending a response and the
-// resource data to WebKit using the [DidReceiveResponse] and [DidReceiveData]
+// resource data to WebKit using the [DidReceiveData] and [DidReceiveData]
 // methods.
 //
-// This method raises an exception if you call it before the
-// [DidReceiveResponse] method, or if the task is already complete. It also
-// raises an exception if you call it after WebKit calls the
-// [WebViewStopURLSchemeTask] method of the corresponding handler object.
+// This method raises an exception if you call it before the [DidReceiveData]
+// method, or if the task is already complete. It also raises an exception if
+// you call it after WebKit calls the [WebViewStopURLSchemeTask] method of the
+// corresponding handler object.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/didFinish()
 func (o WKURLSchemeTaskObject) DidFinish() {
@@ -146,6 +138,21 @@ func (o WKURLSchemeTaskObject) DidFinish() {
 // [WebViewStopURLSchemeTask] method of the corresponding handler object.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/didFailWithError(_:)
-func (o WKURLSchemeTaskObject) DidFailWithError(error_ foundation.INSError) {
+func (o WKURLSchemeTaskObject) DidFailWithError(error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("didFailWithError:"), error_)
+}
+
+// Information about the resource to load.
+//
+// # Discussion
+//
+// Use the value of this property to get the URL of the requested resource,
+// and any additional details. It is safe to retrieve the value of this
+// property even after WebKit cancels the load request by calling your
+// handler’s [WebViewStopURLSchemeTask] method.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKURLSchemeTask/request
+func (o WKURLSchemeTaskObject) Request() foundation.NSURLRequest {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("request"))
+	return foundation.NSURLRequestFromID(rv)
 }

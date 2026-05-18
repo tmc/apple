@@ -116,14 +116,14 @@ type IMLAppleWordEmbeddingParameters interface {
 }
 
 // Init initializes the instance.
-func (a MLAppleWordEmbeddingParameters) Init() MLAppleWordEmbeddingParameters {
-	rv := objc.Send[MLAppleWordEmbeddingParameters](a.ID, objc.Sel("init"))
+func (m MLAppleWordEmbeddingParameters) Init() MLAppleWordEmbeddingParameters {
+	rv := objc.Send[MLAppleWordEmbeddingParameters](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (a MLAppleWordEmbeddingParameters) Autorelease() MLAppleWordEmbeddingParameters {
-	rv := objc.Send[MLAppleWordEmbeddingParameters](a.ID, objc.Sel("autorelease"))
+func (m MLAppleWordEmbeddingParameters) Autorelease() MLAppleWordEmbeddingParameters {
+	rv := objc.Send[MLAppleWordEmbeddingParameters](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -159,9 +159,9 @@ func NewAppleWordEmbeddingParametersWithDataLanguageInputFeatureNameOutputFeatur
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbeddingParameters/initWithData:language:inputFeatureName:outputFeatureName:modelData:error:
-func (a MLAppleWordEmbeddingParameters) InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject) (MLAppleWordEmbeddingParameters, error) {
+func (m MLAppleWordEmbeddingParameters) InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject) (MLAppleWordEmbeddingParameters, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:error:"), data, language, name, name2, data2, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:error:"), data, language, name, name2, data2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleWordEmbeddingParameters{}, foundation.NSErrorFrom(errorPtr)
@@ -171,9 +171,9 @@ func (a MLAppleWordEmbeddingParameters) InitWithDataLanguageInputFeatureNameOutp
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbeddingParameters/initWithData:language:inputFeatureName:outputFeatureName:modelData:metadata:error:
-func (a MLAppleWordEmbeddingParameters) InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, metadata objectivec.IObject) (MLAppleWordEmbeddingParameters, error) {
+func (m MLAppleWordEmbeddingParameters) InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, metadata objectivec.IObject) (MLAppleWordEmbeddingParameters, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:metadata:error:"), data, language, name, name2, data2, metadata, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:metadata:error:"), data, language, name, name2, data2, metadata, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLAppleWordEmbeddingParameters{}, foundation.NSErrorFrom(errorPtr)
@@ -183,55 +183,55 @@ func (a MLAppleWordEmbeddingParameters) InitWithDataLanguageInputFeatureNameOutp
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbeddingParameters/inputFeatureName
-func (a MLAppleWordEmbeddingParameters) InputFeatureName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputFeatureName"))
+func (m MLAppleWordEmbeddingParameters) InputFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (a MLAppleWordEmbeddingParameters) SetInputFeatureName(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
+func (m MLAppleWordEmbeddingParameters) SetInputFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbeddingParameters/language
-func (a MLAppleWordEmbeddingParameters) Language() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("language"))
+func (m MLAppleWordEmbeddingParameters) Language() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (a MLAppleWordEmbeddingParameters) SetLanguage(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setLanguage:"), objc.String(value))
+func (m MLAppleWordEmbeddingParameters) SetLanguage(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbeddingParameters/metadata
-func (a MLAppleWordEmbeddingParameters) Metadata() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("metadata"))
+func (m MLAppleWordEmbeddingParameters) Metadata() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (a MLAppleWordEmbeddingParameters) SetMetadata(value foundation.INSDictionary) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMetadata:"), value)
+func (m MLAppleWordEmbeddingParameters) SetMetadata(value foundation.INSDictionary) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMetadata:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbeddingParameters/modelParameterData
-func (a MLAppleWordEmbeddingParameters) ModelParameterData() foundation.INSData {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelParameterData"))
+func (m MLAppleWordEmbeddingParameters) ModelParameterData() foundation.INSData {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelParameterData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-func (a MLAppleWordEmbeddingParameters) SetModelParameterData(value foundation.INSData) {
-	objc.Send[struct{}](a.ID, objc.Sel("setModelParameterData:"), value)
+func (m MLAppleWordEmbeddingParameters) SetModelParameterData(value foundation.INSData) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbeddingParameters/outputFeatureName
-func (a MLAppleWordEmbeddingParameters) OutputFeatureName() string {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputFeatureName"))
+func (m MLAppleWordEmbeddingParameters) OutputFeatureName() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (a MLAppleWordEmbeddingParameters) SetOutputFeatureName(value string) {
-	objc.Send[struct{}](a.ID, objc.Sel("setOutputFeatureName:"), objc.String(value))
+func (m MLAppleWordEmbeddingParameters) SetOutputFeatureName(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setOutputFeatureName:"), objc.String(value))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbeddingParameters/revision
-func (a MLAppleWordEmbeddingParameters) Revision() uint64 {
-	rv := objc.Send[uint64](a.ID, objc.Sel("revision"))
+func (m MLAppleWordEmbeddingParameters) Revision() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("revision"))
 	return rv
 }
-func (a MLAppleWordEmbeddingParameters) SetRevision(value uint64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRevision:"), value)
+func (m MLAppleWordEmbeddingParameters) SetRevision(value uint64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setRevision:"), value)
 }

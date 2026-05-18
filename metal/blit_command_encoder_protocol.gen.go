@@ -110,10 +110,15 @@ type MTLBlitCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/sampleCounters(sampleBuffer:sampleIndex:barrier:)
 	SampleCountersInBufferAtSampleIndexWithBarrier(sampleBuffer MTLCounterSampleBuffer, sampleIndex uint, barrier bool)
 
-	// Encodes a command that resets a sparse texture’s access data for a specific region, mipmap level, and slice.
+	// Encodes a command that copies commands from one indirect command buffer into another.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/resetTextureAccessCounters(_:region:mipLevel:slice:)
-	ResetTextureAccessCountersRegionMipLevelSlice(texture MTLTexture, region MTLRegion, mipLevel uint, slice uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:
+	CopyIndirectCommandBufferSourceRangeDestinationDestinationIndex(source MTLIndirectCommandBuffer, sourceRange foundation.NSRange, destination MTLIndirectCommandBuffer, destinationIndex uint)
+
+	// Encodes a command that fills a buffer with a constant value for each byte.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/fillBuffer:range:value:
+	FillBufferRangeValue(buffer MTLBuffer, range_ foundation.NSRange, value uint8)
 
 	// Encodes a command that can improve the performance of a range of commands within an indirect command buffer.
 	//
@@ -448,7 +453,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromTensorSourceOriginSourceDimensionsT
 // [height]: https://developer.apple.com/documentation/Metal/MTLSize/height
 // [y]: https://developer.apple.com/documentation/Metal/MTLOrigin/y
 // [z]: https://developer.apple.com/documentation/Metal/MTLOrigin/z
-// [MTLBlitOptionNone]: https://developer.apple.com/documentation/Metal/MTLBlitOption/MTLBlitOptionNone
 // [OptionSet]: https://developer.apple.com/documentation/Swift/OptionSet
 //
 // [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
@@ -541,7 +545,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRow
 // [height]: https://developer.apple.com/documentation/Metal/MTLSize/height
 // [y]: https://developer.apple.com/documentation/Metal/MTLOrigin/y
 // [z]: https://developer.apple.com/documentation/Metal/MTLOrigin/z
-// [MTLBlitOptionNone]: https://developer.apple.com/documentation/Metal/MTLBlitOption/MTLBlitOptionNone
 // [OptionSet]: https://developer.apple.com/documentation/Swift/OptionSet
 //
 // [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
@@ -625,7 +628,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRow
 // [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
 // [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
 // [height]: https://developer.apple.com/documentation/Metal/MTLSize/height
-// [MTLBlitOptionNone]: https://developer.apple.com/documentation/Metal/MTLBlitOption/MTLBlitOptionNone
 // [OptionSet]: https://developer.apple.com/documentation/Swift/OptionSet
 //
 // [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
@@ -718,7 +720,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSource
 // [MTLSize]: https://developer.apple.com/documentation/Metal/MTLSize
 // [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
 // [height]: https://developer.apple.com/documentation/Metal/MTLSize/height
-// [MTLBlitOptionNone]: https://developer.apple.com/documentation/Metal/MTLBlitOption/MTLBlitOptionNone
 // [OptionSet]: https://developer.apple.com/documentation/Swift/OptionSet
 //
 // [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
@@ -973,21 +974,53 @@ func (o MTLBlitCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithBarr
 	objc.Send[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), sampleBuffer, sampleIndex, barrier)
 }
 
-// Encodes a command that resets a sparse texture’s access data for a
-// specific region, mipmap level, and slice.
+// Encodes a command that copies commands from one indirect command buffer
+// into another.
 //
-// texture: A sparse texture instance.
+// source: An indirect command buffer the command copies from.
 //
-// region: A region within the sparse texture’s `mipLevel`, in sparse tile
-// coordinates.
+// sourceRange: The range of commands in the source buffer to copy. The source range needs
+// to start on a valid execution point.
 //
-// mipLevel: A mipmap level within the sparse texture.
+// destination: Another indirect command buffer the command copies to.
 //
-// slice: A slice within the sparse texture.
+// destinationIndex: An index in `destination` where the command copies content from `source`
+// to. The destination index needs to be a valid execution point with enough
+// remaining space in `destination` to accommodate `sourceRange.Count()`
+// indices.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/resetTextureAccessCounters(_:region:mipLevel:slice:)
-func (o MTLBlitCommandEncoderObject) ResetTextureAccessCountersRegionMipLevelSlice(texture MTLTexture, region MTLRegion, mipLevel uint, slice uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("resetTextureAccessCounters:region:mipLevel:slice:"), texture, region, mipLevel, slice)
+// # Discussion
+//
+// You can copy commands from one indirect command buffer to another, but only
+// a compatible one. You can create compatible indirect command buffers by
+// passing [MTLIndirectCommandBufferDescriptor] instances with the same
+// configuration to the
+// [NewIndirectCommandBufferWithDescriptorMaxCommandCountOptions] method of
+// [MTLDevice].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:
+func (o MTLBlitCommandEncoderObject) CopyIndirectCommandBufferSourceRangeDestinationDestinationIndex(source MTLIndirectCommandBuffer, sourceRange foundation.NSRange, destination MTLIndirectCommandBuffer, destinationIndex uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:"), source, sourceRange, destination, destinationIndex)
+}
+
+// Encodes a command that fills a buffer with a constant value for each byte.
+//
+// buffer: A buffer instance the command assigns each byte in `range` to `value`.
+//
+// range: A range of bytes within the `buffer` the command assigns `value` to. The
+// range’s [count] property needs to be greater than `0`. The range’s
+// [count], [lowerBound], and [upperBound] properties need to be a multiple of
+// `4` in macOS, but can be any value in iOS and tvOS.
+//
+// value: The value to write to each byte.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/fillBuffer:range:value:
+//
+// [count]: https://developer.apple.com/documentation/Swift/Collection/count
+// [lowerBound]: https://developer.apple.com/documentation/Swift/Range/lowerBound
+// [upperBound]: https://developer.apple.com/documentation/Swift/Range/upperBound
+func (o MTLBlitCommandEncoderObject) FillBufferRangeValue(buffer MTLBuffer, range_ foundation.NSRange, value uint8) {
+	objc.Send[struct{}](o.ID, objc.Sel("fillBuffer:range:value:"), buffer, range_, value)
 }
 
 // Encodes a command that can improve the performance of a range of commands

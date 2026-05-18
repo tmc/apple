@@ -115,12 +115,12 @@ type ICKAsset interface {
 	// Topic: Creating an Asset
 
 	// Creates an asset that references a file.
-	InitWithFileURL(fileURL foundation.INSURL) CKAsset
+	InitWithFileURL(fileURL foundation.NSURL) CKAsset
 
 	// Topic: Getting the URL of the Asset
 
 	// The URL for accessing the asset.
-	FileURL() foundation.INSURL
+	FileURL() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -166,7 +166,7 @@ func NewCKAsset() CKAsset {
 // separate assets for each one.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKAsset/init(fileURL:)
-func NewCKAssetWithFileURL(fileURL foundation.INSURL) CKAsset {
+func NewCKAssetWithFileURL(fileURL foundation.NSURL) CKAsset {
 	instance := getCKAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileURL:"), fileURL)
 	return CKAssetFromID(rv)
@@ -196,7 +196,7 @@ func NewCKAssetWithFileURL(fileURL foundation.INSURL) CKAsset {
 // separate assets for each one.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKAsset/init(fileURL:)
-func (c CKAsset) InitWithFileURL(fileURL foundation.INSURL) CKAsset {
+func (c CKAsset) InitWithFileURL(fileURL foundation.NSURL) CKAsset {
 	rv := objc.Send[CKAsset](c.ID, objc.Sel("initWithFileURL:"), fileURL)
 	return rv
 }
@@ -210,7 +210,7 @@ func (c CKAsset) InitWithFileURL(fileURL foundation.INSURL) CKAsset {
 // specify when creating the asset.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKAsset/fileURL
-func (c CKAsset) FileURL() foundation.INSURL {
+func (c CKAsset) FileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("fileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

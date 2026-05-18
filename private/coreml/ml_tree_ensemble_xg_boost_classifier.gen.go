@@ -149,14 +149,14 @@ type IMLTreeEnsembleXGBoostClassifier interface {
 }
 
 // Init initializes the instance.
-func (t MLTreeEnsembleXGBoostClassifier) Init() MLTreeEnsembleXGBoostClassifier {
-	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](t.ID, objc.Sel("init"))
+func (m MLTreeEnsembleXGBoostClassifier) Init() MLTreeEnsembleXGBoostClassifier {
+	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (t MLTreeEnsembleXGBoostClassifier) Autorelease() MLTreeEnsembleXGBoostClassifier {
-	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](t.ID, objc.Sel("autorelease"))
+func (m MLTreeEnsembleXGBoostClassifier) Autorelease() MLTreeEnsembleXGBoostClassifier {
+	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -180,9 +180,9 @@ func NewTreeEnsembleXGBoostClassifierWithDescriptionConfigurationIndexToStringLa
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/batchProviderFromXGboostResults:length:error:
-func (t MLTreeEnsembleXGBoostClassifier) BatchProviderFromXGboostResultsLengthError(results unsafe.Pointer, length uint64) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) BatchProviderFromXGboostResultsLengthError(results unsafe.Pointer, length uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("batchProviderFromXGboostResults:length:error:"), results, length, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("batchProviderFromXGboostResults:length:error:"), results, length, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -192,9 +192,9 @@ func (t MLTreeEnsembleXGBoostClassifier) BatchProviderFromXGboostResultsLengthEr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/featureProviderArrayFromXGBoostResult:length:error:
-func (t MLTreeEnsembleXGBoostClassifier) FeatureProviderArrayFromXGBoostResultLengthError(result unsafe.Pointer, length uint64) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) FeatureProviderArrayFromXGBoostResultLengthError(result unsafe.Pointer, length uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("featureProviderArrayFromXGBoostResult:length:error:"), result, length, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureProviderArrayFromXGBoostResult:length:error:"), result, length, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -204,9 +204,9 @@ func (t MLTreeEnsembleXGBoostClassifier) FeatureProviderArrayFromXGBoostResultLe
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/featureProviderFromXGboostResults:length:error:
-func (t MLTreeEnsembleXGBoostClassifier) FeatureProviderFromXGboostResultsLengthError(results unsafe.Pointer, length uint64) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) FeatureProviderFromXGboostResultsLengthError(results unsafe.Pointer, length uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("featureProviderFromXGboostResults:length:error:"), results, length, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureProviderFromXGboostResults:length:error:"), results, length, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -216,9 +216,9 @@ func (t MLTreeEnsembleXGBoostClassifier) FeatureProviderFromXGboostResultsLength
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/initializeAndvalidateObjectiveAndNumClassesWithConfiguration:error:
-func (t MLTreeEnsembleXGBoostClassifier) InitializeAndvalidateObjectiveAndNumClassesWithConfigurationError(configuration objectivec.IObject) (MLTreeEnsembleXGBoostClassifier, error) {
+func (m MLTreeEnsembleXGBoostClassifier) InitializeAndvalidateObjectiveAndNumClassesWithConfigurationError(configuration objectivec.IObject) (MLTreeEnsembleXGBoostClassifier, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("initializeAndvalidateObjectiveAndNumClassesWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initializeAndvalidateObjectiveAndNumClassesWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLTreeEnsembleXGBoostClassifier{}, foundation.NSErrorFrom(errorPtr)
@@ -228,27 +228,27 @@ func (t MLTreeEnsembleXGBoostClassifier) InitializeAndvalidateObjectiveAndNumCla
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/initializeBoosterIfOneExists
-func (t MLTreeEnsembleXGBoostClassifier) InitializeBoosterIfOneExists() MLTreeEnsembleXGBoostClassifier {
-	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](t.ID, objc.Sel("initializeBoosterIfOneExists"))
+func (m MLTreeEnsembleXGBoostClassifier) InitializeBoosterIfOneExists() MLTreeEnsembleXGBoostClassifier {
+	rv := objc.Send[MLTreeEnsembleXGBoostClassifier](m.ID, objc.Sel("initializeBoosterIfOneExists"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/loadLabelsWithStringLabels:intLabels:
-func (t MLTreeEnsembleXGBoostClassifier) LoadLabelsWithStringLabelsIntLabels(labels objectivec.IObject, labels2 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("loadLabelsWithStringLabels:intLabels:"), labels, labels2)
+func (m MLTreeEnsembleXGBoostClassifier) LoadLabelsWithStringLabelsIntLabels(labels objectivec.IObject, labels2 objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("loadLabelsWithStringLabels:intLabels:"), labels, labels2)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/packageOutputWithPredictedLabel:classProbabilities:
-func (t MLTreeEnsembleXGBoostClassifier) PackageOutputWithPredictedLabelClassProbabilities(label objectivec.IObject, probabilities objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("packageOutputWithPredictedLabel:classProbabilities:"), label, probabilities)
+func (m MLTreeEnsembleXGBoostClassifier) PackageOutputWithPredictedLabelClassProbabilities(label objectivec.IObject, probabilities objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("packageOutputWithPredictedLabel:classProbabilities:"), label, probabilities)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/populateXGBoostDataFormat:trainingData:dataIndex:inputName:needLabels:error:
-func (t MLTreeEnsembleXGBoostClassifier) PopulateXGBoostDataFormatTrainingDataDataIndexInputNameNeedLabelsError(format unsafe.Pointer, data objectivec.IObject, index int64, name objectivec.IObject, labels bool) error {
+func (m MLTreeEnsembleXGBoostClassifier) PopulateXGBoostDataFormatTrainingDataDataIndexInputNameNeedLabelsError(format unsafe.Pointer, data objectivec.IObject, index int64, name objectivec.IObject, labels bool) error {
 	var errorPtr objc.ID
-	objc.Send[struct{}](t.ID, objc.Sel("populateXGBoostDataFormat:trainingData:dataIndex:inputName:needLabels:error:"), format, data, index, name, labels, unsafe.Pointer(&errorPtr))
+	objc.Send[struct{}](m.ID, objc.Sel("populateXGBoostDataFormat:trainingData:dataIndex:inputName:needLabels:error:"), format, data, index, name, labels, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return foundation.NSErrorFrom(errorPtr)
@@ -258,9 +258,9 @@ func (t MLTreeEnsembleXGBoostClassifier) PopulateXGBoostDataFormatTrainingDataDa
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/predictionFromFeatures:error:
-func (t MLTreeEnsembleXGBoostClassifier) PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("predictionFromFeatures:error:"), features, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:error:"), features, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -270,9 +270,9 @@ func (t MLTreeEnsembleXGBoostClassifier) PredictionFromFeaturesError(features ob
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/predictionFromFeatures:options:error:
-func (t MLTreeEnsembleXGBoostClassifier) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -282,9 +282,9 @@ func (t MLTreeEnsembleXGBoostClassifier) PredictionFromFeaturesOptionsError(feat
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/predictionsFromBatch:error:
-func (t MLTreeEnsembleXGBoostClassifier) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("predictionsFromBatch:error:"), batch, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:error:"), batch, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -294,9 +294,9 @@ func (t MLTreeEnsembleXGBoostClassifier) PredictionsFromBatchError(batch objecti
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/predictionsFromBatch:options:error:
-func (t MLTreeEnsembleXGBoostClassifier) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -306,9 +306,9 @@ func (t MLTreeEnsembleXGBoostClassifier) PredictionsFromBatchOptionsError(batch 
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/xgBoostDataFormatFromBatchProvider:needLabels:error:
-func (t MLTreeEnsembleXGBoostClassifier) XgBoostDataFormatFromBatchProviderNeedLabelsError(provider objectivec.IObject, labels bool) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) XgBoostDataFormatFromBatchProviderNeedLabelsError(provider objectivec.IObject, labels bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("xgBoostDataFormatFromBatchProvider:needLabels:error:"), provider, labels, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("xgBoostDataFormatFromBatchProvider:needLabels:error:"), provider, labels, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -318,9 +318,9 @@ func (t MLTreeEnsembleXGBoostClassifier) XgBoostDataFormatFromBatchProviderNeedL
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/xgBoostDataFormatFromFeatureProvider:error:
-func (t MLTreeEnsembleXGBoostClassifier) XgBoostDataFormatFromFeatureProviderError(provider objectivec.IObject) (objectivec.IObject, error) {
+func (m MLTreeEnsembleXGBoostClassifier) XgBoostDataFormatFromFeatureProviderError(provider objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("xgBoostDataFormatFromFeatureProvider:error:"), provider, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("xgBoostDataFormatFromFeatureProvider:error:"), provider, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -330,9 +330,9 @@ func (t MLTreeEnsembleXGBoostClassifier) XgBoostDataFormatFromFeatureProviderErr
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:
-func (t MLTreeEnsembleXGBoostClassifier) InitWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array objectivec.IObject, array2 objectivec.IObject, url foundation.INSURL) (MLTreeEnsembleXGBoostClassifier, error) {
+func (m MLTreeEnsembleXGBoostClassifier) InitWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array objectivec.IObject, array2 objectivec.IObject, url foundation.INSURL) (MLTreeEnsembleXGBoostClassifier, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:"), description, configuration, array, array2, url, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:"), description, configuration, array, array2, url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLTreeEnsembleXGBoostClassifier{}, foundation.NSErrorFrom(errorPtr)
@@ -342,46 +342,46 @@ func (t MLTreeEnsembleXGBoostClassifier) InitWithDescriptionConfigurationIndexTo
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/booster
-func (t MLTreeEnsembleXGBoostClassifier) Booster() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("booster"))
+func (m MLTreeEnsembleXGBoostClassifier) Booster() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("booster"))
 	return rv
 }
-func (t MLTreeEnsembleXGBoostClassifier) SetBooster(value unsafe.Pointer) {
-	objc.Send[struct{}](t.ID, objc.Sel("setBooster:"), value)
+func (m MLTreeEnsembleXGBoostClassifier) SetBooster(value unsafe.Pointer) {
+	objc.Send[struct{}](m.ID, objc.Sel("setBooster:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/labelsForDataPoints
-func (t MLTreeEnsembleXGBoostClassifier) LabelsForDataPoints() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("labelsForDataPoints"))
+func (m MLTreeEnsembleXGBoostClassifier) LabelsForDataPoints() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("labelsForDataPoints"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (t MLTreeEnsembleXGBoostClassifier) SetLabelsForDataPoints(value foundation.INSArray) {
-	objc.Send[struct{}](t.ID, objc.Sel("setLabelsForDataPoints:"), value)
+func (m MLTreeEnsembleXGBoostClassifier) SetLabelsForDataPoints(value foundation.INSArray) {
+	objc.Send[struct{}](m.ID, objc.Sel("setLabelsForDataPoints:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/modelURL
-func (t MLTreeEnsembleXGBoostClassifier) ModelURL() foundation.INSURL {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("modelURL"))
+func (m MLTreeEnsembleXGBoostClassifier) ModelURL() foundation.INSURL {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (t MLTreeEnsembleXGBoostClassifier) SetModelURL(value foundation.INSURL) {
-	objc.Send[struct{}](t.ID, objc.Sel("setModelURL:"), value)
+func (m MLTreeEnsembleXGBoostClassifier) SetModelURL(value foundation.INSURL) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModelURL:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/numClasses
-func (t MLTreeEnsembleXGBoostClassifier) NumClasses() uint64 {
-	rv := objc.Send[uint64](t.ID, objc.Sel("numClasses"))
+func (m MLTreeEnsembleXGBoostClassifier) NumClasses() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("numClasses"))
 	return rv
 }
-func (t MLTreeEnsembleXGBoostClassifier) SetNumClasses(value uint64) {
-	objc.Send[struct{}](t.ID, objc.Sel("setNumClasses:"), value)
+func (m MLTreeEnsembleXGBoostClassifier) SetNumClasses(value uint64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setNumClasses:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/objective
-func (t MLTreeEnsembleXGBoostClassifier) Objective() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("objective"))
+func (m MLTreeEnsembleXGBoostClassifier) Objective() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("objective"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (t MLTreeEnsembleXGBoostClassifier) SetObjective(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setObjective:"), objc.String(value))
+func (m MLTreeEnsembleXGBoostClassifier) SetObjective(value string) {
+	objc.Send[struct{}](m.ID, objc.Sel("setObjective:"), objc.String(value))
 }

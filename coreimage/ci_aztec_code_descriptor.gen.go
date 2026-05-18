@@ -98,12 +98,12 @@ type ICIAztecCodeDescriptor interface {
 	// Topic: Creating a Descriptor
 
 	// Initializes an Aztec code descriptor for the given payload and parameters.
-	InitWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload foundation.INSData, isCompact bool, layerCount int, dataCodewordCount int) CIAztecCodeDescriptor
+	InitWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload foundation.NSData, isCompact bool, layerCount int, dataCodewordCount int) CIAztecCodeDescriptor
 
 	// Topic: Examining a Descriptor
 
 	// The error-corrected payload that comprises the the Aztec code symbol.
-	ErrorCorrectedPayload() foundation.INSData
+	ErrorCorrectedPayload() foundation.NSData
 	// A Boolean value telling if the Aztec code is compact.
 	IsCompact() bool
 	// The number of data layers in the Aztec code symbol.
@@ -147,7 +147,7 @@ func NewCIAztecCodeDescriptor() CIAztecCodeDescriptor {
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeDescriptor/init(payload:isCompact:layerCount:dataCodewordCount:)
-func NewAztecCodeDescriptorWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload foundation.INSData, isCompact bool, layerCount int, dataCodewordCount int) CIAztecCodeDescriptor {
+func NewAztecCodeDescriptorWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload foundation.NSData, isCompact bool, layerCount int, dataCodewordCount int) CIAztecCodeDescriptor {
 	instance := getCIAztecCodeDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPayload:isCompact:layerCount:dataCodewordCount:"), errorCorrectedPayload, isCompact, layerCount, dataCodewordCount)
 	return CIAztecCodeDescriptorFromID(rv)
@@ -169,7 +169,7 @@ func NewAztecCodeDescriptorWithPayloadIsCompactLayerCountDataCodewordCount(error
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeDescriptor/init(payload:isCompact:layerCount:dataCodewordCount:)
-func (a CIAztecCodeDescriptor) InitWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload foundation.INSData, isCompact bool, layerCount int, dataCodewordCount int) CIAztecCodeDescriptor {
+func (a CIAztecCodeDescriptor) InitWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload foundation.NSData, isCompact bool, layerCount int, dataCodewordCount int) CIAztecCodeDescriptor {
 	rv := objc.Send[CIAztecCodeDescriptor](a.ID, objc.Sel("initWithPayload:isCompact:layerCount:dataCodewordCount:"), errorCorrectedPayload, isCompact, layerCount, dataCodewordCount)
 	return rv
 }
@@ -190,7 +190,7 @@ func (a CIAztecCodeDescriptor) InitWithPayloadIsCompactLayerCountDataCodewordCou
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeDescriptor/descriptorWithPayload:isCompact:layerCount:dataCodewordCount:
-func (_CIAztecCodeDescriptorClass CIAztecCodeDescriptorClass) DescriptorWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload foundation.INSData, isCompact bool, layerCount int, dataCodewordCount int) CIAztecCodeDescriptor {
+func (_CIAztecCodeDescriptorClass CIAztecCodeDescriptorClass) DescriptorWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload foundation.NSData, isCompact bool, layerCount int, dataCodewordCount int) CIAztecCodeDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_CIAztecCodeDescriptorClass.class), objc.Sel("descriptorWithPayload:isCompact:layerCount:dataCodewordCount:"), errorCorrectedPayload, isCompact, layerCount, dataCodewordCount)
 	return CIAztecCodeDescriptorFromID(rv)
 }
@@ -209,7 +209,7 @@ func (_CIAztecCodeDescriptorClass CIAztecCodeDescriptorClass) DescriptorWithPayl
 // remove these extra bits as part of interpreting the payload.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeDescriptor/errorCorrectedPayload-swift.property
-func (a CIAztecCodeDescriptor) ErrorCorrectedPayload() foundation.INSData {
+func (a CIAztecCodeDescriptor) ErrorCorrectedPayload() foundation.NSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("errorCorrectedPayload"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

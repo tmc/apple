@@ -95,7 +95,7 @@ type INEFilterFlow interface {
 	// Topic: Inspecting flow properties
 
 	// The flow’s HTTP URL.
-	URL() foundation.INSURL
+	URL() foundation.NSURL
 	// The unique identifier of the flow.
 	Identifier() foundation.NSUUID
 	// The initial direction of the flow: incoming or outgoing.
@@ -107,9 +107,9 @@ type INEFilterFlow interface {
 	// Topic: Source app identification
 
 	// The audit token of the source application of the flow.
-	SourceAppAuditToken() foundation.INSData
+	SourceAppAuditToken() foundation.NSData
 	// The audit token of the process that created the flow.
-	SourceProcessAuditToken() foundation.INSData
+	SourceProcessAuditToken() foundation.NSData
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -145,7 +145,7 @@ func (f NEFilterFlow) EncodeWithCoder(coder foundation.INSCoder) {
 // browser objects.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterFlow/url
-func (f NEFilterFlow) URL() foundation.INSURL {
+func (f NEFilterFlow) URL() foundation.NSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -180,7 +180,7 @@ func (f NEFilterFlow) SetNEFilterFlowBytesMax(value uint64) {
 // The audit token of the source application of the flow.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterFlow/sourceAppAuditToken
-func (f NEFilterFlow) SourceAppAuditToken() foundation.INSData {
+func (f NEFilterFlow) SourceAppAuditToken() foundation.NSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sourceAppAuditToken"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
@@ -195,7 +195,7 @@ func (f NEFilterFlow) SourceAppAuditToken() foundation.INSData {
 // identical.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterFlow/sourceProcessAuditToken
-func (f NEFilterFlow) SourceProcessAuditToken() foundation.INSData {
+func (f NEFilterFlow) SourceProcessAuditToken() foundation.NSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sourceProcessAuditToken"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

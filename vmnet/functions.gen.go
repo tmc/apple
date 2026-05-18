@@ -530,10 +530,10 @@ func Vmnet_network_configuration_set_ipv4_subnet(config Vmnet_network_configurat
 	return result
 }
 
-var _vmnet_network_configuration_set_ipv6_prefix func(config Vmnet_network_configuration_ref, prefix uintptr, len_ uint8) Vmnet_return_t
+var _vmnet_network_configuration_set_ipv6_prefix func(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) Vmnet_return_t
 var _vmnet_network_configuration_set_ipv6_prefixErr error
 
-func tryVmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configuration_ref, prefix uintptr, len_ uint8) (Vmnet_return_t, error) {
+func tryVmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) (Vmnet_return_t, error) {
 	if _vmnet_network_configuration_set_ipv6_prefix == nil {
 		return *new(Vmnet_return_t), symbolCallError("vmnet_network_configuration_set_ipv6_prefix", "26.0", _vmnet_network_configuration_set_ipv6_prefixErr)
 	}
@@ -543,7 +543,7 @@ func tryVmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configu
 // Vmnet_network_configuration_set_ipv6_prefix.
 //
 // See: https://developer.apple.com/documentation/vmnet/vmnet_network_configuration_set_ipv6_prefix(_:_:_:)
-func Vmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configuration_ref, prefix uintptr, len_ uint8) Vmnet_return_t {
+func Vmnet_network_configuration_set_ipv6_prefix(config Vmnet_network_configuration_ref, prefix unsafe.Pointer, len_ uint8) Vmnet_return_t {
 	result, callErr := tryVmnet_network_configuration_set_ipv6_prefix(config, prefix, len_)
 	if callErr != nil {
 		panic(callErr)
@@ -655,10 +655,10 @@ func Vmnet_network_get_ipv4_subnet(network Vmnet_network_ref, subnet uintptr, ma
 	}
 }
 
-var _vmnet_network_get_ipv6_prefix func(network Vmnet_network_ref, prefix uintptr, prefix_len *byte)
+var _vmnet_network_get_ipv6_prefix func(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len *byte)
 var _vmnet_network_get_ipv6_prefixErr error
 
-func tryVmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix uintptr, prefix_len []byte) error {
+func tryVmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len []byte) error {
 	if _vmnet_network_get_ipv6_prefix == nil {
 		return symbolCallError("vmnet_network_get_ipv6_prefix", "26.0", _vmnet_network_get_ipv6_prefixErr)
 	}
@@ -669,7 +669,7 @@ func tryVmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix uintptr,
 // Vmnet_network_get_ipv6_prefix.
 //
 // See: https://developer.apple.com/documentation/vmnet/vmnet_network_get_ipv6_prefix(_:_:_:)
-func Vmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix uintptr, prefix_len []byte) {
+func Vmnet_network_get_ipv6_prefix(network Vmnet_network_ref, prefix unsafe.Pointer, prefix_len []byte) {
 	if callErr := tryVmnet_network_get_ipv6_prefix(network, prefix, prefix_len); callErr != nil {
 		panic(callErr)
 	}

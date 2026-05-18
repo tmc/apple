@@ -507,11 +507,9 @@ func (t MTLTextureDescriptor) SetStorageMode(value MTLStorageMode) {
 //
 // # Discussion
 //
-// The default value is [MTLHazardTrackingMode.default].
+// The default value is [MTLHazardTrackingModeDefault].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/hazardTrackingMode
-//
-// [MTLHazardTrackingMode.default]: https://developer.apple.com/documentation/Metal/MTLHazardTrackingMode/default
 func (t MTLTextureDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 	rv := objc.Send[MTLHazardTrackingMode](t.ID, objc.Sel("hazardTrackingMode"))
 	return MTLHazardTrackingMode(rv)

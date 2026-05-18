@@ -53,7 +53,7 @@ func (mc MTLPipelineBufferDescriptorClass) Alloc() MTLPipelineBufferDescriptor {
 //
 // To declare that a buffer is immutable, set the [MTLPipelineBufferDescriptor.Mutability] property of
 // their associated [MTLPipelineBufferDescriptor] object to
-// [MTLMutability.immutable].
+// [MTLMutabilityImmutable].
 //
 // # Setting buffer mutability
 //
@@ -61,8 +61,6 @@ func (mc MTLPipelineBufferDescriptorClass) Alloc() MTLPipelineBufferDescriptor {
 //   - [MTLPipelineBufferDescriptor.SetMutability]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPipelineBufferDescriptor
-//
-// [MTLMutability.immutable]: https://developer.apple.com/documentation/Metal/MTLMutability/immutable
 type MTLPipelineBufferDescriptor struct {
 	objectivec.Object
 }
@@ -119,20 +117,17 @@ func NewMTLPipelineBufferDescriptor() MTLPipelineBufferDescriptor {
 //
 // # Discussion
 //
-// The default value is [MTLMutability.default].
+// The default value is [MTLMutabilityDefault].
 //
 // If you don’t explicitly declare mutability, Metal uses the following
 // default behaviors:
 //
 // - Regular buffers are mutable by default, and Metal treats
-// [MTLMutability.default] as if it were [MTLMutabilityMutable]. - Argument
-// buffers are immutable by default, and Metal treats [MTLMutability.default]
-// as if it were [MTLMutability.immutable].
+// [MTLMutabilityDefault] as if it were [MTLMutabilityMutable]. - Argument
+// buffers are immutable by default, and Metal treats [MTLMutabilityDefault]
+// as if it were [MTLMutabilityImmutable].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPipelineBufferDescriptor/mutability
-//
-// [MTLMutability.default]: https://developer.apple.com/documentation/Metal/MTLMutability/default
-// [MTLMutability.immutable]: https://developer.apple.com/documentation/Metal/MTLMutability/immutable
 func (p MTLPipelineBufferDescriptor) Mutability() MTLMutability {
 	rv := objc.Send[MTLMutability](p.ID, objc.Sel("mutability"))
 	return MTLMutability(rv)

@@ -101,6 +101,7 @@ func (mc MLMultiArrayClass) Alloc() MLMultiArray {
 //
 // # Accessing a multiarray’s elements
 //
+//   - [MLMultiArray.ObjectForKeyedSubscript]: Accesses the multiarray by using a number array that has an element for each dimension.
 //   - [MLMultiArray.PixelBuffer]: A reference to the multiarray’s underlying pixel buffer.
 //   - [MLMultiArray.DataPointer]: A pointer to the multiarray’s underlying memory.
 //
@@ -143,6 +144,7 @@ func MLMultiArrayFromID(id objc.ID) MLMultiArray {
 //
 // # Accessing a multiarray’s elements
 //
+//   - [IMLMultiArray.ObjectForKeyedSubscript]: Accesses the multiarray by using a number array that has an element for each dimension.
 //   - [IMLMultiArray.PixelBuffer]: A reference to the multiarray’s underlying pixel buffer.
 //   - [IMLMultiArray.DataPointer]: A pointer to the multiarray’s underlying memory.
 //
@@ -177,6 +179,8 @@ type IMLMultiArray interface {
 
 	// Topic: Accessing a multiarray’s elements
 
+	// Accesses the multiarray by using a number array that has an element for each dimension.
+	ObjectForKeyedSubscript(key []foundation.NSNumber) foundation.NSNumber
 	// A reference to the multiarray’s underlying pixel buffer.
 	PixelBuffer() corevideo.CVImageBufferRef
 	// A pointer to the multiarray’s underlying memory.
@@ -197,14 +201,12 @@ type IMLMultiArray interface {
 	// The constraint on the shape of the multiarray.
 	ShapeConstraint() IMLMultiArrayShapeConstraint
 	SetShapeConstraint(value IMLMultiArrayShapeConstraint)
+	// Accesses the multiarray by using a linear offset.
+	ObjectAtIndexedSubscript(idx int) foundation.NSNumber
 	// Get the underlying buffer pointer to read.
 	GetBytesWithHandler(handler constvoidHandler)
 	// Creates the object with specified strides.
 	InitWithShapeDataTypeStrides(shape []foundation.NSNumber, dataType MLMultiArrayDataType, strides []foundation.NSNumber) MLMultiArray
-	// Accesses the multiarray by using a linear offset.
-	ObjectAtIndexedSubscript(idx int) foundation.NSNumber
-	// Accesses the multiarray by using a number array that has an element for each dimension.
-	ObjectForKeyedSubscript(key []foundation.NSNumber) foundation.NSNumber
 	// Assigns a number to the multiarray’s element at the location that the linear offset defines.
 	SetObjectAtIndexedSubscript(obj foundation.NSNumber, idx int)
 	// Assigns a number to the multiarray’s element at the location that the number array defines.
@@ -450,46 +452,6 @@ func (m MLMultiArray) TransferToMultiArray(destinationMultiArray IMLMultiArray) 
 	objc.Send[objc.ID](m.ID, objc.Sel("transferToMultiArray:"), destinationMultiArray)
 }
 
-// Get the underlying buffer pointer to read.
-//
-// handler: The block to receive the buffer pointer and its size in bytes. This block
-// has no return value and takes the following parameters:
-//
-// `bytes`: The pointer to the buffer.
-// `size`: The size of the buffer.
-//
-// # Discussion
-//
-// The buffer contains a collection of `int32`, `float16`, `float32`, or
-// `float64` values, depending on the multiarray’s data type. It may not
-// store these scalar values contiguously; use [Strides] to get the buffer
-// layout.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/getBytesWithHandler:
-func (m MLMultiArray) GetBytesWithHandler(handler constvoidHandler) {
-	_block0, _ := NewconstvoidBlock(handler)
-	objc.Send[objc.ID](m.ID, objc.Sel("getBytesWithHandler:"), _block0)
-}
-
-// Creates the object with specified strides.
-//
-// shape: The shape
-//
-// dataType: The data type
-//
-// strides: The strides.
-//
-// # Discussion
-//
-// The contents of the object are left uninitialized; the client must
-// initialize it.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithShape:dataType:strides:
-func (m MLMultiArray) InitWithShapeDataTypeStrides(shape []foundation.NSNumber, dataType MLMultiArrayDataType, strides []foundation.NSNumber) MLMultiArray {
-	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithShape:dataType:strides:"), objectivec.IObjectSliceToNSArray(shape), dataType, objectivec.IObjectSliceToNSArray(strides))
-	return rv
-}
-
 // Accesses the multiarray by using a linear offset.
 //
 // idx: A linear offset index that represents a position the multiarray.
@@ -542,6 +504,46 @@ func (m MLMultiArray) ObjectAtIndexedSubscript(idx int) foundation.NSNumber {
 func (m MLMultiArray) ObjectForKeyedSubscript(key []foundation.NSNumber) foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectForKeyedSubscript:"), objectivec.IObjectSliceToNSArray(key))
 	return foundation.NSNumberFromID(rv)
+}
+
+// Get the underlying buffer pointer to read.
+//
+// handler: The block to receive the buffer pointer and its size in bytes. This block
+// has no return value and takes the following parameters:
+//
+// `bytes`: The pointer to the buffer.
+// `size`: The size of the buffer.
+//
+// # Discussion
+//
+// The buffer contains a collection of `int32`, `float16`, `float32`, or
+// `float64` values, depending on the multiarray’s data type. It may not
+// store these scalar values contiguously; use [Strides] to get the buffer
+// layout.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/getBytesWithHandler:
+func (m MLMultiArray) GetBytesWithHandler(handler constvoidHandler) {
+	_block0, _ := NewconstvoidBlock(handler)
+	objc.Send[objc.ID](m.ID, objc.Sel("getBytesWithHandler:"), _block0)
+}
+
+// Creates the object with specified strides.
+//
+// shape: The shape
+//
+// dataType: The data type
+//
+// strides: The strides.
+//
+// # Discussion
+//
+// The contents of the object are left uninitialized; the client must
+// initialize it.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLMultiArray/initWithShape:dataType:strides:
+func (m MLMultiArray) InitWithShapeDataTypeStrides(shape []foundation.NSNumber, dataType MLMultiArrayDataType, strides []foundation.NSNumber) MLMultiArray {
+	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithShape:dataType:strides:"), objectivec.IObjectSliceToNSArray(shape), dataType, objectivec.IObjectSliceToNSArray(strides))
+	return rv
 }
 
 // Assigns a number to the multiarray’s element at the location that the
@@ -616,7 +618,7 @@ func (m MLMultiArray) Shape() []foundation.NSNumber {
 //
 // # Discussion
 //
-// See [ObjectAtIndexedSubscript] and [ObjectForKeyedSubscript] for code
+// See [ObjectForKeyedSubscript] and [ObjectForKeyedSubscript] for code
 // examples that use `strides`.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/strides

@@ -121,8 +121,6 @@ func NSFormatterFromID(id objc.ID) Formatter { return FormatterFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/Formatter
 type IFormatter interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 
 	// Topic: Getting Textual Representations of Object Values
 

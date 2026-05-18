@@ -84,7 +84,7 @@ var _dAApprovalSessionCreateErr error
 
 func tryDAApprovalSessionCreate(allocator corefoundation.CFAllocatorRef) (DAApprovalSessionRef, error) {
 	if _dAApprovalSessionCreate == nil {
-		return 0, symbolCallError("DAApprovalSessionCreate", "10.4", _dAApprovalSessionCreateErr)
+		return *new(DAApprovalSessionRef), symbolCallError("DAApprovalSessionCreate", "10.4", _dAApprovalSessionCreateErr)
 	}
 	return _dAApprovalSessionCreate(allocator), nil
 }
@@ -186,7 +186,7 @@ var _dADiskCopyDescriptionErr error
 
 func tryDADiskCopyDescription(disk DADiskRef) (corefoundation.CFDictionaryRef, error) {
 	if _dADiskCopyDescription == nil {
-		return 0, symbolCallError("DADiskCopyDescription", "10.4", _dADiskCopyDescriptionErr)
+		return *new(corefoundation.CFDictionaryRef), symbolCallError("DADiskCopyDescription", "10.4", _dADiskCopyDescriptionErr)
 	}
 	return _dADiskCopyDescription(disk), nil
 }
@@ -228,7 +228,7 @@ var _dADiskCopyWholeDiskErr error
 
 func tryDADiskCopyWholeDisk(disk DADiskRef) (DADiskRef, error) {
 	if _dADiskCopyWholeDisk == nil {
-		return 0, symbolCallError("DADiskCopyWholeDisk", "10.4", _dADiskCopyWholeDiskErr)
+		return *new(DADiskRef), symbolCallError("DADiskCopyWholeDisk", "10.4", _dADiskCopyWholeDiskErr)
 	}
 	return _dADiskCopyWholeDisk(disk), nil
 }
@@ -249,7 +249,7 @@ var _dADiskCreateFromBSDNameErr error
 
 func tryDADiskCreateFromBSDName(allocator corefoundation.CFAllocatorRef, session DASessionRef, name string) (DADiskRef, error) {
 	if _dADiskCreateFromBSDName == nil {
-		return 0, symbolCallError("DADiskCreateFromBSDName", "10.4", _dADiskCreateFromBSDNameErr)
+		return *new(DADiskRef), symbolCallError("DADiskCreateFromBSDName", "10.4", _dADiskCreateFromBSDNameErr)
 	}
 	return _dADiskCreateFromBSDName(allocator, session, name), nil
 }
@@ -270,7 +270,7 @@ var _dADiskCreateFromIOMediaErr error
 
 func tryDADiskCreateFromIOMedia(allocator corefoundation.CFAllocatorRef, session DASessionRef, media uintptr) (DADiskRef, error) {
 	if _dADiskCreateFromIOMedia == nil {
-		return 0, symbolCallError("DADiskCreateFromIOMedia", "10.4", _dADiskCreateFromIOMediaErr)
+		return *new(DADiskRef), symbolCallError("DADiskCreateFromIOMedia", "10.4", _dADiskCreateFromIOMediaErr)
 	}
 	return _dADiskCreateFromIOMedia(allocator, session, media), nil
 }
@@ -291,7 +291,7 @@ var _dADiskCreateFromVolumePathErr error
 
 func tryDADiskCreateFromVolumePath(allocator corefoundation.CFAllocatorRef, session DASessionRef, path corefoundation.CFURLRef) (DADiskRef, error) {
 	if _dADiskCreateFromVolumePath == nil {
-		return 0, symbolCallError("DADiskCreateFromVolumePath", "10.7", _dADiskCreateFromVolumePathErr)
+		return *new(DADiskRef), symbolCallError("DADiskCreateFromVolumePath", "10.7", _dADiskCreateFromVolumePathErr)
 	}
 	return _dADiskCreateFromVolumePath(allocator, session, path), nil
 }
@@ -307,10 +307,10 @@ func DADiskCreateFromVolumePath(allocator corefoundation.CFAllocatorRef, session
 	return result
 }
 
-var _dADiskEject func(disk DADiskRef, options uint, callback DADiskEjectCallback, context unsafe.Pointer)
+var _dADiskEject func(disk DADiskRef, options DADiskEjectOptions, callback DADiskEjectCallback, context unsafe.Pointer)
 var _dADiskEjectErr error
 
-func tryDADiskEject(disk DADiskRef, options uint, callback DADiskEjectCallback, context unsafe.Pointer) error {
+func tryDADiskEject(disk DADiskRef, options DADiskEjectOptions, callback DADiskEjectCallback, context unsafe.Pointer) error {
 	if _dADiskEject == nil {
 		return symbolCallError("DADiskEject", "10.4", _dADiskEjectErr)
 	}
@@ -321,7 +321,7 @@ func tryDADiskEject(disk DADiskRef, options uint, callback DADiskEjectCallback, 
 // DADiskEject ejects the specified disk object.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskEject(_:_:_:_:)
-func DADiskEject(disk DADiskRef, options uint, callback DADiskEjectCallback, context unsafe.Pointer) {
+func DADiskEject(disk DADiskRef, options DADiskEjectOptions, callback DADiskEjectCallback, context unsafe.Pointer) {
 	if callErr := tryDADiskEject(disk, options, callback, context); callErr != nil {
 		panic(callErr)
 	}
@@ -537,7 +537,7 @@ var _dADissenterCreateErr error
 
 func tryDADissenterCreate(allocator corefoundation.CFAllocatorRef, status DAReturn, string_ corefoundation.CFStringRef) (DADissenterRef, error) {
 	if _dADissenterCreate == nil {
-		return 0, symbolCallError("DADissenterCreate", "10.4", _dADissenterCreateErr)
+		return *new(DADissenterRef), symbolCallError("DADissenterCreate", "10.4", _dADissenterCreateErr)
 	}
 	return _dADissenterCreate(allocator, status, string_), nil
 }
@@ -579,7 +579,7 @@ var _dADissenterGetStatusStringErr error
 
 func tryDADissenterGetStatusString(dissenter DADissenterRef) (corefoundation.CFStringRef, error) {
 	if _dADissenterGetStatusString == nil {
-		return 0, symbolCallError("DADissenterGetStatusString", "10.4", _dADissenterGetStatusStringErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("DADissenterGetStatusString", "10.4", _dADissenterGetStatusStringErr)
 	}
 	return _dADissenterGetStatusString(dissenter), nil
 }
@@ -740,7 +740,7 @@ var _dASessionCreateErr error
 
 func tryDASessionCreate(allocator corefoundation.CFAllocatorRef) (DASessionRef, error) {
 	if _dASessionCreate == nil {
-		return 0, symbolCallError("DASessionCreate", "10.4", _dASessionCreateErr)
+		return *new(DASessionRef), symbolCallError("DASessionCreate", "10.4", _dASessionCreateErr)
 	}
 	return _dASessionCreate(allocator), nil
 }

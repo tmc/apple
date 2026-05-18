@@ -18,20 +18,12 @@ type CIConvertLab interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/inputImage
 	InputImage() ICIImage
-
-	// Normalize protocol.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/normalize
-	Normalize() bool
-
-	// The image to use as an input image.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/inputImage
 	SetInputImage(value ICIImage)
 
 	// normalize protocol.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/normalize
+	Normalize() bool
 	SetNormalize(value bool)
 }
 
@@ -52,20 +44,6 @@ func CIConvertLabObjectFromID(id objc.ID) CIConvertLabObject {
 	}
 }
 
-// The image to use as an input image.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/inputImage
-func (o CIConvertLabObject) InputImage() ICIImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
-	return CIImageFromID(rv)
-}
-
-// See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/normalize
-func (o CIConvertLabObject) Normalize() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("normalize"))
-	return rv
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -78,11 +56,21 @@ func (o CIConvertLabObject) OutputImage() ICIImage {
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/inputImage
+func (o CIConvertLabObject) InputImage() ICIImage {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
+	return CIImageFromID(rv)
+}
+
 func (o CIConvertLabObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/normalize
+func (o CIConvertLabObject) Normalize() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("normalize"))
+	return bool(rv)
+}
+
 func (o CIConvertLabObject) SetNormalize(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNormalize:"), value)
 }

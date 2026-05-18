@@ -81,7 +81,7 @@ type IAVAudioClock interface {
 	// Topic: Methods
 
 	AwaitIOCycle(iOCycle unsafe.Pointer) objectivec.IObject
-	CurrentAudioTimeStamp() objectivec.IObject
+	CurrentAudioTimeStamp() AudioTimeStamp
 	CurrentIONumberFrames() int64
 	CurrentTime() IAVAudioTime
 	InitWithNode(node unsafe.Pointer) AVAudioClock
@@ -120,9 +120,10 @@ func (a AVAudioClock) AwaitIOCycle(iOCycle unsafe.Pointer) objectivec.IObject {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/currentAudioTimeStamp
-func (a AVAudioClock) CurrentAudioTimeStamp() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentAudioTimeStamp"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioClock) CurrentAudioTimeStamp() AudioTimeStamp {
+	rv := objc.Send[AudioTimeStamp](a.ID, objc.Sel("currentAudioTimeStamp"))
+	_ = rv
+	return AudioTimeStamp{}
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/currentIONumberFrames

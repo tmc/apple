@@ -121,14 +121,14 @@ type IMLSlidingWindowsBrick interface {
 }
 
 // Init initializes the instance.
-func (s MLSlidingWindowsBrick) Init() MLSlidingWindowsBrick {
-	rv := objc.Send[MLSlidingWindowsBrick](s.ID, objc.Sel("init"))
+func (m MLSlidingWindowsBrick) Init() MLSlidingWindowsBrick {
+	rv := objc.Send[MLSlidingWindowsBrick](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (s MLSlidingWindowsBrick) Autorelease() MLSlidingWindowsBrick {
-	rv := objc.Send[MLSlidingWindowsBrick](s.ID, objc.Sel("autorelease"))
+func (m MLSlidingWindowsBrick) Autorelease() MLSlidingWindowsBrick {
+	rv := objc.Send[MLSlidingWindowsBrick](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -147,96 +147,96 @@ func NewSlidingWindowsBrickWithParameters(parameters objectivec.IObject) MLSlidi
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/computeOnCPUWithInputTensors:outputTensors:
-func (s MLSlidingWindowsBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
+func (m MLSlidingWindowsBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
+	objc.Send[objc.ID](m.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/hasGPUSupport
-func (s MLSlidingWindowsBrick) HasGPUSupport() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("hasGPUSupport"))
+func (m MLSlidingWindowsBrick) HasGPUSupport() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/setupForInputShapes:withParameters:
-func (s MLSlidingWindowsBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
+func (m MLSlidingWindowsBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/initWithParameters:
-func (s MLSlidingWindowsBrick) InitWithParameters(parameters objectivec.IObject) MLSlidingWindowsBrick {
-	rv := objc.Send[MLSlidingWindowsBrick](s.ID, objc.Sel("initWithParameters:"), parameters)
+func (m MLSlidingWindowsBrick) InitWithParameters(parameters objectivec.IObject) MLSlidingWindowsBrick {
+	rv := objc.Send[MLSlidingWindowsBrick](m.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/axis
-func (s MLSlidingWindowsBrick) Axis() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("axis"))
+func (m MLSlidingWindowsBrick) Axis() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/debugDescription
-func (s MLSlidingWindowsBrick) DebugDescription() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
+func (m MLSlidingWindowsBrick) DebugDescription() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/description
-func (s MLSlidingWindowsBrick) Description() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
+func (m MLSlidingWindowsBrick) Description() string {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/hash
-func (s MLSlidingWindowsBrick) Hash() uint64 {
-	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
+func (m MLSlidingWindowsBrick) Hash() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/inputRanks
-func (s MLSlidingWindowsBrick) InputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputRanks"))
+func (m MLSlidingWindowsBrick) InputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/inputShapes
-func (s MLSlidingWindowsBrick) InputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputShapes"))
+func (m MLSlidingWindowsBrick) InputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/outputRanks
-func (s MLSlidingWindowsBrick) OutputRanks() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputRanks"))
+func (m MLSlidingWindowsBrick) OutputRanks() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/outputShapes
-func (s MLSlidingWindowsBrick) OutputShapes() foundation.INSArray {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputShapes"))
+func (m MLSlidingWindowsBrick) OutputShapes() foundation.INSArray {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/shapeInfoNeeded
-func (s MLSlidingWindowsBrick) ShapeInfoNeeded() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("shapeInfoNeeded"))
+func (m MLSlidingWindowsBrick) ShapeInfoNeeded() bool {
+	rv := objc.Send[bool](m.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/size
-func (s MLSlidingWindowsBrick) Size() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("size"))
+func (m MLSlidingWindowsBrick) Size() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("size"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/step
-func (s MLSlidingWindowsBrick) Step() foundation.NSNumber {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("step"))
+func (m MLSlidingWindowsBrick) Step() foundation.NSNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("step"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLSlidingWindowsBrick/superclass
-func (s MLSlidingWindowsBrick) Superclass() objc.Class {
-	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
+func (m MLSlidingWindowsBrick) Superclass() objc.Class {
+	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }

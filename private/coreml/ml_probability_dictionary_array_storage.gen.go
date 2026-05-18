@@ -84,14 +84,14 @@ type IMLProbabilityDictionaryArrayStorage interface {
 }
 
 // Init initializes the instance.
-func (p MLProbabilityDictionaryArrayStorage) Init() MLProbabilityDictionaryArrayStorage {
-	rv := objc.Send[MLProbabilityDictionaryArrayStorage](p.ID, objc.Sel("init"))
+func (m MLProbabilityDictionaryArrayStorage) Init() MLProbabilityDictionaryArrayStorage {
+	rv := objc.Send[MLProbabilityDictionaryArrayStorage](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLProbabilityDictionaryArrayStorage) Autorelease() MLProbabilityDictionaryArrayStorage {
-	rv := objc.Send[MLProbabilityDictionaryArrayStorage](p.ID, objc.Sel("autorelease"))
+func (m MLProbabilityDictionaryArrayStorage) Autorelease() MLProbabilityDictionaryArrayStorage {
+	rv := objc.Send[MLProbabilityDictionaryArrayStorage](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -110,25 +110,25 @@ func NewProbabilityDictionaryArrayStorageWithArray(array objectivec.IObject) MLP
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryArrayStorage/count
-func (p MLProbabilityDictionaryArrayStorage) Count() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("count"))
+func (m MLProbabilityDictionaryArrayStorage) Count() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("count"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryArrayStorage/maxElementIndex
-func (p MLProbabilityDictionaryArrayStorage) MaxElementIndex() uint64 {
-	rv := objc.Send[uint64](p.ID, objc.Sel("maxElementIndex"))
+func (m MLProbabilityDictionaryArrayStorage) MaxElementIndex() uint64 {
+	rv := objc.Send[uint64](m.ID, objc.Sel("maxElementIndex"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryArrayStorage/probabilityAtIndex:
-func (p MLProbabilityDictionaryArrayStorage) ProbabilityAtIndex(index uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("probabilityAtIndex:"), index)
+func (m MLProbabilityDictionaryArrayStorage) ProbabilityAtIndex(index uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("probabilityAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLProbabilityDictionaryArrayStorage/initWithArray:
-func (p MLProbabilityDictionaryArrayStorage) InitWithArray(array objectivec.IObject) MLProbabilityDictionaryArrayStorage {
-	rv := objc.Send[MLProbabilityDictionaryArrayStorage](p.ID, objc.Sel("initWithArray:"), array)
+func (m MLProbabilityDictionaryArrayStorage) InitWithArray(array objectivec.IObject) MLProbabilityDictionaryArrayStorage {
+	rv := objc.Send[MLProbabilityDictionaryArrayStorage](m.ID, objc.Sel("initWithArray:"), array)
 	return rv
 }

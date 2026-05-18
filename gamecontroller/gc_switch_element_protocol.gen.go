@@ -38,14 +38,6 @@ func GCSwitchElementObjectFromID(id objc.ID) GCSwitchElementObject {
 	}
 }
 
-// The input object that provides the position of the switch.
-//
-// See: https://developer.apple.com/documentation/GameController/GCSwitchElement/positionInput
-func (o GCSwitchElementObject) PositionInput() GCSwitchPositionInput {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("positionInput"))
-	return GCSwitchPositionInputObjectFromID(rv)
-}
-
 // The localized name for the element.
 //
 // See: https://developer.apple.com/documentation/GameController/GCPhysicalInputElement/localizedName
@@ -69,4 +61,12 @@ func (o GCSwitchElementObject) SfSymbolsName() string {
 func (o GCSwitchElementObject) Aliases() foundation.INSSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("aliases"))
 	return foundation.NSSetFromID(rv)
+}
+
+// The input object that provides the position of the switch.
+//
+// See: https://developer.apple.com/documentation/GameController/GCSwitchElement/positionInput
+func (o GCSwitchElementObject) PositionInput() GCSwitchPositionInput {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("positionInput"))
+	return GCSwitchPositionInputObjectFromID(rv)
 }

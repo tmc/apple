@@ -114,6 +114,10 @@ func (nc NEPacketTunnelProviderClass) Alloc() NEPacketTunnelProvider {
 //
 //   - [NEPacketTunnelProvider.PacketFlow]: A [NEPacketTunnelFlow](<doc://com.apple.networkextension/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
 //
+// # Instance Properties
+//
+//   - [NEPacketTunnelProvider.VirtualInterface]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelProvider
 //
 // [SimpleTunnel: Customized Networking Using the NetworkExtension Framework]: https://developer.apple.com/library/archive/samplecode/SimpleTunnel/Introduction/Intro.html#//apple_ref/doc/uid/TP40016140
@@ -143,6 +147,10 @@ func NEPacketTunnelProviderFromID(id objc.ID) NEPacketTunnelProvider {
 //
 //   - [INEPacketTunnelProvider.PacketFlow]: A [NEPacketTunnelFlow](<doc://com.apple.networkextension/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
 //
+// # Instance Properties
+//
+//   - [INEPacketTunnelProvider.VirtualInterface]
+//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelProvider
 type INEPacketTunnelProvider interface {
 	INETunnelProvider
@@ -154,12 +162,14 @@ type INEPacketTunnelProvider interface {
 	// Stop the network tunnel.
 	StopTunnelWithReasonCompletionHandler(reason NEProviderStopReason, completionHandler VoidHandler)
 	// Stop the network tunnel from the Packet Tunnel Provider.
-	CancelTunnelWithError(error_ foundation.INSError)
+	CancelTunnelWithError(error_ foundation.NSError)
 
 	// Topic: Handling IP packets
 
 	// A [NEPacketTunnelFlow](<doc://com.apple.networkextension/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
 	PacketFlow() INEPacketTunnelFlow
+
+	// Topic: Instance Properties
 
 	VirtualInterface() network.NWInterface
 }
@@ -258,7 +268,7 @@ func (p NEPacketTunnelProvider) StopTunnelWithReasonCompletionHandler(reason NEP
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelProvider/cancelTunnelWithError(_:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (p NEPacketTunnelProvider) CancelTunnelWithError(error_ foundation.INSError) {
+func (p NEPacketTunnelProvider) CancelTunnelWithError(error_ foundation.NSError) {
 	objc.Send[objc.ID](p.ID, objc.Sel("cancelTunnelWithError:"), error_)
 }
 

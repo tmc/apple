@@ -94,8 +94,6 @@ func NSExtensionItemFromID(id objc.ID) NSExtensionItem {
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionItem
 type INSExtensionItem interface {
 	objectivec.IObject
-	NSCoding
-	NSCopying
 	NSSecureCoding
 
 	// Topic: Identifying the Item

@@ -19,41 +19,25 @@ type CIAztecCodeGenerator interface {
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/compactStyle
 	CompactStyle() float32
-
-	// The Aztec error correction, a value from 5 to 95.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/correctionLevel
-	CorrectionLevel() float32
-
-	// The number of Aztec layers, a value from 1 to 32.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/layers
-	Layers() float32
-
-	// The message to encode in the Aztec barcode.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/message
-	Message() foundation.INSData
-
-	// A Boolean that specifies whether to force a compact style Aztec code.
-	//
-	// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/compactStyle
 	SetCompactStyle(value float32)
 
 	// The Aztec error correction, a value from 5 to 95.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/correctionLevel
+	CorrectionLevel() float32
 	SetCorrectionLevel(value float32)
 
 	// The number of Aztec layers, a value from 1 to 32.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/layers
+	Layers() float32
 	SetLayers(value float32)
 
 	// The message to encode in the Aztec barcode.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/message
-	SetMessage(value foundation.INSData)
+	Message() foundation.NSData
+	SetMessage(value foundation.NSData)
 }
 
 // CIAztecCodeGeneratorObject wraps an existing Objective-C object that conforms to the CIAztecCodeGenerator protocol.
@@ -73,38 +57,6 @@ func CIAztecCodeGeneratorObjectFromID(id objc.ID) CIAztecCodeGeneratorObject {
 	}
 }
 
-// A Boolean that specifies whether to force a compact style Aztec code.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/compactStyle
-func (o CIAztecCodeGeneratorObject) CompactStyle() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("compactStyle"))
-	return rv
-}
-
-// The Aztec error correction, a value from 5 to 95.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/correctionLevel
-func (o CIAztecCodeGeneratorObject) CorrectionLevel() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("correctionLevel"))
-	return rv
-}
-
-// The number of Aztec layers, a value from 1 to 32.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/layers
-func (o CIAztecCodeGeneratorObject) Layers() float32 {
-	rv := objc.Send[float32](o.ID, objc.Sel("layers"))
-	return rv
-}
-
-// The message to encode in the Aztec barcode.
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/message
-func (o CIAztecCodeGeneratorObject) Message() foundation.INSData {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
-	return foundation.NSDataFromID(rv)
-}
-
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -121,6 +73,11 @@ func (o CIAztecCodeGeneratorObject) OutputImage() ICIImage {
 // Set to `nil` for automatic.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/compactStyle
+func (o CIAztecCodeGeneratorObject) CompactStyle() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("compactStyle"))
+	return float32(rv)
+}
+
 func (o CIAztecCodeGeneratorObject) SetCompactStyle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCompactStyle:"), value)
 }
@@ -128,6 +85,11 @@ func (o CIAztecCodeGeneratorObject) SetCompactStyle(value float32) {
 // The Aztec error correction, a value from 5 to 95.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/correctionLevel
+func (o CIAztecCodeGeneratorObject) CorrectionLevel() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("correctionLevel"))
+	return float32(rv)
+}
+
 func (o CIAztecCodeGeneratorObject) SetCorrectionLevel(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCorrectionLevel:"), value)
 }
@@ -139,6 +101,11 @@ func (o CIAztecCodeGeneratorObject) SetCorrectionLevel(value float32) {
 // Set to `nil` for automatic.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/layers
+func (o CIAztecCodeGeneratorObject) Layers() float32 {
+	rv := objc.Send[float32](o.ID, objc.Sel("layers"))
+	return float32(rv)
+}
+
 func (o CIAztecCodeGeneratorObject) SetLayers(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLayers:"), value)
 }
@@ -146,6 +113,11 @@ func (o CIAztecCodeGeneratorObject) SetLayers(value float32) {
 // The message to encode in the Aztec barcode.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/message
-func (o CIAztecCodeGeneratorObject) SetMessage(value foundation.INSData) {
+func (o CIAztecCodeGeneratorObject) Message() foundation.NSData {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
+	return foundation.NSDataFromID(rv)
+}
+
+func (o CIAztecCodeGeneratorObject) SetMessage(value foundation.NSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMessage:"), value)
 }

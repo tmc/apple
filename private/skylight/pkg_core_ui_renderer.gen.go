@@ -81,14 +81,14 @@ type IPKGCoreUIRenderer interface {
 }
 
 // Init initializes the instance.
-func (g PKGCoreUIRenderer) Init() PKGCoreUIRenderer {
-	rv := objc.Send[PKGCoreUIRenderer](g.ID, objc.Sel("init"))
+func (p PKGCoreUIRenderer) Init() PKGCoreUIRenderer {
+	rv := objc.Send[PKGCoreUIRenderer](p.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (g PKGCoreUIRenderer) Autorelease() PKGCoreUIRenderer {
-	rv := objc.Send[PKGCoreUIRenderer](g.ID, objc.Sel("autorelease"))
+func (p PKGCoreUIRenderer) Autorelease() PKGCoreUIRenderer {
+	rv := objc.Send[PKGCoreUIRenderer](p.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -107,20 +107,20 @@ func NewGCoreUIRendererWithRendererName(name objectivec.IObject) PKGCoreUIRender
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer/renderer
-func (g PKGCoreUIRenderer) Renderer() OpaqueCUIRendererRefRef {
-	rv := objc.Send[OpaqueCUIRendererRefRef](g.ID, objc.Sel("renderer"))
+func (p PKGCoreUIRenderer) Renderer() OpaqueCUIRendererRefRef {
+	rv := objc.Send[OpaqueCUIRendererRefRef](p.ID, objc.Sel("renderer"))
 	return OpaqueCUIRendererRefRef(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer/rendererName
-func (g PKGCoreUIRenderer) RendererName() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("rendererName"))
+func (p PKGCoreUIRenderer) RendererName() objectivec.IObject {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("rendererName"))
 	return objectivec.Object{ID: rv}
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/PKGCoreUIRenderer/initWithRendererName:
-func (g PKGCoreUIRenderer) InitWithRendererName(name objectivec.IObject) PKGCoreUIRenderer {
-	rv := objc.Send[PKGCoreUIRenderer](g.ID, objc.Sel("initWithRendererName:"), name)
+func (p PKGCoreUIRenderer) InitWithRendererName(name objectivec.IObject) PKGCoreUIRenderer {
+	rv := objc.Send[PKGCoreUIRenderer](p.ID, objc.Sel("initWithRendererName:"), name)
 	return rv
 }
 

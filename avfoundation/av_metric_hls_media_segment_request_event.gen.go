@@ -88,13 +88,13 @@ type IAVMetricHLSMediaSegmentRequestEvent interface {
 	// Topic: Inspecting the event
 
 	ByteRange() foundation.NSRange
-	IndexFileURL() foundation.INSURL
+	IndexFileURL() foundation.NSURL
 	IsMapSegment() bool
 	MediaResourceRequestEvent() IAVMetricMediaResourceRequestEvent
 	MediaType() AVMediaType
 	// Returns the duration of segment in seconds.
 	SegmentDuration() float64
-	Url() foundation.INSURL
+	Url() foundation.NSURL
 }
 
 // Init initializes the instance.
@@ -123,7 +123,7 @@ func (m AVMetricHLSMediaSegmentRequestEvent) ByteRange() foundation.NSRange {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/indexFileURL
-func (m AVMetricHLSMediaSegmentRequestEvent) IndexFileURL() foundation.INSURL {
+func (m AVMetricHLSMediaSegmentRequestEvent) IndexFileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("indexFileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -155,7 +155,7 @@ func (m AVMetricHLSMediaSegmentRequestEvent) SegmentDuration() float64 {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/url
-func (m AVMetricHLSMediaSegmentRequestEvent) Url() foundation.INSURL {
+func (m AVMetricHLSMediaSegmentRequestEvent) Url() foundation.NSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }

@@ -5,7 +5,6 @@ package pdfkit
 import (
 	"sync"
 
-	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -118,8 +117,8 @@ type IPDFBorder interface {
 	DrawInRect(rect corefoundation.CGRect)
 
 	// The alignment of the free text and text widget annotation’s text content.
-	Alignment() appkit.NSTextAlignment
-	SetAlignment(value appkit.NSTextAlignment)
+	Alignment() uint
+	SetAlignment(value uint)
 	// Sets the border style for the annotation.
 	Border() IPDFBorder
 	SetBorder(value IPDFBorder)
@@ -143,7 +142,7 @@ type IPDFBorder interface {
 	SetHasAppearanceStream(value bool)
 	// A Boolean value that indicates whether the annotation is in a highlighted state, such as when the mouse is down on a link annotation.
 	IsHighlighted() bool
-	SetIsHighlighted(value bool)
+	SetHighlighted(value bool)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -228,11 +227,11 @@ func (p PDFBorder) BorderKeyValues() foundation.INSDictionary {
 // The alignment of the free text and text widget annotation’s text content.
 //
 // See: https://developer.apple.com/documentation/pdfkit/pdfannotation/alignment
-func (p PDFBorder) Alignment() appkit.NSTextAlignment {
-	rv := objc.Send[appkit.NSTextAlignment](p.ID, objc.Sel("alignment"))
-	return appkit.NSTextAlignment(rv)
+func (p PDFBorder) Alignment() uint {
+	rv := objc.Send[uint](p.ID, objc.Sel("alignment"))
+	return rv
 }
-func (p PDFBorder) SetAlignment(value appkit.NSTextAlignment) {
+func (p PDFBorder) SetAlignment(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAlignment:"), value)
 }
 
@@ -322,6 +321,6 @@ func (p PDFBorder) IsHighlighted() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("highlighted"))
 	return rv
 }
-func (p PDFBorder) SetIsHighlighted(value bool) {
+func (p PDFBorder) SetHighlighted(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHighlighted:"), value)
 }

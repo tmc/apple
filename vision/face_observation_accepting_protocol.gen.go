@@ -17,10 +17,6 @@ type VNFaceObservationAccepting interface {
 	//
 	// See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
 	InputFaceObservations() []VNFaceObservation
-
-	// An array of [VNFaceObservation](<doc://Vision/documentation/Vision/VNFaceObservation>) objects to process as part of the request.
-	//
-	// See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
 	SetInputFaceObservations(value []VNFaceObservation)
 }
 
@@ -45,15 +41,14 @@ func VNFaceObservationAcceptingObjectFromID(id objc.ID) VNFaceObservationAccepti
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
 func (o VNFaceObservationAcceptingObject) InputFaceObservations() []VNFaceObservation {
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("inputFaceObservations"))
-	return objc.ConvertSlice(rv, func(id objc.ID) VNFaceObservation {
-		return VNFaceObservationFromID(id)
-	})
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("inputFaceObservations"))
+	result := make([]VNFaceObservation, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = VNFaceObservationFromID(id)
+	}
+	return result
 }
 
-// An array of [VNFaceObservation] objects to process as part of the request.
-//
-// See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
 func (o VNFaceObservationAcceptingObject) SetInputFaceObservations(value []VNFaceObservation) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputFaceObservations:"), objectivec.IObjectSliceToNSArray(value))
 }

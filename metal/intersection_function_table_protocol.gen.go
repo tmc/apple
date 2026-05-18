@@ -42,11 +42,6 @@ type MTLIntersectionFunctionTable interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setOpaqueTriangleIntersectionFunction(signature:range:)
 	SetOpaqueTriangleIntersectionFunctionWithSignatureWithRange(signature MTLIntersectionFunctionSignature, range_ foundation.NSRange)
 
-	// GpuResourceID protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/gpuResourceID
-	GpuResourceID() MTLResourceID
-
 	// SetOpaqueCurveIntersectionFunctionWithSignatureAtIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setOpaqueCurveIntersectionFunction(signature:index:)
@@ -71,6 +66,11 @@ type MTLIntersectionFunctionTable interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setVisibleFunctionTables:withBufferRange:
 	SetVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, bufferRange foundation.NSRange)
+
+	// gpuResourceID protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/gpuResourceID
+	GpuResourceID() MTLResourceID
 }
 
 // MTLIntersectionFunctionTableObject wraps an existing Objective-C object that conforms to the MTLIntersectionFunctionTable protocol.
@@ -147,12 +147,6 @@ func (o MTLIntersectionFunctionTableObject) SetOpaqueTriangleIntersectionFunctio
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setOpaqueTriangleIntersectionFunction(signature:range:)
 func (o MTLIntersectionFunctionTableObject) SetOpaqueTriangleIntersectionFunctionWithSignatureWithRange(signature MTLIntersectionFunctionSignature, range_ foundation.NSRange) {
 	objc.Send[struct{}](o.ID, objc.Sel("setOpaqueTriangleIntersectionFunctionWithSignature:withRange:"), signature, range_)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/gpuResourceID
-func (o MTLIntersectionFunctionTableObject) GpuResourceID() MTLResourceID {
-	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
-	return rv
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setOpaqueCurveIntersectionFunction(signature:index:)
@@ -275,9 +269,9 @@ func (o MTLIntersectionFunctionTableObject) ResourceOptions() MTLResourceOptions
 // If `state` is [MTLPurgeableStateNonVolatile], the resource is marked to
 // inform the caller that the data should not be discarded.
 //
-// If `state` is [MTLPurgeableState.empty], the resource is marked as data
-// that can be discarded, because the caller no longer needs the contents of
-// the resource.
+// If `state` is [MTLPurgeableStateEmpty], the resource is marked as data that
+// can be discarded, because the caller no longer needs the contents of the
+// resource.
 //
 // If `state` is [MTLPurgeableStateVolatile], the resource is marked as data
 // that can be discarded, even if the caller may need the resource.
@@ -295,8 +289,6 @@ func (o MTLIntersectionFunctionTableObject) ResourceOptions() MTLResourceOptions
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-//
-// [MTLPurgeableState.empty]: https://developer.apple.com/documentation/Metal/MTLPurgeableState/empty
 func (o MTLIntersectionFunctionTableObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
@@ -372,9 +364,15 @@ func (o MTLIntersectionFunctionTableObject) IsAliasable() bool {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-func (o MTLIntersectionFunctionTableObject) SetOwnerWithIdentity(task_id_token kernel.Task_id_token_t) int32 {
+func (o MTLIntersectionFunctionTableObject) SetOwnerWithIdentity(task_id_token kernel.TaskIDToken) int32 {
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/gpuResourceID
+func (o MTLIntersectionFunctionTableObject) GpuResourceID() MTLResourceID {
+	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
+	return MTLResourceID(rv)
 }
 
 // A string that identifies the resource.

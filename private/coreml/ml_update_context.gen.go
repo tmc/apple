@@ -109,14 +109,14 @@ type IMLUpdateContext interface {
 }
 
 // Init initializes the instance.
-func (u MLUpdateContext) Init() MLUpdateContext {
-	rv := objc.Send[MLUpdateContext](u.ID, objc.Sel("init"))
+func (m MLUpdateContext) Init() MLUpdateContext {
+	rv := objc.Send[MLUpdateContext](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (u MLUpdateContext) Autorelease() MLUpdateContext {
-	rv := objc.Send[MLUpdateContext](u.ID, objc.Sel("autorelease"))
+func (m MLUpdateContext) Autorelease() MLUpdateContext {
+	rv := objc.Send[MLUpdateContext](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -140,55 +140,55 @@ func (_MLUpdateContextClass MLUpdateContextClass) UpdateContextWithTaskModelEven
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/error
-func (u MLUpdateContext) Error() foundation.INSError {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("error"))
+func (m MLUpdateContext) Error() foundation.INSError {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
-func (u MLUpdateContext) SetError(value foundation.INSError) {
-	objc.Send[struct{}](u.ID, objc.Sel("setError:"), value)
+func (m MLUpdateContext) SetError(value foundation.INSError) {
+	objc.Send[struct{}](m.ID, objc.Sel("setError:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/event
-func (u MLUpdateContext) Event() int64 {
-	rv := objc.Send[int64](u.ID, objc.Sel("event"))
+func (m MLUpdateContext) Event() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("event"))
 	return rv
 }
-func (u MLUpdateContext) SetEvent(value int64) {
-	objc.Send[struct{}](u.ID, objc.Sel("setEvent:"), value)
+func (m MLUpdateContext) SetEvent(value int64) {
+	objc.Send[struct{}](m.ID, objc.Sel("setEvent:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/metrics
-func (u MLUpdateContext) Metrics() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("metrics"))
+func (m MLUpdateContext) Metrics() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (u MLUpdateContext) SetMetrics(value foundation.INSDictionary) {
-	objc.Send[struct{}](u.ID, objc.Sel("setMetrics:"), value)
+func (m MLUpdateContext) SetMetrics(value foundation.INSDictionary) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMetrics:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/model
-func (u MLUpdateContext) Model() IMLModel {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("model"))
+func (m MLUpdateContext) Model() IMLModel {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("model"))
 	return MLModelFromID(objc.ID(rv))
 }
-func (u MLUpdateContext) SetModel(value IMLModel) {
-	objc.Send[struct{}](u.ID, objc.Sel("setModel:"), value)
+func (m MLUpdateContext) SetModel(value IMLModel) {
+	objc.Send[struct{}](m.ID, objc.Sel("setModel:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/parameters
-func (u MLUpdateContext) Parameters() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("parameters"))
+func (m MLUpdateContext) Parameters() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (u MLUpdateContext) SetParameters(value foundation.INSDictionary) {
-	objc.Send[struct{}](u.ID, objc.Sel("setParameters:"), value)
+func (m MLUpdateContext) SetParameters(value foundation.INSDictionary) {
+	objc.Send[struct{}](m.ID, objc.Sel("setParameters:"), value)
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/task
-func (u MLUpdateContext) Task() IMLUpdateTask {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("task"))
+func (m MLUpdateContext) Task() IMLUpdateTask {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("task"))
 	return MLUpdateTaskFromID(objc.ID(rv))
 }
-func (u MLUpdateContext) SetTask(value IMLUpdateTask) {
-	objc.Send[struct{}](u.ID, objc.Sel("setTask:"), value)
+func (m MLUpdateContext) SetTask(value IMLUpdateTask) {
+	objc.Send[struct{}](m.ID, objc.Sel("setTask:"), value)
 }

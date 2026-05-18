@@ -91,7 +91,7 @@ type IANEProgramIOSurfacesMapper interface {
 	Controller() *ANEDeviceController
 	DeviceController() *ANEDeviceController
 	MapIOSurfacesWithModelRequestCacheInferenceError(model objectivec.IObject, request objectivec.IObject, inference bool) (bool, error)
-	PrepareANEMemoryMappingParamsRequest(params unsafe.Pointer, request objectivec.IObject)
+	PrepareANEMemoryMappingParamsRequest(params ANEMemoryMappingParamsStruct, request objectivec.IObject)
 	ProgramHandle() uint64
 	UnmapIOSurfacesWithModelRequestError(model objectivec.IObject, request objectivec.IObject) (bool, error)
 	ValidateRequestModel(request objectivec.IObject, model objectivec.IObject) bool
@@ -140,7 +140,7 @@ func (a ANEProgramIOSurfacesMapper) MapIOSurfacesWithModelRequestCacheInferenceE
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/prepareANEMemoryMappingParams:request:
-func (a ANEProgramIOSurfacesMapper) PrepareANEMemoryMappingParamsRequest(params unsafe.Pointer, request objectivec.IObject) {
+func (a ANEProgramIOSurfacesMapper) PrepareANEMemoryMappingParamsRequest(params ANEMemoryMappingParamsStruct, request objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("prepareANEMemoryMappingParams:request:"), params, request)
 }
 

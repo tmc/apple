@@ -31,6 +31,7 @@ type FSVolumeOpenCloseOperations interface {
 	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/OpenCloseOperations/isOpenCloseInhibited
+	OpenCloseInhibited() bool
 	SetOpenCloseInhibited(value bool)
 }
 
@@ -102,6 +103,11 @@ func (o FSVolumeOpenCloseOperationsObject) IsOpenCloseInhibited() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/OpenCloseOperations/isOpenCloseInhibited
+func (o FSVolumeOpenCloseOperationsObject) OpenCloseInhibited() bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("isOpenCloseInhibited"))
+	return bool(rv)
+}
+
 func (o FSVolumeOpenCloseOperationsObject) SetOpenCloseInhibited(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setOpenCloseInhibited:"), value)
 }

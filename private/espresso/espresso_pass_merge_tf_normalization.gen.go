@@ -8,74 +8,79 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// The class instance for the [EspressoPass_merge_tf_normalization] class.
+// The class instance for the [EspressoPassMergeTfNormalization] class.
 var (
-	_EspressoPass_merge_tf_normalizationClass     EspressoPass_merge_tf_normalizationClass
-	_EspressoPass_merge_tf_normalizationClassOnce sync.Once
+	_EspressoPassMergeTfNormalizationClass     EspressoPassMergeTfNormalizationClass
+	_EspressoPassMergeTfNormalizationClassOnce sync.Once
 )
 
-func getEspressoPass_merge_tf_normalizationClass() EspressoPass_merge_tf_normalizationClass {
-	_EspressoPass_merge_tf_normalizationClassOnce.Do(func() {
-		_EspressoPass_merge_tf_normalizationClass = EspressoPass_merge_tf_normalizationClass{class: objc.GetClass("EspressoPass_merge_tf_normalization")}
+func getEspressoPassMergeTfNormalizationClass() EspressoPassMergeTfNormalizationClass {
+	_EspressoPassMergeTfNormalizationClassOnce.Do(func() {
+		_EspressoPassMergeTfNormalizationClass = EspressoPassMergeTfNormalizationClass{class: objc.GetClass("EspressoPass_merge_tf_normalization")}
 	})
-	return _EspressoPass_merge_tf_normalizationClass
+	return _EspressoPassMergeTfNormalizationClass
 }
 
-// GetEspressoPass_merge_tf_normalizationClass returns the class object for EspressoPass_merge_tf_normalization.
-func GetEspressoPass_merge_tf_normalizationClass() EspressoPass_merge_tf_normalizationClass {
-	return getEspressoPass_merge_tf_normalizationClass()
+// GetEspressoPassMergeTfNormalizationClass returns the class object for EspressoPass_merge_tf_normalization.
+func GetEspressoPassMergeTfNormalizationClass() EspressoPassMergeTfNormalizationClass {
+	return getEspressoPassMergeTfNormalizationClass()
 }
 
-type EspressoPass_merge_tf_normalizationClass struct {
+type EspressoPassMergeTfNormalizationClass struct {
 	class objc.Class
 }
 
 // Class returns the underlying Objective-C class pointer.
-func (ec EspressoPass_merge_tf_normalizationClass) Class() objc.Class {
+func (ec EspressoPassMergeTfNormalizationClass) Class() objc.Class {
 	return ec.class
 }
 
 // Alloc allocates memory for a new instance of the class.
-func (ec EspressoPass_merge_tf_normalizationClass) Alloc() EspressoPass_merge_tf_normalization {
-	rv := objc.Send[EspressoPass_merge_tf_normalization](objc.ID(ec.class), objc.Sel("alloc"))
+func (ec EspressoPassMergeTfNormalizationClass) Alloc() EspressoPassMergeTfNormalization {
+	rv := objc.Send[EspressoPassMergeTfNormalization](objc.ID(ec.class), objc.Sel("alloc"))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_normalization
-type EspressoPass_merge_tf_normalization struct {
+type EspressoPassMergeTfNormalization struct {
 	EspressoCustomPass
 }
 
-// EspressoPass_merge_tf_normalizationFromID constructs a [EspressoPass_merge_tf_normalization] from an objc.ID.
-func EspressoPass_merge_tf_normalizationFromID(id objc.ID) EspressoPass_merge_tf_normalization {
-	return EspressoPass_merge_tf_normalization{EspressoCustomPass: EspressoCustomPassFromID(id)}
+// EspressoPassMergeTfNormalizationFromID constructs a [EspressoPassMergeTfNormalization] from an objc.ID.
+func EspressoPassMergeTfNormalizationFromID(id objc.ID) EspressoPassMergeTfNormalization {
+	return EspressoPassMergeTfNormalization{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
 
-// Ensure EspressoPass_merge_tf_normalization implements IEspressoPass_merge_tf_normalization.
-var _ IEspressoPass_merge_tf_normalization = EspressoPass_merge_tf_normalization{}
+// EspressoPass_merge_tf_normalizationFromID is an alias for [EspressoPassMergeTfNormalizationFromID] for cross-framework compatibility.
+func EspressoPass_merge_tf_normalizationFromID(id objc.ID) EspressoPassMergeTfNormalization {
+	return EspressoPassMergeTfNormalizationFromID(id)
+}
 
-// An interface definition for the [EspressoPass_merge_tf_normalization] class.
+// Ensure EspressoPassMergeTfNormalization implements IEspressoPassMergeTfNormalization.
+var _ IEspressoPassMergeTfNormalization = EspressoPassMergeTfNormalization{}
+
+// An interface definition for the [EspressoPassMergeTfNormalization] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_normalization
-type IEspressoPass_merge_tf_normalization interface {
+type IEspressoPassMergeTfNormalization interface {
 	IEspressoCustomPass
 }
 
 // Init initializes the instance.
-func (e EspressoPass_merge_tf_normalization) Init() EspressoPass_merge_tf_normalization {
-	rv := objc.Send[EspressoPass_merge_tf_normalization](e.ID, objc.Sel("init"))
+func (e EspressoPassMergeTfNormalization) Init() EspressoPassMergeTfNormalization {
+	rv := objc.Send[EspressoPassMergeTfNormalization](e.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (e EspressoPass_merge_tf_normalization) Autorelease() EspressoPass_merge_tf_normalization {
-	rv := objc.Send[EspressoPass_merge_tf_normalization](e.ID, objc.Sel("autorelease"))
+func (e EspressoPassMergeTfNormalization) Autorelease() EspressoPassMergeTfNormalization {
+	rv := objc.Send[EspressoPassMergeTfNormalization](e.ID, objc.Sel("autorelease"))
 	return rv
 }
 
-// NewEspressoPass_merge_tf_normalization creates a new EspressoPass_merge_tf_normalization instance.
-func NewEspressoPass_merge_tf_normalization() EspressoPass_merge_tf_normalization {
-	class := getEspressoPass_merge_tf_normalizationClass()
-	rv := objc.Send[EspressoPass_merge_tf_normalization](objc.ID(class.class), objc.Sel("new"))
+// NewEspressoPassMergeTfNormalization creates a new EspressoPassMergeTfNormalization instance.
+func NewEspressoPassMergeTfNormalization() EspressoPassMergeTfNormalization {
+	class := getEspressoPassMergeTfNormalizationClass()
+	rv := objc.Send[EspressoPassMergeTfNormalization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }

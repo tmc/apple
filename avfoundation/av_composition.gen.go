@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
@@ -95,15 +96,15 @@ func (ac AVCompositionClass) Alloc() AVComposition {
 // # Determining suitability
 //
 //   - [AVComposition.IsPlayable]: A Boolean value that indicates whether the asset has playable content.
-//   - [AVComposition.SetIsPlayable]
+//   - [AVComposition.SetPlayable]
 //   - [AVComposition.IsReadable]: A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
-//   - [AVComposition.SetIsReadable]
+//   - [AVComposition.SetReadable]
 //   - [AVComposition.IsExportable]: A Boolean value that indicates whether you can export this asset using an export session.
-//   - [AVComposition.SetIsExportable]
+//   - [AVComposition.SetExportable]
 //   - [AVComposition.IsComposable]: A Boolean value that indicates whether you can use the asset as a segment of a composition track.
-//   - [AVComposition.SetIsComposable]
+//   - [AVComposition.SetComposable]
 //   - [AVComposition.IsCompatibleWithAirPlayVideo]: A Boolean value that indicates whether the asset is compatible with AirPlay Video.
-//   - [AVComposition.SetIsCompatibleWithAirPlayVideo]
+//   - [AVComposition.SetCompatibleWithAirPlayVideo]
 //
 // # Inspecting preferences
 //
@@ -206,15 +207,15 @@ func AVCompositionFromID(id objc.ID) AVComposition {
 // # Determining suitability
 //
 //   - [IAVComposition.IsPlayable]: A Boolean value that indicates whether the asset has playable content.
-//   - [IAVComposition.SetIsPlayable]
+//   - [IAVComposition.SetPlayable]
 //   - [IAVComposition.IsReadable]: A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
-//   - [IAVComposition.SetIsReadable]
+//   - [IAVComposition.SetReadable]
 //   - [IAVComposition.IsExportable]: A Boolean value that indicates whether you can export this asset using an export session.
-//   - [IAVComposition.SetIsExportable]
+//   - [IAVComposition.SetExportable]
 //   - [IAVComposition.IsComposable]: A Boolean value that indicates whether you can use the asset as a segment of a composition track.
-//   - [IAVComposition.SetIsComposable]
+//   - [IAVComposition.SetComposable]
 //   - [IAVComposition.IsCompatibleWithAirPlayVideo]: A Boolean value that indicates whether the asset is compatible with AirPlay Video.
-//   - [IAVComposition.SetIsCompatibleWithAirPlayVideo]
+//   - [IAVComposition.SetCompatibleWithAirPlayVideo]
 //
 // # Inspecting preferences
 //
@@ -319,19 +320,19 @@ type IAVComposition interface {
 
 	// A Boolean value that indicates whether the asset has playable content.
 	IsPlayable() bool
-	SetIsPlayable(value bool)
+	SetPlayable(value bool)
 	// A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
 	IsReadable() bool
-	SetIsReadable(value bool)
+	SetReadable(value bool)
 	// A Boolean value that indicates whether you can export this asset using an export session.
 	IsExportable() bool
-	SetIsExportable(value bool)
+	SetExportable(value bool)
 	// A Boolean value that indicates whether you can use the asset as a segment of a composition track.
 	IsComposable() bool
-	SetIsComposable(value bool)
+	SetComposable(value bool)
 	// A Boolean value that indicates whether the asset is compatible with AirPlay Video.
 	IsCompatibleWithAirPlayVideo() bool
-	SetIsCompatibleWithAirPlayVideo(value bool)
+	SetCompatibleWithAirPlayVideo(value bool)
 
 	// Topic: Inspecting preferences
 
@@ -362,8 +363,8 @@ type IAVComposition interface {
 	// Topic: Accessing chapter metadata
 
 	// The locales of the asset’s chapter metadata.
-	AvailableChapterLocales() objectivec.IObject
-	SetAvailableChapterLocales(value objectivec.IObject)
+	AvailableChapterLocales() unsafe.Pointer
+	SetAvailableChapterLocales(value unsafe.Pointer)
 	// Returns an array of chapters with a locale that best matches the list of preferred languages.
 	ChapterMetadataGroupsBestMatchingPreferredLanguages(preferredLanguages []string) []AVTimedMetadataGroup
 	// Returns an array of chapters that contain the specified title locale and common keys.
@@ -416,8 +417,8 @@ func NewAVComposition() AVComposition {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
-func NewCompositionAssetWithURL(URL foundation.INSURL) AVComposition {
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+func NewCompositionAssetWithURL(URL foundation.NSURL) AVComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVCompositionClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVCompositionFromID(rv)
 }
@@ -845,7 +846,7 @@ func (c AVComposition) IsPlayable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPlayable"))
 	return rv
 }
-func (c AVComposition) SetIsPlayable(value bool) {
+func (c AVComposition) SetPlayable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPlayable:"), value)
 }
 
@@ -862,7 +863,7 @@ func (c AVComposition) IsReadable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isReadable"))
 	return rv
 }
-func (c AVComposition) SetIsReadable(value bool) {
+func (c AVComposition) SetReadable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setReadable:"), value)
 }
 
@@ -879,7 +880,7 @@ func (c AVComposition) IsExportable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isExportable"))
 	return rv
 }
-func (c AVComposition) SetIsExportable(value bool) {
+func (c AVComposition) SetExportable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setExportable:"), value)
 }
 
@@ -896,7 +897,7 @@ func (c AVComposition) IsComposable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isComposable"))
 	return rv
 }
-func (c AVComposition) SetIsComposable(value bool) {
+func (c AVComposition) SetComposable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setComposable:"), value)
 }
 
@@ -913,7 +914,7 @@ func (c AVComposition) IsCompatibleWithAirPlayVideo() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCompatibleWithAirPlayVideo"))
 	return rv
 }
-func (c AVComposition) SetIsCompatibleWithAirPlayVideo(value bool) {
+func (c AVComposition) SetCompatibleWithAirPlayVideo(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCompatibleWithAirPlayVideo:"), value)
 }
 
@@ -1005,11 +1006,11 @@ func (c AVComposition) SetAvailableMediaCharacteristicsWithMediaSelectionOptions
 // The locales of the asset’s chapter metadata.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/availableChapterLocales
-func (c AVComposition) AvailableChapterLocales() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("availableChapterLocales"))
-	return objectivec.Object{ID: rv}
+func (c AVComposition) AvailableChapterLocales() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("availableChapterLocales"))
+	return rv
 }
-func (c AVComposition) SetAvailableChapterLocales(value objectivec.IObject) {
+func (c AVComposition) SetAvailableChapterLocales(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAvailableChapterLocales:"), value)
 }
 

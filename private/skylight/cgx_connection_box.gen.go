@@ -79,20 +79,20 @@ type ICGXConnectionBox interface {
 	// Topic: Methods
 
 	Connection() unsafe.Pointer
-	SetConnection(value unsafe.Pointer)
+	SetConnection(value *CGXConnection)
 	InvalidateBackreference()
-	InitWithCGXConnection(cGXConnection unsafe.Pointer) CGXConnectionBox
+	InitWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox
 }
 
 // Init initializes the instance.
-func (x CGXConnectionBox) Init() CGXConnectionBox {
-	rv := objc.Send[CGXConnectionBox](x.ID, objc.Sel("init"))
+func (c CGXConnectionBox) Init() CGXConnectionBox {
+	rv := objc.Send[CGXConnectionBox](c.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (x CGXConnectionBox) Autorelease() CGXConnectionBox {
-	rv := objc.Send[CGXConnectionBox](x.ID, objc.Sel("autorelease"))
+func (c CGXConnectionBox) Autorelease() CGXConnectionBox {
+	rv := objc.Send[CGXConnectionBox](c.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -104,28 +104,28 @@ func NewCGXConnectionBox() CGXConnectionBox {
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox/initWithCGXConnection:
-func NewXConnectionBoxWithCGXConnection(cGXConnection unsafe.Pointer) CGXConnectionBox {
+func NewXConnectionBoxWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox {
 	instance := getCGXConnectionBoxClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
 	return CGXConnectionBoxFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox/invalidateBackreference
-func (x CGXConnectionBox) InvalidateBackreference() {
-	objc.Send[objc.ID](x.ID, objc.Sel("invalidateBackreference"))
+func (c CGXConnectionBox) InvalidateBackreference() {
+	objc.Send[objc.ID](c.ID, objc.Sel("invalidateBackreference"))
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox/initWithCGXConnection:
-func (x CGXConnectionBox) InitWithCGXConnection(cGXConnection unsafe.Pointer) CGXConnectionBox {
-	rv := objc.Send[CGXConnectionBox](x.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
+func (c CGXConnectionBox) InitWithCGXConnection(cGXConnection CGXConnection) CGXConnectionBox {
+	rv := objc.Send[CGXConnectionBox](c.ID, objc.Sel("initWithCGXConnection:"), cGXConnection)
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/SkyLight/CGXConnectionBox/connection
-func (x CGXConnectionBox) Connection() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](x.ID, objc.Sel("connection"))
+func (c CGXConnectionBox) Connection() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("connection"))
 	return rv
 }
-func (x CGXConnectionBox) SetConnection(value unsafe.Pointer) {
-	objc.Send[struct{}](x.ID, objc.Sel("setConnection:"), value)
+func (c CGXConnectionBox) SetConnection(value *CGXConnection) {
+	objc.Send[struct{}](c.ID, objc.Sel("setConnection:"), value)
 }

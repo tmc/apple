@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -133,8 +134,8 @@ type IMTLTensorDescriptor interface {
 
 	// An error domain for errors that pertain to creating a tensor.
 	MTLTensorDomain() string
-	MTL_TENSOR_MAX_RANK() objectivec.IObject
-	SetMTL_TENSOR_MAX_RANK(value objectivec.IObject)
+	MTL_TENSOR_MAX_RANK() unsafe.Pointer
+	SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -176,11 +177,9 @@ func (t MTLTensorDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 //
 // # Discussion
 //
-// The default value of this property is [MTLTensorDataType.float32].
+// The default value of this property is [MTLTensorDataTypeFloat32].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/dataType
-//
-// [MTLTensorDataType.float32]: https://developer.apple.com/documentation/Metal/MTLTensorDataType/float32
 func (t MTLTensorDescriptor) DataType() MTLTensorDataType {
 	rv := objc.Send[MTLTensorDataType](t.ID, objc.Sel("dataType"))
 	return MTLTensorDataType(rv)
@@ -210,11 +209,9 @@ func (t MTLTensorDescriptor) SetDimensions(value IMTLTensorExtents) {
 //
 // # Discussion
 //
-// The default value of this property is [MTLHazardTrackingMode.default].
+// The default value of this property is [MTLHazardTrackingModeDefault].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/hazardTrackingMode
-//
-// [MTLHazardTrackingMode.default]: https://developer.apple.com/documentation/Metal/MTLHazardTrackingMode/default
 func (t MTLTensorDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 	rv := objc.Send[MTLHazardTrackingMode](t.ID, objc.Sel("hazardTrackingMode"))
 	return MTLHazardTrackingMode(rv)
@@ -304,10 +301,10 @@ func (t MTLTensorDescriptor) MTLTensorDomain() string {
 }
 
 // See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
-func (t MTLTensorDescriptor) MTL_TENSOR_MAX_RANK() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
-	return objectivec.Object{ID: rv}
+func (t MTLTensorDescriptor) MTL_TENSOR_MAX_RANK() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
+	return rv
 }
-func (t MTLTensorDescriptor) SetMTL_TENSOR_MAX_RANK(value objectivec.IObject) {
+func (t MTLTensorDescriptor) SetMTL_TENSOR_MAX_RANK(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }

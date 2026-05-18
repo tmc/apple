@@ -75,14 +75,14 @@ type IMLComputePlanCost interface {
 }
 
 // Init initializes the instance.
-func (c MLComputePlanCost) Init() MLComputePlanCost {
-	rv := objc.Send[MLComputePlanCost](c.ID, objc.Sel("init"))
+func (m MLComputePlanCost) Init() MLComputePlanCost {
+	rv := objc.Send[MLComputePlanCost](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (c MLComputePlanCost) Autorelease() MLComputePlanCost {
-	rv := objc.Send[MLComputePlanCost](c.ID, objc.Sel("autorelease"))
+func (m MLComputePlanCost) Autorelease() MLComputePlanCost {
+	rv := objc.Send[MLComputePlanCost](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
@@ -101,7 +101,7 @@ func NewComputePlanCostWithWeight(weight float64) MLComputePlanCost {
 }
 
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanCost/initWithWeight:
-func (c MLComputePlanCost) InitWithWeight(weight float64) MLComputePlanCost {
-	rv := objc.Send[MLComputePlanCost](c.ID, objc.Sel("initWithWeight:"), weight)
+func (m MLComputePlanCost) InitWithWeight(weight float64) MLComputePlanCost {
+	rv := objc.Send[MLComputePlanCost](m.ID, objc.Sel("initWithWeight:"), weight)
 	return rv
 }

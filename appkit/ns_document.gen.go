@@ -659,61 +659,59 @@ func NSDocumentFromID(id objc.ID) NSDocument {
 type INSDocument interface {
 	objectivec.IObject
 	NSEditorRegistration
-	NSMenuItemValidation
-	NSUserActivityRestoring
 	NSUserInterfaceValidations
 
 	// Topic: Creating a Document Object
 
 	// Initializes a document located by a URL of a specified type.
-	InitWithContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (NSDocument, error)
+	InitWithContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (NSDocument, error)
 	// Initializes a document with the specified contents, and places the resulting document’s file at the designated location.
-	InitForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, typeName string) (NSDocument, error)
+	InitForURLWithContentsOfURLOfTypeError(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, typeName string) (NSDocument, error)
 	// Initializes a document of a specified type.
 	InitWithTypeError(typeName string) (NSDocument, error)
 
 	// Topic: Reading the Document’s Content
 
 	// Sets the contents of this document by reading from a file or file package, of a specified type, located by a URL.
-	ReadFromURLOfTypeError(url foundation.INSURL, typeName string) (bool, error)
+	ReadFromURLOfTypeError(url foundation.NSURL, typeName string) (bool, error)
 	// Sets the contents of this document by reading from a file wrapper of a specified type.
 	ReadFromFileWrapperOfTypeError(fileWrapper foundation.NSFileWrapper, typeName string) (bool, error)
 	// Sets the contents of this document by reading from data of a specified type.
-	ReadFromDataOfTypeError(data foundation.INSData, typeName string) (bool, error)
+	ReadFromDataOfTypeError(data foundation.NSData, typeName string) (bool, error)
 
 	// Topic: Writing the Document’s Content
 
 	// Returns whether the receiver can concurrently write to a file or file package located by a URL, that is formatted for a specific type, for a specific kind of save operation.
-	CanAsynchronouslyWriteToURLOfTypeForSaveOperation(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType) bool
+	CanAsynchronouslyWriteToURLOfTypeForSaveOperation(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType) bool
 	// Unblocks the main thread during asynchronous saving.
 	UnblockUserInteraction()
 	// Writes the contents of the document to a file or file package located by a URL, that is formatted to a specified type.
-	WriteToURLOfTypeError(url foundation.INSURL, typeName string) (bool, error)
+	WriteToURLOfTypeError(url foundation.NSURL, typeName string) (bool, error)
 	// Writes the contents of the document to a file or file package located by a URL.
-	WriteSafelyToURLOfTypeForSaveOperationError(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType) (bool, error)
+	WriteSafelyToURLOfTypeForSaveOperationError(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType) (bool, error)
 	// Creates and returns a file wrapper that contains the contents of the document, formatted to the specified type.
 	FileWrapperOfTypeError(typeName string) (foundation.NSFileWrapper, error)
 	// Creates and returns a data object that contains the contents of the document, formatted to a specified type.
-	DataOfTypeError(typeName string) (foundation.INSData, error)
+	DataOfTypeError(typeName string) (foundation.NSData, error)
 	// Writes the contents of the document to a file or file package located by a URL.
-	WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.INSURL) (bool, error)
+	WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.NSURL) (bool, error)
 	// Saves the contents of the document to a file or file package located by a URL, that is formatted to a specified type, for a particular kind of save operation.
-	SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr)
+	SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr)
 	// Saves the contents of the document to a file or file package located by a URL, that is formatted to a specified type, for a particular kind of save operation, and invokes the passed-in completion handler.
-	SaveToURLOfTypeForSaveOperationCompletionHandler(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, completionHandler ErrorHandler)
+	SaveToURLOfTypeForSaveOperationCompletionHandler(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, completionHandler ErrorHandler)
 	// Returns the attributes to write to the file or file package at the specified URL, and targeting the specified type of save operation.
-	FileAttributesToWriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.INSURL) (foundation.INSDictionary, error)
+	FileAttributesToWriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.NSURL) (foundation.INSDictionary, error)
 
 	// Topic: Getting Document Metadata
 
 	// The location of the document’s on-disk representation.
-	FileURL() foundation.INSURL
-	SetFileURL(value foundation.INSURL)
+	FileURL() foundation.NSURL
+	SetFileURL(value foundation.NSURL)
 	// A Boolean value that indicates whether the document’s file is completely loaded into memory.
 	EntireFileLoaded() bool
 	// The last-known modification date of the document’s on-disk representation.
-	FileModificationDate() foundation.INSDate
-	SetFileModificationDate(value foundation.INSDate)
+	FileModificationDate() foundation.NSDate
+	SetFileModificationDate(value foundation.NSDate)
 	// A Boolean value that indicates whether the document archives previously saved versions of the document.
 	KeepBackupFile() bool
 	// A Boolean value that indicates whether the document is a draft that the user has not yet saved.
@@ -772,8 +770,8 @@ type INSDocument interface {
 	// Topic: Configuring the Autosave Behavior
 
 	// The location of the most recently autosaved document contents.
-	AutosavedContentsFileURL() foundation.INSURL
-	SetAutosavedContentsFileURL(value foundation.INSURL)
+	AutosavedContentsFileURL() foundation.NSURL
+	SetAutosavedContentsFileURL(value foundation.NSURL)
 	// The document type to use for an autosave operation.
 	AutosavingFileType() string
 	// A Boolean value that indicates whether you can cancel an in-progress autosave operation.
@@ -792,7 +790,7 @@ type INSDocument interface {
 	// Autosaves the document’s contents to an appropriate file-system location, as needed.
 	AutosaveWithImplicitCancellabilityCompletionHandler(autosavingIsImplicitlyCancellable bool, completionHandler ErrorHandler)
 	// The URL for the document’s backup file that was created during an autosave operation.
-	BackupFileURL() foundation.INSURL
+	BackupFileURL() foundation.NSURL
 
 	// Topic: Browsing Document Versions
 
@@ -900,7 +898,7 @@ type INSDocument interface {
 	// Topic: Reverting the Document Contents
 
 	// Discards all unsaved document modifications and replaces the document’s contents by reading a file or file package located by a URL of a specified type.
-	RevertToContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (bool, error)
+	RevertToContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (bool, error)
 
 	// Topic: Duplicating the Document
 
@@ -923,7 +921,7 @@ type INSDocument interface {
 	// Moves the document to a user-selected location.
 	MoveDocumentWithCompletionHandler(completionHandler BoolHandler)
 	// Moves the document’s file to the given URL.
-	MoveToURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler)
+	MoveToURLCompletionHandler(url foundation.NSURL, completionHandler ErrorHandler)
 
 	// Topic: Locking the Document
 
@@ -990,18 +988,18 @@ type INSDocument interface {
 	// Topic: Displaying Errors to the User
 
 	// Presents an error alert to the user as a modal panel.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
 	// Presents an error alert to the user as a modal panel.
-	PresentError(error_ foundation.INSError) bool
+	PresentError(error_ foundation.NSError) bool
 	// Called when the receiver is about to present an error.
-	WillPresentError(error_ foundation.INSError) foundation.INSError
+	WillPresentError(error_ foundation.NSError) foundation.NSError
 	// Confirms that the error object is not to be presented to the user and the error cannot be recovered from, so cleanup can be done.
-	WillNotPresentError(error_ foundation.INSError)
+	WillNotPresentError(error_ foundation.NSError)
 
 	// Topic: Instance Properties
 
 	ObservedPresentedItemUbiquityAttributes() foundation.INSSet
-	PresentedItemURL() foundation.INSURL
+	PresentedItemURL() foundation.NSURL
 	PreviewRepresentableActivityItems() []objectivec.IObject
 	SetPreviewRepresentableActivityItems(value []objectivec.IObject)
 	SavePanelShowsFileFormatsControl() bool
@@ -1013,7 +1011,7 @@ type INSDocument interface {
 	PresentedItemDidChangeUbiquityAttributes(attributes foundation.INSSet)
 	PresentedItemDidGainVersion(version foundation.NSFileVersion)
 	PresentedItemDidLoseVersion(version foundation.NSFileVersion)
-	PresentedItemDidMoveToURL(newURL foundation.INSURL)
+	PresentedItemDidMoveToURL(newURL foundation.NSURL)
 	PresentedItemDidResolveConflictVersion(version foundation.NSFileVersion)
 	RelinquishPresentedItemToReader(reader ErrorHandler)
 	RelinquishPresentedItemToWriter(writer ErrorHandler)
@@ -1068,7 +1066,7 @@ func NewNSDocument() NSDocument {
 // change type.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(for:withContentsOf:ofType:)
-func NewDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, typeName string) (NSDocument, error) {
+func NewDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, typeName string) (NSDocument, error) {
 	var errorPtr objc.ID
 	instance := getNSDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForURL:withContentsOfURL:ofType:error:"), urlOrNil, contentsURL, objc.String(typeName), unsafe.Pointer(&errorPtr))
@@ -1097,7 +1095,7 @@ func NewDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, c
 //
 // This method is invoked by the [NSDocumentController] method
 // [DocumentWithContentsOfURLOfTypeError]. The default implementation of this
-// method calls the [Init] and [ReadFromURLOfTypeError] methods and sets
+// method calls the [Init] and [ReadFromDataOfTypeError] methods and sets
 // values for the [FileURL], [FileType], and [FileModificationDate]
 // properties.
 //
@@ -1110,7 +1108,7 @@ func NewDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, c
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(contentsOf:ofType:)
 //
 // [initWithContentsOfFile:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/initWithContentsOfFile:ofType:
-func NewDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (NSDocument, error) {
+func NewDocumentWithContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (NSDocument, error) {
 	var errorPtr objc.ID
 	instance := getNSDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
@@ -1171,7 +1169,7 @@ func NewDocumentWithTypeError(typeName string) (NSDocument, error) {
 //
 // This method is invoked by the [NSDocumentController] method
 // [DocumentWithContentsOfURLOfTypeError]. The default implementation of this
-// method calls the [Init] and [ReadFromURLOfTypeError] methods and sets
+// method calls the [Init] and [ReadFromDataOfTypeError] methods and sets
 // values for the [FileURL], [FileType], and [FileModificationDate]
 // properties.
 //
@@ -1184,7 +1182,7 @@ func NewDocumentWithTypeError(typeName string) (NSDocument, error) {
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(contentsOf:ofType:)
 //
 // [initWithContentsOfFile:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/initWithContentsOfFile:ofType:
-func (d NSDocument) InitWithContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (NSDocument, error) {
+func (d NSDocument) InitWithContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (NSDocument, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithContentsOfURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1224,7 +1222,7 @@ func (d NSDocument) InitWithContentsOfURLOfTypeError(url foundation.INSURL, type
 // change type.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(for:withContentsOf:ofType:)
-func (d NSDocument) InitForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, typeName string) (NSDocument, error) {
+func (d NSDocument) InitForURLWithContentsOfURLOfTypeError(urlOrNil foundation.NSURL, contentsURL foundation.NSURL, typeName string) (NSDocument, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initForURL:withContentsOfURL:ofType:error:"), urlOrNil, contentsURL, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1287,7 +1285,7 @@ func (d NSDocument) InitWithTypeError(typeName string) (NSDocument, error) {
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/read(from:ofType:)-1vttv
 //
 // [readFromFile:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/readFromFile:ofType:
-func (d NSDocument) ReadFromURLOfTypeError(url foundation.INSURL, typeName string) (bool, error) {
+func (d NSDocument) ReadFromURLOfTypeError(url foundation.NSURL, typeName string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("readFromURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1345,11 +1343,11 @@ func (d NSDocument) ReadFromFileWrapperOfTypeError(fileWrapper foundation.NSFile
 //
 // The default implementation of this method throws an exception because at
 // least one of the three reading methods (this method,
-// [ReadFromURLOfTypeError], [ReadFromFileWrapperOfTypeError]), or every
-// method that may invoke [ReadFromURLOfTypeError], must be overridden.
+// [ReadFromDataOfTypeError], [ReadFromDataOfTypeError]), or every method that
+// may invoke [ReadFromDataOfTypeError], must be overridden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/read(from:ofType:)-6g6ai
-func (d NSDocument) ReadFromDataOfTypeError(data foundation.INSData, typeName string) (bool, error) {
+func (d NSDocument) ReadFromDataOfTypeError(data foundation.NSData, typeName string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("readFromData:ofType:error:"), data, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1387,7 +1385,7 @@ func (d NSDocument) ReadFromDataOfTypeError(data foundation.INSData, typeName st
 // at some appropriate time during writing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/canAsynchronouslyWrite(to:ofType:for:)
-func (d NSDocument) CanAsynchronouslyWriteToURLOfTypeForSaveOperation(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType) bool {
+func (d NSDocument) CanAsynchronouslyWriteToURLOfTypeForSaveOperation(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("canAsynchronouslyWriteToURL:ofType:forSaveOperation:"), url, objc.String(typeName), saveOperation)
 	return rv
 }
@@ -1441,7 +1439,7 @@ func (d NSDocument) UnblockUserInteraction() {
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/write(to:ofType:)
 //
 // [writeToFile:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/writeToFile:ofType:
-func (d NSDocument) WriteToURLOfTypeError(url foundation.INSURL, typeName string) (bool, error) {
+func (d NSDocument) WriteToURLOfTypeError(url foundation.NSURL, typeName string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1493,7 +1491,7 @@ func (d NSDocument) WriteToURLOfTypeError(url foundation.INSURL, typeName string
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/writeSafely(to:ofType:for:)
 //
 // [writeWithBackupToFile:ofType:saveOperation:]: https://developer.apple.com/documentation/AppKit/NSDocument/writeWithBackupToFile:ofType:saveOperation:
-func (d NSDocument) WriteSafelyToURLOfTypeForSaveOperationError(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType) (bool, error) {
+func (d NSDocument) WriteSafelyToURLOfTypeForSaveOperationError(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("writeSafelyToURL:ofType:forSaveOperation:error:"), url, objc.String(typeName), saveOperation, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1560,7 +1558,7 @@ func (d NSDocument) FileWrapperOfTypeError(typeName string) (foundation.NSFileWr
 // is overridden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/data(ofType:)
-func (d NSDocument) DataOfTypeError(typeName string) (foundation.INSData, error) {
+func (d NSDocument) DataOfTypeError(typeName string) (foundation.NSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dataOfType:error:"), objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1608,7 +1606,7 @@ func (d NSDocument) DataOfTypeError(typeName string) (foundation.INSData, error)
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/write(to:ofType:for:originalContentsURL:)
 //
 // [writeToFile:ofType:originalFile:saveOperation:]: https://developer.apple.com/documentation/AppKit/NSDocument/writeToFile:ofType:originalFile:saveOperation:
-func (d NSDocument) WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.INSURL) (bool, error) {
+func (d NSDocument) WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToURL:ofType:forSaveOperation:originalContentsURL:error:"), url, objc.String(typeName), saveOperation, absoluteOriginalContentsURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1652,7 +1650,7 @@ func (d NSDocument) WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url
 // error to the user in a document-modal panel before messaging the delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/save(to:ofType:for:delegate:didSave:contextInfo:)
-func (d NSDocument) SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr) {
+func (d NSDocument) SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:"), url, objc.String(typeName), saveOperation, delegate, didSaveSelector, contextInfo)
 }
 
@@ -1702,7 +1700,7 @@ func (d NSDocument) SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContex
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/save(to:ofType:for:completionHandler:)
 //
 // [saveToURL:ofType:forSaveOperation:error:]: https://developer.apple.com/documentation/AppKit/NSDocument/saveToURL:ofType:forSaveOperation:error:
-func (d NSDocument) SaveToURLOfTypeForSaveOperationCompletionHandler(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, completionHandler ErrorHandler) {
+func (d NSDocument) SaveToURLOfTypeForSaveOperationCompletionHandler(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, completionHandler ErrorHandler) {
 	_block3, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("saveToURL:ofType:forSaveOperation:completionHandler:"), url, objc.String(typeName), saveOperation, _block3)
 }
@@ -1762,7 +1760,7 @@ func (d NSDocument) SaveToURLOfTypeForSaveOperationCompletionHandler(url foundat
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/fileAttributesToWrite(to:ofType:for:originalContentsURL:)
 //
 // [fileAttributesToWriteToFile:ofType:saveOperation:]: https://developer.apple.com/documentation/AppKit/NSDocument/fileAttributesToWriteToFile:ofType:saveOperation:
-func (d NSDocument) FileAttributesToWriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.INSURL) (foundation.INSDictionary, error) {
+func (d NSDocument) FileAttributesToWriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.NSURL) (foundation.INSDictionary, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileAttributesToWriteToURL:ofType:forSaveOperation:originalContentsURL:error:"), url, objc.String(typeName), saveOperation, absoluteOriginalContentsURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -3018,7 +3016,7 @@ func (d NSDocument) Close() {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/revert(toContentsOf:ofType:)
-func (d NSDocument) RevertToContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (bool, error) {
+func (d NSDocument) RevertToContentsOfURLOfTypeError(url foundation.NSURL, typeName string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("revertToContentsOfURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -3191,7 +3189,7 @@ func (d NSDocument) MoveDocumentWithCompletionHandler(completionHandler BoolHand
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/move(to:completionHandler:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (d NSDocument) MoveToURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler) {
+func (d NSDocument) MoveToURLCompletionHandler(url foundation.NSURL, completionHandler ErrorHandler) {
 	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("moveToURL:completionHandler:"), url, _block1)
 }
@@ -3203,8 +3201,7 @@ func (d NSDocument) MoveToURLCompletionHandler(url foundation.INSURL, completion
 // # Discussion
 //
 // This is the action of the Lock menu item in a document-based app. This
-// action method invokes the [LockDocumentWithCompletionHandler] method by
-// default.
+// action method invokes the [LockWithCompletionHandler] method by default.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/lock(_:)
 func (d NSDocument) LockDocument(sender objectivec.IObject) {
@@ -3218,8 +3215,7 @@ func (d NSDocument) LockDocument(sender objectivec.IObject) {
 // # Discussion
 //
 // This is the action of the Unlock menu item in a document-based app. This
-// action method invokes the [UnlockDocumentWithCompletionHandler] method by
-// default.
+// action method invokes the [UnlockWithCompletionHandler] method by default.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/unlock(_:)
 func (d NSDocument) UnlockDocument(sender objectivec.IObject) {
@@ -3642,7 +3638,7 @@ func (d NSDocument) HandleSaveScriptCommand(command foundation.NSScriptCommand) 
 // as:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentError(_:modalFor:delegate:didPresent:contextInfo:)
-func (d NSDocument) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
+func (d NSDocument) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 
@@ -3671,7 +3667,7 @@ func (d NSDocument) PresentErrorModalForWindowDelegateDidPresentSelectorContextI
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentError(_:)
 //
 // [attemptRecovery(fromError:optionIndex:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/attemptRecovery(fromError:optionIndex:)
-func (d NSDocument) PresentError(error_ foundation.INSError) bool {
+func (d NSDocument) PresentError(error_ foundation.NSError) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("presentError:"), error_)
 	return rv
 }
@@ -3699,7 +3695,7 @@ func (d NSDocument) PresentError(error_ foundation.INSError) bool {
 // original error.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/willPresentError(_:)
-func (d NSDocument) WillPresentError(error_ foundation.INSError) foundation.INSError {
+func (d NSDocument) WillPresentError(error_ foundation.NSError) foundation.NSError {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("willPresentError:"), error_)
 	return foundation.NSErrorFromID(rv)
 }
@@ -3726,7 +3722,7 @@ func (d NSDocument) WillPresentError(error_ foundation.INSError) foundation.INSE
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 // [savePresentedItemChanges(completionHandler:)]: https://developer.apple.com/documentation/Foundation/NSFilePresenter/savePresentedItemChanges(completionHandler:)
-func (d NSDocument) WillNotPresentError(error_ foundation.INSError) {
+func (d NSDocument) WillNotPresentError(error_ foundation.NSError) {
 	objc.Send[objc.ID](d.ID, objc.Sel("willNotPresentError:"), error_)
 }
 
@@ -3757,7 +3753,7 @@ func (d NSDocument) PresentedItemDidLoseVersion(version foundation.NSFileVersion
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemDidMove(to:)
-func (d NSDocument) PresentedItemDidMoveToURL(newURL foundation.INSURL) {
+func (d NSDocument) PresentedItemDidMoveToURL(newURL foundation.NSURL) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentedItemDidMoveToURL:"), newURL)
 }
 
@@ -3939,11 +3935,11 @@ func (_NSDocumentClass NSDocumentClass) AllowedClassesForRestorableStateKeyPath(
 // document’s location during its initial opening or saving.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/fileURL
-func (d NSDocument) FileURL() foundation.INSURL {
+func (d NSDocument) FileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (d NSDocument) SetFileURL(value foundation.INSURL) {
+func (d NSDocument) SetFileURL(value foundation.NSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFileURL:"), value)
 }
 
@@ -3979,11 +3975,11 @@ func (d NSDocument) EntireFileLoaded() bool {
 // modified by something other than the current app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/fileModificationDate
-func (d NSDocument) FileModificationDate() foundation.INSDate {
+func (d NSDocument) FileModificationDate() foundation.NSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileModificationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (d NSDocument) SetFileModificationDate(value foundation.INSDate) {
+func (d NSDocument) SetFileModificationDate(value foundation.NSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFileModificationDate:"), value)
 }
 
@@ -4160,11 +4156,11 @@ func (d NSDocument) SetDisplayName(value string) {
 // not a relative path.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/autosavedContentsFileURL
-func (d NSDocument) AutosavedContentsFileURL() foundation.INSURL {
+func (d NSDocument) AutosavedContentsFileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("autosavedContentsFileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-func (d NSDocument) SetAutosavedContentsFileURL(value foundation.INSURL) {
+func (d NSDocument) SetAutosavedContentsFileURL(value foundation.NSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAutosavedContentsFileURL:"), value)
 }
 
@@ -4303,7 +4299,7 @@ func (d NSDocument) HasUnautosavedChanges() bool {
 // [replaceItem(at:options:)]: https://developer.apple.com/documentation/Foundation/NSFileVersion/replaceItem(at:options:)
 // [replaceItem(at:withItemAt:backupItemName:options:resultingItemURL:)]: https://developer.apple.com/documentation/Foundation/FileManager/replaceItem(at:withItemAt:backupItemName:options:resultingItemURL:)
 // [withoutDeletingBackupItem]: https://developer.apple.com/documentation/Foundation/FileManager/ItemReplacementOptions/withoutDeletingBackupItem
-func (d NSDocument) BackupFileURL() foundation.INSURL {
+func (d NSDocument) BackupFileURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("backupFileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -4585,7 +4581,7 @@ func (d NSDocument) ObservedPresentedItemUbiquityAttributes() foundation.INSSet 
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemURL
-func (d NSDocument) PresentedItemURL() foundation.INSURL {
+func (d NSDocument) PresentedItemURL() foundation.NSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("presentedItemURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
@@ -4795,7 +4791,7 @@ func (_NSDocumentClass NSDocumentClass) RestorableStateKeyPaths() []string {
 
 // SaveToURLOfTypeForSaveOperation is a synchronous wrapper around [NSDocument.SaveToURLOfTypeForSaveOperationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (d NSDocument) SaveToURLOfTypeForSaveOperation(ctx context.Context, url foundation.INSURL, typeName string, saveOperation NSSaveOperationType) error {
+func (d NSDocument) SaveToURLOfTypeForSaveOperation(ctx context.Context, url foundation.NSURL, typeName string, saveOperation NSSaveOperationType) error {
 	done := make(chan error, 1)
 	d.SaveToURLOfTypeForSaveOperationCompletionHandler(url, typeName, saveOperation, func(err error) {
 		done <- err
@@ -4919,7 +4915,7 @@ func (d NSDocument) MoveDocumentSync(ctx context.Context) (bool, error) {
 
 // MoveToURL is a synchronous wrapper around [NSDocument.MoveToURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (d NSDocument) MoveToURL(ctx context.Context, url foundation.INSURL) error {
+func (d NSDocument) MoveToURL(ctx context.Context, url foundation.NSURL) error {
 	done := make(chan error, 1)
 	d.MoveToURLCompletionHandler(url, func(err error) {
 		done <- err

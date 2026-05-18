@@ -93,7 +93,7 @@ type INSPDFImageRep interface {
 	// Topic: Creating Representations of Images from PDF Data
 
 	// Returns a representation of an image initialized with the specified PDF data.
-	InitWithData(pdfData foundation.INSData) NSPDFImageRep
+	InitWithData(pdfData foundation.NSData) NSPDFImageRep
 
 	// Topic: Getting Data
 
@@ -105,7 +105,7 @@ type INSPDFImageRep interface {
 	// The number of pages in the image representation.
 	PageCount() int
 	// The PDF representation of the representation’s image.
-	PDFRepresentation() foundation.INSData
+	PDFRepresentation() foundation.NSData
 }
 
 // Init initializes the instance.
@@ -149,7 +149,7 @@ func NewPDFImageRepWithCoder(coder foundation.INSCoder) NSPDFImageRep {
 // the PDF file format.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/init(data:)
-func NewPDFImageRepWithData(pdfData foundation.INSData) NSPDFImageRep {
+func NewPDFImageRepWithData(pdfData foundation.NSData) NSPDFImageRep {
 	instance := getNSPDFImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), pdfData)
 	return NSPDFImageRepFromID(rv)
@@ -167,7 +167,7 @@ func NewPDFImageRepWithData(pdfData foundation.INSData) NSPDFImageRep {
 // the PDF file format.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/init(data:)
-func (p NSPDFImageRep) InitWithData(pdfData foundation.INSData) NSPDFImageRep {
+func (p NSPDFImageRep) InitWithData(pdfData foundation.NSData) NSPDFImageRep {
 	rv := objc.Send[NSPDFImageRep](p.ID, objc.Sel("initWithData:"), pdfData)
 	return rv
 }
@@ -184,7 +184,7 @@ func (p NSPDFImageRep) InitWithData(pdfData foundation.INSData) NSPDFImageRep {
 // the PDF file format.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/imageRepWithData:
-func (_NSPDFImageRepClass NSPDFImageRepClass) ImageRepWithData(pdfData foundation.INSData) NSPDFImageRep {
+func (_NSPDFImageRepClass NSPDFImageRepClass) ImageRepWithData(pdfData foundation.NSData) NSPDFImageRep {
 	rv := objc.Send[objc.ID](objc.ID(_NSPDFImageRepClass.class), objc.Sel("imageRepWithData:"), pdfData)
 	return NSPDFImageRepFromID(rv)
 }
@@ -223,7 +223,7 @@ func (p NSPDFImageRep) PageCount() int {
 // The PDF representation of the representation’s image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/pdfRepresentation
-func (p NSPDFImageRep) PDFRepresentation() foundation.INSData {
+func (p NSPDFImageRep) PDFRepresentation() foundation.NSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("PDFRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }

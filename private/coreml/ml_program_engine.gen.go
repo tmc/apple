@@ -65,14 +65,14 @@ type IMLProgramEngine interface {
 }
 
 // Init initializes the instance.
-func (p MLProgramEngine) Init() MLProgramEngine {
-	rv := objc.Send[MLProgramEngine](p.ID, objc.Sel("init"))
+func (m MLProgramEngine) Init() MLProgramEngine {
+	rv := objc.Send[MLProgramEngine](m.ID, objc.Sel("init"))
 	return rv
 }
 
 // Autorelease adds the receiver to the current autorelease pool.
-func (p MLProgramEngine) Autorelease() MLProgramEngine {
-	rv := objc.Send[MLProgramEngine](p.ID, objc.Sel("autorelease"))
+func (m MLProgramEngine) Autorelease() MLProgramEngine {
+	rv := objc.Send[MLProgramEngine](m.ID, objc.Sel("autorelease"))
 	return rv
 }
 
