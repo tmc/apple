@@ -418,7 +418,7 @@ func (c *nwPacketConn) peerConn(addr net.Addr) (*nwPeerConn, error) {
 	}
 	c.mu.Unlock()
 
-	params, err := newNWParameters(c.config, nil)
+	params, err := newNWParameters(c.config, c.local)
 	if err != nil {
 		return nil, err
 	}
