@@ -73,6 +73,43 @@ func NewBlock(fn any) Block {
 	return purego.NewBlock(fn)
 }
 
+var nsErrorBlockSignature = []byte(`v@?@"NSError"` + "\x00")
+
+type blockDescriptorWithSignature struct {
+	_         uintptr
+	size      uintptr
+	_         uintptr
+	dispose   uintptr
+	signature *byte
+}
+
+type blockLayoutWithSignature struct {
+	isa        uintptr
+	flags      uint32
+	_          uint32
+	invoke     uintptr
+	descriptor *blockDescriptorWithSignature
+}
+
+// SetBlockSignature sets the Objective-C runtime signature for block.
+// The signature storage must outlive block.
+func SetBlockSignature(block Block, signature []byte) bool {
+	if block == 0 || len(signature) == 0 {
+		return false
+	}
+	layout := (*blockLayoutWithSignature)(unsafe.Pointer(uintptr(block)))
+	if layout.descriptor == nil {
+		return false
+	}
+	layout.descriptor.signature = &signature[0]
+	return true
+}
+
+// SetNSErrorBlockSignature sets block's signature to a single NSError argument.
+func SetNSErrorBlockSignature(block Block) bool {
+	return SetBlockSignature(block, nsErrorBlockSignature)
+}
+
 // GoString converts a C string (*byte from UTF8String) to a Go string.
 // This is needed because UTF8String returns const char*, not an ObjC object.
 func GoString(cstr *byte) string {
