@@ -24,3 +24,24 @@ func TestCallAndCreateRecoverPanics(t *testing.T) {
 		t.Fatalf("create panic error = %v", err)
 	}
 }
+
+func TestReleaseNilHandles(t *testing.T) {
+	var cfg Config
+	if err := cfg.Release(); err != nil {
+		t.Fatalf("Config.Release = %v", err)
+	}
+	if err := cfg.Close(); err != nil {
+		t.Fatalf("Config.Close = %v", err)
+	}
+	var vcpu VCPUConfig
+	if err := vcpu.Release(); err != nil {
+		t.Fatalf("VCPUConfig.Release = %v", err)
+	}
+	var gic GICConfig
+	if err := gic.Release(); err != nil {
+		t.Fatalf("GICConfig.Release = %v", err)
+	}
+	if err := osRelease(nil); err != nil {
+		t.Fatalf("osRelease(nil) = %v", err)
+	}
+}

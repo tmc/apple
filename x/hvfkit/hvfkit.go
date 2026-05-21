@@ -18,12 +18,31 @@ type Capabilities struct {
 
 // Config is an opaque Hypervisor.framework VM configuration.
 type Config struct {
-	Handle       unsafe.Pointer
+	handle       hypervisor.HVVmConfig
 	Capabilities Capabilities
 	IPABits      uint32
 	IPAGranule   hypervisor.HVIPAGranule
 	EL2Enabled   bool
 	Created      bool
+}
+
+// ConfigOption configures a VM configuration.
+type ConfigOption func(*Config) error
+
+// VCPUConfig is an opaque Hypervisor.framework vCPU configuration.
+type VCPUConfig struct {
+	handle hypervisor.HVVCPUConfig
+}
+
+// GICConfig is an opaque Hypervisor.framework GIC configuration.
+type GICConfig struct {
+	handle hypervisor.HVGICConfig
+}
+
+// VCPU is a Hypervisor.framework vCPU and its HVF-owned exit area.
+type VCPU struct {
+	ID   uint64
+	Exit *hypervisor.HVVCPUExit
 }
 
 // QueryCapabilities returns host Hypervisor.framework capabilities.
@@ -48,7 +67,7 @@ func QueryCapabilities() (Capabilities, error) {
 }
 
 // NewConfig creates and inspects a Hypervisor.framework VM configuration.
-func NewConfig(ipaBits uint32, enableEL2 bool, createVM bool) (*Config, error) {
+func NewConfig(opts ...ConfigOption) (cfg *Config, err error) {
 	handle, err := create("hv_vm_config_create", hypervisor.HVVmConfigCreate)
 	if err != nil {
 		return nil, err
@@ -56,43 +75,49 @@ func NewConfig(ipaBits uint32, enableEL2 bool, createVM bool) (*Config, error) {
 	if handle == nil {
 		return nil, fmt.Errorf("hv_vm_config_create returned nil")
 	}
-	if ipaBits > 0 {
-		if err := call("hv_vm_config_set_ipa_size", func() int32 {
-			return hypervisor.HVVmConfigSetIPASize(handle, ipaBits)
-		}); err != nil {
+	cfg = &Config{handle: handle}
+	defer func() {
+		if err != nil {
+			err = joinReleaseError(err, cfg.Release())
+			cfg = nil
+		}
+	}()
+	if cfg.Capabilities, err = QueryCapabilities(); err != nil {
+		return nil, err
+	}
+	for _, opt := range opts {
+		if opt == nil {
+			continue
+		}
+		if err := opt(cfg); err != nil {
 			return nil, err
 		}
 	}
-	if enableEL2 {
-		if err := call("hv_vm_config_set_el2_enabled", func() int32 {
-			return hypervisor.HVVmConfigSetEl2Enabled(handle, true)
-		}); err != nil {
-			return nil, err
-		}
-	}
-	cfg := &Config{Handle: handle}
-	if err := call("hv_vm_config_get_ipa_size", func() int32 {
-		return hypervisor.HVVmConfigGetIPASize(handle, &cfg.IPABits)
-	}); err != nil {
+	if err := cfg.refresh(); err != nil {
 		return nil, err
-	}
-	if err := call("hv_vm_config_get_ipa_granule", func() int32 {
-		return hypervisor.HVVmConfigGetIPAGranule(handle, &cfg.IPAGranule)
-	}); err != nil {
-		return nil, err
-	}
-	if err := call("hv_vm_config_get_el2_enabled", func() int32 {
-		return hypervisor.HVVmConfigGetEl2Enabled(handle, &cfg.EL2Enabled)
-	}); err != nil {
-		return nil, err
-	}
-	if createVM {
-		if err := CreateVM(handle); err != nil {
-			return nil, err
-		}
-		cfg.Created = true
 	}
 	return cfg, nil
+}
+
+// WithIPASize sets the physical address size for a VM configuration.
+func WithIPASize(bits uint32) ConfigOption {
+	return func(c *Config) error {
+		return c.setIPASize(bits)
+	}
+}
+
+// WithIPAGranule sets the IPA granule for a VM configuration.
+func WithIPAGranule(granule hypervisor.HVIPAGranule) ConfigOption {
+	return func(c *Config) error {
+		return c.SetIPAGranule(granule)
+	}
+}
+
+// WithEL2 configures whether a VM configuration enables EL2.
+func WithEL2(enabled bool) ConfigOption {
+	return func(c *Config) error {
+		return c.setEL2(enabled)
+	}
 }
 
 // DefaultIPASize returns the default IPA size for new VM configurations.
@@ -113,27 +138,88 @@ func DefaultIPAGranule() (hypervisor.HVIPAGranule, error) {
 	return granule, err
 }
 
-// GetConfigIPAGranule reads a VM configuration's IPA granule.
-func GetConfigIPAGranule(config unsafe.Pointer) (hypervisor.HVIPAGranule, error) {
+// GetIPAGranule reads a VM configuration's IPA granule.
+func (c *Config) GetIPAGranule() (hypervisor.HVIPAGranule, error) {
 	var granule hypervisor.HVIPAGranule
 	err := call("hv_vm_config_get_ipa_granule", func() int32 {
-		return hypervisor.HVVmConfigGetIPAGranule(config, &granule)
+		return hypervisor.HVVmConfigGetIPAGranule(c.handle, &granule)
 	})
 	return granule, err
 }
 
-// SetConfigIPAGranule writes a VM configuration's IPA granule.
-func SetConfigIPAGranule(config unsafe.Pointer, granule hypervisor.HVIPAGranule) error {
+// SetIPAGranule writes a VM configuration's IPA granule.
+func (c *Config) SetIPAGranule(granule hypervisor.HVIPAGranule) error {
 	return call("hv_vm_config_set_ipa_granule", func() int32 {
-		return hypervisor.HVVmConfigSetIPAGranule(config, granule)
+		return hypervisor.HVVmConfigSetIPAGranule(c.handle, granule)
 	})
 }
 
 // CreateVM creates a process VM with config.
-func CreateVM(config unsafe.Pointer) error {
-	return call("hv_vm_create", func() int32 {
-		return hypervisor.HVVmCreate(config)
+func (c *Config) CreateVM() error {
+	if err := call("hv_vm_create", func() int32 {
+		return hypervisor.HVVmCreate(c.handle)
+	}); err != nil {
+		return err
+	}
+	c.Created = true
+	return nil
+}
+
+func (c *Config) setIPASize(bits uint32) error {
+	if bits == 0 {
+		return nil
+	}
+	return call("hv_vm_config_set_ipa_size", func() int32 {
+		return hypervisor.HVVmConfigSetIPASize(c.handle, bits)
 	})
+}
+
+func (c *Config) setEL2(enabled bool) error {
+	return call("hv_vm_config_set_el2_enabled", func() int32 {
+		return hypervisor.HVVmConfigSetEl2Enabled(c.handle, enabled)
+	})
+}
+
+func (c *Config) refresh() error {
+	if err := call("hv_vm_config_get_ipa_size", func() int32 {
+		return hypervisor.HVVmConfigGetIPASize(c.handle, &c.IPABits)
+	}); err != nil {
+		return err
+	}
+	if err := call("hv_vm_config_get_ipa_granule", func() int32 {
+		return hypervisor.HVVmConfigGetIPAGranule(c.handle, &c.IPAGranule)
+	}); err != nil {
+		return err
+	}
+	return call("hv_vm_config_get_el2_enabled", func() int32 {
+		return hypervisor.HVVmConfigGetEl2Enabled(c.handle, &c.EL2Enabled)
+	})
+}
+
+// Release releases the retained VM configuration object.
+func (c *Config) Release() error {
+	if c == nil || c.handle == nil {
+		return nil
+	}
+	handle := c.handle
+	if err := osRelease(handle); err != nil {
+		return err
+	}
+	c.handle = nil
+	return nil
+}
+
+// Close destroys the process VM if this config created it, then releases the config.
+func (c *Config) Close() error {
+	if c == nil {
+		return nil
+	}
+	var err error
+	if c.Created {
+		err = DestroyVM()
+		c.Created = false
+	}
+	return joinReleaseError(err, c.Release())
 }
 
 // DestroyVM destroys the process VM.
@@ -156,10 +242,12 @@ func UnmapMemory(ipa uint64, size uintptr) error {
 }
 
 // AllocateMemory allocates Hypervisor.framework-owned memory.
-func AllocateMemory(addr unsafe.Pointer, size uintptr, flags uint64) error {
-	return call("hv_vm_allocate", func() int32 {
-		return hypervisor.HVVmAllocate(addr, size, flags)
+func AllocateMemory(size uintptr, flags uint64) (unsafe.Pointer, error) {
+	var addr unsafe.Pointer
+	err := call("hv_vm_allocate", func() int32 {
+		return hypervisor.HVVmAllocate(unsafe.Pointer(&addr), size, flags)
 	})
+	return addr, err
 }
 
 // DeallocateMemory releases Hypervisor.framework-owned memory.
@@ -177,33 +265,54 @@ func ProtectMemory(ipa uint64, size uintptr, flags uint64) error {
 }
 
 // NewVCPUConfig creates a Hypervisor.framework vCPU configuration.
-func NewVCPUConfig() (unsafe.Pointer, error) {
-	config, err := create("hv_vcpu_config_create", hypervisor.HVVCPUConfigCreate)
+func NewVCPUConfig() (*VCPUConfig, error) {
+	handle, err := create("hv_vcpu_config_create", hypervisor.HVVCPUConfigCreate)
 	if err != nil {
 		return nil, err
 	}
-	if config == nil {
+	if handle == nil {
 		return nil, fmt.Errorf("hv_vcpu_config_create returned nil")
 	}
-	return config, nil
+	return &VCPUConfig{handle: handle}, nil
 }
 
-// GetVCPUConfigFeatureReg reads a feature register from a vCPU configuration.
-func GetVCPUConfigFeatureReg(config unsafe.Pointer, reg hypervisor.HVFeatureReg) (uint64, error) {
+// Release releases the retained vCPU configuration object.
+func (c *VCPUConfig) Release() error {
+	if c == nil || c.handle == nil {
+		return nil
+	}
+	handle := c.handle
+	if err := osRelease(handle); err != nil {
+		return err
+	}
+	c.handle = nil
+	return nil
+}
+
+// FeatureReg reads a feature register from a vCPU configuration.
+func (c *VCPUConfig) FeatureReg(reg hypervisor.HVFeatureReg) (uint64, error) {
 	var value uint64
 	err := call("hv_vcpu_config_get_feature_reg", func() int32 {
-		return hypervisor.HVVCPUConfigGetFeatureReg(config, reg, &value)
+		return hypervisor.HVVCPUConfigGetFeatureReg(c.handle, reg, &value)
 	})
 	return value, err
 }
 
 // CreateVCPU creates a vCPU and returns the HVF-owned exit area.
-func CreateVCPU(exit **hypervisor.HVVCPUExit, config unsafe.Pointer) (uint64, error) {
-	var vcpu uint64
+func CreateVCPU(config *VCPUConfig) (*VCPU, error) {
+	var id uint64
+	var exit *hypervisor.HVVCPUExit
+	var handle hypervisor.HVVCPUConfig
+	if config != nil {
+		handle = config.handle
+	}
 	err := call("hv_vcpu_create", func() int32 {
-		return hypervisor.HVVCPUCreate(&vcpu, exit, config)
+		return hypervisor.HVVCPUCreate(&id, &exit, handle)
 	})
-	return vcpu, err
+	if err != nil {
+		return nil, err
+	}
+	return &VCPU{ID: id, Exit: exit}, nil
 }
 
 // DestroyVCPU destroys a vCPU.
@@ -373,50 +482,71 @@ func CreateGIC(distributorBase, redistributorBase uint64) error {
 	if err != nil {
 		return err
 	}
-	return CreateGICWithConfig(config)
+	defer func() { _ = config.Release() }()
+	return config.Create()
 }
 
 // NewGICConfig creates a GICv3 configuration with distributor bases set.
-func NewGICConfig(distributorBase, redistributorBase uint64) (unsafe.Pointer, error) {
-	config, err := create("hv_gic_config_create", hypervisor.HVGICConfigCreate)
+func NewGICConfig(distributorBase, redistributorBase uint64) (cfg *GICConfig, err error) {
+	handle, err := create("hv_gic_config_create", hypervisor.HVGICConfigCreate)
 	if err != nil {
 		return nil, err
 	}
-	if config == nil {
+	if handle == nil {
 		return nil, fmt.Errorf("hv_gic_config_create returned nil")
 	}
+	cfg = &GICConfig{handle: handle}
+	defer func() {
+		if err != nil {
+			err = joinReleaseError(err, cfg.Release())
+			cfg = nil
+		}
+	}()
 	if err := call("hv_gic_config_set_distributor_base", func() int32 {
-		return hypervisor.HVGICConfigSetDistributorBase(config, distributorBase)
+		return hypervisor.HVGICConfigSetDistributorBase(cfg.handle, distributorBase)
 	}); err != nil {
 		return nil, err
 	}
 	if err := call("hv_gic_config_set_redistributor_base", func() int32 {
-		return hypervisor.HVGICConfigSetRedistributorBase(config, redistributorBase)
+		return hypervisor.HVGICConfigSetRedistributorBase(cfg.handle, redistributorBase)
 	}); err != nil {
 		return nil, err
 	}
-	return config, nil
+	return cfg, nil
 }
 
-// SetGICConfigMSIInterruptRange configures the GIC MSI interrupt range.
-func SetGICConfigMSIInterruptRange(config unsafe.Pointer, base, count uint32) error {
+// SetMSIInterruptRange configures the GIC MSI interrupt range.
+func (c *GICConfig) SetMSIInterruptRange(base, count uint32) error {
 	return call("hv_gic_config_set_msi_interrupt_range", func() int32 {
-		return hypervisor.HVGICConfigSetMsiInterruptRange(config, base, count)
+		return hypervisor.HVGICConfigSetMsiInterruptRange(c.handle, base, count)
 	})
 }
 
-// SetGICConfigMSIRegionBase configures the GIC MSI region base.
-func SetGICConfigMSIRegionBase(config unsafe.Pointer, base uint64) error {
+// SetMSIRegionBase configures the GIC MSI region base.
+func (c *GICConfig) SetMSIRegionBase(base uint64) error {
 	return call("hv_gic_config_set_msi_region_base", func() int32 {
-		return hypervisor.HVGICConfigSetMsiRegionBase(config, base)
+		return hypervisor.HVGICConfigSetMsiRegionBase(c.handle, base)
 	})
 }
 
-// CreateGICWithConfig creates a GICv3 device from config.
-func CreateGICWithConfig(config unsafe.Pointer) error {
+// Create creates a GICv3 device from config.
+func (c *GICConfig) Create() error {
 	return call("hv_gic_create", func() int32 {
-		return hypervisor.HVGICCreate(config)
+		return hypervisor.HVGICCreate(c.handle)
 	})
+}
+
+// Release releases the retained GIC configuration object.
+func (c *GICConfig) Release() error {
+	if c == nil || c.handle == nil {
+		return nil
+	}
+	handle := c.handle
+	if err := osRelease(handle); err != nil {
+		return err
+	}
+	c.handle = nil
+	return nil
 }
 
 // GetGICDistributorBaseAlignment returns the required distributor base alignment.
@@ -624,7 +754,7 @@ func SendGICMSI(address uint64, intid uint32) error {
 }
 
 // GetGICStateData returns the Hypervisor.framework GIC state blob.
-func GetGICStateData() ([]byte, error) {
+func GetGICStateData() (data []byte, err error) {
 	state, err := create("hv_gic_state_create", hypervisor.HVGICStateCreate)
 	if err != nil {
 		return nil, err
@@ -632,6 +762,9 @@ func GetGICStateData() ([]byte, error) {
 	if state == nil {
 		return nil, fmt.Errorf("hv_gic_state_create returned nil")
 	}
+	defer func() {
+		err = joinReleaseError(err, osRelease(state))
+	}()
 	var size uintptr
 	if err := call("hv_gic_state_get_size", func() int32 {
 		return hypervisor.HVGICStateGetSize(state, &size)
@@ -641,7 +774,7 @@ func GetGICStateData() ([]byte, error) {
 	if size == 0 {
 		return nil, nil
 	}
-	data := make([]byte, size)
+	data = make([]byte, size)
 	if err := call("hv_gic_state_get_data", func() int32 {
 		return hypervisor.HVGICStateGetData(state, unsafe.Pointer(&data[0]))
 	}); err != nil {
@@ -689,4 +822,14 @@ func recoveredError(name string, r any) error {
 		return fmt.Errorf("%s: %w", name, err)
 	}
 	return fmt.Errorf("%s: %v", name, r)
+}
+
+func joinReleaseError(err, releaseErr error) error {
+	if err == nil {
+		return releaseErr
+	}
+	if releaseErr == nil {
+		return err
+	}
+	return fmt.Errorf("%w; release: %v", err, releaseErr)
 }

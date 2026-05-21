@@ -26,8 +26,12 @@ func TestRegisterLookups(t *testing.T) {
 			t.Fatalf("%s missing", tt.name)
 		}
 	}
-	if _, ok := LookupSysReg("mpidr_el1"); ok {
-		t.Fatal("LookupSysReg accepted read-only mpidr_el1")
+	reg, ok := LookupSysReg("mpidr_el1")
+	if !ok || !reg.ReadOnly || reg.Reg != hypervisor.HVSysRegMpidrEl1 {
+		t.Fatalf("LookupSysReg(mpidr_el1) = %+v, %v, want read-only register", reg, ok)
+	}
+	if _, ok := LookupWritableSysReg("mpidr_el1"); ok {
+		t.Fatal("LookupWritableSysReg accepted read-only mpidr_el1")
 	}
 }
 
@@ -88,7 +92,7 @@ func hasCoreReg(name string) bool {
 }
 
 func hasSysReg(name string) bool {
-	_, ok := LookupSysReg(name)
+	_, ok := LookupWritableSysReg(name)
 	return ok
 }
 

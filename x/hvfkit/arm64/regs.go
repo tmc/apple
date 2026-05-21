@@ -322,14 +322,23 @@ func RegName(reg hypervisor.HVReg) string {
 	return fmt.Sprintf("reg_%#x", uint64(reg))
 }
 
-// LookupSysReg returns the writable EL1 system register with name.
-func LookupSysReg(name string) (hypervisor.HVSysReg, bool) {
+// LookupSysReg returns the EL1 system register with name.
+func LookupSysReg(name string) (RegInfo[hypervisor.HVSysReg], bool) {
 	for _, reg := range sysRegs {
-		if reg.Name == name && !reg.ReadOnly {
-			return reg.Reg, true
+		if reg.Name == name {
+			return reg, true
 		}
 	}
-	return 0, false
+	return RegInfo[hypervisor.HVSysReg]{}, false
+}
+
+// LookupWritableSysReg returns the writable EL1 system register with name.
+func LookupWritableSysReg(name string) (hypervisor.HVSysReg, bool) {
+	reg, ok := LookupSysReg(name)
+	if !ok || reg.ReadOnly {
+		return 0, false
+	}
+	return reg.Reg, true
 }
 
 // LookupTimerReg returns the timer register with name.
