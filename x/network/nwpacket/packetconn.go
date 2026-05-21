@@ -298,7 +298,6 @@ func (c *nwPacketConn) WriteTo(b []byte, addr net.Addr) (int, error) {
 }
 
 func (c *nwPacketConn) writeReadyPeer(b []byte, peer *nwPeerConn, deadline time.Time) (int, error) {
-	_ = c.connectionPath(peer.conn)
 	data := dispatch.DataCreate(b)
 	context := applenetwork.NWContentContextCreate(fmt.Sprintf("tmc-apple-nwpacket-%d", c.sendSeq.Add(1)))
 	done := make(chan error, 1)
@@ -419,7 +418,11 @@ func (c *nwPacketConn) peerConn(addr net.Addr) (*nwPeerConn, error) {
 	}
 	c.mu.Unlock()
 
-	params, err := newNWParameters(c.config, nil)
+	local := c.local
+	if local.IP.To4() != nil || !local.IP.IsLinkLocalUnicast() {
+		local = nil
+	}
+	params, err := newNWParameters(c.config, local)
 	if err != nil {
 		return nil, err
 	}
@@ -432,7 +435,7 @@ func (c *nwPacketConn) peerConn(addr net.Addr) (*nwPeerConn, error) {
 	applenetwork.NWConnectionSetQueue(conn, c.queue)
 	applenetwork.NWConnectionSetStateChangedHandler(conn, func(state applenetwork.NWConnectionState, nwErr applenetwork.NWError) {
 		c.tracef("outbound %s state=%s err=%s", udpAddr, state, nwErrorString(nwErr))
-		if state == applenetwork.NWConnectionStateReady {
+		if state == applenetwork.NWConnectionStateReady && c.config.Tracef != nil {
 			c.tracef("outbound %s path=%s", udpAddr, c.connectionPath(conn))
 		}
 		switch state {
