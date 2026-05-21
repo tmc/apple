@@ -38,7 +38,7 @@ func (rt *RealTimeTask) Eval(m *Model) error {
 		if inner == nil {
 			return &ANEError{Op: "eval-rt", Err: fmt.Errorf("nil inner model")}
 		}
-		model = *inner
+		model = appleneuralengine.ANEModelFromID(inner.GetID())
 	case ModelTypePackage:
 		model = m.aneModel
 	default:

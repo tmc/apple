@@ -76,6 +76,7 @@ func (n *Network) EvalWithStorage(fs *FrameStorage, opts EvalOptions) error {
 	if opts.UseCVPixelBuffers {
 		n.binder.SetUse_cvpixelbuffer(1)
 	}
+	net := n.rawNetwork()
 
 	// Bind inputs for each frame in storage.
 	nFrames := fs.storage.NumberOfDataFrames()
@@ -85,7 +86,7 @@ func (n *Network) EvalWithStorage(fs *FrameStorage, opts EvalOptions) error {
 			continue
 		}
 		df := espresso.EspressoDataFrameFromID(obj.GetID())
-		rc := n.binder.BindInputsFromFrameToNetwork(df, n.net)
+		rc := n.binder.BindInputsFromFrameToNetwork(df, net)
 		if rc != 0 {
 			return fmt.Errorf("%w: bind returned %d for frame %d", ErrBindInput, rc, i)
 		}
@@ -98,7 +99,7 @@ func (n *Network) EvalWithStorage(fs *FrameStorage, opts EvalOptions) error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	err := n.storExec.ExecuteDataFrameStorageWithNetworkBlockSync(ctx, fs.storage, n.net)
+	err := n.storExec.ExecuteDataFrameStorageWithNetworkBlockSync(ctx, fs.storage, net)
 	if err != nil {
 		return fmt.Errorf("%w: %v", ErrEval, err)
 	}
@@ -110,7 +111,7 @@ func (n *Network) EvalWithStorage(fs *FrameStorage, opts EvalOptions) error {
 			continue
 		}
 		df := espresso.EspressoDataFrameFromID(obj.GetID())
-		rc := n.binder.BindOutputsFromFrameToNetwork(df, n.net)
+		rc := n.binder.BindOutputsFromFrameToNetwork(df, net)
 		if rc != 0 {
 			return fmt.Errorf("%w: bind returned %d for frame %d", ErrBindOutput, rc, i)
 		}
@@ -131,9 +132,10 @@ func (n *Network) EvalWithOptions(f *Frame, opts EvalOptions) error {
 	if opts.UseCVPixelBuffers {
 		n.binder.SetUse_cvpixelbuffer(1)
 	}
+	net := n.rawNetwork()
 
 	// Bind inputs from frame to network.
-	rc := n.binder.BindInputsFromFrameToNetwork(f.df, n.net)
+	rc := n.binder.BindInputsFromFrameToNetwork(f.df, net)
 	if rc != 0 {
 		return fmt.Errorf("%w: bind returned %d", ErrBindInput, rc)
 	}
@@ -151,13 +153,13 @@ func (n *Network) EvalWithOptions(f *Frame, opts EvalOptions) error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	err := n.storExec.ExecuteDataFrameStorageWithNetworkBlockSync(ctx, storage, n.net)
+	err := n.storExec.ExecuteDataFrameStorageWithNetworkBlockSync(ctx, storage, net)
 	if err != nil {
 		return fmt.Errorf("%w: %v", ErrEval, err)
 	}
 
 	// Bind outputs from frame to network after execution.
-	rc = n.binder.BindOutputsFromFrameToNetwork(f.df, n.net)
+	rc = n.binder.BindOutputsFromFrameToNetwork(f.df, net)
 	if rc != 0 {
 		return fmt.Errorf("%w: bind returned %d", ErrBindOutput, rc)
 	}

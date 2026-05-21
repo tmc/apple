@@ -3,8 +3,10 @@ package usbpassthrough
 import (
 	"context"
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	pvz "github.com/tmc/apple/private/virtualization"
 	"github.com/tmc/apple/x/vzkit"
@@ -91,10 +93,10 @@ func DeviceSignature(cfg pvz.VZIOUSBHostPassthroughDeviceConfiguration) []byte {
 		return nil
 	}
 	sig := cfg.Signature()
-	if sig == nil || sig.GetID() == 0 {
+	if sig.ID == 0 {
 		return nil
 	}
-	return vzkit.NSDataToBytes(foundation.NSDataFromID(sig.GetID()))
+	return vzkit.NSDataToBytes(sig)
 }
 
 // NewUSBPassthroughConfigurationFromDevice creates a passthrough configuration for an accessory device.
@@ -137,9 +139,17 @@ func (c Controller) Capture(ctx context.Context) error {
 		return fmt.Errorf("controller is nil")
 	}
 	done := make(chan error, 1)
-	c.raw.CapturePassthroughDevicesWithCompletionHandler(func(err error) {
-		done <- err
+	block := objc.NewBlock(func(_ objc.Block, errID objc.ID) {
+		if errID == 0 {
+			done <- nil
+			return
+		}
+		done <- foundation.NSErrorFrom(errID)
 	})
+	defer block.Release()
+	if err := c.raw.CapturePassthroughDevicesWithCompletionHandler(unsafe.Pointer(block)); err != nil {
+		return err
+	}
 	select {
 	case err := <-done:
 		if err != nil {

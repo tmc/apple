@@ -193,12 +193,16 @@ func (a *ANESurface) MatchesIOSurface(ref coregraphics.IOSurfaceRef) bool {
 
 // AliasingMem returns the external storage blob used for aliasing memory.
 func (a *ANESurface) AliasingMem() objectivec.IObject {
-	return a.s.External_storage_blob_for_aliasing_mem()
+	raw := a.s.External_storage_blob_for_aliasing_mem()
+	if raw == nil {
+		return nil
+	}
+	return objectivec.ObjectFromID(objc.ID(uintptr(raw)))
 }
 
 // SetAliasingMem sets the external storage blob for aliasing memory.
 func (a *ANESurface) SetAliasingMem(blob objectivec.IObject) {
-	a.s.SetExternal_storage_blob_for_aliasing_mem(blob)
+	a.s.SetExternal_storage_blob_for_aliasing_mem(objectKernelPointer(blob))
 }
 
 // WriteFrame writes raw bytes to the IOSurface backing the given frame.

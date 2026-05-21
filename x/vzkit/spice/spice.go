@@ -2,8 +2,8 @@ package spice
 
 import (
 	"fmt"
-	"unsafe"
 
+	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -108,13 +108,12 @@ type Core struct {
 
 // NewCore creates a SPICE core object.
 func NewCore(pasteboard objectivec.IObject, queue *vm.Queue, caps Capabilities, input, output pvz.FileDescriptor) Core {
-	var q pvz.DispatchQueue
+	var dq dispatch.Queue
 	if queue != nil {
-		id := uintptr(queue.Queue().ID())
-		q = *(*pvz.DispatchQueue)(unsafe.Pointer(&id))
+		dq = queue.Queue()
 	}
 	core := pvz.NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(
-		pasteboard, q, caps.Raw(), input, output,
+		pasteboard, dq, caps.Raw(), input, output,
 	)
 	return Core{raw: core}
 }

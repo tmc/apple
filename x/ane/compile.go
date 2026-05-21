@@ -843,8 +843,8 @@ func compilePackageWithStats(c *Client, opts CompileOptions, cs *CompileStats) (
 }
 
 func packageClient(fallback appleneuralengine.ANEClient) appleneuralengine.ANEClient {
-	if c := appleneuralengine.GetANEClientClass().SharedConnection(); c != nil && c.ID != 0 {
-		return *c
+	if c := appleneuralengine.GetANEClientClass().SharedConnection(); c.ID != 0 {
+		return c
 	}
 	return fallback
 }

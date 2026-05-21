@@ -28,7 +28,7 @@ func NewEncoder() Encoder {
 
 // NewEncoderWithBaseURL creates a configuration encoder rooted at baseURL.
 func NewEncoderWithBaseURL(url foundation.INSURL) Encoder {
-	return Encoder{raw: pvz.NewVZVirtualMachineConfigurationEncoderWithBaseURL(url)}
+	return Encoder{raw: pvz.NewVZVirtualMachineConfigurationEncoderWithBaseURL(foundation.NSURLFromID(url.GetID()))}
 }
 
 // NewEncoderWithBasePath creates a configuration encoder rooted at a file URL
@@ -101,7 +101,7 @@ func NewDecoder() Decoder {
 
 // NewDecoderWithBaseURL creates a decoder rooted at baseURL.
 func NewDecoderWithBaseURL(url foundation.INSURL) Decoder {
-	return Decoder{raw: pvz.NewVZVirtualMachineConfigurationDecoderWithBaseURL(url)}
+	return Decoder{raw: pvz.NewVZVirtualMachineConfigurationDecoderWithBaseURL(foundation.NSURLFromID(url.GetID()))}
 }
 
 // NewDecoderWithBasePath creates a decoder rooted at a file URL for basePath.
@@ -120,7 +120,7 @@ func (d Decoder) valid() error {
 }
 
 // Configuration decodes configuration data.
-func (d Decoder) Configuration(data objectivec.IObject, format unsafe.Pointer) (objectivec.IObject, error) {
+func (d Decoder) Configuration(data objectivec.IObject, format *uint64) (objectivec.IObject, error) {
 	if err := d.valid(); err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ func (d Decoder) Decode(data []byte, format Format) (pvz.VZVirtualMachineConfigu
 	}
 	blob := foundation.NewDataWithBytesLength(data)
 	formatValue := uint64(format)
-	decoded, err := d.raw.ConfigurationFromDataFormatError(blob, unsafe.Pointer(&formatValue))
+	decoded, err := d.raw.ConfigurationFromDataFormatError(blob, &formatValue)
 	if err != nil {
 		return pvz.VZVirtualMachineConfiguration{}, err
 	}

@@ -3,6 +3,7 @@
 package coremlcompiler
 
 import (
+	"context"
 	"fmt"
 	"unsafe"
 
@@ -15,7 +16,7 @@ import (
 // compiled model in a temporary location chosen by CoreML.
 func CompileMLModelAtURL(sourcePath string) (string, error) {
 	sourceURL := foundation.NewURLFileURLWithPath(sourcePath)
-	resultURL, err := coreml.GetMLModelClass().CompileModelAtURLError(sourceURL)
+	resultURL, err := coreml.GetMLModelClass().CompileModelAtURL(context.Background(), sourceURL)
 	if err != nil {
 		return "", fmt.Errorf("coreml compile: %w", err)
 	}
@@ -81,7 +82,7 @@ func (m *CoreMLModel) Predict(inputs []PredictInput, outputName string) (*Predic
 
 	// Use GetBytesWithHandler (non-deprecated) to copy output data.
 	var outBytes []byte
-	outMultiArr.GetBytesWithHandler(func(ptr unsafe.Pointer, size int64) {
+	outMultiArr.GetBytesWithHandler(func(ptr unsafe.Pointer, size int) {
 		outBytes = make([]byte, size)
 		copy(outBytes, unsafe.Slice((*byte)(ptr), size))
 	})

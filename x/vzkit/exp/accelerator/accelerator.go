@@ -19,18 +19,8 @@ func NewConfiguration() (pvz.VZAcceleratorDeviceConfiguration, error) {
 
 // NewDevice creates the runtime accelerator device for a platform object.
 func NewDevice(platform objectivec.IObject) (objectivec.IObject, error) {
-	cfg, err := NewConfiguration()
-	if err != nil {
-		return nil, err
-	}
-	device, err := cfg.AcceleratorDeviceWithPlatform(platform)
-	if err != nil {
-		return nil, fmt.Errorf("create accelerator device: %w", err)
-	}
-	if device == nil || device.GetID() == 0 {
-		return nil, fmt.Errorf("create accelerator device")
-	}
-	return device, nil
+	_ = platform
+	return nil, fmt.Errorf("create accelerator device: unsupported C++ ABI")
 }
 
 // NewBifrostConfiguration creates a Bifrost configuration with the given attachment and MMIO size.
@@ -104,7 +94,7 @@ func NewSEPCoprocessorConfigurationWithStorage(storage objectivec.IObject) (pvz.
 
 // NewSEPCoprocessorConfigurationWithStorageURL creates a SEP coprocessor configuration from a storage URL.
 func NewSEPCoprocessorConfigurationWithStorageURL(url foundation.INSURL) (pvz.VZSEPCoprocessorConfiguration, error) {
-	cfg := pvz.NewVZSEPCoprocessorConfigurationWithStorageURL(url)
+	cfg := pvz.NewVZSEPCoprocessorConfigurationWithStorageURL(foundation.NSURLFromID(url.GetID()))
 	if cfg.ID == 0 {
 		return cfg, fmt.Errorf("create sep coprocessor configuration")
 	}

@@ -50,16 +50,14 @@ func EvalWithStats(m *ane.Model) (EvalStats, error) {
 	}()
 	func() {
 		defer func() { recover() }()
-		if d := perfStats.PerfCounterData(); d != nil {
-			data := foundation.NSDataFromID(d.GetID())
-			stats.PerfCounterData = data.GoBytes()
+		if d := perfStats.PerfCounterData(); d.ID != 0 {
+			stats.PerfCounterData = d.GoBytes()
 		}
 	}()
 	func() {
 		defer func() { recover() }()
-		if d := perfStats.PStatsRawData(); d != nil {
-			data := foundation.NSDataFromID(d.GetID())
-			stats.RawStatsData = data.GoBytes()
+		if d := perfStats.PStatsRawData(); d.ID != 0 {
+			stats.RawStatsData = d.GoBytes()
 		}
 	}()
 	func() {

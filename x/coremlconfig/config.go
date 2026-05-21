@@ -5,6 +5,7 @@ package coremlconfig
 import (
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	privatecoreml "github.com/tmc/apple/private/coreml"
@@ -93,7 +94,7 @@ func (c *Config) Raw() coreml.MLModelConfiguration {
 }
 
 // SetPreferredMTLDevice routes GPU work to a specific Metal device (private API).
-func (c *Config) SetPreferredMTLDevice(device objectivec.IObject) {
+func (c *Config) SetPreferredMTLDevice(device metal.MTLDeviceObject) {
 	c.priv().SetPreferredMTLDevice(device)
 }
 
@@ -149,7 +150,7 @@ func (c *Config) ProfilingOptions() int64 {
 
 // SetRootModelURL sets the root model URL for nested-model loads.
 func (c *Config) SetRootModelURL(url foundation.INSURL) {
-	c.priv().SetRootModelURL(url)
+	c.priv().SetRootModelURL(foundation.NSURLFromID(url.GetID()))
 }
 
 // RootModelURL returns the configured root model URL.

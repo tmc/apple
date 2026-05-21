@@ -27,16 +27,6 @@ func NewTouchIDConfiguration() (pvz.VZMacTouchIDDeviceConfiguration, error) {
 
 // NewDevice creates a biometric runtime device for the given platform object.
 func NewDevice(platform objectivec.IObject) (objectivec.IObject, error) {
-	cfg, err := NewConfiguration()
-	if err != nil {
-		return nil, err
-	}
-	device, err := cfg.BiometricDeviceWithPlatform(platform)
-	if err != nil {
-		return nil, fmt.Errorf("create biometric device: %w", err)
-	}
-	if device == nil || device.GetID() == 0 {
-		return nil, fmt.Errorf("create biometric device")
-	}
-	return device, nil
+	_ = platform
+	return nil, fmt.Errorf("create biometric device: unsupported C++ ABI")
 }

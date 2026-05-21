@@ -9,6 +9,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -69,11 +70,11 @@ func run(modelPath string) error {
 
 	// If the model is uncompiled (.mlmodel), compile it first.
 	if strings.HasSuffix(absPath, ".mlmodel") {
-		compiledURL, err := coreml.GetMLModelClass().CompileModelAtURLError(url)
+		compiledURL, err := coreml.GetMLModelClass().CompileModelAtURL(context.Background(), url)
 		if err != nil {
 			return fmt.Errorf("compile model: %w", err)
 		}
-		url = compiledURL
+		url = *compiledURL
 	}
 
 	model, err := coreml.NewModelWithContentsOfURLError(url)

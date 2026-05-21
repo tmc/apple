@@ -2,11 +2,7 @@
 
 package espresso
 
-import (
-	"unsafe"
-
-	"github.com/tmc/apple/private/espresso"
-)
+import "github.com/tmc/apple/private/espresso"
 
 // pass wraps an Espresso pass class.
 type pass struct {
@@ -19,9 +15,7 @@ func (p *pass) Name() string { return p.name }
 func (p *pass) Run(n *Network) bool {
 	// The underlying Espresso pass expects a raw pointer to the espresso_net_t struct,
 	// which is the ObjC object returned by Net(). We pass the object ID as the pointer.
-	netPtr := n.net.Net().GetID()
-	//nolint:unsafeptr // objc ID is a valid pointer to the ObjC object
-	return p.p.RunOnNetwork(*(*unsafe.Pointer)(unsafe.Pointer(&netPtr)))
+	return p.p.RunOnNetwork(n.net.Net())
 }
 
 // Fusion passes.

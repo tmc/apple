@@ -30,6 +30,10 @@ type Network struct {
 	closed bool
 }
 
+func (n *Network) rawNetwork() unsafe.Pointer {
+	return unsafe.Pointer(uintptr(n.net.ID))
+}
+
 type networkConfig struct {
 	computePath     int
 	binSerializerID []byte

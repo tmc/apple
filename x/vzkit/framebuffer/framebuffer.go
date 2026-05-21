@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	pvz "github.com/tmc/apple/private/virtualization"
 )
@@ -125,7 +126,12 @@ func (v View) Raw() pvz.VZFramebufferView {
 
 // Framebuffer returns the attached framebuffer.
 func (v View) Framebuffer() *pvz.VZFramebuffer {
-	return v.raw.Framebuffer()
+	fb := v.raw.Framebuffer()
+	if fb == nil || fb.GetID() == 0 {
+		return nil
+	}
+	concrete := pvz.VZFramebufferFromID(fb.GetID())
+	return &concrete
 }
 
 // SetFramebuffer attaches a framebuffer to the view.
@@ -160,7 +166,11 @@ func (v View) SetSuppressFrameUpdates(suppress bool) {
 
 // DisplayProtectionOptions returns the current display protection options.
 func (v View) DisplayProtectionOptions() objectivec.IObject {
-	return v.raw.GetDisplayProtectionOptions()
+	raw := v.raw.GetDisplayProtectionOptions()
+	if raw == nil {
+		return nil
+	}
+	return objectivec.ObjectFromID(objc.ID(uintptr(raw)))
 }
 
 // AttachFramebuffer allocates a framebuffer and attaches it to the view.

@@ -32,7 +32,7 @@ func main() {
 		values[i] = float32(i) + 0.5
 	}
 
-	array.GetBytesWithHandler(func(bytes unsafe.Pointer, size int64) {
+	array.GetBytesWithHandler(func(bytes unsafe.Pointer, size int) {
 		fmt.Printf("count=%d bytes=%d first=%.1f last=%.1f\n",
 			array.Count(), size, values[0], values[len(values)-1])
 		_ = bytes
